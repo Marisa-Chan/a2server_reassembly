@@ -23,5 +23,11 @@
     <None Include="headers.inc">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="a2server.exe.inc">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="import.inc">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
