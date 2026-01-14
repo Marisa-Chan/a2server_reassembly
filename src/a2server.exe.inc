@@ -860,3 +860,11 @@ sCRuntimeClass struct
 	m_pBaseClass dword ?
     m_pNextClass dword ?
 sCRuntimeClass ends
+
+
+
+sAFX_MSG_CACHE struct
+    nMsg dword ?
+	lpEntry dword ?
+	pMessageMap dword ?
+sAFX_MSG_CACHE ends

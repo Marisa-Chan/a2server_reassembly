@@ -18,6 +18,9 @@
     <MASM Include="Main.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="crt.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="headers.inc">
@@ -29,5 +32,18 @@
     <None Include="import.inc">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="crt.inc">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\a2server.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Icon_1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

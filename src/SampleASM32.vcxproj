@@ -93,7 +93,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ShowProgress>NotSet</ShowProgress>
-      <AdditionalDependencies>advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;msvcrt.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AddModuleNamesToAssembly>
+      </AddModuleNamesToAssembly>
     </Link>
     <MASM>
       <AssembledCodeListingFile>$(IntDir)$(ProjectName).lst</AssembledCodeListingFile>
@@ -148,14 +151,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <MASM Include="crt.asm">
+      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EnableMASM51Compatibility>
+      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </MakeAllSymbolsPublic>
+    </MASM>
     <MASM Include="Main.asm">
       <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EnableMASM51Compatibility>
     </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="a2server.exe.inc" />
+    <None Include="crt.inc" />
     <None Include="headers.inc" />
     <None Include="import.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\a2server.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Icon_1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
