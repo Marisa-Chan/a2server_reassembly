@@ -70,15 +70,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -90,11 +86,12 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ShowProgress>NotSet</ShowProgress>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;msvcrt.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrtd.lib;msvcrtd.lib;libvcruntimed.lib;legacy_stdio_definitions.lib;vccorlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
       <AddModuleNamesToAssembly>
       </AddModuleNamesToAssembly>
     </Link>
@@ -120,14 +117,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <MASM>
       <AssembledCodeListingFile>$(IntDir)$(ProjectName).lst</AssembledCodeListingFile>
@@ -151,26 +152,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <MASM Include="crt.asm">
-      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EnableMASM51Compatibility>
-      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </MakeAllSymbolsPublic>
-    </MASM>
+    <MASM Include="a2_ucrt.asm" />
     <MASM Include="Main.asm">
       <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EnableMASM51Compatibility>
+      <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</EnableMASM51Compatibility>
     </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="a2server.exe.inc" />
-    <None Include="crt.inc" />
     <None Include="headers.inc" />
     <None Include="import.inc" />
+    <None Include="a2_ucrt.inc" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\a2server.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Icon_1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cmain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

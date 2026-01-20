@@ -18,7 +18,7 @@
     <MASM Include="Main.asm">
       <Filter>Source Files</Filter>
     </MASM>
-    <MASM Include="crt.asm">
+    <MASM Include="a2_ucrt.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <None Include="import.inc">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="crt.inc">
+    <None Include="a2_ucrt.inc">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
@@ -45,5 +45,10 @@
     <Image Include="res\Icon_1.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
