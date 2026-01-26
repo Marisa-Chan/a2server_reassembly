@@ -21,19 +21,25 @@
     <MASM Include="a2_ucrt.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="vtbl_ret.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
   <ItemGroup>
-    <None Include="headers.inc">
-      <Filter>Source Files</Filter>
+    <None Include="a2_ucrt.inc">
+      <Filter>Header Files</Filter>
     </None>
-    <None Include="a2server.exe.inc">
-      <Filter>Source Files</Filter>
+    <None Include="mfc_export.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="headers.inc">
+      <Filter>Header Files</Filter>
     </None>
     <None Include="import.inc">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </None>
-    <None Include="a2_ucrt.inc">
-      <Filter>Source Files</Filter>
+    <None Include="a2server.exe.inc">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +56,40 @@
     <ClCompile Include="cmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asm_mfc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="asm_mfc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mfc_plex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mfc_templ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testre.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
