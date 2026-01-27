@@ -35,8 +35,8 @@ struct TokenPos
 	uint8_t x;
 	uint8_t y;
 	uint16_t YX;
-	uint8_t field_x4;
-	uint8_t field_x5;
+	uint8_t x_subcell; // When a unit is moving, this holds the subcell position in 1/256ths of a cell. Middle of the cell is 128.
+	uint8_t y_subcell;
 	uint8_t field_x6;
 	uint8_t field_x7;
 	astruct_5* pInstance;

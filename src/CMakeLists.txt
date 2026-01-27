@@ -2,9 +2,15 @@ cmake_minimum_required(VERSION 3.20)
 project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
 
 add_executable(a2serv_vsc
+  asm_mfc.cpp
   cmain.cpp
+  effect.cpp
+  plex.cpp
+  testre.cpp
+  token.cpp
   Main.asm
   a2_ucrt.asm
+  vtbl_ret.asm
   res/a2server.rc
 )
 
@@ -67,6 +73,6 @@ target_link_options(a2serv_vsc PRIVATE
 )
 
 # Enable MASM51 compatibility and SAFESEH.
-set_source_files_properties(Main.asm a2_ucrt.asm
-  PROPERTIES COMPILE_OPTIONS "/Zm;/safeseh"
+target_compile_options(a2serv_vsc PRIVATE
+  $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
 )

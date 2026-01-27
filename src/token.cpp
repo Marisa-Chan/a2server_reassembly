@@ -24,8 +24,8 @@ TokenPos::TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst)
 	x = _x;
 	y = _y;
 	YX = ((uint16_t)_y << 8) | _x;
-	field_x4 = 128;
-	field_x5 = 128;
+	x_subcell = 128;
+	y_subcell = 128;
 	pInstance = _inst;
 }
 
@@ -85,13 +85,13 @@ uint16_t TokenPos::GetYX() const
 uint16_t TokenPos::GetXx() const
 {
 	//58aa9b
-	return (x << 8) | field_x4;
+	return (x << 8) | x_subcell;
 }
 
 uint16_t TokenPos::GetYy() const
 {
 	//58aabc
-	return (y << 8) | field_x5;
+	return (y << 8) | y_subcell;
 }
 
 uint8_t TokenPos::Distance(const TokenPos* b) const
@@ -116,8 +116,8 @@ void TokenPos::SetCoords(uint8_t _x, uint8_t _y)
 	x = _x;
 	y = _y;
 	YX = (_y << 8) | _x;
-	field_x4 = 128;
-	field_x5 = 128;
+	x_subcell = 128;
+	y_subcell = 128;
 }
 
 void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
@@ -126,8 +126,8 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
 	x = Xx >> 8;
 	y = Yy >> 8;
 	YX = (y << 8) | x;
-	field_x4 = Xx & 0xff;
-	field_x5 = Yy & 0xff;
+	x_subcell = Xx & 0xff;
+	y_subcell = Yy & 0xff;
 }
 
 
