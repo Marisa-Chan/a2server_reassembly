@@ -1,0 +1,72 @@
+cmake_minimum_required(VERSION 3.20)
+project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
+
+add_executable(a2serv_vsc
+  cmain.cpp
+  Main.asm
+  a2_ucrt.asm
+  res/a2server.rc
+)
+
+target_include_directories(a2serv_vsc PRIVATE
+  "${CMAKE_CURRENT_SOURCE_DIR}/mfc/include"
+)
+
+set_property(TARGET a2serv_vsc PROPERTY
+  MSVC_RUNTIME_LIBRARY "MultiThreadedDLL"
+)
+
+target_compile_definitions(a2serv_vsc PRIVATE
+  UNICODE;_UNICODE;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+)
+
+target_link_libraries(a2serv_vsc PRIVATE
+    kernel32.lib
+    shell32.lib
+    ddraw.lib
+    user32.lib
+    gdi32.lib
+    comdlg32.lib
+    winspool.lib
+    msacm32.lib
+    wininet.lib
+    ws2_32.lib
+    winmm.lib
+    ole32.lib
+    comctl32.lib
+    dsound.lib
+    ucrt.lib
+    msvcrt.lib
+    libvcruntime.lib
+    legacy_stdio_definitions.lib
+    vccorlib.lib
+    advapi32.lib
+    oleaut32.lib
+    uuid.lib
+    odbc32.lib
+    odbccp32.lib
+
+    vcruntime.lib
+    legacy_stdio_wide_specifiers.lib
+)
+
+target_link_options(a2serv_vsc PRIVATE
+    /MANIFEST
+    /NXCOMPAT
+    /DYNAMICBASE
+    /DEBUG
+    /MACHINE:X86
+    /OPT:REF
+    /OPT:ICF
+    /SAFESEH
+    /SUBSYSTEM:CONSOLE
+    "/MANIFESTUAC:level='asInvoker' uiAccess='false'"
+    /TLBID:1
+    /NOLOGO
+    /ERRORREPORT:PROMPT
+)
+
+# Enable MASM51 compatibility and SAFESEH.
+set_source_files_properties(Main.asm a2_ucrt.asm
+  PROPERTIES COMPILE_OPTIONS "/Zm;/safeseh"
+)
