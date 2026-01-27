@@ -35,6 +35,89 @@ TokenPos::TokenPos(TokenPos&&) = default;
 //58aa46
 TokenPos& TokenPos::operator=(const TokenPos&) = default;
 
+void TokenPos::Serialize(CArchive& ar)
+{
+	//58ab11
+	if (ar.IsStoring())
+	{
+		//ar.Write(this, sizeof(TokenPos));
+		ar.Write(this, 0xc);
+	}
+	else
+	{
+		//ar.Read(this, sizeof(TokenPos));
+		ar.Read(this, 0xc);
+	}
+}
+
+uint8_t TokenPos::GetX() const
+{
+	//58aaf0
+	return x;
+}
+
+uint8_t TokenPos::GetY() const
+{
+	//58ab00
+	return y;
+}
+
+uint16_t TokenPos::GetYX() const
+{
+	//58aade
+	return YX;
+}
+
+uint16_t TokenPos::GetXx() const
+{
+	//58aa9b
+	return (x << 8) | field_x4;
+}
+
+uint16_t TokenPos::GetYy() const
+{
+	//58aabc
+	return (y << 8) | field_x5;
+}
+
+uint8_t TokenPos::Distance(const TokenPos* b) const
+{
+	//58a6bf
+	uint8_t xLen = abs((int32_t)x - (int32_t)b->x);
+	uint8_t yLen = abs((int32_t)y - (int32_t)b->y);
+	if (xLen <= yLen)
+		return yLen;
+	return xLen;
+}
+
+bool TokenPos::IsSameYX(const TokenPos* b) const
+{
+	//58a5b3
+	return YX == b->YX;
+}
+
+void TokenPos::SetCoords(uint8_t _x, uint8_t _y)
+{
+	//58a737
+	x = _x;
+	y = _y;
+	YX = (_y << 8) | _x;
+	field_x4 = 128;
+	field_x5 = 128;
+}
+
+void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
+{
+	//58a781
+	x = Xx >> 8;
+	y = Yy >> 8;
+	YX = (y << 8) | x;
+	field_x4 = Xx & 0xff;
+	field_x5 = Yy & 0xff;
+}
+
+
+
 
 
 Token::Token()
@@ -108,10 +191,10 @@ Token::~Token()
 		delete position;
 }
 
-/* void Token::Serialize(CArchive& ar)
-{
-
-} */
+//void Token::Serialize(CArchive& ar)
+//{
+//
+//}
 
 void Token::VMethod1()
 {

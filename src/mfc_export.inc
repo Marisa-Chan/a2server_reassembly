@@ -44,12 +44,25 @@ extern ??2@YAPAXI@Z:proc ; operator new         5ddf54
 extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
 
 
-;TokenPos
-public ?FUN_00594200@TokenPos@@QAEXXZ   ; 
+;TokenPos 
 extern ??0TokenPos@@QAE@EEPAUastruct_5@@@Z:proc  ;  TokenPos::TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst)
 extern ??0TokenPos@@QAE@XZ:proc  ; TokenPos::TokenPos()
 extern ??0TokenPos@@QAE@ABU0@@Z:proc  ; TokenPos::TokenPos(struct TokenPos const &)
 extern ??4TokenPos@@QAEAAU0@ABU0@@Z:proc   ; TokenPos::operator=(struct TokenPos const &)
+extern ?Serialize@TokenPos@@QAEXAAVCArchive@@@Z:proc    ; TokenPos::Serialize(CArchive&)
+extern ?GetX@TokenPos@@QBEEXZ:proc  ; TokenPos::GetX
+extern ?GetY@TokenPos@@QBEEXZ:proc  ; TokenPos::GetY
+extern ?GetYX@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYX
+extern ?GetXx@TokenPos@@QBEGXZ:proc   ; TokenPos::GetXx
+extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
+extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
+extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
+extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
+extern ?IsSameYX@TokenPos@@QBE_NPBU1@@Z:proc   ; TokenPos::IsSameYX
+
+public ?FUN_0058a7e8@TokenPos@@QAE_NEE@Z    ;  TokenPos::FUN_0058a7e8
+public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
+
 
 
 
