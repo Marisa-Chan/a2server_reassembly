@@ -1,0 +1,166 @@
+#pragma once
+
+#include <cstdint>
+
+#include "token.h"
+
+// TODO: move to its own file and populate.
+struct Inventory {};
+
+// TODO: move to its own file and populate.
+struct Item {};
+
+// TODO: move to its own file and populate.
+struct Group {};
+
+// TODO: move to its own file and populate.
+struct MonsterInfo {};
+
+// TODO: move to its own file and populate.
+struct Shield {};
+
+// TODO: move to its own file and populate.
+struct Spell {};
+
+// TODO: move to its own file and populate.
+struct SpellBook {};
+
+// TODO: move to its own file and populate.
+struct UnitEye {};
+
+// TODO: move to its own file and populate.
+struct UnitEye2 {};
+
+// TODO: move to its own file and populate.
+struct Weapon {};
+
+
+struct UnitToHit {
+    uint16_t attack;
+    uint16_t skill_levels[6];
+    uint8_t hand_damage_min;
+    uint8_t hand_damage_spread;
+    uint8_t physical_damage_type;
+    uint8_t some_damage_min;
+    uint8_t some_damage_spread;
+    uint8_t some_damage2_min;
+    uint8_t some_damage2_spread;
+    uint8_t spell_id;
+};
+static_assert(sizeof(UnitToHit) == 0x16, "UnitToHit size mismatch");
+
+struct Protections {
+    uint16_t defense;
+    uint16_t absorption;
+    uint16_t magic_protections[6];
+    uint8_t weapon_protections[6];
+};
+static_assert(sizeof(Protections) == 0x16, "Protections size mismatch");
+
+// Sum of extra properties from equipment.
+struct EquipmentExtra {
+    uint8_t body;
+    uint8_t reaction;
+    uint8_t mind;
+    uint8_t spirit;
+    uint16_t speed;
+    uint16_t carrying_body_100g;
+    uint16_t hp_max;
+    uint16_t hp_regen;
+    uint16_t mp_max;
+    uint16_t mp_regen;
+    uint16_t scan_range;
+    UnitToHit hit_values;
+    uint8_t gap_0x28[2];
+    Protections protections;
+};
+static_assert(sizeof(EquipmentExtra) == 0x40, "EquipmentExtra size mismatch");
+
+struct SessionMobKill {
+    uint16_t server_id;
+    uint16_t kills;
+};
+static_assert(sizeof(SessionMobKill) == 0x4, "SessionMobKill size mismatch");
+
+struct Unit {
+    Token token; // Maybe `Unit` actually inherits from `Token`? Don't know.
+    MonsterInfo* monster_info;
+    Unit* last_hit_by;
+    Spell* spell;
+    int8_t last_hit_spell_id;
+    int8_t token_size;
+    int8_t movement_type;
+    int8_t face;
+    int8_t unit_attrs; // Fighters have `& 4 == 0`. Phased-out units have `& 8 == 0`.
+    int8_t gap_0x4d[3];
+    int32_t state;
+    int32_t some_state;
+    int32_t some_state2;
+    Unit *cast_target;
+    int8_t area_cast_x;
+    int8_t area_cast_y;
+    int8_t gap_0x62[2];
+    Spell* some_spell;
+    Item* some_item;
+    int8_t charge_countdown;
+    int8_t gap_0x6d[3];
+    Group* group;
+    Weapon* weapon;
+    Shield* shield;
+    Inventory* inventory;
+    const char* name;
+    uint16_t body;
+    uint16_t reaction;
+    uint16_t mind;
+    uint16_t spirit;
+    uint16_t speed;
+    uint16_t extra_carrying_weight;
+    uint16_t carrying_weight_100g; // How much stuff the character is carrying. In 100g increments.
+    uint16_t carrying_body_100g; // Used to calculate how much the character's speed drops when carrying things. In vanilla, set to (body*10 + 1).
+    int16_t hp;
+    int16_t hp_max;
+    int16_t hp_regen;
+    int16_t mp;
+    int16_t mp_max;
+    int16_t mp_regen;
+    int16_t mp2;
+    uint8_t hp_regen_carry; // Carry from the previous hp regen computation, divided by 100.
+    uint8_t mp_regen_carry;
+    uint16_t scan_range; // Scan range multiplied by 256.
+    UnitToHit hit_values;
+    int8_t gap_0xbc[2];
+    Protections protections;
+    EquipmentExtra equipment_extra;
+    UnitToHit hit_values2;
+    uint8_t gap12A[2];
+    uint8_t max_range;
+    uint8_t gap12d[3];
+    uint32_t experience;
+    uint8_t charge;
+    uint8_t relax;
+    uint8_t gap_0x136[2];
+    uint32_t last_action_tick;
+    uint8_t decay; // Decay level. 0: alive (HP > 0), 1: on the ground (HP = 0), 2: fresh corpse (HP >= -20), 3: bones (HP >= -50), 4: old bones (HP >= -600), 5: completely gone.
+    uint8_t gap_0x13d[3];
+    SpellBook* spell_book;
+    uint32_t enchantments;
+    uint32_t summon_id; // All summoned mobs of one player will have the same non-null value of this field.
+    uint16_t server_id;
+    uint8_t gap_0x14e[6];
+    uint32_t something_per_player[16];
+    uint8_t gap_0x194[12];
+    uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
+    int8_t gap_0x1a4[4];
+    CArray<SessionMobKill, SessionMobKill> mob_kills_in_session;
+    int8_t gap_0x1bc[4];
+    UnitEye* eye;
+    UnitEye2* eye2;
+    CList<int16_t> list1;
+    CList<int16_t> list2;
+    TokenPos* token_pos;
+    int8_t gap_0x204[4];
+};
+
+static_assert(offsetof(Unit, inventory) == 0x7C, "Unit::inventory offset mismatch");
+static_assert(offsetof(Unit, decay) == 0x13C, "Unit::decay offset mismatch");
+static_assert(sizeof(Unit) == 0x208, "Unit size mismatch");
