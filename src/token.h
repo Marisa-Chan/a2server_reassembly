@@ -1,12 +1,15 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include <inttypes.h>
+
 #include "asm_mfc.h"
 #include "mfc_templ.h"
 
+#include "bitset.h"
 
-#include <inttypes.h>
 
+extern BitSet<0x6000> g_buildingIdSet;
 
 
 class Effect;

@@ -91,3 +91,10 @@ extern ?VMethod7@Token@@UAEHXZ:proc ;  Token::VMethod7
 extern ?VMethod8@Token@@UAEHXZ:proc ;  Token::VMethod8
 extern ?VMethod9@Token@@UAEHXZ:proc ;  Token::VMethod9
 
+
+
+;BitSet g_buildingIdSet     in token.cpp
+extern _BldIdSet_Set:proc
+extern _BldIdSet_Unset:proc
+extern _BldIdSet_Clear:proc
+extern _BldIdSet_AllocBit:proc

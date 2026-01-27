@@ -3,6 +3,20 @@
 //6b16a8
 astruct_5* astruct_5_Instance = nullptr;
 
+//70a7e0
+BitSet<0x6000> g_buildingIdSet;
+
+extern "C"
+{
+	void BldIdSet_Set(uint32_t index) { g_buildingIdSet.Set(index); }
+	void BldIdSet_Unset(uint32_t index) { g_buildingIdSet.Unset(index); }
+	void BldIdSet_Clear() { g_buildingIdSet.Clear(); }
+	uint32_t BldIdSet_AllocBit() { return g_buildingIdSet.AllocBit(); }
+}
+
+
+
+
 TokenPos::TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst)
 {
 	//58a4b1 ?
