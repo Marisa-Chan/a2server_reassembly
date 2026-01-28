@@ -1,4 +1,5 @@
-#pragma once
+#ifndef USER_H
+#define USER_H
 
 #include <cstdint>
 
@@ -82,8 +83,46 @@ struct SessionMobKill {
 };
 static_assert(sizeof(SessionMobKill) == 0x4, "SessionMobKill size mismatch");
 
-struct Unit {
-    Token token; // Maybe `Unit` actually inherits from `Token`? Don't know.
+class Unit : public Token
+{
+public: //vtbl
+    virtual CRuntimeClass* GetRuntimeClass() const override;
+    virtual ~Unit() override;
+    virtual void Serialize(CArchive& ar) override;
+    // CObject AssertValid  override
+    // CObject Dump  override
+    virtual void VMethod1() override;
+    virtual void VMethod2() override;
+    virtual int32_t VMethod3() override;
+    virtual int32_t VMethod4() override;
+    virtual void VMethod5() override;
+    //virtual int32_t VMethod6() override;
+    virtual int32_t VMethod7() override;
+    virtual int32_t VMethod8() override;
+    //virtual int32_t VMethod9() override;
+    virtual void VMethod10();
+    virtual void VMethod11(Unit *);
+    virtual void VMethod12(Item *);
+    virtual void VMethod13(Item *);
+    virtual void Unequip(Item *);
+    virtual void VMethod15();
+    virtual void VMethod16(Item *);
+    virtual uint32_t VMethod17(UnitToHit *, Unit *);
+    virtual void VMethod18();
+    virtual uint32_t VMethod19();
+    virtual void VMethod20();
+    virtual void VMethod21(uint32_t, Unit *, int32_t);
+    virtual void VMethod22(Unit*, int32_t);
+    virtual void VMethod23(Unit*, uint32_t, int32_t, int32_t);
+    virtual void VMethod24(Unit*, uint32_t, int32_t, int32_t);
+    virtual int32_t VMethod25();
+
+public:
+    Unit();
+
+
+
+public:
     MonsterInfo* monster_info;
     Unit* last_hit_by;
     Spell* spell;
@@ -164,3 +203,6 @@ struct Unit {
 static_assert(offsetof(Unit, inventory) == 0x7C, "Unit::inventory offset mismatch");
 static_assert(offsetof(Unit, decay) == 0x13C, "Unit::decay offset mismatch");
 static_assert(sizeof(Unit) == 0x208, "Unit size mismatch");
+
+
+#endif

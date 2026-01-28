@@ -98,3 +98,36 @@ extern _BldIdSet_Set:proc
 extern _BldIdSet_Unset:proc
 extern _BldIdSet_Clear:proc
 extern _BldIdSet_AllocBit:proc
+
+
+
+;Unit
+public ??_7Unit@@6B@    ; Unit::`vftable`     60EFC0
+public ?GetRuntimeClass@Unit@@UBEPAUCRuntimeClass@@XZ   ; (public: virtual struct CRuntimeClass * __thiscall Unit::GetRuntimeClass(void)const )
+public ??1Unit@@UAE@XZ   ; (public: virtual __thiscall Unit::~Unit(void))
+public ?Serialize@Unit@@UAEXAAVCArchive@@@Z   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
+public ?VMethod1@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod1(void))
+public ?VMethod2@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod2(void))
+public ?VMethod3@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod3(void))
+public ?VMethod4@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod4(void))
+public ?VMethod5@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod5(void))
+public ?VMethod7@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod7(void))
+public ?VMethod8@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod8(void))
+public ?VMethod10@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod10(void))
+public ?VMethod11@Unit@@UAEXPAV1@@Z   ; (public: virtual void __thiscall Unit::VMethod11(class Unit *))
+public ?VMethod12@Unit@@UAEXPAUItem@@@Z   ; (public: virtual void __thiscall Unit::VMethod12(struct Item *))
+public ?VMethod13@Unit@@UAEXPAUItem@@@Z   ; (public: virtual void __thiscall Unit::VMethod13(struct Item *))
+public ?Unequip@Unit@@UAEXPAUItem@@@Z   ; (public: virtual void __thiscall Unit::Unequip(struct Item *))
+public ?VMethod15@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod15(void))
+public ?VMethod16@Unit@@UAEXPAUItem@@@Z   ; (public: virtual void __thiscall Unit::VMethod16(struct Item *))
+public ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z   ; (public: virtual unsigned int __thiscall Unit::VMethod17(struct UnitToHit *,class Unit *))
+public ?VMethod18@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod18(void))
+public ?VMethod19@Unit@@UAEIXZ   ; (public: virtual unsigned int __thiscall Unit::VMethod19(void))
+public ?VMethod20@Unit@@UAEXXZ   ; (public: virtual void __thiscall Unit::VMethod20(void))
+public ?VMethod21@Unit@@UAEXIPAV1@H@Z   ; (public: virtual void __thiscall Unit::VMethod21(unsigned int,class Unit *,int))
+public ?VMethod22@Unit@@UAEXPAV1@H@Z   ; (public: virtual void __thiscall Unit::VMethod22(class Unit *,int))
+public ?VMethod23@Unit@@UAEXPAV1@IHH@Z   ; (public: virtual void __thiscall Unit::VMethod23(class Unit *,unsigned int,int,int))
+public ?VMethod24@Unit@@UAEXPAV1@IHH@Z   ; (public: virtual void __thiscall Unit::VMethod24(class Unit *,unsigned int,int,int))
+public ?VMethod25@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod25(void))
+
+public ??0Unit@@QAE@XZ   ; Unit::Unit
