@@ -187,22 +187,48 @@ public:
     uint16_t server_id;
     uint8_t gap_0x14e[6];
     uint32_t something_per_player[16];
-    uint8_t gap_0x194[12];
+    int32_t field_0x194;
+    int32_t field_0x198;
+    int32_t field_0x19c;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
     int8_t gap_0x1a4[4];
-    CArray<SessionMobKill, SessionMobKill> mob_kills_in_session;
-    int8_t gap_0x1bc[4];
+    CArray<SessionMobKill> mob_kills_in_session;
+    int32_t field_0x1bc;
     UnitEye* eye;
     UnitEye2* eye2;
     CList<int16_t> list1;
     CList<int16_t> list2;
     TokenPos* token_pos;
-    int8_t gap_0x204[4];
+    int32_t field_0x204;
 };
 
 static_assert(offsetof(Unit, inventory) == 0x7C, "Unit::inventory offset mismatch");
 static_assert(offsetof(Unit, decay) == 0x13C, "Unit::decay offset mismatch");
 static_assert(sizeof(Unit) == 0x208, "Unit size mismatch");
+
+class Human: public Unit {
+public:
+    enum EquipmentSlot {
+        // 0, 1, 2 and 3 are unused.
+        SLOT_RING = 4,
+        SLOT_AMULET = 5,
+        SLOT_HELM = 6, // Or mage's hat.
+        SLOT_MAIL = 7, // Or mage's dress.
+        SLOT_CUIRASS = 8, // Or mage's cape.
+        SLOT_BRACERS = 9, // Unused for mage.
+        SLOT_GAUNTLETS = 10, // Or mage's gloves.
+        // 11 is unused.
+        SLOT_BOOTS = 12, // Or mage's shoes.
+    };
+
+public:
+    Item* equipment[13];
+    uint32_t main_sphere;
+    uint32_t experience_per_sphere[5];
+};
+
+static_assert(offsetof(Human, main_sphere) == 0x23C, "Human::main_sphere offset mismatch");
+static_assert(sizeof(Human) == 0x254, "Human size mismatch");
 
 
 #endif

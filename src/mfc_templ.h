@@ -102,7 +102,7 @@ inline UINT AFXAPI HashKey(ARG_KEY key)
 /////////////////////////////////////////////////////////////////////////////
 // CArray<TYPE, ARG_TYPE>
 
-template<class TYPE, class ARG_TYPE>
+template<class TYPE, class ARG_TYPE = const TYPE&>
 class CArray : public CObject
 {
 public:
