@@ -59,6 +59,9 @@
     <ClCompile Include="effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="token.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,6 +89,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mfc_templ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="group.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player.h">

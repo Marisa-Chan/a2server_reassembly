@@ -12,9 +12,6 @@ struct Inventory {};
 struct Item {};
 
 // TODO: move to its own file and populate.
-struct Group {};
-
-// TODO: move to its own file and populate.
 struct MonsterInfo {};
 
 // TODO: move to its own file and populate.
@@ -34,6 +31,9 @@ struct UnitEye2 {};
 
 // TODO: move to its own file and populate.
 struct Weapon {};
+
+
+struct Group;
 
 
 struct UnitToHit {

@@ -182,6 +182,7 @@
     <ClCompile Include="asm_mfc.cpp" />
     <ClCompile Include="cmain.cpp" />
     <ClCompile Include="effect.cpp" />
+    <ClCompile Include="group.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="plex.cpp" />
     <ClCompile Include="testre.cpp" />
@@ -192,7 +193,8 @@
     <ClInclude Include="asm_mfc.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
-    <ClCompile Include="player.h" />
+    <ClInclude Include="group.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
     <ClInclude Include="util.h" />

@@ -8,10 +8,11 @@
 
 
 // TODO: move to its own file and populate.
-struct Group {};
-
-// TODO: move to its own file and populate.
 struct UnitList {};
+
+
+struct Group;
+
 
 struct Settings {
     uint8_t some_fields[0x1f];
