@@ -68,6 +68,9 @@
     <ClCompile Include="asm_mfc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="plex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,6 +86,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mfc_templ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="token.h">
