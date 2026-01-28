@@ -185,7 +185,7 @@
     <ClCompile Include="plex.cpp" />
     <ClCompile Include="testre.cpp" />
     <ClCompile Include="token.cpp" />
-    <ClCompile Include="user.cpp" />
+    <ClCompile Include="unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asm_mfc.h" />
@@ -194,7 +194,7 @@
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
     <ClInclude Include="util.h" />
-    <ClInclude Include="user.h" />
+    <ClInclude Include="unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
