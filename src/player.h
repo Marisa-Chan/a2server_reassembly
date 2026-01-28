@@ -7,11 +7,8 @@
 #include "mfc_templ.h"
 
 
-// TODO: move to its own file and populate.
-struct UnitList {};
-
-
 struct Group;
+struct UnitList;
 
 
 struct Settings {

@@ -11,6 +11,7 @@ add_executable(a2serv_vsc
   testre.cpp
   token.cpp
   unit.cpp
+  unit_list.cpp
   Main.asm
   a2_ucrt.asm
   vtbl_ret.asm
