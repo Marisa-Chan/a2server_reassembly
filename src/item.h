@@ -6,7 +6,8 @@
 #include "asm_mfc.h"
 #include "table.h"
 #include "token.h"
-#include "unit.h"
+#include "protections.h"
+#include "unit_to_hit.h"
 
 class Spell;
 

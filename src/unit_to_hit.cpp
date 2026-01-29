@@ -1,0 +1,93 @@
+#include "unit_to_hit.h"
+
+UnitToHit::UnitToHit()
+{
+    //533c5c
+    Clear(); 
+}
+
+void UnitToHit::Clear()
+{
+	//533c72
+    skill_levels.fill(0);
+
+    attack = 0;
+    physical_damage_type = 0;
+    hand_damage_min = 0;
+    hand_damage_spread = 0;
+    some_damage_min = 0;
+    some_damage_spread = 0;
+    some_damage2_min = 0;
+    some_damage2_spread = 0;
+    spell_id = 0;
+}
+
+//533d0d
+UnitToHit::UnitToHit(const UnitToHit&) = default;
+
+UnitToHit::UnitToHit(UnitToHit&&) = default;
+
+//533e02
+UnitToHit& UnitToHit::operator=(const UnitToHit&) = default;
+
+UnitToHit& UnitToHit::operator+=(const UnitToHit &b)
+{
+    //533d2c
+    for (int32_t i = 0; i < skill_levels.size(); i++)
+        skill_levels[i] += b.skill_levels[i];
+    attack += b.attack;
+    hand_damage_min += b.hand_damage_min;
+    hand_damage_spread += b.hand_damage_spread;
+    some_damage_min += b.some_damage_min;
+    some_damage_spread += b.some_damage_spread;
+    some_damage2_min += b.some_damage2_min;
+    some_damage2_spread += b.some_damage2_spread;
+    spell_id += b.spell_id;
+    return *this;
+}
+
+UnitToHit& UnitToHit::operator-=(const UnitToHit &b)
+{
+    //533f3a
+    for (int32_t i = 0; i < skill_levels.size(); i++)
+        skill_levels[i] -= b.skill_levels[i];
+    attack += b.attack;
+    hand_damage_min += b.hand_damage_min;
+    hand_damage_spread += b.hand_damage_spread;
+    some_damage_min += b.some_damage_min;
+    some_damage_spread += b.some_damage_spread;
+    some_damage2_min += b.some_damage2_min;
+    some_damage2_spread += b.some_damage2_spread;
+
+    if (some_damage2_min + some_damage2_spread != 0)
+        spell_id = 0;
+    return *this;
+}
+
+void UnitToHit::AddHits(const UnitToHit &b)
+{
+    //533ea3
+    attack += b.attack;
+    hand_damage_min += b.hand_damage_min;
+    hand_damage_spread += b.hand_damage_spread;
+    some_damage_min += b.some_damage_min;
+    some_damage_spread += b.some_damage_spread;
+    some_damage2_min += b.some_damage2_min;
+    some_damage2_spread += b.some_damage2_spread;
+    spell_id += b.spell_id;
+}
+
+void UnitToHit::Serialize(CArchive& ar)
+{
+    //534021
+    if (ar.IsStoring())
+    {
+        //ar.Write(this, sizeof(UnitToHit));
+        ar.Write(this, sizeof(0x18));
+    }
+    else
+    {
+        //ar.Read(this, sizeof(UnitToHit));
+        ar.Read(this, sizeof(0x18));
+    }
+}

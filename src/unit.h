@@ -5,6 +5,8 @@
 #include <array>
 
 #include "token.h"
+#include "protections.h"
+#include "unit_to_hit.h"
 
 // TODO: move to its own file and populate.
 struct Inventory {};
@@ -29,55 +31,6 @@ class Shield;
 class Unit;
 class Weapon;
 
-
-struct UnitToHit {
-    uint16_t attack;
-    std::array<uint16_t, 6> skill_levels;
-    uint8_t hand_damage_min;
-    uint8_t hand_damage_spread;
-    uint8_t physical_damage_type;
-    uint8_t some_damage_min;
-    uint8_t some_damage_spread;
-    uint8_t some_damage2_min;
-    uint8_t some_damage2_spread;
-    uint8_t spell_id;
-    uint8_t __padding[2];
-
-    UnitToHit();
-    UnitToHit(const UnitToHit&);
-    UnitToHit(UnitToHit&&);
-
-    UnitToHit& operator=(const UnitToHit&);
-    UnitToHit& operator+=(const UnitToHit&);
-    UnitToHit& operator-=(const UnitToHit&);
-
-    void AddHits(const UnitToHit&);
-
-    void Clear();
-
-    void Serialize(CArchive& ar);
-};
-static_assert(sizeof(UnitToHit) == 0x18, "UnitToHit size mismatch");
-
-struct Protections {
-    uint16_t defense;
-    uint16_t absorption;
-    std::array<uint16_t, 6> magic_protections;
-    std::array<uint8_t, 6> weapon_protections;
-
-    Protections();
-    Protections(const Protections &);
-    Protections(Protections &&);
-
-    Protections& operator=(const Protections &);
-    Protections& operator+=(const Protections &);
-    Protections& operator-=(const Protections &);
-
-    void Clear();
-
-    void Serialize(CArchive& ar);
-};
-static_assert(sizeof(Protections) == 0x16, "Protections size mismatch");
 
 // Sum of extra properties from equipment.
 struct EquipmentExtra {

@@ -186,10 +186,12 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="plex.cpp" />
+    <ClCompile Include="protections.cpp" />
     <ClCompile Include="table.cpp" />
     <ClCompile Include="testre.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="unit.cpp" />
+    <ClCompile Include="unit_to_hit.cpp" />
     <ClCompile Include="unit_list.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -199,11 +201,13 @@
     <ClInclude Include="group.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="protections.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="unit.h" />
+    <ClInclude Include="unit_to_hit.h" />
     <ClInclude Include="unit_list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

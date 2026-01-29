@@ -9,11 +9,13 @@ add_executable(a2serv_vsc
   item.cpp
   player.cpp
   plex.cpp
+  protections.cpp
   table.cpp
   testre.cpp
   token.cpp
   unit.cpp
   unit_list.cpp
+  unit_to_hit.cpp
   Main.asm
   a2_ucrt.asm
   vtbl_ret.asm
