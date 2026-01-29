@@ -140,3 +140,12 @@ extern ??4UnitToHit@@QAEAAU0@ABU0@@Z:proc   ; (public: struct UnitToHit & __this
 extern ?AddHits@UnitToHit@@QAEXABU1@@Z:proc   ; (public: void __thiscall UnitToHit::AddHits(struct UnitToHit const &))
 extern ?Serialize@UnitToHit@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall UnitToHit::Serialize(class CArchive &))
 
+;Protections
+extern ??0Protections@@QAE@XZ:proc   ; (public: __thiscall Protections::Protections(void))
+extern ??0Protections@@QAE@ABU0@@Z:proc   ; (public: __thiscall Protections::Protections(struct Protections const &))
+extern ??0Protections@@QAE@$$QAU0@@Z:proc   ; (public: __thiscall Protections::Protections(struct Protections &&))
+extern ??4Protections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator=(struct Protections const &))
+extern ??YProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator+=(struct Protections const &))
+extern ??ZProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator-=(struct Protections const &))
+extern ?Clear@Protections@@QAEXXZ:proc   ; (public: void __thiscall Protections::Clear(void))
+extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall Protections::Serialize(class CArchive &))

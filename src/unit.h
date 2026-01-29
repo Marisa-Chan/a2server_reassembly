@@ -69,8 +69,20 @@ static_assert(sizeof(UnitToHit) == 0x18, "UnitToHit size mismatch");
 struct Protections {
     uint16_t defense;
     uint16_t absorption;
-    uint16_t magic_protections[6];
-    uint8_t weapon_protections[6];
+    std::array<uint16_t, 6> magic_protections;
+    std::array<uint8_t, 6> weapon_protections;
+
+    Protections();
+    Protections(const Protections &);
+    Protections(Protections &&);
+
+    Protections& operator=(const Protections &);
+    Protections& operator+=(const Protections &);
+    Protections& operator-=(const Protections &);
+
+    void Clear();
+
+    void Serialize(CArchive& ar);
 };
 static_assert(sizeof(Protections) == 0x16, "Protections size mismatch");
 
