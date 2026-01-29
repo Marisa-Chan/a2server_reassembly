@@ -10,15 +10,6 @@
 struct Inventory {};
 
 // TODO: move to its own file and populate.
-struct Item {};
-
-// TODO: move to its own file and populate.
-struct MonsterInfo {};
-
-// TODO: move to its own file and populate.
-struct Shield {};
-
-// TODO: move to its own file and populate.
 struct Spell {};
 
 // TODO: move to its own file and populate.
@@ -30,12 +21,13 @@ struct UnitEye {};
 // TODO: move to its own file and populate.
 struct UnitEye2 {};
 
-// TODO: move to its own file and populate.
-struct Weapon {};
-
 
 class Group;
+class Item;
+class MonsterInfo;
+class Shield;
 class Unit;
+class Weapon;
 
 
 struct UnitToHit {

@@ -183,6 +183,7 @@
     <ClCompile Include="cmain.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="group.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="plex.cpp" />
     <ClCompile Include="table.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
