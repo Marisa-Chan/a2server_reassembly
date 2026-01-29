@@ -131,3 +131,12 @@ public ?VMethod24@Unit@@UAEXPAV1@IHH@Z   ; (public: virtual void __thiscall Unit
 public ?VMethod25@Unit@@UAEHXZ   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
 public ??0Unit@@QAE@XZ   ; Unit::Unit
+
+
+;UnitToHit
+extern ??0UnitToHit@@QAE@XZ:proc   ; (public: __thiscall UnitToHit::UnitToHit(void))
+extern ??0UnitToHit@@QAE@ABU0@@Z:proc   ; (public: __thiscall UnitToHit::UnitToHit(struct UnitToHit const &))
+extern ??4UnitToHit@@QAEAAU0@ABU0@@Z:proc   ; (public: struct UnitToHit & __thiscall UnitToHit::operator=(struct UnitToHit const &))
+extern ?AddHits@UnitToHit@@QAEXABU1@@Z:proc   ; (public: void __thiscall UnitToHit::AddHits(struct UnitToHit const &))
+extern ?Serialize@UnitToHit@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall UnitToHit::Serialize(class CArchive &))
+

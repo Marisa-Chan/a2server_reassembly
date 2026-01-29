@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <cstdint>
+#include <array>
 
 #include "token.h"
 
@@ -38,7 +39,7 @@ struct Group;
 
 struct UnitToHit {
     uint16_t attack;
-    uint16_t skill_levels[6];
+    std::array<uint16_t, 6> skill_levels;
     uint8_t hand_damage_min;
     uint8_t hand_damage_spread;
     uint8_t physical_damage_type;
@@ -47,8 +48,23 @@ struct UnitToHit {
     uint8_t some_damage2_min;
     uint8_t some_damage2_spread;
     uint8_t spell_id;
+    uint8_t __padding[2];
+
+    UnitToHit();
+    UnitToHit(const UnitToHit&);
+    UnitToHit(UnitToHit&&);
+
+    UnitToHit& operator=(const UnitToHit&);
+    UnitToHit& operator+=(const UnitToHit&);
+    UnitToHit& operator-=(const UnitToHit&);
+
+    void AddHits(const UnitToHit&);
+
+    void Clear();
+
+    void Serialize(CArchive& ar);
 };
-static_assert(sizeof(UnitToHit) == 0x16, "UnitToHit size mismatch");
+static_assert(sizeof(UnitToHit) == 0x18, "UnitToHit size mismatch");
 
 struct Protections {
     uint16_t defense;
@@ -72,7 +88,6 @@ struct EquipmentExtra {
     uint16_t mp_regen;
     uint16_t scan_range;
     UnitToHit hit_values;
-    uint8_t gap_0x28[2];
     Protections protections;
 };
 static_assert(sizeof(EquipmentExtra) == 0x40, "EquipmentExtra size mismatch");
@@ -167,11 +182,9 @@ public:
     uint8_t mp_regen_carry;
     uint16_t scan_range; // Scan range multiplied by 256.
     UnitToHit hit_values;
-    int8_t gap_0xbc[2];
     Protections protections;
     EquipmentExtra equipment_extra;
     UnitToHit hit_values2;
-    uint8_t gap12A[2];
     uint8_t max_range;
     uint8_t gap12d[3];
     uint32_t experience;
