@@ -149,3 +149,9 @@ extern ??YProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __
 extern ??ZProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator-=(struct Protections const &))
 extern ?Clear@Protections@@QAEXXZ:proc   ; (public: void __thiscall Protections::Clear(void))
 extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall Protections::Serialize(class CArchive &))
+
+;EquipmentExtra
+extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::EquipmentExtra(void))
+extern ??4EquipmentExtra@@QAEAAU0@ABU0@@Z:proc   ; (public: struct EquipmentExtra & __thiscall EquipmentExtra::operator=(struct EquipmentExtra const &))
+extern ?Serialize@EquipmentExtra@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall EquipmentExtra::Serialize(class CArchive &))
+extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thiscall EquipmentExtra::AddToUnit(class Unit *))

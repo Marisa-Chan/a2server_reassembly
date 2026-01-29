@@ -88,19 +88,27 @@ static_assert(sizeof(Protections) == 0x16, "Protections size mismatch");
 
 // Sum of extra properties from equipment.
 struct EquipmentExtra {
-    uint8_t body;
-    uint8_t reaction;
-    uint8_t mind;
-    uint8_t spirit;
-    uint16_t speed;
-    uint16_t carrying_body_100g;
-    uint16_t hp_max;
-    uint16_t hp_regen;
-    uint16_t mp_max;
-    uint16_t mp_regen;
-    uint16_t scan_range;
+    uint8_t body = 0;
+    uint8_t reaction = 0;
+    uint8_t mind = 0;
+    uint8_t spirit = 0;
+    int16_t speed = 0;
+    uint16_t carrying_body_100g = 0;
+    uint16_t hp_max = 0;
+    uint16_t hp_regen = 0;
+    uint16_t mp_max = 0;
+    uint16_t mp_regen = 0;
+    uint16_t scan_range = 0;
     UnitToHit hit_values;
     Protections protections;
+
+    EquipmentExtra();
+    EquipmentExtra& operator=(const EquipmentExtra&);
+    void Serialize(CArchive& ar);
+
+    void SetToUnit(Unit *);
+    void AddToUnit(Unit *);
+
 };
 static_assert(sizeof(EquipmentExtra) == 0x40, "EquipmentExtra size mismatch");
 
