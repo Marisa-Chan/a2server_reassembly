@@ -7,7 +7,7 @@
 #include "mfc_templ.h"
 
 
-struct Group;
+class Group;
 struct UnitList;
 
 

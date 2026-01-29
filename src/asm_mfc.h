@@ -752,7 +752,13 @@ public:
 */
 };
 
-
+class CStringArray: public CObject {
+public:
+	const char** data;
+	int32_t size;
+	int32_t capacity;
+	int32_t grow_by;
+};
 
 AFX_MODULE_THREAD_STATE* AFXAPI AfxGetModuleThreadState();
 

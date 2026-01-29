@@ -34,7 +34,8 @@ struct UnitEye2 {};
 struct Weapon {};
 
 
-struct Group;
+class Group;
+class Unit;
 
 
 struct UnitToHit {

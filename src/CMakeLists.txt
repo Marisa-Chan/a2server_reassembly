@@ -8,6 +8,7 @@ add_executable(a2serv_vsc
   group.cpp
   player.cpp
   plex.cpp
+  table.cpp
   testre.cpp
   token.cpp
   unit.cpp
