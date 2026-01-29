@@ -56,14 +56,12 @@ static_assert(sizeof(Item) == 0x58, "Item size mismatch");
 
 class Armor : public Item {
 public:
-    uint8_t range;
+    uint8_t slot;
     uint8_t gap_0x59;
-    UnitToHit hit_values;
     Protections protections;
-    Spell* imbued_spell;
 };
-static_assert(offsetof(Weapon, hit_values) == 0x5a, "Weapon::hit_values offset mismatch");
-static_assert(sizeof(Weapon) == 0x8c, "Weapon size mismatch");
+static_assert(offsetof(Armor, protections) == 0x5a, "Armor::protections offset mismatch");
+static_assert(sizeof(Armor) == 0x70, "Armor size mismatch");
 
 class Shield : public Item {
 public:
