@@ -6,6 +6,7 @@ add_executable(a2serv_vsc
   cmain.cpp
   effect.cpp
   group.cpp
+  inventory.cpp
   item.cpp
   player.cpp
   plex.cpp
