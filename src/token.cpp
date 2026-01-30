@@ -195,7 +195,7 @@ CObject* PASCAL Token::CreateObject()
 CRuntimeClass* Token::GetRuntimeClass() const
 {
 	// 528063
-	return (CRuntimeClass*) &classToken;
+	return (CRuntimeClass*) &Token::classToken;
 }
 
 Token::~Token()

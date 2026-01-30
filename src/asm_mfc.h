@@ -521,7 +521,7 @@ public: \
 #define _DECLARE_DYNAMIC(class_name) \
 public: \
 	static AFX_DATA CRuntimeClass class##class_name; \
-	virtual CRuntimeClass* GetRuntimeClass() const; \
+	virtual CRuntimeClass* GetRuntimeClass() const override; \
 
 #define DECLARE_DYNCREATE(class_name) \
 	DECLARE_DYNAMIC(class_name) \

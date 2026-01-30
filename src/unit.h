@@ -8,6 +8,11 @@
 #include "protections.h"
 #include "unit_to_hit.h"
 
+
+class Unit;
+
+
+
 // TODO: move to its own file and populate.
 struct Inventory {};
 
@@ -66,8 +71,11 @@ static_assert(sizeof(SessionMobKill) == 0x4, "SessionMobKill size mismatch");
 
 class Unit : public Token
 {
+public:
+    DECLARE_SERIAL(Unit);
+
 public: //vtbl
-    virtual CRuntimeClass* GetRuntimeClass() const override;
+    //virtual CRuntimeClass* GetRuntimeClass() const override; // defined by DECLARE_SERIAL
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;
     // CObject AssertValid  override
@@ -100,8 +108,12 @@ public: //vtbl
 
 public:
     Unit();
+    Unit(const CString&);
+    Unit(const CString&, const TokenPos*);
+    Unit(const TokenPos*);
+    Unit(const TokenPos*, Player*);
 
-
+    void FUN_0052931b(const CString& str); //in asm
 
 public:
     MonsterInfo* monster_info;
@@ -128,7 +140,7 @@ public:
     Weapon* weapon;
     Shield* shield;
     Inventory* inventory;
-    const char* name;
+    CString name;
     uint16_t body;
     uint16_t reaction;
     uint16_t mind;

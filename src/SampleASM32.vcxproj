@@ -207,7 +207,6 @@
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
-    <ClInclude Include="util.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="unit_to_hit.h" />
     <ClInclude Include="unit_list.h" />

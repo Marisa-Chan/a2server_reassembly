@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "unit.h"
 
 //52e9e3
@@ -49,3 +51,71 @@ void EquipmentExtra::AddToUnit(Unit *unit)
 
     unit->hit_values.AddHits(hit_values);
 }
+
+
+Unit::Unit()
+{
+    //528aef
+    FUN_0052931b("");
+    last_hit_by = nullptr;
+    last_hit_spell_id = 0;
+    spell = nullptr;
+}
+
+Unit::Unit(const CString &str)
+{
+    //528c97
+    FUN_0052931b(str);
+    last_hit_by = nullptr;
+    last_hit_spell_id = 0;
+    spell = nullptr;
+}
+
+Unit::Unit(const CString &str, const TokenPos *pos)
+    : Token(pos)
+{
+    //528e24
+    FUN_0052931b(str);
+    last_hit_by = nullptr;
+    last_hit_spell_id = 0;
+    spell = nullptr;
+}
+
+Unit::Unit(const TokenPos *pos)
+    : Token(pos)
+{
+    //528fb7
+    FUN_0052931b("");
+    last_hit_by = nullptr;
+    last_hit_spell_id = 0;
+    spell = nullptr;
+}
+
+Unit::Unit(const TokenPos *pos, Player *player)
+    : Token(pos, player)
+{
+    //529167
+    FUN_0052931b("");
+    last_hit_by = nullptr;
+    last_hit_spell_id = 0;
+    spell = nullptr;
+}
+
+
+
+
+IMPLEMENT_SERIAL(Unit, Token, 1);
+
+/*  Created by IMPLEMENT_SERIAL
+// 6363e8
+AFX_DATA CRuntimeClass Unit::classUnit =
+{ "Unit", sizeof(Unit), 1, &Unit::CreateObject, &Token::classCObject, NULL };
+
+CObject* PASCAL Unit::CreateObject() // 528a35
+CRuntimeClass* Unit::GetRuntimeClass() const //528aa5
+
+CArchive& AFXAPI operator>>(CArchive& ar, Unit* &pOb) //528ad3
+
+//528ab5
+static const AFX_CLASSINIT _init_Unit((CRuntimeClass*)&Unit::classUnit);
+*/
