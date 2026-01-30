@@ -33,6 +33,75 @@ public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
 public ?AfxTryCleanup@@YGXXZ ; AfxTryCleanup
 
 
+;CString
+public ?AfxLoadString@@YGHIPADI@Z   ; AfxLoadString
+public ?AfxThrowMemoryException@@YGXXZ    ; AfxThrowMemoryException
+extern ?AfxGetEmptyString@@YGABVCString@@XZ:proc   ;AfxGetEmptyString in strcore.cpp
+extern ??0CString@@QAE@XZ:proc ; CString::CString
+extern ??0CString@@QAE@ABV0@@Z:proc   ; (public: __thiscall CString::CString(class CString const &))
+extern ?AllocBuffer@CString@@IAEXH@Z:proc   ; (protected: void __thiscall CString::AllocBuffer(int))
+extern ?Release@CString@@IAEXXZ:proc   ; (protected: void __thiscall CString::Release(void))
+extern ?Release@CString@@KGXPAUCStringData@@@Z:proc   ; (protected: static void __stdcall CString::Release(struct CStringData *))
+extern ?Empty@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::Empty(void))
+extern ?CopyBeforeWrite@CString@@IAEXXZ:proc   ; (protected: void __thiscall CString::CopyBeforeWrite(void))
+extern ?AllocBeforeWrite@CString@@IAEXH@Z:proc   ; (protected: void __thiscall CString::AllocBeforeWrite(int))
+extern ??1CString@@QAE@XZ:proc   ; (public: __thiscall CString::~CString(void))
+extern ?AllocCopy@CString@@IBEXAAV1@HHH@Z:proc   ; (protected: void __thiscall CString::AllocCopy(class CString &,int,int,int)const )
+extern ??0CString@@QAE@PBD@Z:proc   ; (public: __thiscall CString::CString(char const *))
+;extern ??0CString@@QAE@PB_W@Z:proc   ; (public: __thiscall CString::CString(wchar_t const *))
+extern ?AssignCopy@CString@@IAEXHPBD@Z:proc   ; (protected: void __thiscall CString::AssignCopy(int,char const *))
+extern ??4CString@@QAEABV0@ABV0@@Z:proc   ; (public: class CString const & __thiscall CString::operator=(class CString const &))
+extern ??4CString@@QAEABV0@PBD@Z:proc   ; (public: class CString const & __thiscall CString::operator=(char const *))
+extern ??4CString@@QAEABV0@PB_W@Z:proc   ; (public: class CString const & __thiscall CString::operator=(wchar_t const *))
+extern ?ConcatCopy@CString@@IAEXHPBDH0@Z:proc   ; (protected: void __thiscall CString::ConcatCopy(int,char const *,int,char const *))
+extern ??H@YG?AVCString@@ABV0@0@Z:proc   ; (class CString __stdcall operator+(class CString const &,class CString const &))
+extern ??H@YG?AVCString@@ABV0@PBD@Z:proc   ; (class CString __stdcall operator+(class CString const &,char const *))
+extern ??H@YG?AVCString@@PBDABV0@@Z:proc   ; (class CString __stdcall operator+(char const *,class CString const &))
+extern ?ConcatInPlace@CString@@IAEXHPBD@Z:proc   ; (protected: void __thiscall CString::ConcatInPlace(int,char const *))
+extern ??YCString@@QAEABV0@PBD@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(char const *))
+extern ??YCString@@QAEABV0@D@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(char))
+extern ??YCString@@QAEABV0@ABV0@@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(class CString const &))
+extern ?GetBuffer@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBuffer(int))
+extern ?ReleaseBuffer@CString@@QAEXH@Z:proc   ; (public: void __thiscall CString::ReleaseBuffer(int))
+extern ?GetBufferSetLength@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBufferSetLength(int))
+extern ?FreeExtra@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::FreeExtra(void))
+extern ?LockBuffer@CString@@QAEPADXZ:proc   ; (public: char * __thiscall CString::LockBuffer(void))
+extern ?UnlockBuffer@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::UnlockBuffer(void))
+extern ?Find@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::Find(char)const )
+extern ?FindOneOf@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::FindOneOf(char const *)const )
+;extern ?MakeUpper@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeUpper(void))
+extern ?MakeLower@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeLower(void))
+extern ?MakeReverse@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeReverse(void))
+extern ?SetAt@CString@@QAEXHD@Z:proc   ; (public: void __thiscall CString::SetAt(int,char))
+extern ?CharToOemA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::CharToOemA(void))
+;extern ?OemToCharA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::OemToCharA(void))
+extern ?_wcstombsz@@YAHPADPB_WI@Z:proc   ; (int __cdecl _wcstombsz(char *,wchar_t const *,unsigned int))
+extern ?_mbstowcsz@@YAHPA_WPBDI@Z:proc   ; (int __cdecl _mbstowcsz(wchar_t *,char const *,unsigned int))
+extern ?AfxA2WHelper@@YGPA_WPA_WPBDH@Z:proc    ;  (wchar_t * __stdcall AfxA2WHelper(wchar_t *,char const *,int))
+extern ?AfxW2AHelper@@YGPADPADPB_WH@Z:proc
+extern ?LoadStringA@CString@@QAEHI@Z:proc   ; (public: int __thiscall CString::LoadStringA(unsigned int))
+
+extern ??0CString@@QAE@DH@Z:proc   ; (public: __thiscall CString::CString(char,int))
+extern ??0CString@@QAE@PBDH@Z:proc   ; (public: __thiscall CString::CString(char const *,int))
+;extern ??4CString@@QAEABV0@D@Z:proc   ; (public: class CString const & __thiscall CString::operator=(char))
+extern ??H@YG?AVCString@@ABV0@D@Z:proc   ; (class CString __stdcall operator+(class CString const &,char))
+extern ??H@YG?AVCString@@DABV0@@Z:proc   ; (class CString __stdcall operator+(char,class CString const &))
+extern ?Mid@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Mid(int)const )
+extern ?Mid@CString@@QBE?AV1@HH@Z:proc   ; (public: class CString __thiscall CString::Mid(int,int)const )
+extern ?Right@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Right(int)const )
+extern ?Left@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Left(int)const )
+extern ?SpanIncluding@CString@@QBE?AV1@PBD@Z:proc   ; (public: class CString __thiscall CString::SpanIncluding(char const *)const )
+extern ?SpanExcluding@CString@@QBE?AV1@PBD@Z:proc   ; (public: class CString __thiscall CString::SpanExcluding(char const *)const )
+extern ?ReverseFind@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::ReverseFind(char)const )
+extern ?Find@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::Find(char const *)const )
+extern ?FormatV@CString@@IAEXPBDPAD@Z:proc   ; (protected: void __thiscall CString::FormatV(char const *,char *))
+extern ?Format@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString::Format(char const *,...))
+extern ?Format@CString@@QAAXIZZ:proc   ; (public: void __cdecl CString::Format(unsigned int,...))
+extern ?FormatMessageA@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString::FormatMessageA(char const *,...))
+;extern ?FormatMessageA@CString@@QAAXIZZ:proc   ; (public: void __cdecl CString::FormatMessageA(unsigned int,...))
+extern ?TrimRight@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimRight(void))
+extern ?TrimLeft@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimLeft(void))
+
 
 
 ;CPlex

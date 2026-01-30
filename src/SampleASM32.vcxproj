@@ -185,6 +185,8 @@
     <ClCompile Include="group.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="plex.cpp" />
+    <ClCompile Include="strcore.cpp" />
+    <ClCompile Include="strex.cpp" />
     <ClCompile Include="testre.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="unit.cpp" />
