@@ -5,6 +5,7 @@ add_executable(a2serv_vsc
   asm_mfc.cpp
   cmain.cpp
   effect.cpp
+  eye.cpp
   group.cpp
   inventory.cpp
   item.cpp

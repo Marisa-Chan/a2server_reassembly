@@ -182,6 +182,7 @@
     <ClCompile Include="asm_mfc.cpp" />
     <ClCompile Include="cmain.cpp" />
     <ClCompile Include="effect.cpp" />
+    <ClCompile Include="eye.cpp" />
     <ClCompile Include="group.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
@@ -200,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asm_mfc.h" />
+    <ClInclude Include="eye.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />

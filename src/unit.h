@@ -9,16 +9,6 @@
 #include "unit_to_hit.h"
 
 
-class Unit;
-
-
-// TODO: move to its own file and populate.
-struct UnitEye {};
-
-// TODO: move to its own file and populate.
-struct UnitEye2 {};
-
-
 class Group;
 struct Inventory;
 class Item;
@@ -27,6 +17,8 @@ class Shield;
 class Spell;
 class SpellBook;
 class Unit;
+struct UnitEye;
+struct UnitEye2;
 class Weapon;
 
 
