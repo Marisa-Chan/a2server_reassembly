@@ -11,6 +11,8 @@ add_executable(a2serv_vsc
   player.cpp
   plex.cpp
   protections.cpp
+  strcore.cpp
+  strex.cpp
   table.cpp
   testre.cpp
   token.cpp
@@ -32,7 +34,7 @@ set_property(TARGET a2serv_vsc PROPERTY
 )
 
 target_compile_definitions(a2serv_vsc PRIVATE
-  UNICODE;_UNICODE;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+  NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
 target_link_libraries(a2serv_vsc PRIVATE
