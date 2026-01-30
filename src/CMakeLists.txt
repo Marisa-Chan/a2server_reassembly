@@ -11,6 +11,7 @@ add_executable(a2serv_vsc
   player.cpp
   plex.cpp
   protections.cpp
+  spell.cpp
   strcore.cpp
   strex.cpp
   table.cpp

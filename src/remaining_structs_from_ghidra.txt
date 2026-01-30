@@ -8,11 +8,9 @@ struct astruct_5
 struct Building
 struct A2World
 struct UnitEye
-struct Spell
 struct DataReg
 struct GroupSub
 struct TriggerCheck
-struct SpellBook
 struct CMainWindow  // PlaceHolder Class Structure
 struct CGameObject
 struct CGameObject2

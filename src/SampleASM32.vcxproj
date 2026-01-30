@@ -189,6 +189,7 @@
     <ClCompile Include="plex.cpp" />
     <ClCompile Include="protections.cpp" />
     <ClCompile Include="table.cpp" />
+    <ClCompile Include="spell.cpp" />
     <ClCompile Include="strcore.cpp" />
     <ClCompile Include="strex.cpp" />
     <ClCompile Include="testre.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="protections.h" />
+    <ClInclude Include="spell.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />

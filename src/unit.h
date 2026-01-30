@@ -12,14 +12,6 @@
 class Unit;
 
 
-
-
-// TODO: move to its own file and populate.
-struct Spell {};
-
-// TODO: move to its own file and populate.
-struct SpellBook {};
-
 // TODO: move to its own file and populate.
 struct UnitEye {};
 
@@ -32,6 +24,8 @@ struct Inventory;
 class Item;
 class MonsterInfo;
 class Shield;
+class Spell;
+class SpellBook;
 class Unit;
 class Weapon;
 
