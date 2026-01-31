@@ -1,5 +1,5 @@
-#ifndef USER_H
-#define USER_H
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <cstdint>
 #include <array>

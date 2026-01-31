@@ -3,15 +3,19 @@ project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
 
 add_executable(a2serv_vsc
   asm_mfc.cpp
+  building.cpp
   cmain.cpp
   effect.cpp
   eye.cpp
   group.cpp
+  inn.cpp
   inventory.cpp
   item.cpp
+  outpost.cpp
   player.cpp
   plex.cpp
   protections.cpp
+  shop.cpp
   spell.cpp
   strcore.cpp
   strex.cpp

@@ -1012,7 +1012,7 @@ void CList<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 template<class KEY, class ARG_KEY, class VALUE, class ARG_VALUE>
 class CMap : public CObject
 {
-protected:
+public:
 	// Association
 	struct CAssoc
 	{

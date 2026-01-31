@@ -1,13 +1,10 @@
 struct TriggerAction
-struct UnitEye2
 struct Check
 struct Trigger
 struct MapStru1
 struct Perf
 struct astruct_5
-struct Building
 struct A2World
-struct UnitEye
 struct DataReg
 struct GroupSub
 struct TriggerCheck
@@ -43,7 +40,6 @@ struct ResFile
 struct Resources
 struct CMultiShopShelf
 struct AssortGenParams
-struct Shop
 struct CMultiShopInstance
 struct CMultiShopTemplate
 struct CGameObject3
@@ -68,14 +64,12 @@ struct GfxObject
 struct AreaEffect
 struct MapGroupData
 struct GameDataRes
-struct Outpost
 struct MapAlm
 struct MapInnData
 struct MapBuildingData
 struct MapShopData
 struct MapPointerData
 struct MapMusicInfo
-struct Inn
 struct MapStru2
 struct ShopAssr1
 struct FileSectionBasicInfo
@@ -83,7 +77,6 @@ struct SrvStru1
 struct A2Srv_1
 struct A2Server
 struct ScriptSettings
-struct Pointer
 struct MapHeader
 struct ??File
 struct BigStruct3
