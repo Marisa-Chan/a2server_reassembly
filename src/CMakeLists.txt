@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
 
 add_executable(a2serv_vsc
+  alm.cpp
   asm_mfc.cpp
   building.cpp
   cmain.cpp

@@ -6,7 +6,6 @@ struct Perf
 struct astruct_5
 struct A2World
 struct DataReg
-struct GroupSub
 struct TriggerCheck
 struct CMainWindow  // PlaceHolder Class Structure
 struct CGameObject
@@ -15,7 +14,6 @@ struct BigStruct1
 struct BigStruct2
 struct QuestMap
 struct Quest
-struct MapPlayerData
 struct PMD
 struct ActionPacket
 struct QuestInnGlue  // Some object used to tie an inn and a quest (?)
@@ -30,11 +28,6 @@ struct astruct_6
 struct astruct_8
 struct astruct_11
 struct Sack
-struct MapSackData
-struct MapLogicData
-struct MapEffectModifer
-struct MapEffectData
-struct MapUnitData
 struct TableLine
 struct ResFile
 struct Resources
@@ -51,7 +44,6 @@ struct SockStartNM
 struct MatShapeData
 struct MatShape
 struct SrvStru1Lst
-struct MapLogicTrigger
 struct NetStru3
 struct ConnSockNm
 struct ConnNames
@@ -62,14 +54,7 @@ struct NetStru1
 struct MagicItemData
 struct GfxObject
 struct AreaEffect
-struct MapGroupData
 struct GameDataRes
-struct MapAlm
-struct MapInnData
-struct MapBuildingData
-struct MapShopData
-struct MapPointerData
-struct MapMusicInfo
 struct MapStru2
 struct ShopAssr1
 struct FileSectionBasicInfo
@@ -77,12 +62,10 @@ struct SrvStru1
 struct A2Srv_1
 struct A2Server
 struct ScriptSettings
-struct MapHeader
 struct ??File
 struct BigStruct3
 struct FileSectionStats
 struct RetFile
 struct ShopAssortiment
 struct UnitAttack
-struct MapBlockHdr
 struct ShopStr1

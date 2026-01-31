@@ -179,6 +179,7 @@
     <Image Include="res\Icon_1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="alm.cpp" />
     <ClCompile Include="asm_mfc.cpp" />
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cmain.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="unit_list.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alm.h" />
     <ClInclude Include="asm_mfc.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="eye.h" />
