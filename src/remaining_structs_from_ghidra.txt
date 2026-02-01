@@ -12,7 +12,6 @@ struct CGameObject
 struct CGameObject2
 struct BigStruct1
 struct BigStruct2
-struct QuestMap
 struct PMD
 struct ActionPacket
 struct astruct

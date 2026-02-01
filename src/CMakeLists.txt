@@ -18,6 +18,7 @@ add_executable(a2serv_vsc
   protections.cpp
   quest.cpp
   quest_glue.cpp
+  quest_map.cpp
   shop.cpp
   spell.cpp
   strcore.cpp
