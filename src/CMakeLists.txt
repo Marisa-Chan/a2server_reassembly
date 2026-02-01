@@ -16,6 +16,7 @@ add_executable(a2serv_vsc
   player.cpp
   plex.cpp
   protections.cpp
+  quest.cpp
   shop.cpp
   spell.cpp
   strcore.cpp

@@ -13,7 +13,6 @@ struct CGameObject2
 struct BigStruct1
 struct BigStruct2
 struct QuestMap
-struct Quest
 struct PMD
 struct ActionPacket
 struct QuestInnGlue  // Some object used to tie an inn and a quest (?)
