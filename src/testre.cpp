@@ -28,7 +28,7 @@ bool TestVtbl(const char *className, const void** vt, const void** mt, int ignor
 	{
 		if (i != ignoreid && vt[i] != mt[i])
 		{
-			printf("Error in %s vtable %x  vt %x !=  m %x\n", className, i, vt[i], mt[i]);
+			printf("Error in %s vtable %x  vt %p !=  m %p\n", className, i, vt[i], mt[i]);
 			res = false;
 		}
 	}
