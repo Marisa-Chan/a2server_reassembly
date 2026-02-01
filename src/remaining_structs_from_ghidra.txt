@@ -15,7 +15,6 @@ struct BigStruct2
 struct QuestMap
 struct PMD
 struct ActionPacket
-struct QuestInnGlue  // Some object used to tie an inn and a quest (?)
 struct astruct
 struct astruct_10
 struct astruct_3
