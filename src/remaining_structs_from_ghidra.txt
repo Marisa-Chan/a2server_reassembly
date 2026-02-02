@@ -25,11 +25,9 @@ struct astruct_6
 struct astruct_8
 struct astruct_11
 struct Sack
-struct TableLine
 struct ResFile
 struct Resources
 struct CMultiShopShelf
-struct AssortGenParams
 struct CMultiShopInstance
 struct CMultiShopTemplate
 struct CGameObject3
@@ -38,8 +36,6 @@ struct SpellEffect
 struct PointEffect
 struct VirtualCaster
 struct SockStartNM
-struct MatShapeData
-struct MatShape
 struct SrvStru1Lst
 struct NetStru3
 struct ConnSockNm

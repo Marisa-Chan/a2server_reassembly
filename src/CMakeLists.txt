@@ -14,6 +14,7 @@ add_executable(a2serv_vsc
   item.cpp
   outpost.cpp
   player.cpp
+  player_file.cpp
   plex.cpp
   protections.cpp
   quest.cpp
