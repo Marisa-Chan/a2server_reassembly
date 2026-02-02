@@ -7,6 +7,7 @@
 #include "token.h"
 #include "protections.h"
 #include "unit_to_hit.h"
+#include "assert_offset.h"
 
 
 class Group;
@@ -46,13 +47,13 @@ struct EquipmentExtra {
     void AddToUnit(Unit *);
 
 };
-static_assert(sizeof(EquipmentExtra) == 0x40, "EquipmentExtra size mismatch");
+ASSERT_SIZE(EquipmentExtra, 0x40);
 
 struct SessionMobKill {
     uint16_t server_id;
     uint16_t kills;
 };
-static_assert(sizeof(SessionMobKill) == 0x4, "SessionMobKill size mismatch");
+ASSERT_SIZE(SessionMobKill, 0x4);
 
 class Unit : public Token
 {
@@ -178,9 +179,9 @@ public:
     int32_t field_0x204;
 };
 
-static_assert(offsetof(Unit, inventory) == 0x7C, "Unit::inventory offset mismatch");
-static_assert(offsetof(Unit, decay) == 0x13C, "Unit::decay offset mismatch");
-static_assert(sizeof(Unit) == 0x208, "Unit size mismatch");
+ASSERT_OFFSET(Unit, inventory, 0x7C);
+ASSERT_OFFSET(Unit, decay, 0x13C);
+ASSERT_SIZE(Unit, 0x208);
 
 class Human: public Unit {
 public:
@@ -203,8 +204,8 @@ public:
     uint32_t experience_per_sphere[5];
 };
 
-static_assert(offsetof(Human, main_sphere) == 0x23C, "Human::main_sphere offset mismatch");
-static_assert(sizeof(Human) == 0x254, "Human size mismatch");
+ASSERT_OFFSET(Human, main_sphere, 0x23C);
+ASSERT_SIZE(Human, 0x254);
 
 
 #endif

@@ -22,7 +22,7 @@ struct QuestData {
     uint32_t landmark_id;
     uint32_t limit; // Limit for a "kill N" quest.
 };
-static_assert(sizeof(QuestData) == 0x1c, "QuestData size mismatch");
+ASSERT_SIZE(QuestData, 0x1c);
 
 class Quest : public CObject, public QuestData {
 public: // There are different vtables for different quest kinds, see FUN_0055ee42.

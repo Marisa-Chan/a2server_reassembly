@@ -3,6 +3,7 @@
 
 #include <cstdint>
 
+#include "assert_offset.h"
 #include "mfc_templ.h"
 
 
@@ -177,8 +178,8 @@ struct UnitEye {
     uint8_t field162_0xb2;
     uint8_t field163_0xb3;
 };
-static_assert(offsetof(UnitEye, counter) == 0x78, "UnitEye::counter offset mismatch");
-static_assert(sizeof(UnitEye) == 0xb4, "UnitEye size mismatch");
+ASSERT_OFFSET(UnitEye, counter, 0x78);
+ASSERT_SIZE(UnitEye, 0xb4);
 
 struct UnitEye2 {
     uint16_t position1;
@@ -267,8 +268,8 @@ struct UnitEye2 {
     uint8_t field83_0xb3;
     CList<uint16_t>* positions_list;
 };
-static_assert(offsetof(UnitEye2, known_spells) == 0x7c, "UnitEye2::known_spells offset mismatch");
-static_assert(sizeof(UnitEye2) == 0xb8, "UnitEye2 size mismatch");
+ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);
+ASSERT_SIZE(UnitEye2, 0xb8);
 
 
 #endif

@@ -2,6 +2,7 @@
 #define UNIT_LIST_H
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 #include "mfc_templ.h"
 
 class Unit;
@@ -16,6 +17,6 @@ public:
     CList<Unit*> unit_list;
 };
 
-static_assert(sizeof(UnitList) == 0x20, "UnitList size mismatch");
+ASSERT_SIZE(UnitList, 0x20);
 
 #endif

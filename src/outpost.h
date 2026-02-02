@@ -5,6 +5,7 @@
 
 #include "building.h"
 #include "unit_list.h"
+#include "assert_offset.h"
 
 
 // Outpost is a great name. It actually remembers the original group properties for repop.
@@ -25,8 +26,8 @@ public:
     uint32_t has_quest_kill;
     uint32_t has_quest_intercept;
 };
-static_assert(offsetof(Outpost, script_id) == 0xb8, "Outpost::script_id offset mismatch");
-static_assert(sizeof(Outpost) == 0xcc, "Outpost size mismatch");
+ASSERT_OFFSET(Outpost, script_id, 0xb8);
+ASSERT_SIZE(Outpost, 0xcc);
 
 
 #endif

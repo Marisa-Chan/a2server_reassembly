@@ -6,6 +6,7 @@
 #include "protections.h"
 #include "token.h"
 #include "unit_list.h"
+#include "assert_offset.h"
 
 
 class BuildingInfo;
@@ -31,15 +32,15 @@ public:
     uint32_t unpassable_mask;
     uint32_t tiles_mask;
 };
-static_assert(offsetof(Building, width) == 0x60, "Building::width offset mismatch");
-static_assert(sizeof(Building) == 0x6c, "Building size mismatch");
+ASSERT_OFFSET(Building, width, 0x60);
+ASSERT_SIZE(Building, 0x6c);
 
 class Pointer : public Building {
 public:
     int32_t script_instance_id;
 };
-static_assert(offsetof(Pointer, script_instance_id) == 0x6c, "Pointer::script_instance_id offset mismatch");
-static_assert(sizeof(Pointer) == 0x70, "Pointer size mismatch");
+ASSERT_OFFSET(Pointer, script_instance_id, 0x6c);
+ASSERT_SIZE(Pointer, 0x70);
 
 
 #endif

@@ -5,6 +5,7 @@
 #include <cstdint>
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 
 struct UnitToHit {
     uint16_t attack;
@@ -33,6 +34,6 @@ struct UnitToHit {
 
     void Serialize(CArchive& ar);
 };
-static_assert(sizeof(UnitToHit) == 0x18, "UnitToHit size mismatch");
+ASSERT_SIZE(UnitToHit, 0x18);
 
 #endif

@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "building.h"
+#include "assert_offset.h"
 #include "mfc_templ.h"
 #include "unit_list.h"
 
@@ -30,9 +31,9 @@ public:
     Quest* active_quest;
     uint8_t gap_0xe8[4];
 };
-static_assert(offsetof(Inn, delivery_item_id) == 0xd4, "Inn::delivery_item_id offset mismatch");
-static_assert(offsetof(Inn, quest_map) == 0xe0, "Inn::quest_map offset mismatch");
-static_assert(sizeof(Inn) == 0xec, "Inn size mismatch");
+ASSERT_OFFSET(Inn, delivery_item_id, 0xd4);
+ASSERT_OFFSET(Inn, quest_map, 0xe0);
+ASSERT_SIZE(Inn, 0xec);
 
 
 #endif

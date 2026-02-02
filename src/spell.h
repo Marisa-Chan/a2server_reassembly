@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 #include "mfc_templ.h"
 #include "table.h"
 
@@ -21,15 +22,15 @@ public:
     uint16_t spell_power;
     uint8_t gap_0x12[2];
 };
-static_assert(offsetof(Spell, mana_cost) == 0xc, "Spell::mana_cost offset mismatch");
-static_assert(sizeof(Spell) == 0x14, "Spell size mismatch");
+ASSERT_OFFSET(Spell, mana_cost, 0xc);
+ASSERT_SIZE(Spell, 0x14);
 
 class SpellBook : public CObject {
 public:
     CArray<Spell*> spells;
     uint32_t current_spell_index;
 };
-static_assert(sizeof(SpellBook) == 0x1c, "SpellBook size mismatch");
+ASSERT_SIZE(SpellBook, 0x1c);
 
 
 #endif

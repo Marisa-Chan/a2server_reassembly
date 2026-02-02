@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 #include "table.h"
 #include "token.h"
 #include "protections.h"
@@ -53,7 +54,7 @@ public:
     uint32_t field14_0x50;
     uint32_t field15_0x54;
 };
-static_assert(sizeof(Item) == 0x58, "Item size mismatch");
+ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
@@ -61,15 +62,15 @@ public:
     uint8_t gap_0x59;
     Protections protections;
 };
-static_assert(offsetof(Armor, protections) == 0x5a, "Armor::protections offset mismatch");
-static_assert(sizeof(Armor) == 0x70, "Armor size mismatch");
+ASSERT_OFFSET(Armor, protections, 0x5a);
+ASSERT_SIZE(Armor, 0x70);
 
 class Shield : public Item {
 public:
     Protections protections;
     uint8_t gap_0x6e[2];
 };
-static_assert(sizeof(Shield) == 0x70, "Shield size mismatch");
+ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
@@ -79,7 +80,7 @@ public:
     Protections protections;
     Spell* imbued_spell;
 };
-static_assert(offsetof(Weapon, hit_values) == 0x5a, "Weapon::hit_values offset mismatch");
-static_assert(sizeof(Weapon) == 0x8c, "Weapon size mismatch");
+ASSERT_OFFSET(Weapon, hit_values, 0x5a);
+ASSERT_SIZE(Weapon, 0x8c);
 
 #endif

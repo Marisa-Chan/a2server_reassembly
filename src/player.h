@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 #include "mfc_templ.h"
 
 
@@ -17,8 +18,8 @@ struct Settings {
     uint8_t autobuff_mask;
     uint8_t more_fields[3];
 };
-static_assert(offsetof(Settings, autobuff_mask) == 0x20, "Settings::autobuff_mask offset mismatch");
-static_assert(sizeof(Settings) == 0x24, "Settings size mismatch");
+ASSERT_OFFSET(Settings, autobuff_mask, 0x20);
+ASSERT_SIZE(Settings, 0x24);
 
 class Unit;
 class Human;
@@ -82,10 +83,10 @@ public:
     uint8_t gap_0xa99[7];
 };
 
-static_assert(offsetof(Player, flags) == 0x14, "Player::flags offset mismatch");
-static_assert(offsetof(Player, kill_stats) == 0x44, "Player::kill_stats offset mismatch");
-static_assert(offsetof(Player, min_server_level) == 0xa88, "Player::min_server_level offset mismatch");
-static_assert(sizeof(Player) == 0xaa0, "Player size mismatch");
+ASSERT_OFFSET(Player, flags, 0x14);
+ASSERT_OFFSET(Player, kill_stats, 0x44);
+ASSERT_OFFSET(Player, min_server_level, 0xa88);
+ASSERT_SIZE(Player, 0xaa0);
 
 
 #endif

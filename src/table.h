@@ -2,6 +2,7 @@
 #define TABLE_H
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 #include "mfc_templ.h"
 
 template <typename T>
@@ -19,7 +20,7 @@ public:
     const char* name;
     CArray<T> values;
 };
-static_assert(sizeof(TableLine<int32_t>) == 0x1c, "TableLine size mismatch");
+ASSERT_SIZE(TableLine<int32_t>, 0x1c);
 
 struct MatShapeData {
     uint32_t field_0x0;
@@ -34,7 +35,7 @@ struct MatShapeData {
     double absorption;
     double magic_volume;
 };
-static_assert(sizeof(MatShapeData) == 0x48, "MatShapeData size mismatch");
+ASSERT_SIZE(MatShapeData, 0x48);
 
 class MagicItem : public TableLine<int32_t> {
 public:
@@ -43,15 +44,15 @@ public:
     CStringArray string_array;
     CString effect;
 };
-static_assert(sizeof(MagicItem) == 0x44, "MagicItem size mismatch");
+ASSERT_SIZE(MagicItem, 0x44);
 
 class MatShape : public TableLine<int32_t> {
 public:
     uint32_t field_0x1c;
     MatShapeData data;
 };
-static_assert(offsetof(MatShape, data) == 0x20, "MatShape::data offset mismatch");
-static_assert(sizeof(MatShape) == 0x68, "MatShape size mismatch");
+ASSERT_OFFSET(MatShape, data, 0x20);
+ASSERT_SIZE(MatShape, 0x68);
 
 struct BuildingInfoData {
     int32_t width;
@@ -61,11 +62,11 @@ struct BuildingInfoData {
     uint32_t unpassable_mask;
     uint32_t tiles_mask;
 };
-static_assert(sizeof(BuildingInfoData) == 0x18, "BuildingInfoData size mismatch");
+ASSERT_SIZE(BuildingInfoData, 0x18);
 
 class BuildingInfo : public TableLine<BuildingInfoData> {
 };
-static_assert(sizeof(BuildingInfo) == 0x1c, "BuildingInfo size mismatch");
+ASSERT_SIZE(BuildingInfo, 0x1c);
 
 struct EquipData {
     int32_t shape;
@@ -86,7 +87,7 @@ struct EquipData {
     int32_t other_param;
     int32_t shapes_allowed;
 };
-static_assert(sizeof(EquipData) == 0x44, "EquipData size mismatch");
+ASSERT_SIZE(EquipData, 0x44);
 
 class WorldEquip: public TableLine<EquipData> {
 public:
@@ -94,8 +95,8 @@ public:
     uint8_t gap_0x2a[2];
     CStringArray string_array;
 };
-static_assert(offsetof(WorldEquip, shape_material_matrix) == 0x1c, "WorldEquip::shape_material_matrix offset mismatch");
-static_assert(sizeof(WorldEquip) == 0x40, "WorldEquip size mismatch");
+ASSERT_OFFSET(WorldEquip, shape_material_matrix, 0x1c);
+ASSERT_SIZE(WorldEquip, 0x40);
 
 
 struct MagicInfoData {
@@ -128,11 +129,11 @@ struct MagicInfoData {
     int32_t in_mage_not_used_11;
     int32_t in_mage_shoes;
 };
-static_assert(sizeof(MagicInfoData) == 0x70, "MagicInfoData size mismatch");
+ASSERT_SIZE(MagicInfoData, 0x70);
 
 class MagicInfo: public TableLine<MagicInfoData> {
 };
-static_assert(sizeof(MagicInfo) == 0x1c, "MagicInfo size mismatch");
+ASSERT_SIZE(MagicInfo, 0x1c);
 
 struct MonsterInfoData {
     int32_t body;
@@ -198,13 +199,13 @@ struct MonsterInfoData {
     int32_t skill_earth;
     int32_t skill_astral;
 };
-static_assert(sizeof(MonsterInfoData) == 0xf8, "MonsterInfoData size mismatch");
+ASSERT_SIZE(MonsterInfoData, 0xf8);
 
 class MonsterInfo: public TableLine<MonsterInfoData> {
 public:
     CStringArray equipped_items;
 };
-static_assert(sizeof(MonsterInfo) == 0x30, "MonsterInfo size mismatch");
+ASSERT_SIZE(MonsterInfo, 0x30);
 
 struct HumanInfoData {
     int32_t body;
@@ -234,7 +235,7 @@ struct HumanInfoData {
     int32_t server_id;
     int32_t known_spells_mask;
 };
-static_assert(sizeof(HumanInfoData) == 0x68, "HumanInfoData size mismatch");
+ASSERT_SIZE(HumanInfoData, 0x68);
 
 class HumanInfo: public TableLine<HumanInfoData> {
     CStringArray equipped_items;
@@ -264,12 +265,12 @@ struct SpellInfoData {
     int32_t scroll_cost;
     int32_t book_cost;
 };
-static_assert(sizeof(SpellInfoData) == 0x58, "SpellInfoData size mismatch");
+ASSERT_SIZE(SpellInfoData, 0x58);
 
 class SpellInfo: public TableLine<SpellInfoData> {
 public:
     const char* effect;
 };
-static_assert(sizeof(SpellInfo) == 0x20, "SpellInfo size mismatch");
+ASSERT_SIZE(SpellInfo, 0x20);
 
 #endif

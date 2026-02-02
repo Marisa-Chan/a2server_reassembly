@@ -3,6 +3,7 @@
 
 #include <cstdint>
 
+#include "assert_offset.h"
 #include "mfc_templ.h"
 
 
@@ -33,8 +34,8 @@ struct GroupSub {
     uint32_t active; // Modified by the "Suspend group" trigger action.
     CList<uint16_t>* list;
 };
-static_assert(offsetof(GroupSub, active) == 0x48, "GroupSub::active offset mismatch");
-static_assert(sizeof(GroupSub) == 0x50, "GroupSub size mismatch");
+ASSERT_OFFSET(GroupSub, active, 0x48);
+ASSERT_SIZE(GroupSub, 0x50);
 
 class Player;
 class Unit;
@@ -51,8 +52,8 @@ public:
     uint32_t has_quest_intercept;
 };
 
-static_assert(offsetof(Group, owner) == 0x44, "Group::owner offset mismatch");
-static_assert(sizeof(Group) == 0x50, "Group size mismatch");
+ASSERT_OFFSET(Group, owner, 0x44);
+ASSERT_SIZE(Group, 0x50);
 
 
 #endif

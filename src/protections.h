@@ -5,6 +5,7 @@
 #include <array>
 
 #include "asm_mfc.h"
+#include "assert_offset.h"
 
 struct Protections {
     uint16_t defense;
@@ -24,6 +25,6 @@ struct Protections {
 
     void Serialize(CArchive& ar);
 };
-static_assert(sizeof(Protections) == 0x16, "Protections size mismatch");
+ASSERT_SIZE(Protections, 0x16);
 
 #endif
