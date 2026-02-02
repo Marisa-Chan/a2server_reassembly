@@ -20,6 +20,7 @@ add_executable(a2serv_vsc
   quest.cpp
   quest_glue.cpp
   quest_map.cpp
+  shelf.cpp
   shop.cpp
   spell.cpp
   strcore.cpp

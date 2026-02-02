@@ -27,9 +27,6 @@ struct astruct_11
 struct Sack
 struct ResFile
 struct Resources
-struct CMultiShopShelf
-struct CMultiShopInstance
-struct CMultiShopTemplate
 struct CGameObject3
 struct Effect_DirectDamage
 struct SpellEffect
@@ -50,14 +47,12 @@ struct AreaEffect
 struct GameDataRes
 struct MapStru2
 struct ShopAssr1
-struct FileSectionBasicInfo
 struct SrvStru1
 struct A2Srv_1
 struct A2Server
 struct ScriptSettings
 struct ??File
 struct BigStruct3
-struct FileSectionStats
 struct RetFile
 struct ShopAssortiment
 struct UnitAttack
