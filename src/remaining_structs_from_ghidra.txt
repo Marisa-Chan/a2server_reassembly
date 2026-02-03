@@ -25,8 +25,6 @@ struct astruct_6
 struct astruct_8
 struct astruct_11
 struct Sack
-struct ResFile
-struct Resources
 struct CGameObject3
 struct Effect_DirectDamage
 struct SpellEffect
