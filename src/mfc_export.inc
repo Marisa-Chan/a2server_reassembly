@@ -213,6 +213,38 @@ externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
 
 
+;Humanoid
+extern ?classHumanoid@Humanoid@@2UCRuntimeClass@@A:dword    ;  classHumanoid
+extern ?CreateObject@Humanoid@@SGPAVCObject@@XZ:proc   ; (public: static class CObject * __stdcall Humanoid::CreateObject(void))
+extern ?GetRuntimeClass@Humanoid@@UBEPAUCRuntimeClass@@XZ:proc   ; (public: virtual struct CRuntimeClass * __thiscall Humanoid::GetRuntimeClass(void)const )
+extern ??5@YGAAVCArchive@@AAV0@AAPAVHumanoid@@@Z:proc   ; (class CArchive & __stdcall operator>>(class CArchive &,class Humanoid * &))
+
+extern ??_7Humanoid@@6B@:dword    ;   (const Humanoid::`vftable')
+externdef ??1Humanoid@@UAE@XZ:proc   ; (public: virtual __thiscall Humanoid::~Humanoid(void))
+externdef ?Serialize@Humanoid@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Humanoid::Serialize(class CArchive &))
+externdef ?VMethod5@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod5(void))
+externdef ?VMethod7@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod7(void))
+externdef ?VMethod8@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod8(void))
+externdef ?VMethod10@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod10(void))
+externdef ?VMethod12@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod12(class Item *))
+externdef ?VMethod13@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod13(class Item *))
+externdef ?Unequip@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::Unequip(class Item *))
+externdef ?VMethod15@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod15(void))
+externdef ?VMethod16@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod16(class Item *))
+externdef ?VMethod18@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod18(void))
+externdef ?VMethod19@Humanoid@@UAEIXZ:proc   ; (public: virtual unsigned int __thiscall Humanoid::VMethod19(void))
+externdef ?VMethod21@Humanoid@@UAEXIPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod21(unsigned int,class Unit *,int))
+externdef ?VMethod22@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod22(class Unit *,int))
+externdef ?VMethod23@Humanoid@@UAEXPAVUnit@@IHH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod23(class Unit *,unsigned int,int,int))
+externdef ?VMethod24@Humanoid@@UAEXPAVUnit@@IHH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod24(class Unit *,unsigned int,int,int))
+externdef ?VMethod25@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod25(void))
+
+externdef ??0Humanoid@@QAE@XZ:proc   ; (public: __thiscall Humanoid::Humanoid(void))
+externdef ??0Humanoid@@QAE@PBUTokenPos@@@Z:proc  ;  (public: __thiscall Humanoid::Humanoid(struct TokenPos const *))
+
+
+
+
 ;UnitToHit
 extern ??0UnitToHit@@QAE@XZ:proc   ; (public: __thiscall UnitToHit::UnitToHit(void))
 extern ??0UnitToHit@@QAE@ABU0@@Z:proc   ; (public: __thiscall UnitToHit::UnitToHit(struct UnitToHit const &))

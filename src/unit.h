@@ -183,7 +183,59 @@ ASSERT_OFFSET(Unit, inventory, 0x7C);
 ASSERT_OFFSET(Unit, decay, 0x13C);
 ASSERT_SIZE(Unit, 0x208);
 
-class Human: public Unit {
+class Humanoid : public Unit {
+public:
+    DECLARE_SERIAL(Humanoid);
+
+public:
+    //virtual CRuntimeClass* GetRuntimeClass() const override;  // declared by DECLARE_SERIAL
+    virtual ~Humanoid() override;
+    virtual void Serialize(CArchive& ar) override;
+    // CObject AssertValid  override
+    // CObject Dump  override
+    //virtual void VMethod1() override;
+    //virtual void VMethod2() override;
+    //virtual int32_t VMethod3() override;
+    //virtual int32_t VMethod4() override;
+    virtual void VMethod5() override;
+    //virtual int32_t VMethod6() override;
+    virtual int32_t VMethod7() override;
+    virtual int32_t VMethod8() override;
+    //virtual int32_t VMethod9() override;
+    virtual void VMethod10() override;
+    //virtual void VMethod11(Unit*) override;
+    virtual void VMethod12(Item*) override;
+    virtual void VMethod13(Item*) override;
+    virtual void Unequip(Item*) override;
+    virtual void VMethod15() override;
+    virtual void VMethod16(Item*) override;
+    //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
+    virtual void VMethod18() override;
+    virtual uint32_t VMethod19() override;
+    //virtual void VMethod20() override;
+    virtual void VMethod21(uint32_t, Unit*, int32_t) override;
+    virtual void VMethod22(Unit*, int32_t) override;
+    virtual void VMethod23(Unit*, uint32_t, int32_t, int32_t) override;
+    virtual void VMethod24(Unit*, uint32_t, int32_t, int32_t) override;
+    virtual int32_t VMethod25() override;
+
+public:
+    Humanoid();
+    Humanoid(const TokenPos*);
+
+    Humanoid(void****); // extra to enforce compiler create vftable in C++
+
+public:
+    Item* equipment[13];
+    uint32_t main_sphere;
+    uint32_t experience_per_sphere[5];
+};
+
+ASSERT_OFFSET(Humanoid, main_sphere, 0x23C);
+ASSERT_SIZE(Humanoid, 0x254);
+
+
+class Human: public Humanoid {
 public:
     enum EquipmentSlot {
         // 0, 1, 2 and 3 are unused.
@@ -199,9 +251,15 @@ public:
     };
 
 public:
-    Item* equipment[13];
-    uint32_t main_sphere;
-    uint32_t experience_per_sphere[5];
+    virtual CRuntimeClass* GetRuntimeClass() const override;
+    virtual ~Human() override;
+    virtual void Serialize(CArchive& ar) override;
+
+    virtual void VMethod20() override;
+
+public:
+    Human();
+
 };
 
 ASSERT_OFFSET(Human, main_sphere, 0x23C);

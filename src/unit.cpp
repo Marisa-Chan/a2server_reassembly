@@ -53,6 +53,9 @@ void EquipmentExtra::AddToUnit(Unit *unit)
 }
 
 
+
+
+/***************   Unit   *******************/
 Unit::Unit()
 {
     //528aef
@@ -119,3 +122,23 @@ CArchive& AFXAPI operator>>(CArchive& ar, Unit* &pOb) //528ad3
 //528ab5
 static const AFX_CLASSINIT _init_Unit((CRuntimeClass*)&Unit::classUnit);
 */
+
+
+
+
+
+
+
+/***************   Humanoid   *******************/
+
+IMPLEMENT_SERIAL(Humanoid, Unit, 1);
+/*
+* Humanoid::classHumanoid   636400
+* CreateObject     52fee4
+* GetRuntimeClass  52ff54
+* _init_Humanoid   52ff64
+* operator>>       52ff82
+*/
+
+
+Humanoid::Humanoid(void****) {}; // extra to enforce compiler create vftable in C++
