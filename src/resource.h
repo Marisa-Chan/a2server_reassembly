@@ -1,5 +1,5 @@
-#ifndef RES_FILE_H
-#define RES_FILE_H
+#ifndef RESOURCE_H
+#define RESOURCE_H
 
 #include <cstdint>
 

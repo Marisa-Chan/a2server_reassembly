@@ -49,7 +49,6 @@ struct SrvStru1
 struct A2Srv_1
 struct A2Server
 struct ScriptSettings
-struct ??File
 struct BigStruct3
 struct RetFile
 struct UnitAttack

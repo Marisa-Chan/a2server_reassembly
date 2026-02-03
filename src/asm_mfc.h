@@ -779,6 +779,39 @@ _AFX_INLINE BOOL CArchive::IsStoring() const
 
 
 
+class CFile : public CObject {
+public: // VTable at 006101ac.
+    // virtual CRuntimeClass* GetRuntimeClass() const override;
+    // virtual ~CFile() override;
+    // virtual void Serialize(CArchive& ar) override;
+    // virtual void AssertValid() const override;
+    // virtual void Dump(CDumpContext& dc) const override;
+    // virtual uint32_t GetPosition() override;
+    // virtual const char* GetFileName(const char* buffer) override;
+    // virtual const char* GetFileTitle(const char* buffer) override;
+    // virtual const char* GetFilePath(const char* buffer) override;
+    // virtual void SetFilePath(const char* path) override;
+    // virtual BOOL Open(const char* lpszFileName, uint32_t nOpenFlags, CFileException* pError = nullptr) override;
+    // virtual CFile* Duplicate() override;
+    // virtual uint32_t Seek(int32_t lOff, uint32_t nFrom) override;
+    // virtual void SetLength(uint32_t dwNewLen) override;
+	// virtual uint32_t GetLength() override;
+	// virtual UINT Read(void* lpBuf, UINT nCount) override;
+	// virtual UINT Write(const void* lpBuf, UINT nCount) override;
+	// virtual void LockRange(uint32_t dwPos, uint32_t dwCount) override;
+	// virtual void UnlockRange(uint32_t dwPos, uint32_t dwCount) override;
+	// virtual void Abort() override;
+	// virtual void Flush() override;
+	// virtual void Close() override;
+	// virtual BYTE* GetBufferPtr(UINT nMin, UINT nMax) override;
+
+public:
+	HANDLE m_hFile;
+	BOOL m_bCloseOnDelete;
+	const char* m_strFileName;
+};
+
+
 
 
 

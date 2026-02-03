@@ -187,6 +187,7 @@
     <ClCompile Include="cmain.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="eye.cpp" />
+    <ClCompile Include="file.cpp" />
     <ClCompile Include="group.cpp" />
     <ClCompile Include="inn.cpp" />
     <ClCompile Include="inventory.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="assert_offset.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="eye.h" />
+    <ClInclude Include="file.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />
