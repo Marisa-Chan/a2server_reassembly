@@ -22,6 +22,7 @@ add_executable(a2serv_vsc
   quest_map.cpp
   shelf.cpp
   shop.cpp
+  shop_assortment.cpp
   spell.cpp
   strcore.cpp
   strex.cpp

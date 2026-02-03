@@ -54,6 +54,4 @@ struct ScriptSettings
 struct ??File
 struct BigStruct3
 struct RetFile
-struct ShopAssortiment
 struct UnitAttack
-struct ShopStr1

@@ -201,6 +201,7 @@
     <ClCompile Include="quest_map.cpp" />
     <ClCompile Include="shelf.cpp" />
     <ClCompile Include="shop.cpp" />
+    <ClCompile Include="shop_assortment.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="strcore.cpp" />
     <ClCompile Include="strex.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="quest_map.h" />
     <ClInclude Include="shelf.h" />
     <ClInclude Include="shop.h" />
+    <ClInclude Include="shop_assortment.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
