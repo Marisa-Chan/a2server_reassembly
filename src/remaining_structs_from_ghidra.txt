@@ -1,12 +1,8 @@
-struct TriggerAction
-struct Check
-struct Trigger
 struct MapStru1
 struct Perf
 struct astruct_5
 struct A2World
 struct DataReg
-struct TriggerCheck
 struct CMainWindow  // PlaceHolder Class Structure
 struct CGameObject
 struct CGameObject2
@@ -47,7 +43,6 @@ struct ShopAssr1
 struct SrvStru1
 struct A2Srv_1
 struct A2Server
-struct ScriptSettings
 struct BigStruct3
 struct RetFile
 struct UnitAttack

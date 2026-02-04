@@ -192,6 +192,7 @@
     <ClCompile Include="inn.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="logic.cpp" />
     <ClCompile Include="outpost.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="inn.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="logic.h" />
     <ClInclude Include="outpost.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_file.h" />

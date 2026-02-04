@@ -15,6 +15,7 @@ add_executable(a2serv_vsc
   inn.cpp
   inventory.cpp
   item.cpp
+  logic.cpp
   outpost.cpp
   player.cpp
   player_file.cpp
