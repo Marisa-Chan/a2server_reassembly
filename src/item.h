@@ -11,31 +11,34 @@
 #include "unit_to_hit.h"
 
 class Spell;
+class Unit;
 
 class Item : public Token {
 public:
+    DECLARE_SERIAL(Item);
+public:
     // GetRuntimeClass
-    // Item::~Item
-    // Item::Serialize
+    virtual ~Item();
+    virtual void Serialize(CArchive& ar) override;
     // CObject::AssertValid(void)
     // CObject::Dump(CDumpContext_&)
-    // Item::VMethod1
-    // Item::VMethod2
+    virtual void VMethod1() override;
+    virtual void VMethod2() override;
     // Token::VMethod3
     // Token::VMethod4
     // Token::VMethod5
-    // Item::VMethod6
+    virtual int32_t VMethod6() override;
     // Token::VMethod7
     // Token::VMethod8
     // Token::VMethod9
-    // Item::VMethod10
-    // Item::VMethod11
-    // Item::TakeOne
-    // Item::VMethod13
-    // Item::VMethod14
-    // Item::VMethod15
-    // Item::VMethod16
-    // Item::VMethod17
+    virtual Item* VMethod10(Unit*);
+    virtual void VMethod11(Unit*);
+    virtual Item* TakeOne();
+    virtual Item* VMethod13();
+    virtual int32_t VMethod14();
+    virtual int32_t VMethod15();
+    virtual int32_t VMethod16();
+    virtual void VMethod17(void*, void*);
 
 public:
     WorldEquip* world_equip;

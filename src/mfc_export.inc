@@ -172,41 +172,24 @@ extern _BldIdSet_AllocBit:proc
 
 
 ;Unit
-extern ?classUnit@Unit@@2UCRuntimeClass@@A:dword ; Unit::classUnit
-
-extern ?GetRuntimeClass@Unit@@UBEPAUCRuntimeClass@@XZ:proc   ; (public: virtual struct CRuntimeClass * __thiscall Unit::GetRuntimeClass(void)const )
-externdef ??1Unit@@UAE@XZ:proc   ; (public: virtual __thiscall Unit::~Unit(void))
+extern ??1Unit@@UAE@XZ:proc   ; (public: virtual __thiscall Unit::~Unit(void))
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
 externdef ?VMethod1@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod1(void))
 externdef ?VMethod2@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod2(void))
-externdef ?VMethod3@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod3(void))
-externdef ?VMethod4@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod4(void))
+extern ?VMethod3@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod3(void))
+extern ?VMethod4@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod4(void))
 externdef ?VMethod5@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod5(void))
-externdef ?VMethod7@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod7(void))
-externdef ?VMethod8@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod8(void))
+
 externdef ?VMethod10@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod10(void))
 externdef ?VMethod11@Unit@@UAEXPAV1@@Z:proc   ; (public: virtual void __thiscall Unit::VMethod11(class Unit *))
-externdef ?VMethod12@Unit@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Unit::VMethod12(struct Item *))
-externdef ?VMethod13@Unit@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Unit::VMethod13(struct Item *))
-externdef ?Unequip@Unit@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Unit::Unequip(struct Item *))
-externdef ?VMethod15@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod15(void))
-externdef ?VMethod16@Unit@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Unit::VMethod16(struct Item *))
+
 externdef ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z:proc   ; (public: virtual unsigned int __thiscall Unit::VMethod17(struct UnitToHit *,class Unit *))
-externdef ?VMethod18@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod18(void))
-externdef ?VMethod19@Unit@@UAEIXZ:proc   ; (public: virtual unsigned int __thiscall Unit::VMethod19(void))
-externdef ?VMethod20@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod20(void))
-externdef ?VMethod21@Unit@@UAEXIPAV1@H@Z:proc   ; (public: virtual void __thiscall Unit::VMethod21(unsigned int,class Unit *,int))
-externdef ?VMethod22@Unit@@UAEXPAV1@H@Z:proc   ; (public: virtual void __thiscall Unit::VMethod22(class Unit *,int))
-externdef ?VMethod23@Unit@@UAEXPAV1@IHH@Z:proc   ; (public: virtual void __thiscall Unit::VMethod23(class Unit *,unsigned int,int,int))
-externdef ?VMethod24@Unit@@UAEXPAV1@IHH@Z:proc   ; (public: virtual void __thiscall Unit::VMethod24(class Unit *,unsigned int,int,int))
+
 externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
-extern ??_7Unit@@6B@:dword    ; Unit::`vftable`     60EFC0
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
-extern ??0Unit@@QAE@ABVCString@@PBUTokenPos@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &,struct TokenPos const *))
 extern ??0Unit@@QAE@PBUTokenPos@@@Z:proc   ; (public: __thiscall Unit::Unit(struct TokenPos const *))
-extern ??0Unit@@QAE@PBUTokenPos@@PAVPlayer@@@Z:proc   ; (public: __thiscall Unit::Unit(struct TokenPos const *,class Player *)
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
 
 externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
@@ -226,9 +209,9 @@ externdef ?VMethod5@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall H
 externdef ?VMethod7@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod7(void))
 externdef ?VMethod8@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod8(void))
 externdef ?VMethod10@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod10(void))
-externdef ?VMethod12@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod12(class Item *))
+externdef ?VMethod12@Humanoid@@UAEPAVItem@@PAV2@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod12(class Item *))
 externdef ?VMethod13@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod13(class Item *))
-externdef ?Unequip@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::Unequip(class Item *))
+externdef ?Unequip@Humanoid@@UAEPAVItem@@PAV2@@Z:proc   ; (public: virtual void __thiscall Humanoid::Unequip(class Item *))
 externdef ?VMethod15@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod15(void))
 externdef ?VMethod16@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod16(class Item *))
 externdef ?VMethod18@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod18(void))
@@ -267,3 +250,8 @@ extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::Eq
 extern ??4EquipmentExtra@@QAEAAU0@ABU0@@Z:proc   ; (public: struct EquipmentExtra & __thiscall EquipmentExtra::operator=(struct EquipmentExtra const &))
 extern ?Serialize@EquipmentExtra@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall EquipmentExtra::Serialize(class CArchive &))
 extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thiscall EquipmentExtra::AddToUnit(class Unit *))
+
+
+;inventory
+extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
+externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))

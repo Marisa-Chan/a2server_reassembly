@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "unit.h"
+#include "item.h"
+#include "player.h"
+#include "inventory.h"
+#include "table.h"
 
 //52e9e3
 EquipmentExtra::EquipmentExtra() = default;
@@ -104,6 +108,101 @@ Unit::Unit(const TokenPos *pos, Player *player)
     spell = nullptr;
 }
 
+Unit::~Unit()
+{
+    Unit::VMethod10();
+}
+
+
+int32_t Unit::VMethod3()
+{
+    return token_size;
+}
+
+int32_t Unit::VMethod4()
+{
+    return movement_type;
+}
+
+int32_t Unit::VMethod7()
+{
+    return 1;
+}
+
+int32_t Unit::VMethod8()
+{
+    return 0;
+}
+
+Item *Unit::VMethod12(Item *item)
+{
+    Item *itm = item->VMethod10(this);
+    VMethod19();
+    return itm;
+}
+
+void Unit::VMethod13(Item *item)
+{
+    Item* itm = item->VMethod10(this);
+    if (itm)
+    {
+        inventory->PutItemIntoBagAtDefault(itm);
+        VMethod19();
+    }
+}
+
+Item* Unit::Unequip(Item* item)
+{
+    if (item)
+    {
+        item->VMethod11(this);
+        VMethod19();
+    }
+    return item;
+}
+
+void Unit::VMethod15()
+{}
+
+void Unit::VMethod16(Item*)
+{}
+
+void Unit::VMethod18()
+{
+    if (!pOwner)
+        mp2 = mp_max;
+    else
+        mp2 = (pOwner->field_0xa5c * mp_max) / 100;
+}
+
+uint32_t Unit::VMethod19()
+{
+    return exp;
+}
+
+void Unit::VMethod20()
+{}
+
+void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
+{
+    experience += newExp;
+    if (target && target->hp < 0)
+        pOwner->monster_kills += 1;
+}
+
+void Unit::VMethod22(Unit*, int32_t)
+{}
+
+void Unit::VMethod23(Unit*, uint32_t, int32_t, int32_t)
+{}
+
+void Unit::VMethod24(Unit*, uint32_t, int32_t, int32_t)
+{}
+/*
+int32_t Unit::VMethod25()
+{
+    return monster_info->values
+}*/
 
 
 

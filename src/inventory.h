@@ -11,6 +11,9 @@
 
 struct Inventory {
 public:
+    void PutItemIntoBagAtDefault(Item *item);
+    void PutItemIntoBag(int32_t pos, Item *item); // in asm
+public:
     CList<Item*> items;
     int32_t default_position;
     uint32_t total_weight;
