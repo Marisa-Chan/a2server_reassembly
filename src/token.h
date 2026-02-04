@@ -99,7 +99,7 @@ public:
 	int16_t field_x18;
 	int8_t field_x1a;
 	int8_t field_x1b;
-	int32_t exp;
+	int32_t _exp;
 	CList<Effect*> _effects;
 
 public:

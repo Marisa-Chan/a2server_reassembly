@@ -223,12 +223,12 @@ public:
     Humanoid();
     Humanoid(const TokenPos*);
 
-    Humanoid(void****); // extra to enforce compiler create vftable in C++
+    void InitStats();
 
 public:
-    Item* equipment[13];
+    std::array<Item*, 13> equipment;
     uint32_t main_sphere;
-    uint32_t experience_per_sphere[5];
+    std::array <uint32_t, 5> experience_per_sphere;
 };
 
 ASSERT_OFFSET(Humanoid, main_sphere, 0x23C);

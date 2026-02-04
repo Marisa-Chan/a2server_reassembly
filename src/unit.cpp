@@ -177,7 +177,7 @@ void Unit::VMethod18()
 
 uint32_t Unit::VMethod19()
 {
-    return exp;
+    return _exp;
 }
 
 void Unit::VMethod20()
@@ -240,4 +240,111 @@ IMPLEMENT_SERIAL(Humanoid, Unit, 1);
 */
 
 
-Humanoid::Humanoid(void****) {}; // extra to enforce compiler create vftable in C++
+Humanoid::Humanoid()
+{
+    //52ff9e
+    InitStats();
+}
+
+Humanoid::Humanoid(const TokenPos *tpos)
+ :Unit(tpos)
+{
+    //52fff2
+    InitStats();
+}
+
+Humanoid::~Humanoid()
+{
+    //53015b
+    Humanoid::VMethod10();
+}
+
+void Humanoid::VMethod5()
+{
+    //55ab26
+    Unit::VMethod5();
+}
+
+int32_t Humanoid::VMethod7()
+{
+    //57bb50
+    return 1;
+}
+
+int32_t Humanoid::VMethod8()
+{
+    //57bb60
+    return 1;
+}
+
+void Humanoid::VMethod10()
+{
+    //5301ac
+    Unit::VMethod10();
+    for (int i = 1; i < equipment.size(); i++)
+    {
+        Item*& rEq = equipment[i];
+        if (rEq)
+        {
+            delete rEq;
+            rEq = nullptr;
+        }
+    }
+}
+
+
+
+void Humanoid::VMethod13(Item *item)
+{
+    //5304b2
+    Item *itm = VMethod12(item);
+    if (itm)
+        inventory->PutItemIntoBagAtDefault(itm);
+}
+
+Item *Humanoid::Unequip(Item* item)
+{
+    //5304e8
+    if (item)
+        item->VMethod11(this);
+    return item;
+}
+
+
+void Humanoid::VMethod15()
+{
+    //530511
+    for (int i = 1; i < equipment.size(); i++)
+    {
+        Item *itm = equipment[i];
+        Unequip(itm);
+        inventory->PutItemIntoBagAtDefault(itm);
+    }
+}
+
+/*void Humanoid::VMethod16(Item* item)
+{
+    //53111b
+    
+}*/
+
+
+
+uint32_t Humanoid::VMethod19()
+{
+    //537199
+    uint32_t exps = 0;
+    for (uint32_t ex : experience_per_sphere)
+        exps += ex;
+
+    _exp = (exps * 0.01);
+    return _exp;
+}
+
+/*
+int32_t Humanoid::VMethod25()
+{
+    //530394
+    if ()
+}
+*/

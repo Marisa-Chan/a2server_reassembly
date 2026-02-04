@@ -140,7 +140,7 @@ Token::Token()
 	pOwner = nullptr;
 	position = new TokenPos(0, astruct_5_Instance);
 	field_x18 = 0;
-	exp = 0;
+	_exp = 0;
 	building_id = 0;
 }
 
@@ -152,7 +152,7 @@ Token::Token(const Token& b)
 	pOwner = b.pOwner;
 	TokenID = b.TokenID;
 	field_x18 = b.field_x18;
-	exp = b.exp;
+	_exp = b._exp;
 	//building_id = b.building_id;  // No copy in vanilla?
 	if (b.position == nullptr)
 		position = nullptr;
@@ -168,7 +168,7 @@ Token::Token(const TokenPos* tpos)
 	pOwner = nullptr;
 	position = new TokenPos(*tpos);
 	field_x18 = 0;
-	exp = 0;
+	_exp = 0;
 	building_id = 0;
 }
 
@@ -178,7 +178,7 @@ Token::Token(const TokenPos* tpos, Player* pl)
 	pOwner = pl;
 	position = new TokenPos(*tpos);
 	field_x18 = 0;
-	exp = 0;
+	_exp = 0;
 	building_id = 0;
 }
 
