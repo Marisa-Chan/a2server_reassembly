@@ -188,6 +188,20 @@ public:
     DECLARE_SERIAL(Humanoid);
 
 public:
+    enum EquipmentSlot {
+        // 0, 1, 2 and 3 are unused.
+        SLOT_RING = 4,
+        SLOT_AMULET = 5,
+        SLOT_HELM = 6, // Or mage's hat.
+        SLOT_MAIL = 7, // Or mage's dress.
+        SLOT_CUIRASS = 8, // Or mage's cape.
+        SLOT_BRACERS = 9, // Unused for mage.
+        SLOT_GAUNTLETS = 10, // Or mage's gloves.
+        // 11 is unused.
+        SLOT_BOOTS = 12, // Or mage's shoes.
+    };
+
+public:
     //virtual CRuntimeClass* GetRuntimeClass() const override;  // declared by DECLARE_SERIAL
     virtual ~Humanoid() override;
     virtual void Serialize(CArchive& ar) override;
@@ -237,21 +251,10 @@ ASSERT_SIZE(Humanoid, 0x254);
 
 class Human: public Humanoid {
 public:
-    enum EquipmentSlot {
-        // 0, 1, 2 and 3 are unused.
-        SLOT_RING = 4,
-        SLOT_AMULET = 5,
-        SLOT_HELM = 6, // Or mage's hat.
-        SLOT_MAIL = 7, // Or mage's dress.
-        SLOT_CUIRASS = 8, // Or mage's cape.
-        SLOT_BRACERS = 9, // Unused for mage.
-        SLOT_GAUNTLETS = 10, // Or mage's gloves.
-        // 11 is unused.
-        SLOT_BOOTS = 12, // Or mage's shoes.
-    };
+    DECLARE_SERIAL(Human);
 
 public:
-    virtual CRuntimeClass* GetRuntimeClass() const override;
+    //virtual CRuntimeClass* GetRuntimeClass() const override;
     virtual ~Human() override;
     virtual void Serialize(CArchive& ar) override;
 
@@ -259,10 +262,11 @@ public:
 
 public:
     Human();
+    Human(const CString& hname, int32_t t, const char* unk);
 
+    void FUN_00532587(CString hname, int32_t t, const char* unk);
 };
 
-ASSERT_OFFSET(Human, main_sphere, 0x23C);
 ASSERT_SIZE(Human, 0x254);
 
 

@@ -348,3 +348,32 @@ int32_t Humanoid::VMethod25()
     if ()
 }
 */
+
+
+
+
+/***************   Human   *******************/
+
+IMPLEMENT_SERIAL(Human, Humanoid, 1);
+/*
+* Human::classHuman   636418
+* CreateObject     532273
+* GetRuntimeClass  5322e3
+* _init_Human      5322f3
+* operator>>       532311
+*/
+
+Human::Human()
+{
+    //53232d
+    FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
+}
+
+Human::Human(const CString& hname, int32_t t, const char* unk)
+{
+    //53239a
+    FUN_00532587(hname, t, unk);
+}
+
+Human::~Human()
+{}
