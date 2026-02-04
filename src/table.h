@@ -37,11 +37,19 @@ struct MatShapeData {
 };
 ASSERT_SIZE(MatShapeData, 0x48);
 
-class MagicItem : public TableLine<int32_t> {
+struct EquipData;
+
+class WorldEquip: public TableLine<EquipData> {
 public:
-    uint8_t field_0x1c;
-    uint8_t gap_0x1d[15];
+    uint16_t shape_material_matrix[7];
+    uint8_t gap_0x2a[2];
     CStringArray string_array;
+};
+ASSERT_OFFSET(WorldEquip, shape_material_matrix, 0x1c);
+ASSERT_SIZE(WorldEquip, 0x40);
+
+class MagicItem : public WorldEquip { // Inherits from `WorldEquip` at 005727e1.
+public:
     CString effect;
 };
 ASSERT_SIZE(MagicItem, 0x44);
@@ -88,15 +96,6 @@ struct EquipData {
     int32_t shapes_allowed;
 };
 ASSERT_SIZE(EquipData, 0x44);
-
-class WorldEquip: public TableLine<EquipData> {
-public:
-    uint16_t shape_material_matrix[7];
-    uint8_t gap_0x2a[2];
-    CStringArray string_array;
-};
-ASSERT_OFFSET(WorldEquip, shape_material_matrix, 0x1c);
-ASSERT_SIZE(WorldEquip, 0x40);
 
 
 struct MagicInfoData {
@@ -272,5 +271,24 @@ public:
     const char* effect;
 };
 ASSERT_SIZE(SpellInfo, 0x20);
+
+
+struct GameDataRes {
+    struct CArray<MatShape> materials;
+    struct CArray<MatShape> shapes;
+    struct CArray<WorldEquip> shields;
+    struct CArray<WorldEquip> armors;
+    struct CArray<WorldEquip> weapons;
+    struct CArray<MagicItem> magic_items;
+    struct CArray<MagicInfo> magics;
+    struct CArray<MonsterInfo> monsters;
+    struct CArray<HumanInfo> humans;
+    struct CArray<HumanInfo> field9_0xb4;
+    struct CArray<BuildingInfo> buildings;
+    struct CArray<SpellInfo> spells;
+    int loaded;
+};
+ASSERT_OFFSET(GameDataRes, humans, 0xa0);
+ASSERT_SIZE(GameDataRes, 0xf4);
 
 #endif

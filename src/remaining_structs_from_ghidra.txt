@@ -42,7 +42,6 @@ struct NetStru1
 struct MagicItemData
 struct GfxObject
 struct AreaEffect
-struct GameDataRes
 struct MapStru2
 struct ShopAssr1
 struct SrvStru1
