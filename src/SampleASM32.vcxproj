@@ -202,6 +202,7 @@
     <ClCompile Include="quest_glue.cpp" />
     <ClCompile Include="quest_map.cpp" />
     <ClCompile Include="resource.cpp" />
+    <ClCompile Include="sack.cpp" />
     <ClCompile Include="shelf.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="shop_assortment.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="quest_glue.h" />
     <ClInclude Include="quest_map.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="sack.h" />
     <ClInclude Include="shelf.h" />
     <ClInclude Include="shop.h" />
     <ClInclude Include="shop_assortment.h" />

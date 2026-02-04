@@ -2,7 +2,6 @@ struct MapStru1
 struct Perf
 struct astruct_5
 struct A2World
-struct DataReg
 struct CMainWindow  // PlaceHolder Class Structure
 struct CGameObject
 struct CGameObject2
@@ -20,7 +19,6 @@ struct astruct_4
 struct astruct_6
 struct astruct_8
 struct astruct_11
-struct Sack
 struct CGameObject3
 struct Effect_DirectDamage
 struct SpellEffect
