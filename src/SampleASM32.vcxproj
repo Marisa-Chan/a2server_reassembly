@@ -198,6 +198,7 @@
     <ClCompile Include="perf.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />
+    <ClCompile Include="players_list.cpp" />
     <ClCompile Include="plex.cpp" />
     <ClCompile Include="protections.cpp" />
     <ClCompile Include="quest.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="outpost.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_file.h" />
+    <ClInclude Include="players_list.h" />
     <ClInclude Include="perf.h" />
     <ClInclude Include="protections.h" />
     <ClInclude Include="quest.h" />

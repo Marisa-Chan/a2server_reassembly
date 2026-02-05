@@ -21,6 +21,7 @@ add_executable(a2serv_vsc
   perf.cpp
   player.cpp
   player_file.cpp
+  players_list.cpp
   plex.cpp
   protections.cpp
   quest.cpp
