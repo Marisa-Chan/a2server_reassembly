@@ -16,8 +16,6 @@ struct astruct_6
 struct astruct_8
 struct astruct_11
 struct CGameObject3
-struct SpellEffect
-struct PointEffect
 struct VirtualCaster
 struct SockStartNM
 struct NetStru3
@@ -29,7 +27,6 @@ struct CLlDriver
 struct NetStru1
 struct MagicItemData
 struct GfxObject
-struct AreaEffect
 struct MapStru2
 struct ShopAssr1
 struct BigStruct3

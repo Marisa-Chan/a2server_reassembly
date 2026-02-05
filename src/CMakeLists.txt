@@ -33,6 +33,7 @@ add_executable(a2serv_vsc
   shop.cpp
   shop_assortment.cpp
   spell.cpp
+  spell_effect.cpp
   strcore.cpp
   strex.cpp
   table.cpp

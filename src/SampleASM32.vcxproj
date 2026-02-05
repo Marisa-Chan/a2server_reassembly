@@ -210,6 +210,7 @@
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="shop_assortment.cpp" />
     <ClCompile Include="spell.cpp" />
+    <ClCompile Include="spell_effect.cpp" />
     <ClCompile Include="strcore.cpp" />
     <ClCompile Include="strex.cpp" />
     <ClCompile Include="table.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="shop.h" />
     <ClInclude Include="shop_assortment.h" />
     <ClInclude Include="spell.h" />
+    <ClInclude Include="spell_effect.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
