@@ -40,6 +40,7 @@ add_executable(a2serv_vsc
   unit.cpp
   unit_list.cpp
   unit_to_hit.cpp
+  world.cpp
   Main.asm
   a2_ucrt.asm
   vtbl_ret.asm

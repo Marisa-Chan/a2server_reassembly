@@ -1,6 +1,5 @@
 struct MapStru1
 struct astruct_5
-struct A2World
 struct CMainWindow  // PlaceHolder Class Structure
 struct CGameObject
 struct CGameObject2

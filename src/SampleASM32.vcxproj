@@ -217,6 +217,7 @@
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="unit_to_hit.cpp" />
     <ClCompile Include="unit_list.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alm.h" />
@@ -253,6 +254,7 @@
     <ClInclude Include="unit.h" />
     <ClInclude Include="unit_to_hit.h" />
     <ClInclude Include="unit_list.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
