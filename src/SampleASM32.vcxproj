@@ -194,6 +194,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="logic.cpp" />
     <ClCompile Include="outpost.cpp" />
+    <ClCompile Include="perf.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />
     <ClCompile Include="plex.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="outpost.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_file.h" />
+    <ClInclude Include="perf.h" />
     <ClInclude Include="protections.h" />
     <ClInclude Include="quest.h" />
     <ClInclude Include="quest_glue.h" />

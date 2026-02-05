@@ -17,6 +17,7 @@ add_executable(a2serv_vsc
   item.cpp
   logic.cpp
   outpost.cpp
+  perf.cpp
   player.cpp
   player_file.cpp
   plex.cpp
