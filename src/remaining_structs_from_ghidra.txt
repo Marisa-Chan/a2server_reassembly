@@ -25,7 +25,6 @@ struct SpellEffect
 struct PointEffect
 struct VirtualCaster
 struct SockStartNM
-struct SrvStru1Lst
 struct NetStru3
 struct ConnSockNm
 struct ConnNames
@@ -38,9 +37,6 @@ struct GfxObject
 struct AreaEffect
 struct MapStru2
 struct ShopAssr1
-struct SrvStru1
-struct A2Srv_1
-struct A2Server
 struct BigStruct3
 struct RetFile
 struct UnitAttack

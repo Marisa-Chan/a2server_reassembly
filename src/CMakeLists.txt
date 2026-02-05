@@ -26,6 +26,7 @@ add_executable(a2serv_vsc
   quest_map.cpp
   resource.cpp
   sack.cpp
+  server.cpp
   shelf.cpp
   shop.cpp
   shop_assortment.cpp
