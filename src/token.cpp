@@ -1,7 +1,7 @@
 #include "token.h"
 
 //6b16a8
-astruct_5* astruct_5_Instance = nullptr;
+MapStuff* MapStuff_Instance = nullptr;
 
 //70a7e0
 BitSet<0x6000> g_buildingIdSet;
@@ -17,7 +17,7 @@ extern "C"
 
 
 
-TokenPos::TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst)
+TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 {
 	//58a4b1 ?
 	//58a4f9
@@ -35,7 +35,7 @@ TokenPos::TokenPos()
 	TokenPos(0, 0, nullptr); 
 }
 
-TokenPos::TokenPos(uint16_t _YX, astruct_5* _inst) 
+TokenPos::TokenPos(uint16_t _YX, MapStuff* _inst) 
 {
 	//58a562
 	//58a583
@@ -138,7 +138,7 @@ Token::Token()
 {
 	// 5280ad
 	pOwner = nullptr;
-	position = new TokenPos(0, astruct_5_Instance);
+	position = new TokenPos(0, MapStuff_Instance);
 	field_x18 = 0;
 	_exp = 0;
 	building_id = 0;

@@ -18,15 +18,15 @@ class TokenPos;
 
 __pragma(pack(push, 1))
 
-struct astruct_5;
-extern astruct_5 *astruct_5_Instance;
+struct MapStuff;
+extern MapStuff *MapStuff_Instance;
 
 struct TokenPos
 {
-	TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst);
+	TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);
 
 	TokenPos();
-	TokenPos(uint16_t _YX, astruct_5* _inst);
+	TokenPos(uint16_t _YX, MapStuff* _inst);
 	TokenPos(const TokenPos&);
 	TokenPos(TokenPos&&);
 
@@ -39,7 +39,7 @@ struct TokenPos
 	uint8_t y_subcell;
 	uint8_t field_x6;
 	uint8_t field_x7;
-	astruct_5* pInstance;
+	MapStuff* pInstance;
 
 	void FUN_00594200(); // in asm
 	bool FUN_0058a7e8(uint8_t x, uint8_t y); //in asm

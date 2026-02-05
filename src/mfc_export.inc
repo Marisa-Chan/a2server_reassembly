@@ -115,7 +115,7 @@ extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
 
 
 ;TokenPos 
-extern ??0TokenPos@@QAE@EEPAUastruct_5@@@Z:proc  ;  TokenPos::TokenPos(uint8_t _x, uint8_t _y, astruct_5* _inst)
+extern ??0TokenPos@@QAE@EEPAUMapStuff@@@Z:proc  ;  TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 extern ??0TokenPos@@QAE@XZ:proc  ; TokenPos::TokenPos()
 extern ??0TokenPos@@QAE@ABU0@@Z:proc  ; TokenPos::TokenPos(struct TokenPos const &)
 extern ??4TokenPos@@QAEAAU0@ABU0@@Z:proc   ; TokenPos::operator=(struct TokenPos const &)
@@ -136,7 +136,7 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
 
-extern ?astruct_5_Instance@@3PAUastruct_5@@A:dword   ;  astruct_5_Instance
+extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
 ;Token
 ;extern ??_7Token@@6B@:dword ; Token::`vftable`

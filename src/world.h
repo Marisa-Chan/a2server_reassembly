@@ -9,7 +9,7 @@
 #include "unit_list.h"
 
 
-struct astruct_5;
+struct MapStuff;
 class PlayersList;
 struct ResFile;
 class Spell;
@@ -44,7 +44,7 @@ struct World {
     uint8_t field21_0xa49;
     uint8_t gap_0xa4a[2];
     int32_t counter;
-    astruct_5 *field24_0xa50;
+    MapStuff *field24_0xa50;
     uint8_t gap_0xa54[16];
     UnitList field26_0xa64;
     UnitList field27_0xa84;
