@@ -594,8 +594,6 @@ LPSTR AFXAPI AfxW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 #define CHAR_FUDGE 2    // two BYTES unused for case of DBC last char
 #endif
 
-int AFXAPI AfxLoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf);
-
 BOOL CString::LoadString(UINT nID)
 {
 	// try fixed buffer first (to avoid wasting space in the heap)
@@ -618,3 +616,12 @@ BOOL CString::LoadString(UINT nID)
 
 	return nLen > 0;
 }
+
+
+
+
+
+
+
+
+

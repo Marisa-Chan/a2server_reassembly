@@ -26,17 +26,36 @@ public ?WriteCount@CArchive@@QAEXK@Z  ; CArchive::WriteCount 005E6BF2
 public ?ReadCount@CArchive@@QAEKXZ   ; CArchive::ReadCount 005E6C20
 public ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z     ;  CArchive::ReadObject  005e848c
 public ?WriteObject@CArchive@@QAEXPBVCObject@@@Z    ; CArchive::WriteObject   5e840f
+public ?Flush@CArchive@@QAEXXZ 
+public ?FillBuffer@CArchive@@QAEXI@Z
 
+public ??5@YGAAVCArchive@@AAV0@AAVCString@@@Z
+public ??6@YGAAVCArchive@@AAV0@ABVCString@@@Z
 
 
 public ?AfxGetModuleThreadState@@YGPAVAFX_MODULE_THREAD_STATE@@XZ  ; AfxGetModuleThreadState(); 005F4DB8 
 public ??0AFX_CLASSINIT@@QAE@PAUCRuntimeClass@@@Z  ; AFX_CLASSINIT::AFX_CLASSINIT(CRuntimeClass *)
 public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
 public ?AfxTryCleanup@@YGXXZ ; AfxTryCleanup
+public ?AfxGetModuleState@@YGPAVAFX_MODULE_STATE@@XZ
+public ?AfxGetThread@@YGPAVCWinThread@@XZ
+
+extern ?AfxLoadString@@YGHIPADI@Z:proc   ; AfxLoadString
+
+public ?AfxGetFileName@@YGIPBDPADI@Z
+public ?AfxGetFileTitle@@YGIPBDPADI@Z
+
+
+public ?classCException@CException@@2UCRuntimeClass@@B
+public ??0CException@@QAE@XZ     ;CException()
+public ??0CException@@QAE@H@Z    ;CException(BOOL)
+public ??1CException@@UAE@XZ     ;~CException
+public ?ReportError@CException@@UAEHII@Z   ; ReportError
+
+
 
 
 ;CString
-public ?AfxLoadString@@YGHIPADI@Z   ; AfxLoadString
 public ?AfxThrowMemoryException@@YGXXZ    ; AfxThrowMemoryException
 extern ?AfxGetEmptyString@@YGABVCString@@XZ:proc   ;AfxGetEmptyString in strcore.cpp
 extern ??0CString@@QAE@XZ:proc ; CString::CString
