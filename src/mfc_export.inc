@@ -25,6 +25,7 @@ public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918
 public ?WriteCount@CArchive@@QAEXK@Z  ; CArchive::WriteCount 005E6BF2
 public ?ReadCount@CArchive@@QAEKXZ   ; CArchive::ReadCount 005E6C20
 public ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z     ;  CArchive::ReadObject  005e848c
+public ?WriteObject@CArchive@@QAEXPBVCObject@@@Z    ; CArchive::WriteObject   5e840f
 
 
 
@@ -217,6 +218,13 @@ externdef ?Serialize@Human@@UAEXAAVCArchive@@@Z:proc    ; Human::Serialize
 externdef ?VMethod20@Human@@UAEXXZ:proc    ; Human::Serialize
 externdef ?FUN_00532587@Human@@QAEXVCString@@HPBD@Z:proc   ;  Human::FUN_00532587(class CString,int,char const *)
 
+
+;UnitList
+extern ??0UnitList@@QAE@XZ:proc                         ; UnitList::UnitList
+extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList
+extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
+extern ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z:proc   ; UnitList::AddTailAllocId
+extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xxx
 
 
 

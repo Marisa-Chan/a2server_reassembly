@@ -9,9 +9,16 @@ class Unit;
 
 class UnitList {
 public:
-    void* vtable_placeholder;
-    // virtual void Serialize(CArchive* archive);
-    // virtual ~UnitList();
+    virtual void Serialize(CArchive& ar);
+    virtual void CallMethod5();
+
+    UnitList();
+    ~UnitList();
+
+
+    void AddTail(Unit* unit);
+    void AddTailAllocId(Unit* unit);
+    void AddTailId6xxx(Unit* unit);
 
 public:
     CList<Unit*> unit_list;
