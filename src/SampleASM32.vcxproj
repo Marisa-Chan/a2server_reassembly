@@ -226,6 +226,7 @@
     <ClInclude Include="alm.h" />
     <ClInclude Include="asm_mfc.h" />
     <ClInclude Include="assert_offset.h" />
+    <ClInclude Include="bitset.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="eye.h" />
     <ClInclude Include="file.h" />
