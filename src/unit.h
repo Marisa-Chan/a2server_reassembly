@@ -132,9 +132,9 @@ public:
     uint16_t mind;
     uint16_t spirit;
     uint16_t speed;
-    uint16_t extra_carrying_weight;
-    uint16_t carrying_weight_100g; // How much stuff the character is carrying. In 100g increments.
-    uint16_t carrying_body_100g; // Used to calculate how much the character's speed drops when carrying things. In vanilla, set to (body*10 + 1).
+    int16_t extra_carrying_weight;
+    int16_t carrying_weight_100g; // How much stuff the character is carrying. In 100g increments.
+    int16_t carrying_body_100g; // Used to calculate how much the character's speed drops when carrying things. In vanilla, set to (body*10 + 1).
     int16_t hp;
     int16_t hp_max;
     int16_t hp_regen;

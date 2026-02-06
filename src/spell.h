@@ -9,6 +9,9 @@
 #include "table.h"
 
 
+class Humanoid;
+
+
 class Spell : public CObject {
 public:
     SpellInfo* spell_info;
@@ -26,6 +29,9 @@ ASSERT_OFFSET(Spell, mana_cost, 0xc);
 ASSERT_SIZE(Spell, 0x14);
 
 class SpellBook : public CObject {
+public:
+    void RefreshForHumanoid(Humanoid* humanoid);
+
 public:
     CArray<Spell*> spells;
     uint32_t current_spell_index;

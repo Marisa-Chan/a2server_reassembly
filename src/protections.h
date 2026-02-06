@@ -8,8 +8,8 @@
 #include "assert_offset.h"
 
 struct Protections {
-    uint16_t defense;
-    uint16_t absorption;
+    int16_t defense;
+    int16_t absorption;
     std::array<uint16_t, 6> magic_protections;
     std::array<uint8_t, 6> weapon_protections;
 
