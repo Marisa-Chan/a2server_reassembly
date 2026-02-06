@@ -3666,6 +3666,180 @@ void AFXAPI AfxTermThread(HINSTANCE hInstTerm = NULL);
 
 
 
+class CCommandLineInfo;
+class CDC;
+class CRecentFileList;
+class CDocTemplate;
+class CPrintDialog;
+class CCmdUI;
+
+class CWinApp : public CWinThread
+{
+	DECLARE_DYNAMIC(CWinApp)
+public:
+	virtual ~CWinApp();
+	virtual const AFX_MSGMAP* GetMessageMap() const override;
+
+	virtual BOOL InitInstance();
+	virtual int Run();
+
+	virtual BOOL OnIdle(LONG lCount); // return TRUE if more idle processing
+	virtual int ExitInstance(); // return app exit code
+	virtual LRESULT ProcessWndProcException(CException* e, const MSG* pMsg);
+
+	virtual CDocument* OpenDocumentFile(LPCTSTR lpszFileName); // open named file
+	virtual void AddToRecentFileList(LPCTSTR lpszPathName);  // add to MRU
+	virtual BOOL InitApplication();
+	virtual BOOL SaveAllModified(); // save before exit
+	virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt);
+	virtual void DoWaitCursor(int nCode); // 0 => restore, 1=> begin, -1=> end
+	virtual BOOL OnDDECommand(LPTSTR lpszCommand);
+	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
+
+public:
+
+	// Constructor
+	CWinApp(LPCTSTR lpszAppName = NULL);     // app name defaults to EXE name
+
+	// Attributes
+		// Startup args (do not change)
+	HINSTANCE m_hInstance;
+	HINSTANCE m_hPrevInstance;
+	LPTSTR m_lpCmdLine;
+	int m_nCmdShow;
+
+	LPCTSTR m_pszAppName;  // human readable name
+	LPCTSTR m_pszRegistryKey;   // used for registry entries
+	void* m_pDocManager;
+
+	BOOL m_bHelpMode;           // are we in Shift+F1 mode?
+
+
+public:  // set in constructor to override default
+	LPCTSTR m_pszExeName;       // executable name (no spaces)
+	LPCTSTR m_pszHelpFilePath;  // default based on module path
+	LPCTSTR m_pszProfileName;   // default based on app name
+
+protected:
+	void LoadStdProfileSettings(UINT nMaxMRU = 4); // load MRU file list and last preview state
+	void EnableShellOpen();
+
+	void SetDialogBkColor(COLORREF clrCtlBk = RGB(192, 192, 192), COLORREF clrCtlText = RGB(0, 0, 0));
+
+	void SetRegistryKey(LPCTSTR lpszRegistryKey);
+	void SetRegistryKey(UINT nIDRegistryKey);
+
+
+	BOOL Enable3dControls(); // use CTL3D32.DLL for 3D controls in dialogs
+	BOOL Enable3dControlsStatic();  // statically link CTL3D.LIB instead
+	void RegisterShellFileTypes(BOOL bCompat = FALSE);
+	void RegisterShellFileTypesCompat();
+	void UnregisterShellFileTypes();
+
+public:
+	// Cursors
+	HCURSOR LoadCursor(LPCTSTR lpszResourceName) const;
+	HCURSOR LoadCursor(UINT nIDResource) const;
+	HCURSOR LoadStandardCursor(LPCTSTR lpszCursorName) const; // for IDC_ values
+	HCURSOR LoadOEMCursor(UINT nIDCursor) const;             // for OCR_ values
+
+	// Icons
+	HICON LoadIcon(LPCTSTR lpszResourceName) const;
+	HICON LoadIcon(UINT nIDResource) const;
+	HICON LoadStandardIcon(LPCTSTR lpszIconName) const;       // for IDI_ values
+	HICON LoadOEMIcon(UINT nIDIcon) const;                   // for OIC_ values
+
+	// Profile settings (to the app specific .INI file, or registry)
+	UINT GetProfileInt(LPCTSTR lpszSection, LPCTSTR lpszEntry, int nDefault);
+	BOOL WriteProfileInt(LPCTSTR lpszSection, LPCTSTR lpszEntry, int nValue);
+	CString GetProfileString(LPCTSTR lpszSection, LPCTSTR lpszEntry, LPCTSTR lpszDefault = NULL);
+	BOOL WriteProfileString(LPCTSTR lpszSection, LPCTSTR lpszEntry,	LPCTSTR lpszValue);
+	BOOL GetProfileBinary(LPCTSTR lpszSection, LPCTSTR lpszEntry, LPBYTE* ppData, UINT* pBytes);
+	BOOL WriteProfileBinary(LPCTSTR lpszSection, LPCTSTR lpszEntry, LPBYTE pData, UINT nBytes);
+
+	BOOL Unregister();
+	LONG DelRegTree(HKEY hParentKey, const CString& strKeyName);
+
+	void AddDocTemplate(void* pTemplate);
+	POSITION GetFirstDocTemplatePosition() const;
+	void* GetNextDocTemplate(POSITION& pos) const;
+
+
+	void SelectPrinter(HANDLE hDevNames, HANDLE hDevMode, BOOL bFreeOld = TRUE);
+	BOOL CreatePrinterDC(CDC& dc);
+	BOOL GetPrinterDeviceDefaults(struct tagPDA* pPrintDlg);
+
+	BOOL RunEmbedded();
+	BOOL RunAutomated();
+	void ParseCommandLine(CCommandLineInfo& rCmdInfo);
+	BOOL ProcessShellCommand(CCommandLineInfo& rCmdInfo);
+
+	void HideApplication();
+	void CloseAllDocuments(BOOL bEndSession); // close documents before exiting
+
+protected:
+	// map to the following for file new/open
+	void OnFileNew();
+	void OnFileOpen();
+
+	void OnFilePrintSetup();
+
+	void OnContextHelp();   // shift-F1
+	void OnHelp();          // F1 (uses current context)
+	void OnHelpIndex();     // ID_HELP_INDEX
+	void OnHelpFinder();    // ID_HELP_FINDER, ID_DEFAULT_HELP
+	void OnHelpUsing();     // ID_HELP_USING
+
+	// Implementation
+protected:
+	HGLOBAL m_hDevMode;             // printer Dev Mode
+	HGLOBAL m_hDevNames;            // printer Device Names
+	DWORD m_dwPromptContext;        // help context override for message box
+
+	int m_nWaitCursorCount;         // for wait cursor (>0 => waiting)
+	HCURSOR m_hcurWaitCursorRestore; // old cursor to restore after wait cursor
+
+	CRecentFileList* m_pRecentFileList;
+
+	void UpdatePrinterSelection(BOOL bForceDefaults);
+	void SaveStdProfileSettings();  // save options to .INI file
+
+public: // public for implementation access
+	CCommandLineInfo* m_pCmdInfo;
+
+	ATOM m_atomApp, m_atomSystemTopic;   // for DDE open
+	UINT m_nNumPreviewPages;        // number of default printed pages
+
+	size_t  m_nSafetyPoolSize;      // ideal size
+
+	void (AFXAPI* m_lpfnDaoTerm)();
+
+	void DevModeChange(LPTSTR lpDeviceName);
+	void SetCurrentHandles();
+	int GetOpenDocumentCount();
+
+	// helpers for standard commdlg dialogs
+	BOOL DoPromptFileName(CString& fileName, UINT nIDSTitle, DWORD lFlags, BOOL bOpenFileDialog, CDocTemplate* pTemplate);
+	int DoPrintDialog(CPrintDialog* pPD);
+
+	void EnableModeless(BOOL bEnable); // to disable OLE in-place dialogs
+
+	// overrides for implementation
+
+public:
+
+	HKEY GetSectionKey(LPCTSTR lpszSection);
+	HKEY GetAppRegistryKey();
+
+protected:
+	void OnAppExit();
+	void OnUpdateRecentFileMenu(CCmdUI* pCmdUI);
+	BOOL OnOpenRecentFile(UINT nID);
+};
+
+
+ASSERT_SIZE(CWinApp, 0xC0);
+
 
 int AFXAPI AfxLoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf = 256);
 void AFXAPI AfxFormatStrings(CString& rString, UINT nIDS, LPCTSTR const* rglpsz, int nString);
