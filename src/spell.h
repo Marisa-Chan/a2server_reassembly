@@ -10,9 +10,13 @@
 
 
 class Humanoid;
+class Unit;
 
 
 class Spell : public CObject {
+public:
+    void sub_53940D(Unit* unit);
+
 public:
     SpellInfo* spell_info;
     uint8_t spell_id;
