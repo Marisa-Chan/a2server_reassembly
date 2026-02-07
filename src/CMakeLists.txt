@@ -11,6 +11,7 @@ add_executable(a2serv_vsc
   effect.cpp
   eye.cpp
   file.cpp
+  file_mfc.cpp
   group.cpp
   inn.cpp
   inventory.cpp
