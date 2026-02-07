@@ -607,3 +607,9 @@ CString CTime::FormatGmt(UINT nFormatID) const
 }
 
 
+void CException::Delete()
+{
+	if (this != NULL && m_bAutoDelete > 0) {
+		delete this;
+	}
+}
