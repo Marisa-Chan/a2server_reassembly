@@ -616,12 +616,3 @@ BOOL CString::LoadString(UINT nID)
 
 	return nLen > 0;
 }
-
-
-
-
-
-
-
-
-

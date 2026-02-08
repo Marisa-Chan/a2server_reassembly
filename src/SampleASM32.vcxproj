@@ -192,6 +192,7 @@
     <ClCompile Include="eye.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="file_mfc.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="group.cpp" />
     <ClCompile Include="inn.cpp" />
     <ClCompile Include="inventory.cpp" />

@@ -12,6 +12,7 @@ add_executable(a2serv_vsc
   eye.cpp
   file.cpp
   file_mfc.cpp
+  game.cpp
   group.cpp
   inn.cpp
   inventory.cpp
