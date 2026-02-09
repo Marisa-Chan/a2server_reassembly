@@ -539,7 +539,7 @@ public:
 	// get the 'nIndex'th element (may return NULL)
 
 // Implementation
-protected:
+public:
 	CNode* m_pNodeHead;
 	CNode* m_pNodeTail;
 	int m_nCount;
