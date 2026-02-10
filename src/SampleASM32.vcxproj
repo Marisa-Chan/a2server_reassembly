@@ -199,6 +199,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="logic.cpp" />
     <ClCompile Include="map_stuff.cpp" />
+    <ClCompile Include="net.cpp" />
     <ClCompile Include="outpost.cpp" />
     <ClCompile Include="perf.cpp" />
     <ClCompile Include="player.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="logic.h" />
     <ClInclude Include="map_stuff.h" />
+    <ClInclude Include="net.h" />
     <ClInclude Include="outpost.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_file.h" />

@@ -19,6 +19,7 @@ add_executable(a2serv_vsc
   item.cpp
   logic.cpp
   map_stuff.cpp
+  net.cpp
   outpost.cpp
   perf.cpp
   player.cpp

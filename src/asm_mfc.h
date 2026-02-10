@@ -3848,7 +3848,26 @@ void AFXAPI AfxFormatString1(CString& rString, UINT nIDS, LPCTSTR lpsz1);
 void AFXAPI AfxFormatString2(CString& rString, UINT nIDS, LPCTSTR lpsz1, LPCTSTR lpsz2);
 
 
+struct CriticalSection;
 
+struct CriticalSectionDebugInfo {
+    uint16_t type;
+    uint16_t creator_back_trace_index;
+    CriticalSection* critical_section;
+    LIST_ENTRY process_locks_list;
+    uint32_t entry_count;
+    uint32_t contention_count;
+    uint32_t spare[2];
+};
+
+struct CriticalSection {
+    CriticalSectionDebugInfo* debug_info;
+    uint32_t lock_count;
+    uint32_t recursion_count;
+    HANDLE owning_thread;
+    HANDLE lock_semaphore;
+    uint32_t spin_count;
+};
 
 
 
