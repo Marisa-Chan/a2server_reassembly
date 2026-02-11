@@ -226,6 +226,7 @@
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="unit_to_hit.cpp" />
     <ClCompile Include="unit_list.cpp" />
+    <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -269,6 +270,7 @@
     <ClInclude Include="unit.h" />
     <ClInclude Include="unit_to_hit.h" />
     <ClInclude Include="unit_list.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="virtual_caster.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>

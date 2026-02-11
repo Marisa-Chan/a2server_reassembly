@@ -99,6 +99,53 @@ inline UINT AFXAPI HashKey(ARG_KEY key)
 	return ((UINT)(void*)(DWORD)key) >> 4;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+#if _MSC_VER >= 1100
+template<> void AFXAPI ConstructElements<CString>(CString* pElements, int nCount);
+template<> void AFXAPI DestructElements<CString>(CString* pElements, int nCount);
+template<> void AFXAPI CopyElements<CString>(CString* pDest, const CString* pSrc, int nCount);
+template<> void AFXAPI SerializeElements<CString>(CArchive& ar, CString* pElements, int nCount);
+#ifndef OLE2ANSI
+template<> UINT AFXAPI HashKey<LPCWSTR>(LPCWSTR key);
+#endif
+template<> UINT AFXAPI HashKey<LPCSTR>(LPCSTR key);
+#else // _MSC_VER >= 1100
+void AFXAPI ConstructElements(CString* pElements, int nCount);
+void AFXAPI DestructElements(CString* pElements, int nCount);
+void AFXAPI CopyElements(CString* pDest, const CString* pSrc, int nCount);
+void AFXAPI SerializeElements(CArchive& ar, CString* pElements, int nCount);
+#ifndef OLE2ANSI
+UINT AFXAPI HashKey(LPCWSTR key);
+#endif
+UINT AFXAPI HashKey(LPCSTR key);
+#endif // _MSC_VER >= 1100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 // CArray<TYPE, ARG_TYPE>
 

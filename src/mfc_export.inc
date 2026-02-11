@@ -1,4 +1,7 @@
 
+extern _pathStrCpy:proc
+
+
 ;CObject
 extern ??_7CObject@@6B@:dword ; CObject::vftable 60FE84
 extern ?classCObject@CObject@@2UCRuntimeClass@@B:dword ; CObject::classObject 0060FEA0
@@ -132,6 +135,50 @@ extern ?FreeDataChain@CPlex@@QAEXXZ:proc ; CPlex::FreeDataChain  005DBBD6
 ;C++
 extern ??2@YAPAXI@Z:proc ; operator new         5ddf54
 extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
+
+
+
+;File2
+extern ??1File2@@UAE@XZ:proc   ; (public: virtual __thiscall File2::~File2(void))
+extern ??0File2@@QAE@XZ:proc   ; (public: __thiscall File2::File2(void))
+extern ??0File2@@QAE@PBDI@Z:proc   ; (public: __thiscall File2::File2(char const *,unsigned int))
+extern ?Seek@File2@@UAEJJI@Z:proc   ; (public: virtual long __thiscall File2::Seek(long,unsigned int))
+extern ?GetLength@File2@@UBEKXZ:proc   ; (public: virtual unsigned long __thiscall File2::GetLength(void)const )
+extern ?Read@File2@@UAEIPAXI@Z:proc   ; (public: virtual unsigned int __thiscall File2::Read(void *,unsigned int))
+extern ?Close@File2@@UAEXXZ:proc   ; (public: virtual void __thiscall File2::Close(void))
+extern ?Open@File2@@UAEHPBDIPAVCFileException@@@Z:proc   ; (public: virtual int __thiscall File2::Open(char const *,unsigned int,class CFileException *))
+extern ?Rewind@File2@@QAEXXZ:proc    ; (public: void __thiscall File2::Rewind(void))
+
+
+;Resources
+extern ?StaticAddResFile@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::StaticAddResFile(char const *))
+extern ?StaticAddPath@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::StaticAddPath(char const *))
+extern ?FUN_004e632d@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::FUN_004e632d(char const *))
+
+
+
+;ResFile
+extern ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z:proc   ; (public: void __thiscall ResBase::ReadFromFile(class CFile *,int))
+extern ?WriteToFile@ResBase@@QAEXPAVCFile@@H@Z:proc   ; (public: void __thiscall ResBase::WriteToFile(class CFile *,int))
+extern ??0RegFile@@QAE@XZ:proc      ; (public: __thiscall RegFile::RegFile(void))
+extern ??0RegFile@@QAE@PBD@Z:proc      ;  (public: __thiscall RegFile::RegFile(char const *))
+extern ??1RegFile@@QAE@XZ:proc       ;   RegFile::~RegFile
+extern ?GetSizedString@ResBase@@QAEHPBD00PADI@Z:proc   ; (public: int __thiscall ResBase::GetSizedString(char const *,char const *,char const *,char *,unsigned int))
+extern ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z:proc   ; (public: class CString __thiscall ResBase::GetValueString(char const *,char const *,char const *))
+extern ?SetString@ResBase@@QAEXPBD00@Z:proc   ; (public: void __thiscall ResBase::SetString(char const *,char const *,char const *))
+extern ?GetInt@ResBase@@QAEHPBD0H@Z:proc   ; (public: int __thiscall ResBase::GetInt(char const *,char const *,int))
+extern ?SetInt@ResBase@@QAEXPBD0H@Z:proc   ; (public: void __thiscall ResBase::SetInt(char const *,char const *,int))
+extern ?GetDouble@ResBase@@QAENPBD0N@Z:proc   ; (public: double __thiscall ResBase::GetDouble(char const *,char const *,double))
+extern ?GetInt8Array@ResBase@@QAEHPBD0PAV?$CArray@EABE@@@Z:proc   ; (public: int __thiscall ResBase::GetInt8Array(char const *,char const *,class CArray<uint8_t>
+extern ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z:proc   ; (public: int __thiscall ResBase::GetInt16Array(char const *,char const *,class CArray<uint16_t>
+extern ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z:proc   ; (public: int __thiscall ResBase::GetInt32Array(char const *,char const *,class CArray<uint32_t>
+extern ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z:proc   ; (public: int __thiscall ResBase::GetStringArray(char const *,char const *,class CStringArray *))
+extern ?SetInt16Array@ResBase@@QAEXPBD0AAV?$CArray@GABG@@@Z:proc   ; (public: void __thiscall ResBase::SetInt16Array(char const *,char const *,class CArray<uint16_t>
+extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: void __thiscall ResBase::SetInt32Array(char const *,char const *,class CArray<uint32_t>
+
+
+
+
 
 
 ;TokenPos 

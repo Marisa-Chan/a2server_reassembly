@@ -590,3 +590,32 @@ UINT AFXAPI HashKey(LPCSTR key)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+// specialized version of SerializeElements for CString (used in collections)
+#if _MSC_VER >= 1100
+template <> void AFXAPI SerializeElements<CString>(CArchive& ar, CString* pElements, int nCount)
+#else
+void AFXAPI SerializeElements(CArchive& ar, CString* pElements, int nCount)
+#endif
+{
+	ASSERT(nCount == 0 ||
+		AfxIsValidAddress(pElements, nCount * sizeof(CString)));
+
+	if (ar.IsStoring())
+	{
+		for (; nCount--; ++pElements)
+			ar << *pElements;
+	}
+	else
+	{
+		for (; nCount--; ++pElements)
+			ar >> *pElements;
+	}
+}
