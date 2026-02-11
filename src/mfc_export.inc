@@ -21,7 +21,6 @@ extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::
 extern ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z:proc   ;  CRuntimeClass::IsDerivedFrom
 
 
-
 ;CArchive
 public ?Write@CArchive@@QAEXPBXI@Z ; CArchive::Write  005E6A26
 public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918 
@@ -56,6 +55,55 @@ public ??1CException@@UAE@XZ     ;~CException
 public ?ReportError@CException@@UAEHII@Z   ; ReportError
 
 public ?AfxThrowNotSupportedException@@YGXXZ
+
+
+
+;CCmdTarget
+externdef ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z:proc   ; (public: virtual int __thiscall CCmdTarget::OnCmdMsg(unsigned int,int,void *,struct AFX_CMDHANDLERINFO *))
+externdef ?OnFinalRelease@CCmdTarget@@UAEXXZ:proc   ; (public: virtual void __thiscall CCmdTarget::OnFinalRelease(void))
+externdef ?IsInvokeAllowed@CCmdTarget@@UAEHJ@Z:proc   ; (public: virtual int __thiscall CCmdTarget::IsInvokeAllowed(long))
+externdef ?GetDispatchIID@CCmdTarget@@UAEHPAU_GUID@@@Z:proc   ; (public: virtual int __thiscall CCmdTarget::GetDispatchIID(struct _GUID *))
+externdef ?GetTypeInfoCount@CCmdTarget@@UAEIXZ:proc   ; (public: virtual unsigned int __thiscall CCmdTarget::GetTypeInfoCount(void))
+externdef ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ:proc   ; (public: virtual class CTypeLibCache * __thiscall CCmdTarget::GetTypeLibCache(void))
+externdef ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z:proc   ; (public: virtual long __thiscall CCmdTarget::GetTypeLib(unsigned long,struct ITypeLib * *))
+externdef ?GetCommandMap@CCmdTarget@@UBEPBXXZ:proc   ; (public: virtual void const * __thiscall CCmdTarget::GetCommandMap(void)const )
+externdef ?GetDispatchMap@CCmdTarget@@UBEPBXXZ:proc   ; (public: virtual void const * __thiscall CCmdTarget::GetDispatchMap(void)const )
+externdef ?GetConnectionMap@CCmdTarget@@UBEPBXXZ:proc   ; (public: virtual void const * __thiscall CCmdTarget::GetConnectionMap(void)const )
+externdef ?GetInterfaceMap@CCmdTarget@@UBEPBXXZ:proc   ; (public: virtual void const * __thiscall CCmdTarget::GetInterfaceMap(void)const )
+externdef ?GetEventSinkMap@CCmdTarget@@UBEPBXXZ:proc   ; (public: virtual void const * __thiscall CCmdTarget::GetEventSinkMap(void)const )
+externdef ?OnCreateAggregates@CCmdTarget@@UAEHXZ:proc   ; (public: virtual int __thiscall CCmdTarget::OnCreateAggregates(void))
+externdef ?GetInterfaceHook@CCmdTarget@@UAEPAUIUnknown@@PBX@Z:proc   ; (public: virtual struct IUnknown * __thiscall CCmdTarget::GetInterfaceHook(void const *))
+externdef ?GetExtraConnectionPoints@CCmdTarget@@UAEHPAVCPtrArray@@@Z:proc   ; (public: virtual int __thiscall CCmdTarget::GetExtraConnectionPoints(class CPtrArray *))
+externdef ?GetConnectionHook@CCmdTarget@@UAEPAUIConnectionPoint@@ABU_GUID@@@Z:proc   ; (public: virtual struct IConnectionPoint * __thiscall CCmdTarget::GetConnectionHook(struct _GUID const
+
+;CWinThread
+externdef ?PreTranslateMessage@CWinThread@@UAEHPAUtagMSG@@@Z:proc   ; (public: virtual int __thiscall CWinThread::PreTranslateMessage(struct tagMSG *))
+externdef ?PumpMessage@CWinThread@@UAEHXZ:proc   ; (public: virtual int __thiscall CWinThread::PumpMessage(void))
+externdef ?IsIdleMessage@CWinThread@@UAEHPAUtagMSG@@@Z:proc   ; (public: virtual int __thiscall CWinThread::IsIdleMessage(struct tagMSG *))
+externdef ?ProcessMessageFilter@CWinThread@@UAEHHPAUtagMSG@@@Z:proc   ; (public: virtual int __thiscall CWinThread::ProcessMessageFilter(int,struct tagMSG *))
+externdef ?GetMainWnd@CWinThread@@UAEPAVCWnd@@XZ:proc   ; (public: virtual class CWnd * __thiscall CWinThread::GetMainWnd(void))
+externdef ?Delete@CWinThread@@UAEXXZ:proc   ; (public: virtual void __thiscall CWinThread::Delete(void))
+
+;CWinApp
+externdef ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ:proc   ; (public: virtual struct CRuntimeClass * __thiscall CWinApp::GetRuntimeClass(void)const )
+externdef ??1CWinApp@@UAE@XZ:proc   ; (public: virtual __thiscall CWinApp::~CWinApp(void))
+externdef ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ:proc   ; (public: virtual struct AFX_MSGMAP const * __thiscall CWinApp::GetMessageMap(void)const )
+externdef ?Run@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall CWinApp::Run(void))
+externdef ?ProcessWndProcException@CWinApp@@UAEJPAVCException@@PBUtagMSG@@@Z:proc   ; (public: virtual long __thiscall CWinApp::ProcessWndProcException(class CException *,struct tagMSG c
+externdef ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z:proc   ; (public: virtual class CDocument * __thiscall CWinApp::OpenDocumentFile(char const *))
+externdef ?AddToRecentFileList@CWinApp@@UAEXPBD@Z:proc   ; (public: virtual void __thiscall CWinApp::AddToRecentFileList(char const *))
+externdef ?InitApplication@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall CWinApp::InitApplication(void))
+externdef ?SaveAllModified@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall CWinApp::SaveAllModified(void))
+externdef ?DoMessageBox@CWinApp@@UAEHPBDII@Z:proc   ; (public: virtual int __thiscall CWinApp::DoMessageBox(char const *,unsigned int,unsigned int))
+externdef ?DoWaitCursor@CWinApp@@UAEXH@Z:proc   ; (public: virtual void __thiscall CWinApp::DoWaitCursor(int))
+externdef ?OnDDECommand@CWinApp@@UAEHPAD@Z:proc   ; (public: virtual int __thiscall CWinApp::OnDDECommand(char *))
+externdef ?WinHelpA@CWinApp@@UAEXKI@Z:proc   ; (public: virtual void __thiscall CWinApp::WinHelpA(unsigned long,unsigned int))
+externdef ??0CWinApp@@QAE@PBD@Z:proc   ; (public: __thiscall CWinApp::CWinApp(char const *))
+
+;GameApp
+externdef ?InitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::InitInstance(void))
+externdef ?OnIdle@GameApp@@UAEHJ@Z:proc   ; (public: virtual int __thiscall GameApp::OnIdle(long))
+externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
 
 

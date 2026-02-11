@@ -3701,7 +3701,7 @@ public:
 	virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt);
 	virtual void DoWaitCursor(int nCode); // 0 => restore, 1=> begin, -1=> end
 	virtual BOOL OnDDECommand(LPTSTR lpszCommand);
-	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
+	virtual void WinHelpA(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 
 public:
 

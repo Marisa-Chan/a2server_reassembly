@@ -61,7 +61,6 @@ _a2_LegacyInitArray dd offset sub_5F4A3F
                 dd offset unknown_libname_575 ; MFC 3.1-14.0 32bit
                 dd offset unknown_libname_576 ; MFC 3.1-14.0 32bit
                 dd offset unknown_libname_577 ; MFC 3.1-14.0 32bit
-                dd offset unknown_libname_589 ; MFC 3.1-14.0 32bit
                 dd offset unknown_libname_590 ; MFC 3.1-14.0 32bit
                 dd offset unknown_libname_591 ; MFC 3.1-14.0 32bit
                 dd offset unknown_libname_652 ; MFC 3.1-14.0 32bit

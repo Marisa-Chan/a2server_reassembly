@@ -183,6 +183,7 @@
     <Image Include="res\Icon_1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game_app.cpp" />
     <ClCompile Include="mfc_coll.cpp" />
     <ClCompile Include="alm.cpp" />
     <ClCompile Include="asm_mfc.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="building.h" />
     <ClInclude Include="eye.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="game_app.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />
