@@ -55,6 +55,8 @@ public ??0CException@@QAE@H@Z    ;CException(BOOL)
 public ??1CException@@UAE@XZ     ;~CException
 public ?ReportError@CException@@UAEHII@Z   ; ReportError
 
+public ?AfxThrowNotSupportedException@@YGXXZ
+
 
 
 
