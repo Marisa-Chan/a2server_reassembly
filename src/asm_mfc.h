@@ -1174,6 +1174,10 @@ public:
 	virtual void UnlockRange(DWORD dwPos, DWORD dwCount);
 };
 
+ASSERT_SIZE(CStdioFile, 0x14);
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 // Memory based file implementation
 
@@ -1227,6 +1231,8 @@ public:
 	virtual void LockRange(DWORD dwPos, DWORD dwCount);
 	virtual void UnlockRange(DWORD dwPos, DWORD dwCount);
 };
+
+ASSERT_SIZE(CMemFile, 0x28);
 
 ////////////////////////////////////////////////////////////////////////////
 // Local file searches
@@ -1290,6 +1296,7 @@ protected:
 	DECLARE_DYNAMIC(CFileFind)
 };
 
+ASSERT_SIZE(CFileFind, 0x1C);
 
 
 
