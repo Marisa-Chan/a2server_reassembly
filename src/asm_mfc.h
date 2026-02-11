@@ -3872,7 +3872,130 @@ struct CriticalSection {
 
 
 
+class CWnd : public CCmdTarget
+{
+	DECLARE_DYNCREATE(CWnd)
 
+public:
+	enum AdjustType { adjustBorder = 0, adjustOutside = 1 };
+
+public:
+	//override
+	virtual ~CWnd();
+	virtual void OnFinalRelease();
+	virtual const AFX_MSGMAP* GetMessageMap() const;
+
+	//new methods
+	virtual void PreSubclassWindow();
+	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, void* pContext = NULL);
+	virtual BOOL DestroyWindow();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual void CalcWindowRect(LPRECT lpClientRect, UINT nAdjustType = adjustBorder);
+	virtual int OnToolHitTest(CPoint point, TOOLINFO* pTI) const;
+	virtual void* GetScrollBarCtrl(int nBar) const;
+	virtual void WinHelpA(DWORD dwData, UINT nCmd = HELP_CONTEXT);
+	virtual BOOL ContinueModal();
+	virtual void EndModalLoop(int nResult);
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
+	virtual WNDPROC* GetSuperWndProcAddr();
+	virtual void DoDataExchange(void* pDX);
+	virtual void BeginModalState();
+	virtual void EndModalState();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL OnAmbientProperty(void* pSite, DISPID dispid, VARIANT* pvar);
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
+	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+	virtual void PostNcDestroy();
+	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
+	virtual BOOL CheckAutoCenter();
+	virtual BOOL IsFrameWnd() const; 
+	virtual BOOL SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO* pOccDialogInfo);
+	
+public:
+	HWND m_hWnd;
+	HWND m_hWndOwner;  
+	UINT m_nFlags;    
+	WNDPROC m_pfnSuper; 
+	int m_nModalResult; 
+	void* m_pDropTarget; 
+	void* m_pCtrlCont;
+	void* m_pCtrlSite;
+};
+
+ASSERT_SIZE(CWnd, 0x3C);
+
+
+
+
+class CFrameWnd : public CWnd
+{
+	DECLARE_DYNCREATE(CFrameWnd)
+
+public:
+	// border space negotiation
+	enum BorderCmd
+	{
+		borderGet = 1, borderRequest = 2, borderSet = 3
+	};
+public:
+	//override
+	virtual ~CFrameWnd();
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	virtual const AFX_MSGMAP* GetMessageMap() const;
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual void BeginModalState() override;
+	virtual void EndModalState() override;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void PostNcDestroy();
+	virtual BOOL IsFrameWnd() const;	
+
+	//new
+	virtual BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd = NULL, void* pContext = NULL);
+	virtual CDocument* GetActiveDocument();
+	virtual CFrameWnd* GetActiveFrame();
+	virtual void GetMessageString(UINT nID, CString& rMessage) const;
+	virtual void RecalcLayout(BOOL bNotify = TRUE);
+	virtual void ActivateFrame(int nCmdShow = -1);
+	virtual void OnSetPreviewMode(BOOL bPreview, void* pState);
+	virtual CWnd* GetMessageBar();
+	virtual BOOL NegotiateBorderSpace(UINT nBorderCmd, LPRECT lpRectBorder);
+	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, void* pContext);
+	virtual void OnUpdateFrameTitle(BOOL bAddToTitle);
+	virtual void OnUpdateFrameMenu(HMENU hMenuAlt);
+	virtual HACCEL GetDefaultAccelerator();
+	virtual void DelayUpdateFrameMenu(HMENU hMenuAlt);
+	virtual void ExitHelpMode();
+
+public:
+	BOOL m_bAutoMenuEnable;	
+	int m_nWindow; 
+	HMENU m_hMenuDefault;      
+	HACCEL m_hAccelTable;      
+	DWORD m_dwPromptContext;   
+	BOOL m_bHelpMode;          
+	CFrameWnd* m_pNextFrameWnd;
+	CRect m_rectBorder;        
+	void* m_pNotifyHook;
+	CPtrList m_listControlBars; 
+	int m_nShowDelay;        
+	UINT m_nIDHelp;           
+	UINT m_nIDTracking;      
+	UINT m_nIDLastMessage;   
+	CView* m_pViewActive;    
+	BOOL(CALLBACK* m_lpfnCloseProc)(CFrameWnd* pFrameWnd);
+	UINT m_cModalStack;       
+	HWND* m_phWndDisable;   
+	HMENU m_hMenuAlt;        
+	CString m_strTitle;      
+	BOOL m_bInRecalcLayout;  
+	CRuntimeClass* m_pFloatingFrameClass;
+	UINT m_nIdleFlags;          // set of bit flags for idle processing
+};
+
+ASSERT_SIZE(CFrameWnd, 0xBC);
 
 
 
