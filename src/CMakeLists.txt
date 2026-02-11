@@ -94,6 +94,7 @@ target_link_libraries(a2serv_vsc PRIVATE
     odbc32.lib
     odbccp32.lib
 
+    dbghelp.lib
     vcruntime.lib
     legacy_stdio_wide_specifiers.lib
 )
