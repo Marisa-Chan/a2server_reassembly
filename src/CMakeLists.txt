@@ -19,6 +19,7 @@ add_executable(a2serv_vsc
   item.cpp
   logic.cpp
   map_stuff.cpp
+  mfc_coll.cpp
   net.cpp
   outpost.cpp
   perf.cpp
@@ -46,6 +47,7 @@ add_executable(a2serv_vsc
   unit.cpp
   unit_list.cpp
   unit_to_hit.cpp
+  util.cpp
   virtual_caster.cpp
   world.cpp
   Main.asm

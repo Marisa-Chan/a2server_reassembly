@@ -35,8 +35,9 @@ ASSERT_SIZE(PackerDat, 0xc04);
 
 class NetStru1 {
 public: // VTable at 0060ecc0.
-    virtual void VMethod1(void* param_1) = 0; // Don't know the parameter type.
-    virtual void VMethod2(void* param_1) = 0;
+    uint32_t vtable;
+    // virtual void VMethod1(void* param_1) = 0; // Don't know the parameter type.
+    // virtual void VMethod2(void* param_1) = 0;
 
 public:
     CLlDriver* driver;
