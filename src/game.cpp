@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "asm_mfc.h"
+#include "net.h"
 #include "player.h"
 #include "players_list.h"
 #include "server.h"
@@ -10,26 +11,25 @@
 extern "C" {
     extern Server* Server_instance;
     extern PlayersList* PlayersList_global;
-    extern uint8_t byte_6C3A08; // NetStru1
+    extern NetStru1 NetStru1_6C3A08;
     extern uint8_t unk_6CE560;
 
     void* __cdecl sub_401D90();
-    void __fastcall unknown_libname_597(void* this_ptr);
     Player* __fastcall sub_496DD0(void* iter, int32_t edx, void* list);
     Player* __fastcall sub_496E20(void* iter);
     int __fastcall sub_496590(void* this_ptr);
-    void* __fastcall sub_518544(void* this_ptr, int32_t edx, int id);
-    void __fastcall sub_5170B6(void* this_ptr, int32_t edx, void* node);
-    void __fastcall sub_51800F(void* this_ptr);
-    void __fastcall sub_51D49B(void* this_ptr, int32_t edx, void* player);
-    void __fastcall sub_534DDD(void* this_ptr);
+    void* __fastcall sub_518544(NetStru1* this_ptr, int32_t edx, int id);
+    void __fastcall sub_5170B6(NetStru1* this_ptr, int32_t edx, void* node);
+    void __fastcall sub_51800F(NetStru1* this_ptr);
+    void __fastcall sub_51D49B(NetStru1* this_ptr, int32_t edx, void* player);
+    void __fastcall sub_534DDD(PlayersList* this_ptr);
     void __stdcall sub_43AA23(LPCTSTR message);
-    void __fastcall sub_5186CD(void* this_ptr, int32_t edx, void* packet);
-    void __fastcall sub_51CE86(void* this_ptr, int32_t edx, int msg, int id, Player* player);
+    void __fastcall sub_5186CD(NetStru1* this_ptr, int32_t edx, void* packet);
+    void __fastcall sub_51CE86(NetStru1* this_ptr, int32_t edx, int msg, int id, Player* player);
     void __fastcall sub_534AC1(Player* this_ptr, int32_t edx, int param_1, int param_2);
-    void __fastcall sub_51CEAC(void* this_ptr, int32_t edx, int msg, Player* player);
-    void __fastcall sub_51C748(void* this_ptr, int32_t edx, int value);
-    void __fastcall sub_5188DB(void* this_ptr);
+    void __fastcall sub_51CEAC(NetStru1* this_ptr, int32_t edx, int msg, Player* player);
+    void __fastcall sub_51C748(NetStru1* this_ptr, int32_t edx, int value);
+    void __fastcall sub_5188DB(NetStru1* this_ptr);
 }
 
 void sub_4954EA()
@@ -69,14 +69,14 @@ void sub_4954EA()
     sub_43AA23(message);
 
     uint16_t player_id = player->player_id;
-    void* node = sub_518544(&byte_6C3A08, 0, player_id);
+    void* node = sub_518544(&NetStru1_6C3A08, 0, player_id);
     if (node == nullptr) {
         return;
     }
 
-    sub_5170B6(&byte_6C3A08, 0, node);
-    sub_51800F(&byte_6C3A08);
-    sub_51D49B(&byte_6C3A08, 0, player);
+    sub_5170B6(&NetStru1_6C3A08, 0, node);
+    sub_51800F(&NetStru1_6C3A08);
+    sub_51D49B(&NetStru1_6C3A08, 0, player);
     player->field_0xa50 = Server_instance->tick16 - 1;
     sub_534DDD(PlayersList_global);
 }
@@ -150,9 +150,9 @@ void __fastcall sub_4FF439(Server* server, int32_t /*edx*/, Player* player, int3
                     }
                     packet[13] = flags;
                     *reinterpret_cast<uint16_t*>(packet + 7) = target->player_id;
-                    sub_5186CD(&byte_6C3A08, 0, packet);
+                    sub_5186CD(&NetStru1_6C3A08, 0, packet);
                     int msg_type = (phased_in != 0) ? 3 : 4;
-                    sub_51CE86(&byte_6C3A08, 0, msg_type, player->player_id, target);
+                    sub_51CE86(&NetStru1_6C3A08, 0, msg_type, player->player_id, target);
                 }
             }
         }
@@ -164,11 +164,11 @@ void __fastcall sub_4FF439(Server* server, int32_t /*edx*/, Player* player, int3
 
     sub_534AC1(player, 0, 0, 1);
     if (server->field18_0x94 != 0) {
-        sub_51CEAC(&byte_6C3A08, 0, 0xB7, player);
+        sub_51CEAC(&NetStru1_6C3A08, 0, 0xB7, player);
     }
 
-    sub_51C748(&byte_6C3A08, 0, 0);
+    sub_51C748(&NetStru1_6C3A08, 0, 0);
     if (server->field3_0x70 != 0) {
-        sub_5188DB(&byte_6C3A08);
+        sub_5188DB(&NetStru1_6C3A08);
     }
 }
