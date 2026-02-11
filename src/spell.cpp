@@ -4,7 +4,7 @@
 
 extern "C" {
     extern GameDataRes GameDataRes_6D0668;
-	void __stdcall sub_43AA23(CString* message);
+	void __stdcall sub_43AA23(CString message);
 }
 
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
@@ -32,8 +32,7 @@ void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 
 				spells[index] = new_spell;
 
-				CString message("Bad spell data, restoring spell");
-				sub_43AA23(&message);
+				sub_43AA23("Bad spell data, restoring spell");
 				spell = new_spell;
 			}
 
