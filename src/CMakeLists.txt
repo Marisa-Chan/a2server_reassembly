@@ -13,11 +13,13 @@ add_executable(a2serv_vsc
   file.cpp
   file_mfc.cpp
   game.cpp
+  game_app.cpp
   group.cpp
   inn.cpp
   inventory.cpp
   item.cpp
   logic.cpp
+  main_window.cpp
   map_stuff.cpp
   mfc_coll.cpp
   net.cpp

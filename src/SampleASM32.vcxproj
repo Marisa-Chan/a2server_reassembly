@@ -199,6 +199,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="logic.cpp" />
+    <ClCompile Include="main_window.cpp" />
     <ClCompile Include="map_stuff.cpp" />
     <ClCompile Include="net.cpp" />
     <ClCompile Include="outpost.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="logic.h" />
+    <ClInclude Include="main_window.h" />
     <ClInclude Include="map_stuff.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="outpost.h" />
