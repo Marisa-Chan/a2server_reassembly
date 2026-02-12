@@ -135,7 +135,7 @@ public:
     CWnd status_bar;
     int32_t fields_0x690[16];
     CWnd list_box;
-    CWnd field_0x70c;
+    CListBox field_0x70c;
     CWnd field_0x748;
     CWnd field_0x784;
     CWnd edit2;

@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "game_app.h"
+#include "main_window.h"
 #include "net.h"
 #include "player.h"
 #include "players_list.h"
@@ -21,12 +22,12 @@ void sub_4954EA()
         return;
     }
 
-    uint8_t* main_window = reinterpret_cast<uint8_t*>(AfxGetMainWnd());
+    MainWindow* main_window = (MainWindow*)AfxGetMainWnd();
     CString unused;
 
     uint32_t iter_state[2] = {};
 
-    int target_index = ((CListBox *)(main_window + 0x70C))->GetCurSel();
+    int target_index = main_window->field_0x70c.GetCurSel();
     int index = 0;
 
     Player* selected = nullptr;
