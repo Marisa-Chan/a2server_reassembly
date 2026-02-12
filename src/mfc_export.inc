@@ -108,6 +108,14 @@ externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 
 
 
+
+externdef ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
+externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
+
+
+
+
+
 ;CString
 public ?AfxThrowMemoryException@@YGXXZ    ; AfxThrowMemoryException
 extern ?AfxGetEmptyString@@YGABVCString@@XZ:proc   ;AfxGetEmptyString in strcore.cpp
@@ -371,3 +379,14 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 ;inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
+
+
+
+
+;Spell
+
+extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::RefreshForHumanoid()
+externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
+externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
+externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
+externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D

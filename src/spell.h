@@ -15,6 +15,16 @@ class Unit;
 
 class Spell : public CObject {
 public:
+    DECLARE_SERIAL(Spell);
+
+    virtual ~Spell();
+    virtual void Serialize(CArchive& ar) override;
+
+public:
+    Spell();
+    Spell(uint8_t index);
+    Spell(const CString& name);
+
     void sub_53940D(Unit* unit);
 
 public:
@@ -32,8 +42,17 @@ public:
 ASSERT_OFFSET(Spell, mana_cost, 0xc);
 ASSERT_SIZE(Spell, 0x14);
 
+
+
 class SpellBook : public CObject {
 public:
+    DECLARE_SERIAL(SpellBook);
+
+    virtual ~SpellBook();
+    virtual void Serialize(CArchive& ar) override;
+public:
+    SpellBook();
+
     void RefreshForHumanoid(Humanoid* humanoid);
 
 public:

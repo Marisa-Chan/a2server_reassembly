@@ -41,8 +41,8 @@ public:
     uint8_t gap_0xc[4];
     uint32_t hat_player_id;
     uint32_t flags;
-    const char* name;
-    const char* str;
+    CString name;
+    CString str;
     uint8_t gap_0x20[4];
     UnitList* unit_list;
     CList<Group*>* group_list;
@@ -74,7 +74,7 @@ public:
     uint16_t building_entered_from_yx;
     uint8_t field_0xa76;
     uint8_t field_0xa77;
-    const char* str2;
+    CString str2;
     uint32_t field_0xa7c;
     uint32_t field_0xa80;
     uint32_t field_0xa84;

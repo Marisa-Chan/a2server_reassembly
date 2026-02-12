@@ -2,6 +2,7 @@
 #define GAME_APP_H
 
 #include "asm_mfc.h"
+#include "table.h"
 
 class GameApp : public CWinApp
 {
@@ -15,6 +16,10 @@ public:
 };
 
 
+/* in asm */
+void LogMessage(CString message); //43AA23
 
+
+extern GameDataRes g_GameDataRes; //6d0668
 
 #endif

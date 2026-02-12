@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <cstring>
 
-#include "asm_mfc.h"
+#include "game_app.h"
 #include "net.h"
 #include "player.h"
 #include "players_list.h"
@@ -23,7 +23,6 @@ extern "C" {
     void __fastcall sub_51800F(NetStru1* this_ptr);
     void __fastcall sub_51D49B(NetStru1* this_ptr, int32_t edx, void* player);
     void __fastcall sub_534DDD(PlayersList* this_ptr);
-    void __stdcall sub_43AA23(LPCTSTR message);
     void __fastcall sub_5186CD(NetStru1* this_ptr, int32_t edx, void* packet);
     void __fastcall sub_51CE86(NetStru1* this_ptr, int32_t edx, int msg, int id, Player* player);
     void __fastcall sub_534AC1(Player* this_ptr, int32_t edx, int param_1, int param_2);
@@ -65,8 +64,7 @@ void sub_4954EA()
         return;
     }
 
-    CString message = CString("Player ") + player->name + " kicked from server";
-    sub_43AA23(message);
+    LogMessage("Player " + player->name + " kicked from server");
 
     uint16_t player_id = player->player_id;
     void* node = sub_518544(&NetStru1_6C3A08, 0, player_id);
@@ -159,8 +157,7 @@ void __fastcall sub_4FF439(Server* server, int32_t /*edx*/, Player* player, int3
         node = node->pNext;
     }
 
-    CString message = CString("Player ") + player->name + " has joined the game";
-    sub_43AA23(message);
+    LogMessage("Player " + player->name + " has joined the game");
 
     sub_534AC1(player, 0, 0, 1);
     if (server->field18_0x94 != 0) {

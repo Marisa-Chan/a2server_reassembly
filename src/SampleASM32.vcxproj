@@ -91,7 +91,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ShowProgress>NotSet</ShowProgress>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrtd.lib;msvcrtd.lib;libvcruntimed.lib;legacy_stdio_definitions.lib;vccorlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrtd.lib;msvcrtd.lib;libvcruntimed.lib;legacy_stdio_definitions.lib;vccorlibd.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
       <AddModuleNamesToAssembly>
@@ -133,7 +133,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;shell32.lib;ddraw.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;msacm32.lib;wininet.lib;ws2_32.lib;winmm.lib;ole32.lib;comctl32.lib;dsound.lib;ucrt.lib;msvcrt.lib;libvcruntime.lib;legacy_stdio_definitions.lib;vccorlib.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
