@@ -84,6 +84,8 @@ public:
     uint32_t field_0xa94;
     uint8_t field_0xa98;
     uint8_t gap_0xa99[7];
+
+    void FUN_00534AC1(int32_t money, uint32_t arg2);
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);

@@ -12,6 +12,8 @@ struct CLlDriver;
 class NetStru1;
 struct NetStru2;
 struct NetStru3;
+class Packet;
+class Player;
 
 
 struct PackerTail {
@@ -59,6 +61,19 @@ public:
     NetStru2* fields_0x18b4;
     CList<NetStru2*> list_0x18b8;
     CMap<int32_t, int32_t, int32_t, int32_t> map_0x18d4;
+
+public:
+    void FUN_005186cd(Packet* pkt);
+    void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
+    void FUN_0051ceac(uint32_t id, Player* recpt);
+    void FUN_0051c748(Packet* recpt);
+    void FUN_0051d49b(Player* recpt);
+    void FUN_005188db();
+
+    NetStru2* FUN_00518544(uint16_t player_id);
+    void FUN_005170b6(NetStru2* arg1);
+
+    void FUN_0051800f();
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -166,3 +181,58 @@ struct CLlDriver {
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);
 ASSERT_SIZE(CLlDriver, 0x914);
+
+
+
+
+__pragma(pack(push, 1))
+class Packet
+{
+public:
+    static Packet Inst; //in asm 6b0c00
+public:
+    Packet(); //in asm 52681f
+public:
+    virtual ~Packet();
+    virtual Packet* Duplicate();
+    virtual void VMethod3(NetStru1*);
+    virtual void VMethod4(NetStru1*);
+    virtual uint32_t GetDataSize();// { return 1; }
+
+public:
+
+    uint8_t field_0x4;
+    uint16_t field_0x5;
+    uint16_t to_player_id;
+    uint8_t id;
+};
+__pragma(pack(pop))
+
+ASSERT_SIZE(Packet, 0xa);
+
+
+__pragma(pack(push, 1))
+class PacketJoin : public Packet
+{
+public:
+    static PacketJoin Inst; //in asm 6ce560
+public:
+    PacketJoin(); //in asm 526c12
+public:
+    virtual ~PacketJoin();
+    virtual Packet* Duplicate() override;
+    virtual void VMethod3(NetStru1*) override;
+    virtual void VMethod4(NetStru1*) override;
+    virtual uint32_t GetDataSize() override;
+
+public:
+    uint8_t player_id;
+    uint8_t token_id;
+    uint8_t field_0xc;
+    uint8_t flags;
+    uint16_t name_len;
+    char name[1024];
+};
+__pragma(pack(pop))
+
+ASSERT_SIZE(PacketJoin, 0x410);

@@ -4011,6 +4011,15 @@ ASSERT_SIZE(CFrameWnd, 0xBC);
 
 
 
+class CListBox : public CWnd
+{
+public:
+	int GetCurSel() const; //496590
+};
+
+ASSERT_SIZE(CListBox, 0x3C);
+
+
 
 
 

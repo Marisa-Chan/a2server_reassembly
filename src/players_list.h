@@ -17,5 +17,8 @@ public: // VTable at 0060f158.
 public:
     uint32_t field_0x1c;
     uint32_t next_player_id;
+
+public:
+    void FUN_00534ddd();
 };
 ASSERT_SIZE(PlayersList, 0x24);

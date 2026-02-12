@@ -58,18 +58,21 @@ public:
 ASSERT_OFFSET(Srv1, srv_stru, 0x24);
 ASSERT_SIZE(Srv1, 0x3c);
 
+
+class Player;
+
 struct Server {
     int tick16; // This value seems to be advanced every 16 ticks
     int tick;
     CowardActivation coward_activation;
     int field3_0x70;
     int field4_0x74;
-    const char* field5_0x78;
+    CString field5_0x78;
     SrvStru1* srv_stru1;
     uint8_t gap_0x80[8];
     HANDLE field15_0x88;
     int field16_0x8c;
-    const char* current_map_name;
+    CString current_map_name;
     uint32_t field18_0x94;
     Srv1 field19_0x98;
     uint32_t field21_0xd4;
@@ -98,7 +101,7 @@ struct Server {
     int field44_0x1bc;
     int tic16;
     int field46_0x1c4;
-    const char* current_map_title;
+    CString current_map_title;
     uint32_t MapLevel;
     uint32_t field49_0x1d0;
     uint32_t field50_0x1d4;
@@ -122,6 +125,10 @@ struct Server {
     CArray<uint32_t> field68_0x23c;
     int32_t map_elapsed_time;
     int32_t map_elapsed_time2;
+
+
+
+    void FUN_004ff439(Player* player, int32_t arg4);
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);

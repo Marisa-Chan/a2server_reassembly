@@ -35,6 +35,9 @@ public ??5@YGAAVCArchive@@AAV0@AAVCString@@@Z
 public ??6@YGAAVCArchive@@AAV0@ABVCString@@@Z
 
 
+
+
+
 public ?AfxGetModuleThreadState@@YGPAVAFX_MODULE_THREAD_STATE@@XZ  ; AfxGetModuleThreadState(); 005F4DB8 
 public ??0AFX_CLASSINIT@@QAE@PAUCRuntimeClass@@@Z  ; AFX_CLASSINIT::AFX_CLASSINIT(CRuntimeClass *)
 public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
@@ -55,6 +58,10 @@ public ??1CException@@UAE@XZ     ;~CException
 public ?ReportError@CException@@UAEHII@Z   ; ReportError
 
 public ?AfxThrowNotSupportedException@@YGXXZ
+
+extern ?AfxGetMainWnd@@YGPAVCWnd@@XZ:proc
+
+
 
 
 
@@ -390,3 +397,49 @@ externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
+
+
+
+
+;Packets
+externdef ?Inst@PacketJoin@@2V1@A:byte    ; PacketJoin::Inst
+
+
+
+;NetStru1
+externdef ?g_NetStru1_main@@3VNetStru1@@A:byte  
+
+externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
+externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z :proc   ; NetStru1::FUN_00518544(unsigned short)
+externdef ?FUN_005170b6@NetStru1@@QAEXPAUNetStru2@@@Z :proc   ; NetStru1::FUN_005170b6(struct NetStru2 *)
+externdef ?FUN_0051800f@NetStru1@@QAEXXZ :proc   ;  NetStru1::FUN_0051800f(void)
+externdef ?FUN_005186cd@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_005186cd(class Packet *)
+externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
+externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
+externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051c748(class Packet *)
+externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
+
+
+
+;NetStru2
+externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
+
+;Server
+externdef ?g_Server@@3PAUServer@@A : dword
+
+EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
+
+
+;Player 
+externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
+
+;PlayersList
+externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
+externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
+
+
+
+
+
+;CListBox
+externdef ?GetCurSel@CListBox@@QBEHXZ:proc
