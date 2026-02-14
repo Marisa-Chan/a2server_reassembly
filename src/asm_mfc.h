@@ -8,6 +8,10 @@
 
 #include "assert_offset.h"
 
+#define AFX_MSG_CALL  
+
+#include "afxmsg_.h"
+
 typedef int(__cdecl* _PNH)(size_t);
 
 
@@ -3919,7 +3923,10 @@ public:
 	virtual BOOL CheckAutoCenter();
 	virtual BOOL IsFrameWnd() const; 
 	virtual BOOL SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO* pOccDialogInfo);
-	
+
+
+	static const AFX_MSGMAP messageMap;
+
 public:
 	HWND m_hWnd;
 	HWND m_hWndOwner;  
@@ -3929,6 +3936,9 @@ public:
 	void* m_pDropTarget; 
 	void* m_pCtrlCont;
 	void* m_pCtrlSite;
+
+public:
+	LRESULT Default();
 };
 
 ASSERT_SIZE(CWnd, 0x3C);
@@ -4013,8 +4023,26 @@ ASSERT_SIZE(CFrameWnd, 0xBC);
 
 class CListBox : public CWnd
 {
+	DECLARE_DYNAMIC(CListBox)
 public:
+
+	CListBox(); //496540
+	virtual ~CListBox(); //5f280e
+
+	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
+	
+	//new vmethods
+	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+	virtual void MeasureItem(LPMEASUREITEMSTRUCT lpMeasureItemStruct);
+	virtual int CompareItem(LPCOMPAREITEMSTRUCT lpCompareItemStruct);
+	virtual void DeleteItem(LPDELETEITEMSTRUCT lpDeleteItemStruct);
+	virtual int VKeyToItem(UINT nKey, UINT nIndex);
+	virtual int CharToItem(UINT nKey, UINT nIndex);
+
+public:
+
 	int GetCurSel() const; //496590
+
 };
 
 ASSERT_SIZE(CListBox, 0x3C);

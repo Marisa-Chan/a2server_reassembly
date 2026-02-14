@@ -1,7 +1,6 @@
 #include "asm_mfc.h"
 #include <time.h>
 
-
 static const _PNH _pfnUninitialized = (_PNH)-1;
 
 //5ddf54
@@ -612,4 +611,19 @@ void CException::Delete()
 	if (this != NULL && m_bAutoDelete > 0) {
 		delete this;
 	}
+}
+
+
+
+
+
+
+
+
+LRESULT CWnd::Default()
+{
+	// call DefWindowProc with the last message
+	_AFX_THREAD_STATE* pThreadState = _afxThreadState.GetData();
+	return DefWindowProc(pThreadState->m_lastSentMsg.message,
+		pThreadState->m_lastSentMsg.wParam, pThreadState->m_lastSentMsg.lParam);
 }

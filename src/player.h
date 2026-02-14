@@ -9,7 +9,7 @@
 
 
 class Group;
-struct UnitList;
+class UnitList;
 
 
 struct Settings {

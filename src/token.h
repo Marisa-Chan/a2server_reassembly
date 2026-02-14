@@ -14,7 +14,7 @@ extern BitSet<0x6000> g_buildingIdSet;
 
 class Effect;
 class Player;
-class TokenPos;
+struct TokenPos;
 
 __pragma(pack(push, 1))
 

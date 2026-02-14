@@ -4,6 +4,24 @@
 #include "assert_offset.h"
 
 
+
+class CListBox2 : public CListBox
+{
+public:
+    CListBox2();
+    ~CListBox2();
+
+    virtual const AFX_MSGMAP* GetMessageMap() const override;
+
+    static const AFX_MSGMAP_ENTRY _messageEntries[];
+    static AFX_DATA const AFX_MSGMAP messageMap;
+
+    void OnKeyDown(UINT, UINT, UINT);
+    void OnLButtonDblClk(UINT, CPoint);
+};
+
+
+
 class MainWindow : public CFrameWnd
 {
 public: // VTable at 0060c1a8.

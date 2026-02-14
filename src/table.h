@@ -274,18 +274,18 @@ ASSERT_SIZE(SpellInfo, 0x20);
 
 
 struct GameDataRes {
-    struct CArray<MatShape> materials;
-    struct CArray<MatShape> shapes;
-    struct CArray<WorldEquip> shields;
-    struct CArray<WorldEquip> armors;
-    struct CArray<WorldEquip> weapons;
-    struct CArray<MagicItem> magic_items;
-    struct CArray<MagicInfo> magics;
-    struct CArray<MonsterInfo> monsters;
-    struct CArray<HumanInfo> humans;
-    struct CArray<HumanInfo> field9_0xb4;
-    struct CArray<BuildingInfo> buildings;
-    struct CArray<SpellInfo> spells;
+    CArray<MatShape> materials;
+    CArray<MatShape> shapes;
+    CArray<WorldEquip> shields;
+    CArray<WorldEquip> armors;
+    CArray<WorldEquip> weapons;
+    CArray<MagicItem> magic_items;
+    CArray<MagicInfo> magics;
+    CArray<MonsterInfo> monsters;
+    CArray<HumanInfo> humans;
+    CArray<HumanInfo> field9_0xb4;
+    CArray<BuildingInfo> buildings;
+    CArray<SpellInfo> spells;
     int loaded;
 };
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);

@@ -21,6 +21,21 @@ extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::
 extern ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z:proc   ;  CRuntimeClass::IsDerivedFrom
 
 
+
+;CNoTrackObject
+externdef ??2CNoTrackObject@@SGPAXI@Z :proc   ; (public: static void * __stdcall CNoTrackObject::operator new(unsigned int))
+externdef ??3CNoTrackObject@@SGXPAX@Z :proc   ; (public: static void __stdcall CNoTrackObject::operator delete(void *))
+
+
+;CThreadLocalObject
+externdef ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z :proc   ; (public: class CNoTrackObject * __thiscall CThreadLocalObject::GetData(class CNoTrackObject * (__stdcall*)(void)))
+
+externdef ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A :byte    ;CThreadLocal<class _AFX_THREAD_STATE>
+
+externdef ??0_AFX_THREAD_STATE@@QAE@XZ  : proc  
+
+
+
 ;CArchive
 public ?Write@CArchive@@QAEXPBXI@Z ; CArchive::Write  005E6A26
 public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918 
@@ -441,5 +456,57 @@ externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
 
 
 
+
+
+;CListBox2  in C++
+extern  ??0CListBox2@@QAE@XZ  :proc
+extern  ??1CListBox2@@UAE@XZ  :proc
+
+
+
 ;CListBox
 externdef ?GetCurSel@CListBox@@QBEHXZ:proc
+externdef ??0CListBox@@QAE@XZ : proc    ;  CListBox::CListBox(void)
+externdef ??1CListBox@@UAE@XZ : proc    ;  CListBox::~CListBox(void)
+externdef ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z :proc   ; (public: virtual int __thiscall CListBox::OnChildNotify(unsigned int,unsigned int,long,long *))
+externdef ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z :proc   ; (public: virtual void __thiscall CListBox::DrawItem(struct tagDRAWITEMSTRUCT *))
+externdef ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z :proc   ; (public: virtual void __thiscall CListBox::MeasureItem(struct tagMEASUREITEMSTRUCT *))
+externdef ?CompareItem@CListBox@@UAEHPAUtagCOMPAREITEMSTRUCT@@@Z :proc   ; (public: virtual int __thiscall CListBox::CompareItem(struct tagCOMPAREITEMSTRUCT *))
+externdef ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z :proc   ; (public: virtual void __thiscall CListBox::DeleteItem(struct tagDELETEITEMSTRUCT *))
+externdef ?VKeyToItem@CListBox@@UAEHII@Z :proc   ; (public: virtual int __thiscall CListBox::VKeyToItem(unsigned int,unsigned int))
+externdef ?CharToItem@CListBox@@UAEHII@Z :proc   ; (public: virtual int __thiscall CListBox::CharToItem(unsigned int,unsigned int))
+externdef ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ  :proc
+
+
+
+
+;CWnd
+externdef ?messageMap@CWnd@@2UAFX_MSGMAP@@B :dword   ; (public: static struct AFX_MSGMAP const CWnd::messageMap)
+externdef ?CheckAutoCenter@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall CWnd::CheckAutoCenter(void))
+externdef ?ContinueModal@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall CWnd::ContinueModal(void))
+externdef ?GetRuntimeClass@CWnd@@UBEPAUCRuntimeClass@@XZ :proc   ; (public: virtual struct CRuntimeClass * __thiscall CWnd::GetRuntimeClass(void)const )
+externdef ?OnFinalRelease@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::OnFinalRelease(void))
+externdef ?PreSubclassWindow@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::PreSubclassWindow(void))
+externdef ?Create@CWnd@@UAEHPBD0KABUtagRECT@@PAV1@IPAX@Z :proc   ; (public: virtual int __thiscall CWnd::Create(char const *,char const *,unsigned long,struct tagRECT const &,class CWnd *,unsigned int,v
+externdef ?DestroyWindow@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall CWnd::DestroyWindow(void))
+externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
+externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
+externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )
+externdef ?GetScrollBarCtrl@CWnd@@UBEPAXH@Z :proc   ; (public: virtual void * __thiscall CWnd::GetScrollBarCtrl(int)const )
+externdef ?WinHelpA@CWnd@@UAEXKI@Z :proc   ; (public: virtual void __thiscall CWnd::WinHelpA(unsigned long,unsigned int))
+externdef ?EndModalLoop@CWnd@@UAEXH@Z :proc   ; (public: virtual void __thiscall CWnd::EndModalLoop(int))
+externdef ?OnCommand@CWnd@@UAEHIJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnCommand(unsigned int,long))
+externdef ?OnNotify@CWnd@@UAEHIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnNotify(unsigned int,long,long *))
+externdef ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ :proc   ; (public: virtual long (__stdcall** __thiscall CWnd::GetSuperWndProcAddr(void))(struct HWND__ *,unsigned int,unsigned int,long))
+externdef ?DoDataExchange@CWnd@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CWnd::DoDataExchange(void *))
+externdef ?BeginModalState@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::BeginModalState(void))
+externdef ?EndModalState@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::EndModalState(void))
+externdef ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreTranslateMessage(struct tagMSG *))
+externdef ?OnAmbientProperty@CWnd@@UAEHPAXJPAUtagVARIANT@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnAmbientProperty(void *,long,struct tagVARIANT *))
+externdef ?WindowProc@CWnd@@UAEJIIJ@Z :proc   ; (public: virtual long __thiscall CWnd::WindowProc(unsigned int,unsigned int,long))
+externdef ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnWndMsg(unsigned int,unsigned int,long,long *))
+externdef ?DefWindowProcA@CWnd@@UAEJIIJ@Z :proc   ; (public: virtual long __thiscall CWnd::DefWindowProcA(unsigned int,unsigned int,long))
+externdef ?PostNcDestroy@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::PostNcDestroy(void))
+externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnChildNotify(unsigned int,unsigned int,long,long *))
+externdef ?IsFrameWnd@CWnd@@UBEHXZ :proc   ; (public: virtual int __thiscall CWnd::IsFrameWnd(void)const )
+externdef ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (public: virtual int __thiscall CWnd::SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO *))

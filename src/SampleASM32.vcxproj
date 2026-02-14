@@ -233,6 +233,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="afxmsg_.h" />
     <ClInclude Include="alm.h" />
     <ClInclude Include="asm_mfc.h" />
     <ClInclude Include="assert_offset.h" />
