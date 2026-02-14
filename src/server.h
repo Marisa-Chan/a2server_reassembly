@@ -138,6 +138,7 @@ extern int32_t g_IsServer; // 1 for server mode, 0 for client code. 665D00.
 extern int32_t g_ShutdownIn; // Server shutdown (in milliseconds?). 0x7FFFFFFF means no shutdown scheduled. 63623c.
 extern int32_t g_GameType; // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
 extern int32_t g_CurrentMapIndex; // Current map index in map array. 6D1634.
+extern CStringArray g_MapNames; // Array of map names. 6D15F0.
 extern CArray<int32_t> g_MapDurations; // Array of map durations. 0x7FFFFFFF means no limit. 6D1618.
 
 #endif

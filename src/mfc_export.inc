@@ -444,6 +444,7 @@ externdef ?g_Server@@3PAUServer@@A : dword
 PUBLIC _g_IsServer
 PUBLIC _g_ShutdownIn
 PUBLIC _g_CurrentMapIndex
+PUBLIC _g_MapNames
 PUBLIC _g_MapDurations
 PUBLIC _g_GameType
 
