@@ -441,6 +441,7 @@ externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
 ;Server
 externdef ?g_Server@@3PAUServer@@A : dword
+<<<<<<< HEAD
 externdef ?g_IsServer@@3HA : dword
 externdef ?g_ShutdownIn@@3HA : dword
 externdef ?g_CurrentMapIndex@@3HA : dword
@@ -454,6 +455,14 @@ externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F94C0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
+=======
+PUBLIC _g_IsServer
+PUBLIC _g_ShutdownIn
+PUBLIC _g_CurrentMapIndex
+PUBLIC _g_MapNames
+PUBLIC _g_MapDurations
+PUBLIC _g_GameType
+>>>>>>> c905304 (Add g_MapNames)
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 
