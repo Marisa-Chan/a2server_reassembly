@@ -11,7 +11,7 @@ extern "C"
 
 
 template<typename TYPE, class HLDR = CList<TYPE*> >
-struct LPIter
+struct Listerator
 {
 	HLDR *holder = nullptr;
 	POSITION position = NULL;

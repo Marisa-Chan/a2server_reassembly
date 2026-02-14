@@ -25,7 +25,7 @@ void sub_4954EA()
 
     Player* selected = nullptr;
 
-    LPIter<Player> it;
+    Listerator<Player> it;
     Player* player = it.Begin(*g_PlayersList);
     while (player != nullptr) {
         if (player->is_ai == 0) {
