@@ -6,6 +6,13 @@
 #include "players_list.h"
 #include "server.h"
 #include <stdio.h>
+#include <cstdio>
+
+#include "asm_mfc.h"
+#include "game_app.h"
+#include "net.h"
+#include "players_list.h"
+#include "server.h"
 
 
 //495033
@@ -99,6 +106,7 @@ void CEdit2::_OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 		SetSel(0xffff0000, 0);
 	}
 }
+
 
 
 
