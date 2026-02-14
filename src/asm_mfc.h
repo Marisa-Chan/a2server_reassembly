@@ -4050,9 +4050,183 @@ ASSERT_SIZE(CListBox, 0x3C);
 
 
 
+class CDockBar;
+class CDockContext;
+struct AFX_SIZEPARENTPARAMS;
+
+class CControlBar : public CWnd
+{
+	DECLARE_DYNAMIC(CControlBar)
+
+public:
+	virtual ~CControlBar();
+	virtual const AFX_MSGMAP* GetMessageMap() const;
+	virtual BOOL DestroyWindow();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual LRESULT WindowProc(UINT nMsg, WPARAM wParam, LPARAM lParam);
+	virtual void PostNcDestroy();
+
+	virtual CSize CalcFixedLayout(BOOL bStretch, BOOL bHorz);
+	virtual CSize CalcDynamicLayout(int nLength, DWORD nMode);
+	virtual void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler) = 0;
+	virtual void DelayShow(BOOL bShow);
+	virtual BOOL IsVisible() const;
+	virtual DWORD RecalcDelayShow(AFX_SIZEPARENTPARAMS* lpLayout);
+	virtual BOOL IsDockBar() const;
+	virtual void OnBarStyleChange(DWORD dwOldStyle, DWORD dwNewStyle);
+	virtual void DoPaint(CDC* pDC);
+	virtual BOOL SetStatusText(int nHit);
+
+protected:
+	CControlBar();
+
+public:
+	BOOL m_bAutoDelete;
+	// info about bar (for status bar and toolbar)
+	int m_cxLeftBorder, m_cxRightBorder;
+	int m_cyTopBorder, m_cyBottomBorder;
+	int m_cxDefaultGap;         // default gap value
+	UINT m_nMRUWidth;   // For dynamic resizing.
+
+	int m_nCount;
+	void* m_pData;        // m_nCount elements - type depends on derived class
+
+	// support for delayed hide/show
+	enum StateFlags
+	{
+		delayHide = 1, delayShow = 2, tempHide = 4, statusSet = 8
+	};
+	UINT m_nStateFlags;
+
+	// support for docking
+	DWORD m_dwStyle;    // creation style (used for layout)
+	DWORD m_dwDockStyle;// indicates how bar can be docked
+	CFrameWnd* m_pDockSite; // current dock site, if dockable
+	CDockBar* m_pDockBar;   // current dock bar, if dockable
+	CDockContext* m_pDockContext;   // used during dragging
+};
+
+ASSERT_SIZE(CControlBar, 0x78);
 
 
 
+class CStatusBarCtrl;
+struct AFX_STATUSPANE;
+
+class CStatusBar : public CControlBar
+{
+	DECLARE_DYNAMIC(CStatusBar)
+
+public:
+	CStatusBar();
+
+public:
+	virtual ~CStatusBar();
+	virtual const AFX_MSGMAP* GetMessageMap() const;
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL OnChildNotify(UINT message, WPARAM, LPARAM, LRESULT*);
+	virtual CSize CalcFixedLayout(BOOL bStretch, BOOL bHorz);
+	virtual void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler);
+	virtual void OnBarStyleChange(DWORD dwOldStyle, DWORD dwNewStyle);
+	virtual void DrawItem(LPDRAWITEMSTRUCT);
+
+protected:
+	int m_nMinHeight;
+};
+
+ASSERT_SIZE(CStatusBar, 0x7C);
+
+
+
+
+class CStatic : public CWnd
+{
+	DECLARE_DYNAMIC(CStatic)
+
+public:
+	CStatic();
+
+public:
+	virtual ~CStatic();
+};
+
+ASSERT_SIZE(CStatic, 0x3C);
+
+
+
+
+class CButton : public CWnd
+{
+	DECLARE_DYNAMIC(CButton)
+
+public:
+	CButton();
+
+public:
+	virtual ~CButton();
+	virtual BOOL OnChildNotify(UINT, WPARAM, LPARAM, LRESULT*);
+
+	virtual void DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct);
+};
+
+ASSERT_SIZE(CButton, 0x3C);
+
+
+
+class CEdit : public CWnd
+{
+	DECLARE_DYNAMIC(CEdit)
+
+public:
+	CEdit();
+
+public:
+	virtual ~CEdit();
+};
+
+ASSERT_SIZE(CEdit, 0x3C);
+
+
+
+class CFont;
+
+class CDialog : public CWnd
+{
+	DECLARE_DYNAMIC(CDialog)
+
+public:
+	CDialog();
+	CDialog(LPCTSTR lpszTemplateName, CWnd* pParentWnd = NULL);
+	CDialog(UINT nIDTemplate, CWnd* pParentWnd = NULL);
+
+public:
+	virtual ~CDialog();
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	virtual const AFX_MSGMAP* GetMessageMap() const;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL CheckAutoCenter();
+	virtual BOOL SetOccDialogInfo(_AFX_OCC_DIALOG_INFO* pOccDialogInfo);
+
+	virtual int DoModal();
+	virtual BOOL OnInitDialog();
+	virtual void OnSetFont(CFont* pFont);
+	virtual void OnOK();
+	virtual void OnCancel();
+	virtual void PreInitDialog();
+
+public:
+	UINT m_nIDHelp;
+	LPCTSTR m_lpszTemplateName;     // name or MAKEINTRESOURCE
+	HGLOBAL m_hDialogTemplate;      // indirect (m_lpDialogTemplate == NULL)
+	LPCDLGTEMPLATE m_lpDialogTemplate;  // indirect if (m_lpszTemplateName == NULL)
+	void* m_lpDialogInit;           // DLGINIT resource data
+	CWnd* m_pParentWnd;             // parent/owner window
+	HWND m_hWndTop;                 // top level parent window (may be disabled)
+	_AFX_OCC_DIALOG_INFO* m_pOccDialogInfo;
+};
+
+ASSERT_SIZE(CDialog, 0x5C);
 
 
 
