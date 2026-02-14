@@ -206,7 +206,8 @@ extern ?FormatMessageA@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString
 extern ?TrimRight@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimRight(void))
 extern ?TrimLeft@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimLeft(void))
 
-
+; CStringArray
+extern ?GetSize@CStringArray@@QBEHXZ :proc  ; CStringArray::GetSize()
 
 ;CPlex
 extern ?Create@CPlex@@SGPAU1@AAPAU1@II@Z:proc   ; CPlex::Create 005dbbb6
@@ -435,12 +436,16 @@ externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 
 
-
 ;NetStru2
 externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
 ;Server
 externdef ?g_Server@@3PAUServer@@A : dword
+PUBLIC _g_IsServer
+PUBLIC _g_ShutdownIn
+PUBLIC _g_CurrentMapIndex
+PUBLIC _g_MapDurations
+PUBLIC _g_GameType
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 
