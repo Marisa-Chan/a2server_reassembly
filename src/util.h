@@ -32,7 +32,7 @@ struct LPIter
 		if (position == NULL)
 			return nullptr;
 
-		return & holder->GetNext(position);
+		return holder->GetNext(position);
 	}
 };
 

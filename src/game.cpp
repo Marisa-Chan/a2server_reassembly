@@ -8,13 +8,8 @@
 #include "players_list.h"
 #include "server.h"
 #include "unit.h"
+#include "util.h"
 
-
-extern "C"
-{
-    Player* __fastcall sub_496DD0(void* iter, int32_t edx, void* list);
-    Player* __fastcall sub_496E20(void* iter);
-};
 
 void sub_4954EA()
 {
@@ -25,13 +20,13 @@ void sub_4954EA()
     MainWindow* main_window = (MainWindow*)AfxGetMainWnd();
     CString unused;
 
-    uint32_t iter_state[2] = {};
-
     int target_index = main_window->field_0x70c.GetCurSel();
     int index = 0;
 
     Player* selected = nullptr;
-    Player* player = sub_496DD0(iter_state, 0, g_PlayersList);
+
+    LPIter<Player> it;
+    Player* player = it.Begin(*g_PlayersList);
     while (player != nullptr) {
         if (player->is_ai == 0) {
             if (index == target_index) {
@@ -41,7 +36,7 @@ void sub_4954EA()
             ++index;
         }
 
-        player = sub_496E20(iter_state);
+        player = it.GetNext();
     }
 
     player = selected;
