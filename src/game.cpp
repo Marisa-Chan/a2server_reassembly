@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <cstring>
+#include <windows.h>
 
 #include "game_app.h"
 #include "main_window.h"
@@ -9,7 +10,6 @@
 #include "server.h"
 #include "unit.h"
 #include "util.h"
-
 
 void sub_4954EA()
 {

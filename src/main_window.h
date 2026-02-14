@@ -28,6 +28,11 @@ public: // VTable at 0060c1a8.
     // virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // sub_486c6c
 
 public:
+    void sub_48A756(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
+    void sub_484259();
+    void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);
+
+public:
     int32_t field_0xbc;
     int32_t field_0xc0;
     int32_t field_0xc4;

@@ -62,6 +62,15 @@ ASSERT_SIZE(Srv1, 0x3c);
 class Player;
 
 struct Server {
+public:
+    void sub_4FBB79();
+    void sub_4F1E2A();
+    void sub_4FA5C4();
+    void sub_4F94C0(int arg);
+    void sub_4FA78E(int arg);
+    void sub_4F8831();
+
+public:
     int tick16; // This value seems to be advanced every 16 ticks
     int tick;
     CowardActivation coward_activation;

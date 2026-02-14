@@ -441,12 +441,19 @@ externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
 ;Server
 externdef ?g_Server@@3PAUServer@@A : dword
-PUBLIC _g_IsServer
-PUBLIC _g_ShutdownIn
-PUBLIC _g_CurrentMapIndex
-PUBLIC _g_MapNames
-PUBLIC _g_MapDurations
-PUBLIC _g_GameType
+externdef ?g_IsServer@@3HA : dword
+externdef ?g_ShutdownIn@@3HA : dword
+externdef ?g_CurrentMapIndex@@3HA : dword
+externdef _g_MapNames : dword  ; CStringArray
+externdef ?g_MapDurations@@3V?$CArray@HABH@@A : dword  ; CList<int32_t>
+externdef ?g_GameType@@3HA : dword
+
+externdef ?sub_4FBB79@Server@@QAEXXZ :proc
+externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
+externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
+externdef ?sub_4F94C0@Server@@QAEXH@Z :proc
+externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
+externdef ?sub_4F8831@Server@@QAEXXZ :proc
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 
@@ -457,6 +464,7 @@ externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
 ;PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
+externdef ?sub_53618F@PlayersList@@QAEHXZ :proc
 
 
 
@@ -516,3 +524,18 @@ externdef ?PostNcDestroy@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall
 externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnChildNotify(unsigned int,unsigned int,long,long *))
 externdef ?IsFrameWnd@CWnd@@UBEHXZ :proc   ; (public: virtual int __thiscall CWnd::IsFrameWnd(void)const )
 externdef ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (public: virtual int __thiscall CWnd::SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO *))
+
+
+; MainWindow
+externdef ?sub_484259@MainWindow@@QAEXXZ :proc
+externdef ?sub_41EA70@MainWindow@@QAEXIIJ@Z :proc
+
+externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
+
+
+externdef @sub_4271E6@4 :proc
+externdef @sub_49585B@4 :proc
+externdef @sub_48A747@0 :proc
+
+externdef _dword_6D1660 :dword
+externdef _byte_642C68 :byte

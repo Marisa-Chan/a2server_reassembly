@@ -20,5 +20,6 @@ public:
 
 public:
     void FUN_00534ddd();
+    int sub_53618F(); // I guess it counts current human players?
 };
 ASSERT_SIZE(PlayersList, 0x24);
