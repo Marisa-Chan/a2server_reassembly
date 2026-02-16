@@ -3440,10 +3440,12 @@ public:
 };
 
 
-
-typedef void (CCmdTarget::* AFX_PMSG)(void);
-typedef void (CWnd::* AFX_PMSGW)(void);
-typedef void (CWinThread::* AFX_PMSGT)(void);
+typedef void (*AFX_PMSG)(void);
+typedef void (*AFX_PMSGW)(void);
+typedef void (*AFX_PMSGT)(void);
+//typedef void (CCmdTarget::* AFX_PMSG)(void);
+//typedef void (CWnd::* AFX_PMSGW)(void);
+//typedef void (CWinThread::* AFX_PMSGT)(void);
 
 struct AFX_MSGMAP_ENTRY
 {
@@ -3454,6 +3456,8 @@ struct AFX_MSGMAP_ENTRY
 	UINT nSig;       // signature type (action) or pointer to message #
 	AFX_PMSG pfn;    // routine to call (or special value)
 };
+
+ASSERT_SIZE(AFX_MSGMAP_ENTRY, 0x18);
 
 struct AFX_MSGMAP
 {

@@ -32,16 +32,20 @@ const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
-void CListBox2::OnKeyDown(UINT, UINT, UINT)
+void __fastcall CListBox2::OnKeyDown(CListBox2* _this, void* edx, UINT arg1, UINT arg2, UINT arg3)
+{ _this->_OnKeyDown(arg1, arg2, arg3); }
+
+void __fastcall CListBox2::OnLButtonDblClk(CListBox2* _this, void* edx, UINT arg1, CPoint arg2)
+{ _this->_OnLButtonDblClk(arg1, arg2); }
+
+void CListBox2::_OnKeyDown(UINT, UINT, UINT)
 {
-    printf("CListBox2 OnKeyDown\n");
-    Default();
+	Default();
 }
 
-void CListBox2::OnLButtonDblClk(UINT, CPoint)
+void CListBox2::_OnLButtonDblClk(UINT, CPoint)
 {
-    printf("CListBox2 OnLButtonDblClk\n");
-    Default();
+	Default();
 }
 
 

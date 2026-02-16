@@ -16,8 +16,11 @@ public:
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    void OnKeyDown(UINT, UINT, UINT);
-    void OnLButtonDblClk(UINT, CPoint);
+    static void __fastcall OnKeyDown(CListBox2*, void* edx, UINT, UINT, UINT);
+    static void __fastcall OnLButtonDblClk(CListBox2*, void* edx, UINT, CPoint);
+
+    void _OnKeyDown(UINT, UINT, UINT);
+    void _OnLButtonDblClk(UINT, CPoint);
 };
 
 
