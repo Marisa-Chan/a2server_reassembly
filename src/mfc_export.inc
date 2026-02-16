@@ -455,12 +455,6 @@ externdef ?sub_4F94C0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 
-PUBLIC _g_IsServer
-PUBLIC _g_ShutdownIn
-PUBLIC _g_CurrentMapIndex
-PUBLIC _g_MapNames
-PUBLIC _g_MapDurations
-PUBLIC _g_GameType
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 
