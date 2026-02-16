@@ -24,6 +24,21 @@ public:
 };
 
 
+class CEdit2 : public CEdit
+{
+public:
+    CEdit2();
+    ~CEdit2();
+
+    virtual const AFX_MSGMAP* GetMessageMap() const override;
+
+    static const AFX_MSGMAP_ENTRY _messageEntries[];
+    static AFX_DATA const AFX_MSGMAP messageMap;
+
+    static void __fastcall OnKeyDown(CEdit2*, void* edx, UINT, UINT, UINT);
+    void _OnKeyDown(UINT, UINT, UINT);
+};
+
 
 class MainWindow : public CFrameWnd
 {
@@ -158,13 +173,12 @@ public:
     int32_t field_0x648;
     int32_t field_0x64c;
     int32_t field_0x650;
-    CWnd status_bar;
-    int32_t fields_0x690[16];
-    CWnd list_box;
-    CListBox field_0x70c;
-    CWnd field_0x748;
-    CWnd field_0x784;
-    CWnd edit2;
+    CStatusBar status_bar;
+    CListBox list_box1;
+    CListBox2 list_box2;
+    CStatic static1;
+    CStatic static2;
+    CEdit2 edit;
     CWnd* field_0x7fc;
     int32_t field_0x800;
     int32_t field_0x804;
@@ -172,5 +186,5 @@ public:
 ASSERT_OFFSET(MainWindow, field_0xc4, 0xc4);
 ASSERT_OFFSET(MainWindow, field_0x148, 0x148);
 ASSERT_OFFSET(MainWindow, current_map_name, 0x620);
-ASSERT_OFFSET(MainWindow, list_box, 0x6d0);
+ASSERT_OFFSET(MainWindow, list_box1, 0x6d0);
 ASSERT_SIZE(MainWindow, 0x808);

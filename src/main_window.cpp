@@ -1,12 +1,11 @@
 #include "main_window.h"
-
 #include <cstdio>
-
 #include "asm_mfc.h"
 #include "game_app.h"
 #include "net.h"
 #include "players_list.h"
 #include "server.h"
+#include <stdio.h>
 
 
 //495033
@@ -47,6 +46,64 @@ void CListBox2::_OnLButtonDblClk(UINT, CPoint)
 {
 	Default();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+CEdit2::CEdit2() = default;
+CEdit2::~CEdit2() = default;
+
+const AFX_MSGMAP* CEdit2::GetMessageMap() const
+{
+	//494efb
+	return &CEdit2::messageMap;
+}
+
+//60bf70
+AFX_DATADEF const AFX_MSGMAP CEdit2::messageMap =
+{ &CEdit::messageMap, &CEdit2::_messageEntries[0] };
+
+const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
+{
+	ON_WM_KEYDOWN()
+	{0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
+};
+
+void __fastcall CEdit2::OnKeyDown(CEdit2* _this, void* edx, UINT arg1, UINT arg2, UINT arg3)
+{ _this->_OnKeyDown(arg1, arg2, arg3); }
+
+void CEdit2::_OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
+{
+	Default();
+
+	if (nChar == VK_RETURN)
+	{
+		CString txt;
+		CWnd::GetWindowText(txt);
+
+		char buf[1024];
+		CharToOemA(txt, buf);
+
+		g_NetStru1_main.FUN_0051cd89(buf, nullptr);
+
+		LogMessage(buf);
+
+		SetSel(0xffff0000, 0);
+	}
+}
+
+
+
+
+
 
 
 extern "C"
@@ -240,3 +297,4 @@ void MainWindow::sub_48A756()
         sub_48A747(); // exception handler that calls _exit(-1)
     }
 }
+

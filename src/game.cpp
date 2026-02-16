@@ -20,7 +20,7 @@ void sub_4954EA()
     MainWindow* main_window = (MainWindow*)AfxGetMainWnd();
     CString unused;
 
-    int target_index = main_window->field_0x70c.GetCurSel();
+    int target_index = main_window->list_box2.GetCurSel();
     int index = 0;
 
     Player* selected = nullptr;

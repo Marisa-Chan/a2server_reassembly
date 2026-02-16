@@ -492,6 +492,11 @@ externdef ?CharToItem@CListBox@@UAEHII@Z :proc   ; (public: virtual int __thisca
 externdef ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ  :proc
 
 
+;CEdit
+externdef ?GetRuntimeClass@CEdit@@UBEPAUCRuntimeClass@@XZ :proc   ; (public: virtual struct CRuntimeClass * __thiscall CEdit::GetRuntimeClass(void)const )
+externdef ??0CEdit@@QAE@XZ :proc   ; (public: __thiscall CEdit::CEdit(void))
+externdef ??1CEdit@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit::~CEdit(void))
+externdef ?SetSel@CEdit@@QAEXKH@Z :proc  ;  CEdit::SetSel
 
 
 ;CWnd
@@ -524,6 +529,32 @@ externdef ?PostNcDestroy@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall
 externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnChildNotify(unsigned int,unsigned int,long,long *))
 externdef ?IsFrameWnd@CWnd@@UBEHXZ :proc   ; (public: virtual int __thiscall CWnd::IsFrameWnd(void)const )
 externdef ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (public: virtual int __thiscall CWnd::SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO *))
+externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z  :proc    ;   CWnd:: OnChildNotify
+externdef ?GetWindowTextA@CWnd@@QBEXAAVCString@@@Z  :proc   ; CWnd::GetWindowTextA
+
+
+
+;CDialog
+externdef ??0CDialog@@QAE@XZ :proc   ; (public: __thiscall CDialog::CDialog(void))
+externdef ??0CDialog@@QAE@PBDPAVCWnd@@@Z :proc   ; (public: __thiscall CDialog::CDialog(char const *,class CWnd *))
+externdef ??0CDialog@@QAE@IPAVCWnd@@@Z :proc   ; (public: __thiscall CDialog::CDialog(unsigned int,class CWnd *))
+externdef ??1CDialog@@UAE@XZ :proc   ; (public: virtual __thiscall CDialog::~CDialog(void))
+
+
+;CStatic
+externdef ??0CStatic@@QAE@XZ :proc   ; (public: __thiscall CStatic::CStatic(void))
+externdef ??1CStatic@@UAE@XZ :proc   ; (public: virtual __thiscall CStatic::~CStatic(void))
+
+
+;CStatusBar
+externdef ??0CStatusBar@@QAE@XZ :proc   ; (public: __thiscall CStatusBar::CStatusBar(void))
+externdef ??1CStatusBar@@UAE@XZ :proc   ; (public: virtual __thiscall CStatusBar::~CStatusBar(void))
+
+;CEdit2
+extern ??0CEdit2@@QAE@XZ :proc   ; (public: __thiscall CEdit2::CEdit2(void))
+extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(void))
+
+
 
 
 ; MainWindow
@@ -539,3 +570,5 @@ externdef @sub_48A747@0 :proc
 
 externdef _dword_6D1660 :dword
 externdef _byte_642C68 :byte
+
+

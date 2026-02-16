@@ -70,6 +70,8 @@ public:
     void FUN_0051d49b(Player* recpt);
     void FUN_005188db();
 
+    void FUN_0051cd89(const CString& name, Player* player);
+
     NetStru2* FUN_00518544(uint16_t player_id);
     void FUN_005170b6(NetStru2* arg1);
 
