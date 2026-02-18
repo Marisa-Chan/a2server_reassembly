@@ -3944,6 +3944,7 @@ public:
 public:
 	LRESULT Default();
 	void GetWindowText(CString& rString) const; //5e15d7
+	BOOL PostMessage(UINT message, WPARAM wParam, LPARAM lParam); //41ea70
 };
 
 ASSERT_SIZE(CWnd, 0x3C);

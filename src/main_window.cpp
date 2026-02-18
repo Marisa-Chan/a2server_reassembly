@@ -151,41 +151,37 @@ void MainWindow::sub_48A756()
             sub_4271E6(byte_642C68);
             
             // Server mode processing (g_IsServer != 0 means server mode)
-            if (g_IsServer != 0) {
-                if (this->field_0x420 == 1) {
-                    // Process network packets?
-                    this->sub_484259();
+            if (g_IsServer != 0 && this->field_0x420 == 1) {
+                // Process network packets?
+                this->sub_484259();
                     
-                    // Server shutdown notifications (message 0x0D).
-                    if (g_ShutdownIn != 0x7FFFFFFF) {
-                        if (g_ShutdownIn < 6000000) {
-                            if (g_ShutdownIn > 1000) { // > 1 second
-                                int32_t tick_interval = this->field_0x42c * 16;
-                                if ((g_ShutdownIn % 60000) < tick_interval) {
-                                    if (g_GameType == 0) {
-                                        g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
-                                    }
-                                }
-                            }
-                            
-                            if (g_ShutdownIn < 60000) {
-                                int32_t tick_interval = this->field_0x42c * 16;
-                                if ((g_ShutdownIn % 15000) < tick_interval) {
-                                    if (g_GameType == 0) {
-                                        g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
-                                    }
-                                }
-                            }
-                        }
-                        
+                // Server shutdown notifications (message 0x0D).
+                if (g_ShutdownIn != 0x7FFFFFFF) {
+                    if (g_ShutdownIn < 6000000 && g_ShutdownIn > 1000) { // > 1 second
                         int32_t tick_interval = this->field_0x42c * 16;
-                        g_ShutdownIn -= tick_interval;
-                        
-                        if (g_ShutdownIn <= 0) {
-                            g_ShutdownIn = 0;
-                            g_Server->sub_4F8831();
-                            this->field_0x624 = 1;
+                        if ((g_ShutdownIn % 60000) < tick_interval) {
+                            if (g_GameType == 0) {
+                                g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
+                            }
                         }
+
+                        if (g_ShutdownIn < 60000) {
+                            int32_t tick_interval = this->field_0x42c * 16;
+                            if ((g_ShutdownIn % 15000) < tick_interval) {
+                                if (g_GameType == 0) {
+                                    g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
+                                }
+                            }
+                        }
+                    }
+                        
+                    int32_t tick_interval = this->field_0x42c * 16;
+                    g_ShutdownIn -= tick_interval;
+                        
+                    if (g_ShutdownIn < 0) {
+                        g_ShutdownIn = 0;
+                        g_Server->sub_4F8831();
+                        this->field_0x624 = 1;
                     }
                 }
                 
@@ -196,11 +192,11 @@ void MainWindow::sub_48A756()
                 // Check if should shut down.
                 if (this->field_0x624 != 0) {
                     if (g_Server->FileList.GetSize() == 0) {
-                        this->sub_41EA70(WM_CLOSE, 0, 0);
+                        PostMessage(WM_CLOSE, 0, 0);
                     }
                 }
                 
-                if (g_Server->field59_0x208 == 0) {
+                if (g_Server->field59_0x208 != 0) {
                     if (g_PlayersList->sub_53618F() == 0) {
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->sub_4F1E2A();
@@ -226,7 +222,7 @@ void MainWindow::sub_48A756()
                     int32_t target_time = map_duration * 60000;
                     int32_t time_diff = target_time - g_Server->map_elapsed_time;
                     
-                    if (time_diff < 659999 && time_diff > 1000) {
+                    if (time_diff < 660000 && time_diff > 1000) {
                         int32_t tick_interval = this->field_0x42c * 16;
                         
                         if ((time_diff % 60000) < tick_interval) {
@@ -302,7 +298,7 @@ void MainWindow::sub_48A756()
         
         sub_4271E6(byte_642C68);
     } catch (...) {
-        sub_48A747(); // exception handler that calls _exit(-1)
+        _exit(-1);
     }
 }
 

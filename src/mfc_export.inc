@@ -532,6 +532,7 @@ externdef ?IsFrameWnd@CWnd@@UBEHXZ :proc   ; (public: virtual int __thiscall CWn
 externdef ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (public: virtual int __thiscall CWnd::SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO *))
 externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z  :proc    ;   CWnd:: OnChildNotify
 externdef ?GetWindowTextA@CWnd@@QBEXAAVCString@@@Z  :proc   ; CWnd::GetWindowTextA
+externdef ?PostMessageA@CWnd@@QAEHIIJ@Z  :proc  ; CWnd::PostMessage
 
 
 
@@ -559,7 +560,6 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 
 ; MainWindow
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
-externdef ?sub_41EA70@MainWindow@@QAEXIIJ@Z :proc
 
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 
