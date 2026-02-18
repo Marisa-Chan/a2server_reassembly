@@ -571,3 +571,15 @@ externdef @sub_48A747@0 :proc
 externdef _dword_6D1660 :dword
 externdef _byte_642C68 :byte
 
+
+
+;TxtFile
+
+extern ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A  : byte  ; TxtFile::AllLines
+
+extern ??0TxtFile@@QAE@XZ :proc   ; (public: __thiscall TxtFile::TxtFile(void))
+extern ??1TxtFile@@UAE@XZ :proc   ; (public: virtual __thiscall TxtFile::~TxtFile(void))
+extern ?LoadChunkFile@TxtFile@@QAEXPBD@Z :proc   ; (public: void __thiscall TxtFile::LoadChunkFile(char const *))
+extern ?Free@TxtFile@@QAEXXZ :proc   ; (public: void __thiscall TxtFile::Free(void))
+extern ?GetLine@TxtFile@@QAEPADH@Z :proc   ; (public: char * __thiscall TxtFile::GetLine(int))
+extern ?GetCount@TxtFile@@QAEHXZ   :proc   ; TxtFile::GetCount

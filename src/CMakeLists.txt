@@ -46,6 +46,7 @@ add_executable(a2serv_vsc
   table.cpp
   testre.cpp
   token.cpp
+  txtfile.cpp
   unit.cpp
   unit_list.cpp
   unit_to_hit.cpp
