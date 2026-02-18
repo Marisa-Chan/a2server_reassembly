@@ -562,6 +562,7 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
+extern ?SetSpeed@MainWindow@@QAE_NH@Z :proc ; MainWindow::SetSpeed
 
 
 externdef @sub_4271E6@4 :proc

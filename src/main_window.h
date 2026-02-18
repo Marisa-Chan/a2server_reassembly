@@ -50,6 +50,8 @@ public:
     void sub_484259();
     void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);
 
+    bool SetSpeed(int speed);
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -142,11 +144,11 @@ public:
     int32_t field_0x414;
     int32_t field_0x418;
     int32_t field_0x41c;
-    int32_t field_0x420;
+    int32_t game_tic_counter;
     int32_t field_0x424;
-    int32_t field_0x428;
-    int32_t field_0x42c;
-    int32_t field_0x430;
+    int32_t last_tic_time;
+    int32_t game_tic_time;
+    int32_t game_speed;
     int32_t field_0x434;
     int32_t field_0x438;
     int32_t field_0x43c;

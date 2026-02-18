@@ -133,17 +133,17 @@ void MainWindow::sub_48A756()
         sub_4271E6(byte_642C68);
 
         // Calculate next tick time
-        int32_t next_tick_time = this->field_0x428 + (this->field_0x420 + 1) * this->field_0x42c;
+        int32_t next_tick_time = this->last_tic_time + (this->game_tic_counter + 1) * this->game_tic_time;
         DWORD current_time = GetTickCount();
 
         if (next_tick_time <= (int32_t)current_time) {
             // Initialize timestamp on first tick
-            if (this->field_0x420 == 0) {
-                this->field_0x428 = GetTickCount();
+            if (this->game_tic_counter == 0) {
+                this->last_tic_time = GetTickCount();
             }
             
             // Increment and wrap tick counter (0-15)
-            this->field_0x420 = (this->field_0x420 + 1) & 0x0F;
+            this->game_tic_counter = (this->game_tic_counter + 1) & 0x0F;
             
             // Process server
             g_Server->sub_4FBB79();
@@ -151,14 +151,14 @@ void MainWindow::sub_48A756()
             sub_4271E6(byte_642C68);
             
             // Server mode processing (g_IsServer != 0 means server mode)
-            if (g_IsServer != 0 && this->field_0x420 == 1) {
+            if (g_IsServer != 0 && this->game_tic_counter == 1) {
                 // Process network packets?
                 this->sub_484259();
                     
                 // Server shutdown notifications (message 0x0D).
                 if (g_ShutdownIn != 0x7FFFFFFF) {
                     if (g_ShutdownIn < 6000000 && g_ShutdownIn > 1000) { // > 1 second
-                        int32_t tick_interval = this->field_0x42c * 16;
+                        int32_t tick_interval = this->game_tic_time * 16;
                         if ((g_ShutdownIn % 60000) < tick_interval) {
                             if (g_GameType == 0) {
                                 g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
@@ -166,7 +166,7 @@ void MainWindow::sub_48A756()
                         }
 
                         if (g_ShutdownIn < 60000) {
-                            int32_t tick_interval = this->field_0x42c * 16;
+                            int32_t tick_interval = this->game_tic_time * 16;
                             if ((g_ShutdownIn % 15000) < tick_interval) {
                                 if (g_GameType == 0) {
                                     g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
@@ -175,7 +175,7 @@ void MainWindow::sub_48A756()
                         }
                     }
                         
-                    int32_t tick_interval = this->field_0x42c * 16;
+                    int32_t tick_interval = this->game_tic_time * 16;
                     g_ShutdownIn -= tick_interval;
                         
                     if (g_ShutdownIn < 0) {
@@ -212,8 +212,8 @@ void MainWindow::sub_48A756()
                     }
                 }
                 
-                g_Server->map_elapsed_time += this->field_0x42c * 16;
-                g_Server->map_elapsed_time2 += this->field_0x42c * 16;
+                g_Server->map_elapsed_time += this->game_tic_time * 16;
+                g_Server->map_elapsed_time2 += this->game_tic_time * 16;
 
                 int32_t map_duration = g_MapDurations.GetAt(g_CurrentMapIndex);
                 
@@ -223,7 +223,7 @@ void MainWindow::sub_48A756()
                     int32_t time_diff = target_time - g_Server->map_elapsed_time;
                     
                     if (time_diff < 660000 && time_diff > 1000) {
-                        int32_t tick_interval = this->field_0x42c * 16;
+                        int32_t tick_interval = this->game_tic_time * 16;
                         
                         if ((time_diff % 60000) < tick_interval) {
                             if (g_GameType == 0 || g_GameType == 3) {
@@ -241,7 +241,7 @@ void MainWindow::sub_48A756()
                     }
                     
                     // Check if map should change now.
-                    if (time_diff <= (this->field_0x42c * 16)) {
+                    if (time_diff <= (this->game_tic_time * 16)) {
                         if (g_Server->field59_0x208 == 0) {
                             g_CurrentMapIndex++;
                             
@@ -276,7 +276,7 @@ void MainWindow::sub_48A756()
             if (g_IsServer == 0) {
                 if (this->field_0xbc != 0) {
                     if (this->field_0x3d0 != 0) {
-                        if (this->field_0x420 == 1) {
+                        if (this->game_tic_counter == 1) {
                             // Call virtual function at offset 0x34 (13-th virtual function).
                             void** vtable = *(void***)this->field_0x3d0;
                             void (__fastcall *vfunc)(void*, int) = 
@@ -288,7 +288,7 @@ void MainWindow::sub_48A756()
             }
             
             // Calculate sleep time for timing control
-            int32_t desired_time = this->field_0x428 + (this->field_0x420 + 1) * this->field_0x42c;
+            int32_t desired_time = this->last_tic_time + (this->game_tic_counter + 1) * this->game_tic_time;
             int32_t sleep_time = desired_time - GetTickCount();
             
             if (sleep_time > 1) {
@@ -300,5 +300,60 @@ void MainWindow::sub_48A756()
     } catch (...) {
         _exit(-1);
     }
+}
+
+
+
+bool MainWindow::SetSpeed(int speed)
+{
+    //48dc02
+    int32_t old_speed = game_speed;
+
+    if (speed < 0)
+        speed = 0;
+  
+    if (speed > 8)
+        speed = 8;
+
+    game_speed = speed;
+
+    int ticks_per_second = 16;
+    switch (game_speed)
+    {
+    case 0:
+        ticks_per_second = 8;
+        break;
+    case 1:
+        ticks_per_second = 10;
+        break;
+    case 2:
+        ticks_per_second = 12;
+        break;
+    case 3:
+        ticks_per_second = 14;
+        break;
+    case 4:
+        ticks_per_second = 16;
+        break;
+    case 5:
+        ticks_per_second = 20;
+        break;
+    case 6:
+        ticks_per_second = 24;
+        break;
+    case 7:
+        ticks_per_second = 28;
+        break;
+    case 8:
+        ticks_per_second = 32;
+    }
+
+    game_tic_time = 1000 / ticks_per_second;
+    game_tic_counter = 0;
+    field_0x43c = 0;
+    field_0x438 = timeGetTime();
+    last_tic_time = timeGetTime(); //GetTickCount??
+    field_0x440 = 0;
+    return old_speed != game_speed;
 }
 
