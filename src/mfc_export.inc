@@ -465,7 +465,7 @@ externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
 ;PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
-externdef ?sub_53618F@PlayersList@@QAEHXZ :proc
+extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 
 
 

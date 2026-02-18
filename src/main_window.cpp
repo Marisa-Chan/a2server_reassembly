@@ -197,7 +197,7 @@ void MainWindow::sub_48A756()
                 }
                 
                 if (g_Server->field59_0x208 != 0) {
-                    if (g_PlayersList->sub_53618F() == 0) {
+                    if (g_PlayersList->CountHumanPlayers() == 0) {
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->sub_4F1E2A();
 
