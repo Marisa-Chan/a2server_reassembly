@@ -201,12 +201,7 @@ void MainWindow::sub_48A756()
                         if (g_Server->FileList.GetSize() == 0) {
                             g_Server->sub_4F1E2A();
 
-                            // Get vtable and call virtual function at offset 0x48 (18-th virtual function).
-                            void** vtable = *(void***)this->field_0x3d0;
-                            void (__fastcall *vfunc)(void*, int, UINT, int, int) = 
-                                (void (__fastcall *)(void*, int, UINT, int, int))vtable[0x48 / 4];
-
-                            vfunc((void*)this->field_0x3d0, 0, 0x445, 0, 0);
+                            field_0x3d0->MsgProc(0x445, 0, 0);
                             return;
                         }
                     }
@@ -275,13 +270,9 @@ void MainWindow::sub_48A756()
             // Client mode processing (g_IsServer == 0 means client mode).
             if (g_IsServer == 0) {
                 if (this->field_0xbc != 0) {
-                    if (this->field_0x3d0 != 0) {
+                    if (field_0x3d0 != nullptr) {
                         if (this->game_tic_counter == 1) {
-                            // Call virtual function at offset 0x34 (13-th virtual function).
-                            void** vtable = *(void***)this->field_0x3d0;
-                            void (__fastcall *vfunc)(void*, int) = 
-                                (void (__fastcall *)(void*, int))vtable[0x34 / 4];
-                            vfunc((void*)this->field_0x3d0, 0);
+                            field_0x3d0->VMethod9();
                         }
                     }
                 }

@@ -2,6 +2,7 @@
 
 #include "asm_mfc.h"
 #include "assert_offset.h"
+#include "visual.h"
 
 
 
@@ -40,6 +41,18 @@ public:
 };
 
 
+struct MWin_Unk1
+{
+    char buf1[256];
+    char buf2[256];
+
+    MWin_Unk1()
+    {
+        buf1[0] = 0;
+        buf2[0] = 0;
+    }
+};
+
 class MainWindow : public CFrameWnd
 {
 public: // VTable at 0060c1a8.
@@ -57,39 +70,38 @@ public:
     int32_t field_0xc0;
     int32_t field_0xc4;
     int32_t field_0xc8;
-    int32_t field_0xcc;
-    void* field_0xd0; // BigStruct2*
-    int32_t field_0xd4;
-    int32_t field_0xd8;
-    int32_t field_0xdc;
-    int32_t field_0xe0;
-    int32_t field_0xe4;
-    int32_t field_0xe8;
-    int32_t field_0xec;
-    int32_t field_0xf0;
-    int32_t field_0xf4;
-    int32_t field_0xf8;
-    int32_t field_0xfc;
-    int32_t field_0x100;
-    int32_t field_0x104;
-    int32_t field_0x108;
-    int32_t field_0x10c;
+    CVisualObject* field_0xcc;
+    CVisualObject* field_0xd0; // BigStruct2*
+    CVisualObject* field_0xd4;
+    CVisualObject* field_0xd8;
+    CVisualObject* field_0xdc;
+    CVisualObject* field_0xe0;
+    CVisualObject* field_0xe4;
+    CVisualObject* field_0xe8;
+    CVisualObject* field_0xec;
+    CVisualObject* field_0xf0;
+    CVisualObject* field_0xf4;
+    CVisualObject* field_0xf8;
+    CVisualObject* field_0xfc;
+    CVisualObject* field_0x100;
+    CVisualObject* field_0x104;
+    CVisualObject* field_0x108;
+    CVisualObject* field_0x10c;
     int32_t field_0x110;
-    int32_t field_0x114;
-    int32_t field_0x118;
-    int32_t field_0x11c;
-    int32_t field_0x120;
+    CVisualObject* field_0x114;
+    CVisualObject* field_0x118;
+    CVisualObject* field_0x11c;
+    CVisualObject* field_0x120;
     int32_t field_0x124;
     int32_t field_0x128;
     int32_t field_0x12c;
-    int32_t field_0x130;
-    int32_t field_0x134;
-    int32_t field_0x138;
+    CVisualObject* field_0x130;
+    CVisualObject* field_0x134;
+    CVisualObject* field_0x138;
     int32_t field_0x13c;
     int32_t field_0x140;
     int32_t field_0x144;
-    char field_0x148[256];
-    char field_0x248[256];
+    MWin_Unk1 field_0x148;
     int32_t field_0x348;
     int32_t field_0x34c;
     int32_t field_0x350;
@@ -99,10 +111,10 @@ public:
     int32_t field_0x360;
     int32_t field_0x364;
     int32_t field_0x368;
-    int32_t field_0x36c;
-    int32_t field_0x370;
-    int32_t field_0x374;
-    void* field_0x378; // BigStruct1*
+    CVisualObject* field_0x36c;
+    CVisualObject* field_0x370;
+    CVisualObject* field_0x374;
+    CVisualObject* field_0x378; // BigStruct1*
     int32_t field_0x37c;
     CString field_0x380;
     int32_t field_0x384;
@@ -124,10 +136,10 @@ public:
     int32_t field_0x3c4;
     int32_t field_0x3c8;
     int32_t field_0x3cc;
-    int32_t field_0x3d0;
+    CVisualObject* field_0x3d0;
     int32_t field_0x3d4;
-    int32_t field_0x3d8;
-    int32_t field_0x3dc;
+    CVisualObject* field_0x3d8;
+    CVisualObject* field_0x3dc;
     CString field_0x3e0;
     int32_t field_0x3e4;
     CString field_0x3e8;
