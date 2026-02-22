@@ -6,11 +6,51 @@
 #include "mfc_templ.h"
 
 
+
+extern void FUN_00454c74(CRect *r);
+extern void LockSurface2();
+extern void UnlockSurface2();
+
+extern uint16_t clrsh_DullGold[16];
+extern uint16_t clrsh_TechBlack[16];
+
+
+
+
 class VisLabel;
-class CGameFont;
+class CGameBitmap;
+
+class CGameFont : public CObject
+{
+public:
+	virtual ~CGameFont();
+	
+	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh);
+	virtual uint16_t* GetShadowColors();
+
+public:
+	CGameFont();
+	void DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy);
+
+public:
+	CGameBitmap* bitmap;
+	int32_t* char_widths;
+};
+
+ASSERT_SIZE(CGameFont, 0xC);
+
 
 class CVisualObject : public CObject
 {
+public:
+	enum
+	{
+		FLAG_ENABLED = 1,
+		FLAG_NOTFOCUS = 2,
+		FLAG_FOCUS = 4,
+		FLAG_OVERCURSOR = 8,
+		FLAG_20 = 0x20,
+	};
 public:
 	~CVisualObject();
 	virtual void Dump(CDumpContext& dc) const override;
@@ -51,11 +91,11 @@ public:
 	void AddChild(CVisualObject* obj);
 
 	void RemoveChild(CVisualObject* obj);
-	void RemoveChildById(CVisualObject* obj);
+	void RemoveChildById(int32_t _id);
 	void RemoveAllChilds();
 
 	void DestroyChild(CVisualObject* obj);
-	void DestroyChildById(CVisualObject* obj);
+	void DestroyChildById(int32_t _id);
 	void DestroyAllChilds();
 
 	CVisualObject* FindChild(int32_t _id);
@@ -108,8 +148,8 @@ public:
 
 public:
 	VisLabel();
-	VisLabel(int32_t _id, const RECT& r, const char* text, CGameFont* font, uint16_t* colorsh, uint32_t align);
-	VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* text, CGameFont *font, uint16_t *colorsh, uint32_t align);
+	VisLabel(int32_t _id, const RECT& r, const char* _text, CGameFont* _font, uint16_t* colorsh, uint32_t align);
+	VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _text, CGameFont *_font, uint16_t *colorsh, uint32_t align);
 
 	void SetActiveColor(bool isActive);
 public:

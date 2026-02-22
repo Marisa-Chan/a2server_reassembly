@@ -52,6 +52,7 @@ add_executable(a2serv_vsc
   unit_to_hit.cpp
   util.cpp
   virtual_caster.cpp
+  visual.cpp
   world.cpp
   Main.asm
   a2_ucrt.asm

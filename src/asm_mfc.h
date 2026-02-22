@@ -3440,6 +3440,9 @@ public:
 };
 
 
+
+
+
 typedef void (*AFX_PMSG)(void);
 typedef void (*AFX_PMSGW)(void);
 typedef void (*AFX_PMSGT)(void);

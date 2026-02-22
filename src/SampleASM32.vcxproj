@@ -231,6 +231,7 @@
     <ClCompile Include="unit_list.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
+    <ClCompile Include="visual.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
