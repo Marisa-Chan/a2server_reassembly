@@ -176,7 +176,7 @@ void CVisualObject::SetCursorOver(bool isOver)
         if (isOver)
         {
             parent->cursor_over_obj_last = parent->cursor_over_obj;
-            cursor_over_obj = this;
+            parent->cursor_over_obj = this;
         }
         else if (parent->cursor_over_obj == this)
         {
@@ -793,6 +793,7 @@ VisLabel::~VisLabel()
 
 void VisLabel::VMethod7()
 {
+    //4d84e4
     if (parent)
     {
         CRect local_14;
