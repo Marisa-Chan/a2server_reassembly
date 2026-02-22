@@ -590,6 +590,79 @@ extern ?GetCount@TxtFile@@QAEHXZ   :proc   ; TxtFile::GetCount
 
 
 
+
+
+;CVisualObject
+extern ??0CVisualObject@@QAE@XZ :proc   ; (public: __thiscall CVisualObject::CVisualObject(void))
+extern ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z :proc   ; (public: __thiscall CVisualObject::CVisualObject(int,struct tagRECT const &,char const *))
+extern ??0CVisualObject@@QAE@HHHHHPBD@Z :proc   ; (public: __thiscall CVisualObject::CVisualObject(int,int,int,int,int,char const *))
+
+extern ??1CVisualObject@@UAE@XZ  :proc    ;   CVisualObject::~CVisualObject
+extern ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::Dump(class CDumpContext &)const )
+extern ?GetName@CVisualObject@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall CVisualObject::GetName(void))
+extern ?SetName@CVisualObject@@UAEXPBD@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetName(char const *))
+extern ?ChangeFlags@CVisualObject@@UAEXI_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::ChangeFlags(unsigned int,bool))
+extern ?TestFlags@CVisualObject@@UAEII@Z :proc   ; (public: virtual unsigned int __thiscall CVisualObject::TestFlags(unsigned int))
+extern ?SetCursorOver@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetCursorOver(bool))
+extern ?SetFocus@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetFocus(bool))
+extern ?VMethod7@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod7(void))
+extern ?VMethod8@CVisualObject@@UAEXPAUtagRECT@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::VMethod8(struct tagRECT *))
+extern ?VMethod9@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod9(void))
+extern ?VMethod10@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod10(void))
+extern ?WriteData@CVisualObject@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CVisualObject::WriteData(void *))
+extern ?DataSize@CVisualObject@@UAEIXZ :proc   ; (public: virtual unsigned int __thiscall CVisualObject::DataSize(void))
+extern ?ReadData@CVisualObject@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CVisualObject::ReadData(void *))
+extern ?MsgProc@CVisualObject@@UAEHIII@Z :proc   ; (public: virtual int __thiscall CVisualObject::MsgProc(unsigned int,unsigned int,unsigned int))
+extern ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnMouseMove(unsigned int,class CPoint))
+extern ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnWmUser(unsigned int,class CPoint))
+extern ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonDown(unsigned int,class CPoint))
+extern ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonUp(unsigned int,class CPoint))
+extern ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnLButtonDblClk(unsigned int,class CPoint))
+extern ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonDown(unsigned int,class CPoint))
+extern ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonUp(unsigned int,class CPoint))
+extern ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnRButtonDblClk(unsigned int,class CPoint))
+extern ?OnKeyDown@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnKeyDown(unsigned int))
+extern ?OnKeyUp@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnKeyUp(unsigned int))
+extern ?OnChar@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnChar(unsigned int))
+
+extern ?MsgProcOnChilds@CVisualObject@@QAEHIII@Z  :proc    ;   CVisualObject::MsgProcOnChilds
+extern ?AddChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::AddChild(class CVisualObject *))
+extern ?RemoveChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChild(class CVisualObject *))
+extern ?RemoveChildById@CVisualObject@@QAEXH@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChildById(int))
+extern ?RemoveAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall CVisualObject::RemoveAllChilds(void))
+extern ?DestroyChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::DestroyChild(class CVisualObject *))
+extern ?DestroyAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall CVisualObject::DestroyAllChilds(void))
+extern ?FindChild@CVisualObject@@QAEPAV1@H@Z :proc   ; (public: class CVisualObject * __thiscall CVisualObject::FindChild(int))
+extern ?GetChildAt@CVisualObject@@QAEPAV1@UtagPOINT@@@Z :proc   ; (public: class CVisualObject * __thiscall CVisualObject::GetChildAt(struct tagPOINT))
+extern ?ClientPtToScreen@CVisualObject@@QAEXPAVCPoint@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientPtToScreen(class CPoint *,class CPoint const &))
+extern ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientRectToScreen(class CRect *,class CRect const &))
+extern ?SetLeftObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetLeftObj(class CVisualObject *))
+extern ?SetRightObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetRightObj(class CVisualObject *))
+extern ?SetUpObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetUpObj(class CVisualObject *))
+extern ?SetDownObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetDownObj(class CVisualObject *))
+extern ?SetCaptionLabel@CVisualObject@@QAEXPAVVisLabel@@@Z :proc   ; (public: void __thiscall CVisualObject::SetCaptionLabel(class VisLabel *))
+extern ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z :proc   ; (public: void __thiscall CVisualObject::FocusTo(class CVisualObject *,bool))
+extern ?TabFocus@CVisualObject@@QAEX_N0@Z :proc   ; (public: void __thiscall CVisualObject::TabFocus(bool,bool))
+extern ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT))
+extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT const *))
+
+
+;VizLabel
+extern ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,int,int,int,int,char const *,class CGameFont *,unsigned short *,unsigned int))
+extern ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,struct tagRECT const &,char const *,class CGameFont *,unsigned short *,unsigned i
+extern ?VMethod7@VisLabel@@UAEXXZ :proc   ; (public: virtual void __thiscall VisLabel::VMethod7(void))
+extern ?SetActiveColor@VisLabel@@QAEX_N@Z :proc   ; (public: void __thiscall VisLabel::SetActiveColor(bool))
+extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisLabel(void))
+
+
+
+
+
+
+
+
+
+
 ;GFX things
 externdef ?FUN_00454c74@@YAXPAVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
