@@ -340,6 +340,15 @@ extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
 
 
+; Group
+externdef ?sub_5552E6@Group@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_555176@Group@@QAEXPAVUnit@@@Z :proc
+externdef ??0Group@@QAE@XZ :proc
+
+
+; GroupSub
+externdef ??0GroupSub@@QAE@XZ :proc
+
 
 ;Humanoid
 
@@ -436,6 +445,8 @@ externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
+externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@HHHHH@Z :proc
+externdef ?FUN_004fb4ca@NetStru1@@QAEXPAVUnit@@PAVPlayer@@@Z :proc
 
 
 ;NetStru2

@@ -8,6 +8,10 @@
 
 
 struct GroupSub {
+public:
+    GroupSub();
+
+public:
     uint8_t gap_0x0[7];
     uint8_t field_0x8;
     uint8_t field_0x9;
@@ -50,6 +54,12 @@ public:
     Player* owner;
     uint32_t has_quest_kill;
     uint32_t has_quest_intercept;
+
+    Group();  // Constructor - 554D9E
+
+    // ASM member functions
+    void sub_5552E6(Unit* unit);  // Remove unit from group
+    void sub_555176(Unit* unit);  // Add unit to group
 };
 
 ASSERT_OFFSET(Group, owner, 0x44);

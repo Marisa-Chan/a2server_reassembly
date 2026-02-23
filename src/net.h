@@ -14,6 +14,7 @@ struct NetStru2;
 struct NetStru3;
 class Packet;
 class Player;
+class Unit;
 
 
 struct PackerTail {
@@ -63,6 +64,11 @@ public:
     CMap<int32_t, int32_t, int32_t, int32_t> map_0x18d4;
 
 public:
+    // Transfers unit ownership to another player.
+    // `this` is unused, but in ASM this function accepts a `NetStru1*` in ECX, so it's here.
+    void FUN_004fb4ca(Unit* unit, Player* new_owner);
+
+public:
     void FUN_005186cd(Packet* pkt);
     void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void FUN_0051ceac(uint32_t id, Player* recpt);
@@ -78,6 +84,8 @@ public:
     void FUN_0051800f();
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
+    
+    void sub_519221(Unit* unit, int32_t param2, int32_t param3, int32_t param4, int32_t param5, int32_t param6);
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
