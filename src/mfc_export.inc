@@ -434,6 +434,8 @@ externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_00
 externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051c748(class Packet *)
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
+externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
+externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 
 
 ;NetStru2
@@ -451,7 +453,7 @@ externdef ?g_GameType@@3HA : dword
 externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
-externdef ?sub_4F94C0@Server@@QAEXH@Z :proc
+externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 

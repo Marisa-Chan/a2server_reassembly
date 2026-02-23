@@ -99,3 +99,13 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
         g_NetStru1_main.FUN_005188db();
     }
 }
+
+void Server::FUN_004f94c0(int32_t arg) {
+    //4F94C0
+    LogMessage("Server::FUN_004f94c0\n");
+    if ((g_GameType == 1) || (g_GameType == 2)) {
+        g_NetStru1_main.FUN_0051d6b4(0);
+    }
+    g_NetStru1_main.FUN_0051cefb(0xc3, arg, 0, nullptr);
+    this->field59_0x208 = 1;
+}

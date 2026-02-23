@@ -76,6 +76,8 @@ public:
     void FUN_005170b6(NetStru2* arg1);
 
     void FUN_0051800f();
+    void FUN_0051d6b4(uint16_t arg);
+    void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);

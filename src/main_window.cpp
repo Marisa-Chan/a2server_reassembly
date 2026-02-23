@@ -249,7 +249,7 @@ void MainWindow::sub_48A756()
                                 g_Server->sub_4FA5C4();
                             }
                             
-                            g_Server->sub_4F94C0(0);
+                            g_Server->FUN_004f94c0(0);
 
                             return;
                         }
@@ -347,4 +347,3 @@ bool MainWindow::SetSpeed(int speed)
     field_0x440 = 0;
     return old_speed != game_speed;
 }
-

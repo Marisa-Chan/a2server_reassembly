@@ -66,7 +66,6 @@ public:
     void sub_4FBB79();
     void sub_4F1E2A();
     void sub_4FA5C4();
-    void sub_4F94C0(int arg);
     void sub_4FA78E(int arg);
     void sub_4F8831();
 
@@ -136,8 +135,9 @@ public:
     int32_t map_elapsed_time2;
 
 
-
+public:
     void FUN_004ff439(Player* player, int32_t arg4);
+    void FUN_004f94c0(int32_t arg);
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);
