@@ -32,7 +32,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
 
     // If the unit belongs to a group, remove it from that group.
     if (unit->group != nullptr) {
-        unit->group->sub_5552E6(unit);
+        unit->group->RemoveUnit(unit);
     }
 
     // Remove unit from old owner's unit list.
@@ -54,7 +54,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
     new_owner->group_list->AddTail(new_group);
     
     // Associate the unit with the new group.
-    new_group->sub_555176(unit);
+    new_group->AddUnit(unit);
     
     // Update unit's vision sharing flags.
     uint16_t old_vision_mask = ~old_owner->vision_sharing_id;

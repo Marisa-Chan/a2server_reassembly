@@ -10,6 +10,8 @@
 struct GroupSub {
 public:
     GroupSub();
+    ~GroupSub();
+
 
 public:
     uint8_t gap_0x0[7];
@@ -48,18 +50,19 @@ class Group {
 public:
     CList<Unit*> unit_list;
     uint32_t group_id;
-    CList<void*> some_list;
+    CList<uint16_t> some_list;
     GroupSub* group_sub;
-    int field_0x40;
+    uint32_t field_0x40;
     Player* owner;
     uint32_t has_quest_kill;
     uint32_t has_quest_intercept;
 
     Group();  // Constructor - 554D9E
+    ~Group();
 
     // ASM member functions
-    void sub_5552E6(Unit* unit);  // Remove unit from group
-    void sub_555176(Unit* unit);  // Add unit to group
+    void RemoveUnit(Unit* unit);  // Remove unit from group
+    void AddUnit(Unit* unit);  // Add unit to group
 };
 
 ASSERT_OFFSET(Group, owner, 0x44);

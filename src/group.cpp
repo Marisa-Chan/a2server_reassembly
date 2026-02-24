@@ -1,4 +1,5 @@
 #include "group.h"
+#include "unit.h"
 #include <cstring>
 
 // 5A4F6E - GroupSub constructor
@@ -10,12 +11,18 @@ GroupSub::GroupSub()
     // Set specific fields (most are already 0 from memset).
     field_0x45 = 1;
     
-    // Create a new CList with initial capacity hint of 10.
-    list = new CList<uint16_t>(10);
+    list = new CList<uint16_t>();
+}
+
+GroupSub::~GroupSub()
+{
+    //5a500c
+    if (list)
+        delete list;
 }
 
 // 554D9E - Group constructor
-Group::Group() : unit_list(10), some_list(10)
+Group::Group()
 {
     field_0x40 = 0;
     owner = nullptr;
@@ -24,5 +31,43 @@ Group::Group() : unit_list(10), some_list(10)
     
     group_sub = new GroupSub();
 }
+
+Group::~Group()
+{
+    //554eea
+    while (!unit_list.IsEmpty())
+    {
+        Unit* unit = unit_list.RemoveHead();
+        if (unit)
+            delete unit;
+    }
+
+    if (group_sub)
+        delete group_sub;
+}
+
+
+void Group::RemoveUnit(Unit* unit)
+{
+    //5552e6
+    POSITION pos = unit_list.Find(unit);
+    if (pos != NULL)
+        unit_list.RemoveAt(pos);
+
+    unit->group = nullptr;
+}
+
+void Group::AddUnit(Unit* unit)
+{
+    //555176
+    if (unit->group)
+        unit->group->RemoveUnit(unit);
+
+    unit_list.AddTail(unit);
+
+    unit->group = this;
+    owner = unit->pOwner;
+}
+
 
 Group group_instantiation_check;

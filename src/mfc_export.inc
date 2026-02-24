@@ -341,13 +341,11 @@ extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall op
 
 
 ; Group
-externdef ?sub_5552E6@Group@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_555176@Group@@QAEXPAVUnit@@@Z :proc
-externdef ??0Group@@QAE@XZ :proc
+extern ??0Group@@QAE@XZ :proc
+extern ??1Group@@QAE@XZ :proc
+extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
+extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
 
-
-; GroupSub
-externdef ??0GroupSub@@QAE@XZ :proc
 
 
 ;Humanoid
