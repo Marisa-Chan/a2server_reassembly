@@ -85,7 +85,7 @@ public:
     Srv1 field19_0x98;
     uint32_t field21_0xd4;
     uint32_t field22_0xd8;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> field23_0xdc;
+    CMapPtrToPtr field23_0xdc;
     std::array<Spell*, 30> spells;
     ScriptSettings* script_settings;
     uint32_t field26_0x174;

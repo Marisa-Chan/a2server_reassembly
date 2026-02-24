@@ -345,6 +345,7 @@ extern ??0Group@@QAE@XZ :proc
 extern ??1Group@@QAE@XZ :proc
 extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
+extern ?Serialize@Group@@QAEXAAVCArchive@@@Z  :proc
 
 
 

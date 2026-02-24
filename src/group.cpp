@@ -1,5 +1,8 @@
 #include "group.h"
 #include "unit.h"
+#include "game_app.h"
+#include "server.h"
+#include "util.h"
 #include <cstring>
 
 // 5A4F6E - GroupSub constructor
@@ -20,6 +23,25 @@ GroupSub::~GroupSub()
     if (list)
         delete list;
 }
+
+void GroupSub::Serialize(CArchive& ar)
+{
+    //5b0429
+    if (ar.IsLoading())
+    {
+        ar.Read(this, 0x50);
+        list = new CList<uint16_t>();
+
+        list->Serialize(ar);
+    }
+    else
+    {
+        ar.Write(this, 0x50);
+
+        list->Serialize(ar);
+    }
+}
+
 
 // 554D9E - Group constructor
 Group::Group()
@@ -44,6 +66,53 @@ Group::~Group()
 
     if (group_sub)
         delete group_sub;
+}
+
+
+void Group::Serialize(CArchive& ar)
+{
+    //55c94d
+    some_list.Serialize(ar);
+    group_sub->Serialize(ar);
+
+    if (ar.IsLoading())
+    {
+        unit_list.RemoveAll();
+        uint32_t tmp;
+        ar >> tmp;
+
+        for (uint32_t i = 0; i < tmp; i++)
+        {
+            Unit* unit;
+            ar >> unit;
+            AddUnit(unit);
+        }
+
+        ar >> group_id;
+
+        ar >> tmp;
+        if (!g_Server->field23_0xdc.Lookup((void *)tmp, *(void**)&field_0x40))
+            field_0x40 = 0;
+
+        ar >> tmp;
+        if (!g_Server->field23_0xdc.Lookup((void*)tmp, *(void**)&owner))
+            owner = nullptr;
+    }
+    else
+    {
+        ar << (uint32_t)unit_list.GetCount();
+
+        for (POSITION pos = unit_list.GetHeadPosition(); pos != NULL;)
+        {
+            Unit* obj = unit_list.GetNext(pos);
+            ar << obj;
+        }
+
+        ar << group_id;
+
+        ar << (uint32_t)field_0x40;
+        ar << (uint32_t)owner;
+    }
 }
 
 

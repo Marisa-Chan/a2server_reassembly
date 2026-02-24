@@ -12,6 +12,7 @@ public:
     GroupSub();
     ~GroupSub();
 
+    void Serialize(CArchive& ar);
 
 public:
     uint8_t gap_0x0[7];
@@ -59,6 +60,8 @@ public:
 
     Group();  // Constructor - 554D9E
     ~Group();
+
+    void Serialize(CArchive& ar);
 
     // ASM member functions
     void RemoveUnit(Unit* unit);  // Remove unit from group
