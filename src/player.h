@@ -74,18 +74,20 @@ public:
     uint16_t building_entered_from_yx;
     uint8_t field_0xa76;
     uint8_t field_0xa77;
-    CString str2;
+    CString login;
     uint32_t field_0xa7c;
     uint32_t field_0xa80;
     uint32_t field_0xa84;
-    uint32_t min_server_level;
-    uint32_t max_server_level;
+    int32_t min_server_level;
+    int32_t max_server_level;
     uint32_t field_0xa90;
     uint32_t field_0xa94;
     uint8_t field_0xa98;
     uint8_t gap_0xa99[7];
 
+public:
     void FUN_00534AC1(int32_t money, uint32_t arg2);
+    Player* sub_534118(); // Player initializer / constructor helper (fastcall, ecx=this)
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);

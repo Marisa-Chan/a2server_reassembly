@@ -523,7 +523,7 @@ void CArray<TYPE, ARG_TYPE>::Serialize(CArchive& ar)
 template<class TYPE, class ARG_TYPE = const TYPE&>
 class CList : public CObject
 {
-protected:
+public:
 	struct CNode
 	{
 		CNode* pNext;

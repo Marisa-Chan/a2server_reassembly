@@ -94,6 +94,9 @@ struct World {
     CList<Trigger*>* triggers;
     char name[100]; // Not sure it's 100 bytes
     ResFile* field74_0xeb1c;
+
+public:
+    void sub_5AFBFD(); // increments field65_0xc780
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);

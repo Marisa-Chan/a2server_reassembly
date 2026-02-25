@@ -466,6 +466,7 @@ externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
+externdef ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
 
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp

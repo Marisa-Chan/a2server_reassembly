@@ -85,6 +85,9 @@ struct MapStuff { // aka astruct_5
     CList<void*> field67_0xa4510;
     uint8_t field_0xa452c[64];
     UnitList* field69_0xa456c;
+
+public:
+    int sub_58E3D1(Unit* unit); // add unit to map
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);

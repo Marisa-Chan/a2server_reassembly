@@ -10,6 +10,7 @@
 
 
 class Building;
+class Human;
 class Sack;
 struct ScriptSettings;
 class Spell;
@@ -69,6 +70,15 @@ public:
     void sub_4FA78E(int arg);
     void sub_4F8831();
 
+    // Sub-functions called by sub_4FC644
+    Human* sub_4EF4E7(void* block, int arg14, Player* player); // Load character.
+    Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint32_t character_class);
+    void sub_4EE028(Unit* unit);
+    void sub_5013D4(Player* player);
+    void sub_4F4570();
+    void sub_4FA4BB(CString* name, uint32_t* frags);
+    void sub_4FA348(CString* name, int flag);
+
 public:
     int tick16; // This value seems to be advanced every 16 ticks
     int tick;
@@ -110,7 +120,7 @@ public:
     int tic16;
     int field46_0x1c4;
     CString current_map_title;
-    uint32_t MapLevel;
+    int32_t MapLevel;
     uint32_t field49_0x1d0;
     uint32_t field50_0x1d4;
     uint32_t field51_0x1d8;
@@ -138,6 +148,8 @@ public:
 public:
     void FUN_004ff439(Player* player, int32_t arg4);
     void FUN_004f94c0(int32_t arg);
+    int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
+                    void* Block, int32_t block_size, int32_t team_id);
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);
