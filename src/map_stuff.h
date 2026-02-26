@@ -13,6 +13,21 @@ struct Human;
 struct MapAlm;
 struct World;
 
+// Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
+// Tracks which player side bitmasks have units in each 8x8-tile sector.
+// On unit add, the unit's owner bitmask (unit->player->field_0x32) is OR'd
+// into a 5x5 block of sectors centered on the unit (unit_x>>3, unit_y>>3).
+// Used by the server to quickly detect which players can see each unit.
+struct ScanPresenceGrid {
+    uint8_t  control[0x400];      // header/control, zeroed on construct
+    uint32_t sector_grid[34][34]; // [x_sector+1][y_sector], accumulates player side bitmasks
+    UnitList* unit_list;
+    int32_t  num_detected;        // count of server units flagged as detected this scan
+    int32_t  scan_delta;
+    uint8_t  gap_0x161c[12];
+};
+ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
+ASSERT_SIZE(ScanPresenceGrid, 0x1628);
 
 struct MapStuff { // aka astruct_5
     uint8_t walk_cost_map[65536];
@@ -75,11 +90,7 @@ struct MapStuff { // aka astruct_5
     uint8_t field_0x58ec0[131072];
     uint8_t field_0x78ec0[106504];
     MapStuff* self;
-    uint8_t field_0x92ecc[5648];
-    UnitList* field61_0x944dc;
-    int32_t field62_0x944e0;
-    int32_t field63_0x944e4;
-    uint8_t field_0x944e8[12];
+    ScanPresenceGrid scan_presence_grid;
     uint8_t height_map[65536];
     CList<void*> field66_0xa44f4;
     CList<void*> field67_0xa4510;
@@ -91,4 +102,6 @@ public:
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
+ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
+ASSERT_OFFSET(MapStuff, height_map, 0x944f4);
 ASSERT_SIZE(MapStuff, 0xa4570);

@@ -17,7 +17,7 @@ extern "C" CStringArray unk_6D15DC;  // banned names list
 extern "C" int32_t  dword_6D1654;   // map-level range check enabled flag
 
 // ---- ASM subroutines called by sub_4FC644 ----
-extern "C" void __fastcall sub_596131(void* map_section); // map stuff reset/init section
+extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
 
 
 void Server::FUN_004ff439(Player* player, int32_t arg4)
@@ -414,7 +414,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     dword_6A8B8C->sub_5AFBFD();
 
     // Notify MapStuff section
-    sub_596131(MapStuff_Instance->field_0x92ecc);
+    sub_596131(&MapStuff_Instance->scan_presence_grid);
 
     // Add character unit to map.
     MapStuff_Instance->sub_58E3D1(player->main_unit);
