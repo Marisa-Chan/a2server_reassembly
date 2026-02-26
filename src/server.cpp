@@ -214,9 +214,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // This is `player = new Player()`, but we haven't moved the constructor yet.
-    void* raw = operator new(0xAA0);
-    Player* new_player_raw = reinterpret_cast<Player*>(raw);
-    player = (new_player_raw != nullptr) ? new_player_raw->sub_534118() : nullptr;
+    player = new Player();
 
     Human* unit = nullptr;
 

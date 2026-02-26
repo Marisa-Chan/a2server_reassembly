@@ -20,6 +20,7 @@ struct Settings {
 
 public:
     Settings();
+    void Serialize(CArchive& ar);
 };
 ASSERT_OFFSET(Settings, autobuff_mask, 0x20);
 ASSERT_SIZE(Settings, 0x24);
@@ -28,10 +29,10 @@ class Unit;
 class Human;
 
 class Player : public CObject {
-public:
+public: // VTable at 0060f140.
     // virtual CRuntimeClass* GetRuntimeClass() const;
     virtual ~Player();
-    // virtual void Serialize(CArchive& ar);
+    virtual void Serialize(CArchive& ar);
     // CObject AssertValid
     // CObject Dump
 
