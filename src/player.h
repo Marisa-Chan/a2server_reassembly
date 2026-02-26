@@ -17,6 +17,9 @@ struct Settings {
     uint8_t formation;
     uint8_t autobuff_mask;
     uint8_t more_fields[3];
+
+public:
+    Settings();
 };
 ASSERT_OFFSET(Settings, autobuff_mask, 0x20);
 ASSERT_SIZE(Settings, 0x24);
@@ -27,7 +30,7 @@ class Human;
 class Player : public CObject {
 public:
     // virtual CRuntimeClass* GetRuntimeClass() const;
-    // virtual ~Player();
+    virtual ~Player();
     // virtual void Serialize(CArchive& ar);
     // CObject AssertValid
     // CObject Dump
@@ -43,7 +46,7 @@ public:
     uint32_t flags;
     CString name;
     CString str;
-    uint8_t gap_0x20[4];
+    int32_t field_0x20;
     UnitList* unit_list;
     CList<Group*>* group_list;
     uint32_t is_ai; // 1 for AI players, 0 for human players.
@@ -86,8 +89,10 @@ public:
     uint8_t gap_0xa99[7];
 
 public:
+    Player();
+
+public:
     void FUN_00534AC1(int32_t money, uint32_t arg2);
-    Player* sub_534118(); // Player initializer / constructor helper (fastcall, ecx=this)
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);
