@@ -472,18 +472,21 @@ externdef ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 
 
-;Player 
+; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
+externdef ??0Player@@QAE@XZ :proc
+externdef ??1Player@@UAE@XZ :proc
+externdef ?Serialize@Player@@UAEXAAVCArchive@@@Z :proc
 
-;PlayersList
+; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 
 
-
-
-
+; Settings
+externdef ??0Settings@@QAE@XZ :proc
+externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 
 ;CListBox2  in C++
