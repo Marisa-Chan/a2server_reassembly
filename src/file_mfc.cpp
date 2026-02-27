@@ -724,11 +724,9 @@ IMPLEMENT_DYNAMIC(CFileFind, CObject)
 // CFileFind
 CFileFind::CFileFind()
 {
-	// Reverse-engineered from Main.asm ??0CFileFind@@QAE@XZ
 	m_pFoundInfo = NULL;
 	m_pNextInfo = NULL;
 	m_hContext = NULL;
-	m_bGotLast = FALSE;
 	m_chDirSeparator = '\\';
 }
 
@@ -740,50 +738,50 @@ CFileFind::~CFileFind()
 
 CString CFileFind::GetFileURL() const
 {
-	// Reverse-engineered from Main.asm ?GetFileURL@CFileFind@@UBE?AVCString@@XZ
-	CString result("file://");
-	result += GetFilePath();
-	return result;
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	CString strResult("file://");
+	strResult += GetFilePath();
+	return strResult;
 }
 
 CString CFileFind::GetFilePath() const
 {
-	// Reverse-engineered from Main.asm ?GetFilePath@CFileFind@@UBE?AVCString@@XZ
-	CString path(m_strRoot);
-	int length = path.GetLength();
-	if (length > 0)
-	{
-		TCHAR last = path[length - 1];
-		if (last != '\\' && last != '/')
-		{
-			path += m_chDirSeparator;
-		}
-	}
-	path += GetFileName();
-	return path;
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	CString strResult = m_strRoot;
+	if (strResult[strResult.GetLength() - 1] != '\\' &&
+		strResult[strResult.GetLength() - 1] != '/')
+		strResult += m_chDirSeparator;
+	strResult += GetFileName();
+	return strResult;
 }
 
 CString CFileFind::GetFileTitle() const
 {
-	// Reverse-engineered from Main.asm ?GetFileTitle@CFileFind@@UBE?AVCString@@XZ
-	CString fullPath = GetFilePath();
-	CString title;
-	TCHAR buffer[_MAX_FNAME] = {};
-	_tsplitpath((LPCTSTR)fullPath, NULL, NULL, buffer, NULL);
-	title = buffer;
-	return title;
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	CString strFullName = GetFileName();
+	CString strResult;
+
+	_tsplitpath(strFullName, NULL, NULL, strResult.GetBuffer(_MAX_PATH), NULL);
+	strResult.ReleaseBuffer();
+	return strResult;
 }
 
 CString CFileFind::GetFileName() const
 {
-	// Reverse-engineered from Main.asm ?GetFileName@CFileFind@@UBE?AVCString@@XZ
-	CString name;
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	CString ret;
+
 	if (m_pFoundInfo != NULL)
-	{
-		const TCHAR* fileName = reinterpret_cast<const TCHAR*>(reinterpret_cast<const unsigned char*>(m_pFoundInfo) + 0x2C);
-		name = fileName;
-	}
-	return name;
+		ret = ((LPWIN32_FIND_DATA)m_pFoundInfo)->cFileName;
+	return ret;
 }
 
 CString CFileFind::GetRoot() const
@@ -794,101 +792,141 @@ CString CFileFind::GetRoot() const
 
 BOOL CFileFind::GetLastWriteTime(FILETIME* pTimeStamp) const
 {
-	// Reverse-engineered from Main.asm ?GetLastWriteTime@CFileFind@@UBEHPAU_FILETIME@@@Z
-	if (m_pFoundInfo == NULL || pTimeStamp == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT(pTimeStamp != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL && pTimeStamp != NULL)
+	{
+		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastWriteTime;
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	*pTimeStamp = data->ftLastWriteTime;
-	return TRUE;
 }
 
 BOOL CFileFind::GetLastAccessTime(FILETIME* pTimeStamp) const
 {
-	// Reverse-engineered from Main.asm ?GetLastAccessTime@CFileFind@@UBEHPAU_FILETIME@@@Z
-	if (m_pFoundInfo == NULL || pTimeStamp == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT(pTimeStamp != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL && pTimeStamp != NULL)
+	{
+		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastAccessTime;
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	*pTimeStamp = data->ftLastAccessTime;
-	return TRUE;
 }
 
 BOOL CFileFind::GetCreationTime(FILETIME* pTimeStamp) const
 {
-	// Reverse-engineered from Main.asm ?GetCreationTime@CFileFind@@UBEHPAU_FILETIME@@@Z
-	if (m_pFoundInfo == NULL || pTimeStamp == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL && pTimeStamp != NULL)
+	{
+		*pTimeStamp = ((LPWIN32_FIND_DATA)m_pFoundInfo)->ftCreationTime;
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	*pTimeStamp = data->ftCreationTime;
-	return TRUE;
 }
 
 BOOL CFileFind::GetLastWriteTime(CTime& refTime) const
 {
-	// Reverse-engineered from Main.asm ?GetLastWriteTime@CFileFind@@UBEHAAVCTime@@@Z
-	if (m_pFoundInfo == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL)
+	{
+		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastWriteTime);
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	refTime = CTime(data->ftLastWriteTime);
-	return TRUE;
 }
 
 BOOL CFileFind::GetLastAccessTime(CTime& refTime) const
 {
-	// Reverse-engineered from Main.asm ?GetLastAccessTime@CFileFind@@UBEHAAVCTime@@@Z
-	if (m_pFoundInfo == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL)
+	{
+		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftLastAccessTime);
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	refTime = CTime(data->ftLastAccessTime);
-	return TRUE;
 }
 
 BOOL CFileFind::GetCreationTime(CTime& refTime) const
 {
-	// Reverse-engineered from Main.asm ?GetCreationTime@CFileFind@@UBEHAAVCTime@@@Z
-	if (m_pFoundInfo == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL)
+	{
+		refTime = CTime(((LPWIN32_FIND_DATA)m_pFoundInfo)->ftCreationTime);
+		return TRUE;
+	}
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	refTime = CTime(data->ftCreationTime);
-	return TRUE;
 }
 
 BOOL CFileFind::MatchesMask(DWORD dwMask) const
 {
-	// Reverse-engineered from Main.asm ?MatchesMask@CFileFind@@UBEHK@Z
-	if (m_pFoundInfo == NULL)
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	if (m_pFoundInfo != NULL)
+		return (!!(((LPWIN32_FIND_DATA)m_pFoundInfo)->dwFileAttributes & dwMask));
+	else
 		return FALSE;
-	const WIN32_FIND_DATA* data = reinterpret_cast<const WIN32_FIND_DATA*>(m_pFoundInfo);
-	return (data->dwFileAttributes & dwMask) != 0;
 }
 
 BOOL CFileFind::IsDots() const
 {
-	// Reverse-engineered from Main.asm ?IsDots@CFileFind@@UBEHXZ
-	if (m_pFoundInfo == NULL)
-		return FALSE;
-	const TCHAR* name = reinterpret_cast<const TCHAR*>(reinterpret_cast<const unsigned char*>(m_pFoundInfo) + 0x2C);
-	if (name[0] != '.')
-		return FALSE;
-	if (name[1] == 0)
-		return TRUE;
-	if (name[1] == '.' && name[2] == 0)
-		return TRUE;
-	return FALSE;
+	ASSERT(m_hContext != NULL);
+	ASSERT_VALID(this);
+
+	// return TRUE if the file name is "." or ".." and
+	// the file is a directory
+
+	BOOL bResult = FALSE;
+	if (m_pFoundInfo != NULL && IsDirectory())
+	{
+		LPWIN32_FIND_DATA pFindData = (LPWIN32_FIND_DATA)m_pFoundInfo;
+		if (pFindData->cFileName[0] == '.')
+		{
+			if (pFindData->cFileName[1] == '\0' ||
+				(pFindData->cFileName[1] == '.' &&
+					pFindData->cFileName[2] == '\0'))
+			{
+				bResult = TRUE;
+			}
+		}
+	}
+
+	return bResult;
 }
 
 void CFileFind::Close()
 {
-	// Reverse-engineered from Main.asm ?Close@CFileFind@@QAEXXZ
 	if (m_pFoundInfo != NULL)
 	{
-		::operator delete(m_pFoundInfo);
+		delete m_pFoundInfo;
 		m_pFoundInfo = NULL;
 	}
+
 	if (m_pNextInfo != NULL)
 	{
-		::operator delete(m_pNextInfo);
+		delete m_pNextInfo;
 		m_pNextInfo = NULL;
 	}
+
 	if (m_hContext != NULL && m_hContext != INVALID_HANDLE_VALUE)
 	{
 		CloseContext();
@@ -898,70 +936,84 @@ void CFileFind::Close()
 
 BOOL CFileFind::FindFile(LPCTSTR pstrName, DWORD /* dwUnused */)
 {
-	// Reverse-engineered from Main.asm ?FindFile@CFileFind@@UAEHPBDK@Z
 	Close();
+	m_pNextInfo = new WIN32_FIND_DATA;
 	m_bGotLast = FALSE;
-	m_pNextInfo = ::operator new(0x140);
-	LPCTSTR fileName = (pstrName != NULL) ? pstrName : TEXT("*.*");
 
-	if (m_pNextInfo != NULL)
-	{
-		TCHAR* dest = reinterpret_cast<TCHAR*>(reinterpret_cast<unsigned char*>(m_pNextInfo) + 0x2C);
-		_tcscpy(dest, fileName);
-	}
+	if (pstrName == NULL)
+		pstrName = _T("*.*");
+	_tcscpy(((WIN32_FIND_DATA*)m_pNextInfo)->cFileName, pstrName);
 
-	m_hContext = FindFirstFile(fileName, reinterpret_cast<WIN32_FIND_DATA*>(m_pNextInfo));
+	m_hContext = ::FindFirstFile(pstrName, (WIN32_FIND_DATA*)m_pNextInfo);
+
 	if (m_hContext == INVALID_HANDLE_VALUE)
 	{
-		DWORD err = GetLastError();
+		DWORD dwTemp = ::GetLastError();
 		Close();
-		SetLastError(err);
+		::SetLastError(dwTemp);
 		return FALSE;
 	}
 
-	TCHAR* buffer = m_strRoot.GetBufferSetLength(0x104);
-	if (_tfullpath(buffer, fileName, 0x104) == NULL)
+	LPTSTR pstrRoot = m_strRoot.GetBufferSetLength(_MAX_PATH);
+	LPCTSTR pstr = _tfullpath(pstrRoot, pstrName, _MAX_PATH);
+
+	// passed name isn't a valid path but was found by the API
+	ASSERT(pstr != NULL);
+	if (pstr == NULL)
 	{
 		m_strRoot.ReleaseBuffer(-1);
 		Close();
-		SetLastError(0x7B);
+		::SetLastError(ERROR_INVALID_NAME);
 		return FALSE;
 	}
+	else
+	{
+		// find the last forward or backward whack
+		LPTSTR pstrBack = _tcsrchr(pstrRoot, '\\');
+		LPTSTR pstrFront = _tcsrchr(pstrRoot, '/');
 
-	TCHAR* lastBack = _tcsrchr(buffer, '\\');
-	TCHAR* lastSlash = _tcsrchr(buffer, '/');
-	TCHAR* lastSep = lastSlash;
-	if (lastBack != NULL && (lastSlash == NULL || lastBack > lastSlash))
-		lastSep = lastBack;
-	if (lastSep != NULL)
-		*lastSep = 0;
+		if (pstrFront != NULL || pstrBack != NULL)
+		{
+			if (pstrFront == NULL)
+				pstrFront = pstrRoot;
+			if (pstrBack == NULL)
+				pstrBack = pstrRoot;
 
-	m_strRoot.ReleaseBuffer(-1);
+			// from the start to the last whack is the root
+
+			if (pstrFront >= pstrBack)
+				*pstrFront = '\0';
+			else
+				*pstrBack = '\0';
+		}
+		m_strRoot.ReleaseBuffer(-1);
+	}
+
 	return TRUE;
 }
 
 int CFileFind::FindNextFile()
 {
-	// Reverse-engineered from Main.asm ?FindNextFileA@CFileFind@@UAEHXZ
+	ASSERT(m_hContext != NULL);
+
 	if (m_hContext == NULL)
-		return 0;
-
+		return FALSE;
 	if (m_pFoundInfo == NULL)
-	{
-		m_pFoundInfo = ::operator new(0x140);
-	}
+		m_pFoundInfo = new WIN32_FIND_DATA;
 
-	void* temp = m_pFoundInfo;
+	ASSERT_VALID(this);
+
+	void* pTemp = m_pFoundInfo;
 	m_pFoundInfo = m_pNextInfo;
-	m_pNextInfo = temp;
+	m_pNextInfo = pTemp;
 
-	return ::FindNextFileA(m_hContext, reinterpret_cast<WIN32_FIND_DATAA*>(m_pNextInfo)) != 0;
+	return ::FindNextFile(m_hContext, (LPWIN32_FIND_DATA)m_pNextInfo);
 }
 
 void CFileFind::CloseContext()
 {
-	if (m_hContext != NULL && m_hContext != INVALID_HANDLE_VALUE)
-		FindClose(m_hContext);
+	::FindClose(m_hContext);
+	return;
 }
 
 BOOL CFileFind::IsReadOnly() const

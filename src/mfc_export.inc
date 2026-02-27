@@ -77,6 +77,7 @@ public ?AfxThrowNotSupportedException@@YGXXZ
 extern ?AfxGetMainWnd@@YGPAVCWnd@@XZ:proc
 
 
+extern ?AfxMessageBox@@YAHPBDII@Z  :proc
 
 
 
@@ -132,8 +133,33 @@ externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 
 
 externdef ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
-externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 
+
+;GameDataRes
+externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
+externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
+
+
+;Scenario
+extern ?g_scenario_dll@@3PAUHINSTANCE__@@A  : dword
+externdef _ScenarioGetVar  :dword
+externdef _ScenarioSetVar  :dword
+externdef _ScenarioTalkTo  :dword
+externdef _ScenarioEnterLocation  :dword
+externdef _ScenarioLeaveLocation  :dword
+externdef _ScenarioEnterShop  :dword
+externdef _ScenarioLeaveShop  :dword
+externdef _ScenarioEnterInn  :dword
+externdef _ScenarioLeaveInn  :dword
+externdef _ScenarioNewGame  :dword
+externdef _ScenarioSave  :dword
+externdef _ScenarioLoad  :dword
+externdef _ScenarioGetAvailableLocations  :dword
+externdef _ScenarioGetShopAssortment  :dword
+externdef _ScenarioIsTownAvailable  :dword
+externdef _ScenarioIsMissionAvailable  :dword
+externdef _ScenarioGetCurrentLocation  :dword
+externdef _ScenarioGetAllLocations  :dword
 
 
 
@@ -455,10 +481,7 @@ externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 externdef ?g_Server@@3PAUServer@@A : dword
 externdef ?g_IsServer@@3HA : dword
 externdef ?g_ShutdownIn@@3HA : dword
-externdef ?g_CurrentMapIndex@@3HA : dword
-externdef _g_MapNames : dword  ; CStringArray
-externdef ?g_MapDurations@@3V?$CArray@HABH@@A : dword  ; CList<int32_t>
-externdef ?g_GameType@@3HA : dword
+
 
 externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
@@ -550,6 +573,8 @@ externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z  :proc    ;   CWnd:: OnChildNotify
 externdef ?GetWindowTextA@CWnd@@QBEXAAVCString@@@Z  :proc   ; CWnd::GetWindowTextA
 externdef ?PostMessageA@CWnd@@QAEHIIJ@Z  :proc  ; CWnd::PostMessage
 
+externdef ?ShowWindow@CWnd@@QAEHH@Z  :proc  ;CWnd::ShowWindow
+externdef ?SetWindowTextA@CWnd@@QAEXPBD@Z   :proc
 
 
 ;CDialog
@@ -575,19 +600,85 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 
 
 ; MainWindow
+externdef ??0MainWindow@@QAE@XZ : proc
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
-
+externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
+externdef ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 extern ?SetSpeed@MainWindow@@QAE_NH@Z :proc ; MainWindow::SetSpeed
+extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 
+extern ??0MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::MWin_5e8(void))
+extern ??1MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::~MWin_5e8(void))
+extern ?FUN_004ac3af@MWin_5e8@@QAEXXZ  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac3af(void))
+extern ?FUN_00497270@MWin_5e8@@QAEXI@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_00497270(unsigned int))
+extern ?FUN_004ac566@MWin_5e8@@QAEIH@Z  :proc   ; (public: unsigned int __thiscall MWin_5e8::FUN_004ac566(int))
+extern ?FUN_004acafa@MWin_5e8@@QAEXXZ  :proc   ; (public: void __thiscall MWin_5e8::FUN_004acafa(void))
+extern ?FUN_004ac945@MWin_5e8@@QAEXPAVCFile@@@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac945(class CFile *))
+extern ?FUN_004ac3ce@MWin_5e8@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac3ce(struct Fame1 const &))
+
+extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
+extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
+extern ?Clear@Fame2@@QAEXXZ  :proc   ; (public: void __thiscall Fame2::Clear(void))
+extern ?FUN_004abf0f@Fame2@@QAEXHI@Z  :proc   ; (public: void __thiscall Fame2::FUN_004abf0f(int,unsigned int))
+extern ?FUN_004ad880@Fame2@@QAEHXZ  :proc   ; (public: int __thiscall Fame2::FUN_004ad880(void))
+extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall Fame2::FUN_004ad890(void))
+extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
 externdef @sub_4271E6@4 :proc
 externdef @sub_49585B@4 :proc
 externdef @sub_48A747@0 :proc
 
-externdef _dword_6D1660 :dword
+externdef ?FUN_00475e7a@@YAXXZ  :proc
+
+extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
+extern ?GetRandS16@@YAHH@Z   : proc
+
+
 externdef _byte_642C68 :byte
 
+extern ?g_CdSpeed@@3PADA : byte  ; char * g_CdSpeed
+extern ?g_resolution@@3PADA : byte  ; char * g_resolution
+extern ?g_InitialWorkingDir@@3PADA : byte  ; char * g_InitialWorkingDir
+extern ?g_CmdLatency@@3IA : dword  ; unsigned int g_CmdLatency
+extern ?g_CmdTimeout@@3IA : dword  ; unsigned int g_CmdTimeout
+extern ?g_MainWndHWND@@3PAUHWND__@@A  : dword  ; HWND g_MainWndHWND
+extern ?g_IsCdPresent@@3IA  : dword
+extern ?g_EnableMusic@@3IA  : dword
+extern ?g_EnableTrace@@3IA  : dword
+extern ?g_DWORD_00659d18@@3IA  : dword
+extern ?g_CmdSafeVideo@@3IA  : dword
+
+extern ?g_HelpStr@@3VCString@@A : byte
+
+externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
+
+extern ?txt_main@@3VTxtFile@@A :byte   ; (class TxtFile txt_main)
+extern ?txt_heropicture@@3VTxtFile@@A :byte   ; (class TxtFile txt_heropicture)
+extern ?txt_stats@@3VTxtFile@@A :byte   ; (class TxtFile txt_stats)
+extern ?txt_spells@@3VTxtFile@@A :byte   ; (class TxtFile txt_spells)
+extern ?txt_spell@@3VTxtFile@@A :byte   ; (class TxtFile txt_spell)
+extern ?txt_dialogs@@3VTxtFile@@A :byte   ; (class TxtFile txt_dialogs)
+extern ?txt_unitname@@3VTxtFile@@A :byte   ; (class TxtFile txt_unitname)
+extern ?txt_building@@3VTxtFile@@A :byte   ; (class TxtFile txt_building)
+extern ?txt_itemname@@3VTxtFile@@A :byte   ; (class TxtFile txt_itemname)
+extern ?txt_npcnames@@3VTxtFile@@A :byte   ; (class TxtFile txt_npcnames)
+extern ?txt_cutscene@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutscene)
+extern ?txt_cutpaths@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutpaths)
+extern ?txt_tunes@@3VTxtFile@@A :byte   ; (class TxtFile txt_tunes)
+extern ?txt_patch@@3VTxtFile@@A :byte   ; (class TxtFile txt_patch)
+
+extern ?g_MessageColors@@3IA  : dword
+
+extern ?g_ServerConfig@@3UServerConfig@@A   : dword
+
+
+externdef ?ParseConfig@@YAHPBD@Z :proc
+externdef ?LoadFonts@@YAXXZ  : proc
+externdef ?LoadItemNames@@YAXXZ  : proc
+externdef ?ParseTunes@@YAXXZ : proc
+externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
+externdef ?SetMessageColors@@YAXI@Z  : proc
 
 
 ;TxtFile
@@ -683,6 +774,9 @@ extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisL
 externdef ?FUN_00454c74@@YAXPAVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
 externdef ?UnlockSurface2@@YAXXZ  :proc
+externdef ?InitVideo@@YAHXZ :proc
+externdef ?SetVideoMode@@YAHXZ :proc
 
 externdef ?clrsh_DullGold@@3PAGA  :word
 externdef ?clrsh_TechBlack@@3PAGA  :word
+

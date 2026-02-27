@@ -53,10 +53,72 @@ struct MWin_Unk1
     }
 };
 
+
+struct Fame1
+{
+    CString str;
+    uint32_t field_x4 = 0;
+    uint32_t field_x8 = 0;
+    uint32_t field_xc = 0;
+};
+
+ASSERT_SIZE(Fame1, 0x10);
+
+struct Fame2
+{
+    int32_t field_x0;
+    uint32_t field_x4;
+    CObject* field_x8;  // CObject?
+    CString str;
+    CStringArray str_arr;
+    CRect rect;
+    uint32_t field_x34;
+    uint32_t field_x38;
+
+    Fame2();
+    void operator=(const Fame2& b);
+
+    void Clear();
+    void FUN_004abf0f(int32_t arg1, uint32_t arg2);
+    int32_t FUN_004ad880();
+    uint32_t FUN_004ad890();
+
+};
+
+ASSERT_SIZE(Fame2, 0x3C);
+
+struct MWin_5e8
+{
+    uint32_t field_x0;
+    uint32_t field_x4;
+    uint32_t field_x8;
+    uint32_t field_xc;
+    CArray<Fame1> fame1_arr;
+    CArray<Fame2> fame2_arr;
+
+    MWin_5e8();
+    ~MWin_5e8();
+
+    void FUN_004ac3af();
+    void FUN_00497270(uint32_t arg);
+    uint32_t FUN_004ac566(int32_t arg);
+    void FUN_004acafa();
+    void FUN_004ac945(CFile* file);
+    void FUN_004ac3ce(const Fame1& fame);
+};
+
+ASSERT_SIZE(MWin_5e8, 0x38);
+
 class MainWindow : public CFrameWnd
 {
 public: // VTable at 0060c1a8.
     // virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // sub_486c6c
+
+    MainWindow(); //in asm 4837e1
+    virtual ~MainWindow(); //in asm 4961b0
+
+    void CreateUI(); //in asm 484ab0
+    void LoadData(); //in asm 483d64
 
 public:
     void sub_48A756(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
@@ -64,6 +126,8 @@ public:
     void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);
 
     bool SetSpeed(int speed);
+
+    BOOL UpdateClipCursor();
 
 public:
     int32_t field_0xbc;
@@ -173,20 +237,18 @@ public:
     int32_t field_0x458;
     int32_t field_0x45c;
     int32_t field_0x460;
-    int32_t fields_0x464[111]; // I got tired of listing all the fields :)
+    int32_t fields_0x464[97]; // I got tired of listing all the fields :)
+    MWin_5e8 field_0x5e8;
     CString current_map_name;
     int32_t field_0x624;
-    HCURSOR field_0x628;
-    HCURSOR field_0x62c;
-    HCURSOR field_0x630;
-    HCURSOR field_0x634;
-    HCURSOR field_0x638;
+    HCURSOR cursor_sizewe;
+    HCURSOR cursor_sizens;
+    HCURSOR cursor_sizenwse;
+    HCURSOR cursor_sizenesw;
+    HCURSOR cursor_arrow;
     int32_t field_0x63c;
     int32_t field_0x640;
-    int32_t field_0x644;
-    int32_t field_0x648;
-    int32_t field_0x64c;
-    int32_t field_0x650;
+    RECT clip_cursor_rect; //0x644
     CStatusBar status_bar;
     CListBox list_box1;
     CListBox2 list_box2;

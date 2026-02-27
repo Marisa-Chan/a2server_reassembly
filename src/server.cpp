@@ -13,8 +13,6 @@
 // ---- Global variables used by sub_4FC644 ----
 extern "C" World*   dword_6A8B8C;   // TODO: g_World
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
-extern "C" CStringArray unk_6D15DC;  // banned names list
-extern "C" int32_t  dword_6D1654;   // map-level range check enabled flag
 
 // ---- ASM subroutines called by sub_4FC644 ----
 extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
@@ -141,7 +139,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 2. Team play already started?
-    if (g_GameType == 2 && g_PlayersList->sub_53636E()) {
+    if (g_ServerConfig.gameType == 2 && g_PlayersList->sub_53636E()) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Team play already started)");
         if (Block != nullptr) {
             operator delete(Block);
@@ -185,8 +183,8 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 6. Banned name check
-    for (int i = 0; i < unk_6D15DC.GetSize(); ++i) {
-        if (std::strcmp(nickname, unk_6D15DC[i]) == 0) {
+    for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); ++i) {
+        if (std::strcmp(nickname, g_ServerConfig.banned_names[i]) == 0) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Banned name)");
             if (Block != nullptr) {
                 operator delete(Block);
@@ -254,7 +252,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Map level range checks.
-    if (g_GameType == 0 && dword_6D1654 != 0) {
+    if (g_ServerConfig.gameType == 0 && g_ServerConfig.map_range_check != 0) {
         // [player+0xA88] = min_server_level; [this+0x1CC] = MapLevel
         if (this->MapLevel < player->min_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
@@ -323,7 +321,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     player->field_0x42 = 0;
 
     // Team game flags.
-    if (g_GameType == 2) {
+    if (g_ServerConfig.gameType == 2) {
         player->field_0xa6c = 0;
         player->field_0xa70 = (team_id == 1) ? 1 : 0;
     }
@@ -363,7 +361,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
             int16_t other_id = other->player_id;
             int16_t my_id = player->player_id;
 
-            switch (g_GameType) {
+            switch (g_ServerConfig.gameType) {
             case 0:
                 // Friendly: clear team slot bytes, remove from each other's vision mask
                 dword_6A8B8C->diplomacy[other_id][my_id] = 0;
@@ -421,7 +419,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     player->main_unit->unit_attrs |= 8;
 
     // Co-op mode: set starting enchantments.
-    if (g_GameType == 0) {
+    if (g_ServerConfig.gameType == 0) {
         uint32_t& enchantments = player->main_unit->enchantments;
         enchantments |= 0x8000000u;
         enchantments |= 0x1000u;
@@ -432,7 +430,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Arena mode: name/stat lookup.
-    if (g_GameType == 3) {
+    if (g_ServerConfig.gameType == 3) {
         sub_4FA4BB(&player->name, &player->frags);
         sub_4FA348(&player->name, 0);
     }
@@ -492,9 +490,33 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 void Server::FUN_004f94c0(int32_t arg) {
     //4F94C0
     LogMessage("Server::FUN_004f94c0\n");
-    if ((g_GameType == 1) || (g_GameType == 2)) {
+    if ((g_ServerConfig.gameType == 1) || (g_ServerConfig.gameType == 2)) {
         g_NetStru1_main.FUN_0051d6b4(0);
     }
     g_NetStru1_main.FUN_0051cefb(0xc3, arg, 0, nullptr);
     this->field59_0x208 = 1;
+}
+
+
+ServerConfig::ServerConfig()
+{
+    //4f6fc9
+    field_0x8 = 4;
+    field_0x0 = 100;
+    field_0x4 = 2;
+    current_map_index = 0;
+    field_0x8c = 0x100;
+    field_0x90 = 0x78;
+    field_0x98 = 1;
+    field_0x9c = 0x10;
+    server_name = "unnamed server";
+    field_0xa0 = 0x3c;
+    field_0xa4 = 1;
+    gameType = 0;
+    field_0xac = 0x7fffffff;
+    map_range_check = 1;
+    field_0xb8 = 5;
+    field_0xbc = 0;
+    field_0xc0 = 0x7fffffff;
+    field_0xc4 = 100;
 }

@@ -155,11 +155,50 @@ ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);
 ASSERT_SIZE(Server, 0x258);
 
+
+struct ServerConfig
+{
+    uint32_t field_0x0;
+    uint32_t field_0x4;
+    uint32_t field_0x8;
+    CString  field_0xc;
+    CString  field_0x10;
+    CString  field_0x14;
+    CString  field_0x18;
+    CString  chr_base;
+    CString  server_name;
+    uint32_t field_0x24;
+    CStringArray field_0x28;
+    CStringArray banned_names;
+    CStringArray map_names; // Array of map names. 6D15F0.
+    CStringArray field_0x64;
+    CDWordArray map_durations; // Array of map durations. 0x7FFFFFFF means no limit. 6D1618.
+    uint32_t field_0x8c;
+    uint32_t field_0x90;
+    uint32_t current_map_index; // Current map index in map array. 6D1634.
+    uint32_t field_0x98;
+    uint32_t field_0x9c;
+    uint32_t field_0xa0;
+    uint32_t field_0xa4;
+    uint32_t gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
+    uint32_t field_0xac;
+    uint32_t field_0xb0;
+    uint32_t map_range_check; // map-level range check enabled flag
+    uint32_t field_0xb8;
+    uint32_t field_0xbc;
+    uint32_t field_0xc0;
+    uint32_t field_0xc4;
+
+    ServerConfig();
+};
+
+ASSERT_SIZE(ServerConfig, 0xc8);
+
+
+
+
+
 extern int32_t g_IsServer; // 1 for server mode, 0 for client code. 665D00.
 extern int32_t g_ShutdownIn; // Server shutdown (in milliseconds?). 0x7FFFFFFF means no shutdown scheduled. 63623c.
-extern int32_t g_GameType; // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
-extern int32_t g_CurrentMapIndex; // Current map index in map array. 6D1634.
-extern CStringArray g_MapNames; // Array of map names. 6D15F0.
-extern CArray<int32_t> g_MapDurations; // Array of map durations. 0x7FFFFFFF means no limit. 6D1618.
 
 #endif

@@ -112,6 +112,193 @@ void CEdit2::_OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags)
 
 
 
+Fame2::Fame2()
+{
+    //4abdab
+    field_x0 = -1;
+    field_x4 = 1;
+    field_x8 = nullptr;
+    str.Empty();
+    field_x34 = 1;
+    field_x38 = 0;
+}
+
+void Fame2::Clear()
+{
+    //4ac27f
+    if (field_x8)
+        delete field_x8;
+
+    field_x8 = nullptr;
+    str.Empty();
+    str_arr.RemoveAll();
+}
+
+void Fame2::FUN_004abf0f(int32_t arg1, uint32_t arg2)
+{
+    //4abf0f
+    Clear();
+    field_x0 = arg1;
+    field_x4 = arg2;
+}
+
+
+int32_t Fame2::FUN_004ad880()
+{
+    //4ad880
+    return field_x0;
+}
+
+uint32_t Fame2::FUN_004ad890()
+{
+    //4ad890
+    return field_x4;
+}
+
+void Fame2::operator=(const Fame2& b)
+{
+    //4abd30
+    field_x0 = b.field_x0;
+    field_x4 = b.field_x4;
+    field_x8 = b.field_x8;
+    str = b.str;
+    rect = b.rect;
+    field_x34 = b.field_x34;
+    field_x38 = b.field_x38;
+}
+
+
+
+
+
+
+
+
+MWin_5e8::MWin_5e8()
+{
+    //4ac2e3
+    field_x4 = 0;
+    field_x8 = 0;
+    field_xc = 10;
+}
+
+MWin_5e8::~MWin_5e8()
+{
+    //4ac352
+}
+
+void MWin_5e8::FUN_004ac3af()
+{
+    //4ac3af
+    field_x4 = 0;
+    field_x8 = 0;
+}
+
+void MWin_5e8::FUN_00497270(uint32_t arg)
+{
+    //497270
+    field_x0 = arg;
+}
+
+uint32_t MWin_5e8::FUN_004ac566(int32_t arg)
+{
+    //4ac566
+    for (uint32_t i = 0; i < fame2_arr.GetSize(); i++)
+    {
+        Fame2& fame = fame2_arr[i];
+        if (fame.FUN_004ad880() == arg && fame.FUN_004ad890() != 0)
+            return 0;
+    }
+
+    Fame2 f;
+    f.FUN_004abf0f(arg, 1);
+    fame2_arr.Add(f);
+
+    return 1;
+}
+
+
+void MWin_5e8::FUN_004acafa()
+{
+    //4acafa
+    Fame1 fame;
+    int32_t tval = 70000;
+    for (int i = 0; i < 9; i++)
+    {
+        fame.field_x4 = tval + GetRandS16(5000);
+        fame.str = TxtFile::AllLines[i + 0x107];
+        FUN_004ac3ce(fame);
+        tval -= 7000;
+    }
+
+    fame.field_x4 = 0;
+    fame.str = TxtFile::AllLines[0x110];
+    FUN_004ac3ce(fame);
+}
+
+
+
+void MWin_5e8::FUN_004ac945(CFile* file)
+{
+    //4ac945
+    uint32_t num;
+    file->Read(&num, 4);
+    
+    if (num == 0)
+        fame1_arr.RemoveAll();
+    else
+    {
+        fame1_arr.SetSize(num);
+        for (uint32_t i = 0; i < num; i++)
+        {
+            uint32_t t;
+            file->Read(&t, 4);
+
+            char buf[1024];
+            file->Read(buf, t);
+
+            Fame1& fame = fame1_arr[i];
+
+            fame.str = buf;
+
+            file->Read(&fame.field_x4, 4);
+            file->Read(&fame.field_x8, 4);
+            file->Read(&fame.field_xc, 4);
+        }
+    }
+}
+
+
+void MWin_5e8::FUN_004ac3ce(const Fame1& fame)
+{
+    //4ac3ce
+    if (fame1_arr.GetSize() == 0)
+        fame1_arr.Add(fame);
+    else
+    {
+        int32_t i = 0;
+        for (i = 0; i < fame1_arr.GetSize(); i++)
+        {
+            Fame1& f = fame1_arr[i];
+            if (f.field_x4 <= fame.field_x4)
+            {
+                fame1_arr.InsertAt(i, fame);
+                break;
+            }
+        }
+        if (i == fame1_arr.GetSize())
+            fame1_arr.Add(fame);
+    }
+
+    if (fame1_arr.GetSize() > field_xc)
+        fame1_arr.SetSize(field_xc);
+}
+
+
+
+
+
+
 
 
 extern "C"
@@ -121,7 +308,6 @@ extern "C"
     void __fastcall sub_48A747();
 
     // Global variables
-    extern int32_t dword_6D1660;
     extern uint8_t byte_642C68[16];
 };
 
@@ -160,7 +346,7 @@ void MainWindow::sub_48A756()
                     if (g_ShutdownIn < 6000000 && g_ShutdownIn > 1000) { // > 1 second
                         int32_t tick_interval = this->game_tic_time * 16;
                         if ((g_ShutdownIn % 60000) < tick_interval) {
-                            if (g_GameType == 0) {
+                            if (g_ServerConfig.gameType == 0) {
                                 g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
                             }
                         }
@@ -168,7 +354,7 @@ void MainWindow::sub_48A756()
                         if (g_ShutdownIn < 60000) {
                             int32_t tick_interval = this->game_tic_time * 16;
                             if ((g_ShutdownIn % 15000) < tick_interval) {
-                                if (g_GameType == 0) {
+                                if (g_ServerConfig.gameType == 0) {
                                     g_NetStru1_main.FUN_0051ce86(0x0D, g_ShutdownIn / 1000, nullptr);
                                 }
                             }
@@ -210,7 +396,7 @@ void MainWindow::sub_48A756()
                 g_Server->map_elapsed_time += this->game_tic_time * 16;
                 g_Server->map_elapsed_time2 += this->game_tic_time * 16;
 
-                int32_t map_duration = g_MapDurations.GetAt(g_CurrentMapIndex);
+                int32_t map_duration = g_ServerConfig.map_durations.GetAt(g_ServerConfig.current_map_index);
                 
                 // Send "map will change soon" notifications (message 0x0C).
                 if (map_duration != 0x7FFFFFFF) {
@@ -221,14 +407,14 @@ void MainWindow::sub_48A756()
                         int32_t tick_interval = this->game_tic_time * 16;
                         
                         if ((time_diff % 60000) < tick_interval) {
-                            if (g_GameType == 0 || g_GameType == 3) {
+                            if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
                                 g_NetStru1_main.FUN_0051ce86(0x0C, time_diff / 1000, nullptr);
                             }
                         }
                         
                         if (time_diff < 60000) {
                             if ((time_diff % 15000) < tick_interval) {
-                                if (g_GameType == 0 || g_GameType == 3) {
+                                if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3) {
                                     g_NetStru1_main.FUN_0051ce86(0x0C, time_diff / 1000, nullptr);
                                 }
                             }
@@ -238,14 +424,14 @@ void MainWindow::sub_48A756()
                     // Check if map should change now.
                     if (time_diff <= (this->game_tic_time * 16)) {
                         if (g_Server->field59_0x208 == 0) {
-                            g_CurrentMapIndex++;
+                            g_ServerConfig.current_map_index++;
                             
-                            int32_t size = g_MapDurations.GetSize();
-                            if (g_CurrentMapIndex >= size) {
-                                g_CurrentMapIndex = 0;
+                            int32_t size = g_ServerConfig.map_durations.GetSize();
+                            if (g_ServerConfig.current_map_index >= size) {
+                                g_ServerConfig.current_map_index = 0;
                             }
                             
-                            if (g_GameType == 3) {
+                            if (g_ServerConfig.gameType == 3) {
                                 g_Server->sub_4FA5C4();
                             }
                             
@@ -257,9 +443,9 @@ void MainWindow::sub_48A756()
                 }
                 
                 // Some kind of timeout?
-                int32_t timeout_threshold = dword_6D1660 * 60000;
+                int32_t timeout_threshold = g_ServerConfig.field_0xc0 * 60000;
                 if (timeout_threshold <= g_Server->map_elapsed_time2) {
-                    if (g_GameType == 3) {
+                    if (g_ServerConfig.gameType == 3) {
                         if (g_Server->field59_0x208 == 0) {
                             g_Server->sub_4FA78E(2);
                         }
@@ -346,4 +532,12 @@ bool MainWindow::SetSpeed(int speed)
     last_tic_time = timeGetTime(); //GetTickCount??
     field_0x440 = 0;
     return old_speed != game_speed;
+}
+
+
+
+BOOL MainWindow::UpdateClipCursor()
+{
+    //48cbc8
+    return GetClipCursor(&clip_cursor_rect);
 }

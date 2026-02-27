@@ -1022,6 +1022,9 @@ private:
 	time_t m_time;
 };
 
+ASSERT_SIZE(CTime, 4); // define _USE_32BIT_TIME_T Luke
+
+
 struct CFileStatus
 {
 	CTime m_ctime;          // creation date/time of file
@@ -3205,6 +3208,8 @@ LPCTSTR AFXAPI AfxGetAppName();
 COleMessageFilter* AFXAPI AfxOleGetMessageFilter();
 CWnd* AFXAPI AfxGetMainWnd();
 
+int AfxMessageBox(LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0);
+
 
 
 class _AFX_THREAD_STATE : public CNoTrackObject
@@ -3948,6 +3953,8 @@ public:
 	LRESULT Default();
 	void GetWindowText(CString& rString) const; //5e15d7
 	BOOL PostMessage(UINT message, WPARAM wParam, LPARAM lParam); //41ea70
+	BOOL ShowWindow(int nCmdShow); //5e46df
+	void SetWindowText(LPCTSTR lpszString);//5e459a
 };
 
 ASSERT_SIZE(CWnd, 0x3C);

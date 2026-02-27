@@ -287,6 +287,8 @@ struct GameDataRes {
     CArray<BuildingInfo> buildings;
     CArray<SpellInfo> spells;
     int loaded;
+
+    int ParseWorldIn(const CString& str); //50a15f
 };
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);

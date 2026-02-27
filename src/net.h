@@ -189,6 +189,8 @@ struct CLlDriver {
     int32_t dplay_is_4;
     char comp_name[256];
     SockStartNm* add_strings;
+
+    
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

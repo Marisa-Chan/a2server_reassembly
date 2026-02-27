@@ -146,7 +146,10 @@ BOOL CRuntimeClass::IsDerivedFrom(const CRuntimeClass* pBaseClass) const
 
 
 
-
+int AfxMessageBox(LPCTSTR lpszText, UINT nType, UINT nIDHelp)
+{
+	return AfxGetModuleState()->m_pCurrentWinApp->DoMessageBox(lpszText, nType, nIDHelp);
+}
 
 
 //const CObject* AFX_CDECL AfxDynamicDownCast(CRuntimeClass* pClass, const CObject* pObject)

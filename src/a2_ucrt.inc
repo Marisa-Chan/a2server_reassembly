@@ -168,25 +168,12 @@ externdef unknown_libname_409:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_453:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_499:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_526:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_540:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_541:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_542:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_543:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_544:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_545:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_546:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_547:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_548:proc ; MFC 3.1-14.0 32bit
+
 externdef unknown_libname_549:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_550:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_551:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_552:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_553:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_554:proc ; MFC 3.1-14.0 32bit
+
 externdef unknown_libname_555:proc ; MFC 3.1-14.0 32bit
 
 externdef unknown_libname_557:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_558:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_559:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_560:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_561:proc ; MFC 3.1-14.0 32bit
@@ -215,7 +202,6 @@ externdef unknown_libname_670:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_682:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_683:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_684:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_685:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_686:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_690:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_691:proc ; MFC 3.1-14.0 32bit

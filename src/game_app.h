@@ -2,7 +2,9 @@
 #define GAME_APP_H
 
 #include "asm_mfc.h"
-
+#include "net.h"
+#include "txtfile.h"
+#include "server.h"
 
 struct GameDataRes;
 class PlayersList;
@@ -23,14 +25,93 @@ public:
 	virtual int ExitInstance() override;
 };
 
+void ReadFileToString(const char* fname, CString* str);
+
+int32_t GetRandS16(int32_t range);
+
 
 /* in asm */
 void LogMessage(CString message); //43AA23
+
+void FUN_00475e7a(); 
+
+int32_t ParseConfig(const char* fname); //4f7188
+
+int32_t InitVideo(); //453fcc
+int32_t SetVideoMode(); //4546c6
+void ParseTunes(); //476b21
+void LoadItemNames(); //475988
+void LoadFonts();  //460c37
+void LoadSettings(); //441a03
+void PrecomputeExperienceLevelsTable(); //53069e
+void SetMessageColors(uint32_t); //476de7
+
 
 
 extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 extern Server* g_Server;   //642c2c
 extern NetStru1 g_NetStru1_main;  //6c3a08
+
+extern "C" FARPROC ScenarioGetVar; //665a04
+extern "C" FARPROC ScenarioSetVar; //665a00
+extern "C" FARPROC ScenarioTalkTo; //665bd4
+extern "C" FARPROC ScenarioEnterLocation; //6659fc
+extern "C" FARPROC ScenarioLeaveLocation; //6658c8
+extern "C" FARPROC ScenarioEnterShop; //665b0c
+extern "C" FARPROC ScenarioLeaveShop; //665b08
+extern "C" FARPROC ScenarioEnterInn; //665be8
+extern "C" FARPROC ScenarioLeaveInn; //6658f0
+extern "C" FARPROC ScenarioNewGame; //6658cc
+extern "C" FARPROC ScenarioSave; //6658d0
+extern "C" FARPROC ScenarioLoad; //665bd8
+extern "C" FARPROC ScenarioGetAvailableLocations; //6658c4
+extern "C" FARPROC ScenarioGetShopAssortment; //665bdc
+extern "C" FARPROC ScenarioIsTownAvailable; //665cf4
+extern "C" FARPROC ScenarioIsMissionAvailable; //6659f8
+extern "C" FARPROC ScenarioGetCurrentLocation; //6658f4
+extern "C" FARPROC ScenarioGetAllLocations; //665cf0
+
+
+
+
+
+// in C++
+extern uint32_t g_CmdLatency; //665d08
+extern uint32_t g_CmdTimeout; //630e24
+extern uint32_t g_CmdSafeVideo; //660f7c
+
+extern char g_CdSpeed[256]; //6658f8
+extern char g_resolution[256]; //665bf0
+extern char g_InitialWorkingDir[1024]; //6654c0
+extern char g_WorkingDir[1024]; //65fbc8
+extern HWND g_MainWndHWND; //6658ec
+
+extern uint32_t g_IsCdPresent; //660f94
+extern uint32_t g_EnableMusic; //660e10
+extern uint32_t g_EnableTrace; //660f78
+
+extern CLlDriver g_CLlDriver; //6d07a0
+
+extern uint32_t g_DWORD_00659d18; //659d18
+
+extern CString g_HelpStr; //660e68
+
+extern TxtFile txt_main; //660e98
+extern TxtFile txt_heropicture; //65fb98
+extern TxtFile txt_stats; //65fba8
+extern TxtFile txt_spells; //660d58
+extern TxtFile txt_spell; //660E48
+extern TxtFile txt_dialogs; //65FFF0
+extern TxtFile txt_unitname; //660E58
+extern TxtFile txt_building; //660DD8
+extern TxtFile txt_itemname; //660D48
+extern TxtFile txt_npcnames; //65FFD0
+extern TxtFile txt_cutscene; //660DC8
+extern TxtFile txt_cutpaths; //660E18
+extern TxtFile txt_tunes; //660F30
+extern TxtFile txt_patch; //65FFE0
+
+extern ServerConfig g_ServerConfig; //6D15A0
 
 #endif
