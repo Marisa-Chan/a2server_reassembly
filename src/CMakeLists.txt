@@ -69,7 +69,7 @@ set_property(TARGET a2serv_vsc PROPERTY
 )
 
 target_compile_definitions(a2serv_vsc PRIVATE
-  NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+  _USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
 target_link_libraries(a2serv_vsc PRIVATE
