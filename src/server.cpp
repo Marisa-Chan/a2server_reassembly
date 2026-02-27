@@ -11,7 +11,6 @@
 #include <cstring>
 
 // ---- Global variables used by sub_4FC644 ----
-extern "C" World*   dword_6A8B8C;   // TODO: g_World
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
 // ---- ASM subroutines called by sub_4FC644 ----
@@ -343,14 +342,14 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         int16_t my_id      = (int16_t)player->player_id;
 
         for (int i = 2; i <= 15; ++i) {
-            uint8_t val1 = dword_6A8B8C->diplomacy[i][partner_id];
-            dword_6A8B8C->diplomacy[i][my_id] = val1;
+            uint8_t val1 = g_World->diplomacy[i][partner_id];
+            g_World->diplomacy[i][my_id] = val1;
 
-            uint8_t val2 = dword_6A8B8C->diplomacy[partner_id][i];
-            dword_6A8B8C->diplomacy[my_id][i] = val2;
+            uint8_t val2 = g_World->diplomacy[partner_id][i];
+            g_World->diplomacy[my_id][i] = val2;
         }
 
-        dword_6A8B8C->diplomacy[partner_id][my_id] = 0x12;
+        g_World->diplomacy[partner_id][my_id] = 0x12;
     }
 
     // Set team pairing bytes and vision masks.
@@ -364,16 +363,16 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
             switch (g_ServerConfig.gameType) {
             case 0:
                 // Friendly: clear team slot bytes, remove from each other's vision mask
-                dword_6A8B8C->diplomacy[other_id][my_id] = 0;
-                dword_6A8B8C->diplomacy[my_id][other_id] = 0;
+                g_World->diplomacy[other_id][my_id] = 0;
+                g_World->diplomacy[my_id][other_id] = 0;
                 other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 break;
             case 1:
             case 3:
                 // Deathmatch/arena: mark as enemy (1)
-                dword_6A8B8C->diplomacy[other_id][my_id] = 1;
-                dword_6A8B8C->diplomacy[my_id][other_id] = 1;
+                g_World->diplomacy[other_id][my_id] = 1;
+                g_World->diplomacy[my_id][other_id] = 1;
                 other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 break;
@@ -381,14 +380,14 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
                 // Team play
                 if (player->field_0xa70 == other->field_0xa70) {
                     // Same team: mark 0x12 (teammate), share vision
-                    dword_6A8B8C->diplomacy[other_id][my_id] = 0x12;
-                    dword_6A8B8C->diplomacy[my_id][other_id] = 0x12;
+                    g_World->diplomacy[other_id][my_id] = 0x12;
+                    g_World->diplomacy[my_id][other_id] = 0x12;
                     player->vision_sharing_mask |= other->vision_sharing_id;
                     other->vision_sharing_mask |= player->vision_sharing_id;
                 } else {
                     // Different team: mark 1 (enemy), clear vision
-                    dword_6A8B8C->diplomacy[other_id][my_id] = 1;
-                    dword_6A8B8C->diplomacy[my_id][other_id] = 1;
+                    g_World->diplomacy[other_id][my_id] = 1;
+                    g_World->diplomacy[my_id][other_id] = 1;
                     other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                     player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 }
@@ -407,7 +406,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     player->field_0x43 = 1;
 
     // Increment World::field65_0xc780
-    dword_6A8B8C->sub_5AFBFD();
+    g_World->sub_5AFBFD();
 
     // Notify MapStuff section
     sub_596131(&MapStuff_Instance->scan_presence_grid);

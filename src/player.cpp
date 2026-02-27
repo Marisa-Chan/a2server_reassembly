@@ -8,7 +8,6 @@
 #include "world.h"
 #include "server.h"
 
-extern "C" World*   dword_6A8B8C;   // TODO: g_World
 extern "C" void __fastcall sub_558BE1(CList<Group*>* groups, void* edx_unused, CArchive* ar); // TODO: CList<Group*>::Serialize
 
 // 5A5047
@@ -164,8 +163,8 @@ void Player::Serialize(CArchive& ar)
 // 53442F
 Player::~Player() {
     // Unregister from world: clear presence flag at diplomacy[0][player_id]
-    if (dword_6A8B8C) {
-        dword_6A8B8C->diplomacy[0][(int16_t)player_id] = 0;
+    if (g_World) {
+        g_World->diplomacy[0][(int16_t)player_id] = 0;
     }
 
     if (unit_list) {
