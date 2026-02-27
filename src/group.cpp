@@ -139,4 +139,46 @@ void Group::AddUnit(Unit* unit)
 }
 
 
+
+
+
+GroupList::GroupList()
+{
+    //5555f2
+}
+
+GroupList::~GroupList()
+{
+    //555874
+    while (groups.GetCount())
+    {
+        Group* grp = groups.RemoveHead();
+        delete grp;
+    }
+}
+
+Group* GroupList::AllocGroup()
+{
+    //55564e
+    
+    POSITION pos = groups.GetHeadPosition();
+    while (pos != NULL)
+    {
+        POSITION curpos = pos; //save current position for RemoveAt
+        Group* grp = groups.GetNext(pos); //get data and iterate to next
+
+        if (grp && grp->unit_list.GetCount() == 0)
+        {
+            groups.RemoveAt(curpos);
+            delete grp;
+        }
+    }
+
+    //VERY STRANGE LOGIC
+    return new Group();
+}
+
+
+
+
 Group group_instantiation_check;

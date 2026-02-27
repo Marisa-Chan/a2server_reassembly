@@ -8,8 +8,8 @@
 #include "mfc_templ.h"
 
 
-class Group;
 class UnitList;
+struct GroupList;
 
 
 struct Settings {
@@ -30,13 +30,11 @@ class Human;
 
 class Player : public CObject {
 public: // VTable at 0060f140.
-    // virtual CRuntimeClass* GetRuntimeClass() const;
+
+    DECLARE_SERIAL(Player);
+
     virtual ~Player();
     virtual void Serialize(CArchive& ar);
-    // CObject AssertValid
-    // CObject Dump
-
-    static AFX_DATA CRuntimeClass classPlayer;
 
 public:
     uint16_t player_id;
@@ -49,7 +47,7 @@ public:
     CString str;
     int32_t field_0x20;
     UnitList* unit_list;
-    CList<Group*>* group_list;
+    GroupList* group_list;
     uint32_t is_ai; // 1 for AI players, 0 for human players.
     uint16_t vision_sharing_id; // This player's ID in a vision-sharing bitmask.
     uint16_t vision_sharing_mask; // This player's vision-sharing bitmask.

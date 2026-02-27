@@ -72,4 +72,14 @@ ASSERT_OFFSET(Group, owner, 0x44);
 ASSERT_SIZE(Group, 0x50);
 
 
+struct GroupList
+{
+    CList<Group*> groups;
+
+    GroupList();
+    ~GroupList();
+    Group* AllocGroup();
+};
+
+
 #endif

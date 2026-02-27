@@ -51,7 +51,7 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
     
     // Add the new group to the new owner's group list.
     // The assembly manually adds to the CList structure.
-    new_owner->group_list->AddTail(new_group);
+    new_owner->group_list->groups.AddTail(new_group);
     
     // Associate the unit with the new group.
     new_group->AddUnit(unit);

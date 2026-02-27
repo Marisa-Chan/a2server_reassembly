@@ -373,6 +373,11 @@ extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?Serialize@Group@@QAEXAAVCArchive@@@Z  :proc
 
+extern ??0GroupList@@QAE@XZ   :proc
+extern ??1GroupList@@QAE@XZ   :proc
+extern ?AllocGroup@GroupList@@QAEPAVGroup@@XZ   :proc
+
+
 
 
 ;Humanoid
@@ -497,9 +502,10 @@ EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() 
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
-externdef ??0Player@@QAE@XZ :proc
-externdef ??1Player@@UAE@XZ :proc
-externdef ?Serialize@Player@@UAEXAAVCArchive@@@Z :proc
+extern ??0Player@@QAE@XZ :proc
+extern ??1Player@@UAE@XZ :proc
+extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&
+
 
 ; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword

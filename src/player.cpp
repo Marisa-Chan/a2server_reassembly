@@ -8,7 +8,7 @@
 #include "world.h"
 #include "server.h"
 
-extern "C" void __fastcall sub_558BE1(CList<Group*>* groups, void* edx_unused, CArchive* ar); // TODO: CList<Group*>::Serialize
+extern "C" void __fastcall sub_558BE1(GroupList *groups, void* edx_unused, CArchive* ar); // TODO: CList<Group*>::Serialize
 
 // 5A5047
 Settings::Settings() {
@@ -42,7 +42,7 @@ Player::Player() {
     field_0xa5c = 0x5F; // '_'
     field_0xa45 = 0;
     unit_list = new UnitList();
-    group_list = new CList<Group*>();
+    group_list = new GroupList();
     memset(kill_stats, 0, sizeof(kill_stats));
     is_ai = 1;
     settings = new Settings();
@@ -147,9 +147,9 @@ void Player::Serialize(CArchive& ar)
         }
 
         // Rebuild unit_list: collect all units from all groups and set pOwner.
-        POSITION outer = group_list->GetHeadPosition();
+        POSITION outer = group_list->groups.GetHeadPosition();
         while (outer != NULL) {
-            Group* grp = group_list->GetNext(outer);
+            Group* grp = group_list->groups.GetNext(outer);
             POSITION inner = grp->unit_list.GetHeadPosition();
             while (inner != NULL) {
                 Unit* unit = grp->unit_list.GetNext(inner);
@@ -173,8 +173,8 @@ Player::~Player() {
     }
 
     if (group_list) {
-        while (!group_list->IsEmpty()) {
-            Group* g = group_list->RemoveHead();
+        while (!group_list->groups.IsEmpty()) {
+            Group* g = group_list->groups.RemoveHead();
             delete g;
         }
         delete group_list;
@@ -191,5 +191,4 @@ Player::~Player() {
 Player player_instantiation_check;
 
 // 609088
-AFX_DATADEF CRuntimeClass Player::classPlayer =
-{ "Player", sizeof(Player), 1, (CObject* (__stdcall *)())(0x0053405e), &CObject::classCObject, NULL };
+IMPLEMENT_SERIAL(Player, CObject, 1);
