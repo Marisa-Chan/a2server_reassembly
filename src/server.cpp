@@ -13,6 +13,7 @@
 #include "spell_effect.h"
 #include "mfc_plex.h"
 #include "quest_map.h"
+#include "group.h"
 
 
 class QuestMap;
@@ -30,6 +31,10 @@ extern "C" PacketInfo unk_6E9DB0;
 
 // CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
 extern "C" CRuntimeClass stru_6364B8;
+
+// ---- Helpers used by FUN_00500907 ----
+extern "C" int32_t sub_5008CA(int arg);  // Stat point cost: (int)(pow(arg-1, 1.2)*C1+C2)
+extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
@@ -491,7 +496,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     } else {
         // Magic packet 0xFFDDAA11
         uint8_t* pkt = reinterpret_cast<uint8_t*>(Block);
-        unit = sub_500907(player, pkt[5], pkt[6], pkt[7], pkt[8], pkt[9], static_cast<uint32_t>(pkt[10]));
+        unit = this->sub_500907(player, pkt[5], pkt[6], pkt[7], pkt[8], pkt[9], pkt[10]);
 
         // Copy 8 bytes from Block+0xC into player+0x10 (token_id / hat_player_id area)
         std::memcpy(reinterpret_cast<uint8_t*>(player) + 0x10, pkt + 0x0C, 8);
@@ -785,4 +790,90 @@ ServerConfig::ServerConfig()
     field_0xbc = 0;
     field_0xc0 = 0x7fffffff;
     field_0xc4 = 100;
+}
+
+// Create (or revive) the hero for a player who is joining via the magic-packet path.
+// 500907
+Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class)
+{
+    // Does player already have the main unit (reconnect / rejoin)?
+    if (player->main_unit != nullptr) {
+        Human* unit = player->main_unit;
+        if (unit->decay > 0) {
+            unit->sub_53116B();           // reinitialize stats from class template
+            unit->hp = unit->hp_max;
+            unit->mp = unit->mp_max;
+            player->unit_list->AddTail(unit);
+            if (unit->group == nullptr) {
+                Group* grp = new Group();
+                player->group_list->groups.AddTail(grp);
+                grp->AddUnit(unit);
+            }
+        }
+        return player->main_unit;
+    }
+
+    // Create a new character.
+    // Build file extension: ".f5" (default), or ".f"/".m" + (class & 0x3F)
+    CString filename;
+    if (character_class == 0) {
+        filename = ".f5";
+    } else {
+        const char* ext = (character_class & 0x80) ? ".f" : ".m";
+        filename.Format("%s%u", ext, character_class & 0x3F);
+    }
+
+    // Pick "Start_XX" prefix: bit6 = is_mage, bit7 = is_female
+    bool is_mage   = (character_class & 0x40) != 0;
+    bool is_female = (character_class & 0x80) != 0;
+    const char* prefix = (!is_mage && !is_female) ? "Start_MF"
+                       : (!is_mage &&  is_female) ? "Start_FF"
+                       : ( is_mage && !is_female) ? "Start_MM"
+                       :                            "Start_FM";
+
+    Human* unit = new Human(CString(prefix) + filename, 1, nullptr);
+
+    // Validate stat budget: sum of point costs must not exceed 140
+    int32_t budget = 140 - sub_5008CA(body) - sub_5008CA(reaction) - sub_5008CA(mind) - sub_5008CA(spirit);
+    if (budget >= 0) {
+        unit->body     = body;
+        unit->reaction = reaction;
+        unit->mind     = mind;
+        unit->spirit   = spirit;
+    } else {
+        unit->body = unit->reaction = unit->mind = unit->spirit = 25;
+    }
+
+    // Configure skills, then trigger stat-recalc `VMethod18()`.
+    unit->sub_533345(main_skill, 20);
+    unit->VMethod18();
+
+    unit->hp = unit->hp_max;
+    unit->mp = unit->mp_max;
+    unit->name = player->name;
+    unit->TokenID = BldIdSet_AllocBit() & 0xFFFF;
+    unit->pOwner = player;
+    player->unit_list->AddTail(unit);
+
+    // Create a group and place the unit in it
+    Group* grp = new Group();
+    player->group_list->groups.AddTail(grp);
+    grp->AddUnit(unit);
+
+    // Place the unit on the map at tile (8, 12)
+    if (MapStuff_Instance != nullptr) {
+        new (unit->position) TokenPos(8, 12, MapStuff_Instance);
+    }
+
+    player->main_unit = unit;
+    if (this->field4_0x74 == 0) {
+        unit->server_id = 21;
+    }
+
+    // Copy the player's vision-sharing ID into unit.
+    unit->field_0x1a4 = player->vision_sharing_id;
+
+    player->min_server_level = 1;
+    player->max_server_level = 1;
+    return unit;
 }

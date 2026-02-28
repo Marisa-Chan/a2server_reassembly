@@ -362,6 +362,8 @@ externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit:
 
 externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
+externdef ?sub_533345@Unit@@QAEXCC@Z :proc
+externdef ?sub_53116B@Unit@@QAEXXZ :proc
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
@@ -531,6 +533,7 @@ externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
 externdef ?sub_4FA348@Server@@QAEXPAVCString@@H@Z :proc
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
+externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
 
 
 ; World
@@ -827,6 +830,7 @@ extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisL
 
 externdef @sub_596131@4 :proc
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
+externdef _sub_5008CA :proc
 
 
 ;GFX things

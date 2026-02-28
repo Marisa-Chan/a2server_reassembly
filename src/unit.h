@@ -100,6 +100,8 @@ public:
     Unit(const TokenPos*, Player*);
 
     void FUN_0052931b(const CString& str); //in asm
+    void sub_53116B();                         // Reinitialize unit stats from class template
+    void sub_533345(int8_t main_skill, int8_t skill_level);   // Configure skill slots
 
 public:
     MonsterInfo* monster_info;
@@ -168,7 +170,8 @@ public:
     int32_t field_0x198;
     int32_t field_0x19c;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
-    int8_t gap_0x1a4[4];
+    int16_t field_0x1a4;
+    int16_t field_0x1a6;
     CArray<SessionMobKill> mob_kills_in_session;
     int32_t field_0x1bc;
     UnitEye* eye;
