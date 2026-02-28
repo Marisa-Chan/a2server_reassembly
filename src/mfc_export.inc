@@ -309,6 +309,8 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
 
+; MapStuff
+externdef ?sub_5948B0@MapStuff@@QAEXPAV?$CArray@GABG@@@Z :proc
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -413,6 +415,7 @@ extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList
 extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
 extern ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z:proc   ; UnitList::AddTailAllocId
 extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xxx
+externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 
 
 
@@ -432,6 +435,11 @@ extern ??YProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __
 extern ??ZProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator-=(struct Protections const &))
 extern ?Clear@Protections@@QAEXXZ:proc   ; (public: void __thiscall Protections::Clear(void))
 extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall Protections::Serialize(class CArchive &))
+
+
+; AreaEffect
+PUBLIC _stru_6364B8
+
 
 ;EquipmentExtra
 extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::EquipmentExtra(void))
@@ -461,6 +469,11 @@ externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 ;Packets
 externdef ?Inst@PacketJoin@@2V1@A:byte    ; PacketJoin::Inst
 
+externdef ??0PacketJoin@@QAE@XZ :proc
+externdef ??0PacketJoin@@QAE@VCString@@@Z :proc
+
+PUBLIC _unk_6D0788
+PUBLIC _unk_6E9DB0
 
 
 ;NetStru1
@@ -479,12 +492,22 @@ externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@HHHHH@Z :proc
 externdef ?FUN_004fb4ca@NetStru1@@QAEXPAVUnit@@PAVPlayer@@@Z :proc
+externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
+externdef ?sub_51C0F7@NetStru1@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_51CA5D@NetStru1@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
+externdef ?sub_51D1A8@NetStru1@@QAEXGPAVPlayer@@@Z :proc
+externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
+
+public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
+externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
 
 
 ;NetStru2
 externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
-;Server
+; Server
 externdef ?g_Server@@3PAUServer@@A : dword
 externdef ?g_IsServer@@3HA : dword
 externdef ?g_ShutdownIn@@3HA : dword
@@ -497,9 +520,21 @@ externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 externdef ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
-
+externdef ?sub_4FF937@Server@@QAEXPAVPlayer@@H@Z :proc
+externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_4EF4E7@Server@@QAEPAVHuman@@PAXHPAVPlayer@@@Z :proc
+externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEI@Z :proc
+externdef ?sub_4EE028@Server@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_4F4570@Server@@QAEXXZ :proc
+externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
+externdef ?sub_4FA348@Server@@QAEXPAVCString@@H@Z :proc
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
+
+
+; World
+externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 
 
 ; Player
@@ -513,11 +548,25 @@ extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
+externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
+externdef ?sub_53636E@PlayersList@@QAEHXZ :proc
+externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
+
+
+; SackList method
+externdef ?sub_554B03@SackList@@QAEXPAVPlayer@@@Z :proc
 
 
 ; Settings
 externdef ??0Settings@@QAE@XZ :proc
 externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
+
+
+; Quest
+
+; QuestMap
+
+PUBLIC _unk_6CE4D8
 
 
 ;CListBox2  in C++
@@ -776,6 +825,8 @@ extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisL
 
 
 
+externdef @sub_596131@4 :proc
+externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 
 
 ;GFX things

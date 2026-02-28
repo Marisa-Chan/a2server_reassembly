@@ -253,8 +253,11 @@ class PacketJoin : public Packet
 {
 public:
     static PacketJoin Inst; //in asm 6ce560
+
 public:
-    PacketJoin(); //in asm 526c12
+    PacketJoin(); // in asm 526c12
+    PacketJoin(CString name); // 526d59
+
 public:
     virtual ~PacketJoin();
     virtual Packet* Duplicate() override;

@@ -31,7 +31,6 @@ extern "C" PacketInfo unk_6E9DB0;
 // CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
 extern "C" CRuntimeClass stru_6364B8;
 
-
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
 void Server::sub_4FF937(Player* player, int32_t bool_arg4)
@@ -70,17 +69,15 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
     // Broadcast a PacketJoin for the new player to all existing players.
     {
-        PacketJoin* pkt = new PacketJoin();
-        if (pkt != nullptr) {
-            pkt->id = 6;
-            // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
-            // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
-            // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
-            *reinterpret_cast<uint32_t*>(&pkt->player_id) = field21_0xd4;
-            pkt->to_player_id = player->player_id;
-            g_NetStru1_main.FUN_005186cd(pkt);
-            delete pkt;
-        }
+        PacketJoin* pkt = new PacketJoin(current_map_name);
+        pkt->id = 6;
+        // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
+        // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
+        // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
+        *reinterpret_cast<uint32_t*>(&pkt->player_id) = field21_0xd4;
+        pkt->to_player_id = player->player_id;
+        g_NetStru1_main.FUN_005186cd(pkt);
+        delete pkt;
     }
 
     // Require the player to have a main unit.
@@ -218,6 +215,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     unk_6D0788.packet.to_player_id = player->player_id;
     unk_6D0788.field_0xa = player->main_unit->position->GetX() & 0xFF;
     unk_6D0788.field_0xe = player->main_unit->position->GetY() & 0xFF;
+
     g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
 
     // Send all data for the main unit.
@@ -226,7 +224,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // Stream remaining server state to the joining player.
     g_NetStru1_main.sub_51C0F7(player);          // send units from dword_6CDB3C
     g_NetStru1_main.sub_51CA5D(player);          // send server state
-    g_NetStru1_main.sub_51D1A8(0, nullptr);      // send all kill stats (broadcast)
+    g_NetStru1_main.sub_51D1A8(0, player);       // send kill stats
     g_NetStru1_main.sub_51CF5C(player->main_unit, 0, nullptr); // hero visibility packet
 
     // Send any active area effects to the player.
@@ -280,7 +278,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     }
 
     // Finalise the player's session state.
-    player->FUN_00534AC1(1, 0);              // signal mission entry with arg=1
+    player->FUN_00534AC1(0, 1);              // signal mission entry with arg=1
     g_NetStru1_main.FUN_0051ceac(3, player); // send "mission entered" event
     this->sub_4F4570();                      // server-state refresh
 }
