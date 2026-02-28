@@ -8,8 +8,6 @@
 #include "world.h"
 #include "server.h"
 
-extern "C" void __fastcall sub_558BE1(GroupList *groups, void* edx_unused, CArchive* ar); // TODO: CList<Group*>::Serialize
-
 // 5A5047
 Settings::Settings() {
     memset(this, 0, sizeof(Settings));
@@ -134,7 +132,7 @@ void Player::Serialize(CArchive& ar)
         ar.Read(kill_stats, 0xA00);
     }
 
-    sub_558BE1(group_list, nullptr, &ar);
+    group_list->Serialize(ar);
     settings->Serialize(ar);
 
     if (!ar.IsStoring()) {

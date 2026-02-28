@@ -79,6 +79,7 @@ struct GroupList
     GroupList();
     ~GroupList();
     Group* AllocGroup();
+    void Serialize(CArchive& ar);
 };
 
 

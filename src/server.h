@@ -11,9 +11,11 @@
 
 class Building;
 class Human;
+class Player;
 class Sack;
 struct ScriptSettings;
 class Spell;
+class SpellEffect;
 class VirtualCaster;
 class Unit;
 class UnitList;
@@ -25,26 +27,34 @@ struct CowardActivation {
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
 
-class SrvStru1Lst;
+class SackList;
+class SpellEffectList;
 
 struct SrvStru1 {
     CList<Building*>* building_list;
-    SrvStru1Lst* effects_list;
-    CList<Sack*>* sack_list;
+    SpellEffectList* effects_list;
+    SackList* sack_list;
     UnitList* units_list;
     CList<VirtualCaster*> virtual_casters_list;
     CList<Unit*> some_unit_list;
 };
 ASSERT_SIZE(SrvStru1, 0x48);
 
-class SrvStru1Lst {
+struct SackList {
+    CList<Sack*> list;
+
+public:
+    void sub_554B03(Player* player); // Clear unit vision mask bits for player across this sack list
+};
+
+class SpellEffectList {
 public: // VTable at 0060f6dc.
     virtual void VMethod1();
 
 public:
-    CList<SrvStru1*> list;
+    CList<SpellEffect*> list;
 };
-ASSERT_SIZE(SrvStru1Lst, 0x20);
+ASSERT_SIZE(SpellEffectList, 0x20);
 
 class Srv1 : public CObject { // Aka `A2Srv_1`.
 public: // Virtual table at 0060ec18.
@@ -78,6 +88,8 @@ public:
     void sub_4F4570();
     void sub_4FA4BB(CString* name, uint32_t* frags);
     void sub_4FA348(CString* name, int flag);
+    void sub_4FA551(Player* player); // Arena mode player entry handler
+    void sub_4FF937(Player* player, int arg4); // Mission join: send full world state to connecting player
 
 public:
     int tick16; // This value seems to be advanced every 16 ticks

@@ -373,9 +373,11 @@ extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?Serialize@Group@@QAEXAAVCArchive@@@Z  :proc
 
+; GroupList
 extern ??0GroupList@@QAE@XZ   :proc
 extern ??1GroupList@@QAE@XZ   :proc
 extern ?AllocGroup@GroupList@@QAEPAVGroup@@XZ   :proc
+externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 
 
@@ -785,4 +787,3 @@ externdef ?SetVideoMode@@YAHXZ :proc
 
 externdef ?clrsh_DullGold@@3PAGA  :word
 externdef ?clrsh_TechBlack@@3PAGA  :word
-

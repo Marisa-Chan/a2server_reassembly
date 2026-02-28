@@ -6,6 +6,7 @@
 #include "mfc_templ.h"
 
 class Unit;
+class Player;
 
 class UnitList {
 public:
@@ -19,6 +20,8 @@ public:
     void AddTail(Unit* unit);
     void AddTailAllocId(Unit* unit);
     void AddTailId6xxx(Unit* unit);
+
+    void sub_5579D8(Player* player); // Clear unit vision mask bits for player across this list
 
 public:
     CList<Unit*> unit_list;

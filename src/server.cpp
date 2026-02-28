@@ -1,5 +1,8 @@
-#include "game_app.h"
 #include "server.h"
+
+#include <cstring>
+
+#include "game_app.h"
 #include "world.h"
 #include "player.h"
 #include "unit.h"
@@ -7,14 +10,280 @@
 #include "players_list.h"
 #include "net.h"
 #include "map_stuff.h"
+#include "spell_effect.h"
 #include "mfc_plex.h"
-#include <cstring>
+#include "quest_map.h"
+
+
+class QuestMap;
 
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
 // ---- ASM subroutines called by sub_4FC644 ----
 extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
+
+// ---- Variables used by sub_4FF937 ----
+extern "C" QuestMap unk_6CE4D8; // Global quest map instance?
+extern "C" PacketInfo unk_6D0788; // position-entry packet buffer.
+extern "C" PacketInfo unk_6E9DB0;
+
+// CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
+extern "C" CRuntimeClass stru_6364B8;
+
+
+// Called when a player enters a map; streams the current game state to them.
+// 4FF937
+void Server::sub_4FF937(Player* player, int32_t bool_arg4)
+{
+    // Send existing players' PacketJoin data to the new player.
+    g_NetStru1_main.sub_51C8B1(player);
+
+    // Reconnect check?
+    if (player->hat_player_id == 0xF6D04773 && player->flags == 4) {
+        CString player_nick(player->name);
+
+        int pipe_pos = player_nick.Find('|');
+        if (pipe_pos != -1) {
+            player_nick = player_nick.Mid(pipe_pos + 1);
+        }
+
+        Player* found_player = g_PlayersList->sub_535D39(player_nick);
+        if (found_player != nullptr && dword_6CDB3C != nullptr) {
+            // Transfer any unit from the original player to the re-connecting player.
+            auto* node = dword_6CDB3C->unit_list.m_pNodeHead;
+            while (node != nullptr) {
+                auto* next = node->pNext;
+                Unit* unit = node->data;
+                if (unit != nullptr && unit->pOwner == found_player) {
+                    g_NetStru1_main.FUN_004fb4ca(unit, player);
+                }
+                node = next;
+            }
+        }
+    }
+
+    // Arena mode: run the arena entry handler for this player.
+    if (g_ServerConfig.gameType == 3) {
+        sub_4FA551(player);
+    }
+
+    // Broadcast a PacketJoin for the new player to all existing players.
+    {
+        PacketJoin* pkt = new PacketJoin();
+        if (pkt != nullptr) {
+            pkt->id = 6;
+            // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
+            // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
+            // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
+            *reinterpret_cast<uint32_t*>(&pkt->player_id) = field21_0xd4;
+            pkt->to_player_id = player->player_id;
+            g_NetStru1_main.FUN_005186cd(pkt);
+            delete pkt;
+        }
+    }
+
+    // Require the player to have a main unit.
+    if (player->main_unit == nullptr) {
+        LogMessage("Client " + player->name + " tries to enter mission without Hero. Return");
+        g_NetStru1_main.FUN_0051cd89("You can't enter mission without Hero", player);
+        return;
+    }
+
+    // Reset the rejoining flag.
+    player->field_0x40 = 0;
+
+    // Early-out for some game types.
+    if (field4_0x74 != 0 && bool_arg4 != 0) {
+        if (g_ServerConfig.gameType != 0 && g_ServerConfig.gameType != 3) {
+            return;
+        }
+    }
+
+    // Diplomacy and vision-mask setup with the "Self" map player.
+    {
+        Player* self_player = g_PlayersList->sub_535D39("Self");
+        if (self_player != nullptr) {
+            uint16_t self_id = self_player->player_id;
+            uint16_t player_id = player->player_id;
+
+            // Copy Self's diplomacy column into the new player's row (slots 2..15).
+            for (int slot = 2; slot <= 15; ++slot) {
+                g_World->diplomacy[slot][player_id]   = g_World->diplomacy[slot][self_id];
+                g_World->diplomacy[self_id][slot] = g_World->diplomacy[player_id][slot];
+            }
+            // Mark Self as allied with the new player.
+            g_World->diplomacy[self_id][player_id] = 0x12;
+
+            // Walk all non-AI players and update alliance / vision masks.
+            for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+                Player* p = node->data;
+                auto p_id = p->player_id;
+                if (p->is_ai != 0 || p_id == player_id) {
+                    continue;
+                }
+
+                // Co-op: clear mutual alliance bytes.
+                if (g_ServerConfig.gameType == 0) {
+                    g_World->diplomacy[p_id][player_id] = 0;
+                    g_World->diplomacy[player_id][p_id] = 0;
+                }
+
+                // Clear each player's vision bits for the other.
+                player->vision_sharing_mask &= ~p->vision_sharing_id;
+                p->vision_sharing_mask &= ~player->vision_sharing_id;
+            }
+        }
+    }
+
+    // Softcore (gameType == 2) team-alliance setup.
+    if (g_ServerConfig.gameType == 2) {
+        Player* red  = g_PlayersList->sub_535D39("Red");
+        Player* blue = g_PlayersList->sub_535D39("Blue");
+
+        uint16_t red_id = red->player_id;
+        uint16_t blue_id = blue->player_id;
+        uint16_t my_id = player->player_id;
+
+        if (red != nullptr && blue != nullptr) {
+            if (player->field_0xa70 == 0) {
+                // Allied with Red (0x12), hostile to Blue (1).
+                g_World->diplomacy[red_id][my_id] = 0x12;
+                g_World->diplomacy[my_id][red_id] = 0x12;
+                g_World->diplomacy[blue_id][my_id] = 1;
+                g_World->diplomacy[my_id][blue_id] = 1;
+
+                // Share vision with Red, clear from Blue.
+                player->vision_sharing_mask |= red->vision_sharing_id;
+                red->vision_sharing_mask |= player->vision_sharing_id;
+                player->vision_sharing_mask &= ~blue->vision_sharing_id;
+                blue->vision_sharing_mask &= ~player->vision_sharing_id;
+            } else {
+                // Allied with Blue (0x12), hostile to Red (1).
+                g_World->diplomacy[blue_id][my_id] = 0x12;
+                g_World->diplomacy[my_id][blue_id] = 0x12;
+                g_World->diplomacy[red_id][my_id] = 1;
+                g_World->diplomacy[my_id][red_id] = 1;
+
+                // Share vision with Blue, clear from Red.
+                player->vision_sharing_mask |= blue->vision_sharing_id;
+                blue->vision_sharing_mask |= player->vision_sharing_id;
+
+                player->vision_sharing_mask &= ~red->vision_sharing_id;
+                red->vision_sharing_mask &= ~player->vision_sharing_id;
+            }
+        }
+    }
+
+    // Send updated terrain/diplomacy state to every non-AI player.
+    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+        Player* p = node->data;
+        if (p != nullptr && p->is_ai == 0) {
+            g_NetStru1_main.sub_51CB21(p);
+        }
+    }
+
+    // If `bool_arg4` is set and field_0x41 is not yet set, put the unit on the map (sub_5013D4).
+    if (bool_arg4 != 0 && player->field_0x41 == 0) {
+        sub_5013D4(player);
+    }
+
+    // Mark the player as fully active and refresh world / map state.
+    player->field_0x41 = 1;
+    player->field_0x43 = 1;
+    g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
+    sub_596131(&MapStuff_Instance->scan_presence_grid);  // refresh scan grid
+
+    // Clear vision mask bits for this player across every unit list.
+    // Three separate lists are processed:
+    //   a) The global pending unit list (dword_6CDB3C).
+    //   b) srv_stru1->sack_list — clears Token::field_x18 word bits (sub_554B03).
+    //   c) srv_stru1->units_list.
+    // Then for each player in g_PlayersList, also clear their per-player unit list.
+    dword_6CDB3C->sub_5579D8(player);
+
+    this->srv_stru1->sack_list->sub_554B03(player);
+    this->srv_stru1->units_list->sub_5579D8(player);
+
+    // Per-player unit lists.
+    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+        Player* p = node->data;
+        if (p != nullptr) {
+            p->unit_list->sub_5579D8(player);
+        }
+    }
+
+    // Send player's main unit's position.
+    unk_6D0788.packet.id = 0xABu;
+    unk_6D0788.packet.to_player_id = player->player_id;
+    unk_6D0788.field_0xa = player->main_unit->position->GetX() & 0xFF;
+    unk_6D0788.field_0xe = player->main_unit->position->GetY() & 0xFF;
+    g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
+
+    // Send all data for the main unit.
+    g_NetStru1_main.sub_519221(player->main_unit, 0, -1, 0xFFB, 0, 0);
+
+    // Stream remaining server state to the joining player.
+    g_NetStru1_main.sub_51C0F7(player);          // send units from dword_6CDB3C
+    g_NetStru1_main.sub_51CA5D(player);          // send server state
+    g_NetStru1_main.sub_51D1A8(0, nullptr);      // send all kill stats (broadcast)
+    g_NetStru1_main.sub_51CF5C(player->main_unit, 0, nullptr); // hero visibility packet
+
+    // Send any active area effects to the player.
+    if (this->srv_stru1->effects_list != nullptr) {
+        CList<SpellEffect*>& effect_list = this->srv_stru1->effects_list->list;
+        for (auto* node = effect_list.m_pNodeHead; node != nullptr; node = node->pNext) {
+            SpellEffect* effect = node->data;
+            if (effect == nullptr) {
+                continue;
+            }
+
+            // Check runtime class: is this an AreaEffect?
+            // TODO: also check `!effect->IsKindOf(AreaEffect::GetRuntimeClass())`.
+            if (!effect->IsKindOf(&stru_6364B8)) {
+                continue;
+            }
+            AreaEffect* ae = reinterpret_cast<AreaEffect*>(effect);
+            if (ae->field_0x4c != 0) {
+                g_NetStru1_main.sub_51BE8F(ae, 1);
+            }
+        }
+    }
+
+    // If field4_0x74 is set, send the SrvStru1 state list from the opaque
+    // unk_6CE4D8 state buffer.  sub_51D4F6 uses unk_6CE4D8 as an internal
+    // iterator struct (fields at offsets 0x74/0x78/0x80) and produces a
+    // terrain-list packet that it sends to player.
+    if (g_Server->field4_0x74 != 0) {
+        g_NetStru1_main.sub_51D4F6(&unk_6CE4D8, player, 0);
+    }
+
+    // Encode and send the full map-terrain packet to the player.
+    // encode_list is a stack-local CArray<uint16_t> (= CWordArray, var_88 in ASM).
+    // MapStuff_Instance->sub_5948B0 fills it with run-length encoded terrain data.
+    // The result is copied into unk_6E9DB0 (the large static packet buffer)
+    // beginning at offset 0xE, then the packet is sent.
+    {
+        // Set up terrain packet header.
+        unk_6E9DB0.packet.id = 0x9Bu;
+        unk_6E9DB0.packet.to_player_id = player->player_id;
+
+        CArray<uint16_t> encode_list;
+        MapStuff_Instance->sub_5948B0(&encode_list);
+
+        int32_t count = encode_list.GetSize();
+        uint16_t* src_ptr = encode_list.GetData();
+        std::memcpy(&unk_6E9DB0.field_0xe, src_ptr, count * 2);
+        unk_6E9DB0.field_0xa = count;
+
+        g_NetStru1_main.FUN_005186cd(&unk_6E9DB0.packet);
+    }
+
+    // Finalise the player's session state.
+    player->FUN_00534AC1(1, 0);              // signal mission entry with arg=1
+    g_NetStru1_main.FUN_0051ceac(3, player); // send "mission entered" event
+    this->sub_4F4570();                      // server-state refresh
+}
 
 
 void Server::FUN_004ff439(Player* player, int32_t arg4)

@@ -8,6 +8,7 @@
 #include "mfc_templ.h"
 
 
+class AreaEffect;
 struct CLlDriver;
 class NetStru1;
 struct NetStru2;
@@ -15,6 +16,7 @@ struct NetStru3;
 class Packet;
 class Player;
 class Unit;
+class QuestMap;
 
 
 struct PackerTail {
@@ -86,6 +88,15 @@ public:
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
     void sub_519221(Unit* unit, int32_t param2, int32_t param3, int32_t param4, int32_t param5, int32_t param6);
+
+    void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player
+    void sub_51CB21(Player* player);  // Send terrain/diplomacy visibility state to player
+    void sub_51C0F7(Player* player);  // Send units from pending unit list to player
+    void sub_51CA5D(Player* player);  // Send server state to player
+    void sub_51D1A8(uint16_t player_id, Player* player);  // Send kill stats (pass 0,nullptr for all)
+    void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
+    void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
+    void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -226,6 +237,18 @@ ASSERT_SIZE(Packet, 0xa);
 
 
 __pragma(pack(push, 1))
+struct PacketInfo {
+    Packet packet;
+    int32_t field_0xa;
+    int32_t field_0xe;
+};
+__pragma(pack(pop))
+
+ASSERT_SIZE(PacketInfo, 0x12);
+
+
+
+__pragma(pack(push, 1))
 class PacketJoin : public Packet
 {
 public:
@@ -249,4 +272,5 @@ public:
 };
 __pragma(pack(pop))
 
+ASSERT_OFFSET(PacketJoin, player_id, 0xa);
 ASSERT_SIZE(PacketJoin, 0x410);

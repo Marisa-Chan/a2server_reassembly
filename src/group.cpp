@@ -181,4 +181,25 @@ Group* GroupList::AllocGroup()
 
 
 
+// 558BE1
+void GroupList::Serialize(CArchive& ar)
+{
+    if (ar.IsStoring()) {
+        int32_t count = groups.GetCount();
+        ar.Write(&count, sizeof(count));
+        for (POSITION pos = groups.GetHeadPosition(); pos != nullptr;) {
+            Group* grp = groups.GetNext(pos);
+            grp->Serialize(ar);
+        }
+    } else {
+        int32_t count;
+        ar.Read(&count, sizeof(count));
+        for (int32_t i = 0; i < count; ++i) {
+            Group* grp = new Group();
+            grp->Serialize(ar);
+            groups.AddTail(grp);
+        }
+    }
+}
+
 Group group_instantiation_check;

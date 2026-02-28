@@ -99,6 +99,7 @@ struct MapStuff { // aka astruct_5
 
 public:
     int sub_58E3D1(Unit* unit); // add unit to map
+    void sub_5948B0(CArray<uint16_t>* encode_buf); // encode map terrain into encode_buf
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
