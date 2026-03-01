@@ -137,7 +137,9 @@ externdef ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
 
 ;GameDataRes
 externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
+
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
+externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 
 
 ;Scenario
@@ -311,6 +313,7 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 ; MapStuff
 externdef ?sub_5948B0@MapStuff@@QAEXPAV?$CArray@GABG@@@Z :proc
+externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -368,7 +371,9 @@ externdef ?sub_53116B@Unit@@QAEXXZ :proc
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
-
+externdef ?sub_537251@Unit@@QAEXXZ :proc
+externdef ?sub_52A790@Unit@@QAEXH@Z :proc
+externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
 ; Group
 extern ??0Group@@QAE@XZ :proc
@@ -450,6 +455,10 @@ extern ?Serialize@EquipmentExtra@@QAEXAAVCArchive@@@Z:proc   ; (public: void __t
 extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thiscall EquipmentExtra::AddToUnit(class Unit *))
 
 
+; Item
+
+externdef ?sub_548F6A@Item@@QAE_NXZ :proc
+
 ;inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
@@ -465,6 +474,10 @@ externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 
+
+; SpellBook
+
+externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 
 
 
@@ -492,7 +505,7 @@ externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
-externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@HHHHH@Z :proc
+externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HHHH@Z :proc
 externdef ?FUN_004fb4ca@NetStru1@@QAEXPAVUnit@@PAVPlayer@@@Z :proc
 externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
 externdef ?sub_51C0F7@NetStru1@@QAEXPAVPlayer@@@Z :proc
@@ -501,6 +514,8 @@ externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D1A8@NetStru1@@QAEXGPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
+externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
+externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
 public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
@@ -523,6 +538,7 @@ externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 externdef ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
 externdef ?sub_4FF937@Server@@QAEXPAVPlayer@@H@Z :proc
+externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4EF4E7@Server@@QAEPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEI@Z :proc
@@ -531,9 +547,18 @@ externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
 externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
 externdef ?sub_4FA348@Server@@QAEXPAVCString@@H@Z :proc
+externdef ?sub_4F8F86@Server@@QAEXXZ :proc
+externdef ?sub_4F8FBF@Server@@QAEXHH@Z :proc
+externdef ?sub_4F9AD3@Server@@QAEXPAVSack@@@Z :proc
+externdef ?sub_509879@Server@@QAEXPAVCString@@PAVUnit@@H@Z :proc
 
 EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
+
+
+; CowardActivation
+
+externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 
 
 ; World
@@ -545,6 +570,7 @@ externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
 extern ??0Player@@QAE@XZ :proc
 extern ??1Player@@UAE@XZ :proc
 extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&
+externdef ?sub_5346AC@Player@@QAEXXZ :proc
 
 
 ; PlayersList
@@ -741,6 +767,12 @@ externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
 
+; CLlDriver
+
+externdef ?sub_5229CD@CLlDriver@@QAEXHH@Z :proc
+externdef ?sub_5229FD@CLlDriver@@QAEHH@Z :proc
+externdef ?sub_522A51@CLlDriver@@QAEHH@Z :proc
+
 ;TxtFile
 
 extern ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A  : byte  ; TxtFile::AllLines
@@ -842,3 +874,8 @@ externdef ?SetVideoMode@@YAHXZ :proc
 
 externdef ?clrsh_DullGold@@3PAGA  :word
 externdef ?clrsh_TechBlack@@3PAGA  :word
+
+
+; Free functions
+
+externdef _sub_5049D1 :proc

@@ -92,6 +92,7 @@ public:
 
 public:
     void FUN_00534AC1(int32_t money, uint32_t arg2);
+    void sub_5346AC(); // Kill all of this player's units on the map
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);

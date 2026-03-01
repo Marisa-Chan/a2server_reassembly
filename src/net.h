@@ -87,7 +87,7 @@ public:
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
-    void sub_519221(Unit* unit, int32_t param2, int32_t param3, int32_t param4, int32_t param5, int32_t param6);
+    void sub_519221(Unit* unit, Player* player, int32_t param3, int32_t param4, int32_t param5, int32_t param6);
 
     void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player
     void sub_51CB21(Player* player);  // Send terrain/diplomacy visibility state to player
@@ -97,6 +97,9 @@ public:
     void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
     void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
+
+    void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
+    void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -201,7 +204,10 @@ struct CLlDriver {
     char comp_name[256];
     SockStartNm* add_strings;
 
-    
+public:
+    void sub_5229CD(int32_t conn_uid, int32_t latency_ms); // Set connection latency limit
+    int32_t sub_5229FD(int32_t conn_uid);  // Get current measured latency (ms)
+    int32_t sub_522A51(int32_t conn_uid);  // Get current packet-loss figure
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

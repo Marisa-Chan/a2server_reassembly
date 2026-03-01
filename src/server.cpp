@@ -1,6 +1,7 @@
 #include "server.h"
 
 #include <cstring>
+#include <cstdlib>  // atoi
 
 #include "game_app.h"
 #include "world.h"
@@ -14,6 +15,10 @@
 #include "mfc_plex.h"
 #include "quest_map.h"
 #include "group.h"
+#include "sack.h"
+#include "item.h"
+#include "inventory.h"
+#include "spell.h"
 
 
 class QuestMap;
@@ -35,6 +40,10 @@ extern "C" CRuntimeClass stru_6364B8;
 // ---- Helpers used by FUN_00500907 ----
 extern "C" int32_t sub_5008CA(int arg);  // Stat point cost: (int)(pow(arg-1, 1.2)*C1+C2)
 extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
+
+// sub_5049D1: Strip an optional leading integer count from *str (modifies str in-place),
+// returns the parsed count (or 1 if none present).
+extern "C" int32_t sub_5049D1(CString* str);
 
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
@@ -224,7 +233,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
 
     // Send all data for the main unit.
-    g_NetStru1_main.sub_519221(player->main_unit, 0, -1, 0xFFB, 0, 0);
+    g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
 
     // Stream remaining server state to the joining player.
     g_NetStru1_main.sub_51C0F7(player);          // send units from dword_6CDB3C
@@ -876,4 +885,331 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     player->min_server_level = 1;
     player->max_server_level = 1;
     return unit;
+}
+
+// Processes a cheat/admin command string sent by a player.
+//
+// Admin commands (require ns2->field_0x29c != 0):
+//   #kick <name>:         disconnect a non-admin player
+//   #locate <name>:       report a player's map position back to the caller
+//
+// Non-admin network commands (available to any connected player):
+//   #set latency <ms>:    clamp the connection latency (50–10000 ms)
+//   #show latency:        reply with current latency and packet-loss stats
+//   #ready:               signal readiness for a team-game start (gameType==2)
+//
+// Cheat (elevated-privilege) commands – require field_0xa98 > 50, or the player
+// must first authenticate via the coward-activation code:
+//   #create <item|Gold>:  spawn an item or gold in the player's inventory
+//   #modify self|army +god|+spell <id>|+spells|+knowledge: adds stuff
+//   #summon <name>:       summon a unit next to the player
+//   #killall / #kill all: kill every visible enemy unit
+//   #kill cheaters:       reset & kill all cheating players
+//   #kill <name>:         kill a named player's units
+//   #pickup all:          collect every sack on the current map
+//   #show map / #hide map:  reveal or conceal the full map for the player
+//   #victory:             trigger a victory event for the player's team
+//   #event <id>:          fire an in-game script event
+// 502D0B
+void Server::CheatCommand(Player* player, CString cheat_string)
+{
+    LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+
+    if (this->field4_0x74 != 0) {
+        // Non-admin commands.
+        NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+        if (ns2 == nullptr || ns2->field_0x29c == 0) {
+            if (cheat_string.Find("#set latency ") == 0) {
+                cheat_string = cheat_string.Mid(13);
+                cheat_string.TrimLeft();
+                int32_t lat = atoi(cheat_string);
+                if (lat != 0) {
+                    if (lat < 50 || lat > 10000) {
+                        g_NetStru1_main.FUN_0051ce86(6, player->player_id, player);
+                        return;
+                    }
+                    NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+                    if (ns2 != nullptr) {
+                        g_CLlDriver.sub_5229CD(ns2->uid, lat);
+                        g_NetStru1_main.sub_51C7CC(lat, player);
+                    }
+                }
+            } else if (cheat_string.Find("#show latency") == 0) {
+                NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+                if (ns2 != nullptr) {
+                    int32_t lat  = g_CLlDriver.sub_5229FD(ns2->uid);
+                    int32_t loss = g_CLlDriver.sub_522A51(ns2->uid);
+                    cheat_string.Format("%s: latency %dms, packet loss %d.%03d%%",
+                        player->name, lat, loss / 1000, loss % 1000);
+                    g_NetStru1_main.FUN_0051cd89(cheat_string, player);
+                }
+            } else if (cheat_string.Find("#ready") == 0) {
+                if (g_ServerConfig.gameType == 2) {
+                    if (g_PlayersList->sub_53636E() == 0 && player->field_0xa6c == 0) {
+                        player->field_0xa6c = 1;
+                        g_NetStru1_main.FUN_0051d6b4(0);
+                        if (g_PlayersList->sub_53636E() != 0) {
+                            // All players now ready – start the match.
+                            g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
+                            this->sub_4F8F86();
+                            this->sub_4F8FBF(0, 0);
+                            this->sub_4F8FBF(1, 0);
+                        }
+                    }
+                }
+            }
+        } else {
+            // Admin commands.
+            if (cheat_string.Find("#kick ") == 0) {
+                cheat_string = cheat_string.Mid(6);
+                cheat_string.TrimLeft();
+                Player* target = g_PlayersList->sub_535D39(cheat_string);
+                if (target != nullptr) {
+                    NetStru2* tns2 = g_NetStru1_main.FUN_00518544(target->player_id);
+                    if (tns2 != nullptr && tns2->field_0x29c == 0) {
+                        g_NetStru1_main.FUN_0051d49b(target);
+                    }
+                }
+            } else if (cheat_string.Find("#locate ") == 0) {
+                cheat_string = cheat_string.Mid(8);
+                cheat_string.TrimLeft();
+                Player* target = g_PlayersList->sub_535D39(cheat_string);
+                if (target != nullptr && target->is_ai == 0) {
+                    NetStru2* tns2 = g_NetStru1_main.FUN_00518544(target->player_id);
+                    if (tns2 != nullptr) {
+                        CString msg;
+                        msg.Format("%s (%d,%d)",
+                            (LPCTSTR)target->name,
+                            target->main_unit->position->GetX(),
+                            target->main_unit->position->GetY());
+                        g_NetStru1_main.FUN_0051cd89(msg, player);
+                    }
+                }
+            }
+        }
+    }
+    
+    bool is_reconnect = player->hat_player_id == 0xF6D04773u && player->flags == 4;
+
+    if (this->field4_0x74 != 0 && !is_reconnect) {
+        return;
+    }
+
+    // Players whose cheat level is not yet elevated must supply the activation secret.
+    if (player->field_0xa98 <= 50) {
+        if (coward_activation.sub_5A3498(cheat_string) == 1) {
+            CString msg = "Player " + player->name + " enable cheating.";
+            LogMessage(msg);
+            player->field_0xa98 = 0xFF;
+            if (!is_reconnect) {
+                g_NetStru1_main.FUN_0051ce86(5, player->player_id, nullptr);
+            }
+        }
+        return;
+    }
+
+    // player->field_0xa98 > 50: elevated cheat commands available.
+
+    if (cheat_string.Find("#create ") == 0) {
+        cheat_string = cheat_string.Mid(8);
+        cheat_string.TrimLeft();
+
+        if (player->main_unit->decay != 0) {
+            // Unit is dead/decayed – cannot receive items.
+            if (!is_reconnect) {
+                g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
+            }
+            return;
+        }
+
+        // sub_5049D1 trims an optional leading integer from cheat_string and returns it.
+        int32_t count = sub_5049D1(&cheat_string);
+
+        if (_stricmp((const char*)cheat_string, "Gold") == 0) {
+            player->FUN_00534AC1(count, 0);
+            if (!is_reconnect)
+                g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+            return;
+        }
+
+        Item* item = g_GameDataRes.sub_510502(&cheat_string);
+        if (item == nullptr) {
+            if (!is_reconnect)
+                g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
+            return;
+        }
+
+        if (!item->sub_548F6A()) {
+            // Item cannot be freely created; destroy the template copy we got.
+            item->~Item(); // virtual dtor with delete-flag=1 equivalent
+            if (!is_reconnect)
+                g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
+            return;
+        }
+
+        item->count = (uint16_t)count;
+        player->main_unit->inventory->PutItemIntoBagAtDefault(item);
+        player->main_unit->sub_52A790(0);
+        g_NetStru1_main.sub_519221(player->main_unit, player, -1, 0xFFB, 0, 0);
+        if (!is_reconnect)
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, 0);
+    } else if (cheat_string.Find("#modify ") == 0) {
+        cheat_string = cheat_string.Mid(8);
+        cheat_string.TrimLeft();
+
+        int target_mode = 0; // 1 = self, 2 = army
+        if (cheat_string.Find("self") == 0) {
+            cheat_string = cheat_string.Mid(4);
+            cheat_string.TrimLeft();
+            target_mode = 1;
+        } else if (cheat_string.Find("army") == 0) {
+            cheat_string = cheat_string.Mid(4);
+            cheat_string.TrimLeft();
+            target_mode = 2;
+        } else {
+            return; // unknown target keyword
+        }
+
+        if (cheat_string.Find("+god") == 0) {
+            if (target_mode == 1) {
+                player->main_unit->sub_537251();
+                g_NetStru1_main.sub_519221(player->main_unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+            } else if (target_mode == 2) {
+                for (auto* node = player->unit_list->unit_list.m_pNodeHead; node != nullptr; node = node->pNext) {
+                    Unit* unit = node->data;
+                    if (unit != nullptr) {
+                        unit->sub_537251();
+                        g_NetStru1_main.sub_519221(unit, 0, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                    }
+                }
+            }
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+        } else if (cheat_string.Find("+spell ") == 0) {
+            cheat_string = cheat_string.Mid(7);
+            cheat_string.TrimLeft();
+            if (target_mode == 1) {
+                SpellBook* spell_book = player->main_unit->spell_book;
+                if (spell_book == nullptr) return;
+                int32_t spell_id = atoi(cheat_string);
+                if (spell_id > 0 && spell_id <  g_GameDataRes.spells.GetSize()) {
+                    Spell* sp = new Spell((uint8_t)spell_id);
+                    spell_book->sub_53D7F0(spell_id, sp);
+                }
+                // FUN_00519221(&g_NetStru1_main,&pHStack_4c->_,(pHStack_4c->_)._.pOwner,0xa31fffff, 0xffb,0,0);
+                g_NetStru1_main.sub_519221(player->main_unit, player, 0xA31FFFFF, 0xFFB, 0, 0);
+                g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+            }
+        } else if (cheat_string.Find("+spells") == 0) {
+            if (target_mode == 1) {
+                SpellBook* spell_book = player->main_unit->spell_book;
+                if (spell_book == nullptr) {
+                    return;
+                }
+                for (int i = 1; i <= 29; i++) {
+                    Spell* sp = new Spell(i);
+                    spell_book->sub_53D7F0(i, sp);
+                }
+                g_NetStru1_main.sub_519221(player->main_unit, player, (int32_t)0xA31FFFFF, 0xFFB, 0, 0);
+                if (!is_reconnect)
+                    g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+            }
+        }
+
+        // +knowledge --- all above paths fall through here
+        if (cheat_string.Find("+knowledge") == 0) {
+            g_NetStru1_main.sub_51D1A8(0, player);
+        }
+    } else if (cheat_string.Find("#summon ") == 0) {
+        cheat_string = cheat_string.Mid(8);
+        cheat_string.TrimLeft();
+
+        if (player->main_unit == nullptr) {
+            return;
+        }
+
+        int32_t count = sub_5049D1(&cheat_string);
+        int32_t is_hero = 0;
+
+        if (cheat_string.Find("hero") == 0) {
+            is_hero = 1;
+            count = 1;
+            cheat_string = cheat_string.Mid(5);
+            cheat_string.TrimLeft();
+        }
+
+        for (int i = 1; i <= count; i++) {
+            this->sub_509879(&cheat_string, player->main_unit, is_hero);
+        }
+    } else if (cheat_string.Find("#killall") == 0 || cheat_string.Find("#kill all") == 0) {
+        // Kill every enemy player.
+        for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+            Player* p = node->data;
+            if (p == nullptr) {
+                continue;
+            }
+            int diplomacy = g_World->diplomacy[player->player_id][p->player_id];
+            if (diplomacy & 1) {
+                p->sub_5346AC();
+            }
+        }
+        if (!is_reconnect) {
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, player);
+        }
+    } else if (cheat_string.Find("#kill cheaters") == 0) {
+        for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+            Player* p = node->data;
+            if (p != nullptr && p->field_0xa98 > 50 && p != player) {
+                p->field_0xa98 = 0;
+                p->sub_5346AC();
+            }
+        }
+    } else if (cheat_string.Find("#kill ") == 0) {
+        cheat_string = cheat_string.Mid(6);
+        cheat_string.TrimLeft();
+        Player* target = g_PlayersList->sub_535D39(cheat_string);
+        if (target != nullptr) {
+            target->sub_5346AC();
+            if (target->hat_player_id != 0xF6D04773 || target->flags != 4) {
+                g_NetStru1_main.FUN_0051ce86(7, target->player_id, nullptr);
+            }
+        }
+    } else if (cheat_string.Find("#pickup all") == 0) {
+        if (player->main_unit == nullptr) {
+            return;
+        }
+
+        SackList* sack_list = this->srv_stru1->sack_list;
+        POSITION pos = sack_list->list.GetHeadPosition();
+        while (pos != nullptr) {
+            POSITION cur_pos = pos;
+            Sack* sack = sack_list->list.GetNext(pos); // advances pos
+            this->sub_4F9AD3(sack);
+            MapStuff_Instance->sub_58E525(sack);
+            g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
+            player->main_unit->sub_52C98B(sack);
+        }
+
+        if (!is_reconnect) {
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+        }
+
+        LogMessage("All sacks picked up");
+    } else if (cheat_string.Find("#show map") == 0) {
+        g_NetStru1_main.FUN_0051cefb(0xAA, 1, 0, player);
+        if (!is_reconnect) {
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+        }
+    } else if (cheat_string.Find("#hide map") == 0) {
+        g_NetStru1_main.FUN_0051cefb(0xAA, 0, 0, player);
+        if (!is_reconnect) {
+            g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
+        }
+    } else if (cheat_string.Find("#victory") == 0) {
+        g_NetStru1_main.FUN_0051cefb(0xAA, 2, 0, player);
+    } else if (cheat_string.Find("#event ") == 0) {
+        cheat_string = cheat_string.Mid(7);
+        cheat_string.TrimLeft();
+        int32_t event_id = atoi(cheat_string);
+        g_NetStru1_main.sub_51CD2A(player, event_id, 0);
+    }
 }

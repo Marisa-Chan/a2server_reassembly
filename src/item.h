@@ -41,6 +41,9 @@ public:
     virtual void VMethod17(void*, void*);
 
 public:
+    bool sub_548F6A(); // Returns true if this item template can be given via #create cheat
+
+public:
     WorldEquip* world_equip;
     uint16_t item_id;
     uint16_t count;

@@ -22,7 +22,7 @@ public:
 
 public:
     Spell();
-    Spell(uint8_t index);
+    Spell(uint8_t spell_id);
     Spell(const CString& name);
 
     void sub_53940D(Unit* unit);
@@ -58,6 +58,8 @@ public:
 public:
     CArray<Spell*> spells;
     uint32_t current_spell_index;
+
+    void sub_53D7F0(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
 };
 ASSERT_SIZE(SpellBook, 0x1c);
 

@@ -23,6 +23,8 @@ class UnitList;
 struct CowardActivation {
     char key[100];
     BOOL enabled;
+
+    int sub_5A3498(const char* str); // sub_5A3498
 };
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
@@ -90,6 +92,13 @@ public:
     void sub_4FA348(CString* name, int flag);
     void sub_4FA551(Player* player); // Arena mode player entry handler
     void sub_4FF937(Player* player, int arg4); // Mission join: send full world state to connecting player
+
+    void sub_4F8F86(); // Called when all team-game players are ready
+    void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
+    void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
+    void sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit
+    void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
+    void CheatCommand(Player* player, CString param_2);
 
 public:
     int tick16; // This value seems to be advanced every 16 ticks

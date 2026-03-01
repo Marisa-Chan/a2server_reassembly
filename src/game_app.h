@@ -3,10 +3,11 @@
 
 #include "asm_mfc.h"
 #include "net.h"
+#include "table.h"
 #include "txtfile.h"
 #include "server.h"
 
-struct GameDataRes;
+class Item;
 class PlayersList;
 struct Server;
 class NetStru1;

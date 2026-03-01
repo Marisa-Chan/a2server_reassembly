@@ -5,6 +5,10 @@
 #include "assert_offset.h"
 #include "mfc_templ.h"
 
+
+class Item;
+
+
 template <typename T>
 class TableLine : public CObject {
 public:
@@ -288,7 +292,9 @@ struct GameDataRes {
     CArray<SpellInfo> spells;
     int loaded;
 
+public:
     int ParseWorldIn(const CString& str); //50a15f
+    Item* sub_510502(CString* name); // Look up an item template by name
 };
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);

@@ -102,6 +102,9 @@ public:
     void FUN_0052931b(const CString& str); //in asm
     void sub_53116B();                         // Reinitialize unit stats from class template
     void sub_533345(int8_t main_skill, int8_t skill_level);   // Configure skill slots
+    void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
+    void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
+    void sub_52C98B(class Sack* sack); // Pick up a sack into this unit's bag
 
 public:
     MonsterInfo* monster_info;
