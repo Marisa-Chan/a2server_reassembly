@@ -272,10 +272,16 @@ public:
     virtual uint32_t GetDataSize() override;
 
 public:
-    uint8_t player_id;
-    uint8_t token_id;
-    uint8_t field_0xc;
-    uint8_t flags;
+    union {
+        struct {
+            uint8_t player_id;
+            uint8_t token_id;
+            uint8_t field_0xc;
+            uint8_t flags;
+        };
+        uint32_t __field_0xa;
+    };
+    
     uint16_t name_len;
     char name[1024];
 };

@@ -88,7 +88,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         // [pkt+0xA] = Server::field21_0xd4.  Offset 0xA within PacketJoin is
         // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
         // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
-        *reinterpret_cast<uint32_t*>(&pkt->player_id) = field21_0xd4;
+        pkt->__field_0xa = field21_0xd4;
         pkt->to_player_id = player->player_id;
         g_NetStru1_main.FUN_005186cd(pkt);
         delete pkt;
@@ -106,46 +106,46 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
     // Early-out for some game types.
     if (field4_0x74 != 0 && bool_arg4 != 0) {
-        if (g_ServerConfig.gameType != 0 && g_ServerConfig.gameType != 3) {
-            return;
-        }
-    }
+        if (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)
+        {
+            // Diplomacy and vision-mask setup with the "Self" map player.
 
-    // Diplomacy and vision-mask setup with the "Self" map player.
-    {
-        Player* self_player = g_PlayersList->sub_535D39("Self");
-        if (self_player != nullptr) {
-            uint16_t self_id = self_player->player_id;
-            uint16_t player_id = player->player_id;
+            Player* self_player = g_PlayersList->sub_535D39("Self");
+            if (self_player != nullptr) {
+                uint16_t self_id = self_player->player_id;
+                uint16_t player_id = player->player_id;
 
-            // Copy Self's diplomacy column into the new player's row (slots 2..15).
-            for (int slot = 2; slot <= 15; ++slot) {
-                g_World->diplomacy[slot][player_id]   = g_World->diplomacy[slot][self_id];
-                g_World->diplomacy[self_id][slot] = g_World->diplomacy[player_id][slot];
-            }
-            // Mark Self as allied with the new player.
-            g_World->diplomacy[self_id][player_id] = 0x12;
-
-            // Walk all non-AI players and update alliance / vision masks.
-            for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
-                Player* p = node->data;
-                auto p_id = p->player_id;
-                if (p->is_ai != 0 || p_id == player_id) {
-                    continue;
+                // Copy Self's diplomacy column into the new player's row (slots 2..15).
+                for (int slot = 2; slot <= 15; ++slot) {
+                    g_World->diplomacy[slot][player_id] = g_World->diplomacy[slot][self_id];
+                    g_World->diplomacy[self_id][slot] = g_World->diplomacy[player_id][slot];
                 }
+                // Mark Self as allied with the new player.
+                g_World->diplomacy[self_id][player_id] = 0x12;
 
-                // Co-op: clear mutual alliance bytes.
-                if (g_ServerConfig.gameType == 0) {
-                    g_World->diplomacy[p_id][player_id] = 0;
-                    g_World->diplomacy[player_id][p_id] = 0;
+                // Walk all non-AI players and update alliance / vision masks.
+                for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+                    Player* p = node->data;
+                    auto p_id = p->player_id;
+                    if (p->is_ai != 0 || p_id == player_id) {
+                        continue;
+                    }
+
+                    // Co-op: clear mutual alliance bytes.
+                    if (g_ServerConfig.gameType == 0) {
+                        g_World->diplomacy[p_id][player_id] = 0;
+                        g_World->diplomacy[player_id][p_id] = 0;
+                    }
+
+                    // Clear each player's vision bits for the other.
+                    player->vision_sharing_mask &= ~p->vision_sharing_id;
+                    p->vision_sharing_mask &= ~player->vision_sharing_id;
                 }
-
-                // Clear each player's vision bits for the other.
-                player->vision_sharing_mask &= ~p->vision_sharing_id;
-                p->vision_sharing_mask &= ~player->vision_sharing_id;
             }
         }
     }
+
+    
 
     // Softcore (gameType == 2) team-alliance setup.
     if (g_ServerConfig.gameType == 2) {
@@ -225,15 +225,18 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     }
 
     // Send player's main unit's position.
-    unk_6D0788.packet.id = 0xABu;
-    unk_6D0788.packet.to_player_id = player->player_id;
-    unk_6D0788.field_0xa = player->main_unit->position->GetX() & 0xFF;
-    unk_6D0788.field_0xe = player->main_unit->position->GetY() & 0xFF;
+    if (player->main_unit)
+    {
+        unk_6D0788.packet.id = 0xABu;
+        unk_6D0788.packet.to_player_id = player->player_id;
+        unk_6D0788.field_0xa = player->main_unit->position->GetX() & 0xFF;
+        unk_6D0788.field_0xe = player->main_unit->position->GetY() & 0xFF;
 
-    g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
+        g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
 
-    // Send all data for the main unit.
-    g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
+        // Send all data for the main unit.
+        g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
+    }
 
     // Stream remaining server state to the joining player.
     g_NetStru1_main.sub_51C0F7(player);          // send units from dword_6CDB3C
@@ -280,7 +283,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         unk_6E9DB0.packet.id = 0x9Bu;
         unk_6E9DB0.packet.to_player_id = player->player_id;
 
-        CArray<uint16_t> encode_list;
+        CWordArray encode_list;
         MapStuff_Instance->sub_5948B0(&encode_list);
 
         int32_t count = encode_list.GetSize();

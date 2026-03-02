@@ -312,7 +312,7 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
 ; MapStuff
-externdef ?sub_5948B0@MapStuff@@QAEXPAV?$CArray@GABG@@@Z :proc
+externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
