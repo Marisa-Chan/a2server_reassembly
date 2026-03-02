@@ -82,7 +82,11 @@ int32_t GetRandS16(int32_t range)
 BOOL GameApp::InitInstance()
 {
 	//4823bd
+#ifdef A2CLIENT
+	g_IsServer = 0;
+#else
 	g_IsServer = 1;
+#endif
 
 	const char* stmp = strstr(m_lpCmdLine, "-latency");
 	if (stmp)
@@ -244,6 +248,7 @@ BOOL GameApp::InitInstance()
 		}
 	}
 
+#ifndef A2CLIENT
 	if (g_ServerConfig.chr_base.IsEmpty())
 	{
 		AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
@@ -274,6 +279,7 @@ BOOL GameApp::InitInstance()
 		}
 	}
 	fnd.Close();
+#endif
 
 	if (!InitVideo())
 	{
