@@ -74,6 +74,8 @@ ASSERT_SIZE(Srv1, 0x3c);
 
 class Player;
 
+Human* _stdcall sub_4EF4E7(void* block, int arg14, Player* player); // Load character.
+
 struct Server {
 public:
     void sub_4FBB79();
@@ -83,7 +85,6 @@ public:
     void sub_4F8831();
 
     // Sub-functions called by sub_4FC644
-    Human* sub_4EF4E7(void* block, int arg14, Player* player); // Load character.
     Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
     void sub_4EE028(Unit* unit);
     void sub_5013D4(Player* player);

@@ -413,7 +413,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         // ASM also checks `if (player != 0) {delete player}`, but player is always null at this point, so we skip that.
 
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 1;
     }
@@ -422,16 +422,16 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     if (g_ServerConfig.gameType == 2 && g_PlayersList->sub_53636E()) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Team play already started)");
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 8;
     }
 
     // 3. Shutdown initiated?
-    if (!(g_ShutdownIn >= 0x7FFFFFFF || this->field59_0x208 != 0)) {
+    if (g_ShutdownIn < 0x7FFFFFFF || this->field59_0x208 != 0) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Shutdown initiated)");
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 9;
     }
@@ -439,14 +439,11 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     // 4. Duplicate name check
     for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
         Player* existing = node->data;
-        if (existing == nullptr) {
-            continue;
-        }
 
-        if (std::strcmp(name, existing->name) == 0) {
+        if (existing && std::strcmp(name, existing->name) == 0) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Duplicated name)");
             if (Block != nullptr) {
-                operator delete(Block);
+                delete[] Block;
             }
             return 2;
         }
@@ -467,17 +464,17 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         if (std::strcmp(nickname, g_ServerConfig.banned_names[i]) == 0) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Banned name)");
             if (Block != nullptr) {
-                operator delete(Block);
+                delete[] Block;
             }
             return 3;
         }
     }
 
     // 7. Name starts with space -> banned
-    if (nickname != nullptr && nickname[0] == ' ') {
+    if (nickname[0] == ' ') {
         LogMessage("Player " + name + " login " + login + " has been rejected (Banned name)");
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 3;
     }
@@ -486,7 +483,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     if (nickname.GetLength() <= 2) {
         LogMessage("Player " + name + " login " + login + " has been rejected (varName too short)");
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 4;
     }
@@ -508,12 +505,12 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         unit = this->sub_500907(player, pkt[5], pkt[6], pkt[7], pkt[8], pkt[9], pkt[10]);
 
         // Copy 8 bytes from Block+0xC into player+0x10 (token_id / hat_player_id area)
-        std::memcpy(reinterpret_cast<uint8_t*>(player) + 0x10, pkt + 0x0C, 8);
+        std::memcpy(&player->hat_player_id, pkt + 0x0C, 8);
 
         player->name = name;
         player->money = 1000;
 
-        operator delete(Block);
+        delete[] Block;
         Block = nullptr;
     }
 
@@ -521,12 +518,11 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     if (unit == nullptr) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Invalid character data)");
         if (player != nullptr) {
-            void** vtbl = *reinterpret_cast<void***>(player);
-            typedef int(__thiscall* DtorFn)(Player*, int);
-            reinterpret_cast<DtorFn>(vtbl[1])(player, 1);
+            delete player;
+            player = nullptr;
         }
         if (Block != nullptr) {
-            operator delete(Block);
+            delete[] Block;
         }
         return 5;
     }
@@ -537,12 +533,11 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         if (this->MapLevel < player->min_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
             if (player != nullptr) {
-                void** vtbl = *reinterpret_cast<void***>(player);
-                typedef int(__thiscall* DtorFn)(Player*, int);
-                reinterpret_cast<DtorFn>(vtbl[1])(player, 1);
+                delete player;
+                player = nullptr;
             }
             if (Block != nullptr) {
-                operator delete(Block);
+                delete[] Block;
             }
             return 6;
         }
@@ -550,12 +545,11 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         if (this->MapLevel > player->max_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too weak for this map)");
             if (player != nullptr) {
-                void** vtbl = *reinterpret_cast<void***>(player);
-                typedef int(__thiscall* DtorFn)(Player*, int);
-                reinterpret_cast<DtorFn>(vtbl[1])(player, 1);
+                delete player;
+                player = nullptr;
             }
             if (Block != nullptr) {
-                operator delete(Block);
+                delete[] Block;
             }
             return 7;
         }
@@ -698,6 +692,18 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     // Set unit_attrs |= 8 (phased in).
     player->main_unit->unit_attrs |= 8;
 
+    // Remove player->main_unit from dword_6CDB3C->unit_list.
+    {
+        using CNode = CList<Unit*>::CNode;
+        CList<Unit*>& lst = dword_6CDB3C->unit_list;
+        Unit* target = player->main_unit;
+
+        // Find the node whose data == target
+        POSITION pos = dword_6CDB3C->unit_list.Find(target);
+        if (pos != nullptr)
+            dword_6CDB3C->unit_list.RemoveAt(pos);
+    }
+
     // Co-op mode: set starting enchantments.
     if (g_ServerConfig.gameType == 0) {
         uint32_t& enchantments = player->main_unit->enchantments;
@@ -717,52 +723,6 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Server state update.
     sub_4F4570();
-
-    // Remove player->main_unit from dword_6CDB3C->unit_list.
-    {
-        using CNode = CList<Unit*>::CNode;
-        CList<Unit*>& lst = dword_6CDB3C->unit_list;
-        Unit* target = player->main_unit;
-
-        // Find the node whose data == target
-        CNode* found = nullptr;
-        for (CNode* node = lst.m_pNodeHead; node != nullptr; node = node->pNext) {
-            if (node->data == target) {
-                found = node;
-                break;
-            }
-        }
-
-        if (found != nullptr) {
-            // Unlink
-            if (found == lst.m_pNodeHead) {
-                lst.m_pNodeHead = found->pNext;
-            } else {
-                found->pPrev->pNext = found->pNext;
-            }
-
-            if (found == lst.m_pNodeTail) {
-                lst.m_pNodeTail = found->pPrev;
-            } else {
-                found->pNext->pPrev = found->pPrev;
-            }
-
-            // Recycle into free list
-            found->pNext = lst.m_pNodeFree;
-            lst.m_pNodeFree = found;
-            --lst.m_nCount;
-
-            // If list is now empty: release all CPlex blocks
-            if (lst.m_nCount == 0) {
-                lst.m_nCount = 0;
-                lst.m_pNodeFree = nullptr;
-                lst.m_pNodeTail = nullptr;
-                lst.m_pNodeHead = nullptr;
-                lst.m_pBlocks->FreeDataChain();
-                lst.m_pBlocks = nullptr;
-            }
-        }
-    }
 
     return 0;
 }

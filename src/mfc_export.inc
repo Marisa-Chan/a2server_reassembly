@@ -32,18 +32,18 @@ externdef ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z :proc 
 
 externdef ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A :byte    ;CThreadLocal<class _AFX_THREAD_STATE>
 
-externdef ??0_AFX_THREAD_STATE@@QAE@XZ  : proc  
+externdef ??0_AFX_THREAD_STATE@@QAE@XZ  : proc
 
 
 
 ;CArchive
 public ?Write@CArchive@@QAEXPBXI@Z ; CArchive::Write  005E6A26
-public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918 
+public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918
 public ?WriteCount@CArchive@@QAEXK@Z  ; CArchive::WriteCount 005E6BF2
 public ?ReadCount@CArchive@@QAEKXZ   ; CArchive::ReadCount 005E6C20
 public ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z     ;  CArchive::ReadObject  005e848c
 public ?WriteObject@CArchive@@QAEXPBVCObject@@@Z    ; CArchive::WriteObject   5e840f
-public ?Flush@CArchive@@QAEXXZ 
+public ?Flush@CArchive@@QAEXXZ
 public ?FillBuffer@CArchive@@QAEXI@Z
 
 public ??5@YGAAVCArchive@@AAV0@AAVCString@@@Z
@@ -53,7 +53,7 @@ public ??6@YGAAVCArchive@@AAV0@ABVCString@@@Z
 
 
 
-public ?AfxGetModuleThreadState@@YGPAVAFX_MODULE_THREAD_STATE@@XZ  ; AfxGetModuleThreadState(); 005F4DB8 
+public ?AfxGetModuleThreadState@@YGPAVAFX_MODULE_THREAD_STATE@@XZ  ; AfxGetModuleThreadState(); 005F4DB8
 public ??0AFX_CLASSINIT@@QAE@PAUCRuntimeClass@@@Z  ; AFX_CLASSINIT::AFX_CLASSINIT(CRuntimeClass *)
 public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
 public ?AfxTryCleanup@@YGXXZ ; AfxTryCleanup
@@ -290,7 +290,7 @@ extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: vo
 
 
 
-;TokenPos 
+;TokenPos
 extern ??0TokenPos@@QAE@EEPAUMapStuff@@@Z:proc  ;  TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 extern ??0TokenPos@@QAE@XZ:proc  ; TokenPos::TokenPos()
 extern ??0TokenPos@@QAE@ABU0@@Z:proc  ; TokenPos::TokenPos(struct TokenPos const &)
@@ -492,7 +492,7 @@ PUBLIC _unk_6E9DB0
 
 
 ;NetStru1
-externdef ?g_NetStru1_main@@3VNetStru1@@A:byte  
+externdef ?g_NetStru1_main@@3VNetStru1@@A:byte
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
 externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z :proc   ; NetStru1::FUN_00518544(unsigned short)
@@ -536,12 +536,11 @@ externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
-externdef ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
+extern ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
 externdef ?sub_4FF937@Server@@QAEXPAVPlayer@@H@Z :proc
 externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_4EF4E7@Server@@QAEPAVHuman@@PAXHPAVPlayer@@@Z :proc
-externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEI@Z :proc
+externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
@@ -552,7 +551,7 @@ externdef ?sub_4F8FBF@Server@@QAEXHH@Z :proc
 externdef ?sub_4F9AD3@Server@@QAEXPAVSack@@@Z :proc
 externdef ?sub_509879@Server@@QAEXPAVCString@@PAVUnit@@H@Z :proc
 
-EXTERN ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
+extern ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
 
 
