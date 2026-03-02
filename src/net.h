@@ -266,6 +266,7 @@ public:
 
 public:
     PacketJoin(); // in asm 526c12
+    PacketJoin(const PacketJoin* src);
     PacketJoin(CString name); // 526d59
 
 public:

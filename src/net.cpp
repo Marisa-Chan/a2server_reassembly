@@ -7,6 +7,7 @@
 #include <cstring>
 
 Packet Packet::Inst;
+PacketJoin PacketJoin::Inst;
 
 
 
@@ -128,3 +129,79 @@ uint32_t Packet::GetDataSize()
     return 1;
 }
 
+
+
+PacketJoin::PacketJoin()
+{
+    //526c12
+    id = 0x91;
+
+    player_id = 0;
+    token_id = 0;
+    field_0xc = 0;
+    flags = 0;
+    name_len = 0;
+    name[0] = 0;
+
+}
+
+PacketJoin::PacketJoin(const PacketJoin *src)
+{
+    //526c52
+
+    id = src->id;
+    field_0x5 = src->field_0x5;
+
+    player_id = src->player_id;
+    token_id = src->token_id;
+    field_0xc = src->field_0xc;
+    flags = src->flags;
+    name_len = src->name_len;
+    memcpy(name, src->name, name_len + 1);
+}
+
+PacketJoin::PacketJoin(CString _name)
+{
+    //526d59
+    id = 0x91;
+
+    player_id = 0;
+    token_id = 0;
+    field_0xc = 0;
+    flags = 0;
+
+    strcpy(name, _name);
+    name_len = _name.GetLength();
+}
+
+PacketJoin::~PacketJoin()
+{
+    //526e4f
+}
+
+Packet* PacketJoin::Duplicate()
+{
+    //57a390
+    return new PacketJoin(this);
+}
+
+void PacketJoin::VMethod3(NetStru1* net)
+{
+    //526ede
+    name_len = strlen(name);
+    net->FUN_00515ef3(&id, name_len + 8);
+}
+
+void PacketJoin::VMethod4(NetStru1* net)
+{
+    //526f1d
+    net->FUN_00515f9c(&player_id, 6);
+    net->FUN_00515f9c(name, name_len + 1);
+    name[name_len] = 0;
+}
+
+uint32_t PacketJoin::GetDataSize()
+{
+    //57a410
+    return name_len + 8;
+}

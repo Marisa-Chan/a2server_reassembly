@@ -490,10 +490,12 @@ extern ?VMethod3@Packet@@UAEXPAVNetStru1@@@Z : proc
 extern ?VMethod4@Packet@@UAEXPAVNetStru1@@@Z : proc
 
 
-externdef ?Inst@PacketJoin@@2V1@A:byte    ; PacketJoin::Inst
+extern ?Inst@PacketJoin@@2V1@A :byte    ; PacketJoin::Inst
+extern ??0PacketJoin@@QAE@XZ :proc
+extern ??0PacketJoin@@QAE@VCString@@@Z :proc
+extern ??1PacketJoin@@UAE@XZ  :proc
 
-externdef ??0PacketJoin@@QAE@XZ :proc
-externdef ??0PacketJoin@@QAE@VCString@@@Z :proc
+
 
 PUBLIC _unk_6D0788
 PUBLIC _unk_6E9DB0
