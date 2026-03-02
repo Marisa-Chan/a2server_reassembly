@@ -305,3 +305,32 @@ __pragma(pack(pop))
 
 ASSERT_OFFSET(PacketJoin, player_id, 0xa);
 ASSERT_SIZE(PacketJoin, 0x410);
+
+
+
+
+__pragma(pack(push, 1))
+class PacketTerrain : public Packet
+{
+public:
+    static PacketTerrain Inst; //in asm 6e9db0
+
+public:
+    PacketTerrain(); //527346
+    PacketTerrain(const PacketTerrain* src); //527365
+
+public:
+    virtual ~PacketTerrain();
+    virtual Packet* Duplicate() override;
+    virtual void VMethod3(NetStru1*) override;
+    virtual void VMethod4(NetStru1*) override;
+    virtual uint32_t GetDataSize() override;
+
+public:
+    
+    uint32_t count;
+    uint16_t buf[256 * 256];
+};
+__pragma(pack(pop))
+
+ASSERT_SIZE(PacketTerrain, 0x2000e);

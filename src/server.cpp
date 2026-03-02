@@ -32,8 +32,6 @@ extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
 // ---- Variables used by sub_4FF937 ----
 extern "C" QuestMap unk_6CE4D8; // Global quest map instance?
 
-extern "C" PacketInfo unk_6E9DB0;
-
 // CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
 extern "C" CRuntimeClass stru_6364B8;
 
@@ -281,18 +279,19 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // beginning at offset 0xE, then the packet is sent.
     {
         // Set up terrain packet header.
-        unk_6E9DB0.id = 0x9Bu;
-        unk_6E9DB0.to_player_id = player->player_id;
+        PacketTerrain& pkt = PacketTerrain::Inst;
+        pkt.id = 0x9Bu;
+        pkt.to_player_id = player->player_id;
 
         CWordArray encode_list;
         MapStuff_Instance->sub_5948B0(&encode_list);
 
         int32_t count = encode_list.GetSize();
         uint16_t* src_ptr = encode_list.GetData();
-        std::memcpy(&unk_6E9DB0.field_0xe, src_ptr, count * 2);
-        unk_6E9DB0.field_0xa = count;
+        std::memcpy(&pkt.buf, src_ptr, count * 2);
+        pkt.count = count;
 
-        g_NetStru1_main.FUN_005186cd(&unk_6E9DB0);
+        g_NetStru1_main.FUN_005186cd(&pkt);
     }
 
     // Finalise the player's session state.

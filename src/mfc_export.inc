@@ -496,8 +496,8 @@ extern ??1PacketJoin@@UAE@XZ  :proc
 
 extern ?Inst@PacketInfo@@2V1@A :byte 
 
+extern ?Inst@PacketTerrain@@2V1@A : byte
 
-PUBLIC _unk_6E9DB0
 
 
 ;NetStru1

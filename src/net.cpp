@@ -9,6 +9,7 @@
 Packet Packet::Inst;
 PacketJoin PacketJoin::Inst;
 PacketInfo PacketInfo::Inst;
+PacketTerrain PacketTerrain::Inst;
 
 
 
@@ -239,4 +240,47 @@ uint32_t PacketInfo::GetDataSize()
 {
     //57a290
     return 9;
+}
+
+
+
+PacketTerrain::PacketTerrain()
+{
+    //527346
+}
+
+PacketTerrain::PacketTerrain(const PacketTerrain* src)
+{
+    //527365
+    memcpy(&id, &src->id, count * 2 + 5);    
+}
+PacketTerrain::~PacketTerrain()
+{
+    //579ac0
+}
+
+Packet* PacketTerrain::Duplicate()
+{
+    //57aaa0
+    return new PacketTerrain(this);
+}
+    
+void PacketTerrain::VMethod3(NetStru1* net)
+{
+    //5273a7
+    net->FUN_00515ef3(&id, count * 2 + 5);
+}
+
+void PacketTerrain::VMethod4(NetStru1* net)
+{
+    //5273ce
+    net->FUN_00515f9c(&count, 4);
+    if (count)
+        net->FUN_00515f9c(buf, count * 2);
+}
+
+uint32_t PacketTerrain::GetDataSize()
+{
+    //57ab20
+    return count * 2 + 5;
 }
