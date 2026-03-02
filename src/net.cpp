@@ -6,6 +6,11 @@
 #include "game_app.h"
 #include <cstring>
 
+Packet Packet::Inst;
+
+
+
+
 void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 {
 	PacketJoin& pkt = PacketJoin::Inst;
@@ -69,3 +74,57 @@ void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
     // Mark unit as needing update?
     unit->field_0x204 = 1;
 }
+
+
+
+
+
+
+
+Packet::Packet()
+{
+    //52681f
+    field_0x4 = 0;
+    field_0x5 = 0;
+    to_player_id = 0;
+    id = 0;
+}
+
+Packet::Packet(const Packet* src)
+{
+    //526856
+    id = src->id;
+}
+
+Packet::~Packet()
+{
+    //inlined in 5799da and many other places
+}
+
+Packet* Packet::Duplicate()
+{
+    //579940
+    return new Packet(this);
+}
+
+void Packet::VMethod3(NetStru1* net)
+{
+    //526887
+    uint32_t sz = GetDataSize();
+    net->FUN_00515ef3(&id, sz);
+}
+
+void Packet::VMethod4(NetStru1* net)
+{
+    //5268b7
+    uint32_t sz = GetDataSize();
+    if (sz != 1)
+        net->FUN_00515f9c(this + 1, sz - 1);
+}
+
+uint32_t Packet::GetDataSize()
+{
+    //5799c0
+    return 1;
+}
+

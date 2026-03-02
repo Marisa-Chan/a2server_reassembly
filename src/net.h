@@ -100,6 +100,9 @@ public:
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
+
+    int FUN_00515ef3(void* buf, uint32_t size);
+    int FUN_00515f9c(void* buf, uint32_t size);
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -223,6 +226,7 @@ public:
     static Packet Inst; //in asm 6b0c00
 public:
     Packet(); //in asm 52681f
+    Packet(const Packet* src);
 public:
     virtual ~Packet();
     virtual Packet* Duplicate();

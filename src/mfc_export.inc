@@ -482,6 +482,14 @@ externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 
 
 ;Packets
+extern ?Inst@Packet@@2V1@A : dword
+extern ??_7Packet@@6B@ : dword
+extern ??0Packet@@QAE@XZ : proc
+extern ?Duplicate@Packet@@UAEPAV1@XZ : proc
+extern ?VMethod3@Packet@@UAEXPAVNetStru1@@@Z : proc
+extern ?VMethod4@Packet@@UAEXPAVNetStru1@@@Z : proc
+
+
 externdef ?Inst@PacketJoin@@2V1@A:byte    ; PacketJoin::Inst
 
 externdef ??0PacketJoin@@QAE@XZ :proc
@@ -519,6 +527,9 @@ externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
 public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
+
+externdef ?FUN_00515ef3@NetStru1@@QAEHPAXI@Z : proc
+externdef ?FUN_00515f9c@NetStru1@@QAEHPAXI@Z : proc
 
 
 ;NetStru2
