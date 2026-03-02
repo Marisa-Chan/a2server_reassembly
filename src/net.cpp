@@ -8,6 +8,7 @@
 
 Packet Packet::Inst;
 PacketJoin PacketJoin::Inst;
+PacketInfo PacketInfo::Inst;
 
 
 
@@ -204,4 +205,38 @@ uint32_t PacketJoin::GetDataSize()
 {
     //57a410
     return name_len + 8;
+}
+
+
+
+PacketInfo::PacketInfo()
+{
+    //526b44
+    field_0xa = 0;
+    field_0xe = 0;
+}
+
+PacketInfo::PacketInfo(const PacketInfo* src)
+{
+    //526b77
+    id = src->id;
+    field_0xa = src->field_0xa;
+    field_0xe = src->field_0xe;
+}
+
+PacketInfo::~PacketInfo()
+{
+    //579a80
+}
+
+Packet* PacketInfo::Duplicate()
+{
+    //57a210
+    return new PacketInfo(this);
+}
+
+uint32_t PacketInfo::GetDataSize()
+{
+    //57a290
+    return 9;
 }

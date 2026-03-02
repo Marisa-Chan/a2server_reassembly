@@ -216,7 +216,6 @@ externdef unknown_libname_700:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_701:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_702:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_703:proc ; MFC 3.1-14.0 32bit
-externdef unknown_libname_704:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_705:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_707:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_708:proc ; MFC 3.1-14.0 32bit

@@ -31,7 +31,7 @@ extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
 
 // ---- Variables used by sub_4FF937 ----
 extern "C" QuestMap unk_6CE4D8; // Global quest map instance?
-extern "C" PacketInfo unk_6D0788; // position-entry packet buffer.
+
 extern "C" PacketInfo unk_6E9DB0;
 
 // CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
@@ -227,12 +227,13 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // Send player's main unit's position.
     if (player->main_unit)
     {
-        unk_6D0788.packet.id = 0xABu;
-        unk_6D0788.packet.to_player_id = player->player_id;
-        unk_6D0788.field_0xa = player->main_unit->position->GetX() & 0xFF;
-        unk_6D0788.field_0xe = player->main_unit->position->GetY() & 0xFF;
+        PacketInfo& inf = PacketInfo::Inst;
+        inf.id = 0xABu;
+        inf.to_player_id = player->player_id;
+        inf.field_0xa = player->main_unit->position->GetX() & 0xFF;
+        inf.field_0xe = player->main_unit->position->GetY() & 0xFF;
 
-        g_NetStru1_main.FUN_005186cd(&unk_6D0788.packet);
+        g_NetStru1_main.FUN_005186cd(&inf);
 
         // Send all data for the main unit.
         g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
@@ -280,8 +281,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // beginning at offset 0xE, then the packet is sent.
     {
         // Set up terrain packet header.
-        unk_6E9DB0.packet.id = 0x9Bu;
-        unk_6E9DB0.packet.to_player_id = player->player_id;
+        unk_6E9DB0.id = 0x9Bu;
+        unk_6E9DB0.to_player_id = player->player_id;
 
         CWordArray encode_list;
         MapStuff_Instance->sub_5948B0(&encode_list);
@@ -291,7 +292,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         std::memcpy(&unk_6E9DB0.field_0xe, src_ptr, count * 2);
         unk_6E9DB0.field_0xa = count;
 
-        g_NetStru1_main.FUN_005186cd(&unk_6E9DB0.packet);
+        g_NetStru1_main.FUN_005186cd(&unk_6E9DB0);
     }
 
     // Finalise the player's session state.

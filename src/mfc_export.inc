@@ -489,15 +489,14 @@ extern ?Duplicate@Packet@@UAEPAV1@XZ : proc
 extern ?VMethod3@Packet@@UAEXPAVNetStru1@@@Z : proc
 extern ?VMethod4@Packet@@UAEXPAVNetStru1@@@Z : proc
 
-
 extern ?Inst@PacketJoin@@2V1@A :byte    ; PacketJoin::Inst
 extern ??0PacketJoin@@QAE@XZ :proc
 extern ??0PacketJoin@@QAE@VCString@@@Z :proc
 extern ??1PacketJoin@@UAE@XZ  :proc
 
+extern ?Inst@PacketInfo@@2V1@A :byte 
 
 
-PUBLIC _unk_6D0788
 PUBLIC _unk_6E9DB0
 
 

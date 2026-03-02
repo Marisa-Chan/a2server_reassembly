@@ -247,8 +247,19 @@ ASSERT_SIZE(Packet, 0xa);
 
 
 __pragma(pack(push, 1))
-struct PacketInfo {
-    Packet packet;
+class PacketInfo : public Packet
+{
+public:
+    static PacketInfo Inst; //in asm 6d0788
+public:
+    PacketInfo();
+    PacketInfo(const PacketInfo* src);
+
+public:
+    virtual ~PacketInfo();
+    virtual Packet* Duplicate() override;
+    virtual uint32_t GetDataSize() override;
+public:
     int32_t field_0xa;
     int32_t field_0xe;
 };
