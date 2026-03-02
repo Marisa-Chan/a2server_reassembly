@@ -1,5 +1,6 @@
 #include "asm_mfc.h"
 #include <time.h>
+#include <stdio.h>
 
 static const _PNH _pfnUninitialized = (_PNH)-1;
 
@@ -148,6 +149,7 @@ BOOL CRuntimeClass::IsDerivedFrom(const CRuntimeClass* pBaseClass) const
 
 int AfxMessageBox(LPCTSTR lpszText, UINT nType, UINT nIDHelp)
 {
+	printf("AfxMessageBox: %s\n", lpszText);
 	return AfxGetModuleState()->m_pCurrentWinApp->DoMessageBox(lpszText, nType, nIDHelp);
 }
 
