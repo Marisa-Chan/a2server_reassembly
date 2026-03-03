@@ -177,6 +177,9 @@ struct UnitEye {
     uint8_t field161_0xb1;
     uint8_t field162_0xb2;
     uint8_t field163_0xb3;
+
+public:
+    uint8_t sub_58c00e();
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_SIZE(UnitEye, 0xb4);

@@ -57,7 +57,11 @@ struct TokenPos
 
 	void SetCoords(uint8_t _x, uint8_t _y);
 	void SetCoords2(uint16_t Xx, uint16_t Yy);
+
+	int32_t sub_58bec3();
 };
+
+ASSERT_OFFSET(TokenPos, x_subcell, 0x4);
 
 
 

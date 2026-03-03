@@ -52,6 +52,7 @@ public:
     virtual void Serialize(CArchive& ar) override;
 public:
     SpellBook();
+    int32_t sub_53DD3D(); // Calculate spellbook bitmask for this unit's spells.
 
     void RefreshForHumanoid(Humanoid* humanoid);
 

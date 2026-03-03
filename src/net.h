@@ -10,6 +10,7 @@
 
 class AreaEffect;
 struct CLlDriver;
+class Effect;
 class NetStru1;
 struct NetStru2;
 struct NetStru3;
@@ -87,7 +88,12 @@ public:
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
-    void sub_519221(Unit* unit, Player* player, int32_t param3, int32_t param4, int32_t param5, int32_t param6);
+    void sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
+
+    // sub_51A0EF / sub_51A6D5 / sub_51BDA4 are still in asm but called from sub_519221
+    void sub_51A0EF(Unit* unit, Player* player, int32_t flags);
+    void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
+    void sub_51BDA4(Effect* effect, Unit* unit, int32_t arg);
 
     void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player
     void sub_51CB21(Player* player);  // Send terrain/diplomacy visibility state to player
@@ -334,3 +340,26 @@ public:
 __pragma(pack(pop))
 
 ASSERT_SIZE(PacketTerrain, 0x2000e);
+
+
+// Unit-state update packet (static instance at unk_6D1180).
+// Built incrementally by sub_519221; the flags_mask records which fields
+// are present and the data[] buffer holds their values.
+__pragma(pack(push, 1))
+class PacketUnitUpdate : public Packet
+{
+public:
+    uint32_t data_offset;  // +0x0A  bytes already written into data[]
+    uint16_t field_0xe;    // +0x0E  (purpose unknown)
+    uint16_t field_0x10;   // +0x10  (purpose unknown)
+    uint16_t unit_id;      // +0x12  low 16 bits of the unit's building_id
+    uint32_t flags_mask;   // +0x14  bitmask of fields that follow in data[]
+    uint8_t  data[0x400];  // +0x18  packed field values
+
+    // Helpers mirroring sub_527B25 / sub_527B60 / sub_527B9D in asm
+    void PutByte(uint32_t flag, uint8_t  val) { flags_mask |= flag; data[data_offset++] = val; }
+    void PutWord(uint32_t flag, uint16_t val) { flags_mask |= flag; *reinterpret_cast<uint16_t*>(data + data_offset) = val; data_offset += 2; }
+    void PutInt(uint32_t flag, uint32_t val){ flags_mask |= flag; *reinterpret_cast<uint32_t*>(data + data_offset) = val; data_offset += 4; }
+};
+__pragma(pack(pop))
+ASSERT_SIZE(PacketUnitUpdate, 0x418);

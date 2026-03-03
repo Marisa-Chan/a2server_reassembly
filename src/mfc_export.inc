@@ -305,6 +305,7 @@ extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
 extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
 extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
 extern ?IsSameYX@TokenPos@@QBE_NPBU1@@Z:proc   ; TokenPos::IsSameYX
+externdef ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
 
 public ?FUN_0058a7e8@TokenPos@@QAE_NEE@Z    ;  TokenPos::FUN_0058a7e8
 public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
@@ -367,6 +368,8 @@ externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
 externdef ?sub_533345@Unit@@QAEXCC@Z :proc
 externdef ?sub_53116B@Unit@@QAEXXZ :proc
+externdef ?sub_5287c4@Unit@@QAE_NPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
+externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc     ; Unit::sub_5287ec(Player*) – mark unit seen
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
@@ -374,6 +377,10 @@ extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall op
 externdef ?sub_537251@Unit@@QAEXXZ :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
+
+; UnitEye
+
+externdef ?sub_58c00e@UnitEye@@QAEEXZ :proc     ; UnitEye::sub_58c00e() – get position byte
 
 ; Group
 extern ??0Group@@QAE@XZ :proc
@@ -478,6 +485,7 @@ externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 ; SpellBook
 
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
+externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID
 
 
 
@@ -498,6 +506,8 @@ extern ?Inst@PacketInfo@@2V1@A :byte
 
 extern ?Inst@PacketTerrain@@2V1@A : byte
 
+externdef _unk_6D1180 : byte       ; PacketUnitUpdate static instance at 6D1180
+
 
 
 ;NetStru1
@@ -514,7 +524,7 @@ externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
-externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HHHH@Z :proc
+externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
 externdef ?FUN_004fb4ca@NetStru1@@QAEXPAVUnit@@PAVPlayer@@@Z :proc
 externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
 externdef ?sub_51C0F7@NetStru1@@QAEXPAVPlayer@@@Z :proc
@@ -531,6 +541,9 @@ externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
 
 externdef ?FUN_00515ef3@NetStru1@@QAEHPAXI@Z : proc
 externdef ?FUN_00515f9c@NetStru1@@QAEHPAXI@Z : proc
+externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
+externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
+externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
 
 
 ;NetStru2
