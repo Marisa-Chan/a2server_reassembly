@@ -108,7 +108,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         if (g_Server->field4_0x74 != 0) {
             int16_t pid = player->player_id;
             if (pid >= 0x10 && pid < 0x20) {
-                unit->something_per_player[pid] |= mask;
+                unit->something_per_player[pid - 16] |= mask;
             }
         }
         return;
@@ -391,6 +391,6 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
 
     // Clear per-player pending bits for players in the 0x10..0x1F range.
     if (0x10 <= player->player_id && player->player_id < 0x20) {
-        unit->something_per_player[player->player_id] = 0;
+        unit->something_per_player[player->player_id - 16] = 0;
     }
 }

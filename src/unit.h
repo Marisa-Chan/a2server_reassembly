@@ -189,6 +189,7 @@ public:
 
 ASSERT_OFFSET(Unit, inventory, 0x7C);
 ASSERT_OFFSET(Unit, decay, 0x13C);
+ASSERT_OFFSET(Unit, something_per_player, 0x154);
 ASSERT_SIZE(Unit, 0x208);
 
 class Humanoid : public Unit {
