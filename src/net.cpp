@@ -422,14 +422,14 @@ Packet* Packet::Duplicate()
     return new Packet(this);
 }
 
-void Packet::VMethod3(NetStru1* net)
+void Packet::VMethod3(NetStru2* net)
 {
     //526887
     uint32_t sz = GetDataSize();
     net->FUN_00515ef3(&id, sz);
 }
 
-void Packet::VMethod4(NetStru1* net)
+void Packet::VMethod4(NetStru2* net)
 {
     //5268b7
     uint32_t sz = GetDataSize();
@@ -499,14 +499,14 @@ Packet* PacketJoin::Duplicate()
     return new PacketJoin(this);
 }
 
-void PacketJoin::VMethod3(NetStru1* net)
+void PacketJoin::VMethod3(NetStru2* net)
 {
     //526ede
     name_len = strlen(name);
     net->FUN_00515ef3(&id, name_len + 8);
 }
 
-void PacketJoin::VMethod4(NetStru1* net)
+void PacketJoin::VMethod4(NetStru2* net)
 {
     //526f1d
     net->FUN_00515f9c(&player_id, 6);
@@ -577,13 +577,13 @@ Packet* PacketTerrain::Duplicate()
     return new PacketTerrain(this);
 }
     
-void PacketTerrain::VMethod3(NetStru1* net)
+void PacketTerrain::VMethod3(NetStru2* net)
 {
     //5273a7
     net->FUN_00515ef3(&id, count * 2 + 5);
 }
 
-void PacketTerrain::VMethod4(NetStru1* net)
+void PacketTerrain::VMethod4(NetStru2* net)
 {
     //5273ce
     net->FUN_00515f9c(&count, 4);

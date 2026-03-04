@@ -494,8 +494,8 @@ extern ?Inst@Packet@@2V1@A : dword
 extern ??_7Packet@@6B@ : dword
 extern ??0Packet@@QAE@XZ : proc
 extern ?Duplicate@Packet@@UAEPAV1@XZ : proc
-extern ?VMethod3@Packet@@UAEXPAVNetStru1@@@Z : proc
-extern ?VMethod4@Packet@@UAEXPAVNetStru1@@@Z : proc
+extern ?VMethod3@Packet@@UAEXPAUNetStru2@@@Z : proc
+extern ?VMethod4@Packet@@UAEXPAUNetStru2@@@Z : proc
 
 extern ?Inst@PacketJoin@@2V1@A :byte    ; PacketJoin::Inst
 extern ??0PacketJoin@@QAE@XZ :proc
@@ -539,15 +539,18 @@ externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
 
-externdef ?FUN_00515ef3@NetStru1@@QAEHPAXI@Z : proc
-externdef ?FUN_00515f9c@NetStru1@@QAEHPAXI@Z : proc
+
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
 externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
 externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
 
 
+
 ;NetStru2
 externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
+
+externdef ?FUN_00515ef3@NetStru2@@QAEHPAXI@Z : proc
+externdef ?FUN_00515f9c@NetStru2@@QAEHPAXI@Z : proc
 
 ; Server
 externdef ?g_Server@@3PAUServer@@A : dword

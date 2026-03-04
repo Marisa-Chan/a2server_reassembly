@@ -106,9 +106,6 @@ public:
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
-
-    int FUN_00515ef3(void* buf, uint32_t size);
-    int FUN_00515f9c(void* buf, uint32_t size);
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -148,6 +145,10 @@ struct NetStru2 {
     int32_t field_0x2b4;
     int32_t field_0x2b8;
     int32_t field_0x2bc;
+
+
+    int FUN_00515ef3(void* buf, uint32_t size);
+    int FUN_00515f9c(void* buf, uint32_t size);
 };
 ASSERT_OFFSET(NetStru2, player_id, 0x108);
 ASSERT_OFFSET(NetStru2, critical_section, 0x280);
@@ -236,8 +237,8 @@ public:
 public:
     virtual ~Packet();
     virtual Packet* Duplicate();
-    virtual void VMethod3(NetStru1*);
-    virtual void VMethod4(NetStru1*);
+    virtual void VMethod3(NetStru2*);
+    virtual void VMethod4(NetStru2*);
     virtual uint32_t GetDataSize();// { return 1; }
 
 public:
@@ -289,8 +290,8 @@ public:
 public:
     virtual ~PacketJoin();
     virtual Packet* Duplicate() override;
-    virtual void VMethod3(NetStru1*) override;
-    virtual void VMethod4(NetStru1*) override;
+    virtual void VMethod3(NetStru2*) override;
+    virtual void VMethod4(NetStru2*) override;
     virtual uint32_t GetDataSize() override;
 
 public:
@@ -328,8 +329,8 @@ public:
 public:
     virtual ~PacketTerrain();
     virtual Packet* Duplicate() override;
-    virtual void VMethod3(NetStru1*) override;
-    virtual void VMethod4(NetStru1*) override;
+    virtual void VMethod3(NetStru2*) override;
+    virtual void VMethod4(NetStru2*) override;
     virtual uint32_t GetDataSize() override;
 
 public:
