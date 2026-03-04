@@ -25,6 +25,7 @@ add_executable(a2serv_vsc
   net.cpp
   outpost.cpp
   perf.cpp
+  packet.cpp
   player.cpp
   player_file.cpp
   players_list.cpp

@@ -283,6 +283,7 @@
     <ClCompile Include="map_stuff.cpp" />
     <ClCompile Include="net.cpp" />
     <ClCompile Include="outpost.cpp" />
+    <ClCompile Include="packet.cpp" />
     <ClCompile Include="perf.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />
@@ -335,6 +336,7 @@
     <ClInclude Include="map_stuff.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="outpost.h" />
+    <ClInclude Include="packet.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="player_file.h" />
     <ClInclude Include="players_list.h" />

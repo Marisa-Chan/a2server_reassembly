@@ -8,6 +8,7 @@
 #include "player.h"
 #include "unit.h"
 #include "unit_list.h"
+#include "packet.h"
 #include "players_list.h"
 #include "net.h"
 #include "map_stuff.h"
