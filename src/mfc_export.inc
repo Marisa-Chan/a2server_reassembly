@@ -534,7 +534,7 @@ externdef ?Inst@PacketItemOperation@@2V1@A : byte                     ; unk_6D16
 externdef ??_7PacketItemOperation@@6B@ : dword                        ; off_60ED40
 externdef ??0PacketItemOperation@@QAE@XZ : proc                       ; sub_526924
 externdef ??0PacketItemOperation@@QAE@PBV0@@Z : proc
-externdef ??1PacketItemOperation@@UAE@XZ : proc
+externdef ??1PacketItemOperation@@UAE@XZ : proc                       ; sub_579A20
 externdef ?AppendWord@PacketItemOperation@@QAEXG@Z : proc             ; sub_52695A
 externdef ?VMethod3@PacketItemOperation@@UAEXPAUNetStru2@@@Z : proc   ; sub_52699A
 externdef ?VMethod4@PacketItemOperation@@UAEXPAUNetStru2@@@Z : proc   ; sub_5269C3
