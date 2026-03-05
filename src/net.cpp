@@ -14,14 +14,6 @@
 #include "table.h"
 #include <cstring>
 
-Packet Packet::Inst;
-PacketJoin PacketJoin::Inst;
-PacketInfo PacketInfo::Inst;
-PacketTerrain PacketTerrain::Inst;
-
-// asm-side static instance at 6D1180 — exported so Main.asm can still access it
-extern "C" PacketUnitUpdate unk_6D1180;
-
 
 void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 {
@@ -115,7 +107,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     }
 
     // Fill in packet header.
-    PacketUnitUpdate* pkt = &unk_6D1180;
+    PacketUnitUpdate* pkt = &PacketUnitUpdate::Inst;
 
     pkt->to_player_id = player->player_id;
     pkt->unit_id = (uint16_t)unit->building_id;

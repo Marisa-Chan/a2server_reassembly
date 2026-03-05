@@ -3,6 +3,9 @@
 #include "net.h"
 
 
+
+Packet Packet::Inst;
+
 Packet::Packet()
 {
     //52681f
@@ -51,6 +54,8 @@ uint32_t Packet::GetDataSize()
 }
 
 
+
+PacketJoin PacketJoin::Inst;
 
 PacketJoin::PacketJoin()
 {
@@ -129,6 +134,8 @@ uint32_t PacketJoin::GetDataSize()
 
 
 
+PacketInfo PacketInfo::Inst;
+
 PacketInfo::PacketInfo()
 {
     //526b44
@@ -162,6 +169,7 @@ uint32_t PacketInfo::GetDataSize()
 }
 
 
+PacketTerrain PacketTerrain::Inst;
 
 PacketTerrain::PacketTerrain()
 {
@@ -203,6 +211,7 @@ uint32_t PacketTerrain::GetDataSize()
     //57ab20
     return count * 2 + 5;
 }
+
 // ============================================================
 // PacketUnitUpdate
 // ============================================================
@@ -954,5 +963,6 @@ Packet* PacketPing::Duplicate()
 
 uint32_t PacketPing::GetDataSize()
 {
+    // sub_57ae30
     return 5; // id(1) + 4 bytes
 }
