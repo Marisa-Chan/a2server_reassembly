@@ -561,9 +561,9 @@ externdef ?Inst@PacketDword@@2V1@A : byte                             ; unk_6CDB
 externdef ??_7PacketDword@@6B@ : dword                                ; off_60EDB8
 externdef ??0PacketDword@@QAE@XZ : proc                               ; sub_526BB0
 externdef ??0PacketDword@@QAE@PBV0@@Z : proc                          ; sub_526BD9
-externdef ??1PacketDword@@UAE@XZ : proc
+externdef ??1PacketDword@@UAE@XZ : proc                               ; sub_579AA0
 externdef ?Duplicate@PacketDword@@UAEPAVPacket@@XZ : proc             ; sub_57A2D0
-externdef ?GetDataSize@PacketDword@@UAEIXZ : proc
+externdef ?GetDataSize@PacketDword@@UAEIXZ : proc                     ; sub_57A350
 externdef ??_GPacketDword@@UAEPAXI@Z : proc                           ; sub_57A360
 
 externdef ?Inst@PacketAbility@@2V1@A : byte                          ; unk_70A7D0

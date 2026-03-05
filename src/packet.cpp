@@ -505,6 +505,7 @@ Packet* PacketDword::Duplicate()
 
 uint32_t PacketDword::GetDataSize()
 {
+    //sub_57A350
     return 5; // id(1) + value(4)
 }
 
