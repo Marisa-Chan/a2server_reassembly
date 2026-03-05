@@ -597,9 +597,9 @@ externdef ?Inst@PacketEffect@@2V1@A : byte                            ; unk_6CDB
 externdef ??_7PacketEffect@@6B@ : dword                               ; off_60EE30
 externdef ??0PacketEffect@@QAE@XZ : proc                              ; sub_527093
 externdef ??0PacketEffect@@QAE@PBV0@@Z : proc                         ; sub_5270B9
-externdef ??1PacketEffect@@UAE@XZ : proc
+externdef ??1PacketEffect@@UAE@XZ : proc                              ; sub_579b60
 externdef ?Duplicate@PacketEffect@@UAEPAVPacket@@XZ : proc            ; sub_57A6C0
-externdef ?GetDataSize@PacketEffect@@UAEIXZ : proc
+externdef ?GetDataSize@PacketEffect@@UAEIXZ : proc                    ; sub_57a740
 externdef ??_GPacketEffect@@UAEPAXI@Z : proc                          ; sub_57A750
 
 externdef ?Inst@PacketAoeZone@@2V1@A : byte                           ; unk_6B37A8
