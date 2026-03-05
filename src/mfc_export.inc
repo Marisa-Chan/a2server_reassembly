@@ -553,7 +553,7 @@ externdef ?Inst@Packet3Dwords@@2V1@A : byte                           ; unk_6B16
 externdef ??_7Packet3Dwords@@6B@ : dword                              ; off_60ED70
 externdef ??0Packet3Dwords@@QAE@XZ : proc                             ; sub_526A4F
 externdef ??0Packet3Dwords@@QAE@PBV0@@Z : proc
-externdef ??1Packet3Dwords@@UAE@XZ : proc
+externdef ??1Packet3Dwords@@UAE@XZ : proc                             ; sub_579a60
 externdef ?GetDataSize@Packet3Dwords@@UAEIXZ : proc                   ; sub_57A170
 externdef ??_GPacket3Dwords@@UAEPAXI@Z : proc                         ; sub_57A180
 
