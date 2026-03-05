@@ -579,7 +579,7 @@ externdef ?Inst@PacketEight@@2V1@A : byte                             ; unk_6CE9
 externdef ??_7PacketEight@@6B@ : dword                                ; off_60EE00
 externdef ??0PacketEight@@QAE@XZ : proc                               ; sub_526FC7
 externdef ??0PacketEight@@QAE@PBV0@@Z : proc                          ; sub_526FE6
-externdef ??1PacketEight@@UAE@XZ : proc
+externdef ??1PacketEight@@UAE@XZ : proc                               ; sub_579B20
 externdef ?Duplicate@PacketEight@@UAEPAVPacket@@XZ : proc             ; sub_57A540
 externdef ?GetDataSize@PacketEight@@UAEIXZ : proc                     ; sub_57A5C0
 externdef ??_GPacketEight@@UAEPAXI@Z : proc                           ; sub_57A5D0
