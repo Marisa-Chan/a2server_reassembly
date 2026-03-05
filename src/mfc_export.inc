@@ -545,7 +545,7 @@ externdef ?Inst@PacketCmd@@2V1@A : byte                               ; unk_6B16
 externdef ??_7PacketCmd@@6B@ : dword                                  ; off_60ED58
 externdef ??0PacketCmd@@QAE@XZ : proc                                 ; sub_526A07
 externdef ??0PacketCmd@@QAE@PBV0@@Z : proc
-externdef ??1PacketCmd@@UAE@XZ : proc
+externdef ??1PacketCmd@@UAE@XZ : proc                                 ; sub_579A40
 externdef ?GetDataSize@PacketCmd@@UAEIXZ : proc                       ; sub_57A130
 externdef ??_GPacketCmd@@UAEPAXI@Z : proc                             ; sub_57A140
 
