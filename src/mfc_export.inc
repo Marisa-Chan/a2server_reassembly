@@ -566,13 +566,13 @@ externdef ?Duplicate@PacketDword@@UAEPAVPacket@@XZ : proc             ; sub_57A2
 externdef ?GetDataSize@PacketDword@@UAEIXZ : proc                     ; sub_57A350
 externdef ??_GPacketDword@@UAEPAXI@Z : proc                           ; sub_57A360
 
-externdef ?Inst@PacketAbility@@2V1@A : byte                          ; unk_70A7D0
+externdef ?Inst@PacketAbility@@2V1@A : byte                           ; unk_70A7D0
 externdef ??_7PacketAbility@@6B@ : dword                              ; off_60EDE8
 externdef ??0PacketAbility@@QAE@XZ : proc                             ; sub_526F68
 externdef ??0PacketAbility@@QAE@PBV0@@Z : proc                        ; sub_526F8E
-externdef ??1PacketAbility@@UAE@XZ : proc
+externdef ??1PacketAbility@@UAE@XZ : proc                             ; sub_579b00
 externdef ?Duplicate@PacketAbility@@UAEPAVPacket@@XZ : proc           ; sub_57A480
-externdef ?GetDataSize@PacketAbility@@UAEIXZ : proc
+externdef ?GetDataSize@PacketAbility@@UAEIXZ : proc                   ; sub_57A500
 externdef ??_GPacketAbility@@UAEPAXI@Z : proc                         ; sub_57A510
 
 externdef ?Inst@PacketEight@@2V1@A : byte                             ; unk_6CE970
