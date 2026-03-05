@@ -606,7 +606,7 @@ externdef ?Inst@PacketAoeZone@@2V1@A : byte                           ; unk_6B37
 externdef ??_7PacketAoeZone@@6B@ : dword                              ; off_60EE48
 externdef ??0PacketAoeZone@@QAE@XZ : proc                             ; sub_5270F2
 externdef ??0PacketAoeZone@@QAE@PBV0@@Z : proc                        ; sub_527126
-externdef ??1PacketAoeZone@@UAE@XZ : proc
+externdef ??1PacketAoeZone@@UAE@XZ : proc                             ; sub_579b80
 externdef ?Duplicate@PacketAoeZone@@UAEPAVPacket@@XZ : proc           ; sub_57A780
 externdef ?GetDataSize@PacketAoeZone@@UAEIXZ : proc                   ; sub_57A800
 externdef ??_GPacketAoeZone@@UAEPAXI@Z : proc                         ; sub_57A810
