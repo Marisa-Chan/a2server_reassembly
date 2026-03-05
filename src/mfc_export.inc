@@ -588,7 +588,7 @@ externdef ?Inst@PacketMoveCmd@@2V1@A : byte                           ; unk_6A6A
 externdef ??_7PacketMoveCmd@@6B@ : dword                              ; off_60EE18
 externdef ??0PacketMoveCmd@@QAE@XZ : proc                             ; sub_52701F
 externdef ??0PacketMoveCmd@@QAE@PBV0@@Z : proc                        ; sub_52705A
-externdef ??1PacketMoveCmd@@UAE@XZ : proc
+externdef ??1PacketMoveCmd@@UAE@XZ : proc                             ; sub_579B40
 externdef ?Duplicate@PacketMoveCmd@@UAEPAVPacket@@XZ : proc           ; sub_57A600
 externdef ?GetDataSize@PacketMoveCmd@@UAEIXZ : proc                   ; sub_57A680
 externdef ??_GPacketMoveCmd@@UAEPAXI@Z : proc                         ; sub_57A690
