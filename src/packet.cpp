@@ -214,6 +214,7 @@ PacketUnitUpdate::PacketUnitUpdate()
 }
 
 PacketUnitUpdate::PacketUnitUpdate(const PacketUnitUpdate* src)
+    :Packet(this)
 {
     //sub_5279A6 – vtable-only ctor used in Duplicate; does NOT copy fields
 }
@@ -232,17 +233,89 @@ Packet* PacketUnitUpdate::Duplicate()
 void PacketUnitUpdate::VMethod3(NetStru2* net)
 {
     //sub_5279C7
+
+    switch (FUN_00527bd8())
+    {
+    case 1:
+        id = 0x6e;
+        break;
+    case 2:
+        id = 0x6f;
+        break;
+    case 3:
+        id = 0x70;
+        break;
+    case 4:
+        id = 0x6c;
+        break;
+    }
+
+    net->FUN_00515ef3(&id, 1);
+    net->FUN_00515ef3(&unit_id, field_0xe + 2);
+    net->FUN_00515ef3(data, data_offset);
 }
 
 void PacketUnitUpdate::VMethod4(NetStru2* net)
 {
     //sub_527A6C
+    switch (id)
+    {
+    case 0x6c:
+        field_0xe = 4;
+        break;
+    case 0x6e:
+        field_0xe = 1;
+        break;
+    case 0x6f:
+        field_0xe = 2;
+        break;
+    case 0x70:
+        field_0xe = 3;
+        break;
+    }
+    flags_mask = 0;
+    net->FUN_00515f9c(&unit_id, field_0xe + 2);
+    net->FUN_00515f9c(data, FUN_00527c3b());
 }
 
 uint32_t PacketUnitUpdate::GetDataSize()
 {
     //sub_57AEF0
-    return 0;
+    return field_0xe + 3 + data_offset;
+}
+
+uint32_t PacketUnitUpdate::FUN_00527bd8()
+{
+    if (flags_mask < 0x100)
+        field_0xe = 1;
+    else if (flags_mask < 0x10000)
+        field_0xe = 2;
+    else if (flags_mask < 0x1000000)
+        field_0xe = 3;
+    else
+        field_0xe = 4;
+
+    return field_0xe;
+}
+
+uint32_t PacketUnitUpdate::FUN_00527c3b()
+{
+    static uint32_t offsets[32]
+    {   2, 2, 5, 4, 3, 2, 1, 2, 4, 4, 4, 4, 4, 2, 2, 1,
+        2, 2, 2, 1, 5, 0, 0, 0, 5, 0x10, 0, 0, 0, 8, 0, 0x18
+    };
+
+    data_offset = 0;
+
+    uint32_t sh = 1;
+    for (int i = 0; i < 32; i++)
+    {
+        if ((flags_mask & sh) != 0)
+            data_offset += offsets[i];
+        sh <<= 1;
+    }
+
+    return data_offset;
 }
 
 // ============================================================
@@ -373,7 +446,7 @@ Packet3Dwords::Packet3Dwords()
     field_0xa  = 0;
     field_0xe  = 0;
     field_0x12 = 0;
-    field_0x16 = 0;
+    field_0x16[0] = 0;
 }
 
 Packet3Dwords::Packet3Dwords(const Packet3Dwords* src)
@@ -389,7 +462,7 @@ Packet3Dwords::~Packet3Dwords()
 uint32_t Packet3Dwords::GetDataSize()
 {
     //sub_57A170  id(1) + 13 derived bytes = 0xE
-    return 0xE;
+    return 0x2D;
 }
 
 // ============================================================

@@ -145,8 +145,7 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57AEF0
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
-    uint16_t field_0xe;    // +0x0E  (purpose unknown)
-    uint16_t field_0x10;   // +0x10  (purpose unknown)
+    uint32_t field_0xe;    // +0x0E  (purpose unknown)
     uint16_t unit_id;      // +0x12  low 16 bits of the unit's building_id
     uint32_t flags_mask;   // +0x14  bitmask of fields that follow in data[]
     uint8_t  data[0x400];  // +0x18  packed field values
@@ -155,6 +154,9 @@ public:
     void PutByte(uint32_t flag, uint8_t  val) { flags_mask |= flag; data[data_offset++] = val; }
     void PutWord(uint32_t flag, uint16_t val) { flags_mask |= flag; *reinterpret_cast<uint16_t*>(data + data_offset) = val; data_offset += 2; }
     void PutInt(uint32_t flag, uint32_t val){ flags_mask |= flag; *reinterpret_cast<uint32_t*>(data + data_offset) = val; data_offset += 4; }
+
+    uint32_t FUN_00527bd8();
+    uint32_t FUN_00527c3b();
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketUnitUpdate, 0x418);
@@ -271,10 +273,10 @@ public:
     uint32_t field_0xa;  // +0xA (= 0 in ctor)
     uint32_t field_0xe;  // +0xE (= 0 in ctor)
     uint32_t field_0x12; // +0x12 (= 0 in ctor)
-    uint8_t  field_0x16; // +0x16 (= 0 in ctor)
+    char  field_0x16[32]; // +0x16 (= 0 in ctor)
 };
 __pragma(pack(pop))
-ASSERT_SIZE(Packet3Dwords, 0x17);
+ASSERT_SIZE(Packet3Dwords, 0x36);
 
 
 // ---------------------------------------------------------------------------
@@ -498,12 +500,13 @@ public:
 public:
     uint8_t  preamble[40]; // +0xA..+0x31  (40 bytes of fixed player fields)
     int32_t  count;        // +0x32  length of var_data
-    uint8_t  var_data[1];  // +0x36  variable-length data (actual size = count)
+    uint8_t  var_data[0x10000];  // +0x36  variable-length data (actual size = count)
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(PacketPlayerInfo, preamble,  0xA);
 ASSERT_OFFSET(PacketPlayerInfo, count,     0x32);
 ASSERT_OFFSET(PacketPlayerInfo, var_data,  0x36);
+ASSERT_SIZE(PacketPlayerInfo, 0x10036);
 
 
 // ---------------------------------------------------------------------------
@@ -530,11 +533,12 @@ public:
     virtual uint32_t GetDataSize() override;   // sub_57AA50
 public:
     uint32_t count;    // +0xA  byte length of data[]
-    uint8_t  data[1];  // +0xE  variable-length payload (actual size = count)
+    uint8_t  data[0x10000];  // +0xE  variable-length payload (actual size = count)
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(PacketData, count, 0xA);
 ASSERT_OFFSET(PacketData, data,  0xE);
+ASSERT_SIZE(PacketData, 0x1000e);
 
 
 // ---------------------------------------------------------------------------

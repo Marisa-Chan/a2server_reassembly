@@ -117,7 +117,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     // Fill in packet header.
     PacketUnitUpdate* pkt = &unk_6D1180;
 
-    pkt->field_0x10 = player->player_id;
+    pkt->to_player_id = player->player_id;
     pkt->unit_id = (uint16_t)unit->building_id;
     pkt->flags_mask = 0;
     pkt->data_offset = 0;
