@@ -688,7 +688,7 @@ externdef ??0PacketPing@@QAE@XZ : proc                                ; sub_5279
 externdef ??0PacketPing@@QAE@PBV0@@Z : proc                           ; sub_52794E
 externdef ??1PacketPing@@UAE@XZ : proc                                ; sub_579be0
 externdef ?Duplicate@PacketPing@@UAEPAVPacket@@XZ : proc              ; sub_57ADB0
-externdef ?GetDataSize@PacketPing@@UAEIXZ : proc
+externdef ?GetDataSize@PacketPing@@UAEIXZ : proc                      ; sub_57ae30
 externdef ??_GPacketPing@@UAEPAXI@Z : proc                            ; sub_57AE40
 
 externdef ?Inst@PacketUnitUpdate@@2V1@A : byte                        ; _unk_6D1180
