@@ -611,13 +611,13 @@ externdef ?Duplicate@PacketAoeZone@@UAEPAVPacket@@XZ : proc           ; sub_57A7
 externdef ?GetDataSize@PacketAoeZone@@UAEIXZ : proc                   ; sub_57A800
 externdef ??_GPacketAoeZone@@UAEPAXI@Z : proc                         ; sub_57A810
 
-externdef ?Inst@PacketMount@@2V1@A : byte                            ; unk_6B37C8
+externdef ?Inst@PacketMount@@2V1@A : byte                             ; unk_6B37C8
 externdef ??_7PacketMount@@6B@ : dword                                ; off_60EE60
 externdef ??0PacketMount@@QAE@XZ : proc                               ; sub_52715F
 externdef ??0PacketMount@@QAE@PBV0@@Z : proc                          ; sub_527187
-externdef ??1PacketMount@@UAE@XZ : proc
+externdef ??1PacketMount@@UAE@XZ : proc                               ; sub_579ba0
 externdef ?Duplicate@PacketMount@@UAEPAVPacket@@XZ : proc             ; sub_57A840
-externdef ?GetDataSize@PacketMount@@UAEIXZ : proc
+externdef ?GetDataSize@PacketMount@@UAEIXZ : proc                     ; sub_57a8c0
 externdef ??_GPacketMount@@UAEPAXI@Z : proc                           ; sub_57A8D0
 
 externdef ?Inst@PacketPlayerInfo@@2V1@A : byte                        ; unk_6D1888
