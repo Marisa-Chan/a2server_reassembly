@@ -668,9 +668,9 @@ externdef ?Inst@PacketSync@@2V1@A : byte                              ; unk_6A6A
 externdef ??_7PacketSync@@6B@ : dword                                 ; off_60EED8
 externdef ??0PacketSync@@QAE@XZ : proc                                ; sub_527810
 externdef ??0PacketSync@@QAE@PBV0@@Z : proc                           ; sub_527836
-externdef ??1PacketSync@@UAE@XZ : proc
+externdef ??1PacketSync@@UAE@XZ : proc                                ; sub_579bc0
 externdef ?Duplicate@PacketSync@@UAEPAVPacket@@XZ : proc              ; sub_57AC40
-externdef ?GetDataSize@PacketSync@@UAEIXZ : proc
+externdef ?GetDataSize@PacketSync@@UAEIXZ : proc                      ; sub_57acc0
 externdef ??_GPacketSync@@UAEPAXI@Z : proc                            ; sub_57ACD0
 
 externdef ?Inst@PacketUnitProperties@@2V1@A : byte                    ; unk_6D0628
