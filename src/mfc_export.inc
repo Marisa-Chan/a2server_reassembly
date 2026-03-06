@@ -635,7 +635,7 @@ externdef ?Inst@PacketData@@2V1@A : byte                              ; unk_6B37
 externdef ??_7PacketData@@6B@ : dword                                 ; off_60EE90
 externdef ??0PacketData@@QAE@XZ : proc                                ; sub_527283
 externdef ??0PacketData@@QAE@PBV0@@Z : proc                           ; sub_5272A2
-externdef ??1PacketData@@UAE@XZ : proc
+externdef ??1PacketData@@UAE@XZ : proc                                ; sub_579ae0
 externdef ?Duplicate@PacketData@@UAEPAVPacket@@XZ : proc              ; sub_57A9D0
 externdef ?VMethod3@PacketData@@UAEXPAUNetStru2@@@Z : proc            ; sub_5272E3
 externdef ?VMethod4@PacketData@@UAEXPAUNetStru2@@@Z : proc            ; sub_527309
