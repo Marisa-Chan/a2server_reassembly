@@ -642,7 +642,7 @@ externdef ?VMethod4@PacketData@@UAEXPAUNetStru2@@@Z : proc            ; sub_5273
 externdef ?GetDataSize@PacketData@@UAEIXZ : proc                      ; sub_57AA50
 externdef ??_GPacketData@@UAEPAXI@Z : proc                            ; sub_57AA70
 
-externdef ?Inst@PacketTerrain@@2V1@A : byte
+externdef ?Inst@PacketTerrain@@2V1@A : byte                           ; unk_6e9db0
 externdef ??_7PacketTerrain@@6B@ : dword
 externdef ??0PacketTerrain@@QAE@XZ : proc                             ; sub_527346
 externdef ??0PacketTerrain@@QAE@PBV0@@Z : proc                        ; sub_527365
@@ -653,11 +653,11 @@ externdef ?VMethod4@PacketTerrain@@UAEXPAUNetStru2@@@Z : proc         ; sub_5273
 externdef ?GetDataSize@PacketTerrain@@UAEIXZ : proc                   ; sub_57AB20
 externdef ??_GPacketTerrain@@UAEPAXI@Z : proc
 
-externdef ?Inst@PacketUnitStateVec@@2V1@A : byte                     ; unk_6C5AF8
+externdef ?Inst@PacketUnitStateVec@@2V1@A : byte                      ; unk_6C5AF8
 externdef ??_7PacketUnitStateVec@@6B@ : dword                         ; off_60EEC0
 externdef ??0PacketUnitStateVec@@QAE@XZ : proc                        ; sub_527415
 externdef ??0PacketUnitStateVec@@QAE@PBV0@@Z : proc                   ; sub_527473
-externdef ??1PacketUnitStateVec@@UAE@XZ : proc
+externdef ??1PacketUnitStateVec@@UAE@XZ : proc                        ; sub_527456
 externdef ?Duplicate@PacketUnitStateVec@@UAEPAVPacket@@XZ : proc      ; sub_57AB70
 externdef ?VMethod3@PacketUnitStateVec@@UAEXPAUNetStru2@@@Z : proc    ; sub_5274CC
 externdef ?VMethod4@PacketUnitStateVec@@UAEXPAUNetStru2@@@Z : proc    ; sub_527528
