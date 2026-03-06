@@ -677,7 +677,7 @@ externdef ?Inst@PacketUnitProperties@@2V1@A : byte                    ; unk_6D06
 externdef ??_7PacketUnitProperties@@6B@ : dword                       ; off_60EEF0
 externdef ??0PacketUnitProperties@@QAE@XZ : proc                      ; sub_52786F
 externdef ??0PacketUnitProperties@@QAE@PBV0@@Z : proc                 ; sub_527895
-externdef ??1PacketUnitProperties@@UAE@XZ : proc
+externdef ??1PacketUnitProperties@@UAE@XZ : proc                      ; sub_579c20
 externdef ?Duplicate@PacketUnitProperties@@UAEPAVPacket@@XZ : proc    ; sub_57AD00
 externdef ?GetDataSize@PacketUnitProperties@@UAEIXZ : proc            ; sub_5278CE
 externdef ??_GPacketUnitProperties@@UAEPAXI@Z : proc                  ; sub_57AD80
