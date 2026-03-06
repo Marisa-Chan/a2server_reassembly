@@ -181,7 +181,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     if (is_humanoid != 0) {
         if (mask & 0x4) {
             for (int i = 0; i < 5; ++i) {
-                pkt->PutByte(0x4, unit->hit_values.skill_levels[i]);
+                pkt->PutByte(0x4, unit->hit_values.skill_levels[i+1]);
             }
         }
     }
@@ -311,6 +311,8 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         if (mask & 0x1000) {
             pkt->PutInt(0x1000, h->experience_per_sphere[4]);
         }
+    } else {
+        mask &= 0xffffe0ff;
     }
 
     // bit 0x20000000: base stats.
