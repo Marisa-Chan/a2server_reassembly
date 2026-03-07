@@ -106,6 +106,10 @@ public:
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
+
+    // sub_51E7FC – decode an incoming network message into the appropriate Packet singleton,
+    // populate it via VMethod4, and stamp it with the sender id.
+    Packet* sub_51E7FC(uint8_t cmd, NetStru2* ns2);
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -147,8 +151,13 @@ struct NetStru2 {
     int32_t field_0x2bc;
 
 
+public:
     int FUN_00515ef3(void* buf, uint32_t size);
     int FUN_00515f9c(void* buf, uint32_t size);
+
+    // sub_5167A5 – walks the list_stru3 linked list and decrements the
+    // ref-count byte (field_0xF) of the first live entry it finds.
+    void sub_5167A5();
 };
 ASSERT_OFFSET(NetStru2, player_id, 0x108);
 ASSERT_OFFSET(NetStru2, critical_section, 0x280);

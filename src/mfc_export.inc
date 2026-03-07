@@ -573,6 +573,7 @@ externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
 public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_51E7FC@NetStru1@@QAEPAVPacket@@EPAUNetStru2@@@Z :proc
 
 
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
@@ -586,6 +587,7 @@ externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
 externdef ?FUN_00515ef3@NetStru2@@QAEHPAXI@Z : proc
 externdef ?FUN_00515f9c@NetStru2@@QAEHPAXI@Z : proc
+externdef ?sub_5167A5@NetStru2@@QAEXXZ :proc
 
 ; Server
 externdef ?g_Server@@3PAUServer@@A : dword

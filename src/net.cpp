@@ -388,3 +388,192 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         unit->something_per_player[player->player_id - 16] = 0;
     }
 }
+
+// sub_51E7FC
+Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
+{
+    Packet* pkt;
+
+    switch (cmd) {
+    case 0x2:
+        pkt = &Packet3Dwords::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x3: case 0xaf: case 0xb7: case 0xb8:
+        pkt = &Packet::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x4: case 0xb: case 0x39: case 0x3b: case 0x5c: case 0xca:
+    case 0xcc: case 0xd0: case 0xd5: case 0xd8: case 0xe1:
+        pkt = &PacketInfo::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x5: case 0x9: case 0xa: case 0x4a: case 0x4b: case 0x4c:
+    case 0x5a: case 0xc8: case 0xd6: case 0xdb: case 0xdc:
+        pkt = &Packet::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x6: case 0x7: case 0x8: case 0x4e: case 0x5b: case 0x93:
+    case 0xbf: case 0xc9: case 0xd1: case 0xd2: case 0xd3:
+        pkt = &PacketJoin::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    default:
+        LogMessage(CString("Drv: unknown cmd type!"));
+        pkt = &Packet::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0xe: case 0x10: case 0xb3: case 0xc1: case 0xdf:
+        pkt = &PacketDword::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0xf: case 0x49: case 0x91: case 0x96: case 0xae:
+        pkt = &PacketJoin::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x12: case 0x13: case 0x14: case 0x17: case 0x18: case 0x4d:
+        pkt = &PacketItemOperation::Inst;
+        pkt->VMethod4(ns2);
+        pkt->field_0x4 = 1;
+        break;
+
+    case 0x16: case 0x1a: case 0x1c: case 0x1d: case 0x1f: case 0x21: case 0x24: case 0x26:
+        pkt = &PacketItemOperation::Inst;
+        pkt->VMethod4(ns2);
+        pkt->field_0x4 = 2;
+        break;
+
+    case 0x19: case 0x1b: case 0x1e: case 0x25:
+        pkt = &PacketItemOperation::Inst;
+        pkt->VMethod4(ns2);
+        pkt->field_0x4 = 3;
+        break;
+
+    case 0x22:
+        pkt = &PacketCmd::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x23: case 0x3a: case 0x3d: case 0x3e: case 0x3f: case 0x40:
+    case 0x46: case 0x48: case 0x83: case 0x84: case 0x92: case 0x94:
+    case 0xaa: case 0xc3:
+        pkt = &PacketInfo::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x32: case 0x33: case 0x34: case 0x35: case 0x36: case 0x38:
+    case 0x69: case 0x6a: case 0x74:
+        pkt = &PacketWord::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x45: case 0x8a: case 0x8c: case 0x9b: case 0xb9: case 0xbb: case 0xbc:
+        pkt = &PacketTerrain::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x64:
+        pkt = &PacketDword::Inst;
+        pkt->VMethod4(ns2);
+        ns2->sub_5167A5();
+        break;
+
+    case 0x65: case 0x67: case 0x97: case 0xab: case 0xac: case 0xad:
+    case 0xb4: case 0xb5: case 0xb6:
+        pkt = &PacketInfo::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x6b: case 0x6d: case 0x71:
+        pkt = &PacketAbility::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x6c: case 0x6e: case 0x6f: case 0x70:
+        pkt = &PacketUnitUpdate::Inst;
+        pkt->id = cmd;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x72:
+        pkt = &PacketMount::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x73:
+        pkt = &PacketPing::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x76:
+        pkt = &PacketUnitStateVec::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x7a:
+        pkt = &PacketEight::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x82:
+        pkt = &PacketSync::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x86: case 0x8b:
+        pkt = &PacketMoveCmd::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x87:
+        pkt = &PacketAoeZone::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x88: case 0x89:
+        pkt = &PacketEffect::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0x9c:
+        pkt = &PacketUnitProperties::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0xba: case 0xc2: case 0xcb: case 0xcd: case 0xce: case 0xcf:
+    case 0xd4: case 0xd9: case 0xda: case 0xdd: case 0xde: case 0xe0:
+        pkt = &PacketData::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0xbe:
+        pkt = &PacketData::Inst;
+        pkt->VMethod4(ns2);
+        break;
+
+    case 0xc0:
+        pkt = &PacketPlayerInfo::Inst;
+        pkt->VMethod4(ns2);
+        break;
+    }
+
+    pkt->id = cmd;
+
+    if (field_0x18b0 == nullptr) {
+        pkt->field_0x5 = 0;
+    } else if (ns2->player_id == 0) {
+        pkt->field_0x5 = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
+    } else {
+        pkt->field_0x5 = ns2->player_id;
+    }
+
+    return pkt;
+}
