@@ -1188,6 +1188,34 @@ extern "C" Shop g_DefaultShop;     // unk_6D10B8
 void Server::sub_504a96(Packet* pkt)
 {
     PacketItemOperation* pio = reinterpret_cast<PacketItemOperation*>(pkt);
+    CString message;
+    void* vtable = *reinterpret_cast<void**>(pkt);
+    const char* packet_type = "unknown";
+    if (dynamic_cast<PacketInfo*>(pkt) != nullptr) { packet_type = "PacketInfo"; }
+    else if (dynamic_cast<PacketJoin*>(pkt) != nullptr) { packet_type = "PacketJoin"; }
+    else if (dynamic_cast<PacketTerrain*>(pkt) != nullptr) { packet_type = "PacketTerrain"; }
+    else if (dynamic_cast<PacketUnitUpdate*>(pkt) != nullptr) { packet_type = "PacketUnitUpdate"; }
+    else if (dynamic_cast<PacketWord*>(pkt) != nullptr) { packet_type = "PacketWord"; }
+    else if (dynamic_cast<PacketItemOperation*>(pkt) != nullptr) { packet_type = "PacketItemOperation"; }
+    else if (dynamic_cast<PacketCmd*>(pkt) != nullptr) { packet_type = "PacketCmd"; }
+    else if (dynamic_cast<Packet3Dwords*>(pkt) != nullptr) { packet_type = "Packet3Dwords"; }
+    else if (dynamic_cast<PacketDword*>(pkt) != nullptr) { packet_type = "PacketDword"; }
+    else if (dynamic_cast<PacketAbility*>(pkt) != nullptr) { packet_type = "PacketAbility"; }
+    else if (dynamic_cast<PacketEight*>(pkt) != nullptr) { packet_type = "PacketEight"; }
+    else if (dynamic_cast<PacketMoveCmd*>(pkt) != nullptr) { packet_type = "PacketMoveCmd"; }
+    else if (dynamic_cast<PacketEffect*>(pkt) != nullptr) { packet_type = "PacketEffect"; }
+    else if (dynamic_cast<PacketAoeZone*>(pkt) != nullptr) { packet_type = "PacketAoeZone"; }
+    else if (dynamic_cast<PacketMount*>(pkt) != nullptr) { packet_type = "PacketMount"; }
+    else if (dynamic_cast<PacketPlayerInfo*>(pkt) != nullptr) { packet_type = "PacketPlayerInfo"; }
+    else if (dynamic_cast<PacketData*>(pkt) != nullptr) { packet_type = "PacketData"; }
+    else if (dynamic_cast<PacketUnitStateVec*>(pkt) != nullptr) { packet_type = "PacketUnitStateVec"; }
+    else if (dynamic_cast<PacketSync*>(pkt) != nullptr) { packet_type = "PacketSync"; }
+    else if (dynamic_cast<PacketUnitProperties*>(pkt) != nullptr) { packet_type = "PacketUnitProperties"; }
+    else if (dynamic_cast<PacketPing*>(pkt) != nullptr) { packet_type = "PacketPing"; }
+    else if (dynamic_cast<Packet*>(pkt) != nullptr) { packet_type = "Packet"; }
+
+    message.Format("sub_504a96: received item operation packet id=0x%02X, field_0x4=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->field_0x4, pio->field_0x5, packet_type, vtable);
+    LogMessage(message);
 
     // ══════════════════════════════════════════════════════════════════════
     // PATH 1: Group order (pkt->field_0x4 >= 1 means multiple units)
@@ -2065,7 +2093,7 @@ void Server::sub_504a96(Packet* pkt)
             break;
         }
 
-    case 0x4C:
+    case 0x4C: // "Hurt myself" command.
         {
             if (!g_World) {
                 break;
