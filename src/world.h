@@ -10,9 +10,13 @@
 
 
 struct MapStuff;
+struct Group;
+class Player;
 class PlayersList;
 struct ResFile;
+class Building;
 class Spell;
+class Token;
 class Trigger;
 class TriggerAction;
 class TriggerCheck;
@@ -97,6 +101,26 @@ struct World {
 
 public:
     void sub_5AFBFD(); // increments field65_0xc780
+
+    // Group-order dispatch helpers (called from Server::sub_504a96)
+    void sub_5ACAA7(Group* group);
+    void sub_5A99C7(Unit* unit);
+    void sub_5ACA54(Group* group);
+    void sub_5AC80F(Group* group, Token* target);
+    void sub_5ACB4D(Group* group, Token* target, uint8_t param_3);
+    void sub_5AC289(Group* group, uint8_t x, uint8_t y);
+    void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
+    void sub_5AC187(Group* group, Token* target);
+    void sub_5AC206(Group* group, uint8_t x, uint8_t y);
+    void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
+    void sub_5A90F4(Unit* unit, Building* bldg);
+    void sub_5AC881(Group* group, uint8_t x, uint8_t y);
+    void sub_5AC8A2(Group* group, uint8_t param_2);
+    void sub_5ACAFA(Group* group);
+    void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
+    void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
+    void sub_5AF683(Player* player, int32_t param);
+    void sub_5A79C9(Unit* unit);
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);

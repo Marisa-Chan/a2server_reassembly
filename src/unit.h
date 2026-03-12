@@ -11,10 +11,12 @@
 
 
 class Group;
+class Inn;
 struct Inventory;
 class Item;
 class MonsterInfo;
 class Shield;
+class Shop;
 class Spell;
 class SpellBook;
 class Unit;
@@ -107,6 +109,13 @@ public:
     void sub_52C98B(class Sack* sack); // Pick up a sack into this unit's bag
     bool sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
+    void sub_52C409();
+    void sub_52C813();
+    void sub_54471B(Shop* bldg);
+    void sub_544737(Shop* bldg);
+    void sub_544777(Shop* bldg);
+    void sub_544685(Shop* bldg);
+    void sub_560C67(Inn* inn);
 
 public:
     MonsterInfo* monster_info;
@@ -169,7 +178,8 @@ public:
     uint32_t enchantments;
     uint32_t summon_id; // All summoned mobs of one player will have the same non-null value of this field.
     uint16_t server_id;
-    uint8_t gap_0x14e[6];
+    uint8_t gap_0x14e[2];
+    uint32_t field_0x150; // per-item-operation dirty/update flags
     uint32_t something_per_player[16];
     int32_t field_0x194;
     int32_t field_0x198;

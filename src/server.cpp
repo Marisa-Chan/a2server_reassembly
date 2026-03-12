@@ -3,6 +3,8 @@
 #include <cstring>
 #include <cstdlib>  // atoi
 
+#include "buildings_list.h"
+#include "eye.h"
 #include "game_app.h"
 #include "world.h"
 #include "player.h"
@@ -13,11 +15,14 @@
 #include "net.h"
 #include "map_stuff.h"
 #include "spell_effect.h"
+#include "effect.h"
 #include "mfc_plex.h"
 #include "quest_map.h"
 #include "group.h"
 #include "sack.h"
 #include "item.h"
+#include "inn.h"
+#include "shop.h"
 #include "inventory.h"
 #include "spell.h"
 
@@ -749,7 +754,7 @@ ServerConfig::ServerConfig()
     field_0x0 = 100;
     field_0x4 = 2;
     current_map_index = 0;
-    field_0x8c = 0x100;
+    chat_range = 0x100;
     field_0x90 = 0x78;
     field_0x98 = 1;
     field_0x9c = 0x10;
@@ -1175,5 +1180,1042 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         cheat_string.TrimLeft();
         int32_t event_id = atoi(cheat_string);
         g_NetStru1_main.sub_51CD2A(player, event_id, 0);
+    }
+}
+
+extern "C" Shop g_DefaultShop;     // unk_6D10B8
+
+void Server::sub_504a96(Packet* pkt)
+{
+    PacketItemOperation* pio = reinterpret_cast<PacketItemOperation*>(pkt);
+
+    // ══════════════════════════════════════════════════════════════════════
+    // PATH 1: Group order (pkt->field_0x4 >= 1 means multiple units)
+    // ══════════════════════════════════════════════════════════════════════
+    if (pkt->field_0x4 != 0) {
+        if (!g_World) {
+            return;
+        }
+        if (pio->count == 0) {
+            return;
+        }
+
+        Unit* unit = this->sub_502AD1(pio->field_0x5, pio->entries[0]);
+        if (!unit) {
+            return;
+        }
+
+        Player* player = unit->pOwner;
+        GroupList* group_list = player->group_list;
+        Group* group = group_list->AllocGroup();
+        group->AddUnit(unit);
+        unit->sub_52C813();
+
+        for (int i = 1; i < pio->count; ++i) {
+            Unit* u = this->sub_502AD1(pio->field_0x5, pio->entries[i]);
+            if (u) {
+                group->AddUnit(u);
+                u->sub_52C813();
+            }
+        }
+        group_list->groups.AddTail(group);
+
+        Token* target = nullptr; // Unit or building.
+        if (pkt->field_0x4 == 3) {
+            // Unit target.
+            target = dword_6CDB3C->sub_5560D2(pio->field_0xe);
+            if (!target) {
+                // Building target.
+                target = this->srv_stru1->building_list->sub_557DB2(pio->field_0xe);
+            }
+            if (!target) {
+                return;
+            }
+        }
+
+        Spell* cast_spell = nullptr;
+        if (pkt->id == 0x1E || pkt->id == 0x1F) {
+            uint8_t spell_id = BOOK_POS_TO_SPELL_ID[pio->field_0x10];
+            pio->field_0x10 = spell_id;
+            // Find hero unit in group that matches the spell type
+            for (auto* node = group->unit_list.m_pNodeHead; node; node = node->pNext) {
+                Unit* u = node->data;
+                if (u && u->spell_book) {
+                    cast_spell = u->spell_book->sub_53DB79(spell_id);
+                    u->spell = cast_spell;
+                }
+            }
+        }
+
+        // ── Group order dispatch ──────────────────────────────────────────
+        uint8_t x = pio->field_0xa;
+        uint8_t y = pio->field_0xc;
+
+        switch (pkt->id) {
+        case 0x12: // move to position?
+            g_World->sub_5ACAA7(group);
+            player->sub_534B59();
+            break;
+        case 0x13:
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5A99C7(unit);
+                player->sub_534B59();
+            }
+            break;
+        case 0x14:
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5ACAFA(group);
+                player->sub_534B59();
+            }
+            break;                  
+        case 0x16:
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5AC289(group, x, y);
+                player->sub_534B59();
+            }
+            break;
+        case 0x17:
+            g_World->sub_5AC8A2(group, 0);
+            player->sub_534B59();
+            break;
+        case 0x18:
+            g_World->sub_5ACA54(group);
+            player->sub_534B59();
+            break;
+        case 0x19: // move to building?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5AC80F(group, target);
+                player->sub_534B59();
+            }
+            break;
+        case 0x1A: // attack-move to position?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5AC881(group, x, y);
+                player->sub_534B59();
+            }
+            break;
+        case 0x1B: // attack building?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5ACB4D(group, target, 0);
+                player->sub_534B59();
+            }
+            break;
+        case 0x1C: // Defend location.
+            LogMessage("defend location comes");
+            g_World->sub_5AC289(group, x, y);
+            break;
+        case 0x1D: // patrol?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5ACBEF(group, x, y);
+                player->sub_534B59();
+            }
+            break;
+        case 0x1E: // cast at unit/building?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                g_World->sub_5AC187(group, target);
+                player->sub_534B59();
+            }
+            break;
+        case 0x1F: // cast at position?
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                player->sub_534B59();
+                if (cast_spell && cast_spell->sub_53939E()) {
+                    g_World->sub_5AC206(group, x, y);
+                }
+            }
+            break;
+        case 0x21:
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                player->sub_534B59();
+                Sack* sack = MapStuff_Instance->sub_58E5C7(x, y);
+                if (!sack) {
+                    CString msg;
+                    msg.Format("Sack not found at %d,%d", x, y);
+                    LogMessage(msg);
+                    break;
+                }
+                unit->inventory->default_position = pio->field_0xe;
+                g_World->sub_5A9961(unit, x, y);
+            }
+            break;
+        case 0x24:
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                player->sub_534B59();
+                auto* building = this->srv_stru1->building_list->sub_557DB2(pio->field_0xe);
+                if (!building) {
+                    CString msg;
+                    msg.Format("No building #%d", pio->field_0xe);
+                    LogMessage(msg);
+                    break;
+                }
+                g_World->sub_5A90F4(unit, building);
+            }
+            break;
+        case 0x25: // Cast point spell with a scroll.
+        case 0x26: // Cast area spell with a scroll.
+            if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
+                player->sub_534B59();
+                auto* item = player->main_unit->inventory->sub_552E42(pio->field_0x10, 1);
+                if (!item || !item->_effects.m_pNodeHead) {
+                    break;
+                }
+
+                Effect* eff = item->_effects.m_pNodeHead->data;
+                if (eff && eff->effect_id == 0x29) {
+                    player->main_unit->some_item = item;
+
+                    Spell* spell = new Spell(eff->spell_or_damage);
+                    player->main_unit->spell = spell;
+
+                    spell->sub_539541(eff->spell_value);
+                    if (pkt->id == 0x25) {
+                        g_World->sub_5AC187(group, target);
+                    } else {
+                        if (!spell->sub_53939E()) {
+                            player->main_unit->inventory->PutItemIntoBag(pio->field_0x10, item);
+                            player->main_unit->some_item = nullptr;
+                            delete spell;
+                            player->main_unit->spell = nullptr;
+                        } else {
+                            g_World->sub_5AC206(group, x, y);
+                        }
+                    }
+                }
+            }
+            break;
+        case 0x4D:
+            g_World->sub_5ACAA7(group);
+            if (g_ServerConfig.gameType == 0) {
+                player->sub_534B17();
+            }
+            break;
+        default:
+            break;
+        }
+        return;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // PATH 2: Single command dispatch
+    // ══════════════════════════════════════════════════════════════════════
+    Player* player = nullptr;
+    Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
+    PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
+    PacketCmd* packet_cmd = reinterpret_cast<PacketCmd*>(pkt);
+    PacketInfo* packet_info = reinterpret_cast<PacketInfo*>(pkt);
+    PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
+    PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
+
+    switch (pkt->id) {
+    case 0x02: // Send player stat update?
+        player = this->sub_502B4A(pkt->field_0x5);
+        if (player) {
+            NetStru2* ns2 = g_NetStru1_main.FUN_00518544(pkt->field_0x5);
+            if (ns2 && ns2->field_0x2a8 != 0) {
+                this->FUN_004ff439(player, packet_3d->field_0x12);
+            }
+        }
+        break;
+
+    case 0x04: // Join mission.
+        player = g_PlayersList->sub_535B50(pkt->field_0x5);
+        if (player) {
+            this->sub_4FF937(player, (pio->field_0xa == 0) ? 1 : 0);
+        }
+        break;
+
+    case 0x05:
+        player = this->sub_502B4A(pkt->field_0x5);
+        if (player) {
+            player->field_0x43 = 0;
+        }
+        break;
+
+    case 0x07: // Execute string command
+        {
+            CString cmd(packet_join->name);
+            this->sub_4ED2DC(&cmd);
+            break;
+        }
+
+    case 0x08:
+        LogMessage("Loading not suppported now.");
+        break;
+
+    case 0x09:
+        LogMessage("Client request shutdown.");
+        break;
+
+    case 0x22: // Item operation.
+        {
+            uint16_t unit_id = (uint16_t)(packet_cmd->field_0xa | (uint16_t(packet_cmd->field_0xb) << 8));
+            Unit* target_unit = this->sub_502AD1(packet_cmd->field_0x5, unit_id);
+            if (!target_unit) {
+                break;
+            }
+
+            Humanoid* human = static_cast<Humanoid*>(target_unit);
+
+            uint8_t from_type = packet_cmd->type;  // 1=unequip, 2=from_bag, 3=pickup_ground, 4=from_shop
+            uint8_t to_type = packet_cmd->subtype; // 1=equip,   2=to_bag,   3=drop_ground,   4=sell_shop
+
+            // Both types in [4..8]: shop-slot interaction — delegate entirely.
+            if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
+                Shop* shop = this->sub_502C50(human->position);
+                if (shop) {
+                    shop->sub_5446EB(
+                        human,
+                        from_type, packet_cmd->field_0xe,
+                        to_type, packet_cmd->field_0x10,
+                        packet_cmd->field_0x12
+                    );
+                }
+                break;
+            }
+
+            // from_type == 3: pickup sack from ground.
+            if (from_type == 3) {
+                Sack* sack = MapStuff_Instance->sub_58E5F3(human->position);
+                if (!sack) {
+                    LogMessage("Invalid pickup order - no sack there.");
+                } else {
+                    human->inventory->default_position = packet_cmd->field_0xe;
+                    human->state = 2;
+                }
+                break;
+            }
+
+            uint32_t update_mask = 0;
+            int32_t equip_mask = 0;
+            int32_t bag_pos = 0;
+            int32_t bag_pos_delta = 0;
+            int32_t count_before = 0;
+            human->field_0x150 = 0;
+
+            Item* item = nullptr;
+            if (from_type == 2) {
+                // Pick item from bag.
+                count_before = human->inventory->items.m_nCount;
+                item = human->inventory->sub_552E42(packet_cmd->field_0xe, packet_cmd->field_0x12);
+                if (item) {
+                    update_mask |= 0x282000;
+                    item->field15_0x54 = 0;
+                }
+            } else if (from_type == 4) {
+                // Buy item from shop.
+                Shop* shop = this->sub_502C50(human->position);
+                if (!shop) {
+                    break;
+                }
+                item = shop->sub_5446C7(human, packet_cmd->field_0xe, packet_cmd->field_0x12);
+            } else if (from_type == 1) {
+                // Unequip item from body slot.
+                if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+                    break;
+                }
+                int32_t slot = (int16_t)packet_cmd->field_0xe + 1;
+                if (slot == 1) {
+                    item = human->Unequip(human->weapon);
+                } else if (slot == 2) {
+                    item = human->Unequip(human->shield);
+                } else if (slot >= 3 && slot <= 12) {
+                    if (human->VMethod8() == 0) {
+                        LogMessage("Error - Trying to takeoff armor from non humanoid ");
+                    } else {
+                        item = human->Unequip(human->equipment[slot]);
+                    }
+                }
+                if (item) {
+                    item->field15_0x54 = 0;
+                    update_mask |= 0x482000;
+                    equip_mask  |= (slot < 3) ? 3 : (1 << (slot - 1));
+                }
+            }
+
+            if (!item) {
+                break;
+            }
+
+            if (to_type == 1) {
+                // Equip item.
+                human->inventory->default_position = packet_cmd->field_0xe;
+                uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
+                equip_mask |= (item_slot_type < 3) ? 3 : (1 << (item_slot_type - 1));
+                Item* prev = item;
+                item = human->VMethod12(item); // equip; returns displaced item if any
+                if (item) {
+                    human->inventory->PutItemIntoBag(packet_cmd->field_0xe, item);
+                }
+                if (from_type == 2 && human->inventory->items.m_nCount == count_before && item != prev) {
+                    bag_pos = packet_cmd->field_0xe;
+                    bag_pos_delta = 1;
+                }
+                human->sub_52A790(0);
+                update_mask |= 0x482000;
+            } else if (to_type == 2) {
+                // Put item into bag slot.
+                human->inventory->PutItemIntoBag(packet_cmd->field_0x10, item);
+                human->sub_52A790(0);
+                update_mask |= 0x282000;
+            } else if (to_type == 4) {
+                // Sell item to shop.
+                item->pOwner = human->pOwner;
+                Shop* shop = this->sub_502C50(human->position);
+                if (!shop) {
+                    break;
+                }
+                shop->sub_544793(human, packet_cmd->field_0x10, item);
+                update_mask |= 0x82000;
+            } else if (to_type == 3) {
+                // Drop item on ground (create sack).
+                Inventory* sack_inv = new Inventory();
+                sack_inv->PutItemIntoBagAtDefault(item);
+                uint8_t drop_x = (uint8_t)(packet_cmd->field_0x10 & 0xFF);
+                uint8_t drop_y = (uint8_t)(packet_cmd->field_0x10 >> 8);
+                int dx = std::abs((int)human->position->GetX() - (int)drop_x);
+                int dy = std::abs((int)human->position->GetY() - (int)drop_y);
+                if (dx <= 2 && dy <= 2) {
+                    TokenPos new_pos(drop_x, drop_y, MapStuff_Instance);
+                    this->srv_stru1->sack_list->sub_554927(&new_pos, sack_inv, 0, 1);
+                } else {
+                    this->srv_stru1->sack_list->sub_554927(human->position, sack_inv, 0, 1);
+                }
+                human->sub_52A790(0);
+                update_mask |= 0x82000;
+            }
+
+            g_NetStru1_main.sub_519221(human, nullptr,
+                                    update_mask | human->field_0x150,
+                                    equip_mask, bag_pos, bag_pos + bag_pos_delta);
+            DWORD tick = GetTickCount();
+            if (tick - human->pOwner->field_0xa7c > 15000 || to_type == 3) {
+                this->sub_4EE028(human);
+            }
+            break;
+        }
+
+    case 0x23: // Gold drop - create money sack on the ground
+        {
+            player = g_PlayersList->sub_535B50(packet_info->field_0x5);
+            if (!player) {
+                CString msg;
+                msg.Format("Order error: no such Player %d", packet_info->field_0x5);
+                LogMessage(msg);
+                break;
+            }
+
+            UnitList* unit_list = player->unit_list;
+            Unit* unit = (unit_list && unit_list->unit_list.m_nCount > 0)
+                        ? unit_list->unit_list.m_pNodeHead->data
+                        : nullptr;
+
+            int32_t amount = packet_info->field_0xa;
+            if (!unit || amount < 1 || player->money < amount) {
+                break;
+            }
+
+            player->money -= amount;
+
+            uint8_t drop_x = static_cast<uint8_t>(packet_info->field_0xe & 0xFF);
+            uint8_t drop_y = static_cast<uint8_t>((packet_info->field_0xe >> 8) & 0xFF);
+
+            int dx = std::abs(static_cast<int>(unit->position->GetX()) - static_cast<int>(drop_x));
+            int dy = std::abs(static_cast<int>(unit->position->GetY()) - static_cast<int>(drop_y));
+
+            if (dx <= 2 && dy <= 2) {
+                TokenPos drop_pos(drop_x, drop_y, MapStuff_Instance);
+                this->srv_stru1->sack_list->sub_554460(&drop_pos, nullptr, amount, 1);
+            } else {
+                this->srv_stru1->sack_list->sub_554460(unit->position, nullptr, amount, 1);
+            }
+
+            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+                this->sub_4EE028(unit);
+            }
+            break;
+        }
+
+    case 0x32: // Enter shop.
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Shop* shop = this->sub_502C50(unit->position);
+            if (!shop) {
+                break;
+            }
+            unit->sub_52C813();
+            unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+            shop->sub_544655(unit);
+            break;
+        }
+
+    case 0x33:
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Shop* shop = this->sub_502C50(unit->position);
+            if (!shop) {
+                break;
+            }
+            unit->sub_54471B(shop);
+            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+                this->sub_4EE028(unit);
+            }
+            break;
+        }
+
+    case 0x34:
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit || !unit->position) {
+                break;
+            }
+            Shop* shop = this->sub_502C50(unit->position);
+            if (!shop) break;
+            unit->sub_544737(shop);
+            if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
+                this->sub_4EE028(unit);
+            }
+            break;
+        }
+
+    case 0x35:
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Shop* shop = this->sub_502C50(unit->position);
+            if (!shop) {
+                break;
+            }
+            unit->sub_544777(shop);
+            break;
+        }
+
+    case 0x36:
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Shop* shop = this->sub_502C50(unit->position);
+            if (!shop) {
+                break;
+            }
+            unit->sub_544777(shop);
+            unit->sub_544685(shop);
+            break;
+        }
+
+    case 0x38: // Enter inn.
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Inn* inn = this->sub_502CB7(unit->position);
+            if (!inn) {
+                break;
+            }
+            unit->sub_52C813();
+            unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+            unit->sub_560C67(inn);
+            break;
+        }
+
+    case 0x39:
+        {
+            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            if (player) {
+                this->sub_4FF878(player);
+            }
+            break;
+        }
+
+    case 0x3A:
+        {
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            if (!unit) {
+                break;
+            }
+            Inn* inn = this->sub_502CB7(unit->position);
+            if (!inn) {
+                break;
+            }
+            inn->sub_560DC2(static_cast<Humanoid*>(unit), pio->field_0xe);
+            break;
+        }
+
+    case 0x3B: // Map file chunk download — send a chunk of current_map_name to the client
+        {
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (!player) {
+                break;
+            }
+
+            PacketPlayerInfo& resp = PacketPlayerInfo::Inst;
+            resp.to_player_id = player->player_id;
+            resp.id = 0xC0;
+
+            // Copy the map file name into preamble.
+            int backslash_pos = this->current_map_name.ReverseFind('\\');
+            CString tail;
+            const char* name_src;
+            if (backslash_pos == -1) {
+                name_src = this->current_map_name;
+            } else {
+                tail = this->current_map_name.Mid(backslash_pos + 1);
+                name_src = tail;
+            }
+            std::strcpy(reinterpret_cast<char*>(resp.preamble), name_src);
+
+            int32_t file_start = packet_info->field_0xa;
+
+            CFile f;
+            if (f.Open(this->current_map_name, CFile::modeRead | CFile::shareDenyNone, nullptr)) {
+                int32_t file_length = f.GetLength();
+
+                int32_t chunk_size = 0x1000;
+                if (file_length < file_start + 0x1000) {
+                    chunk_size = file_length - file_start;
+                }
+
+                resp.offset = file_start;
+                resp.total_length = file_length;
+
+                resp.count = chunk_size;
+                f.Seek(static_cast<LONG>(file_start), CFile::begin);
+                f.Read(resp.var_data, static_cast<UINT>(chunk_size));
+                f.Close();
+            }
+            g_NetStru1_main.FUN_005186cd(&resp);
+            g_NetStru1_main.FUN_0051c748(player);
+            break;
+        }
+
+    case 0x3E:
+        {
+            if (this->field4_0x74 != 0) {
+                break;
+            }
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (player) {
+                player->FUN_00534AC1(packet_dword->value, 1);
+            }
+            break;
+        }
+
+    case 0x3F:
+        if (this->field4_0x74 == 0) {
+            g_DefaultShop.sub_54463F();
+        }
+        break;
+
+    case 0x45: // Diplomacy bulk update
+        {
+            if (!g_World || (g_ServerConfig.gameType != 0 && g_ServerConfig.gameType != 3)) {
+                break;
+            }
+
+            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            if (!player) {
+                break;
+            }
+
+            int count = packet_data->count;
+            const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
+
+            for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+                Player* other = node->data;
+                if (!other) {
+                    break;
+                }
+
+                int other_id = other->player_id;
+
+                uint8_t* diplo_slot = &g_World->diplomacy[player->player_id][other_id];
+                uint8_t old_val = *diplo_slot;
+                uint8_t new_val = static_cast<uint8_t>(modification[other_id] & 0x17);
+
+                if (old_val == new_val) {
+                    continue;
+                }
+
+                *diplo_slot = new_val;
+
+                if ((new_val & 0x10) == 0) {
+                    // Vision sharing disabled with `other`
+                    player->vision_sharing_mask &= ~other->vision_sharing_id;
+                    if (old_val & 0x10) {
+                        // Was sharing before — revoke visibility
+                        g_NetStru1_main.sub_519221(player->main_unit, other, 0x400000, 0xffb, 0, 0);
+                    }
+                } else {
+                    // Vision sharing enabled with `other`
+                    player->vision_sharing_mask |= other->vision_sharing_id;
+                    if (!(old_val & 0x10)) {
+                        // Wasn't sharing before — send full unit state for each of player's units
+                        if (player->unit_list) {
+                            for (auto* unode = player->unit_list->unit_list.m_pNodeHead; unode; unode = unode->pNext) {
+                                g_NetStru1_main.sub_519221(unode->data, other, 0xa35fffff, 0xffb, 0, 0);
+                            }
+                        }
+                    }
+                }
+                g_NetStru1_main.sub_51CB21(other);
+            }
+            break;
+        }
+
+    case 0x46: // Player parameter change
+        {
+            if (!g_World) {
+                break;
+            }
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (!player) {
+                break;
+            }
+
+            int32_t param_type  = packet_info->field_0xa;
+            int32_t param_value = packet_info->field_0xe;
+
+            if (param_type >= 0x80) {
+                CString msg;
+                msg.Format("Request to set unknown parameter %d unprocessed", param_type);
+                LogMessage(msg);
+                break;
+            }
+
+            int32_t val;
+
+            switch (param_type) {
+            case 1:
+                val = (param_value == 1) ? 10 : (param_value == 2) ? 30 : 0;
+                g_World->sub_5AF805(0, val * 2, val * 3, player);
+                g_World->sub_5AFA01(val, val, val, player);
+                break;
+            case 2:
+                val = (param_value == 0) ? 0 : (param_value == 1) ? 2 : 1;
+                g_World->sub_5AF683(player, val);
+                break;
+            case 3: // Autobuff mask
+                if (player->settings) {
+                    player->settings->autobuff_mask = static_cast<uint8_t>(param_value);
+                }
+                break;
+            case 4:
+                {
+                    Unit* unit = this->sub_502AD1(pkt->field_0x5, static_cast<uint16_t>(param_value));
+                    if (unit && unit->eye2) {
+                        uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
+                        if (unit->eye2->spell_id == new_spell_id) {
+                            unit->eye2->spell_id = 0;
+                        } else {
+                            unit->eye2->spell_id = new_spell_id;
+                        }
+                        
+                        Humanoid* human = static_cast<Humanoid*>(unit);
+                        g_NetStru1_main.sub_519221(human, human->pOwner, 0x100000, 0xffb, 0, 0);
+                    }
+                    break;
+                }
+            default: {
+                CString msg;
+                msg.Format("Request to set unknown parameter %d unprocessed", param_type);
+                LogMessage(msg);
+                break;
+            }
+            }
+            break;
+        }
+
+    case 0x48: // Join map.
+        {
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (!player) {
+                break;
+            }
+
+            if (g_ServerConfig.gameType == 0 && (player->main_unit->unit_attrs & 8) != 0) {
+                using effect_apply = void(__thiscall*)(Effect*, Unit*); // TODO: migrate Effect::VMethod11
+                {
+                    CString name("castSpell=Invisibility:20");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name); // Constructor. TODO: migrate `Effect`.
+                    eff->itemDataID  = 0xC;
+                    eff->typeId      = 0x20;
+                    eff->usage_type |= 1;
+                    eff->spell_value = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+                {
+                    CString name("castSpell=Protection_from_Fire:200");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name);
+                    eff->itemDataID     = 4;
+                    eff->typeId         = 0x10;
+                    eff->usage_type    |= 1;
+                    eff->effect_id      = 0x15;
+                    eff->spell_or_damage = 0x96;
+                    eff->spell_value    = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+                {
+                    CString name("castSpell=Protection_from_Water:200");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name);
+                    eff->itemDataID     = 8;
+                    eff->typeId         = 0x18;
+                    eff->usage_type    |= 1;
+                    eff->effect_id      = 0x16;
+                    eff->spell_or_damage = 0x96;
+                    eff->spell_value    = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+                {
+                    CString name("castSpell=Protection_from_Earth:200");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name);
+                    eff->itemDataID     = 0x13;
+                    eff->typeId         = 0x2E;
+                    eff->usage_type    |= 1;
+                    eff->effect_id      = 0x18;
+                    eff->spell_or_damage = 0x96;
+                    eff->spell_value    = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+                {
+                    CString name("castSpell=Protection_from_Air:200");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name);
+                    eff->itemDataID     = 0xD;
+                    eff->typeId         = 0x22;
+                    eff->usage_type    |= 1;
+                    eff->effect_id      = 0x17;
+                    eff->spell_or_damage = 0x96;
+                    eff->spell_value    = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+                {
+                    CString name("castSpell=Shield:200");
+                    Effect* eff = new Effect();
+                    eff->sub_53EC55(&name);
+                    eff->itemDataID     = 0x1B;
+                    eff->typeId         = 0x3E;
+                    eff->usage_type    |= 1;
+                    eff->effect_id      = 0x10;
+                    eff->spell_or_damage = 0x96;
+                    eff->spell_value    = 0x140;
+                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                }
+            }
+
+            g_NetStru1_main.sub_519221(player->main_unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+            if ((player->main_unit->unit_attrs & 8) != 0) {
+                player->main_unit->sub_52C409();
+            }
+            g_NetStru1_main.sub_51D837(g_ServerConfig.field_0x8, player);
+            break;
+        }
+
+    case 0x49:
+        {
+            if (this->field4_0x74 != 0) {
+                break;
+            }
+            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            if (!player || !player->main_unit) {
+                break;
+            }
+
+            int idx = packet_data->count;
+            if (idx <= 0 || idx >= g_GameDataRes.humans.GetSize()) {
+                break;
+            }
+
+            Human* new_unit = this->sub_509879(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
+            if (new_unit) {
+                new_unit->name = CString(packet_data->data);
+                g_NetStru1_main.sub_519221(new_unit, new_unit->pOwner, 0xFFFFFFFF, 0xFFB, 0, 0);
+            }
+            break;
+        }
+
+    case 0x4A:
+        {
+            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            if (player) {
+                g_NetStru1_main.sub_51C46E(player);
+            }
+            break;
+        }
+
+    case 0x4B: // Set respawn flag when unit is deeply dead (hp < -39)
+        {
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (player && player->main_unit && player->main_unit->hp < -39) {
+                player->field_0xa64 = 1;
+            }
+            break;
+        }
+
+    case 0x4C:
+        {
+            if (!g_World) {
+                break;
+            }
+            player = this->sub_502B4A(pkt->field_0x5);
+            if (player) {
+                player->sub_534B59();
+
+                if (player->main_unit && player->main_unit->hp > -1) {
+                    player->main_unit->hp -= 1;
+                    g_NetStru1_main.sub_51C601(player->main_unit);
+                }
+            }
+            break;
+        }
+
+    case 0x91: // Chat message.
+        {
+            CString msg(packet_join->name);
+            if (msg.IsEmpty()) {
+                break;
+            }
+
+            player = g_PlayersList->sub_535B50(pkt->field_0x5);
+            if (!player) {
+                break;
+            }
+
+            LogMessage(player->name + ": " + msg);
+
+            if (msg[0] == '#') {
+                this->CheatCommand(player, msg);
+                break;
+            }
+
+            uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
+            uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
+
+            PacketJoin out;
+            out.id         = pkt->id;
+            out.__field_0xa = (uint32_t)(pkt->field_0x5 & 0xFF) | ((uint32_t)chat_type << 8);
+
+            switch (chat_type) {
+            case 0: // Regular message: send to all non-AI players within range.
+                for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+                    Player* other = node->data;
+                    if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
+                        out.to_player_id = other->player_id;
+                        strcpy(out.name, packet_join->name);
+                        g_NetStru1_main.FUN_005186cd(&out);
+                    }
+                }
+                break;
+            case 1: // Allies: send to players with diplomacy bit 2 set toward sender.
+                for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+                    Player* other = node->data;
+                    if (!other->is_ai && (g_World->diplomacy[player->player_id][other->player_id] & 2) != 0) {
+                        out.to_player_id = other->player_id;
+                        strcpy(out.name, packet_join->name);
+                        g_NetStru1_main.FUN_005186cd(&out);
+                    }
+                }
+                break;
+            case 2: // Private message.
+                out.field_0x5 = player->player_id;
+                out.player_id = player->player_id;
+                out.token_id = chat_type;
+                // CC self.
+                out.to_player_id = pkt->to_player_id;
+                strcpy(out.name, packet_join->name);
+                g_NetStru1_main.FUN_005186cd(&out);
+                // Deliver to target.
+                out.to_player_id = (uint16_t)recipient_id;
+                g_NetStru1_main.FUN_005186cd(&out);
+                break;
+            case 3: // Yell: global with cooldown.
+                if (player->field_0xa68 == 0) {
+                    out.field_0x5 = player->player_id;
+                    out.player_id = player->player_id;
+                    out.token_id = chat_type;
+                    out.to_player_id = 0;
+                    strcpy(out.name, packet_join->name);
+                    g_NetStru1_main.FUN_005186cd(&out);
+                    player->field_0xa68 = g_ServerConfig.field_0x90;
+                } else {
+                    g_NetStru1_main.FUN_0051ce86(8, player->field_0xa68, player);
+                }
+                break;
+            case 4: // Global broadcast (no cooldown)
+                out.field_0x5 = player->player_id;
+                out.player_id = player->player_id;
+                out.token_id = chat_type;
+                out.to_player_id = 0;
+                strcpy(out.name, packet_join->name);
+                g_NetStru1_main.FUN_005186cd(&out);
+                break;
+            default:
+                break;
+            }
+            break;
+        }
+
+    case 0xAE: // Server-wide announcement
+        {
+            PacketJoin announcement;
+            std::strncpy(announcement.name, packet_join->name, 1023);
+            g_NetStru1_main.FUN_005186cd(&announcement);
+            break;
+        }
+
+    case 0xBE:
+        player = this->sub_502B4A(pkt->field_0x5);
+        if (player->main_unit != nullptr) {
+            g_NetStru1_main.sub_519221(player->main_unit, player, 0xffffffff, 0xffb, 0, 0);
+        }
+        break;
+
+    case 0xC1: // Set network latency for this connection?
+        {
+            int32_t latency = packet_dword->value;
+            if (latency == 0 || (50 <= latency && latency <= 10000)) {
+                NetStru2* ns2 = g_NetStru1_main.sub_5185D5(pkt->field_0x5);
+                if (ns2) {
+                    g_CLlDriver.sub_5229CD(ns2->uid, latency);
+                }
+            }
+            break;
+        }
+
+    case 0xD0: // Reconnect?
+        {
+            // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
+            NetStru2* ns2 = g_NetStru1_main.sub_5185D5(pkt->field_0x5);
+            if (!ns2 || ns2->field_0x2a8 != 0) {
+                break;
+            }
+
+            // Find the target player by two identity fields carried in the packet
+            Player* target = g_PlayersList->sub_535E94(packet_info->field_0xa, packet_info->field_0xe);
+            // Only proceed if the target player has no active NetStru2 yet
+            if (target && g_NetStru1_main.FUN_00518544(target->player_id) == nullptr) {
+                ns2->player_id = target->player_id;
+                ns2->field_0x2a8 = 1;
+                ns2->str = target->login;
+                g_NetStru1_main.sub_51C822(ns2);
+            }
+                break;
+        }
+
+    default:
+        break;
     }
 }

@@ -9,6 +9,7 @@
 #include "unit_list.h"
 
 
+class Humanoid;
 class Inventory;
 class Quest;
 class QuestMap;
@@ -30,6 +31,9 @@ public:
     QuestMap* quest_map;
     Quest* active_quest;
     uint8_t gap_0xe8[4];
+
+public:
+    void sub_560DC2(Humanoid* humanoid, uint16_t id);
 };
 ASSERT_OFFSET(Inn, delivery_item_id, 0xd4);
 ASSERT_OFFSET(Inn, quest_map, 0xe0);

@@ -25,5 +25,7 @@ public:
     int sub_53636E();        // checks if team play is already started
     void sub_5357C6(Player* player); // AddTail: append player to list
     Player* sub_535D39(CString name);    // find player by name (CString arg_0 compared against player->name)
+    Player* sub_535B50(uint16_t player_id);   // find player by numeric id
+    Player* sub_535E94(int32_t a, int32_t b);  // find player where field_0xa80==a && field_0xa84==b (spectator claim)
 };
 ASSERT_SIZE(PlayersList, 0x24);

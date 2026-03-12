@@ -10,15 +10,23 @@
 
 
 class Building;
+class BuildingsList;
+class Shop;
 class Human;
+class Inn;
+class Inventory;
+class Packet;
 class Player;
 class Sack;
+class SackList;
 struct ScriptSettings;
 class Spell;
 class SpellEffect;
-class VirtualCaster;
+class SpellEffectList;
+class TokenPos;
 class Unit;
 class UnitList;
+class VirtualCaster;
 
 struct CowardActivation {
     char key[100];
@@ -29,11 +37,8 @@ struct CowardActivation {
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
 
-class SackList;
-class SpellEffectList;
-
 struct SrvStru1 {
-    CList<Building*>* building_list;
+    BuildingsList* building_list;
     SpellEffectList* effects_list;
     SackList* sack_list;
     UnitList* units_list;
@@ -47,6 +52,8 @@ struct SackList {
 
 public:
     void sub_554B03(Player* player); // Clear unit vision mask bits for player across this sack list
+    void sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
+    int32_t sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5);
 };
 
 class SpellEffectList {
@@ -97,7 +104,7 @@ public:
     void sub_4F8F86(); // Called when all team-game players are ready
     void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
-    void sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit
+    Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 
@@ -169,6 +176,16 @@ public:
 
 public:
     void FUN_004ff439(Player* player, int32_t arg4);
+
+    // sub_504a96 helpers
+    Unit* sub_502AD1(uint16_t player_ref, uint16_t unit_id);
+    Shop* sub_502C50(TokenPos* pos);
+    Inn* sub_502CB7(TokenPos* pos);   // Inn lookup by TokenPos
+    Player* sub_502B4A(uint16_t player_id);
+    void sub_4ED2DC(CString* str);
+    void sub_4FF878(Player* player);
+    void sub_504a96(Packet* packet);
+
     void FUN_004f94c0(int32_t arg);
     int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
@@ -195,7 +212,7 @@ struct ServerConfig
     CStringArray map_names; // Array of map names. 6D15F0.
     CStringArray field_0x64;
     CDWordArray map_durations; // Array of map durations. 0x7FFFFFFF means no limit. 6D1618.
-    uint32_t field_0x8c;
+    int32_t chat_range; // Chat range for proximity chat.
     uint32_t field_0x90;
     uint32_t current_map_index; // Current map index in map array. 6D1634.
     uint32_t field_0x98;

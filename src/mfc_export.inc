@@ -141,6 +141,23 @@ externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 
+; BuildingsList
+externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
+
+
+; Inn
+externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
+
+
+; Shop
+externdef _g_DefaultShop :byte
+
+externdef ?sub_544655@Shop@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
+externdef ?sub_54463F@Shop@@QAEXXZ :proc
+externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
+externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
+
 
 ;Scenario
 extern ?g_scenario_dll@@3PAUHINSTANCE__@@A  : dword
@@ -315,6 +332,8 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 ; MapStuff
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
+externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
+externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -378,6 +397,14 @@ externdef ?sub_537251@Unit@@QAEXXZ :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
+externdef ?sub_52C813@Unit@@QAEXXZ :proc
+externdef ?sub_52C409@Unit@@QAEXXZ :proc
+externdef ?sub_54471B@Unit@@QAEXPAVShop@@@Z :proc
+externdef ?sub_544737@Unit@@QAEXPAVShop@@@Z :proc
+externdef ?sub_544777@Unit@@QAEXPAVShop@@@Z :proc
+externdef ?sub_544685@Unit@@QAEXPAVShop@@@Z :proc
+externdef ?sub_560C67@Unit@@QAEXPAVInn@@@Z :proc
+
 ; UnitEye
 
 externdef ?sub_58c00e@UnitEye@@QAEEXZ :proc     ; UnitEye::sub_58c00e() – get position byte
@@ -430,6 +457,7 @@ extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
 extern ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z:proc   ; UnitList::AddTailAllocId
 extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xxx
 externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 
 
 
@@ -451,6 +479,11 @@ extern ?Clear@Protections@@QAEXXZ:proc   ; (public: void __thiscall Protections:
 extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall Protections::Serialize(class CArchive &))
 
 
+; Effect
+
+externdef ?sub_53EC55@Effect@@QAEPAV1@PAVCString@@@Z :proc
+
+
 ; AreaEffect
 PUBLIC _stru_6364B8
 
@@ -466,9 +499,11 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 externdef ?sub_548F6A@Item@@QAE_NXZ :proc
 
-;inventory
+; Inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
+externdef ??0Inventory@@QAE@XZ :proc
+externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc
 
 
 
@@ -480,12 +515,15 @@ externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
+externdef ?sub_539541@Spell@@QAEXI@Z :proc
+externdef ?sub_53939E@Spell@@QAE_NXZ :proc
 
 
 ; SpellBook
 
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID
+externdef ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
 
 
 
@@ -555,7 +593,7 @@ externdef ?FUN_0051800f@NetStru1@@QAEXXZ :proc   ;  NetStru1::FUN_0051800f(void)
 externdef ?FUN_005186cd@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_005186cd(class Packet *)
 externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
 externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
-externdef ?FUN_0051c748@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051c748(class Packet *)
+externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
@@ -579,6 +617,12 @@ externdef ?sub_51E7FC@NetStru1@@QAEPAVPacket@@EPAUNetStru2@@@Z :proc
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
 externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
 externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
+
+externdef ?sub_51C46E@NetStru1@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z :proc
+externdef ?sub_5185D5@NetStru1@@QAEPAUNetStru2@@G@Z :proc
+externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 
 
 
@@ -614,10 +658,17 @@ externdef ?sub_4FA348@Server@@QAEXPAVCString@@H@Z :proc
 externdef ?sub_4F8F86@Server@@QAEXXZ :proc
 externdef ?sub_4F8FBF@Server@@QAEXHH@Z :proc
 externdef ?sub_4F9AD3@Server@@QAEXPAVSack@@@Z :proc
-externdef ?sub_509879@Server@@QAEXPAVCString@@PAVUnit@@H@Z :proc
+externdef ?sub_509879@Server@@QAEPAVHuman@@PAVCString@@PAVUnit@@H@Z :proc
 
 extern ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
+
+externdef ?sub_502AD1@Server@@QAEPAVUnit@@GG@Z :proc
+externdef ?sub_502C50@Server@@QAEPAVShop@@PAUTokenPos@@@Z :proc
+externdef ?sub_502CB7@Server@@QAEPAVInn@@PAUTokenPos@@@Z :proc
+externdef ?sub_502B4A@Server@@QAEPAVPlayer@@G@Z :proc
+externdef ?sub_4ED2DC@Server@@QAEXPAVCString@@@Z :proc
+externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 
 
 ; CowardActivation
@@ -627,6 +678,23 @@ externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 
 ; World
 externdef ?sub_5AFBFD@World@@QAEXXZ :proc
+externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
+externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_5ACA54@World@@QAEXPAVGroup@@@Z :proc
+externdef ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
+externdef ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
+externdef ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
+externdef ?sub_5AC206@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5A9961@World@@QAEXPAVUnit@@EE@Z :proc
+externdef ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z :proc
+externdef ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z :proc
+externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
+externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
+externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
+externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 
 
 ; Player
@@ -636,6 +704,9 @@ extern ??1Player@@UAE@XZ :proc
 extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&
 externdef ?sub_5346AC@Player@@QAEXXZ :proc
 
+externdef ?sub_534B17@Player@@QAEXXZ :proc
+externdef ?sub_534B59@Player@@QAEXXZ :proc
+
 
 ; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
@@ -644,10 +715,14 @@ extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_53636E@PlayersList@@QAEHXZ :proc
 externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
+externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc
 
 
 ; SackList method
 externdef ?sub_554B03@SackList@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_554927@SackList@@QAEXPAUTokenPos@@PAUInventory@@HH@Z :proc
+externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 
 
 ; Settings

@@ -75,7 +75,7 @@ public:
     void FUN_005186cd(Packet* pkt);
     void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void FUN_0051ceac(uint32_t id, Player* recpt);
-    void FUN_0051c748(Packet* recpt);
+    void FUN_0051c748(Player* recpt);
     void FUN_0051d49b(Player* recpt);
     void FUN_005188db();
 
@@ -95,6 +95,7 @@ public:
     void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
     void sub_51BDA4(Effect* effect, Unit* unit, int32_t arg);
 
+    void sub_51D837(int32_t param1, Player* player); // Send server state / player list to player
     void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player
     void sub_51CB21(Player* player);  // Send terrain/diplomacy visibility state to player
     void sub_51C0F7(Player* player);  // Send units from pending unit list to player
@@ -106,6 +107,11 @@ public:
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
+
+    NetStru2* sub_5185D5(uint16_t player_id);
+    void sub_51C46E(Player* player);
+    void sub_51C601(Unit* unit);        // Send unit-level-up packet
+    void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
 
     // sub_51E7FC – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
@@ -145,7 +151,7 @@ struct NetStru2 {
     int32_t field_0x2a4;
     int32_t field_0x2a8;
     int32_t field_0x2ac;
-    LPSTR str;
+    CString str;
     int32_t field_0x2b4;
     int32_t field_0x2b8;
     int32_t field_0x2bc;

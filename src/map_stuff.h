@@ -11,6 +11,7 @@
 
 struct Human;
 struct MapAlm;
+struct TokenPos;
 struct World;
 
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
@@ -101,6 +102,8 @@ public:
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
+    Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
+    Sack* sub_58E5F3(TokenPos* pos);
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);

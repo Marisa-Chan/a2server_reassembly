@@ -94,6 +94,7 @@ public:
 __pragma(pack(pop))
 
 ASSERT_OFFSET(PacketJoin, player_id, 0xa);
+ASSERT_OFFSET(PacketJoin, name, 0x10);
 ASSERT_SIZE(PacketJoin, 0x410);
 
 
@@ -498,12 +499,15 @@ public:
     virtual void VMethod4(NetStru2*) override; // sub_527246
     virtual uint32_t GetDataSize() override;   // sub_57A980
 public:
-    uint8_t  preamble[40]; // +0xA..+0x31  (40 bytes of fixed player fields)
+    uint8_t  preamble[0x20]; // +0xA..+0x31  (40 bytes of fixed player fields)
+    uint32_t offset;
+    uint32_t total_length;
     int32_t  count;        // +0x32  length of var_data
     uint8_t  var_data[0x10000];  // +0x36  variable-length data (actual size = count)
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(PacketPlayerInfo, preamble,  0xA);
+ASSERT_OFFSET(PacketPlayerInfo, offset,    0x2A);
 ASSERT_OFFSET(PacketPlayerInfo, count,     0x32);
 ASSERT_OFFSET(PacketPlayerInfo, var_data,  0x36);
 ASSERT_SIZE(PacketPlayerInfo, 0x10036);

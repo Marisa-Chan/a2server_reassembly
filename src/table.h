@@ -21,7 +21,7 @@ public:
     // virtual void VMethod2(void* param_2, int32_t param_3, int32_t* param_4, double* param_5);
 
 public:
-    const char* name;
+    CString name;
     CArray<T> values;
 };
 ASSERT_SIZE(TableLine<int32_t>, 0x1c);

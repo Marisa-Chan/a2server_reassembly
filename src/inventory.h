@@ -11,8 +11,11 @@
 
 struct Inventory {
 public:
+    Inventory(); // sub_551C0A — initializes CList and default fields
     void PutItemIntoBagAtDefault(Item *item);
     void PutItemIntoBag(int32_t pos, Item *item); // in asm
+    Item* sub_552E42(int32_t item_number, int32_t count);
+
 public:
     CList<Item*> items;
     int32_t default_position;

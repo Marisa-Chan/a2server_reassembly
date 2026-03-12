@@ -22,6 +22,7 @@ public:
     void AddTailId6xxx(Unit* unit);
 
     void sub_5579D8(Player* player); // Clear unit vision mask bits for player across this list
+    Unit* sub_5560D2(uint16_t id);   // Look up unit in list by ID
 
 public:
     CList<Unit*> unit_list;

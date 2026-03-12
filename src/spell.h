@@ -1,6 +1,7 @@
 #ifndef SPELL_H
 #define SPELL_H
 
+#include <array>
 #include <cstdint>
 
 #include "asm_mfc.h"
@@ -26,6 +27,8 @@ public:
     Spell(const CString& name);
 
     void sub_53940D(Unit* unit);
+    bool sub_53939E(); // Checks if it's area spell (spell target == 2).
+    void sub_539541(uint32_t param);
 
 public:
     SpellInfo* spell_info;
@@ -61,8 +64,17 @@ public:
     uint32_t current_spell_index;
 
     void sub_53D7F0(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
+    Spell* sub_53DB79(int spell_id); // Look up spell in book by id
 };
 ASSERT_SIZE(SpellBook, 0x1c);
+
+constexpr std::array<uint32_t, 25> BOOK_POS_TO_SPELL_ID = {
+    // 636248, 0-based.
+    0,
+    // 63624C, 1-based.
+    1, 2, 3, 4, 24, 20, 21, 26, 13, 12, 11, 10,
+    5, 6, 7, 8, 25, 22, 23, 27, 19, 18, 17, 16,
+};
 
 
 #endif
