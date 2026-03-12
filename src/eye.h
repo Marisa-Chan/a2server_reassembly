@@ -270,6 +270,8 @@ struct UnitEye2 {
     uint8_t field82_0xb2;
     uint8_t field83_0xb3;
     CList<uint16_t>* positions_list;
+
+    void sub_5A4F30(); // sub_5A4F30 — destroys positions_list
 };
 ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);
 ASSERT_SIZE(UnitEye2, 0xb8);

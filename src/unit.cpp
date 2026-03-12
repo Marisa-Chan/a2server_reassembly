@@ -139,6 +139,52 @@ int32_t Unit::VMethod8()
     return 0;
 }
 
+void Unit::VMethod10()
+{
+    // 52a4fa
+    if (some_item && ((some_item->item_id >> 8) & 0xF) == 0xE) {
+        delete some_item;
+        some_item = nullptr;
+        if (some_spell) {
+            delete some_spell;
+        }
+        some_spell = nullptr;
+    }
+
+    if (eye) {
+        ::operator delete(eye);
+        eye = nullptr;
+    }
+
+    if (eye2) {
+        eye2->sub_5A4F30();
+        ::operator delete(eye2);
+        eye2 = nullptr;
+    }
+
+    if (inventory) {
+        delete inventory;
+        inventory = nullptr;
+    }
+
+    if (shield) {
+        delete shield;
+        shield = nullptr;
+    }
+
+    if (weapon) {
+        delete weapon;
+        weapon = nullptr;
+    }
+
+    spell = nullptr;
+
+    if (spell_book) {
+        delete spell_book;
+        spell_book = nullptr;
+    }
+}
+
 Item *Unit::VMethod12(Item *item)
 {
     Item *itm = item->VMethod10(this);
