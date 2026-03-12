@@ -249,11 +249,11 @@ void Unit::VMethod23(Unit*, uint32_t, int32_t, int32_t)
 
 void Unit::VMethod24(Unit*, uint32_t, int32_t, int32_t)
 {}
-/*
+
 int32_t Unit::VMethod25()
 {
-    return monster_info->values
-}*/
+    return monster_info->values[0].dying_time;
+}
 
 
 
