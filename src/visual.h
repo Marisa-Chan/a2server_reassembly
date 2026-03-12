@@ -56,8 +56,8 @@ public:
 	~CVisualObject();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual const char* GetName();
-	virtual void SetName(const char *_name);
+	virtual const char* GetHint();
+	virtual void SetHint(const char *_hint);
 	virtual void ChangeFlags(uint32_t _flags, bool setunset);
 	virtual uint32_t TestFlags(uint32_t _flags);
 	virtual void SetCursorOver(bool isOver);
@@ -126,7 +126,7 @@ public:
 	CVisualObject* parent;
 	CVisualObject* cursor_over_obj;
 	CVisualObject* focus_obj;
-	CString name;
+	CString hint;
 	CVisualObject* cursor_over_obj_last;
 	CVisualObject* last_focus_obj;
 	CVisualObject* up_obj;

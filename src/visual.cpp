@@ -53,7 +53,7 @@ CVisualObject::CVisualObject()
     last_focus_obj = nullptr;
     flags = 1;
     id = -1;
-    name = "";
+    hint = "";
     rect = CRect(0, 0, 0, 0);
     down_obj = nullptr;
     up_obj = nullptr;
@@ -74,7 +74,7 @@ CVisualObject::CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32
     id = _id;
 
     if (str)
-        name = str;
+        hint = str;
 
     rect = CRect(l, t, r, b);
     down_obj = nullptr;
@@ -96,7 +96,7 @@ CVisualObject::CVisualObject(int32_t _id, const RECT& r, const char* str)
     id = _id;
 
     if (str)
-        name = str;
+        hint = str;
 
     rect = r;
 
@@ -128,21 +128,21 @@ void CVisualObject::Dump(CDumpContext& dc) const
 }
 
 
-const char* CVisualObject::GetName()
+const char* CVisualObject::GetHint()
 {
     //4d7c15
 
     if (TestFlags(FLAG_20))
         return nullptr;
 
-    return name;
+    return hint;
 }
 
-void CVisualObject::SetName(const char* _name)
+void CVisualObject::SetHint(const char* _name)
 {
     //4d7bf9
 
-    name = _name;
+    hint = _name;
 }
 
 

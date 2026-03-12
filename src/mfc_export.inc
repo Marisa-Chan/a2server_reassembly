@@ -862,8 +862,8 @@ extern ??0CVisualObject@@QAE@HHHHHPBD@Z :proc   ; (public: __thiscall CVisualObj
 
 extern ??1CVisualObject@@UAE@XZ  :proc    ;   CVisualObject::~CVisualObject
 extern ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::Dump(class CDumpContext &)const )
-extern ?GetName@CVisualObject@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall CVisualObject::GetName(void))
-extern ?SetName@CVisualObject@@UAEXPBD@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetName(char const *))
+extern ?GetHint@CVisualObject@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall CVisualObject::GetHint(void))
+extern ?SetHint@CVisualObject@@UAEXPBD@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetName(char const *))
 extern ?ChangeFlags@CVisualObject@@UAEXI_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::ChangeFlags(unsigned int,bool))
 extern ?TestFlags@CVisualObject@@UAEII@Z :proc   ; (public: virtual unsigned int __thiscall CVisualObject::TestFlags(unsigned int))
 extern ?SetCursorOver@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetCursorOver(bool))
