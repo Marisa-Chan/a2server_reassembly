@@ -116,6 +116,7 @@ public:
     // sub_51E7FC – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
     Packet* sub_51E7FC(uint8_t cmd, NetStru2* ns2);
+    void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);

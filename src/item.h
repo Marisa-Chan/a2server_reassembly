@@ -41,6 +41,7 @@ public:
     virtual void VMethod17(void*, void*);
 
 public:
+    Item(const CString& name); // sub_5480E3: construct item from name string
     bool sub_548F6A(); // Returns true if this item template can be given via #create cheat
 
 public:

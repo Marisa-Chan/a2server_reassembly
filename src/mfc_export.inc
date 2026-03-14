@@ -143,14 +143,19 @@ externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
+externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_558128(TokenPos*)
+externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
 
 
 ; Inn
+externdef _InnRuntimeClass :byte
+
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
 
 
 ; Shop
 externdef _g_DefaultShop :byte
+externdef _ShopRuntimeClass :byte
 
 externdef ?sub_544655@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
@@ -158,6 +163,8 @@ externdef ?sub_54463F@Shop@@QAEXXZ :proc
 externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
 
+; Pointer
+externdef _PointerRuntimeClass :byte
 
 ;Scenario
 extern ?g_scenario_dll@@3PAUHINSTANCE__@@A  : dword
@@ -399,6 +406,10 @@ externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
 externdef ?sub_52C813@Unit@@QAEXXZ :proc
 externdef ?sub_52C409@Unit@@QAEXXZ :proc
+
+externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
+externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit::sub_52BDD7(uint16_t,uint16_t,uint8_t,uint8_t)
+externdef ?sub_52D94E@Unit@@QAEXXZ :proc                                  ; Unit::sub_52D94E()
 externdef ?sub_54471B@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_544737@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_544777@Unit@@QAEXPAVShop@@@Z :proc
@@ -497,6 +508,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 ; Item
 
+externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ?sub_548F6A@Item@@QAE_NXZ :proc
 
 ; Inventory
@@ -510,6 +522,9 @@ externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc
 
 ;Spell
 
+externdef ?sub_539958@Spell@@QAEHPAVUnit@@0CC@Z :proc                          ; Spell::sub_539958(Unit*,Unit*,int8_t,int8_t)
+externdef ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
+externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)
 extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::RefreshForHumanoid()
 externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
@@ -614,6 +629,7 @@ externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51E7FC@NetStru1@@QAEPAVPacket@@EPAUNetStru2@@@Z :proc
 
 
+externdef ?sub_51AC77@NetStru1@@QAEXPAVCObject@@PAVPlayer@@C@Z :proc             ; NetStru1::sub_51AC77(CObject*,Player*,int8_t)
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
 externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
 externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
@@ -677,6 +693,8 @@ externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 
 
 ; World
+externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
+externdef ?sub_5B0E08@World@@QAEXH@Z :proc                                       ; World::sub_5B0E08(int)
 externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc
@@ -1018,3 +1036,6 @@ externdef ?clrsh_TechBlack@@3PAGA  :word
 ; Free functions
 
 externdef _sub_5049D1 :proc
+externdef _sub_536630 :proc   ; start attack?
+externdef _sub_53678F :proc   ; execute attack?
+externdef _sub_542216 :proc   ; RangedRand(n)

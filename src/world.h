@@ -121,6 +121,8 @@ public:
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AF683(Player* player, int32_t param);
     void sub_5A79C9(Unit* unit);
+    void sub_5A9B6B(Unit* unit); // AI tick for a monster unit?
+    void sub_5B0E08(int32_t script_id); // Run script by instance ID
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);

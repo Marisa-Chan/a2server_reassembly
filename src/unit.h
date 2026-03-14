@@ -111,6 +111,9 @@ public:
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     void sub_52C409();
     void sub_52C813();
+    int32_t sub_52BABD(); // Returns g_Server->tick - last_action_tick
+    void sub_52BDD7(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step
+    void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
     void sub_54471B(Shop* bldg);
     void sub_544737(Shop* bldg);
     void sub_544777(Shop* bldg);
@@ -170,7 +173,8 @@ public:
     uint32_t experience;
     uint8_t charge;
     uint8_t relax;
-    uint8_t gap_0x136[2];
+    uint8_t field_0x136;
+    uint8_t gap_0x137;
     uint32_t last_action_tick;
     uint8_t decay; // Decay level. 0: alive (HP > 0), 1: on the ground (HP = 0), 2: fresh corpse (HP >= -20), 3: bones (HP >= -50), 4: old bones (HP >= -600), 5: completely gone.
     uint8_t gap_0x13d[3];

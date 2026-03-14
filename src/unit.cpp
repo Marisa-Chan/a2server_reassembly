@@ -4,12 +4,23 @@
 
 #include "unit.h"
 
+#include "building.h"
+#include "buildings_list.h"
+#include "effect.h"
 #include "eye.h"
+#include "game_app.h"
+#include "inn.h"
 #include "inventory.h"
 #include "item.h"
+#include "map_stuff.h"
+#include "net.h"
 #include "player.h"
+#include "sack.h"
+#include "server.h"
+#include "shop.h"
 #include "spell.h"
 #include "table.h"
+#include "world.h"
 
 //52e9e3
 EquipmentExtra::EquipmentExtra() = default;
@@ -118,6 +129,249 @@ Unit::~Unit()
     Unit::VMethod10();
 }
 
+// CRuntimeClass objects for building sub-types, defined in Main.asm.
+extern "C" CRuntimeClass PointerRuntimeClass; // stru_637228
+extern "C" CRuntimeClass ShopRuntimeClass;   // stru_637258
+extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
+
+// Free functions called from VMethod2 (all in Main.asm)
+extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
+extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
+extern "C" int32_t __cdecl sub_542216(int32_t n); // RangedRand(n)
+
+// 52A857
+void Unit::VMethod2()
+{
+    if (this->some_state == 0x10) {
+        return;
+    }
+
+    // --- Effect processing ---
+    {
+        POSITION pos = this->_effects.GetHeadPosition();
+        while (pos != nullptr) {
+            POSITION cur_pos = pos;
+            Effect* effect = this->_effects.GetNext(pos); // returns cur, advances pos to next
+
+            effect->VMethod10(this);
+
+            if (effect->usage_type & 0x80) {
+                this->_effects.RemoveAt(cur_pos);
+                delete effect;
+            }
+        }
+    }
+
+    // Decay.
+    if (hp < 1) {
+        this->state = 0;
+        this->some_state = 0;
+        if (this->decay == 0) {
+            this->decay = 1;
+            this->sub_52C813();
+            this->protections.defense /= 2;
+            this->charge_countdown = (int8_t)(this->VMethod25() - 1);
+            g_NetStru1_main.sub_519221(this, nullptr, 0x4001, 0xffb, 0, 0);
+        } else if (this->charge_countdown < 1) {
+            if (this->movement_type > 1)
+                this->hp = -1000;
+            if (this->hp < -9) {
+                this->some_state = 0x10;
+                this->sub_52D94E(); // Kill the unit.
+            }
+        } else {
+            this->charge_countdown--;
+        }
+        return;
+    }
+
+    if (g_Server && g_Server->field4_0x74) {
+        if (this->pOwner && this == this->pOwner->main_unit && this->sub_52BABD() == 0x50) {
+            g_NetStru1_main.sub_519221(this, nullptr, 0x10, 0xffb, 0, 0);
+        }
+    }
+
+    uint16_t x_wide = this->position->GetXx();
+    uint16_t y_wide = this->position->GetYy();
+    uint8_t eye_f0 = this->eye->field0_0x0;
+    uint8_t eye_f1 = this->eye->field1_0x1;
+
+    if (this->monster_info) {
+        g_World->sub_5A9B6B(this);
+    }
+
+    switch (this->some_state) {
+    case 1: // Move?
+        sub_52BDD7(x_wide, y_wide, eye_f0, eye_f1);
+        this->some_state2 = 0;
+        break;
+
+    case 2: // Pick up sack.
+        {
+            Sack* sack = MapStuff_Instance->sub_58E5F3(this->position);
+            if (sack) {
+                g_Server->sub_4F9AD3(sack);
+                MapStuff_Instance->sub_58E525(sack);
+                POSITION pos = g_Server->srv_stru1->sack_list->list.Find(sack);
+                if (pos) {
+                    g_Server->srv_stru1->sack_list->list.RemoveAt(pos);
+                }
+                sub_52C98B(sack);
+            }
+            break;
+        }
+
+    case 3: // Attack.
+    case 0xd: // Spell cast.
+    case 0xe: // Area spell cast.
+        {
+            if (this->some_state2 == 0) {
+                int32_t charge_extra = 0;
+                if (this->some_state == 3) {
+                    if (!weapon || !weapon->imbued_spell || !(unit_attrs & 4)) {
+                        sub_536630(this, cast_target, &charge_extra);
+                    } else {
+                        this->some_spell = weapon->imbued_spell;
+                        this->some_item  = static_cast<Item*>(weapon);
+                        this->some_state = 0xd;
+                    }
+                }
+                if (this->some_state == 0xd || this->some_state == 0xe) {
+                    int32_t ok;
+
+                    if (this->some_state == 0xd) {
+                        ok = this->some_spell->sub_539958(this, this->cast_target, 0, 0);
+                    } else {
+                        ok = this->some_spell->sub_539958(this, nullptr, this->area_cast_x, this->area_cast_y);
+                    }
+
+                    if (ok) {
+                        this->field_0x136 = 0;
+                        this->some_state2 = 5;
+                        this->charge_countdown = this->charge;
+                    }
+                } else {
+                    this->field_0x136 = 0;
+                    this->some_state2 = 5;
+                    this->charge_countdown = (int8_t)(this->charge + charge_extra);
+                }
+            } else if (this->some_state2 == 5) { // Countdown to attack or spell execution.
+                this->charge_countdown--;
+                if (this->charge_countdown == 0) {
+                    if (this->some_state == 3) {
+                        if (!weapon || !weapon->imbued_spell || !(unit_attrs & 4)) {
+                            sub_53678F(this, cast_target);
+                        } else {
+                            this->some_spell = weapon->imbued_spell;
+                            this->some_item  = static_cast<Item*>(weapon);
+                            this->some_state = 0xd;
+                        }
+                    }
+                    if (this->some_state == 0xd || this->some_state == 0xe) {
+                        SpellInfo* expected = &g_GameDataRes.spells[this->some_spell->spell_id];
+                        if (this->some_spell->spell_info != expected) {
+                            uint8_t sid = this->some_spell->spell_id;
+                            if (sid == 0 || sid >= 30) {
+                                LogMessage(CString("Bad spell data, casting rejected"));
+                                break;
+                            }
+                            LogMessage(CString("Bad spell data, restoring spell"));
+                            this->some_spell->spell_info = expected;
+                        }
+                        if (this->some_state == 0xd) {
+                            this->some_spell->sub_539F21(this, this->cast_target);
+                        } else {
+                            this->some_spell->sub_539F5A(this, nullptr, this->area_cast_x, this->area_cast_y);
+                        }
+
+                        if (this->some_item != nullptr) {
+                            if (((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+                                delete this->some_item;
+                                delete this->some_spell;
+                            }
+                            this->some_item = nullptr;
+                            this->some_spell = nullptr;
+                        }
+                    }
+
+                    this->some_state2 = 7;
+                    int32_t relax_extra = 0;
+                    if (this->weapon && this->VMethod8()) {
+                        relax_extra = (this->weapon->weight + (30 - (int)this->reaction) * 5) / 12;
+                        if (relax_extra < 0) {
+                            relax_extra = 0;
+                        } else if (relax_extra > 12) {
+                            relax_extra = 12;
+                        }
+                    }
+                    this->charge_countdown = (int8_t)(this->relax + relax_extra + sub_542216(3));
+                    if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
+                        this->charge_countdown += (int8_t)this->some_spell->spell_info->values[0].level;
+                    }
+                }
+            } else if (this->some_state2 == 7) { // Countdown after attack or spell execution.
+                this->charge_countdown--;
+                if (this->charge_countdown == 0) {
+                    this->some_state2 = 0;
+                    this->field_0x136 = 1;
+                }
+            }
+            break;
+        }
+
+    case 0xf: // Interact with building
+        {
+            BuildingsList* building_list = g_Server->srv_stru1->building_list;
+
+            Building* building = building_list->sub_558128(this->position);
+            if (building) {
+                // TODO: also check C++ runtime class.
+                if (building->IsKindOf(&ShopRuntimeClass)) { // Shop
+                    g_NetStru1_main.FUN_0051cefb(0x83, building->object_info_id, 0, this->pOwner);
+                    break;
+                }
+                if (building->IsKindOf(&InnRuntimeClass)) { // Inn
+                    g_NetStru1_main.FUN_0051cefb(0x84, building->object_info_id, building->building_id, this->pOwner);
+                    break;
+                }
+                if (building->IsKindOf(&PointerRuntimeClass)) { // Pointer
+                    Pointer* ptr = static_cast<Pointer*>(building);
+                    if (ptr->script_instance_id > 0) {
+                        g_World->sub_5B0E08(ptr->script_instance_id);
+                    }
+                    break;
+                }
+                if (building->typeId == 0x42 && g_CLlDriver.use_provider == 4) {
+                    NetStru2* ns2 = g_NetStru1_main.FUN_00518544(this->pOwner->player_id);
+                    if (ns2) {
+                        g_NetStru1_main.FUN_005170b6(ns2);
+                    }
+                    g_NetStru1_main.FUN_0051800f();
+                    this->pOwner->field_0xa50 = (uint32_t)g_Server->tick16;
+                }
+                // Toggles.
+                if (building->typeId == 0x1c || building->typeId == 0x1d || building->typeId == 0x4c || building->typeId == 0x4d) {
+                    building->hp = (building->hp == 0) ? 1 : 0;
+                    g_NetStru1_main.sub_51AC77(building, nullptr, 0);
+                }
+            }
+
+            Building* near_building = building_list->sub_557EA5(this->position);
+            if (near_building) {
+                if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
+                    near_building->hp--;
+                    g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
+                    this->VMethod13(new Item(CString("Potion Big Healing")));
+                } else if (near_building->object_info_id == 0x10 && near_building->hp > 0) {
+                    near_building->hp--;
+                    g_NetStru1_main.sub_51AC77(near_building, nullptr, 0);
+                    this->VMethod13(new Item(CString("Potion Big Mana")));
+                }
+            }
+            break;
+        }
+    }
+}
 
 int32_t Unit::VMethod3()
 {

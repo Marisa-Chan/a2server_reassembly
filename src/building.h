@@ -39,6 +39,7 @@ class Pointer : public Building {
 public:
     int32_t script_instance_id;
 };
+ASSERT_OFFSET(Pointer, object_info_id, 0x40);
 ASSERT_OFFSET(Pointer, script_instance_id, 0x6c);
 ASSERT_SIZE(Pointer, 0x70);
 
