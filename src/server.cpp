@@ -1971,76 +1971,63 @@ void Server::sub_504a96(Packet* pkt)
             }
 
             if (g_ServerConfig.gameType == 0 && (player->main_unit->unit_attrs & 8) != 0) {
-                using effect_apply = void(__thiscall*)(Effect*, Unit*); // TODO: migrate Effect::VMethod11
                 {
-                    CString name("castSpell=Invisibility:20");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name); // Constructor. TODO: migrate `Effect`.
+                    Effect* eff = new Effect("castSpell=Invisibility:20");
                     eff->itemDataID  = 0xC;
                     eff->typeId      = 0x20;
                     eff->usage_type |= 1;
                     eff->spell_value = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
                 {
-                    CString name("castSpell=Protection_from_Fire:200");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name);
+                    Effect* eff = new Effect("castSpell=Protection_from_Fire:200");
                     eff->itemDataID     = 4;
                     eff->typeId         = 0x10;
                     eff->usage_type    |= 1;
                     eff->effect_id      = 0x15;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
                 {
-                    CString name("castSpell=Protection_from_Water:200");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name);
+                    Effect* eff = new Effect("castSpell=Protection_from_Water:200");
                     eff->itemDataID     = 8;
                     eff->typeId         = 0x18;
                     eff->usage_type    |= 1;
                     eff->effect_id      = 0x16;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
                 {
-                    CString name("castSpell=Protection_from_Earth:200");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name);
+                    Effect* eff = new Effect("castSpell=Protection_from_Earth:200");
                     eff->itemDataID     = 0x13;
                     eff->typeId         = 0x2E;
                     eff->usage_type    |= 1;
                     eff->effect_id      = 0x18;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
                 {
-                    CString name("castSpell=Protection_from_Air:200");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name);
+                    Effect* eff = new Effect("castSpell=Protection_from_Air:200");
                     eff->itemDataID     = 0xD;
                     eff->typeId         = 0x22;
                     eff->usage_type    |= 1;
                     eff->effect_id      = 0x17;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
                 {
-                    CString name("castSpell=Shield:200");
-                    Effect* eff = new Effect();
-                    eff->sub_53EC55(&name);
+                    Effect* eff = new Effect("castSpell=Shield:200");
                     eff->itemDataID     = 0x1B;
                     eff->typeId         = 0x3E;
                     eff->usage_type    |= 1;
                     eff->effect_id      = 0x10;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
-                    reinterpret_cast<effect_apply*>(*reinterpret_cast<void**>(eff))[15](eff, player->main_unit);
+                    eff->VMethod11(player->main_unit);
                 }
             }
 

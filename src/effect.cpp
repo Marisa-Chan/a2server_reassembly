@@ -1,12 +1,92 @@
 #include "effect.h"
 
+IMPLEMENT_SERIAL(Effect, Token, 1);
 
-void Effect::VMethod10(Unit* unit)
+Effect::Effect()
 {
-    // TODO: migrate
+    //53ec02
+    typeId = 0;
+    effect_id = 0;
+    usage_type = 0;
+    spell_or_damage = 0;
+    spell_value = 0;
+    itemDataID = 0;
+    field_0x44 = 0;
 }
 
-void Effect::VMethod11(Unit* unit)
+
+Effect::Effect(const CString& name)
 {
-    // TODO: migrate
+    //53ec55
+    Effect* tmp = CreateFromString(name);
+    if (tmp)
+    {
+        effect_id = tmp->effect_id;
+        usage_type = tmp->usage_type;
+        spell_or_damage = tmp->spell_or_damage;
+        spell_value = tmp->spell_value;
+        itemDataID = tmp->itemDataID;
+
+        delete tmp;
+
+        field_0x44 = 0;
+    }
+    else
+    {
+        effect_id = 0;
+        usage_type = 0;
+        spell_or_damage = 0;
+        spell_value = 0;
+        itemDataID = 0;
+    }
 }
+
+Effect::Effect(const Effect* src)
+: Token(*src)
+{
+    //53ed4d
+    effect_id = src->effect_id;
+    usage_type = src->usage_type;
+    spell_or_damage = src->spell_or_damage;
+    spell_value = src->spell_value;
+    itemDataID = src->itemDataID;
+    field_0x44 = src->field_0x44;
+}
+
+Effect::~Effect()
+{
+    //57c350
+}
+
+void Effect::Serialize(CArchive& ar)
+{
+    //53e1ce
+    Token::Serialize(ar);
+    if (ar.IsStoring())
+    {
+        ar << effect_id;
+        ar << usage_type;
+        ar << spell_or_damage;
+        ar << spell_value;
+        ar << itemDataID;
+    }
+    else
+    {
+        ar >> effect_id;
+        ar >> usage_type;
+        ar >> spell_or_damage;
+        ar >> spell_value;
+        ar >> itemDataID;
+    }
+}
+
+
+//void Effect::VMethod10(Unit* unit)
+//{
+    // TODO: migrate
+//}
+
+//void Effect::VMethod11(Unit* unit)
+//{
+    // TODO: migrate
+//}

@@ -492,7 +492,30 @@ extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __this
 
 ; Effect
 
-externdef ?sub_53EC55@Effect@@QAEPAV1@PAVCString@@@Z :proc
+
+extern ??5@YGAAVCArchive@@AAV0@AAPAVEffect@@@Z : proc   ; CArchive >> Effect
+
+extern ?classEffect@Effect@@2UCRuntimeClass@@A  : byte
+
+extern ?GetRuntimeClass@Effect@@UBEPAUCRuntimeClass@@XZ  : proc
+extern ??1Effect@@UAE@XZ  : proc
+extern ?Serialize@Effect@@UAEXAAVCArchive@@@Z  : proc
+
+externdef ?VMethod10@Effect@@UAEXPAVUnit@@@Z  : proc
+externdef ?VMethod11@Effect@@UAEXPAVUnit@@@Z  : proc
+externdef ?VMethod12@Effect@@UAEXPAVUnit@@@Z  : proc
+externdef ?VMethod13@Effect@@UAEXPAVUnit@@@Z  : proc
+externdef ?VMethod14@Effect@@UAEXPAVUnit@@H@Z  : proc
+externdef ?VMethod15@Effect@@UAEHXZ  : proc
+externdef ?VMethod16@Effect@@UAEHN@Z  : proc
+externdef ?VMethod17@Effect@@UAEXH@Z  : proc
+
+extern ??0Effect@@QAE@XZ  : proc
+extern ??0Effect@@QAE@ABVCString@@@Z  : proc
+extern ??0Effect@@QAE@PBV0@@Z  : proc
+
+externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
+
 
 
 ; AreaEffect

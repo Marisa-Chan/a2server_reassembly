@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -263,6 +263,7 @@
     <Image Include="res\Icon_1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="buildings_list.cpp" />
     <ClCompile Include="game_app.cpp" />
     <ClCompile Include="mfc_coll.cpp" />
     <ClCompile Include="alm.cpp" />
@@ -322,6 +323,8 @@
     <ClInclude Include="assert_offset.h" />
     <ClInclude Include="bitset.h" />
     <ClInclude Include="building.h" />
+    <ClInclude Include="buildings_list.h" />
+    <ClInclude Include="effect.h" />
     <ClInclude Include="eye.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="game_app.h" />
