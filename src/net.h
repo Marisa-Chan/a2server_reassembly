@@ -16,6 +16,7 @@ struct NetStru2;
 struct NetStru3;
 class Packet;
 class Player;
+class Token;
 class Unit;
 class QuestMap;
 
@@ -76,6 +77,7 @@ public:
     void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void FUN_0051ceac(uint32_t id, Player* recpt);
     void FUN_0051c748(Player* recpt);
+    void sub_51C61E(Token* token); // Remove unit/sack from network tracking
     void FUN_0051d49b(Player* recpt);
     void FUN_005188db();
 

@@ -72,7 +72,7 @@ public:
     uint32_t field_0xa64;
     uint32_t field_0xa68;
     uint32_t field_0xa6c;
-    uint32_t field_0xa70;
+    uint32_t field_0xa70; // Team play: 0 for blue team, 1 for red team.
     uint16_t building_entered_from_yx;
     uint8_t field_0xa76;
     uint8_t field_0xa77;

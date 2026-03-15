@@ -12,10 +12,12 @@
 struct Inventory {
 public:
     Inventory(); // sub_551C0A — initializes CList and default fields
-    ~Inventory(); // sub_551C7A — empties and destroys the items list
+    ~Inventory(); // sub_551C7A
     void PutItemIntoBagAtDefault(Item *item);
     void PutItemIntoBag(int32_t pos, Item *item); // in asm
     Item* sub_552E42(int32_t item_number, int32_t count);
+    void sub_552A42(Inventory* src); // Transfer all items from src into this inventory
+    void sub_574C20(CList<Item*>::CNode* node); // Remove a CList<Item*> node from this inventory
 
 public:
     CList<Item*> items;

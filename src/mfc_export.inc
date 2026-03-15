@@ -539,6 +539,8 @@ extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: v
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
 externdef ??0Inventory@@QAE@XZ :proc
 externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc
+externdef ?sub_552A42@Inventory@@QAEXPAU1@@Z :proc
+externdef ?sub_574C20@Inventory@@QAEXPAUCNode@?$CList@PAVItem@@ABQAV1@@@@Z :proc
 
 
 
@@ -632,6 +634,7 @@ externdef ?FUN_005186cd@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_0051
 externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
 externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
+externdef ?sub_51C61E@NetStru1@@QAEXPAVToken@@@Z :proc      ; NetStru1::sub_51C61E(class Token *)
 externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
@@ -1062,3 +1065,4 @@ externdef _sub_5049D1 :proc
 externdef _sub_536630 :proc   ; start attack?
 externdef _sub_53678F :proc   ; execute attack?
 externdef _sub_542216 :proc   ; RangedRand(n)
+externdef _sub_530726 :proc   ; ExperienceToSkillLevel

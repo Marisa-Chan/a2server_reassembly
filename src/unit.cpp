@@ -138,6 +138,8 @@ extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
 extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
 extern "C" int32_t __cdecl sub_542216(int32_t n); // RangedRand(n)
+extern "C" int32_t sub_530726(int32_t skill_level); // Returns experience required for given skill level.
+
 
 // 52A857
 void Unit::VMethod2()
@@ -509,7 +511,165 @@ int32_t Unit::VMethod25()
     return monster_info->values[0].dying_time;
 }
 
+// 52C98B
+void Unit::sub_52C98B(Sack* sack)
+{
+    if (sack == nullptr) {
+        return;
+    }
 
+    uint32_t update_mask = 0;
+
+    // Give gold to owner.
+    if (sack->money > 0) {
+        this->pOwner->FUN_00534AC1(sack->money, 0);
+    }
+
+    if (sack->inventory != nullptr) {
+        // Safe iteration: cache next pointer before processing, in case node is removed.
+        auto* cur_node  = sack->inventory->items.m_pNodeHead;
+        Item* item      = cur_node ? cur_node->data  : nullptr;
+        auto* next_node = cur_node ? cur_node->pNext : nullptr;
+
+        while (item != nullptr) {
+            if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+                bool apply_buff = false;
+
+                // Check for consumable buff scrolls.
+                if (item->world_equip->name.Find("Scroll Protection") != -1 ||
+                        item->world_equip->name.Find("Scroll Bless") != -1 ||
+                        item->world_equip->name.Find("Scroll Shield") != -1 ||
+                        item->world_equip->name.Find("Scroll Haste") != -1 ||
+                        item->world_equip->name.Find("Scroll Invisibility") != -1) {
+                    sack->inventory->sub_574C20(cur_node);
+                    apply_buff = true;
+                } else if (item->world_equip->name.Find("Quest Meta") == 0) {
+                    // "Quest Meta X": digit at name[10] gives per-sphere skill boost.
+                    int16_t boost = (item->world_equip->name[10] - '0') * 5;
+                    sack->inventory->sub_574C20(cur_node);
+                    delete item;
+                    item = nullptr;
+
+                    Humanoid* human = static_cast<Humanoid*>(this);
+                    human->experience = 0;
+                    for (int sphere = 1; sphere < 6; ++sphere) {
+                        int16_t new_lvl = (std::min)(human->hit_values.skill_levels[sphere] + boost, 100);
+                        human->hit_values.skill_levels[sphere] = new_lvl;
+                        human->hit_values2.skill_levels[sphere] = new_lvl;
+                        int32_t exp_val = sub_530726(new_lvl);
+                        human->experience_per_sphere[sphere - 1] = exp_val;
+                        human->experience += exp_val;
+                    }
+                    human->VMethod18();
+                    update_mask = 0x31f0f;
+                    g_NetStru1_main.FUN_0051ce86(9, boost, human->pOwner);
+                } else {
+                    item->TokenID = 1;
+                }
+
+                // In team mode, discard buff if this player is the current rune-holder.
+                if (g_ServerConfig.gameType == 2 && apply_buff && item != nullptr) {
+                    uint32_t player_id = (this->pOwner->field_0xa70 == 0) ? g_Server->field61_0x210 : g_Server->field60_0x20c;
+                    if (player_id == this->pOwner->player_id) {
+                        apply_buff = false;
+                        delete item;
+                        item = nullptr;
+                    }
+                }
+
+                // Apply buff scroll effect to self.
+                if (apply_buff && item != nullptr) {
+                    Effect* effect = item->_effects.m_nCount > 0 ? item->_effects.m_pNodeHead->data : nullptr;
+                    if (effect != nullptr) {
+                        this->some_item = item;
+                        Spell* spl = new Spell(static_cast<uint8_t>(effect->spell_or_damage));
+                        spl->sub_539541(static_cast<uint8_t>(effect->spell_value));
+                        spl->sub_539F5A(this, this, 0, 0);
+                        if (this->some_item != nullptr) {
+                            delete this->some_item;
+                            this->some_item = nullptr;
+                        }
+                    }
+                    item = nullptr;
+                }
+
+                // Quest rune logic (team deathmatch only).
+                if (g_ServerConfig.gameType == 2 && item != nullptr) {
+                    bool rune_scored = false;
+
+                    if (item->world_equip->name.Find("Quest RuneF") != -1) {
+                        // Original logic: remove item from inventory and call `sub_57b990`. Looks equivalent to calling `sub_574C20`.
+                        sack->inventory->sub_574C20(cur_node);
+
+                        delete item;
+                        item = nullptr;
+
+                        if (this->pOwner->field_0xa70 == 0) {
+                            g_Server->sub_4F8FBF(0, 0);
+                            g_NetStru1_main.FUN_0051ce86(0x100, 0, nullptr);
+                        } else {
+                            rune_scored = true;
+                            g_Server->field60_0x20c = this->pOwner->player_id;
+                            g_Server->field62_0x214 = 0;
+                            g_NetStru1_main.FUN_0051d6b4(0);
+                            g_NetStru1_main.FUN_0051ce86(0x102, this->pOwner->player_id, nullptr);
+                        }
+                    } else if (item->world_equip->name.Find("Quest RuneA") != -1) {
+                        sack->inventory->sub_574C20(cur_node);
+                        delete item;
+                        item = nullptr;
+                        if (this->pOwner->field_0xa70 == 1) {
+                            g_Server->sub_4F8FBF(1, 0);
+                            g_NetStru1_main.FUN_0051ce86(0x101, 0, nullptr);
+                        } else {
+                            rune_scored = true;
+                            g_Server->field61_0x210 = this->pOwner->player_id;
+                            g_Server->field63_0x218 = 0;
+                            g_NetStru1_main.FUN_0051d6b4(0);
+                            g_NetStru1_main.FUN_0051ce86(0x103, this->pOwner->player_id, nullptr);
+                        }
+                    }
+
+                    // Rune scored: flush all active effects on this unit.
+                    if (rune_scored) {
+                        POSITION effect_pos = this->_effects.GetHeadPosition();
+                        while (effect_pos != nullptr) {
+                            POSITION cur_pos = effect_pos;
+                            Effect* effect = this->_effects.GetNext(effect_pos);
+
+                            effect->spell_value = 1;
+                            effect->field_0x44 = 0;
+                            effect->VMethod10(this);
+
+                            if (effect->usage_type & 0x80) {
+                                this->_effects.RemoveAt(cur_pos);
+                                delete effect;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Advance (safe against node removal during iteration).
+            if (next_node == nullptr) {
+                item = nullptr;
+            } else {
+                item = next_node->data;
+                next_node = next_node->pNext;
+            }
+        } // end item loop
+
+        // Transfer all remaining items from sack to this unit's inventory.
+        this->inventory->sub_552A42(sack->inventory);
+        sack->inventory = nullptr;
+        this->sub_52A790(0); // Add weight.
+    } // end if sack->inventory
+
+    g_NetStru1_main.sub_51C61E(sack);
+    delete sack;
+
+    g_NetStru1_main.sub_519221(this, nullptr, update_mask | 0x282000, 0xffb, 0, 0);
+}
 
 IMPLEMENT_SERIAL(Unit, Token, 1);
 
