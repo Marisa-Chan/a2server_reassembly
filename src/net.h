@@ -112,7 +112,7 @@ public:
 
     NetStru2* sub_5185D5(uint16_t player_id);
     void sub_51C46E(Player* player);
-    void sub_51C601(Unit* unit);        // Send unit-level-up packet
+    void sub_51C601(Unit* unit, int unused);        // Send unit-level-up packet
     void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
 
     // sub_51E7FC – decode an incoming network message into the appropriate Packet singleton,

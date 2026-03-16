@@ -110,8 +110,8 @@ public:
     void sub_5ACB4D(Group* group, Token* target, uint8_t param_3);
     void sub_5AC289(Group* group, uint8_t x, uint8_t y);
     void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
-    void sub_5AC187(Group* group, Token* target);
-    void sub_5AC206(Group* group, uint8_t x, uint8_t y);
+    void sub_5AC187(Group* group, Token* target, Spell*);
+    void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
     void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
     void sub_5A90F4(Unit* unit, Building* bldg);
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);

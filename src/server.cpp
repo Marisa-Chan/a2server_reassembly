@@ -1340,15 +1340,15 @@ void Server::sub_504a96(Packet* pkt)
             break;
         case 0x1E: // cast at unit/building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5AC187(group, target);
+                g_World->sub_5AC187(group, target, cast_spell);
                 player->sub_534B59();
             }
             break;
         case 0x1F: // cast at position?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                if (cast_spell && cast_spell->sub_53939E()) {
-                    g_World->sub_5AC206(group, x, y);
+                if (cast_spell && cast_spell->sub_53939E(pio->field_0xa, pio->field_0xc)) {
+                    g_World->sub_5AC206(group, x, y, cast_spell);
                 }
             }
             break;
@@ -1397,15 +1397,15 @@ void Server::sub_504a96(Packet* pkt)
 
                     spell->sub_539541(eff->spell_value);
                     if (pkt->id == 0x25) {
-                        g_World->sub_5AC187(group, target);
+                        g_World->sub_5AC187(group, target, spell);
                     } else {
-                        if (!spell->sub_53939E()) {
+                        if (!spell->sub_53939E(pio->field_0xa, pio->field_0xc)) {
                             player->main_unit->inventory->PutItemIntoBag(pio->field_0x10, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;
                             player->main_unit->spell = nullptr;
                         } else {
-                            g_World->sub_5AC206(group, x, y);
+                            g_World->sub_5AC206(group, x, y, spell);
                         }
                     }
                 }
@@ -2091,7 +2091,7 @@ void Server::sub_504a96(Packet* pkt)
 
                 if (player->main_unit && player->main_unit->hp > -1) {
                     player->main_unit->hp -= 1;
-                    g_NetStru1_main.sub_51C601(player->main_unit);
+                    g_NetStru1_main.sub_51C601(player->main_unit, 1);
                 }
             }
             break;

@@ -8,6 +8,7 @@
 
 
 class Building;
+struct TokenPos;
 
 
 class BuildingsList : public CList<Building*> {

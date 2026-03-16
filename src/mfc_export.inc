@@ -556,7 +556,7 @@ externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
-externdef ?sub_53939E@Spell@@QAE_NXZ :proc
+externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
 
 
 ; SpellBook
@@ -661,7 +661,7 @@ externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::
 externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
 
 externdef ?sub_51C46E@NetStru1@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
 externdef ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 externdef ?sub_5185D5@NetStru1@@QAEPAUNetStru2@@G@Z :proc
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
@@ -712,6 +712,8 @@ externdef ?sub_502B4A@Server@@QAEPAVPlayer@@G@Z :proc
 externdef ?sub_4ED2DC@Server@@QAEXPAVCString@@@Z :proc
 externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 
+extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
+
 
 ; CowardActivation
 
@@ -729,8 +731,8 @@ externdef ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
 externdef ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
 externdef ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z :proc
 externdef ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
-externdef ?sub_5AC206@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z :proc
+externdef ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z :proc
 externdef ?sub_5A9961@World@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z :proc
 externdef ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z :proc
