@@ -7,6 +7,8 @@
 #include "assert_offset.h"
 #include "mfc_templ.h"
 
+#include "dplay.h"
+
 
 class AreaEffect;
 struct CLlDriver;
@@ -32,26 +34,34 @@ struct PackerTail {
 ASSERT_SIZE(PackerTail, 0x18);
 
 struct PackerDat {
-    std::array<int32_t, 256> field_0x0;
-    std::array<int32_t, 256> field_0x400;
-    std::array<int32_t, 256> field_0x800;
+    std::array<int32_t, 256> bitMap;
+    std::array<int32_t, 256> bitLength;
+    std::array<int32_t, 256> freq;
     PackerTail* tail;
 };
-ASSERT_OFFSET(PackerDat, field_0x800, 0x800);
+ASSERT_OFFSET(PackerDat, freq, 0x800);
 ASSERT_SIZE(PackerDat, 0xc04);
+
+struct ConnStatInfo {
+    uint32_t field1;
+    uint32_t cur_bs;
+    uint32_t total_bytes;
+    uint32_t max_bs;
+    uint32_t time;
+};
+ASSERT_SIZE(ConnStatInfo, 0x14);
 
 class NetStru1 {
 public: // VTable at 0060ecc0.
-    uint32_t vtable;
-    // virtual void VMethod1(void* param_1) = 0; // Don't know the parameter type.
-    // virtual void VMethod2(void* param_1) = 0;
+    virtual void OnClientConnect(NetStru2* client);
+    virtual void OnClientDisconnect(NetStru2* client);
 
 public:
     CLlDriver* driver;
-    int32_t field_0x8;
+    NetStru1* field_0x8;
     CList<int32_t> list;
-    CList<NetStru2*> list_stru2;
-    CList<NetStru3*> list_stru3;
+    CList<NetStru2*> clients;
+    CList<NetStru3*> free_net3;
     CriticalSection critical_section;
     CriticalSection critical_section2;
     PackerDat packer_dat1;
@@ -65,7 +75,11 @@ public:
     void* field_0x18b0;
     NetStru2* fields_0x18b4;
     CList<NetStru2*> list_0x18b8;
-    CMap<int32_t, int32_t, int32_t, int32_t> map_0x18d4;
+    CMap<int32_t, int32_t, ConnStatInfo, ConnStatInfo&> client_stat;
+    uint8_t buf1[1024];
+    uint8_t buf2[1024];
+
+    static NetStru1 Inst;
 
 public:
     // Transfers unit ownership to another player.
@@ -122,7 +136,7 @@ public:
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
-ASSERT_SIZE(NetStru1, 0x18f0);
+ASSERT_SIZE(NetStru1, 0x20f0);
 
 struct NetStru3 {
     int32_t field_0x0;
@@ -164,7 +178,7 @@ public:
     int FUN_00515ef3(void* buf, uint32_t size);
     int FUN_00515f9c(void* buf, uint32_t size);
 
-    // sub_5167A5 – walks the list_stru3 linked list and decrements the
+    // sub_5167A5 – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
     void sub_5167A5();
 };
@@ -193,44 +207,93 @@ ASSERT_OFFSET(A2NetSock, wait_obj, 0x268);
 ASSERT_SIZE(A2NetSock, 0x274);
 
 struct SocketNm {
-    uint8_t field_0x0;
-    uint8_t field_0x4;
+    DPID dpid;
+    A2NetSock *sock;
 };
 
-struct SockStartNm {
-    char field_0x0[256];
-    char conn_string[256];
+struct ComSettings 
+{
+    int32_t index;
+    uint32_t speed;
+    uint32_t stop_bits;
+    uint32_t parity;
+    uint32_t flow_control;
 };
+
+struct CLlName 
+{
+    char name[256];
+};
+
+struct CLlAddress : CLlName
+{
+    char address[256];
+    union {
+        struct {
+            uint32_t field_0x200;
+            uint32_t field_0x204;
+            uint32_t field_0x208;
+            uint32_t field_0x20c;
+            uint32_t field_0x210;
+        };
+        GUID guid;
+        ComSettings com;
+    };
+};
+ASSERT_SIZE(CLlAddress, 0x214);
+
+struct CLlNetSession : CLlName
+{
+    GUID guid;
+};
+ASSERT_SIZE(CLlNetSession, 0x110);
+
+struct CLlConn : CLlName
+{
+    int32_t typ;
+};
+ASSERT_SIZE(CLlConn, 0x104);
 
 struct CLlDriver {
     NetStru1* net_stru1;
     A2NetSock listen_socket;
-    A2NetSock socket;
-    int32_t field_0x4ec;
-    int32_t use_provider;
-    int32_t field_0x4f4;
-    int32_t field_0x4f8;
-    uint8_t gap_0x4fc[128];
+    A2NetSock ping_socket;
+    int32_t is_server;
+    int32_t provider;
+    int32_t guaranteed;
+    int32_t latency;
+    char address_str[128];
     A2NetSock* connection_sockets;
-    SocketNm* socket_nms;
-    int32_t field_0x584[8];
-    int32_t num_connections;
-    int32_t field_0x5a8;
-    int32_t maybe_next_uid;
-    int32_t field_0x5b0;
-    int32_t some_consts[4];
-    void* dplay;
-    int32_t field_0x5c8;
-    HANDLE handle;
-    int32_t field_0x5d0;
-    int32_t field_0x5d4;
-    uint8_t gap_0x5d8[532];
+    SocketNm* connections_info;
+    CLlAddress* enum_addresses;
+    uint32_t enum_addresses_num;
+    CLlNetSession* enum_sessions;
+    uint32_t enum_sessions_num;
+    CLlName* enum_players;
+    uint32_t enum_players_num;
+    CLlConn* enum_conns;
+    uint32_t enum_conns_num;
+    uint32_t max_connections;
+    uint32_t num_connections;
+    uint32_t next_uid;
+    uint32_t unused;
+    GUID application_guid;
+    union
+    {
+        IDirectPlay4A* dplay4;
+        IDirectPlay3A* dplay3;
+    };
+    HANDLE ev_create_player;
+    HANDLE ev_close;
+    HANDLE ev_new_session;
+    uint32_t session_lost;
+    CLlAddress cur_address;
     CriticalSection critical_section;
-    int32_t field_0x804;
-    int32_t field_0x808;
-    int32_t dplay_is_4;
+    uint32_t timeout;
+    uint32_t keepalive;
+    uint32_t dplay_is_4;
     char comp_name[256];
-    SockStartNm* add_strings;
+    CLlAddress* server_start_addr;
 
 public:
     void sub_5229CD(int32_t conn_uid, int32_t latency_ms); // Set connection latency limit

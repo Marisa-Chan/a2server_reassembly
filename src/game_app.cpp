@@ -194,7 +194,7 @@ BOOL GameApp::InitInstance()
 	if (strstr(m_lpCmdLine, "-trace"))
 		g_EnableTrace = 1;
 
-	g_CLlDriver.field_0x808 = 0;
+	g_CLlDriver.keepalive = 0;
 
 	Resources::StaticAddResFile("sfx.res");
 	Resources::StaticAddResFile("movies.res");
