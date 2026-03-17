@@ -166,6 +166,14 @@ externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
 ; Pointer
 externdef _PointerRuntimeClass :byte
 
+
+; ShopAssortment
+externdef ??0ShopAssortment@@QAE@XZ :proc
+externdef ??1ShopAssortment@@QAE@XZ :proc
+externdef ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z :proc
+externdef ?ArrangeShelfs@ShopAssortment@@QAEXHHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
+
+
 ;Scenario
 extern ?g_scenario_dll@@3PAUHINSTANCE__@@A  : dword
 externdef _ScenarioGetVar  :dword
@@ -415,6 +423,7 @@ externdef ?sub_544737@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_544777@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_544685@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_560C67@Unit@@QAEXPAVInn@@@Z :proc
+externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
 
 ; UnitEye
 

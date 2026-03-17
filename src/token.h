@@ -97,7 +97,7 @@ public:
 	int32_t building_id;
 	int32_t TokenID;
 	int16_t itemDataID;
-	int16_t typeId;
+	uint16_t typeId;
 	TokenPos* position = nullptr;
 	Player* pOwner = nullptr;
 	int16_t field_x18;

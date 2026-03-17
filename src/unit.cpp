@@ -18,6 +18,7 @@
 #include "sack.h"
 #include "server.h"
 #include "shop.h"
+#include "shop_assortment.h"
 #include "spell.h"
 #include "table.h"
 #include "world.h"
@@ -669,6 +670,175 @@ void Unit::sub_52C98B(Sack* sack)
     delete sack;
 
     g_NetStru1_main.sub_519221(this, nullptr, update_mask | 0x282000, 0xffb, 0, 0);
+}
+
+// 52D94E
+void Unit::sub_52D94E()
+{
+    // Summoned units: remove completely, don't leave a corpse.
+    if (this->summon_id != 0) {
+        this->hp = -10000;
+        this->summon_id = 0;
+    }
+
+    this->some_state = 0x10;
+    this->state = 0x10;
+
+    MapStuff_Instance->sub_58E3D1(this);
+
+    // Inline sub_58FD16: reset subcell position to cell center.
+    this->position->x_subcell = 0x80;
+    this->position->y_subcell = 0x80;
+
+    if (g_ServerConfig.gameType == 0 || (g_ServerConfig.gameType == 3 && this->typeId >= 0x40)) {
+        if (this->shield != nullptr) {
+            this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->shield));
+        }
+
+        // Unequip weapon if it has a non-zero 'other_param' (why?).
+        if (this->weapon != nullptr && this->weapon->world_equip->values.GetData()[0].other_param != 0) {
+            this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->weapon));
+        }
+
+        // VMethod15: unequip all remaining equipped items.
+        this->VMethod15();
+
+        bool is_npc = (this->monster_info->name.Find("NPC") != -1);
+        bool should_drop = false;
+
+        if (this->typeId >= 0x40) {
+            int roll = sub_542216(99); // [0, 99]
+            should_drop = (roll < 100 - g_ServerConfig.field_0xc4);
+        }
+
+        // Reset inventory if NPC, summoned, or flagged for drop.
+        if (is_npc || this->summoned != 0 || should_drop) {
+            delete this->inventory;
+            this->inventory = new Inventory();
+        }
+
+        int32_t gold = 0;
+
+        if (this->typeId >= 0x40 && this->summoned == 0) {
+            MonsterInfoData& monster_data = this->monster_info->values.GetData()[0];
+
+            // Gold drop.
+            if (sub_542216(100) < monster_data.treasure_gold) {
+                gold = monster_data.treasure_gold_min + sub_542216(monster_data.treasure_gold_max);
+            }
+
+            // Item drop.
+            if (sub_542216(100) < monster_data.treasure_item) {
+                ShopAssortment assort;
+
+                AssortGenParams params;
+                params.min_cost = monster_data.treasure_item_min;
+                params.max_cost = monster_data.treasure_item_max;
+                params.max_count = 100;
+                params.max_same_count = 1;
+                params.flags = monster_data.treasure_item_mask;
+
+                assort.GenerateAssortment(&params);
+
+                CArray<Item*> result;
+                assort.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &result);
+
+                if (result.GetSize() > 0) {
+                    int idx = sub_542216(result.GetSize() - 1); // [0, m_nSize-1]
+                    Item* item = result[idx];
+                    item->count = 1;
+                    this->inventory->PutItemIntoBagAtDefault(item);
+                }
+                // assort destructor deletes all items in assort.items.
+                // result destructor frees the pointer array (items not deleted here).
+            }
+        }
+
+        // Create sack if inventory has items or gold was dropped.
+        if ((this->inventory->items.m_nCount > 0 || gold > 0) && this->pOwner != nullptr) {
+            int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+            // Inline sub_52D8D3: drop inventory as a sack on the map.
+            g_Server->srv_stru1->sack_list->sub_554927(this->position, this->inventory, gold, is_main);
+            delete this->inventory;
+            this->inventory = new Inventory();
+        }
+    } else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
+        if (g_ServerConfig.gameType == 2) {
+            // Check if this unit's player is holding the opposing team's rune.
+            int32_t opposite_team = 1 - this->pOwner->field_0xa70;
+            int32_t rune_holder = (opposite_team == 0)
+                ? g_Server->field60_0x20c
+                : g_Server->field61_0x210;
+
+            if (rune_holder == this->pOwner->player_id) {
+                // Drop the appropriate rune item.
+                Item* rune;
+                if (this->pOwner->field_0xa70 == 0) {
+                    // Blue team was holding red's rune.
+                    rune = new Item(CString("Quest RuneA"));
+                } else {
+                    // Red team was holding blue's rune.
+                    rune = new Item(CString("Quest RuneF"));
+                }
+                this->inventory->PutItemIntoBagAtDefault(rune);
+
+                // Clear rune-holder state and flag rune as on the ground.
+                if (opposite_team == 0) {
+                    g_Server->field60_0x20c = 0;
+                    g_Server->field62_0x214 = 1;
+                } else {
+                    g_Server->field61_0x210 = 0;
+                    g_Server->field63_0x218 = 1;
+                }
+
+                g_NetStru1_main.FUN_0051ce86(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
+                g_NetStru1_main.FUN_0051d6b4(0);
+            }
+        }
+
+        // Create sack if inventory has items.
+        if (this->inventory->items.m_nCount > 0) {
+            int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+            g_Server->srv_stru1->sack_list->sub_554927(this->position, this->inventory, 0, is_main);
+            delete this->inventory;
+            this->inventory = new Inventory();
+        }
+    }
+
+    {
+        POSITION pos = this->_effects.GetHeadPosition();
+        while (pos != nullptr) {
+            POSITION cur_pos = pos;
+            Effect* effect = this->_effects.GetNext(pos);
+
+            // Inline sub_53EE08: check `usage_type & 3`.
+            if (effect->usage_type & 3) {
+                effect->spell_value = 1;
+                effect->VMethod10(this);
+
+                if (effect->usage_type & 0x80) {
+                    this->_effects.RemoveAt(cur_pos);
+                    delete effect;
+                }
+            }
+        }
+    }
+
+    // Hero-death: increment death counter and notify clients.
+    if (this->pOwner != nullptr && this->pOwner->main_unit == this) {
+        this->pOwner->deaths += 1;
+        g_NetStru1_main.sub_519221(this, this->pOwner, 0x2400000, 0xFFB, 0, 0);
+        g_Server->sub_4EE028(this);
+        this->hp = -50;
+    }
+
+    // Respawn notification for player character types (typeId 0x21-0x3F).
+    if (!g_Server->field4_0x74 && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
+        this->pOwner->field_0x40 = (uint8_t)(this->server_id - 0x13);
+        g_NetStru1_main.FUN_0051cefb(0xb4, this->pOwner->field_0x40, 0, this->pOwner);
+    }
+
+    this->sub_52E7FA();
 }
 
 IMPLEMENT_SERIAL(Unit, Token, 1);

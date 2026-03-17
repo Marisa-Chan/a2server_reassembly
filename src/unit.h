@@ -114,6 +114,7 @@ public:
     int32_t sub_52BABD(); // Returns g_Server->tick - last_action_tick
     void sub_52BDD7(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
+    void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     void sub_54471B(Shop* bldg);
     void sub_544737(Shop* bldg);
     void sub_544777(Shop* bldg);

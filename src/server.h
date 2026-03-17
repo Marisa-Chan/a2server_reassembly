@@ -161,7 +161,7 @@ public:
     uint32_t field57_0x200;
     uint32_t field58_0x204;
     uint32_t field59_0x208;
-    uint32_t field60_0x20c;
+    uint32_t field60_0x20c; // TODO: convert to two 2-int arrays. See `Unit::sub_52D94E` for logic.
     uint32_t field61_0x210;
     uint32_t field62_0x214;
     uint32_t field63_0x218;
@@ -226,7 +226,7 @@ struct ServerConfig
     uint32_t field_0xb8;
     uint32_t field_0xbc;
     uint32_t field_0xc0;
-    uint32_t field_0xc4;
+    int32_t field_0xc4;
 
     ServerConfig();
 };
