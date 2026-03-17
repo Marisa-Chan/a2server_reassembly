@@ -66,13 +66,13 @@ public:
     CriticalSection critical_section2;
     PackerDat packer_dat1;
     PackerDat packer_dat2;
-    int32_t field_0x1898;
-    int32_t field_0x189c;
-    int32_t field_0x18a0;
-    int32_t field_0x18a4;
-    int32_t field_0x18a8;
-    int32_t field_0x18ac;
-    void* field_0x18b0;
+    uint32_t field_0x1898;
+    uint32_t field_0x189c;
+    uint32_t field_0x18a0;
+    uint32_t field_0x18a4;
+    uint32_t field_0x18a8;
+    uint32_t field_0x18ac;
+    uint32_t field_0x18b0;
     NetStru2* fields_0x18b4;
     CList<NetStru2*> list_0x18b8;
     CMap<int32_t, int32_t, ConnStatInfo, ConnStatInfo&> client_stat;
@@ -138,40 +138,46 @@ ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
 ASSERT_SIZE(NetStru1, 0x20f0);
 
+__pragma(pack(push, 1))
 struct NetStru3 {
-    int32_t field_0x0;
-    int32_t field_0x4;
-    int32_t field_0x8;
-    int32_t field_0xc;
-    uint8_t gap_0x10[144];
-    int32_t field_0xa0;
-    int32_t field_0xa4;
+    uint32_t timestamp;
+    uint32_t timestamp2;
+    uint16_t pos;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+    uint8_t buf_id;
+    uint16_t size;
+    uint8_t field_0xf;
+    uint8_t buf[144];
+    uint32_t datasz;
+    uint32_t field_0xa4;
 };
-ASSERT_OFFSET(NetStru3, field_0xa0, 0xa0);
+__pragma(pack(pop))
+ASSERT_OFFSET(NetStru3, datasz, 0xa0);
 ASSERT_SIZE(NetStru3, 0xa8);
 
+__pragma(pack(push, 1))
 struct NetStru2 {
     NetStru1* net_stru1;
-    int32_t field_0x4;
-    uint8_t gap_0x8[256];
+    CLlDriver* driver;
+    uint8_t buf[256];
     uint16_t player_id;
     uint8_t gap_0x10a[2];
-    int32_t uid;
-    NetStru3 stru3;
-    NetStru3 stru3_2;
-    int32_t field_0x260;
-    CList<NetStru3*> list_stru3;
+    uint32_t uid;
+    NetStru3 stru3[2];
+    int32_t stru3_id;
+    CList<NetStru3*> unpacked_buffers;
     CriticalSection critical_section;
-    int32_t field_0x298;
-    int32_t field_0x29c;
-    int32_t field_0x2a0;
-    int32_t field_0x2a4;
-    int32_t field_0x2a8;
-    int32_t field_0x2ac;
+    uint32_t field_0x298;
+    uint32_t field_0x29c;
+    uint32_t field_0x2a0;
+    uint32_t field_0x2a4;
+    uint32_t field_0x2a8;
+    uint32_t field_0x2ac;
     CString str;
-    int32_t field_0x2b4;
-    int32_t field_0x2b8;
-    int32_t field_0x2bc;
+    uint32_t field_0x2b4;
+    uint32_t field_0x2b8;
+    uint32_t field_0x2bc;
 
 
 public:
@@ -182,25 +188,36 @@ public:
     // ref-count byte (field_0xF) of the first live entry it finds.
     void sub_5167A5();
 };
+__pragma(pack(pop))
+
 ASSERT_OFFSET(NetStru2, player_id, 0x108);
 ASSERT_OFFSET(NetStru2, critical_section, 0x280);
 ASSERT_SIZE(NetStru2, 0x2c0);
 
+struct NetSockLatency
+{
+    uint32_t lat_times[128];
+    uint32_t num;
+    uint32_t calc_latency;
+};
+
 struct A2NetSock {
-    int32_t is_in_use;
-    int32_t maybe_uid;
+    uint32_t is_in_use;
+    uint32_t uid;
     HANDLE socket;
-    int32_t field_0xc;
-    NetStru2* net_stru2;
-    CList<void*> list_0x14;
-    CList<void*> list_0x30;
-    uint8_t gap_0x4c[528]; // There some fields here, to be determined later.
-    int32_t field_0x25c;
+    DPID player_dpid;
+    NetStru2* manager;
+    CList<NetStru3*> list_0x14;
+    CList<NetStru3*> list_0x30;
+    uint32_t field_0x4c;
+    uint32_t field_0x50;
+    NetSockLatency latency_check;
+    uint32_t latency;
     int32_t field_0x260;
     int32_t field_0x264;
     HANDLE wait_obj;
-    NetStru3* stru3;
-    int32_t field_0x270;
+    NetStru3* current_buffer;
+    uint32_t copy_num;
 };
 ASSERT_OFFSET(A2NetSock, list_0x30, 0x30);
 ASSERT_OFFSET(A2NetSock, wait_obj, 0x268);

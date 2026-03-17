@@ -567,7 +567,7 @@ Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
 
     pkt->id = cmd;
 
-    if (field_0x18b0 == nullptr) {
+    if (field_0x18b0 == 0) {
         pkt->field_0x5 = 0;
     } else if (ns2->player_id == 0) {
         pkt->field_0x5 = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
