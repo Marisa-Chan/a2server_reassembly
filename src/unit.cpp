@@ -139,7 +139,10 @@ extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
 extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
 extern "C" int32_t __cdecl sub_542216(int32_t n); // RangedRand(n)
-extern "C" int32_t sub_530726(int32_t skill_level); // Returns experience required for given skill level.
+
+// Free functions for Humanoid::VMethod21.
+extern "C" uint32_t __cdecl sub_530726(int32_t skill_level); // Returns experience required for given skill level.
+extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
 
 
 // 52A857
@@ -491,6 +494,7 @@ uint32_t Unit::VMethod19()
 void Unit::VMethod20()
 {}
 
+// 5371F7
 void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
 {
     experience += newExp;
@@ -1125,6 +1129,131 @@ uint32_t Humanoid::VMethod19()
 
     _exp = (exps * 0.01);
     return _exp;
+}
+
+// 530745
+void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
+{
+    if (g_ServerConfig.gameType != 0) {
+        return;
+    }
+
+    if (this->typeId <= 0x20 || this->typeId >= 0x40) {
+        return;
+    }
+
+    if (target != nullptr && target->summoned != 0) {
+        return;
+    }
+
+    new_exp = static_cast<uint32_t>(new_exp * ((double)this->mind / 30.0 + 0.25));
+
+    // Diminishing returns: reduce XP if this unit was killed multiple times this session.
+    if (target != nullptr) {
+        for (int i = 0; i < this->mob_kills_in_session.GetSize(); i++) {
+            if (this->mob_kills_in_session[i].server_id == target->server_id) {
+                new_exp = (new_exp * 10) / (this->mob_kills_in_session[i].kills + 10);
+                break;
+            }
+        }
+    }
+
+    if (target != nullptr && target->hp >= 0) {
+        if (target->pOwner == this->pOwner || this->pOwner == nullptr) {
+            return;
+        }
+        if (g_World != nullptr && (g_World->diplomacy[target->pOwner->player_id][this->pOwner->player_id] & 2) != 0) {
+            return;
+        }
+    }
+
+    // Sync current active skill levels from the base values before processing.
+    for (int i = 1; i <= 5; i++) {
+        this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
+    }
+
+    bool leveled_up = false;
+    uint32_t update_mask = 0;
+
+    if ((this->unit_attrs & 4) == 0) {
+        // Fighter: physical attack XP goes to the weapon combat sphere.
+        int phys_sphere = this->hit_values.physical_damage_type;
+        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < 100) {
+            // Secondary spheres gain XP at 1/8 the normal rate.
+            if (phys_sphere != this->main_sphere && phys_sphere != 5) {
+                new_exp = (new_exp + 7) / 8;
+            }
+
+            new_exp = sub_530DCB(new_exp, this->hit_values.skill_levels[phys_sphere]);
+            this->experience_per_sphere[phys_sphere - 1] += new_exp;
+            this->experience += new_exp;
+
+            leveled_up = sub_530726(this->hit_values.skill_levels[phys_sphere] + 1) <= this->experience_per_sphere[phys_sphere - 1];
+            update_mask = 0x100u << (phys_sphere - 1);
+
+            if (leveled_up) {
+                for (int i = 1; i <= 5; i++) {
+                    this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
+                }
+                this->hit_values.skill_levels[phys_sphere]++;
+                for (int i = 1; i <= 5; i++) {
+                    this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+                }
+                if (this->pOwner->is_ai == 0) {
+                    g_NetStru1_main.FUN_0051ce86(2, phys_sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                }
+            }
+        }
+    } else {
+        // Mage: XP goes to the specified sphere.
+        if (sphere > 0 && this->hit_values.skill_levels[sphere] < 100) {
+            // Secondary spheres gain XP at 1/8 the normal rate.
+            if (sphere != this->main_sphere && sphere != 5) {
+                new_exp = (new_exp + 7) / 8;
+            }
+
+            new_exp = sub_530DCB(new_exp, this->hit_values.skill_levels[sphere]);
+            this->experience_per_sphere[sphere - 1] += new_exp;
+            this->experience += new_exp;
+
+            leveled_up = sub_530726(this->hit_values.skill_levels[sphere] + 1) <= this->experience_per_sphere[sphere - 1];
+            update_mask = 0x100u << (sphere - 1);
+
+            if (leveled_up) {
+                for (int i = 1; i <= 5; i++) {
+                    this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
+                }
+                this->hit_values.skill_levels[sphere]++;
+                if (this->pOwner->is_ai == 0) {
+                    g_NetStru1_main.FUN_0051ce86(2, sphere | ((uint32_t)this->server_id << 16), this->pOwner);
+                }
+                for (int i = 1; i <= 5; i++) {
+                    this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+                }
+                this->spell_book->RefreshForHumanoid(this);
+            }
+        }
+    }
+
+    // Post-processing: recalculate stats and notify clients.
+    if (leveled_up) {
+        this->VMethod18();
+        g_NetStru1_main.sub_519221(this, nullptr, update_mask | 0x3000C, 0xFFB, 0, 0);
+    } else {
+        if (new_exp != 0) {
+            g_NetStru1_main.sub_519221(this, nullptr, update_mask, 0xFFB, 0, 0);
+        }
+        // Apply equipment bonuses on top of base skill levels.
+        for (int i = 1; i <= 5; i++) {
+            int16_t base = (this->hit_values.skill_levels[i] < 100) ? this->hit_values.skill_levels[i] : 100;
+            this->hit_values.skill_levels[i] = base + this->equipment_extra.hit_values.skill_levels[i];
+        }
+    }
+
+    // Trigger periodic save when XP is gained in tournament mode.
+    if (new_exp != 0 && g_Server->field4_0x74 != 0 && GetTickCount() - this->pOwner->field_0xa7c > 15000) {
+        g_Server->sub_4EE028(this);
+    }
 }
 
 /*
