@@ -7,6 +7,7 @@
 extern "C"
 {
 	void pathStrCpy(const char* src, char* dst);
+	void __cdecl ReportWarning(const char* warn);
 }
 
 

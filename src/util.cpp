@@ -1,6 +1,7 @@
 #include "util.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 
 int g_PathLower = 1;
 
@@ -22,6 +23,17 @@ void pathStrCpy(const char* src, char* dst)
 		strcpy(dst, src);
 	}
 }
+
+
+void __cdecl ReportWarning(const char* warn)
+{
+	//527de3
+	CString str;
+	str.Format("WARNING!\n%s", warn);
+	puts(str);
+}
+
+
 
 
 }

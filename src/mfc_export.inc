@@ -1077,3 +1077,9 @@ externdef _sub_536630 :proc   ; start attack?
 externdef _sub_53678F :proc   ; execute attack?
 externdef _sub_542216 :proc   ; RangedRand(n)
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
+
+
+
+; util.h
+
+extern _ReportWarning : proc
