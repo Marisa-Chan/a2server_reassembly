@@ -1292,3 +1292,85 @@ Human::Human(const CString& hname, int32_t t, const char* unk)
 
 Human::~Human()
 {}
+
+// 532DDE
+void Humanoid::sub_532dde(CArray<HumanInfoData>* data)
+{
+    HumanInfoData& d = data->GetData()[0];
+
+    if (d.body != -1) {
+        this->body = static_cast<uint16_t>(d.body);
+    }
+    if (d.reaction != -1) {
+        this->reaction = static_cast<uint16_t>(d.reaction);
+    }
+    if (d.mind != -1) {
+        this->mind = static_cast<uint16_t>(d.mind);
+    }
+    if (d.spirit != -1) {
+        this->spirit = static_cast<uint16_t>(d.spirit);
+    }
+    if (d.health_max != -1) {
+        this->hp_max = static_cast<int16_t>(d.health_max);
+    }
+    this->hp = this->hp_max;
+    if (d.mana_max != -1) {
+        this->mp_max = static_cast<int16_t>(d.mana_max);
+    }
+    this->mp = this->mp_max;
+    if (d.speed != -1) {
+        this->speed = static_cast<uint16_t>(d.speed);
+    }
+    if (d.rotation_speed != -1) {
+        this->eye->rotation_speed = static_cast<uint8_t>(d.rotation_speed);
+    }
+    if (d.scan_range != -1) {
+        this->scan_range = d.scan_range * 256;
+    }
+    if (d.defence != -1) {
+        this->protections.defense = static_cast<int16_t>(d.defence);
+    }
+
+    for (int i = 0; i < 6; i++) {
+        if (d.skills[i] != -1) {
+            this->hit_values.skill_levels[i] = static_cast<uint16_t>(d.skills[i]);
+        }
+    }
+    this->hit_values.attack = 0;
+
+    bool is_hero = this->monster_info->name.Find("_Hero") != -1 || this->monster_info->name.Find("Start_") != -1;
+
+    int best_sphere = 0;
+    int best_val = 0;
+    for (int i = 1; i <= 5; i++) {
+        this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+        int sl = static_cast<int16_t>(this->hit_values.skill_levels[i]);
+        if (sl > best_val) {
+            best_sphere = i;
+            best_val = sl;
+        }
+    }
+    if (is_hero) {
+        this->main_sphere = best_sphere;
+    }
+
+    if (d.type_id != -1) {
+        this->typeId = static_cast<uint16_t>(d.type_id);
+    }
+    if (d.face != -1) {
+        this->face = static_cast<int8_t>(d.face);
+    }
+    // d.gender is not assigned to any field
+    if (d.charge != -1) {
+        this->charge = static_cast<uint8_t>(d.charge);
+    }
+    if (d.relax != -1) {
+        this->relax = static_cast<uint8_t>(d.relax);
+    }
+    if (d.token_size != -1) {
+        this->token_size = static_cast<int8_t>(d.token_size);
+    }
+    if (d.movement_type != -1) {
+        this->movement_type = static_cast<int8_t>(d.movement_type);
+    }
+}

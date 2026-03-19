@@ -7,7 +7,10 @@
 #include "assert_offset.h"
 #include "mfc_templ.h"
 
+#pragma warning(push)
+#pragma warning(disable: 4005) // dplay.h redefines INTERFACE without a guard
 #include "dplay.h"
+#pragma warning(pop)
 
 
 class AreaEffect;

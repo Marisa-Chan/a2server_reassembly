@@ -1,6 +1,9 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include <array>
+#include <cstdint>
+
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "mfc_templ.h"
@@ -221,12 +224,7 @@ struct HumanInfoData {
     int32_t rotation_speed;
     int32_t scan_range;
     int32_t defence;
-    int32_t skill_0;
-    int32_t skill_blade_fire;
-    int32_t skill_axe_water;
-    int32_t skill_bludgeon_air;
-    int32_t skill_pike_earth;
-    int32_t skill_shooting_astral;
+    std::array<int32_t, 6> skills;
     int32_t type_id;
     int32_t face;
     int32_t gender;

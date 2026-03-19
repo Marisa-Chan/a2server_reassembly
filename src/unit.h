@@ -4,10 +4,12 @@
 #include <cstdint>
 #include <array>
 
-#include "token.h"
-#include "protections.h"
-#include "unit_to_hit.h"
 #include "assert_offset.h"
+#include "mfc_templ.h"
+#include "protections.h"
+#include "table.h"
+#include "token.h"
+#include "unit_to_hit.h"
 
 
 class Group;
@@ -262,6 +264,7 @@ public:
     Humanoid(const TokenPos*);
 
     void InitStats();
+    void sub_532dde(CArray<HumanInfoData>* param_2);
 
 public:
     std::array<Item*, 13> equipment;
