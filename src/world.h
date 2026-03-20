@@ -122,6 +122,7 @@ public:
     void sub_5AF683(Player* player, int32_t param);
     void sub_5A79C9(Unit* unit);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit?
+    void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
     void sub_5B0E08(int32_t script_id); // Run script by instance ID
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);

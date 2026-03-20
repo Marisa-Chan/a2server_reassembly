@@ -478,6 +478,157 @@ void Unit::VMethod15()
 void Unit::VMethod16(Item*)
 {}
 
+// 536B31
+uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
+{
+    if (this->pOwner) {
+        this->pOwner->sub_534B59();
+    }
+
+    if (unit_to_hit == nullptr || (this->unit_attrs & 8)) {
+        return 0;
+    }
+
+    int32_t dmg_min = unit_to_hit->hand_damage_min;
+    int32_t dmg_spread = unit_to_hit->hand_damage_spread;
+
+    // If top bit of `hand_damage_min` is set and target is not a humanoid -> damage x15??
+    if ((dmg_min & 0x80) && attacker->VMethod8() == 0) {
+        dmg_min = (dmg_min & 0x7F) * 15;
+        dmg_spread = dmg_spread * 15;
+    }
+
+    // Target has bless AND is a humanoid -> damage x4??
+    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+        if ((attacker->enchantments & (1u << 0x14)) && attacker->VMethod8() != 0) {
+            dmg_min *= 4;
+            dmg_spread *= 4;
+        }
+    }
+
+    // Protection / evasion enchantment checks (only for player-owned targets).
+    bool randomize = true;
+    if (attacker != nullptr && attacker->pOwner != nullptr) {
+        // Bless: chance to deal max damage.
+        const uint32_t bless_mask = (1u << 0x14);
+        if (attacker->enchantments & bless_mask) {
+            Effect* effect = attacker->FindEnchantment(0x14);
+            if (effect == nullptr) {
+                attacker->enchantments &= ~bless_mask;
+            } else {
+                if (sub_542216(100) < (int16_t)effect->spell_or_damage) {
+                    dmg_min += dmg_spread;
+                    randomize = false;
+                }
+            }
+        }
+
+        // Curse: chance to deal minimum damage.
+        const uint32_t curse_mask = (1u << 0x1C);
+        if (attacker->enchantments & curse_mask) {
+            Effect* effect = attacker->FindEnchantment(0x1C);
+            if (effect == nullptr) {
+                attacker->enchantments &= ~curse_mask;
+            } else {
+                if (sub_542216(100) < (int16_t)effect->spell_or_damage) {
+                    randomize = false;
+                }
+            }
+        }
+    }
+
+    int32_t preliminary_damage = dmg_min;
+    if (randomize) {
+        preliminary_damage += sub_542216(dmg_spread);
+    }
+
+    int32_t cumulative = 0;
+
+    // Attack roll.
+    int32_t attack_roll = (int16_t)unit_to_hit->attack;
+    int32_t rand_roll = sub_542216(200) - 100;
+    attack_roll += rand_roll;
+    int32_t defense = this->protections.defense;
+
+    // Check if attack hits.
+    int32_t damage = 0;
+    if (attack_roll > defense || (attacker != nullptr && (attacker->unit_attrs & 0x10))) {
+        damage = preliminary_damage;
+    } else if (rand_roll >= 90) {
+        damage = preliminary_damage;
+    }
+
+    // Absorption and weapon-type resistance.
+    if (damage > 0) {
+        if (attacker == nullptr || !(attacker->unit_attrs & 0x10)) {
+            damage -= this->protections.absorption;
+            if (damage < 0) {
+                damage = 0;
+            }
+        }
+        uint8_t protection = this->protections.weapon_protections[unit_to_hit->physical_damage_type];
+        if (protection != 0) {
+            damage = (int32_t)((100.0 - protection) * (double)damage / 100.0 + 0.75);
+        }
+        cumulative += damage;
+    }
+
+    // Add magic damage.
+    if ((int32_t)unit_to_hit->some_damage_spread + unit_to_hit->some_damage_min != 0) {
+        int32_t some_dmg = (int32_t)sub_542216(unit_to_hit->some_damage_spread) + unit_to_hit->some_damage_min;
+        int16_t protection = this->protections.magic_protections[2];
+        if (protection != 0) {
+            some_dmg = (int32_t)((100.0 - protection) * (double)some_dmg / 100.0 + 0.75);
+            if (some_dmg < 0) {
+                some_dmg = 0;
+            }
+        }
+        cumulative += some_dmg;
+    }
+
+    // Spell damage?
+    bool no_phys = (unit_to_hit->hand_damage_min + unit_to_hit->hand_damage_spread == 0);
+    if ((unit_to_hit->some_damage2_spread + unit_to_hit->some_damage2_min) != 0 && (attack_roll > defense || no_phys)) {
+        int32_t spell_dmg = (int32_t)sub_542216(unit_to_hit->some_damage2_spread) + unit_to_hit->some_damage2_min;
+        uint8_t sphere = unit_to_hit->spell_id;
+        if (sphere >= 1 && sphere <= 5) {
+            int16_t protection = this->protections.magic_protections[sphere];
+            if (protection != 0) {
+                spell_dmg = (int32_t)((100.0 - protection) * (double)spell_dmg / 100.0 + 0.75);
+                if (spell_dmg < 0) {
+                    spell_dmg = 0;
+                }
+            }
+        } else {
+            LogMessage(CString("Unknown magic damage type"));
+        }
+        if (spell_dmg > 0) {
+            cumulative += spell_dmg;
+        }
+    }
+
+    // Update last-attacker and notify the world.
+    if (attacker != nullptr && attacker->monster_info != nullptr) {
+        if (attacker->pOwner == nullptr) {
+            this->last_hit_by = nullptr;
+        } else {
+            this->last_hit_by = attacker;
+            if (attacker->unit_attrs & 4) {
+                this->last_hit_spell_id = (int8_t)unit_to_hit->spell_id;
+            } else {
+                this->last_hit_spell_id = 0;
+            }
+        }
+        if (attacker->pOwner != nullptr && this->pOwner != nullptr) {
+            if (g_Server->field4_0x74 == 0 || attacker->pOwner->is_ai == 0 || this->pOwner->is_ai != 0) {
+                g_World->sub_5AA581(attacker, this, 0);
+            }
+        }
+    }
+
+    return cumulative > 0 ? cumulative : 0;
+}
+
 void Unit::VMethod18()
 {
     if (!pOwner)
@@ -514,6 +665,18 @@ void Unit::VMethod24(Unit*, uint32_t, int32_t, int32_t)
 int32_t Unit::VMethod25()
 {
     return monster_info->values[0].dying_time;
+}
+
+// 52C757
+Effect* Unit::FindEnchantment(uint16_t effect_id)
+{
+    for (POSITION p = this->_effects.GetHeadPosition(); p != nullptr; ) {
+        Effect* e = this->_effects.GetNext(p);
+        if ((uint16_t)e->itemDataID == effect_id) {
+            return e;
+        }
+    }
+    return nullptr;
 }
 
 // 52C98B

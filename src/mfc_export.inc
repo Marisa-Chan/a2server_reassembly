@@ -769,6 +769,7 @@ externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
+externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 
 
 ; Player

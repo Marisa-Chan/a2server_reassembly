@@ -113,6 +113,7 @@ public:
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     void sub_52C409();
     void sub_52C813();
+    Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID.
     int32_t sub_52BABD(); // Returns g_Server->tick - last_action_tick
     void sub_52BDD7(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
@@ -131,7 +132,9 @@ public:
     int8_t token_size;
     int8_t movement_type;
     int8_t face;
-    int8_t unit_attrs; // Fighters have `& 4 == 0`. Phased-out units have `& 8 == 0`.
+    // Unit attributes. Fighters have `& 4 == 0`. Phased-out units have `& 8 == 0`.
+    // Piercing attack: `& 0x10 != 0`.
+    int8_t unit_attrs;
     int8_t gap_0x4d[3];
     int32_t state;
     int32_t some_state;
