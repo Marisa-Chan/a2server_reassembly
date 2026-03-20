@@ -192,13 +192,13 @@ typedef struct tagDPNAME
     {
         LPWSTR  lpszShortName;
         LPSTR   lpszShortNameA;
-    } DUMMYUNIONNAME1;
+    } ;
 
     union /*playerLongName */       /* Player's formal/real name */
     {
         LPWSTR  lpszLongName;
         LPSTR   lpszLongNameA;
-    } DUMMYUNIONNAME2;
+    } ;
 
 } DPNAME, *LPDPNAME;
 
@@ -242,13 +242,13 @@ typedef struct tagDPSESSIONDESC2
     {
         LPWSTR  lpszSessionName;
         LPSTR   lpszSessionNameA;
-    } DUMMYUNIONNAME1;
+    };
 
     union  /* Optional password */
     {
         LPWSTR  lpszPassword;
         LPSTR   lpszPasswordA;
-    } DUMMYUNIONNAME2;
+    };
 
     DWORD   dwReserved1;
     DWORD   dwReserved2;

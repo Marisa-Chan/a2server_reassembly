@@ -70,7 +70,7 @@ set_property(TARGET a2serv_vsc PROPERTY
 )
 
 target_compile_definitions(a2serv_vsc PRIVATE
-  _USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
+  FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
 target_link_libraries(a2serv_vsc PRIVATE
@@ -100,6 +100,7 @@ target_link_libraries(a2serv_vsc PRIVATE
     odbccp32.lib
 
     dbghelp.lib
+	dxguid.lib
     vcruntime.lib
     legacy_stdio_wide_specifiers.lib
 )

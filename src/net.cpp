@@ -12,7 +12,10 @@
 #include "world.h"
 #include "players_list.h"
 #include "table.h"
+#include "util.h"
 #include <cstring>
+#include <process.h>
+#include "dplobby.h"
 
 
 void NetStru1::FUN_0051cd89(const CString& name, Player* player)
@@ -576,4 +579,2010 @@ Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
     }
 
     return pkt;
+}
+
+
+
+
+
+void NetStru1::AddTailNet2(NetStru2*& net2)
+{
+    //517e91
+    EnterCriticalSection(&critical_section);
+    list.AddTail(net2);
+    LeaveCriticalSection(&critical_section);
+}
+
+void NetStru1::AddTailFreeNet3(NetStru3* net3)
+{
+    //517b00
+    EnterCriticalSection(&critical_section2);
+    free_net3.AddTail(net3);
+    LeaveCriticalSection(&critical_section2);
+}
+
+NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
+{
+    //517c99
+    EnterCriticalSection(&critical_section);
+
+    NetStru2* mgr = new NetStru2();
+    mgr->uid = uid;
+    mgr->SetDrivers(this, driver);
+
+    clients.AddTail(mgr);
+    LeaveCriticalSection(&critical_section);
+
+    return mgr;
+}
+
+
+NetStru3* NetStru1::GetFreeNet3()
+{
+    //5177f5
+    EnterCriticalSection(&critical_section2);
+    NetStru1* pool = this;
+    if (field_0x8 && field_0x18b0 == 0)
+        pool = field_0x8;
+
+    if (!pool->free_net3.IsEmpty() && pool->free_net3.GetHeadPosition() == NULL) //Seems HACK
+        new(&pool->free_net3) CList<NetStru3*>(); //Here was memcpy with stack allocated Clist in Nival code >_<
+
+    NetStru3* buf = nullptr;
+    if (pool->free_net3.IsEmpty())
+        buf = new NetStru3();
+    else
+        buf = pool->free_net3.RemoveHead();
+    LeaveCriticalSection(&critical_section2);
+    return buf;
+}
+
+
+
+
+void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver)
+{
+    //51682d
+    net_stru1 = HlDriver;
+    driver = LlDriver;
+}
+
+int NetStru2::ReceiveData(NetStru3* buffer)
+{
+    //5161bf
+    EnterCriticalSection(&critical_section);
+
+    if (buffer->buf_id != 0)
+    {
+        NetStru3* tbuf = net_stru1->GetFreeNet3();
+        tbuf->Clear();
+        int num = net_stru1->Unpack(buffer->buf_id, buffer->buf, buffer->size, tbuf->buf, 0x8e);
+        if (num > 0x8e)
+        {
+            ReportWarning("CBufferManager::ReceiveData().\nError during unpacking buffer.\n");
+            net_stru1->AddTailFreeNet3(buffer);
+            net_stru1->AddTailFreeNet3(tbuf);
+            LeaveCriticalSection(&critical_section);
+            return 0;
+        }
+        tbuf->datasz = num;
+        tbuf->field_0xf = buffer->field_0xf;
+        net_stru1->AddTailFreeNet3(buffer);
+        buffer = tbuf;
+    }
+
+    unpacked_buffers.AddTail(buffer);
+
+    LeaveCriticalSection(&critical_section);
+    return 1;
+}
+
+NetStru2::NetStru2()
+{
+    //515831
+    field_0x2a0 = 0;
+    field_0x2a4 = 0;
+    field_0x2a8 = 0;
+    field_0x2ac = 0;
+    field_0x2b4 = -1;
+    str.Empty();
+    field_0x2b8 = 0;
+    net_stru1 = nullptr;
+    driver = nullptr;
+    stru3_id = 0;
+    stru3[0].Clear();
+    stru3[1].Clear();
+    field_0x298 = 0;
+    player_id = 0;
+    uid = 0;
+    field_0x29c = 0;
+    buf[0] = 0;
+    InitializeCriticalSection(&critical_section);
+}
+
+NetStru2::~NetStru2()
+{
+    //515c27
+    ReturnBuffers();
+    DeleteCriticalSection(&critical_section);
+    field_0x29c = 0;
+    player_id = 0;
+    uid = 0;
+    net_stru1 = nullptr;
+    driver = nullptr;
+    buf[0] = 0;
+}
+
+void NetStru2::ReturnBuffers()
+{
+    //515d9d
+    if (!net_stru1)
+        return;
+
+    EnterCriticalSection(&critical_section);
+
+    while (!unpacked_buffers.IsEmpty())
+        net_stru1->AddTailFreeNet3( unpacked_buffers.RemoveHead() );
+
+    LeaveCriticalSection(&critical_section);
+}
+
+
+
+
+void NetStru3::Clear()
+{
+    //5156f6
+    datasz = 0;
+    field_0xa4 = 0;
+    field_0xf = 0;
+    timestamp = 0;
+    timestamp2 = 0;
+    size = 0;
+}
+
+NetStru3::NetStru3()
+{
+    //5155c0
+    pos = 0;
+    field_0xa = 0;
+    field_0xb = 0;
+    buf_id = 0;
+    field_0xf = 0;
+    datasz = -1;
+    field_0xa4 = -1;
+    timestamp = 0;
+    timestamp2 = 0;
+}
+
+NetStru3::~NetStru3()
+{
+    //515694
+    datasz = -1;
+    field_0xa4 = -1;
+    timestamp = 0;
+    timestamp2 = 0;
+    pos = 0;
+    field_0xa = 0;
+    field_0xb = 0;
+    buf_id = 0;
+    field_0xf = 0;
+}
+
+
+
+
+A2NetSock::A2NetSock()
+{
+    //520510
+    is_in_use = 0;
+    uid = 0;
+    socket = INVALID_SOCKET;
+    player_dpid = 0;
+    manager = nullptr;
+    field_0x50 = 0;
+    field_0x4c = 0;
+    current_buffer = nullptr;
+    copy_num = -1;
+    wait_obj = nullptr;
+    latency = 0;
+    field_0x260 = 0;
+    field_0x264 = 0;
+}
+
+A2NetSock::~A2NetSock()
+{
+    //520684
+    is_in_use = 0;
+    uid = 0;
+    socket = INVALID_SOCKET;
+    wait_obj = nullptr;
+    player_dpid = 0;
+    manager = nullptr;
+    field_0x50 = 0;
+    field_0x4c = 0;
+    current_buffer = nullptr;
+    copy_num = -1;
+    latency = 0;
+    field_0x260 = 0;
+    field_0x264 = 0;
+}
+
+void NetSockLatency::AddLatency(uint32_t lat_time)
+{
+    //51fdf7
+    static std::array<uint32_t, 128> storage;
+
+    lat_times[num] = lat_time;
+    num++;
+
+    std::array<uint32_t, 256> count1;
+    std::array<uint32_t*, 256> arrPos1;
+    std::array<uint32_t, 256> count2;
+    std::array<uint32_t*, 256> arrPos2;
+    std::array<uint32_t, 256> count3;
+    std::array<uint32_t*, 256> arrPos3;
+    std::array<uint32_t, 256> count4;
+    std::array<uint32_t*, 256> arrPos4;
+
+    if (num >= 128)
+    {
+        num = 0;
+
+        count1.fill(0);
+        for (int i = 0; i < 128; i++)
+            count1[ShiftToByte(lat_times[i], 0)]++;
+
+        uint32_t* ppos = storage.data();
+        for (int i = 0; i < 256; i++)
+        {
+            arrPos1[i] = ppos;
+            ppos += count1[i];
+        }
+
+        for (int i = 0; i < 128; i++)
+        {
+            int idx = ShiftToByte(lat_times[i], 0);
+            *arrPos1[idx] = lat_times[i];
+            arrPos1[idx]++;
+        }
+
+
+        count2.fill(0);
+        for (int i = 0; i < 128; i++)
+            count2[ShiftToByte(storage[i], 8)]++;
+
+        ppos = lat_times;
+        for (int i = 0; i < 256; i++)
+        {
+            arrPos2[i] = ppos;
+            ppos += count2[i];
+        }
+
+        for (int i = 0; i < 128; i++)
+        {
+            int idx = ShiftToByte(storage[i], 8);
+            *arrPos2[idx] = storage[i];
+            arrPos2[idx]++;
+        }
+
+
+        count3.fill(0);
+        for (int i = 0; i < 128; i++)
+            count3[ShiftToByte(lat_times[i], 16)]++;
+
+        ppos = storage.data();
+        for (int i = 0; i < 256; i++)
+        {
+            arrPos3[i] = ppos;
+            ppos += count3[i];
+        }
+
+        for (int i = 0; i < 128; i++)
+        {
+            int idx = ShiftToByte(lat_times[i], 16);
+            *arrPos3[idx] = lat_times[i];
+            arrPos3[idx]++;
+        }
+
+
+        count4.fill(0);
+        for (int i = 0; i < 128; i++)
+            count4[ShiftToByte(storage[i], 24)]++;
+
+        ppos = lat_times;
+        for (int i = 0; i < 256; i++)
+        {
+            arrPos4[i] = ppos;
+            ppos += count4[i];
+        }
+
+        for (int i = 0; i < 128; i++)
+        {
+            int idx = ShiftToByte(storage[i], 24);
+            *arrPos4[idx] = storage[i];
+            arrPos4[idx]++;
+        }
+
+        calc_latency = lat_times[64];
+    }
+    if (calc_latency < 25)
+        calc_latency = 25;
+    if (calc_latency > 1000)
+        calc_latency = 1000;
+}
+
+
+
+
+CLlDriver::CLlDriver(GUID _appid, NetStru1* net1)
+{
+    //5208ec
+    application_guid = _appid;
+    net_stru1 = net1;
+    is_server = 0;
+    guaranteed = 0;
+    latency = 0xffffffff;
+    max_connections = -1;
+    session_lost = 0;
+    provider = 5;
+    connection_sockets = nullptr;
+    connections_info = nullptr;
+    enum_addresses = nullptr;
+    enum_addresses_num = 0;
+    enum_sessions = nullptr;
+    enum_sessions_num = 0;
+    enum_conns = nullptr;
+    enum_conns_num = 0;
+    enum_players = nullptr;
+    enum_players_num = 0;
+    address_str[0] = 0;
+    next_uid = 0x3bef0000;
+    unused = 0;
+    keepalive = 0;
+    dplay_is_4 = 0;
+    timeout = 12000;
+    InitializeCriticalSection(&critical_section);
+    ev_create_player = nullptr;
+    ev_close = nullptr;
+    ev_new_session = nullptr;
+    dplay4 = nullptr;
+    CoInitialize(NULL);
+}
+
+CLlDriver::~CLlDriver()
+{
+    //520ad3
+
+    Close();
+    FreeEnumAddresses();
+    FreeEnumSessions();
+    FreeEnumConns();
+    FreeEnumPlayers();
+
+    if (connection_sockets)
+    {
+        delete[] connection_sockets;
+        connection_sockets = nullptr;
+    }
+
+    if (connections_info)
+    {
+        delete[] connections_info;
+        connections_info = nullptr;
+    }
+
+    DeleteCriticalSection(&critical_section);
+
+    Free();
+
+    CoUninitialize();
+}
+
+
+void CLlDriver::Close()
+{
+    //5225d0
+    if (listen_socket.is_in_use)
+    {
+        if (provider == 4)
+            CloseTcp();
+        else
+            CloseDp();
+    }
+    listen_socket.is_in_use = 0;
+    is_server = 0;
+}
+
+
+
+void CLlDriver::CloseTcp()
+{
+    //523b01
+    CloseTcpSocket(&listen_socket);
+    CloseTcpSocket(&ping_socket);
+    if (is_server)
+    {
+        for (uint32_t i = 0; i < max_connections; i++)
+            CloseTcpSocket(connection_sockets + i);
+    }
+}
+
+void CLlDriver::CloseTcpSocket(A2NetSock* sock)
+{
+    //523a16
+    if (sock->is_in_use)
+        num_connections--;
+
+    sock->is_in_use = 0;
+    if (sock->socket != INVALID_SOCKET)
+    {
+        closesocket(sock->socket);
+        sock->socket = INVALID_SOCKET;
+    }
+
+    if (sock->wait_obj)
+    {
+        WaitForSingleObject(sock->wait_obj, -1);
+        CloseHandle(sock->wait_obj);
+        sock->wait_obj = nullptr;
+    }
+
+    if (sock->current_buffer)
+    {
+        net_stru1->AddTailFreeNet3(sock->current_buffer);
+        sock->current_buffer = nullptr;
+        sock->copy_num = -1;
+    }
+
+    if (sock->manager)
+    {
+        net_stru1->AddTailNet2(sock->manager);
+        sock->manager = nullptr;
+    }
+}
+
+
+void CLlDriver::CloseDp()
+{
+    //525a09
+    if (listen_socket.wait_obj)
+    {
+        SetEvent(ev_close);
+        WaitForSingleObject(listen_socket.wait_obj, -1);
+        CloseHandle(listen_socket.wait_obj);
+        listen_socket.wait_obj = nullptr;
+    }
+
+    if (is_server)
+    {
+        for (uint32_t i = 0; i < max_connections; i++)
+            CloseDpSock(connection_sockets + i, -1);
+    }
+    else
+    {
+        listen_socket.is_in_use = 0;
+        if (listen_socket.manager)
+        {
+            net_stru1->AddTailNet2(listen_socket.manager);
+            listen_socket.manager = nullptr;
+        }
+    }
+
+    if (ev_create_player)
+    {
+        CloseHandle(ev_create_player);
+        ev_create_player = nullptr;
+    }
+
+    if (ev_close)
+    {
+        CloseHandle(ev_close);
+        ev_close = nullptr;
+    }
+
+    if (dplay4)
+    {
+        if (listen_socket.player_dpid != DPID_UNKNOWN)
+        {
+            dplay4->DestroyPlayer(listen_socket.player_dpid);
+            listen_socket.player_dpid = DPID_UNKNOWN;
+        }
+        dplay4->Close();
+    }
+}
+
+void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
+{
+    //525bcd
+    if (IsInUse(sock) == 0)
+        return;
+
+    if (is_server == 0)
+    {
+        Close();
+        return;
+    }
+
+    if (dplay_is_4)
+        dplay4->DestroyPlayer(sock->player_dpid);
+
+    if (sock->manager)
+    {
+        net_stru1->AddTailNet2(sock->manager);
+        sock->manager = nullptr;
+    }
+
+    sock->is_in_use = 0;
+
+    while (!sock->list_0x14.IsEmpty())
+        net_stru1->AddTailFreeNet3( sock->list_0x14.RemoveHead() );
+    sock->list_0x14.RemoveAll();
+
+    while (!sock->list_0x30.IsEmpty())
+        net_stru1->AddTailFreeNet3(sock->list_0x30.RemoveHead());
+    sock->list_0x30.RemoveAll();
+
+    if (idx == -1)
+    {
+        for (uint32_t i = 0; i < num_connections; i++)
+        {
+            if (connections_info[i].sock == sock)
+            {
+                idx = i;
+                break;
+            }
+        }
+    }
+
+    memmove(connections_info + idx, connections_info + idx + 1, (num_connections - idx - 1) * sizeof(SocketNm));
+}
+
+
+CLlAddress* CLlDriver::AllocAddress()
+{
+    //520d8c
+    if (enum_addresses == nullptr)
+    {
+        enum_addresses = (CLlAddress*)malloc(sizeof(CLlAddress));
+        enum_addresses_num = 1;
+        return enum_addresses;
+    }
+    else
+    {
+        enum_addresses_num++;
+        enum_addresses = (CLlAddress*)realloc(enum_addresses, sizeof(CLlAddress) * enum_addresses_num);
+        return enum_addresses + (enum_addresses_num - 1);
+    }
+}
+
+void CLlDriver::FreeEnumAddresses()
+{
+    //520c80
+    if (enum_addresses)
+    {
+        free(enum_addresses);
+        enum_addresses = nullptr;
+        enum_addresses_num = 0;
+    }
+}
+
+
+int CLlDriver::EnumAddresses(CLlAddress** addrs, int* num)
+{
+    //52182f
+    FreeEnumAddresses();
+    if (provider == 0)
+    {
+        CLlAddress* addr = AllocAddress();
+        strcpy(addr->name, "COM1");
+        addr->com.index = 1;
+        addr = AllocAddress();
+        strcpy(addr->name, "COM2");
+        addr->com.index = 2;
+        addr = AllocAddress();
+        strcpy(addr->name, "COM3");
+        addr->com.index = 3;
+        addr = AllocAddress();
+        strcpy(addr->name, "COM4");
+        addr->com.index = 4;
+    }
+    else if (provider == 1)
+    {
+        EnumAddressesDp();
+    }
+    else if (provider == 4)
+    {
+        EnumAddressesTcp();
+    }
+    else
+        return 0;
+
+    *addrs = enum_addresses;
+    *num = enum_addresses_num;
+    return 1;
+}
+
+
+void CLlDriver::EnumAddressesTcp()
+{
+    //5214c5
+    OSVERSIONINFOA osver;
+    osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
+    GetVersionExA(&osver);
+
+    char path[260];
+    memset(path, 0, sizeof(path));
+    uint32_t len = 0;
+
+    if (osver.dwPlatformId == 1)
+        len = GetWindowsDirectoryA(path, sizeof(path));
+    else
+        len = GetSystemDirectoryA(path, sizeof(path));
+
+    if (path[len] != '\\') //??? path[len-1] ???
+        strcat(path, "\\");
+
+    if (osver.dwPlatformId == 1)
+        strcat(path, "WinIpCfg.exe");
+    else
+        strcat(path, "IpConfig.exe");
+
+    _spawnlp(P_WAIT, path, path, "/ALL", "/BATCH", "IPINFO.$$$$$$", NULL);
+
+
+    CLlAddress* addr = nullptr;
+    char buf[2048];
+
+    FILE* f = fopen("IPINFO.$$$$$$", "r");
+    if (f)
+    {
+        while (true)
+        {
+            if (fgets(buf, sizeof(buf), f) == NULL)
+                break;
+
+            char* p = strchr(buf, ':');
+            if (p)
+            {
+                *p = 0;
+                p++;
+                while (isspace(*p))
+                    p++;
+                for (char* t = p + strlen(p) - 1; t != p && isspace(*t); t--)
+                    *t = 0;
+
+                if (strstr(buf, "Description") != NULL)
+                {
+                    addr = AllocAddress();
+                    strcpy(addr->name, p);
+                    strcpy(addr->address, "0.0.0.0");
+                }
+                else if (addr && strstr(buf, "IP Address") != NULL)
+                {
+                    strcpy(addr->address, p);
+                    addr = nullptr;
+                }
+            }
+        }
+
+        fclose(f);
+        _unlink("IPINFO.$$$$$$");
+    }
+
+    if (enum_addresses_num == 0)
+    {
+        if (!addr)
+            addr = AllocAddress();
+
+        strcpy(addr->name, "Default adapter");
+        strcpy(addr->address, "0.0.0.0");
+    }
+}
+
+void CLlDriver::EnumAddressesDp()
+{
+    //521200
+    IDirectPlayLobby2A* lobby = nullptr;
+    if (CoCreateInstance(CLSID_DirectPlayLobby, NULL, 1, IID_IDirectPlayLobby2A, (LPVOID*)&lobby) != 0)
+    {
+        ReportWarning("CLlDriver::GetPossibleModems.\nUnable to create DirectPlayLobby.\n");
+        return;
+    }
+
+    IDirectPlay3A* dplay = nullptr;
+    if (CoCreateInstance(CLSID_DirectPlay, NULL, 1, IID_IDirectPlayLobby3A, (LPVOID*)&dplay) != 0)
+    {
+        ReportWarning("CLlDriver::GetPossibleModems.\nUnable to create DirectPlay.\n");
+        lobby->Release();
+        return;
+    }
+
+    char buf[4] = { 0 };
+    DPCOMPOUNDADDRESSELEMENT elem[2];
+    elem[0].guidDataType = DPAID_ServiceProvider;
+    elem[0].dwDataSize = sizeof(GUID);
+    elem[0].lpData = (VOID*)&DPSPGUID_MODEM;
+    elem[1].guidDataType = DPAID_Phone;
+    elem[1].dwDataSize = 1;
+    elem[1].lpData = buf;
+
+    DWORD AddrSize;
+    if (lobby->CreateCompoundAddress(elem, 2, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL)
+    {
+        lobby->Release();
+        dplay->Release();
+        return;
+    }
+
+    uint8_t* dpaddr = new uint8_t[AddrSize];
+    if (lobby->CreateCompoundAddress(elem, 2, dpaddr, &AddrSize) != 0)
+    {
+        delete[] dpaddr;
+
+        lobby->Release();
+        dplay->Release();
+        return;
+    }
+
+    if (dplay->InitializeConnection(dpaddr, 0) != 0)
+    {
+        delete[] dpaddr;
+        ReportWarning("CLlDriver::GetPossibleModems.\nUnable to initialize DirectPlay.\n");
+        lobby->Release();
+        dplay->Release();
+        return;
+    }
+
+    delete[] dpaddr;
+
+    if (dplay->GetPlayerAddress(0, NULL, &AddrSize) != DPERR_BUFFERTOOSMALL)
+    {
+        ReportWarning("CLlDriver::GetPossibleModems.\nUnable to enum modems.\n");
+        lobby->Release();
+        dplay->Release();
+        return;
+    }
+
+    dpaddr = new uint8_t[AddrSize];
+
+    if (dplay->GetPlayerAddress(0, dpaddr, &AddrSize) != 0)
+    {
+        delete[] dpaddr;
+        ReportWarning("CLlDriver::GetPossibleModems.\nUnable to enum modems(2).\n");
+        lobby->Release();
+        dplay->Release();
+        return;
+    }
+
+    lobby->EnumAddress(cbEnumAddress, dpaddr, AddrSize, this);
+
+    delete[] dpaddr;
+
+    lobby->Release();
+    dplay->Release();
+}
+
+BOOL __stdcall CLlDriver::cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext)
+{
+    //5211b2
+    CLlDriver* drv = (CLlDriver*)lpContext;
+    if (memcmp(&guidDataType, &DPSPGUID_MODEM, sizeof(GUID)) == 0)
+    {
+        CLlAddress* addr = drv->AllocAddress();
+        strcpy(addr->name, (const char*)lpData);
+    }
+    return TRUE;
+}
+
+
+
+
+CLlNetSession* CLlDriver::AllocSession()
+{
+    //520e2e
+    if (enum_sessions == nullptr)
+    {
+        enum_sessions = (CLlNetSession*)malloc(sizeof(CLlNetSession));
+        enum_sessions_num = 1;
+        return enum_sessions;
+    }
+    else
+    {
+        enum_sessions_num++;
+        enum_sessions = (CLlNetSession*)realloc(enum_sessions, sizeof(CLlNetSession) * enum_sessions_num);
+        return enum_sessions + (enum_sessions_num - 1);
+    }
+}
+
+void CLlDriver::FreeEnumSessions()
+{
+    //520cc3
+    if (enum_sessions)
+    {
+        free(enum_sessions);
+        enum_sessions = nullptr;
+        enum_sessions_num = 0;
+    }
+}
+
+int CLlDriver::EnumSessions(CLlNetSession** sessions, int* num, CBUPDATECALLBACK cbUpdate, uint32_t timeout)
+{
+    //52210d
+    FreeEnumSessions();
+
+    if (provider == 4)
+        return 0;
+
+    DPSESSIONDESC2 desc;
+    memset(&desc, 0, sizeof(desc));
+    desc.dwSize = sizeof(desc);
+    desc.guidApplication = application_guid;
+    ev_new_session = CreateEventA(NULL, FALSE, FALSE, NULL);
+
+    if (timeout == 0)
+    {
+        DPCAPS caps;
+        caps.dwSize = sizeof(caps);
+        if (dplay4->GetCaps(&caps, (guaranteed != 0 ? DPGETCAPS_GUARANTEED : 0)) != 0)
+        {
+            ReportWarning("CLlDriver::GetActiveServers().\nUnable to get caps.\n");
+            return 1;
+        }
+        timeout = caps.dwTimeout;
+    }
+
+    uint32_t t1 = GetTickCount();
+    while (true)
+    {
+        uint32_t t2 = GetTickCount();
+        if (t2 - t1 >= timeout)
+            break;
+
+        HRESULT res = dplay4->EnumSessions(&desc, 0, cbEnumSessions, this, DPENUMSESSIONS_AVAILABLE | DPENUMSESSIONS_ASYNC | DPENUMSESSIONS_RETURNSTATUS);
+        if (res != 0 && res != DPERR_CONNECTING)
+            break;
+
+        if (WaitForSingleObject(ev_new_session, 10) == 0)
+            break;
+
+        if (cbUpdate && cbUpdate() == 0)
+        {
+            dplay4->EnumSessions(&desc, 0, cbEnumSessions, this, DPENUMSESSIONS_STOPASYNC);
+            break;
+        }
+    }
+
+    CloseHandle(ev_new_session);
+    ev_new_session = nullptr;
+    
+    *sessions = enum_sessions;
+    *num = enum_sessions_num;
+
+    return 1;
+}
+
+BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext)
+{
+    //522020
+    CLlDriver* drv = (CLlDriver*)lpContext;
+
+    if ((dwFlags & DPENUMSESSIONS_AVAILABLE) == 0)
+        return FALSE;
+
+    for (uint32_t i = 0; i < drv->enum_sessions_num; i++)
+    {
+        if (memcmp(&drv->enum_sessions[i].guid, &lpThisSD->guidInstance, sizeof(GUID)) == 0)
+            return TRUE;
+    }
+
+    CLlNetSession* ses = drv->AllocSession();
+    strcpy(ses->name, lpThisSD->lpszSessionNameA);
+    ses->guid = lpThisSD->guidInstance;
+
+    if (drv->provider == 1 || drv->provider == 0)
+        drv->SetEventNewSession();
+
+    return TRUE;
+}
+
+
+
+
+
+
+CLlConn* CLlDriver::AllocEnumConns()
+{
+    //520ed0
+    if (enum_conns == nullptr)
+    {
+        enum_conns = (CLlConn*)malloc(sizeof(CLlConn));
+        enum_conns_num = 1;
+        return enum_conns;
+    }
+    else
+    {
+        enum_conns_num++;
+        enum_conns = (CLlConn*)realloc(enum_conns, sizeof(CLlConn) * enum_conns_num);
+        return enum_conns + (enum_conns_num - 1);
+    }
+}
+
+void CLlDriver::FreeEnumConns()
+{
+    //520d06
+    if (enum_conns)
+    {
+        free(enum_conns);
+        enum_conns = nullptr;
+        enum_conns_num = 0;
+    }
+}
+
+void CLlDriver::EnumConnections(CLlConn** conns, int* num)
+{
+    //5210ea
+    FreeEnumConns();
+
+    CLlConn* conn = AllocEnumConns();
+    strcpy(conn->name, "TCP/IP");
+    conn->typ = 4;
+
+    bool hasntdp = dplay4 == nullptr;
+
+    if (hasntdp)
+        CreateDp();
+
+    if (dplay4)
+        dplay4->EnumConnections(&application_guid, cbEnumConnections, this, DPCONNECTION_DIRECTPLAY);
+
+    if (hasntdp)
+        FreeDp();
+
+    *conns = enum_conns;
+    *num = enum_conns_num;
+}
+
+BOOL __stdcall CLlDriver::cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext)
+{
+    //52100e
+    CLlDriver* drv = (CLlDriver*)lpContext;
+
+    int typ = -1;
+    if (memcmp(lpguidSP, &DPSPGUID_MODEM, sizeof(GUID)) == 0)
+        typ = 1;
+    else if (memcmp(lpguidSP, &DPSPGUID_TCPIP, sizeof(GUID)) == 0)
+        typ = 3;
+    else if (memcmp(lpguidSP, &DPSPGUID_IPX, sizeof(GUID)) == 0)
+        typ = 2;
+    else if (memcmp(lpguidSP, &DPSPGUID_SERIAL, sizeof(GUID)) == 0)
+        typ = 0;
+    else
+        return TRUE;
+
+    CLlConn* conn = drv->AllocEnumConns();
+    strcpy(conn->name, lpName->lpszShortNameA);
+    conn->typ = typ;
+    return TRUE;
+}
+
+
+
+CLlName* CLlDriver::AllocEnumPlayers()
+{
+    //520f72
+    if (enum_players == nullptr)
+    {
+        enum_players = (CLlName*)malloc(sizeof(CLlName));
+        enum_players_num = 1;
+        return enum_players;
+    }
+    else
+    {
+        enum_players_num++;
+        enum_players = (CLlName*)realloc(enum_players, sizeof(CLlName) * enum_players_num);
+        return enum_players + (enum_players_num - 1);
+    }
+}
+
+void CLlDriver::FreeEnumPlayers()
+{
+    //520d49
+    if (enum_players)
+    {
+        free(enum_players);
+        enum_players = nullptr;
+        enum_players_num = 0;
+    }
+}
+
+void CLlDriver::EnumPlayers(CLlNetSession* ses, CLlName** names, int* num)
+{
+    //52238e
+    FreeEnumPlayers();
+    if (dplay4)
+        dplay4->EnumPlayers(&ses->guid, cbEnumPlayes, this, DPENUMPLAYERS_SESSION);
+    *names = enum_players;
+    *num = enum_players_num;
+}
+
+BOOL __stdcall CLlDriver::cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext)
+{
+    //52233f
+    CLlDriver* drv = (CLlDriver*)lpContext;
+
+    if (!lpName->lpszShortNameA)
+        return FALSE;
+
+    if (dwPlayerType != DPPLAYERTYPE_PLAYER)
+        return TRUE;
+
+    CLlName *pl = drv->AllocEnumPlayers();
+    strcpy(pl->name, lpName->lpszShortNameA);
+    return TRUE;
+}
+
+
+void CLlDriver::Free()
+{
+    //5219af
+    if (listen_socket.is_in_use == 1)
+        Close();
+
+    if (provider == 5)
+    {
+        if (provider == 4)
+            FreeTcp();
+        else
+            FreeDp();
+        provider = 5;
+    }
+}
+
+void CLlDriver::FreeTcp()
+{
+    //523611
+    WSACleanup();
+}
+
+void CLlDriver::FreeDp()
+{
+    //523d5a
+    if (dplay4)
+    {
+        dplay4->Release();
+        dplay4 = nullptr;
+    }
+}
+
+
+
+
+
+int CLlDriver::ResetProvider(int prov)
+{
+    //52194f
+    Free();
+
+    provider = prov;
+    if (prov == 4)
+    {
+        if (!CreateTcp())
+            return 0;
+    }
+    else
+    {
+        if (!CreateDp())
+            return 0;
+    }
+    provider = prov;
+    return 1;
+}
+
+
+int CLlDriver::CreateTcp()
+{
+    //52359b
+    WSADATA wsa;
+    if (WSAStartup(0x101, &wsa) != 0)
+        return 0;
+
+    if (wsa.wVersion == 0x101)
+        return 1;
+
+    WSACleanup();
+    return 0;
+}
+
+int CLlDriver::CreateDp()
+{
+    //523ccf
+    if (dplay4)
+        return 1;
+
+    dplay_is_4 = 1;
+    if (CoCreateInstance(CLSID_DirectPlay, NULL, 1, IID_IDirectPlay4A, (LPVOID*)&dplay4) == 0)
+        return 1;
+
+    dplay_is_4 = 0;
+    if (CoCreateInstance(CLSID_DirectPlay, NULL, 1, IID_IDirectPlay3A, (LPVOID*)&dplay3) == 0)
+        return 1;
+
+    dplay4 = nullptr;
+    return 0;
+}
+
+
+A2NetSock* CLlDriver::GetClientBySocketId(uint32_t uid)
+{
+    //5224c4
+    if (!is_server)
+        return &listen_socket;
+    
+    A2NetSock* sock = connection_sockets + (uid & 0xFFFF);
+    if (sock->uid != uid)
+    {
+        ReportWarning("CLlDriver::GetClientBySocketId().\nConnection with client lost.\n");
+        return nullptr;
+    }
+    return sock;
+}
+
+
+void CLlDriver::SetEventNewSession()
+{
+    //522318
+    if (ev_new_session)
+        SetEvent(ev_new_session);
+}
+
+int CLlDriver::IsInUse(A2NetSock* sock)
+{
+    //52293a
+    if (listen_socket.is_in_use == 1)
+        return sock->is_in_use;
+    else
+        return 0;
+}
+
+
+
+int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve)
+{
+    //52343e
+    char buf[1024];
+    strcpy(buf, address);
+
+    if (buf[0] == 0)
+    {
+        out->sin_addr.S_un.S_addr = 0;
+        out->sin_port = 0;
+        return 0;
+    }
+
+    out->sin_port = htons(port);
+
+    for (char* p = buf + strlen(buf) - 1; p != buf; p--)
+    {
+        if (*p == ':')
+        {
+            *p = 0;
+            out->sin_port = htons(atoi(p + 1) + (port == 8001));
+            break;
+        }
+    }
+
+    out->sin_family = AF_INET;
+    out->sin_addr.S_un.S_addr = inet_addr(buf);
+
+    if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0)
+    {
+        hostent *host = gethostbyname(buf);
+        if (host == nullptr)
+        {
+            out->sin_addr.S_un.S_addr = 0;
+            out->sin_port = 0;
+            return 0;
+        }
+        out->sin_addr.S_un.S_addr = *(uint32_t *)(host->h_addr_list);
+    }
+    memset(out->sin_zero, 0, sizeof(out->sin_zero));
+    return 1;
+}
+
+
+
+int CLlDriver::StartServerTcp()
+{
+    //523621
+    listen_socket.socket = INVALID_SOCKET;
+    listen_socket.wait_obj = nullptr;
+    num_connections = 0;
+
+    listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (listen_socket.socket == INVALID_SOCKET)
+    {
+        CloseTcp();
+        return 0;
+    }
+    u_long nonblock = 1;
+    ioctlsocket(listen_socket.socket, FIONBIO, &nonblock);
+
+    sockaddr addr;
+    if (MakeSockAddr(server_start_addr->address, (sockaddr_in*)&addr, 8000, 0) == 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    if (bind(listen_socket.socket, &addr, sizeof(addr)) != 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    if (listen(listen_socket.socket, max_connections) != 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+
+    if (_beginthread(AcceptThreadTcp, 0, this) == -1L || listen_socket.wait_obj == nullptr)
+    {
+        CloseHandle(listen_socket.wait_obj);
+        listen_socket.wait_obj = nullptr;
+        CloseTcp();
+        return 0;
+    }
+    
+    guaranteed = 1;
+
+    return 1;
+}
+
+
+void __cdecl CLlDriver::AcceptThreadTcp(void* context)
+{
+    //522e8f
+    CLlDriver* drv = (CLlDriver*)context;
+
+    SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+
+    while (true)
+    {
+        if (drv->listen_socket.is_in_use != 1)
+        {
+            SetEvent(drv->listen_socket.wait_obj);
+            _endthread();
+            return;
+        }
+
+        fd_set fd;
+        FD_ZERO(&fd);
+        FD_SET(drv->listen_socket.socket, &fd);
+
+        if (drv->is_server)
+        {
+            for (int i = 0; i < drv->max_connections; i++)
+            {
+                A2NetSock* sock = drv->connection_sockets + i;
+                if (sock->is_in_use == 1)
+                {
+                    FD_SET(sock->socket, &fd);
+                }
+            }
+        }
+
+        timeval timeout;
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 250000;
+
+        int numfd = select(0, &fd, NULL, NULL, &timeout);
+
+        if (numfd == 0)
+            continue;
+
+        if (numfd == SOCKET_ERROR)
+        {
+            if (drv->listen_socket.is_in_use == 1)
+                ReportWarning("CLlDriverAcceptThreadTcp().\nSelect error.\n");
+            continue;
+        }
+
+        if (drv->is_server == 0)
+        {
+            if (drv->listen_socket.is_in_use == 1 &&
+                FD_ISSET(drv->listen_socket.socket, &fd) &&
+                drv->RecvThreadTcp(&drv->listen_socket) == 0)
+            {
+                closesocket(drv->listen_socket.socket);
+                drv->listen_socket.socket = INVALID_SOCKET;
+            }
+            continue;
+        }
+
+        if (FD_ISSET(drv->listen_socket.socket, &fd))
+        {
+            sockaddr_in newcon;
+            int newconln = sizeof(newcon);
+            SOCKET nsock = accept(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
+            if (nsock == INVALID_SOCKET)
+            {
+                if (drv->listen_socket.is_in_use == 1)
+                    ReportWarning("CLlDriverAcceptThreadTcp().\nUnable to accept new connection.\n");
+                continue;
+            }
+            
+            if (drv->num_connections >= drv->max_connections)
+            {
+                closesocket(nsock);
+                ReportWarning("CLlDriverAcceptThreadTcp().\nClient connection refused.\n");
+                continue;
+            }
+
+            SetSockOptions(nsock, 1);
+
+            EnterCriticalSection(&drv->critical_section);
+
+            int32_t idx = -1;
+            for (int i = 0; i < drv->max_connections; i++)
+            {
+                if (!drv->IsInUse(drv->connection_sockets + i))
+                {
+                    idx = i;
+                    break;
+                }
+            }
+
+            if (idx == -1)
+            {
+                closesocket(nsock);
+                ReportWarning("CLlDriverAcceptThreadTcp().\n No free slot.\n");
+            }
+            else
+            {
+                A2NetSock* cs = drv->connection_sockets + idx;
+                cs->socket = nsock;
+                cs->uid = idx | drv->next_uid;
+                drv->next_uid += 0x10000;
+                cs->wait_obj = nullptr;
+                cs->copy_num = 0;
+                cs->manager = drv->net_stru1->AllocClientBufManager(cs->uid);
+                sprintf((char*)cs->manager->buf, "%u.%u.%u.%u:%u", newcon.sin_addr.S_un.S_un_b.s_b1, newcon.sin_addr.S_un.S_un_b.s_b2, newcon.sin_addr.S_un.S_un_b.s_b3, newcon.sin_addr.S_un.S_un_b.s_b4, ntohs(newcon.sin_port));
+                cs->is_in_use = 1;
+                drv->num_connections++;
+            }
+
+            LeaveCriticalSection(&drv->critical_section);
+        }
+
+        for (uint32_t i = 0; i < drv->max_connections; i++)
+        {
+            A2NetSock* conn = drv->connection_sockets + i;
+            if (conn->is_in_use == 1 &&
+                FD_ISSET(conn->socket, &fd) &&
+                drv->RecvThreadTcp(conn) == 0)
+            {
+                closesocket(conn->socket);
+                conn->socket = INVALID_SOCKET;
+            }
+        }
+
+    }
+}
+
+void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger)
+{
+    //522af4
+    int32_t flag = 1;
+    setsockopt(s, IPPROTO_TCP, TCP_NODELAY, (const char*)&flag, 4);
+    int32_t bufsz = 0x8000;
+    setsockopt(s, SOL_SOCKET, SO_SNDBUF, (const char*)&bufsz, 4);
+    setsockopt(s, SOL_SOCKET, SO_RCVBUF, (const char*)&bufsz, 4);
+
+    if (enlinger)
+    {
+        linger lngr;
+        lngr.l_linger = 0;
+        lngr.l_onoff = 1;
+        setsockopt(s, SOL_SOCKET, SO_LINGER, (const char*)&lngr, sizeof(linger));
+    }
+    u_long nonblock = 1;
+    ioctlsocket(s, FIONBIO, &nonblock);
+}
+
+
+
+int CLlDriver::RecvThreadTcp(A2NetSock* sock)
+{
+    //522b95
+    uint8_t databuf[0x2000];
+    int rsz = recv(sock->socket, (char *)databuf, 0x2000, 0);
+    if (rsz == 0 || rsz == -1)
+        return 0;
+
+    uint8_t *pos = databuf;
+    while (true)
+    {
+        if (rsz == 0)
+            return 1;
+
+        if (sock->copy_num < 8)
+        {
+            if (sock->current_buffer == nullptr)
+            {
+                sock->copy_num = 0;
+                sock->current_buffer = net_stru1->GetFreeNet3();
+                sock->current_buffer->Clear();
+            }
+            int32_t copynum = 8 - sock->copy_num;
+            if (rsz < copynum)
+                copynum = rsz;
+            
+            memcpy(sock->current_buffer->buf + sock->copy_num - 8, pos, copynum);
+            pos += copynum;
+            rsz -= copynum;
+            sock->copy_num += copynum;
+
+            if (sock->copy_num >= 8 && (sock->current_buffer->pos == 0 || sock->current_buffer->pos >= 143))
+            {
+                ReportWarning("CLlDriverRecvThreadTcp().\nReceived invalid message.\n");
+                net_stru1->AddTailFreeNet3(sock->current_buffer);
+                sock->copy_num = 0;
+                sock->current_buffer = nullptr;
+                return 0;
+            }
+        }
+        else
+        {
+            int32_t cpysz = (sock->current_buffer->pos + 8) - sock->copy_num;
+            int32_t cpynum = cpysz;
+            if (cpynum > rsz)
+                cpynum = rsz;
+            
+            memcpy(sock->current_buffer->buf + sock->copy_num - 8, pos, cpynum);
+            pos += cpynum;
+            rsz -= cpynum;
+            sock->copy_num += cpynum;
+
+            if (cpysz == cpynum)
+            {
+                sock->current_buffer->datasz = sock->current_buffer->pos;
+                XorData(sock->current_buffer->buf, sock->current_buffer->datasz);
+                sock->manager->ReceiveData(sock->current_buffer);
+                sock->copy_num = 0;
+                sock->current_buffer = nullptr;
+            }
+        }
+    }
+}
+
+
+
+
+int CLlDriver::PrepareAddressDp(CLlAddress* addr)
+{
+    //523d96
+    IDirectPlayLobby2A* lobby = nullptr;
+    if (CoCreateInstance(CLSID_DirectPlayLobby, NULL, 1, IID_IDirectPlayLobby2A, (LPVOID *) &lobby) != DP_OK)
+        return 0;
+
+    DPCOMPOUNDADDRESSELEMENT elem[3];
+    int numelem = 0;
+
+    char addrbuf[100];
+
+    switch (provider)
+    {
+    case 0:
+        elem[0].guidDataType = DPAID_ServiceProvider;
+        elem[0].dwDataSize = sizeof(GUID);
+        elem[0].lpData = (LPVOID) &DPSPGUID_SERIAL;
+        elem[1].guidDataType = DPAID_ComPort;
+        elem[1].dwDataSize = sizeof(DPCOMPORTADDRESS);
+        elem[1].lpData = &addr->com;
+        numelem = 2;
+        break;
+    case 1:
+        elem[0].guidDataType = DPAID_ServiceProvider;
+        elem[0].dwDataSize = sizeof(GUID);
+        elem[0].lpData = (LPVOID)&DPSPGUID_MODEM;
+        elem[1].guidDataType = DPAID_Modem;
+        elem[1].dwDataSize = strlen(addr->name) + 1;
+        elem[1].lpData = addr->name;
+        elem[2].guidDataType = DPAID_Phone;
+        elem[2].dwDataSize = strlen(addr->address) + 1;
+        elem[2].lpData = addr->address;
+        numelem = 3;
+        break;
+    case 2:
+        elem[0].guidDataType = DPAID_ServiceProvider;
+        elem[0].dwDataSize = sizeof(GUID);
+        elem[0].lpData = (LPVOID)&DPSPGUID_IPX;
+        numelem = 1;
+        break;
+    case 3:
+        strcpy(addrbuf, addr->address);
+        elem[0].guidDataType = DPAID_ServiceProvider;
+        elem[0].dwDataSize = sizeof(GUID);
+        elem[0].lpData = (LPVOID)&DPSPGUID_TCPIP;
+        elem[1].guidDataType = DPAID_INet;
+        elem[1].dwDataSize = strlen(addrbuf) + 1;
+        elem[1].lpData = addrbuf;
+        numelem = 2;
+        break;
+    }
+    DWORD sz = 0;
+    if (lobby->CreateCompoundAddress(elem, numelem, nullptr, &sz) != DPERR_BUFFERTOOSMALL)
+    {
+        lobby->Release();
+        return 0;
+    }
+
+    uint8_t *dat = new uint8_t[sz];
+    if (lobby->CreateCompoundAddress(elem, numelem, dat, &sz) != DP_OK)
+    {
+        delete[] dat;
+        lobby->Release();
+        return 0;
+    }
+
+    HRESULT res = dplay4->InitializeConnection(dat, 0);
+    if (res == DPERR_ALREADYINITIALIZED)
+    {
+        FreeDp();
+        CreateDp();
+        if (dplay4)
+            res = dplay4->InitializeConnection(dat, 0);
+    }
+
+    delete[] dat;
+    lobby->Release();
+    return res == DP_OK;
+}
+
+int CLlDriver::StartServerDp()
+{
+    //5241ea
+    ev_close = nullptr;
+    ev_create_player = nullptr;
+    listen_socket.player_dpid = -1;
+
+    if (PrepareAddressDp(server_start_addr) == 0)
+    {
+        ReportWarning("CLlDriver::StartServerDP.\nUnable to initialize DirectPlay connection.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPCAPS caps;
+    caps.dwSize = sizeof(DPCAPS);
+    if (dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK)
+    {
+        ReportWarning("CLlDriver::StartServerDp.\nUnable to get caps.\n");
+        return 0;
+    }
+
+    if (caps.dwMaxPlayers < num_connections)
+    {
+        ReportWarning("CLlDriver::StartServerDp().\nUnsupported number of connections.\n");
+        num_connections = caps.dwMaxPlayers;
+    }
+
+    if ((caps.dwFlags & (DPCAPS_GUARANTEEDSUPPORTED | DPCAPS_GUARANTEEDOPTIMIZED)) == (DPCAPS_GUARANTEEDSUPPORTED | DPCAPS_GUARANTEEDOPTIMIZED) )
+        guaranteed = 1;
+    else
+        guaranteed = 0;
+    
+    if (provider == 1)
+    {
+        latency = 1000;
+        if (timeout < 16000)
+            timeout = 16000;
+    }
+    else if (provider == 3)
+    {
+        guaranteed = 0;
+        latency = 500;
+        if (timeout < 16000)
+            timeout = 16000;
+    }
+    else
+    {
+        latency = caps.dwLatency;
+    }
+
+    ev_create_player = CreateEventA(NULL, 0, 0, NULL);
+    ev_close = CreateEventA(NULL, 0, 0, NULL);
+
+    if (ev_create_player == nullptr || ev_close == nullptr)
+    {
+        ReportWarning("CLlDriver::StartServerDp().\nUnable to create events.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPSESSIONDESC2 session;
+    memset(&session, 0, sizeof(DPSESSIONDESC2));
+    session.dwSize = sizeof(DPSESSIONDESC2);
+    session.dwFlags = DPSESSION_NODATAMESSAGES;
+    if (keepalive || guaranteed)
+        session.dwFlags |= DPSESSION_KEEPALIVE;
+
+    session.guidApplication = application_guid;
+    session.dwMaxPlayers = max_connections;
+    session.lpszSessionNameA = comp_name;
+
+    char pwd[4] = { 0 };
+    session.lpszPasswordA = pwd;
+
+    if (dplay4->Open(&session, DPOPEN_CREATE) != DP_OK)
+    {
+        ReportWarning("CLlDriver::StartServerDp().\nUnable to create DirectPlay session.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPNAME pname;
+    memset(&pname, 0, sizeof(DPNAME));
+    pname.lpszShortNameA = comp_name;
+    pname.lpszLongNameA = comp_name;
+
+    if (dplay4->CreatePlayer((LPDPID)&listen_socket.player_dpid, &pname, ev_create_player, nullptr, 0, DPPLAYER_SERVERPLAYER) != DP_OK)
+    {
+        ReportWarning("CLlDriver::StartServerDp().\nUnable to create DirectPlay server player.\n");
+        CloseDp();
+        return 0;
+    }
+
+    listen_socket.field_0x50 = 0;
+    listen_socket.field_0x4c = 0;
+    listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+    if (_beginthread(RecvThreadDp, 0, this) == -1L || listen_socket.wait_obj == nullptr)
+    {
+        CloseDp();
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+
+
+
+void __cdecl CLlDriver::RecvThreadDp(void* context)
+{
+    //523b7a
+    CLlDriver* drv = (CLlDriver*)context;
+
+    SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+
+    HANDLE handles[2] = { drv->ev_close, drv->ev_create_player };
+
+    void* mem = malloc(0x96);
+    DWORD memsz = 0x96;
+    while (true)
+    {
+        if (WaitForMultipleObjects(2, handles, 0, -1) != 1)
+        {
+            free(mem);
+            SetEvent(drv->listen_socket.wait_obj);
+            _endthread();
+            return;
+        }
+        EnterCriticalSection(&drv->critical_section);
+        while (true)
+        {
+            DPID from;
+            DPID to;
+            HRESULT res = drv->dplay4->Receive(&from, &to, DPRECEIVE_ALL, mem, &memsz);
+            if (res == DPERR_BUFFERTOOSMALL)
+            {
+                free(mem);
+                mem = malloc(memsz);
+            }
+            else if (res == DPERR_NOMESSAGES)
+                break;
+            else if (res == DP_OK)
+                drv->HandleMessageDp(from, to, mem, memsz);
+            else
+                ReportWarning("CLlDriverRecvThreadDp().\nError during receiving messages.\n");
+        }
+        LeaveCriticalSection(&drv->critical_section);
+    }
+}
+
+void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz)
+{
+    //524abd
+    if (from == 0)
+    {
+        int dwType = ((DPMSG_GENERIC*)data)->dwType;
+        if (dwType == DPSYS_CREATEPLAYERORGROUP)
+        {
+            DPMSG_CREATEPLAYERORGROUP* createmsg = (DPMSG_CREATEPLAYERORGROUP*)data;
+            if (is_server != 0 && createmsg->dwPlayerType == DPPLAYERTYPE_PLAYER)
+            {
+                int32_t idx = 0;
+                while (idx < max_connections)
+                {
+                    if (!IsInUse(connection_sockets + idx))
+                        break;
+                    idx++;
+                }
+
+                int infid;
+                FindDpSock(createmsg->dpId, &infid);
+                memmove(connections_info + infid + 1, connections_info + infid, (num_connections - infid) * sizeof(SocketNm)); //make hole for insert
+                
+                SocketNm* inf = connections_info + infid;
+                A2NetSock* sock = connection_sockets + idx;
+                inf->dpid = createmsg->dpId;
+                inf->sock = sock;
+                sock->field_0x50 = 0;
+                sock->field_0x4c = 0;
+                sock->uid = next_uid | idx;
+
+                next_uid += 0x10000;
+
+                sock->player_dpid = createmsg->dpId;
+                sock->is_in_use = 1;
+                sock->latency_check.num = 0;
+                sock->latency_check.calc_latency = sock->latency;
+                sock->latency = 0;
+                sock->field_0x260 = 0;
+                sock->field_0x264 = 0;
+                sock->manager = net_stru1->AllocClientBufManager(sock->uid);
+
+                num_connections++;
+            }
+        }
+        else if (dwType == DPSYS_DESTROYPLAYERORGROUP)
+        {
+            DPMSG_DESTROYPLAYERORGROUP* destroymsg = (DPMSG_DESTROYPLAYERORGROUP*)data;
+            if (is_server != 0 && destroymsg->dwPlayerType == DPPLAYERTYPE_PLAYER)
+            {
+                int infid;
+                A2NetSock* sock = FindDpSock(destroymsg->dpId, &infid);
+                CloseDpSock(sock, infid);
+                num_connections--;
+            }
+        }
+        else if (dwType == DPSYS_SESSIONLOST)
+        {
+            session_lost = 1;
+        }
+        return;
+    }
+    
+    if (datasz <= 7 || datasz >= 0x97)
+    {
+        ReportWarning("CLlDriver::HandleMessageDp().\nReceived invalid message.\n");
+        return;
+    }
+
+    A2NetSock* sock = FindDpSock(from, nullptr);
+    if (!sock || !IsInUse(sock))
+    {
+        ReportWarning("CLlDriver::HandleMessageDp().\nMessage from disconnected client.\n");
+        return;
+    }
+
+    if (datasz == 8)
+    {
+        if (guaranteed != 0)
+        {
+            ReportWarning("CLlDriver::HandleMessageDp().\nAcknoweledgement on guaranteed media.\n");
+            return;
+        }
+
+        if (sock->list_0x14.IsEmpty())
+            return;
+        
+        for (POSITION pos = sock->list_0x14.GetHeadPosition(); pos != nullptr;)
+        {
+            POSITION curpos = pos;
+            NetStru3* buf = sock->list_0x14.GetNext(pos);
+            if (*(uint32_t*)(&buf->pos) == *(uint32_t*)data)
+            {
+                uint32_t latency = 0;
+                const uint32_t ticks = GetTickCount();
+                if (buf->timestamp < ticks)
+                    latency = ticks - buf->timestamp;
+
+                sock->latency_check.AddLatency(latency);
+
+                sock->list_0x14.RemoveAt(curpos);
+
+                buf->Clear();
+
+                net_stru1->AddTailFreeNet3(buf);
+                break;
+            }
+        }
+        return;
+    }
+
+    NetStru3* buf = net_stru1->GetFreeNet3();
+    buf->Clear();
+
+    memcpy(&buf->pos, data, datasz);
+
+    buf->datasz = datasz - 8;
+    
+    if (guaranteed)
+    {
+        sock->manager->ReceiveData(buf);
+        return;
+    }
+
+    while (dplay4->Send(listen_socket.player_dpid, from, 0, data, 8) == DPERR_BUSY)
+    {
+        ReportWarning("CLlDriver::HandleMessageDp().\nDirectPlay is busy, I go to sleep for 10ms.\n");
+        Sleep(10);
+    }
+
+    uint32_t pktid = *(uint32_t*)(&buf->pos);
+    if (pktid == sock->field_0x50)
+    {
+        sock->manager->ReceiveData(buf);
+        sock->field_0x50++;
+        if (!sock->list_0x30.IsEmpty())
+        {
+            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;)
+            {
+                POSITION curpos = pos;
+                buf = sock->list_0x30.GetNext(pos);
+                if (*(uint32_t*)(&buf->pos) == sock->field_0x50)
+                {
+                    sock->manager->ReceiveData(buf);
+                    sock->field_0x50++;
+
+                    sock->list_0x30.RemoveAt(curpos);
+                    return;
+                }
+            }
+        }
+    }
+    else if (pktid < sock->field_0x50)
+    {
+        buf->Clear();
+        net_stru1->AddTailFreeNet3(buf);
+    }
+    else
+    {
+        if (sock->list_0x30.IsEmpty())
+        {
+            sock->list_0x30.AddTail(buf);
+        }
+        else
+        {
+            for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;)
+            {
+                POSITION curpos = pos;
+                NetStru3 *cbuf = sock->list_0x30.GetNext(pos);
+                if (*(uint32_t*)(&cbuf->pos) == pktid)
+                {
+                    buf->Clear();
+                    net_stru1->AddTailFreeNet3(buf);
+                    return;
+                }
+            }
+
+            sock->list_0x30.AddTail(buf);
+        }
+    }
+}
+
+A2NetSock* CLlDriver::FindDpSock(uint32_t id, int* out_idx)
+{
+    //524986
+    if (is_server == 0)
+        return &listen_socket;
+
+    if (num_connections < 1)
+    {
+        if (out_idx)
+            *out_idx = 0;
+        return nullptr;
+    }
+
+    int32_t lb = 0;
+    int32_t rb = num_connections - 1;
+    while (lb >= rb)
+    {
+        int32_t cur = lb + (rb - lb) / 2;
+        SocketNm* info = connections_info + cur;
+
+        if (info->dpid == id)
+        {
+            if (out_idx)
+                *out_idx = cur;
+
+            return info->sock;
+        }
+
+        if (info->dpid <= id)
+            lb = cur + 1;
+        else
+            rb = cur;
+    }
+
+    //if lb >= rb
+    SocketNm* info = connections_info + rb;
+    if (info->dpid == id)
+    {
+        if (out_idx)
+            *out_idx = rb;
+        return info->sock;
+    }
+
+    if (out_idx)
+    {
+        if (info->dpid > id)
+            *out_idx = rb;
+        else
+            *out_idx = rb + 1;
+    }
+    return nullptr;
+}
+
+
+int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr)
+{
+    //521a09
+    is_server = 1;
+    max_connections = maxconn;
+    server_start_addr = addr;
+    if (!name)
+    {
+        DWORD sz = sizeof(comp_name);
+        GetComputerNameA(comp_name, &sz);
+    }
+    else
+        strcpy(comp_name, name);
+
+    if (connection_sockets)
+    {
+        delete[] connection_sockets;
+        connection_sockets = nullptr;
+    }
+
+    if (connections_info)
+    {
+        delete[] connections_info;
+        connections_info = nullptr;
+    }
+
+    connection_sockets = new A2NetSock[max_connections]();
+    connections_info = new SocketNm[max_connections]();
+
+    if (listen_socket.is_in_use == 1)
+        Close();
+
+    num_connections = 0;
+
+    if (provider == 4)
+    {
+        if (StartServerTcp() == 0)
+        {
+            ReportWarning("CLlDriver::StartServer().\nUnable to connect over TCP/IP.\n");
+            return 0;
+        }
+    }
+    else
+    {
+        if (StartServerDp() == 0)
+        {
+            ReportWarning("CLlDriver::StartServer().\nUnable to connect over DirectPlay.\n");
+            return 0;
+        }
+    }
+    listen_socket.is_in_use = 1;
+
+    return 1;
 }

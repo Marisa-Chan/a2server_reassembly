@@ -62,11 +62,11 @@ public: // VTable at 0060ecc0.
 public:
     CLlDriver* driver;
     NetStru1* field_0x8;
-    CList<int32_t> list;
+    CList<NetStru2*> list;
     CList<NetStru2*> clients;
     CList<NetStru3*> free_net3;
-    CriticalSection critical_section;
-    CriticalSection critical_section2;
+    CRITICAL_SECTION critical_section;
+    CRITICAL_SECTION critical_section2;
     PackerDat packer_dat1;
     PackerDat packer_dat2;
     uint32_t field_0x1898;
@@ -136,6 +136,16 @@ public:
     // populate it via VMethod4, and stamp it with the sender id.
     Packet* sub_51E7FC(uint8_t cmd, NetStru2* ns2);
     void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
+
+
+    void AddTailNet2(NetStru2*& net2); //517e91
+    void AddTailFreeNet3(NetStru3* net3); //517b00
+
+    NetStru2* AllocClientBufManager(uint32_t uid); //517c99
+
+    NetStru3* GetFreeNet3(); //5177f5
+
+    int Unpack(int id, void* in, int insz, void* out, int outsz); //51846f asm!
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -152,8 +162,12 @@ struct NetStru3 {
     uint16_t size;
     uint8_t field_0xf;
     uint8_t buf[144];
-    uint32_t datasz;
-    uint32_t field_0xa4;
+    int32_t datasz;
+    int32_t field_0xa4;
+
+    void Clear(); //5156f6
+    NetStru3(); //5155c0
+    ~NetStru3(); //515694
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(NetStru3, datasz, 0xa0);
@@ -170,7 +184,7 @@ struct NetStru2 {
     NetStru3 stru3[2];
     int32_t stru3_id;
     CList<NetStru3*> unpacked_buffers;
-    CriticalSection critical_section;
+    CRITICAL_SECTION critical_section;
     uint32_t field_0x298;
     uint32_t field_0x29c;
     uint32_t field_0x2a0;
@@ -178,7 +192,7 @@ struct NetStru2 {
     uint32_t field_0x2a8;
     uint32_t field_0x2ac;
     CString str;
-    uint32_t field_0x2b4;
+    int32_t field_0x2b4;
     uint32_t field_0x2b8;
     uint32_t field_0x2bc;
 
@@ -190,6 +204,13 @@ public:
     // sub_5167A5 – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
     void sub_5167A5();
+
+    void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d
+    int ReceiveData(NetStru3* buffer); //5161bf
+
+    NetStru2(); //515831
+    ~NetStru2(); //515c27
+    void ReturnBuffers(); //515d9d    return buffers to High-level driver
 };
 __pragma(pack(pop))
 
@@ -202,13 +223,16 @@ struct NetSockLatency
     uint32_t lat_times[128];
     uint32_t num;
     uint32_t calc_latency;
+
+    void AddLatency(uint32_t lat_time); //51fdf7
+    static inline uint32_t ShiftToByte(uint32_t val, int shift) { return (val >> shift) & 0xFF; };
 };
 
 struct A2NetSock {
     uint32_t is_in_use;
     uint32_t uid;
-    HANDLE socket;
-    DPID player_dpid;
+    SOCKET socket;
+    uint32_t player_dpid;
     NetStru2* manager;
     CList<NetStru3*> list_0x14;
     CList<NetStru3*> list_0x30;
@@ -220,18 +244,33 @@ struct A2NetSock {
     int32_t field_0x264;
     HANDLE wait_obj;
     NetStru3* current_buffer;
-    uint32_t copy_num;
+    int32_t copy_num;
+
+    A2NetSock(); //520510
+    ~A2NetSock(); //520684
 };
 ASSERT_OFFSET(A2NetSock, list_0x30, 0x30);
 ASSERT_OFFSET(A2NetSock, wait_obj, 0x268);
 ASSERT_SIZE(A2NetSock, 0x274);
 
 struct SocketNm {
-    DPID dpid;
+    uint32_t dpid;
     A2NetSock *sock;
+
+    SocketNm()
+    {
+        dpid = 0;
+        sock = nullptr;
+    };
+
+    ~SocketNm()
+    {
+        dpid = 0;
+        sock = nullptr;
+    };
 };
 
-struct ComSettings 
+struct ComSettings  //DPCOMPORTADDRESS
 {
     int32_t index;
     uint32_t speed;
@@ -308,7 +347,7 @@ struct CLlDriver {
     HANDLE ev_new_session;
     uint32_t session_lost;
     CLlAddress cur_address;
-    CriticalSection critical_section;
+    CRITICAL_SECTION critical_section;
     uint32_t timeout;
     uint32_t keepalive;
     uint32_t dplay_is_4;
@@ -319,6 +358,74 @@ public:
     void sub_5229CD(int32_t conn_uid, int32_t latency_ms); // Set connection latency limit
     int32_t sub_5229FD(int32_t conn_uid);  // Get current measured latency (ms)
     int32_t sub_522A51(int32_t conn_uid);  // Get current packet-loss figure
+
+    A2NetSock* GetClientBySocketId(uint32_t uid); //5224c4
+
+    CLlDriver(GUID _appid, NetStru1 *net1); //5208ec
+    ~CLlDriver(); //520ad3
+
+    void Close(); //5225d0
+    void CloseTcp(); //523b01
+    void CloseDp(); //525a09
+    void CloseTcpSocket(A2NetSock* sock); //523a16
+    void CloseDpSock(A2NetSock* sock, int idx = -1); //525bcd
+
+    CLlAddress* AllocAddress(); //520d8c
+    void FreeEnumAddresses(); //520c80
+
+    int EnumAddresses(CLlAddress** addrs, int* num); //52182f
+    void EnumAddressesTcp(); //5214c5
+    void EnumAddressesDp(); //5214c5
+    static BOOL __stdcall cbEnumAddress(REFGUID guidDataType, DWORD dwDataSize, LPCVOID lpData, LPVOID lpContext); //5211b2
+
+    CLlNetSession* AllocSession(); //520e2e
+    void FreeEnumSessions(); //520cc3
+
+    typedef int(*CBUPDATECALLBACK)();
+    int EnumSessions(CLlNetSession**, int* num, CBUPDATECALLBACK cbUpdate = nullptr, uint32_t timeout = 0); //52210d
+    static BOOL __stdcall cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpdwTimeOut, DWORD dwFlags, LPVOID lpContext); //522020
+
+
+    CLlConn* AllocEnumConns(); //520ed0
+    void FreeEnumConns(); //520d06
+    void EnumConnections(CLlConn** conns, int* num); //5210ea
+    static BOOL __stdcall cbEnumConnections(LPCGUID lpguidSP, LPVOID lpConnection, DWORD dwConnectionSize, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52100e
+
+
+    CLlName* AllocEnumPlayers(); //520f72
+    void FreeEnumPlayers(); //520d49
+    void EnumPlayers(CLlNetSession* ses, CLlName** names, int* num); //52238e
+    static BOOL __stdcall cbEnumPlayes(DPID dpId, DWORD dwPlayerType, LPCDPNAME lpName, DWORD dwFlags, LPVOID lpContext); //52233f
+
+
+    void Free(); //5219af
+    void FreeTcp(); //523611
+    void FreeDp(); //523d5a
+
+    int ResetProvider(int provider); //52194f
+
+    int CreateTcp(); //52359b
+    int CreateDp(); //523ccf
+
+    int IsInUse(A2NetSock* sock); //52293a
+    void SetEventNewSession(); //522318
+
+    int MakeSockAddr(const char* address, sockaddr_in* out, int port, int resolve); //52343e
+    int StartServerTcp(); //523621
+
+    static void __cdecl SetSockOptions(SOCKET s, int linger); //522af4
+
+    static void __cdecl AcceptThreadTcp(void* context); //522e8f
+    int RecvThreadTcp(A2NetSock* sock); //522b95
+
+    int PrepareAddressDp(CLlAddress* addr); //523d96
+    int StartServerDp(); //5241ea
+    static void __cdecl RecvThreadDp(void* context); //523b7a
+    void HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t datasz); //524abd
+
+    A2NetSock* FindDpSock(uint32_t id, int* out_idx); //524986
+
+    int StartServer(int maxconn, const char* name, CLlAddress* addr); //521a09
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

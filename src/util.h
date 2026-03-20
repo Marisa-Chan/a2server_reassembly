@@ -8,6 +8,7 @@ extern "C"
 {
 	void pathStrCpy(const char* src, char* dst);
 	void __cdecl ReportWarning(const char* warn);
+	void __cdecl XorData(void* data, uint32_t size); //51fd7d
 }
 
 

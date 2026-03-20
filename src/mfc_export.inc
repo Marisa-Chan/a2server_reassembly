@@ -634,6 +634,14 @@ externdef ?Inst@PacketUnitUpdate@@2V1@A : byte                        ; _unk_6D1
 
 
 ;NetStru1
+
+extern ?AddTailNet2@NetStru1@@QAEXAAPAUNetStru2@@@Z : proc
+extern ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z : proc
+extern ?AllocClientBufManager@NetStru1@@QAEPAUNetStru2@@I@Z : proc
+extern ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ :proc
+
+externdef ?Unpack@NetStru1@@QAEHHPAXH0H@Z : proc
+
 externdef ?g_NetStru1_main@@3VNetStru1@@A:byte
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
@@ -684,6 +692,16 @@ externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 externdef ?FUN_00515ef3@NetStru2@@QAEHPAXI@Z : proc
 externdef ?FUN_00515f9c@NetStru2@@QAEHPAXI@Z : proc
 externdef ?sub_5167A5@NetStru2@@QAEXXZ :proc
+
+extern ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z : proc
+extern ??1NetStru2@@QAE@XZ :proc
+
+
+;NetStru3
+extern ??0NetStru3@@QAE@XZ :proc
+extern ??1NetStru3@@QAE@XZ :proc
+extern ?Clear@NetStru3@@QAEXXZ :proc
+
 
 ; Server
 externdef ?g_Server@@3PAUServer@@A : dword
@@ -932,7 +950,6 @@ extern ?g_CmdSafeVideo@@3IA  : dword
 
 extern ?g_HelpStr@@3VCString@@A : byte
 
-externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
 
 extern ?txt_main@@3VTxtFile@@A :byte   ; (class TxtFile txt_main)
 extern ?txt_heropicture@@3VTxtFile@@A :byte   ; (class TxtFile txt_heropicture)
@@ -962,11 +979,56 @@ externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
 
+;A2NetSock
+extern ??0A2NetSock@@QAE@XZ :proc
+extern ??1A2NetSock@@QAE@XZ :proc
+
+
 ; CLlDriver
+extern ??0CLlDriver@@QAE@U_GUID@@PAVNetStru1@@@Z  : proc
+extern ??1CLlDriver@@QAE@XZ  : proc
+
+extern ?Close@CLlDriver@@QAEXXZ :proc
+
+extern ?EnumAddresses@CLlDriver@@QAEHPAPAUCLlAddress@@PAH@Z : proc
+
+extern ?GetClientBySocketId@CLlDriver@@QAEPAUA2NetSock@@I@Z : proc
+
+extern ?IsInUse@CLlDriver@@QAEHPAUA2NetSock@@@Z : proc
+
+extern ?CloseTcp@CLlDriver@@QAEXXZ : proc
+extern ?CloseTcpSocket@CLlDriver@@QAEXPAUA2NetSock@@@Z : proc
+extern ?CloseDp@CLlDriver@@QAEXXZ  : proc
+extern ?CloseDpSock@CLlDriver@@QAEXPAUA2NetSock@@H@Z : proc
+
+extern ?CreateDp@CLlDriver@@QAEHXZ :proc
+extern ?ResetProvider@CLlDriver@@QAEHH@Z : proc
+extern ?FreeDp@CLlDriver@@QAEXXZ : proc
+
+extern ?EnumSessions@CLlDriver@@QAEHPAPAUCLlNetSession@@PAHP6AHXZI@Z :proc
+extern ?cbEnumSessions@CLlDriver@@SGHPBUtagDPSESSIONDESC2@@PAKKPAX@Z :proc
+
+extern ?EnumConnections@CLlDriver@@QAEXPAPAUCLlConn@@PAH@Z : proc
+
+extern ?EnumPlayers@CLlDriver@@QAEXPAUCLlNetSession@@PAPAUCLlName@@PAH@Z  : proc
+
+externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
 
 externdef ?sub_5229CD@CLlDriver@@QAEXHH@Z :proc
 externdef ?sub_5229FD@CLlDriver@@QAEHH@Z :proc
 externdef ?sub_522A51@CLlDriver@@QAEHH@Z :proc
+
+
+extern ?StartServerTcp@CLlDriver@@QAEHXZ : proc
+extern ?MakeSockAddr@CLlDriver@@QAEHPBDPAUsockaddr_in@@HH@Z : proc
+extern ?AcceptThreadTcp@CLlDriver@@SAXPAX@Z :proc
+
+extern ?RecvThreadDp@CLlDriver@@SAXPAX@Z :proc
+extern ?StartServerDp@CLlDriver@@QAEHXZ : proc
+extern ?PrepareAddressDp@CLlDriver@@QAEHPAUCLlAddress@@@Z : proc
+
+extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
+
 
 ;TxtFile
 
@@ -1085,3 +1147,4 @@ externdef _sub_530DCB :proc   ; ClampExperienceGain
 ; util.h
 
 extern _ReportWarning : proc
+extern _XorData : proc
