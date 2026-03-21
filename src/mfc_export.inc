@@ -1033,6 +1033,9 @@ extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
 extern ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z : proc
 extern ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z : proc
 
+extern ?SendDataDp@CLlDriver@@QAEHPAUA2NetSock@@PAUNetStru3@@@Z : proc
+extern ?SendData@CLlDriver@@QAEHIPAUNetStru3@@@Z :proc
+
 
 ;TxtFile
 

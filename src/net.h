@@ -226,6 +226,7 @@ struct NetSockLatency
 
     void AddLatency(uint32_t lat_time); //51fdf7
     static inline uint32_t ShiftToByte(uint32_t val, int shift) { return (val >> shift) & 0xFF; };
+    uint32_t GetLatency() const { return calc_latency * 2; }; //5204fa
 };
 
 struct A2NetSock {
@@ -434,6 +435,10 @@ public:
     int ConnectTcp(); //523794
 
     int Connect(const char* name, CLlNetSession* session); //5223fb
+
+    int SendDataTcp(A2NetSock* sock, NetStru3* buf); //52394a
+    int SendDataDp(A2NetSock* sock, NetStru3* buffer); //5255c6
+    int SendData(uint32_t uid, NetStru3* buffer); //5226c4
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

@@ -2819,3 +2819,200 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session)
     return 1;
 }
 
+int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
+{
+    //52394a
+    int len = buffer->datasz + 8;
+    int sendlen = -1;
+    if (sock->socket != INVALID_SOCKET)
+        sendlen = send(sock->socket, (char*)&buffer->pos, len, 0);
+
+    net_stru1->AddTailFreeNet3(buffer);
+
+    if (sendlen == -1 || sendlen != len)
+    {
+        CloseTcpSocket(sock);
+        return 0;
+    }
+
+    return 1;
+}
+
+
+
+int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
+{
+    //5255c6
+    if (session_lost != 0)
+    {
+        if (buffer)
+            net_stru1->AddTailFreeNet3(buffer);
+
+        CloseDp();
+        session_lost = 0;
+        return 0;
+    }
+
+    uint32_t currentTick = GetTickCount();
+    if (guaranteed == 0)
+    {
+        if (buffer)
+        {
+            buffer->timestamp = currentTick;
+            buffer->timestamp2 = 0;
+            *(uint32_t*)&buffer->pos = sock->field_0x4c;
+            sock->field_0x4c++;
+            sock->list_0x14.AddTail(buffer);
+
+            sock->field_0x260++;
+            sock->field_0x264--;
+        }
+    }
+    else
+    {
+        if (!buffer)
+            return 1;
+    }
+
+    uint32_t latency = 0;
+    if (sock->latency)
+        latency = sock->latency;
+    else
+        latency = sock->latency_check.GetLatency();
+    
+    if (guaranteed == 0)
+    {
+        uint32_t unsent_size = 0;
+
+        for (POSITION it = sock->list_0x14.GetHeadPosition(); it != nullptr;)
+        {
+            NetStru3* dat = sock->list_0x14.GetNext(it);
+            unsent_size += 8 + dat->datasz;
+        }
+
+        if (unsent_size > 0x10000)
+        {
+            ReportWarning("CLlDriver::SendDataDp().\nOut of bandwidth.\n");
+            CloseDpSock(sock, -1);
+            return 0;
+        }
+
+        latency = std::max<uint32_t>(latency, (unsent_size * 1000) / 1024);
+    }
+
+    POSITION iter = nullptr;
+    if (guaranteed == 0)
+        iter = sock->list_0x14.GetHeadPosition();
+
+    bool loop = true;
+    while (loop)
+    {
+        if (guaranteed == 0) 
+        {
+            buffer = sock->list_0x14.GetNext(iter);
+
+            if (iter == nullptr) //not more nodes;
+                loop = false;
+
+            uint32_t mxticks = ((buffer->datasz + 8) * 1000) / 1024;
+            if (currentTick < mxticks)
+                mxticks = 0;
+            else
+                mxticks = currentTick - mxticks;
+
+            uint32_t maxtime = 0;
+            if (buffer->timestamp < mxticks)
+                maxtime = mxticks - buffer->timestamp;
+            
+            if (timeout < maxtime)
+            {
+                ReportWarning("CLlDriver::SendDataDp().\nCannot receive acknowledgement.\n");
+                CloseDpSock(sock, -1);
+                return 0;
+            }
+
+            uint32_t t2time = 0;
+            if (buffer->timestamp2 < mxticks)
+                t2time = mxticks - buffer->timestamp2;
+
+            if (latency <= t2time)
+                buffer->timestamp2 = currentTick;
+        }
+        else
+            loop = false;
+
+        uint32_t to = DPID_SERVERPLAYER;
+        if (is_server != 0)
+            to = sock->player_dpid;
+
+
+        uint32_t tosentsz = buffer->datasz + 8;
+
+        sock->field_0x264++;
+
+        HRESULT res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->pos, tosentsz);
+        while (guaranteed != 0 && res == DPERR_BUSY) //if guaranteed try and try if BUSY
+        {
+            ReportWarning("CLlDriver::SendDataDp().\nDirectPlay is busy, I go to sleep for 10ms.\n");
+            Sleep(10);
+            res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->pos, tosentsz);
+        }
+
+        if (res != DP_OK && res != DPERR_BUSY) // not send and not BUSY -> exit
+        {
+            if (guaranteed != 0)
+                net_stru1->AddTailFreeNet3(buffer);
+
+            CloseDpSock(sock, -1);
+            return 0;
+        }
+
+        if (guaranteed != 0)
+            net_stru1->AddTailFreeNet3(buffer);
+    }
+    return 1;
+}
+
+
+int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
+{
+    //5226c4
+    EnterCriticalSection(&critical_section);
+
+    A2NetSock* sock = GetClientBySocketId(uid);
+
+    if ((sock == NULL) || (sock->is_in_use != 1)) {
+        if (buffer)
+            net_stru1->AddTailFreeNet3(buffer);
+        LeaveCriticalSection(&critical_section);
+        return 0;
+    }
+
+    buffer->pos = buffer->datasz;
+
+    if (provider == 4)
+    {
+        XorData(buffer->buf, buffer->datasz);
+
+        if (SendDataTcp(sock, buffer) != 0)
+        {
+            LeaveCriticalSection(&critical_section);
+            return 1;
+        }
+    }
+    else {
+        if (SendDataDp(sock, buffer) != 0)
+        {
+            LeaveCriticalSection(&critical_section);
+            return 1;
+        }
+    }
+
+    if (listen_socket.is_in_use == 1 && is_server != 0)
+        ReportWarning("CLlDriver::SendData().\nConnection with client lost.\n");
+    else
+        ReportWarning("CLlDriver::SendData().\nConnection lost.\n");
+
+    LeaveCriticalSection(&critical_section);
+    return 0;
+}
