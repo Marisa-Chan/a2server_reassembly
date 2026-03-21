@@ -33,8 +33,9 @@ UnitToHit& UnitToHit::operator=(const UnitToHit&) = default;
 UnitToHit& UnitToHit::operator+=(const UnitToHit &b)
 {
     //533d2c
-    for (int32_t i = 0; i < skill_levels.size(); i++)
+    for (int32_t i = 0; i < skill_levels.size(); i++) {
         skill_levels[i] += b.skill_levels[i];
+    }
     attack += b.attack;
     hand_damage_min += b.hand_damage_min;
     hand_damage_spread += b.hand_damage_spread;
@@ -42,15 +43,16 @@ UnitToHit& UnitToHit::operator+=(const UnitToHit &b)
     some_damage_spread += b.some_damage_spread;
     some_damage2_min += b.some_damage2_min;
     some_damage2_spread += b.some_damage2_spread;
-    spell_id += b.spell_id;
+    spell_id = b.spell_id;
     return *this;
 }
 
 UnitToHit& UnitToHit::operator-=(const UnitToHit &b)
 {
     //533f3a
-    for (int32_t i = 0; i < skill_levels.size(); i++)
+    for (int32_t i = 0; i < skill_levels.size(); i++){
         skill_levels[i] -= b.skill_levels[i];
+    }
     attack += b.attack;
     hand_damage_min += b.hand_damage_min;
     hand_damage_spread += b.hand_damage_spread;
@@ -59,8 +61,9 @@ UnitToHit& UnitToHit::operator-=(const UnitToHit &b)
     some_damage2_min += b.some_damage2_min;
     some_damage2_spread += b.some_damage2_spread;
 
-    if (some_damage2_min + some_damage2_spread != 0)
+    if (some_damage2_min + some_damage2_spread != 0) {
         spell_id = 0;
+    }
     return *this;
 }
 
@@ -74,7 +77,7 @@ void UnitToHit::AddHits(const UnitToHit &b)
     some_damage_spread += b.some_damage_spread;
     some_damage2_min += b.some_damage2_min;
     some_damage2_spread += b.some_damage2_spread;
-    spell_id += b.spell_id;
+    spell_id = b.spell_id;
 }
 
 void UnitToHit::Serialize(CArchive& ar)
