@@ -426,6 +426,14 @@ public:
     A2NetSock* FindDpSock(uint32_t id, int* out_idx); //524986
 
     int StartServer(int maxconn, const char* name, CLlAddress* addr); //521a09
+
+    int PrepareForConnect(const char* name, CLlAddress* addr); //521d2a
+
+
+    int ConnectDp(const char* name, CLlNetSession* session); //52465f
+    int ConnectTcp(); //523794
+
+    int Connect(const char* name, CLlNetSession* session); //5223fb
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

@@ -2214,9 +2214,7 @@ int CLlDriver::StartServerDp()
     session.guidApplication = application_guid;
     session.dwMaxPlayers = max_connections;
     session.lpszSessionNameA = comp_name;
-
-    char pwd[4] = { 0 };
-    session.lpszPasswordA = pwd;
+    session.lpszPasswordA = (char*)"";
 
     if (dplay4->Open(&session, DPOPEN_CREATE) != DP_OK)
     {
@@ -2586,3 +2584,238 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr)
 
     return 1;
 }
+
+
+int CLlDriver::PrepareForConnect(const char* name, CLlAddress* addr)
+{
+    //521d2a
+    is_server = 0;
+    max_connections = 1;
+
+    if (connection_sockets)
+    {
+        delete[] connection_sockets;
+        connection_sockets = nullptr;
+    }
+
+    if (connections_info)
+    {
+        delete[] connections_info;
+        connections_info = nullptr;
+    }
+
+    strcpy(address_str, name);
+
+    if (addr)
+        cur_address = *addr;
+    else
+        memset(&cur_address, 0, sizeof(cur_address));
+
+    if (provider == 4)
+    {
+        guaranteed = 1;
+        return 1;
+    }
+
+    if (PrepareAddressDp(addr) == 0)
+    {
+        ReportWarning("CLlDriver::PrepareForConnect().\nUnable to initialize DirectPlay connection.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPCAPS caps;
+    caps.dwSize = sizeof(DPCAPS);
+
+    if (dplay4->GetCaps(&caps, DPGETCAPS_GUARANTEED) != DP_OK)
+    {
+        ReportWarning("CLlDriver::PrepareForConnect().\nUnable to get caps.\n");
+        return 0;
+    }
+
+    if ((caps.dwFlags & (DPCAPS_GUARANTEEDSUPPORTED | DPCAPS_GUARANTEEDOPTIMIZED)) == (DPCAPS_GUARANTEEDSUPPORTED | DPCAPS_GUARANTEEDOPTIMIZED))
+        guaranteed = 1;
+    else
+        guaranteed = 0;
+
+    if (provider == 1)
+    {
+        latency = 1000;
+        if (timeout < 16000)
+            timeout = 16000;
+    }
+    else if (provider == 3)
+    {
+        guaranteed = 0;
+        latency = 500;
+        if (timeout < 16000)
+            timeout = 16000;
+    }
+    else
+    {
+        latency = caps.dwLatency;
+    }
+    return 1;
+}
+
+
+int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
+{
+    //52465f
+    ev_close = nullptr;
+    ev_create_player = nullptr;
+
+    listen_socket.player_dpid = -1;
+
+    ev_create_player = CreateEventA(NULL, 0, 0, NULL);
+    ev_close = CreateEventA(NULL, 0, 0, NULL);
+
+    if (ev_create_player == nullptr || ev_close == nullptr)
+    {
+        ReportWarning("CLlDriver::ConnectDp().\nUnable to create events.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPSESSIONDESC2 desc;
+    memset(&desc,0,0x50);
+    desc.dwSize = sizeof(DPSESSIONDESC2);
+    desc.guidInstance = session->guid;
+    desc.lpszPasswordA = (char *)"";
+
+    if (dplay4->Open(&desc, DPOPEN_JOIN) != DP_OK)
+    {
+        ReportWarning("CLlDriver::ConnectDp().\nUnable to join DirectPlay session.\n");
+        CloseDp();
+        return 0;
+    }
+
+    DPSESSIONDESC2 tmp;
+    memset(&tmp, 0, 0x50);
+    tmp.dwSize = sizeof(DPSESSIONDESC2);
+    dplay4->EnumSessions(&tmp, 0, cbEnumSessions, this, DPENUMSESSIONS_STOPASYNC);
+
+    DPNAME pname;
+    memset(&pname, 0, sizeof(DPNAME));
+    pname.dwSize = sizeof(DPNAME);
+    pname.lpszShortNameA = (char *)name;
+    pname.lpszLongNameA = (char*)name;
+    if (dplay4->CreatePlayer((LPDPID)&listen_socket.player_dpid, &pname, ev_create_player, nullptr, 0, 0) != DP_OK)
+    {
+        ReportWarning("CLlDriver::ConnectDp().\nUnable to create DirectPlay player.\n");
+        CloseDp();
+        return 0;
+    }
+
+    listen_socket.field_0x50 = 0;
+    listen_socket.field_0x4c = 0;
+
+    listen_socket.uid = next_uid;
+
+    listen_socket.latency_check.num = 0;
+    listen_socket.latency_check.calc_latency = latency;
+    
+    listen_socket.manager = net_stru1->AllocClientBufManager(listen_socket.uid);
+    listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+
+    if (_beginthread(RecvThreadDp, 0, this) == -1L || listen_socket.wait_obj == nullptr)
+    {
+        CloseDp();
+        return 0;
+    }
+
+    return 1;
+}
+
+
+int CLlDriver::ConnectTcp()
+{
+    //523794
+    num_connections = 0;
+    listen_socket.socket = INVALID_SOCKET;
+    listen_socket.wait_obj = nullptr;
+    listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    
+    if (listen_socket.socket == INVALID_SOCKET)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    sockaddr connaddr;
+    sockaddr bindaddr;
+    if (MakeSockAddr(address_str, (sockaddr_in*)&connaddr, 8000, 1) == 0 ||
+        MakeSockAddr(cur_address.address, (sockaddr_in*)&bindaddr, 0, 0) == 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    if (bind(listen_socket.socket, &bindaddr, sizeof(bindaddr)) != 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    if (connect(listen_socket.socket, &connaddr, sizeof(connaddr)) != 0)
+    {
+        CloseTcp();
+        return 0;
+    }
+
+    SetSockOptions(listen_socket.socket, 1);
+
+    listen_socket.uid = next_uid;
+    listen_socket.manager = net_stru1->AllocClientBufManager(listen_socket.uid);
+    listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+
+    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L && listen_socket.wait_obj != nullptr)
+    {
+        CloseHandle(listen_socket.wait_obj);
+        listen_socket.wait_obj = nullptr;
+        CloseTcp();
+        return 0;
+    }
+    
+    num_connections = 1;
+    guaranteed = 1;
+    return 1;
+}
+
+int CLlDriver::Connect(const char* name, CLlNetSession* session)
+{
+    //5223fb
+    char buf[16];
+    memset(buf, 0, sizeof(buf));
+
+    if (!name)
+    {
+        DWORD sz = sizeof(buf);
+        GetComputerNameA(buf, &sz);
+        name = buf;
+    }
+
+    if (listen_socket.is_in_use == 1)
+        Close();
+
+    if (provider == 4)
+    {
+        if (ConnectTcp() == 0)
+        {
+            ReportWarning("CLlDriver::Connect().\nUnable to connect over TCP/IP.\n");
+            return 0;
+        }
+    }
+    else
+    {
+        if (ConnectDp(name, session) == 0)
+        {
+            ReportWarning("CLlDriver::Connect().\nUnable to connect over DirectPlay.\n");
+            return 0;
+        }
+    }
+
+    listen_socket.is_in_use = 1;
+    return 1;
+}
+

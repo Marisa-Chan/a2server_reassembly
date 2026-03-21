@@ -1030,6 +1030,9 @@ extern ?PrepareAddressDp@CLlDriver@@QAEHPAUCLlAddress@@@Z : proc
 
 extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
 
+extern ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z : proc
+extern ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z : proc
+
 
 ;TxtFile
 
