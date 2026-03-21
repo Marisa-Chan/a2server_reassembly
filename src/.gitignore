@@ -364,3 +364,9 @@ FodyWeavers.xsd
 
 # CMake build
 build/
+
+# Visual Studio Code workspace settings
+.vscode/
+
+# Decompiled source
+decomp.c

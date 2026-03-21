@@ -29,7 +29,9 @@ public:
     void sub_53940D(Unit* unit);
     bool sub_53939E(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
     void sub_539541(uint32_t param);
+    bool sub_5393C7(); // Checks if spell_target == 1 (unit-targeted).
     int32_t sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
+    void sub_539C49(Unit* caster, Unit* target);
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
@@ -39,7 +41,7 @@ public:
     uint8_t max_range;
     uint8_t is_defensive;
     uint8_t gap_0xb;
-    uint16_t mana_cost;
+    int16_t mana_cost;
     uint8_t damage_min;
     uint8_t damage_spread;
     uint16_t spell_power;

@@ -424,6 +424,8 @@ externdef ?sub_544777@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_544685@Unit@@QAEXPAVShop@@@Z :proc
 externdef ?sub_560C67@Unit@@QAEXPAVInn@@@Z :proc
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
+externdef ?sub_528763@Unit@@QAEGXZ :proc
+externdef ?sub_528725@Unit@@QAEGXZ :proc
 
 ; UnitEye
 
@@ -564,10 +566,11 @@ extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::Ref
 externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
+externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
+externdef ?sub_5393C7@Spell@@QAE_NXZ :proc
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
-externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
-
+externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 
 ; SpellBook
 
@@ -683,6 +686,8 @@ externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
 externdef ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 externdef ?sub_5185D5@NetStru1@@QAEPAUNetStru2@@G@Z :proc
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
+externdef ?sub_51BAB0@NetStru1@@QAEXPAVUnit@@PAVSpell@@0F@Z :proc
+externdef ?sub_51BB94@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAUTokenPos@@F@Z :proc
 
 
 
@@ -1148,6 +1153,7 @@ externdef _sub_53678F :proc   ; execute attack?
 externdef _sub_542216 :proc   ; RangedRand(n)
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
 externdef _sub_530DCB :proc   ; ClampExperienceGain
+externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
 
 

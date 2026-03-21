@@ -114,6 +114,8 @@ public:
     void sub_52C409();
     void sub_52C813();
     Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID.
+    uint16_t sub_528725(); // Returns x bottom-right extent (sub-cell units).
+    uint16_t sub_528763(); // Returns y bottom-right extent (sub-cell units).
     int32_t sub_52BABD(); // Returns g_Server->tick - last_action_tick
     void sub_52BDD7(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)

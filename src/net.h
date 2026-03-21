@@ -21,7 +21,9 @@ struct NetStru2;
 struct NetStru3;
 class Packet;
 class Player;
+class Spell;
 class Token;
+struct TokenPos;
 class Unit;
 class QuestMap;
 
@@ -136,6 +138,8 @@ public:
     // populate it via VMethod4, and stamp it with the sender id.
     Packet* sub_51E7FC(uint8_t cmd, NetStru2* ns2);
     void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
+    void sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
+    void sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
 
 
     void AddTailNet2(NetStru2*& net2); //517e91

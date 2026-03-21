@@ -2,7 +2,9 @@
 
 #include <cmath>
 
+#include "effect.h"
 #include "game_app.h"
+#include "net.h"
 #include "unit.h"
 
 // 53939E
@@ -52,6 +54,72 @@ void Spell::sub_539541(uint32_t power)
     } else {
         this->spell_power = 0;
     }
+}
+
+// Distance between two TokenPos positions in sub-cell units (still in asm).
+uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
+
+// 539958
+int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
+{
+    if ((caster->unit_attrs & 4) && caster->some_item == nullptr) {
+        if (this->mana_cost > caster->mp) {
+            return 0;
+		}
+        caster->mp -= this->mana_cost;
+    }
+
+    TokenPos local_pos;
+    if (target == nullptr) {
+        local_pos = TokenPos(x, y, MapStuff_Instance);
+    } else {
+        local_pos = *target->position;
+        if (target->VMethod3() > 1) {
+            local_pos.SetCoords2(target->sub_528725() - 1, target->sub_528763() - 1);
+		}
+    }
+
+    if (target != caster && (caster->enchantments & (1u << 0xC))) {
+        for (POSITION p = caster->_effects.GetHeadPosition(); p != nullptr; ) {
+            Effect* eff = caster->_effects.GetNext(p);
+            if (eff->itemDataID == 0x0C) {
+                eff->spell_value = 1;
+			}
+        }
+    }
+
+    if (!(caster->unit_attrs & 4) && caster->weapon != nullptr && caster->weapon == (Weapon*)caster->some_item) {
+        return 1;
+    }
+
+    if (this->spell_info == nullptr) {
+        return 0;
+	}
+
+    const SpellInfoData& info = spell_info->values.GetData()[0];
+    int32_t delay = 0;
+    if (info.delivery_system == 2) {
+        delay = sub_5365AB(caster->position, &local_pos) / info.effect_speed;
+        if (spell_id == 0x0A || spell_id == 0x0B) {
+            delay = 5;
+		}
+    } else if (caster->monster_info == nullptr) {
+        return 1;
+    }
+
+    if (spell_id == 0x0B) {
+        this->sub_53940D(caster);
+        this->sub_539C49(caster, target);
+        return 1;
+    }
+
+    if (this->sub_5393C7()) {
+        g_NetStru1_main.sub_51BAB0(caster, this, target, (int16_t)delay);
+    } else {
+        g_NetStru1_main.sub_51BB94(caster, this, &local_pos, (int16_t)delay);
+    }
+
+    return 1;
 }
 
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
