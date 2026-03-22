@@ -1000,16 +1000,8 @@ extern ?EnumAddresses@CLlDriver@@QAEHPAPAUCLlAddress@@PAH@Z : proc
 
 extern ?GetClientBySocketId@CLlDriver@@QAEPAUA2NetSock@@I@Z : proc
 
-extern ?IsInUse@CLlDriver@@QAEHPAUA2NetSock@@@Z : proc
-
-extern ?CloseTcp@CLlDriver@@QAEXXZ : proc
-extern ?CloseTcpSocket@CLlDriver@@QAEXPAUA2NetSock@@@Z : proc
-extern ?CloseDp@CLlDriver@@QAEXXZ  : proc
-extern ?CloseDpSock@CLlDriver@@QAEXPAUA2NetSock@@H@Z : proc
-
-extern ?CreateDp@CLlDriver@@QAEHXZ :proc
 extern ?ResetProvider@CLlDriver@@QAEHH@Z : proc
-extern ?FreeDp@CLlDriver@@QAEXXZ : proc
+extern ?RecreateDp@CLlDriver@@QAEXXZ : proc
 
 extern ?EnumSessions@CLlDriver@@QAEHPAPAUCLlNetSession@@PAHP6AHXZI@Z :proc
 extern ?cbEnumSessions@CLlDriver@@SGHPBUtagDPSESSIONDESC2@@PAKKPAX@Z :proc
@@ -1018,28 +1010,21 @@ extern ?EnumConnections@CLlDriver@@QAEXPAPAUCLlConn@@PAH@Z : proc
 
 extern ?EnumPlayers@CLlDriver@@QAEXPAUCLlNetSession@@PAPAUCLlName@@PAH@Z  : proc
 
-externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
-
-externdef ?sub_5229CD@CLlDriver@@QAEXHH@Z :proc
-externdef ?sub_5229FD@CLlDriver@@QAEHH@Z :proc
-externdef ?sub_522A51@CLlDriver@@QAEHH@Z :proc
-
-
-extern ?StartServerTcp@CLlDriver@@QAEHXZ : proc
-extern ?MakeSockAddr@CLlDriver@@QAEHPBDPAUsockaddr_in@@HH@Z : proc
-extern ?AcceptThreadTcp@CLlDriver@@SAXPAX@Z :proc
-
-extern ?RecvThreadDp@CLlDriver@@SAXPAX@Z :proc
-extern ?StartServerDp@CLlDriver@@QAEHXZ : proc
-extern ?PrepareAddressDp@CLlDriver@@QAEHPAUCLlAddress@@@Z : proc
-
 extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
 
 extern ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z : proc
 extern ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z : proc
 
-extern ?SendDataDp@CLlDriver@@QAEHPAUA2NetSock@@PAUNetStru3@@@Z : proc
 extern ?SendData@CLlDriver@@QAEHIPAUNetStru3@@@Z :proc
+
+extern ?DisconnectClient@CLlDriver@@QAEXI@Z :proc
+extern ?CleanupInvalidTcpClient@CLlDriver@@QAEXI@Z :proc
+extern ?CleanupAllInvalid@CLlDriver@@QAEXXZ : proc
+extern ?RestartModemServerDp@CLlDriver@@QAEHXZ : proc
+
+extern ?SetLatency@CLlDriver@@QAEXIH@Z :proc
+
+externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
 
 
 ;TxtFile

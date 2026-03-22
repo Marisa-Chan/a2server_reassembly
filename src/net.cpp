@@ -3016,3 +3016,152 @@ int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
     LeaveCriticalSection(&critical_section);
     return 0;
 }
+
+void CLlDriver::SendAllPendingDp(A2NetSock* sock)
+{
+    //525b86
+    if (guaranteed == 0)
+    {
+        while (!sock->list_0x14.IsEmpty())
+        {
+            if (SendDataDp(sock, nullptr) == 0)
+                break;
+
+            Sleep(10);
+        }
+    }
+}
+
+void CLlDriver::DisconnectClient(uint32_t uid)
+{
+    //522526
+    EnterCriticalSection(&critical_section);
+    A2NetSock* sock = GetClientBySocketId(uid);
+    if (sock)
+    {
+        if (IsInUse(sock))
+        {
+            if (provider == 4)
+                CloseTcpSocket(sock);
+            else
+            {
+                SendAllPendingDp(sock);
+                CloseDpSock(sock, -1);
+            }
+            sock->is_in_use = 0;
+        }
+    }
+    LeaveCriticalSection(&critical_section);
+}
+
+void CLlDriver::CleanupInvalidTcpClient(uint32_t uid)
+{
+    //52262a
+    if (provider == 4)
+    {
+        EnterCriticalSection(&critical_section);
+        A2NetSock* sock = GetClientBySocketId(uid);
+        if (sock && IsInUse(sock))
+        {
+            if (sock->socket == INVALID_SOCKET)
+                CloseTcpSocket(sock);
+        }
+        LeaveCriticalSection(&critical_section);
+    }
+}
+
+void CLlDriver::CleanupAllInvalid()
+{
+    //522809
+    if (listen_socket.is_in_use != 1)
+        return;
+        
+    EnterCriticalSection(&critical_section);
+    if (is_server == 0)
+    {
+        if (provider == 4)
+        {
+            if (listen_socket.socket == INVALID_SOCKET)
+                CloseTcp();
+        }
+        else
+            SendDataDp(&listen_socket, nullptr);
+    }
+    else
+    {
+        for (int i = 0; i < num_connections; i++)
+        {
+            A2NetSock* sock = connection_sockets + i;
+            if (IsInUse(sock))
+            {
+                if (provider == 4)
+                {
+                    if (sock->socket == INVALID_SOCKET)
+                        CloseTcpSocket(sock);
+                }
+                else
+                    SendDataDp(sock, nullptr);
+            }
+        }
+    }
+    LeaveCriticalSection(&critical_section);
+}
+
+
+int CLlDriver::RestartModemServerDp()
+{
+    //52460e
+    if (provider != 1)
+        return 1;
+
+    CloseDp();
+    CreateDp();
+    return StartServerDp();
+}
+
+void CLlDriver::RecreateDp()
+{
+    //524644
+    CloseDp();
+    CreateDp();
+}
+
+void CLlDriver::SetLatency(uint32_t conn_uid, int32_t latency_ms)
+{
+    //5229cd
+    A2NetSock* sock = GetClientBySocketId(conn_uid);
+    if (sock)
+        sock->latency = latency_ms;
+}
+
+int32_t CLlDriver::GetLatency(uint32_t conn_uid)
+{
+    //5229fd
+    A2NetSock* sock = GetClientBySocketId(conn_uid);
+    if (!sock)
+        return -1;
+
+    if (sock->latency == 0)
+        return sock->latency_check.GetLatency();
+    else
+        return sock->latency;
+}
+
+int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid)
+{
+    //522a51
+    A2NetSock* sock = GetClientBySocketId(conn_uid);
+    if (!sock)
+        return 0;
+
+    if (sock->field_0x260 > 1000)
+    {
+        sock->field_0x260 /= 10;
+        sock->field_0x264 /= 10;
+    }
+
+    if (sock->field_0x264 == 0)
+        return 0;
+
+    return ((float)sock->field_0x264 * 100000.0) / (float)sock->field_0x260;
+}

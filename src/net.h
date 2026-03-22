@@ -360,10 +360,6 @@ struct CLlDriver {
     CLlAddress* server_start_addr;
 
 public:
-    void sub_5229CD(int32_t conn_uid, int32_t latency_ms); // Set connection latency limit
-    int32_t sub_5229FD(int32_t conn_uid);  // Get current measured latency (ms)
-    int32_t sub_522A51(int32_t conn_uid);  // Get current packet-loss figure
-
     A2NetSock* GetClientBySocketId(uint32_t uid); //5224c4
 
     CLlDriver(GUID _appid, NetStru1 *net1); //5208ec
@@ -443,6 +439,19 @@ public:
     int SendDataTcp(A2NetSock* sock, NetStru3* buf); //52394a
     int SendDataDp(A2NetSock* sock, NetStru3* buffer); //5255c6
     int SendData(uint32_t uid, NetStru3* buffer); //5226c4
+
+    void SendAllPendingDp(A2NetSock* sock); //525b86
+    void DisconnectClient(uint32_t uid); //522526
+    void CleanupInvalidTcpClient(uint32_t uid); //52262a
+
+    void CleanupAllInvalid(); //522809
+
+    int RestartModemServerDp(); //52460e
+    void RecreateDp(); //524644
+
+    void SetLatency(uint32_t conn_uid, int32_t latency_ms); // 5229cd Set connection latency limit
+    int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms)
+    int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

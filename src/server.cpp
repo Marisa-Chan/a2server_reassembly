@@ -899,15 +899,15 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                     }
                     NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
                     if (ns2 != nullptr) {
-                        g_CLlDriver.sub_5229CD(ns2->uid, lat);
+                        g_CLlDriver.SetLatency(ns2->uid, lat);
                         g_NetStru1_main.sub_51C7CC(lat, player);
                     }
                 }
             } else if (cheat_string.Find("#show latency") == 0) {
                 NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
                 if (ns2 != nullptr) {
-                    int32_t lat  = g_CLlDriver.sub_5229FD(ns2->uid);
-                    int32_t loss = g_CLlDriver.sub_522A51(ns2->uid);
+                    int32_t lat  = g_CLlDriver.GetLatency(ns2->uid);
+                    int32_t loss = g_CLlDriver.GetPacketLoss(ns2->uid);
                     cheat_string.Format("%s: latency %dms, packet loss %d.%03d%%",
                         player->name, lat, loss / 1000, loss % 1000);
                     g_NetStru1_main.FUN_0051cd89(cheat_string, player);
@@ -2204,7 +2204,7 @@ void Server::sub_504a96(Packet* pkt)
             if (latency == 0 || (50 <= latency && latency <= 10000)) {
                 NetStru2* ns2 = g_NetStru1_main.sub_5185D5(pkt->field_0x5);
                 if (ns2) {
-                    g_CLlDriver.sub_5229CD(ns2->uid, latency);
+                    g_CLlDriver.SetLatency(ns2->uid, latency);
                 }
             }
             break;
