@@ -13,6 +13,8 @@ struct Human;
 struct MapAlm;
 struct TokenPos;
 struct World;
+class AreaEffect;
+class Unit;
 
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
@@ -26,6 +28,9 @@ struct ScanPresenceGrid {
     int32_t  num_detected;        // count of server units flagged as detected this scan
     int32_t  scan_delta;
     uint8_t  gap_0x161c[12];
+
+    void sub_596047(AreaEffect* ae); // Register area effect into the scan grid (sub_596047)
+    void sub_596131();                 // Rebuild presence grid from all active units/players
 };
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);
@@ -104,6 +109,8 @@ public:
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* sub_58E5F3(TokenPos* pos);
+    uint8_t sub_59166C(Unit* unit, uint16_t yx); // Pick rotation angle for the unit to look at `yx`.
+    void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);

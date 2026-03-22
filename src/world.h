@@ -123,6 +123,8 @@ public:
     void sub_5A79C9(Unit* unit);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit?
     void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
+    void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
+    void sub_5ACDF4(Group* group); // World callback for animate-dead group
     void sub_5B0E08(int32_t script_id); // Run script by instance ID
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);

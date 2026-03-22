@@ -53,6 +53,11 @@ extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 extern Server* g_Server;   //642c2c
 extern NetStru1 g_NetStru1_main;  //6c3a08
+extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
+extern "C" UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
+
+extern "C" int32_t __cdecl sub_542216(int32_t n); // RangedRand(n) - returns [0, n-1]
+extern "C" int32_t __cdecl sub_54223F(int32_t n); // RandRange_(n) - returns [1, n]
 
 extern "C" FARPROC ScenarioGetVar; //665a04
 extern "C" FARPROC ScenarioSetVar; //665a00

@@ -11,7 +11,7 @@ Effect::Effect()
     spell_or_damage = 0;
     spell_value = 0;
     itemDataID = 0;
-    field_0x44 = 0;
+    caster = 0;
 }
 
 
@@ -29,7 +29,7 @@ Effect::Effect(const CString& name)
 
         delete tmp;
 
-        field_0x44 = 0;
+        caster = 0;
     }
     else
     {
@@ -50,7 +50,7 @@ Effect::Effect(const Effect* src)
     spell_or_damage = src->spell_or_damage;
     spell_value = src->spell_value;
     itemDataID = src->itemDataID;
-    field_0x44 = src->field_0x44;
+    caster = src->caster;
 }
 
 Effect::~Effect()

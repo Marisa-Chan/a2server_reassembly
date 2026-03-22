@@ -38,6 +38,8 @@ public: // VTable at 0060f1b0.
 public:
     Unit* target;
     Effect* effect;
+
+    PointEffect(Effect* effect, Unit* target); // sub_53752F
 };
 ASSERT_SIZE(PointEffect, 0x50);
 
@@ -58,5 +60,27 @@ public:
     uint8_t field_0x4f;
     uint16_t field_0x50;
     uint8_t field_0x52[2];
+
+    AreaEffect(Effect* effect, TokenPos* pos, int16_t range); // sub_537880
 };
 ASSERT_SIZE(AreaEffect, 0x54);
+
+class SpellTransport : public SpellEffect {
+public: // VTable at 0060f230.
+    // virtual CRuntimeClass* GetRuntimeClass() override;
+    // virtual ~SpellTransport() override;
+    // virtual void Serialize(CArchive& ar) override;
+    // virtual void VMethod2() override;
+    // virtual void VMethod5() override;
+
+public:
+    SpellEffect* spell_effect;
+    uint32_t field_0x4c;
+    uint16_t field_0x50;
+    uint8_t gap_0x52;
+    uint8_t gap_0x53;
+
+public:
+    SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // sub_538A15
+};
+ASSERT_SIZE(SpellTransport, 0x54);

@@ -92,8 +92,8 @@ public: //vtbl
     virtual void VMethod20();
     virtual void VMethod21(uint32_t, Unit *, int32_t);
     virtual void VMethod22(Unit*, int32_t);
-    virtual void VMethod23(Unit*, uint32_t, int32_t, int32_t);
-    virtual void VMethod24(Unit*, uint32_t, int32_t, int32_t);
+    virtual void VMethod23(Unit*, uint32_t, int32_t);
+    virtual void VMethod24(Unit*, int32_t spell_id);
     virtual int32_t VMethod25();
 
 public:
@@ -113,6 +113,8 @@ public:
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     void sub_52C409();
     void sub_52C813();
+    void sub_52C4DF(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive)
+    int sub_52BF3D(uint8_t x, uint8_t y, uint8_t flags);  // Place unit on map; returns nonzero on success
     Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID.
     uint16_t sub_528725(); // Returns x bottom-right extent (sub-cell units).
     uint16_t sub_528763(); // Returns y bottom-right extent (sub-cell units).
@@ -260,8 +262,8 @@ public:
     //virtual void VMethod20() override;
     virtual void VMethod21(uint32_t newExp, Unit *target, int32_t sphere) override;
     virtual void VMethod22(Unit*, int32_t) override;
-    virtual void VMethod23(Unit*, uint32_t, int32_t, int32_t) override;
-    virtual void VMethod24(Unit*, uint32_t, int32_t, int32_t) override;
+    virtual void VMethod23(Unit*, uint32_t, int32_t) override;
+    virtual void VMethod24(Unit*, int32_t spell_id) override;
     virtual int32_t VMethod25() override;
 
 public:

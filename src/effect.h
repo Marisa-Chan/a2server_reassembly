@@ -39,9 +39,10 @@ public:
     uint8_t gap_0x3e[2];
     uint16_t spell_or_damage; // Seems like this might store damage in two separate bytes.
     uint16_t spell_value;
-    uint32_t field_0x44;
+    Unit* caster;
 };
 ASSERT_OFFSET(Effect, spell_or_damage, 0x40);
+ASSERT_OFFSET(Effect, caster, 0x44);
 ASSERT_SIZE(Effect, 0x48);
 
 class DirectDamage : public Effect {

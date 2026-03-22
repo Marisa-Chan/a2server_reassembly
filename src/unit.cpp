@@ -656,10 +656,10 @@ void Unit::VMethod21(uint32_t newExp, Unit *target, int32_t sphere)
 void Unit::VMethod22(Unit*, int32_t)
 {}
 
-void Unit::VMethod23(Unit*, uint32_t, int32_t, int32_t)
+void Unit::VMethod23(Unit*, uint32_t, int32_t)
 {}
 
-void Unit::VMethod24(Unit*, uint32_t, int32_t, int32_t)
+void Unit::VMethod24(Unit*, int32_t)
 {}
 
 int32_t Unit::VMethod25()
@@ -806,7 +806,7 @@ void Unit::sub_52C98B(Sack* sack)
                             Effect* effect = this->_effects.GetNext(effect_pos);
 
                             effect->spell_value = 1;
-                            effect->field_0x44 = 0;
+                            effect->caster = 0;
                             effect->VMethod10(this);
 
                             if (effect->usage_type & 0x80) {

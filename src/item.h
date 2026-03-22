@@ -44,6 +44,8 @@ public:
     Item(const CString& name); // sub_5480E3: construct item from name string
     bool sub_548F6A(); // Returns true if this item template can be given via #create cheat
 
+    Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
+
 public:
     WorldEquip* world_equip;
     uint16_t item_id;

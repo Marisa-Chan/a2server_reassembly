@@ -349,8 +349,15 @@ externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
 externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
 externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
+externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@G@Z :proc
+externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
+
+
+; ScanPresenceGrid
+externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
+
 
 ;Token
 ;extern ??_7Token@@6B@:dword ; Token::`vftable`
@@ -426,6 +433,8 @@ externdef ?sub_560C67@Unit@@QAEXPAVInn@@@Z :proc
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
+externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
+externdef ?sub_52C4DF@Unit@@QAEXF@Z :proc
 
 ; UnitEye
 
@@ -455,8 +464,8 @@ externdef ?VMethod16@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __
 extern ?VMethod18@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod18(void))
 externdef ?VMethod21@Humanoid@@UAEXIPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod21(unsigned int,class Unit *,int))
 externdef ?VMethod22@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod22(class Unit *,int))
-externdef ?VMethod23@Humanoid@@UAEXPAVUnit@@IHH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod23(class Unit *,unsigned int,int,int))
-externdef ?VMethod24@Humanoid@@UAEXPAVUnit@@IHH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod24(class Unit *,unsigned int,int,int))
+externdef ?VMethod23@Humanoid@@UAEXPAVUnit@@IH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod23(class Unit *,unsigned int,int,int))
+externdef ?VMethod24@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod24(class Unit *,unsigned int,int,int))
 externdef ?VMethod25@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod25(void))
 
 externdef ?InitStats@Humanoid@@QAEXXZ:proc   ;    Humanoid::InitStats
@@ -533,6 +542,13 @@ externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 ; AreaEffect
 PUBLIC _stru_6364B8
 
+externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@F@Z :proc
+
+; PointEffect
+externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
+
+; SpellTransport
+externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc
 
 ;EquipmentExtra
 extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::EquipmentExtra(void))
@@ -545,6 +561,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ?sub_548F6A@Item@@QAE_NXZ :proc
+externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 
 ; Inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
@@ -712,7 +729,7 @@ extern ?Clear@NetStru3@@QAEXXZ :proc
 externdef ?g_Server@@3PAUServer@@A : dword
 externdef ?g_IsServer@@3HA : dword
 externdef ?g_ShutdownIn@@3HA : dword
-
+externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 
 externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
@@ -775,7 +792,8 @@ externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
-
+externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
@@ -1139,7 +1157,7 @@ externdef _sub_542216 :proc   ; RangedRand(n)
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
 externdef _sub_530DCB :proc   ; ClampExperienceGain
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
-
+externdef _sub_54223F :proc
 
 
 ; util.h
