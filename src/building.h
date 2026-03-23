@@ -15,6 +15,7 @@ class BuildingInfo;
 class Building : public Token {
 public:
     virtual int32_t IsOutpost();
+    virtual void VMethod1() override;
 
 public:
     BuildingInfo* building_info;

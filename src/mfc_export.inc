@@ -146,6 +146,12 @@ externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
 externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_558128(TokenPos*)
 externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
 
+; Building
+externdef ?VMethod1@Building@@UAEXXZ :proc
+
+; Outpost
+externdef ?VMethod1@Outpost@@UAEXXZ : proc
+externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 
 ; Inn
 externdef _InnRuntimeClass :byte

@@ -117,6 +117,7 @@ public:
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);
     void sub_5AC8A2(Group* group, uint8_t param_2);
     void sub_5ACAFA(Group* group);
+    void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AF683(Player* player, int32_t param);

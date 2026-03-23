@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "building.h"
+#include "group.h"
 #include "unit_list.h"
 #include "assert_offset.h"
 
@@ -13,13 +14,17 @@
 class Outpost : public Building {
 public:
     virtual int32_t IsOutpost() override;
+    virtual void VMethod1() override;
+
+public:
+    void sub_543EC3(Group* group);
 
 public:
     UnitList units_original;
     UnitList units_copy;
     uint32_t group_id;
     uint32_t repop_delay;
-    uint32_t repop_countdown;
+    int32_t repop_countdown;
     int32_t script_id;
     uint32_t spread;
     uint32_t is_awaiting_repop;
