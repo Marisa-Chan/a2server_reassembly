@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "constants.h"
 #include "effect.h"
 #include "game_app.h"
 #include "group.h"
@@ -29,7 +30,7 @@ void Spell::sub_539541(uint32_t power)
     uint8_t power_byte = power;
 
     this->max_range = info.max_range;
-    if (this->spell_id == 0x17) {
+    if (this->spell_id == spell::teleport) {
         int32_t divisor = (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) ? 15 : 3;
         this->max_range += power_byte / divisor;
     } else if (this->max_range != 0) {
@@ -51,9 +52,9 @@ void Spell::sub_539541(uint32_t power)
     }
 
     if (info.duration > 0) {
-        if (this->spell_id == 0x0C) {
+        if (this->spell_id == spell::invisibility) {
             this->spell_power = power_byte << 4;
-        } else if (this->spell_id == 0x12) {
+        } else if (this->spell_id == spell::stone_curse) {
             this->spell_power = power_byte * 480 / 100;
         } else {
             this->spell_power = std::pow(1.025, power_byte) * info.duration * 16.0;
@@ -88,10 +89,10 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
 		}
     }
 
-    if (target != caster && (caster->enchantments & (1u << 0xC))) {
+    if (target != caster && (caster->enchantments & (1u << spell::invisibility))) {
         for (POSITION p = caster->_effects.GetHeadPosition(); p != nullptr; ) {
             Effect* eff = caster->_effects.GetNext(p);
-            if (eff->itemDataID == 0x0C) {
+            if (eff->itemDataID == spell::invisibility) {
                 eff->spell_value = 1;
 			}
         }
@@ -109,14 +110,14 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
     int32_t delay = 0;
     if (info.delivery_system == 2) {
         delay = sub_5365AB(caster->position, &local_pos) / info.effect_speed;
-        if (spell_id == 0x0A || spell_id == 0x0B) {
+        if (spell_id == spell::lightning || spell_id == spell::prismatic_spray) {
             delay = 5;
 		}
     } else if (caster->monster_info == nullptr) {
         return 1;
     }
 
-    if (spell_id == 0x0B) {
+    if (spell_id == spell::prismatic_spray) {
         this->sub_53940D(caster);
         this->sub_539C49(caster, target);
         return 1;
@@ -191,7 +192,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
 
     // Phase 2: blessed damage multiplier for deathmatch and softcore.
     if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
-        if (caster->enchantments & (1u << 0x14)) {
+        if (caster->enchantments & (1u << spell::bless)) {
             this->damage_min *= 4;
             this->damage_spread *= 4;
             power_div_45 *= 4.0;
@@ -231,7 +232,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
     // Phase 4: DirectDamage path (if spell has damage and is not heal/drain)
     Effect* effect = nullptr;
     Effect* direct_damage = nullptr;
-    if ((int32_t)this->damage_min + this->damage_spread > 0 && this->spell_id != 0x18 && this->spell_id != 0x1A) {
+    if ((int32_t)this->damage_min + this->damage_spread > 0 && this->spell_id != spell::heal && this->spell_id != spell::drain_life) {
         DirectDamage* dd = new DirectDamage();
         direct_damage = dd;
         dd->itemDataID = this->spell_id;
@@ -249,10 +250,10 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             LogMessage("Invalid spell #0 - can't cast.");
             return;
 
-        case 0x04:
-        case 0x08:
-        case 0x0D:
-        case 0x13:
+        case spell::protection_from_fire:
+        case spell::protection_from_water:
+        case spell::protection_from_air:
+        case spell::protection_from_earth:
             effect = new Effect(spell_info->effect);
             effect->usage_type |= 1;
             effect->spell_or_damage = power / 2;
@@ -265,14 +266,14 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x06:
+        case spell::poison_cloud:
             effect = new Effect(spell_info->effect);
             effect->spell_or_damage = effect->spell_or_damage * power_div_45;
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x0C:
+        case spell::invisibility:
             if (is_arena_blocked()) {
                 return;
             }
@@ -288,25 +289,25 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             }
             break;
 
-        case 0x0E:
+        case spell::darkness:
             effect = new Effect(spell_info->effect);
             effect->itemDataID = this->spell_id;
             effect->spell_or_damage = -1 - power / 30;
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x0F:
+        case spell::light:
             effect = new Effect(spell_info->effect);
             effect->itemDataID = this->spell_id;
             effect->spell_or_damage = power / 30 + 1;
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x11:
+        case spell::wall_of_earth:
             effect = new Effect();
             break;
 
-        case 0x12:
+        case spell::stone_curse:
             if (is_arena_blocked()) {
                 return;
             }
@@ -330,8 +331,8 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x14:
-        case 0x1C:
+        case spell::bless:
+        case spell::curse:
             effect = new Effect();
             effect->usage_type |= 1;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -345,8 +346,8 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x15:
-        case 0x1D:
+        case spell::haste:
+        case spell::slow:
             effect = new Effect(spell_info->effect);
             effect->usage_type |= 1;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -356,16 +357,15 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 effect->spell_or_damage = power / 15 + 1;
                 effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
             }
-            if (this->spell_id == 0x1D) {
+            if (this->spell_id == spell::slow) {
                 effect->spell_or_damage = -(int16_t)effect->spell_or_damage;
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
             break;
 
-        case 0x16:
+        case spell::animate_dead:
             {
-                // Animate dead
                 Unit* dead_unit = nullptr;
                 auto& unit_list = g_Server->srv_stru1->units_list->unit_list;
                 for (int decay_target = 2; decay_target <= 4 && dead_unit == nullptr; ++decay_target) {
@@ -471,7 +471,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case 0x17:
+        case spell::teleport:
             if (is_arena_blocked()) {
                 return;
             }
@@ -479,7 +479,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             g_NetStru1_main.sub_519221(caster, nullptr, 0x10, 0xFFB, 0, 0);
             return;
 
-        case 0x18:
+        case spell::heal:
             {
                 if (g_World != nullptr && caster->pOwner != nullptr && target->pOwner != nullptr) {
                     if (g_World->diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 1) {
@@ -500,9 +500,8 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case 0x19:
+        case spell::summon:
             {
-                // Summon.
                 Player* owner_player = caster->pOwner;
 
                 Unit* unit = nullptr;
@@ -567,7 +566,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case 0x1A:
+        case spell::drain_life:
             {
                 if (target->VMethod7() == 0) {
                     return;
@@ -595,7 +594,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 return;
             }
 
-        case 0x1B:
+        case spell::shield:
             effect = new Effect(spell_info->effect);
             effect->usage_type |= 1;
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -666,7 +665,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         g_Server->srv_stru1->effects_list->list.AddTail(container);
     } else if (info.delivery_system == 2) {
         SpellTransport* transport = new SpellTransport(container, caster->position, info.effect_speed);
-        if (this->spell_id == 0x0A || this->spell_id == 0x0B) {
+        if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             transport->field_0x50 = 10;
         }
         g_Server->srv_stru1->effects_list->list.AddTail(transport);
