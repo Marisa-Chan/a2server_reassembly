@@ -131,6 +131,15 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
     return 1;
 }
 
+// 53D368
+SpellBook::~SpellBook()
+{
+    for (int i = 0; i < spells.GetSize(); ++i) {
+        delete spells[i];
+        spells[i] = nullptr;
+    }
+}
+
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 {
 	//53dbc5

@@ -594,6 +594,9 @@ externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID
 externdef ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
+externdef ?GetRuntimeClass@SpellBook@@UBEPAUCRuntimeClass@@XZ:proc  ; SpellBook::GetRuntimeClass
+externdef ?Serialize@SpellBook@@UAEXAAVCArchive@@@Z:proc              ; SpellBook::Serialize
+externdef ??1SpellBook@@UAE@XZ :proc
 
 
 
