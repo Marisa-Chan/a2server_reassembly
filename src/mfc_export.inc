@@ -728,25 +728,25 @@ externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51BAB0@NetStru1@@QAEXPAVUnit@@PAVSpell@@0F@Z :proc
 externdef ?sub_51BB94@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAUTokenPos@@F@Z :proc
 
+externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
 
 
 ;NetStru2
-externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
 
-externdef ?FUN_00515ef3@NetStru2@@QAEHPAXI@Z : proc
-externdef ?FUN_00515f9c@NetStru2@@QAEHPAXI@Z : proc
-externdef ?sub_5167A5@NetStru2@@QAEXXZ :proc
+extern ?WriteData@NetStru2@@QAEHPAXI@Z : proc
+extern ?ReadData@NetStru2@@QAEHPAXI@Z : proc
+extern ?sub_5167A5@NetStru2@@QAEXXZ :proc
 
 extern ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z : proc
 extern ??1NetStru2@@QAE@XZ :proc
+extern ?SendData@NetStru2@@QAEHXZ :proc
 
 
 ;NetStru3
 extern ??0NetStru3@@QAE@XZ :proc
 extern ??1NetStru3@@QAE@XZ :proc
 extern ?Clear@NetStru3@@QAEXXZ :proc
-extern ??4NetStru3@@QAEXPBU0@@Z : proc
 extern ?WriteToBuffer@NetStru3@@QAE_NPAXI@Z : proc
 extern ?ReadFromBuffer@NetStru3@@QAE_NPAXI@Z : proc
 

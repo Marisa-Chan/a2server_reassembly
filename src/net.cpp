@@ -869,6 +869,55 @@ NetStru3* NetStru1::GetFreeNet3()
 
 
 
+int NetStru2::WriteData(void* buf, uint32_t size)
+{
+    //515ef3
+    while(true)
+    {
+        int32_t avail = 0x8e - stru3[stru3_id].datasz;
+        if (size <= avail)
+            break;
+
+        stru3[stru3_id].WriteToBuffer(buf, avail);
+        SendData();
+
+        buf = (char*)buf + avail;
+        size -= avail;
+    }
+    
+    stru3[stru3_id].WriteToBuffer(buf, size);
+    return 1;
+}
+
+int NetStru2::ReadData(void* buf, uint32_t size)
+{
+    //515f9c
+    EnterCriticalSection(&critical_section);
+    while (!unpacked_buffers.IsEmpty())
+    {
+        NetStru3* buffer = unpacked_buffers.GetHead();
+        int32_t remain = buffer->datasz - buffer->readpos;
+        
+        if (size <= remain)
+        {
+            buffer->ReadFromBuffer(buf, size);
+            LeaveCriticalSection(&critical_section);
+            return 1;
+        }
+
+        buffer->ReadFromBuffer(buf, remain);
+
+        size -= remain;
+        buf = (char*)buf + remain;
+        
+        unpacked_buffers.RemoveHead();
+        net_stru1->AddTailFreeNet3(buffer);
+    }
+    LeaveCriticalSection(&critical_section);
+    return 0;
+}
+
+
 
 void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver)
 {
@@ -882,11 +931,11 @@ int NetStru2::ReceiveData(NetStru3* buffer)
     //5161bf
     EnterCriticalSection(&critical_section);
 
-    if (buffer->buf_id != 0)
+    if (buffer->cmode != 0)
     {
         NetStru3* tbuf = net_stru1->GetFreeNet3();
         tbuf->Clear();
-        int num = net_stru1->Unpack(buffer->buf_id, buffer->buf, buffer->size, tbuf->buf, 0x8e);
+        int num = net_stru1->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
         if (num > 0x8e)
         {
             ReportWarning("CBufferManager::ReceiveData().\nError during unpacking buffer.\n");
@@ -904,6 +953,62 @@ int NetStru2::ReceiveData(NetStru3* buffer)
     unpacked_buffers.AddTail(buffer);
 
     LeaveCriticalSection(&critical_section);
+    return 1;
+}
+
+int NetStru2::SendData()
+{
+    //518408
+    if (stru3[stru3_id].datasz < 1)
+    {
+        if (driver)
+            driver->CleanupInvalidTcpClient(uid);
+        return 1;
+    }
+
+    NetStru3* buffer = net_stru1->GetFreeNet3();
+    buffer->Clear();
+    buffer->cmode = compression_type;
+
+    //here must be compression_type check and pack, but we just drop it
+
+    buffer->CopyData(stru3 + stru3_id);
+    buffer->field_0xf = stru3[stru3_id].field_0xf;
+
+    // inline FUN_00515eb2();
+    stru3_id = (stru3_id + 1) & 1;
+    stru3[stru3_id].Clear();
+
+    if (is_local_player == 0)
+    {
+        if (!driver)
+        {
+            net_stru1->AddTailFreeNet3(buffer);
+            return 0;
+        }
+
+        driver->SendData(uid, buffer);
+    }
+    else
+    {
+        if (!net_stru1)
+        {
+            net_stru1->AddTailFreeNet3(buffer);
+            return 0;
+        }
+
+        NetStru2* recv_cli = nullptr;
+        if (net_stru1->field_0x8)
+            recv_cli = net_stru1->field_0x8->local_client;
+        
+        if (!recv_cli)
+        {
+            net_stru1->AddTailFreeNet3(buffer);
+            return 0;
+        }
+
+        recv_cli->ReceiveData(buffer);
+    }
     return 1;
 }
 
@@ -958,6 +1063,24 @@ void NetStru2::ReturnBuffers()
 }
 
 
+void NetStru2::sub_5167A5()
+{
+    //5167A5
+    EnterCriticalSection(&critical_section);
+    for (POSITION pos = unpacked_buffers.GetHeadPosition(); pos != nullptr;)
+    {
+        NetStru3* buffer = unpacked_buffers.GetNext(pos);
+        if (buffer->field_0xf != 0)
+        {
+            buffer->field_0xf--;
+            break;
+        }
+    }
+    LeaveCriticalSection(&critical_section);
+}
+
+
+
 
 
 void NetStru3::Clear()
@@ -968,17 +1091,13 @@ void NetStru3::Clear()
     field_0xf = 0;
     timestamp = 0;
     timestamp2 = 0;
-    size = 0;
+    csize = 0;
 }
 
 NetStru3::NetStru3()
 {
     //5155c0
-    pos = 0;
-    field_0xa = 0;
-    field_0xb = 0;
-    buf_id = 0;
-    field_0xf = 0;
+    memset(full_data, 0, sizeof(full_data));
     datasz = -1;
     readpos = -1;
     timestamp = 0;
@@ -992,14 +1111,10 @@ NetStru3::~NetStru3()
     readpos = -1;
     timestamp = 0;
     timestamp2 = 0;
-    pos = 0;
-    field_0xa = 0;
-    field_0xb = 0;
-    buf_id = 0;
-    field_0xf = 0;
+    memset(full_data, 0, sizeof(full_data));
 }
 
-void NetStru3::operator=(const NetStru3* src)
+void NetStru3::CopyData(const NetStru3* src)
 {
     //515625
     memcpy(full_data, &src->full_data, src->datasz + 8);
@@ -2647,7 +2762,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
         {
             POSITION curpos = pos;
             NetStru3* buf = sock->list_0x14.GetNext(pos);
-            if (*(uint32_t*)(&buf->pos) == *(uint32_t*)data)
+            if (buf->pktid == *(uint32_t*)data)
             {
                 uint32_t latency = 0;
                 const uint32_t ticks = GetTickCount();
@@ -2670,7 +2785,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
     NetStru3* buf = net_stru1->GetFreeNet3();
     buf->Clear();
 
-    memcpy(&buf->pos, data, datasz);
+    memcpy(&buf->full_data, data, datasz);
 
     buf->datasz = datasz - 8;
     
@@ -2686,7 +2801,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
         Sleep(10);
     }
 
-    uint32_t pktid = *(uint32_t*)(&buf->pos);
+    uint32_t pktid = buf->pktid;
     if (pktid == sock->field_0x50)
     {
         sock->manager->ReceiveData(buf);
@@ -2697,7 +2812,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
             {
                 POSITION curpos = pos;
                 buf = sock->list_0x30.GetNext(pos);
-                if (*(uint32_t*)(&buf->pos) == sock->field_0x50)
+                if (buf->pktid == sock->field_0x50)
                 {
                     sock->manager->ReceiveData(buf);
                     sock->field_0x50++;
@@ -2725,7 +2840,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
             {
                 POSITION curpos = pos;
                 NetStru3 *cbuf = sock->list_0x30.GetNext(pos);
-                if (*(uint32_t*)(&cbuf->pos) == pktid)
+                if (cbuf->pktid == pktid)
                 {
                     buf->Clear();
                     net_stru1->AddTailFreeNet3(buf);
@@ -3087,7 +3202,7 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
     int len = buffer->datasz + 8;
     int sendlen = -1;
     if (sock->socket != INVALID_SOCKET)
-        sendlen = send(sock->socket, (char*)&buffer->pos, len, 0);
+        sendlen = send(sock->socket, (char*)&buffer->full_data, len, 0);
 
     net_stru1->AddTailFreeNet3(buffer);
 
@@ -3122,7 +3237,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
         {
             buffer->timestamp = currentTick;
             buffer->timestamp2 = 0;
-            *(uint32_t*)&buffer->pos = sock->field_0x4c;
+            buffer->pktid = sock->field_0x4c;
             sock->field_0x4c++;
             sock->list_0x14.AddTail(buffer);
 
@@ -3212,12 +3327,12 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
 
         sock->field_0x264++;
 
-        HRESULT res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->pos, tosentsz);
+        HRESULT res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->full_data, tosentsz);
         while (guaranteed != 0 && res == DPERR_BUSY) //if guaranteed try and try if BUSY
         {
             ReportWarning("CLlDriver::SendDataDp().\nDirectPlay is busy, I go to sleep for 10ms.\n");
             Sleep(10);
-            res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->pos, tosentsz);
+            res = dplay4->Send(listen_socket.player_dpid, to, (guaranteed != 0 ? DPSEND_GUARANTEED : 0), &buffer->full_data, tosentsz);
         }
 
         if (res != DP_OK && res != DPERR_BUSY) // not send and not BUSY -> exit

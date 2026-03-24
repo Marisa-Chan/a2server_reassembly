@@ -181,20 +181,20 @@ struct NetStru3 {
     {
         struct
         {
-            uint16_t pos;
-            uint8_t field_0xa;
-            uint8_t field_0xb;
-            uint8_t buf_id;
-            uint16_t size;
+            union
+            {
+                struct
+                {
+                    uint16_t pos;
+                    uint16_t __padding_0xa;
+                };
+                uint32_t pktid;
+            };
+            
+            uint8_t cmode; //compression mode
+            uint16_t csize;
             uint8_t field_0xf;
         };
-
-        struct
-        {
-            uint32_t pktid;
-            uint32_t pktid2;
-        };
-
         uint8_t full_data[8];
     };
     uint8_t buf[144];
@@ -205,7 +205,7 @@ struct NetStru3 {
     NetStru3(); //5155c0
     ~NetStru3(); //515694
 
-    void operator=(const NetStru3* src); //515625
+    void CopyData(const NetStru3* src); //515625
 
     bool WriteToBuffer(void* data, uint32_t sz); //51573e
     bool ReadFromBuffer(void* out, uint32_t sz); //51579e
@@ -239,8 +239,8 @@ struct NetStru2 {
 
 
 public:
-    int FUN_00515ef3(void* buf, uint32_t size);
-    int FUN_00515f9c(void* buf, uint32_t size);
+    int WriteData(void* buf, uint32_t size);
+    int ReadData(void* buf, uint32_t size);
 
     // sub_5167A5 – walks the free_net3 linked list and decrements the
     // ref-count byte (field_0xF) of the first live entry it finds.
@@ -248,6 +248,8 @@ public:
 
     void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); //51682d
     int ReceiveData(NetStru3* buffer); //5161bf
+
+    int SendData(); //516408
 
     NetStru2(); //515831
     ~NetStru2(); //515c27

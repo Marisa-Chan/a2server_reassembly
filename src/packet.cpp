@@ -36,7 +36,7 @@ void Packet::VMethod3(NetStru2* net)
 {
     //526887
     uint32_t sz = GetDataSize();
-    net->FUN_00515ef3(&id, sz);
+    net->WriteData(&id, sz);
 }
 
 void Packet::VMethod4(NetStru2* net)
@@ -44,7 +44,7 @@ void Packet::VMethod4(NetStru2* net)
     //5268b7
     uint32_t sz = GetDataSize();
     if (sz != 1)
-        net->FUN_00515f9c(this + 1, sz - 1);
+        net->ReadData(this + 1, sz - 1);
 }
 
 uint32_t Packet::GetDataSize()
@@ -115,14 +115,14 @@ void PacketJoin::VMethod3(NetStru2* net)
 {
     //526ede
     name_len = strlen(name);
-    net->FUN_00515ef3(&id, name_len + 8);
+    net->WriteData(&id, name_len + 8);
 }
 
 void PacketJoin::VMethod4(NetStru2* net)
 {
     //526f1d
-    net->FUN_00515f9c(&player_id, 6);
-    net->FUN_00515f9c(name, name_len + 1);
+    net->ReadData(&player_id, 6);
+    net->ReadData(name, name_len + 1);
     name[name_len] = 0;
 }
 
@@ -195,15 +195,15 @@ Packet* PacketTerrain::Duplicate()
 void PacketTerrain::VMethod3(NetStru2* net)
 {
     //5273a7
-    net->FUN_00515ef3(&id, count * 2 + 5);
+    net->WriteData(&id, count * 2 + 5);
 }
 
 void PacketTerrain::VMethod4(NetStru2* net)
 {
     //5273ce
-    net->FUN_00515f9c(&count, 4);
+    net->ReadData(&count, 4);
     if (count)
-        net->FUN_00515f9c(buf, count * 2);
+        net->ReadData(buf, count * 2);
 }
 
 uint32_t PacketTerrain::GetDataSize()
@@ -259,9 +259,9 @@ void PacketUnitUpdate::VMethod3(NetStru2* net)
         break;
     }
 
-    net->FUN_00515ef3(&id, 1);
-    net->FUN_00515ef3(&unit_id, field_0xe + 2);
-    net->FUN_00515ef3(data, data_offset);
+    net->WriteData(&id, 1);
+    net->WriteData(&unit_id, field_0xe + 2);
+    net->WriteData(data, data_offset);
 }
 
 void PacketUnitUpdate::VMethod4(NetStru2* net)
@@ -283,8 +283,8 @@ void PacketUnitUpdate::VMethod4(NetStru2* net)
         break;
     }
     flags_mask = 0;
-    net->FUN_00515f9c(&unit_id, field_0xe + 2);
-    net->FUN_00515f9c(data, FUN_00527c3b());
+    net->ReadData(&unit_id, field_0xe + 2);
+    net->ReadData(data, FUN_00527c3b());
 }
 
 uint32_t PacketUnitUpdate::GetDataSize()
@@ -396,15 +396,15 @@ PacketItemOperation::~PacketItemOperation()
 void PacketItemOperation::VMethod3(NetStru2* net)
 {
     //sub_52699A
-    net->FUN_00515ef3(&id, count * 2 + 0xA);
+    net->WriteData(&id, count * 2 + 0xA);
 }
 
 void PacketItemOperation::VMethod4(NetStru2* net)
 {
     //sub_5269C3
-    net->FUN_00515f9c(&field_0xa, 9);
+    net->ReadData(&field_0xa, 9);
     if (count)
-        net->FUN_00515f9c(entries, count * 2);
+        net->ReadData(entries, count * 2);
 }
 
 uint32_t PacketItemOperation::GetDataSize()
@@ -745,15 +745,15 @@ Packet* PacketPlayerInfo::Duplicate()
 void PacketPlayerInfo::VMethod3(NetStru2* net)
 {
     //sub_527220
-    net->FUN_00515ef3(&id, count + 0x2D);
+    net->WriteData(&id, count + 0x2D);
 }
 
 void PacketPlayerInfo::VMethod4(NetStru2* net)
 {
     //sub_527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
-    net->FUN_00515f9c(&preamble[0], 0x2C);
+    net->ReadData(&preamble[0], 0x2C);
     if (count > 0)
-        net->FUN_00515f9c(var_data, count);
+        net->ReadData(var_data, count);
 }
 
 uint32_t PacketPlayerInfo::GetDataSize()
@@ -793,15 +793,15 @@ Packet* PacketData::Duplicate()
 void PacketData::VMethod3(NetStru2* net)
 {
     //sub_5272E3
-    net->FUN_00515ef3(&id, count + 5);
+    net->WriteData(&id, count + 5);
 }
 
 void PacketData::VMethod4(NetStru2* net)
 {
     //sub_527309
-    net->FUN_00515f9c(&count, 4);
+    net->ReadData(&count, 4);
     if (count > 0)
-        net->FUN_00515f9c(data, count);
+        net->ReadData(data, count);
 }
 
 uint32_t PacketData::GetDataSize()
@@ -845,17 +845,17 @@ Packet* PacketUnitStateVec::Duplicate()
 void PacketUnitStateVec::VMethod3(NetStru2* net)
 {
     //sub_5274CC
-    net->FUN_00515ef3(&id, 0xA);
+    net->WriteData(&id, 0xA);
     if (entry_count > 0)
-        net->FUN_00515ef3(data, data_size);
+        net->WriteData(data, data_size);
 }
 
 void PacketUnitStateVec::VMethod4(NetStru2* net)
 {
     //sub_527528
-    net->FUN_00515f9c(&field_0xa, 9);
+    net->ReadData(&field_0xa, 9);
     if (entry_count > 0)
-        net->FUN_00515f9c(data, data_size);
+        net->ReadData(data, data_size);
 }
 
 uint32_t PacketUnitStateVec::GetDataSize()
