@@ -27,6 +27,8 @@ public: // VTable at 0060f438
 public:
     uint32_t shelf_id;
     CArray<Item*> items;
+
+    void ClearItems(); // 545865
 };
 ASSERT_SIZE(MultiShopShelf, 0x1c);
 

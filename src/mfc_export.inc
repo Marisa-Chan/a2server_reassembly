@@ -169,6 +169,9 @@ externdef ?sub_54463F@Shop@@QAEXXZ :proc
 externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
 
+; MultiShopShelf
+externdef ?ClearItems@MultiShopShelf@@QAEXXZ : proc
+
 ; Pointer
 externdef _PointerRuntimeClass :byte
 
