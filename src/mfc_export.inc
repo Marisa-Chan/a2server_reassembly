@@ -585,6 +585,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ?sub_548F6A@Item@@QAE_NXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
+externdef ?IsSimilar@Item@@QAE_NPAV1@@Z :proc
 
 ; Inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))

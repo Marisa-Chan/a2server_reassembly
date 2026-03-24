@@ -41,6 +41,16 @@ void Effect::VMethod12(Unit* unit)
 }
 
 
+// 53EDB0
+bool Effect::sub_53EDB0(Effect* other)
+{
+    return effect_id == other->effect_id &&
+           usage_type == other->usage_type &&
+           spell_or_damage == other->spell_or_damage &&
+           spell_value == other->spell_value;
+}
+
+
 Effect::Effect()
 {
     //53ec02

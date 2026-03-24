@@ -33,6 +33,8 @@ public:
 
     static Effect* CreateFromString(const CString& effstr);
 
+    bool sub_53EDB0(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
+
 public:
     uint8_t effect_id;
     uint8_t usage_type;
