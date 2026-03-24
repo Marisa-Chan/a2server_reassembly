@@ -70,6 +70,7 @@ public:
     MultiShopTemplate* shop_template;
 
     void Sell(); // 545D5E
+    void Buy(); // 546027
     int sub_5462C8(Item* item, int arg1); // 5462C8
     void sub_5464B6(int param); // 5464B6
 };

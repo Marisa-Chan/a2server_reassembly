@@ -177,6 +177,7 @@ externdef ?sub_546F18@MultiShopTemplate@@QAEXPAVMultiShopInstance@@H@Z : proc
 
 ; MultiShopInstance
 externdef ?Sell@MultiShopInstance@@QAEXXZ : proc
+externdef ?Buy@MultiShopInstance@@QAEXXZ : proc
 externdef ?sub_5462C8@MultiShopInstance@@QAEHPAVItem@@H@Z : proc
 externdef ?sub_5464B6@MultiShopInstance@@QAEXH@Z : proc
 
