@@ -177,19 +177,38 @@ __pragma(pack(push, 1))
 struct NetStru3 {
     uint32_t timestamp;
     uint32_t timestamp2;
-    uint16_t pos;
-    uint8_t field_0xa;
-    uint8_t field_0xb;
-    uint8_t buf_id;
-    uint16_t size;
-    uint8_t field_0xf;
+    union
+    {
+        struct
+        {
+            uint16_t pos;
+            uint8_t field_0xa;
+            uint8_t field_0xb;
+            uint8_t buf_id;
+            uint16_t size;
+            uint8_t field_0xf;
+        };
+
+        struct
+        {
+            uint32_t pktid;
+            uint32_t pktid2;
+        };
+
+        uint8_t full_data[8];
+    };
     uint8_t buf[144];
     int32_t datasz;
-    int32_t field_0xa4;
+    int32_t readpos;
 
     void Clear(); //5156f6
     NetStru3(); //5155c0
     ~NetStru3(); //515694
+
+    void operator=(const NetStru3* src); //515625
+
+    bool WriteToBuffer(void* data, uint32_t sz); //51573e
+    bool ReadFromBuffer(void* out, uint32_t sz); //51579e
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(NetStru3, datasz, 0xa0);

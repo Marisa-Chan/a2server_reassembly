@@ -964,7 +964,7 @@ void NetStru3::Clear()
 {
     //5156f6
     datasz = 0;
-    field_0xa4 = 0;
+    readpos = 0;
     field_0xf = 0;
     timestamp = 0;
     timestamp2 = 0;
@@ -980,7 +980,7 @@ NetStru3::NetStru3()
     buf_id = 0;
     field_0xf = 0;
     datasz = -1;
-    field_0xa4 = -1;
+    readpos = -1;
     timestamp = 0;
     timestamp2 = 0;
 }
@@ -989,7 +989,7 @@ NetStru3::~NetStru3()
 {
     //515694
     datasz = -1;
-    field_0xa4 = -1;
+    readpos = -1;
     timestamp = 0;
     timestamp2 = 0;
     pos = 0;
@@ -999,7 +999,39 @@ NetStru3::~NetStru3()
     field_0xf = 0;
 }
 
+void NetStru3::operator=(const NetStru3* src)
+{
+    //515625
+    memcpy(full_data, &src->full_data, src->datasz + 8);
+    datasz = src->datasz;
+    readpos = src->readpos;
+    timestamp = src->timestamp;
+    timestamp2 = src->timestamp2;
+}
 
+bool NetStru3::WriteToBuffer(void* data, uint32_t sz)
+{
+    //51573e
+    uint32_t newsz = datasz + sz;
+    if (newsz >= 143)
+        return false;
+
+    memcpy(buf + datasz, data, sz);
+    datasz = newsz;
+    return true;
+}
+
+bool NetStru3::ReadFromBuffer(void* out, uint32_t sz)
+{
+    //51579e
+    uint32_t newpos = readpos + sz;
+    if (newpos > datasz)
+        return false;
+
+    memcpy(out, buf + readpos, sz);
+    readpos = newpos;
+    return true;
+}
 
 
 A2NetSock::A2NetSock()

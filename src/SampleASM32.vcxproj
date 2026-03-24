@@ -324,6 +324,7 @@
     <ClInclude Include="bitset.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="buildings_list.h" />
+    <ClInclude Include="constants.h" />
     <ClInclude Include="dplay.h" />
     <ClInclude Include="dplobby.h" />
     <ClInclude Include="effect.h" />

@@ -746,6 +746,9 @@ extern ??1NetStru2@@QAE@XZ :proc
 extern ??0NetStru3@@QAE@XZ :proc
 extern ??1NetStru3@@QAE@XZ :proc
 extern ?Clear@NetStru3@@QAEXXZ :proc
+extern ??4NetStru3@@QAEXPBU0@@Z : proc
+extern ?WriteToBuffer@NetStru3@@QAE_NPAXI@Z : proc
+extern ?ReadFromBuffer@NetStru3@@QAE_NPAXI@Z : proc
 
 
 ; Server
