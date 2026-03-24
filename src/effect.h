@@ -48,6 +48,10 @@ ASSERT_SIZE(Effect, 0x48);
 class DirectDamage : public Effect {
 public: // VTable at 0060f2e0.
     // virtual void VMethod11(Unit* unit);
+
+public:
+    DirectDamage();
+
 public:
     UnitToHit unit_to_hit;
 };

@@ -544,6 +544,10 @@ extern ??0Effect@@QAE@PBV0@@Z  : proc
 externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 
 
+; DirectDamage
+
+externdef ??0DirectDamage@@QAE@XZ :proc
+
 
 ; AreaEffect
 PUBLIC _stru_6364B8
