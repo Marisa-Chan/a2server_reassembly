@@ -18,6 +18,42 @@
 #include "dplobby.h"
 
 
+NetStru1 NetStru1::Inst(0);
+
+
+void PackerDat::DeleteTail(PackerTail* node)
+{
+    //526621
+    if (node)
+    {
+        if (node->field_0x0)
+            DeleteTail(node->field_0x0);
+        if (node->field_0x4)
+            DeleteTail(node->field_0x4);
+
+        delete node;
+    }
+}
+
+void PackerDat::Clear()
+{
+    //5265f7
+    DeleteTail(tail);
+    tail = nullptr;
+}
+
+PackerDat::PackerDat()
+{
+    //5260fa
+    tail = nullptr;
+}
+
+PackerDat::~PackerDat()
+{
+    //526115
+    Clear();
+}
+
 void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 {
 	PacketJoin& pkt = PacketJoin::Inst;
@@ -589,7 +625,7 @@ void NetStru1::AddTailNet2(NetStru2*& net2)
 {
     //517e91
     EnterCriticalSection(&critical_section);
-    list.AddTail(net2);
+    disconnect_list.AddTail(net2);
     LeaveCriticalSection(&critical_section);
 }
 
@@ -601,6 +637,200 @@ void NetStru1::AddTailFreeNet3(NetStru3* net3)
     LeaveCriticalSection(&critical_section2);
 }
 
+void NetStru1::ProcessNewConnects()
+{
+    //51755c
+    EnterCriticalSection(&critical_section);
+    while (!new_connects.IsEmpty())
+    {
+        NetStru2* cli = new_connects.RemoveHead();
+        if (cli)
+        {
+            if (compression_mode != 0)
+                cli->compression_type = compression_type;
+            else
+                cli->compression_type = 0;
+
+            active_connects.AddTail(cli);
+
+            OnClientConnect(cli);
+        }
+    }
+    LeaveCriticalSection(&critical_section);
+}
+
+void NetStru1::ProcessDisconnectList()
+{
+    //51725b
+    EnterCriticalSection(&critical_section);
+    while (!disconnect_list.IsEmpty())
+    {
+        NetStru2* cli = disconnect_list.RemoveHead();
+        if (cli)
+        {
+            POSITION pos = active_connects.Find(cli);
+            if (pos)
+            {
+                OnClientDisconnect(cli);
+                active_connects.RemoveAt(pos);
+            }
+
+            delete cli;
+        }
+    }
+    LeaveCriticalSection(&critical_section);
+}
+
+void NetStru1::ProcessConnections()
+{
+    // 51800f
+    ProcessNewConnects();
+    ProcessDisconnectList();
+    if (driver)
+        driver->CleanupAllInvalid();
+}
+
+void NetStru1::DisconnectClient(NetStru2* cli)
+{
+    //5170b6
+    if (cli == local_client)
+    {
+        AddTailNet2(local_client);
+        local_client = nullptr;
+    }
+    else
+       driver->DisconnectClient(cli->uid);
+}
+
+NetStru1::NetStru1(int param)
+{
+    //51684b
+    driver = nullptr;
+    field_0x8 = nullptr;
+    local_client = nullptr;
+    field_0x18b0 = param;
+    InitializeCriticalSection(&critical_section);
+    InitializeCriticalSection(&critical_section2);
+    field_0x18a4 = 0;
+    field_0x18a0 = 0;
+    field_0x189c = 0;
+    field_0x1898 = 0;
+    compression_mode = 0;
+    compression_type = 1;
+    memset(buf1, 0, sizeof(buf1));
+    memset(buf2, 0, sizeof(buf2));
+}
+
+NetStru1::~NetStru1()
+{
+    //516b44
+    if (local_client != nullptr)
+        DisconnectClient(local_client);
+
+    ProcessNewConnects();
+    ProcessDisconnectList();
+
+    //inline 51710f 
+    while (!free_net3.IsEmpty())
+    {
+        NetStru3* buf = free_net3.RemoveHead();
+        delete buf;
+    }
+
+    DeleteCriticalSection(&critical_section);
+    DeleteCriticalSection(&critical_section2);
+
+    driver = nullptr;
+    field_0x8 = nullptr;
+    field_0x18b0 = 0;
+    field_0x18a4 = 0;
+    field_0x18a0 = 0;
+    field_0x189c = 0;
+    field_0x1898 = 0;
+    compression_mode = 0;
+    compression_type = 1;
+}
+
+
+void NetStru1::OnClientConnect(NetStru2* cli)
+{
+    //51fc72
+    if (this != &Inst)
+    {
+        client_stat[cli->uid] = new ConnStatInfo;
+
+        if (driver && driver->provider != 4)
+            cli->field_0x2a8 = 1;
+        else
+            cli->field_0x2a8 = 0;
+    }
+}
+
+void NetStru1::OnClientDisconnect(NetStru2* cli)
+{
+    //51f561
+    if (this == &Inst)
+    {
+        LogMessage("Connection with hat has been lost.");
+        if (g_Server)
+            g_Server->field51_0x1d8 = GetTickCount();
+        return;
+    }
+
+    if (driver && driver->is_server != 0 && driver->provider == 1)
+        driver->RestartModemServerDp();
+
+    if (g_Server)
+    {
+        Player* pl = g_PlayersList->sub_535B50(cli->player_id);
+        if (pl && pl->field_0xa50 == 0)
+        {
+            if (pl->is_ai == 1 || pl->player_id <= 15)
+                LogMessage("Warning: trying to disconnect AI player " + pl->name);
+            else
+            {
+                LogMessage("Player " + pl->name + " has disconnected.");
+
+                pl->FUN_00534778();
+
+                if (driver && driver->provider == 4 &&
+                    g_ServerConfig.gameType != 1 &&
+                    g_ServerConfig.gameType != 3 &&
+                    g_Server->field59_0x208 == 0)
+                {
+                    if (g_ServerConfig.gameType == 2)
+                    {
+                        if (g_PlayersList->sub_53636E())
+                            pl->field_0xa50 = MAXINT32;
+                    }
+                    else
+                        pl->field_0xa50 = g_Server->tick16 + 300;
+                }
+                if (!MapStuff_Instance && g_Server->field4_0x74)
+                {
+                    FUN_0051cefb(0x97, pl->player_id, 0, nullptr);
+                    LogMessage("Player " + pl->name + " has disconnected and leaved game.");
+
+                    POSITION pos = g_PlayersList->Find(pl);
+                    if (pos != nullptr)
+                        g_PlayersList->RemoveAt(pos);
+
+                    g_Server->sub_4F4570();
+                }
+            }
+        }
+    }
+
+    ConnStatInfo* stat = nullptr;
+    if (client_stat.Lookup(cli->uid, stat))
+    {
+        client_stat.RemoveKey(cli->uid);
+        if (stat)
+            delete stat;
+    }
+}
+
+
 NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
 {
     //517c99
@@ -610,7 +840,7 @@ NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
     mgr->uid = uid;
     mgr->SetDrivers(this, driver);
 
-    clients.AddTail(mgr);
+    new_connects.AddTail(mgr);
     LeaveCriticalSection(&critical_section);
 
     return mgr;
@@ -692,10 +922,10 @@ NetStru2::NetStru2()
     stru3_id = 0;
     stru3[0].Clear();
     stru3[1].Clear();
-    field_0x298 = 0;
+    compression_type = 0;
     player_id = 0;
     uid = 0;
-    field_0x29c = 0;
+    is_local_player = 0;
     buf[0] = 0;
     InitializeCriticalSection(&critical_section);
 }
@@ -705,7 +935,7 @@ NetStru2::~NetStru2()
     //515c27
     ReturnBuffers();
     DeleteCriticalSection(&critical_section);
-    field_0x29c = 0;
+    is_local_player = 0;
     player_id = 0;
     uid = 0;
     net_stru1 = nullptr;

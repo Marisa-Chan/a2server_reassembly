@@ -190,3 +190,13 @@ Player player_instantiation_check;
 
 // 609088
 IMPLEMENT_SERIAL(Player, CObject, 1);
+
+
+
+void Player::FUN_00534778()
+{
+    //534778
+    field_0x43 = 0;
+    field_0x42 = 0;
+    field_0xa50 = g_Server->tick16;
+}

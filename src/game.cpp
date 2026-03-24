@@ -52,8 +52,8 @@ void sub_4954EA()
         return;
     }
 
-    g_NetStru1_main.FUN_005170b6(node);
-    g_NetStru1_main.FUN_0051800f();
+    g_NetStru1_main.DisconnectClient(node);
+    g_NetStru1_main.ProcessConnections();
     g_NetStru1_main.FUN_0051d49b(player);
 
     player->field_0xa50 = g_Server->tick16 - 1;

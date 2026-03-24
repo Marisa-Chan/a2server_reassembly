@@ -662,12 +662,27 @@ externdef ?Inst@PacketUnitUpdate@@2V1@A : byte                        ; _unk_6D1
 
 
 
+;PackerDat
+extern ?DeleteTail@PackerDat@@QAEXPAUPackerTail@@@Z  : proc
+extern ?Clear@PackerDat@@QAEXXZ : proc
+extern ??0PackerDat@@QAE@XZ : proc
+extern ??1PackerDat@@QAE@XZ : proc
+
 ;NetStru1
+
+externdef ??_7NetStru1@@6B@ : dword
+extern ??0NetStru1@@QAE@H@Z : proc
+extern ??1NetStru1@@QAE@XZ : proc
+
+externdef ?Inst@NetStru1@@2V1@A : dword
 
 extern ?AddTailNet2@NetStru1@@QAEXAAPAUNetStru2@@@Z : proc
 extern ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z : proc
 extern ?AllocClientBufManager@NetStru1@@QAEPAUNetStru2@@I@Z : proc
 extern ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ :proc
+
+extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
+extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 
 externdef ?Unpack@NetStru1@@QAEHHPAXH0H@Z : proc
 
@@ -675,8 +690,6 @@ externdef ?g_NetStru1_main@@3VNetStru1@@A:byte
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
 externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z :proc   ; NetStru1::FUN_00518544(unsigned short)
-externdef ?FUN_005170b6@NetStru1@@QAEXPAUNetStru2@@@Z :proc   ; NetStru1::FUN_005170b6(struct NetStru2 *)
-externdef ?FUN_0051800f@NetStru1@@QAEXXZ :proc   ;  NetStru1::FUN_0051800f(void)
 externdef ?FUN_005186cd@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_005186cd(class Packet *)
 externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
 externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
@@ -714,6 +727,7 @@ externdef ?sub_5185D5@NetStru1@@QAEPAUNetStru2@@G@Z :proc
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51BAB0@NetStru1@@QAEXPAVUnit@@PAVSpell@@0F@Z :proc
 externdef ?sub_51BB94@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAUTokenPos@@F@Z :proc
+
 
 
 
@@ -813,6 +827,8 @@ externdef ?sub_5346AC@Player@@QAEXXZ :proc
 
 externdef ?sub_534B17@Player@@QAEXXZ :proc
 externdef ?sub_534B59@Player@@QAEXXZ :proc
+
+extern ?FUN_00534778@Player@@QAEXXZ : proc
 
 
 ; PlayersList

@@ -43,6 +43,12 @@ struct PackerDat {
     std::array<int32_t, 256> bitLength;
     std::array<int32_t, 256> freq;
     PackerTail* tail;
+
+    void DeleteTail(PackerTail* node); //526621
+    void Clear(); //5265f7
+
+    PackerDat(); //5260fa
+    ~PackerDat(); //526115
 };
 ASSERT_OFFSET(PackerDat, freq, 0x800);
 ASSERT_SIZE(PackerDat, 0xc04);
@@ -53,19 +59,24 @@ struct ConnStatInfo {
     uint32_t total_bytes;
     uint32_t max_bs;
     uint32_t time;
+
+    ConnStatInfo()
+    {
+        memset(this, 0, sizeof(ConnStatInfo));
+    }
 };
 ASSERT_SIZE(ConnStatInfo, 0x14);
 
 class NetStru1 {
 public: // VTable at 0060ecc0.
-    virtual void OnClientConnect(NetStru2* client);
-    virtual void OnClientDisconnect(NetStru2* client);
+    virtual void OnClientConnect(NetStru2* client); //51fc72
+    virtual void OnClientDisconnect(NetStru2* client); //51f561
 
 public:
     CLlDriver* driver;
     NetStru1* field_0x8;
-    CList<NetStru2*> list;
-    CList<NetStru2*> clients;
+    CList<NetStru2*> disconnect_list;
+    CList<NetStru2*> new_connects;
     CList<NetStru3*> free_net3;
     CRITICAL_SECTION critical_section;
     CRITICAL_SECTION critical_section2;
@@ -75,12 +86,12 @@ public:
     uint32_t field_0x189c;
     uint32_t field_0x18a0;
     uint32_t field_0x18a4;
-    uint32_t field_0x18a8;
-    uint32_t field_0x18ac;
+    uint32_t compression_type;
+    uint32_t compression_mode; // 0 - disable, 1 - make statistic, 2 - compression
     uint32_t field_0x18b0;
-    NetStru2* fields_0x18b4;
-    CList<NetStru2*> list_0x18b8;
-    CMap<int32_t, int32_t, ConnStatInfo, ConnStatInfo&> client_stat;
+    NetStru2* local_client;
+    CList<NetStru2*> active_connects;
+    CMap<int32_t, int32_t, ConnStatInfo*, ConnStatInfo*> client_stat;
     uint8_t buf1[1024];
     uint8_t buf2[1024];
 
@@ -90,6 +101,9 @@ public:
     // Transfers unit ownership to another player.
     // `this` is unused, but in ASM this function accepts a `NetStru1*` in ECX, so it's here.
     void FUN_004fb4ca(Unit* unit, Player* new_owner);
+
+    NetStru1(int param); //51684b
+    ~NetStru1(); //516b44
 
 public:
     void FUN_005186cd(Packet* pkt);
@@ -103,9 +117,7 @@ public:
     void FUN_0051cd89(const CString& name, Player* player);
 
     NetStru2* FUN_00518544(uint16_t player_id);
-    void FUN_005170b6(NetStru2* arg1);
 
-    void FUN_0051800f();
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
@@ -150,6 +162,12 @@ public:
     NetStru3* GetFreeNet3(); //5177f5
 
     int Unpack(int id, void* in, int insz, void* out, int outsz); //51846f asm!
+
+    void ProcessNewConnects(); //51755c
+    void ProcessDisconnectList(); //51725b
+    void ProcessConnections(); // 51800f
+    void DisconnectClient(NetStru2* cli); //5170b6
+
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -189,8 +207,8 @@ struct NetStru2 {
     int32_t stru3_id;
     CList<NetStru3*> unpacked_buffers;
     CRITICAL_SECTION critical_section;
-    uint32_t field_0x298;
-    uint32_t field_0x29c;
+    uint32_t compression_type; // 0 - disabled, 1,2 - compression types
+    uint32_t is_local_player;
     uint32_t field_0x2a0;
     uint32_t field_0x2a4;
     uint32_t field_0x2a8;

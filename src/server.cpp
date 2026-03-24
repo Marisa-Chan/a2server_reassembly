@@ -887,7 +887,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
     if (this->field4_0x74 != 0) {
         // Non-admin commands.
         NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
-        if (ns2 == nullptr || ns2->field_0x29c == 0) {
+        if (ns2 == nullptr || ns2->is_local_player == 0) {
             if (cheat_string.Find("#set latency ") == 0) {
                 cheat_string = cheat_string.Mid(13);
                 cheat_string.TrimLeft();
@@ -935,7 +935,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                 Player* target = g_PlayersList->sub_535D39(cheat_string);
                 if (target != nullptr) {
                     NetStru2* tns2 = g_NetStru1_main.FUN_00518544(target->player_id);
-                    if (tns2 != nullptr && tns2->field_0x29c == 0) {
+                    if (tns2 != nullptr && tns2->is_local_player == 0) {
                         g_NetStru1_main.FUN_0051d49b(target);
                     }
                 }

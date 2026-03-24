@@ -350,9 +350,9 @@ void Unit::VMethod2()
                 if (building->typeId == 0x42 && g_CLlDriver.provider == 4) {
                     NetStru2* ns2 = g_NetStru1_main.FUN_00518544(this->pOwner->player_id);
                     if (ns2) {
-                        g_NetStru1_main.FUN_005170b6(ns2);
+                        g_NetStru1_main.DisconnectClient(ns2);
                     }
-                    g_NetStru1_main.FUN_0051800f();
+                    g_NetStru1_main.ProcessConnections();
                     this->pOwner->field_0xa50 = (uint32_t)g_Server->tick16;
                 }
                 // Toggles.
