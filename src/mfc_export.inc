@@ -172,6 +172,14 @@ externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
 ; MultiShopShelf
 externdef ?ClearItems@MultiShopShelf@@QAEXXZ : proc
 
+; MultiShopTemplate
+externdef ?sub_546F18@MultiShopTemplate@@QAEXPAVMultiShopInstance@@H@Z : proc
+
+; MultiShopInstance
+externdef ?Sell@MultiShopInstance@@QAEXXZ : proc
+externdef ?sub_5462C8@MultiShopInstance@@QAEHPAVItem@@H@Z : proc
+externdef ?sub_5464B6@MultiShopInstance@@QAEXH@Z : proc
+
 ; Pointer
 externdef _PointerRuntimeClass :byte
 
@@ -366,6 +374,7 @@ extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
 ; ScanPresenceGrid
 externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
+externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
 
 ;Token

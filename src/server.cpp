@@ -32,9 +32,6 @@ class QuestMap;
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
-// ---- ASM subroutines called by sub_4FC644 ----
-extern "C" void __fastcall sub_596131(ScanPresenceGrid* scan_presence_grid);
-
 // ---- Variables used by sub_4FF937 ----
 extern "C" QuestMap unk_6CE4D8; // Global quest map instance?
 
@@ -207,7 +204,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     player->field_0x41 = 1;
     player->field_0x43 = 1;
     g_World->sub_5AFBFD(); // increment some counter (number of joined players?).
-    sub_596131(&MapStuff_Instance->scan_presence_grid);  // refresh scan grid
+    MapStuff_Instance->scan_presence_grid.sub_596131();  // refresh scan grid
 
     // Clear vision mask bits for this player across every unit list.
     // Three separate lists are processed:
@@ -693,7 +690,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     g_World->sub_5AFBFD();
 
     // Notify MapStuff section
-    sub_596131(&MapStuff_Instance->scan_presence_grid);
+    MapStuff_Instance->scan_presence_grid.sub_596131();
 
     // Add character unit to map.
     MapStuff_Instance->sub_58E3D1(player->main_unit);

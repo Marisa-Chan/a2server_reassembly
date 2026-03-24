@@ -49,6 +49,8 @@ public:
     CArray<MultiShopInstance*> shop_instances;
     int32_t field_0x90;
     Shop* shop;
+
+    void sub_546F18(MultiShopInstance* inst, int param); // 546F18
 };
 ASSERT_OFFSET(MultiShopTemplate, shop_instances, 0x7c);
 ASSERT_SIZE(MultiShopTemplate, 0x98);
@@ -66,6 +68,10 @@ public:
     Unit* unit;
     Inventory inventory;
     MultiShopTemplate* shop_template;
+
+    void Sell(); // 545D5E
+    int sub_5462C8(Item* item, int arg1); // 5462C8
+    void sub_5464B6(int param); // 5464B6
 };
 ASSERT_OFFSET(MultiShopInstance, unit, 0x74);
 ASSERT_OFFSET(MultiShopInstance, shop_template, 0x9c);
