@@ -45,7 +45,6 @@ add_executable(a2serv_vsc
   strcore.cpp
   strex.cpp
   table.cpp
-  testre.cpp
   token.cpp
   txtfile.cpp
   unit.cpp
@@ -57,7 +56,6 @@ add_executable(a2serv_vsc
   world.cpp
   Main.asm
   a2_ucrt.asm
-  vtbl_ret.asm
   res/a2server.rc
 )
 

@@ -247,7 +247,6 @@
       <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</EnableMASM51Compatibility>
       <EnableMASM51Compatibility Condition="'$(Configuration)|$(Platform)'=='Release_client|Win32'">true</EnableMASM51Compatibility>
     </MASM>
-    <MASM Include="vtbl_ret.asm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="a2server.exe.inc" />
@@ -305,7 +304,6 @@
     <ClCompile Include="strcore.cpp" />
     <ClCompile Include="strex.cpp" />
     <ClCompile Include="table.cpp" />
-    <ClCompile Include="testre.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="txtfile.cpp" />
     <ClCompile Include="unit.cpp" />
@@ -360,7 +358,6 @@
     <ClInclude Include="spell.h" />
     <ClInclude Include="spell_effect.h" />
     <ClInclude Include="table.h" />
-    <ClInclude Include="testre.h" />
     <ClInclude Include="token.h" />
     <ClInclude Include="txtfile.h" />
     <ClInclude Include="unit.h" />

@@ -7,8 +7,6 @@
 
 #include <dbghelp.h> // must be included after windows.h
 
-#include "testre.h"
-
 /*int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 {
 
@@ -140,11 +138,6 @@ int main(int argc, const char* argv[])
 	a2_argv = argv;
 
 	printf("A2 Reassembly main func call A2 WinMain\n");
-
-	if (!A2::TestReversing())
-	{
-		//return 0;
-	}
 
     SetExceptionFilter();
 

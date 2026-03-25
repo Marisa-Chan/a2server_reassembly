@@ -62,6 +62,7 @@ struct TokenPos
 };
 
 ASSERT_OFFSET(TokenPos, x_subcell, 0x4);
+ASSERT_SIZE(TokenPos, 0xC);
 
 
 
@@ -112,5 +113,7 @@ public:
 	static AFX_DATA CRuntimeClass classToken;
 };
 __pragma(pack(pop))
+
+ASSERT_SIZE(Token, 0x3C);
 
 #endif //TOKEN_H
