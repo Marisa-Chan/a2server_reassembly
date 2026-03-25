@@ -68,6 +68,9 @@ ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
+    void LoadInfo(); // sub_54F634
+
+public:
     uint8_t slot;
     uint8_t gap_0x59;
     Protections protections;
