@@ -37,10 +37,10 @@ bool Item::IsSimilar(Item* other)
 // sub_54F634
 void Armor::LoadInfo()
 {
-    EquipData* data = &this->world_equip->values[0];
-
     this->slot = 0;
     this->world_equip = &g_GameDataRes.armors[this->itemDataID];
+
+    EquipData* data = &this->world_equip->values[0];
     this->slot = (uint8_t)data->slot;
 
     if (this->slot >= 13) {
