@@ -158,8 +158,8 @@ public:
     uint32_t field54_0x1f4;
     uint32_t field55_0x1f8;
     uint32_t field56_0x1fc;
-    uint32_t field57_0x200;
-    uint32_t field58_0x204;
+    int32_t field57_0x200;
+    int32_t field58_0x204;
     uint32_t field59_0x208;
     uint32_t field60_0x20c; // TODO: convert to two 2-int arrays. See `Unit::sub_52D94E` for logic.
     uint32_t field61_0x210;
@@ -220,7 +220,7 @@ struct ServerConfig
     uint32_t field_0xa0;
     uint32_t field_0xa4;
     uint32_t gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
-    uint32_t field_0xac;
+    int32_t field_0xac;
     uint32_t field_0xb0;
     uint32_t map_range_check; // map-level range check enabled flag
     uint32_t field_0xb8;

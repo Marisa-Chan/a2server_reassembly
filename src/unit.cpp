@@ -475,7 +475,7 @@ Item* Unit::Unequip(Item* item)
 void Unit::VMethod15()
 {}
 
-void Unit::VMethod16(Item*)
+void Unit::VMethod16(Unit*)
 {}
 
 // 536B31
@@ -1117,7 +1117,7 @@ void Humanoid::VMethod15()
     }
 }
 
-/*void Humanoid::VMethod16(Item* item)
+/*void Humanoid::VMethod16(Unit* unit)
 {
     //53111b
     

@@ -97,6 +97,8 @@ public:
     void sub_534B59(); // Reset inactivity timer and notify NetStru1
 
     void FUN_00534778(); //534778
+
+    void sub_5347A1(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit)
 };
 
 ASSERT_OFFSET(Player, flags, 0x14);

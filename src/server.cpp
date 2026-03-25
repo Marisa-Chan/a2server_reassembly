@@ -32,9 +32,6 @@ class QuestMap;
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
-// ---- Variables used by sub_4FF937 ----
-extern "C" QuestMap unk_6CE4D8; // Global quest map instance?
-
 // CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
 extern "C" CRuntimeClass stru_6364B8;
 
@@ -267,12 +264,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         }
     }
 
-    // If field4_0x74 is set, send the SrvStru1 state list from the opaque
-    // unk_6CE4D8 state buffer.  sub_51D4F6 uses unk_6CE4D8 as an internal
-    // iterator struct (fields at offsets 0x74/0x78/0x80) and produces a
-    // terrain-list packet that it sends to player.
     if (g_Server->field4_0x74 != 0) {
-        g_NetStru1_main.sub_51D4F6(&unk_6CE4D8, player, 0);
+        g_NetStru1_main.sub_51D4F6(&g_QuestMap, player, 0);
     }
 
     // Encode and send the full map-terrain packet to the player.

@@ -42,9 +42,13 @@ public:
     Quest* quest;
     QuestInnGlue* glue;
     uint32_t building_id;
+
+    void sub_55DD10(int32_t event_type, int32_t a, int32_t b); // Fire a quest event
 };
 
 ASSERT_OFFSET(QuestMap, flags, 0x58);
 ASSERT_SIZE(QuestMap, 0x84);
+
+extern QuestMap g_QuestMap; // Global QuestMap instance (at 0x6CE4D8)
 
 #endif

@@ -85,7 +85,7 @@ public: //vtbl
     virtual void VMethod13(Item *);
     virtual Item* Unequip(Item *);
     virtual void VMethod15();
-    virtual void VMethod16(Item *);
+    virtual void VMethod16(Unit *);
     virtual uint32_t VMethod17(UnitToHit *, Unit *);
     virtual void VMethod18();
     virtual uint32_t VMethod19();
@@ -194,8 +194,8 @@ public:
     int32_t field_0x198;
     int32_t field_0x19c;
     uint32_t summoned; // Summoned or raised from the dead units have this set to 1.
-    int16_t field_0x1a4;
-    int16_t field_0x1a6;
+    uint16_t field_0x1a4;
+    uint16_t field_0x1a6;
     CArray<SessionMobKill> mob_kills_in_session;
     int32_t field_0x1bc;
     UnitEye* eye;
@@ -250,7 +250,7 @@ public:
     virtual void VMethod13(Item*) override;
     virtual Item* Unequip(Item*) override;
     virtual void VMethod15() override;
-    virtual void VMethod16(Item*) override;
+    virtual void VMethod16(Unit*) override;
     //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
     virtual void VMethod18() override;
     virtual uint32_t VMethod19() override;

@@ -482,7 +482,7 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 externdef ?Serialize@Humanoid@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Humanoid::Serialize(class CArchive &))
 externdef ?VMethod12@Humanoid@@UAEPAVItem@@PAV2@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod12(class Item *))
-externdef ?VMethod16@Humanoid@@UAEXPAVItem@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod16(class Item *))
+externdef ?VMethod16@Humanoid@@UAEXPAVUnit@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod16(class Item *))
 extern ?VMethod18@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod18(void))
 externdef ?VMethod21@Humanoid@@UAEXIPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod21(unsigned int,class Unit *,int))
 externdef ?VMethod22@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod22(class Unit *,int))
@@ -512,6 +512,7 @@ extern ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z:proc   ; UnitList::AddTailAlloc
 extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xxx
 externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
+externdef ?ProcessTick@UnitList@@QAEXXZ :proc
 
 
 
@@ -867,6 +868,7 @@ externdef ?sub_534B17@Player@@QAEXXZ :proc
 externdef ?sub_534B59@Player@@QAEXXZ :proc
 
 extern ?FUN_00534778@Player@@QAEXXZ : proc
+externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
 
 
 ; PlayersList
@@ -894,8 +896,8 @@ externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 ; Quest
 
 ; QuestMap
-
-PUBLIC _unk_6CE4D8
+externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
+externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 
 ;CListBox2  in C++
