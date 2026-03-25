@@ -39,4 +39,17 @@ struct Listerator
 };
 
 
+inline void SetU8(void* buf, uint8_t value) {
+	*(uint8_t*)buf = value;
+}
+
+inline void SetU16(void* buf, uint16_t value) {
+	*(uint16_t*)buf = value;
+}
+
+inline void SetU32(void* buf, uint32_t value) {
+	*(uint32_t*)buf = value;
+}
+
+
 #endif

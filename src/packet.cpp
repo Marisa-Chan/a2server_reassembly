@@ -848,6 +848,7 @@ void PacketUnitStateVec::VMethod3(NetStru2* net)
     net->WriteData(&id, 0xA);
     if (entry_count > 0)
         net->WriteData(data, data_size);
+    //printf("PacketUnitStateVec: %x %d %x\n", id, entry_count, data_size);
 }
 
 void PacketUnitStateVec::VMethod4(NetStru2* net)

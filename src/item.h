@@ -12,6 +12,7 @@
 
 class Spell;
 class Unit;
+class PacketUnitStateVec;
 
 class Item : public Token {
 public:
@@ -35,7 +36,7 @@ public:
     virtual void VMethod11(Unit*);
     virtual Item* TakeOne();
     virtual Item* VMethod13();
-    virtual int32_t VMethod14();
+    virtual int32_t VMethod14(int, int);
     virtual int32_t VMethod15();
     virtual int32_t VMethod16();
     virtual void VMethod17(void*, void*);
@@ -46,6 +47,8 @@ public:
 
     Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
     bool IsSimilar(Item* other); //548860 Is this item similar to another? Same non-magic item or same base with same magic.
+
+    void StoreToPacket(PacketUnitStateVec* pkt, int arg); //549afb
 
 public:
     WorldEquip* world_equip;
