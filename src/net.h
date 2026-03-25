@@ -80,12 +80,12 @@ public:
     CList<NetStru3*> free_net3;
     CRITICAL_SECTION critical_section;
     CRITICAL_SECTION critical_section2;
-    PackerDat packer_dat1;
-    PackerDat packer_dat2;
-    uint32_t field_0x1898;
-    uint32_t field_0x189c;
-    uint32_t field_0x18a0;
-    uint32_t field_0x18a4;
+    PackerDat packer_dat1; //unused
+    PackerDat packer_dat2; //unused
+    uint32_t field_0x1898; //unused packer1 statistic
+    uint32_t field_0x189c; //unused packer1 statistic
+    uint32_t field_0x18a0; //unused packer2 statistic
+    uint32_t field_0x18a4; //unused packer2 statistic
     uint32_t compression_type;
     uint32_t compression_mode; // 0 - disable, 1 - make statistic, 2 - compression
     uint32_t make_statistics; // calculate statistic
@@ -126,7 +126,7 @@ public:
     void SetLLDriver(CLlDriver* drv); //517ff9
     void SetLinkedHLDriver(NetStru1* hl); //51703e
 
-    uint32_t GetClientsSumF(); //518a6b
+    uint32_t GetClientsPktNum(); //518a6b
     int IsActive(); //518ac9
 
     void FUN_0051d6b4(uint16_t arg);
@@ -204,7 +204,7 @@ struct NetStru3 {
             
             uint8_t cmode; //compression mode
             uint16_t csize;
-            uint8_t field_0xf;
+            uint8_t pkt_num; //number of packets in buffer?
         };
         uint8_t full_data[8];
     };
@@ -227,15 +227,15 @@ ASSERT_SIZE(NetStru3, 0xa8);
 
 __pragma(pack(push, 1))
 struct NetStru2 {
-    NetStru1* net_stru1;
-    CLlDriver* driver;
+    NetStru1* hldriver;
+    CLlDriver* lldriver;
     uint8_t buf[256];
     uint16_t player_id;
     uint8_t gap_0x10a[2];
     uint32_t uid;
-    NetStru3 stru3[2];
-    int32_t stru3_id;
-    CList<NetStru3*> unpacked_buffers;
+    NetStru3 out_buffers[2]; // buffers with send data
+    int32_t out_buff_id; // currenct send buffer
+    CList<NetStru3*> received_buffers; //buffers with received data
     CRITICAL_SECTION critical_section;
     uint32_t compression_type; // 0 - disabled, 1,2 - compression types
     uint32_t is_local_player;
@@ -266,7 +266,7 @@ public:
     ~NetStru2(); //515c27
     void ReturnBuffers(); //515d9d    return buffers to High-level driver
 
-    uint32_t GetBuffersSumF(); //51670a  Get unpacked_buffers summary of field_0xf
+    uint32_t GetBuffersPktNum(); //51670a  Get received_buffers summary of pkt_num
 };
 __pragma(pack(pop))
 
@@ -371,7 +371,7 @@ struct CLlConn : CLlName
 ASSERT_SIZE(CLlConn, 0x104);
 
 struct CLlDriver {
-    NetStru1* net_stru1;
+    NetStru1* hl_driver;
     A2NetSock listen_socket;
     A2NetSock ping_socket;
     int32_t is_server;

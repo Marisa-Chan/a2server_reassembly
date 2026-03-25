@@ -620,7 +620,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2)
 Packet* NetStru1::ReceivePacket(NetStru2* cli)
 {
     //518a23
-    if (cli->GetBuffersSumF() == 0)
+    if (cli->GetBuffersPktNum() == 0)
         return nullptr;
 
     uint8_t id = 0;
@@ -1007,7 +1007,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
                     AddPacketStatistic(pkt);
                 }
                 if (pkt->id == 0x64)
-                    cli->stru3[cli->stru3_id].field_0xf++;
+                    cli->out_buffers[cli->out_buff_id].pkt_num++;
             }
         }
     }
@@ -1023,7 +1023,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
                 AddPacketStatistic(pkt);
             }
             if (pkt->id == 0x64)
-                cli->stru3[cli->stru3_id].field_0xf++;
+                cli->out_buffers[cli->out_buff_id].pkt_num++;
         }
     }
 
@@ -1037,7 +1037,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
 }
 
 
-uint32_t NetStru1::GetClientsSumF()
+uint32_t NetStru1::GetClientsPktNum()
 {
     //518a6b
     uint32_t sum = 0;
@@ -1045,7 +1045,7 @@ uint32_t NetStru1::GetClientsSumF()
     {
         NetStru2* cli = active_connects.GetNext(it);
         if (cli)
-            sum += cli->GetBuffersSumF();
+            sum += cli->GetBuffersPktNum();
     }
     return sum;
 }
@@ -1071,18 +1071,18 @@ int NetStru2::WriteData(void* buf, uint32_t size)
     //515ef3
     while(true)
     {
-        int32_t avail = 0x8e - stru3[stru3_id].datasz;
+        int32_t avail = 0x8e - out_buffers[out_buff_id].datasz;
         if (size <= avail)
             break;
 
-        stru3[stru3_id].WriteToBuffer(buf, avail);
+        out_buffers[out_buff_id].WriteToBuffer(buf, avail);
         SendData();
 
         buf = (char*)buf + avail;
         size -= avail;
     }
     
-    stru3[stru3_id].WriteToBuffer(buf, size);
+    out_buffers[out_buff_id].WriteToBuffer(buf, size);
     return 1;
 }
 
@@ -1090,9 +1090,9 @@ int NetStru2::ReadData(void* buf, uint32_t size)
 {
     //515f9c
     EnterCriticalSection(&critical_section);
-    while (!unpacked_buffers.IsEmpty())
+    while (!received_buffers.IsEmpty())
     {
-        NetStru3* buffer = unpacked_buffers.GetHead();
+        NetStru3* buffer = received_buffers.GetHead();
         int32_t remain = buffer->datasz - buffer->readpos;
         
         if (size <= remain)
@@ -1107,8 +1107,8 @@ int NetStru2::ReadData(void* buf, uint32_t size)
         size -= remain;
         buf = (char*)buf + remain;
         
-        unpacked_buffers.RemoveHead();
-        net_stru1->AddTailFreeNet3(buffer);
+        received_buffers.RemoveHead();
+        hldriver->AddTailFreeNet3(buffer);
     }
     LeaveCriticalSection(&critical_section);
     return 0;
@@ -1119,8 +1119,8 @@ int NetStru2::ReadData(void* buf, uint32_t size)
 void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver)
 {
     //51682d
-    net_stru1 = HlDriver;
-    driver = LlDriver;
+    hldriver = HlDriver;
+    lldriver = LlDriver;
 }
 
 int NetStru2::ReceiveData(NetStru3* buffer)
@@ -1130,24 +1130,24 @@ int NetStru2::ReceiveData(NetStru3* buffer)
 
     /*if (buffer->cmode != 0)
     {
-        NetStru3* tbuf = net_stru1->GetFreeNet3();
+        NetStru3* tbuf = hldriver->GetFreeNet3();
         tbuf->Clear();
-        int num = net_stru1->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
+        int num = hldriver->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
         if (num > 0x8e)
         {
             ReportWarning("CBufferManager::ReceiveData().\nError during unpacking buffer.\n");
-            net_stru1->AddTailFreeNet3(buffer);
-            net_stru1->AddTailFreeNet3(tbuf);
+            hldriver->AddTailFreeNet3(buffer);
+            hldriver->AddTailFreeNet3(tbuf);
             LeaveCriticalSection(&critical_section);
             return 0;
         }
         tbuf->datasz = num;
-        tbuf->field_0xf = buffer->field_0xf;
-        net_stru1->AddTailFreeNet3(buffer);
+        tbuf->pkt_num = buffer->pkt_num;
+        hldriver->AddTailFreeNet3(buffer);
         buffer = tbuf;
     }*/
 
-    unpacked_buffers.AddTail(buffer);
+    received_buffers.AddTail(buffer);
 
     LeaveCriticalSection(&critical_section);
     return 1;
@@ -1156,51 +1156,51 @@ int NetStru2::ReceiveData(NetStru3* buffer)
 int NetStru2::SendData()
 {
     //518408
-    if (stru3[stru3_id].datasz < 1)
+    if (out_buffers[out_buff_id].datasz < 1)
     {
-        if (driver)
-            driver->CleanupInvalidTcpClient(uid);
+        if (lldriver)
+            lldriver->CleanupInvalidTcpClient(uid);
         return 1;
     }
 
-    NetStru3* buffer = net_stru1->GetFreeNet3();
+    NetStru3* buffer = hldriver->GetFreeNet3();
     buffer->Clear();
     buffer->cmode = compression_type;
 
     //here must be compression_type check and pack, but we just drop it
 
-    buffer->CopyData(stru3 + stru3_id);
-    buffer->field_0xf = stru3[stru3_id].field_0xf;
+    buffer->CopyData(out_buffers + out_buff_id);
+    buffer->pkt_num = out_buffers[out_buff_id].pkt_num;
 
     // inline FUN_00515eb2();
-    stru3_id = (stru3_id + 1) & 1;
-    stru3[stru3_id].Clear();
+    out_buff_id = (out_buff_id + 1) & 1;
+    out_buffers[out_buff_id].Clear();
 
     if (is_local_player == 0)
     {
-        if (!driver)
+        if (!lldriver)
         {
-            net_stru1->AddTailFreeNet3(buffer);
+            hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
 
-        driver->SendData(uid, buffer);
+        lldriver->SendData(uid, buffer);
     }
     else
     {
-        if (!net_stru1)
+        if (!hldriver)
         {
-            net_stru1->AddTailFreeNet3(buffer);
+            hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
 
         NetStru2* recv_cli = nullptr;
-        if (net_stru1->linked_hl)
-            recv_cli = net_stru1->linked_hl->local_client;
+        if (hldriver->linked_hl)
+            recv_cli = hldriver->linked_hl->local_client;
         
         if (!recv_cli)
         {
-            net_stru1->AddTailFreeNet3(buffer);
+            hldriver->AddTailFreeNet3(buffer);
             return 0;
         }
 
@@ -1219,11 +1219,11 @@ NetStru2::NetStru2()
     field_0x2b4 = -1;
     str.Empty();
     field_0x2b8 = 0;
-    net_stru1 = nullptr;
-    driver = nullptr;
-    stru3_id = 0;
-    stru3[0].Clear();
-    stru3[1].Clear();
+    hldriver = nullptr;
+    lldriver = nullptr;
+    out_buff_id = 0;
+    out_buffers[0].Clear();
+    out_buffers[1].Clear();
     compression_type = 0;
     player_id = 0;
     uid = 0;
@@ -1240,21 +1240,21 @@ NetStru2::~NetStru2()
     is_local_player = 0;
     player_id = 0;
     uid = 0;
-    net_stru1 = nullptr;
-    driver = nullptr;
+    hldriver = nullptr;
+    lldriver = nullptr;
     buf[0] = 0;
 }
 
 void NetStru2::ReturnBuffers()
 {
     //515d9d
-    if (!net_stru1)
+    if (!hldriver)
         return;
 
     EnterCriticalSection(&critical_section);
 
-    while (!unpacked_buffers.IsEmpty())
-        net_stru1->AddTailFreeNet3( unpacked_buffers.RemoveHead() );
+    while (!received_buffers.IsEmpty())
+        hldriver->AddTailFreeNet3( received_buffers.RemoveHead() );
 
     LeaveCriticalSection(&critical_section);
 }
@@ -1264,26 +1264,26 @@ void NetStru2::sub_5167A5()
 {
     //5167A5
     EnterCriticalSection(&critical_section);
-    for (POSITION pos = unpacked_buffers.GetHeadPosition(); pos != nullptr;)
+    for (POSITION pos = received_buffers.GetHeadPosition(); pos != nullptr;)
     {
-        NetStru3* buffer = unpacked_buffers.GetNext(pos);
-        if (buffer->field_0xf != 0)
+        NetStru3* buffer = received_buffers.GetNext(pos);
+        if (buffer->pkt_num != 0)
         {
-            buffer->field_0xf--;
+            buffer->pkt_num--;
             break;
         }
     }
     LeaveCriticalSection(&critical_section);
 }
 
-uint32_t NetStru2::GetBuffersSumF()
+uint32_t NetStru2::GetBuffersPktNum()
 {
-    //51670a  Get unpacked_buffers summary of field_0xf
+    //51670a  Get received_buffers summary of pkt_num
     uint32_t sum = 0;
     EnterCriticalSection(&critical_section);
-    for (POSITION pos = unpacked_buffers.GetHeadPosition(); pos != nullptr;)
+    for (POSITION pos = received_buffers.GetHeadPosition(); pos != nullptr;)
     {
-       sum += unpacked_buffers.GetNext(pos)->field_0xf;        
+       sum += received_buffers.GetNext(pos)->pkt_num;        
     }
     LeaveCriticalSection(&critical_section);
     return sum;
@@ -1297,7 +1297,7 @@ void NetStru3::Clear()
     //5156f6
     datasz = 0;
     readpos = 0;
-    field_0xf = 0;
+    pkt_num = 0;
     timestamp = 0;
     timestamp2 = 0;
     csize = 0;
@@ -1505,7 +1505,7 @@ CLlDriver::CLlDriver(GUID _appid, NetStru1* net1)
 {
     //5208ec
     application_guid = _appid;
-    net_stru1 = net1;
+    hl_driver = net1;
     is_server = 0;
     guaranteed = 0;
     latency = 0xffffffff;
@@ -1616,14 +1616,14 @@ void CLlDriver::CloseTcpSocket(A2NetSock* sock)
 
     if (sock->current_buffer)
     {
-        net_stru1->AddTailFreeNet3(sock->current_buffer);
+        hl_driver->AddTailFreeNet3(sock->current_buffer);
         sock->current_buffer = nullptr;
         sock->copy_num = -1;
     }
 
     if (sock->manager)
     {
-        net_stru1->AddTailNet2(sock->manager);
+        hl_driver->AddTailNet2(sock->manager);
         sock->manager = nullptr;
     }
 }
@@ -1650,7 +1650,7 @@ void CLlDriver::CloseDp()
         listen_socket.is_in_use = 0;
         if (listen_socket.manager)
         {
-            net_stru1->AddTailNet2(listen_socket.manager);
+            hl_driver->AddTailNet2(listen_socket.manager);
             listen_socket.manager = nullptr;
         }
     }
@@ -1695,18 +1695,18 @@ void CLlDriver::CloseDpSock(A2NetSock* sock, int idx)
 
     if (sock->manager)
     {
-        net_stru1->AddTailNet2(sock->manager);
+        hl_driver->AddTailNet2(sock->manager);
         sock->manager = nullptr;
     }
 
     sock->is_in_use = 0;
 
     while (!sock->list_0x14.IsEmpty())
-        net_stru1->AddTailFreeNet3( sock->list_0x14.RemoveHead() );
+        hl_driver->AddTailFreeNet3( sock->list_0x14.RemoveHead() );
     sock->list_0x14.RemoveAll();
 
     while (!sock->list_0x30.IsEmpty())
-        net_stru1->AddTailFreeNet3(sock->list_0x30.RemoveHead());
+        hl_driver->AddTailFreeNet3(sock->list_0x30.RemoveHead());
     sock->list_0x30.RemoveAll();
 
     if (idx == -1)
@@ -2535,7 +2535,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context)
                 drv->next_uid += 0x10000;
                 cs->wait_obj = nullptr;
                 cs->copy_num = 0;
-                cs->manager = drv->net_stru1->AllocClientBufManager(cs->uid);
+                cs->manager = drv->hl_driver->AllocClientBufManager(cs->uid);
                 sprintf((char*)cs->manager->buf, "%u.%u.%u.%u:%u", newcon.sin_addr.S_un.S_un_b.s_b1, newcon.sin_addr.S_un.S_un_b.s_b2, newcon.sin_addr.S_un.S_un_b.s_b3, newcon.sin_addr.S_un.S_un_b.s_b4, ntohs(newcon.sin_port));
                 cs->is_in_use = 1;
                 drv->num_connections++;
@@ -2600,7 +2600,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
             if (sock->current_buffer == nullptr)
             {
                 sock->copy_num = 0;
-                sock->current_buffer = net_stru1->GetFreeNet3();
+                sock->current_buffer = hl_driver->GetFreeNet3();
                 sock->current_buffer->Clear();
             }
             int32_t copynum = 8 - sock->copy_num;
@@ -2615,7 +2615,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock)
             if (sock->copy_num >= 8 && (sock->current_buffer->pos == 0 || sock->current_buffer->pos >= 143))
             {
                 ReportWarning("CLlDriverRecvThreadTcp().\nReceived invalid message.\n");
-                net_stru1->AddTailFreeNet3(sock->current_buffer);
+                hl_driver->AddTailFreeNet3(sock->current_buffer);
                 sock->copy_num = 0;
                 sock->current_buffer = nullptr;
                 return 0;
@@ -2920,7 +2920,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 sock->latency = 0;
                 sock->field_0x260 = 0;
                 sock->field_0x264 = 0;
-                sock->manager = net_stru1->AllocClientBufManager(sock->uid);
+                sock->manager = hl_driver->AllocClientBufManager(sock->uid);
 
                 num_connections++;
             }
@@ -2984,14 +2984,14 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
 
                 buf->Clear();
 
-                net_stru1->AddTailFreeNet3(buf);
+                hl_driver->AddTailFreeNet3(buf);
                 break;
             }
         }
         return;
     }
 
-    NetStru3* buf = net_stru1->GetFreeNet3();
+    NetStru3* buf = hl_driver->GetFreeNet3();
     buf->Clear();
 
     memcpy(&buf->full_data, data, datasz);
@@ -3035,7 +3035,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
     else if (pktid < sock->field_0x50)
     {
         buf->Clear();
-        net_stru1->AddTailFreeNet3(buf);
+        hl_driver->AddTailFreeNet3(buf);
     }
     else
     {
@@ -3052,7 +3052,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
                 if (cbuf->pktid == pktid)
                 {
                     buf->Clear();
-                    net_stru1->AddTailFreeNet3(buf);
+                    hl_driver->AddTailFreeNet3(buf);
                     return;
                 }
             }
@@ -3301,7 +3301,7 @@ int CLlDriver::ConnectDp(const char* name, CLlNetSession* session)
     listen_socket.latency_check.num = 0;
     listen_socket.latency_check.calc_latency = latency;
     
-    listen_socket.manager = net_stru1->AllocClientBufManager(listen_socket.uid);
+    listen_socket.manager = hl_driver->AllocClientBufManager(listen_socket.uid);
     listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 
     if (_beginthread(RecvThreadDp, 0, this) == -1L || listen_socket.wait_obj == nullptr)
@@ -3352,7 +3352,7 @@ int CLlDriver::ConnectTcp()
     SetSockOptions(listen_socket.socket, 1);
 
     listen_socket.uid = next_uid;
-    listen_socket.manager = net_stru1->AllocClientBufManager(listen_socket.uid);
+    listen_socket.manager = hl_driver->AllocClientBufManager(listen_socket.uid);
     listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 
     if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L && listen_socket.wait_obj != nullptr)
@@ -3413,7 +3413,7 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer)
     if (sock->socket != INVALID_SOCKET)
         sendlen = send(sock->socket, (char*)&buffer->full_data, len, 0);
 
-    net_stru1->AddTailFreeNet3(buffer);
+    hl_driver->AddTailFreeNet3(buffer);
 
     if (sendlen == -1 || sendlen != len)
     {
@@ -3432,7 +3432,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
     if (session_lost != 0)
     {
         if (buffer)
-            net_stru1->AddTailFreeNet3(buffer);
+            hl_driver->AddTailFreeNet3(buffer);
 
         CloseDp();
         session_lost = 0;
@@ -3547,14 +3547,14 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer)
         if (res != DP_OK && res != DPERR_BUSY) // not send and not BUSY -> exit
         {
             if (guaranteed != 0)
-                net_stru1->AddTailFreeNet3(buffer);
+                hl_driver->AddTailFreeNet3(buffer);
 
             CloseDpSock(sock, -1);
             return 0;
         }
 
         if (guaranteed != 0)
-            net_stru1->AddTailFreeNet3(buffer);
+            hl_driver->AddTailFreeNet3(buffer);
     }
     return 1;
 }
@@ -3569,7 +3569,7 @@ int CLlDriver::SendData(uint32_t uid, NetStru3* buffer)
 
     if ((sock == NULL) || (sock->is_in_use != 1)) {
         if (buffer)
-            net_stru1->AddTailFreeNet3(buffer);
+            hl_driver->AddTailFreeNet3(buffer);
         LeaveCriticalSection(&critical_section);
         return 0;
     }

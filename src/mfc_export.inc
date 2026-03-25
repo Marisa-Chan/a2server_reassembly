@@ -754,7 +754,7 @@ extern ?SetLLDriver@NetStru1@@QAEXPAUCLlDriver@@@Z : proc
 extern ?SetLinkedHLDriver@NetStru1@@QAEXPAV1@@Z  : proc
 extern ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z : proc
 extern ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ : proc
-extern ?GetClientsSumF@NetStru1@@QAEIXZ : proc
+extern ?GetClientsPktNum@NetStru1@@QAEIXZ : proc
 extern ?IsActive@NetStru1@@QAEHXZ : proc
 
 
@@ -766,7 +766,6 @@ extern ?sub_5167A5@NetStru2@@QAEXXZ :proc
 
 extern ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z : proc
 extern ??1NetStru2@@QAE@XZ :proc
-extern ?GetBuffersSumF@NetStru2@@QAEIXZ  :proc
 
 ;NetStru3
 extern ??0NetStru3@@QAE@XZ :proc
