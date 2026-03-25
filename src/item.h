@@ -45,7 +45,7 @@ public:
     bool sub_548F6A(); // Returns true if this item template can be given via #create cheat
 
     Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
-    bool IsSimilar(Item* other); // Is this item similar to another? Same non-magic item or same base with same magic.
+    bool IsSimilar(Item* other); //548860 Is this item similar to another? Same non-magic item or same base with same magic.
 
 public:
     WorldEquip* world_equip;

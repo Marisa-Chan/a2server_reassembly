@@ -20,19 +20,18 @@ bool Item::IsSimilar(Item* other)
     }
 
     POSITION pos1 = this->_effects.GetHeadPosition();
-    Effect* e1 = (pos1 != nullptr) ? this->_effects.GetNext(pos1) : nullptr;
     POSITION pos2 = other->_effects.GetHeadPosition();
-    Effect* e2 = (pos2 != nullptr) ? other->_effects.GetNext(pos2) : nullptr;
 
-    while (e1 != nullptr && e2 != nullptr) {
+    while (pos1 != nullptr && pos2 != nullptr) {
+        Effect* e1 = this->_effects.GetNext(pos1);
+        Effect* e2 = other->_effects.GetNext(pos2);
+
         if (!e1->sub_53EDB0(e2)) {
             return false;
         }
-        e1 = (pos1 != nullptr) ? this->_effects.GetNext(pos1) : nullptr;
-        e2 = (pos2 != nullptr) ? other->_effects.GetNext(pos2) : nullptr;
     }
 
-    return e1 == nullptr && e2 == nullptr;
+    return pos1 == nullptr && pos2 == nullptr;
 }
 
 // sub_54F634
