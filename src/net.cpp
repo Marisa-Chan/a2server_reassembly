@@ -70,7 +70,7 @@ void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 	pkt.field_0xc = 0;
 	pkt.flags = 0;
 
-	FUN_005186cd(&pkt);
+	QueuePacketSend(&pkt);
 }
 
 // 4FB4CA
@@ -390,7 +390,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
 
     // Send the packet.
     if (mask & 0xbf1fffff) {
-        this->FUN_005186cd(pkt);
+        this->QueuePacketSend(pkt);
     }
 
     if (orig_mask & 0x400000) {
@@ -428,8 +428,8 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
     }
 }
 
-// sub_51E7FC
-Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
+// DecodePacket
+Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2)
 {
     Packet* pkt;
 
@@ -606,7 +606,7 @@ Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
 
     pkt->id = cmd;
 
-    if (field_0x18b0 == 0) {
+    if (make_statistics == 0) {
         pkt->field_0x5 = 0;
     } else if (ns2->player_id == 0) {
         pkt->field_0x5 = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
@@ -617,6 +617,39 @@ Packet* NetStru1::sub_51E7FC(uint8_t cmd, NetStru2* ns2)
     return pkt;
 }
 
+Packet* NetStru1::ReceivePacket(NetStru2* cli)
+{
+    //518a23
+    if (cli->GetBuffersSumF() == 0)
+        return nullptr;
+
+    uint8_t id = 0;
+    cli->ReadData(&id, 1); //read pkt id
+    return DecodePacket(id, cli);
+}
+
+Packet* NetStru1::ReceiveAnyPacket()
+{
+    //518980
+    for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+    {
+        NetStru2* cli = active_connects.GetNext(it);
+        if (cli)
+        {
+            Packet* pkt = ReceivePacket(cli);
+            if (pkt)
+            {
+                if (make_statistics == 0) // ????? bug?  fixme?
+                {
+                    AddStat1(cli, pkt->GetDataSize());
+                    AddPacketStatistic(pkt);
+                }
+                return pkt;
+            }
+        }
+    }
+    return nullptr;
+}
 
 
 
@@ -686,8 +719,8 @@ void NetStru1::ProcessConnections()
     // 51800f
     ProcessNewConnects();
     ProcessDisconnectList();
-    if (driver)
-        driver->CleanupAllInvalid();
+    if (lldriver)
+        lldriver->CleanupAllInvalid();
 }
 
 void NetStru1::DisconnectClient(NetStru2* cli)
@@ -699,16 +732,16 @@ void NetStru1::DisconnectClient(NetStru2* cli)
         local_client = nullptr;
     }
     else
-       driver->DisconnectClient(cli->uid);
+       lldriver->DisconnectClient(cli->uid);
 }
 
 NetStru1::NetStru1(int param)
 {
     //51684b
-    driver = nullptr;
-    field_0x8 = nullptr;
+    lldriver = nullptr;
+    linked_hl = nullptr;
     local_client = nullptr;
-    field_0x18b0 = param;
+    make_statistics = param;
     InitializeCriticalSection(&critical_section);
     InitializeCriticalSection(&critical_section2);
     field_0x18a4 = 0;
@@ -717,8 +750,8 @@ NetStru1::NetStru1(int param)
     field_0x1898 = 0;
     compression_mode = 0;
     compression_type = 1;
-    memset(buf1, 0, sizeof(buf1));
-    memset(buf2, 0, sizeof(buf2));
+    memset(stat_pkt_num, 0, sizeof(stat_pkt_num));
+    memset(stat_pkt_size, 0, sizeof(stat_pkt_size));
 }
 
 NetStru1::~NetStru1()
@@ -740,9 +773,9 @@ NetStru1::~NetStru1()
     DeleteCriticalSection(&critical_section);
     DeleteCriticalSection(&critical_section2);
 
-    driver = nullptr;
-    field_0x8 = nullptr;
-    field_0x18b0 = 0;
+    lldriver = nullptr;
+    linked_hl = nullptr;
+    make_statistics = 0;
     field_0x18a4 = 0;
     field_0x18a0 = 0;
     field_0x189c = 0;
@@ -759,7 +792,7 @@ void NetStru1::OnClientConnect(NetStru2* cli)
     {
         client_stat[cli->uid] = new ConnStatInfo;
 
-        if (driver && driver->provider != 4)
+        if (lldriver && lldriver->provider != 4)
             cli->field_0x2a8 = 1;
         else
             cli->field_0x2a8 = 0;
@@ -777,8 +810,8 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
         return;
     }
 
-    if (driver && driver->is_server != 0 && driver->provider == 1)
-        driver->RestartModemServerDp();
+    if (lldriver && lldriver->is_server != 0 && lldriver->provider == 1)
+        lldriver->RestartModemServerDp();
 
     if (g_Server)
     {
@@ -793,7 +826,7 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
 
                 pl->FUN_00534778();
 
-                if (driver && driver->provider == 4 &&
+                if (lldriver && lldriver->provider == 4 &&
                     g_ServerConfig.gameType != 1 &&
                     g_ServerConfig.gameType != 3 &&
                     g_Server->field59_0x208 == 0)
@@ -838,7 +871,7 @@ NetStru2* NetStru1::AllocClientBufManager(uint32_t uid)
 
     NetStru2* mgr = new NetStru2();
     mgr->uid = uid;
-    mgr->SetDrivers(this, driver);
+    mgr->SetDrivers(this, lldriver);
 
     new_connects.AddTail(mgr);
     LeaveCriticalSection(&critical_section);
@@ -852,8 +885,8 @@ NetStru3* NetStru1::GetFreeNet3()
     //5177f5
     EnterCriticalSection(&critical_section2);
     NetStru1* pool = this;
-    if (field_0x8 && field_0x18b0 == 0)
-        pool = field_0x8;
+    if (linked_hl && make_statistics == 0)
+        pool = linked_hl;
 
     if (!pool->free_net3.IsEmpty() && pool->free_net3.GetHeadPosition() == NULL) //Seems HACK
         new(&pool->free_net3) CList<NetStru3*>(); //Here was memcpy with stack allocated Clist in Nival code >_<
@@ -866,6 +899,170 @@ NetStru3* NetStru1::GetFreeNet3()
     LeaveCriticalSection(&critical_section2);
     return buf;
 }
+
+NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id)
+{
+    //518544
+    for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+    {
+        NetStru2* cli = active_connects.GetNext(it);
+        if (cli->player_id == player_id)
+            return cli;
+    }
+
+    if (make_statistics == 0 && local_client != nullptr)
+        return local_client;
+
+    return nullptr;
+}
+
+NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid)
+{
+    //5185d5
+    uint32_t luid = low_uid & 0x3fff;
+    for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+    {
+        NetStru2* cli = active_connects.GetNext(it);
+        if ((cli->uid & 0x3fff) == luid)
+            return cli;
+    }
+    return nullptr;
+}
+
+void NetStru1::AddStat1(NetStru2* client, int32_t value)
+{
+    //51eff8
+    ConnStatInfo* stat = nullptr;
+    client_stat.Lookup(client->uid, stat);
+
+    if (stat)
+        stat->field1 += value;
+}
+
+void NetStru1::AddPacketStatistic(Packet* pkt)
+{
+    //51f0bb
+    stat_pkt_num[pkt->id]++;
+    stat_pkt_size[pkt->id] += pkt->GetDataSize();
+}
+
+void NetStru1::SendAllData()
+{
+    //5188db
+    //518927
+    for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+    {
+        NetStru2* cli = active_connects.GetNext(it);
+        if (cli)
+            cli->SendData();
+    }
+}
+
+void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id)
+{
+    //51d88d
+    PacketDword& pkt = PacketDword::Inst;
+    pkt.id = 0x64;
+    pkt.value = val;
+    pkt.to_player_id = player_id;
+    QueuePacketSend(&pkt);
+
+    if ((val & 3) == 1)
+        SendAllData();
+}
+
+void NetStru1::SetLLDriver(CLlDriver* drv)
+{
+    //517ff9
+    lldriver = drv;
+}
+
+void NetStru1::SetLinkedHLDriver(NetStru1* hl)
+{
+    //51703e
+    linked_hl = hl;
+    if (local_client)
+        DisconnectClient(local_client);
+    local_client = AllocClientBufManager(-1);
+    local_client->is_local_player = 1;
+    local_client->compression_type = 0;
+}
+
+void NetStru1::QueuePacketSend(Packet* pkt)
+{
+    //5186cd
+
+    //uint32_t stime = GetTickCount();
+    if (pkt->to_player_id == 0)
+    {
+        for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+        {
+            NetStru2* cli = active_connects.GetNext(it);
+            if (cli && (make_statistics == 0 || cli->player_id != 0))
+            {
+                pkt->VMethod3(cli);
+                if (make_statistics != 0)
+                {
+                    AddStat1(cli, pkt->GetDataSize());
+                    AddPacketStatistic(pkt);
+                }
+                if (pkt->id == 0x64)
+                    cli->stru3[cli->stru3_id].field_0xf++;
+            }
+        }
+    }
+    else
+    {
+        NetStru2* cli = GetClientByPlayerID(pkt->to_player_id);
+        if (cli)
+        {
+            pkt->VMethod3(cli);
+            if (make_statistics != 0)
+            {
+                AddStat1(cli, pkt->GetDataSize());
+                AddPacketStatistic(pkt);
+            }
+            if (pkt->id == 0x64)
+                cli->stru3[cli->stru3_id].field_0xf++;
+        }
+    }
+
+    if (make_statistics != 0 && pkt->id == 0x76)
+    {
+        //DAT_0070b410 += (GetTickCount() - stime);
+    }
+
+    if (make_statistics == 0 && pkt->id != 0x64)
+        SendPacket_64(1, 0);
+}
+
+
+uint32_t NetStru1::GetClientsSumF()
+{
+    //518a6b
+    uint32_t sum = 0;
+    for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
+    {
+        NetStru2* cli = active_connects.GetNext(it);
+        if (cli)
+            sum += cli->GetBuffersSumF();
+    }
+    return sum;
+}
+
+int NetStru1::IsActive()
+{
+    //518ac9
+    if (!lldriver)
+        return linked_hl != nullptr;
+    else if (lldriver->listen_socket.is_in_use == 1 || linked_hl != nullptr)
+        return 1;
+    return 0;
+}
+
+
+
+
 
 
 
@@ -931,7 +1128,7 @@ int NetStru2::ReceiveData(NetStru3* buffer)
     //5161bf
     EnterCriticalSection(&critical_section);
 
-    if (buffer->cmode != 0)
+    /*if (buffer->cmode != 0)
     {
         NetStru3* tbuf = net_stru1->GetFreeNet3();
         tbuf->Clear();
@@ -948,7 +1145,7 @@ int NetStru2::ReceiveData(NetStru3* buffer)
         tbuf->field_0xf = buffer->field_0xf;
         net_stru1->AddTailFreeNet3(buffer);
         buffer = tbuf;
-    }
+    }*/
 
     unpacked_buffers.AddTail(buffer);
 
@@ -998,8 +1195,8 @@ int NetStru2::SendData()
         }
 
         NetStru2* recv_cli = nullptr;
-        if (net_stru1->field_0x8)
-            recv_cli = net_stru1->field_0x8->local_client;
+        if (net_stru1->linked_hl)
+            recv_cli = net_stru1->linked_hl->local_client;
         
         if (!recv_cli)
         {
@@ -1079,6 +1276,18 @@ void NetStru2::sub_5167A5()
     LeaveCriticalSection(&critical_section);
 }
 
+uint32_t NetStru2::GetBuffersSumF()
+{
+    //51670a  Get unpacked_buffers summary of field_0xf
+    uint32_t sum = 0;
+    EnterCriticalSection(&critical_section);
+    for (POSITION pos = unpacked_buffers.GetHeadPosition(); pos != nullptr;)
+    {
+       sum += unpacked_buffers.GetNext(pos)->field_0xf;        
+    }
+    LeaveCriticalSection(&critical_section);
+    return sum;
+}
 
 
 

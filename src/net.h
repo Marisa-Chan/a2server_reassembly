@@ -73,8 +73,8 @@ public: // VTable at 0060ecc0.
     virtual void OnClientDisconnect(NetStru2* client); //51f561
 
 public:
-    CLlDriver* driver;
-    NetStru1* field_0x8;
+    CLlDriver* lldriver; //low-level net driver
+    NetStru1* linked_hl;
     CList<NetStru2*> disconnect_list;
     CList<NetStru2*> new_connects;
     CList<NetStru3*> free_net3;
@@ -88,12 +88,12 @@ public:
     uint32_t field_0x18a4;
     uint32_t compression_type;
     uint32_t compression_mode; // 0 - disable, 1 - make statistic, 2 - compression
-    uint32_t field_0x18b0;
+    uint32_t make_statistics; // calculate statistic
     NetStru2* local_client;
     CList<NetStru2*> active_connects;
     CMap<int32_t, int32_t, ConnStatInfo*, ConnStatInfo*> client_stat;
-    uint8_t buf1[1024];
-    uint8_t buf2[1024];
+    uint32_t stat_pkt_num[256];
+    uint32_t stat_pkt_size[256];
 
     static NetStru1 Inst;
 
@@ -102,21 +102,32 @@ public:
     // `this` is unused, but in ASM this function accepts a `NetStru1*` in ECX, so it's here.
     void FUN_004fb4ca(Unit* unit, Player* new_owner);
 
-    NetStru1(int param); //51684b
+    NetStru1(int stats); //51684b
     ~NetStru1(); //516b44
 
 public:
-    void FUN_005186cd(Packet* pkt);
     void FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt);
     void FUN_0051ceac(uint32_t id, Player* recpt);
     void FUN_0051c748(Player* recpt);
     void sub_51C61E(Token* token); // Remove unit/sack from network tracking
     void FUN_0051d49b(Player* recpt);
-    void FUN_005188db();
 
     void FUN_0051cd89(const CString& name, Player* player);
 
-    NetStru2* FUN_00518544(uint16_t player_id);
+    NetStru2* GetClientByPlayerID(uint16_t player_id);//518544
+    NetStru2* GetClientByLowUid(uint32_t low_uid); //5185d5
+
+    void AddStat1(NetStru2* client, int32_t value); //51eff8
+    void AddPacketStatistic(Packet* pkt); //51f0bb
+    void SendAllData(); // 5188db and 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
+
+    void QueuePacketSend(Packet* pkt); //5186cd
+    void SendPacket_64(uint32_t val, uint16_t player_id); //51d88d
+    void SetLLDriver(CLlDriver* drv); //517ff9
+    void SetLinkedHLDriver(NetStru1* hl); //51703e
+
+    uint32_t GetClientsSumF(); //518a6b
+    int IsActive(); //518ac9
 
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
@@ -141,14 +152,16 @@ public:
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player
     void sub_51CD2A(Player* player, int32_t event_id, int32_t arg3); // Send in-game event trigger
 
-    NetStru2* sub_5185D5(uint16_t player_id);
     void sub_51C46E(Player* player);
     void sub_51C601(Unit* unit, int unused);        // Send unit-level-up packet
     void sub_51C822(NetStru2* ns2);    // Send spectator/alliance state
 
-    // sub_51E7FC – decode an incoming network message into the appropriate Packet singleton,
+    // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
     // populate it via VMethod4, and stamp it with the sender id.
-    Packet* sub_51E7FC(uint8_t cmd, NetStru2* ns2);
+    Packet* DecodePacket(uint8_t cmd, NetStru2* ns2); //51e7fc
+    Packet* ReceivePacket(NetStru2* cli); //518a23 //receive packet from client
+    Packet* ReceiveAnyPacket(); //518980 iterate over active connections and try receive packet
+
     void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
     void sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
@@ -160,8 +173,6 @@ public:
     NetStru2* AllocClientBufManager(uint32_t uid); //517c99
 
     NetStru3* GetFreeNet3(); //5177f5
-
-    int Unpack(int id, void* in, int insz, void* out, int outsz); //51846f asm!
 
     void ProcessNewConnects(); //51755c
     void ProcessDisconnectList(); //51725b
@@ -254,6 +265,8 @@ public:
     NetStru2(); //515831
     ~NetStru2(); //515c27
     void ReturnBuffers(); //515d9d    return buffers to High-level driver
+
+    uint32_t GetBuffersSumF(); //51670a  Get unpacked_buffers summary of field_0xf
 };
 __pragma(pack(pop))
 

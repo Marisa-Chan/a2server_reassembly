@@ -47,7 +47,7 @@ void sub_4954EA()
     LogMessage("Player " + player->name + " kicked from server");
 
     uint16_t player_id = player->player_id;
-    NetStru2* node = g_NetStru1_main.FUN_00518544(player_id);
+    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player_id);
     if (node == nullptr) {
         return;
     }

@@ -348,7 +348,7 @@ void Unit::VMethod2()
                     break;
                 }
                 if (building->typeId == 0x42 && g_CLlDriver.provider == 4) {
-                    NetStru2* ns2 = g_NetStru1_main.FUN_00518544(this->pOwner->player_id);
+                    NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(this->pOwner->player_id);
                     if (ns2) {
                         g_NetStru1_main.DisconnectClient(ns2);
                     }

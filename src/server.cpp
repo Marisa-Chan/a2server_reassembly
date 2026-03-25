@@ -91,7 +91,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         // player_id of PacketJoin, but the ASM stores field21_0xd4 there as a dword).
         pkt->__field_0xa = field21_0xd4;
         pkt->to_player_id = player->player_id;
-        g_NetStru1_main.FUN_005186cd(pkt);
+        g_NetStru1_main.QueuePacketSend(pkt);
         delete pkt;
     }
 
@@ -234,7 +234,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         inf.field_0xa = player->main_unit->position->GetX() & 0xFF;
         inf.field_0xe = player->main_unit->position->GetY() & 0xFF;
 
-        g_NetStru1_main.FUN_005186cd(&inf);
+        g_NetStru1_main.QueuePacketSend(&inf);
 
         // Send all data for the main unit.
         g_NetStru1_main.sub_519221(player->main_unit, nullptr, -1, 0xFFB, 0, 0);
@@ -294,7 +294,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         std::memcpy(&pkt.buf, src_ptr, count * 2);
         pkt.count = count;
 
-        g_NetStru1_main.FUN_005186cd(&pkt);
+        g_NetStru1_main.QueuePacketSend(&pkt);
     }
 
     // Finalise the player's session state.
@@ -374,7 +374,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
                     
                     packet.to_player_id = target->player_id;
 
-                    g_NetStru1_main.FUN_005186cd(&packet);
+                    g_NetStru1_main.QueuePacketSend(&packet);
 
                     int msg_type = (phased_in != 0) ? 3 : 4;
                     g_NetStru1_main.FUN_0051ce86(msg_type, player->player_id, target);
@@ -393,7 +393,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
 
     g_NetStru1_main.FUN_0051c748(nullptr);
     if (field3_0x70 != 0) {
-        g_NetStru1_main.FUN_005188db();
+        g_NetStru1_main.SendAllData();
     }
 }
 
@@ -883,7 +883,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
 
     if (this->field4_0x74 != 0) {
         // Non-admin commands.
-        NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+        NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
         if (ns2 == nullptr || ns2->is_local_player == 0) {
             if (cheat_string.Find("#set latency ") == 0) {
                 cheat_string = cheat_string.Mid(13);
@@ -894,14 +894,14 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                         g_NetStru1_main.FUN_0051ce86(6, player->player_id, player);
                         return;
                     }
-                    NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+                    NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
                     if (ns2 != nullptr) {
                         g_CLlDriver.SetLatency(ns2->uid, lat);
                         g_NetStru1_main.sub_51C7CC(lat, player);
                     }
                 }
             } else if (cheat_string.Find("#show latency") == 0) {
-                NetStru2* ns2 = g_NetStru1_main.FUN_00518544(player->player_id);
+                NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
                 if (ns2 != nullptr) {
                     int32_t lat  = g_CLlDriver.GetLatency(ns2->uid);
                     int32_t loss = g_CLlDriver.GetPacketLoss(ns2->uid);
@@ -931,7 +931,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                 cheat_string.TrimLeft();
                 Player* target = g_PlayersList->sub_535D39(cheat_string);
                 if (target != nullptr) {
-                    NetStru2* tns2 = g_NetStru1_main.FUN_00518544(target->player_id);
+                    NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr && tns2->is_local_player == 0) {
                         g_NetStru1_main.FUN_0051d49b(target);
                     }
@@ -941,7 +941,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                 cheat_string.TrimLeft();
                 Player* target = g_PlayersList->sub_535D39(cheat_string);
                 if (target != nullptr && target->is_ai == 0) {
-                    NetStru2* tns2 = g_NetStru1_main.FUN_00518544(target->player_id);
+                    NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr) {
                         CString msg;
                         msg.Format("%s (%d,%d)",
@@ -1435,7 +1435,7 @@ void Server::sub_504a96(Packet* pkt)
     case 0x02: // Send player stat update?
         player = this->sub_502B4A(pkt->field_0x5);
         if (player) {
-            NetStru2* ns2 = g_NetStru1_main.FUN_00518544(pkt->field_0x5);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(pkt->field_0x5);
             if (ns2 && ns2->field_0x2a8 != 0) {
                 this->FUN_004ff439(player, packet_3d->field_0x12);
             }
@@ -1818,7 +1818,7 @@ void Server::sub_504a96(Packet* pkt)
                 f.Read(resp.var_data, static_cast<UINT>(chunk_size));
                 f.Close();
             }
-            g_NetStru1_main.FUN_005186cd(&resp);
+            g_NetStru1_main.QueuePacketSend(&resp);
             g_NetStru1_main.FUN_0051c748(player);
             break;
         }
@@ -2127,7 +2127,7 @@ void Server::sub_504a96(Packet* pkt)
                     if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
-                        g_NetStru1_main.FUN_005186cd(&out);
+                        g_NetStru1_main.QueuePacketSend(&out);
                     }
                 }
                 break;
@@ -2137,7 +2137,7 @@ void Server::sub_504a96(Packet* pkt)
                     if (!other->is_ai && (g_World->diplomacy[player->player_id][other->player_id] & 2) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
-                        g_NetStru1_main.FUN_005186cd(&out);
+                        g_NetStru1_main.QueuePacketSend(&out);
                     }
                 }
                 break;
@@ -2148,10 +2148,10 @@ void Server::sub_504a96(Packet* pkt)
                 // CC self.
                 out.to_player_id = pkt->to_player_id;
                 strcpy(out.name, packet_join->name);
-                g_NetStru1_main.FUN_005186cd(&out);
+                g_NetStru1_main.QueuePacketSend(&out);
                 // Deliver to target.
                 out.to_player_id = (uint16_t)recipient_id;
-                g_NetStru1_main.FUN_005186cd(&out);
+                g_NetStru1_main.QueuePacketSend(&out);
                 break;
             case 3: // Yell: global with cooldown.
                 if (player->field_0xa68 == 0) {
@@ -2160,7 +2160,7 @@ void Server::sub_504a96(Packet* pkt)
                     out.token_id = chat_type;
                     out.to_player_id = 0;
                     strcpy(out.name, packet_join->name);
-                    g_NetStru1_main.FUN_005186cd(&out);
+                    g_NetStru1_main.QueuePacketSend(&out);
                     player->field_0xa68 = g_ServerConfig.field_0x90;
                 } else {
                     g_NetStru1_main.FUN_0051ce86(8, player->field_0xa68, player);
@@ -2172,7 +2172,7 @@ void Server::sub_504a96(Packet* pkt)
                 out.token_id = chat_type;
                 out.to_player_id = 0;
                 strcpy(out.name, packet_join->name);
-                g_NetStru1_main.FUN_005186cd(&out);
+                g_NetStru1_main.QueuePacketSend(&out);
                 break;
             default:
                 break;
@@ -2184,7 +2184,7 @@ void Server::sub_504a96(Packet* pkt)
         {
             PacketJoin announcement;
             std::strncpy(announcement.name, packet_join->name, 1023);
-            g_NetStru1_main.FUN_005186cd(&announcement);
+            g_NetStru1_main.QueuePacketSend(&announcement);
             break;
         }
 
@@ -2199,7 +2199,7 @@ void Server::sub_504a96(Packet* pkt)
         {
             int32_t latency = packet_dword->value;
             if (latency == 0 || (50 <= latency && latency <= 10000)) {
-                NetStru2* ns2 = g_NetStru1_main.sub_5185D5(pkt->field_0x5);
+                NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(pkt->field_0x5);
                 if (ns2) {
                     g_CLlDriver.SetLatency(ns2->uid, latency);
                 }
@@ -2210,7 +2210,7 @@ void Server::sub_504a96(Packet* pkt)
     case 0xD0: // Reconnect?
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
-            NetStru2* ns2 = g_NetStru1_main.sub_5185D5(pkt->field_0x5);
+            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(pkt->field_0x5);
             if (!ns2 || ns2->field_0x2a8 != 0) {
                 break;
             }
@@ -2218,7 +2218,7 @@ void Server::sub_504a96(Packet* pkt)
             // Find the target player by two identity fields carried in the packet
             Player* target = g_PlayersList->sub_535E94(packet_info->field_0xa, packet_info->field_0xe);
             // Only proceed if the target player has no active NetStru2 yet
-            if (target && g_NetStru1_main.FUN_00518544(target->player_id) == nullptr) {
+            if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
                 ns2->field_0x2a8 = 1;
                 ns2->str = target->login;

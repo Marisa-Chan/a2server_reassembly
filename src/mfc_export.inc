@@ -702,18 +702,17 @@ extern ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ :proc
 extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
 extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 
-externdef ?Unpack@NetStru1@@QAEHHPAXH0H@Z : proc
 
 externdef ?g_NetStru1_main@@3VNetStru1@@A:byte
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
-externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z :proc   ; NetStru1::FUN_00518544(unsigned short)
-externdef ?FUN_005186cd@NetStru1@@QAEXPAVPacket@@@Z :proc   ; NetStru1::FUN_005186cd(class Packet *)
+extern ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z : proc
+
 externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
 externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
 externdef ?sub_51C61E@NetStru1@@QAEXPAVToken@@@Z :proc      ; NetStru1::sub_51C61E(class Token *)
-externdef ?FUN_005188db@NetStru1@@QAEXXZ :proc   ; NetStru1::FUN_005188db(void)
+
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
@@ -730,7 +729,6 @@ externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
 public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_51E7FC@NetStru1@@QAEPAVPacket@@EPAUNetStru2@@@Z :proc
 
 
 externdef ?sub_51AC77@NetStru1@@QAEXPAVCObject@@PAVPlayer@@C@Z :proc             ; NetStru1::sub_51AC77(CObject*,Player*,int8_t)
@@ -741,13 +739,23 @@ externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::
 externdef ?sub_51C46E@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
 externdef ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z :proc
-externdef ?sub_5185D5@NetStru1@@QAEPAUNetStru2@@G@Z :proc
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51BAB0@NetStru1@@QAEXPAVUnit@@PAVSpell@@0F@Z :proc
 externdef ?sub_51BB94@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAUTokenPos@@F@Z :proc
 
-externdef ?FUN_00518544@NetStru1@@QAEPAUNetStru2@@G@Z:proc
+extern ?SendPacket_64@NetStru1@@QAEXIG@Z : proc
 
+extern ?AddStat1@NetStru1@@QAEXPAUNetStru2@@H@Z : proc
+extern ?AddPacketStatistic@NetStru1@@QAEXPAVPacket@@@Z : proc
+
+extern ?SendAllData@NetStru1@@QAEXXZ : proc
+extern ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z : proc
+extern ?SetLLDriver@NetStru1@@QAEXPAUCLlDriver@@@Z : proc
+extern ?SetLinkedHLDriver@NetStru1@@QAEXPAV1@@Z  : proc
+extern ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z : proc
+extern ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ : proc
+extern ?GetClientsSumF@NetStru1@@QAEIXZ : proc
+extern ?IsActive@NetStru1@@QAEHXZ : proc
 
 
 ;NetStru2
@@ -758,8 +766,7 @@ extern ?sub_5167A5@NetStru2@@QAEXXZ :proc
 
 extern ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z : proc
 extern ??1NetStru2@@QAE@XZ :proc
-extern ?SendData@NetStru2@@QAEHXZ :proc
-
+extern ?GetBuffersSumF@NetStru2@@QAEIXZ  :proc
 
 ;NetStru3
 extern ??0NetStru3@@QAE@XZ :proc
