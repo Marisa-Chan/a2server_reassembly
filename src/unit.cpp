@@ -695,11 +695,12 @@ void Unit::sub_52C98B(Sack* sack)
 
     if (sack->inventory != nullptr) {
         // Safe iteration: cache next pointer before processing, in case node is removed.
-        auto* cur_node  = sack->inventory->items.m_pNodeHead;
-        Item* item      = cur_node ? cur_node->data  : nullptr;
-        auto* next_node = cur_node ? cur_node->pNext : nullptr;
 
-        while (item != nullptr) {
+        //while (item != nullptr) {
+        for(POSITION next_node = sack->inventory->items.GetHeadPosition(); next_node != nullptr;) {
+            POSITION cur_node = next_node;
+            Item* item = sack->inventory->items.GetNext(next_node);
+
             if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
                 bool apply_buff = false;
 
@@ -709,12 +710,12 @@ void Unit::sub_52C98B(Sack* sack)
                         item->world_equip->name.Find("Scroll Shield") != -1 ||
                         item->world_equip->name.Find("Scroll Haste") != -1 ||
                         item->world_equip->name.Find("Scroll Invisibility") != -1) {
-                    sack->inventory->sub_574C20(cur_node);
+                    sack->inventory->items.RemoveAt(cur_node);
                     apply_buff = true;
                 } else if (item->world_equip->name.Find("Quest Meta") == 0) {
                     // "Quest Meta X": digit at name[10] gives per-sphere skill boost.
                     int16_t boost = (item->world_equip->name[10] - '0') * 5;
-                    sack->inventory->sub_574C20(cur_node);
+                    sack->inventory->items.RemoveAt(cur_node);
                     delete item;
                     item = nullptr;
 
@@ -766,8 +767,8 @@ void Unit::sub_52C98B(Sack* sack)
                     bool rune_scored = false;
 
                     if (item->world_equip->name.Find("Quest RuneF") != -1) {
-                        // Original logic: remove item from inventory and call `sub_57b990`. Looks equivalent to calling `sub_574C20`.
-                        sack->inventory->sub_574C20(cur_node);
+                        // Original logic: remove item from inventory and call `sub_57b990`. Looks equivalent to calling `items.RemoveAt`.
+                        sack->inventory->items.RemoveAt(cur_node);
 
                         delete item;
                         item = nullptr;
@@ -783,7 +784,7 @@ void Unit::sub_52C98B(Sack* sack)
                             g_NetStru1_main.FUN_0051ce86(0x102, this->pOwner->player_id, nullptr);
                         }
                     } else if (item->world_equip->name.Find("Quest RuneA") != -1) {
-                        sack->inventory->sub_574C20(cur_node);
+                        sack->inventory->items.RemoveAt(cur_node);
                         delete item;
                         item = nullptr;
                         if (this->pOwner->field_0xa70 == 1) {
@@ -816,14 +817,6 @@ void Unit::sub_52C98B(Sack* sack)
                         }
                     }
                 }
-            }
-
-            // Advance (safe against node removal during iteration).
-            if (next_node == nullptr) {
-                item = nullptr;
-            } else {
-                item = next_node->data;
-                next_node = next_node->pNext;
             }
         } // end item loop
 

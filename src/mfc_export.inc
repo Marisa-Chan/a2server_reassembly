@@ -594,7 +594,6 @@ externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __t
 externdef ??0Inventory@@QAE@XZ :proc
 externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc
 externdef ?sub_552A42@Inventory@@QAEXPAU1@@Z :proc
-externdef ?sub_574C20@Inventory@@QAEXPAUCNode@?$CList@PAVItem@@ABQAV1@@@@Z :proc
 
 
 

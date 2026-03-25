@@ -16,22 +16,18 @@ void MultiShopShelf::ClearItems() {
 
 // 545D5E
 void MultiShopInstance::Sell() {
-    POSITION next_pos = this->inventory.items.GetHeadPosition();
     bool any_sold = false;
 
-    while (true) {
+    for (POSITION next_pos = this->inventory.items.GetHeadPosition(); next_pos != nullptr; ) {
         POSITION current_pos = next_pos;
-        Item* item = (next_pos != nullptr) ? this->inventory.items.GetNext(next_pos) : nullptr;
 
-        if (item == nullptr) {
-            break;
-        }
+        Item* item = this->inventory.items.GetNext(next_pos);
 
-        if (item->pOwner != nullptr && item->_exp != 0) {
+        if (item && item->pOwner != nullptr && item->_exp != 0) {
             int32_t price = item->count * item->_exp;
             item->pOwner->money += (int32_t)(price * 0.5L + 0.5L);
 
-            this->inventory.sub_574C20((CList<Item*>::CNode*)current_pos);
+            this->inventory.items.RemoveAt(current_pos);
 
             item->pOwner = nullptr;
             if (this->sub_5462C8(item, -1) == 1) {
@@ -52,24 +48,18 @@ void MultiShopInstance::Sell() {
 
 // 546027
 void MultiShopInstance::Buy() {
-    POSITION next_pos = this->inventory.items.GetHeadPosition();
-
-    while (true) {
+    for (POSITION next_pos = this->inventory.items.GetHeadPosition(); next_pos != nullptr; ) {
         POSITION current_pos = next_pos;
-        Item* item = (next_pos != nullptr) ? this->inventory.items.GetNext(next_pos) : nullptr;
+        Item* item = this->inventory.items.GetNext(next_pos);
 
-        if (item == nullptr) {
-            break;
-        }
-
-        if (item->pOwner == nullptr) {
+        if (item && item->pOwner == nullptr) {
             int32_t price = item->count * item->_exp;
             if (this->unit->pOwner->money < price) {
                 break;
             }
 
             this->unit->pOwner->money -= price;
-            this->inventory.sub_574C20((CList<Item*>::CNode*)current_pos);
+            this->inventory.items.RemoveAt(current_pos);
             item->pOwner = this->unit->pOwner;
             item->field10_0x4c = 0;
             this->unit->inventory->PutItemIntoBagAtDefault(item);
