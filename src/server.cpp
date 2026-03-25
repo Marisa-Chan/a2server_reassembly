@@ -1273,7 +1273,7 @@ void Server::sub_504a96(Packet* pkt)
         }
 
         // ── Group order dispatch ──────────────────────────────────────────
-        uint8_t x = pio->field_0xa;
+        uint8_t x = pio->unit_id;
         uint8_t y = pio->field_0xc;
 
         switch (pkt->id) {
@@ -1344,7 +1344,7 @@ void Server::sub_504a96(Packet* pkt)
         case 0x1F: // cast at position?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
                 player->sub_534B59();
-                if (cast_spell && cast_spell->sub_53939E(pio->field_0xa, pio->field_0xc)) {
+                if (cast_spell && cast_spell->sub_53939E(pio->unit_id, pio->field_0xc)) {
                     g_World->sub_5AC206(group, x, y, cast_spell);
                 }
             }
@@ -1396,7 +1396,7 @@ void Server::sub_504a96(Packet* pkt)
                     if (pkt->id == 0x25) {
                         g_World->sub_5AC187(group, target, spell);
                     } else {
-                        if (!spell->sub_53939E(pio->field_0xa, pio->field_0xc)) {
+                        if (!spell->sub_53939E(pio->unit_id, pio->field_0xc)) {
                             player->main_unit->inventory->PutItemIntoBag(pio->field_0x10, item);
                             player->main_unit->some_item = nullptr;
                             delete spell;
@@ -1445,7 +1445,7 @@ void Server::sub_504a96(Packet* pkt)
     case 0x04: // Join mission.
         player = g_PlayersList->sub_535B50(pkt->field_0x5);
         if (player) {
-            this->sub_4FF937(player, (pio->field_0xa == 0) ? 1 : 0);
+            this->sub_4FF937(player, (pio->unit_id == 0) ? 1 : 0);
         }
         break;
 
@@ -1473,8 +1473,7 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x22: // Item operation.
         {
-            uint16_t unit_id = (uint16_t)(packet_cmd->field_0xa | (uint16_t(packet_cmd->field_0xb) << 8));
-            Unit* target_unit = this->sub_502AD1(packet_cmd->field_0x5, unit_id);
+            Unit* target_unit = this->sub_502AD1(packet_cmd->field_0x5, packet_cmd->unit_id);
             if (!target_unit) {
                 break;
             }
@@ -1662,7 +1661,7 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x32: // Enter shop.
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }
@@ -1678,7 +1677,7 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x33:
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }
@@ -1686,7 +1685,7 @@ void Server::sub_504a96(Packet* pkt)
             if (!shop) {
                 break;
             }
-            unit->sub_54471B(shop);
+            shop->sub_54471B(unit);
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
                 this->sub_4EE028(unit);
             }
@@ -1695,13 +1694,13 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x34:
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit || !unit->position) {
                 break;
             }
             Shop* shop = this->sub_502C50(unit->position);
             if (!shop) break;
-            unit->sub_544737(shop);
+            shop->sub_544737(unit);
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
                 this->sub_4EE028(unit);
             }
@@ -1710,7 +1709,7 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x35:
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }
@@ -1718,13 +1717,13 @@ void Server::sub_504a96(Packet* pkt)
             if (!shop) {
                 break;
             }
-            unit->sub_544777(shop);
+            shop->sub_544777(unit);
             break;
         }
 
     case 0x36:
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }
@@ -1732,14 +1731,14 @@ void Server::sub_504a96(Packet* pkt)
             if (!shop) {
                 break;
             }
-            unit->sub_544777(shop);
-            unit->sub_544685(shop);
+            shop->sub_544777(unit);
+            shop->sub_544685(unit);
             break;
         }
 
     case 0x38: // Enter inn.
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }
@@ -1749,7 +1748,7 @@ void Server::sub_504a96(Packet* pkt)
             }
             unit->sub_52C813();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
-            unit->sub_560C67(inn);
+            inn->sub_560C67(unit);
             break;
         }
 
@@ -1764,7 +1763,7 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x3A:
         {
-            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->field_0xe);
+            Unit* unit = this->sub_502AD1(pio->field_0x5, pio->unit_id);
             if (!unit) {
                 break;
             }

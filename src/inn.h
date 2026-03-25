@@ -34,6 +34,7 @@ public:
 
 public:
     void sub_560DC2(Humanoid* humanoid, uint16_t id);
+    void sub_560C67(Unit* inn);
 };
 ASSERT_OFFSET(Inn, delivery_item_id, 0xd4);
 ASSERT_OFFSET(Inn, quest_map, 0xe0);

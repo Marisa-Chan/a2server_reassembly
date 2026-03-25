@@ -157,6 +157,7 @@ externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 externdef _InnRuntimeClass :byte
 
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
+externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
 
 
 ; Shop
@@ -168,6 +169,12 @@ externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
 externdef ?sub_54463F@Shop@@QAEXXZ :proc
 externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
+
+externdef ?sub_54471B@Shop@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_544737@Shop@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_544777@Shop@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_544685@Shop@@QAEXPAVUnit@@@Z :proc
+
 
 ; MultiShopShelf
 externdef ?ClearItems@MultiShopShelf@@QAEXXZ : proc
@@ -444,11 +451,7 @@ externdef ?sub_52C409@Unit@@QAEXXZ :proc
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
 externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit::sub_52BDD7(uint16_t,uint16_t,uint8_t,uint8_t)
 externdef ?sub_52D94E@Unit@@QAEXXZ :proc                                  ; Unit::sub_52D94E()
-externdef ?sub_54471B@Unit@@QAEXPAVShop@@@Z :proc
-externdef ?sub_544737@Unit@@QAEXPAVShop@@@Z :proc
-externdef ?sub_544777@Unit@@QAEXPAVShop@@@Z :proc
-externdef ?sub_544685@Unit@@QAEXPAVShop@@@Z :proc
-externdef ?sub_560C67@Unit@@QAEXPAVInn@@@Z :proc
+
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc

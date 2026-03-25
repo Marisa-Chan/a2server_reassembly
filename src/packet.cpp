@@ -371,7 +371,7 @@ PacketItemOperation::PacketItemOperation()
 PacketItemOperation::PacketItemOperation(const PacketItemOperation* src)
 {
     id          = src->id;
-    field_0xa   = src->field_0xa;
+    unit_id   = src->unit_id;
     field_0xc   = src->field_0xc;
     field_0xd   = src->field_0xd;
     field_0xe   = src->field_0xe;
@@ -402,7 +402,7 @@ void PacketItemOperation::VMethod3(NetStru2* net)
 void PacketItemOperation::VMethod4(NetStru2* net)
 {
     //sub_5269C3
-    net->ReadData(&field_0xa, 9);
+    net->ReadData(&unit_id, 9);
     if (count)
         net->ReadData(entries, count * 2);
 }
