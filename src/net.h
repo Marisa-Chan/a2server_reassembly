@@ -218,8 +218,8 @@ struct NetStru3 {
 
     void CopyData(const NetStru3* src); //515625
 
-    bool WriteToBuffer(void* data, uint32_t sz); //51573e
-    bool ReadFromBuffer(void* out, uint32_t sz); //51579e
+    int WriteToBuffer(void* data, uint32_t sz); //51573e
+    int ReadFromBuffer(void* out, uint32_t sz); //51579e
 };
 __pragma(pack(pop))
 ASSERT_OFFSET(NetStru3, datasz, 0xa0);

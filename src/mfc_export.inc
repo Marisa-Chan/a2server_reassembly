@@ -361,10 +361,10 @@ extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
 extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
 extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
 extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
-extern ?IsSameYX@TokenPos@@QBE_NPBU1@@Z:proc   ; TokenPos::IsSameYX
+extern ?IsSameYX@TokenPos@@QBEHPBU1@@Z:proc   ; TokenPos::IsSameYX
 externdef ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
 
-public ?FUN_0058a7e8@TokenPos@@QAE_NEE@Z    ;  TokenPos::FUN_0058a7e8
+public ?FUN_0058a7e8@TokenPos@@QAEHEE@Z    ;  TokenPos::FUN_0058a7e8
 public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
@@ -435,7 +435,7 @@ externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
 externdef ?sub_533345@Unit@@QAEXCC@Z :proc
 externdef ?sub_53116B@Unit@@QAEXXZ :proc
-externdef ?sub_5287c4@Unit@@QAE_NPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
+externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
 externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc     ; Unit::sub_5287ec(Player*) – mark unit seen
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
@@ -586,9 +586,9 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 ; Item
 
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
-externdef ?sub_548F6A@Item@@QAE_NXZ :proc
+externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
-externdef ?IsSimilar@Item@@QAE_NPAV1@@Z :proc
+externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
@@ -613,7 +613,7 @@ externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
-externdef ?sub_5393C7@Spell@@QAE_NXZ :proc
+externdef ?sub_5393C7@Spell@@QAEHXZ :proc
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
 externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
@@ -776,8 +776,8 @@ extern ??1NetStru2@@QAE@XZ :proc
 extern ??0NetStru3@@QAE@XZ :proc
 extern ??1NetStru3@@QAE@XZ :proc
 extern ?Clear@NetStru3@@QAEXXZ :proc
-extern ?WriteToBuffer@NetStru3@@QAE_NPAXI@Z : proc
-extern ?ReadFromBuffer@NetStru3@@QAE_NPAXI@Z : proc
+extern ?WriteToBuffer@NetStru3@@QAEHPAXI@Z : proc
+extern ?ReadFromBuffer@NetStru3@@QAEHPAXI@Z : proc
 
 
 ; Server
@@ -985,7 +985,7 @@ externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
 externdef ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
-extern ?SetSpeed@MainWindow@@QAE_NH@Z :proc ; MainWindow::SetSpeed
+extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 
 extern ??0MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::MWin_5e8(void))

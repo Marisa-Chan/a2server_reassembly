@@ -43,12 +43,12 @@ public:
 
 public:
     Item(const CString& name); // sub_5480E3: construct item from name string
-    bool sub_548F6A(); // Returns true if this item template can be given via #create cheat
+    int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
 
     Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
-    bool IsSimilar(Item* other); //548860 Is this item similar to another? Same non-magic item or same base with same magic.
+    int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
 
-    void StoreToPacket(PacketUnitStateVec* pkt, int arg); //549afb
+    void StoreToPacket(PacketUnitStateVec* pkt, int arg); // 549afb
 
 public:
     WorldEquip* world_equip;

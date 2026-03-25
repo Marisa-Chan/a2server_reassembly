@@ -481,7 +481,7 @@ void MainWindow::sub_48A756()
 
 
 
-bool MainWindow::SetSpeed(int speed)
+int MainWindow::SetSpeed(int speed)
 {
     //48dc02
     int32_t old_speed = game_speed;

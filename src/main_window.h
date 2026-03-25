@@ -125,7 +125,7 @@ public:
     void sub_484259();
     void sub_41EA70(UINT msg, WPARAM wparam, LPARAM lparam);
 
-    bool SetSpeed(int speed);
+    int SetSpeed(int speed);
 
     BOOL UpdateClipCursor();
 

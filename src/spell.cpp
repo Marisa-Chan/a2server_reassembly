@@ -18,7 +18,7 @@
 #include "world.h"
 
 // 53939E
-bool Spell::sub_53939E(uint8_t, uint8_t)
+int Spell::sub_53939E(uint8_t, uint8_t)
 {
     return spell_info->values.GetData()[0].spell_target == 2;
 }

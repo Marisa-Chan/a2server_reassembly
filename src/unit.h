@@ -109,7 +109,7 @@ public:
     void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
     void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
     void sub_52C98B(class Sack* sack); // Pick up a sack into this unit's bag
-    bool sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
+    int sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     void sub_52C409();
     void sub_52C813();

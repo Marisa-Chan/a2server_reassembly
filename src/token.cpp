@@ -104,7 +104,7 @@ uint8_t TokenPos::Distance(const TokenPos* b) const
 	return xLen;
 }
 
-bool TokenPos::IsSameYX(const TokenPos* b) const
+int TokenPos::IsSameYX(const TokenPos* b) const
 {
 	//58a5b3
 	return YX == b->YX;

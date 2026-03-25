@@ -1333,7 +1333,7 @@ void NetStru3::CopyData(const NetStru3* src)
     timestamp2 = src->timestamp2;
 }
 
-bool NetStru3::WriteToBuffer(void* data, uint32_t sz)
+int NetStru3::WriteToBuffer(void* data, uint32_t sz)
 {
     //51573e
     uint32_t newsz = datasz + sz;
@@ -1345,7 +1345,7 @@ bool NetStru3::WriteToBuffer(void* data, uint32_t sz)
     return true;
 }
 
-bool NetStru3::ReadFromBuffer(void* out, uint32_t sz)
+int NetStru3::ReadFromBuffer(void* out, uint32_t sz)
 {
     //51579e
     uint32_t newpos = readpos + sz;

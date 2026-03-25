@@ -27,9 +27,9 @@ public:
     Spell(const CString& name);
 
     void sub_53940D(Unit* unit);
-    bool sub_53939E(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
+    int sub_53939E(uint8_t unused1 = 0, uint8_t unused2 = 0); // Checks if it's area spell (spell target == 2).
     void sub_539541(uint32_t param);
-    bool sub_5393C7(); // Checks if spell_target == 1 (unit-targeted).
+    int sub_5393C7(); // Checks if spell_target == 1 (unit-targeted).
     int32_t sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y); // Validate and start cast; returns nonzero if accepted
     void sub_539C49(Unit* caster, Unit* target);
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell

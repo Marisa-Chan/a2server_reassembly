@@ -42,7 +42,7 @@ struct TokenPos
 	MapStuff* pInstance;
 
 	void FUN_00594200(); // in asm
-	bool FUN_0058a7e8(uint8_t x, uint8_t y); //in asm
+	int FUN_0058a7e8(uint8_t x, uint8_t y); //in asm
 
 	void Serialize(CArchive& ar);
 
@@ -53,7 +53,7 @@ struct TokenPos
 	uint16_t GetYy() const;
 
 	uint8_t Distance(const TokenPos* b) const;
-	bool IsSameYX(const TokenPos* b) const;
+	int IsSameYX(const TokenPos* b) const;
 
 	void SetCoords(uint8_t _x, uint8_t _y);
 	void SetCoords2(uint16_t Xx, uint16_t Yy);

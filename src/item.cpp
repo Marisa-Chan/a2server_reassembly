@@ -6,19 +6,19 @@
 #include "util.h"
 
 // sub_548860
-bool Item::IsSimilar(Item* other)
+int Item::IsSimilar(Item* other)
 {
     if (item_id != other->item_id) {
-        return false;
+        return 0;
     }
 
     int v1 = VMethod16();
     int v2 = other->VMethod16();
     if (v1 != 0 && v2 != 0) {
-        return true;
+        return 1;
     }
     if (v1 != 0 || v2 != 0) {
-        return false;
+        return 0;
     }
 
     POSITION pos1 = this->_effects.GetHeadPosition();
@@ -29,7 +29,7 @@ bool Item::IsSimilar(Item* other)
         Effect* e2 = other->_effects.GetNext(pos2);
 
         if (!e1->sub_53EDB0(e2)) {
-            return false;
+            return 0;
         }
     }
 
@@ -157,5 +157,3 @@ void Armor::LoadInfo()
 
     this->item_id = (this->material_id << 12) | (this->slot << 8) | (this->shape_id << 5) | this->itemDataID;
 }
-
-

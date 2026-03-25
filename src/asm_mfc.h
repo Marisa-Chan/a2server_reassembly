@@ -285,24 +285,24 @@ protected:
 };
 
 // Compare helpers
-bool AFXAPI operator==(const CString& s1, const CString& s2);
-bool AFXAPI operator==(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator==(LPCTSTR s1, const CString& s2);
-bool AFXAPI operator!=(const CString& s1, const CString& s2);
-bool AFXAPI operator!=(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator!=(LPCTSTR s1, const CString& s2);
-bool AFXAPI operator<(const CString& s1, const CString& s2);
-bool AFXAPI operator<(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator<(LPCTSTR s1, const CString& s2);
-bool AFXAPI operator>(const CString& s1, const CString& s2);
-bool AFXAPI operator>(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator>(LPCTSTR s1, const CString& s2);
-bool AFXAPI operator<=(const CString& s1, const CString& s2);
-bool AFXAPI operator<=(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator<=(LPCTSTR s1, const CString& s2);
-bool AFXAPI operator>=(const CString& s1, const CString& s2);
-bool AFXAPI operator>=(const CString& s1, LPCTSTR s2);
-bool AFXAPI operator>=(LPCTSTR s1, const CString& s2);
+int AFXAPI operator==(const CString& s1, const CString& s2);
+int AFXAPI operator==(const CString& s1, LPCTSTR s2);
+int AFXAPI operator==(LPCTSTR s1, const CString& s2);
+int AFXAPI operator!=(const CString& s1, const CString& s2);
+int AFXAPI operator!=(const CString& s1, LPCTSTR s2);
+int AFXAPI operator!=(LPCTSTR s1, const CString& s2);
+int AFXAPI operator<(const CString& s1, const CString& s2);
+int AFXAPI operator<(const CString& s1, LPCTSTR s2);
+int AFXAPI operator<(LPCTSTR s1, const CString& s2);
+int AFXAPI operator>(const CString& s1, const CString& s2);
+int AFXAPI operator>(const CString& s1, LPCTSTR s2);
+int AFXAPI operator>(LPCTSTR s1, const CString& s2);
+int AFXAPI operator<=(const CString& s1, const CString& s2);
+int AFXAPI operator<=(const CString& s1, LPCTSTR s2);
+int AFXAPI operator<=(LPCTSTR s1, const CString& s2);
+int AFXAPI operator>=(const CString& s1, const CString& s2);
+int AFXAPI operator>=(const CString& s1, LPCTSTR s2);
+int AFXAPI operator>=(LPCTSTR s1, const CString& s2);
 
 // conversion helpers
 int AFX_CDECL _wcstombsz(char* mbstr, const wchar_t* wcstr, size_t count);
@@ -400,75 +400,75 @@ _AFX_INLINE TCHAR CString::operator[](int nIndex) const
 	ASSERT(nIndex < GetData()->nDataLength);
 	return m_pchData[nIndex];
 }
-_AFX_INLINE bool AFXAPI operator==(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator==(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) == 0;
 }
-_AFX_INLINE bool AFXAPI operator==(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator==(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) == 0;
 }
-_AFX_INLINE bool AFXAPI operator==(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator==(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) == 0;
 }
-_AFX_INLINE bool AFXAPI operator!=(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator!=(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) != 0;
 }
-_AFX_INLINE bool AFXAPI operator!=(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator!=(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) != 0;
 }
-_AFX_INLINE bool AFXAPI operator!=(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator!=(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) != 0;
 }
-_AFX_INLINE bool AFXAPI operator<(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator<(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) < 0;
 }
-_AFX_INLINE bool AFXAPI operator<(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator<(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) < 0;
 }
-_AFX_INLINE bool AFXAPI operator<(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator<(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) > 0;
 }
-_AFX_INLINE bool AFXAPI operator>(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator>(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) > 0;
 }
-_AFX_INLINE bool AFXAPI operator>(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator>(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) > 0;
 }
-_AFX_INLINE bool AFXAPI operator>(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator>(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) < 0;
 }
-_AFX_INLINE bool AFXAPI operator<=(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator<=(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) <= 0;
 }
-_AFX_INLINE bool AFXAPI operator<=(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator<=(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) <= 0;
 }
-_AFX_INLINE bool AFXAPI operator<=(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator<=(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) >= 0;
 }
-_AFX_INLINE bool AFXAPI operator>=(const CString& s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator>=(const CString& s1, const CString& s2)
 {
 	return s1.Compare(s2) >= 0;
 }
-_AFX_INLINE bool AFXAPI operator>=(const CString& s1, LPCTSTR s2)
+_AFX_INLINE int AFXAPI operator>=(const CString& s1, LPCTSTR s2)
 {
 	return s1.Compare(s2) >= 0;
 }
-_AFX_INLINE bool AFXAPI operator>=(LPCTSTR s1, const CString& s2)
+_AFX_INLINE int AFXAPI operator>=(LPCTSTR s1, const CString& s2)
 {
 	return s2.Compare(s1) <= 0;
 }
