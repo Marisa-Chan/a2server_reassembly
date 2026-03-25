@@ -584,13 +584,19 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 
 ; Item
-
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
-externdef ?LoadInfo@Armor@@QAEXXZ :proc
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
+
+
+; Armor
+externdef ?LoadInfo@Armor@@QAEXXZ :proc
+
+
+; Weapon
+externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
 
 
 ; Inventory

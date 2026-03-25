@@ -157,3 +157,27 @@ void Armor::LoadInfo()
 
     this->item_id = (this->material_id << 12) | (this->slot << 8) | (this->shape_id << 5) | this->itemDataID;
 }
+
+// sub_550E26
+void Weapon::LoadEquipInfo(WorldEquip* params)
+{
+    MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
+    MatShape* mat = &g_GameDataRes.materials[this->material_id];
+    EquipData* data = &params->values[0];
+
+    double damage_mult = (double)mat->data.damage * shape->data.damage;
+    this->hit_values.hand_damage_min = (uint8_t)((double)data->damage_min * damage_mult + 0.5);
+    this->hit_values.hand_damage_spread = (uint8_t)((double)data->damage_max * damage_mult - this->hit_values.hand_damage_min + 0.5);
+
+    this->hit_values.attack = (int16_t)((double)data->attack * mat->data.attack * shape->data.attack + 0.5);
+    this->protections.defense = (int16_t)((double)data->defense * mat->data.defense * shape->data.defense + 0.5);
+
+    this->magic_volume = (int16_t)(mat->data.magic_volume * shape->data.magic_volume);
+    this->weight = (int16_t)((double)data->weight * mat->data.weight * shape->data.weight + 0.5);
+
+    if (data->range == -1) {
+        this->range = 1;
+    } else {
+        this->range = (uint8_t)data->range;
+    }
+}

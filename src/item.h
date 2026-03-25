@@ -90,6 +90,9 @@ ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
+    void LoadEquipInfo(WorldEquip* params); // sub_550E26
+
+public:
     uint8_t range;
     uint8_t gap_0x59;
     UnitToHit hit_values;
