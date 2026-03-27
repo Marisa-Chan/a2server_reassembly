@@ -1,5 +1,5 @@
-#ifndef QUEST_H
-#define QUEST_H
+#ifndef QUEST_MAP_H
+#define QUEST_MAP_H
 
 
 #include <cstdint>
@@ -43,7 +43,11 @@ public:
     QuestInnGlue* glue;
     uint32_t building_id;
 
+    QuestMap(); // sub_55D579
     void sub_55DD10(int32_t event_type, int32_t a, int32_t b); // Fire a quest event
+    int32_t sub_55E129(int32_t event_type, int32_t a, int32_t b);
+    void sub_55E24A(Quest* quest);
+    int32_t sub_55F441(int32_t building_id);
 };
 
 ASSERT_OFFSET(QuestMap, flags, 0x58);

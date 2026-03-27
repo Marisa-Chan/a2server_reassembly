@@ -17,7 +17,7 @@ struct QuestData {
     uint32_t some_id;
     uint32_t player_id;
     uint32_t building_id;
-    uint32_t state; // 0: started, 1: completed, 2: failed
+    uint32_t state; // 0: started, 1: completed, 2: failed. (3: presented candidate in the inn?)
     uint32_t obj;
     uint32_t landmark_id;
     uint32_t limit; // Limit for a "kill N" quest.
@@ -36,9 +36,12 @@ public: // There are different vtables for different quest kinds, see FUN_0055ee
     // virtual void MarkCompleted();
     // virtual void CopyFields(QuestData* other);
     // virtual void Initialize(int some_id,int player_id,int building_id,int obj,int landmark_id,int limit,int reward);
-    // virtual BOOL IsSomething1();
+    // virtual int32_t Kind();
     // virtual BOOL IsSomething2();
     // virtual BOOL IsSomething3();
+
+public:
+    Quest(); // 55d0e0
 
 public:
     uint32_t progress; // Progress for a "kill N" quest.

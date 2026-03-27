@@ -293,6 +293,7 @@ struct GameDataRes {
 public:
     int ParseWorldIn(const CString& str); //50a15f
     Item* sub_510502(CString* name); // Look up an item template by name
+    int sub_5126A2(uint32_t type_low_byte, uint32_t face); // Get monster table index by type and face
 };
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);

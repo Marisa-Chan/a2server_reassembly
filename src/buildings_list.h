@@ -17,5 +17,7 @@ public:
     Building* sub_557DB2(uint16_t id); // Look up building by ID
     Building* sub_558128(TokenPos* pos); // Find building at exact position (adjusts pos by -1)
     Building* sub_557EA5(TokenPos* pos); // Get nearest building at position
+    Building* sub_557F69(TokenPos* pos); // Find nearest building to position
+    Building* sub_558055(Player* player); // Find inn owned by given player
 };
 ASSERT_SIZE(BuildingsList, 0x1c);

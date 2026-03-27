@@ -140,11 +140,14 @@ externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
+externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
 externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_558128(TokenPos*)
 externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
+externdef ?sub_557F69@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557F69(TokenPos*)
+externdef ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z :proc     ; BuildingsList::sub_558055(Player*)
 
 ; Building
 externdef ?VMethod1@Building@@UAEXXZ :proc
@@ -158,6 +161,8 @@ externdef _InnRuntimeClass :byte
 
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
 externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
+externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z :proc
 
 
 ; Shop
@@ -453,6 +458,7 @@ externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit
 externdef ?sub_52D94E@Unit@@QAEXXZ :proc                                  ; Unit::sub_52D94E()
 
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
+externdef ?sub_52D904@Unit@@QAEHXZ :proc                                  ; Unit::sub_52D904()
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
@@ -894,9 +900,28 @@ externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 
 ; Quest
+externdef _off_60F790 :dword
+externdef _off_60F7C8 :dword
+externdef _off_60F800 :dword
+externdef _off_60F838 :dword
+externdef _off_60F870 :dword
+externdef _off_60F8A8 :dword
+externdef _off_60F8E0 :dword
+externdef _off_60F918 :dword
+externdef _off_60F950 :dword
+externdef _off_60F988 :dword
+externdef _off_60F9C0 :dword
+externdef _off_60F9F8 :dword
+
+externdef ??0Quest@@QAE@XZ :proc
+
 
 ; QuestMap
+externdef ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
+externdef ?sub_55E129@QuestMap@@QAEHHHH@Z :proc
+externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
+externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 
