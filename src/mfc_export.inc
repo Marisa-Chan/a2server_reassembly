@@ -988,6 +988,9 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 
 
 ; MainWindow
+externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
+extern ?Proc_421@MainWindow@@QAEXXZ : proc
+
 externdef ??0MainWindow@@QAE@XZ : proc
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc

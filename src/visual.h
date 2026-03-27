@@ -19,6 +19,7 @@ extern uint16_t clrsh_TechBlack[16];
 
 class VisLabel;
 class CGameBitmap;
+class CGameObject;
 
 class CGameFont : public CObject
 {
@@ -162,6 +163,35 @@ public:
 };
 
 ASSERT_SIZE(VisLabel, 0x6C);
+
+
+class VObjBase2C0 : public CVisualObject
+{
+public:
+	virtual void VMethod26();
+	virtual void VMethod27();
+	virtual void VMethod28();
+	virtual void VMethod29(uint32_t);
+};
+
+
+class BigStruct2 : CVisualObject
+{
+public:
+
+public:
+	uint8_t _unk1[0x974];
+	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
+	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
+	uint8_t _unk2[0x3fc0];
+};
+
+ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
+ASSERT_SIZE(BigStruct2, 0x49c8);
+
+
+
+
 
 
 

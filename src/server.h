@@ -8,6 +8,7 @@
 #include "assert_offset.h"
 #include "mfc_templ.h"
 
+struct NetStru2;
 
 class Building;
 class BuildingsList;
@@ -108,6 +109,7 @@ public:
     void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 
+
 public:
     int tick16; // This value seems to be advanced every 16 ticks
     int tick;
@@ -189,6 +191,11 @@ public:
     void FUN_004f94c0(int32_t arg);
     int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
+
+
+    void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
+    void JoinErrorSend(NetStru2* client, int32_t arg, const CString& str); //4fc4f3
+    Player* Allods2_CreatePlayer(CString name); //500792 not used in server, but used in Allods2 (4fb0f3)
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);
 ASSERT_OFFSET(Server, script_settings, 0x170);

@@ -1426,6 +1426,13 @@ void Server::sub_504a96(Packet* pkt)
 
     switch (pkt->id) {
     case 0x02: // Send player stat update?
+#ifdef A2CLIENT
+        //allods2 50001c
+    {
+        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(pkt->field_0x5);
+        Allods2_JoinPlayer(packet_3d->field_0xa, packet_3d->field_0xe, packet_3d->field_0x16, cli, packet_3d->field_0x12);
+    }
+#else
         player = this->sub_502B4A(pkt->field_0x5);
         if (player) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(pkt->field_0x5);
@@ -1433,6 +1440,7 @@ void Server::sub_504a96(Packet* pkt)
                 this->FUN_004ff439(player, packet_3d->field_0x12);
             }
         }
+#endif
         break;
 
     case 0x04: // Join mission.
@@ -1954,6 +1962,27 @@ void Server::sub_504a96(Packet* pkt)
 
     case 0x48: // Join map.
         {
+#ifdef A2CLIENT
+        Player* player = sub_502B4A(pkt->field_0x5);
+        if (player)
+        {
+            Human* human = sub_500907(player, packet_info->field_0xa & 0xff, 
+                                            (packet_info->field_0xa >> 8) & 0xff, 
+                                            (packet_info->field_0xa >> 16) & 0xff, 
+                                            (packet_info->field_0xa >> 24) & 0xff,
+                                            (packet_info->field_0xe) & 0xff,
+                                            (packet_info->field_0xe >> 8) & 0xff );
+            g_NetStru1_main.FUN_0051c748(human->pOwner);
+
+            if (GetTickCount() - human->pOwner->field_0xa7c > 15000)
+            {
+#pragma message("REVERSE IT");
+                sub_4EE028(human); // similar to FUN_004f2c57, so need reverse it!
+                //FUN_004f2c57(local_104);
+            }
+        }
+        break;
+#else
             player = this->sub_502B4A(pkt->field_0x5);
             if (!player) {
                 break;
@@ -2026,6 +2055,7 @@ void Server::sub_504a96(Packet* pkt)
             }
             g_NetStru1_main.sub_51D837(g_ServerConfig.field_0x8, player);
             break;
+#endif
         }
 
     case 0x49:
@@ -2222,4 +2252,288 @@ void Server::sub_504a96(Packet* pkt)
     default:
         break;
     }
+}
+
+
+
+
+
+void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2* client, uint32_t params)
+{
+    //Allods2.exe 4f9a78    Join Player
+    if (name.GetLength() < 1)
+    {
+        CString str;
+        str.Format("Illegal player %s ID: %d", name, id);
+        LogMessage(str);
+
+        JoinErrorSend(client, 1, "Your name too short. At least 1 letter required.");
+        return;
+    }
+
+    if (name == "Self" && field4_0x74 == 0)
+        name = g_PlayersList->GetHead()->name;
+
+    CString nickname = name;
+
+    int pipe_pos = nickname.Find('|');
+
+    if (pipe_pos != -1)
+        nickname = nickname.Left(pipe_pos);
+
+    if (field4_0x74)
+    {
+        for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); i++)
+        {
+            if (nickname == g_ServerConfig.banned_names[i])
+            {
+                CString str;
+                str.Format("Player %s rejected (banned name)", name);
+                LogMessage(str);
+
+                JoinErrorSend(client, 2, "Restricted name. Try different.");
+                return;
+            }
+        }
+
+        if (g_CLlDriver.provider == 4)
+        {
+            for (int i = 0; i < g_ServerConfig.field_0x28.GetSize(); i++)
+            {
+                CString banIP = g_ServerConfig.field_0x28[i];
+                if (false) //banIP == )
+                {
+                    CString str;
+                    str.Format("Player %s rejected (banned ip)", name);
+                    LogMessage(str);
+
+                    JoinErrorSend(client, 2, "Restricted ip.");
+                    return;
+                }
+            }
+        }
+    }
+
+    uint8_t cd_flag = params & 0xff;
+    uint8_t some_id = (params >> 8) & 0xff;
+    uint8_t strong = (params >> 16) & 0xff;
+    uint8_t weak = (params >> 24) & 0xff;
+
+    bool player_not_exist = false;
+
+    if (cd_flag != 0 && cd_flag != g_IsCdPresent)
+    {
+        JoinErrorSend(client, 8, "Demo & Release are incompatible");
+        return;
+    }
+
+    Player* player = nullptr;
+
+    for (POSITION pos = g_PlayersList->GetHeadPosition(); pos != nullptr;)
+    {
+        Player* pl = g_PlayersList->GetNext(pos);
+        if (pl->name == name)
+        {
+            if (pl->hat_player_id == id && pl->flags == arg && g_NetStru1_main.GetClientByPlayerID(pl->player_id) == nullptr)
+            {
+                player = pl;
+                break;               
+            }
+            else if (field4_0x74)
+            {
+                LogMessage("Warning - other player with same name joined");
+
+                JoinErrorSend(client, 3, "This name already used. Try different.");
+                return;
+            }
+        }
+    }
+
+    if (player)
+    {
+        player_not_exist = false;
+
+        if (MapLevel != -1 && g_CLlDriver.provider != 4)
+        {
+            if (strong > MapLevel)
+            {
+                JoinErrorSend(client, 14, "Character is too strong for this map.");
+
+                CString str;
+                str.Format("Player %s rejected(too strong for this map)", name);
+                LogMessage(str);                
+                return;
+            }
+            if (weak < MapLevel)
+            {
+                JoinErrorSend(client, 15, "Character is too weak for this map.");
+
+                CString str;
+                str.Format("Player %s rejected (too weak for this map)", name);
+                LogMessage(str);
+                return;
+            }
+        }
+
+        CString str;
+        str.Format("Player %s returns to game.", player->name);
+        LogMessage(str);
+
+        player->field_0xa50 = 0;
+    }
+    else
+    {
+        player_not_exist = true;
+
+        if (MapLevel != -1)
+        {
+            if (strong > MapLevel)
+            {
+                JoinErrorSend(client, 14, "Character is too strong for this map.");
+
+                CString str;
+                str.Format("Player %s rejected(too strong for this map)", name);
+                LogMessage(str);
+                return;
+            }
+            if (weak < MapLevel)
+            {
+                JoinErrorSend(client, 15, "Character is too weak for this map.");
+
+                CString str;
+                str.Format("Player %s rejected (too weak for this map)", name);
+                LogMessage(str);
+                return;
+            }
+        }
+
+        if (cd_flag == 0)
+        {
+            int cds = g_PlayersList->CountCD();
+            if (field3_0x70 == 0)
+                cds++;
+
+            int humans = g_PlayersList->CountHumanPlayers();
+            if (humans > 15)
+                humans = 15;
+
+            static const int neededCD[16] = 
+            {1, 1, 1, 2,
+             2, 2, 3, 3,
+             3, 3, 4, 4,
+             4, 4, 4, 4};
+
+            if (cds < neededCD[humans])
+            {
+                JoinErrorSend(client, 6, "too few CDs");
+                return;
+            }
+        }
+
+        player = Allods2_CreatePlayer(name);
+        player->hat_player_id = id;
+        player->flags = arg;
+        player->field_0xa45 = cd_flag;
+    }
+
+    client->player_id = player->player_id;
+
+    player->field_0x42 = 1;
+
+    if (some_id == 0 && player_not_exist)
+    {
+        for (int i = 0; i < 16; i++)
+        {
+            bool used = false;
+
+            for (POSITION pos = g_PlayersList->GetHeadPosition(); pos != nullptr;)
+            {
+                Player* pl = g_PlayersList->GetNext(pos);
+                if (pl->field_0xa44 == i && pl->is_ai == 0)
+                {
+                    used = true;
+                    break;
+                }
+            }
+
+            if (!used)
+            {
+                some_id = i;
+                break;
+            }
+        }
+    }
+
+    if (some_id != 0)
+        player->field_0xa44 = some_id;
+
+    PacketJoin& pkt = PacketJoin::Inst;
+    strcpy(pkt.name, player->name);
+    pkt.id = 0x96;
+    pkt.to_player_id = 0;
+    pkt.player_id = player->player_id;
+    pkt.token_id = player->token_id;
+    pkt.field_0xc = player->field_0xa44 - 1;
+    pkt.flags = (player_not_exist ? 2 : 0) | (player->is_ai != 0 ? 1 : 0);
+
+    g_NetStru1_main.QueuePacketSend(&pkt);
+
+    LogMessage("Player " + name + " joined.");
+
+    if (player_not_exist)
+        g_NetStru1_main.FUN_0051ce86(3, player->player_id, nullptr);
+    else
+        g_NetStru1_main.FUN_0051ce86(4, player->player_id, nullptr);
+
+    player->FUN_00534AC1(0, 1);
+
+    g_NetStru1_main.sub_51C8B1(player);
+
+    if (field18_0x94 != 0)
+        g_NetStru1_main.FUN_0051ceac(0xb7, player);
+    
+    g_NetStru1_main.FUN_0051c748(nullptr);
+
+    if (field3_0x70 != 0)
+        g_NetStru1_main.SendAllData();
+}
+
+void Server::JoinErrorSend(NetStru2* client, int32_t arg, const CString& str)
+{
+    //4fc4f3
+    g_NetStru1_main.SendAllData();
+    Player pl;
+    pl.player_id = 9999;
+    client->player_id = 9999;
+    if (!str.IsEmpty())
+        g_NetStru1_main.FUN_0051cd89(str, &pl);
+    g_NetStru1_main.FUN_0051cefb(0xb, arg, 0, &pl);
+    g_NetStru1_main.FUN_0051c748(&pl);
+    g_NetStru1_main.SendAllData();
+    pl.player_id = 0;
+}
+
+
+Player* Server::Allods2_CreatePlayer(CString name)
+{
+    Player* player = nullptr;
+    if (field4_0x74 == 0)
+        player = g_PlayersList->sub_535D39("Self");
+
+    bool created = false;
+    if (!player)
+    {
+        player = new Player();
+        created = true;
+    }
+
+    player->name = name;
+    player->is_ai = 0;
+    if (player->money == 0)
+        player->money = 1000;
+
+    if (created)
+        g_PlayersList->sub_5357C6(player);
+
+    return player;
 }

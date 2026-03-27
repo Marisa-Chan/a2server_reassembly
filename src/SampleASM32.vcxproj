@@ -328,6 +328,7 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="eye.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="gameobj.h" />
     <ClInclude Include="game_app.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
@@ -338,6 +339,7 @@
     <ClInclude Include="logic.h" />
     <ClInclude Include="main_window.h" />
     <ClInclude Include="map_stuff.h" />
+    <ClInclude Include="music.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="outpost.h" />
     <ClInclude Include="packet.h" />

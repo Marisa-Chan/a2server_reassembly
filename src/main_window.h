@@ -129,6 +129,12 @@ public:
 
     BOOL UpdateClipCursor();
 
+    void Proc_421(); //48d49b
+
+    void FUN_0048cb3c(); //48cb3c
+
+    void FUN_00485a41(); //485a41
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -144,7 +150,7 @@ public:
     CVisualObject* field_0xe8;
     CVisualObject* field_0xec;
     CVisualObject* field_0xf0;
-    CVisualObject* field_0xf4;
+    VObjBase2C0* field_0xf4;
     CVisualObject* field_0xf8;
     CVisualObject* field_0xfc;
     CVisualObject* field_0x100;

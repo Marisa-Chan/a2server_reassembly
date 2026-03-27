@@ -18,3 +18,16 @@ int PlayersList::CountHumanPlayers()
 	}
 	return count;
 }
+
+int PlayersList::CountCD()
+{
+	//536092
+	int count = 0;
+
+	for (POSITION pos = GetHeadPosition(); pos != nullptr;)
+	{
+		if (GetNext(pos)->field_0xa45 != 0)
+			count++;
+	}
+	return 0;
+}

@@ -178,6 +178,10 @@ BOOL GameApp::InitInstance()
 		g_IsCdPresent = 0;
 	}
 
+#ifdef A2CLIENT
+	g_IsCdPresent = 1; // always has CD for client, patch
+#endif
+
 	RegCloseKey(regkey);
 
 	CTime tm = CTime::GetCurrentTime();

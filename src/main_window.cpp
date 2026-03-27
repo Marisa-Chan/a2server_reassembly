@@ -541,3 +541,65 @@ BOOL MainWindow::UpdateClipCursor()
     //48cbc8
     return GetClipCursor(&clip_cursor_rect);
 }
+
+
+
+#ifdef A2CLIENT
+void MainWindow::Proc_421()
+{
+#pragma message("REVERSE IT, it's not FULL");
+
+    //48d49b Allods2.exe
+    field_0x3f0 = 0;
+    field_0x3f4.Empty();
+    field_0x3ec = 0;
+
+    field_0x5e8.FUN_004ac3af();
+
+    CVisualObject* elm = field_0xcc->FindChild(0x3fc);
+    if (elm)
+        elm->MsgProc(0x445, 0, 0);
+
+    FUN_00485a41();
+
+    field_0xcc->AddChild(field_0xf4);
+    field_0xf4->VMethod28();
+    field_0xcc->VMethod9();
+    field_0x460 = 0;
+    field_0x418 |= 0x80;
+    FUN_0048cb3c();
+
+    elm = field_0xd0->FindChild(0x13);
+    if (elm)
+    {
+        field_0xd0->RemoveChild(elm);
+        delete elm;
+    }
+
+}
+#else
+void MainWindow::Proc_421()
+{
+    //48d49b
+    field_0x3f0 = 0;
+    field_0x3f4.Empty();
+    FUN_0048cb3c();
+    PostMessage(0x440, 0, 0);
+}
+#endif
+
+
+void MainWindow::FUN_00485a41()
+{
+    //485a41
+    field_0xd4->RemoveAllChilds();
+    field_0xd4->AddChild(field_0xe0);
+
+    field_0xcc->RemoveAllChilds();
+    field_0xcc->AddChild(field_0xd0);
+    field_0xcc->AddChild(field_0xd4);
+
+    field_0x418 &= ~1;
+
+    field_0xd4->MsgProc(0x403, (uint32_t)field_0xd0, 0);
+}
