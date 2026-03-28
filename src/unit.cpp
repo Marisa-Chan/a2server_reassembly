@@ -342,7 +342,7 @@ void Unit::VMethod2()
                 if (building->IsKindOf(&PointerRuntimeClass)) { // Pointer
                     Pointer* ptr = static_cast<Pointer*>(building);
                     if (ptr->script_instance_id > 0) {
-                        g_World->sub_5B0E08(ptr->script_instance_id);
+                        g_World->DoScriptInstID(ptr->script_instance_id);
                     }
                     break;
                 }

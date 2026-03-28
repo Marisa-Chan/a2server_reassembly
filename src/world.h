@@ -4,6 +4,7 @@
 
 #include "asm_mfc.h"
 #include "assert_offset.h"
+#include "logic.h"
 #include "mfc_templ.h"
 #include "perf.h"
 #include "unit_list.h"
@@ -17,9 +18,6 @@ struct ResFile;
 class Building;
 class Spell;
 class Token;
-class Trigger;
-class TriggerAction;
-class TriggerCheck;
 class Unit;
 
 
@@ -91,10 +89,10 @@ struct World {
     PlayersList* players_list;
     int32_t field65_0xc780;
     int32_t trigger_variables[1000];
-    int32_t references[1000]; // Array of User*, Group* and Player* objects
+    void* references[1000]; // Array of User*, Group* and Player* objects
     uint8_t trigger_results[1000];
     CList<TriggerCheck*>* trigger_checks;
-    CArray<TriggerAction*>* trigger_actions;
+    CArray<TriggerAction>* trigger_actions;
     CList<Trigger*>* triggers;
     char name[100]; // Not sure it's 100 bytes
     ResFile* field74_0xeb1c;
@@ -126,7 +124,47 @@ public:
     void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5ACDF4(Group* group); // World callback for animate-dead group
-    void sub_5B0E08(int32_t script_id); // Run script by instance ID
+    void DoScriptInstID(int32_t script_id); // Run script by instance ID
+
+    // Trigger action dispatch handlers (called from DoScriptInstID)
+    void ScriptOP_0x01(TriggerAction* action);
+    void ScriptOP_0x02(TriggerAction* action);
+    void ScriptOP_0x03(TriggerAction* action);
+    void ScriptOP_0x04(TriggerAction* action);
+    void ScriptOP_0x05(TriggerAction* action);
+    void ScriptOP_0x06(TriggerAction* action);
+    void ScriptOP_0x07(TriggerAction* action);
+    void ScriptOP_0x08(TriggerAction* action);
+    void ScriptOP_0x0a(TriggerAction* action);
+    void ScriptOP_0x0b(TriggerAction* action);
+    void ScriptOP_0x0c(TriggerAction* action);
+    void ScriptOP_0x0d(TriggerAction* action);
+    void ScriptOP_0x0e(TriggerAction* action);
+    void ScriptOP_0x0f(TriggerAction* action);
+    void ScriptOP_0x10(TriggerAction* action);
+    void ScriptOP_0x11(TriggerAction* action);
+    void ScriptOP_0x12(TriggerAction* action);
+    void ScriptOP_0x13(TriggerAction* action);
+    void ScriptOP_0x14(TriggerAction* action);
+    void ScriptOP_0x15(TriggerAction* action);
+    void ScriptOP_0x16(TriggerAction* action);
+    void ScriptOP_0x17(TriggerAction* action);
+    void ScriptOP_0x18(TriggerAction* action);
+    void ScriptOP_0x19(TriggerAction* action);
+    void ScriptOP_0x1a(TriggerAction* action);
+    void ScriptOP_0x1b(TriggerAction* action);
+    void ScriptOP_0x1c(TriggerAction* action);
+    void ScriptOP_0x1d(TriggerAction* action);
+    void ScriptOP_0x1e(TriggerAction* action);
+    void ScriptOP_0x1f(TriggerAction* action);
+    void ScriptOP_0x20(TriggerAction* action);
+    void ScriptOP_0x21(TriggerAction* action);
+    void ScriptOP_0x22(TriggerAction* action);
+    void ScriptOP_0x23(TriggerAction* action);
+    void ScriptOP_0x24(TriggerAction* action);
+    void ScriptOP_0x26(TriggerAction* action);
+    void ScriptOP_0x27(TriggerAction* action);
+
     void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
     UnitList* sub_5A3808(Unit* caster, uint16_t yx); // Get nearby enemy UnitList for caster at yx.
     UnitList* sub_5A384F(Unit* caster, uint16_t yx); // Get nearby ally UnitList for caster at yx.
