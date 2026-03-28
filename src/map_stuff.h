@@ -111,6 +111,7 @@ public:
     Sack* sub_58E5F3(TokenPos* pos);
     uint8_t sub_59166C(Unit* unit, uint16_t yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
+    int16_t sub_5913BD(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);

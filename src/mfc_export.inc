@@ -376,6 +376,7 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
 ; MapStuff
+externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
 externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
