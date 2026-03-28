@@ -52,8 +52,8 @@ struct World {
     uint8_t gap_0xa54[16];
     UnitList field26_0xa64;
     UnitList field27_0xa84;
-    UnitList field28_0xaa4;
-    UnitList field29_0xac4;
+    UnitList field28_0xaa4; // Non-attack list?
+    UnitList field29_0xac4; // Attack list?
     uint32_t field_0xae4[10000];
     uint8_t gap_0xa724[4];
     uint8_t field32_0xa728[400];
@@ -127,6 +127,7 @@ public:
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5ACDF4(Group* group); // World callback for animate-dead group
     void sub_5B0E08(int32_t script_id); // Run script by instance ID
+    void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);

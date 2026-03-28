@@ -383,6 +383,7 @@ externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
 externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
 externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@G@Z :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
+externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -864,6 +865,7 @@ externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
+externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
