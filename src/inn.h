@@ -33,6 +33,8 @@ public:
     uint8_t gap_0xe8[4];
 
 public:
+    virtual void VMethod1() override;
+
     void sub_560DC2(Humanoid* humanoid, uint16_t id);
     void sub_560C67(Unit* inn);
     void InnCreateQuests(Player* player);

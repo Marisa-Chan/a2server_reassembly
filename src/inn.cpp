@@ -597,3 +597,29 @@ void Inn::InnCreateQuests(Player* player)
         }
     }
 }
+
+// 567D74
+void Inn::VMethod1() {
+    // Phase 1: Remove visitors whose owner has disconnected (field_0x43 == 0).
+    POSITION pos = this->unit_list.unit_list.GetHeadPosition();
+    while (pos) {
+        Unit* unit = this->unit_list.unit_list.GetNext(pos);
+        if (unit->pOwner->field_0x43 == 0) {
+            this->sub_560DC2(static_cast<Humanoid*>(unit), 0xFFFF);
+        }
+    }
+
+    // Phase 2: Tick the quest-roll counter; when it exceeds 120 and the inn is
+    // empty, refresh quests for each player and reset the counter.
+    this->quest_roll_counter++;
+    if (this->quest_roll_counter > 120 && this->unit_list.unit_list.m_nCount == 0) {
+        POSITION qpos = this->quest_map_per_player.GetStartPosition();
+        while (qpos) {
+            uint32_t player_id;
+            QuestMap* qmap;
+            this->quest_map_per_player.GetNextAssoc(qpos, player_id, qmap);
+            qmap->sub_55ECFE(player_id);
+        }
+        this->quest_roll_counter = 0;
+    }
+}

@@ -48,6 +48,7 @@ public:
     int32_t sub_55E129(int32_t event_type, int32_t a, int32_t b);
     void sub_55E24A(Quest* quest);
     int32_t sub_55F441(int32_t building_id);
+    void sub_55ECFE(int32_t player_id);
 };
 
 ASSERT_OFFSET(QuestMap, flags, 0x58);

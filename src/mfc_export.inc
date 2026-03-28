@@ -159,6 +159,7 @@ externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 ; Inn
 externdef _InnRuntimeClass :byte
 
+externdef ?VMethod1@Inn@@UAEXXZ :proc
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
 externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
 externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
@@ -931,6 +932,7 @@ externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
 externdef ?sub_55E129@QuestMap@@QAEHHHH@Z :proc
 externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
 externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
+externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 
