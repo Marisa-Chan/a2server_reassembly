@@ -895,6 +895,9 @@ externdef ?sub_554B03@SackList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_554927@SackList@@QAEXPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 
+; Srv1
+externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
+
 
 ; Settings
 externdef ??0Settings@@QAE@XZ :proc
@@ -1262,6 +1265,7 @@ externdef _Random0N :proc     ; 542216
 externdef _Random1N :proc     ; 54223F
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
 externdef _sub_530DCB :proc   ; ClampExperienceGain
+externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 

@@ -71,6 +71,9 @@ public: // Virtual table at 0060ec18.
     // virtual ~Srv1();
 
 public:
+    void sub_59FC97(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
+
+public:
     CMap<uint32_t, uint32_t, uint32_t, uint32_t> field1_0x4;
     uint32_t field2_0x20;
     SrvStru1 *srv_stru;

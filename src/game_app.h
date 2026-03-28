@@ -59,6 +59,9 @@ extern "C" UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used
 extern "C" int32_t __cdecl Random0N(int32_t n); // returns [0, n]
 extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 
+// sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
+extern "C" Item* __cdecl sub_5499A6(int level, int max_gold);
+
 extern "C" FARPROC ScenarioGetVar; //665a04
 extern "C" FARPROC ScenarioSetVar; //665a00
 extern "C" FARPROC ScenarioTalkTo; //665bd4

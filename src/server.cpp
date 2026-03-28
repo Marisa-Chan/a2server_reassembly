@@ -43,6 +43,30 @@ extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 // returns the parsed count (or 1 if none present).
 extern "C" int32_t sub_5049D1(CString* str);
 
+// 59FC97
+void Srv1::sub_59FC97(int count) {
+    uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
+    uint8_t y_range = (uint8_t)(MapStuff_Instance->map_height - 20);
+    if (count == 0) {
+        count = (std::max)(10, MapStuff_Instance->map_width / 4);
+    }
+    for (int i = 0; i < count; i++) {
+        Inventory* inventory = new Inventory();
+        for (int n = Random0N(3); n > 0; n--) {
+            Item* item = sub_5499A6(10, 500);
+            inventory->PutItemIntoBagAtDefault(item);
+        }
+        uint8_t x = (uint8_t)(Random0N(x_range) + 10);
+        uint8_t y = (uint8_t)(Random0N(y_range) + 10);
+        int gold = 0;
+        if (inventory->items.m_nCount == 0) {
+            gold = Random0N(400) + 100;
+        }
+        TokenPos pos(x, y, MapStuff_Instance);
+        g_Server->srv_stru1->sack_list->sub_554460(&pos, inventory, gold, 0);
+    }
+}
+
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
 void Server::sub_4FF937(Player* player, int32_t bool_arg4)
