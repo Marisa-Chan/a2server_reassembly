@@ -138,7 +138,6 @@ extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 // Free functions called from VMethod2 (all in Main.asm)
 extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
 extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
-extern "C" int32_t __cdecl sub_542216(int32_t n); // RangedRand(n)
 
 // Free functions for Humanoid::VMethod21.
 extern "C" uint32_t __cdecl sub_530726(int32_t skill_level); // Returns experience required for given skill level.
@@ -310,7 +309,7 @@ void Unit::VMethod2()
                             relax_extra = 12;
                         }
                     }
-                    this->charge_countdown = (int8_t)(this->relax + relax_extra + sub_542216(3));
+                    this->charge_countdown = (int8_t)(this->relax + relax_extra + Random0N(3));
                     if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
                         this->charge_countdown += (int8_t)this->some_spell->spell_info->values[0].level;
                     }
@@ -516,7 +515,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
             if (effect == nullptr) {
                 attacker->enchantments &= ~bless_mask;
             } else {
-                if (sub_542216(100) < (int16_t)effect->spell_or_damage) {
+                if (Random0N(100) < (int16_t)effect->spell_or_damage) {
                     dmg_min += dmg_spread;
                     randomize = false;
                 }
@@ -530,7 +529,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
             if (effect == nullptr) {
                 attacker->enchantments &= ~curse_mask;
             } else {
-                if (sub_542216(100) < (int16_t)effect->spell_or_damage) {
+                if (Random0N(100) < (int16_t)effect->spell_or_damage) {
                     randomize = false;
                 }
             }
@@ -539,14 +538,14 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
 
     int32_t preliminary_damage = dmg_min;
     if (randomize) {
-        preliminary_damage += sub_542216(dmg_spread);
+        preliminary_damage += Random0N(dmg_spread);
     }
 
     int32_t cumulative = 0;
 
     // Attack roll.
     int32_t attack_roll = (int16_t)unit_to_hit->attack;
-    int32_t rand_roll = sub_542216(200) - 100;
+    int32_t rand_roll = Random0N(200) - 100;
     attack_roll += rand_roll;
     int32_t defense = this->protections.defense;
 
@@ -575,7 +574,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
 
     // Add magic damage.
     if ((int32_t)unit_to_hit->some_damage_spread + unit_to_hit->some_damage_min != 0) {
-        int32_t some_dmg = (int32_t)sub_542216(unit_to_hit->some_damage_spread) + unit_to_hit->some_damage_min;
+        int32_t some_dmg = (int32_t)Random0N(unit_to_hit->some_damage_spread) + unit_to_hit->some_damage_min;
         int16_t protection = this->protections.magic_protections[2];
         if (protection != 0) {
             some_dmg = (int32_t)((100.0 - protection) * (double)some_dmg / 100.0 + 0.75);
@@ -589,7 +588,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
     // Spell damage?
     bool no_phys = (unit_to_hit->hand_damage_min + unit_to_hit->hand_damage_spread == 0);
     if ((unit_to_hit->some_damage2_spread + unit_to_hit->some_damage2_min) != 0 && (attack_roll > defense || no_phys)) {
-        int32_t spell_dmg = (int32_t)sub_542216(unit_to_hit->some_damage2_spread) + unit_to_hit->some_damage2_min;
+        int32_t spell_dmg = (int32_t)Random0N(unit_to_hit->some_damage2_spread) + unit_to_hit->some_damage2_min;
         uint8_t sphere = unit_to_hit->spell_id;
         if (sphere >= 1 && sphere <= 5) {
             int16_t protection = this->protections.magic_protections[sphere];
@@ -867,7 +866,7 @@ void Unit::sub_52D94E()
         bool should_drop = false;
 
         if (this->typeId >= 0x40) {
-            int roll = sub_542216(99); // [0, 99]
+            int roll = Random0N(99); // [0, 99]
             should_drop = (roll < 100 - g_ServerConfig.field_0xc4);
         }
 
@@ -883,12 +882,12 @@ void Unit::sub_52D94E()
             MonsterInfoData& monster_data = this->monster_info->values.GetData()[0];
 
             // Gold drop.
-            if (sub_542216(100) < monster_data.treasure_gold) {
-                gold = monster_data.treasure_gold_min + sub_542216(monster_data.treasure_gold_max);
+            if (Random0N(100) < monster_data.treasure_gold) {
+                gold = monster_data.treasure_gold_min + Random0N(monster_data.treasure_gold_max);
             }
 
             // Item drop.
-            if (sub_542216(100) < monster_data.treasure_item) {
+            if (Random0N(100) < monster_data.treasure_item) {
                 ShopAssortment assort;
 
                 AssortGenParams params;
@@ -904,7 +903,7 @@ void Unit::sub_52D94E()
                 assort.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &result);
 
                 if (result.GetSize() > 0) {
-                    int idx = sub_542216(result.GetSize() - 1); // [0, m_nSize-1]
+                    int idx = Random0N(result.GetSize() - 1); // [0, m_nSize-1]
                     Item* item = result[idx];
                     item->count = 1;
                     this->inventory->PutItemIntoBagAtDefault(item);

@@ -320,7 +320,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
             if (target->VMethod7() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[4];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
-                effect->spell_value = sub_542216(max_duration);
+                effect->spell_value = Random0N(max_duration);
                 if (effect->spell_value == 0) {
                     delete effect;
                     effect = nullptr;
@@ -489,7 +489,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 if (target->hp <= -10 || target->hp_regen == 0) {
                     return;
                 }
-                int32_t heal = this->damage_min + sub_54223F(this->damage_spread);
+                int32_t heal = this->damage_min + Random1N(this->damage_spread);
                 int32_t max_heal = target->hp_max - target->hp;
                 if (heal > max_heal) {
                     heal = max_heal;
@@ -525,7 +525,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 }
                 unit->VMethod10();
 
-                int32_t roll = sub_54223F(3);
+                int32_t roll = Random1N(3);
                 int32_t tier = caster->hit_values.skill_levels[5] / 25 + 1;
                 if (tier < 1) {
                     tier = 1;
@@ -571,7 +571,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 if (target->VMethod7() == 0) {
                     return;
                 }
-                int32_t drain = this->damage_min + sub_54223F(this->damage_spread);
+                int32_t drain = this->damage_min + Random1N(this->damage_spread);
                 int32_t astral_protection = target->protections.magic_protections[5];
                 drain = drain * (100 - astral_protection) / 100;
                 int32_t till_corpse = target->hp + 10;

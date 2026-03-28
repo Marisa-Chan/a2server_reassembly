@@ -156,7 +156,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Candidate& candidate = candidates[pick];
 
             int type_id = g_GameDataRes.sub_5126A2(candidate.typeId, candidate.face);
@@ -166,13 +166,13 @@ void Inn::InnCreateQuests(Player* player)
 
             int amount = 0;
             if (candidate.count < 2) {
-                amount = sub_542216(3) + 1;
+                amount = Random0N(3) + 1;
             } else if (candidate.count < 4) {
-                amount = sub_542216(4) + 2;
+                amount = Random0N(4) + 2;
             } else if (candidate.count < 8) {
-                amount = sub_542216(5) + 2;
+                amount = Random0N(5) + 2;
             } else {
-                amount = sub_542216(8) + 2;
+                amount = Random0N(8) + 2;
             }
 
             int reward = 0;
@@ -231,7 +231,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
             Building* near_building = building_list->sub_557F69(unit->position);
 
@@ -287,7 +287,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Group* grp = candidates[pick];
 
             int avg_x = 0, avg_y = 0, count = 0, max_exp = 0;
@@ -370,7 +370,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
             Building* near_building = building_list->sub_557F69(unit->position);
 
@@ -430,7 +430,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Group* grp = candidates[pick];
 
             int max_exp = 0;
@@ -474,7 +474,7 @@ void Inn::InnCreateQuests(Player* player)
             }
         }
         if (candidates.size() > 0) {
-            int pick = sub_542216(candidates.size() - 1);
+            int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
 
             int32_t reward = player->main_unit->_exp / 33;
@@ -493,10 +493,10 @@ void Inn::InnCreateQuests(Player* player)
     if ((player->main_unit->unit_attrs & 4) != 0 && this->has_raise_dead != 0) {
         SpellBook* sb = player->main_unit->spell_book;
         if (sb && (sb->sub_53DD3D() & (1 << spell::animate_dead)) != 0) {
-            int raise = sub_542216(2);
+            int raise = Random0N(2);
             const void** vtbl = (raise == 0) ? off_60F838 : (raise == 1) ? off_60F870 : off_60F8A8;
             Quest* q = MakeActiveQuest(this, vtbl);
-            int amount = sub_542216(6) + 3;
+            int amount = Random0N(6) + 3;
             int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, 0, this->building_id, amount, 0);
@@ -534,7 +534,7 @@ void Inn::InnCreateQuests(Player* player)
         }
 
         if (candidates.size() > 0) {
-            int32_t pick = sub_542216(candidates.size() - 1);
+            int32_t pick = Random0N(candidates.size() - 1);
             const Candidate& candidate = candidates[pick];
 
             POSITION upos = candidate.p->unit_list->unit_list.GetHeadPosition();

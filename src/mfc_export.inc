@@ -1255,11 +1255,12 @@ externdef ?clrsh_TechBlack@@3PAGA  :word
 externdef _sub_5049D1 :proc
 externdef _sub_536630 :proc   ; start attack?
 externdef _sub_53678F :proc   ; execute attack?
-externdef _sub_542216 :proc   ; RangedRand(n)
+externdef _Random0N :proc     ; 542216
+externdef _Random1N :proc     ; 54223F
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
 externdef _sub_530DCB :proc   ; ClampExperienceGain
+
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
-externdef _sub_54223F :proc
 
 
 ; util.h
