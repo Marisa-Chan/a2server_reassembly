@@ -3,7 +3,7 @@ project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(a2serv_vsc
+set(A2_SOURCES
   alm.cpp
   asm_mfc.cpp
   building.cpp
@@ -59,19 +59,26 @@ add_executable(a2serv_vsc
   res/a2server.rc
 )
 
-target_include_directories(a2serv_vsc PRIVATE
-  "${CMAKE_CURRENT_SOURCE_DIR}/mfc/include"
-)
+add_executable(a2serv_vsc ${A2_SOURCES})
+add_executable(a2client_vsc ${A2_SOURCES})
 
-set_property(TARGET a2serv_vsc PROPERTY
-  MSVC_RUNTIME_LIBRARY "MultiThreadedDLL"
-)
-
-target_compile_definitions(a2serv_vsc PRIVATE
+set(A2_COMPILE_DEFS
   FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
-target_link_libraries(a2serv_vsc PRIVATE
+foreach(TARGET a2serv_vsc a2client_vsc)
+  target_include_directories(${TARGET} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/mfc/include"
+  )
+  set_property(TARGET ${TARGET} PROPERTY
+    MSVC_RUNTIME_LIBRARY "MultiThreadedDLL"
+  )
+  target_compile_definitions(${TARGET} PRIVATE ${A2_COMPILE_DEFS})
+endforeach()
+
+target_compile_definitions(a2client_vsc PRIVATE A2CLIENT)
+
+set(A2_LINK_LIBS
     kernel32.lib
     shell32.lib
     ddraw.lib
@@ -96,14 +103,13 @@ target_link_libraries(a2serv_vsc PRIVATE
     uuid.lib
     odbc32.lib
     odbccp32.lib
-
     dbghelp.lib
-	dxguid.lib
+    dxguid.lib
     vcruntime.lib
     legacy_stdio_wide_specifiers.lib
 )
 
-target_link_options(a2serv_vsc PRIVATE
+set(A2_LINK_OPTS
     /MANIFEST
     /NXCOMPAT
     /DYNAMICBASE
@@ -119,7 +125,12 @@ target_link_options(a2serv_vsc PRIVATE
     /ERRORREPORT:PROMPT
 )
 
-# Enable MASM51 compatibility and SAFESEH.
-target_compile_options(a2serv_vsc PRIVATE
-  $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
-)
+foreach(TARGET a2serv_vsc a2client_vsc)
+  target_link_libraries(${TARGET} PRIVATE ${A2_LINK_LIBS})
+  target_link_options(${TARGET} PRIVATE ${A2_LINK_OPTS})
+
+  # Enable MASM51 compatibility and SAFESEH.
+  target_compile_options(${TARGET} PRIVATE
+    $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
+  )
+endforeach()

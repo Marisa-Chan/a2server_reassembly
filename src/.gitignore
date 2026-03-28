@@ -368,5 +368,8 @@ build/
 # Visual Studio Code workspace settings
 .vscode/
 
+# GitHub settings
+.github/
+
 # Decompiled source
 decomp.c
