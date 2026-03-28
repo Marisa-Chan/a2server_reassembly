@@ -2,9 +2,11 @@
 
 #include "constants.h"
 #include "eye.h"
+#include "game_app.h"
 #include "group.h"
 #include "map_stuff.h"
 #include "player.h"
+#include "spell.h"
 #include "unit.h"
 
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
@@ -47,4 +49,30 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
             this->field28_0xaa4.unit_list.AddTail(u);
         }
     }
+}
+
+// Set up an autobuff cast action on caster targeting target (or the nearest
+// eligible unit when target is null). If no target is found the caster idles.
+// 5A85F4
+void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
+    if (target == nullptr) {
+        uint16_t yx = caster->position->GetYX();
+        UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->sub_5A3808(caster, yx);
+        if (list->unit_list.GetCount() != 0) {
+            target = list->unit_list.GetHead();
+        }
+    }
+
+    if (target == nullptr) {
+        this->sub_5A6E2C(caster, 0);
+    } else {
+        caster->eye2->cast_action = 8;
+        caster->eye2->unit5 = target;
+        caster->eye2->spell = spell;
+        caster->eye2->max_range = this->sub_5A6ADB(caster);
+        target->eye2->autobuff_spell_id = spell->spell_id;
+        target->eye2->autobuff_tick = g_Server->tick;
+    }
+
+    caster->eye2->max_range = spell->max_range;
 }

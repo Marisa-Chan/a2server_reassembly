@@ -866,6 +866,11 @@ externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
+externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@G@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
+externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@G@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)
+externdef ?sub_5A6ADB@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
+externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
+externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc

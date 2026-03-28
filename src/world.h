@@ -128,6 +128,11 @@ public:
     void sub_5ACDF4(Group* group); // World callback for animate-dead group
     void sub_5B0E08(int32_t script_id); // Run script by instance ID
     void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
+    UnitList* sub_5A3808(Unit* caster, uint16_t yx); // Get nearby enemy UnitList for caster at yx.
+    UnitList* sub_5A384F(Unit* caster, uint16_t yx); // Get nearby ally UnitList for caster at yx.
+    uint8_t sub_5A6ADB(Unit* unit);                  // Get effective max cast range for unit.
+    void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
+    void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);
