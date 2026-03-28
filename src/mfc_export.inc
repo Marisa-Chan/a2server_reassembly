@@ -913,7 +913,16 @@ externdef _off_60F988 :dword
 externdef _off_60F9C0 :dword
 externdef _off_60F9F8 :dword
 
-externdef ??0Quest@@QAE@XZ :proc
+externdef ??0Quest@@QAE@XZ :proc                                   ; Quest::Quest()
+externdef ??1Quest@@UAE@XZ :proc                                   ; ~Quest()
+externdef ?VMethod1@Quest@@UAEHHHH@Z :proc                         ; int32_t VMethod1(int, int, int)
+externdef ?MarkFailed@Quest@@UAEXXZ :proc                          ; void MarkFailed()
+externdef ?MarkCompleted@Quest@@UAEXXZ :proc                       ; void MarkCompleted()
+externdef ?CopyFields@Quest@@UAEXPAUQuestData@@@Z :proc            ; void CopyFields(QuestData*)
+externdef ?Initialize@Quest@@UAEXHHHHHHH@Z :proc                   ; void Initialize(int,int,int,int,int,int,int)
+externdef ?Kind@Quest@@UAEHXZ :proc                                ; int32_t Kind()
+externdef ?IsSomething2@Quest@@UAEHXZ :proc                        ; int32_t IsSomething2()
+externdef ?IsSomething3@Quest@@UAEHXZ :proc                        ; int32_t IsSomething3()
 
 
 ; QuestMap

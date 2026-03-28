@@ -35,24 +35,6 @@ extern "C" const void* off_60F800[];  // InterceptUnit
 extern "C" const void* off_60F7C8[];  // InterceptGroup
 extern "C" const void* off_60F790[];  // KillInnDefenders
 
-// Call Initialize via vtable slot 9 (offset +0x24 from vtable start)
-// TODO: add `Quest` vtable. This is `q->Initialize(...)`.
-static void QuestInitialize(Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward)
-{
-    auto vtable = *reinterpret_cast<void***>(q);
-    reinterpret_cast<void(__thiscall*)(Quest*, int, int, int, int, int, int, int)>(vtable[9])(
-        q, some_id, player_id, building_id, obj, landmark_id, limit, reward
-    );
-}
-
-// Get quest kind via vtable slot 10 (offset +0x28 from vtable start)
-// TODO: add `Quest` vtable. This is `q->Kind()`.
-static int32_t QuestKind(Quest* q)
-{
-    auto vtable = *reinterpret_cast<void***>(q);
-    return reinterpret_cast<int32_t(__thiscall*)(Quest*)>(vtable[10])(q);
-}
-
 // Helper: allocate a quest, set its vtable, and store as active_quest
 // TODO: migrate `Quest` classes' vtables.
 static Quest* MakeActiveQuest(Inn* inn, const void* vtable[])
@@ -67,7 +49,7 @@ static Quest* MakeActiveQuest(Inn* inn, const void* vtable[])
 // Helper: register quest (initialize, set state, register in quest_map)
 static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward)
 {
-    QuestInitialize(q, some_id, player_id, building_id, obj, landmark_id, limit, reward);
+    q->Initialize(some_id, player_id, building_id, obj, landmark_id, limit, reward);
     q->state = 3;
     inn->quest_map->sub_55E24A(q);
 }
@@ -199,7 +181,7 @@ void Inn::InnCreateQuests(Player* player)
             }
 
             Quest* q = MakeActiveQuest(this, off_60F9C0);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t encoded_unit_id = candidate.typeId | (candidate.face << 8);
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, encoded_unit_id, 0, amount, reward);
@@ -258,7 +240,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t landmark_id = near_id | 0xffff0000;
 
             Quest* q = MakeActiveQuest(this, off_60F9F8);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->_exp * 2);
         }
@@ -335,7 +317,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t landmark_id = near_id | 0xffff0000;
 
             Quest* q = MakeActiveQuest(this, off_60F988);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, max_exp * 5);
         }
@@ -396,7 +378,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t landmark_id = this->building_id;
 
             Quest* q = MakeActiveQuest(this, off_60F800);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->_exp * 3);
         }
@@ -465,7 +447,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t landmark_id = this->building_id;
 
             Quest* q = MakeActiveQuest(this, off_60F7C8);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, max_exp * 6);
         }
@@ -499,7 +481,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t obj = 0;
 
             Quest* q = MakeActiveQuest(this, off_60F950);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, unit->building_id, escort_dest, 0, reward);
         }
@@ -515,7 +497,7 @@ void Inn::InnCreateQuests(Player* player)
             const void** vtbl = (raise == 0) ? off_60F838 : (raise == 1) ? off_60F870 : off_60F8A8;
             Quest* q = MakeActiveQuest(this, vtbl);
             int amount = sub_542216(6) + 3;
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, 0, this->building_id, amount, 0);
         }
@@ -569,7 +551,7 @@ void Inn::InnCreateQuests(Player* player)
             int32_t reward = max_exp * 10;
 
             Quest* q = MakeActiveQuest(this, off_60F790);
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, reward);
         }
@@ -591,7 +573,7 @@ void Inn::InnCreateQuests(Player* player)
                 int32_t limit = (int32_t)(dist * (1.5 + (double)rand() / 32767.0) / speed_d);
 
                 Quest* q = MakeActiveQuest(this, off_60F8E0);
-                int32_t kind = QuestKind(q);
+                int32_t kind = q->Kind();
                 int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
                 int32_t obj = player->main_unit->building_id;
                 int32_t reward = player->main_unit->_exp / 50;
@@ -608,7 +590,7 @@ void Inn::InnCreateQuests(Player* player)
         if (dest_id != 0 && this->delivery_item_id != 0) {
             Quest* q = MakeActiveQuest(this, off_60F918);
             int32_t reward = player->main_unit->_exp / 100;
-            int32_t kind = QuestKind(q);
+            int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             int32_t obj = this->delivery_item_id;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, dest_id, 0, reward);
