@@ -112,6 +112,9 @@ public:
     int sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     void sub_52C409();
+    void sub_52C163();
+    void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
+    void sub_52D8D3(Inventory* inv, int32_t money, int32_t is_main_unit); // Create a sack from this unit's inventory and money.
     void sub_52C813();
     void sub_52C4DF(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive)
     int sub_52BF3D(uint8_t x, uint8_t y, uint8_t flags);  // Place unit on map; returns nonzero on success

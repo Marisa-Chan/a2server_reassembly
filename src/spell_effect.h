@@ -58,7 +58,7 @@ public:
     uint8_t field_0x4d;
     uint8_t field_0x4e;
     uint8_t field_0x4f;
-    uint16_t field_0x50;
+    uint16_t duration;
     uint8_t field_0x52[2];
 
     AreaEffect(Effect* effect, TokenPos* pos, int16_t range); // sub_537880

@@ -843,44 +843,22 @@ externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 
 ; World
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
-externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                    ; World::DoScriptInstID(int)
-externdef ?ScriptOP_0x01@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x01(TriggerAction*)
-externdef ?ScriptOP_0x02@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x02(TriggerAction*)
-externdef ?ScriptOP_0x03@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x03(TriggerAction*)
-externdef ?ScriptOP_0x04@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x04(TriggerAction*)
-externdef ?ScriptOP_0x05@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x05(TriggerAction*)
-externdef ?ScriptOP_0x06@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x06(TriggerAction*)
-externdef ?ScriptOP_0x07@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x07(TriggerAction*)
-externdef ?ScriptOP_0x08@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x08(TriggerAction*)
-externdef ?ScriptOP_0x0a@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0a(TriggerAction*)
-externdef ?ScriptOP_0x0b@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0b(TriggerAction*)
-externdef ?ScriptOP_0x0c@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0c(TriggerAction*)
-externdef ?ScriptOP_0x0d@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0d(TriggerAction*)
-externdef ?ScriptOP_0x0e@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0e(TriggerAction*)
-externdef ?ScriptOP_0x0f@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x0f(TriggerAction*)
-externdef ?ScriptOP_0x10@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x10(TriggerAction*)
-externdef ?ScriptOP_0x11@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x11(TriggerAction*)
-externdef ?ScriptOP_0x12@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x12(TriggerAction*)
-externdef ?ScriptOP_0x13@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x13(TriggerAction*)
-externdef ?ScriptOP_0x14@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x14(TriggerAction*)
-externdef ?ScriptOP_0x15@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x15(TriggerAction*)
-externdef ?ScriptOP_0x16@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x16(TriggerAction*)
-externdef ?ScriptOP_0x17@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x17(TriggerAction*)
-externdef ?ScriptOP_0x18@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x18(TriggerAction*)
-externdef ?ScriptOP_0x19@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x19(TriggerAction*)
-externdef ?ScriptOP_0x1a@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1a(TriggerAction*)
-externdef ?ScriptOP_0x1b@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1b(TriggerAction*)
-externdef ?ScriptOP_0x1c@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1c(TriggerAction*)
-externdef ?ScriptOP_0x1d@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1d(TriggerAction*)
-externdef ?ScriptOP_0x1e@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1e(TriggerAction*)
-externdef ?ScriptOP_0x1f@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x1f(TriggerAction*)
-externdef ?ScriptOP_0x20@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x20(TriggerAction*)
-externdef ?ScriptOP_0x21@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x21(TriggerAction*)
-externdef ?ScriptOP_0x22@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x22(TriggerAction*)
-externdef ?ScriptOP_0x23@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x23(TriggerAction*)
-externdef ?ScriptOP_0x24@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x24(TriggerAction*)
-externdef ?ScriptOP_0x26@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x26(TriggerAction*)
-externdef ?ScriptOP_0x27@World@@QAEXPAUTriggerAction@@@Z :proc                   ; World::ScriptOP_0x27(TriggerAction*)
+externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
+externdef ?sub_52C163@Unit@@QAEXXZ :proc
+externdef ?sub_52C36D@Unit@@QAEXEEE@Z :proc
+externdef ?sub_52D8D3@Unit@@QAEXPAUInventory@@HH@Z :proc
+externdef ?sub_552C37@Inventory@@QAEPAVItem@@G@Z :proc
+externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
+externdef ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
+externdef ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
+externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
+externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
+externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
+externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5ACB9E@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
+externdef ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc

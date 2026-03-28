@@ -99,7 +99,7 @@ public:
 
 public:
     // Transfers unit ownership to another player.
-    // `this` is unused, but in ASM this function accepts a `NetStru1*` in ECX, so it's here.
+    // `this` is unused. TODO: looks like this should be in `SrvStru1` instead.
     void FUN_004fb4ca(Unit* unit, Player* new_owner);
 
     NetStru1(int stats); //51684b

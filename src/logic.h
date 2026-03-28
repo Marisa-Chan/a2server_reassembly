@@ -22,8 +22,7 @@ class Unit;
 struct TriggerAction {
     uint32_t id;
     uint32_t type;
-    std::array<uint32_t, 6> data;
-    uint8_t gap_0x20[16];
+    std::array<int32_t, 10> data;
     std::array<uint8_t, 10> field_0x30;
     uint8_t gap_0x3a[20];
     std::array<uint8_t, 10> field_0x4e;

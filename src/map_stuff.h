@@ -9,12 +9,14 @@
 #include "unit_list.h"
 
 
-struct Human;
-struct MapAlm;
-struct TokenPos;
-struct World;
 class AreaEffect;
+class Building;
+class Human;
+struct MapAlm;
+class Sack;
+class TokenPos;
 class Unit;
+struct World;
 
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
@@ -35,6 +37,28 @@ struct ScanPresenceGrid {
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);
 
+struct CellState {
+    uint8_t  walk_cost;          // +0x00: saved original walk_cost_map byte
+    uint8_t  obstacle;           // +0x01: saved original obstacle_map byte
+    uint8_t  effect_count;       // +0x02: number of non-null area_effects[] slots
+    uint8_t  gap_0x03;           // +0x03
+    Unit*    small_unit;         // +0x04: small unit on this cell (type < 3)
+    Unit*    large_unit;         // +0x08: large unit on this cell (type == 3)
+    Building* building;          // +0x0C: building on this cell, if any
+    Sack*    sack;               // +0x10: sack placed on this cell
+    AreaEffect* area_effects[6]; // +0x14: area effect layer slots, indexed by type via MapLayer()
+    Unit*    static_blocker;     // +0x2C: unit causing static obstacle flag (0x40) when non-null
+    Unit*    dynamic_blocker;    // +0x30: unit causing dynamic obstacle flag (0x80) when non-null
+    uint8_t  spell_id;           // +0x34: spell placed on tile (triggers on entry)
+    uint8_t  spell_damage;       // +0x35
+    uint8_t  spell_x;            // +0x36
+    uint8_t  spell_y;            // +0x37
+    uint8_t  gap_0x38[2];
+    int16_t  cell_yx;            // +0x3A
+};
+ASSERT_OFFSET(CellState, area_effects, 0x14);
+ASSERT_SIZE(CellState, 0x3c);
+
 struct MapStuff { // aka astruct_5
     uint8_t walk_cost_map[65536];
     uint8_t obstacle_map[65536];
@@ -46,20 +70,9 @@ struct MapStuff { // aka astruct_5
     uint16_t field7_0x54008;
     uint16_t field8_0x5400a;
     UnitList field9_0x5400c;
-    uint8_t gap_0x5402c[4];
-    Human* field11_0x54030;
-    Human* field12_0x54034;
-    int32_t field13_0x54038;
-    int32_t field14_0x5403c;
-    uint8_t field15_0x54040[32];
-    uint8_t some_unit_spell_id;
-    uint8_t some_unit_spell_damage;
-    uint8_t some_unit_x;
-    uint8_t some_unit_y;
-    uint8_t gap_0x54064[2];
-    int16_t field21_0x54066;
+    CellState scratch_cell_state; // Scratch `CellState` buffer.
     CList<void*> field22_0x54068;
-    CMap<uint32_t, uint32_t, void*, void*> field23_0x54084;
+    CMap<uint16_t, uint16_t, CellState, CellState> cell_states; // Tile yx -> cell state.
     MapAlm* alm;
     uint8_t gap_0x540a4[2];
     uint8_t field26_0x540a6[4][16];
@@ -111,10 +124,13 @@ public:
     Sack* sub_58E5F3(TokenPos* pos);
     uint8_t sub_59166C(Unit* unit, uint16_t yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
+    int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
+    AreaEffect** sub_59536C(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t sub_5913BD(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).
     int sub_59190D(Unit* target, Unit* observer); // Visibility/range check between two units.
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
+ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
 ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
 ASSERT_OFFSET(MapStuff, height_map, 0x944f4);

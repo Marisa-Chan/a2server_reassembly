@@ -62,8 +62,8 @@ extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 // sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
 extern "C" Item* __cdecl sub_5499A6(int level, int max_gold);
 
-extern "C" FARPROC ScenarioGetVar; //665a04
-extern "C" FARPROC ScenarioSetVar; //665a00
+extern "C" int32_t(__cdecl* ScenarioGetVar)(int32_t); //665a04
+extern "C" void(__cdecl* ScenarioSetVar)(int32_t, int32_t); //665a00
 extern "C" FARPROC ScenarioTalkTo; //665bd4
 extern "C" FARPROC ScenarioEnterLocation; //6659fc
 extern "C" FARPROC ScenarioLeaveLocation; //6658c8

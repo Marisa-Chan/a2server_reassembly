@@ -646,14 +646,14 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
 
         ae->itemDataID = this->spell_id;
         ae->typeId = this->spell_id * 2 + 9;
-        ae->field_0x50 = info.area_duration * 16;
-        if (ae->field_0x50 != 0) {
-            ae->field_0x50 += power * 16 / 10;
+        ae->duration = info.area_duration * 16;
+        if (ae->duration != 0) {
+            ae->duration += power * 16 / 10;
             ae->TokenID = 1;
         }
         if (info.distribution == 5) {
             ae->TokenID = 2;
-            ae->field_0x50 = 0;
+            ae->duration = 0;
         }
         ae->field_0x4e = MapStuff_Instance->sub_59166C(caster, local_pos.GetYX()) / 32;
         MapStuff_Instance->scan_presence_grid.sub_596047(ae);
