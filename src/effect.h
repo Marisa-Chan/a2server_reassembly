@@ -54,7 +54,7 @@ public:
     };
     Unit* caster;
 };
-ASSERT_OFFSET(Effect, joined_spell, 0x40);
+ASSERT_OFFSET(Effect, full_magic_value, 0x40);
 ASSERT_OFFSET(Effect, spell_or_damage, 0x40);
 ASSERT_OFFSET(Effect, damage_min, 0x40);
 ASSERT_OFFSET(Effect, damage_spread, 0x41);

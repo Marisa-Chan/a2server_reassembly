@@ -49,6 +49,35 @@ HANDLE g_AutoRunEvent;
 HMODULE g_scenario_dll;
 
 
+// 43A857
+void __cdecl sub_43A857(const char* source) {
+	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
+	if (!mainWnd || mainWnd->field_0x640 != 3) {
+		return;
+	}
+
+	// Allocate a copy of source and post it to the main window (receiver frees).
+	size_t len = strlen(source) + 1;
+	char* buf = (char*)malloc(len);
+	strcpy(buf, source);
+	PostMessageA(g_MainWndHWND, 0x472, (WPARAM)buf, 0);
+
+	// Append to log file if configured.
+	if (g_ServerConfig.field_0xc.IsEmpty()) {
+		return;
+	}
+
+	CStdioFile file;
+	if (!file.Open(g_ServerConfig.field_0xc, CFile::modeWrite | CFile::modeCreate | CFile::modeNoTruncate)) {
+		return;
+	}
+	file.SeekToEnd();
+
+	CTime now = CTime::GetCurrentTime();
+	CString timestamp = now.Format("%d.%m.%y %H:%M:%S ");
+	file.WriteString(timestamp + source + "\n");
+}
+
 void ReadFileToString(const char* fname, CString* str)
 {
 	//4758cd

@@ -133,6 +133,7 @@ externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 
 
 externdef ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
+externdef _sub_43A857:proc                       ;  void __cdecl sub_43A857(const char* source)
 
 
 ;GameDataRes

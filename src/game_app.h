@@ -31,6 +31,8 @@ void ReadFileToString(const char* fname, CString* str);
 int32_t GetRandS16(int32_t range);
 
 
+extern "C" void __cdecl sub_43A857(const char* source); // 43A857
+
 /* in asm */
 void LogMessage(CString message); //43AA23
 
