@@ -39,11 +39,26 @@ public:
     uint8_t effect_id;
     uint8_t usage_type;
     uint8_t gap_0x3e[2];
-    uint16_t spell_or_damage; // Seems like this might store damage in two separate bytes.
-    uint16_t spell_value;
+    union { // TODO: god that spaghetti looks terrible. Maybe use getters/setters?
+        int32_t full_magic_value;
+        struct {
+            union {
+                uint16_t spell_or_damage;
+                struct {
+                    uint8_t damage_min;
+                    uint8_t damage_spread;
+                };
+            };
+            uint16_t spell_value;
+        };
+    };
     Unit* caster;
 };
+ASSERT_OFFSET(Effect, joined_spell, 0x40);
 ASSERT_OFFSET(Effect, spell_or_damage, 0x40);
+ASSERT_OFFSET(Effect, damage_min, 0x40);
+ASSERT_OFFSET(Effect, damage_spread, 0x41);
+ASSERT_OFFSET(Effect, spell_value, 0x42);
 ASSERT_OFFSET(Effect, caster, 0x44);
 ASSERT_SIZE(Effect, 0x48);
 

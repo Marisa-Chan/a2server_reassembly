@@ -38,6 +38,7 @@ public:
     void sub_560DC2(Humanoid* humanoid, uint16_t id);
     void sub_560C67(Unit* inn);
     void InnCreateQuests(Player* player);
+    void InnReward(Player* player); // sub_565307: Generate reward items for completed quest
     bool sub_567B4D(Player* player); // Check if this player has a quest taken in this inn.
 };
 ASSERT_OFFSET(Inn, delivery_item_id, 0xd4);

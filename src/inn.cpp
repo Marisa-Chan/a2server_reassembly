@@ -1,19 +1,23 @@
 #include "inn.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <vector>
 
 #include "buildings_list.h"
 #include "building.h"
 #include "constants.h"
+#include "effect.h"
 #include "game_app.h"
 #include "group.h"
+#include "inventory.h"
 #include "player.h"
 #include "players_list.h"
 #include "quest.h"
 #include "quest_map.h"
 #include "server.h"
+#include "shop_assortment.h"
 #include "spell.h"
 #include "token.h"
 #include "unit.h"
@@ -622,4 +626,461 @@ void Inn::VMethod1() {
         }
         this->quest_roll_counter = 0;
     }
+}
+
+// Data arrays for InnReward scroll/book/spell generation.
+static const std::array<const char*, 34> ScrollsList = {
+    "Scroll Fire Ball",
+    "Scroll Fire Wall",
+    "Scroll Protection from Fire",
+    "Scroll Poison Cloud",
+    "Scroll Blizzard",
+    "Scroll Protection from Water",
+    "Scroll Acid Stream",
+    "Scroll Prismatic Spray",
+    "Scroll Invisibility",
+    "Scroll Protection from Air",
+    "Scroll Wall of Earth",
+    "Scroll Stone Curse",
+    "Scroll Protection from Earth",
+    "Scroll Bless",
+    "Scroll Haste",
+    "Scroll Teleport",
+    "Scroll Heal",
+    "SuperScroll Fire Ball",
+    "SuperScroll Fire Wall",
+    "SuperScroll Protection from Fire",
+    "SuperScroll Poison Cloud",
+    "SuperScroll Blizzard",
+    "SuperScroll Protection from Water",
+    "SuperScroll Acid Stream",
+    "SuperScroll Prismatic Spray",
+    "SuperScroll Invisibility",
+    "SuperScroll Protection from Air",
+    "SuperScroll Wall of Earth",
+    "SuperScroll Stone Curse",
+    "SuperScroll Protection from Earth",
+    "SuperScroll Bless",
+    "SuperScroll Haste",
+    "SuperScroll Teleport",
+    "SuperScroll Heal",
+};
+
+static const std::array<const char*, 22> TeachSpellBooks = {
+    "Book Fire", "Book Fire", "Book Fire", "Book Fire",
+    "Book Water", "Book Water", "Book Water", "Book Water",
+    "Book Air", "Book Air", "Book Air", "Book Air",
+    "Book Earth", "Book Earth", "Book Earth", "Book Earth",
+    "Book Astral", "Book Astral", "Book Astral", "Book Astral", "Book Astral", "Book Astral",
+};
+
+static const std::array<const char*, 22> TeachSpellMagics = {
+    "teachSpell=Fire_Arrow", "teachSpell=Fire_Ball", "teachSpell=Wall_of_Fire", "teachSpell=Protection_from_Fire",
+    "teachSpell=Ice_Missile", "teachSpell=Poison_Cloud", "teachSpell=Blizzard", "teachSpell=Protection_from_Water",
+    "teachSpell=Lightning", "teachSpell=Prismatic_Spray", "teachSpell=Invisibility", "teachSpell=Protection_from_Air",
+    "teachSpell=Diamond_Dust", "teachSpell=Wall_of_Earth", "teachSpell=Stone_Curse", "teachSpell=Protection_from_Earth",
+    "teachSpell=Bless", "teachSpell=Haste", "teachSpell=Control_Spirit", "teachSpell=Teleport", "teachSpell=Drain_Life", "teachSpell=Summon",
+};
+
+static const std::array<int, 22> TeachSpellIDs = {
+    spell::fire_arrow, spell::fire_ball, spell::wall_of_fire, spell::protection_from_fire,
+    spell::ice_missile, spell::poison_cloud, spell::blizzard, spell::protection_from_water,
+    spell::lightning, spell::prismatic_spray, spell::invisibility, spell::protection_from_air,
+    spell::stone_missile, spell::wall_of_earth, spell::stone_curse, spell::protection_from_earth,
+    spell::bless, spell::haste, spell::animate_dead, spell::teleport, spell::drain_life, spell::summon,
+};
+
+// Helper to delete all items in a CArray<Item*> and clear it.
+static void DeleteItemArray(CArray<Item*>& arr) {
+    for (int i = 0; i < arr.GetSize(); i++) {
+        if (arr[i]) {
+            delete arr[i];
+        }
+    }
+    arr.SetSize(0, -1);
+}
+
+// Helper to pick one random item from candidates, add to results, delete the rest.
+static bool PickOneRandom(CArray<Item*>& candidates, CArray<Item*>& results) {
+    if (candidates.GetSize() == 0) {
+        return false;
+    }
+    int pick = Random0N(candidates.GetSize() - 1);
+    for (int i = 0; i < candidates.GetSize(); i++) {
+        if (i == pick) {
+            results.Add(candidates[i]);
+        } else {
+            if (candidates[i]) {
+                delete candidates[i];
+            }
+        }
+    }
+    return true;
+}
+
+// 565307
+void Inn::InnReward(Player* player) {
+    int reward = 0;
+
+    // Find completed quest for this player at this inn.
+    POSITION pos = g_QuestMap.quests_map.GetStartPosition();
+    while (pos) {
+        uint32_t key;
+        Quest* quest;
+        g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
+        if (quest && quest->player_id == player->player_id && quest->building_id == this->building_id && quest->state == 1) {
+            reward = quest->reward;
+            break;
+        }
+    }
+
+    if (reward == 0 && player->field_0xa98 <= 50) {
+        return;
+    }
+
+    if (reward > 16383000) {
+        // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
+        // and 65535 * 250 = 16_383_750, so the max reward is just below that.
+        reward = 16383000;
+    }
+    if (reward < 250) {
+        reward = 250;
+    }
+
+    // Check if player already has a reward stored.
+    Inventory* existing;
+    if (this->rewards_per_player.Lookup(player->player_id, existing)) {
+        return;
+    }
+
+    CArray<Item*> temp_shelf;
+    CArray<Item*> result_items;
+    CArray<Item*> filtered_by_class;
+    CArray<Item*> temp_candidates;
+
+    // Determine player class filter: 1 = fighter, 2 = wizard.
+    uint8_t item_type_filter;
+    if (player->main_unit->unit_attrs & 4) {
+        item_type_filter = 2;
+    } else {
+        item_type_filter = 1;
+    }
+
+    // --- Phase 1: Non-magic item ---
+    ShopAssortment assortment;
+    AssortGenParams params;
+    params.max_cost = reward * 2;
+    params.min_cost = reward;
+    params.max_count = 100;
+    params.max_same_count = 1;
+    params.flags = 0x1b7fffff;
+    assortment.GenerateAssortment(&params);
+    assortment.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &temp_shelf);
+
+    for (int i = 0; i < temp_shelf.GetSize(); i++) {
+        Item* item = temp_shelf[i];
+        EquipData* equip_data = &item->world_equip->values[0];
+        if (equip_data->other_param & item_type_filter) {
+            filtered_by_class.Add(item);
+        } else {
+            delete item;
+        }
+    }
+    temp_shelf.SetSize(0, -1);
+
+    // --- Phase 2: Magic item ---
+    params.max_cost = (reward * 3) / 2;
+    params.min_cost = (reward * 3) / 4;
+    params.flags = 0x2bffffff;
+    assortment.GenerateAssortment(&params);
+    assortment.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &temp_shelf);
+
+    for (int i = 0; i < temp_shelf.GetSize(); i++) {
+        Item* item = temp_shelf[i];
+        EquipData* equip_data = &item->world_equip->values[0];
+        if (equip_data->other_param & item_type_filter) {
+            temp_candidates.Add(item);
+        } else {
+            delete item;
+        }
+    }
+    temp_shelf.SetSize(0, -1);
+
+    // --- Phase 3: Pick one random from each equipment group ---
+    if (PickOneRandom(filtered_by_class, result_items)) {
+        result_items[result_items.GetSize() - 1]->count = 1; // Set count to 1 for the picked item.
+    }
+
+    filtered_by_class.SetSize(0, -1);
+
+    if (PickOneRandom(temp_candidates, result_items)) {
+        result_items[result_items.GetSize() - 1]->count = 1; // Set count to 1 for the picked item.
+    }
+
+    temp_candidates.SetSize(0, -1);
+
+    // --- Phase 4: Scrolls ---
+    for (int i = 0; i < ScrollsList.size(); i++) {
+        CString scroll_name(ScrollsList[i]);
+        Item* scroll = new Item(scroll_name);
+
+        int32_t exp_800 = scroll->_exp * 800;
+        if (scroll->_exp < reward && reward < exp_800) {
+            scroll->count = reward / scroll->_exp;
+            if (scroll->count > 10) {
+                scroll->count = (scroll->count - 10) / 2 + 10;
+            }
+            if (scroll->count > 20) {
+                scroll->count = (scroll->count - 20) / 2 + 20;
+            }
+            if (scroll->count > 50) {
+                scroll->count = (scroll->count - 50) / 2 + 50;
+            }
+            if (scroll->count > 100) {
+                scroll->count = (scroll->count - 100) / 2 + 100;
+            }
+            temp_candidates.Add(scroll);
+        } else {
+            delete scroll;
+        }
+    }
+
+    // --- Phase 5: Pick one random scroll ---
+    PickOneRandom(temp_candidates, result_items);
+
+    // --- Phase 6: Spell books (wizards only) ---
+    if (player->main_unit->unit_attrs & 4) {
+        temp_candidates.SetSize(0, -1);
+        for (int i = 0; i < TeachSpellIDs.size(); i++) {
+            int32_t known_spells = player->main_unit->spell_book->sub_53DD3D();
+            if ((known_spells & (1 << TeachSpellIDs[i])) == 0) {
+                CString book_name(TeachSpellBooks[i]);
+                Item* book = new Item(book_name);
+
+                book->sub_548F3F(TeachSpellMagics[i]);
+                book->VMethod15();
+
+                if (reward / 2 < book->_exp && book->_exp < reward * 5 / 4) {
+                    temp_candidates.Add(book);
+                } else {
+                    delete book;
+                }
+            }
+        }
+        PickOneRandom(temp_candidates, result_items);
+    }
+
+    // --- Phase 7: Stat potions ---
+    if ((player->main_unit->experience > 18000000 && reward >= 1000000) || player->field_0xa98 > 50) {
+        bool is_fighter = (player->main_unit->unit_attrs & 4) == 0;
+        bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
+
+        uint8_t max_body, max_reaction, max_mind, max_spirit;
+
+        if (is_fighter && !is_female) {
+            max_body = 52;
+            max_reaction = 50;
+            max_mind = 48;
+            max_spirit = 46;
+        } else if (is_fighter && is_female) {
+            max_body = 50;
+            max_reaction = 52;
+            max_mind = 46;
+            max_spirit = 48;
+        } else if (!is_fighter && !is_female) {
+            max_body = 48;
+            max_reaction = 46;
+            max_mind = 52;
+            max_spirit = 50;
+        } else { // !is_fighter && is_female
+            max_body = 46;
+            max_reaction = 48;
+            max_mind = 50;
+            max_spirit = 52;
+        }
+
+        // Note: vanilla logic used a retrying loop.
+        std::vector<const char*> upgradable;
+        upgradable.reserve(4);
+
+        if (player->main_unit->body - player->main_unit->equipment_extra.body < max_body) {
+            upgradable.push_back("Potion Body");
+        }
+        if (player->main_unit->mind - player->main_unit->equipment_extra.mind < max_mind) {
+            upgradable.push_back("Potion Mind");
+        }
+        if (player->main_unit->spirit - player->main_unit->equipment_extra.spirit < max_spirit) {
+            upgradable.push_back("Potion Spirit");
+        }
+        if (player->main_unit->reaction - player->main_unit->equipment_extra.reaction < max_reaction) {
+            upgradable.push_back("Potion Reaction");
+        }
+
+        if (!upgradable.empty()) {
+            const char* name = upgradable[Random0N(upgradable.size() - 1)];
+            result_items.Add(new Item(name));
+        }
+    }
+
+    // --- Phase 8: Gold ---
+    {
+        Item* gold = new Item();
+        gold->item_id = 0xFFFF;
+        gold->count = reward / 250;
+        result_items.Add(gold);
+    }
+
+    // --- Phase 9: Experience ---
+    if (g_ServerConfig.gameType == 0) {
+        Item* experience = new Item();
+        experience->item_id = 0xFFFE;
+        experience->count = reward / 250;
+        result_items.Add(experience);
+    }
+
+    // --- Phase 10: Mob reward ---
+    if (player->unit_list->sub_557AB0() == 0) {
+        int mob_idx = g_GameDataRes.sub_50DF19(reward / 16);
+        if (mob_idx != 0) {
+            Item* mob = new Item();
+            mob->item_id = 0xFFFD;
+            MonsterInfoData* data = g_GameDataRes.monsters[mob_idx].values.GetData();
+            mob->count = (data->face << 8) | data->type_id;
+            result_items.Add(mob);
+        }
+    }
+
+    // --- Phase 11: Upgrade item ---
+    {
+        int high_skills = 0;
+        for (int i = 1; i < 6; i++) {
+            if (player->main_unit->hit_values.skill_levels[i] > 75) {
+                high_skills++;
+            }
+        }
+
+        if ((high_skills > 3 && reward >= 1000000) || player->field_0xa98 > 50) {
+            temp_candidates.SetSize(0, -1);
+
+            for (int slot = 1; slot < 13; slot++) {
+                Item* equip;
+                if (slot == 1) {
+                    equip = player->main_unit->weapon;
+                } else if (slot == 2) {
+                    equip = player->main_unit->shield;
+                } else {
+                    equip = player->main_unit->equipment[slot];
+                }
+
+                if (equip) {
+                    equip->sub_54A0BE();
+                }
+
+                if (!equip || equip->VMethod16() != 0 || equip->magic_volume <= 0) {
+                    continue;
+                }
+
+                // Get the first effect on the item.
+                Effect* effect = nullptr;
+                if (equip->_effects.m_nCount != 0) {
+                    effect = equip->_effects.GetHead();
+                }
+                if (!effect) {
+                    continue;
+                }
+
+                int mana_cost = g_GameDataRes.magics[effect->effect_id].values[0].mana_cost;
+                if (mana_cost > equip->magic_volume) {
+                    continue;
+                }
+
+                uint32_t capacity = 0;
+                int32_t effect_max = g_GameDataRes.magics[effect->effect_id].values[0].affect_max;
+                int32_t diff = 0;
+
+                switch (effect->effect_id) {
+                    case 2: case 3: case 4: case 5:
+                    case 0x10: case 0x11: case 0x12: case 0x13:
+                        capacity = (effect->full_magic_value < effect_max) ? 1 : 0;
+                        break;
+                    case 6: case 7: case 9: case 10:
+                    case 0xC: case 0xD: case 0xF: case 0x2B:
+                        diff = effect_max - effect->full_magic_value;
+                        capacity = (diff < 9) ? diff : 8;
+                        break;
+                    case 8: case 0xB:
+                        diff = effect_max - effect->full_magic_value;
+                        capacity = (diff < 21) ? diff : 20;
+                        break;
+                    case 0x14: case 0x15: case 0x16: case 0x17: case 0x18: case 0x19:
+                    case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
+                    case 0x20: case 0x21: case 0x22: case 0x23: case 0x24: case 0x25:
+                        diff = effect_max - effect->full_magic_value;
+                        capacity = (diff < 6) ? diff : 5;
+                        break;
+                    case 0x29:
+                        effect_max = 100;
+                        diff = 100 - (int)effect->spell_value;
+                        capacity = (diff < 9) ? diff : 8;
+                        break;
+                    case 0x2C: case 0x2D: case 0x2E: case 0x2F: case 0x30: case 0x31:
+                        diff = effect_max - effect->damage_min - effect->damage_spread;
+                        capacity = (diff < 9) ? diff : 8;
+                        break;
+                }
+
+                if (capacity == 0) {
+                    continue;
+                }
+
+                uint32_t upgrade_points = reward * capacity / 8000000;
+                if (upgrade_points == 0) {
+                    upgrade_points = 1;
+                }
+                if (upgrade_points > capacity) {
+                    upgrade_points = capacity;
+                }
+                if (upgrade_points * mana_cost > equip->magic_volume) {
+                    upgrade_points = equip->magic_volume / mana_cost;
+                }
+
+                equip->field15_0x54 = 1;
+
+                // Create a copy of the item.
+                Item* copy;
+                if (slot == 1) {
+                    copy = new Weapon((Weapon*)equip);
+                } else if (slot == 2) {
+                    copy = new Shield((Shield*)equip);
+                } else {
+                    copy = new Armor((Armor*)equip);
+                }
+
+                // Get the first effect on the copy.
+                effect = copy->_effects.GetHead();
+
+                // Reduce magic volume by the cost and apply upgrade.
+                copy->magic_volume = copy->magic_volume - mana_cost * upgrade_points;
+
+                if (effect->effect_id == 0x29) {
+                    effect->spell_value = effect->spell_value + upgrade_points;
+                } else if (effect->effect_id >= 0x2C && effect->effect_id <= 0x31) {
+                    effect->damage_min = effect->damage_min + upgrade_points;
+                } else {
+                    effect->full_magic_value = effect->full_magic_value + upgrade_points;
+                }
+
+                temp_candidates.Add(copy);
+            }
+
+            PickOneRandom(temp_candidates, result_items);
+        }
+    }
+
+    // --- Phase 12: Create inventory and store reward ---
+    Inventory* inv = new Inventory();
+    for (int i = 0; i < result_items.GetSize(); i++) {
+        inv->PutItemIntoBagAtDefault(result_items[i]);
+    }
+    this->rewards_per_player[player->player_id] = inv;
 }

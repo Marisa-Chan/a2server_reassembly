@@ -42,8 +42,11 @@ public:
     virtual void VMethod17(void*, void*);
 
 public:
+    Item(); // sub_547F80: default constructor (blank item)
     Item(const CString& name); // sub_5480E3: construct item from name string
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
+    void sub_548F3F(const CString& str); // Apply special property string to item effects, then call VMethod15
+    void sub_54A0BE(); // Recalculate item properties from template data
 
     Effect* sub_548E4E(); // Find the cast-spell Effect on this item (returns nullptr if none)
     int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
@@ -71,6 +74,7 @@ ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
+    Armor(const Armor* src); // sub_54F9ED: copy constructor
     void LoadInfo(); // sub_54F634
 
 public:
@@ -83,6 +87,9 @@ ASSERT_SIZE(Armor, 0x70);
 
 class Shield : public Item {
 public:
+    Shield(const Shield* src); // sub_550467: copy constructor
+
+public:
     Protections protections;
     uint8_t gap_0x6e[2];
 };
@@ -90,6 +97,7 @@ ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
+    Weapon(const Weapon* src); // sub_5511EE: copy constructor
     void LoadEquipInfo(WorldEquip* params); // sub_550E26
 
 public:

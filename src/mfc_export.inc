@@ -141,6 +141,7 @@ externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
+externdef ?sub_50DF19@GameDataRes@@QAEHH@Z :proc                               ; GameDataRes::sub_50DF19(int)
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
@@ -163,6 +164,7 @@ externdef ?VMethod1@Inn@@UAEXXZ :proc
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
 externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
 externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
+externdef ?InnReward@Inn@@QAEXPAVPlayer@@@Z :proc                               ; void Inn::InnReward(Player*)
 externdef ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z :proc
 
 
@@ -522,6 +524,7 @@ extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xx
 externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 externdef ?ProcessTick@UnitList@@QAEXXZ :proc
+externdef ?sub_557AB0@UnitList@@QAEHXZ :proc                                   ; UnitList::sub_557AB0()
 
 
 
@@ -594,19 +597,28 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 
 ; Item
+externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
+externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                            ; Item::sub_548F3F(const CString&)
+externdef ?sub_54A0BE@Item@@QAEXXZ :proc                                       ; Item::sub_54A0BE()
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 
 ; Armor
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
+externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
+
+
+; Shield
+externdef ??0Shield@@QAE@PBV0@@Z :proc                                         ; Shield::Shield(const Shield*)
 
 
 ; Weapon
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
+externdef ??0Weapon@@QAE@PBV0@@Z :proc                                         ; Weapon::Weapon(const Weapon*)
 
 
 ; Inventory

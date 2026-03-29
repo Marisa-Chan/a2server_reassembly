@@ -24,6 +24,7 @@ public:
     void sub_5579D8(Player* player); // Clear unit vision mask bits for player across this list
     Unit* sub_5560D2(uint16_t id);   // Look up unit in list by ID
     void ProcessTick();              // Tick alive units and reap dead ones (sub_556345)
+    int sub_557AB0();                // Check if player has a rewarded unit
 
 public:
     CList<Unit*> unit_list;
