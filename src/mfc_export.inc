@@ -886,6 +886,7 @@ externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@G@Z :proc  ; UnitList* Wor
 externdef ?sub_5A6ADB@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
 externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
 externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
+externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc

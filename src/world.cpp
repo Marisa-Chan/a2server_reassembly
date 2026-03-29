@@ -62,6 +62,12 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     }
 }
 
+// Check if two units are at war.
+// 5B5816
+bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
+    return (this->diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
+}
+
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4

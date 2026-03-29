@@ -176,6 +176,7 @@ public:
     uint8_t sub_5A6ADB(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
+    bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);
