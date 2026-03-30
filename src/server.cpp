@@ -843,7 +843,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     unit->hp = unit->hp_max;
     unit->mp = unit->mp_max;
     unit->name = player->name;
-    unit->TokenID = BldIdSet_AllocBit() & 0xFFFF;
+    unit->building_id = BldIdSet_AllocBit() & 0xFFFF;
     unit->pOwner = player;
     player->unit_list->AddTail(unit);
 
