@@ -18,7 +18,15 @@
 #include "dplobby.h"
 
 
-NetStru1 NetStru1::Inst(0);
+GUID Allods2GUID = {0x65450caa,0x57ca,0x11d2,0xbbcc,0x00, 0x60, 0x97, 0xd2, 0xee, 0x9f};
+
+
+NetStru1 NetStru1::HatConnector(0); // 6a6a98
+NetStru1 g_NetStru1_main(1);  //6c3a08
+NetStru1 g_NetStru1_local(0);  //6b16b0
+
+CLlDriver g_CLlDriver(Allods2GUID, &g_NetStru1_main); //6d07a0
+CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
 
 
 void PackerDat::DeleteTail(PackerTail* node)
@@ -788,7 +796,7 @@ NetStru1::~NetStru1()
 void NetStru1::OnClientConnect(NetStru2* cli)
 {
     //51fc72
-    if (this != &Inst)
+    if (this != &HatConnector)
     {
         client_stat[cli->uid] = new ConnStatInfo;
 
@@ -802,7 +810,7 @@ void NetStru1::OnClientConnect(NetStru2* cli)
 void NetStru1::OnClientDisconnect(NetStru2* cli)
 {
     //51f561
-    if (this == &Inst)
+    if (this == &HatConnector)
     {
         LogMessage("Connection with hat has been lost.");
         if (g_Server)

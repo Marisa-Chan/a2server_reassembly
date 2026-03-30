@@ -95,7 +95,7 @@ public:
     uint32_t stat_pkt_num[256];
     uint32_t stat_pkt_size[256];
 
-    static NetStru1 Inst;
+    static NetStru1 HatConnector;
 
 public:
     // Transfers unit ownership to another player.
@@ -508,3 +508,13 @@ public:
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);
 ASSERT_SIZE(CLlDriver, 0x914);
+
+
+
+
+
+extern NetStru1 g_NetStru1_main;  //6c3a08
+extern NetStru1 g_NetStru1_local; //6b16b0
+
+extern CLlDriver g_CLlDriver; //6d07a0
+extern CLlDriver g_HatLLDriver; //6cdbc0

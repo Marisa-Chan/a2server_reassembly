@@ -726,7 +726,9 @@ externdef ??_7NetStru1@@6B@ : dword
 extern ??0NetStru1@@QAE@H@Z : proc
 extern ??1NetStru1@@QAE@XZ : proc
 
-externdef ?Inst@NetStru1@@2V1@A : dword
+extern ?HatConnector@NetStru1@@2V1@A : dword
+extern ?g_NetStru1_main@@3VNetStru1@@A:byte
+extern ?g_NetStru1_local@@3VNetStru1@@A:byte
 
 extern ?AddTailNet2@NetStru1@@QAEXAAPAUNetStru2@@@Z : proc
 extern ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z : proc
@@ -737,7 +739,6 @@ extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
 extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 
 
-externdef ?g_NetStru1_main@@3VNetStru1@@A:byte
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
 extern ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z : proc
@@ -1186,7 +1187,8 @@ extern ?RestartModemServerDp@CLlDriver@@QAEHXZ : proc
 
 extern ?SetLatency@CLlDriver@@QAEXIH@Z :proc
 
-externdef ?g_CLlDriver@@3UCLlDriver@@A  : dword
+extern ?g_CLlDriver@@3UCLlDriver@@A  : dword
+extern ?g_HatLLDriver@@3UCLlDriver@@A : dword
 
 
 ;TxtFile

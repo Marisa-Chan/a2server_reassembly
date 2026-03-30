@@ -54,7 +54,7 @@ void SetMessageColors(uint32_t); //476de7
 extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 extern Server* g_Server;   //642c2c
-extern NetStru1 g_NetStru1_main;  //6c3a08
+
 extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
 extern "C" UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
 
@@ -102,7 +102,6 @@ extern uint32_t g_IsCdPresent; //660f94
 extern uint32_t g_EnableMusic; //660e10
 extern uint32_t g_EnableTrace; //660f78
 
-extern CLlDriver g_CLlDriver; //6d07a0
 
 extern uint32_t g_DWORD_00659d18; //659d18
 
