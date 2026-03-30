@@ -9,7 +9,7 @@
 
 class Building;
 struct TokenPos;
-
+class Player;
 
 class BuildingsList : public CList<Building*> {
     // No fields.
