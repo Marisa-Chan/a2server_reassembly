@@ -865,8 +865,12 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     // Copy the player's vision-sharing ID into unit.
     unit->field_0x1a4 = player->vision_sharing_id;
 
+#ifdef A2CLIENT
+    g_NetStru1_main.sub_519221(unit, player, -1, 0xffb, 0, 0);
+#else
     player->min_server_level = 1;
     player->max_server_level = 1;
+#endif
     return unit;
 }
 
