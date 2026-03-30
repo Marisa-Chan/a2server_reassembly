@@ -149,8 +149,9 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
             if (pid >= 0x10 && pid < 0x20) {
                 unit->something_per_player[pid - 16] |= mask;
             }
+            return;
         }
-        return;
+        
     }
 
     // Fill in packet header.
