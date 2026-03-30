@@ -377,7 +377,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
             char* dst = (char*)pkt->data + pkt->data_offset;
             strncpy(dst, unit->name, 24);
             dst[23] = 0;
-            pkt->data_offset += 25; // 24 + terminator that already nulled
+            pkt->data_offset += 24; // 24 + terminator that already nulled
             pkt->flags_mask |= 0x80000000u;
         }
     }
