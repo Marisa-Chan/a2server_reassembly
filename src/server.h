@@ -117,6 +117,8 @@ public:
     void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 
+    int Start(int mode); //4f06f5
+        
 
 public:
     int tick16; // This value seems to be advanced every 16 ticks
@@ -183,6 +185,8 @@ public:
     int32_t map_elapsed_time;
     int32_t map_elapsed_time2;
 
+
+    static uint16_t somewords[32][32]; //6cfdf0 used in client!
 
 public:
     void FUN_004ff439(Player* player, int32_t arg4);

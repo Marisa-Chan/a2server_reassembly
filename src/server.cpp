@@ -43,6 +43,9 @@ extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 // returns the parsed count (or 1 if none present).
 extern "C" int32_t sub_5049D1(CString* str);
 
+
+uint16_t Server::somewords[32][32];
+
 // 59FC97
 void Srv1::sub_59FC97(int count) {
     uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
@@ -2564,4 +2567,87 @@ Player* Server::Allods2_CreatePlayer(CString name)
         g_PlayersList->sub_5357C6(player);
 
     return player;
+}
+
+int Server::Start(int mode)
+{
+    //4f06f5
+    g_buildingIdSet.Clear();
+
+#ifdef A2CLIENT
+    char tmpbuf[256];
+    GetProfileStringA("Allods Server", "BaseDir", "", tmpbuf, 255);
+    field5_0x78 = tmpbuf;
+#endif
+
+    field4_0x74 = mode < 2;
+    field3_0x70 = mode > 0;
+
+    if (field4_0x74 == 0)
+        field39_0x1a8 = 0;
+    else
+        field39_0x1a8 = 1;
+
+    field16_0x8c = 0;
+
+    g_Server = this;
+
+    g_NetStru1_main.SetLLDriver(&g_CLlDriver);
+
+#ifndef A2CLIENT
+    if (mode == 0)
+    {
+        NetStru1::HatConnector.SetLLDriver(&g_HatLLDriver);
+        g_HatLLDriver.hl_driver = &NetStru1::HatConnector;
+        g_HatLLDriver.ResetProvider(4);
+    }
+#endif
+
+    if (g_GameDataRes.ParseWorldIn("World\\Data\\") != 0)
+        return 2;
+
+#ifndef A2CLIENT
+    if (g_GameDataRes.magics[3].values[0].mana_cost < 200)
+        return 2;
+#endif
+
+    spells[0] = nullptr;
+
+    for (int i = 1; i < 30; i++)
+        spells[i] = new Spell(i);
+
+    dword_6CDB3C = new UnitList();
+    dword_6B37C4 = new UnitList();
+
+    srv_stru1->units_list = new UnitList();
+
+    g_PlayersList = new PlayersList();
+
+    for (int j = 0; j < 32; j++)
+    {
+        for (int i = 0; i < 32; i++)
+            somewords[j][i] = 0;
+    }
+
+#ifndef A2CLIENT
+    FileList.RemoveAll();
+
+    CFileFind fnd;
+    bool res = fnd.FindFile(g_ServerConfig.chr_base + "*.");
+    while (res)
+    {
+        res = fnd.FindNextFileA();
+        if (!fnd.IsDirectory())
+            FileList.Add(fnd.GetFileName());
+    }
+
+    if (FileList.GetSize())
+    {
+        CString str;
+        str.Format("%d unsent characters found. Ordered to return to hat.", FileList.GetSize());
+        LogMessage(str);
+    }
+#endif
+
+    return 0;
 }

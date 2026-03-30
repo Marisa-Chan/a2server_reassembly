@@ -848,6 +848,7 @@ externdef ?sub_4ED2DC@Server@@QAEXPAVCString@@@Z :proc
 externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
+extern ?Start@Server@@QAEHH@Z : proc
 
 
 ; CowardActivation

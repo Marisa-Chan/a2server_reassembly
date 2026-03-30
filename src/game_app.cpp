@@ -218,7 +218,11 @@ BOOL GameApp::InitInstance()
 	Resources::StaticAddResFile("graphics.res");
 	Resources::StaticAddResFile("main.res");
 	Resources::StaticAddResFile("patch.res");
+#ifdef A2CLIENT
+	Resources::StaticAddResFile("world.res");
+#else
 	Resources::StaticAddResFile("world_srv.res");
+#endif
 	Resources::StaticAddResFile("video.res");
 
 	if (strstr(m_lpCmdLine, "-nomusic"))
