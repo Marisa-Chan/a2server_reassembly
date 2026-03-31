@@ -976,8 +976,12 @@ void NetStru1::SendPacket_64(uint32_t val, uint16_t player_id)
     pkt.to_player_id = player_id;
     QueuePacketSend(&pkt);
 
+#ifdef A2CLIENT
+    SendAllData();
+#else
     if ((val & 3) == 1)
         SendAllData();
+#endif
 }
 
 void NetStru1::SetLLDriver(CLlDriver* drv)
