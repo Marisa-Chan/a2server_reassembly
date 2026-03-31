@@ -28,9 +28,9 @@ void __cdecl FUN_004559d4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* s
 		{
 			while (xx - x < w)
 			{
-				uint8_t b = *src;
+				const uint8_t b = *src;
 				src++;
-				uint8_t flags = b & 0xc0;
+				const uint8_t flags = b & 0xc0;
 				uint8_t count = b & 0x3f;
 				if (flags == 0)
 				{
@@ -82,10 +82,10 @@ void __cdecl FUN_004559d4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* s
 			int32_t xx = 0;
 			while (xx < w)
 			{
-				uint8_t b = *src;
+				const uint8_t b = *src;
 				src++;
-				uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
+				const uint8_t flags = b & 0xc0;
+				const uint8_t count = b & 0x3f;
 				if (flags == 0)
 				{
 					xx += count;
