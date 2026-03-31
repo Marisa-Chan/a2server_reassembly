@@ -1311,7 +1311,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     // ---- Regular item ----
                     bool is_item_improvement = (id >= inv_count - 1);
 
-                    if (is_item_improvement) {
+                    if (!is_item_improvement) {
                         // Not last item — just give it to the humanoid
                         item->TokenID = 1;
                         humanoid->inventory->PutItemIntoBagAtDefault(item);
