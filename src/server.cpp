@@ -43,6 +43,37 @@ extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 // returns the parsed count (or 1 if none present).
 extern "C" int32_t sub_5049D1(CString* str);
 
+// sub_4F53EA: Save character data to file.
+// TODO: types for all parameters.
+extern "C" void __cdecl sub_4F53EA(const char* filename, void* basic_info, void* stats, char* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* param7, uint32_t param8);
+
+// Data blocks passed to sub_4F53EA (must match original stack layout).
+struct CharSaveBasicInfo {
+    uint8_t hat_data[8];
+    uint32_t server_field;
+    char name[32];
+    uint8_t flags;
+    uint8_t face;
+    uint8_t main_sphere;
+    uint8_t constant_4;
+    uint8_t field_0xa44;
+};
+
+struct CharSaveStats {
+    uint32_t monster_kills;
+    uint32_t player_kills;
+    uint32_t frags;
+    uint32_t deaths;
+    int32_t money;
+    int8_t body;
+    int8_t reaction;
+    int8_t mind;
+    int8_t spirit;
+    uint32_t spellbook_bitmask;
+    uint32_t eye2_spell_id;
+    int32_t exp_sphere[5];
+};
+
 
 uint16_t Server::somewords[32][32];
 
@@ -1723,7 +1754,7 @@ void Server::sub_504a96(Packet* pkt)
             }
 
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
-                this->sub_4EE028(unit);
+                this->sub_4EE028((Humanoid*)unit);
             }
             break;
         }
@@ -1758,7 +1789,7 @@ void Server::sub_504a96(Packet* pkt)
             }
             shop->sub_54471B(unit);
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
-                this->sub_4EE028(unit);
+                this->sub_4EE028((Humanoid*)unit);
             }
             break;
         }
@@ -1774,7 +1805,7 @@ void Server::sub_504a96(Packet* pkt)
             if (!shop) break;
             shop->sub_544737(unit);
             if (GetTickCount() - unit->pOwner->field_0xa7c > 15000) {
-                this->sub_4EE028(unit);
+                this->sub_4EE028((Humanoid*)unit);
             }
             break;
         }
@@ -2713,4 +2744,101 @@ int Server::Start(int mode)
 #endif
 
     return 0;
+}
+
+// Save a player's character data to file.
+// 4EE028
+void Server::sub_4EE028(Humanoid* humanoid) {
+    Player* player = humanoid->pOwner;
+    player->field_0xa7c = GetTickCount();
+
+    PacketUnitStateVec equip_pkt;
+    PacketUnitStateVec inv_pkt;
+
+    // Gather type/attr flags
+    uint8_t flags = 0;
+    if (humanoid->typeId == 0x22 || humanoid->typeId == 0x24) {
+        flags |= 0x80;
+    }
+    if (humanoid->unit_attrs & 4) {
+        flags |= 0x40;
+    }
+
+    // Build basic info block
+    CharSaveBasicInfo basic_info;
+    memcpy(basic_info.hat_data, &player->hat_player_id, 8);
+    basic_info.server_field = this->field54_0x1f4;
+    strcpy(basic_info.name, (const char*)player->name);
+    basic_info.flags = flags;
+    basic_info.face = humanoid->face;
+    basic_info.main_sphere = humanoid->main_sphere;
+    basic_info.constant_4 = 4;
+    basic_info.field_0xa44 = player->field_0xa44;
+
+    // Build stats block
+    CharSaveStats stats;
+    stats.monster_kills = player->monster_kills;
+    stats.player_kills = player->player_kills;
+    stats.frags = player->frags;
+    stats.deaths = player->deaths;
+    stats.money = player->money;
+    stats.body = humanoid->body - humanoid->equipment_extra.body;
+    stats.reaction = humanoid->reaction - humanoid->equipment_extra.reaction;
+    stats.mind = humanoid->mind - humanoid->equipment_extra.mind;
+    stats.spirit = humanoid->spirit - humanoid->equipment_extra.spirit;
+
+    if (humanoid->spell_book) {
+        stats.spellbook_bitmask = humanoid->spell_book->sub_53DD3D();
+    } else {
+        stats.spellbook_bitmask = 0;
+    }
+
+    if (humanoid->eye2) {
+        stats.eye2_spell_id = humanoid->eye2->spell_id;
+    } else {
+        stats.eye2_spell_id = 0;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        stats.exp_sphere[i] = humanoid->experience_per_sphere[i];
+    }
+
+    // Serialize weapon
+    if (humanoid->weapon) {
+        humanoid->weapon->StoreToPacket(&equip_pkt, 0);
+    } else {
+        Item blank;
+        blank.StoreToPacket(&equip_pkt, 0);
+    }
+
+    // Serialize shield
+    if (humanoid->shield) {
+        humanoid->shield->StoreToPacket(&equip_pkt, 0);
+    } else {
+        Item blank;
+        blank.StoreToPacket(&equip_pkt, 0);
+    }
+
+    // Serialize equipment slots 3..12
+    for (int i = 3; i <= 12; i++) {
+        if (humanoid->equipment[i]) {
+            humanoid->equipment[i]->StoreToPacket(&equip_pkt, 0);
+        } else {
+            Item blank;
+            blank.StoreToPacket(&equip_pkt, 0);
+        }
+    }
+
+    // Serialize inventory items
+    POSITION pos = humanoid->inventory->items.GetHeadPosition();
+    while (pos) {
+        Item* item = humanoid->inventory->items.GetNext(pos);
+        item->StoreToPacket(&inv_pkt, 0);
+    }
+
+    // Format filename and save
+    CString filename;
+    filename.Format("%s%s", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
+
+    sub_4F53EA((const char*)filename, &basic_info, &stats, (char*)player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }

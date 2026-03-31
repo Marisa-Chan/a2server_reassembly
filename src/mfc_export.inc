@@ -601,6 +601,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 ; Item
 externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
+externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
@@ -830,7 +831,8 @@ externdef ?sub_4FF937@Server@@QAEXPAVPlayer@@H@Z :proc
 externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
-externdef ?sub_4EE028@Server@@QAEXPAVUnit@@@Z :proc
+externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
+externdef _sub_4F53EA :proc                                                     ; sub_4F53EA — save character data to file
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
 externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc

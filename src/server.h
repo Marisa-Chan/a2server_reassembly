@@ -14,6 +14,7 @@ class Building;
 class BuildingsList;
 class Shop;
 class Human;
+class Humanoid;
 class Inn;
 class Inventory;
 class Packet;
@@ -102,7 +103,7 @@ public:
 
     // Sub-functions called by sub_4FC644
     Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
-    void sub_4EE028(Unit* unit);
+    void sub_4EE028(Humanoid* humanoid);
     void sub_5013D4(Player* player);
     void sub_4F4570();
     void sub_4FA4BB(CString* name, uint32_t* frags);

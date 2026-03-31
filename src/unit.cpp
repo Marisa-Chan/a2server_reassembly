@@ -987,7 +987,7 @@ void Unit::sub_52D94E()
     if (this->pOwner != nullptr && this->pOwner->main_unit == this) {
         this->pOwner->deaths += 1;
         g_NetStru1_main.sub_519221(this, this->pOwner, 0x2400000, 0xFFB, 0, 0);
-        g_Server->sub_4EE028(this);
+        g_Server->sub_4EE028(this->pOwner->main_unit);
         this->hp = -50;
     }
 
