@@ -296,6 +296,7 @@ public:
     int sub_5126A2(uint32_t type_low_byte, uint32_t face); // Get monster table index by type and face
     Item* sub_510EE6(uint16_t item_id); // Create a new item instance by item data ID
     int sub_50DF19(int experience); // Get random recruitable monster index for inn reward
+    int sub_50DDAE(uint32_t type_id, uint32_t face); // Get monster data index from encoded item type/face
 };
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);

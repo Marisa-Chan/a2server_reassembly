@@ -1084,3 +1084,280 @@ void Inn::InnReward(Player* player) {
     }
     this->rewards_per_player[player->player_id] = inv;
 }
+
+// sub_5306EA: Convert experience to skill level (inverse of sub_530726).
+extern "C" int __cdecl sub_5306EA(int experience);
+
+// sub_530726: Get experience required for given skill level.
+extern "C" uint32_t __cdecl sub_530726(int32_t skill_level);
+
+// sub_560DC2 — Handle inn quest/reward interaction.
+// Called when a humanoid finishes interacting with the inn.
+// `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `some_id`.
+void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
+    // Look up the unit by the building id
+    Unit* found = this->unit_list.sub_5560D2(humanoid->building_id);
+    if (!found) {
+        return;
+    }
+
+    // Find and remove humanoid from the inn's unit list
+    {
+        POSITION pos = this->unit_list.unit_list.GetHeadPosition();
+        while (pos) {
+            POSITION cur_pos = pos;
+            Unit* u = this->unit_list.unit_list.GetNext(pos);
+            if (u == (Unit*)humanoid) {
+                this->unit_list.unit_list.RemoveAt(cur_pos);
+                break;
+            }
+        }
+    }
+
+    // Notify if server field is set
+    if (g_Server->field4_0x74 != 0) {
+        humanoid->sub_52C409();
+    }
+
+    // Special cancel sentinel?
+    if (id == 0xAAAAAAAA) {
+        int32_t result = g_QuestMap.sub_55E129(0x11, humanoid->pOwner->player_id, this->building_id);
+        g_QuestMap.sub_55E129(2, result, 0);
+        return;
+    }
+
+    if (id >= 0x100) { // Accepting quest.
+        int32_t player_id = humanoid->pOwner->player_id;
+
+        // Look up QuestMap for this player
+        QuestMap* qm = nullptr;
+        if (this->quest_map_per_player.Lookup(player_id, qm)) {
+            this->quest_map = qm;
+
+            // Look up quest by id in the quest map
+            Quest* quest = nullptr;
+            if (qm->quests_map.Lookup(id, quest)) {
+                this->active_quest = quest;
+
+                // Process the quest
+                qm->sub_55E5FB(this->active_quest);
+                this->active_quest->state = 0;
+                g_QuestMap.sub_55E24A(this->active_quest);
+                g_NetStru1_main.sub_51D4F6(&g_QuestMap, humanoid->pOwner, 0);
+                g_NetStru1_main.FUN_0051ce86(0x10, 0, humanoid->pOwner);
+
+                int32_t kind = this->active_quest->Kind();
+                switch (kind) {
+                    case 4: // Escort
+                    {
+                        Unit* escort_unit = dword_6CDB3C->sub_5560D2(this->active_quest->obj);
+                        if (escort_unit == nullptr || humanoid == nullptr) {
+                            g_QuestMap.sub_55E5FB(this->active_quest);
+                        } else {
+                            g_NetStru1_main.FUN_004fb4ca(escort_unit, humanoid->pOwner);
+                        }
+                        break;
+                    }
+                    case 5: // DeliverItem
+                    {
+                        uint8_t subtype = this->active_quest->obj;
+                        Item* new_item = new Item(0xE, subtype);
+                        humanoid->inventory->PutItemIntoBagAtDefault(new_item);
+                        g_NetStru1_main.sub_519221(humanoid, humanoid->pOwner, 0x202000, 0xFFB, 0, 0);
+                        break;
+                    }
+                    case 6: // DeliverMail
+                    {
+                        this->active_quest->progress = GetTickCount();
+                        break;
+                    }
+                    case 11: // Intercept unit
+                    {
+                        uint16_t unit_id = this->active_quest->obj;
+                        Unit* target_unit = dword_6CDB3C->sub_5560D2(unit_id);
+                        if (target_unit == nullptr) {
+                            g_QuestMap.sub_55E5FB(this->active_quest);
+                        } else {
+                            target_unit->group->group_sub->active = 1;
+                            uint8_t y = this->position->GetY();
+                            uint8_t x = this->position->GetX();
+                            g_World->sub_5AC785(target_unit->group, x, y);
+                        }
+                        break;
+                    }
+                    case 12: // Intercept group
+                    {
+                        POSITION ppos = g_PlayersList->GetHeadPosition();
+                        Player* pl = nullptr;
+                        while (ppos) {
+                            pl = g_PlayersList->GetNext(ppos);
+                            if (pl->is_ai) {
+                                POSITION gpos = pl->group_list->groups.GetHeadPosition();
+                                bool found_group = false;
+                                while (gpos) {
+                                    Group* grp = pl->group_list->groups.GetNext(gpos);
+                                    if (grp->group_id == this->active_quest->obj) {
+                                        grp->group_sub->active = 1;
+                                        uint8_t y = this->position->GetY();
+                                        uint8_t x = this->position->GetX();
+                                        g_World->sub_5AC785(grp, x, y);
+                                        pl = nullptr;
+                                        found_group = true;
+                                        break;
+                                    }
+                                }
+                                if (found_group) {
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    } else {
+        // ---- Reward item path (id < 256) ----
+        int32_t player_id = humanoid->pOwner->player_id;
+
+        // Look up Inventory from rewards_per_player
+        Inventory* item_list = nullptr;
+        if (this->rewards_per_player.Lookup(player_id, item_list)) {
+            int32_t inv_count = item_list->items.GetCount();
+            Item* item = item_list->sub_552E42(id, 0xFFFF);
+            if (item != nullptr) {
+                uint16_t item_hash = item->item_id;
+                if (item_hash == 0xFFFD) {
+                    // ---- Monster reward ----
+                    uint8_t low_byte = item->count & 0xFF;
+                    uint8_t high_byte = (item->count >> 8) & 0xFF;
+                    int monster_index = g_GameDataRes.sub_50DDAE(low_byte, high_byte);
+
+                    Unit* new_unit = new Unit(g_GameDataRes.monsters[monster_index].name);
+
+                    if (new_unit != nullptr) {
+                        uint8_t y = humanoid->position->GetY();
+                        uint8_t x = humanoid->position->GetX();
+                        int placed = new_unit->sub_52BF3D(x, y, 5);
+                        if (placed != 0) {
+                            dword_6CDB3C->AddTailAllocId(new_unit);
+                            new_unit->pOwner = humanoid->pOwner;
+                            humanoid->pOwner->unit_list->AddTail(new_unit);
+
+                            Group* new_group = new Group();
+                            CList<Group*>& grp_list = humanoid->pOwner->group_list->groups;
+                            POSITION node = grp_list.AddTail(new_group);
+
+                            new_group->AddUnit(new_unit);
+                            g_World->sub_5A9A6A(new_unit);
+                            g_World->sub_5ACDF4(new_group);
+                            g_NetStru1_main.sub_519221(new_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+                        } else {
+                            // Placement failed — clean up
+                            delete new_unit;
+                        }
+                    }
+                } else if (item_hash == 0xFFFE) {
+                    // ---- Experience reward ----
+                    uint32_t base_exp = ((uint32_t)item->count) * 250;
+                    int32_t carry = 0;
+                    int32_t max_skill_exp = sub_530726(100);
+
+                    for (int32_t sphere = 1; sphere <= 5; sphere++) {
+                        if (sphere == 5 || sphere == humanoid->main_sphere) {
+                            carry += base_exp / 5;
+                        } else {
+                            carry = carry / 8 + base_exp / 40;
+                        }
+
+                        if (humanoid->experience_per_sphere[sphere - 1] >= max_skill_exp) {
+                            // Already at max
+                            humanoid->experience_per_sphere[sphere - 1] = max_skill_exp;
+                        } else if (humanoid->experience_per_sphere[sphere - 1] + carry >= max_skill_exp) {
+                            // Would exceed max — clamp
+                            carry -= (max_skill_exp - humanoid->experience_per_sphere[sphere - 1]);
+                            humanoid->experience_per_sphere[sphere - 1] = max_skill_exp;
+                        } else {
+                            // Add carry to this sphere
+                            humanoid->experience_per_sphere[sphere - 1] += carry;
+                            carry = 0;
+
+                            int32_t new_level = sub_5306EA(humanoid->experience_per_sphere[sphere - 1]);
+                            if (new_level > humanoid->hit_values2.skill_levels[sphere]) {
+                                g_NetStru1_main.FUN_0051ce86(2, sphere, humanoid->pOwner);
+
+                                int16_t clamped_level;
+                                humanoid->hit_values2.skill_levels[sphere] = new_level;
+                                if (humanoid->hit_values2.skill_levels[sphere] > 100) {
+                                    clamped_level = 100;
+                                } else {
+                                    clamped_level = humanoid->hit_values2.skill_levels[sphere];
+                                }
+                                humanoid->hit_values.skill_levels[sphere] = clamped_level + humanoid->equipment_extra.hit_values.skill_levels[sphere];
+                            }
+                        }
+                    }
+
+                    // Recalculate total experience
+                    humanoid->experience = 0;
+                    for (int32_t sphere = 1; sphere <= 5; sphere++) {
+                        humanoid->experience += humanoid->experience_per_sphere[sphere - 1];
+                    }
+                    g_NetStru1_main.sub_519221(humanoid, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
+                } else if (item_hash == 0xFFFF) {
+                    // ---- Money reward ----
+                    humanoid->pOwner->FUN_00534AC1(((uint32_t)item->count) * 250, 0);
+                } else {
+                    // ---- Regular item ----
+                    bool is_item_improvement = (id >= inv_count - 1);
+
+                    if (is_item_improvement) {
+                        // Not last item — just give it to the humanoid
+                        item->TokenID = 1;
+                        humanoid->inventory->PutItemIntoBagAtDefault(item);
+                        g_NetStru1_main.sub_519221(humanoid, nullptr, 0x282000, 0xFFB, 0, 0);
+                    } else {
+                        // Last item — try to equip it, so `equipped` would be the item that was on the player before.
+                        Item* equipped = item->VMethod10(humanoid);
+                        if (equipped == nullptr || equipped->field15_0x54 == 0) {
+                            // Failed --- burn the item.
+                            item->VMethod11(humanoid);
+                            delete item;
+                            if (equipped != nullptr) {
+                                delete equipped;
+                            }
+                            g_NetStru1_main.FUN_0051ce86(5, humanoid->pOwner->player_id, humanoid->pOwner);
+                        } else {
+                            // Use succeeded — clean up equipped placeholder
+                            delete equipped;
+                        }
+                        g_NetStru1_main.sub_519221(humanoid, nullptr, 0x482000, 0xFFB, 0, 0);
+                    }
+                }
+            }
+
+            // Clean up the rewards_per_player entry
+            this->rewards_per_player.RemoveKey(player_id);
+
+            // Delete all remaining items from the inventory
+            while (item_list->items.GetCount() > 0) {
+                Item* remaining = item_list->items.GetHead();
+                POSITION pos = item_list->items.Find(remaining);
+                if (pos) {
+                    item_list->items.RemoveAt(pos);
+                }
+                delete remaining;
+            }
+            delete item_list;
+        }
+    }
+
+    // Find and clean up any pending quest for this player
+    this->active_quest = this->sub_567A25(humanoid->pOwner);
+    if (this->active_quest != nullptr) {
+        g_QuestMap.sub_55E5FB(this->active_quest);
+        if (this->active_quest != nullptr) {
+            delete this->active_quest;
+        }
+    }
+}

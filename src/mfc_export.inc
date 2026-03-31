@@ -143,6 +143,7 @@ externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 externdef ?sub_50DF19@GameDataRes@@QAEHH@Z :proc                               ; GameDataRes::sub_50DF19(int)
+externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ; int GameDataRes::sub_50DDAE(uint32_t, uint32_t)
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
@@ -162,11 +163,12 @@ externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 externdef _InnRuntimeClass :byte
 
 externdef ?VMethod1@Inn@@UAEXXZ :proc
-externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@G@Z :proc
+externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@H@Z :proc
 externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
 externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
 externdef ?InnReward@Inn@@QAEXPAVPlayer@@@Z :proc                               ; void Inn::InnReward(Player*)
 externdef ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z :proc
+externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     ; Quest* Inn::sub_567A25(Player*)
 
 
 ; Shop
@@ -600,6 +602,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 ; Item
 externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
+externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
@@ -975,6 +978,7 @@ externdef ?sub_55E129@QuestMap@@QAEHHHH@Z :proc
 externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
 externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
+externdef ?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z :proc                           ; void QuestMap::sub_55E5FB(Quest*)
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 
@@ -1303,6 +1307,7 @@ externdef _sub_53678F :proc   ; execute attack?
 externdef _Random0N :proc     ; 542216
 externdef _Random1N :proc     ; 54223F
 externdef _sub_530726 :proc   ; ExperienceToSkillLevel
+externdef _sub_5306EA :proc   ; SkillLevelFromExperience
 externdef _sub_530DCB :proc   ; ClampExperienceGain
 externdef _sub_5499A6 :proc   ; CreateRandomItem
 
@@ -1321,5 +1326,3 @@ extern ?FUN_004559d4@@YAXHHHHPAEPAG@Z : proc
 
 extern _ReportWarning : proc
 extern _XorData : proc
-
-

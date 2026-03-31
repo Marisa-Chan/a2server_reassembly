@@ -35,12 +35,14 @@ public:
 public:
     virtual void VMethod1() override;
 
-    void sub_560DC2(Humanoid* humanoid, uint16_t id);
+    void sub_560DC2(Humanoid* humanoid, int32_t id);
     void sub_560C67(Unit* inn);
     void InnCreateQuests(Player* player);
     void InnReward(Player* player); // sub_565307: Generate reward items for completed quest
     bool sub_567B4D(Player* player); // Check if this player has a quest taken in this inn.
+    Quest* sub_567A25(Player* player); // Find active quest for player at this inn.
 };
+ASSERT_OFFSET(Inn, unit_list, 0xa4);
 ASSERT_OFFSET(Inn, delivery_item_id, 0xd4);
 ASSERT_OFFSET(Inn, quest_map, 0xe0);
 ASSERT_SIZE(Inn, 0xec);
