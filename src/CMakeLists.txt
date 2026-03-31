@@ -14,6 +14,7 @@ set(A2_SOURCES
   file_mfc.cpp
   game.cpp
   game_app.cpp
+  gfx.cpp
   group.cpp
   inn.cpp
   inventory.cpp

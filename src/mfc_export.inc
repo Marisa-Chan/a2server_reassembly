@@ -1309,7 +1309,17 @@ externdef _sub_5499A6 :proc   ; CreateRandomItem
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
 
+
+;gfx
+externdef ?g_clipRect@@3VCRect@@A : RECT
+externdef ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A : dword
+
+extern ?FUN_004559d4@@YAXHHHHPAEPAG@Z : proc
+
+
 ; util.h
 
 extern _ReportWarning : proc
 extern _XorData : proc
+
+
