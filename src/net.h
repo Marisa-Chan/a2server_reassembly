@@ -179,6 +179,8 @@ public:
     void ProcessConnections(); // 51800f
     void DisconnectClient(NetStru2* cli); //5170b6
 
+    void sub_51E205(CString name); //51e205 - Send hat login packet
+
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);

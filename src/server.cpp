@@ -2663,6 +2663,41 @@ Player* Server::Allods2_CreatePlayer(CString name)
     return player;
 }
 
+// 4f0bef
+int32_t Server::sub_4F0BEF() {
+    if (g_CLlDriver.provider != 4) {
+        return 0;
+    }
+
+    if (g_HatLLDriver.listen_socket.is_in_use == 1) {
+        return 1;
+    }
+
+    CLlAddress addr;
+    if (g_ServerConfig.field_0x14.IsEmpty()) {
+        strcpy(addr.address, g_ServerConfig.field_0x10);
+    } else {
+        strcpy(addr.address, g_ServerConfig.field_0x14);
+    }
+
+    LogMessage("Connecting to hat...");
+
+    int result = g_HatLLDriver.PrepareForConnect(g_ServerConfig.field_0x18, &addr);
+    if (result != 0) {
+        result = g_HatLLDriver.Connect(g_ServerConfig.server_name, nullptr);
+    }
+
+    if (result == 0) {
+        LogMessage("Connection to hat failed.");
+        return 0;
+    }
+
+    LogMessage(CString("Connected. Logging in..."));
+    NetStru1::HatConnector.ProcessConnections();
+    NetStru1::HatConnector.sub_51E205(g_ServerConfig.field_0x10);
+    return 1;
+}
+
 int Server::Start(int mode)
 {
     //4f06f5

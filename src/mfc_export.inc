@@ -854,6 +854,10 @@ externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
 extern ?Start@Server@@QAEHH@Z : proc
+externdef ?sub_4F0BEF@Server@@QAEHXZ :proc  ; int Server::sub_4F0BEF()
+
+; NetStru1::sub_51E205
+externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
 
 
 ; CowardActivation
