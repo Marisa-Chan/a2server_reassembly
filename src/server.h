@@ -100,6 +100,7 @@ public:
     void sub_4FA5C4();
     void sub_4FA78E(int arg);
     void sub_4F8831();
+    void sub_4F0ECF();
 
     // Sub-functions called by sub_4FC644
     Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);

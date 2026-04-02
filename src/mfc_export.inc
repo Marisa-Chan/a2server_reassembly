@@ -823,6 +823,7 @@ externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
+externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
@@ -858,6 +859,9 @@ externdef ?sub_4F0BEF@Server@@QAEHXZ :proc  ; int Server::sub_4F0BEF()
 
 ; NetStru1::sub_51E205
 externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
+externdef ?sub_51DFA7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
+externdef ?sub_51E0B7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
+externdef ?sub_51E1C7@NetStru1@@QAEXG@Z :proc
 
 
 ; CowardActivation
@@ -1292,6 +1296,7 @@ extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisL
 externdef @sub_596131@4 :proc
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef _sub_5008CA :proc
+externdef _sub_4F62E6 :proc
 
 
 ;GFX things

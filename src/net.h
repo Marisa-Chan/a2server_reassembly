@@ -180,6 +180,9 @@ public:
     void DisconnectClient(NetStru2* cli); //5170b6
 
     void sub_51E205(CString name); //51e205 - Send hat login packet
+    void sub_51DFA7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
+    void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
+    void sub_51E1C7(uint16_t player_id);
 
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);

@@ -25,6 +25,7 @@
 #include "shop.h"
 #include "inventory.h"
 #include "spell.h"
+#include "player_file.h"
 
 
 class QuestMap;
@@ -46,6 +47,12 @@ extern "C" int32_t sub_5049D1(CString* str);
 // sub_4F53EA: Save character data to file.
 // TODO: types for all parameters.
 extern "C" void __cdecl sub_4F53EA(const char* filename, void* basic_info, void* stats, char* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* param7, uint32_t param8);
+
+// sub_4F62E6: Parse a character file into section pointers.
+extern "C" void __cdecl sub_4F62E6(CFile* file, FileSectionBasicInfo** basic_info,
+                                    FileSectionStats** stats, void** kill_stats,
+                                    void** equip_pkt, void** inv_pkt,
+                                    void** param7, void** param8);
 
 // Data blocks passed to sub_4F53EA (must match original stack layout).
 struct CharSaveBasicInfo {
@@ -2696,6 +2703,104 @@ int32_t Server::sub_4F0BEF() {
     NetStru1::HatConnector.ProcessConnections();
     NetStru1::HatConnector.sub_51E205(g_ServerConfig.field_0x10);
     return 1;
+}
+
+// 4f0ecf
+void Server::sub_4F0ECF()
+{
+    if (this->field51_0x1d8 != 0 || this->field50_0x1d4 != 0) {
+        return;
+    }
+
+    DWORD tick_count = GetTickCount();
+
+    if (tick_count - this->field64_0x21c > 60000) {
+        this->field64_0x21c = tick_count;
+
+        if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != 0) {
+            NetStru1::HatConnector.sub_51E1C7(0);
+        } else {
+            Player* player = nullptr;
+            do {
+                this->field65_0x220 += 1;
+                if (this->field65_0x220 > 31) {
+                    this->field65_0x220 = 16;
+                }
+                player = g_PlayersList->sub_535B50(this->field65_0x220);
+            } while (player == nullptr);
+
+            CString login(player->login);
+            CFile file;
+            CString filename = g_ServerConfig.chr_base + login;
+
+            if (file.Open(filename, CFile::modeRead, nullptr)) {
+                FileSectionBasicInfo* basic_info = nullptr;
+                FileSectionStats* stats = nullptr;
+                void* kill_stats = nullptr;
+                void* equip_pkt = nullptr;
+                void* inv_pkt = nullptr;
+                void* param7 = nullptr;
+                void* param8 = nullptr;
+
+                sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+                if (basic_info == nullptr) {
+                    LogMessage("Error in character data file. Login: " + login);
+                    this->FileList.RemoveAt(0, 1);
+                    return;
+                }
+
+                file.Seek(0, CFile::begin);
+
+                size_t file_size = file.GetLength();
+                void* file_data = malloc(file_size);
+                file.Read(file_data, file_size);
+
+                NetStru1::HatConnector.sub_51E0B7(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+                LogMessage("Updating character data file for " + login);
+                file.Close();
+            }
+        }
+    }
+
+    if (this->FileList.GetSize() == 0) {
+        return;
+    }
+
+    if (this->field53_0x1f0 != 0 && tick_count - this->field53_0x1f0 <= 15000) {
+        return;
+    }
+
+    CString login(this->FileList.GetAt(0));
+    CFile file;
+    CString filename = g_ServerConfig.chr_base + login;
+
+    if (file.Open(filename, CFile::modeRead, nullptr)) {
+        FileSectionBasicInfo* basic_info = nullptr;
+        FileSectionStats* stats = nullptr;
+        void* kill_stats = nullptr;
+        void* equip_pkt = nullptr;
+        void* inv_pkt = nullptr;
+        void* param7 = nullptr;
+        void* param8 = nullptr;
+
+        sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+        if (basic_info == nullptr) {
+            LogMessage("Error in character data file. Login: " + login);
+            this->FileList.RemoveAt(0, 1);
+            return;
+        }
+
+        file.Seek(0, CFile::begin);
+
+        size_t file_size = file.GetLength();
+        void* file_data = malloc(file_size);
+        file.Read(file_data, file_size);
+
+        NetStru1::HatConnector.sub_51DFA7(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+        LogMessage("Returning character data file for " + login);
+        this->field53_0x1f0 = tick_count;
+        file.Close();
+    }
 }
 
 int Server::Start(int mode)
