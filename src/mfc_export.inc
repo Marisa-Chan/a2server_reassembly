@@ -592,6 +592,11 @@ externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
 ; SpellTransport
 externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc
 
+
+; SpellEffectList
+externdef ?VMethod1@SpellEffectList@@UAEXXZ :proc
+
+
 ;EquipmentExtra
 extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::EquipmentExtra(void))
 extern ??4EquipmentExtra@@QAEAAU0@ABU0@@Z:proc   ; (public: struct EquipmentExtra & __thiscall EquipmentExtra::operator=(struct EquipmentExtra const &))
@@ -824,6 +829,10 @@ externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
+externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
+externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
+externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
+public ?sub_4FA01F@Server@@QAEXXZ
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
@@ -948,6 +957,8 @@ externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 
 ; Srv1
 externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
+public ?sub_59B7EA@Srv1@@QAEHVCString@@@Z
+externdef ?sub_59B7EA@Srv1@@QAEHVCString@@@Z :proc  ; int Srv1::sub_59B7EA(CString)
 
 
 ; Settings
@@ -1297,6 +1308,10 @@ externdef @sub_596131@4 :proc
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef _sub_5008CA :proc
 externdef _sub_4F62E6 :proc
+externdef _sub_5421E9 :proc                                     ; void sub_5421E9() — seed random
+externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
+externdef _sub_4F1D0D :proc                                     ; int sub_4F1D0D(CString) — file checksum
+externdef _dword_6CDB38 :dword                                  ; file checksum global
 
 
 ;GFX things

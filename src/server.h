@@ -78,6 +78,7 @@ public: // Virtual table at 0060ec18.
 
 public:
     void sub_59FC97(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
+    int sub_59B7EA(CString mapName); // Load ALM map file
 
 public:
     CMap<uint32_t, uint32_t, uint32_t, uint32_t> field1_0x4;
@@ -101,6 +102,9 @@ public:
     void sub_4FA78E(int arg);
     void sub_4F8831();
     void sub_4F0ECF();
+    int sub_4F1471(CString param_1); // Load map / saved game
+    int sub_4EDB83(const CString& filename); // Load saved game file
+    void sub_4FA01F(); // Arena mode file list setup
 
     // Sub-functions called by sub_4FC644
     Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);

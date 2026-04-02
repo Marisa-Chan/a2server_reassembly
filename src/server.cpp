@@ -4,6 +4,7 @@
 #include <cstdlib>  // atoi
 
 #include "buildings_list.h"
+#include "building.h"
 #include "eye.h"
 #include "game_app.h"
 #include "world.h"
@@ -53,6 +54,15 @@ extern "C" void __cdecl sub_4F62E6(CFile* file, FileSectionBasicInfo** basic_inf
                                     FileSectionStats** stats, void** kill_stats,
                                     void** equip_pkt, void** inv_pkt,
                                     void** param7, void** param8);
+
+// ---- Helpers used by sub_4F1471 ----
+extern "C" void sub_5421E9(); // Seed random: timeGetTime → srand
+extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa → CString
+extern "C" int sub_4F1D0D(CString filename); // Compute file checksum (sum of int32-s in file)
+extern "C" int dword_6CDB38; // File checksum global
+
+extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330
+extern "C" CRuntimeClass ShopRuntimeClass; // stru_637258
 
 // Data blocks passed to sub_4F53EA (must match original stack layout).
 struct CharSaveBasicInfo {
@@ -2981,4 +2991,108 @@ void Server::sub_4EE028(Humanoid* humanoid) {
     filename.Format("%s%s", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
 
     sub_4F53EA((const char*)filename, &basic_info, &stats, (char*)player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
+}
+
+// Load map (or a saved game?)
+// 4F1471
+int Server::sub_4F1471(CString param_1) {
+    this->field16_0x8c = 0;
+    this->field59_0x208 = 0;
+    this->current_map_name = param_1;
+    sub_5421E9();
+
+    CString map_code;
+
+    if (this->field21_0xd4 == 0) {
+        CString lower = this->current_map_name;
+        lower.MakeLower();
+        int ext = lower.Find(".alm");
+        if (ext == -1) {
+            return 3;
+        }
+        map_code = lower.Left(ext);
+        int code = atoi(map_code);
+        if (code > 0) {
+            this->field21_0xd4 = code;
+        }
+    } else {
+        // I don't get this branch. Looks useless?
+        CString tmp;
+        sub_43A820(&tmp, this->field21_0xd4);
+        map_code = tmp;
+    }
+
+    this->field19_0x98.field2_0x20 = this->field21_0xd4;
+
+    this->srv_stru1->building_list = new BuildingsList();
+    this->srv_stru1->effects_list = new SpellEffectList();
+    this->srv_stru1->sack_list = new SackList();
+
+    if (this->field40_0x1ac == 0) {
+        if (this->field19_0x98.sub_59B7EA(this->current_map_name) != 0) {
+            return 5;
+        }
+        this->tick16 = 0;
+        this->tick = 0;
+    } else {
+        if (this->sub_4EDB83("game0000.sav") != 0) {
+            return 4;
+        }
+    }
+
+    if (this->field4_0x74 != 0) {
+        dword_6CDB38 = sub_4F1D0D(this->current_map_name);
+    }
+
+    this->field18_0x94 = 1;
+    g_NetStru1_main.FUN_0051ceac(0xB7, nullptr);
+
+    this->field42_0x1b4 = 0;
+    this->field43_0x1b8 = 0;
+    this->field44_0x1bc = 0;
+    this->tic16 = 0;
+    this->field46_0x1c4 = 0;
+    this->map_elapsed_time = 0;
+    this->map_elapsed_time2 = 0;
+
+    this->sub_4F4570();
+
+    LogMessage("Loaded map \"" + param_1 + "\"");
+
+    CStdioFile file;
+    CString info_map = g_ServerConfig.chr_base + "info.map";
+    if (file.Open(info_map, CFile::modeCreate | CFile::modeWrite)) {
+        CString content;
+        content.Format("%s\n%d\n", (LPCTSTR)param_1, dword_6CDB38);
+        file.WriteString(content);
+        file.Close();
+    }
+
+    for (int j = 0; j < 32; j++) {
+        for (int i = 0; i < 32; i++) {
+            Server::somewords[j][i] = 0;
+        }
+    }
+
+    g_QuestMap.sub_55ECFE(0);
+
+    if (this->field19_0x98.field4_0x28.GetSize() < 3 && g_ServerConfig.gameType == 3) {
+        BuildingsList* building_list = this->srv_stru1->building_list;
+        POSITION pos = building_list->GetHeadPosition();
+        while (pos != nullptr) {
+            Building* building = building_list->GetNext(pos);
+            if (building->IsKindOf(&InnRuntimeClass) || building->IsKindOf(&ShopRuntimeClass)) {
+                uint8_t x = building->position->GetX();
+                uint8_t y = building->position->GetY();
+                uint16_t cell = (x - 1) | ((y - 1) << 8);
+                this->field19_0x98.field4_0x28.SetAtGrow(this->field19_0x98.field4_0x28.GetSize(), cell);
+            }
+        }
+    }
+
+    if (g_ServerConfig.gameType == 3) {
+        this->sub_4FA01F();
+    }
+
+    return 0;
 }
