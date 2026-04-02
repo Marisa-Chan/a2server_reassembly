@@ -27,6 +27,7 @@
 #include "inventory.h"
 #include "spell.h"
 #include "player_file.h"
+#include "file.h"
 
 
 class QuestMap;
@@ -58,7 +59,6 @@ extern "C" void __cdecl sub_4F62E6(CFile* file, FileSectionBasicInfo** basic_inf
 // ---- Helpers used by sub_4F1471 ----
 extern "C" void sub_5421E9(); // Seed random: timeGetTime → srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa → CString
-extern "C" int sub_4F1D0D(CString filename); // Compute file checksum (sum of int32-s in file)
 extern "C" int dword_6CDB38; // File checksum global
 
 extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330

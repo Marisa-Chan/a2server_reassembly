@@ -7,6 +7,9 @@
 #include "mfc_templ.h"
 
 
+extern "C" int __cdecl sub_4F1D0D(CString filename); // File checksum (simple sum of int32-s). 4f1d0d.
+
+
 class File2 : public CFile {
 public:
 	virtual ~File2();

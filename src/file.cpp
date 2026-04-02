@@ -1,6 +1,41 @@
 #include "file.h"
+
+#include <cstdlib>
+#include <cstring>
+
 #include "util.h"
 #include "resource.h"
+
+
+extern "C" int __cdecl sub_4F1D0D(CString filename)
+{
+	CFile file;
+	int checksum = 0;
+
+	if (!file.Open((const char*)filename, 0, nullptr)) {
+		return checksum;
+	}
+
+	const uint32_t file_length = file.GetLength();
+	const uint32_t padded_length = (file_length & 0xfffffffc) + 4;
+	int32_t* buffer = static_cast<int32_t*>(malloc(padded_length));
+	if (buffer == nullptr) {
+		file.Close();
+		return checksum;
+	}
+
+	memset(buffer, 0, padded_length);
+	file.Read(buffer, file_length);
+	file.Close();
+
+	const uint32_t word_count = padded_length / sizeof(int32_t);
+	for (uint32_t index = 0; index < word_count; index++) {
+		checksum += buffer[index];
+	}
+
+	free(buffer);
+	return checksum;
+}
 
 File2::File2()
 {
