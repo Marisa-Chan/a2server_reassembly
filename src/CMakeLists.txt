@@ -43,6 +43,7 @@ set(A2_SOURCES
   shop_assortment.cpp
   spell.cpp
   spell_effect.cpp
+  sound.cpp
   strcore.cpp
   strex.cpp
   table.cpp
