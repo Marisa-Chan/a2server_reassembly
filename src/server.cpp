@@ -2777,7 +2777,7 @@ void Server::sub_4F0ECF()
                 uint8_t* param7 = nullptr;
                 uint32_t param8 = 0;
 
-                sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+                ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
                 if (basic_info == nullptr) {
                     LogMessage("Error in character data file. Login: " + login);
                     this->FileList.RemoveAt(0, 1);
@@ -2818,7 +2818,7 @@ void Server::sub_4F0ECF()
         uint8_t* param7 = nullptr;
         uint32_t param8 = 0;
 
-        sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
+        ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
         if (basic_info == nullptr) {
             LogMessage("Error in character data file. Login: " + login);
             this->FileList.RemoveAt(0, 1);

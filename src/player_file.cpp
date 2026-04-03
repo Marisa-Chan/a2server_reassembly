@@ -150,6 +150,127 @@ void WriteStatsSection(CFile& file, FileSectionStats* stats)
 	}
 }
 
+// Static buffers for ParsePlayerFile_4F62E6
+PacketUnitStateVec s_equip_packet;
+PacketUnitStateVec s_inv_packet;
+FileSectionBasicInfo s_basic_info_buf;
+FileSectionStats s_stats_buf;
+uint8_t s_kill_stats_buf[kKillStatsSize];
+uint8_t s_section_40a_buf[kKillStatsSize];
+uint32_t s_section_40a_size;
+uint8_t s_compressed_buf[kKillStatsSize];
+
+void MaybeSkipRandomByte(CFile& file, uint16_t key, uint16_t mask)
+{
+	if ((key & mask) != 0) {
+		uint8_t dummy;
+		file.Read(&dummy, 1);
+	}
+}
+
+bool ReadDecryptAndVerify(CFile& file, const PlayerFileSectionHeader& header, uint8_t* buffer)
+{
+	file.Read(buffer, header.size);
+	LoadDecrypt_4F535E(buffer, header.size, header.key);
+	return CheckSum_4F5308(buffer, header.size) == static_cast<int32_t>(header.checksum);
+}
+
+bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header)
+{
+	MaybeSkipRandomByte(file, header.key, 0x0001);
+	file.Read(&s_stats_buf.monster_kills, 4);
+	s_stats_buf.monster_kills ^= 0x01529251;
+
+	MaybeSkipRandomByte(file, header.key, 0x0002);
+	file.Read(&s_stats_buf.player_kills, 4);
+	s_stats_buf.player_kills += s_stats_buf.monster_kills * 5 + 0x13141516;
+
+	MaybeSkipRandomByte(file, header.key, 0x0004);
+	file.Read(&s_stats_buf.frags, 4);
+	s_stats_buf.frags += s_stats_buf.player_kills * 7 + 0x00ABCDEF;
+
+	MaybeSkipRandomByte(file, header.key, 0x0008);
+	file.Read(&s_stats_buf.deaths, 4);
+	s_stats_buf.deaths ^= 0x17FF12AA;
+
+	MaybeSkipRandomByte(file, header.key, 0x0010);
+	file.Read(&s_stats_buf.money, 4);
+	s_stats_buf.money += s_stats_buf.monster_kills * 3 - 0x21524542;
+
+	MaybeSkipRandomByte(file, header.key, 0x0020);
+	file.Read(&s_stats_buf.body, 1);
+	s_stats_buf.body += static_cast<uint8_t>(s_stats_buf.money * 0x11 + s_stats_buf.monster_kills * 0x13);
+
+	MaybeSkipRandomByte(file, header.key, 0x0040);
+	file.Read(&s_stats_buf.reaction, 1);
+	s_stats_buf.reaction += static_cast<uint8_t>(s_stats_buf.body * 3);
+
+	MaybeSkipRandomByte(file, header.key, 0x0080);
+	file.Read(&s_stats_buf.mind, 1);
+	s_stats_buf.mind += static_cast<uint8_t>(s_stats_buf.body + s_stats_buf.reaction * 5);
+
+	MaybeSkipRandomByte(file, header.key, 0x0100);
+	file.Read(&s_stats_buf.spirit, 1);
+	s_stats_buf.spirit += static_cast<uint8_t>(s_stats_buf.body * 7 + s_stats_buf.mind * 9);
+
+	MaybeSkipRandomByte(file, header.key, 0x4000);
+	file.Read(&s_stats_buf.spells, 4);
+	s_stats_buf.spells -= 0x10121974;
+
+	MaybeSkipRandomByte(file, header.key, 0x2000);
+	file.Read(&s_stats_buf.active_spell, 4);
+
+	for (int32_t i = 0; i < 5; i++) {
+		MaybeSkipRandomByte(file, header.key, 0x200 << i);
+		file.Read(&s_stats_buf.experience[i], 4);
+		if (i == 0) {
+			s_stats_buf.experience[i] ^= 0xDADEDADE;
+		} else {
+			s_stats_buf.experience[i] -= s_stats_buf.experience[i - 1] * 0x771;
+		}
+	}
+
+	return CheckSum_4F5308(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
+}
+
+bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header)
+{
+	file.Read(s_compressed_buf, header.size);
+	LoadDecrypt_4F535E(s_compressed_buf, header.size, header.key);
+	if (CheckSum_4F5308(s_compressed_buf, header.size) != header.checksum) {
+		return false;
+	}
+
+	uint32_t uncompressed_size = *reinterpret_cast<uint32_t*>(s_compressed_buf);
+	uint8_t* temp = new uint8_t[uncompressed_size];
+
+	uint8_t* read_ptr = s_compressed_buf + 4;
+	int32_t read_offset = 4;
+	uint8_t* write_ptr = temp;
+
+	while (read_offset < static_cast<int32_t>(header.size)) {
+		if ((*read_ptr & 0x80) != 0) {
+			uint8_t count = *read_ptr & 0x7F;
+			uint8_t value = read_ptr[1];
+			for (int32_t j = 0; j < count; j++) {
+				*write_ptr++ = value;
+			}
+			read_ptr += 2;
+			read_offset += 2;
+		} else {
+			uint8_t count = *read_ptr;
+			std::memcpy(write_ptr, read_ptr + 1, count);
+			write_ptr += count;
+			read_ptr += count + 1;
+			read_offset += count + 1;
+		}
+	}
+
+	std::memcpy(s_kill_stats_buf, temp, uncompressed_size);
+	delete[] temp;
+	return true;
+}
+
 void WriteKillStatsSection(CFile& file, uint8_t* kill_stats)
 {
 	uint8_t* buffer = new uint8_t[kKillStatsSize];
@@ -218,7 +339,7 @@ extern "C" int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSect
 	CFile file;
 	if (file.Open(filename, CFile::modeRead, nullptr)) {
 		if (file.GetLength() != 0) {
-			if (sub_4F62E6(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
+			if (ParsePlayerFile_4F62E6(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
 				file.Close();
 				return 0;
 			}
@@ -280,5 +401,85 @@ extern "C" int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSect
 	}
 
 	file.Close();
+	return 1;
+}
+
+// 4F62E6
+extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a)
+{
+	*basic_info = nullptr;
+	*stats = nullptr;
+	*kill_stats = nullptr;
+	*equipment = nullptr;
+	*inventory = nullptr;
+	*section_40a = nullptr;
+	*size_40a = 0;
+
+	uint32_t magic = 0;
+	file->Read(&magic, sizeof(magic));
+	if (magic != kPlayerFileMagic) {
+		return 0;
+	}
+
+	while (file->GetPosition() < file->GetLength()) {
+		PlayerFileSectionHeader header = {};
+		file->Read(&header, sizeof(header));
+
+		switch (header.tag) {
+            case 0xAAAAAAAA:
+            {
+                if (!ReadDecryptAndVerify(*file, header, reinterpret_cast<uint8_t*>(&s_basic_info_buf))) {
+                    return 0;
+                }
+                *basic_info = &s_basic_info_buf;
+                break;
+            }
+            case 0x41392521:
+            {
+                if (!ReadStatsSection(*file, header)) {
+                    return 0;
+                }
+                *stats = &s_stats_buf;
+                break;
+            }
+            case 0x55555555:
+            {
+                if (!ReadCompressedKillStats(*file, header)) {
+                    return 0;
+                }
+                *kill_stats = s_kill_stats_buf;
+                break;
+            }
+            case 0x3A5A3A5A:
+            {
+                if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_inv_packet))) {
+                    return 0;
+                }
+                *inventory = &s_inv_packet;
+                break;
+            }
+            case 0x40A40A40:
+            {
+                if (!ReadDecryptAndVerify(*file, header, s_section_40a_buf)) {
+                    return 0;
+                }
+                s_section_40a_size = header.size;
+                *section_40a = s_section_40a_buf;
+                *size_40a = s_section_40a_size;
+                break;
+            }
+            case 0xDE0DE0DE:
+            {
+                if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_equip_packet))) {
+                    return 0;
+                }
+                *equipment = &s_equip_packet;
+                break;
+            }
+            default:
+                return 0;
+		}
+	}
+
 	return 1;
 }

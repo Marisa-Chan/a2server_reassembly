@@ -849,6 +849,7 @@ externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
+externdef _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
 externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
@@ -1385,7 +1386,6 @@ externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
 externdef @sub_596131@4 :proc
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef _sub_5008CA :proc
-externdef _sub_4F62E6 :proc
 externdef _sub_5421E9 :proc                                     ; void sub_5421E9() — seed random
 externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _sub_4F1D0D :proc                                     ; int sub_4F1D0D(CString) — file checksum

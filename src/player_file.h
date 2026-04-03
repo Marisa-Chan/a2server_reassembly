@@ -51,7 +51,7 @@ ASSERT_SIZE(FileSectionStats, 0x34);
 //  Hat side: `CCharacter::SaveToStream`.
 
 
-extern "C" int32_t __cdecl sub_4F62E6(
+extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(
     CFile* file,
     FileSectionBasicInfo** basic_info,
     FileSectionStats** stats,
