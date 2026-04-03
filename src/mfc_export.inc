@@ -612,6 +612,7 @@ externdef ??1Item@@UAE@XZ :proc                                               ; 
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
+externdef ?sub_548F07@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
 externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                            ; Item::sub_548F3F(const CString&)
@@ -621,15 +622,18 @@ extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 ; Armor
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
+externdef ??0Armor@@QAE@EEE@Z :proc                                            ; Armor::Armor(uint8_t, uint8_t, uint8_t)
 externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
 
 
 ; Shield
+externdef ??0Shield@@QAE@EEE@Z :proc                                           ; Shield::Shield(uint8_t, uint8_t, uint8_t)
 externdef ??0Shield@@QAE@PBV0@@Z :proc                                         ; Shield::Shield(const Shield*)
 
 
 ; Weapon
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
+externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)
 externdef ??0Weapon@@QAE@PBV0@@Z :proc                                         ; Weapon::Weapon(const Weapon*)
 
 
@@ -1322,6 +1326,7 @@ externdef _sub_5421E9 :proc                                     ; void sub_5421E
 externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _sub_4F1D0D :proc                                     ; int sub_4F1D0D(CString) — file checksum
 externdef _dword_6CDB38 :dword                                  ; file checksum global
+externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data
 
 
 ;GFX things

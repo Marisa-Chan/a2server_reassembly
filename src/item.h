@@ -45,6 +45,7 @@ public:
     Item(); // sub_547F80: default constructor (blank item)
     Item(const CString& name); // sub_5480E3: construct item from name string
     Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
+    int sub_548F07(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
     void sub_548F3F(const CString& str); // Apply special property string to item effects, then call VMethod15
     void sub_54A0BE(); // Recalculate item properties from template data
@@ -75,6 +76,7 @@ ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
+    Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_54F5AB
     Armor(const Armor* src); // sub_54F9ED: copy constructor
     void LoadInfo(); // sub_54F634
 
@@ -88,6 +90,7 @@ ASSERT_SIZE(Armor, 0x70);
 
 class Shield : public Item {
 public:
+    Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_5500FA
     Shield(const Shield* src); // sub_550467: copy constructor
 
 public:
@@ -98,6 +101,7 @@ ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
+    Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_550B8F
     Weapon(const Weapon* src); // sub_5511EE: copy constructor
     void LoadEquipInfo(WorldEquip* params); // sub_550E26
 

@@ -5,6 +5,131 @@
 #include "packet.h"
 #include "util.h"
 
+extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
+{
+    LogMessage("4f499b: Parsing item from packet data");
+    uint8_t* data = *packet_data;
+    uint16_t encoded_item_id = *reinterpret_cast<uint16_t*>(data);
+    data += sizeof(uint16_t);
+
+    uint8_t flags = *data;
+    data += sizeof(uint8_t);
+
+    if (encoded_item_id == 0) {
+        *packet_data = data;
+        return new Item();
+    }
+
+    uint16_t count = 1;
+    int32_t effect_bytes_remaining = 0;
+    int32_t stored_price = 0;
+
+    if ((flags & 0x80) != 0) {
+        count = flags & 0x3F;
+    } else if ((flags & 0x20) != 0) {
+        effect_bytes_remaining = flags & 0x0F;
+        stored_price = *reinterpret_cast<int32_t*>(data);
+        data += sizeof(int32_t);
+    } else {
+        count = *reinterpret_cast<uint16_t*>(data);
+        data += sizeof(uint16_t);
+    }
+
+    Item* item = nullptr;
+    uint8_t shape_id = static_cast<uint8_t>((encoded_item_id >> 5) & 0x07);
+    uint8_t material_id = static_cast<uint8_t>((encoded_item_id >> 12) & 0x0F);
+    uint8_t item_data_id = static_cast<uint8_t>(encoded_item_id & 0x1F);
+    uint8_t slot = static_cast<uint8_t>((encoded_item_id >> 8) & 0x0F);
+
+    if (slot == 1) {
+        CString m;
+        m.Format("Creating weapon item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
+        LogMessage(m);
+        item = new Weapon(shape_id, material_id, item_data_id);
+    } else if (slot == 2) {
+        CString m;
+        m.Format("Creating shield item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
+        LogMessage(m);
+        item = new Shield(shape_id, material_id, item_data_id);
+    } else if (slot == 0x0E) {
+        CString m;
+        m.Format("Creating magic item from packet data: item_data_id %d", item_data_id);
+        LogMessage(m);
+
+        m.Format("--> name '%s'", (const char*)g_GameDataRes.magic_items[item_data_id].name);
+        LogMessage(m);
+        item = new Item(g_GameDataRes.magic_items[item_data_id].name);
+    } else {
+        CString m;
+        m.Format("Creating armor item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
+        LogMessage(m);
+        item = new Armor(shape_id, material_id, item_data_id);
+    }
+
+    if (effect_bytes_remaining == 0) {
+        item->count = count;
+    } else {
+        while (effect_bytes_remaining != 0) {
+            Effect* effect = new Effect();
+            effect->effect_id = *data;
+            data += sizeof(uint8_t);
+
+            effect->damage_min = *data;
+            effect->damage_spread = 0;
+            data += sizeof(uint8_t);
+            effect_bytes_remaining -= 1;
+
+            if (effect->effect_id == 0x29) {
+                data += sizeof(uint8_t);
+                effect->spell_value = *data;
+                data += sizeof(uint8_t);
+                effect_bytes_remaining -= 1;
+            } else if (effect->effect_id == 0x2C || effect->effect_id == 0x2D || effect->effect_id == 0x2E || effect->effect_id == 0x2F || effect->effect_id == 0x30) {
+                data += sizeof(uint8_t);
+                effect->damage_spread = *data;
+                data += sizeof(uint8_t);
+                effect_bytes_remaining -= 1;
+            }
+
+            item->_effects.AddTail(effect);
+        }
+    }
+
+    item->VMethod15();
+
+    if (stored_price == 2 && !item->_effects.IsEmpty()) {
+        Effect* effect = new Effect();
+        effect->effect_id = 1;
+        effect->spell_or_damage = 2;
+        effect->spell_value = 0;
+        item->_effects.AddTail(effect);
+        item->VMethod15();
+    }
+
+    item->sub_54A0BE();
+
+    if (item->sub_548F07() == 0) {
+        while (item->magic_volume < 0) {
+            Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
+            if (first_effect == nullptr || first_effect->full_magic_value < 2) {
+                break;
+            }
+
+            first_effect->full_magic_value -= 1;
+            item->sub_54A0BE();
+        }
+    } else if (item->material_id != 4 && item->material_id != 2) {
+        Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
+        if (first_effect != nullptr && first_effect->effect_id == 2 && first_effect->full_magic_value > 3) {
+            first_effect->spell_or_damage = 3;
+            first_effect->spell_value = 0;
+        }
+    }
+
+    *packet_data = data;
+    return item;
+}
+
 // sub_548860
 int Item::IsSimilar(Item* other)
 {
