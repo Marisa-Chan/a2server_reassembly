@@ -7,7 +7,6 @@
 
 extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
 {
-    LogMessage("4f499b: Parsing item from packet data");
     uint8_t* data = *packet_data;
     uint16_t encoded_item_id = *reinterpret_cast<uint16_t*>(data);
     data += sizeof(uint16_t);
@@ -42,27 +41,12 @@ extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
     uint8_t slot = static_cast<uint8_t>((encoded_item_id >> 8) & 0x0F);
 
     if (slot == 1) {
-        CString m;
-        m.Format("Creating weapon item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
-        LogMessage(m);
         item = new Weapon(shape_id, material_id, item_data_id);
     } else if (slot == 2) {
-        CString m;
-        m.Format("Creating shield item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
-        LogMessage(m);
         item = new Shield(shape_id, material_id, item_data_id);
     } else if (slot == 0x0E) {
-        CString m;
-        m.Format("Creating magic item from packet data: item_data_id %d", item_data_id);
-        LogMessage(m);
-
-        m.Format("--> name '%s'", (const char*)g_GameDataRes.magic_items[item_data_id].name);
-        LogMessage(m);
         item = new Item(g_GameDataRes.magic_items[item_data_id].name);
     } else {
-        CString m;
-        m.Format("Creating armor item from packet data: shape_id %d material_id %d item_data_id %d", shape_id, material_id, item_data_id);
-        LogMessage(m);
         item = new Armor(shape_id, material_id, item_data_id);
     }
 
