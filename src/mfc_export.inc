@@ -966,6 +966,7 @@ externdef ?sub_554927@SackList@@QAEXPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 
 ; Srv1
+externdef ??1Srv1@@UAE@XZ :proc
 externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
 externdef ?sub_59B7EA@Srv1@@QAEHVCString@@@Z :proc  ; int Srv1::sub_59B7EA(CString)
 
