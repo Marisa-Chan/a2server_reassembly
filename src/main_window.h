@@ -109,6 +109,68 @@ struct MWin_5e8
 
 ASSERT_SIZE(MWin_5e8, 0x38);
 
+
+struct SomeMainSubStruc1
+{
+    uint16_t field_0x0;
+    uint16_t field_0x2;
+    uint32_t field_0x4;
+    uint32_t field_0x8;
+};
+
+
+class SomeMainStructure : public CObject
+{
+public:
+    int32_t GetStringArray1Size(); //438d10
+    void FUN_00493cd8(); //493cd8
+    void FUN_00492c66(int32_t idx);  //492c66
+
+public:
+    int32_t field_0x4;
+    int32_t field_0x8;
+    int32_t field_0xc;
+    char character_name[32];
+    int32_t field_0x30;
+    int32_t field_0x34;
+    int32_t field_0x38;
+    int32_t field_0x3c;
+    int32_t field_0x40;
+    int32_t field_0x44;
+    int32_t field_0x48;
+    int32_t field_0x4c;
+    int32_t field_0x50;
+    int32_t field_0x54;
+    int32_t field_0x58;
+    int32_t field_0x5c;
+    int32_t field_0x60;
+    int32_t field_0x64;
+    int32_t field_0x68;
+    int32_t field_0x6c;
+    int32_t field_0x70;
+    int32_t field_0x74;
+    int32_t field_0x78;
+    int32_t field_0x7c;
+    int32_t field_0x80;
+    int32_t field_0x84;
+    int32_t field_0x88;
+    SomeMainSubStruc1 field_0x8c[9];
+    CStringArray string_array1;
+    int32_t field_0x10c;
+    int32_t field_0x110;
+    int32_t field_0x114;
+    int32_t field_0x118;
+    CArray<void*> field_0x11c;
+    CArray<void*> field_0x130;
+    int32_t field_0x144;
+    int32_t field_0x148;
+    int32_t field_0x14c;
+    CStringArray string_array2;
+    int32_t field_0x164;
+    CWordArray word_array;
+};
+ASSERT_SIZE(SomeMainStructure, 0x17c);
+
 class MainWindow : public CFrameWnd
 {
 public: // VTable at 0060c1a8.
@@ -135,6 +197,8 @@ public:
 
     void FUN_00485a41(); //485a41
 
+    void ModalScreen(VisScreen* scr);
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -150,7 +214,7 @@ public:
     CVisualObject* field_0xe8;
     CVisualObject* field_0xec;
     CVisualObject* field_0xf0;
-    VObjBase2C0* field_0xf4;
+    VisScreen* field_0xf4;
     CVisualObject* field_0xf8;
     CVisualObject* field_0xfc;
     CVisualObject* field_0x100;
@@ -209,7 +273,7 @@ public:
     CVisualObject* field_0x3d0;
     int32_t field_0x3d4;
     CVisualObject* field_0x3d8;
-    CVisualObject* field_0x3dc;
+    VisScreen* field_0x3dc;
     CString field_0x3e0;
     int32_t field_0x3e4;
     CString field_0x3e8;
@@ -243,7 +307,9 @@ public:
     int32_t field_0x458;
     int32_t field_0x45c;
     int32_t field_0x460;
-    int32_t fields_0x464[97]; // I got tired of listing all the fields :)
+    int32_t field_0x464;
+    SomeMainStructure field_0x468;
+    int32_t field_0x5e4;
     MWin_5e8 field_0x5e8;
     CString current_map_name;
     int32_t field_0x624;

@@ -1,44 +1,9 @@
 #include "visual.h"
 #include "server.h"
-
-
-CGameFont::CGameFont()
-{
-    //45e0d0
-    bitmap = nullptr;
-    char_widths = nullptr;
-}
-
-CGameFont::~CGameFont()
-{
-    //45e0f9
-    if (char_widths)
-        free(char_widths);
-
-    if (bitmap)
-        delete bitmap;
-}
-
-void CGameFont::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh)
-{
-    //460f60
-}
-
-uint16_t* CGameFont::GetShadowColors()
-{
-    //460f70
-    return nullptr;
-}
-
-void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy)
-{
-    //45ebda
-    uint16_t* shdow = GetShadowColors();
-    DrawTxt(x + shadow_dxy, y + shadow_dxy, txt, align, shdow);
-    DrawTxt(x, y, txt, align, colorsh);
-}
-
-
+#include "main_window.h"
+#include "gfx.h"
+#include "game_app.h"
+#include "util.h"
 
 
 
@@ -229,7 +194,7 @@ void CVisualObject::VMethod7()
 }
 
 
-void CVisualObject::VMethod8(RECT* rect)
+void CVisualObject::VMethod8(CRect* rect)
 {
     //41ed60
 }
@@ -758,6 +723,11 @@ void CVisualObject::SetRect(const RECT* r)
 
 
 
+
+
+
+
+
 VisLabel::VisLabel()
 {
     //4d835f
@@ -834,3 +804,668 @@ void VisLabel::SetActiveColor(bool isActive)
     else
         color_sh = clrsh_TechBlack;
 }
+
+
+VisButton::~VisButton()
+{
+    //450a40
+}
+
+void VisButton::VMethod7()
+{
+    //4d8f7e
+    if (!parent)
+        return;
+
+    CRect r2;
+    ClientRectToScreen(&r2, rect);
+    
+    LockSurface2();
+    parent->VMethod8(&r2);
+
+    r2.right -= 1;
+    r2.bottom -= 1;
+
+    POINT pp;
+    GetCursorPos(&pp);
+
+    uint32_t clr1;
+    uint32_t clr2;
+    uint32_t dd;
+    if (r2.PtInRect(pp) == 0 || downed == 0)
+    {
+        clr1 = GetColorRGB(0x29, 0x45, 0x3f);
+        clr2 = GetColorRGB(7, 12, 9);
+        dd = 2;
+    }
+    else
+    {
+        clr1 = GetColorRGB(7, 12, 9);
+        clr2 = GetColorRGB(0x29, 0x45, 0x3f);
+        dd = 4;
+    }
+
+    if (!clr)
+    {
+        if (mouse_on == 0 && TestFlags(FLAG_FOCUS) == 0 && TestFlags(FLAG_ENABLED) == 0)
+            font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Black, dd);
+        else
+            font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Gold, dd);
+    }
+    else if (mouse_on == 0)
+        font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, clrsh_DullGold, dd);
+    else
+        font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, clrsh_CharlieBrown, dd);
+
+    FillRectColor(r2.right, r2.top + 2, r2.right, r2.bottom - 2, clr2);
+    FillRectColor(r2.right - 1, r2.top + 1, r2.right - 1, r2.bottom - 1, clr2);
+    FillRectColor(r2.left + 2, r2.bottom, r2.right - 2, r2.bottom, clr2);
+    FillRectColor(r2.left + 1, r2.bottom - 1, r2.right - 1, r2.bottom - 1, clr2);
+    FillRectColor(r2.left + 2, r2.top, r2.right - 2, r2.top, clr1);
+    FillRectColor(r2.left, r2.top + 2, r2.left, r2.bottom - 2, clr1);
+
+    SetPixelColor(r2.left + 1, r2.top + 1, clr1);
+    SetPixelColor(r2.right - 2, r2.bottom - 2, clr2);
+
+    if (TestFlags(FLAG_ENABLED) == 0)
+    {
+        CRect t;
+        ClientRectToScreen(&t, rect);
+        ShadowRect(t, 3);
+    }
+    UnlockSurface2();
+}
+
+int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4d958f
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    CRect t;
+    ClientRectToScreen(&t, rect);
+    
+    if (t.PtInRect(pos))
+    {
+        if (TestFlags(FLAG_OVERCURSOR) == 0)
+            SetCursorOver(true);
+        if (mouse_on == 0)
+        {
+            mouse_on = 1;
+            VMethod9();
+        }
+    }
+    else
+    {
+        if (TestFlags(FLAG_OVERCURSOR) == 0 && downed == 0)
+            SetCursorOver(false);
+        if (mouse_on == 1)
+        {
+            mouse_on = 0;
+            VMethod9();
+        }
+    }
+    return 0;
+}
+
+int32_t VisButton::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4d96a1
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (downed)
+        return 0;
+    
+    SetDowned(true);
+    return 1;
+}
+
+int32_t VisButton::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    //4d96e8
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (downed == 0)
+        return 0;
+
+    CRect t;
+    ClientRectToScreen(&t, rect);
+
+    SetDowned(false);
+
+    if (t.PtInRect(pos))
+        AfxGetMainWnd()->PostMessage(msgid, 0, 0);
+    return 1;
+}
+
+int32_t VisButton::OnKeyDown(uint32_t wparam)
+{
+    //4d9783
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (wparam != VK_RETURN)
+        return 0;
+
+    AfxGetMainWnd()->PostMessage(msgid, 0, 0);
+    return 1;
+}
+
+int32_t VisButton::OnChar(uint32_t wparam)
+{
+    //4d97d4
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (EncodeChar(wparam) != charid)
+        return 0;
+
+    AfxGetMainWnd()->PostMessage(msgid, 0, 0);
+    return 1;
+}
+
+VisButton::VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
+: CVisualObject(_id, r, hint)
+{
+    //4d8e2d
+    caption = _caption;
+    font = _font;
+    msgid = _msgid;
+    clr = _clr;
+    charid = _charid;
+
+    for (int i = 1; i < caption.GetLength(); i++)
+    {
+        char c0 = caption[i - 1];
+        char c1 = caption[i];
+        if (c1 == '~' && c0 == '~')
+            i += 2;
+        else if (c1 != '~' && c0 == '~')
+        {
+            charid = ToLowerChar(c1);
+            break;
+        }
+    }
+
+    mouse_on = 0;
+    downed = 0;
+    flags |= FLAG_NOTFOCUS;
+}
+
+VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
+: CVisualObject(_id, l, t, r, b, hint)
+{
+    //4d8cd0
+    caption = _caption;
+    font = _font;
+    msgid = _msgid;
+    clr = _clr;
+    charid = _charid;
+
+    for (int i = 1; i < caption.GetLength(); i++)
+    {
+        char c0 = caption[i - 1];
+        char c1 = caption[i];
+        if (c1 == '~' && c0 == '~')
+            i += 2;
+        else if (c1 != '~' && c0 == '~')
+        {
+            charid = ToLowerChar(c1);
+            break;
+        }
+    }
+
+    mouse_on = 0;
+    downed = 0;
+    flags |= FLAG_NOTFOCUS;
+}
+
+void VisButton::SetDowned(bool down)
+{
+    //4d94b5
+    if (!down)
+    {
+        downed = 0;
+        if (TestFlags(FLAG_OVERCURSOR))
+            SetCursorOver(false);
+
+        VMethod9();
+    }
+    else
+    {
+        g_SfxArray[2]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xdc, 0);
+
+        downed = 1;
+        if (TestFlags(FLAG_OVERCURSOR) == 0)
+            SetCursorOver(true);
+
+        VMethod9();
+    }
+}
+
+
+
+//4df4d1
+VisScreen::VisScreen() = default;
+
+//4df4fa
+VisScreen::VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap)
+: CVisualObject(_id, r, nullptr)
+{
+    bitmap = _bitmap;
+    VisScreen::VMethod26();
+}
+
+//4df56d
+VisScreen::VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    bitmap = _bitmap;
+    VisScreen::VMethod26();
+}
+
+//4df5ec
+VisScreen::~VisScreen()
+{
+    VisScreen::VMethod27();
+}
+
+//4df63d
+void VisScreen::VMethod7()
+{
+    CRect r;
+    ClientRectToScreen(&r, rect);
+
+    VMethod8(&r);
+
+    CVisualObject::VMethod7();
+}
+
+//4df63d
+void VisScreen::VMethod8(CRect* r)
+{
+    r->IntersectRect(r, &g_ScreenSize);
+
+    if (bitmap)
+    {
+        //CRect r2;
+        //ClientRectToScreen(&r2, rect);
+
+        CRect tmp;
+        GetClipRect(&tmp);
+        SetClipRect(*r);
+        LockSurface2();
+
+        bitmap->VMethod2(rect.left, rect.top, 0, 0, 0);
+
+        UnlockSurface2();
+        SetClipRect(tmp);
+    }
+    else
+    {
+        CRect r2;
+        ClientRectToScreen(&r2, rect);
+
+        r2.right -= 8;
+        r2.bottom -= 8;
+
+        CRect tmp;
+        GetClipRect(&tmp);
+        SetClipRect(*r);
+        LockSurface2();
+
+        gfx_interface_lm->VMethod3(r2.right - 40, r2.top + 8, 3, 6, 0);
+        gfx_interface_lm->VMethod3(r2.left + 8, r2.bottom - 40, 6, 6, 0);
+        gfx_interface_lm->VMethod3(r2.right - 40, r2.bottom - 40, 8, 6, 0);
+
+        for (int x = 0; x < (r2.Width() - 96); x += 96)
+            gfx_interface_lm->VMethod3(r2.left + 56 + x, r2.bottom - 40, 7, 6, 0);
+
+        for (int y = 0; y < (r2.Height() - 96); y += 64)
+            gfx_interface_lm->VMethod3(r2.right - 40, r2.top + 56 + y, 5, 6, 0);
+
+
+        gfx_interface_lm->VMethod2(r2.left, r2.top, 1, 0, 0);
+        gfx_interface_lm->VMethod2(r2.right - 48, r2.top, 3, 0, 0);
+        gfx_interface_lm->VMethod2(r2.left, r2.bottom - 48, 6, 0, 0);
+        gfx_interface_lm->VMethod2(r2.right - 48, r2.bottom - 48, 8, 0, 0);
+
+        for (int x = 0; x < (r2.Width() - 96); x += 96)
+        {
+            gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.top, 2, 0, 0);
+            gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.bottom - 48, 7, 0, 0);
+        }
+
+        for (int y = 0; y < (r2.Height() - 96); y += 64)
+        {
+            gfx_interface_lm->VMethod2(r2.left, r2.top + 48 + y, 4, 0, 0);
+            gfx_interface_lm->VMethod2(r2.right - 48, r2.top + 48 + y, 5, 0, 0);
+        }
+
+        for (int x = 0; x < (r2.Width() - 96); x += 96)
+        {
+            for (int y = 0; y < (r2.Height() - 96); y += 64)
+            {
+                gfx_interface_lm->VMethod2(r2.left + 48 + x, r2.top + 48 + y, 0, 0, 0);
+            }
+        }
+
+        UnlockSurface2();
+        SetClipRect(tmp);
+    }
+}
+
+
+int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4dfbcd
+    if (msg == 0x445 || msg == 0x446)
+    {
+        if (is_active)
+        {
+            DoClose(msg);
+            AfxGetMainWnd()->PostMessageA(0x44c, (WPARAM)this, 0);
+        }
+        return 1;
+    }
+    else
+        return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
+int32_t VisScreen::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4dfee7
+    if (cursor_over_obj_last == cursor_over_obj)
+    {
+        cursor_over_obj_last = nullptr;
+        CVisualObject* obj = GetChildAt(pos);
+        if (obj && obj != this)
+        {
+            return obj->OnLButtonDown(wparam, pos);
+        }
+    }
+
+    return CVisualObject::OnLButtonDown(wparam, pos);
+}
+
+int32_t VisScreen::OnKeyDown(uint32_t wparam)
+{
+    //4dfc43
+    switch (wparam)
+    {
+    case VK_TAB:
+        TabFocus(g_kbShiftState == 0, true);
+        return 1;
+
+    case VK_LEFT:
+        if (focus_obj && focus_obj->left_obj)
+        {
+            FocusTo(focus_obj->left_obj, true);
+            return 1;
+        }
+        break;
+
+    case VK_UP:
+        if (focus_obj && focus_obj->up_obj)
+        {
+            FocusTo(focus_obj->up_obj, true);
+            return 1;
+        }
+        break;
+
+    case VK_RIGHT:
+        if (focus_obj && focus_obj->right_obj)
+        {
+            FocusTo(focus_obj->right_obj, true);
+            return 1;
+        }
+        break;
+
+    case VK_DOWN:
+        if (focus_obj && focus_obj->down_obj)
+        {
+            FocusTo(focus_obj->down_obj, true);
+            return 1;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    return 0;
+}
+
+
+void VisScreen::VMethod26()
+{
+    //450900
+}
+
+void VisScreen::VMethod27()
+{
+    //4388c0
+}
+
+void VisScreen::VMethod28()
+{
+    //4dfb4f
+    is_active = 1;
+    SetCursorOver(true);
+    SetFocus(true);
+    TabFocus(true, false);
+}
+
+void VisScreen::DoClose(uint32_t code)
+{
+    //4dfb8a 29 method
+    if (is_active)
+    {
+        is_active = 0;
+        SetCursorOver(false);
+        SetFocus(false);
+        exit_code = code;
+    }
+}
+
+int32_t VisScreen::GetCloseCode()
+{
+    //4388d0
+    return exit_code;
+}
+
+void VisScreen::CloseOk()
+{
+    //4327b5
+    MsgProc(0x445, 0, 0);
+}
+
+void VisScreen::CloseCancel()
+{
+    //4327d4
+    MsgProc(0x446, 0, 0);
+}
+
+
+VisWindow::~VisWindow()  //451a70
+{}
+
+int32_t VisWindow::OnKeyDown(uint32_t wparam)
+{
+    //4dfeb2
+    if (wparam == VK_ESCAPE)
+        return MsgProc(0x446, 0, 0);
+    else
+        return VisScreen::OnKeyDown(wparam);
+}
+
+VisWindow::VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
+:VisScreen(_id, l, t, r, b, _bitmap)
+{
+    //4dfdab
+    VisWindow::UpdateWinRect();
+}
+
+void VisWindow::UpdateWinRect()
+{
+    //4dfe19
+    int32_t w = ((rect.Width() - 8) / 96) * 96 + 8;
+    int32_t h = ((rect.Height() - 104) / 64) * 64 + 104;
+
+    rect.left = (g_ScreenSize.right - w) / 2;
+    rect.top = (g_ScreenSize.bottom - h) / 2;
+    rect.right = rect.left + w;
+    rect.bottom = rect.top + h;
+}
+
+
+VisMessageBox::~VisMessageBox()
+{
+    //444ff3
+}
+
+int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //44500f
+    if (msg >= 0x445 && msg <= 0x44b)
+    {
+        int32_t res = VisScreen::MsgProc(0x446, wparam, lparam);
+        exit_code = msg;
+        VMethod31(msg);
+        return res;
+    }
+    else
+        return VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+/*
+void VisMessageBox::VMethod26()
+{
+    //444086
+    CRect r2;
+    if (field_0x6c && strlen(field_0x6c) > 0)
+    {
+
+    }
+}*/
+
+
+void VisMessageBox::VMethod31(int32_t code)
+{
+    //445084
+}
+
+VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes, const char* str3)
+: VisWindow(_id, l, t, r, b, nullptr)
+{
+    //44402b
+    field_0x70 = str2;
+    field_0x6c = str3;
+    field_0x68 = str1;
+    button_types = btypes;
+}
+
+
+
+
+int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    //4303c8
+    MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
+
+    if (mouse_down_box > -1 && mouse_down_box < 4 &&
+        GetMouseOnBox(pos) == mouse_down_box)
+    {
+        int32_t box = mouse_down_box;
+        mouse_down_box = -1;
+        UpdateMouseOverBox(wparam, pos);
+
+        MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+        switch (box)
+        {
+        case 0:
+            if (parent_screen->vis_list->field_0xd8 == 0)
+                parent_screen->CloseOk();
+            break;
+
+        case 1:
+            if (parent_screen->vis_list->field_0xd8 == 0)
+            {
+                int32_t idx = parent_screen->vis_list->field_0xd0;
+                if (idx != parent_screen->pCharacters->GetStringArray1Size() - 1)
+                {
+                    CString str = CString(txt_patch.GetLine(93)) + CString(parent_screen->pCharacters->character_name) + CString(txt_patch.GetLine(94));
+                    VisScreen* box = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
+                    mwnd->field_0x3dc = box;
+                    mwnd->ModalScreen(box);
+
+                    if (box->GetCloseCode() == 0x447)
+                    {
+                        parent_screen->pCharacters->FUN_00493cd8();
+
+                        if (idx < parent_screen->pCharacters->GetStringArray1Size() - 1)
+                        {
+                            parent_screen->pCharacters->FUN_00492c66(idx);
+                            parent_screen->vis_stats->FUN_0042f6f3();
+                            parent_screen->FUN_00432655(parent_screen->field_0x84);
+                        }
+                        else
+                        {
+                            parent_screen->vis_list->field_0xd0 = parent_screen->pCharacters->GetStringArray1Size() - 1;
+                            parent_screen->field_0x84->VMethod1(0);
+                            parent_screen->gameinterface->FUN_00416cf7();
+                        }
+                    }
+                }
+            }
+            break;
+
+        case 2:
+            if (parent_screen->vis_list->field_0xd8 == 0)
+            {
+                parent_screen->OpenRenameWindow();
+                CSound::Play(parent_screen->field_0x8c);
+            }
+            break;
+
+        case 3:
+            if (parent_screen->vis_list->field_0xd8 == 0)
+                parent_screen->CloseCancel();
+            break;
+            
+        default:
+            break;
+        }
+    }
+    return 1;
+}
+
+int VisCharSellectButtons::GetMouseOnBox(CPoint pos)
+{
+    pos -= parent_screen->rect.TopLeft();
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (areas[i].PtInRect(pos))
+            return i;
+    }
+    return -1;
+}
+
+void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos)
+{
+    int over = GetMouseOnBox(pos);
+    if (over >= 0 && (wparam & 1) == 0)
+        mouse_over_box = over;
+    else if (over >= 0 && mouse_down_box == over && (wparam & 1) != 0)
+        mouse_over_box = over;
+    else
+        mouse_over_box = -1;
+}
+

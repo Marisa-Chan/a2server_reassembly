@@ -4,42 +4,29 @@
 #include "assert_offset.h"
 #include "asm_mfc.h"
 #include "mfc_templ.h"
-
+#include "sound.h"
+#include "gameobj.h"
 
 
 extern void FUN_00454c74(CRect *r);
 extern void LockSurface2();
 extern void UnlockSurface2();
 
-extern uint16_t clrsh_DullGold[16];
-extern uint16_t clrsh_TechBlack[16];
 
 
-
-
+class SomeMainStructure;
 class VisLabel;
 class CGameBitmap;
 class CGameObject;
+class CGameFont;
+class CBmp64;
+class BigStruct2;
+class VisCharSellectStats;
+class VisCharSellectButtons;
+class VisCharSellectList;
 
-class CGameFont : public CObject
-{
-public:
-	virtual ~CGameFont();
-	
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh);
-	virtual uint16_t* GetShadowColors();
+class CUnit;
 
-public:
-	CGameFont();
-	void DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy);
-
-public:
-	CGameBitmap* bitmap;
-	int32_t* char_widths;
-	int32_t space;
-};
-
-ASSERT_SIZE(CGameFont, 0x10);
 
 
 class CVisualObject : public CObject
@@ -64,7 +51,7 @@ public:
 	virtual void SetCursorOver(bool isOver);
 	virtual void SetFocus(bool isFocus);
 	virtual void VMethod7();
-	virtual void VMethod8(RECT* rect);
+	virtual void VMethod8(CRect* rect);
 	virtual void VMethod9();
 	virtual void VMethod10();
 	virtual void WriteData(void* buf);
@@ -161,24 +148,240 @@ public:
 	uint16_t* color_sh;
 	uint32_t align_flags;
 };
-
 ASSERT_SIZE(VisLabel, 0x6C);
 
 
-class VObjBase2C0 : public CVisualObject
+//60df40
+class VisButton : public CVisualObject
 {
 public:
-	virtual void VMethod26();
-	virtual void VMethod27();
-	virtual void VMethod28();
-	virtual void VMethod29(uint32_t);
+	virtual ~VisButton();
+
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
+
+	VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);
+	VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint);
+
+	void SetDowned(bool down);
+public:
+	CString caption;
+	CGameFont* font;
+	uint16_t* clr;
+	uint32_t mouse_on;
+	uint32_t downed;
+	int32_t msgid;
+	int32_t charid;
 };
+ASSERT_SIZE(VisButton, 0x78);
+
+
+//60e2c0
+class VisScreen : public CVisualObject
+{
+public:
+	virtual ~VisScreen();
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //4dfc43
+
+	virtual void VMethod26(); //450900
+	virtual void VMethod27(); //4388c0
+	virtual void VMethod28(); //4dfb4f
+	virtual void DoClose(uint32_t code); //4dfb8a 29 method   
+
+	VisScreen();
+	VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap);
+	VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);
+
+	int32_t GetCloseCode(); //
+	void CloseOk();
+	void CloseCancel();
+public:
+	int32_t is_active = 0;
+	int32_t exit_code = 0;
+	CGameBitmap* bitmap = nullptr;
+};
+ASSERT_SIZE(VisScreen, 0x68);
+
+
+//60e348
+class VisWindow : public VisScreen
+{
+public:
+	virtual ~VisWindow();
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap);
+
+	void UpdateWinRect(); //4dfe19
+};
+ASSERT_SIZE(VisWindow, 0x68);
+
+
+//44402b
+class VisMessageBox : public VisWindow
+{
+public:
+	virtual ~VisMessageBox();
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual void VMethod26() override;
+
+	virtual CVisualObject* VMethod30(const char* str, const RECT& r) = 0;
+	virtual void VMethod31(int32_t code);
+
+	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes, const char* str3);
+
+public:
+	const char* field_0x68;
+	const char* field_0x6c;
+	const char* field_0x70;
+	int32_t button_types;
+};
+ASSERT_SIZE(VisMessageBox, 0x78);
+
+//60a318
+class VisMessageBoxWithList : public VisMessageBox
+{
+public:
+	virtual ~VisMessageBoxWithList();
+	virtual CVisualObject* VMethod30(const char* str, const RECT& r);
+
+	VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes);
+};
+ASSERT_SIZE(VisMessageBoxWithList, 0x78);
+
+
+//609898
+class VisCharSelect : public VisScreen
+{
+public:
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
+
+	void OpenRenameWindow(); //4327f3
+
+	void FUN_00432655(CUnit* unit);
+
+public:
+	SomeMainStructure* pCharacters;
+	CVisualObject* field_0x6c;
+	BigStruct2* gameinterface;
+	VisCharSellectStats* vis_stats;
+	VisCharSellectButtons* buttons;
+	VisCharSellectList* vis_list;
+	CVisualObject* field_0x80;
+	CUnit* field_0x84;
+	int32_t field_0x88;
+	CSound field_0x8c;
+	int32_t field_0x90;
+	int32_t field_0x94;
+	int32_t field_0x98;
+};
+ASSERT_SIZE(VisCharSelect, 0x9c);
+
+//6097a8
+class VisCharSellectButtons : public CVisualObject
+{
+public:
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+
+public:
+	VisCharSelect* parent_screen;
+	CStringArray field_0x60;
+	CBmp64* buttons_bmp[4];
+	void* field_0x84[4];
+	CBmp64* bmp_area;
+	CRect areas[4];
+	int32_t mouse_down_box;
+	int32_t mouse_over_box;
+
+public:
+	int GetMouseOnBox(CPoint pos);
+	void UpdateMouseOverBox(uint32_t wparam, CPoint pos);
+};
+ASSERT_SIZE(VisCharSellectButtons, 0xe0);
+
+//609820
+class VisCharSellectList : public CVisualObject
+{
+public:
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+public:
+	VisCharSelect* parent_screen;
+	CRect field_0x60;
+	CRect field_0x70;
+	CRect field_0x80;
+	CRect field_0x90;
+	uint32_t field_0xa0;
+	uint32_t field_0xa4;
+	uint32_t field_0xa8;
+	uint32_t field_0xac;
+	uint32_t field_0xb0;
+	uint32_t field_0xb4;
+	uint32_t field_0xb8;
+	uint32_t field_0xbc;
+	uint32_t field_0xc0;
+	uint32_t field_0xc4;
+	uint32_t field_0xc8;
+	uint32_t field_0xcc;
+	uint32_t field_0xd0;
+	uint32_t field_0xd4;
+	uint32_t field_0xd8;
+};
+ASSERT_SIZE(VisCharSellectList, 0xdc);
+
+//609730
+class VisCharSellectStats : public CVisualObject
+{
+public:
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+
+
+	void FUN_0042f6f3();
+
+public:
+	VisCharSelect* parent_screen;
+	uint32_t field_0x60;
+	uint32_t field_0x64;
+	CStringArray field_0x68;
+	uint32_t field_0x7c;
+	uint32_t field_0x80;
+	uint32_t field_0x84;
+	uint32_t field_0x88;
+	uint32_t field_0x8c;
+	CRect field_0x90[4];
+};
+ASSERT_SIZE(VisCharSellectStats, 0xd0);
 
 
 class BigStruct2 : CVisualObject
 {
 public:
 
+	void FUN_00416cf7();
 public:
 	uint8_t _unk1[0x974];
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
@@ -195,219 +398,8 @@ ASSERT_SIZE(BigStruct2, 0x49c8);
 
 
 
-class CGamePalette : public CObject
-{
-	DECLARE_DYNAMIC(CGamePalette);
-public:
-	virtual ~CGamePalette();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	CGamePalette();
-	void Free();
-	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor);
-
-public:
-	uint32_t count;
-	uint16_t* colors;
-};
-
-ASSERT_SIZE(CGamePalette, 0xC);
-
-struct BtmapFrame
-{
-	uint32_t width;
-	uint32_t height;
-};
-
-class CGameBitmap : public CObject
-{
-	DECLARE_DYNAMIC(CGameBitmap);
-public:
-	virtual ~CGameBitmap();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette *ppalette, int mode);
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode);
-	virtual void VMethod3(int32_t x, int32_t y, int frame, uint16_t *palette, int mode);
-	virtual int32_t GetWidth();
-	virtual int32_t GetHeight();
-	virtual void SelectBitmapForDraw();
-	virtual void VMethod7();
-	virtual int GetPixelSize();
-
-
-	CGameBitmap();
-	CGameBitmap(const char* fname);
-	CGameBitmap(const CGameBitmap* source);
-
-	void* GetData();
-	void ResetPalette(uint32_t count, int mode, int useColor);
-
-
-public:
-	uint32_t frames_count;
-	uint32_t data_size;
-	BtmapFrame** frames;
-	uint8_t* pdata;
-	CGamePalette palette;
-	uint8_t* palette_data;
-};
-
-ASSERT_SIZE(CGameBitmap, 0x24);
-
-
-class CBmp256 : public CGameBitmap
-{
-	DECLARE_DYNAMIC(CBmp256);
-public:
-	virtual ~CBmp256();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual int32_t GetWidth() override;
-	virtual int32_t GetHeight() override;
-	virtual void VMethod7() override;
-	virtual int GetPixelSize() override;
-
-	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
-	virtual void VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);
-
-	CBmp256(const char* fname);
-	CBmp256(uint32_t w, uint32_t h);
-};
-
-
-class CBmp64 : public CGameBitmap
-{
-	DECLARE_DYNAMIC(CBmp64);
-public:
-	virtual ~CBmp64();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual int32_t GetWidth() override;
-	virtual int32_t GetHeight() override;
-	virtual void VMethod7() override;
-
-	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
-	virtual void VMethod10(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
-	virtual void VMethod11(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
-
-
-	CBmp64(const char *fname);
-	CBmp64(uint32_t w, uint32_t h);
-};
-
-class CSprite256 : public CGameBitmap
-{
-	DECLARE_DYNAMIC(CSprite256);
-public:
-	virtual ~CSprite256();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual void VMethod3(int32_t x, int32_t y, int frame, uint16_t* palette, int mode) override;
-
-	virtual void VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
-	virtual void VMethod10(int32_t x, int32_t y, int frame, int palid, int mode);
-	virtual void VMethod11(int32_t x, int32_t y, int frame, int blevel, int arg5, int mode);
-	virtual void VMethod12(int32_t x, int32_t y, int frame, uint32_t arg4);
-
-	CSprite256(const char* fname);
-	CSprite256(uint32_t w, uint32_t h);
-};
-
-class CA16 : public CSprite256
-{
-	DECLARE_DYNAMIC(CA16);
-public:
-	virtual ~CA16();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-
-	CA16(const char* fname);
-};
-
-class CSprite16 : public CGameBitmap
-{
-	DECLARE_DYNAMIC(CSprite16);
-public:
-	virtual ~CSprite16();
-	virtual void Dump(CDumpContext& dc) const override;
-
-	virtual void VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor);
-
-
-	CSprite16(const char* fname);
-};
 
 
 
-class CMousePointer : public CObject
-{
-	DECLARE_DYNAMIC(CMousePointer);
-public:
-	virtual ~CMousePointer();
-
-public:
-	CSprite256* field_0x4;
-	CBmp64* field_0x8;
-	CBmp64* field_0xc;
-	uint32_t field_0x10;
-	uint32_t field_0x14;
-	uint32_t field_0x18;
-	uint32_t field_0x1c;
-	uint32_t field_0x20;
-	uint32_t field_0x24;
-	uint32_t field_0x28;
-	uint32_t field_0x2c;
-	uint32_t field_0x30;
-	uint32_t field_0x34;
-	uint32_t field_0x38;
-	CString  field_0x3c;
-	uint32_t field_0x40;
-	uint32_t field_0x44;
-	CRect	 field_0x48;
-	uint32_t field_0x58;
-	uint32_t field_0x5c;
-	uint32_t field_0x60;
-	CBmp64* field_0x64;
-	CBmp64* field_0x68;
-	CRect    field_0x6c;
-	CBmp64* field_0x7c[8];
-	uint32_t field_0x9c;
-	uint32_t field_0xa0;
-};
-
-ASSERT_SIZE(CMousePointer, 0xa4);
-
-
-//CSprite16 based
-class CSpriteFont16 : public CGameFont
-{
-public:
-	virtual ~CSpriteFont16();
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;
-	virtual uint16_t* GetShadowColors() override;
-
-public:
-	CSpriteFont16(const char *fname, int32_t _space);
-};
-
-//CA16 based
-class CSpriteFont16a : public CGameFont
-{
-public:
-	virtual ~CSpriteFont16a();
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;
-	virtual uint16_t* GetShadowColors() override;
-
-public:
-	CSpriteFont16a(const char* fname, int32_t _space);
-};
-
-ASSERT_SIZE(CSpriteFont16a, 0x10);
 
 #endif

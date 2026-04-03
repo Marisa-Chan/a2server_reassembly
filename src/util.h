@@ -4,6 +4,13 @@
 #include "asm_mfc.h"
 #include "mfc_templ.h"
 
+extern int32_t g_isDosCP; //660f64
+
+
+uint8_t __cdecl DecodeChar(uint8_t ch); //45e181
+uint8_t __cdecl EncodeChar(uint8_t c); //4763a9
+uint8_t __cdecl ToLowerChar(uint8_t c); //47641d
+
 extern "C"
 {
 	void pathStrCpy(const char* src, char* dst);

@@ -1187,6 +1187,14 @@ externdef ?ParseTunes@@YAXXZ : proc
 externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
+externdef ?g_kbControlState@@3HA : dword
+externdef ?g_kbShiftState@@3HA : dword
+externdef ?g_kbMenuState@@3HA : dword
+
+externdef ?FUN_00493cd8@SomeMainStructure@@QAEXXZ : proc
+externdef ?FUN_00492c66@SomeMainStructure@@QAEXH@Z : proc
+externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
+
 
 ;A2NetSock
 extern ??0A2NetSock@@QAE@XZ :proc
@@ -1263,7 +1271,7 @@ extern ?TestFlags@CVisualObject@@UAEII@Z :proc   ; (public: virtual unsigned int
 extern ?SetCursorOver@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetCursorOver(bool))
 extern ?SetFocus@CVisualObject@@UAEX_N@Z :proc   ; (public: virtual void __thiscall CVisualObject::SetFocus(bool))
 extern ?VMethod7@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod7(void))
-extern ?VMethod8@CVisualObject@@UAEXPAUtagRECT@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::VMethod8(struct tagRECT *))
+extern ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z :proc   ; (public: virtual void __thiscall CVisualObject::VMethod8(struct tagRECT *))
 extern ?VMethod9@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod9(void))
 extern ?VMethod10@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod10(void))
 extern ?WriteData@CVisualObject@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CVisualObject::WriteData(void *))
@@ -1312,9 +1320,65 @@ extern ?SetActiveColor@VisLabel@@QAEX_N@Z :proc   ; (public: void __thiscall Vis
 extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisLabel(void))
 
 
+;VisButton
+extern ??1VisButton@@UAE@XZ  :proc
+extern ?VMethod7@VisButton@@UAEXXZ  :proc
+extern ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisButton@@UAEHI@Z  :proc
+extern ?OnChar@VisButton@@UAEHI@Z  :proc
+extern ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z  :proc
+extern ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z  :proc
+extern ?SetDowned@VisButton@@QAEX_N@Z  :proc
 
 
+;VisScreen
+extern ??1VisScreen@@UAE@XZ  :proc
+extern ?VMethod7@VisScreen@@UAEXXZ  :proc
+extern ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z  :proc
+extern ?MsgProc@VisScreen@@UAEHIII@Z  :proc
+extern ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisScreen@@UAEHI@Z  :proc
+extern ?VMethod26@VisScreen@@UAEXXZ  :proc
+extern ?VMethod27@VisScreen@@UAEXXZ  :proc
+extern ?VMethod28@VisScreen@@UAEXXZ  :proc
+extern ?DoClose@VisScreen@@UAEXI@Z  :proc
+extern ??0VisScreen@@QAE@XZ  :proc
+extern ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z  :proc
+extern ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
+extern ?GetCloseCode@VisScreen@@QAEHXZ  :proc
+extern ?CloseOk@VisScreen@@QAEXXZ  :proc
+extern ?CloseCancel@VisScreen@@QAEXXZ  :proc
 
+
+;VisWindow
+extern ??1VisWindow@@UAE@XZ  :proc
+extern ?OnKeyDown@VisWindow@@UAEHI@Z  :proc
+extern ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
+extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
+
+
+;VisCharSelect
+externdef ?OpenRenameWindow@VisCharSelect@@QAEXXZ : proc
+externdef ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
+
+;VisCharSellectButtons
+extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
+
+
+;VisMessageBox
+externdef ?VMethod26@VisMessageBox@@UAEXXZ : proc
+
+;VisMessageBoxWithList
+externdef ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z : proc
+
+;VisCharSellectStats
+externdef ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ  : proc
+
+
+;BigStruct2
+externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
 
 
 
@@ -1329,6 +1393,7 @@ externdef _dword_6CDB38 :dword                                  ; file checksum 
 externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data
 
 
+
 ;GFX things
 externdef ?FUN_00454c74@@YAXPAVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
@@ -1336,8 +1401,7 @@ externdef ?UnlockSurface2@@YAXXZ  :proc
 externdef ?InitVideo@@YAHXZ :proc
 externdef ?SetVideoMode@@YAHXZ :proc
 
-externdef ?clrsh_DullGold@@3PAGA  :word
-externdef ?clrsh_TechBlack@@3PAGA  :word
+externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 
 
 ; Free functions
@@ -1359,11 +1423,63 @@ externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 ;gfx
 externdef ?g_clipRect@@3VCRect@@A : RECT
 externdef ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A : dword
+externdef ?g_ScreenSize@@3VCRect@@A : dword
 
 extern ?FUN_004559d4@@YAXHHHHPAEPAG@Z : proc
+
+extern ?FillRectColor@@YAXHHHHI@Z : proc
+extern ?SetPixelColor@@YAXHHI@Z : proc
+extern ?ShadowRect@@YAXVCRect@@H@Z : proc
+
+extern ?g_brightnessLookup@@3PAGA  :dword
+extern ?g_brightnessLookupCount@@3IA  :dword
+
+extern ?g_RBits@@3HA  :byte
+extern ?g_GBits@@3HA  :byte
+extern ?g_BBits@@3HA  :byte
+extern ?g_RBitShift@@3HA  :byte
+extern ?g_GBitShift@@3HA  :byte
+extern ?g_BBitShift@@3HA  :byte
+extern ?g_RBitMask@@3HA  :word
+extern ?g_GBitMask@@3HA  :word
+extern ?g_BBitMask@@3HA  :word
+
+
+extern ?p_clrsh_Black@@3PAGA  :dword
+extern ?p_clrsh_ShockingBlack@@3PAGA  :dword
+extern ?p_clrsh_Gold@@3PAGA  :dword
+extern ?clrsh_DullGold@@3PAGA  :word
+extern ?clrsh_TechBlack@@3PAGA  :word
+extern ?clrsh_ShockingBlack@@3PAGA  :word
+extern ?clrsh_CharlieBrown@@3PAGA  :word
+
+extern ?g_isLowMemory@@3IA : dword
+
+
+
+
+;CGameFont
+extern ?GetStrWidth@CGameFont@@QAEHPBD@Z : proc
+
+
+;sound
+externdef ?Play@CSound@@SAXAAU1@@Z :proc
+externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
+
+extern ?g_dsound@@3PAUIDirectSound@@A  :dword
+extern ?g_dsound_channel_num@@3HA  :dword
+extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
+extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
+extern ?g_SoundSettings@@3USoundSettings@@A : dword
 
 
 ; util.h
 
 extern _ReportWarning : proc
 extern _XorData : proc
+
+
+extern ?g_isDosCP@@3HA : dword
+extern ?DecodeChar@@YAEE@Z  :proc
+extern ?EncodeChar@@YAEE@Z  :proc
+extern ?ToLowerChar@@YAEE@Z  :proc

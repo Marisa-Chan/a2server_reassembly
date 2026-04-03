@@ -51,6 +51,11 @@ void SetMessageColors(uint32_t); //476de7
 
 
 
+extern int32_t g_kbShiftState; //660f44
+extern int32_t g_kbControlState; //660f40
+extern int32_t g_kbMenuState; //660f48
+
+
 extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 extern Server* g_Server;   //642c2c

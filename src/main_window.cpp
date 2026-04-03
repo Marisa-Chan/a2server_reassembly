@@ -603,3 +603,10 @@ void MainWindow::FUN_00485a41()
 
     field_0xd4->MsgProc(0x403, (uint32_t)field_0xd0, 0);
 }
+
+
+int32_t SomeMainStructure::GetStringArray1Size()
+{
+    //438d10
+    return string_array1.GetSize();
+}

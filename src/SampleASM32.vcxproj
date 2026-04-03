@@ -300,6 +300,7 @@
     <ClCompile Include="shelf.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="shop_assortment.cpp" />
+    <ClCompile Include="sound.cpp" />
     <ClCompile Include="spell.cpp" />
     <ClCompile Include="spell_effect.cpp" />
     <ClCompile Include="strcore.cpp" />
@@ -331,6 +332,7 @@
     <ClInclude Include="file.h" />
     <ClInclude Include="gameobj.h" />
     <ClInclude Include="game_app.h" />
+    <ClInclude Include="gfx.h" />
     <ClInclude Include="mfc_plex.h" />
     <ClInclude Include="mfc_templ.h" />
     <ClInclude Include="group.h" />
@@ -358,6 +360,7 @@
     <ClInclude Include="shelf.h" />
     <ClInclude Include="shop.h" />
     <ClInclude Include="shop_assortment.h" />
+    <ClInclude Include="sound.h" />
     <ClInclude Include="spell.h" />
     <ClInclude Include="spell_effect.h" />
     <ClInclude Include="table.h" />

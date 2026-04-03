@@ -5,12 +5,29 @@
 #include "alm.h"
 
 class BigStruct2;
+class CGameBitmap;
+class CSprite256;
 
 class CGameObject : CObject
 {
 	DECLARE_DYNAMIC(CGameObject);
 public:
-
+	virtual void VMethod1(int32_t arg1);
+	virtual int32_t VMethod2();
+	virtual int32_t VMethod3();
+	virtual int32_t VMethod4();
+	virtual int32_t VMethod5();
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3);
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3);
+	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3);
+	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3);
+	virtual void VMethod10();
+	virtual int32_t VMethod11();
+	virtual void VMethod12();
+	virtual void VMethod13();
+	virtual void VMethod14();
+	virtual int32_t VMethod15();
+	virtual void VMethod16();
 
 public:
 	uint16_t field_0x4;
@@ -22,8 +39,8 @@ public:
 	int32_t field_0x18;
 	int32_t field_0x1c;
 	int32_t field_0x20;
-	int32_t picture;
-	int32_t field_0x28;
+	int32_t typeId;
+	int32_t face;
 	int32_t x_pos2;
 	int32_t y_pos2;
 	int32_t field_0x34[15];
@@ -55,16 +72,16 @@ public:
 	int32_t field_0xec;
 	int32_t field_0xf0;
 	int32_t field_0xf4;
-	int32_t field_0xf8;
+	uint8_t field_0xf8[4];
 	int32_t field_0xfc;
 	int32_t field_0x100;
-	int16_t field_0x104;
+	int16_t hp;
 	int16_t field_0x106;
-	int16_t field_0x108;
-	int16_t field_0x10a;
-	int16_t field_0x10c;
-	int16_t field_0x10e;
-	int32_t field_0x110;
+	int16_t hp_max;
+	int16_t scan_range;
+	int16_t speed;
+	int16_t carrying_weight_100g;
+	int32_t exp_summary;
 	int32_t field_0x114;
 	int32_t field_0x118;
 	CArray<uint32_t> field_0x11c;
@@ -72,6 +89,77 @@ public:
 };
 ASSERT_SIZE(CGameObject, 0x144);
 
+
+class CUnit : public CGameObject
+{
+public:
+	virtual void VMethod1(int32_t arg1) override;
+	virtual int32_t VMethod2() override;
+	virtual int32_t VMethod3() override;
+	virtual int32_t VMethod4() override;
+	virtual int32_t VMethod5() override;
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod10() override;
+	virtual int32_t VMethod11() override;
+
+	virtual void VMethod13() override;
+	virtual void VMethod14() override;
+	virtual int32_t VMethod15() override;
+	virtual void VMethod16() override;
+	virtual void VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10);
+	virtual void VMethod18();
+	virtual void VMethod19();
+	virtual void VMethod20();
+	virtual void VMethod21();
+	virtual void VMethod22();
+	virtual void VMethod23();
+	virtual void VMethod24();
+	virtual void VMethod25(int32_t arg1);
+	virtual void VMethod26();
+	virtual void VMethod27();
+	virtual void VMethod28();
+	virtual void VMethod29();
+	virtual void VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
+
+public:
+	uint8_t body;
+	uint8_t mind;
+	uint8_t spirit;
+	uint8_t reaction;
+	int16_t mp;
+	int16_t mp_max;
+	uint8_t __gap_u0[2];
+	uint8_t absorb;
+	uint8_t __gap_u1;
+	int16_t defence;
+	int16_t attack;
+	uint8_t hand_dmg_min;
+	uint8_t hand_dmg_spread;
+	uint8_t field_0x156;
+	uint8_t skill_levels[5];
+	uint8_t magic_protect[5];
+	uint8_t field_0x161;
+	uint8_t field_0x162;
+	uint8_t __gap_u2;
+	int16_t field_0x164;
+	uint8_t __gap_u3[6];
+	int32_t experience_per_sphere[5];
+	uint8_t field_0x180[8];
+	uint8_t field_0x188[48];
+	int32_t field_0x1b8;
+	int32_t field_0x1bc;
+	CSprite256* field_0x1c0;
+	CSprite256* field_0x1c4;
+	char field_0x1c8[16];
+	int32_t field_0x1dc;
+	uint16_t serverId;
+	uint8_t __gap_u4[2];
+	int32_t field_0x1e0;
+};
+ASSERT_SIZE(CUnit, 0x1e4);
 
 
 #endif

@@ -5,6 +5,52 @@
 
 int g_PathLower = 1;
 
+int32_t g_isDosCP = 0; //660f64
+
+
+// dos -> 1251
+uint8_t __cdecl DecodeChar(uint8_t ch)
+{
+	//45e181
+	if (g_isDosCP == 0)
+		return ch;
+
+	uint8_t t = ch;
+	if (t >= 0x80 && t < 0xb0)
+		return t + 0x30;
+	else if (t >= 0xe0 && t < 0xf0)
+		return t + 0x10;
+	return t;
+}
+
+// 1251 -> dos
+uint8_t __cdecl EncodeChar(uint8_t c)
+{
+	//4763a9
+	if (g_isDosCP == 1 && c >= 0x80)
+	{
+		if (c >= 0xc0 && c < 0xf0)
+			c -= 0x40;
+		else if (c >= 0xf0)
+			c -= 0x10;
+	}
+	return c;
+}
+
+uint8_t __cdecl ToLowerChar(uint8_t c)
+{
+	//47641d
+	if (g_isDosCP == 0)
+		return tolower((char)c);
+
+	if (c >= 0x80 && c < 0x90)
+		return c + 0x20;
+	else if (c >= 0x90 && c < 0xa0)
+		return c + 0x50;
+
+	return tolower((char)c);
+}
+
 
 extern "C"
 {
