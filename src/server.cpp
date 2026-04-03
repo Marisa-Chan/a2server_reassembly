@@ -46,16 +46,6 @@ extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 // returns the parsed count (or 1 if none present).
 extern "C" int32_t sub_5049D1(CString* str);
 
-// sub_4F53EA: Save character data to file.
-// TODO: types for all parameters.
-extern "C" void __cdecl sub_4F53EA(const char* filename, void* basic_info, void* stats, char* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* param7, uint32_t param8);
-
-// sub_4F62E6: Parse a character file into section pointers.
-extern "C" void __cdecl sub_4F62E6(CFile* file, FileSectionBasicInfo** basic_info,
-                                    FileSectionStats** stats, void** kill_stats,
-                                    void** equip_pkt, void** inv_pkt,
-                                    void** param7, void** param8);
-
 // ---- Helpers used by sub_4F1471 ----
 extern "C" void sub_5421E9(); // Seed random: timeGetTime → srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa → CString
@@ -63,33 +53,6 @@ extern "C" int dword_6CDB38; // File checksum global
 
 extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330
 extern "C" CRuntimeClass ShopRuntimeClass; // stru_637258
-
-// Data blocks passed to sub_4F53EA (must match original stack layout).
-struct CharSaveBasicInfo {
-    uint8_t hat_data[8];
-    uint32_t server_field;
-    char name[32];
-    uint8_t flags;
-    uint8_t face;
-    uint8_t main_sphere;
-    uint8_t constant_4;
-    uint8_t field_0xa44;
-};
-
-struct CharSaveStats {
-    uint32_t monster_kills;
-    uint32_t player_kills;
-    uint32_t frags;
-    uint32_t deaths;
-    int32_t money;
-    int8_t body;
-    int8_t reaction;
-    int8_t mind;
-    int8_t spirit;
-    uint32_t spellbook_bitmask;
-    uint32_t eye2_spell_id;
-    int32_t exp_sphere[5];
-};
 
 
 uint16_t Server::somewords[32][32];
@@ -2808,11 +2771,11 @@ void Server::sub_4F0ECF()
             if (file.Open(filename, CFile::modeRead, nullptr)) {
                 FileSectionBasicInfo* basic_info = nullptr;
                 FileSectionStats* stats = nullptr;
-                void* kill_stats = nullptr;
-                void* equip_pkt = nullptr;
-                void* inv_pkt = nullptr;
-                void* param7 = nullptr;
-                void* param8 = nullptr;
+                uint8_t* kill_stats = nullptr;
+                PacketUnitStateVec* equip_pkt = nullptr;
+                PacketUnitStateVec* inv_pkt = nullptr;
+                uint8_t* param7 = nullptr;
+                uint32_t param8 = 0;
 
                 sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
                 if (basic_info == nullptr) {
@@ -2849,11 +2812,11 @@ void Server::sub_4F0ECF()
     if (file.Open(filename, CFile::modeRead, nullptr)) {
         FileSectionBasicInfo* basic_info = nullptr;
         FileSectionStats* stats = nullptr;
-        void* kill_stats = nullptr;
-        void* equip_pkt = nullptr;
-        void* inv_pkt = nullptr;
-        void* param7 = nullptr;
-        void* param8 = nullptr;
+        uint8_t* kill_stats = nullptr;
+        PacketUnitStateVec* equip_pkt = nullptr;
+        PacketUnitStateVec* inv_pkt = nullptr;
+        uint8_t* param7 = nullptr;
+        uint32_t param8 = 0;
 
         sub_4F62E6(&file, &basic_info, &stats, &kill_stats, &equip_pkt, &inv_pkt, &param7, &param8);
         if (basic_info == nullptr) {
@@ -2977,18 +2940,19 @@ void Server::sub_4EE028(Humanoid* humanoid) {
     }
 
     // Build basic info block
-    CharSaveBasicInfo basic_info;
-    memcpy(basic_info.hat_data, &player->hat_player_id, 8);
-    basic_info.server_field = this->field54_0x1f4;
-    strcpy(basic_info.name, (const char*)player->name);
-    basic_info.flags = flags;
-    basic_info.face = humanoid->face;
+    FileSectionBasicInfo basic_info = {};
+    basic_info.id1 = player->hat_player_id;
+    basic_info.id2 = player->flags;
+    basic_info.hat_id = this->field54_0x1f4;
+    strcpy(basic_info.nick, (const char*)player->name);
+    basic_info.character_class = flags;
+    basic_info.picture = humanoid->face;
     basic_info.main_sphere = humanoid->main_sphere;
-    basic_info.constant_4 = 4;
-    basic_info.field_0xa44 = player->field_0xa44;
+    basic_info.flags = 4;
+    basic_info.color = player->field_0xa44;
 
     // Build stats block
-    CharSaveStats stats;
+    FileSectionStats stats = {};
     stats.monster_kills = player->monster_kills;
     stats.player_kills = player->player_kills;
     stats.frags = player->frags;
@@ -3000,19 +2964,19 @@ void Server::sub_4EE028(Humanoid* humanoid) {
     stats.spirit = humanoid->spirit - humanoid->equipment_extra.spirit;
 
     if (humanoid->spell_book) {
-        stats.spellbook_bitmask = humanoid->spell_book->sub_53DD3D();
+        stats.spells = humanoid->spell_book->sub_53DD3D();
     } else {
-        stats.spellbook_bitmask = 0;
+        stats.spells = 0;
     }
 
     if (humanoid->eye2) {
-        stats.eye2_spell_id = humanoid->eye2->spell_id;
+        stats.active_spell = humanoid->eye2->spell_id;
     } else {
-        stats.eye2_spell_id = 0;
+        stats.active_spell = 0;
     }
 
     for (int i = 0; i < 5; i++) {
-        stats.exp_sphere[i] = humanoid->experience_per_sphere[i];
+        stats.experience[i] = humanoid->experience_per_sphere[i];
     }
 
     // Serialize weapon
@@ -3052,7 +3016,7 @@ void Server::sub_4EE028(Humanoid* humanoid) {
     CString filename;
     filename.Format("%s%s", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
 
-    sub_4F53EA((const char*)filename, &basic_info, &stats, (char*)player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
+    WritePlayerFile_4F53EA((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }
 
 // Load map (or a saved game?)

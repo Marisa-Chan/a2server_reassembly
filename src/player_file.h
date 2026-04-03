@@ -8,6 +8,10 @@
 #include "assert_offset.h"
 
 
+class CFile;
+class PacketUnitStateVec;
+
+
 struct FileSectionBasicInfo {
     uint32_t id1;
     uint32_t id2;
@@ -45,6 +49,29 @@ ASSERT_SIZE(FileSectionStats, 0x34);
 // See other types:
 //  Server side: `ParsePlayerFile_004f62e6`,
 //  Hat side: `CCharacter::SaveToStream`.
+
+
+extern "C" int32_t __cdecl sub_4F62E6(
+    CFile* file,
+    FileSectionBasicInfo** basic_info,
+    FileSectionStats** stats,
+    uint8_t** kill_stats,
+    PacketUnitStateVec** equipment,
+    PacketUnitStateVec** inventory,
+    uint8_t** section_40a,
+    uint32_t* size_40a
+);
+
+extern "C" int32_t __cdecl WritePlayerFile_4F53EA(
+    const char* filename,
+    FileSectionBasicInfo* basic_info,
+    FileSectionStats* stats,
+    uint8_t* kill_stats,
+    PacketUnitStateVec* equip_pkt,
+    PacketUnitStateVec* inv_pkt,
+    uint8_t* section_40a,
+    uint32_t size_40a
+);
 
 
 #endif
