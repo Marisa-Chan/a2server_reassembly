@@ -98,6 +98,8 @@ struct World {
     ResFile* field74_0xeb1c;
 
 public:
+    ~World();
+
     void sub_5AFBFD(); // increments field65_0xc780
 
     // Group-order dispatch helpers (called from Server::sub_504a96)

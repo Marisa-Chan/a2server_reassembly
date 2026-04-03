@@ -519,6 +519,8 @@ externdef ?FUN_00532587@Human@@QAEXVCString@@HPBD@Z:proc   ;  Human::FUN_0053258
 
 
 ;UnitList
+externdef _dword_6CDB3C :dword
+
 extern ??0UnitList@@QAE@XZ:proc                         ; UnitList::UnitList
 extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList
 extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
@@ -771,7 +773,6 @@ externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
-public ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z
 externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
 
 
@@ -829,10 +830,11 @@ externdef ?sub_4FBB79@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
+externdef ??1Server@@QAE@XZ :proc
+externdef ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
 externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
-public ?sub_4FA01F@Server@@QAEXXZ
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
@@ -879,6 +881,10 @@ externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 
 
 ; World
+externdef _g_World :dword
+
+externdef ??1World@@QAE@XZ :proc
+externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_52C163@Unit@@QAEXXZ :proc
@@ -941,6 +947,10 @@ externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
 
 ; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
+
+externdef ?Deinit@SrvStru1@@QAEXXZ :proc
+externdef ??1World@@QAE@XZ :proc
+externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
@@ -957,7 +967,6 @@ externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 
 ; Srv1
 externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
-public ?sub_59B7EA@Srv1@@QAEHVCString@@@Z
 externdef ?sub_59B7EA@Srv1@@QAEHVCString@@@Z :proc  ; int Srv1::sub_59B7EA(CString)
 
 

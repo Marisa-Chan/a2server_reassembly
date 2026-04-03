@@ -117,6 +117,8 @@ struct MapStuff { // aka astruct_5
     UnitList* field69_0xa456c;
 
 public:
+    ~MapStuff();
+
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
     void sub_58E525(class Sack* sack); // Remove a sack token from the map

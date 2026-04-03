@@ -48,6 +48,8 @@ struct SrvStru1 {
     CList<Unit*> some_unit_list;
 
 public:
+    void Deinit();
+
     // Make spell effect.
     void sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);
     void sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
@@ -74,7 +76,7 @@ ASSERT_SIZE(SpellEffectList, 0x20);
 
 class Srv1 : public CObject { // Aka `A2Srv_1`.
 public: // Virtual table at 0060ec18.
-    // virtual ~Srv1();
+    virtual ~Srv1();
 
 public:
     void sub_59FC97(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
@@ -96,6 +98,7 @@ Human* _stdcall sub_4EF4E7(void* block, int arg14, Player* player); // Load char
 
 struct Server {
 public:
+    ~Server();
     void sub_4FBB79();
     void sub_4F1E2A();
     void sub_4FA5C4();

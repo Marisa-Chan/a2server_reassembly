@@ -94,6 +94,68 @@ struct CharSaveStats {
 
 uint16_t Server::somewords[32][32];
 
+Srv1::~Srv1() = default; // 59b6f0
+
+// 4f2c26
+Server::~Server()
+{
+    g_NetStru1_main.FUN_0051ceac(0xAF, nullptr);
+    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
+    g_NetStru1_main.SendAllData();
+
+    if (this->field15_0x88 != nullptr) {
+        ResumeThread(this->field15_0x88);
+    }
+
+    while (WaitForSingleObject(this->field15_0x88, 0x32) == WAIT_TIMEOUT) {
+    }
+
+    if (g_World != nullptr) {
+        delete g_World;
+        g_World = nullptr;
+    }
+
+    if (MapStuff_Instance != nullptr) {
+        delete MapStuff_Instance;
+        MapStuff_Instance = nullptr;
+    }
+
+    if (this->srv_stru1 != nullptr) {
+        this->srv_stru1->Deinit();
+    }
+
+    if (g_PlayersList != nullptr) {
+        POSITION pos = g_PlayersList->GetHeadPosition();
+        while (pos != nullptr) {
+            POSITION current = pos;
+            Player* player = g_PlayersList->GetNext(pos);
+            g_PlayersList->RemoveAt(current);
+            if (player != nullptr) {
+                delete player;
+            }
+        }
+
+        delete g_PlayersList;
+        g_PlayersList = nullptr;
+    }
+
+    delete dword_6CDB3C;
+    dword_6CDB3C = nullptr;
+
+    delete dword_6B37C4;
+    dword_6B37C4 = nullptr;
+
+    for (int index = 1; index < this->spells.size(); index++) {
+        delete this->spells[index];
+        this->spells[index] = nullptr;
+    }
+
+    delete this->script_settings;
+    this->script_settings = nullptr;
+
+    LogMessage("Server closed\n");
+}
+
 // 59FC97
 void Srv1::sub_59FC97(int count) {
     uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
