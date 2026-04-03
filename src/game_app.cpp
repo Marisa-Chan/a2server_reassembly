@@ -105,6 +105,211 @@ int32_t GetRandS16(int32_t range)
 	return ((rand() * range) / 32767) % range;
 }
 
+int32_t ParseConfig(const char* fname) // 4f7188
+{
+	CStdioFile file;
+	if (!file.Open(fname, 0, nullptr)) {
+		return -1;
+	}
+
+	CString section_name;
+	int32_t line_num = 1;
+
+	while (file.GetPosition() < file.GetLength()) {
+		CString original_line;
+		file.ReadString(original_line);
+
+		CString lowered(original_line);
+		lowered.MakeLower();
+
+		int semicolon_pos = lowered.Find(';');
+		int eq_pos = lowered.Find('=');
+
+		if (semicolon_pos >= 0 && eq_pos >= semicolon_pos) {
+			eq_pos = -1;
+		}
+
+		if (semicolon_pos != -1) {
+			lowered = lowered.Left(semicolon_pos);
+		}
+
+		if (lowered[0] == '[') {
+			// Section header
+			lowered = lowered.Mid(1);
+			lowered.TrimLeft();
+			int close_bracket = lowered.Find(']');
+			if (close_bracket == -1) {
+				return line_num;
+			}
+			lowered = lowered.Left(close_bracket);
+			lowered.TrimRight();
+			section_name = lowered;
+		} else if (section_name == "maps") {
+			// Maps section
+			lowered.TrimLeft();
+			lowered.TrimRight();
+			if (lowered.GetLength() == 0) {
+				continue; // Empty maps lines don't increment line_num (matches original ASM)
+			}
+			if (eq_pos == -1) {
+				g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
+				g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), 0x7FFFFFFF);
+			} else {
+				CString temp(lowered);
+				lowered = lowered.Left(eq_pos);
+				lowered.TrimRight();
+				temp = temp.Mid(eq_pos + 1);
+				temp.TrimLeft();
+				double d = atof(temp);
+				g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
+				g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), d * 60.0);
+			}
+		} else if (eq_pos != -1 && section_name != "bannedplayers") {
+			// Key=value line (not in bannedplayers section)
+			CString value_lowered = lowered.Mid(eq_pos + 1);
+			value_lowered.TrimLeft();
+			value_lowered.TrimRight();
+
+			CString value_original = original_line.Mid(eq_pos + 1);
+			value_original.TrimLeft();
+			value_original.TrimRight();
+
+			int int_value = atoi(value_lowered);
+
+			if (lowered.Find("repopdelay") == 0 && section_name == "settings") {
+				if (int_value < 20) { int_value = 20; }
+				if (int_value > 500) { int_value = 500; }
+				g_ServerConfig.field_0x0 = int_value;
+			} else if (lowered.Find("logintimeout") == 0 && section_name == "settings") {
+				if (int_value < 10) { int_value = 10; }
+				if (int_value > 300) { int_value = 300; }
+				g_ServerConfig.field_0xa0 = int_value;
+			} else if (lowered.Find("reconnectdelay") == 0 && section_name == "settings") {
+				if (int_value < 1) { int_value = 1; }
+				g_ServerConfig.field_0xa4 = int_value;
+			} else if (lowered.Find("protocol") == 0 && section_name == "settings") {
+				// Protocol setting is read but ignored.
+			} else if (lowered.Find("gametype") == 0 && section_name == "settings") {
+				if (value_lowered == "cooperative") {
+					g_ServerConfig.gameType = 0;
+				} else if (value_lowered == "deathmatch") {
+					g_ServerConfig.gameType = 1;
+				} else if (value_lowered == "teamplay") {
+					g_ServerConfig.gameType = 2;
+				} else if (value_lowered == "arena") {
+					g_ServerConfig.gameType = 3;
+				} else {
+					return line_num;
+				}
+			} else if (lowered.Find("gamespeed") == 0 && section_name == "settings") {
+				if (int_value < 0 || int_value > 8) { int_value = 4; }
+				g_ServerConfig.field_0x8 = int_value;
+			} else if (lowered.Find("logfile") == 0 && section_name == "settings") {
+				g_ServerConfig.field_0xc = value_lowered;
+			} else if (lowered.Find("chrbase") == 0 && section_name == "settings") {
+				g_ServerConfig.chr_base = value_lowered;
+				int len = g_ServerConfig.chr_base.GetLength();
+				if (len > 0 && ((LPCTSTR)g_ServerConfig.chr_base)[len - 1] != '\\') {
+					g_ServerConfig.chr_base += '\\';
+				}
+			} else if (lowered.Find("ipaddress2") == 0 && section_name == "settings") {
+				g_ServerConfig.field_0x14 = value_lowered;
+			} else if (lowered.Find("ipaddress") == 0 && section_name == "settings") {
+				g_ServerConfig.field_0x10 = value_lowered;
+			} else if (lowered.Find("hataddress") == 0 && section_name == "settings") {
+				g_ServerConfig.field_0x18 = value_lowered;
+			} else if (lowered.Find("description") == 0 && section_name == "settings") {
+				g_ServerConfig.server_name.Empty();
+				for (int i = 0; i < value_original.GetLength(); i++) {
+					char c = value_original[i];
+					if (c == '&' || c == '%' || c == '|' || c == '?' || (unsigned char)c >= 0x80) {
+						g_ServerConfig.server_name += '*';
+					} else {
+						g_ServerConfig.server_name += c;
+					}
+				}
+			} else if (lowered.Find("serverid") == 0 && section_name == "settings") {
+				g_ServerConfig.field_0x24 = int_value;
+			} else if (lowered.Find("sayrange") == 0 && section_name == "settings") {
+				if (int_value < 1 || int_value > 255) { int_value = 255; }
+				g_ServerConfig.chat_range = int_value;
+			} else if (lowered.Find("shoutdelay") == 0 && section_name == "settings") {
+				if (int_value < 0) { int_value = 0; }
+				g_ServerConfig.field_0x90 = int_value;
+			} else if (lowered.Find("shutdowndelay") == 0 && section_name == "settings") {
+				if (int_value < 1 || int_value > 60) { int_value = 5; }
+				g_ServerConfig.field_0xb8 = int_value;
+			} else if (lowered.Find("maxplayers") == 0 && section_name == "settings") {
+				if (int_value < 1 || int_value > 16) { int_value = 16; }
+				g_ServerConfig.field_0x9c = int_value;
+			} else if (lowered.Find("fraglimit") == 0 && section_name == "settings") {
+				if (int_value < 1) { int_value = 0x7FFFFFFF; }
+				g_ServerConfig.field_0xac = int_value;
+			} else if (lowered.Find("arenatimelimit") == 0 && section_name == "settings") {
+				if (int_value < 1) { int_value = 0x7FFFFFFF; }
+				g_ServerConfig.field_0xc0 = int_value;
+			} else if (lowered.Find("flagscore") == 0 && section_name == "settings") {
+				if (int_value < 1) { int_value = 1; }
+				g_ServerConfig.field_0xb0 = int_value;
+			} else if (lowered.Find("save") == 0 && section_name == "settings") {
+				if (value_lowered == "client") {
+					g_ServerConfig.field_0x98 = 0;
+				} else if (value_lowered == "server") {
+					g_ServerConfig.field_0x98 = 1;
+				} else {
+					return line_num;
+				}
+			} else if (lowered.Find("scaledmaps") == 0 && section_name == "settings") {
+				if (value_lowered == "on") {
+					g_ServerConfig.map_range_check = 1;
+				} else if (value_lowered == "off") {
+					g_ServerConfig.map_range_check = 0;
+				} else {
+					return line_num;
+				}
+			} else if (lowered.Find("alwaysloadsacks") == 0 && section_name == "settings") {
+				if (value_lowered == "on") {
+					g_ServerConfig.field_0xbc = 1;
+				} else if (value_lowered == "off") {
+					g_ServerConfig.field_0xbc = 0;
+				} else {
+					return line_num;
+				}
+			} else if (lowered.Find("treasureprobability") == 0 && section_name == "settings") {
+				if (int_value < 1) { int_value = 0; }
+				if (int_value > 100) { int_value = 100; }
+				g_ServerConfig.field_0xc4 = int_value;
+			} else {
+				return line_num;
+			}
+		} else {
+			// No '=' or section is "bannedplayers"
+			if (section_name == "bannedips") {
+				lowered.TrimLeft();
+				lowered.TrimRight();
+				g_ServerConfig.field_0x28.SetAtGrow(g_ServerConfig.field_0x28.GetSize(), lowered);
+			} else if (section_name == "bannedplayers") {
+				original_line.TrimLeft();
+				original_line.TrimRight();
+				g_ServerConfig.banned_names.SetAtGrow(g_ServerConfig.banned_names.GetSize(), original_line);
+			} else if (section_name == "reporttowww") {
+				lowered.TrimLeft();
+				lowered.TrimRight();
+				g_ServerConfig.field_0x64.SetAtGrow(g_ServerConfig.field_0x64.GetSize(), lowered);
+			} else {
+				lowered.TrimRight();
+				if (lowered.GetLength() != 0) {
+					return line_num;
+				}
+			}
+		}
+
+		line_num++;
+	}
+
+	return 0;
+}
+
 
 
 
