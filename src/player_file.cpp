@@ -7,6 +7,30 @@
 #include "packet.h"
 
 
+// 4F5308
+extern "C" int32_t __cdecl CheckSum_4F5308(const uint8_t* data, int32_t size)
+{
+	int32_t checksum = 0;
+	for (int32_t index = 0; index < size; index++) {
+		checksum = checksum * 2 + data[index];
+	}
+
+	return checksum;
+}
+
+// 4F535E
+extern "C" void __cdecl LoadDecrypt_4F535E(uint8_t* data, int32_t size, uint16_t key)
+{
+	uint32_t state = key | (static_cast<uint32_t>(key) << 16);
+	for (int32_t index = 0; index < size; index++) {
+		data[index] ^= static_cast<uint8_t>(state >> 16);
+		state <<= 1;
+		if ((index & 0x0F) == 0x0F) {
+			state |= key;
+		}
+	}
+}
+
 namespace {
 
 constexpr uint32_t kPlayerFileMagic = 0x04507989;
@@ -19,28 +43,6 @@ struct PlayerFileSectionHeader {
 	uint16_t key;
 	uint32_t checksum;
 };
-
-int32_t CheckSum_4F5308(const uint8_t* data, int32_t size)
-{
-	int32_t checksum = 0;
-	for (int32_t index = 0; index < size; index++) {
-		checksum = checksum * 2 + data[index];
-	}
-
-	return checksum;
-}
-
-void LoadDecrypt_4F535E(uint8_t* data, int32_t size, uint16_t key)
-{
-	uint32_t state = key | (static_cast<uint32_t>(key) << 16);
-	for (int32_t index = 0; index < size; index++) {
-		data[index] ^= static_cast<uint8_t>(state >> 16);
-		state <<= 1;
-		if ((index & 0x0F) == 0x0F) {
-			state |= key;
-		}
-	}
-}
 
 void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t size)
 {

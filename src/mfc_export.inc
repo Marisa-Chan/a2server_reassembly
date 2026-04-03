@@ -848,8 +848,6 @@ externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
-externdef _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
-externdef _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
 externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
@@ -1418,6 +1416,10 @@ externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
+externdef _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
+externdef _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
+externdef _CheckSum_4F5308 :proc                         ; sub_4F5308 — checksum calculation
+externdef _LoadDecrypt_4F535E :proc                      ; sub_4F535E — XOR decrypt/encrypt
 
 
 ;gfx
