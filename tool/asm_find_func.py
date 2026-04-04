@@ -27,7 +27,7 @@ def main():
         print(f"ERROR: File not found: {asm_file}")
         sys.exit(1)
 
-    func_name = f"sub_{address}"
+    func_name = address
 
     with open(asm_file, "r", encoding="utf-8", errors="replace") as f:
         lines = f.readlines()
@@ -38,7 +38,7 @@ def main():
     # --- 1. Find proc/endp ---
     proc_line = -1
     for i, line in enumerate(lines):
-        if re.search(rf"^\s*{re.escape(func_name)}\s+proc\b", line):
+        if re.search(rf"^[^ ]+{re.escape(func_name)}.* proc\b", line):
             proc_line = i + 1  # 1-based
             break
 
