@@ -1391,7 +1391,30 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
         {
         case 0:
             if (parent_screen->vis_list->field_0xd8 == 0)
+#ifdef A2CLIENT
+            {
+                int32_t idx = parent_screen->vis_list->field_0xd0;
+                if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
+                    mwnd->field_0x3f0 != 0 && mwnd->field_0x3b8 != 0 &&
+                    parent_screen->pCharacters->field_0x130.GetSize() > 15)
+                {
+                    VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
+                    mwnd->field_0x3dc = mbox;
+                    mwnd->ModalScreen(mbox);
+                }
+                else if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
+                    mwnd->field_0x3f0 != 0 && mwnd->field_0x3b8 != 0 && mwnd->field_0x3c4 != 0)
+                {
+                    VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
+                    mwnd->field_0x3dc = mbox;
+                    mwnd->ModalScreen(mbox);
+                }
+                else
+                    parent_screen->CloseOk();
+            }
+#else
                 parent_screen->CloseOk();
+#endif
             break;
 
         case 1:
