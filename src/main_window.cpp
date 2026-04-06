@@ -332,7 +332,7 @@ void MainWindow::sub_48A756()
             this->game_tic_counter = (this->game_tic_counter + 1) & 0x0F;
             
             // Process server
-            g_Server->sub_4FBB79();
+            g_Server->ServerTic();
             
             sub_4271E6(byte_642C68);
             

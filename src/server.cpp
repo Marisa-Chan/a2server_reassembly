@@ -3122,3 +3122,130 @@ int Server::sub_4F1471(CString param_1) {
 
     return 0;
 }
+
+// 4FBB79
+void Server::ServerTic() {
+    if (this->field18_0x94 == 0) {
+        return;
+    }
+
+    static uint32_t tick_count = GetTickCount();
+    static uint32_t tick_after_5min = 0;
+
+    if (tick_count - tick_after_5min > 300000) {
+        tick_after_5min = tick_count;
+        this->sub_4F4570();
+    }
+
+    if ((this->tick & 0xf) == 6) {
+        g_World->sub_5ABD16(g_PlayersList);
+    }
+
+    if ((this->tick & 0xf) == 10) {
+        this->sub_4F0D58();
+        this->sub_4F0ECF();
+    }
+
+    if (g_ServerConfig.gameType == 2) {
+        int teams_ready = g_PlayersList->sub_53636E();
+        if ((this->tick & 0xff) == 0 && teams_ready == 0) {
+            POSITION ppos = g_PlayersList->GetHeadPosition();
+            while (ppos != nullptr) {
+                Player* player = g_PlayersList->GetNext(ppos);
+                if (player->is_ai == 0 && player->field_0x41 != 0 && player->field_0xa6c == 0) {
+                    g_NetStru1_main.FUN_0051ce86(0xb, 0, player);
+                }
+            }
+        }
+
+        if (teams_ready != 0) {
+            for (int i = 0; i < 2; i++) {
+                if ((&this->field62_0x214)[i] > 0) {
+                    (&this->field62_0x214)[i]++;
+                }
+                if ((&this->field62_0x214)[i] > 320) {
+                    this->sub_4F8FBF(i, 1);
+                    g_NetStru1_main.FUN_0051ce86(i + 0x100, 0, nullptr);
+                }
+            }
+
+            for (int i = 0; i < 2; i++) {
+                if ((&this->field60_0x20c)[i] != 0) {
+                    Player* player = g_PlayersList->sub_535B50((&this->field60_0x20c)[i]);
+                    if (player == nullptr || player->main_unit == nullptr) {
+                        continue;
+                    }
+
+                    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(1 - i);
+                    uint8_t unit_x = player->main_unit->position->GetX();
+                    if (abs((yx & 0xff) - unit_x) < 3) {
+                        uint8_t unit_y = player->main_unit->position->GetY();
+                        if (abs((yx >> 8) - unit_y) < 3) {
+                            g_NetStru1_main.FUN_0051ce86(i + 0x106, (&this->field60_0x20c)[i], nullptr);
+                            this->sub_4F8FBF(i, 0);
+
+                            POSITION ppos = g_PlayersList->GetHeadPosition();
+                            while (ppos != nullptr) {
+                                Player* p = g_PlayersList->GetNext(ppos);
+                                if (p->is_ai == 0 && p->field_0xa70 == 1 - i) {
+                                    p->frags += g_ServerConfig.field_0xb0;
+                                    (&this->field57_0x200)[1-i] += g_ServerConfig.field_0xb0;
+                                }
+                            }
+                            g_NetStru1_main.FUN_0051d6b4(0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if ((this->tick & 0xf) == 12) {
+        dword_6CDB3C->sub_5574B5();
+        this->srv_stru1->sub_4FB4AA();
+        g_PlayersList->FUN_00534ddd();
+        g_NetStru1_main.sub_51EEB7();
+        g_QuestMap.sub_55E00C();
+
+        POSITION pos = g_QuestMap.flags.GetStartPosition();
+        while (pos != nullptr) {
+            uint32_t k, v;
+            g_QuestMap.flags.GetNextAssoc(pos, k, v);
+            Player* p = g_PlayersList->sub_535B50(k);
+            if (v != 0 && p != nullptr) {
+                g_NetStru1_main.sub_51D4F6(&g_QuestMap, p, 0);
+                if ((v & 0x10) != 0) {
+                    g_NetStru1_main.FUN_0051ce86(0x10, 0, p);
+                }
+                if ((v & 0x20) != 0) {
+                    g_NetStru1_main.FUN_0051ce86(0x20, 0, p);
+                }
+                if ((v & 0x40) != 0) {
+                    g_NetStru1_main.FUN_0051ce86(0x40, 0, p);
+                }
+                if ((v & 0x80) != 0) {
+                    g_NetStru1_main.FUN_0051ce86(0x80, 0, p);
+                }
+            }
+        }
+        g_QuestMap.flags.RemoveAll();
+    }
+
+    this->sub_5090A7();
+    if ((this->tick & 0xf) == 15) {
+        this->sub_50979A();
+        this->tick16++;
+    }
+
+    uint32_t dt = GetTickCount();
+    this->field43_0x1b8 += (dt - tick_count);
+    if ((this->tick & 0xf) == 15) {
+        this->field42_0x1b4 = this->field43_0x1b8;
+        this->field44_0x1bc += this->field43_0x1b8;
+        this->tic16++;
+        if (this->field46_0x1c4 < this->field43_0x1b8) {
+            this->field46_0x1c4 = this->field43_0x1b8;
+        }
+        this->field43_0x1b8 = 0;
+    }
+}

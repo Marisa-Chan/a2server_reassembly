@@ -530,6 +530,7 @@ externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 externdef ?ProcessTick@UnitList@@QAEXXZ :proc
 externdef ?sub_557AB0@UnitList@@QAEHXZ :proc                                   ; UnitList::sub_557AB0()
+externdef ?sub_5574B5@UnitList@@QAEXXZ :proc
 
 
 
@@ -805,6 +806,8 @@ extern ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z : proc
 extern ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ : proc
 extern ?GetClientsPktNum@NetStru1@@QAEIXZ : proc
 extern ?IsActive@NetStru1@@QAEHXZ : proc
+externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
+externdef ?sub_51EEB7@NetStru1@@QAEXXZ :proc
 
 
 ;NetStru2
@@ -830,7 +833,7 @@ externdef ?g_IsServer@@3HA : dword
 externdef ?g_ShutdownIn@@3HA : dword
 externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 
-externdef ?sub_4FBB79@Server@@QAEXXZ :proc
+externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
@@ -870,6 +873,14 @@ externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
 extern ?Start@Server@@QAEHH@Z : proc
 externdef ?sub_4F0BEF@Server@@QAEHXZ :proc  ; int Server::sub_4F0BEF()
+externdef ?sub_4F0D58@Server@@QAEXXZ :proc
+externdef ?sub_5090A7@Server@@QAEXXZ :proc
+externdef ?sub_50979A@Server@@QAEXXZ :proc
+
+
+; SrvStru1
+
+externdef ?sub_4FB4AA@SrvStru1@@QAEXXZ :proc
 
 ; NetStru1::sub_51E205
 externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
@@ -933,6 +944,7 @@ externdef ?sub_5A6ADB@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World
 externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
 externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
+externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 
 ; Player
 externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
@@ -1013,6 +1025,8 @@ externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
 externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 externdef ?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z :proc                           ; void QuestMap::sub_55E5FB(Quest*)
+externdef ?sub_55E00C@QuestMap@@QAEXXZ :proc
+
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 

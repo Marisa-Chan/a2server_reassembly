@@ -53,6 +53,8 @@ public:
     // Make spell effect.
     void sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);
     void sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
+
+    void sub_4FB4AA();
 };
 ASSERT_SIZE(SrvStru1, 0x48);
 
@@ -99,7 +101,7 @@ Human* _stdcall sub_4EF4E7(void* block, int arg14, Player* player); // Load char
 struct Server {
 public:
     ~Server();
-    void sub_4FBB79();
+    void ServerTic();
     void sub_4F1E2A();
     void sub_4FA5C4();
     void sub_4FA78E(int arg);
@@ -114,6 +116,7 @@ public:
     void sub_4EE028(Humanoid* humanoid);
     void sub_5013D4(Player* player);
     void sub_4F4570();
+    void sub_4F0D58();
     void sub_4FA4BB(CString* name, uint32_t* frags);
     void sub_4FA348(CString* name, int flag);
     void sub_4FA551(Player* player); // Arena mode player entry handler
@@ -123,6 +126,8 @@ public:
     void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
     Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
+    void sub_5090A7();
+    void sub_50979A();
     void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 

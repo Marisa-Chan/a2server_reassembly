@@ -101,6 +101,7 @@ public:
     ~World();
 
     void sub_5AFBFD(); // increments field65_0xc780
+    void sub_5ABD16(class PlayersList* players);
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
     void sub_5ACAA7(Group* group);
