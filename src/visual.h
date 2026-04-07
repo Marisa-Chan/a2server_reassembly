@@ -93,6 +93,9 @@ public:
 	void ClientPtToScreen(CPoint* out, const CPoint& _point);
 	void ClientRectToScreen(CRect* out, const CRect& _rect);
 
+	CPoint ClientPtToScreen(const CPoint& _point);
+	CRect ClientRectToScreen(const CRect& _rect);
+
 	void SetLeftObj(CVisualObject* obj);
 	void SetRightObj(CVisualObject* obj);
 	void SetUpObj(CVisualObject* obj);

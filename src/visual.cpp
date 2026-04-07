@@ -217,9 +217,8 @@ void CVisualObject::VMethod9()
 void CVisualObject::VMethod10()
 {
     //4d7d03
-    CRect r;
-    ClientRectToScreen(&r, rect);
-    FUN_00454c74(&r);
+    CRect r = ClientRectToScreen(rect);
+    gfxFlushRect(r);
 }
 
 
@@ -396,8 +395,7 @@ int32_t CVisualObject::MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t l
     {
         CVisualObject* obj = childs[i];
 
-        CRect r;
-        obj->ClientRectToScreen(&r, obj->rect);
+        CRect r = obj->ClientRectToScreen(obj->rect);
 
         if (!isMouseEvent || r.PtInRect(mouse))
         {
@@ -425,6 +423,24 @@ void CVisualObject::ClientRectToScreen(CRect* out, const CRect& _rect)
     //4d7283
     ClientPtToScreen(&(out->TopLeft()), _rect.TopLeft());
     ClientPtToScreen(&(out->BottomRight()), _rect.BottomRight());
+}
+
+CPoint CVisualObject::ClientPtToScreen(const CPoint& _point)
+{
+    //4d71f3
+    CPoint out = _point;
+    for (CVisualObject* pobj = parent; pobj; pobj = pobj->parent)
+        out += pobj->rect.TopLeft();
+    return out;
+}
+
+CRect CVisualObject::ClientRectToScreen(const CRect& _rect)
+{
+    //4d7283
+    CRect out;
+    out.TopLeft() = ClientPtToScreen(_rect.TopLeft());
+    out.BottomRight() = ClientPtToScreen(_rect.BottomRight());
+    return out;
 }
 
 
@@ -585,8 +601,7 @@ CVisualObject* CVisualObject::GetChildAt(POINT pt)
             return ret;
     }
 
-    CRect r;
-    ClientRectToScreen(&r, rect);
+    CRect r = ClientRectToScreen(rect);
     if (r.PtInRect(pt))
         return this;
     return nullptr;
@@ -766,8 +781,7 @@ void VisLabel::VMethod7()
     //4d84e4
     if (parent)
     {
-        CRect local_14;
-        ClientRectToScreen(&local_14, rect);
+        CRect local_14 = ClientRectToScreen(rect);
 
         LockSurface2();
 
@@ -817,8 +831,7 @@ void VisButton::VMethod7()
     if (!parent)
         return;
 
-    CRect r2;
-    ClientRectToScreen(&r2, rect);
+    CRect r2 = ClientRectToScreen(rect);
     
     LockSurface2();
     parent->VMethod8(&r2);
@@ -869,8 +882,7 @@ void VisButton::VMethod7()
 
     if (TestFlags(FLAG_ENABLED) == 0)
     {
-        CRect t;
-        ClientRectToScreen(&t, rect);
+        CRect t = ClientRectToScreen(rect);
         ShadowRect(t, 3);
     }
     UnlockSurface2();
@@ -885,8 +897,7 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos)
     if (TestFlags(FLAG_FOCUS) == 0)
         parent->FocusTo(this, true);
 
-    CRect t;
-    ClientRectToScreen(&t, rect);
+    CRect t = ClientRectToScreen(rect);
     
     if (t.PtInRect(pos))
     {
@@ -934,8 +945,7 @@ int32_t VisButton::OnLButtonUp(uint32_t wparam, CPoint pos)
     if (downed == 0)
         return 0;
 
-    CRect t;
-    ClientRectToScreen(&t, rect);
+    CRect t = ClientRectToScreen(rect);
 
     SetDowned(false);
 
@@ -1079,8 +1089,7 @@ VisScreen::~VisScreen()
 //4df63d
 void VisScreen::VMethod7()
 {
-    CRect r;
-    ClientRectToScreen(&r, rect);
+    CRect r = ClientRectToScreen(rect);
 
     VMethod8(&r);
 
@@ -1109,8 +1118,7 @@ void VisScreen::VMethod8(CRect* r)
     }
     else
     {
-        CRect r2;
-        ClientRectToScreen(&r2, rect);
+        CRect r2 = ClientRectToScreen(rect);
 
         r2.right -= 8;
         r2.bottom -= 8;
