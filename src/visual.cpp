@@ -246,7 +246,7 @@ uint32_t CVisualObject::DataSize()
 }
 
 
-void CVisualObject::ReadData(void* buf)
+void CVisualObject::ReadData(const void* buf)
 {
     //4d7e02
 
@@ -254,7 +254,7 @@ void CVisualObject::ReadData(void* buf)
     {
         CVisualObject* obj = childs[i];
         obj->ReadData(buf);
-        buf = (uint8_t*)buf + obj->DataSize();
+        buf = (const uint8_t*)buf + obj->DataSize();
     }
 }
 
@@ -1058,6 +1058,500 @@ void VisButton::SetDowned(bool down)
         VMethod9();
     }
 }
+
+
+
+VisScrollBar::~VisScrollBar()
+{
+    //4e3e80
+}
+
+void VisScrollBar::SetCursorOver(bool isOver)
+{
+    //4de6df
+    CVisualObject::SetCursorOver(isOver);
+    is_mouse_over = isOver;
+}
+
+void VisScrollBar::VMethod7()
+{
+    if (!parent)
+        return;
+
+    CRect tr = ClientRectToScreen(rect);
+    tr.BottomRight() += CPoint(4, 4);
+
+    LockSurface2();
+    parent->VMethod8(&tr);
+
+    tr = ClientRectToScreen(rect);
+
+    if (tr.Width() < tr.Height())
+    {
+        int32_t val_pos = 0;
+
+        if (val_max < 2)
+            val_pos = 0;
+        else
+            val_pos = (val * (tr.Height() - 3 * tr.Width() + 8)) / (val_max - 1);
+
+        if (mouse_on_minus == 0)
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 18, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.top, 18, 0, 0);
+        }
+        else
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 21, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.top, 21, 0, 0);
+        }
+
+        for (int32_t i = 1; i < tr.Height() / tr.Width(); i++)
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4 + i * tr.Width(), 19, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.top + i * tr.Width(), 19, 0, 0);
+        }
+
+        gfx_scrollbars->VMethod3(tr.left + 4, tr.top + tr.Width() + val_pos, 22, 0, 0);
+
+        if (mouse_on_plus == 0)
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 20, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 20, 0, 0);
+        }
+        else
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.bottom - tr.Width() + 4, 23, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.bottom - tr.Width(), 23, 0, 0);
+        }
+
+        gfx_scrollbars->VMethod2(tr.left, tr.top + tr.Width() - 4 + val_pos, 22, 0, 0);
+    }
+    else
+    {
+        UpdateHBoxes();
+
+        if (mouse_on_minus == 0)
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 0, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.top, 0, 0, 0);
+        }
+        else
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4, tr.top + 4, 3, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left, tr.top, 3, 0, 0);
+        }
+
+        for (int32_t i = 1; i < tr.Width() / tr.Height(); i++)
+        {
+            gfx_scrollbars->VMethod3(tr.left + 4 + i * tr.Height(), tr.top + 4, 7, 4, 0);
+            gfx_scrollbars->VMethod2(tr.left + i * tr.Height(), tr.top, 7, 0, 0);
+        }
+
+        gfx_scrollbars->VMethod3(horiz_box_pos.left + 5, tr.top + 4, 10, 4, 0);
+
+        if (mouse_on_plus == 0)
+        {
+            gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 8, 4, 0);
+            gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 8, 0, 0);
+        }
+        else
+        {
+            gfx_scrollbars->VMethod3(tr.right - tr.Height() + 4, tr.top + 4, 11, 4, 0);
+            gfx_scrollbars->VMethod2(tr.right - tr.Height(), tr.top, 11, 0, 0);
+        }
+
+        gfx_scrollbars->VMethod2(horiz_box_pos.left + 1, tr.top, 10, 0, 0);
+    }
+    
+    if (TestFlags(FLAG_ENABLED) == 0)
+    {
+        tr = ClientRectToScreen(rect);
+        tr.InflateRect(CRect(1, 1, 1, 1));
+
+        ShadowRect(tr, 3);
+    }
+    UnlockSurface2();
+}
+
+
+void VisScrollBar::VMethod9()
+{
+    //4de0d0
+    if (g_IsServer == 0)
+    {
+        VMethod7();
+        CRect tr = ClientRectToScreen(rect);
+        tr.BottomRight() += CPoint(4, 4);
+        gfxFlushRect(tr);
+    }
+}
+
+
+
+void VisScrollBar::WriteData(void* buf)
+{
+    //4e3d90
+    VisScrollBar::Data* dat = (VisScrollBar::Data*)buf;
+    dat->v = val;
+    dat->vmax = val_max;
+}
+
+
+void VisScrollBar::ReadData(const void* buf)
+{
+    //4e3dc0
+    const VisScrollBar::Data* dat = (const VisScrollBar::Data*)buf;
+    val = dat->v;
+    val_max = dat->vmax;
+}
+
+int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4df055
+    if (msg == 0x46f)
+        UpdateRects();
+
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
+int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4deb32
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    CRect tr = ClientRectToScreen(rect);
+
+    if (btn_minus.PtInRect(pos))
+    {
+        if (mouse_on_minus == 0)
+        {
+            mouse_on_minus = 1;
+            VMethod9();
+        }
+
+        if (TestFlags(FLAG_OVERCURSOR) == 0)
+            CVisualObject::SetCursorOver(true); //do not set   is_mouse_over
+    }
+    else
+    {
+        if (mouse_on_minus != 0)
+        {
+            CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
+            mouse_on_minus = 0;
+            VMethod9();
+        }
+    }
+
+    if (btn_plus.PtInRect(pos))
+    {
+        if (mouse_on_plus == 0)
+        {
+            mouse_on_plus = 1;
+            VMethod9();
+        }
+
+        if (TestFlags(FLAG_OVERCURSOR) == 0)
+            CVisualObject::SetCursorOver(true); //do not set   is_mouse_over
+    } 
+    else
+    {
+        if (mouse_on_plus != 0)
+        {
+            CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
+            mouse_on_plus = 0;
+            VMethod9();
+        }
+    }
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+    {
+        if (tr.Height() < tr.Width())
+            parent->FocusTo(parent, true);
+    }
+
+    if (TestFlags(FLAG_OVERCURSOR) == 0 || is_mouse_over == 0)
+    {
+        if ((wparam & 1) != 0)
+            OnLButtonDown(wparam, pos);
+        return 0;
+    }
+
+    if (tr.Width() < tr.Height())
+    {
+        int32_t val_pos = val_max - 1;
+        if (val_max >= 2)
+            val_pos = ((val_max - 1) * (pos.y - tr.top - 24)) / (tr.Height() + (tr.Width() - 4) * -3);
+
+        if (val_pos < 0)
+            val_pos = 0;
+
+        if (val_pos > val_max - 1)
+            val_pos = val_max - 1;
+
+        parent->MsgProc(0x469, id, val_pos);
+
+        if (pos.x < tr.left - tr.Width() ||
+            pos.x > tr.right + tr.Width() ||
+            pos.y < tr.top - tr.Width() ||
+            pos.y > tr.bottom + tr.Width() )
+            SetCursorOver(false);
+    }
+    else if (mousedown_on_hbox != 0)
+    {
+        val = GetValHPos(pos.x);
+        VMethod9();
+        parent->MsgProc(0x46e, id, val);
+    }
+    return 0;
+}
+
+
+int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos)
+{
+    //4deebd
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (rect.Width() < rect.Height())
+    {
+        if (TestFlags(FLAG_OVERCURSOR) &&
+            (btn_minus.PtInRect(pos) || btn_plus.PtInRect(pos)))
+            return OnLButtonDown(wparam | 1, pos);
+
+        if (wparam == 1)
+            return OnMouseMove(wparam, pos);
+    }
+    return 1;
+}
+
+
+int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4de701
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    CRect rt = ClientRectToScreen(rect);
+    if (rt.Width() < rt.Height())
+    {
+        int32_t val_pos = val_max - 1;
+        if (val_max >= 2)
+            val_pos = (val * (rt.Height() + rt.Width() * -3 + 8)) / (val_max - 1);
+
+        if (pos.y - rt.top < rt.Width())
+            parent->MsgProc(0x46a, id, 0);
+        else if (rt.bottom - pos.y < rt.Width() - 4)
+            parent->MsgProc(0x46b, id, 0);
+        else if (pos.y - rt.top - rt.Width() < val_pos)
+        {
+            if (down_on_part != 2)
+            {
+                parent->MsgProc(0x46c, id, 0);
+                down_on_part = 1;
+            }
+        }
+        else if ((pos.y - rt.top) - (rt.Width() * 2 - 4) < val_pos)
+        {
+            SetCursorOver(true);
+        }
+        else if (down_on_part != 1)
+        {
+            parent->MsgProc(0x46d, id, 0);
+            down_on_part = 2;
+        }
+    }
+    else
+    {
+        if (btn_minus.PtInRect(pos))
+        {
+            int32_t d = val_max / 16;
+            if (d < 1)
+                d = 1;
+
+            if (val - d < 0)
+                val = 0;
+            else
+                val -= d;
+        }
+        else if (btn_plus.PtInRect(pos))
+        {
+            int32_t d = val_max / 16;
+            if (d < 1)
+                d = 1;
+
+            if (val + d > val_max)
+                val = val_max;
+            else
+                val += d;
+        }
+        else
+        {
+            val = GetValHPos(pos.x);
+            UpdateHBoxes();
+
+            if (mousedown_on_hbox == 0)
+            {
+                mousedown_on_hbox = horiz_box_pos.PtInRect(pos);
+
+                if (mousedown_on_hbox != 0 && TestFlags(FLAG_OVERCURSOR) == 0)
+                    SetCursorOver(true);
+            }            
+        }
+
+        VMethod9();
+        parent->MsgProc(0x46e, id, val);
+    }
+    return 1;
+}
+
+
+int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    //4defc7
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    down_on_part = 0;
+
+    if (is_mouse_over)
+    {
+        parent->MsgProc(0x474, id, 0);
+        SetCursorOver(false);
+        mousedown_on_hbox = 0;
+    }
+    return 0;
+}
+
+
+int32_t VisScrollBar::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    //4e3df0
+    if (OnLButtonDown(wparam, pos) != 0 && OnLButtonUp(wparam, pos) != 0)
+        return 1;
+    return 0;
+}
+
+
+int32_t VisScrollBar::OnKeyDown(uint32_t wparam)
+{
+    //4df087
+    if (TestFlags(FLAG_FOCUS) == 0 || rect.Height() >= rect.Width())
+        return CVisualObject::OnKeyDown(wparam);
+
+    int32_t d = val_max / 16;
+    if (d == 0)
+        d = 1;
+
+    if (wparam == VK_LEFT)
+    {
+        if (val - d < 0)
+            val = 0;
+        else
+            val -= d;
+
+        VMethod9();
+        parent->MsgProc(0x46e, id, val);
+        return 1;
+    }
+    
+    if (wparam == VK_RIGHT)
+    {
+        if (val + d >= val_max)
+            val = val_max;
+        else
+            val += d;
+
+        VMethod9();
+        parent->MsgProc(0x46e, id, val);
+        return 1;
+    }
+    return 0;
+}
+
+VisScrollBar::VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint)
+: CVisualObject(_id, l, t, r, b, hint)
+{
+    //4dde6a
+    field_0x5c = 0;
+    val = 0;
+    val_max = 0;
+    mouse_on_minus = 0;
+    mouse_on_plus = 0;
+    is_mouse_over = 0;
+    mousedown_on_hbox = 0;
+    caption_obj = nullptr;
+
+    AfxGetMainWnd()->PostMessage(0x46f, 0, 0);
+}
+
+
+void VisScrollBar::SetPos(int32_t pos, int32_t pos_max)
+{
+    //4de086
+    if (pos_max > -1)
+        val_max = pos_max;
+
+    if (pos > -1 && pos < val_max)
+        val = pos;
+
+    VMethod9();
+}
+
+
+void VisScrollBar::UpdateRects()
+{
+    //4ddacf
+    field_0x5c = 1;
+
+    CRect rt = ClientRectToScreen(rect);
+    if (rt.Width() < rt.Height())
+    {
+        btn_minus = CRect(rt.left, rt.top, rt.right, rt.top + rt.Width() - 4);
+        btn_plus = CRect(rt.left, rt.bottom - rt.Width() + 4, rt.right, rt.bottom);
+    }
+    else
+    {
+        btn_minus = CRect(rt.left, rt.top, rt.left + rt.Height() - 4, rt.bottom);
+        btn_plus = CRect(rt.right - rt.Height() + 4, rt.top, rt.right, rt.bottom);
+
+        flags |= FLAG_NOTFOCUS;
+    }
+    UpdateHBoxes();
+}
+
+
+void VisScrollBar::UpdateHBoxes()
+{
+    //4ddc41
+
+    CRect rt = ClientRectToScreen(rect);
+    if (rt.Height() < rt.Width())
+    {
+        int32_t p = rt.left + rt.Height() - 4;
+        if (val_max != 0)
+            p += (rt.Width() - (rt.Height() * 2 - 8) - 12) * val / val_max;
+
+        horiz_box_pos = CRect(p, rt.top, p + 16, rt.bottom);
+        rect4 = CRect(btn_minus.right, btn_minus.top, horiz_box_pos.left, horiz_box_pos.bottom);
+        rect5 = CRect(horiz_box_pos.right, horiz_box_pos.top, btn_plus.left, btn_plus.bottom);
+    }
+}
+
+
+int32_t VisScrollBar::GetValHPos(int32_t x)
+{
+    //4dddbe
+    CRect rt = ClientRectToScreen(rect);
+    int32_t p = val_max * (x - rt.left + 2 + rt.Height()) / (rt.Width() - (rt.Height() * 2 - 8) - 12);
+    if (p < 0)
+        p = 0;
+    if (p > val_max)
+        p = val_max;
+    return p;
+}
+
 
 
 

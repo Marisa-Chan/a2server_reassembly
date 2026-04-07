@@ -10,6 +10,7 @@ class CSprite256;
 
 extern CRect g_ScreenSize; //65fb78
 extern CSprite256* gfx_interface_lm; //6653ec
+extern CSprite256* gfx_scrollbars; //6653f0
 
 extern int32_t g_RBits;
 extern int32_t g_GBits;
@@ -50,6 +51,7 @@ inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b)
 void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr); //4586a4
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //457dcc
 void __cdecl ShadowRect(CRect rect, int shadow); //457b6f
+void __cdecl gfxFlushRect(const CRect& rect); //454c74
 
 
 

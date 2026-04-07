@@ -8,7 +8,6 @@
 #include "gameobj.h"
 
 
-extern void FUN_00454c74(CRect *r);
 extern void LockSurface2();
 extern void UnlockSurface2();
 
@@ -56,7 +55,7 @@ public:
 	virtual void VMethod10();
 	virtual void WriteData(void* buf);
 	virtual uint32_t DataSize();
-	virtual void ReadData(void* buf);
+	virtual void ReadData(const void* buf);
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam);
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos);
 	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos);
@@ -181,6 +180,65 @@ public:
 	int32_t charid;
 };
 ASSERT_SIZE(VisButton, 0x78);
+
+
+//60e1d0
+class VisScrollBar : public CVisualObject
+{
+public:
+	virtual ~VisScrollBar();
+
+	virtual void SetCursorOver(bool isOver) override;
+	virtual void VMethod7() override;
+	virtual void VMethod9() override;
+	virtual void WriteData(void* buf) override;
+	virtual void ReadData(const void* buf) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint);
+
+
+	void SetPos(int32_t pos, int32_t pos_max);
+	void UpdateRects();
+	void UpdateHBoxes();
+
+	int32_t GetValHPos(int32_t x);
+
+public:
+	int32_t field_0x5c;
+	int32_t is_mouse_over;
+	int32_t mouse_on_minus;
+	int32_t mouse_on_plus;
+	int32_t mousedown_on_hbox;
+	int32_t down_on_part;
+	CRect btn_minus;
+	CRect btn_plus;
+	CRect horiz_box_pos;
+	CRect rect4;
+	CRect rect5;
+	int32_t val;
+	int32_t val_max;
+
+public:
+	struct Data
+	{
+		int32_t v;
+		int32_t vmax;
+	};
+};
+ASSERT_SIZE(VisScrollBar, 0xcc);
+
+//60e0b0
+class VisListBox : public CVisualObject
+{
+public:
+};
 
 
 //60e2c0

@@ -1289,7 +1289,7 @@ extern ?VMethod9@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscal
 extern ?VMethod10@CVisualObject@@UAEXXZ :proc   ; (public: virtual void __thiscall CVisualObject::VMethod10(void))
 extern ?WriteData@CVisualObject@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CVisualObject::WriteData(void *))
 extern ?DataSize@CVisualObject@@UAEIXZ :proc   ; (public: virtual unsigned int __thiscall CVisualObject::DataSize(void))
-extern ?ReadData@CVisualObject@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CVisualObject::ReadData(void *))
+extern ?ReadData@CVisualObject@@UAEXPBX@Z :proc   ; (public: virtual void __thiscall CVisualObject::ReadData(void *))
 extern ?MsgProc@CVisualObject@@UAEHIII@Z :proc   ; (public: virtual int __thiscall CVisualObject::MsgProc(unsigned int,unsigned int,unsigned int))
 extern ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnMouseMove(unsigned int,class CPoint))
 extern ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnWmUser(unsigned int,class CPoint))
@@ -1344,6 +1344,10 @@ extern ?OnChar@VisButton@@UAEHI@Z  :proc
 extern ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z  :proc
 extern ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z  :proc
 extern ?SetDowned@VisButton@@QAEX_N@Z  :proc
+
+;VisScrollBar
+extern ?SetPos@VisScrollBar@@QAEXHH@Z  :proc
+extern ??0VisScrollBar@@QAE@HHHHHPBD@Z  :proc
 
 
 ;VisScreen
@@ -1407,13 +1411,14 @@ externdef _sub_4F499B :proc                                                     
 
 
 ;GFX things
-externdef ?FUN_00454c74@@YAXPAVCRect@@@Z :proc
+externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
 externdef ?UnlockSurface2@@YAXXZ  :proc
 externdef ?InitVideo@@YAHXZ :proc
 externdef ?SetVideoMode@@YAHXZ :proc
 
 externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
+externdef ?gfx_scrollbars@@3PAVCSprite256@@A : dword
 
 
 ; Free functions
