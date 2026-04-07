@@ -847,7 +847,7 @@ void VisButton::VMethod7()
 
     if (!clr)
     {
-        if (mouse_on == 0 && TestFlags(FLAG_FOCUS) == 0 && TestFlags(FLAG_ENABLED) == 0)
+        if ((mouse_on == 0 && TestFlags(FLAG_FOCUS) == 0) || TestFlags(FLAG_ENABLED) == 0)
             font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Black, dd);
         else
             font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, caption, 8 | 2, p_clrsh_Gold, dd);
@@ -900,8 +900,9 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos)
     }
     else
     {
-        if (TestFlags(FLAG_OVERCURSOR) == 0 && downed == 0)
+        if (TestFlags(FLAG_OVERCURSOR) != 0 && downed == 0)
             SetCursorOver(false);
+
         if (mouse_on == 1)
         {
             mouse_on = 0;
