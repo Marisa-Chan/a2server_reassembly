@@ -238,8 +238,48 @@ ASSERT_SIZE(VisScrollBar, 0xcc);
 class VisListBox : public CVisualObject
 {
 public:
-};
+	~VisListBox();
 
+	virtual void VMethod7() override;
+	virtual void WriteData(void* buf) override;
+	virtual uint32_t DataSize() override;
+	virtual void ReadData(const void* buf) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual int32_t IsValidIndex(int32_t idx); //26
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr); //27
+	virtual void SelectItem(int32_t idx); //28
+	virtual int32_t GetItemCount(); //29
+	virtual void VMethod30(CPoint pos, const CRect& r); //30 
+
+	VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
+	VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
+
+	void Down();
+	void Up();
+	void PageDown();
+	void PageUp();
+
+	int32_t YToIndex(int32_t y); //Get index of y coordinate
+
+public:
+	int32_t entry_height;
+	int32_t entry_height_full;
+	CStringArray entries;
+	CGameFont* font;
+	uint16_t* clr1;
+	uint16_t* clr2;
+	int32_t vis_start_index;
+	int32_t selected_index;
+	int32_t num_vis_entry;
+	int32_t scrollbox_id;
+};
+ASSERT_SIZE(VisListBox, 0x94);
 
 //60e2c0
 class VisScreen : public CVisualObject

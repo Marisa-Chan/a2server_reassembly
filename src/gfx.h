@@ -73,6 +73,8 @@ public:
 
 	int32_t GetStrWidth(const char* str); //45e1f9
 
+	int32_t GetHeight(); //402a90
+
 public:
 	CGameBitmap* bitmap;
 	int32_t* char_widths;

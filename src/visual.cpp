@@ -1555,6 +1555,384 @@ int32_t VisScrollBar::GetValHPos(int32_t x)
 
 
 
+
+
+VisListBox::~VisListBox() = default; //44f430
+
+void VisListBox::VMethod7()
+{
+    //4dc11d
+    if (!parent)
+        return;
+
+    CRect rt = ClientRectToScreen(rect);
+
+    LockSurface2();
+
+    parent->VMethod8(&rt);
+
+    int32_t y = rt.top + 2;
+    for (int32_t i = vis_start_index; i < vis_start_index + num_vis_entry; i++)
+    {
+        if (i >= vis_start_index)
+        {
+            entry_height_full -= 2;
+
+            FillRectColor(rt.left + 1, y - 2, rt.right - 5, y - 2, GetColorRGB(8, 8, 8));
+            FillRectColor(rt.left + 1, y - 1, rt.left, y - 3 + entry_height_full, GetColorRGB(8, 8, 8));
+
+            FillRectColor(rt.left + 1, y - 2 + entry_height_full, rt.right - 5, y - 2 + entry_height_full, GetColorRGB(0x5e, 0x73, 0x65));
+            FillRectColor(rt.right - 4, y - 1, rt.right - 4, y - 3 + entry_height_full, GetColorRGB(0x5e, 0x73, 0x65));
+
+            entry_height_full += 2;
+        }
+
+        if (selected_index == i)
+        {
+            VMethod30(CPoint(rt.left, y), rt);
+
+            if (TestFlags(FLAG_FOCUS) == 0)
+                DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_ShockingBlack);
+            else
+                DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_Gold);
+        }
+        else
+            DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_Black);
+
+        y += entry_height_full;
+    }
+    UnlockSurface2();
+}
+
+void VisListBox::WriteData(void* buf)
+{
+    //4dc0bc
+    ((CStringArray*)buf)->Copy(entries);
+}
+
+uint32_t VisListBox::DataSize()
+{
+    //4507e0
+    return 4; //???
+}
+
+void VisListBox::ReadData(const void* buf)
+{
+    //4dc0ea
+    entries.Copy(**(const CStringArray**)buf);
+}
+
+int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4dc62f
+    int32_t res = CVisualObject::MsgProc(msg, wparam, lparam);
+    if (res != 0)
+        return res;
+
+    switch (msg)
+    {
+    case 0x469:
+        if (wparam == scrollbox_id)
+        {
+            SelectItem(lparam);
+            return 1;
+        }
+        break;
+
+    case 0x46a:
+        if (wparam == scrollbox_id)
+        {
+            Up();
+            return 1;
+        }
+        break;
+
+    case 0x46b:
+        if (wparam == scrollbox_id)
+        {
+            Down();
+            return 1;
+        }
+        break;
+
+    case 0x46c:
+        if (wparam == scrollbox_id)
+        {
+            PageUp();
+            return 1;
+        }
+        break;
+
+    case 0x46d:
+        if (wparam == scrollbox_id)
+        {
+            PageDown();
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int32_t VisListBox::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4dc8a4
+    if (TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    if ((wparam & 1) != 0)
+        OnLButtonDown(wparam, pos);
+
+    return 0;
+}
+
+
+int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4dc73f
+
+    int32_t idx = YToIndex(pos.y);
+    if (idx < num_vis_entry)
+    {
+        if (vis_start_index + idx < entries.GetSize() - 1)
+            idx += vis_start_index;
+        else
+            idx = entries.GetSize() - 1;
+    }
+
+    selected_index = idx;
+
+    VMethod9();
+
+    VisScrollBar* scrollbar = (VisScrollBar*)parent->FindChild(scrollbox_id);
+    if (scrollbar)
+        scrollbar->SetPos(selected_index, entries.GetSize());
+
+    parent->MsgProc(0x46e, id, selected_index);
+
+    return 1;
+}
+
+int32_t VisListBox::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    //4dc832
+    parent->MsgProc(0x473, id, selected_index);
+    return 1;
+}
+
+
+int32_t VisListBox::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    //4dc86b
+    parent->MsgProc(0x444, id, selected_index);
+    return 1;
+}
+
+
+int32_t VisListBox::OnKeyDown(uint32_t wparam)
+{
+    //4dc8f6
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+        return CVisualObject::OnKeyDown(wparam);
+
+    switch (wparam)
+    {
+    case VK_PRIOR:
+        PageUp();
+        break;
+
+    case VK_NEXT:
+        PageDown();
+        break;
+
+    case VK_UP:
+        Up();
+        break;
+
+    case VK_DOWN:
+        Down();
+        break;
+
+    default:
+        break;
+    }
+
+    switch (wparam)
+    {
+    case VK_PRIOR:
+    case VK_NEXT:
+    case VK_UP:
+    case VK_DOWN:
+        parent->MsgProc(0x46e, id, selected_index);
+        return 1;
+
+    default:
+        break;
+    }
+
+    return 0;
+}
+
+
+int32_t VisListBox::IsValidIndex(int32_t idx)
+{
+    //4dc528
+    if (idx > -1 && idx < entries.GetSize())
+        return 1;
+    return 0;
+}
+
+void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    //4dc560
+    if (!IsValidIndex(idx))
+        return;
+
+    CRect tmp;
+    GetClipRect(&tmp);
+
+    CRect rt = ClientRectToScreen(rect);
+
+    CRect clip(pos.x, pos.y, rt.right - 6, pos.y + 2 + font->GetHeight());
+    SetClipRect(clip);
+
+    font->DrawTextWithShadow(pos.x, pos.y, entries[idx], 0, clr, 1);
+
+    SetClipRect(tmp);
+}
+
+void VisListBox::SelectItem(int32_t idx)
+{
+    //4dbe7f
+
+    if (idx >= entries.GetSize())
+        idx = entries.GetSize() - 1;
+
+    if (idx < 0)
+        vis_start_index = 0;
+    else if (idx < vis_start_index)
+        vis_start_index = idx;
+    else if (idx >= vis_start_index + num_vis_entry)
+        vis_start_index = (idx - num_vis_entry) + 1;
+
+    selected_index = idx;
+
+    VMethod9();
+
+    VisScrollBar* scrollbar = (VisScrollBar*)parent->FindChild(scrollbox_id);
+    if (scrollbar)
+        scrollbar->SetPos(selected_index, entries.GetSize());
+
+    parent->MsgProc(0x46e, id, selected_index);
+}
+
+int32_t VisListBox::GetItemCount()
+{
+    //4507c0
+    return entries.GetSize();
+}
+
+void VisListBox::VMethod30(CPoint pos, const CRect& r)
+{
+    //4dc4ee
+    CRect rt;
+    rt.top = pos.y - 1;
+    rt.left = pos.x;
+    rt.right = r.right - 4;
+    rt.bottom = pos.y - 3 + entry_height_full;
+
+    ShadowRect(rt, 10);
+}
+
+
+VisListBox::VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+: CVisualObject(_id, r, hint)
+{
+    //4dbd31
+
+    entry_height = _font->GetHeight();
+    entry_height_full = entry_height + 4;
+
+    flags |= FLAG_NOTFOCUS;
+
+    selected_index = -1;
+    vis_start_index = 0;
+    font = _font;
+    clr1 = _clr1;
+    clr2 = _clr2;
+    scrollbox_id = _scrollid;
+
+    num_vis_entry = rect.Height() / entry_height_full;
+
+    rect.bottom = rect.top + 2 + num_vis_entry * entry_height_full;
+}
+
+
+VisListBox::VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+: CVisualObject(_id, l, t, r, b, hint)
+{
+    //4dbc11
+
+    entry_height = _font->GetHeight();
+    entry_height_full = entry_height + 4;
+
+    flags |= FLAG_NOTFOCUS;
+
+    selected_index = -1;
+    vis_start_index = 0;
+    font = _font;
+    clr1 = _clr1;
+    clr2 = _clr2;
+    scrollbox_id = _scrollid;
+
+    num_vis_entry = rect.Height() / entry_height_full;
+
+    rect.bottom = rect.top + 2 + num_vis_entry * entry_height_full;
+}
+
+
+void VisListBox::Down()
+{
+    //4dbfbb
+    SelectItem(selected_index + 1);
+}
+
+void VisListBox::Up()
+{
+    //4dbf89
+    if (selected_index > 0)
+        SelectItem(selected_index - 1);
+}
+
+void VisListBox::PageDown()
+{
+    //4dc03b
+    if (selected_index == vis_start_index + num_vis_entry - 1)
+        SelectItem(vis_start_index + num_vis_entry + num_vis_entry - 1);
+    else
+        SelectItem(vis_start_index + num_vis_entry - 1);
+}
+
+void VisListBox::PageUp()
+{
+    //4dbfe1
+    if (selected_index == vis_start_index)
+        SelectItem(vis_start_index - num_vis_entry);
+    else
+        SelectItem(vis_start_index);
+}
+
+
+int32_t VisListBox::YToIndex(int32_t y)
+{
+    //4dbe45
+    return (y - ClientPtToScreen(rect.TopLeft()).y - 1) / entry_height_full;
+}
+
+
+
+
 //4df4d1
 VisScreen::VisScreen() = default;
 

@@ -1349,6 +1349,31 @@ extern ?SetDowned@VisButton@@QAEX_N@Z  :proc
 extern ?SetPos@VisScrollBar@@QAEXHH@Z  :proc
 extern ??0VisScrollBar@@QAE@HHHHHPBD@Z  :proc
 
+;VisListBox
+extern ??1VisListBox@@UAE@XZ  :proc
+extern ?VMethod7@VisListBox@@UAEXXZ  :proc
+extern ?WriteData@VisListBox@@UAEXPAX@Z  :proc
+extern ?DataSize@VisListBox@@UAEIXZ  :proc
+extern ?ReadData@VisListBox@@UAEXPBX@Z  :proc
+extern ?MsgProc@VisListBox@@UAEHIII@Z  :proc
+extern ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisListBox@@UAEHI@Z  :proc
+extern ?IsValidIndex@VisListBox@@UAEHH@Z  :proc
+extern ?DrawItem@VisListBox@@UAEXHVCPoint@@PAG@Z  :proc
+extern ?SelectItem@VisListBox@@UAEXH@Z  :proc
+extern ?GetItemCount@VisListBox@@UAEHXZ  :proc
+extern ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z  :proc
+extern ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z  :proc
+extern ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
+extern ?Down@VisListBox@@QAEXXZ  :proc
+extern ?Up@VisListBox@@QAEXXZ  :proc
+extern ?PageDown@VisListBox@@QAEXXZ  :proc
+extern ?PageUp@VisListBox@@QAEXXZ  :proc
+extern ?YToIndex@VisListBox@@QAEHH@Z  :proc
+
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc

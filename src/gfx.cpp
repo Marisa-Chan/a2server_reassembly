@@ -360,3 +360,9 @@ int32_t CGameFont::GetStrWidth(const char* str)
 	return wi;
 }
 
+
+int32_t CGameFont::GetHeight()
+{
+	//402a90
+	return bitmap->GetHeight(0);
+}
