@@ -2069,6 +2069,9 @@ BOOL __stdcall CLlDriver::cbEnumSessions(LPCDPSESSIONDESC2 lpThisSD, LPDWORD lpd
     if ((dwFlags & DPENUMSESSIONS_AVAILABLE) == 0)
         return FALSE;
 
+    if (!lpThisSD)
+        return FALSE;
+
     for (uint32_t i = 0; i < drv->enum_sessions_num; i++)
     {
         if (memcmp(&drv->enum_sessions[i].guid, &lpThisSD->guidInstance, sizeof(GUID)) == 0)
@@ -2692,8 +2695,8 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr)
         elem[1].dwDataSize = strlen(addr->name) + 1;
         elem[1].lpData = addr->name;
         elem[2].guidDataType = DPAID_Phone;
-        elem[2].dwDataSize = strlen(addr->address) + 1;
-        elem[2].lpData = addr->address;
+        elem[2].dwDataSize = strlen(address_str) + 1;
+        elem[2].lpData = address_str;
         numelem = 3;
         break;
     case 2:
@@ -2703,7 +2706,7 @@ int CLlDriver::PrepareAddressDp(CLlAddress* addr)
         numelem = 1;
         break;
     case 3:
-        strcpy(addrbuf, addr->address);
+        strcpy(addrbuf, address_str);
         elem[0].guidDataType = DPAID_ServiceProvider;
         elem[0].dwDataSize = sizeof(GUID);
         elem[0].lpData = (LPVOID)&DPSPGUID_TCPIP;
