@@ -1417,7 +1417,11 @@ extern ?OnKeyDown@VisRadioType2@@UAEHI@Z  :proc
 extern ?OnChar@VisRadioType2@@UAEHI@Z  :proc
 extern ??0VisRadioType2@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 
-
+;VisBitmap
+extern ??0VisBitmap@@QAE@HHHHHPAVCGameBitmap@@H@Z  :proc
+extern ??0VisBitmap@@QAE@HABUtagRECT@@PAVCGameBitmap@@H@Z  :proc
+extern ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ  :proc
+extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc

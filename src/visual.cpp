@@ -2734,6 +2734,72 @@ VisRadioType2::VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 
 
 
+VisBitmap::~VisBitmap()
+{
+    //4df2c3
+    if (bitmap)
+        delete bitmap;
+}
+
+void VisBitmap::VMethod7()
+{
+    //4df345
+    if (!bitmap)
+        return;
+
+    CRect rt = ClientRectToScreen(rect);
+    LockSurface2();
+
+    if (draw_type == 1)
+    {
+        parent->VMethod8(&rt);
+        CBmp64* bmp64 = (CBmp64*)bitmap;
+        bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
+    }
+    else if (draw_type == 2)
+    {
+        parent->VMethod8(&rt);
+
+        FillRectColorSimple(rt.left + 8, rt.top + 7, rt.left + 80, rt.top + 101, 0);
+
+        CBmp64* bmp64 = (CBmp64*)bitmap;
+        bmp64->VMethod10(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
+    }
+    else if (draw_type < 11)
+        bitmap->VMethod2(rt.left, rt.top, 0, 0, 0);
+    else
+        bitmap->VMethod2(rt.left, rt.top, draw_type - 10, 0, 0);
+
+    UnlockSurface2();
+}
+
+VisBitmap::VisBitmap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t dtype)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    //4df23d
+    bitmap = _bitmap;
+    draw_type = dtype;
+}
+
+VisBitmap::VisBitmap(int32_t _id, const RECT& r, CGameBitmap* _bitmap, int32_t dtype)
+: CVisualObject(_id, r, nullptr)
+{
+    //4df286
+    bitmap = _bitmap;
+    draw_type = dtype;
+}
+
+CGameBitmap* VisBitmap::GetBitmap()
+{
+    //4e3fb0
+    return bitmap;
+}
+
+void VisBitmap::SetBitmap(CGameBitmap* bmp)
+{
+    //4e3fd0
+    bitmap = bmp;
+}
 
 
 

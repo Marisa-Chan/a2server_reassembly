@@ -377,6 +377,25 @@ public:
 	VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
 };
 
+
+//60e248
+class VisBitmap : public CVisualObject
+{
+public:
+	virtual ~VisBitmap();
+	virtual void VMethod7() override;
+
+	VisBitmap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t dtype);
+	VisBitmap(int32_t _id, const RECT& r, CGameBitmap* _bitmap, int32_t dtype);
+
+	CGameBitmap* GetBitmap();
+	void SetBitmap(CGameBitmap* bmp);
+public:
+	CGameBitmap* bitmap;
+	int32_t draw_type;
+};
+ASSERT_SIZE(VisBitmap, 0x64);
+
 //60e2c0
 class VisScreen : public CVisualObject
 {
