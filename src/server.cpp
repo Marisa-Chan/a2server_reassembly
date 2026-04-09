@@ -1279,6 +1279,24 @@ void Server::CheatCommand(Player* player, CString cheat_string)
 
 extern "C" Shop g_DefaultShop;     // unk_6D10B8
 
+// 502C50
+Shop* Server::sub_502C50(TokenPos* pos) {
+    if (this->field38_0x1a4 != 0) {
+        return &g_DefaultShop;
+    }
+    if (this->srv_stru1->building_list == nullptr) {
+        return nullptr;
+    }
+    Building* building = this->srv_stru1->building_list->sub_558128(pos);
+    if (building == nullptr) {
+        return nullptr;
+    }
+    if (!building->IsKindOf(&ShopRuntimeClass)) {
+        return nullptr;
+    }
+    return static_cast<Shop*>(building);
+}
+
 const char* PacketType(Packet *pkt) {
     if (dynamic_cast<PacketInfo*>(pkt) != nullptr) { return "PacketInfo"; }
     else if (dynamic_cast<PacketJoin*>(pkt) != nullptr) { return "PacketJoin"; }
