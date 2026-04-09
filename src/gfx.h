@@ -11,6 +11,7 @@ class CSprite256;
 extern CRect g_ScreenSize; //65fb78
 extern CSprite256* gfx_interface_lm; //6653ec
 extern CSprite256* gfx_scrollbars; //6653f0
+extern CSprite256* gfx_radiob; //6653f4
 
 extern int32_t g_RBits;
 extern int32_t g_GBits;

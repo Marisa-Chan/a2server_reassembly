@@ -318,6 +318,36 @@ public:
 ASSERT_SIZE(VisTextBox, 0x7c);
 
 
+//60e030
+class VisRadioBase : public CVisualObject
+{
+public:
+	virtual ~VisRadioBase();
+
+	virtual void SetCursorOver(bool isOver) override;
+	virtual void WriteData(void* buf) override;
+	virtual uint32_t DataSize() override;
+	virtual void ReadData(const void* buf) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t GetIndex(int32_t y); //26
+
+	VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+
+	void AddEntry(const char* etext);
+public:
+	int32_t mouse_over;
+	int32_t field_0x60;
+	CStringArray entries;
+	CGameFont* font;
+	uint16_t* clr;
+	int32_t selection;
+	int32_t field_0x84;
+	int32_t selected;
+};
+ASSERT_SIZE(VisRadioBase, 0x8c);
+
+
 //60e2c0
 class VisScreen : public CVisualObject
 {

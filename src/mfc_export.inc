@@ -1388,6 +1388,18 @@ extern ?OnChar@VisTextBox@@UAEHI@Z  :proc
 extern ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 extern ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z  :proc
 
+;VisRadioBase
+extern ??1VisRadioBase@@UAE@XZ  :proc
+extern ?SetCursorOver@VisRadioBase@@UAEX_N@Z  :proc
+extern ?WriteData@VisRadioBase@@UAEXPAX@Z  :proc
+extern ?DataSize@VisRadioBase@@UAEIXZ  :proc
+extern ?ReadData@VisRadioBase@@UAEXPBX@Z  :proc
+extern ?OnMouseMove@VisRadioBase@@UAEHIVCPoint@@@Z  :proc
+extern ?GetIndex@VisRadioBase@@UAEHH@Z  :proc
+extern ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
+extern ?AddEntry@VisRadioBase@@QAEXPBD@Z  :proc
+
+
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc
@@ -1458,6 +1470,7 @@ externdef ?SetVideoMode@@YAHXZ :proc
 
 externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 externdef ?gfx_scrollbars@@3PAVCSprite256@@A : dword
+externdef ?gfx_radiob@@3PAVCSprite256@@A : dword
 
 
 ; Free functions

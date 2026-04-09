@@ -2341,9 +2341,84 @@ int32_t VisTextBox::GetCursorPosByX(int32_t x)
 }
 
 
+VisRadioBase::~VisRadioBase() = default; //4505b0
 
+void VisRadioBase::SetCursorOver(bool isOver)
+{
+    //4daccd
+    CVisualObject::SetCursorOver(isOver);
+    mouse_over = isOver;
+}
 
+void VisRadioBase::WriteData(void* buf)
+{
+    //4504f0
+    *(int32_t*)buf = selection;
+}
 
+uint32_t VisRadioBase::DataSize()
+{
+    //4504e0
+    return 4;
+}
+
+void VisRadioBase::ReadData(const void* buf)
+{
+    //4506c0
+    selection = *(const int32_t*)buf;
+    selected = selection;
+}
+
+int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4dacef
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    CRect rt = ClientRectToScreen(rect);
+    if (wparam & 1)
+        OnLButtonDown(wparam, pos);
+    else
+    {
+        if (rt.PtInRect(pos))
+        {
+            if (TestFlags(FLAG_OVERCURSOR) == 0)
+                SetCursorOver(true);
+        }
+        else
+            SetCursorOver(false);
+
+        VMethod9();
+    }
+    return 0;
+}
+
+int32_t VisRadioBase::GetIndex(int32_t y)
+{
+    //4dac81
+    CPoint t = ClientPtToScreen(rect.TopLeft());
+    return (y - t.y) / gfx_radiob->GetHeight(0);
+}
+
+VisRadioBase::VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+: CVisualObject(_id, l, t, r, b, hint)
+{
+    //4dab2b
+    font = _font;
+    clr = _clr;
+    selection = 0;
+    flags |= FLAG_NOTFOCUS;
+    selected = 0;
+}
+
+void VisRadioBase::AddEntry(const char* etext)
+{
+    //450470
+    entries.Add(etext);
+}
 
 
 //4df4d1
