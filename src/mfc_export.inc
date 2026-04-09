@@ -1399,6 +1399,24 @@ extern ?GetIndex@VisRadioBase@@UAEHH@Z  :proc
 extern ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 extern ?AddEntry@VisRadioBase@@QAEXPBD@Z  :proc
 
+;VisRadioType1
+extern ??1VisRadioType1@@UAE@XZ  :proc
+extern ?ReadData@VisRadioType1@@UAEXPBX@Z  :proc
+extern ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisRadioType1@@UAEHI@Z  :proc
+extern ?OnChar@VisRadioType1@@UAEHI@Z  :proc
+extern ??0VisRadioType1@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
+
+;VisRadioType2
+extern ??1VisRadioType2@@UAE@XZ  :proc
+extern ?OnMouseMove@VisRadioType2@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDown@VisRadioType2@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisRadioType2@@UAEHI@Z  :proc
+extern ?OnChar@VisRadioType2@@UAEHI@Z  :proc
+extern ??0VisRadioType2@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
+
 
 
 ;VisScreen
@@ -1501,6 +1519,7 @@ externdef ?g_ScreenSize@@3VCRect@@A : dword
 extern ?FUN_004559d4@@YAXHHHHPAEPAG@Z : proc
 
 extern ?FillRectColor@@YAXHHHHI@Z : proc
+extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
 extern ?SetPixelColor@@YAXHHI@Z : proc
 extern ?ShadowRect@@YAXVCRect@@H@Z : proc
 

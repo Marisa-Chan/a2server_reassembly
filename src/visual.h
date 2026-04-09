@@ -347,6 +347,35 @@ public:
 };
 ASSERT_SIZE(VisRadioBase, 0x8c);
 
+//60acf8
+class VisRadioType1 : public VisRadioBase
+{
+public:
+	virtual ~VisRadioType1();
+	virtual void VMethod7() override;
+	virtual void ReadData(const void* buf) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
+
+	VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+};
+
+//60ad78
+class VisRadioType2 : public VisRadioBase
+{
+public:
+	virtual ~VisRadioType2();
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
+
+	VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+};
 
 //60e2c0
 class VisScreen : public CVisualObject

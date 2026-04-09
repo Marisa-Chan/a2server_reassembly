@@ -2378,11 +2378,12 @@ int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos)
     if (TestFlags(FLAG_FOCUS) == 0)
         parent->FocusTo(this, true);
 
-    CRect rt = ClientRectToScreen(rect);
     if (wparam & 1)
         OnLButtonDown(wparam, pos);
     else
     {
+        CRect rt = ClientRectToScreen(rect);
+
         if (rt.PtInRect(pos))
         {
             if (TestFlags(FLAG_OVERCURSOR) == 0)
@@ -2419,6 +2420,322 @@ void VisRadioBase::AddEntry(const char* etext)
     //450470
     entries.Add(etext);
 }
+
+
+
+VisRadioType1::~VisRadioType1() = default; //450590
+
+void VisRadioType1::VMethod7()
+{
+    //4dadf8
+    CRect rt = ClientRectToScreen(rect);
+    rt.bottom += 4;
+    rt.right += 4;
+
+    int32_t x = rt.left + 6 + gfx_radiob->GetWidth(0);
+    int32_t y = rt.top;
+
+    LockSurface2();
+
+    parent->VMethod8(&rt);
+
+    rt.bottom -= 4;
+    rt.right -= 4;
+
+    for (int i = 0; i < entries.GetSize(); i++)
+    {
+        if ((selection & (1 << i)) == 0)
+        {
+            gfx_radiob->VMethod3(rt.left + 5, y + 4, 2, 4, 0);
+            gfx_radiob->VMethod2(rt.left + 1, y, 2, 0, 0);
+        }
+        else
+        {
+            gfx_radiob->VMethod3(rt.left + 5, y + 4, 3, 4, 0);
+            gfx_radiob->VMethod2(rt.left + 1, y, 3, 0, 0);
+        }
+
+        if (TestFlags(FLAG_FOCUS) == 0)
+            clr = p_clrsh_Black;
+        else
+            clr = p_clrsh_Gold;
+
+        font->DrawTextWithShadow(x, y + 5, entries[i], 0, clr, 1);
+
+        y += gfx_radiob->GetHeight(0);
+    }
+
+    if (TestFlags(FLAG_ENABLED) == 0)
+    {
+        rt = ClientRectToScreen(rect);
+        rt.InflateRect(CRect(1, 1, 1, 1));
+        ShadowRect(rt, 3);
+    }
+
+    UnlockSurface2();
+}
+
+void VisRadioType1::ReadData(const void* buf)
+{
+    //450510
+    selection = *(const int32_t*)buf;
+}
+
+int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4db134
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    if (wparam & 1)
+        OnLButtonDown(wparam, pos);
+    else
+    {
+        CRect rt = ClientRectToScreen(rect);
+        rt.bottom += 4;
+        rt.right += 4;
+
+        if (rt.PtInRect(pos))
+        {
+            if (TestFlags(FLAG_OVERCURSOR) == 0)
+                SetCursorOver(true);
+        }
+        else
+            SetCursorOver(false);
+
+        VMethod9();
+    }
+    return 0;
+}
+
+int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4db062
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    selected = GetIndex(pos.y);
+
+    uint32_t bit = 1 << selected;
+
+    if ((selection & bit) == 0)
+        selection |= bit;
+    else
+        selection &= ~bit;
+
+    VMethod9();
+    parent->MsgProc(0x46e, id, selection);
+    return 1;
+}
+
+
+int32_t VisRadioType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    //450530
+    return OnLButtonDown(wparam, pos);
+}
+
+int32_t VisRadioType1::OnKeyDown(uint32_t wparam)
+{
+    //4db2d3
+    if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0)
+    {
+        int32_t num = entries.GetSize();
+        if (num <= 0)
+            return 0;
+
+        if (selected < num - 1)
+            selected++;
+
+        VMethod9();
+        return 1;
+    }
+
+    if (wparam == VK_UP && TestFlags(FLAG_FOCUS) != 0)
+    {
+        int32_t num = entries.GetSize();
+        if (num <= 0)
+            return 0;
+
+        if (selected > 0)
+            selected--;
+
+        VMethod9();
+        return 1;
+    }
+
+    return CVisualObject::OnKeyDown(wparam);
+}
+
+
+int32_t VisRadioType1::OnChar(uint32_t wparam)
+{
+    //4db20d
+    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0)
+        return CVisualObject::OnChar(wparam);
+
+    uint32_t bit = 1 << selected;
+    if ((selection & bit) == 0)
+        selection |= bit;
+    else 
+        selection &= ~bit;
+    
+    VMethod9();
+    parent->MsgProc(0x46e, id, selection);
+    return 1;
+}
+
+VisRadioType1::VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+ : VisRadioBase(_id, l, t, r, b, _font, _clr, hint)
+{
+    //450490
+}
+
+
+VisRadioType2::~VisRadioType2() = default; //450720
+
+
+void VisRadioType2::VMethod7()
+{
+    //4db680
+    CRect rt = ClientRectToScreen(rect);
+    rt.bottom += 4;
+    rt.right += 4;
+
+    int32_t x = rt.left + 6 + gfx_radiob->GetWidth(0);
+    int32_t y = rt.top;
+
+    LockSurface2();
+
+    parent->VMethod8(&rt);
+
+    rt.bottom -= 4;
+    rt.right -= 4;
+
+    for (int i = 0; i < entries.GetSize(); i++)
+    {
+        if (selection == i)
+        {
+            gfx_radiob->VMethod3(rt.left + 5, y + 4, 1, 4, 0);
+            gfx_radiob->VMethod2(rt.left + 1, y, 1, 0, 0);
+
+            if (TestFlags(FLAG_FOCUS) == 0)
+                clr = p_clrsh_Black;
+            else
+                clr = p_clrsh_Gold;
+        }
+        else
+        {
+            gfx_radiob->VMethod3(rt.left + 5, y + 4, 0, 4, 0);
+            gfx_radiob->VMethod2(rt.left + 1, y, 0, 0, 0);
+
+            clr = p_clrsh_Black;
+        }
+
+        font->DrawTextWithShadow(x, y + 5, entries[i], 0, clr, 1);
+
+        y += gfx_radiob->GetHeight(0);
+    }
+
+    if (TestFlags(FLAG_ENABLED) == 0)
+    {
+        rt = ClientRectToScreen(rect);
+        rt.InflateRect(CRect(1, 1, 1, 1));
+        ShadowRect(rt, 3);
+    }
+
+    UnlockSurface2();
+}
+
+int32_t VisRadioType2::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4dbb7b
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+    return VisRadioBase::OnMouseMove(wparam, pos);
+}
+
+int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4db8e7
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    int32_t idx = GetIndex(pos.y);
+    if (idx < 0)
+        return 0;
+    if (idx >= entries.GetSize())
+        return 0;
+
+    selection = idx;
+    selected = idx;
+    VMethod9();
+    parent->MsgProc(0x46e, id, selection);
+    return 1;
+}
+
+int32_t VisRadioType2::OnKeyDown(uint32_t wparam)
+{
+    //4dba0e
+    if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0)
+    {
+        int32_t num = entries.GetSize();
+        if (num <= 0)
+            return 0;
+
+        if (selection < num - 1)
+            selection++;
+
+        selected = selection;
+        parent->MsgProc(0x46e, id, selection);
+        VMethod9();
+        return 1;
+    }
+
+    if (wparam == VK_UP && TestFlags(FLAG_FOCUS) != 0)
+    {
+        int32_t num = entries.GetSize();
+        if (num <= 0)
+            return 0;
+
+        if (selection > 0)
+            selection--;
+
+        selected = selection;
+        parent->MsgProc(0x46e, id, selection);
+        VMethod9();
+        return 1;
+    }
+
+    return CVisualObject::OnKeyDown(wparam);
+}
+
+int32_t VisRadioType2::OnChar(uint32_t wparam)
+{
+    //4db993
+    if (wparam != ' ' || TestFlags(FLAG_FOCUS) == 0)
+        return CVisualObject::OnChar(wparam);
+
+    selection = selected;
+
+    VMethod9();
+    parent->MsgProc(0x46e, id, selection);
+    return 1;
+}
+
+VisRadioType2::VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+: VisRadioBase(_id, l, t, r, b, _font, _clr, hint)
+{
+    //450670
+}
+
+
+
+
+
 
 
 //4df4d1
