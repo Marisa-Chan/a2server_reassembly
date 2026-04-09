@@ -281,6 +281,43 @@ public:
 };
 ASSERT_SIZE(VisListBox, 0x94);
 
+//60dfb8
+class VisTextBox : public CVisualObject
+{
+public:
+	virtual ~VisTextBox();
+
+	virtual void VMethod7() override;
+	virtual void WriteData(void* buf) override;
+	virtual uint32_t DataSize() override;
+	virtual void ReadData(const void* buf) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
+
+	VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+	VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint);
+
+	void DelSelection();
+	void InsertChar(int32_t chr);
+	void ResetBlink();
+	int32_t GetCursorPosByX(int32_t x);
+
+public:
+	CString text;
+	CGameFont* font;
+	uint16_t* clr;
+	int32_t select_start;
+	int32_t select_end;
+	int32_t cursor_pos;
+	int32_t cursor_blink;
+	uint32_t cursor_blink_ts;
+};
+ASSERT_SIZE(VisTextBox, 0x7c);
+
+
 //60e2c0
 class VisScreen : public CVisualObject
 {

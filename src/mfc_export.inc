@@ -1374,6 +1374,20 @@ extern ?PageDown@VisListBox@@QAEXXZ  :proc
 extern ?PageUp@VisListBox@@QAEXXZ  :proc
 extern ?YToIndex@VisListBox@@QAEHH@Z  :proc
 
+;VisTextBox
+extern ??1VisTextBox@@UAE@XZ  :proc
+extern ?VMethod7@VisTextBox@@UAEXXZ  :proc
+extern ?WriteData@VisTextBox@@UAEXPAX@Z  :proc
+extern ?DataSize@VisTextBox@@UAEIXZ  :proc
+extern ?ReadData@VisTextBox@@UAEXPBX@Z  :proc
+extern ?MsgProc@VisTextBox@@UAEHIII@Z  :proc
+extern ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z  :proc
+extern ?OnKeyDown@VisTextBox@@UAEHI@Z  :proc
+extern ?OnChar@VisTextBox@@UAEHI@Z  :proc
+extern ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
+extern ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z  :proc
+
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc

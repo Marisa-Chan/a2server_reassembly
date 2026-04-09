@@ -4,6 +4,7 @@
 #include "asm_mfc.h"
 #include "gfx.h"
 #include "util.h"
+#include "game_app.h"
 
 extern CRect g_clipRect;
 extern DDSURFACEDESC g_selDrawBitmap;
@@ -256,6 +257,41 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 				yy >= g_clipRect.top && yy < g_clipRect.bottom)
 				sp[xx + yy * (g_selDrawBitmap.lPitch / 2)] = clr;
 		}
+	}
+}
+
+void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
+{
+	//4579d8
+	if (g_IsServer != 0)
+		return;
+
+	if (l < g_clipRect.left)
+		l = g_clipRect.left;
+	if (r > g_clipRect.right)
+		r = g_clipRect.right;
+	if (t < g_clipRect.top)
+		t = g_clipRect.top;
+	if (b > g_clipRect.bottom)
+		b = g_clipRect.bottom;
+
+	const uint32_t dcolor = (clr << 16) | clr;
+
+	for (int32_t y = t; y < b; y++)
+	{
+		uint16_t* dout = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + l * 2);
+
+		int32_t num = r - l;
+
+		while (num >= 2)
+		{
+			*(uint32_t*)dout = dcolor;
+			dout += 2;
+			num -= 2;
+		}
+
+		if (num == 1)
+			*dout = clr;
 	}
 }
 

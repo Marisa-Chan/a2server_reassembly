@@ -781,28 +781,28 @@ void VisLabel::VMethod7()
     //4d84e4
     if (parent)
     {
-        CRect local_14 = ClientRectToScreen(rect);
+        CRect res = ClientRectToScreen(rect);
 
         LockSurface2();
 
-        parent->VMethod8(&local_14);
+        parent->VMethod8(&res);
 
         int32_t outx = 0;
         int32_t outy = 0;
 
         if (align_flags & 1)
-            outx = local_14.right;
+            outx = res.right;
         else if (align_flags & 2)
-            outx = (local_14.left + local_14.right) / 2;
+            outx = (res.left + res.right) / 2;
         else
-            outx = local_14.left;
+            outx = res.left;
 
         if (align_flags & 4)
-            outy = local_14.bottom;
+            outy = res.bottom;
         else if (align_flags & 8)
-            outy = (local_14.top + local_14.bottom) / 2;
+            outy = (res.top + res.bottom) / 2;
         else
-            outy = local_14.top;
+            outy = res.top;
 
         font->DrawTextWithShadow(outx, outy, text, align_flags, color_sh, 1);
 
@@ -1929,6 +1929,419 @@ int32_t VisListBox::YToIndex(int32_t y)
     //4dbe45
     return (y - ClientPtToScreen(rect.TopLeft()).y - 1) / entry_height_full;
 }
+
+
+
+
+VisTextBox::~VisTextBox() = default; //4503a0
+
+void VisTextBox::VMethod7()
+{
+    //4d9a21
+    if (!parent)
+        return;
+
+    CRect rt = ClientRectToScreen(rect);
+
+    LockSurface2();
+
+    parent->VMethod8(&rt);
+
+    FillRectColor(rt.left + 1, rt.top, rt.right - 1, rt.top, GetColorRGB(8, 8, 8));
+    FillRectColor(rt.left, rt.top + 1, rt.left, rt.bottom - 1, GetColorRGB(8, 8, 8));
+    FillRectColor(rt.right, rt.top + 1, rt.right, rt.bottom - 1, GetColorRGB(0x5e, 0x73, 0x65));
+    FillRectColor(rt.left + 1, rt.bottom, rt.right - 1, rt.bottom, GetColorRGB(0x5e, 0x73, 0x65));
+
+    if (select_start != select_end)
+    {
+        CRect rshd;
+        rshd.bottom = rt.bottom - 2;
+
+        CString s = text.Left(select_end);
+        
+        rshd.right = rt.left + 4 + font->GetStrWidth(s);
+        rshd.top = rt.top + 2;
+
+        s = text.Left(select_start);
+
+        rshd.left = rt.left + 4 + font->GetStrWidth(s);
+
+        ShadowRect(rshd, 12);
+    }
+
+    font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, text, 8, clr, 1);
+
+    if (TestFlags(FLAG_FOCUS) != 0 && cursor_blink != 0)
+    {
+        CRect blink;
+        blink.left = rt.left + 4 + font->GetStrWidth(text.Left(cursor_pos));
+        blink.right = blink.left + 2;
+        blink.top = rt.top + 2;
+        blink.bottom = rt.bottom - 2;
+        FillRectColorSimple(blink.left, blink.top, blink.right, blink.bottom, GetColorRGB(255, 255, 255));
+    }
+    UnlockSurface2();
+}
+
+void VisTextBox::WriteData(void* buf)
+{
+    //450440
+    strcpy((char*)buf, text);
+}
+
+
+uint32_t VisTextBox::DataSize()
+{
+    //450430
+    return 4;
+}
+
+
+void VisTextBox::ReadData(const void* buf)
+{
+    //450410
+    text = (const char*)buf;
+}
+
+
+int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4daa2b
+    if (msg == 0x462 && (timeGetTime() - cursor_blink_ts) > 500)
+    {
+        cursor_blink_ts = timeGetTime();
+        cursor_blink = 1 - cursor_blink;
+
+        if (TestFlags(FLAG_ENABLED))
+            VMethod9();
+    }
+
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
+
+int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4da22e
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    cursor_blink_ts = timeGetTime();
+
+    if ((wparam & 1) == 0)
+        return 0;
+
+    parent->FocusTo(this, true);
+
+    int32_t cpos = GetCursorPosByX(pos.x);
+
+    if (cpos < cursor_pos)
+    {
+        if (select_end == select_start)
+        {
+            select_end = cursor_pos;
+            select_start = cpos;
+        }
+        else if (select_start < cpos)
+            select_end = cpos;
+        else
+            select_start = cpos;
+    }
+    else if (cpos > cursor_pos)
+    {
+        if (select_end == select_start) {
+            select_start = cursor_pos;
+            select_end = cpos;
+        }
+        else if (cpos < select_end)
+            select_start = cpos;
+        else
+            select_end = cpos;
+    }
+
+    cursor_pos = cpos;
+
+    ResetBlink();
+
+    VMethod9();
+
+    return 0;
+}
+
+
+int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4da37c
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    cursor_blink_ts = timeGetTime();
+
+    cursor_pos = GetCursorPosByX(pos.x);;
+
+    select_end = cursor_pos;
+    select_start = select_end;
+
+    VMethod9();
+
+    return 1;
+}
+
+int32_t VisTextBox::OnKeyDown(uint32_t wparam)
+{
+    //4da3ed
+    if (TestFlags(FLAG_FOCUS) == 0)
+        return 0;
+
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    cursor_blink_ts = timeGetTime();
+
+    int32_t res = 0;
+
+    switch (wparam)
+    {
+    case VK_BACK:
+        if (cursor_pos != 0)
+        {
+            cursor_pos--;
+
+            text = text.Left(cursor_pos) + text.Right(text.GetLength() - cursor_pos - 1);
+            
+            ResetBlink();
+
+            VMethod9();
+            res = 1;
+        }
+        else
+            res = 0;
+        break;
+
+    case VK_END:
+        if (cursor_pos < text.GetLength())
+        {
+            if (g_kbShiftState == 0)
+                select_end = select_start;
+            else
+            {
+                if (select_start == select_end)
+                    select_start = cursor_pos;
+                else if (cursor_pos < select_end)
+                    select_start = select_end;
+
+                select_end = text.GetLength();
+            }
+
+            cursor_pos = text.GetLength();
+
+            ResetBlink();
+
+            VMethod9();
+            res = 1;
+        }
+        break;
+
+    case VK_HOME:
+        if (cursor_pos != 0)
+        {
+            if (g_kbShiftState == 0)
+                select_end = select_start;
+            else
+            {
+                if (select_start == select_end)
+                    select_end = cursor_pos;
+                else if (select_start < cursor_pos)
+                    select_end = select_start;
+
+                select_start = 0;
+            }
+
+            cursor_pos = 0;
+
+            ResetBlink();
+
+            VMethod9();
+            res = 1;
+        }
+        break;
+
+    case VK_LEFT:
+        if (cursor_pos != 0)
+        {
+            cursor_pos--;
+
+            if (g_kbShiftState == 0)
+                select_end = select_start;
+            else if (select_end == select_start)
+            {
+                select_end = cursor_pos + 1;
+                select_start = cursor_pos;
+            }
+            else if (cursor_pos + 1 == select_start)
+                select_start--;
+            else
+                select_end--;
+
+            ResetBlink();
+
+            VMethod9();
+            res = 1;
+        }
+        break;
+
+    case VK_RIGHT:
+        if (cursor_pos < text.GetLength())
+        {
+            cursor_pos++;
+            if (g_kbShiftState == 0)
+                select_end = select_start;
+            else if (select_end == select_start)
+            {
+                select_start = cursor_pos - 1;
+                select_end = cursor_pos;
+            }
+            else if (cursor_pos - 1 == select_end)
+                select_end++;
+            else
+                select_start++;
+
+            ResetBlink();
+
+            VMethod9();
+            res = 1;
+        }
+        break;
+
+    case VK_DELETE:
+        if (select_end == select_start || (select_end - select_start) < 0)
+        {
+            if (cursor_pos < text.GetLength())
+                text = text.Left(cursor_pos) + text.Right((text.GetLength() - cursor_pos) - 1);
+        }
+        else
+            DelSelection();
+
+        ResetBlink();
+
+        VMethod9();
+        res = 1;
+        break;
+
+    default:
+        break;
+    }
+
+    parent->MsgProc(0x46e, id, 0);
+
+    return res;
+}
+
+
+int32_t VisTextBox::OnChar(uint32_t wparam)
+{
+    //4da96a
+
+    if (isalnum(wparam) != 0 && TestFlags(FLAG_FOCUS) == 0)
+        parent->FocusTo(this, true);
+
+    if (TestFlags(FLAG_FOCUS) == 0 || !parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    cursor_blink_ts = timeGetTime();
+
+    if (wparam >= ' ')
+        InsertChar(wparam);
+
+    VMethod9();
+
+    parent->MsgProc(0x46e, id, 0);
+
+    return 1;
+}
+
+
+VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+: CVisualObject(_id, l, t, r, b, hint)
+{
+    //4d9891
+    font = _font;
+    clr = _clr;
+    text = "";
+    select_start = 0;
+    select_end = 0;
+    cursor_pos = 0;
+
+    flags |= FLAG_NOTFOCUS;
+
+    cursor_blink = 1;
+}
+
+
+VisTextBox::VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
+: CVisualObject(_id, r, hint)
+{
+    //4d995f
+    font = _font;
+    clr = _clr;
+    text = "";
+    select_start = 0;
+    select_end = 0;
+    cursor_pos = 0;
+
+    flags |= FLAG_NOTFOCUS;
+
+    cursor_blink = 1;
+}
+
+void VisTextBox::DelSelection()
+{
+    //4da067
+    text = text.Left(select_start) + text.Right(text.GetLength() - select_end);
+    select_end = select_start;
+    cursor_pos = select_start;
+}
+
+void VisTextBox::InsertChar(int32_t chr)
+{
+    //4d9ef2
+    if (select_end != select_start && (select_end - select_start) > -1)
+        DelSelection();
+
+    CString tmp = text.Left(cursor_pos) + (char)EncodeChar(chr) + text.Right(text.GetLength() - cursor_pos);
+    if (font->GetStrWidth(tmp) + 8 < rect.Width())
+    {
+        text = tmp;
+        cursor_pos++;
+    }
+    ResetBlink();
+}
+
+void VisTextBox::ResetBlink()
+{
+    //4daab3
+    cursor_blink_ts = timeGetTime();
+    cursor_blink = 1;
+}
+
+int32_t VisTextBox::GetCursorPosByX(int32_t x)
+{
+    //4da153
+    CRect rt = ClientRectToScreen(rect);
+    for (int32_t i = 0; i < text.GetLength(); i++)
+    {
+        CString str = text.Left(i + 1);
+        if (rt.left + 4 + font->GetStrWidth(str) >= x)
+            return i;
+    }
+    return text.GetLength();
+}
+
+
+
 
 
 
