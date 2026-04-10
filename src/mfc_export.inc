@@ -778,8 +778,6 @@ externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
-externdef ?sub_51C8B1@NetStru1@@QAEXPAVPlayer@@@Z :proc
-
 
 externdef ?sub_51AC77@NetStru1@@QAEXPAVCObject@@PAVPlayer@@C@Z :proc             ; NetStru1::sub_51AC77(CObject*,Player*,int8_t)
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)

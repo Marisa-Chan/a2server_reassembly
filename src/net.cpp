@@ -81,6 +81,33 @@ void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 	QueuePacketSend(&pkt);
 }
 
+// 51C8B1
+void NetStru1::sub_51C8B1(Player* player) {
+    LogMessage("NetStru1::sub_51C8B1");
+	POSITION pos = g_PlayersList->GetHeadPosition();
+	while (pos != nullptr) {
+		Player* p = g_PlayersList->GetNext(pos);
+		if (p == player) {
+			continue;
+		}
+
+		PacketJoin& packet = PacketJoin::Inst;
+
+		strcpy(packet.name, p->name);
+		packet.id = 0x96;
+		packet.to_player_id = player->player_id;
+		packet.player_id = p->player_id;
+		packet.token_id = p->token_id;
+		packet.field_0xc = p->field_0xa44 - 1;
+		packet.flags = p->is_ai != 0;
+		this->QueuePacketSend(&packet);
+
+		if (p->main_unit != nullptr && p->main_unit->field_0x1bc != 0 && g_ServerConfig.gameType == 0) {
+			g_NetStru1_main.FUN_0051ce86(5, p->player_id, player);
+		}
+	}
+}
+
 // 4FB4CA
 void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
 {
