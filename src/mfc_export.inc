@@ -1144,7 +1144,6 @@ extern ?FUN_004ad880@Fame2@@QAEHXZ  :proc   ; (public: int __thiscall Fame2::FUN
 extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall Fame2::FUN_004ad890(void))
 extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
-externdef @sub_4271E6@4 :proc
 externdef @sub_49585B@4 :proc
 externdef @sub_48A747@0 :proc
 
@@ -1153,8 +1152,6 @@ externdef ?FUN_00475e7a@@YAXXZ  :proc
 extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
 extern ?GetRandS16@@YAHH@Z   : proc
 
-
-externdef _byte_642C68 :byte
 
 extern ?g_CdSpeed@@3PADA : byte  ; char * g_CdSpeed
 extern ?g_resolution@@3PADA : byte  ; char * g_resolution
@@ -1205,6 +1202,8 @@ externdef ?g_kbMenuState@@3HA : dword
 externdef ?FUN_00493cd8@SomeMainStructure@@QAEXXZ : proc
 externdef ?FUN_00492c66@SomeMainStructure@@QAEXH@Z : proc
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
+
+externdef ?g_mousept@@3VCMousePointer@@A : byte
 
 
 ;A2NetSock
@@ -1322,6 +1321,9 @@ extern ?TabFocus@CVisualObject@@QAEX_N0@Z :proc   ; (public: void __thiscall CVi
 extern ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT))
 extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT const *))
 
+extern ?GetId@CVisualObject@@QAEHXZ : proc
+extern ?GetRect@CVisualObject@@QAEAAVCRect@@XZ : proc
+
 
 ;VizLabel
 extern ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,int,int,int,int,char const *,class CGameFont *,unsigned short *,unsigned int))
@@ -1371,6 +1373,9 @@ extern ?Up@VisListBox@@QAEXXZ  :proc
 extern ?PageDown@VisListBox@@QAEXXZ  :proc
 extern ?PageUp@VisListBox@@QAEXXZ  :proc
 extern ?YToIndex@VisListBox@@QAEHH@Z  :proc
+extern ?GetItem@VisListBox@@QAEAAVCString@@H@Z : proc
+extern ?SetSelectedIndex@VisListBox@@QAEXH@Z : proc
+extern ?GetSelectedIndex@VisListBox@@QAEHXZ : proc
 
 ;VisTextBox
 extern ??1VisTextBox@@UAE@XZ  :proc
@@ -1420,6 +1425,16 @@ extern ??0VisBitmap@@QAE@HHHHHPAVCGameBitmap@@H@Z  :proc
 extern ??0VisBitmap@@QAE@HABUtagRECT@@PAVCGameBitmap@@H@Z  :proc
 extern ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ  :proc
 extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
+
+;VisComboBox
+extern ??0VisComboBox@@QAE@HVCRect@@PBD@Z  :proc
+extern ?AddItem@VisComboBox@@QAEXPBD@Z  :proc
+extern ?ToggleList@VisComboBox@@QAEXXZ  :proc
+extern ?HideList@VisComboBox@@QAEXXZ  :proc
+extern ?ProcSelectList@VisComboBox@@QAEXXZ  :proc
+extern ?SelectItem@VisComboBox@@QAEXH@Z  :proc
+
+
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc
@@ -1491,6 +1506,7 @@ externdef ?SetVideoMode@@YAHXZ :proc
 externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 externdef ?gfx_scrollbars@@3PAVCSprite256@@A : dword
 externdef ?gfx_radiob@@3PAVCSprite256@@A : dword
+externdef ?g_font1@@3PAVCGameFont@@A : dword
 
 
 ; Free functions
@@ -1577,3 +1593,9 @@ extern ?g_isDosCP@@3HA : dword
 extern ?DecodeChar@@YAEE@Z  :proc
 extern ?EncodeChar@@YAEE@Z  :proc
 extern ?ToLowerChar@@YAEE@Z  :proc
+
+
+
+; CMousePointer
+
+externdef ?FUN_004271e6@CMousePointer@@QAEXXZ  :proc

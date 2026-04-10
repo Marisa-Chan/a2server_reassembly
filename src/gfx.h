@@ -6,12 +6,15 @@
 
 class CGameBitmap;
 class CSprite256;
+class CGameFont;
+class CMousePointer;
 
 
 extern CRect g_ScreenSize; //65fb78
 extern CSprite256* gfx_interface_lm; //6653ec
 extern CSprite256* gfx_scrollbars; //6653f0
 extern CSprite256* gfx_radiob; //6653f4
+extern CGameFont* g_font1; //65e228
 
 extern int32_t g_RBits;
 extern int32_t g_GBits;
@@ -36,6 +39,8 @@ extern uint16_t* g_brightnessLookup; //65dd20
 extern uint32_t g_brightnessLookupCount; //659bf0
 
 extern uint32_t g_isLowMemory; //660f58
+
+extern CMousePointer g_mousept; //642c68
 
 
 void GetClipRect(CRect* r); //454a0c
@@ -276,8 +281,8 @@ public:
 	CSprite256* field_0x4;
 	CBmp64* field_0x8;
 	CBmp64* field_0xc;
-	uint32_t field_0x10;
-	uint32_t field_0x14;
+	int32_t x;
+	int32_t y;
 	uint32_t field_0x18;
 	uint32_t field_0x1c;
 	uint32_t field_0x20;
@@ -300,6 +305,8 @@ public:
 	CBmp64* field_0x7c[8];
 	uint32_t field_0x9c;
 	uint32_t field_0xa0;
+
+	void FUN_004271e6(); //4271e6
 };
 
 ASSERT_SIZE(CMousePointer, 0xa4);

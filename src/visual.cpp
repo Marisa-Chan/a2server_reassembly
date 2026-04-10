@@ -1806,6 +1806,9 @@ void VisListBox::SelectItem(int32_t idx)
 {
     //4dbe7f
 
+    if (idx < 0)
+        idx = 0;
+
     if (idx >= entries.GetSize())
         idx = entries.GetSize() - 1;
 
@@ -1928,6 +1931,36 @@ int32_t VisListBox::YToIndex(int32_t y)
 {
     //4dbe45
     return (y - ClientPtToScreen(rect.TopLeft()).y - 1) / entry_height_full;
+}
+
+void VisListBox::AddItem(const char* str)
+{
+    //4507f0
+    entries.Add(str);
+    if (selected_index < 0)
+        selected_index++;
+}
+
+void VisListBox::SetSelectedIndex(int32_t idx)
+{ 
+    //4507a0
+    if (idx < 0)
+        idx = 0;
+    else if (idx >= entries.GetSize())
+        idx = entries.GetSize() - 1;
+    selected_index = idx;
+}
+
+CString& VisListBox::GetItem(int32_t idx)
+{
+    //4508b0
+    if (idx < 0)
+        return entries[0];
+
+    if (idx < entries.GetSize())
+        return entries[idx];
+
+    return entries[entries.GetSize() - 1];
 }
 
 
@@ -2800,6 +2833,313 @@ void VisBitmap::SetBitmap(CGameBitmap* bmp)
     //4e3fd0
     bitmap = bmp;
 }
+
+
+
+
+
+void VisComboBoxText::VMethod7()
+{
+    //4e4170
+    CRect rt = ClientRectToScreen(rect);
+
+    LockSurface2();
+
+    parent->VMethod8(&rt);
+
+    FillRectColor(rt.left + 1, rt.top, rt.right - 1, rt.top, GetColorRGB(8, 8, 8));
+    FillRectColor(rt.left, rt.top + 1, rt.left, rt.bottom - 1, GetColorRGB(8, 8, 8));
+    FillRectColor(rt.right, rt.top + 1, rt.right, rt.bottom - 1, GetColorRGB(0x5e, 0x73, 0x65));
+    FillRectColor(rt.left + 1, rt.bottom, rt.right - 1, rt.bottom, GetColorRGB(0x5e, 0x73, 0x65));
+
+    uint16_t *clr = p_clrsh_Gold;
+    if (parent->TestFlags(FLAG_FOCUS) == 0)
+        clr = p_clrsh_Black;
+
+    font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, text, 8, clr, 1);
+
+    UnlockSurface2();
+}
+
+VisComboBoxText::VisComboBoxText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+: VisTextBox(_id, l, t, r, b, _font, _clr, hint)
+{
+    //4e4120
+}
+
+
+
+int32_t VisComboBoxList::OnKeyDown(uint32_t wparam)
+{
+    //4e4090
+    if (wparam == VK_RETURN)
+    {
+        ((VisComboBox*)parent)->ProcSelectList();
+        return 1;
+    }
+    return VisListBox::OnKeyDown(wparam);
+}
+
+VisComboBoxList::VisComboBoxList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+: VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint)
+{
+    //4e4040
+}
+
+
+void VisComboBoxButton::SetCursorOver(bool isOver)
+{
+    //4e1cb6
+    CVisualObject::SetCursorOver(isOver);
+
+    if (isOver)
+    {
+        if (parent->TestFlags(FLAG_OVERCURSOR) == 0)
+            parent->SetCursorOver(true);
+    }
+    else
+    {
+        if (TestFlags(FLAG_OVERCURSOR) && ((VisComboBox*)parent)->list_showed == 0)
+            parent->SetCursorOver(false);
+    }
+}
+
+
+void VisComboBoxButton::VMethod7()
+{
+    //4e1d7d
+    CRect rt = ClientRectToScreen(rect);
+    parent->VMethod8(&rt);
+
+    if (mouse_on)
+        bitmap->VMethod2(rt.left, rt.top, frm + 1, 0, 0);
+    else
+        bitmap->VMethod2(rt.left, rt.top, frm, 0, 0);
+}
+
+int32_t VisComboBoxButton::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4e1d5c
+    return VisButton::OnMouseMove(wparam, pos);
+}
+
+int32_t VisComboBoxButton::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4e1d3b
+    return VisButton::OnLButtonDown(wparam, pos);
+}
+
+int32_t VisComboBoxButton::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    //4e1c16
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    if (downed == 0)
+        return 0;
+
+    CRect rt = ClientRectToScreen(rect);
+    VisButton::SetDowned(false);
+
+    if (rt.PtInRect(pos))
+        parent->MsgProc(msgid, 0, 0);
+
+    return 1;
+}
+
+VisComboBoxButton::VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t _frm, int32_t _msgid, int32_t _charid, const char* hint)
+: VisButton(_id, l, t, r, b, "", g_font1, clrsh_TechBlack, _msgid, _charid, hint)
+{
+    //4e1b5c
+    bitmap = _bitmap;
+    frm = _frm;
+}
+
+
+
+void VisComboBox::VMethod8(CRect* rect)
+{
+    //4e2481
+    parent->VMethod8(rect);
+}
+
+void VisComboBox::VMethod9()
+{
+    //4e201e
+    CVisualObject::VMethod9();
+}
+
+void VisComboBox::WriteData(void* buf)
+{
+    //4e2031
+    textbox->WriteData(buf);
+}
+
+int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4e22d8
+    if (msg == 0x456)
+    {
+        ToggleList();
+        return 1;
+    }
+    else if (msg == WM_LBUTTONDOWN)
+    {
+        CRect rt = ClientRectToScreen(rect);
+        CPoint cpt(g_mousept.x, g_mousept.y);
+        if (rt.PtInRect(cpt))
+        {
+            parent->FocusTo(this, true);
+            return CVisualObject::MsgProc(WM_LBUTTONDOWN, wparam, lparam);
+        }
+        else
+        {
+            HideList();
+            parent->OnLButtonDown(1, cpt);
+            return 1;
+        }
+    }
+    else if (msg == 0x473)
+    {
+        if (wparam == listbox->GetId())
+        {
+            ProcSelectList();
+            return 1;
+        }
+    }
+    else if (msg == WM_MOUSEMOVE)
+        return CVisualObject::MsgProc(WM_MOUSEMOVE, wparam, lparam);
+
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
+int32_t VisComboBox::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4e2410
+    return 1;
+}
+
+int32_t VisComboBox::OnKeyDown(uint32_t wparam)
+{
+    //4e2422
+    if (wparam != VK_DOWN || TestFlags(FLAG_FOCUS) == 0)
+        return CVisualObject::OnKeyDown(wparam);
+
+    //VK_DOWN
+    SetFocus(true);
+    listbox->SetFocus(true);
+    ToggleList();
+    return 1;
+}
+
+VisComboBox::VisComboBox(int32_t _id, CRect r, const char* hint)
+: CVisualObject(_id, r.left, r.top, r.right, r.top + 24, hint)
+{
+    //4e1e10
+    textbox = new VisComboBoxText(1, 0, 0, (r.right - r.left) - 24, 24, g_font1, clrsh_TechBlack, hint);
+    textbox->ChangeFlags(FLAG_ENABLED, false);
+
+    AddChild(textbox);
+
+    listbox = new VisComboBoxList(2, 0, 24, (r.right - r.left), (r.bottom - r.top), g_font1, clrsh_TechBlack, clrsh_ShockingBlack, 10, hint);
+    listbox->ChangeFlags(FLAG_20, true);
+
+    AddChild(listbox);
+
+    VisComboBoxButton* btn = new VisComboBoxButton(3, (r.right - r.left) - 22, 2, (r.right - r.left) - 2, 22, gfx_scrollbars, 24, 0x456, 0, "");
+    AddChild(btn);
+
+    isEmpty = 1;
+    list_showed = 0;
+    flags |= FLAG_NOTFOCUS;
+}
+
+void VisComboBox::AddItem(const char* str)
+{
+    //4e2053
+    if (isEmpty)
+    {
+        textbox->ReadData(str);
+        isEmpty = 0;
+    }
+
+    listbox->AddItem(str);
+}
+
+void VisComboBox::ToggleList()
+{
+    //4e2150
+    if (list_showed)
+    {
+        HideList();
+        return;
+    }
+
+    list_showed = 1;
+
+    if (TestFlags(FLAG_OVERCURSOR) == 0)
+        SetCursorOver(true);
+
+    listbox->ChangeFlags(FLAG_20, false);
+    listbox->SetFocus(true);
+
+    rect.bottom = rect.top + 24 + listbox->GetRect().Height();
+
+    CRect rt = ClientRectToScreen(rect);
+    rt.top += 24;
+
+    parent->VMethod8(&rt);
+    VMethod9();
+}
+
+void VisComboBox::HideList()
+{
+    //4e20db
+    SetCursorOver(false);
+
+    list_showed = 0;
+
+    listbox->ChangeFlags(FLAG_20, true);
+    listbox->SetFocus(false);
+
+    rect.bottom = rect.top + 24;
+
+    parent->VMethod9();
+    VMethod9();
+}
+
+void VisComboBox::ProcSelectList()
+{
+    //4e222a
+    if (list_showed != 0)
+    {
+        SetCursorOver(false);
+        list_showed = 0;
+    }
+
+    listbox->SetFocus(false);
+    listbox->ChangeFlags(FLAG_20, true);
+
+    textbox->ReadData( listbox->GetItem(listbox->GetSelectedIndex()) );
+
+    rect.bottom = rect.top + 24;
+
+    parent->VMethod9();
+    VMethod9();
+}
+
+void VisComboBox::SelectItem(int32_t index)
+{
+    //4e2097
+    textbox->ReadData(listbox->GetItem(index));
+    listbox->SetSelectedIndex(index);
+}
+
+
+
+
+
+
 
 
 

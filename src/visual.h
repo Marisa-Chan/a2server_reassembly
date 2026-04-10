@@ -108,6 +108,9 @@ public:
 	void SetRect(RECT r);
 	void SetRect(const RECT* r);
 
+	int32_t GetId() { return id; } //4503f0
+	CRect& GetRect() { return rect; } //41ed40
+
 public:
 	int32_t id;
 	CRect rect;
@@ -267,6 +270,12 @@ public:
 
 	int32_t YToIndex(int32_t y); //Get index of y coordinate
 
+	void AddItem(const char* str);
+
+	void SetSelectedIndex(int32_t idx); //4507a0
+	int32_t GetSelectedIndex() { return selected_index; } //450780
+	CString& GetItem(int32_t idx); //4508b0
+
 public:
 	int32_t entry_height;
 	int32_t entry_height_full;
@@ -395,6 +404,77 @@ public:
 	int32_t draw_type;
 };
 ASSERT_SIZE(VisBitmap, 0x64);
+
+
+//60e4d0
+class VisComboBox : public CVisualObject
+{
+public:
+	virtual ~VisComboBox() = default;
+
+	virtual void VMethod8(CRect* rect) override;
+	virtual void VMethod9() override;
+	virtual void WriteData(void* buf) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	VisComboBox(int32_t _id, CRect r, const char* hint);
+
+	void AddItem(const char* str);
+	void ToggleList();
+	void HideList();
+	void ProcSelectList();
+	void SelectItem(int32_t index);
+
+public:
+	VisListBox* listbox;
+	VisTextBox* textbox;
+	int32_t isEmpty;
+	int32_t list_showed;
+};
+ASSERT_SIZE(VisComboBox, 0x6c);
+
+//60e5d8
+class VisComboBoxText : public VisTextBox
+{
+public:
+	virtual ~VisComboBoxText() = default;
+	virtual void VMethod7() override;
+
+	VisComboBoxText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint);
+};
+
+//60e548
+class VisComboBoxList : public VisListBox
+{
+public:
+	virtual ~VisComboBoxList() = default;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	VisComboBoxList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint);
+};
+
+//60e458
+class VisComboBoxButton : public VisButton
+{
+public:
+	virtual ~VisComboBoxButton() = default;
+
+	virtual void SetCursorOver(bool isOver) override;
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+
+	VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t _frm, int32_t _msgid, int32_t _charid, const char* hint);
+public:
+	CGameBitmap* bitmap;
+	int32_t frm;
+};
+ASSERT_SIZE(VisComboBoxButton, 0x80);
+
+
 
 //60e2c0
 class VisScreen : public CVisualObject
