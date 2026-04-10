@@ -108,6 +108,16 @@ void NetStru1::sub_51C8B1(Player* player) {
 	}
 }
 
+// 51E289
+void NetStru1::sub_51E289(int32_t arg0, CString source, int32_t arg8, int32_t argC, int32_t arg10) {
+	PacketJoin& pkt = PacketJoin::Inst;
+	pkt.id = 0xd2;
+	pkt.__field_0xa = arg0 | (arg8 << 8) | (argC << 16) | (arg10 << 24);
+	strcpy(pkt.name, source);
+	pkt.to_player_id = 0;
+	this->QueuePacketSend(&pkt);
+}
+
 // 4FB4CA
 void NetStru1::FUN_004fb4ca(Unit* unit, Player* new_owner)
 {

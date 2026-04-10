@@ -882,6 +882,7 @@ externdef ?sub_4FB4AA@SrvStru1@@QAEXXZ :proc
 
 ; NetStru1::sub_51E205
 externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
+externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub_51E289(int, CString, int, int, int)
 externdef ?sub_51DFA7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
 externdef ?sub_51E0B7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
 externdef ?sub_51E1C7@NetStru1@@QAEXG@Z :proc
