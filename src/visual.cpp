@@ -3138,10 +3138,155 @@ void VisComboBox::SelectItem(int32_t index)
 
 
 
+void VisMultiText::VMethod7()
+{
+    //4d8994
+    if (!parent)
+        return;
+
+    CRect rt = ClientRectToScreen(rect);
+    parent->VMethod8(&rt);
+
+    LockSurface2();
+    font->DrawTextLines(rt, vis_start_index, vis_start_index + num_vis_entry, entries, clr1, entry_height_full);
+    UnlockSurface2();
+}
+
+int32_t VisMultiText::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    //4d8b99
+    return VisListBox::MsgProc(msg, wparam, lparam);
+}
+
+int32_t VisMultiText::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    //4d8bba
+    return CVisualObject::OnMouseMove(wparam, pos);
+}
+
+int32_t VisMultiText::OnWmUser(uint32_t wparam, CPoint pos)
+{
+    //4d8bdb
+    if ((wparam & 1) == 0 || scrollbox_id == 0)
+        return 1;
+
+    CRect rt = ClientRectToScreen(rect);
+    if ((rt.top + rt.bottom) / 2 < pos.y)
+        VisListBox::Down();
+    else
+        VisListBox::Up();
+
+    return 1;
+}
+
+int32_t VisMultiText::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    //4d8c3f
+    return CVisualObject::OnLButtonDown(wparam, pos);
+}
+
+int32_t VisMultiText::OnKeyDown(uint32_t wparam)
+{
+    //4d8c60
+    return VisListBox::OnKeyDown(wparam);
+}
+
+void VisMultiText::SelectItem(int32_t idx)
+{
+    //4d889d
+    if (idx < 0)
+        idx = 0;
+
+    if (idx < entries.GetSize() - num_vis_entry)
+    {
+        selected_index = idx;
+        vis_start_index = idx;
+    }
+    else
+    {
+        selected_index = entries.GetSize() - num_vis_entry;
+        vis_start_index = selected_index;
+    }
+
+    VMethod9();
+
+    VisScrollBar* scroll = (VisScrollBar*)parent->FindChild(scrollbox_id);
+    if (scroll)
+        scroll->SetPos(vis_start_index, (entries.GetSize() - num_vis_entry) + 1);
+
+    parent->MsgProc(0x46e, id, vis_start_index);
+}
 
 
+VisMultiText::VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy)
+: VisListBox(_id, l, t, r, b, _font, _clr, nullptr, 0, nullptr)
+{
+    text = str;
 
+    if (dy == 0)
+        dy = entry_height + 2;
 
+    entry_height_full = dy;
+    entries.Copy( font->StringArrayForRect(rect, str) );
+
+    if (rect.Height() / entry_height_full < entries.GetSize())
+        num_vis_entry = rect.Height() / entry_height_full;
+    else
+        num_vis_entry = entries.GetSize();
+}
+
+VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy)
+: VisListBox(_id, r, _font, _clr, nullptr, 0, nullptr)
+{
+    text = str;
+
+    if (dy == 0)
+        dy = entry_height + 2;
+
+    entry_height_full = dy;
+    entries.Copy(font->StringArrayForRect(rect, str));
+
+    if (rect.Height() / entry_height_full < entries.GetSize())
+        num_vis_entry = rect.Height() / entry_height_full;
+    else
+        num_vis_entry = entries.GetSize();
+}
+
+void VisMultiText::SetText(const char* _text)
+{
+    //4d8816
+    text = _text;
+
+    entries.Copy(font->StringArrayForRect(rect, _text));
+
+    if (rect.Height() / entry_height_full < entries.GetSize())
+        num_vis_entry = rect.Height() / entry_height_full;
+    else
+        num_vis_entry = entries.GetSize();
+}
+
+void VisMultiText::SizesCheck()
+{
+    //4d8a3b
+    num_vis_entry = entries.GetSize();
+
+    if (entry_height * num_vis_entry <= rect.Height())
+    {
+        rect.bottom = rect.top + num_vis_entry * entry_height_full;
+        return;
+    }
+
+    rect.right = rect.right - 26;
+
+    entries.Copy(font->StringArrayForRect(rect, text));
+    
+    scrollbox_id = 0xdf23;
+
+    VisScrollBar* scroll = new VisScrollBar(scrollbox_id, rect.right, rect.top, rect.right + 24, rect.bottom, nullptr);
+    parent->AddChild(scroll);
+
+    num_vis_entry = rect.Height() / entry_height_full;
+}
 
 
 //4df4d1

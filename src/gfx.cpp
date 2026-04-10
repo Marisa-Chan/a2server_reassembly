@@ -402,3 +402,126 @@ int32_t CGameFont::GetHeight()
 	//402a90
 	return bitmap->GetHeight(0);
 }
+
+
+CStringArray& CGameFont::StrToArray(const char* str)
+{
+	//45e959
+	static CStringArray out;  //static for return
+
+	CString s = str;
+	out.RemoveAll();
+
+	CString tmp;
+
+	while (!s.IsEmpty())
+	{
+		int pos = s.Find('\r');
+		if (pos == -1)
+			break;
+
+		if (s[pos + 1] == '\n')
+		{
+			tmp = s.Left(pos + 1);
+			tmp.TrimLeft();
+			out.Add( tmp );
+
+			s = s.Right(s.GetLength() - (pos + 2));
+			s.TrimLeft();
+		}
+	}
+
+	if (!s.IsEmpty())
+		out.Add(s);
+
+	return out;
+}
+
+CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str)
+{
+	//45e35f
+	static CStringArray out;  //static for return
+
+	CString s = str;
+	CString tmp1;
+	CString tmp2;
+
+	out.RemoveAll();
+
+	s.TrimLeft();
+	s.TrimRight();
+
+	int32_t split_pos;
+
+	const int32_t w = r.Width();
+	while (!s.IsEmpty())
+	{
+		int32_t x = 0;
+		if (GetStrWidth(s) >= w)
+		{
+			tmp2 = s;
+			while (true)
+			{
+				split_pos = x;
+
+				int32_t pos = tmp2.Find(' ');
+				if (pos == -1)
+					x = s.GetLength();
+				else
+					x += pos + 1;
+
+				tmp1 = s.Left(x);
+
+				tmp2 = s.Right(s.GetLength() - x);
+
+				if (tmp2.IsEmpty())
+				{
+					if (GetStrWidth(tmp1) < w)
+					{
+						split_pos = x;
+						break;
+					}
+				}
+
+				if (GetStrWidth(tmp1) >= w)
+					break;
+			}
+		}
+		else
+		{
+			s += '\r';
+			split_pos = s.GetLength();
+		}
+
+		if (w < GetStrWidth(tmp1) && split_pos == 0)
+			split_pos = x;
+
+		tmp1 = s.Left(split_pos);
+		tmp1.TrimLeft();
+
+		out.Add(tmp1);
+
+		s = s.Right(s.GetLength() - split_pos);
+		s.TrimLeft();
+	}
+
+	return out;
+}
+
+CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
+{
+	//45eb1d
+
+	static CStringArray out;
+
+	out.RemoveAll();
+
+	CStringArray& lines = StrToArray(str);
+	
+	for (int i = 0; i < lines.GetSize(); i++)
+	{
+		CStringArray& spl = StrSplitToFitWidth(r, lines[i]);
+		out.Append(spl);
+	}
+	return out;
+}

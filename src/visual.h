@@ -474,6 +474,34 @@ public:
 };
 ASSERT_SIZE(VisComboBoxButton, 0x80);
 
+//60deb0
+class VisMultiText : public VisListBox
+{
+public:
+	virtual ~VisMultiText() = default; //4e3c20
+
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void SelectItem(int32_t idx) override;
+
+	VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy);
+	VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy);
+
+	void SetText(const char* text);
+	void SizesCheck();
+
+public:
+	CString text;
+};
+ASSERT_SIZE(VisMultiText, 0x98);
+
+
+
 
 
 //60e2c0

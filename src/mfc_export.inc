@@ -1435,6 +1435,12 @@ extern ?ProcSelectList@VisComboBox@@QAEXXZ  :proc
 extern ?SelectItem@VisComboBox@@QAEXH@Z  :proc
 
 
+;VisMultiText
+extern ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z  :proc
+extern ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z  :proc
+extern ?SetText@VisMultiText@@QAEXPBD@Z  : proc
+extern ?SizesCheck@VisMultiText@@QAEXXZ : proc
+
 
 ;VisScreen
 extern ??1VisScreen@@UAE@XZ  :proc
@@ -1570,6 +1576,8 @@ extern ?g_isLowMemory@@3IA : dword
 
 ;CGameFont
 extern ?GetStrWidth@CGameFont@@QAEHPBD@Z : proc
+extern ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z  : proc
+externdef ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 
 
 ;sound

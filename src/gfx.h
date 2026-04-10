@@ -82,6 +82,12 @@ public:
 
 	int32_t GetHeight(); //402a90
 
+	CStringArray& StrToArray(const char* str); //45e959  internal
+	CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f  internal
+
+	CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d
+	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2
+
 public:
 	CGameBitmap* bitmap;
 	int32_t* char_widths;
