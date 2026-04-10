@@ -144,6 +144,60 @@ extern "C" uint32_t __cdecl sub_530726(int32_t skill_level); // Returns experien
 extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
 
 
+// 52BAD9
+void Unit::VMethod1() {
+    if (this->some_state == 0x10) {
+        return;
+    }
+
+    if (this->hp < 0) {
+        // Fallen or dead unit: decrement HP periodically.
+        if (g_Server->tick16 % 4 == 0) {
+            this->hp -= 1;
+            g_NetStru1_main.sub_519221(this, this->pOwner, 1, 0xFFB, 0, 0);
+        }
+    } else if (this->hp > 0) {
+        // Alive unit: HP and MP regeneration
+        int32_t regen_mult = 1;
+
+        // Higher regen for units "at rest".
+        if (this->sub_52BABD() > 80) {
+            regen_mult = 3;
+        }
+
+        // HP regeneration
+        if (this->hp < this->hp_max && this->hp_regen != 0) {
+            if (g_Server->tick16 % 4 == this->building_id % 4) {
+                int32_t hp_accum = this->hp * 100 + this->hp_regen_carry;
+                hp_accum += (this->hp_max * 2 * (this->equipment_extra.hp_regen + 100) * regen_mult) / this->hp_regen;
+                this->hp_regen_carry = hp_accum % 100;
+                this->hp = hp_accum / 100;
+                if (this->hp > this->hp_max) {
+                    this->hp = this->hp_max;
+                }
+                g_NetStru1_main.sub_519221(this, nullptr, 1, 0xFFB, 0, 0);
+            }
+        }
+
+        // MP regeneration
+        if (this->mp < this->mp_max) {
+            if (this->mp_regen == 0) {
+                this->mp_max = 0;
+                this->mp = 0;
+            } else {
+                int32_t mp_accum = this->mp * 100 + this->mp_regen_carry;
+                mp_accum += (this->mp_max * (this->equipment_extra.mp_regen + 100) * regen_mult) / this->mp_regen;
+                this->mp_regen_carry = mp_accum % 100;
+                this->mp = mp_accum / 100;
+                if (this->mp > this->mp_max) {
+                    this->mp = this->mp_max;
+                }
+                g_NetStru1_main.sub_519221(this, nullptr, 2, 0xFFB, 0, 0);
+            }
+        }
+    }
+}
+
 // 52A857
 void Unit::VMethod2()
 {
@@ -676,6 +730,31 @@ Effect* Unit::FindEnchantment(uint16_t effect_id)
         }
     }
     return nullptr;
+}
+
+// 52A215
+void Unit::sub_52A215() {
+    this->state = 0x0B;
+    this->body = 30;
+    this->reaction = 30;
+    this->mind = 20;
+    this->spirit = 20;
+    this->speed = 10;
+    this->eye->rotation_speed = 8;
+    this->scan_range = 5 * 0x100;
+    this->extra_carrying_weight = 0;
+    this->carrying_weight_100g = 0;
+    this->carrying_body_100g = this->body * 10;
+    this->hp_max = 30;
+    this->hp = 30;
+    this->hp_regen = 100;
+    this->mp = 0;
+    this->mp_max = 0;
+    this->mp2 = this->mp_max;
+    this->mp_regen = 50;
+    this->charge = 8;
+    this->relax = 4;
+    this->max_range = 1;
 }
 
 // 52C98B

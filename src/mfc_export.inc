@@ -456,6 +456,7 @@ extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
 externdef ?sub_537251@Unit@@QAEXXZ :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
+externdef ?sub_52A215@Unit@@QAEXXZ :proc                                       ; void Unit::sub_52A215()
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
 externdef ?sub_52C813@Unit@@QAEXXZ :proc
