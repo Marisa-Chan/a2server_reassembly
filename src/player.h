@@ -64,13 +64,13 @@ public:
     uint8_t gap_0xa46[2];
     uint32_t monster_kills;
     uint32_t player_kills;
-    uint32_t field_0xa50;
+    int32_t field_0xa50;
     uint32_t deaths;
     uint32_t frags;
     uint32_t field_0xa5c;
     uint32_t field_0xa60;
     uint32_t field_0xa64;
-    uint32_t field_0xa68;
+    int32_t field_0xa68;
     uint32_t field_0xa6c;
     uint32_t field_0xa70; // Team play: 0 for blue team, 1 for red team.
     uint16_t building_entered_from_yx;

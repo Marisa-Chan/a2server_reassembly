@@ -979,7 +979,7 @@ externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ??1World@@QAE@XZ :proc
 externdef ??1MapStuff@@QAE@XZ :proc
-externdef ?FUN_00534ddd@PlayersList@@QAEXXZ  : proc
+externdef ?sub_534DDD@PlayersList@@QAEXXZ  : proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_53636E@PlayersList@@QAEHXZ :proc

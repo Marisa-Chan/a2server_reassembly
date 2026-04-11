@@ -3221,7 +3221,7 @@ void Server::ServerTic() {
     if ((this->tick & 0xf) == 12) {
         dword_6CDB3C->sub_5574B5();
         this->srv_stru1->sub_4FB4AA();
-        g_PlayersList->FUN_00534ddd();
+        g_PlayersList->sub_534DDD();
         g_NetStru1_main.sub_51EEB7();
         g_QuestMap.sub_55E00C();
 

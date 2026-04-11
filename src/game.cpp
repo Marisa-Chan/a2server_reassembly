@@ -58,5 +58,5 @@ void sub_4954EA()
 
     player->field_0xa50 = g_Server->tick16 - 1;
 
-    g_PlayersList->FUN_00534ddd();
+    g_PlayersList->sub_534DDD();
 }

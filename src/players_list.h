@@ -20,7 +20,6 @@ public:
     uint32_t next_player_id;
 
 public:
-    void FUN_00534ddd();
     int CountHumanPlayers(); // I guess it counts current human players?
     int sub_53636E();        // checks if team play is already started
     void sub_534DDD();
