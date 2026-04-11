@@ -757,6 +757,28 @@ void Unit::sub_52A215() {
     this->max_range = 1;
 }
 
+// 52C409
+int32_t Unit::sub_52C409() {
+    // First try to place unit at the exact position.
+    uint8_t y = this->position->GetY();
+    uint8_t x = this->position->GetX();
+    if (!this->sub_52BF3D(x, y, 0)) {
+        // If that fails, try to find a nearby free position (at max distance 3).
+        y = this->position->GetY();
+        x = this->position->GetX();
+        if (!this->sub_52BF3D(x, y, 3)) {
+            LogMessage(CString("Unit can't return to map - no free place"));
+            return 0;
+        }
+    }
+    dword_6CDB3C->AddTail(this);
+    this->unit_attrs &= ~0x08;
+    g_NetStru1_main.sub_51B870(this);
+    g_NetStru1_main.sub_519221(this, nullptr, 0x10, 0xFFB, 0, 0);
+    g_NetStru1_main.sub_51CF5C(this, 0, nullptr);
+    return 1;
+}
+
 // 52C98B
 void Unit::sub_52C98B(Sack* sack)
 {

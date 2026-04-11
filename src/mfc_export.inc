@@ -463,7 +463,7 @@ externdef ?sub_52A215@Unit@@QAEXXZ :proc                                       ;
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
 externdef ?sub_52C813@Unit@@QAEXXZ :proc
-externdef ?sub_52C409@Unit@@QAEXXZ :proc
+externdef ?sub_52C409@Unit@@QAEHXZ :proc
 
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
 externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit::sub_52BDD7(uint16_t,uint16_t,uint8_t,uint8_t)
@@ -810,6 +810,7 @@ extern ?GetClientsPktNum@NetStru1@@QAEIXZ : proc
 extern ?IsActive@NetStru1@@QAEHXZ : proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51EEB7@NetStru1@@QAEXXZ :proc
+externdef ?sub_51B870@NetStru1@@QAEXPAVUnit@@@Z :proc                     ; void NetStru1::sub_51B870(Unit*)
 
 
 ;NetStru2
