@@ -968,7 +968,6 @@ extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&
 externdef ?sub_5346AC@Player@@QAEXXZ :proc
 
 externdef ?sub_534B17@Player@@QAEXXZ :proc
-externdef ?sub_534B59@Player@@QAEXXZ :proc
 
 extern ?FUN_00534778@Player@@QAEXXZ : proc
 externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
