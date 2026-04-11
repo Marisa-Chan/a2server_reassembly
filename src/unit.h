@@ -104,7 +104,6 @@ public:
     Unit(const TokenPos*, Player*);
 
     void FUN_0052931b(const CString& str); //in asm
-    void sub_53116B();                         // Reinitialize unit stats from class template
     void sub_533345(int8_t main_skill, int8_t skill_level);   // Configure skill slots
     void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
     void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
@@ -116,6 +115,7 @@ public:
     void sub_52C163();
     void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
     void sub_52D8D3(Inventory* inv, int32_t money, int32_t is_main_unit); // Create a sack from this unit's inventory and money.
+    void sub_52C58F(); // Revive unit (set flags, reset subcell, call VMethod18, notify world)
     void sub_52C813();
     void sub_52C4DF(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive)
     int sub_52BF3D(uint8_t x, uint8_t y, uint8_t flags);  // Place unit on map; returns nonzero on success
@@ -271,6 +271,7 @@ public:
     Humanoid(const TokenPos*);
 
     void InitStats();
+    void sub_53116B(); // Reduce humanoid's skills and revive the unit.
     void sub_532dde(CArray<HumanInfoData>* param_2);
 
 public:

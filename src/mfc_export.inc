@@ -450,7 +450,7 @@ externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit:
 externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
 externdef ?sub_533345@Unit@@QAEXCC@Z :proc
-externdef ?sub_53116B@Unit@@QAEXXZ :proc
+externdef ?sub_53116B@Humanoid@@QAEXXZ :proc
 externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
 externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc     ; Unit::sub_5287ec(Player*) – mark unit seen
 
@@ -464,6 +464,10 @@ externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
 externdef ?sub_52C813@Unit@@QAEXXZ :proc
 externdef ?sub_52C409@Unit@@QAEHXZ :proc
+externdef ?sub_52C58F@Unit@@QAEXXZ :proc                                  ; void Unit::sub_52C58F()
+externdef ??0UnitEye@@QAE@XZ :proc                                        ; UnitEye::UnitEye()
+externdef ??0UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::UnitEye2()
+externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
 
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
 externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit::sub_52BDD7(uint16_t,uint16_t,uint8_t,uint8_t)

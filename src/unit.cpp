@@ -142,6 +142,7 @@ extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
 // Free functions for Humanoid::VMethod21.
 extern "C" uint32_t __cdecl sub_530726(int32_t skill_level); // Returns experience required for given skill level.
 extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
+extern "C" int __cdecl sub_5306EA(int experience); // Convert experience to skill level (inverse of sub_530726).
 
 
 // 52BAD9
@@ -470,8 +471,7 @@ void Unit::VMethod10()
     }
 
     if (eye2) {
-        eye2->sub_5A4F30();
-        ::operator delete(eye2);
+        delete eye2;
         eye2 = nullptr;
     }
 
@@ -1520,6 +1520,33 @@ int32_t Humanoid::VMethod25()
 }
 */
 
+// 53116B
+void Humanoid::sub_53116B() {
+    this->experience = 0;
+    for (int32_t i = 1; i < 6; i++) {
+        if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+            this->hit_values.skill_levels[i] = 70;
+            this->experience_per_sphere[i - 1] = sub_530726(this->hit_values.skill_levels[i]);
+            this->experience += this->experience_per_sphere[i - 1];
+        } else if (g_ServerConfig.gameType == 3) {
+            this->experience += this->experience_per_sphere[i - 1];
+            this->hit_values.skill_levels[i] = sub_5306EA(this->experience_per_sphere[i - 1]);
+        } else {
+            this->experience_per_sphere[i - 1] = (this->experience_per_sphere[i - 1] * 9) / 10;
+            this->experience += this->experience_per_sphere[i - 1];
+            this->hit_values.skill_levels[i] = sub_5306EA(this->experience_per_sphere[i - 1]);
+        }
+        this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+    }
+
+    delete(this->eye);
+    this->eye = new UnitEye();
+    if (this->eye2 != nullptr) {
+        delete this->eye2;
+    }
+    this->eye2 = new UnitEye2();
+    this->sub_52C58F();
+}
 
 
 
