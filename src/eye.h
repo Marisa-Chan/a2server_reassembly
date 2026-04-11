@@ -260,7 +260,7 @@ struct UnitEye2 {
     uint16_t field72_0xa0;
     uint8_t field73_0xa2;
     uint8_t field74_0xa3;
-    uint32_t autobuff_spell_id;
+    uint32_t autobuff_spell_id; // TODO: unclear if this is really spell ID, as autobuff checks for `!= 20` only.
     uint32_t autobuff_tick;
     uint8_t field77_0xac;
     uint8_t field78_0xad;

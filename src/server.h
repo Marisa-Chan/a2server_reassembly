@@ -136,16 +136,16 @@ public:
         
 
 public:
-    int tick16; // This value seems to be advanced every 16 ticks
-    int tick;
+    int32_t tick16; // This value seems to be advanced every 16 ticks
+    int32_t tick;
     CowardActivation coward_activation;
-    int field3_0x70;
-    int field4_0x74;
+    int32_t field3_0x70;
+    int32_t field4_0x74;
     CString field5_0x78;
     SrvStru1* srv_stru1;
     uint8_t gap_0x80[8];
     HANDLE field15_0x88;
-    int field16_0x8c;
+    int32_t field16_0x8c;
     CString current_map_name;
     uint32_t field18_0x94;
     Srv1 field19_0x98;
@@ -170,11 +170,11 @@ public:
     uint32_t field39_0x1a8;
     uint32_t field40_0x1ac;
     uint32_t field41_0x1b0;
-    int field42_0x1b4;
-    int field43_0x1b8;
-    int field44_0x1bc;
-    int tic16;
-    int field46_0x1c4;
+    int32_t field42_0x1b4;
+    int32_t field43_0x1b8;
+    int32_t field44_0x1bc;
+    int32_t tic16;
+    int32_t field46_0x1c4;
     CString current_map_title;
     int32_t MapLevel;
     uint32_t field49_0x1d0;

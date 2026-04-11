@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "world.h"
 
 #include "building.h"
@@ -92,6 +94,216 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     }
 
     caster->eye2->max_range = spell->max_range;
+}
+
+// Autobuff handler: pick and cast healing/buff spells on self or allies.
+// 5A7B44
+void World::sub_5A7B44(Unit* unit) {
+    if (unit->mp < 5) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    if ((unit->pOwner->settings->autobuff_mask & 8) == 0) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    // Self-heal.
+    if (unit->hp != unit->hp_max) {
+        Spell* spell = this->sub_5A79D6(unit, spell::heal, 0);
+        if (spell != nullptr) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, unit, spell);
+            return;
+        }
+    }
+
+    // Self-shield.
+    if ((unit->enchantments & (1 << spell::shield)) == 0) {
+        Spell* spell = this->sub_5A79D6(unit, spell::shield, 0);
+        if (spell != nullptr) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, unit, spell);
+            return;
+        }
+    }
+
+    // Build nearby friendly unit list for the group.
+    this->sub_5ADD64(unit->group);
+    this->sub_5A3AD6(unit, &this->field26_0xa64);
+
+    // Ally-heal.
+    Spell* spell = this->sub_5A79D6(unit, spell::heal, 0);
+    if (spell != nullptr && this->field28_0xaa4.unit_list.GetCount() > 1) {
+        double best_ratio = 2.0;
+        Unit* best_unit = nullptr;
+
+        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        while (pos) {
+            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            if (!this->sub_5A7A1C(unit, other) || !this->sub_5A7AF7(unit, other, spell)) {
+                continue;
+            }
+
+            // WAT: I guess the value should be cast before division? But ASM does it like this.
+            double ratio = other->hp / other->hp_max;
+            if (ratio < best_ratio) {
+                best_ratio = ratio;
+                best_unit = other;
+            }
+        }
+
+        if (best_ratio < 1.0) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, best_unit, spell);
+            return;
+        }
+    }
+
+    // Check autobuff_mask bit for medium-level buffs.
+    if ((unit->pOwner->settings->autobuff_mask & 0x10) == 0) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    if (unit->mp < 10) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    // Ally medium-level buffs.
+    {
+        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        while (pos) {
+            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            if (this->sub_5A7A1C(unit, other) == 0) {
+                continue;
+            }
+
+            int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
+
+            // Bless: requires fighter, no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::bless, 0);
+            if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
+                if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                    if (this->sub_5A7AF7(unit, other, spell) != 0) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+
+            // Haste: no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::haste, 0);
+            if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
+                if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                    if (this->sub_5A7AF7(unit, other, spell) != 0) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    // Check autobuff_mask bit for high-level buffs.
+    if ((unit->pOwner->settings->autobuff_mask & 0x20) == 0) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    if (unit->mp < 40) {
+        unit->eye2->cast_action = 0;
+        return;
+    }
+
+    // Ally high-level buffs.
+    {
+        POSITION pos = this->field28_0xaa4.unit_list.GetHeadPosition();
+        while (pos) {
+            Unit* other = this->field28_0xaa4.unit_list.GetNext(pos);
+            if (this->sub_5A7A1C(unit, other) == 0) {
+                continue;
+            }
+
+            int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
+
+            // Protection from air: no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::protection_from_air, 0);
+            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+                if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
+                    if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+
+            // Protection from earth: no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::protection_from_earth, 0);
+            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+                if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
+                    if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+
+            // Protection from fire: no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::protection_from_fire, 0);
+            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+                if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
+                    if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+
+            // Protection from water: no matching enchantment.
+            spell = this->sub_5A79D6(unit, spell::protection_from_water, 0);
+            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+                if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
+                    if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                        unit->eye2->field49_0x60 = 1;
+                        this->sub_5A85F4(unit, other, spell);
+                        return;
+                    }
+                }
+            }
+
+            // Invisibility: no matching enchantment, not self, diplomacy check.
+            spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+            if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
+                if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
+                    if ((this->diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
+                        if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
+                            unit->eye2->field49_0x60 = 1;
+                            this->sub_5A85F4(unit, other, spell);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Self-invisibility --- last.
+    spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+    if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
+        unit->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(unit, unit, spell);
+        return;
+    }
+
+    unit->eye2->cast_action = 0;
 }
 
 // Run trigger action.
