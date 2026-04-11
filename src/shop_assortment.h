@@ -7,6 +7,7 @@
 #include "mfc_templ.h"
 
 
+struct Inventory;
 class Item;
 
 
@@ -35,7 +36,9 @@ struct ShopAssortment {
     ShopAssortment();   // sub_54A13B (??1CWinThread@@UAE@XZ_37 in asm listing)
     ~ShopAssortment();  // sub_54A2DD
     void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B
-    void ArrangeShelfs(int max_count, int max_same, int min_cost, int max_cost, CArray<Item*>* result); // sub_54D423
+    Inventory* ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* result); // 54D423
+
+    int32_t sub_54EA76(Item* item); // 54EA76 — add magic to item
 };
 ASSERT_SIZE(ShopAssortment, 0x58);
 

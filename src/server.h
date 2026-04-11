@@ -16,7 +16,7 @@ class Shop;
 class Human;
 class Humanoid;
 class Inn;
-class Inventory;
+struct Inventory;
 class Packet;
 class Player;
 class Sack;

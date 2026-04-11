@@ -8,7 +8,7 @@
 #include "token.h"
 
 
-class Inventory;
+struct Inventory;
 
 
 class Sack : public Token {

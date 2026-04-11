@@ -207,7 +207,10 @@ externdef _PointerRuntimeClass :byte
 externdef ??0ShopAssortment@@QAE@XZ :proc
 externdef ??1ShopAssortment@@QAE@XZ :proc
 externdef ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z :proc
-externdef ?ArrangeShelfs@ShopAssortment@@QAEXHHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
+externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
+externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
+externdef _sub_54C6DD :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
+externdef _sub_54C556 :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
 
 
 ;Scenario

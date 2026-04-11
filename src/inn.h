@@ -10,7 +10,7 @@
 
 
 class Humanoid;
-class Inventory;
+struct Inventory;
 class Quest;
 class QuestMap;
 
