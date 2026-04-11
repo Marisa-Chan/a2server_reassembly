@@ -391,7 +391,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     }
 
     // Finalise the player's session state.
-    player->FUN_00534AC1(0, 1);              // signal mission entry with arg=1
+    player->sub_534AC1(0, 1);                // notify mission entry
     g_NetStru1_main.FUN_0051ceac(3, player); // send "mission entered" event
     this->sub_4F4570();                      // server-state refresh
 }
@@ -479,7 +479,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
 
     LogMessage("Player " + player->name + " has joined the game");
 
-    player->FUN_00534AC1(0, 1);
+    player->sub_534AC1(0, 1);
 
     if (field18_0x94 != 0)
         g_NetStru1_main.FUN_0051ceac(0xB7, player);
@@ -1089,7 +1089,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         int32_t count = sub_5049D1(&cheat_string);
 
         if (_stricmp((const char*)cheat_string, "Gold") == 0) {
-            player->FUN_00534AC1(count, 0);
+            player->sub_534AC1(count, 0);
             if (!is_reconnect)
                 g_NetStru1_main.FUN_0051ce86(7, player->player_id, nullptr);
             return;
@@ -2005,7 +2005,7 @@ void Server::sub_504a96(Packet* pkt)
             }
             player = this->sub_502B4A(packet_dword->field_0x5);
             if (player) {
-                player->FUN_00534AC1(packet_dword->value, 1);
+                player->sub_534AC1(packet_dword->value, 1);
             }
             break;
         }
@@ -2670,7 +2670,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     else
         g_NetStru1_main.FUN_0051ce86(4, player->player_id, nullptr);
 
-    player->FUN_00534AC1(0, 1);
+    player->sub_534AC1(0, 1);
 
     g_NetStru1_main.sub_51C8B1(player);
 

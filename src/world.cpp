@@ -586,7 +586,7 @@ void World::ScriptOP_0x16(TriggerAction* action) {
 
 // 5b41d8 — Give money to player
 void World::ScriptOP_0x17(TriggerAction* action) {
-    action->player->FUN_00534AC1(action->data[0], 0);
+    action->player->sub_534AC1(action->data[0], 0);
 }
 
 // 5b4309 — Cast spell to unit: from=(data[0], data[1]), spell=data[2], power=data[3]

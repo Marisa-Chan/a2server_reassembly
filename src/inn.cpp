@@ -1306,7 +1306,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     g_NetStru1_main.sub_519221(humanoid, nullptr, 0xA31FFFFF, 0xFFB, 0, 0);
                 } else if (item_hash == 0xFFFF) {
                     // ---- Money reward ----
-                    humanoid->pOwner->FUN_00534AC1(((uint32_t)item->count) * 250, 0);
+                    humanoid->pOwner->sub_534AC1(((uint32_t)item->count) * 250, 0);
                 } else {
                     // ---- Regular item ----
                     bool is_item_improvement = (id >= inv_count - 1);

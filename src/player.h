@@ -91,7 +91,7 @@ public:
     Player();
 
 public:
-    void FUN_00534AC1(int32_t money, uint32_t arg2);
+    void sub_534AC1(int32_t amount, uint32_t notify_flag);
     void sub_5346AC(); // Kill all of this player's units on the map
     void sub_534B17(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
     void sub_534B59(); // Reset inactivity timer and notify NetStru1

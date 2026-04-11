@@ -41,7 +41,7 @@ void MultiShopInstance::Sell() {
     }
     this->sub_5464B6(0);
     this->sub_5464B6(-1);
-    this->unit->pOwner->FUN_00534AC1(0, 0);
+    this->unit->pOwner->sub_534AC1(0, 0);
     this->unit->sub_52A790(0);
     g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
@@ -67,7 +67,7 @@ void MultiShopInstance::Buy() {
     }
 
     this->sub_5464B6(0);
-    this->unit->pOwner->FUN_00534AC1(0, 0);
+    this->unit->pOwner->sub_534AC1(0, 0);
     this->unit->sub_52A790(0);
     g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }

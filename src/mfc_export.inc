@@ -961,7 +961,7 @@ externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::s
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 
 ; Player
-externdef ?FUN_00534AC1@Player@@QAEXHI@Z :proc
+externdef ?sub_534AC1@Player@@QAEXHI@Z :proc
 extern ??0Player@@QAE@XZ :proc
 extern ??1Player@@UAE@XZ :proc
 extern ??5@YGAAVCArchive@@AAV0@AAPAVPlayer@@@Z : proc   ;  CArchive >> Player *&

@@ -790,7 +790,7 @@ void Unit::sub_52C98B(Sack* sack)
 
     // Give gold to owner.
     if (sack->money > 0) {
-        this->pOwner->FUN_00534AC1(sack->money, 0);
+        this->pOwner->sub_534AC1(sack->money, 0);
     }
 
     if (sack->inventory != nullptr) {
