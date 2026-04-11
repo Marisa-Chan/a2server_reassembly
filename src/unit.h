@@ -104,7 +104,6 @@ public:
     Unit(const TokenPos*, Player*);
 
     void FUN_0052931b(const CString& str); //in asm
-    void sub_533345(int8_t main_skill, int8_t skill_level);   // Configure skill slots
     void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
     void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
     void sub_52A215(); // Initialize default unit stats (for newly created units)
@@ -272,6 +271,7 @@ public:
 
     void InitStats();
     void sub_53116B(); // Reduce humanoid's skills and revive the unit.
+    void sub_533345(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon.
     void sub_532dde(CArray<HumanInfoData>* param_2);
 
 public:

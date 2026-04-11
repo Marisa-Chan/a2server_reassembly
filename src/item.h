@@ -101,6 +101,7 @@ ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
+    Weapon(const CString& name); // sub_550929: construct weapon from name string
     Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_550B8F
     Weapon(const Weapon* src); // sub_5511EE: copy constructor
     void LoadEquipInfo(WorldEquip* params); // sub_550E26

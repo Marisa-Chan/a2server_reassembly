@@ -449,7 +449,7 @@ externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit:
 
 externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
-externdef ?sub_533345@Unit@@QAEXCC@Z :proc
+externdef ?sub_533345@Humanoid@@QAEXCC@Z :proc
 externdef ?sub_53116B@Humanoid@@QAEXXZ :proc
 externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
 externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc     ; Unit::sub_5287ec(Player*) – mark unit seen
@@ -642,6 +642,7 @@ externdef ??0Shield@@QAE@PBV0@@Z :proc                                         ;
 
 ; Weapon
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
+externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
 externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)
 externdef ??0Weapon@@QAE@PBV0@@Z :proc                                         ; Weapon::Weapon(const Weapon*)
 

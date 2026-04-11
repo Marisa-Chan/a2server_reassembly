@@ -35,7 +35,11 @@ def main():
         content = f.read()
 
     # Word-boundary matching to avoid partial replacements
-    pattern = rf"\b{re.escape(args.old_name)}\b"
+    if '?' in args.old_name:
+        pattern = re.escape(args.old_name)
+    else:
+        pattern = rf"\b{re.escape(args.old_name)}\b"
+
     matches = list(re.finditer(pattern, content))
     match_count = len(matches)
 

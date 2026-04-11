@@ -1548,6 +1548,68 @@ void Humanoid::sub_53116B() {
     this->sub_52C58F();
 }
 
+// 533345
+void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
+    CString m;
+    m.Format("sub_533345: (main skill %d, level %d)", main_skill, skill_level);
+    LogMessage(m);
+    // Unequip and delete current weapon.
+    Item* old_weapon = this->Unequip(this->weapon);
+    delete old_weapon;
+
+    // Zero all combat skill levels.
+    for (int32_t i = 1; i < 6; i++) {
+        this->hit_values.skill_levels[i] = 0;
+    }
+
+    // Set skills for main sphere and astral/shooting.
+    this->hit_values.skill_levels[main_skill] = skill_level;
+    this->hit_values.skill_levels[5] = skill_level / 2;
+
+    // Recalculate experience from skills (inline sub_531418).
+    this->experience = 0;
+    for (int32_t i = 1; i < 6; i++) {
+        this->experience_per_sphere[i - 1] = sub_530726(this->hit_values.skill_levels[i]);
+        this->experience += this->experience_per_sphere[i - 1];
+        
+        this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+    }
+
+    // Set main sphere.
+    this->main_sphere = main_skill;
+
+    if (this->unit_attrs & 4) {
+        // Mage: create a staff with cast spell.
+        CString spell_name;
+        switch (main_skill) {
+            case 1: spell_name = "Fire_Arrow"; break;
+            case 2: spell_name = "Ice_Missile"; break;
+            case 3: spell_name = "Lightning"; break;
+            case 4: spell_name = "Diamond_Dust"; break;
+            case 5: spell_name = "Drain_Life"; break;
+        }
+
+        CString weapon_name;
+        if (this->typeId == 0x22 || this->typeId == 0x24) {
+            weapon_name = "Wood Staff {castSpell=" + spell_name + ":20}";
+        } else {
+            weapon_name = "Uncommon Wood Staff {castSpell=" + spell_name + ":20}";
+        }
+
+        this->VMethod13(new Weapon(weapon_name));
+    } else {
+        // Fighter: create appropriate weapon.
+        Weapon* weapon = nullptr;
+        switch (main_skill) {
+            case 1: weapon = new Weapon("Iron Long Sword"); break;
+            case 2: weapon = new Weapon("Iron Axe"); break;
+            case 3: weapon = new Weapon("Iron Mace"); break;
+            case 4: weapon = new Weapon("Iron Pike"); break;
+            case 5: weapon = new Weapon("Uncommon Wood Long Bow"); break;
+        }
+        this->VMethod13(weapon);
+    }
+}
 
 
 /***************   Human   *******************/
