@@ -11,6 +11,7 @@
 #include "mfc_templ.h"
 
 
+class Humanoid;
 class Item;
 class Shop;
 class Unit;
@@ -51,6 +52,7 @@ public:
     Shop* shop;
 
     void sub_546F18(MultiShopInstance* inst, int param); // 546F18
+    Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
 };
 ASSERT_OFFSET(MultiShopTemplate, shop_instances, 0x7c);
 ASSERT_SIZE(MultiShopTemplate, 0x98);
