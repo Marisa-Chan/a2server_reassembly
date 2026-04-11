@@ -599,6 +599,7 @@ externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@F@Z :proc
 
 ; PointEffect
 externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
+externdef ?sub_5375A4@PointEffect@@QAEXXZ :proc ; void PointEffect::sub_5375A4()
 
 ; SpellTransport
 externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc

@@ -114,6 +114,7 @@ public:
 };
 __pragma(pack(pop))
 
+ASSERT_OFFSET(Token, pOwner, 0x14);
 ASSERT_SIZE(Token, 0x3C);
 
 #endif //TOKEN_H

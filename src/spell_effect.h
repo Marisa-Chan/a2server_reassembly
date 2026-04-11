@@ -40,7 +40,9 @@ public:
     Effect* effect;
 
     PointEffect(Effect* effect, Unit* target); // sub_53752F
+    void sub_5375A4();
 };
+ASSERT_OFFSET(PointEffect, effect, 0x4c);
 ASSERT_SIZE(PointEffect, 0x50);
 
 class AreaEffect : public SpellEffect {
