@@ -64,6 +64,7 @@ public:
     uint8_t field_0x52[2];
 
     AreaEffect(Effect* effect, TokenPos* pos, int16_t range); // sub_537880
+    void sub_53831D(Unit* unit);
 };
 ASSERT_SIZE(AreaEffect, 0x54);
 

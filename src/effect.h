@@ -68,6 +68,7 @@ public: // VTable at 0060f2e0.
 
 public:
     DirectDamage();
+    DirectDamage(Effect* src); // sub_540BF7
 
 public:
     UnitToHit unit_to_hit;

@@ -590,12 +590,14 @@ externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 ; DirectDamage
 
 externdef ??0DirectDamage@@QAE@XZ :proc
+externdef ??0DirectDamage@@QAE@PAVEffect@@@Z :proc ; DirectDamage::DirectDamage(Effect*)
 
 
 ; AreaEffect
 PUBLIC _stru_6364B8
 
 externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@F@Z :proc
+externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc ; void AreaEffect::sub_53831D(Unit*)
 
 ; PointEffect
 externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
