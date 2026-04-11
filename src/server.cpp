@@ -2,7 +2,9 @@
 
 #include <cstring>
 #include <cstdlib>  // atoi
+#include <set>
 
+#include "alm.h"
 #include "buildings_list.h"
 #include "building.h"
 #include "eye.h"
@@ -18,6 +20,7 @@
 #include "spell_effect.h"
 #include "effect.h"
 #include "mfc_plex.h"
+#include "quest_glue.h"
 #include "quest_map.h"
 #include "group.h"
 #include "sack.h"
@@ -28,9 +31,6 @@
 #include "spell.h"
 #include "player_file.h"
 #include "file.h"
-
-
-class QuestMap;
 
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
@@ -117,6 +117,117 @@ Server::~Server()
     this->script_settings = nullptr;
 
     LogMessage("Server closed\n");
+}
+
+// 59C56E
+void Srv1::sub_59C56E(MapAlm* alm) {
+    static std::set<int16_t> shop_type_ids = {0x22, 0x23, 0x5D, 0x5E, 0x5F, 0x69, 0x6A, 0x6B};
+    static std::set<int16_t> inn_type_ids = {0x43, 0x44, 0x45, 0x63, 0x64, 0x65, 0x6F, 0x70, 0x71};
+
+    if (MapStuff_Instance == nullptr) {
+        return;
+    }
+
+    g_QuestMap.sub_55D6F7();
+
+    for (int32_t i = 0; i < alm->map_buildings.GetSize(); i++) {
+        MapBuildingData* bd = alm->map_buildings[i];
+        if (bd == nullptr) {
+            continue;
+        }
+
+        Building* building = nullptr;
+        int16_t type_id = bd->type_id;
+
+        if (shop_type_ids.count(type_id) > 0) {
+            TokenPos pos(bd->x, bd->y, MapStuff_Instance);
+            Shop* shop = new Shop(bd->type_id, &pos);
+            building = shop;
+
+            for (int32_t j = 0; j < alm->shops.GetSize(); j++) {
+                MapShopData* sd = alm->shops[j];
+                if (sd->shop_id != bd->building_id) {
+                    continue;
+                }
+                for (int32_t k = 0; k < 4; k++) {
+                    shop->gen_params[k].min_cost = sd->min_price[k];
+                    shop->gen_params[k].max_cost = sd->max_price[k];
+                    shop->gen_params[k].max_same_count = sd->max_same_count[k];
+                    shop->gen_params[k].max_count = sd->max_count[k];
+                    shop->gen_params[k].flags = sd->flags[k];
+                }
+                break;
+            }
+        } else if (inn_type_ids.count(type_id) > 0) {
+            TokenPos pos(bd->x, bd->y, MapStuff_Instance);
+            Inn* inn = new Inn(bd->type_id, &pos);
+            building = inn;
+
+            for (int32_t j = 0; j < alm->taverns.GetSize(); j++) {
+                MapInnData* td = alm->taverns[j];
+                if (td->inn_id != bd->building_id) {
+                    continue;
+                }
+                for (int32_t k = 0; k < 4; k++) {
+                    inn->delivery_item_id = (td->flags & 2) ? td->delivery_item_id : 0;
+                    inn->has_kill_all_humans = (td->flags & 0x10) != 0;
+                    inn->has_kill_all_monsters = (td->flags & 0x20) != 0;
+                    inn->has_kill_all_undead = (td->flags & 0x40) != 0;
+                    inn->has_raise_dead = (td->flags & 4) != 0;
+                }
+            }
+        } else if (0x46 <= type_id && type_id <= 0x4B) {
+            // Pointer
+            TokenPos pos(bd->x, bd->y, MapStuff_Instance);
+            Pointer* pointer = new Pointer(bd->type_id, &pos, bd->bridge_width, bd->bridge_height);
+            building = pointer;
+
+            for (int32_t j = 0; j < alm->pointers.GetSize(); j++) {
+                MapPointerData* pd = alm->pointers[j];
+                if (pd->building_id != bd->building_id) {
+                    continue;
+                }
+                if (pd->flags != 0) {
+                    POSITION pos2 = alm->logic_instances.GetHeadPosition();
+                    int32_t script_count = 0;
+                    for (int32_t k = 0; k < pd->instance_id; k++) {
+                        MapLogicData* logic_data = alm->logic_instances.GetNext(pos2);
+                        if (logic_data->type_id < 0x10002) {
+                            script_count++;
+                        }
+                    }
+                    pointer->script_instance_id = script_count;
+                }
+            }
+        } else {
+            // Default Building
+            TokenPos pos(bd->x, bd->y, MapStuff_Instance);
+            building = new Building(bd->type_id, &pos, bd->bridge_width, bd->bridge_height);
+            if (bd->health == 0) {
+                building->hp = bd->health;
+            }
+        }
+
+        // Common: set owner
+        building->pOwner = g_PlayersList->sub_535C46(bd->player_id);
+        if (building->pOwner == nullptr) {
+            LogMessage("Warning - Building without owner have been loaded");
+        }
+
+        // Set building ID and add to list
+        building->TokenID = bd->building_id;
+        this->srv_stru->building_list->sub_558228(building);
+
+        // For Inns, create QuestInnGlue
+        if (building->IsKindOf(&InnRuntimeClass)) {
+            QuestInnGlue* glue = new QuestInnGlue(building->building_id, building->position, g_World, 4);
+            g_QuestMap.sub_55EA81(glue);
+        }
+
+        // Delete building data and null the array entry
+        delete bd;
+        alm->map_buildings[i] = nullptr;
+    }
 }
 
 // 59FC97

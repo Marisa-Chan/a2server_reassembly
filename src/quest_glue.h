@@ -10,7 +10,7 @@
 
 
 class QuestMap;
-class World;
+struct World;
 
 
 // Some object used to tie an inn and a quest.
@@ -31,6 +31,8 @@ public: // See the vtable at 0060fde8.
     // virtual uint8_t VMethod8(); // returns position->x
     // virtual uint8_t VMethod9(); // returns position->y
 public:
+    QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t field_0x3c); // sub_5BA8E0
+
     uint32_t building_id;
     CMap<uint32_t, uint32_t, uint32_t, uint32_t> map; // Don't know the key/value types.
     QuestMap* quest_map;

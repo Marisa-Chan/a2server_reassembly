@@ -8,20 +8,20 @@
 #include "assert_offset.h"
 #include "mfc_templ.h"
 
-struct NetStru2;
-
 class Building;
 class BuildingsList;
-class Shop;
 class Human;
 class Humanoid;
 class Inn;
 struct Inventory;
+struct MapAlm;
+struct NetStru2;
 class Packet;
 class Player;
 class Sack;
 class SackList;
 struct ScriptSettings;
+class Shop;
 class Spell;
 class SpellEffect;
 class SpellEffectList;
@@ -81,6 +81,7 @@ public: // Virtual table at 0060ec18.
     virtual ~Srv1();
 
 public:
+    void sub_59C56E(MapAlm* alm); // CreateBuildings
     void sub_59FC97(int count); // Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
     int sub_59B7EA(CString mapName); // Load ALM map file
 

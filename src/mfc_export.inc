@@ -151,9 +151,12 @@ externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; B
 externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
 externdef ?sub_557F69@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557F69(TokenPos*)
 externdef ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z :proc     ; BuildingsList::sub_558055(Player*)
+externdef ?sub_558228@BuildingsList@@QAEXPAVBuilding@@@Z :proc                ; void BuildingsList::sub_558228(Building*)
 
 ; Building
 externdef ?VMethod1@Building@@UAEXXZ :proc
+externdef ??0Building@@QAE@EPAUTokenPos@@EE@Z :proc                             ; Building::Building(uint8_t, TokenPos*, uint8_t, uint8_t)
+externdef ??0Pointer@@QAE@EPAUTokenPos@@EE@Z :proc                              ; Pointer::Pointer(uint8_t, TokenPos*, uint8_t, uint8_t)
 
 ; Outpost
 externdef ?VMethod1@Outpost@@UAEXXZ : proc
@@ -161,6 +164,7 @@ externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 
 ; Inn
 externdef _InnRuntimeClass :byte
+externdef ??0Inn@@QAE@EPAUTokenPos@@@Z :proc                                     ; Inn::Inn(uint8_t, TokenPos*)
 
 externdef ?VMethod1@Inn@@UAEXXZ :proc
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@H@Z :proc
@@ -174,6 +178,7 @@ externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     
 ; Shop
 externdef _g_DefaultShop :byte
 externdef _ShopRuntimeClass :byte
+externdef ??0Shop@@QAE@EPAUTokenPos@@@Z :proc                                    ; Shop::Shop(uint8_t, TokenPos*)
 
 externdef ?sub_544655@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
@@ -989,6 +994,8 @@ externdef ?sub_53636E@PlayersList@@QAEHXZ :proc
 externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
 externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc
+externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ; Player* PlayersList::sub_535C46(uint16_t)
+externdef ?CountCD@PlayersList@@QAEHXZ :proc
 
 
 ; SackList method
@@ -1000,6 +1007,7 @@ externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ??1Srv1@@UAE@XZ :proc
 externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
 externdef ?sub_59B7EA@Srv1@@QAEHVCString@@@Z :proc  ; int Srv1::sub_59B7EA(CString)
+externdef ?sub_59C56E@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C56E(MapAlm*)
 
 
 ; Settings
@@ -1042,8 +1050,14 @@ externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 externdef ?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z :proc                           ; void QuestMap::sub_55E5FB(Quest*)
 externdef ?sub_55E00C@QuestMap@@QAEXXZ :proc
+externdef ?sub_55D6F7@QuestMap@@QAEXXZ :proc                                    ; void QuestMap::sub_55D6F7()
+externdef ?sub_55EA81@QuestMap@@QAEXPAVQuestInnGlue@@@Z :proc                  ; void QuestMap::sub_55EA81(QuestInnGlue*)
 
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
+
+
+; QuestInnGlue
+externdef ??0QuestInnGlue@@QAE@HPAUTokenPos@@PAUWorld@@H@Z :proc              ; QuestInnGlue(int32_t, TokenPos*, World*, int32_t)
 
 
 ;CListBox2  in C++

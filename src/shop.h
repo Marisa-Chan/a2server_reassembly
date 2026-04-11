@@ -24,6 +24,9 @@ ASSERT_SIZE(AssortmentGenParams, 0x14);
 
 class Shop : public Building {
 public:
+    Shop(uint8_t type_id, TokenPos* pos); // sub_544495
+
+public:
     MultiShopTemplate* shop_template;
     AssortmentGenParams gen_params[4];
     uint32_t field_0xc0;

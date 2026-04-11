@@ -18,6 +18,7 @@ public:
     virtual void VMethod1() override;
 
 public:
+    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_542599
     BuildingInfo* building_info;
     uint8_t object_info_id;
     uint8_t gap_0x41;
@@ -37,6 +38,9 @@ ASSERT_OFFSET(Building, width, 0x60);
 ASSERT_SIZE(Building, 0x6c);
 
 class Pointer : public Building {
+public:
+    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140
+
 public:
     int32_t script_instance_id;
 };

@@ -19,5 +19,6 @@ public:
     Building* sub_557EA5(TokenPos* pos); // Get nearest building at position
     Building* sub_557F69(TokenPos* pos); // Find nearest building to position
     Building* sub_558055(Player* player); // Find inn owned by given player
+    void sub_558228(Building* building); // AddTailAndSetID
 };
 ASSERT_SIZE(BuildingsList, 0x1c);

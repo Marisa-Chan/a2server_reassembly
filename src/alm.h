@@ -172,8 +172,8 @@ struct MapAlm {
     uint32_t contrast;
     CArray<MapPlayerData> map_players;
     MapPlayerData *loading_player;
-    CList<MapLogicData> logic_instances;
-    CList<MapLogicData> logic_checks;
+    CList<MapLogicData*> logic_instances;
+    CList<MapLogicData*> logic_checks;
     CArray<MapLogicTrigger> map_logic_triggers;
     uint32_t error_loading;
     uint32_t field16_0x90;
@@ -187,13 +187,13 @@ struct MapAlm {
     CArray<MapSackData> sacks;
     CArray<MapEffectData> effects;
     CArray<MapGroupData> groups;
-    CArray<MapShopData> shops;
-    CArray<MapInnData> taverns;
-    CArray<MapPointerData> pointers;
+    CArray<MapShopData*> shops;
+    CArray<MapInnData*> taverns;
+    CArray<MapPointerData*> pointers;
     CArray<MapMusicInfo> music_info;
     MapMusicInfo default_music;
-    CArray<MapBuildingData> map_buildings;
-    CArray<MapUnitData> units_datas;
+    CArray<MapBuildingData*> map_buildings;
+    CArray<MapUnitData*> units_datas;
 };
 
 #endif

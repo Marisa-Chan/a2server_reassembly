@@ -28,6 +28,7 @@ public:
     Player* sub_535B50(uint16_t player_id);   // find player by numeric id
     Player* sub_535E94(int32_t a, int32_t b);  // find player where field_0xa80==a && field_0xa84==b (spectator claim)
 
+    Player* sub_535C46(uint16_t token_id); // GetByTokenID
     int CountCD(); //536092
 };
 ASSERT_SIZE(PlayersList, 0x24);
