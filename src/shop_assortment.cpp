@@ -1,5 +1,7 @@
 #include "shop_assortment.h"
 
+#include "constants.h"
+#include "effect.h"
 #include "game_app.h"
 #include "inventory.h"
 #include "item.h"
@@ -7,6 +9,9 @@
 
 extern "C" void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item); // add item to sorted CArray, merging stackables
 extern "C" void __cdecl sub_54C556(CArray<Item*>* arr); // sort CArray<Item*>
+extern "C" Effect* __cdecl sub_54F04F(int32_t is_magical, int32_t magic_volume, int32_t budget, int32_t max_attempts);
+extern "C" int32_t __cdecl sub_54F176(Item* item);
+extern "C" Effect* __cdecl sub_54EDE9(int32_t is_magical, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts);
 
 // 54D423
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
@@ -131,4 +136,80 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         output->GetData()[i] = item_array[i];
     }
     return nullptr;
+}
+
+// 54EA76
+int32_t ShopAssortment::sub_54EA76(Item* item) {
+    int32_t is_something = (item->world_equip->values[0].other_param & 1) != 0;
+    int32_t item_type = item->item_type;
+    int32_t local_18 = (item->item_id >> 8) & 0xF;
+
+    int32_t budget = this->max_cost * 2 - item->_exp;
+
+    if (!is_something && item->item_type == 2) {        
+        int32_t cap = item->_exp * 100;
+        if (budget > cap) {
+            budget = cap;
+        }
+
+        Effect* effect = sub_54F04F(is_something, item->magic_volume, budget, 100);
+        if (!effect) {
+            return 0;
+        }
+
+        item->sub_548FAA(effect);
+        item->VMethod15();
+        return 1;
+    }
+
+    int32_t magic_volume = item->magic_volume;
+
+    Effect* effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+    if (!effect) {
+        return 0;
+    }
+
+    item->sub_548FAA(effect);
+    item->VMethod15();
+
+    if (effect->effect_id == modifier::castspell) {
+        return 1;
+    }
+
+    // Second effect attempt (50% chance)
+    budget = this->max_cost * 2 - item->_exp;
+    magic_volume = item->magic_volume - sub_54F176(item);
+
+    if (Random0N(100) < 50) {
+        effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        if (!effect) {
+            return 1;
+        }
+        if (effect->effect_id == modifier::castspell) {
+            delete effect;
+            return 1;
+        }
+        item->sub_548FAA(effect);
+        item->VMethod15();
+    }
+
+    // Third effect attempt (25% chance)
+    budget = this->max_cost * 2 - item->_exp;
+    magic_volume = item->magic_volume - sub_54F176(item);
+
+    if (Random0N(100) < 25) {
+        effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        if (!effect) {
+            return 1;
+        }
+        if (effect->effect_id == modifier::castspell) {
+            delete effect;
+            return 1;
+        }
+        item->sub_548FAA(effect);
+        item->VMethod15();
+    }
+
+    item->magic_volume -= sub_54F176(item);
+    return 1;
 }

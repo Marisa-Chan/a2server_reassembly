@@ -45,6 +45,7 @@ public:
     Item(); // sub_547F80: default constructor (blank item)
     Item(const CString& name); // sub_5480E3: construct item from name string
     Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
+    void sub_548FAA(Effect* effect); // Add effect to item
     int sub_548F07(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
     void sub_548F3F(const CString& str); // Apply special property string to item effects, then call VMethod15
