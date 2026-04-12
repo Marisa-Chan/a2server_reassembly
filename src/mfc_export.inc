@@ -403,6 +403,8 @@ externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
 externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@G@Z :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
+externdef ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z :proc          ; uint8_t MapStuff::sub_591424(Unit*, Unit*)
+externdef ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z :proc         ; int MapStuff::sub_58FE6D(Unit*, Unit*, uint8_t)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
