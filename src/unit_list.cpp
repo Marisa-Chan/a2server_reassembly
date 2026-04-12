@@ -276,3 +276,74 @@ void UnitList::ProcessTick()
 		}
 	}
 }
+
+// 5574B5
+void UnitList::sub_5574B5() {
+	// Tick all units in this list (call VMethod1 on each)
+	POSITION pos = this->unit_list.GetHeadPosition();
+	while (pos != NULL) {
+		Unit* unit = this->unit_list.GetNext(pos);
+		unit->VMethod1();
+	}
+
+	// Process corpse decay on dead units
+	CList<Unit*>& dead_list = g_Server->srv_stru1->units_list->unit_list;
+	pos = dead_list.GetHeadPosition();
+	while (pos != NULL) {
+		Unit* unit = dead_list.GetNext(pos);
+		unit->sub_52E7FA();
+	}
+
+	// Count summons per summon_id in the summon pool
+	CList<Unit*>& summon_pool = dword_6B37C4->unit_list;
+	pos = summon_pool.GetHeadPosition();
+
+	if (pos == NULL) {
+		return;
+	}
+
+	Unit* unit = summon_pool.GetNext(pos);
+
+	CMap<uint32_t, uint32_t, int32_t, int32_t> map;
+	while (unit != NULL) {
+		if (unit->summon_id != 0) {
+			map[unit->summon_id]++;
+		}
+		if (pos == NULL) {
+			unit = NULL;
+		} else {
+			unit = summon_pool.GetNext(pos);
+		}
+	}
+
+	// Probabilistically mark summon groups for culling
+	POSITION map_pos = map.GetStartPosition();
+	while (map_pos != NULL) {
+		uint32_t summon_id;
+		int32_t count;
+		map.GetNextAssoc(map_pos, summon_id, count);
+		if (Random1N(100) < count) {
+			map[summon_id] = -1;
+		}
+	}
+
+	// Kill one unit per marked summon group
+	pos = summon_pool.GetHeadPosition();
+	unit = NULL;
+	if (pos != NULL) {
+		unit = summon_pool.GetNext(pos);
+	}
+	while (unit != NULL) {
+		if (unit->summon_id != 0) {
+			if (map[unit->summon_id] == -1) {
+				map[unit->summon_id] = -2;
+				unit->sub_52D94E();
+			}
+		}
+		if (pos == NULL) {
+			unit = NULL;
+		} else {
+			unit = summon_pool.GetNext(pos);
+		}
+	}
+}
