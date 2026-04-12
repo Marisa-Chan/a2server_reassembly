@@ -17,6 +17,21 @@ int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
     return 0;
 }
 
+// 58FEDA
+int MapStuff::sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range) {
+    unit->position->sub_58bec3();
+    uint8_t current_facing = unit->eye->field0_0x0;
+    uint8_t computed_facing = this->sub_59166C(unit, yx);
+    if (current_facing != computed_facing) {
+        return 0;
+    }
+    uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
+    if (distance <= max_range) {
+        return 1;
+    }
+    return 0;
+}
+
 // 5913BD
 int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
     uint8_t type = (uint8_t)unit->VMethod4();

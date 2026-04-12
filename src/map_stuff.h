@@ -132,6 +132,8 @@ public:
     int sub_59190D(Unit* target, Unit* observer); // Visibility/range check between two units.
     uint8_t sub_591424(Unit* unit, Unit* target); // Compute facing direction from unit to target.
     int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
+    int sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range); // Check if unit faces yx and is in range.
+    uint8_t sub_593B29(uint16_t yx1, uint16_t yx2); // Chebyshev distance between two YX positions.
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
