@@ -6,12 +6,95 @@
 #include "inventory.h"
 #include "item.h"
 #include "server.h"
+#include "table.h"
 
 extern "C" void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item); // add item to sorted CArray, merging stackables
 extern "C" void __cdecl sub_54C556(CArray<Item*>* arr); // sort CArray<Item*>
-extern "C" Effect* __cdecl sub_54F04F(int32_t is_magical, int32_t magic_volume, int32_t budget, int32_t max_attempts);
+extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts);
 extern "C" int32_t __cdecl sub_54F176(Item* item);
-extern "C" Effect* __cdecl sub_54EDE9(int32_t is_magical, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts);
+
+static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
+static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
+
+// 54EDE9
+Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
+    if (budget <= 0 || magic_volume <= 0) {
+        return nullptr;
+    }
+
+    int32_t column_index = sub_type - 1 + (1 - is_warrior) * 12;
+
+    Effect* effect = new Effect();
+
+    int32_t attempts = 0;
+    int32_t found = -1;
+    int32_t result = 0;
+
+    while (attempts < max_attempts) {
+        attempts++;
+
+        int32_t last_index = g_GameDataRes.magics.GetSize() - 1;
+        int32_t* last_slots = &g_GameDataRes.magics[last_index].values[0].in_warrior_weapon;
+        int32_t total_weight = last_slots[column_index];
+
+        int32_t roll = Random1N(total_weight);
+
+        for (int32_t i = 1; i <= last_index; i++) {
+            if (g_GameDataRes.magics[i].name.GetLength() == 0) {
+                continue;
+            }
+
+            int32_t* prev_slots = &g_GameDataRes.magics[i - 1].values[0].in_warrior_weapon;
+            int32_t prev_weight = prev_slots[column_index];
+
+            int32_t* curr_slots = &g_GameDataRes.magics[i].values[0].in_warrior_weapon;
+            int32_t curr_weight = curr_slots[column_index];
+
+            if (roll > prev_weight && roll <= curr_weight) {
+                found = i;
+                break;
+            }
+        }
+
+        if (found != -1) {
+            break;
+        }
+    }
+
+    if (found != -1) {
+        if (!is_warrior && item_type == 2) {
+            found = modifier::castspell;
+        }
+
+        effect->effect_id = found;
+
+        if (found == modifier::castspell) {
+            if (is_warrior) {
+                effect->spell_or_damage = warrior_spells[Random0N(1)];
+            } else {
+                effect->spell_or_damage = mage_spells[Random0N(6)];
+            }
+        }
+
+        if (effect->effect_id == modifier::castspell) {
+            if (is_warrior) {
+                budget = exp * 10;
+            } else {
+                budget = exp * 100;
+            }
+        }
+
+        result = effect->sub_541FD7(budget, magic_volume);
+    }
+
+    if (attempts == max_attempts || result == -1) {
+        delete effect;
+        return nullptr;
+    }
+
+    effect->VMethod17(result);
+    return effect;
+}
 
 // 54D423
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
@@ -140,19 +223,19 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
 // 54EA76
 int32_t ShopAssortment::sub_54EA76(Item* item) {
-    int32_t is_something = (item->world_equip->values[0].other_param & 1) != 0;
+    int32_t is_warrior = (item->world_equip->values[0].other_param & 1) != 0;
     int32_t item_type = item->item_type;
     int32_t local_18 = (item->item_id >> 8) & 0xF;
 
     int32_t budget = this->max_cost * 2 - item->_exp;
 
-    if (!is_something && item->item_type == 2) {        
+    if (!is_warrior && item->item_type == 2) {        
         int32_t cap = item->_exp * 100;
         if (budget > cap) {
             budget = cap;
         }
 
-        Effect* effect = sub_54F04F(is_something, item->magic_volume, budget, 100);
+        Effect* effect = sub_54F04F(is_warrior, item->magic_volume, budget, 100);
         if (!effect) {
             return 0;
         }
@@ -164,7 +247,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
 
     int32_t magic_volume = item->magic_volume;
 
-    Effect* effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+    Effect* effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
     if (!effect) {
         return 0;
     }
@@ -181,7 +264,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
     magic_volume = item->magic_volume - sub_54F176(item);
 
     if (Random0N(100) < 50) {
-        effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
         if (!effect) {
             return 1;
         }
@@ -198,7 +281,7 @@ int32_t ShopAssortment::sub_54EA76(Item* item) {
     magic_volume = item->magic_volume - sub_54F176(item);
 
     if (Random0N(100) < 25) {
-        effect = sub_54EDE9(is_something, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = sub_54EDE9(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
         if (!effect) {
             return 1;
         }

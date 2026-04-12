@@ -221,6 +221,7 @@ externdef ?sub_548FAA@Item@@QAEXPAVEffect@@@Z :proc  ; void Item::sub_548FAA(Eff
 externdef _sub_54F04F :proc  ; Effect* __cdecl sub_54F04F(int, int, int, int)
 externdef _sub_54F176 :proc  ; int32_t __cdecl sub_54F176(Item*)
 externdef _sub_54EDE9 :proc  ; Effect* __cdecl sub_54EDE9(int, int, int, int, int, int, int)
+externdef ?sub_541FD7@Effect@@QAEHHH@Z :proc  ; int32_t Effect::sub_541FD7(int, int)
 
 
 ;Scenario
