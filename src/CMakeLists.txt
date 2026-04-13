@@ -23,6 +23,7 @@ set(A2_SOURCES
   main_window.cpp
   map_stuff.cpp
   mfc_coll.cpp
+  mouse.cpp
   net.cpp
   outpost.cpp
   perf.cpp

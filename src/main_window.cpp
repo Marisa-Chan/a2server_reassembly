@@ -13,7 +13,7 @@
 #include "net.h"
 #include "players_list.h"
 #include "server.h"
-#include "gfx.h"
+#include "mouse.h"
 
 
 //495033
@@ -313,7 +313,7 @@ extern "C"
 void MainWindow::sub_48A756()
 {
     try {
-        g_mousept.FUN_004271e6();
+        g_mousept.Update();
 
         // Calculate next tick time
         int32_t next_tick_time = this->last_tic_time + (this->game_tic_counter + 1) * this->game_tic_time;
@@ -331,7 +331,7 @@ void MainWindow::sub_48A756()
             // Process server
             g_Server->ServerTic();
             
-            g_mousept.FUN_004271e6();
+            g_mousept.Update();
             
             // Server mode processing (g_IsServer != 0 means server mode)
             if (g_IsServer != 0 && this->game_tic_counter == 1) {
@@ -470,7 +470,7 @@ void MainWindow::sub_48A756()
             }
         }
         
-        g_mousept.FUN_004271e6();
+        g_mousept.Update();
     } catch (...) {
         _exit(-1);
     }
@@ -553,15 +553,15 @@ void MainWindow::Proc_421()
 
     field_0x5e8.FUN_004ac3af();
 
-    CVisualObject* elm = field_0xcc->FindChild(0x3fc);
+    CVisualObject* elm = vis_root->FindChild(0x3fc);
     if (elm)
         elm->MsgProc(0x445, 0, 0);
 
     FUN_00485a41();
 
-    field_0xcc->AddChild(field_0xf4);
+    vis_root->AddChild(field_0xf4);
     field_0xf4->VMethod28();
-    field_0xcc->VMethod9();
+    vis_root->VMethod9();
     field_0x460 = 0;
     field_0x418 |= 0x80;
     FUN_0048cb3c();
@@ -592,9 +592,9 @@ void MainWindow::FUN_00485a41()
     field_0xd4->RemoveAllChilds();
     field_0xd4->AddChild(field_0xe0);
 
-    field_0xcc->RemoveAllChilds();
-    field_0xcc->AddChild(field_0xd0);
-    field_0xcc->AddChild(field_0xd4);
+    vis_root->RemoveAllChilds();
+    vis_root->AddChild(field_0xd0);
+    vis_root->AddChild(field_0xd4);
 
     field_0x418 &= ~1;
 

@@ -7,14 +7,19 @@
 class CGameBitmap;
 class CSprite256;
 class CGameFont;
-class CMousePointer;
+class CBmp64;
 
 
 extern CRect g_ScreenSize; //65fb78
 extern CSprite256* gfx_interface_lm; //6653ec
 extern CSprite256* gfx_scrollbars; //6653f0
 extern CSprite256* gfx_radiob; //6653f4
+
 extern CGameFont* g_font1; //65e228
+extern CGameFont* g_font2; //65ec68
+
+extern CBmp64* gfx_ball; //665414
+
 
 extern int32_t g_RBits;
 extern int32_t g_GBits;
@@ -30,17 +35,18 @@ extern int32_t g_BBitMask;
 extern uint16_t* p_clrsh_Black; //62e584
 extern uint16_t* p_clrsh_ShockingBlack; //62e588
 extern uint16_t* p_clrsh_Gold; //62e58c
+
 extern uint16_t clrsh_DullGold[16]; //65f4f8
 extern uint16_t clrsh_TechBlack[16]; //65f090
 extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8
+extern uint16_t clrsh_LuxorGold[16]; //65e848
 
 extern uint16_t* g_brightnessLookup; //65dd20
 extern uint32_t g_brightnessLookupCount; //659bf0
 
 extern uint32_t g_isLowMemory; //660f58
 
-extern CMousePointer g_mousept; //642c68
 
 
 void GetClipRect(CRect* r); //454a0c
@@ -59,8 +65,16 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
 void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //4579d8
 void __cdecl ShadowRect(CRect rect, int shadow); //457b6f
 void __cdecl gfxFlushRect(const CRect& rect); //454c74
+void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //458035
 
+void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t width, int32_t height, void* dst); //45455e
 
+extern void LockSurface2(); // 45426e
+extern void UnlockSurface2(); // 4542ca
+extern void LockSurface1(); // 45431c
+extern void UnlockSurface1(); // 454378
+
+extern int32_t GetLockCountSurf2(); //4538e1
 
 
 
@@ -142,7 +156,7 @@ public:
 	CGameBitmap(const char* fname);
 	CGameBitmap(const CGameBitmap* source);
 
-	void* GetData();
+	void* GetData() { return pdata + 8; };
 	void ResetPalette(uint32_t count, int mode, int useColor);
 
 
@@ -276,44 +290,4 @@ ASSERT_SIZE(CSpriteFont16a, 0x10);
 
 
 
-
-class CMousePointer : public CObject
-{
-	DECLARE_DYNAMIC(CMousePointer);
-public:
-	virtual ~CMousePointer();
-
-public:
-	CSprite256* field_0x4;
-	CBmp64* field_0x8;
-	CBmp64* field_0xc;
-	int32_t x;
-	int32_t y;
-	uint32_t field_0x18;
-	uint32_t field_0x1c;
-	uint32_t field_0x20;
-	uint32_t field_0x24;
-	uint32_t field_0x28;
-	uint32_t field_0x2c;
-	uint32_t field_0x30;
-	uint32_t field_0x34;
-	uint32_t field_0x38;
-	CString  field_0x3c;
-	uint32_t field_0x40;
-	uint32_t field_0x44;
-	CRect	 field_0x48;
-	uint32_t field_0x58;
-	uint32_t field_0x5c;
-	uint32_t field_0x60;
-	CBmp64* field_0x64;
-	CBmp64* field_0x68;
-	CRect    field_0x6c;
-	CBmp64* field_0x7c[8];
-	uint32_t field_0x9c;
-	uint32_t field_0xa0;
-
-	void FUN_004271e6(); //4271e6
-};
-
-ASSERT_SIZE(CMousePointer, 0xa4);
 

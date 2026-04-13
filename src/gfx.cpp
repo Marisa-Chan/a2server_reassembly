@@ -27,6 +27,7 @@ uint16_t clrsh_DullGold[16]; //65f4f8
 uint16_t clrsh_TechBlack[16]; //65f090
 uint16_t clrsh_ShockingBlack[16]; //65e1e8
 uint16_t clrsh_CharlieBrown[16]; //65f4b8
+uint16_t clrsh_LuxorGold[16]; //65e848
 uint16_t* p_clrsh_Black = clrsh_TechBlack; //62e584
 uint16_t* p_clrsh_Gold = clrsh_DullGold; //62e58c
 uint16_t* p_clrsh_ShockingBlack = clrsh_ShockingBlack; //62e588
@@ -322,6 +323,14 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 }
 
 
+void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
+{
+	//458035
+	FillRectColor(l, t, r, t, clr); //up
+	FillRectColor(l, b, r, b, clr); //down
+	FillRectColor(r, t, r, b, clr); //right
+	FillRectColor(l, t, l, b, clr); //left
+}
 
 
 

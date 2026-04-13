@@ -8,11 +8,6 @@
 #include "gameobj.h"
 
 
-extern void LockSurface2();
-extern void UnlockSurface2();
-
-
-
 class SomeMainStructure;
 class VisLabel;
 class CGameBitmap;

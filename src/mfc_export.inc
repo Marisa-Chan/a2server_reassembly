@@ -1245,7 +1245,7 @@ externdef ?FUN_00493cd8@SomeMainStructure@@QAEXXZ : proc
 externdef ?FUN_00492c66@SomeMainStructure@@QAEXH@Z : proc
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
 
-externdef ?g_mousept@@3VCMousePointer@@A : byte
+externdef ?g_LButtonDown@@3HA : dword
 
 
 ;A2NetSock
@@ -1548,13 +1548,19 @@ externdef _sub_4F499B :proc                                                     
 externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
 externdef ?UnlockSurface2@@YAXXZ  :proc
+externdef ?LockSurface1@@YAXXZ  :proc
+externdef ?UnlockSurface1@@YAXXZ :proc
 externdef ?InitVideo@@YAHXZ :proc
 externdef ?SetVideoMode@@YAHXZ :proc
+externdef ?GetLockCountSurf2@@YAHXZ : proc
+externdef ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z : proc
 
+externdef ?gfx_ball@@3PAVCBmp64@@A  : dword
 externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 externdef ?gfx_scrollbars@@3PAVCSprite256@@A : dword
 externdef ?gfx_radiob@@3PAVCSprite256@@A : dword
 externdef ?g_font1@@3PAVCGameFont@@A : dword
+externdef ?g_font2@@3PAVCGameFont@@A : dword
 
 
 ; Free functions
@@ -1589,6 +1595,8 @@ extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
 extern ?SetPixelColor@@YAXHHI@Z : proc
 extern ?ShadowRect@@YAXVCRect@@H@Z : proc
 
+extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc
+
 extern ?g_brightnessLookup@@3PAGA  :dword
 extern ?g_brightnessLookupCount@@3IA  :dword
 
@@ -1610,9 +1618,13 @@ extern ?clrsh_DullGold@@3PAGA  :word
 extern ?clrsh_TechBlack@@3PAGA  :word
 extern ?clrsh_ShockingBlack@@3PAGA  :word
 extern ?clrsh_CharlieBrown@@3PAGA  :word
+extern ?clrsh_LuxorGold@@3PAGA : word
 
 extern ?g_isLowMemory@@3IA : dword
 
+
+;CBmp64
+externdef ??0CBmp64@@QAE@II@Z : proc
 
 
 
@@ -1647,5 +1659,22 @@ extern ?ToLowerChar@@YAEE@Z  :proc
 
 
 ; CMousePointer
+extern ?g_mousept@@3VCMousePointer@@A : byte 
 
-externdef ?FUN_004271e6@CMousePointer@@QAEXXZ  :proc
+extern ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z  :proc
+extern ?Unpaint@CMousePointer@@QAEXXZ  :proc
+extern ?Paint@CMousePointer@@QAEXXZ  :proc
+extern ?ResetNext400msg@CMousePointer@@QAEXXZ  :proc
+extern ?Update@CMousePointer@@QAEXXZ  :proc
+extern ?SaveScreenParts2@CMousePointer@@QAEXABVCRect@@@Z  :proc
+extern ?SaveScreenParts@CMousePointer@@QAEXABVCRect@@@Z  :proc
+extern ?StartSelect@CMousePointer@@QAEXABVCPoint@@@Z  :proc
+extern ?ResetStates@CMousePointer@@QAEXXZ  : proc
+extern ?ForceDisableHint@CMousePointer@@QAEXXZ : proc
+extern ?GetSelectFrame@CMousePointer@@QAEAAVCRect@@XZ : proc
+extern ?GetSelectState@CMousePointer@@QAEHXZ : proc
+extern ?GetY@CMousePointer@@QAEHXZ : proc
+extern ?GetX@CMousePointer@@QAEHXZ : proc
+extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
+extern ?DisableHint@CMousePointer@@QAEXXZ : proc
+extern ?EnableHint@CMousePointer@@QAEXXZ : proc

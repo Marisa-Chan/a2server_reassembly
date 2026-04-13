@@ -282,6 +282,7 @@
     <ClCompile Include="logic.cpp" />
     <ClCompile Include="main_window.cpp" />
     <ClCompile Include="map_stuff.cpp" />
+    <ClCompile Include="mouse.cpp" />
     <ClCompile Include="net.cpp" />
     <ClCompile Include="outpost.cpp" />
     <ClCompile Include="packet.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="logic.h" />
     <ClInclude Include="main_window.h" />
     <ClInclude Include="map_stuff.h" />
+    <ClInclude Include="mouse.h" />
     <ClInclude Include="music.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="outpost.h" />

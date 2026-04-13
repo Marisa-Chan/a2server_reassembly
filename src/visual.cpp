@@ -2,6 +2,7 @@
 #include "server.h"
 #include "main_window.h"
 #include "gfx.h"
+#include "mouse.h"
 #include "game_app.h"
 #include "util.h"
 

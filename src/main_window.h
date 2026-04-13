@@ -5,6 +5,8 @@
 #include "visual.h"
 
 
+extern int32_t g_LButtonDown; //660f4c
+
 
 class CListBox2 : public CListBox
 {
@@ -202,9 +204,9 @@ public:
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
-    int32_t field_0xc4;
+    void (*field_0xc4)();
     int32_t field_0xc8;
-    CVisualObject* field_0xcc;
+    CVisualObject* vis_root;
     CVisualObject* field_0xd0; // BigStruct2*
     CVisualObject* field_0xd4;
     CVisualObject* field_0xd8;
