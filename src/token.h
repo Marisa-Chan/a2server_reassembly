@@ -60,7 +60,7 @@ public:
 	void SetCoords(uint8_t _x, uint8_t _y);
 	void SetCoords2(uint16_t Xx, uint16_t Yy);
 
-	int32_t sub_58bec3(); // Check if in the middle of a cell (both subcell values are 0x80).
+	int32_t sub_58bec3(); // Check if we'in the middle of a cell (both subcell values are 0x80).
 };
 
 ASSERT_OFFSET(TokenPos, x_subcell, 0x4);

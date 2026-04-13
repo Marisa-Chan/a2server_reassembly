@@ -133,7 +133,7 @@ struct UnitEye {
     uint8_t field117_0x79;
     uint8_t field118_0x7a;
     uint8_t field119_0x7b;
-    uint32_t field120_0x7c;
+    Unit* field120_0x7c;
     uint16_t field121_0x80;
     uint8_t field122_0x82;
     uint8_t field123_0x83;
@@ -143,10 +143,8 @@ struct UnitEye {
     uint8_t field127_0x87;
     uint8_t field128_0x88;
     uint8_t field129_0x89;
-    uint8_t field130_0x8a;
-    uint8_t field131_0x8b;
-    uint8_t field132_0x8c;
-    uint8_t field133_0x8d;
+    uint16_t field130_0x8a;
+    uint16_t field132_0x8c;
     uint8_t field134_0x8e;
     uint8_t field135_0x8f;
     uint32_t field136_0x90;
@@ -157,10 +155,7 @@ struct UnitEye {
     uint8_t field141_0x9d;
     uint8_t field142_0x9e;
     uint8_t field143_0x9f;
-    uint8_t field144_0xa0;
-    uint8_t field145_0xa1;
-    uint8_t field146_0xa2;
-    uint8_t field147_0xa3;
+    uint32_t field144_0xa0;
     uint8_t field148_0xa4;
     uint8_t field149_0xa5;
     uint8_t field150_0xa6;

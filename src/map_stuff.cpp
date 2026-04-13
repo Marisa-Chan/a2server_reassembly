@@ -53,7 +53,7 @@ void MapStuff::sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range) {
     unit->eye->counter++;
 
     if (unit->eye->field114_0x74 != yx || unit->eye->field8_0x9 > this->static_refresh_rate) {
-        this->sub_58826D(unit, yx, yx >> 8, 1, nullptr);
+        this->sub_58826D(unit, yx & 0xff, yx >> 8, 1, nullptr);
         unit->eye->field136_0x90 = 0;
         unit->eye->field114_0x74 = yx;
 
@@ -98,6 +98,80 @@ void MapStuff::sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range) {
     if (!ok) {
         this->sub_5907BE(unit);
     }
+}
+
+// 59028D
+void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
+    uint16_t target_yx = target->position->GetYX();
+    uint8_t range = this->sub_59190D(unit, target);
+    int32_t in_cell_middle = unit->position->sub_58bec3();
+
+    if (!in_cell_middle) {
+        this->sub_590678(unit);
+        return;
+    }
+
+    if (range <= max_range) {
+        this->sub_5918B8(unit, target);
+        return;
+    }
+
+    // Out of range — pursue target
+    unit->eye->counter++;
+
+    if (unit->eye->field120_0x7c != target) {
+        unit->eye->field8_0x9 = 0xFF;
+        unit->list1.RemoveAll();
+        unit->eye->field130_0x8a = 0xFF;
+        unit->eye->field115_0x76 = target_yx;
+        unit->eye->field132_0x8c = target_yx;
+    }
+
+    if (unit->eye->field8_0x9 > unit->list1.GetCount() / 3 + 1) {
+        if (unit->eye->field130_0x8a > this->static_isnt_needed) {
+            this->sub_58826D(unit, target_yx & 0xff, target_yx >> 8, 1, target);
+        } else {
+            unit->list1.RemoveAll();
+            unit->list1.AddTail(unit->eye->field115_0x76);
+        }
+
+        unit->eye->field130_0x8a = unit->list1.GetCount();
+        unit->eye->field114_0x74 = target_yx;
+
+        if (!unit->list1.IsEmpty()) {
+            unit->eye->field115_0x76 = unit->list1.GetTail();
+            unit->eye->field132_0x8c = target_yx;
+        } else {
+            unit->eye->field115_0x76 = unit->position->GetYX();
+            unit->eye->field132_0x8c = target_yx;
+            unit->eye->field139_0x98 = 1;
+        }
+
+        unit->eye->field120_0x7c = target;
+        unit->eye->field8_0x9 = 0;
+
+        if (unit->eye->field130_0x8a > this->static_isnt_needed) {
+            unit->list2.RemoveAll();
+        }
+    }
+
+    if (unit->position->GetYX() == unit->eye->field115_0x76 && unit->eye->field132_0x8c == target_yx) {
+        unit->eye->field8_0x9++;
+        unit->eye->field120_0x7c = nullptr;
+        return;
+    }
+
+    if (unit->list2.IsEmpty() || unit->eye->counter > this->dynamic_by_static_lookup) {
+        if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
+            this->sub_590902(unit, target);
+            unit->eye->field137_0x94 = target_yx;
+            unit->eye->field138_0x96 = unit->position->GetYX();
+            unit->eye->field8_0x9++;
+            unit->eye->counter = 0;
+        }
+    }
+
+    this->sub_5907BE(unit);
 }
 
 // 5913BD
