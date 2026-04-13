@@ -19,13 +19,13 @@ public:
 
 	CMousePointer(); //4264eb
 
-	void DisableHint() { hint_enable = 0; } //438830
-	void EnableHint() { hint_enable = 1; } //438810
-	CSprite256* GetCursorSprite() { return cursor_sprite; } //438810
-	CRect& GetSelectFrame() { return select_frame_rect; } //41ed20
-	int32_t GetSelectState() { return select_frame_state; } //41ed00
-	int32_t GetX() { return x; } //41ecc0
-	int32_t GetY() { return y; } //41ece0
+	void DisableHint(); //438830
+	void EnableHint(); //438810
+	CSprite256* GetCursorSprite(); //438810
+	CRect& GetSelectFrame(); //41ed20
+	int32_t GetSelectState(); //41ed00
+	int32_t GetX(); //41ecc0
+	int32_t GetY(); //41ece0
 
 	void CheckHintValues(); //42709f
 	void DrawToScreen(); //426ce2

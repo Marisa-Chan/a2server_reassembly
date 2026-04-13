@@ -578,3 +578,12 @@ void CMousePointer::UpdateHint()
 
     Paint();
 }
+
+
+void CMousePointer::DisableHint() { hint_enable = 0; } //438830
+void CMousePointer::EnableHint() { hint_enable = 1; } //438810
+CSprite256* CMousePointer::GetCursorSprite() { return cursor_sprite; } //438810
+CRect& CMousePointer::GetSelectFrame() { return select_frame_rect; } //41ed20
+int32_t CMousePointer::GetSelectState() { return select_frame_state; } //41ed00
+int32_t CMousePointer::GetX() { return x; } //41ecc0
+int32_t CMousePointer::GetY() { return y; } //41ece0
