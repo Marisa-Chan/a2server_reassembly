@@ -1678,3 +1678,4 @@ extern ?GetX@CMousePointer@@QAEHXZ : proc
 extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
 extern ?DisableHint@CMousePointer@@QAEXXZ : proc
 extern ?EnableHint@CMousePointer@@QAEXXZ : proc
+
