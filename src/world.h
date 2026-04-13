@@ -178,6 +178,7 @@ public:
     UnitList* sub_5A384F(Unit* caster, uint16_t yx); // Get nearby ally UnitList for caster at yx.
     uint8_t sub_5A6ADB(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
+    uint8_t sub_5ABB32(Unit* unit, uint16_t yx);
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
     int32_t sub_5A7A1C(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void sub_5A7B44(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.

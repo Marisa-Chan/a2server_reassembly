@@ -405,8 +405,16 @@ externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
 externdef ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z :proc          ; uint8_t MapStuff::sub_591424(Unit*, Unit*)
 externdef ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z :proc         ; int MapStuff::sub_58FE6D(Unit*, Unit*, uint8_t)
-externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@GE@Z :proc          ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
-externdef ?sub_593B29@MapStuff@@QAEEGG@Z :proc                   ; uint8_t MapStuff::sub_593B29(uint16_t, uint16_t)
+externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@GE@Z :proc         ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
+externdef ?sub_593B29@MapStuff@@QAEEGG@Z :proc                  ; uint8_t MapStuff::sub_593B29(uint16_t, uint16_t)
+externdef ?sub_58FF51@MapStuff@@QAEXPAVUnit@@GE@Z :proc         ; void MapStuff::sub_58FF51(Unit*, uint16_t, uint8_t)
+externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEHPAH@Z :proc     ; void MapStuff::sub_58826D(Unit*, uint8_t, uint8_t, int32_t, int32_t*)
+externdef ?sub_590678@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_590678(Unit*)
+externdef ?sub_5907BE@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_5907BE(Unit*)
+externdef ?sub_590902@MapStuff@@QAEXPAVUnit@@PAH@Z :proc        ; void MapStuff::sub_590902(Unit*, int32_t*)
+externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@G@Z :proc          ; void MapStuff::sub_5918E2(Unit*, uint16_t)
+externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc           ; uint16_t MapStuff::sub_593AA4(Unit*)
+externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@GH@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -928,6 +936,7 @@ externdef ??1World@@QAE@XZ :proc
 externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
+externdef ?sub_5ABB32@World@@QAEEPAVUnit@@G@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 externdef ?sub_52C163@Unit@@QAEXXZ :proc
 externdef ?sub_52C36D@Unit@@QAEXEEE@Z :proc
 externdef ?sub_52D8D3@Unit@@QAEXPAUInventory@@HH@Z :proc

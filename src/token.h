@@ -23,15 +23,7 @@ extern MapStuff *MapStuff_Instance;
 
 struct TokenPos
 {
-	TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);
-
-	TokenPos();
-	TokenPos(uint16_t _YX, MapStuff* _inst);
-	TokenPos(const TokenPos&);
-	TokenPos(TokenPos&&);
-
-	TokenPos& operator=(const TokenPos&);
-
+public:
 	uint8_t x;
 	uint8_t y;
 	uint16_t YX;
@@ -40,6 +32,16 @@ struct TokenPos
 	uint8_t field_x6;
 	uint8_t field_x7;
 	MapStuff* pInstance;
+
+public:
+	TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);
+
+	TokenPos();
+	TokenPos(uint16_t _YX, MapStuff* _inst);
+	TokenPos(const TokenPos&);
+	TokenPos(TokenPos&&);
+
+	TokenPos& operator=(const TokenPos&);
 
 	void FUN_00594200(); // in asm
 	int FUN_0058a7e8(uint8_t x, uint8_t y); //in asm
@@ -58,7 +60,7 @@ struct TokenPos
 	void SetCoords(uint8_t _x, uint8_t _y);
 	void SetCoords2(uint16_t Xx, uint16_t Yy);
 
-	int32_t sub_58bec3();
+	int32_t sub_58bec3(); // Check if in the middle of a cell (both subcell values are 0x80).
 };
 
 ASSERT_OFFSET(TokenPos, x_subcell, 0x4);

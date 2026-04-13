@@ -133,7 +133,15 @@ public:
     uint8_t sub_591424(Unit* unit, Unit* target); // Compute facing direction from unit to target.
     int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
     int sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range); // Check if unit faces yx and is in range.
+    void sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range); // AI movement tick for unit toward yx.
+    void sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, int32_t* out);
+    void sub_590678(Unit* unit);
+    void sub_5907BE(Unit* unit);
+    void sub_590902(Unit* unit, int32_t* out);
+    void sub_5918E2(Unit* unit, uint16_t yx);
+    uint16_t sub_593AA4(Unit* unit);
     uint8_t sub_593B29(uint16_t yx1, uint16_t yx2); // Chebyshev distance between two YX positions.
+    int sub_597140(Unit* unit, uint16_t yx, int32_t flag);
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
