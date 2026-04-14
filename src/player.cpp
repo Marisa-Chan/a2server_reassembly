@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 
 #include <cstring>
 #include "game_app.h"
@@ -162,7 +162,7 @@ void Player::Serialize(CArchive& ar)
 Player::~Player() {
     // Unregister from world: clear presence flag at diplomacy[0][player_id]
     if (g_World) {
-        g_World->diplomacy[0][(int16_t)player_id] = 0;
+        g_World->diplomacy.diplomacy[0][(int16_t)player_id] = 0;
     }
 
     if (unit_list) {

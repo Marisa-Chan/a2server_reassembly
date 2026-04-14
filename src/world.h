@@ -19,7 +19,17 @@ class Building;
 class Spell;
 class Token;
 class Unit;
+struct World;
 
+
+struct Diplomacy {
+    uint8_t flags[4];
+    World* world;
+    uint8_t diplomacy[70][70];
+
+    void sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag);
+};
+ASSERT_SIZE(Diplomacy, 0x132C);
 
 struct World {
     int32_t field0_0x0;
@@ -56,9 +66,7 @@ struct World {
     uint8_t gap_0xa724[4];
     uint8_t field32_0xa728[400];
     int32_t MinimalGuardRange;
-    uint8_t gap_0xa8bc[4];
-    World *self;
-    uint8_t diplomacy[70][70];
+    Diplomacy diplomacy;
     int32_t field37_0xbbe8;
     CList<int32_t> field38_0xbbec;
     uint8_t field39_0xbc08[400];
@@ -194,7 +202,7 @@ public:
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);
-ASSERT_OFFSET(World, diplomacy, 0xa8c4);
+ASSERT_OFFSET(World, diplomacy, 0xa8bc);
 ASSERT_OFFSET(World, mission_complete, 0xbe0c);
 ASSERT_OFFSET(World, players_list, 0xc77c);
 ASSERT_SIZE(World, 0xeb20);

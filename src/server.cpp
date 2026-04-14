@@ -1,4 +1,4 @@
-#include "server.h"
+﻿#include "server.h"
 
 #include <cstring>
 #include <cstdlib>  // atoi
@@ -47,8 +47,8 @@ extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 extern "C" int32_t sub_5049D1(CString* str);
 
 // ---- Helpers used by sub_4F1471 ----
-extern "C" void sub_5421E9(); // Seed random: timeGetTime → srand
-extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa → CString
+extern "C" void sub_5421E9(); // Seed random: timeGetTime -> srand
+extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
 extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330
@@ -183,11 +183,11 @@ int Srv1::sub_59B7EA(CString map_name) {
         if (alm->map_players.GetSize() > player->player_id - 1) {
             for (int32_t i = 0; i < 16; i++) {
                 MapPlayerData* mpd = alm->map_players[player->player_id - 1];
-                g_World->diplomacy[player->player_id][i + 1] = mpd->diplomacy[i];
+                g_World->diplomacy.diplomacy[player->player_id][i + 1] = mpd->diplomacy[i];
             }
         }
 
-        g_World->diplomacy[player->player_id][player->player_id] = 0x12;
+        g_World->diplomacy.diplomacy[player->player_id][player->player_id] = 0x12;
     }
 
     this->sub_59CD45(alm);
@@ -198,7 +198,7 @@ int Srv1::sub_59B7EA(CString map_name) {
         while (pos2) {
             Player* player2 = g_PlayersList->GetNext(pos2);
 
-            if ((g_World->diplomacy[player2->player_id][self->player_id] & 7) == 0 && player2->is_ai) {
+            if ((g_World->diplomacy.diplomacy[player2->player_id][self->player_id] & 7) == 0 && player2->is_ai) {
                 if (player2->unit_list != nullptr) {
                     POSITION upos = player2->unit_list->unit_list.GetHeadPosition();
                     while (upos) {
@@ -433,11 +433,11 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
                 // Copy Self's diplomacy column into the new player's row (slots 2..15).
                 for (int slot = 2; slot <= 15; ++slot) {
-                    g_World->diplomacy[slot][player_id] = g_World->diplomacy[slot][self_id];
-                    g_World->diplomacy[self_id][slot] = g_World->diplomacy[player_id][slot];
+                    g_World->diplomacy.diplomacy[slot][player_id] = g_World->diplomacy.diplomacy[slot][self_id];
+                    g_World->diplomacy.diplomacy[self_id][slot] = g_World->diplomacy.diplomacy[player_id][slot];
                 }
                 // Mark Self as allied with the new player.
-                g_World->diplomacy[self_id][player_id] = 0x12;
+                g_World->diplomacy.diplomacy[self_id][player_id] = 0x12;
 
                 // Walk all non-AI players and update alliance / vision masks.
                 for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
@@ -449,8 +449,8 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
                     // Co-op: clear mutual alliance bytes.
                     if (g_ServerConfig.gameType == 0) {
-                        g_World->diplomacy[p_id][player_id] = 0;
-                        g_World->diplomacy[player_id][p_id] = 0;
+                        g_World->diplomacy.diplomacy[p_id][player_id] = 0;
+                        g_World->diplomacy.diplomacy[player_id][p_id] = 0;
                     }
 
                     // Clear each player's vision bits for the other.
@@ -475,10 +475,10 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
         if (red != nullptr && blue != nullptr) {
             if (player->field_0xa70 == 0) {
                 // Allied with Red (0x12), hostile to Blue (1).
-                g_World->diplomacy[red_id][my_id] = 0x12;
-                g_World->diplomacy[my_id][red_id] = 0x12;
-                g_World->diplomacy[blue_id][my_id] = 1;
-                g_World->diplomacy[my_id][blue_id] = 1;
+                g_World->diplomacy.diplomacy[red_id][my_id] = 0x12;
+                g_World->diplomacy.diplomacy[my_id][red_id] = 0x12;
+                g_World->diplomacy.diplomacy[blue_id][my_id] = 1;
+                g_World->diplomacy.diplomacy[my_id][blue_id] = 1;
 
                 // Share vision with Red, clear from Blue.
                 player->vision_sharing_mask |= red->vision_sharing_id;
@@ -487,10 +487,10 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
                 blue->vision_sharing_mask &= ~player->vision_sharing_id;
             } else {
                 // Allied with Blue (0x12), hostile to Red (1).
-                g_World->diplomacy[blue_id][my_id] = 0x12;
-                g_World->diplomacy[my_id][blue_id] = 0x12;
-                g_World->diplomacy[red_id][my_id] = 1;
-                g_World->diplomacy[my_id][red_id] = 1;
+                g_World->diplomacy.diplomacy[blue_id][my_id] = 0x12;
+                g_World->diplomacy.diplomacy[my_id][blue_id] = 0x12;
+                g_World->diplomacy.diplomacy[red_id][my_id] = 1;
+                g_World->diplomacy.diplomacy[my_id][red_id] = 1;
 
                 // Share vision with Blue, clear from Red.
                 player->vision_sharing_mask |= blue->vision_sharing_id;
@@ -524,7 +524,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     // Clear vision mask bits for this player across every unit list.
     // Three separate lists are processed:
     //   a) The global pending unit list (dword_6CDB3C).
-    //   b) srv_stru1->sack_list — clears Token::field_x18 word bits (sub_554B03).
+    //   b) srv_stru1->sack_list --- clears Token::field_x18 word bits (sub_554B03).
     //   c) srv_stru1->units_list.
     // Then for each player in g_PlayersList, also clear their per-player unit list.
     dword_6CDB3C->sub_5579D8(player);
@@ -708,7 +708,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
     }
 }
 
-// sub_4FC644 — validate and process a player join request.
+// sub_4FC644 --- validate and process a player join request.
 // Returns: 0=success, 1=server full, 2=duplicate name, 3=banned name,
 //          4=name too short, 5=invalid char data, 6=too strong, 7=too weak,
 //          8=team play started, 9=shutdown initiated.
@@ -934,14 +934,14 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         int16_t my_id      = (int16_t)player->player_id;
 
         for (int i = 2; i <= 15; ++i) {
-            uint8_t val1 = g_World->diplomacy[i][partner_id];
-            g_World->diplomacy[i][my_id] = val1;
+            uint8_t val1 = g_World->diplomacy.diplomacy[i][partner_id];
+            g_World->diplomacy.diplomacy[i][my_id] = val1;
 
-            uint8_t val2 = g_World->diplomacy[partner_id][i];
-            g_World->diplomacy[my_id][i] = val2;
+            uint8_t val2 = g_World->diplomacy.diplomacy[partner_id][i];
+            g_World->diplomacy.diplomacy[my_id][i] = val2;
         }
 
-        g_World->diplomacy[partner_id][my_id] = 0x12;
+        g_World->diplomacy.diplomacy[partner_id][my_id] = 0x12;
     }
 
     // Set team pairing bytes and vision masks.
@@ -955,16 +955,16 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
             switch (g_ServerConfig.gameType) {
             case 0:
                 // Friendly: clear team slot bytes, remove from each other's vision mask
-                g_World->diplomacy[other_id][my_id] = 0;
-                g_World->diplomacy[my_id][other_id] = 0;
+                g_World->diplomacy.diplomacy[other_id][my_id] = 0;
+                g_World->diplomacy.diplomacy[my_id][other_id] = 0;
                 other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 break;
             case 1:
             case 3:
                 // Deathmatch/arena: mark as enemy (1)
-                g_World->diplomacy[other_id][my_id] = 1;
-                g_World->diplomacy[my_id][other_id] = 1;
+                g_World->diplomacy.diplomacy[other_id][my_id] = 1;
+                g_World->diplomacy.diplomacy[my_id][other_id] = 1;
                 other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                 player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 break;
@@ -972,14 +972,14 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
                 // Team play
                 if (player->field_0xa70 == other->field_0xa70) {
                     // Same team: mark 0x12 (teammate), share vision
-                    g_World->diplomacy[other_id][my_id] = 0x12;
-                    g_World->diplomacy[my_id][other_id] = 0x12;
+                    g_World->diplomacy.diplomacy[other_id][my_id] = 0x12;
+                    g_World->diplomacy.diplomacy[my_id][other_id] = 0x12;
                     player->vision_sharing_mask |= other->vision_sharing_id;
                     other->vision_sharing_mask |= player->vision_sharing_id;
                 } else {
                     // Different team: mark 1 (enemy), clear vision
-                    g_World->diplomacy[other_id][my_id] = 1;
-                    g_World->diplomacy[my_id][other_id] = 1;
+                    g_World->diplomacy.diplomacy[other_id][my_id] = 1;
+                    g_World->diplomacy.diplomacy[my_id][other_id] = 1;
                     other->vision_sharing_mask &= (uint16_t)(~other->vision_sharing_id);
                     player->vision_sharing_mask &= (uint16_t)(~player->vision_sharing_id);
                 }
@@ -1175,11 +1175,11 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
 //   #locate <name>:       report a player's map position back to the caller
 //
 // Non-admin network commands (available to any connected player):
-//   #set latency <ms>:    clamp the connection latency (50–10000 ms)
+//   #set latency <ms>:    clamp the connection latency (50--10000 ms)
 //   #show latency:        reply with current latency and packet-loss stats
 //   #ready:               signal readiness for a team-game start (gameType==2)
 //
-// Cheat (elevated-privilege) commands – require field_0xa98 > 50, or the player
+// Cheat (elevated-privilege) commands --- require field_0xa98 > 50, or the player
 // must first authenticate via the coward-activation code:
 //   #create <item|Gold>:  spawn an item or gold in the player's inventory
 //   #modify self|army +god|+spell <id>|+spells|+knowledge: adds stuff
@@ -1230,7 +1230,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
                         player->field_0xa6c = 1;
                         g_NetStru1_main.FUN_0051d6b4(0);
                         if (g_PlayersList->sub_53636E() != 0) {
-                            // All players now ready – start the match.
+                            // All players now ready --- start the match.
                             g_NetStru1_main.FUN_0051ce86(10, 0, nullptr);
                             this->sub_4F8F86();
                             this->sub_4F8FBF(0, 0);
@@ -1296,7 +1296,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         cheat_string.TrimLeft();
 
         if (player->main_unit->decay != 0) {
-            // Unit is dead/decayed – cannot receive items.
+            // Unit is dead/decayed --- cannot receive items.
             if (!is_reconnect) {
                 g_NetStru1_main.FUN_0051ce86(6, player->player_id, nullptr);
             }
@@ -1428,7 +1428,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
             if (p == nullptr) {
                 continue;
             }
-            int diplomacy = g_World->diplomacy[player->player_id][p->player_id];
+            int diplomacy = g_World->diplomacy.diplomacy[player->player_id][p->player_id];
             if (diplomacy & 1) {
                 p->sub_5346AC();
             }
@@ -1565,9 +1565,7 @@ void Server::sub_504a96(Packet* pkt)
     message.Format("sub_504a96: received item operation packet id=0x%02X, field_0x4=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->field_0x4, packet_item->field_0x5, packet_type, vtable);
     LogMessage(message);
 
-    // ══════════════════════════════════════════════════════════════════════
     // PATH 1: Group order (pkt->field_0x4 >= 1 means multiple units)
-    // ══════════════════════════════════════════════════════════════════════
     if (pkt->field_0x4 != 0) {
         if (!g_World) {
             return;
@@ -1623,7 +1621,7 @@ void Server::sub_504a96(Packet* pkt)
             }
         }
 
-        // ── Group order dispatch ──────────────────────────────────────────
+        // Group order dispatch
         uint8_t x = packet_item->unit_id;
         uint8_t y = packet_item->field_0xc;
 
@@ -1778,9 +1776,7 @@ void Server::sub_504a96(Packet* pkt)
         return;
     }
 
-    // ══════════════════════════════════════════════════════════════════════
     // PATH 2: Single command dispatch
-    // ══════════════════════════════════════════════════════════════════════
     Player* player = nullptr;
     Packet3Dwords* packet_3d = reinterpret_cast<Packet3Dwords*>(pkt);
     PacketJoin* packet_join = reinterpret_cast<PacketJoin*>(pkt);
@@ -1860,7 +1856,7 @@ void Server::sub_504a96(Packet* pkt)
             uint8_t from_type = packet_cmd->type;  // 1=unequip, 2=from_bag, 3=pickup_ground, 4=from_shop
             uint8_t to_type = packet_cmd->subtype; // 1=equip,   2=to_bag,   3=drop_ground,   4=sell_shop
 
-            // Both types in [4..8]: shop-slot interaction — delegate entirely.
+            // Both types in [4..8]: shop-slot interaction --- delegate entirely.
             if (from_type >= 4 && from_type <= 8 && to_type >= 4 && to_type <= 8) {
                 Shop* shop = this->sub_502C50(human->position);
                 if (shop) {
@@ -2167,7 +2163,7 @@ void Server::sub_504a96(Packet* pkt)
             break;
         }
 
-    case 0x3B: // Map file chunk download — send a chunk of current_map_name to the client
+    case 0x3B: // Map file chunk download --- send a chunk of current_map_name to the client
         CheckPacketType(pkt, "PacketInfo");
         {
             player = this->sub_502B4A(packet_info->field_0x5);
@@ -2258,7 +2254,7 @@ void Server::sub_504a96(Packet* pkt)
 
                 int other_id = other->player_id;
 
-                uint8_t* diplo_slot = &g_World->diplomacy[player->player_id][other_id];
+                uint8_t* diplo_slot = &g_World->diplomacy.diplomacy[player->player_id][other_id];
                 uint8_t old_val = *diplo_slot;
                 uint8_t new_val = static_cast<uint8_t>(modification[other_id] & 0x17);
 
@@ -2272,14 +2268,14 @@ void Server::sub_504a96(Packet* pkt)
                     // Vision sharing disabled with `other`
                     player->vision_sharing_mask &= ~other->vision_sharing_id;
                     if (old_val & 0x10) {
-                        // Was sharing before — revoke visibility
+                        // Was sharing before --- revoke visibility
                         g_NetStru1_main.sub_519221(player->main_unit, other, 0x400000, 0xffb, 0, 0);
                     }
                 } else {
                     // Vision sharing enabled with `other`
                     player->vision_sharing_mask |= other->vision_sharing_id;
                     if (!(old_val & 0x10)) {
-                        // Wasn't sharing before — send full unit state for each of player's units
+                        // Wasn't sharing before --- send full unit state for each of player's units
                         if (player->unit_list) {
                             for (auto* unode = player->unit_list->unit_list.m_pNodeHead; unode; unode = unode->pNext) {
                                 g_NetStru1_main.sub_519221(unode->data, other, 0xa35fffff, 0xffb, 0, 0);
@@ -2558,7 +2554,7 @@ void Server::sub_504a96(Packet* pkt)
             case 1: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
                     Player* other = node->data;
-                    if (!other->is_ai && (g_World->diplomacy[player->player_id][other->player_id] & 2) != 0) {
+                    if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & 2) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);

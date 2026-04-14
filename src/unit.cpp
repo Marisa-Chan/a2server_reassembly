@@ -1418,7 +1418,7 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
         if (target->pOwner == this->pOwner || this->pOwner == nullptr) {
             return;
         }
-        if (g_World != nullptr && (g_World->diplomacy[target->pOwner->player_id][this->pOwner->player_id] & 2) != 0) {
+        if (g_World != nullptr && (g_World->diplomacy.diplomacy[target->pOwner->player_id][this->pOwner->player_id] & 2) != 0) {
             return;
         }
     }

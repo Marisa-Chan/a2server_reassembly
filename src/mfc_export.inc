@@ -982,6 +982,7 @@ externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
+externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)

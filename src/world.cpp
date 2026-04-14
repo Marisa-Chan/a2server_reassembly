@@ -41,7 +41,7 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
 
         // If u has has invisibility and is not allied with `unit`, verify that at least one
         // unit in `unit`'s group can see it before including it.
-        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != 2) {
+        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != 2) {
             bool can_see = false;
             for (auto* gn = unit->group->unit_list.m_pNodeHead; gn != nullptr; gn = gn->pNext) {
                 Unit* gu = gn->data;
@@ -56,7 +56,7 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
         }
 
         // Classify: enemy -> attack list; others -> non-attack list.
-        if ((this->diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & 1) != 0) {
+        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & 1) != 0) {
             this->field29_0xac4.unit_list.AddTail(u);
         } else {
             this->field28_0xaa4.unit_list.AddTail(u);
@@ -64,10 +64,48 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     }
 }
 
+// Record a PvP hit: set attacker->target war, conditionally set reverse war,
+// and increment target's hit counter when hit_flag is nonzero.
+// 5B5643
+void Diplomacy::sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag) {
+    if (attacker->pOwner == nullptr || target->pOwner == nullptr) {
+        return;
+    }
+
+    uint8_t attacker_pid = attacker->pOwner->player_id;
+    uint8_t target_pid = target->pOwner->player_id;
+
+    // Set attacker -> target war if not already at war.
+    if ((this->diplomacy[attacker_pid][target_pid] & 3) == 0) {
+        this->diplomacy[attacker_pid][target_pid] |= 1;
+        if (!attacker->pOwner->is_ai) {
+            g_NetStru1_main.sub_51CB21(attacker->pOwner);
+            g_NetStru1_main.sub_51CB21(target->pOwner);
+        }
+    }
+
+    // Set target -> attacker war (reverse) conditionally.
+    if ((this->diplomacy[target_pid][attacker_pid] & 3) != 0) {
+        return;
+    }
+
+    if (hit_flag == 0 || target->eye2->field77_0xac > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
+        this->diplomacy[target_pid][attacker_pid] |= 1;
+        if (!target->pOwner->is_ai) {
+            g_NetStru1_main.sub_51CB21(attacker->pOwner);
+            g_NetStru1_main.sub_51CB21(target->pOwner);
+        }
+    }
+
+    if (hit_flag != 0) {
+        target->eye2->field77_0xac++;
+    }
+}
+
 // Check if two units are at war.
 // 5B5816
 bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
-    return (this->diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
+    return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
 }
 
 // Set up an autobuff cast action on caster targeting target (or the nearest
@@ -310,7 +348,7 @@ void World::sub_5A7B44(Unit* unit) {
             spell = this->sub_5A79D6(unit, spell::invisibility, 0);
             if (spell != nullptr && this->sub_5A7AF7(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
-                    if ((this->diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
+                    if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 3) != 0) {
                         if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                             unit->eye2->field49_0x60 = 1;
                             this->sub_5A85F4(unit, other, spell);
@@ -516,7 +554,7 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
     uint32_t player1_id = action->data[0];
     uint32_t player2_id = action->data[1];
     uint32_t set_diplomacy = action->data[2];
-    this->diplomacy[player1_id][player2_id] = (this->diplomacy[player1_id][player2_id] & ~0x03) + set_diplomacy;
+    this->diplomacy.diplomacy[player1_id][player2_id] = (this->diplomacy.diplomacy[player1_id][player2_id] & ~0x03) + set_diplomacy;
     for (POSITION pos = this->players_list->GetHeadPosition(); pos != nullptr; ) {
         Player* p = this->players_list->GetNext(pos);
         if (p->player_id == player1_id || p->player_id == player2_id) {

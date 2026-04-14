@@ -1,4 +1,4 @@
-#include "inn.h"
+﻿#include "inn.h"
 
 #include <algorithm>
 #include <array>
@@ -339,7 +339,7 @@ void Inn::InnCreateQuests(Player* player)
             if (!p->is_ai) {
                 continue;
             }
-            if (!(g_World->diplomacy[player->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & 1)) {
                 continue;
             }
 
@@ -400,7 +400,7 @@ void Inn::InnCreateQuests(Player* player)
             if (!p->is_ai) {
                 continue;
             }
-            if (!(g_World->diplomacy[player->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[player->player_id][p->player_id] & 1)) {
                 continue;
             }
 
@@ -522,7 +522,7 @@ void Inn::InnCreateQuests(Player* player)
             if (!p->is_ai || !this->pOwner) {
                 continue;
             }
-            if (!(g_World->diplomacy[this->pOwner->player_id][p->player_id] & 1)) {
+            if (!(g_World->diplomacy.diplomacy[this->pOwner->player_id][p->player_id] & 1)) {
                 continue;
             }
             if (!p->field_0xa60) {
@@ -1091,7 +1091,7 @@ extern "C" int __cdecl sub_5306EA(int experience);
 // sub_530726: Get experience required for given skill level.
 extern "C" uint32_t __cdecl sub_530726(int32_t skill_level);
 
-// sub_560DC2 — Handle inn quest/reward interaction.
+// sub_560DC2 вЂ” Handle inn quest/reward interaction.
 // Called when a humanoid finishes interacting with the inn.
 // `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `some_id`.
 void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
@@ -1253,7 +1253,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             g_World->sub_5ACDF4(new_group);
                             g_NetStru1_main.sub_519221(new_unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
                         } else {
-                            // Placement failed — clean up
+                            // Placement failed вЂ” clean up
                             delete new_unit;
                         }
                     }
@@ -1274,7 +1274,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             // Already at max
                             humanoid->experience_per_sphere[sphere - 1] = max_skill_exp;
                         } else if (humanoid->experience_per_sphere[sphere - 1] + carry >= max_skill_exp) {
-                            // Would exceed max — clamp
+                            // Would exceed max вЂ” clamp
                             carry -= (max_skill_exp - humanoid->experience_per_sphere[sphere - 1]);
                             humanoid->experience_per_sphere[sphere - 1] = max_skill_exp;
                         } else {
@@ -1312,12 +1312,12 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     bool is_item_improvement = (id >= inv_count - 1);
 
                     if (!is_item_improvement) {
-                        // Not last item — just give it to the humanoid
+                        // Not last item вЂ” just give it to the humanoid
                         item->TokenID = 1;
                         humanoid->inventory->PutItemIntoBagAtDefault(item);
                         g_NetStru1_main.sub_519221(humanoid, nullptr, 0x282000, 0xFFB, 0, 0);
                     } else {
-                        // Last item — try to equip it, so `equipped` would be the item that was on the player before.
+                        // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->VMethod10(humanoid);
                         if (equipped == nullptr || equipped->field15_0x54 == 0) {
                             // Failed --- burn the item.
@@ -1328,7 +1328,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             }
                             g_NetStru1_main.FUN_0051ce86(5, humanoid->pOwner->player_id, humanoid->pOwner);
                         } else {
-                            // Use succeeded — clean up equipped placeholder
+                            // Use succeeded вЂ” clean up equipped placeholder
                             delete equipped;
                         }
                         g_NetStru1_main.sub_519221(humanoid, nullptr, 0x482000, 0xFFB, 0, 0);

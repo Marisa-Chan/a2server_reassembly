@@ -1,4 +1,4 @@
-#include "net.h"
+﻿#include "net.h"
 #include "player.h"
 #include "unit.h"
 #include "unit_list.h"
@@ -233,7 +233,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
             if (tid < 0x21 || tid > 0x3F) {
                 mask &= 0xc0c000fb;
             } else if (g_World != nullptr) {
-                if (g_World->diplomacy[unit->pOwner->player_id][player->player_id] & 0x10 == 0) {
+                if (g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & 0x10 == 0) {
                     mask &= 0xc0c000fb;
                 }
             }
