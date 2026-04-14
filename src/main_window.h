@@ -127,6 +127,7 @@ public:
     int32_t GetStringArray1Size(); //438d10
     void FUN_00493cd8(); //493cd8
     void FUN_00492c66(int32_t idx);  //492c66
+    void FUN_004946e0(); //4946e0
 
 public:
     int32_t field_0x4;
@@ -310,7 +311,7 @@ public:
     int32_t field_0x45c;
     int32_t field_0x460;
     int32_t field_0x464;
-    SomeMainStructure field_0x468;
+    SomeMainStructure some_struc;
     int32_t field_0x5e4;
     MWin_5e8 field_0x5e8;
     CString current_map_name;

@@ -16,6 +16,7 @@ set(A2_SOURCES
   game_app.cpp
   gfx.cpp
   group.cpp
+  ingame.cpp
   inn.cpp
   inventory.cpp
   item.cpp

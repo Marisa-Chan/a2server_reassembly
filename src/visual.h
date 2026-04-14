@@ -696,18 +696,68 @@ public:
 ASSERT_SIZE(VisCharSellectStats, 0xd0);
 
 
+
+
+
+class GM_a28 : public CObject
+{
+public:
+	virtual ~GM_a28(); //4020ad
+	GM_a28(); //401f50
+
+	void Add(const char* msg, uint16_t* clr, uint32_t t); //4021fe
+	void AddWithCheck(const char* msg, uint16_t* clr, uint32_t t); //4023aa
+	void Clear(); //4021d2
+	void Draw(); //40261a
+	void SetRect(const CRect& r); //40212b
+	void Update(); //402585
+public:
+	CStringArray text;
+	CPtrArray color;
+	CDWordArray times;
+	uint32_t timestamp;
+	uint32_t elapsed_time;
+	int32_t max_size;
+	CRect out_area;
+	int32_t field_0x5c; //unk type
+};
+
 class BigStruct2 : CVisualObject
 {
 public:
 
 	void FUN_00416cf7();
+
+	void FUN_0041c4a1(const char* name); //41c4a1
+
+	CUnit* GetUnit_3f6c(); //41f830
+
+	int32_t ProcessPackets(uint8_t breakid); //40da14
 public:
-	uint8_t _unk1[0x974];
-	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
+	int32_t view_tile_x;
+	int32_t view_tile_y;
+	int32_t field_0x64; //unk type
+	int32_t field_0x68; //unk type
+	int32_t field_0x6c; //unk type
+	int32_t field_0x70; //unk type
+	int32_t field_0x74; //unk type
+	int32_t field_0x78; //unk type
+	int32_t field_0x7c; //unk type
+	void* field_0x80;  //unk type
+
+	uint8_t _unk1[0x948];
+
+	MapPlayerData* my_main_unit;
+	CMap<uint16_t, uint16_t, CUnit*, CUnit*> field_0x9d0;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
-	uint8_t _unk2[0x3fc0];
+	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa08; //unk type
+	int32_t field_0xa24; //unk type
+	GM_a28 msglog;
+
+	uint8_t _unk2[0x3f40];
 };
 
+ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
 ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
 ASSERT_SIZE(BigStruct2, 0x49c8);
 

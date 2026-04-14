@@ -1167,6 +1167,9 @@ extern ??0CEdit2@@QAE@XZ :proc   ; (public: __thiscall CEdit2::CEdit2(void))
 extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(void))
 
 
+;SomeMainStructure
+externdef ?FUN_004946e0@SomeMainStructure@@QAEXXZ  : proc
+
 
 ; MainWindow
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
@@ -1539,8 +1542,28 @@ externdef ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z : proc
 externdef ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ  : proc
 
 
+;GM_a28
+extern ??1GM_a28@@UAE@XZ  :proc
+extern ??0GM_a28@@QAE@XZ  :proc
+extern ?Add@GM_a28@@QAEXPBDPAGI@Z  :proc
+extern ?AddWithCheck@GM_a28@@QAEXPBDPAGI@Z  :proc
+extern ?Clear@GM_a28@@QAEXXZ  :proc
+extern ?Draw@GM_a28@@QAEXXZ  :proc
+extern ?SetRect@GM_a28@@QAEXABVCRect@@@Z  :proc
+extern ?Update@GM_a28@@QAEXXZ  :proc
+
 ;BigStruct2
 externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
+externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
+externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
+
+
+externdef ?INT_00660f8c@@3HA  :dword
+externdef ?INT_00660f90@@3HA  :dword
+
+
+;GO_d0
+externdef ?FUN_0041f0d0@GO_d0@@QAEHXZ   : proc
 
 
 

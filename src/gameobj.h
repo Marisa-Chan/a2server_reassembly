@@ -8,6 +8,28 @@ class BigStruct2;
 class CGameBitmap;
 class CSprite256;
 
+
+class GO_d0 : public CObject
+{
+public:
+
+	int32_t FUN_0041f0d0();
+public:
+	uint16_t field_0x4;
+	uint16_t item_id;
+	uint8_t flg;
+	uint8_t field_0x9;
+	uint8_t field_0xa;
+	uint8_t field_0xb;
+	void* field_0xc;
+	uint32_t field_0x10;
+	uint32_t field_0x14;
+	uint32_t field_0x18;
+	int32_t field_0x1c;
+	int32_t field_0x20;
+};
+ASSERT_SIZE(GO_d0, 0x24);
+
 class CGameObject : CObject
 {
 	DECLARE_DYNAMIC(CGameObject);
@@ -66,7 +88,7 @@ public:
 	int32_t field_0xc4;
 	int32_t field_0xc8;
 	int32_t field_0xcc;
-	CArray<uint32_t> field_0xd0;
+	CArray<GO_d0*> field_0xd0;
 	int32_t field_0xe4;
 	BigStruct2* field_0xe8;
 	int32_t field_0xec;
