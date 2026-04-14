@@ -119,6 +119,113 @@ Server::~Server()
     LogMessage("Server closed\n");
 }
 
+// 59B7EA
+int Srv1::sub_59B7EA(CString map_name) {
+    if (this->field2_0x20 != 0) {
+        map_name = "Scenario\\" + map_name;
+    }
+
+    MapAlm* alm = new MapAlm(map_name);
+
+    if (alm->map_heights == nullptr) {
+        CString error;
+        switch (alm->error_loading) {
+        case 1:
+            error = "File not found";
+            break;
+        case 2:
+            error = "Not a map file";
+            break;
+        case 3:
+            error = "Wrong block number";
+            break;
+        case 4:
+            error = "Map version too new (update loader!)";
+            break;
+        case 5:
+            error = "Tiles block not found";
+            break;
+        case 6:
+            error = "Altitudes block not found";
+            break;
+        default:
+            error = "Unknown error";
+            break;
+        }
+        LogMessage("Map error :" + error + ", in " + map_name);
+
+        if (alm != nullptr) {
+            delete alm;
+        }
+
+        return 1;
+    }
+
+    g_Server->field4_0x74 = (alm->recommended_player_count > 1) ? 1 : 0;
+    g_Server->field27_0x178 = (g_Server->field4_0x74 == 0) ? 1 : 0;
+    g_Server->current_map_title = alm->map_name;
+    g_Server->MapLevel = alm->map_level;
+
+    this->sub_59C3FB(alm);
+
+    MapStuff* map_stuff = new MapStuff(alm, dword_6CDB3C);
+    MapStuff_Instance = map_stuff;
+
+    World* world = new World(MapStuff_Instance, g_PlayersList);
+    g_World = world;
+
+    this->sub_59C56E(alm);
+
+    POSITION pos = g_PlayersList->GetHeadPosition();
+    while (pos) {
+        Player* player = g_PlayersList->GetNext(pos);
+
+        if (alm->map_players.GetSize() > player->player_id - 1) {
+            for (int32_t i = 0; i < 16; i++) {
+                MapPlayerData* mpd = alm->map_players[player->player_id - 1];
+                g_World->diplomacy[player->player_id][i + 1] = mpd->diplomacy[i];
+            }
+        }
+
+        g_World->diplomacy[player->player_id][player->player_id] = 0x12;
+    }
+
+    this->sub_59CD45(alm);
+
+    Player* self = g_PlayersList->sub_535D39("Self");
+    if (self != nullptr && g_Server->field4_0x74 != 0) {
+        POSITION pos2 = g_PlayersList->GetHeadPosition();
+        while (pos2) {
+            Player* player2 = g_PlayersList->GetNext(pos2);
+
+            if ((g_World->diplomacy[player2->player_id][self->player_id] & 7) == 0 && player2->is_ai) {
+                if (player2->unit_list != nullptr) {
+                    POSITION upos = player2->unit_list->unit_list.GetHeadPosition();
+                    while (upos) {
+                        Unit* unit = player2->unit_list->unit_list.GetNext(upos);
+                        unit->summoned = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    this->sub_59D891(alm, 1);
+    this->sub_59F1BE(alm);
+
+    if (g_Server->field4_0x74 != 0) {
+        this->sub_59C37A(alm);
+    }
+
+    if (alm != nullptr) {
+        delete alm;
+    }
+
+    g_Server->field38_0x1a4 = (g_Server->field4_0x74 == 0) ? 1 : 0;
+
+    return 0;
+}
+
 // 59C56E
 void Srv1::sub_59C56E(MapAlm* alm) {
     static std::set<int16_t> shop_type_ids = {0x22, 0x23, 0x5D, 0x5E, 0x5F, 0x69, 0x6A, 0x6B};

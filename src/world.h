@@ -98,6 +98,7 @@ struct World {
     ResFile* field74_0xeb1c;
 
 public:
+    World(MapStuff* map_stuff, PlayersList* players_list); // 5A4B1A
     ~World();
 
     void sub_5AFBFD(); // increments field65_0xc780

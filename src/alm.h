@@ -160,6 +160,9 @@ struct MapUnitData {
 };
 
 struct MapAlm {
+    MapAlm(const char* filename); // 5693A3
+    ~MapAlm(); // 56D92A
+
     uint32_t map_width;
     uint32_t map_height;
     uint32_t landscape_val1;
@@ -170,7 +173,7 @@ struct MapAlm {
     uint32_t day_time_minutes;
     uint32_t a_brightness;
     uint32_t contrast;
-    CArray<MapPlayerData> map_players;
+    CArray<MapPlayerData*> map_players;
     MapPlayerData *loading_player;
     CList<MapLogicData*> logic_instances;
     CList<MapLogicData*> logic_checks;

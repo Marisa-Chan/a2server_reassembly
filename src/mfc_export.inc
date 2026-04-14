@@ -395,6 +395,9 @@ public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
 
 
 ; MapStuff
+externdef ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z :proc  ; MapStuff::MapStuff(MapAlm*, UnitList*)
+externdef ??1MapStuff@@QAE@XZ :proc
+
 externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
@@ -934,8 +937,8 @@ externdef ?sub_5A3498@CowardActivation@@QAEHPBD@Z :proc
 ; World
 externdef _g_World :dword
 
+externdef ??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z :proc  ; World::World(MapStuff*, PlayersList*)
 externdef ??1World@@QAE@XZ :proc
-externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@G@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
@@ -1029,6 +1032,15 @@ externdef ??1Srv1@@UAE@XZ :proc
 externdef ?sub_59FC97@Srv1@@QAEXH@Z :proc   ; void Srv1::sub_59FC97(int)
 externdef ?sub_59B7EA@Srv1@@QAEHVCString@@@Z :proc  ; int Srv1::sub_59B7EA(CString)
 externdef ?sub_59C56E@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C56E(MapAlm*)
+externdef ?sub_59C3FB@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C3FB(MapAlm*)
+externdef ?sub_59CD45@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59CD45(MapAlm*)
+externdef ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z :proc ; void Srv1::sub_59D891(MapAlm*, int)
+externdef ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59F1BE(MapAlm*)
+externdef ?sub_59C37A@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C37A(MapAlm*)
+
+; MapAlm
+externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
+externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 
 
 ; Settings
