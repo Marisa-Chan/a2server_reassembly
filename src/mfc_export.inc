@@ -1266,6 +1266,9 @@ extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 externdef ?ParseConfig@@YAHPBD@Z :proc
 externdef ?LoadFonts@@YAXXZ  : proc
 externdef ?LoadItemNames@@YAXXZ  : proc
+externdef _unk_660D28 :byte
+externdef _unk_660DA8 :byte
+externdef _dword_65FBB8 :dword
 externdef ?ParseTunes@@YAXXZ : proc
 externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc

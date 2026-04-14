@@ -298,6 +298,7 @@ public:
     int sub_50DF19(int experience); // Get random recruitable monster index for inn reward
     int sub_50DDAE(uint32_t type_id, uint32_t face); // Get monster data index from encoded item type/face
 };
+ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);
 

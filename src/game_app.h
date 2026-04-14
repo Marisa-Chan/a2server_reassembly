@@ -10,6 +10,20 @@
 class Item;
 class PlayersList;
 struct Server;
+
+#pragma pack(push, 1)
+struct ItemNamePktEntry {
+	uint16_t id;        // 0x00 - item type id (high byte = category, low byte = index)
+	uint8_t field_2;    // 0x02
+	uint8_t field_3;    // 0x03
+	uint8_t flags;      // 0x04 - template flags (OR'd into runtime item flags)
+	uint8_t field_5;    // 0x05
+	uint8_t data_len;   // 0x06 - length of variable data following this header
+	uint8_t data[];     // 0x07 - variable-length data (data_len bytes)
+	// For magic items (id & 0xF00 == 0xE00): *(int32_t*)&data[1] is patched with EquipData::shape
+	// Total record size: 7 + data_len
+};
+#pragma pack(pop)
 class NetStru1;
 
 
