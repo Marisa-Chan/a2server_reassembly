@@ -113,6 +113,16 @@ void World::sub_5A99C7(Unit* unit) {
     unit->eye2->cast_action = 0;
 }
 
+// 5AAA89
+void World::sub_5AAA89(Unit* unit) {
+    if (unit != unit->eye2->unit5 && this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
+        this->sub_5AA91B(unit, unit->eye2->unit5);
+        unit->some_state = 1;
+    } else {
+        this->sub_5AA7CF(unit);
+    }
+}
+
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
 void World::sub_5A7B44(Unit* unit) {

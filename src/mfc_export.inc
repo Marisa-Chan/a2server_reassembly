@@ -943,6 +943,9 @@ externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                              
 externdef ?sub_5A9961@World@@QAEXPAVUnit@@EE@Z :proc                             ; World::sub_5A9961(Unit*, uint8_t, uint8_t)
 externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A99C7(Unit*)
 externdef ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
+externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA7CF(Unit*)
+externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AA91B(Unit*, Unit*)
+externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@G@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 externdef ?sub_52C163@Unit@@QAEXXZ :proc

@@ -131,6 +131,9 @@ public:
     void sub_5AF683(Player* player, int32_t param);
     void sub_5A79C9(Unit* unit);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit?
+    void sub_5AA7CF(Unit* unit);
+    void sub_5AA91B(Unit* unit, Unit* target);
+    void sub_5AAA89(Unit* unit);
     void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5ACDF4(Group* group); // World callback for animate-dead group
