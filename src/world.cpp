@@ -96,6 +96,15 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     caster->eye2->max_range = spell->max_range;
 }
 
+// 5A9961
+void World::sub_5A9961(Unit* unit, uint8_t x, uint8_t y) {
+    this->sub_5A9AC4(unit);
+    unit->state = 2;
+    unit->eye2->command_to = ((uint16_t)y << 8) + x;
+    unit->eye->field136_0x90 = 0;
+    unit->eye2->cast_action = 0;
+}
+
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
 void World::sub_5A7B44(Unit* unit) {
