@@ -105,6 +105,14 @@ void World::sub_5A9961(Unit* unit, uint8_t x, uint8_t y) {
     unit->eye2->cast_action = 0;
 }
 
+// 5A99C7
+void World::sub_5A99C7(Unit* unit) {
+    this->sub_5A9AC4(unit);
+    unit->state = 26;
+    unit->eye->field136_0x90 = 0;
+    unit->eye2->cast_action = 0;
+}
+
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
 void World::sub_5A7B44(Unit* unit) {

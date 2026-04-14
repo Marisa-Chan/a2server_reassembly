@@ -941,6 +941,7 @@ externdef ??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z :proc  ; World::World(Ma
 externdef ??1World@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 externdef ?sub_5A9961@World@@QAEXPAVUnit@@EE@Z :proc                             ; World::sub_5A9961(Unit*, uint8_t, uint8_t)
+externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A99C7(Unit*)
 externdef ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@G@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
