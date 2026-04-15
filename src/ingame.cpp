@@ -196,6 +196,7 @@ void GM_a28::Update()
 int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 {
 	//40da14
+	char buf[128];
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
 	bool loop = true;
@@ -212,6 +213,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
 		PacketAbility* packet_abil = reinterpret_cast<PacketAbility*>(pkt);
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
+		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
 
 		if (!pkt)
 		{
@@ -269,7 +271,6 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		{
 			if (wnd->field_0x418 == 1 && my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
 			{
-				char buf[128];
 				sprintf(buf, "%s %d %s", TxtFile::AllLines.GetAt(0x58), packet_info->field_0xa - my_main_unit->gold, TxtFile::AllLines.GetAt(0x59));
 				msglog.Add(buf, clr_log_tblack, 3000);
 			}
@@ -317,8 +318,6 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0x6b:
 		{
-			char buf[128];
-
 			CUnit* unit;
 			if (!field_0x9d0.Lookup(packet_abil->field_0xa, unit))
 			{
@@ -378,7 +377,6 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6f:
 		case 0x70:
 		{
-			char buf[128];
 
 			if (packet_unit->unit_id == 0)
 			{
@@ -872,6 +870,175 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							ct->field_0x114 = 1;
 						}
 					}
+				}
+			}
+		}
+			break;
+
+		case 0x6d:
+		{
+			CUnit* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_abil->field_0xa, ct) == 0)
+			{
+				if (g_EnableTrace != 0)
+				{
+					sprintf(buf, "Invalid unit #%d. Command Turn.", packet_abil->field_0xa);
+					msglog.Add(buf, clrsh_TechBlack, 5000);
+				}
+			}
+			else
+			{
+				if (ct->action_segments != 0)
+				{
+					if (g_EnableTrace)
+					{
+						switch (ct->action) {
+						case 1:
+							sprintf(buf, "Overriding \'Move\' by \'Turn\'. %d segments lost.", ct->action_segments);
+							break;
+						case 3:
+							sprintf(buf, "Overriding \'Attack\' by \'Turn\'. %d segments lost.", ct->action_segments);
+							break;
+						case 5:
+							buf[0] = 0;
+							break;
+						case 7:
+							sprintf(buf, "Overriding \'Shoot\' by \'Turn\'. %d segments lost.", ct->action_segments);
+							break;
+						case 8:
+							sprintf(buf, "Overriding \'Cast\' by \'Turn\'. %d segments lost.", ct->action_segments);
+							break;
+
+						default:
+							sprintf(buf, "Overriding <Command %d> by \'Turn\'. %d segments lost.", ct->action, ct->action_segments);
+							break;
+						}
+						msglog.Add(buf, clrsh_TechBlack, 5000);
+					}
+				}
+				if (ct->hp > 0)
+				{
+					ct->action_segments = packet_abil->field_0xd;
+					ct->action = 5;
+					ct->action_dir = packet_abil->field_0xc;
+					ct->field_0xc4 = ct->field_0x70 * 16;
+					ct->action_phase = 0;
+					ct->field_0xa4 = 0;
+					ct->field_0xa0 = 0;
+				}
+			}
+		}
+			break;
+
+		case 0x71:
+		{
+			CUnit* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_abil->field_0xa, ct) == 0)
+			{
+				if (g_EnableTrace != 0)
+				{
+					sprintf(buf, "Invalid unit #%d. Command Attack.", packet_abil->field_0xa);
+					msglog.Add(buf, clrsh_TechBlack, 5000);
+				}
+			}
+			else
+			{
+				if (ct->action_segments == 0)
+				{
+					UnitVFXUnfo* vfx = g_VFX_info[ct->typeId];
+					if (vfx->attack_phases != 0 && ct->hp > 0)
+					{
+						ct->action_segments = vfx->attack_anim_frame_cnt;
+						ct->action = 3;
+						ct->action_dir = packet_abil->field_0xc;
+						ct->action_phase = 0;
+						ct->field_0xa4 = 0;
+						ct->field_0xa0 = 0;
+						break;
+					}
+				}
+				
+				if (ct->action_segments != 0)
+				{
+					if (g_EnableTrace)
+					{
+						switch (ct->action)
+						{
+						case 1:
+							sprintf(buf, "Overriding \'Move\' by \'Attack\'. %d segments lost.", ct->action_segments);
+							break;
+						case 3:
+							sprintf(buf, "Overriding \'Attack\' by \'Attack\'. %d segments lost.", ct->action_segments);
+							break;
+						case 5:
+							buf[0] = 0;
+							break;
+						case 7:
+							sprintf(buf, "Overriding \'Shoot\' by \'Attack\'. %d segments lost.", ct->action_segments);
+							break;
+						case 8:
+							sprintf(buf, "Overriding \'Cast\' by \'Attack\'. %d segments lost.", ct->action_segments);
+							break;
+						default:
+							sprintf(buf, "Overriding <Command %d> by \'Attack\'. %d segments lost.", ct->action, ct->action_segments);
+							break;
+						}
+
+						msglog.Add(buf, clrsh_TechBlack, 5000);
+					}
+				}
+			}
+		}
+			break;
+
+		case 0x72:
+		{
+			CUnit* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_mount->field_0xa, ct) == 0)
+			{
+				if (g_EnableTrace)
+				{
+					sprintf(buf, "Invalid unit #%d. Command Ranged Attack.", packet_mount->field_0xa);
+					msglog.Add(buf, clrsh_TechBlack, 5000);
+				}
+			}
+			else if (ct->action_segments == 0 && ct->hp > 0)
+			{
+				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
+				ct->action = 7;
+				ct->action_phase = 0;
+				ct->field_0xa4 = 0;
+				ct->field_0xa0 = 0;
+				ct->action_target = packet_mount->unit_id;
+				ct->action_dir = ct->field_0x70;
+			}
+			else if (ct->action_segments != 0) 
+			{
+				if (g_EnableTrace)
+				{
+					switch (ct->action)
+					{
+					case 1:
+						sprintf(buf, "Overriding \'Move\' by \'Shoot\'. %d segments lost.", ct->action_segments);
+						break;
+					case 3:
+						sprintf(buf, "Overriding \'Attack\' by \'Shoot\'. %d segments lost.", ct->action_segments);
+						break;
+					case 5:
+						buf[0] = 0;
+						break;
+					case 7:
+						sprintf(buf, "Overriding \'Shoot\' by \'Shoot\'. %d segments lost.", ct->action_segments);
+						break;
+					case 8:
+						sprintf(buf, "Overriding \'Cast\' by \'Shoot\'. %d segments lost.", ct->action_segments);
+						break;
+					default:
+						sprintf(buf, "Overriding <Command %d> by \'Shoot\'. %d segments lost.", ct->action, ct->action_segments);
+						break;
+					}
+
+					msglog.Add(buf, clrsh_TechBlack, 5000);
 				}
 			}
 		}
