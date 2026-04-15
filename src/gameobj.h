@@ -1,12 +1,15 @@
 #ifndef GAMEOBJ_H
 #define GAMEOBJ_H
 
+#include <inttypes.h>
+
 #include "asm_mfc.h"
 #include "alm.h"
 
 class BigStruct2;
 class CGameBitmap;
 class CSprite256;
+class Unit;
 
 
 class GO_d0 : public CObject
@@ -14,26 +17,50 @@ class GO_d0 : public CObject
 public:
 
 	int32_t FUN_0041f0d0();
+
+	virtual ~GO_d0();
+
+	GO_d0();
+	GO_d0(const GO_d0* obj);
+	GO_d0(const uint8_t** data, int arg);
+
+	void operator=(const GO_d0& obj);
 public:
-	uint16_t field_0x4;
-	uint16_t item_id;
-	uint8_t flg;
-	uint8_t field_0x9;
-	uint8_t field_0xa;
-	uint8_t field_0xb;
-	void* field_0xc;
-	uint32_t field_0x10;
-	uint32_t field_0x14;
-	uint32_t field_0x18;
-	int32_t field_0x1c;
-	int32_t field_0x20;
+	uint16_t field_0x4 = 0;
+	uint16_t item_id = 0;
+	uint8_t flg = 0;
+	uint8_t field_0x9 = 0;
+	uint8_t field_0xa = 0;
+	uint8_t field_0xb = 0;
+	void* field_0xc = nullptr;
+	uint32_t field_0x10 = 1;
+	uint32_t field_0x14 = 0;
+	uint32_t field_0x18 = 0;
+	int32_t field_0x1c = -1;
+	int32_t field_0x20 = -1;
 };
 ASSERT_SIZE(GO_d0, 0x24);
 
-class CGameObject : CObject
+struct GO_11c
+{
+	int16_t field_0x0;
+	int16_t field_0x2;
+	int16_t field_0x4;
+	uint8_t field_0x6;
+	uint8_t field_0x7;
+};
+ASSERT_SIZE(GO_11c, 8);
+
+
+class CGameObject : public CObject
 {
 	DECLARE_DYNAMIC(CGameObject);
 public:
+
+	virtual ~CGameObject();
+
+	virtual void Dump(CDumpContext& dc) const override;
+
 	virtual void VMethod1(int32_t arg1);
 	virtual int32_t VMethod2();
 	virtual int32_t VMethod3();
@@ -51,8 +78,13 @@ public:
 	virtual int32_t VMethod15();
 	virtual void VMethod16();
 
+	CGameObject();
+	CGameObject(const CGameObject *obj);
+
+	int32_t FUN_0041f110();
+	void FUN_0046190d();
 public:
-	uint16_t field_0x4;
+	uint16_t unit_id;
 	uint8_t __pad[2];
 	int32_t x_pos;
 	int32_t y_pos;
@@ -65,7 +97,21 @@ public:
 	int32_t face;
 	int32_t x_pos2;
 	int32_t y_pos2;
-	int32_t field_0x34[15];
+	int32_t field_0x34;
+	int32_t field_0x38;
+	int32_t field_0x3c;
+	int32_t field_0x40;
+	int32_t field_0x44;
+	int32_t field_0x48;
+	int32_t field_0x4c;
+	int32_t field_0x50;
+	int32_t field_0x54;
+	int32_t field_0x58;
+	int32_t field_0x5c;
+	int32_t field_0x60;
+	int32_t screen_x;
+	int32_t screen_y;
+	int32_t field_0x6c;
 	int32_t field_0x70;
 	int32_t phase;
 	int32_t last_action;
@@ -84,19 +130,15 @@ public:
 	int32_t field_0xa4;
 	int32_t action_segments;
 	int32_t action_spell;
-	CArray<uint32_t> field_0xb0;
+	CArray<uint16_t> field_0xb0;
 	int32_t field_0xc4;
 	int32_t field_0xc8;
 	int32_t field_0xcc;
 	CArray<GO_d0*> field_0xd0;
 	int32_t field_0xe4;
 	BigStruct2* field_0xe8;
-	int32_t field_0xec;
-	int32_t field_0xf0;
-	int32_t field_0xf4;
-	uint8_t field_0xf8[4];
-	int32_t field_0xfc;
-	int32_t field_0x100;
+	char field_0xec[12];
+	char field_0xf8[12];
 	int16_t hp;
 	int16_t field_0x106;
 	int16_t hp_max;
@@ -105,16 +147,21 @@ public:
 	int16_t carrying_weight_100g;
 	int32_t exp_summary;
 	int32_t field_0x114;
-	int32_t field_0x118;
-	CArray<uint32_t> field_0x11c;
-	CArray<int32_t> field_0x130;
+	uint8_t field_0x118;
+	uint8_t __pad2[3];
+	CArray<GO_11c> field_0x11c;
+	CDWordArray field_0x130;
 };
 ASSERT_SIZE(CGameObject, 0x144);
 
 
 class CUnit : public CGameObject
 {
+	DECLARE_DYNAMIC(CUnit);
 public:
+
+	virtual ~CUnit();
+
 	virtual void VMethod1(int32_t arg1) override;
 	virtual int32_t VMethod2() override;
 	virtual int32_t VMethod3() override;
@@ -145,6 +192,12 @@ public:
 	virtual void VMethod28();
 	virtual void VMethod29();
 	virtual void VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
+
+	CUnit();
+
+	void FUN_0046b0d7(const Unit& uni);
+	void FUN_0046b7d2(int32_t _face);
+	void FUN_0046b91c();
 
 public:
 	uint8_t body;
@@ -182,6 +235,19 @@ public:
 	int32_t field_0x1e0;
 };
 ASSERT_SIZE(CUnit, 0x1e4);
+
+
+class CAirUnit : public CUnit
+{
+	DECLARE_DYNAMIC(CAirUnit);
+public:
+	virtual ~CAirUnit();
+
+	virtual void VMethod10() override;
+
+	CAirUnit();
+};
+ASSERT_SIZE(CAirUnit, 0x1e4);
 
 
 #endif

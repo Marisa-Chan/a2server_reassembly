@@ -5,6 +5,7 @@
 #include <array>
 
 #include "assert_offset.h"
+#include "asm_mfc.h"
 #include "mfc_templ.h"
 #include "protections.h"
 #include "table.h"
@@ -127,6 +128,8 @@ public:
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
 
+    void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
+    
 public:
     MonsterInfo* monster_info;
     Unit* last_hit_by;

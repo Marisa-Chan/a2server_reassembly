@@ -295,6 +295,11 @@ void MWin_5e8::FUN_004ac3ce(const Fame1& fame)
         fame1_arr.SetSize(field_xc);
 }
 
+void MWin_5e8::FUN_00420050()
+{
+    //420050
+    field_x8++;
+}
 
 
 

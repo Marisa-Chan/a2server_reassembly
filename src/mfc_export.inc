@@ -144,6 +144,7 @@ externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 externdef ?sub_50DF19@GameDataRes@@QAEHH@Z :proc                               ; GameDataRes::sub_50DF19(int)
 externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ; int GameDataRes::sub_50DDAE(uint32_t, uint32_t)
+externdef ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
@@ -507,6 +508,9 @@ externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
 externdef ?sub_52C4DF@Unit@@QAEXF@Z :proc
+
+externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z : proc
+
 
 ; UnitEye
 
@@ -1188,6 +1192,7 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 
 ;SomeMainStructure
 externdef ?FUN_004946e0@SomeMainStructure@@QAEXXZ  : proc
+externdef ?FUN_004946ae@SomeMainStructure@@QAEXXZ  : proc
 
 
 ; MainWindow
@@ -1210,6 +1215,7 @@ extern ?FUN_004ac566@MWin_5e8@@QAEIH@Z  :proc   ; (public: unsigned int __thisca
 extern ?FUN_004acafa@MWin_5e8@@QAEXXZ  :proc   ; (public: void __thiscall MWin_5e8::FUN_004acafa(void))
 extern ?FUN_004ac945@MWin_5e8@@QAEXPAVCFile@@@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac945(class CFile *))
 extern ?FUN_004ac3ce@MWin_5e8@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac3ce(struct Fame1 const &))
+extern ?FUN_00420050@MWin_5e8@@QAEXXZ : proc
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
 extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
@@ -1734,3 +1740,24 @@ extern ?GetX@CMousePointer@@QAEHXZ : proc
 extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
 extern ?DisableHint@CMousePointer@@QAEXXZ : proc
 extern ?EnableHint@CMousePointer@@QAEXXZ : proc
+
+
+;CGameObject
+externdef ?FUN_0041f110@CGameObject@@QAEHXZ : proc
+externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
+
+;CUnit
+externdef ?g_CUnitStatic@@3VCUnit@@A : byte
+externdef ??0CUnit@@QAE@XZ : proc
+externdef ?FUN_0046b0d7@CUnit@@QAEXABVUnit@@@Z  :proc
+externdef ?FUN_0046b7d2@CUnit@@QAEXH@Z :proc
+externdef ?FUN_0046b91c@CUnit@@QAEXXZ : proc
+
+;CAirUnit
+externdef ??0CAirUnit@@QAE@XZ : proc
+
+;MapPlayerData
+externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
+
+;UnitVFXInfo
+externdef ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte

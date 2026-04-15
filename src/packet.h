@@ -323,8 +323,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57A480
     virtual uint32_t GetDataSize() override;
 public:
-    uint8_t field_0xa; // +0xA
-    uint8_t field_0xb; // +0xB
+    uint16_t field_0xa; // +0xA
     uint8_t field_0xc; // +0xC
     uint8_t field_0xd; // +0xD
 };

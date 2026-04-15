@@ -297,6 +297,8 @@ public:
     Item* sub_510EE6(uint16_t item_id); // Create a new item instance by item data ID
     int sub_50DF19(int experience); // Get random recruitable monster index for inn reward
     int sub_50DDAE(uint32_t type_id, uint32_t face); // Get monster data index from encoded item type/face
+
+    int32_t FUN_00512625(int32_t serverid);
 };
 ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);

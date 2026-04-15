@@ -14,6 +14,7 @@ class CGameBitmap;
 class CGameObject;
 class CGameFont;
 class CBmp64;
+class CBmp256;
 class BigStruct2;
 class VisCharSellectStats;
 class VisCharSellectButtons;
@@ -696,6 +697,19 @@ public:
 ASSERT_SIZE(VisCharSellectStats, 0xd0);
 
 
+struct TakeDamage
+{
+	CString txt;
+	int32_t dmg;
+	uint16_t* color;
+	int32_t dx;
+	int32_t dy;
+	uint32_t timestamp;
+	int32_t field_0x18;
+	CUnit* cunit;
+	int32_t field_0x20;
+};
+ASSERT_SIZE(TakeDamage, 0x24);
 
 
 
@@ -722,7 +736,7 @@ public:
 	int32_t field_0x5c; //unk type
 };
 
-class BigStruct2 : CVisualObject
+class BigStruct2 : public CVisualObject
 {
 public:
 
@@ -745,8 +759,13 @@ public:
 	int32_t field_0x7c; //unk type
 	void* field_0x80;  //unk type
 
-	uint8_t _unk1[0x948];
+	uint8_t _unk1[0xb4];
 
+	CUnit* field_0x138;
+
+	uint8_t _unk1_1[0x87c];
+
+	CArray<MapPlayerData*> field_0x9b8;
 	MapPlayerData* my_main_unit;
 	CMap<uint16_t, uint16_t, CUnit*, CUnit*> field_0x9d0;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
@@ -754,11 +773,18 @@ public:
 	int32_t field_0xa24; //unk type
 	GM_a28 msglog;
 
-	uint8_t _unk2[0x3f40];
+	uint8_t _unk2[0x34cc];
+
+	CArray<TakeDamage> damage_labels;
+	CBmp256* field_0x3f54;
+	CUnit* field_0x3f6c;
+
+	uint8_t _unk3[0xA58];
 };
 
 ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
 ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
+ASSERT_OFFSET(BigStruct2, damage_labels, 0x3f54);
 ASSERT_SIZE(BigStruct2, 0x49c8);
 
 

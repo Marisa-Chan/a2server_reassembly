@@ -31,6 +31,9 @@ public:
     char name[32];
     uint32_t flags;
     CArray<int16_t> diplomacy;
+
+public:
+    uint32_t FUN_0041ee20(int32_t idx);
 };
 
 struct MapLogicData {

@@ -107,6 +107,8 @@ struct MWin_5e8
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);
+
+    void FUN_00420050();
 };
 
 ASSERT_SIZE(MWin_5e8, 0x38);
@@ -128,6 +130,7 @@ public:
     void FUN_00493cd8(); //493cd8
     void FUN_00492c66(int32_t idx);  //492c66
     void FUN_004946e0(); //4946e0
+    void FUN_004946ae(); //4946ae
 
 public:
     int32_t field_0x4;
@@ -208,7 +211,7 @@ public:
     void (*field_0xc4)();
     int32_t field_0xc8;
     CVisualObject* vis_root;
-    CVisualObject* field_0xd0; // BigStruct2*
+    BigStruct2* field_0xd0; // BigStruct2*
     CVisualObject* field_0xd4;
     CVisualObject* field_0xd8;
     CVisualObject* field_0xdc;
