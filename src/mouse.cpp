@@ -4,6 +4,7 @@
 #include "main_window.h"
 
 CMousePointer g_mousept; //642c68
+CCursor* g_Cursors[28]; //665420
 
 //GetRuntimeClass 423b5f
 IMPLEMENT_DYNAMIC(CMousePointer, CObject);
@@ -587,3 +588,84 @@ CRect& CMousePointer::GetSelectFrame() { return select_frame_rect; } //41ed20
 int32_t CMousePointer::GetSelectState() { return select_frame_state; } //41ed00
 int32_t CMousePointer::GetX() { return x; } //41ecc0
 int32_t CMousePointer::GetY() { return y; } //41ece0
+
+
+CCursor::~CCursor()
+{
+    //47cf99
+    if (sprite)
+        delete sprite;
+    sprite = nullptr;
+}
+
+CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay)
+{
+    //47ce66
+    if (strstr(fname, "16a") == nullptr)
+    {
+        sprite = new CSprite256(fname);
+        sprite->ResetPalette(1, 1, 0);
+    }
+    else
+    {
+        sprite = new CA16(fname);
+        sprite->ResetPalette(16, 4, 0);
+    }
+
+    x_off = xof;
+    y_off = yof;
+    delay = _delay;
+    frames_count = sprite->GetFrameCount();
+}
+
+void CCursor::Use()
+{
+    //47d025
+    g_mousept.SetCursor(sprite, x_off, y_off, frames_count, delay);
+}
+
+
+
+void LoadCursors()
+{
+    //47d05d
+    g_mousept.Update();
+
+    g_Cursors[0] = new CCursor("graphics\\cursors\\default\\sprites.16a", 4, 4, 2000000000);
+    g_Cursors[1] = new CCursor("graphics\\cursors\\move\\sprites.16a", 2, 3, 100);
+    g_Cursors[2] = new CCursor("graphics\\cursors\\swarm\\sprites.16a", 2, 3, 100);
+    g_Cursors[3] = new CCursor("graphics\\cursors\\attack\\sprites.16a", 3, 3, 100);
+    g_Cursors[4] = new CCursor("graphics\\cursors\\defend\\sprites.16a", 16, 16, 100);
+    g_Cursors[5] = new CCursor("graphics\\cursors\\select\\sprites.16a", 3, 3, 100);
+    g_Cursors[6] = new CCursor("graphics\\cursors\\patrol\\sprites.16a", 8, 25, 100);
+    g_Cursors[7] = new CCursor("graphics\\cursors\\cast\\sprites.16a", 16, 16, 100);
+    g_Cursors[8] = new CCursor("graphics\\cursors\\pickup\\sprites.16a", 16, 12, 66);
+    g_Cursors[9] = new CCursor("graphics\\cursors\\arrow0\\sprites.16a", 16, 6, 2000000000);
+    g_Cursors[10] = new CCursor("graphics\\cursors\\arrow4\\sprites.16a", 16, 28, 2000000000);
+    g_Cursors[11] = new CCursor("graphics\\cursors\\arrow6\\sprites.16a", 5, 16, 2000000000);
+    g_Cursors[12] = new CCursor("graphics\\cursors\\arrow2\\sprites.16a", 26, 16, 2000000000);
+    g_Cursors[13] = new CCursor("graphics\\cursors\\arrow7\\sprites.16a", 8, 9, 2000000000);
+    g_Cursors[14] = new CCursor("graphics\\cursors\\arrow5\\sprites.16a", 8, 24, 2000000000);
+    g_Cursors[15] = new CCursor("graphics\\cursors\\arrow1\\sprites.16a", 23, 9, 2000000000);
+    g_Cursors[16] = new CCursor("graphics\\cursors\\arrow3\\sprites.16a", 23, 24, 2000000000);
+    g_Cursors[17] = new CCursor("graphics\\cursors\\sdefault\\sprites.16a", 1, 1, 2000000000);
+    g_Cursors[18] = new CCursor("graphics\\cursors\\smove.256", 0, 0, 2000000000);
+    g_Cursors[19] = new CCursor("graphics\\cursors\\sattack.256", 0, 0, 2000000000);
+    g_Cursors[20] = new CCursor("graphics\\cursors\\sdefend.256", 0, 0, 2000000000);
+    g_Cursors[21] = new CCursor("graphics\\cursors\\spatrol.256", 0, 0, 2000000000);
+    g_Cursors[22] = new CCursor("graphics\\cursors\\scast.256", 0, 0, 2000000000);
+    g_Cursors[23] = new CCursor("graphics\\cursors\\cantput\\sprites.16a", 38, 36, 2000000000);
+    g_Cursors[24] = new CCursor("graphics\\cursors\\town\\sprites.16a", 16, 16, 2000000000);
+    g_Cursors[25] = new CCursor("graphics\\cursors\\dice\\sprites.16a", 16, 16, 100);
+    g_Cursors[26] = new CCursor("graphics\\cursors\\wait\\sprites.16a", 16, 16, 100);
+    g_Cursors[27] = new CCursor("graphics\\cursors\\backpack\\sprites.16a", 16, 16, 100);
+
+    g_mousept.Update();
+}
+
+void DeleteCursors()
+{
+    //47daf0
+    for (int i = 0; i < 28; i++)
+        delete g_Cursors[i];
+}

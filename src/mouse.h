@@ -7,8 +7,41 @@
 class CSprite256;
 class CBmp64;
 class CMousePointer;
+class CCursor;
 
 extern CMousePointer g_mousept; //642c68
+extern CCursor* g_Cursors[28]; //665420
+
+enum {
+	CURSOR_DEFAULT = 0,
+	CURSOR_MOVE = 1,
+	CURSOR_SWARM = 2,
+	CURSOR_ATTACK = 3,
+	CURSOR_DEFEND = 4,
+	CURSOR_SELECT = 5,
+	CURSOR_PATROL = 6,
+	CURSOR_CAST = 7,
+	CURSOR_PICKUP = 8,
+	CURSOR_ARROW0 = 9,
+	CURSOR_ARROW4 = 10,
+	CURSOR_ARROW6 = 11,
+	CURSOR_ARROW2 = 12,
+	CURSOR_ARROW7 = 13,
+	CURSOR_ARROW5 = 14,
+	CURSOR_ARROW1 = 15,
+	CURSOR_ARROW3 = 16,
+	CURSOR_SDEFAULT = 17,
+	CURSOR_SMOVE = 18,
+	CURSOR_SATTACK = 19,
+	CURSOR_SDEFEND = 20,
+	CURSOR_SPATROL = 21,
+	CURSOR_SCAST = 22,
+	CURSOR_CANTPUT = 23,
+	CURSOR_TOWN = 24,
+	CURSOR_DICE = 25,
+	CURSOR_WAIT = 26,
+	CURSOR_BACKPACK = 27
+};
 
 
 class CMousePointer : public CObject
@@ -78,3 +111,25 @@ public:
 };
 
 ASSERT_SIZE(CMousePointer, 0xa4);
+
+
+class CCursor : public CObject
+{
+public:
+	virtual ~CCursor(); //47cf99
+	CCursor() = default; //47ce1f
+	CCursor(const char* fname, int32_t xof, int32_t yof, int32_t delay); //47ce66
+
+	void Use(); //47d025
+public:
+	CSprite256* sprite = nullptr;
+	int32_t x_off = 0;
+	int32_t y_off = 0;
+	int32_t frames_count = 0;
+	int32_t delay = 2000000000;
+};
+ASSERT_SIZE(CCursor, 0x18);
+
+
+void LoadCursors(); //47d05d
+void DeleteCursors(); //47daf0

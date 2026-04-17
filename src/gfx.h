@@ -161,6 +161,7 @@ public:
 	void* GetData() { return pdata + 8; };
 	void ResetPalette(uint32_t count, int mode, int useColor);
 
+	int32_t GetFrameCount() { return frames_count; } //4387f0
 
 public:
 	uint32_t frames_count;

@@ -1510,6 +1510,7 @@ extern ??0VisBitmap@@QAE@HABUtagRECT@@PAVCGameBitmap@@H@Z  :proc
 extern ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ  :proc
 extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
 
+
 ;VisComboBox
 extern ??0VisComboBox@@QAE@HVCRect@@PBD@Z  :proc
 extern ?AddItem@VisComboBox@@QAEXPBD@Z  :proc
@@ -1698,6 +1699,14 @@ extern ?g_colors_human_pals@@3PAY0BA@GA : word
 ;CBmp64
 externdef ??0CBmp64@@QAE@II@Z : proc
 
+;CGameBitmap
+externdef ?ResetPalette@CGameBitmap@@QAEXIHH@Z  : proc
+
+;CSprite256
+externdef ??0CSprite256@@QAE@PBD@Z : proc
+
+;CA16
+externdef ??0CA16@@QAE@PBD@Z  :proc
 
 
 ;CGameFont
@@ -1750,6 +1759,14 @@ extern ?GetX@CMousePointer@@QAEHXZ : proc
 extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
 extern ?DisableHint@CMousePointer@@QAEXXZ : proc
 extern ?EnableHint@CMousePointer@@QAEXXZ : proc
+
+extern ?LoadCursors@@YAXXZ  : proc
+extern ?DeleteCursors@@YAXXZ : proc
+extern ?g_Cursors@@3PAPAVCCursor@@A : dword
+
+extern ??0CCursor@@QAE@PBDHHH@Z :proc
+extern ?Use@CCursor@@QAEXXZ : proc
+
 
 
 ;CGameObject
