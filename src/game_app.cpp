@@ -5,8 +5,8 @@
 #include "file.h"
 #include "table.h"
 
-extern "C" CMap<uint16_t, uint16_t, ItemNamePktEntry*, ItemNamePktEntry*> unk_660D28;
-extern "C" CMap<uint16_t, uint16_t, const char*, const char*> unk_660DA8;
+extern "C" CMapWordToPtr unk_660D28;
+extern "C" CMapWordToPtr unk_660DA8;
 extern "C" void* dword_65FBB8; // Area for item names.
 
 GameApp GameApp::theApp;
