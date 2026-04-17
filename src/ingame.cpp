@@ -214,6 +214,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		PacketAbility* packet_abil = reinterpret_cast<PacketAbility*>(pkt);
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
 		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
+		PacketPing* packet_ping = reinterpret_cast<PacketPing*>(pkt);
 
 		if (!pkt)
 		{
@@ -1043,6 +1044,52 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			}
 		}
 			break;
+
+		case 0x73:
+		{
+			CUnit* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_ping->field_0xa, ct) == 0)
+			{
+				if (g_EnableTrace)
+				{
+					sprintf(buf, "Invalid unit #%d. Command Take damage.", packet_ping->field_0xa);
+					msglog.Add(buf, clrsh_TechBlack, 5000);
+				}
+			}
+			else
+			{
+				if (field_0xabc && packet_ping->field_0xc < ct->hp)
+				{
+					bool not_me = ct->field_0x14 != my_main_unit;
+
+					int32_t a = ct->VMethod4();
+					int32_t dx = a * 16;
+
+					if (not_me)
+						dx = -dx;
+
+					TakeDamage::AddDamage(&damage_labels, TakeDamage(ct->hp - packet_ping->field_0xc, nullptr, not_me, dx, a * -48, ct) );
+				}
+				if (ct->hp == packet_ping->field_0xc)
+					ct->VMethod25(0);
+				else if (ct->hp > -10)
+				{
+					if (ct->hp < ct->hp_max / 2)
+						ct->VMethod25(2);
+					else
+						ct->VMethod25(1);
+				}
+
+				ct->hp = packet_ping->field_0xc;
+				if (field_0x138 == ct)
+				{
+					wnd->field_0xe0->MsgProc(0x408, 0, 0);
+					wnd->field_0xe4->MsgProc(0x408, 0, 0);
+				}
+				ct->field_0x114 = 1;
+			}
+		}
+			break;
 		
 		}
 
@@ -1050,4 +1097,111 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			return 1;
 	}
 	return 1;
+}
+
+
+
+
+
+
+TakeDamage::TakeDamage() = default; //45db60
+TakeDamage::TakeDamage(const TakeDamage& ref) = default;
+TakeDamage::~TakeDamage() = default; //45dd08
+
+TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct)
+{
+	//45db8a
+	dmg = _dmg;
+
+	txt.Format("%d", dmg);
+
+	field_0x18 = unk;
+	dx = _dx;
+	dy = _dy;
+	cunit = ct;
+
+	if (!clr)
+		color = g_colors_human_pals[ct->field_0x14->color];
+	else
+		color = clr;
+
+	timestamp = timeGetTime();
+
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	field_0x20 = wnd->field_0x41c;
+}
+
+
+
+void TakeDamage::Update()
+{
+	//45dd1b
+	if (field_0x18 == 0)
+	{
+		dx += 1;
+		dy -= 2;
+	}
+	else
+	{
+		dx -= 1;
+		dy -= 2;
+	}
+}
+
+int TakeDamage::Draw()
+{
+	//45dd6d
+	uint32_t t = timeGetTime();
+	if (t - timestamp > 1000)
+		return 0;
+
+	if (cunit->field_0x7c == 0)
+		g_font2->DrawTextWithShadow(cunit->screen_x + dx, cunit->screen_y + dy - cunit->field_0x6c, txt, 0, color, 1);
+	return 1;
+}
+
+
+void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg)
+{
+	//45dea1
+
+	for (int i = 0; i < arr->GetSize(); i++)
+	{
+		TakeDamage& b = arr->ElementAt(i);
+		if (b.cunit == dmg.cunit && b.field_0x20 == dmg.field_0x20)
+		{
+			b.dmg += dmg.dmg;
+			b.txt.Format("%d", b.dmg);
+			return;
+		}
+	}
+
+	arr->Add(dmg);
+}
+
+void __cdecl TakeDamage::DrawDamages(CArray<TakeDamage>* arr)
+{
+	//45ddf6
+	if (arr->GetSize() == 0)
+		return;
+
+	LockSurface2();
+	for (int i = 0; i < arr->GetSize(); i++)
+	{
+		if (arr->ElementAt(i).Draw() == 0)
+		{
+			arr->RemoveAt(i);
+			i--;
+		}
+	}
+	UnlockSurface2();
+}
+
+void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr)
+{
+	//45de65
+	for (int i = 0; i < arr->GetSize(); i++)
+	{
+		arr->ElementAt(i).Update();
+	}
 }

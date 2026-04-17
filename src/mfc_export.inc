@@ -1580,6 +1580,14 @@ extern ?Draw@GM_a28@@QAEXXZ  :proc
 extern ?SetRect@GM_a28@@QAEXABVCRect@@@Z  :proc
 extern ?Update@GM_a28@@QAEXXZ  :proc
 
+;TakeDamage
+extern ?AddDamage@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@ABU1@@Z  :proc
+extern ?UpdateDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z : proc
+extern ?DrawDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z  : proc
+extern ??1TakeDamage@@QAE@XZ : proc
+extern ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z : proc
+extern ??0TakeDamage@@QAE@XZ : proc
+
 ;BigStruct2
 externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
 externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
@@ -1683,6 +1691,8 @@ extern ?clrsh_CharlieBrown@@3PAGA  :word
 extern ?clrsh_LuxorGold@@3PAGA : word
 
 extern ?g_isLowMemory@@3IA : dword
+
+extern ?g_colors_human_pals@@3PAY0BA@GA : word
 
 
 ;CBmp64

@@ -700,14 +700,26 @@ ASSERT_SIZE(VisCharSellectStats, 0xd0);
 struct TakeDamage
 {
 	CString txt;
-	int32_t dmg;
-	uint16_t* color;
-	int32_t dx;
-	int32_t dy;
-	uint32_t timestamp;
-	int32_t field_0x18;
-	CUnit* cunit;
-	int32_t field_0x20;
+	int32_t dmg = 0;
+	uint16_t* color = nullptr;
+	int32_t dx = 0;
+	int32_t dy = 0;
+	uint32_t timestamp = 0;
+	int32_t field_0x18 = 1;
+	CUnit* cunit = nullptr;
+	int32_t field_0x20 = 0;
+
+	TakeDamage(); //45db60
+	TakeDamage(int32_t dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct); //45db8a
+	TakeDamage(const TakeDamage& ref);
+	~TakeDamage(); //45dd08
+
+	void Update(); //45dd1b
+	int Draw(); //45dd6d
+
+	static void __cdecl AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg); //45dea1
+	static void __cdecl DrawDamages(CArray<TakeDamage>* arr); //45ddf6
+	static void __cdecl UpdateDamages(CArray<TakeDamage>* arr); //45de65
 };
 ASSERT_SIZE(TakeDamage, 0x24);
 
@@ -772,8 +784,16 @@ public:
 	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa08; //unk type
 	int32_t field_0xa24; //unk type
 	GM_a28 msglog;
+	int32_t field_0xa88;
+	int32_t field_0xa8c;
+	int32_t field_0xa90;
+	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa94; //unk type
+	int32_t field_0xab0;
+	int32_t field_0xab4;
+	int32_t field_0xab8;
+	int32_t field_0xabc;
 
-	uint8_t _unk2[0x34cc];
+	uint8_t _unk2[0x3494];
 
 	CArray<TakeDamage> damage_labels;
 	CBmp256* field_0x3f54;

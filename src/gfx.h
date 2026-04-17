@@ -42,6 +42,8 @@ extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8
 extern uint16_t clrsh_LuxorGold[16]; //65e848
 
+extern uint16_t g_colors_human_pals[16][16]; //65e230
+
 extern uint16_t* g_brightnessLookup; //65dd20
 extern uint32_t g_brightnessLookupCount; //659bf0
 

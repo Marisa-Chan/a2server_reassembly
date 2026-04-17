@@ -32,6 +32,9 @@ uint16_t* p_clrsh_Black = clrsh_TechBlack; //62e584
 uint16_t* p_clrsh_Gold = clrsh_DullGold; //62e58c
 uint16_t* p_clrsh_ShockingBlack = clrsh_ShockingBlack; //62e588
 
+
+uint16_t g_colors_human_pals[16][16]; //65e230
+
 uint16_t* g_brightnessLookup = nullptr; //65dd20
 uint32_t g_brightnessLookupCount = 0; //659bf0
 
