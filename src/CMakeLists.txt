@@ -82,6 +82,12 @@ endforeach()
 
 target_compile_definitions(a2client_vsc PRIVATE A2CLIENT)
 
+# Additional definitions for the server build:
+# A2SERVER_PATCH: Enables various crash fixes.
+# A2SERVER_TANGAR_HAT: Enables the Tangar's hat balance changes (requires A2SERVER_PATCH).
+
+target_compile_definitions(a2serv_vsc PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
+
 set(A2_LINK_LIBS
     kernel32.lib
     shell32.lib

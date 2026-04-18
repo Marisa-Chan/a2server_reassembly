@@ -477,7 +477,9 @@ void MainWindow::sub_48A756()
         
         g_mousept.Update();
     } catch (...) {
+        #ifdef A2SERVER_PATCH
         _exit(-1);
+        #endif
     }
 }
 
