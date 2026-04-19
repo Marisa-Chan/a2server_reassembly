@@ -1636,6 +1636,7 @@ externdef ?g_font2@@3PAVCGameFont@@A : dword
 
 ; Free functions
 
+externdef ?sub_4954EA@@YAXXZ :proc
 externdef _sub_5049D1 :proc
 externdef _sub_536630 :proc   ; start attack?
 externdef _sub_53678F :proc   ; execute attack?

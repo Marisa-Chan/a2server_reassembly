@@ -63,7 +63,11 @@ set(A2_SOURCES
   res/a2server.rc
 )
 
-add_executable(a2serv_vsc ${A2_SOURCES})
+set(A2SERVER_SOURCES
+  patch/kick_char.cpp
+)
+
+add_executable(a2serv_vsc ${A2_SOURCES} ${A2SERVER_SOURCES})
 add_executable(a2client_vsc ${A2_SOURCES})
 
 set(A2_COMPILE_DEFS

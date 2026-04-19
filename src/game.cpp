@@ -11,6 +11,10 @@
 #include "unit.h"
 #include "util.h"
 
+#ifdef A2SERVER_PATCH
+#include "patch/kick_char.h"
+#endif
+
 void sub_4954EA()
 {
     if (g_Server == nullptr) {
@@ -46,8 +50,8 @@ void sub_4954EA()
 
     LogMessage("Player " + player->name + " kicked from server");
 
-    uint16_t player_id = player->player_id;
-    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player_id);
+#ifndef A2SERVER_PATCH
+    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     if (node == nullptr) {
         return;
     }
@@ -59,4 +63,7 @@ void sub_4954EA()
     player->field_0xa50 = g_Server->tick16 - 1;
 
     g_PlayersList->sub_534DDD();
+#else
+    KickPlayer(player);
+#endif
 }

@@ -921,7 +921,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     g_PlayersList->sub_5357C6(player);
 
     // Notify existing players (send join packets).
-    sub_4EE028(unit);
+    this->sub_4EE028(unit);
 
     // Clear state fields.
     player->building_entered_from_yx = 0;
