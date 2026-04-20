@@ -723,8 +723,14 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 {
     Player* player = nullptr;
 
+    #ifdef A2SERVER_PATCH
+    const int max_players = g_ServerConfig.field_0x9c;
+    #else
+    const int max_players = 16;
+    #endif
+
     // 1. Server full?
-    if (g_PlayersList->CountHumanPlayers() >= 16) {
+    if (g_PlayersList->CountHumanPlayers() >= max_players) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Server full)");
 
         // ASM also checks `if (player != 0) {delete player}`, but player is always null at this point, so we skip that.
