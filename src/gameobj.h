@@ -21,10 +21,14 @@ public:
 	virtual ~GO_d0();
 
 	GO_d0();
+	GO_d0(int arg); //439009
 	GO_d0(const GO_d0* obj);
-	GO_d0(const uint8_t** data, int arg);
+	GO_d0(uint8_t** data, int arg);
 
 	void operator=(const GO_d0& obj);
+
+	CString FUN_004394f3(); //4394f3
+	int FUN_004396d6(); //4396d6
 public:
 	uint16_t field_0x4 = 0;
 	uint16_t item_id = 0;
@@ -197,7 +201,7 @@ public:
 
 	void FUN_0046b0d7(const Unit& uni);
 	void FUN_0046b7d2(int32_t _face);
-	void FUN_0046b91c();
+	void FUN_0046b91c(); //46b91c
 
 public:
 	uint8_t body;
@@ -223,7 +227,7 @@ public:
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
 	uint8_t field_0x180[8];
-	uint8_t field_0x188[48];
+	GO_d0* field_0x188[12];
 	int32_t field_0x1b8;
 	int32_t field_0x1bc;
 	CSprite256* field_0x1c0;

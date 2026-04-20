@@ -1193,6 +1193,8 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 ;SomeMainStructure
 externdef ?FUN_004946e0@SomeMainStructure@@QAEXXZ  : proc
 externdef ?FUN_004946ae@SomeMainStructure@@QAEXXZ  : proc
+externdef ?FUN_00420070@SomeMainStructure@@QAE?AVCString@@XZ : proc
+
 
 
 ; MainWindow
@@ -1601,6 +1603,10 @@ externdef ?INT_00660f90@@3HA  :dword
 
 ;GO_d0
 externdef ?FUN_0041f0d0@GO_d0@@QAEHXZ   : proc
+externdef ??0GO_d0@@QAE@PAPAEH@Z  :proc
+externdef ??0GO_d0@@QAE@H@Z : proc
+externdef ?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ  :proc
+externdef ?FUN_004396d6@GO_d0@@QAEHXZ  :proc
 
 
 
@@ -1763,10 +1769,13 @@ extern ?EnableHint@CMousePointer@@QAEXXZ : proc
 
 extern ?LoadCursors@@YAXXZ  : proc
 extern ?DeleteCursors@@YAXXZ : proc
+extern ?ApplyCursor@@YAHPAVCCursor@@@Z : proc
 extern ?g_Cursors@@3PAPAVCCursor@@A : dword
+
 
 extern ??0CCursor@@QAE@PBDHHH@Z :proc
 extern ?Use@CCursor@@QAEXXZ : proc
+extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 
 

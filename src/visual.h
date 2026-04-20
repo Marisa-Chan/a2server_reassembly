@@ -19,6 +19,8 @@ class BigStruct2;
 class VisCharSellectStats;
 class VisCharSellectButtons;
 class VisCharSellectList;
+class Item;
+class QuestMap;
 
 class CUnit;
 
@@ -774,8 +776,10 @@ public:
 	uint8_t _unk1[0xb4];
 
 	CUnit* field_0x138;
+	int32_t field_0x13c; //unk type
+	int32_t field_0x140;
 
-	uint8_t _unk1_1[0x87c];
+	uint8_t _unk1_1[0x874];
 
 	CArray<MapPlayerData*> field_0x9b8;
 	MapPlayerData* my_main_unit;
@@ -799,7 +803,14 @@ public:
 	CBmp256* field_0x3f54;
 	CUnit* field_0x3f6c;
 
-	uint8_t _unk3[0xA58];
+	uint8_t _unk3[0xA04];
+
+	CArray<Item*> field_0x4974;
+	Item* field_0x4988[12];
+	int32_t field_0x49b8; //unk type
+	int32_t field_0x49bc; //unk type
+	int32_t field_0x49c0; //unk type
+	int32_t field_0x49c4; //unk type
 };
 
 ASSERT_OFFSET(BigStruct2, field_0x80, 0x80);
@@ -810,11 +821,253 @@ ASSERT_SIZE(BigStruct2, 0x49c8);
 
 
 
+//60c9b0
+class VisInvBase : public CVisualObject
+{
+public:
+	virtual ~VisInvBase();
+
+	virtual const char* GetHint() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+
+	virtual int32_t VMethod26(GO_d0* o, int32_t idx); //4a554f
+	virtual int32_t VMethod27(GO_d0* o); //4a56c3
+	virtual GO_d0* VMethod28(uint32_t id); //4a57a1
+	virtual GO_d0* VMethod29(GO_d0* o, int32_t num); //4a58dc
+	virtual int32_t VMethod30(int32_t x, int32_t y); //4a79a0
+	virtual int32_t VMethod31(const CPoint* pt); //4a7990
+	virtual void VMethod32(CArray<GO_d0*>* arr); //4a4da9
+	virtual void VMethod33(CUnit* uni); //4a4d05
+	virtual void VMethod34(); //4a4e28
+	virtual void VMethod35(); //4a4c2f
+	virtual GO_d0* VMethod36(int32_t idx, int32_t num); //4a5aae
+	virtual int32_t VMethod37(int32_t idx); //4a5c39
+	virtual int32_t VMethod38(); //4a79b0
+
+public:
+	CArray<CSprite256*> field_0x5c;
+	CDWordArray field_0x70;
+	CArray<GO_d0*>* unit_d0;
+	int32_t field_0x88;
+	int32_t field_0x8c;
+	int32_t* unit_e4;
+	int32_t field_0x94[1024];
+	int32_t field_0x1094[1024];
+	CDWordArray field_0x2094;
+	int32_t field_0x20a8;
+};
+ASSERT_SIZE(VisInvBase, 0x20ac);
+
+//60ca60
+class VisInvType1 : public VisInvBase
+{
+public:
+	virtual ~VisInvType1();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
+	virtual int32_t VMethod27(GO_d0* o) override;
+	virtual int32_t VMethod30(int32_t x, int32_t y) override;
+	virtual int32_t VMethod38() override;
+
+public:
+};
+ASSERT_SIZE(VisInvType1, 0x20ac);
+
+//60d0e8
+class VisInvExtBase : public VisInvBase
+{
+public:
+	virtual ~VisInvExtBase();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t VMethod30(int32_t x, int32_t y) override;
+	virtual int32_t VMethod31(const CPoint* pt) override;
+	virtual void VMethod32(CArray<GO_d0*>* arr) override;
+	virtual int32_t VMethod38() override;
+
+	virtual void VMethod39();
+	virtual void VMethod40(CArray<GO_d0*>* arr);
+	virtual void VMethod41();
+	virtual void VMethod42();
+
+public:
+	int32_t field_0x20ac; //unk type
+	CSound field_0x20b0;
+	CSound field_0x20b4;
+	CSound field_0x20b8;
+	CSound field_0x20bc;
+	int32_t field_0x20c0; //unk type
+	CRect* field_0x20c4;
+};
+ASSERT_SIZE(VisInvExtBase, 0x20c8);
+
+//60d1a8
+class VisInvExtType1 : public VisInvExtBase
+{
+public:
+	virtual ~VisInvExtType1();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
+	virtual GO_d0* VMethod29(GO_d0* o, int32_t num) override;
+
+	virtual int32_t VMethod37(int32_t idx) override;
+	virtual int32_t VMethod38() override;
+	virtual void VMethod39() override;
+
+	virtual void VMethod41() override;
+	virtual void VMethod42() override;
+
+public:
+	int32_t field_0x20c8; //unk type
+	CRect field_0x20cc;
+	CRect field_0x20dc;
+	CBmp64* arrow1;
+	CBmp64* arrow3;
+	CBmp64* arrow2;
+	CBmp64* arrow4;
+	CBmp64* shop_inv;
+	CArray<GO_d0*> field_0x2100[4];
+};
+ASSERT_SIZE(VisInvExtType1, 0x2150);
 
 
+//60d268
+class VisInvExtType2 : public VisInvExtBase
+{
+public:
+	virtual ~VisInvExtType2();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
+	virtual int32_t VMethod27(GO_d0* o) override;
+
+	virtual int32_t VMethod38() override;
+	virtual void VMethod39() override;
+public:
+	int32_t field_0x20c8; //unk type
+	CRect field_0x20cc;
+	CRect field_0x20dc;
+};
+ASSERT_SIZE(VisInvExtType2, 0x20ec);
 
 
+//60d328
+class VisInvExtType3 : public VisInvExtBase
+{
+public:
+	virtual ~VisInvExtType3();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+
+	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
+	virtual int32_t VMethod27(GO_d0* o) override;
+
+	virtual GO_d0* VMethod36(int32_t idx, int32_t num) override;
+	virtual int32_t VMethod37(int32_t idx) override;
+	virtual int32_t VMethod38() override;
+	virtual void VMethod39() override;
+
+	virtual void VMethod41() override;
+	virtual void VMethod42() override;
+
+	virtual GO_d0* VMethod43(int32_t id1, int32_t id2);
+public:
+	int32_t field_0x20c8; //unk type
+	CRect field_0x20cc;
+	CRect field_0x20dc;
+	CBmp64* shoptable;
+	int32_t field_0x20f0; //unk type
+	CArray<GO_d0*> field_0x20f4;
+};
+ASSERT_SIZE(VisInvExtType3, 0x2108);
 
 
+//60c6d8
+class VisTav : public VisScreen
+{
+public:
+	virtual ~VisTav();
+
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
+	virtual void VMethod30();
+	virtual void VMethod31();
+
+public:
+	BigStruct2* p_bigstru2;
+	CVisualObject* field_0x6c;
+	CVisualObject* tav_44d;
+	CVisualObject* tav_44e;
+	int32_t field_0x78; //unk type
+	CVisualObject* tav_450;
+	int32_t field_0x80; //unk type
+	CSound sounds[13];
+	int32_t field_0xb8; //unk type
+	int32_t field_0xbc; //unk type
+	CArray <CUnit*> field_0xc0;
+	CArray <CUnit*> field_0xd4;
+	CArray <CUnit*> field_0xe8;
+	CDWordArray field_0xfc;
+	int32_t field_0x110; //unk type
+	QuestMap* quest_map;
+	int32_t quest_id;
+	int32_t field_0x11c; //unk type
+	int32_t field_0x120; //unk type
+	CArray<GO_d0*> field_0x124;
+	int32_t field_0x138; //unk type
+	int32_t field_0x13c; //unk type
+};
+ASSERT_SIZE(VisTav, 0x140);
 
 #endif

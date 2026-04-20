@@ -3,7 +3,7 @@
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "visual.h"
-
+#include "mouse.h"
 
 extern int32_t g_LButtonDown; //660f4c
 
@@ -132,6 +132,8 @@ public:
     void FUN_004946e0(); //4946e0
     void FUN_004946ae(); //4946ae
 
+    CString FUN_00420070(); //420070
+
 public:
     int32_t field_0x4;
     int32_t field_0x8;
@@ -205,6 +207,8 @@ public:
 
     void ModalScreen(VisScreen* scr);
 
+    void ResetItemCursor(); //48cd44
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -217,7 +221,7 @@ public:
     CVisualObject* field_0xdc;
     CVisualObject* field_0xe0;
     CVisualObject* field_0xe4;
-    CVisualObject* field_0xe8;
+    VisInvType1* field_0xe8;
     CVisualObject* field_0xec;
     CVisualObject* field_0xf0;
     VisScreen* field_0xf4;
@@ -290,10 +294,12 @@ public:
     int32_t field_0x3fc;
     int32_t field_0x400;
     int32_t field_0x404;
-    int32_t field_0x408;
+
+    GO_d0* field_0x408;
     int32_t field_0x40c;
     int32_t field_0x410;
-    int32_t field_0x414;
+    CCursor* item_cursor;
+
     int32_t field_0x418;
     int32_t field_0x41c;
     int32_t game_tic_counter;

@@ -669,3 +669,16 @@ void DeleteCursors()
     for (int i = 0; i < 28; i++)
         delete g_Cursors[i];
 }
+
+int __cdecl ApplyCursor(CCursor* cur)
+{
+    //4750d0
+    if (!cur)
+        return 0;
+
+    if (g_mousept.GetCursorSprite() == cur->GetSprite())
+        return 0;
+    
+    cur->Use();
+    return 1;
+}

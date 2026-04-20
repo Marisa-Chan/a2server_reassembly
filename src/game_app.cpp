@@ -4,10 +4,7 @@
 #include "resource.h"
 #include "file.h"
 #include "table.h"
-
-extern "C" CMapWordToPtr unk_660D28;
-extern "C" CMapWordToPtr unk_660DA8;
-extern "C" void* dword_65FBB8; // Area for item names.
+#include "item.h"
 
 GameApp GameApp::theApp;
 
@@ -103,38 +100,6 @@ void ReadFileToString(const char* fname, CString* str)
 	free(buf);
 }
 
-// 475988
-void LoadItemNames() {
-	File2 f;
-	f.Open("world\\data\\itemname.bin", 0);
-	uint32_t len = f.GetLength();
-	int32_t count = len / sizeof(uint16_t);
-	uint16_t* data = (uint16_t*)malloc(count * sizeof(uint16_t));
-	f.Read(data, count * sizeof(uint16_t));
-	f.Close();
-
-	for (int32_t i = 0; i < count; i++) {
-		unk_660DA8[data[i]] = txt_itemname.GetLine(i);
-	}
-	free(data);
-
-	f.Open("world\\data\\itemname.pkt", 0);
-	uint32_t pktSize = f.GetLength();
-	dword_65FBB8 = malloc(pktSize);
-	f.Read(dword_65FBB8, pktSize);
-	f.Close();
-
-	ItemNamePktEntry* entry = (ItemNamePktEntry*)((uint8_t*)dword_65FBB8 + 9);
-	for (int32_t i = 0; i < count; i++) {
-		uint16_t id = entry->id;
-		if ((id & 0xF00) == 0xE00) {
-			MagicItem* magic_item = &g_GameDataRes.magic_items[id & 0xFF];
-			*(int32_t*)&entry->data[1] = magic_item->values[0].shape; // Maybe `data` is actually `int32_t`?
-		}
-		unk_660D28[id] = entry;
-		entry = (ItemNamePktEntry*)((uint8_t*)entry + entry->data_len + 7);
-	}
-}
 
 int32_t GetRandS16(int32_t range)
 {

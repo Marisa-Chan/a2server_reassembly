@@ -1,6 +1,7 @@
+#include "ingame.h"
+#include "asm_mfc.h"
 #include "visual.h"
 #include "gameobj.h"
-#include "ingame.h"
 #include "net.h"
 #include "packet.h"
 #include "main_window.h"
@@ -8,6 +9,9 @@
 #include "gfx.h"
 #include "game_app.h"
 #include "unit.h"
+#include "mouse.h"
+#include "item.h"
+#include "player_file.h"
 
 
 uint16_t* clr_log_tblack = clrsh_TechBlack; //62f890
@@ -215,6 +219,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		PacketUnitUpdate* packet_unit = reinterpret_cast<PacketUnitUpdate*>(pkt);
 		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
 		PacketPing* packet_ping = reinterpret_cast<PacketPing*>(pkt);
+		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
 
 		if (!pkt)
 		{
@@ -1091,6 +1096,327 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		}
 			break;
 		
+
+		case 0x76:
+		{
+			if (wnd->field_0x408 && packet_state->field_0xc == wnd->field_0x410)
+			{
+				g_Cursors[CURSOR_DEFAULT]->Use();
+				if (wnd->field_0x408)
+					delete wnd->field_0x408;
+				wnd->ResetItemCursor();
+			}
+			CUnit* ct = nullptr;
+			switch (packet_state->field_0xc & 0x7f)
+			{
+			case 1:
+				if (field_0x9d0.Lookup(packet_state->field_0xa, ct) != 0)
+				{
+					uint8_t *pdata = packet_state->data;
+					for (int i = 0; i < 12; i++)
+					{
+						if ((packet_state->field_0xf & (1 << i)) != 0)
+						{
+							if (ct->field_0x188[i])
+								delete ct->field_0x188[i];
+
+							GO_d0* itm = new GO_d0(&pdata, 0);
+							if (itm->item_id == 0)
+							{
+								delete itm;
+								ct->field_0x188[i] = nullptr;
+							}
+							else 
+							{
+								itm->field_0x18 = 1;
+								ct->field_0x188[i] = itm;
+
+								if (g_EnableTrace)
+								{
+									CString logstr = "Invalid item weared " + ct->field_0x188[i]->FUN_004394f3();
+
+									if (ct->field_0x188[i]->FUN_004396d6() == 0 && g_EnableTrace != 0)
+									{
+										CStdioFile f;
+										f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+										f.SeekToEnd();
+										f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
+										f.Close();
+										wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+									}
+								}
+							}
+						}
+					}
+
+					ct->field_0x1b8 |= 8;
+
+					if ((wnd->field_0x418 & 2) != 0)
+						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+
+					ct->FUN_0046b91c();
+
+					ct->field_0x114 = 1;
+
+					if ((ct->field_0x1b8 & 0x2U) != 0 && wnd->field_0x640 != 2)
+					{
+						uint8_t* pdata = packet_state->data;
+						for (int i = 0; i < 12; i++)
+						{
+							if ((packet_state->field_0xf & (1 << i)) != 0)
+							{
+								if (field_0x4988[i])
+									delete field_0x4988[i];
+
+								field_0x4988[i] = sub_4F499B(&pdata);
+							}
+						}
+
+						packet_state->data_size = 0;
+
+						for (int i = 0; i < 12; i++)
+						{
+							if (!field_0x4988[i])
+							{
+								Item item;
+								item.StoreToPacket(packet_state, 0);
+							}
+							else
+								field_0x4988[i]->StoreToPacket(packet_state, 0);
+						}
+
+						CString fname = wnd->some_struc.FUN_00420070();
+						WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+					}
+				}
+				break;
+
+			case 2:
+			{
+				if (field_0x9d0.Lookup(packet_state->field_0xa, ct) != 0)
+				{
+					if ((packet_state->field_0xc & 0x80) == 0)
+					{
+						ct->field_0xd0.RemoveAll();
+					}
+					else
+					{
+						int num = ct->field_0xd0.GetSize();
+
+						if ((ct->field_0x1b8 & 0x20) != 0)
+							num--;
+
+						if (num <= packet_state->field_0xf)
+						{
+							if (g_EnableTrace)
+							{
+								CString logstr = "Invalid inventory update! all items ignored.";
+
+								CStdioFile f;
+								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+								f.SeekToEnd();
+								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
+								f.Close();
+								wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							}
+							break;
+						}
+
+						if (num < (packet_state->field_0xf + packet_state->entry_count))
+						{
+							if (g_EnableTrace)
+							{
+								CString logstr = "Invalid inventory update! some items ignored.";
+
+								CStdioFile f;
+								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+								f.SeekToEnd();
+								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
+								f.Close();
+								wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							}
+							packet_state->entry_count = num - packet_state->field_0xf;
+						}
+
+						for (int i = 0; i < packet_state->entry_count; i++)
+						{
+							if ((i + packet_state->field_0xf) < ct->field_0xd0.GetSize())
+							{
+								GO_d0* o = ct->field_0xd0[i + packet_state->field_0xf];
+								if (o)
+								{
+									delete o;
+									ct->field_0xd0[i + packet_state->field_0xf] = nullptr;
+								}
+							}
+						}
+
+						ct->field_0xd0.RemoveAt(packet_state->field_0xf, packet_state->entry_count);
+
+						if ((ct->field_0x1b8 & 0x20) != 0)
+							ct->field_0xd0.RemoveAt(ct->field_0xd0.GetUpperBound());
+					}
+
+					uint8_t* pdata = packet_state->data;
+					for (int i = 0; i < packet_state->entry_count; i++)
+					{
+						GO_d0* obj = new GO_d0(&pdata, 0);
+						obj->field_0x18 = 2;
+
+						if (obj->FUN_004396d6())
+							ct->field_0xd0.InsertAt(i + packet_state->field_0xf, obj, 1);
+
+						if (g_EnableTrace)
+						{
+							CString logstr = "Invalid item in inventory " + obj->FUN_004394f3();
+
+							CStdioFile f;
+							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+							f.SeekToEnd();
+							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
+							f.Close();
+							wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+						}
+						
+						if ((obj->flg & 0x40) != 0)
+						{
+							obj->flg = obj->flg & 0xbf;
+
+							char* itmname = nullptr;
+							unk_660DA8.Lookup(obj->item_id, *(void **)&itmname);
+
+							if (obj->field_0x10 < 2)
+								sprintf(buf, "%s %s", TxtFile::AllLines.GetAt(85), itmname);
+							else
+								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines.GetAt(85), itmname, TxtFile::AllLines.GetAt(86), obj->field_0x10, TxtFile::AllLines.GetAt(87));
+							msglog.Add(buf, clr_log_tblack, 3000);
+						}
+					}
+
+					if ((ct->field_0x1b8 & 0x20) != 0)
+					{
+						if (wnd->field_0x640 != 2)
+						{
+							uint8_t *pdata = packet_state->data;
+							for (int i = 0; i < packet_state->entry_count; i++)
+							{								
+								if (i + packet_state->field_0xf < field_0x4974.GetSize())
+								{
+									Item* itm = field_0x4974[i + packet_state->field_0xf];
+									if (itm)
+										delete itm;
+								}
+
+								Item * itm = sub_4F499B(&pdata);
+								field_0x4974.SetAtGrow(i + packet_state->field_0xf, itm);
+							}
+
+							if ((packet_state->field_0xc & 0x80) == 0)
+								field_0x4974.SetSize(packet_state->entry_count);
+							
+							packet_state->data_size = 0;
+
+							for (int i = 0; i < field_0x4974.GetSize(); i++)
+								field_0x4974[i]->StoreToPacket(packet_state, 0);
+
+
+							CString fname = wnd->some_struc.FUN_00420070();
+							WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+						}
+
+						GO_d0* gt = new GO_d0(0);
+						gt->item_id = 0xffff;
+						gt->field_0x10 = my_main_unit->gold;
+						gt->flg = 0;
+						gt->field_0x9 = 0;
+						gt->field_0x18 = 2;
+						ct->field_0xd0.Add(gt);
+					}
+
+					FUN_00416cf7();
+
+					if (wnd->field_0x418 & 2)
+						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+					else
+					{
+						if (field_0x140 == 1 && field_0x138 == ct)
+							wnd->field_0xe8->VMethod33(ct);
+					}
+					
+				}
+			}
+				break;
+
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			{
+				CArray<GO_d0*> tmp;
+
+				uint8_t* pdata = packet_state->data;
+
+				for (int i = 0; i < packet_state->entry_count; i++)
+				{
+					GO_d0* d0 = nullptr;
+					if ((packet_state->field_0xc & 0x7f) == 4)
+						d0 = new GO_d0(&pdata, 1);
+					else
+						d0 = new GO_d0(&pdata, 0);
+					
+					if (d0->FUN_004396d6())
+						tmp.Add(d0);
+					else
+					{
+						if (g_EnableTrace)
+						{
+							CString logstr = "Invalid item in shop " + d0->FUN_004394f3();
+
+							CStdioFile f;
+							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+							f.SeekToEnd();
+							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
+							f.Close();
+							wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+						}
+					}
+				}
+
+				if ((wnd->field_0x418 & 2) == 0)
+				{
+					for (int i = 0; i < tmp.GetSize(); i++)
+					{
+						if (tmp[i])
+							delete tmp[i];
+					}
+					tmp.RemoveAll();
+				}
+				else
+					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+			}
+				break;
+
+			case 9:
+			{
+				if ((wnd->field_0x418 & 4) != 0)
+				{
+					VisTav* tavern = (VisTav*) wnd->vis_root->FindChild(0x44c);
+					uint8_t* pdata = packet_state->data;
+					for (int i = 0; i < packet_state->entry_count; i++)
+					{
+						GO_d0* d0 = new GO_d0(&pdata, 0);
+						if (d0->FUN_004396d6() || d0->item_id > 0xfff0)
+							tavern->field_0x124.Add(d0);
+						//WAT ?  else - delete ???
+					}
+				}
+			}
+				break;
+			}
+		}
+			break;
+
 		}
 
 		if (pkt->id == breakid)

@@ -57,7 +57,6 @@ int32_t ParseConfig(const char* fname); //4f7188
 int32_t InitVideo(); //453fcc
 int32_t SetVideoMode(); //4546c6
 void ParseTunes(); //476b21
-void LoadItemNames(); //475988
 void LoadFonts();  //460c37
 void LoadSettings(); //441a03
 void PrecomputeExperienceLevelsTable(); //53069e

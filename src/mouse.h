@@ -121,6 +121,8 @@ public:
 	CCursor(const char* fname, int32_t xof, int32_t yof, int32_t delay); //47ce66
 
 	void Use(); //47d025
+
+	CSprite256* GetSprite() const { return sprite; }; //41f8d0
 public:
 	CSprite256* sprite = nullptr;
 	int32_t x_off = 0;
@@ -133,3 +135,4 @@ ASSERT_SIZE(CCursor, 0x18);
 
 void LoadCursors(); //47d05d
 void DeleteCursors(); //47daf0
+int __cdecl ApplyCursor(CCursor* cur); //4750d0

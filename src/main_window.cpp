@@ -614,3 +614,19 @@ int32_t SomeMainStructure::GetStringArray1Size()
     //438d10
     return string_array1.GetSize();
 }
+
+
+void MainWindow::ResetItemCursor()
+{
+    //48cd44
+    if (!field_0x408)
+        return;
+
+    if (item_cursor)
+        delete item_cursor;
+
+    item_cursor = nullptr;
+    field_0x408 = nullptr;
+    field_0x40c = -1;
+    field_0x410 = -1;
+}
