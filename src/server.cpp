@@ -831,7 +831,12 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         std::memcpy(&player->hat_player_id, pkt + 0x0C, 8);
 
         player->name = name;
+
+        #ifdef A2SERVER_TANGAR_HAT
+        player->money = 0;
+        #else
         player->money = 1000;
+        #endif
 
         delete[] Block;
         Block = nullptr;
