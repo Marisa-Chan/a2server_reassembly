@@ -64,12 +64,12 @@ void __cdecl sub_43A857(const char* source) {
 	PostMessageA(g_MainWndHWND, 0x472, (WPARAM)buf, 0);
 
 	// Append to log file if configured.
-	if (g_ServerConfig.field_0xc.IsEmpty()) {
+	if (g_ServerConfig.log_file.IsEmpty()) {
 		return;
 	}
 
 	CStdioFile file;
-	if (!file.Open(g_ServerConfig.field_0xc, CFile::modeWrite | CFile::modeCreate | CFile::modeNoTruncate)) {
+	if (!file.Open(g_ServerConfig.log_file, CFile::modeWrite | CFile::modeCreate | CFile::modeNoTruncate)) {
 		return;
 	}
 	file.SeekToEnd();
@@ -181,14 +181,14 @@ int32_t ParseConfig(const char* fname) // 4f7188
 			if (lowered.Find("repopdelay") == 0 && section_name == "settings") {
 				if (int_value < 20) { int_value = 20; }
 				if (int_value > 500) { int_value = 500; }
-				g_ServerConfig.field_0x0 = int_value;
+				g_ServerConfig.repop_delay = int_value;
 			} else if (lowered.Find("logintimeout") == 0 && section_name == "settings") {
 				if (int_value < 10) { int_value = 10; }
 				if (int_value > 300) { int_value = 300; }
-				g_ServerConfig.field_0xa0 = int_value;
+				g_ServerConfig.login_timeout = int_value;
 			} else if (lowered.Find("reconnectdelay") == 0 && section_name == "settings") {
 				if (int_value < 1) { int_value = 1; }
-				g_ServerConfig.field_0xa4 = int_value;
+				g_ServerConfig.reconnect_delay = int_value;
 			} else if (lowered.Find("protocol") == 0 && section_name == "settings") {
 				// Protocol setting is read but ignored.
 			} else if (lowered.Find("gametype") == 0 && section_name == "settings") {
@@ -205,9 +205,9 @@ int32_t ParseConfig(const char* fname) // 4f7188
 				}
 			} else if (lowered.Find("gamespeed") == 0 && section_name == "settings") {
 				if (int_value < 0 || int_value > 8) { int_value = 4; }
-				g_ServerConfig.field_0x8 = int_value;
+				g_ServerConfig.game_speed = int_value;
 			} else if (lowered.Find("logfile") == 0 && section_name == "settings") {
-				g_ServerConfig.field_0xc = value_lowered;
+				g_ServerConfig.log_file = value_lowered;
 			} else if (lowered.Find("chrbase") == 0 && section_name == "settings") {
 				g_ServerConfig.chr_base = value_lowered;
 				int len = g_ServerConfig.chr_base.GetLength();
@@ -215,11 +215,11 @@ int32_t ParseConfig(const char* fname) // 4f7188
 					g_ServerConfig.chr_base += '\\';
 				}
 			} else if (lowered.Find("ipaddress2") == 0 && section_name == "settings") {
-				g_ServerConfig.field_0x14 = value_lowered;
+				g_ServerConfig.ip_address2 = value_lowered;
 			} else if (lowered.Find("ipaddress") == 0 && section_name == "settings") {
-				g_ServerConfig.field_0x10 = value_lowered;
+				g_ServerConfig.ip_address = value_lowered;
 			} else if (lowered.Find("hataddress") == 0 && section_name == "settings") {
-				g_ServerConfig.field_0x18 = value_lowered;
+				g_ServerConfig.hat_address = value_lowered;
 			} else if (lowered.Find("description") == 0 && section_name == "settings") {
 				g_ServerConfig.server_name.Empty();
 				for (int i = 0; i < value_original.GetLength(); i++) {
@@ -231,33 +231,33 @@ int32_t ParseConfig(const char* fname) // 4f7188
 					}
 				}
 			} else if (lowered.Find("serverid") == 0 && section_name == "settings") {
-				g_ServerConfig.field_0x24 = int_value;
+				g_ServerConfig.server_id = int_value;
 			} else if (lowered.Find("sayrange") == 0 && section_name == "settings") {
 				if (int_value < 1 || int_value > 255) { int_value = 255; }
 				g_ServerConfig.chat_range = int_value;
 			} else if (lowered.Find("shoutdelay") == 0 && section_name == "settings") {
 				if (int_value < 0) { int_value = 0; }
-				g_ServerConfig.field_0x90 = int_value;
+				g_ServerConfig.shout_delay = int_value;
 			} else if (lowered.Find("shutdowndelay") == 0 && section_name == "settings") {
 				if (int_value < 1 || int_value > 60) { int_value = 5; }
-				g_ServerConfig.field_0xb8 = int_value;
+				g_ServerConfig.shutdown_delay = int_value;
 			} else if (lowered.Find("maxplayers") == 0 && section_name == "settings") {
 				if (int_value < 1 || int_value > 16) { int_value = 16; }
-				g_ServerConfig.field_0x9c = int_value;
+				g_ServerConfig.max_players = int_value;
 			} else if (lowered.Find("fraglimit") == 0 && section_name == "settings") {
 				if (int_value < 1) { int_value = 0x7FFFFFFF; }
-				g_ServerConfig.field_0xac = int_value;
+				g_ServerConfig.frag_limit = int_value;
 			} else if (lowered.Find("arenatimelimit") == 0 && section_name == "settings") {
 				if (int_value < 1) { int_value = 0x7FFFFFFF; }
-				g_ServerConfig.field_0xc0 = int_value;
+				g_ServerConfig.arena_time_limit = int_value;
 			} else if (lowered.Find("flagscore") == 0 && section_name == "settings") {
 				if (int_value < 1) { int_value = 1; }
-				g_ServerConfig.field_0xb0 = int_value;
+				g_ServerConfig.flag_score = int_value;
 			} else if (lowered.Find("save") == 0 && section_name == "settings") {
 				if (value_lowered == "client") {
-					g_ServerConfig.field_0x98 = 0;
+					g_ServerConfig.save_is_server = 0;
 				} else if (value_lowered == "server") {
-					g_ServerConfig.field_0x98 = 1;
+					g_ServerConfig.save_is_server = 1;
 				} else {
 					return line_num;
 				}
@@ -271,16 +271,16 @@ int32_t ParseConfig(const char* fname) // 4f7188
 				}
 			} else if (lowered.Find("alwaysloadsacks") == 0 && section_name == "settings") {
 				if (value_lowered == "on") {
-					g_ServerConfig.field_0xbc = 1;
+					g_ServerConfig.always_load_sacks = 1;
 				} else if (value_lowered == "off") {
-					g_ServerConfig.field_0xbc = 0;
+					g_ServerConfig.always_load_sacks = 0;
 				} else {
 					return line_num;
 				}
 			} else if (lowered.Find("treasureprobability") == 0 && section_name == "settings") {
 				if (int_value < 1) { int_value = 0; }
 				if (int_value > 100) { int_value = 100; }
-				g_ServerConfig.field_0xc4 = int_value;
+				g_ServerConfig.treasure_probability = int_value;
 			} else {
 				return line_num;
 			}
@@ -289,7 +289,7 @@ int32_t ParseConfig(const char* fname) // 4f7188
 			if (section_name == "bannedips") {
 				lowered.TrimLeft();
 				lowered.TrimRight();
-				g_ServerConfig.field_0x28.SetAtGrow(g_ServerConfig.field_0x28.GetSize(), lowered);
+				g_ServerConfig.banned_ips.SetAtGrow(g_ServerConfig.banned_ips.GetSize(), lowered);
 			} else if (section_name == "bannedplayers") {
 				original_line.TrimLeft();
 				original_line.TrimRight();
@@ -297,7 +297,7 @@ int32_t ParseConfig(const char* fname) // 4f7188
 			} else if (section_name == "reporttowww") {
 				lowered.TrimLeft();
 				lowered.TrimRight();
-				g_ServerConfig.field_0x64.SetAtGrow(g_ServerConfig.field_0x64.GetSize(), lowered);
+				g_ServerConfig.report_to_www.SetAtGrow(g_ServerConfig.report_to_www.GetSize(), lowered);
 			} else {
 				lowered.TrimRight();
 				if (lowered.GetLength() != 0) {

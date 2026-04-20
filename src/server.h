@@ -237,36 +237,36 @@ ASSERT_SIZE(Server, 0x258);
 
 struct ServerConfig
 {
-    uint32_t field_0x0;
-    uint32_t field_0x4;
-    uint32_t field_0x8;
-    CString  field_0xc;
-    CString  field_0x10;
-    CString  field_0x14;
-    CString  field_0x18;
+    uint32_t repop_delay;
+    uint32_t protocol; // Legacy protocol setting? Unset when reading the config. Only relevant values are 0 and 1. Default: 2.
+    uint32_t game_speed;
+    CString  log_file;
+    CString  ip_address;
+    CString  ip_address2;
+    CString  hat_address;
     CString  chr_base;
     CString  server_name;
-    uint32_t field_0x24;
-    CStringArray field_0x28;
+    uint32_t server_id;
+    CStringArray banned_ips;
     CStringArray banned_names;
     CStringArray map_names; // Array of map names. 6D15F0.
-    CStringArray field_0x64;
+    CStringArray report_to_www;
     CDWordArray map_durations; // Array of map durations. 0x7FFFFFFF means no limit. 6D1618.
     int32_t chat_range; // Chat range for proximity chat.
-    uint32_t field_0x90;
+    uint32_t shout_delay;
     uint32_t current_map_index; // Current map index in map array. 6D1634.
-    uint32_t field_0x98;
-    uint32_t field_0x9c;
-    uint32_t field_0xa0;
-    uint32_t field_0xa4;
+    uint32_t save_is_server;
+    uint32_t max_players;
+    uint32_t login_timeout;
+    uint32_t reconnect_delay;
     uint32_t gameType;     // 0: co-op, 1: deathmatch, 2: softcore, 3: arena. 6D1648.
-    int32_t field_0xac;
-    uint32_t field_0xb0;
+    int32_t frag_limit;
+    uint32_t flag_score;
     uint32_t map_range_check; // map-level range check enabled flag
-    uint32_t field_0xb8;
-    uint32_t field_0xbc;
-    uint32_t field_0xc0;
-    int32_t field_0xc4;
+    uint32_t shutdown_delay;
+    uint32_t always_load_sacks;
+    uint32_t arena_time_limit;
+    int32_t treasure_probability;
 
     ServerConfig();
 };

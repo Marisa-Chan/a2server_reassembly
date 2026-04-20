@@ -724,7 +724,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     Player* player = nullptr;
 
     #ifdef A2SERVER_PATCH
-    const int max_players = g_ServerConfig.field_0x9c;
+    const int max_players = g_ServerConfig.max_players;
     #else
     const int max_players = 16;
     #endif
@@ -1064,24 +1064,24 @@ void Server::FUN_004f94c0(int32_t arg) {
 ServerConfig::ServerConfig()
 {
     //4f6fc9
-    field_0x8 = 4;
-    field_0x0 = 100;
-    field_0x4 = 2;
-    current_map_index = 0;
-    chat_range = 0x100;
-    field_0x90 = 0x78;
-    field_0x98 = 1;
-    field_0x9c = 0x10;
-    server_name = "unnamed server";
-    field_0xa0 = 0x3c;
-    field_0xa4 = 1;
-    gameType = 0;
-    field_0xac = 0x7fffffff;
-    map_range_check = 1;
-    field_0xb8 = 5;
-    field_0xbc = 0;
-    field_0xc0 = 0x7fffffff;
-    field_0xc4 = 100;
+    this->game_speed = 4;
+    this->repop_delay = 100;
+    this->protocol = 2;
+    this->current_map_index = 0;
+    this->chat_range = 0x100;
+    this->shout_delay = 0x78;
+    this->save_is_server = 1;
+    this->max_players = 0x10;
+    this->server_name = "unnamed server";
+    this->login_timeout = 0x3c;
+    this->reconnect_delay = 1;
+    this->gameType = 0;
+    this->frag_limit = 0x7fffffff;
+    this->map_range_check = 1;
+    this->shutdown_delay = 5;
+    this->always_load_sacks = 0;
+    this->arena_time_limit = 0x7fffffff;
+    this->treasure_probability = 100;
 }
 
 // Create (or revive) the hero for a player who is joining via the magic-packet path.
@@ -2452,7 +2452,7 @@ void Server::sub_504a96(Packet* pkt)
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->sub_52C409();
             }
-            g_NetStru1_main.sub_51D837(g_ServerConfig.field_0x8, player);
+            g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, player);
             break;
 #endif
         }
@@ -2587,7 +2587,7 @@ void Server::sub_504a96(Packet* pkt)
                     out.to_player_id = 0;
                     strcpy(out.name, packet_join->name);
                     g_NetStru1_main.QueuePacketSend(&out);
-                    player->field_0xa68 = g_ServerConfig.field_0x90;
+                    player->field_0xa68 = g_ServerConfig.shout_delay;
                 } else {
                     g_NetStru1_main.FUN_0051ce86(8, player->field_0xa68, player);
                 }
@@ -2703,9 +2703,9 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
         if (g_CLlDriver.provider == 4)
         {
-            for (int i = 0; i < g_ServerConfig.field_0x28.GetSize(); i++)
+            for (int i = 0; i < g_ServerConfig.banned_ips.GetSize(); i++)
             {
-                CString banIP = g_ServerConfig.field_0x28[i];
+                CString banIP = g_ServerConfig.banned_ips[i];
                 if (false) //banIP == )
                 {
                     CString str;
@@ -2954,15 +2954,15 @@ int32_t Server::sub_4F0BEF() {
     }
 
     CLlAddress addr;
-    if (g_ServerConfig.field_0x14.IsEmpty()) {
-        strcpy(addr.address, g_ServerConfig.field_0x10);
+    if (g_ServerConfig.ip_address2.IsEmpty()) {
+        strcpy(addr.address, g_ServerConfig.ip_address);
     } else {
-        strcpy(addr.address, g_ServerConfig.field_0x14);
+        strcpy(addr.address, g_ServerConfig.ip_address2);
     }
 
     LogMessage("Connecting to hat...");
 
-    int result = g_HatLLDriver.PrepareForConnect(g_ServerConfig.field_0x18, &addr);
+    int result = g_HatLLDriver.PrepareForConnect(g_ServerConfig.hat_address, &addr);
     if (result != 0) {
         result = g_HatLLDriver.Connect(g_ServerConfig.server_name, nullptr);
     }
@@ -2974,7 +2974,7 @@ int32_t Server::sub_4F0BEF() {
 
     LogMessage(CString("Connected. Logging in..."));
     NetStru1::HatConnector.ProcessConnections();
-    NetStru1::HatConnector.sub_51E205(g_ServerConfig.field_0x10);
+    NetStru1::HatConnector.sub_51E205(g_ServerConfig.ip_address);
     return 1;
 }
 
@@ -3426,8 +3426,8 @@ void Server::ServerTic() {
                             while (ppos != nullptr) {
                                 Player* p = g_PlayersList->GetNext(ppos);
                                 if (p->is_ai == 0 && p->field_0xa70 == 1 - i) {
-                                    p->frags += g_ServerConfig.field_0xb0;
-                                    (&this->field57_0x200)[1-i] += g_ServerConfig.field_0xb0;
+                                    p->frags += g_ServerConfig.flag_score;
+                                    (&this->field57_0x200)[1-i] += g_ServerConfig.flag_score;
                                 }
                             }
                             g_NetStru1_main.FUN_0051d6b4(0);

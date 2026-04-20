@@ -968,7 +968,7 @@ void Unit::sub_52D94E()
 
         if (this->typeId >= 0x40) {
             int roll = Random0N(99); // [0, 99]
-            should_drop = (roll < 100 - g_ServerConfig.field_0xc4);
+            should_drop = (roll < 100 - g_ServerConfig.treasure_probability);
         }
 
         // Reset inventory if NPC, summoned, or flagged for drop.

@@ -445,7 +445,7 @@ void MainWindow::sub_48A756()
                 }
                 
                 // Some kind of timeout?
-                int32_t timeout_threshold = g_ServerConfig.field_0xc0 * 60000;
+                int32_t timeout_threshold = g_ServerConfig.arena_time_limit * 60000;
                 if (timeout_threshold <= g_Server->map_elapsed_time2) {
                     if (g_ServerConfig.gameType == 3) {
                         if (g_Server->field59_0x208 == 0) {

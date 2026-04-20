@@ -215,20 +215,20 @@ void UnitList::ProcessTick()
 							(&g_Server->field57_0x200)[unit->last_hit_by->pOwner->field_0xa70]++;
 							unit->last_hit_by->pOwner->frags++;
 							if (g_ServerConfig.gameType == 1) {
-								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.field_0xac) {
+								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.FUN_0051d6b4(0);
 								} else { 
 									g_Server->FUN_004f94c0(1);
 								}
 							} else if (g_ServerConfig.gameType == 2) {
-								if ((&g_Server->field57_0x200)[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.field_0xac) {
+								if ((&g_Server->field57_0x200)[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.FUN_0051d6b4(0);
 								} else {
 									g_Server->FUN_004f94c0(1);
 								}
 							} else if (g_ServerConfig.gameType == 3 && g_Server->tick > 50) {
 								g_Server->sub_4FA348(&unit->last_hit_by->pOwner->name, 1);
-								if (g_ServerConfig.field_0xac <= unit->last_hit_by->pOwner->frags) {
+								if (g_ServerConfig.frag_limit <= unit->last_hit_by->pOwner->frags) {
 									g_Server->sub_4FA78E(1);
 								}
 							}
