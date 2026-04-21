@@ -7,6 +7,7 @@
 #include "alm.h"
 #include "buildings_list.h"
 #include "building.h"
+#include "constants.h"
 #include "eye.h"
 #include "game_app.h"
 #include "world.h"
@@ -772,13 +773,13 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         }
     }
 
-    // 5. Build working name (nickname) and password suffix (var_38)
+    // 5. Split nickname and clan.
     CString nickname(name);
-    CString var_38;
+    CString clan;
 
     int pipe_pos = nickname.Find('|');
     if (pipe_pos != -1) {
-        var_38 = nickname.Mid(pipe_pos + 1);
+        clan = nickname.Mid(pipe_pos + 1);
         nickname = nickname.Left(pipe_pos);
     }
 
@@ -811,7 +812,6 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
         return 4;
     }
 
-    // This is `player = new Player()`, but we haven't moved the constructor yet.
     player = new Player();
 
     Human* unit = nullptr;
@@ -857,7 +857,6 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Map level range checks.
     if (g_ServerConfig.gameType == 0 && g_ServerConfig.map_range_check != 0) {
-        // [player+0xA88] = min_server_level; [this+0x1CC] = MapLevel
         if (this->MapLevel < player->min_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
             if (player != nullptr) {
@@ -869,7 +868,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
             }
             return 6;
         }
-        // [player+0xA8C] = max_server_level
+
         if (this->MapLevel > player->max_server_level) {
             LogMessage("Player " + name + " login " + login + " has been rejected (Too weak for this map)");
             if (player != nullptr) {
@@ -905,8 +904,8 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Rebuild name: if var_38 is non-empty, include suffix; otherwise just var_34.
-    if (var_38.GetLength() != 0) {
-        name = var_34 + '|' + var_38;
+    if (clan.GetLength() != 0) {
+        name = var_34 + '|' + clan;
     } else {
         name = var_34;
     }
@@ -1028,19 +1027,20 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
 
         // Find the node whose data == target
         POSITION pos = dword_6CDB3C->unit_list.Find(target);
-        if (pos != nullptr)
+        if (pos != nullptr) {
             dword_6CDB3C->unit_list.RemoveAt(pos);
+        }
     }
 
     // Co-op mode: set starting enchantments.
     if (g_ServerConfig.gameType == 0) {
         uint32_t& enchantments = player->main_unit->enchantments;
-        enchantments |= 0x8000000u;
-        enchantments |= 0x1000u;
-        enchantments |= 0x10u;
-        enchantments |= 0x100u;
-        enchantments |= 0x2000u;
-        enchantments |= 0x80000u;
+        enchantments |= (1u << spell::shield);
+        enchantments |= (1u << spell::invisibility);
+        enchantments |= (1u << spell::protection_from_fire);
+        enchantments |= (1u << spell::protection_from_water);
+        enchantments |= (1u << spell::protection_from_air);
+        enchantments |= (1u << spell::protection_from_earth);
     }
 
     // Arena mode: name/stat lookup.
