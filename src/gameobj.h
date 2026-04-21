@@ -10,6 +10,9 @@ class BigStruct2;
 class CGameBitmap;
 class CSprite256;
 class Unit;
+class ProjectileInfo;
+
+extern CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
 
 
 class GO_d0 : public CObject
@@ -87,6 +90,9 @@ public:
 
 	int32_t FUN_0041f110();
 	void FUN_0046190d();
+	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
+
+	int32_t FUN_00462405(int32_t effect_id);
 public:
 	uint16_t unit_id;
 	uint8_t __pad[2];
@@ -252,6 +258,75 @@ public:
 	CAirUnit();
 };
 ASSERT_SIZE(CAirUnit, 0x1e4);
+
+
+class CBackPack : public CGameObject
+{
+	DECLARE_DYNAMIC(CBackPack);
+public:
+
+	virtual ~CBackPack();
+
+	virtual void Dump(CDumpContext& dc) const override;
+
+	virtual int32_t VMethod4() override;
+	virtual int32_t VMethod5() override;
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod10() override;
+
+	CBackPack();
+};
+ASSERT_SIZE(CBackPack, 0x144);
+
+//60b6f0
+class CProjectile : public CGameObject
+{
+	DECLARE_DYNAMIC(CProjectile);
+public:
+	virtual ~CProjectile();
+
+	virtual void Dump(CDumpContext& dc) const override;
+
+	virtual int32_t VMethod4() override;
+	virtual int32_t VMethod5() override;
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+
+	virtual int32_t VMethod11() override;
+	virtual void VMethod12() override;
+	virtual void VMethod16() override;
+
+	CProjectile();
+
+public:
+	CDWordArray field_0x144;
+};
+ASSERT_SIZE(CProjectile, 0x158);
+
+
+
+
+class ProjectileInfo : public CObject
+{
+public:
+	virtual ~ProjectileInfo();
+public:
+	CSprite256* sprite1;
+	CSprite256* sprite2;
+	CString filename;
+	int32_t phases;
+	int32_t id;
+	int32_t rotation_phases;
+	int32_t width;
+	int32_t height;
+	int32_t sfx;
+	int32_t palette;
+	int32_t homing;
+	int32_t flip;
+	int32_t spr_8bit;
+	int32_t loaded;
+};
+ASSERT_SIZE(ProjectileInfo, 0x3c);
 
 
 #endif

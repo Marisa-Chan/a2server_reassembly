@@ -350,7 +350,11 @@ public:
     virtual Packet* Duplicate() override; // sub_57A540
     virtual uint32_t GetDataSize() override; // sub_57A5C0
 public:
-    uint8_t data[8]; // +0xA..+0x11
+    uint16_t unit_id; // 0xa
+    uint8_t field_c;
+    uint8_t type_id; // 0xd
+    int16_t xpos; // 0xe
+    int16_t ypos; // 0x10
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketEight, 0x12);
@@ -376,13 +380,11 @@ public:
     virtual Packet* Duplicate() override; // sub_57A600
     virtual uint32_t GetDataSize() override; // sub_57A680
 public:
-    uint8_t field_0xa;  // +0xA
-    uint8_t field_0xb;  // +0xB
+    uint16_t field_0xa;  // +0xA
     uint8_t field_0xc;  // +0xC (= 0 in ctor)
     uint8_t field_0xd;  // +0xD (= 0 in ctor)
     uint8_t field_0xe;  // +0xE (= 0 in ctor)
-    uint8_t field_0xf;  // +0xF
-    uint8_t field_0x10; // +0x10
+    uint16_t field_0xf;  // +0xF
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketMoveCmd, 0x11);
@@ -407,8 +409,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57A6C0
     virtual uint32_t GetDataSize() override;
 public:
-    uint8_t field_0xa;    // +0xA
-    uint8_t field_0xb;    // +0xB
+    uint16_t field_0xa;    // +0xA
     uint8_t effect_type;  // +0xC (= 0 in ctor)
 };
 __pragma(pack(pop))
@@ -439,7 +440,8 @@ public:
     uint8_t field_0xc;    // +0xC
     uint8_t field_0xd;    // +0xD (= 0 in ctor)
     uint8_t field_0xe;    // +0xE (= 0 in ctor)
-    uint8_t field_0xf[13];// +0xF..+0x1B
+    uint8_t field_0xf;    // +0xF
+    uint8_t data[12] ;    // +0x10..+0x1B
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketAoeZone, 0x1C);
@@ -605,10 +607,8 @@ public:
     virtual Packet* Duplicate() override; // sub_57AC40
     virtual uint32_t GetDataSize() override;
 public:
-    uint8_t field_0xa; // +0xA
-    uint8_t field_0xb; // +0xB
-    uint8_t field_0xc; // +0xC
-    uint8_t field_0xd; // +0xD
+    uint16_t field_0xa; // +0xA
+    int16_t field_0xc; // +0xC
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketSync, 0xE);

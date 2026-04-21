@@ -220,6 +220,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		PacketMount* packet_mount = reinterpret_cast<PacketMount*>(pkt);
 		PacketPing* packet_ping = reinterpret_cast<PacketPing*>(pkt);
 		PacketUnitStateVec* packet_state = reinterpret_cast<PacketUnitStateVec*>(pkt);
+		PacketEight* packet_eight = reinterpret_cast<PacketEight*>(pkt);
+		PacketSync* packet_sync = reinterpret_cast<PacketSync*>(pkt);
+		PacketMoveCmd* packet_move = reinterpret_cast<PacketMoveCmd*>(pkt);
+		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
+		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
+		PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);
 
 		if (!pkt)
 		{
@@ -300,7 +306,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x74:
 		{
 			CUnit* unit;
-			if (field_0x9d0.Lookup(packet_word->value, unit))
+			if (field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
 			{
 				if (pkt->id == 0x74)
 					unit->field_0x1b8 |= 0x80;
@@ -314,7 +320,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6a:
 		{
 			CUnit* unit;
-			if (field_0x9d0.Lookup(packet_word->value, unit))
+			if (field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
 			{
 				field_0x9d0.RemoveKey(packet_word->value);
 				delete unit;
@@ -325,7 +331,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6b:
 		{
 			CUnit* unit;
-			if (!field_0x9d0.Lookup(packet_abil->field_0xa, unit))
+			if (!field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&unit))
 			{
 				sprintf(buf, "Invalid unit #%d. Command Move.", packet_abil->field_0xa);
 				if (g_EnableTrace)
@@ -516,7 +522,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						CUnit* ct = nullptr;
 						bool ct_exist = true;
 
-						if (field_0x9d0.Lookup(packet_unit->unit_id, ct) == 0)
+						if (field_0x9d0.Lookup(packet_unit->unit_id, *(CGameObject**)&ct) == 0)
 						{
 							ct_exist = false;
 
@@ -884,7 +890,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x6d:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_abil->field_0xa, ct) == 0)
+			if (field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace != 0)
 				{
@@ -939,7 +945,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x71:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_abil->field_0xa, ct) == 0)
+			if (field_0x9d0.Lookup(packet_abil->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace != 0)
 				{
@@ -1000,7 +1006,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x72:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_mount->field_0xa, ct) == 0)
+			if (field_0x9d0.Lookup(packet_mount->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace)
 				{
@@ -1053,7 +1059,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0x73:
 		{
 			CUnit* ct = nullptr;
-			if (field_0x9d0.Lookup(packet_ping->field_0xa, ct) == 0)
+			if (field_0x9d0.Lookup(packet_ping->field_0xa, *(CGameObject**)&ct) == 0)
 			{
 				if (g_EnableTrace)
 				{
@@ -1110,7 +1116,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			switch (packet_state->field_0xc & 0x7f)
 			{
 			case 1:
-				if (field_0x9d0.Lookup(packet_state->field_0xa, ct) != 0)
+				if (field_0x9d0.Lookup(packet_state->field_0xa, *(CGameObject**)&ct) != 0)
 				{
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++)
@@ -1193,7 +1199,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			case 2:
 			{
-				if (field_0x9d0.Lookup(packet_state->field_0xa, ct) != 0)
+				if (field_0x9d0.Lookup(packet_state->field_0xa, *(CGameObject**)&ct) != 0)
 				{
 					if ((packet_state->field_0xc & 0x80) == 0)
 					{
@@ -1416,6 +1422,283 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			}
 		}
 			break;
+
+
+		case 0x7a:
+		{
+			CGameObject* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_eight->unit_id, ct))
+			{
+				ct->typeId = packet_eight->type_id;
+				if (ct->typeId > 5)
+					ct->typeId = 5;
+			}
+			else
+			{
+				CBackPack* pak = new CBackPack();
+				field_0x9d0[packet_eight->unit_id] = pak;
+
+				pak->SetVals(packet_eight->unit_id, 1, packet_eight->xpos, packet_eight->ypos, 0, 0, 0, 0, 1);
+
+				pak->field_0x14 = my_main_unit;
+				pak->typeId = packet_eight->type_id;
+				if (pak->typeId > 5)
+					pak->typeId = 5;
+
+				if ((wnd->field_0x418 & 1) != 0 && field_0x80 != nullptr)
+					pak->FUN_0046190d();
+			}
+
+		}
+			break;
+
+		case 0x82:
+		{
+			CUnit* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_sync->field_0xa, *(CGameObject**)&ct))
+			{
+				ct->hp = packet_sync->field_0xc;
+				if (field_0x138 == ct)
+				{
+					wnd->field_0xe0->MsgProc(0x408, 0, 0);
+					wnd->field_0xe4->MsgProc(0x408, 0, 0);
+				}
+			}
+		}
+			break;
+
+		case 0x83:
+			wnd->PostMessage(0x42a, packet_info->field_0xa, 0);
+			break;
+
+		case 0x84:
+			wnd->PostMessage(0x42b, packet_info->field_0xa, packet_info->field_0xe);
+			break;
+
+		case 0x86:
+			if ((packet_move->field_0xc & 1) == 0 || packet_move->field_0xc >= g_ProjectileInfos.GetSize() || g_ProjectileInfos[packet_move->field_0xc] == nullptr)
+			{
+				CUnit* ct = nullptr;
+				if (field_0x9d0.Lookup(packet_move->field_0xa, *(CGameObject**)&ct) == 0)
+				{
+					if (g_EnableTrace != 0)
+					{
+						sprintf(buf, "Invalid unit #%d. Command Cast spell.", packet_move->field_0xa);
+						msglog.Add(buf, clrsh_TechBlack, 5000);
+					}
+				}
+				else if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0)
+				{
+					ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
+					ct->action = 8;
+					ct->action_phase = 0;
+
+					if (packet_move->field_0xc < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->field_0xc] == nullptr)
+					{
+						if (g_ProjectileInfos[packet_move->field_0xc]->homing == 0)
+						{
+							ct->action_x = packet_move->field_0xd * 0x100 + 0x80;
+							ct->action_y = packet_move->field_0xe * 0x100 + 0x80;
+							ct->action_target = 0;
+						}
+						else
+							ct->action_target = packet_move->field_0xd | (packet_move->field_0xe << 8);
+					}
+					else
+					{
+						ct->action_x = ct->x_pos;
+						ct->action_y = ct->y_pos;
+						ct->action_target = 0;
+					}
+					ct->action_spell = packet_move->field_0xc;
+				}
+			}
+			else
+			{
+				CProjectile* pj = new CProjectile();
+				pj->typeId = packet_move->field_0xc;
+				pj->x_pos = packet_move->field_0xd * 0x100 + 0x80;
+				pj->y_pos = packet_move->field_0xe * 0x100 + 0x80;
+				pj->field_0x10 = 0;
+				pj->x_pos2 = pj->x_pos;
+				pj->y_pos2 = pj->y_pos;
+				pj->action_x = pj->x_pos;
+				pj->action_y = pj->y_pos;
+				pj->action_z = pj->field_0x10;
+				pj->action_target = 0;
+				pj->action_phase = -1;
+				pj->field_0x14 = my_main_unit;
+				pj->action_segments = packet_move->field_0xf;
+				pj->action = 1;
+				pj->field_0xe8 = this;
+
+				pj->FUN_0046190d();
+
+				field_0x9ec[field_0xa24] = pj;
+				field_0xa24++;
+
+				SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
+				if (packet_move->field_0xc != 23 && snd)
+				{
+					int32_t vol = 0;
+					int32_t pan = 0;
+					FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+
+					int priority = (10000 - ::abs(vol)) / 100;
+
+					snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
+				}
+			}
+			break;
+
+		case 0x87:
+			FUN_0041c74b(packet_aoe->field_0xb,
+							packet_aoe->field_0xc,
+							packet_aoe->field_0xd,
+							packet_aoe->field_0xe,
+							(packet_aoe->field_0xa / 2) - 4,
+							packet_aoe->data,
+							packet_aoe->field_0xf);
+			if (packet_aoe->field_0xf == 0)
+				field_0xe0 = 1;
+			break;
+
+		case 0x88:
+		{
+			CGameObject* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
+			{
+				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
+				if (idx < 0)
+					ct->field_0x130.Add((packet_effect->effect_type << 0x16) | 0xffff);
+				else
+					ct->field_0x130[idx] = (packet_effect->effect_type << 0x16) | 0xffff;
+
+				ct->field_0x114 = 1;
+			}
+		}
+			break;
+
+		case 0x89:
+		{
+			CGameObject* ct = nullptr;
+			if (field_0x9d0.Lookup(packet_effect->field_0xa, ct) != 0)
+			{
+				int32_t idx = ct->FUN_00462405(packet_effect->effect_type);
+				if (idx > -1)
+					ct->field_0x130.RemoveAt(idx);
+
+				ct->field_0x114 = 1;
+			}
+		}
+		break;
+
+		case 0x8a:
+		{
+			CGameObject* ct = nullptr;
+			field_0x9d0.Lookup(packet_terrain->buf[0], ct);
+			if (ct->action_segments == 0 && g_VFX_info[ct->typeId]->attack_phases != 0)
+			{
+				ct->action_segments = g_VFX_info[ct->typeId]->attack_anim_frame_cnt;
+				ct->action = 8;
+				ct->action_phase = 0;
+
+				ct->field_0xb0.RemoveAll();
+				for (int i = 1; i < packet_terrain->count; i++)
+					ct->field_0xb0.Add(packet_terrain->buf[i]);
+
+				ct->action_target = packet_terrain->buf[1];
+				ct->action_spell = 0x1e;
+			}
+		}
+		break;
+
+		case 0x8b:
+		{
+			CProjectile* pj = new CProjectile();
+			pj->typeId = packet_move->field_0xc;
+			pj->x_pos = (packet_move->field_0xa & 0xFF) * 0x100 + 0x80;
+			pj->y_pos = (packet_move->field_0xa >> 8) * 0x100 + 0x80;
+			pj->field_0x10 = 0;
+			pj->x_pos2 = pj->x_pos;
+			pj->y_pos2 = pj->y_pos;
+			
+			if (g_ProjectileInfos[packet_move->field_0xc]->homing == 0)
+			{
+				pj->action_x = packet_move->field_0xd * 0x100 + 0x80;
+				pj->action_y = packet_move->field_0xe * 0x100 + 0x80;
+				pj->action_target = 0;
+			}
+			else
+				pj->action_target = packet_move->field_0xd | (packet_move->field_0xe << 8);
+
+			pj->action_z = pj->field_0x10;
+			pj->action_phase = -1;
+			pj->field_0x14 = my_main_unit;
+			pj->action_segments = packet_move->field_0xf;
+			pj->action = 1;
+			pj->field_0xe8 = this;
+
+			pj->FUN_0046190d();
+			
+			field_0x9ec[field_0xa24] = pj;
+			field_0xa24++;
+
+			SfxSample* snd = g_SfxArray[packet_move->field_0xc + 500];
+			if (packet_move->field_0xc != 23 && snd)
+			{
+				int32_t vol = 0;
+				int32_t pan = 0;
+				FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+
+				int priority = (10000 - ::abs(vol)) / 100;
+
+				snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
+			}
+		}
+		break;
+
+		case 0x8c:
+		{
+			CProjectile* pj = new CProjectile();
+			pj->typeId = 0x1e;
+			pj->x_pos = (packet_terrain->buf[0] & 0xFF) * 0x100 + 0x80;
+			pj->y_pos = (packet_terrain->buf[0] & 0xFF00) /* * 0x100*/ + 0x80;
+			pj->field_0x10 = 0;
+			pj->x_pos2 = pj->x_pos;
+			pj->y_pos2 = pj->y_pos;
+
+			pj->field_0xb0.RemoveAll();
+
+			for (int i = 1; i < packet_terrain->count; i++)
+				pj->field_0xb0.Add(packet_terrain->buf[i]);
+
+			pj->action_target = packet_terrain->buf[1];
+			pj->action_z = pj->field_0x10;
+			pj->action_phase = -1;
+			pj->field_0x14 = my_main_unit;
+			pj->action_segments = 13;
+			pj->action = 1;
+			pj->field_0xe8 = this;
+
+			pj->FUN_0046190d();
+
+			field_0x9ec[field_0xa24] = pj;
+			field_0xa24++;
+
+			SfxSample* snd = g_SfxArray[pj->typeId + 500];
+			if (pj->typeId != 23 && snd)
+			{
+				int32_t vol = 0;
+				int32_t pan = 0;
+				FUN_0041b7b7(pj->x_pos, pj->y_pos, &vol, &pan);
+
+				int priority = (10000 - ::abs(vol)) / 100;
+
+				snd->Play(vol + g_SoundSettings.sfx_pos, pan, 0, priority, 0);
+			}
+		}
+		break;
 
 		}
 

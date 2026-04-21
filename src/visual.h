@@ -21,6 +21,7 @@ class VisCharSellectButtons;
 class VisCharSellectList;
 class Item;
 class QuestMap;
+class Scenario;
 
 class CUnit;
 
@@ -761,6 +762,10 @@ public:
 	CUnit* GetUnit_3f6c(); //41f830
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14
+
+	void FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7
+	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
+
 public:
 	int32_t view_tile_x;
 	int32_t view_tile_y;
@@ -771,9 +776,33 @@ public:
 	int32_t field_0x74; //unk type
 	int32_t field_0x78; //unk type
 	int32_t field_0x7c; //unk type
-	void* field_0x80;  //unk type
+	Scenario* field_0x80;
+	int32_t field_0x84; //unk type
+	int32_t field_0x88; //unk type
+	void* field_0x8c; //unk type
+	void* field_0x90; //unk type
+	void* field_0x94; //unk type
+	void* field_0x98; //unk type
+	void* field_0x9c; //unk type
+	void* field_0xa0; //unk type
+	void* field_0xa4; //unk type
+	void* field_0xa8; //unk type
+	void* field_0xac; //unk type
+	void* field_0xb0; //unk type
+	void* field_0xb4; //unk type
+	void* field_0xb8; //unk type
+	void* field_0xbc; //unk type
+	void* field_0xc0; //unk type
+	int32_t field_0xc4; //unk type
+	int32_t field_0xc8; //unk type
+	int32_t field_0xcc; //unk type
+	int32_t field_0xd0;
+	int32_t field_0xd4;
+	int32_t field_0xd8;
+	int32_t field_0xdc;
+	int32_t field_0xe0;
 
-	uint8_t _unk1[0xb4];
+	uint8_t _unk1[0x54];
 
 	CUnit* field_0x138;
 	int32_t field_0x13c; //unk type
@@ -783,7 +812,7 @@ public:
 
 	CArray<MapPlayerData*> field_0x9b8;
 	MapPlayerData* my_main_unit;
-	CMap<uint16_t, uint16_t, CUnit*, CUnit*> field_0x9d0;
+	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
 	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa08; //unk type
 	int32_t field_0xa24; //unk type

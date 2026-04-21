@@ -152,3 +152,28 @@ ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
 ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
 ASSERT_OFFSET(MapStuff, height_map, 0x944f4);
 ASSERT_SIZE(MapStuff, 0xa4570);
+
+
+
+class Scenario : public CObject
+{
+public:
+    ~Scenario();
+
+    Scenario(const char* fname);
+public:
+    int32_t width;
+    int32_t height;
+    uint16_t* landscape;
+    uint8_t* map_heights;
+    uint8_t* field_0x14;
+    uint8_t* field_0x18;
+    uint8_t abrightness;
+    uint8_t contrast;
+    uint8_t field_0x1e;
+    uint8_t field_0x1f;
+    double inv_sun_angle;
+    int32_t field_0x28;
+    int32_t daytime_minutes;
+};
+ASSERT_SIZE(Scenario, 0x30);

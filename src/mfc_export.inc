@@ -1595,6 +1595,8 @@ extern ??0TakeDamage@@QAE@XZ : proc
 externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
 externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
+externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
+externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 
 
 externdef ?INT_00660f8c@@3HA  :dword
@@ -1782,6 +1784,8 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 ;CGameObject
 externdef ?FUN_0041f110@CGameObject@@QAEHXZ : proc
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
+externdef ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
+externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 
 ;CUnit
 externdef ?g_CUnitStatic@@3VCUnit@@A : byte
@@ -1792,6 +1796,14 @@ externdef ?FUN_0046b91c@CUnit@@QAEXXZ : proc
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc
+
+;CBackPack
+externdef ??0CBackPack@@QAE@XZ : proc
+
+;CProjectile
+externdef ??0CProjectile@@QAE@XZ : proc
+
+externdef  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 
 ;MapPlayerData
 externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
