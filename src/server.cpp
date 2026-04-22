@@ -665,7 +665,13 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
             if (target->is_ai == 0 && target->field_0x42 != 0) {
                 bool should_send = true;
                 if (target != player) {
-                    if (player->hat_player_id == 0xF6D04773 && player->flags == 4) {
+                    #ifdef A2SERVER_PATCH
+                    const bool condition = (player->flags & 0x3f000800) == 0x3f000800;
+                    #else
+                    const bool condition = player->hat_player_id == 0xF6D04773 && player->flags == 4;
+                    #endif
+
+                    if (condition) {
                         should_send = false;
                     }
                 }
