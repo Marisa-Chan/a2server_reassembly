@@ -372,7 +372,12 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     g_NetStru1_main.sub_51C8B1(player);
 
     // Reconnect check?
-    if (player->hat_player_id == 0xF6D04773 && player->flags == 4) {
+    #ifdef A2SERVER_PATCH
+    const bool check = false; // Patch seems to try to check player flags against GMF_CMD_CHAT, but it uses `JMP` and skips the block unconditionally.
+    #else
+    const bool check = (player->hat_player_id == 0xF6D04773 && player->flags == 4);
+    #endif
+    if (check) {
         CString player_nick(player->name);
 
         int pipe_pos = player_nick.Find('|');
@@ -463,8 +468,6 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
             }
         }
     }
-
-    
 
     // Softcore (gameType == 2) team-alliance setup.
     if (g_ServerConfig.gameType == 2) {
