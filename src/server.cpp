@@ -373,7 +373,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
 
     // Reconnect check?
     #ifdef A2SERVER_PATCH
-    const bool check = false; // Patch seems to try to check player flags against GMF_CMD_CHAT, but it uses `JMP` and skips the block unconditionally.
+    const bool check = false; // WAT: Patch seems to try to check player flags against GMF_CMD_CHAT, but it uses `JMP` and skips the block unconditionally.
     #else
     const bool check = (player->hat_player_id == 0xF6D04773 && player->flags == 4);
     #endif
