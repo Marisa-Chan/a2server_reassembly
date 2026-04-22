@@ -33,6 +33,8 @@
 #include "player_file.h"
 #include "file.h"
 
+#include "patch/flags.h"
+
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
@@ -666,7 +668,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
                 bool should_send = true;
                 if (target != player) {
                     #ifdef A2SERVER_PATCH
-                    const bool condition = (player->flags & 0x3f000800) == 0x3f000800;
+                    const bool condition = (player->flags & GMF_INVISIBLE) == GMF_INVISIBLE;
                     #else
                     const bool condition = player->hat_player_id == 0xF6D04773 && player->flags == 4;
                     #endif

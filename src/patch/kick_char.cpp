@@ -1,5 +1,7 @@
 #include "kick_char.h"
 
+#include "flags.h"
+
 #include "../game_app.h"
 #include "../player.h"
 #include "../players_list.h"
@@ -23,7 +25,7 @@ void KickPlayer(Player* player)
     g_NetStru1_main.ProcessConnections();
 
     // WAT: original patch also has `|| ((*(uint *)(extraout_EDX + 0x14) & 0x800) == 0`, but `EDX` is unset. Looks like a typo?
-    if ((player->flags & 0x3f000000) != 0x3f000000) {
+    if ((player->flags & GMF_ANY) != GMF_ANY) {
         g_NetStru1_main.FUN_0051d49b(player);
     }
     player->field_0xa50 = g_Server->tick16 - 1;
