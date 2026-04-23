@@ -1145,6 +1145,12 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
 
     Human* unit = new Human(CString(prefix) + filename, 1, nullptr);
 
+    #ifdef A2SERVER_PATCH
+    if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
+        unit->body = unit->reaction = unit->mind = unit->spirit = 25;
+    }
+    #endif
+
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - sub_5008CA(body) - sub_5008CA(reaction) - sub_5008CA(mind) - sub_5008CA(spirit);
     if (budget >= 0) {
