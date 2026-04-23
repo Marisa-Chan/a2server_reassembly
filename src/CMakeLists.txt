@@ -65,6 +65,7 @@ set(A2_SOURCES
 
 set(A2SERVER_SOURCES
   patch/kick_char.cpp
+  patch/allowed_picture.cpp
 )
 
 add_executable(a2serv_vsc ${A2_SOURCES} ${A2SERVER_SOURCES})

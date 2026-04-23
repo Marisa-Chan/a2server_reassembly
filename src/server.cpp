@@ -33,6 +33,7 @@
 #include "player_file.h"
 #include "file.h"
 
+#include "patch/allowed_picture.h"
 #include "patch/flags.h"
 
 // ---- Global variables used by sub_4FC644 ----
@@ -1127,6 +1128,9 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     if (character_class == 0) {
         filename = ".f5";
     } else {
+        #ifdef A2SERVER_PATCH
+        character_class = FilterAllowedCharacterPicture(character_class);
+        #endif
         const char* ext = (character_class & 0x80) ? ".f" : ".m";
         filename.Format("%s%u", ext, character_class & 0x3F);
     }
