@@ -1163,7 +1163,17 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     }
 
     // Configure skills, then trigger stat-recalc `VMethod18()`.
-    unit->sub_533345(main_skill, 20);
+    #ifdef A2SERVER_PATCH
+    if (main_skill < 1 || main_skill > 4) {
+        main_skill = 1;
+    }
+    #endif
+
+    int32_t main_skill_level = 20;
+    #ifdef A2SERVER_TANGAR_HAT
+    main_skill_level = 0;
+    #endif
+    unit->sub_533345(main_skill, main_skill_level);
     unit->VMethod18();
 
     unit->hp = unit->hp_max;
