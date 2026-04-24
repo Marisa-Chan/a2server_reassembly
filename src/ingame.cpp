@@ -217,6 +217,8 @@ void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t
 
 	*out = buf;
 
+	uint8_t* dst = buf;
+
 	int32_t readcount = 4;
 	while (readcount < datasz)
 	{
@@ -226,8 +228,8 @@ void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t
 			data++;
 			readcount++;
 
-			memcpy(out, data, num);
-			out += num;
+			memcpy(dst, data, num);
+			dst += num;
 
 			data += num;
 			readcount += num;
@@ -237,8 +239,8 @@ void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t
 			int num = data[0] & 0x7f;
 			int val = data[1];
 
-			memset(out, val, num);
-			out += num;
+			memset(dst, val, num);
+			dst += num;
 
 			data += 2;
 			readcount += 2;
@@ -1545,7 +1547,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					ct->action = 8;
 					ct->action_phase = 0;
 
-					if (packet_move->field_0xc < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->field_0xc] == nullptr)
+					if (packet_move->field_0xc < g_ProjectileInfos.GetSize() && g_ProjectileInfos[packet_move->field_0xc] != nullptr)
 					{
 						if (g_ProjectileInfos[packet_move->field_0xc]->homing == 0)
 						{
@@ -2503,8 +2505,6 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
 			return 1;
-
-
 
 		}
 

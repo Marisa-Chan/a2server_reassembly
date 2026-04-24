@@ -662,10 +662,8 @@ public:
     virtual Packet* Duplicate() override; // sub_57ADB0
     virtual uint32_t GetDataSize() override; // sub_57AE30
 public:
-    uint8_t field_0xa; // +0xA
-    uint8_t field_0xb; // +0xB
-    uint8_t field_0xc; // +0xC
-    uint8_t field_0xd; // +0xD
+    uint16_t field_0xa; // +0xA
+    int16_t field_0xc; // +0xC
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketPing, 0xE);
