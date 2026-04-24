@@ -1055,16 +1055,6 @@ externdef ?sub_59C37A@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C37A(Map
 externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
 externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 
-; MapLogicData
-externdef ??0MapLogicData@@QAE@XZ :proc  ; MapLogicData::MapLogicData()
-
-; MapSackData
-externdef ??0MapSackData@@QAE@XZ :proc  ; MapSackData::MapSackData()
-
-; MapEffectData
-externdef ??0MapEffectData@@QAE@XZ :proc  ; MapEffectData::MapEffectData()
-
-
 ; Settings
 externdef ??0Settings@@QAE@XZ :proc
 externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc

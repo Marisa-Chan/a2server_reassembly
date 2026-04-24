@@ -2,6 +2,39 @@
 
 #include "file.h"
 
+// 56E910
+MapLogicData::MapLogicData() {
+    this->name[0] = '\0';
+    this->type_id = 0;
+    for (int32_t i = 0; i < 10; i++) {
+        this->argument_values[i] = 0;
+        this->argument_types[i] = 0;
+        this->argument_names[i][0] = '\0';
+    }
+    this->exec_once_flag = 0;
+}
+
+// 56ED8C
+MapEffectData::MapEffectData() {
+    this->effect_id = 0;
+    this->sack = nullptr;
+    this->trap_x = 0;
+    this->trap_y = 0;
+    this->values[0] = 0;
+    this->values[1] = 0;
+    this->values[2] = 0;
+    this->type_id = 0;
+    this->spell_strength = 0;
+}
+
+// 56EAC7
+MapSackData::MapSackData() {
+    this->unit_id = 0;
+    this->x = 0;
+    this->y = 0;
+    this->gold = 0;
+}
+
 // 5693A3
 MapAlm::MapAlm(const char* filename) {
     this->map_width = 0x10;
