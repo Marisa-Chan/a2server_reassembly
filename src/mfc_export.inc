@@ -1055,6 +1055,15 @@ externdef ?sub_59C37A@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C37A(Map
 externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
 externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 
+; MapLogicData
+externdef ??0MapLogicData@@QAE@XZ :proc  ; MapLogicData::MapLogicData()
+
+; MapSackData
+externdef ??0MapSackData@@QAE@XZ :proc  ; MapSackData::MapSackData()
+
+; MapEffectData
+externdef ??0MapEffectData@@QAE@XZ :proc  ; MapEffectData::MapEffectData()
+
 
 ; Settings
 externdef ??0Settings@@QAE@XZ :proc
@@ -1833,6 +1842,7 @@ externdef ??0CProjectile@@QAE@XZ : proc
 externdef  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 
 ;MapPlayerData
+externdef ??0MapPlayerData@@QAE@XZ :proc  ; MapPlayerData::MapPlayerData()
 externdef ??0MapPlayerData@@QAE@HH@Z : proc
 externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
 externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc
