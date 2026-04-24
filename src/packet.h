@@ -499,9 +499,9 @@ public:
     virtual void VMethod4(NetStru2*) override; // sub_527246
     virtual uint32_t GetDataSize() override;   // sub_57A980
 public:
-    uint8_t  preamble[0x20]; // +0xA..+0x31  (40 bytes of fixed player fields)
-    uint32_t offset;
-    uint32_t total_length;
+    uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
+    uint32_t offset;         // +0x2a
+    uint32_t total_length;   // +0x2e
     int32_t  count;        // +0x32  length of var_data
     uint8_t  var_data[0x10000];  // +0x36  variable-length data (actual size = count)
 };
@@ -635,8 +635,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57AD00
     virtual uint32_t GetDataSize() override; // sub_5278CE  variable (5..29)
 public:
-    uint8_t  field_0xa;       // +0xA
-    uint8_t  field_0xb;       // +0xB
+    uint16_t  field_0xa;       // +0xA
     uint16_t flags;           // +0xC  bitmask of included fields (bits 0..11)
     uint16_t prop[12];        // +0xE  up to 12 optional property words
 };

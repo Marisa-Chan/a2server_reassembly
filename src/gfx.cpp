@@ -34,6 +34,7 @@ uint16_t* p_clrsh_ShockingBlack = clrsh_ShockingBlack; //62e588
 
 
 uint16_t g_colors_human_pals[16][16]; //65e230
+int32_t g_MessageColors; //660f80
 
 uint16_t* g_brightnessLookup = nullptr; //65dd20
 uint32_t g_brightnessLookupCount = 0; //659bf0
@@ -335,6 +336,13 @@ void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint
 	FillRectColor(l, t, l, b, clr); //left
 }
 
+
+
+void __cdecl FlushScreen()
+{
+	//454e18
+	gfxFlushRect(CRect(g_ScreenSize));
+}
 
 
 

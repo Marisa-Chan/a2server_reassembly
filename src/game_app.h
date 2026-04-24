@@ -119,6 +119,7 @@ extern HWND g_MainWndHWND; //6658ec
 extern uint32_t g_IsCdPresent; //660f94
 extern uint32_t g_EnableMusic; //660e10
 extern uint32_t g_EnableTrace; //660f78
+extern uint32_t INT_00660f74; //660f74
 
 
 extern uint32_t g_DWORD_00659d18; //659d18

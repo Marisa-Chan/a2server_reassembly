@@ -32,8 +32,12 @@ public:
     uint32_t flags;
     CArray<int16_t> diplomacy;
 
+    MapPlayerData();
+    MapPlayerData(int32_t plid, int32_t arg2);
+
 public:
     uint32_t FUN_0041ee20(int32_t idx);
+    int32_t FUN_0041edf0(int32_t idx);
 };
 
 struct MapLogicData {

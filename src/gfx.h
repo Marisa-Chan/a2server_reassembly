@@ -44,6 +44,8 @@ extern uint16_t clrsh_LuxorGold[16]; //65e848
 
 extern uint16_t g_colors_human_pals[16][16]; //65e230
 
+extern int32_t g_MessageColors; //660f80
+
 extern uint16_t* g_brightnessLookup; //65dd20
 extern uint32_t g_brightnessLookupCount; //659bf0
 
@@ -68,6 +70,8 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
 void __cdecl ShadowRect(CRect rect, int shadow); //457b6f
 void __cdecl gfxFlushRect(const CRect& rect); //454c74
 void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //458035
+
+void __cdecl FlushScreen(); //454e18
 
 void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t width, int32_t height, void* dst); //45455e
 

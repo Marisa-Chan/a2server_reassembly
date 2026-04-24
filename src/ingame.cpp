@@ -12,17 +12,24 @@
 #include "mouse.h"
 #include "item.h"
 #include "player_file.h"
+#include "map_stuff.h"
+#include "quest.h"
+#include "quest_map.h"
+#include "file.h"
 
 
-uint16_t* clr_log_tblack = clrsh_TechBlack; //62f890
 uint16_t* clr_log_sblack = clrsh_ShockingBlack; //62f88c
-
+uint16_t* clr_log_tblack = clrsh_TechBlack; //62f890
+uint16_t* clr_log_tok0 = clrsh_ShockingBlack; //62f894
+uint16_t* clr_log_tok2 = clrsh_ShockingBlack; //62f898
+uint16_t* clr_log_tok1 = clrsh_ShockingBlack; //62f89c
+uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 
 int INT_6362e8[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
 int INT_636328[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
 
 extern CUnit g_CUnitStatic; //642a48
-
+extern CStringArray DAT_00666a00; //666a00
 
 
 
@@ -197,6 +204,49 @@ void GM_a28::Update()
 
 
 
+
+//4216b0
+void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t* outsz)
+{
+	int32_t sz = *(int32_t*)data;
+	data += 4;
+
+	*outsz = sz;
+
+	uint8_t* buf = new uint8_t[sz];
+
+	*out = buf;
+
+	int32_t readcount = 4;
+	while (readcount < datasz)
+	{
+		if ((*data & 0x80) == 0)
+		{
+			int num = *data;
+			data++;
+			readcount++;
+
+			memcpy(out, data, num);
+			out += num;
+
+			data += num;
+			readcount += num;
+		}
+		else
+		{
+			int num = data[0] & 0x7f;
+			int val = data[1];
+
+			memset(out, val, num);
+			out += num;
+
+			data += 2;
+			readcount += 2;
+		}
+	}
+}
+
+
 int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 {
 	//40da14
@@ -226,6 +276,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		PacketAoeZone* packet_aoe = reinterpret_cast<PacketAoeZone*>(pkt);
 		PacketEffect* packet_effect = reinterpret_cast<PacketEffect*>(pkt);
 		PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);
+		PacketUnitProperties* packet_props = reinterpret_cast<PacketUnitProperties*>(pkt);
+		PacketPlayerInfo* packet_player = reinterpret_cast<PacketPlayerInfo*>(pkt);
 
 		if (!pkt)
 		{
@@ -283,7 +335,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		{
 			if (wnd->field_0x418 == 1 && my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
 			{
-				sprintf(buf, "%s %d %s", TxtFile::AllLines.GetAt(0x58), packet_info->field_0xa - my_main_unit->gold, TxtFile::AllLines.GetAt(0x59));
+				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->field_0xa - my_main_unit->gold, TxtFile::AllLines[0x59]);
 				msglog.Add(buf, clr_log_tblack, 3000);
 			}
 			my_main_unit->gold = packet_info->field_0xa;
@@ -1069,7 +1121,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			}
 			else
 			{
-				if (field_0xabc && packet_ping->field_0xc < ct->hp)
+				if (flying_hp && packet_ping->field_0xc < ct->hp)
 				{
 					bool not_me = ct->field_0x14 != my_main_unit;
 
@@ -1144,7 +1196,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 									if (ct->field_0x188[i]->FUN_004396d6() == 0 && g_EnableTrace != 0)
 									{
 										CStdioFile f;
-										f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+										f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 										f.SeekToEnd();
 										f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 										f.Close();
@@ -1219,7 +1271,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								CString logstr = "Invalid inventory update! all items ignored.";
 
 								CStdioFile f;
-								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
@@ -1235,7 +1287,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								CString logstr = "Invalid inventory update! some items ignored.";
 
 								CStdioFile f;
-								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+								f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
@@ -1277,7 +1329,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							CString logstr = "Invalid item in inventory " + obj->FUN_004394f3();
 
 							CStdioFile f;
-							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
@@ -1292,9 +1344,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							unk_660DA8.Lookup(obj->item_id, *(void **)&itmname);
 
 							if (obj->field_0x10 < 2)
-								sprintf(buf, "%s %s", TxtFile::AllLines.GetAt(85), itmname);
+								sprintf(buf, "%s %s", TxtFile::AllLines[85], itmname);
 							else
-								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines.GetAt(85), itmname, TxtFile::AllLines.GetAt(86), obj->field_0x10, TxtFile::AllLines.GetAt(87));
+								sprintf(buf, "%s %s (%s %d %s)", TxtFile::AllLines[85], itmname, TxtFile::AllLines[86], obj->field_0x10, TxtFile::AllLines[87]);
 							msglog.Add(buf, clr_log_tblack, 3000);
 						}
 					}
@@ -1380,7 +1432,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							CString logstr = "Invalid item in shop " + d0->FUN_004394f3();
 
 							CStdioFile f;
-							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite, 0);
+							f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
@@ -1700,6 +1752,760 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		}
 		break;
 
+		case 0x91:
+		{
+			if (packet_join->player_id == 0 || packet_join->player_id >= field_0x9b8.GetSize() || field_0x9b8[packet_join->player_id] == nullptr)
+			{
+				msglog.Add(packet_join->name, clr_log_sblack, 10000);
+			}
+			else if (my_main_unit->FUN_0041edf0(packet_join->player_id) == 0 || packet_join->token_id == 4)
+			{
+				MapPlayerData* dat = field_0x9b8[packet_join->player_id];
+
+				if (g_MessageColors == 0 || (wnd->field_0x418 & 1) == 0)
+				{
+					msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
+				}
+				else
+				{
+					uint16_t* clr = nullptr;
+					switch (packet_join->token_id)
+					{
+					case 0:
+					case 4:
+						clr = clr_log_tok0;
+						break;
+					case 1:
+						clr = clr_log_tok1;
+						break;
+					case 2:
+						clr = clr_log_tok2;
+						break;
+					case 3:
+						clr = clr_log_tok3;
+						break;
+					}
+
+					msglog.Add(CString(dat->name) + ": " + packet_join->name, clr, 10000);
+				}
+
+				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				
+			}
+			wnd->vis_root->MsgProc(0x45f, 0, 0);
+		}
+		break;
+
+		case 0x92:
+		{
+			switch (packet_info->field_0xa)
+			{
+			case 1:
+				if (g_EnableTrace)
+					msglog.Add(TxtFile::AllLines[0x81], clr_log_sblack, 3000);
+				break;
+
+			case 2:
+			{
+				int32_t texid = packet_info->field_0xe & 0xffff;
+				int32_t serv_id = (packet_info->field_0xe >> 16) & 0xffff;
+
+				CString txt;
+
+				if ((field_0x3f6c->field_0x1b8 & 2) == 0)
+					txt = TxtFile::AllLines[texid + 0x81];
+				else
+					txt = TxtFile::AllLines[texid + 0x86];
+
+				if (wnd->field_0x640 == 2)
+				{
+					CUnit* ct = FUN_0041df23(serv_id);
+					if (ct)
+					{
+						if ((ct->field_0x1b8 & 2) == 0)
+							txt = TxtFile::AllLines[texid + 0x81] + CString(" (") + ct->field_0xec + ")";
+						else
+							txt = TxtFile::AllLines[texid + 0x86] + CString(" (") + ct->field_0xec + ")";
+					}
+				}
+
+				msglog.Add(txt, clr_log_sblack, 3000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+			}
+				break;
+
+			case 3:
+				if (packet_info->field_0xe != my_main_unit->index)
+				{
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xcc], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcd]);
+					msglog.Add(buf, clr_log_sblack, 5000);
+				}
+				break;
+
+			case 4:
+				if (packet_info->field_0xe == my_main_unit->index)
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xd0], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xd1]);
+				else
+					sprintf(buf, "%s %s %s", TxtFile::AllLines[0xce], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xcf]);
+				msglog.Add(buf, clr_log_sblack, 5000);
+				break;
+
+			case 5:
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xde]);
+				msglog.Add(buf, clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 6:
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe0]);
+				msglog.Add(buf, clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 7:
+				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe2]);
+				msglog.Add(buf, clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 8:
+				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x53], packet_info->field_0xe, TxtFile::AllLines[0x54]);
+				msglog.Add(buf, clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 0x10:
+				msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 0x20:
+				msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
+				msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 0x40:
+				msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+
+			case 0x80:
+				msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
+
+				if ((wnd->field_0x418 & 1) != 0)
+					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				break;
+			}
+		}
+		break;
+
+		case 0x93:
+		{
+			msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
+			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+
+			if (packet_join->__field_0xa == my_main_unit->index)
+			{
+				if ((wnd->field_0x418 & 1) == 0)
+				{
+					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+					{}
+					g_CLlDriver.Close();
+					return 0;
+				}
+
+				wnd->PostMessage(0x45c, 0, 0);
+				g_CLlDriver.Close();
+			}
+		}
+			break;
+
+		case 0x94:
+			if (packet_info->field_0xa != 0 && 
+				packet_info->field_0xa < field_0x9b8.GetSize() && field_0x9b8[packet_info->field_0xa] != nullptr &&
+				packet_info->field_0xe != 0 &&
+				packet_info->field_0xe < field_0x9b8.GetSize() && field_0x9b8[packet_info->field_0xe] != nullptr)
+			{
+				CString str;
+				str.Format("%s %s %s %s %s", txt_patch.GetLine(0x50), field_0x9b8[packet_info->field_0xa]->name, txt_patch.GetLine(0x51), field_0x9b8[packet_info->field_0xe]->name, txt_patch.GetLine(0x52));
+				msglog.Add(str, clr_log_sblack, 5000);
+			}
+			break;
+
+		case 0x96:
+		{
+			bool isin = packet_join->player_id < field_0x9b8.GetSize();
+			if (isin)
+			{
+				if (field_0x9b8[packet_join->player_id] == nullptr)
+					isin = false;
+			}
+			MapPlayerData* mp = nullptr;
+			if (!isin)
+			{
+				mp = new MapPlayerData(packet_join->player_id, packet_join->field_0xc);
+				mp->field2_0x8 = packet_join->token_id;
+			}
+			else
+			{
+				mp = field_0x9b8[packet_join->player_id];
+			}
+
+			if ((packet_join->flags & 1) == 0)
+				mp->flags &= ~1;
+			else
+				mp->flags |= 1;
+
+			strncpy(mp->name, packet_join->name, 31);
+			mp->name[31] = 0;
+
+			if (field_0x9b8.GetSize() == 1)
+			{
+				wnd->some_struc.field_0x10c = (packet_join->flags & 2) != 0;
+				my_main_unit = mp;
+				mp->diplomacy.SetAtGrow(0, 0);
+				mp->diplomacy.SetAtGrow(mp->index, 0x3a);
+			}
+			else if ((mp->flags & 1) == 0)
+			{
+				if (mp != my_main_unit)
+					my_main_unit->diplomacy.SetAtGrow(mp->index, 0);
+			}
+			else
+				my_main_unit->diplomacy.SetAtGrow(mp->index, 1);
+
+			field_0x9b8.SetAtGrow(mp->index, mp);
+
+			wnd->FUN_00494a9e();
+
+			if (wnd->field_0x144)
+			{
+				wnd->field_0x144->ReadData(&wnd->field_0x348);
+				wnd->field_0x144->VMethod9();
+			}
+
+			wnd->vis_root->MsgProc(0x460, 0, 0);
+		}
+			break;
+
+		case 0x97:
+		{
+			if (packet_info->field_0xa == my_main_unit->index)
+			{
+				wnd->PostMessage(0x45c, 0, 0);
+				g_CLlDriver.Close();
+				break;
+			}
+
+			CArray<uint16_t> tmp;
+			for (POSITION it = field_0x9d0.GetStartPosition(); it != nullptr;)
+			{
+				uint16_t key;
+				CGameObject* obj;
+				field_0x9d0.GetNextAssoc(it, key, obj);
+				
+				if (obj->field_0x14 == field_0x9b8[packet_info->field_0xa])
+					tmp.Add(key);
+			}
+
+			for (int i = 0; i < tmp.GetSize(); i++)
+			{
+				CGameObject* obj;
+				field_0x9d0.Lookup(tmp[i], obj);
+				field_0x9d0.RemoveKey(tmp[i]);
+
+				if (obj->FUN_0041f110() != 0)
+				{
+					field_0x9b4 = 0;
+					wnd->field_0xec->FUN_004caa69();
+					wnd->field_0xdc->MsgProc(0x40b, 0, 0);
+				}
+
+				delete obj;
+			}
+
+			FUN_00416cf7();
+
+			field_0x9b8[packet_info->field_0xa] = nullptr; //WAT ? not delete?
+			wnd->vis_root->MsgProc(0x460, 0, 0);
+
+			wnd->FUN_00494a9e();
+
+			if (wnd->field_0x144)
+			{
+				wnd->field_0x144->ReadData(&wnd->field_0x348);
+				wnd->field_0x144->VMethod9();
+			}
+		}
+		break;
+
+		case 0x9b:
+		{
+			CWordArray tmp;
+			tmp.SetSize(packet_terrain->count);
+			memcpy(tmp.GetData(), packet_terrain->buf, packet_terrain->count * 2);
+			FUN_0041c630(&tmp);
+		}
+			break;
+
+		case 0x9c:
+		{
+			CUnit* ct = nullptr;
+			if (packet_props->field_0xa != 0 && field_0x9d0.Lookup(packet_props->field_0xa, *(CGameObject**)&ct) != 0)
+			{
+				int pr = 0;
+				for (int i = 0; i < 12; i++)
+				{
+					if ((packet_props->flags & (1 << i)) != 0)
+					{
+						if (ct->field_0x188[i])
+							delete ct->field_0x188[i];
+
+						if (packet_props->prop[pr] == 0)
+							ct->field_0x188[i] = nullptr;
+						else
+						{
+							GO_d0* itm = new GO_d0(0);
+							itm->item_id = packet_props->prop[pr];
+							itm->field_0x10 = 1;
+							itm->flg = 0;
+							itm->field_0x9 = 0;
+							itm->field_0xa = 0;
+							itm->field_0x18 = 1;
+
+							ct->field_0x188[i] = itm;
+						}
+						pr++;
+					}
+				}
+
+				ct->field_0x1b8 |= 8;
+				ct->FUN_0046b91c();
+			}
+		}
+			break;
+
+		case 0xaa:
+		{
+			switch(packet_info->field_0xa)
+			{
+			case 0:
+				INT_00660f74 = 0;
+				break;
+
+			case 1:
+			{
+				INT_00660f74 = 1;
+				uint16_t* landscape = field_0x80->GetLandscape();
+
+				for (int i = 0; i < field_0x80->GetWidth(); i++)
+				{
+					for (int j = 0; j < field_0x80->GetHeight(); j++)
+						landscape[i + j * field_0x80->GetWidth()] |= 0xc000;
+				}
+			}
+				break;
+			case 2:
+				wnd->PostMessage(0x430, 0, 0);
+				break;
+			}
+		}
+			break;
+
+		case 0xab:
+			if (wnd->field_0x404 == 0)
+				MsgProc(0x406, packet_info->field_0xa - (field_0x64 / 2), packet_info->field_0xe - (field_0x68 / 2));
+			break;
+
+		case 0xae:
+			MsgProc(0x484, (uint32_t)&(packet_join->__field_0xa), 0); ///???????????
+			break;
+
+		case 0xaf:
+			if (wnd->field_0x640 == 0)
+			{
+				if ((wnd->field_0x418 & 1) == 0)
+				{
+					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+					{}
+					g_CLlDriver.Close();
+					return 0;
+				}
+				else
+				{
+					g_CLlDriver.Close();
+					if (pkt)
+						delete pkt; // WAT!?
+					return 1;
+				}
+			}
+			break;
+
+		case 0xb3:
+			kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
+
+			if (wnd->field_0x640 != 2)
+				wnd->some_struc.FUN_00494982();
+			break;
+
+		case 0xb4:
+			wnd->PostMessage(0x433, 255, packet_info->field_0xa);
+			break;
+
+		case 0xb5:
+			wnd->PostMessage(0x430, 0, 0);
+			break;
+
+		case 0xb6:
+			wnd->PostMessage(0x433, packet_info->field_0xa, 0);
+			break;
+
+		case 0xb7:
+			if (wnd->field_0x640 == 0)
+			{
+				wnd->field_0x454 = 1;
+				wnd->PostMessage(0x45e, 0, 0);
+			}
+			break;
+
+		case 0xb8:
+			if (wnd->field_0x640 == 0)
+			{
+				if ((wnd->field_0x418 & 2) != 0)
+				{
+					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
+					shop->FUN_004bcd02();
+					wnd->vis_root->RemoveChild(shop);
+				}
+
+				if ((wnd->field_0x418 & 4) != 0)
+				{
+					VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
+					tavern->FUN_0049edec();
+					wnd->vis_root->RemoveChild(tavern);
+				}
+				wnd->vis_root->MsgProc(0x446, 0, 0);
+				wnd->field_0x454 = 0;
+				wnd->PostMessage(0x45d, 0, 0);
+			}
+			break;
+
+		case 0xb9:
+			for (int i = 16; i < packet_terrain->count; i++)
+			{
+				MapPlayerData* mp = field_0x9b8[i];
+				if (mp && (mp->flags & 1) == 0 && i < my_main_unit->diplomacy.GetSize())
+				{
+					buf[0] = 0;
+
+					int16_t& diplo = my_main_unit->diplomacy[i];
+
+					if ((diplo & 8) != 0 && (packet_terrain->buf[i] & 8) == 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x48), mp->name, txt_patch.GetLine(0x49));
+					else if ((diplo & 8) == 0 && (packet_terrain->buf[i] & 8) != 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x46), mp->name, txt_patch.GetLine(0x47));
+
+					if (buf[0] != 0)
+					{
+						msglog.Add(buf, clr_log_sblack, 3000);
+						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					}
+
+					buf[0] = 0;
+
+					if ((diplo & 0x40) == 0 && (packet_terrain->buf[i] & 0x40) != 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x94), mp->name, txt_patch.GetLine(0x95));
+					else if ((diplo & 0x40) != 0 && (packet_terrain->buf[i] & 0x40) == 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x92), mp->name, txt_patch.GetLine(0x93));
+
+					if (buf[0] != 0)
+					{
+						msglog.Add(buf, clr_log_sblack, 3000);
+						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					}
+
+					buf[0] = 0;
+
+					if ((diplo & 0x20) == 0 && (packet_terrain->buf[i] & 0x20) != 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x8e), mp->name, txt_patch.GetLine(0x8f));
+					else if ((diplo & 0x20) != 0 && (packet_terrain->buf[i] & 0x20) == 0)
+						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x90), mp->name, txt_patch.GetLine(0x91));
+
+					if (buf[0] != 0)
+					{
+						msglog.Add(buf, clr_log_sblack, 3000);
+						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					}
+				}
+			}
+
+			my_main_unit->diplomacy.SetSize(packet_terrain->count);
+			memcpy(my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count);
+
+			wnd->FUN_00494a9e();
+
+			if (wnd->field_0x144)
+			{
+				wnd->field_0x144->ReadData(&wnd->field_0x348);
+				wnd->field_0x144->VMethod9();
+			}
+			break;
+
+		case 0xba:
+		{
+			uint8_t* stats = nullptr;
+			int32_t stats_sz = 0;
+
+			ReadKillStats(packet_data->data, packet_data->count, &stats, &stats_sz);
+			memcpy(kill_stats.data(), stats, stats_sz);
+
+			delete[] stats;
+
+			if (wnd->field_0x640 != 2)
+				wnd->some_struc.FUN_00494982();
+		}
+			break;
+
+		case 0xbb:
+		{
+			bool isnull = field_0x4970->FUN_0041ec00() == 0;
+
+			field_0x4970->sub_55ECFE(0);
+
+			uint16_t* dat = packet_terrain->buf + 1;
+
+			for (int i = 0; i < packet_terrain->buf[0]; i++)
+			{
+				Quest* qwa = field_0x4970->FUN_0055ee42(*dat);
+				dat++;
+
+				qwa->CopyFields((QuestData*)dat);
+				dat = (uint16_t*)(((QuestData*)dat) + 1);
+
+				field_0x4970->sub_55E24A(qwa);
+			}
+
+			if (isnull && field_0x4970->FUN_0041ec00() != 0)
+				wnd->PostMessage(0x466, 1, 0);
+		}
+			break;
+
+		case 0xbc:
+			if ((wnd->field_0x418 & 4) != 0)
+			{
+				VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
+				if (tavern)
+				{
+					tavern->quest_map->sub_55ECFE(0);
+
+					uint16_t* dat = packet_terrain->buf + 1;
+					for (int i = 0; i < packet_terrain->buf[0]; i++)
+					{
+						Quest* qwa = tavern->quest_map->FUN_0055ee42(*dat);
+						dat++;
+
+						qwa->CopyFields((QuestData*)dat);
+						dat = (uint16_t*)(((QuestData*)dat) + 1);
+
+						tavern->quest_map->sub_55E24A(qwa);
+					}
+				}
+			}
+			break;
+
+		case 0xbf:
+			if (packet_join->__field_0xa == sub_4F1D0D(packet_join->name))
+			{
+				wnd->field_0x458 = 1;
+				wnd->field_0x45c = 0;
+			}
+			else
+			{
+				FUN_0041cb67(0);
+				wnd->field_0x45c = 1;
+			}
+			break;
+
+		case 0xc0:
+		{
+			CString fname = CString((const char*)packet_player->preamble) + ".tmp";
+			CFile fl;
+
+			try {
+				if (packet_player->offset == 0)
+				{
+					LockSurface2();
+					FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+
+					CString cstr = CString(TxtFile::AllLines[0x16b]) + " " + (const char*)packet_player->preamble;
+					g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, cstr, 8 | 2, clrsh_ShockingBlack);
+
+					UnlockSurface2();
+
+					if (wnd->field_0xbc != 0)
+						FlushScreen();
+
+					fl.Open(fname, CFile::modeCreate | CFile::modeWrite);
+				}
+				else
+					fl.Open(fname, CFile::modeWrite);
+
+				fl.Seek(packet_player->offset, 0);
+				fl.Write(packet_player->var_data, packet_player->count);
+				fl.Close();
+
+				LockSurface2();
+				FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
+
+				g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, TxtFile::AllLines[0x16c], 2, clrsh_ShockingBlack);
+
+				UnlockSurface2();
+
+				if (wnd->field_0xbc != 0)
+					gfxFlushRect(CRect(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40));
+
+			}
+			catch (...)
+			{}
+
+			if (packet_player->offset + packet_player->count < packet_player->total_length)
+				FUN_0041cb67(packet_player->offset + packet_player->count);
+			else
+			{
+				
+				try
+				{
+					CFile::Remove((const char*)packet_player->preamble);
+				}
+				catch(...)
+				{}
+
+				try
+				{
+					CFile::Rename(fname, (const char*)packet_player->preamble);
+				}
+				catch (...)
+				{}
+
+				FUN_0041cb21();
+			}
+		}
+			break;
+
+		case 0xc1:
+		{
+			NetStru2* conn = g_NetStru1_local.FUN_0041f520();
+			if (conn)
+				g_CLlDriver.SetLatency(conn->GetUid(), packet_dword->value);
+		}
+			break;
+
+		case 0xcd:
+		{
+			DAT_00666a00.RemoveAll();
+
+			char* chpos = strstr((char*)packet_data->data, "CURRENTCOUNT");
+			if (!chpos)
+				return 0;
+
+			chpos = strchr((char*)packet_data->data, '|');
+			if (!chpos)
+				return 0;
+
+			chpos++;
+			int32_t num = atoi(chpos);
+
+			chpos = strchr((char*)packet_data->data, '\n') + 1;
+			chpos = strchr(chpos, '\n') + 1;
+			chpos = strchr(chpos, '\n');
+
+			for (int i = 0; i < num; i++)
+			{
+				while( isprint(*chpos) == 0 )
+				{
+					chpos++;
+				}
+
+				char bbuf[1024];
+				char* outpos = bbuf;
+				while (*chpos >= 0x20)
+				{
+					*outpos = *chpos;
+					outpos++;
+					chpos++;
+				}
+				*outpos = 0;
+
+				DAT_00666a00.Add( CString('|') + bbuf );
+			}
+
+
+			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+			{}
+			return 1;
+		}
+			break;
+
+		case 0xce:
+		{
+			wnd->field_0x3ec = *(int32_t*)packet_data->data;
+			wnd->some_struc.field_0x130.RemoveAll();
+
+			HatCharId* chars = (HatCharId*)(packet_data->data + 4);
+			for (int i = 0; i < packet_data->count / 8; i++)
+				wnd->some_struc.field_0x130.Add(chars[i]);
+		}
+			break;
+
+		case 0xcf:
+		{
+			HatCharId* chr = (HatCharId*)packet_data->data;
+
+			CString fname;
+			fname.Format("%u%u.a2c", chr->id1, chr->id2);
+
+			CFile fl;
+			if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite))
+			{
+				fl.Write(packet_data->data + 8, packet_data->count - 8);
+				fl.Close();
+			}
+			else
+				INT_00660f8c = 0x1011;
+
+			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+			{}
+			return 1;
+		}
+			break;
+
+		case 0xd0:
+			wnd->some_struc.field_0x148 = packet_info->field_0xa;
+			wnd->some_struc.field_0x14c = packet_info->field_0xe;
+
+			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
+			{}
+			return 1;
+
+
+
 		}
 
 		if (pkt->id == breakid)
@@ -1814,3 +2620,6 @@ void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr)
 		arr->ElementAt(i).Update();
 	}
 }
+
+
+

@@ -187,6 +187,7 @@ public:
     void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E1C7(uint16_t player_id);
 
+    NetStru2* FUN_0041f520();
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, field_0x1898, 0x1898);
@@ -275,6 +276,8 @@ public:
     void ReturnBuffers(); //515d9d    return buffers to High-level driver
 
     uint32_t GetBuffersPktNum(); //51670a  Get received_buffers summary of pkt_num
+
+    uint32_t GetUid() { return uid; }; //41f500
 };
 __pragma(pack(pop))
 

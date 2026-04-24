@@ -55,6 +55,10 @@ public:
     int32_t sub_55F441(int32_t building_id);
     void sub_55EA81(QuestInnGlue* glue); // Add QuestInnGlue to quest map
     void sub_55ECFE(int32_t player_id);
+
+    Quest* FUN_0055ee42(int quest_kind);
+
+    int32_t FUN_0041ec00() { return quests_map.GetCount(); }; //41ec00
 };
 
 ASSERT_OFFSET(QuestMap, flags, 0x58);

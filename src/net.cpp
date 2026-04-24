@@ -1118,7 +1118,13 @@ int NetStru1::IsActive()
 }
 
 
+NetStru2* NetStru1::FUN_0041f520()
+{
+    if (active_connects.IsEmpty())
+        return nullptr;
 
+    return active_connects.GetHead();
+}
 
 
 

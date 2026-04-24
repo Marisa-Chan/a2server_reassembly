@@ -123,6 +123,12 @@ struct SomeMainSubStruc1
 };
 
 
+struct HatCharId
+{
+    int32_t id1;
+    int32_t id2;
+};
+
 class SomeMainStructure : public CObject
 {
 public:
@@ -133,6 +139,7 @@ public:
     void FUN_004946ae(); //4946ae
 
     CString FUN_00420070(); //420070
+    void FUN_00494982(); //494982
 
 public:
     int32_t field_0x4;
@@ -168,8 +175,8 @@ public:
     int32_t field_0x110;
     int32_t field_0x114;
     int32_t field_0x118;
-    CArray<void*> field_0x11c;
-    CArray<void*> field_0x130;
+    CArray<HatCharId> field_0x11c;
+    CArray<HatCharId> field_0x130;
     int32_t field_0x144;
     int32_t field_0x148;
     int32_t field_0x14c;
@@ -209,6 +216,8 @@ public:
 
     void ResetItemCursor(); //48cd44
 
+    void FUN_00494a9e(); //494a9e
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -222,7 +231,7 @@ public:
     CVisualObject* field_0xe0;
     CVisualObject* field_0xe4;
     VisInvType1* field_0xe8;
-    CVisualObject* field_0xec;
+    VisSpellBook* field_0xec;
     CVisualObject* field_0xf0;
     VisScreen* field_0xf4;
     CVisualObject* field_0xf8;
@@ -244,7 +253,7 @@ public:
     CVisualObject* field_0x138;
     int32_t field_0x13c;
     int32_t field_0x140;
-    int32_t field_0x144;
+    VisMessageBox* field_0x144;
     MWin_Unk1 field_0x148;
     int32_t field_0x348;
     int32_t field_0x34c;

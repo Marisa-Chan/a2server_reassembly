@@ -1,6 +1,7 @@
 #ifndef VISUALOBJ_H
 #define VISUALOBJ_H
 
+#include <array>
 #include "assert_offset.h"
 #include "asm_mfc.h"
 #include "mfc_templ.h"
@@ -766,9 +767,15 @@ public:
 	void FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan); //41b7b7
 	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
 
+	CUnit* FUN_0041df23(int32_t serv_id); //41df23
+
+	void FUN_0041c630(CWordArray *data); //41c630
+
+	void FUN_0041cb67(int32_t val); //41cb67
+	void FUN_0041cb21(); //41cb21
 public:
-	int32_t view_tile_x;
-	int32_t view_tile_y;
+	int32_t view_x;
+	int32_t view_y;
 	int32_t field_0x64; //unk type
 	int32_t field_0x68; //unk type
 	int32_t field_0x6c; //unk type
@@ -779,20 +786,20 @@ public:
 	Scenario* field_0x80;
 	int32_t field_0x84; //unk type
 	int32_t field_0x88; //unk type
-	void* field_0x8c; //unk type
-	void* field_0x90; //unk type
-	void* field_0x94; //unk type
-	void* field_0x98; //unk type
-	void* field_0x9c; //unk type
-	void* field_0xa0; //unk type
-	void* field_0xa4; //unk type
-	void* field_0xa8; //unk type
-	void* field_0xac; //unk type
-	void* field_0xb0; //unk type
-	void* field_0xb4; //unk type
-	void* field_0xb8; //unk type
-	void* field_0xbc; //unk type
-	void* field_0xc0; //unk type
+	uint32_t* field_0x8c; //unk type
+	uint32_t* field_0x90; //unk type
+	uint32_t* field_0x94; //unk type
+	uint32_t* field_0x98; //unk type
+	uint32_t* field_0x9c; //unk type
+	uint32_t* field_0xa0; //unk type
+	uint32_t* field_0xa4; //unk type
+	uint8_t* field_0xa8; //unk type
+	uint8_t* field_0xac; //unk type
+	uint8_t* field_0xb0; //unk type
+	uint32_t* field_0xb4; //unk type
+	uint32_t* field_0xb8; //unk type
+	uint32_t* field_0xbc; //unk type
+	uint32_t* field_0xc0; //unk type
 	int32_t field_0xc4; //unk type
 	int32_t field_0xc8; //unk type
 	int32_t field_0xcc; //unk type
@@ -801,41 +808,87 @@ public:
 	int32_t field_0xd8;
 	int32_t field_0xdc;
 	int32_t field_0xe0;
-
-	uint8_t _unk1[0x54];
-
+	int32_t field_0xe4;//unk type
+	int32_t field_0xe8;//unk type
+	int32_t field_0xec;//unk type
+	int32_t field_0xf0;//unk type
+	CRect field_0xf4;
+	int32_t field_0x104;//unk type
+	int32_t field_0x108;//unk type
+	CArray<CRect> field_0x10c;
+	CWordArray field_0x120;
+	int32_t field_0x134;//unk type
 	CUnit* field_0x138;
 	int32_t field_0x13c; //unk type
 	int32_t field_0x140;
-
-	uint8_t _unk1_1[0x874];
-
+	uint32_t field_0x144;
+	uint32_t field_0x148;
+	int32_t field_0x14c; //unk type
+	int32_t field_0x150; //unk type
+	int32_t spell_damage_min[24];
+	int32_t spell_damage_max[24];
+	int32_t spell_range_min[24];
+	int32_t spell_range_max[24];
+	int32_t spell_mana_cost1[24];
+	int32_t spell_mana_cost2[24];
+	int32_t spell_power_min[24];
+	int32_t spell_power_max[24];
+	int32_t spell_val1_min[24];
+	int32_t spell_val1_max[24];
+	int32_t spell_val2_min[24];
+	int32_t spell_val2_max[24];
+	int32_t spell_val3_min[24];
+	int32_t spell_val3_max[24];
+	int32_t spell_val4_min[24];
+	int32_t spell_val4_max[24];
+	int32_t spell_val5_min[24];
+	int32_t spell_val5_max[24];
+	int32_t spell_val6_min[24];
+	int32_t spell_val6_max[24];
+	int32_t spell_val7_min[24];
+	int32_t spell_val7_max[24];
+	CUnit* field_0x994;
+	uint32_t quest_some_id_2;
+	uint32_t quest_landmark_some_id;
+	uint32_t quest_building_some_id;
+	uint32_t quest_some_id;
+	uint32_t field_0x9a8;
+	int32_t field_0x9ac;
+	int32_t field_0x9b0;
+	int32_t field_0x9b4;
 	CArray<MapPlayerData*> field_0x9b8;
 	MapPlayerData* my_main_unit;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
-	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa08; //unk type
+	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa08;
 	int32_t field_0xa24; //unk type
 	GM_a28 msglog;
 	int32_t field_0xa88;
 	int32_t field_0xa8c;
 	int32_t field_0xa90;
-	CMap<uint32_t, uint32_t, uint32_t, uint32_t> field_0xa94; //unk type
-	int32_t field_0xab0;
-	int32_t field_0xab4;
-	int32_t field_0xab8;
-	int32_t field_0xabc;
+	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa94;
+	int32_t formation;
+	int32_t wimpy;
+	int32_t show_hp;
+	int32_t flying_hp;
+	
+	uint8_t field_0xac0[41][41][2];
+	uint8_t ____padding1[2];
 
-	uint8_t _unk2[0x3494];
+	uint32_t field_0x17e4[41][41];
+	uint16_t field_3228[41][41];
 
+	uint16_t ____padding2;
+
+	int32_t field_0x3f4c; //unk type
+	int32_t field_0x3f50; //unk type
 	CArray<TakeDamage> damage_labels;
-	CBmp256* field_0x3f54;
+	CBmp256* field_0x3f68;
 	CUnit* field_0x3f6c;
-
-	uint8_t _unk3[0xA04];
-
+	std::array<uint8_t, 0xa00> kill_stats;
+	QuestMap* field_0x4970;
 	CArray<Item*> field_0x4974;
-	Item* field_0x4988[12];
+	std::array<Item*, 12> field_0x4988;
 	int32_t field_0x49b8; //unk type
 	int32_t field_0x49bc; //unk type
 	int32_t field_0x49c0; //unk type
@@ -1073,6 +1126,8 @@ public:
 	virtual void VMethod30();
 	virtual void VMethod31();
 
+	void FUN_0049edec();
+
 public:
 	BigStruct2* p_bigstru2;
 	CVisualObject* field_0x6c;
@@ -1098,5 +1153,108 @@ public:
 	int32_t field_0x13c; //unk type
 };
 ASSERT_SIZE(VisTav, 0x140);
+
+class VisSpellBook : public CVisualObject
+{
+public:
+	virtual ~VisSpellBook();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	void FUN_004caa69();
+
+public:
+	int32_t field_0x5c;
+	int32_t field_0x60;
+	int32_t field_0x64;
+	int32_t field_0x68;
+};
+ASSERT_SIZE(VisSpellBook, 0x6c);
+
+
+class VisShop : public VisScreen
+{
+public:
+	virtual ~VisShop();
+
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
+	virtual void VMethod30();
+	virtual void VMethod31();
+	virtual void VMethod32();
+
+
+	void FUN_004bcd02();
+
+public:
+	VisInvExtType1* assortiment;
+	VisInvExtType2* to_sell;
+	VisInvExtType3* to_buy;
+	CVisualObject* field_0x74;
+	CVisualObject* buttons;
+	CVisualObject* field_0x7c;
+	BigStruct2* gameplay;
+	VisSpellBook* field_0x84;
+	CVisualObject* field_0x88;
+	int32_t field_0x8c;
+	SfxSample* snd_notif;
+	SfxSample* snd_step1;
+	SfxSample* snd_step2;
+	SfxSample* snd_breath;
+	SfxSample* snd_depart;
+	SfxSample* snd_buy;
+	SfxSample* snd_sell;
+	SfxSample* snd_enter;
+	SfxSample* snd_start;
+	SfxSample* snd_pov1;
+	SfxSample* snd_pov2;
+	SfxSample* snd_inshop;
+	SfxSample* snd_out;
+	SfxSample* snd_undo;
+	CBmp64* bmp_backinvg;
+	CBmp64* bmp_backinvb;
+	CBmp64* bmp_backinvs;
+	CSprite256* spr_myitem;
+	CSprite256* spr_shopitem;
+	CArray<CBmp64*> field_0xdc;
+	CArray<CBmp64*> field_0xf0;
+	int32_t field_0x104;
+	CArray<CUnit*> field_0x108;
+	CWordArray field_0x11c;
+	int16_t field_0x130;
+	int16_t field_0x132;
+	int32_t field_0x134;
+	int32_t field_0x138;
+	int32_t field_0x13c;
+	int32_t field_0x140;
+	int32_t field_0x144;
+	int32_t field_0x148;
+	int32_t field_0x14c;
+	int32_t field_0x150;
+	int32_t field_0x154;
+	int32_t field_0x158;
+	int32_t field_0x15c;
+	int32_t field_0x160;
+};
+ASSERT_SIZE(VisShop, 0x164);
 
 #endif

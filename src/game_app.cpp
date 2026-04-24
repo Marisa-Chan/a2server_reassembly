@@ -23,6 +23,7 @@ HWND g_MainWndHWND;
 uint32_t g_IsCdPresent;
 uint32_t g_EnableMusic;
 uint32_t g_EnableTrace;
+uint32_t INT_00660f74; //660f74
 
 uint32_t g_DWORD_00659d18;
 

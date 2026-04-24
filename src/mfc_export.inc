@@ -798,6 +798,7 @@ extern ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ :proc
 extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
 extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 
+extern  ?FUN_0041f520@NetStru1@@QAEPAUNetStru2@@XZ   :  proc
 
 
 externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051d49b
@@ -852,6 +853,7 @@ externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51EEB7@NetStru1@@QAEXXZ :proc
 externdef ?sub_51B870@NetStru1@@QAEXPAVUnit@@@Z :proc                     ; void NetStru1::sub_51B870(Unit*)
 
+externdef ?DAT_00666a00@@3VCStringArray@@A  : byte
 
 ;NetStru2
 
@@ -1096,6 +1098,7 @@ externdef ?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z :proc                          
 externdef ?sub_55E00C@QuestMap@@QAEXXZ :proc
 externdef ?sub_55D6F7@QuestMap@@QAEXXZ :proc                                    ; void QuestMap::sub_55D6F7()
 externdef ?sub_55EA81@QuestMap@@QAEXPAVQuestInnGlue@@@Z :proc                  ; void QuestMap::sub_55EA81(QuestInnGlue*)
+externdef ?FUN_0055ee42@QuestMap@@QAEPAVQuest@@H@Z : proc
 
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
@@ -1194,6 +1197,7 @@ extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(v
 externdef ?FUN_004946e0@SomeMainStructure@@QAEXXZ  : proc
 externdef ?FUN_004946ae@SomeMainStructure@@QAEXXZ  : proc
 externdef ?FUN_00420070@SomeMainStructure@@QAE?AVCString@@XZ : proc
+externdef ?FUN_00494982@SomeMainStructure@@QAEXXZ : proc
 
 
 
@@ -1206,6 +1210,8 @@ externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
 externdef ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
+externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
+
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 
@@ -1247,6 +1253,7 @@ extern ?g_EnableMusic@@3IA  : dword
 extern ?g_EnableTrace@@3IA  : dword
 extern ?g_DWORD_00659d18@@3IA  : dword
 extern ?g_CmdSafeVideo@@3IA  : dword
+extern ?INT_00660f74@@3IA  : dword
 
 extern ?g_HelpStr@@3VCString@@A : byte
 
@@ -1597,7 +1604,10 @@ externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
-
+externdef ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
+externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
+externdef ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
+externdef ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 
 externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
@@ -1621,6 +1631,15 @@ externdef _sub_4F1D0D :proc                                     ; int sub_4F1D0D
 externdef _dword_6CDB38 :dword                                  ; file checksum global
 externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data
 
+
+;VisSpellBook
+externdef ?FUN_004caa69@VisSpellBook@@QAEXXZ : proc
+
+;VisTav
+externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
+
+;VisShop
+externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
 
 
 ;GFX things
@@ -1699,6 +1718,13 @@ extern ?clrsh_TechBlack@@3PAGA  :word
 extern ?clrsh_ShockingBlack@@3PAGA  :word
 extern ?clrsh_CharlieBrown@@3PAGA  :word
 extern ?clrsh_LuxorGold@@3PAGA : word
+
+extern ?clr_log_tblack@@3PAGA  : dword
+extern ?clr_log_sblack@@3PAGA  : dword
+extern ?clr_log_tok0@@3PAGA  : dword
+extern ?clr_log_tok1@@3PAGA  : dword
+extern ?clr_log_tok2@@3PAGA  : dword
+extern ?clr_log_tok3@@3PAGA  : dword
 
 extern ?g_isLowMemory@@3IA : dword
 
@@ -1806,7 +1832,9 @@ externdef ??0CProjectile@@QAE@XZ : proc
 externdef  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 
 ;MapPlayerData
+externdef ??0MapPlayerData@@QAE@HH@Z : proc
 externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
+externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc
 
 ;UnitVFXInfo
 externdef ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
