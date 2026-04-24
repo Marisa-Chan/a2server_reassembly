@@ -13,6 +13,7 @@
 class Humanoid;
 class Unit;
 
+extern const std::array<uint32_t, 32> SpellBtB;
 
 class Spell : public CObject {
 public:

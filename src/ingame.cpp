@@ -16,6 +16,7 @@
 #include "quest.h"
 #include "quest_map.h"
 #include "file.h"
+#include "spell.h"
 
 
 uint16_t* clr_log_sblack = clrsh_ShockingBlack; //62f88c
@@ -805,6 +806,19 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct->face = g_CUnitStatic.face;
 
 							field_0x3f6c->field_0x1b8 |= 8;
+						}
+
+						if ((packet_unit->flags_mask & 0x100000) != 0)
+						{
+							ct->field_0x18 = 0;
+							if (ct->field_0x14 == my_main_unit && ct->field_0x1c != 0)
+							{
+								for (int i = 0; i < 32; i++)
+								{
+									if ((ct->field_0x1c & (1 << i)) != 0)
+										ct->field_0x18 |= SpellBtB[i];
+								}
+							}
 						}
 
 						if (ct->hp < -600)

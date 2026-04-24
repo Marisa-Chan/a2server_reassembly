@@ -17,6 +17,17 @@
 #include "unit_list.h"
 #include "world.h"
 
+//637010
+const std::array<uint32_t, 32> SpellBtB = { 
+    {0,         1,              2,          4,
+     8,         0x1000,         0x2000,     0x4000,
+     0x8000,    0,              0x800,      0x400,
+     0x200,     0x100,          0,          0,
+     0x800000,  0x400000,       0x200000,   0x100000,
+     0x20,      0x40,           0x20000,    0x4000,
+     0x10,      0x10000,        0x80,       0x80000,
+     0,         0,              0,          0} };
+
 // 53939E
 int Spell::sub_53939E(uint8_t, uint8_t)
 {
