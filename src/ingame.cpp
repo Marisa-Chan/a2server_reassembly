@@ -1453,7 +1453,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					tmp.RemoveAll();
 				}
 				else
-					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
+					wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, (uint32_t)&tmp);
 			}
 				break;
 
