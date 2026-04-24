@@ -30,7 +30,7 @@ public:
     uint32_t gold;
     char name[32];
     uint32_t flags;
-    CArray<int16_t> diplomacy;
+    CWordArray diplomacy;
 
     MapPlayerData();
     MapPlayerData(int32_t plid, int32_t arg2);

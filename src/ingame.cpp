@@ -1982,8 +1982,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{
 				wnd->some_struc.field_0x10c = (packet_join->flags & 2) != 0;
 				my_main_unit = mp;
-				mp->diplomacy.SetAtGrow(0, 0);
-				mp->diplomacy.SetAtGrow(mp->index, 0x3a);
+				my_main_unit->diplomacy.SetAtGrow(0, 0);
+				my_main_unit->diplomacy.SetAtGrow(mp->index, 0x3a);
 			}
 			else if ((mp->flags & 1) == 0)
 			{
@@ -2217,7 +2217,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				{
 					buf[0] = 0;
 
-					int16_t& diplo = my_main_unit->diplomacy[i];
+					uint16_t& diplo = my_main_unit->diplomacy[i];
 
 					if ((diplo & 8) != 0 && (packet_terrain->buf[i] & 8) == 0)
 						sprintf(buf, "%s %s %s", txt_patch.GetLine(0x48), mp->name, txt_patch.GetLine(0x49));
@@ -2259,7 +2259,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			}
 
 			my_main_unit->diplomacy.SetSize(packet_terrain->count);
-			memcpy(my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count);
+			memcpy(my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count * 2);
 
 			wnd->FUN_00494a9e();
 
