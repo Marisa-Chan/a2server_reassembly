@@ -12,6 +12,7 @@
 struct Inventory {
 public:
     Inventory(); // sub_551C0A — initializes CList and default fields
+    Inventory(const Inventory* src); // sub_551E55: copy constructor
     ~Inventory(); // sub_551C7A
     void PutItemIntoBagAtDefault(Item *item);
     void PutItemIntoBag(int32_t pos, Item *item); // in asm

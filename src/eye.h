@@ -177,6 +177,7 @@ struct UnitEye {
 public:
     UnitEye(); // 58BE86
     uint8_t sub_58c00e();
+    void sub_5925C9(Unit* unit); // in asm
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_SIZE(UnitEye, 0xb4);

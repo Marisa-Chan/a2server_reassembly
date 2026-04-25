@@ -397,6 +397,140 @@ void Unit::VMethod5()
 }
 
 
+// 52963B
+void Unit::VMethod11(Unit* unit) {
+    // Copy Token base fields
+    this->building_id = unit->building_id;
+    this->TokenID = unit->TokenID;
+    this->itemDataID = unit->itemDataID;
+    this->typeId = unit->typeId;
+
+    // Deep-copy Token::position
+    if (this->position != nullptr) {
+        delete this->position;
+        this->position = nullptr;
+    }
+    if (unit->position != nullptr) {
+        this->position = new TokenPos(*unit->position);
+    }
+
+    this->pOwner = unit->pOwner;
+    this->field_x18 = 0;
+    this->_exp = unit->_exp;
+
+    while (!this->_effects.IsEmpty()) {
+        Effect* e = this->_effects.RemoveHead();
+        delete e;
+    }
+
+    // Copy Unit fields
+    this->monster_info = unit->monster_info;
+    this->last_hit_by = nullptr;
+    this->spell = nullptr;
+    this->last_hit_spell_id = 0;
+    this->token_size = unit->token_size;
+    this->movement_type = unit->movement_type;
+    this->face = unit->face;
+    this->unit_attrs = unit->unit_attrs;
+    this->state = unit->state;
+    this->some_state = unit->some_state;
+    this->some_state2 = unit->some_state2;
+    this->cast_target = nullptr;
+    this->area_cast_x = 0;
+    this->area_cast_y = 0;
+    this->some_spell = nullptr;
+    this->some_item = nullptr;
+    this->charge_countdown = unit->charge_countdown;
+    this->group = nullptr;
+
+    // Deep-copy weapon
+    if (this->weapon != nullptr) {
+        delete this->weapon;
+        this->weapon = nullptr;
+    }
+    if (unit->weapon != nullptr) {
+        this->weapon = new Weapon(unit->weapon);
+    }
+
+    // Deep-copy shield
+    if (this->shield != nullptr) {
+        delete this->shield;
+        this->shield = nullptr;
+    }
+    if (unit->shield != nullptr) {
+        this->shield = new Shield(unit->shield);
+    }
+
+    // Deep-copy inventory
+    if (this->inventory != nullptr) {
+        delete this->inventory;
+        this->inventory = nullptr;
+    }
+    if (unit->inventory != nullptr) {
+        this->inventory = new Inventory(unit->inventory);
+    }
+
+    this->name = unit->name;
+    this->body = unit->body;
+    this->reaction = unit->reaction;
+    this->mind = unit->mind;
+    this->spirit = unit->spirit;
+    this->speed = unit->speed;
+    this->extra_carrying_weight = unit->extra_carrying_weight;
+    this->carrying_weight_100g = unit->carrying_weight_100g;
+    this->carrying_body_100g = unit->carrying_body_100g;
+    this->hp = unit->hp;
+    this->hp_max = unit->hp_max;
+    this->hp_regen = unit->hp_regen;
+    this->mp = unit->mp;
+    this->mp_max = unit->mp_max;
+    this->mp_regen = unit->mp_regen;
+    this->mp2 = unit->mp2;
+    this->hp_regen_carry = unit->hp_regen_carry;
+    this->mp_regen_carry = unit->mp_regen_carry;
+    this->scan_range = unit->scan_range;
+    this->hit_values = unit->hit_values;
+    this->protections = unit->protections;
+    this->equipment_extra = unit->equipment_extra;
+    this->hit_values2 = unit->hit_values2;
+    this->max_range = unit->max_range;
+    this->experience = unit->experience;
+    this->charge = unit->charge;
+    this->relax = unit->relax;
+    this->field_0x136 = unit->field_0x136;
+    this->last_action_tick = unit->last_action_tick;
+    this->decay = unit->decay;
+    this->enchantments = 0;
+    this->summon_id = this->summon_id;
+    this->server_id = unit->server_id;
+    this->field_0x150 = 0;
+    memset(this->something_per_player, 0, sizeof(this->something_per_player));
+
+    // Create fresh eye/eye2. WAT: old ones are leaked?
+    this->eye = new UnitEye();
+    this->eye2 = new UnitEye2();
+    this->eye->sub_5925C9(this);
+
+    // Clear list1 and list2
+    this->list1.RemoveAll();
+    this->list2.RemoveAll();
+
+    // Deep-copy token_pos (create new empty if source has one)
+    if (this->token_pos != nullptr) {
+        delete this->token_pos;
+        this->token_pos = nullptr;
+    }
+    if (unit->token_pos != nullptr) {
+        this->token_pos = new TokenPos();
+    }
+
+    this->field_0x194 = unit->field_0x194;
+    this->field_0x198 = unit->field_0x198;
+    this->field_0x19c = unit->field_0x19c;
+    this->field_0x204 = unit->field_0x204;
+}
+
+
 // 52BAD9
 void Unit::VMethod1() {
     if (this->some_state == 0x10) {

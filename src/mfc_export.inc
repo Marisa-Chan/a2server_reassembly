@@ -465,6 +465,7 @@ extern _BldIdSet_AllocBit:proc
 
 ; Inventory
 public ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
+externdef ??0Inventory@@QAE@PBU0@@Z :proc  ; Inventory::Inventory(const Inventory*)
 
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
@@ -518,6 +519,7 @@ externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z : proc
 ; UnitEye
 
 externdef ?sub_58c00e@UnitEye@@QAEEXZ :proc     ; UnitEye::sub_58c00e() – get position byte
+externdef ?sub_5925C9@UnitEye@@QAEXPAVUnit@@@Z :proc  ; void UnitEye::sub_5925C9(Unit*)
 
 ; Group
 extern ??0Group@@QAE@XZ :proc
