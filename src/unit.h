@@ -30,6 +30,7 @@ class Weapon;
 
 // Sum of extra properties from equipment.
 struct EquipmentExtra {
+public:
     uint8_t body = 0;
     uint8_t reaction = 0;
     uint8_t mind = 0;
@@ -44,13 +45,13 @@ struct EquipmentExtra {
     UnitToHit hit_values;
     Protections protections;
 
+public:
     EquipmentExtra();
     EquipmentExtra& operator=(const EquipmentExtra&);
     void Serialize(CArchive& ar);
 
     void SetToUnit(Unit *);
     void AddToUnit(Unit *);
-
 };
 ASSERT_SIZE(EquipmentExtra, 0x40);
 
@@ -65,7 +66,7 @@ class Unit : public Token
 public:
     DECLARE_SERIAL(Unit);
 
-public: //vtbl
+public: // VTable at 60efc0.
     //virtual CRuntimeClass* GetRuntimeClass() const override; // defined by DECLARE_SERIAL
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;

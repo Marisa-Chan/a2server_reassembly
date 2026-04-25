@@ -463,6 +463,9 @@ extern _BldIdSet_AllocBit:proc
 
 
 
+; Inventory
+public ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
+
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
 externdef ?VMethod1@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod1(void))
@@ -652,6 +655,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 ; Item
 externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
+public ?classItem@Item@@2UCRuntimeClass@@A  ; static CRuntimeClass Item::classItem
 externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
@@ -708,6 +712,7 @@ externdef ?sub_539541@Spell@@QAEXI@Z :proc
 externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 
 ; SpellBook
+externdef ??0SpellBook@@QAE@XZ :proc  ; SpellBook::SpellBook()
 
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID

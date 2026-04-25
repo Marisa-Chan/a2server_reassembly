@@ -145,6 +145,187 @@ extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level)
 extern "C" int __cdecl sub_5306EA(int experience); // Convert experience to skill level (inverse of sub_530726).
 
 
+// 559393
+void Unit::Serialize(CArchive& ar)
+{
+    Token::Serialize(ar);
+
+    // Serialize effects.
+    if (ar.IsStoring()) {
+        ar << this->_effects.m_nCount;
+        for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr; ) {
+            Effect* effect = this->_effects.GetNext(pos);
+            ar.WriteObject(effect);
+        }
+    } else {
+        this->_effects.RemoveAll();
+        int32_t count;
+        ar >> count;
+        for (int32_t i = 0; i < count; i++) {
+            Effect* effect = nullptr;
+            ar >> effect;
+            this->_effects.AddTail(effect);
+        }
+    }
+
+    this->list1.Serialize(ar);
+    this->list2.Serialize(ar);
+
+    this->hit_values.Serialize(ar);
+    this->protections.Serialize(ar);
+    this->hit_values2.Serialize(ar);
+    this->equipment_extra.Serialize(ar);
+
+    // Serialize UnitEye (0xB4 bytes raw).
+    if (ar.IsStoring()) {
+        ar.Write(this->eye, sizeof(UnitEye));
+    } else {
+        ar.Read(this->eye, sizeof(UnitEye));
+    }
+
+    // Serialize UnitEye2 (0xB8 bytes raw + positions_list)
+    if (ar.IsStoring()) {
+        ar.Write(this->eye2, sizeof(UnitEye2));
+        this->eye2->positions_list->Serialize(ar);
+    } else {
+        ar.Read(this->eye2, sizeof(UnitEye2));
+        this->eye2->positions_list = new CList<uint16_t>();
+        this->eye2->positions_list->Serialize(ar);
+    }
+
+    if (ar.IsStoring()) {
+        ar.Write(&this->token_size, 1);
+        ar.Write(&this->movement_type, 1);
+        ar.Write(&this->face, 1);
+        ar.Write(&this->unit_attrs, 1);
+        ar.Write(&this->state, 4);
+        ar.Write(&this->some_state, 4);
+        ar.Write(&this->some_state2, 4);
+        ar.Write(&this->area_cast_x, 1);
+        ar.Write(&this->area_cast_y, 1);
+        ar.Write(&this->charge_countdown, 1);
+        ar.WriteObject(this->weapon);
+        ar.WriteObject(this->shield);
+        ar << this->name;
+        ar << this->body;
+        ar << this->reaction;
+        ar << this->mind;
+        ar << this->spirit;
+        ar << this->speed;
+        ar << this->extra_carrying_weight;
+        ar << this->carrying_weight_100g;
+        ar << this->carrying_body_100g;
+        ar << this->hp;
+        ar << this->hp_max;
+        ar << this->hp_regen;
+        ar << this->mp;
+        ar << this->mp_max;
+        ar << this->mp_regen;
+        ar << this->hp_regen_carry;
+        ar << this->mp_regen_carry;
+        ar << this->mp2;
+        ar << this->scan_range;
+        ar << this->max_range;
+        ar << this->experience;
+        ar << this->charge;
+        ar << this->relax;
+        ar << this->field_0x136;
+        ar << this->last_action_tick;
+        ar << this->decay;
+        uint32_t packed = this->server_id
+            | ((this->field_0x204 & 0xFF) << 16)
+            | ((this->summoned & 0xFF) << 24);
+        ar << packed;
+        ar << this->enchantments;
+        ar.WriteObject(this->some_item);
+        if (this->inventory != nullptr) {
+            ar << (uint8_t)1;
+            this->inventory->sub_55CCE4(ar);
+        } else {
+            ar << (uint8_t)0;
+        }
+        if (this->spell_book != nullptr) {
+            ar << (uint8_t)1;
+            this->spell_book->Serialize(ar);
+        } else {
+            ar << (uint8_t)0;
+        }
+        ar << (uint32_t)this->cast_target;
+        ar << (uint32_t)this->some_spell;
+        ar << (uint32_t)this->spell;
+        ar << (uint32_t)this->last_hit_by;
+        ar.Write(&this->last_hit_spell_id, 1);
+    } else {
+        ar.Read(&this->token_size, 1);
+        ar.Read(&this->movement_type, 1);
+        ar.Read(&this->face, 1);
+        ar.Read(&this->unit_attrs, 1);
+        ar.Read(&this->state, 4);
+        ar.Read(&this->some_state, 4);
+        ar.Read(&this->some_state2, 4);
+        ar.Read(&this->area_cast_x, 1);
+        ar.Read(&this->area_cast_y, 1);
+        ar.Read(&this->charge_countdown, 1);
+        this->weapon = (Weapon*)ar.ReadObject(RUNTIME_CLASS(Item));
+        this->shield = (Shield*)ar.ReadObject(RUNTIME_CLASS(Item));
+        ar >> this->name;
+        ar >> this->body;
+        ar >> this->reaction;
+        ar >> this->mind;
+        ar >> this->spirit;
+        ar >> this->speed;
+        ar >> this->extra_carrying_weight;
+        ar >> this->carrying_weight_100g;
+        ar >> this->carrying_body_100g;
+        ar >> this->hp;
+        ar >> this->hp_max;
+        ar >> this->hp_regen;
+        ar >> this->mp;
+        ar >> this->mp_max;
+        ar.Read(&this->mp_regen, 2);
+        ar >> this->hp_regen_carry;
+        ar >> this->mp_regen_carry;
+        ar.Read(&this->mp2, 2);
+        ar.Read(&this->scan_range, 2);
+        ar >> this->max_range;
+        ar.Read(&this->experience, 4);
+        ar >> this->charge;
+        ar >> this->relax;
+        ar >> this->field_0x136;
+        ar.Read(&this->last_action_tick, 4);
+        ar >> this->decay;
+        uint32_t packed;
+        ar.Read(&packed, 4);
+        ar.Read(&this->enchantments, 4);
+        this->some_item = (Item*)ar.ReadObject(RUNTIME_CLASS(Item));
+        uint8_t has_inventory;
+        ar >> has_inventory;
+        if (has_inventory) {
+            this->inventory->sub_55CCE4(ar);
+        }
+        uint8_t has_spell_book;
+        ar >> has_spell_book;
+        if (has_spell_book) {
+            this->spell_book = new SpellBook();
+            this->spell_book->Serialize(ar);
+        }
+        ar.Read(&this->cast_target, 4);
+        ar.Read(&this->some_spell, 4);
+        ar.Read(&this->spell, 4);
+        ar.Read(&this->last_hit_by, 4);
+        ar.Read(&this->last_hit_spell_id, 1);
+        this->server_id = (uint16_t)(packed & 0xFFFF);
+        this->field_0x204 = (packed & 0xFF0000) != 0 ? 1 : 0;
+        this->summoned = (packed & 0xFF000000) != 0 ? 1 : 0;
+        if (!this->VMethod8()) {
+            this->monster_info = &g_GameDataRes.monsters[this->itemDataID];
+        } else {
+            this->monster_info = nullptr;
+        }
+    }
+}
+
+
 // 52BAD9
 void Unit::VMethod1() {
     if (this->some_state == 0x10) {

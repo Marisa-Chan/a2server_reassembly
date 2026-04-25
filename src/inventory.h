@@ -18,6 +18,7 @@ public:
     Item* sub_552E42(int32_t item_number, int32_t count);
     void sub_552A42(Inventory* src); // Transfer all items from src into this inventory
     Item* sub_552C37(uint16_t item_id); // Remove and return item matching item_id from inventory
+    void sub_55CCE4(CArchive& ar); // Serialize, in asm
 
 public:
     CList<Item*> items;

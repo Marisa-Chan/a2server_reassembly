@@ -60,7 +60,7 @@ public:
     virtual ~SpellBook();
     virtual void Serialize(CArchive& ar) override;
 public:
-    SpellBook();
+    SpellBook() = default; // 53D28E (inlined in ASM callers)
     int32_t sub_53DD3D(); // Calculate spellbook bitmask for this unit's spells.
 
     void RefreshForHumanoid(Humanoid* humanoid);
