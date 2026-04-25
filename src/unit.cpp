@@ -326,6 +326,77 @@ void Unit::Serialize(CArchive& ar)
 }
 
 
+// 55A9C5
+void Unit::VMethod5()
+{
+    Token::VMethod5();
+
+    void* result;
+
+    if (g_Server->field23_0xdc.Lookup(this->cast_target, result)) {
+        this->cast_target = (Unit*)result;
+    } else {
+        this->cast_target = nullptr;
+    }
+
+    if (g_Server->field23_0xdc.Lookup(this->some_spell, result)) {
+        this->some_spell = (Spell*)result;
+    } else {
+        this->some_spell = nullptr;
+    }
+
+    if (g_Server->field23_0xdc.Lookup(this->spell, result)) {
+        this->spell = (Spell*)result;
+    } else {
+        this->spell = nullptr;
+    }
+
+    if (g_Server->field23_0xdc.Lookup(this->some_item, result)) {
+        this->some_item = (Item*)result;
+    } else {
+        this->some_item = nullptr;
+    }
+
+    if (g_Server->field23_0xdc.Lookup(this->last_hit_by, result)) {
+        this->last_hit_by = (Unit*)result;
+    } else {
+        this->last_hit_by = nullptr;
+    }
+
+    // UnitEye pointer fixup (sub_5941C1)
+    if (this->eye->field120_0x7c != nullptr) {
+        if (g_Server->field23_0xdc.Lookup(this->eye->field120_0x7c, result)) {
+            this->eye->field120_0x7c = (Unit*)result;
+        }
+    }
+
+    // UnitEye2 pointer fixups (sub_5B2BC9)
+    if (this->eye2->unit != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit, result)) {
+        this->eye2->unit = (Unit*)result;
+    }
+    if (this->eye2->unit2 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit2, result)) {
+        this->eye2->unit2 = (Unit*)result;
+    }
+    if (this->eye2->unit3 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit3, result)) {
+        this->eye2->unit3 = (Unit*)result;
+    }
+    if (this->eye2->unit4 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit4, result)) {
+        this->eye2->unit4 = (Unit*)result;
+    }
+    if (this->eye2->unit5 != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->unit5, result)) {
+        this->eye2->unit5 = (Unit*)result;
+    }
+    if (this->eye2->spell != nullptr && g_Server->field23_0xdc.Lookup(this->eye2->spell, result)) {
+        this->eye2->spell = (Spell*)result;
+    }
+    if (this->eye2->field51_0x68 != nullptr) {
+        if (g_Server->field23_0xdc.Lookup(this->eye2->field51_0x68, result)) {
+            this->eye2->field51_0x68 = (Building*)result;
+        }
+    }
+}
+
+
 // 52BAD9
 void Unit::VMethod1() {
     if (this->some_state == 0x10) {

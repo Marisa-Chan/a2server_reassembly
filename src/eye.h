@@ -7,6 +7,7 @@
 #include "mfc_templ.h"
 
 
+class Building;
 class Spell;
 class Unit;
 
@@ -232,7 +233,7 @@ struct UnitEye2 {
     uint32_t field48_0x5c;
     uint32_t field49_0x60;
     uint32_t field50_0x64;
-    uint32_t field51_0x68;
+    Building* field51_0x68;
     uint32_t field52_0x6c;
     uint8_t range;
     uint8_t seeInvisible;
