@@ -550,6 +550,7 @@ externdef ?VMethod24@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void _
 externdef ?VMethod25@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod25(void))
 
 externdef ?InitStats@Humanoid@@QAEXXZ:proc   ;    Humanoid::InitStats
+externdef ?Serialize@Humanoid@@UAEXAAVCArchive@@@Z:proc  ; Humanoid::Serialize
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 
 

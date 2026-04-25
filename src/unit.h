@@ -281,7 +281,7 @@ public:
 public:
     std::array<Item*, 13> equipment;
     uint32_t main_sphere;
-    std::array <uint32_t, 5> experience_per_sphere;
+    std::array<uint32_t, 5> experience_per_sphere;
 };
 
 ASSERT_OFFSET(Humanoid, main_sphere, 0x23C);

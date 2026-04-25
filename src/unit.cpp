@@ -1521,6 +1521,22 @@ IMPLEMENT_SERIAL(Humanoid, Unit, 1);
 */
 
 
+// 55c760
+void Humanoid::Serialize(CArchive& ar) {
+    Unit::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar.Write(&this->main_sphere, 0x18);
+        for (int32_t i = 1; i < 13; i++) {
+            ar.WriteObject(this->equipment[i]);
+        }
+    } else {
+        ar.Read(&this->main_sphere, 0x18);
+        for (int32_t i = 1; i < 13; i++) {
+            this->equipment[i] = (Item*)ar.ReadObject(RUNTIME_CLASS(Item));
+        }
+    }
+}
+
 Humanoid::Humanoid()
 {
     //52ff9e
@@ -1997,33 +2013,6 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
     }
 }
 
-
-/***************   Human   *******************/
-
-IMPLEMENT_SERIAL(Human, Humanoid, 1);
-/*
-* Human::classHuman   636418
-* CreateObject     532273
-* GetRuntimeClass  5322e3
-* _init_Human      5322f3
-* operator>>       532311
-*/
-
-Human::Human()
-{
-    //53232d
-    FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
-}
-
-Human::Human(const CString& hname, int32_t t, const char* unk)
-{
-    //53239a
-    FUN_00532587(hname, t, unk);
-}
-
-Human::~Human()
-{}
-
 // 532DDE
 void Humanoid::sub_532dde(CArray<HumanInfoData>* data)
 {
@@ -2103,5 +2092,44 @@ void Humanoid::sub_532dde(CArray<HumanInfoData>* data)
     }
     if (d.movement_type != -1) {
         this->movement_type = static_cast<int8_t>(d.movement_type);
+    }
+}
+
+
+/***************   Human   *******************/
+
+IMPLEMENT_SERIAL(Human, Humanoid, 1);
+/*
+* Human::classHuman   636418
+* CreateObject     532273
+* GetRuntimeClass  5322e3
+* _init_Human      5322f3
+* operator>>       532311
+*/
+
+Human::Human()
+{
+    //53232d
+    FUN_00532587(CString("Man_Unarmed"), 0, nullptr);
+}
+
+Human::Human(const CString& hname, int32_t t, const char* unk)
+{
+    //53239a
+    FUN_00532587(hname, t, unk);
+}
+
+Human::~Human()
+{}
+
+// 55C81C
+void Human::Serialize(CArchive& ar) {
+    Humanoid::Serialize(ar);
+    if (!ar.IsStoring()) {
+        if (this->typeId < 0x21) {
+            this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[this->itemDataID]);
+        } else {
+            this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[5]);
+        }
     }
 }
