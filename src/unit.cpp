@@ -1934,13 +1934,78 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
     }
 }
 
-/*
-int32_t Humanoid::VMethod25()
-{
-    //530394
-    if ()
+// 530e52   
+void Humanoid::VMethod22(Unit* unit, int32_t spell_id) {
+    if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
+        return;
+    }
+    int32_t sphere = 0;
+    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+    }
+    this->VMethod21((int32_t)(unit->_exp * 0.5), unit, sphere);
+    if (!unit) {
+        return;
+    }
+    bool found = false;
+    for (int32_t i = 0; i < this->mob_kills_in_session.GetSize(); i++) {
+        if (this->mob_kills_in_session[i].server_id == unit->server_id) {
+            this->mob_kills_in_session[i].kills++;
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        if (this->mob_kills_in_session.GetSize() >= 5) {
+            this->mob_kills_in_session.RemoveAt(0, 1);
+        }
+        SessionMobKill entry;
+        entry.server_id = unit->server_id;
+        entry.kills = 0;
+        this->mob_kills_in_session.Add(entry);
+    }
 }
-*/
+
+// 530fc1
+void Humanoid::VMethod23(Unit* unit, uint32_t damage, int32_t spell_id) {
+    if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
+        return;
+    }
+    int32_t sphere = 0;
+    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+    }
+    if (unit != nullptr && unit->pOwner != nullptr && unit->pOwner->is_ai) {
+        int32_t xp = (int32_t)(unit->_exp * 0.5 * damage / unit->hp_max + 1.0);
+        this->VMethod21(xp, unit, sphere);
+    }
+}
+
+// 531090
+void Humanoid::VMethod24(Unit*, int32_t spell_id) {
+    int32_t sphere = 0;
+    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+    }
+    if (sphere == 0) {
+        return;
+    }
+    int32_t mana_cost = g_GameDataRes.spells[spell_id].values.GetData()->mana_cost;
+    int32_t xp = (int32_t)(mana_cost * 0.5 + 0.5);
+    this->VMethod21(xp, nullptr, sphere);
+}
+
+// 530394
+int32_t Humanoid::VMethod25() {
+    if (this->monster_info->values.GetSize() == 0) {
+        return 8;
+    }
+    int32_t val = this->monster_info->values.GetData()->protection_astral;
+    if (val == -1) {
+        return 8;
+    }
+    return val;
+}
 
 // 53116B
 void Humanoid::sub_53116B() {

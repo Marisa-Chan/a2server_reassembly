@@ -539,18 +539,7 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 ;Humanoid
 
-externdef ?Serialize@Humanoid@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Humanoid::Serialize(class CArchive &))
-externdef ?VMethod12@Humanoid@@UAEPAVItem@@PAV2@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod12(class Item *))
-externdef ?VMethod16@Humanoid@@UAEXPAVUnit@@@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod16(class Item *))
-extern ?VMethod18@Humanoid@@UAEXXZ:proc   ; (public: virtual void __thiscall Humanoid::VMethod18(void))
-externdef ?VMethod21@Humanoid@@UAEXIPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod21(unsigned int,class Unit *,int))
-externdef ?VMethod22@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod22(class Unit *,int))
-externdef ?VMethod23@Humanoid@@UAEXPAVUnit@@IH@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod23(class Unit *,unsigned int,int,int))
-externdef ?VMethod24@Humanoid@@UAEXPAVUnit@@H@Z:proc   ; (public: virtual void __thiscall Humanoid::VMethod24(class Unit *,unsigned int,int,int))
-externdef ?VMethod25@Humanoid@@UAEHXZ:proc   ; (public: virtual int __thiscall Humanoid::VMethod25(void))
-
 externdef ?InitStats@Humanoid@@QAEXXZ:proc   ;    Humanoid::InitStats
-externdef ?Serialize@Humanoid@@UAEXAAVCArchive@@@Z:proc  ; Humanoid::Serialize
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 
 
