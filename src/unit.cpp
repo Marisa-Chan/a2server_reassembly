@@ -1589,7 +1589,19 @@ void Humanoid::VMethod10()
     }
 }
 
-
+// 530407
+Item* Humanoid::VMethod12(Item* item) {
+    if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
+        int32_t other_param = item->world_equip->values.GetData()->other_param;
+        if ((other_param & 1) == 0 && (this->unit_attrs & 4) == 0) {
+            return item;
+        }
+        if ((other_param & 2) == 0 && (this->unit_attrs & 4) != 0) {
+            return item;
+        }
+    }
+    return item->VMethod10(this);
+}
 
 void Humanoid::VMethod13(Item *item)
 {

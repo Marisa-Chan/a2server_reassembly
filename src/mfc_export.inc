@@ -672,17 +672,23 @@ extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 
 ; Armor
+public ?classArmor@Armor@@2UCRuntimeClass@@A  ; static CRuntimeClass Armor::classArmor
+
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
 externdef ??0Armor@@QAE@EEE@Z :proc                                            ; Armor::Armor(uint8_t, uint8_t, uint8_t)
 externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
 
 
 ; Shield
+public ?classShield@Shield@@2UCRuntimeClass@@A  ; static CRuntimeClass Shield::classShield
+
 externdef ??0Shield@@QAE@EEE@Z :proc                                           ; Shield::Shield(uint8_t, uint8_t, uint8_t)
 externdef ??0Shield@@QAE@PBV0@@Z :proc                                         ; Shield::Shield(const Shield*)
 
 
 ; Weapon
+public ?classWeapon@Weapon@@2UCRuntimeClass@@A  ; static CRuntimeClass Weapon::classWeapon
+
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
 externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
 externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)

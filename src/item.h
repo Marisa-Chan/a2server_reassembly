@@ -83,6 +83,9 @@ ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
+    static AFX_DATA CRuntimeClass classArmor; // defined in Main.asm
+
+public:
     Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_54F5AB
     Armor(const Armor* src); // sub_54F9ED: copy constructor
     void LoadInfo(); // sub_54F634
@@ -97,6 +100,9 @@ ASSERT_SIZE(Armor, 0x70);
 
 class Shield : public Item {
 public:
+    static AFX_DATA CRuntimeClass classShield; // defined in Main.asm
+
+public:
     Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_5500FA
     Shield(const Shield* src); // sub_550467: copy constructor
 
@@ -107,6 +113,9 @@ public:
 ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
+public:
+    static AFX_DATA CRuntimeClass classWeapon; // defined in Main.asm
+
 public:
     Weapon(const CString& name); // sub_550929: construct weapon from name string
     Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_550B8F
