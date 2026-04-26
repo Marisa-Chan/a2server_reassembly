@@ -547,9 +547,6 @@ externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 
 extern ??0Human@@QAE@XZ:proc   ; Human::Human
 extern ??0Human@@QAE@ABVCString@@HPBD@Z:proc    ; Human::Human(CString&, int, const char *)
-
-externdef ?Serialize@Human@@UAEXAAVCArchive@@@Z:proc    ; Human::Serialize
-externdef ?VMethod20@Human@@UAEXXZ:proc    ; Human::Serialize
 externdef ?FUN_00532587@Human@@QAEXVCString@@HPBD@Z:proc   ;  Human::FUN_00532587(class CString,int,char const *)
 
 
