@@ -145,6 +145,7 @@ public:
     uint16_t sub_593AA4(Unit* unit);
     uint8_t sub_593B29(uint16_t yx1, uint16_t yx2); // Chebyshev distance between two YX positions.
     int sub_597140(Unit* unit, uint16_t yx, int32_t flag);
+    int32_t sub_5945EF(class Building* building); // Remove building from map
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);

@@ -11,6 +11,9 @@
 
 extern BitSet<0x6000> g_buildingIdSet;
 
+extern "C" {
+    void BldIdSet_Unset(uint32_t index);
+}
 
 class Effect;
 class Player;

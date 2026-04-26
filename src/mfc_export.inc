@@ -155,13 +155,25 @@ externdef ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z :proc     ; B
 externdef ?sub_558228@BuildingsList@@QAEXPAVBuilding@@@Z :proc                ; void BuildingsList::sub_558228(Building*)
 
 ; Building
-externdef ?VMethod1@Building@@UAEXXZ :proc
 externdef ??0Building@@QAE@EPAUTokenPos@@EE@Z :proc                             ; Building::Building(uint8_t, TokenPos*, uint8_t, uint8_t)
+externdef ??0Building@@QAE@PAUTokenPos@@@Z :proc                                ; Building::Building(TokenPos*)
+externdef ??0Building@@QAE@ABVCString@@@Z :proc                                 ; Building::Building(const CString&)
+externdef ??0Building@@QAE@XZ :proc                                             ; Building::Building()
+externdef ??1Building@@UAE@XZ :proc                                             ; Building::~Building()
+externdef ?VMethod1@Building@@UAEXXZ :proc
+externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        ; void Building::Serialize(CArchive&)
+externdef ?sub_5427AC@Building@@QAEXEE@Z :proc                                  ; void Building::sub_5427AC(uint8_t, uint8_t)
+externdef ?sub_542624@Building@@QAEXABVCString@@@Z :proc                        ; void Building::sub_542624(const CString&)
+
+
+; Pointer
 externdef ??0Pointer@@QAE@EPAUTokenPos@@EE@Z :proc                              ; Pointer::Pointer(uint8_t, TokenPos*, uint8_t, uint8_t)
+
 
 ; Outpost
 externdef ?VMethod1@Outpost@@UAEXXZ : proc
 externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
+
 
 ; Inn
 externdef _InnRuntimeClass :byte
@@ -421,6 +433,7 @@ externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc           ; uint16_t MapSt
 externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@GH@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
 externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff::sub_59028D(Unit*, Unit*, uint8_t)
 externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_5918B8(Unit*, Unit*)
+externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
