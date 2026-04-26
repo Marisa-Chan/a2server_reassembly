@@ -2218,3 +2218,10 @@ void Human::Serialize(CArchive& ar) {
         }
     }
 }
+
+// 5339a6
+void Human::VMethod20() {
+    int32_t level = (this->_exp > 1000) ? (this->_exp / 10) : 0;
+    Item* item = sub_5499A6(level, this->_exp);
+    this->inventory->PutItemIntoBagAtDefault(item);
+}
