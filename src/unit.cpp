@@ -1589,7 +1589,7 @@ void Humanoid::VMethod10()
     }
 }
 
-// 530407
+// 5303e3
 Item* Humanoid::VMethod12(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
         int32_t other_param = item->world_equip->values.GetData()->other_param;
@@ -1631,11 +1631,19 @@ void Humanoid::VMethod15()
     }
 }
 
-/*void Humanoid::VMethod16(Unit* unit)
-{
-    //53111b
-    
-}*/
+// 53111b
+void Humanoid::VMethod16(Unit* unit) {
+    if (g_Server->field4_0x74 == 0) {
+        return;
+    }
+    if (unit->VMethod8() != 0) {
+        return;
+    }
+    if (this->hp < 0) {
+        return;
+    }
+    this->pOwner->sub_534AC1(unit->_exp, 1);
+}
 
 void Humanoid::VMethod18()
 {
