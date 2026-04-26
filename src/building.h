@@ -14,7 +14,7 @@ class BuildingInfo;
 
 class Building : public Token {
 public:
-    DECLARE_SERIAL(Building);
+    DECLARE_DYNCREATE(Building);
 
 public: // VTable at 60f378
     virtual ~Building();
@@ -46,17 +46,23 @@ public:
     uint32_t unpassable_mask;
     uint32_t tiles_mask;
 };
+ASSERT_OFFSET(Building, object_info_id, 0x40);
 ASSERT_OFFSET(Building, width, 0x60);
 ASSERT_SIZE(Building, 0x6c);
 
 class Pointer : public Building {
 public:
+    DECLARE_DYNCREATE(Pointer);
+
+public:
     Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140
+    Pointer(); // default, used by CreateObject
+    virtual ~Pointer() override;
+    virtual void Serialize(CArchive& ar) override;
 
 public:
     int32_t script_instance_id;
 };
-ASSERT_OFFSET(Pointer, object_info_id, 0x40);
 ASSERT_OFFSET(Pointer, script_instance_id, 0x6c);
 ASSERT_SIZE(Pointer, 0x70);
 

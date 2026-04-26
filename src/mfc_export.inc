@@ -160,6 +160,7 @@ externdef ??0Building@@QAE@PAUTokenPos@@@Z :proc                                
 externdef ??0Building@@QAE@ABVCString@@@Z :proc                                 ; Building::Building(const CString&)
 externdef ??0Building@@QAE@XZ :proc                                             ; Building::Building()
 externdef ??1Building@@UAE@XZ :proc                                             ; Building::~Building()
+externdef ?CreateObject@Building@@SGPAVCObject@@XZ :proc  ; Building::CreateObject()
 externdef ?VMethod1@Building@@UAEXXZ :proc
 externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        ; void Building::Serialize(CArchive&)
 externdef ?sub_5427AC@Building@@QAEXEE@Z :proc                                  ; void Building::sub_5427AC(uint8_t, uint8_t)
@@ -168,6 +169,10 @@ externdef ?sub_542624@Building@@QAEXABVCString@@@Z :proc                        
 
 ; Pointer
 externdef ??0Pointer@@QAE@EPAUTokenPos@@EE@Z :proc                              ; Pointer::Pointer(uint8_t, TokenPos*, uint8_t, uint8_t)
+externdef ??0Pointer@@QAE@XZ :proc                                              ; Pointer::Pointer()
+externdef ??1Pointer@@UAE@XZ :proc                                              ; Pointer::~Pointer()
+externdef ?Serialize@Pointer@@UAEXAAVCArchive@@@Z :proc                         ; void Pointer::Serialize(CArchive&)
+externdef ?CreateObject@Pointer@@SGPAVCObject@@XZ :proc                         ; Pointer::CreateObject()
 
 
 ; Outpost

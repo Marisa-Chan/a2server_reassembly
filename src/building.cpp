@@ -3,7 +3,7 @@
 #include "map_stuff.h"
 #include "net.h"
 
-IMPLEMENT_SERIAL(Building, Token, 1);
+IMPLEMENT_DYNCREATE(Building, Token);
 
 // 542599
 Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
@@ -93,4 +93,31 @@ void Building::VMethod1() {
 
 int32_t Building::IsOutpost() {
     return 0;
+}
+
+IMPLEMENT_DYNCREATE(Pointer, Building);
+
+// 5A3140
+Pointer::Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
+    : Building(type_id, pos, width, height)
+{
+    this->script_instance_id = -1;
+}
+
+// 54235D
+Pointer::Pointer()
+    : Building()
+{}
+
+// 57C3F0
+Pointer::~Pointer() {}
+
+// 5430FB
+void Pointer::Serialize(CArchive& ar) {
+    Building::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar << this->script_instance_id;
+    } else {
+        ar >> this->script_instance_id;
+    }
 }
