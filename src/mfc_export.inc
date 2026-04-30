@@ -662,8 +662,21 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 ; Item
 externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
-public ?classItem@Item@@2UCRuntimeClass@@A  ; static CRuntimeClass Item::classItem
+externdef ?classItem@Item@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Item::classItem
 externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
+externdef ?GetRuntimeClass@Item@@UBEPAUCRuntimeClass@@XZ :proc                ; Item::GetRuntimeClass
+externdef ?Serialize@Item@@UAEXAAVCArchive@@@Z :proc                          ; Item::Serialize
+externdef ?VMethod1@Item@@UAEXXZ :proc
+externdef ?VMethod2@Item@@UAEXXZ :proc
+externdef ?VMethod6@Item@@UAEHXZ :proc
+externdef ?VMethod10@Item@@UAEPAV1@PAVUnit@@@Z :proc
+externdef ?VMethod11@Item@@UAEXPAVUnit@@@Z :proc
+externdef ?TakeOne@Item@@UAEPAV1@XZ :proc
+externdef ?VMethod13@Item@@UAEPAV1@XZ :proc
+externdef ?VMethod14@Item@@UAEHHH@Z :proc
+externdef ?VMethod15@Item@@UAEHXZ :proc
+externdef ?VMethod16@Item@@UAEHXZ :proc
+externdef ?VMethod17@Item@@UAEXPAX0@Z :proc
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc

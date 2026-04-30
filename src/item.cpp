@@ -118,6 +118,10 @@ extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
     return item;
 }
 
+// 54840E
+Item::~Item() {
+}
+
 // sub_548860
 int Item::IsSimilar(Item* other)
 {
