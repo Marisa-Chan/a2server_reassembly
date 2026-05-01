@@ -140,7 +140,21 @@ set(A2_LINK_OPTS
     /ERRORREPORT:PROMPT
 )
 
+# When mfc_export.inc changes, touch the ASM source files so MSBuild's timestamp
+# check sees them as newer than their .obj outputs and recompiles them.
+set(_MFC_EXPORT_STAMP "${CMAKE_CURRENT_BINARY_DIR}/mfc_export_dep.stamp")
+add_custom_command(
+  OUTPUT "${_MFC_EXPORT_STAMP}"
+  COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_SOURCE_DIR}/Main.asm"
+  COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_SOURCE_DIR}/a2_ucrt.asm"
+  COMMAND "${CMAKE_COMMAND}" -E touch "${_MFC_EXPORT_STAMP}"
+  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/mfc_export.inc"
+  COMMENT "mfc_export.inc changed — forcing ASM recompile"
+)
+add_custom_target(mfc_export_dep DEPENDS "${_MFC_EXPORT_STAMP}")
+
 foreach(TARGET a2serv_vsc a2client_vsc)
+  add_dependencies(${TARGET} mfc_export_dep)
   target_link_libraries(${TARGET} PRIVATE ${A2_LINK_LIBS})
   target_link_options(${TARGET} PRIVATE ${A2_LINK_OPTS})
 
