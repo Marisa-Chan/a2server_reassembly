@@ -662,7 +662,7 @@ extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thisc
 
 ; Item
 externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
-externdef ?classItem@Item@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Item::classItem
+externdef ?classItem@Item@@2UCRuntimeClass@@A :byte                           ; static CRuntimeClass Item::classItem
 externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
 externdef ?GetRuntimeClass@Item@@UBEPAUCRuntimeClass@@XZ :proc                ; Item::GetRuntimeClass
 externdef ?Serialize@Item@@UAEXAAVCArchive@@@Z :proc                          ; Item::Serialize
