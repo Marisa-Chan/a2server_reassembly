@@ -572,6 +572,8 @@ public:
     virtual void VMethod3(NetStru2*) override; // sub_5274CC
     virtual void VMethod4(NetStru2*) override; // sub_527528
     virtual uint32_t GetDataSize() override;   // sub_57ABF0
+    void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // sub_5275F8
+    void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // sub_5276E0
 public:
     uint8_t  field_0xa;    // +0xA
     uint8_t  field_0xb;    // +0xB

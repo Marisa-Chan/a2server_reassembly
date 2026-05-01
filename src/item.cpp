@@ -5,6 +5,9 @@
 #include "packet.h"
 #include "util.h"
 #include "file.h"
+#include "server.h"
+#include "unit.h"
+#include "player.h"
 
 extern "C" void* dword_65FBB8; // Area for item names.
 
@@ -118,8 +121,205 @@ extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
     return item;
 }
 
+// 54842A
+Item::Item(const Item* src) : Token(*src) {
+    this->world_equip = src->world_equip;
+    this->item_id = src->item_id;
+    this->count = src->count;
+    this->item_type = src->item_type;
+    this->shape_id = src->shape_id;
+    this->material_id = src->material_id;
+    this->itemDataID = src->itemDataID;
+    this->magic_volume = src->magic_volume;
+    this->weight = src->weight;
+    this->field10_0x4c = src->field10_0x4c;
+    this->field11_0x4d = src->field11_0x4d;
+    this->field15_0x54 = 0;
+    POSITION pos = src->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = src->_effects.GetNext(pos);
+        this->_effects.AddTail(new Effect(e));
+    }
+}
+
 // 54840E
 Item::~Item() {
+}
+
+CRuntimeClass* Item::GetRuntimeClass() const {
+    return &classItem;
+}
+
+// 548da5
+void Item::VMethod1() {
+}
+
+// 548d9a
+void Item::VMethod2() {
+}
+
+// 57ce40
+int32_t Item::VMethod6() {
+    return 1;
+}
+
+// 548a59
+Item* Item::VMethod10(Unit* pUnit) {
+    if (pUnit->hp <= 0) {
+        return this;
+    }
+
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        if (e->usage_type == 0) {
+            e->usage_type |= 8;
+        }
+        e->VMethod11(pUnit);
+    }
+
+    pUnit->VMethod19(); // WAT: what's this for? Does nothing.
+
+    int stat_bottle = this->world_equip->name.Find("ody") >= 0 ||
+            this->world_equip->name.Find("ind") >= 0 ||
+            this->world_equip->name.Find("eaction") >= 0 ||
+            this->world_equip->name.Find("pirit") >= 0;
+
+    if (stat_bottle && (GetTickCount() - pUnit->pOwner->field_0xa7c > 15000)) {
+        g_Server->sub_4EE028(static_cast<Humanoid*>(pUnit));
+    }
+
+    delete this;
+    return nullptr;
+}
+
+// 548c04
+void Item::VMethod11(Unit*) {
+    LogMessage("Unknown item takeoff");
+}
+
+// 548dbf
+Item* Item::TakeOne() {
+    this->count -= 1;
+    Item* new_item = new Item(this);
+    new_item->count = 1;
+    return new_item;
+}
+
+// 57cdc0
+Item* Item::VMethod13() {
+    return new Item(this);
+}
+
+// 548db0
+int32_t Item::VMethod14(int, int) {
+    return 0;
+}
+
+// 54872b
+int32_t Item::VMethod15() {
+    this->_exp = this->world_equip->values[0].shape;
+    if (this->item_type == 5) {
+        Effect* first_effect = this->_effects.IsEmpty() ? nullptr : this->_effects.GetHead();
+        if (first_effect == nullptr) {
+            this->_exp = 0;
+        } else {
+            this->_exp = g_GameDataRes.spells[first_effect->spell_or_damage].values[0].book_cost;
+        }
+    }
+    if (this->item_type == 4) {
+        this->_exp = this->world_equip->values[0].shape;
+    }
+    return this->_exp;
+}
+
+// 548817
+int32_t Item::VMethod16() {
+    if (this->item_type == 3 || this->item_type == 4 || this->_effects.IsEmpty()) {
+        return 1;
+    }
+    return 0;
+}
+
+// 549e86
+void Item::VMethod17(PacketUnitStateVec* packet, uint8_t* slot) {
+    if (this->_exp == -1) {
+        slot[4] = 1;
+        packet->AppendByteInt(1, 0, slot);
+    } else {
+        packet->AppendByteInt(1, this->_exp, slot);
+        slot[4] |= 7;
+        if (this->item_type == 5) {
+            slot[4] &= 0xfd;
+        }
+        this->WriteEffects(packet, slot);
+        if (this->item_type == 3 || this->item_type == 4) {
+            slot[4] &= 0xdf;
+        }
+    }
+}
+
+// 549F2C
+void Item::WriteEffects(PacketUnitStateVec* packet, uint8_t* slot) {
+    if (this->_effects.IsEmpty()) {
+        return;
+    }
+    slot[4] |= 0x20;
+    packet->AppendByteByte(0x33, 0, slot);
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        packet->AppendByteByte(e->effect_id, e->damage_min, slot);
+        if (e->effect_id == 0x29) {
+            slot[4] |= 0x10;
+            packet->AppendByteByte(0x32, (uint8_t)e->spell_value, slot);
+        } else if (0x2c <= e->effect_id && e->effect_id <= 0x30) {
+            packet->AppendByteByte(e->effect_id, e->damage_spread, slot);
+        }
+    }
+}
+
+// 55c2f1
+void Item::Serialize(CArchive& ar) {
+    Token::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar << (int32_t)this->_effects.GetCount();
+        POSITION pos = this->_effects.GetHeadPosition();
+        while (pos != nullptr) {
+            Effect* e = this->_effects.GetNext(pos);
+            ar.WriteObject(e);
+        }
+        ar << this->item_id;
+        ar << this->count;
+        ar << this->item_type;
+        ar << this->shape_id;
+        ar << this->material_id;
+        ar << this->magic_volume;
+        ar << this->weight;
+        ar << this->field_0x47;
+    } else {
+        this->_effects.RemoveAll();
+        int32_t cnt;
+        ar >> cnt;
+        for (int32_t i = 0; i < cnt; i++) {
+            Effect* e = nullptr;
+            ar >> e;
+            this->_effects.AddTail(e);
+        }
+        ar >> this->item_id;
+        ar >> this->count;
+        ar >> this->item_type;
+        ar >> this->shape_id;
+        ar >> this->material_id;
+        ar >> this->magic_volume;
+        ar >> this->weight;
+        ar >> this->field_0x47;
+        if (this->itemDataID < g_GameDataRes.magic_items.GetSize()) {
+            this->world_equip = &g_GameDataRes.magic_items[this->itemDataID];
+        } else {
+            this->world_equip = nullptr;
+        }
+    }
 }
 
 // sub_548860

@@ -388,6 +388,28 @@ void PacketItemOperation::AppendWord(uint16_t val)
         entries[count++] = val;
 }
 
+// 5275F8
+void PacketUnitStateVec::AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot)
+{
+    this->data[this->data_size] = a;
+    this->data_size++;
+    this->data[this->data_size] = b;
+    this->data_size++;
+    slot[5] += 1;
+    slot[6] += 2;
+}
+
+// 5276E0
+void PacketUnitStateVec::AppendByteInt(uint8_t a, int32_t v, uint8_t* slot)
+{
+    this->data[this->data_size] = a;
+    this->data_size++;
+    *reinterpret_cast<int32_t*>(&this->data[this->data_size]) = v;
+    this->data_size += 4;
+    slot[5] += 1;
+    slot[6] += 5;
+}
+
 PacketItemOperation::~PacketItemOperation()
 {
     //sub_57A100

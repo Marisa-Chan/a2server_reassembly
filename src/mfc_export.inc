@@ -676,14 +676,16 @@ externdef ?VMethod13@Item@@UAEPAV1@XZ :proc
 externdef ?VMethod14@Item@@UAEHHH@Z :proc
 externdef ?VMethod15@Item@@UAEHXZ :proc
 externdef ?VMethod16@Item@@UAEHXZ :proc
-externdef ?VMethod17@Item@@UAEXPAX0@Z :proc
-externdef ??0Item@@QAE@ABVCString@@@Z :proc                                    ; Item::Item(const CString&)
+externdef ?VMethod17@Item@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc
+externdef ?WriteEffects@Item@@QAEXPAVPacketUnitStateVec@@PAE@Z :proc          ; sub_549F2C
+externdef ??0Item@@QAE@ABVCString@@@Z :proc                                   ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
+externdef ??0Item@@QAE@PBV0@@Z :proc                                          ; Item::Item(const Item*)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548F07@Item@@QAEHXZ :proc
 externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
-externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                            ; Item::sub_548F3F(const CString&)
+externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                           ; Item::sub_548F3F(const CString&)
 externdef ?sub_54A0BE@Item@@QAEXXZ :proc                                       ; Item::sub_54A0BE()
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
@@ -765,6 +767,8 @@ externdef ?Inst@PacketWord@@2V1@A : byte                              ; unk_6E9B
 
 externdef ?Inst@PacketItemOperation@@2V1@A : byte                     ; unk_6D1670
 externdef ?AppendWord@PacketItemOperation@@QAEXG@Z : proc             ; sub_52695A
+externdef ?AppendByteByte@PacketUnitStateVec@@QAEXEEPAE@Z : proc      ; sub_5275F8
+externdef ?AppendByteInt@PacketUnitStateVec@@QAEXEHPAE@Z : proc       ; sub_5276E0
 
 
 externdef ?Inst@PacketCmd@@2V1@A : byte                               ; unk_6B1650

@@ -45,12 +45,13 @@ public:
     virtual int32_t VMethod14(int, int);
     virtual int32_t VMethod15();
     virtual int32_t VMethod16();
-    virtual void VMethod17(void*, void*);
+    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot);
 
 public:
     Item(); // sub_547F80: default constructor (blank item)
     Item(const CString& name); // sub_5480E3: construct item from name string
     Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
+    Item(const Item* src); // sub_54842A: copy constructor
     void sub_548FAA(Effect* effect); // Add effect to item
     int sub_548F07(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
@@ -61,6 +62,7 @@ public:
     int IsSimilar(Item* other); // 548860. Is this item similar to another? Same non-magic item or same base with same magic.
 
     void StoreToPacket(PacketUnitStateVec* pkt, int arg); // 549afb
+    void WriteEffects(PacketUnitStateVec* pkt, uint8_t* slot); // 549F2C
 
 public:
     WorldEquip* world_equip;
@@ -69,7 +71,7 @@ public:
     uint8_t item_type;
     uint8_t shape_id;
     uint8_t material_id;
-    uint8_t gap_0x47;
+    uint8_t field_0x47;
     int16_t magic_volume;
     int16_t weight;
     uint8_t field10_0x4c;
