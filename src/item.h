@@ -23,21 +23,12 @@ void LoadItemNames(); //475988
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item);
-public:
-    // GetRuntimeClass
+public: // VTable at 60f498.
     virtual ~Item();
     virtual void Serialize(CArchive& ar) override;
-    // CObject::AssertValid(void)
-    // CObject::Dump(CDumpContext_&)
     virtual void VMethod1() override;
     virtual void VMethod2() override;
-    // Token::VMethod3
-    // Token::VMethod4
-    // Token::VMethod5
     virtual int32_t VMethod6() override;
-    // Token::VMethod7
-    // Token::VMethod8
-    // Token::VMethod9
     virtual Item* VMethod10(Unit*);
     virtual void VMethod11(Unit*);
     virtual Item* TakeOne();
@@ -52,6 +43,7 @@ public:
     Item(const CString& name); // sub_5480E3: construct item from name string
     Item(uint8_t type, uint8_t subtype); // sub_54800E: construct item from type and subtype
     Item(const Item* src); // sub_54842A: copy constructor
+    void InitFromTemplate(uint8_t slot); // 5482AB: init item fields from magic_items table
     void sub_548FAA(Effect* effect); // Add effect to item
     int sub_548F07(); // IsArtifact: returns 1 if the item has magic and price 2. 548f07.
     int sub_548F6A(); // Returns 1 if this item template can be given via #create cheat
@@ -65,10 +57,20 @@ public:
     void WriteEffects(PacketUnitStateVec* pkt, uint8_t* slot); // 549F2C
 
 public:
+    enum ItemType : uint8_t {
+        NONE = 0,
+        EQUIPMENT = 1,
+        DONT_KNOW_YET = 2,
+        POTION = 3,
+        SCROLL = 4,
+        BOOK = 5
+    };
+
+public:
     WorldEquip* world_equip;
     uint16_t item_id;
     uint16_t count;
-    uint8_t item_type;
+    ItemType item_type;
     uint8_t shape_id;
     uint8_t material_id;
     uint8_t field_0x47;

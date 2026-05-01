@@ -121,6 +121,93 @@ extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
     return item;
 }
 
+// 547F80
+Item::Item() : Token() {
+    this->world_equip = nullptr;
+    this->item_id = 0;
+    this->count = 1;
+    this->item_type = ItemType::NONE;
+    this->shape_id = 0;
+    this->material_id = 0;
+    this->itemDataID = 0;
+    this->weight = 1;
+    this->TokenID = 0;
+    this->field10_0x4c = 0;
+    this->field11_0x4d = 0;
+    this->field14_0x50 = 0;
+    this->field15_0x54 = 0;
+}
+
+// 54800E
+Item::Item(uint8_t type, uint8_t subtype) : Token() {
+    this->world_equip = nullptr;
+    this->item_id = 0;
+    this->count = 1;
+    this->item_type = ItemType::NONE;
+    this->shape_id = 0;
+    this->material_id = 0;
+    this->itemDataID = subtype;
+    this->magic_volume = 0;
+    this->weight = 1;
+    this->TokenID = 0;
+    this->field10_0x4c = 0;
+    this->field11_0x4d = 0;
+    this->field14_0x50 = 0;
+    this->field15_0x54 = 0;
+    this->InitFromTemplate(type);
+}
+
+// 5480E3
+Item::Item(const CString& name) : Token() {
+    this->world_equip = nullptr;
+    this->item_id = 0;
+    this->count = 1;
+    this->item_type = ItemType::NONE;
+    this->shape_id = 0;
+    this->material_id = 0;
+    this->itemDataID = 0;
+    this->magic_volume = 0;
+    this->weight = 1;
+    this->TokenID = 0;
+    this->field10_0x4c = 0;
+    this->field11_0x4d = 0;
+    this->field14_0x50 = 0;
+    this->field15_0x54 = 0;
+    int32_t count = g_GameDataRes.magic_items.GetSize();
+    for (int32_t i = 1; i < count; i++) {
+        if (g_GameDataRes.magic_items[i].name == name) {
+            this->itemDataID = (int16_t)i;
+            this->InitFromTemplate(0xE);
+            return;
+        }
+    }
+    LogMessage("Invalid Item " + name + " - no such ID");
+}
+
+// 5482AB
+void Item::InitFromTemplate(uint8_t slot) {
+    if (this->itemDataID >= g_GameDataRes.magic_items.GetSize()) {
+        LogMessage("Error - creating invalid Item");
+        return;
+    }
+    MagicItem& magic_item = g_GameDataRes.magic_items[this->itemDataID];
+    this->world_equip = &magic_item;
+    if (magic_item.name.Find("Potion") == 0) {
+        this->item_type = ItemType::POTION;
+    } else if (magic_item.name.Find("Book") == 0) {
+        this->item_type = ItemType::BOOK;
+    } else if (magic_item.name.Find("Scroll") == 0) {
+        this->item_type = ItemType::SCROLL;
+    } else if (magic_item.name.Find("SuperScroll") == 0) {
+        this->item_type = ItemType::SCROLL;
+    }
+    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
+    if (!magic_item.effect.IsEmpty()) {
+        this->sub_548F3F(magic_item.effect);
+    }
+    this->VMethod15();
+}
+
 // 54842A
 Item::Item(const Item* src) : Token(*src) {
     this->world_equip = src->world_equip;
@@ -291,7 +378,7 @@ void Item::Serialize(CArchive& ar) {
         }
         ar << this->item_id;
         ar << this->count;
-        ar << this->item_type;
+        ar << (uint8_t)this->item_type;
         ar << this->shape_id;
         ar << this->material_id;
         ar << this->magic_volume;
@@ -308,7 +395,7 @@ void Item::Serialize(CArchive& ar) {
         }
         ar >> this->item_id;
         ar >> this->count;
-        ar >> this->item_type;
+        ar >> (uint8_t&)this->item_type;
         ar >> this->shape_id;
         ar >> this->material_id;
         ar >> this->magic_volume;
@@ -461,7 +548,7 @@ void Armor::LoadInfo()
         return;
     }
 
-    this->item_type = 1;
+    this->item_type = ItemType::EQUIPMENT;
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* mat = &g_GameDataRes.materials[this->material_id];
 
