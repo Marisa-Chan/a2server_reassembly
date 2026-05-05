@@ -15,12 +15,8 @@ extern "C"
 }
 
 
-
-
-TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
-{
-	//58a4b1 ?
-	//58a4f9
+void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst)
+{ //58a4b1
 	x = _x;
 	y = _y;
 	YX = ((uint16_t)_y << 8) | _x;
@@ -29,17 +25,23 @@ TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 	pInstance = _inst;
 }
 
+TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
+{
+	//58a4f9
+	Set(_x, _y, _inst);
+}
+
 TokenPos::TokenPos()
 { 
 	//58a495
-	TokenPos(0, 0, nullptr); 
+	Set(0, 0, nullptr);
 }
 
 TokenPos::TokenPos(uint16_t _YX, MapStuff* _inst) 
 {
 	//58a562
 	//58a583
-	TokenPos(_YX & 8, _YX >> 8, _inst); 
+	Set(_YX & 8, _YX >> 8, _inst);
 }
 
 //58a9ee

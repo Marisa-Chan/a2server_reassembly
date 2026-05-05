@@ -59,9 +59,11 @@ ASSERT_SIZE(Trigger, 0x18);
 struct ScriptSettings {
     uint32_t turn_tracing;
     uint32_t script_tracing;
-    uint8_t gap_0x8[1016];
+    uint8_t gap_0x8[392];
+
+    ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } //5b67ee
 };
-ASSERT_SIZE(ScriptSettings, 0x400);
+ASSERT_SIZE(ScriptSettings, 0x190);
 
 
 #endif

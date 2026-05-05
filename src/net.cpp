@@ -84,9 +84,9 @@ void NetStru1::FUN_0051cd89(const CString& name, Player* player)
 // 51C8B1
 void NetStru1::sub_51C8B1(Player* player) {
     LogMessage("NetStru1::sub_51C8B1");
-	POSITION pos = g_PlayersList->GetHeadPosition();
+	POSITION pos = g_PlayersList->list.GetHeadPosition();
 	while (pos != nullptr) {
-		Player* p = g_PlayersList->GetNext(pos);
+		Player* p = g_PlayersList->list.GetNext(pos);
 		if (p == player) {
 			continue;
 		}
@@ -176,9 +176,9 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
 {
     if (player == nullptr) {
         // Broadcast to all players.
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (p->field_0x43 != 0 || unit->pOwner == p) {
                 this->sub_519221(unit, p, mask, param5, param6, param7);
             }
@@ -897,9 +897,9 @@ void NetStru1::OnClientDisconnect(NetStru2* cli)
                     FUN_0051cefb(0x97, pl->player_id, 0, nullptr);
                     LogMessage("Player " + pl->name + " has disconnected and leaved game.");
 
-                    POSITION pos = g_PlayersList->Find(pl);
+                    POSITION pos = g_PlayersList->list.Find(pl);
                     if (pos != nullptr)
-                        g_PlayersList->RemoveAt(pos);
+                        g_PlayersList->list.RemoveAt(pos);
 
                     g_Server->sub_4F4570();
                 }
@@ -1050,6 +1050,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
     //5186cd
 
     //uint32_t stime = GetTickCount();
+    printf("Send packet 0x%x\n", pkt->id);
     if (pkt->to_player_id == 0)
     {
         for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)
@@ -1626,6 +1627,12 @@ CLlDriver::~CLlDriver()
     Free();
 
     CoUninitialize();
+}
+
+void CLlDriver::SetHlDriver(NetStru1* drv)
+{
+    //496e50
+    hl_driver = drv;
 }
 
 

@@ -46,6 +46,8 @@ public:
 
 	TokenPos& operator=(const TokenPos&);
 
+	void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); //58a4b1
+
 	void FUN_00594200(); // in asm
 	int FUN_0058a7e8(uint8_t x, uint8_t y); //in asm
 

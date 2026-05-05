@@ -71,6 +71,15 @@ void UnitList::AddTailId6xxx(Unit* unit)
 	unit->building_id = 0x6000 + unit->TokenID;
 }
 
+void UnitList::Remove(Unit* unit)
+{  //575aa0
+	POSITION pos = unit_list.Find(unit);
+	if (pos)
+		unit_list.RemoveAt(pos);
+
+	delete unit;
+}
+
 // 556345
 void UnitList::ProcessTick()
 {

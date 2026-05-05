@@ -428,6 +428,8 @@ public:
     CLlDriver(GUID _appid, NetStru1 *net1); //5208ec
     ~CLlDriver(); //520ad3
 
+    void SetHlDriver(NetStru1* drv); //496e50
+
     void Close(); //5225d0
     void CloseTcp(); //523b01
     void CloseDp(); //525a09
@@ -470,6 +472,8 @@ public:
 
     int CreateTcp(); //52359b
     int CreateDp(); //523ccf
+
+    int IsListen() { return listen_socket.is_in_use == 1; }; //496ed0
 
     int IsInUse(A2NetSock* sock); //52293a
     void SetEventNewSession(); //522318
@@ -515,6 +519,9 @@ public:
     void SetLatency(uint32_t conn_uid, int32_t latency_ms); // 5229cd Set connection latency limit
     int32_t GetLatency(uint32_t conn_uid);  //5229FD  Get current measured latency (ms)
     int32_t GetPacketLoss(uint32_t conn_uid);  //522A51 Get current packet-loss figure
+
+    void SetTimeout(uint32_t t) { timeout = t; } //496f20
+    int GetProvider() { return provider; } //451610
 };
 ASSERT_OFFSET(CLlDriver, connection_sockets, 0x57c);
 ASSERT_OFFSET(CLlDriver, critical_section, 0x7ec);

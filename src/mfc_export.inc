@@ -128,6 +128,8 @@ externdef ?InitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 externdef ?OnIdle@GameApp@@UAEHJ@Z:proc   ; (public: virtual int __thiscall GameApp::OnIdle(long))
 externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
+extern ?g_WorkingDir@@3PADA : byte
+
 
 
 
@@ -917,8 +919,10 @@ externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
-externdef ??1Server@@QAE@XZ :proc
-externdef ?Deinit@SrvStru1@@QAEXXZ :proc
+
+extern ??1Server@@QAE@XZ :proc
+
+extern ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
 externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
@@ -957,10 +961,14 @@ externdef ?sub_4F0D58@Server@@QAEXXZ :proc
 externdef ?sub_5090A7@Server@@QAEXXZ :proc
 externdef ?sub_50979A@Server@@QAEXXZ :proc
 
+externdef ?FUN_005540ed@SackList@@QAEXXZ : proc
+
+extern ?Instance@SrvStru1@@2U1@A : dword
+
 
 ; SrvStru1
 
-externdef ?sub_4FB4AA@SrvStru1@@QAEXXZ :proc
+extern ?sub_4FB4AA@SrvStru1@@QAEXXZ :proc
 
 ; NetStru1::sub_51E205
 externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
@@ -994,8 +1002,8 @@ externdef ?sub_52C36D@Unit@@QAEXEEE@Z :proc
 externdef ?sub_52D8D3@Unit@@QAEXPAUInventory@@HH@Z :proc
 externdef ?sub_552C37@Inventory@@QAEPAVItem@@G@Z :proc
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
-externdef ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
-externdef ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
+extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
+extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
 externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
@@ -1056,7 +1064,6 @@ externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
 ; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 
-externdef ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ??1World@@QAE@XZ :proc
 externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?sub_534DDD@PlayersList@@QAEXXZ  : proc
@@ -1239,6 +1246,13 @@ externdef ?FUN_00494982@SomeMainStructure@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
 
+extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
+extern ?Proc_44c@MainWindow@@QAEXPAVCVisualObject@@@Z : proc
+extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
+extern ?FUN_0048cff7@MainWindow@@QAEXXZ : proc
+extern ?FUN_00491822@MainWindow@@QAEXXZ : proc
+extern ?FUN_004918ae@MainWindow@@QAEXXZ : proc
+
 externdef ??0MainWindow@@QAE@XZ : proc
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
@@ -1246,8 +1260,14 @@ externdef ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
+externdef ?FUN_00491b3e@MainWindow@@QAEXXZ : proc
+externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
+
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
+
+
+
 
 extern ??0MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::MWin_5e8(void))
 extern ??1MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::~MWin_5e8(void))
@@ -1329,9 +1349,16 @@ externdef ?g_kbMenuState@@3HA : dword
 externdef ?FUN_00493cd8@SomeMainStructure@@QAEXXZ : proc
 externdef ?FUN_00492c66@SomeMainStructure@@QAEXH@Z : proc
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
+extern ?FUN_00493ffe@SomeMainStructure@@QAEHXZ : proc
+extern ?FUN_004941c0@SomeMainStructure@@QAEXXZ : proc
 
 externdef ?g_LButtonDown@@3HA : dword
 
+extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
+extern ?g_settings@@3UGameSettings@@A : dword
+
+extern ?DAT_00660f88@@3HA : dword
+extern ?DAT_006658d8@@3VCDWordArray@@A : dword
 
 ;A2NetSock
 extern ??0A2NetSock@@QAE@XZ :proc
@@ -1644,6 +1671,11 @@ externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 externdef ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 
+extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
+extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
+extern ?FUN_0040d4e2@BigStruct2@@QAEHXZ : proc
+extern ?FUN_0041d2da@BigStruct2@@QAEXH@Z : proc
+
 externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
 
@@ -1675,6 +1707,10 @@ externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
 
 ;VisShop
 externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
+
+;Vis1200
+externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
+externdef ?FUN_00497310@Vis1200@@QAEHXZ  : proc
 
 
 ;GFX things
@@ -1789,6 +1825,10 @@ externdef ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : pr
 externdef ?Play@CSound@@SAXAAU1@@Z :proc
 externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
 
+extern ?Release@SfxSample@@QAEXXZ : proc
+
+extern ?Clear@SoundChannel@@QAEXXZ : proc
+
 extern ?g_dsound@@3PAUIDirectSound@@A  :dword
 extern ?g_dsound_channel_num@@3HA  :dword
 extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
@@ -1843,7 +1883,7 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 
 ;CGameObject
-externdef ?FUN_0041f110@CGameObject@@QAEHXZ : proc
+extern ?FUN_0041f110@CGameObject@@QAEHXZ : proc
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc

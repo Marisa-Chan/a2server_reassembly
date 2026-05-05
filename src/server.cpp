@@ -63,65 +63,71 @@ uint16_t Server::somewords[32][32];
 
 Srv1::~Srv1() = default; // 59b6f0
 
+SrvStru1 SrvStru1::Instance; //6cf390
+
 // 4f2c26
 Server::~Server()
 {
-    g_NetStru1_main.FUN_0051ceac(0xAF, nullptr);
-    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
+    g_NetStru1_main.FUN_0051ceac(0xaf, nullptr);
+    g_NetStru1_main.SendPacket_64(tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
-    if (this->field15_0x88 != nullptr) {
-        ResumeThread(this->field15_0x88);
-    }
+    if (field15_0x88)
+        ResumeThread(field15_0x88);
 
-    while (WaitForSingleObject(this->field15_0x88, 0x32) == WAIT_TIMEOUT) {
-    }
+    while (WaitForSingleObject(field15_0x88, 50) == WAIT_TIMEOUT)
+    {}
 
-    if (g_World != nullptr) {
+    if (g_World)
+    {
         delete g_World;
         g_World = nullptr;
     }
 
-    if (MapStuff_Instance != nullptr) {
+    if (MapStuff_Instance)
+    {
         delete MapStuff_Instance;
         MapStuff_Instance = nullptr;
     }
 
-    if (this->srv_stru1 != nullptr) {
-        this->srv_stru1->Deinit();
-    }
+    srv_stru1->Deinit();
 
-    if (g_PlayersList != nullptr) {
-        POSITION pos = g_PlayersList->GetHeadPosition();
-        while (pos != nullptr) {
-            POSITION current = pos;
-            Player* player = g_PlayersList->GetNext(pos);
-            g_PlayersList->RemoveAt(current);
-            if (player != nullptr) {
-                delete player;
-            }
-        }
-
-        delete g_PlayersList;
+    if (g_PlayersList)
+    {
+        delete g_PlayersList; // destructor will delete objects
         g_PlayersList = nullptr;
     }
 
-    delete dword_6CDB3C;
-    dword_6CDB3C = nullptr;
-
-    delete dword_6B37C4;
-    dword_6B37C4 = nullptr;
-
-    for (int index = 1; index < this->spells.size(); index++) {
-        delete this->spells[index];
-        this->spells[index] = nullptr;
+    if (dword_6CDB3C)
+    {
+        delete dword_6CDB3C; // WAT? do not delete objects??
+        dword_6CDB3C = nullptr;
     }
 
-    delete this->script_settings;
-    this->script_settings = nullptr;
+    if (dword_6B37C4)
+    {
+        delete dword_6B37C4; // WAT? do not delete objects??
+        dword_6B37C4 = nullptr;
+    }
+
+    for (int i = 1; i < spells.size(); i++)
+    {
+        if (spells[i])
+        {
+            delete spells[i];
+            spells[i] = nullptr;
+        }
+    }
+
+    if (script_settings)
+    {
+        delete script_settings;
+        script_settings = nullptr;
+    }
 
     LogMessage("Server closed\n");
 }
+
 
 // 59B7EA
 int Srv1::sub_59B7EA(CString map_name) {
@@ -180,9 +186,9 @@ int Srv1::sub_59B7EA(CString map_name) {
 
     this->sub_59C56E(alm);
 
-    POSITION pos = g_PlayersList->GetHeadPosition();
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos) {
-        Player* player = g_PlayersList->GetNext(pos);
+        Player* player = g_PlayersList->list.GetNext(pos);
 
         if (alm->map_players.GetSize() > player->player_id - 1) {
             for (int32_t i = 0; i < 16; i++) {
@@ -198,9 +204,9 @@ int Srv1::sub_59B7EA(CString map_name) {
 
     Player* self = g_PlayersList->sub_535D39("Self");
     if (self != nullptr && g_Server->field4_0x74 != 0) {
-        POSITION pos2 = g_PlayersList->GetHeadPosition();
+        POSITION pos2 = g_PlayersList->list.GetHeadPosition();
         while (pos2) {
-            Player* player2 = g_PlayersList->GetNext(pos2);
+            Player* player2 = g_PlayersList->list.GetNext(pos2);
 
             if ((g_World->diplomacy.diplomacy[player2->player_id][self->player_id] & 7) == 0 && player2->is_ai) {
                 if (player2->unit_list != nullptr) {
@@ -449,7 +455,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
                 g_World->diplomacy.diplomacy[self_id][player_id] = 0x12;
 
                 // Walk all non-AI players and update alliance / vision masks.
-                for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+                for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
                     Player* p = node->data;
                     auto p_id = p->player_id;
                     if (p->is_ai != 0 || p_id == player_id) {
@@ -510,7 +516,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     }
 
     // Send updated terrain/diplomacy state to every non-AI player.
-    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
         Player* p = node->data;
         if (p != nullptr && p->is_ai == 0) {
             g_NetStru1_main.sub_51CB21(p);
@@ -540,7 +546,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
     this->srv_stru1->units_list->sub_5579D8(player);
 
     // Per-player unit lists.
-    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
         Player* p = node->data;
         if (p != nullptr) {
             p->unit_list->sub_5579D8(player);
@@ -641,7 +647,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
 
     while (slot < 0x10) {
         bool found = false;
-        auto* node = g_PlayersList->m_pNodeHead;
+        auto* node = g_PlayersList->list.m_pNodeHead;
         while (node != nullptr) {
             Player* candidate = node->data;
             if (candidate != nullptr) {
@@ -664,7 +670,7 @@ void Server::FUN_004ff439(Player* player, int32_t arg4)
     }
 
     PacketJoin& packet = PacketJoin::Inst;
-    auto* node = g_PlayersList->m_pNodeHead;
+    auto* node = g_PlayersList->list.m_pNodeHead;
     while (node != nullptr) {
         Player* target = node->data;
         if (target != nullptr) {
@@ -773,7 +779,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // 4. Duplicate name check
-    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
         Player* existing = node->data;
 
         if (existing && std::strcmp(name, existing->name) == 0) {
@@ -967,7 +973,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     }
 
     // Set team pairing bytes and vision masks.
-    for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+    for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
         Player* other = node->data;
 
         if (other != nullptr && other->is_ai == 0 && player->player_id != other->player_id) {
@@ -1465,7 +1471,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
         }
     } else if (cheat_string.Find("#killall") == 0 || cheat_string.Find("#kill all") == 0) {
         // Kill every enemy player.
-        for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+        for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
             Player* p = node->data;
             if (p == nullptr) {
                 continue;
@@ -1479,7 +1485,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
             g_NetStru1_main.FUN_0051ce86(7, player->player_id, player);
         }
     } else if (cheat_string.Find("#kill cheaters") == 0) {
-        for (auto* node = g_PlayersList->m_pNodeHead; node != nullptr; node = node->pNext) {
+        for (auto* node = g_PlayersList->list.m_pNodeHead; node != nullptr; node = node->pNext) {
             Player* p = node->data;
             if (p != nullptr && p->field_0xa98 > 50 && p != player) {
                 p->field_0xa98 = 0;
@@ -2288,7 +2294,7 @@ void Server::sub_504a96(Packet* pkt)
             int count = packet_data->count;
             const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
 
-            for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+            for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
                 Player* other = node->data;
                 if (!other) {
                     break;
@@ -2584,7 +2590,7 @@ void Server::sub_504a96(Packet* pkt)
 
             switch (chat_type) {
             case 0: // Regular message: send to all non-AI players within range.
-                for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+                for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
                     Player* other = node->data;
                     if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
                         out.to_player_id = other->player_id;
@@ -2594,7 +2600,7 @@ void Server::sub_504a96(Packet* pkt)
                 }
                 break;
             case 1: // Allies: send to players with diplomacy bit 2 set toward sender.
-                for (auto* node = g_PlayersList->m_pNodeHead; node; node = node->pNext) {
+                for (auto* node = g_PlayersList->list.m_pNodeHead; node; node = node->pNext) {
                     Player* other = node->data;
                     if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & 2) != 0) {
                         out.to_player_id = other->player_id;
@@ -2713,7 +2719,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     }
 
     if (name == "Self" && field4_0x74 == 0)
-        name = g_PlayersList->GetHead()->name;
+        name = g_PlayersList->list.GetHead()->name;
 
     CString nickname = name;
 
@@ -2770,9 +2776,9 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 
     Player* player = nullptr;
 
-    for (POSITION pos = g_PlayersList->GetHeadPosition(); pos != nullptr;)
+    for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;)
     {
-        Player* pl = g_PlayersList->GetNext(pos);
+        Player* pl = g_PlayersList->list.GetNext(pos);
         if (pl->name == name)
         {
             if (pl->hat_player_id == id && pl->flags == arg && g_NetStru1_main.GetClientByPlayerID(pl->player_id) == nullptr)
@@ -2887,9 +2893,9 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         {
             bool used = false;
 
-            for (POSITION pos = g_PlayersList->GetHeadPosition(); pos != nullptr;)
+            for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;)
             {
-                Player* pl = g_PlayersList->GetNext(pos);
+                Player* pl = g_PlayersList->list.GetNext(pos);
                 if (pl->field_0xa44 == i && pl->is_ai == 0)
                 {
                     used = true;
@@ -3423,9 +3429,9 @@ void Server::ServerTic() {
     if (g_ServerConfig.gameType == 2) {
         int teams_ready = g_PlayersList->sub_53636E();
         if ((this->tick & 0xff) == 0 && teams_ready == 0) {
-            POSITION ppos = g_PlayersList->GetHeadPosition();
+            POSITION ppos = g_PlayersList->list.GetHeadPosition();
             while (ppos != nullptr) {
-                Player* player = g_PlayersList->GetNext(ppos);
+                Player* player = g_PlayersList->list.GetNext(ppos);
                 if (player->is_ai == 0 && player->field_0x41 != 0 && player->field_0xa6c == 0) {
                     g_NetStru1_main.FUN_0051ce86(0xb, 0, player);
                 }
@@ -3458,9 +3464,9 @@ void Server::ServerTic() {
                             g_NetStru1_main.FUN_0051ce86(i + 0x106, (&this->field60_0x20c)[i], nullptr);
                             this->sub_4F8FBF(i, 0);
 
-                            POSITION ppos = g_PlayersList->GetHeadPosition();
+                            POSITION ppos = g_PlayersList->list.GetHeadPosition();
                             while (ppos != nullptr) {
-                                Player* p = g_PlayersList->GetNext(ppos);
+                                Player* p = g_PlayersList->list.GetNext(ppos);
                                 if (p->is_ai == 0 && p->field_0xa70 == 1 - i) {
                                     p->frags += g_ServerConfig.flag_score;
                                     (&this->field57_0x200)[1-i] += g_ServerConfig.flag_score;
@@ -3523,3 +3529,296 @@ void Server::ServerTic() {
         this->field43_0x1b8 = 0;
     }
 }
+
+
+
+void Server::ProcessAvailPackets()
+{
+    //509010
+    while (true)
+    {
+        Packet* pkt = g_NetStru1_main.ReceiveAnyPacket();
+        if (!pkt)
+            break;
+
+        sub_504a96(pkt);
+    }
+}
+
+void Server::FUN_0050907e()
+{
+    //50907e
+    ProcessAvailPackets();
+    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendAllData();
+}
+
+Server::Server()
+: field5_0x78(""), srv_stru1(&SrvStru1::Instance)
+{ //4ece8b
+    g_World = nullptr;
+    dword_6CDB3C = nullptr;
+    dword_6B37C4 = nullptr;
+    g_PlayersList = nullptr;
+    MapStuff_Instance = nullptr;
+
+    field19_0x98.srv_stru = srv_stru1;
+
+    field18_0x94 = 0;
+    field3_0x70 = 0;
+    field4_0x74 = 0;
+    field15_0x88 = nullptr;
+
+    current_map_name = "1.alm";
+
+    tick = 0;
+    tick16 = 0;
+
+    script_settings = new ScriptSettings();
+    field26_0x174 = 0;
+    field27_0x178 = 0;
+    field28_0x17c = 0;
+    field29_0x180 = 0;
+    field30_0x184 = 0;
+    field31_0x188 = 0;
+    field32_0x18c = 0;
+    field33_0x190 = 0;
+    field34_0x194 = 0;
+    field37_0x1a0 = 0;
+    field36_0x19c = 0;
+    field38_0x1a4 = 1;
+    field39_0x1a8 = 1;
+    field40_0x1ac = 0;
+    field35_0x198 = 0;
+    field21_0xd4 = 0;
+    field22_0xd8 = 2;
+    field41_0x1b0 = 0;
+
+    SrandInit();
+
+    spells.fill(nullptr);
+
+    MapLevel = -1;
+    field49_0x1d0 = 0;
+    field50_0x1d4 = 0;
+    field51_0x1d8 = 1;
+    field53_0x1f0 = 0;
+    field64_0x21c = 0;
+    field65_0x220 = 15;
+    field54_0x1f4 = 0;
+    field55_0x1f8 = 0;
+    field56_0x1fc = 0;
+    field59_0x208 = 0;
+    field58_0x204 = 0;
+    field57_0x200 = 0;
+    field61_0x210 = 0;
+    field60_0x20c = 0;
+    field63_0x218 = 0;
+    field62_0x214 = 0;
+    field66_0x224 = 0;
+    g_ShutdownIn = 0x7fffffff;
+    map_elapsed_time = 0;
+    map_elapsed_time2 = 0;
+}
+
+CowardActivation::CowardActivation()
+{ // 5a335c
+    memset(key, 0, sizeof(key));
+    enabled = 0;
+
+    key[0] = 0x39;
+    key[1] = 0x20;
+    key[2] = 0x59;
+    key[3] = 0x7c;
+    key[4] = 0x2;
+    key[5] = 0x11;
+    key[6] = 0x5d;
+    key[7] = 0x40;
+    key[8] = 0x46;
+    key[9] = 0x0;
+    key[10] = 0x23 - key[0];
+    key[0xb] = 0x23 - key[1];
+    key[0xc] = 0x43 - key[2];
+    key[0xd] = 0x6f - key[3];
+    key[0xe] = 0x77 - key[4];
+    key[0xf] = 0x61 - key[5];
+    key[0x10] = 0x72 - key[6];
+    key[0x11] = 0x64 - key[7];
+    key[0x12] = 0x20 - key[8];
+    key[0x13] = 0x20 - key[9];
+    key[0x11] = 0;
+}
+
+
+
+
+void SrvStru1::Deinit()
+{ //4fab1d
+    if (sack_list)
+    {
+        delete sack_list;
+        sack_list = nullptr;
+    }
+
+    if (units_list)
+    {
+        for (POSITION pos = units_list->unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = units_list->unit_list.GetNext(pos);
+            if (unit)
+                delete unit;
+        }
+        units_list->unit_list.RemoveAll();
+
+        delete units_list;
+        units_list = nullptr;
+    }
+
+    if (effects_list)
+    {
+        delete effects_list;
+        effects_list = nullptr;
+    }
+
+    if (building_list)
+    {
+        for (POSITION pos = building_list->GetHeadPosition(); pos != nullptr;)
+        {
+            Building* bld = building_list->GetNext(pos);
+            if (bld)
+                delete bld;
+        }
+        building_list->RemoveAll();
+
+        delete building_list;
+        building_list = nullptr;
+    }
+
+    if (!virtual_casters_list.IsEmpty())
+    {
+        for (POSITION pos = virtual_casters_list.GetHeadPosition(); pos != nullptr;)
+        {
+            VirtualCaster* caster = virtual_casters_list.GetNext(pos);
+            if (caster)
+                delete caster;
+        }
+        virtual_casters_list.RemoveAll();
+    }
+
+    if (!some_unit_list.IsEmpty())
+    {
+        for (POSITION pos = some_unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = some_unit_list.GetNext(pos);
+            if (unit)
+                delete unit;
+        }
+        some_unit_list.RemoveAll();
+    }
+}
+
+Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg)
+{   //4fb8cd  
+    Unit* unit = new Unit();
+    unit->building_id = 0;
+
+    some_unit_list.AddTail(unit);
+
+    unit->position->Set(xpos, ypos, MapStuff_Instance);
+
+    unit->spell_book = new SpellBook();
+
+    Spell* spl = new Spell(spellID);
+
+    unit->mind = 30;
+
+    unit->hit_values.skill_levels[ spl->GetSphere() ] = SpellDmg;
+
+    unit->spell_book->spells.SetAtGrow(spellID, spl);
+    unit->some_spell = spl;
+    unit->charge = 1;
+    unit->relax = 1;
+    return unit;
+}
+
+void SrvStru1::sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power)
+{ // 4FBB24
+    Unit* unit = AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
+    unit->some_state = 14;
+    unit->area_cast_x = to_x;
+    unit->area_cast_y = to_y;
+}
+
+void SrvStru1::sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4)
+{ // 4FBAE3
+    Unit* u = AddDummyUnitWithSpell(a0, a1, a3, a4);
+    u->some_state = 13;
+    u->cast_target = unit;
+}
+
+void SrvStru1::sub_4FB4AA()
+{ // 4FB4AA
+    building_list->FUN_0055817b();
+    sack_list->FUN_005540ed();
+}
+
+SrvStru1::SrvStru1()
+{ //4fa89c
+    sack_list = nullptr;
+    units_list = nullptr;
+    effects_list = nullptr;
+    building_list = nullptr;
+}
+
+SrvStru1::~SrvStru1()
+{  //4fa981
+    Deinit();
+}
+
+
+SackList::~SackList()
+{ //554bc3
+    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+    {
+        Sack* sac = list.GetNext(pos);
+        
+        if (sac)
+            delete sac;
+    }
+
+    list.RemoveAll();
+}
+
+SpellEffectList::~SpellEffectList()
+{ //5583ed
+    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+    {
+        SpellEffect* eff = list.GetNext(pos);
+
+        if (eff)
+            delete eff;
+    }
+
+    list.RemoveAll();
+}
+
+
+
+/*
+void SackList::FUN_005540ed()
+{  //5540ed
+    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
+    {
+        Sack* sac = list.GetNext(pos);
+        
+
+    }
+
+    if (g_Server->field4_0x74 != 0 && Random0N(20) == 0)
+    {
+        if (g_ServerConfig.gameType == 0)
+        {
+            MapStuff_Instance->sub
+        }
+    }
+}*/

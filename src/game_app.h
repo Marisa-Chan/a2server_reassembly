@@ -28,6 +28,30 @@ class NetStru1;
 
 
 
+struct GameSettings
+{
+	int32_t* pGameSpeed = nullptr;
+	int32_t* pFormationMode = nullptr;
+	int32_t* pWimpyMode = nullptr;
+	int32_t* pShowAllHitPoints = nullptr;
+	int32_t Smoothing = 1;
+	int32_t* pShowFlyingHP = nullptr;
+	int32_t ShowTimeFlow = 1;
+	int32_t TipsMode = 1;
+	int32_t Acknowledgement = 1;
+	int32_t AutoCasting = 25;
+	int32_t* pShadows = nullptr;
+	int32_t* pLightning = nullptr;
+	int32_t* pAnimation = nullptr;
+	int32_t ClanNames = 1;
+	int32_t* pMessageColors = nullptr;
+};
+ASSERT_SIZE(GameSettings, 0x3c);
+
+extern GameSettings g_settings; //660ec0
+
+
+
 
 class GameApp : public CWinApp
 {
@@ -62,6 +86,10 @@ void LoadSettings(); //441a03
 void PrecomputeExperienceLevelsTable(); //53069e
 void SetMessageColors(uint32_t); //476de7
 
+int FUN_00497490(); //497490
+
+void SrandInit(); //5421e9
+
 
 
 extern int32_t g_kbShiftState; //660f44
@@ -92,7 +120,7 @@ extern "C" FARPROC ScenarioLeaveShop; //665b08
 extern "C" FARPROC ScenarioEnterInn; //665be8
 extern "C" FARPROC ScenarioLeaveInn; //6658f0
 extern "C" FARPROC ScenarioNewGame; //6658cc
-extern "C" FARPROC ScenarioSave; //6658d0
+extern "C" void (__cdecl* ScenarioSave)(CFile*); //6658d0
 extern "C" FARPROC ScenarioLoad; //665bd8
 extern "C" FARPROC ScenarioGetAvailableLocations; //6658c4
 extern "C" FARPROC ScenarioGetShopAssortment; //665bdc

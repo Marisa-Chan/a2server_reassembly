@@ -289,6 +289,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			return 0;
 		}
 
+		printf("Client receive packet 0x%x\n", pkt->id);
+
 		switch (pkt->id)
 		{
 		case 3:
@@ -630,14 +632,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						if (packet_unit->flags_mask & 0x10)
 						{
-							ct->field_0x70 = g_CUnitStatic.last_action;
+							ct->dir = g_CUnitStatic.last_action;
 							ct->x_pos = g_CUnitStatic.x_pos;
 							ct->y_pos = g_CUnitStatic.y_pos;
 							ct->x_pos = ct->x_pos * 0x100 + 0x80;
 							ct->y_pos = ct->y_pos * 0x100 + 0x80;
 							ct->x_pos2 = ct->x_pos;
 							ct->y_pos2 = ct->y_pos;
-							ct->field_0x10 = 0;
+							ct->z_pos = 0;
 						}
 
 						if (packet_unit->flags_mask & 0x80)
@@ -692,10 +694,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						if (packet_unit->flags_mask & 0x2000000)
 						{
-							wnd->some_struc.field_0x3c = *(uint32_t*)(pdata);
-							wnd->some_struc.field_0x40 = *(uint32_t*)(pdata + 4);
-							wnd->some_struc.field_0x48 = *(uint32_t*)(pdata + 8);
+							wnd->some_struc.monster_killed = *(uint32_t*)(pdata);
+							wnd->some_struc.player_killed = *(uint32_t*)(pdata + 4);
+							wnd->some_struc.death_count = *(uint32_t*)(pdata + 8);
 							wnd->some_struc.field_0x44 = *(uint32_t*)(pdata + 12);
+
 							pdata += 16;
 						}
 
@@ -707,13 +710,13 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						if (packet_unit->flags_mask & 0x100000)
 						{
-							ct->field_0x1c = *(int32_t*)pdata;
+							ct->spells = *(int32_t*)pdata;
 							pdata += 4;
 						}
 
 						if (packet_unit->flags_mask & 0x100000)
 						{
-							ct->field_0x118 = *pdata;
+							ct->active_spell = *pdata;
 							pdata++;
 						}
 
@@ -811,11 +814,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						if ((packet_unit->flags_mask & 0x100000) != 0)
 						{
 							ct->field_0x18 = 0;
-							if (ct->field_0x14 == my_main_unit && ct->field_0x1c != 0)
+							if (ct->field_0x14 == my_main_unit && ct->spells != 0)
 							{
 								for (int i = 0; i < 32; i++)
 								{
-									if ((ct->field_0x1c & (1 << i)) != 0)
+									if ((ct->spells & (1 << i)) != 0)
 										ct->field_0x18 |= SpellBtB[i];
 								}
 							}
@@ -867,7 +870,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								UnitVFXUnfo* dying = g_VFX_info[ g_VFX_info[ct->typeId]->dying ];
 								ct->action_segments = dying->dying_phases * 2;
 								ct->action = 6;
-								ct->action_dir = ct->field_0x70;
+								ct->action_dir = ct->dir;
 								ct->action_phase = 0;
 								ct->field_0xa4 = 0;
 								ct->field_0xa0 = 0;
@@ -881,7 +884,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								UnitVFXUnfo* dying = g_VFX_info[g_VFX_info[ct->typeId]->dying];
 								ct->action_segments = 4;
 								ct->action = 6;
-								ct->action_dir = ct->field_0x70;
+								ct->action_dir = ct->dir;
 								ct->action_phase = dying->dying_phases * 2 - 4;
 								ct->field_0xa4 = 0;
 								ct->field_0xa0 = 0;
@@ -1001,7 +1004,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					ct->action_segments = packet_abil->field_0xd;
 					ct->action = 5;
 					ct->action_dir = packet_abil->field_0xc;
-					ct->field_0xc4 = ct->field_0x70 * 16;
+					ct->field_0xc4 = ct->dir * 16;
 					ct->action_phase = 0;
 					ct->field_0xa4 = 0;
 					ct->field_0xa0 = 0;
@@ -1090,7 +1093,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				ct->field_0xa4 = 0;
 				ct->field_0xa0 = 0;
 				ct->action_target = packet_mount->unit_id;
-				ct->action_dir = ct->field_0x70;
+				ct->action_dir = ct->dir;
 			}
 			else if (ct->action_segments != 0) 
 			{
@@ -1587,12 +1590,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				pj->typeId = packet_move->field_0xc;
 				pj->x_pos = packet_move->field_0xd * 0x100 + 0x80;
 				pj->y_pos = packet_move->field_0xe * 0x100 + 0x80;
-				pj->field_0x10 = 0;
+				pj->z_pos = 0;
 				pj->x_pos2 = pj->x_pos;
 				pj->y_pos2 = pj->y_pos;
 				pj->action_x = pj->x_pos;
 				pj->action_y = pj->y_pos;
-				pj->action_z = pj->field_0x10;
+				pj->action_z = pj->z_pos;
 				pj->action_target = 0;
 				pj->action_phase = -1;
 				pj->field_0x14 = my_main_unit;
@@ -1687,7 +1690,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			pj->typeId = packet_move->field_0xc;
 			pj->x_pos = (packet_move->field_0xa & 0xFF) * 0x100 + 0x80;
 			pj->y_pos = (packet_move->field_0xa >> 8) * 0x100 + 0x80;
-			pj->field_0x10 = 0;
+			pj->z_pos = 0;
 			pj->x_pos2 = pj->x_pos;
 			pj->y_pos2 = pj->y_pos;
 			
@@ -1700,7 +1703,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			else
 				pj->action_target = packet_move->field_0xd | (packet_move->field_0xe << 8);
 
-			pj->action_z = pj->field_0x10;
+			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
 			pj->field_0x14 = my_main_unit;
 			pj->action_segments = packet_move->field_0xf;
@@ -1732,7 +1735,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			pj->typeId = 0x1e;
 			pj->x_pos = (packet_terrain->buf[0] & 0xFF) * 0x100 + 0x80;
 			pj->y_pos = (packet_terrain->buf[0] & 0xFF00) /* * 0x100*/ + 0x80;
-			pj->field_0x10 = 0;
+			pj->z_pos = 0;
 			pj->x_pos2 = pj->x_pos;
 			pj->y_pos2 = pj->y_pos;
 
@@ -1742,7 +1745,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				pj->field_0xb0.Add(packet_terrain->buf[i]);
 
 			pj->action_target = packet_terrain->buf[1];
-			pj->action_z = pj->field_0x10;
+			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
 			pj->field_0x14 = my_main_unit;
 			pj->action_segments = 13;
@@ -2481,7 +2484,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		case 0xce:
 		{
-			wnd->field_0x3ec = *(int32_t*)packet_data->data;
+			wnd->field_0x3e0.field_0c = *(int32_t*)packet_data->data;
 			wnd->some_struc.field_0x130.RemoveAll();
 
 			HatCharId* chars = (HatCharId*)(packet_data->data + 4);
@@ -2637,3 +2640,343 @@ void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr)
 
 
 
+void BigStruct2::FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid)
+{
+	//41b2a4
+
+	PacketJoin* join = &PacketJoin::Inst;
+	join->id = 0x91;
+	join->field_0x5 = my_main_unit->index;
+	join->to_player_id = 0;
+
+	strcpy(join->name, nam);
+
+	if (playerid == 0)
+	{
+		join->player_id = 0;
+		join->token_id = 0;
+		join->field_0xc = 0;
+		join->flags = 0;
+	}
+	else
+		join->__field_0xa = field_0x9b8[playerid]->index;
+
+	join->__field_0xa |= token << 8;
+
+	if (g_NetStru1_local.IsActive() == 0)
+	{
+		if (g_NetStru1_main.IsActive() && g_Server)
+		{
+			g_NetStru1_main.QueuePacketSend(join);
+			g_NetStru1_main.SendAllData();
+		}
+	}
+	else
+		g_NetStru1_local.QueuePacketSend(join);
+}
+
+void BigStruct2::FUN_0041a8cc()
+{
+	//41a8cc
+	PacketWord* pkt = &PacketWord::Inst;
+
+	pkt->id = 0x36;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->value = GetUnit_3f6c()->unit_id;
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+
+	((MainWindow*)AfxGetMainWnd())->field_0x418 &= ~2;
+}
+
+
+int32_t BigStruct2::FUN_0040d7f3()
+{
+	//40d7f3
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+	if (wnd->field_0x640 == 0)
+	{
+		g_NetStru1_local.sub_51C7CC(g_CmdLatency, 0);
+
+		NetStru2* conn = g_NetStru1_local.FUN_0041f520();
+		if (conn)
+			g_CLlDriver.SetLatency(conn->GetUid(), g_CmdLatency);
+	}
+
+	Packet3Dwords *pkt = &Packet3Dwords::Inst;
+
+	pkt->id = 2;
+	strcpy(pkt->field_0x16, wnd->some_struc.character_name);
+	memcpy(&pkt->field_0xa, &wnd->some_struc.field_0x8, 8);
+
+	pkt->field_0x12 = g_IsCdPresent | (wnd->some_struc.color << 8) | (wnd->some_struc.FUN_004200f0() << 0x10) | (wnd->some_struc.FUN_00420110() << 0x18);
+	pkt->to_player_id = 0;
+
+	field_0x9d0.RemoveAll();
+
+	if (field_0x3f6c)
+		delete field_0x3f6c;
+
+	field_0x3f6c = nullptr;
+
+	FUN_00416cf7();
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+
+	if (wnd->field_0x63c != 0)
+		g_Server->FUN_0050907e();
+	
+	uint32_t stime = timeGetTime();
+	while (true)
+	{
+		if (g_NetStru1_local.GetClientsPktNum())
+		{
+			if (ProcessPackets(0x64) == 0)
+				return 0;
+
+			if (field_0x9b8.GetSize() < 2)
+			{
+				INT_00660f8c = 0x1007;
+				return 0;
+			}
+
+			return 1;
+		}
+
+
+		MSG msg;
+		if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0)
+		{
+			if (msg.message == WM_QUIT)
+				return 0;
+
+			TranslateMessage(&msg);
+			DispatchMessageA(&msg);
+		}
+
+		if (g_CmdTimeout < timeGetTime() - stime)
+			break;
+
+		g_mousept.Update();
+		g_NetStru1_local.ProcessConnections();
+	}
+
+	INT_00660f8c = 0x1009;
+	return 0;
+}
+
+
+int BigStruct2::FUN_0040d4e2()
+{
+	//40d4e2
+	INT_00660f8c = 0;
+
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+	if (wnd->field_0x640 == 1 || wnd->field_0x640 == 2)
+	{
+		g_NetStru1_main.SetLinkedHLDriver(&g_NetStru1_local);
+		g_NetStru1_local.SetLinkedHLDriver(&g_NetStru1_main);
+		g_NetStru1_main.ProcessConnections();
+		g_NetStru1_local.ProcessConnections();
+	}
+	else
+	{
+		CLlNetSession* session = nullptr;
+		if (wnd->net_sessions.sessions)
+			session = wnd->net_sessions.sessions + wnd->net_sessions.selected_index;
+		
+		if (g_CLlDriver.Connect(wnd->some_struc.character_name, session) == 0)
+		{
+			wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt(0x9a), nullptr, 0));
+			return 0;
+		}
+	}
+
+	g_NetStru1_local.ProcessConnections();
+
+	if (FUN_0040d7f3())
+		return 1;
+
+	if ((INT_00660f8c & 0xff) < 11)
+		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt((INT_00660f8c & 0xff) + 0xc0), nullptr, 0));
+	else
+		wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt(INT_00660f8c & 0xff), nullptr, 0));
+	return 0;
+}
+
+
+
+void BigStruct2::FUN_0041cbb8()
+{
+	//0041cbb8
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x48;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_a1 = wnd->some_struc.field_0x4c;
+	pkt->field_a2 = wnd->some_struc.field_0x50;
+	pkt->field_a3 = wnd->some_struc.field_0x54;
+	pkt->field_a4 = wnd->some_struc.field_0x58;
+	pkt->field_e1 = wnd->some_struc.main_sphere;
+	pkt->field_e2 = wnd->some_struc.face | wnd->some_struc.field_0x34;
+	pkt->field_e3 = wnd->some_struc.color;
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041cc78(const CString& fname)
+{
+	//41cc78
+	PacketData* pkt = &PacketData::Inst;
+
+	pkt->id = 0xbe;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->count = 0;
+
+	CFile fl;
+	if (fl.Open(fname, 0))
+	{
+		int32_t len = fl.GetLength();
+		if (len < 0x8000)
+		{
+			fl.Read(pkt->data, len);
+			pkt->count = len;
+		}
+		fl.Close();
+	}
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+
+
+void BigStruct2::FUN_0041d2da(int32_t arg)
+{ // 41d2da
+	field_0x3f6c = nullptr;
+
+	if (!field_0x9d0.IsEmpty())
+	{
+		POSITION it = field_0x9d0.GetStartPosition();
+		while (it != nullptr)
+		{
+			uint16_t key;
+			CGameObject* obj;
+			field_0x9d0.GetNextAssoc(it, key, obj);
+			if (obj)
+				delete obj;
+		}
+
+		field_0x9d0.RemoveAll();
+	}
+
+	if (!field_0x9ec.IsEmpty())
+	{
+		POSITION it = field_0x9ec.GetStartPosition();
+		while (it != nullptr)
+		{
+			uint16_t key;
+			CGameObject* obj;
+			field_0x9ec.GetNextAssoc(it, key, obj);
+			if (obj)
+				delete obj;
+		}
+
+		field_0x9ec.RemoveAll();
+	}
+
+	damage_labels.RemoveAll();
+
+	if (arg == 0)
+	{
+		for (int i = 1; i < 17; i++)
+		{
+			MapPlayerData* mp = field_0x9b8[i];
+			if (mp && (mp->flags & 1) != 0)
+			{
+				delete mp;
+				field_0x9b8[i] = nullptr;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 1; i < field_0x9b8.GetSize(); i++)
+		{
+			MapPlayerData* mp = field_0x9b8[i];
+			if (mp)
+				delete mp;
+		}
+		if (field_0x9b8.GetSize())
+			field_0x9b8.SetSize(1);
+	}
+
+	field_0xa08.RemoveAll();
+
+	if (field_0x80)
+	{
+		delete field_0x80;
+		field_0x80 = nullptr;
+	}
+
+	while (g_NetStru1_local.ReceiveAnyPacket())
+	{}
+
+	if (g_dsound_channels)
+	{
+		for (int i = 0; i < g_dsound_channel_num; i++)
+			g_dsound_channels[i].Clear();
+	}
+
+	if (g_SfxArray[14])
+		g_SfxArray[14]->Release();
+
+	if (g_SfxArray[16])
+		g_SfxArray[16]->Release();
+
+	for (int i = 0; i < g_mapmusicinfos.GetSize(); i++)
+		delete g_mapmusicinfos[i];
+
+	g_mapmusicinfos.RemoveAll();
+}
+
+int32_t BigStruct2::IsBookOpen()
+{ // 41b4b0
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->field_0x418 & 2)
+		return FindChild(1000)->FindChild(3) != nullptr;
+
+	return FindChild(3) != nullptr;
+}
+
+int32_t BigStruct2::IsBagOpen()
+{ // 41b495
+	return FindChild(2) != nullptr;
+}
+
+void BigStruct2::FUN_0041afcf(CString str)
+{ //41afcf
+	PacketJoin* pkt = &PacketJoin::Inst;
+	pkt->id = 7;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	strcpy(pkt->name, str);
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041a735()
+{ //41a735
+	PacketTerrain* pkt = &PacketTerrain::Inst;
+	pkt->id = 0x45;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	memcpy(pkt->buf, my_main_unit->diplomacy.GetData(), my_main_unit->diplomacy.GetSize() * 2);
+	pkt->count = my_main_unit->diplomacy.GetSize();
+	g_NetStru1_local.QueuePacketSend(pkt);
+}

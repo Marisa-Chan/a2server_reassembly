@@ -50,8 +50,27 @@ public:
     virtual Packet* Duplicate() override;
     virtual uint32_t GetDataSize() override;
 public:
-    int32_t field_0xa;
-    int32_t field_0xe;
+    union {
+        int32_t field_0xa;
+        struct
+        {
+            uint8_t field_a1;
+            uint8_t field_a2;
+            uint8_t field_a3;
+            uint8_t field_a4;
+        };
+    };
+
+    union {
+        int32_t field_0xe;
+        struct
+        {
+            uint8_t field_e1;
+            uint8_t field_e2;
+            uint8_t field_e3;
+            uint8_t field_e4;
+        };
+    };
 };
 __pragma(pack(pop))
 

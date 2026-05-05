@@ -10,10 +10,12 @@ GameApp GameApp::theApp;
 
 ServerConfig g_ServerConfig;
 
-char g_CdSpeed[256];
-char g_resolution[256];
-char g_InitialWorkingDir[1024];
-char g_WorkingDir[1024];
+char g_CdSpeed[256]; //6658f8
+char g_resolution[256]; //665bf0
+char g_InitialWorkingDir[1024]; //6654c0
+char g_WorkingDir[1024]; //65fbc8
+
+GameSettings g_settings; //660ec0
 
 uint32_t g_CmdLatency;
 uint32_t g_CmdTimeout = 15000;
@@ -604,7 +606,7 @@ BOOL GameApp::InitInstance()
 	ScenarioEnterInn = GetProcAddress(g_scenario_dll, (LPCSTR)9);
 	ScenarioLeaveInn = GetProcAddress(g_scenario_dll, (LPCSTR)10);
 	ScenarioNewGame = GetProcAddress(g_scenario_dll, (LPCSTR)11);
-	ScenarioSave = GetProcAddress(g_scenario_dll, (LPCSTR)12);
+	ScenarioSave = (void(__cdecl*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
 	ScenarioLoad = GetProcAddress(g_scenario_dll, (LPCSTR)13);
 	ScenarioGetAvailableLocations = GetProcAddress(g_scenario_dll, (LPCSTR)14);
 	ScenarioGetShopAssortment = GetProcAddress(g_scenario_dll, (LPCSTR)15);
@@ -619,4 +621,17 @@ BOOL GameApp::InitInstance()
 	SetMessageColors(g_MessageColors);
 
 	return TRUE;
+}
+
+
+
+int FUN_00497490()
+{ //497490
+	return ScenarioGetVar(0x300) > 0x77;
+}
+
+
+void SrandInit()
+{ //5421e9
+	srand(timeGetTime());
 }

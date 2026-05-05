@@ -761,6 +761,7 @@ public:
 	void FUN_0041c4a1(const char* name); //41c4a1
 
 	CUnit* GetUnit_3f6c(); //41f830
+	void SetUnit_3f6c(CUnit* uni) { field_0x3f6c = uni; };
 
 	int32_t ProcessPackets(uint8_t breakid); //40da14
 
@@ -773,6 +774,22 @@ public:
 
 	void FUN_0041cb67(int32_t val); //41cb67
 	void FUN_0041cb21(); //41cb21
+
+	void FUN_0041b2a4(const char* nam, int32_t token, int32_t playerid); //41b2a4
+	void FUN_0041a8cc(); //41a8cc
+
+	int32_t FUN_0040d7f3(); //40d7f3
+	int FUN_0040d4e2(); //40d4e2
+
+	void FUN_0041cbb8(); //0041cbb8
+	void FUN_0041cc78(const CString& str); //41cc78
+	void FUN_0041d2da(int32_t arg); //41d2da
+	int32_t IsBookOpen(); //41b4b0
+	int32_t IsBagOpen(); //41b495
+
+	void FUN_0041afcf(CString str); //41afcf
+	void FUN_0041a735(); //41a735
+
 public:
 	int32_t view_x;
 	int32_t view_y;
@@ -1176,7 +1193,7 @@ public:
 
 public:
 	int32_t field_0x5c;
-	int32_t field_0x60;
+	int32_t pressed;
 	int32_t field_0x64;
 	int32_t field_0x68;
 };
@@ -1256,5 +1273,128 @@ public:
 	int32_t field_0x160;
 };
 ASSERT_SIZE(VisShop, 0x164);
+
+//60dbb0
+class VisTown : public VisScreen
+{
+public:
+
+};
+
+//609ad0
+class Vis1200 : public VisScreen
+{
+public:
+
+	int32_t FUN_004972d0(); //4972d0
+	int32_t FUN_00497310(); //497310
+
+};
+
+
+//60cfe8
+class VisCharInfo : public CVisualObject
+{
+public:
+
+public:
+	BigStruct2* field_0x5c;
+	int32_t field_60;
+	int32_t field_64;
+	int32_t field_68;
+	int32_t field_6c;
+	int32_t field_70;
+	CBmp64* field_0x74;
+	CBmp256* field_0x78;
+	char field_0x7c[256];
+};
+ASSERT_SIZE(VisCharInfo, 0x17c);
+
+
+
+class VisCharGen;
+
+class VisCharGenTextBox : public CVisualObject
+{
+public:
+
+public:
+	VisCharGen* vischargen;
+	CString text;
+	uint16_t* clr;
+	uint16_t* clr_active;
+	uint16_t* clr_inactive;
+	int32_t is_active;
+	uint32_t ts;
+};
+ASSERT_SIZE(VisCharGenTextBox, 0x78);
+
+
+//609998
+class VisCharGen : public VisScreen
+{
+public:
+
+	CString GetName() { return char_name; } // 4973f0
+	CString GetClan() { return clan_name; } // 497430
+	int32_t FUN_004973d0() { return field_0x20c; } //4973d0
+	int32_t FUN_004973b0() { return DWORD_0060bd60[field_0x208]; } //4973b0
+public:
+	CBmp64* field_0x68;
+	CBmp256* field_0x6c;
+	CBmp64* field_0x70;
+	int32_t field_0x74;
+	CPoint field_0x78;
+	CArray<CRect> field_0x80;
+	CArray<CBmp64*> field_0x94;
+	CArray<CBmp64*> field_0xa8;
+	CArray<CBmp64*> field_0xbc;
+	CArray<CBmp64*> field_0xd0;
+	CArray<CBmp64*> field_0xe4;
+	CArray<CBmp64*> field_0xf8;
+	CArray<CRect> field_0x10c;
+	CArray<CRect> field_0x120;
+	CUIntArray field_0x134;
+	CUIntArray field_0x148;
+	CBmp64* field_0x15c;
+	CBmp64* field_0x160;
+	CBmp64* field_0x164;
+	CArray<CBmp64*> field_0x168;
+	CArray<CBmp64*> field_0x17c;
+	CRect field_0x190;
+	CRect field_0x1a0;
+	int32_t field_0x1b0;
+	int32_t field_0x1b4;
+	int32_t field_0x1b8;
+	int32_t field_0x1bc;
+	int32_t field_0x1c0;
+	CSound field_0x1c4;
+	CSound field_0x1c8;
+	CSound field_0x1cc;
+	CSound field_0x1d0;
+	CSound field_0x1d4;
+	CSound field_0x1d8;
+	CSound field_0x1dc;
+	CSound field_0x1e0;
+	CSound field_0x1e4;
+	int32_t field_0x1e8;
+	VisCharGenTextBox* field_0x1ec;
+	VisCharGenTextBox* field_0x1f0;
+	VisCharGenTextBox* field_0x1f4;
+	VisScreen* field_0x1f8;
+	CString char_name;
+	CString clan_name;
+	int32_t field_0x204;
+	int32_t field_0x208;
+	int32_t field_0x20c;
+	int32_t field_0x210;
+	int32_t field_0x214;
+	int32_t field_0x218;
+	int32_t field_0x21c;
+
+	static const int32_t DWORD_0060bd60[4];
+};
+ASSERT_SIZE(VisCharGen, 0x220);
+
 
 #endif

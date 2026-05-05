@@ -6,6 +6,7 @@
 #include "mouse.h"
 
 extern int32_t g_LButtonDown; //660f4c
+extern int32_t DAT_00660f88; //660f88
 
 
 class CListBox2 : public CListBox
@@ -106,20 +107,31 @@ struct MWin_5e8
     uint32_t FUN_004ac566(int32_t arg);
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
+    void FUN_004ac706(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);
 
     void FUN_00420050();
+
+    int32_t FUN_00497290() { return field_x0; }; //497290
 };
 
 ASSERT_SIZE(MWin_5e8, 0x38);
 
 
-struct SomeMainSubStruc1
+struct UserShortcut
 {
-    uint16_t field_0x0;
-    uint16_t field_0x2;
-    uint32_t field_0x4;
-    uint32_t field_0x8;
+    uint16_t kind;
+    uint16_t item_id;
+    uint32_t mods_size;
+    uint8_t* mods;
+
+    UserShortcut(); //4971a0
+    ~UserShortcut(); //41e493
+
+    void SetNull(); //4971c0
+    int ToBuffer(uint8_t** buf); //41e5ed
+
+    void WriteToFile(CFile* f); //41e4d3
 };
 
 
@@ -141,24 +153,31 @@ public:
     CString FUN_00420070(); //420070
     void FUN_00494982(); //494982
 
+    int32_t FUN_00420110() { return field_0x118; }; //420110
+    int32_t FUN_004200f0() { return field_0x114; }; //4200f0
+
+    int FUN_00493ffe(); //493ffe
+    void FUN_00493d8d(); //493d8d
+    void FUN_00494687(); //494687
+    void FUN_004941c0(); //4941c0
 public:
     int32_t field_0x4;
     int32_t field_0x8;
     int32_t field_0xc;
     char character_name[32];
-    int32_t field_0x30;
+    int32_t flags;
     int32_t field_0x34;
-    int32_t field_0x38;
-    int32_t field_0x3c;
-    int32_t field_0x40;
+    int32_t money;
+    int32_t monster_killed;
+    int32_t player_killed;
     int32_t field_0x44;
-    int32_t field_0x48;
+    int32_t death_count;
     int32_t field_0x4c;
     int32_t field_0x50;
     int32_t field_0x54;
     int32_t field_0x58;
-    int32_t field_0x5c;
-    int32_t field_0x60;
+    int32_t main_sphere;
+    int32_t face;
     int32_t field_0x64;
     int32_t field_0x68;
     int32_t field_0x6c;
@@ -168,8 +187,8 @@ public:
     int32_t field_0x7c;
     int32_t field_0x80;
     int32_t field_0x84;
-    int32_t field_0x88;
-    SomeMainSubStruc1 field_0x8c[9];
+    int32_t color;
+    UserShortcut field_0x8c[9];
     CStringArray string_array1;
     int32_t field_0x10c;
     int32_t field_0x110;
@@ -185,6 +204,57 @@ public:
     CWordArray word_array;
 };
 ASSERT_SIZE(SomeMainStructure, 0x17c);
+
+struct HatSettings
+{
+    CString hatip;
+    CString hatprogip;
+    int32_t ishat;
+    CString login;
+    CString password;
+    int32_t deathmatch;
+    int32_t store;
+};
+ASSERT_SIZE(HatSettings, 0x1c);
+
+struct Main3e0
+{
+    CString field_00;
+    CString field_04;
+    CString field_08;
+    int32_t field_0c;
+    int32_t field_10;
+    CString field_14;
+};
+ASSERT_SIZE(Main3e0, 0x18);
+
+struct DiplomacyEntry
+{
+    char* name = nullptr;
+    int32_t enemy = 0;
+    int32_t ally = 0;
+    int32_t see = 0;
+    int32_t mute = 0;
+
+    DiplomacyEntry() = default;
+    DiplomacyEntry(const char* _name, int e, int a, int s, int m);
+    ~DiplomacyEntry();
+
+};
+ASSERT_SIZE(DiplomacyEntry, 0x14);
+
+
+struct CLlNetSession;
+struct AvailNetSession
+{
+    CString character_name;
+    int32_t field_0x4;
+    CLlNetSession* sessions;
+    int32_t num_sessions;
+    int32_t selected_index;
+};
+ASSERT_SIZE(AvailNetSession, 0x14);
+
 
 class MainWindow : public CFrameWnd
 {
@@ -218,6 +288,22 @@ public:
 
     void FUN_00494a9e(); //494a9e
 
+    void FUN_00494c91(); //494c91
+
+    void FUN_00491b3e(); //491b3e
+
+    void Proc_44c(CVisualObject* obj); //48b061
+
+    void FUN_0048cff7(); //48cff7
+    void FUN_00491a49(); //491a49
+    void FUN_0048f905(); //48f905
+    void FUN_004903d0(); //4903d0
+    void FUN_00491822(); //491822
+    int FUN_0048ca7e(int mode); //48ca7e
+    void FUN_004918ae(); //4918ae
+
+    void FUN_00491f7d(int32_t vid_id); //491f7d
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -228,7 +314,7 @@ public:
     CVisualObject* field_0xd4;
     CVisualObject* field_0xd8;
     CVisualObject* field_0xdc;
-    CVisualObject* field_0xe0;
+    VisCharInfo* field_0xe0;
     CVisualObject* field_0xe4;
     VisInvType1* field_0xe8;
     VisSpellBook* field_0xec;
@@ -237,38 +323,34 @@ public:
     CVisualObject* field_0xf8;
     CVisualObject* field_0xfc;
     CVisualObject* field_0x100;
-    CVisualObject* field_0x104;
+    VisTav* vis_tav;
     CVisualObject* field_0x108;
     CVisualObject* field_0x10c;
-    int32_t field_0x110;
+    VisTown* vis_town;
     CVisualObject* field_0x114;
     CVisualObject* field_0x118;
     CVisualObject* field_0x11c;
     CVisualObject* field_0x120;
-    int32_t field_0x124;
+    VisScreen* field_0x124;
     int32_t field_0x128;
-    int32_t field_0x12c;
+    VisScreen* field_0x12c;
     CVisualObject* field_0x130;
     CVisualObject* field_0x134;
-    CVisualObject* field_0x138;
-    int32_t field_0x13c;
-    int32_t field_0x140;
+    Vis1200* field_0x138;
+    VisScreen* field_0x13c;
+    VisScreen* field_0x140;
     VisMessageBox* field_0x144;
     MWin_Unk1 field_0x148;
-    int32_t field_0x348;
-    int32_t field_0x34c;
-    int32_t field_0x350;
-    CString field_0x354;
-    int32_t field_0x358;
-    int32_t field_0x35c;
-    int32_t field_0x360;
-    int32_t field_0x364;
+    CArray<DiplomacyEntry*>* field_0x348;
+    VisScreen* field_0x34c;
+    VisScreen* field_0x350;
+    AvailNetSession net_sessions;
     int32_t field_0x368;
-    CVisualObject* field_0x36c;
-    CVisualObject* field_0x370;
-    CVisualObject* field_0x374;
-    CVisualObject* field_0x378; // BigStruct1*
-    int32_t field_0x37c;
+    VisScreen* field_0x36c;
+    VisCharSelect* vis_charsel;
+    VisCharGen* field_0x374;
+    VisScreen* field_0x378; // BigStruct1*
+    VisScreen* field_0x37c;
     CString field_0x380;
     int32_t field_0x384;
     int32_t field_0x388;
@@ -282,23 +364,12 @@ public:
     int32_t field_0x3a8;
     int32_t field_0x3ac;
     CString field_0x3b0;
-    CString field_0x3b4;
-    int32_t field_0x3b8;
-    int32_t field_0x3bc;
-    int32_t field_0x3c0;
-    int32_t field_0x3c4;
-    int32_t field_0x3c8;
-    int32_t field_0x3cc;
-    CVisualObject* field_0x3d0;
-    int32_t field_0x3d4;
+    HatSettings hat_settings;
+    VisScreen* field_0x3d0;
+    VisScreen* field_0x3d4;
     CVisualObject* field_0x3d8;
     VisScreen* field_0x3dc;
-    CString field_0x3e0;
-    int32_t field_0x3e4;
-    CString field_0x3e8;
-    int32_t field_0x3ec;
-    int32_t field_0x3f0;
-    CString field_0x3f4;
+    Main3e0 field_0x3e0;
     int32_t field_0x3f8;
     int32_t field_0x3fc;
     int32_t field_0x400;

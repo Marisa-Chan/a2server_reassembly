@@ -555,8 +555,8 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
     uint32_t player2_id = action->data[1];
     uint32_t set_diplomacy = action->data[2];
     this->diplomacy.diplomacy[player1_id][player2_id] = (this->diplomacy.diplomacy[player1_id][player2_id] & ~0x03) + set_diplomacy;
-    for (POSITION pos = this->players_list->GetHeadPosition(); pos != nullptr; ) {
-        Player* p = this->players_list->GetNext(pos);
+    for (POSITION pos = this->players_list->list.GetHeadPosition(); pos != nullptr; ) {
+        Player* p = this->players_list->list.GetNext(pos);
         if (p->player_id == player1_id || p->player_id == player2_id) {
             g_NetStru1_main.sub_51CB21(p);
         }

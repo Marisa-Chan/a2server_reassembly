@@ -7,6 +7,7 @@
 #include "util.h"
 
 
+const int32_t VisCharGen::DWORD_0060bd60[4] = {0, 2, 3, 1};
 
 
 CVisualObject::CVisualObject()
@@ -3633,7 +3634,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
             {
                 int32_t idx = parent_screen->vis_list->field_0xd0;
                 if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
-                    mwnd->field_0x3f0 != 0 && mwnd->field_0x3b8 != 0 &&
+                    mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 &&
                     parent_screen->pCharacters->field_0x130.GetSize() > 15)
                 {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
@@ -3641,7 +3642,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
                     mwnd->ModalScreen(mbox);
                 }
                 else if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
-                    mwnd->field_0x3f0 != 0 && mwnd->field_0x3b8 != 0 && mwnd->field_0x3c4 != 0)
+                    mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
                 {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
                     mwnd->field_0x3dc = mbox;

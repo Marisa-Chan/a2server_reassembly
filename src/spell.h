@@ -36,6 +36,8 @@ public:
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
+    int32_t GetSphere() { return spell_info->values[0].sphere; } //5393ee
+
 public:
     SpellInfo* spell_info;
     uint8_t spell_id;
@@ -60,14 +62,14 @@ public:
     virtual ~SpellBook();
     virtual void Serialize(CArchive& ar) override;
 public:
-    SpellBook() = default; // 53D28E (inlined in ASM callers)
+    SpellBook() {}; // 53D28E (inlined in ASM callers)
     int32_t sub_53DD3D(); // Calculate spellbook bitmask for this unit's spells.
 
     void RefreshForHumanoid(Humanoid* humanoid);
 
 public:
     CArray<Spell*> spells;
-    uint32_t current_spell_index;
+    uint32_t current_spell_index = 0;
 
     void sub_53D7F0(int32_t spell_id, Spell* spell); // Add/replace a spell in the book
     Spell* sub_53DB79(int spell_id); // Look up spell in book by id

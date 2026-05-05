@@ -106,9 +106,9 @@ void Inn::InnCreateQuests(Player* player)
         static const int FACE_MAX = 5;
         int counts[FACE_MAX][TYPE_MAX] = {};
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai) {
                 continue;
             }
@@ -198,9 +198,9 @@ void Inn::InnCreateQuests(Player* player)
     {
         std::vector<Unit*> candidates;
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai || p == this->pOwner) {
                 continue;
             }
@@ -256,9 +256,9 @@ void Inn::InnCreateQuests(Player* player)
     {
         std::vector<Group*> candidates;
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai || p == this->pOwner) {
                 continue;
             }
@@ -333,9 +333,9 @@ void Inn::InnCreateQuests(Player* player)
     {
         std::vector<Unit*> candidates;
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai) {
                 continue;
             }
@@ -394,9 +394,9 @@ void Inn::InnCreateQuests(Player* player)
     {
         std::vector<Group*> candidates;
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai) {
                 continue;
             }
@@ -516,9 +516,9 @@ void Inn::InnCreateQuests(Player* player)
         struct Candidate { Player* p; Building* b; };
         std::vector<Candidate> candidates;
 
-        POSITION pos = g_PlayersList->GetHeadPosition();
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos) {
-            Player* p = g_PlayersList->GetNext(pos);
+            Player* p = g_PlayersList->list.GetNext(pos);
             if (!p->is_ai || !this->pOwner) {
                 continue;
             }
@@ -1187,10 +1187,10 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     }
                     case 12: // Intercept group
                     {
-                        POSITION ppos = g_PlayersList->GetHeadPosition();
+                        POSITION ppos = g_PlayersList->list.GetHeadPosition();
                         Player* pl = nullptr;
                         while (ppos) {
-                            pl = g_PlayersList->GetNext(ppos);
+                            pl = g_PlayersList->list.GetNext(ppos);
                             if (pl->is_ai) {
                                 POSITION gpos = pl->group_list->groups.GetHeadPosition();
                                 bool found_group = false;

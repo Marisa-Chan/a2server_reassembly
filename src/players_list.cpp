@@ -15,14 +15,14 @@ int PlayersList::CountHumanPlayers()
 {
 	//53618f
 
-	if (IsEmpty())
+	if (list.IsEmpty())
 		return 0;
 
 	int count = 0;
 
-	for (CNode* pNode = m_pNodeHead; pNode ; pNode = pNode->pNext)
+	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
 	{
-		if (pNode->data->is_ai == 0)
+		if (list.GetNext(it)->is_ai == 0)
 			count++;
 	}
 	return count;
@@ -33,9 +33,9 @@ int PlayersList::CountCD()
 	//536092
 	int count = 0;
 
-	for (POSITION pos = GetHeadPosition(); pos != nullptr;)
+	for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
 	{
-		if (GetNext(pos)->field_0xa45 != 0)
+		if (list.GetNext(pos)->field_0xa45 != 0)
 			count++;
 	}
 	return count;
@@ -43,11 +43,11 @@ int PlayersList::CountCD()
 
 // 534DDD
 void PlayersList::sub_534DDD() {
-	POSITION pos = this->GetHeadPosition();
+	POSITION pos = list.GetHeadPosition();
 	Player* player = nullptr;
 
 	if (pos != nullptr) {
-		player = this->GetNext(pos);
+		player = list.GetNext(pos);
 	}
 
 	while (player != nullptr) {
@@ -162,9 +162,9 @@ void PlayersList::sub_534DDD() {
 			}
 
 			// Remove and delete player.
-			POSITION found = this->Find(player);
+			POSITION found = this->list.Find(player);
 			if (found != nullptr) {
-				this->RemoveAt(found);
+				this->list.RemoveAt(found);
 			}
 			delete player;
 
@@ -173,8 +173,8 @@ void PlayersList::sub_534DDD() {
 			// Team mode: check if either team is now empty.
 			if (g_ServerConfig.gameType == 2) {
 				int32_t team_counts[2] = {0, 0};
-				for (POSITION pp = this->GetHeadPosition(); pp != nullptr;) {
-					Player* p = this->GetNext(pp);
+				for (POSITION pp = this->list.GetHeadPosition(); pp != nullptr;) {
+					Player* p = this->list.GetNext(pp);
 					if (!p->is_ai) {
 						team_counts[p->field_0xa70]++;
 					}
@@ -190,9 +190,20 @@ void PlayersList::sub_534DDD() {
 
 		// Advance to next player.
 		if (pos != nullptr) {
-			player = this->GetNext(pos);
+			player = this->list.GetNext(pos);
 		} else {
 			player = nullptr;
 		}
 	}
+}
+
+PlayersList::~PlayersList()
+{ //534c02
+	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
+	{
+		Player* pl = list.GetNext(it);
+		if (pl)
+			delete pl;
+	}
+	list.RemoveAll();
 }

@@ -7,6 +7,8 @@
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "mfc_templ.h"
+#include "map_stuff.h"
+#include "token.h"
 
 class Building;
 class BuildingsList;
@@ -35,6 +37,8 @@ struct CowardActivation {
     BOOL enabled;
 
     int sub_5A3498(const char* str); // sub_5A3498
+
+    CowardActivation(); //5a335c
 };
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
@@ -47,14 +51,21 @@ struct SrvStru1 {
     CList<VirtualCaster*> virtual_casters_list;
     CList<Unit*> some_unit_list;
 
+    static SrvStru1 Instance; //6cf390
+
 public:
-    void Deinit();
+    void Deinit(); //4fab1d
 
     // Make spell effect.
     void sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);
     void sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
 
     void sub_4FB4AA();
+
+    Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd
+
+    SrvStru1(); //4fa89c
+    ~SrvStru1(); //4fa981
 };
 ASSERT_SIZE(SrvStru1, 0x48);
 
@@ -65,12 +76,17 @@ public:
     void sub_554B03(Player* player); // Clear unit vision mask bits for player across this sack list
     void sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
     int32_t sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5);
+
+    void FUN_005540ed(); //5540ed
+
+    ~SackList(); //554bc3
 };
 
 class SpellEffectList {
 public: // VTable at 0060f6dc.
     virtual void VMethod1();
 
+    ~SpellEffectList(); //5583ed
 public:
     CList<SpellEffect*> list;
 };
@@ -90,10 +106,12 @@ public:
     void sub_59F1BE(MapAlm* alm);
     void sub_59C37A(MapAlm* alm);
 
+    int32_t GetMapCenterX() { MapStuff_Instance->GetWidth() / 2; } //59fc7c
+
 public:
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> field1_0x4;
-    uint32_t field2_0x20;
-    SrvStru1 *srv_stru;
+    CMapStringToOb field1_0x4;
+    uint32_t field2_0x20 = 0;
+    SrvStru1 *srv_stru = nullptr;
     CArray<uint16_t> field4_0x28;
 };
 ASSERT_OFFSET(Srv1, srv_stru, 0x24);
@@ -106,7 +124,6 @@ Human* _stdcall sub_4EF4E7(void* block, int arg14, Player* player); // Load char
 
 struct Server {
 public:
-    ~Server();
     void ServerTic();
     void sub_4F1E2A();
     void sub_4FA5C4();
@@ -139,8 +156,14 @@ public:
 
     int sub_4F0BEF(); //4f0bef - Connect to hat server
     int Start(int mode); //4f06f5
-        
 
+    void ProcessAvailPackets(); //509010
+    void FUN_0050907e(); //50907e
+
+    void FUN_00497470(int32_t val) { field22_0xd8 = val; }; //497470
+        
+    Server(); //4ece8b
+    ~Server(); //4f2c26
 public:
     int32_t tick16; // This value seems to be advanced every 16 ticks
     int32_t tick;
@@ -156,7 +179,7 @@ public:
     uint32_t field18_0x94;
     Srv1 field19_0x98;
     uint32_t field21_0xd4;
-    uint32_t field22_0xd8;
+    uint32_t field22_0xd8; //game type? or dificulty?
     CMapPtrToPtr field23_0xdc;
     std::array<Spell*, 30> spells;
     ScriptSettings* script_settings;

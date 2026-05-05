@@ -14,7 +14,16 @@
 #include "players_list.h"
 #include "server.h"
 #include "mouse.h"
+#include "ingame.h"
+#include "player_file.h"
+#include "packet.h"
+#include "unit.h"
+#include "resource.h"
+#include "map_stuff.h"
 
+
+int32_t DAT_00660f88 = 0;
+CDWordArray DAT_006658d8;
 
 //495033
 CListBox2::CListBox2() = default;
@@ -267,6 +276,23 @@ void MWin_5e8::FUN_004ac945(CFile* file)
             file->Read(&fame.field_xc, 4);
         }
     }
+}
+
+void MWin_5e8::FUN_004ac706(CFile* file)
+{ //  4ac706
+    int32_t num = fame2_arr.GetSize();
+    file->Write(&num, 4);
+
+    for (uint32_t i = 0; i < num; i++)
+    {
+        Fame2& fm = fame2_arr[i];
+        
+        //inline 4ac04b
+        file->Write(&fm.field_x0, 4);
+        file->Write(&fm.field_x4, 4);
+    }
+    file->Write(&field_x4, 4);
+    file->Write(&field_x8, 4);
 }
 
 
@@ -554,9 +580,9 @@ void MainWindow::Proc_421()
 #pragma message("REVERSE IT, it's not FULL");
 
     //48d49b Allods2.exe
-    field_0x3f0 = 0;
-    field_0x3f4.Empty();
-    field_0x3ec = 0;
+    field_0x3e0.field_10 = 0;
+    field_0x3e0.field_14.Empty();
+    field_0x3e0.field_0c = 0;
 
     field_0x5e8.FUN_004ac3af();
 
@@ -585,8 +611,9 @@ void MainWindow::Proc_421()
 void MainWindow::Proc_421()
 {
     //48d49b
-    field_0x3f0 = 0;
-    field_0x3f4.Empty();
+
+    field_0x3e0.field_10 = 0;
+    field_0x3e0.field_14.Empty();
     FUN_0048cb3c();
     PostMessage(0x440, 0, 0);
 }
@@ -630,3 +657,1019 @@ void MainWindow::ResetItemCursor()
     field_0x40c = -1;
     field_0x410 = -1;
 }
+
+
+//445aa9
+DiplomacyEntry::~DiplomacyEntry()
+{
+    if (name)
+        delete name;
+}
+
+void MainWindow::Proc_44c(CVisualObject* obj)
+{
+    field_0x460 = 1;
+
+    vis_root->RemoveChild(obj);
+
+    field_0xd0->field_0xe0 = 1;
+
+    if (obj == field_0xf8 || obj == field_0xfc || obj == field_0x100)
+    {
+        field_0xd0->FUN_0041a8cc();
+        field_0xd0->FUN_00416cf7();
+        if (field_0x640 != 2)
+            FUN_00494c91();
+    }
+    else if (obj == field_0x138)
+    {
+        field_0xd0->RemoveChild(field_0x138);
+
+        if (field_0x138->GetCloseCode() == 0x445)
+        {
+
+            CString str;
+            field_0x138->WriteData(&str);
+            if (str[0] == '=')
+                field_0xd0->FUN_0041b2a4(str.Mid(1), 3, 0);
+            else if (str[0] == '-')
+            {
+                int val = field_0x138->FUN_004972d0();
+                if (val == -1)
+                    field_0xd0->FUN_0041b2a4(str.Mid(1), 1, 0);
+                else
+                    field_0xd0->FUN_0041b2a4(str.Mid(field_0x138->FUN_00497310()), 2, val);
+            }
+            else
+                field_0xd0->FUN_0041b2a4(str, 0, 0);
+        }
+    }
+    else if (obj == field_0x134)
+        field_0x418 &= ~0x100;
+    else if (obj == field_0x3d8)
+        field_0x418 &= ~0x4000;
+    else if (obj == field_0x11c)
+    {
+        field_0x418 &= ~0x1000;
+        PostMessage(0x421, 0, 0);
+    }
+    else if (obj == field_0xf4)
+        field_0x418 &= ~0x80;
+    else if (obj == vis_town || obj == field_0x114 || obj == field_0x118)
+    {}
+    else if (obj == vis_tav || obj == field_0x108 || obj == field_0x10c)
+    {
+        if (field_0x640 != 2)
+            FUN_00494c91();
+
+        field_0x418 &= ~4;
+        field_0xd0->FUN_00416cf7();
+    }
+    else if (obj == field_0x36c)
+    { //charget 2step
+        field_0x418 &= ~0x200;
+
+        if (field_0x36c->GetCloseCode() == 0x446)
+            FUN_00491b3e();
+        else
+        {
+            some_struc.flags |= 4;
+
+            if (field_0x640 == 2)
+            {
+                field_0xd0->FUN_0040d4e2();
+                some_struc.FUN_00493ffe();
+
+                ScenarioSetVar(0x308, (some_struc.field_0x34 & 0x40) != 0);
+                ScenarioSetVar(0x30d, (some_struc.field_0x34 & 0x80) != 0);
+
+                if (g_Server)
+                    g_Server->FUN_00497470(field_0x5e8.FUN_00497290() + 1);
+
+                PostMessage(0x42e, 0, 0);
+            }
+            else
+            {
+                some_struc.FUN_00493d8d();
+
+                if (field_0x3e0.field_10 == 0)
+                    PostMessage(0x451, 0, 0);
+                else
+                    PostMessage(0x489, 0, 0);
+            }
+        }
+    }
+    else if (obj == field_0x374)
+    { // chargen 1step
+        field_0x418 &= ~0x800;
+
+        if (field_0x374->GetCloseCode() == 0x446)
+        {
+            if (!field_0xd0->field_0x9d0.IsEmpty())
+            {
+                field_0xd0->field_0x9d0.RemoveAll();
+
+                CUnit *uni = field_0xd0->GetUnit_3f6c();
+                if (uni)
+                    delete uni;
+
+                field_0xd0->SetUnit_3f6c(nullptr);
+            }
+
+            if (field_0x640 == 2)
+                PostMessage(0x421, 0, 0);
+            else
+                FUN_0048cff7();
+        }
+        else
+        {
+            CString name = field_0x374->GetName();
+            strcpy(some_struc.character_name, name);
+
+            if (!name.IsEmpty())
+            {
+                int pos = name.Find(':');
+                if (pos != -1)
+                {
+                    name = name.Mid(pos + 1);
+
+                    some_struc.color = atoi(name);
+
+                    if (some_struc.color == 0 || some_struc.color > 16)
+                        some_struc.color = 0;
+
+                    name = field_0x374->GetClan().Left(pos);
+                }
+            }
+
+            if (!name.IsEmpty())
+            {
+                strcat(some_struc.character_name, "|");
+                strcat(some_struc.character_name, name);
+            }
+
+            field_0x5e8.FUN_00497270(field_0x374->FUN_004973d0());
+
+            some_struc.field_0x34 = field_0x374->FUN_004973b0() << 6; // 0x40 and 0x80 bits
+
+            name = field_0x374->GetName();
+            strncpy(field_0xd0->GetUnit_3f6c()->field_0xec, name, 12);
+
+            name = field_0x374->GetClan();
+            strncpy(field_0xd0->GetUnit_3f6c()->field_0xf8, name, 12);
+
+            some_struc.FUN_00494687();
+            FUN_00491a49();
+        }
+    }
+    else if (obj == vis_charsel)
+    {
+        field_0x418 &= ~0x400;
+
+        if (vis_charsel->GetCloseCode() == 0x446)
+        {
+            if (!field_0x3e0.field_08.IsEmpty())
+                PostMessage(WM_CLOSE, 0, 0);
+            else
+                PostMessage(0x421, 0, 0);
+        }
+        else if ((some_struc.flags & 4) == 0)
+            FUN_00491b3e();
+        else if (field_0x3e0.field_10 == 0)
+            PostMessage(0x451, 0, 0);
+        else
+            PostMessage(0x489, 0, 0);
+    }
+    else if (obj == field_0xf0)
+        field_0x418 &= ~0x20;
+    else if (obj == field_0x130)
+    {
+        field_0x418 &= ~0x40;
+
+        if (FUN_00497490() == 0)
+            CWnd::PostMessage(0x421, 0, 0);
+        else
+            CWnd::PostMessage(0x429, 0, 0);
+    }
+    else if (obj == field_0x120)
+    {
+        field_0x418 &= ~0x8;
+
+        field_0x438 = timeGetTime();
+        game_tic_counter = 0;
+        field_0x43c = 0;
+    }
+    else if (obj == field_0x12c)
+    {
+        field_0x418 &= ~0x8;
+
+        if (field_0x12c->GetCloseCode() == 0x447)
+        {
+            field_0xd0->FUN_0041d2da(1);
+            PostMessage(0x421, 0, 0);
+        }
+        else
+            PostMessage(0x42e, 0, 0);
+
+        delete field_0x12c;
+        field_0x12c = nullptr;
+    }
+    else if (obj == field_0x140)
+    { //save game
+        field_0x418 &= ~0x8;
+
+        if (field_0x140->GetCloseCode() == 0x445)
+            FUN_0048f905();
+
+        if (field_0x418 == 1 && field_0x63c != 0)
+        {
+            field_0x438 = timeGetTime();
+            game_tic_counter = 0;
+            field_0x43c = 0;
+        }
+
+        delete field_0x140;
+        field_0x140 = nullptr;
+    }
+    else if (obj == field_0x13c)
+    { //load game
+        field_0x418 &= ~8;
+
+        int32_t code = field_0x13c->GetCloseCode();
+        if (code == 0x445)
+            PostMessage(0x419, 0, 0);
+        else if (g_Server == nullptr)
+            PostMessage(0x421, 0, 0);
+        else if (field_0x450 == 0xff)
+            PostMessage(0x41e, 0, 0);
+
+        if (field_0x418 == 1 && field_0x63c != 0)
+        {
+            field_0x438 = timeGetTime();
+            game_tic_counter = 0;
+            field_0x43c = 0;
+        }
+
+        delete field_0x13c;
+        field_0x13c = nullptr;
+
+        if (code == 0x445)
+            return;
+    }
+    else if (obj == field_0x34c)
+    {
+        field_0x418 &= ~8;
+
+        int32_t code = field_0x34c->GetCloseCode();
+
+        if (code == 0x44f)
+        {
+            field_0x63c = 0;
+            FUN_004903d0();
+        }
+        else if (code == 0x44d) 
+            FUN_00491822();
+        else if (code == 0x44e)
+            FUN_004918ae();
+        else
+            PostMessage(0x421, 0, 0);
+            
+        delete field_0x34c;
+        field_0x34c = nullptr;
+        return;
+    }
+    else if (obj == field_0x350)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x350->GetCloseCode() == 0x446)
+        {
+            if (field_0x640 == 3)
+                PostMessage(0x421, 0, 0);
+            else
+                FUN_0048cff7();
+        }
+
+        delete field_0x350;
+        field_0x350 = nullptr;
+        return;
+    }
+    else if (obj == field_0x378)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x378->GetCloseCode() == 0x446)
+        {
+            vis_root->MsgProc(0x446, 0, 0);
+            PostMessage(0x45c, 0, 0);
+        }
+        else
+            PostMessage(0x457, 0, 0);
+        
+        delete field_0x378;
+        field_0x378 = nullptr;
+        return;
+    }
+    else if (obj == field_0x37c)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x37c->GetCloseCode() == 0x446)
+        {
+            if (hat_settings.ishat == 0)
+            {
+                vis_root->MsgProc(0x446, 0, 0);
+                FUN_0048cff7();
+            }
+            else if (g_CLlDriver.IsListen())
+                FUN_0048cff7();
+            else
+                PostMessage(0x487, 0, 0);
+        }
+        else if (hat_settings.ishat == 0)
+        {
+            g_NetStru1_local.SetLLDriver(&g_CLlDriver);
+            g_CLlDriver.SetHlDriver(&g_NetStru1_local);
+            g_CLlDriver.ResetProvider(3);
+            PostMessage(0x452, 0, 0);
+        }
+        else
+            PostMessage(0x441, 0, 0);
+        
+        delete field_0x37c;
+        field_0x37c = nullptr;
+        return;
+    }
+    else if (obj == field_0x3d0)
+    {
+        field_0x418 &= ~8;
+        field_0x418 = 0;
+
+        if (field_0x3d0->GetCloseCode() == 0x445)
+            PostMessage(0x421, 0, 0);
+
+        delete field_0x3d0;
+        field_0x3d0 = nullptr;
+    }
+    else if (obj == field_0x144)
+    {
+        field_0x418 &= ~8;
+
+        int32_t code = field_0x144->GetCloseCode();
+
+        field_0x144 = nullptr;
+
+        if (code == 0x445)
+        {
+            int j = 0;
+            for (int i = 0; i < field_0xd0->field_0x9b8.GetSize(); i++)
+            {
+                MapPlayerData* mp = field_0xd0->field_0x9b8[i];
+                if (mp != nullptr && (mp->flags & 1) == 0)
+                {
+                    DiplomacyEntry* visdp = (*field_0x348)[j];
+
+                    uint16_t dpl = field_0xd0->my_main_unit->diplomacy[mp->index] & 0x68;
+
+                    if (visdp->enemy != 0)
+                        dpl |= 1;
+
+                    if (visdp->ally != 0)
+                        dpl |= 2;
+
+                    if (visdp->see != 0)
+                        dpl |= 0x10;
+
+                    if (visdp->mute != 0)
+                        dpl |= 4;
+
+                    field_0xd0->my_main_unit->diplomacy[mp->index] = dpl;
+
+                    field_0xd0->my_main_unit->diplomacy[field_0xd0->my_main_unit->index] = 0x3a;
+
+                    j++;
+                }
+            }
+
+            field_0xd0->FUN_0041a735();
+        }
+
+        delete obj;
+    }
+    else if (obj == field_0x3d4)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x3d4->GetCloseCode() == 0x445)
+        {
+            DAT_00660f88 = ((VisListBox*)field_0x3d4->FindChild(2))->GetSelectedIndex();
+            FUN_00491f7d(DAT_00660f88);
+            PostMessage(0x43b, 0, 0);
+        }
+        else
+            PostMessage(0x421, 0, 0);
+
+        delete field_0x3d4;
+        field_0x3d4 = nullptr; // MUST BE DONE? WAT?
+    }
+    else if (obj == field_0x124)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x124->GetCloseCode() == 0x445)
+            PostMessage(0x41e, 0, 0);
+        else
+            PostMessage(0x418, 0, 0);
+
+        delete field_0x124;
+        field_0x124 = nullptr; // MUST BE DONE? WAT?
+    }
+    else if (obj == field_0x3dc)
+    {
+        field_0x418 &= ~0x8000;
+
+        delete field_0x3dc;
+        field_0x3dc = nullptr; // MUST BE DONE? WAT?
+
+        if ((field_0x418 & 1) == 0)
+            vis_root->cursor_over_obj_last = vis_root->FindChild(1020);
+    }
+    else if ((field_0x418 & 8) != 0)
+    {
+        field_0x418 &= ~8;
+
+        if (field_0x418 == 1 && field_0x640 == 2)
+        {
+            field_0x438 = timeGetTime();
+            game_tic_counter = 0;
+            field_0x43c = 0;
+        }
+
+        delete obj;
+    }
+
+    if (field_0x418 == 0x80)
+        g_Cursors[CURSOR_SELECT]->Use();
+
+    field_0xd4->MsgProc(0x408, 0, 0);
+
+    if (field_0x418 != 1 || field_0xd0->field_0x80 != nullptr)
+        vis_root->VMethod9();
+
+    if (field_0x418 == 1 && DAT_006658d8.GetSize() != 0)
+    {
+        PostMessage(0x433, DAT_006658d8[0], 0);
+        DAT_006658d8.RemoveAt(0);
+    }
+}
+
+
+void MainWindow::FUN_0048cff7()
+{ //48cff7
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    field_0xe0->field_70 = 1;
+    vis_root->AddChild(vis_charsel);
+
+    vis_charsel->VMethod28();
+
+    field_0x418 |= 0x400;
+    
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+    return;
+}
+
+
+void MainWindow::FUN_00491a49()
+{   //491a49
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    field_0xe0->field_70 = 1;
+
+    field_0xd4->MsgProc(0x403, (uint32_t)field_0xd0, 0);
+    
+    field_0xd0->GetUnit_3f6c()->VMethod1(1); // select
+
+    field_0xd0->FUN_00416cf7();
+
+    vis_root->AddChild(field_0x36c);
+    field_0x36c->VMethod28();
+
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+    field_0x418 |= 0x200;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+}
+
+
+
+
+void MainWindow::FUN_0048f905()
+{  // 48f905
+    if (field_0x640 == 2)
+    {
+        CString local_2a4 = field_0x148.buf2;
+        g_Server->sub_4ED2DC(&local_2a4);
+
+        field_0x438 = timeGetTime();
+        game_tic_counter = 0;
+        field_0x43c = 0;
+
+        CFile local_13c;
+        local_13c.Open(field_0x148.buf2, CFile::modeReadWrite);
+        local_13c.Seek(0, CFile::end);
+        local_13c.Write(field_0x148.buf1, 0x100);
+        
+        int inbattle = field_0x418 & 1;
+
+        RegFile local_180;
+        local_180.SetInt("CurrentState", "InBattle", inbattle);
+        local_180.SetString("Character", "Name", some_struc.character_name);
+        local_180.SetInt("GameOptions", "Wimpy", field_0xd0->wimpy);
+        local_180.SetInt("GameOptions", "ShowHP", field_0xd0->show_hp);
+        local_180.SetInt("GameOptions", "FlyingHP", field_0xd0->flying_hp);
+        local_180.SetInt("GameOptions", "Formation", field_0xd0->formation);
+        local_180.SetInt("GameOptions", "Speed", game_speed);
+        local_180.SetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
+        local_180.SetInt("View", "X", field_0xd0->view_x);
+        local_180.SetInt("View", "Y", field_0xd0->view_y);
+
+        local_180.SetInt("SpellBook", "IsOpen", field_0xd0->IsBookOpen());
+        local_180.SetInt("SpellBook", "Pressed", field_0xec->pressed);
+
+        CArray<uint32_t> local_25c;
+        local_180.SetInt32Array("SpellBook", "Shortcuts", local_25c);
+
+        CArray<uint16_t> local_12c;
+        CArray<uint16_t> local_248[10];
+
+        if (!field_0xd0->field_0x9d0.IsEmpty())
+        {
+            for (POSITION pos = field_0xd0->field_0x9d0.GetStartPosition(); pos != nullptr;)
+            {
+                uint16_t key;
+                CGameObject* obj;
+
+                field_0xd0->field_0x9d0.GetNextAssoc(pos, key, obj);
+
+                if (obj->FUN_0041f110() != 0)
+                    local_12c.Add(key);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if (obj->FUN_0041f1c0(i) != 0)
+                        local_248[i].Add(key);
+                }
+            }
+        }
+
+        local_180.SetInt16Array("Objects", "Selection", local_12c);
+
+        char buf[256];
+
+        for (int i = 0; i < 10; i++)
+        {
+            if (local_248[i].GetSize() != 0)
+            {
+                sprintf(buf, "Group%d", i);
+                local_180.SetInt16Array("Objects", buf, local_248[i]);
+            }
+        }
+
+        local_180.SetInt("Inventory", "IsOpen", field_0xd0->IsBagOpen());
+
+        if (inbattle)
+        {
+            CArray<uint16_t> local_27c;
+
+            local_180.SetInt("Projectiles", "FreeIndex", field_0xd0->field_0xa24);
+
+            if (!field_0xd0->field_0x9ec.IsEmpty())
+            {
+                for (POSITION pos = field_0xd0->field_0x9ec.GetStartPosition(); pos != nullptr;)
+                {
+                    uint16_t key;
+                    CGameObject* obj;
+                    field_0xd0->field_0x9ec.GetNextAssoc(pos, key, obj);
+
+                    local_27c.Add(key);
+
+                    sprintf(buf, "Prj%d", key);
+
+                    local_180.SetInt(buf, "x", obj->x_pos);
+                    local_180.SetInt(buf, "y", obj->y_pos);
+                    local_180.SetInt(buf, "z", obj->z_pos);
+                    local_180.SetInt(buf, "picture", obj->typeId);
+                    local_180.SetInt(buf, "dir", obj->dir);
+                    local_180.SetInt(buf, "phase", obj->phase);
+                    local_180.SetInt(buf, "lastaction", obj->last_action);
+                    local_180.SetInt(buf, "action", obj->action);
+                    local_180.SetInt(buf, "actiondir", obj->action_dir);
+                    local_180.SetInt(buf, "actiontarget", obj->action_target);
+                    local_180.SetInt(buf, "actionx", obj->action_x);
+                    local_180.SetInt(buf, "actiony", obj->action_y);
+                    local_180.SetInt(buf, "actionz", obj->action_z);
+                    local_180.SetInt(buf, "actionphase", obj->action_phase);
+                    local_180.SetInt(buf, "actionsegments", obj->action_segments);
+                    local_180.SetInt(buf, "actionspell", obj->action_spell);
+                }
+            }
+            local_180.SetInt16Array("Projectiles", "IDs", local_27c);
+        }
+
+        if (inbattle)
+        {
+            CArray<uint32_t> local_2a0;
+
+            uint16_t* land = field_0xd0->field_0x80->GetLandscape();
+            int numcells = field_0xd0->field_0x80->GetWidth() * field_0xd0->field_0x80->GetHeight();
+
+            uint16_t state = *land & 0x8000;
+            local_180.SetInt("Fog", "FirstState", state);
+
+            int idx = 0;
+            int num = 1;
+            while (true)
+            {
+                idx++;
+                land++;
+
+                if (idx >= numcells)
+                {
+                    local_2a0.Add(num);
+                    break;
+                }
+                
+                if (state == (*land & 0x8000))
+                    num++;
+                else
+                {
+                    state = *land & 0x8000;
+                    local_2a0.Add(num);
+                    num = 1;
+                }
+            }
+
+            local_180.SetInt32Array("Fog", "Data", local_2a0);
+        }
+
+        local_180.WriteToFile(&local_13c);
+
+        field_0x5e8.FUN_004ac706(&local_13c);
+
+        ScenarioSave(&local_13c);
+
+        for (int i = 0; i < 9; i++)
+            some_struc.field_0x8c[i].WriteToFile(&local_13c);
+
+        local_13c.Close();
+    }
+    else
+    {
+        field_0xd0->FUN_0041afcf(field_0x148.buf2);
+    }
+}
+
+
+void MainWindow::FUN_004903d0()
+{ // 4903d0
+
+    field_0x640 = 0;
+
+    g_NetStru1_local.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_local);
+
+    LPTSTR cmdline = afxCurrentWinApp->m_lpCmdLine;
+
+    if (strstr(cmdline, "-waitforever"))
+        g_CLlDriver.SetTimeout(-1);
+
+    if (strstr(cmdline, "-timeout"))
+        g_CLlDriver.SetTimeout(g_CmdTimeout);
+
+    if (field_0xd0->FUN_0040d4e2() == 0)
+    {
+        g_CLlDriver.Close();
+        PostMessage(0x41d, 0, 0);
+    }
+    else
+    {
+        if (some_struc.field_0x10c == 0)
+        {
+            VisMessageBoxWithList* mwnd = new VisMessageBoxWithList(1, 64, 100, 428, 594, TxtFile::AllLines[210], nullptr, 4);
+            ModalScreen(mwnd);
+
+            if (mwnd->GetCloseCode() != 0x447)
+            {
+                PostMessage(0x41d, 0, 0);
+                return;
+            }
+        }
+
+        if (field_0x454 == 0)
+            PostMessage(0x459, 0, 0);
+        else
+            PostMessage(0x457, 0, 0);
+    }
+}
+
+void MainWindow::FUN_00491822()
+{  //491822
+    field_0x640 = 3;
+
+    g_NetStru1_main.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_main);
+
+    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2)
+        g_CLlDriver.StartServer(g_ServerConfig.max_players, some_struc.character_name, nullptr);
+
+    FUN_0048ca7e(0);
+
+    PostMessage(0x459, 0, 0);
+}
+
+int MainWindow::FUN_0048ca7e(int mode)
+{ //48ca7e
+    DAT_006658d8.RemoveAll();
+
+    g_Server = new Server();
+    if (g_Server->Start(mode) == 0)
+    {
+        field_0x63c = 1;
+        return 0;
+    }
+    else
+    {
+        field_0x63c = 0;
+        return 1;
+    }
+}
+
+
+void MainWindow::FUN_004918ae()
+{ // 4918ae
+
+    field_0x640 = 1;
+
+    g_NetStru1_main.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_main);
+
+    LPTSTR cmdline = afxCurrentWinApp->m_lpCmdLine;
+
+    if (strstr(cmdline, "-timeout"))
+        g_CLlDriver.SetTimeout(g_CmdTimeout);
+
+    if (g_CLlDriver.GetProvider() == 3 || g_CLlDriver.GetProvider() == 2)
+        g_CLlDriver.StartServer(g_ServerConfig.max_players, some_struc.character_name, nullptr);
+
+    FUN_0048ca7e(field_0x640);
+
+    if (field_0xd0->FUN_0040d4e2() == 0)
+    {
+        vis_root->MsgProc(0x446, 0, 0);
+        PostMessage(0x45c, 0, 0);
+    }
+    else
+        PostMessage(0x459, 0, 0);
+}
+
+
+void MainWindow::FUN_00491f7d(int32_t vid_id)
+{ //491f7d
+    printf("Video play FUN_00491f7d not implemented yet: %d\n", vid_id);
+}
+
+
+
+
+int SomeMainStructure::FUN_00493ffe()
+{
+    //493ffe
+    INT_00660f8c = 0;
+
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+    if ((flags & 1) == 0 && wnd->field_0x640 != 2)
+        wnd->field_0xd0->FUN_0041cc78(string_array2[field_0x164]);
+    else
+        wnd->field_0xd0->FUN_0041cbb8();
+
+    if (wnd->field_0x640 == 1 || wnd->field_0x640 == 2)
+        g_Server->FUN_0050907e();
+
+    uint32_t stime = timeGetTime();
+    while (wnd->field_0xd0->field_0x3f6c == nullptr)
+    {
+        while (g_NetStru1_local.GetClientsPktNum() == 0)
+        {
+            MSG msg;
+
+            if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0)
+            {
+                if (msg.message == WM_QUIT) {
+                    return 0;
+                }
+                TranslateMessage(&msg);
+                DispatchMessageA(&msg);
+            }
+
+            if (g_CmdTimeout < timeGetTime() - stime)
+            {
+                INT_00660f8c = 0x1008;
+                return 0;
+            }
+
+            g_mousept.Update();
+            g_NetStru1_local.ProcessConnections();
+        }
+
+        if (wnd->field_0xd0->ProcessPackets(0x64) == 0)
+            return 0;
+
+    }
+
+    return 1;
+}
+
+
+void SomeMainStructure::FUN_00493d8d()
+{ //493d8d
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (wnd->field_0x640 == 2)
+        return;
+
+    CUnit* cu = wnd->field_0xd0->GetUnit_3f6c();
+    money = 1000;
+    monster_killed = 0;
+    player_killed = 0;
+    death_count = 0;
+    field_0x44 = 0;
+
+    FileSectionBasicInfo local_40;
+    local_40.id1 = field_0x8;
+    local_40.id2 = field_0xc;
+    local_40.hat_id = field_0x64;
+
+    strcpy(local_40.nick, character_name);
+
+    local_40.character_class = field_0x34;
+
+    face = cu->face;
+
+    local_40.picture = face;
+    local_40.main_sphere = main_sphere;
+    local_40.flags = flags;
+    local_40.color = color;
+
+    FileSectionStats local_74;
+    local_74.body = cu->field_0x180[0];
+    local_74.reaction = cu->field_0x180[1];
+    local_74.mind = cu->field_0x180[2];
+    local_74.spirit = cu->field_0x180[3];
+    local_74.money = 1000;
+    local_74.monster_kills = 0;
+    local_74.player_kills = 0;
+    local_74.frags = 0;
+    local_74.deaths = 0;
+    local_74.spells = cu->spells;
+    local_74.active_spell = cu->active_spell;
+    local_74.experience[0] = cu->experience_per_sphere[0];
+    local_74.experience[1] = cu->experience_per_sphere[1];
+    local_74.experience[2] = cu->experience_per_sphere[2];
+    local_74.experience[3] = cu->experience_per_sphere[3];
+    local_74.experience[4] = cu->experience_per_sphere[4];
+
+    uint8_t buffer[2560];
+    uint8_t* bufpos = buffer;
+
+    for (int i = 0; i < 9; i++)
+        field_0x8c[i].ToBuffer(&bufpos);
+    
+    WritePlayerFile_4F53EA(string_array2[field_0x164], &local_40, &local_74, wnd->field_0xd0->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
+}
+
+
+void SomeMainStructure::FUN_00494687()
+{
+    field_0x4c = 0;
+    main_sphere = 0;
+    FUN_004941c0();
+}
+
+
+void SomeMainStructure::FUN_004941c0()
+{   //4941c0
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* cu = mwnd->field_0xd0->GetUnit_3f6c();
+    if (cu)
+    {
+        Human* hm = nullptr;
+        switch (field_0x34 & 0xc0)
+        {
+        case 0:
+            hm = new Human("Start_MF", 1, nullptr);
+            break;
+
+        case 0x40:
+            hm = new Human("Start_MM", 1, nullptr);
+            break;
+            
+        case 0x80:
+            hm = new Human("Start_FF", 1, nullptr);
+            break;
+            
+        case 0xc0:
+            hm = new Human("Start_FM", 1, nullptr);
+            break;
+        }
+
+        if (field_0x4c != 0)
+        {
+            hm->body = field_0x4c;
+            hm->reaction = field_0x50;
+            hm->mind = field_0x54;
+            hm->spirit = field_0x58;
+            hm->VMethod18();
+            hm->face = (byte)face;
+        }
+
+        if (main_sphere == 0)
+            main_sphere = hm->main_sphere;
+
+        hm->sub_533345(main_sphere, 0x14);
+        cu->FUN_0046b0d7(*hm);
+
+        field_0x4c = cu->field_0x180[0] = cu->body;
+        field_0x50 = cu->field_0x180[1] = cu->reaction;
+        field_0x54 = cu->field_0x180[2] = cu->mind;
+        field_0x58 = cu->field_0x180[3] = cu->spirit;
+
+        face = cu->face;
+
+        delete hm;
+    }
+}
+
+
+
+UserShortcut::UserShortcut()
+{ //4971a0
+    SetNull();
+}
+
+UserShortcut::~UserShortcut()
+{ //41e493
+    if (mods_size)
+    {
+        if (mods)
+            free(mods);
+
+        mods_size = 0;
+        mods = nullptr;
+    }
+}
+
+void UserShortcut::SetNull()
+{ //4971c0
+    mods_size = 0;
+    item_id = 0;
+    kind = 0;
+    mods = nullptr;
+}
+
+int UserShortcut::ToBuffer(uint8_t** buf)
+{ //41e5ed
+    uint8_t* data = *buf;
+    *(uint16_t*)data = kind;
+    data += 2;
+    *(uint16_t*)data = item_id;
+    data += 2;
+    *(uint32_t*)data = mods_size;
+    data += 4;
+    if (mods_size)
+    {
+        memcpy(data, mods, mods_size);
+        data += mods_size;
+    }
+    *buf = data;
+    return 8 + mods_size;
+}
+
+
+void UserShortcut::WriteToFile(CFile* f)
+{ //41e4d3
+    f->Write(&kind, 2);
+    f->Write(&item_id, 2);
+    f->Write(&mods_size, 4);
+    if (mods_size != 0)
+        f->Write(mods, mods_size);
+}
+
+

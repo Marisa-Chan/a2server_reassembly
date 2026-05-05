@@ -88,7 +88,8 @@ public:
 	CGameObject();
 	CGameObject(const CGameObject *obj);
 
-	int32_t FUN_0041f110();
+	int32_t FUN_0041f110() { return field_0x80; } //41f110
+	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & field_0x88; } //41f1c0
 	void FUN_0046190d();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
@@ -98,10 +99,10 @@ public:
 	uint8_t __pad[2];
 	int32_t x_pos;
 	int32_t y_pos;
-	int32_t field_0x10;
+	int32_t z_pos;
 	MapPlayerData* field_0x14;
 	int32_t field_0x18;
-	int32_t field_0x1c;
+	int32_t spells;
 	int32_t field_0x20;
 	int32_t typeId;
 	int32_t face;
@@ -122,7 +123,7 @@ public:
 	int32_t screen_x;
 	int32_t screen_y;
 	int32_t field_0x6c;
-	int32_t field_0x70;
+	int32_t dir;
 	int32_t phase;
 	int32_t last_action;
 	int32_t field_0x7c;
@@ -157,7 +158,7 @@ public:
 	int16_t carrying_weight_100g;
 	int32_t exp_summary;
 	int32_t field_0x114;
-	uint8_t field_0x118;
+	uint8_t active_spell;
 	uint8_t __pad2[3];
 	CArray<GO_11c> field_0x11c;
 	CDWordArray field_0x130;

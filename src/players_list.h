@@ -10,14 +10,13 @@
 class Player;
 
 
-class PlayersList : public CList<Player*> {
-public: // VTable at 0060f158.
-    // virtual ~PlayersList();
-    // virtual void Serialize(CArchive& ar);
-
+class PlayersList
+{
 public:
-    uint32_t field_0x1c;
-    uint32_t next_player_id;
+    CList<Player*> list;
+
+    uint32_t field_0x1c = 0;
+    uint32_t next_player_id = 1; // set it here instead of 534b9c constructor
 
 public:
     int CountHumanPlayers(); // I guess it counts current human players?
@@ -30,5 +29,7 @@ public:
 
     Player* sub_535C46(uint16_t token_id); // GetByTokenID
     int CountCD(); //536092
+
+    ~PlayersList(); //534c02
 };
 ASSERT_SIZE(PlayersList, 0x24);

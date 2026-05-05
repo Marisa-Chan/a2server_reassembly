@@ -8,6 +8,8 @@ CArray<SfxSample*> g_SfxArray; //665eb0
 
 SoundSettings g_SoundSettings; //660df0
 
+CArray<MapMusicInfo*> g_mapmusicinfos; //660f00
+
 
 SoundSettings::SoundSettings()
 {
@@ -30,4 +32,33 @@ SoundSettings::~SoundSettings()
 	//477920
 	if (tracklist)
 		delete tracklist;
+}
+
+
+void SoundChannel::Clear()
+{ //41fdd0
+	if (pbuffer)
+		pbuffer->Stop();
+
+	pbuffer = nullptr;
+	priority = 0;
+	psample = nullptr;
+}
+
+
+void SfxSample::Release()
+{ //45ba0f
+	if (loaded)
+	{
+		if (buffers)
+		{
+			for (int i = 0; i < g_dsound_channel_num; i++)
+				buffers[i]->Release();
+
+			delete[] buffers;
+
+			buffers = nullptr;
+		}
+		loaded = 0;
+	}
 }
