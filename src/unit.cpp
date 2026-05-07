@@ -131,7 +131,6 @@ Unit::~Unit()
 }
 
 // CRuntimeClass objects for building sub-types, defined in Main.asm.
-extern "C" CRuntimeClass PointerRuntimeClass; // stru_637228
 extern "C" CRuntimeClass ShopRuntimeClass;   // stru_637258
 extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 
@@ -780,7 +779,7 @@ void Unit::VMethod2()
                     g_NetStru1_main.FUN_0051cefb(0x84, building->object_info_id, building->building_id, this->pOwner);
                     break;
                 }
-                if (building->IsKindOf(&PointerRuntimeClass)) { // Pointer
+                if (building->IsKindOf(&Pointer::classPointer)) { // Pointer
                     Pointer* ptr = static_cast<Pointer*>(building);
                     if (ptr->script_instance_id > 0) {
                         g_World->DoScriptInstID(ptr->script_instance_id);
