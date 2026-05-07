@@ -62,3 +62,21 @@ void SfxSample::Release()
 		loaded = 0;
 	}
 }
+
+
+int MusicPlayer::GetState()
+{ //451700
+	if (!ds_buffer)
+		return 5;
+
+	if (!file_opened)
+		return 4;
+	
+	if (update_disabled)
+		return 3;
+
+	if (fadeout_enabled)
+		return 2;
+
+	return 1;
+}

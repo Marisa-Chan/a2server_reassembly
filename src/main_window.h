@@ -308,7 +308,7 @@ public:
     int32_t field_0xbc;
     int32_t field_0xc0;
     void (*field_0xc4)();
-    int32_t field_0xc8;
+    MusicPlayer* music_player;
     CVisualObject* vis_root;
     BigStruct2* field_0xd0; // BigStruct2*
     CVisualObject* field_0xd4;

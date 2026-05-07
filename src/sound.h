@@ -73,3 +73,38 @@ struct SoundSettings
 	~SoundSettings(); //477920
 };
 ASSERT_SIZE(SoundSettings, 0x28);
+
+class MusicPlayer : public CObject
+{
+public:
+	int GetState(); //451700
+public:
+	int32_t gap_0x4;
+	uint32_t next_update_time;
+	int32_t update_disabled;
+	int32_t file_opened;
+	int32_t fadeout_enabled;
+	int32_t play_mode;
+	int32_t track_to_play; //in 1 mode
+	int32_t field_0x20;
+	int32_t use_buffer[2];
+	CDWordArray field_0x2c;
+	CStringArray playlist;
+	int32_t buffer_size;
+	int32_t current_track_id;
+	int32_t buffer_time;
+	int32_t fade_length;
+	int32_t fade_to_volume;
+	int32_t field_0x68;
+	int32_t field_0x6c;
+	int32_t elapsed_time;
+	int32_t fade_start_volume;
+	int32_t end_pos;
+	int32_t data_length;
+	CFile* file;
+	uint8_t* samples;
+	WAVEFORMATEX format;
+	IDirectSoundBuffer* ds_buffer;
+
+};
+ASSERT_SIZE(MusicPlayer, 0xa0);
