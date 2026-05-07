@@ -3,7 +3,7 @@
 #include "map_stuff.h"
 #include "net.h"
 
-IMPLEMENT_DYNCREATE(Building, Token);
+IMPLEMENT_SERIAL(Building, Token, 1);
 
 // 542599
 Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
@@ -95,7 +95,7 @@ int32_t Building::IsOutpost() {
     return 0;
 }
 
-IMPLEMENT_DYNCREATE(Pointer, Building);
+IMPLEMENT_SERIAL(Pointer, Building, 1);
 
 // 5A3140
 Pointer::Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)

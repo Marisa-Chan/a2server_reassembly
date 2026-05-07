@@ -14,7 +14,7 @@ class BuildingInfo;
 
 class Building : public Token {
 public:
-    DECLARE_DYNCREATE(Building);
+    DECLARE_SERIAL(Building);
 
 public: // VTable at 60f378
     virtual ~Building();
@@ -52,7 +52,7 @@ ASSERT_SIZE(Building, 0x6c);
 
 class Pointer : public Building {
 public:
-    DECLARE_DYNCREATE(Pointer);
+    DECLARE_SERIAL(Pointer);
 
 public:
     Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // sub_5A3140

@@ -23,6 +23,7 @@ struct AssortmentGenParams {
 ASSERT_SIZE(AssortmentGenParams, 0x14);
 
 class Shop : public Building {
+    DECLARE_SERIAL(Shop);
 public:
     Shop(uint8_t type_id, TokenPos* pos); // sub_544495
 
