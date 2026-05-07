@@ -3,6 +3,7 @@
 #include "map_stuff.h"
 #include "net.h"
 
+//  542341   CArchive& AFXAPI operator>>(CArchive& ar, class_name* &pOb)  
 IMPLEMENT_SERIAL(Building, Token, 1);
 
 // 542599
