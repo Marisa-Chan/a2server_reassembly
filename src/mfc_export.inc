@@ -157,6 +157,7 @@ externdef ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z :proc     ; B
 externdef ?sub_558228@BuildingsList@@QAEXPAVBuilding@@@Z :proc                ; void BuildingsList::sub_558228(Building*)
 
 ; Building
+extern ?classBuilding@Building@@2UCRuntimeClass@@A  : dword
 externdef ??0Building@@QAE@EPAUTokenPos@@EE@Z :proc                             ; Building::Building(uint8_t, TokenPos*, uint8_t, uint8_t)
 externdef ??0Building@@QAE@PAUTokenPos@@@Z :proc                                ; Building::Building(TokenPos*)
 externdef ??0Building@@QAE@ABVCString@@@Z :proc                                 ; Building::Building(const CString&)
