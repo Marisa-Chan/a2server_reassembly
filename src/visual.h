@@ -1396,5 +1396,46 @@ public:
 };
 ASSERT_SIZE(VisCharGen, 0x220);
 
+//60b180
+class VisMenuWnd : public VisWindow
+{
+public:
+	virtual ~VisMenuWnd();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440e54
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //440ece
+
+	VisMenuWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect &_r); //451990
+
+	void AddElement(CVisualObject *obj, int32_t height); //440e11
+public:
+	uint32_t field_0x68;
+	CRect field_0x6c;
+};
+ASSERT_SIZE(VisMenuWnd, 0x7c);
+
+
+//609f50
+class IngameMenu : public VisMenuWnd
+{
+public:
+	IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r); //451990
+};
+ASSERT_SIZE(IngameMenu, 0x7c);
+
+
+//60ae78
+class MenuButton : public VisButton
+{
+public:
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4dd933
+	virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } //4dda31
+	virtual int32_t OnChar(uint32_t wparam); //4dd9b3
+
+	MenuButton(int32_t _id, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //4509c0
+	MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //450bf0
+};
+ASSERT_SIZE(MenuButton, 0x78);
+
 
 #endif

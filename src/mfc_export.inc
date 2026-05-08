@@ -128,6 +128,9 @@ externdef ?InitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 externdef ?OnIdle@GameApp@@UAEHJ@Z:proc   ; (public: virtual int __thiscall GameApp::OnIdle(long))
 externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
+extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
+extern  ?AppHasAnySaveFile@@YAHXZ  : proc
+
 extern ?g_WorkingDir@@3PADA : byte
 
 
@@ -1264,6 +1267,7 @@ externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
 
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
+extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
 
 
 
@@ -1638,6 +1642,20 @@ externdef ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z : proc
 
 ;VisCharSellectStats
 externdef ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ  : proc
+
+;VisMenuWnd
+extern ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
+extern ??1VisMenuWnd@@UAE@XZ : proc
+extern ?MsgProc@VisMenuWnd@@UAEHIII@Z : proc
+extern ?OnKeyDown@VisMenuWnd@@UAEHI@Z : proc
+extern ?AddElement@VisMenuWnd@@QAEXPAVCVisualObject@@H@Z : proc
+
+;MenuButton
+extern ??0MenuButton@@QAE@HPBDPAVCGameFont@@PAGHH0@Z : proc
+extern ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z : proc
+
+;IngameMenu
+extern ??0IngameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
 
 
 ;GM_a28

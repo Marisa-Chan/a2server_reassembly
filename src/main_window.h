@@ -256,10 +256,13 @@ struct AvailNetSession
 ASSERT_SIZE(AvailNetSession, 0x14);
 
 
+
+
 class MainWindow : public CFrameWnd
 {
 public: // VTable at 0060c1a8.
-    // virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // sub_486c6c
+    virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
+    virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
 
     MainWindow(); //in asm 4837e1
     virtual ~MainWindow(); //in asm 4961b0
@@ -303,6 +306,9 @@ public:
     void FUN_004918ae(); //4918ae
 
     void FUN_00491f7d(int32_t vid_id); //491f7d
+
+    void PopUpScreen(VisScreen* screen); //48d26a   popup screen
+    void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
 
 public:
     int32_t field_0xbc;

@@ -90,6 +90,8 @@ int FUN_00497490(); //497490
 
 void SrandInit(); //5421e9
 
+int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf); //4761dd
+int __cdecl AppHasAnySaveFile(); //440d96
 
 
 extern int32_t g_kbShiftState; //660f44

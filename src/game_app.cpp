@@ -635,3 +635,31 @@ void SrandInit()
 { //5421e9
 	srand(timeGetTime());
 }
+
+
+int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
+{ //4761dd
+	int ln = strlen(g_WorkingDir);
+	if (ln > maxchar)
+		ln = maxchar;
+
+	strncpy(buf, g_WorkingDir, ln);
+	buf[ln] = 0;
+	return ln;
+}
+
+int __cdecl AppHasAnySaveFile()
+{ // 440d96
+	char buf[260];
+	AppGetWorkingDir(260 - 1, buf);
+
+	strcat(buf, "\\game*.sav");
+
+	_WIN32_FIND_DATAA fnd;
+	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
+	if (hFindFile == INVALID_HANDLE_VALUE)
+		return 0;
+
+	FindClose(hFindFile);
+	return 1;
+}

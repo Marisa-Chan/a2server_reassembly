@@ -20,6 +20,7 @@
 #include "unit.h"
 #include "resource.h"
 #include "map_stuff.h"
+#include "gfx.h"
 
 
 int32_t DAT_00660f88 = 0;
@@ -1445,6 +1446,101 @@ void MainWindow::FUN_00491f7d(int32_t vid_id)
     printf("Video play FUN_00491f7d not implemented yet: %d\n", vid_id);
 }
 
+
+LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{  // 486c6c
+
+    switch (message)
+    {
+    default:
+        if (vis_root && vis_root->MsgProc(message, wParam, lParam) != 0)
+            return DefWindowProc(message, wParam, lParam);
+        break;
+
+    case WM_KEYDOWN:
+        break;
+    case WM_KEYUP:
+        vis_root->MsgProc(WM_KEYUP, wParam, lParam);
+        break;
+    case WM_MOUSEMOVE:
+        if (vis_root->MsgProc(WM_MOUSEMOVE, wParam, lParam) != 0)
+            SetCursorPos(g_mousept.GetX(), g_mousept.GetY());
+
+        g_mousept.ResetNext400msg();
+        break;
+
+    case WM_LBUTTONDOWN:
+        vis_root->MsgProc(message, wParam, lParam);
+        g_mousept.ResetNext400msg();
+        g_mousept.ForceDisableHint();
+        g_LButtonDown = 1;
+        break;
+
+    case WM_LBUTTONUP:
+        vis_root->MsgProc(message, wParam, lParam);
+        g_mousept.ResetNext400msg();
+        g_mousept.ForceDisableHint();
+        g_LButtonDown = 0;
+        break;
+
+    case WM_LBUTTONDBLCLK:
+    case WM_RBUTTONDOWN:
+    case WM_RBUTTONUP:
+    case WM_RBUTTONDBLCLK:
+        vis_root->MsgProc(message, wParam, lParam);
+        g_mousept.ResetNext400msg();
+        g_mousept.ForceDisableHint();
+        break;
+
+    case 0x400:
+        vis_root->MsgProc(0x400, wParam, lParam);
+        g_mousept.ForceDisableHint();
+        break;
+
+    case 0x416:
+        if (field_0x418 == 1)
+            PopUpScreen( new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40) ) );
+        break;
+
+    }
+
+    return CWnd::WindowProc(message, wParam, lParam);
+}
+
+
+void MainWindow::PopUpScreen(VisScreen* screen)
+{ //48d26a
+    if (screen == field_0x3dc)
+        field_0x418 |= 0x8000;
+    else
+        field_0x418 |= 8;
+
+    vis_root->AddChild(screen);
+
+    screen->VMethod26();
+    screen->VMethod28();
+
+    LockSurface2();
+
+    ShadowRect(g_ScreenSize, 3);
+
+    UnlockSurface2();
+
+    FlushScreen();
+
+    screen->VMethod9();
+
+    field_0x460 = 0;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+
+    if (g_mousept.GetSelectState() != 0)
+    {
+        g_mousept.ResetStates();
+
+        UpdateCursorClip();
+    }
+}
 
 
 

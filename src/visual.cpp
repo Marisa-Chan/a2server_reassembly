@@ -3731,3 +3731,161 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos)
         mouse_over_box = -1;
 }
 
+
+
+
+VisMenuWnd::~VisMenuWnd()
+{ //451a90
+}
+
+VisMenuWnd::VisMenuWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r)
+: VisWindow(_id, l, t, r, b, _bitmap)
+{ //451990
+    field_0x6c = _r;
+    field_0x68 = unk;
+    field_0x6c.left = 40;
+    field_0x6c.right = rect.Width() - 48;
+}
+
+int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{ //440e54
+    if (msg == 0x47b)
+    {
+        if (wparam == 0)
+            return VisScreen::MsgProc(0x446, 0, 0);
+
+        int32_t res = VisScreen::MsgProc(0x445, 0, 0);
+        AfxGetMainWnd()->PostMessage(wparam, 0, 0);
+        return res;
+    }
+
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+int32_t VisMenuWnd::OnKeyDown(uint32_t wparam)
+{ //440ece
+    if (wparam == VK_UP)
+    {
+        TabFocus(false, true);
+        return 1;
+    }
+    else if (wparam == VK_DOWN)
+    {
+        TabFocus(true, true);
+        return 1;
+    }
+
+    return VisWindow::OnKeyDown(wparam);
+}
+
+
+void VisMenuWnd::AddElement(CVisualObject* obj, int32_t height)
+{ //440e11
+    field_0x6c.top = field_0x6c.bottom;
+    field_0x6c.bottom = field_0x6c.top + height;
+
+    obj->SetRect(field_0x6c);
+    AddChild(obj);
+}
+
+
+int32_t MenuButton::OnLButtonUp(uint32_t wparam, CPoint pos)
+{ //4dd933
+    CRect r = ClientRectToScreen(rect);
+
+    if (downed == 0)
+        return 0;
+
+    SetDowned(false);
+
+    if (r.PtInRect(pos) != 0)
+        AfxGetMainWnd()->PostMessage(0x47b, msgid, 0);
+
+    return 1;
+}
+
+int32_t MenuButton::OnChar(uint32_t wparam)
+{ //4dd9b3
+    if (!parent || TestFlags(FLAG_ENABLED) == 0)
+        return 0;
+
+    char ch = ToLowerChar(EncodeChar(wparam));
+
+    if (ch != '\r' && ch != charid)
+        return 0;
+
+    AfxGetMainWnd()->PostMessage(0x47b, msgid, 0);
+    return 1;
+}
+
+MenuButton::MenuButton(int32_t _id, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
+: VisButton(_id, 0, 0, 0, 0, _caption, _font, _clr, _msgid, _charid, hint)
+{ //4509c0
+}
+
+MenuButton::MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
+: VisButton(_id, r, _caption, _font, _clr, _msgid, _charid, hint)
+{ //450bf0
+}
+
+
+IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r)
+: VisMenuWnd(_id, l, t, r, b, _bitmap, unk, _r)
+{ //451990
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    //Save game
+    MenuButton* btn = new MenuButton(1, txt_dialogs.GetLine(34), g_font1, 0, 0x41a, 'S', "");
+
+    if (mwnd->field_0x640 == 0 || mwnd->field_0x640 == 1)
+        btn->ChangeFlags(FLAG_ENABLED, false);
+
+    AddElement(btn, 30);
+
+    if (mwnd->field_0x640 == 2)
+    {
+        //Load game
+        btn = new MenuButton(2, txt_dialogs.GetLine(35), g_font1, 0, 0x418, 'L', "");
+
+        if (AppHasAnySaveFile() == 0)
+            btn->ChangeFlags(FLAG_ENABLED, false);
+    }
+    else
+    {
+        //Diplomacy
+        btn = new MenuButton(7, txt_dialogs.GetLine(76), g_font1, 0, 0x43c, 'D', "");
+    }
+
+    AddElement(btn, 30);
+
+
+    //options
+    btn = new MenuButton(3, txt_dialogs.GetLine(36), g_font1, 0, 0x41b, 'O', "");
+    AddElement(btn, 30);
+
+    //sound options
+    btn = new MenuButton(4, txt_dialogs.GetLine(37), g_font1, 0, 0x422, 'N', "");
+
+    if (mwnd->music_player->GetState() == 5)
+        btn->ChangeFlags(FLAG_ENABLED, false);
+
+    AddElement(btn, 30);
+
+
+    //objectives
+    btn = new MenuButton(5, txt_dialogs.GetLine(38), g_font1, 0, 0x420, 'M', "");
+
+    AddElement(btn, 30);
+
+
+    //end mission
+    btn = new MenuButton(6, txt_dialogs.GetLine(39), g_font1, 0, 0x41c, 'E', "");
+
+    AddElement(btn, 30);
+
+
+    //resume
+    btn = new MenuButton(8, txt_dialogs.GetLine(40), g_font1, 0, 0x446, 'R', "");
+
+    AddElement(btn, 30);
+}
