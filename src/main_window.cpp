@@ -1502,6 +1502,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             PopUpScreen( new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40) ) );
         break;
 
+    case 0x418:
+        field_0x148.buf1[0] = 0;
+        field_0x148.buf2[0] = 0;
+        field_0x13c = new LoadGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
+        PopUpScreen(field_0x13c);
+        break;
+
     }
 
     return CWnd::WindowProc(message, wParam, lParam);

@@ -4062,3 +4062,194 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 
     AddElement(btn, 30);
 }
+
+
+
+int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{ //43f63c
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    switch (msg)
+    {
+    default:
+        return VisScreen::MsgProc(msg, wparam, lparam);
+
+    case 0x444:
+    case 0x479:
+    {
+        if (field_0x94 < 0)
+            return VisScreen::MsgProc(0x446, 0, 0);
+
+        CStringArray arr;
+        ((VisListBox*)FindChild(3))->WriteData(&arr);
+
+        strcpy(field_0x68->buf1, arr[field_0x94]);
+        strcpy(field_0x68->buf2, file_names[field_0x94]);
+
+        return VisScreen::MsgProc(0x445, 0, 0);
+    }
+
+    case 0x46e:
+        if (wparam == 3)
+            field_0x94 = lparam;
+        return 1;
+
+    case 0x475:
+    {
+        VisListBox* lb = (VisListBox*)FindChild(3);
+        int32_t idx = lb->GetSelectedIndex();
+        if (idx > -1)
+        {
+            CString str = txt_patch.GetLine(50) + lb->GetItem(idx) + txt_patch.GetLine(51); // want to delete save ### ?
+            mwnd->field_0x3dc = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
+            mwnd->ModalScreen(mwnd->field_0x3dc);
+            if (mwnd->field_0x3dc->GetCloseCode() == 0x447)
+            {
+                DeleteFileA(file_names[idx]);
+                file_names.RemoveAt(idx);
+                save_times.RemoveAt(idx);
+
+                lb->RemoveItem(idx);
+                lb->SelectItem(idx);
+
+                MsgProc(0x46e, lb->GetId(), lb->GetSelectedIndex());
+
+                if (file_names.GetSize() == 0)
+                {
+                    CVisualObject* obj = FindChild(4);
+                    obj->ChangeFlags(FLAG_ENABLED, false);
+                    obj->VMethod9();
+
+                    obj = FindChild(6);
+                    obj->ChangeFlags(FLAG_ENABLED, false);
+                    obj->VMethod9();
+                }
+
+            }
+        }
+        return 1;
+    }
+
+    case 0x47a:
+        VisScreen::MsgProc(0x446, 0, 0);
+        return 1;
+    }
+
+    return 1;
+}
+
+void LoadGameWindow::VMethod26()
+{ //43ed94
+
+    AddChild(new VisLabel(1, 40, 32, rect.Width() - 40, 56, txt_dialogs.GetLine(151), g_font1, p_clrsh_Black, 2)); //restore saved game
+
+    VisLabel* caption = new VisLabel(2, 40, 68, rect.Width() - 40, 92, txt_dialogs.GetLine(24), g_font1, p_clrsh_Black, 0);//saved games
+    AddChild(caption); 
+
+    HintedListBox* list = new HintedListBox(3, 40, 92, rect.Width() - 64, 284, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 10, txt_dialogs.GetLine(25)); //select game for restore
+
+    CArray<WIN32_FIND_DATAA> files;
+    AppFindSavesList(&files, 1);
+
+    for (int i = 0; i < files.GetSize(); i++)
+    {
+        WIN32_FIND_DATAA* inf = &files[i];
+        FILE* f = fopen(inf->cFileName, "rb"); //WAT , LOL!
+
+        uint32_t headers[2];
+        fread(headers, 4, 2, f);
+        if (headers[0] == 0x26677342)
+        {
+            fseek(f, headers[1], SEEK_SET);
+
+            char savename[257];
+            fread(savename, 1, 256, f);
+            savename[256] = 0;
+
+            list->AddItem(savename);
+            file_names.Add(inf->cFileName);
+
+            CTime t(inf->ftLastWriteTime);
+            CString str;
+            str.Format("%s  %02d.%02d.%d  %02d:%02d:%02d", savename, t.GetDay(), t.GetMonth(), t.GetYear(), t.GetHour(), t.GetMinute(), t.GetSecond());
+            save_times.Add(str);
+        }
+        else
+            inf->cFileName[0] = 0; // disable this save
+
+        fclose(f);
+
+        g_mousept.Update(); // do not freeze
+    }
+
+    //useless nival, useless remove
+    /*
+    for (int i = files.GetSize() - 1; i > 0; i--)
+    {
+        if (files[i].cFileName[0] == 0)
+            files.RemoveAt(i);
+    }
+    */
+    CRect& lr = list->GetRect();
+    VisScrollBar* scrl = new VisScrollBar(10, lr.right, lr.top, lr.right + 24, lr.bottom, nullptr);
+
+    AddChild(scrl);
+    AddChild(list);
+    list->SetCaptionLabel(caption);
+    list->SetHints(&save_times);
+
+    CRect local_17c((rect.Width() * 3) / 20, lr.bottom + 24, (rect.Width() * 7) / 20, lr.bottom + 48);
+    CRect local_190((rect.Width() * 8) / 20, lr.bottom + 24, (rect.Width() * 12) / 20, lr.bottom + 48);
+    CRect local_1a0((rect.Width() * 13) / 20, lr.bottom + 24, (rect.Width() * 17) / 20, lr.bottom + 48);
+
+    VisButton* btn = new VisButton(4, local_17c, txt_dialogs.GetLine(0), g_font1, nullptr, 0x479, 0, txt_dialogs.GetLine(26));
+    AddChild(btn);
+
+    btn->ChangeFlags(FLAG_10, true);
+
+    if (file_names.GetSize() == 0)
+        btn->ChangeFlags(FLAG_ENABLED, false);
+
+    VisButton* btn2 = new VisButton(6, local_190, txt_dialogs.GetLine(157), g_font1, nullptr, 0x475, 0, txt_dialogs.GetLine(158));
+    AddChild(btn2);
+
+    VisButton* btn3 = new VisButton(5, local_1a0, txt_dialogs.GetLine(1), g_font1, nullptr, 0x47a, 0, txt_dialogs.GetLine(27));
+    AddChild(btn3);
+
+    btn->SetRightObj(btn3);
+    btn->SetLeftObj(btn2);
+    btn->SetUpObj(list);
+    btn3->SetUpObj(list);
+}
+
+LoadGameWindow::LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk)
+: VisWindow(_id, l, t, r, b, _bitmap)
+{ //43ecfb
+    field_0x68 = unk;
+    field_0x94 = 0;
+}
+
+
+
+const char* HintedListBox::GetHint()
+{ //43ec67
+    int32_t idx = YToIndex(g_mousept.GetY());
+    if (idx >= num_vis_entry)
+        return nullptr;
+    
+    idx += vis_start_index;
+
+    if (idx >= entries.GetSize())
+        return nullptr;
+
+    CString& str = hints->ElementAt(idx);
+    if (str.IsEmpty())
+        return nullptr;
+    
+    return str;
+}
+
+HintedListBox::HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+: VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint)
+{ //43ec05
+}

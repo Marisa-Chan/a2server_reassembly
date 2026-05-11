@@ -26,6 +26,8 @@ class Scenario;
 
 class CUnit;
 
+struct MWin_Unk1;
+
 
 
 class CVisualObject : public CObject
@@ -37,6 +39,7 @@ public:
 		FLAG_NOTFOCUS = 2,
 		FLAG_FOCUS = 4,
 		FLAG_OVERCURSOR = 8,
+		FLAG_10 = 0x10,
 		FLAG_20 = 0x20,
 	};
 public:
@@ -1437,6 +1440,41 @@ public:
 	MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint); //450bf0
 };
 ASSERT_SIZE(MenuButton, 0x78);
+
+
+//609dc8
+class LoadGameWindow : public VisWindow
+{
+public:
+	virtual ~LoadGameWindow() {} //44f4b0
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //43f63c
+	virtual void VMethod26() override; //43ed94
+
+	LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk); //43ecfb
+public:
+	MWin_Unk1* field_0x68;
+	CStringArray file_names;
+	CStringArray save_times;
+	int32_t field_0x94;
+};
+ASSERT_SIZE(LoadGameWindow, 0x98);
+
+
+//609d38
+class HintedListBox : public VisListBox
+{
+public:
+	virtual ~HintedListBox() {} //44f410
+
+	virtual const char* GetHint() override; //43ec67
+
+	HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); //43ec05
+
+	void SetHints(CStringArray* names) { hints = names; } //43ec4e
+public:
+	CStringArray* hints = nullptr;
+};
+ASSERT_SIZE(HintedListBox, 0x98);
 
 
 #endif

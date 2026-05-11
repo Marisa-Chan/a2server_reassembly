@@ -92,6 +92,7 @@ void SrandInit(); //5421e9
 
 int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf); //4761dd
 int __cdecl AppHasAnySaveFile(); //440d96
+void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p); //43eaa0
 
 
 extern int32_t g_kbShiftState; //660f44

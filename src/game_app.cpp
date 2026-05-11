@@ -663,3 +663,43 @@ int __cdecl AppHasAnySaveFile()
 	FindClose(hFindFile);
 	return 1;
 }
+
+int __cdecl SaveListCompare(const void* data1, const void* data2)
+{ // 43ea5b
+	return CompareFileTime(&((WIN32_FIND_DATAA*)data1)->ftLastWriteTime, &((WIN32_FIND_DATAA*)data2)->ftLastWriteTime);
+}
+
+void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
+{ //43eaa0
+	char buf[260];
+	AppGetWorkingDir(260 - 1, buf);
+
+	strcat(buf, "\\game*.sav");
+	_WIN32_FIND_DATAA fnd;
+	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
+	if (hFindFile == INVALID_HANDLE_VALUE)
+		return;
+
+	while (true)
+	{
+		if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+		{
+			if (p == 0)
+			{
+				if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0)
+					list->Add(fnd);
+			}
+			else
+				list->Add(fnd);
+		}
+
+		if (FindNextFileA(hFindFile, &fnd) == 0)
+			break;
+	}
+	FindClose(hFindFile);
+
+	
+	if (list->GetSize() != 0)
+		qsort(list->GetData(), list->GetSize(), sizeof(WIN32_FIND_DATAA), SaveListCompare);
+
+}

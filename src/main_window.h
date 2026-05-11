@@ -343,7 +343,7 @@ public:
     CVisualObject* field_0x130;
     CVisualObject* field_0x134;
     Vis1200* field_0x138;
-    VisScreen* field_0x13c;
+    LoadGameWindow* field_0x13c;
     VisScreen* field_0x140;
     VisMessageBox* field_0x144;
     MWin_Unk1 field_0x148;

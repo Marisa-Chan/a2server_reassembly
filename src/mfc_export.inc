@@ -130,6 +130,7 @@ externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 
 extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
 extern  ?AppHasAnySaveFile@@YAHXZ  : proc
+extern ?AppFindSavesList@@YAXPAV?$CArray@U_WIN32_FIND_DATAA@@ABU1@@@H@Z  : proc
 
 extern ?g_WorkingDir@@3PADA : byte
 
@@ -1662,6 +1663,13 @@ extern ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z : proc
 
 ;IngameMenu
 extern ??0IngameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
+
+;HintedListBox
+extern ??0HintedListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
+extern ?SetHints@HintedListBox@@QAEXPAVCStringArray@@@Z  :proc
+
+;LoadGameWindow
+extern ??0LoadGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUMWin_Unk1@@@Z : proc
 
 
 ;GM_a28
