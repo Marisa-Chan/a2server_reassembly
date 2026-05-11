@@ -1635,10 +1635,16 @@ extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 
 
 ;VisMessageBox
-externdef ?VMethod26@VisMessageBox@@UAEXXZ : proc
+extern ??1VisMessageBox@@UAE@XZ  :proc
+extern ?MsgProc@VisMessageBox@@UAEHIII@Z  :proc
+extern ?VMethod26@VisMessageBox@@UAEXXZ  :proc
+extern ?VMethod31@VisMessageBox@@UAEXH@Z  :proc
+extern ??0VisMessageBox@@QAE@HHHHHPBD0H0@Z  :proc
 
 ;VisMessageBoxWithList
-externdef ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z : proc
+extern ??1VisMessageBoxWithList@@UAE@XZ  :proc
+extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBDABUtagRECT@@@Z  :proc
+extern ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z  :proc
 
 ;VisCharSellectStats
 externdef ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ  : proc

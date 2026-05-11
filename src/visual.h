@@ -275,6 +275,7 @@ public:
 	void SetSelectedIndex(int32_t idx); //4507a0
 	int32_t GetSelectedIndex() { return selected_index; } //450780
 	CString& GetItem(int32_t idx); //4508b0
+	void RemoveItem(int32_t idx); //450830
 
 public:
 	int32_t entry_height;
@@ -574,10 +575,10 @@ ASSERT_SIZE(VisMessageBox, 0x78);
 class VisMessageBoxWithList : public VisMessageBox
 {
 public:
-	virtual ~VisMessageBoxWithList();
-	virtual CVisualObject* VMethod30(const char* str, const RECT& r);
+	virtual ~VisMessageBoxWithList() {}; //44f930
+	virtual CVisualObject* VMethod30(const char* str, const RECT& r); //4450d4
 
-	VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes);
+	VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes); //445091
 };
 ASSERT_SIZE(VisMessageBoxWithList, 0x78);
 

@@ -1965,6 +1965,12 @@ CString& VisListBox::GetItem(int32_t idx)
     return entries[entries.GetSize() - 1];
 }
 
+void VisListBox::RemoveItem(int32_t idx)
+{ //450830
+    entries.RemoveAt(idx);
+    selected_index -= (entries.GetSize() == 0); // WAT?
+}
+
 
 
 
@@ -3582,16 +3588,170 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return VisScreen::MsgProc(msg, wparam, lparam);
 }
 
-/*
+
 void VisMessageBox::VMethod26()
 {
     //444086
     CRect r2;
     if (field_0x6c && strlen(field_0x6c) > 0)
     {
+        if (g_font1->GetStrWidth(field_0x6c) > rect.Width())
+        {
+            VisMultiText* txt = new VisMultiText(0, 40, 32, rect.Width() - 50, 104, field_0x6c, g_font1, p_clrsh_Black, 0);
 
+            AddChild(txt);
+
+            txt->SizesCheck();
+
+            r2 = CRect(40, 116, rect.Width() - 40, rect.Height() - 112);
+        }
+        else
+        {
+            VisLabel* lbl = new VisLabel(1, 40, 32, rect.Width() - 40, 56, field_0x6c, g_font1, p_clrsh_Black, 2);
+
+            AddChild(lbl);
+
+            r2 = CRect(40, 68, rect.Width() - 40, rect.Height() - 112);
+        }
     }
-}*/
+    else
+        r2 = CRect(40, 56, rect.Width() - 40, rect.Height() - 88);
+
+    if (field_0x70 && strlen(field_0x70) > 0)
+    {
+        r2.OffsetRect(0, 12);
+        
+        AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, field_0x70, g_font1, p_clrsh_Black, 0) );
+    }
+
+    CVisualObject* obj = VMethod30(field_0x68, r2);
+    rect.bottom = rect.top + 144 + obj->GetRect().bottom;
+    UpdateWinRect();
+
+    CRect local_20(rect.Width() / 2 - 48, rect.Height() - 60, rect.Width() / 2 + 48, rect.Height() - 36);
+    CRect local_44(rect.Width() / 7, rect.Height() - 60, (rect.Width() * 3) / 7, rect.Height() - 36);
+    CRect local_54((rect.Width() * 4) / 7, rect.Height() - 60, (rect.Width() * 6) / 7, rect.Height() - 36);
+    CRect local_64((rect.Width() * 3) / 20, rect.Height() - 60, (rect.Width() * 7) / 20, rect.Height() - 36);
+    CRect local_74((rect.Width() * 8) / 20, rect.Height() - 60, (rect.Width() * 12) / 20, rect.Height() - 36);
+    CRect local_84((rect.Width() * 13) / 20, rect.Height() - 60, (rect.Width() * 17) / 20, rect.Height() - 36);
+
+    switch (button_types)
+    {
+    case 0:
+    case 0x1000:
+    {
+        //ok
+        VisButton* btn = new VisButton(4, local_20, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+    }
+        break;
+
+    case 1:
+    {
+        //ok cancel
+        VisButton* btn = new VisButton(4, local_44, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+
+        VisButton* btn2 = new VisButton(5, local_54, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+        AddChild(btn2);
+
+        btn->SetRightObj(btn2);
+    }
+        break;
+
+    case 2:
+    {
+        //cancel repeat ignore
+        VisButton* btn = new VisButton(4, local_64, txt_dialogs.GetLine(2), g_font1, nullptr, 0x449, 0, "");
+        AddChild(btn);
+
+        VisButton* btn2 = new VisButton(5, local_74, txt_dialogs.GetLine(3), g_font1, nullptr, 0x44a, 0, "");
+        AddChild(btn2);
+        btn2->ChangeFlags(FLAG_10, true);
+
+        VisButton* btn3 = new VisButton(6, local_84, txt_dialogs.GetLine(4), g_font1, nullptr, 0x44b, 0, "");
+        AddChild(btn3);
+
+        btn->SetRightObj(btn2);
+        btn2->SetRightObj(btn3);
+    }
+        break;
+
+    case 3:
+    {
+        //yes no cancel
+        VisButton* btn = new VisButton(4, local_64, txt_main.GetLine(75), g_font1, nullptr, 0x447, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+
+        VisButton* btn2 = new VisButton(5, local_74, txt_main.GetLine(76), g_font1, nullptr, 0x448, 0, "");
+        AddChild(btn2);
+
+        VisButton* btn3 = new VisButton(6, local_84, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+        AddChild(btn3);
+
+        btn->SetRightObj(btn2);
+        btn2->SetRightObj(btn3);
+    }
+        break;
+
+    case 4:
+    {
+        //yes no
+        VisButton* btn = new VisButton(4, local_44, txt_main.GetLine(75), g_font1, nullptr, 0x447, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+
+        VisButton* btn2 = new VisButton(5, local_54, txt_main.GetLine(76), g_font1, nullptr, 0x448, 0, "");
+        AddChild(btn2);
+
+        btn->SetRightObj(btn2);
+    }
+        break;
+
+    case 5:
+    {
+        //repeat cancel
+        VisButton* btn = new VisButton(4, local_44, txt_dialogs.GetLine(3), g_font1, nullptr, 0x44a, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+
+        VisButton* btn2 = new VisButton(5, local_54, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+        AddChild(btn2);
+
+        btn->SetRightObj(btn2);
+    }
+        break;
+
+    //from allods2.exe
+    case 0x2000:
+    {
+        //ok
+        VisButton* btn = new VisButton(4, local_20, txt_dialogs.GetLine(0), g_font1, nullptr, 0x447, 0, "");
+        AddChild(btn);
+        btn->ChangeFlags(FLAG_10, true);
+    }
+        break;
+
+
+    default:
+        break;
+    }
+
+    CVisualObject* dobj = FindChild(5);
+    if (dobj)
+        obj->SetDownObj(dobj);
+
+    dobj = FindChild(6);
+    if (dobj)
+        obj->SetDownObj(dobj);
+
+    dobj = FindChild(4);
+    if (dobj)
+        obj->SetDownObj(dobj);
+}
 
 
 void VisMessageBox::VMethod31(int32_t code)
@@ -3609,6 +3769,19 @@ VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32
     button_types = btypes;
 }
 
+
+CVisualObject* VisMessageBoxWithList::VMethod30(const char* str, const RECT& r)
+{ //4450d4
+    VisMultiText* txt = new VisMultiText(2, r, str, g_font1, p_clrsh_Black, 0);
+    AddChild(txt);
+    txt->SizesCheck();
+    return txt;
+}
+
+VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes)
+: VisMessageBox(_id, l, t, r, b, str1, str2, btypes, nullptr)
+{ //445091
+}
 
 
 
