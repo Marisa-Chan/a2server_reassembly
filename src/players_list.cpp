@@ -133,7 +133,7 @@ void PlayersList::sub_534DDD() {
 			// Team mode: handle rune holder leaving.
 			if (g_ServerConfig.gameType == 2) {
 				int32_t opposite_team = 1 - player->field_0xa70;
-				int32_t rune_holder = (opposite_team == 0) ? g_Server->field60_0x20c : g_Server->field61_0x210;
+				int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 				if (rune_holder == player->player_id) {
 					g_Server->sub_4F8FBF(opposite_team, 0);
 					g_NetStru1_main.FUN_0051d6b4(0);

@@ -155,15 +155,15 @@ void UnitList::ProcessTick()
 						if (g_ServerConfig.gameType != 0) {
 							if (g_ServerConfig.gameType == 2 && unit->last_hit_by->pOwner != nullptr) {
 								if (unit->last_hit_by->pOwner->name == "Red" && unit->pOwner->field_0xa70 == 1) {
-									g_Server->field57_0x200++;
+									g_Server->ctf_score[0]++;
 								} else if (unit->last_hit_by->pOwner->name == "Blue" && unit->pOwner->field_0xa70 == 0) {
-									g_Server->field58_0x204++;
+									g_Server->ctf_score[1]++;
 								} else {
-									(&g_Server->field57_0x200)[unit->pOwner->field_0xa70]--;
+									g_Server->ctf_score[unit->pOwner->field_0xa70]--;
 									unit->pOwner->frags--;
 								}
 							} else {
-								(&g_Server->field57_0x200)[unit->pOwner->field_0xa70]--;
+								g_Server->ctf_score[unit->pOwner->field_0xa70]--;
 								unit->pOwner->frags--;
 							}
 							if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
@@ -185,7 +185,7 @@ void UnitList::ProcessTick()
 					unit->last_hit_by = nullptr;
 					if (g_ServerConfig.gameType != 0 && unit->pOwner->is_ai == 0 && g_Server->tick > 50) {
 						unit->pOwner->frags--;
-						(&g_Server->field57_0x200)[unit->pOwner->field_0xa70]--;
+						g_Server->ctf_score[unit->pOwner->field_0xa70]--;
 						g_NetStru1_main.FUN_0051cefb(0x94, unit->pOwner->player_id, 0xc0000, nullptr);
 						if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
 							g_NetStru1_main.FUN_0051d6b4(0);
@@ -221,7 +221,7 @@ void UnitList::ProcessTick()
 						if (g_ServerConfig.gameType == 0) {
 							unit->last_hit_by->pOwner->player_kills++;
 						} else {
-							(&g_Server->field57_0x200)[unit->last_hit_by->pOwner->field_0xa70]++;
+							g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70]++;
 							unit->last_hit_by->pOwner->frags++;
 							if (g_ServerConfig.gameType == 1) {
 								if (unit->last_hit_by->pOwner->frags < g_ServerConfig.frag_limit) {
@@ -230,7 +230,7 @@ void UnitList::ProcessTick()
 									g_Server->FUN_004f94c0(1);
 								}
 							} else if (g_ServerConfig.gameType == 2) {
-								if ((&g_Server->field57_0x200)[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
+								if (g_Server->ctf_score[unit->last_hit_by->pOwner->field_0xa70] < g_ServerConfig.frag_limit) {
 									g_NetStru1_main.FUN_0051d6b4(0);
 								} else {
 									g_Server->FUN_004f94c0(1);

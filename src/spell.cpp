@@ -233,7 +233,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         if (caster->pOwner != nullptr && g_ServerConfig.gameType == 2) {
             Player* owner = caster->pOwner;
             int32_t team_idx = 1 - owner->field_0xa70;
-            if ((&g_Server->field60_0x20c)[team_idx] == owner->player_id) {
+            if (g_Server->ctf_carrying[team_idx] == owner->player_id) {
                 return true;
             }
         }

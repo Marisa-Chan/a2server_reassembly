@@ -214,13 +214,10 @@ public:
     uint32_t field54_0x1f4;
     uint32_t field55_0x1f8;
     uint32_t field56_0x1fc;
-    int32_t field57_0x200;
-    int32_t field58_0x204;
+    std::array<int32_t, 2> ctf_score; // Capture-the-flag mode: team scores.
     uint32_t field59_0x208;
-    uint32_t field60_0x20c; // TODO: convert to two 2-int arrays. See `Unit::sub_52D94E` for logic.
-    uint32_t field61_0x210;
-    uint32_t field62_0x214;
-    uint32_t field63_0x218;
+    std::array<int32_t, 2> ctf_carrying; // Capture-the-flag mode: 1 if the rune is being carried.
+    std::array<int32_t, 2> ctf_dropped;  // Capture-the-flag mode: 1 if the rune is dropped on the ground.
     uint32_t field64_0x21c;
     uint32_t field65_0x220;
     uint32_t field66_0x224;
@@ -228,8 +225,6 @@ public:
     CArray<uint32_t> field68_0x23c;
     int32_t map_elapsed_time;
     int32_t map_elapsed_time2;
-
-
     static uint16_t somewords[32][32]; //6cfdf0 used in client!
 
 public:

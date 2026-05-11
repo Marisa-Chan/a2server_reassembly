@@ -3440,18 +3440,18 @@ void Server::ServerTic() {
 
         if (teams_ready != 0) {
             for (int i = 0; i < 2; i++) {
-                if ((&this->field62_0x214)[i] > 0) {
-                    (&this->field62_0x214)[i]++;
+                if (this->ctf_dropped[i] > 0) {
+                    this->ctf_dropped[i]++;
                 }
-                if ((&this->field62_0x214)[i] > 320) {
+                if (this->ctf_dropped[i] > 320) {
                     this->sub_4F8FBF(i, 1);
                     g_NetStru1_main.FUN_0051ce86(i + 0x100, 0, nullptr);
                 }
             }
 
             for (int i = 0; i < 2; i++) {
-                if ((&this->field60_0x20c)[i] != 0) {
-                    Player* player = g_PlayersList->sub_535B50((&this->field60_0x20c)[i]);
+                if (this->ctf_carrying[i] != 0) {
+                    Player* player = g_PlayersList->sub_535B50(this->ctf_carrying[i]);
                     if (player == nullptr || player->main_unit == nullptr) {
                         continue;
                     }
@@ -3461,7 +3461,7 @@ void Server::ServerTic() {
                     if (abs((yx & 0xff) - unit_x) < 3) {
                         uint8_t unit_y = player->main_unit->position->GetY();
                         if (abs((yx >> 8) - unit_y) < 3) {
-                            g_NetStru1_main.FUN_0051ce86(i + 0x106, (&this->field60_0x20c)[i], nullptr);
+                            g_NetStru1_main.FUN_0051ce86(i + 0x106, this->ctf_carrying[i], nullptr);
                             this->sub_4F8FBF(i, 0);
 
                             POSITION ppos = g_PlayersList->list.GetHeadPosition();
@@ -3469,7 +3469,7 @@ void Server::ServerTic() {
                                 Player* p = g_PlayersList->list.GetNext(ppos);
                                 if (p->is_ai == 0 && p->field_0xa70 == 1 - i) {
                                     p->frags += g_ServerConfig.flag_score;
-                                    (&this->field57_0x200)[1-i] += g_ServerConfig.flag_score;
+                                    this->ctf_score[1-i] += g_ServerConfig.flag_score;
                                 }
                             }
                             g_NetStru1_main.FUN_0051d6b4(0);

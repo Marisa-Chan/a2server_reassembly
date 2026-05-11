@@ -1223,7 +1223,7 @@ void Unit::sub_52C98B(Sack* sack)
 
                 // In team mode, discard buff if this player is the current rune-holder.
                 if (g_ServerConfig.gameType == 2 && apply_buff && item != nullptr) {
-                    uint32_t player_id = (this->pOwner->field_0xa70 == 0) ? g_Server->field61_0x210 : g_Server->field60_0x20c;
+                    uint32_t player_id = g_Server->ctf_carrying[1 - this->pOwner->field_0xa70];
                     if (player_id == this->pOwner->player_id) {
                         apply_buff = false;
                         delete item;
@@ -1263,8 +1263,8 @@ void Unit::sub_52C98B(Sack* sack)
                             g_NetStru1_main.FUN_0051ce86(0x100, 0, nullptr);
                         } else {
                             rune_scored = true;
-                            g_Server->field60_0x20c = this->pOwner->player_id;
-                            g_Server->field62_0x214 = 0;
+                            g_Server->ctf_carrying[0] = this->pOwner->player_id;
+                            g_Server->ctf_dropped[0] = 0;
                             g_NetStru1_main.FUN_0051d6b4(0);
                             g_NetStru1_main.FUN_0051ce86(0x102, this->pOwner->player_id, nullptr);
                         }
@@ -1277,8 +1277,8 @@ void Unit::sub_52C98B(Sack* sack)
                             g_NetStru1_main.FUN_0051ce86(0x101, 0, nullptr);
                         } else {
                             rune_scored = true;
-                            g_Server->field61_0x210 = this->pOwner->player_id;
-                            g_Server->field63_0x218 = 0;
+                            g_Server->ctf_carrying[1] = this->pOwner->player_id;
+                            g_Server->ctf_dropped[1] = 0;
                             g_NetStru1_main.FUN_0051d6b4(0);
                             g_NetStru1_main.FUN_0051ce86(0x103, this->pOwner->player_id, nullptr);
                         }
@@ -1411,9 +1411,7 @@ void Unit::sub_52D94E()
         if (g_ServerConfig.gameType == 2) {
             // Check if this unit's player is holding the opposing team's rune.
             int32_t opposite_team = 1 - this->pOwner->field_0xa70;
-            int32_t rune_holder = (opposite_team == 0)
-                ? g_Server->field60_0x20c
-                : g_Server->field61_0x210;
+            int32_t rune_holder = g_Server->ctf_carrying[opposite_team];
 
             if (rune_holder == this->pOwner->player_id) {
                 // Drop the appropriate rune item.
@@ -1428,13 +1426,8 @@ void Unit::sub_52D94E()
                 this->inventory->PutItemIntoBagAtDefault(rune);
 
                 // Clear rune-holder state and flag rune as on the ground.
-                if (opposite_team == 0) {
-                    g_Server->field60_0x20c = 0;
-                    g_Server->field62_0x214 = 1;
-                } else {
-                    g_Server->field61_0x210 = 0;
-                    g_Server->field63_0x218 = 1;
-                }
+                g_Server->ctf_carrying[opposite_team] = 0;
+                g_Server->ctf_dropped[opposite_team] = 1;
 
                 g_NetStru1_main.FUN_0051ce86(this->pOwner->field_0xa70 ? 0x104 : 0x105, this->pOwner->player_id, nullptr);
                 g_NetStru1_main.FUN_0051d6b4(0);
