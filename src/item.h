@@ -29,8 +29,8 @@ public: // VTable at 60f498.
     virtual void VMethod1() override;
     virtual void VMethod2() override;
     virtual int32_t VMethod6() override;
-    virtual Item* VMethod10(Unit*);
-    virtual void VMethod11(Unit*);
+    virtual Item* VMethod10(Unit*); // Equip.
+    virtual void VMethod11(Unit*); // Unequip.
     virtual Item* TakeOne();
     virtual Item* VMethod13();
     virtual int32_t VMethod14(int, int);
@@ -55,6 +55,8 @@ public:
 
     void StoreToPacket(PacketUnitStateVec* pkt, int arg); // 549afb
     void WriteEffects(PacketUnitStateVec* pkt, uint8_t* slot); // 549F2C
+    void ApplyEffects(Unit* unit); // 548C2E
+    void RemoveEffects(Unit* unit); // 548CE4
 
 public:
     enum ItemType : uint8_t {
@@ -88,6 +90,16 @@ ASSERT_SIZE(Item, 0x58);
 class Armor : public Item {
 public:
     static AFX_DATA CRuntimeClass classArmor; // defined in Main.asm
+
+public: // VTable at 60f508.
+    virtual ~Armor() override; // 54F9D1
+    virtual void Serialize(CArchive& ar) override; // 55CF2B
+    virtual Item* VMethod10(Unit* unit) override; // 54FA6E
+    virtual void VMethod11(Unit* unit) override; // 54FB7E
+    virtual Item* TakeOne() override; // 54FC19
+    virtual Item* VMethod13() override; // 57D5B0
+    virtual int32_t VMethod15() override; // 54F84D
+    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
 
 public:
     Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_54F5AB

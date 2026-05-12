@@ -106,7 +106,7 @@ public:
     void sub_59F1BE(MapAlm* alm);
     void sub_59C37A(MapAlm* alm);
 
-    int32_t GetMapCenterX() { MapStuff_Instance->GetWidth() / 2; } //59fc7c
+    int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c
 
 public:
     CMapStringToOb field1_0x4;

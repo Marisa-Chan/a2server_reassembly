@@ -7,6 +7,7 @@ set(A2_SOURCES
   alm.cpp
   asm_mfc.cpp
   building.cpp
+  buildings_list.cpp
   cmain.cpp
   effect.cpp
   eye.cpp

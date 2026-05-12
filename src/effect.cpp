@@ -1,5 +1,7 @@
 #include "effect.h"
 
+#include <cmath>
+
 #include "constants.h"
 #include "eye.h"
 #include "game_app.h"
@@ -447,4 +449,22 @@ void Effect::VMethod14(Unit* unit, int32_t param_3) {
     }
 
     unit->VMethod18();
+}
+
+// 540941
+int32_t Effect::EffectPrice() {
+    if (this->effect_id == 0) {
+        return 0;
+    } else if (this->effect_id == modifier::castspell) {
+        return this->spell_value * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+    } else if (this->effect_id >= modifier::damagefire && this->effect_id <= modifier::damageastral) {
+        return (this->damage_min + this->damage_spread) * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+    } else {
+        return this->full_magic_value * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+    }
+}
+
+// 540A33
+int64_t Effect::MagicPriceBonus(int32_t total) {
+    return (int64_t)((std::pow(1.5, total / 70.0) + 1.0) * total * 50.0);
 }

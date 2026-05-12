@@ -631,6 +631,8 @@ extern ??0Effect@@QAE@XZ  : proc
 extern ??0Effect@@QAE@ABVCString@@@Z  : proc
 extern ??0Effect@@QAE@PBV0@@Z  : proc
 
+externdef ?EffectPrice@Effect@@QAEHXZ :proc                                   ; int32_t Effect::EffectPrice()
+externdef ?MagicPriceBonus@Effect@@SA_JH@Z :proc                              ; int64_t Effect::MagicPriceBonus(int32_t)
 externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 
 
@@ -683,6 +685,8 @@ externdef ?VMethod15@Item@@UAEHXZ :proc
 externdef ?VMethod16@Item@@UAEHXZ :proc
 externdef ?VMethod17@Item@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc
 externdef ?WriteEffects@Item@@QAEXPAVPacketUnitStateVec@@PAE@Z :proc          ; sub_549F2C
+externdef ?ApplyEffects@Item@@QAEXPAVUnit@@@Z :proc                           ; void Item::ApplyEffects(Unit*)
+externdef ?RemoveEffects@Item@@QAEXPAVUnit@@@Z :proc                          ; void Item::RemoveEffects(Unit*)
 externdef ??0Item@@QAE@ABVCString@@@Z :proc                                   ; Item::Item(const CString&)
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ??0Item@@QAE@PBV0@@Z :proc                                          ; Item::Item(const Item*)
@@ -698,9 +702,17 @@ extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 ; Armor
 public ?classArmor@Armor@@2UCRuntimeClass@@A  ; static CRuntimeClass Armor::classArmor
 
+externdef ??_GArmor@@UAEPAXI@Z :proc                                           ; Armor scalar deleting destructor
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
 externdef ??0Armor@@QAE@EEE@Z :proc                                            ; Armor::Armor(uint8_t, uint8_t, uint8_t)
 externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
+externdef ?Serialize@Armor@@UAEXAAVCArchive@@@Z :proc                          ; void Armor::Serialize(CArchive&)
+externdef ?VMethod10@Armor@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Armor::VMethod10(Unit*)
+externdef ?VMethod11@Armor@@UAEXPAVUnit@@@Z :proc                              ; void Armor::VMethod11(Unit*)
+externdef ?TakeOne@Armor@@UAEPAVItem@@XZ :proc                                 ; Item* Armor::TakeOne()
+externdef ?VMethod13@Armor@@UAEPAVItem@@XZ :proc                               ; Item* Armor::VMethod13()
+externdef ?VMethod15@Armor@@UAEHXZ :proc                                       ; int32_t Armor::VMethod15()
+externdef ?VMethod17@Armor@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Armor::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Shield

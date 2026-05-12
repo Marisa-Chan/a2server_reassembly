@@ -1,4 +1,6 @@
 #include "item.h"
+
+#include "constants.h"
 #include "effect.h"
 #include "game_app.h"
 #include "table.h"
@@ -531,6 +533,24 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int arg)
     }
 }
 
+// 548C2E
+void Item::ApplyEffects(Unit* unit) {
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        e->VMethod12(unit);
+    }
+}
+
+// 548CE4
+void Item::RemoveEffects(Unit* unit) {
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        e->VMethod13(unit);
+    }
+}
+
 
 // sub_54F634
 void Armor::LoadInfo()
@@ -586,6 +606,113 @@ void Weapon::LoadEquipInfo(WorldEquip* params)
     }
 }
 
+// 54F9D1
+Armor::~Armor() {
+}
+
+// 55CF2B
+void Armor::Serialize(CArchive& ar) {
+    Item::Serialize(ar);
+    this->protections.Serialize(ar);
+    if (ar.IsStoring()) {
+        ar.Write(&this->slot, 1);
+    } else {
+        ar.Read(&this->slot, 1);
+        this->world_equip = &g_GameDataRes.armors[this->itemDataID];
+    }
+}
+
+// 54FA6E
+Item* Armor::VMethod10(Unit* unit) {
+    if (this->slot == 0) {
+        LogMessage(CString("Illegal armor"));
+        return this;
+    }
+    if (unit->VMethod8() == 0) {
+        return this;
+    }
+    Humanoid* humanoid = static_cast<Humanoid*>(unit);
+    Armor* old_armor = nullptr;
+    if (humanoid->equipment[this->slot] != nullptr) {
+        old_armor = static_cast<Armor*>(humanoid->equipment[this->slot]);
+        old_armor->VMethod11(unit);
+    }
+    humanoid->equipment[this->slot] = this;
+    unit->equipment_extra.protections += this->protections;
+    unit->protections += this->protections;
+    unit->sub_52A790(this->weight);
+    unit->field_0x150 |= 0xc000;
+    this->ApplyEffects(unit);
+    return old_armor;
+}
+
+// 54FB7E
+void Armor::VMethod11(Unit* unit) {
+    if (unit->VMethod8() == 0) {
+        return;
+    }
+    Humanoid* humanoid = static_cast<Humanoid*>(unit);
+    unit->sub_52A790(-this->weight);
+    unit->equipment_extra.protections -= this->protections;
+    unit->protections -= this->protections;
+    humanoid->equipment[this->slot] = nullptr;
+    unit->field_0x150 |= 0xc000;
+    this->RemoveEffects(unit);
+}
+
+// 54FC19
+Item* Armor::TakeOne() {
+    this->count -= 1;
+    Armor* copy = new Armor(this);
+    copy->count = 1;
+    return copy;
+}
+
+// 57D5B0
+Item* Armor::VMethod13() {
+    return new Armor(this);
+}
+
+// 54F84D
+int32_t Armor::VMethod15() {
+    int32_t shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
+    int32_t material_price = g_GameDataRes.materials[this->material_id].data.price;
+    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+
+    int32_t total = 0;
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        if (e->effect_id == modifier::price) {
+            this->_exp = e->full_magic_value;
+            return this->_exp;
+        }
+        total += e->EffectPrice();
+    }
+    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->_exp > 19999999) {
+        this->_exp = 19999999;
+    }
+    return this->_exp;
+}
+
+// 54FCA8
+void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+    pkt->AppendByteInt(1, this->_exp, slot);
+    slot[4] = 0;
+    int32_t other_param = this->world_equip->values[0].other_param;
+    if (other_param & 1) {
+        slot[4] |= 2;
+    }
+    if (other_param & 2) {
+        slot[4] |= 4;
+    }
+    pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
+    if (this->protections.absorption > 0) {
+        pkt->AppendByteByte(modifier::absorbtion, this->protections.absorption, slot);
+    }
+    this->WriteEffects(pkt, slot);
+}
 
 
 // 475988
