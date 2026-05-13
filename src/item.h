@@ -102,6 +102,8 @@ public: // VTable at 60f508.
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 54FCA8
 
 public:
+    Armor(); // 54F2E9: default constructor
+    Armor(const CString& name); // 54F361: construct from name string
     Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_54F5AB
     Armor(const Armor* src); // sub_54F9ED: copy constructor
     void LoadInfo(); // sub_54F634

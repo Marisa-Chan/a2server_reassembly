@@ -552,6 +552,67 @@ void Item::RemoveEffects(Unit* unit) {
 }
 
 
+// 54F2E9
+Armor::Armor() : Item() {
+    this->material_id = 0;
+    this->slot = 0;
+    this->itemDataID = 0;
+    this->field14_0x50 = 0;
+}
+
+// 54F361
+Armor::Armor(const CString& name) : Item() {
+    this->slot = 0;
+    this->itemDataID = 0;
+    this->field14_0x50 = 0;
+
+    CString base_name;
+    CString extra;
+    {
+        CString tmp;
+        g_GameDataRes.sub_50DB4E(&tmp, const_cast<CString*>(&name), &base_name);
+        extra = tmp;
+    }
+
+    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
+    g_GameDataRes.sub_50DC69(this->material_id, &base_name);
+
+    int32_t count = g_GameDataRes.armors.GetSize();
+    int16_t item_data_id = 0;
+    for (int32_t i = count - 1; i >= 1; i--) {
+        if (base_name == g_GameDataRes.armors[i].name) {
+            item_data_id = (int16_t)i;
+            break;
+        }
+    }
+    this->itemDataID = item_data_id;
+
+    if (this->itemDataID == 0 || this->material_id > 0x0F) {
+        LogMessage("Invalid armor '" + name + "' created - discarded.");
+        return;
+    }
+
+    this->LoadInfo();
+    if (extra.GetLength() > 0) {
+        this->sub_548F3F(extra);
+    }
+}
+
+// 54F5AB
+Armor::Armor(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) : Item() {
+    this->shape_id = shape_id;
+    this->material_id = material_id;
+    this->itemDataID = item_data_id;
+    this->LoadInfo();
+}
+
+// 54F9ED
+Armor::Armor(const Armor* src) : Item(src) {
+    this->slot = src->slot;
+    this->protections = src->protections;
+}
+
 // sub_54F634
 void Armor::LoadInfo()
 {

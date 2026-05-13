@@ -151,6 +151,10 @@ externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 externdef ?sub_50DF19@GameDataRes@@QAEHH@Z :proc                               ; GameDataRes::sub_50DF19(int)
 externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ; int GameDataRes::sub_50DDAE(uint32_t, uint32_t)
 externdef ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
+externdef ?sub_50D8BA@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50D8BA(CString*, CString*)
+externdef ?sub_50DA04@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50DA04(CString*, CString*)
+externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@00@Z :proc             ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)
+externdef ?sub_50DC69@GameDataRes@@QAEXHPAVCString@@@Z :proc              ; void GameDataRes::sub_50DC69(int, CString*)
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
@@ -702,8 +706,11 @@ extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 ; Armor
 public ?classArmor@Armor@@2UCRuntimeClass@@A  ; static CRuntimeClass Armor::classArmor
 
+externdef ??1Armor@@UAE@XZ :proc                                               ; Armor::~Armor()
 externdef ??_GArmor@@UAEPAXI@Z :proc                                           ; Armor scalar deleting destructor
 externdef ?LoadInfo@Armor@@QAEXXZ :proc
+externdef ??0Armor@@QAE@XZ :proc                                               ; Armor::Armor()
+externdef ??0Armor@@QAE@ABVCString@@@Z :proc                                   ; Armor::Armor(const CString&)
 externdef ??0Armor@@QAE@EEE@Z :proc                                            ; Armor::Armor(uint8_t, uint8_t, uint8_t)
 externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
 externdef ?Serialize@Armor@@UAEXAAVCArchive@@@Z :proc                          ; void Armor::Serialize(CArchive&)
