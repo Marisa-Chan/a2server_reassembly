@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "effect.h"
 #include "game_app.h"
+#include "inventory.h"
 #include "table.h"
 #include "packet.h"
 #include "util.h"
@@ -736,8 +737,8 @@ Item* Armor::VMethod13() {
 
 // 54F84D
 int32_t Armor::VMethod15() {
-    int32_t shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
-    int32_t material_price = g_GameDataRes.materials[this->material_id].data.price;
+    double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
+    double material_price = g_GameDataRes.materials[this->material_id].data.price;
     this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
@@ -777,6 +778,114 @@ void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
 
 
 // IMPLEMENT_SERIAL(Shield, Item, 1); // Runtime class definition at 6372e8.
+
+// 54FDD1
+CRuntimeClass* Shield::GetRuntimeClass() const {
+    return &Shield::classShield;
+}
+
+// 55044b
+Shield::~Shield() {
+}
+
+// 55AF5E
+void Shield::Serialize(CArchive& ar) {
+    Item::Serialize(ar);
+    this->protections.Serialize(ar);
+    if (!ar.IsStoring()) {
+        this->world_equip = &g_GameDataRes.shields[this->itemDataID];
+    }
+}
+
+// 55056B
+Item* Shield::VMethod10(Unit* unit) {
+    if (this->itemDataID == 0) {
+        LogMessage("Invalid shield");
+        return this;
+    }
+    Shield* old_shield = nullptr;
+    if (unit->shield != nullptr) {
+        old_shield = unit->shield;
+        old_shield->VMethod11(unit);
+    }
+    if (unit->weapon != nullptr) {
+        if (unit->weapon->world_equip->values[0].suitable_for == 2) {
+            Item* tmp = unit->Unequip(unit->weapon);
+            unit->inventory->PutItemIntoBagAtDefault(tmp);
+        }
+    }
+    unit->shield = this;
+    unit->equipment_extra.protections += this->protections;
+    unit->protections += this->protections;
+    unit->sub_52A790(this->weight);
+    this->ApplyEffects(unit);
+    unit->field_0x150 |= 0xC000;
+    return old_shield;
+}
+
+// 550686
+void Shield::VMethod11(Unit* unit) {
+    unit->sub_52A790(-this->weight);
+    unit->equipment_extra.protections -= this->protections;
+    unit->protections -= this->protections;
+    this->RemoveEffects(unit);
+    unit->field_0x150 |= 0xC000;
+    unit->shield = nullptr;
+}
+
+// 5504DC
+Item* Shield::TakeOne() {
+    this->count -= 1;
+    Shield* copy = new Shield(this);
+    copy->count = 1;
+    return copy;
+}
+
+// 57D660
+Item* Shield::VMethod13() {
+    return new Shield(this);
+}
+
+// 5502C7
+int32_t Shield::VMethod15() {
+    double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
+    double material_price = g_GameDataRes.materials[this->material_id].data.price;
+    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+
+    int32_t total = 0;
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        if (e->effect_id == modifier::price) {
+            this->_exp = e->full_magic_value;
+            return this->_exp;
+        }
+        total += e->EffectPrice();
+    }
+    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->_exp > 19999999) {
+        this->_exp = 19999999;
+    }
+    return this->_exp;
+}
+
+// 5506FC
+void Shield::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+    pkt->AppendByteInt(1, this->_exp, slot);
+    slot[4] = 0;
+    int32_t other_param = this->world_equip->values[0].other_param;
+    if (other_param & 1) {
+        slot[4] |= 2;
+    }
+    if (other_param & 2) {
+        slot[4] |= 4;
+    }
+    pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
+    if (this->protections.absorption > 0) {
+        pkt->AppendByteByte(modifier::absorbtion, this->protections.absorption, slot);
+    }
+    this->WriteEffects(pkt, slot);
+}
 
 
 // IMPLEMENT_SERIAL(Weapon, Item, 1); // Runtime class definition at 637300.

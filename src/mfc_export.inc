@@ -725,8 +725,18 @@ externdef ?VMethod17@Armor@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ;
 ; Shield
 public ?classShield@Shield@@2UCRuntimeClass@@A  ; static CRuntimeClass Shield::classShield
 
-externdef ??0Shield@@QAE@EEE@Z :proc                                           ; Shield::Shield(uint8_t, uint8_t, uint8_t)
-externdef ??0Shield@@QAE@PBV0@@Z :proc                                         ; Shield::Shield(const Shield*)
+externdef ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Shield::GetRuntimeClass() const
+externdef ??1Shield@@UAE@XZ :proc                                               ; Shield::~Shield()
+externdef ??_GShield@@UAEPAXI@Z :proc                                           ; Shield scalar deleting destructor
+externdef ??0Shield@@QAE@EEE@Z :proc                                            ; Shield::Shield(uint8_t, uint8_t, uint8_t)
+externdef ??0Shield@@QAE@PBV0@@Z :proc                                          ; Shield::Shield(const Shield*)
+externdef ?Serialize@Shield@@UAEXAAVCArchive@@@Z :proc                          ; void Shield::Serialize(CArchive&)
+externdef ?VMethod10@Shield@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Shield::VMethod10(Unit*)
+externdef ?VMethod11@Shield@@UAEXPAVUnit@@@Z :proc                              ; void Shield::VMethod11(Unit*)
+externdef ?TakeOne@Shield@@UAEPAVItem@@XZ :proc                                 ; Item* Shield::TakeOne()
+externdef ?VMethod13@Shield@@UAEPAVItem@@XZ :proc                               ; Item* Shield::VMethod13()
+externdef ?VMethod15@Shield@@UAEHXZ :proc                                       ; int32_t Shield::VMethod15()
+externdef ?VMethod17@Shield@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Shield::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Weapon

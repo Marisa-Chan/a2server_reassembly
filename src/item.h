@@ -121,6 +121,16 @@ class Shield : public Item {
 public:
     DECLARE_SERIAL(Shield); // Runtime class definition at 6372e8.
 
+public: // VTable at 60f560.
+    virtual ~Shield() override; // 55044b
+    virtual void Serialize(CArchive& ar) override; // 55AF5E
+    virtual Item* VMethod10(Unit*) override; // 55056B
+    virtual void VMethod11(Unit*) override; // 550686
+    virtual Item* TakeOne() override; // 5504DC
+    virtual Item* VMethod13() override; // 57D660
+    virtual int32_t VMethod15() override; // 5502C7
+    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
+
 public:
     Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_5500FA
     Shield(const Shield* src); // sub_550467: copy constructor
