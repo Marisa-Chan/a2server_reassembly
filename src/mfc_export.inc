@@ -704,7 +704,7 @@ extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 
 ; Armor
-public ?classArmor@Armor@@2UCRuntimeClass@@A  ; static CRuntimeClass Armor::classArmor
+externdef ?classArmor@Armor@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Armor::classArmor
 
 externdef ??1Armor@@UAE@XZ :proc                                               ; Armor::~Armor()
 externdef ??_GArmor@@UAEPAXI@Z :proc                                           ; Armor scalar deleting destructor

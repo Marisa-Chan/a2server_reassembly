@@ -123,6 +123,8 @@ extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
     return item;
 }
 
+IMPLEMENT_SERIAL(Item, Token, 1); // Runtime class definition at 6372b8.
+
 // 547F80
 Item::Item() : Token() {
     this->world_equip = nullptr;
@@ -233,10 +235,6 @@ Item::Item(const Item* src) : Token(*src) {
 
 // 54840E
 Item::~Item() {
-}
-
-CRuntimeClass* Item::GetRuntimeClass() const {
-    return &classItem;
 }
 
 // 548da5
@@ -552,6 +550,8 @@ void Item::RemoveEffects(Unit* unit) {
 }
 
 
+IMPLEMENT_SERIAL(Armor, Item, 1); // Runtime class definition at 6372d0.
+
 // 54F2E9
 Armor::Armor() : Item() {
     this->material_id = 0;
@@ -774,6 +774,12 @@ void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
     }
     this->WriteEffects(pkt, slot);
 }
+
+
+// IMPLEMENT_SERIAL(Shield, Item, 1); // Runtime class definition at 6372e8.
+
+
+// IMPLEMENT_SERIAL(Weapon, Item, 1); // Runtime class definition at 637300.
 
 
 // 475988

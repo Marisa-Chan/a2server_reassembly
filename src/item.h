@@ -22,7 +22,8 @@ void LoadItemNames(); //475988
 
 class Item : public Token {
 public:
-    DECLARE_SERIAL(Item);
+    DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.
+
 public: // VTable at 60f498.
     virtual ~Item();
     virtual void Serialize(CArchive& ar) override;
@@ -89,7 +90,7 @@ ASSERT_SIZE(Item, 0x58);
 
 class Armor : public Item {
 public:
-    static AFX_DATA CRuntimeClass classArmor; // defined in Main.asm
+    DECLARE_SERIAL(Armor); // Runtime class definition at 6372d0.
 
 public: // VTable at 60f508.
     virtual ~Armor() override; // 54F9D1
@@ -118,7 +119,7 @@ ASSERT_SIZE(Armor, 0x70);
 
 class Shield : public Item {
 public:
-    static AFX_DATA CRuntimeClass classShield; // defined in Main.asm
+    DECLARE_SERIAL(Shield); // Runtime class definition at 6372e8.
 
 public:
     Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_5500FA
@@ -132,7 +133,7 @@ ASSERT_SIZE(Shield, 0x70);
 
 class Weapon : public Item {
 public:
-    static AFX_DATA CRuntimeClass classWeapon; // defined in Main.asm
+    DECLARE_SERIAL(Weapon); // Runtime class definition at 637300.
 
 public:
     Weapon(const CString& name); // sub_550929: construct weapon from name string
