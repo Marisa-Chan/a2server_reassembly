@@ -132,8 +132,12 @@ public: // VTable at 60f560.
     virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 5506FC
 
 public:
-    Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_5500FA
-    Shield(const Shield* src); // sub_550467: copy constructor
+    Shield(); // 54FE1B: default constructor
+    Shield(const CString& name); // 54FE8E: construct from name string
+    Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 5500FA
+    Shield(const Shield* src); // 550467: copy constructor
+
+    void LoadInfo(); // 550183
 
 public:
     Protections protections;

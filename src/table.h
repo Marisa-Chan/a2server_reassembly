@@ -302,7 +302,7 @@ public:
 
     uint8_t sub_50D8BA(CString* name, CString* out); // 50D8BA: Find shape index by item name string
     uint8_t sub_50DA04(CString* name, CString* out); // 50DA04: Find material index by item name string
-    CString* sub_50DB4E(CString* out1, CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
+    CString* sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
     void sub_50DC69(int material_id, CString* name); // 50DC69: Strip material-specific prefix from item name
 };
 ASSERT_OFFSET(GameDataRes, magic_items, 0x64);

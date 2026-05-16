@@ -153,7 +153,7 @@ externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ;
 externdef ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 externdef ?sub_50D8BA@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50D8BA(CString*, CString*)
 externdef ?sub_50DA04@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50DA04(CString*, CString*)
-externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@00@Z :proc             ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)
+externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@PBV2@0@Z :proc     ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)
 externdef ?sub_50DC69@GameDataRes@@QAEXHPAVCString@@@Z :proc              ; void GameDataRes::sub_50DC69(int, CString*)
 
 ; BuildingsList
@@ -723,11 +723,14 @@ externdef ?VMethod17@Armor@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ;
 
 
 ; Shield
-public ?classShield@Shield@@2UCRuntimeClass@@A  ; static CRuntimeClass Shield::classShield
+externdef ?classShield@Shield@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Shield::classShield
 
-externdef ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Shield::GetRuntimeClass() const
 externdef ??1Shield@@UAE@XZ :proc                                               ; Shield::~Shield()
 externdef ??_GShield@@UAEPAXI@Z :proc                                           ; Shield scalar deleting destructor
+externdef ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Shield::GetRuntimeClass() const
+externdef ?LoadInfo@Shield@@QAEXXZ :proc
+externdef ??0Shield@@QAE@XZ :proc                                               ; Shield::Shield()
+externdef ??0Shield@@QAE@ABVCString@@@Z :proc                                   ; Shield::Shield(const CString&)
 externdef ??0Shield@@QAE@EEE@Z :proc                                            ; Shield::Shield(uint8_t, uint8_t, uint8_t)
 externdef ??0Shield@@QAE@PBV0@@Z :proc                                          ; Shield::Shield(const Shield*)
 externdef ?Serialize@Shield@@UAEXAAVCArchive@@@Z :proc                          ; void Shield::Serialize(CArchive&)

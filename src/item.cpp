@@ -777,11 +777,86 @@ void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
 }
 
 
-// IMPLEMENT_SERIAL(Shield, Item, 1); // Runtime class definition at 6372e8.
+IMPLEMENT_SERIAL(Shield, Item, 1); // Runtime class definition at 6372e8.
 
-// 54FDD1
-CRuntimeClass* Shield::GetRuntimeClass() const {
-    return &Shield::classShield;
+// 54FE1B
+Shield::Shield() : Item() {
+    this->itemDataID = 0;
+    this->item_id = 0;
+    this->field14_0x50 = 0;
+}
+
+// 54FE8E
+Shield::Shield(const CString& name) : Item() {
+    this->itemDataID = 0;
+    this->field14_0x50 = 0;
+
+    CString base_name;
+    CString extra;
+    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
+
+    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
+    g_GameDataRes.sub_50DC69(this->material_id, &base_name);
+
+    int32_t pos = base_name.Find(" Shield");
+    if (pos > 0) {
+        base_name = base_name.Left(pos);
+    }
+
+    int32_t count = g_GameDataRes.shields.GetSize();
+    int16_t item_data_id = 0;
+    for (int32_t i = count - 1; i >= 1; i--) {
+        if (base_name == g_GameDataRes.shields[i].name) {
+            item_data_id = (int16_t)i;
+            break;
+        }
+    }
+    this->itemDataID = item_data_id;
+
+    if (this->itemDataID == 0 || this->material_id > 0x0F) {
+        LogMessage("Invalid shield <" + name + "> created - discarded.");
+        return;
+    }
+
+    this->LoadInfo();
+    if (extra.GetLength() > 0) {
+        this->sub_548F3F(extra);
+    }
+}
+
+// 5500FA
+Shield::Shield(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) : Item() {
+    this->shape_id = shape_id;
+    this->material_id = material_id;
+    this->itemDataID = item_data_id;
+    this->field14_0x50 = 0;
+    this->LoadInfo();
+}
+
+// 550467
+Shield::Shield(const Shield* src) : Item(src) {
+    this->protections = src->protections;
+}
+
+// 550183
+void Shield::LoadInfo() {
+    this->world_equip = &g_GameDataRes.shields[this->itemDataID];
+    this->item_type = ItemType::EQUIPMENT;
+
+    EquipData* data = &this->world_equip->values[0];
+    MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
+    MatShape* material = &g_GameDataRes.materials[this->material_id];
+
+    this->protections.absorption = (int16_t)((double)data->absorption * material->data.absorption * shape->data.absorption);
+    this->protections.defense = (int16_t)((double)data->defense * material->data.defense * shape->data.defense + 0.5);
+    this->magic_volume = (int16_t)(material->data.magic_volume * shape->data.magic_volume);
+    this->weight = (int16_t)((double)data->weight * material->data.weight * shape->data.weight + 0.5);
+
+    this->VMethod15();
+
+    const int slot = 2;
+    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
 }
 
 // 55044b
