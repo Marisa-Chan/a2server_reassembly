@@ -4,8 +4,37 @@
 #include "player.h"
 #include "unit.h"
 
-int32_t Outpost::IsOutpost() {
-    return 1;
+IMPLEMENT_SERIAL(Outpost, Building, 1);
+
+// 54326A
+Outpost::Outpost() {
+    this->sub_54335a();
+}
+
+// 5432DF
+Outpost::Outpost(TokenPos* pos) : Building(pos) {
+    this->sub_54335a();
+}
+
+void Outpost::sub_54335a() {
+    this->tiles_mask = 0;
+    this->group_id = 0;
+    this->repop_delay = 120;
+    this->repop_countdown = 0;
+    this->script_id = -1;
+    this->spread = 0;
+    this->is_awaiting_repop = 0;
+    this->has_quest_kill = 0;
+    this->has_quest_intercept = 0;
+}
+
+// 5433CA
+Outpost::~Outpost() {
+    POSITION pos = this->units_copy.unit_list.GetHeadPosition();
+    while (pos != nullptr) {
+        Unit* u = this->units_copy.unit_list.GetNext(pos);
+        delete u;
+    }
 }
 
 // 5438ED
@@ -75,4 +104,8 @@ void Outpost::VMethod1() {
 
     // Spawn units into the group and place them on the map.
     this->sub_543EC3(found_group);
+}
+
+int32_t Outpost::IsOutpost() {
+    return 1;
 }

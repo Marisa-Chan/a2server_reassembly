@@ -188,6 +188,11 @@ externdef ?CreateObject@Pointer@@SGPAVCObject@@XZ :proc                         
 
 
 ; Outpost
+externdef ??_7Outpost@@6B@ :dword
+externdef ?classOutpost@Outpost@@2UCRuntimeClass@@A :dword
+externdef ??0Outpost@@QAE@XZ :proc                                               ; Outpost::Outpost()
+externdef ??0Outpost@@QAE@PAUTokenPos@@@Z :proc                                  ; Outpost::Outpost(TokenPos*)
+externdef ??1Outpost@@UAE@XZ :proc                                               ; Outpost::~Outpost()
 externdef ?VMethod1@Outpost@@UAEXXZ : proc
 externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 

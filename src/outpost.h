@@ -13,11 +13,20 @@
 // Why is it derived from Building, Nival? Why?
 class Outpost : public Building {
 public:
+    DECLARE_SERIAL(Outpost); // Runtime class definition at 637240.
+
+public: // VTable at 60f3b8.
+    Outpost(); // 54326A
+    Outpost(TokenPos* pos); // 5432DF
+    virtual ~Outpost() override;
+
+public:
     virtual int32_t IsOutpost() override;
     virtual void VMethod1() override;
 
 public:
     void sub_543EC3(Group* group);
+    void sub_54335a(); // Initializes fields.
 
 public:
     UnitList units_original;
