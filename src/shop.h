@@ -23,16 +23,19 @@ struct AssortmentGenParams {
 ASSERT_SIZE(AssortmentGenParams, 0x14);
 
 class Shop : public Building {
-    DECLARE_SERIAL(Shop);
 public:
-    Shop(uint8_t type_id, TokenPos* pos); // sub_544495
+    DECLARE_SERIAL(Shop); // Runtime class definition at 637258.
+
+public: // VTable at 60f3f8.
+    virtual ~Shop(); // 544564
+    virtual void Serialize(CArchive& ar) override; // 5447b7
+    virtual void VMethod1() override; // 544629
 
 public:
-    MultiShopTemplate* shop_template;
-    AssortmentGenParams gen_params[4];
-    uint32_t field_0xc0;
+    Shop(); // 5442ca
+    Shop(const CString& name); // 5443ef
+    Shop(uint8_t type_id, TokenPos* pos); // 544495
 
-public:
     void sub_544793(Humanoid* humanoid, int amount, Item* item);
     Item* sub_5446C7(Humanoid* unit, int16_t src_slot, int32_t count);
     void sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count);
@@ -43,6 +46,11 @@ public:
     void sub_544737(Unit* unit);
     void sub_544777(Unit* unit);
     void sub_544685(Unit* unit);
+
+public:
+    MultiShopTemplate* shop_template;
+    AssortmentGenParams gen_params[4];
+    uint32_t field_0xc0;
 };
 ASSERT_OFFSET(Shop, gen_params, 0x70);
 ASSERT_SIZE(Shop, 0xc4);

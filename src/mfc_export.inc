@@ -207,8 +207,13 @@ externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     
 
 ; Shop
 externdef _g_DefaultShop :byte
-externdef _ShopRuntimeClass :byte
+externdef ??0Shop@@QAE@XZ :proc                                                  ; Shop::Shop()
+externdef ??0Shop@@QAE@ABVCString@@@Z :proc                                      ; Shop::Shop(const CString&)
 externdef ??0Shop@@QAE@EPAUTokenPos@@@Z :proc                                    ; Shop::Shop(uint8_t, TokenPos*)
+externdef ??1Shop@@UAE@XZ :proc                                                  ; Shop::~Shop()
+externdef ??_GShop@@UAEPAXI@Z :proc                                              ; Shop scalar deleting destructor
+externdef ?Serialize@Shop@@UAEXAAVCArchive@@@Z :proc                             ; void Shop::Serialize(CArchive&)
+externdef ?VMethod1@Shop@@UAEXXZ :proc                                           ; void Shop::VMethod1()
 
 externdef ?sub_544655@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
@@ -216,6 +221,7 @@ externdef ?sub_54463F@Shop@@QAEXXZ :proc
 externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
 externdef ?sub_547C5A@MultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
+externdef ??0MultiShopTemplate@@QAE@PAVShop@@@Z :proc                            ; MultiShopTemplate::MultiShopTemplate(Shop*)
 
 externdef ?sub_54471B@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544737@Shop@@QAEXPAVUnit@@@Z :proc
@@ -228,6 +234,7 @@ externdef ?ClearItems@MultiShopShelf@@QAEXXZ : proc
 
 ; MultiShopTemplate
 externdef ?sub_546F18@MultiShopTemplate@@QAEXPAVMultiShopInstance@@H@Z : proc
+externdef ?sub_547DD4@MultiShopTemplate@@QAEXXZ :proc                           ; void MultiShopTemplate::sub_547DD4()
 
 ; MultiShopInstance
 externdef ?Sell@MultiShopInstance@@QAEXXZ : proc

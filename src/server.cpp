@@ -56,7 +56,6 @@ extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
 extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330
-extern "C" CRuntimeClass ShopRuntimeClass; // stru_637258
 
 
 uint16_t Server::somewords[32][32];
@@ -1557,7 +1556,7 @@ Shop* Server::sub_502C50(TokenPos* pos) {
     if (building == nullptr) {
         return nullptr;
     }
-    if (!building->IsKindOf(&ShopRuntimeClass)) {
+    if (!building->IsKindOf(RUNTIME_CLASS(Shop))) {
         return nullptr;
     }
     return static_cast<Shop*>(building);
@@ -3387,7 +3386,7 @@ int Server::sub_4F1471(CString param_1) {
         POSITION pos = building_list->GetHeadPosition();
         while (pos != nullptr) {
             Building* building = building_list->GetNext(pos);
-            if (building->IsKindOf(&InnRuntimeClass) || building->IsKindOf(&ShopRuntimeClass)) {
+            if (building->IsKindOf(&InnRuntimeClass) || building->IsKindOf(RUNTIME_CLASS(Shop))) {
                 uint8_t x = building->position->GetX();
                 uint8_t y = building->position->GetY();
                 uint16_t cell = (x - 1) | ((y - 1) << 8);

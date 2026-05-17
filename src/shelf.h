@@ -51,8 +51,10 @@ public:
     int32_t field_0x90;
     Shop* shop;
 
+    MultiShopTemplate(Shop* shop); // 546C72
     void sub_546F18(MultiShopInstance* inst, int param); // 546F18
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
+    void sub_547DD4(); // 547DD4
 };
 ASSERT_OFFSET(MultiShopTemplate, shop_instances, 0x7c);
 ASSERT_SIZE(MultiShopTemplate, 0x98);

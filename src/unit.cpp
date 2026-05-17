@@ -131,7 +131,6 @@ Unit::~Unit()
 }
 
 // CRuntimeClass objects for building sub-types, defined in Main.asm.
-extern "C" CRuntimeClass ShopRuntimeClass;   // stru_637258
 extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 
 // Free functions called from VMethod2 (all in Main.asm)
@@ -771,7 +770,7 @@ void Unit::VMethod2()
             Building* building = building_list->sub_558128(this->position);
             if (building) {
                 // TODO: also check C++ runtime class.
-                if (building->IsKindOf(&ShopRuntimeClass)) { // Shop
+                if (building->IsKindOf(RUNTIME_CLASS(Shop))) { // Shop
                     g_NetStru1_main.FUN_0051cefb(0x83, building->object_info_id, 0, this->pOwner);
                     break;
                 }
