@@ -130,8 +130,6 @@ Unit::~Unit()
     Unit::VMethod10();
 }
 
-// CRuntimeClass objects for building sub-types, defined in Main.asm.
-extern "C" CRuntimeClass InnRuntimeClass;    // stru_637330
 
 // Free functions called from VMethod2 (all in Main.asm)
 extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
@@ -774,7 +772,7 @@ void Unit::VMethod2()
                     g_NetStru1_main.FUN_0051cefb(0x83, building->object_info_id, 0, this->pOwner);
                     break;
                 }
-                if (building->IsKindOf(&InnRuntimeClass)) { // Inn
+                if (building->IsKindOf(RUNTIME_CLASS(Inn))) { // Inn
                     g_NetStru1_main.FUN_0051cefb(0x84, building->object_info_id, building->building_id, this->pOwner);
                     break;
                 }

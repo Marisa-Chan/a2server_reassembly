@@ -55,8 +55,6 @@ extern "C" void sub_5421E9(); // Seed random: timeGetTime -> srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
-extern "C" CRuntimeClass InnRuntimeClass;  // stru_637330
-
 
 uint16_t Server::somewords[32][32];
 
@@ -335,7 +333,7 @@ void Srv1::sub_59C56E(MapAlm* alm) {
         this->srv_stru->building_list->sub_558228(building);
 
         // For Inns, create QuestInnGlue
-        if (building->IsKindOf(&InnRuntimeClass)) {
+        if (building->IsKindOf(RUNTIME_CLASS(Inn))) {
             QuestInnGlue* glue = new QuestInnGlue(building->building_id, building->position, g_World, 4);
             g_QuestMap.sub_55EA81(glue);
         }
@@ -3386,7 +3384,7 @@ int Server::sub_4F1471(CString param_1) {
         POSITION pos = building_list->GetHeadPosition();
         while (pos != nullptr) {
             Building* building = building_list->GetNext(pos);
-            if (building->IsKindOf(&InnRuntimeClass) || building->IsKindOf(RUNTIME_CLASS(Shop))) {
+            if (building->IsKindOf(RUNTIME_CLASS(Inn)) || building->IsKindOf(RUNTIME_CLASS(Shop))) {
                 uint8_t x = building->position->GetX();
                 uint8_t y = building->position->GetY();
                 uint16_t cell = (x - 1) | ((y - 1) << 8);

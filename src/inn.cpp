@@ -25,6 +25,39 @@
 #include "world.h"
 #include "map_stuff.h"
 
+IMPLEMENT_SERIAL(Inn, Building, 1); // 637330.
+
+// 56046B
+Inn::Inn() {
+    this->has_kill_all_humans = 0;
+    this->has_kill_all_monsters = 0;
+    this->has_kill_all_undead = 0;
+    this->has_raise_dead = 0;
+    this->delivery_item_id = 0;
+    this->quest_roll_counter = 0;
+}
+
+// 5605CC
+Inn::Inn(uint8_t type_id, TokenPos* pos) : Building(type_id, pos, 0, 0) {
+    this->has_kill_all_humans = 0;
+    this->has_kill_all_monsters = 0;
+    this->has_kill_all_undead = 0;
+    this->has_raise_dead = 0;
+    this->delivery_item_id = 0;
+    this->quest_roll_counter = 0;
+}
+
+// 56073E
+Inn::~Inn() {
+    POSITION pos = this->quest_map_per_player.GetStartPosition();
+    while (pos) {
+        uint32_t player_id;
+        QuestMap* qmap;
+        this->quest_map_per_player.GetNextAssoc(pos, player_id, qmap);
+        delete qmap;
+    }
+}
+
 // Vtable pointers for specific quest kinds (defined in Main.asm .rdata section)
 extern "C" const void* off_60F9F8[];  // KillMob
 extern "C" const void* off_60F9C0[];  // KillN

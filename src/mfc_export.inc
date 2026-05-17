@@ -193,8 +193,11 @@ externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 
 
 ; Inn
-externdef _InnRuntimeClass :byte
+externdef ??_7Inn@@6B@ :dword
+externdef ?classInn@Inn@@2UCRuntimeClass@@A :dword
+externdef ??0Inn@@QAE@XZ :proc                                                   ; Inn::Inn()
 externdef ??0Inn@@QAE@EPAUTokenPos@@@Z :proc                                     ; Inn::Inn(uint8_t, TokenPos*)
+externdef ??1Inn@@UAE@XZ :proc                                                   ; Inn::~Inn()
 
 externdef ?VMethod1@Inn@@UAEXXZ :proc
 externdef ?sub_560DC2@Inn@@QAEXPAVHumanoid@@H@Z :proc

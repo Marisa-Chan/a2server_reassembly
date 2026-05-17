@@ -17,7 +17,16 @@ class QuestMap;
 
 class Inn : public Building {
 public:
-    Inn(uint8_t type_id, TokenPos* pos); // sub_5605CC
+    DECLARE_SERIAL(Inn); // Runtime class definition at 637330.
+
+public:
+    Inn(); // 56046B
+    Inn(uint8_t type_id, TokenPos* pos); // 5605CC
+    
+public: // VTable at 60fa30.
+    virtual ~Inn();
+
+public:
     CMap<uint32_t, uint32_t, QuestMap*, QuestMap*> quest_map_per_player;
     CMap<uint32_t, uint32_t, Inventory*, Inventory*> rewards_per_player;
     UnitList unit_list; // Maybe current visitors of the inn?
