@@ -185,20 +185,7 @@ Token::Token(const TokenPos* tpos, Player* pl)
 }
 
 // 6363b8
-AFX_DATA CRuntimeClass Token::classToken =
-{ "Token", sizeof(Token), 1, &Token::CreateObject, &CObject::classCObject, NULL };
-
-CObject* PASCAL Token::CreateObject()
-{ 
-	// 527ff6
-	return new Token;
-}
-
-CRuntimeClass* Token::GetRuntimeClass() const
-{
-	// 528063
-	return (CRuntimeClass*) &Token::classToken;
-}
+IMPLEMENT_SERIAL(Token, CObject, 1);
 
 Token::~Token()
 {
@@ -206,11 +193,6 @@ Token::~Token()
 	if (position)
 		delete position;
 }
-
-//void Token::Serialize(CArchive& ar)
-//{
-//
-//}
 
 void Token::VMethod1()
 {
@@ -263,7 +245,3 @@ int32_t Token::VMethod9()
 	// 57b2f0
 	return 0;
 }
-
-
-
-static const AFX_CLASSINIT _init_Token((CRuntimeClass*)&Token::classToken);

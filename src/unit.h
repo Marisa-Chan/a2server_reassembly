@@ -64,7 +64,7 @@ ASSERT_SIZE(SessionMobKill, 0x4);
 class Unit : public Token
 {
 public:
-    DECLARE_SERIAL(Unit);
+    DECLARE_SERIAL(Unit); // Runtime class definition at 6363e8.
 
 public: // VTable at 60efc0.
     //virtual CRuntimeClass* GetRuntimeClass() const override; // defined by DECLARE_SERIAL

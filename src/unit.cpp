@@ -1479,6 +1479,7 @@ void Unit::sub_52D94E()
     this->sub_52E7FA();
 }
 
+// 6363e8.
 IMPLEMENT_SERIAL(Unit, Token, 1);
 
 /*  Created by IMPLEMENT_SERIAL

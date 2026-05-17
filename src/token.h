@@ -76,8 +76,9 @@ ASSERT_SIZE(TokenPos, 0xC);
 class Token : public CObject
 {
 public:
-	virtual CRuntimeClass* GetRuntimeClass() const;
+	DECLARE_SERIAL(Token); // Runtime class definition at 6363b8.
 
+public:
 	virtual ~Token();
 	virtual void Serialize(CArchive& ar);
 	// CObject AssertValid
@@ -99,8 +100,6 @@ public:
 	Token(const TokenPos* tpos);
 	Token(const TokenPos* tpos, Player *pl);
 
-	static CObject* PASCAL CreateObject();
-
 public:
 	int32_t building_id;
 	int32_t TokenID;
@@ -113,11 +112,6 @@ public:
 	int8_t field_x1b;
 	int32_t _exp;
 	CList<Effect*> _effects;
-
-public:
-
-	// Not const because AFX_CLASSINIT will write into it
-	static AFX_DATA CRuntimeClass classToken;
 };
 __pragma(pack(pop))
 
