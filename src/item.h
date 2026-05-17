@@ -63,7 +63,7 @@ public:
     enum ItemType : uint8_t {
         NONE = 0,
         EQUIPMENT = 1,
-        DONT_KNOW_YET = 2,
+        WEAPON = 2,
         POTION = 3,
         SCROLL = 4,
         BOOK = 5
@@ -165,6 +165,7 @@ public:
     Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 550B8F
     Weapon(const Weapon* src); // 5511EE: copy constructor
     void LoadEquipInfo(WorldEquip* params); // 550E26
+    void LoadInfo(); // 550C23
 
 private:
     void SetImbuedSpell(uint8_t spell_id); // 551B12

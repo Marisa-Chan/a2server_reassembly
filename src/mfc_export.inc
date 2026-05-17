@@ -749,6 +749,7 @@ externdef ??1Weapon@@UAE@XZ :proc                                               
 externdef ??_GWeapon@@UAEPAXI@Z :proc                                           ; Weapon scalar deleting destructor
 externdef ?GetRuntimeClass@Weapon@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Weapon::GetRuntimeClass() const
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
+externdef ?LoadInfo@Weapon@@QAEXXZ :proc
 externdef ??0Weapon@@QAE@XZ :proc                                               ; Weapon::Weapon()
 externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
 externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)

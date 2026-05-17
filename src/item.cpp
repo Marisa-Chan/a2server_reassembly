@@ -570,11 +570,7 @@ Armor::Armor(const CString& name) : Item() {
 
     CString base_name;
     CString extra;
-    {
-        CString tmp;
-        g_GameDataRes.sub_50DB4E(&tmp, const_cast<CString*>(&name), &base_name);
-        extra = tmp;
-    }
+    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
 
     this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
     this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
@@ -974,6 +970,84 @@ Weapon::Weapon() {
 
     const int slot = 1;
     this->item_id = (uint16_t)((this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID);
+}
+
+// 550929
+Weapon::Weapon(const CString& name) : Item() {
+    this->range = 1;
+    this->itemDataID = 0;
+    this->imbued_spell = nullptr;
+    this->field14_0x50 = 0;
+
+    CString base_name;
+    CString extra;
+    g_GameDataRes.sub_50DB4E(&extra, &name, &base_name);
+
+    this->shape_id = g_GameDataRes.sub_50D8BA(&base_name, &base_name);
+    this->material_id = g_GameDataRes.sub_50DA04(&base_name, &base_name);
+
+    int32_t count = g_GameDataRes.weapons.GetSize();
+    int16_t found = 0;
+    for (int32_t i = count - 1; i >= 1; i--) {
+        if (base_name == g_GameDataRes.weapons[i].name) {
+            found = (int16_t)i;
+            break;
+        }
+    }
+    this->itemDataID = found;
+
+    if (this->itemDataID == 0) {
+        LogMessage("Invalid weapon " + name + " - no such ID");
+        return;
+    }
+
+    this->LoadInfo();
+    if (extra.GetLength() > 0) {
+        this->sub_548F3F(extra);
+    }
+}
+
+// 550B8F
+Weapon::Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) : Item() {
+    this->shape_id = shape_id;
+    this->material_id = material_id;
+    this->itemDataID = item_data_id;
+    this->field14_0x50 = 0;
+    this->LoadInfo();
+}
+
+// 550C23
+void Weapon::LoadInfo() {
+    this->range = 1;
+    this->imbued_spell = nullptr;
+
+    int32_t count = g_GameDataRes.weapons.GetSize();
+    if (this->material_id > 0x0F || this->itemDataID >= count) {
+        CString s;
+        s.Format("Invalid weapon %d %d - no such ID", (int)this->material_id, (int)this->itemDataID);
+        LogMessage(s);
+        return;
+    }
+
+    this->world_equip = &g_GameDataRes.weapons[this->itemDataID];
+    this->item_type = ItemType::WEAPON;
+    this->LoadEquipInfo(this->world_equip);
+    this->VMethod15();
+
+    const int slot = 1;
+    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
+}
+
+// 5511EE
+Weapon::Weapon(const Weapon* src) : Item(src) {
+    this->range = src->range;
+    this->hit_values = src->hit_values;
+    this->protections = src->protections;
+    if (src->imbued_spell != nullptr) {
+        this->imbued_spell = new Spell(src->imbued_spell->spell_id);
+    } else {
+        this->imbued_spell = nullptr;
+    }
 }
 
 // 551159
