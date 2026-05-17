@@ -4,6 +4,7 @@
 #include "effect.h"
 #include "game_app.h"
 #include "inventory.h"
+#include "spell.h"
 #include "table.h"
 #include "packet.h"
 #include "util.h"
@@ -963,7 +964,222 @@ void Shield::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
 }
 
 
-// IMPLEMENT_SERIAL(Weapon, Item, 1); // Runtime class definition at 637300.
+IMPLEMENT_SERIAL(Weapon, Item, 1); // Runtime class definition at 637300.
+
+// 550872
+Weapon::Weapon() {
+    this->range = 1;
+    this->imbued_spell = nullptr;
+    this->field14_0x50 = 0;
+
+    const int slot = 1;
+    this->item_id = (uint16_t)((this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID);
+}
+
+// 551159
+Weapon::~Weapon() {
+    if (this->imbued_spell != nullptr) {
+        delete this->imbued_spell;
+        this->imbued_spell = nullptr;
+    }
+}
+
+// 55929F
+void Weapon::Serialize(CArchive& ar) {
+    Item::Serialize(ar);
+    this->hit_values.Serialize(ar);
+    this->protections.Serialize(ar);
+    if (ar.IsStoring()) {
+        ar << this->range;
+        ar.WriteObject(this->imbued_spell);
+    } else {
+        ar >> this->range;
+        this->imbued_spell = (Spell*)ar.ReadObject(RUNTIME_CLASS(Spell));
+        this->world_equip = &g_GameDataRes.weapons[this->itemDataID];
+    }
+}
+
+// 551B12
+void Weapon::SetImbuedSpell(uint8_t spell_id) {
+    if (this->imbued_spell != nullptr) {
+        delete this->imbued_spell;
+    }
+    if (spell_id > spell::max_spell_id) {
+        spell_id = spell::drain_life;
+    }
+    this->imbued_spell = new Spell(spell_id);
+}
+
+// 551BDB
+void Weapon::InitImbuedSpell() {
+    Effect* effect = this->sub_548E4E();
+    if (effect != nullptr) {
+        this->SetImbuedSpell(effect->damage_min);
+    }
+}
+
+// 5512E7
+Item* Weapon::VMethod10(Unit* unit) {
+    this->InitImbuedSpell();
+
+    Item* old_weapon = nullptr;
+    if (unit->weapon != nullptr) {
+        old_weapon = unit->weapon;
+        unit->weapon->VMethod11(unit);
+    }
+
+    if (this->world_equip->values[0].suitable_for == 2 && unit->shield != nullptr) {
+        Item* tmp = unit->Unequip(unit->shield);
+        unit->inventory->PutItemIntoBagAtDefault(tmp);
+    }
+
+    unit->weapon = this;
+    int32_t attack_type = this->world_equip->values[0].attack_type;
+    if (attack_type < 10) {
+        unit->equipment_extra.hit_values.hand_damage_min += this->hit_values.hand_damage_min;
+        unit->equipment_extra.hit_values.hand_damage_spread += this->hit_values.hand_damage_spread;
+        unit->equipment_extra.protections.defense += this->protections.defense;
+        unit->equipment_extra.hit_values.some_damage2_min = this->hit_values.some_damage2_min;
+        unit->equipment_extra.hit_values.some_damage2_spread = this->hit_values.some_damage2_spread;
+        unit->equipment_extra.hit_values.spell_id = this->hit_values.spell_id;
+        unit->equipment_extra.hit_values.attack += this->hit_values.attack;
+        unit->hit_values.physical_damage_type = (uint8_t)attack_type;
+    } else {
+        if (attack_type == 11) {
+            unit->equipment_extra.hit_values.some_damage2_min += this->hit_values.hand_damage_min;
+            unit->equipment_extra.hit_values.some_damage2_spread += this->hit_values.hand_damage_spread;
+            unit->equipment_extra.hit_values.spell_id = spell::fire_arrow;
+        } else if (attack_type == 12) {
+            unit->equipment_extra.hit_values.some_damage2_min += this->hit_values.hand_damage_min;
+            unit->equipment_extra.hit_values.some_damage2_spread += this->hit_values.hand_damage_spread;
+            unit->equipment_extra.hit_values.spell_id = spell::fire_ball;
+        }
+        unit->equipment_extra.hit_values.attack = unit->hit_values.skill_levels[0];
+        unit->hit_values.physical_damage_type = 0;
+    }
+    unit->VMethod18();
+    if (unit->VMethod8() != 0) {
+        if (this->world_equip->values[0].relax != -1) {
+            unit->charge = (uint8_t)this->world_equip->values[0].relax;
+        }
+        if (this->world_equip->values[0].two_handed != -1) {
+            unit->relax = (uint8_t)this->world_equip->values[0].two_handed;
+        }
+    }
+    unit->max_range += (uint8_t)(this->range - 1);
+    unit->sub_52A790(this->weight);
+    unit->field_0x150 |= 0x34000;
+    this->ApplyEffects(unit);
+    return old_weapon;
+}
+
+// 5515B9
+void Weapon::VMethod11(Unit* unit) {
+    this->RemoveEffects(unit);
+    int32_t attack_type = this->world_equip->values[0].attack_type;
+    if (attack_type < 10) {
+        unit->equipment_extra.hit_values.hand_damage_min -= this->hit_values.hand_damage_min;
+        unit->equipment_extra.hit_values.hand_damage_spread -= this->hit_values.hand_damage_spread;
+        unit->equipment_extra.protections.defense -= this->protections.defense;
+        unit->equipment_extra.hit_values.spell_id = 0;
+        unit->equipment_extra.hit_values.some_damage2_min = 0;
+        unit->equipment_extra.hit_values.some_damage2_spread = 0;
+    } else if (attack_type == 11 || attack_type == 12) {
+        unit->equipment_extra.hit_values.some_damage2_min -= this->hit_values.hand_damage_min;
+        unit->equipment_extra.hit_values.some_damage2_spread -= this->hit_values.hand_damage_spread;
+        unit->equipment_extra.hit_values.spell_id = 0;
+    }
+    unit->equipment_extra.hit_values.attack -= this->hit_values.attack;
+    unit->hit_values.physical_damage_type = 0;
+    unit->VMethod18();
+    unit->max_range -= (uint8_t)(this->range - 1);
+    unit->charge = 8;
+    unit->relax = 4;
+    unit->sub_52A790(-this->weight);
+    unit->field_0x150 |= 0x34000;
+    if (this->imbued_spell != nullptr) {
+        delete this->imbued_spell;
+        this->imbued_spell = nullptr;
+    }
+    unit->weapon = nullptr;
+}
+
+// 5517C3
+Item* Weapon::TakeOne() {
+    this->count -= 1;
+    Weapon* copy = new Weapon(this);
+    copy->count = 1;
+    return copy;
+}
+
+// 57D710
+Item* Weapon::VMethod13() {
+    return new Weapon(this);
+}
+
+// 550FA6
+int32_t Weapon::VMethod15() {
+    double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
+    double material_price = g_GameDataRes.materials[this->material_id].data.price;
+    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+
+    int32_t total = 0;
+    POSITION pos = this->_effects.GetHeadPosition();
+    while (pos != nullptr) {
+        Effect* e = this->_effects.GetNext(pos);
+        if (e->effect_id == modifier::price) {
+            this->_exp = e->full_magic_value;
+            return this->_exp;
+        } else if (e->effect_id == modifier::castspell) {
+            this->_exp += e->VMethod15();
+        } else {
+            total += e->EffectPrice();
+        }
+    }
+    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->_exp > 19999999) {
+        this->_exp = 19999999;
+    }
+    return this->_exp;
+}
+
+// 551855
+void Weapon::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
+    pkt->AppendByteInt(1, this->_exp, slot);
+    slot[4] = 0;
+    int32_t other_param = this->world_equip->values[0].other_param;
+    if (other_param & 1) {
+        slot[4] |= 2;
+        pkt->AppendByteByte(modifier::damagemin, this->hit_values.hand_damage_min, slot);
+        pkt->AppendByteByte(modifier::damagemax, this->hit_values.hand_damage_spread, slot);
+        if (this->hit_values.attack > 0) {
+            pkt->AppendByteByte(modifier::tohit, this->hit_values.attack, slot);
+        }
+        if (this->protections.defense > 0) {
+            pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
+        }
+        if (this->range > 1) {
+            pkt->AppendByteByte(modifier::itemlore, this->range, slot); // Don't know why it uses `itemlore`. Maybe it's a reused property?
+        }
+    }
+    if (other_param & 2) {
+        slot[4] |= 4;
+    }
+    if (this->hit_values.some_damage2_spread != 0) {
+        uint8_t damage_sphere = 0;
+        switch (this->hit_values.spell_id) { // Mmm, maybe it's not `spell_id` but some kind of damage type?
+        case 1: damage_sphere = modifier::damagefire; break;
+        case 2: damage_sphere = modifier::damagewater; break;
+        case 3: damage_sphere = modifier::damageair; break;
+        case 4: damage_sphere = modifier::damageearth; break;
+        case 5: damage_sphere = modifier::damageastral; break;
+        }
+        pkt->AppendByteByte(damage_sphere, this->hit_values.some_damage2_min, slot);
+        pkt->AppendByteByte(modifier::damagemax, this->hit_values.some_damage2_spread, slot);
+    }
+    this->WriteEffects(pkt, slot);
+    slot[4] &= 0xef;
+}
 
 
 // 475988

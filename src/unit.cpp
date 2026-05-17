@@ -1736,7 +1736,7 @@ void Humanoid::VMethod18()
 
     if (hit_values.physical_damage_type != 0 && hit_values.physical_damage_type < hit_values.skill_levels.size()) {
         const uint16_t lvl = hit_values.skill_levels[hit_values.physical_damage_type];
-        hit_values.attack = static_cast<uint16_t>(hit_values.attack + lvl * 3);
+        hit_values.attack = hit_values.attack + lvl * 3;
         hit_values.hand_damage_min = static_cast<uint8_t>(hit_values.hand_damage_min + (lvl / 5));
     }
 

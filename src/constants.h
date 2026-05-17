@@ -30,6 +30,8 @@ namespace spell {
     const int shield = 27;
     const int curse = 28;
     const int slow = 29;
+
+    const int max_spell_id = slow;
 };
 
 namespace modifier {

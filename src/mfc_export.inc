@@ -743,12 +743,23 @@ externdef ?VMethod17@Shield@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             
 
 
 ; Weapon
-public ?classWeapon@Weapon@@2UCRuntimeClass@@A  ; static CRuntimeClass Weapon::classWeapon
+externdef ?classWeapon@Weapon@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Weapon::classWeapon
 
+externdef ??1Weapon@@UAE@XZ :proc                                               ; Weapon::~Weapon()
+externdef ??_GWeapon@@UAEPAXI@Z :proc                                           ; Weapon scalar deleting destructor
+externdef ?GetRuntimeClass@Weapon@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Weapon::GetRuntimeClass() const
 externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
+externdef ??0Weapon@@QAE@XZ :proc                                               ; Weapon::Weapon()
 externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
 externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)
 externdef ??0Weapon@@QAE@PBV0@@Z :proc                                         ; Weapon::Weapon(const Weapon*)
+externdef ?Serialize@Weapon@@UAEXAAVCArchive@@@Z :proc                          ; void Weapon::Serialize(CArchive&)
+externdef ?VMethod10@Weapon@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Weapon::VMethod10(Unit*)
+externdef ?VMethod11@Weapon@@UAEXPAVUnit@@@Z :proc                              ; void Weapon::VMethod11(Unit*)
+externdef ?TakeOne@Weapon@@UAEPAVItem@@XZ :proc                                 ; Item* Weapon::TakeOne()
+externdef ?VMethod13@Weapon@@UAEPAVItem@@XZ :proc                               ; Item* Weapon::VMethod13()
+externdef ?VMethod15@Weapon@@UAEHXZ :proc                                       ; int32_t Weapon::VMethod15()
+externdef ?VMethod17@Weapon@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Weapon::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Inventory
@@ -763,6 +774,7 @@ externdef ?sub_552A42@Inventory@@QAEXPAU1@@Z :proc
 
 ;Spell
 
+externdef ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Spell::classSpell
 externdef ?sub_539958@Spell@@QAEHPAVUnit@@0CC@Z :proc                          ; Spell::sub_539958(Unit*,Unit*,int8_t,int8_t)
 externdef ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
 externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)

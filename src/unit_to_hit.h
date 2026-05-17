@@ -8,7 +8,7 @@
 #include "assert_offset.h"
 
 struct UnitToHit {
-    uint16_t attack;
+    int16_t attack;
     std::array<uint16_t, 6> skill_levels;
     uint8_t hand_damage_min;
     uint8_t hand_damage_spread;

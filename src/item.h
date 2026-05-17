@@ -149,11 +149,26 @@ class Weapon : public Item {
 public:
     DECLARE_SERIAL(Weapon); // Runtime class definition at 637300.
 
+public: // VTable at 60f5b8.
+    virtual ~Weapon() override; // 551159
+    virtual void Serialize(CArchive& ar) override; // 55929F
+    virtual Item* VMethod10(Unit* unit) override; // 5512E7
+    virtual void VMethod11(Unit* unit) override; // 5515B9
+    virtual Item* TakeOne() override; // 5517C3
+    virtual Item* VMethod13() override; // 57D710
+    virtual int32_t VMethod15() override; // 550FA6
+    virtual void VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) override; // 551855
+
 public:
-    Weapon(const CString& name); // sub_550929: construct weapon from name string
-    Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // sub_550B8F
-    Weapon(const Weapon* src); // sub_5511EE: copy constructor
-    void LoadEquipInfo(WorldEquip* params); // sub_550E26
+    Weapon(); // 550872: default constructor
+    Weapon(const CString& name); // 550929: construct weapon from name string
+    Weapon(uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 550B8F
+    Weapon(const Weapon* src); // 5511EE: copy constructor
+    void LoadEquipInfo(WorldEquip* params); // 550E26
+
+private:
+    void SetImbuedSpell(uint8_t spell_id); // 551B12
+    void InitImbuedSpell(); // 551BDB
 
 public:
     uint8_t range;
