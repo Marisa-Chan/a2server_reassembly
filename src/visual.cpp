@@ -738,7 +738,13 @@ void CVisualObject::SetRect(const RECT* r)
     rect = *r;
 }
 
-
+void CVisualObject::SetRect(int32_t l, int32_t t, int32_t r, int32_t b)
+{
+    rect.left = l;
+    rect.top = t;
+    rect.right = r;
+    rect.bottom = b;
+}
 
 
 

@@ -14,8 +14,8 @@ class Spell;
 class Unit;
 class PacketUnitStateVec;
 
-extern "C" CMapWordToPtr unk_660D28;
-extern "C" CMapWordToPtr unk_660DA8;
+extern CMapWordToPtr unk_660D28;
+extern CMapWordToPtr unk_660DA8;
 
 extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data);
 void LoadItemNames(); //475988

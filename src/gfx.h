@@ -52,7 +52,6 @@ extern uint32_t g_brightnessLookupCount; //659bf0
 extern uint32_t g_isLowMemory; //660f58
 
 
-
 void GetClipRect(CRect* r); //454a0c
 void SetClipRect(CRect& r); //4549ba
 
@@ -83,6 +82,23 @@ extern void UnlockSurface1(); // 454378
 extern int32_t GetLockCountSurf2(); //4538e1
 
 
+
+struct ColorThing
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+	uint8_t __pd1;
+	int32_t field_4;
+	int32_t field_8;
+	int32_t field_c;
+	int32_t field_10;
+	int32_t __pd2;
+	double field_18;
+};
+ASSERT_SIZE(ColorThing, 0x20);
+
+extern ColorThing g_DeltaCLR; //660e28
 
 
 
@@ -121,16 +137,16 @@ class CGamePalette : public CObject
 {
 	DECLARE_DYNAMIC(CGamePalette);
 public:
-	virtual ~CGamePalette();
+	virtual ~CGamePalette(); //423c6d
 	virtual void Dump(CDumpContext& dc) const override;
 
-	CGamePalette();
+	CGamePalette() = default; // 423bdf
 	void Free();
-	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor);
-
+	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe
+	uint16_t* GetPalette(int32_t idx); //41ec40
 public:
-	uint32_t count;
-	uint16_t* colors;
+	uint32_t count = 0;
+	uint16_t* colors = nullptr;
 };
 
 ASSERT_SIZE(CGamePalette, 0xC);

@@ -108,6 +108,7 @@ struct MWin_5e8
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
     void FUN_004ac706(CFile* file);
+    void FUN_004ac7a2(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);
 
     void FUN_00420050();
@@ -132,6 +133,7 @@ struct UserShortcut
     int ToBuffer(uint8_t** buf); //41e5ed
 
     void WriteToFile(CFile* f); //41e4d3
+    void ReadFromFile(CFile* f); //41e53b
 };
 
 
@@ -307,8 +309,18 @@ public:
 
     void FUN_00491f7d(int32_t vid_id); //491f7d
 
+    void FUN_0048f79d(); //48f79d
+    int GetSaveFileInBattle(); //48de6f
+    int FUN_0048e502(int mode); //48e502
+    void FUN_00485969(); //485969
+    void FUN_0047a5e6(); //47a5e6
+    void FUN_0047efdf(); //47efdf
+    void FUN_0047e612(); //47e612
+    void FUN_0048df44(); //48df44
+
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
+    void FUN_0045cc80(void (*func)()) { field_0xc4 = func; } //45cc80
 
 public:
     int32_t field_0xbc;
@@ -324,7 +336,7 @@ public:
     CVisualObject* field_0xe4;
     VisInvType1* field_0xe8;
     VisSpellBook* field_0xec;
-    CVisualObject* field_0xf0;
+    VisGlobalMap* field_0xf0;
     VisScreen* field_0xf4;
     CVisualObject* field_0xf8;
     CVisualObject* field_0xfc;

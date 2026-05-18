@@ -21,6 +21,8 @@
 #include "resource.h"
 #include "map_stuff.h"
 #include "gfx.h"
+#include "file.h"
+
 
 
 int32_t DAT_00660f88 = 0;
@@ -294,6 +296,23 @@ void MWin_5e8::FUN_004ac706(CFile* file)
     }
     file->Write(&field_x4, 4);
     file->Write(&field_x8, 4);
+}
+
+void MWin_5e8::FUN_004ac7a2(CFile* file)
+{ // 4ac7a2
+    int32_t cnt;
+    file->Read(&cnt, 4);
+    fame2_arr.SetSize(cnt);
+
+    for (int i = 0; i < cnt; i++)
+    {
+        Fame2& fame = fame2_arr[i];
+        file->Read(&fame.field_x0, 4);
+        file->Read(&fame.field_x4, 4);
+    }
+
+    file->Read(&field_x4, 4);
+    file->Read(&field_x8, 4);
 }
 
 
@@ -1509,6 +1528,31 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         PopUpScreen(field_0x13c);
         break;
 
+    case 0x419:
+        if (field_0x418 == 1)
+            g_Server->sub_4F1E2A();
+        
+        FUN_0048cb3c();
+
+        if (field_0x418 == 0 && vis_root->FindChild(1020) != nullptr)
+        {
+            field_0xd0->FUN_0041d2da(1);
+
+            Location* cur_location = ScenarioGetCurrentLocation();
+            if (cur_location != nullptr)
+            {
+                int loc_type = cur_location->GetType();
+                if (loc_type == 1)
+                    vis_town->MsgProc(0x445, 0, 0);
+                else if (loc_type == 2)
+                    field_0x118->MsgProc(0x445, 0, 0);
+                else if (loc_type == 3)
+                    field_0x114->MsgProc(0x445, 0, 0);
+            }
+        }
+        FUN_0048f79d();
+        break;
+
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -1548,6 +1592,689 @@ void MainWindow::PopUpScreen(VisScreen* screen)
         UpdateCursorClip();
     }
 }
+
+void MainWindow::FUN_0048f79d()
+{ // 48f79d
+    g_mousept.DisableHint();
+
+    strcpy(some_struc.character_name, "Self");
+    field_0x400 = 1;
+    field_0x640 = 2;
+
+    FUN_0048ca7e(field_0x640);
+
+    g_Server->sub_4EDB83(field_0x148.buf2);
+
+    if (!field_0xd0->FUN_0040d4e2())
+        PostMessage(0x421, 0, 0);
+    else if (GetSaveFileInBattle())
+        FUN_0048e502(1);
+    else
+    {
+        field_0xd0->FUN_0041b10f();
+        g_Server->FUN_0050907e();
+
+        while (g_NetStru1_local.GetClientsPktNum())
+        {
+            field_0xd0->ProcessPackets(0x64);
+        }
+
+        FUN_0048df44();
+        field_0xd0->FUN_0041b064(0, 0);
+        PostMessage(0x42e, 0, 0);
+    }
+    g_mousept.EnableHint();
+    field_0xf0->FUN_0047024a();
+}
+
+int MainWindow::GetSaveFileInBattle()
+{ // 48de6f
+    File2 f;
+    f.Open(field_0x148.buf2, CFile::modeRead);
+    f.Seek(4, 0);
+
+    int32_t offset;
+    f.Read(&offset, 4);
+    f.Seek(offset + 0x100, 0);
+
+    RegFile reg;
+    reg.ReadFromFile(&f);
+    f.Close();
+
+    return reg.GetInt("CurrentState", "InBattle", 1);
+}
+
+int MainWindow::FUN_0048e502(int mode)
+{ // 48e502
+
+    field_0xd0->field_0x80 = nullptr;
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    if (g_SoundSettings.field_0x20 != 0)
+        music_player->OnEndTrack();
+    
+    if (field_0x640 == 3)
+    {
+        CRect r = g_ScreenSize;
+        r.bottom -= 72;
+
+        field_0xd0->msglog.SetRect(r);
+
+        LockSurface2();
+        FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+        UnlockSurface2();
+
+        g_Server->field41_0x1b0 = 1;
+
+        field_0x3d0 = new VisServerScreen(1, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, &field_0xd0->msglog);
+        PopUpScreen(field_0x3d0);
+    }
+
+    char buf[128];
+    if (field_0x640 == 2 && mode == 0)
+        sprintf(buf, "%d.alm", ScenarioGetCurrentLocation()->GetType());
+    else
+        strcpy(buf, current_map_name);
+
+    if (mode == 0 && field_0x63c != 0)
+    {
+        g_Server->field40_0x1ac = 0;
+        g_Server->sub_4F1471(buf);
+    }
+
+    if (field_0x640 != 3)
+    {
+        FUN_00485969();
+        FUN_0047a5e6();
+        FUN_0047efdf();
+        FUN_0047e612();
+
+        field_0x404 = mode;
+
+        field_0xd0->FUN_0041cad0(mode);
+        field_0xd0->FUN_0041aaaa(field_0xd0->wimpy);
+        field_0xd0->FUN_0041abd2(field_0xd0->formation);
+        field_0xd0->FUN_0041ab74();
+
+        if (field_0x63c != 0)
+            g_Server->ServerTic();
+
+        uint32_t tm = timeGetTime();
+        while (true)
+        {
+            if (field_0xd0->field_0x80)
+            {
+                field_0x404 = 0;
+                break;
+            }
+
+            MSG msg;
+            if (PeekMessageA(&msg, nullptr, 0, 0, 1))
+            {
+                if (msg.message == WM_QUIT)
+                    return 0;
+
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+
+            while (g_NetStru1_local.GetClientsPktNum() == 0)
+            {
+                if (timeGetTime() - tm > g_CmdTimeout)
+                {
+                    INT_00660f8c = 0x1005;
+                    return 0;
+                }
+                g_NetStru1_local.ProcessConnections();
+                g_mousept.Update();
+            }
+
+            if (field_0xd0->ProcessPackets(0x64) == 0)
+                return 0;
+        }
+    }
+
+    if (field_0x640 == 2 && mode != 0)
+    {
+        File2 fil;
+        fil.Open(field_0x148.buf2, CFile::modeRead);
+        fil.Seek(4, 0);
+        int32_t offset;
+        fil.Read(&offset, 4);
+        fil.Seek(offset + 0x100, 0);
+
+        RegFile reg;
+
+        reg.ReadFromFile(&fil);
+        field_0x5e8.FUN_004ac7a2(&fil);
+        ScenarioLoad(&fil);
+
+        for (int i = 0; i < 9; i++)
+            some_struc.field_0x8c[i].ReadFromFile(&fil);
+
+        fil.Close();
+
+        int inbattle = reg.GetInt("CurrentState", "InBattle", 1);
+
+        reg.GetSizedString("Character", "Name", "No name", some_struc.character_name, sizeof(some_struc.character_name));
+        some_struc.character_name[31] = 0;
+
+        field_0xd0->wimpy = reg.GetInt("GameOptions", "Wimpy", field_0xd0->wimpy);
+        field_0xd0->show_hp = reg.GetInt("GameOptions", "ShowHP", field_0xd0->show_hp);
+        field_0xd0->flying_hp = reg.GetInt("GameOptions", "FlyingHP", field_0xd0->flying_hp);
+        field_0xd0->formation = reg.GetInt("GameOptions", "Formation", field_0xd0->formation);
+        game_speed = reg.GetInt("GameOptions", "Speed", game_speed);
+        g_settings.ShowTimeFlow = reg.GetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
+        field_0xd0->view_x = reg.GetInt("View", "X", field_0xd0->view_x);
+        field_0xd0->view_y = reg.GetInt("View", "Y", field_0xd0->view_y);
+
+        if (reg.GetInt("SpellBook", "IsOpen", 0) == 0)
+        {
+            if (field_0xd0->IsBagOpen() != 0)
+                field_0xd0->FUN_0041b636();
+        }
+        else
+        {
+            if (field_0xd0->IsBagOpen() == 0)
+                field_0xd0->FUN_0041b509();
+        }
+
+        field_0xec->pressed = reg.GetInt("SpellBook", "Pressed", field_0xec->pressed);
+
+        CArray<uint16_t> sel_ids;
+        CArray<uint16_t> grp_ids;
+
+        reg.GetInt16Array("Objects", "Selection", &sel_ids);
+
+        for (int i = 0; i < sel_ids.GetSize(); i++)
+        {
+            CGameObject* obj;
+            if (field_0xd0->field_0x9d0.Lookup(sel_ids[i], obj))
+                obj->VMethod1(1);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            sprintf(buf, "Group%d", i);
+
+            grp_ids.RemoveAll();
+            reg.GetInt16Array("Objects", buf, &grp_ids);
+
+            for (int j = 0; j < grp_ids.GetSize(); j++)
+            {
+                CGameObject* obj;
+                if (field_0xd0->field_0x9d0.Lookup(grp_ids[i], obj) != 0)
+                    obj->FUN_0041f180(i);
+            }
+        }
+
+        if (reg.GetInt("Inventory", "IsOpen", 0) == 0)
+        {
+            if (field_0xd0->FUN_0041b495() != 0)
+                field_0xd0->FUN_0041b40e();
+        }
+        else
+        {
+            if (field_0xd0->FUN_0041b495() == 0)
+                field_0xd0->FUN_0041b381();
+        }
+
+        CArray<uint16_t> proj_ids;
+
+        field_0xd0->field_0xa24 = reg.GetInt("Projectiles", "FreeIndex", 0);
+        reg.GetInt16Array("Projectiles", "IDs", &proj_ids);
+
+        for (int i = 0; i < proj_ids.GetSize(); i++)
+        {
+            CProjectile* proj = new CProjectile();
+
+            sprintf(buf, "Prj%d", proj_ids[i]);
+            proj->x_pos = reg.GetInt(buf, "x", proj->x_pos);
+            proj->y_pos = reg.GetInt(buf, "y", proj->y_pos);
+            proj->z_pos = reg.GetInt(buf, "z", proj->z_pos);
+            proj->typeId = reg.GetInt(buf, "picture", proj->typeId);
+            proj->dir = reg.GetInt(buf, "dir", proj->dir);
+            proj->phase = reg.GetInt(buf, "phase", proj->phase);
+            proj->last_action = reg.GetInt(buf, "lastaction", proj->last_action);
+            proj->action = reg.GetInt(buf, "action", proj->action);
+            proj->action_dir = reg.GetInt(buf, "actiondir", proj->action_dir);
+            proj->action_target = reg.GetInt(buf, "actiontarget", proj->action_target);
+            proj->action_x = reg.GetInt(buf, "actionx", proj->action_x);
+            proj->action_y = reg.GetInt(buf, "actiony", proj->action_y);
+            proj->action_z = reg.GetInt(buf, "actionz", proj->action_z);
+            proj->action_phase = reg.GetInt(buf, "actionphase", proj->action_phase);
+            proj->action_segments = reg.GetInt(buf, "actionsegments", proj->action_segments);
+            proj->action_spell = reg.GetInt(buf, "actionspell", proj->action_spell);
+            proj->field_0xe8 = field_0xd0;
+            proj->field_0x14 = field_0xd0->my_main_unit;
+
+            proj->unit_id = proj_ids[i];
+            field_0xd0->field_0x9ec[proj->unit_id] = proj;
+            proj->FUN_0046190d();
+        }
+
+        CArray<uint32_t> fog_data;
+        if (inbattle != 0)
+        {
+            uint16_t* land = field_0xd0->field_0x80->GetLandscape();
+            uint32_t st = reg.GetInt("Fog", "FirstState", 0);
+            reg.GetInt32Array("Fog", "Data", &fog_data);
+
+            for (int i = 0; i < fog_data.GetSize(); i++)
+            {
+                for(int j = 0; j < fog_data[i]; j++)
+                {
+                    *land |= st;
+                    land++;
+                }
+                st ^= 0x8000;
+            }
+        }
+    }
+
+    field_0xd4->MsgProc(0x408, 0, 0);
+    vis_root->VMethod9();
+
+    if (field_0x640 != 3)
+    {
+        FUN_00494c91();
+        field_0x450 = -1;
+        field_0x3f8 = 0;
+        field_0x3fc = 0;
+    }
+
+    if (field_0x640 == 2)
+        SetSpeed(game_speed);
+    else
+        SetSpeed(g_ServerConfig.game_speed);
+
+    if (field_0x640 == 2)
+    {
+        sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetType());
+        ReadFileToString(buf, &g_MissionText);
+        MissionGetBriefing(&g_MissionBriefing);
+
+        g_MissionFailures.RemoveAll();
+
+        CString tmp;
+        for (int i = 2; ; i++)
+        {
+            MissionGetFailure(i, &tmp);
+            if (tmp.IsEmpty())
+            {
+                if (i > 4)
+                    break;
+
+                tmp = txt_main.GetLine(0x118 + i);
+            }
+            g_MissionFailures.Add(tmp);
+        }
+
+        g_MissionSubjs.RemoveAll();
+        for (int i = 0; ; i++)
+        {
+            MissionGetSubj(i, &tmp);
+            if (tmp.IsEmpty())
+                break;
+            g_MissionSubjs.Add(tmp);
+        }
+
+        if (mode == 0)
+            PostMessage(0x442, 0, 0);
+    }
+    else
+    {
+        ReadFileToString("main\\text\\quest.txt", &g_MissionText);
+    }
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+    return 1;
+}
+
+void MainWindow::FUN_00485969()
+{ // 485969
+    field_0xd4->RemoveAllChilds();
+    field_0xd4->AddChild(field_0xd8);
+    field_0xd4->AddChild(field_0xdc);
+    field_0xd4->AddChild(field_0xe0);
+    field_0xd4->AddChild(field_0xe4);
+
+    vis_root->RemoveAllChilds();
+    field_0xd0->msglog.Clear();
+    vis_root->AddChild(field_0xd0);
+    vis_root->AddChild(field_0xd4);
+
+    field_0x418 = 1;
+}
+
+void MainWindow::FUN_0047a5e6()
+{  // 47a5e6
+    RegFile reg("graphics\\objects\\objects.reg");
+    int count = reg.GetInt("Global", "FileCount", 0);
+    int obj_count = reg.GetInt("Global", "ObjectCount", 0);
+
+    for (int i = 0; i < count; i++)
+    {
+        char buf[32];
+        sprintf(buf, "File%d", i);
+
+        char flname[256];
+        reg.GetSizedString("Files", buf, "", flname, sizeof(flname));
+
+        g_GfxFiles.Add(new GfxFile(flname));
+    }
+    
+    char buf[64];
+    char parnt[64];
+    for (int i = 0; i < obj_count; i++)
+    {
+        g_mousept.Update();
+        
+        sprintf(buf, "Object%d", i);
+
+        GfxObject* obj = new GfxObject();
+
+        obj->id = reg.GetInt(buf, "ID", -1);
+        obj->sn = i;
+
+        int parentID = reg.GetInt(buf, "Parent", -1);
+        if (parentID != -1)
+            sprintf(parnt, "Object%d", g_GfxObjects[parentID]->sn);
+
+        obj->file = reg.GetInt(buf, "File", -1);
+
+        if (parentID == -1)
+            obj->index = reg.GetInt(buf, "Index", -1);
+        else
+            obj->index = reg.GetInt(buf, "Index", g_GfxObjects[parentID]->index);
+
+        if (parentID == -1)
+            obj->phases = reg.GetInt(buf, "Phases", -1);
+        else
+            obj->phases = reg.GetInt(buf, "Phases", g_GfxObjects[parentID]->phases);
+
+        if (parentID == -1)
+            obj->width = reg.GetInt(buf, "Width", -1);
+        else
+            obj->width = reg.GetInt(buf, "Width", g_GfxObjects[parentID]->width);
+
+        if (parentID == -1)
+            obj->height = reg.GetInt(buf, "Height", -1);
+        else
+            obj->height = reg.GetInt(buf, "Height", g_GfxObjects[parentID]->height);
+
+        if (parentID == -1)
+            obj->center_x = reg.GetInt(buf, "CenterX", -1);
+        else
+            obj->center_x = reg.GetInt(buf, "CenterX", g_GfxObjects[parentID]->center_x);
+
+        if (parentID == -1)
+            obj->center_y = reg.GetInt(buf, "CenterY", -1);
+        else
+            obj->center_y = reg.GetInt(buf, "CenterY", g_GfxObjects[parentID]->center_y);
+
+        if (parentID == -1)
+            obj->fire_object = reg.GetInt(buf, "FireObject", -1);
+        else
+            obj->fire_object = reg.GetInt(buf, "FireObject", g_GfxObjects[parentID]->fire_object);
+
+        if (parentID == -1)
+            obj->dead_object = reg.GetInt(buf, "DeadObject", -1);
+        else
+            obj->dead_object = reg.GetInt(buf, "DeadObject", g_GfxObjects[parentID]->dead_object);
+
+        obj->in_map_editor = reg.GetInt(buf, "InMapEditor", 0);
+
+        memset(obj->desc_text, 0, 32);
+
+        reg.GetSizedString(buf, "DescText", " ", obj->desc_text, 31);
+
+        CArray<uint32_t> animationTime;
+        CArray<uint32_t> animationFrame;
+
+        reg.GetInt32Array(buf, "AnimationTime", &animationTime);
+        if (parentID != -1)
+        {
+            if (animationTime.GetSize() == 0)
+                reg.GetInt32Array(parnt, "AnimationTime", &animationTime);
+        }
+
+        reg.GetInt32Array(buf, "AnimationFrame", &animationFrame);
+        if (parentID != -1)
+        {
+            if (animationFrame.GetSize() == 0)
+                reg.GetInt32Array(parnt, "AnimationFrame", &animationFrame);
+        }
+
+        for (int j = 0; j < animationTime.GetSize() && j < animationFrame.GetSize(); j++)
+        {
+            for (int frm = 0; frm < animationTime[j]; frm++)
+                obj->frames.Add(animationFrame[j]);
+        }
+
+        obj->frame_count = obj->frames.GetSize();
+        
+        g_GfxObjects.Add(obj);
+    }
+}
+
+void MainWindow::FUN_0047efdf()
+{ //47efdf
+    RegFile reg("graphics\\structures\\structures.reg");
+
+    char buf[64];
+    char fil[256];
+
+    int count = reg.GetInt("Global", "Count", 0);
+    for (int i = 0; i < count; i++)
+    {
+        g_mousept.Update();
+
+        sprintf(buf, "Structure%d", i);
+
+        reg.GetSizedString(buf, "File", "", fil, sizeof(fil));
+
+        StructureInfo* bld = new StructureInfo(fil);
+
+        bld->id = reg.GetInt(buf, "ID", -1);
+        bld->tile_width = reg.GetInt(buf, "TileWidth", -1);
+        bld->tile_height = reg.GetInt(buf, "TileHeight", -1);
+        bld->full_height = reg.GetInt(buf, "FullHeight", -1);
+        bld->phases = reg.GetInt(buf, "Phases", -1);
+        bld->selection.left = reg.GetInt(buf, "SelectionX1", -1);
+        bld->selection.top = reg.GetInt(buf, "SelectionY1", -1);
+        bld->selection.right = reg.GetInt(buf, "SelectionX2", -1);
+        bld->selection.bottom = reg.GetInt(buf, "SelectionY2", -1);
+        bld->shadow_y = reg.GetInt(buf, "ShadowY", 0);
+        bld->anim_mask = nullptr;
+        bld->frame_count = 0;
+        bld->field_0x38 = 0;
+
+        reg.GetSizedString(buf, "Picture", "", bld->picture, sizeof(bld->picture));
+
+        bld->indestructible = reg.GetInt(buf, "Indestructible", 0);
+
+        reg.GetSizedString(buf, "DescText", "", bld->desc_text, sizeof(bld->desc_text));
+
+        bld->variable_size = reg.GetInt(buf, "VariableSize", 0);
+        bld->usable = reg.GetInt(buf, "Usable", 0);
+        bld->light_radius = reg.GetInt(buf, "LightRadius", 0);
+        bld->light_pulse = reg.GetInt(buf, "LightPulse", 0);
+        bld->flat = reg.GetInt(buf, "Flat", 0);
+
+        if (bld->phases > 1)
+        {
+            CArray<uint32_t> anim_time;
+            CArray<uint32_t> anim_frame;
+            reg.GetInt32Array(buf, "AnimTime", &anim_time);
+            reg.GetInt32Array(buf, "AnimFrame", &anim_frame);
+
+            for(int j = 0; j < anim_time.GetSize() && j < anim_frame.GetSize(); j++)
+            {
+                for (int frm = 0; frm < anim_time[j]; frm++)
+                    bld->frames.Add(anim_frame[j]);
+            }
+
+            bld->frame_count = bld->frames.GetSize();
+
+            bld->anim_mask = new char[1 + bld->tile_width * bld->full_height];
+            reg.GetSizedString(buf, "AnimMask", "", bld->anim_mask, bld->tile_width * bld->full_height + 1);
+
+            int sz = strlen(bld->anim_mask);
+            for (int j = 0; j < sz; j++)
+            {
+                if (bld->anim_mask[j] != '-')
+                    bld->field_0x38++;
+            }
+        }
+        g_StructuresInfo.SetAtGrow(bld->id, bld);
+    }
+}
+
+void MainWindow::FUN_0047e612()
+{ //47e612
+
+    RegFile reg("graphics\\projectiles\\projectiles.reg");
+    int count = reg.GetInt("Global", "Count", 0);
+
+    for (int i = 0; i < count; i++)
+    {
+        g_mousept.Update();
+
+        char buf[256];
+        sprintf(buf, "Projectile%d", i);
+
+        char fil[256];
+        reg.GetSizedString(buf, "File", "", fil, sizeof(fil));
+
+        ProjectileInfo* proj = new ProjectileInfo(fil, reg.GetInt(buf, "A16", 0));
+
+        proj->id = reg.GetInt(buf, "ID", -1);
+        proj->phases = reg.GetInt(buf, "Phases", -1);
+        proj->rotation_phases = reg.GetInt(buf, "RotationPhases", 0x10);
+        proj->width = reg.GetInt(buf, "Width", 0x40);
+        proj->height = reg.GetInt(buf, "Height", 0x40);
+        proj->palette = reg.GetInt(buf, "Palette", 0);
+        proj->homing = reg.GetInt(buf, "Homing", 0);
+        proj->flip = reg.GetInt(buf, "Flip", 0);
+        proj->sfx = reg.GetInt(buf, "SFX", 0);
+
+        g_ProjectileInfos.SetAtGrow(proj->id, proj);
+    }
+
+    File2 fl;
+    
+    fl.Open("graphics\\projectiles\\projectiles.pal", CFile::modeRead);
+    fl.Seek(0x36, 0);
+
+    RGBQUAD colors[256];
+    fl.Read(colors, sizeof(colors));
+
+    g_pal_projectiles = new CGamePalette();
+    g_pal_projectiles->SetPalette(colors, 16, 2, 0);
+    fl.Close();
+
+    fl.Open("graphics\\projectiles\\projectile_.pal", CFile::modeRead);
+    fl.Seek(0x36, 0);
+    fl.Read(colors, sizeof(colors));
+
+    g_pal_projectile_ = new CGamePalette();
+    g_pal_projectile_->SetPalette(colors, 16, 2, 0);
+    fl.Close();
+
+    for (int i = 0; i < 2; i++)
+    {
+        char sbuf[128];
+        sprintf(sbuf, "graphics\\projectiles\\smoke%d\\sprites.16a", i);
+
+        g_spr_smoke[i] = new CA16(sbuf);
+        g_spr_smoke[i]->ResetPalette(16, 4, 0);
+    }
+}
+
+
+void MainWindow::FUN_0048df44()
+{ //48df44
+    File2 fil;
+
+    fil.Open(field_0x148.buf2, CFile::modeRead);
+    fil.Seek(4, 0);
+
+    int32_t offset;
+    fil.Read(&offset, 4);
+    fil.Seek(offset + 0x100, 0);
+
+    RegFile reg;
+
+    reg.ReadFromFile(&fil);
+
+    field_0x5e8.FUN_004ac7a2(&fil);
+
+    ScenarioLoad(&fil);
+
+    for (int i = 0; i < 9; i++)
+        some_struc.field_0x8c[i].ReadFromFile(&fil);
+
+    fil.Close();
+
+    int local_128 = reg.GetInt("CurrentState", "InBattle", 1);
+
+    reg.GetSizedString("Character", "Name", "No name", some_struc.character_name, sizeof(some_struc.character_name));
+    some_struc.character_name[31] = 0;
+
+    field_0xd0->wimpy = reg.GetInt("GameOptions", "Wimpy", field_0xd0->wimpy);
+    field_0xd0->show_hp = reg.GetInt("GameOptions", "ShowHP", field_0xd0->show_hp);
+    field_0xd0->flying_hp = reg.GetInt("GameOptions", "FlyingHP", field_0xd0->flying_hp);
+    field_0xd0->formation = reg.GetInt("GameOptions", "Formation", field_0xd0->formation);
+
+    game_speed = reg.GetInt("GameOptions", "Speed", game_speed);
+    g_settings.ShowTimeFlow = reg.GetInt("GameOptions", "ShowTimeFlow", g_settings.ShowTimeFlow);
+
+    field_0xd0->view_x = reg.GetInt("View", "X", field_0xd0->view_x);
+    field_0xd0->view_y = reg.GetInt("View", "Y", field_0xd0->view_y);
+
+    reg.GetInt("SpellBook", "IsOpen", 0);
+
+    field_0xec->pressed = reg.GetInt("SpellBook", "Pressed", field_0xec->pressed);
+
+    CArray<uint16_t> sel_objs;
+    CArray<uint16_t> grp_objs;
+
+    reg.GetInt16Array("Objects", "Selection", &sel_objs);
+
+    for (int i = 0; i < sel_objs.GetSize(); i++)
+    {
+        CGameObject* obj = nullptr;
+        if (field_0xd0->field_0x9d0.Lookup(sel_objs[i], obj) && obj)
+            obj->VMethod1(1);
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        char buf[256];
+        sprintf(buf, "Group%d", i);
+        
+        grp_objs.RemoveAll();
+        reg.GetInt16Array("Objects", buf, &grp_objs);
+
+        for(int j = 0; j < grp_objs.GetSize(); j++)
+        {
+            CGameObject* obj = nullptr;
+            if (field_0xd0->field_0x9d0.Lookup(grp_objs[j], obj))
+                obj->FUN_0041f180(i);
+        }
+    }
+
+    field_0xd0->FUN_00416cf7();
+
+    field_0x450 = -1;
+    field_0x3f8 = 0;
+    field_0x3fc = 0;
+
+    SetSpeed(game_speed);
+}
+
+
 
 
 
@@ -1773,6 +2500,28 @@ void UserShortcut::WriteToFile(CFile* f)
     f->Write(&mods_size, 4);
     if (mods_size != 0)
         f->Write(mods, mods_size);
+}
+
+void UserShortcut::ReadFromFile(CFile* f)
+{ //41e53b
+    if (mods_size != 0)
+    {
+        if (mods) 
+            free(mods);
+
+        mods = nullptr;
+        mods_size = 0;
+    }
+
+    f->Read(&kind, 2);
+    f->Read(&item_id, 2);
+    f->Read(&mods_size, 4);
+
+    if (mods_size != 0)
+    {
+        mods = (uint8_t *)malloc(mods_size);
+        f->Read(mods, mods_size);
+    }
 }
 
 

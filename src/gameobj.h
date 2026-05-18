@@ -10,9 +10,6 @@ class BigStruct2;
 class CGameBitmap;
 class CSprite256;
 class Unit;
-class ProjectileInfo;
-
-extern CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
 
 
 class GO_d0 : public CObject
@@ -21,9 +18,9 @@ public:
 
 	int32_t FUN_0041f0d0();
 
-	virtual ~GO_d0();
+	virtual ~GO_d0(); //4394bf
 
-	GO_d0();
+	GO_d0(); //438f90
 	GO_d0(int arg); //439009
 	GO_d0(const GO_d0* obj);
 	GO_d0(uint8_t** data, int arg);
@@ -66,6 +63,7 @@ public:
 
 	virtual ~CGameObject();
 
+	virtual void AssertValid() const override;
 	virtual void Dump(CDumpContext& dc) const override;
 
 	virtual void VMethod1(int32_t arg1);
@@ -94,6 +92,7 @@ public:
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
 	int32_t FUN_00462405(int32_t effect_id);
+	void FUN_0041f180(int32_t grp); //41f180
 public:
 	uint16_t unit_id;
 	uint8_t __pad[2];
@@ -307,27 +306,6 @@ ASSERT_SIZE(CProjectile, 0x158);
 
 
 
-class ProjectileInfo : public CObject
-{
-public:
-	virtual ~ProjectileInfo();
-public:
-	CSprite256* sprite1;
-	CSprite256* sprite2;
-	CString filename;
-	int32_t phases;
-	int32_t id;
-	int32_t rotation_phases;
-	int32_t width;
-	int32_t height;
-	int32_t sfx;
-	int32_t palette;
-	int32_t homing;
-	int32_t flip;
-	int32_t spr_8bit;
-	int32_t loaded;
-};
-ASSERT_SIZE(ProjectileInfo, 0x3c);
 
 
 #endif

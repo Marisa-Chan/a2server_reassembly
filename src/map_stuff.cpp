@@ -4,6 +4,11 @@
 #include "unit.h"
 #include "world.h"
 
+CString g_MissionText; //660f2c
+CString g_MissionBriefing; //660de8
+CStringArray g_MissionFailures; //660f18
+CStringArray g_MissionSubjs; //660ea8
+
 // 58FE6D
 int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->sub_58bec3();
@@ -184,4 +189,122 @@ int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
         return unit->speed;
     }
     return 0;
+}
+
+
+void __cdecl MissionGetBriefing(CString* out)
+{ //4e13db
+    out->Empty();
+    int pos = g_MissionText.Find("#briefing");
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + 11);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
+}
+
+void __cdecl MissionGetFailure(int32_t idx, CString* out)
+{ //4e14a4
+    out->Empty();
+
+    CString str;
+    str.Format("#failure%d", idx);
+
+    int pos = g_MissionText.Find(str);
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
+}
+
+void __cdecl MissionGetTips(int32_t idx, CString* out)
+{ //4e159b
+    out->Empty();
+
+    CString str;
+    str.Format("#tips%d", idx);
+
+    int pos = g_MissionText.Find(str);
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
+}
+
+void __cdecl MissionGetSubj(int32_t idx, CString* out)
+{ //4e16ce
+    out->Empty();
+
+    CString str;
+    str.Format("#subobjective%d", idx);
+
+    int pos = g_MissionText.Find(str);
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
+}
+
+void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out)
+{ //4e17e3
+    out->Empty();
+
+    CString str;
+    if (t == 1)
+        str.Format("#title%d", idx);
+    else
+        str.Format("#town%d", idx);
+
+    int pos = g_MissionText.Find(str);
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
+}
+
+
+void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out)
+{ //4e1915
+    out->Empty();
+
+    CString str;
+    if (t == 1)
+        str.Format("#briefing%d", idx);
+    else
+        str.Format("#description%d", idx);
+
+    int pos = g_MissionText.Find(str);
+    if (pos != -1)
+    {
+        CString txt = g_MissionText.Mid(pos + str.GetLength() + 2);
+        pos = txt.Find('#');
+        if (pos == -1)
+            pos = txt.GetLength();
+
+        *out = txt.Left(pos);
+    }
 }

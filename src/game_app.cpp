@@ -596,8 +596,8 @@ BOOL GameApp::InitInstance()
 		return FALSE;
 	}
 
-	ScenarioGetVar = (int32_t(__cdecl*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)1);
-	ScenarioSetVar = (void(__cdecl*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
+	ScenarioGetVar = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)1);
+	ScenarioSetVar = (void(__stdcall*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
 	ScenarioTalkTo = GetProcAddress(g_scenario_dll, (LPCSTR)3);
 	ScenarioEnterLocation = GetProcAddress(g_scenario_dll, (LPCSTR)5);
 	ScenarioLeaveLocation = GetProcAddress(g_scenario_dll, (LPCSTR)6);
@@ -606,13 +606,13 @@ BOOL GameApp::InitInstance()
 	ScenarioEnterInn = GetProcAddress(g_scenario_dll, (LPCSTR)9);
 	ScenarioLeaveInn = GetProcAddress(g_scenario_dll, (LPCSTR)10);
 	ScenarioNewGame = GetProcAddress(g_scenario_dll, (LPCSTR)11);
-	ScenarioSave = (void(__cdecl*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
-	ScenarioLoad = GetProcAddress(g_scenario_dll, (LPCSTR)13);
+	ScenarioSave = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
+	ScenarioLoad = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)13);
 	ScenarioGetAvailableLocations = GetProcAddress(g_scenario_dll, (LPCSTR)14);
 	ScenarioGetShopAssortment = GetProcAddress(g_scenario_dll, (LPCSTR)15);
 	ScenarioIsTownAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)16);
 	ScenarioIsMissionAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)17);
-	ScenarioGetCurrentLocation = GetProcAddress(g_scenario_dll, (LPCSTR)18);
+	ScenarioGetCurrentLocation = (Location * (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)18);
 	ScenarioGetAllLocations = GetProcAddress(g_scenario_dll, (LPCSTR)19);
 
 	mwnd->field_0x45c = 0;

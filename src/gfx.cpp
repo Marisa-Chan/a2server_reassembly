@@ -39,6 +39,11 @@ int32_t g_MessageColors; //660f80
 uint16_t* g_brightnessLookup = nullptr; //65dd20
 uint32_t g_brightnessLookupCount = 0; //659bf0
 
+ColorThing g_DeltaCLR; //660e28
+
+
+
+
 
 
 //454a0c
@@ -392,24 +397,27 @@ int32_t CGameFont::GetStrWidth(const char* str)
 	for (int i = 0; i < ln; i++)
 	{
 		char c = str[i];
-		if (c == '~')
+		if ((uint8_t)c >= ' ') // 0x20
 		{
-			if ((i != ln - 1) && str[i + 1] == '~')
+			if (c == '~')
 			{
-				i++;
+				if ((i != ln - 1) && str[i + 1] == '~')
+				{
+					i++;
 
-				uint8_t n = DecodeChar('~') - 0x20;
+					uint8_t n = DecodeChar('~') - 0x20;
+					wi += char_widths[n] + space;
+					if (n == 0)
+						wi += bitmap->GetHeight(0) / 2;
+				}
+			}
+			else
+			{
+				uint8_t n = DecodeChar(c) - 0x20;
 				wi += char_widths[n] + space;
 				if (n == 0)
 					wi += bitmap->GetHeight(0) / 2;
 			}
-		}
-		else
-		{
-			uint8_t n = DecodeChar(c) - 0x20;
-			wi += char_widths[n] + space;
-			if (n == 0)
-				wi += bitmap->GetHeight(0) / 2;
 		}
 	}
 
@@ -544,4 +552,196 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
 		out.Append(spl);
 	}
 	return out;
+}
+
+
+
+
+IMPLEMENT_DYNAMIC(CGamePalette, CObject);
+
+
+CGamePalette::~CGamePalette()
+{ //423c6d
+	Free();
+}
+
+void CGamePalette::Dump(CDumpContext& dc) const
+{ //4245a7
+	//dc << "CGamePalette";
+}
+
+void CGamePalette::Free()
+{ //42457a
+	if (colors)
+		delete[] colors;
+
+	colors = nullptr;
+
+	count = 0;
+}
+
+void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor)
+{ //423cbe
+	count = _count;
+	colors = new uint16_t[256 * count];
+
+	uint32_t dg = g_DeltaCLR.g;
+	uint32_t db = g_DeltaCLR.b;
+	uint32_t dr = g_DeltaCLR.r;
+
+	if (useColor == 0)
+	{
+		db = 0;
+		dg = 0;
+		dr = 0;
+	}
+
+	uint16_t* clrs = colors;
+
+	switch (mode)
+	{
+	case 0:
+		colors[0] = 0;
+		for (int i = 1; i < 256; i++)
+			colors[i] = 0xffff;
+		break;
+
+	case 1:
+		for (int i = 0; i < 256; i++)
+		{
+			uint32_t r = rgb[i].rgbRed + dr;
+
+			if (dr > 255)
+				dr = 255;
+
+			uint32_t g = rgb[i].rgbGreen + dg;
+			
+			if (dg > 255)
+				dg = 255;
+
+			uint32_t b = rgb[i].rgbBlue + db;
+			
+			if (db > 255)
+				db = 255;
+
+			colors[i] = GetColorRGB(r, g, b);
+		}
+		break;
+
+	case 2:
+		for (int j = count; j > 0; j--)
+		{
+			for (int i = 0; i < 256; i++)
+			{
+				int r = (rgb[i].rgbRed + dr) * j * 2 / count;
+				if (r < 0)
+					r = 0;
+				else if (r > 255)
+					r = 255;
+
+				int g = (rgb[i].rgbGreen + dg) * j * 2 / count;
+				if (g < 0)
+					g = 0;
+				else if (g > 255)
+					g = 255;
+
+				int b = (rgb[i].rgbBlue + db) * j * 2 / count;
+				if (b < 0)
+					b = 0;
+				else if (b > 255)
+					b = 255;
+
+				clrs[i] = GetColorRGB(r, g, b);
+			}
+			clrs += 256;
+		}
+		break;
+
+	case 3:
+		for (int j = count; j > 0; j--)
+		{
+			for (int i = 0; i < 256; i++)
+			{
+				int r = (rgb[i].rgbRed + dr) * j / 32;
+				if (r < 0)
+					r = 0;
+				else if (r > 255)
+					r = 255;
+
+				int g = (rgb[i].rgbGreen + dg) * j / 32;
+				if (g < 0)
+					g = 0;
+				else if (g > 255)
+					g = 255;
+
+				int b = (rgb[i].rgbBlue + db) * j / 32;
+				if (b < 0)
+					b = 0;
+				else if (b > 255)
+					b = 255;
+
+				clrs[i] = GetColorRGB(r, g, b);
+			}
+			clrs += 256;
+		}
+		break;
+
+	case 4:
+		for (int j = 1; j < 17; j++)
+		{
+			for (int i = 0; i < 256; i++)
+			{
+				int r, g, b;
+				if (g_isLowMemory == 0)
+				{
+					r = rgb[i].rgbRed * j / 16;
+					g = rgb[i].rgbGreen * j / 16;
+					b = rgb[i].rgbBlue * j / 16;
+				}
+				else
+				{
+					r = rgb[i].rgbRed * j / 18;
+					g = rgb[i].rgbGreen * j / 18;
+					b = rgb[i].rgbBlue * j / 18;
+				}
+				if (r < 0)
+					r = 0;
+				else if (r > 255)
+					r = 255;
+
+				if (g < 0)
+					g = 0;
+				else if (g > 255)
+					g = 255;
+
+				if (b < 0)
+					b = 0;
+				else if (b > 255)
+					b = 255;
+					
+				clrs[i] = GetColorRGB(r, g, b);
+			}
+			clrs += 256;
+		}
+		break;
+
+	case 5:
+		for (int j = count; j> 0; j--)
+		{
+			for (int i = 0; i < 256; i++)
+			{
+				int v = ((rgb[i].rgbRed + rgb[i].rgbGreen + rgb[i].rgbBlue) * j * 2) / 3 / count;
+				if (v > 255)
+					v = 255;
+
+				clrs[i] = GetColorRGB(v, v, v);
+			}
+			clrs += 256;
+		}
+	}
+}
+
+uint16_t* CGamePalette::GetPalette(int32_t idx)
+{ //41ec40
+	return colors + 256 * idx; 
 }

@@ -29,6 +29,16 @@ uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 int INT_6362e8[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
 int INT_636328[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
 
+CArray<GfxFile*> g_GfxFiles; //661100
+CArray<GfxObject*> g_GfxObjects; //665330
+CArray<StructureInfo*> g_StructuresInfo; //661098
+CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
+
+CGamePalette* g_pal_projectiles; //665490
+CGamePalette* g_pal_projectile_; //665494
+
+CA16* g_spr_smoke[2]; //6610f8
+
 extern CUnit g_CUnitStatic; //642a48
 extern CStringArray DAT_00666a00; //666a00
 
@@ -289,7 +299,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			return 0;
 		}
 
-		printf("Client receive packet 0x%x\n", pkt->id);
+		//printf("Client receive packet 0x%x\n", pkt->id);
 
 		switch (pkt->id)
 		{
@@ -2978,5 +2988,323 @@ void BigStruct2::FUN_0041a735()
 	pkt->to_player_id = 0;
 	memcpy(pkt->buf, my_main_unit->diplomacy.GetData(), my_main_unit->diplomacy.GetSize() * 2);
 	pkt->count = my_main_unit->diplomacy.GetSize();
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+
+GfxFile::GfxFile(const char* _fname)
+{ //47ae53
+	spr = nullptr;
+	spr_b = nullptr;
+	fname = CString("graphics\\objects\\") + _fname;
+	inited = 0;
+}
+
+GfxFile::~GfxFile()
+{ //47aed9
+	Deinit();
+}
+
+void GfxFile::Init()
+{ // 47af39
+	spr = new CSprite256(fname + ".256");
+	spr_b = new CSprite256(fname + "b.256");
+	spr->ResetPalette(0x10, 2, 1);
+	inited = 1;
+}
+
+void GfxFile::Deinit()
+{ //47b0ab
+	if (inited)
+	{
+		if (spr)
+		{
+			delete spr;
+			spr = nullptr;
+		}
+		if (spr_b)
+		{
+			delete spr_b;
+			spr_b = nullptr;
+		}
+		inited = 0;
+	}
+}
+
+
+
+
+StructureInfo::StructureInfo(const char* _fname)
+{ //47eca2
+	inited = 0;
+	fname = CString("graphics\\structures\\") + _fname;
+}
+
+
+StructureInfo::~StructureInfo()
+{ //47ed4e
+	Deinit();
+	if (anim_mask)
+	{
+		delete[] anim_mask;
+		anim_mask = nullptr;
+	}
+}
+
+
+void StructureInfo::Init()
+{ //47edd8
+	spr = new CSprite256(fname + ".256");
+	spr_b = new CSprite256(fname + "b.256");
+	spr->ResetPalette(0x10, 2, 1);
+	inited = 1;
+}
+
+
+void StructureInfo::Deinit()
+{ //47ef52
+	if (inited)
+	{
+		if (spr)
+		{
+			delete spr;
+			spr = nullptr;
+		}
+		if (spr_b)
+		{
+			delete spr_b;
+			spr_b = nullptr;
+		}
+		inited = 0;
+	}
+}
+
+
+ProjectileInfo::ProjectileInfo(const char* fname, int32_t _a16)
+{ //47e1ec
+	a16 = _a16;
+	filename = fname;
+	inited = 0;
+}
+
+ProjectileInfo::~ProjectileInfo()
+{ //47e50b
+	Deinit();
+}
+
+
+void ProjectileInfo::Init()
+{ //47e26b
+	if (inited)
+		return;
+
+	CString str = CString("graphics\\projectiles\\") + filename;
+	if (a16)
+	{
+		sprite1 = new CA16(str + ".16a");
+		sprite2 = nullptr;
+	}
+	else
+	{
+		sprite1 = new CSprite256(str + ".256");
+		sprite2 = new CSprite256(str + "b.256");
+	}
+
+	if (palette)
+	{
+		if (a16)
+			sprite1->ResetPalette(16, 4, 0);
+		else
+		{
+			sprite1->ResetPalette(16, 2, 1);
+			sprite2->ResetPalette(16, 2, 1);
+		}
+	}
+
+	inited = 1;
+}
+
+void ProjectileInfo::Deinit()
+{ //47e56b
+	if (!inited)
+		return;
+
+	if (sprite1)
+	{
+		delete sprite1;
+		sprite1 = nullptr;
+	}
+
+	if (sprite2)
+	{
+		delete sprite2;
+		sprite2 = nullptr;
+	}
+
+	inited = 0;
+}
+
+
+void BigStruct2::FUN_0041cad0(int32_t m)
+{ //41cad0
+	PacketInfo *pkt = &PacketInfo::Inst;
+	pkt->id = 4;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = m;
+	
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041aaaa(int32_t wim)
+{ //41aaaa
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x46;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = 1;
+	pkt->field_0xe = wim;
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041abd2(int32_t form)
+{ // 41abd2
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x46;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = 2;
+	pkt->field_0xe = form;
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041ab74()
+{ //41ab74
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x46;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = 3;
+	pkt->field_0xe = g_settings.AutoCasting;
+
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+
+void BigStruct2::FUN_0041b6e0()
+{ //41b6e0
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	int32_t btm = rect.bottom & (~0x1f);
+	CVisualObject* obj2 = FindChild(2);
+	CVisualObject* obj3 = FindChild(3);
+
+	if (obj2)
+		btm = obj2->GetRect().top;
+
+	if (obj3)
+		btm = obj3->GetRect().top;
+
+	btm = ((btm - 1) & (~0x1f)) + 0x20;
+	field_0x68 = btm / 32;
+	
+	int32_t vy = FUN_0041f6b0();
+	if (vy < view_y)
+		view_y = vy;
+
+	if (CVisualObject::FindChild(1200))
+		mwnd->field_0x138->FUN_0043be9f();
+
+	field_0x74 = 1;
+}
+
+void BigStruct2::FUN_0041b636()
+{ //41b636
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if ((mwnd->field_0x418 & 2) == 0)
+		RemoveChild(mwnd->field_0xec);
+	else
+		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->field_0xec);
+
+	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+
+	mwnd->field_0xd4->MsgProc(0x408, 0, 0);
+
+	FUN_0041b6e0();
+}
+
+
+void BigStruct2::FUN_0041b509()
+{ // 41b509
+
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if (FUN_0041b495() == 0)
+		mwnd->field_0xec->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+	else
+		mwnd->field_0xec->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+
+	if ((mwnd->field_0x418 & 2) == 0)
+		AddChild(mwnd->field_0xec);
+	else
+	{
+		mwnd->field_0xec->SetRect(0, 305, 480, 390);
+		mwnd->vis_root->FindChild(1000)->AddChild(mwnd->field_0xec);
+	}
+
+	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+
+	mwnd->field_0xd4->MsgProc(0x408, 0, 0);
+
+	FUN_0041b6e0();
+}
+
+void BigStruct2::FUN_0041b40e()
+{ //41b40e
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if (IsBookOpen())
+		mwnd->field_0xec->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+
+	RemoveChild(mwnd->field_0xe8);
+
+	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+
+	FUN_0041b6e0();
+}
+
+void BigStruct2::FUN_0041b381()
+{ // 41b381
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if (IsBookOpen())
+		mwnd->field_0xec->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+	
+	AddChild(mwnd->field_0xe8);
+
+	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+	FUN_0041b6e0();
+}
+
+void BigStruct2::FUN_0041b10f()
+{
+	Packet* pkt = &Packet::Inst;
+	pkt->id = 0x4a;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
+void BigStruct2::FUN_0041b064(int32_t arg1, int32_t arg2)
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x3f;
+	pkt->field_0xa = arg1;
+	pkt->field_0xe = arg2;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }

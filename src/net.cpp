@@ -1050,7 +1050,7 @@ void NetStru1::QueuePacketSend(Packet* pkt)
     //5186cd
 
     //uint32_t stime = GetTickCount();
-    printf("Send packet 0x%x\n", pkt->id);
+    //printf("Send packet 0x%x\n", pkt->id);
     if (pkt->to_player_id == 0)
     {
         for (POSITION it = active_connects.GetHeadPosition(); it != nullptr;)

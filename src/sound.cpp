@@ -1,4 +1,5 @@
 #include "sound.h"
+#include "main_window.h"
 
 IDirectSound* g_dsound = nullptr; //65dd84
 int32_t g_dsound_channel_num = 0; //65ddd8
@@ -79,4 +80,41 @@ int MusicPlayer::GetState()
 		return 2;
 
 	return 1;
+}
+
+void MusicPlayer::OnEndTrack()
+{ //45b5cf
+	if (ds_buffer && file_opened)
+	{
+		if (play_mode == 0)
+		{
+			DisableUpdate();
+			update_disabled = 1;
+			ds_buffer->Stop();
+		}
+		else
+		{
+			fadeout_enabled = 0;
+			StartPlayTrack(track_to_play);
+			SetVolume(g_SoundSettings.mus_pos);
+			play_mode = 1;
+		}
+	}
+}
+
+void MusicPlayer::DisableUpdate()
+{ //45a6ee
+	((MainWindow*)AfxGetMainWnd())->FUN_0045cc80(nullptr);
+}
+
+void MusicPlayer::SetVolume(int32_t vol)
+{ // 451790
+	if (vol > 0)
+		vol = 0;
+
+	if (vol < -10000)
+		vol = -10000;
+	
+	if (ds_buffer)
+		ds_buffer->SetVolume(vol);
 }

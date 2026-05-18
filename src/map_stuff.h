@@ -18,6 +18,11 @@ class TokenPos;
 class Unit;
 struct World;
 
+extern CString g_MissionText; //660f2c
+extern CString g_MissionBriefing; //660de8
+extern CStringArray g_MissionFailures; //660f18
+extern CStringArray g_MissionSubjs; //660ea8
+
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
 // On unit add, the unit's owner bitmask (unit->player->field_0x32) is OR'd
@@ -185,3 +190,20 @@ public:
     int32_t daytime_minutes;
 };
 ASSERT_SIZE(Scenario, 0x30);
+
+struct Location
+{
+    int32_t field_0x0;
+    int32_t loctype;
+    CRect rect;
+
+    int GetType() { return loctype; } //475150
+};
+
+
+void __cdecl MissionGetBriefing(CString* out); //4e13db
+void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4
+void __cdecl MissionGetTips(int32_t idx, CString* out); //4e159b
+void __cdecl MissionGetSubj(int32_t idx, CString* out); //4e16ce
+void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out); //4e17e3
+void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out); //4e1915

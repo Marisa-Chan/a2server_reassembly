@@ -15,6 +15,7 @@ set(A2_SOURCES
   file_mfc.cpp
   game.cpp
   game_app.cpp
+  gameobj.cpp
   gfx.cpp
   group.cpp
   ingame.cpp

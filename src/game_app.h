@@ -113,8 +113,8 @@ extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 // sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
 extern "C" Item* __cdecl sub_5499A6(int level, int max_gold);
 
-extern "C" int32_t(__cdecl* ScenarioGetVar)(int32_t); //665a04
-extern "C" void(__cdecl* ScenarioSetVar)(int32_t, int32_t); //665a00
+extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
+extern "C" void(__stdcall* ScenarioSetVar)(int32_t, int32_t); //665a00
 extern "C" FARPROC ScenarioTalkTo; //665bd4
 extern "C" FARPROC ScenarioEnterLocation; //6659fc
 extern "C" FARPROC ScenarioLeaveLocation; //6658c8
@@ -123,13 +123,13 @@ extern "C" FARPROC ScenarioLeaveShop; //665b08
 extern "C" FARPROC ScenarioEnterInn; //665be8
 extern "C" FARPROC ScenarioLeaveInn; //6658f0
 extern "C" FARPROC ScenarioNewGame; //6658cc
-extern "C" void (__cdecl* ScenarioSave)(CFile*); //6658d0
-extern "C" FARPROC ScenarioLoad; //665bd8
+extern "C" void (__stdcall* ScenarioSave)(CFile*); //6658d0
+extern "C" void (__stdcall* ScenarioLoad)(CFile*); //665bd8
 extern "C" FARPROC ScenarioGetAvailableLocations; //6658c4
 extern "C" FARPROC ScenarioGetShopAssortment; //665bdc
 extern "C" FARPROC ScenarioIsTownAvailable; //665cf4
 extern "C" FARPROC ScenarioIsMissionAvailable; //6659f8
-extern "C" FARPROC ScenarioGetCurrentLocation; //6658f4
+extern "C" Location* (__stdcall* ScenarioGetCurrentLocation)(); //6658f4
 extern "C" FARPROC ScenarioGetAllLocations; //665cf0
 
 

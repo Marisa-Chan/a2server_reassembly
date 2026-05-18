@@ -40,6 +40,7 @@ public:
 
     uint32_t FUN_0041ee20(int32_t idx);
     int32_t FUN_0041edf0(int32_t idx);
+    int32_t FUN_0041ee50(int32_t idx);
 };
 ASSERT_SIZE(MapPlayerData, 0x4c);
 

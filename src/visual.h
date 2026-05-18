@@ -110,6 +110,7 @@ public:
 
 	void SetRect(RECT r);
 	void SetRect(const RECT* r);
+	void SetRect(int32_t l, int32_t t, int32_t r, int32_t b);
 
 	int32_t GetId() { return id; } //4503f0
 	CRect& GetRect() { return rect; } //41ed40
@@ -794,6 +795,25 @@ public:
 	void FUN_0041afcf(CString str); //41afcf
 	void FUN_0041a735(); //41a735
 
+	void FUN_0041cad0(int32_t m); //41cad0
+	void FUN_0041aaaa(int32_t wim); //41aaaa
+	void FUN_0041abd2(int32_t form); // 41abd2
+	void FUN_0041ab74(); //41ab74
+
+	void FUN_0041b6e0(); //41b6e0
+	int32_t FUN_0041f6b0() { return (field_0x88 - 8) - field_0x68; } //41f6b0
+
+	void FUN_0041b636(); //41b636
+
+	int FUN_0041b495() { return FindChild(2) != nullptr; } //41b495
+	void FUN_0041b509(); //41b509
+	void FUN_0041b40e(); //41b40e
+	void FUN_0041b381(); //41b381
+	void FUN_0041b10f(); //41b10f
+	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064
+
+	void FUN_00403ca0(CGameObject* obj); //403ca0 in asm
+
 public:
 	int32_t view_x;
 	int32_t view_y;
@@ -1292,6 +1312,7 @@ public:
 
 	int32_t FUN_004972d0(); //4972d0
 	int32_t FUN_00497310(); //497310
+	void FUN_0043be9f(); //43be9f
 
 };
 
@@ -1476,5 +1497,18 @@ public:
 };
 ASSERT_SIZE(HintedListBox, 0x98);
 
+//60aef0
+class VisServerScreen : public VisScreen
+{
+public:
+	VisServerScreen(int32_t _id, int32_t l, int32_t, int32_t r, int32_t b, GM_a28 *log); // 44e469
+};
+
+//60b760
+class VisGlobalMap : public VisScreen
+{
+public:
+	void FUN_0047024a(); //47024a
+};
 
 #endif

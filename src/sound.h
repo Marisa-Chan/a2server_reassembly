@@ -78,6 +78,10 @@ class MusicPlayer : public CObject
 {
 public:
 	int GetState(); //451700
+	void OnEndTrack(); //45b5cf
+	void DisableUpdate(); //45a6ee
+	void SetVolume(int32_t vol); // 451790
+	void StartPlayTrack(int32_t track); // in asm 45b6d0
 public:
 	int32_t gap_0x4;
 	uint32_t next_update_time;

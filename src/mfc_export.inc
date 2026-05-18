@@ -466,6 +466,15 @@ externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStu
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
+extern ?g_MissionText@@3VCString@@A : dword
+extern ?g_MissionBriefing@@3VCString@@A : dword
+extern ?g_MissionFailures@@3VCStringArray@@A : dword
+extern ?g_MissionSubjs@@3VCStringArray@@A : dword
+
+extern ?MissionGetTips@@YAXHPAVCString@@@Z  :proc
+extern ?MissionGetLocName@@YAXHHPAVCString@@@Z  :proc
+extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
+
 
 ; ScanPresenceGrid
 externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
@@ -1316,6 +1325,11 @@ extern ?FUN_0048cff7@MainWindow@@QAEXXZ : proc
 extern ?FUN_00491822@MainWindow@@QAEXXZ : proc
 extern ?FUN_004918ae@MainWindow@@QAEXXZ : proc
 
+extern ?FUN_0041f6b0@BigStruct2@@QAEHXZ  : proc
+extern ?FUN_0041b6e0@BigStruct2@@QAEXXZ  : proc
+extern ?FUN_0048e502@MainWindow@@QAEHH@Z : proc
+extern ?FUN_0048f79d@MainWindow@@QAEXXZ : proc
+
 externdef ??0MainWindow@@QAE@XZ : proc
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
@@ -1399,8 +1413,8 @@ extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 externdef ?ParseConfig@@YAHPBD@Z :proc
 externdef ?LoadFonts@@YAXXZ  : proc
 externdef ?LoadItemNames@@YAXXZ  : proc
-externdef _unk_660D28 :byte
-externdef _unk_660DA8 :byte
+extern ?unk_660D28@@3VCMapWordToPtr@@A :byte
+extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
 externdef _dword_65FBB8 :dword
 externdef ?ParseTunes@@YAXXZ : proc
 externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
@@ -1423,6 +1437,8 @@ extern ?g_settings@@3UGameSettings@@A : dword
 
 extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
+
+
 
 ;A2NetSock
 extern ??0A2NetSock@@QAE@XZ :proc
@@ -1761,20 +1777,33 @@ externdef ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 externdef ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
+externdef ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z  : proc
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
 extern ?FUN_0040d4e2@BigStruct2@@QAEHXZ : proc
 extern ?FUN_0041d2da@BigStruct2@@QAEXH@Z : proc
 
+extern ?FUN_0041aaaa@BigStruct2@@QAEXH@Z : proc
+extern ?FUN_0041abd2@BigStruct2@@QAEXH@Z : proc
+extern ?FUN_0041ab74@BigStruct2@@QAEXXZ : proc
+extern ?FUN_0041b636@BigStruct2@@QAEXXZ : proc
+extern ?FUN_0041b509@BigStruct2@@QAEXXZ : proc
+extern ?FUN_0041b40e@BigStruct2@@QAEXXZ : proc
+
 externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
 
 
 ;GO_d0
+extern ??1GO_d0@@UAE@XZ  :proc   ; (public: virtual __thiscall GO_d0::~GO_d0(void))
+extern ??0GO_d0@@QAE@XZ  :proc   ; (public: __thiscall GO_d0::GO_d0(void))
+extern ??0GO_d0@@QAE@H@Z : proc ; (int)
+extern ??0GO_d0@@QAE@PBV0@@Z  :proc   ; (public: __thiscall GO_d0::GO_d0(class GO_d0 const *))
+extern ??0GO_d0@@QAE@PAPAEH@Z  :proc   ; (public: __thiscall GO_d0::GO_d0(unsigned char * *,int))
+extern ??4GO_d0@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
+
 externdef ?FUN_0041f0d0@GO_d0@@QAEHXZ   : proc
-externdef ??0GO_d0@@QAE@PAPAEH@Z  :proc
-externdef ??0GO_d0@@QAE@H@Z : proc
 externdef ?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ  :proc
 externdef ?FUN_004396d6@GO_d0@@QAEHXZ  :proc
 
@@ -1802,7 +1831,13 @@ externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
 externdef ?FUN_00497310@Vis1200@@QAEHXZ  : proc
+externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
 
+;VisGlobalMap
+externdef ?FUN_0047024a@VisGlobalMap@@QAEXXZ : proc
+
+;VisServerScreen
+externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 
 ;GFX things
 externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
@@ -1892,6 +1927,12 @@ extern ?g_isLowMemory@@3IA : dword
 
 extern ?g_colors_human_pals@@3PAY0BA@GA : word
 
+extern ?g_pal_projectiles@@3PAVCGamePalette@@A   : dword
+extern ?g_pal_projectile_@@3PAVCGamePalette@@A   : dword
+extern ?g_spr_smoke@@3PAPAVCA16@@A : dword
+
+extern ?g_DeltaCLR@@3UColorThing@@A : byte
+
 
 ;CBmp64
 externdef ??0CBmp64@@QAE@II@Z : proc
@@ -1904,6 +1945,13 @@ externdef ??0CSprite256@@QAE@PBD@Z : proc
 
 ;CA16
 externdef ??0CA16@@QAE@PBD@Z  :proc
+
+;CGamePalette
+extern ?Free@CGamePalette@@QAEXXZ  : proc
+extern ?SetPalette@CGamePalette@@QAEXPAUtagRGBQUAD@@IHH@Z : proc
+extern ??0CGamePalette@@QAE@XZ : proc
+extern ??1CGamePalette@@UAE@XZ : proc
+extern ?GetPalette@CGamePalette@@QAEPAGH@Z : proc
 
 
 ;CGameFont
@@ -1925,6 +1973,8 @@ extern ?g_dsound_channel_num@@3HA  :dword
 extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
+
+externdef ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
 
 
 ; util.h
@@ -1975,8 +2025,36 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 ;CGameObject
 extern ?FUN_0041f110@CGameObject@@QAEHXZ : proc
+
+
+extern ?classCGameObject@CGameObject@@2UCRuntimeClass@@B  :dword
+extern ??1CGameObject@@UAE@XZ  :proc
+
+extern ?AssertValid@CGameObject@@UBEXXZ : proc
+
+extern ?VMethod1@CGameObject@@UAEXH@Z  :proc
+extern ?VMethod2@CGameObject@@UAEHXZ  :proc
+extern ?VMethod3@CGameObject@@UAEHXZ  :proc
+extern ?VMethod4@CGameObject@@UAEHXZ  :proc
+extern ?VMethod5@CGameObject@@UAEHXZ  :proc
+;extern ?VMethod6@CGameObject@@UAEXHHH@Z  :proc
+extern ?VMethod7@CGameObject@@UAEXHHH@Z  :proc
+extern ?VMethod8@CGameObject@@UAEXHHH@Z  :proc
+extern ?VMethod9@CGameObject@@UAEXHHH@Z  :proc
+extern ?VMethod10@CGameObject@@UAEXXZ  :proc
+extern ?VMethod11@CGameObject@@UAEHXZ  :proc
+extern ?VMethod12@CGameObject@@UAEXXZ  :proc
+extern ?VMethod13@CGameObject@@UAEXXZ  :proc
+extern ?VMethod14@CGameObject@@UAEXXZ  :proc
+extern ?VMethod15@CGameObject@@UAEHXZ  :proc
+extern ?VMethod16@CGameObject@@UAEXXZ  :proc
+extern ??0CGameObject@@QAE@XZ  :proc
+extern ??0CGameObject@@QAE@PBV0@@Z  :proc
+extern ?FUN_0041f180@CGameObject@@QAEXH@Z  :proc
+
+extern ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
+
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
-externdef ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 
 ;CUnit
@@ -1995,7 +2073,6 @@ externdef ??0CBackPack@@QAE@XZ : proc
 ;CProjectile
 externdef ??0CProjectile@@QAE@XZ : proc
 
-externdef  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 
 ;MapPlayerData
 externdef ??0MapPlayerData@@QAE@XZ :proc  ; MapPlayerData::MapPlayerData()
@@ -2005,3 +2082,16 @@ externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc
 
 ;UnitVFXInfo
 externdef ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
+
+;GfxObject
+extern ?Init@GfxFile@@QAEXXZ : proc
+extern ?g_GfxFiles@@3V?$CArray@PAVGfxFile@@ABQAV1@@@A : dword
+extern ?g_GfxObjects@@3V?$CArray@PAVGfxObject@@ABQAV1@@@A  : dword
+
+;StructureInfo
+extern ?Init@StructureInfo@@QAEXXZ : proc
+extern ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A  : dword
+
+;ProjectileInfo
+extern  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
+extern ?Init@ProjectileInfo@@QAEXXZ : proc

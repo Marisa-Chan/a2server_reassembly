@@ -16,6 +16,10 @@
 extern "C" void* dword_65FBB8; // Area for item names.
 
 
+CMapWordToPtr unk_660D28;
+CMapWordToPtr unk_660DA8;
+
+
 extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
 {
     uint8_t* data = *packet_data;

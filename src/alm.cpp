@@ -414,3 +414,10 @@ MapAlm::MapAlm(const char* filename) {
         }
     }
 }
+
+
+
+int32_t MapPlayerData::FUN_0041ee50(int32_t idx)
+{ //41ee50
+    return diplomacy[idx] & 8;
+}
