@@ -505,6 +505,15 @@ extern ?VMethod8@Token@@UAEHXZ:proc ;  Token::VMethod8
 extern ?VMethod9@Token@@UAEHXZ:proc ;  Token::VMethod9
 
 
+; VirtualCaster
+externdef ??_7VirtualCaster@@6B@ :dword                                         ; VirtualCaster vftable (C++ generated)
+extern ??5@YGAAVCArchive@@AAV0@AAPAVVirtualCaster@@@Z : proc                    ; operator>>(CArchive&, VirtualCaster*&)
+externdef ??0VirtualCaster@@QAE@XZ :proc                                        ; VirtualCaster::VirtualCaster()
+externdef ??1VirtualCaster@@UAE@XZ :proc                                        ; VirtualCaster::~VirtualCaster()
+externdef ?Serialize@VirtualCaster@@UAEXAAVCArchive@@@Z :proc                   ; void VirtualCaster::Serialize(CArchive&)
+externdef ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ :proc                   ; VirtualCaster::CreateObject()
+
+
 
 ;BitSet g_buildingIdSet     in token.cpp
 extern _BldIdSet_Set:proc
