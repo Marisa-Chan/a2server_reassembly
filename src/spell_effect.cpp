@@ -7,6 +7,57 @@
 #include "unit.h"
 #include "world.h"
 
+// 636488
+IMPLEMENT_SERIAL(SpellEffect, Token, 1);
+
+// 537371
+SpellEffect::SpellEffect() : Token() {
+	this->typeId = 0;
+	this->caster = nullptr;
+	this->field2_0x40 = 0;
+	this->field3_0x41 = 1;
+	this->field4_0x42 = 0;
+	this->field6_0x44 = 0;
+	this->field6_0x46 = 0;
+}
+
+// 5373CC
+SpellEffect::SpellEffect(const TokenPos* pos) : Token(pos) {
+	this->typeId = 0;
+	this->caster = nullptr;
+	this->field2_0x40 = 0;
+	this->field3_0x41 = 1;
+	this->field4_0x42 = 0;
+	this->field6_0x44 = 0;	
+	this->field6_0x46 = 0;
+}
+
+// 57c080
+SpellEffect::~SpellEffect() {}
+
+// 53E44A
+void SpellEffect::Serialize(CArchive& ar) {
+	Token::Serialize(ar);
+	if (ar.IsStoring()) {
+		ar << this->field2_0x40;
+		ar << this->field3_0x41;
+	} else {
+		ar >> this->field2_0x40;
+		ar >> this->field3_0x41;
+	}
+}
+
+// 53742d
+void SpellEffect::VMethod2() {}
+
+// 537438
+void SpellEffect::VMethod10(Unit* /*unit*/) {}
+
+// 5382FB
+void AreaEffect::VMethod10(Unit* unit) {
+	this->effect->VMethod11(unit);
+}
+
 // 5375A4
 void PointEffect::sub_5375A4() {
 	// Clean up effect caster if caster has no owner.

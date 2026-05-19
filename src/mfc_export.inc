@@ -679,6 +679,16 @@ externdef ??0DirectDamage@@QAE@XZ :proc
 externdef ??0DirectDamage@@QAE@PAVEffect@@@Z :proc ; DirectDamage::DirectDamage(Effect*)
 
 
+; SpellEffect
+externdef ??0SpellEffect@@QAE@XZ :proc                              ; SpellEffect::SpellEffect()
+externdef ??0SpellEffect@@QAE@PBUTokenPos@@@Z :proc                 ; SpellEffect::SpellEffect(const TokenPos*)
+externdef ??1SpellEffect@@UAE@XZ :proc                              ; SpellEffect::~SpellEffect()
+externdef ?Serialize@SpellEffect@@UAEXAAVCArchive@@@Z :proc         ; void SpellEffect::Serialize(CArchive&)
+externdef ?VMethod2@SpellEffect@@UAEXXZ :proc                       ; void SpellEffect::VMethod2()
+externdef ?VMethod10@SpellEffect@@UAEXPAVUnit@@@Z :proc             ; void SpellEffect::VMethod10(Unit*)
+externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc              ; void AreaEffect::VMethod10(Unit*)
+externdef ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A :byte   ; static CRuntimeClass SpellEffect::classSpellEffect
+
 ; AreaEffect
 PUBLIC _stru_6364B8
 

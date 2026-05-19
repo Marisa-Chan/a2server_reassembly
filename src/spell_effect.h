@@ -11,11 +11,18 @@ class Unit;
 
 
 class SpellEffect : public Token {
+public:
+    DECLARE_SERIAL(SpellEffect); // Runtime class definition at 636488.
+
 public: // VTable at 0060f170.
-    // virtual CRuntimeClass* GetRuntimeClass() override;
-    // virtual ~SpellEffect() override;
-    // virtual void Serialize(CArchive& ar) override;
-    // virtual uint32_t VMethod10(void*) override; // --- unclear about the args and return type.
+    virtual ~SpellEffect() override; // 57c080
+    virtual void Serialize(CArchive& ar) override; // 53E44A
+    virtual void VMethod2() override; // 53742d
+    virtual void VMethod10(Unit* unit); // 537438
+
+public:
+    SpellEffect(); // 537371
+    SpellEffect(const TokenPos* pos); // 5373cc
 
 public:
     Unit *caster;
@@ -52,7 +59,7 @@ public: // VTable at 0060f1f0.
     // virtual void Serialize(CArchive& ar) override;
     // virtual void VMethod2() override;
     // virtual void VMethod5() override;
-    // virtual uint32_t VMethod10(void*) override;
+    virtual void VMethod10(Unit* unit) override; // 5382FB
 
 public:
     Effect* effect;
