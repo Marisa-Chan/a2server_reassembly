@@ -54,11 +54,11 @@ void Protections::Serialize(CArchive& ar)
     if (ar.IsStoring())
     {
         //ar.Write(this, sizeof(Protections));
-        ar.Write(this, sizeof(0x16));
+        ar.Write(this, 0x16);
     }
     else
     {
         //ar.Read(this, sizeof(Protections));
-        ar.Read(this, sizeof(0x16));
+        ar.Read(this, 0x16);
     }
 }

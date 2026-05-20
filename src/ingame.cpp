@@ -110,8 +110,11 @@ void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t)
 				s.SetAt(j, ' ');
 		}
 
-		if (text[text.GetUpperBound()] == s)
-			return;
+		if (lines.GetSize() == 1 && text.GetSize() != 0)
+		{
+			if (text[text.GetUpperBound()] == s)
+				return;
+		}
 
 		text.Add(s);
 		color.Add(clr);

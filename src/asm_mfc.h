@@ -762,7 +762,7 @@ public:
 	UINT m_nObjectSchema;
 	CString m_strFileName;
 
-protected:
+public:
 	// archive objects cannot be copied or assigned
 	CArchive(const CArchive& arSrc);
 	void operator=(const CArchive& arSrc);
@@ -1504,8 +1504,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1572,8 +1572,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1640,8 +1640,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1706,8 +1706,8 @@ protected:
 public:
 	~CUIntArray();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1772,8 +1772,8 @@ protected:
 public:
 	~CPtrArray();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1840,8 +1840,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -1908,8 +1908,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -2005,8 +2005,8 @@ protected:
 public:
 	~CPtrList();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 	// local typedefs for class templates
 	typedef void* BASE_TYPE;
@@ -2102,8 +2102,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 	// local typedefs for class templates
 	typedef CObject* BASE_TYPE;
@@ -2199,8 +2199,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 	// local typedefs for class templates
 	typedef CString BASE_TYPE;
@@ -2276,8 +2276,8 @@ protected:
 public:
 	~CMapWordToPtr();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 
@@ -2358,8 +2358,8 @@ protected:
 public:
 	~CMapPtrToWord();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 
@@ -2440,8 +2440,8 @@ protected:
 public:
 	~CMapPtrToPtr();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 	void* GetValueAt(void* key) const;
@@ -2526,8 +2526,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 
@@ -2609,8 +2609,8 @@ protected:
 public:
 	~CMapStringToPtr();
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -2693,8 +2693,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -2777,8 +2777,8 @@ public:
 
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 
 protected:
@@ -3638,9 +3638,9 @@ public:
 public:
 	virtual ~CWinThread();
 #ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-	int m_nDisablePumpCount; // Diagnostic trap to detect illegal re-entrancy
+	//virtual void AssertValid() const;
+	//virtual void Dump(CDumpContext& dc) const;
+	//int m_nDisablePumpCount; // Diagnostic trap to detect illegal re-entrancy
 #endif
 	void CommonConstruct();
 	virtual void Delete();

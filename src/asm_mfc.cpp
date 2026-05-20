@@ -2,6 +2,40 @@
 #include <time.h>
 #include <stdio.h>
 
+
+#define wNullTag        ((WORD)0)           // special tag indicating NULL ptrs
+#define wNewClassTag    ((WORD)0xFFFF)      // special tag indicating new CRuntimeClass
+#define wClassTag       ((WORD)0x8000)      // 0x8000 indicates class tag (OR'd)
+#define dwBigClassTag   ((DWORD)0x80000000) // 0x8000000 indicates big class tag (OR'd)
+#define wBigObjectTag   ((WORD)0x7FFF)      // 0x7FFF indicates DWORD object tag
+#define nMaxMapCount    ((DWORD)0x3FFFFFFE) // 0x3FFFFFFE last valid mapCount
+#define VERSIONABLE_SCHEMA  (0x80000000)
+
+
+// these globals are protected by the same critical section
+#define CRIT_DYNLINKLIST    0
+#define CRIT_RUNTIMECLASSLIST   0
+#define CRIT_OBJECTFACTORYLIST  0
+#define CRIT_LOCKSHARED 0
+// these globals are not protected by independent critical sections
+#define CRIT_REGCLASSLIST   1
+#define CRIT_WAITCURSOR     2
+#define CRIT_DROPSOURCE     3
+#define CRIT_DROPTARGET     4
+#define CRIT_RECTTRACKER    5
+#define CRIT_EDITVIEW       6
+#define CRIT_WINMSGCACHE    7
+#define CRIT_HALFTONEBRUSH  8
+#define CRIT_SPLITTERWND    9
+#define CRIT_MINIFRAMEWND   10
+#define CRIT_CTLLOCKLIST    11
+#define CRIT_DYNDLLLOAD     12
+#define CRIT_TYPELIBCACHE   13
+#define CRIT_STOCKMASK      14
+#define CRIT_ODBC           15
+#define CRIT_PROCESSLOCAL   16
+#define CRIT_MAX    17  // Note: above plus one!
+
 static const _PNH _pfnUninitialized = (_PNH)-1;
 
 //5ddf54
@@ -1068,3 +1102,419 @@ CRect CRect::MulDiv(int nMultiplier, int nDivisor) const
 		::MulDiv(right, nMultiplier, nDivisor),
 		::MulDiv(bottom, nMultiplier, nDivisor));
 }
+
+
+
+
+
+
+
+void CArchive::CheckCount()
+{
+	if (m_nMapCount >= nMaxMapCount)
+		AfxThrowArchiveException(CArchiveException::badIndex, m_strFileName);
+}
+
+void CArchive::WriteObject(const CObject* pOb)
+{
+	//printf("WriteObject %s at %x\n", !pOb ? "" : pOb->GetRuntimeClass()->m_lpszClassName, m_pFile->GetPosition() + (m_lpBufCur - m_lpBufStart));
+
+	// object can be NULL
+	ASSERT(IsStoring());    // proper direction
+
+	DWORD nObIndex;
+	ASSERT(sizeof(nObIndex) == 4);
+	ASSERT(sizeof(wNullTag) == 2);
+	ASSERT(sizeof(wBigObjectTag) == 2);
+	ASSERT(sizeof(wNewClassTag) == 2);
+
+	// make sure m_pStoreMap is initialized
+	MapObject(NULL);
+
+	if (pOb == NULL)
+	{
+		// save out null tag to represent NULL pointer
+		*this << wNullTag;
+	}
+	else if ((nObIndex = (DWORD)(*m_pStoreMap)[(void*)pOb]) != 0)
+		// assumes initialized to 0 map
+	{
+		// save out index of already stored object
+		if (nObIndex < wBigObjectTag)
+			*this << (WORD)nObIndex;
+		else
+		{
+			*this << wBigObjectTag;
+			*this << nObIndex;
+		}
+	}
+	else
+	{
+		// write class of object first
+		CRuntimeClass* pClassRef = pOb->GetRuntimeClass();
+		WriteClass(pClassRef);
+
+		// enter in stored object table, checking for overflow
+		CheckCount();
+		(*m_pStoreMap)[(void*)pOb] = (void*)m_nMapCount++;
+
+		// cause the object to serialize itself
+		((CObject*)pOb)->Serialize(*this);
+	}
+}
+
+CObject* CArchive::ReadObject(const CRuntimeClass* pClassRefRequested)
+{
+	uint32_t pos = m_pFile->GetPosition() - m_nBufSize + (m_lpBufCur - m_lpBufStart);
+	//printf("ReadObj %s at %x\n", pClassRefRequested->m_lpszClassName, pos);
+	
+	ASSERT(pClassRefRequested == NULL ||
+		AfxIsValidAddress(pClassRefRequested, sizeof(CRuntimeClass), FALSE));
+	ASSERT(IsLoading());    // proper direction
+	ASSERT(wNullTag == 0);
+	ASSERT((wClassTag << 16) == dwBigClassTag);
+	ASSERT((wNewClassTag & wClassTag) == wClassTag);
+
+	// attempt to load next stream as CRuntimeClass
+	UINT nSchema;
+	DWORD obTag;
+	CRuntimeClass* pClassRef = ReadClass(pClassRefRequested, &nSchema, &obTag);
+
+	// check to see if tag to already loaded object
+	CObject* pOb;
+	if (pClassRef == NULL)
+	{
+		if (obTag > (DWORD)m_pLoadArray->GetUpperBound())
+		{
+			// tag is too large for the number of objects read so far
+			AfxThrowArchiveException(CArchiveException::badIndex,
+				m_strFileName);
+		}
+
+		pOb = (CObject*)m_pLoadArray->GetAt(obTag);
+		if (pOb != NULL && pClassRefRequested != NULL &&
+			!pOb->IsKindOf(pClassRefRequested))
+		{
+			// loaded an object but of the wrong class
+			AfxThrowArchiveException(CArchiveException::badClass,
+				m_strFileName);
+		}
+	}
+	else
+	{
+		// allocate a new object based on the class just acquired
+		pOb = pClassRef->CreateObject();
+		if (pOb == NULL)
+			AfxThrowMemoryException();
+
+		// Add to mapping array BEFORE de-serializing
+		CheckCount();
+		m_pLoadArray->InsertAt(m_nMapCount++, pOb);
+
+		// Serialize the object with the schema number set in the archive
+		UINT nSchemaSave = m_nObjectSchema;
+		m_nObjectSchema = nSchema;
+		pOb->Serialize(*this);
+		m_nObjectSchema = nSchemaSave;
+		ASSERT_VALID(pOb);
+	}
+
+	return pOb;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// advanced versioning and back-pointer support
+
+UINT CArchive::GetObjectSchema()
+{
+	UINT nResult = m_nObjectSchema;
+	m_nObjectSchema = (UINT)-1; // can only be called once per Serialize
+	return nResult;
+}
+
+void CArchive::MapObject(const CObject* pOb)
+{
+	if (IsStoring())
+	{
+		if (m_pStoreMap == NULL)
+		{
+			// initialize the storage map
+			//  (use CMapPtrToPtr because it is used for HANDLE maps too)
+			m_pStoreMap = new CMapPtrToPtr(m_nGrowSize);
+			m_pStoreMap->InitHashTable(m_nHashSize);
+			m_pStoreMap->SetAt(NULL, (void*)(DWORD)wNullTag);
+			m_nMapCount = 1;
+		}
+		if (pOb != NULL)
+		{
+			CheckCount();
+			(*m_pStoreMap)[(void*)pOb] = (void*)m_nMapCount++;
+		}
+	}
+	else
+	{
+		if (m_pLoadArray == NULL)
+		{
+			// initialize the loaded object pointer array and set special values
+			m_pLoadArray = new CPtrArray;
+			m_pLoadArray->SetSize(1, m_nGrowSize);
+			ASSERT(wNullTag == 0);
+			m_pLoadArray->SetAt(wNullTag, NULL);
+			m_nMapCount = 1;
+		}
+		if (pOb != NULL)
+		{
+			CheckCount();
+			m_pLoadArray->InsertAt(m_nMapCount++, (void*)pOb);
+		}
+	}
+}
+
+void CArchive::WriteClass(const CRuntimeClass* pClassRef)
+{
+	ASSERT(pClassRef != NULL);
+	ASSERT(IsStoring());    // proper direction
+
+	if (pClassRef->m_wSchema == 0xFFFF)
+	{
+		TRACE1("Warning: Cannot call WriteClass/WriteObject for %hs.\n",
+			pClassRef->m_lpszClassName);
+		AfxThrowNotSupportedException();
+	}
+
+	// make sure m_pStoreMap is initialized
+	MapObject(NULL);
+
+	// write out class id of pOb, with high bit set to indicate
+	// new object follows
+
+	// ASSUME: initialized to 0 map
+	DWORD nClassIndex;
+	if ((nClassIndex = (DWORD)(*m_pStoreMap)[(void*)pClassRef]) != 0)
+	{
+		// previously seen class, write out the index tagged by high bit
+		if (nClassIndex < wBigObjectTag)
+			*this << (WORD)(wClassTag | nClassIndex);
+		else
+		{
+			*this << wBigObjectTag;
+			*this << (dwBigClassTag | nClassIndex);
+		}
+	}
+	else
+	{
+		// store new class
+		*this << wNewClassTag;
+		pClassRef->Store(*this);
+
+		// store new class reference in map, checking for overflow
+		CheckCount();
+		(*m_pStoreMap)[(void*)pClassRef] = (void*)m_nMapCount++;
+	}
+}
+
+CRuntimeClass* CArchive::ReadClass(const CRuntimeClass* pClassRefRequested,
+	UINT* pSchema, DWORD* pObTag)
+{
+	ASSERT(pClassRefRequested == NULL ||
+		AfxIsValidAddress(pClassRefRequested, sizeof(CRuntimeClass), FALSE));
+	ASSERT(IsLoading());    // proper direction
+
+	if (pClassRefRequested != NULL && pClassRefRequested->m_wSchema == 0xFFFF)
+	{
+		TRACE1("Warning: Cannot call ReadClass/ReadObject for %hs.\n",
+			pClassRefRequested->m_lpszClassName);
+		AfxThrowNotSupportedException();
+	}
+
+	// make sure m_pLoadArray is initialized
+	MapObject(NULL);
+
+	// read object tag - if prefixed by wBigObjectTag then DWORD tag follows
+	DWORD obTag;
+	WORD wTag;
+	*this >> wTag;
+	if (wTag == wBigObjectTag)
+		*this >> obTag;
+	else
+		obTag = ((wTag & wClassTag) << 16) | (wTag & ~wClassTag);
+
+	// check for object tag (throw exception if expecting class tag)
+	if (!(obTag & dwBigClassTag))
+	{
+		if (pObTag == NULL)
+			AfxThrowArchiveException(CArchiveException::badIndex, m_strFileName);
+
+		*pObTag = obTag;
+		return NULL;
+	}
+
+	CRuntimeClass* pClassRef;
+	UINT nSchema;
+	if (wTag == wNewClassTag)
+	{
+		// new object follows a new class id
+		if ((pClassRef = CRuntimeClass::Load(*this, &nSchema)) == NULL)
+			AfxThrowArchiveException(CArchiveException::badClass, m_strFileName);
+
+		// check nSchema against the expected schema
+		if ((pClassRef->m_wSchema & ~VERSIONABLE_SCHEMA) != nSchema)
+		{
+			if (!(pClassRef->m_wSchema & VERSIONABLE_SCHEMA))
+			{
+				// schema doesn't match and not marked as VERSIONABLE_SCHEMA
+				AfxThrowArchiveException(CArchiveException::badSchema,
+					m_strFileName);
+			}
+			else
+			{
+				// they differ -- store the schema for later retrieval
+				if (m_pSchemaMap == NULL)
+					m_pSchemaMap = new CMapPtrToPtr;
+				ASSERT_VALID(m_pSchemaMap);
+				m_pSchemaMap->SetAt(pClassRef, (void*)nSchema);
+			}
+		}
+		CheckCount();
+		m_pLoadArray->InsertAt(m_nMapCount++, pClassRef);
+	}
+	else
+	{
+		// existing class index in obTag followed by new object
+		DWORD nClassIndex = (obTag & ~dwBigClassTag);
+		if (nClassIndex == 0 || nClassIndex > (DWORD)m_pLoadArray->GetUpperBound())
+			AfxThrowArchiveException(CArchiveException::badIndex,
+				m_strFileName);
+
+		pClassRef = (CRuntimeClass*)m_pLoadArray->GetAt(nClassIndex);
+		ASSERT(pClassRef != NULL);
+
+		// determine schema stored against objects of this type
+		void* pTemp;
+		if (m_pSchemaMap != NULL && (pTemp = m_pSchemaMap->GetValueAt(pClassRef)) != NULL)
+			nSchema = (UINT)pTemp;
+		else
+			nSchema = pClassRef->m_wSchema & ~VERSIONABLE_SCHEMA;
+	}
+
+	// check for correct derivation
+	if (pClassRefRequested != NULL &&
+		!pClassRef->IsDerivedFrom(pClassRefRequested))
+	{
+		AfxThrowArchiveException(CArchiveException::badClass, m_strFileName);
+	}
+
+	// store nSchema for later examination
+	if (pSchema != NULL)
+		*pSchema = nSchema;
+	else
+		m_nObjectSchema = nSchema;
+
+	// store obTag for later examination
+	if (pObTag != NULL)
+		*pObTag = obTag;
+
+	// return the resulting CRuntimeClass*
+	return pClassRef;
+}
+
+void CArchive::SerializeClass(const CRuntimeClass* pClassRef)
+{
+	if (IsStoring())
+		WriteClass(pClassRef);
+	else
+		ReadClass(pClassRef);
+}
+
+void AFXAPI AfxThrowArchiveException(int cause,
+	LPCTSTR lpszArchiveName /* = NULL */)
+{
+	THROW(new CArchiveException(cause, lpszArchiveName));
+}
+
+
+IMPLEMENT_DYNAMIC(CArchiveException, CException)
+
+CArchiveException::CArchiveException(int cause,
+	LPCTSTR lpszFileName /* = NULL */)
+{
+	m_cause = cause; m_strFileName = lpszFileName;
+}
+
+CArchiveException::~CArchiveException()
+{
+}
+
+BOOL CArchiveException::GetErrorMessage(LPTSTR lpszError, UINT nMaxError,
+	PUINT pnHelpContext)
+{
+	ASSERT(lpszError != NULL && AfxIsValidString(lpszError, nMaxError));
+
+	if (pnHelpContext != NULL)
+		*pnHelpContext = m_cause + 0xf1b0;
+
+	// we can use CString here; archive errors aren't caused
+	// by being out of memory.
+
+	CString strMessage;
+	CString strFileName = m_strFileName;
+	if (strFileName.IsEmpty())
+		strFileName.LoadString(AFX_IDS_UNNAMED_FILE);
+	AfxFormatString1(strMessage,
+		m_cause + 0xf1b0, strFileName);
+	lstrcpyn(lpszError, strMessage, nMaxError);
+
+	return TRUE;
+}
+
+
+
+void AFXAPI AfxLockGlobals(int nLockType);
+void AFXAPI AfxUnlockGlobals(int nLockType);
+
+CRuntimeClass* PASCAL CRuntimeClass::Load(CArchive& ar, UINT* pwSchemaNum)
+// loads a runtime class description
+{
+	WORD nLen;
+	char szClassName[64];
+	CRuntimeClass* pClass;
+
+	WORD wTemp;
+	ar >> wTemp; *pwSchemaNum = wTemp;
+	ar >> nLen;
+
+	if (nLen >= _countof(szClassName) ||
+		ar.Read(szClassName, nLen * sizeof(char)) != nLen * sizeof(char))
+	{
+		return NULL;
+	}
+	szClassName[nLen] = '\0';
+
+	// search app specific classes
+	AFX_MODULE_STATE* pModuleState = AfxGetModuleState();
+	AfxLockGlobals(CRIT_RUNTIMECLASSLIST);
+	for (pClass = pModuleState->m_classList; pClass != NULL;
+		pClass = pClass->m_pNextClass)
+	{
+		if (lstrcmpA(szClassName, pClass->m_lpszClassName) == 0)
+		{
+			AfxUnlockGlobals(CRIT_RUNTIMECLASSLIST);
+			return pClass;
+		}
+	}
+	AfxUnlockGlobals(CRIT_RUNTIMECLASSLIST);
+
+	TRACE1("Warning: Cannot load %hs from archive.  Class not defined.\n",
+		szClassName);
+
+	return NULL; // not found
+}
+
+void CRuntimeClass::Store(CArchive& ar) const
+// stores a runtime class description
+{
+	WORD nLen = (WORD)lstrlenA(m_lpszClassName);
+	ar << (WORD)m_wSchema << nLen;
+	ar.Write(m_lpszClassName, nLen * sizeof(char));
+}
+

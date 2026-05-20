@@ -350,8 +350,6 @@ GO_d0::GO_d0(uint8_t** data, int arg)
     item_id = *(uint16_t*)pdata;
     pdata += 2;
 
-    printf("GO_d0 %x\n", item_id);
-
     flg = *pdata;
     pdata++;
 

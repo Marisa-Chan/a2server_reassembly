@@ -86,11 +86,11 @@ void UnitToHit::Serialize(CArchive& ar)
     if (ar.IsStoring())
     {
         //ar.Write(this, sizeof(UnitToHit));
-        ar.Write(this, sizeof(0x18));
+        ar.Write(this, 0x18);
     }
     else
     {
         //ar.Read(this, sizeof(UnitToHit));
-        ar.Read(this, sizeof(0x18));
+        ar.Read(this, 0x18);
     }
 }

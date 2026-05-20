@@ -17,6 +17,10 @@
 #include "unit_list.h"
 #include "world.h"
 
+IMPLEMENT_SERIAL(Spell, CObject, 1);
+
+IMPLEMENT_SERIAL(SpellBook, CObject, 1);
+
 //637010
 const std::array<uint32_t, 32> SpellBtB = { 
     {0,         1,              2,          4,

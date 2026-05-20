@@ -1116,8 +1116,8 @@ public:
 	~CMap();
 	void Serialize(CArchive&);
 #ifdef _DEBUG
-	void Dump(CDumpContext&) const;
-	void AssertValid() const;
+	//void Dump(CDumpContext&) const;
+	//void AssertValid() const;
 #endif
 };
 

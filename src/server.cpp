@@ -2778,18 +2778,17 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         Player* pl = g_PlayersList->list.GetNext(pos);
         if (pl->name == name)
         {
-            if (pl->hat_player_id == id && pl->flags == arg && g_NetStru1_main.GetClientByPlayerID(pl->player_id) == nullptr)
-            {
-                player = pl;
-                break;               
-            }
-            else if (field4_0x74)
+            if ((pl->hat_player_id != id || pl->flags != arg || g_NetStru1_main.GetClientByPlayerID(pl->player_id) != nullptr) 
+                && field4_0x74 != 0)
             {
                 LogMessage("Warning - other player with same name joined");
 
                 JoinErrorSend(client, 3, "This name already used. Try different.");
                 return;
             }
+            
+            player = pl;
+            break;
         }
     }
 

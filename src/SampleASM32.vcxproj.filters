@@ -21,9 +21,6 @@
     <MASM Include="a2_ucrt.asm">
       <Filter>Source Files</Filter>
     </MASM>
-    <MASM Include="vtbl_ret.asm">
-      <Filter>Source Files</Filter>
-    </MASM>
   </ItemGroup>
   <ItemGroup>
     <None Include="a2_ucrt.inc">
@@ -63,9 +60,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="testre.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="asm_mfc.cpp">

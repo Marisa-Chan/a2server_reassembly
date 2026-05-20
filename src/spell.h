@@ -20,7 +20,7 @@ public:
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();
-    virtual void Serialize(CArchive& ar) override;
+    virtual void Serialize(CArchive& ar) override; 
 
 public:
     Spell();

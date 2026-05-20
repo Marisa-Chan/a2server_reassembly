@@ -41,8 +41,10 @@ public ?Write@CArchive@@QAEXPBXI@Z ; CArchive::Write  005E6A26
 public ?Read@CArchive@@QAEIPAXI@Z ; CArchive::Read  005E6918
 public ?WriteCount@CArchive@@QAEXK@Z  ; CArchive::WriteCount 005E6BF2
 public ?ReadCount@CArchive@@QAEKXZ   ; CArchive::ReadCount 005E6C20
-public ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z     ;  CArchive::ReadObject  005e848c
-public ?WriteObject@CArchive@@QAEXPBVCObject@@@Z    ; CArchive::WriteObject   5e840f
+public ?AfxLockGlobals@@YGXH@Z
+public ?AfxUnlockGlobals@@YGXH@Z
+extern ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z : proc     ;  CArchive::ReadObject  005e848c
+extern ?WriteObject@CArchive@@QAEXPBVCObject@@@Z : proc    ; CArchive::WriteObject   5e840f
 public ?Flush@CArchive@@QAEXXZ
 public ?FillBuffer@CArchive@@QAEXI@Z
 
@@ -818,7 +820,7 @@ externdef ?sub_552A42@Inventory@@QAEXPAU1@@Z :proc
 
 ;Spell
 
-externdef ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Spell::classSpell
+extern ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Spell::classSpell
 externdef ?sub_539958@Spell@@QAEHPAVUnit@@0CC@Z :proc                          ; Spell::sub_539958(Unit*,Unit*,int8_t,int8_t)
 externdef ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
 externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)
@@ -833,14 +835,14 @@ externdef ?sub_539541@Spell@@QAEXI@Z :proc
 externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 
 ; SpellBook
-externdef ??0SpellBook@@QAE@XZ :proc  ; SpellBook::SpellBook()
+extern ??0SpellBook@@QAE@XZ :proc  ; SpellBook::SpellBook()
 
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID
 externdef ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
-externdef ?GetRuntimeClass@SpellBook@@UBEPAUCRuntimeClass@@XZ:proc  ; SpellBook::GetRuntimeClass
+extern ?GetRuntimeClass@SpellBook@@UBEPAUCRuntimeClass@@XZ:proc  ; SpellBook::GetRuntimeClass
 externdef ?Serialize@SpellBook@@UAEXAAVCArchive@@@Z:proc              ; SpellBook::Serialize
-externdef ??1SpellBook@@UAE@XZ :proc
+extern ??1SpellBook@@UAE@XZ :proc
 
 
 

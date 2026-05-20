@@ -118,8 +118,11 @@ void Player::Serialize(CArchive& ar)
         monster_kills ^= 0x5C073F4D;        
         ar >> field_0xa50;
 
-        ar >> deaths;
-        ar >> player_kills;
+        int16_t t16;
+        ar >> t16;
+        deaths = t16;
+        ar >> t16;
+        player_kills = t16;
         ar >> field_0xa5c;
 
         uint32_t raw;
@@ -135,7 +138,7 @@ void Player::Serialize(CArchive& ar)
     group_list->Serialize(ar);
     settings->Serialize(ar);
 
-    if (!ar.IsStoring()) {
+    if (ar.IsLoading()) {
         // Resolve raw main_unit pointer via the server's pointer-remap table.
         void* remapped = nullptr;
         if (g_Server->field23_0xdc.Lookup((void*)main_unit, remapped)) {

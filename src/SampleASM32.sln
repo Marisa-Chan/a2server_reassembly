@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleASM32", "SampleASM32.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug_client|x64 = debug_client|x64
+		debug_client|x86 = debug_client|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release_client|x64 = Release_client|x64
@@ -15,6 +17,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.debug_client|x64.ActiveCfg = debug_client|x64
+		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.debug_client|x64.Build.0 = debug_client|x64
+		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.debug_client|x86.ActiveCfg = debug_client|Win32
+		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.debug_client|x86.Build.0 = debug_client|Win32
 		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.Debug|x64.ActiveCfg = Debug|x64
 		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.Debug|x64.Build.0 = Debug|x64
 		{A119C989-F23C-429E-B3DD-91F8C5AE4605}.Debug|x86.ActiveCfg = Debug|Win32
