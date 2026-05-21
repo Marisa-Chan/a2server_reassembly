@@ -1480,6 +1480,27 @@ public:
 };
 ASSERT_SIZE(LoadGameWindow, 0x98);
 
+//609e50
+class SaveGameWindow : public VisWindow
+{
+public:
+	virtual ~SaveGameWindow() {} //44f540
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440726
+	virtual void VMethod26() override; //43fb2c
+
+	SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk); //43fa42
+	void CheckInput(); //440cc4
+
+	static int __cdecl Compare(void const* a, void const* b); //43faf4
+public:
+	MWin_Unk1* field_0x68;
+	CStringArray file_names;
+	CStringArray save_times;
+	int32_t field_0x94;
+	char* field_0x98;
+};
+ASSERT_SIZE(SaveGameWindow, 0x9c);
+
 
 //609d38
 class HintedListBox : public VisListBox

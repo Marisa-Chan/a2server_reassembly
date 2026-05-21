@@ -1553,6 +1553,15 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         FUN_0048f79d();
         break;
 
+    case 0x41a:
+        if (field_0x418 == 1 || field_0x418 == 0)
+        {
+            field_0x148.buf1[0] = 0;
+            field_0x148.buf2[0] = 0;
+            field_0x140 = new SaveGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
+            PopUpScreen(field_0x140);
+        }
+        break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);

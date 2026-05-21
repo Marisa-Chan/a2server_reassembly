@@ -356,7 +356,7 @@ public:
     CVisualObject* field_0x134;
     Vis1200* field_0x138;
     LoadGameWindow* field_0x13c;
-    VisScreen* field_0x140;
+    SaveGameWindow* field_0x140;
     VisMessageBox* field_0x144;
     MWin_Unk1 field_0x148;
     CArray<DiplomacyEntry*>* field_0x348;

@@ -1765,8 +1765,9 @@ extern ??0IngameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
 extern ??0HintedListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
 extern ?SetHints@HintedListBox@@QAEXPAVCStringArray@@@Z  :proc
 
-;LoadGameWindow
+;LoadGameWindow SaveGameWindow
 extern ??0LoadGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUMWin_Unk1@@@Z : proc
+extern ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUMWin_Unk1@@@Z : proc
 
 
 ;GM_a28
