@@ -89,6 +89,14 @@ BOOL AFXAPI AfxIsValidAddress(const void* lp, UINT nBytes, BOOL bReadWrite)
 		(!bReadWrite || !IsBadWritePtr((LPVOID)lp, nBytes)));
 }
 
+
+BOOL AFXAPI AfxAssertFailedLine(LPCSTR lpszFileName, int nLine)
+{
+	printf("Failed Line %s %d\n", lpszFileName, nLine);
+	return 1;
+}
+
+
 //609088
 const AFX_DATADEF struct CRuntimeClass CObject::classCObject =
 { "CObject", sizeof(CObject), 0xffff, NULL, NULL, NULL };

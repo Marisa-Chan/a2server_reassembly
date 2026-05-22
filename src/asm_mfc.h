@@ -28,8 +28,18 @@ class AFX_MODULE_THREAD_STATE;
 #define ASSERT(f)          ((void)0)
 #define VERIFY(f)          ((void)(f))
 #else
+
+BOOL AFXAPI AfxAssertFailedLine(LPCSTR lpszFileName, int nLine);
+
 #include <assert.h>
-#define ASSERT(f)          (assert(f))
+//#define ASSERT(f)          (assert(f))
+#define ASSERT(f) \
+	do \
+	{ \
+	if (!(f) && AfxAssertFailedLine(__FILE__, __LINE__)) \
+		assert(f); \
+	} while (0)
+
 #define VERIFY(f)          ((void)(f))
 #endif
 
