@@ -17,7 +17,9 @@
 #include "ingame.h"
 #include "player_file.h"
 #include "packet.h"
+#include "player.h"
 #include "unit.h"
+#include "buildings_list.h"
 #include "resource.h"
 #include "map_stuff.h"
 #include "gfx.h"
@@ -529,6 +531,137 @@ void MainWindow::sub_48A756()
     }
 }
 
+void MainWindow::sub_484259()
+{ //484259
+    if (!g_Server)
+        return;
+
+    int32_t sredne = 0;
+    if (g_Server->tic16)
+        sredne = g_Server->field44_0x1bc / g_Server->tic16 / 10;
+
+    char buf[2560];
+
+    if (g_Server->srv_stru1->sack_list)
+    {
+        CString str;
+        str.Format(txt_patch.GetLine(66), g_PlayersList->CountHumanPlayers(),
+                                            dword_6CDB3C->unit_list.GetCount(),
+                                            g_Server->srv_stru1->building_list->GetCount(),
+                                            g_Server->srv_stru1->units_list->unit_list.GetCount(),
+                                            g_Server->srv_stru1->sack_list->list.GetCount(),
+                                            g_Server->field42_0x1b4 / 10,
+                                            sredne,
+                                            current_map_name,
+                                            txt_main.GetLine(108 + game_speed));
+        OemToCharA(str, buf);
+        SetDlgItemText(0x7de0, buf);
+    }
+
+    CString t;
+    int sel = list_box2.GetCurSel();
+    if (sel >= 0)
+        list_box2.GetText(sel, t);
+
+    list_box2.ResetContent();
+
+    for (POSITION it = g_PlayersList->list.GetHeadPosition(); it; )
+    {
+        Player* pl = g_PlayersList->list.GetNext(it);
+        if (pl->is_ai == 0)
+        {
+            CString s = pl->name;
+            if (pl->field_0x42 == 0)
+                s = "(-)" + s;
+            OemToCharA(s, buf);
+            list_box2.AddString(buf);
+        }
+    }
+
+    if (!t.IsEmpty())
+        list_box2.SelectString(0, t);
+
+    sel = list_box2.GetCurSel();
+
+    Player* selpl = nullptr;
+    
+    if (sel >= 0)
+    {
+        int i = 0;
+        for (POSITION it = g_PlayersList->list.GetHeadPosition(); it; )
+        {
+            Player* pl = g_PlayersList->list.GetNext(it);
+            if (pl->is_ai == 0)
+            {
+                if (i == sel)
+                {
+                    selpl = pl;
+                    break;
+                }
+                i++;
+            }
+        }
+    }
+
+    if (!selpl)
+        SetDlgItemText(0x7ddf, "");
+    else
+    {
+        CString local_a54;
+        CString local_a44;
+        CString stat1;
+        CString stat2;
+
+        NetStru2* con = g_NetStru1_main.GetClientByPlayerID(selpl->player_id);
+        if (con)
+        {
+            uint32_t conid = con->GetUid();
+            if (g_CLlDriver.GetProvider() == 4)
+            {
+                con = g_NetStru1_main.GetClientByLowUid(conid & 0x3fff);
+                local_a54 = con->str;
+                local_a44 = con->buf;
+            }
+            ConnStatInfo* stat;
+            if (g_NetStru1_main.client_stat.Lookup(conid, stat))
+            {
+                stat1.Format("%d:%02d:%02d", stat->time / 3600, (stat->time % 3600) / 60, stat->time % 60);
+
+                int bs = 0;
+                if (stat->time)
+                    bs = stat->total_bytes / stat->time;
+
+                stat2.Format("%d/%d/%d", stat->cur_bs, bs, stat->max_bs);
+            }
+        }
+
+        int32_t xpos = 0;
+        int32_t ypos = 0;
+        if (selpl->main_unit)
+        {
+            xpos = selpl->main_unit->position->GetX();
+            ypos = selpl->main_unit->position->GetY();
+        }
+        CString txt;
+        txt.Format(txt_patch.GetLine(67),
+            selpl->name, "\n",
+            local_a54, "\n",
+            local_a44, "\n",
+            selpl->hat_player_id, selpl->flags, "\n",
+            selpl->player_id, "\n",
+            selpl->monster_kills, "\n",
+            selpl->player_kills, "\n",
+            selpl->frags, "\n",
+            selpl->deaths, "\n",
+            selpl->money, "\n",
+            ypos, xpos, "\n",
+            stat1, "\n",
+            stat2);
+
+        OemToCharA(txt, buf);
+        SetDlgItemText(0x7ddf, buf);
+    }
+}
 
 
 int MainWindow::SetSpeed(int speed)

@@ -1259,6 +1259,10 @@ externdef ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z :proc   ; (public
 externdef ?VKeyToItem@CListBox@@UAEHII@Z :proc   ; (public: virtual int __thiscall CListBox::VKeyToItem(unsigned int,unsigned int))
 externdef ?CharToItem@CListBox@@UAEHII@Z :proc   ; (public: virtual int __thiscall CListBox::CharToItem(unsigned int,unsigned int))
 externdef ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ  :proc
+externdef ?GetText@CListBox@@QBEXHAAVCString@@@Z : proc
+externdef ?AddString@CListBox@@QAEHPBD@Z  : proc
+externdef ?ResetContent@CListBox@@QAEXXZ : proc
+externdef ?SelectString@CListBox@@QAEHHPBD@Z : proc
 
 
 ;CEdit
@@ -1304,6 +1308,7 @@ externdef ?PostMessageA@CWnd@@QAEHIIJ@Z  :proc  ; CWnd::PostMessage
 
 externdef ?ShowWindow@CWnd@@QAEHH@Z  :proc  ;CWnd::ShowWindow
 externdef ?SetWindowTextA@CWnd@@QAEXPBD@Z   :proc
+externdef ?SetDlgItemTextA@CWnd@@QAEXHPBD@Z : proc
 
 
 ;CDialog

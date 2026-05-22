@@ -3974,6 +3974,7 @@ public:
 	BOOL PostMessage(UINT message, WPARAM wParam, LPARAM lParam); //41ea70
 	BOOL ShowWindow(int nCmdShow); //5e46df
 	void SetWindowText(LPCTSTR lpszString);//5e459a
+	void SetDlgItemText(int nID, LPCTSTR lpszString); //5e4426
 };
 
 ASSERT_SIZE(CWnd, 0x3C);
@@ -4077,6 +4078,11 @@ public:
 public:
 
 	int GetCurSel() const; //496590
+	int GetText(int nIndex, LPTSTR lpszBuffer) const;
+	void GetText(int nIndex, CString& rString) const; //5f28fd
+	int AddString(LPCTSTR lpszItem); //4965f0
+	void ResetContent(); //496620
+	int SelectString(int nStartAfter, LPCTSTR lpszItem); //496650
 
 };
 

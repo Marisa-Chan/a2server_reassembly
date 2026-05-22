@@ -3406,7 +3406,7 @@ void Server::ServerTic() {
     }
 
     uint32_t tick_count = GetTickCount();
-    uint32_t tick_after_5min = 0;
+    static uint32_t tick_after_5min = 0;
 
     if (tick_count - tick_after_5min > 300000) {
         tick_after_5min = tick_count;

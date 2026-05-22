@@ -138,6 +138,13 @@ int32_t ParseConfig(const char* fname) // 4f7188
 			lowered = lowered.Left(semicolon_pos);
 		}
 
+
+		if (lowered.IsEmpty())
+		{
+			line_num++;
+			continue;
+		}
+
 		if (lowered[0] == '[') {
 			// Section header
 			lowered = lowered.Mid(1);
