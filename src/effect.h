@@ -11,25 +11,25 @@ class Unit;
 
 
 class Effect : public Token {
+public: // Runtime class definition at 637098.
     DECLARE_SERIAL(Effect);
-public: // VTable at 0060f288.
-    virtual ~Effect() override;
-    virtual void Serialize(CArchive& ar) override;
 
-    virtual void VMethod10(Unit* unit); // TODO: migrate.
-    virtual void VMethod11(Unit* unit); // TODO: migrate. VTable slot 15 (0x3C).
-    virtual void VMethod12(Unit* unit);
-    virtual void VMethod13(Unit* unit);
-    virtual void VMethod14(Unit* unit, int32_t param_3);
-    virtual int32_t VMethod15();
-    virtual int32_t VMethod16(double param_2);
-    virtual void VMethod17(int32_t param_2);
+public: // VTable at 0060f288.
+    virtual ~Effect() override; // 57c350
+    virtual void Serialize(CArchive& ar) override; // 53e1ce
+    virtual void VMethod10(Unit* unit); // 53ee54
+    virtual void VMethod11(Unit* unit); // 53efb2
+    virtual void VMethod12(Unit* unit); // 53f761
+    virtual void VMethod13(Unit* unit); // 53f92c
+    virtual void VMethod14(Unit* unit, int32_t param); // 53FA2B
+    virtual int32_t VMethod15(); // 541c87
+    virtual int32_t VMethod16(double param); // 541d59
+    virtual void VMethod17(int32_t param); // 541eb5
 
 public:
     Effect();
     Effect(const CString& name);
     Effect(const Effect* src);
-
 
     static Effect* CreateFromString(const CString& effstr);
 
@@ -46,7 +46,7 @@ public:
         int32_t full_magic_value;
         struct {
             union {
-                uint16_t spell_or_damage;
+                int16_t spell_or_damage;
                 struct {
                     uint8_t damage_min;
                     uint8_t damage_spread;
@@ -67,7 +67,7 @@ ASSERT_SIZE(Effect, 0x48);
 
 class DirectDamage : public Effect {
 public: // VTable at 0060f2e0.
-    // virtual void VMethod11(Unit* unit);
+    virtual void VMethod11(Unit* unit) override;
 
 public:
     DirectDamage();

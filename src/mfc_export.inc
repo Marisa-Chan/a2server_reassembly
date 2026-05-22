@@ -570,6 +570,7 @@ externdef ?sub_52D94E@Unit@@QAEXXZ :proc                                  ; Unit
 
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
 externdef ?sub_52D904@Unit@@QAEHXZ :proc                                  ; Unit::sub_52D904()
+externdef ?sub_542A31@Unit@@QAEHPAUUnitToHit@@PAV1@@Z :proc               ; int32_t Unit::sub_542A31(UnitToHit*, Unit*)
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
@@ -679,6 +680,7 @@ externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 
 externdef ??0DirectDamage@@QAE@XZ :proc
 externdef ??0DirectDamage@@QAE@PAVEffect@@@Z :proc ; DirectDamage::DirectDamage(Effect*)
+externdef ?VMethod11@DirectDamage@@UAEXPAVUnit@@@Z :proc ; void DirectDamage::VMethod11(Unit*)
 
 
 ; SpellEffect

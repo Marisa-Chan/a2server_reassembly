@@ -128,6 +128,7 @@ public:
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
+    int32_t sub_542A31(UnitToHit* uth, Unit* caster); // Compute damage for non-humanoid unit.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
     

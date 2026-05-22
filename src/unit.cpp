@@ -951,7 +951,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
             if (effect == nullptr) {
                 attacker->enchantments &= ~bless_mask;
             } else {
-                if (Random0N(100) < (int16_t)effect->spell_or_damage) {
+                if (Random0N(100) < effect->spell_or_damage) {
                     dmg_min += dmg_spread;
                     randomize = false;
                 }
@@ -965,7 +965,7 @@ uint32_t Unit::VMethod17(UnitToHit* unit_to_hit, Unit* attacker)
             if (effect == nullptr) {
                 attacker->enchantments &= ~curse_mask;
             } else {
-                if (Random0N(100) < (int16_t)effect->spell_or_damage) {
+                if (Random0N(100) < effect->spell_or_damage) {
                     randomize = false;
                 }
             }

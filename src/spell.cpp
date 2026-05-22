@@ -373,7 +373,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
                 effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
             }
             if (this->spell_id == spell::slow) {
-                effect->spell_or_damage = -(int16_t)effect->spell_or_damage;
+                effect->spell_or_damage = -effect->spell_or_damage;
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
