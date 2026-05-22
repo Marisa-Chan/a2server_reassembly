@@ -1523,7 +1523,11 @@ class VisServerScreen : public VisScreen
 {
 public:
 	VisServerScreen(int32_t _id, int32_t l, int32_t, int32_t r, int32_t b, GM_a28 *log); // 44e469
+
+public:
+	char dummy[16];
 };
+ASSERT_SIZE(VisServerScreen, 0x78);
 
 //60b760
 class VisGlobalMap : public VisScreen
