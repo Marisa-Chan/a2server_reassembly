@@ -66,12 +66,18 @@ ASSERT_OFFSET(Effect, caster, 0x44);
 ASSERT_SIZE(Effect, 0x48);
 
 class DirectDamage : public Effect {
-public: // VTable at 0060f2e0.
+public:
+    DECLARE_SERIAL(DirectDamage); // Runtime class definition at 6370b0.
+
+public: // VTable at 60f2e0.
+    virtual ~DirectDamage() override; // 57C370
+    virtual void Serialize(CArchive& ar) override; // 53E422
     virtual void VMethod11(Unit* unit) override;
 
 public:
-    DirectDamage();
-    DirectDamage(Effect* src); // sub_540BF7
+    DirectDamage(); // 540B21
+    DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread); // 540B82
+    DirectDamage(DirectDamage* src); // 540BF7
 
 public:
     UnitToHit unit_to_hit;

@@ -679,8 +679,9 @@ externdef ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z  : proc
 ; DirectDamage
 
 externdef ??0DirectDamage@@QAE@XZ :proc
-externdef ??0DirectDamage@@QAE@PAVEffect@@@Z :proc ; DirectDamage::DirectDamage(Effect*)
+externdef ??0DirectDamage@@QAE@PAV0@@Z :proc             ; DirectDamage::DirectDamage(DirectDamage*)
 externdef ?VMethod11@DirectDamage@@UAEXPAVUnit@@@Z :proc ; void DirectDamage::VMethod11(Unit*)
+externdef ?classDirectDamage@DirectDamage@@2UCRuntimeClass@@A :dword
 
 
 ; SpellEffect

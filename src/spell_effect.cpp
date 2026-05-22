@@ -100,7 +100,7 @@ void AreaEffect::sub_53831D(Unit* unit) {
 	}
 
 	if (this->itemDataID == 2) {
-		DirectDamage local_dd(this->effect);
+		DirectDamage local_dd(static_cast<DirectDamage*>(this->effect));
 		int32_t size = (uint8_t)unit->VMethod3();
 		int32_t size_sq = size * size;
 		local_dd.unit_to_hit.some_damage2_min /= size_sq;

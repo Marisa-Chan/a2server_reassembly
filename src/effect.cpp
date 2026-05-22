@@ -660,6 +660,34 @@ int64_t Effect::MagicPriceBonus(int32_t total) {
     return (int64_t)((std::pow(1.5, total / 70.0) + 1.0) * total * 50.0);
 }
 
+IMPLEMENT_SERIAL(DirectDamage, Effect, 1); // 6370b0
+
+// 540B21
+DirectDamage::DirectDamage() {
+    this->caster = nullptr;
+}
+
+// 540B82
+DirectDamage::DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread) {
+    this->caster = nullptr;
+    this->unit_to_hit.hand_damage_min = hand_damage_min;
+    this->unit_to_hit.hand_damage_spread = hand_damage_spread;
+}
+
+// 540BF7
+DirectDamage::DirectDamage(DirectDamage* src) : Effect(src) {
+    this->unit_to_hit = src->unit_to_hit;
+}
+
+// 57C120 / 57C370
+DirectDamage::~DirectDamage() {}
+
+// 53E422
+void DirectDamage::Serialize(CArchive& ar) {
+    Effect::Serialize(ar);
+    this->unit_to_hit.Serialize(ar);
+}
+
 // 540C77
 void DirectDamage::VMethod11(Unit* unit) {
     if (unit->VMethod7() == 0) {
