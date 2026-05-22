@@ -40,8 +40,10 @@ BOOL AFXAPI AfxAssertFailedLine(LPCSTR lpszFileName, int nLine);
 		assert(f); \
 	} while (0)
 
-#define VERIFY(f)          ((void)(f))
+#define VERIFY(f)          ASSERT(f)
 #endif
+
+#define MEMCHK() _ASSERTE( _CrtCheckMemory( ) );
 
 #define ASSERT_VALID(pOb)  ((void)0)
 #define DEBUG_ONLY(f)      ((void)0)
