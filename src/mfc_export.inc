@@ -514,6 +514,7 @@ externdef ??0VirtualCaster@@QAE@XZ :proc                                        
 externdef ??1VirtualCaster@@UAE@XZ :proc                                        ; VirtualCaster::~VirtualCaster()
 externdef ?Serialize@VirtualCaster@@UAEXAAVCArchive@@@Z :proc                   ; void VirtualCaster::Serialize(CArchive&)
 externdef ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ :proc                   ; VirtualCaster::CreateObject()
+externdef ?classVirtualCaster@VirtualCaster@@2UCRuntimeClass@@A :dword
 
 
 
