@@ -24,9 +24,15 @@ class AFX_MODULE_THREAD_STATE;
 #define AFX_DATA
 #define AFX_DATADEF
 
-
+#ifndef _DEBUG
 #define ASSERT(f)          ((void)0)
 #define VERIFY(f)          ((void)(f))
+#else
+#include <assert.h>
+#define ASSERT(f)          (assert(f))
+#define VERIFY(f)          ((void)(f))
+#endif
+
 #define ASSERT_VALID(pOb)  ((void)0)
 #define DEBUG_ONLY(f)      ((void)0)
 inline void AFX_CDECL AfxTrace(LPCTSTR, ...) {}
@@ -90,6 +96,9 @@ struct _AFX_FLOAT { BYTE floatBits[sizeof(float)]; };
 #define TRUE    1
 #define NULL    0
 
+BOOL AFXAPI AfxIsValidAddress(const void* lp, UINT nBytes, BOOL bReadWrite = TRUE);
+BOOL AFXAPI AfxIsValidString(LPCWSTR lpsz, int nLength = -1);
+BOOL AFXAPI AfxIsValidString(LPCSTR lpsz, int nLength = -1);
 
 // generate static object constructor for class registration
 struct AFX_CLASSINIT

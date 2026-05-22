@@ -68,6 +68,27 @@ void __cdecl operator delete(void* p)
 	free(p);
 }
 
+BOOL AFXAPI AfxIsValidString(LPCWSTR lpsz, int nLength)
+{
+	if (lpsz == NULL)
+		return FALSE;
+	return /*afxData.bWin32s ||*/ ::IsBadStringPtrW(lpsz, nLength) == 0;
+}
+
+BOOL AFXAPI AfxIsValidString(LPCSTR lpsz, int nLength)
+{
+	if (lpsz == NULL)
+		return FALSE;
+	return ::IsBadStringPtrA(lpsz, nLength) == 0;
+}
+
+BOOL AFXAPI AfxIsValidAddress(const void* lp, UINT nBytes, BOOL bReadWrite)
+{
+	// simple version using Win-32 APIs for pointer validation.
+	return (lp != NULL && !IsBadReadPtr(lp, nBytes) &&
+		(!bReadWrite || !IsBadWritePtr((LPVOID)lp, nBytes)));
+}
+
 //609088
 const AFX_DATADEF struct CRuntimeClass CObject::classCObject =
 { "CObject", sizeof(CObject), 0xffff, NULL, NULL, NULL };
