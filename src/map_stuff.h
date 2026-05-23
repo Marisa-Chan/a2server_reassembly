@@ -151,6 +151,8 @@ public:
     uint8_t sub_593B29(uint16_t yx1, uint16_t yx2); // Chebyshev distance between two YX positions.
     int sub_597140(Unit* unit, uint16_t yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
+    int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
+    Unit* sub_58CA1B(uint16_t yx); // Get unit at map coordinate yx — 58CA1B
 
     int32_t GetWidth() { return map_width; } //58b8df
     int32_t GetHeight() { return map_height; } //58b8f3

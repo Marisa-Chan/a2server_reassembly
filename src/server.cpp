@@ -39,9 +39,6 @@
 // ---- Global variables used by sub_4FC644 ----
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
-// CRuntimeClass for AreaEffect (stru_6364B8 in Main.asm).
-extern "C" CRuntimeClass stru_6364B8;
-
 // ---- Helpers used by FUN_00500907 ----
 extern "C" int32_t sub_5008CA(int arg);  // Stat point cost: (int)(pow(arg-1, 1.2)*C1+C2)
 extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
@@ -581,8 +578,7 @@ void Server::sub_4FF937(Player* player, int32_t bool_arg4)
             }
 
             // Check runtime class: is this an AreaEffect?
-            // TODO: also check `!effect->IsKindOf(AreaEffect::GetRuntimeClass())`.
-            if (!effect->IsKindOf(&stru_6364B8)) {
+            if (!effect->IsKindOf(RUNTIME_CLASS(AreaEffect))) {
                 continue;
             }
             AreaEffect* ae = reinterpret_cast<AreaEffect*>(effect);

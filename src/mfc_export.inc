@@ -465,6 +465,8 @@ externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@GH@Z :proc         ; int MapStuff::
 externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff::sub_59028D(Unit*, Unit*, uint8_t)
 externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_5918B8(Unit*, Unit*)
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
+externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
+externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -692,17 +694,31 @@ externdef ??1SpellEffect@@UAE@XZ :proc                              ; SpellEffec
 externdef ?Serialize@SpellEffect@@UAEXAAVCArchive@@@Z :proc         ; void SpellEffect::Serialize(CArchive&)
 externdef ?VMethod2@SpellEffect@@UAEXXZ :proc                       ; void SpellEffect::VMethod2()
 externdef ?VMethod10@SpellEffect@@UAEXPAVUnit@@@Z :proc             ; void SpellEffect::VMethod10(Unit*)
-externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc              ; void AreaEffect::VMethod10(Unit*)
 externdef ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A :byte   ; static CRuntimeClass SpellEffect::classSpellEffect
 
 ; AreaEffect
-PUBLIC _stru_6364B8
-
-externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@F@Z :proc
-externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc ; void AreaEffect::sub_53831D(Unit*)
+externdef ??0AreaEffect@@QAE@XZ :proc                                          ; AreaEffect::AreaEffect()
+externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@E@Z :proc                 ; AreaEffect::AreaEffect(Effect*, TokenPos*, uint8_t)
+externdef ??1AreaEffect@@UAE@XZ :proc                                          ; AreaEffect::~AreaEffect()
+externdef ?Serialize@AreaEffect@@UAEXAAVCArchive@@@Z :proc                     ; void AreaEffect::Serialize(CArchive&)
+externdef ?VMethod2@AreaEffect@@UAEXXZ :proc                                   ; void AreaEffect::VMethod2()
+externdef ?VMethod5@AreaEffect@@UAEXXZ :proc                                   ; void AreaEffect::VMethod5()
+externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ; void AreaEffect::VMethod10(Unit*)
+externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
+externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
+externdef ?sub_537CD6@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537CD6()
+externdef ?sub_537C8C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537C8C()
+externdef ?sub_53822C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53822C()
+externdef ?sub_5384FF@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_5384FF()
 
 ; PointEffect
+externdef ??0PointEffect@@QAE@XZ :proc                                         ; PointEffect::PointEffect()
 externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
+externdef ??1PointEffect@@UAE@XZ :proc                                         ; PointEffect::~PointEffect()
+externdef ?Serialize@PointEffect@@UAEXAAVCArchive@@@Z :proc                    ; void PointEffect::Serialize(CArchive&)
+externdef ?VMethod2@PointEffect@@UAEXXZ :proc                                  ; void PointEffect::VMethod2()
+externdef ?VMethod5@PointEffect@@UAEXXZ :proc                                  ; void PointEffect::VMethod5()
+externdef ?classPointEffect@PointEffect@@2UCRuntimeClass@@A :byte              ; static CRuntimeClass PointEffect::classPointEffect
 externdef ?sub_5375A4@PointEffect@@QAEXXZ :proc ; void PointEffect::sub_5375A4()
 
 ; SpellTransport

@@ -2,6 +2,7 @@
 
 #include "effect.h"
 #include "game_app.h"
+#include "map_stuff.h"
 #include "player.h"
 #include "server.h"
 #include "unit.h"
@@ -53,10 +54,9 @@ void SpellEffect::VMethod2() {}
 // 537438
 void SpellEffect::VMethod10(Unit* /*unit*/) {}
 
-// 5382FB
-void AreaEffect::VMethod10(Unit* unit) {
-	this->effect->VMethod11(unit);
-}
+
+// 6364A0
+IMPLEMENT_SERIAL(PointEffect, SpellEffect, 1);
 
 // 5375A4
 void PointEffect::sub_5375A4() {
@@ -91,6 +91,64 @@ void PointEffect::sub_5375A4() {
 	}
 
 	this->field2_0x40 = 1;
+}
+
+// 5374FC
+PointEffect::PointEffect() : SpellEffect() {
+	this->target = nullptr;
+	this->effect = nullptr;
+}
+
+// 53752F
+PointEffect::PointEffect(Effect* effect, Unit* target) : SpellEffect() {
+	this->target = target;
+	this->effect = effect;
+	*this->position = *target->position;
+}
+
+// 537703
+PointEffect::~PointEffect() {
+	delete this->effect;
+	this->effect = nullptr;
+}
+
+// 53E6D4
+void PointEffect::Serialize(CArchive& ar) {
+	SpellEffect::Serialize(ar);
+
+	if (ar.IsStoring()) {
+		ar.WriteObject(this->effect);
+		ar.Write(&this->target, sizeof(this->target));
+	} else {
+		ar >> this->effect;
+		uint32_t key;
+		ar.Read(&key, sizeof(key));
+		void* found;
+		if (g_Server->field23_0xdc.Lookup(reinterpret_cast<void*>(key), found)) {
+			this->target = static_cast<Unit*>(found);
+		} else {
+			this->target = nullptr;
+		}
+	}
+}
+
+// 57C0A0
+void PointEffect::VMethod2() {
+	this->sub_5375A4();
+}
+
+// 53E7F2
+void PointEffect::VMethod5() {
+	Token::VMethod5();
+	if (this->effect != nullptr) {
+		this->effect->VMethod5();
+	}
+}
+
+
+// 5382FB
+void AreaEffect::VMethod10(Unit* unit) {
+	this->effect->VMethod11(unit);
 }
 
 // 53831D
@@ -131,5 +189,96 @@ void AreaEffect::sub_53831D(Unit* unit) {
 		if (g_Server->field4_0x74 == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
 			g_World->sub_5AA581(this->caster, unit, 1);
 		}
+	}
+}
+
+// 6364B8
+IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
+
+// 537846
+AreaEffect::AreaEffect() : SpellEffect() {
+	this->effect = nullptr;
+	this->TokenID = 0;
+	this->field_0x4c = 0;
+}
+
+// 537880
+AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffect(pos) {
+	this->effect = effect;
+	this->TokenID = 0;
+	this->field_0x4c = 0;
+	this->field_0x4d = range;
+	this->field_0x4f = 0;
+	this->duration = 0;
+}
+
+// 5378D8
+AreaEffect::~AreaEffect() {
+	delete this->effect;
+	this->effect = nullptr;
+}
+
+// 53E81F
+void AreaEffect::Serialize(CArchive& ar) {
+	SpellEffect::Serialize(ar);
+	if (ar.IsStoring()) {
+		ar << this->field_0x4c;
+		ar << this->field_0x4d;
+		ar << this->field_0x4e;
+		ar << this->field_0x4f;
+		ar << this->duration;
+		ar.WriteObject(this->effect);
+	} else {
+		ar >> this->field_0x4c;
+		ar >> this->field_0x4d;
+		ar >> this->field_0x4e;
+		ar >> this->field_0x4f;
+		ar >> this->duration;
+		ar >> this->effect;
+	}
+}
+
+// 537964
+void AreaEffect::VMethod2() {
+	if (this->TokenID & 2) {
+		this->sub_537CD6();
+		return;
+	}
+	if (!(this->TokenID & 1)) {
+		this->sub_5384FF();
+		return;
+	}
+	if (this->field_0x4c == 0) {
+		this->sub_537C8C();
+		return;
+	}
+	if (this->duration == 0) {
+		this->sub_53822C();
+		this->field2_0x40 = 1;
+		return;
+	}
+
+	this->duration--;
+	if ((this->duration & 0xF) == 0) {
+		uint8_t x = this->position->GetX();
+		uint8_t y = this->position->GetY();
+		int32_t radius = this->field_0x4d;
+		for (int32_t dx = -radius; dx <= radius; dx++) {
+			for (int32_t dy = -radius; dy <= radius; dy++) {
+				if (MapStuff_Instance->sub_595438(this, x + dx, y + dy)) {
+					uint16_t yx = ((y + dy) << 8) | (x + dx);
+					Unit* unit = MapStuff_Instance->sub_58CA1B(yx);
+					this->sub_53831D(unit);
+				}
+			}
+		}
+	}
+}
+
+// 53EB1E
+void AreaEffect::VMethod5() {
+	Token::VMethod5();
+	if (this->effect != nullptr) {
+		this->effect->VMethod5();
 	}
 }

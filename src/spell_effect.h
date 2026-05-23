@@ -35,43 +35,57 @@ public:
 ASSERT_SIZE(SpellEffect, 0x48);
 
 class PointEffect : public SpellEffect {
-public: // VTable at 0060f1b0.
-    // virtual CRuntimeClass* GetRuntimeClass() override;
-    // virtual ~PointEffect() override;
-    // virtual void Serialize(CArchive& ar) override;
-    // virtual void VMethod2() override;
-    // virtual void VMethod5() override;
+public:
+    DECLARE_SERIAL(PointEffect); // Runtime class definition at 6364A0.
+
+public: // VTable at 60f1b0.
+    virtual ~PointEffect() override; // 537703
+    virtual void Serialize(CArchive& ar) override; // 53E6D4
+    virtual void VMethod2() override; // 57C0A0
+    virtual void VMethod5() override; // 53E7F2
+
+public:
+    PointEffect(); // 5374FC
+    PointEffect(Effect* effect, Unit* target); // 53752F
+
+    void sub_5375A4();
 
 public:
     Unit* target;
     Effect* effect;
-
-    PointEffect(Effect* effect, Unit* target); // sub_53752F
-    void sub_5375A4();
 };
 ASSERT_OFFSET(PointEffect, effect, 0x4c);
 ASSERT_SIZE(PointEffect, 0x50);
 
 class AreaEffect : public SpellEffect {
-public: // VTable at 0060f1f0.
-    // virtual CRuntimeClass* GetRuntimeClass() override;
-    // virtual ~PointEffect() override;
-    // virtual void Serialize(CArchive& ar) override;
-    // virtual void VMethod2() override;
-    // virtual void VMethod5() override;
+public:
+    DECLARE_SERIAL(AreaEffect); // Runtime class definition at 6364B8.
+
+public: // VTable at 60f1f0.
+    virtual ~AreaEffect() override; // 5378D8
+    virtual void Serialize(CArchive& ar) override; // 53E81F
+    virtual void VMethod2() override; // 537964
+    virtual void VMethod5() override; // 53EB1E
     virtual void VMethod10(Unit* unit) override; // 5382FB
+
+public:
+    AreaEffect(); // 537846
+    AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880
+
+    void sub_53831D(Unit* unit);
+    void sub_537CD6();
+    void sub_537C8C();
+    void sub_53822C();
+    void sub_5384FF();
 
 public:
     Effect* effect;
     uint8_t field_0x4c;
-    uint8_t field_0x4d;
+    uint8_t field_0x4d; // radius
     uint8_t field_0x4e;
     uint8_t field_0x4f;
     uint16_t duration;
     uint8_t field_0x52[2];
-
-    AreaEffect(Effect* effect, TokenPos* pos, int16_t range); // sub_537880
-    void sub_53831D(Unit* unit);
 };
 ASSERT_SIZE(AreaEffect, 0x54);
 
