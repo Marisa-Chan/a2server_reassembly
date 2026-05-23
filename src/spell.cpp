@@ -156,6 +156,26 @@ SpellBook::~SpellBook()
     }
 }
 
+// 53DDA4
+void SpellBook::Serialize(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar << this->current_spell_index;
+        int32_t count = this->spells.GetSize();
+        ar << count;
+        for (int32_t i = 1; i < count; i++) {
+            ar.WriteObject(this->spells[i]);
+        }
+    } else {
+        ar >> this->current_spell_index;
+        int32_t count;
+        ar >> count;
+        this->spells.SetSize(count);
+        for (int32_t i = 1; i < count; i++) {
+            this->spells[i] = (Spell*)ar.ReadObject(RUNTIME_CLASS(Spell));
+        }
+    }
+}
+
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 {
 	//53dbc5

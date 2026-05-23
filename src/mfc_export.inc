@@ -862,14 +862,10 @@ externdef ?sub_539541@Spell@@QAEXI@Z :proc
 externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 
 ; SpellBook
-extern ??0SpellBook@@QAE@XZ :proc  ; SpellBook::SpellBook()
-
+externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
-externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc   ; SpellBook::sub_53DD3D() – get current spell ID
+externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc                               ; SpellBook::sub_53DD3D() – get current spell ID
 externdef ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
-extern ?GetRuntimeClass@SpellBook@@UBEPAUCRuntimeClass@@XZ:proc  ; SpellBook::GetRuntimeClass
-externdef ?Serialize@SpellBook@@UAEXAAVCArchive@@@Z:proc              ; SpellBook::Serialize
-extern ??1SpellBook@@UAE@XZ :proc
 
 
 

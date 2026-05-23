@@ -57,10 +57,12 @@ ASSERT_SIZE(Spell, 0x14);
 
 class SpellBook : public CObject {
 public:
-    DECLARE_SERIAL(SpellBook);
+    DECLARE_SERIAL(SpellBook); // Runtime class definition at 636ff8.
 
-    virtual ~SpellBook();
-    virtual void Serialize(CArchive& ar) override;
+public: // VTable at 60ec30.
+    virtual ~SpellBook(); // 53d368
+    virtual void Serialize(CArchive& ar) override; // 53dd9a
+
 public:
     SpellBook() {}; // 53D28E (inlined in ASM callers)
     int32_t sub_53DD3D(); // Calculate spellbook bitmask for this unit's spells.
