@@ -529,8 +529,10 @@ extern _BldIdSet_AllocBit:proc
 
 
 ; Inventory
+externdef ??0Inventory@@QAE@XZ :proc             ; Inventory::Inventory()
+externdef ??0Inventory@@QAE@PBU0@@Z :proc        ; Inventory::Inventory(const Inventory*)
+externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
 public ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
-externdef ??0Inventory@@QAE@PBU0@@Z :proc  ; Inventory::Inventory(const Inventory*)
 
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
@@ -1192,6 +1194,11 @@ externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc
 externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ; Player* PlayersList::sub_535C46(uint16_t)
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
 
+
+; Sack
+externdef ??0Sack@@QAE@PBUTokenPos@@@Z :proc                                 ; Sack::Sack(const TokenPos*)
+externdef ??0Sack@@QAE@PBUTokenPos@@PAUInventory@@@Z :proc                   ; Sack::Sack(const TokenPos*, Inventory*)
+externdef ?classSack@Sack@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Sack::classSack
 
 ; SackList method
 externdef ?sub_554B03@SackList@@QAEXPAVPlayer@@@Z :proc

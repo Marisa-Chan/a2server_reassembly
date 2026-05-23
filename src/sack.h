@@ -12,16 +12,21 @@ struct Inventory;
 
 
 class Sack : public Token {
-public: // VTable at 0060f640.
-    // virtual CRuntimeClass* GetRuntimeClass() const;
-    // virtual ~Sack();
-    // virtual void Serialize(CArchive& ar);
-    // CObject* AssertValid();
-    // CObject* Dump(CDumpContext& dc) const;
-    // virtual void VMethod1();
-    // virtual void VMethod2();
+public:
+    DECLARE_SERIAL(Sack); // Runtime class definition at 637318.
 
-    // Other Token's virtual methods are unchanged.
+public: // VTable at 60f640.
+    virtual ~Sack(); // 553f6a
+    virtual void Serialize(CArchive& ar) override; // 55c889
+    virtual void VMethod1() override; // 553f7c
+    virtual void VMethod2() override; // 553f8b
+
+public:
+    Sack();
+    Sack(const TokenPos* pos);
+    Sack(const TokenPos* pos, Inventory* inv);
+
+    void Init(); // 553eee
 
 public:
     int32_t money;
