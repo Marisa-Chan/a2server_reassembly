@@ -681,7 +681,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
     } else if (info.delivery_system == 2) {
         SpellTransport* transport = new SpellTransport(container, caster->position, info.effect_speed);
         if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
-            transport->field_0x50 = 10;
+            transport->duration = 10;
         }
         g_Server->srv_stru1->effects_list->list.AddTail(transport);
     }

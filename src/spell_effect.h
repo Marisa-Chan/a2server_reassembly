@@ -90,21 +90,25 @@ public:
 ASSERT_SIZE(AreaEffect, 0x54);
 
 class SpellTransport : public SpellEffect {
+public:
+    DECLARE_SERIAL(SpellTransport); // Runtime class definition at 636FC8.
+
 public: // VTable at 0060f230.
-    // virtual CRuntimeClass* GetRuntimeClass() override;
-    // virtual ~SpellTransport() override;
-    // virtual void Serialize(CArchive& ar) override;
-    // virtual void VMethod2() override;
-    // virtual void VMethod5() override;
+    virtual ~SpellTransport() override; // 538B27
+    virtual void Serialize(CArchive& ar) override; // 53E588
+    virtual void VMethod2() override; // 538BF4
+    virtual void VMethod5() override; // 53E68D
+
+public:
+    SpellTransport(); // 5389E2
+    SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // 538A15
+    SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed); // 538A9E
 
 public:
     SpellEffect* spell_effect;
-    uint32_t field_0x4c;
-    uint16_t field_0x50;
+    AreaEffect* area_effect;
+    int16_t duration;
     uint8_t gap_0x52;
     uint8_t gap_0x53;
-
-public:
-    SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed); // sub_538A15
 };
 ASSERT_SIZE(SpellTransport, 0x54);

@@ -722,7 +722,14 @@ externdef ?classPointEffect@PointEffect@@2UCRuntimeClass@@A :byte              ;
 externdef ?sub_5375A4@PointEffect@@QAEXXZ :proc ; void PointEffect::sub_5375A4()
 
 ; SpellTransport
-externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc
+externdef ??0SpellTransport@@QAE@XZ :proc                                        ; SpellTransport::SpellTransport()
+externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc          ; SpellTransport::SpellTransport(SpellEffect*, TokenPos*, int16_t)
+externdef ??0SpellTransport@@QAE@PAVAreaEffect@@PAUTokenPos@@F@Z :proc           ; SpellTransport::SpellTransport(AreaEffect*, TokenPos*, int16_t)
+externdef ??1SpellTransport@@UAE@XZ :proc                                        ; SpellTransport::~SpellTransport()
+externdef ?Serialize@SpellTransport@@UAEXAAVCArchive@@@Z :proc                   ; void SpellTransport::Serialize(CArchive&)
+externdef ?VMethod2@SpellTransport@@UAEXXZ :proc                                 ; void SpellTransport::VMethod2()
+externdef ?VMethod5@SpellTransport@@UAEXXZ :proc                                 ; void SpellTransport::VMethod5()
+externdef ?classSpellTransport@SpellTransport@@2UCRuntimeClass@@A :byte          ; static CRuntimeClass SpellTransport::classSpellTransport
 
 
 ; SpellEffectList

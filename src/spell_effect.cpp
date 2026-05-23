@@ -8,6 +8,9 @@
 #include "unit.h"
 #include "world.h"
 
+// Distance between two TokenPos positions in sub-cell units (still in asm).
+uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
+
 // 636488
 IMPLEMENT_SERIAL(SpellEffect, Token, 1);
 
@@ -280,5 +283,80 @@ void AreaEffect::VMethod5() {
 	Token::VMethod5();
 	if (this->effect != nullptr) {
 		this->effect->VMethod5();
+	}
+}
+
+IMPLEMENT_SERIAL(SpellTransport, SpellEffect, 1); // 636FC8
+
+// 5389E2
+SpellTransport::SpellTransport() : SpellEffect() {
+	this->spell_effect = nullptr;
+	this->area_effect = nullptr;
+}
+
+// 538A15
+SpellTransport::SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
+	this->spell_effect = spell_effect;
+	this->area_effect = nullptr;
+	int32_t dist = (int32_t)sub_5365AB(from_position, this->spell_effect->position);
+	this->duration = (int16_t)(dist / speed);
+}
+
+// 538A9E
+SpellTransport::SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
+	this->spell_effect = nullptr;
+	this->area_effect = ae;
+	// WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers in ASM.
+	// I guess they meant `area_effect` instead?
+	int32_t dist = (int32_t)sub_5365AB(from_position, this->spell_effect->position);
+	this->duration = (int16_t)(dist / speed);
+}
+
+// 538B27
+SpellTransport::~SpellTransport() {
+	if (this->spell_effect != nullptr) {
+		delete this->spell_effect;
+		this->spell_effect = nullptr;
+	}
+	if (this->area_effect != nullptr) {
+		delete this->area_effect;
+		this->area_effect = nullptr;
+	}
+}
+
+// 53E588
+void SpellTransport::Serialize(CArchive& ar) {
+	SpellEffect::Serialize(ar);
+	if (ar.IsStoring()) {
+		ar.WriteObject(this->spell_effect);
+		ar.WriteObject(this->area_effect);
+		ar << this->duration;
+	} else {
+		ar >> this->spell_effect;
+		ar >> this->area_effect;
+		ar >> this->duration;
+	}
+}
+
+// 538BF4
+void SpellTransport::VMethod2() {
+	this->duration--;
+	if (this->duration < 1) {
+		SpellEffect* effect = (this->spell_effect != nullptr) ? this->spell_effect : this->area_effect;
+		g_Server->srv_stru1->effects_list->list.AddTail(effect);
+		this->spell_effect = nullptr;
+		this->area_effect = nullptr;
+		this->field2_0x40 = 1;
+	}
+}
+
+// 53E68D
+void SpellTransport::VMethod5() {
+	Token::VMethod5();
+	if (this->spell_effect != nullptr) {
+		this->spell_effect->VMethod5();
+	}
+	if (this->area_effect != nullptr) {
+		this->area_effect->VMethod5();
 	}
 }
