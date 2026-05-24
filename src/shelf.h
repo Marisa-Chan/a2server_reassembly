@@ -18,12 +18,14 @@ class Unit;
 
 
 class MultiShopShelf : public CObject {
-public: // VTable at 0060f438
-    // virtual GetRuntimeClass() const;
-    // virtual ~MultiShopShelf();
-    // virtual void Serialize(CArchive& ar);
-    // virtual void AssertValid() const;
-    // virtual void Dump(CDumpContext& dc) const;
+public:
+    DECLARE_SERIAL(MultiShopShelf); // Runtime class definition at 637270.
+
+public: // VTable at 60f468
+    virtual ~MultiShopShelf(); // 544B0C
+
+public:
+    MultiShopShelf(); // 544A9D
 
 public:
     uint32_t shelf_id;
@@ -36,12 +38,19 @@ ASSERT_SIZE(MultiShopShelf, 0x1c);
 class MultiShopInstance;
 
 class MultiShopTemplate : public CObject {
-public: // VTable at 0060f468
-    // virtual GetRuntimeClass() const;
-    // virtual ~MultiShopTemplate();
-    // virtual void Serialize(CArchive& ar);
-    // virtual void AssertValid() const;
-    // virtual void Dump(CDumpContext& dc) const;
+public:
+    DECLARE_SERIAL(MultiShopTemplate); // Runtime class at stru_6372A0
+
+public: // VTable at 60f468
+    virtual ~MultiShopTemplate(); // 546DA4
+
+public:
+    MultiShopTemplate(); // 54687B
+    MultiShopTemplate(Shop* shop); // 546C72
+
+    void sub_546F18(MultiShopInstance* inst, int param); // 546F18
+    Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
+    void sub_547DD4(); // 547DD4
 
 public:
     uint32_t field_0x4;
@@ -50,22 +59,19 @@ public:
     CArray<MultiShopInstance*> shop_instances;
     int32_t field_0x90;
     Shop* shop;
-
-    MultiShopTemplate(Shop* shop); // 546C72
-    void sub_546F18(MultiShopInstance* inst, int param); // 546F18
-    Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
-    void sub_547DD4(); // 547DD4
 };
 ASSERT_OFFSET(MultiShopTemplate, shop_instances, 0x7c);
 ASSERT_SIZE(MultiShopTemplate, 0x98);
 
 class MultiShopInstance : public CObject {
-public: // VTable at 0060f450
-    // virtual GetRuntimeClass() const;
-    // virtual ~MultiShopTemplate();
-    // virtual void Serialize(CArchive& ar);
-    // virtual void AssertValid() const;
-    // virtual void Dump(CDumpContext& dc) const;
+public:
+    DECLARE_SERIAL(MultiShopInstance); // Runtime class at 637288
+
+public:
+    virtual ~MultiShopInstance(); // 545C8C
+
+public:
+    MultiShopInstance(); // 545BD7
 
 public:
     std::array<MultiShopShelf, 4> shelves;

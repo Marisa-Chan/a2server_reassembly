@@ -4,7 +4,19 @@
 #include "item.h"
 #include "net.h"
 #include "player.h"
+#include "shop.h"
 #include "unit.h"
+
+IMPLEMENT_SERIAL(MultiShopShelf, CObject, 1); // 637270
+
+// 544A9D
+MultiShopShelf::MultiShopShelf() {
+    this->shelf_id = 0xFFFFFFFF;
+}
+
+// 544B0C
+MultiShopShelf::~MultiShopShelf() {
+}
 
 // 545865
 void MultiShopShelf::ClearItems() {
@@ -12,6 +24,29 @@ void MultiShopShelf::ClearItems() {
         delete items[i];
     }
     items.RemoveAll();
+}
+
+
+IMPLEMENT_SERIAL(MultiShopInstance, CObject, 1); // 637288
+
+// 545BD7
+MultiShopInstance::MultiShopInstance() {
+    this->unit = nullptr;
+    this->shop_template = nullptr;
+    this->shelves[0].shelf_id = 1;
+    this->shelves[1].shelf_id = 2;
+    this->shelves[2].shelf_id = 3;
+    this->shelves[3].shelf_id = 4;
+}
+
+// 545C8C
+MultiShopInstance::~MultiShopInstance() {
+    this->unit = nullptr;
+
+    if (this->shop_template != nullptr) {
+        this->shop_template->field_0x4 -= 1;
+        this->shop_template = nullptr;
+    }
 }
 
 // 545D5E
@@ -70,4 +105,46 @@ void MultiShopInstance::Buy() {
     this->unit->pOwner->sub_534AC1(0, 0);
     this->unit->sub_52A790(0);
     g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
+}
+
+
+IMPLEMENT_SERIAL(MultiShopTemplate, CObject, 1); // 6372a0
+
+// 54687B
+MultiShopTemplate::MultiShopTemplate() {
+    this->field_0x4 = 0;
+    this->refresh_assortment_counter = 0;
+    this->field_0x90 = 1000;
+    this->shop = nullptr;
+    this->shelves[0].shelf_id = 1;
+    this->shelves[1].shelf_id = 2;
+    this->shelves[2].shelf_id = 3;
+    this->shelves[3].shelf_id = 4;
+}
+
+// 546C72
+MultiShopTemplate::MultiShopTemplate(Shop* shop) {
+    this->field_0x4 = 0;
+    this->refresh_assortment_counter = 0;
+    this->field_0x90 = shop->field_0xc0;
+    this->shop = shop;
+    this->shelves[0].shelf_id = 1;
+    this->shelves[1].shelf_id = 2;
+    this->shelves[2].shelf_id = 3;
+    this->shelves[3].shelf_id = 4;
+}
+
+// 546DA4
+MultiShopTemplate::~MultiShopTemplate() {
+    for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
+        MultiShopInstance* inst = this->shop_instances[i];
+        if (inst != nullptr) {
+            delete inst;
+            this->shop_instances[i] = nullptr;
+        }
+    }
+    this->shop_instances.SetSize(0, -1);
+    for (int32_t i = 0; i < 4; i++) {
+        this->shelves[i].ClearItems();
+    }
 }
