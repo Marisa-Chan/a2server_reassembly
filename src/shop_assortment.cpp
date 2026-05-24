@@ -34,7 +34,7 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
         attempts++;
 
         int32_t last_index = g_GameDataRes.magics.GetSize() - 1;
-        int32_t* last_slots = &g_GameDataRes.magics[last_index].values[0].in_warrior_weapon;
+        int32_t* last_slots = &g_GameDataRes.magics[last_index].Values()[0].in_warrior_weapon;
         int32_t total_weight = last_slots[column_index];
 
         int32_t roll = Random1N(total_weight);
@@ -44,10 +44,10 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
                 continue;
             }
 
-            int32_t* prev_slots = &g_GameDataRes.magics[i - 1].values[0].in_warrior_weapon;
+            int32_t* prev_slots = &g_GameDataRes.magics[i - 1].Values()[0].in_warrior_weapon;
             int32_t prev_weight = prev_slots[column_index];
 
-            int32_t* curr_slots = &g_GameDataRes.magics[i].values[0].in_warrior_weapon;
+            int32_t* curr_slots = &g_GameDataRes.magics[i].Values()[0].in_warrior_weapon;
             int32_t curr_weight = curr_slots[column_index];
 
             if (roll > prev_weight && roll <= curr_weight) {
@@ -223,7 +223,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
 // 54EA76
 int32_t ShopAssortment::sub_54EA76(Item* item) {
-    int32_t is_warrior = (item->world_equip->values[0].other_param & 1) != 0;
+    int32_t is_warrior = (item->world_equip->Values()[0].other_param & 1) != 0;
     int32_t item_type = item->item_type;
     int32_t local_18 = (item->item_id >> 8) & 0xF;
 

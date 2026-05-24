@@ -3148,7 +3148,7 @@ int Server::Start(int mode)
         return 2;
 
 #ifndef A2CLIENT
-    if (g_GameDataRes.magics[3].values[0].mana_cost < 200)
+    if (g_GameDataRes.magics[3].Values()[0].mana_cost < 200)
         return 2;
 #endif
 

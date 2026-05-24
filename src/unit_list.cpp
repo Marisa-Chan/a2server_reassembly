@@ -212,7 +212,7 @@ void UnitList::ProcessTick()
 							if ((unit->last_hit_by->unit_attrs & 4) == 0) {
 								kill_sphere = unit->last_hit_by->hit_values.physical_damage_type;
 							} else if (unit->last_hit_spell_id != 0) {
-								kill_sphere = g_GameDataRes.spells.ElementAt(unit->last_hit_spell_id).values.GetData()->sphere + 5;
+								kill_sphere = g_GameDataRes.spells.ElementAt(unit->last_hit_spell_id).Values().GetData()->sphere + 5;
 							}
 						}
 						if (g_Server->field4_0x74 != 0 && kill_sphere != 0) {

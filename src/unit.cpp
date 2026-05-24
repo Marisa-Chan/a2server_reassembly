@@ -748,7 +748,7 @@ void Unit::VMethod2()
                     }
                     this->charge_countdown = (int8_t)(this->relax + relax_extra + Random0N(3));
                     if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
-                        this->charge_countdown += (int8_t)this->some_spell->spell_info->values[0].level;
+                        this->charge_countdown += (int8_t)this->some_spell->spell_info->Values()[0].level;
                     }
                 }
             } else if (this->some_state2 == 7) { // Countdown after attack or spell execution.
@@ -1099,7 +1099,7 @@ void Unit::VMethod24(Unit*, int32_t)
 
 int32_t Unit::VMethod25()
 {
-    return monster_info->values[0].dying_time;
+    return monster_info->Values()[0].dying_time;
 }
 
 // 52C757
@@ -1338,7 +1338,7 @@ void Unit::sub_52D94E()
         }
 
         // Unequip weapon if it has a non-zero 'other_param' (why?).
-        if (this->weapon != nullptr && this->weapon->world_equip->values.GetData()[0].other_param != 0) {
+        if (this->weapon != nullptr && this->weapon->world_equip->Values().GetData()[0].other_param != 0) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->weapon));
         }
 
@@ -1362,7 +1362,7 @@ void Unit::sub_52D94E()
         int32_t gold = 0;
 
         if (this->typeId >= 0x40 && this->summoned == 0) {
-            MonsterInfoData& monster_data = this->monster_info->values.GetData()[0];
+            MonsterInfoData& monster_data = this->monster_info->Values().GetData()[0];
 
             // Gold drop.
             if (Random0N(100) < monster_data.treasure_gold) {
@@ -1582,7 +1582,7 @@ void Humanoid::VMethod10()
 // 5303e3
 Item* Humanoid::VMethod12(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
-        int32_t other_param = item->world_equip->values.GetData()->other_param;
+        int32_t other_param = item->world_equip->Values().GetData()->other_param;
         if ((other_param & 1) == 0 && (this->unit_attrs & 4) == 0) {
             return item;
         }
@@ -1931,7 +1931,7 @@ void Humanoid::VMethod22(Unit* unit, int32_t spell_id) {
     }
     int32_t sphere = 0;
     if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
-        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+        sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     this->VMethod21((int32_t)(unit->_exp * 0.5), unit, sphere);
     if (!unit) {
@@ -1963,7 +1963,7 @@ void Humanoid::VMethod23(Unit* unit, uint32_t damage, int32_t spell_id) {
     }
     int32_t sphere = 0;
     if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
-        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+        sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     if (unit != nullptr && unit->pOwner != nullptr && unit->pOwner->is_ai) {
         int32_t xp = (int32_t)(unit->_exp * 0.5 * damage / unit->hp_max + 1.0);
@@ -1975,22 +1975,22 @@ void Humanoid::VMethod23(Unit* unit, uint32_t damage, int32_t spell_id) {
 void Humanoid::VMethod24(Unit*, int32_t spell_id) {
     int32_t sphere = 0;
     if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
-        sphere = g_GameDataRes.spells[spell_id].values.GetData()->sphere;
+        sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     if (sphere == 0) {
         return;
     }
-    int32_t mana_cost = g_GameDataRes.spells[spell_id].values.GetData()->mana_cost;
+    int32_t mana_cost = g_GameDataRes.spells[spell_id].Values().GetData()->mana_cost;
     int32_t xp = (int32_t)(mana_cost * 0.5 + 0.5);
     this->VMethod21(xp, nullptr, sphere);
 }
 
 // 530394
 int32_t Humanoid::VMethod25() {
-    if (this->monster_info->values.GetSize() == 0) {
+    if (this->monster_info->Values().GetSize() == 0) {
         return 8;
     }
-    int32_t val = this->monster_info->values.GetData()->protection_astral;
+    int32_t val = this->monster_info->Values().GetData()->protection_astral;
     if (val == -1) {
         return 8;
     }

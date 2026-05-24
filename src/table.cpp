@@ -13,7 +13,7 @@ int GameDataRes::sub_50DF19(int experience) {
             continue;
         }
 
-        MonsterInfoData* data = monster.values.GetData();
+        MonsterInfoData* data = monster.Values().GetData();
 
         // type_id must be in range [0x40, 0x62]
         if (data->type_id < 0x40 || data->type_id > 0x62) {

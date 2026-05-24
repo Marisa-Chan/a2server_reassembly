@@ -35,13 +35,13 @@ const std::array<uint32_t, 32> SpellBtB = {
 // 53939E
 int Spell::sub_53939E(uint8_t, uint8_t)
 {
-    return spell_info->values.GetData()[0].spell_target == 2;
+    return spell_info->Values().GetData()[0].spell_target == 2;
 }
 
 // 539541
 void Spell::sub_539541(uint32_t power)
 {
-    const SpellInfoData& info = spell_info->values.GetData()[0];
+    const SpellInfoData& info = spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
     this->max_range = info.max_range;
@@ -121,7 +121,7 @@ int32_t Spell::sub_539958(Unit* caster, Unit* target, int8_t x, int8_t y)
         return 0;
 	}
 
-    const SpellInfoData& info = spell_info->values.GetData()[0];
+    const SpellInfoData& info = spell_info->Values().GetData()[0];
     int32_t delay = 0;
     if (info.delivery_system == 2) {
         delay = sub_5365AB(caster->position, &local_pos) / info.effect_speed;
@@ -204,7 +204,7 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         return;
     }
 
-    const SpellInfoData& info = spell_info->values.GetData()[0];
+    const SpellInfoData& info = spell_info->Values().GetData()[0];
     int32_t sphere = info.sphere;
 
     // Phase 1: Power calculation.

@@ -36,7 +36,7 @@ public:
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
-    int32_t GetSphere() { return spell_info->values[0].sphere; } //5393ee
+    int32_t GetSphere() { return spell_info->Values()[0].sphere; } //5393ee
 
 public:
     SpellInfo* spell_info;

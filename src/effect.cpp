@@ -581,7 +581,7 @@ int32_t Effect::VMethod15() {
             this->spell_or_damage = spell::drain_life;
         }
 
-        int32_t scroll_cost = g_GameDataRes.spells[this->spell_or_damage].values[0].scroll_cost;
+        int32_t scroll_cost = g_GameDataRes.spells[this->spell_or_damage].Values()[0].scroll_cost;
         double level = (double)this->spell_value / 30.0 + 1.0;
         this->_exp = (int32_t)(std::pow(2.0, std::log(level) / std::log(1.2)) * (scroll_cost * 10));
     } else {
@@ -595,7 +595,7 @@ int32_t Effect::VMethod16(double param) {
     int32_t result = 1;
     if ((this->usage_type & 3) == 0) {
         if (this->effect_id == modifier::castspell) {
-            result = (int32_t)(param * 10.0 / g_GameDataRes.spells[this->spell_or_damage].values[0].book_cost);
+            result = (int32_t)(param * 10.0 / g_GameDataRes.spells[this->spell_or_damage].Values()[0].book_cost);
             if (result > 100) {
                 result = 100;
             }
@@ -603,9 +603,9 @@ int32_t Effect::VMethod16(double param) {
                 result = -1;
             }
         } else {
-            int32_t affect_min = g_GameDataRes.magics[this->effect_id].values[0].affect_min;
-            int32_t affect_max = g_GameDataRes.magics[this->effect_id].values[0].affect_max;
-            int32_t mana_cost = g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+            int32_t affect_min = g_GameDataRes.magics[this->effect_id].Values()[0].affect_min;
+            int32_t affect_max = g_GameDataRes.magics[this->effect_id].Values()[0].affect_max;
+            int32_t mana_cost = g_GameDataRes.magics[this->effect_id].Values()[0].mana_cost;
             result = (int32_t)(std::log(param / (mana_cost * 500.0)) / std::log(20.0) * affect_max + 0.5);
             if (result > affect_max) {
                 result = affect_max;
@@ -633,7 +633,7 @@ void Effect::VMethod17(int32_t power) {
         this->damage_min = (uint8_t)Random1N(power);
         this->damage_spread = (uint8_t)Random1N(power / 2);
     } else {
-        int32_t affect_min = g_GameDataRes.magics[this->effect_id].values[0].affect_min;
+        int32_t affect_min = g_GameDataRes.magics[this->effect_id].Values()[0].affect_min;
         if (r < affect_min) {
             this->full_magic_value = affect_min;
         } else {
@@ -647,11 +647,11 @@ int32_t Effect::EffectPrice() {
     if (this->effect_id == 0) {
         return 0;
     } else if (this->effect_id == modifier::castspell) {
-        return this->spell_value * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+        return this->spell_value * g_GameDataRes.magics[this->effect_id].Values()[0].mana_cost;
     } else if (this->effect_id >= modifier::damagefire && this->effect_id <= modifier::damageastral) {
-        return (this->damage_min + this->damage_spread) * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+        return (this->damage_min + this->damage_spread) * g_GameDataRes.magics[this->effect_id].Values()[0].mana_cost;
     } else {
-        return this->full_magic_value * g_GameDataRes.magics[this->effect_id].values[0].mana_cost;
+        return this->full_magic_value * g_GameDataRes.magics[this->effect_id].Values()[0].mana_cost;
     }
 }
 

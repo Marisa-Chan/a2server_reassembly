@@ -214,7 +214,7 @@ void Inn::InnCreateQuests(Player* player)
 
             int reward = 0;
             if (type_id >= 0 && type_id < g_GameDataRes.monsters.GetSize()) {
-                reward = g_GameDataRes.monsters[type_id].values[0].experience * amount;
+                reward = g_GameDataRes.monsters[type_id].Values()[0].experience * amount;
             }
 
             Quest* q = MakeActiveQuest(this, off_60F9C0);
@@ -812,7 +812,7 @@ void Inn::InnReward(Player* player) {
 
     for (int i = 0; i < temp_shelf.GetSize(); i++) {
         Item* item = temp_shelf[i];
-        EquipData* equip_data = &item->world_equip->values[0];
+        EquipData* equip_data = &item->world_equip->Values()[0];
         if (equip_data->other_param & item_type_filter) {
             filtered_by_class.Add(item);
         } else {
@@ -830,7 +830,7 @@ void Inn::InnReward(Player* player) {
 
     for (int i = 0; i < temp_shelf.GetSize(); i++) {
         Item* item = temp_shelf[i];
-        EquipData* equip_data = &item->world_equip->values[0];
+        EquipData* equip_data = &item->world_equip->Values()[0];
         if (equip_data->other_param & item_type_filter) {
             temp_candidates.Add(item);
         } else {
@@ -977,7 +977,7 @@ void Inn::InnReward(Player* player) {
         if (mob_idx != 0) {
             Item* mob = new Item();
             mob->item_id = 0xFFFD;
-            MonsterInfoData* data = g_GameDataRes.monsters[mob_idx].values.GetData();
+            MonsterInfoData* data = g_GameDataRes.monsters[mob_idx].Values().GetData();
             mob->count = (data->face << 8) | data->type_id;
             result_items.Add(mob);
         }
@@ -1022,13 +1022,13 @@ void Inn::InnReward(Player* player) {
                     continue;
                 }
 
-                int mana_cost = g_GameDataRes.magics[effect->effect_id].values[0].mana_cost;
+                int mana_cost = g_GameDataRes.magics[effect->effect_id].Values()[0].mana_cost;
                 if (mana_cost > equip->magic_volume) {
                     continue;
                 }
 
                 uint32_t capacity = 0;
-                int32_t effect_max = g_GameDataRes.magics[effect->effect_id].values[0].affect_max;
+                int32_t effect_max = g_GameDataRes.magics[effect->effect_id].Values()[0].affect_max;
                 int32_t diff = 0;
 
                 switch (effect->effect_id) {

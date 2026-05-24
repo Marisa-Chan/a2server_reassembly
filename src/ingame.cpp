@@ -561,7 +561,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							uni = new Unit();
 							uni->itemDataID = g_GameDataRes.FUN_00512625(g_CUnitStatic.serverId);
 							uni->monster_info = &g_GameDataRes.monsters[uni->itemDataID];
-							uni->FUN_0052ec7a(uni->monster_info->values);
+							uni->FUN_0052ec7a(uni->monster_info->Values());
 							uni->server_id = g_CUnitStatic.serverId;
 
 							if (wnd->field_0x640 == 2 && g_Server && g_Server->field22_0xd8 != 2)

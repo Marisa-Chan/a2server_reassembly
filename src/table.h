@@ -12,7 +12,6 @@
 class Item;
 
 
-template <typename T>
 class TableLine : public CObject {
 public:
     // virtual CRuntimeClass* GetRuntimeClass() const override;
@@ -25,9 +24,20 @@ public:
 
 public:
     CString name;
-    CArray<T> values;
+    CArray<int32_t> values;
+
+protected:
+    template <typename T>
+    CArray<T>& ValuesAs() {
+        return *reinterpret_cast<CArray<T>*>(&this->values);
+    }
+
+    template <typename T>
+    const CArray<T>& ValuesAs() const {
+        return *reinterpret_cast<const CArray<T>*>(&this->values);
+    }
 };
-ASSERT_SIZE(TableLine<int32_t>, 0x1c);
+ASSERT_SIZE(TableLine, 0x1c);
 
 struct MatShapeData {
     uint32_t field_0x0;
@@ -46,8 +56,16 @@ ASSERT_SIZE(MatShapeData, 0x48);
 
 struct EquipData;
 
-class WorldEquip: public TableLine<EquipData> {
+class WorldEquip: public TableLine {
 public:
+    CArray<EquipData>& Values() {
+        return this->ValuesAs<EquipData>();
+    }
+
+    const CArray<EquipData>& Values() const {
+        return this->ValuesAs<EquipData>();
+    }
+
     uint16_t shape_material_matrix[7];
     uint8_t gap_0x2a[2];
     CStringArray string_array;
@@ -61,8 +79,16 @@ public:
 };
 ASSERT_SIZE(MagicItem, 0x44);
 
-class MatShape : public TableLine<int32_t> {
+class MatShape : public TableLine {
 public:
+    CArray<int32_t>& Values() {
+        return this->ValuesAs<int32_t>();
+    }
+
+    const CArray<int32_t>& Values() const {
+        return this->ValuesAs<int32_t>();
+    }
+
     uint32_t field_0x1c;
     MatShapeData data;
 };
@@ -79,7 +105,15 @@ struct BuildingInfoData {
 };
 ASSERT_SIZE(BuildingInfoData, 0x18);
 
-class BuildingInfo : public TableLine<BuildingInfoData> {
+class BuildingInfo : public TableLine {
+public:
+    CArray<BuildingInfoData>& Values() {
+        return this->ValuesAs<BuildingInfoData>();
+    }
+
+    const CArray<BuildingInfoData>& Values() const {
+        return this->ValuesAs<BuildingInfoData>();
+    }
 };
 ASSERT_SIZE(BuildingInfo, 0x1c);
 
@@ -137,7 +171,15 @@ struct MagicInfoData {
 };
 ASSERT_SIZE(MagicInfoData, 0x70);
 
-class MagicInfo: public TableLine<MagicInfoData> {
+class MagicInfo: public TableLine {
+public:
+    CArray<MagicInfoData>& Values() {
+        return this->ValuesAs<MagicInfoData>();
+    }
+
+    const CArray<MagicInfoData>& Values() const {
+        return this->ValuesAs<MagicInfoData>();
+    }
 };
 ASSERT_SIZE(MagicInfo, 0x1c);
 
@@ -207,8 +249,16 @@ struct MonsterInfoData {
 };
 ASSERT_SIZE(MonsterInfoData, 0xf8);
 
-class MonsterInfo: public TableLine<MonsterInfoData> {
+class MonsterInfo: public TableLine {
 public:
+    CArray<MonsterInfoData>& Values() {
+        return this->ValuesAs<MonsterInfoData>();
+    }
+
+    const CArray<MonsterInfoData>& Values() const {
+        return this->ValuesAs<MonsterInfoData>();
+    }
+
     CStringArray equipped_items;
 };
 ASSERT_SIZE(MonsterInfo, 0x30);
@@ -238,7 +288,16 @@ struct HumanInfoData {
 };
 ASSERT_SIZE(HumanInfoData, 0x68);
 
-class HumanInfo: public TableLine<HumanInfoData> {
+class HumanInfo: public TableLine {
+public:
+    CArray<HumanInfoData>& Values() {
+        return this->ValuesAs<HumanInfoData>();
+    }
+
+    const CArray<HumanInfoData>& Values() const {
+        return this->ValuesAs<HumanInfoData>();
+    }
+
     CStringArray equipped_items;
 };
 
@@ -268,8 +327,16 @@ struct SpellInfoData {
 };
 ASSERT_SIZE(SpellInfoData, 0x58);
 
-class SpellInfo: public TableLine<SpellInfoData> {
+class SpellInfo: public TableLine {
 public:
+    CArray<SpellInfoData>& Values() {
+        return this->ValuesAs<SpellInfoData>();
+    }
+
+    const CArray<SpellInfoData>& Values() const {
+        return this->ValuesAs<SpellInfoData>();
+    }
+
     const char* effect;
 };
 ASSERT_SIZE(SpellInfo, 0x20);

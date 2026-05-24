@@ -311,17 +311,17 @@ int32_t Item::VMethod14(int, int) {
 
 // 54872b
 int32_t Item::VMethod15() {
-    this->_exp = this->world_equip->values[0].shape;
+    this->_exp = this->world_equip->Values()[0].shape;
     if (this->item_type == 5) {
         Effect* first_effect = this->_effects.IsEmpty() ? nullptr : this->_effects.GetHead();
         if (first_effect == nullptr) {
             this->_exp = 0;
         } else {
-            this->_exp = g_GameDataRes.spells[first_effect->spell_or_damage].values[0].book_cost;
+            this->_exp = g_GameDataRes.spells[first_effect->spell_or_damage].Values()[0].book_cost;
         }
     }
     if (this->item_type == 4) {
-        this->_exp = this->world_equip->values[0].shape;
+        this->_exp = this->world_equip->Values()[0].shape;
     }
     return this->_exp;
 }
@@ -621,7 +621,7 @@ void Armor::LoadInfo()
     this->slot = 0;
     this->world_equip = &g_GameDataRes.armors[this->itemDataID];
 
-    EquipData* data = &this->world_equip->values[0];
+    EquipData* data = &this->world_equip->Values()[0];
     this->slot = (uint8_t)data->slot;
 
     if (this->slot >= 13) {
@@ -650,7 +650,7 @@ void Weapon::LoadEquipInfo(WorldEquip* params)
 {
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* mat = &g_GameDataRes.materials[this->material_id];
-    EquipData* data = &params->values[0];
+    EquipData* data = &params->Values()[0];
 
     double damage_mult = (double)mat->data.damage * shape->data.damage;
     this->hit_values.hand_damage_min = (uint8_t)((double)data->damage_min * damage_mult + 0.5);
@@ -740,7 +740,7 @@ Item* Armor::VMethod13() {
 int32_t Armor::VMethod15() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
@@ -763,7 +763,7 @@ int32_t Armor::VMethod15() {
 void Armor::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->values[0].other_param;
+    int32_t other_param = this->world_equip->Values()[0].other_param;
     if (other_param & 1) {
         slot[4] |= 2;
     }
@@ -845,7 +845,7 @@ void Shield::LoadInfo() {
     this->world_equip = &g_GameDataRes.shields[this->itemDataID];
     this->item_type = ItemType::EQUIPMENT;
 
-    EquipData* data = &this->world_equip->values[0];
+    EquipData* data = &this->world_equip->Values()[0];
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* material = &g_GameDataRes.materials[this->material_id];
 
@@ -885,7 +885,7 @@ Item* Shield::VMethod10(Unit* unit) {
         old_shield->VMethod11(unit);
     }
     if (unit->weapon != nullptr) {
-        if (unit->weapon->world_equip->values[0].suitable_for == 2) {
+        if (unit->weapon->world_equip->Values()[0].suitable_for == 2) {
             Item* tmp = unit->Unequip(unit->weapon);
             unit->inventory->PutItemIntoBagAtDefault(tmp);
         }
@@ -926,7 +926,7 @@ Item* Shield::VMethod13() {
 int32_t Shield::VMethod15() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
@@ -949,7 +949,7 @@ int32_t Shield::VMethod15() {
 void Shield::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->values[0].other_param;
+    int32_t other_param = this->world_equip->Values()[0].other_param;
     if (other_param & 1) {
         slot[4] |= 2;
     }
@@ -1106,13 +1106,13 @@ Item* Weapon::VMethod10(Unit* unit) {
         unit->weapon->VMethod11(unit);
     }
 
-    if (this->world_equip->values[0].suitable_for == 2 && unit->shield != nullptr) {
+    if (this->world_equip->Values()[0].suitable_for == 2 && unit->shield != nullptr) {
         Item* tmp = unit->Unequip(unit->shield);
         unit->inventory->PutItemIntoBagAtDefault(tmp);
     }
 
     unit->weapon = this;
-    int32_t attack_type = this->world_equip->values[0].attack_type;
+    int32_t attack_type = this->world_equip->Values()[0].attack_type;
     if (attack_type < 10) {
         unit->equipment_extra.hit_values.hand_damage_min += this->hit_values.hand_damage_min;
         unit->equipment_extra.hit_values.hand_damage_spread += this->hit_values.hand_damage_spread;
@@ -1137,11 +1137,11 @@ Item* Weapon::VMethod10(Unit* unit) {
     }
     unit->VMethod18();
     if (unit->VMethod8() != 0) {
-        if (this->world_equip->values[0].relax != -1) {
-            unit->charge = (uint8_t)this->world_equip->values[0].relax;
+        if (this->world_equip->Values()[0].relax != -1) {
+            unit->charge = (uint8_t)this->world_equip->Values()[0].relax;
         }
-        if (this->world_equip->values[0].two_handed != -1) {
-            unit->relax = (uint8_t)this->world_equip->values[0].two_handed;
+        if (this->world_equip->Values()[0].two_handed != -1) {
+            unit->relax = (uint8_t)this->world_equip->Values()[0].two_handed;
         }
     }
     unit->max_range += (uint8_t)(this->range - 1);
@@ -1154,7 +1154,7 @@ Item* Weapon::VMethod10(Unit* unit) {
 // 5515B9
 void Weapon::VMethod11(Unit* unit) {
     this->RemoveEffects(unit);
-    int32_t attack_type = this->world_equip->values[0].attack_type;
+    int32_t attack_type = this->world_equip->Values()[0].attack_type;
     if (attack_type < 10) {
         unit->equipment_extra.hit_values.hand_damage_min -= this->hit_values.hand_damage_min;
         unit->equipment_extra.hit_values.hand_damage_spread -= this->hit_values.hand_damage_spread;
@@ -1199,7 +1199,7 @@ Item* Weapon::VMethod13() {
 int32_t Weapon::VMethod15() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->values[0].price * material_price * shape_price + 0.5);
+    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
@@ -1225,7 +1225,7 @@ int32_t Weapon::VMethod15() {
 void Weapon::VMethod17(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->values[0].other_param;
+    int32_t other_param = this->world_equip->Values()[0].other_param;
     if (other_param & 1) {
         slot[4] |= 2;
         pkt->AppendByteByte(modifier::damagemin, this->hit_values.hand_damage_min, slot);
@@ -1286,7 +1286,7 @@ void LoadItemNames() {
         uint16_t id = entry->id;
         if ((id & 0xF00) == 0xE00) {
             MagicItem* magic_item = &g_GameDataRes.magic_items[id & 0xFF];
-            *(int32_t*)&entry->data[1] = magic_item->values[0].shape; // Maybe `data` is actually `int32_t`?
+            *(int32_t*)&entry->data[1] = magic_item->Values()[0].shape; // Maybe `data` is actually `int32_t`?
         }
         unk_660D28[id] = entry;
         entry = (ItemNamePktEntry*)((uint8_t*)entry + entry->data_len + 7);

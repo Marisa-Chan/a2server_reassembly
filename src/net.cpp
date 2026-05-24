@@ -220,7 +220,7 @@ void NetStru1::sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t par
         if (unit->pOwner != player) {
             mask &= 0xc08000fb;
 
-            int32_t max_hp = unit->monster_info->values[0].health_max;
+            int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
             if (g_Server->field4_0x74 == 0) {
                 if (g_Server->field22_0xd8 == 1) {
