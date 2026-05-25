@@ -17,15 +17,15 @@ class Shop;
 class Unit;
 
 
-class MultiShopShelf : public CObject {
+class CMultiShopShelf : public CObject {
 public:
-    DECLARE_SERIAL(MultiShopShelf); // Runtime class definition at 637270.
+    DECLARE_SERIAL(CMultiShopShelf); // Runtime class definition at 637270.
 
 public: // VTable at 60f468
-    virtual ~MultiShopShelf(); // 544B0C
+    virtual ~CMultiShopShelf(); // 544B0C
 
 public:
-    MultiShopShelf(); // 544A9D
+    CMultiShopShelf(); // 544A9D
 
 public:
     uint32_t shelf_id;
@@ -33,60 +33,60 @@ public:
 
     void ClearItems(); // 545865
 };
-ASSERT_SIZE(MultiShopShelf, 0x1c);
+ASSERT_SIZE(CMultiShopShelf, 0x1c);
 
-class MultiShopInstance;
+class CMultiShopInstance;
 
-class MultiShopTemplate : public CObject {
+class CMultiShopTemplate : public CObject {
 public:
-    DECLARE_SERIAL(MultiShopTemplate); // Runtime class at stru_6372A0
+    DECLARE_SERIAL(CMultiShopTemplate); // Runtime class at stru_6372A0
 
 public: // VTable at 60f468
-    virtual ~MultiShopTemplate(); // 546DA4
+    virtual ~CMultiShopTemplate(); // 546DA4
 
 public:
-    MultiShopTemplate(); // 54687B
-    MultiShopTemplate(Shop* shop); // 546C72
+    CMultiShopTemplate(); // 54687B
+    CMultiShopTemplate(Shop* shop); // 546C72
 
-    void sub_546F18(MultiShopInstance* inst, int param); // 546F18
+    void sub_546F18(CMultiShopInstance* inst, int param); // 546F18
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547DD4(); // 547DD4
 
 public:
     uint32_t field_0x4;
     int32_t refresh_assortment_counter;
-    std::array<MultiShopShelf, 4> shelves;
-    CArray<MultiShopInstance*> shop_instances;
+    std::array<CMultiShopShelf, 4> shelves;
+    CArray<CMultiShopInstance*> shop_instances;
     int32_t field_0x90;
     Shop* shop;
 };
-ASSERT_OFFSET(MultiShopTemplate, shop_instances, 0x7c);
-ASSERT_SIZE(MultiShopTemplate, 0x98);
+ASSERT_OFFSET(CMultiShopTemplate, shop_instances, 0x7c);
+ASSERT_SIZE(CMultiShopTemplate, 0x98);
 
-class MultiShopInstance : public CObject {
+class CMultiShopInstance : public CObject {
 public:
-    DECLARE_SERIAL(MultiShopInstance); // Runtime class at 637288
-
-public:
-    virtual ~MultiShopInstance(); // 545C8C
+    DECLARE_SERIAL(CMultiShopInstance); // Runtime class at 637288
 
 public:
-    MultiShopInstance(); // 545BD7
+    virtual ~CMultiShopInstance(); // 545C8C
 
 public:
-    std::array<MultiShopShelf, 4> shelves;
+    CMultiShopInstance(); // 545BD7
+
+public:
+    std::array<CMultiShopShelf, 4> shelves;
     Unit* unit;
     Inventory inventory;
-    MultiShopTemplate* shop_template;
+    CMultiShopTemplate* shop_template;
 
     void Sell(); // 545D5E
     void Buy(); // 546027
     int sub_5462C8(Item* item, int arg1); // 5462C8
     void sub_5464B6(int param); // 5464B6
 };
-ASSERT_OFFSET(MultiShopInstance, unit, 0x74);
-ASSERT_OFFSET(MultiShopInstance, shop_template, 0x9c);
-ASSERT_SIZE(MultiShopInstance, 0xa0);
+ASSERT_OFFSET(CMultiShopInstance, unit, 0x74);
+ASSERT_OFFSET(CMultiShopInstance, shop_template, 0x9c);
+ASSERT_SIZE(CMultiShopInstance, 0xa0);
 
 
 #endif

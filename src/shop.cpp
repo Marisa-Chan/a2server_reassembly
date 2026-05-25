@@ -8,7 +8,7 @@ IMPLEMENT_SERIAL(Shop, Building, 1);
 // 5442CA
 Shop::Shop() {
     this->field_0xc0 = 10000000;
-    this->shop_template = new MultiShopTemplate(this);
+    this->shop_template = new CMultiShopTemplate(this);
     this->gen_params[0].min_cost = 1000000;
     this->gen_params[0].max_cost = 10000000;
     this->gen_params[0].max_count = 1;
@@ -22,13 +22,13 @@ Shop::Shop() {
 // 5443EF
 Shop::Shop(const CString& name) : Building(name) {
     this->field_0xc0 = 10000000;
-    this->shop_template = new MultiShopTemplate(this);
+    this->shop_template = new CMultiShopTemplate(this);
 }
 
 // 544495
 Shop::Shop(uint8_t type_id, TokenPos* pos) : Building(type_id, pos, 0, 0) {
     this->field_0xc0 = 10000000;
-    this->shop_template = new MultiShopTemplate(this);
+    this->shop_template = new CMultiShopTemplate(this);
 }
 
 // 544564

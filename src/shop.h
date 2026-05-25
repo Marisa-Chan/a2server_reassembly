@@ -7,7 +7,7 @@
 #include "assert_offset.h"
 
 
-class MultiShopTemplate;
+class CMultiShopTemplate;
 class Humanoid;
 class Item;
 class Unit;
@@ -48,7 +48,7 @@ public:
     void sub_544685(Unit* unit);
 
 public:
-    MultiShopTemplate* shop_template;
+    CMultiShopTemplate* shop_template;
     AssortmentGenParams gen_params[4];
     uint32_t field_0xc0;
 };

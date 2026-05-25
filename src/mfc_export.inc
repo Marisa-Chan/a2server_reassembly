@@ -236,8 +236,7 @@ externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
 externdef ?sub_54463F@Shop@@QAEXXZ :proc
 externdef ?sub_5446C7@Shop@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 externdef ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z :proc
-externdef ?sub_547C5A@MultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
-externdef ??0MultiShopTemplate@@QAE@PAVShop@@@Z :proc                            ; MultiShopTemplate::MultiShopTemplate(Shop*)
+externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 
 externdef ?sub_54471B@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544737@Shop@@QAEXPAVUnit@@@Z :proc
@@ -246,20 +245,18 @@ externdef ?sub_544685@Shop@@QAEXPAVUnit@@@Z :proc
 
 
 ; MultiShopShelf
-externdef ??0MultiShopShelf@@QAE@XZ :proc        ; MultiShopShelf::MultiShopShelf()
-externdef ??1MultiShopShelf@@UAE@XZ :proc        ; MultiShopShelf::~MultiShopShelf()
-externdef ?ClearItems@MultiShopShelf@@QAEXXZ : proc
+externdef ?ClearItems@CMultiShopShelf@@QAEXXZ : proc
 
 ; MultiShopTemplate
-externdef ?sub_546F18@MultiShopTemplate@@QAEXPAVMultiShopInstance@@H@Z : proc
-externdef ?sub_547DD4@MultiShopTemplate@@QAEXXZ :proc                           ; void MultiShopTemplate::sub_547DD4()
+externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
+externdef ?sub_547DD4@CMultiShopTemplate@@QAEXXZ :proc                           ; void MultiShopTemplate::sub_547DD4()
 
 ; MultiShopInstance
-externdef ??0MultiShopInstance@@QAE@XZ :proc                                     ; MultiShopInstance::MultiShopInstance()
-externdef ?Sell@MultiShopInstance@@QAEXXZ : proc
-externdef ?Buy@MultiShopInstance@@QAEXXZ : proc
-externdef ?sub_5462C8@MultiShopInstance@@QAEHPAVItem@@H@Z : proc
-externdef ?sub_5464B6@MultiShopInstance@@QAEXH@Z : proc
+externdef ??0CMultiShopInstance@@QAE@XZ :proc                                     ; MultiShopInstance::MultiShopInstance()
+externdef ?Sell@CMultiShopInstance@@QAEXXZ : proc
+externdef ?Buy@CMultiShopInstance@@QAEXXZ : proc
+externdef ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z : proc
+externdef ?sub_5464B6@CMultiShopInstance@@QAEXH@Z : proc
 
 
 ; ShopAssortment
