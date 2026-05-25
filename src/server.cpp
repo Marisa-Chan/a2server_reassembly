@@ -1536,7 +1536,7 @@ void Server::CheatCommand(Player* player, CString cheat_string)
     }
 }
 
-extern "C" Shop g_DefaultShop;     // unk_6D10B8
+Shop g_DefaultShop;     // unk_6D10B8
 
 // 502C50
 Shop* Server::sub_502C50(TokenPos* pos) {

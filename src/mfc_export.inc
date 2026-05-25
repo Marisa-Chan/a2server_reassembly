@@ -222,7 +222,6 @@ externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     
 
 
 ; Shop
-externdef _g_DefaultShop :byte
 externdef ??0Shop@@QAE@XZ :proc                                                  ; Shop::Shop()
 externdef ??0Shop@@QAE@ABVCString@@@Z :proc                                      ; Shop::Shop(const CString&)
 externdef ??0Shop@@QAE@EPAUTokenPos@@@Z :proc                                    ; Shop::Shop(uint8_t, TokenPos*)
