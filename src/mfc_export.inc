@@ -16,6 +16,12 @@ extern ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ:proc ; CObject::GetRunt
 extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
 extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
+;TableLine
+externdef ?GetRuntimeClass@TableLine@@UBEPAUCRuntimeClass@@XZ :proc
+externdef ?Serialize@TableLine@@UAEXAAVCArchive@@@Z :proc
+externdef ?VMethod1@TableLine@@UAEXVCString@@HPAN@Z :proc
+externdef ?VMethod2@TableLine@@UAEXVCString@@HPAHPAN@Z :proc
+
 ;CRuntimeClass
 extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::CreateObject
 extern ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z:proc   ;  CRuntimeClass::IsDerivedFrom

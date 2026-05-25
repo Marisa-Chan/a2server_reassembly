@@ -14,13 +14,15 @@ class Item;
 
 class TableLine : public CObject {
 public:
-    // virtual CRuntimeClass* GetRuntimeClass() const override;
-	// virtual ~TableLineBase();
-    // virtual void Serialize(CArchive& ar) override;
-    // virtual void AssertValid() const override;
-    // virtual void Dump(CDumpContext& dc) const override;
-    // virtual void VMethod1(const char* param_2, int param_3, const char* param_4);
-    // virtual void VMethod2(void* param_2, int32_t param_3, int32_t* param_4, double* param_5);
+    DECLARE_SERIAL(TableLine); // Runtime class definition at 6362b0.
+
+public:
+    TableLine(); // 536d8c
+
+public: // VTable at 60eae8.
+    virtual void Serialize(CArchive& ar) override;
+    virtual void VMethod1(CString line, int32_t values_count, double* out_values);
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double);
 
 public:
     CString name;

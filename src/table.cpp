@@ -1,5 +1,89 @@
 #include "table.h"
 
+#include <cstdlib>
+
+
+IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
+
+// 512B33
+TableLine::TableLine() {
+}
+
+// 513A4F
+void TableLine::Serialize(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar << this->name;
+    } else {
+        ar >> this->name;
+    }
+    this->values.Serialize(ar);
+}
+
+// 512C4D
+void TableLine::VMethod1(CString line, int32_t values_count, double* out_values) {
+    CString sanitized;
+    sanitized.Empty();
+
+    for (int32_t i = 0; i < line.GetLength(); i++) {
+        const char ch = line[i];
+        if (ch != '"') {
+            sanitized += ch;
+        }
+    }
+
+    line = sanitized;
+    line += '\t';
+
+    this->values.SetSize(values_count);
+
+    int32_t value_index = 0;
+    int32_t tab_index = line.Find('\t');
+    while (tab_index >= 0) {
+        if (value_index == 0) {
+            this->name = line.Left(tab_index);
+        } else if (out_values != nullptr) {
+            CString token = line.Left(tab_index);
+            this->VMethod2(token, value_index, nullptr, &out_values[value_index - 1]);
+        } else if (tab_index > 0) {
+            CString token = line.Left(tab_index);
+            int32_t* dst = &this->values[value_index - 1];
+            this->VMethod2(token, this->values[value_index - 1], dst, nullptr);
+        } else {
+            this->values[value_index - 1] = -1;
+        }
+
+        line = line.Mid(tab_index + 1);
+        tab_index = line.Find('\t');
+        value_index++;
+        if (value_index > values_count) {
+            break;
+        }
+    }
+}
+
+// 5131C1
+void TableLine::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    if (type_id == 0) {
+        this->name = str;
+        return;
+    }
+
+    if (out_double != nullptr) {
+        *out_double = atof(str);
+        return;
+    }
+
+    if (out_value == nullptr) {
+        return;
+    }
+
+    if (str.GetLength() > 0) {
+        *out_value = atoi(str);
+    } else {
+        *out_value = -1;
+    }
+}
+
 // 50DF19
 int GameDataRes::sub_50DF19(int experience) {
     int result = 0;
