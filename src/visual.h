@@ -1534,6 +1534,22 @@ public:
 ASSERT_SIZE(GameOptionsWindow, 0x68);
 
 
+class EndGameMenu : public VisMenuWnd
+{
+public:
+	EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2); //441357
+};
+ASSERT_SIZE(EndGameMenu, 0x7c);
+
+class ExitGameMenu : public VisMenuWnd
+{
+public:
+	ExitGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); //44186e
+};
+ASSERT_SIZE(ExitGameMenu, 0x7c);
+
+
+
 //60aef0
 class VisServerScreen : public VisScreen
 {
@@ -1551,5 +1567,7 @@ class VisGlobalMap : public VisScreen
 public:
 	void FUN_0047024a(); //47024a
 };
+
+
 
 #endif

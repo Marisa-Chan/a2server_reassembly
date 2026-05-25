@@ -1651,7 +1651,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
     case 0x416:
         if (field_0x418 == 1)
-            PopUpScreen( new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40) ) );
+            PopUpScreen(new IngameMenu(1, 100, 60, 440, 400, nullptr, 0, CRect(0, 0, 240, 40)));
         break;
 
     case 0x418:
@@ -1664,7 +1664,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x419:
         if (field_0x418 == 1)
             g_Server->sub_4F1E2A();
-        
+
         FUN_0048cb3c();
 
         if (field_0x418 == 0 && vis_root->FindChild(1020) != nullptr)
@@ -1699,6 +1699,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x41b:
         if (field_0x418 == 1 || field_0x418 == 0)
             PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
+        break;
+
+    case 0x41c:
+        if (field_0x418 == 1)
+            PopUpScreen(new EndGameMenu(1, 100, 100, 440, 340, nullptr, 0, CRect(0, 0, 300, 50), field_0x3f8));
+        else if (field_0x418 == 0)
+            PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
         break;
     }
 

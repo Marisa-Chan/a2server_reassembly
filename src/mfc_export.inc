@@ -1910,6 +1910,13 @@ externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 ;GameOptionsWindow
 extern ??0GameOptionsWindow@@QAE@HHHHH@Z : proc
 
+;MPGameMenu
+extern ??0EndGameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@H@Z :proc
+
+;WinGameMenu
+extern ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z :proc
+
+
 ;GFX things
 externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc

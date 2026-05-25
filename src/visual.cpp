@@ -4778,3 +4778,49 @@ void GameOptionsWindow::VMethod26()
 
     acpt->SetRightObj(cncl);
 }
+
+
+
+
+EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitm, uint32_t unk, const CRect& _r, int32_t unk2)
+ : VisMenuWnd(_id, l, t, r, b, _bitm, unk, _r)
+{ //441357
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    MenuButton* btn = nullptr;
+
+    if (mwnd->field_0x640 == 1 || mwnd->field_0x640 == 3 || mwnd->field_0x640 == 0)
+        btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
+    else
+        btn = new MenuButton(1, txt_dialogs.GetLine(43), g_font1, nullptr, 0x41d, 'V', ""); //win
+    AddElement(btn, 30);
+
+    if (unk2 == 0 && mwnd->field_0x640 == 2)
+        btn->ChangeFlags(FLAG_ENABLED, false);
+    
+    if (g_CLlDriver.GetProvider() == 4)
+        btn->ChangeFlags(FLAG_ENABLED, false);
+
+    btn = new MenuButton(2, txt_dialogs.GetLine(44), g_font1, nullptr, 0x41e, 'E', ""); //exit to main
+    AddElement(btn, 30);
+
+    btn = new MenuButton(3, txt_dialogs.GetLine(45), g_font1, nullptr, WM_CLOSE, 'W', ""); //exit to win
+    AddElement(btn, 30);
+
+    btn = new MenuButton(4, txt_dialogs.GetLine(40), g_font1, nullptr, 0x446, 'R', ""); //return to game
+    AddElement(btn, 30);
+}
+
+
+ExitGameMenu::ExitGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r)
+: VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r)
+{ //44186e
+    MenuButton* btn = new MenuButton(2, txt_dialogs.GetLine(44), g_font1, nullptr, 0x41e, 'E', ""); //exit to main
+    AddElement(btn, 30);
+
+    btn = new MenuButton(3, txt_dialogs.GetLine(45), g_font1, nullptr, WM_CLOSE, 'W', ""); //exit to win
+    AddElement(btn, 30);
+
+    btn = new MenuButton(4, txt_dialogs.GetLine(40), g_font1, nullptr, 0x446, 'R', ""); //return to game
+    AddElement(btn, 30);
+}
