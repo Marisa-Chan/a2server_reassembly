@@ -84,7 +84,7 @@ void ParseTunes(); //476b21
 void LoadFonts();  //460c37
 void LoadSettings(); //441a03
 void PrecomputeExperienceLevelsTable(); //53069e
-void SetMessageColors(uint32_t); //476de7
+void __cdecl SetMessageColors(uint32_t); //476de7
 
 int FUN_00497490(); //497490
 

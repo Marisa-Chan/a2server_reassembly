@@ -20,6 +20,9 @@ extern CGameFont* g_font2; //65ec68
 
 extern CBmp64* gfx_ball; //665414
 
+extern int32_t g_Shadows; //62f880
+extern int32_t g_Animation; //62f884
+extern int32_t g_Lightning; //62f888
 
 extern int32_t g_RBits;
 extern int32_t g_GBits;

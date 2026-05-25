@@ -1,6 +1,7 @@
 #include "alm.h"
 
 #include "file.h"
+#include <stdio.h>
 
 // 56E910
 MapLogicData::MapLogicData() {

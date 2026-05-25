@@ -1399,6 +1399,7 @@ externdef ??0MainWindow@@QAE@XZ : proc
 externdef ?sub_484259@MainWindow@@QAEXXZ :proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
 externdef ?LoadData@MainWindow@@QAEXXZ  : proc
+externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
@@ -1844,6 +1845,7 @@ externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 externdef ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 externdef ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z  : proc
+externdef ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
@@ -1905,6 +1907,9 @@ externdef ?FUN_0047024a@VisGlobalMap@@QAEXXZ : proc
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 
+;GameOptionsWindow
+extern ??0GameOptionsWindow@@QAE@HHHHH@Z : proc
+
 ;GFX things
 externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 externdef ?LockSurface2@@YAXXZ  :proc
@@ -1961,6 +1966,10 @@ extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc
 
 extern ?g_brightnessLookup@@3PAGA  :dword
 extern ?g_brightnessLookupCount@@3IA  :dword
+
+extern ?g_Shadows@@3HA : dword
+extern ?g_Animation@@3HA : dword
+extern ?g_Lightning@@3HA : dword
 
 extern ?g_RBits@@3HA  :byte
 extern ?g_GBits@@3HA  :byte

@@ -4505,3 +4505,276 @@ void SaveGameWindow::CheckInput()
 
     obj->VMethod9();
 }
+
+
+int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{ //443cd7
+    int32_t oldshtfl = g_settings.ShowTimeFlow;
+
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (msg == 0x445)
+    {
+        VisScrollBar::Data dat;
+        FindChild(2)->WriteData(&dat);
+        mwnd->SetSpeed(dat.v);
+
+        if (mwnd->field_0x640 == 2)
+            FindChild(13)->WriteData(&g_settings.TipsMode);
+        else
+            FindChild(13)->WriteData(&g_settings.ClanNames);
+
+        FindChild(12)->WriteData(&g_settings.ShowTimeFlow);
+        FindChild(3)->WriteData(&g_settings.Smoothing);
+        FindChild(31)->WriteData(&g_Shadows);
+        FindChild(32)->WriteData(&g_Lightning);
+        FindChild(33)->WriteData(&g_Animation);
+
+        if (g_Animation == 0)
+            g_Lightning = 0;
+
+        FindChild(4)->WriteData(g_settings.pShowAllHitPoints);
+        FindChild(5)->WriteData(g_settings.pShowFlyingHP);
+        FindChild(41)->WriteData(&g_MessageColors);
+
+        SetMessageColors(g_MessageColors);
+
+        FindChild(7)->WriteData(g_settings.pFormationMode);
+        FindChild(9)->WriteData(g_settings.pWimpyMode);
+
+        g_settings.AutoCasting = 8;
+
+        int32_t sel;
+        FindChild(141)->WriteData(&sel);
+
+        if (sel == 1)
+            g_settings.AutoCasting |= 0x18;
+        else if (sel == 2)
+            g_settings.AutoCasting |= 0x38;
+
+        FindChild(131)->WriteData(&sel);
+        if (sel != 0)
+            g_settings.AutoCasting |= 1;
+
+        FindChild(132)->WriteData(&sel);
+        if (sel != 0)
+            g_settings.AutoCasting |= 2;
+
+        FindChild(133)->WriteData(&sel);
+        if (sel != 0)
+            g_settings.AutoCasting |= 4;
+
+
+        mwnd->field_0xd0->FUN_0041abd2(*g_settings.pFormationMode % 3);
+        mwnd->field_0xd0->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
+        mwnd->field_0xd0->FUN_0041ab74();
+    }
+    if (g_settings.ShowTimeFlow != oldshtfl)
+        mwnd->field_0xd0->FUN_0041d97e(1);
+
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+void GameOptionsWindow::VMethod26()
+{ //442646
+    
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    AddChild( new VisLabel(-1, 40, 20, rect.Width() - 40, 40, txt_dialogs.GetLine(150), g_font1, p_clrsh_Black, 2) );
+
+    VisLabel* caption = new VisLabel(1, 40, 56, 232, 80, txt_dialogs.GetLine(50), g_font1, p_clrsh_Black, 2);
+    AddChild(caption);
+
+    VisScrollBar* scrl = new VisScrollBar(2, 40, 84, 232, 108, txt_dialogs.GetLine(51));
+    AddChild(scrl);
+
+    if (mwnd->field_0x640 == 0)
+        scrl->ChangeFlags(FLAG_ENABLED, false);
+
+    VisScrollBar::Data sd;
+    sd.v = *g_settings.pGameSpeed;
+    sd.vmax = 8;
+    scrl->ReadData(&sd);
+
+    scrl->SetCaptionLabel(caption);
+
+    CRect& scr = scrl->GetRect();
+
+    VisRadioType1* daych = new VisRadioType1(12, scr.left, scr.bottom + 12, scr.right, scr.bottom + 36, g_font1, p_clrsh_Black, nullptr);
+    daych->AddEntry(txt_dialogs.GetLine(55));
+    AddChild(daych);
+
+    daych->ReadData(&g_settings.ShowTimeFlow);
+    daych->SetUpObj(scrl);
+
+    VisRadioType1* smooth = new VisRadioType1(3, scr.left, scr.bottom + 40, scr.right, scr.bottom + 64, g_font1, p_clrsh_Black, nullptr);
+    smooth->AddEntry(txt_dialogs.GetLine(53));
+    AddChild(smooth);
+
+    smooth->ReadData(&g_settings.Smoothing);
+    smooth->SetUpObj(daych);
+
+    VisRadioType1* shd = new VisRadioType1(31, scr.left, scr.bottom + 68, scr.right, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
+    shd->AddEntry(txt_patch.GetLine(52));
+    AddChild(shd);
+
+    shd->ReadData(&g_Shadows);
+    shd->SetUpObj(smooth);
+
+    VisRadioType1* light = new VisRadioType1(32, scr.left, scr.bottom + 96, scr.right, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
+    light->AddEntry(txt_patch.GetLine(53));
+    AddChild(light);
+
+    light->ReadData(&g_Lightning);
+    light->SetUpObj(shd);
+
+    VisRadioType1* anims = new VisRadioType1(33, scr.left, scr.bottom + 124, scr.right, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
+    anims->AddEntry(txt_patch.GetLine(54));
+    AddChild(anims);
+
+    anims->ReadData(&g_Animation);
+    anims->SetUpObj(light);
+
+    int ypoint = caption->GetRect().top - 15;
+
+    VisRadioType1* showhit = new VisRadioType1(4, scr.right + 48, ypoint, scr.right + 264, ypoint + 24, g_font1, p_clrsh_Black, nullptr);
+    showhit->AddEntry(txt_dialogs.GetLine(57));
+    AddChild(showhit);
+
+    showhit->ReadData(g_settings.pShowAllHitPoints);
+    showhit->SetLeftObj(scrl);
+
+    VisRadioType1* showhp = new VisRadioType1(5, scr.right + 48, ypoint + 28, scr.right + 264, ypoint + 52, g_font1, p_clrsh_Black, nullptr);
+    showhp->AddEntry(txt_dialogs.GetLine(78));
+    AddChild(showhp);
+
+    showhp->ReadData(g_settings.pShowFlyingHP);
+    showhp->SetUpObj(showhit);
+
+    VisRadioType1* clantips = new VisRadioType1(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
+
+    if (mwnd->field_0x640 == 2)
+        clantips->AddEntry(txt_dialogs.GetLine(156)); //tips
+    else
+        clantips->AddEntry(txt_dialogs.GetLine(175)); //clans
+
+    AddChild(clantips);
+
+    if (mwnd->field_0x640 == 2)
+        clantips->ReadData(&g_settings.TipsMode);
+    else
+        clantips->ReadData(&g_settings.ClanNames);
+    clantips->SetUpObj(showhp);
+
+
+    VisRadioType1* altclr = new VisRadioType1(41, scr.right + 48, ypoint + 84, scr.right + 264, ypoint + 108, g_font1, p_clrsh_Black, nullptr);
+
+    altclr->AddEntry(txt_patch.GetLine(87)); //alt color
+    AddChild(altclr);
+
+    altclr->ReadData(&g_MessageColors);
+    altclr->SetUpObj(clantips);
+
+    
+    AddChild(new VisLabel(15, 280, caption->GetRect().bottom + 74, 472, caption->GetRect().bottom + 98, txt_dialogs.GetLine(166), g_font1, p_clrsh_Black, 0));
+
+
+    VisRadioType1* ochar = new VisRadioType1(131, scr.right + 48, scr.bottom + 68, scr.right + 264, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
+
+    ochar->AddEntry(txt_dialogs.GetLine(167)); //own chars
+    AddChild(ochar);
+
+    int32_t aflg = (g_settings.AutoCasting & 1) != 0;
+    ochar->ReadData(&aflg);
+    ochar->SetUpObj(altclr);
+
+
+    VisRadioType1* alli = new VisRadioType1(132, scr.right + 48, scr.bottom + 96, scr.right + 264, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
+
+    alli->AddEntry(txt_dialogs.GetLine(168)); //allies
+    AddChild(alli);
+
+    aflg = (g_settings.AutoCasting & 2) != 0;
+    alli->ReadData(&aflg);
+    alli->SetUpObj(ochar);
+
+
+    VisRadioType1* neutral = new VisRadioType1(133, scr.right + 48, scr.bottom + 124, scr.right + 264, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
+
+    neutral->AddEntry(txt_dialogs.GetLine(169)); //neutral
+    AddChild(neutral);
+
+    aflg = (g_settings.AutoCasting & 4) != 0;
+    neutral->ReadData(&aflg);
+    neutral->SetUpObj(alli);
+
+
+    VisLabel* lbl = new VisLabel(6, 40, scr.bottom + 156, 208, scr.bottom + 180, txt_dialogs.GetLine(58), g_font1, p_clrsh_Black, 0);
+    AddChild(lbl);
+
+    CRect* lr = &lbl->GetRect();
+    
+    //formation
+    VisRadioType2* formation = new VisRadioType2(7, 40, lr->bottom, 208, lr->bottom + 72, g_font1, p_clrsh_Black, txt_dialogs.GetLine(59));
+    formation->AddEntry(txt_dialogs.GetLine(60)); //off
+    formation->AddEntry(txt_dialogs.GetLine(61)); //auto
+    formation->AddEntry(txt_dialogs.GetLine(62)); //on
+    AddChild(formation);
+
+    formation->ReadData(g_settings.pFormationMode);
+    anims->SetDownObj(formation);
+
+
+    lr = &lbl->GetRect();
+
+    lbl = new VisLabel(8, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(63), g_font1, p_clrsh_Black, 0);
+    AddChild(lbl);
+
+
+    lr = &formation->GetRect();
+
+    //autoretreat
+    VisRadioType2* retreat = new VisRadioType2(9, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(64));
+    retreat->AddEntry(txt_dialogs.GetLine(65)); //off
+    retreat->AddEntry(txt_dialogs.GetLine(66)); //norm
+    retreat->AddEntry(txt_dialogs.GetLine(67)); //panic
+    AddChild(retreat);
+
+    retreat->ReadData(g_settings.pWimpyMode);
+
+    formation->SetRightObj(retreat);
+    retreat->SetUpObj(neutral);
+    neutral->SetDownObj(retreat);
+
+    lr = &lbl->GetRect();
+    lbl = new VisLabel(151, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(170), g_font1, p_clrsh_Black, 0);
+    AddChild(lbl);
+
+    lr = &retreat->GetRect();
+    VisRadioType2* acast = new VisRadioType2(141, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(174));
+    acast->AddEntry(txt_dialogs.GetLine(171)); //min
+    acast->AddEntry(txt_dialogs.GetLine(172)); //mid
+    acast->AddEntry(txt_dialogs.GetLine(173)); //max
+    AddChild(acast);
+
+    aflg = (g_settings.AutoCasting & 0x10) != 0;
+    if ((g_settings.AutoCasting & 0x20) != 0)
+        aflg = 2;
+
+    acast->ReadData(&aflg);
+
+    acast->SetLeftObj(retreat);
+    acast->SetUpObj(neutral);
+    neutral->SetDownObj(acast);
+
+    CRect local_30(rect.Width() / 7, acast->GetRect().bottom + 8, (rect.Width() * 3) / 7, acast->GetRect().bottom + 32);
+    CRect local_40((rect.Width() * 4) / 7, acast->GetRect().bottom + 8, (rect.Width() * 6) / 7, acast->GetRect().bottom + 32);
+
+    VisButton* acpt = new VisButton(10, local_30, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
+    AddChild(acpt);
+    acpt->ChangeFlags(FLAG_10, true);
+
+    VisButton* cncl = new VisButton(11, local_40, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+    AddChild(cncl);
+
+    acpt->SetRightObj(cncl);
+}

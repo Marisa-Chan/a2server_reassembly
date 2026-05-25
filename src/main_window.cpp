@@ -1695,6 +1695,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             PopUpScreen(field_0x140);
         }
         break;
+
+    case 0x41b:
+        if (field_0x418 == 1 || field_0x418 == 0)
+            PopUpScreen(new GameOptionsWindow(1, 20, 0, 620, 480));
+        break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -1794,7 +1799,7 @@ int MainWindow::FUN_0048e502(int mode)
 
     if (g_SoundSettings.field_0x20 != 0)
         music_player->OnEndTrack();
-    
+
     if (field_0x640 == 3)
     {
         CRect r = g_ScreenSize;

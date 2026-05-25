@@ -3297,6 +3297,7 @@ int Server::sub_4F1471(CString param_1) {
     this->field16_0x8c = 0;
     this->field59_0x208 = 0;
     this->current_map_name = param_1;
+
     sub_5421E9();
 
     CString map_code;

@@ -11,6 +11,10 @@ extern DDSURFACEDESC g_selDrawBitmap;
 
 uint32_t g_isLowMemory = 0; //660f58
 
+int32_t g_Shadows = 1; //62f880
+int32_t g_Animation = 1; //62f884
+int32_t g_Lightning = 1; //62f888
+
 
 int32_t g_RBits = 5; //62f870
 int32_t g_GBits = 6; //62f874

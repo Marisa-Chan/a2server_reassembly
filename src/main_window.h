@@ -271,6 +271,7 @@ public: // VTable at 0060c1a8.
 
     void CreateUI(); //in asm 484ab0
     void LoadData(); //in asm 483d64
+    void LoadSettings(); //in asm 441a03
 
 public:
     void sub_48A756(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.

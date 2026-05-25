@@ -590,6 +590,7 @@ BOOL GameApp::InitInstance()
 	LoadItemNames();
 	LoadFonts();
 	mwnd->CreateUI();
+	mwnd->LoadSettings();
 	mwnd->field_0x460 = 1;
 	mwnd->LoadData();
 	mwnd->PostMessageA(0x421, 0, 0);

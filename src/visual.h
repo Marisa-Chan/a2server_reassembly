@@ -813,6 +813,7 @@ public:
 	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064
 
 	void FUN_00403ca0(CGameObject* obj); //403ca0 in asm
+	void FUN_0041d97e(int32_t); //41d97e in asm
 
 public:
 	int32_t view_x;
@@ -1517,6 +1518,21 @@ public:
 	CStringArray* hints = nullptr;
 };
 ASSERT_SIZE(HintedListBox, 0x98);
+
+
+//60a2000
+class GameOptionsWindow : public VisWindow
+{
+public:
+	virtual ~GameOptionsWindow() {} //443cbb
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //443cd7
+	virtual void VMethod26() override; //442646
+
+	GameOptionsWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b) : VisWindow(_id, l, t, r, b, nullptr) {}; //44260f
+};
+ASSERT_SIZE(GameOptionsWindow, 0x68);
+
 
 //60aef0
 class VisServerScreen : public VisScreen
