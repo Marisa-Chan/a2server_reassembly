@@ -59,7 +59,14 @@ ASSERT_SIZE(MatShapeData, 0x48);
 struct EquipData;
 
 class WorldEquip: public TableLine {
+public: // VTable at 60eac8.
+    virtual ~WorldEquip() override; // 5724b0
+    virtual void Serialize(CArchive& ar) override; // 513aa3
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513268
+
 public:
+    WorldEquip(); // 571e50
+
     CArray<EquipData>& Values() {
         return this->ValuesAs<EquipData>();
     }
@@ -68,7 +75,7 @@ public:
         return this->ValuesAs<EquipData>();
     }
 
-    uint16_t shape_material_matrix[7];
+    std::array<uint16_t, 7> shape_material_matrix;
     uint8_t gap_0x2a[2];
     CStringArray string_array;
 };
@@ -76,13 +83,27 @@ ASSERT_OFFSET(WorldEquip, shape_material_matrix, 0x1c);
 ASSERT_SIZE(WorldEquip, 0x40);
 
 class MagicItem : public WorldEquip { // Inherits from `WorldEquip` at 005727e1.
+public: // VTable at 60eb40.
+    virtual ~MagicItem() override; // 5728f0
+    virtual void Serialize(CArchive& ar) override; // 513c13
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 572850
+
+public:
+    MagicItem(); // 572740
+
 public:
     CString effect;
 };
 ASSERT_SIZE(MagicItem, 0x44);
 
 class MatShape : public TableLine {
+public: // VTable at 60eb20.
+    virtual ~MatShape() override; // 572670
+    virtual void Serialize(CArchive& ar) override; // 513b05
+
 public:
+    MatShape(); // 572590
+
     CArray<int32_t>& Values() {
         return this->ValuesAs<int32_t>();
     }
@@ -91,6 +112,7 @@ public:
         return this->ValuesAs<int32_t>();
     }
 
+public:
     uint32_t field_0x1c;
     MatShapeData data;
 };
@@ -108,7 +130,14 @@ struct BuildingInfoData {
 ASSERT_SIZE(BuildingInfoData, 0x18);
 
 class BuildingInfo : public TableLine {
+public: // VTable at 60ebc0.
+    virtual ~BuildingInfo() override; // 573050
+    virtual void Serialize(CArchive& ar) override; // 514bce
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514ac9
+
 public:
+    BuildingInfo(); // 572f70
+
     CArray<BuildingInfoData>& Values() {
         return this->ValuesAs<BuildingInfoData>();
     }
@@ -174,7 +203,12 @@ struct MagicInfoData {
 ASSERT_SIZE(MagicInfoData, 0x70);
 
 class MagicInfo: public TableLine {
+public: // VTable at 60eb60.
+    virtual ~MagicInfo() override; // 572ac0
+
 public:
+    MagicInfo(); // 5729e0
+
     CArray<MagicInfoData>& Values() {
         return this->ValuesAs<MagicInfoData>();
     }
@@ -252,7 +286,14 @@ struct MonsterInfoData {
 ASSERT_SIZE(MonsterInfoData, 0xf8);
 
 class MonsterInfo: public TableLine {
+public: // VTable at 60eb80.
+    virtual ~MonsterInfo() override; // 572ca0
+    virtual void Serialize(CArchive& ar) override; // 513ff6
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 513c82
+
 public:
+    MonsterInfo(); // 572b90
+
     CArray<MonsterInfoData>& Values() {
         return this->ValuesAs<MonsterInfoData>();
     }
@@ -261,6 +302,7 @@ public:
         return this->ValuesAs<MonsterInfoData>();
     }
 
+public:
     CStringArray equipped_items;
 };
 ASSERT_SIZE(MonsterInfo, 0x30);
@@ -291,7 +333,14 @@ struct HumanInfoData {
 ASSERT_SIZE(HumanInfoData, 0x68);
 
 class HumanInfo: public TableLine {
+public: // VTable at 60eba0.
+    virtual ~HumanInfo() override; // 572e90
+    virtual void Serialize(CArchive& ar) override; // 514a3a
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 5143a6
+
 public:
+    HumanInfo(); // 572d80
+
     CArray<HumanInfoData>& Values() {
         return this->ValuesAs<HumanInfoData>();
     }
@@ -300,8 +349,10 @@ public:
         return this->ValuesAs<HumanInfoData>();
     }
 
+public:
     CStringArray equipped_items;
 };
+ASSERT_SIZE(HumanInfo, 0x30);
 
 struct SpellInfoData {
     int32_t level;
@@ -330,7 +381,14 @@ struct SpellInfoData {
 ASSERT_SIZE(SpellInfoData, 0x58);
 
 class SpellInfo: public TableLine {
+public: // VTable at 60ebe0.
+    virtual ~SpellInfo() override; // 573210
+    virtual void Serialize(CArchive& ar) override; // 51520f
+    virtual void VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) override; // 514f41
+
 public:
+    SpellInfo(); // 573120
+
     CArray<SpellInfoData>& Values() {
         return this->ValuesAs<SpellInfoData>();
     }
@@ -339,7 +397,8 @@ public:
         return this->ValuesAs<SpellInfoData>();
     }
 
-    const char* effect;
+public:
+    CString effect;
 };
 ASSERT_SIZE(SpellInfo, 0x20);
 

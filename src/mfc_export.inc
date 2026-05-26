@@ -16,11 +16,38 @@ extern ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ:proc ; CObject::GetRunt
 extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
 extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
-;TableLine
-externdef ?GetRuntimeClass@TableLine@@UBEPAUCRuntimeClass@@XZ :proc
-externdef ?Serialize@TableLine@@UAEXAAVCArchive@@@Z :proc
-externdef ?VMethod1@TableLine@@UAEXVCString@@HPAN@Z :proc
-externdef ?VMethod2@TableLine@@UAEXVCString@@HPAHPAN@Z :proc
+
+; WorldEquip
+externdef ??0WorldEquip@@QAE@XZ :proc
+
+
+; MagicItem
+externdef ??0MagicItem@@QAE@XZ :proc
+
+
+; MatShape
+externdef ??0MatShape@@QAE@XZ :proc
+
+
+; MaginInfo
+externdef ??0MagicInfo@@QAE@XZ :proc
+
+
+; MonsterInfo
+externdef ??0MonsterInfo@@QAE@XZ :proc
+
+
+; HumanInfo
+externdef ??0HumanInfo@@QAE@XZ :proc
+
+
+; BuildingInfo
+externdef ??0BuildingInfo@@QAE@XZ :proc
+
+
+; SpellInfo
+externdef ??0SpellInfo@@QAE@XZ :proc
+
 
 ;CRuntimeClass
 extern ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ:proc   ;   CRuntimeClass::CreateObject

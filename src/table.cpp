@@ -1,6 +1,10 @@
 #include "table.h"
 
+#include <cctype>
 #include <cstdlib>
+#include <cstring>
+
+#include "game_app.h"
 
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
@@ -81,6 +85,373 @@ void TableLine::VMethod2(CString str, int32_t type_id, int32_t* out_value, doubl
         *out_value = atoi(str);
     } else {
         *out_value = -1;
+    }
+}
+
+// Inlined in ASM.
+uint32_t AlphaMask(CString str) {
+    str.TrimLeft();
+    str.TrimRight();
+    CString compact;
+    for (int32_t i = 0; i < str.GetLength(); i++) {
+        if (str[i] != ' ') {
+            compact += str[i];
+        }
+    }
+    str = compact;
+
+    uint32_t mask = 0;
+    int32_t length = str.GetLength();
+    if (length > 31) {
+        length = 31;
+    }
+
+    for (int32_t i = 1; i <= length; i++) {
+        if (std::isalpha(str[i - 1])) {
+            mask |= (1u << (i & 31));
+        }
+    }
+
+    return mask;
+}
+
+// 571E50
+WorldEquip::WorldEquip() {
+    for (int32_t i = 0; i < 7; i++) {
+        this->shape_material_matrix[i] = 0;
+    }
+}
+
+// 5724b0
+WorldEquip::~WorldEquip() {
+}
+
+// 513AA3
+void WorldEquip::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+
+    if (ar.IsStoring()) {
+        ar.Write(this->shape_material_matrix.data(), this->shape_material_matrix.size() * sizeof(uint16_t));
+    } else {
+        ar.Read(this->shape_material_matrix.data(), this->shape_material_matrix.size() * sizeof(uint16_t));
+    }
+
+    this->string_array.Serialize(ar);
+}
+
+// 513268
+void WorldEquip::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    if (type_id == 1) {
+        *out_value = 0;
+    } else if (type_id == 2) {
+        *out_value = 0;
+    } else if (type_id == 6) {
+        if (str == "blade") {
+            *out_value = 1;
+        } else if (str == "axe") {
+            *out_value = 2;
+        } else if (str == "crush") {
+            *out_value = 3;
+        } else if (str == "pike") {
+            *out_value = 4;
+        } else if (str == "shoot") {
+            *out_value = 5;
+        } else if (str == "fire") {
+            *out_value = 11;
+        } else if (str == "water") {
+            *out_value = 12;
+        } else if (str == "air") {
+            *out_value = 13;
+        } else if (str == "earth") {
+            *out_value = 14;
+        } else if (str == "astral") {
+            *out_value = 15;
+        } else {
+            *out_value = 0;
+        }
+    } else {
+        TableLine::VMethod2(str, type_id, out_value, out_double);
+    }
+}
+
+// 572740
+MagicItem::MagicItem() {
+}
+
+// 5728F0
+MagicItem::~MagicItem() {
+}
+
+// 513C13
+void MagicItem::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+
+    if (ar.IsStoring()) {
+        ar.Write(this->shape_material_matrix.data(), 1); // WAT: writing only the first byte? Looks like a typo, but ok.
+        ar << this->effect;
+    } else {
+        ar.Read(this->shape_material_matrix.data(), 1);
+        ar >> this->effect;
+    }
+}
+
+// 572850
+void MagicItem::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    TableLine::VMethod2(str, type_id, out_value, out_double);
+}
+
+// 572590
+MatShape::MatShape() {
+}
+
+// 572670
+MatShape::~MatShape() {
+}
+
+// 513B05
+void MatShape::Serialize(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar << this->name;
+        ar.Write(&this->data, sizeof(this->data));
+    } else {
+        ar >> this->name;
+        ar.Read(&this->data, sizeof(this->data));
+    }
+}
+
+// 5729E0
+MagicInfo::MagicInfo() {
+}
+
+// 572AC0
+MagicInfo::~MagicInfo() {
+}
+
+// 572B90
+MonsterInfo::MonsterInfo() {
+    this->equipped_items.SetSize(2, -1);
+}
+
+// 572CA0
+MonsterInfo::~MonsterInfo() {
+}
+
+// 513C82
+void MonsterInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    if (out_value == nullptr) {
+        TableLine::VMethod2(str, type_id, out_value, out_double);
+        return;
+    }
+
+    switch (type_id) {
+    case 0xe:
+        if (str.IsEmpty()) {
+            *out_value = 0;
+        } else if (str == "Poison") {
+            *out_value = 1;
+        } else if (str == "Cold") {
+            *out_value = 2;
+        } else if (str == "AP") {
+            *out_value = 3;
+        }
+        break;
+    case 0x31:
+    case 0x33:
+    case 0x35: {
+        *out_value = 0;
+        if (!str.IsEmpty()) {
+            for (int32_t i = g_GameDataRes.spells.GetSize() - 1; i >= 1; i--) {
+                if (g_GameDataRes.spells[i].name == str) {
+                    *out_value = i;
+                    break;
+                }
+            }
+        }
+        break;
+    }
+    case 0x39:
+        *out_value = 0;
+        if (str.GetLength() > 19) {
+            *out_value = AlphaMask(str);
+        }
+        break;
+    default:
+        TableLine::VMethod2(str, type_id, out_value, out_double);
+        break;
+    }
+}
+
+// 513FF6
+void MonsterInfo::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+
+    if (ar.IsStoring()) {
+        for (int32_t i = 0; i < 2; i++) {
+            ar << this->equipped_items[i];
+        }
+    } else {
+        for (int32_t i = 0; i < 2; i++) {
+            ar >> this->equipped_items[i];
+        }
+    }
+}
+
+// 572D80
+HumanInfo::HumanInfo() {
+    this->equipped_items.SetSize(10, -1);
+}
+
+// 572E90
+HumanInfo::~HumanInfo() {
+}
+
+// 5143A6
+void HumanInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    if (type_id == 0x1A) {
+        *out_value = 0;
+        if (str.GetLength() > 19) {
+            *out_value = AlphaMask(str);
+        }
+        return;
+    }
+
+    TableLine::VMethod2(str, type_id, out_value, out_double);
+}
+
+// 514A3A
+void HumanInfo::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+
+    if (ar.IsStoring()) {
+        for (int32_t i = 0; i < 10; i++) {
+            ar << this->equipped_items[i];
+        }
+    } else {
+        for (int32_t i = 0; i < 10; i++) {
+            ar >> this->equipped_items[i];
+        }
+    }
+}
+
+// 572F70
+BuildingInfo::BuildingInfo() {
+}
+
+// 573050
+BuildingInfo::~BuildingInfo() {
+}
+
+// 514AC9
+void BuildingInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    if (5 <= type_id && type_id <= 6) {
+        uint32_t mask = 0;
+        int32_t length = str.GetLength();
+        if (length > 32) {
+            length = 32;
+        }
+
+        for (int32_t i = 0; i < length; i++) {
+            if (str[i] == '1') {
+                mask |= (1u << (i & 31));
+            }
+        }
+
+        *out_value = mask;
+        return;
+    }
+
+    TableLine::VMethod2(str, type_id, out_value, out_double);
+}
+
+// 514BCE
+void BuildingInfo::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+}
+
+// 573120
+SpellInfo::SpellInfo() {
+}
+
+// 573210
+SpellInfo::~SpellInfo() {
+}
+
+// 514F41
+void SpellInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
+    switch (type_id) {
+    case 0:
+        this->name = str;
+        return;
+    case 3:
+        if (str.IsEmpty()) {
+            *out_value = 0;
+        } else {
+            switch (str[0]) {
+            case 'A':
+                *out_value = 3;
+                break;
+            case 'F':
+                *out_value = 1;
+                break;
+            case 'G':
+                *out_value = 4;
+                break;
+            case 'I':
+                *out_value = 5;
+                break;
+            case 'W':
+                *out_value = 2;
+                break;
+            default:
+                *out_value = 0;
+                break;
+            }
+        }
+        break;
+    case 5:
+        *out_value = (stricmp(str, "Unit") == 0) ? 1 : 2;
+        break;
+    case 6:
+        *out_value = (stricmp(str, "Spell Effect") == 0) ? 2 : 1;
+        break;
+    case 9:
+        if (str == "Point") {
+            *out_value = 1;
+        } else if (str.Find("Round") > 0) {
+            *out_value = 3;
+        } else if (str.Find("Long") > 0) {
+            *out_value = 4;
+        } else if (str.Find("Phase") > 0) {
+            *out_value = 5;
+        } else {
+            *out_value = 2;
+        }
+        break;
+    case 0x0E:
+        *out_value = (stricmp(str, "Hang On Unit") == 0) ? 2 : 1;
+        break;          
+    default:
+        if (out_double == nullptr) {
+            if (str.IsEmpty()) {
+                *out_value = -1;
+            } else {
+                *out_value = atoi(str);
+            }
+        } else {
+            *out_double = atof(str);
+        }
+        break;
+    }
+}
+
+// 51520F
+void SpellInfo::Serialize(CArchive& ar) {
+    TableLine::Serialize(ar);
+
+    if (ar.IsStoring()) {
+        ar << this->effect;
+    } else {
+        ar >> this->effect;
     }
 }
 
