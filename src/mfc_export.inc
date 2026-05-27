@@ -1284,6 +1284,60 @@ externdef ?Something2@Quest@@UAEHXZ :proc                          ; int32_t Som
 externdef ?Something3@Quest@@UAEHXZ :proc                          ; int32_t Something3()
 
 
+externdef ??_GQuestKillMob@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestKillMob@@UAEHHHH@Z :proc
+externdef ?Kind@QuestKillMob@@UAEHXZ :proc
+externdef ??_GQuestKillN@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestKillN@@UAEHHHH@Z :proc
+externdef ?Kind@QuestKillN@@UAEHXZ :proc
+externdef ??_GQuestKillGroup@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestKillGroup@@UAEHHHH@Z :proc
+externdef ?Kind@QuestKillGroup@@UAEHXZ :proc
+externdef ??_GQuestEscort@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestEscort@@UAEHHHH@Z :proc
+externdef ?Kind@QuestEscort@@UAEHXZ :proc
+externdef ?Something2@QuestEscort@@UAEHXZ :proc
+externdef ?Something3@QuestEscort@@UAEHXZ :proc
+externdef ??_GQuestDeliverItem@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestDeliverItem@@UAEHHHH@Z :proc
+externdef ?Kind@QuestDeliverItem@@UAEHXZ :proc
+externdef ?Something2@QuestDeliverItem@@UAEHXZ :proc
+externdef ?Something3@QuestDeliverItem@@UAEHXZ :proc
+externdef ??_GQuestDeliverMail@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestDeliverMail@@UAEHHHH@Z :proc
+externdef ?Kind@QuestDeliverMail@@UAEHXZ :proc
+externdef ?Something2@QuestDeliverMail@@UAEHXZ :proc
+externdef ?Something3@QuestDeliverMail@@UAEHXZ :proc
+externdef ??_GQuestRaiseZombies@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestRaiseZombies@@UAEHHHH@Z :proc
+externdef ?Kind@QuestRaiseZombies@@UAEHXZ :proc
+externdef ?Something2@QuestRaiseZombies@@UAEHXZ :proc
+externdef ?Something3@QuestRaiseZombies@@UAEHXZ :proc
+externdef ??_GQuestRaiseSkeletons@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestRaiseSkeletons@@UAEHHHH@Z :proc
+externdef ?Kind@QuestRaiseSkeletons@@UAEHXZ :proc
+externdef ?Something2@QuestRaiseSkeletons@@UAEHXZ :proc
+externdef ?Something3@QuestRaiseSkeletons@@UAEHXZ :proc
+externdef ??_GQuestRaiseGhosts@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestRaiseGhosts@@UAEHHHH@Z :proc
+externdef ?Kind@QuestRaiseGhosts@@UAEHXZ :proc
+externdef ?Something2@QuestRaiseGhosts@@UAEHXZ :proc
+externdef ?Something3@QuestRaiseGhosts@@UAEHXZ :proc
+externdef ??_GQuestInterceptUnit@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestInterceptUnit@@UAEHHHH@Z :proc
+externdef ?Kind@QuestInterceptUnit@@UAEHXZ :proc
+externdef ?Something2@QuestInterceptUnit@@UAEHXZ :proc
+externdef ?Something3@QuestInterceptUnit@@UAEHXZ :proc
+externdef ??_GQuestInterceptGroup@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestInterceptGroup@@UAEHHHH@Z :proc
+externdef ?Kind@QuestInterceptGroup@@UAEHXZ :proc
+externdef ?Something2@QuestInterceptGroup@@UAEHXZ :proc
+externdef ?Something3@QuestInterceptGroup@@UAEHXZ :proc
+externdef ??_GQuestKillInnDefenders@@UAEPAXI@Z :proc
+externdef ?VMethod1@QuestKillInnDefenders@@UAEHHHH@Z :proc
+externdef ?Kind@QuestKillInnDefenders@@UAEHXZ :proc
+
+
 ; QuestMap
 externdef ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
