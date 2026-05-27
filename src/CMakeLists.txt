@@ -132,8 +132,6 @@ set(A2_LINK_OPTS
     /DYNAMICBASE
     /DEBUG
     /MACHINE:X86
-    /OPT:REF
-    /OPT:ICF
     /SAFESEH
     /SUBSYSTEM:CONSOLE
     "/MANIFESTUAC:level='asInvoker' uiAccess='false'"
@@ -163,5 +161,11 @@ foreach(TARGET a2serv_vsc a2client_vsc)
   # Enable MASM51 compatibility and SAFESEH.
   target_compile_options(${TARGET} PRIVATE
     $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
+    $<$<AND:$<COMPILE_LANGUAGE:ASM_MASM>,$<CONFIG:Debug>>:/Zi>
+  )
+
+  target_link_options(${TARGET} PRIVATE
+    $<$<CONFIG:Debug>:/OPT:NOREF>
+    $<$<CONFIG:Debug>:/OPT:NOICF>
   )
 endforeach()
