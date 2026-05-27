@@ -47,7 +47,7 @@ public:
     uint32_t progress; // Progress for a "kill N" quest.
     uint32_t reward;
     QuestMap* quest_map;
-    uint32_t field_0x2c;
+    void* field_0x2c; // Can be `Unit*`, `Group*` or `Player*`. Maybe it's quest target?
 };
 ASSERT_OFFSET(Quest, some_id, 0x4);
 ASSERT_OFFSET(Quest, progress, 0x20);

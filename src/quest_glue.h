@@ -6,6 +6,7 @@
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "mfc_templ.h"
+#include "quest.h"
 #include "token.h"
 
 
@@ -15,29 +16,27 @@ struct World;
 
 // Some object used to tie an inn and a quest.
 class QuestInnGlue : public CObject {
-public: // See the vtable at 0060fde8.
-    // virtual CRuntimeClass* GetRuntimeClass() const;
-    // virtual ~QuestInnGlue();
-    // virtual void Serialize(CArchive& ar);
-    // virtual CObject AssertValid();
-    // virtual CObject Dump();
-    // virtual void VMethod1();
-    // virtual void VMethod2(int32_t param_2);
-    // virtual void VMethod3(int32_t param_2);
-    // virtual void VMethod4(int32_t param_2);
-    // virtual void VMethod5(int32_t param_2);
-    // virtual void VMethod6(int32_t param_2);
-    // virtual void VMethod7(int32_t param_2);
-    // virtual uint8_t VMethod8(); // returns position->x
-    // virtual uint8_t VMethod9(); // returns position->y
+public: // VTable at 60fde8.
+    virtual ~QuestInnGlue();
+    virtual void VMethod1();
+    virtual void VMethod2(Quest* quest);
+    virtual void VMethod3(Quest* quest);
+    virtual void VMethod4(Quest* quest);
+    virtual void VMethod5(Quest* quest);
+    virtual void VMethod6(Quest* quest);
+    virtual void VMethod7(Quest* quest);
+    virtual uint8_t VMethod8();
+    virtual uint8_t VMethod9();
+
 public:
     QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t field_0x3c); // sub_5BA8E0
 
+public:
     uint32_t building_id;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t> map; // Don't know the key/value types.
+    CMap<uint32_t, uint32_t, Quest*, Quest*> map;
     QuestMap* quest_map;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t>::CAssoc* current_assoc;
-    void* field_0x2c; // Same type as the value in `map`.
+    CMap<uint32_t, uint32_t, Quest*, Quest*>::CAssoc* current_assoc;
+    Quest* field_0x2c;
     uint32_t field_0x30;
     TokenPos* position;
     World* world;

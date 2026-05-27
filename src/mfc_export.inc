@@ -564,7 +564,8 @@ extern _BldIdSet_AllocBit:proc
 externdef ??0Inventory@@QAE@XZ :proc             ; Inventory::Inventory()
 externdef ??0Inventory@@QAE@PBU0@@Z :proc        ; Inventory::Inventory(const Inventory*)
 externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
-public ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
+externdef ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z :proc ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
+externdef ?sub_552B6B@Inventory@@QAEHG@Z :proc             ; int32_t Inventory::sub_552B6B(uint16_t)
 
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
@@ -1301,6 +1302,16 @@ externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 ; QuestInnGlue
 externdef ??0QuestInnGlue@@QAE@HPAUTokenPos@@PAUWorld@@H@Z :proc              ; QuestInnGlue(int32_t, TokenPos*, World*, int32_t)
+externdef ??1QuestInnGlue@@UAE@XZ :proc                                         ; ~QuestInnGlue()
+externdef ?VMethod1@QuestInnGlue@@UAEXXZ :proc                                  ; void QuestInnGlue::VMethod1()
+externdef ?VMethod2@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod2(Quest*)
+externdef ?VMethod3@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod3(Quest*)
+externdef ?VMethod4@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod4(Quest*)
+externdef ?VMethod5@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod5(Quest*)
+externdef ?VMethod6@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod6(Quest*)
+externdef ?VMethod7@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod7(Quest*)
+externdef ?VMethod8@QuestInnGlue@@UAEEXZ :proc                                  ; uint8_t QuestInnGlue::VMethod8()
+externdef ?VMethod9@QuestInnGlue@@UAEEXZ :proc                                  ; uint8_t QuestInnGlue::VMethod9()
 
 
 ;CListBox2  in C++
