@@ -1260,8 +1260,9 @@ externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 ; QuestMap
 externdef ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
+externdef ??1QuestMap@@UAE@XZ :proc                                              ; QuestMap::~QuestMap()
+externdef ??_GQuestMap@@UAEPAXI@Z :proc                                          ; QuestMap::`scalar deleting destructor'
 externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
-externdef ?sub_55E129@QuestMap@@QAEHHHH@Z :proc
 externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
 externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
