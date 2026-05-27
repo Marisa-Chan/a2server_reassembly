@@ -1258,86 +1258,6 @@ externdef ??0Settings@@QAE@XZ :proc
 externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 
-; Quest
-externdef _off_60F790 :dword
-externdef _off_60F7C8 :dword
-externdef _off_60F800 :dword
-externdef _off_60F838 :dword
-externdef _off_60F870 :dword
-externdef _off_60F8A8 :dword
-externdef _off_60F8E0 :dword
-externdef _off_60F918 :dword
-externdef _off_60F950 :dword
-externdef _off_60F988 :dword
-externdef _off_60F9C0 :dword
-externdef _off_60F9F8 :dword
-
-externdef ??0Quest@@QAE@XZ :proc                                   ; Quest::Quest()
-externdef ??1Quest@@UAE@XZ :proc                                   ; ~Quest()
-externdef ?VMethod1@Quest@@UAEHHHH@Z :proc                         ; int32_t VMethod1(int, int, int)
-externdef ?MarkFailed@Quest@@UAEXXZ :proc                          ; void MarkFailed()
-externdef ?MarkCompleted@Quest@@UAEXXZ :proc                       ; void MarkCompleted()
-externdef ?CopyFields@Quest@@UAEXPAUQuestData@@@Z :proc            ; void CopyFields(QuestData*)
-externdef ?Initialize@Quest@@UAEXHHHHHHH@Z :proc                   ; void Initialize(int,int,int,int,int,int,int)
-externdef ?Kind@Quest@@UAEHXZ :proc                                ; int32_t Kind()
-externdef ?Something2@Quest@@UAEHXZ :proc                          ; int32_t Something2()
-externdef ?Something3@Quest@@UAEHXZ :proc                          ; int32_t Something3()
-
-
-externdef ??_GQuestKillMob@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestKillMob@@UAEHHHH@Z :proc
-externdef ?Kind@QuestKillMob@@UAEHXZ :proc
-externdef ??_GQuestKillN@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestKillN@@UAEHHHH@Z :proc
-externdef ?Kind@QuestKillN@@UAEHXZ :proc
-externdef ??_GQuestKillGroup@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestKillGroup@@UAEHHHH@Z :proc
-externdef ?Kind@QuestKillGroup@@UAEHXZ :proc
-externdef ??_GQuestEscort@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestEscort@@UAEHHHH@Z :proc
-externdef ?Kind@QuestEscort@@UAEHXZ :proc
-externdef ?Something2@QuestEscort@@UAEHXZ :proc
-externdef ?Something3@QuestEscort@@UAEHXZ :proc
-externdef ??_GQuestDeliverItem@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestDeliverItem@@UAEHHHH@Z :proc
-externdef ?Kind@QuestDeliverItem@@UAEHXZ :proc
-externdef ?Something2@QuestDeliverItem@@UAEHXZ :proc
-externdef ?Something3@QuestDeliverItem@@UAEHXZ :proc
-externdef ??_GQuestDeliverMail@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestDeliverMail@@UAEHHHH@Z :proc
-externdef ?Kind@QuestDeliverMail@@UAEHXZ :proc
-externdef ?Something2@QuestDeliverMail@@UAEHXZ :proc
-externdef ?Something3@QuestDeliverMail@@UAEHXZ :proc
-externdef ??_GQuestRaiseZombies@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestRaiseZombies@@UAEHHHH@Z :proc
-externdef ?Kind@QuestRaiseZombies@@UAEHXZ :proc
-externdef ?Something2@QuestRaiseZombies@@UAEHXZ :proc
-externdef ?Something3@QuestRaiseZombies@@UAEHXZ :proc
-externdef ??_GQuestRaiseSkeletons@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestRaiseSkeletons@@UAEHHHH@Z :proc
-externdef ?Kind@QuestRaiseSkeletons@@UAEHXZ :proc
-externdef ?Something2@QuestRaiseSkeletons@@UAEHXZ :proc
-externdef ?Something3@QuestRaiseSkeletons@@UAEHXZ :proc
-externdef ??_GQuestRaiseGhosts@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestRaiseGhosts@@UAEHHHH@Z :proc
-externdef ?Kind@QuestRaiseGhosts@@UAEHXZ :proc
-externdef ?Something2@QuestRaiseGhosts@@UAEHXZ :proc
-externdef ?Something3@QuestRaiseGhosts@@UAEHXZ :proc
-externdef ??_GQuestInterceptUnit@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestInterceptUnit@@UAEHHHH@Z :proc
-externdef ?Kind@QuestInterceptUnit@@UAEHXZ :proc
-externdef ?Something2@QuestInterceptUnit@@UAEHXZ :proc
-externdef ?Something3@QuestInterceptUnit@@UAEHXZ :proc
-externdef ??_GQuestInterceptGroup@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestInterceptGroup@@UAEHHHH@Z :proc
-externdef ?Kind@QuestInterceptGroup@@UAEHXZ :proc
-externdef ?Something2@QuestInterceptGroup@@UAEHXZ :proc
-externdef ?Something3@QuestInterceptGroup@@UAEHXZ :proc
-externdef ??_GQuestKillInnDefenders@@UAEPAXI@Z :proc
-externdef ?VMethod1@QuestKillInnDefenders@@UAEHHHH@Z :proc
-externdef ?Kind@QuestKillInnDefenders@@UAEHXZ :proc
-
-
 ; QuestMap
 externdef ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 externdef ?sub_55DD10@QuestMap@@QAEXHHH@Z :proc
@@ -1352,20 +1272,6 @@ externdef ?sub_55EA81@QuestMap@@QAEXPAVQuestInnGlue@@@Z :proc                  ;
 externdef ?FUN_0055ee42@QuestMap@@QAEPAVQuest@@H@Z : proc
 
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
-
-
-; QuestInnGlue
-externdef ??0QuestInnGlue@@QAE@HPAUTokenPos@@PAUWorld@@H@Z :proc              ; QuestInnGlue(int32_t, TokenPos*, World*, int32_t)
-externdef ??1QuestInnGlue@@UAE@XZ :proc                                         ; ~QuestInnGlue()
-externdef ?VMethod1@QuestInnGlue@@UAEXXZ :proc                                  ; void QuestInnGlue::VMethod1()
-externdef ?VMethod2@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod2(Quest*)
-externdef ?VMethod3@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod3(Quest*)
-externdef ?VMethod4@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod4(Quest*)
-externdef ?VMethod5@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod5(Quest*)
-externdef ?VMethod6@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod6(Quest*)
-externdef ?VMethod7@QuestInnGlue@@UAEXPAVQuest@@@Z :proc                        ; void QuestInnGlue::VMethod7(Quest*)
-externdef ?VMethod8@QuestInnGlue@@UAEEXZ :proc                                  ; uint8_t QuestInnGlue::VMethod8()
-externdef ?VMethod9@QuestInnGlue@@UAEEXZ :proc                                  ; uint8_t QuestInnGlue::VMethod9()
 
 
 ;CListBox2  in C++
