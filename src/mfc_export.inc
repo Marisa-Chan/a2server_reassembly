@@ -1280,8 +1280,8 @@ externdef ?MarkCompleted@Quest@@UAEXXZ :proc                       ; void MarkCo
 externdef ?CopyFields@Quest@@UAEXPAUQuestData@@@Z :proc            ; void CopyFields(QuestData*)
 externdef ?Initialize@Quest@@UAEXHHHHHHH@Z :proc                   ; void Initialize(int,int,int,int,int,int,int)
 externdef ?Kind@Quest@@UAEHXZ :proc                                ; int32_t Kind()
-externdef ?IsSomething2@Quest@@UAEHXZ :proc                        ; int32_t IsSomething2()
-externdef ?IsSomething3@Quest@@UAEHXZ :proc                        ; int32_t IsSomething3()
+externdef ?Something2@Quest@@UAEHXZ :proc                          ; int32_t Something2()
+externdef ?Something3@Quest@@UAEHXZ :proc                          ; int32_t Something3()
 
 
 ; QuestMap

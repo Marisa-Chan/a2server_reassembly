@@ -35,7 +35,7 @@ void QuestInnGlue::VMethod1() {
         this->map.GetNextAssoc(pos, key, quest);
         this->field_0x30 = key;
         this->field_0x2c = quest;
-        switch (quest->IsSomething2()) {
+        switch (quest->Something2()) {
         case 6:  this->VMethod2(this->field_0x2c); break;
         case 7:  this->VMethod3(this->field_0x2c); break;
         case 8:  this->VMethod5(this->field_0x2c); break;
@@ -48,7 +48,7 @@ void QuestInnGlue::VMethod1() {
 
 // 5BA920
 void QuestInnGlue::VMethod2(Quest* quest) {
-    int32_t inn_id = quest->IsSomething3();
+    int32_t inn_id = quest->Something3();
     if (quest->field_0x2c == 0) {
         Unit* unit = this->world->field24_0xa50->field69_0xa456c->sub_5560D2(inn_id);
         quest->field_0x2c = unit;
@@ -74,7 +74,7 @@ void QuestInnGlue::VMethod2(Quest* quest) {
 
 // 5BAA38
 void QuestInnGlue::VMethod3(Quest* quest) {
-    uint16_t item_type = (uint16_t)quest->IsSomething3() | 0xE00;
+    uint16_t item_type = (uint16_t)quest->Something3() | 0xE00;
     bool found = false;
     int32_t player_id = 0;
     for (POSITION pos = this->world->players_list->list.GetHeadPosition(); pos != nullptr;) {
@@ -101,14 +101,14 @@ void QuestInnGlue::VMethod3(Quest* quest) {
     }
 
     if (found) {
-        int32_t item_id = quest->IsSomething3();
+        int32_t item_id = quest->Something3();
         this->quest_map->sub_55DD10(7, item_id, (this->building_id << 16) | player_id);
     }
 }
 
 // 5BABAA
 void QuestInnGlue::VMethod4(Quest* quest) {
-    int32_t group_id = quest->IsSomething3();
+    int32_t group_id = quest->Something3();
     bool found = false;
     if (quest->field_0x2c == nullptr) {
         POSITION pos = this->world->players_list->list.GetHeadPosition();
@@ -154,8 +154,8 @@ void QuestInnGlue::VMethod4(Quest* quest) {
 void QuestInnGlue::VMethod5(Quest* quest) {
     const uint16_t mob_type_id = 0x52; // F_Zombie.1
 
-    int32_t player_id = quest->IsSomething3() & 0xFFFF;
-    int32_t count_needed = quest->IsSomething3() >> 16;
+    int32_t player_id = quest->Something3() & 0xFFFF;
+    int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
         quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
     }
@@ -208,8 +208,8 @@ void QuestInnGlue::VMethod5(Quest* quest) {
 void QuestInnGlue::VMethod6(Quest* quest) {
     const uint16_t mob_type_id = 0x59; // F_Skeleton.1
     
-    int32_t player_id = quest->IsSomething3() & 0xFFFF;
-    int32_t count_needed = quest->IsSomething3() >> 16;
+    int32_t player_id = quest->Something3() & 0xFFFF;
+    int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
         quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
     }
@@ -261,8 +261,8 @@ void QuestInnGlue::VMethod6(Quest* quest) {
 void QuestInnGlue::VMethod7(Quest* quest) {
     const uint16_t mob_type_id = 0x45; // Ghost
 
-    int32_t player_id = quest->IsSomething3() & 0xFFFF;
-    int32_t count_needed = quest->IsSomething3() >> 16;
+    int32_t player_id = quest->Something3() & 0xFFFF;
+    int32_t count_needed = quest->Something3() >> 16;
     if (quest->field_0x2c == nullptr) {
         quest->field_0x2c = g_PlayersList->sub_535B50(player_id);
     }

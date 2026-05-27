@@ -26,19 +26,15 @@ ASSERT_SIZE(QuestData, 0x1c);
 
 class Quest : public CObject, public QuestData {
 public: // 60F6F8. Sub-classes have their own vtables, see FUN_0055ee42.
-    // virtual CRuntimeClass* GetRuntimeClass() const;
     virtual ~Quest();                                      // 57FF50
-    // virtual void Serialize(CArchive& ar);
-    // virtual void AssertValid() const;
-    // virtual void Dump(CDumpContext&) const;
     virtual int32_t VMethod1(int32_t param_2, int32_t param_3, int32_t param_4); // sub_55D25D
     virtual void MarkFailed();                             // 55D23F
     virtual void MarkCompleted();                          // 55D221
     virtual void CopyFields(QuestData* other);             // 55D1E1
     virtual void Initialize(int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward); // 55D177
     virtual int32_t Kind();                                // 57ff20
-    virtual BOOL IsSomething2();                           // 57ff30
-    virtual BOOL IsSomething3();                           // 57ff40
+    virtual int32_t Something2();                          // 57ff30
+    virtual int32_t Something3();                          // 57ff40
 
 public:
     Quest(); // 55d0e0
