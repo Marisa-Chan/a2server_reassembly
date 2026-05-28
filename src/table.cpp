@@ -409,10 +409,10 @@ void SpellInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, doubl
         }
         break;
     case 5:
-        *out_value = (stricmp(str, "Unit") == 0) ? 1 : 2;
+        *out_value = (_stricmp(str, "Unit") == 0) ? 1 : 2;
         break;
     case 6:
-        *out_value = (stricmp(str, "Spell Effect") == 0) ? 2 : 1;
+        *out_value = (_stricmp(str, "Spell Effect") == 0) ? 2 : 1;
         break;
     case 9:
         if (str == "Point") {
@@ -428,7 +428,7 @@ void SpellInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, doubl
         }
         break;
     case 0x0E:
-        *out_value = (stricmp(str, "Hang On Unit") == 0) ? 2 : 1;
+        *out_value = (_stricmp(str, "Hang On Unit") == 0) ? 2 : 1;
         break;          
     default:
         if (out_double == nullptr) {
