@@ -24,6 +24,22 @@ extern CString g_MissionBriefing; //660de8
 extern CStringArray g_MissionFailures; //660f18
 extern CStringArray g_MissionSubjs; //660ea8
 
+
+struct Obstacle
+{
+    uint8_t bits;
+
+    inline void SetBits(uint8_t _bits) { bits |= _bits; } //5970a0
+    inline void UnsetBits(uint8_t _bits) { bits &= ~_bits; } //
+
+    inline void AndBits(uint8_t _bits) { bits &= _bits; } //
+
+    inline uint8_t TestBits(uint8_t _bits) { return bits & _bits; } //5970f0
+
+    inline operator uint8_t() const { return bits; }
+    inline void operator=(uint8_t val) { bits = val; }
+};
+
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
 // On unit add, the unit's owner bitmask (unit->player->field_0x32) is OR'd
@@ -60,15 +76,15 @@ struct CellState {
     uint8_t  spell_x;            // +0x36
     uint8_t  spell_y;            // +0x37
     uint8_t  gap_0x38[2];
-    int16_t  cell_yx;            // +0x3A
+    PosYX  cell_yx;            // +0x3A
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
 
 struct MapStuff { // aka astruct_5
     uint8_t walk_cost_map[65536];
-    uint8_t obstacle_map[65536];
-    uint8_t obstacle_map2[65536];
+    Obstacle obstacle_map[65536];
+    Obstacle obstacle_map2[65536];
     uint16_t field3_0x30000[65536];
     int32_t map_width;
     int32_t map_height;
@@ -154,6 +170,17 @@ public:
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
+
+    inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
+    inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
+    inline uint8_t& WalkCostAt(PosYX yx) { return walk_cost_map[yx.val]; } //59a780
+
+    int IsObstacle2_40(PosYX yx) { return Obstacle2At(yx).TestBits(0x40); } //58b9ee
+    void SetObstacle2_40(PosYX yx) { Obstacle2At(yx).SetBits(0x40); } //58b920
+    int IsObstacle2_80(PosYX yx) { return Obstacle2At(yx).TestBits(0x80); } //58ba15
+    void SetObstacle2_80(PosYX yx) { Obstacle2At(yx).SetBits(0x80); } //58b952
+
+    void FUN_0058b5d6(CellState& cell); //58b5d6
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

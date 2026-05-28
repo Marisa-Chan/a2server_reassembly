@@ -119,7 +119,7 @@ void TokenPos::SetCoords(uint8_t _x, uint8_t _y)
 	//58a737
 	x = _x;
 	y = _y;
-	YX = (_y << 8) | _x;
+	YX.Set(_x, _y);
 	x_subcell = 128;
 	y_subcell = 128;
 }
@@ -129,7 +129,7 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
 	//58a781
 	x = Xx >> 8;
 	y = Yy >> 8;
-	YX = (y << 8) | x;
+	YX.Set(x, y);
 	x_subcell = Xx & 0xff;
 	y_subcell = Yy & 0xff;
 }

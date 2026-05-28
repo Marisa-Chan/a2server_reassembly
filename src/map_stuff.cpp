@@ -3,6 +3,7 @@
 #include "eye.h"
 #include "unit.h"
 #include "world.h"
+#include "building.h"
 
 CString g_MissionText; //660f2c
 CString g_MissionBriefing; //660de8
@@ -190,6 +191,66 @@ int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
     }
     return 0;
 }
+
+
+void MapStuff::FUN_0058b5d6(CellState& cell)
+{ //58b5d6
+
+    PosYX pos = cell.cell_yx;
+    Obstacle old = ObstacleAt(pos);
+
+    Obstacle* ob1 = &ObstacleAt(pos);
+    Obstacle* ob2 = &Obstacle2At(pos);
+
+    *ob1 = cell.obstacle;
+    WalkCostAt(pos) = cell.walk_cost;
+
+    ob1->SetBits(0x20);
+    *ob2 = *ob1;
+
+    if (cell.static_blocker)
+        ob2->SetBits(0x40);
+
+    if (cell.dynamic_blocker)
+        ob2->SetBits(0x80);
+
+    if (cell.building)
+    {
+        TokenPos* bldpos = cell.building->position;
+        if ((cell.building->unpassable_mask & (1 << (((pos.y - bldpos->GetY()) * cell.building->width) + pos.x - bldpos->GetX()))) == 0)
+        {
+            ob1->UnsetBits(1 | 4);
+            ob2->UnsetBits(1 | 4);
+            WalkCostAt(pos) = walk_cost[5];
+        }
+        else
+        {
+            ob1->SetBits(1 | 4);
+            ob2->SetBits(1 | 4);
+        }
+    }
+
+    for (int i = 0; i < 6; i++)
+    {
+        if (cell.area_effects[i])
+        {
+            if (true) //FUN_0059a050
+                WalkCostAt(pos) *= 4;
+        }
+    }
+    if (cell.area_effects[3])
+    {
+        ob1->SetBits(1 | 4);
+        ob2->SetBits(1 | 4);
+    }
+
+    if (old.TestBits(0x10))
+    {
+        ob1->SetBits(0x10);
+        ob2->SetBits(0x10);
+    }
+}
+
 
 
 void __cdecl MissionGetBriefing(CString* out)
