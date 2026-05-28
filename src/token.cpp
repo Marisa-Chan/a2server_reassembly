@@ -1,4 +1,6 @@
 #include "token.h"
+#include "server.h"
+#include "game_app.h"
 
 //6b16a8
 MapStuff* MapStuff_Instance = nullptr;
@@ -19,7 +21,7 @@ void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst)
 { //58a4b1
 	x = _x;
 	y = _y;
-	YX = ((uint16_t)_y << 8) | _x;
+	YX.Set(_x, _y);
 	x_subcell = 128;
 	y_subcell = 128;
 	pInstance = _inst;
@@ -78,7 +80,7 @@ uint8_t TokenPos::GetY() const
 	return y;
 }
 
-uint16_t TokenPos::GetYX() const
+PosYX TokenPos::GetYX() const
 {
 	//58aade
 	return YX;
@@ -132,6 +134,49 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy)
 	y_subcell = Yy & 0xff;
 }
 
+void TokenPos::FUN_00594200()
+{ // 594200
+	if (!pInstance)
+		return;
+
+	MapStuff* stuf = nullptr;
+	if (g_Server->field23_0xdc.Lookup(pInstance, *(void**)&stuf))
+		pInstance = stuf;
+}
+
+int TokenPos::FUN_0058a7e8(uint8_t _x, uint8_t _y)
+{ //58a7e8
+	int ok = 1;
+	if (_x < 8)
+	{
+		_x = 8;
+		ok = 0;
+	}
+	if (_y < 8)
+	{
+		_y = 8;
+		ok = 0;
+	}
+	if (_x > pInstance->GetWidth() - 9)
+	{
+		_x = pInstance->GetWidth() - 9;
+		ok = 0;
+	}
+	if (_y > pInstance->GetHeight() - 9)
+	{
+		_y = pInstance->GetHeight() - 9;
+		ok = 0;
+	}
+	SetCoords(_x, _y);
+	return ok;
+}
+
+int32_t TokenPos::sub_58bec3() // Check if we'in the middle of a cell (both subcell values are 0x80).
+{ //58bec3
+	if (x_subcell == 128 && y_subcell == 128)
+		return 1;
+	return 0;
+}
 
 
 

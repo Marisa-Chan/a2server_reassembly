@@ -24,7 +24,7 @@ int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
 }
 
 // 58FEDA
-int MapStuff::sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range) {
+int MapStuff::sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->position->sub_58bec3();
     uint8_t current_facing = unit->eye->field0_0x0;
     uint8_t computed_facing = this->sub_59166C(unit, yx);
@@ -39,7 +39,7 @@ int MapStuff::sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range) {
 }
 
 // 58FF51
-void MapStuff::sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range) {
+void MapStuff::sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range) {
     uint8_t distance = this->sub_593B29(unit->position->GetYX(), yx);
     int32_t in_cell_middle = unit->position->sub_58bec3();
 
@@ -58,7 +58,7 @@ void MapStuff::sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range) {
     unit->eye->counter++;
 
     if (unit->eye->field114_0x74 != yx || unit->eye->field8_0x9 > this->static_refresh_rate) {
-        this->sub_58826D(unit, yx & 0xff, yx >> 8, 1, nullptr);
+        this->sub_58826D(unit, yx.x, yx.y, 1, nullptr);
         unit->eye->field136_0x90 = 0;
         unit->eye->field114_0x74 = yx;
 
@@ -107,7 +107,7 @@ void MapStuff::sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range) {
 
 // 59028D
 void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
-    uint16_t target_yx = target->position->GetYX();
+    PosYX target_yx = target->position->GetYX();
     uint8_t range = this->sub_59190D(unit, target);
     int32_t in_cell_middle = unit->position->sub_58bec3();
 
@@ -134,7 +134,7 @@ void MapStuff::sub_59028D(Unit* unit, Unit* target, uint8_t max_range) {
 
     if (unit->eye->field8_0x9 > unit->list1.GetCount() / 3 + 1) {
         if (unit->eye->field130_0x8a > this->static_isnt_needed) {
-            this->sub_58826D(unit, target_yx & 0xff, target_yx >> 8, 1, target);
+            this->sub_58826D(unit, target_yx.x, target_yx.y, 1, target);
         } else {
             unit->list1.RemoveAll();
             unit->list1.AddTail(unit->eye->field115_0x76);

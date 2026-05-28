@@ -24,12 +24,48 @@ __pragma(pack(push, 1))
 struct MapStuff;
 extern MapStuff *MapStuff_Instance;
 
+struct PosYX
+{
+	union {
+		uint16_t val;
+		struct {
+			uint8_t x;
+			uint8_t y;
+		};
+	};
+
+	inline void Set(uint8_t _x, uint8_t _y)
+	{
+		x = _x;
+		y = _y;
+	}
+
+	inline void Set(uint16_t _val)
+	{
+		val = _val;
+	}
+
+	inline PosYX() { val = 0; }
+	inline PosYX(uint16_t _val) { val = _val; }
+	inline PosYX(uint8_t _x, uint8_t _y)
+	{
+		x = _x;
+		y = _y;
+	}
+
+	inline bool operator==(const PosYX b) const { return val == b.val; }
+	inline bool operator!=(const PosYX b) const { return val != b.val; }
+
+	inline void operator=(uint16_t _val) { val = _val; }
+	inline operator uint16_t() { return val; }
+};
+
 struct TokenPos
 {
 public:
 	uint8_t x;
 	uint8_t y;
-	uint16_t YX;
+	PosYX YX;
 	uint8_t x_subcell; // When a unit is moving, this holds the subcell position in 1/256ths of a cell. Middle of the cell is 128.
 	uint8_t y_subcell;
 	uint8_t field_x6;
@@ -55,7 +91,7 @@ public:
 
 	uint8_t GetX() const;
 	uint8_t GetY() const;
-	uint16_t GetYX() const;
+	PosYX GetYX() const;
 	uint16_t GetXx() const;
 	uint16_t GetYy() const;
 

@@ -5,6 +5,7 @@
 
 #include "assert_offset.h"
 #include "mfc_templ.h"
+#include "token.h"
 
 
 class Building;
@@ -128,8 +129,8 @@ struct UnitEye {
     uint8_t field111_0x70;
     uint8_t field112_0x71;
     uint16_t field113_0x72;
-    uint16_t field114_0x74;
-    uint16_t field115_0x76;
+    PosYX field114_0x74;
+    PosYX field115_0x76;
     uint8_t counter;
     uint8_t field117_0x79;
     uint8_t field118_0x7a;
@@ -145,12 +146,12 @@ struct UnitEye {
     uint8_t field128_0x88;
     uint8_t field129_0x89;
     uint16_t field130_0x8a;
-    uint16_t field132_0x8c;
+    PosYX field132_0x8c;
     uint8_t field134_0x8e;
     uint8_t field135_0x8f;
     uint32_t field136_0x90;
-    uint16_t field137_0x94;
-    uint16_t field138_0x96;
+    PosYX field137_0x94;
+    PosYX field138_0x96;
     uint32_t field139_0x98;
     uint8_t field140_0x9c;
     uint8_t field141_0x9d;

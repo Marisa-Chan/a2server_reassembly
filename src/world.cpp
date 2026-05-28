@@ -113,7 +113,7 @@ bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
 // 5A85F4
 void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     if (target == nullptr) {
-        uint16_t yx = caster->position->GetYX();
+        PosYX yx = caster->position->GetYX();
         UnitList* list = (spell->is_defensive != 0) ? this->sub_5A384F(caster, yx) : this->sub_5A3808(caster, yx);
         if (list->unit_list.GetCount() != 0) {
             target = list->unit_list.GetHead();

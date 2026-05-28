@@ -456,17 +456,15 @@ extern ??4TokenPos@@QAEAAU0@ABU0@@Z:proc   ; TokenPos::operator=(struct TokenPos
 extern ?Serialize@TokenPos@@QAEXAAVCArchive@@@Z:proc    ; TokenPos::Serialize(CArchive&)
 extern ?GetX@TokenPos@@QBEEXZ:proc  ; TokenPos::GetX
 extern ?GetY@TokenPos@@QBEEXZ:proc  ; TokenPos::GetY
-extern ?GetYX@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYX
+extern ?GetYX@TokenPos@@QBE?AUPosYX@@XZ:proc   ; TokenPos::GetYX
 extern ?GetXx@TokenPos@@QBEGXZ:proc   ; TokenPos::GetXx
 extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
 extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
 extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
 extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
 extern ?IsSameYX@TokenPos@@QBEHPBU1@@Z:proc   ; TokenPos::IsSameYX
-externdef ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
-
-public ?FUN_0058a7e8@TokenPos@@QAEHEE@Z    ;  TokenPos::FUN_0058a7e8
-public ?FUN_00594200@TokenPos@@QAEXXZ   ;  TokenPos::FUN_00594200
+extern ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
+extern ?FUN_0058a7e8@TokenPos@@QAEHEE@Z : proc   ;  TokenPos::FUN_0058a7e8
 
 
 
@@ -479,26 +477,26 @@ externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
 externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
 externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
-externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@G@Z :proc
+externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z  :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
 externdef ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z :proc          ; uint8_t MapStuff::sub_591424(Unit*, Unit*)
 externdef ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z :proc         ; int MapStuff::sub_58FE6D(Unit*, Unit*, uint8_t)
-externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@GE@Z :proc         ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
-externdef ?sub_593B29@MapStuff@@QAEEGG@Z :proc                  ; uint8_t MapStuff::sub_593B29(uint16_t, uint16_t)
-externdef ?sub_58FF51@MapStuff@@QAEXPAVUnit@@GE@Z :proc         ; void MapStuff::sub_58FF51(Unit*, uint16_t, uint8_t)
+externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@UPosYX@@E@Z :proc         ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
+externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc                  ; uint8_t MapStuff::sub_593B29(uint16_t, uint16_t)
+externdef ?sub_58FF51@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z :proc         ; void MapStuff::sub_58FF51(Unit*, uint16_t, uint8_t)
 externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z :proc       ; void MapStuff::sub_58826D(Unit*, uint8_t, uint8_t, int32_t, Unit*)
 externdef ?sub_590678@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_590678(Unit*)
 externdef ?sub_5907BE@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_5907BE(Unit*)
 externdef ?sub_590902@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_590902(Unit*, Unit*)
-externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@G@Z :proc          ; void MapStuff::sub_5918E2(Unit*, uint16_t)
+externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc          ; void MapStuff::sub_5918E2(Unit*, uint16_t)
 externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc           ; uint16_t MapStuff::sub_593AA4(Unit*)
-externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@GH@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
+externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
 externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff::sub_59028D(Unit*, Unit*, uint8_t)
 externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_5918B8(Unit*, Unit*)
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
-externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
+externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
@@ -1147,7 +1145,7 @@ externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                              
 externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AA91B(Unit*, Unit*)
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
-externdef ?sub_5ABB32@World@@QAEEPAVUnit@@G@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
+externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 externdef ?sub_52C163@Unit@@QAEXXZ :proc
 externdef ?sub_52C36D@Unit@@QAEXEEE@Z :proc
 externdef ?sub_52D8D3@Unit@@QAEXPAUInventory@@HH@Z :proc
@@ -1186,8 +1184,8 @@ externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B564
 externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
-externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@G@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
-externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@G@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)
+externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
+externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)
 externdef ?sub_5A6ADB@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
 externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
 externdef ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z :proc   ; Spell* World::sub_5A79D6(Unit*, int, int)

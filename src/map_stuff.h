@@ -7,6 +7,7 @@
 #include "mfc_templ.h"
 #include "perf.h"
 #include "unit_list.h"
+#include "token.h"
 
 
 class AreaEffect;
@@ -130,7 +131,7 @@ public:
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* sub_58E5F3(TokenPos* pos);
-    uint8_t sub_59166C(Unit* unit, uint16_t yx); // Pick rotation angle for the unit to look at `yx`.
+    uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
     AreaEffect** sub_59536C(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
@@ -138,24 +139,24 @@ public:
     int sub_59190D(Unit* target, Unit* observer); // Visibility/range check between two units.
     uint8_t sub_591424(Unit* unit, Unit* target); // Compute facing direction from unit to target.
     int sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range); // Check if unit faces target and is in range.
-    int sub_58FEDA(Unit* unit, uint16_t yx, uint8_t max_range); // Check if unit faces yx and is in range.
-    void sub_58FF51(Unit* unit, uint16_t yx, uint8_t max_range); // AI movement tick for unit toward yx.
+    int sub_58FEDA(Unit* unit, PosYX yx, uint8_t max_range); // Check if unit faces yx and is in range.
+    void sub_58FF51(Unit* unit, PosYX yx, uint8_t max_range); // AI movement tick for unit toward yx.
     void sub_59028D(Unit* unit, Unit* target, uint8_t max_range); // AI movement tick for unit pursuing target.
     void sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);
     void sub_590678(Unit* unit);
     void sub_5907BE(Unit* unit);
     void sub_590902(Unit* unit, Unit* target);
     void sub_5918B8(Unit* unit, Unit* target);
-    void sub_5918E2(Unit* unit, uint16_t yx);
+    void sub_5918E2(Unit* unit, PosYX yx);
     uint16_t sub_593AA4(Unit* unit);
-    uint8_t sub_593B29(uint16_t yx1, uint16_t yx2); // Chebyshev distance between two YX positions.
-    int sub_597140(Unit* unit, uint16_t yx, int32_t flag);
+    uint8_t sub_593B29(PosYX yx1, PosYX yx2); // Chebyshev distance between two YX positions.
+    int sub_597140(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
-    Unit* sub_58CA1B(uint16_t yx); // Get unit at map coordinate yx — 58CA1B
+    Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
 
-    int32_t GetWidth() { return map_width; } //58b8df
-    int32_t GetHeight() { return map_height; } //58b8f3
+    int32_t GetWidth() const { return map_width; } //58b8df
+    int32_t GetHeight() const { return map_height; } //58b8f3
 };
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
