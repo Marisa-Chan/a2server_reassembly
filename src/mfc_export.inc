@@ -501,6 +501,8 @@ externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* M
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
 extern ?FUN_00596d3e@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z : proc
+extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
+extern ?FUN_00596e0e@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z : proc
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
 

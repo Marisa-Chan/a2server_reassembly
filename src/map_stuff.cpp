@@ -291,6 +291,50 @@ void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx)
     }
 }
 
+void MapStuff::FUN_0058b3e0(PosYX yx)
+{ //58b3e0
+    if (!cell_states.Lookup(yx.val, scratch_cell_state))
+    {
+        scratch_cell_state.Null();
+        scratch_cell_state.walk_cost = WalkCostAt(yx);
+        scratch_cell_state.obstacle = ObstacleAt(yx);
+        scratch_cell_state.cell_yx = yx;
+
+        cell_states[yx.val] = scratch_cell_state;
+
+        ObstacleAt(yx).SetBits(0x20);
+    }
+}
+
+void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx)
+{ //596e0e
+    if (ObstacleAt(yx).TestBits(0x20) == 0 || !cell_states.Lookup(yx.val, scratch_cell_state))
+    {
+        FUN_0058b3e0(yx);
+
+        if (!cell_states.Lookup(yx.val, scratch_cell_state))
+            return;
+    }
+    if ((unit->VMethod4() & 0xff) == 3)
+    {
+        if (scratch_cell_state.dynamic_blocker && scratch_cell_state.dynamic_blocker != unit)
+            return;
+
+        scratch_cell_state.dynamic_blocker = unit;
+    }
+    else
+    {
+        if (scratch_cell_state.static_blocker && scratch_cell_state.static_blocker != unit)
+            return;
+
+        scratch_cell_state.static_blocker = unit;
+    }
+        
+    FUN_0058b5d6(scratch_cell_state);
+    cell_states[yx.val] = scratch_cell_state;
+}
+
+
 
 int CellState::IsEmpty() const
 { //58bef6
@@ -304,6 +348,28 @@ int CellState::IsEmpty() const
         dynamic_blocker != nullptr)
         return 0;
     return 1;
+}
+
+void CellState::Null()
+{ //58a3da
+    walk_cost = 0;
+    obstacle = 0;
+    effect_count = 0;
+    gap_0x03 = 0;
+    small_unit = nullptr;
+    large_unit = nullptr;
+    building = nullptr;
+    sack = nullptr;
+    area_effects.fill(nullptr);
+    static_blocker = nullptr;
+    dynamic_blocker = nullptr;
+    spell_id = 0;
+    spell_damage = 0;
+    spell_x = 0;
+    spell_y = 0;
+    gap_0x38[0] = 0;
+    gap_0x38[1] = 0;
+    cell_yx = 0;
 }
 
 

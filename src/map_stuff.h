@@ -8,6 +8,7 @@
 #include "perf.h"
 #include "unit_list.h"
 #include "token.h"
+#include <array>
 
 
 class AreaEffect;
@@ -68,7 +69,7 @@ struct CellState {
     Unit*    large_unit;         // +0x08: large unit on this cell (type == 3)
     Building* building;          // +0x0C: building on this cell, if any
     Sack*    sack;               // +0x10: sack placed on this cell
-    AreaEffect* area_effects[6]; // +0x14: area effect layer slots, indexed by type via MapLayer()
+    std::array<AreaEffect*, 6> area_effects; // +0x14: area effect layer slots, indexed by type via MapLayer()
     Unit*    static_blocker;     // +0x2C: unit causing static obstacle flag (0x40) when non-null
     Unit*    dynamic_blocker;    // +0x30: unit causing dynamic obstacle flag (0x80) when non-null
     uint8_t  spell_id;           // +0x34: spell placed on tile (triggers on entry)
@@ -79,6 +80,7 @@ struct CellState {
     PosYX  cell_yx;            // +0x3A
 
     int IsEmpty() const; //58bef6
+    void Null(); //58a3da
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
@@ -185,6 +187,8 @@ public:
     void FUN_0058b5d6(CellState& cell); //58b5d6
     int FUN_0058b4a6(PosYX yx); //58b4a6
     void FUN_00596d3e(Unit* unit, PosYX yx); //596d3e
+    void FUN_0058b3e0(PosYX yx); //58b3e0
+    void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3
