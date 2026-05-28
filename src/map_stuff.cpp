@@ -251,6 +251,61 @@ void MapStuff::FUN_0058b5d6(CellState& cell)
     }
 }
 
+int MapStuff::FUN_0058b4a6(PosYX yx)
+{ //58b4a6
+    if (!cell_states.Lookup(yx.val, scratch_cell_state))
+        return 0;
+
+    Obstacle old = ObstacleAt(yx);
+    WalkCostAt(yx) = scratch_cell_state.walk_cost;
+    ObstacleAt(yx) = scratch_cell_state.obstacle;
+    cell_states.RemoveKey(yx.val);
+
+    if (old.TestBits(0x10))
+    {
+        ObstacleAt(yx).SetBits(0x10);
+        Obstacle2At(yx).SetBits(0x10);
+    }
+    return 1;
+}
+
+void MapStuff::FUN_00596d3e(Unit* unit, PosYX yx)
+{ //596d3e
+    if (ObstacleAt(yx).TestBits(0x20) && cell_states.Lookup(yx.val, scratch_cell_state))
+    {
+        if ((unit->VMethod4() & 0xff) == 3)
+        {
+            if (scratch_cell_state.dynamic_blocker == unit)
+                scratch_cell_state.dynamic_blocker = nullptr;
+        }
+        else
+        {
+            if (scratch_cell_state.static_blocker == unit)
+                scratch_cell_state.static_blocker = nullptr;
+        }
+
+        FUN_0058b5d6(scratch_cell_state);
+        cell_states[yx.val] = scratch_cell_state;
+        if (scratch_cell_state.IsEmpty())
+            FUN_0058b4a6(yx);
+    }
+}
+
+
+int CellState::IsEmpty() const
+{ //58bef6
+    if (small_unit != nullptr ||
+        large_unit != nullptr ||
+        building != nullptr ||
+        sack != nullptr ||
+        effect_count != 0 ||
+        spell_id != 0 ||
+        static_blocker != nullptr ||
+        dynamic_blocker != nullptr)
+        return 0;
+    return 1;
+}
+
 
 
 void __cdecl MissionGetBriefing(CString* out)

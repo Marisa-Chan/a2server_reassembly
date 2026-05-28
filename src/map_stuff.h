@@ -77,6 +77,8 @@ struct CellState {
     uint8_t  spell_y;            // +0x37
     uint8_t  gap_0x38[2];
     PosYX  cell_yx;            // +0x3A
+
+    int IsEmpty() const; //58bef6
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
@@ -181,6 +183,8 @@ public:
     void SetObstacle2_80(PosYX yx) { Obstacle2At(yx).SetBits(0x80); } //58b952
 
     void FUN_0058b5d6(CellState& cell); //58b5d6
+    int FUN_0058b4a6(PosYX yx); //58b4a6
+    void FUN_00596d3e(Unit* unit, PosYX yx); //596d3e
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

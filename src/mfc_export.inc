@@ -499,6 +499,10 @@ externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
+extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
+extern ?FUN_00596d3e@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z : proc
+
+extern ?IsEmpty@CellState@@QBEHXZ : proc
 
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
