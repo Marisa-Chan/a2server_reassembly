@@ -1000,7 +1000,7 @@ externdef ?FUN_0051d49b@NetStru1@@QAEXPAVPlayer@@@Z :proc   ;  NetStru1::FUN_005
 extern ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z : proc
 
 externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
-externdef ?FUN_0051ceac@NetStru1@@QAEXIPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(unsigned int,class Player *)
+externdef ?FUN_0051ceac@NetStru1@@QAEXEPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(uint8_t,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
 externdef ?sub_51C61E@NetStru1@@QAEXPAVToken@@@Z :proc      ; NetStru1::sub_51C61E(class Token *)
 

@@ -7,6 +7,7 @@
 #include "effect.h"
 #include "eye.h"
 #include "packet.h"
+#include "sack.h"
 #include "server.h"
 #include "spell.h"
 #include "world.h"
@@ -106,6 +107,106 @@ void NetStru1::sub_51C8B1(Player* player) {
 			g_NetStru1_main.FUN_0051ce86(5, p->player_id, player);
 		}
 	}
+}
+
+// 51C61E
+void NetStru1::sub_51C61E(Token* token) {
+    PacketWord& packet = PacketWord::Inst;
+
+    packet.id = 0x6a;
+    packet.value = token->building_id;
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(pos);
+        if (token->field_x18 & player->vision_sharing_id) {
+            packet.to_player_id = player->player_id;
+            this->QueuePacketSend(&packet);
+        }
+    }
+}
+
+// 51c748
+void NetStru1::FUN_0051c748(Player* player) {
+    PacketDword& packet = PacketDword::Inst;
+    packet.to_player_id = 0;
+    packet.id = 0x64;
+    packet.value = g_Server->tick;
+    if (player == nullptr) {
+        NetStru2* client = this->GetClientByPlayerID(0);
+        if (client != nullptr) {
+            client = this->GetClientByPlayerID(0);
+            packet.to_player_id = client->player_id;
+        }
+    } else {
+        packet.to_player_id = player->player_id;
+    }
+    this->QueuePacketSend(&packet);
+}
+
+// 51ce86
+void NetStru1::FUN_0051ce86(uint32_t msg_type, uint32_t player_id, Player* recpt) {
+    this->FUN_0051cefb(0x92, msg_type, player_id, recpt);
+}
+
+// 51ceac
+void NetStru1::FUN_0051ceac(uint8_t id, Player* player) {
+    Packet& packet = Packet::Inst;
+    packet.id = id; 
+    packet.to_player_id = player ? player->player_id : 0;
+    this->QueuePacketSend(&packet);
+}
+
+// 51d49b
+void NetStru1::FUN_0051d49b(Player* player) {
+    PacketJoin& packet = PacketJoin::Inst;
+    packet.id = 0x93;
+    strcpy(packet.name, player->name);
+    packet.to_player_id = 0;
+    packet.__field_0xa = player->player_id;
+    this->QueuePacketSend(&packet);
+}
+
+// 51cefb
+void NetStru1::FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4) {
+    PacketInfo& packet = PacketInfo::Inst;
+    packet.id = param_1;
+    packet.to_player_id = param_4 ? param_4->player_id : 0;
+    packet.field_0xa = param_2;
+    packet.field_0xe = param_3;
+    this->QueuePacketSend(&packet);
+}
+
+// 51C7CC
+void NetStru1::sub_51C7CC(int32_t latency, Player* player) {
+    PacketDword& packet = PacketDword::Inst;
+    packet.id = 0xc1;
+    packet.value = latency;
+    packet.to_player_id = player ? player->player_id : 0;
+    this->QueuePacketSend(&packet);
+}
+
+// 51CD2A
+void NetStru1::sub_51CD2A(Player* player, int32_t event_id, int32_t arg3) {
+    PacketInfo& packet = PacketInfo::Inst;
+    packet.id = 0xb6;
+    packet.to_player_id = player ? player->player_id : 0;
+    packet.field_0xa = event_id;
+    packet.field_0xe = arg3;
+    this->QueuePacketSend(&packet);
+}
+
+// 51CA5D
+void NetStru1::sub_51CA5D(Player* player) {
+    POSITION pos = g_Server->srv_stru1->sack_list->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Sack* sack = g_Server->srv_stru1->sack_list->list.GetNext(pos);
+        this->sub_51AC77(sack, player, 0);
+    }
+}
+
+// 51C601
+void NetStru1::sub_51C601(Unit* unit, int unused) {
+    this->sub_51AC77(unit, nullptr, 0x73);
 }
 
 // 51E289
