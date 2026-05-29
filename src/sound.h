@@ -24,6 +24,7 @@ public:
 
 	void Play(int volume, int pan, int loop, uint8_t priority, int freq); //45c0cf
 	void Release(); //45ba0f
+	SoundChannel* FindPlayingChannel(); //45c004
 public:
 	uint32_t field_0x4;
 	CString filename;
@@ -38,6 +39,7 @@ class SoundChannel : public CObject
 public:
 
 	void Clear(); //41fdd0
+	void Stop(); //41ff90
 public:
 	uint8_t priority;
 	uint8_t __pad[3];

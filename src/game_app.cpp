@@ -608,7 +608,7 @@ BOOL GameApp::InitInstance()
 	ScenarioSetVar = (void(__stdcall*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
 	ScenarioTalkTo = GetProcAddress(g_scenario_dll, (LPCSTR)3);
 	ScenarioEnterLocation = GetProcAddress(g_scenario_dll, (LPCSTR)5);
-	ScenarioLeaveLocation = GetProcAddress(g_scenario_dll, (LPCSTR)6);
+	ScenarioLeaveLocation = (int32_t(__stdcall *)(int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)6);
 	ScenarioEnterShop = GetProcAddress(g_scenario_dll, (LPCSTR)7);
 	ScenarioLeaveShop = GetProcAddress(g_scenario_dll, (LPCSTR)8);
 	ScenarioEnterInn = GetProcAddress(g_scenario_dll, (LPCSTR)9);

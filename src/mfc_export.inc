@@ -185,7 +185,8 @@ externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 externdef ?sub_50DF19@GameDataRes@@QAEHH@Z :proc                               ; GameDataRes::sub_50DF19(int)
 externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ; int GameDataRes::sub_50DDAE(uint32_t, uint32_t)
-externdef ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
+extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
+extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
 externdef ?sub_50D8BA@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50D8BA(CString*, CString*)
 externdef ?sub_50DA04@GameDataRes@@QAEEPAVCString@@0@Z :proc              ; uint8_t GameDataRes::sub_50DA04(CString*, CString*)
 externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@PBV2@0@Z :proc     ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)
@@ -456,7 +457,7 @@ extern ??4TokenPos@@QAEAAU0@ABU0@@Z:proc   ; TokenPos::operator=(struct TokenPos
 extern ?Serialize@TokenPos@@QAEXAAVCArchive@@@Z:proc    ; TokenPos::Serialize(CArchive&)
 extern ?GetX@TokenPos@@QBEEXZ:proc  ; TokenPos::GetX
 extern ?GetY@TokenPos@@QBEEXZ:proc  ; TokenPos::GetY
-extern ?GetYX@TokenPos@@QBE?AUPosYX@@XZ:proc   ; TokenPos::GetYX
+extern ?CompatGetYX@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYX
 extern ?GetXx@TokenPos@@QBEGXZ:proc   ; TokenPos::GetXx
 extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
 extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
@@ -500,9 +501,8 @@ externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* M
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
-extern ?FUN_00596d3e@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z : proc
 extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
-extern ?FUN_00596e0e@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z : proc
+extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
 
@@ -907,7 +907,7 @@ externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
 externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc                               ; SpellBook::sub_53DD3D() – get current spell ID
-externdef ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
+extern ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
 
 
 
@@ -1119,6 +1119,8 @@ externdef ?sub_4F0D58@Server@@QAEXXZ :proc
 externdef ?sub_5090A7@Server@@QAEXXZ :proc
 externdef ?sub_50979A@Server@@QAEXXZ :proc
 
+extern ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z : proc
+
 externdef ?FUN_005540ed@SackList@@QAEXXZ : proc
 
 extern ?Instance@SrvStru1@@2U1@A : dword
@@ -1149,7 +1151,7 @@ externdef ??1World@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 externdef ?sub_5A9961@World@@QAEXPAVUnit@@EE@Z :proc                             ; World::sub_5A9961(Unit*, uint8_t, uint8_t)
 externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A99C7(Unit*)
-externdef ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
+extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
 externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA7CF(Unit*)
 externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AA91B(Unit*, Unit*)
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
@@ -1173,7 +1175,7 @@ externdef ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A99C7@World@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_5ACA54@World@@QAEXPAVGroup@@@Z :proc
+extern ?sub_5ACA54@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
 externdef ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
 externdef ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z :proc
@@ -1190,12 +1192,12 @@ externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
-externdef ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
+extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
+extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
 externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
 externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)
-externdef ?sub_5A6ADB@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
+extern ?UnitMaxRange@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
 externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
 externdef ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z :proc   ; Spell* World::sub_5A79D6(Unit*, int, int)
 externdef ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z :proc             ; int World::sub_5A7A1C(Unit*, Unit*)
@@ -1205,6 +1207,10 @@ externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::s
 externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::sub_5ADD64(Group*)
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
+extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
+extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
+extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
+
 
 ; Player
 externdef ?sub_534AC1@Player@@QAEXHI@Z :proc
@@ -1407,10 +1413,12 @@ externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
 externdef ?FUN_00491b3e@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
+externdef ?FUN_00478130@MainWindow@@QAEXXZ : proc
 
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
+extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
 
 
@@ -2049,14 +2057,17 @@ externdef ?Play@CSound@@SAXAAU1@@Z :proc
 externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
 
 extern ?Release@SfxSample@@QAEXXZ : proc
+extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc
 
 extern ?Clear@SoundChannel@@QAEXXZ : proc
+extern ?Stop@SoundChannel@@QAEXXZ : proc
 
 extern ?g_dsound@@3PAUIDirectSound@@A  :dword
 extern ?g_dsound_channel_num@@3HA  :dword
 extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
+
 
 externdef ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
 
@@ -2171,6 +2182,11 @@ externdef ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
 extern ?Init@GfxFile@@QAEXXZ : proc
 extern ?g_GfxFiles@@3V?$CArray@PAVGfxFile@@ABQAV1@@@A : dword
 extern ?g_GfxObjects@@3V?$CArray@PAVGfxObject@@ABQAV1@@@A  : dword
+
+;UnitGfxObject
+extern ?g_UnitGfxFiles@@3V?$CArray@PAVUnitGfxFile@@ABQAV1@@@A : dword
+extern ?Init@UnitGfxFile@@QAEXXZ : proc
+extern ??0UnitGfxFile@@QAE@PBD@Z : proc
 
 ;StructureInfo
 extern ?Init@StructureInfo@@QAEXXZ : proc

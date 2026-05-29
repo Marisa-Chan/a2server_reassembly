@@ -388,6 +388,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="2darray.h" />
     <ClInclude Include="afxmsg_.h" />
     <ClInclude Include="alm.h" />
     <ClInclude Include="asm_mfc.h" />

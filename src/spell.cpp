@@ -706,3 +706,16 @@ void Spell::sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y)
         g_Server->srv_stru1->effects_list->list.AddTail(transport);
     }
 }
+
+
+Spell* SpellBook::sub_53DB79(int spell_id)
+{ // 53db79 // Look up spell in book by id
+    if ((uint32_t)spell_id >= spells.GetSize())
+        return nullptr;
+    
+    if (spells[spell_id] == nullptr)
+        return nullptr;
+
+    current_spell_index = spell_id;
+    return spells[spell_id];
+}

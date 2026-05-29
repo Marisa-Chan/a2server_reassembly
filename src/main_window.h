@@ -319,6 +319,14 @@ public:
     void FUN_0047e612(); //47e612
     void FUN_0048df44(); //48df44
 
+    void FUN_0048f6f7(); //48f6f7
+    void FUN_0047ad28(); //47ad28
+
+    void FUN_00478130(); //478130 in asm
+
+    void FUN_0047eab6(); //47eab6
+    void FUN_0047f5e4(); //47f5e4
+
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
     void FUN_0045cc80(void (*func)()) { field_0xc4 = func; } //45cc80

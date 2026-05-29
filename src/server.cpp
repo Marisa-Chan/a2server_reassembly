@@ -3614,6 +3614,124 @@ Server::Server()
     map_elapsed_time2 = 0;
 }
 
+void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
+{ //501b9e
+    UnitList ulst;
+    for (int i = 0; i < arr.GetSize(); i++)
+    {
+        uint32_t serverID = arr[i] & 0xffff;
+        bool bVar7 = true;
+
+        if (serverID < 21 || serverID > 30)
+            bVar7 = false;
+
+        bool bVar2 = false;
+        int32_t idx = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000);
+        if (idx == 0)
+        {
+            idx = g_GameDataRes.FUN_00512625(serverID * 10 + 10000);
+            if (idx)
+                bVar2 = true;
+        }
+
+        if (idx == 0)
+        {
+            idx = g_GameDataRes.FUN_005125a8(serverID);
+            if (idx == 0)
+            {
+                idx = g_GameDataRes.FUN_00512625(serverID);
+                bVar2 = true;
+            }
+        }
+        else
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                int32_t idd = 0;
+                if (bVar2)
+                    idd = g_GameDataRes.FUN_00512625(serverID * 10 + 10000 + i);
+                else
+                    idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 10000 + i);
+
+                if (idd != 0)
+                {
+                    if (bVar2)
+                        idd = g_GameDataRes.FUN_00512625(serverID * 10 + 9998 + var300 / 10);
+                    else
+                        idd = g_GameDataRes.FUN_005125a8(serverID * 10 + 9998 + var300 / 10);
+
+                    if (idd != 0)
+                        idx = idd;
+                    break;
+                }
+            }
+        }
+
+        if (bVar7)
+        {
+            bool has = false;
+            Player* pl = g_PlayersList->list.GetHead();
+            for (POSITION it = pl->unit_list->unit_list.GetHeadPosition(); it != nullptr;)
+            {
+                Unit* u = pl->unit_list->unit_list.GetNext(it);
+                if (u->server_id == serverID)
+                {
+                    has = true;
+                    break;
+                }
+            }
+
+            if (!has)
+            {
+                Human* hm = new Human(g_GameDataRes.humans[idx].name, 1, nullptr);
+                hm->server_id = serverID;
+                hm->building_id = g_buildingIdSet.AllocBit();
+                hm->pOwner = pl;
+                pl->unit_list->AddTail(hm);
+
+                Group* grp = new Group();
+                pl->group_list->groups.AddTail(grp);
+                grp->AddUnit(hm);
+
+                g_World->sub_5A9A6A(hm);
+                g_World->sub_5ACDF4(grp);
+                g_NetStru1_main.sub_519221(hm, pl, (uint32_t)-1, 0xffb, 0, 0);
+            }
+        }
+        else
+        {
+            Player* pl = g_PlayersList->list.GetHead();
+            Unit* u;
+            if (bVar2)
+                u = new Unit(g_GameDataRes.monsters[idx].name);
+            else
+                u = new Human(g_GameDataRes.humans[idx].name, 0, nullptr);
+            u->server_id = serverID;
+            u->pOwner = pl;
+            ulst.AddTailAllocId(u);
+            g_NetStru1_main.sub_519221(u, pl, (uint32_t)-1, 0xffb, 0, 0);
+        }
+    }
+
+    for (POSITION it = ulst.unit_list.GetHeadPosition(); it != nullptr;)
+    {
+        Unit* u = ulst.unit_list.GetNext(it);
+        g_buildingIdSet.Unset(u->building_id);
+    }
+    for (POSITION it = ulst.unit_list.GetHeadPosition(); it != nullptr;)
+    {
+        Unit* u = ulst.unit_list.GetNext(it);
+        delete u;
+    }
+    ulst.unit_list.RemoveAll();
+
+    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendAllData();
+}
+
+
+
+
 CowardActivation::CowardActivation()
 { // 5a335c
     memset(key, 0, sizeof(key));

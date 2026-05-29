@@ -161,6 +161,8 @@ public:
     void FUN_0050907e(); //50907e
 
     void FUN_00497470(int32_t val) { field22_0xd8 = val; }; //497470
+
+    void FUN_00501b9e(int32_t var300, CDWordArray& arr); //501b9e
         
     Server(); //4ece8b
     ~Server(); //4f2c26

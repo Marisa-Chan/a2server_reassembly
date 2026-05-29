@@ -92,6 +92,7 @@ public:
 	uint8_t GetX() const;
 	uint8_t GetY() const;
 	PosYX GetYX() const;
+	uint16_t CompatGetYX() const; //only for compatible with asm
 	uint16_t GetXx() const;
 	uint16_t GetYy() const;
 

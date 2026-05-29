@@ -9,6 +9,7 @@
 #include "unit_list.h"
 #include "token.h"
 #include <array>
+#include "2darray.h"
 
 
 class AreaEffect;
@@ -139,7 +140,7 @@ struct MapStuff { // aka astruct_5
     uint8_t height_map[65536];
     CList<void*> field66_0xa44f4;
     CList<void*> field67_0xa4510;
-    uint8_t field_0xa452c[64];
+    Array2D<uint8_t, 8, 8> field_0xa452c;
     UnitList* field69_0xa456c;
 
 public:
@@ -189,6 +190,7 @@ public:
     void FUN_00596d3e(Unit* unit, PosYX yx); //596d3e
     void FUN_0058b3e0(PosYX yx); //58b3e0
     void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
+    void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

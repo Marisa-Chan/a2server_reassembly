@@ -334,6 +334,80 @@ void MapStuff::FUN_00596e0e(Unit* unit, PosYX yx)
     cell_states[yx.val] = scratch_cell_state;
 }
 
+void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
+{ //5969c6
+    int sz = unit->VMethod3();
+    field_0xa452c.fill(0);
+    for (int j = 0; j < sz + 2; j++)
+    {
+        for (int i = 0; i < sz + 2; i++)
+        {
+            field_0xa452c(i, j) = 1;
+        }
+    }
+
+    if (t == 0)
+    {
+        int dx = unit->position->GetX();
+        int dy = unit->position->GetY();
+        for (int j = 1; j < sz + 1; j++)
+        {
+            for (int i = 1; i < sz + 1; i++)
+            {
+                int x = j + yx.x - dx;
+                int y = i + yx.y - dy;
+                field_0xa452c(y, x) = 2; // y x for save order how it's in original
+            }
+        }
+    }
+
+    if (t != 2)
+    {
+        for (int j = 1; j < sz + 1; j++)
+        {
+            for (int i = 1; i < sz + 1; i++)
+            {
+                field_0xa452c(i, j) = 3;
+            }
+        }
+    }
+
+
+    int dx = unit->position->GetX() - 1;
+    int dy = unit->position->GetY() - 1;
+    for (int j = 0; j < sz + 2; j++)
+    {
+        for (int i = 0; i < sz + 2; i++)
+        {
+            switch (field_0xa452c(i, j))
+            {
+            case 0:
+                break;
+
+            case 1:
+                FUN_00596d3e(unit, PosYX(dx + j, dy + i));
+                break;
+
+            case 2:
+                FUN_00596e0e(unit, PosYX(dx + j, dy + i));
+                break;
+
+            case 3:
+                FUN_00596e0e(unit, PosYX(dx + j, dy + i));
+                break;
+            }
+        }
+    }
+
+    if (t == 0)
+        unit->eye->field121_0x80 = yx;
+    else if (t == 1)
+        unit->eye->field121_0x80 = unit->position->GetYX();
+    else if (t == 2)
+        unit->eye->field121_0x80 = PosYX(0, 0);
+}
+
+
 
 
 int CellState::IsEmpty() const

@@ -46,6 +46,15 @@ void SoundChannel::Clear()
 	psample = nullptr;
 }
 
+void SoundChannel::Stop()
+{ //41ff90
+	if (pbuffer)
+	{
+		pbuffer->Stop();
+		pbuffer->SetCurrentPosition(0);
+	}
+}
+
 
 void SfxSample::Release()
 { //45ba0f
@@ -63,6 +72,28 @@ void SfxSample::Release()
 		loaded = 0;
 	}
 }
+
+SoundChannel* SfxSample::FindPlayingChannel()
+{ //45c004
+	if (!g_dsound || !loaded)
+		return nullptr;
+
+	for (int i = 0; i < g_dsound_channel_num; i++)
+	{
+		DWORD status;
+		buffers[i]->GetStatus(&status);
+		if (status & DSBSTATUS_PLAYING)
+		{
+			for (int j = 0; j < g_dsound_channel_num; j++)
+			{
+				if (g_dsound_channels[j].pbuffer == buffers[i])
+					return &g_dsound_channels[j];
+			}
+		}
+	}
+	return nullptr;
+}
+
 
 
 int MusicPlayer::GetState()

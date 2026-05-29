@@ -16,6 +16,7 @@ class CGameObject;
 class CGameFont;
 class CBmp64;
 class CBmp256;
+class CA16;
 class BigStruct2;
 class VisCharSellectStats;
 class VisCharSellectButtons;
@@ -811,6 +812,7 @@ public:
 	void FUN_0041b381(); //41b381
 	void FUN_0041b10f(); //41b10f
 	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064
+	void FUN_0041c39c(); //41c39c
 
 	void FUN_00403ca0(CGameObject* obj); //403ca0 in asm
 	void FUN_0041d97e(int32_t); //41d97e in asm
@@ -1566,7 +1568,54 @@ class VisGlobalMap : public VisScreen
 {
 public:
 	void FUN_0047024a(); //47024a
+	void FUN_004972a0(const CPoint& pt) { field_0x104 = pt; } //4972a0
+public:
+	CBmp64* gmap;
+	CBmp64* hero_bmp;
+	CBmp64* ballmap;
+	CA16* flag1_spr;
+	CA16* flag_spr;
+	CA16* cross_spr;
+	CA16* mission_flg;
+	CA16* flg_on_map;
+	CA16* yflag_spr;
+	CBmp64* scroll1_bmp;
+	CBmp64* scroll2_bmp;
+	CBmp64* scroll3_bmp;
+	CBmp64* scrollp1_bmp;
+	CBmp64* scrollp3_bmp;
+	CBmp64* scrollp2_bmp;
+	CWordArray field_0xa4;
+	CArray<CRect> field_0xb8;
+	CArray<CPoint> field_0xcc;
+	CArray<CPoint> field_0xe0;
+	CPoint field_0xf4;
+	CPoint field_0xfc;
+	CPoint field_0x104;
+	CPoint field_0x10c;
+	CRect field_0x114;
+	int32_t field_0x124;
+	int32_t field_0x128;
+	int32_t field_0x12c;
+	uint32_t field_0x130; //unk
+	uint32_t field_0x134; //unk
+	uint32_t field_0x138;
+	CWordArray field_0x13c; //++
+	int32_t field_0x150;    //++
+	CArray<CPoint>*** field_0x154;
+	CArray<CPoint> field_0x158;
+	CArray<DWORD> field_0x16c; //unk
+	CSound snd_scrollup;
+	CSound snd_scrolldn;
+	CSound snd_point1;
+	CSound snd_point2;
+	uint32_t field_0x190; //unk
+	uint32_t field_0x194; //unk
+	CString field_0x198;
+	CStringArray field_0x19c;
+	int32_t field_0x1b0;
 };
+ASSERT_SIZE(VisGlobalMap, 0x1b4);
 
 
 

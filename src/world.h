@@ -116,7 +116,7 @@ public:
     // Group-order dispatch helpers (called from Server::sub_504a96)
     void sub_5ACAA7(Group* group);
     void sub_5A99C7(Unit* unit);
-    void sub_5ACA54(Group* group);
+    void sub_5ACA54(Group* group); //5aca54
     void sub_5AC80F(Group* group, Token* target);
     void sub_5ACB4D(Group* group, Token* target, uint8_t param_3);
     void sub_5AC289(Group* group, uint8_t x, uint8_t y);
@@ -124,7 +124,7 @@ public:
     void sub_5AC187(Group* group, Token* target, Spell*);
     void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
     void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
-    void sub_5A9AC4(Unit* unit);
+    void sub_5A9AC4(Unit* unit); //5a9ac4
     void sub_5A90F4(Unit* unit, Building* bldg);
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);
     void sub_5AC8A2(Group* group, uint8_t param_2);
@@ -145,7 +145,7 @@ public:
     void sub_5AAA89(Unit* unit);
     void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
-    void sub_5ACDF4(Group* group); // World callback for animate-dead group
+    void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
     // Trigger action dispatch handlers (called from DoScriptInstID)
@@ -190,7 +190,7 @@ public:
     void sub_5A3AD6(Unit* unit, UnitList* pList); // Populate attack/non-attack target lists for unit from pList.
     UnitList* sub_5A3808(Unit* caster, PosYX yx); // Get nearby enemy UnitList for caster at yx.
     UnitList* sub_5A384F(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx.
-    uint8_t sub_5A6ADB(Unit* unit);                  // Get effective max cast range for unit.
+    uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     uint8_t sub_5ABB32(Unit* unit, PosYX yx);
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
@@ -200,6 +200,10 @@ public:
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
     void sub_5ADD64(Group* group); // Build nearby friendly unit list from `group`.
     bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.
+
+    void FUN_005a9832(Unit* unit); //5a9832
+    void FUN_005a93f4(Unit* unit); //5a93f4
+    void FUN_005acd4c(Group* grp); //5acd4c
 };
 ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);

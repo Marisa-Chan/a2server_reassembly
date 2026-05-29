@@ -131,6 +131,7 @@ public:
     int32_t sub_542A31(UnitToHit* uth, Unit* caster); // Compute damage for non-humanoid unit.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
+    int MaxRange(); //5a6adb
     
 public:
     MonsterInfo* monster_info;

@@ -126,7 +126,7 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
         caster->eye2->cast_action = 8;
         caster->eye2->unit5 = target;
         caster->eye2->spell = spell;
-        caster->eye2->max_range = this->sub_5A6ADB(caster);
+        caster->eye2->max_range = this->UnitMaxRange(caster);
         target->eye2->autobuff_spell_id = spell->spell_id;
         target->eye2->autobuff_tick = g_Server->tick;
     }
@@ -830,4 +830,83 @@ void World::ScriptOP_0x26(TriggerAction* action) {
 // 5b4070 — Suspend group
 void World::ScriptOP_0x27(TriggerAction* action) {
     action->group->group_sub->active = 0;
+}
+
+
+uint8_t World::UnitMaxRange(Unit* unit)
+{ //5a6adb
+    if (unit->eye2->spell_id != 0)
+    {
+        Spell* spell = unit->spell_book->sub_53DB79(unit->eye2->spell_id);
+        if (spell && spell->mana_cost <= unit->mp)
+            return spell->max_range;
+    }
+    return unit->max_range;
+}
+
+void World::FUN_005a9832(Unit* unit)
+{ //5a9832
+    if (unit->eye->field0_0x0 != unit->eye->field1_0x1)
+        unit->eye->field1_0x1 = unit->eye->field0_0x0;
+
+    if (unit->eye->field121_0x80 != PosYX())
+    {
+        if (unit->position->sub_58bec3())
+        {
+            if (unit->position->GetYX() != unit->eye->field121_0x80)
+                field24_0xa50->FUN_005969c6(unit, PosYX(), 1);
+        }
+    }
+    unit->eye2->max_range = UnitMaxRange(unit);
+    unit->eye2->field49_0x60 = 0;
+    unit->eye->field120_0x7c = 0;
+    unit->some_state = 0;
+}
+
+void World::sub_5A9AC4(Unit* unit)
+{ //5a9ac4
+    FUN_005a9832(unit);
+    unit->eye2->field43_0x50 = 0;
+}
+
+void World::FUN_005a93f4(Unit* unit)
+{ //5a93f4
+    sub_5A9AC4(unit);
+    unit->state = 0xc;
+    unit->eye2->position1 = unit->position->GetYX();
+    unit->eye2->cast_action = 0;
+}
+
+void World::sub_5A9A6A(Unit* unit)
+{ //5a9a6a
+    sub_5A9AC4(unit);
+    FUN_005a93f4(unit);
+}
+
+void World::FUN_005acd4c(Group* grp)
+{ //5acd4c
+    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
+    {
+        Unit* unit = grp->unit_list.GetNext(it);
+        sub_5A9AC4(unit);
+        unit->eye2->field29_0x38 = 0;
+    }
+    grp->group_sub->field_0x20 = 0;
+}
+
+void World::sub_5ACA54(Group* grp)
+{ //5aca54
+    FUN_005acd4c(grp);
+    for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;)
+    {
+        Unit* unit = grp->unit_list.GetNext(it);
+        FUN_005a93f4(unit);
+    }
+    grp->group_sub->field_0x20 = 3;
+}
+
+void World::sub_5ACDF4(Group* group)
+{ // 5acdf4
+    FUN_005acd4c(group);
+    sub_5ACA54(group);
 }

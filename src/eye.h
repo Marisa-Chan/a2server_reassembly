@@ -136,7 +136,7 @@ struct UnitEye {
     uint8_t field118_0x7a;
     uint8_t field119_0x7b;
     Unit* field120_0x7c;
-    uint16_t field121_0x80;
+    PosYX field121_0x80;
     uint8_t field122_0x82;
     uint8_t field123_0x83;
     uint8_t field124_0x84;
@@ -184,7 +184,7 @@ ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_SIZE(UnitEye, 0xb4);
 
 struct UnitEye2 {
-    uint16_t position1;
+    PosYX position1;
     uint16_t position2;
     uint32_t field2_0x4;
     uint8_t cast_action;

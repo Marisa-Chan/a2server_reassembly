@@ -11,6 +11,7 @@ class GfxFile;
 class GfxObject;
 class StructureInfo;
 class ProjectileInfo;
+class UnitGfxFile;
 
 extern int32_t INT_00660f8c;
 extern int32_t INT_00660f90;
@@ -19,6 +20,7 @@ extern CArray<GfxFile*> g_GfxFiles; //661100
 extern CArray<GfxObject*> g_GfxObjects; //665330
 extern CArray<StructureInfo*> g_StructuresInfo; //661098
 extern CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
+extern CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 
 extern CGamePalette* g_pal_projectiles; //665490
 extern CGamePalette* g_pal_projectile_; //665494
@@ -113,6 +115,24 @@ public:
 	char desc_text[32];
 };
 ASSERT_SIZE(GfxObject, 0x6c);
+
+//60b8b0
+class UnitGfxFile : public CObject
+{
+public:
+	UnitGfxFile() = default;  //47c806
+	UnitGfxFile(const char* _fname); //47c85d
+	~UnitGfxFile(); //47c8e3
+
+	void Init(); //47c943
+	void Deinit(); //47caa4
+public:
+	CSprite256* spr;
+	CSprite256* spr_b;
+	CString fname;
+	int32_t inited;
+};
+ASSERT_SIZE(UnitGfxFile, 0x14);
 
 
 //60b910

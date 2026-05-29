@@ -86,6 +86,12 @@ PosYX TokenPos::GetYX() const
 	return YX;
 }
 
+uint16_t TokenPos::CompatGetYX() const
+{
+	//58aade
+	return YX.val;
+}
+
 uint16_t TokenPos::GetXx() const
 {
 	//58aa9b

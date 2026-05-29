@@ -1707,6 +1707,100 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         else if (field_0x418 == 0)
             PopUpScreen(new ExitGameMenu(1, 100, 100, 440, 340, CRect(0, 0, 300, 70)));
         break;
+
+    case 0x41d:
+        if (field_0x640 == 1 || field_0x640 == 3)
+        {
+            if (field_0x640 == 1)
+                field_0xd0->FUN_0041d2da(0);
+            else
+                field_0xd0->FUN_0041d2da(1);
+
+            if ((field_0x418 & 1) != 0)
+                FUN_0048f6f7();
+            
+            g_Server->sub_4F1E2A();
+            PostMessage(0x459, 0, 0);
+        }
+        else if (field_0x640 == 0)
+        {
+            field_0xd0->FUN_0041d2da(1);
+
+            if ((field_0x418 & 1) != 0)
+                FUN_0048f6f7();
+
+            g_CLlDriver.Close();
+
+            field_0x438 = 0x7fffffff;
+            last_tic_time = 0x7fffffff;
+
+            PostMessage(0x452, 0, 0);
+        }
+        else if (field_0x3f8 == 0)
+        {
+            g_Server->sub_4F1E2A();
+            PostMessage(0x421, 0, 0);
+        }
+        else
+        {/*
+            local_88c = g_Server->tick;
+            field_0x5e8.FUN_00497250(g_Server->tick / 16);
+            field_0xd0->FUN_0041ce5a();
+
+            if ((field_0x418 & 1) != 0)
+                FUN_0048f6f7();
+            
+            if (g_Server)
+                g_Server->sub_4F1E2A();
+            
+            FUN_00485a41();
+
+            field_0xf0->FUN_004972a0(ScenarioGetCurrentLocation()->rect.TopLeft());
+
+            int32_t loc;
+            int32_t local_894 = ScenarioLeaveLocation(&loc);
+
+            CDWordArray local_8ac;
+            int32_t var = ScenarioGetVar(0x305);
+            if (var != 0)
+            {
+                local_8ac.Add(var);
+                g_Server->FUN_00501b9e(ScenarioGetVar(0x300), local_8ac);
+                field_0xd0->ProcessPackets(0);
+            }
+
+            if (loc > -1)
+                FUN_00491f7d(loc);
+
+            iVar18 = FUN_00497490();
+            if (iVar18 == 0) {
+                if (local_894 != 0)
+                    field_0xd0->FUN_0041b0be(local_894);
+
+                iVar18 = (*(code*)ScenarioIsTownAvailable)();
+                if (iVar18 == 0) {
+                    local_8b0 = (*(code*)ScenarioGetAvailableLocations)();
+                    FUN_004744c0(local_8b0);
+                    (*(code*)ScenarioEnterLocation)();
+                    PostMessage(0x468, 0, 0);
+                }
+                else {
+                    field_0xf0->field_0x1b0 = 0;
+                    FUN_0048d34b();
+                }
+                i &= 0xffffff00;
+                CDWordArray::~CDWordArray(&local_8ac);
+            }
+            else {
+                FUN_004ac498((int)&this->field113_0x5e8);
+                BigStruct2::FUN_0041d2da(this->field_0xd0, 1);
+                CWnd::PostMessage((CWnd*)this, 0x428, 0, 0);
+                i &= 0xffffff00;
+                CDWordArray::~CDWordArray(&local_8ac);
+            }*/
+            
+        }
+        break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -2430,6 +2524,78 @@ void MainWindow::FUN_0048df44()
 
 
 
+void MainWindow::FUN_0048f6f7()
+{ //48f6f7
+
+    field_0xd0->FUN_0041c39c();
+    if (g_SoundSettings.field_0x20 != 0)
+        music_player->OnEndTrack();
+
+    FUN_0047ad28();
+
+    for (int i = 0; i < g_UnitGfxFiles.GetSize(); i++)
+        g_UnitGfxFiles[i]->Deinit();
+    
+    FUN_00478130();
+    FUN_0047eab6();
+    FUN_0047f5e4();
+
+    field_0x418 &= ~1;
+}
+
+void MainWindow::FUN_0047eab6()
+{ //47eab6
+    for (int i = 0; i < g_ProjectileInfos.GetSize(); i++)
+    {
+        ProjectileInfo* inf = g_ProjectileInfos[i];
+        if (inf)
+            delete inf;
+    }
+    g_ProjectileInfos.RemoveAll();
+
+    if (g_pal_projectiles)
+    {
+        delete g_pal_projectiles;
+        g_pal_projectiles = nullptr;
+    }
+
+    if (g_pal_projectile_)
+    {
+        delete g_pal_projectile_;
+        g_pal_projectile_ = nullptr;
+    }
+
+    for (int i = 0; i < 2; i += 1)
+    {
+        if (g_spr_smoke[i])
+        {
+            delete g_spr_smoke[i];
+            g_spr_smoke[i] = nullptr;
+        }
+    }
+}
+
+void MainWindow::FUN_0047f5e4()
+{ //47f5e4
+    for (int i = 0; i < g_StructuresInfo.GetSize(); i++)
+    {
+        StructureInfo* inf = g_StructuresInfo[i];
+        if (inf)
+            delete inf;
+    }
+    g_StructuresInfo.RemoveAll();
+}
+
+
+void MainWindow::FUN_0047ad28()
+{ //47ad28
+    for (int i = 0; i < g_GfxFiles.GetSize(); i++)
+        delete g_GfxFiles[i];
+    for (int i = 0; i < g_GfxObjects.GetSize(); i++)
+        delete g_GfxObjects[i];
+    g_GfxFiles.RemoveAll();
+    g_GfxObjects.RemoveAll();
+}
 
 
 int SomeMainStructure::FUN_00493ffe()

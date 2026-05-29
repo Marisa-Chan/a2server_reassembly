@@ -117,7 +117,7 @@ extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
 extern "C" void(__stdcall* ScenarioSetVar)(int32_t, int32_t); //665a00
 extern "C" FARPROC ScenarioTalkTo; //665bd4
 extern "C" FARPROC ScenarioEnterLocation; //6659fc
-extern "C" FARPROC ScenarioLeaveLocation; //6658c8
+extern "C" int32_t(__stdcall* ScenarioLeaveLocation)(int32_t*); //6658c8
 extern "C" FARPROC ScenarioEnterShop; //665b0c
 extern "C" FARPROC ScenarioLeaveShop; //665b08
 extern "C" FARPROC ScenarioEnterInn; //665be8

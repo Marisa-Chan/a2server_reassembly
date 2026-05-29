@@ -33,6 +33,7 @@ CArray<GfxFile*> g_GfxFiles; //661100
 CArray<GfxObject*> g_GfxObjects; //665330
 CArray<StructureInfo*> g_StructuresInfo; //661098
 CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
+CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 
 CGamePalette* g_pal_projectiles; //665490
 CGamePalette* g_pal_projectile_; //665494
@@ -2994,6 +2995,18 @@ void BigStruct2::FUN_0041a735()
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+void BigStruct2::FUN_0041c39c()
+{ //41c39c
+	field_0x49b8 = -1;
+	field_0x49bc = -1;
+	SoundChannel* ch1 = g_SfxArray[50]->FindPlayingChannel();
+	SoundChannel* ch2 = g_SfxArray[90]->FindPlayingChannel();
+	if (ch1)
+		ch1->Stop();
+	if (ch2)
+		ch2->Stop();
+}
+
 
 GfxFile::GfxFile(const char* _fname)
 { //47ae53
@@ -3034,6 +3047,45 @@ void GfxFile::Deinit()
 	}
 }
 
+
+UnitGfxFile::UnitGfxFile(const char* _fname)
+{ //47c85d
+	spr = nullptr;
+	spr_b = nullptr;
+	fname = CString("graphics\\units\\") + _fname;
+	inited = 0;
+}
+
+UnitGfxFile::~UnitGfxFile()
+{ //47c8e3
+	Deinit();
+}
+
+void UnitGfxFile::Init()
+{ // 47c943
+	spr = new CSprite256(fname + ".256");
+	spr_b = new CSprite256(fname + "b.256");
+	spr->ResetPalette(0x10, 2, 1);
+	inited = 1;
+}
+
+void UnitGfxFile::Deinit()
+{ //47caa4
+	if (inited)
+	{
+		if (spr)
+		{
+			delete spr;
+			spr = nullptr;
+		}
+		if (spr_b)
+		{
+			delete spr_b;
+			spr_b = nullptr;
+		}
+		inited = 0;
+	}
+}
 
 
 
