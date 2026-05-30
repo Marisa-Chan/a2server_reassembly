@@ -139,7 +139,7 @@ public:
     // sub_51A0EF / sub_51A6D5 / sub_51BDA4 are still in asm but called from sub_519221
     void sub_51A0EF(Unit* unit, Player* player, int32_t flags);
     void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
-    void sub_51BDA4(Effect* effect, Unit* unit, int32_t arg);
+    void sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg);
 
     void sub_51D837(int32_t param1, Player* player); // Send server state / player list to player
     void sub_51C8B1(Player* player);  // Send all existing players (PacketJoin) to new player

@@ -24,6 +24,7 @@
 #include "map_stuff.h"
 #include "quest.h"
 
+extern "C" uint32_t dword_665CFC;
 
 GUID Allods2GUID = {0x65450caa, 0x57ca, 0x11d2, {0xbb, 0xcc,0x00, 0x60, 0x97, 0xd2, 0xee, 0x9f}};
 
@@ -4264,4 +4265,228 @@ int32_t CLlDriver::GetPacketLoss(uint32_t conn_uid)
         return 0;
 
     return ((float)sock->field_0x264 * 100000.0) / (float)sock->field_0x260;
+}
+
+// Helper: check if a map visibility grid cell is visible to a player.
+// Returns true if player can see the position, or fog is disabled, or map is null.
+bool IsVisibleTo(TokenPos* pos, Player* player) {
+    if (MapStuff_Instance == nullptr || g_Server->field4_0x74 == 0) {
+        return true;
+    }
+
+    uint32_t x = pos->GetX() >> 3;
+    uint32_t y = pos->GetY() >> 3;
+    return MapStuff_Instance->scan_presence_grid.sector_grid[x+1][y+1] & player->vision_sharing_id;
+}
+
+// Helper: handle "unit hidden" case for effect packets (ids 0x88/0x89).
+void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
+    if (packet->id < 0x88 || packet->id > 0x89) {
+        return;
+    }
+
+    Unit* affected_unit = dword_6CDB3C->sub_5560D2(packet->field_0xa);
+    if (affected_unit == nullptr) {
+        return;
+    }
+
+    int32_t pid = player->player_id;
+    if (0x10 <= pid && pid < 0x20) {
+        affected_unit->something_per_player[pid - 0x10] |= 0x800000;
+    }
+}
+
+// 51B370
+void NetStru1::sub_51B370(PacketMoveCmd* packet, TokenPos* pos) {
+    if (packet->to_player_id != 0) {
+        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        if (IsVisibleTo(pos, player)) {
+            this->QueuePacketSend(packet);
+        } else {
+            MarkUnitHiddenForPlayer(packet, player);
+        }
+        return;
+    }
+
+    POSITION iter = g_PlayersList->list.GetHeadPosition();
+    while (iter != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(iter);
+        if (!player->field_0x43) {
+            continue;
+        }
+        packet->to_player_id = player->player_id;
+        if (IsVisibleTo(pos, player)) {
+            this->QueuePacketSend(packet);
+        } else {
+            MarkUnitHiddenForPlayer(packet, player);
+        }
+    }
+}
+
+// 51B638
+void NetStru1::sub_51B638(PacketAoeZone* packet, AreaEffect* area_effect) {
+    if (packet->to_player_id != 0) {
+        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
+            this->QueuePacketSend(packet);
+        } else {
+            auto pid = player->player_id;
+            if (pid >= 0x10 && pid < 0x20) {
+                if (packet->field_0xf != 0) {
+                    area_effect->field6_0x46 |= player->vision_sharing_id;
+                } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
+                    this->QueuePacketSend(packet);
+                }
+            }
+        }
+        return;
+    }
+
+    POSITION iter = g_PlayersList->list.GetHeadPosition();
+    while (iter != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(iter);
+        if (!player->field_0x43) {
+            continue;
+        }
+        if ((area_effect->field4_0x42 & player->vision_sharing_id) != 0 || g_Server->field4_0x74 == 0) {
+            packet->to_player_id = player->player_id;
+            this->QueuePacketSend(packet);
+        } else {
+            auto pid = player->player_id;
+            if (pid >= 0x10 && pid < 0x20) {
+                if (packet->field_0xf != 0) {
+                    area_effect->field6_0x46 |= player->vision_sharing_id;
+                } else if ((area_effect->field6_0x46 & player->vision_sharing_id) == 0) {
+                    packet->to_player_id = player->player_id;
+                    this->QueuePacketSend(packet);
+                }
+            }
+        }
+    }
+}
+
+// 51BAB0
+void NetStru1::sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
+    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    packet.id = 0x86;
+    packet.field_0xa = caster->building_id;
+    packet.field_0xc = 0;
+    packet.field_0xd = 0;
+    packet.field_0xe = 0;
+    if (caster->typeId == 0) {
+        packet.id = 0x8B;
+        // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
+        packet.field_0xa = caster->position->GetX() | (caster->position->GetY() << 8);
+    }
+    packet.field_0xc = (spell->spell_id * 2 + 8);
+    if (target != nullptr) {
+        *(uint16_t*)&packet.field_0xd = (uint16_t)target->building_id;
+        packet.field_0xf = delay;
+    }
+    if (caster->VMethod8()) {
+        caster->last_action_tick = g_Server->tick;
+    }
+    packet.to_player_id = 0;
+    this->sub_51B370(&packet, caster->position);
+}
+
+// 51BB94
+void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
+    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    packet.id = 0x86;
+    packet.field_0xa = caster->building_id;
+    if (caster->typeId == 0) {
+        packet.id = 0x8B;
+        // Original code was writing the X and Y separately into +0xa and +0xb. I hope it's the same.
+        packet.field_0xa = caster->position->GetX() | (caster->position->GetY() << 8);
+    }
+    packet.field_0xc = spell->spell_id * 2 + 8;
+    packet.field_0xd = pos->GetX();
+    packet.field_0xe = pos->GetY();
+    packet.field_0xf = delay;
+    if (caster->VMethod8()) {
+        caster->last_action_tick = g_Server->tick;
+    }
+    packet.to_player_id = 0;
+    this->sub_51B370(&packet, caster->position);
+}
+
+// 51BDA4
+void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
+    PacketEffect& packet = PacketEffect::Inst;
+    packet.id = arg ? arg : 0x88;
+    packet.field_0xa = unit->building_id;
+    packet.effect_type = effect->typeId;
+    packet.to_player_id = 0;
+    // This reinterpret_cast is kinda weird, but it works, because `sub_51B370` only reads the 2-byte 0xa field from non-Packet fields.
+    this->sub_51B370(reinterpret_cast<PacketMoveCmd*>(&packet), unit->position);
+}
+
+// 51C822
+void NetStru1::sub_51C822(NetStru2* ns2) {
+    PacketDword& packet = PacketDword::Inst;
+    packet.id = 0x0E;
+    packet.value = dword_665CFC;
+    packet.VMethod3(ns2);
+    packet.id = 0x64;
+    packet.value = (uint32_t)g_Server->tick;
+    packet.VMethod3(ns2);
+    ns2->out_buffers[ns2->out_buff_id].pkt_num += 1;
+    this->SendAllData();
+}
+
+// 51D837
+void NetStru1::sub_51D837(int32_t param1, Player* player) {
+    PacketDword& packet = PacketDword::Inst;
+    packet.id = 0x10;
+    if (player != nullptr) {
+        packet.to_player_id = player->player_id;
+    } else {
+        packet.to_player_id = 0;
+    }
+    packet.value = param1;
+    this->QueuePacketSend(&packet);
+}
+
+// 51DFA7
+void NetStru1::sub_51DFA7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = player_id;
+    packet.id = 0xCF;
+    int32_t name_len = name.GetLength();
+    packet.count = name_len + size + 0x10;
+    uint32_t* p = (uint32_t*)packet.data;
+    *p++ = param1;
+    *p++ = param2;
+    *p++ = name_len;
+    *p++ = size;
+    memcpy(p, data, size);
+    memcpy(packet.data + 0x10 + size, (const char*)name, name_len);
+    this->QueuePacketSend(&packet);
+}
+
+// 51E0B7
+void NetStru1::sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = player_id;
+    packet.id = 0xE0;
+    int32_t name_len = name.GetLength();
+    packet.count = name_len + size + 0x10;
+    uint32_t* p = (uint32_t*)packet.data;
+    *p++ = param1;
+    *p++ = param2;
+    *p++ = name_len;
+    *p++ = size;
+    memcpy(p, data, size);
+    memcpy(packet.data + 0x10 + size, (const char*)name, name_len);
+    this->QueuePacketSend(&packet);
+}
+
+// 51E1C7
+void NetStru1::sub_51E1C7(uint16_t player_id) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = player_id;
+    packet.id = 0xE0;
+    packet.count = 1;
+    this->QueuePacketSend(&packet);
 }

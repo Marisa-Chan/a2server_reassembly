@@ -1025,11 +1025,12 @@ externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 externdef ?sub_51AC77@NetStru1@@QAEXPAVCObject@@PAVPlayer@@C@Z :proc             ; NetStru1::sub_51AC77(CObject*,Player*,int8_t)
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
 externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
-externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@H@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, int)
+externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@E@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, uint8_t)
 
 externdef ?sub_51C46E@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
 externdef ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z :proc
+externdef _dword_665CFC :dword
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51BAB0@NetStru1@@QAEXPAVUnit@@PAVSpell@@0F@Z :proc
 externdef ?sub_51BB94@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAUTokenPos@@F@Z :proc
