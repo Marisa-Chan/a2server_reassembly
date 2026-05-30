@@ -14,6 +14,8 @@
 
 
 class AreaEffect;
+class PacketAoeZone;
+class PacketMoveCmd;
 struct CLlDriver;
 class Effect;
 class NetStru1;
@@ -167,6 +169,8 @@ public:
     void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
     void sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
+    void sub_51B370(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility
+    void sub_51B638(PacketAoeZone* pkt, AreaEffect* area_effect);  // Broadcast AoE-zone packet to all players in visibility
 
 
     void AddTailNet2(NetStru2*& net2); //517e91

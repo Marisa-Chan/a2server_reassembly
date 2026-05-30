@@ -455,10 +455,10 @@ public:
     virtual uint32_t GetDataSize() override; // sub_57A800
 public:
     uint8_t field_0xa;    // +0xA
-    uint8_t field_0xb;    // +0xB
-    uint8_t field_0xc;    // +0xC
-    uint8_t field_0xd;    // +0xD (= 0 in ctor)
-    uint8_t field_0xe;    // +0xE (= 0 in ctor)
+    uint8_t field_0xb;    // +0xB; `x` coordinate of top-left corner of AoE zone
+    uint8_t field_0xc;    // +0xC; `y` coordinate of top-left corner of AoE zone
+    uint8_t field_0xd;    // +0xD (= 0 in ctor); width of AoE zone in cells
+    uint8_t field_0xe;    // +0xE (= 0 in ctor); height of AoE zone in cells
     uint8_t field_0xf;    // +0xF
     uint8_t data[12] ;    // +0x10..+0x1B
 };

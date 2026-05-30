@@ -174,6 +174,7 @@ public:
     int sub_597140(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
+    int32_t sub_5953CB(AreaEffect* ae, int32_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
 
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0

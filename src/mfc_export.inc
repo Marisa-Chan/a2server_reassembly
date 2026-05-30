@@ -497,6 +497,7 @@ externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff:
 externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_5918B8(Unit*, Unit*)
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
+externdef ?sub_5953CB@MapStuff@@QAEHPAVAreaEffect@@H@Z :proc    ; int32_t MapStuff::sub_5953CB(AreaEffect*, int32_t)
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
@@ -1015,6 +1016,8 @@ externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D1A8@NetStru1@@QAEXGPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
+externdef ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z :proc
+externdef ?sub_51B638@NetStru1@@QAEXPAVPacketAoeZone@@PAVAreaEffect@@@Z :proc
 externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
@@ -1239,6 +1242,7 @@ externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
 externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc
 externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ; Player* PlayersList::sub_535C46(uint16_t)
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
+externdef ?sub_535F97@PlayersList@@QAEHXZ :proc                  ; int32_t PlayersList::sub_535F97()
 
 
 ; Sack

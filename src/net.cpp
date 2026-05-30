@@ -17,6 +17,12 @@
 #include <cstring>
 #include <process.h>
 #include "dplobby.h"
+#include "building.h"
+#include "buildings_list.h"
+#include "spell_effect.h"
+#include "quest_map.h"
+#include "map_stuff.h"
+#include "quest.h"
 
 
 GUID Allods2GUID = {0x65450caa, 0x57ca, 0x11d2, {0xbb, 0xcc,0x00, 0x60, 0x97, 0xd2, 0xee, 0x9f}};
@@ -207,6 +213,340 @@ void NetStru1::sub_51CA5D(Player* player) {
 // 51C601
 void NetStru1::sub_51C601(Unit* unit, int unused) {
     this->sub_51AC77(unit, nullptr, 0x73);
+}
+
+// 51B870
+void NetStru1::sub_51B870(Unit* unit) {
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(pos);
+        if (player->field_0x43 && unit->sub_5287c4(player)) {
+            unit->position->sub_58bec3(); // WAT: Useless call?
+            if (unit->VMethod7()) {
+                this->sub_519221(unit, player, 0xFFB, -1, 0, 0);
+            } else {
+                this->sub_51AC77(unit, player, 0);
+            }
+        }
+    }
+}
+
+// 51BE8F
+void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
+    if (obj->itemDataID == 2) {
+        PacketMoveCmd& packet = PacketMoveCmd::Inst;
+        packet.id = 0x86;
+        packet.field_0xd = obj->position->GetX();
+        packet.field_0xe = obj->position->GetY();
+        packet.field_0xf = 0x16;
+        packet.field_0xa = (uint16_t)obj->building_id;
+        packet.field_0xc = (uint8_t)obj->typeId;
+        packet.to_player_id = 0;
+        this->sub_51B370(&packet, obj->position);
+    } else {
+        PacketAoeZone& packet = PacketAoeZone::Inst;
+        packet.id = 0x87;
+
+        const int8_t radius = obj->field_0x4d;
+        packet.field_0xb = obj->position->GetX() - radius;
+        packet.field_0xc = obj->position->GetY() - radius;
+
+        const int8_t size = radius * 2 + 1;
+        packet.field_0xd = size;
+        packet.field_0xe = size;
+
+        for (int32_t i = 0; i < 12; i++) {
+            packet.data[i] = 0;
+        }
+        for (int32_t dx = 0; dx <= radius * 2; ++dx) {
+            for (int32_t dy = 0; dy <= radius * 2; ++dy) {
+                int32_t bit_index = dx + dy * size;
+                int32_t coordinate = (packet.field_0xb + dx) + ((packet.field_0xc + dy) << 8);
+                int32_t applicable = MapStuff_Instance->sub_5953CB(obj, coordinate);
+                if (flag != 0) {
+                    if (applicable != 0) {
+                        packet.data[bit_index >> 3] |= (1 << (bit_index & 7));
+                    }
+                } else {
+                    if (applicable == 0) {
+                        packet.data[bit_index >> 3] |= (1 << (bit_index & 7));
+                    }
+                }
+            }
+        }
+        packet.field_0xf = (uint8_t)flag;
+        packet.field_0xa = (uint8_t)obj->typeId;
+        packet.to_player_id = 0;
+        this->sub_51B638(&packet, obj);
+    }
+}
+
+// 51C0F7
+void NetStru1::sub_51C0F7(Player* player) {
+    if (dword_6CDB3C != nullptr) {
+        POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition();
+        while (pos != nullptr) {
+            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+            uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x100013;
+            if (unit->field_0x204 != 0) {
+                flags |= 0x40;
+            }
+            if (g_Server->field4_0x74 == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
+                flags |= 0x200000;
+            }
+            g_NetStru1_main.sub_519221(unit, player, flags, 0xFFB, 0, 0);
+        }
+    }
+
+    UnitList* units_list = g_Server->srv_stru1->units_list;
+    if (units_list != nullptr) {
+        POSITION pos = units_list->unit_list.GetHeadPosition();
+        while (pos != nullptr) {
+            Unit* unit = units_list->unit_list.GetNext(pos);
+            uint32_t flags = (unit->building_id < 0x6000) ? 0xA35FFFFF : 0x13;
+            if (unit->field_0x204 != 0) {
+                flags |= 0x40;
+            }
+            if (unit->decay < 5) {
+                g_NetStru1_main.sub_519221(unit, player, flags, 0xFFB, 0, 0);
+            }
+        }
+    }
+
+    BuildingsList* building_list = g_Server->srv_stru1->building_list;
+    POSITION pos = building_list->GetHeadPosition();
+    while (pos != nullptr) {
+        Building* building = building_list->GetNext(pos);
+        if (building->hp != building->hp_max) {
+            g_NetStru1_main.sub_51AC77(building, player, 0);
+        }
+    }
+}
+
+// 51C46E
+void NetStru1::sub_51C46E(Player* player) {
+    if (player->main_unit != nullptr) {
+        this->sub_519221(player->main_unit, player, 0xFFB, -1, 0, 0);
+    }
+    if (player->unit_list != nullptr) {
+        POSITION pos = player->unit_list->unit_list.GetHeadPosition();
+        while (pos != nullptr) {
+            Unit* unit = player->unit_list->unit_list.GetNext(pos);
+            unit->field_x18 &= ~player->vision_sharing_id;
+            g_NetStru1_main.sub_519221(unit, player, 0xFFB, -1, 0, 0);
+        }
+    }
+    this->FUN_0051c748(player);
+}
+
+// 51CB21
+void NetStru1::sub_51CB21(Player* player) {
+    if (g_World == nullptr) {
+        return;
+    }
+    PacketTerrain& packet = PacketTerrain::Inst;
+    packet.id = 0xB9;
+    packet.to_player_id = player->player_id;
+    int32_t count = g_PlayersList->sub_535F97() + 1;
+    packet.count = count;
+    memset(packet.buf, 0, (size_t)count * 2);
+
+    int32_t this_player_id = player->player_id;
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* p = g_PlayersList->list.GetNext(pos);
+        int32_t pid = p->player_id;
+        packet.buf[pid] = g_World->diplomacy.diplomacy[this_player_id][pid];
+
+        int8_t diplomacy = g_World->diplomacy.diplomacy[pid][this_player_id];
+        if (diplomacy & 0x10) {
+            packet.buf[pid] |= 8;
+        }
+        if (diplomacy & 2) {
+            packet.buf[pid] |= 0x20;
+        }
+        if (diplomacy & 1) {
+            packet.buf[pid] |= 0x40;
+        }
+    }
+
+    this->QueuePacketSend(&packet);
+}
+
+// 51CF5C
+void NetStru1::sub_51CF5C(Unit* unit, int32_t flag, Player* player) {
+    PacketWord& packet = PacketWord::Inst;
+    packet.id = flag ? 0x74 : 0x69;
+    packet.value = unit->building_id;
+
+    if (player != nullptr) {
+        packet.to_player_id = player->player_id;
+        if (g_Server->field4_0x74 != 0) {
+            if ((unit->field_0x1a4 & player->vision_sharing_id) == 0) {
+                int32_t pid = player->player_id;
+                if (pid >= 0x10 && pid < 0x20) {
+                    unit->something_per_player[pid - 0x10] |= 0x40000000;
+                }
+                if (flag == 0) {
+                    return;
+                }
+            }
+        }
+        this->QueuePacketSend(&packet);
+        return;
+    }
+
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* p = g_PlayersList->list.GetNext(pos);
+        if (!p->field_0x43) {
+            continue;
+        }
+        packet.to_player_id = p->player_id;
+        if (g_Server->field4_0x74 != 0) {
+            if ((unit->field_0x1a4 & p->vision_sharing_id) == 0) {
+                int32_t pid = p->player_id;
+                if (pid >= 0x10 && pid < 0x20) {
+                    unit->something_per_player[pid - 0x10] |= 0x40000000;
+                }
+                if (flag != 0) {
+                    this->QueuePacketSend(&packet);
+                }
+                continue;
+            }
+        }
+        this->QueuePacketSend(&packet);
+    }
+}
+
+// 51D1A8
+void NetStru1::sub_51D1A8(uint16_t player_id, Player* player) {
+    if (player_id != 0) {
+        PacketDword& packet = PacketDword::Inst;
+        packet.id = 0xB3;
+        packet.to_player_id = player ? player->player_id : 0;
+        packet.value = (uint32_t)player_id | ((uint32_t)player->kill_stats[player_id] << 16);
+        this->QueuePacketSend(&packet);
+        return;
+    }
+
+    PacketData& packet = PacketData::Inst;
+    packet.id = 0xBA;
+    packet.to_player_id = player ? player->player_id : 0;
+
+    // This encodes monster kill stats using a simple run-length encoding.
+    // TODO: likely this needs to be put into a separate function.
+    const int size = 0xA00;
+    uint8_t* src = player->kill_stats;
+    uint8_t* buf = (uint8_t*)operator new(size);
+    *(uint32_t*)buf = size;
+    uint8_t* dst = buf + 4;
+    uint32_t written = 0;
+    while (written < size) {
+        if (src[0] == src[1]) {
+            uint8_t* p2 = src + 1;
+            uint8_t run = 1;
+            while (p2[-1] == p2[0] && (run & 0xFF) < 0x7F && (written + run) < size) {
+                run++;
+                p2++;
+            }
+            *dst++ = (run & 0xFF) | 0x80;
+            *dst++ = src[0];
+            src += run;
+            written += run;
+        } else {
+            uint8_t* p2 = src + 1;
+            uint8_t run = 1;
+            while (p2[-1] != p2[0] && (run & 0xFF) < 0x7F && (written + run) < size) {
+                run++;
+                p2++;
+            }
+            if ((written + (run & 0xFF)) == size) {
+                run++;
+            }
+            *dst++ = (run - 1) & 0xFF;
+            memcpy(dst, src, run - 1);
+            dst += run - 1;
+            src += run - 1;
+            written += run - 1;
+        }
+    }
+    uint32_t compSize = (uint32_t)(dst - buf);
+    packet.count = compSize;
+    memcpy(packet.data, buf, compSize);
+    operator delete(buf);
+
+    this->QueuePacketSend(&packet);
+}
+
+// 51D4F6
+void NetStru1::sub_51D4F6(QuestMap* quest_map, Player* player, int32_t flag) {
+    PacketTerrain& packet = PacketTerrain::Inst;
+    packet.id = flag ? 0xBC : 0xBB;
+    packet.to_player_id = player->player_id;
+    packet.count = 1;
+
+    packet.buf[0] = 0;
+    uint8_t* ptr = reinterpret_cast<uint8_t*>(&packet.buf[1]);
+
+    POSITION pos = quest_map->quests_map.GetStartPosition();
+    while (pos != nullptr) {
+        Quest* quest;
+        quest_map->quests_map.GetNextAssoc(pos, quest_map->building_id, quest);
+        quest_map->quest = quest;
+        if (quest->player_id != player->player_id) {
+            continue;
+        }
+        *reinterpret_cast<uint16_t*>(ptr) = (uint16_t)quest->Kind();
+        ptr += 2;
+        memcpy(ptr, &quest->some_id, sizeof(QuestData));
+        ptr += sizeof(QuestData);
+        packet.count += 0xF;
+        packet.buf[0] += 1;
+    }
+    this->QueuePacketSend(&packet);
+}
+
+// 51D6B4
+void NetStru1::FUN_0051d6b4(uint16_t arg) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = arg;
+    packet.id = 0xC2;
+    packet.count = 0x58;
+    uint32_t* ptr = reinterpret_cast<uint32_t*>(packet.data);
+    int32_t teams_started = g_PlayersList->sub_53636E();
+    *ptr++ = teams_started;
+    *ptr++ = g_ServerConfig.chat_range;
+    *ptr++ = g_Server->ctf_carrying[0];
+    *ptr++ = g_Server->ctf_carrying[1];
+    *ptr++ = teams_started ? g_Server->ctf_score[0] : 0xF0000001u;
+    *ptr++ = teams_started ? g_Server->ctf_score[1] : 0xF0000001u;
+    for (int32_t i = 0x10; i < 0x20; i++) {
+        Player* p = g_PlayersList->sub_535B50(i);
+        if (p == nullptr) {
+            *ptr++ = 0xF0000003u;
+        } else {
+            *ptr++ = teams_started ? p->frags : p->field_0xa6c;
+        }
+    }
+    this->QueuePacketSend(&packet);
+}
+
+// 51EEB7
+void NetStru1::sub_51EEB7() {
+    int32_t key;
+    ConnStatInfo* info;
+    POSITION pos = this->client_stat.GetStartPosition();
+    while (pos != nullptr) {
+        this->client_stat.GetNextAssoc(pos, key, info);
+        info->time += 1;
+        info->total_bytes += info->field1;
+        if (info->field1 > info->max_bs) {
+            info->max_bs = info->field1;
+        }
+        info->cur_bs = info->field1;
+        info->field1 = 0;
+    }
 }
 
 // 51E289
