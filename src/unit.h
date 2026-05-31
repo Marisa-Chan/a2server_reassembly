@@ -67,20 +67,15 @@ public:
     DECLARE_SERIAL(Unit); // Runtime class definition at 6363e8.
 
 public: // VTable at 60efc0.
-    //virtual CRuntimeClass* GetRuntimeClass() const override; // defined by DECLARE_SERIAL
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;
-    // CObject AssertValid  override
-    // CObject Dump  override
     virtual void VMethod1() override;
     virtual void VMethod2() override;
     virtual int32_t VMethod3() override;
     virtual int32_t VMethod4() override;
     virtual void VMethod5() override;
-    //virtual int32_t VMethod6() override;
     virtual int32_t VMethod7() override;
     virtual int32_t VMethod8() override; // IsHumanoid
-    //virtual int32_t VMethod9() override;
     virtual void VMethod10();
     virtual void VMethod11(Unit *);
     virtual Item* VMethod12(Item *);

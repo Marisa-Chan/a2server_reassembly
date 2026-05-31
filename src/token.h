@@ -125,7 +125,7 @@ public:
 	virtual int32_t VMethod3();
 	virtual int32_t VMethod4();
 	virtual void VMethod5();
-	virtual int32_t VMethod6();
+	virtual int32_t VMethod6(); // IsItem
 	virtual int32_t VMethod7(); // IsUnit
 	virtual int32_t VMethod8(); // IsHumanoid
 	virtual int32_t VMethod9(); // IsBuilding

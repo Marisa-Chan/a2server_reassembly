@@ -593,14 +593,11 @@ externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
 
 externdef ?sub_533345@Humanoid@@QAEXCC@Z :proc
 externdef ?sub_53116B@Humanoid@@QAEXXZ :proc
-externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc    ; Unit::sub_5287c4(Player*) – needs-refresh check
-externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc     ; Unit::sub_5287ec(Player*) – mark unit seen
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
 externdef ?sub_537251@Unit@@QAEXXZ :proc
-externdef ?sub_52A790@Unit@@QAEXH@Z :proc
 externdef ?sub_52A215@Unit@@QAEXXZ :proc                                       ; void Unit::sub_52A215()
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
@@ -622,6 +619,9 @@ externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
 externdef ?sub_52C4DF@Unit@@QAEXF@Z :proc
+externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc
+externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_52A790@Unit@@QAEXH@Z :proc
 
 externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z : proc
 

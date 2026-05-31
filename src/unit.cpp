@@ -1476,6 +1476,146 @@ void Unit::sub_52D94E()
     this->sub_52E7FA();
 }
 
+// 52BABD
+int32_t Unit::sub_52BABD()
+{
+    return g_Server->tick - this->last_action_tick;
+}
+
+// 528725
+uint16_t Unit::sub_528725()
+{
+    return this->position->GetXx() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
+}
+
+// 528763
+uint16_t Unit::sub_528763()
+{
+    return this->position->GetYy() + ((this->VMethod3() & 0xFF) - 1) * 0x80;
+}
+
+// 5287C4
+int Unit::sub_5287c4(Player* player)
+{
+    return (this->field_x18 & player->vision_sharing_id) == 0;
+}
+
+// 5287EC
+void Unit::sub_5287ec(Player* player)
+{
+    this->field_x18 |= player->vision_sharing_id;
+}
+
+// 52D904
+int32_t Unit::sub_52D904()
+{
+    int32_t result = this->protections.defense;
+    if (this->movement_type == 3) {
+        result += 25;
+    }
+    if (this->mp_max != 0) {
+        result += 50;
+    }
+    return result;
+}
+
+// 52A790
+void Unit::sub_52A790(int32_t delta_weight)
+{
+    int32_t old_ratio = this->carrying_weight_100g / this->carrying_body_100g;
+
+    this->extra_carrying_weight += delta_weight;
+    this->carrying_weight_100g = this->extra_carrying_weight;
+    if (this->inventory != nullptr) {
+        if (this->inventory->total_weight < 64000) {
+            this->carrying_weight_100g += this->inventory->total_weight / 2;
+        } else {
+            this->carrying_weight_100g = 32000;
+        }
+    }
+
+    if (this->carrying_weight_100g / this->carrying_body_100g != old_ratio) {
+        this->VMethod18();
+    }
+}
+
+// 52C4DF
+void Unit::sub_52C4DF(int16_t amount)
+{
+    this->field_0x150 |= 1;
+    int16_t old_hp = this->hp;
+    this->hp += amount;
+    this->hp = (this->hp < this->hp_max) ? this->hp : this->hp_max;
+    if (old_hp < 1 && this->hp > 0) {
+        this->sub_52C58F();
+    }
+}
+
+// 52C58F
+void Unit::sub_52C58F()
+{
+    this->field_0x150 |= 0x4011;
+    // Inline sub_58FD16: reset subcell position to cell center.
+    this->position->x_subcell = 0x80;
+    this->position->y_subcell = 0x80;
+    this->decay = 0;
+    this->some_state2 = 0;
+    this->field_0x136 = 1;
+    this->protections.defense <<= 1;
+    this->VMethod18();
+    this->hp = (this->hp < 1) ? 1 : this->hp;
+    g_World->sub_5A9A6A(this);
+}
+
+// 52E7FA
+void Unit::sub_52E7FA()
+{
+    if (this->hp < -10000) {
+        return;
+    }
+    uint8_t old_decay = this->decay;
+
+    // Clamp HP for player character types (typeId 0x21-0x24) to leave dried bones forever.
+    if (0x21 <= this->typeId && this->typeId <= 0x24 && this->hp < -61) {
+        this->hp = -61;
+    }
+
+    // Decrement HP on every even tick16.
+    if ((g_Server->tick16 & 1) == 0) {
+        if (0x21 <= this->typeId && this->typeId <= 0x24) {
+            if (this->hp > -61) {
+                this->hp -= 1;
+            }
+        } else {
+            this->hp -= 1;
+        }
+    }
+
+    // Update decay state based on HP thresholds.
+    if (this->hp < -10) {
+        this->decay = 2;
+    }
+    if (this->hp < -20) {
+        this->decay = 3;
+    }
+    if (this->hp < -40) {
+        this->decay = 4;
+    }
+    if (this->hp < -600) {
+        this->decay = 5;
+        this->hp = -10001;
+        if (old_decay != this->decay) {
+            g_NetStru1_main.sub_519221(this, nullptr, 1, 0xFFB, 0, 0);
+        }
+        if (this->building_id != 0 && this->movement_type < 2) {
+            BldIdSet_Unset(this->building_id);
+            this->building_id = 0;
+        }
+    } else if (old_decay != this->decay) {
+        g_NetStru1_main.sub_519221(this, nullptr, 1, 0xFFB, 0, 0);
+    }
+}
+
 
 // 6363e8.
 IMPLEMENT_SERIAL(Unit, Token, 1);
