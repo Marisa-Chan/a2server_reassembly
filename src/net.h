@@ -136,7 +136,6 @@ public:
     
     void sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 
-    // sub_51A0EF / sub_51A6D5 / sub_51BDA4 are still in asm but called from sub_519221
     void sub_51A0EF(Unit* unit, Player* player, int32_t flags);
     void sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6);
     void sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg);
@@ -166,7 +165,7 @@ public:
     Packet* ReceivePacket(NetStru2* cli); //518a23 //receive packet from client
     Packet* ReceiveAnyPacket(); //518980 iterate over active connections and try receive packet
 
-    void sub_51AC77(CObject* token, Player* player, int8_t flag); // Broadcast token state to players
+    void sub_51AC77(Token* token, Player* player, uint8_t flag); // Broadcast token state to players
     void sub_51BAB0(Unit* caster, Spell* spell, Unit* target, int16_t delay); // Send targeted-unit spell packet
     void sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay); // Send point/area spell packet
     void sub_51B370(PacketMoveCmd* pkt, TokenPos* pos);  // Broadcast move-cmd packet to all players in visibility

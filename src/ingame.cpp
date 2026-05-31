@@ -1201,7 +1201,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			switch (packet_state->field_0xc & 0x7f)
 			{
 			case 1:
-				if (field_0x9d0.Lookup(packet_state->field_0xa, *(CGameObject**)&ct) != 0)
+				if (field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
 				{
 					uint8_t *pdata = packet_state->data;
 					for (int i = 0; i < 12; i++)
@@ -1284,7 +1284,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			case 2:
 			{
-				if (field_0x9d0.Lookup(packet_state->field_0xa, *(CGameObject**)&ct) != 0)
+				if (field_0x9d0.Lookup(packet_state->building_id, *(CGameObject**)&ct) != 0)
 				{
 					if ((packet_state->field_0xc & 0x80) == 0)
 					{

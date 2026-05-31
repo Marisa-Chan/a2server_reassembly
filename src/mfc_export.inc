@@ -574,6 +574,7 @@ externdef ??0Inventory@@QAE@PBU0@@Z :proc        ; Inventory::Inventory(const In
 externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
 externdef ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z :proc ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
 externdef ?sub_552B6B@Inventory@@QAEHG@Z :proc             ; int32_t Inventory::sub_552B6B(uint16_t)
+externdef ?sub_5530A2@Inventory@@QAEPAVItem@@PBD@Z :proc   ; Item* Inventory::sub_5530A2(const char*)
 
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
@@ -1022,7 +1023,7 @@ externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
 
 
-externdef ?sub_51AC77@NetStru1@@QAEXPAVCObject@@PAVPlayer@@C@Z :proc             ; NetStru1::sub_51AC77(CObject*,Player*,int8_t)
+externdef ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z :proc  ; NetStru1::sub_51AC77(Token*,Player*,uint8_t)
 externdef ?sub_51A0EF@NetStru1@@QAEXPAVUnit@@PAVPlayer@@H@Z :proc   ; NetStru1::sub_51A0EF(Unit*, Player*, int)
 externdef ?sub_51A6D5@NetStru1@@QAEXPAVUnit@@PAVPlayer@@HH@Z :proc  ; NetStru1::sub_51A6D5(Unit*, Player*, int, int)
 externdef ?sub_51BDA4@NetStru1@@QAEXPAVEffect@@PAVUnit@@E@Z :proc   ; NetStru1::sub_51BDA4(Effect*, Unit*, uint8_t)

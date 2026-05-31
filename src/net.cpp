@@ -1,4 +1,9 @@
 ﻿#include "net.h"
+
+#include <cmath>
+#include <cstring>
+#include <process.h>
+
 #include "player.h"
 #include "unit.h"
 #include "unit_list.h"
@@ -14,8 +19,6 @@
 #include "players_list.h"
 #include "table.h"
 #include "util.h"
-#include <cstring>
-#include <process.h>
 #include "dplobby.h"
 #include "building.h"
 #include "buildings_list.h"
@@ -23,6 +26,8 @@
 #include "quest_map.h"
 #include "map_stuff.h"
 #include "quest.h"
+#include "inventory.h"
+
 
 extern "C" uint32_t dword_665CFC;
 
@@ -4489,4 +4494,233 @@ void NetStru1::sub_51E1C7(uint16_t player_id) {
     packet.id = 0xE0;
     packet.count = 1;
     this->QueuePacketSend(&packet);
+}
+
+// 51E205
+void NetStru1::sub_51E205(CString name) {
+    PacketJoin& packet = PacketJoin::Inst;
+    packet.id = 0xD1;
+    packet.__field_0xa = 0;
+    strcpy(packet.name, name);
+    packet.to_player_id = 0;
+    this->QueuePacketSend(&packet);
+}
+
+// 51A6D5
+void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6) {
+    if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
+        return;
+    }
+
+    if (param5 + param6 == 0) {
+        param5 = 0;
+        param6 = unit->inventory->items.m_nCount;
+    }
+
+    PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
+    packet.id = 0x76;
+    packet.entry_count = (uint16_t)(param6 - param5);
+    packet.field_0xf = (uint16_t)param5;
+    packet.data_size = 0;
+
+    packet.field_0xc = 2;
+    if (param5 != 0 || param6 != unit->inventory->items.m_nCount) {
+        packet.field_0xc |= 0x80;
+    }
+
+    packet.building_id = unit->building_id;
+    if (player != nullptr) {
+        packet.to_player_id = player->player_id;
+    } else {
+        packet.to_player_id = unit->pOwner->player_id;
+    }
+
+    int32_t index = 0;
+    POSITION pos = unit->inventory->items.GetHeadPosition();
+    while (pos != nullptr) {
+        Item* item = unit->inventory->items.GetNext(pos);
+        if (index >= param5 && index < param6) {
+            item->StoreToPacket(&packet, 0);
+        }
+        index++;
+    }
+
+    this->QueuePacketSend(&packet);
+}
+
+// 51A0EF
+void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
+    if (!unit->VMethod8()) {
+        return;
+    }
+
+    flags &= 0xFFF;
+    if (!flags) {
+        return;
+    }
+
+    if (player == nullptr) {
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
+        while (pos != nullptr) {
+            Player* p = g_PlayersList->list.GetNext(pos);
+            if (p->field_0x43 || p == unit->pOwner) {
+                this->sub_51A0EF(unit, p, 0xFFB);
+            }
+        }
+        return;
+    }
+
+    if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
+        if (unit->field_x18 & player->vision_sharing_id) {
+            return;
+        }
+
+        if (unit->pOwner != player) {
+            PacketUnitProperties& packet = PacketUnitProperties::Inst;
+            packet.id = 0x9C;
+            packet.field_0xa = (uint16_t)unit->building_id;
+            packet.flags = (uint16_t)flags;
+            packet.to_player_id = player->player_id;
+
+            int32_t i = 0;
+            if (flags & 1) {
+                packet.prop[i++] = unit->weapon ? unit->weapon->item_id : 0;
+            }
+            if (flags & 2) {
+                packet.prop[i++] = unit->shield ? unit->shield->item_id : 0;
+            }
+            for (int32_t slot = 3; slot <= 12; slot++) {
+                if (flags & (1 << (slot - 1))) {
+                    Item* equip = static_cast<Humanoid*>(unit)->equipment[slot];
+                    packet.prop[i++] = equip ? equip->item_id : 0;
+                }
+            }
+
+            this->QueuePacketSend(&packet);
+            return;
+        }
+    }
+
+    PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
+    packet.id = 0x76;
+    packet.entry_count = 0;
+    packet.field_0xf = (uint16_t)flags;
+    packet.data_size = 0;
+    packet.field_0xc = 1;
+    packet.building_id = unit->building_id;
+    packet.to_player_id = player->player_id;
+    if (flags & 1) {
+        if (unit->weapon) {
+            unit->weapon->StoreToPacket(&packet, 0);
+        } else {
+            Item{}.StoreToPacket(&packet, 0);
+        }
+        packet.entry_count++;
+    }
+    if (flags & 2) {
+        if (unit->shield) {
+            unit->shield->StoreToPacket(&packet, 0);
+        } else {
+            Item{}.StoreToPacket(&packet, 0);
+        }
+        packet.entry_count++;
+    }
+    if (unit->VMethod8()) {
+        Humanoid* h = static_cast<Humanoid*>(unit);
+        for (int32_t slot = 3; slot <= 12; slot++) {
+            if (flags & (1 << (slot - 1))) {
+                if (h->equipment[slot]) {
+                    h->equipment[slot]->StoreToPacket(&packet, 0);
+                } else {
+                    Item{}.StoreToPacket(&packet, 0);
+                }
+                packet.entry_count++;
+            }
+        }
+    }
+
+    this->QueuePacketSend(&packet);
+}
+
+// 51AC77
+void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
+    if (player == nullptr) {
+        POSITION pos = g_PlayersList->list.GetHeadPosition();
+        while (pos != nullptr) {
+            Player* p = g_PlayersList->list.GetNext(pos);
+            if (p->field_0x43 || p == token->pOwner) {
+                this->sub_51AC77(token, p, flag);
+            }
+        }
+        return;
+    }
+
+    if (token == nullptr) {
+        // Original code here constructs a string "Token Change with NULL\n" and then discards it :) Guess it's from debugging.
+        return;
+    }
+
+    if (token->VMethod7()) {
+        Unit* unit = static_cast<Unit*>(token);
+        if (flag == 0x73) {
+            if (!(unit->field_0x1a4 & player->vision_sharing_id) && g_Server->field4_0x74 != 0) {
+                int32_t pid = player->player_id;
+                if (0x10 <= pid && pid < 0x20) {
+                    unit->something_per_player[pid - 0x10] |= 1;
+                }
+                return;
+            }
+            PacketPing& packet = PacketPing::Inst;
+            packet.id = flag;
+            packet.to_player_id = player->player_id;
+            packet.field_0xa = (uint16_t)unit->building_id;
+            packet.field_0xc = unit->hp;
+            this->QueuePacketSend(&packet);
+        }
+        return;
+    }
+
+    if (token->IsKindOf(RUNTIME_CLASS(Sack))) {
+        Sack* sack = static_cast<Sack*>(token);
+        PacketEight& packet = PacketEight::Inst;
+        packet.id = 0x7A;
+        packet.to_player_id = player->player_id;
+        packet.xpos = sack->position->GetXx();
+        packet.ypos = sack->position->GetYy();
+        packet.unit_id = (uint16_t)sack->building_id;
+        packet.type_id = (uint8_t)log10(sack->_exp);
+
+        if (g_ServerConfig.gameType == 2) {
+            if (sack->inventory->sub_5530A2("Quest RuneF")) {
+                packet.type_id |= 0x40;
+            }
+            if (sack->inventory->sub_5530A2("Quest RuneA")) {
+                packet.type_id |= 0x80;
+            }
+        }
+
+        if (g_Server->field4_0x74 != 0) {
+            if (!IsVisibleTo(sack->position, player)) {
+                return;
+            }
+        }
+
+        sack->field_x18 |= player->vision_sharing_id;
+        sack->field_0x4c &= ~player->vision_sharing_id;
+        this->QueuePacketSend(&packet);
+        return;
+    }
+
+    if (token->VMethod9()) {
+        Building* building = static_cast<Building*>(token);
+        building->field_x18 |= (player ? player->vision_sharing_id : 0xFFFF);
+        if (building->typeId != 0 && building->hp_max != 0) {
+            PacketSync& packet = PacketSync::Inst;
+            packet.id = 0x82;
+            packet.to_player_id = player ? player->player_id : 0;
+            packet.field_0xa = (uint16_t)building->building_id;
+            packet.field_0xc = building->hp;
+            this->QueuePacketSend(&packet);
+        }
+    }
 }

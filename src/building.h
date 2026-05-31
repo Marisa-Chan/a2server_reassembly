@@ -20,6 +20,7 @@ public: // VTable at 60f378
     virtual ~Building();
     virtual void VMethod1() override;
     virtual void Serialize(CArchive& ar) override;
+    // TODO: this also overrides `VMethod9` to return 1.
     virtual int32_t IsOutpost();
 
 public:

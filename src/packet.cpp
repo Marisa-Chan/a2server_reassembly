@@ -876,7 +876,7 @@ void PacketUnitStateVec::VMethod3(NetStru2* net)
 void PacketUnitStateVec::VMethod4(NetStru2* net)
 {
     //sub_527528
-    net->ReadData(&field_0xa, 9);
+    net->ReadData(&building_id, 9);
     if (entry_count > 0)
         net->ReadData(data, data_size);
 }

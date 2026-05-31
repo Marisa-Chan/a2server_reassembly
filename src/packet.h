@@ -594,8 +594,7 @@ public:
     void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // sub_5275F8
     void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // sub_5276E0
 public:
-    uint8_t  field_0xa;    // +0xA
-    uint8_t  field_0xb;    // +0xB
+    uint16_t building_id;    // +0xA
     uint8_t  field_0xc;    // +0xC
     uint16_t entry_count;  // +0xD  number of TLV entries (= 0 in ctor)
     uint16_t field_0xf;    // +0xF  (= 0 in ctor)
@@ -656,7 +655,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57AD00
     virtual uint32_t GetDataSize() override; // sub_5278CE  variable (5..29)
 public:
-    uint16_t  field_0xa;       // +0xA
+    uint16_t field_0xa;       // +0xA
     uint16_t flags;           // +0xC  bitmask of included fields (bits 0..11)
     uint16_t prop[12];        // +0xE  up to 12 optional property words
 };
