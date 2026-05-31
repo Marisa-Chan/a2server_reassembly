@@ -134,6 +134,7 @@ public:
     void FUN_0051d6b4(uint16_t arg);
     void FUN_0051cefb(uint8_t param_1, int32_t param_2, int32_t param_3, Player* param_4);
     
+    void sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode);
     void sub_519221(Unit* unit, Player* player, uint32_t mask, int32_t param4, int32_t param5, int32_t param6);
 
     void sub_51A0EF(Unit* unit, Player* player, int32_t flags);

@@ -152,6 +152,8 @@ public:
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* sub_58E5F3(TokenPos* pos);
+    int sub_590F0A(Unit* unit); // Check if unit can be placed at current position
+    int sub_58AD4A(Unit* unit); // Place unit on map at current TokenPos position
     uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx

@@ -239,16 +239,8 @@ struct MonsterInfoData {
     int32_t absorption;
     int32_t charge;
     int32_t relax;
-    int32_t protection_fire;
-    int32_t protection_water;
-    int32_t protection_air;
-    int32_t protection_earth;
-    int32_t protection_astral;
-    int32_t protection_blade;
-    int32_t protection_axe;
-    int32_t protection_bludgeon;
-    int32_t protection_pike;
-    int32_t protection_shooting;
+    std::array<int32_t, 5> protection_magic; // fire, water, air, earth, astral
+    std::array<int32_t, 5> protection_physical; // blade, axe, bludgeon, pike, shooting
     int32_t type_id;
     int32_t face;
     int32_t token_size;
@@ -283,6 +275,7 @@ struct MonsterInfoData {
     int32_t skill_earth;
     int32_t skill_astral;
 };
+ASSERT_OFFSET(MonsterInfoData, type_id, 0x74);
 ASSERT_SIZE(MonsterInfoData, 0xf8);
 
 class MonsterInfo: public TableLine {

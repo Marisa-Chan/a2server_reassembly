@@ -10,6 +10,8 @@
 
 
 class BuildingInfo;
+class Unit;
+struct UnitToHit;
 
 
 class Building : public Token {
@@ -30,6 +32,7 @@ public:
     Building(TokenPos* pos); // sub_5424AC
     void sub_5427AC(uint8_t width, uint8_t height); // Initialize building from info table and place on map.
     void sub_542624(const CString& name); // Initialize building fields and look up type by name.
+    int32_t sub_542A31(UnitToHit* to_hit, Unit* caster); // Building attack.
 
 public:
     BuildingInfo* building_info;

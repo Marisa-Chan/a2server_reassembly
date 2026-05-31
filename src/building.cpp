@@ -2,6 +2,8 @@
 #include "game_app.h"
 #include "map_stuff.h"
 #include "net.h"
+#include "unit_to_hit.h"
+#include "virtual_caster.h"
 
 //  542341   CArchive& AFXAPI operator>>(CArchive& ar, class_name* &pOb)  
 IMPLEMENT_SERIAL(Building, Token, 1);
@@ -100,6 +102,38 @@ int32_t Building::VMethod9() {
 // 57c3b0
 int32_t Building::IsOutpost() {
     return 0;
+}
+
+// 542A31
+int32_t Building::sub_542A31(UnitToHit* to_hit, Unit* /*caster*/) {
+    if (to_hit == nullptr || this->hp_max == 0) {
+        return 0;
+    }
+
+    int32_t damage = 0;
+    if (to_hit->some_damage2_spread != 0) {
+        damage = to_hit->some_damage2_min + Random0N(to_hit->some_damage2_spread);
+    }
+    damage -= 5;
+    if (damage <= 0) {
+        return 0;
+    }
+    if (damage < this->hp) {
+        return damage;
+    }
+
+    CList<VirtualCaster*>& vc_list = g_Server->srv_stru1->virtual_casters_list;
+    POSITION pos = vc_list.GetHeadPosition();
+    while (pos != nullptr) {
+        POSITION cur = pos;
+        VirtualCaster* vc = vc_list.GetNext(pos);
+        if (this->position->IsSameYX(vc->position)) {
+            vc_list.RemoveAt(cur);
+            delete vc;
+        }
+    }
+
+    return damage;
 }
 
 IMPLEMENT_SERIAL(Pointer, Building, 1);

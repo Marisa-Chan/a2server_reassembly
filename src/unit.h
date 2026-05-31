@@ -100,7 +100,7 @@ public:
     Unit(const TokenPos*);
     Unit(const TokenPos*, Player*);
 
-    void FUN_0052931b(const CString& str); //in asm
+    void FUN_0052931b(const CString& str);
     void sub_537251();    // Apply invincibility (god-mode) enchantments to unit
     void sub_52A790(int32_t delta_weight); // Add inventory weight and notify clients after item change.
     void sub_52A215(); // Initialize default unit stats (for newly created units)
@@ -110,11 +110,11 @@ public:
     int32_t sub_52C409(); // Return unit to map.
     void sub_52C163();
     void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
-    void sub_52D8D3(Inventory* inv, int32_t money, int32_t is_main_unit); // Create a sack from this unit's inventory and money.
     void sub_52C58F(); // Revive unit (set flags, reset subcell, call VMethod18, notify world)
     void sub_52C813();
+    void sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_player_unit); // Create a sack from this unit's inventory and money.
     void sub_52C4DF(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive)
-    int sub_52BF3D(uint8_t x, uint8_t y, uint8_t flags);  // Place unit on map; returns nonzero on success
+    int sub_52BF3D(uint8_t x, uint8_t y, uint8_t size);  // Place unit on map; returns nonzero on success
     Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID.
     uint16_t sub_528725(); // Returns x bottom-right extent (sub-cell units).
     uint16_t sub_528763(); // Returns y bottom-right extent (sub-cell units).
@@ -123,7 +123,7 @@ public:
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
-    int32_t sub_542A31(UnitToHit* uth, Unit* caster); // Compute damage for non-humanoid unit.
+    void sub_52F601(const CString& value); // in asm
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
     int MaxRange(); //5a6adb

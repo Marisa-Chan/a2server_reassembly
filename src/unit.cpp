@@ -6,6 +6,7 @@
 
 #include "building.h"
 #include "buildings_list.h"
+#include "constants.h"
 #include "effect.h"
 #include "eye.h"
 #include "game_app.h"
@@ -21,6 +22,7 @@
 #include "shop_assortment.h"
 #include "spell.h"
 #include "table.h"
+#include "virtual_caster.h"
 #include "world.h"
 
 //52e9e3
@@ -1616,6 +1618,326 @@ void Unit::sub_52E7FA()
     }
 }
 
+// 52931B
+void Unit::FUN_0052931b(const CString& str)
+{
+    this->last_hit_by = nullptr;
+    this->last_hit_spell_id = 0;
+    this->spell = nullptr;
+    this->field_0x1bc = 0;
+    this->monster_info = nullptr;
+    this->typeId = 0;
+    this->decay = 0;
+    this->token_size = 1;
+    this->movement_type = 1;
+    this->unit_attrs = 0;
+    this->server_id = 0;
+    this->face = 1;
+    this->enchantments = 0;
+    this->eye = new UnitEye();
+    this->eye2 = new UnitEye2();
+    this->token_pos = nullptr;
+    this->eye->field0_0x0 = Random0N(0x80) + 0x40;
+    this->eye->field1_0x1 = this->eye->field0_0x0;
+    this->group = nullptr;
+    this->state = 0;
+    this->some_state = 0;
+    this->some_state2 = 0;
+    this->field_0x136 = 1;
+    this->cast_target = nullptr;
+    this->area_cast_x = 0;
+    this->area_cast_y = 0;
+    this->some_spell = nullptr;
+    this->some_item = nullptr;
+    this->spell_book = nullptr;
+    this->inventory = new Inventory();
+    this->weapon = nullptr;
+    this->shield = nullptr;
+    this->experience = 0;
+    this->hp_regen_carry = 0;
+    this->mp_regen_carry = 0;
+    this->name = ""; // Originally it was set to `byte_70B460`, which was never populated, so it's always an empty string.
+    this->last_action_tick = 0;
+    this->summon_id = 0;
+    this->field_0x194 = 0;
+    this->field_0x198 = 0;
+    this->field_0x19c = 0;
+    this->summoned = 0;
+    this->field_0x1a4 = 0;
+    this->field_0x1a6 = 0;
+    this->field_0x204 = 0;
+    memset(this->something_per_player, 0, 0x40);
+    this->sub_52A215();
+    if (!str.IsEmpty()) {
+        this->sub_52F601(str);
+    }
+}
+
+// 537251
+void Unit::sub_537251()
+{
+    this->equipment_extra.protections.magic_protections.fill(100);
+    this->equipment_extra.protections.weapon_protections.fill(100);
+    this->VMethod18();
+}
+
+// 52C813
+void Unit::sub_52C813()
+{
+    if (this->some_item == nullptr || this->some_item->item_type == Item::ItemType::WEAPON) {
+        return;
+    }
+
+    Effect* effect = this->some_item->_effects.IsEmpty() ? nullptr : this->some_item->_effects.GetHead();
+    if (effect == nullptr || effect->effect_id != modifier::castspell) {
+        return;
+    }
+
+    if ((this->some_state == 0xD || this->some_state == 0xE) && this->field_0x136 == 0) {
+        return;
+    }
+
+    if (this->some_spell == nullptr || this->some_spell->spell_id == effect->spell_or_damage) {
+        return;
+    }
+
+    LogMessage("Unit: Canceling wrong spell from item(scroll?)");
+}
+
+// 52D8D3
+void Unit::sub_52D8D3(Inventory* inventory, int32_t money, int32_t is_main_player_unit)
+{
+    g_Server->srv_stru1->sack_list->sub_554927(this->position, inventory, money, is_main_player_unit);
+}
+
+// 52C163
+void Unit::sub_52C163()
+{
+    if ((this->unit_attrs & 8) != 0) {
+        return;
+    }
+
+    MapStuff_Instance->sub_58E3D1(this);
+    this->unit_attrs |= 8;
+    POSITION pos = dword_6CDB3C->unit_list.Find(this);
+    if (pos != nullptr) {
+        dword_6CDB3C->unit_list.RemoveAt(pos);
+    }
+    g_NetStru1_main.sub_51CF5C(this, 1, nullptr);
+    g_NetStru1_main.sub_51CF5C(this, 0, this->pOwner);
+}
+
+// 52C36D
+void Unit::sub_52C36D(uint8_t x, uint8_t y, uint8_t flags)
+{
+    if (!this->sub_52BF3D(x, y, flags)) {
+        CString msg("Unit can't enter map - no free place");
+        LogMessage(msg);
+        return;
+    }
+    dword_6CDB3C->AddTail(this);
+    this->unit_attrs &= ~8;
+    g_NetStru1_main.sub_519221(this, nullptr, 0x10, 0xFFB, 0, 0);
+    g_NetStru1_main.sub_51CF5C(this, 0, nullptr);
+}
+
+// 52BF3D
+int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size)
+{
+    uint32_t size_u32 = size;
+    int32_t max_tries = size_u32 * size_u32 / 2 + 1;
+    uint8_t radius = size / 2;
+    bool placed = false;
+
+    this->position->Set(x, y, MapStuff_Instance);
+
+    for (int i = 0; i <= max_tries; i++) {
+        uint8_t try_y = y - radius + Random0N(size);
+        uint8_t try_x = x - radius + Random0N(size);
+        this->position->FUN_0058a7e8(try_x, try_y);
+        uint8_t gy = this->position->GetY();
+        if (gy > 11 || g_Server->field4_0x74 == 0) {
+            if (MapStuff_Instance->sub_590F0A(this)) {
+                placed = true;
+                break;
+            }
+        }
+    }
+
+    if (!placed && size != 0) {
+        int32_t x_start = x - radius;
+        int32_t x_end = x + radius;
+        int32_t y_start = y - radius;
+        int32_t y_end = y + radius;
+        for (int32_t tx = x_start; tx <= x_end; tx++) {
+            for (int32_t ty = y_start; ty <= y_end; ty++) {
+                if (ty > 11 || g_Server->field4_0x74 == 0) {
+                    this->position->FUN_0058a7e8((uint8_t)tx, (uint8_t)ty);
+                    if (MapStuff_Instance->sub_590F0A(this)) {
+                        placed = true;
+                        break;
+                    }
+                }
+            }
+            if (placed) {
+                break;
+            }
+        }
+    }
+
+    if (!placed) {
+        return 0;
+    }
+
+    return MapStuff_Instance->sub_58AD4A(this);
+}
+
+// 52BDD7
+void Unit::sub_52BDD7(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
+{
+    uint16_t cur_xx = this->position->GetXx();
+    uint16_t cur_yy = this->position->GetYy();
+    if (cur_xx == xx && cur_yy == yy) {
+        uint8_t out_dir = 0;
+        if (this->eye->sub_59367D(this, &out_dir, eye0, eye1)) {
+            uint8_t angle = (this->eye->field1_0x1 + 8) / 16;
+            g_NetStru1_main.sub_51B99E(this, angle, out_dir, 'm');
+        }
+        return;
+    }
+
+    if ((xx & 0xFF) == 0x80 && (yy & 0xFF) == 0x80) {
+        uint8_t dir = this->eye->field158_0xae * 2;
+        uint8_t step_dir = this->eye->field154_0xaa;
+        g_NetStru1_main.sub_51B99E(this, dir, step_dir, 0);
+    }
+}
+
+// 52ec7a
+void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
+{
+    const MonsterInfoData& data = values[0];
+
+    if (data.body != -1) {
+        this->body = (uint16_t)data.body;
+    }
+    if (data.reaction != -1) {
+        this->reaction = (uint16_t)data.reaction;
+    }
+    if (data.mind != -1) {
+        this->mind = (uint16_t)data.mind;
+    }
+    if (data.spirit != -1) {
+        this->spirit = (uint16_t)data.spirit;
+    }
+    if (data.health_max != -1) {
+        this->hp_max = (int16_t)data.health_max;
+    }
+    this->hp = this->hp_max;
+    if (data.health_regeneration != -1) {
+        this->hp_regen = (int16_t)data.health_regeneration;
+    }
+    if (data.mana_max != -1) {
+        this->mp_max = (int16_t)data.mana_max;
+    }
+    this->mp = this->mp_max;
+    this->mp2 = this->mp;
+    if (data.mana_regeneration != -1) {
+        this->mp_regen = (int16_t)data.mana_regeneration;
+    }
+    if (data.speed != -1) {
+        this->speed = (uint16_t)data.speed;
+    }
+    if (data.rotation_speed != -1) {
+        this->eye->rotation_speed = (uint8_t)data.rotation_speed;
+    }
+    if (data.scan_range != -1) {
+        this->scan_range = (uint16_t)((uint8_t)data.scan_range << 8);
+    }
+
+    int32_t attack_min = 0, attack_delta = 0, attack_type = 0;
+    if (data.physical_min != -1) {
+        attack_min = data.physical_min;
+    }
+    if (data.physical_max != -1) {
+        attack_delta = data.physical_max;
+    }
+    attack_delta -= attack_min;
+    if (data.attack_type != -1) {
+        attack_type = data.attack_type;
+    }
+    if (attack_type < 1) {
+        if (attack_min < 128 && attack_delta <= attack_min + 255) {
+            this->hit_values.hand_damage_min = (uint8_t)attack_min;
+            this->hit_values.hand_damage_spread = (uint8_t)attack_delta;
+        } else {
+            this->hit_values.hand_damage_min = (uint8_t)(attack_min / 15 < 0x7f ? attack_min / 15 : 0x7f) | 0x80;
+            this->hit_values.hand_damage_spread = (uint8_t)(attack_delta / 15 < 0xff ? attack_delta / 15 : 0xff);
+        }
+    } else if (attack_type == 1) {
+        this->hit_values.some_damage_min = (uint8_t)attack_min;
+        this->hit_values.some_damage_spread = (uint8_t)attack_delta;
+    } else if (attack_type == 2) {
+        this->hit_values.some_damage2_min = (uint8_t)(-attack_min);
+        this->hit_values.some_damage2_spread = (uint8_t)(-attack_delta);
+    } else if (attack_type == 3) {
+        this->unit_attrs |= 0x10;
+        this->hit_values.hand_damage_min = (uint8_t)attack_min;
+        this->hit_values.hand_damage_spread = (uint8_t)attack_delta;
+    }
+    if (data.attack != -1) {
+        this->hit_values.attack = (int16_t)data.attack;
+    }
+    this->hit_values.skill_levels[0] = this->hit_values.attack;
+    if (data.defence != -1) {
+        this->protections.defense = (int16_t)data.defence;
+    }
+    if (data.absorption != -1) {
+        this->protections.absorption = (int16_t)data.absorption;
+    }
+    if (data.charge != -1) {
+        this->charge = (uint8_t)data.charge;
+    }
+    if (data.relax != -1) {
+        this->relax = (uint8_t)data.relax;
+    }
+    for (int32_t i = 1; i < 6; i++) {
+        int32_t prot = data.protection_magic[i-1];
+        if (prot != -1) {
+            this->protections.magic_protections[i] = (uint16_t)prot;
+        }
+    }
+    for (int32_t i = 1; i < 6; i++) {
+        int32_t prot = data.protection_physical[i-1];
+        if (prot != -1) {
+            this->protections.weapon_protections[i] = (uint8_t)prot;
+        }
+    }
+    if (data.type_id != -1) {
+        this->typeId = (uint16_t)data.type_id;
+    }
+    if (data.face != -1) {
+        this->face = (int8_t)data.face;
+    }
+    if (data.token_size != -1) {
+        this->token_size = (int8_t)data.token_size;
+    }
+    if (data.movement_type != -1) {
+        this->movement_type = (int8_t)data.movement_type;
+    }
+    if (data.withdraw != -1) {
+        this->eye2->withdraw = (uint32_t)data.withdraw;
+    }
+    if (data.wimpy != -1) {
+        this->eye2->wimpy = (uint32_t)data.wimpy;
+    }
+    if (data.see_invisible != -1) {
+        this->eye2->seeInvisible = (uint8_t)data.see_invisible;
+    }
+    if (data.experience != -1) {
+        this->_exp = data.experience;
+    }
+}
 
 // 6363e8.
 IMPLEMENT_SERIAL(Unit, Token, 1);
@@ -2131,7 +2453,7 @@ int32_t Humanoid::VMethod25() {
     if (this->monster_info->Values().GetSize() == 0) {
         return 8;
     }
-    int32_t val = this->monster_info->Values().GetData()->protection_astral;
+    int32_t val = this->monster_info->Values().GetData()->protection_magic[4];
     if (val == -1) {
         return 8;
     }

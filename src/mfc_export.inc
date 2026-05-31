@@ -499,6 +499,8 @@ externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStu
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
 externdef ?sub_5953CB@MapStuff@@QAEHPAVAreaEffect@@H@Z :proc    ; int32_t MapStuff::sub_5953CB(AreaEffect*, int32_t)
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
+externdef ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z :proc
+externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
@@ -589,7 +591,7 @@ externdef ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z:proc   ; (public: virtual u
 
 externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
-externdef ?FUN_0052931b@Unit@@QAEXABVCString@@@Z:proc   ; FUN_0052931b
+externdef ?sub_52F601@Unit@@QAEXABVCString@@@Z :proc
 
 externdef ?sub_533345@Humanoid@@QAEXCC@Z :proc
 externdef ?sub_53116B@Humanoid@@QAEXXZ :proc
@@ -597,11 +599,14 @@ externdef ?sub_53116B@Humanoid@@QAEXXZ :proc
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
-externdef ?sub_537251@Unit@@QAEXXZ :proc
 externdef ?sub_52A215@Unit@@QAEXXZ :proc                                       ; void Unit::sub_52A215()
+externdef ?sub_52C813@Unit@@QAEXXZ :proc
+externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
+externdef ?sub_52C163@Unit@@QAEXXZ :proc
+externdef ?sub_542A31@Building@@QAEHPAUUnitToHit@@PAVUnit@@@Z :proc       ; int32_t Building::sub_542A31(UnitToHit*, Unit*)
+externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z :proc
 externdef ?sub_52C98B@Unit@@QAEXPAVSack@@@Z :proc
 
-externdef ?sub_52C813@Unit@@QAEXXZ :proc
 externdef ?sub_52C409@Unit@@QAEHXZ :proc
 externdef ?sub_52C58F@Unit@@QAEXXZ :proc                                  ; void Unit::sub_52C58F()
 externdef ??0UnitEye@@QAE@XZ :proc                                        ; UnitEye::UnitEye()
@@ -609,22 +614,18 @@ externdef ??0UnitEye2@@QAE@XZ :proc                                       ; Unit
 externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
 
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
-externdef ?sub_52BDD7@Unit@@QAEXGGEE@Z :proc                              ; Unit::sub_52BDD7(uint16_t,uint16_t,uint8_t,uint8_t)
 externdef ?sub_52D94E@Unit@@QAEXXZ :proc                                  ; Unit::sub_52D94E()
+externdef ?sub_59367D@UnitEye@@QAEHPAVUnit@@PAEEE@Z :proc                 ; int UnitEye::sub_59367D(Unit*, uint8_t*, uint8_t, uint8_t)
+externdef ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                  ; void NetStru1::sub_51B99E(Unit*, uint8_t, uint8_t, uint8_t)
 
 externdef ?sub_52E7FA@Unit@@QAEXXZ :proc
 externdef ?sub_52D904@Unit@@QAEHXZ :proc                                  ; Unit::sub_52D904()
-externdef ?sub_542A31@Unit@@QAEHPAUUnitToHit@@PAV1@@Z :proc               ; int32_t Unit::sub_542A31(UnitToHit*, Unit*)
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
-externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
 externdef ?sub_52C4DF@Unit@@QAEXF@Z :proc
 externdef ?sub_5287c4@Unit@@QAEHPAVPlayer@@@Z :proc
 externdef ?sub_5287ec@Unit@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
-
-externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z : proc
-
 
 ; UnitEye
 
@@ -1162,9 +1163,7 @@ externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                             
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
-externdef ?sub_52C163@Unit@@QAEXXZ :proc
-externdef ?sub_52C36D@Unit@@QAEXEEE@Z :proc
-externdef ?sub_52D8D3@Unit@@QAEXPAUInventory@@HH@Z :proc
+
 externdef ?sub_552C37@Inventory@@QAEPAVItem@@G@Z :proc
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
