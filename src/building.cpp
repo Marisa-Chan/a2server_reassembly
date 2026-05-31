@@ -92,6 +92,12 @@ void Building::VMethod1() {
     g_NetStru1_main.sub_51AC77(this, nullptr, 0);
 }
 
+// 57c3a0
+int32_t Building::VMethod9() {
+    return 1;
+}
+
+// 57c3b0
 int32_t Building::IsOutpost() {
     return 0;
 }

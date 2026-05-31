@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "building.h"
 #include "constants.h"
 #include "eye.h"
 #include "game_app.h"
@@ -690,14 +691,13 @@ void DirectDamage::Serialize(CArchive& ar) {
 
 // 540C77
 void DirectDamage::VMethod11(Unit* unit) {
-    if (unit->VMethod7() == 0) {
+    if (unit->VMethod7() == 0) { // TODO: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
         if (unit->VMethod9() != 0) {
             int32_t damage = unit->sub_542A31(&this->unit_to_hit, this->caster);
-            // WAT: I think this might actually be a different class, not a `Unit`. Need to decompile more classes to be sure.
-            int16_t* mhp = reinterpret_cast<int16_t*>(reinterpret_cast<char*>(&unit->last_hit_by) + 2);
-            *mhp -= (int16_t)damage;
-            if (*mhp < 0) {
-                *mhp = 0;
+            Building* building = reinterpret_cast<Building*>(unit);
+            building->hp -= damage;
+            if (building->hp < 0) {
+                building->hp = 0;
             }
             if (damage > 0) {
                 g_NetStru1_main.sub_51C601(unit, damage);
