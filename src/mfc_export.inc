@@ -1214,6 +1214,7 @@ externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
+externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5AF6F5(Unit*)
 
 
 ; Player

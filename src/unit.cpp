@@ -1939,6 +1939,115 @@ void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
     }
 }
 
+// 52F601
+void Unit::sub_52F601(const CString& name)
+{
+    this->typeId = 0;
+
+    // Search for monster by name in g_GameDataRes.monsters array
+    int32_t idx = 26;
+    while (idx < g_GameDataRes.monsters.GetSize()) {
+        if (idx == 30) { // Skip index 30 and jump to 63.
+            idx = 63;
+        }
+        if (name == g_GameDataRes.monsters[idx].name) {
+            break;
+        }
+        idx++;
+    }
+
+    if (idx >= g_GameDataRes.monsters.GetSize()) {
+        LogMessage("Invalid unit " + name + " created");
+        return;
+    }
+
+    // Found monster - initialize unit
+    this->itemDataID = idx;
+    this->monster_info = &g_GameDataRes.monsters[idx];
+
+    // Set base stats from monster data
+    this->FUN_0052ec7a(this->monster_info->Values());
+
+    // Set server_id if extended data exists
+    if (this->monster_info->Values().GetSize() > 55) {
+        const MonsterInfoData& data = this->monster_info->Values()[0];
+        this->server_id = (uint16_t)data.server_id;
+    }
+
+    // Equip weapon and shield.
+    for (int32_t i = 0; i < 2; i++) {
+        if (i < this->monster_info->equipped_items.GetSize()) {
+            const CString& item_name = this->monster_info->equipped_items[i];
+            if (!item_name.IsEmpty()) {
+                if (item_name.Find("Shield") != -1) {
+                    this->VMethod13(new Shield(item_name));
+                } else {
+                    this->VMethod13(new Weapon(item_name));
+                }
+            }
+        }
+    }
+
+    // Create spell book and add known spells
+    const MonsterInfoData& data = this->monster_info->Values()[0];
+    if (data.spell1_id > 0) {
+        this->unit_attrs |= 2;
+        this->spell_book = new SpellBook();
+    }
+
+    for (int32_t i = 0; i < 3; i++) {
+        int32_t spell_id = i == 0 ? data.spell1_id : i == 1 ? data.spell2_id : data.spell3_id;
+        if (spell_id > 0) {
+            Spell* spell = new Spell(spell_id);
+            this->spell_book->sub_53D7F0(spell_id, spell);
+            this->eye2->known_spells[i] = spell_id;
+            
+            int32_t probability = i == 0 ? data.spell_probability1 : i == 1 ? data.spell_probability2 : data.spell_probability3;
+            this->eye2->known_spell_probabilities[i] = probability * 0x147;
+        }
+    }
+
+    // Set default skill level
+    for (int32_t i = 1; i < 6; i++) {
+        this->hit_values.skill_levels[i] = data.spell_power;
+    }
+
+    // Create full spell book with bitmask if extended data exists
+    if (this->monster_info->Values().GetSize() > 56) {
+        uint32_t spell_mask = (uint32_t)data.known_spells_mask;
+        if (spell_mask != 0 && spell_mask != 0xFFFFFFFF) {
+            this->unit_attrs |= 6;
+            this->spell_book = new SpellBook();
+
+            // Add all spells matching bitmask
+            for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
+                if ((spell_mask & (1 << spell_id)) != 0) {
+                    Spell* spell = new Spell(spell_id);
+                    this->spell_book->sub_53D7F0(spell_id, spell);
+                }
+            }
+
+            this->hit_values.skill_levels[1] = data.skill_fire;
+            this->hit_values.skill_levels[2] = data.skill_water;
+            this->hit_values.skill_levels[3] = data.skill_air;
+            this->hit_values.skill_levels[4] = data.skill_earth;
+            this->hit_values.skill_levels[5] = data.skill_astral;
+        }
+    }
+
+    this->equipment_extra.AddToUnit(this);
+
+    this->VMethod19();
+
+    if (data.experience > 0) {
+        this->_exp = data.experience;
+    }
+
+    // Initialize eye and world state
+    this->eye->sub_5925C9(this);
+    g_World->sub_5AF6F5(this);
+}
+
 // 6363e8.
 IMPLEMENT_SERIAL(Unit, Token, 1);
 
