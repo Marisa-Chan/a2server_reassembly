@@ -574,9 +574,12 @@ extern _BldIdSet_AllocBit:proc
 externdef ??0Inventory@@QAE@XZ :proc             ; Inventory::Inventory()
 externdef ??0Inventory@@QAE@PBU0@@Z :proc        ; Inventory::Inventory(const Inventory*)
 externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
-externdef ?sub_55CCE4@Inventory@@QAEXAAVCArchive@@@Z :proc ; void Inventory::sub_55CCE4(CArchive&) 0055CCE4
-externdef ?sub_552B6B@Inventory@@QAEHG@Z :proc             ; int32_t Inventory::sub_552B6B(uint16_t)
-externdef ?sub_5530A2@Inventory@@QAEPAVItem@@PBD@Z :proc   ; Item* Inventory::sub_5530A2(const char*)
+externdef ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z :proc ; void Inventory::PutItemIntoBagAtDefault(Item*)
+externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z :proc        ; void Inventory::PutItemIntoBag(int32_t, Item*)
+externdef ?sub_552A42@Inventory@@QAEXPAU1@@Z :proc                 ; void Inventory::sub_552A42(Inventory*)
+externdef ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z :proc             ; Item* Inventory::sub_552B6B(uint16_t)
+externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
+externdef ?sub_5530A2@Inventory@@QAEPAVItem@@PBD@Z :proc           ; Item* Inventory::sub_5530A2(const char*)
 
 ;Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
@@ -1164,7 +1167,6 @@ externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                              
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 
-externdef ?sub_552C37@Inventory@@QAEPAVItem@@G@Z :proc
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
 extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc

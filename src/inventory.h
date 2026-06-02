@@ -17,10 +17,10 @@ public:
 
 public:
     void PutItemIntoBagAtDefault(Item *item);
-    void PutItemIntoBag(int32_t pos, Item *item); // in asm
+    void PutItemIntoBag(int32_t pos, Item *item); // 551fc3
     Item* sub_552E42(int32_t item_number, int32_t count);
     void sub_552A42(Inventory* src); // Transfer all items from src into this inventory
-    int32_t sub_552B6B(uint16_t item_id); // Check if item matching item_id exists in inventory; returns non-zero if found
+    Item* sub_552B6B(uint16_t item_id); // Find item by item_id
     Item* sub_552C37(uint16_t item_id); // Remove and return item matching item_id from inventory
     Item* sub_5530A2(const char* name); // Find item by name, returns nullptr if not found
     void sub_55CCE4(CArchive& ar); // Serialize, in asm
