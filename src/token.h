@@ -117,7 +117,7 @@ public:
 
 public:
 	virtual ~Token();
-	virtual void Serialize(CArchive& ar);
+	virtual void Serialize(CArchive& ar); //55ab39
 	// CObject AssertValid
 	// CObject Dump
 	virtual void VMethod1();

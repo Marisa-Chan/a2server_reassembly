@@ -296,3 +296,39 @@ int32_t Token::VMethod9()
 	// 57b2f0
 	return 0;
 }
+
+
+void Token::Serialize(CArchive& ar)
+{ //55ab39
+	position->Serialize(ar);
+	if (ar.IsStoring()) 
+	{
+		ar.Write(&building_id, 4);
+		ar.Write(&itemDataID, 2);
+		ar.Write(&typeId, 2);
+		ar.Write(&TokenID, 4);
+		ar.Write(&field_x18, 2);
+		ar.Write(&_exp, 4);
+		void* ptr = this;
+		ar.Write(&ptr, 4); //32
+		ar.Write(&pOwner, 4); //32
+	}
+	else
+	{
+		ar.Read(&building_id, 4);
+		ar.Read(&itemDataID, 2);
+		ar.Read(&typeId, 2);
+		ar.Read(&TokenID, 4);
+		ar.Read(&field_x18, 2);
+		field_x18 = 0; //WTF?
+		ar.Read(&_exp, 4);
+		void* ptr = nullptr;
+		ar.Read(&ptr, 4); //32
+		g_Server->field23_0xdc[ptr] = this;
+
+		ar.Read(&ptr, 4);//32
+
+		g_Server->field23_0xdc.Lookup(ptr, ptr);
+		pOwner = (Player*)ptr;
+	}
+}

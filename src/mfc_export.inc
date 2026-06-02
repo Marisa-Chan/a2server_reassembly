@@ -538,7 +538,7 @@ extern ??0Token@@QAE@PBUTokenPos@@PAVPlayer@@@Z:proc ; Token::Token(const TokenP
 
 extern ??1Token@@UAE@XZ:proc ; Token::~Token 005283d6
 
-public ?Serialize@Token@@UAEXAAVCArchive@@@Z ; Token::Serialize 0055AB39
+extern ?Serialize@Token@@UAEXAAVCArchive@@@Z :proc ; Token::Serialize 0055AB39
 
 extern ?VMethod1@Token@@UAEXXZ:proc ;  Token::VMethod1
 extern ?VMethod2@Token@@UAEXXZ:proc ;  Token::VMethod2
