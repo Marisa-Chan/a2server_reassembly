@@ -1258,6 +1258,18 @@ externdef ?classSack@Sack@@2UCRuntimeClass@@A :byte                          ; s
 externdef ?sub_554B03@SackList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_554927@SackList@@QAEXPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
+externdef ?sub_55496E@SackList@@QAEHPAVSack@@@Z :proc   ; int SackList::sub_55496E(Sack*)
+externdef ??1SackList@@QAE@XZ :proc   ; SackList::~SackList()
+
+; Sack methods
+externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
+
+; Server methods
+externdef ?sub_4F8B74@Server@@QAEXXZ :proc   ; void Server::sub_4F8B74()
+externdef ?sub_4F9B9E@Server@@QAEXPAVSack@@@Z :proc   ; void Server::sub_4F9B9E(Sack*)
+
+; MapStuff methods
+externdef ?sub_58E407@MapStuff@@QAEHPAVSack@@@Z :proc   ; int MapStuff::sub_58E407(Sack*)
 
 ; Srv1
 externdef ??1Srv1@@UAE@XZ :proc

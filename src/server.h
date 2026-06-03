@@ -76,6 +76,7 @@ public:
     void sub_554B03(Player* player); // Clear unit vision mask bits for player across this sack list
     void sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit);
     int32_t sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5);
+    int32_t sub_55496E(Sack* sack); // Add sack to list and map
 
     void FUN_005540ed(); //5540ed
 
@@ -147,6 +148,8 @@ public:
 
     void sub_4F8F86(); // Called when all team-game players are ready
     void sub_4F8FBF(int arg1, int arg2); // Called when all team-game players are ready (sub-step)
+    void sub_4F8B74(); // Spawn random sack on map
+    void sub_4F9B9E(Sack* sack); // Save sack to file
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
     Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
     void sub_5090A7();

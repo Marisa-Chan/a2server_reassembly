@@ -52,7 +52,6 @@ extern "C" void sub_5421E9(); // Seed random: timeGetTime -> srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
-
 uint16_t Server::somewords[32][32];
 
 Srv1::~Srv1() = default; // 59b6f0
@@ -3906,6 +3905,104 @@ SrvStru1::~SrvStru1()
     Deinit();
 }
 
+// 554B03
+void SackList::sub_554B03(Player* player)
+{
+    for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
+        Sack* sack = this->list.GetNext(pos);
+        
+        if (sack) {
+            sack->field_x18 = sack->field_x18 & ~player->vision_sharing_id;
+        }
+    }
+}
+
+// 554927
+void SackList::sub_554927(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit)
+{
+    if (this->sub_554460(pos, inventory, money, is_main_player_unit)) {
+        Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
+        g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+    }
+}
+
+// 55496E
+int32_t SackList::sub_55496E(Sack* sack)
+{
+    // Validate sack can be placed on map
+    if (!MapStuff_Instance->sub_58E407(sack)) {
+        delete sack;
+        return 0;
+    }
+    
+    this->list.AddTail(sack);
+    return 1;
+}
+
+// 554460
+int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int param_5)
+{
+    Sack* sack = MapStuff_Instance->sub_58E5F3(pos);
+    
+    if (!sack) {
+        // No sack exists at this position - create a new one
+        if (!inventory) {
+            sack = new Sack(pos);
+        } else {
+            sack = new Sack(pos, inventory);
+        }
+        
+        // Add to list; returns 0 on failure (e.g., can't place on map)
+        if (!this->sub_55496E(sack)) {
+            return 0;
+        }
+    } else if (inventory) {
+        // Sack exists and we have inventory to merge - move sack to end of list
+        POSITION found_pos = this->list.Find(sack);
+        if (found_pos) {
+            this->list.RemoveAt(found_pos);
+            this->list.AddTail(sack);
+            sack->inventory->sub_552A42(inventory);
+        }
+    }
+    
+    // Update money
+    sack->money += money;
+    
+    if (sack->field_0x44 == 0 && param_5 == 0) {
+        sack->field_0x44 = 0;
+    } else {
+        sack->field_0x44 = 1;
+    }
+    
+    // Calculate experience level for sack icon/name update
+    int32_t old_level;
+    if (sack->_exp <= 0) {
+        old_level = -1;
+    } else {
+        old_level = (int32_t)log10((double)sack->_exp);
+    }
+    
+    // Update sack name/icon based on contents
+    sack->sub_55401E();
+    
+    // Check if level changed
+    int32_t new_level = (int32_t)log10((double)sack->_exp);
+    if (old_level != new_level) {
+        // Broadcast sack update
+        if (g_Server->field4_0x74 == 0) {
+            g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+        } else {
+            sack->field_0x4c = 0xFFFF;
+        }
+    }
+
+    if (sack->field_0x44) {
+        g_Server->sub_4F9B9E(sack);
+    }
+    
+    return 1;
+}
 
 SackList::~SackList()
 { //554bc3
@@ -3920,6 +4017,69 @@ SackList::~SackList()
     list.RemoveAll();
 }
 
+// 5540ed
+void SackList::FUN_005540ed()
+{
+    const int32_t max_sacks = g_Server->field19_0x98.GetMapCenterX() / (g_ServerConfig.gameType == 0 ? 1 : 8);
+
+    for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+        POSITION it_before = it;
+        Sack* sack = this->list.GetNext(it);
+        
+        if (!sack) {
+            break;
+        }
+        
+        // Update sack's field_0x48 based on map region
+        uint8_t x = sack->position->GetX();
+        uint8_t y = sack->position->GetY();
+        sack->field_0x48 = MapStuff_Instance->scan_presence_grid.sector_grid[1 + (x >> 3)][1 + (y >> 3)];
+        
+        // If field_0x48 changed and fog of war is enabled, broadcast to newly visible players
+        if (sack->field_0x48 != sack->field_0x4a && g_Server->field4_0x74 != 0) {
+            for (int32_t i = 0; i < 16; i++) {
+                // Check if bit i is set in new mask but not in old mask
+                if ((sack->field_0x48 & (1 << i)) && !(sack->field_0x4a & (1 << i))) {
+                    Player* player = g_PlayersList->sub_535B50(i + 0x10);
+                    if (player) {
+                        // Check if player can see this sack (not masked) or it's marked for visibility
+                        bool player_cannot_see = !(sack->field_x18 & player->vision_sharing_id);
+                        bool marked_visible = (sack->field_0x4c & player->vision_sharing_id) != 0;
+                        if (player_cannot_see || marked_visible) {
+                            g_NetStru1_main.sub_51AC77(sack, player, 0);
+                        }
+                    }
+                }
+            }
+            sack->field_0x4a = sack->field_0x48;
+        }
+        
+        // Check if sack count exceeds limit and remove sacks with `field_0x44 == 0`.
+        if (g_Server->field4_0x74 != 0) {
+            if (this->list.GetCount() > max_sacks && sack->field_0x44 == 0) {
+                MapStuff_Instance->sub_58E525(sack);
+                g_NetStru1_main.sub_51C61E(sack);
+                this->list.RemoveAt(it_before);
+                
+                delete sack;
+            }
+        }
+    }
+    
+    // Random chance to spawn new sacks if count is too low
+    if (g_Server->field4_0x74 != 0 && Random0N(20) == 0) {
+        if (g_ServerConfig.gameType == 0) {
+            if (this->list.GetCount() < max_sacks) {
+                g_Server->field19_0x98.sub_59FC97(1);
+            }
+        } else {
+            if (this->list.GetCount() < max_sacks) {
+                g_Server->sub_4F8B74();
+            }
+        }
+    }
+}
+
 SpellEffectList::~SpellEffectList()
 { //5583ed
     for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
@@ -3932,24 +4092,3 @@ SpellEffectList::~SpellEffectList()
 
     list.RemoveAll();
 }
-
-
-
-/*
-void SackList::FUN_005540ed()
-{  //5540ed
-    for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
-    {
-        Sack* sac = list.GetNext(pos);
-        
-
-    }
-
-    if (g_Server->field4_0x74 != 0 && Random0N(20) == 0)
-    {
-        if (g_ServerConfig.gameType == 0)
-        {
-            MapStuff_Instance->sub
-        }
-    }
-}*/

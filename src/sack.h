@@ -27,6 +27,8 @@ public:
     Sack(const TokenPos* pos, Inventory* inv);
 
     void Init(); // 553eee
+    void sub_55401E(); // 55401E
+    void sub_4F9B9E(); // 4F9B9E
 
 public:
     int32_t money;

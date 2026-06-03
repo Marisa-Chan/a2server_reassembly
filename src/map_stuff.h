@@ -149,6 +149,7 @@ public:
 
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
+    int sub_58E407(class Sack* sack); // Check if sack can be placed on map
     void sub_58E525(class Sack* sack); // Remove a sack token from the map
     Sack* sub_58E5C7(uint16_t param_2, uint16_t param_3); // Look up sack at map position
     Sack* sub_58E5F3(TokenPos* pos);
