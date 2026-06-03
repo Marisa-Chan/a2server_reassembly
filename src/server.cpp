@@ -3729,9 +3729,6 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
     g_NetStru1_main.SendAllData();
 }
 
-
-
-
 CowardActivation::CowardActivation()
 { // 5a335c
     memset(key, 0, sizeof(key));
@@ -3760,6 +3757,29 @@ CowardActivation::CowardActivation()
     key[0x11] = 0;
 }
 
+// 5A3498
+int32_t CowardActivation::sub_5A3498(const char* str)
+{
+    // WAT: 100 is excessive here, should be at most 10, because `key` is 100 bytes.
+    for (int32_t i = 1; i < 100; i++) {
+        this->enabled = 1;
+
+        int32_t j = 0;
+        while (this->key[i * 10 + j] != '\0') {
+            // Decode by adding the cipher key (first 10 bytes) to the encrypted row
+            if (this->key[i * 10 + j] + this->key[j] != str[j]) {
+                this->enabled = 0;
+            }
+            j++;
+        }
+
+        if (this->enabled && j > 2) {
+            return i;
+        }
+    }
+    
+    return 0;
+}
 
 
 
