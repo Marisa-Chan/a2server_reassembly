@@ -781,7 +781,8 @@ externdef ?classSpellTransport@SpellTransport@@2UCRuntimeClass@@A :byte         
 
 
 ; SpellEffectList
-externdef ?VMethod1@SpellEffectList@@UAEXXZ :proc
+externdef ??0SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::SpellEffectList()
+externdef ??1SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::~SpellEffectList()
 
 
 ;EquipmentExtra

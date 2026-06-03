@@ -85,8 +85,9 @@ public:
 
 class SpellEffectList {
 public: // VTable at 0060f6dc.
-    virtual void VMethod1();
+    virtual void VMethod1(); // 55c213
 
+    SpellEffectList(); // 55837D
     ~SpellEffectList(); //5583ed
 public:
     CList<SpellEffect*> list;

@@ -4080,6 +4080,19 @@ void SackList::FUN_005540ed()
     }
 }
 
+// 55837D
+SpellEffectList::SpellEffectList() {}
+
+// 55c213
+void SpellEffectList::VMethod1() {
+    for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
+        SpellEffect* eff = this->list.GetNext(pos);
+        if (eff != nullptr) {
+            eff->VMethod5();
+        }
+    }
+}
+
 SpellEffectList::~SpellEffectList()
 { //5583ed
     for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
