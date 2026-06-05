@@ -85,7 +85,8 @@ ASSERT_SIZE(MapSackData, 0x4c);
 
 #pragma pack(push, 2)
 struct MapEffectModifier {
-    uint32_t map_position;
+    uint16_t x;
+    uint16_t y;
     uint16_t flags;
 };
 #pragma pack(pop)
@@ -107,6 +108,7 @@ public:
     MapEffectData(); // 56ED8C
 };
 #pragma pack(pop)
+ASSERT_OFFSET(MapEffectData, type_id, 0x16);
 ASSERT_SIZE(MapEffectData, 0x2e);
 
 struct MapGroupData {

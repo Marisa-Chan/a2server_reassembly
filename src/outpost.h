@@ -1,5 +1,5 @@
-#ifndef SHOP_H
-#define SHOP_H
+#ifndef OUTPOST_H
+#define OUTPOST_H
 
 #include <cstdint>
 

@@ -388,7 +388,7 @@ void World::DoScriptInstID(int32_t script_id) {
         int count_players = 0;
         int count_units = 0;
         for (int i = 0; i < 10; i++) {
-            if (action.gap_0x3a[i] == 0) {
+            if (action.field_0x3a[i] == 0) {
                 continue;
             }
             uint8_t entry_type = action.field_0x30[i];

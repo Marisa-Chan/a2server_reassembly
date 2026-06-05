@@ -1168,6 +1168,8 @@ externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                              
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 
+
+
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
 extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
@@ -1218,6 +1220,14 @@ extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
 externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5AF6F5(Unit*)
+
+
+; TriggerAction
+externdef ??0TriggerAction@@QAE@XZ :proc                                         ; TriggerAction::TriggerAction()
+
+
+; TriggerCheck
+externdef ??0TriggerCheck@@QAE@XZ :proc                                          ; TriggerCheck::TriggerCheck()
 
 
 ; Player

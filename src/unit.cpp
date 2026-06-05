@@ -1756,7 +1756,7 @@ int Unit::sub_52BF3D(uint8_t x, uint8_t y, uint8_t size)
         uint8_t try_x = x - radius + Random0N(size);
         this->position->FUN_0058a7e8(try_x, try_y);
         uint8_t gy = this->position->GetY();
-        if (gy > 11 || g_Server->field4_0x74 == 0) {
+        if (gy > 11 || g_Server->field4_0x74 == 0) { // WAT: why don't we allow placing units at `y <= 11`?
             if (MapStuff_Instance->sub_590F0A(this)) {
                 placed = true;
                 break;
