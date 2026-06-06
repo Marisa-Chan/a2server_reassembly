@@ -174,8 +174,8 @@ struct MapUnitData {
     uint16_t player_id;
     uint8_t gap_0x16[6];
     uint32_t rotation;
-    uint16_t hp;
-    uint16_t max_hp;
+    int16_t hp;
+    int16_t max_hp;
     uint16_t field17_0x24;
     uint16_t field18_0x26;
     uint8_t field19_0x28;

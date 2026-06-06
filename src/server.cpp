@@ -364,6 +364,157 @@ void Srv1::sub_59FC97(int count) {
     }
 }
 
+// 59C37A
+void Srv1::sub_59C37A(MapAlm* alm) {
+    POSITION player_iter = g_PlayersList->list.GetHeadPosition();
+    while (player_iter) {
+        Player* player = g_PlayersList->list.GetNext(player_iter);
+        if (player->is_ai != 0) {
+            POSITION group_iter = player->group_list->groups.GetHeadPosition();
+            while (group_iter) {
+                Group* group = player->group_list->groups.GetNext(group_iter);
+                this->sub_59BEDB(group, alm);
+            }
+        }
+    }
+}
+
+// 59C3FB
+void Srv1::sub_59C3FB(MapAlm* alm) {
+    for (int32_t i = 1; i <= alm->map_players.GetSize(); i++) {
+        MapPlayerData* player_data = alm->map_players[i - 1];
+        if (player_data == nullptr) {
+            continue;
+        }
+
+        Player* player;
+        if (g_Server->field4_0x74 == 0 && i == 1 && g_PlayersList->list.GetCount() == 1) {
+            player = g_PlayersList->list.GetHead();
+        } else {
+            player = new Player();
+            player->name = player_data->name;
+            player->is_ai = 1;
+            player->token_id = player_data->index;
+            g_PlayersList->sub_5357C6(player);
+        }
+
+        player->field_0xa44 = player_data->color + 1;
+        player->is_ai = 1;
+        if (g_Server->field4_0x74 == 0 && i == 1) {
+            player->is_ai = 0;
+        }
+        player->field_0xa60 = (player_data->flags & 2) ? 1 : 0;
+    }
+}
+
+// 59CD45
+void Srv1::sub_59CD45(MapAlm* alm) {
+    if (MapStuff_Instance == nullptr) {
+        return;
+    }
+
+    for (int32_t i = 1; i <= alm->units_datas.GetSize(); i++) {
+        MapUnitData* unit_data = alm->units_datas[i - 1];
+        if (unit_data == nullptr) {
+            continue;
+        }
+
+        Player* player = g_PlayersList->sub_535C46(unit_data->player_id);
+        if (player == nullptr) {
+            CString msg;
+            msg.Format("Can't resolve player %d for unit %d.", (int)unit_data->player_id, (int)unit_data->unit_id);
+            LogMessage(msg);
+            continue;
+        }
+
+        if (g_Server->field26_0x174 != 0 && player->is_ai != 0) {
+            continue;
+        }
+
+        Unit* unit;
+        if ((unit_data->flags1 & 0x10) == 0) {
+            int32_t idx = g_GameDataRes.FUN_00512625(unit_data->server_id);
+            unit = new Unit(g_GameDataRes.monsters[idx].name);
+
+            if (g_Server->field22_0xd8 != 2 && g_Server->field4_0x74 == 0) {
+                if (g_Server->field22_0xd8 == 1) { // Easy
+                    unit->hp_max *= 0.5;
+                    unit->hp = unit->hp_max;
+                    unit->eye2->wimpy >>= 1;
+                } else { // Hard
+                    unit->hit_values.attack += 50;
+                    unit->protections.defense += 50;
+                    unit->hp_max *= 1.5;
+                    unit->hp = unit->hp_max;
+                }
+            }
+        } else {
+            int32_t idx = g_GameDataRes.FUN_005125a8(unit_data->server_id);
+            int32_t is_hero = g_GameDataRes.humans[idx].name.Find("_Hero") > 0 ? 1 : 0;
+            unit = new Human(g_GameDataRes.humans[idx].name, is_hero, nullptr);
+        }
+
+        unit->field_0x194 = (unit_data->flags2 & 1) ? 1 : 0;
+        unit->field_0x19c = (unit_data->flags2 & 2) ? 1 : 0;
+        unit->field_0x198 = (unit_data->flags2 & 4) ? 1 : 0;
+        unit->summoned   = (unit_data->flags2 & 8) ? 1 : 0;
+
+        if (unit->typeId == 0) {
+            CString msg;
+            msg.Format("Invalid unit %d during loading.", unit_data->unit_id);
+            LogMessage(msg);
+            delete unit;
+            continue;
+        }
+
+        unit->VMethod18();
+
+        if ((unit_data->flags1 & 0x10) != 0 && (int16_t)unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
+            unit_data->hp = -1;
+            unit_data->max_hp = -1;
+        }
+        if (unit_data->max_hp != -1) {
+            unit->hp_max = unit_data->max_hp;
+        }
+        if (unit_data->hp == -1) {
+            unit->hp = unit->hp_max;
+        } else {
+            unit->hp = unit_data->hp;
+        }
+
+        int32_t placed = unit->sub_52BF3D(unit_data->x >> 8, unit_data->y >> 8, 0);
+        if (!placed) {
+            CString msg;
+            msg.Format("Can't place unit %d during loading on the tile(%d, %d).", unit_data->unit_id, unit_data->x >> 8, unit_data->y >> 8);
+            LogMessage(msg);
+            delete unit;
+            continue;
+        }
+
+        unit->TokenID = unit_data->unit_id;
+        dword_6CDB3C->AddTailId6xxx(unit);
+        unit->pOwner = player;
+        player->unit_list->AddTail(unit);
+
+        bool found_group = false;
+        POSITION group_iter = player->group_list->groups.GetHeadPosition();
+        while (group_iter) {
+            Group* grp = player->group_list->groups.GetNext(group_iter);
+            if (grp->group_id == unit_data->group_id) {
+                grp->AddUnit(unit);
+                found_group = true;
+                break;
+            }
+        }
+        if (!found_group) {
+            Group* new_grp = new Group();
+            player->group_list->groups.AddTail(new_grp);
+            new_grp->AddUnit(unit);
+            new_grp->group_id = unit_data->group_id;
+        }
+    }
+}
+
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
 void Server::sub_4FF937(Player* player, int32_t bool_arg4)

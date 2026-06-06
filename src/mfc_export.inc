@@ -1292,6 +1292,7 @@ externdef ?sub_59CD45@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59CD45(Map
 externdef ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z :proc ; void Srv1::sub_59D891(MapAlm*, int)
 externdef ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59F1BE(MapAlm*)
 externdef ?sub_59C37A@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59C37A(MapAlm*)
+externdef ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z :proc  ; void Srv1::sub_59BEDB(Group*, MapAlm*)
 
 ; MapAlm
 externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
