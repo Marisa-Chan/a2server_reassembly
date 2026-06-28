@@ -9,6 +9,8 @@ import sys
 import os
 import re
 
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 
 def main():
     if len(sys.argv) < 2:

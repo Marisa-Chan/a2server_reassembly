@@ -373,3 +373,5 @@ build/
 
 # Decompiled source
 decomp.c
+
+tool/build.ps1

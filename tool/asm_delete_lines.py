@@ -10,6 +10,8 @@ import sys
 import os
 import argparse
 
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 
 def main():
     parser = argparse.ArgumentParser(description="Delete line ranges from Main.asm")

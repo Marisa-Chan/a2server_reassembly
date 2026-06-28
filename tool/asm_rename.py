@@ -11,6 +11,8 @@ import os
 import re
 import argparse
 
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 
 def main():
     parser = argparse.ArgumentParser(description="Rename a symbol throughout Main.asm")
