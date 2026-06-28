@@ -1026,6 +1026,7 @@ externdef ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z :proc
 externdef ?sub_51B638@NetStru1@@QAEXPAVPacketAoeZone@@PAVAreaEffect@@@Z :proc
 externdef ?sub_51C7CC@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 externdef ?sub_51CD2A@NetStru1@@QAEXPAVPlayer@@HH@Z :proc
+externdef ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z :proc  ; void NetStru1::sub_51CDFB(CString&, uint32_t, char, Player*)
 
 
 externdef ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z :proc  ; NetStru1::sub_51AC77(Token*,Player*,uint8_t)
@@ -1095,21 +1096,16 @@ externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471
 externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
 externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
-externdef ?sub_4FA78E@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
+externdef _sub_4FA768 :proc                                                     ; void sub_4FA768(Player*)
 extern ?sub_4FC644@Server@@QAEHIIVCString@@0PAXHH@Z :proc
 externdef ?sub_4FF937@Server@@QAEXPAVPlayer@@H@Z :proc
 externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
-externdef ?sub_4FA551@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
-externdef ?sub_4FA4BB@Server@@QAEXPAVCString@@PAI@Z :proc
-externdef ?sub_4FA348@Server@@QAEXPAVCString@@H@Z :proc
-externdef ?sub_4F8F86@Server@@QAEXXZ :proc
 externdef ?sub_4F8FBF@Server@@QAEXHH@Z :proc
-externdef ?sub_4F9AD3@Server@@QAEXPAVSack@@@Z :proc
 externdef ?sub_509879@Server@@QAEPAVHuman@@PAVCString@@PAVUnit@@H@Z :proc
 
 extern ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
@@ -1125,7 +1121,6 @@ externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
 extern ?Start@Server@@QAEHH@Z : proc
 externdef ?sub_4F0BEF@Server@@QAEHXZ :proc  ; int Server::sub_4F0BEF()
-externdef ?sub_4F0D58@Server@@QAEXXZ :proc
 externdef ?sub_5090A7@Server@@QAEXXZ :proc
 externdef ?sub_50979A@Server@@QAEXXZ :proc
 
@@ -1257,6 +1252,7 @@ externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
 externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc
 externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ; Player* PlayersList::sub_535C46(uint16_t)
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
+externdef ?sub_536286@PlayersList@@QAEXXZ :proc                                ; void PlayersList::sub_536286()
 externdef ?sub_535F97@PlayersList@@QAEHXZ :proc                  ; int32_t PlayersList::sub_535F97()
 
 
@@ -1277,7 +1273,6 @@ externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
 
 ; Server methods
 externdef ?sub_4F8B74@Server@@QAEXXZ :proc   ; void Server::sub_4F8B74()
-externdef ?sub_4F9B9E@Server@@QAEXPAVSack@@@Z :proc   ; void Server::sub_4F9B9E(Sack*)
 
 ; MapStuff methods
 externdef ?sub_58E407@MapStuff@@QAEHPAVSack@@@Z :proc   ; int MapStuff::sub_58E407(Sack*)

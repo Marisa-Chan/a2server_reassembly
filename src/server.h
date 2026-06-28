@@ -145,7 +145,7 @@ public:
     void sub_4F4570();
     void sub_4F0D58();
     void sub_4FA4BB(CString* name, uint32_t* frags);
-    void sub_4FA348(CString* name, int flag);
+    void sub_4FA348(CString* name, int flag); // TODO: that's likely `CString&`
     void sub_4FA551(Player* player); // Arena mode player entry handler
     void sub_4FF937(Player* player, int arg4); // Mission join: send full world state to connecting player
 

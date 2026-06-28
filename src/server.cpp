@@ -52,6 +52,9 @@ extern "C" void sub_5421E9(); // Seed random: timeGetTime -> srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
+// ---- Helpers used by arena Server methods ----
+extern "C" void sub_4FA768(Player* player); // Send game-end broadcast to all clients
+
 uint16_t Server::somewords[32][32];
 
 Srv1::~Srv1() = default; // 59b6f0
@@ -3877,6 +3880,189 @@ void Server::FUN_00501b9e(int32_t var300, CDWordArray& arr)
 
     g_NetStru1_main.FUN_0051c748(nullptr);
     g_NetStru1_main.SendAllData();
+}
+
+// 4F0D58
+void Server::sub_4F0D58() {
+    NetStru1::HatConnector.ProcessConnections();
+    if (g_HatLLDriver.IsListen()) {
+        if (this->field50_0x1d4 != 0) {
+            NetStru2* first_client;
+            if (NetStru1::HatConnector.active_connects.IsEmpty()) {
+                first_client = nullptr;
+            } else {
+                first_client = NetStru1::HatConnector.active_connects.GetHead();
+            }
+            if ((first_client == nullptr || first_client->field_0x2a8 == 0) && GetTickCount() - this->field50_0x1d4 > 30000) {
+                g_HatLLDriver.Close();
+                NetStru1::HatConnector.ProcessConnections();
+                this->field51_0x1d8 = GetTickCount();
+                this->field50_0x1d4 = 0;
+                LogMessage(CString("Login to hat failed. Hat does not respond."));
+            }
+        }
+        if (GetTickCount() - this->field55_0x1f8 > 15000) {
+            NetStru1::HatConnector.SendPacket_64(1, 0);
+            this->field55_0x1f8 = GetTickCount();
+        }
+    } else {
+        if (this->field51_0x1d8 != 0 && GetTickCount() - this->field51_0x1d8 > g_ServerConfig.reconnect_delay * 60000) {
+            if (!this->sub_4F0BEF()) {
+                this->field51_0x1d8 = GetTickCount();
+            } else {
+                this->field51_0x1d8 = 0;
+                this->field50_0x1d4 = GetTickCount();
+            }
+        }
+    }
+}
+
+// 4F4570
+void Server::sub_4F4570() {
+    if (g_CLlDriver.provider != 4) {
+        return;
+    }
+    int32_t map_range = 0;
+    if (MapStuff_Instance != nullptr) {
+        map_range = MapStuff_Instance->GetWidth() - 16;
+    }
+    if (g_HatLLDriver.IsListen()) {
+        NetStru1::HatConnector.sub_51E289(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
+    }
+    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+        g_NetStru1_main.FUN_0051d6b4(0);
+    }
+}
+
+// 4F8831
+void Server::sub_4F8831() {
+    for (POSITION it = g_PlayersList->list.GetHeadPosition(); it != nullptr;) {
+        Player* player = g_PlayersList->list.GetNext(it);
+        if (!player->is_ai) {
+            NetStru2* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+            if (client != nullptr) {
+                g_NetStru1_main.DisconnectClient(client);
+            }
+            player->field_0xa50 = this->tick16 - 1;
+        }
+    }
+    g_NetStru1_main.ProcessConnections();
+    g_PlayersList->sub_534DDD();
+}
+
+// 4F8F86
+void Server::sub_4F8F86() {
+    this->ctf_score[0] = 0;
+    this->ctf_score[1] = 0;
+    if (g_PlayersList != nullptr) {
+        g_PlayersList->sub_536286();
+    }
+}
+
+// 4F9AD3
+void Server::sub_4F9AD3(Sack* sack) {
+    if (g_ServerConfig.gameType != 0) {
+        return;
+    }
+    if (sack == nullptr || sack->position == nullptr) {
+        return;
+    }
+    CString filename;
+    filename.Format("%s%03d %03d .sck", (LPCTSTR)g_ServerConfig.chr_base, sack->position->GetX(), sack->position->GetY());
+
+#ifdef A2SERVER_PATCH
+    try {
+#endif
+        CFile::Remove(filename);
+#ifdef A2SERVER_PATCH
+    } catch (CFileException* e) {
+        e->Delete();
+    }
+#endif
+}
+
+// 4F9B9E
+void Server::sub_4F9B9E(Sack* sack) {
+    if (g_ServerConfig.gameType != 0) {
+        return;
+    }
+    if (sack == nullptr || sack->position == nullptr) {
+        return;
+    }
+
+    CFile file;
+    PacketUnitStateVec packet;
+    for (POSITION pos = sack->inventory->items.GetHeadPosition(); pos != nullptr;) {
+        Item* item = sack->inventory->items.GetNext(pos);
+        item->StoreToPacket(&packet, 0);
+        packet.entry_count++;
+    }
+    CString filename;
+    filename.Format("%s%03d %03d .sck", (LPCTSTR)g_ServerConfig.chr_base, sack->position->GetX(), sack->position->GetY());
+
+    if (!file.Open(filename, CFile::modeWrite | CFile::modeCreate)) {
+        LogMessage("Error saving sack file " + filename);
+    } else {
+        file.Write(&sack->money, 4);
+        file.Write(&packet.building_id, packet.data_size + 9);
+        file.Close();
+    }
+}
+
+// 4FA348
+void Server::sub_4FA348(CString* name, int32_t flag) {
+    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
+        if (this->field67_0x228[i] == *name) {
+            this->field68_0x23c[i] += flag;
+            g_NetStru1_main.sub_51CDFB(this->field67_0x228[i], this->field68_0x23c[i], '[', nullptr);
+            return;
+        }
+    }
+
+    int32_t idx = this->field67_0x228.GetSize();
+    this->field67_0x228.SetAtGrow(idx, *name);
+
+    int32_t idx_23c = this->field68_0x23c.GetSize();
+    this->field68_0x23c.SetSize(idx_23c + 1, -1);
+    this->field68_0x23c[idx_23c] = flag;
+
+    g_NetStru1_main.sub_51CDFB(this->field67_0x228[idx], this->field68_0x23c[idx_23c], '[', nullptr);
+    sub_4FA768(nullptr);
+}
+
+// 4FA4BB
+void Server::sub_4FA4BB(CString* name, uint32_t* frags) {
+    *frags = 0;
+    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
+        if (this->field67_0x228[i] == *name) {
+            *frags = this->field68_0x23c[i];
+            return;
+        }
+    }
+}
+
+// 4FA551
+void Server::sub_4FA551(Player* player) {
+    for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
+        g_NetStru1_main.sub_51CDFB(this->field67_0x228[i], this->field68_0x23c[i], '[', player);
+    }
+    sub_4FA768(player);
+}
+
+// 4FA78E
+void Server::sub_4FA78E(int32_t arg) {
+    g_NetStru1_main.FUN_0051cefb(0x5c, g_ServerConfig.frag_limit, arg, nullptr);
+    this->sub_4FA5C4();
+    this->tick = 0;
+    this->sub_4FA01F();
+    for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
+        Player* player = g_PlayersList->list.GetNext(pos);
+        if (!player->is_ai) {
+            player->sub_5346AC();
+            player->frags = 0;
+            this->sub_4FA348(&player->name, 0);
+        }
+    }
 }
 
 CowardActivation::CowardActivation()
