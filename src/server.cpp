@@ -4229,6 +4229,22 @@ void SrvStru1::sub_4FB4AA()
     sack_list->FUN_005540ed();
 }
 
+// 4FB273
+void SrvStru1::sub_4FB273() {
+    POSITION unit_it = this->some_unit_list.GetHeadPosition();
+    while (unit_it != nullptr) {
+        POSITION cur = unit_it;
+        Unit* unit = this->some_unit_list.GetNext(unit_it);
+        unit->VMethod2();
+        if (unit->field_0x136 != 0) {
+            this->some_unit_list.RemoveAt(cur);
+            delete unit;
+        }
+    }
+    this->effects_list->sub_5585F2();
+    this->units_list->sub_5561A1();
+}
+
 SrvStru1::SrvStru1()
 { //4fa89c
     sack_list = nullptr;
@@ -4441,4 +4457,272 @@ SpellEffectList::~SpellEffectList()
     }
 
     list.RemoveAll();
+}
+
+// 502B4A
+Player* Server::sub_502B4A(uint16_t player_id) {
+    Player* player = g_PlayersList->sub_535B50(player_id);
+    if (!player) {
+        CString id_str;
+        sub_43A820(&id_str, (int16_t)player_id);
+        LogMessage("Order error: no such Player " + id_str);
+        return nullptr;
+    }
+    return player;
+}
+
+// 502AD1
+Unit* Server::sub_502AD1(uint16_t player_ref, uint16_t unit_id) {
+    Player* player = this->sub_502B4A(player_ref);
+    if (!player) {
+        return nullptr;
+    }
+    Unit* unit = player->unit_list->sub_5560D2(unit_id);
+    if (!unit) {
+        return nullptr;
+    }
+    if (unit->some_state == 0x10) {
+        return nullptr;
+    }
+    return unit;
+}
+
+// 502CB7
+Inn* Server::sub_502CB7(TokenPos* pos) {
+    if (!this->srv_stru1->building_list) {
+        return nullptr;
+    }
+    Building* building = this->srv_stru1->building_list->sub_558128(pos);
+    if (!building) {
+        return nullptr;
+    }
+    if (!building->IsKindOf(RUNTIME_CLASS(Inn))) {
+        return nullptr;
+    }
+    return static_cast<Inn*>(building);
+}
+
+// 4FF878
+void Server::sub_4FF878(Player* player) {
+    PacketJoin* pkt = new PacketJoin(this->current_map_name);
+    pkt->id = 0xBF;
+    pkt->__field_0xa = (uint32_t)dword_6CDB38;
+    pkt->to_player_id = player->player_id;
+    g_NetStru1_main.QueuePacketSend(pkt);
+}
+
+// 5090A7
+void Server::sub_5090A7() {
+    this->tick++;
+    this->ProcessAvailPackets();
+    this->sub_509042();
+    this->srv_stru1->sub_4FB273();
+    dword_6CDB3C->ProcessTick();
+    g_NetStru1_main.SendPacket_64(this->tick, 0);
+}
+
+// 50979A
+void Server::sub_50979A() {
+    this->sub_5096E4();
+}
+
+// 509042
+void Server::sub_509042() {
+    NetStru1::HatConnector.ProcessConnections();
+    Packet* pkt;
+    while ((pkt = NetStru1::HatConnector.ReceiveAnyPacket()) != nullptr) {
+        this->sub_5088DF(pkt);
+    }
+}
+
+// 5096E4
+void Server::sub_5096E4() {
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(pos);
+        this->sub_5090FA(player);
+    }
+}
+
+// 4FA5C4
+void Server::sub_4FA5C4() {
+    LogMessage("Sending arena results to hat");
+    CTime now = CTime::GetTickCount();
+    struct tm* t = now.GetLocalTm(nullptr);
+    int32_t sec = t->tm_sec;
+    int32_t min = t->tm_min;
+    int32_t hour = t->tm_hour;
+    int32_t year = t->tm_year + 1900;
+    int32_t month = t->tm_mon + 1;
+    int32_t day = t->tm_mday;
+    CString line;
+    CString result;
+    result.Format("Arena scores %02d.%02d.%02d %02d:%02d:%02d\n", day, month, year, hour, min, sec);
+    int32_t count = this->field67_0x228.GetSize();
+    for (int32_t i = 0; i < count; i++) {
+        line.Format("\"%s\" %d\n", (const char*)this->field67_0x228[i], this->field68_0x23c[i]);
+        result += line;
+    }
+    result += "\n";
+    NetStru1::HatConnector.sub_51E40C(result, result.GetLength());
+}
+
+// 4FA01F
+void Server::sub_4FA01F() {
+    this->field67_0x228.SetSize(0, -1);
+    this->field68_0x23c.SetSize(0, -1);
+    g_NetStru1_main.FUN_0051ceac(0x5a, nullptr);
+    this->map_elapsed_time2 = 0;
+}
+
+// 4EDB83
+int32_t Server::sub_4EDB83(const CString& filename) {
+    LogMessage("Loading from:" + filename);
+    CFile file;
+    if (!file.Open(filename, CFile::modeRead, nullptr)) {
+        return 1;
+    }
+    uint32_t val;
+    file.Read(&val, 4);
+    if (val != 0x26677342) {
+        LogMessage("Invalid save file.");
+        return 1;
+    }
+    file.Read(&val, 4); // skip
+    file.Read(&val, 4); // version
+    if ((int32_t)val < 0xbad0002) {
+        LogMessage("Outdated save file.");
+        return 1;
+    }
+    uint32_t compressed_size;
+    file.Read(&compressed_size, 4);
+    uint8_t* buffer = new uint8_t[compressed_size];
+    file.Read(buffer, compressed_size);
+    file.Close();
+
+    // Decompress: RLE over uint16_t words.
+    // First 4 bytes of buffer = number of output uint16_t words.
+    uint32_t num_words = *(uint32_t*)buffer;
+    uint8_t* out_base = new uint8_t[num_words * 2];
+    uint8_t* out_ptr = out_base;
+    const uint8_t* in_ptr = buffer + 4;
+    uint32_t in_offset = 4;
+    while (in_offset < compressed_size) {
+        uint8_t ctrl = *in_ptr;
+        if (ctrl & 0x80) {
+            // RLE: repeat next uint16_t (ctrl & 0x7F) times
+            int32_t count = ctrl & 0x7F;
+            uint16_t val16 = *(uint16_t*)(in_ptr + 1);
+            for (int32_t i = 0; i < count; i++) {
+                *(uint16_t*)out_ptr = val16;
+                out_ptr += 2;
+            }
+            in_ptr += 3;
+            in_offset += 3;
+        } else {
+            // Literal: copy next (ctrl) uint16_t words verbatim
+            int32_t count = ctrl;
+            memcpy(out_ptr, in_ptr + 1, count * 2);
+            out_ptr += count * 2;
+            in_ptr += count * 2 + 1;
+            in_offset += count * 2 + 1;
+        }
+    }
+    delete[] buffer;
+
+    CMemFile mem_file(out_base, num_words * 2, 0);
+    CArchive ar(&mem_file, CArchive::load);
+#ifdef A2SERVER_PATCH
+    try {
+#endif
+        this->sub_4F3188(&ar);
+        ar.Close();
+        mem_file.Close();
+#ifdef A2SERVER_PATCH
+    } catch (CArchiveException* e) {
+        e->Delete();
+        delete[] out_base;
+        return 1;
+    }
+#endif
+
+    delete[] out_base;
+    return 0;
+}
+
+// 4F8B74
+void Server::sub_4F8B74() {
+    uint8_t x = (uint8_t)(Random0N(MapStuff_Instance->GetWidth() - 20) + 10);
+    uint8_t y = (uint8_t)(Random0N(MapStuff_Instance->GetHeight() - 20) + 10);
+    int32_t scroll_type = Random0N(4);
+    static const char* scroll_names[] = {
+        "SuperScroll Teleport",
+        "SuperScroll Fire Wall",
+        "SuperScroll Poison Cloud",
+        "SuperScroll Stone Curse",
+        "SuperScroll Prismatic Spray",
+    };
+    Item* item = new Item(CString(scroll_names[scroll_type]));
+    if (!item) {
+        return;
+    }
+    Inventory* inv = new Inventory();
+    inv->PutItemIntoBagAtDefault(item);
+    TokenPos pos(x, y, MapStuff_Instance);
+    this->srv_stru1->sack_list->sub_554460(&pos, inv, 0, 0);
+}
+
+// 4F8FBF
+void Server::sub_4F8FBF(int32_t arg1, int32_t arg2) {
+    const char* rune_name = arg1 ? "Quest RuneA" : "Quest RuneF";
+
+    if (arg2) {
+        // Rune was picked up: find it in a ground sack and remove it.
+        SackList* sack_list = this->srv_stru1->sack_list;
+        for (POSITION sack_it = sack_list->list.GetHeadPosition(); sack_it != nullptr;) {
+            Sack* sack = sack_list->list.GetNext(sack_it);
+            Item* rune_item = sack->inventory->sub_5530A2(rune_name);
+            if (!rune_item) {
+                continue;
+            }
+            // Find and remove the inventory node that holds the rune.
+            POSITION item_node = nullptr;
+            for (POSITION item_it = sack->inventory->items.GetHeadPosition(); item_it != nullptr;) {
+                POSITION cur = item_it;
+                Item* item = sack->inventory->items.GetNext(item_it);
+                if (item == rune_item) {
+                    item_node = cur;
+                    break;
+                }
+            }
+            if (item_node != nullptr) {
+                sack->inventory->items.RemoveAt(item_node);
+            }
+            delete rune_item;
+            if (sack->inventory->items.GetCount() == 0) {
+                // Sack is now empty: remove it from the map and the list.
+                MapStuff_Instance->sub_58E525(sack);
+                g_NetStru1_main.sub_51C61E(sack);
+                POSITION sack_pos = sack_list->list.Find(sack);
+                if (sack_pos) {
+                    sack_list->list.RemoveAt(sack_pos);
+                }
+                delete sack;
+            } else {
+                g_NetStru1_main.sub_51AC77(sack, nullptr, 0);
+            }
+        }
+    }
+
+    // Rune was put back: reset flags and place it on the map at its spawn point.
+    this->ctf_dropped[arg1] = 0;
+    this->ctf_carrying[arg1] = 0;
+    Item* item = new Item(rune_name);
+    Inventory* inv = new Inventory();
+    inv->PutItemIntoBagAtDefault(item);
+    uint16_t yx = this->field19_0x98.field4_0x28.GetAt(arg1);
+    uint8_t x = yx & 0xFF;
+    uint8_t y = (yx >> 8) & 0xFF;
+    TokenPos pos(x, y, MapStuff_Instance);
+    this->srv_stru1->sack_list->sub_554927(&pos, inv, 0, 1);
 }

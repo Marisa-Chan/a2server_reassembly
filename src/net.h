@@ -191,6 +191,7 @@ public:
     void sub_51DFA7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E1C7(uint16_t player_id);
+    void sub_51E40C(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
 
     NetStru2* FUN_0041f520();
 };

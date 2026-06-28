@@ -80,6 +80,9 @@ extern ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z : proc     ;  C
 extern ?WriteObject@CArchive@@QAEXPBVCObject@@@Z : proc    ; CArchive::WriteObject   5e840f
 public ?Flush@CArchive@@QAEXXZ
 public ?FillBuffer@CArchive@@QAEXI@Z
+externdef ??0CArchive@@QAE@PAVCFile@@IHPAX@Z :proc  ; CArchive::CArchive(CFile*, uint, int, void*)
+externdef ??1CArchive@@QAE@XZ :proc                 ; CArchive::~CArchive()
+externdef ?Close@CArchive@@QAEXXZ :proc             ; CArchive::Close()
 
 public ??5@YGAAVCArchive@@AAV0@AAVCString@@@Z
 public ??6@YGAAVCArchive@@AAV0@ABVCString@@@Z
@@ -1095,6 +1098,7 @@ extern ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
 externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
+externdef ?sub_4F3188@Server@@QAEXPAVCArchive@@@Z :proc  ; void Server::sub_4F3188(CArchive*)
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 externdef _sub_4FA768 :proc                                                     ; void sub_4FA768(Player*)
@@ -1106,6 +1110,16 @@ externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F4570@Server@@QAEXXZ :proc
 externdef ?sub_4F8FBF@Server@@QAEXHH@Z :proc
+externdef ?sub_4F8B74@Server@@QAEXXZ :proc
+externdef ?sub_50979A@Server@@QAEXXZ :proc
+externdef ?sub_5090A7@Server@@QAEXXZ :proc
+externdef ?sub_509042@Server@@QAEXXZ :proc      ; void Server::sub_509042()  HAT packet processor
+externdef ?sub_4FB273@SrvStru1@@QAEXXZ :proc    ; void SrvStru1::sub_4FB273()  unit-list tick
+externdef ?sub_5096E4@Server@@QAEXXZ :proc      ; void Server::sub_5096E4()  per-player tick
+externdef ?sub_5088DF@Server@@QAEXPAVPacket@@@Z :proc   ; void Server::sub_5088DF(Packet*)
+externdef ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z :proc   ; void Server::sub_5090FA(Player*)
+externdef ?sub_5585F2@SpellEffectList@@QAEXXZ :proc     ; void SpellEffectList::sub_5585F2()
+externdef ?sub_5561A1@UnitList@@QAEXXZ :proc            ; void UnitList::sub_5561A1()
 externdef ?sub_509879@Server@@QAEPAVHuman@@PAVCString@@PAVUnit@@H@Z :proc
 
 extern ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
@@ -1141,6 +1155,7 @@ externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub
 externdef ?sub_51DFA7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
 externdef ?sub_51E0B7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
 externdef ?sub_51E1C7@NetStru1@@QAEXG@Z :proc
+externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(const char*, int)
 
 
 ; CowardActivation

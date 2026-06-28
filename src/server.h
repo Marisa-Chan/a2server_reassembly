@@ -62,6 +62,7 @@ public:
     void sub_4FBAE3(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);
 
     void sub_4FB4AA();
+    void sub_4FB273(); // 4fb273
 
     Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd
 
@@ -87,6 +88,8 @@ public:
 class SpellEffectList {
 public: // VTable at 0060f6dc.
     virtual void VMethod1(); // 55c213
+
+    void sub_5585F2(); //5585f2
 
     SpellEffectList(); // 55837D
     ~SpellEffectList(); //5583ed
@@ -155,8 +158,12 @@ public:
     void sub_4F9B9E(Sack* sack); // Save sack to file
     void sub_4F9AD3(class Sack* sack); // Pre-process a sack before pickup
     Human* sub_509879(CString* unit_name, class Unit* origin, int is_hero); // Summon a unit; returns the new unit (or nullptr on failure)
+    void sub_509042(); // 509042
+    void sub_5096E4(); // 5096E4
     void sub_5090A7();
     void sub_50979A();
+    void sub_5088DF(Packet* pkt); // 5088DF
+    void sub_5090FA(Player* player); // 5090FA
     void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 
@@ -251,6 +258,7 @@ public:
     int  sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1, CString name, CString login,
                     void* Block, int32_t block_size, int32_t team_id);
 
+    void sub_4F3188(CArchive* ar); // 4F3188 - deserialise saved game state from archive
 
     void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); //Allods2.exe 4f9a78    Join Player
     void JoinErrorSend(NetStru2* client, int32_t arg, const CString& str); //4fc4f3
