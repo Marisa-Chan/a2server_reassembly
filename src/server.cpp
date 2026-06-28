@@ -4650,6 +4650,52 @@ int32_t Server::sub_4EDB83(const CString& filename) {
     return 0;
 }
 
+// 509879
+Human* Server::sub_509879(CString* unit_name, Unit* origin, int32_t is_hero) {
+    Unit* unit = new Unit(*unit_name);
+
+    if (unit->typeId == 0) {
+        delete unit;
+        unit = new Human(*unit_name, is_hero, nullptr);
+    }
+
+    if (unit->typeId == 0) {
+        delete unit;
+        return nullptr;
+    }
+
+    if (this->field18_0x94 != 0) {
+        uint8_t x = origin->position->GetX();
+        uint8_t y = origin->position->GetY();
+        if (unit->sub_52BF3D(x, y, 3) == 0) {
+            delete unit;
+            return nullptr;
+        }
+        dword_6CDB3C->AddTailAllocId(unit);
+    } else {
+        unit->building_id = BldIdSet_AllocBit() & 0xffff;
+    }
+
+    Player* player = origin->pOwner;
+    unit->pOwner = player;
+    player->unit_list->AddTail(unit);
+
+    Group* group = new Group();
+    player->group_list->groups.AddTail(group);
+
+    group->AddUnit(unit);
+    g_World->sub_5A9A6A(unit);
+    g_World->sub_5ACDF4(group);
+
+    if (this->field18_0x94 == 0) {
+        g_NetStru1_main.sub_519221(unit, player, 0xFFFFFFFF, 0xFFB, 0, 0);
+    } else {
+        g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+    }
+
+    return static_cast<Human*>(unit);
+}
+
 // 4F8B74
 void Server::sub_4F8B74() {
     uint8_t x = (uint8_t)(Random0N(MapStuff_Instance->GetWidth() - 20) + 10);

@@ -1120,8 +1120,6 @@ externdef ?sub_5088DF@Server@@QAEXPAVPacket@@@Z :proc   ; void Server::sub_5088D
 externdef ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z :proc   ; void Server::sub_5090FA(Player*)
 externdef ?sub_5585F2@SpellEffectList@@QAEXXZ :proc     ; void SpellEffectList::sub_5585F2()
 externdef ?sub_5561A1@UnitList@@QAEXXZ :proc            ; void UnitList::sub_5561A1()
-externdef ?sub_509879@Server@@QAEPAVHuman@@PAVCString@@PAVUnit@@H@Z :proc
-
 extern ?FUN_004ff439@Server@@QAEXPAVPlayer@@H@Z :proc  ; Server::FUN_004ff439() in game.cpp
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
 

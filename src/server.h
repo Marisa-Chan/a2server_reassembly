@@ -164,7 +164,6 @@ public:
     void sub_50979A();
     void sub_5088DF(Packet* pkt); // 5088DF
     void sub_5090FA(Player* player); // 5090FA
-    void sub_5346AC_player(class Player* target); // Kill all of a player's units (unused alias; see Player::sub_5346AC)
     void CheatCommand(Player* player, CString param_2);
 
     int sub_4F0BEF(); //4f0bef - Connect to hat server
