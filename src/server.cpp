@@ -4041,6 +4041,132 @@ void Server::sub_4FA4BB(CString* name, uint32_t* frags) {
     }
 }
 
+// 5088DF
+void Server::sub_5088DF(Packet* pkt) {
+    if (NetStru1::HatConnector.active_connects.IsEmpty()) {
+        return;
+    }
+
+    NetStru2* hat_connection = NetStru1::HatConnector.active_connects.GetHead();
+    if (hat_connection == nullptr) {
+        return;
+    }
+    
+    PacketInfo* pkt_info = reinterpret_cast<PacketInfo*>(pkt);
+    PacketJoin* pkt_join = reinterpret_cast<PacketJoin*>(pkt);
+
+    switch (pkt->id) {
+    case 0x64: // no-op
+        break;
+
+    case 0xd3: // 0xd3 - Character return confirmation from hat
+        {
+            CString login(pkt_join->name);
+            if (this->FileList.GetSize() == 0) {
+                LogMessage("Confirmation from hat for non-sended character. Login: " + login);
+                return;
+            }
+
+            if (this->FileList[0] != login) {
+                LogMessage("Confirmation from hat for non-sended character. Login: " + login);
+                return;
+            }
+        
+            this->FileList.RemoveAt(0, 1);
+            this->field53_0x1f0 = 0;
+#ifdef A2SERVER_PATCH
+            try {
+#endif
+                CFile::Remove(g_ServerConfig.chr_base + login);
+#ifdef A2SERVER_PATCH
+            } catch (CFileException* e) {
+                e->Delete();
+            }
+#endif
+            LogMessage(login + "'s character returned to hat");
+            if (this->FileList.GetSize() == 0 && this->field56_0x1fc != 0) {
+                NetStru1::HatConnector.FUN_0051ceac(3, nullptr);
+                this->field56_0x1fc = 0;
+            }
+            break;
+        }
+        
+    case 0xd5: // Login to hat successful
+        hat_connection->field_0x2a8 = 1;
+        LogMessage("Login to hat successful.");
+        this->field50_0x1d4 = 0;
+        this->sub_4F4570();
+        if (pkt_info->field_0xe == 0 || g_ServerConfig.always_load_sacks != 0) {
+            this->sub_4F950F();
+        }
+        this->field54_0x1f4 = pkt_info->field_0xa;
+        if (this->FileList.GetSize() == 0) {
+            this->field56_0x1fc = 0;
+            NetStru1::HatConnector.FUN_0051ceac(3, nullptr);
+        } else {
+            this->field56_0x1fc = 1;
+        }
+        break;
+
+    case 0xdd: // New player join request from hat
+        {
+            // The packet is likely `PacketData`, but it still uses raw indices in data offsets, so whatever.
+            uint8_t* p = reinterpret_cast<uint8_t*>(pkt);
+
+            uint32_t id1        = *reinterpret_cast<uint32_t*>(p + 0x0E);
+            uint32_t id2        = *reinterpret_cast<uint32_t*>(p + 0x12);
+            uint32_t name_len   = *reinterpret_cast<uint32_t*>(p + 0x16);
+            uint32_t login_len  = *reinterpret_cast<uint32_t*>(p + 0x1A);
+            uint32_t block_size = *reinterpret_cast<uint32_t*>(p + 0x1E);
+            int32_t  team_id    = *reinterpret_cast<int32_t*>(p + 0x22);
+            const char* data    = reinterpret_cast<const char*>(p + 0x26);
+
+            void*    block      = malloc(block_size);
+            memcpy(block, data, block_size);
+
+            CString name(data + block_size, name_len);
+            CString login(data + block_size + name_len, login_len);
+
+            int32_t result = this->sub_4FC644(id1, id2, name, login, block, block_size, team_id);
+            if (result == 0) {
+                LogMessage("New player " + login + " has logged in as " + name);
+                NetStru1::HatConnector.sub_51E5FB(id1, id2);
+            } else {
+                NetStru1::HatConnector.sub_51E63F(id1, id2, result);
+            }
+            break;
+        }
+
+    case 0xe1: // 0xe1 - Player existence check from hat
+        {
+            int32_t id1 = pkt_info->field_0xa;
+            int32_t id2 = pkt_info->field_0xe;
+            Player* player = g_PlayersList->sub_535E94(id1, id2);
+            if (player == nullptr) {
+                NetStru1::HatConnector.sub_51E794(id1, id2, 1, 0);
+                return;
+            }
+
+            NetStru2* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+            if (client != nullptr) {
+                NetStru1::HatConnector.sub_51E794(id1, id2, 2, 0);
+            } else {
+                NetStru1::HatConnector.sub_51E794(id1, id2, 0, 0);
+                player->field_0xa50 = this->tick16 + 300;
+            }
+            break;
+        }
+
+    default:
+        {
+            CString msg;
+            msg.Format("Invalid command <%d> from hat", pkt->id);
+            LogMessage(msg);
+            break;
+        }
+    }
+}
+
 // 4FA551
 void Server::sub_4FA551(Player* player) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {

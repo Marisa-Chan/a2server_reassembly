@@ -1013,6 +1013,8 @@ externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_00
 externdef ?FUN_0051ceac@NetStru1@@QAEXEPAVPlayer@@@Z :proc   ;  NetStru1::FUN_0051ceac(uint8_t,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
 externdef ?sub_51C61E@NetStru1@@QAEXPAVToken@@@Z :proc      ; NetStru1::sub_51C61E(class Token *)
+externdef ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc             ; void NetStru1::sub_51E63F(int, int, int)
+externdef ?sub_51E794@NetStru1@@QAEXHHEF@Z :proc            ; void NetStru1::sub_51E794(int, int, uint8_t, short)
 
 externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
@@ -1116,7 +1118,7 @@ externdef ?sub_5090A7@Server@@QAEXXZ :proc
 externdef ?sub_509042@Server@@QAEXXZ :proc      ; void Server::sub_509042()  HAT packet processor
 externdef ?sub_4FB273@SrvStru1@@QAEXXZ :proc    ; void SrvStru1::sub_4FB273()  unit-list tick
 externdef ?sub_5096E4@Server@@QAEXXZ :proc      ; void Server::sub_5096E4()  per-player tick
-externdef ?sub_5088DF@Server@@QAEXPAVPacket@@@Z :proc   ; void Server::sub_5088DF(Packet*)
+externdef ?sub_4F950F@Server@@QAEXXZ :proc              ; void Server::sub_4F950F()
 externdef ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z :proc   ; void Server::sub_5090FA(Player*)
 externdef ?sub_5585F2@SpellEffectList@@QAEXXZ :proc     ; void SpellEffectList::sub_5585F2()
 externdef ?sub_5561A1@UnitList@@QAEXXZ :proc            ; void UnitList::sub_5561A1()
@@ -1148,6 +1150,9 @@ extern ?Instance@SrvStru1@@2U1@A : dword
 extern ?sub_4FB4AA@SrvStru1@@QAEXXZ :proc
 
 ; NetStru1::sub_51E205
+externdef ?sub_51E5FB@NetStru1@@QAEXHH@Z :proc          ; void NetStru1::sub_51E5FB(int, int)
+externdef ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc         ; void NetStru1::sub_51E63F(int, int, int)
+externdef ?sub_51E794@NetStru1@@QAEXHHEF@Z :proc        ; void NetStru1::sub_51E794(int, int, uint8_t, int16_t)
 externdef ?sub_51E205@NetStru1@@QAEXVCString@@@Z :proc  ; void NetStru1::sub_51E205(CString)
 externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub_51E289(int, CString, int, int, int)
 externdef ?sub_51DFA7@NetStru1@@QAEXHHVCString@@PAXIG@Z :proc
