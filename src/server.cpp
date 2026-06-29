@@ -3159,7 +3159,7 @@ int32_t Server::sub_4F0BEF() {
         return 0;
     }
 
-    LogMessage(CString("Connected. Logging in..."));
+    LogMessage("Connected. Logging in...");
     NetStru1::HatConnector.ProcessConnections();
     NetStru1::HatConnector.sub_51E205(g_ServerConfig.ip_address);
     return 1;
@@ -4699,6 +4699,112 @@ void Server::sub_4FA01F() {
     this->field68_0x23c.SetSize(0, -1);
     g_NetStru1_main.FUN_0051ceac(0x5a, nullptr);
     this->map_elapsed_time2 = 0;
+}
+
+// 4ED2DC
+void Server::sub_4ED2DC(CString* filename)
+{
+    LogMessage("Saving to:" + *filename);
+
+    // Drop empty groups from every human player's group_list before saving.
+    POSITION player_it = g_PlayersList->list.GetHeadPosition();
+    while (player_it != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(player_it);
+        if (player->is_ai) {
+            continue;
+        }
+        CList<Group*>& groups = player->group_list->groups;
+        POSITION group_it = groups.GetHeadPosition();
+        while (group_it != nullptr) {
+            POSITION cur = group_it;
+            Group* g = groups.GetNext(group_it);
+            if (g->unit_list.GetCount() == 0) {
+                groups.RemoveAt(cur);
+                delete g;
+            }
+        }
+    }
+
+    CFile file;
+    if (!file.Open(*filename, CFile::modeCreate | CFile::modeWrite | CFile::shareExclusive, nullptr)) {
+        return;
+    }
+
+    CMemFile mem_file;
+    CArchive ar(&mem_file, CArchive::store);
+    this->sub_4F3188(&ar);
+    ar.Close();
+
+    uint32_t mem_size = mem_file.GetLength();
+    if (mem_size & 1) {
+        ++mem_size;
+        uint8_t pad = 0;
+        mem_file.Write(&pad, 1);
+    }
+
+    uint16_t* detached = (uint16_t*)mem_file.Detach();
+    int32_t num_words = mem_size / 2;
+
+    uint8_t* out_buf = new uint8_t[num_words * 2];
+    *(uint32_t*)out_buf = num_words;
+    uint8_t* out_ptr = out_buf + 4;
+
+    uint16_t* src = detached;
+    int32_t i = 0;
+    while (i < num_words) {
+        if (src[0] == src[1]) {
+            uint16_t* p = src;
+            uint8_t count = 1;
+            while (*p == *(p + 1) && count < 0x7F && (i + count) < num_words) {
+                ++p;
+                ++count;
+            }
+            *out_ptr++ = count | 0x80;
+            *(uint16_t*)out_ptr = *p;
+            out_ptr += 2;
+            src += count;
+            i += count;
+        } else {
+            uint16_t* p = src;
+            uint8_t count = 1;
+            while (*p != *(p + 1) && count < 0x7F && (i + count) < num_words) {
+                ++p;
+                ++count;
+            }
+            if (i + count == num_words) {
+                ++count;
+            }
+            *out_ptr++ = count - 1;
+            memcpy(out_ptr, src, (count - 1) * 2);
+            out_ptr += (count - 1) * 2;
+            src += count - 1;
+            i += count - 1;
+        }
+    }
+
+    uint32_t compressed_size = out_ptr - out_buf;
+    delete[] (uint8_t*)detached;
+
+    uint32_t magic = 0x26677342;
+    file.Write(&magic, 4);
+    uint32_t end_pos_placeholder = 0;
+    file.Write(&end_pos_placeholder, 4);
+    uint32_t version = 0x0bad0002;
+    file.Write(&version, 4);
+    file.Write(&compressed_size, 4);
+    file.Write(out_buf, compressed_size);
+    delete[] out_buf;
+
+    uint32_t end_pos = file.GetPosition();
+    if (this->field4_0x74 != 0) {
+        char footer[0x100];
+        memset(footer, 0, sizeof(footer));
+        memcpy(footer, "Server Multiplayer save file.", 30);
+        file.Write(footer, 0x100);
+    }
+    file.Seek(4, CFile::begin);
+    file.Write(&end_pos, 4);
+    file.Close();
 }
 
 // 4EDB83

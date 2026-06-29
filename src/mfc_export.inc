@@ -1129,7 +1129,6 @@ externdef ?sub_502AD1@Server@@QAEPAVUnit@@GG@Z :proc
 externdef ?sub_502C50@Server@@QAEPAVShop@@PAUTokenPos@@@Z :proc
 externdef ?sub_502CB7@Server@@QAEPAVInn@@PAUTokenPos@@@Z :proc
 externdef ?sub_502B4A@Server@@QAEPAVPlayer@@G@Z :proc
-externdef ?sub_4ED2DC@Server@@QAEXPAVCString@@@Z :proc
 externdef ?sub_4FF878@Server@@QAEXPAVPlayer@@@Z :proc
 
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
