@@ -1,4 +1,5 @@
 
+
 extern _pathStrCpy:proc
 
 
@@ -202,6 +203,7 @@ externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; B
 externdef ?sub_557F69@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557F69(TokenPos*)
 externdef ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z :proc     ; BuildingsList::sub_558055(Player*)
 externdef ?sub_558228@BuildingsList@@QAEXPAVBuilding@@@Z :proc                ; void BuildingsList::sub_558228(Building*)
+externdef ?sub_558908@BuildingsList@@QAEXAAVCArchive@@@Z :proc
 
 ; Building
 extern ?classBuilding@Building@@2UCRuntimeClass@@A  : dword
@@ -511,6 +513,8 @@ extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
 extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
 extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
+externdef ?sub_58AB48@MapStuff@@QAEXAAVCArchive@@@Z :proc
+externdef ?sub_594125@MapStuff@@QAEXXZ :proc
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
 
@@ -788,6 +792,7 @@ externdef ?classSpellTransport@SpellTransport@@2UCRuntimeClass@@A :byte         
 ; SpellEffectList
 externdef ??0SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::SpellEffectList()
 externdef ??1SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::~SpellEffectList()
+externdef ?sub_55BF31@SpellEffectList@@QAEXAAVCArchive@@@Z :proc
 
 
 ;EquipmentExtra
@@ -1108,8 +1113,7 @@ extern ??1Server@@QAE@XZ :proc
 extern ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4EDB83@Server@@QAEHABVCString@@@Z :proc   ; int Server::sub_4EDB83(const CString&)
-externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()
-externdef ?sub_4F3188@Server@@QAEXPAVCArchive@@@Z :proc  ; void Server::sub_4F3188(CArchive*)
+externdef ?sub_4FA01F@Server@@QAEXXZ :proc               ; void Server::sub_4FA01F()F
 externdef ?FUN_004f94c0@Server@@QAEXH@Z :proc
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 externdef _sub_4FA768 :proc                                                     ; void sub_4FA768(Player*)
@@ -1243,6 +1247,9 @@ extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
 externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5AF6F5(Unit*)
 
+externdef ?sub_5B0556@World@@QAEXAAVCArchive@@@Z :proc
+externdef ?sub_5B2E7A@World@@QAEXXZ :proc
+
 
 ; TriggerAction
 externdef ??0TriggerAction@@QAE@XZ :proc                                         ; TriggerAction::TriggerAction()
@@ -1281,7 +1288,7 @@ externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ;
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
 externdef ?sub_536286@PlayersList@@QAEXXZ :proc                                ; void PlayersList::sub_536286()
 externdef ?sub_535F97@PlayersList@@QAEHXZ :proc                  ; int32_t PlayersList::sub_535F97()
-
+externdef ?sub_55AFB3@PlayersList@@QAEXAAVCArchive@@@Z :proc
 
 ; Sack
 externdef ??0Sack@@QAE@PBUTokenPos@@@Z :proc                                 ; Sack::Sack(const TokenPos*)
@@ -1294,6 +1301,7 @@ externdef ?sub_554927@SackList@@QAEXPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
 externdef ?sub_55496E@SackList@@QAEHPAVSack@@@Z :proc   ; int SackList::sub_55496E(Sack*)
 externdef ??1SackList@@QAE@XZ :proc   ; SackList::~SackList()
+externdef ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z :proc
 
 ; Sack methods
 externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
@@ -1323,6 +1331,10 @@ externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 ; Settings
 externdef ??0Settings@@QAE@XZ :proc
 externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
+
+
+; ScriptSettings
+externdef ?sub_5B681A@ScriptSettings@@QAEXAAVCArchive@@@Z :proc
 
 
 ; QuestMap

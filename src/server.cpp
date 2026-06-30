@@ -32,6 +32,7 @@
 #include "shelf.h"
 #include "inventory.h"
 #include "spell.h"
+#include "virtual_caster.h"
 #include "player_file.h"
 #include "file.h"
 
@@ -44,6 +45,7 @@ extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 // ---- Helpers used by FUN_00500907 ----
 extern "C" int32_t sub_5008CA(int arg);  // Stat point cost: (int)(pow(arg-1, 1.2)*C1+C2)
 extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
+extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID bits
 
 // sub_5049D1: Strip an optional leading integer count from *str (modifies str in-place),
 // returns the parsed count (or 1 if none present).
@@ -4981,7 +4983,7 @@ void Server::sub_4ED2DC(CString* filename)
 
     CMemFile mem_file;
     CArchive ar(&mem_file, CArchive::store);
-    this->sub_4F3188(&ar);
+    this->sub_4F3188(ar);
     ar.Close();
 
     uint32_t mem_size = mem_file.GetLength();
@@ -5056,6 +5058,178 @@ void Server::sub_4ED2DC(CString* filename)
     file.Close();
 }
 
+// 4F3188
+void Server::sub_4F3188(CArchive& ar)
+{
+    if (ar.IsStoring()) {
+        ar << this->tick;
+        ar << this->tick16;
+        ar << this->current_map_name;
+
+        ar << this->field26_0x174;
+        ar << this->field28_0x17c;
+        ar << this->field29_0x180;
+        ar << this->field30_0x184;
+        ar << this->field31_0x188;
+        ar << this->field32_0x18c;
+        ar << this->field33_0x190;
+        ar << this->field34_0x194;
+        ar << this->field37_0x1a0;
+        ar << this->field36_0x19c;
+        ar << this->field35_0x198;
+        ar << this->field21_0xd4;
+        ar << this->field22_0xd8;
+
+        g_PlayersList->sub_55AFB3(ar);
+        this->srv_stru1->units_list->Serialize(ar);
+
+        uint8_t has_world_state = (this->field18_0x94 != 0) ? 1 : 0;
+        ar.Write(&has_world_state, 1);
+
+        if (this->field18_0x94 != 0) {
+            this->srv_stru1->building_list->sub_558908(ar);
+            this->srv_stru1->effects_list->sub_55BF31(ar);
+            MapStuff_Instance->sub_58AB48(ar);
+            g_World->sub_5B0556(ar);
+            this->srv_stru1->sack_list->sub_55BC58(ar);
+
+            int32_t caster_count = this->srv_stru1->virtual_casters_list.GetCount();
+            ar << caster_count;
+            POSITION pos = this->srv_stru1->virtual_casters_list.GetHeadPosition();
+            while (pos != nullptr) {
+                VirtualCaster* caster = this->srv_stru1->virtual_casters_list.GetNext(pos);
+                ar.WriteObject(caster);
+            }
+        }
+
+        const uint32_t sentinel = 0xbadface1;
+        ar << sentinel;
+        ar << sentinel;
+    } else {
+        BldIdSet_Clear();
+
+        ar >> this->tick;
+        ar >> this->tick16;
+        ar >> this->current_map_name;
+
+        ar >> this->field26_0x174;
+        ar >> this->field28_0x17c;
+        ar >> this->field29_0x180;
+        ar >> this->field30_0x184;
+        ar >> this->field31_0x188;
+        ar >> this->field32_0x18c;
+        ar >> this->field33_0x190;
+        ar >> this->field34_0x194;
+        ar >> this->field37_0x1a0;
+        ar >> this->field36_0x19c;
+        ar >> this->field35_0x198;
+        ar >> this->field21_0xd4;
+
+        int32_t loaded_mode = 0;
+        ar >> loaded_mode;
+        if (loaded_mode > 0 && loaded_mode < 4) {
+            this->field22_0xd8 = loaded_mode;
+        }
+
+        g_PlayersList->sub_55AFB3(ar);
+        this->srv_stru1->units_list->Serialize(ar);
+
+        uint8_t has_world_state = 0;
+        ar.Read(&has_world_state, 1);
+        if (has_world_state == 0) {
+            this->field18_0x94 = 0;
+        } else {
+            POSITION player_it = g_PlayersList->list.GetHeadPosition();
+            while (player_it != nullptr) {
+                Player* player = g_PlayersList->list.GetNext(player_it);
+                if (player->unit_list == nullptr) {
+                    continue;
+                }
+
+                POSITION unit_it = player->unit_list->unit_list.GetHeadPosition();
+                while (unit_it != nullptr) {
+                    Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
+                    if ((unit->unit_attrs & 8) == 0) {
+                        dword_6CDB3C->AddTail(unit);
+                    }
+                }
+            }
+
+            if (this->srv_stru1->building_list == nullptr) {
+                this->srv_stru1->building_list = new BuildingsList();
+            }
+            this->srv_stru1->building_list->sub_558908(ar);
+
+            if (this->srv_stru1->effects_list == nullptr) {
+                this->srv_stru1->effects_list = new SpellEffectList();
+            }
+            this->srv_stru1->effects_list->sub_55BF31(ar);
+
+            CString map_name = this->current_map_name;
+            if (this->field21_0xd4 != 0) {
+                map_name = "Scenario\\" + map_name;
+            }
+
+            MapAlm* alm = new MapAlm((const char*)map_name);
+            MapStuff_Instance = new MapStuff(alm, dword_6CDB3C);
+            MapStuff_Instance->sub_58AB48(ar);
+
+            if (g_World == nullptr) {
+                g_World = new World(MapStuff_Instance, g_PlayersList);
+                g_World->sub_5B0556(ar);
+            }
+
+            if (this->srv_stru1->sack_list == nullptr) {
+                this->srv_stru1->sack_list = new SackList();
+            }
+            this->srv_stru1->sack_list->sub_55BC58(ar);
+
+            this->srv_stru1->virtual_casters_list.RemoveAll();
+            int32_t caster_count = 0;
+            ar >> caster_count;
+            for (int32_t i = 0; i < caster_count; i++) {
+                CObject* obj = ar.ReadObject(RUNTIME_CLASS(VirtualCaster));
+                this->srv_stru1->virtual_casters_list.AddTail(static_cast<VirtualCaster*>(obj));
+            }
+
+            this->field19_0x98.sub_59D891(alm, 0);
+            delete alm;
+
+            this->field18_0x94 = 1;
+        }
+
+        if (has_world_state != 0) {
+            dword_6CDB3C->CallMethod5();
+            this->srv_stru1->units_list->CallMethod5();
+            MapStuff_Instance->sub_594125();
+            g_World->sub_5B2E7A();
+            this->srv_stru1->effects_list->VMethod1();
+        } else {
+            POSITION player_it = g_PlayersList->list.GetHeadPosition();
+            while (player_it != nullptr) {
+                Player* player = g_PlayersList->list.GetNext(player_it);
+                if (player->unit_list == nullptr) {
+                    continue;
+                }
+
+                POSITION unit_it = player->unit_list->unit_list.GetHeadPosition();
+                while (unit_it != nullptr) {
+                    Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
+                    unit->last_hit_by = nullptr;
+                    unit->spell = nullptr;
+                    unit->cast_target = nullptr;
+                }
+            }
+        }
+
+        uint32_t ignored = 0;
+        ar >> ignored;
+        ar >> ignored;
+    }
+
+    this->script_settings->sub_5B681A(ar);
+}
+
 // 4EDB83
 int32_t Server::sub_4EDB83(const CString& filename) {
     LogMessage("Loading from:" + filename);
@@ -5116,7 +5290,7 @@ int32_t Server::sub_4EDB83(const CString& filename) {
 #ifdef A2SERVER_PATCH
     try {
 #endif
-        this->sub_4F3188(&ar);
+        this->sub_4F3188(ar);
         ar.Close();
         mem_file.Close();
 #ifdef A2SERVER_PATCH

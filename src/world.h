@@ -109,6 +109,8 @@ struct World {
 public:
     World(MapStuff* map_stuff, PlayersList* players_list); // 5A4B1A
     ~World();
+    void sub_5B0556(CArchive& ar); // Serialize
+    void sub_5B2E7A(); // Post-load world relink helper
 
     void sub_5AFBFD(); // increments field65_0xc780
     void sub_5ABD16(class PlayersList* players);
