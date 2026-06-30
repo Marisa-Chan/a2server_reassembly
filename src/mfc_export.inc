@@ -501,6 +501,8 @@ externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff:
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
 externdef ?sub_5953CB@MapStuff@@QAEHPAVAreaEffect@@H@Z :proc    ; int32_t MapStuff::sub_5953CB(AreaEffect*, int32_t)
+externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CB5A(uint16_t)
+externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CBB9(uint16_t)
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
 externdef ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
@@ -1215,6 +1217,7 @@ externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
+externdef ?sub_5A79C9@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A79C9(Unit*)
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
 externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
 externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)

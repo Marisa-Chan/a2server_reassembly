@@ -180,6 +180,9 @@ public:
     int32_t sub_5953CB(AreaEffect* ae, int32_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
 
+    Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
+    Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
     inline uint8_t& WalkCostAt(PosYX yx) { return walk_cost_map[yx.val]; } //59a780

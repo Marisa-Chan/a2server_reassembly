@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <cstdlib>  // atoi
+#include <cmath>    // sqrt
 #include <set>
 
 #include "alm.h"
@@ -3914,6 +3915,104 @@ void Server::sub_4F0D58() {
                 this->field50_0x1d4 = GetTickCount();
             }
         }
+    }
+}
+
+// 5013D4
+void Server::sub_5013D4(Player* player) {
+    Group* group;
+    if (player->group_list->groups.GetCount() == 0) {
+        group = nullptr;
+    } else {
+        group = player->group_list->groups.GetHead();
+    }
+    if (group == nullptr) {
+        // Original builds a discarded "Oops - player has no groups" CString (no logging).
+        group = new Group();
+        player->group_list->groups.AddTail(group);
+    }
+
+    while (group->unit_list.GetCount() == 0 && player->group_list->groups.GetCount() > 1) {
+        POSITION node = player->group_list->groups.Find(group);
+        if (node != nullptr) {
+            player->group_list->groups.RemoveAt(node);
+        }
+        delete group;
+        if (player->group_list->groups.GetCount() == 0) {
+            group = nullptr;
+        } else {
+            group = player->group_list->groups.GetHead();
+        }
+    }
+
+    uint8_t x = 0;
+    uint8_t y = 0;
+    if (this->field4_0x74 != 0 && player->building_entered_from_yx != 0 && g_ServerConfig.gameType == 0) {
+        x = player->building_entered_from_yx;
+        y = player->building_entered_from_yx >> 8;
+    } else {
+        CArray<uint16_t>& drop_locations = this->field19_0x98.field4_0x28;
+        if (drop_locations.GetSize() > 0) {
+            int32_t index = Random0N(drop_locations.GetSize() - 1);
+            if (g_ServerConfig.gameType == 2) {
+                index = player->field_0xa70;
+            }
+            x = drop_locations[index];
+            y = drop_locations[index] >> 8;
+        }
+    }
+
+    if (x * y == 0) {
+        x = Random0N(70) + 30;
+        y = Random0N(70) + 30;
+        LogMessage(CString("Warning - no drop location in .alm - random used"));
+    }
+
+    double sqrt_count = std::sqrt((double)player->unit_list->unit_list.GetCount());
+    double radius_f;
+    if (sqrt_count + 4.0 < 5.0) {
+        radius_f = 5.0;
+    } else {
+        radius_f = sqrt_count + 4.0;
+    }
+    int32_t radius = (int32_t)radius_f;
+
+    POSITION unit_it = player->unit_list->unit_list.GetHeadPosition();
+    if (unit_it == nullptr) {
+        return;
+    }
+
+    Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
+    while (unit != nullptr) {
+        uint16_t yx = unit->position->CompatGetYX();
+        if (MapStuff_Instance->sub_58CB5A(yx) != unit && MapStuff_Instance->sub_58CBB9(yx) != unit) {
+            *unit->position = TokenPos(x, y, MapStuff_Instance);
+
+            int32_t placed = 0;
+            if (unit == player->main_unit) {
+                placed = unit->sub_52BF3D(x, y, 0);
+            }
+            if (placed == 0) {
+                placed = unit->sub_52BF3D(x, y, radius);
+            }
+            if (placed == 0) {
+                LogMessage(CString("Error - can't place hero from previous mission on map."));
+            }
+
+            dword_6CDB3C->AddTail(unit);
+
+            delete unit->eye;
+            unit->eye = new UnitEye();
+
+            uint8_t spell_id = unit->eye2->spell_id;
+            delete unit->eye2;
+            unit->eye2 = new UnitEye2();
+            unit->eye2->spell_id = spell_id;
+
+            g_World->sub_5A79C9(unit);
+            g_World->sub_5ACDF4(unit->group);
+        }
+        unit = unit_it ? player->unit_list->unit_list.GetNext(unit_it) : nullptr;
     }
 }
 

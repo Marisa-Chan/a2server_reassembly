@@ -119,7 +119,7 @@ public:
     CMapStringToOb field1_0x4;
     uint32_t field2_0x20 = 0;
     SrvStru1 *srv_stru = nullptr;
-    CArray<uint16_t> field4_0x28;
+    CArray<uint16_t> field4_0x28; // Drop locations.
 };
 ASSERT_OFFSET(Srv1, srv_stru, 0x24);
 ASSERT_SIZE(Srv1, 0x3c);
