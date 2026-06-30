@@ -108,6 +108,7 @@ public:
     int sub_5287c4(Player* player); // Check if this unit needs a refresh for the given player.
     void sub_5287ec(Player* player); // Mark this unit as not needing the refresh for the given player.
     int32_t sub_52C409(); // Return unit to map.
+    void sub_52C641(); // 52c641
     void sub_52C163();
     void sub_52C36D(uint8_t x, uint8_t y, uint8_t flags);
     void sub_52C58F(); // Revive unit (set flags, reset subcell, call VMethod18, notify world)

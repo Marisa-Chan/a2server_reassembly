@@ -29,6 +29,7 @@
 #include "item.h"
 #include "inn.h"
 #include "shop.h"
+#include "shelf.h"
 #include "inventory.h"
 #include "spell.h"
 #include "player_file.h"
@@ -123,6 +124,155 @@ Server::~Server()
     }
 
     LogMessage("Server closed\n");
+}
+
+// 4F1E2A
+void Server::sub_4F1E2A()
+{
+    this->sub_4F465E();
+    this->field16_0x8c = 1;
+
+    // First pass: handle each human player's main unit (shop/inn departure, decay respawn).
+    {
+        POSITION player_it = g_PlayersList->list.GetHeadPosition();
+        while (player_it != nullptr) {
+            Player* player = g_PlayersList->list.GetNext(player_it);
+            if (!player->is_ai && player->main_unit != nullptr) {
+                Shop* shop = this->sub_502C50(player->main_unit->position);
+                if (shop != nullptr && shop->shop_template != nullptr) {
+                    if (shop->shop_template->sub_547468(player->main_unit) != nullptr) {
+                        shop->shop_template->sub_5479C6(player->main_unit);
+                        if (this->field4_0x74 != 0) {
+                            player->main_unit->sub_52C409();
+                        }
+                    }
+                }
+
+                Inn* inn = this->sub_502CB7(player->main_unit->position);
+                if (inn != nullptr) {
+                    inn->sub_560DC2(player->main_unit, -1);
+                }
+
+                if (player->main_unit->decay != 0 && g_Server->field4_0x74 != 0) {
+                    player->field_0xa64 = 0;
+                    Human* main_unit = player->main_unit;
+                    if (main_unit->inventory == nullptr) {
+                        main_unit->inventory = new Inventory();
+                    }
+                    CList<Unit*>& unit_list = this->srv_stru1->units_list->unit_list;
+                    POSITION unit_it = unit_list.Find(main_unit);
+                    if (unit_it != nullptr) {
+                        unit_list.RemoveAt(unit_it);
+                    }
+                    main_unit->field_x18 = 0;
+                    this->sub_500907(player, 0, 0, 0, 0, 0, 0);
+                    this->sub_5013D4(player);
+                    player->field_0x40 = 0;
+
+                    Player* self = g_PlayersList->sub_535D39("Self");
+                    if (self != nullptr && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+                        for (int32_t i = 2; i < 16; i++) {
+                            g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self->player_id];
+                            g_World->diplomacy.diplomacy[player->player_id][i] = g_World->diplomacy.diplomacy[self->player_id][i];
+                        }
+                        g_World->diplomacy.diplomacy[self->player_id][player->player_id] = 0x12;
+                        g_World->diplomacy.diplomacy[player->player_id][self->player_id] = 0x12;
+                        g_NetStru1_main.sub_51CB21(player);
+                    }
+                }
+            }
+        }
+    }
+
+    this->srv_stru1->sub_4FAEB4();
+
+    if (g_World != nullptr) {
+        delete g_World;
+        g_World = nullptr;
+    }
+
+    if (MapStuff_Instance != nullptr) {
+        delete MapStuff_Instance;
+        MapStuff_Instance = nullptr;
+    }
+
+    dword_6CDB3C->unit_list.RemoveAll();
+    dword_6B37C4->unit_list.RemoveAll();
+
+    // Second pass: strip all effects from every human player's units.
+    {
+        POSITION player_it = g_PlayersList->list.GetHeadPosition();
+        while (player_it != nullptr) {
+            Player* player = g_PlayersList->list.GetNext(player_it);
+            if (!player->is_ai) {
+                CList<Unit*>& unit_list = player->unit_list->unit_list;
+                POSITION unit_it = unit_list.GetHeadPosition();
+                while (unit_it != nullptr) {
+                    Unit* unit = unit_list.GetNext(unit_it);
+                    POSITION effect_it = unit->_effects.GetHeadPosition();
+                    while (effect_it != nullptr) {
+                        auto current = effect_it;
+                        Effect* effect = unit->_effects.GetNext(effect_it);
+
+                        effect->spell_value = 1;
+                        effect->caster = nullptr;
+                        effect->VMethod10(unit);
+                        unit->_effects.RemoveAt(current);
+                        delete effect;
+                    }
+                }
+            }
+        }
+    }
+
+    // Third pass: reset surviving players' units, drop AI / "Self" players.
+    {
+        POSITION player_it = g_PlayersList->list.GetHeadPosition();
+        while (player_it != nullptr) {
+            auto current_it = player_it;
+            Player* player = g_PlayersList->list.GetNext(player_it);
+
+            if (!player->is_ai && player->name != "Self") {
+                player->field_0x41 = 0;
+                CList<Unit*>& unit_list = player->unit_list->unit_list;
+                POSITION unit_it = unit_list.GetHeadPosition();
+                while (unit_it != nullptr) {
+                    Unit* unit = unit_list.GetNext(unit_it);
+                    if (unit->typeId < 0x21 || unit->typeId > 0x3f) {
+                        player->sub_534A74(unit);
+                    } else {
+                        unit->hp = unit->hp_max;
+                        unit->mp = unit->mp_max;
+                        unit->decay = 0;
+                        unit->sub_52C641();
+                        unit->cast_target = nullptr;
+                        unit->some_spell = nullptr;
+                        unit->spell = nullptr;
+                        unit->some_item = nullptr;
+                        unit->last_hit_by = nullptr;
+                    }
+                }
+            } else {
+                g_PlayersList->list.RemoveAt(current_it);
+                delete player;
+            }
+        }
+    }
+
+    if (this->field4_0x74 == 0) {
+        g_PlayersList->next_player_id = 2;
+    }
+
+    this->field19_0x98.field2_0x20 = 0;
+    this->field19_0x98.field4_0x28.SetSize(0, -1);
+    this->field21_0xd4 = 0;
+    this->field18_0x94 = 0;
+    this->tick16 = 0;
+    this->tick = 0;
+
+    g_NetStru1_main.FUN_0051ceac(0xb8, nullptr);
+    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
+    this->sub_4F9E55();
 }
 
 

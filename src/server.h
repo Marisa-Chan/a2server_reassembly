@@ -56,6 +56,7 @@ struct SrvStru1 {
 
 public:
     void Deinit(); //4fab1d
+    void sub_4FAEB4(); // 4faeb4
 
     // Make spell effect.
     void sub_4FBB24(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);
@@ -133,6 +134,8 @@ struct Server {
 public:
     void ServerTic();
     void sub_4F1E2A();
+    void sub_4F465E(); // 4f465e
+    void sub_4F9E55(); // 4f9e55
     void sub_4FA5C4();
     void sub_4FA78E(int arg);
     void sub_4F8831();

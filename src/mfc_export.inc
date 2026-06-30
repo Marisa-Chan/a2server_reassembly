@@ -1093,6 +1093,13 @@ externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 
 externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
+externdef ?sub_4F465E@Server@@QAEXXZ :proc                                       ; void Server::sub_4F465E()
+externdef ?sub_4F9E55@Server@@QAEXXZ :proc                                       ; void Server::sub_4F9E55()
+externdef ?sub_4FAEB4@SrvStru1@@QAEXXZ :proc                                     ; void SrvStru1::sub_4FAEB4()
+externdef ?sub_534A74@Player@@QAEXPAVUnit@@@Z :proc                              ; void Player::sub_534A74(Unit*)
+externdef ?sub_52C641@Unit@@QAEXXZ :proc                                         ; void Unit::sub_52C641()
+externdef ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z :proc ; CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid*)
+externdef ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z :proc              ; void CMultiShopTemplate::sub_5479C6(Humanoid*)
 externdef ?sub_4FA5C4@Server@@QAEXXZ :proc
 externdef ?sub_4F0ECF@Server@@QAEXXZ :proc
 
