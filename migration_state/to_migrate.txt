@@ -69,11 +69,6 @@
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
-?sub_58B593@MapStuff@@QAEXUPosYX@@@Z	35
-?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z	39
-?sub_58E611@MapStuff@@QAEPAVSack@@G@Z	47
-?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z	56
-?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z	87
 ?sub_590678@MapStuff@@QAEXPAVUnit@@@Z	109
 ?sub_5907BE@MapStuff@@QAEXPAVUnit@@@Z	110
 ?sub_58E407@MapStuff@@QAEHPAVSack@@@Z	110

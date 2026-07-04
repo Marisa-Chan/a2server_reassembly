@@ -608,6 +608,99 @@ void MapStuff::sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* 
     this->sub_5882AE(unit, curX, curY, x, y, flag, target);
 }
 
+// 58B27F
+int MapStuff::sub_58B27F(Unit* unit, uint8_t x, uint8_t y) {
+    PosYX yx(x, y);
+    if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        return 0;
+    }
+
+    uint32_t type = unit->VMethod4();
+    if (type == 1 || type == 2) {
+        if (!this->scratch_cell_state.small_unit) {
+            return 0;
+        }
+        this->scratch_cell_state.small_unit = nullptr;
+    } else if (type == 3) {
+        if (!this->scratch_cell_state.large_unit) {
+            return 0;
+        }
+        this->scratch_cell_state.large_unit = nullptr;
+    }
+
+    this->cell_states[yx.val] = this->scratch_cell_state;
+    this->sub_58B593(yx);
+    if (this->scratch_cell_state.IsEmpty()) {
+        this->FUN_0058b4a6(yx);
+    }
+
+    unit->eye->field126_0x86 = unit->position->GetX();
+    unit->eye->field127_0x87 = unit->position->GetY();
+    unit->eye->field128_0x88 = unit->position->GetXx();
+    unit->eye->field129_0x89 = unit->position->GetYy();
+    return 1;
+}
+
+// 58B1D7
+int MapStuff::sub_58B1D7(Unit* unit) {
+    int32_t size = unit->VMethod3() & 0xFF;
+    uint8_t x = unit->position->GetX();
+    uint8_t y = unit->position->GetY();
+
+    for (int32_t i = 0; i < size; i++) {
+        for (int32_t j = 0; j < size; j++) {
+            if (!this->sub_58B27F(unit, x + j, y + i)) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+// 58B593
+void MapStuff::sub_58B593(PosYX yx) {
+    if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        this->FUN_0058b5d6(this->scratch_cell_state);
+    }
+}
+
+// 58E611
+Sack* MapStuff::sub_58E611(uint16_t yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.sack;
+}
+
+// 59449A
+int MapStuff::sub_59449A(Building* building, PosYX yx) {
+    if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        return 0;
+    }
+
+    this->scratch_cell_state.building = nullptr;
+    this->cell_states[yx.val] = this->scratch_cell_state;
+    this->sub_58B593(yx);
+    if (this->scratch_cell_state.IsEmpty()) {
+        this->FUN_0058b4a6(yx);
+    }
+    return 1;
+}
+
+// 595468
+int MapStuff::sub_595468(Unit* unit, PosYX yx) {
+    if (!this->sub_597140(unit, yx, 0)) {
+        return 0;
+    }
+    if (!this->sub_597140(unit, yx, 1)) {
+        return 0;
+    }
+    return 1;
+}
+
 // 58E3D1 --- add unit to map
 int MapStuff::sub_58E3D1(Unit* unit) {
     this->FUN_005969c6(unit, PosYX(0, 0), 2);

@@ -185,15 +185,15 @@ public:
 
     Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+    int sub_58B1D7(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7
+    void sub_58B593(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
+    Sack* sub_58E611(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
+    int sub_59449A(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
+    int sub_595468(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_5882AE(Unit* unit, uint8_t curX, uint8_t curY, uint8_t x, uint8_t y, int32_t flag, Unit* target);
-    int sub_58B1D7(Unit* unit);
-    void sub_58B593(PosYX yx);
-    Sack* sub_58E611(uint16_t yx);
     void sub_590F94(Unit* unit, uint8_t facing);
-    int sub_59449A(class Building* building, PosYX yx);
-    int sub_595468(Unit* unit, PosYX yx);
 
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
@@ -210,6 +210,7 @@ public:
     void FUN_0058b3e0(PosYX yx); //58b3e0
     void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
     void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6
+    int sub_58B27F(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

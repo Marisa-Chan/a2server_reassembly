@@ -489,17 +489,17 @@ externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff:
 externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
 
 externdef ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z :proc         ; void MapStuff::sub_5882AE(Unit*, uint8_t, uint8_t, uint8_t, uint8_t, int32_t, Unit*)
-externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
-externdef ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z :proc                 ; void MapStuff::sub_58B593(PosYX)
-externdef ?sub_58E611@MapStuff@@QAEPAVSack@@G@Z :proc                ; Sack* MapStuff::sub_58E611(uint16_t)
 externdef ?sub_590F94@MapStuff@@QAEXPAVUnit@@E@Z :proc               ; void MapStuff::sub_590F94(Unit*, uint8_t)
-externdef ?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z :proc    ; int MapStuff::sub_59449A(Building*, PosYX)
-externdef ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z :proc       ; int MapStuff::sub_595468(Unit*, PosYX)
 
 ; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc
 externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
+externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
+externdef ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z :proc                 ; void MapStuff::sub_58B593(PosYX)
+externdef ?sub_58E611@MapStuff@@QAEPAVSack@@G@Z :proc                ; Sack* MapStuff::sub_58E611(uint16_t)
+externdef ?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z :proc    ; int MapStuff::sub_59449A(Building*, PosYX)
+externdef ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z :proc       ; int MapStuff::sub_595468(Unit*, PosYX)
 externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z :proc
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc

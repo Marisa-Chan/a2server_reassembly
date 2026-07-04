@@ -91,6 +91,8 @@
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
 ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z
+?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z
+?sub_58B593@MapStuff@@QAEXUPosYX@@@Z
 ?sub_58bec3@TokenPos@@QAEHXZ
 ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z
 ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z
@@ -99,6 +101,7 @@
 ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z
 ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z
 ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z
+?sub_58E611@MapStuff@@QAEPAVSack@@G@Z
 ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z
 ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@UPosYX@@E@Z
 ?sub_58FF51@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z
@@ -110,10 +113,12 @@
 ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z
 ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z
 ?sub_594125@MapStuff@@QAEXXZ
+?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z
 ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z
 ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z
 ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z
 ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z
+?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z
 ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z
 ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z
 ?sub_5A7B44@World@@QAEXPAVUnit@@@Z
