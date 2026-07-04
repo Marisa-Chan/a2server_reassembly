@@ -268,7 +268,7 @@ void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
             for (int32_t dy = 0; dy <= radius * 2; ++dy) {
                 int32_t bit_index = dx + dy * size;
                 int32_t coordinate = (packet.field_0xb + dx) + ((packet.field_0xc + dy) << 8);
-                int32_t applicable = MapStuff_Instance->sub_5953CB(obj, coordinate);
+                AreaEffect* applicable = MapStuff_Instance->sub_5953CB(obj, coordinate);
                 if (flag != 0) {
                     if (applicable != 0) {
                         packet.data[bit_index >> 3] |= (1 << (bit_index & 7));

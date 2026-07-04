@@ -4,6 +4,9 @@
 #include "unit.h"
 #include "world.h"
 #include "building.h"
+#include "sack.h"
+#include "net.h"
+#include "spell_effect.h"
 
 CString g_MissionText; //660f2c
 CString g_MissionBriefing; //660de8
@@ -563,4 +566,192 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out)
 
         *out = txt.Left(pos);
     }
+}
+
+// 58CA1B
+Unit* MapStuff::sub_58CA1B(PosYX yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.small_unit;
+}
+
+// 58CB5A
+Unit* MapStuff::sub_58CB5A(uint16_t yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.small_unit;
+}
+
+// 58CBB9
+Unit* MapStuff::sub_58CBB9(uint16_t yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.large_unit;
+}
+
+// 58826D
+void MapStuff::sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
+    uint8_t curX = unit->position->GetX();
+    uint8_t curY = unit->position->GetY();
+    this->sub_5882AE(unit, curX, curY, x, y, flag, target);
+}
+
+// 58E3D1 --- add unit to map
+int MapStuff::sub_58E3D1(Unit* unit) {
+    this->FUN_005969c6(unit, PosYX(0, 0), 2);
+    return this->sub_58B1D7(unit) != 0;
+}
+
+// 58E525 --- remove a sack token from the map
+void MapStuff::sub_58E525(Sack* sack) {
+    PosYX yx = sack->position->CompatGetYX();
+    if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+        this->scratch_cell_state.sack = nullptr;
+        this->cell_states[yx.val] = this->scratch_cell_state;
+        this->sub_58B593(yx);
+        if (!this->scratch_cell_state.IsEmpty()) {
+            this->FUN_0058b4a6(yx);
+        }
+    }
+}
+
+// 58E5C7 --- look up sack at map position
+Sack* MapStuff::sub_58E5C7(uint16_t param_2, uint16_t param_3) {
+    PosYX yx((uint8_t)param_2, (uint8_t)param_3);
+    return this->sub_58E611(yx.val);
+}
+
+// 58E5F3
+Sack* MapStuff::sub_58E5F3(TokenPos* pos) {
+    return this->sub_58E611(pos->CompatGetYX());
+}
+
+// 590F0A --- check if unit can be placed at current position
+int MapStuff::sub_590F0A(Unit* unit) {
+    PosYX yx = unit->position->CompatGetYX();
+    if (!this->sub_597140(unit, yx, 0)) {
+        return 0;
+    }
+    if (!this->sub_597140(unit, yx, 1)) {
+        return 0;
+    }
+    return 1;
+}
+
+// 5918B8
+void MapStuff::sub_5918B8(Unit* unit, Unit* target) {
+    uint8_t facing = this->sub_591424(unit, target);
+    this->sub_590F94(unit, facing);
+}
+
+// 5918E2
+void MapStuff::sub_5918E2(Unit* unit, PosYX yx) {
+    uint8_t facing = this->sub_59166C(unit, yx);
+    this->sub_590F94(unit, facing);
+}
+
+// 593AA4
+uint16_t MapStuff::sub_593AA4(Unit* unit) {
+    if (unit->list1.IsEmpty()) {
+        return 0;
+    }
+    PosYX tail = unit->list1.GetHead();
+    uint8_t x = unit->position->GetX();
+    uint8_t y = unit->position->GetY();
+    if (this->sub_593B29(PosYX(x, y), tail) == 1) {
+        return tail.val;
+    }
+    return 0;
+}
+
+// 593B29 --- Chebyshev distance between two YX positions
+uint8_t MapStuff::sub_593B29(PosYX yx1, PosYX yx2) {
+    uint8_t dx = abs(yx1.x - yx2.x);
+    uint8_t dy = abs(yx1.y - yx2.y);
+    return (std::max)(dx, dy);
+}
+
+// 594125 --- post-load map relink helper: remaps stale on-disk pointers in
+// each cell_states entry via g_Server's pointer remap table (sub_59423F).
+void MapStuff::sub_594125() {
+    POSITION pos = this->cell_states.GetStartPosition();
+    while (pos != nullptr) {
+        uint16_t key;
+        CellState val;
+        this->cell_states.GetNextAssoc(pos, key, val);
+        val.sub_59423F();
+        this->cell_states.SetAt(key, val);
+    }
+}
+
+// 5945EF --- remove building from map
+int32_t MapStuff::sub_5945EF(Building* building) {
+    int bit_index = 0;
+    for (int row = 0; row < building->height; row++) {
+        for (int col = 0; col < building->width; col++) {
+            if (building->tiles_mask & (1u << bit_index)) {
+                uint8_t x = building->position->GetX() + col;
+                uint8_t y = building->position->GetY() + row;
+                if (!this->sub_59449A(building, PosYX(x, y))) {
+                    return 0;
+                }
+            }
+            bit_index++;
+        }
+    }
+    return 1;
+}
+
+// 59536C --- get pointer to area_effects[6] array at cell yx
+AreaEffect** MapStuff::sub_59536C(uint32_t yx) {
+    uint16_t key = (uint16_t)yx;
+    if (!this->ObstacleAt(key).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(key, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.area_effects.data();
+}
+
+// 5953CB --- check if area effect covers cell coord
+AreaEffect* MapStuff::sub_5953CB(AreaEffect* ae, uint16_t coord) {
+    if (!this->ObstacleAt(coord).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(coord, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    uint8_t idx = ae->sub_538897();
+    return this->scratch_cell_state.area_effects[idx];
+}
+
+// 595438 --- check if area effect can be applied at (x, y)
+int MapStuff::sub_595438(AreaEffect* ae, uint8_t x, uint8_t y) {
+    return this->sub_5953CB(ae, PosYX(x, y).val) != nullptr;
+}
+
+// 5954AC --- teleport unit to (x, y)
+void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
+    PosYX yx(x, y);
+    if (!this->sub_595468(unit, yx)) {
+        return;
+    }
+    this->sub_58E3D1(unit);
+    unit->position->SetCoords(x, y);
+    this->sub_58AD4A(unit);
+    this->field41_0x58d80->sub_5A9A6A(unit);
+    g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }

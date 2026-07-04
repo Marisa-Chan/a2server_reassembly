@@ -82,6 +82,7 @@ struct CellState {
 
     int IsEmpty() const; //58bef6
     void Null(); //58a3da
+    void sub_59423F(); // Remaps stale on-disk pointer fields through g_Server's pointer remap table.
 };
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
@@ -179,11 +180,20 @@ public:
     int sub_597140(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
-    int32_t sub_5953CB(AreaEffect* ae, int32_t coord);  // Check if area effect covers cell coord — 5953CB
+    AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
 
     Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+
+    // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
+    void sub_5882AE(Unit* unit, uint8_t curX, uint8_t curY, uint8_t x, uint8_t y, int32_t flag, Unit* target);
+    int sub_58B1D7(Unit* unit);
+    void sub_58B593(PosYX yx);
+    Sack* sub_58E611(uint16_t yx);
+    void sub_590F94(Unit* unit, uint8_t facing);
+    int sub_59449A(class Building* building, PosYX yx);
+    int sub_595468(Unit* unit, PosYX yx);
 
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0

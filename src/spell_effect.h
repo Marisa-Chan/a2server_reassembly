@@ -77,6 +77,7 @@ public:
     void sub_537C8C();
     void sub_53822C();
     void sub_5384FF();
+    uint32_t sub_538897() const; // Map area-effect layer index from effect type.
 
 public:
     Effect* effect;

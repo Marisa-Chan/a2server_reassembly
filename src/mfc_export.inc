@@ -475,43 +475,57 @@ externdef ??1MapStuff@@QAE@XZ :proc
 
 externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
-externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
-externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
-externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
 externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z  :proc
-externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
 externdef ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z :proc          ; uint8_t MapStuff::sub_591424(Unit*, Unit*)
 externdef ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z :proc         ; int MapStuff::sub_58FE6D(Unit*, Unit*, uint8_t)
 externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@UPosYX@@E@Z :proc         ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
-externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc                  ; uint8_t MapStuff::sub_593B29(uint16_t, uint16_t)
 externdef ?sub_58FF51@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z :proc         ; void MapStuff::sub_58FF51(Unit*, uint16_t, uint8_t)
-externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z :proc       ; void MapStuff::sub_58826D(Unit*, uint8_t, uint8_t, int32_t, Unit*)
 externdef ?sub_590678@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_590678(Unit*)
 externdef ?sub_5907BE@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_5907BE(Unit*)
 externdef ?sub_590902@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_590902(Unit*, Unit*)
-externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc          ; void MapStuff::sub_5918E2(Unit*, uint16_t)
-externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc           ; uint16_t MapStuff::sub_593AA4(Unit*)
 externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
 externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff::sub_59028D(Unit*, Unit*, uint8_t)
-externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_5918B8(Unit*, Unit*)
-externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc       ; int32_t MapStuff::sub_5945EF(Building*)
-externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc   ; int MapStuff::sub_595438(AreaEffect*, uint8_t, uint8_t)
-externdef ?sub_5953CB@MapStuff@@QAEHPAVAreaEffect@@H@Z :proc    ; int32_t MapStuff::sub_5953CB(AreaEffect*, int32_t)
-externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CB5A(uint16_t)
-externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc           ; Unit* MapStuff::sub_58CBB9(uint16_t)
-externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc           ; Unit* MapStuff::sub_58CA1B(uint16_t)
-externdef ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
+
+externdef ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z :proc         ; void MapStuff::sub_5882AE(Unit*, uint8_t, uint8_t, uint8_t, uint8_t, int32_t, Unit*)
+externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
+externdef ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z :proc                 ; void MapStuff::sub_58B593(PosYX)
+externdef ?sub_58E611@MapStuff@@QAEPAVSack@@G@Z :proc                ; Sack* MapStuff::sub_58E611(uint16_t)
+externdef ?sub_590F94@MapStuff@@QAEXPAVUnit@@E@Z :proc               ; void MapStuff::sub_590F94(Unit*, uint8_t)
+externdef ?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z :proc    ; int MapStuff::sub_59449A(Building*, PosYX)
+externdef ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z :proc       ; int MapStuff::sub_595468(Unit*, PosYX)
+
+; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
+externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc
+externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
+externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
+externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z :proc
+externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
+externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
+externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
+externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
+externdef ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z :proc
+externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc
+externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
+externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
+externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
+externdef ?sub_594125@MapStuff@@QAEXXZ :proc
+externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
+externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
+externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
+externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
+externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
 extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
 extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
 externdef ?sub_58AB48@MapStuff@@QAEXAAVCArchive@@@Z :proc
-externdef ?sub_594125@MapStuff@@QAEXXZ :proc
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
+externdef ?sub_59423F@CellState@@QAEXXZ :proc          ; void CellState::sub_59423F()
+externdef ?sub_538897@AreaEffect@@QBEIXZ :proc         ; uint32_t AreaEffect::sub_538897() const
 
 
 extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
@@ -1120,7 +1134,6 @@ externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
 extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
 externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
-externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc
@@ -1852,7 +1865,6 @@ externdef ?FUN_004396d6@GO_d0@@QAEHXZ  :proc
 
 
 
-externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef _sub_5008CA :proc
 externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _dword_6CDB38 :dword                                  ; file checksum global
