@@ -20,6 +20,8 @@ CMapWordToPtr unk_660D28;
 CMapWordToPtr unk_660DA8;
 
 
+// Deserialize item.
+// 4F499B
 extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data)
 {
     uint8_t* data = *packet_data;

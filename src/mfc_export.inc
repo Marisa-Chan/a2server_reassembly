@@ -1069,7 +1069,6 @@ externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
 externdef _sub_4FA768 :proc                                                     ; void sub_4FA768(Player*)
 externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
-externdef ?sub_4EF4E7@@YGPAVHuman@@PAXHPAVPlayer@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F950F@Server@@QAEXXZ :proc              ; void Server::sub_4F950F()
@@ -1855,7 +1854,6 @@ externdef ?FUN_004396d6@GO_d0@@QAEHXZ  :proc
 
 externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
 externdef _sub_5008CA :proc
-externdef _sub_5421E9 :proc                                     ; void sub_5421E9() — seed random
 externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _dword_6CDB38 :dword                                  ; file checksum global
 externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data

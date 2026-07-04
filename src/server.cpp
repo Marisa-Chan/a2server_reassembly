@@ -52,7 +52,6 @@ extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID b
 extern "C" int32_t sub_5049D1(CString* str);
 
 // ---- Helpers used by sub_4F1471 ----
-extern "C" void sub_5421E9(); // Seed random: timeGetTime -> srand
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
 extern "C" int dword_6CDB38; // File checksum global
 
@@ -1137,7 +1136,7 @@ int Server::sub_4FC644(uint32_t pkt_word0, uint32_t pkt_word1,
     // TODO: create the Block struct as a real struct.
     if (*reinterpret_cast<uint32_t*>(Block) != 0xFFDDAA11u) {
         // Normal packet path
-        unit = sub_4EF4E7(Block, block_size, player);
+        unit = this->LoadCharacter(Block, block_size, player);
         Block = nullptr;
     } else {
         // Magic packet 0xFFDDAA11
@@ -1512,6 +1511,202 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     player->min_server_level = 1;
     player->max_server_level = 1;
 #endif
+    return unit;
+}
+
+// sub_5306EA: Convert experience to skill level (inverse of sub_530726).
+extern "C" int __cdecl sub_5306EA(int experience);
+
+// 4ef4e7
+// Loads a `Human` unit from a saved character packet.
+Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
+    CMemFile file(static_cast<uint8_t*>(data), size, 0);
+
+    FileSectionBasicInfo* basic_info = nullptr;
+    FileSectionStats* stats = nullptr;
+    uint8_t* kill_stats = nullptr;
+    PacketUnitStateVec* equipment = nullptr;
+    PacketUnitStateVec* inventory = nullptr;
+    uint8_t* section_40a = nullptr;
+    uint32_t size_40a = 0;
+
+    int32_t parse_ok = ParsePlayerFile_4F62E6(&file, &basic_info, &stats, &kill_stats, &equipment, &inventory, &section_40a, &size_40a);
+    free(file.Detach());
+
+    if (!parse_ok || basic_info == nullptr || stats == nullptr || equipment == nullptr) {
+        return nullptr;
+    }
+
+    Human* unit = nullptr;
+    switch (basic_info->character_class & 0xC0) {
+    case 0x00:
+        unit = new Human("Start_MF", 1, nullptr);
+        break;
+    case 0x40:
+        unit = new Human("Start_MM", 1, nullptr);
+        break;
+    case 0x80:
+        unit = new Human("Start_FF", 1, nullptr);
+        break;
+    case 0xC0:
+        unit = new Human("Start_FM", 1, nullptr);
+        break;
+    }
+
+    unit->body = stats->body;
+    unit->reaction = stats->reaction;
+    unit->mind = stats->mind;
+    unit->spirit = stats->spirit;
+    unit->face = basic_info->picture;
+    for (int i = 0; i < 5; i++) {
+        unit->experience_per_sphere[i] = stats->experience[i];
+    }
+    unit->main_sphere = basic_info->main_sphere;
+
+    int32_t max_stat = 0;
+    for (int32_t sphere = 1; sphere < 6; sphere++) {
+        unit->hit_values.skill_levels[sphere] = sub_5306EA(unit->experience_per_sphere[sphere - 1]);
+        max_stat = (std::max)(max_stat, (int32_t)unit->hit_values.skill_levels[sphere]);
+    }
+
+    for (int32_t sphere = 1; sphere < 6; sphere++) {
+        unit->hit_values2.skill_levels[sphere] = unit->hit_values.skill_levels[sphere];
+    }
+
+    if (max_stat > 95) {
+        player->min_server_level = 4;
+    } else if (max_stat > 75) {
+        player->min_server_level = 3;
+    } else if (max_stat > 50) {
+        player->min_server_level = 2;
+    } else {
+        player->min_server_level = 1;
+    }
+
+    if (max_stat < 26) {
+        player->max_server_level = 1;
+    } else if (max_stat < 51) {
+        player->max_server_level = 2;
+    } else if (max_stat < 90) {
+        player->max_server_level = 3;
+    } else {
+        player->max_server_level = 4;
+    }
+
+    unit->experience = 0;
+    for (int32_t sphere = 1; sphere < 6; sphere++) {
+        unit->experience += unit->experience_per_sphere[sphere - 1];
+    }
+
+    unit->VMethod18();
+
+    if (unit->mp_max > 0) {
+        unit->unit_attrs |= 6;
+        if (unit->spell_book != nullptr) {
+            delete unit->spell_book;
+        }
+        unit->spell_book = new SpellBook();
+        stats->spells |= 0x1000000;
+        for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
+            if ((stats->spells & (1 << spell_id)) != 0) {
+                Spell* spell = new Spell(spell_id);
+                unit->spell_book->sub_53D7F0(spell_id, spell);
+            }
+        }
+        if (unit->eye2 != nullptr) {
+            unit->eye2->spell_id = (uint8_t)stats->active_spell;
+        }
+    }
+
+    unit->name = player->name = basic_info->nick;
+    player->money = stats->money;
+    player->monster_kills = stats->monster_kills;
+    player->deaths = stats->deaths;
+    player->player_kills = stats->player_kills;
+    player->frags = stats->frags;
+
+    // Looks like this does `player->hat_player_id = basic_info->id1; player->flags = basic_info->id2;`?
+    std::memcpy(&player->hat_player_id, basic_info, 8);
+
+    unit->building_id = BldIdSet_AllocBit() & 0xFFFF;
+    unit->pOwner = player;
+    player->unit_list->AddTail(unit);
+
+    Group* group = new Group();
+    player->group_list->groups.AddTail(group);
+    group->AddUnit(unit);
+
+    if (kill_stats != nullptr) {
+        std::memcpy(player->kill_stats, kill_stats, sizeof(player->kill_stats));
+    }
+
+    // Equip the 12 fixed equipment slots.
+    unit->VMethod15();
+    if (unit->weapon != nullptr) {
+        unit->inventory->PutItemIntoBagAtDefault(unit->Unequip(unit->weapon));
+    }
+    if (unit->shield != nullptr) {
+        unit->inventory->PutItemIntoBagAtDefault(unit->Unequip(unit->shield));
+    }
+    if (unit->inventory != nullptr) {
+        delete unit->inventory;
+    }
+    unit->inventory = new Inventory();
+    uint8_t* eq_data = equipment->data;
+    for (int32_t i = 0; i < 12; i++) {
+        Item* item = sub_4F499B(&eq_data);
+        if (item->item_id != 0) {
+            unit->VMethod13(item);
+        }
+        if (item->field14_0x50 != 0) {
+            unit->field_0x1bc = 1;
+        }
+    }
+
+    // Load the bag/inventory items.
+    if (inventory != nullptr) {
+        uint8_t* inv_data = inventory->data;
+        while (inv_data < inventory->data + inventory->data_size) {
+            Item* item = sub_4F499B(&inv_data);
+            if (g_ServerConfig.gameType == 3 && item->item_id != 0 && item->world_equip != nullptr) {
+                const auto& name = item->world_equip->name;
+                if (name == "Potion Big Healing" || name == "Potion Medium Healing" || name == "Potion Health Regeneration") {
+                    item->item_id = 0;
+                }
+            }
+            if (item->item_id == 0) {
+                delete item;
+            } else {
+                unit->inventory->PutItemIntoBagAtDefault(item);
+                if (item->field14_0x50 != 0) {
+                    unit->field_0x1bc = 1;
+                }
+            }
+        }
+    }
+
+    delete unit->eye;
+    unit->eye = new UnitEye();
+    if (unit->eye2 != nullptr) {
+        delete unit->eye2;
+    }
+    unit->eye2 = new UnitEye2();
+    delete unit->position;
+    unit->position = new TokenPos();
+    unit->cast_target = nullptr;
+    unit->some_spell = nullptr;
+    unit->spell = nullptr;
+    unit->some_item = nullptr;
+    unit->last_hit_by = nullptr;
+    unit->sub_52C641();
+    unit->hp = unit->hp_max;
+    unit->mp = unit->mp_max;
+    unit->decay = 0;
+    unit->VMethod18();
+    unit->unit_attrs &= ~0x08;
+    unit->field_x18 = 0;
+    unit->field_0x1a4 = player->vision_sharing_id;
+
     return unit;
 }
 
@@ -3604,7 +3799,7 @@ int Server::sub_4F1471(CString param_1) {
     this->field59_0x208 = 0;
     this->current_map_name = param_1;
 
-    sub_5421E9();
+    SrandInit();
 
     CString map_code;
 

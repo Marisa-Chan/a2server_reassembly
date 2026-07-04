@@ -130,8 +130,6 @@ ASSERT_SIZE(Srv1, 0x3c);
 
 class Player;
 
-Human* _stdcall sub_4EF4E7(void* block, int arg14, Player* player); // Load character.
-
 struct Server {
 public:
     void ServerTic();
@@ -146,7 +144,7 @@ public:
     int sub_4EDB83(const CString& filename); // Load saved game file
     void sub_4FA01F(); // Arena mode file list setup
 
-    // Sub-functions called by sub_4FC644
+    Human* LoadCharacter(void* data, int32_t size, Player* player); // 4ef4e7: Load character from saved packet.
     Human* sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class);
     void sub_4EE028(Humanoid* humanoid);
     void sub_5013D4(Player* player);
