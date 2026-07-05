@@ -15,8 +15,8 @@ class Unit;
 
 // UnitEye: some fields might be unused. Dumping them all as is for now.
 struct UnitEye {
-    uint8_t field0_0x0;
-    uint8_t field1_0x1;
+    uint8_t field0_0x0; // Current angle.
+    uint8_t field1_0x1; // Intent angle.
     uint8_t field2_0x2;
     uint8_t field3_0x3;
     uint8_t field4_0x4;
@@ -126,9 +126,8 @@ struct UnitEye {
     uint8_t field108_0x6d;
     uint8_t field109_0x6e;
     uint8_t field110_0x6f;
-    uint8_t field111_0x70;
-    uint8_t field112_0x71;
-    uint16_t field113_0x72;
+    uint16_t field111_0x70;
+    uint16_t field113_0x72; // Effective speed?
     PosYX field114_0x74;
     PosYX field115_0x76;
     uint8_t counter;
@@ -137,10 +136,10 @@ struct UnitEye {
     uint8_t field119_0x7b;
     Unit* field120_0x7c;
     PosYX field121_0x80;
-    uint8_t field122_0x82;
-    uint8_t field123_0x83;
-    uint8_t field124_0x84;
-    uint8_t field125_0x85;
+    uint8_t field122_0x82; // X position
+    uint8_t field123_0x83; // Y position
+    uint8_t field124_0x84; // XX sub-cell position
+    uint8_t field125_0x85; // YY sub-cell position
     uint8_t field126_0x86;
     uint8_t field127_0x87;
     uint8_t field128_0x88;
@@ -162,12 +161,9 @@ struct UnitEye {
     uint8_t field149_0xa5;
     uint8_t field150_0xa6;
     uint8_t field151_0xa7;
-    uint8_t field152_0xa8;
-    uint8_t field153_0xa9;
-    uint8_t field154_0xaa;
-    uint8_t field155_0xab;
-    uint8_t field156_0xac;
-    uint8_t field157_0xad;
+    uint16_t field152_0xa8;
+    uint16_t field154_0xaa;
+    uint16_t field156_0xac;
     uint8_t field158_0xae;
     uint8_t field159_0xaf;
     uint8_t field160_0xb0;
@@ -182,6 +178,7 @@ public:
     int sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1);
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
+ASSERT_OFFSET(UnitEye, field122_0x82, 0x82);
 ASSERT_SIZE(UnitEye, 0xb4);
 
 struct UnitEye2 {

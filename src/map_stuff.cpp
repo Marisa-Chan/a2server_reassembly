@@ -1,5 +1,6 @@
 #include "map_stuff.h"
 
+#include "constants.h"
 #include "eye.h"
 #include "unit.h"
 #include "world.h"
@@ -195,6 +196,319 @@ int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
     return 0;
 }
 
+// 590678
+void MapStuff::sub_590678(Unit* unit) {
+    uint16_t prev_yx = unit->position->CompatGetYX();
+    this->sub_58FB12(unit);
+
+    if (prev_yx != unit->position->CompatGetYX()) {
+        unit->eye->field113_0x72 = this->sub_5913BD(unit, unit->position->GetX(), unit->position->GetY());
+    }
+
+    if (!unit->position->sub_58bec3()) {
+        return;
+    }
+
+    unit->eye->field152_0xa8 = 0;
+    unit->eye->field154_0xaa = 0;
+    unit->eye->field156_0xac = 0;
+
+    this->FUN_005969c6(unit, 0, 2);
+    this->FUN_005969c6(unit, 0, 1);
+    unit->list2.RemoveAll();
+
+    if (!this->cell_states.Lookup(unit->position->CompatGetYX(), this->scratch_cell_state)) {
+        return;
+    }
+
+    if (this->scratch_cell_state.spell_id == spell::teleport) {
+        this->sub_5954AC(unit, this->scratch_cell_state.teleport_x, this->scratch_cell_state.teleport_y);
+    }
+}
+
+// 5907BE
+void MapStuff::sub_5907BE(Unit* unit) {
+    if (unit->list2.IsEmpty()) {
+        this->sub_58FD2F(unit);
+        return;
+    }
+
+    unit->eye->position1 = unit->list2.GetHead();
+
+    uint16_t fresh_yx = unit->position->CompatGetYX();
+    unit->eye->field111_0x70 = fresh_yx;
+    unit->eye->field140_0x9c = 0;
+
+    this->FUN_005969c6(unit, 0, 2);
+    this->FUN_005969c6(unit, unit->eye->position1, 0);
+
+    unit->eye->field1_0x1 = this->sub_58A158(unit, unit->eye->position1);
+
+    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
+        this->sub_593CD5(unit, unit->position->CompatGetYX(), unit->eye->field0_0x0);
+        unit->eye->field156_0xac = 0;
+        this->sub_58FB12(unit);
+    } else {
+        this->sub_590F94(unit, unit->eye->field1_0x1);
+    }
+}
+
+// 58FD2F
+void MapStuff::sub_58FD2F(Unit* unit) {
+    uint8_t orig_facing = unit->eye->field0_0x0;
+
+    uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
+    if (diff > 0x80) {
+        diff = 0x100 - diff;
+    }
+
+    if (diff < unit->eye->rotation_speed) {
+        unit->eye->field0_0x0 = unit->eye->field1_0x1;
+        return;
+    }
+
+    if (((orig_facing + diff) & 0xFF) == unit->eye->field1_0x1) {
+        unit->eye->field0_0x0 = unit->eye->field0_0x0 + unit->eye->rotation_speed;
+    } else if (((orig_facing - diff) & 0xFF) == unit->eye->field1_0x1) {
+        unit->eye->field0_0x0 = unit->eye->field0_0x0 - unit->eye->rotation_speed;
+    }
+}
+
+// 590F94
+void MapStuff::sub_590F94(Unit* unit, uint8_t facing) {
+    unit->eye->field1_0x1 = facing;
+
+    uint8_t diff = abs(unit->eye->field0_0x0 - unit->eye->field1_0x1);
+
+    if (unit->eye->field144_0xa0 == 0) {
+        unit->eye->field141_0x9d = 0;
+    }
+
+    if (unit->eye->field144_0xa0 == 0 && (diff < 0x21 || (0x100 - diff) < 0x21)) {
+        unit->eye->field0_0x0 = unit->eye->field1_0x1;
+        unit->eye->field148_0xa4 = 1;
+    } else {
+        this->sub_58FD2F(unit);
+
+        if (diff > 0x80) {
+            diff = 0x100 - diff;
+        }
+
+        unit->eye->field148_0xa4 = diff / unit->eye->rotation_speed;
+
+        if (unit->eye->field148_0xa4 * unit->eye->rotation_speed != diff) {
+            unit->eye->field148_0xa4 += 1;
+        }
+    }
+
+    unit->eye->field144_0xa0 = 1;
+    unit->eye->field141_0x9d += 1;
+
+    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
+        unit->eye->field144_0xa0 = 0;
+    }
+}
+
+// 590902
+void MapStuff::sub_590902(Unit* unit, Unit* target) {
+    int32_t distance = 0;
+    int32_t kind = 0;
+    PosYX cur_yx = unit->position->CompatGetYX();
+    PosYX next_yx;
+
+    int32_t list1_count = unit->list1.GetCount();
+    if (list1_count != 0) {
+        next_yx = unit->list1.GetHead();
+        distance = this->sub_58BFA3(cur_yx.x, cur_yx.y, next_yx.x, next_yx.y);
+    }
+
+    PosYX target_yx;
+    if (list1_count <= this->static_isnt_needed) {
+        target_yx = unit->eye->field115_0x76;
+        kind = 1;
+    } else if (distance > this->dynamic_by_static_lookup) {
+        target_yx = next_yx;
+        kind = 2;
+    } else {
+        POSITION pos = unit->list1.GetHeadPosition();
+        for (int32_t i = 0; i < this->dynamic_by_static_lookup + 1; i++) {
+            target_yx = unit->list1.GetNext(pos);
+        }
+        kind = 3;
+    }
+
+    this->sub_58826D(unit, target_yx.x, target_yx.y, 0, target);
+
+    if (unit->list2.GetCount() == 0 && kind == 1) {
+        unit->eye->field139_0x98 = 1;
+    }
+
+    if (list1_count != 0 && distance <= this->dynamic_by_static_lookup) {
+        unit->list1.RemoveHead();
+    }
+}
+
+// 58E407
+int MapStuff::sub_58E407(Sack* sack) {
+    if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(1)) {
+        return 0;
+    }
+
+    if (this->cell_states.Lookup(sack->position->CompatGetYX(), this->scratch_cell_state)) {
+        if (this->scratch_cell_state.sack != nullptr) {
+            return 0;
+        }
+        this->scratch_cell_state.sack = sack;
+        this->cell_states.SetAt(sack->position->CompatGetYX(), this->scratch_cell_state);
+        return 1;
+    }
+
+    this->FUN_0058b3e0(sack->position->CompatGetYX());
+
+    if (!this->cell_states.Lookup(sack->position->CompatGetYX(), this->scratch_cell_state)) {
+        return 0;
+    }
+
+    this->scratch_cell_state.sack = sack;
+    this->cell_states.SetAt(sack->position->CompatGetYX(), this->scratch_cell_state);
+    this->sub_58B593(sack->position->CompatGetYX());
+    return 1;
+}
+
+// 596576
+int MapStuff::sub_596576(uint16_t yx, void* src) {
+    if (this->Obstacle2At(yx).TestBits(1)) {
+        return 0;
+    }
+
+    if (this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        bool had_spell = this->scratch_cell_state.spell_id != 0;
+        memcpy(&this->scratch_cell_state.spell_id, src, 6);
+        this->cell_states.SetAt(yx, this->scratch_cell_state);
+        return had_spell ? 0 : 1;
+    }
+
+    this->FUN_0058b3e0(yx);
+
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return 0;
+    }
+
+    memcpy(&this->scratch_cell_state.spell_id, src, 6);
+    this->cell_states.SetAt(yx, this->scratch_cell_state);
+    this->sub_58B593(yx);
+    return 1;
+}
+
+// 5948B0
+void MapStuff::sub_5948B0(CWordArray* encode_buf) {
+    encode_buf->RemoveAll();
+
+    uint8_t max_x = this->map_max_x;
+    uint8_t max_y = this->map_max_y;
+
+    PosYX yx(8, 8);
+
+    uint8_t cur = this->ObstacleAt(yx).TestBits(0x10);
+    encode_buf->Add(cur);
+    uint16_t run_len = 1;
+
+    for (;;) {
+        yx.val += 1;
+        uint8_t bits = this->ObstacleAt(yx).TestBits(0x10);
+
+        if (cur == bits) {
+            run_len += 1;
+        } else {
+            encode_buf->Add(run_len);
+            cur = bits;
+            run_len = 1;
+        }
+
+        if (yx.x == max_x && yx.y == max_y) {
+            encode_buf->Add(run_len);
+            break;
+        }
+
+        if (yx.x == max_x) {
+            yx.val = (yx.val & 0xFF00) + 0x107;
+        }
+    }
+}
+
+// 59190D
+int MapStuff::sub_59190D(Unit* target, Unit* observer) {
+    int32_t target_size = target->VMethod3();
+    int32_t observer_size = observer->VMethod3();
+
+    int32_t x1 = target->position->GetXx() + (target_size - 1) * 0x80;
+    int32_t y1 = target->position->GetYy() + (target_size - 1) * 0x80;
+    int32_t x2 = observer->position->GetXx() + (observer_size - 1) * 0x80;
+    int32_t y2 = observer->position->GetYy() + (observer_size - 1) * 0x80;
+
+    int32_t dx = abs(x1 - x2) - (target_size + observer_size) * 0x80;
+    if (dx < 0) {
+        dx = 0;
+    }
+
+    int32_t dy = abs(y1 - y2) - (target_size + observer_size) * 0x80;
+    if (dy < 0) {
+        dy = 0;
+    }
+
+    int32_t range = (std::max)(dx, dy);
+    return (range >> 8) + 1;
+}
+
+// 597140
+int MapStuff::sub_597140(Unit* unit, PosYX yx, int32_t flag) {
+    int32_t size = unit->VMethod3();
+
+    for (int32_t dx = 0; dx < size; dx++) {
+        for (int32_t dy = 0; dy < size; dy++) {
+            PosYX cell(yx.x + dx, yx.y + dy);
+            bool blocked = (flag != 0)
+                ? this->ObstacleAt(cell).TestBits(unit->eye->field5_0x5)
+                : this->Obstacle2At(cell).TestBits(unit->eye->field5_0x5);
+            if (blocked) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
+// 58AD4A
+int MapStuff::sub_58AD4A(Unit* unit) {
+    int32_t size = unit->VMethod3();
+
+    uint8_t x = unit->position->GetX();
+    uint8_t y = unit->position->GetY();
+
+    unit->eye->field113_0x72 = this->sub_5913BD(unit, x, y);
+    unit->eye->field122_0x82 = x;
+    unit->eye->field123_0x83 = y;
+    unit->eye->field124_0x84 = unit->position->GetXx();
+    unit->eye->field125_0x85 = unit->position->GetYy();
+
+    if (!this->sub_590F0A(unit)) {
+        if (unit->eye->field121_0x80.val != unit->position->CompatGetYX()) {
+            // WAT: Original code calls an empty no-op stub function here.
+        }
+    }
+
+    for (int32_t dy = 0; dy < size; dy++) {
+        for (int32_t dx = 0; dx < size; dx++) {
+            if (!this->sub_58AEEF(unit, x + dx, y + dy)) {
+                return 0;
+            }
+        }
+    }
+
+    this->FUN_005969c6(unit, unit->position->CompatGetYX(), 1);
+    return 1;
+}
 
 void MapStuff::FUN_0058b5d6(CellState& cell)
 { //58b5d6
@@ -444,8 +758,8 @@ void CellState::Null()
     spell_damage = 0;
     spell_x = 0;
     spell_y = 0;
-    gap_0x38[0] = 0;
-    gap_0x38[1] = 0;
+    teleport_x = 0;
+    teleport_y = 0;
     cell_yx = 0;
 }
 

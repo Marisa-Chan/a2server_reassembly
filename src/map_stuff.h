@@ -77,8 +77,9 @@ struct CellState {
     uint8_t  spell_damage;       // +0x35
     uint8_t  spell_x;            // +0x36
     uint8_t  spell_y;            // +0x37
-    uint8_t  gap_0x38[2];
-    PosYX  cell_yx;            // +0x3A
+    uint8_t  teleport_x;         // +0x38: teleport destination x
+    uint8_t  teleport_y;         // +0x39: teleport destination y
+    PosYX  cell_yx;              // +0x3A
 
     int IsEmpty() const; //58bef6
     void Null(); //58a3da
@@ -172,6 +173,8 @@ public:
     void sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target);
     void sub_590678(Unit* unit);
     void sub_5907BE(Unit* unit);
+    void sub_58FD2F(Unit* unit); // Rotates eye->field0_0x0 toward eye->field1_0x1 by up to rotation_speed.
+    void sub_590F94(Unit* unit, uint8_t facing);
     void sub_590902(Unit* unit, Unit* target);
     void sub_5918B8(Unit* unit, Unit* target);
     void sub_5918E2(Unit* unit, PosYX yx);
@@ -193,7 +196,11 @@ public:
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_5882AE(Unit* unit, uint8_t curX, uint8_t curY, uint8_t x, uint8_t y, int32_t flag, Unit* target);
-    void sub_590F94(Unit* unit, uint8_t facing);
+    void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
+    int32_t sub_593CD5(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
+    int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
+    int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y).
+    int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Distance metric between two (x,y) points.
 
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
