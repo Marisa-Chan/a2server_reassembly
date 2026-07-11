@@ -215,12 +215,22 @@ public:
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     int32_t sub_594709(uint16_t yx); // 594709
     uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t vmethod3_result); // 591A96
-    void sub_597290(Unit* unit, uint8_t x, uint8_t y); // 597290
-    void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // 5974B0
-    void sub_597990(Unit* unit, uint8_t x, uint8_t y); // 597990
-    void sub_5976D0(Unit* unit, uint8_t x, uint8_t y); // 5976D0
+    void sub_597290(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue2 — 597290
+    void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue1 — 5974B0
+    void sub_597990(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_5978F0, queueing improved cells into queue1 — 597990
+    void sub_5976D0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_5978F0, queueing improved cells into queue2 — 5976D0
     int32_t sub_596F80(Unit* unit, uint16_t yx); // 596F80
+    int32_t sub_5978F0(Unit* unit, uint16_t yx); // Passability check used by sub_5976D0/sub_597990 — 5978F0
     uint16_t* sub_59A670(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670
+    uint8_t* sub_59A6F0(uint8_t x, uint8_t y); // Get pointer into walk_cost_map for (x,y) — 59A6F0
+
+    // Member function pointer to a passability check with the same shape as sub_596F80/sub_5978F0.
+    using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
+
+    // Shared by sub_597290/sub_5974B0/sub_597990/sub_5976D0: recomputes movement cost to each
+    // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
+    // gated by the given passability check, and enqueues improved cells into the given queue.
+    void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);
 
     void sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
 

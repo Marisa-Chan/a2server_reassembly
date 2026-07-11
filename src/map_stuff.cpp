@@ -1400,6 +1400,68 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
     }
 }
 
+// Shared by sub_597290/sub_5974B0/sub_597990/sub_5976D0: recomputes movement cost to each
+// of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
+// gated by the given passability check, and enqueues improved cells into the given queue.
+void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count) {
+    for (int8_t dx = -1; dx <= 1; dx++) {
+        for (int8_t dy = -1; dy <= 1; dy++) {
+            uint8_t nx = x + dx;
+            uint8_t ny = y + dy;
+            if (!(this->*passable)(unit, PosYX(nx, ny).val)) {
+                continue;
+            }
+
+            uint16_t cost;
+            if (dx == 0 || dy == 0) {
+                if (unit->sub_59A030() == 1) {
+                    cost = *this->sub_59A670(x, y) + *this->sub_59A6F0(nx, ny);
+                } else {
+                    cost = *this->sub_59A670(x, y) + 2;
+                }
+            } else {
+                if (unit->sub_59A030() == 1) {
+                    uint8_t walk_cost = *this->sub_59A6F0(nx, ny);
+                    cost = *this->sub_59A670(x, y) + walk_cost + (walk_cost / 2);
+                } else {
+                    cost = *this->sub_59A670(x, y) + 3;
+                }
+            }
+
+            if (cost < *this->sub_59A670(nx, ny)) {
+                *this->sub_59A670(nx, ny) = cost;
+                out_x[out_count] = nx;
+                out_y[out_count] = ny;
+                out_count++;
+            }
+        }
+    }
+}
+
+// 597290 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
+// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
+void MapStuff::sub_597290(Unit* unit, uint8_t x, uint8_t y) {
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->field_0x50008 + 0x2000, this->field_0x50008 + 0x3000, this->field8_0x5400a);
+}
+
+// 5974B0 --- expands the static-path cost grid from (x,y) using sub_596F80 as the passability
+// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
+void MapStuff::sub_5974B0(Unit* unit, uint8_t x, uint8_t y) {
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_596F80, this->field_0x50008, this->field_0x50008 + 0x1000, this->field7_0x54008);
+}
+
+// 5976D0 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
+// check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], field8_0x5400a).
+void MapStuff::sub_5976D0(Unit* unit, uint8_t x, uint8_t y) {
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->field_0x50008 + 0x2000, this->field_0x50008 + 0x3000, this->field8_0x5400a);
+}
+
+// 597990 --- expands the dynamic-path cost grid from (x,y) using sub_5978F0 as the passability
+// check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], field7_0x54008).
+void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
+    this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->field_0x50008, this->field_0x50008 + 0x1000, this->field7_0x54008);
+}
+
 // 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
 // perimeter starting from where the unit->target line of sight crosses it.
 uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {

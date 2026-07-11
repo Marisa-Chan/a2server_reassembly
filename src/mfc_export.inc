@@ -533,12 +533,10 @@ externdef ?sub_592831@MapStuff@@QAEEPAVUnit@@0@Z :proc                    ; uint
 externdef ?sub_593134@MapStuff@@QAEFPAVUnit@@HGI@Z :proc                  ; int16_t MapStuff::sub_593134(Unit*, int32_t, uint16_t, uint32_t) [ASM]
 externdef ?sub_594709@MapStuff@@QAEHG@Z :proc                             ; int32_t MapStuff::sub_594709(uint16_t) [ASM]
 externdef ?sub_591A96@MapStuff@@QAEEGGH@Z :proc                           ; uint8_t MapStuff::sub_591A96(uint16_t, uint16_t, int32_t) [ASM]
-externdef ?sub_597290@MapStuff@@QAEXPAVUnit@@EE@Z :proc                   ; void MapStuff::sub_597290(Unit*, uint8_t, uint8_t) [ASM]
-externdef ?sub_5974B0@MapStuff@@QAEXPAVUnit@@EE@Z :proc                   ; void MapStuff::sub_5974B0(Unit*, uint8_t, uint8_t) [ASM]
-externdef ?sub_597990@MapStuff@@QAEXPAVUnit@@EE@Z :proc                   ; void MapStuff::sub_597990(Unit*, uint8_t, uint8_t) [ASM]
-externdef ?sub_5976D0@MapStuff@@QAEXPAVUnit@@EE@Z :proc                   ; void MapStuff::sub_5976D0(Unit*, uint8_t, uint8_t) [ASM]
 externdef ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z :proc                    ; int32_t MapStuff::sub_596F80(Unit*, uint16_t) [ASM]
+externdef ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z :proc                    ; int32_t MapStuff::sub_5978F0(Unit*, uint16_t) [ASM]
 externdef ?sub_59A670@MapStuff@@QAEPAGEE@Z :proc                          ; uint16_t* MapStuff::sub_59A670(uint8_t, uint8_t) [ASM]
+externdef ?sub_59A6F0@MapStuff@@QAEPAEEE@Z :proc                          ; uint8_t* MapStuff::sub_59A6F0(uint8_t, uint8_t) [ASM]
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
 externdef ?sub_59423F@CellState@@QAEXXZ :proc          ; void CellState::sub_59423F()
