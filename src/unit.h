@@ -71,10 +71,10 @@ public: // VTable at 60efc0.
     virtual void Serialize(CArchive& ar) override;
     virtual void VMethod1() override;
     virtual void VMethod2() override;
-    virtual int32_t VMethod3() override;
-    virtual int32_t VMethod4() override;
+    virtual int32_t VMethod3() override; // TokenSize
+    virtual int32_t VMethod4() override; // MovementType
     virtual void VMethod5() override;
-    virtual int32_t VMethod7() override;
+    virtual int32_t VMethod7() override; // IsUnit
     virtual int32_t VMethod8() override; // IsHumanoid
     virtual void VMethod10();
     virtual void VMethod11(Unit *);
@@ -125,6 +125,7 @@ public:
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
     void sub_52F601(const CString& value);
+    int32_t sub_59A030(); // Returns movement type.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
     

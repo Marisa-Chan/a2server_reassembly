@@ -1,13 +1,16 @@
 #include "map_stuff.h"
 
 #include "constants.h"
+#include "building.h"
 #include "eye.h"
+#include "game_app.h"
+#include "group.h"
+#include "net.h"
+#include "player.h"
+#include "sack.h"
+#include "spell_effect.h"
 #include "unit.h"
 #include "world.h"
-#include "building.h"
-#include "sack.h"
-#include "net.h"
-#include "spell_effect.h"
 
 CString g_MissionText; //660f2c
 CString g_MissionBriefing; //660de8
@@ -917,9 +920,9 @@ Unit* MapStuff::sub_58CBB9(uint16_t yx) {
 
 // 58826D
 void MapStuff::sub_58826D(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
-    uint8_t curX = unit->position->GetX();
-    uint8_t curY = unit->position->GetY();
-    this->sub_5882AE(unit, curX, curY, x, y, flag, target);
+    uint8_t cur_x = unit->position->GetX();
+    uint8_t cur_y = unit->position->GetY();
+    this->sub_5882AE(unit, cur_x, cur_y, x, y, flag, target);
 }
 
 // 58B27F
@@ -1161,4 +1164,188 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     this->sub_58AD4A(unit);
     this->field41_0x58d80->sub_5A9A6A(unit);
     g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+}
+
+// 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
+void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
+    PosYX dest(x, y);
+    int32_t unit_size = unit->VMethod3();
+
+    if (flag != 0) {
+        unit->list1.RemoveAll();
+    }
+
+    if (cur_x == x && cur_y == y) {
+        return;
+    }
+
+    const uint16_t distance = this->sub_58BFA3(cur_x, cur_y, x, y);
+
+    // Seed the BFS work queue with the unit's current tile.
+    this->field7_0x54008 = 0;
+    this->field8_0x5400a = 0;
+    this->field_0x50008[0] = cur_x;
+    this->field_0x50008[0x1000] = cur_y;
+    this->field7_0x54008 = 1;
+
+    uint16_t ring = 0;
+
+    if (flag == 0) {
+        this->FUN_005969c6(unit, unit->position->CompatGetYX(), 2);
+
+        if (unit_size == 1) {
+            this->field_0x54584[0] = PosYX(cur_x, cur_y);
+            uint8_t flag_byte = unit->eye->field5_0x5;
+            int32_t cond_flag = (unit->sub_59A030() == 1) ? 1 : 0;
+
+            int32_t extra = distance >> 2;
+            if (extra < this->dynamic_scan_ahead) {
+                extra = this->dynamic_scan_ahead;
+            }
+            uint16_t ring_limit = distance + extra;
+
+            int32_t cur_packed = PosYX(cur_x, cur_y).val;
+            int32_t half_width = (ring_limit << 8) + ring_limit + 0x200;
+            int32_t lo = cur_packed - half_width;
+            if (lo < 0) {
+                lo = 0;
+            }
+            int32_t hi = cur_packed + half_width;
+            if ((uint32_t)hi >= 0x10000) {
+                hi = 0x10000;
+            }
+            memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
+            *this->sub_59A670(cur_x, cur_y) = 0;
+
+            while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && ring < ring_limit) {
+                this->field8_0x5400a = 0;
+                for (int i = 0; i < this->field7_0x54008; i++) {
+                    this->sub_598BF0(unit, this->field_0x54584[i], flag_byte, cond_flag);
+                }
+                this->field7_0x54008 = 0;
+                for (int i = 0; i < this->field8_0x5400a; i++) {
+                    this->sub_599410(unit, this->field_0x56584[i], flag_byte, cond_flag);
+                }
+                ring += 2;
+            }
+        } else {
+            memset(this->field3_0x30000, 0xFF, 0x20000);
+            *this->sub_59A670(cur_x, cur_y) = 0;
+
+            while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->dynamic_scan_ahead) {
+                this->field8_0x5400a = 0;
+                for (int i = 0; i < this->field7_0x54008; i++) {
+                    this->sub_5976D0(unit, this->field_0x50008[i], this->field_0x50008[0x1000 + i]);
+                }
+                this->field7_0x54008 = 0;
+                for (int i = 0; i < this->field8_0x5400a; i++) {
+                    this->sub_597990(unit, this->field_0x50008[0x2000 + i], this->field_0x50008[0x3000 + i]);
+                }
+                ring += 2;
+            }
+        }
+
+        this->FUN_005969c6(unit, unit->position->CompatGetYX(), 1);
+    } else if (unit_size == 1) {
+        this->field_0x54584[0] = PosYX(cur_x, cur_y);
+        uint8_t flag_byte = unit->eye->field5_0x5;
+        int32_t cond_flag = (unit->sub_59A030() == 1) ? 1 : 0;
+
+        int32_t extra = distance >> 2;
+        if (extra < this->static_scan_ahead) {
+            extra = this->static_scan_ahead;
+        }
+        int32_t ring_limit = distance + extra;
+
+        if (unit->pOwner->is_ai == 0 && this->sub_596F80(unit, dest.val) != 0) {
+            ring_limit = 1000;
+            memset(this->field3_0x30000, 0xFF, 0x20000);
+            *this->sub_59A670(cur_x, cur_y) = 0;
+        } else {
+            int32_t cur_packed = PosYX(cur_x, cur_y).val;
+            int32_t half_width = (ring_limit << 8) + ring_limit + 0x200;
+            int32_t lo = cur_packed - half_width;
+            if (lo < 0) {
+                lo = 0;
+            }
+            int32_t hi = cur_packed + half_width;
+            if ((uint32_t)hi >= 0x10000) {
+                hi = 0x10000;
+            }
+            memset(this->field3_0x30000 + lo, 0xFF, (hi - lo) * 2);
+            *this->sub_59A670(cur_x, cur_y) = 0;
+        }
+
+        while (this->field3_0x30000[dest.val] == 0xFFFF && this->field7_0x54008 != 0 && (int32_t)ring < ring_limit) {
+            this->field8_0x5400a = 0;
+            for (int i = 0; i < this->field7_0x54008; i++) {
+                this->sub_597BB0(unit, this->field_0x54584[i], flag_byte, cond_flag);
+            }
+            this->field7_0x54008 = 0;
+            for (int i = 0; i < this->field8_0x5400a; i++) {
+                this->sub_5983D0(unit, this->field_0x56584[i], flag_byte, cond_flag);
+            }
+            ring += 2;
+        }
+    } else {
+        memset(this->field3_0x30000, 0xFF, 0x20000);
+        *this->sub_59A670(cur_x, cur_y) = 0;
+
+        while (*this->sub_59A670(x, y) == 0xFFFF && this->field7_0x54008 != 0 && ring < distance + this->static_scan_ahead) {
+            this->field8_0x5400a = 0;
+            for (int i = 0; i < this->field7_0x54008; i++) {
+                this->sub_597290(unit, this->field_0x50008[i], this->field_0x50008[0x1000 + i]);
+            }
+            this->field7_0x54008 = 0;
+            for (int i = 0; i < this->field8_0x5400a; i++) {
+                this->sub_5974B0(unit, this->field_0x50008[0x2000 + i], this->field_0x50008[0x3000 + i]);
+            }
+            ring += 2;
+        }
+    }
+
+    if (*this->sub_59A670(x, y) == 0xFFFF) {
+        if (flag == 0) {
+            uint16_t result_yx;
+            if (target == nullptr) {
+                result_yx = this->sub_593134(unit, 0, dest.val, 8);
+            } else {
+                result_yx = this->sub_592A48(unit, target);
+            }
+            if (result_yx != 0) {
+                PosYX result(result_yx);
+                this->sub_5893C6(unit, cur_x, cur_y, result.x, result.y);
+            }
+        } else {
+            uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
+            int32_t reached = this->sub_594709(dest.val);
+            if (reached == 0) {
+                if (this->sub_593B29(PosYX(step), dest) > 1) {
+                    g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
+                }
+            } else {
+                if (this->sub_593B29(PosYX(step), dest) > 2) {
+                    g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
+                }
+            }
+
+            if (unit->group->group_sub->field_0x20 == 0x12 && unit->eye2->cast_action == 5) {
+                int32_t size = unit->VMethod3();
+                uint8_t range = this->sub_591A96(step, dest.val, size);
+                if (this->field41_0x58d80->UnitMaxRange(unit) < range) {
+                    unit->eye2->tick16 = g_Server->tick16;
+                }
+            }
+
+            if (step == 0) {
+                unit->list1.RemoveAll();
+            } else {
+                this->sub_5890CC(unit, cur_x, cur_y, (uint8_t)step, (uint8_t)(step >> 8));
+            }
+        }
+    } else if (flag == 0) {
+        this->sub_5893C6(unit, cur_x, cur_y, x, y);
+    } else {
+        this->sub_5890CC(unit, cur_x, cur_y, x, y);
+    }
 }

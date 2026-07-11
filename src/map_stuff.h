@@ -110,8 +110,9 @@ struct MapStuff { // aka astruct_5
     uint8_t walk_cost[11];
     uint8_t field_0x54151[31];
     int32_t field31_0x54170[8];
-    uint8_t field_0x54190[16384];
-    uint8_t field_0x58190[1012];
+    uint8_t field_0x54190[0x3f4];
+    uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by sub_5882AE.
+    uint16_t field_0x56584[0x1000]; // Path lookup table for dynamic obstacles, used by sub_5882AE.
     int32_t static_scan_ahead;
     int32_t dynamic_scan_ahead;
     int32_t static_refresh_rate;
@@ -195,12 +196,30 @@ public:
     int sub_595468(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
-    void sub_5882AE(Unit* unit, uint8_t curX, uint8_t curY, uint8_t x, uint8_t y, int32_t flag, Unit* target);
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
     int32_t sub_593CD5(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
     int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y).
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Distance metric between two (x,y) points.
+
+    void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5890CC
+    void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5893C6
+    uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
+    int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
+    int32_t sub_594709(uint16_t yx); // 594709
+    uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t vmethod3_result); // 591A96
+    void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 597BB0
+    void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 5983D0
+    void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 598BF0
+    void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 599410
+    void sub_597290(Unit* unit, uint8_t x, uint8_t y); // 597290
+    void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // 5974B0
+    void sub_597990(Unit* unit, uint8_t x, uint8_t y); // 597990
+    void sub_5976D0(Unit* unit, uint8_t x, uint8_t y); // 5976D0
+    int32_t sub_596F80(Unit* unit, uint16_t yx); // 596F80
+    uint16_t* sub_59A670(uint8_t x, uint8_t y); // Get pointer into field3_0x30000 cost grid for (x,y) — 59A670
+
+    void sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
 
     inline Obstacle& ObstacleAt(PosYX yx) { return obstacle_map[yx.val]; } //59a7a0
     inline Obstacle& Obstacle2At(PosYX yx) { return obstacle_map2[yx.val]; } //59a7c0
@@ -225,6 +244,9 @@ public:
 ASSERT_OFFSET(MapStuff, map_width, 0x50000);
 ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
 ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
+ASSERT_OFFSET(MapStuff, field_0x54190, 0x54190);
+ASSERT_OFFSET(MapStuff, field_0x54584, 0x54584);
+ASSERT_OFFSET(MapStuff, static_scan_ahead, 0x58584);
 ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
 ASSERT_OFFSET(MapStuff, height_map, 0x944f4);
 ASSERT_SIZE(MapStuff, 0xa4570);

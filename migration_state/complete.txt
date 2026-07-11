@@ -91,6 +91,7 @@
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
 ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z
+?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z
 ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z
 ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z
 ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z

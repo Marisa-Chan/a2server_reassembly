@@ -122,8 +122,8 @@ public:
 	// CObject Dump
 	virtual void VMethod1();
 	virtual void VMethod2();
-	virtual int32_t VMethod3();
-	virtual int32_t VMethod4();
+	virtual int32_t VMethod3(); // TokenSize
+	virtual int32_t VMethod4(); // MovementType
 	virtual void VMethod5();
 	virtual int32_t VMethod6(); // IsItem
 	virtual int32_t VMethod7(); // IsUnit
