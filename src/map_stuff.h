@@ -108,7 +108,9 @@ struct MapStuff { // aka astruct_5
     uint8_t field_0x540e6[64];
     uint16_t field28_0x54126[16];
     uint8_t walk_cost[11];
-    uint8_t field_0x54151[31];
+    uint8_t field_0x54151[5];
+    int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by sub_592A48's box perimeter walk.
+    uint8_t field_0x5416E[2];
     int32_t field31_0x54170[8];
     uint8_t field_0x54190[0x3f4];
     uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by sub_5882AE.
@@ -205,6 +207,7 @@ public:
     int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y).
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Distance metric between two (x,y) points.
+    uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 12-way direction/octant from unit toward target.
 
     void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5890CC
     void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5893C6

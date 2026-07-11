@@ -1399,3 +1399,128 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
         this->sub_5890CC(unit, cur_x, cur_y, x, y);
     }
 }
+
+// 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
+// perimeter starting from where the unit->target line of sight crosses it.
+uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
+    int32_t box_max_x = target->position->GetX() + target->VMethod3();
+    int32_t box_max_y = target->position->GetY() + target->VMethod3();
+    int32_t box_min_x = target->position->GetX() - unit->VMethod3();
+    int32_t box_min_y = target->position->GetY() - unit->VMethod3();
+
+    uint8_t direction = this->sub_592831(target, unit);
+    int32_t quadrant = (((direction + 2) & 0xC) >> 2) + 4; // 4..7
+    
+    float dx = (int32_t)target->sub_528725() - unit->sub_528725();
+    float dy = (int32_t)target->sub_528763() - unit->sub_528763();
+
+    float slope;
+    int32_t intercept;
+    if (quadrant & 1) {
+        // Quadrants 5,7: line expressed as Y = slope*X + intercept.
+        if (dx == 0.0f) {
+            dx = 1.0f;
+        }
+        slope = dy / dx;
+        intercept = target->sub_528763() - target->sub_528725() * slope;
+    } else {
+        // Quadrants 4,6: line expressed as X = slope*Y + intercept.
+        slope = dx / dy;
+        intercept = target->sub_528725() - target->sub_528763() * slope;
+    }
+
+    uint16_t best_cost = 0xFFFF;
+    uint16_t best_x = 0;
+    uint16_t best_y = 0;
+    int32_t attempts = 0;
+
+    while (best_cost == 0xFFFF && attempts < 8) {
+        attempts++;
+
+        // Find where the line crosses the current box edge facing `quadrant`; that's the shared
+        // starting point for the two perimeter-walking cursors below.
+        uint16_t seed_x, seed_y;
+        int32_t edge;
+        switch (quadrant) {
+        case 4:
+            edge = (box_min_y << 8) + 0x80;
+            seed_x = ((int)(edge * slope + intercept)) >> 8;
+            seed_y = box_min_y;
+            break;
+        case 5:
+            edge = (box_max_x << 8) + 0x80;
+            seed_x = box_max_x;
+            seed_y = ((int)(edge * slope + intercept)) >> 8;
+            break;
+        case 6:
+            edge = (box_max_y << 8) + 0x80;
+            seed_x = ((int)(edge * slope + intercept)) >> 8;
+            seed_y = box_max_y;
+            break;
+        case 7:
+            edge = (box_min_x << 8) + 0x80;
+            seed_x = box_min_x;
+            seed_y = ((int)(edge * slope + intercept)) >> 8;
+            break;
+        }
+
+        // Two cursors walk the box perimeter from the seed point in opposite directions,
+        // meeting roughly halfway around, checking the map cost at every cell visited.
+        int32_t dir_a = quadrant;
+        int32_t dir_b = quadrant;
+        uint16_t x_a = seed_x, y_a = seed_y;
+        uint16_t x_b = seed_x, y_b = seed_y;
+
+        int32_t perimeter_len = (box_max_x - box_min_x) + (box_max_y - box_min_y) + 1;
+
+        for (int32_t step = 0; step < perimeter_len; step++) {
+            uint16_t cost_a = *this->sub_59A670((uint8_t)x_a, (uint8_t)y_a);
+            if (cost_a < best_cost) {
+                best_cost = cost_a;
+                best_x = x_a;
+                best_y = y_a;
+            }
+
+            uint16_t cost_b = *this->sub_59A670((uint8_t)x_b, (uint8_t)y_b);
+            if (cost_b < best_cost) {
+                best_cost = cost_b;
+                best_x = x_b;
+                best_y = y_b;
+            }
+
+            switch (dir_a % 4) {
+            case 0: if (x_a == box_max_x) { dir_a++; } break;
+            case 1: if (y_a == box_max_y) { dir_a++; } break;
+            case 2: if (x_a == box_min_x) { dir_a++; } break;
+            case 3: if (y_a == box_min_y) { dir_a++; } break;
+            }
+
+            switch (dir_b % 4) {
+            case 0: if (x_b == box_min_x) { dir_b--; } break;
+            case 1: if (y_b == box_min_y) { dir_b--; } break;
+            case 2: if (x_b == box_max_x) { dir_b--; } break;
+            case 3: if (y_b == box_max_y) { dir_b--; } break;
+            }
+
+            x_a += this->line_walk_delta[dir_a][0];
+            y_a += this->line_walk_delta[dir_a][1];
+            x_b -= this->line_walk_delta[dir_b][0];
+            y_b -= this->line_walk_delta[dir_b][1];
+
+            if (step > 100) {
+                break;
+            }
+        }
+
+        // Grow the search box and try again if nothing was found yet.
+        box_min_x--;
+        box_min_y--;
+        box_max_x++;
+        box_max_y++;
+    }
+
+    if (best_cost == 0xFFFF) {
+        return 0;
+    }
+    return PosYX((uint8_t)best_x, (uint8_t)best_y).val;
+}
