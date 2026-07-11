@@ -194,6 +194,10 @@ public:
     Sack* sub_58E611(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
     int sub_59449A(class Building* building, PosYX yx); // Clear building from the cell state at yx — 59449A
     int sub_595468(Unit* unit, PosYX yx); // Check if unit can move onto and off of yx (both directions clear) — 595468
+    void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer — 597BB0
+    void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
+    void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
+    void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
@@ -208,10 +212,6 @@ public:
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     int32_t sub_594709(uint16_t yx); // 594709
     uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t vmethod3_result); // 591A96
-    void sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 597BB0
-    void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 5983D0
-    void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 598BF0
-    void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 599410
     void sub_597290(Unit* unit, uint8_t x, uint8_t y); // 597290
     void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // 5974B0
     void sub_597990(Unit* unit, uint8_t x, uint8_t y); // 597990
@@ -237,6 +237,11 @@ public:
     void FUN_00596e0e(Unit* unit, PosYX yx); //596e0e
     void FUN_005969c6(Unit* unit, PosYX yx, uint8_t t); //5969c6
     int sub_58B27F(Unit* unit, uint8_t x, uint8_t y); // Clear unit occupancy from cell (x,y), refresh state, cache eye position — 58B27F
+
+    // Shared by sub_597BB0/sub_5983D0/sub_598BF0/sub_599410: relaxes path cost of the 8
+    // neighbors of yx, skipping any neighbor blocked in obstacle_map (masked by flag_byte),
+    // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
+    void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

@@ -1166,6 +1166,56 @@ void MapStuff::sub_5954AC(Unit* unit, uint8_t x, uint8_t y) {
     g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
 }
 
+// Shared by sub_597BB0/sub_5983D0/sub_598BF0/sub_599410.
+void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue) {
+    static const int32_t offsets[8] = { -0x101, -0xFF, 0xFF, 0x101, -0x100, -1, 1, 0x100 };
+    uint16_t source_cost = this->field3_0x30000[yx];
+
+    for (int32_t i = 0; i < 8; i++) {
+        bool diagonal = i < 4;
+        uint16_t neighbor = yx + offsets[i];
+
+        if (obstacle_map[neighbor].TestBits(flag_byte)) {
+            continue;
+        }
+
+        uint16_t new_cost;
+        if (cond_flag != 0) {
+            new_cost = source_cost + this->walk_cost_map[neighbor];
+            if (diagonal) {
+                new_cost += this->walk_cost_map[neighbor] / 2;
+            }
+        } else {
+            new_cost = source_cost + (diagonal ? 3 : 2);
+        }
+
+        if (new_cost < this->field3_0x30000[neighbor]) {
+            this->field3_0x30000[neighbor] = new_cost;
+            queue[queue_tail++] = neighbor;
+        }
+    }
+}
+
+// 597BB0
+void MapStuff::sub_597BB0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->field8_0x5400a, this->field_0x56584);
+}
+
+// 5983D0
+void MapStuff::sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->field7_0x54008, this->field_0x54584);
+}
+
+// 598BF0
+void MapStuff::sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->field8_0x5400a, this->field_0x56584);
+}
+
+// 599410
+void MapStuff::sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+    this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->field7_0x54008, this->field_0x54584);
+}
+
 // 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
 void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     PosYX dest(x, y);

@@ -88,10 +88,6 @@
 ?sub_5893C6@MapStuff@@QAEXPAVUnit@@EEEE@Z	304
 ?sub_593CD5@MapStuff@@QAEHPAVUnit@@GE@Z	305
 ?sub_593134@MapStuff@@QAEFPAVUnit@@HGI@Z	357
-?sub_597BB0@MapStuff@@QAEXPAVUnit@@GEH@Z	592
-?sub_5983D0@MapStuff@@QAEXPAVUnit@@GEH@Z	592
-?sub_598BF0@MapStuff@@QAEXPAVUnit@@GEH@Z	592
-?sub_599410@MapStuff@@QAEXPAVUnit@@GEH@Z	592
 ?sub_592A48@MapStuff@@QAEGPAVUnit@@0@Z	596
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
