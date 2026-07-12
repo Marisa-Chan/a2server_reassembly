@@ -200,21 +200,21 @@ public:
     void sub_5983D0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer — 5983D0
     void sub_598BF0(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer — 598BF0
     void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
+    int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
+    int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
     int32_t sub_593CD5(Unit* unit, uint16_t yx, uint8_t val); // Computes movement step magnitude/heading toward yx.
-    int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y).
-    int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Distance metric between two (x,y) points.
     uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 12-way direction/octant from unit toward target.
 
     void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
     void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
-    int32_t sub_594709(uint16_t yx); // 594709
-    uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t vmethod3_result); // 591A96
+    Building* sub_594709(uint16_t yx); // 594709
+    uint8_t sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size); // 591A96
     void sub_597290(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue2 — 597290
     void sub_5974B0(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_596F80, queueing improved cells into queue1 — 5974B0
     void sub_597990(Unit* unit, uint8_t x, uint8_t y); // Expand field3_0x30000 cost grid from (x,y), gated by sub_5978F0, queueing improved cells into queue1 — 597990

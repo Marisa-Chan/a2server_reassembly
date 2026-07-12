@@ -1368,8 +1368,8 @@ void MapStuff::sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
             }
         } else {
             uint16_t step = this->sub_593134(unit, 0, dest.val, (distance >> 2) + 4);
-            int32_t reached = this->sub_594709(dest.val);
-            if (reached == 0) {
+            Building* reached = this->sub_594709(dest.val);
+            if (reached == nullptr) {
                 if (this->sub_593B29(PosYX(step), dest) > 1) {
                     g_NetStru1_main.FUN_0051ce86(1, 0, unit->pOwner);
                 }
@@ -1666,4 +1666,113 @@ uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
         return 0;
     }
     return PosYX((uint8_t)best_x, (uint8_t)best_y).val;
+}
+
+// 59A6F0 --- get pointer into walk_cost_map for (x, y)
+uint8_t* MapStuff::sub_59A6F0(uint8_t x, uint8_t y) {
+    return &this->WalkCostAt(PosYX(x, y));
+}
+
+// 59A670 --- get pointer into field3_0x30000 cost grid for (x, y)
+uint16_t* MapStuff::sub_59A670(uint8_t x, uint8_t y) {
+    return &this->field3_0x30000[PosYX(x, y).val];
+}
+
+// 594709
+Building* MapStuff::sub_594709(uint16_t yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return nullptr;
+    }
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return nullptr;
+    }
+    return this->scratch_cell_state.building;
+}
+
+// 58BFA3 --- Chebyshev distance between two (x, y) points
+int32_t MapStuff::sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+    return (std::max)(abs(x1 - x2), abs(y1 - y2));
+}
+
+// 596F80 --- checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
+int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
+    int8_t size = unit->VMethod3();
+    for (int32_t i = 0; i < size; i++) {
+        for (int32_t j = 0; j < size; j++) {
+            if (this->ObstacleAt(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+// 5978F0 --- Passability check used by sub_5976D0/sub_597990; same as sub_596F80 but against obstacle_map2
+int32_t MapStuff::sub_5978F0(Unit* unit, uint16_t yx) {
+    int8_t size = unit->VMethod3();
+    for (int32_t i = 0; i < size; i++) {
+        for (int32_t j = 0; j < size; j++) {
+            if (this->Obstacle2At(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->field5_0x5)) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+// 58A158 --- classifies direction/octant (0-7, shifted << 5) from unit's position toward yx.
+// If yx is exactly at the unit's current position, keeps the unit's current eye angle instead.
+int32_t MapStuff::sub_58A158(Unit* unit, uint16_t yx) {
+    PosYX target(yx);
+    int32_t dxx = (target.x << 8) + 0x80 - unit->position->GetXx();
+    int32_t dyy = (target.y << 8) + 0x80 - unit->position->GetYy();
+
+    uint8_t dir = unit->eye->field0_0x0;
+    if (dxx > 0) {
+        if (dyy > 0) {
+            dir = 3;
+        } else if (dyy == 0) {
+            dir = 2;
+        } else {
+            dir = 1;
+        }
+    } else if (dxx < 0) {
+        if (dyy > 0) {
+            dir = 5;
+        } else if (dyy == 0) {
+            dir = 6;
+        } else {
+            dir = 7;
+        }
+    } else {
+        if (dyy > 0) {
+            dir = 4;
+        } else if (dyy < 0) {
+            dir = 0;
+        }
+    }
+
+    return dir << 5;
+}
+
+// 591A96 --- Chebyshev-like distance between yx1 and yx2 for a unit of a given size.
+uint8_t MapStuff::sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size) {
+    PosYX p1(yx1);
+    PosYX p2(yx2);
+
+    int32_t dx;
+    if (p1.x < p2.x) {
+        dx = (std::max)(0, (p2.x - p1.x) - size + 1);
+    } else {
+        dx = p1.x - p2.x;
+    }
+
+    int32_t dy;
+    if (p1.y < p2.y) {
+        dy = (std::max)(0, (p2.y - p1.y) - size + 1);
+    } else {
+        dy = p1.y - p2.y;
+    }
+
+    return (std::max)(dx, dy);
 }
