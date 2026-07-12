@@ -209,8 +209,8 @@ public:
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Distance metric between two (x,y) points.
     uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 12-way direction/octant from unit toward target.
 
-    void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5890CC
-    void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5893C6
+    void sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5890CC
+    void sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y) — 5893C6
     uint16_t sub_592A48(Unit* unit, Unit* target); // 592A48
     int16_t sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134
     int32_t sub_594709(uint16_t yx); // 594709
@@ -231,6 +231,13 @@ public:
     // of the 9 neighbor cells (including self) around (x,y) in the field3_0x30000 cost grid,
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count);
+
+    // Shared by sub_5890CC/sub_5893C6: walks backward from (x,y) toward (cur_x,cur_y) through the
+    // field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
+    // walk_cost_map at the current work position), appending each visited cell to `path`. On
+    // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
+    // front of `path`; on failure (gave up) clears `path` entirely.
+    void WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, CList<PosYX>& path);
 
     void sub_5882AE(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882AE
 

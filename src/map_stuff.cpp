@@ -1462,6 +1462,87 @@ void MapStuff::sub_597990(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::sub_5978F0, this->field_0x50008, this->field_0x50008 + 0x1000, this->field7_0x54008);
 }
 
+// Shared by sub_5890CC/sub_5893C6: walks backward from (x,y) toward (cur_x,cur_y) through the
+// field3_0x30000 cost grid, picking the cheapest neighbor at each step (its cost weighted by
+// walk_cost_map at the current work position), appending each visited cell to `path`. On
+// success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
+// front of `path`; on failure (gave up) clears `path` entirely.
+void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, CList<PosYX>& path) {
+    path.AddHead(PosYX(x, y));
+
+    uint8_t wx = x;
+    uint8_t wy = y;
+    int8_t best_dx = 0;
+    int8_t best_dy = 0;
+    uint16_t attempts = 0;
+
+    while (wx != cur_x || wy != cur_y) {
+        uint16_t best_cost = 0xFFFF;
+        attempts++;
+        if (attempts > 1000) {
+            path.RemoveAll();
+            return;
+        }
+
+        for (int8_t dx = -1; dx <= 1; dx++) {
+            for (int8_t dy = -1; dy <= 1; dy++) {
+                int32_t nx = (int32_t)wx + dx;
+                int32_t ny = (int32_t)wy + dy;
+                if (nx < 8 || nx > this->map_width + 8 || ny < 8 || ny > this->map_height + 8) {
+                    continue;
+                }
+
+                uint16_t cost = *this->sub_59A670((uint8_t)nx, (uint8_t)ny);
+                if (cost == 0xFFFF) {
+                    continue;
+                }
+
+                if (dx == 0 || dy == 0) {
+                    if (unit->sub_59A030() == 1) {
+                        cost += *this->sub_59A6F0(wx, wy);
+                    } else {
+                        cost += 2;
+                    }
+                    if (cost <= best_cost) {
+                        best_cost = cost;
+                        best_dx = dx;
+                        best_dy = dy;
+                    }
+                } else {
+                    if (unit->sub_59A030() == 1) {
+                        uint8_t wc = *this->sub_59A6F0(wx, wy);
+                        cost += wc + (wc / 2);
+                    } else {
+                        cost += 3;
+                    }
+                    if (cost < best_cost) {
+                        best_cost = cost;
+                        best_dx = dx;
+                        best_dy = dy;
+                    }
+                }
+            }
+        }
+
+        wx += best_dx;
+        wy += best_dy;
+        path.AddHead(PosYX(wx, wy));
+    }
+
+    path.RemoveHead();
+}
+
+// 5890CC --- builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
+void MapStuff::sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
+    this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list1);
+}
+
+// 5893C6 --- builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
+// Similar to sub_5890CC, but uses list2 instead of list1.
+void MapStuff::sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
+    this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list2);
+}
+
 // 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
 // perimeter starting from where the unit->target line of sight crosses it.
 uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {

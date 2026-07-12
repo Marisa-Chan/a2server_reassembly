@@ -83,8 +83,6 @@
 ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z	262
 ?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z	263
 ?sub_58AEEF@MapStuff@@QAEHPAVUnit@@EE@Z	282
-?sub_5890CC@MapStuff@@QAEXPAVUnit@@EEEE@Z	304
-?sub_5893C6@MapStuff@@QAEXPAVUnit@@EEEE@Z	304
 ?sub_593CD5@MapStuff@@QAEHPAVUnit@@GE@Z	305
 ?sub_593134@MapStuff@@QAEFPAVUnit@@HGI@Z	357
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29

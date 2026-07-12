@@ -207,7 +207,7 @@ public:
     UnitEye* eye;
     UnitEye2* eye2;
     CList<PosYX> list1;
-    CList<int16_t> list2;
+    CList<PosYX> list2;
     TokenPos* token_pos;
     int32_t field_0x204;
 };
