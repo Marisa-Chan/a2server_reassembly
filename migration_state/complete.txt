@@ -126,7 +126,7 @@
 ?sub_594125@MapStuff@@QAEXXZ
 ?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z
 ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z
-?sub_594709@MapStuff@@QAEHG@Z
+?sub_594709@MapStuff@@QAEPAVBuilding@@G@Z
 ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z
 ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z
 ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z

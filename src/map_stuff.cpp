@@ -1668,6 +1668,46 @@ uint16_t MapStuff::sub_592A48(Unit* unit, Unit* target) {
     return PosYX((uint8_t)best_x, (uint8_t)best_y).val;
 }
 
+// 593134 --- search outward ring by ring (up to `radius` rings) from `yx` for the cell with the
+// lowest field3_0x30000 cost-grid value. Returns 0 if none found within range.
+int16_t MapStuff::sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius) {
+    uint16_t best_cost = 0xFFFF;
+    uint16_t best_yx = 0;
+
+    for (int32_t ring = 1; ring < (int32_t)(radius & 0xFFFF); ring++) {
+        for (int32_t offset = -ring; offset < ring + 1; offset++) {
+            uint16_t pos = yx + (ring << 8) + offset;
+            if (this->field3_0x30000[pos] < best_cost) {
+                best_cost = this->field3_0x30000[pos];
+                best_yx = pos;
+            }
+
+            pos = yx - (ring << 8) + offset;
+            if (this->field3_0x30000[pos] < best_cost) {
+                best_cost = this->field3_0x30000[pos];
+                best_yx = pos;
+            }
+
+            pos = yx + (offset << 8) + ring;
+            if (this->field3_0x30000[pos] < best_cost) {
+                best_cost = this->field3_0x30000[pos];
+                best_yx = pos;
+            }
+
+            pos = yx + (offset << 8) - ring;
+            if (this->field3_0x30000[pos] < best_cost) {
+                best_cost = this->field3_0x30000[pos];
+                best_yx = pos;
+            }
+        }
+        if (best_cost < 0xFFFF) {
+            break;
+        }
+    }
+
+    return best_cost == 0xFFFF ? 0 : (int16_t)best_yx;
+}
+
 // 59A6F0 --- get pointer into walk_cost_map for (x, y)
 uint8_t* MapStuff::sub_59A6F0(uint8_t x, uint8_t y) {
     return &this->WalkCostAt(PosYX(x, y));

@@ -76,7 +76,6 @@
 ?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z	263
 ?sub_58AEEF@MapStuff@@QAEHPAVUnit@@EE@Z	282
 ?sub_593CD5@MapStuff@@QAEHPAVUnit@@GE@Z	305
-?sub_593134@MapStuff@@QAEFPAVUnit@@HGI@Z	357
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43
