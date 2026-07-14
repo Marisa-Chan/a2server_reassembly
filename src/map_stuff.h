@@ -162,6 +162,7 @@ public:
     Sack* sub_58E5F3(TokenPos* pos);
     int sub_590F0A(Unit* unit); // Check if unit can be placed at current position
     int sub_58AD4A(Unit* unit); // Place unit on map at current TokenPos position
+    int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
     uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
@@ -206,7 +207,6 @@ public:
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
-    int32_t sub_58AEEF(Unit* unit, uint8_t x, uint8_t y); // Checks whether unit can occupy cell (x,y).
     uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 12-way direction/octant from unit toward target.
     int32_t sub_593C9A(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
     uint8_t sub_594C87(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
@@ -264,6 +264,10 @@ public:
     // neighbors of yx, skipping any neighbor blocked in obstacle_map (masked by flag_byte),
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
+
+    // Shared by sub_591424/sub_59166C: classifies the 16-point compass direction of a signed
+    // (dx, dy) offset, then coarsens it into one of 8 facing-angle steps (0, 32, 64, ..., 224).
+    uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 
     int32_t GetWidth() const { return map_width; } //58b8df
     int32_t GetHeight() const { return map_height; } //58b8f3

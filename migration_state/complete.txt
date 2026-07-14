@@ -94,6 +94,7 @@
 ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z
 ?sub_58A158@MapStuff@@QAEHPAVUnit@@G@Z
 ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z
+?sub_58AEEF@MapStuff@@QAEHPAVUnit@@EE@Z
 ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z
 ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z
 ?sub_58bec3@TokenPos@@QAEHXZ
@@ -117,6 +118,8 @@
 ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z
 ?sub_590F94@MapStuff@@QAEXPAVUnit@@E@Z
 ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z
+?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z
+?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z
 ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z
 ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z
 ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z

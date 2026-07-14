@@ -17,6 +17,62 @@ CString g_MissionBriefing; //660de8
 CStringArray g_MissionFailures; //660f18
 CStringArray g_MissionSubjs; //660ea8
 
+// Shared by sub_591424/sub_59166C
+uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
+    uint16_t abs_dx = abs(dx);
+    uint16_t abs_dy = abs(dy);
+    uint8_t raw;
+
+    if (dx > 0) {
+        if (dy > 0) {
+            if (abs_dx > abs_dy) {
+                raw = (abs_dx <= abs_dy * 2) ? 5 : 4;
+            } else {
+                raw = (abs_dy <= abs_dx * 2) ? 6 : 7;
+            }
+        } else {
+            if (abs_dx > abs_dy) {
+                raw = (abs_dx <= abs_dy * 2) ? 2 : 3;
+            } else {
+                raw = (abs_dy <= abs_dx * 2) ? 1 : 0;
+            }
+        }
+    } else {
+        if (dy > 0) {
+            if (abs_dx > abs_dy) {
+                raw = (abs_dx <= abs_dy * 2) ? 10 : 11;
+            } else {
+                raw = (abs_dy <= abs_dx * 2) ? 9 : 8;
+            }
+        } else {
+            if (abs_dx > abs_dy) {
+                raw = (abs_dx <= abs_dy * 2) ? 13 : 12;
+            } else {
+                raw = (abs_dy <= abs_dx * 2) ? 15 : 14;
+            }
+        }
+    }
+
+    if (raw != 0) {
+        raw += 1;
+    }
+    return (raw >> 1) << 5;
+}
+
+// 591424
+uint8_t MapStuff::sub_591424(Unit* unit, Unit* target) {
+    int32_t dx = target->sub_528725() - unit->sub_528725();
+    int32_t dy = target->sub_528763() - unit->sub_528763();
+    return this->ClassifyFacing16(dx, dy);
+}
+
+// 59166C
+uint8_t MapStuff::sub_59166C(Unit* unit, PosYX yx) {
+    int32_t dx = yx.x - unit->position->GetX();
+    int32_t dy = yx.y - unit->position->GetY();
+    return this->ClassifyFacing16(dx, dy);
+}
+
 // 58FE6D
 int MapStuff::sub_58FE6D(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->sub_58bec3();
@@ -480,6 +536,67 @@ int MapStuff::sub_597140(Unit* unit, PosYX yx, int32_t flag) {
     }
 
     return 1;
+}
+
+// 58AEEF
+int32_t MapStuff::sub_58AEEF(Unit* unit, uint8_t x, uint8_t y) {
+    PosYX yx(x, y);
+    int32_t movement_type = unit->sub_59A030();
+
+    CellState& cell = this->scratch_cell_state;
+
+    if (movement_type != 0 && movement_type <= 2) {
+        if (this->cell_states.Lookup(yx, cell)) {
+            if (cell.spell_id != 0) {
+                if (cell.spell_id == spell::teleport) {
+                    unit->eye2->field81_0xb0 = PosYX{cell.teleport_x, cell.teleport_y}.val;
+                } else {
+                    // WAT: original code guards this call with a stub that always returns true here,
+                    // so the else branch (SrvStru1::sub_4FBB24) is unreachable.
+                    g_Server->srv_stru1->sub_4FBAE3(cell.spell_x, cell.spell_y, unit, cell.spell_id, cell.spell_damage);
+                }
+            }
+            if (this->scratch_cell_state.small_unit != nullptr) {
+                return 0;
+            }
+            cell.small_unit = unit;
+            this->cell_states.SetAt(yx, cell);
+            this->sub_58B593(yx);
+            return 1;
+        }
+
+        this->FUN_0058b3e0(yx);
+        if (!this->cell_states.Lookup(yx, cell)) {
+            return 0;
+        }
+        cell.small_unit = unit;
+        this->cell_states.SetAt(yx, cell);
+        this->sub_58B593(yx);
+        return 1;
+    }
+
+    if (movement_type == 3) {
+        if (this->cell_states.Lookup(yx, cell)) {
+            if (cell.large_unit != nullptr) {
+                return 0;
+            }
+            cell.large_unit = unit;
+            this->cell_states.SetAt(yx, cell);
+            this->sub_58B593(yx);
+            return 1;
+        }
+
+        this->FUN_0058b3e0(yx);
+        if (!this->cell_states.Lookup(yx, cell)) {
+            return 0;
+        }
+        cell.large_unit = unit;
+        this->cell_states.SetAt(yx, cell);
+        this->sub_58B593(yx);
+        return 1;
+    }
+
+    return 0;
 }
 
 // 58AD4A
