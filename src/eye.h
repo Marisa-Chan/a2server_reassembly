@@ -164,10 +164,9 @@ struct UnitEye {
     uint16_t field152_0xa8;
     uint16_t field154_0xaa;
     uint16_t field156_0xac;
-    uint8_t field158_0xae;
-    uint8_t field159_0xaf;
-    uint8_t field160_0xb0;
-    uint8_t field161_0xb1;
+    uint16_t field158_0xae;
+    int8_t field160_0xb0;
+    int8_t field161_0xb1;
     uint8_t field162_0xb2;
     uint8_t field163_0xb3;
 

@@ -1734,6 +1734,74 @@ int32_t MapStuff::sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     return (std::max)(abs(x1 - x2), abs(y1 - y2));
 }
 
+// 593CD5 --- Computes movement step magnitude/heading toward yx.
+int32_t MapStuff::sub_593CD5(Unit* unit, uint16_t yx, uint8_t val) {
+    uint8_t dir = (val + 0x10) >> 5;
+    uint16_t yx2 = yx + this->field50_0x58e98[dir];
+
+    int32_t speed;
+    if (unit->sub_59A030() == 1) {
+        int8_t height_delta = this->height_map[yx] - this->height_map[yx2];
+        if (abs(height_delta) > 32) {
+            height_delta = (height_delta < 0) ? -32 : 32;
+        }
+
+        speed = this->sub_593C9A(unit) * this->speed_multiplier;
+        if (height_delta < 0) {
+            speed -= speed * abs(height_delta) >> 6;
+        } else {
+            speed += speed * height_delta >> 6;
+        }
+
+        uint8_t walk_cost1 = this->sub_594C87(yx);
+        uint8_t walk_cost2 = this->sub_594C87(yx2);
+        uint8_t avg_walk_cost = (walk_cost1 + walk_cost2) / 2;
+        if (avg_walk_cost == 0) {
+            avg_walk_cost = 8;
+        }
+        speed /= avg_walk_cost;
+    } else {
+        speed = this->sub_593C9A(unit);
+    }
+
+    if (speed < 1) {
+        speed = 1;
+    }
+    if (speed > 63) {
+        speed = 63;
+    }
+
+    unit->eye->field152_0xa8 = (uint16_t)speed;
+    unit->eye->field158_0xae = (uint16_t)dir;
+
+    int8_t dir_dx = this->field48_0x58e88[dir];
+    int8_t dir_dy = this->field49_0x58e90[dir];
+    if (dir_dx * dir_dy != 0) {
+        unit->eye->field160_0xb0 = (int8_t)((double)(speed * dir_dx) * 0.707);
+        unit->eye->field161_0xb1 = (int8_t)((double)(speed * dir_dy) * 0.707);
+    } else {
+        unit->eye->field160_0xb0 = speed * dir_dx;
+        unit->eye->field161_0xb1 = speed * dir_dy;
+    }
+
+    int8_t abs_component;
+    if (unit->eye->field160_0xb0 == 0) {
+        abs_component = abs(unit->eye->field161_0xb1);
+    } else {
+        abs_component = abs(unit->eye->field160_0xb0);
+    }
+    if (abs_component == 0) {
+        abs_component = 1;
+    }
+
+    unit->eye->field154_0xaa = (uint16_t)(256 / abs_component);
+    if (256 % abs_component != 0) {
+        unit->eye->field154_0xaa += 1;
+    }
+
+    return speed;
+}
+
 // 596F80 --- checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
 int32_t MapStuff::sub_596F80(Unit* unit, uint16_t yx) {
     int8_t size = unit->VMethod3();
