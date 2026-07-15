@@ -204,10 +204,10 @@ public:
     void sub_599410(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer — 599410
     int32_t sub_58A158(Unit* unit, uint16_t yx); // Classifies direction/octant from unit's position toward yx.
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
+    uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
 
     // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
-    uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 12-way direction/octant from unit toward target.
     int32_t sub_593C9A(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
     uint8_t sub_594C87(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
 
@@ -265,8 +265,12 @@ public:
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue);
 
-    // Shared by sub_591424/sub_59166C: classifies the 16-point compass direction of a signed
-    // (dx, dy) offset, then coarsens it into one of 8 facing-angle steps (0, 32, 64, ..., 224).
+    // Shared by sub_591424/sub_59166C/sub_592831: classifies the 16-point compass direction of a
+    // signed (dx, dy) offset into a raw octant index (0-15).
+    uint8_t ClassifyDirection16(int32_t dx, int32_t dy);
+
+    // Shared by sub_591424/sub_59166C: coarsens ClassifyDirection16's raw index into one of 8
+    // facing-angle steps (0, 32, 64, ..., 224).
     uint8_t ClassifyFacing16(int32_t dx, int32_t dy);
 
     int32_t GetWidth() const { return map_width; } //58b8df

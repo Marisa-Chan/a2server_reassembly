@@ -17,42 +17,38 @@ CString g_MissionBriefing; //660de8
 CStringArray g_MissionFailures; //660f18
 CStringArray g_MissionSubjs; //660ea8
 
-// Shared by sub_591424/sub_59166C
-uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
+// Shared by sub_591424/sub_59166C/sub_592831
+uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);
     uint16_t abs_dy = abs(dy);
-    uint8_t raw;
 
     if (dx > 0) {
         if (dy > 0) {
             if (abs_dx > abs_dy) {
-                raw = (abs_dx <= abs_dy * 2) ? 5 : 4;
-            } else {
-                raw = (abs_dy <= abs_dx * 2) ? 6 : 7;
+                return (abs_dx <= abs_dy * 2) ? 5 : 4;
             }
-        } else {
-            if (abs_dx > abs_dy) {
-                raw = (abs_dx <= abs_dy * 2) ? 2 : 3;
-            } else {
-                raw = (abs_dy <= abs_dx * 2) ? 1 : 0;
-            }
+            return (abs_dy <= abs_dx * 2) ? 6 : 7;
         }
-    } else {
-        if (dy > 0) {
-            if (abs_dx > abs_dy) {
-                raw = (abs_dx <= abs_dy * 2) ? 10 : 11;
-            } else {
-                raw = (abs_dy <= abs_dx * 2) ? 9 : 8;
-            }
-        } else {
-            if (abs_dx > abs_dy) {
-                raw = (abs_dx <= abs_dy * 2) ? 13 : 12;
-            } else {
-                raw = (abs_dy <= abs_dx * 2) ? 15 : 14;
-            }
+        if (abs_dx > abs_dy) {
+            return (abs_dx <= abs_dy * 2) ? 2 : 3;
         }
+        return (abs_dy <= abs_dx * 2) ? 1 : 0;
     }
+    if (dy > 0) {
+        if (abs_dx > abs_dy) {
+            return (abs_dx <= abs_dy * 2) ? 10 : 11;
+        }
+        return (abs_dy <= abs_dx * 2) ? 9 : 8;
+    }
+    if (abs_dx > abs_dy) {
+        return (abs_dx <= abs_dy * 2) ? 13 : 12;
+    }
+    return (abs_dy <= abs_dx * 2) ? 14 : 15;
+}
 
+// Shared by sub_591424/sub_59166C
+uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
+    uint8_t raw = this->ClassifyDirection16(dx, dy);
     if (raw != 0) {
         raw += 1;
     }
@@ -1658,6 +1654,13 @@ void MapStuff::sub_5890CC(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, u
 // Similar to sub_5890CC, but uses list2 instead of list1.
 void MapStuff::sub_5893C6(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list2);
+}
+
+// 592831
+uint8_t MapStuff::sub_592831(Unit* target, Unit* unit) {
+    int32_t dx = unit->sub_528725() - target->sub_528725();
+    int32_t dy = unit->sub_528763() - target->sub_528763();
+    return this->ClassifyDirection16(dx, dy);
 }
 
 // 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box

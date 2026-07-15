@@ -73,7 +73,6 @@
 ?sub_594C87@MapStuff@@QAEEG@Z	152
 ?sub_58FB12@MapStuff@@QAEXPAVUnit@@@Z	165
 ?sub_58AB48@MapStuff@@QAEXAAVCArchive@@@Z	176
-?sub_592831@MapStuff@@QAEEPAVUnit@@0@Z	244
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43
