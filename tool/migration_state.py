@@ -331,19 +331,16 @@ def collect_auto_to_migrate(
     asm_spans: Dict[str, Tuple[str, int]],
 ) -> List[str]:
     """
-    Build a to_migrate list from resolved ASM-style exported methods.
+    Build a to_migrate list from all resolved exported methods still in ASM.
 
         Rules:
-        - only symbols with an ASM-style name (sub_XXXXXX / FUN_XXXXXX)
+        - include every parsed proc export (legacy sub_/FUN_ names and already-mangled ones)
         - include entries with status == "asm" (still non-migrated)
         - exclude any entry listed in known_mfc.txt
     """
     result: Dict[str, str] = {}
 
     for e in export_symbols:
-        if not e.asm_name:
-            continue
-
         if any(key in known_set for key in entry_lookup_keys(e)):
             continue
 
@@ -389,19 +386,16 @@ def collect_auto_complete(
     known_set: Set[str],
 ) -> List[str]:
     """
-    Build complete list from resolved ASM-style exported methods owned by C++ .obj files.
+    Build complete list from all resolved exported methods owned by C++ .obj files.
 
     Rules:
-    - only symbols with an ASM-style name (sub_XXXXXX / FUN_XXXXXX)
+    - include every parsed proc export (legacy sub_/FUN_ names and already-mangled ones)
     - include entries with status == "cpp"
     - exclude any entry listed in known_mfc.txt
     """
     result: Dict[str, str] = {}
 
     for e in export_symbols:
-        if not e.asm_name:
-            continue
-
         if any(key in known_set for key in entry_lookup_keys(e)):
             continue
 
@@ -501,65 +495,38 @@ def main() -> int:
         if not owners:
             missing_declared.append(e)
 
-    # Build lookup for to_migrate keys (exact mangled symbol + legacy asm-name).
-    exports_by_asm: Dict[str, List[ExportSymbol]] = {}
-    for e in export_symbols:
-        for key in entry_lookup_keys(e):
-            exports_by_asm.setdefault(key, []).append(e)
-
     overlap = sorted(known_set & to_migrate_set)
 
     migrated: List[Tuple[str, str, str]] = []
     still_asm: List[Tuple[str, ExportSymbol]] = []
     unresolved: List[Tuple[str, str]] = []
 
-    # Global migrated set (independent from ASM-only to_migrate.txt), aligned with complete.txt logic.
-    migrated_global_map: Dict[str, Tuple[str, str, str]] = {}
+    # Classify every parsed proc export (not just legacy sub_/FUN_-named ones), so the
+    # totals below always add up to `len(export_symbols)`.
+    seen_keys: Set[str] = set()
     for e in export_symbols:
-        if not e.asm_name:
+        key = normalize_symbol_text(e.symbol)
+        if key in seen_keys:
             continue
-        if any(key in known_set for key in entry_lookup_keys(e)):
+        seen_keys.add(key)
+
+        if any(k in known_set for k in entry_lookup_keys(e)):
             continue
 
         owners = owner_index.get(e.symbol, set())
-        if choose_status_for_entry(owners) != "cpp":
-            continue
+        status = choose_status_for_entry(owners)
 
-        owner = next(iter(owners)) if owners else "unknown"
-        key = normalize_symbol_text(e.symbol)
-        migrated_global_map.setdefault(key, (e.symbol, e.symbol, owner))
+        if status == "cpp":
+            owner = next(iter(owners))
+            migrated.append((e.symbol, e.symbol, owner))
+        elif status == "asm":
+            still_asm.append((e.symbol, e))
+        else:
+            unresolved.append((e.symbol, "declared but not defined in any .obj"))
 
-    migrated = sorted(migrated_global_map.values(), key=lambda x: x[0].lower())
-
-    for asm_key in sorted(to_migrate_set):
-        display_name = to_migrate_display.get(asm_key, asm_key)
-
-        if asm_key in known_set:
-            unresolved.append((display_name, "also listed in known_mfc.txt"))
-            continue
-
-        entries = exports_by_asm.get(asm_key, [])
-        if not entries:
-            unresolved.append((display_name, "not found as proc symbol in mfc_export.inc"))
-            continue
-
-        entry_statuses: List[Tuple[ExportSymbol, str, Set[str]]] = []
-        for e in entries:
-            owners = owner_index.get(e.symbol, set())
-            status = choose_status_for_entry(owners)
-            entry_statuses.append((e, status, owners))
-
-        # Prioritize unresolved statuses first.
-        if any(s == "missing" for _, s, _ in entry_statuses):
-            unresolved.append((display_name, "declared but not defined in any .obj"))
-            continue
-        if any(s == "asm" for _, s, _ in entry_statuses):
-            entry = next(e for e, s, _ in entry_statuses if s == "asm")
-            still_asm.append((display_name, entry))
-            continue
-
-        # to_migrate.txt is ASM-only; remaining statuses should not occur here.
-        unresolved.append((display_name, "unexpected status: not asm/missing"))
+    migrated.sort(key=lambda x: x[0].lower())
+    still_asm.sort(key=lambda x: x[0].lower())
+    unresolved.sort(key=lambda x: x[0].lower())
 
     print(f"Using dumpbin: {dumpbin_path}")
     print(f"Parsed proc exports: {len(export_symbols)}")
@@ -575,11 +542,25 @@ def main() -> int:
         print(f"complete.txt rewritten: {complete_path} ({len(auto_complete)} entries)")
     print()
 
-    print("Migration status (to_migrate.txt)")
+    known_excluded = len(seen_keys) - len(migrated) - len(still_asm) - len(unresolved)
+
+    still_asm_total_lines = 0
+    still_asm_unresolved_spans = 0
+    for _, entry in still_asm:
+        _, span = resolve_asm_span(entry, asm_spans)
+        if span is None:
+            still_asm_unresolved_spans += 1
+            continue
+        still_asm_total_lines += span
+
+    print("Migration status (all parsed exports)")
     print("=" * 72)
     print(f"Migrated in C++ : {len(migrated)}")
     print(f"Still in ASM    : {len(still_asm)}")
     print(f"Unresolved      : {len(unresolved)}")
+    print(f"Known MFC (excl): {known_excluded}")
+    span_note = f" ({still_asm_unresolved_spans} without a resolvable span)" if still_asm_unresolved_spans else ""
+    print(f"Still-ASM lines : {still_asm_total_lines}{span_note}")
 
     if unresolved:
         print("\n[UNRESOLVED]")
