@@ -35,7 +35,7 @@ public:
     uint32_t field_0x34;
     uint8_t field_0x38;
     uint8_t gap_0x39[11];
-    uint8_t field_0x44;
+    uint8_t field_0x44; // Group movement speed?
     uint8_t field_0x45;
     uint8_t gap_0x46[2];
     uint32_t active; // Modified by the "Suspend group" trigger action.

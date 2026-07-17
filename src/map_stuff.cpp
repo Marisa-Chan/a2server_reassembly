@@ -251,6 +251,40 @@ int16_t MapStuff::sub_5913BD(Unit* unit, uint8_t x, uint8_t y) {
     return 0;
 }
 
+// 58FB12 --- Reconciles eye position1/rotation-target state against the unit's current tile.
+void MapStuff::sub_58FB12(Unit* unit) {
+    uint16_t old_x = unit->position->GetXx();
+    uint16_t old_y = unit->position->GetYy();
+
+    UnitEye* eye = unit->eye;
+    eye->field156_0xac += 1;
+
+    uint16_t new_x = old_x + eye->field160_0xb0;
+    uint16_t new_y = old_y + eye->field161_0xb1;
+
+    int16_t mode = eye->field158_0xae;
+    if ((mode == 1 || mode == 5) && (new_x & 0xFF) == 0 && (new_y & 0xFF) == 0) {
+        new_x -= 1;
+    }
+
+    if ((old_x >> 8) == (new_x >> 8) && (old_y >> 8) == (new_y >> 8)) {
+        unit->position->SetCoords2(new_x, new_y);
+    } else {
+        PosYX old_yx = unit->position->CompatGetYX();
+        this->FUN_005969c6(unit, 0, 2);
+        this->sub_58B1D7(unit);
+        unit->position->SetCoords2(new_x, new_y);
+        this->sub_58AD4A(unit);
+        this->FUN_005969c6(unit, old_yx, 0);
+    }
+
+    if (eye->field154_0xaa <= eye->field156_0xac) {
+        // Inline sub_58FD16: reset subcell position to cell center.
+        unit->position->x_subcell = 0x80;
+        unit->position->y_subcell = 0x80;
+    }
+}
+
 // 590678
 void MapStuff::sub_590678(Unit* unit) {
     uint16_t prev_yx = unit->position->CompatGetYX();
@@ -1206,6 +1240,42 @@ uint8_t MapStuff::sub_593B29(PosYX yx1, PosYX yx2) {
     return (std::max)(dx, dy);
 }
 
+// 58AB48 --- serialize obstacle/cell state
+void MapStuff::sub_58AB48(CArchive& ar) {
+    CList<uint32_t> obstacle_diffs;
+
+    if (ar.IsStoring()) {
+        for (uint32_t yx = 0x807; yx < 0xEDEE; yx++) {
+            uint8_t obstacle2 = this->Obstacle2At(yx);
+            if (obstacle2 > 0xF) {
+                uint8_t obstacle = this->ObstacleAt(yx);
+                uint32_t packed = (((yx << 8) + obstacle2) << 8) + obstacle;
+                obstacle_diffs.AddTail(packed);
+            }
+        }
+        obstacle_diffs.Serialize(ar);
+        this->cell_states.Serialize(ar);
+        ar << (DWORD)this;
+    }
+
+    if (ar.IsLoading()) {
+        obstacle_diffs.Serialize(ar);
+        this->cell_states.Serialize(ar);
+
+        DWORD key;
+        ar >> key;
+        g_Server->field23_0xdc.SetAt((void*)key, this);
+
+        POSITION pos = obstacle_diffs.GetHeadPosition();
+        while (pos != nullptr) {
+            uint32_t packed = obstacle_diffs.GetNext(pos);
+            uint16_t yx = (uint16_t)(packed >> 16);
+            this->Obstacle2At(yx) = (uint8_t)(packed >> 8);
+            this->ObstacleAt(yx) = (uint8_t)packed;
+        }
+    }
+}
+
 // 594125 --- post-load map relink helper: remaps stale on-disk pointers in
 // each cell_states entry via g_Server's pointer remap table (sub_59423F).
 void MapStuff::sub_594125() {
@@ -1852,6 +1922,39 @@ Building* MapStuff::sub_594709(uint16_t yx) {
 // 58BFA3 --- Chebyshev distance between two (x, y) points
 int32_t MapStuff::sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     return (std::max)(abs(x1 - x2), abs(y1 - y2));
+}
+
+// 593C9A --- Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
+int32_t MapStuff::sub_593C9A(Unit* unit) {
+    uint8_t override_speed = unit->group->group_sub->field_0x44;
+    if (override_speed != 0) {
+        return override_speed;
+    }
+    return (int16_t)unit->speed;
+}
+
+// 594C87 --- Walk cost at yx, adjusted for area effects when the cell is occupied.
+uint8_t MapStuff::sub_594C87(uint16_t yx) {
+    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+        return this->WalkCostAt(yx);
+    }
+
+    CellState cell;
+    if (!this->cell_states.Lookup(yx, cell)) {
+        return this->WalkCostAt(yx);
+    }
+
+    if (cell.effect_count == 0) {
+        return this->WalkCostAt(yx);
+    }
+
+    for (int i = 0; i < 6; ++i) {
+        // In vanilla, they do `if (FUN_0059a050())`, but this function always returned true.
+        this->WalkCostAt(yx) >>= 2;
+        break;
+    }
+
+    return this->WalkCostAt(yx);
 }
 
 // 593CD5 --- Computes movement step magnitude/heading toward yx.

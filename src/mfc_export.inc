@@ -490,9 +490,6 @@ externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
 
 externdef ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z :proc         ; void MapStuff::sub_5882AE(Unit*, uint8_t, uint8_t, uint8_t, uint8_t, int32_t, Unit*)
 externdef ?sub_590F94@MapStuff@@QAEXPAVUnit@@E@Z :proc               ; void MapStuff::sub_590F94(Unit*, uint8_t)
-externdef ?sub_58FB12@MapStuff@@QAEXPAVUnit@@@Z :proc                ; void MapStuff::sub_58FB12(Unit*) [ASM]
-externdef ?sub_593C9A@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int32_t MapStuff::sub_593C9A(Unit*) [ASM]
-externdef ?sub_594C87@MapStuff@@QAEEG@Z :proc                        ; uint8_t MapStuff::sub_594C87(uint16_t) [ASM]
 externdef ?sub_58A158@MapStuff@@QAEHPAVUnit@@G@Z :proc               ; int32_t MapStuff::sub_58A158(Unit*, uint16_t) [ASM]
 externdef ?sub_58AEEF@MapStuff@@QAEHPAVUnit@@EE@Z :proc              ; int32_t MapStuff::sub_58AEEF(Unit*, uint8_t, uint8_t)
 externdef ?sub_58BFA3@MapStuff@@QAEHEEEE@Z :proc                     ; int32_t MapStuff::sub_58BFA3(uint8_t, uint8_t, uint8_t, uint8_t) [ASM]
@@ -527,7 +524,6 @@ extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
 extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
 extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
-externdef ?sub_58AB48@MapStuff@@QAEXAAVCArchive@@@Z :proc
 externdef ?sub_594709@MapStuff@@QAEPAVBuilding@@G@Z :proc                 ; Building* MapStuff::sub_594709(uint16_t) [ASM]
 externdef ?sub_591A96@MapStuff@@QAEEGGH@Z :proc                           ; uint8_t MapStuff::sub_591A96(uint16_t, uint16_t, int32_t) [ASM]
 externdef ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z :proc                    ; int32_t MapStuff::sub_596F80(Unit*, uint16_t) [ASM]

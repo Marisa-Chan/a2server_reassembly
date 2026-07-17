@@ -206,7 +206,6 @@ public:
     int32_t sub_58BFA3(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // Chebyshev distance between two (x,y) points.
     uint8_t sub_592831(Unit* target, Unit* unit); // Classifies 16-way direction/octant from target toward unit. `this` is unused.
 
-    // Raw ASM helpers used by the methods above; not migrated (still bodies in Main.asm).
     void sub_58FB12(Unit* unit); // Reconciles eye position1/rotation-target state against the unit's current tile.
     int32_t sub_593C9A(Unit* unit); // Returns unit's speed, overridden by group_sub->field_0x44 if nonzero. `this` is unused.
     uint8_t sub_594C87(uint16_t yx); // Walk cost at yx, adjusted for area effects when the cell is occupied.
