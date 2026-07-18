@@ -55,11 +55,41 @@ struct ScanPresenceGrid {
     int32_t  scan_delta;
     uint8_t  gap_0x161c[12];
 
+public:
+    ScanPresenceGrid(); // 5955B5
     void sub_596047(AreaEffect* ae); // Register area effect into the scan grid (sub_596047)
     void sub_596131();                 // Rebuild presence grid from all active units/players
 };
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);
+
+// Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
+struct FieldBlock54190 {
+    uint8_t data[0x3f4];
+
+public:
+    FieldBlock54190(); // 599FF0
+};
+ASSERT_SIZE(FieldBlock54190, 0x3f4);
+
+// Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
+struct FieldBlock5859c {
+    uint8_t data[2020];
+
+public:
+    FieldBlock5859c(); // 5A3180
+};
+ASSERT_SIZE(FieldBlock5859c, 2020);
+
+// Builds path-cost lookup tables (calls sub_58CD84/sub_58CE74/sub_597110/sub_59ADA0). Not yet
+// fully reversed.
+struct FieldBlock58ec0 {
+    uint8_t data[131072];
+
+public:
+    FieldBlock58ec0(); // 58E1E4
+};
+ASSERT_SIZE(FieldBlock58ec0, 131072);
 
 struct CellState {
     uint8_t  walk_cost;          // +0x00: saved original walk_cost_map byte
@@ -112,7 +142,7 @@ struct MapStuff { // aka astruct_5
     int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by sub_592A48's box perimeter walk.
     uint8_t field_0x5416E[2];
     int32_t field31_0x54170[8];
-    uint8_t field_0x54190[0x3f4];
+    FieldBlock54190 field_0x54190;
     uint16_t field_0x54584[0x1000]; // Path lookup table for static obstacles, used by sub_5882AE.
     uint16_t field_0x56584[0x1000]; // Path lookup table for dynamic obstacles, used by sub_5882AE.
     int32_t static_scan_ahead;
@@ -121,10 +151,11 @@ struct MapStuff { // aka astruct_5
     int32_t dynamic_refresh_rate;
     int32_t dynamic_by_static_lookup;
     int32_t static_isnt_needed;
-    uint8_t field_0x5859c[2020];
+    FieldBlock5859c field_0x5859c;
     World* field41_0x58d80;
     int32_t speed_multiplier;
-    uint8_t field_0x58d88[64];
+    CellState field_0x58d88; // Seems unused?
+    uint32_t field_0x58dc4; // Seems unused?
     Perf field44_0x58dc8;
     Perf field45_0x58df8;
     Perf field46_0x58e28;
@@ -138,7 +169,7 @@ struct MapStuff { // aka astruct_5
     uint8_t map_max_y;
     int16_t map_min_xy;
     int16_t map_max_xy;
-    uint8_t field_0x58ec0[131072];
+    FieldBlock58ec0 field_0x58ec0;
     uint8_t field_0x78ec0[106504];
     MapStuff* self;
     ScanPresenceGrid scan_presence_grid;
@@ -151,6 +182,9 @@ struct MapStuff { // aka astruct_5
 public:
     MapStuff(MapAlm* alm, UnitList* unit_list); // 587E19
     ~MapStuff(); // 587f70
+
+    void sub_58E891(UnitList* unit_list); // 58E891
+    void sub_58F166(MapAlm* alm); // 58F166
 
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_58AB48(CArchive& ar); // Serialize

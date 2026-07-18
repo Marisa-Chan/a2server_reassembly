@@ -13,6 +13,9 @@ struct Perf {
     uint32_t freq;
     uint8_t gap_0x24[4];
     int64_t period64;
+
+public:
+    Perf(); // 599F90
 };
 ASSERT_OFFSET(Perf, period, 0x18);
 ASSERT_SIZE(Perf, 0x30);

@@ -68,6 +68,7 @@
 ??0MagicInfo@@QAE@XZ
 ??0MagicItem@@QAE@XZ
 ??0MapAlm@@QAE@PBD@Z
+??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z
 ??0MatShape@@QAE@XZ
 ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
 ??0MenuButton@@QAE@HPBDPAVCGameFont@@PAGHH0@Z

@@ -17,6 +17,14 @@ CString g_MissionBriefing; //660de8
 CStringArray g_MissionFailures; //660f18
 CStringArray g_MissionSubjs; //660ea8
 
+// 587E19
+MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
+    this->scratch_cell_state.Null();
+    this->field_0x58d88.Null();
+    this->sub_58E891(unit_list);
+    this->sub_58F166(alm);
+}
+
 // Shared by sub_591424/sub_59166C/sub_592831
 uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);

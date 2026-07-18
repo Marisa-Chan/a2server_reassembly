@@ -519,6 +519,8 @@ externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
+externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc         ; void MapStuff::sub_58E891(UnitList*) [ASM]
+externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*) [ASM]
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
@@ -549,8 +551,17 @@ extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
 
 
 ; ScanPresenceGrid
+externdef ??0ScanPresenceGrid@@QAE@XZ :proc
 externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
 externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
+
+; Perf
+externdef ??0Perf@@QAE@XZ :proc
+
+; MapStuff sub-object init blocks (opaque, ASM-backed)
+externdef ??0FieldBlock54190@@QAE@XZ :proc
+externdef ??0FieldBlock5859c@@QAE@XZ :proc
+externdef ??0FieldBlock58ec0@@QAE@XZ :proc
 
 
 ;Token
