@@ -166,7 +166,6 @@
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
-?sub_58E670@MapStuff@@QAEXXZ	220
 ?StartPlayTrack@MusicPlayer@@QAEXH@Z	99
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41

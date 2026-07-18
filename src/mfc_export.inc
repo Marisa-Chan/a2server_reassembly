@@ -471,7 +471,7 @@ extern ?FUN_0058a7e8@TokenPos@@QAEHEE@Z : proc   ;  TokenPos::FUN_0058a7e8
 
 ; MapStuff
 externdef ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z :proc  ; MapStuff::MapStuff(MapAlm*, UnitList*)
-externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670() [ASM]
+externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670()
 
 externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc

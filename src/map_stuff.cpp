@@ -128,6 +128,39 @@ void MapStuff::sub_58E891(UnitList* unit_list) {
     this->static_isnt_needed = reg.GetInt("Path Finding", "StaticIsntNeeded", 5);
 }
 
+// Marks an 8-tile-thick obstacle border around the map edges — 58E670
+void MapStuff::sub_58E670() {
+    if (this->map_width == this->map_height) {
+        for (int32_t i = 0; i < this->map_width; i++) {
+            for (int32_t j = 0; j < 8; j++) {
+                this->ObstacleAt(PosYX(j, i)) = 0x1F;
+                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = 0x1F;
+                this->ObstacleAt(PosYX(i, j)) = 0x1F;
+                this->ObstacleAt(PosYX(i, this->map_width - 1 - j)) = 0x1F;
+            }
+        }
+    } else {
+        for (int32_t i = 0; i < 256; i++) {
+            for (int32_t j = 0; j < 8; j++) {
+                this->ObstacleAt(PosYX(j, i)) = 0x1F;
+                this->ObstacleAt(PosYX(255 - j, i)) = 0x1F;
+                this->ObstacleAt(PosYX(i, j)) = 0x1F;
+                this->ObstacleAt(PosYX(i, 255 - j)) = 0x1F;
+            }
+        }
+        for (int32_t i = 0; i < this->map_height; i++) {
+            for (int32_t j = 0; j < 8; j++) {
+                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = 0x1F;
+            }
+        }
+        for (int32_t i = 0; i < this->map_width; i++) {
+            for (int32_t j = 0; j < 8; j++) {
+                this->ObstacleAt(PosYX(i, this->map_height - 1 - j)) = 0x1F;
+            }
+        }
+    }
+}
+
 // 58F166
 void MapStuff::sub_58F166(MapAlm* alm) {
     this->map_width = alm->map_width;
