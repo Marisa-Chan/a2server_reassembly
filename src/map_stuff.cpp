@@ -1,5 +1,6 @@
 #include "map_stuff.h"
 
+#include "alm.h"
 #include "constants.h"
 #include "building.h"
 #include "eye.h"
@@ -121,6 +122,110 @@ void MapStuff::sub_58E891(UnitList* unit_list) {
     this->dynamic_refresh_rate = reg.GetInt("Path Finding", "DynamicRefreshRate", 32);
     this->dynamic_by_static_lookup = reg.GetInt("Path Finding", "DynamicByStaticLookup", 3);
     this->static_isnt_needed = reg.GetInt("Path Finding", "StaticIsntNeeded", 5);
+}
+
+// 58F166
+void MapStuff::sub_58F166(MapAlm* alm) {
+    this->map_width = alm->map_width;
+    this->map_height = alm->map_height;
+
+    this->map_min_x = 8;
+    this->map_min_y = 8;
+    this->map_max_x = this->map_width - 9;
+    this->map_max_y = this->map_height - 9;
+    this->map_min_xy = PosYX(this->map_min_x, this->map_min_y).val;
+    this->map_max_xy = PosYX(this->map_max_x, this->map_max_y).val;
+
+    for (uint16_t x = 0; x < this->map_width; x++) {
+        for (uint16_t y = 0; y < this->map_height; y++) {
+            uint16_t idx = y * this->map_width + x;
+            PosYX yx(x, y);
+
+            uint16_t terrain = alm->landscape[idx];
+            if (terrain & 0x2000) {
+                this->ObstacleAt(yx) = 1;
+            }
+
+            uint8_t map_height_val = alm->map_heights[idx];
+            uint8_t map_object_val = alm->map_objects[idx];
+
+            uint8_t walk_cost_val;
+            uint8_t classification = this->sub_58F48D(terrain & 0x3FF, &walk_cost_val);
+            if (classification == 8) {
+                this->ObstacleAt(yx) = 1;
+            }
+
+            if (classification < 0xD) {
+                this->WalkCostAt(yx) = walk_cost_val;
+            } else {
+                this->WalkCostAt(yx) = this->walk_cost[0];
+            }
+
+            if ((terrain & 0x300) == 0x200) {
+                this->ObstacleAt(yx) = 1;
+            }
+
+            if (map_object_val != 0) {
+                this->ObstacleAt(yx) = 5;
+            }
+
+            this->height_map[yx.val] = map_height_val;
+        }
+    }
+
+    this->sub_58E670();
+    memcpy(this->obstacle_map2, this->obstacle_map, sizeof(this->obstacle_map));
+}
+
+// Computes edge-blended walk cost + classification code for a terrain cell (bits 0-9 of a
+// landscape tile: bits 0-3 = weight index, bits 4-5 = sub index, bits 6-9 = direction pair
+// index, bits 8-9 == 2 selects a special-case path). 58F48D
+uint8_t MapStuff::sub_58F48D(uint16_t terrain_code, uint8_t* out_walk_cost) {
+    uint8_t result = 0xFF;
+    *out_walk_cost = 8;
+
+    if ((terrain_code & 0x300) == 0x200) {
+        if ((terrain_code & 0xF) < 8) {
+            if ((terrain_code & 0xF) == 4) {
+                result = (((terrain_code & 0x30) >> 4) == 1) ? 1 : 9;
+            } else {
+                result = 9;
+            }
+        }
+    } else {
+        uint32_t dir_idx = (terrain_code & 0x3C0) >> 6;
+        uint32_t sub_idx = (terrain_code & 0x30) >> 4;
+        uint32_t weight_idx = terrain_code & 0xF;
+
+        if (weight_idx < 0xE) {
+            PosYX dir_pair(this->field28_0x54126[dir_idx]);
+            uint8_t idx_a = dir_pair.x;
+            uint8_t idx_b = dir_pair.y;
+            uint8_t weight = this->field26_0x540a6[sub_idx][weight_idx];
+
+            result = (weight > 2) ? idx_a : idx_b;
+
+            switch (weight) {
+            case 1:
+                *out_walk_cost = this->walk_cost[idx_b];
+                break;
+            case 2:
+                *out_walk_cost = (this->walk_cost[idx_a] + this->walk_cost[idx_b] * 3) >> 2;
+                break;
+            case 3:
+                *out_walk_cost = (this->walk_cost[idx_a] + this->walk_cost[idx_b]) >> 1;
+                break;
+            case 4:
+                *out_walk_cost = (this->walk_cost[idx_a] * 3 + this->walk_cost[idx_b]) >> 2;
+                break;
+            case 5:
+                *out_walk_cost = this->walk_cost[idx_a];
+                break;
+            }
+        }
+    }
+
+    return result;
 }
 
 // Shared by sub_591424/sub_59166C/sub_592831

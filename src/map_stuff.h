@@ -185,6 +185,8 @@ public:
 
     void sub_58E891(UnitList* unit_list); // 58E891
     void sub_58F166(MapAlm* alm); // 58F166
+    uint8_t sub_58F48D(uint16_t terrain_code, uint8_t* out_walk_cost); // Computes edge-blended walk cost + classification code for a terrain cell — 58F48D
+    void sub_58E670(); // Marks an 8-tile-thick obstacle border around the map edges — 58E670
 
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_58AB48(CArchive& ar); // Serialize

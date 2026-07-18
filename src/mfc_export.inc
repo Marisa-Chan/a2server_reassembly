@@ -472,6 +472,7 @@ extern ?FUN_0058a7e8@TokenPos@@QAEHEE@Z : proc   ;  TokenPos::FUN_0058a7e8
 ; MapStuff
 externdef ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z :proc  ; MapStuff::MapStuff(MapAlm*, UnitList*)
 externdef ??1MapStuff@@QAE@XZ :proc
+externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670() [ASM]
 
 externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
 externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
@@ -520,7 +521,7 @@ externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc
-externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*) [ASM]
+externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*)
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
 extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
