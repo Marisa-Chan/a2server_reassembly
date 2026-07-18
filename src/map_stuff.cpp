@@ -3,10 +3,12 @@
 #include "constants.h"
 #include "building.h"
 #include "eye.h"
+#include "file.h"
 #include "game_app.h"
 #include "group.h"
 #include "net.h"
 #include "player.h"
+#include "resource.h"
 #include "sack.h"
 #include "spell_effect.h"
 #include "unit.h"
@@ -23,6 +25,102 @@ MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->field_0x58d88.Null();
     this->sub_58E891(unit_list);
     this->sub_58F166(alm);
+}
+
+// 58E891
+void MapStuff::sub_58E891(UnitList* unit_list) {
+    this->field69_0xa456c = unit_list;
+    this->scan_presence_grid.unit_list = unit_list;
+    this->scan_presence_grid.num_detected = unit_list->unit_list.GetCount();
+    this->scan_presence_grid.scan_delta = unit_list->unit_list.GetCount();
+
+    this->map_width = 0x80;
+    this->map_height = 0x80;
+    this->self = this;
+
+    memset(this->walk_cost_map, 1, sizeof(this->walk_cost_map));
+    memset(this->obstacle_map, 0, sizeof(this->obstacle_map));
+    memset(this->obstacle_map2, 0, sizeof(this->obstacle_map2));
+    memset(this->height_map, 0, sizeof(this->height_map));
+
+    this->cell_states.InitHashTable(100, 1);
+
+    this->field48_0x58e88[0] = 0;   this->field49_0x58e90[0] = -1;
+    this->field48_0x58e88[1] = 1;   this->field49_0x58e90[1] = -1;
+    this->field48_0x58e88[2] = 1;   this->field49_0x58e90[2] = 0;
+    this->field48_0x58e88[3] = 1;   this->field49_0x58e90[3] = 1;
+    this->field48_0x58e88[4] = 0;   this->field49_0x58e90[4] = 1;
+    this->field48_0x58e88[5] = -1;  this->field49_0x58e90[5] = 1;
+    this->field48_0x58e88[6] = -1;  this->field49_0x58e90[6] = 0;
+    this->field48_0x58e88[7] = -1;  this->field49_0x58e90[7] = -1;
+    for (int32_t i = 0; i < 8; i++) {
+        this->field50_0x58e98[i] = PosYX(this->field48_0x58e88[i], this->field49_0x58e90[i]);
+    }
+
+    // Direction/terrain cost lookup table; purpose not fully reversed.
+    static const uint8_t direction_cost_table[4][14] = {
+        { 2, 3, 2, 4, 3, 4, 2, 2, 2, 2, 4, 4, 4, 4 },
+        { 3, 5, 3, 3, 1, 3, 2, 4, 2, 2, 4, 2, 4, 4 },
+        { 2, 3, 2, 4, 3, 4, 2, 4, 2, 2, 4, 2, 4, 4 },
+        { 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 4, 4, 4, 4 },
+    };
+    for (int32_t row = 0; row < 4; row++) {
+        for (int32_t col = 0; col < 14; col++) {
+            this->field26_0x540a6[row][col] = direction_cost_table[row][col];
+        }
+    }
+
+    this->field28_0x54126[0] = PosYX(2, 1);
+    this->field28_0x54126[1] = PosYX(5, 1);
+    this->field28_0x54126[2] = PosYX(4, 1);
+    this->field28_0x54126[3] = PosYX(7, 1);
+    this->field28_0x54126[4] = PosYX(6, 1);
+    this->field28_0x54126[5] = PosYX(5, 6);
+    this->field28_0x54126[6] = PosYX(3, 7);
+    this->field28_0x54126[7] = PosYX(8, 6);
+    this->field28_0x54126[12] = PosYX(10, 1);
+
+    File2 f;
+    f.Open("World\\Data\\map.reg", 0, nullptr);
+
+    RegFile reg;
+    reg.ReadFromFile(&f, -1);
+
+    this->walk_cost[0] = 0xFF;
+    this->walk_cost[1] = reg.GetInt("Terrain", "CostLand", 8);
+    this->walk_cost[2] = reg.GetInt("Terrain", "CostGrass", 8);
+    this->walk_cost[3] = reg.GetInt("Terrain", "CostFlowers", 9);
+    this->walk_cost[4] = reg.GetInt("Terrain", "CostSand", 14);
+    this->walk_cost[5] = reg.GetInt("Terrain", "CostCracked", 6);
+    this->walk_cost[6] = reg.GetInt("Terrain", "CostStones", 12);
+    this->walk_cost[7] = reg.GetInt("Terrain", "CostSavanna", 11);
+    this->walk_cost[8] = reg.GetInt("Terrain", "CostMountain", 16);
+    this->walk_cost[9] = reg.GetInt("Terrain", "CostWater", 8);
+    this->walk_cost[10] = reg.GetInt("Terrain", "CostRoad", 6);
+
+    this->speed_multiplier = reg.GetInt("Path Finding", "SpeedMultiplier", 8);
+
+    this->line_walk_delta[0][0] = 1;  this->line_walk_delta[0][1] = 0;
+    this->line_walk_delta[1][0] = 0;  this->line_walk_delta[1][1] = 1;
+    this->line_walk_delta[2][0] = -1; this->line_walk_delta[2][1] = 0;
+    this->line_walk_delta[3][0] = 0;  this->line_walk_delta[3][1] = -1;
+    this->line_walk_delta[4][0] = 1;  this->line_walk_delta[4][1] = 0;
+    this->line_walk_delta[5][0] = 0;  this->line_walk_delta[5][1] = 1;
+    this->line_walk_delta[6][0] = -1; this->line_walk_delta[6][1] = 0;
+    this->line_walk_delta[7][0] = 0;  this->line_walk_delta[7][1] = -1;
+    this->line_walk_delta[8][0] = 1;  this->line_walk_delta[8][1] = 0;
+    this->line_walk_delta[9][0] = 0;  this->line_walk_delta[9][1] = 1;
+    this->line_walk_delta[10][0] = -1; this->line_walk_delta[10][1] = 0;
+    this->line_walk_delta[11][0] = 0;  this->line_walk_delta[11][1] = -1;
+
+    memset(this->field31_0x54170, 0, sizeof(this->field31_0x54170));
+
+    this->static_scan_ahead = reg.GetInt("Path Finding", "StaticScanAhead", 5);
+    this->dynamic_scan_ahead = reg.GetInt("Path Finding", "DynamicScanAhead", 3);
+    this->static_refresh_rate = reg.GetInt("Path Finding", "StaticRefreshRate", 16);
+    this->dynamic_refresh_rate = reg.GetInt("Path Finding", "DynamicRefreshRate", 32);
+    this->dynamic_by_static_lookup = reg.GetInt("Path Finding", "DynamicByStaticLookup", 3);
+    this->static_isnt_needed = reg.GetInt("Path Finding", "StaticIsntNeeded", 5);
 }
 
 // Shared by sub_591424/sub_59166C/sub_592831

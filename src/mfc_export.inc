@@ -519,7 +519,7 @@ externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
-externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc         ; void MapStuff::sub_58E891(UnitList*) [ASM]
+externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc
 externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*) [ASM]
 
 extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc

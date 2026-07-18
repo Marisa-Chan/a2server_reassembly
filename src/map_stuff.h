@@ -160,9 +160,9 @@ struct MapStuff { // aka astruct_5
     Perf field45_0x58df8;
     Perf field46_0x58e28;
     Perf field47_0x58e58;
-    uint8_t field48_0x58e88[8];
-    uint8_t field49_0x58e90[8];
-    int32_t field50_0x58e98[8];
+    int8_t field48_0x58e88[8]; // Neighbor cell dx offsets.
+    int8_t field49_0x58e90[8]; // Neighbor cell dy offsets.
+    int32_t field50_0x58e98[8]; // Neighbor cell (dy,xy) offsets.
     uint8_t map_min_x;
     uint8_t map_min_y;
     uint8_t map_max_x;

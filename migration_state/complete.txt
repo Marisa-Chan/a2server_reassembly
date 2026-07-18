@@ -736,6 +736,7 @@
 ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z
 ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z
 ?sub_58E611@MapStuff@@QAEPAVSack@@G@Z
+?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z
 ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z
 ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@UPosYX@@E@Z
 ?sub_58FF51@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z
