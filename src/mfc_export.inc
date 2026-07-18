@@ -471,7 +471,6 @@ extern ?FUN_0058a7e8@TokenPos@@QAEHEE@Z : proc   ;  TokenPos::FUN_0058a7e8
 
 ; MapStuff
 externdef ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z :proc  ; MapStuff::MapStuff(MapAlm*, UnitList*)
-externdef ??1MapStuff@@QAE@XZ :proc
 externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670() [ASM]
 
 externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
@@ -1227,7 +1226,6 @@ externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 
 externdef ??1World@@QAE@XZ :proc
-externdef ??1MapStuff@@QAE@XZ :proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_53636E@PlayersList@@QAEHXZ :proc

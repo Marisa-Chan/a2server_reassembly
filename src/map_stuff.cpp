@@ -28,6 +28,10 @@ MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->sub_58F166(alm);
 }
 
+// 587F70
+MapStuff::~MapStuff() {
+}
+
 // 58E891
 void MapStuff::sub_58E891(UnitList* unit_list) {
     this->field69_0xa456c = unit_list;

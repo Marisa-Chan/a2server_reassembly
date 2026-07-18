@@ -337,7 +337,6 @@
 ??0UnitEye2@@QAE@XZ	69
 ??0CWinApp@@QAE@PBD@Z	76
 ?SetVideoMode@@YAHXZ	87
-??1MapStuff@@QAE@XZ	88
 ?ParseTunes@@YAXXZ	99
 ??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z	107
 ??0CArchive@@QAE@PAVCFile@@IHPAX@Z	114
