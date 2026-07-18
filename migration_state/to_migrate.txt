@@ -130,6 +130,8 @@
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ?sub_541FD7@Effect@@QAEHHH@Z	206
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
+?sub_58CD84@FieldBlock58ec0@@QAEXXZ	89
+?sub_58CE74@FieldBlock58ec0@@QAEXXZ	329
 ?ExitInstance@GameApp@@UAEHXZ	125
 ?OnIdle@GameApp@@UAEHJ@Z	199
 ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z	70
@@ -301,10 +303,8 @@
 ??0CStatic@@QAE@XZ	16
 ??0CBackPack@@QAE@XZ	16
 ??2CNoTrackObject@@SGPAXI@Z	18
-??0FieldBlock54190@@QAE@XZ	18
 ??0CAirUnit@@QAE@XZ	18
 ??0CA16@@QAE@PBD@Z	19
-??0FieldBlock5859c@@QAE@XZ	20
 ??0Spell@@QAE@XZ	22
 ??0UnitEye@@QAE@XZ	26
 ??0CDialog@@QAE@IPAVCWnd@@@Z	26
@@ -344,7 +344,6 @@
 ??1World@@QAE@XZ	139
 ??1ShopAssortment@@QAE@XZ	143
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
-??0FieldBlock58ec0@@QAE@XZ	149
 ??0Spell@@QAE@ABVCString@@@Z	153
 ?gfxFlushRect@@YAXABVCRect@@@Z	155
 ?InitVideo@@YAHXZ	191

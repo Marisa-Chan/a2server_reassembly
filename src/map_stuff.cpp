@@ -1125,6 +1125,50 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
 
 
 
+// 599FF0
+FieldBlock54190::FieldBlock54190() {
+    *reinterpret_cast<int32_t*>(&this->data[0]) = 0;
+    this->data[0x3F0] = 2;
+    *reinterpret_cast<int32_t*>(&this->data[4]) = 0;
+}
+
+extern "C" {
+    extern uint8_t unk_70B46C[4];
+    extern uint8_t unk_70B470[4];
+    extern uint8_t unk_70B474[8];
+}
+
+// 5A3180
+FieldBlock5859c::FieldBlock5859c() {
+    *reinterpret_cast<void**>(&this->data[0]) = unk_70B46C;
+    *reinterpret_cast<void**>(&this->data[4]) = unk_70B470;
+    *reinterpret_cast<void**>(&this->data[8]) = unk_70B474;
+    *reinterpret_cast<int32_t*>(&this->data[0xC]) = 0;
+}
+
+// 58E1E4
+FieldBlock58ec0::FieldBlock58ec0() {
+    File2 f;
+    f.Open("World\\Data\\map.reg", 0, nullptr);
+
+    RegFile reg;
+    reg.ReadFromFile(&f, -1);
+
+    int32_t scan_shift = reg.GetInt("Scanning", "ScanShift", 7);
+
+    // These two fields actually belong to the following MapStuff::field_0x78ec0 blob: offsets
+    // 0x2A004/0x2A000 relative to `this` spill past this array's own 0x20000 bytes, but land
+    // exactly at field_0x78ec0[0xA004]/[0xA000] since it immediately follows in MapStuff.
+    uint8_t* self = reinterpret_cast<uint8_t*>(this);
+    *reinterpret_cast<int32_t*>(self + 0x2A004) = scan_shift;
+    *reinterpret_cast<int32_t*>(self + 0x2A000) = 1 << scan_shift;
+
+    this->sub_58CD84();
+    this->sub_58CE74();
+
+    memset(this, 0, sizeof(this->data));
+}
+
 int CellState::IsEmpty() const
 { //58bef6
     if (small_unit != nullptr ||

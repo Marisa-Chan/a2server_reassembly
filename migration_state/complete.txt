@@ -41,6 +41,9 @@
 ??0EquipmentExtra@@QAE@XZ
 ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z
 ??0Fame2@@QAE@XZ
+??0FieldBlock54190@@QAE@XZ
+??0FieldBlock5859c@@QAE@XZ
+??0FieldBlock58ec0@@QAE@XZ
 ??0File2@@QAE@PBDI@Z
 ??0File2@@QAE@XZ
 ??0GameOptionsWindow@@QAE@HHHHH@Z

@@ -81,13 +81,18 @@ public:
 };
 ASSERT_SIZE(FieldBlock5859c, 2020);
 
-// Builds path-cost lookup tables (calls sub_58CD84/sub_58CE74/sub_597110/sub_59ADA0). Not yet
-// fully reversed.
+// Sub-field of MapStuff, immediately followed by field_0x78ec0 in MapStuff's layout. The
+// constructor reads World\Data\map.reg's Scanning/ScanShift setting and stores it into the
+// following field_0x78ec0 blob (offsets 0x2A004/0x2A000 relative to `this`, which spill past
+// this array's own bounds) before calling sub_58CD84/sub_58CE74 to build path-cost lookup
+// tables there; this array itself ends up zeroed. Not yet fully reversed.
 struct FieldBlock58ec0 {
     uint8_t data[131072];
 
 public:
     FieldBlock58ec0(); // 58E1E4
+    void sub_58CD84(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CD84
+    void sub_58CE74(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CE74
 };
 ASSERT_SIZE(FieldBlock58ec0, 131072);
 
