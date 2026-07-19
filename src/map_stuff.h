@@ -65,7 +65,9 @@ ASSERT_SIZE(ScanPresenceGrid, 0x1628);
 
 // Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
 struct FieldBlock54190 {
-    uint8_t data[0x3f4];
+    uint32_t field_0x0;
+    uint32_t field_0x4;
+    uint8_t data[0x3ec];
 
 public:
     FieldBlock54190(); // 599FF0
@@ -74,7 +76,11 @@ ASSERT_SIZE(FieldBlock54190, 0x3f4);
 
 // Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
 struct FieldBlock5859c {
-    uint8_t data[2020];
+    uint8_t* field_0x0;
+    uint8_t* field_0x4;
+    uint8_t* field_0x8;
+    int32_t field_0xc;
+    uint8_t data[2004];
 
 public:
     FieldBlock5859c(); // 5A3180

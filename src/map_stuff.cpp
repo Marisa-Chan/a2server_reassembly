@@ -1127,9 +1127,9 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
 
 // 599FF0
 FieldBlock54190::FieldBlock54190() {
-    *reinterpret_cast<int32_t*>(&this->data[0]) = 0;
-    this->data[0x3F0] = 2;
-    *reinterpret_cast<int32_t*>(&this->data[4]) = 0;
+    this->field_0x0 = 0;
+    this->field_0x4 = 0;
+    this->data[1000] = 2;
 }
 
 extern "C" {
@@ -1140,10 +1140,10 @@ extern "C" {
 
 // 5A3180
 FieldBlock5859c::FieldBlock5859c() {
-    *reinterpret_cast<void**>(&this->data[0]) = unk_70B46C;
-    *reinterpret_cast<void**>(&this->data[4]) = unk_70B470;
-    *reinterpret_cast<void**>(&this->data[8]) = unk_70B474;
-    *reinterpret_cast<int32_t*>(&this->data[0xC]) = 0;
+    this->field_0x0 = unk_70B46C;
+    this->field_0x4 = unk_70B470;
+    this->field_0x8 = unk_70B474;
+    this->field_0xc = 0;
 }
 
 // 58E1E4
