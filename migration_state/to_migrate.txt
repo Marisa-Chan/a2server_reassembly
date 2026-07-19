@@ -350,7 +350,6 @@
 ??0CSprite256@@QAE@PBD@Z	191
 ?FUN_00475e7a@@YAXXZ	258
 ??0MainWindow@@QAE@XZ	386
-??1MapAlm@@QAE@XZ	1425
 _Random0N	25
 _Random1N	14
 _sub_43A820	26

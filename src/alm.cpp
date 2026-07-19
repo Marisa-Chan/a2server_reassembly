@@ -1,4 +1,4 @@
-#include "alm.h"
+﻿#include "alm.h"
 
 #include "file.h"
 #include <stdio.h>
@@ -416,7 +416,83 @@ MapAlm::MapAlm(const char* filename) {
     }
 }
 
+// 56D92A
+MapAlm::~MapAlm() {
+    if (this->map_heights != nullptr) {
+        delete[] this->map_heights;
+    }
+    if (this->landscape != nullptr) {
+        delete[] this->landscape;
+    }
+    if (this->map_objects != nullptr) {
+        delete[] this->map_objects;
+    }
 
+    for (int32_t i = 0; i < this->map_buildings.GetSize(); i++) {
+        MapBuildingData* building = this->map_buildings[i];
+        if (building != nullptr) {
+            delete building;
+        }
+    }
+
+    for (int32_t i = 0; i < this->units_datas.GetSize(); i++) {
+        MapUnitData* unit = this->units_datas[i];
+        if (unit != nullptr) {
+            delete unit;
+        }
+    }
+
+    for (int32_t i = 0; i < this->map_players.GetSize(); i++) {
+        MapPlayerData* player = this->map_players[i];
+        if (player != nullptr) {
+            delete player;
+        }
+    }
+
+    while (!this->logic_instances.IsEmpty()) {
+        MapLogicData* data = this->logic_instances.RemoveHead();
+        delete data;
+    }
+
+    while (!this->logic_checks.IsEmpty()) {
+        MapLogicData* data = this->logic_checks.RemoveHead();
+        delete data;
+    }
+
+    for (int32_t i = 0; i < this->sacks.GetSize(); i++) {
+        MapSackData* sack = this->sacks[i];
+        if (sack != nullptr) {
+            delete sack;
+        }
+    }
+
+    for (int32_t i = 0; i < this->effects.GetSize(); i++) {
+        MapEffectData* effect = this->effects[i];
+        if (effect != nullptr) {
+            delete effect;
+        }
+    }
+
+    for (int32_t i = 0; i < this->groups.GetSize(); i++) {
+        delete this->groups[i];
+    }
+
+    for (int32_t i = 0; i < this->pointers.GetSize(); i++) {
+        delete this->pointers[i];
+    }
+
+    for (int32_t i = 0; i < this->taverns.GetSize(); i++) {
+        delete this->taverns[i];
+    }
+
+    for (int32_t i = 0; i < this->shops.GetSize(); i++) {
+        delete this->shops[i];
+    }
+
+    for (int32_t i = 0; i < this->music_info.GetSize(); i++) {
+        delete this->music_info[i];
+    }
+}
 
 int32_t MapPlayerData::FUN_0041ee50(int32_t idx)
 { //41ee50

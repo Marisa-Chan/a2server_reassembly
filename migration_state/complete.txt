@@ -184,6 +184,7 @@
 ??1Inn@@UAE@XZ
 ??1Inventory@@QAE@XZ
 ??1Item@@UAE@XZ
+??1MapAlm@@QAE@XZ
 ??1MWin_5e8@@QAE@XZ
 ??1NetStru1@@QAE@XZ
 ??1NetStru2@@QAE@XZ
