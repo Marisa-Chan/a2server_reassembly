@@ -377,8 +377,11 @@ BOOL GameApp::InitInstance()
 
 	char pathbuf[256];
 	bufsz = 255;
-	if (RegQueryValueExA(regkey, "INSTALLDIR", NULL, NULL, (uint8_t*)pathbuf, &bufsz) == ERROR_SUCCESS)
+	if (RegQueryValueExA(regkey, "INSTALLDIR", NULL, NULL, (uint8_t*)pathbuf, &bufsz) == ERROR_SUCCESS) {
+		#ifndef A2SERVER_PATCH
 		SetCurrentDirectoryA(pathbuf);
+		#endif
+	}
 
 	MainWindow* mwnd = new MainWindow();
 
