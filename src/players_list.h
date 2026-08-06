@@ -33,6 +33,9 @@ public:
     void sub_536286(); // Reset all players' frags to 0
     void sub_55AFB3(CArchive& ar); // Serialize
 
+    Player* GetHead(); // 5B70F0
+    Player* GetNext(Player* player); // 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
+
     ~PlayersList(); //534c02
 };
 ASSERT_SIZE(PlayersList, 0x24);

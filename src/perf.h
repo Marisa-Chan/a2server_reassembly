@@ -16,6 +16,8 @@ struct Perf {
 
 public:
     Perf(); // 599F90
+    void Begin(); // 599fd0
+    void End();   // 5b6e50
 };
 ASSERT_OFFSET(Perf, period, 0x18);
 ASSERT_SIZE(Perf, 0x30);

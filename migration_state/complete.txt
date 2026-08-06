@@ -783,6 +783,7 @@
 ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z
 ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
+?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
 ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z
 ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z

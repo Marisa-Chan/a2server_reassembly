@@ -108,6 +108,50 @@ bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
 }
 
+// Server turn tick: rebuild presence grid, run world updates, process each
+// player's groups, and log turn timing statistics when tracing is enabled.
+// 5ABD16
+void World::sub_5ABD16(PlayersList* players) {
+    this->field2_0x8.Begin();
+    if (this->field37_0xbbe8 == 0) {
+        this->field3_0x38.Begin();
+        this->field24_0xa50->scan_presence_grid.sub_596131();
+        this->field3_0x38.End();
+        this->duration1 = (int32_t)this->field3_0x38.period64;
+        this->total1 += (int32_t)this->field3_0x38.period64;
+    }
+
+    this->field4_0x68.Begin();
+    this->sub_5B0724();
+    this->field4_0x68.End();
+    this->duration2 = (int32_t)this->field4_0x68.period64;
+    this->total2 += (int32_t)this->field4_0x68.period64;
+
+    this->field5_0x98.Begin();
+    POSITION players_iter = players->list.GetHeadPosition();
+    while (players_iter != nullptr) {
+        Player* player = players->list.GetNext(players_iter);
+        this->sub_5ABF50(player);
+    }
+    this->sub_5B6346();
+    this->field5_0x98.End();
+    this->duration3 = (int32_t)this->field5_0x98.period64;
+    this->total3 += (int32_t)this->field5_0x98.period64;
+
+    this->counter += 1;
+    this->field2_0x8.End();
+    this->duration4 = (int32_t)this->field2_0x8.period64;
+    this->duration4_low = (int32_t)(this->field2_0x8.period64 >> 32);
+    this->duration5 = (int32_t)this->field2_0x8.period64;
+    this->total5 += (int32_t)this->field2_0x8.period64;
+
+    if (g_Server->script_settings->turn_tracing != 0) {
+        CString str;
+        str.Format("Stats: last turn - %d, average: %d.\n", this->duration5, this->total5 / this->counter);
+        g_NetStru1_main.FUN_0051cd89(str, nullptr);
+    }
+}
+
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4

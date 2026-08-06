@@ -44,7 +44,7 @@ struct World {
     int32_t duration4_low;
     uint8_t gap_0x8b8[4];
     int32_t duration5;
-    int32_t total5;
+    uint32_t total5;
     uint8_t gap_0x8c4[24];
     int32_t duration1;
     int32_t total1;
@@ -56,7 +56,7 @@ struct World {
     uint8_t field20_0xa48;
     uint8_t field21_0xa49;
     uint8_t gap_0xa4a[2];
-    int32_t counter;
+    uint32_t counter;
     MapStuff *field24_0xa50;
     uint8_t gap_0xa54[16];
     UnitList field26_0xa64;
@@ -114,6 +114,9 @@ public:
 
     void sub_5AFBFD(); // increments field65_0xc780
     void sub_5ABD16(class PlayersList* players);
+    void sub_5B0724(); // 5B0724
+    void sub_5B6346(); // 5B6346
+    void sub_5ABF50(Player* player); // 5ABF50
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
     void sub_5ACAA7(Group* group);

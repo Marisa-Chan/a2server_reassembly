@@ -176,10 +176,14 @@
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68
 ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z	369
+?Begin@Perf@@QAEXXZ	14
+?End@Perf@@QAEXXZ	63
 ?sub_534B17@Player@@QAEXXZ	25
 ?sub_534A74@Player@@QAEXPAVUnit@@@Z	39
 ?sub_5346AC@Player@@QAEXXZ	103
 ?sub_5347A1@Player@@QAEXPAVUnit@@@Z	347
+?GetHead@PlayersList@@QAEPAVPlayer@@XZ	13
+?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z	44
 ?sub_536286@PlayersList@@QAEXXZ	120
 ?sub_535F97@PlayersList@@QAEHXZ	130
 ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z	131
@@ -260,6 +264,7 @@
 ?sub_5AFBFD@World@@QAEXXZ	16
 ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z	20
 ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z	22
+?sub_5B0724@World@@QAEXXZ	23
 ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z	29
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z	29
 ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z	30
@@ -275,6 +280,7 @@
 ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z	43
 ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z	43
 ?sub_5A9383@World@@QAEXPAVUnit@@@Z	44
+?sub_5ABF50@World@@QAEXPAVPlayer@@@Z	54
 ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z	58
 ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z	61
 ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z	64
@@ -284,8 +290,8 @@
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z	94
 ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z	110
 ?sub_5B0556@World@@QAEXAAVCArchive@@@Z	142
+?sub_5B6346@World@@QAEXXZ	162
 ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z	169
-?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z	175
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z	190
 ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z	198
 ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z	199

@@ -557,6 +557,8 @@ externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
 ; Perf
 externdef ??0Perf@@QAE@XZ :proc
+externdef ?Begin@Perf@@QAEXXZ :proc
+externdef ?End@Perf@@QAEXXZ :proc
 
 ; MapStuff sub-object init blocks (opaque, ASM-backed)
 externdef ??0FieldBlock54190@@QAE@XZ :proc
@@ -1199,6 +1201,9 @@ externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::s
 externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::sub_5ADD64(Group*)
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
+externdef ?sub_5B0724@World@@QAEXXZ :proc
+externdef ?sub_5B6346@World@@QAEXXZ :proc
+externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
@@ -1243,6 +1248,8 @@ externdef ?CountCD@PlayersList@@QAEHXZ :proc
 externdef ?sub_536286@PlayersList@@QAEXXZ :proc                                ; void PlayersList::sub_536286()
 externdef ?sub_535F97@PlayersList@@QAEHXZ :proc                  ; int32_t PlayersList::sub_535F97()
 externdef ?sub_55AFB3@PlayersList@@QAEXAAVCArchive@@@Z :proc
+externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
+externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
 ; Sack
 externdef ??0Sack@@QAE@PBUTokenPos@@@Z :proc                                 ; Sack::Sack(const TokenPos*)
