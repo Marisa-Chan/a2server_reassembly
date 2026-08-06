@@ -1,5 +1,3 @@
-
-
 extern _pathStrCpy:proc
 
 
@@ -356,7 +354,7 @@ extern ??YCString@@QAEABV0@ABV0@@Z:proc   ; (public: class CString const & __thi
 extern ?GetBuffer@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBuffer(int))
 extern ?ReleaseBuffer@CString@@QAEXH@Z:proc   ; (public: void __thiscall CString::ReleaseBuffer(int))
 extern ?GetBufferSetLength@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBufferSetLength(int))
-extern ?FreeExtra@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::FreeExtra(void))
+extern ?FreeExtra@CString@@QAEXXZ:proc   ; (public: void __thisall CString::FreeExtra(void))
 extern ?LockBuffer@CString@@QAEPADXZ:proc   ; (public: char * __thiscall CString::LockBuffer(void))
 extern ?UnlockBuffer@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::UnlockBuffer(void))
 extern ?Find@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::Find(char)const )
@@ -442,7 +440,7 @@ extern ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z:proc   ; (public: in
 extern ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z:proc   ; (public: int __thiscall ResBase::GetInt32Array(char const *,char const *,class CArray<uint32_t>
 extern ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z:proc   ; (public: int __thiscall ResBase::GetStringArray(char const *,char const *,class CStringArray *))
 extern ?SetInt16Array@ResBase@@QAEXPBD0AAV?$CArray@GABG@@@Z:proc   ; (public: void __thiscall ResBase::SetInt16Array(char const *,char const *,class CArray<uint16_t>
-extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: void __thiscall ResBase::SetInt32Array(char const *,char const *,class CArray<uint32_t>
+extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: void __thiscall ResBase::SetInt32Array(char const *,char const *,class CArray<uint32_t)
 
 
 
@@ -919,7 +917,7 @@ externdef ?VMethod17@Weapon@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
 externdef ??0Inventory@@QAE@XZ :proc
-externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc
+externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
 
 
 
@@ -1202,6 +1200,8 @@ externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::s
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 externdef ?sub_5B0724@World@@QAEXXZ :proc
+externdef ?sub_5B0762@World@@QAEXXZ :proc                        ; void World::sub_5B0762()
+externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::sub_5B0A6A()
 externdef ?sub_5B6346@World@@QAEXXZ :proc
 externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc

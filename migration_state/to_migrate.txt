@@ -264,7 +264,6 @@
 ?sub_5AFBFD@World@@QAEXXZ	16
 ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z	20
 ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z	22
-?sub_5B0724@World@@QAEXXZ	23
 ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z	29
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z	29
 ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z	30
@@ -284,6 +283,7 @@
 ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z	58
 ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z	61
 ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z	64
+?sub_5B0762@World@@QAEXXZ	69
 ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z	87
 ?sub_5AC983@World@@QAEXPAVGroup@@H@Z	89
 ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z	93
@@ -298,6 +298,7 @@
 ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
+?sub_5B0A6A@World@@QAEXXZ	282
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z	581
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

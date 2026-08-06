@@ -152,6 +152,13 @@ void World::sub_5ABD16(PlayersList* players) {
     }
 }
 
+void World::sub_5B0724() {
+    this->trigger_variables[999] += 1;
+    this->sub_5B0762();
+    this->sub_5B0A6A();
+    this->field38_0xbbec.RemoveAll();
+}
+
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4
