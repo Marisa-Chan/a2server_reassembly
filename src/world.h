@@ -102,7 +102,7 @@ struct World {
     uint8_t trigger_results[1000];
     CList<TriggerCheck>* trigger_checks;
     CArray<TriggerAction>* trigger_actions;
-    CList<Trigger*>* triggers;
+    CList<Trigger>* triggers;
     char name[100]; // Not sure it's 100 bytes
     ResFile* field74_0xeb1c;
 

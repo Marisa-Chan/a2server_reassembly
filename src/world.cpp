@@ -159,6 +159,50 @@ void World::sub_5B0724() {
     this->field38_0xbbec.RemoveAll();
 }
 
+// Evaluate map triggers and run their actions when all conditions pass.
+// 5B0A6A
+void World::sub_5B0A6A() {
+    POSITION trigger_it = this->triggers->GetHeadPosition();
+    while (trigger_it != nullptr) {
+        Trigger& trigger = this->triggers->GetNext(trigger_it);
+        if (trigger.once != 0 && this->trigger_results[trigger.trigger_id] != 0) {
+            continue;
+        }
+        this->trigger_results[trigger.trigger_id] = 0;
+
+        bool all_pass = true;
+        POSITION check_it = trigger.checks->GetHeadPosition();
+        while (check_it != nullptr && all_pass) {
+            Check& check = trigger.checks->GetNext(check_it);
+            int32_t left = this->trigger_variables[check.arg1];
+            int32_t right = this->trigger_variables[check.arg2];
+            switch (check.compare) {
+                case 0: all_pass = all_pass && (left == right); break;
+                case 1: all_pass = all_pass && (left != right); break;
+                case 2: all_pass = all_pass && (left > right); break;
+                case 3: all_pass = all_pass && (left < right); break;
+                case 4: all_pass = all_pass && (left >= right); break;
+                case 5: all_pass = all_pass && (left <= right); break;
+                default: all_pass = false; break;
+            }
+        }
+
+        if (all_pass) {
+            this->trigger_results[trigger.trigger_id] = 1;
+            if (true) {// trigger.once != 0 && g_Server->script_settings->script_tracing != 0) {
+                CString msg;
+                msg.Format("Script: Trigger %d ( %d ifs, %d instants ).\n", trigger.trigger_id, trigger.checks->GetCount(), trigger.actions->GetCount());
+                g_NetStru1_main.FUN_0051cd89(msg, nullptr);
+            }
+            POSITION action_it = trigger.actions->GetHeadPosition();
+            while (action_it != nullptr) {
+                int32_t script_id = trigger.actions->GetNext(action_it);
+                this->DoScriptInstID(script_id);
+            }
+        }
+    }
+}
+
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4

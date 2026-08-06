@@ -298,7 +298,6 @@
 ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
-?sub_5B0A6A@World@@QAEXXZ	282
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z	581
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

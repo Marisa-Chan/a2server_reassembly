@@ -62,8 +62,8 @@ ASSERT_SIZE(TriggerCheck, 0x7c);
 
 struct Trigger {
 public:
-    CList<Check*>* checks;
-    CList<TriggerAction*>* actions;
+    CList<Check>* checks;
+    CList<int32_t>* actions;
     uint32_t once;
     uint8_t gap_0xc[4];
     uint32_t field_0x10;
