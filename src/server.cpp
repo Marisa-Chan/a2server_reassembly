@@ -670,6 +670,435 @@ void Srv1::sub_59CD45(MapAlm* alm) {
     }
 }
 
+// 59D891
+void Srv1::sub_59D891(MapAlm* alm, int flag) {
+    CMap<int32_t, int32_t, Unit*, Unit*> units_map;
+    CMap<int32_t, int32_t, Group*, Group*> groups_map;
+    CMap<int32_t, int32_t, Player*, Player*> players_map;
+    CMap<int32_t, int32_t, Building*, Building*> buildings_map;
+
+    // Build buildings map
+    POSITION building_iter = this->srv_stru->building_list->GetHeadPosition();
+    while (building_iter != nullptr) {
+        Building* building = this->srv_stru->building_list->GetNext(building_iter);
+        buildings_map[building->TokenID] = building;
+    }
+    
+    // Build units maps from two lists
+    if (dword_6CDB3C) {
+        const auto& unit_list = dword_6CDB3C->unit_list;
+        POSITION unit_iter = unit_list.GetHeadPosition();
+        while (unit_iter != nullptr) {
+            Unit* unit = unit_list.GetNext(unit_iter);
+            units_map[unit->TokenID] = unit;
+        }
+    }
+    if (this->srv_stru->units_list) {
+        const auto& unit_list = this->srv_stru->units_list->unit_list;
+        POSITION unit_iter = unit_list.GetHeadPosition();
+        while (unit_iter != nullptr) {
+            Unit* unit = unit_list.GetNext(unit_iter);
+            units_map[unit->TokenID] = unit;
+        }
+    }
+
+    // Build players and groups maps
+    POSITION player_iter = g_PlayersList->list.GetHeadPosition();
+    while (player_iter != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(player_iter);
+        players_map[player->token_id] = player;
+        
+        // Iterate player's groups
+        if (player->group_list != nullptr) {
+            const auto& group_list = player->group_list->groups;
+            POSITION group_iter = group_list.GetHeadPosition();
+            while (group_iter != nullptr) {
+                Group* group = group_list.GetNext(group_iter);
+                groups_map[group->group_id] = group;
+                
+                if (flag != 0 && g_Server->field4_0x74 == 0) {
+                    if (player->player_id == 1) {
+                        g_World->sub_5ACDF4(group);
+                    } else {
+                        g_World->sub_5AC983(group, 0);
+                    }
+                }
+            }
+        }
+        
+        // Add player's units to units_map
+        if (player->unit_list != nullptr) {
+            const auto& unit_list = player->unit_list->unit_list;
+            POSITION unit_iter = unit_list.GetHeadPosition();
+            while (unit_iter != nullptr) {
+                Unit* unit = unit_list.GetNext(unit_iter);
+                units_map[unit->TokenID] = unit;
+            }
+        }
+    }
+
+    // Count actions with TypeID < 0x10002
+    int32_t instance_count = 0;
+    POSITION instance_iter = alm->logic_instances.GetHeadPosition();
+    while (instance_iter != nullptr) {
+        MapLogicData* inst = alm->logic_instances.GetNext(instance_iter);
+        if (inst->type_id < 0x10002) {
+            instance_count++;
+        }
+    }
+
+    CMap<int32_t, int32_t, int32_t, int32_t> instance_idx_map;
+    g_World->trigger_actions->SetSize(instance_count, -1);
+
+    instance_iter = alm->logic_instances.GetHeadPosition();
+    int action_idx = 0;
+    while (instance_iter != nullptr) {
+        MapLogicData* action_data = alm->logic_instances.GetNext(instance_iter);
+        TriggerAction& action = g_World->trigger_actions->ElementAt(action_idx);
+
+        if (action_data->type_id < 0x10002) {
+            int has_unit = 0;
+            int has_group = 0;
+            int has_player = 0;
+            int valid = 1;
+            int data_idx = 0;
+
+            for (int arg_idx = 0; arg_idx < 10; arg_idx = arg_idx + 1) {
+                const uint32_t arg_type = action_data->argument_types[arg_idx];
+                uint32_t& arg_value = action_data->argument_values[arg_idx];
+
+                action.field_0x30[arg_idx] = (byte)arg_type;
+                if (
+                    (arg_value < 8000 || 9999 < arg_value) ||
+                    (arg_type != 2 && arg_type != 3 && arg_type != 4)
+                ) {
+                    switch(arg_type) {
+                    case 2: // Group
+                        if (!has_group) {
+                            Group* group = nullptr;
+                            groups_map.Lookup(arg_value, group);
+                            action.group = group;
+                            if (action.group == nullptr) {
+                                valid = 0;
+                            }
+                        } else {
+                            Group* group = nullptr;
+                            groups_map.Lookup(arg_value, group);
+                            action.multi = group;
+                            if (action.multi == nullptr) {
+                                valid = 0;
+                            }
+                        }
+
+                        if (action.group != nullptr) {
+                            action.group->group_sub->active = 1;
+                        } else if (action.multi != nullptr) {
+                            static_cast<Group*>(action.multi)->group_sub->active = 1;
+                        }
+                        has_group = 1;
+                        break;
+
+                    case 3: // Player
+                        if (!has_player) {
+                            Player* player = nullptr;
+                            players_map.Lookup(arg_value, player);
+                            action.player = player;
+                            if (action.player == nullptr) {
+                                valid = 0;
+                            }
+                        } else {
+                            Player* player = nullptr;
+                            players_map.Lookup(arg_value, player);
+                            action.multi = player;
+                            if (action.multi == nullptr) {
+                                valid = 0;
+                            }
+                        }
+                        has_player = 1;
+                        break;
+                        
+                    case 4: // Unit
+                        if (!has_unit) {
+                            Unit* unit = nullptr;
+                            units_map.Lookup(arg_value, unit);
+                            action.unit = unit;
+                            if (action.unit == nullptr) {
+                                valid = 0;
+                            }
+                        } else {
+                            Unit* unit = nullptr;
+                            units_map.Lookup(arg_value, unit);
+                            action.multi = unit;
+                            if (action.multi == nullptr) {
+                                valid = 0;
+                            }
+                        }
+
+                        if (action.multi != nullptr && static_cast<Unit*>(action.multi)->group != nullptr) {
+                            static_cast<Unit*>(action.multi)->group->group_sub->active = 1;
+                        } else if (action.unit != nullptr && action.unit->group != nullptr) {
+                            action.unit->group->group_sub->active = 1;
+                        }
+
+                        has_unit = 1;
+                        break;
+                        
+                    case 8: // Item
+                        action.item_id = static_cast<uint16_t>(arg_value + 3608);
+                        break;
+                        
+                    case 9: // Building
+                        action.building = buildings_map[arg_value];
+                        if (action.building == nullptr) {
+                            CString msg;
+                            msg.Format("Can't resolve building %d.", arg_value);
+                            LogMessage(msg);
+                            valid = 0;
+                        }
+                        break;
+                        
+                    default:
+                        action.data[data_idx++] = arg_value;
+                        break;
+                    }
+                } else {
+                    action.data[arg_idx] = arg_value;
+                    if (arg_value < 9000) {
+                        action.field_0x3a[arg_idx] = 1;
+                        arg_value = arg_value - 8000;
+                    }
+                    else {
+                        action.field_0x3a[arg_idx] = 2;
+                        arg_value = arg_value - 9000;
+                    }
+                    action.field_0x44[arg_idx] = (arg_value / 100);
+                    action.field_0x4e[arg_idx] = (arg_value % 100);
+                    action.field_0x58++;
+                }
+            }
+            if (valid == 1) {
+                instance_idx_map[action_data->index] = action_idx;
+                action.type = action_data->type_id;
+                action.id = action_idx;
+                action_idx++;
+            }
+            else {
+                CString message;
+                message.Format("Failed to create instant %d %s",action_data->index, action_data->name);
+                LogMessage(message);
+            }
+        } else if (action_data->type_id == 0x10002) {
+            const uint16_t val = (action_data->argument_values[0] & 0xFF) | ((action_data->argument_values[1] & 0xFF) << 8);
+            this->field4_0x28.Add(val);
+        }
+    }
+
+    CMap<int32_t, int32_t, int32_t, int32_t> check_idx_map;
+    POSITION check_iter = alm->logic_checks.GetHeadPosition();
+    int32_t check_idx = 0;
+
+    while (check_iter != nullptr) {
+        auto* check_data = alm->logic_checks.GetNext(check_iter);
+
+        check_idx_map[check_data->index] = check_idx;
+
+        TriggerCheck check = TriggerCheck();
+        check.type = check_data->type_id;
+        check.id = check_idx;
+        check.exec_once = check_data->exec_once_flag;
+        check.counter = 0;
+
+        if (check.type < 0x10002) {
+            int has_unit = 0;
+            int has_group = 0;
+            int has_player = 0;
+            bool valid = true;
+            int data_idx = 0;
+
+            for (int arg_idx = 0; arg_idx < 10; arg_idx = arg_idx + 1) {
+                const uint32_t arg_type = check_data->argument_types[arg_idx];
+                uint32_t& arg_value = check_data->argument_values[arg_idx];
+
+                check.field_0x30[arg_idx] = static_cast<uint8_t>(arg_type);
+
+                if (
+                    arg_value < 8000 || 9999 < arg_value ||
+                    (arg_type != 2 && arg_type != 3 && arg_type != 4)
+                ) {
+                    switch (arg_type) {
+                    case 2: // Group
+                        if (!has_group) {
+                            Group* group = nullptr;
+                            groups_map.Lookup(arg_value, group);
+                            check.group = group;
+                            if (check.group == nullptr) {
+                                valid = false;
+                            }
+                        } else {
+                            Group* group = nullptr;
+                            groups_map.Lookup(arg_value, group);
+                            check.multi = group;
+                            if (check.multi == nullptr) {
+                                valid = false;
+                            }
+                        }
+
+                        if (check.group != nullptr && check.type != 1) {
+                            check.group->group_sub->active = 1;
+                        } else if (check.multi != nullptr && check.type != 1) {
+                            static_cast<Group*>(check.multi)->group_sub->active = 1;
+                        }
+
+                        has_group = 1;
+                        break;
+                        
+                    case 3: // Player
+                        if (!has_player) {
+                            Player* player = nullptr;
+                            players_map.Lookup(arg_value, player);
+                            check.player = player;
+                            if (check.player == nullptr) {
+                                valid = false;
+                            }
+                        } else {
+                            Player* player = nullptr;
+                            players_map.Lookup(arg_value, player);
+                            check.multi = player;
+                            if (check.multi == nullptr) {
+                                valid = false;
+                            }
+                        }
+                        has_player = 1;
+                        break;
+                        
+                    case 4: // Unit
+                        if (!has_unit) {
+                            Unit* unit = nullptr;
+                            units_map.Lookup(arg_value, unit);
+                            check.unit = unit;
+                            if (check.unit == nullptr) {
+                                valid = false;
+                            }
+                        } else {
+                            Unit* unit = nullptr;
+                            units_map.Lookup(arg_value, unit);
+                            check.multi = unit;
+                            if (check.multi == nullptr) {
+                                valid = false;
+                            }
+                        }
+                        
+                        if (check.unit != nullptr && check.unit->group != nullptr && check.type != 1) {
+                            check.unit->group->group_sub->active = 1;
+                        } else if (check.multi != nullptr && static_cast<Unit*>(check.multi)->group != nullptr && check.type != 1) {
+                            static_cast<Unit*>(check.multi)->group->group_sub->active = 1;
+                        }
+
+                        has_unit = 1;
+                        break;
+
+                    case 8: // Item
+                        check.item_id = static_cast<uint16_t>(check_data->argument_values[arg_idx] + 3608);
+                        break;
+
+                    case 9: // Building
+                        check.building = buildings_map[arg_value];
+                        if (check.building == nullptr) {
+                            CString msg;
+                            msg.Format("Can't resolve building %d.", arg_value);
+                            LogMessage(msg);
+                            valid = false;
+                        }
+                        break;
+                        
+                    default:
+                        check.data[data_idx++] = arg_value;
+                        break;
+                    }
+                } else {
+                    check.data[arg_idx] = arg_value;
+                    if (arg_value < 9000) {
+                        check.field_0x3a[arg_idx] = 1;
+                        arg_value = arg_value + -8000;
+                    }
+                    else {
+                        check.field_0x3a[arg_idx] = 2;
+                        arg_value = arg_value + -9000;
+                    }
+                    check.field_0x44[arg_idx] = (byte)(arg_value / 100);
+                    check.field_0x4e[arg_idx] = (byte)(arg_value % 100);
+                    check.field_0x58++;
+                }
+            }
+
+            if (valid) {
+                g_World->trigger_checks->AddTail(check);
+                check_idx++;
+            } else {
+                check_idx_map[check_data->index] = 0;
+                CString msg;
+                msg.Format("Failed to create check %d %s", check_data->index, check_data->name);
+                LogMessage(msg);
+            }
+        } else {
+            if (check.type == 0x10002) {
+                g_World->trigger_variables[check_idx] = check_data->argument_values[0];
+                check_idx++;
+            }
+        }
+    }
+
+    for (int trig_idx = 0; trig_idx < alm->map_logic_triggers.GetSize(); ++trig_idx) {
+        auto trigger_data = &alm->map_logic_triggers[trig_idx];
+        if (trigger_data->check_ids[0] == 0) {
+            continue;
+        }
+
+        Trigger trigger = Trigger();
+
+        for (int check_idx = 0; check_idx < 3; check_idx = check_idx + 1) {
+            if ((trigger_data->check_ids[check_idx * 2] != 0) && (trigger_data->check_ids[check_idx * 2 + 1] != 0)) {
+                int32_t check1_id = check_idx_map[trigger_data->check_ids[check_idx * 2]];
+                int32_t check2_id = check_idx_map[trigger_data->check_ids[check_idx * 2 + 1]];
+
+                trigger.once = trigger_data->execute_once;
+
+                Check check = Check();
+                check.arg1 = check1_id;
+                check.arg2 = check2_id;
+                check.compare = trigger_data->check_operators[check_idx];
+
+                POSITION check_iter = g_World->trigger_checks->GetHeadPosition();
+                while (check_iter != nullptr) {
+                    TriggerCheck& trigger_check = g_World->trigger_checks->GetNext(check_iter);
+                    if (trigger_check.id == check1_id) {
+                        trigger_check.counter++;
+                    }
+                    if (trigger_check.id == check2_id) {
+                        trigger_check.counter++;
+                    }
+                }
+
+                trigger.checks->AddTail(check);
+            }
+        }
+        for (int action_idx = 0; action_idx < 4; action_idx = action_idx + 1) {
+            if (trigger_data->instance_ids[action_idx] != 0) {
+                if (5000 < trigger_data->instance_ids[action_idx]) {
+                    CString msg;
+                    msg.Format("Reference to suspicsious instant (%d) from pattern %d.", trigger_data->instance_ids[action_idx], trig_idx);
+                    LogMessage(msg);
+                }
+                auto instance_id = instance_idx_map[trigger_data->instance_ids[action_idx]];
+                trigger.actions->AddTail(instance_id);
+            }
+        }
+        trigger.trigger_id = trig_idx;
+
+        g_World->triggers->AddTail(trigger);
+    }
+}
+
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
 void Server::sub_4FF937(Player* player, int32_t bool_arg4)

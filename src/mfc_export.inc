@@ -1213,12 +1213,19 @@ externdef ?sub_5B0556@World@@QAEXAAVCArchive@@@Z :proc
 externdef ?sub_5B2E7A@World@@QAEXXZ :proc
 
 
+; Trigger
+externdef ??0Trigger@@QAE@XZ :proc          ; Trigger::Trigger()
+externdef ??1Trigger@@QAE@XZ :proc          ; Trigger::~Trigger()
+externdef ??4Trigger@@QAEAAU0@ABU0@@Z :proc ; Trigger::operator=(const Trigger&)
+
+
 ; TriggerAction
 externdef ??0TriggerAction@@QAE@XZ :proc                                         ; TriggerAction::TriggerAction()
 
 
 ; TriggerCheck
-externdef ??0TriggerCheck@@QAE@XZ :proc                                          ; TriggerCheck::TriggerCheck()
+externdef ??0TriggerCheck@@QAE@XZ :proc             ; TriggerCheck::TriggerCheck()
+externdef ??4TriggerCheck@@QAEAAU0@ABU0@@Z :proc    ; TriggerCheck::operator=(const TriggerCheck&)
 
 
 ; Player

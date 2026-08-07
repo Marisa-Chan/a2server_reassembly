@@ -9,9 +9,13 @@
 
 
 struct Check {
+public:
     uint32_t arg1;
     uint32_t arg2;
     uint32_t compare;
+
+public:
+
 };
 
 class Building;
@@ -56,6 +60,7 @@ public:
 public:
     // 5afc1d
     TriggerCheck();
+    TriggerCheck& operator=(const TriggerCheck& other); // 5afc6f
 };
 ASSERT_OFFSET(TriggerCheck, counter, 0x78);
 ASSERT_SIZE(TriggerCheck, 0x7c);
@@ -68,6 +73,11 @@ public:
     uint8_t gap_0xc[4];
     uint32_t field_0x10;
     uint32_t trigger_id;
+
+public:
+    Trigger(); // 5afd79
+    ~Trigger(); // 5afe3d
+    Trigger& operator=(const Trigger& other); // 5b006e
 };
 ASSERT_SIZE(Trigger, 0x18);
 

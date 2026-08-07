@@ -236,7 +236,6 @@
 ?sub_5585F2@SpellEffectList@@QAEXXZ	363
 ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z	435
 ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z	977
-?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z	1829
 ?sub_4FAEB4@SrvStru1@@QAEXXZ	423
 @sub_48A747@0	5
 @sub_49585B@4	184
@@ -311,6 +310,7 @@
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CAirUnit@@QAE@XZ	18
 ??0CA16@@QAE@PBD@Z	19
+??4TriggerCheck@@QAEAAU0@ABU0@@Z	20
 ??0Spell@@QAE@XZ	22
 ??0UnitEye@@QAE@XZ	26
 ??0CDialog@@QAE@IPAVCWnd@@@Z	26
@@ -335,12 +335,14 @@
 ??0Spell@@QAE@E@Z	45
 ??0MapPlayerData@@QAE@XZ	48
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
+??1Trigger@@QAE@XZ	57
 ??0CUnit@@QAE@XZ	57
 ??0CBmp64@@QAE@II@Z	58
 ??0MapPlayerData@@QAE@HH@Z	62
 ??0ShopAssortment@@QAE@XZ	66
 ??0UnitEye2@@QAE@XZ	69
 ??0CWinApp@@QAE@PBD@Z	76
+??0Trigger@@QAE@XZ	87
 ?SetVideoMode@@YAHXZ	87
 ?ParseTunes@@YAXXZ	99
 ??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z	107
@@ -352,6 +354,7 @@
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
 ??0Spell@@QAE@ABVCString@@@Z	153
 ?gfxFlushRect@@YAXABVCRect@@@Z	155
+??4Trigger@@QAEAAU0@ABU0@@Z	161
 ?InitVideo@@YAHXZ	191
 ??0CSprite256@@QAE@PBD@Z	191
 ?FUN_00475e7a@@YAXXZ	258

@@ -189,7 +189,7 @@ void World::sub_5B0A6A() {
 
         if (all_pass) {
             this->trigger_results[trigger.trigger_id] = 1;
-            if (true) {// trigger.once != 0 && g_Server->script_settings->script_tracing != 0) {
+            if (trigger.once != 0 && g_Server->script_settings->script_tracing != 0) {
                 CString msg;
                 msg.Format("Script: Trigger %d ( %d ifs, %d instants ).\n", trigger.trigger_id, trigger.checks->GetCount(), trigger.actions->GetCount());
                 g_NetStru1_main.FUN_0051cd89(msg, nullptr);
