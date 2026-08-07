@@ -1099,6 +1099,190 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
     }
 }
 
+// 59F1BE
+void Srv1::sub_59F1BE(MapAlm* alm) {
+    // Build lookup maps
+    CMap<int32_t, int32_t, Building*, Building*> buildings_map;
+    CMap<int32_t, int32_t, Unit*, Unit*> units_map;
+    
+    // Build units map
+    POSITION unit_iter = dword_6CDB3C->unit_list.GetHeadPosition();
+    while (unit_iter != nullptr) {
+        Unit* unit = dword_6CDB3C->unit_list.GetNext(unit_iter);
+        units_map[unit->TokenID] = unit;
+    }
+    if (this->srv_stru->units_list) {
+        const auto& unit_list = this->srv_stru->units_list->unit_list;
+        POSITION unit_iter = unit_list.GetHeadPosition();
+        while (unit_iter != nullptr) {
+            Unit* unit = unit_list.GetNext(unit_iter);
+            units_map[unit->TokenID] = unit;
+        }
+    }
+    
+    // Build buildings map
+    POSITION building_iter = this->srv_stru->building_list->GetHeadPosition();
+    while (building_iter != nullptr) {
+        Building* building = this->srv_stru->building_list->GetNext(building_iter);
+        buildings_map[building->TokenID] = building;
+    }
+
+    // Process effects (MapEffectData array)
+    for (int32_t effect_idx = 0; effect_idx < alm->effects.GetSize(); effect_idx++) {
+        MapEffectData* effect_data = alm->effects[effect_idx];
+
+        // Trap.
+        if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->values[0] < 4) {
+            uint8_t data[6];
+            data[0] = effect_data->type_id;
+            data[1] = effect_data->spell_strength;
+            data[2] = effect_data->modifiers_data[0].x;
+            data[3] = effect_data->modifiers_data[0].y;
+            data[4] = effect_data->modifiers_data[1].x;
+            data[5] = effect_data->modifiers_data[1].y;
+
+            uint16_t yx = (effect_data->trap_y << 8) | effect_data->trap_x;
+            MapStuff_Instance->sub_596576(yx, data);
+        }
+
+        // Process spellbook entries for units
+        if (effect_data->sack == nullptr && (effect_data->values[0] & 8)) {
+            Unit* unit = units_map[effect_data->values[1]];
+            if (unit == nullptr) {
+                CString msg;
+                msg.Format("Can't resolve unit %d for spellbook.", effect_data->values[1]);
+                LogMessage(msg);
+                continue;
+            }
+
+            // Ensure unit has a spellbook
+            if (unit->spell_book == nullptr) {
+                unit->spell_book = new SpellBook();
+                unit->unit_attrs |= 2;
+                if (unit->mp_max != 0) {
+                    unit->unit_attrs |= 4;
+                }
+            }
+
+            // Add spell to spellbook
+            Spell* spell = new Spell(effect_data->type_id);
+            unit->spell_book->sub_53D7F0(effect_data->type_id, spell);
+        } else if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->sack == nullptr && (effect_data->values[0] & 4)) {
+            Building* building = buildings_map[effect_data->values[1]];
+            if (building == nullptr) {
+                CString msg;
+                msg.Format("Can't resolve building %d for building - caster", effect_data->values[1]);
+                LogMessage(msg);
+                continue;
+            }
+
+            VirtualCaster* vcaster = new VirtualCaster();
+            *vcaster->position = *building->position;
+            vcaster->byte_0x3c = static_cast<uint8_t>(effect_data->effect_id);
+            vcaster->properties[0] = static_cast<uint8_t>(effect_data->type_id);
+            vcaster->properties[1] = static_cast<uint8_t>(effect_data->spell_strength);
+            vcaster->properties[2] = static_cast<uint8_t>(effect_data->trap_x);
+            vcaster->properties[3] = static_cast<uint8_t>(effect_data->trap_y);
+            vcaster->pOwner = building->pOwner;
+
+            this->srv_stru->virtual_casters_list.AddTail(vcaster);
+        }
+    }
+    
+    // Process sacks
+    for (int32_t sack_idx = 0; sack_idx < alm->sacks.GetSize(); sack_idx++) {
+        MapSackData* sack_data = alm->sacks[sack_idx];
+        
+        Inventory* inventory = nullptr;
+        Unit* unit = nullptr;
+        
+        // Create inventory or resolve unit
+        if (sack_data->unit_id == 0) {
+            inventory = new Inventory();
+        } else {
+            unit = units_map[sack_data->unit_id];
+        }
+        
+        // Process items
+        for (int32_t item_idx = 0; item_idx < sack_data->item_ids.GetSize(); item_idx++) {
+            uint16_t item_id = static_cast<uint16_t>(sack_data->item_ids[item_idx]);
+            Item* item = g_GameDataRes.sub_510EE6(item_id);
+            
+            if (item != nullptr) {
+                // Get effect data ID for this item
+                int32_t effect_id = sack_data->item_effect_ids[item_idx];
+                if (effect_id != 0) {
+                    MapEffectData* effect_data = alm->effects[effect_id - 1];
+
+                    if (effect_data->trap_x != 0 || effect_data->trap_y != 0 || effect_data->sack == nullptr) {
+                        continue;
+                    }
+                    
+                    // Add primary effect
+                    if (effect_data->values[0] != 0) {
+                        Effect* effect = new Effect();
+                        effect->effect_id = effect_data->values[0] + (modifier::damagefire - 1);
+                        effect->damage_min = effect_data->values[1];
+                        effect->damage_spread = effect_data->values[2];
+                        item->_effects.AddTail(effect);
+                        item->VMethod15();
+                    }
+                    
+                    // Add secondary effect (spell)
+                    if (effect_data->type_id != 0) {
+                        Effect* effect = new Effect();
+                        if (item->item_type == Item::ItemType::BOOK) {
+                            effect->effect_id = modifier::teachspell;
+                        } else {
+                            effect->effect_id = modifier::castspell;
+                        }
+                        effect->spell_or_damage = effect_data->type_id;
+                        effect->spell_value = effect_data->spell_strength;
+                        item->_effects.AddTail(effect);
+                        item->VMethod15();
+                    }
+                    
+                    // Add modifier effects
+                    for (int32_t mod_idx = 0; mod_idx < effect_data->modifiers_data.GetSize(); mod_idx++) {
+                        MapEffectModifier* modifier = &effect_data->modifiers_data[mod_idx];
+                        Effect* effect = new Effect();
+                        
+                        uint8_t mod_type = static_cast<uint8_t>(modifier->flags & 0xFF);
+                        if (mod_type == modifier::castspell) {
+                            effect->effect_id = modifier::damagebonus;
+                        } else {
+                            effect->effect_id = mod_type;
+                        }
+                        
+                        effect->spell_or_damage = modifier->y;
+                        effect->spell_value = modifier->flags;
+                        item->_effects.AddTail(effect);
+                        item->VMethod15();
+                    }
+                }
+                
+                // Add item to inventory or unit
+                if (sack_data->unit_id == 0) {
+                    inventory->PutItemIntoBagAtDefault(item);
+                } else {
+                    uint16_t wielded = sack_data->items_wielded[item_idx];
+                    if (wielded == 0) {
+                        unit->inventory->PutItemIntoBagAtDefault(item);
+                    } else {
+                        unit->VMethod13(item);
+                    }
+                }
+            }
+        }
+        
+        // Create sack on map if this is a ground sack
+        if (sack_data->unit_id == 0 && inventory != nullptr) {
+            TokenPos pos(sack_data->x >> 8, sack_data->y >> 8, MapStuff_Instance);
+            this->srv_stru->sack_list->sub_554460(&pos, inventory, sack_data->gold, 0);
+        }
+    }
+}
+
 // Called when a player enters a map; streams the current game state to them.
 // 4FF937
 void Server::sub_4FF937(Player* player, int32_t bool_arg4)
