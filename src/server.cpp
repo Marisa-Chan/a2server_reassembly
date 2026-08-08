@@ -5849,6 +5849,71 @@ void Server::sub_509042() {
     }
 }
 
+// 5090FA
+void Server::sub_5090FA(Player* player) {
+    if (player->field_0x41 == 0 || player->is_ai) {
+        return;
+    }
+
+    if (player->field_0x40 < 2) {
+        if (player->main_unit == nullptr || player->main_unit->decay != 0) {
+            player->field_0x40 = 2;
+            g_NetStru1_main.FUN_0051cefb(0xB4, player->field_0x40, 0, player);
+            if (player->field_0x42 != 0 && this->field4_0x74 == 0) {
+                g_NetStru1_main.FUN_0051cefb(0xB4, 0, 0, player);
+            }
+        } else if (g_World->mission_fail > 0) {
+            if (player->field_0x40 < 2) {
+                LogMessage("Logic - Mission Failed");
+                g_NetStru1_main.FUN_0051cefb(0xB4, g_World->mission_fail, 0, player);
+                player->field_0x40 = (uint8_t)g_World->mission_fail;
+            }
+        } else if (g_World->mission_complete != 0 && player->field_0x40 != 1) {
+            LogMessage("Logic - Mission Complete");
+            g_NetStru1_main.FUN_0051cefb(0xB5, 0, 0, player);
+            player->field_0x40 = 1;
+        }
+    } else {
+        if (this->field4_0x74 != 0 && player->field_0x43 != 0 && player->main_unit->hp <= -40 && player->field_0xa64 != 0) {
+            player->field_0xa64 = 0;
+            Humanoid* unit = player->main_unit;
+            if (unit->inventory == nullptr) {
+                unit->inventory = new Inventory();
+            }
+            POSITION pos = this->srv_stru1->units_list->unit_list.Find(unit);
+            if (pos != nullptr) {
+                this->srv_stru1->units_list->unit_list.RemoveAt(pos);
+            }
+            unit->field_x18 = 0;
+            uint8_t saved_spell_id = unit->eye2->spell_id;
+            this->sub_500907(player, 0, 0, 0, 0, 0, 0);
+            this->sub_5013D4(player);
+            player->field_0x40 = 0;
+            unit->eye2->spell_id = saved_spell_id;
+            g_World->sub_5A79C9(unit);
+            if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
+                Player* self_player = g_PlayersList->sub_535D39("Self");
+                if (self_player != nullptr) {
+                    for (int32_t i = 2; i < 16; i++) {
+                        g_World->diplomacy.diplomacy[i][player->player_id] = g_World->diplomacy.diplomacy[i][self_player->player_id];
+                        g_World->diplomacy.diplomacy[player->player_id][i] = g_World->diplomacy.diplomacy[self_player->player_id][i];
+                    }
+                    g_World->diplomacy.diplomacy[self_player->player_id][player->player_id] = 0x12;
+                    g_World->diplomacy.diplomacy[player->player_id][self_player->player_id] = 0x12;
+                    g_NetStru1_main.sub_51CB21(player);
+                }
+            }
+            g_NetStru1_main.sub_519221(unit, nullptr, 0xFFFFFFFF, 0xFFB, 0, 0);
+            PacketInfo& packet_info = PacketInfo::Inst;
+            packet_info.id = 0xAB;
+            packet_info.to_player_id = player->player_id;
+            packet_info.field_0xa = player->main_unit->position->GetX() & 0xFF;
+            packet_info.field_0xe = player->main_unit->position->GetY() & 0xFF;
+            g_NetStru1_main.QueuePacketSend(&packet_info);
+        }
+    }
+}
+
 // 5096E4
 void Server::sub_5096E4() {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
