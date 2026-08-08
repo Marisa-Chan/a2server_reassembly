@@ -233,6 +233,7 @@ externdef ??0Outpost@@QAE@PAUTokenPos@@@Z :proc                                 
 externdef ??1Outpost@@UAE@XZ :proc                                               ; Outpost::~Outpost()
 externdef ?VMethod1@Outpost@@UAEXXZ : proc
 externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
+externdef ?FillUnits@Outpost@@QAEXPAVGroup@@@Z :proc
 
 
 ; Inn

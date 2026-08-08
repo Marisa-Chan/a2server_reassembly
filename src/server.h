@@ -114,7 +114,7 @@ public:
     void sub_59D891(MapAlm* alm, int flag);
     void sub_59F1BE(MapAlm* alm);
     void sub_59C37A(MapAlm* alm);
-    void sub_59BEDB(Group* group, MapAlm* alm); // still in ASM
+    void sub_59BEDB(Group* group, MapAlm* alm);
 
     int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c
 

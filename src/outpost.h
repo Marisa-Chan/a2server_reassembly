@@ -26,6 +26,7 @@ public:
 
 public:
     void sub_543EC3(Group* group);
+    void FillUnits(Group* group); // 54361E
     void sub_54335a(); // Initializes fields.
 
 public:

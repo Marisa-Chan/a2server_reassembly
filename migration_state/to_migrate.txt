@@ -175,6 +175,7 @@
 ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z	59
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68
+?FillUnits@Outpost@@QAEXPAVGroup@@@Z	315
 ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z	369
 ?Begin@Perf@@QAEXXZ	14
 ?End@Perf@@QAEXXZ	63
@@ -234,7 +235,6 @@
 ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z	378
 ?sub_55BF31@SpellEffectList@@QAEXAAVCArchive@@@Z	327
 ?sub_5585F2@SpellEffectList@@QAEXXZ	363
-?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z	435
 @sub_48A747@0	5
 @sub_49585B@4	184
 ?sub_59A030@Unit@@QAEHXZ	15

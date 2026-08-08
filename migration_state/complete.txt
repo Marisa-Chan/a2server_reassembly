@@ -778,6 +778,7 @@
 ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z
 ?sub_59A670@MapStuff@@QAEPAGEE@Z
 ?sub_59A6F0@MapStuff@@QAEPAEEE@Z
+?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z
 ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z
 ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z
 ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z

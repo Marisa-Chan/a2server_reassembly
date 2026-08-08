@@ -19,6 +19,7 @@
 #include "players_list.h"
 #include "net.h"
 #include "map_stuff.h"
+#include "outpost.h"
 #include "spell_effect.h"
 #include "effect.h"
 #include "mfc_plex.h"
@@ -516,6 +517,90 @@ void Srv1::sub_59FC97(int count) {
         }
         TokenPos pos(x, y, MapStuff_Instance);
         g_Server->srv_stru1->sack_list->sub_554460(&pos, inventory, gold, 0);
+    }
+}
+
+// 59BEDB
+void Srv1::sub_59BEDB(Group* group, MapAlm* alm) {
+    if (group->unit_list.GetCount() == 0) {
+        return;
+    }
+
+    int32_t min_x = 1000;
+    int32_t max_x = 0;
+    int32_t min_y = 1000;
+    int32_t max_y = 0;
+    int32_t sum_x = 0;
+    int32_t sum_y = 0;
+    int32_t count = 0;
+
+    POSITION pos = group->unit_list.GetHeadPosition();
+    while (pos != nullptr) {
+        Unit* unit = group->unit_list.GetNext(pos);
+        uint8_t x = unit->position->GetX();
+        uint8_t y = unit->position->GetY();
+        min_x = (std::min)(min_x, (int32_t)x);
+        max_x = (std::max)(max_x, (int32_t)x);
+        min_y = (std::min)(min_y, (int32_t)y);
+        max_y = (std::max)(max_y, (int32_t)y);
+        sum_x += x;
+        sum_y += y;
+        count++;
+    }
+
+    uint8_t avg_x = (uint8_t)(sum_x / count);
+    uint8_t avg_y = (uint8_t)(sum_y / count);
+    int32_t spread = (std::max)(max_x - min_x, max_y - min_y);
+
+    TokenPos token_pos(avg_x, avg_y, MapStuff_Instance);
+    token_pos.FUN_0058a7e8(avg_x, avg_y);
+
+    Outpost* outpost = new Outpost(&token_pos);
+    outpost->pOwner = group->owner;
+    outpost->group_id = group->group_id;
+    outpost->repop_delay = (120 * g_ServerConfig.repop_delay) / 100;
+    outpost->repop_countdown = outpost->repop_delay;
+    outpost->spread = spread;
+    outpost->FillUnits(group);
+
+    for (int32_t i = 0; i < alm->groups.GetSize(); i++) {
+        MapGroupData* group_data = alm->groups[i];
+        if (group_data->group_id != group->group_id) {
+            continue;
+        }
+
+        outpost->repop_delay = (group_data->repop_time * g_ServerConfig.repop_delay) / 100;
+        outpost->repop_countdown = outpost->repop_delay;
+
+        if ((group_data->flags & MapGroupData::HAS_SCRIPT_INSTANCE) != 0) {
+            int32_t script_count = 0;
+            POSITION logic_pos = alm->logic_instances.GetHeadPosition();
+            for (uint32_t j = 0; j < group_data->instance_id; j++) {
+                MapLogicData* logic_data = alm->logic_instances.GetNext(logic_pos);
+                if (logic_data->type_id < 0x10002) {
+                    script_count++;
+                }
+            }
+            outpost->script_id = script_count;
+        } else {
+            outpost->script_id = -1;
+        }
+
+        outpost->has_quest_kill = (group_data->flags & MapGroupData::HAS_GROUP_KILL) != 0;
+        group->has_quest_kill = outpost->has_quest_kill;
+        outpost->has_quest_intercept = (group_data->flags & MapGroupData::HAS_GROUP_INTERCEPT) != 0;
+        group->has_quest_intercept = outpost->has_quest_intercept;
+
+        if ((group_data->flags & MapGroupData::RANDOM_POSITIONS) == 0) {
+            outpost->spread = 0;
+        }
+    }
+
+    this->srv_stru->building_list->sub_558228(outpost);
+    g_World->sub_5AC983(group, 0);
+
+    if (outpost->script_id >= 0) {
+        g_World->DoScriptInstID(outpost->script_id);
     }
 }
 

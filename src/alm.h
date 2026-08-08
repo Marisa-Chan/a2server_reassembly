@@ -112,10 +112,17 @@ ASSERT_OFFSET(MapEffectData, type_id, 0x16);
 ASSERT_SIZE(MapEffectData, 0x2e);
 
 struct MapGroupData {
+public:
     uint32_t group_id;
     uint32_t repop_time;
     uint32_t flags;
     uint32_t instance_id;
+
+public:
+    static const int HAS_SCRIPT_INSTANCE = 1;
+    static const int RANDOM_POSITIONS = 2;
+    static const int HAS_GROUP_KILL = 4;
+    static const int HAS_GROUP_INTERCEPT = 8;
 };
 ASSERT_SIZE(MapGroupData, 0x10);
 
