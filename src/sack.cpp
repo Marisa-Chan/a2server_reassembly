@@ -36,6 +36,15 @@ void Sack::Init() {
     this->field_0x4c = 0xFFFF;
 }
 
+// 55401E
+void Sack::sub_55401E() {
+    this->_exp = this->money;
+    for (POSITION pos = this->inventory->items.GetHeadPosition(); pos != nullptr;) {
+        Item* item = this->inventory->items.GetNext(pos);
+        this->_exp += item->_exp;
+    }
+}
+
 // 553F6A
 Sack::~Sack() {
     BldIdSet_Unset(this->building_id);

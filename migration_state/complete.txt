@@ -726,6 +726,7 @@
 ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z
 ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z
+?sub_55401E@Sack@@QAEXXZ
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
 ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z
 ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z
