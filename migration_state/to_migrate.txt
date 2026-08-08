@@ -201,7 +201,6 @@
 ?sub_55D6F7@QuestMap@@QAEXXZ	259
 ?sub_55EA81@QuestMap@@QAEXPAVQuestInnGlue@@@Z	288
 ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z	423
-?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z	505
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z	70
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243
 ?sub_5B681A@ScriptSettings@@QAEXAAVCArchive@@@Z	32

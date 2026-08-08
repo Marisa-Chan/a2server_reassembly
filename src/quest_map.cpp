@@ -1,6 +1,7 @@
 #include "quest_map.h"
 
 #include "quest.h"
+#include "quest_glue.h"
 
 // 55D579
 QuestMap::QuestMap() {
@@ -30,6 +31,24 @@ QuestMap::~QuestMap() {
 	this->quest = nullptr;
 	this->glue = nullptr;
 	this->building_id = 0;
+}
+
+// 55E5FB
+void QuestMap::sub_55E5FB(Quest* quest) {
+	this->flags[quest->player_id] |= 1;
+	this->quests_map.RemoveKey(quest->some_id);
+	quest->quest_map = nullptr;
+
+	if (quest->landmark_id != 0) {
+		QuestInnGlue* glue = nullptr;
+		if (this->glues_map.Lookup(quest->landmark_id, glue)) {
+			this->glue = glue;
+			glue->map.RemoveKey(quest->some_id);
+			if (glue->map.GetCount() == 0) {
+				glue->map.RemoveAll();
+			}
+		}
+	}
 }
 
 // 55e129
