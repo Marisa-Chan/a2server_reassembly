@@ -51,7 +51,7 @@ public:
     CList<QuestSubstruct*> substructs;
     CMap<uint32_t, uint32_t, QuestInnGlue*, QuestInnGlue*> glues_map;
     CMap<uint32_t, uint32_t, uint32_t, uint32_t> flags;
-    CMap<uint32_t, uint32_t, uint32_t, uint32_t>::CAssoc* assoc; // Not sure about the specific argument type, usage seems transient.
+    POSITION assoc; // Not sure about the specific argument type, usage seems transient.
     Quest* quest;
     QuestInnGlue* glue;
     uint32_t building_id;

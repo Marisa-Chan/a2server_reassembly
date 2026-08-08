@@ -94,6 +94,24 @@ void QuestMap::sub_55EA81(QuestInnGlue* glue) {
 	glue->quest_map = this;
 }
 
+// 55ECFE
+void QuestMap::sub_55ECFE(int32_t player_id) {
+	this->assoc = this->quests_map.GetStartPosition();
+	while (this->assoc != nullptr) {
+		uint32_t key = 0;
+		Quest* quest = nullptr;
+		this->quests_map.GetNextAssoc(this->assoc, key, quest);
+
+		this->building_id = key;
+		this->quest = quest;
+
+		if (player_id == 0 || quest->quest_data.player_id == player_id) {
+			this->sub_55E5FB(quest);
+			delete quest;
+		}
+	}
+}
+
 // 55e129
 int32_t QuestMap::VMethod1(int32_t event_type, int32_t a, int32_t b) {
 	POSITION quest_pos = this->quests_map.GetStartPosition();
