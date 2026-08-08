@@ -47,6 +47,15 @@ void QuestMap::sub_55D6F7() {
 	this->glues_map.RemoveAll();
 }
 
+// 55DD10
+void QuestMap::sub_55DD10(int32_t event_type, int32_t a, int32_t b) {
+	QuestSubstruct* sub = new QuestSubstruct;
+	sub->id = event_type;
+	sub->building_id = a;
+	sub->some_id = b;
+	this->substructs.AddTail(sub);
+}
+
 // 55E24A
 void QuestMap::sub_55E24A(Quest* quest) {
 	this->quests_map[quest->quest_data.some_id] = quest;
