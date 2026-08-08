@@ -1293,7 +1293,7 @@ public:
 	virtual BOOL MatchesMask(DWORD dwMask) const;
 
 	virtual BOOL IsDots() const;
-	// these aren't virtual because they all use MatchesMask(), which is
+	// These aren't virtual because they all use MatchesMask(), which is virtual.
 	BOOL IsReadOnly() const;
 	BOOL IsDirectory() const;
 	BOOL IsCompressed() const;

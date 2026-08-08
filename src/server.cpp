@@ -5153,6 +5153,76 @@ void Server::sub_4F9B9E(Sack* sack) {
     }
 }
 
+// 4F950F
+void Server::sub_4F950F() {
+    if (g_ServerConfig.gameType != 0 || this->field66_0x224 != 0) {
+        return;
+    }
+
+    CStdioFile info_file;
+    CString info_map_path = g_ServerConfig.chr_base + "info.map";
+    if (!info_file.Open(info_map_path, CFile::modeRead)) {
+        LogMessage("Map info file not found, sacks ignored");
+        return;
+    }
+
+    CString saved_map_name;
+    CString saved_checksum_str;
+    info_file.ReadString(saved_map_name);
+    info_file.ReadString(saved_checksum_str);
+    info_file.Close();
+
+    int32_t saved_checksum = atoi(saved_checksum_str);
+    if (saved_checksum != dword_6CDB38 || saved_map_name != this->current_map_name) {
+        LogMessage("Server restarted with new map, sacks ignored");
+        return;
+    }
+
+    CFileFind fnd;
+    BOOL found = fnd.FindFile(g_ServerConfig.chr_base + "*.sck");
+    while (found) {
+        found = fnd.FindNextFileA();
+        if (fnd.IsDirectory()) {
+            continue;
+        }
+
+        CString file_path = fnd.GetFilePath();
+        CFile file;
+        if (!file.Open(file_path, CFile::modeRead)) {
+            LogMessage("Error opening sack file " + file_path);
+            continue;
+        }
+
+        int32_t money = 0;
+        file.Read(&money, 4);
+
+        PacketUnitStateVec packet;
+        file.Read(&packet.building_id, file.GetLength() - 4);
+        file.Close();
+
+        Inventory* inventory = new Inventory();
+
+        uint8_t* p = packet.data;
+        while (p < packet.data + packet.data_size) {
+            Item* item = sub_4F499B(&p);
+            if (item->item_id == 0) {
+                delete item;
+            } else {
+                inventory->PutItemIntoBagAtDefault(item);
+            }
+        }
+
+        CString file_name = fnd.GetFileName();
+        int32_t x = atoi(file_name);
+        int32_t y = atoi(file_name.Mid(4));
+
+        TokenPos pos(x, y, MapStuff_Instance);
+        this->srv_stru1->sack_list->sub_554460(&pos, inventory, money, 1);
+    }
+
+    this->field66_0x224 = 1;
+}
+
 // 4FA348
 void Server::sub_4FA348(CString* name, int32_t flag) {
     for (int32_t i = 0; i < this->field67_0x228.GetSize(); i++) {
