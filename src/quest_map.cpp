@@ -33,6 +33,20 @@ QuestMap::~QuestMap() {
 	this->building_id = 0;
 }
 
+// 55E24A
+void QuestMap::sub_55E24A(Quest* quest) {
+	this->quests_map[quest->quest_data.some_id] = quest;
+	quest->quest_map = this;
+
+	if (quest->quest_data.landmark_id != 0) {
+		QuestInnGlue* glue = nullptr;
+		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
+			this->glue = glue;
+			glue->map[quest->quest_data.some_id] = quest;
+		}
+	}
+}
+
 // 55E5FB
 void QuestMap::sub_55E5FB(Quest* quest) {
 	this->flags[quest->quest_data.player_id] |= 1;
