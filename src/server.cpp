@@ -5302,7 +5302,51 @@ int32_t CowardActivation::sub_5A3498(const char* str)
     return 0;
 }
 
+// 4FAEB4
+void SrvStru1::sub_4FAEB4()
+{
+    if (this->sack_list) {
+        delete this->sack_list;
+        this->sack_list = nullptr;
+    }
 
+    if (this->building_list) {
+        while (!this->building_list->IsEmpty()) {
+            Building* building = this->building_list->RemoveTail();
+            delete building;
+        }
+        delete this->building_list;
+        this->building_list = nullptr;
+    }
+
+    if (this->effects_list) {
+        while (!this->effects_list->list.IsEmpty()) {
+            SpellEffect* effect = this->effects_list->list.RemoveTail();
+            delete effect;
+        }
+        delete this->effects_list;
+        this->effects_list = nullptr;
+    }
+
+    if (this->units_list) {
+        while (!this->units_list->unit_list.IsEmpty()) {
+            Unit* unit = this->units_list->unit_list.RemoveTail();
+            delete unit;
+        }
+        // WAT: Original keeps units_list alive; only its elements are destroyed.
+        delete this->units_list;
+        this->units_list = nullptr;
+    }
+
+    while (!this->virtual_casters_list.IsEmpty()) {
+        VirtualCaster* caster = this->virtual_casters_list.RemoveTail();
+        delete caster;
+    }
+
+    while (!this->some_unit_list.IsEmpty()) {
+        this->some_unit_list.RemoveTail();
+    }
+}
 
 void SrvStru1::Deinit()
 { //4fab1d

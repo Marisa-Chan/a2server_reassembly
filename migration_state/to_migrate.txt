@@ -235,7 +235,6 @@
 ?sub_55BF31@SpellEffectList@@QAEXAAVCArchive@@@Z	327
 ?sub_5585F2@SpellEffectList@@QAEXXZ	363
 ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z	435
-?sub_4FAEB4@SrvStru1@@QAEXXZ	423
 @sub_48A747@0	5
 @sub_49585B@4	184
 ?sub_59A030@Unit@@QAEHXZ	15
