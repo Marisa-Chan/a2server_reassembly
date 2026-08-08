@@ -208,7 +208,6 @@
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243
 ?sub_5B681A@ScriptSettings@@QAEXAAVCArchive@@@Z	32
 ?sub_4F465E@Server@@QAEXXZ	53
-?sub_4F9E55@Server@@QAEXXZ	224
 ?Play@SfxSample@@QAEXHHHEH@Z	169
 ?sub_54463F@Shop@@QAEXXZ	14
 ?sub_54471B@Shop@@QAEXPAVUnit@@@Z	17

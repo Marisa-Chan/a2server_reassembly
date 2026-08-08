@@ -277,6 +277,41 @@ void Server::sub_4F1E2A()
     this->sub_4F9E55();
 }
 
+// 4F9E55
+void Server::sub_4F9E55()
+{
+    if (g_ServerConfig.gameType != 0) {
+        return;
+    }
+
+    CFileFind finder;
+    CStringArray files;
+
+    CString pattern = g_ServerConfig.chr_base + "*.sck";
+    BOOL found = finder.FindFile(pattern);
+
+    while (found) {
+        found = finder.FindNextFile();
+        if (!finder.IsDirectory()) {
+            files.SetAtGrow(files.GetSize(), finder.GetFilePath());
+        }
+    }
+
+    for (int i = 0; i < files.GetSize(); i++) {
+        try {
+            CFile::Remove(files[i]);
+        } catch (CFileException* e) {
+            e->Delete();
+        }
+    }
+
+    try {
+        CFile::Remove(g_ServerConfig.chr_base + "info.map");
+    } catch (CFileException* e) {
+        e->Delete();
+    }
+}
+
 
 // 59B7EA
 int Srv1::sub_59B7EA(CString map_name) {

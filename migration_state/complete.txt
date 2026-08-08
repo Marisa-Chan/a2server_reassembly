@@ -688,6 +688,7 @@
 ?sub_4F1E2A@Server@@QAEXXZ
 ?sub_4F8831@Server@@QAEXXZ
 ?sub_4F950F@Server@@QAEXXZ
+?sub_4F9E55@Server@@QAEXXZ
 ?sub_4FAEB4@SrvStru1@@QAEXXZ
 ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z
 ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z
