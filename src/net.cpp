@@ -500,12 +500,12 @@ void NetStru1::sub_51D4F6(QuestMap* quest_map, Player* player, int32_t flag) {
         Quest* quest;
         quest_map->quests_map.GetNextAssoc(pos, quest_map->building_id, quest);
         quest_map->quest = quest;
-        if (quest->player_id != player->player_id) {
+        if (quest->quest_data.player_id != player->player_id) {
             continue;
         }
         *reinterpret_cast<uint16_t*>(ptr) = (uint16_t)quest->Kind();
         ptr += 2;
-        memcpy(ptr, &quest->some_id, sizeof(QuestData));
+        memcpy(ptr, &quest->quest_data.some_id, sizeof(QuestData));
         ptr += sizeof(QuestData);
         packet.count += 0xF;
         packet.buf[0] += 1;

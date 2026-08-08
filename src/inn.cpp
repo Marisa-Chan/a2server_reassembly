@@ -69,7 +69,7 @@ static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
 static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward)
 {
     q->Initialize(some_id, player_id, building_id, obj, landmark_id, limit, reward);
-    q->state = 3;
+    q->quest_data.state = 3;
     inn->quest_map->sub_55E24A(q);
 }
 
@@ -750,7 +750,7 @@ void Inn::InnReward(Player* player) {
         uint32_t key;
         Quest* quest;
         g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
-        if (quest && quest->player_id == player->player_id && quest->building_id == this->building_id && quest->state == 1) {
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 1) {
             reward = quest->reward;
             break;
         }
@@ -1163,7 +1163,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
 
                 // Process the quest
                 qm->sub_55E5FB(this->active_quest);
-                this->active_quest->state = 0;
+                this->active_quest->quest_data.state = 0;
                 g_QuestMap.sub_55E24A(this->active_quest);
                 g_NetStru1_main.sub_51D4F6(&g_QuestMap, humanoid->pOwner, 0);
                 g_NetStru1_main.FUN_0051ce86(0x10, 0, humanoid->pOwner);
@@ -1172,7 +1172,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                 switch (kind) {
                     case 4: // Escort
                     {
-                        Unit* escort_unit = dword_6CDB3C->sub_5560D2(this->active_quest->obj);
+                        Unit* escort_unit = dword_6CDB3C->sub_5560D2(this->active_quest->quest_data.obj);
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.sub_55E5FB(this->active_quest);
                         } else {
@@ -1182,7 +1182,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     }
                     case 5: // DeliverItem
                     {
-                        uint8_t subtype = this->active_quest->obj;
+                        uint8_t subtype = this->active_quest->quest_data.obj;
                         Item* new_item = new Item(0xE, subtype);
                         humanoid->inventory->PutItemIntoBagAtDefault(new_item);
                         g_NetStru1_main.sub_519221(humanoid, humanoid->pOwner, 0x202000, 0xFFB, 0, 0);
@@ -1195,7 +1195,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     }
                     case 11: // Intercept unit
                     {
-                        uint16_t unit_id = this->active_quest->obj;
+                        uint16_t unit_id = this->active_quest->quest_data.obj;
                         Unit* target_unit = dword_6CDB3C->sub_5560D2(unit_id);
                         if (target_unit == nullptr) {
                             g_QuestMap.sub_55E5FB(this->active_quest);
@@ -1218,7 +1218,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                                 bool found_group = false;
                                 while (gpos) {
                                     Group* grp = pl->group_list->groups.GetNext(gpos);
-                                    if (grp->group_id == this->active_quest->obj) {
+                                    if (grp->group_id == this->active_quest->quest_data.obj) {
                                         grp->group_sub->active = 1;
                                         uint8_t y = this->position->GetY();
                                         uint8_t x = this->position->GetX();

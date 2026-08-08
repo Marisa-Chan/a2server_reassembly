@@ -24,7 +24,7 @@ struct QuestData {
 };
 ASSERT_SIZE(QuestData, 0x1c);
 
-class Quest : public CObject, public QuestData {
+class Quest : public CObject {
 public: // VTable at 60F6F8. Sub-classes have their own vtables, see FUN_0055ee42.
     virtual ~Quest();                                      // 57FF50
     virtual int32_t VMethod1(int32_t param_2, int32_t param_3, int32_t param_4); // sub_55D25D
@@ -40,12 +40,13 @@ public:
     Quest(); // 55d0e0
 
 public:
+    QuestData quest_data;
     uint32_t progress; // Progress for a "kill N" quest.
     uint32_t reward;
     QuestMap* quest_map;
     void* field_0x2c; // Can be `Unit*`, `Group*` or `Player*`. Maybe it's quest target?
 };
-ASSERT_OFFSET(Quest, some_id, 0x4);
+ASSERT_OFFSET(Quest, quest_data, 0x4);
 ASSERT_OFFSET(Quest, progress, 0x20);
 ASSERT_SIZE(Quest, 0x30);
 

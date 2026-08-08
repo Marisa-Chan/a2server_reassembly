@@ -35,15 +35,15 @@ QuestMap::~QuestMap() {
 
 // 55E5FB
 void QuestMap::sub_55E5FB(Quest* quest) {
-	this->flags[quest->player_id] |= 1;
-	this->quests_map.RemoveKey(quest->some_id);
+	this->flags[quest->quest_data.player_id] |= 1;
+	this->quests_map.RemoveKey(quest->quest_data.some_id);
 	quest->quest_map = nullptr;
 
-	if (quest->landmark_id != 0) {
+	if (quest->quest_data.landmark_id != 0) {
 		QuestInnGlue* glue = nullptr;
-		if (this->glues_map.Lookup(quest->landmark_id, glue)) {
+		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
 			this->glue = glue;
-			glue->map.RemoveKey(quest->some_id);
+			glue->map.RemoveKey(quest->quest_data.some_id);
 			if (glue->map.GetCount() == 0) {
 				glue->map.RemoveAll();
 			}
