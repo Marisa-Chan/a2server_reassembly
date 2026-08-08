@@ -198,7 +198,6 @@
 ?sub_55F441@QuestMap@@QAEHH@Z	154
 ?sub_55ECFE@QuestMap@@QAEXH@Z	158
 ?sub_55DD10@QuestMap@@QAEXHHH@Z	167
-?sub_55D6F7@QuestMap@@QAEXXZ	259
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z	70
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243
 ?sub_5B681A@ScriptSettings@@QAEXAAVCArchive@@@Z	32

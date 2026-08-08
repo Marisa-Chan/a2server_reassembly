@@ -21,6 +21,8 @@ QuestMap::~QuestMap() {
 		delete quest_value;
 	}
 
+	this->sub_55D6F7();
+
 	POSITION sub_pos = this->substructs.GetHeadPosition();
 	while (sub_pos != nullptr) {
 		QuestSubstruct* sub = this->substructs.GetNext(sub_pos);
@@ -31,6 +33,18 @@ QuestMap::~QuestMap() {
 	this->quest = nullptr;
 	this->glue = nullptr;
 	this->building_id = 0;
+}
+
+// 55D6F7
+void QuestMap::sub_55D6F7() {
+	POSITION pos = this->glues_map.GetStartPosition();
+	while (pos != nullptr) {
+		uint32_t building_id = 0;
+		QuestInnGlue* glue = nullptr;
+		this->glues_map.GetNextAssoc(pos, building_id, glue);
+		delete glue;
+	}
+	this->glues_map.RemoveAll();
 }
 
 // 55E24A
