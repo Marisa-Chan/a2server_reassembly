@@ -5790,6 +5790,26 @@ int32_t SackList::sub_554460(TokenPos* pos, Inventory* inventory, int money, int
     return 1;
 }
 
+// 55BC58
+void SackList::sub_55BC58(CArchive& ar)
+{
+    if (ar.IsStoring()) {
+        ar << this->list.GetCount();
+        for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
+            Sack* sack = this->list.GetNext(pos);
+            ar.WriteObject(sack);
+        }
+    } else {
+        this->list.RemoveAll();
+        int32_t count;
+        ar >> count;
+        for (int32_t i = 0; i < count; i++) {
+            Sack* sack = (Sack*)ar.ReadObject(RUNTIME_CLASS(Sack));
+            this->list.AddTail(sack);
+        }
+    }
+}
+
 SackList::~SackList()
 { //554bc3
     for (POSITION pos = list.GetHeadPosition(); pos != nullptr;)
