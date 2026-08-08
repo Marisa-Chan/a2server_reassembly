@@ -65,6 +65,12 @@ void QuestMap::sub_55E5FB(Quest* quest) {
 	}
 }
 
+// 55EA81
+void QuestMap::sub_55EA81(QuestInnGlue* glue) {
+	this->glues_map.SetAt(glue->building_id, glue);
+	glue->quest_map = this;
+}
+
 // 55e129
 int32_t QuestMap::VMethod1(int32_t event_type, int32_t a, int32_t b) {
 	POSITION quest_pos = this->quests_map.GetStartPosition();
