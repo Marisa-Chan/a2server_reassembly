@@ -128,6 +128,20 @@ Server::~Server()
     LogMessage("Server closed\n");
 }
 
+// 4F465E
+void Server::sub_4F465E()
+{
+    if (g_CLlDriver.provider != 4) {
+        return;
+    }
+    if (g_HatLLDriver.IsListen()) {
+        NetStru1::HatConnector.sub_51E289(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
+    }
+    if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
+        g_NetStru1_main.FUN_0051d6b4(0);
+    }
+}
+
 // 4F1E2A
 void Server::sub_4F1E2A()
 {
