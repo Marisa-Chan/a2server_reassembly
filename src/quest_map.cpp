@@ -1,5 +1,6 @@
 #include "quest_map.h"
 
+#include "game_app.h"
 #include "quest.h"
 #include "quest_glue.h"
 
@@ -158,4 +159,27 @@ Quest* QuestMap::FUN_0055ee42(int quest_kind) {
 	default: // 0 and 7 are covered here.
 		return new Quest();
 	}
+}
+
+// 55F441
+int32_t QuestMap::sub_55F441(int32_t building_id_) {
+	if (this->glues_map.GetCount() < 2) {
+		return 0;
+	}
+
+	do {
+		int32_t skip = Random0N(this->glues_map.GetCount() - 1);
+		this->assoc = this->glues_map.GetStartPosition();
+
+		uint32_t key = 0;
+		QuestInnGlue* glue = nullptr;
+		for (int32_t i = 0; i <= skip; ++i) {
+			this->glues_map.GetNextAssoc(this->assoc, key, glue);
+		}
+
+		this->building_id = key;
+		this->glue = glue;
+	} while (this->building_id == building_id_);
+
+	return this->building_id;
 }
