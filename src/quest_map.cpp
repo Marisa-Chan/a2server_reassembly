@@ -54,6 +54,19 @@ void QuestMap::sub_55E00C() {
 	this->sub_55DE84();
 }
 
+// 55E027
+void QuestMap::sub_55E027() {
+	this->assoc = this->glues_map.GetStartPosition();
+	while (this->assoc != nullptr) {
+		uint32_t building_id = 0;
+		QuestInnGlue* glue = nullptr;
+		this->glues_map.GetNextAssoc(this->assoc, building_id, glue);
+		this->building_id = building_id;
+		this->glue = glue;
+		glue->VMethod1();
+	}
+}
+
 // 55D6F7
 void QuestMap::sub_55D6F7() {
 	POSITION pos = this->glues_map.GetStartPosition();
