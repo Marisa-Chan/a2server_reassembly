@@ -25,6 +25,9 @@
 #include "virtual_caster.h"
 #include "world.h"
 
+extern "C" CString MALE_HUMAN_NAMES[10];
+extern "C" CString FEMALE_HUMAN_NAMES[7];  // Female human names.
+
 //52e9e3
 EquipmentExtra::EquipmentExtra() = default;
 //52eaa3
@@ -2793,6 +2796,123 @@ Human::Human(const CString& hname, int32_t t, const char* unk)
 {
     //53239a
     FUN_00532587(hname, t, unk);
+}
+
+// 532587
+void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk)
+{
+    this->typeId = 0;
+    bool load_equipment = (unk == nullptr);
+    int32_t face_index = -1;
+    int32_t is_female = 1;
+
+    int32_t dot_pos = hname.ReverseFind('.');
+    if (dot_pos != -1) {
+        face_index = atoi(hname.Mid(dot_pos + 2));
+        is_female = (hname[dot_pos + 1] == 'f') ? 1 : 0;
+        hname = hname.Left(dot_pos);
+    }
+
+    if (hname.Find("Hero") == 0) {
+        is_hero = 1;
+        load_equipment = false;
+        hname = hname.Mid(5);
+        if (hname.Find("Man") != 0) {
+            hname = "Man_" + hname;
+        }
+        this->name = "Unknown";
+        if (is_female == 0) {
+            if (face_index < 10) { // TODO: unhardcode after migrating the arrays to C++.
+                this->name = MALE_HUMAN_NAMES[face_index];
+            }
+        } else {
+            if (face_index < 7) {
+                this->name = FEMALE_HUMAN_NAMES[face_index];
+            }
+        }
+    }
+
+    for (int i = 1; i < g_GameDataRes.humans.GetSize(); ++i) {
+        if (hname != g_GameDataRes.humans[i].name) {
+            continue;
+        }
+
+        this->itemDataID = static_cast<int16_t>(i);
+        this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[i]);
+        this->sub_532dde(&g_GameDataRes.humans[i].Values());
+        const HumanInfoData& data = g_GameDataRes.humans[i].Values()[0];
+
+        if (data.gender != -1) {
+            is_female = data.gender;
+        }
+
+        if (g_GameDataRes.humans[i].Values().GetSize() > 24) {
+            uint16_t sid = static_cast<uint16_t>(data.server_id);
+            if (sid > 10000) {
+                sid = static_cast<uint16_t>((sid / 10) % 1000);
+            }
+            this->server_id = sid;
+        }
+
+        if (this->mp_max > 0) {
+            this->unit_attrs |= 6;
+        }
+
+        if (load_equipment) {
+            for (int32_t slot = 0; slot < 10; slot++) {
+                if (slot < g_GameDataRes.humans[i].equipped_items.GetSize()) {
+                    const CString& item_name = g_GameDataRes.humans[i].equipped_items[slot];
+                    if (!item_name.IsEmpty()) {
+                        if (slot == 0) {
+                            this->VMethod13(new Weapon(item_name));
+                        } else if (slot == 1) {
+                            this->VMethod13(new Shield(item_name));
+                        } else {
+                            this->VMethod13(new Armor(item_name));
+                        }
+                    }
+                }
+            }
+        }
+        break;
+    }
+
+    if (this->mp_max > 0) {
+        this->unit_attrs |= 6;
+        this->spell_book = new SpellBook();
+        const HumanInfoData& data = reinterpret_cast<HumanInfo*>(this->monster_info)->Values()[0];
+        int32_t known_spells_mask = data.known_spells_mask;
+        for (uint8_t spell_id = 1; spell_id < 30; spell_id++) {
+            if (known_spells_mask & (1 << spell_id)) {
+                Spell* spell = new Spell(spell_id);
+                this->spell_book->sub_53D7F0(spell_id, spell);
+            }
+        }
+    }
+
+    if (face_index > 0) {
+        this->face = static_cast<int8_t>(face_index);
+    }
+
+    if (is_hero == 0) {
+        this->face = static_cast<int8_t>(this->face | (is_female << 7));
+    } else {
+        if ((this->unit_attrs & 4) == 0) {
+            this->typeId = static_cast<uint16_t>(is_female + 33);
+        } else {
+            this->typeId = static_cast<uint16_t>(is_female + 35);
+        }
+    }
+
+    this->sub_531418();
+    this->VMethod18();
+    this->hp = this->hp_max;
+    this->mp = this->mp_max;
+    this->VMethod19();
+
+    if (this->typeId == 0) {
+        LogMessage("Invalid human " + hname + " created");
+    }
 }
 
 Human::~Human()

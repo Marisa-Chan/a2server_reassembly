@@ -273,6 +273,7 @@ public:
 
     void InitStats();
     void sub_53116B(); // Reduce humanoid's skills and revive the unit.
+    void sub_531418(); // Recalculate experience from skills.
     void sub_533345(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon.
     void sub_532dde(CArray<HumanInfoData>* param_2);
 
@@ -299,9 +300,9 @@ public:
 
 public:
     Human();
-    Human(const CString& hname, int32_t t, const char* unk);
+    Human(const CString& hname, int32_t is_hero, const char* unk);
 
-    void FUN_00532587(CString hname, int32_t t, const char* unk);
+    void FUN_00532587(CString hname, int32_t is_hero, const char* unk);
 };
 
 ASSERT_SIZE(Human, 0x254);

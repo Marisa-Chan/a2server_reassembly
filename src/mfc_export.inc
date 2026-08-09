@@ -685,13 +685,15 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 ;Humanoid
 
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
+externdef ?sub_531418@Humanoid@@QAEXXZ :proc
 
 
 ;Human
 
 extern ??0Human@@QAE@XZ:proc   ; Human::Human
 extern ??0Human@@QAE@ABVCString@@HPBD@Z:proc    ; Human::Human(CString&, int, const char *)
-externdef ?FUN_00532587@Human@@QAEXVCString@@HPBD@Z:proc   ;  Human::FUN_00532587(class CString,int,char const *)
+externdef _MALE_HUMAN_NAMES :dword
+externdef _FEMALE_HUMAN_NAMES :dword
 
 
 ;UnitList
