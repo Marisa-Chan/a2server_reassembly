@@ -68,11 +68,175 @@ def scan_references(lines, procs, data_syms, asm_path):
             continue
         with open(inc_path, "r", encoding="utf-8", errors="replace") as f:
             for line in f:
-                for tok in TOKEN_RE.findall(line):
+                for tok in TOKEN_RE.findall(line.split(';')[0]):
                     if tok in all_names:
                         ref_counts[tok] += 1
 
     return ref_counts
+
+
+def build_call_graph(lines, procs, asm_path):
+    """Build call graph: caller_proc -> set of callee_procs.
+    Returns (calls, external_refs) where external_refs are procs referenced
+    from outside any proc body (e.g., .inc files, data, jump tables)."""
+    all_proc_names = set(procs.keys())
+
+    # Map each line to its owning proc, including function chunks.
+    chunk_start_re = re.compile(r"FUNCTION CHUNK FOR\s+(\S+)")
+    chunk_end_re = re.compile(r"END OF FUNCTION CHUNK FOR\s+(\S+)")
+    chunk_owner = [None] * len(lines)
+    i = 0
+    while i < len(lines):
+        m = chunk_start_re.search(lines[i])
+        if m:
+            name = m.group(1)
+            chunk_owner[i] = name
+            for j in range(i + 1, len(lines)):
+                chunk_owner[j] = name
+                if chunk_end_re.search(lines[j]):
+                    i = j + 1
+                    break
+            else:
+                break
+        else:
+            i += 1
+
+    line_to_proc = [None] * len(lines)
+    current_proc = None
+    for i, line in enumerate(lines):
+        m = PROC_RE.match(line)
+        if m:
+            current_proc = m.group(1)
+        elif ENDP_RE.match(line):
+            current_proc = None
+        line_to_proc[i] = current_proc or chunk_owner[i]
+
+    calls = defaultdict(set)
+
+    for i, line in enumerate(lines):
+        caller = line_to_proc[i]
+        tokens = TOKEN_RE.findall(line)
+        seen = set()
+        for tok in tokens:
+            if tok in seen:
+                continue
+            seen.add(tok)
+            if tok not in all_proc_names:
+                continue
+            if caller is not None and tok != caller:
+                calls[caller].add(tok)
+
+    # External roots: procs referenced from .inc files (C++ interface / exports).
+    external_refs = set()
+    src_dir = os.path.dirname(asm_path)
+    inc_files = glob.glob(os.path.join(src_dir, "*.inc"))
+    for inc_path in inc_files:
+        if os.path.abspath(inc_path) == os.path.abspath(asm_path):
+            continue
+        with open(inc_path, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                for tok in TOKEN_RE.findall(line.split(';')[0]):
+                    if tok in all_proc_names:
+                        external_refs.add(tok)
+
+    return calls, external_refs
+
+
+def compute_reachable(calls, roots):
+    reachable = set(roots)
+    stack = list(roots)
+    while stack:
+        node = stack.pop()
+        for callee in calls.get(node, set()):
+            if callee not in reachable:
+                reachable.add(callee)
+                stack.append(callee)
+    return reachable
+
+
+def find_shortest_path_to_target(calls, roots, target):
+    """Find one shortest path from any root to target using BFS.
+    Returns a list of proc names from root to target, or None if unreachable."""
+    if target in roots:
+        return [target]
+
+    # BFS forwards from roots, tracking parent for path reconstruction.
+    parent = {}
+    queue = list(roots)
+    for root in roots:
+        parent[root] = None
+    seen = set(roots)
+
+    while queue:
+        node = queue.pop(0)
+        for callee in calls.get(node, set()):
+            if callee in seen:
+                continue
+            seen.add(callee)
+            parent[callee] = node
+            if callee == target:
+                # Reconstruct path.
+                path = [callee]
+                while parent[path[0]] is not None:
+                    path.insert(0, parent[path[0]])
+                return path
+            queue.append(callee)
+
+    return None
+
+
+def map_proc_endps(lines, procs):
+    """Return dict: proc_name -> endp line (1-based)."""
+    proc_lines = {ln: name for name, ln in procs.items()}
+    endps = {}
+    current_proc = None
+    for i, line in enumerate(lines):
+        if i + 1 in proc_lines:
+            current_proc = proc_lines[i + 1]
+        if ENDP_RE.match(line) and current_proc is not None:
+            endps[current_proc] = i + 1
+            current_proc = None
+    return endps
+
+
+def collect_chunks(lines):
+    """Return dict: proc_name -> list of (start, end) 1-based inclusive chunk ranges."""
+    chunks = defaultdict(list)
+    total = len(lines)
+    i = 0
+    chunk_start_re = re.compile(r"FUNCTION CHUNK FOR\s+(\S+)")
+    chunk_end_re = re.compile(r"END OF FUNCTION CHUNK FOR\s+(\S+)")
+    while i < total:
+        m = chunk_start_re.search(lines[i])
+        if m:
+            name = m.group(1)
+            start = i + 1
+            end = start
+            for j in range(i + 1, min(total, i + 500)):
+                if chunk_end_re.search(lines[j]):
+                    end = j + 1
+                    break
+            chunks[name].append((start, end))
+            i = end
+        else:
+            i += 1
+    return chunks
+
+
+def compute_reachable_sizes(procs, endps, chunks, reachable):
+    total = 0
+    reachable_total = 0
+    for name in procs:
+        endp = endps.get(name)
+        if endp is None:
+            continue
+        size = endp - procs[name] + 1
+        for s, e in chunks.get(name, []):
+            size += e - s + 1
+        total += size
+        if name in reachable:
+            reachable_total += size
+    return total, reachable_total
 
 
 def collect_symbols(lines):
@@ -203,7 +367,7 @@ def delete_ranges(lines, ranges):
     return total_deleted
 
 
-def report(procs, data_syms, ref_counts):
+def report(procs, data_syms, ref_counts, reachable=None, reachable_sizes=None, roots=None):
     unused_procs = {name: ln for name, ln in procs.items() if ref_counts[name] == 0}
     unused_data = {name: ln for name, ln in data_syms.items() if ref_counts[name] == 0}
     unused_sub = {n: ln for n, ln in unused_procs.items() if n.startswith("sub_")}
@@ -215,11 +379,38 @@ def report(procs, data_syms, ref_counts):
     print(f"  sub_XXXXX (game code):  {len(unused_sub)}")
     print(f"  Named/library/CRT:      {len(unused_lib)}")
 
+    if reachable is not None and reachable_sizes is not None and roots is not None:
+        total_lines, reachable_lines = reachable_sizes
+        print(f"\n=== TRANSITIVE REACHABILITY ===")
+        print(f"Root procs (external):    {len(roots)}")
+        print(f"Reachable procs:          {len(reachable)} / {len(procs)}")
+        print(f"Reachable lines:          {reachable_lines} / {total_lines}")
+
     print(f"\n=== DATA SYMBOLS ===")
     print(f"Total data symbols:       {len(data_syms)}")
     print(f"Unreferenced data:        {len(unused_data)}")
 
     return unused_procs, unused_data
+
+
+def report_track(calls, roots, target, procs):
+    if target not in procs:
+        print(f"\nERROR: '{target}' is not a known proc in Main.asm")
+        return
+
+    reachable = compute_reachable(calls, roots)
+    if target not in reachable:
+        print(f"\n'{target}' is NOT reachable from any external root.")
+        return
+
+    path = find_shortest_path_to_target(calls, roots, target)
+    print(f"\n=== TRACK: {target} ===")
+    if path is None:
+        print("No path found (unexpected: target was marked reachable).")
+        return
+
+    print(f"Shortest path ({len(path)} nodes):")
+    print("  " + " -> ".join(path))
 
 
 def main():
@@ -229,12 +420,14 @@ def main():
                         help="Delete unused symbols: functions, data, or all")
     parser.add_argument("--dry-run", action="store_true",
                         help="Preview what would be deleted without writing")
+    parser.add_argument("--track", metavar="PROC",
+                        help="Show reachability paths from external roots to PROC")
     args = parser.parse_args()
 
     path = os.path.abspath(args.asm_file)
     print(f"Reading {path} ...")
     with open(path, "r", encoding="utf-8", errors="replace") as f:
-        lines = f.readlines()
+        lines = [l.split(';')[0] for l in f.readlines()]
     print(f"  {len(lines)} lines loaded.")
 
     procs, data_syms = collect_symbols(lines)
@@ -243,7 +436,20 @@ def main():
     print("  Scanning for references ...")
     ref_counts = scan_references(lines, procs, data_syms, path)
 
-    unused_procs, unused_data = report(procs, data_syms, ref_counts)
+    print("  Building call graph ...")
+    calls, external_refs = build_call_graph(lines, procs, path)
+    reachable = compute_reachable(calls, external_refs)
+
+    print("  Computing function sizes ...")
+    endps = map_proc_endps(lines, procs)
+    chunks = collect_chunks(lines)
+    reachable_sizes = compute_reachable_sizes(procs, endps, chunks, reachable)
+
+    unused_procs, unused_data = report(procs, data_syms, ref_counts, reachable, reachable_sizes, external_refs)
+
+    if args.track:
+        report_track(calls, external_refs, args.track, procs)
+        return
 
     if args.cleanup is None:
         return
