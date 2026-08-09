@@ -149,7 +149,7 @@
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z	109
 ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z	146
-?sub_560C67@Inn@@QAEXPAVUnit@@@Z	156
+?sub_567C21@Inn@@QAEXPAVPlayer@@@Z	162
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23
 ?sub_548F07@Item@@QAEHXZ	30
 ?sub_548F6A@Item@@QAEHXZ	35
@@ -174,6 +174,7 @@
 ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z	59
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68
+?sub_51A8B2@NetStru1@@QAEXPAVUnit@@PAUInventory@@PAVPlayer@@H@Z	163
 ?FillUnits@Outpost@@QAEXPAVGroup@@@Z	315
 ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z	369
 ?Begin@Perf@@QAEXXZ	14

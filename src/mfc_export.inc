@@ -249,6 +249,7 @@ externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
 externdef ?InnReward@Inn@@QAEXPAVPlayer@@@Z :proc                               ; void Inn::InnReward(Player*)
 externdef ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z :proc
 externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     ; Quest* Inn::sub_567A25(Player*)
+externdef ?sub_567C21@Inn@@QAEXPAVPlayer@@@Z :proc
 
 
 ; Shop
@@ -1044,6 +1045,7 @@ externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
 externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
+externdef ?sub_51A8B2@NetStru1@@QAEXPAVUnit@@PAUInventory@@PAVPlayer@@H@Z :proc
 externdef ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z :proc
 externdef ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z :proc  ; void NetStru1::sub_51CDFB(CString&, uint32_t, char, Player*)
 

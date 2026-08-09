@@ -28,6 +28,7 @@ class Token;
 struct TokenPos;
 class Unit;
 class QuestMap;
+struct Inventory;
 
 
 struct PackerTail {
@@ -151,6 +152,7 @@ public:
     void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
     void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
+    void sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int32_t param);
     void sub_51EEB7();
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player

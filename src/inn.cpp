@@ -1113,6 +1113,27 @@ extern "C" int __cdecl sub_5306EA(int experience);
 // sub_530726: Get experience required for given skill level.
 extern "C" uint32_t __cdecl sub_530726(int32_t skill_level);
 
+// 560C67
+void Inn::sub_560C67(Unit* unit) {
+    Player* player = unit->pOwner;
+    this->sub_567C21(player);
+    Quest* quest = this->sub_567A25(player);
+    if (quest == nullptr) {
+        this->InnCreateQuests(player);
+        g_NetStru1_main.sub_51D4F6(this->quest_map, player, 1);
+    } else {
+        this->InnReward(player);
+        Inventory* inventory = nullptr;
+        if (this->rewards_per_player.Lookup(player->player_id, inventory)) {
+            g_NetStru1_main.sub_51A8B2(unit, inventory, player, 9);
+        }
+    }
+    this->unit_list.AddTail(unit);
+    if (g_Server->field4_0x74 != 0) {
+        unit->sub_52C163();
+    }
+}
+
 // sub_560DC2 вЂ” Handle inn quest/reward interaction.
 // Called when a humanoid finishes interacting with the inn.
 // `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `some_id`.
