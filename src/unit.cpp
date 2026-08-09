@@ -2112,6 +2112,35 @@ Humanoid::Humanoid(const TokenPos *tpos)
     InitStats();
 }
 
+// 53004c
+void Humanoid::InitStats()
+{
+    for (int32_t i = 0; i < 13; i++) {
+        this->equipment[i] = nullptr;
+    }
+
+    this->main_sphere = 0;
+
+    for (int32_t i = 0; i < 5; i++) {
+        this->experience_per_sphere[i] = 0;
+    }
+
+    this->body = 30;
+    this->mind = 30;
+    this->reaction = 30;
+    this->spirit = 30;
+    this->hp_max = 50;
+    this->hp = 50;
+    this->speed = 16;
+    this->eye->rotation_speed = 8;
+    this->charge = 8;
+    this->relax = 4;
+    this->hit_values.hand_damage_min = 1;
+    this->hit_values.hand_damage_spread = 2 - this->hit_values.hand_damage_min;
+
+    this->eye->sub_5925C9(this);
+}
+
 Humanoid::~Humanoid()
 {
     //53015b

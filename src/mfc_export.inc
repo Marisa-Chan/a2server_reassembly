@@ -684,7 +684,6 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 ;Humanoid
 
-externdef ?InitStats@Humanoid@@QAEXXZ:proc   ;    Humanoid::InitStats
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 
 
