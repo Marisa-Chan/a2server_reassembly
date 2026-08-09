@@ -1305,7 +1305,8 @@ externdef ?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z :proc
 externdef ?sub_55F441@QuestMap@@QAEHH@Z :proc
 externdef ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 externdef ?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z :proc                           ; void QuestMap::sub_55E5FB(Quest*)
-externdef ?sub_55E00C@QuestMap@@QAEXXZ :proc
+externdef ?sub_55E027@QuestMap@@QAEXXZ :proc
+externdef ?sub_55DE84@QuestMap@@QAEXXZ :proc
 
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 

@@ -36,6 +36,12 @@ QuestMap::~QuestMap() {
 	this->building_id = 0;
 }
 
+// 55E00C
+void QuestMap::sub_55E00C() {
+	this->sub_55E027();
+	this->sub_55DE84();
+}
+
 // 55D6F7
 void QuestMap::sub_55D6F7() {
 	POSITION pos = this->glues_map.GetStartPosition();
