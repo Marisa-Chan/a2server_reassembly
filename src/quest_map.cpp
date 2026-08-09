@@ -36,6 +36,18 @@ QuestMap::~QuestMap() {
 	this->building_id = 0;
 }
 
+// 55DE84
+void QuestMap::sub_55DE84() {
+	while (this->substructs.GetCount() != 0) {
+		QuestSubstruct* sub = this->substructs.RemoveHead();
+		if (this->substructs.GetCount() == 0) {
+			this->substructs.RemoveAll();
+		}
+		this->VMethod1(sub->id, sub->building_id, sub->some_id);
+		delete sub;
+	}
+}
+
 // 55E00C
 void QuestMap::sub_55E00C() {
 	this->sub_55E027();
