@@ -185,7 +185,6 @@ externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
-externdef ?sub_50DDAE@GameDataRes@@QAEHII@Z :proc                              ; int GameDataRes::sub_50DDAE(uint32_t, uint32_t)
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
 externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@PBV2@0@Z :proc     ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)

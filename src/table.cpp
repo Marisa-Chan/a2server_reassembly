@@ -557,6 +557,25 @@ Item* GameDataRes::sub_510502(CString* name) {
     return nullptr;
 }
 
+// 50DDAE
+int GameDataRes::sub_50DDAE(uint8_t type_id, uint8_t face) {
+    if (type_id < 0x40 && type_id != 0x1A && type_id != 0x1B) {
+        for (int32_t i = 1; i < this->humans.GetSize(); i++) {
+            if (this->humans[i].name.GetLength() != 0 && this->humans[i].Values()[0].type_id == type_id) {
+                return i;
+            }
+        }
+    } else {
+        for (int32_t i = 1; i < this->monsters.GetSize(); i++) {
+            if (this->monsters[i].name.GetLength() != 0 && this->monsters[i].Values()[0].type_id == type_id && this->monsters[i].Values()[0].face == face) {
+                return i;
+            }
+        }
+    }
+
+    return 0;
+}
+
 // 50DF19
 int GameDataRes::sub_50DF19(int experience) {
     int result = 0;
