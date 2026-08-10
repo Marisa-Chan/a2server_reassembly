@@ -5,6 +5,7 @@
 #include <cstring>
 
 #include "game_app.h"
+#include "item.h"
 
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
@@ -453,6 +454,71 @@ void SpellInfo::Serialize(CArchive& ar) {
     } else {
         ar >> this->effect;
     }
+}
+
+// 510502
+Item* GameDataRes::sub_510502(CString* name) {
+    CString base_name;
+    CString extra;
+    this->sub_50DB4E(&extra, name, &base_name);
+
+    uint8_t shape_id = this->sub_50D8BA(&base_name, &base_name);
+    uint8_t material_id = this->sub_50DA04(&base_name, &base_name);
+
+    CString stripped_name = base_name;
+    this->sub_50DC69(material_id, &stripped_name);
+
+    for (int32_t i = this->armors.GetSize() - 1; i >= 1; i--) {
+        if (stripped_name == this->armors[i].name) {
+            Item* item = new Armor(shape_id, material_id, (uint8_t)i);
+            if (extra.GetLength() > 0) {
+                item->sub_548F3F(extra);
+            }
+            return item;
+        }
+    }
+
+    for (int32_t i = this->weapons.GetSize() - 1; i >= 1; i--) {
+        if (base_name == this->weapons[i].name) {
+            Item* item = new Weapon(shape_id, material_id, (uint8_t)i);
+            if (extra.GetLength() > 0) {
+                item->sub_548F3F(extra);
+            }
+            return item;
+        }
+    }
+
+    int32_t shield_pos = base_name.Find(" Shield");
+    if (shield_pos > 0) {
+        stripped_name = base_name.Left(shield_pos);
+    } else {
+        stripped_name = base_name;
+    }
+    this->sub_50DC69(material_id, &stripped_name);
+
+    for (int32_t i = this->shields.GetSize() - 1; i >= 1; i--) {
+        if (stripped_name == this->shields[i].name) {
+            Item* item = new Shield(shape_id, material_id, (uint8_t)i);
+            if (extra.GetLength() > 0) {
+                item->sub_548F3F(extra);
+            }
+            return item;
+        }
+    }
+
+    for (int32_t i = this->magic_items.GetSize() - 1; i >= 1; i--) {
+        if (base_name == this->magic_items[i].name) {
+            Item* item = new Item(0xE, (uint8_t)i);
+            if (extra.GetLength() > 0) {
+                item->_effects.RemoveAll();
+                item->sub_548F3F(extra);
+            }
+            return item;
+        }
+    }
+
+    LogMessage("Invalid item " + *name);
+    return nullptr;
 }
 
 // 50DF19
