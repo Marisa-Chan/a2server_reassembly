@@ -456,6 +456,42 @@ void SpellInfo::Serialize(CArchive& ar) {
     }
 }
 
+// 50D8BA
+uint8_t GameDataRes::sub_50D8BA(CString* name, CString* out) {
+    for (int32_t i = this->shapes.GetSize() - 1; i >= 0; i--) {
+        int32_t pos = name->Find(this->shapes[i].name);
+        if (pos != -1) {
+            if (out != nullptr) {
+                *out = name->Left(pos) + name->Mid(this->shapes[i].name.GetLength() + 1);
+            }
+            return static_cast<uint8_t>(i);
+        }
+    }
+
+    if (out != nullptr) {
+        *out = *name;
+    }
+    return 0;
+}
+
+// 50DA04
+uint8_t GameDataRes::sub_50DA04(CString* name, CString* out) {
+    for (int32_t i = this->materials.GetSize() - 1; i >= 0; i--) {
+        int32_t pos = name->Find(this->materials[i].name);
+        if (pos != -1) {
+            if (out != nullptr) {
+                *out = name->Left(pos) + name->Mid(this->materials[i].name.GetLength() + 1);
+            }
+            return static_cast<uint8_t>(i);
+        }
+    }
+
+    if (out != nullptr) {
+        *out = *name;
+    }
+    return 0x0F;
+}
+
 // 510502
 Item* GameDataRes::sub_510502(CString* name) {
     CString base_name;
