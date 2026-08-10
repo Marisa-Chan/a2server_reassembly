@@ -247,7 +247,6 @@ externdef ?VMethod1@Inn@@UAEXXZ :proc
 externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
 externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
 externdef ?InnReward@Inn@@QAEXPAVPlayer@@@Z :proc                               ; void Inn::InnReward(Player*)
-externdef ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z :proc
 externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     ; Quest* Inn::sub_567A25(Player*)
 externdef ?sub_567C21@Inn@@QAEXPAVPlayer@@@Z :proc
 

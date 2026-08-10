@@ -73,6 +73,14 @@ static void RegisterQuest(Inn* inn, Quest* q, int some_id, int player_id, int bu
     inn->quest_map->sub_55E24A(q);
 }
 
+// 567B4D
+bool Inn::sub_567B4D(Player* player) {
+    if (!this->quest_map_per_player.Lookup(player->player_id, this->quest_map)) {
+        return false;
+    }
+    return this->quest_map->quests_map.GetCount() > 0;
+}
+
 // 562148
 void Inn::InnCreateQuests(Player* player)
 {
