@@ -492,6 +492,28 @@ uint8_t GameDataRes::sub_50DA04(CString* name, CString* out) {
     return 0x0F;
 }
 
+// 50DB4E
+CString* GameDataRes::sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out) {
+    int32_t brace_open = in_name->Find('{');
+    if (brace_open == -1) {
+        *base_name_out = *in_name;
+        *out1 = "";
+        return out1;
+    }
+
+    *base_name_out = in_name->Left(brace_open);
+    base_name_out->TrimRight();
+
+    int32_t brace_close = in_name->Find('}');
+    if (brace_close == -1) {
+        brace_close = in_name->GetLength();
+    }
+
+    CString temp = in_name->Left(brace_close);
+    *out1 = temp.Mid(brace_open + 1);
+    return out1;
+}
+
 // 510502
 Item* GameDataRes::sub_510502(CString* name) {
     CString base_name;

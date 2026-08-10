@@ -187,8 +187,6 @@ externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
-externdef ?sub_50DB4E@GameDataRes@@QAEPAVCString@@PAV2@PBV2@0@Z :proc     ; CString* GameDataRes::sub_50DB4E(CString*, CString*, CString*)
-externdef ?sub_50DC69@GameDataRes@@QAEXHPAVCString@@@Z :proc              ; void GameDataRes::sub_50DC69(int, CString*)
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
