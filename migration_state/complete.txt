@@ -737,6 +737,7 @@
 ?sub_55ECFE@QuestMap@@QAEXH@Z
 ?sub_55F441@QuestMap@@QAEHH@Z
 ?sub_560C67@Inn@@QAEXPAVUnit@@@Z
+?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z
 ?sub_567C21@Inn@@QAEXPAVPlayer@@@Z
 ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z
 ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z

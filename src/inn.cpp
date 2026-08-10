@@ -1113,6 +1113,20 @@ extern "C" int __cdecl sub_5306EA(int experience);
 // sub_530726: Get experience required for given skill level.
 extern "C" uint32_t __cdecl sub_530726(int32_t skill_level);
 
+// 567A25
+Quest* Inn::sub_567A25(Player* player) {
+    POSITION quest_it = g_QuestMap.quests_map.GetStartPosition();
+    while (quest_it) {
+        uint32_t key;
+        Quest* quest;
+        g_QuestMap.quests_map.GetNextAssoc(quest_it, key, quest);
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 1) {
+            return quest;
+        }
+    }
+    return nullptr;
+}
+
 // 560C67
 void Inn::sub_560C67(Unit* unit) {
     Player* player = unit->pOwner;
