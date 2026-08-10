@@ -1134,6 +1134,20 @@ void Inn::sub_560C67(Unit* unit) {
     }
 }
 
+// 567C21
+void Inn::sub_567C21(Player* player) {
+    POSITION pos = g_QuestMap.quests_map.GetStartPosition();
+    while (pos) {
+        uint32_t key;
+        Quest* quest;
+        g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 2) {
+            g_QuestMap.sub_55E5FB(quest);
+            delete quest;
+        }
+    }
+}
+
 // sub_560DC2 вЂ” Handle inn quest/reward interaction.
 // Called when a humanoid finishes interacting with the inn.
 // `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `some_id`.

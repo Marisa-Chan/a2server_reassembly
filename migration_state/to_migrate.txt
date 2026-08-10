@@ -149,7 +149,6 @@
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_567B4D@Inn@@QAE_NPAVPlayer@@@Z	109
 ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z	146
-?sub_567C21@Inn@@QAEXPAVPlayer@@@Z	162
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23
 ?sub_548F07@Item@@QAEHXZ	30
 ?sub_548F6A@Item@@QAEHXZ	35
