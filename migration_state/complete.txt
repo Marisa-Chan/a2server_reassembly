@@ -697,6 +697,7 @@
 ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z
 ?sub_504a96@Server@@QAEXPAVPacket@@@Z
 ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z
+?sub_50DC69@GameDataRes@@QAEXHPAVCString@@@Z
 ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z
 ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z
 ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z

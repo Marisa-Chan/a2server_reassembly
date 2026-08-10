@@ -557,6 +557,17 @@ Item* GameDataRes::sub_510502(CString* name) {
     return nullptr;
 }
 
+// 50DC69
+void GameDataRes::sub_50DC69(int material_id, CString* name) {
+    if (this->materials[material_id].name.Find("Leather") != -1) {
+        name->TrimLeft();
+        *name = "Soft " + *name;
+    } else if (this->materials[material_id].name.Find("Wood") != -1) {
+        name->TrimLeft();
+        *name = "Wooden " + *name;
+    }
+}
+
 // 50DDAE
 int GameDataRes::sub_50DDAE(uint8_t type_id, uint8_t face) {
     if (type_id < 0x40 && type_id != 0x1A && type_id != 0x1B) {
