@@ -665,6 +665,22 @@ int GameDataRes::sub_50DF19(int experience) {
     return result;
 }
 
+// 5126A2
+int GameDataRes::sub_5126A2(uint8_t type, uint8_t face) {
+    for (int32_t i = this->monsters.GetSize() - 1; i > 0; i--) {
+        if (this->monsters[i].values.GetSize() == 0) {
+            continue;
+        }
+
+        MonsterInfoData* data = this->monsters[i].Values().GetData();
+        if (data->type_id == type && data->face == face) {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
 int32_t GameDataRes::FUN_005125a8(int32_t id)
 { //5125a8
     for (int i = humans.GetSize() - 1; i > 0; i--)

@@ -195,7 +195,6 @@ externdef ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
-externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
 externdef ?sub_514BE7@GameDataRes@@QAEXXZ :proc
