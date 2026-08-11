@@ -996,6 +996,21 @@ int GameDataRes::ParseDataBin(const CString& path) {
     return 0;
 }
 
+// 50D7C2
+void GameDataRes::WriteDataBin(const CString& path) {
+    CFile file;
+    CString filename = path + "Data.bin";
+
+    if (!file.Open(filename, CFile::modeCreate | CFile::modeWrite | CFile::shareExclusive, nullptr)) {
+        return;
+    }
+
+    CArchive ar(&file, CArchive::store);
+    this->Serialize(ar);
+    ar.Close();
+    file.Close();
+}
+
 // 50a15f
 int GameDataRes::ParseWorldIn(const CString& path) {
     if (this->loaded != 0) {

@@ -193,7 +193,6 @@ externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z : proc
-externdef ?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z : proc
 externdef ?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
