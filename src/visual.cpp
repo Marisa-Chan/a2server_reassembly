@@ -3860,7 +3860,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
                         {
                             parent_screen->vis_list->field_0xd0 = parent_screen->pCharacters->GetStringArray1Size() - 1;
                             parent_screen->field_0x84->VMethod1(0);
-                            parent_screen->gameinterface->FUN_00416cf7();
+                            parent_screen->gameinterface->UpdateSelectionState();
                         }
                     }
                 }

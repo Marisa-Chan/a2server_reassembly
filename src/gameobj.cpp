@@ -6,6 +6,15 @@
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);
 
+//GetRuntimeClass 461080
+IMPLEMENT_DYNAMIC(CUnit, CGameObject);
+
+//GetRuntimeClass 461090
+IMPLEMENT_DYNAMIC(CAirUnit, CUnit);
+
+//GetRuntimeClass 461030
+IMPLEMENT_DYNAMIC(CStructure, CGameObject);
+
 CGameObject::CGameObject()
 {
     //4610b0
@@ -110,8 +119,8 @@ CGameObject::CGameObject(const CGameObject* obj)
     field_0x11c.Copy(obj->field_0x11c);
     field_0xb0.Copy(obj->field_0xb0);
 
-    for (int i = 0; i < obj->field_0xd0.GetSize(); i++)
-        field_0xd0.Add(new GO_d0(obj->field_0xd0[i]));
+    for (int i = 0; i < obj->tokenEntries.GetSize(); i++)
+        tokenEntries.Add(new TokenEntry(obj->tokenEntries[i]));
 
     strcpy(field_0xec, obj->field_0xec);
     strcpy(field_0xf8, obj->field_0xf8);
@@ -145,10 +154,10 @@ void CGameObject::Dump(CDumpContext& dc) const
 
 CGameObject::~CGameObject()
 { //46178a
-    for (int i = 0; i < field_0xd0.GetSize(); i++)
-        delete field_0xd0[i];
+    for (int i = 0; i < tokenEntries.GetSize(); i++)
+        delete tokenEntries[i];
 
-    field_0xd0.RemoveAll();
+    tokenEntries.RemoveAll();
 }
 
 
@@ -313,37 +322,37 @@ void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t yp
 
 
 
-GO_d0::~GO_d0()
+TokenEntry::~TokenEntry()
 { //4394bf
-    if (field_0xc)
-        free(field_0xc);
+    if (mods)
+        free(mods);
 }
 
-GO_d0::GO_d0() = default; //438f90
+TokenEntry::TokenEntry() = default; //438f90
 
 
-GO_d0::GO_d0(int arg)
+TokenEntry::TokenEntry(int arg)
 { //439009
     field_0x4 = arg;
 }
 
 
-GO_d0::GO_d0(const GO_d0* obj)
+TokenEntry::TokenEntry(const TokenEntry* obj)
 {
     //439465
     operator=(*obj);
 }
 
-GO_d0::GO_d0(uint8_t** data, int arg)
+TokenEntry::TokenEntry(uint8_t** data, int arg)
 {
     //439102
     field_0x18 = 0;
     field_0x14 = 0;
     field_0x1c = -1;
     field_0x20 = -1;
-    field_0x9 = 0;
-    field_0xa = 0;
-    field_0xc = nullptr;
+    mods_count = 0;
+    mods_size = 0;
+    mods = nullptr;
 
     uint8_t* pdata = *data;
 
@@ -362,8 +371,8 @@ GO_d0::GO_d0(uint8_t** data, int arg)
             return;
         }
 
-        field_0xa = pkt->data_len;
-        field_0x9 = pkt->field_5;
+        mods_size = pkt->data_len;
+        mods_count = pkt->field_5;
     }
 
     if ((flg & 0x80) == 0)
@@ -373,29 +382,29 @@ GO_d0::GO_d0(uint8_t** data, int arg)
             field_0x10 =  *(uint16_t*)pdata;
             pdata += 2;
 
-            field_0xc = malloc(field_0xa);
-            memcpy(field_0xc, pkt->data, field_0xa);
+            mods = malloc(mods_size);
+            memcpy(mods, pkt->data, mods_size);
         }
         else
         {
             int esz = flg & 0xf;
-            field_0x9 += esz + 1;
-            field_0xa += (esz + 1) * 2;
+            mods_count += esz + 1;
+            mods_size += (esz + 1) * 2;
             
             int local_18 = *(uint32_t*)pdata;
             pdata += 4;
 
-            field_0xc = malloc(field_0xa);
-            memcpy(field_0xc, pkt->data, field_0xa);
+            mods = malloc(mods_size);
+            memcpy(mods, pkt->data, mods_size);
 
-            uint8_t* ot = (uint8_t*)field_0xc + pkt->data_len;
+            uint8_t* ot = (uint8_t*)mods + pkt->data_len;
             ot[0] = 0x33;
             ot[1] = 0;
             memcpy(ot + 2, pdata, esz * 2);
 
             pdata += esz * 2;
 
-            memcpy((uint8_t *)field_0xc + 1, &local_18, 4);
+            memcpy((uint8_t *)mods + 1, &local_18, 4);
 
             flg &= 0x60;
             field_0x10 = 1;
@@ -404,8 +413,8 @@ GO_d0::GO_d0(uint8_t** data, int arg)
     else
     {
         field_0x10 = flg & 0x3f;
-        field_0xc = malloc(field_0xa);
-        memcpy(field_0xc, pkt->data, field_0xa);
+        mods = malloc(mods_size);
+        memcpy(mods, pkt->data, mods_size);
         flg &= 0x40;
     }
 
@@ -426,24 +435,24 @@ GO_d0::GO_d0(uint8_t** data, int arg)
     *data = pdata;
 }
 
-void GO_d0::operator=(const GO_d0& obj)
+void TokenEntry::operator=(const TokenEntry& obj)
 {
     //43a3cd
     field_0x4 = obj.field_0x4;
     item_id = obj.item_id;
     flg = obj.flg;
-    field_0x9 = obj.field_0x9;
+    mods_count = obj.mods_count;
     field_0x10 = obj.field_0x10;
     field_0x14 = obj.field_0x14;
     field_0x18 = obj.field_0x18;
-    field_0xa = obj.field_0xa;
+    mods_size = obj.mods_size;
 
-    if (field_0xa == 0)
-        field_0xc = nullptr;
+    if (mods_size == 0)
+        mods = nullptr;
     else
     {
-        field_0xc = malloc(field_0xa);
-        memcpy(field_0xc, obj.field_0xc, field_0xa);
+        mods = malloc(mods_size);
+        memcpy(mods, obj.mods, mods_size);
     }
 
     field_0x1c = obj.field_0x1c;

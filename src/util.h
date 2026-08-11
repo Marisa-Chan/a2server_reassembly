@@ -59,4 +59,17 @@ inline void SetU32(void* buf, uint32_t value) {
 }
 
 
+inline uint16_t GetU16(const void* buf)
+{
+	const uint8_t* cbuf = (const uint8_t*)buf;
+	return ((uint16_t)cbuf[0] | ((uint16_t)cbuf[1] << 8));
+}
+
+inline uint32_t GetU32(const void* buf)
+{
+	const uint8_t* cbuf = (const uint8_t*)buf;
+	return ((uint32_t)cbuf[0] | ((uint32_t)cbuf[1] << 8) | ((uint32_t)cbuf[2] << 16) | ((uint32_t)cbuf[3] << 24));
+}
+
+
 #endif

@@ -2,6 +2,7 @@
 #define GAME_APP_H
 
 #include "asm_mfc.h"
+#include "mfc_templ.h"
 #include "net.h"
 #include "table.h"
 #include "txtfile.h"
@@ -113,10 +114,18 @@ extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 // sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
 extern "C" Item* __cdecl sub_5499A6(int level, int max_gold);
 
+
+struct ScenarioLocation
+{
+	int32_t kind;
+	int32_t id;
+	CRect rect;
+};
+
 extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
 extern "C" void(__stdcall* ScenarioSetVar)(int32_t, int32_t); //665a00
 extern "C" FARPROC ScenarioTalkTo; //665bd4
-extern "C" FARPROC ScenarioEnterLocation; //6659fc
+extern "C" void(__stdcall* ScenarioEnterLocation)(ScenarioLocation* loc); //6659fc
 extern "C" int32_t(__stdcall* ScenarioLeaveLocation)(int32_t*); //6658c8
 extern "C" FARPROC ScenarioEnterShop; //665b0c
 extern "C" FARPROC ScenarioLeaveShop; //665b08
@@ -125,7 +134,7 @@ extern "C" FARPROC ScenarioLeaveInn; //6658f0
 extern "C" FARPROC ScenarioNewGame; //6658cc
 extern "C" void (__stdcall* ScenarioSave)(CFile*); //6658d0
 extern "C" void (__stdcall* ScenarioLoad)(CFile*); //665bd8
-extern "C" FARPROC ScenarioGetAvailableLocations; //6658c4
+extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAvailableLocations)(); //6658c4
 extern "C" FARPROC ScenarioGetShopAssortment; //665bdc
 extern "C" FARPROC ScenarioIsTownAvailable; //665cf4
 extern "C" FARPROC ScenarioIsMissionAvailable; //6659f8
@@ -148,7 +157,6 @@ extern char g_WorkingDir[1024]; //65fbc8
 extern HWND g_MainWndHWND; //6658ec
 
 extern uint32_t g_IsCdPresent; //660f94
-extern uint32_t g_EnableMusic; //660e10
 extern uint32_t g_EnableTrace; //660f78
 extern uint32_t INT_00660f74; //660f74
 

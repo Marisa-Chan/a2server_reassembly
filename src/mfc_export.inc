@@ -931,6 +931,10 @@ extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::Ref
 externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
+
+externdef ??1Spell@@UAE@XZ:proc
+externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
+
 externdef ?sub_5393C7@Spell@@QAEHXZ :proc
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
@@ -1475,7 +1479,6 @@ extern ?g_CmdLatency@@3IA : dword  ; unsigned int g_CmdLatency
 extern ?g_CmdTimeout@@3IA : dword  ; unsigned int g_CmdTimeout
 extern ?g_MainWndHWND@@3PAUHWND__@@A  : dword  ; HWND g_MainWndHWND
 extern ?g_IsCdPresent@@3IA  : dword
-extern ?g_EnableMusic@@3IA  : dword
 extern ?g_EnableTrace@@3IA  : dword
 extern ?g_DWORD_00659d18@@3IA  : dword
 extern ?g_CmdSafeVideo@@3IA  : dword
@@ -1524,6 +1527,8 @@ externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
 extern ?FUN_00493ffe@SomeMainStructure@@QAEHXZ : proc
 extern ?FUN_004941c0@SomeMainStructure@@QAEXXZ : proc
 
+extern ?ShowGlobalMapDialog@MainWindow@@QAEXXZ : proc
+
 externdef ?g_LButtonDown@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
@@ -1531,6 +1536,7 @@ extern ?g_settings@@3UGameSettings@@A : dword
 
 extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
+
 
 
 
@@ -1863,7 +1869,7 @@ extern ??0TakeDamage@@QAE@XZ : proc
 
 ;BigStruct2
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
-externdef ?FUN_00416cf7@BigStruct2@@QAEXXZ  : proc
+extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
@@ -1886,21 +1892,28 @@ extern ?FUN_0041b636@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b509@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b40e@BigStruct2@@QAEXXZ : proc
 
+extern ?CleanupCompletedMissionMapState@BigStruct2@@QAEXXZ : proc
+extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
+
 externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
 
 
-;GO_d0
-extern ??1GO_d0@@UAE@XZ  :proc   ; (public: virtual __thiscall GO_d0::~GO_d0(void))
-extern ??0GO_d0@@QAE@XZ  :proc   ; (public: __thiscall GO_d0::GO_d0(void))
-extern ??0GO_d0@@QAE@H@Z : proc ; (int)
-extern ??0GO_d0@@QAE@PBV0@@Z  :proc   ; (public: __thiscall GO_d0::GO_d0(class GO_d0 const *))
-extern ??0GO_d0@@QAE@PAPAEH@Z  :proc   ; (public: __thiscall GO_d0::GO_d0(unsigned char * *,int))
-extern ??4GO_d0@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
+;TokenEntry
+extern ??1TokenEntry@@UAE@XZ  :proc   ; (public: virtual __thiscall TokenEntry::~TokenEntry(void))
+extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEntry(void))
+extern ??0TokenEntry@@QAE@H@Z : proc ; (int)
+extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
+extern ??0TokenEntry@@QAE@PAPAEH@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(unsigned char * *,int))
+extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
-externdef ?FUN_0041f0d0@GO_d0@@QAEHXZ   : proc
-externdef ?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ  :proc
-externdef ?FUN_004396d6@GO_d0@@QAEHXZ  :proc
+extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
+extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
+extern ?GetCastSpellId@TokenEntry@@QBEIXZ : proc
+
+externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
+externdef ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
+externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
 
 
 
@@ -2081,8 +2094,20 @@ extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
 
+extern ?g_dsound_format@@3UtWAVEFORMATEX@@A : dword
+extern ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A : dword
+extern ?g_dsound_hwnd@@3PAUHWND__@@A : dword
+extern ?g_CurrentMusicTrack@@3HA : dword
 
-externdef ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
+extern ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
+extern ??0MusicPlayer@@QAE@H@Z : proc
+extern ??1MusicPlayer@@UAE@XZ : proc
+extern ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z  : proc
+extern ?Play@MusicPlayer@@QAEXXZ : proc
+extern ?OnEndTrack@MusicPlayer@@QAEXXZ : proc
+
+extern ?Player@MusicPlayer@@2PAV1@A : dword
+
 
 
 ; util.h
@@ -2132,7 +2157,7 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 
 ;CGameObject
-extern ?FUN_0041f110@CGameObject@@QAEHXZ : proc
+extern ?IsSelected@CGameObject@@QAEHXZ : proc
 
 
 extern ?classCGameObject@CGameObject@@2UCRuntimeClass@@B  :dword
@@ -2171,15 +2196,23 @@ externdef ??0CUnit@@QAE@XZ : proc
 externdef ?FUN_0046b0d7@CUnit@@QAEXABVUnit@@@Z  :proc
 externdef ?FUN_0046b7d2@CUnit@@QAEXH@Z :proc
 externdef ?FUN_0046b91c@CUnit@@QAEXXZ : proc
+extern ?GetRuntimeClass@CUnit@@UBEPAUCRuntimeClass@@XZ : proc
+extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc
+extern ?classCAirUnit@CAirUnit@@2UCRuntimeClass@@B : dword
+extern ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ : proc
 
 ;CBackPack
 externdef ??0CBackPack@@QAE@XZ : proc
 
 ;CProjectile
 externdef ??0CProjectile@@QAE@XZ : proc
+
+;CStructure
+extern ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ  : proc
+extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 
 
 ;MapPlayerData

@@ -36,6 +36,13 @@ class CVisualObject : public CObject
 public:
 	enum
 	{
+		MSG_409 = 0x409,
+		MSG_40a = 0x40a,
+		MSG_410 = 0x410,
+	};
+
+	enum
+	{
 		FLAG_ENABLED = 1,
 		FLAG_NOTFOCUS = 2,
 		FLAG_FOCUS = 4,
@@ -762,7 +769,9 @@ class BigStruct2 : public CVisualObject
 {
 public:
 
-	void FUN_00416cf7();
+	void UpdateSelectionState(); //416cf7
+	void UpdateSpellEffects(CUnit* unit); //from 416cf7
+	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
 
 	void FUN_0041c4a1(const char* name); //41c4a1
 
@@ -814,8 +823,13 @@ public:
 	void FUN_0041b064(int32_t arg1, int32_t arg2); //41b064
 	void FUN_0041c39c(); //41c39c
 
+	void CleanupCompletedMissionMapState(); //41ce5a
+
 	void FUN_00403ca0(CGameObject* obj); //403ca0 in asm
 	void FUN_0041d97e(int32_t); //41d97e in asm
+
+	uint32_t AvailableOrderMask() const; // 417af6
+	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be
 
 public:
 	int32_t view_x;
@@ -862,13 +876,13 @@ public:
 	CArray<CRect> field_0x10c;
 	CWordArray field_0x120;
 	int32_t field_0x134;//unk type
-	CUnit* field_0x138;
-	int32_t field_0x13c; //unk type
-	int32_t field_0x140;
+	CGameObject* field_0x138; //primarySelectedObject
+	POSITION field_0x13c; //primarySelectedAssoc
+	int32_t field_0x140; //selectedObjectCount
 	uint32_t field_0x144;
-	uint32_t field_0x148;
+	uint32_t field_0x148; //selectedAvailableSpellMask
 	int32_t field_0x14c; //unk type
-	int32_t field_0x150; //unk type
+	uint32_t field_0x150; //activeSpellEffectMask
 	int32_t spell_damage_min[24];
 	int32_t spell_damage_max[24];
 	int32_t spell_range_min[24];
@@ -904,7 +918,7 @@ public:
 	MapPlayerData* my_main_unit;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9d0;
 	CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> field_0x9ec;
-	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa08;
+	CMap<uint16_t, uint16_t, uint32_t, uint32_t> field_0xa08; //terrainLightOverrideCells
 	int32_t field_0xa24; //unk type
 	GM_a28 msglog;
 	int32_t field_0xa88;
@@ -956,24 +970,24 @@ public:
 	virtual const char* GetHint() override;
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
 
-	virtual int32_t VMethod26(GO_d0* o, int32_t idx); //4a554f
-	virtual int32_t VMethod27(GO_d0* o); //4a56c3
-	virtual GO_d0* VMethod28(uint32_t id); //4a57a1
-	virtual GO_d0* VMethod29(GO_d0* o, int32_t num); //4a58dc
+	virtual int32_t VMethod26(TokenEntry* o, int32_t idx); //4a554f
+	virtual int32_t VMethod27(TokenEntry* o); //4a56c3
+	virtual TokenEntry* VMethod28(uint32_t id); //4a57a1
+	virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num); //4a58dc
 	virtual int32_t VMethod30(int32_t x, int32_t y); //4a79a0
 	virtual int32_t VMethod31(const CPoint* pt); //4a7990
-	virtual void VMethod32(CArray<GO_d0*>* arr); //4a4da9
-	virtual void VMethod33(CUnit* uni); //4a4d05
+	virtual void VMethod32(CArray<TokenEntry*>* arr); //4a4da9
+	virtual void VMethod33(CGameObject* uni); //4a4d05
 	virtual void VMethod34(); //4a4e28
 	virtual void VMethod35(); //4a4c2f
-	virtual GO_d0* VMethod36(int32_t idx, int32_t num); //4a5aae
+	virtual TokenEntry* VMethod36(int32_t idx, int32_t num); //4a5aae
 	virtual int32_t VMethod37(int32_t idx); //4a5c39
 	virtual int32_t VMethod38(); //4a79b0
 
 public:
 	CArray<CSprite256*> field_0x5c;
 	CDWordArray field_0x70;
-	CArray<GO_d0*>* unit_d0;
+	CArray<TokenEntry*>* unit_d0;
 	int32_t field_0x88;
 	int32_t field_0x8c;
 	int32_t* unit_e4;
@@ -1002,8 +1016,8 @@ public:
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
 	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
 
-	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
-	virtual int32_t VMethod27(GO_d0* o) override;
+	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override;
+	virtual int32_t VMethod27(TokenEntry* o) override;
 	virtual int32_t VMethod30(int32_t x, int32_t y) override;
 	virtual int32_t VMethod38() override;
 
@@ -1029,11 +1043,11 @@ public:
 
 	virtual int32_t VMethod30(int32_t x, int32_t y) override;
 	virtual int32_t VMethod31(const CPoint* pt) override;
-	virtual void VMethod32(CArray<GO_d0*>* arr) override;
+	virtual void VMethod32(CArray<TokenEntry*>* arr) override;
 	virtual int32_t VMethod38() override;
 
 	virtual void VMethod39();
-	virtual void VMethod40(CArray<GO_d0*>* arr);
+	virtual void VMethod40(CArray<TokenEntry*>* arr);
 	virtual void VMethod41();
 	virtual void VMethod42();
 
@@ -1062,8 +1076,8 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
 
-	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
-	virtual GO_d0* VMethod29(GO_d0* o, int32_t num) override;
+	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override;
+	virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num) override;
 
 	virtual int32_t VMethod37(int32_t idx) override;
 	virtual int32_t VMethod38() override;
@@ -1081,7 +1095,7 @@ public:
 	CBmp64* arrow2;
 	CBmp64* arrow4;
 	CBmp64* shop_inv;
-	CArray<GO_d0*> field_0x2100[4];
+	CArray<TokenEntry*> field_0x2100[4];
 };
 ASSERT_SIZE(VisInvExtType1, 0x2150);
 
@@ -1100,8 +1114,8 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
 
-	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
-	virtual int32_t VMethod27(GO_d0* o) override;
+	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override;
+	virtual int32_t VMethod27(TokenEntry* o) override;
 
 	virtual int32_t VMethod38() override;
 	virtual void VMethod39() override;
@@ -1128,10 +1142,10 @@ public:
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
 
-	virtual int32_t VMethod26(GO_d0* o, int32_t idx) override;
-	virtual int32_t VMethod27(GO_d0* o) override;
+	virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override;
+	virtual int32_t VMethod27(TokenEntry* o) override;
 
-	virtual GO_d0* VMethod36(int32_t idx, int32_t num) override;
+	virtual TokenEntry* VMethod36(int32_t idx, int32_t num) override;
 	virtual int32_t VMethod37(int32_t idx) override;
 	virtual int32_t VMethod38() override;
 	virtual void VMethod39() override;
@@ -1139,14 +1153,14 @@ public:
 	virtual void VMethod41() override;
 	virtual void VMethod42() override;
 
-	virtual GO_d0* VMethod43(int32_t id1, int32_t id2);
+	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
 	CRect field_0x20dc;
 	CBmp64* shoptable;
 	int32_t field_0x20f0; //unk type
-	CArray<GO_d0*> field_0x20f4;
+	CArray<TokenEntry*> field_0x20f4;
 };
 ASSERT_SIZE(VisInvExtType3, 0x2108);
 
@@ -1192,7 +1206,7 @@ public:
 	int32_t quest_id;
 	int32_t field_0x11c; //unk type
 	int32_t field_0x120; //unk type
-	CArray<GO_d0*> field_0x124;
+	CArray<TokenEntry*> field_0x124;
 	int32_t field_0x138; //unk type
 	int32_t field_0x13c; //unk type
 };

@@ -349,6 +349,24 @@ void MWin_5e8::FUN_00420050()
     field_x8++;
 }
 
+void MWin_5e8::SubmitScore()
+{ //4ac498
+    Fame1 fm;
+    MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* unit = mwnd->field_0xd0->GetUnit_3f6c();
+    if (unit)
+    {
+        fm.str = unit->field_0xec;
+        if (field_x4 == 0)
+            fm.field_x4 = unit->exp_summary / 500000.0 * field_x8;
+        else
+            fm.field_x4 = unit->exp_summary / (field_x4 * 10.0) * field_x8;
+
+        FUN_004ac3ce(fm);
+    }
+}
+    
+
 
 
 
@@ -830,7 +848,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
     if (obj == field_0xf8 || obj == field_0xfc || obj == field_0x100)
     {
         field_0xd0->FUN_0041a8cc();
-        field_0xd0->FUN_00416cf7();
+        field_0xd0->UpdateSelectionState();
         if (field_0x640 != 2)
             FUN_00494c91();
     }
@@ -876,7 +894,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             FUN_00494c91();
 
         field_0x418 &= ~4;
-        field_0xd0->FUN_00416cf7();
+        field_0xd0->UpdateSelectionState();
     }
     else if (obj == field_0x36c)
     { //charget 2step
@@ -1307,7 +1325,7 @@ void MainWindow::FUN_00491a49()
     
     field_0xd0->GetUnit_3f6c()->VMethod1(1); // select
 
-    field_0xd0->FUN_00416cf7();
+    field_0xd0->UpdateSelectionState();
 
     vis_root->AddChild(field_0x36c);
     field_0x36c->VMethod28();
@@ -1371,7 +1389,7 @@ void MainWindow::FUN_0048f905()
 
                 field_0xd0->field_0x9d0.GetNextAssoc(pos, key, obj);
 
-                if (obj->FUN_0041f110() != 0)
+                if (obj->IsSelected() != 0)
                     local_12c.Add(key);
 
                 for (int i = 0; i < 10; i++)
@@ -1742,10 +1760,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             PostMessage(0x421, 0, 0);
         }
         else
-        {/*
-            local_88c = g_Server->tick;
-            field_0x5e8.FUN_00497250(g_Server->tick / 16);
-            field_0xd0->FUN_0041ce5a();
+        {
+            field_0x5e8.AddMissionElapsedTime(g_Server->tick / 16);
+            field_0xd0->CleanupCompletedMissionMapState();
 
             if ((field_0x418 & 1) != 0)
                 FUN_0048f6f7();
@@ -1772,32 +1789,29 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             if (loc > -1)
                 FUN_00491f7d(loc);
 
-            iVar18 = FUN_00497490();
-            if (iVar18 == 0) {
+            if (FUN_00497490() == 0)
+            {
                 if (local_894 != 0)
-                    field_0xd0->FUN_0041b0be(local_894);
+                    field_0xd0->SendAdjustPlayerGoldAction(local_894);
 
-                iVar18 = (*(code*)ScenarioIsTownAvailable)();
-                if (iVar18 == 0) {
-                    local_8b0 = (*(code*)ScenarioGetAvailableLocations)();
-                    FUN_004744c0(local_8b0);
-                    (*(code*)ScenarioEnterLocation)();
+                if (ScenarioIsTownAvailable() == 0)
+                {
+                    CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
+                    ScenarioEnterLocation(locs->GetHead());
                     PostMessage(0x468, 0, 0);
                 }
-                else {
+                else
+                {
                     field_0xf0->field_0x1b0 = 0;
-                    FUN_0048d34b();
+                    ShowGlobalMapDialog();
                 }
-                i &= 0xffffff00;
-                CDWordArray::~CDWordArray(&local_8ac);
             }
-            else {
-                FUN_004ac498((int)&this->field113_0x5e8);
-                BigStruct2::FUN_0041d2da(this->field_0xd0, 1);
-                CWnd::PostMessage((CWnd*)this, 0x428, 0, 0);
-                i &= 0xffffff00;
-                CDWordArray::~CDWordArray(&local_8ac);
-            }*/
+            else
+            {
+                field_0x5e8.SubmitScore();
+                field_0xd0->FUN_0041d2da(1);
+                PostMessage(MSG_428, 0 ,0);
+            }
             
         }
         break;
@@ -1839,6 +1853,29 @@ void MainWindow::PopUpScreen(VisScreen* screen)
 
         UpdateCursorClip();
     }
+}
+
+void MainWindow::ShowGlobalMapDialog()
+{ //48d34b
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    vis_root->AddChild(field_0xf0);
+    field_0xf0->VMethod28();
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+    field_0x418 |= 0x10;
+
+    if (g_SoundSettings.field_0x20 != 0)
+    {
+        CStringArray playlist;
+        playlist.Add("music\\map.wav");
+
+        music_player->SetPlayList(playlist);
+        music_player->Play();
+    }
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
 }
 
 void MainWindow::FUN_0048f79d()
@@ -2513,7 +2550,7 @@ void MainWindow::FUN_0048df44()
         }
     }
 
-    field_0xd0->FUN_00416cf7();
+    field_0xd0->UpdateSelectionState();
 
     field_0x450 = -1;
     field_0x3f8 = 0;

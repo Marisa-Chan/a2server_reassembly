@@ -556,8 +556,8 @@ void CMousePointer::Update()
         RepaintHint();
     }
 
-    if (wnd->field_0xc4)
-        wnd->field_0xc4();
+    if (wnd->music_update_proc)
+        wnd->music_update_proc();
 }
 
 void CMousePointer::UpdateHint()

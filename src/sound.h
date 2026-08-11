@@ -79,11 +79,30 @@ ASSERT_SIZE(SoundSettings, 0x28);
 class MusicPlayer : public CObject
 {
 public:
+	static MusicPlayer *Player;
+public:
+	MusicPlayer(int32_t bufsz); //45b16d
+	~MusicPlayer(); //45b321
+
 	int GetState(); //451700
 	void OnEndTrack(); //45b5cf
-	void DisableUpdate(); //45a6ee
+	void UnsetUpdateProc(); //45a6ee
 	void SetVolume(int32_t vol); // 451790
-	void StartPlayTrack(int32_t track); // in asm 45b6d0
+	void StartPlayTrack(int32_t track); //45b6d0
+	void OpenTrack(int32_t track); //45ae1d
+	void SetPlayList(const CStringArray& plist); //45b0ff
+	void Play(); //45b565
+	void UpdateBufferTime(); //45cb40
+	void SetUpdateProc(); //45a6c0
+	void Update(uint32_t tm); //45a9b3
+
+	uint32_t GetElapsedSeconds(); //45cbe0
+
+	void ReadPortion(uint8_t* buf); //45a707
+
+	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc
+
+	static void MusicUpdaterProc(); //45a99c
 public:
 	int32_t gap_0x4;
 	uint32_t next_update_time;
@@ -107,10 +126,10 @@ public:
 	int32_t fade_start_volume;
 	int32_t end_pos;
 	int32_t data_length;
-	CFile* file;
-	uint8_t* samples;
+	CFile* file = nullptr;
+	uint8_t* samples = nullptr;
 	WAVEFORMATEX format;
-	IDirectSoundBuffer* ds_buffer;
+	IDirectSoundBuffer* ds_buffer = nullptr;
 
 };
 ASSERT_SIZE(MusicPlayer, 0xa0);

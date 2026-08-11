@@ -23,7 +23,6 @@ uint32_t g_CmdSafeVideo = 0;
 
 HWND g_MainWndHWND;
 uint32_t g_IsCdPresent;
-uint32_t g_EnableMusic;
 uint32_t g_EnableTrace;
 uint32_t INT_00660f74; //660f74
 
@@ -443,10 +442,11 @@ BOOL GameApp::InitInstance()
 #else
 	Resources::StaticAddResFile("world_srv.res");
 #endif
+	Resources::StaticAddResFile("music.res");
 	Resources::StaticAddResFile("video.res");
 
 	if (strstr(m_lpCmdLine, "-nomusic"))
-		g_EnableMusic = 0;
+		g_SoundSettings.field_0x20 = 0;
 
 	if (strstr(m_lpCmdLine, "-trace"))
 		g_EnableTrace = 1;
@@ -610,7 +610,7 @@ BOOL GameApp::InitInstance()
 	ScenarioGetVar = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)1);
 	ScenarioSetVar = (void(__stdcall*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
 	ScenarioTalkTo = GetProcAddress(g_scenario_dll, (LPCSTR)3);
-	ScenarioEnterLocation = GetProcAddress(g_scenario_dll, (LPCSTR)5);
+	ScenarioEnterLocation = (void(__stdcall*)(ScenarioLocation*))GetProcAddress(g_scenario_dll, (LPCSTR)5);
 	ScenarioLeaveLocation = (int32_t(__stdcall *)(int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)6);
 	ScenarioEnterShop = GetProcAddress(g_scenario_dll, (LPCSTR)7);
 	ScenarioLeaveShop = GetProcAddress(g_scenario_dll, (LPCSTR)8);
@@ -619,7 +619,7 @@ BOOL GameApp::InitInstance()
 	ScenarioNewGame = GetProcAddress(g_scenario_dll, (LPCSTR)11);
 	ScenarioSave = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
 	ScenarioLoad = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)13);
-	ScenarioGetAvailableLocations = GetProcAddress(g_scenario_dll, (LPCSTR)14);
+	ScenarioGetAvailableLocations = (CList<ScenarioLocation*>* (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)14);
 	ScenarioGetShopAssortment = GetProcAddress(g_scenario_dll, (LPCSTR)15);
 	ScenarioIsTownAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)16);
 	ScenarioIsMissionAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)17);

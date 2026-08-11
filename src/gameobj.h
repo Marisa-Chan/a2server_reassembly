@@ -5,6 +5,7 @@
 
 #include "asm_mfc.h"
 #include "alm.h"
+#include "util.h"
 
 class BigStruct2;
 class CGameBitmap;
@@ -12,38 +13,73 @@ class CSprite256;
 class Unit;
 
 
-class GO_d0 : public CObject
+class TokenEntry : public CObject
 {
+public:
+	enum {
+		TYPE_SPELL = 0x0E,
+		CAST_SPELL_ATTRIBUTE_ID = 0x29,
+	};
 public:
 
 	int32_t FUN_0041f0d0();
 
-	virtual ~GO_d0(); //4394bf
+	virtual ~TokenEntry(); //4394bf
 
-	GO_d0(); //438f90
-	GO_d0(int arg); //439009
-	GO_d0(const GO_d0* obj);
-	GO_d0(uint8_t** data, int arg);
+	TokenEntry(); //438f90
+	TokenEntry(int arg); //439009
+	TokenEntry(const TokenEntry* obj);
+	TokenEntry(uint8_t** data, int arg);
 
-	void operator=(const GO_d0& obj);
+	void operator=(const TokenEntry& obj);
 
 	CString FUN_004394f3(); //4394f3
 	int FUN_004396d6(); //4396d6
+
+	int GetType() const { return (item_id >> 8) & 0xf; }; //41f0b0
+
+	uint32_t GetAttribute(uint8_t aid) const //4397de
+	{
+		if (!mods || mods_count == 0 || mods_size == 0)
+			return 0;
+
+		int pos = 0;
+		uint32_t result = 0;
+
+		const uint8_t* cmods = (const uint8_t*)mods;
+
+		for (int i = 0; i < mods_count; i++)
+		{
+			uint8_t k = cmods[pos];
+			if (k == aid)
+			{
+				if (k == 1)
+					result = GetU32(cmods + pos + 1);
+				else
+					result = cmods[pos + 1];
+			}
+			
+			pos += k == 1 ? 5 : 2;
+		}
+		return result;
+	}
+
+	uint32_t GetCastSpellId() const { return GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0
 public:
 	uint16_t field_0x4 = 0;
 	uint16_t item_id = 0;
 	uint8_t flg = 0;
-	uint8_t field_0x9 = 0;
-	uint8_t field_0xa = 0;
+	uint8_t mods_count = 0;
+	uint8_t mods_size = 0;
 	uint8_t field_0xb = 0;
-	void* field_0xc = nullptr;
+	void* mods = nullptr;
 	uint32_t field_0x10 = 1;
 	uint32_t field_0x14 = 0;
 	uint32_t field_0x18 = 0;
 	int32_t field_0x1c = -1;
 	int32_t field_0x20 = -1;
 };
-ASSERT_SIZE(GO_d0, 0x24);
+ASSERT_SIZE(TokenEntry, 0x24);
 
 struct GO_11c
 {
@@ -86,7 +122,7 @@ public:
 	CGameObject();
 	CGameObject(const CGameObject *obj);
 
-	int32_t FUN_0041f110() { return field_0x80; } //41f110
+	int32_t IsSelected() { return field_0x80; } //41f110
 	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & field_0x88; } //41f1c0
 	void FUN_0046190d();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
@@ -100,9 +136,9 @@ public:
 	int32_t y_pos;
 	int32_t z_pos;
 	MapPlayerData* field_0x14;
-	int32_t field_0x18;
+	int32_t field_0x18; //availableSpellMask
 	int32_t spells;
-	int32_t field_0x20;
+	int32_t field_0x20; //activeSpellEffectMask
 	int32_t typeId;
 	int32_t face;
 	int32_t x_pos2;
@@ -126,9 +162,9 @@ public:
 	int32_t phase;
 	int32_t last_action;
 	int32_t field_0x7c;
-	int32_t field_0x80;
+	int32_t field_0x80; //m_bSelected
 	int32_t field_0x84;
-	int32_t field_0x88;
+	int32_t field_0x88; //controlGroupMask
 	uint8_t action;
 	int8_t action_dir;
 	uint16_t action_target;
@@ -140,12 +176,12 @@ public:
 	int32_t field_0xa4;
 	int32_t action_segments;
 	int32_t action_spell;
-	CArray<uint16_t> field_0xb0;
+	CArray<uint16_t> field_0xb0; //actionTargets
 	int32_t field_0xc4;
-	int32_t field_0xc8;
-	int32_t field_0xcc;
-	CArray<GO_d0*> field_0xd0;
-	int32_t field_0xe4;
+	int32_t field_0xc8; //occupiedLocation
+	int32_t field_0xcc; //occupiedLocation
+	CArray<TokenEntry*> tokenEntries; //0xd0
+	int32_t field_0xe4; //shopInventoryVisibleStart
 	BigStruct2* field_0xe8;
 	char field_0xec[12];
 	char field_0xf8[12];
@@ -156,10 +192,10 @@ public:
 	int16_t speed;
 	int16_t carrying_weight_100g;
 	int32_t exp_summary;
-	int32_t field_0x114;
-	uint8_t active_spell;
+	int32_t field_0x114; //m_bSelectionDirty
+	uint8_t active_spell; //autoCastSpellId
 	uint8_t __pad2[3];
-	CArray<GO_11c> field_0x11c;
+	CArray<GO_11c> field_0x11c; //CArray_VisualElem
 	CDWordArray field_0x130;
 };
 ASSERT_SIZE(CGameObject, 0x144);
@@ -233,7 +269,7 @@ public:
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
 	uint8_t field_0x180[8];
-	GO_d0* field_0x188[12];
+	TokenEntry* field_0x188[12];
 	int32_t field_0x1b8;
 	int32_t field_0x1bc;
 	CSprite256* field_0x1c0;
@@ -302,6 +338,36 @@ public:
 	CDWordArray field_0x144;
 };
 ASSERT_SIZE(CProjectile, 0x158);
+
+
+
+
+//60b520
+class CStructure : public CGameObject
+{
+	DECLARE_DYNAMIC(CStructure);
+public:
+	virtual ~CStructure();
+
+	virtual void Dump(CDumpContext& dc) const override;
+
+	virtual int32_t VMethod4() override;
+	virtual int32_t VMethod5() override;
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual void VMethod10() override;
+	virtual int32_t VMethod11() override;
+	virtual void VMethod12() override;
+	virtual int32_t VMethod15() override;
+	virtual void VMethod16() override;
+
+	
+
+	CStructure();
+};
+ASSERT_SIZE(CStructure, 0x144);
 
 
 

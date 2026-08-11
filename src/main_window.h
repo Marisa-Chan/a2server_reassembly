@@ -113,7 +113,10 @@ struct MWin_5e8
 
     void FUN_00420050();
 
+    void SubmitScore(); //4ac498
+
     int32_t FUN_00497290() { return field_x0; }; //497290
+    void AddMissionElapsedTime(int32_t t) { field_x4 += t; } //497250
 };
 
 ASSERT_SIZE(MWin_5e8, 0x38);
@@ -262,6 +265,11 @@ ASSERT_SIZE(AvailNetSession, 0x14);
 
 class MainWindow : public CFrameWnd
 {
+public:
+    enum
+    {
+        MSG_428 = 0x428,
+    };
 public: // VTable at 0060c1a8.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
@@ -327,14 +335,16 @@ public:
     void FUN_0047eab6(); //47eab6
     void FUN_0047f5e4(); //47f5e4
 
+    void ShowGlobalMapDialog(); //48d34b
+
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
-    void FUN_0045cc80(void (*func)()) { field_0xc4 = func; } //45cc80
+    void SetMusicProc(void (*func)()) { music_update_proc = func; } //45cc80
 
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
-    void (*field_0xc4)();
+    void (*music_update_proc)();
     MusicPlayer* music_player;
     CVisualObject* vis_root;
     BigStruct2* field_0xd0; // BigStruct2*
@@ -402,12 +412,12 @@ public:
     int32_t field_0x400;
     int32_t field_0x404;
 
-    GO_d0* field_0x408;
+    TokenEntry* field_0x408;
     int32_t field_0x40c;
     int32_t field_0x410;
     CCursor* item_cursor;
 
-    int32_t field_0x418;
+    int32_t field_0x418; //dialogsMask
     int32_t field_0x41c;
     int32_t game_tic_counter;
     int32_t field_0x424;
@@ -450,7 +460,7 @@ public:
     int32_t field_0x800;
     int32_t field_0x804;
 };
-ASSERT_OFFSET(MainWindow, field_0xc4, 0xc4);
+ASSERT_OFFSET(MainWindow, music_update_proc, 0xc4);
 ASSERT_OFFSET(MainWindow, field_0x148, 0x148);
 ASSERT_OFFSET(MainWindow, current_map_name, 0x620);
 ASSERT_OFFSET(MainWindow, list_box1, 0x6d0);

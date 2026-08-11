@@ -36,6 +36,61 @@ public:
     void sub_539F21(Unit* caster, Unit* target); // Execute targeted spell
     void sub_539F5A(Unit* caster, Unit* target, int8_t x, int8_t y); // Execute area spell
 
+
+    uint8_t GetSpeed(uint8_t v) const //539926
+    {
+        if (spell_id != 21) //HASTE
+            return 0;
+        return (v / 15) + 1;
+    }
+
+    uint8_t GetResistance(uint8_t v) const //53985f
+    {
+        if (spell_id == 4 || spell_id == 8 || spell_id == 13 || spell_id == 19)
+            return v / 2;
+        return 0;
+    }
+
+    uint8_t GetSight(uint8_t v) const //5398e2
+    {
+        if (spell_id == 15 || spell_id == 14)
+            return (v / 14) - 1;
+        return 0;
+    }
+
+    uint8_t GetMaximumDamageProbability(uint8_t v) const //519837
+    {
+        if (spell_id == 20)
+            return (v * 4 / 5) + 20;
+        return 0;
+    }
+
+    uint8_t GetMinimumDamageProbability(uint8_t v) const //53982b
+    {
+        if (spell_id == 28)
+            return (v * 4 / 5) + 20;
+        return 0;
+    }
+
+    uint8_t GetRays(uint8_t v) const //5397a3
+    {
+        if (spell_id == 11)
+        {
+            uint8_t r = v / 20 + 2;
+            if (r > 7)
+                r = 7;
+            return r;
+        }
+        return 0;
+    }
+
+    uint8_t GetBonusType5(uint8_t v) const //5397a3
+    {
+        if (spell_id == 27)
+            return v / 10 + 3;
+        return 0;
+    }
+
     int32_t GetSphere() { return spell_info->Values()[0].sphere; } //5393ee
 
 public:

@@ -25,6 +25,8 @@ public:
     Item* sub_5530A2(const char* name); // Find item by name, returns nullptr if not found
     void sub_55CCE4(CArchive& ar); // Serialize, in asm
 
+    void SerializeItems(CArchive& ar); //Serialize items list
+
 public:
     CList<Item*> items;
     int32_t default_position;
