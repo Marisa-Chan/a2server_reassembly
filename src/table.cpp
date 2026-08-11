@@ -7,6 +7,15 @@
 #include "game_app.h"
 #include "item.h"
 
+extern "C" CStringArray unk_6B0BE8;
+extern "C" CStringArray unk_6CDB10;
+extern "C" CStringArray unk_6B1638;
+extern "C" CStringArray unk_6CF3D8;
+extern "C" CStringArray unk_6C37E8;
+extern "C" CStringArray unk_6E18C8;
+extern "C" CStringArray unk_6B0BD0;
+extern "C" CStringArray unk_6B1620;
+
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
 
@@ -671,6 +680,250 @@ int32_t GameDataRes::FUN_00512625(int32_t id)
         if (monsters[i].values.GetSize() && monsters[i].Values()[0].server_id == id)
             return i;
     }
+    return 0;
+}
+
+// 50a26b
+int OpenText(const CString& path, CStdioFile& file) {
+    BOOL success = file.Open(path, CFile::modeRead | CFile::typeText | CFile::shareDenyWrite);
+    if (!success) {
+        LogMessage("Error - file " + path + " not found");
+    }
+    return success;
+}
+
+// 50a345
+int GameDataRes::ParseTxtFiles(const CString& path) {
+    CString line;
+    CStdioFile file;
+
+    if (!OpenText(path + "Spells.txt", file)) {
+        return 1;
+    }
+    this->spells.SetSize(35, -1);
+
+    // Vanilla code populates these from global strings via `sub_5138ED`, and strings aren't written to, so it seems they're empty.
+    unk_6B0BE8.SetSize(0, -1);
+    unk_6B0BE8.SetAtGrow(0, "");
+
+    int32_t index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (line.Find("rem") == 0) {
+            index++;
+            continue;
+        }
+        if (this->spells.GetSize() <= index) {
+            this->spells.SetSize(index + 1, -1);
+        }
+        this->spells[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Armors.txt", file)) {
+        return 1;
+    }
+    this->armors.SetSize(15, -1);
+    unk_6CDB10.SetSize(0, -1);
+    unk_6CDB10.SetAtGrow(0, "");
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (this->armors.GetSize() <= index) {
+            this->armors.SetSize(index + 1, -1);
+        }
+        this->armors[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Materials.txt", file)) {
+        return 1;
+    }
+    this->materials.SetSize(16, -1);
+    unk_6B1638.SetSize(0, -1);
+    unk_6B1638.SetAtGrow(0, "");
+    index = 0;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 12 || line[0] == '\t') {
+            continue;
+        }
+        if (this->materials.GetSize() <= index) {
+            this->materials.SetSize(index + 1, -1);
+        }
+        this->materials[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Shapes.txt", file)) {
+        return 1;
+    }
+    this->shapes.SetSize(7, -1);
+    unk_6CF3D8.SetSize(0, -1);
+    unk_6CF3D8.SetAtGrow(0, "");
+    index = 0;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 12 || line[0] == '\t') {
+            continue;
+        }
+        if (this->shapes.GetSize() <= index) {
+            this->shapes.SetSize(index + 1, -1);
+        }
+        this->shapes[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Magic.txt", file)) {
+        return 1;
+    }
+    this->magics.SetSize(24, -1);
+    unk_6C37E8.SetSize(0, -1);
+    unk_6C37E8.SetAtGrow(0, "");
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (line.Find("rem") == 0) {
+            index++;
+            continue;
+        }
+        if (this->magics.GetSize() <= index) {
+            this->magics.SetSize(index + 1, -1);
+        }
+        this->magics[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+    this->sub_514BE7();
+
+    if (!OpenText(path + "Weapons.txt", file)) {
+        return 1;
+    }
+    this->weapons.SetSize(20, -1);
+    unk_6E18C8.SetSize(0, -1);
+    unk_6E18C8.SetAtGrow(0, "");
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (this->weapons.GetSize() <= index) {
+            this->weapons.SetSize(index + 1, -1);
+        }
+        this->weapons[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Shields.txt", file)) {
+        return 1;
+    }
+    this->shields.SetSize(4, -1);
+    unk_6B0BD0.SetSize(0, -1);
+    unk_6B0BD0.SetAtGrow(0, "");
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (this->shields.GetSize() <= index) {
+            this->shields.SetSize(index + 1, -1);
+        }
+        this->shields[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Magic Items.txt", file)) {
+        return 1;
+    }
+    this->magic_items.SetSize(10, -1);
+    unk_6B1620.SetSize(0, -1);
+    unk_6B1620.SetAtGrow(0, "");
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (this->magic_items.GetSize() <= index) {
+            this->magic_items.SetSize(index + 1, -1);
+        }
+        this->magic_items[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Units.txt", file)) {
+        return 1;
+    }
+    this->monsters.SetSize(64, -1);
+    index = 64;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (line.Find("rem") == 0) {
+            index++;
+            continue;
+        }
+        if (line.Find("goto") == 0) {
+            index = 26;
+            continue;
+        }
+        if (this->monsters.GetSize() <= index) {
+            this->monsters.SetSize(index + 1, -1);
+        }
+        this->monsters[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Humans.txt", file)) {
+        return 1;
+    }
+    this->humans.SetSize(5, -1);
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (line.Find("rem") == 0) {
+            index++;
+            continue;
+        }
+        if (this->humans.GetSize() <= index) {
+            this->humans.SetSize(index + 1, -1);
+        }
+        this->humans[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
+    if (!OpenText(path + "Buildings.txt", file)) {
+        return 1;
+    }
+    this->buildings.SetSize(20, -1);
+    index = 1;
+    while (file.ReadString(line)) {
+        if (line.GetLength() < 2 || line[0] == '\t') {
+            continue;
+        }
+        if (this->buildings.GetSize() <= index) {
+            this->buildings.SetSize(index + 1, -1);
+        }
+        this->buildings[index].ParseLine(line);
+        index++;
+    }
+    file.Close();
+
     return 0;
 }
 

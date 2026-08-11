@@ -560,6 +560,7 @@
 ?PageUp@VisListBox@@QAEXXZ
 ?Paint@CMousePointer@@QAEXXZ
 ?ParseConfig@@YAHPBD@Z
+?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
 ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
 ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z

@@ -67,6 +67,8 @@ public: // VTable at 60eac8.
 public:
     WorldEquip(); // 571e50
 
+    void ParseLine(CString line); // 578040
+
     CArray<EquipData>& Values() {
         return this->ValuesAs<EquipData>();
     }
@@ -91,6 +93,8 @@ public: // VTable at 60eb40.
 public:
     MagicItem(); // 572740
 
+    void ParseLine(CString line); // 513B68
+
 public:
     CString effect;
 };
@@ -103,6 +107,8 @@ public: // VTable at 60eb20.
 
 public:
     MatShape(); // 572590
+
+    void ParseLine(CString line); // 5780B0
 
     CArray<int32_t>& Values() {
         return this->ValuesAs<int32_t>();
@@ -137,6 +143,8 @@ public: // VTable at 60ebc0.
 
 public:
     BuildingInfo(); // 572f70
+
+    void ParseLine(CString line); // 5782B0
 
     CArray<BuildingInfoData>& Values() {
         return this->ValuesAs<BuildingInfoData>();
@@ -208,6 +216,8 @@ public: // VTable at 60eb60.
 
 public:
     MagicInfo(); // 5729e0
+
+    void ParseLine(CString line); // 578120
 
     CArray<MagicInfoData>& Values() {
         return this->ValuesAs<MagicInfoData>();
@@ -287,6 +297,8 @@ public: // VTable at 60eb80.
 public:
     MonsterInfo(); // 572b90
 
+    void ParseLine(CString line); // 578190
+
     CArray<MonsterInfoData>& Values() {
         return this->ValuesAs<MonsterInfoData>();
     }
@@ -333,6 +345,8 @@ public: // VTable at 60eba0.
 
 public:
     HumanInfo(); // 572d80
+
+    void ParseLine(CString line); // 578220
 
     CArray<HumanInfoData>& Values() {
         return this->ValuesAs<HumanInfoData>();
@@ -382,6 +396,8 @@ public: // VTable at 60ebe0.
 public:
     SpellInfo(); // 573120
 
+    void ParseLine(CString line); // 578320
+
     CArray<SpellInfoData>& Values() {
         return this->ValuesAs<SpellInfoData>();
     }
@@ -426,6 +442,8 @@ public:
     uint8_t sub_50DA04(CString* name, CString* out); // 50DA04: Find material index by item name string
     CString* sub_50DB4E(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E: Extract base name and braced property from item name
     void sub_50DC69(int material_id, CString* name); // 50DC69: Strip material-specific prefix from item name
+
+    void sub_514BE7(); // 514BE7: post-process magic data after parsing Magic.txt
 
     int32_t FUN_005125a8(int32_t id); //5125a8
     int32_t FUN_00512625(int32_t id); //512625

@@ -21,6 +21,7 @@
 ?FUN_00416cf7@BigStruct2@@QAEXXZ	1141
 ?sub_5427AC@Building@@QAEXEE@Z	148
 ?sub_542624@Building@@QAEXABVCString@@@Z	174
+?ParseLine@BuildingInfo@@QAEXVCString@@@Z	47
 ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z	33
 ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z	103
 ?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z	109
@@ -138,10 +139,11 @@
 ?sub_5126A2@GameDataRes@@QAEHII@Z	73
 ?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z	106
 ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z	346
-?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z	3863
+?sub_514BE7@GameDataRes@@QAEXXZ	375
 ?FUN_0041f0d0@GO_d0@@QAEHXZ	19
 ?FUN_004396d6@GO_d0@@QAEHXZ	20
 ?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ	97
+?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23
 ?sub_548F07@Item@@QAEHXZ	30
@@ -149,6 +151,8 @@
 ?sub_54A0BE@Item@@QAEXXZ	51
 ?sub_548E4E@Item@@QAEPAVEffect@@XZ	100
 ?sub_548FAA@Item@@QAEXPAVEffect@@@Z	391
+?ParseLine@MagicInfo@@QAEXVCString@@@Z	47
+?ParseLine@MagicItem@@QAEXVCString@@@Z	75
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
@@ -160,6 +164,8 @@
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
+?ParseLine@MatShape@@QAEXVCString@@@Z	49
+?ParseLine@MonsterInfo@@QAEXVCString@@@Z	62
 ?StartPlayTrack@MusicPlayer@@QAEXH@Z	99
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
@@ -214,6 +220,7 @@
 ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z	378
 ?sub_55BF31@SpellEffectList@@QAEXAAVCArchive@@@Z	327
 ?sub_5585F2@SpellEffectList@@QAEXXZ	363
+?ParseLine@SpellInfo@@QAEXVCString@@@Z	75
 @sub_48A747@0	5
 @sub_49585B@4	184
 ?sub_59A030@Unit@@QAEHXZ	15
@@ -275,6 +282,7 @@
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z	581
+?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6
 ??3CNoTrackObject@@SGXPAX@Z	11

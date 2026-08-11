@@ -18,34 +18,42 @@ extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
 ; WorldEquip
 externdef ??0WorldEquip@@QAE@XZ :proc
+externdef ?ParseLine@WorldEquip@@QAEXVCString@@@Z :proc
 
 
 ; MagicItem
 externdef ??0MagicItem@@QAE@XZ :proc
+externdef ?ParseLine@MagicItem@@QAEXVCString@@@Z :proc
 
 
 ; MatShape
 externdef ??0MatShape@@QAE@XZ :proc
+externdef ?ParseLine@MatShape@@QAEXVCString@@@Z :proc
 
 
 ; MaginInfo
 externdef ??0MagicInfo@@QAE@XZ :proc
+externdef ?ParseLine@MagicInfo@@QAEXVCString@@@Z :proc
 
 
 ; MonsterInfo
 externdef ??0MonsterInfo@@QAE@XZ :proc
+externdef ?ParseLine@MonsterInfo@@QAEXVCString@@@Z :proc
 
 
 ; HumanInfo
 externdef ??0HumanInfo@@QAE@XZ :proc
+externdef ?ParseLine@HumanInfo@@QAEXVCString@@@Z :proc
 
 
 ; BuildingInfo
 externdef ??0BuildingInfo@@QAE@XZ :proc
+externdef ?ParseLine@BuildingInfo@@QAEXVCString@@@Z :proc
 
 
 ; SpellInfo
 externdef ??0SpellInfo@@QAE@XZ :proc
+externdef ?ParseLine@SpellInfo@@QAEXVCString@@@Z :proc
 
 
 ;CRuntimeClass
@@ -190,6 +198,17 @@ externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
+externdef ?sub_514BE7@GameDataRes@@QAEXXZ :proc
+
+; ParseTxtFiles header CStringArray globals
+externdef _unk_6B0BE8 :byte
+externdef _unk_6CDB10 :byte
+externdef _unk_6B1638 :byte
+externdef _unk_6CF3D8 :byte
+externdef _unk_6C37E8 :byte
+externdef _unk_6E18C8 :byte
+externdef _unk_6B0BD0 :byte
+externdef _unk_6B1620 :byte
 
 ; BuildingsList
 externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
