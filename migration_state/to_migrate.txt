@@ -18,7 +18,6 @@
 ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z	156
 ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z	238
 ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z	339
-?FUN_00416cf7@BigStruct2@@QAEXXZ	1141
 ?sub_5427AC@Building@@QAEXEE@Z	148
 ?sub_542624@Building@@QAEXABVCString@@@Z	174
 ?ParseLine@BuildingInfo@@QAEXVCString@@@Z	47
@@ -139,10 +138,6 @@
 ?sub_5126A2@GameDataRes@@QAEHII@Z	73
 ?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z	106
 ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z	346
-?sub_514BE7@GameDataRes@@QAEXXZ	375
-?FUN_0041f0d0@GO_d0@@QAEHXZ	19
-?FUN_004396d6@GO_d0@@QAEHXZ	20
-?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ	97
 ?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23
@@ -166,7 +161,6 @@
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
 ?ParseLine@MatShape@@QAEXVCString@@@Z	49
 ?ParseLine@MonsterInfo@@QAEXVCString@@@Z	62
-?StartPlayTrack@MusicPlayer@@QAEXH@Z	99
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43
@@ -223,6 +217,9 @@
 ?ParseLine@SpellInfo@@QAEXVCString@@@Z	75
 @sub_48A747@0	5
 @sub_49585B@4	184
+?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
+?FUN_004396d6@TokenEntry@@QAEHXZ	20
+?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?sub_59A030@Unit@@QAEHXZ	15
 ?sub_52C641@Unit@@QAEXXZ	92
 ?sub_58c00e@UnitEye@@QAEEXZ	25
@@ -288,6 +285,7 @@
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??0ScanPresenceGrid@@QAE@XZ	14
 ??0CDialog@@QAE@XZ	14
+??1Spell@@UAE@XZ	15
 ??0CListBox@@QAE@XZ	16
 ??0CEdit@@QAE@XZ	16
 ??0CStatic@@QAE@XZ	16

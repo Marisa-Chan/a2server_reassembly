@@ -683,6 +683,27 @@ int32_t GameDataRes::FUN_00512625(int32_t id)
     return 0;
 }
 
+// 514BE7
+void GameDataRes::sub_514BE7() {
+    CArray<int32_t>& base_values = this->magics[0].values;
+    base_values.SetSize(28, -1);
+
+    for (int32_t i = 4; i < 28; i++) {
+        base_values[i] = 0;
+    }
+
+    int32_t magic_count = this->magics.GetSize();
+    for (int32_t col = 4; col < 28; col++) {
+        for (int32_t row = 1; row < magic_count; row++) {
+            int32_t& value = this->magics[row].values[col];
+            if (value < 0) {
+                value = 0;
+            }
+            value += this->magics[row - 1].values[col];
+        }
+    }
+}
+
 // 50a26b
 int OpenText(const CString& path, CStdioFile& file) {
     BOOL success = file.Open(path, CFile::modeRead | CFile::typeText | CFile::shareDenyWrite);

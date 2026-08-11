@@ -952,7 +952,6 @@ externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 
 externdef ??1Spell@@UAE@XZ:proc
-externdef ?sub_53939E@Spell@@QAE_NEE@Z :proc
 
 externdef ?sub_5393C7@Spell@@QAEHXZ :proc
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D

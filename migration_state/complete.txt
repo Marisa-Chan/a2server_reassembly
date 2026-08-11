@@ -48,10 +48,6 @@
 ??0File2@@QAE@XZ
 ??0GameOptionsWindow@@QAE@HHHHH@Z
 ??0GM_a28@@QAE@XZ
-??0GO_d0@@QAE@H@Z
-??0GO_d0@@QAE@PAPAEH@Z
-??0GO_d0@@QAE@PBV0@@Z
-??0GO_d0@@QAE@XZ
 ??0Group@@QAE@XZ
 ??0GroupList@@QAE@XZ
 ??0HintedListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
@@ -76,6 +72,7 @@
 ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
 ??0MenuButton@@QAE@HPBDPAVCGameFont@@PAGHH0@Z
 ??0MonsterInfo@@QAE@XZ
+??0MusicPlayer@@QAE@H@Z
 ??0MWin_5e8@@QAE@XZ
 ??0NetStru1@@QAE@H@Z
 ??0NetStru3@@QAE@XZ
@@ -120,6 +117,10 @@
 ??0Token@@QAE@PBUTokenPos@@@Z
 ??0Token@@QAE@PBUTokenPos@@PAVPlayer@@@Z
 ??0Token@@QAE@XZ
+??0TokenEntry@@QAE@H@Z
+??0TokenEntry@@QAE@PAPAEH@Z
+??0TokenEntry@@QAE@PBV0@@Z
+??0TokenEntry@@QAE@XZ
 ??0TokenPos@@QAE@ABU0@@Z
 ??0TokenPos@@QAE@EEPAUMapStuff@@@Z
 ??0TokenPos@@QAE@XZ
@@ -178,13 +179,13 @@
 ??1Fame2@@QAE@XZ
 ??1File2@@UAE@XZ
 ??1GM_a28@@UAE@XZ
-??1GO_d0@@UAE@XZ
 ??1Group@@QAE@XZ
 ??1GroupList@@QAE@XZ
 ??1Inn@@UAE@XZ
 ??1Inventory@@QAE@XZ
 ??1Item@@UAE@XZ
 ??1MapAlm@@QAE@XZ
+??1MusicPlayer@@UAE@XZ
 ??1MWin_5e8@@QAE@XZ
 ??1NetStru1@@QAE@XZ
 ??1NetStru2@@QAE@XZ
@@ -208,6 +209,7 @@
 ??1Srv1@@UAE@XZ
 ??1TakeDamage@@QAE@XZ
 ??1Token@@UAE@XZ
+??1TokenEntry@@UAE@XZ
 ??1TxtFile@@UAE@XZ
 ??1UnitEye2@@QAE@XZ
 ??1UnitList@@QAE@XZ
@@ -234,8 +236,8 @@
 ??4CString@@QAEABV0@PBD@Z
 ??4EquipmentExtra@@QAEAAU0@ABU0@@Z
 ??4Fame2@@QAEXABU0@@Z
-??4GO_d0@@QAEXABV0@@Z
 ??4Protections@@QAEAAU0@ABU0@@Z
+??4TokenEntry@@QAEXABV0@@Z
 ??4TokenPos@@QAEAAU0@ABU0@@Z
 ??4UnitToHit@@QAEAAU0@ABU0@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVBuilding@@@Z
@@ -306,6 +308,7 @@
 ?CharToOemA@CString@@QAEXXZ
 ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z
 ?CleanupAllInvalid@CLlDriver@@QAEXXZ
+?CleanupCompletedMissionMapState@BigStruct2@@QAEXXZ
 ?CleanupInvalidTcpClient@CLlDriver@@QAEXI@Z
 ?Clear@Fame2@@QAEXXZ
 ?Clear@GM_a28@@QAEXXZ
@@ -391,7 +394,6 @@
 ?FUN_0041b636@BigStruct2@@QAEXXZ
 ?FUN_0041b6e0@BigStruct2@@QAEXXZ
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
-?FUN_0041f110@CGameObject@@QAEHXZ
 ?FUN_0041f180@CGameObject@@QAEXH@Z
 ?FUN_0041f6b0@BigStruct2@@QAEHXZ
 ?FUN_004559d4@@YAXHHHHPAEPAG@Z
@@ -427,9 +429,11 @@
 ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z
 ?FUN_005a9832@World@@QAEXPAVUnit@@@Z
 ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z
+?GetAttribute@TokenEntry@@QBEIE@Z
 ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ
 ?GetBuffer@CString@@QAEPADH@Z
 ?GetBufferSetLength@CString@@QAEPADH@Z
+?GetCastSpellId@TokenEntry@@QBEIXZ
 ?GetChildAt@CVisualObject@@QAEPAV1@UtagPOINT@@@Z
 ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z
 ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z
@@ -454,7 +458,10 @@
 ?GetPalette@CGamePalette@@QAEPAGH@Z
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
+?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Effect@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Item@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ
@@ -467,6 +474,7 @@
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z
+?GetType@TokenEntry@@QBEHXZ
 ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z
 ?GetX@CMousePointer@@QAEHXZ
 ?GetX@TokenPos@@QBEEXZ
@@ -487,6 +495,7 @@
 ?IsEmpty@CellState@@QBEHXZ
 ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z
 ?IsSameYX@TokenPos@@QBEHPBU1@@Z
+?IsSelected@CGameObject@@QAEHXZ
 ?IsSerializable@CObject@@QBEHXZ
 ?IsSimilar@Item@@QAEHPAV1@@Z
 ?IsValidIndex@VisListBox@@UAEHH@Z
@@ -520,6 +529,7 @@
 ?OnChar@VisRadioType1@@UAEHI@Z
 ?OnChar@VisRadioType2@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z
+?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
@@ -562,6 +572,7 @@
 ?ParseConfig@@YAHPBD@Z
 ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
+?Play@MusicPlayer@@QAEXXZ
 ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
 ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z
 ?Proc_421@MainWindow@@QAEXXZ
@@ -660,6 +671,7 @@
 ?SetLLDriver@NetStru1@@QAEXPAUCLlDriver@@@Z
 ?SetPalette@CGamePalette@@QAEXPAUtagRGBQUAD@@IHH@Z
 ?SetPixelColor@@YAXHHI@Z
+?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z
 ?SetPos@VisScrollBar@@QAEXHH@Z
 ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z
 ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z
@@ -672,10 +684,12 @@
 ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
 ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z
 ?ShadowRect@@YAXVCRect@@H@Z
+?ShowGlobalMapDialog@MainWindow@@QAEXXZ
 ?SizesCheck@VisMultiText@@QAEXXZ
 ?SpanExcluding@CString@@QBE?AV1@PBD@Z
 ?SpanIncluding@CString@@QBE?AV1@PBD@Z
 ?Start@Server@@QAEHH@Z
+?StartPlayTrack@MusicPlayer@@QAEXH@Z
 ?StartSelect@CMousePointer@@QAEXABVCPoint@@@Z
 ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z
 ?StaticAddPath@Resources@@SAXPBD@Z
@@ -700,6 +714,7 @@
 ?sub_504a96@Server@@QAEXPAVPacket@@@Z
 ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z
 ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z
+?sub_514BE7@GameDataRes@@QAEXXZ
 ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z
 ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z
 ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z
@@ -830,6 +845,7 @@
 ?Update@GM_a28@@QAEXXZ
 ?UpdateClipCursor@MainWindow@@QAEHXZ
 ?UpdateDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z
+?UpdateSelectionState@BigStruct2@@QAEXXZ
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ
 ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z
