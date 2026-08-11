@@ -467,6 +467,143 @@ void SpellInfo::Serialize(CArchive& ar) {
     }
 }
 
+// 50E0F0
+void GameDataRes::Serialize(CArchive& ar) {
+    if (ar.IsStoring()) {
+        unk_6B1638.Serialize(ar);
+        ar << this->shapes.GetSize();
+        for (int32_t i = 0; i < this->shapes.GetSize(); i++) {
+            this->shapes[i].Serialize(ar);
+        }
+        ar << this->materials.GetSize();
+        for (int32_t i = 0; i < this->materials.GetSize(); i++) {
+            this->materials[i].Serialize(ar);
+        }
+
+        unk_6CF3D8.Serialize(ar);
+        ar << this->magics.GetSize();
+        for (int32_t i = 0; i < this->magics.GetSize(); i++) {
+            this->magics[i].Serialize(ar);
+        }
+
+        unk_6CDB10.Serialize(ar);
+        ar << this->armors.GetSize();
+        for (int32_t i = 1; i < this->armors.GetSize(); i++) {
+            this->armors[i].Serialize(ar);
+        }
+        ar << this->shields.GetSize();
+        for (int32_t i = 1; i < this->shields.GetSize(); i++) {
+            this->shields[i].Serialize(ar);
+        }
+        ar << this->weapons.GetSize();
+        for (int32_t i = 1; i < this->weapons.GetSize(); i++) {
+            this->weapons[i].Serialize(ar);
+        }
+
+        unk_6C37E8.Serialize(ar);
+        ar << this->magic_items.GetSize();
+        for (int32_t i = 1; i < this->magic_items.GetSize(); i++) {
+            this->magic_items[i].Serialize(ar);
+        }
+
+        unk_6E18C8.Serialize(ar);
+        ar << this->monsters.GetSize();
+        for (int32_t i = 1; i < this->monsters.GetSize(); i++) {
+            this->monsters[i].Serialize(ar);
+        }
+
+        unk_6B0BD0.Serialize(ar);
+        ar << this->humans.GetSize();
+        for (int32_t i = 1; i < this->humans.GetSize(); i++) {
+            this->humans[i].Serialize(ar);
+        }
+
+        unk_6B1620.Serialize(ar);
+        ar << this->buildings.GetSize();
+        for (int32_t i = 1; i < this->buildings.GetSize(); i++) {
+            this->buildings[i].Serialize(ar);
+        }
+
+        unk_6B0BE8.Serialize(ar);
+        ar << this->spells.GetSize();
+        for (int32_t i = 1; i < this->spells.GetSize(); i++) {
+            this->spells[i].Serialize(ar);
+        }
+    } else {
+        unk_6B1638.Serialize(ar);
+        int32_t count = 0;
+        ar >> count;
+        this->shapes.SetSize(count, -1);
+        for (int32_t i = 0; i < this->shapes.GetSize(); i++) {
+            this->shapes[i].Serialize(ar);
+        }
+        ar >> count;
+        this->materials.SetSize(count, -1);
+        for (int32_t i = 0; i < this->materials.GetSize(); i++) {
+            this->materials[i].Serialize(ar);
+        }
+
+        unk_6CF3D8.Serialize(ar);
+        ar >> count;
+        this->magics.SetSize(count, -1);
+        for (int32_t i = 0; i < this->magics.GetSize(); i++) {
+            this->magics[i].Serialize(ar);
+        }
+
+        unk_6CDB10.Serialize(ar);
+        ar >> count;
+        this->armors.SetSize(count, -1);
+        for (int32_t i = 1; i < this->armors.GetSize(); i++) {
+            this->armors[i].Serialize(ar);
+        }
+        ar >> count;
+        this->shields.SetSize(count, -1);
+        for (int32_t i = 1; i < this->shields.GetSize(); i++) {
+            this->shields[i].Serialize(ar);
+        }
+        ar >> count;
+        this->weapons.SetSize(count, -1);
+        for (int32_t i = 1; i < this->weapons.GetSize(); i++) {
+            this->weapons[i].Serialize(ar);
+        }
+
+        unk_6C37E8.Serialize(ar);
+        ar >> count;
+        this->magic_items.SetSize(count, -1);
+        for (int32_t i = 1; i < this->magic_items.GetSize(); i++) {
+            this->magic_items[i].Serialize(ar);
+        }
+
+        unk_6E18C8.Serialize(ar);
+        ar >> count;
+        this->monsters.SetSize(count, -1);
+        for (int32_t i = 1; i < this->monsters.GetSize(); i++) {
+            this->monsters[i].Serialize(ar);
+        }
+
+        unk_6B0BD0.Serialize(ar);
+        ar >> count;
+        this->humans.SetSize(count, -1);
+        for (int32_t i = 1; i < this->humans.GetSize(); i++) {
+            this->humans[i].Serialize(ar);
+        }
+
+        unk_6B1620.Serialize(ar);
+        ar >> count;
+        this->buildings.SetSize(count, -1);
+        for (int32_t i = 1; i < this->buildings.GetSize(); i++) {
+            this->buildings[i].Serialize(ar);
+        }
+
+        unk_6B0BE8.Serialize(ar);
+        ar >> count;
+        this->spells.SetSize(count, -1);
+        for (int32_t i = 1; i < this->spells.GetSize(); i++) {
+            this->spells[i].Serialize(ar);
+        }
+    }
+}
+
 // 50D8BA
 uint8_t GameDataRes::sub_50D8BA(CString* name, CString* out) {
     for (int32_t i = this->shapes.GetSize() - 1; i >= 0; i--) {

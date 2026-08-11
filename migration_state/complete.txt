@@ -631,6 +631,7 @@
 ?Serialize@CObject@@UAEXAAVCArchive@@@Z
 ?Serialize@Effect@@UAEXAAVCArchive@@@Z
 ?Serialize@EquipmentExtra@@QAEXAAVCArchive@@@Z
+?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z
 ?Serialize@Group@@QAEXAAVCArchive@@@Z
 ?Serialize@GroupList@@QAEXAAVCArchive@@@Z
 ?Serialize@Item@@UAEXAAVCArchive@@@Z
