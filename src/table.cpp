@@ -673,3 +673,32 @@ int32_t GameDataRes::FUN_00512625(int32_t id)
     }
     return 0;
 }
+
+// 50a15f
+int GameDataRes::ParseWorldIn(const CString& path) {
+    if (this->loaded != 0) {
+        return 0;
+    }
+
+    int result = this->ParseDataBin(path);
+    if (result != 0) {
+        if (result != 1) {
+            return 2;
+        }
+
+        LogMessage("StaticData files not found");
+        LogMessage("Parsing .txt files");
+
+        int txt_result = this->ParseTxtFiles(path);
+        if (txt_result != 0) {
+            LogMessage("Error loading .txt files");
+            return 1;
+        }
+
+        LogMessage("Writing new .bin file");
+        this->WriteDataBin(path);
+    }
+
+    this->loaded = 1;
+    return 0;
+}

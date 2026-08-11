@@ -136,7 +136,9 @@
 ?OnIdle@GameApp@@UAEHJ@Z	199
 ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z	70
 ?sub_5126A2@GameDataRes@@QAEHII@Z	73
-?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z	115
+?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z	106
+?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z	346
+?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z	3863
 ?FUN_0041f0d0@GO_d0@@QAEHXZ	19
 ?FUN_004396d6@GO_d0@@QAEHXZ	20
 ?FUN_004394f3@GO_d0@@QAE?AVCString@@XZ	97

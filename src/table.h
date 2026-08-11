@@ -413,6 +413,9 @@ struct GameDataRes {
 
 public:
     int ParseWorldIn(const CString& str); //50a15f
+    int ParseDataBin(const CString& path); //50D421
+    int ParseTxtFiles(const CString& path); //50A345
+    void WriteDataBin(const CString& path); //50D7C2
     Item* sub_510502(CString* name); // Look up an item template by name
     int sub_5126A2(uint32_t type_low_byte, uint32_t face); // Get monster table index by type and face
     Item* sub_510EE6(uint16_t item_id); // Create a new item instance by item data ID

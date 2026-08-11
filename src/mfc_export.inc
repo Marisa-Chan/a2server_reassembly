@@ -183,6 +183,9 @@ externdef _sub_43A857:proc                       ;  void __cdecl sub_43A857(cons
 externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
+externdef ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z : proc
+externdef ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z : proc
+externdef ?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z : proc
 externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 externdef ?sub_5126A2@GameDataRes@@QAEHII@Z :proc
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
