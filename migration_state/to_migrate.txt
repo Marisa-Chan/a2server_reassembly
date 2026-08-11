@@ -137,7 +137,7 @@
 ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z	70
 ?sub_5126A2@GameDataRes@@QAEHII@Z	73
 ?WriteDataBin@GameDataRes@@QAEXABVCString@@@Z	106
-?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z	346
+?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z	2526
 ?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23

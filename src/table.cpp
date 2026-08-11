@@ -5,7 +5,9 @@
 #include <cstring>
 
 #include "game_app.h"
+#include "file.h"
 #include "item.h"
+#include "resource.h"
 
 extern "C" CStringArray unk_6B0BE8;
 extern "C" CStringArray unk_6CDB10;
@@ -944,6 +946,52 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
         index++;
     }
     file.Close();
+
+    return 0;
+}
+
+// 50D421
+int GameDataRes::ParseDataBin(const CString& path) {
+    CFile file;
+    CString filename = path + "Data.bin";
+
+    if (!file.Open(filename, CFile::shareDenyWrite, nullptr)) {
+        try {
+            Resources::StaticAddResFile("World_srv.res");
+        } catch (CFileException* e) {
+            e->Delete();
+            return 1;
+        }
+
+        File2 file2;
+        if (!file2.Open("World\\Data\\Data.bin", CFile::shareDenyWrite, nullptr)) {
+            return 1;
+        }
+
+        CArchive ar(&file2, CArchive::load, 0x1000, nullptr);
+        try {
+            this->Serialize(ar);
+        } catch (CArchiveException* e) {
+            e->Delete();
+            LogMessage("Invalid or outdated " + filename);
+            ar.Close();
+            return 2;
+        }
+        ar.Close();
+
+        return 0;
+    }
+
+    CArchive ar(&file, CArchive::load, 0x1000, nullptr);
+    try {
+        this->Serialize(ar);
+    } catch (CArchiveException* e) {
+        e->Delete();
+        LogMessage("Invalid or outdated " + filename);
+        ar.Close();
+        return 2;
+    }
+    ar.Close();
 
     return 0;
 }

@@ -570,6 +570,7 @@
 ?PageUp@VisListBox@@QAEXXZ
 ?Paint@CMousePointer@@QAEXXZ
 ?ParseConfig@@YAHPBD@Z
+?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z
 ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
 ?Play@MusicPlayer@@QAEXXZ
