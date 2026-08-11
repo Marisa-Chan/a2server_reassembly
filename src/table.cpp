@@ -590,6 +590,38 @@ Item* GameDataRes::sub_510502(CString* name) {
     return nullptr;
 }
 
+// 510F88
+Item* GameDataRes::sub_510F88(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) {
+    if (slot == 1) {
+        return new Weapon(shape_id, material_id, item_data_id);
+    }
+    if (slot == 2) {
+        return new Shield(shape_id, material_id, item_data_id);
+    }
+    if (slot >= 3 && slot <= 0x0D) {
+        return new Armor(shape_id, material_id, item_data_id);
+    }
+    if (slot == 0x0E) {
+        return new Item(0x0E, item_data_id);
+    }
+    return nullptr;
+}
+
+// 510EE6
+Item* GameDataRes::sub_510EE6(uint16_t item_id) {
+    uint8_t slot = (item_id >> 8) & 0x0F;
+
+    if (slot == 0x0E) {
+        return this->sub_510F88(slot, 0, 0, item_id);
+    }
+
+    uint8_t shape_id = (item_id >> 5) & 0x07;
+    uint8_t material_id = (item_id >> 12) & 0x0F;
+    uint8_t item_data_id = item_id & 0x1F;
+
+    return this->sub_510F88(slot, shape_id, material_id, item_data_id);
+}
+
 // 50DC69
 void GameDataRes::sub_50DC69(int material_id, CString* name) {
     if (this->materials[material_id].name.Find("Leather") != -1) {

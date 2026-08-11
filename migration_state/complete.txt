@@ -715,6 +715,7 @@
 ?sub_504a96@Server@@QAEXPAVPacket@@@Z
 ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z
 ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z
+?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z
 ?sub_514BE7@GameDataRes@@QAEXXZ
 ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z
 ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z

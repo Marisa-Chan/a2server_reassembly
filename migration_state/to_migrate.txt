@@ -134,7 +134,6 @@
 ?sub_58CE74@FieldBlock58ec0@@QAEXXZ	329
 ?ExitInstance@GameApp@@UAEHXZ	125
 ?OnIdle@GameApp@@UAEHJ@Z	199
-?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z	70
 ?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z	2526
 ?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
 ?sub_531418@Humanoid@@QAEXXZ	71

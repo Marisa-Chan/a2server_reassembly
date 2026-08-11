@@ -435,6 +435,7 @@ public:
     void Serialize(CArchive& ar); //50E0F0
     Item* sub_510502(CString* name); // Look up an item template by name
     int sub_5126A2(uint8_t type, uint8_t face); // Get monster table index by type and face
+    Item* sub_510F88(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88: Create an item.
     Item* sub_510EE6(uint16_t item_id); // Create a new item instance by item data ID
     int sub_50DF19(int experience); // Get random recruitable monster index for inn reward
     int sub_50DDAE(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face
