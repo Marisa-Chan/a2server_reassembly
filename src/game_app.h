@@ -74,6 +74,7 @@ extern "C" void __cdecl sub_43A857(const char* source); // 43A857
 
 /* in asm */
 void LogMessage(CString message); //43AA23
+void LogWarning(const CString& msg); //59b753
 
 void FUN_00475e7a(); 
 

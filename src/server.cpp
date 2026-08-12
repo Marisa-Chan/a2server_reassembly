@@ -804,6 +804,106 @@ void Srv1::sub_59CD45(MapAlm* alm) {
     }
 }
 
+Unit* Srv1::GetScenarioScriptPCUnit(const char* name)
+{ //59d4b8
+    if (g_Server->field4_0x74 == 0)
+    {
+        CString pcname("PC_");
+        pcname += name;
+
+        Player* first_player = g_PlayersList->GetHead();
+        for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
+            if (unit->monster_info->name.Find(pcname) == 0)
+                return unit;
+        }
+
+        for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+            if (unit->monster_info->name.Find(pcname) == 0)
+                return unit;
+        }
+    }
+    return nullptr;
+}
+
+Unit* Srv1::GetScenarioScriptHero(uint32_t idx)
+{ //59d664
+    if (g_Server->field4_0x74 == 0)
+    {
+        Player* first_player = g_PlayersList->GetHead();
+        for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = first_player->unit_list->unit_list.GetNext(pos);
+            if (unit->server_id - 21 == idx)
+                return unit;
+        }
+
+        for (POSITION pos = dword_6CDB3C->unit_list.GetHeadPosition(); pos != nullptr;)
+        {
+            Unit* unit = dword_6CDB3C->unit_list.GetNext(pos);
+            if (unit->server_id - 21 == idx)
+                return unit;
+        }
+    }
+    return nullptr;
+}
+
+Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx)
+{ //562274
+    Unit* result = nullptr;
+    if (idx < 10001)
+    {
+        result = umap[idx];
+    }
+    else if (idx < 11001)
+    {
+        result = GetScenarioScriptHero(idx - 10001);
+    }
+    else
+    {
+        static const char* PCUnitNames[] = { "Danath", "Reniesta", "Fergard", "Naira", "Treyrak", "Brian", "Glaen", "Woman" }; //63d5d8
+        result = GetScenarioScriptPCUnit(PCUnitNames[idx - 11001]);
+    }
+    if (!result)
+    {
+        CString msg;
+        if (idx < 10001)
+            msg.Format("Can\'t resolve unit %d.", idx);
+        else
+            msg.Format("Can\'t resolve hero %d.", idx);
+
+        LogWarning(msg);
+    }
+    return result;
+}
+
+Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx)
+{ //59d808
+    Group* g = gmap[idx];
+    if (!g)
+    {
+        CString msg;
+        msg.Format("Can\'t resolve group %d.", idx);
+        LogWarning(msg);
+    }
+    return g;
+}
+
+Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& pmap, uint32_t idx)
+{ //59d77f
+    Player* p = pmap[idx];
+    if (!p)
+    {
+        CString msg;
+        msg.Format("Can\'t resolve player %d.", idx);
+        LogWarning(msg);
+    }
+    return p;
+}
+
 // 59D891
 void Srv1::sub_59D891(MapAlm* alm, int flag) {
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
@@ -909,16 +1009,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     switch(arg_type) {
                     case 2: // Group
                         if (!has_group) {
-                            Group* group = nullptr;
-                            groups_map.Lookup(arg_value, group);
-                            action.group = group;
+                            action.group = GetScenarioScriptGroup(groups_map, arg_value);
                             if (action.group == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            Group* group = nullptr;
-                            groups_map.Lookup(arg_value, group);
-                            action.multi = group;
+                            action.multi = GetScenarioScriptGroup(groups_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -934,16 +1030,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
 
                     case 3: // Player
                         if (!has_player) {
-                            Player* player = nullptr;
-                            players_map.Lookup(arg_value, player);
-                            action.player = player;
+                            action.player = GetScenarioScriptPlayer(players_map, arg_value);
                             if (action.player == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            Player* player = nullptr;
-                            players_map.Lookup(arg_value, player);
-                            action.multi = player;
+                            action.multi = GetScenarioScriptPlayer(players_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -953,16 +1045,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 4: // Unit
                         if (!has_unit) {
-                            Unit* unit = nullptr;
-                            units_map.Lookup(arg_value, unit);
-                            action.unit = unit;
+                            action.unit = GetScenarioScriptUnit(units_map, arg_value);
                             if (action.unit == nullptr) {
                                 valid = 0;
                             }
                         } else {
-                            Unit* unit = nullptr;
-                            units_map.Lookup(arg_value, unit);
-                            action.multi = unit;
+                            action.multi = GetScenarioScriptUnit(units_map, arg_value);
                             if (action.multi == nullptr) {
                                 valid = 0;
                             }
@@ -986,7 +1074,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         if (action.building == nullptr) {
                             CString msg;
                             msg.Format("Can't resolve building %d.", arg_value);
-                            LogMessage(msg);
+                            LogWarning(msg);
                             valid = 0;
                         }
                         break;
@@ -1062,16 +1150,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                     switch (arg_type) {
                     case 2: // Group
                         if (!has_group) {
-                            Group* group = nullptr;
-                            groups_map.Lookup(arg_value, group);
-                            check.group = group;
+                            check.group = GetScenarioScriptGroup(groups_map, arg_value);
                             if (check.group == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            Group* group = nullptr;
-                            groups_map.Lookup(arg_value, group);
-                            check.multi = group;
+                            check.multi = GetScenarioScriptGroup(groups_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1088,16 +1172,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 3: // Player
                         if (!has_player) {
-                            Player* player = nullptr;
-                            players_map.Lookup(arg_value, player);
-                            check.player = player;
+                            check.player = GetScenarioScriptPlayer(players_map, arg_value);
                             if (check.player == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            Player* player = nullptr;
-                            players_map.Lookup(arg_value, player);
-                            check.multi = player;
+                            check.multi = GetScenarioScriptPlayer(players_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1107,16 +1187,12 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         
                     case 4: // Unit
                         if (!has_unit) {
-                            Unit* unit = nullptr;
-                            units_map.Lookup(arg_value, unit);
-                            check.unit = unit;
+                            check.unit = GetScenarioScriptUnit(units_map, arg_value);
                             if (check.unit == nullptr) {
                                 valid = false;
                             }
                         } else {
-                            Unit* unit = nullptr;
-                            units_map.Lookup(arg_value, unit);
-                            check.multi = unit;
+                            check.multi = GetScenarioScriptUnit(units_map, arg_value);
                             if (check.multi == nullptr) {
                                 valid = false;
                             }
@@ -1140,7 +1216,7 @@ void Srv1::sub_59D891(MapAlm* alm, int flag) {
                         if (check.building == nullptr) {
                             CString msg;
                             msg.Format("Can't resolve building %d.", arg_value);
-                            LogMessage(msg);
+                            LogWarning(msg);
                             valid = false;
                         }
                         break;

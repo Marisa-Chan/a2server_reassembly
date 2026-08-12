@@ -714,3 +714,14 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p)
 		qsort(list->GetData(), list->GetSize(), sizeof(WIN32_FIND_DATAA), SaveListCompare);
 
 }
+
+
+void LogWarning(const CString& msg)
+{ //59b753
+	CString str("WARNING! : ");
+	str += msg;
+	if (g_Server->field4_0x74 == 0)
+		g_NetStru1_main.FUN_0051cd89(str, nullptr);
+	else
+		LogMessage(str);
+}

@@ -116,6 +116,12 @@ public:
     void sub_59C37A(MapAlm* alm);
     void sub_59BEDB(Group* group, MapAlm* alm);
 
+    Unit* GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx); //562274
+    Unit* GetScenarioScriptHero(uint32_t idx); //59d664
+    Unit* GetScenarioScriptPCUnit(const char* name); //59d4b8
+    Group* GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx); //59d808
+    Player* GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& gmap, uint32_t idx); //59d77f
+
     int32_t GetMapCenterX() { return MapStuff_Instance->GetWidth() / 2; } //59fc7c
 
 public:
