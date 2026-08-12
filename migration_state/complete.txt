@@ -232,6 +232,7 @@
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??1Weapon@@UAE@XZ
+??1World@@QAE@XZ
 ??2@YAPAXI@Z
 ??2CObject@@SGPAXI@Z
 ??3@YAXPAX@Z

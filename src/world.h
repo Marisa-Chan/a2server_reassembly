@@ -227,6 +227,7 @@ ASSERT_OFFSET(World, diplomacy, 0xa8bc);
 ASSERT_OFFSET(World, mission_complete, 0xbe0c);
 ASSERT_OFFSET(World, mission_state, 0xc710);
 ASSERT_OFFSET(World, players_list, 0xc77c);
+ASSERT_OFFSET(World, trigger_checks, 0xeaac);
 ASSERT_SIZE(World, 0xeb20);
 
 extern "C" World* g_World;

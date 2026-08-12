@@ -326,7 +326,6 @@
 ??0CArchive@@QAE@PAVCFile@@IHPAX@Z	114
 ??1CWinApp@@UAE@XZ	134
 ?LoadFonts@@YAXXZ	134
-??1World@@QAE@XZ	139
 ??1ShopAssortment@@QAE@XZ	143
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
 ?gfxFlushRect@@YAXABVCRect@@@Z	155

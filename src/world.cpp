@@ -45,6 +45,13 @@ World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->field37_0xbbe8 = 0;
 }
 
+// 5A4D38
+World::~World() {
+    delete this->trigger_checks;
+    delete this->trigger_actions;
+    delete this->triggers;
+}
+
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
