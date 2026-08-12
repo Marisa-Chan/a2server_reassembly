@@ -532,14 +532,6 @@ def main() -> int:
     print(f"Parsed proc exports: {len(export_symbols)}")
     print(f"Known MFC entries: {len(known_set)}")
     print(f"To-migrate entries: {len(to_migrate_set)}")
-    if args.no_rewrite_to_migrate:
-        print("to_migrate.txt rewrite: disabled (--no-rewrite-to-migrate)")
-    else:
-        print(f"to_migrate.txt rewritten: {to_migrate_path} ({len(auto_to_migrate)} entries)")
-    if args.no_rewrite_complete:
-        print("complete.txt rewrite: disabled (--no-rewrite-complete)")
-    else:
-        print(f"complete.txt rewritten: {complete_path} ({len(auto_complete)} entries)")
     print()
 
     known_excluded = len(seen_keys) - len(migrated) - len(still_asm) - len(unresolved)

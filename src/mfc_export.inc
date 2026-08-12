@@ -189,6 +189,7 @@ externdef _sub_43A857:proc                       ;  void __cdecl sub_43A857(cons
 
 ;GameDataRes
 externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
+externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
 externdef ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z : proc
@@ -1145,10 +1146,12 @@ extern ?Start@Server@@QAEHH@Z : proc
 extern ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z : proc
 
 
+; SrvStru1
+
 extern ?Instance@SrvStru1@@2U1@A : dword
 
-
-; SrvStru1
+extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
+extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
 
 
 externdef ?sub_51E5FB@NetStru1@@QAEXHH@Z :proc          ; void NetStru1::sub_51E5FB(int, int)
@@ -1158,16 +1161,11 @@ externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub
 externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(const char*, int)
 
 
-; CowardActivation
-
-
-
 ; World
 externdef _g_World :dword
 
 externdef ?sub_5A457A@World@@QAEXXZ :proc  ; World::sub_5A457A()
 externdef ?sub_5A4757@World@@QAEXXZ :proc  ; World::sub_5A4757()
-externdef ??1World@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
 externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA7CF(Unit*)
@@ -1175,16 +1173,6 @@ externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                             
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
-
-; Diplomacy
-extern ??0Diplomacy@@QAE@XZ :proc
-
-
-
-externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
-extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
-extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
-externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
 externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc
@@ -1207,7 +1195,6 @@ externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
-externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5A79C9@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A79C9(Unit*)
@@ -1236,6 +1223,11 @@ externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::su
 
 externdef ?sub_5B0556@World@@QAEXAAVCArchive@@@Z :proc
 externdef ?sub_5B2E7A@World@@QAEXXZ :proc
+
+
+; Diplomacy
+extern ??0Diplomacy@@QAE@XZ :proc
+externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 
 
 ; Trigger
@@ -1300,6 +1292,7 @@ externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
 
 ; MapStuff methods
 externdef ?sub_58E407@MapStuff@@QAEHPAVSack@@@Z :proc   ; int MapStuff::sub_58E407(Sack*)
+externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
 
 ; Srv1
 externdef ??1Srv1@@UAE@XZ :proc

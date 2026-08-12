@@ -422,6 +422,8 @@ def main():
                         help="Preview what would be deleted without writing")
     parser.add_argument("--track", metavar="PROC",
                         help="Show reachability paths from external roots to PROC")
+    parser.add_argument("--roots", metavar="SUBSTRING", default='',
+                        help="Show reachability paths from external roots that contain given substring")
     args = parser.parse_args()
 
     path = os.path.abspath(args.asm_file)
@@ -438,6 +440,7 @@ def main():
 
     print("  Building call graph ...")
     calls, external_refs = build_call_graph(lines, procs, path)
+    external_refs = {r for r in external_refs if args.roots in r}
     reachable = compute_reachable(calls, external_refs)
 
     print("  Computing function sizes ...")
