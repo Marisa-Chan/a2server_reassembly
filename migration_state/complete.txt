@@ -829,6 +829,7 @@
 ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z
 ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z
 ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z
+?sub_5A9B6B@World@@QAEXPAVUnit@@@Z
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z

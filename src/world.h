@@ -23,6 +23,14 @@ class Token;
 class Unit;
 struct World;
 
+struct ActionQueue : public CList<int32_t> {
+    void sub_5B7280(int32_t a0, int32_t a1, int32_t a2, int32_t a3, int32_t a4,
+                    int32_t a5, int32_t a6, int32_t a7, int32_t a8, int32_t a9,
+                    int32_t a10, int32_t a11, int32_t a12, int32_t a13, int32_t a14,
+                    int32_t a15, int32_t a16, int32_t a17, int32_t a18, int32_t a19,
+                    int32_t a20);
+};
+ASSERT_SIZE(ActionQueue, 0x1C);
 
 struct Diplomacy {
 public:
@@ -74,7 +82,7 @@ struct World {
     int32_t MinimalGuardRange;
     Diplomacy diplomacy;
     int32_t field37_0xbbe8;
-    CList<int32_t> field38_0xbbec;
+    ActionQueue field38_0xbbec;
     uint8_t field39_0xbc08[400];
     uint32_t field40_0xbd98;
     uint32_t field41_0xbd9c;
@@ -154,10 +162,22 @@ public:
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AF683(Player* player, int32_t param);
     void sub_5A79C9(Unit* unit);
-    void sub_5A9B6B(Unit* unit); // AI tick for a monster unit?
-    void sub_5AA7CF(Unit* unit);
+    void sub_5A9B6B(Unit* unit); // AI tick for a monster unit? 5A9B6B
+    void sub_5AA375(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
+    void sub_5AA426(Unit* unit, uint8_t facing); // 5AA426
+    void sub_5AA485(Unit* unit); // 5AA485
+    void sub_5AA78C(Unit* unit); // 5AA78C
+    void sub_5AA8ED(Unit* unit); // 5AA8ED
     void sub_5AA91B(Unit* unit, Unit* target);
+    void sub_5AA97E(Unit* unit); // 5AA97E
+    void sub_5AA9F6(Unit* unit); // 5AA9F6
     void sub_5AAA89(Unit* unit);
+    void sub_5AAB08(Unit* unit); // 5AAB08
+    void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
+    void sub_5AAEBC(Unit* unit); // 5AAEBC
+    void sub_5AAC17(Unit* unit); // 5AAC17
+    void sub_5AA7CF(Unit* unit); // 5AA7CF
+    int32_t sub_5B6F40(int32_t multiplier); // 5B6F40
     void sub_5AA581(Unit* attacker, Unit* defender, int32_t unk); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
@@ -230,4 +250,5 @@ ASSERT_OFFSET(World, players_list, 0xc77c);
 ASSERT_OFFSET(World, trigger_checks, 0xeaac);
 ASSERT_SIZE(World, 0xeb20);
 
+extern "C" int32_t __cdecl sub_5B6F30(); // 5B6F30 — rand() wrapper.
 extern "C" World* g_World;

@@ -286,6 +286,171 @@ void World::sub_5AAA89(Unit* unit) {
     }
 }
 
+// 5A9B6B — AI tick for a monster unit.
+void World::sub_5A9B6B(Unit* unit) {
+    if (this->field37_0xbbe8 == 0 && unit->group->group_sub->field_0x45 == 0 && unit->eye2->field4_0x9 == 0) {
+        unit->some_state = 0x1B;
+        return;
+    }
+
+    if (unit->some_state != 2 && unit->some_state != 0xF) {
+        unit->some_state = 0;
+    }
+
+    if (unit->enchantments != 0 && (unit->enchantments & (1 << spell::stone_curse)) != 0 && unit->eye2->field4_0x9 == 0) {
+        unit->eye2->field4_0x9 = 4;
+    }
+
+    if (unit->eye2->field4_0x9 == 0) {
+        if (unit->eye2->field81_0xb0.val != 0 && unit->position->sub_58bec3()) {
+            this->field24_0xa50->sub_5954AC(unit, unit->eye2->field81_0xb0.x, unit->eye2->field81_0xb0.y);
+            unit->eye2->field81_0xb0 = PosYX{0};
+        }
+
+        switch (unit->eye2->cast_action) {
+        case 1:
+            this->sub_5AA375(unit, unit->eye2->command_to, 0);
+            break;
+        case 2:
+            this->sub_5AA78C(unit);
+            break;
+        case 4:
+            this->sub_5AA91B(unit, unit->eye2->unit3);
+            break;
+        case 5:
+            this->sub_5AA97E(unit);
+            break;
+        case 6:
+            this->sub_5AAEBC(unit);
+            break;
+        case 7:
+            this->sub_5AA8ED(unit);
+            break;
+        case 8:
+            this->sub_5AAA89(unit);
+            break;
+        case 9:
+            this->sub_5AAB08(unit);
+            break;
+        case 10:
+            this->sub_5AA426(unit, unit->eye->field1_0x1);
+            break;
+        case 11:
+            this->sub_5AA485(unit);
+            break;
+        case 12:
+            this->sub_5AA9F6(unit);
+            break;
+        case 15:
+            this->sub_5AAB85(unit, unit);
+            break;
+        default:
+            break;
+        }
+    } else {
+        switch (unit->eye2->field4_0x9) {
+        case 1:
+            unit->some_state = 3;
+            unit->eye2->counter++;
+            if (unit->eye2->counter > 2 && unit->field_0x136 != 0) {
+                unit->eye2->field4_0x9 = 0;
+                unit->some_state = 0;
+            }
+            break;
+        case 2:
+            if (unit->eye2->field48_0x5c == 0) {
+                unit->some_state = 0xE;
+            } else {
+                unit->some_state = 0xD;
+            }
+            unit->eye2->counter++;
+            if (unit->eye2->counter > 2) {
+                if (unit->eye2->counter == 3) {
+                    if (unit->eye2->field48_0x5c == 0) {
+                        this->field40_0xbd98 = 3;
+                        this->field44_0xbdc4 = unit;
+                        this->field45_0xbdc8 = unit->some_spell;
+                        this->field41_0xbd9c = unit->area_cast_x;
+                        this->field42_0xbda0 = unit->area_cast_y;
+                    } else {
+                        this->field40_0xbd98 = 2;
+                        this->field44_0xbdc4 = unit;
+                        this->field45_0xbdc8 = unit->some_spell;
+                        this->field46_0xbdcc = unit->cast_target;
+                    }
+                    int32_t block[21];
+                    std::memcpy(block, &this->field40_0xbd98, sizeof(block));
+                    this->field38_0xbbec.sub_5B7280(
+                        block[0], block[1], block[2], block[3], block[4], block[5],
+                        block[6], block[7], block[8], block[9], block[10], block[11],
+                        block[12], block[13], block[14], block[15], block[16], block[17],
+                        block[18], block[19], block[20]);
+                }
+                if (unit->field_0x136 != 0) {
+                    unit->eye2->field4_0x9 = 0;
+                    unit->some_state = 0;
+                }
+            }
+            break;
+        case 3:
+            this->field24_0xa50->sub_590678(unit);
+            unit->some_state = 1;
+            if (unit->position->sub_58bec3()) {
+                unit->eye2->field4_0x9 = 0;
+                unit->some_state = 0;
+            }
+            break;
+        case 4:
+            unit->some_state = 0x1B;
+            if ((unit->enchantments & (1 << spell::stone_curse)) == 0) {
+                unit->eye2->field4_0x9 = 0;
+            }
+            break;
+        case 0xff:
+            unit->some_state = 0x1B;
+            break;
+        default:
+            unit->eye2->field4_0x9 = 0;
+            unit->some_state = 0x1B;
+            break;
+        }
+    }
+
+    if (unit->eye->field139_0x98 != 0) {
+        unit->eye->field139_0x98 = 0;
+        if (unit->state == 1) {
+            this->FUN_005a9832(unit);
+            this->sub_5A9A6A(unit);
+        } else if (unit->state == 0xA) {
+            unit->eye2->field2_0x4 = 1;
+            unit->eye2->cast_action = 0;
+            uint8_t x2 = unit->eye2->position2.x;
+            uint8_t y2 = unit->eye2->position2.y;
+            uint8_t x1 = unit->position->GetX();
+            uint8_t y1 = unit->position->GetY();
+            if (this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2) < 3) {
+                CList<uint16_t>* positions = unit->eye2->positions_list;
+                if (positions != nullptr) {
+                    POSITION pos = positions->Find(unit->eye2->position2);
+                    if (pos != nullptr) {
+                        unit->eye2->position2 = positions->GetNext(pos);
+                        if (pos != nullptr) {
+                            unit->eye2->position2 = positions->GetAt(pos);
+                        }
+                    } else {
+                        unit->eye2->position2 = positions->GetHead();
+                    }
+                }
+            }
+        } else if (unit->state == 0x18) {
+            unit->eye2->field4_0x9 = 0xFF;
+        } else {
+            unit->eye2->cast_action = 0;
+            this->sub_5AAC17(unit);
+        }
+    }
+}
+
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
 void World::sub_5A7B44(Unit* unit) {

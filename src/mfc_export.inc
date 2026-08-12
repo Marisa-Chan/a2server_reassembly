@@ -1171,6 +1171,20 @@ extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; 
 externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA7CF(Unit*)
 externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AA91B(Unit*, Unit*)
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
+externdef ?sub_5AA375@World@@QAEXPAVUnit@@UPosYX@@E@Z :proc                      ; World::sub_5AA375(Unit*, PosYX, uint8_t)
+externdef ?sub_5AA426@World@@QAEXPAVUnit@@E@Z :proc                              ; World::sub_5AA426(Unit*, uint8_t)
+externdef ?sub_5AA485@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA485(Unit*)
+externdef ?sub_5AA78C@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA78C(Unit*)
+externdef ?sub_5AA8ED@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA8ED(Unit*)
+externdef ?sub_5AA97E@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA97E(Unit*)
+externdef ?sub_5AA9F6@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA9F6(Unit*)
+externdef ?sub_5AAB08@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAB08(Unit*)
+externdef ?sub_5AAB85@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AAB85(Unit*, Unit*)
+externdef ?sub_5AAEBC@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAEBC(Unit*)
+externdef ?sub_5AAC17@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAC17(Unit*)
+externdef ?sub_5B6F40@World@@QAEHH@Z :proc                                       ; World::sub_5B6F40(int32_t)
+externdef ?sub_5B7280@ActionQueue@@QAEXHHHHHHHHHHHHHHHHHHHHH@Z :proc             ; ActionQueue::sub_5B7280(...)
+externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc                                         ; Unit::sub_5B6FB0()
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
@@ -1987,6 +2001,7 @@ externdef ?g_font2@@3PAVCGameFont@@A : dword
 
 ; Free functions
 
+externdef _sub_5B6F30 :proc   ; rand
 externdef ?sub_4954EA@@YAXXZ :proc
 externdef _sub_5049D1 :proc
 externdef _sub_536630 :proc   ; start attack?

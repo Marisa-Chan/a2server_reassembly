@@ -182,7 +182,7 @@ ASSERT_SIZE(UnitEye, 0xb4);
 
 struct UnitEye2 {
     PosYX position1;
-    uint16_t position2;
+    PosYX position2;
     uint32_t field2_0x4;
     uint8_t cast_action;
     uint8_t field4_0x9;
@@ -259,7 +259,7 @@ struct UnitEye2 {
     uint32_t autobuff_spell_id; // TODO: unclear if this is really spell ID, as autobuff checks for `!= 20` only.
     uint32_t autobuff_tick;
     int32_t field77_0xac;
-    uint16_t field81_0xb0;
+    PosYX field81_0xb0;
     uint8_t field82_0xb2;
     uint8_t field83_0xb3;
     CList<uint16_t>* positions_list;

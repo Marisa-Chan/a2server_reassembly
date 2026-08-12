@@ -3,6 +3,7 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
+?sub_5B7280@ActionQueue@@QAEXHHHHHHHHHHHHHHHHHHHHH@Z	71
 ?sub_537C8C@AreaEffect@@QAEXXZ	35
 ?sub_538897@AreaEffect@@QBEIXZ	67
 ?sub_53822C@AreaEffect@@QAEXXZ	96
@@ -217,6 +218,7 @@
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?sub_59A030@Unit@@QAEHXZ	15
+?sub_5B6FB0@Unit@@QAEHXZ	16
 ?sub_52C641@Unit@@QAEXXZ	92
 ?sub_58c00e@UnitEye@@QAEEXZ	25
 ?sub_59367D@UnitEye@@QAEHPAVUnit@@PAEEE@Z	32
@@ -239,8 +241,11 @@
 ?sub_5A457A@World@@QAEXXZ	14
 ?sub_5B2E7A@World@@QAEXXZ	14
 ?sub_5AFBFD@World@@QAEXXZ	16
+?sub_5B6F40@World@@QAEHH@Z	18
 ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z	20
 ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z	22
+?sub_5AA78C@World@@QAEXPAVUnit@@@Z	25
+?sub_5AA8ED@World@@QAEXPAVUnit@@@Z	27
 ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z	29
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z	29
 ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z	30
@@ -251,17 +256,25 @@
 ?sub_5A7AF7@World@@QAEHPAVUnit@@0PAVSpell@@@Z	39
 ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z	40
 ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z	40
+?sub_5AA426@World@@QAEXPAVUnit@@E@Z	41
 ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z	43
 ?sub_5ACB9E@World@@QAEXPAVGroup@@PAVToken@@E@Z	43
 ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z	43
 ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z	43
 ?sub_5A9383@World@@QAEXPAVUnit@@@Z	44
+?sub_5AA97E@World@@QAEXPAVUnit@@@Z	50
+?sub_5AAB08@World@@QAEXPAVUnit@@@Z	51
 ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z	54
 ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z	58
+?sub_5AA9F6@World@@QAEXPAVUnit@@@Z	60
 ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z	61
+?sub_5AAB85@World@@QAEXPAVUnit@@0@Z	62
 ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z	64
+?sub_5AA375@World@@QAEXPAVUnit@@UPosYX@@E@Z	67
 ?sub_5B0762@World@@QAEXXZ	69
+?sub_5AAEBC@World@@QAEXPAVUnit@@@Z	78
 ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z	87
+?sub_5AA485@World@@QAEXPAVUnit@@@Z	88
 ?sub_5AC983@World@@QAEXPAVGroup@@H@Z	89
 ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z	93
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z	94
@@ -276,7 +289,7 @@
 ?sub_5A4757@World@@QAEXXZ	211
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
-?sub_5A9B6B@World@@QAEXPAVUnit@@@Z	581
+?sub_5AAC17@World@@QAEXPAVUnit@@@Z	258
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6
@@ -350,3 +363,4 @@ _sub_54C556	26
 _sub_54C6DD	453
 _sub_54F04F	139
 _sub_54F176	96
+_sub_5B6F30	12

@@ -126,6 +126,7 @@ public:
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
     void sub_52F601(const CString& value);
     int32_t sub_59A030(); // Returns movement type.
+    int32_t sub_5B6FB0(); // 5B6FB0 — IsMage.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
     
