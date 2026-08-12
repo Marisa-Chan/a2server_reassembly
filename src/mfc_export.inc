@@ -1165,7 +1165,8 @@ externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(c
 ; World
 externdef _g_World :dword
 
-externdef ??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z :proc  ; World::World(MapStuff*, PlayersList*)
+externdef ?sub_5A457A@World@@QAEXXZ :proc  ; World::sub_5A457A()
+externdef ?sub_5A4757@World@@QAEXXZ :proc  ; World::sub_5A4757()
 externdef ??1World@@QAE@XZ :proc
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
@@ -1174,6 +1175,9 @@ externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                             
 externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
+
+; Diplomacy
+extern ??0Diplomacy@@QAE@XZ :proc
 
 
 

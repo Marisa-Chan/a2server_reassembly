@@ -5,6 +5,7 @@
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "logic.h"
+#include "map_stuff.h"
 #include "mfc_templ.h"
 #include "perf.h"
 #include "unit_list.h"
@@ -24,10 +25,13 @@ struct World;
 
 
 struct Diplomacy {
+public:
     uint8_t flags[4];
     World* world;
     uint8_t diplomacy[70][70];
 
+public:
+    Diplomacy(); // 5B5855
     void sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag);
 };
 ASSERT_SIZE(Diplomacy, 0x132C);
@@ -39,7 +43,8 @@ struct World {
     Perf field3_0x38;
     Perf field4_0x68;
     Perf field5_0x98;
-    uint8_t gap_0xc8[2024];
+    FieldBlock5859c field_0xc8;
+    uint8_t gap_0x8ac[4];
     int32_t duration4;
     int32_t duration4_low;
     uint8_t gap_0x8b8[4];
@@ -85,8 +90,8 @@ struct World {
     int32_t mission_complete;
     int32_t field52_0xbe10;
     int32_t mission_fail;
-    int32_t field54_0xbe18;
-    uint8_t gap_0xbe1c[1808];
+    FieldBlock54190 field54_0xbe18;
+    uint8_t gap_0xc20c[0x320];
     uint8_t field56_0xc52c[40];
     char field57_0xc554[10][44];
     uint8_t gap_0xc70c[4];
@@ -109,6 +114,9 @@ struct World {
 public:
     World(MapStuff* map_stuff, PlayersList* players_list); // 5A4B1A
     ~World();
+
+    void sub_5A457A(); // 5A457A
+    void sub_5A4757(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void sub_5B2E7A(); // Post-load world relink helper
 
@@ -217,6 +225,7 @@ ASSERT_OFFSET(World, duration4, 0x8b0);
 ASSERT_OFFSET(World, counter, 0xa4c);
 ASSERT_OFFSET(World, diplomacy, 0xa8bc);
 ASSERT_OFFSET(World, mission_complete, 0xbe0c);
+ASSERT_OFFSET(World, mission_state, 0xc710);
 ASSERT_OFFSET(World, players_list, 0xc77c);
 ASSERT_SIZE(World, 0xeb20);
 

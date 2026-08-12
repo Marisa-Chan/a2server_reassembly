@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cstring>
 
 #include "world.h"
 
@@ -21,6 +22,28 @@
 #include "spell.h"
 #include "token.h"
 #include "unit.h"
+
+// 5B5855
+Diplomacy::Diplomacy() {
+    std::memset(this->diplomacy, 0, sizeof(this->diplomacy));
+    this->flags[0] = 1;
+    this->flags[1] = 1;
+    this->flags[2] = 0;
+    this->flags[3] = 0;
+}
+
+// 5A4B1A
+World::World(MapStuff* map_stuff, PlayersList* players_list) {
+    this->sub_5A457A();
+    this->sub_5A4757();
+    std::memset(this->field57_0xc554, 0, sizeof(this->field57_0xc554));
+    this->field24_0xa50 = map_stuff;
+    this->field24_0xa50->field41_0x58d80 = this;
+    this->players_list = players_list;
+
+    // Vanilla here does `this->field37_0xbbe8 = (map_stuff->GetWidth() < 120) ? 1 : 0;` but then overwrites it with 0 anyway.
+    this->field37_0xbbe8 = 0;
+}
 
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.

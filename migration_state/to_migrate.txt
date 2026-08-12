@@ -236,6 +236,7 @@
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
 ?sub_5A79C9@World@@QAEXPAVUnit@@@Z	11
+?sub_5A457A@World@@QAEXXZ	14
 ?sub_5B2E7A@World@@QAEXXZ	14
 ?sub_5AFBFD@World@@QAEXXZ	16
 ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z	20
@@ -272,6 +273,7 @@
 ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z	198
 ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z	199
+?sub_5A4757@World@@QAEXXZ	211
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z	581
@@ -281,7 +283,6 @@
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??0ScanPresenceGrid@@QAE@XZ	14
 ??0CDialog@@QAE@XZ	14
-??1Spell@@UAE@XZ	15
 ??0CListBox@@QAE@XZ	16
 ??0CEdit@@QAE@XZ	16
 ??0CStatic@@QAE@XZ	16
@@ -290,7 +291,6 @@
 ??0CAirUnit@@QAE@XZ	18
 ??0CA16@@QAE@PBD@Z	19
 ??4TriggerCheck@@QAEAAU0@ABU0@@Z	20
-??0Spell@@QAE@XZ	22
 ??0UnitEye@@QAE@XZ	26
 ??0CDialog@@QAE@IPAVCWnd@@@Z	26
 ?SetMessageColors@@YAXI@Z	26
@@ -311,7 +311,6 @@
 ?UnlockSurface1@@YAXXZ	38
 ?LockSurface2@@YAXXZ	41
 ?LockSurface1@@YAXXZ	41
-??0Spell@@QAE@E@Z	45
 ??0MapPlayerData@@QAE@XZ	48
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
 ??1Trigger@@QAE@XZ	57
@@ -324,14 +323,12 @@
 ??0Trigger@@QAE@XZ	87
 ?SetVideoMode@@YAHXZ	87
 ?ParseTunes@@YAXXZ	99
-??0World@@QAE@PAUMapStuff@@PAVPlayersList@@@Z	107
 ??0CArchive@@QAE@PAVCFile@@IHPAX@Z	114
 ??1CWinApp@@UAE@XZ	134
 ?LoadFonts@@YAXXZ	134
 ??1World@@QAE@XZ	139
 ??1ShopAssortment@@QAE@XZ	143
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
-??0Spell@@QAE@ABVCString@@@Z	153
 ?gfxFlushRect@@YAXABVCRect@@@Z	155
 ??4Trigger@@QAEAAU0@ABU0@@Z	161
 ?InitVideo@@YAHXZ	191

@@ -32,6 +32,7 @@
 ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z
 ??0CVisualObject@@QAE@HHHHHPBD@Z
 ??0CVisualObject@@QAE@XZ
+??0Diplomacy@@QAE@XZ
 ??0DirectDamage@@QAE@PAV0@@Z
 ??0DirectDamage@@QAE@XZ
 ??0Effect@@QAE@ABVCString@@@Z
@@ -104,6 +105,9 @@
 ??0Shop@@QAE@ABVCString@@@Z
 ??0Shop@@QAE@EPAUTokenPos@@@Z
 ??0Shop@@QAE@XZ
+??0Spell@@QAE@ABVCString@@@Z
+??0Spell@@QAE@E@Z
+??0Spell@@QAE@XZ
 ??0SpellEffect@@QAE@PBUTokenPos@@@Z
 ??0SpellEffect@@QAE@XZ
 ??0SpellEffectList@@QAE@XZ
@@ -203,6 +207,7 @@
 ??1Server@@QAE@XZ
 ??1Shield@@UAE@XZ
 ??1Shop@@UAE@XZ
+??1Spell@@UAE@XZ
 ??1SpellEffect@@UAE@XZ
 ??1SpellEffectList@@QAE@XZ
 ??1SpellTransport@@UAE@XZ
