@@ -946,11 +946,10 @@ extern ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; st
 externdef ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
 externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)
 extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::RefreshForHumanoid()
-externdef ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
-externdef ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
-externdef ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
-
-externdef ??1Spell@@UAE@XZ:proc
+extern ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
+extern ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
+extern ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
+extern ??1Spell@@UAE@XZ : proc
 
 externdef ?sub_5393C7@Spell@@QAEHXZ :proc
 externdef ?sub_53940D@Spell@@QAEXPAVUnit@@@Z:proc     ;  Spell::sub_53940D

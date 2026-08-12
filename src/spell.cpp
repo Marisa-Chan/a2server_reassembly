@@ -32,6 +32,96 @@ const std::array<uint32_t, 32> SpellBtB = {
      0x10,      0x10000,        0x80,       0x80000,
      0,         0,              0,          0} };
 
+
+void Spell::Serialize(CArchive& ar)
+{ // 53cf8d
+    if (ar.IsStoring())
+    {
+        ar.Write(&spell_id, 1);
+        ar.Write(&max_range, 1);
+        ar.Write(&is_defensive, 1);
+        ar.Write(&mana_cost, 2);
+        ar.Write(this, 4);
+    }
+    else
+    {
+        ar.Read(&spell_id, 1);
+        ar.Read(&max_range, 1);
+        ar.Read(&is_defensive, 1);
+        ar.Read(&mana_cost, 2);
+
+        void* oldptr;
+        ar.Read(&oldptr, 4);
+
+        g_Server->field23_0xdc[oldptr] = this;
+
+        spell_info = &g_GameDataRes.spells[spell_id];
+    }
+}
+
+Spell::Spell()
+{ // 538fa5
+    spell_info = nullptr;
+    is_defensive = false;
+    spell_id = 0;
+}
+
+Spell::Spell(uint8_t id)
+{ // 538fdd
+    spell_info = nullptr;
+    is_defensive = false;
+    spell_id = 0;
+    max_range = 1;
+    spell_id = id;
+    Init();
+}
+
+Spell::Spell(const CString& name)
+{ // 539055
+    spell_info = nullptr;
+    is_defensive = false;
+    spell_id = 0;
+    max_range = 1;
+    spell_id = 0;
+
+    for (int i = 0; i < g_GameDataRes.spells.GetSize(); i++)
+    {
+        if (g_GameDataRes.spells[i].name == name)
+        {
+            spell_id = i;
+            break;
+        }
+    }
+
+    if (spell_id == 0)
+    {
+        CString msg("Invalid spell ");
+        LogMessage(msg + name);
+    }
+    else
+        Init();
+}
+
+Spell::~Spell() //5392fe
+{}
+
+void Spell::Init()
+{ //5391ab
+    if (spell_id == 0)
+    {
+        CString msg;
+        msg.Format("Invalid spell #%d - no such ID", spell_id);
+        LogMessage(msg);
+    }
+    else
+    {
+        spell_info = &g_GameDataRes.spells[spell_id];
+        mana_cost = spell_info->Values()[0].mana_cost;
+        max_range = spell_info->Values()[0].max_range;
+        is_defensive = spell_info->Values()[0].defensive == 1;
+    }
+}
+
 // 53939E
 int Spell::sub_53939E(uint8_t, uint8_t)
 {
