@@ -1552,7 +1552,7 @@ int32_t VisScrollBar::GetValHPos(int32_t x)
 {
     //4dddbe
     CRect rt = ClientRectToScreen(rect);
-    int32_t p = val_max * (x - rt.left + 2 + rt.Height()) / (rt.Width() - (rt.Height() * 2 - 8) - 12);
+    int32_t p = val_max * (x - (rt.left + 2 + rt.Height())) / (rt.Width() - (rt.Height() * 2 - 8) - 12);
     if (p < 0)
         p = 0;
     if (p > val_max)
