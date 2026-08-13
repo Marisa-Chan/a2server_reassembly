@@ -52,6 +52,49 @@ World::~World() {
     delete this->triggers;
 }
 
+// 5A4757
+void World::sub_5A4757() {
+    this->duration4 = 0;
+    this->duration4_low = 0;
+    this->field20_0xa48 = 0;
+    this->field21_0xa49 = 0;
+    this->counter = 0;
+
+    static constexpr uint8_t bdec_init[8] = {0, 0, 75, 65, 85, 65, 95, 65};
+    std::memcpy(this->field_0xbdec, bdec_init, sizeof(bdec_init));
+
+    this->field_0xbdfc = 0;
+    this->field49_0xbe04 = 0;
+    this->field50_0xbe08 = 0;
+    this->mission_complete = 0;
+    this->field52_0xbe10 = 0;
+    this->mission_fail = 0;
+    this->mission_state = 0;
+    this->field65_0xc780 = 0;
+    this->field48_0xbe00 = 0;
+    this->field24_0xa50 = nullptr;
+
+    std::memset(this->field56_0xc52c, 0, sizeof(this->field56_0xc52c));
+    std::memset(this->trigger_variables, 0, sizeof(this->trigger_variables));
+    std::memset(this->references, 0, sizeof(this->references));
+    std::memset(this->trigger_results, 0, sizeof(this->trigger_results));
+    std::memset(this->field32_0xa728, 0, sizeof(this->field32_0xa728));
+    std::memset(this->field39_0xbc08, 0, sizeof(this->field39_0xbc08));
+
+    this->name[0] = '\0';
+    this->players_list = nullptr;
+    this->diplomacy.world = this;
+
+    this->trigger_variables[900] = 0;
+    this->trigger_variables[901] = 1;
+    this->trigger_variables[902] = 0;
+    this->trigger_variables[999] = 0;
+
+    this->trigger_checks = new CList<TriggerCheck>();
+    this->trigger_actions = new CArray<TriggerAction>();
+    this->triggers = new CList<Trigger>();
+}
+
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.

@@ -832,6 +832,7 @@
 ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z
 ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z
 ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z
+?sub_5A4757@World@@QAEXXZ
 ?sub_5A7B44@World@@QAEXPAVUnit@@@Z
 ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z
 ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z
