@@ -52,6 +52,14 @@
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z	376
 ?FUN_00462405@CGameObject@@QAEHH@Z	51
 ?FUN_0046190d@CGameObject@@QAEXXZ	299
+?FUN_004946ae@CGameSession@@QAEXXZ	23
+?FUN_00420070@CGameSession@@QAE?AVCString@@XZ	45
+?FUN_00494982@CGameSession@@QAEXXZ	51
+?FUN_00493cd8@CGameSession@@QAEXXZ	58
+?FUN_004946e0@CGameSession@@QAEXXZ	183
+?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z	191
+?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z	335
+?FUN_00492c66@CGameSession@@QAEXH@Z	963
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
 ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z	2
 ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z	2
@@ -150,7 +158,6 @@
 ?LoadSettings@MainWindow@@QAEXXZ	90
 ?LoadData@MainWindow@@QAEXXZ	120
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
-?FUN_00491b3e@MainWindow@@QAEXXZ	192
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
@@ -196,12 +203,6 @@
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z	30
 ?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z	32
 ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z	106
-?FUN_004946ae@SomeMainStructure@@QAEXXZ	23
-?FUN_00420070@SomeMainStructure@@QAE?AVCString@@XZ	45
-?FUN_00494982@SomeMainStructure@@QAEXXZ	51
-?FUN_00493cd8@SomeMainStructure@@QAEXXZ	58
-?FUN_004946e0@SomeMainStructure@@QAEXXZ	183
-?FUN_00492c66@SomeMainStructure@@QAEXH@Z	963
 ?sub_5393C7@Spell@@QAEHXZ	20
 ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z	32
 ?sub_53940D@Spell@@QAEXPAVUnit@@@Z	71
@@ -232,7 +233,6 @@
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
 ?OpenRenameWindow@VisCharSelect@@QAEXXZ	103
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
-?FUN_0047024a@VisGlobalMap@@QAEXXZ	13
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
@@ -287,8 +287,6 @@
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z	190
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z	191
 ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z	198
-?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z	199
-?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5A4757@World@@QAEXXZ	211
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6

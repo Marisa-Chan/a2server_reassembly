@@ -17,6 +17,7 @@
 ??0BuildingInfo@@QAE@XZ
 ??0CCursor@@QAE@PBDHHH@Z
 ??0CEdit2@@QAE@XZ
+??0CFameHall@@QAE@XZ
 ??0CGameObject@@QAE@PBV0@@Z
 ??0CGameObject@@QAE@XZ
 ??0CGamePalette@@QAE@XZ
@@ -74,7 +75,6 @@
 ??0MenuButton@@QAE@HPBDPAVCGameFont@@PAGHH0@Z
 ??0MonsterInfo@@QAE@XZ
 ??0MusicPlayer@@QAE@H@Z
-??0MWin_5e8@@QAE@XZ
 ??0NetStru1@@QAE@H@Z
 ??0NetStru3@@QAE@XZ
 ??0Outpost@@QAE@PAUTokenPos@@@Z
@@ -175,6 +175,7 @@
 ??1Armor@@UAE@XZ
 ??1Building@@UAE@XZ
 ??1CEdit2@@UAE@XZ
+??1CFameHall@@QAE@XZ
 ??1CGameObject@@UAE@XZ
 ??1CGamePalette@@UAE@XZ
 ??1CListBox2@@UAE@XZ
@@ -193,7 +194,6 @@
 ??1Item@@UAE@XZ
 ??1MapAlm@@QAE@XZ
 ??1MusicPlayer@@UAE@XZ
-??1MWin_5e8@@QAE@XZ
 ??1NetStru1@@QAE@XZ
 ??1NetStru2@@QAE@XZ
 ??1NetStru3@@QAE@XZ
@@ -416,12 +416,10 @@
 ?FUN_0048f905@MainWindow@@QAEXXZ
 ?FUN_00491822@MainWindow@@QAEXXZ
 ?FUN_004918ae@MainWindow@@QAEXXZ
-?FUN_00493ffe@SomeMainStructure@@QAEHXZ
-?FUN_004941c0@SomeMainStructure@@QAEXXZ
-?FUN_00497270@MWin_5e8@@QAEXI@Z
+?FUN_00493ffe@CGameSession@@QAEHXZ
+?FUN_004941c0@CGameSession@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
-?FUN_004ac3af@MWin_5e8@@QAEXXZ
-?FUN_004ac3ce@MWin_5e8@@QAEXABUFame1@@@Z
+?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ
 ?FUN_004ad890@Fame2@@QAEIXZ
 ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z
@@ -607,6 +605,7 @@
 ?ReadFromBuffer@NetStru3@@QAEHPAXI@Z
 ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z
 ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z
+?RebuildScenarioLocations@VisGlobalMap@@QAEXXZ
 ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ
 ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z
 ?RecreateDp@CLlDriver@@QAEXXZ
@@ -670,6 +669,7 @@
 ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z
 ?SetCursorOver@CVisualObject@@UAEX_N@Z
 ?SetCursorOver@VisRadioBase@@UAEX_N@Z
+?SetDifficulty@CFameHall@@QAEXI@Z
 ?SetDowned@VisButton@@QAEX_N@Z
 ?SetDownObj@CVisualObject@@QAEXPAV1@@Z
 ?SetFocus@CVisualObject@@UAEX_N@Z
@@ -699,6 +699,7 @@
 ?SetVolume@MusicPlayer@@QAEXH@Z
 ?ShadowRect@@YAXVCRect@@H@Z
 ?ShowGlobalMapDialog@MainWindow@@QAEXXZ
+?ShowStartGameSetupForNewSession@MainWindow@@QAEXXZ
 ?SizesCheck@VisMultiText@@QAEXXZ
 ?SpanExcluding@CString@@QBE?AV1@PBD@Z
 ?SpanIncluding@CString@@QBE?AV1@PBD@Z
@@ -839,7 +840,6 @@
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
-?sub_5AC289@World@@QAEXPAVGroup@@EE@Z
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
 ?sub_5B0724@World@@QAEXXZ
@@ -972,6 +972,7 @@
 ?WriteToBuffer@NetStru3@@QAEHPAXI@Z
 ?WriteToFile@ResBase@@QAEXPAVCFile@@H@Z
 ?YToIndex@VisListBox@@QAEHH@Z
+?ZeroFactors@CFameHall@@QAEXXZ
 _BldIdSet_AllocBit
 _BldIdSet_Clear
 _BldIdSet_Set

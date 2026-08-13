@@ -94,6 +94,66 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     }
 }
 
+// 5AF805
+void World::sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player) {
+    UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
+    if (unit_list == nullptr) {
+        return;
+    }
+
+    for (POSITION unit_it = unit_list->unit_list.GetHeadPosition(); unit_it != nullptr;) {
+        Unit* unit = unit_list->unit_list.GetNext(unit_it);
+        if (player == nullptr) {
+            if (unit->pOwner->is_ai != 0) {
+                continue;
+            }
+        } else if (unit->pOwner != player) {
+            continue;
+        }
+
+        uint8_t mode = unit->eye2->field39_0x4c;
+        if (mode == 0) {
+            unit->eye2->withdraw = (unit->hp_max * a) / 100;
+        } else if (mode == 1) {
+            unit->eye2->withdraw = (unit->hp_max * b) / 100;
+        } else if (mode == 2) {
+            unit->eye2->withdraw = (unit->hp_max * c) / 100;
+        } else {
+            unit->eye2->field39_0x4c = 0;
+        }
+    }
+}
+
+// 5AFA01
+void World::sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player) {
+    UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
+    if (unit_list == nullptr) {
+        return;
+    }
+
+    for (POSITION unit_it = unit_list->unit_list.GetHeadPosition(); unit_it != nullptr;) {
+        Unit* unit = unit_list->unit_list.GetNext(unit_it);
+        if (player == nullptr) {
+            if (unit->pOwner->is_ai != 0) {
+                continue;
+            }
+        } else if (unit->pOwner != player) {
+            continue;
+        }
+
+        uint8_t mode = unit->eye2->field39_0x4c;
+        if (mode == 0) {
+            unit->eye2->wimpy = (unit->hp_max * a) / 100;
+        } else if (mode == 1) {
+            unit->eye2->wimpy = (unit->hp_max * b) / 100;
+        } else if (mode == 2) {
+            unit->eye2->wimpy = (unit->hp_max * c) / 100;
+        } else {
+            unit->eye2->field39_0x4c = 0;
+        }
+    }
+}
+
 // Record a PvP hit: set attacker->target war, conditionally set reverse war,
 // and increment target's hit counter when hit_flag is nonzero.
 // 5B5643

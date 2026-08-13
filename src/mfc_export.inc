@@ -1208,8 +1208,6 @@ externdef ?sub_5A8EFB@World@@QAEXPAVUnit@@EE@Z :proc    ; World::sub_5A8EFB(Unit
 externdef ?sub_5AB719@World@@QAEIPAVGroup@@@Z :proc     ; World::sub_5AB719(Group*)
 externdef ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z :proc
 externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc
-externdef ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z :proc
 externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
