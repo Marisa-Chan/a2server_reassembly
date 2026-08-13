@@ -2,9 +2,7 @@
 
 #include <cstdint>
 
-#include "asm_mfc.h"
 #include "assert_offset.h"
-#include "mfc_templ.h"
 #include "spell.h"
 #include "unit.h"
 
