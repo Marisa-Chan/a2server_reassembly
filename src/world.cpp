@@ -186,7 +186,7 @@ void World::sub_5B0724() {
     this->trigger_variables[999] += 1;
     this->sub_5B0762();
     this->sub_5B0A6A();
-    this->field38_0xbbec.RemoveAll();
+    this->action_list.RemoveAll();
 }
 
 // Evaluate map triggers and run their actions when all conditions pass.
@@ -367,24 +367,18 @@ void World::sub_5A9B6B(Unit* unit) {
             if (unit->eye2->counter > 2) {
                 if (unit->eye2->counter == 3) {
                     if (unit->eye2->field48_0x5c == 0) {
-                        this->field40_0xbd98 = 3;
-                        this->field44_0xbdc4 = unit;
-                        this->field45_0xbdc8 = unit->some_spell;
-                        this->field41_0xbd9c = unit->area_cast_x;
-                        this->field42_0xbda0 = unit->area_cast_y;
+                        this->scrape_action.action_kind = 3;
+                        this->scrape_action.unit = unit;
+                        this->scrape_action.spell = unit->some_spell;
+                        this->scrape_action.x = unit->area_cast_x;
+                        this->scrape_action.y = unit->area_cast_y;
                     } else {
-                        this->field40_0xbd98 = 2;
-                        this->field44_0xbdc4 = unit;
-                        this->field45_0xbdc8 = unit->some_spell;
-                        this->field46_0xbdcc = unit->cast_target;
+                        this->scrape_action.action_kind = 2;
+                        this->scrape_action.unit = unit;
+                        this->scrape_action.spell = unit->some_spell;
+                        this->scrape_action.target = unit->cast_target;
                     }
-                    int32_t block[21];
-                    std::memcpy(block, &this->field40_0xbd98, sizeof(block));
-                    this->field38_0xbbec.sub_5B7280(
-                        block[0], block[1], block[2], block[3], block[4], block[5],
-                        block[6], block[7], block[8], block[9], block[10], block[11],
-                        block[12], block[13], block[14], block[15], block[16], block[17],
-                        block[18], block[19], block[20]);
+                    this->action_list.AddTail(this->scrape_action);
                 }
                 if (unit->field_0x136 != 0) {
                     unit->eye2->field4_0x9 = 0;

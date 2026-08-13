@@ -1183,7 +1183,6 @@ externdef ?sub_5AAB85@World@@QAEXPAVUnit@@0@Z :proc                             
 externdef ?sub_5AAEBC@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAEBC(Unit*)
 externdef ?sub_5AAC17@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAC17(Unit*)
 externdef ?sub_5B6F40@World@@QAEHH@Z :proc                                       ; World::sub_5B6F40(int32_t)
-externdef ?sub_5B7280@ActionQueue@@QAEXHHHHHHHHHHHHHHHHHHHHH@Z :proc             ; ActionQueue::sub_5B7280(...)
 externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc                                         ; Unit::sub_5B6FB0()
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
 externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
@@ -1237,6 +1236,10 @@ externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::su
 
 externdef ?sub_5B0556@World@@QAEXAAVCArchive@@@Z :proc
 externdef ?sub_5B2E7A@World@@QAEXXZ :proc
+
+
+; Action
+externdef ?AddTail@?$CList@UAction@@U1@@@QAEPAU__POSITION@@UAction@@@Z :proc
 
 
 ; Diplomacy

@@ -1,0 +1,21 @@
+#pragma once
+
+#include <cstdint>
+
+#include "asm_mfc.h"
+#include "assert_offset.h"
+#include "mfc_templ.h"
+#include "spell.h"
+#include "unit.h"
+
+struct Action {
+    int32_t action_kind;
+    int32_t x;
+    int32_t y;
+    uint8_t gap_0xc[32];
+    Unit* unit;
+    Spell* spell;
+    Unit* target;
+    uint8_t gap_0x38[28];
+};
+ASSERT_SIZE(Action, 0x54);

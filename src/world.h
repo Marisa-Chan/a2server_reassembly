@@ -2,6 +2,7 @@
 
 #include <cstdint>
 
+#include "action.h"
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "logic.h"
@@ -22,15 +23,6 @@ class Spell;
 class Token;
 class Unit;
 struct World;
-
-struct ActionQueue : public CList<int32_t> {
-    void sub_5B7280(int32_t a0, int32_t a1, int32_t a2, int32_t a3, int32_t a4,
-                    int32_t a5, int32_t a6, int32_t a7, int32_t a8, int32_t a9,
-                    int32_t a10, int32_t a11, int32_t a12, int32_t a13, int32_t a14,
-                    int32_t a15, int32_t a16, int32_t a17, int32_t a18, int32_t a19,
-                    int32_t a20);
-};
-ASSERT_SIZE(ActionQueue, 0x1C);
 
 struct Diplomacy {
 public:
@@ -82,16 +74,12 @@ struct World {
     int32_t MinimalGuardRange;
     Diplomacy diplomacy;
     int32_t field37_0xbbe8;
-    ActionQueue field38_0xbbec;
+    CList<Action, Action> action_list; // TODO: Change to `CList<Action>` after migration. `CList<Action, Action>` copies values inefficiently, but that's what vanilla does.
     uint8_t field39_0xbc08[400];
-    uint32_t field40_0xbd98;
-    uint32_t field41_0xbd9c;
-    uint32_t field42_0xbda0;
-    uint8_t gap_0xbda4[32];
-    Unit *field44_0xbdc4;
-    Spell *field45_0xbdc8;
-    Unit *field46_0xbdcc;
-    uint8_t gap_0xbdd0[48];
+    Action scrape_action;
+    uint8_t field_0xbdec[16];
+    uint8_t field_0xbdfc;
+    uint8_t gap_0xbdfd[3];
     int32_t field48_0xbe00;
     int32_t field49_0xbe04;
     int32_t field50_0xbe08;
