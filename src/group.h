@@ -28,7 +28,7 @@ public:
     uint16_t field_0x28;
     uint8_t field_0x2a;
     uint8_t field_0x2b;
-    uint8_t gap_0x2c;
+    uint8_t field_0x2c;
     uint8_t field_0x2d;
     uint8_t gap_0x2e[2];
     uint32_t field_0x30;

@@ -293,6 +293,62 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
     return 0;
 }
 
+// 5AB719
+uint32_t World::sub_5AB719(Group* group) {
+    int count = group->unit_list.GetCount();
+    if (count == 0) {
+        return 0;
+    }
+
+    uint32_t sum_xx = 0;
+    uint32_t sum_yy = 0;
+
+    POSITION unit_it = group->unit_list.GetHeadPosition();
+    while (unit_it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(unit_it);
+        sum_xx += unit->position->GetXx();
+        sum_yy += unit->position->GetYy();
+    }
+
+    uint32_t avg_xx = sum_xx / count;
+    uint32_t avg_yy = sum_yy / count;
+
+    uint32_t position_yyxx = (avg_yy << 16) + avg_xx;
+    PosYX position_yx = PosYX(avg_xx >> 8, avg_yy >> 8);
+
+    group->group_sub->field_0x24 = position_yyxx;
+    group->group_sub->field_0x28 = position_yx.val;
+
+    uint8_t max_distance = 0;
+    uint8_t max_scan_range = 0;
+    uint8_t max_sum = 0;
+
+    unit_it = group->unit_list.GetHeadPosition();
+    while (unit_it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(unit_it);
+        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), position_yx);
+        if (max_distance < distance) {
+            max_distance = distance;
+        }
+
+        uint8_t scan_range = unit->scan_range >> 8;
+        if (max_scan_range < scan_range) {
+            max_scan_range = scan_range;
+        }
+
+        uint8_t combined = distance + scan_range;
+        if (max_sum < combined) {
+            max_sum = combined;
+        }
+    }
+
+    group->group_sub->field_0x2a = max_distance;
+    group->group_sub->field_0x2b = max_scan_range;
+    group->group_sub->field_0x2c = max_sum;
+
+    return position_yyxx;
+}
+
 // Server turn tick: rebuild presence grid, run world updates, process each
 // player's groups, and log turn timing statistics when tracing is enabled.
 // 5ABD16
