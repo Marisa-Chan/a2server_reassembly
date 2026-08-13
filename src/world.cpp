@@ -445,6 +445,71 @@ void World::sub_5A9B6B(Unit* unit) {
     }
 }
 
+// 5AAC17 — pick a melee/cast target for a monster unit.
+void World::sub_5AAC17(Unit* unit) {
+    this->field26_0xa64.unit_list.RemoveAll();
+
+    uint32_t best_distance = 0xff;
+    CList<Unit*>* all = nullptr;
+    if (this->field24_0xa50->field69_0xa456c != nullptr) {
+        all = &this->field24_0xa50->field69_0xa456c->unit_list;
+    }
+
+    if (all != nullptr) {
+        POSITION unit_it = all->GetHeadPosition();
+        while (unit_it != nullptr) {
+            Unit* other = all->GetNext(unit_it);
+            uint8_t dist = other->position->Distance(unit->position);
+            uint8_t max_range = this->UnitMaxRange(unit);
+            if (dist <= max_range && dist <= best_distance && other != unit) {
+                this->field26_0xa64.AddTail(other);
+                best_distance = dist;
+            }
+        }
+    }
+
+    this->sub_5A3896(unit, &this->field26_0xa64, 0);
+    this->sub_5A3C5F();
+
+    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
+        CList<Unit*>* alt = &this->field27_0xa84.unit_list;
+        POSITION unit_it = alt->GetHeadPosition();
+        while (unit_it != nullptr) {
+            Unit* other = alt->GetNext(unit_it);
+            this->field26_0xa64.AddTail(other);
+        }
+        alt->RemoveAll();
+    }
+
+    Unit* best_target = nullptr;
+    uint32_t best_diff = 300;
+    if (this->field26_0xa64.unit_list.GetCount() != 0) {
+        POSITION unit_it = this->field26_0xa64.unit_list.GetHeadPosition();
+        while (unit_it != nullptr) {
+            Unit* other = this->field26_0xa64.unit_list.GetNext(unit_it);
+            uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+            uint8_t diff = sub_595561(unit->eye->field0_0x0, facing);
+            if (diff <= best_diff) {
+                best_target = other;
+                best_diff = diff;
+            }
+        }
+    }
+
+    if (best_target != nullptr) {
+        unit->eye2->unit = best_target;
+        unit->eye2->cast_action = 6;
+        this->sub_5AAEBC(unit);
+    } else {
+        if (!unit->pOwner->is_ai) {
+            unit->eye2->cast_action = 0;
+        } else {
+            unit->eye2->cast_action = 0xb;
+            this->sub_5AA485(unit);
+        }
+    }
+}
+
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
 // 5A7B44
 void World::sub_5A7B44(Unit* unit) {

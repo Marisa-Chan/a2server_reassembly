@@ -3,7 +3,6 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-?sub_5B7280@ActionQueue@@QAEXHHHHHHHHHHHHHHHHHHHHH@Z	71
 ?sub_537C8C@AreaEffect@@QAEXXZ	35
 ?sub_538897@AreaEffect@@QBEIXZ	67
 ?sub_53822C@AreaEffect@@QAEXXZ	96
@@ -272,6 +271,7 @@
 ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z	64
 ?sub_5AA375@World@@QAEXPAVUnit@@UPosYX@@E@Z	67
 ?sub_5B0762@World@@QAEXXZ	69
+?sub_5A3C5F@World@@QAEXXZ	74
 ?sub_5AAEBC@World@@QAEXPAVUnit@@@Z	78
 ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z	87
 ?sub_5AA485@World@@QAEXPAVUnit@@@Z	88
@@ -279,6 +279,7 @@
 ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z	93
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z	94
 ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z	110
+?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z	118
 ?sub_5B0556@World@@QAEXAAVCArchive@@@Z	142
 ?sub_5B6346@World@@QAEXXZ	162
 ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z	169
@@ -289,7 +290,6 @@
 ?sub_5A4757@World@@QAEXXZ	211
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
 ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
-?sub_5AAC17@World@@QAEXPAVUnit@@@Z	258
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6
@@ -363,4 +363,5 @@ _sub_54C556	26
 _sub_54C6DD	453
 _sub_54F04F	139
 _sub_54F176	96
+_sub_595561	35
 _sub_5B6F30	12

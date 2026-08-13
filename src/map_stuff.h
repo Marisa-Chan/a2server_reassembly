@@ -26,6 +26,7 @@ extern CString g_MissionBriefing; //660de8
 extern CStringArray g_MissionFailures; //660f18
 extern CStringArray g_MissionSubjs; //660ea8
 
+extern "C" uint8_t __cdecl sub_595561(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
 
 struct Obstacle
 {

@@ -92,6 +92,7 @@
 ??0Protections@@QAE@ABU0@@Z
 ??0Protections@@QAE@XZ
 ??0QuestMap@@QAE@XZ
+??0QuestObjectivesHeaderDialogVisualObject@@QAE@HHHHH@Z
 ??0RegFile@@QAE@PBD@Z
 ??0RegFile@@QAE@XZ
 ??0Sack@@QAE@PBUTokenPos@@@Z
@@ -105,6 +106,7 @@
 ??0Shop@@QAE@ABVCString@@@Z
 ??0Shop@@QAE@EPAUTokenPos@@@Z
 ??0Shop@@QAE@XZ
+??0SoundPreferencesDialogVisualObject@@QAE@HHHHHPAVCGameBitmap@@PAUSoundSettings@@@Z
 ??0Spell@@QAE@ABVCString@@@Z
 ??0Spell@@QAE@E@Z
 ??0Spell@@QAE@XZ
@@ -128,6 +130,7 @@
 ??0TokenPos@@QAE@ABU0@@Z
 ??0TokenPos@@QAE@EEPAUMapStuff@@@Z
 ??0TokenPos@@QAE@XZ
+??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z
 ??0TriggerAction@@QAE@XZ
 ??0TriggerCheck@@QAE@XZ
 ??0TxtFile@@QAE@XZ
@@ -277,6 +280,7 @@
 ?AddItem@VisComboBox@@QAEXPBD@Z
 ?AddPacketStatistic@NetStru1@@QAEXPAVPacket@@@Z
 ?AddStat1@NetStru1@@QAEXPAUNetStru2@@H@Z
+?AddTail@?$CList@UAction@@U1@@@QAEPAU__POSITION@@UAction@@@Z
 ?AddTail@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z
@@ -308,6 +312,7 @@
 ?AssertValid@CGameObject@@UBEXXZ
 ?AssertValid@CObject@@UBEXXZ
 ?AssignCopy@CString@@IAEXHPBD@Z
+?BeginFadeOut@MusicPlayer@@QAEXHH@Z
 ?Buy@CMultiShopInstance@@QAEXXZ
 ?cbEnumSessions@CLlDriver@@SGHPBUtagDPSESSIONDESC2@@PAKKPAX@Z
 ?ChangeFlags@CVisualObject@@UAEXI_N@Z
@@ -691,6 +696,7 @@
 ?SetText@VisMultiText@@QAEXPBD@Z
 ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
 ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z
+?SetVolume@MusicPlayer@@QAEXH@Z
 ?ShadowRect@@YAXVCRect@@H@Z
 ?ShowGlobalMapDialog@MainWindow@@QAEXXZ
 ?SizesCheck@VisMultiText@@QAEXXZ
@@ -831,6 +837,7 @@
 ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
+?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
 ?sub_5B0724@World@@QAEXXZ
