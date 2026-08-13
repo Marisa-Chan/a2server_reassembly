@@ -62,7 +62,7 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t)
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	
 	CGameFont* fnt = g_font1;
-	if (wnd->field_0x640 == 3)
+	if (wnd->sessionMode == 3)
 		fnt = g_font2;
 
 	bool restart = text.GetSize() == 0;
@@ -154,7 +154,7 @@ void GM_a28::Draw()
 	int32_t out_y = 8;
 	CGameFont* fnt = g_font1;
 
-	if (wnd->field_0x640 == 3)
+	if (wnd->sessionMode == 3)
 	{
 		out_x = 0;
 		out_y = 220;
@@ -190,7 +190,7 @@ void GM_a28::SetRect(const CRect& r)
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->field_0x640 == 3)
+	if (wnd->sessionMode == 3)
 		max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
 	else
 		max_size = (out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
@@ -298,7 +298,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 		if (!pkt)
 		{
-			if (breakid != 0 || (wnd->field_0x418 & 1) != 0)
+			if (breakid != 0 || (wnd->dialogsMask & 1) != 0)
 				continue;
 			return 0;
 		}
@@ -326,7 +326,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		{
 			INT_00660f8c = packet_info->field_0xa | 0x1000;
 
-			if ((wnd->field_0x418 & 1) == 0)
+			if ((wnd->dialogsMask & 1) == 0)
 			{
 				while( g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 				{}
@@ -347,12 +347,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		}
 
 		case 0x64:
-			wnd->field_0x41c = packet_dword->value;
+			wnd->serverLoopCounter = packet_dword->value;
 			break;
 
 		case 0x67:
 		{
-			if (wnd->field_0x418 == 1 && my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
+			if (wnd->dialogsMask == 1 && my_main_unit->gold < packet_info->field_0xa && packet_info->field_0xe == 0)
 			{
 				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x58], packet_info->field_0xa - my_main_unit->gold, TxtFile::AllLines[0x59]);
 				msglog.Add(buf, clr_log_tblack, 3000);
@@ -362,7 +362,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			CUnit* u = GetUnit_3f6c();
 			if (u)
 			{
-				wnd->some_struc.FUN_004946e0();
+				wnd->m_GameSession.FUN_004946e0();
 				if (u->tokenEntries.GetSize())
 				{
 					TokenEntry* gitem = u->tokenEntries[u->tokenEntries.GetUpperBound()];
@@ -565,7 +565,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							uni->FUN_0052ec7a(uni->monster_info->Values());
 							uni->server_id = g_CUnitStatic.serverId;
 
-							if (wnd->field_0x640 == 2 && g_Server && g_Server->field22_0xd8 != 2)
+							if (wnd->sessionMode == 2 && g_Server && g_Server->field22_0xd8 != 2)
 							{
 								if (g_Server->field22_0xd8 == 1)
 									uni->hp_max = uni->hp_max / 2.0;
@@ -708,10 +708,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						if (packet_unit->flags_mask & 0x2000000)
 						{
-							wnd->some_struc.monster_killed = *(uint32_t*)(pdata);
-							wnd->some_struc.player_killed = *(uint32_t*)(pdata + 4);
-							wnd->some_struc.death_count = *(uint32_t*)(pdata + 8);
-							wnd->some_struc.field_0x44 = *(uint32_t*)(pdata + 12);
+							wnd->m_GameSession.monster_killed = *(uint32_t*)(pdata);
+							wnd->m_GameSession.player_killed = *(uint32_t*)(pdata + 4);
+							wnd->m_GameSession.death_count = *(uint32_t*)(pdata + 8);
+							wnd->m_GameSession.fragCount = *(uint32_t*)(pdata + 12);
 
 							pdata += 16;
 						}
@@ -797,7 +797,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							pdata += 12 + 12;
 						}
 
-						if (wnd->field_0x640 == 2)
+						if (wnd->sessionMode == 2)
 						{
 							if (ct->serverId == 0x15)
 							{
@@ -817,7 +817,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						if (packet_unit->flags_mask & 0x800000)
 							ct->field_0x130.RemoveAll();
 
-						if (ct_exist && (wnd->field_0x418 & 0x200) != 0)
+						if (ct_exist && (wnd->dialogsMask & 0x200) != 0)
 						{
 							if ((packet_unit->flags_mask & 0x20) != 0)
 								ct->face = g_CUnitStatic.face;
@@ -856,15 +856,15 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						if (ct->serverId != 0 && ct->serverId < 21 && ct->field_0x180[4] > 1)
 							ScenarioSetVar(ct->serverId + 0x213, 0);
 
-						if (wnd->field_0x640 != 2 && (ct->field_0x1b8 & 0x20) != 0)
+						if (wnd->sessionMode != 2 && (ct->field_0x1b8 & 0x20) != 0)
 						{
 							if ((packet_unit->flags_mask & 0x22100000) == 0)
 							{
 								if ((packet_unit->flags_mask & 0x1f00) != 0)
-									wnd->some_struc.FUN_004946ae();
+									wnd->m_GameSession.FUN_004946ae();
 							}
 							else
-								wnd->some_struc.FUN_004946e0();
+								wnd->m_GameSession.FUN_004946e0();
 						}
 
 						switch (ct->field_0x180[4])
@@ -912,14 +912,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						case 2:
 						case 3:
 						case 4:
-							if (wnd->field_0x640 != 2 && ct == field_0x3f6c && ct->field_0x180[4] == 4 && sval < 4)
+							if (wnd->sessionMode != 2 && ct == field_0x3f6c && ct->field_0x180[4] == 4 && sval < 4)
 							{
 								msglog.Add(txt_patch.GetLine(0x44), clr_log_sblack, 10000);
 								msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
 
 							if (sval < 2 && my_main_unit->FUN_0041ee20(ct->field_0x14->index) != 0)
-								wnd->field_0x5e8.FUN_00420050();
+								wnd->m_FameHall.FUN_00420050();
 
 							ct->field_0x88 = 0;
 							ct->field_0x130.RemoveAll();
@@ -952,7 +952,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						}
 						if (g_CUnitStatic.field_0x180[4] < 5)
 						{
-							if ((wnd->field_0x418 & 1) != 0 && field_0x80)
+							if ((wnd->dialogsMask & 1) != 0 && field_0x80)
 								ct->FUN_0046190d();
 
 							if (field_0x138 == ct)
@@ -1233,7 +1233,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 										f.SeekToEnd();
 										f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 										f.Close();
-										wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+										wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
 									}
 								}
 							}
@@ -1242,14 +1242,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					ct->field_0x1b8 |= 8;
 
-					if ((wnd->field_0x418 & 2) != 0)
+					if ((wnd->dialogsMask & 2) != 0)
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
 
 					ct->FUN_0046b91c();
 
 					ct->field_0x114 = 1;
 
-					if ((ct->field_0x1b8 & 0x2U) != 0 && wnd->field_0x640 != 2)
+					if ((ct->field_0x1b8 & 0x2U) != 0 && wnd->sessionMode != 2)
 					{
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++)
@@ -1276,7 +1276,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								field_0x4988[i]->StoreToPacket(packet_state, 0);
 						}
 
-						CString fname = wnd->some_struc.FUN_00420070();
+						CString fname = wnd->m_GameSession.FUN_00420070();
 						WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 					}
 				}
@@ -1308,7 +1308,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
-								wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+								wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
 							}
 							break;
 						}
@@ -1324,7 +1324,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
-								wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+								wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
 							}
 							packet_state->entry_count = num - packet_state->field_0xf;
 						}
@@ -1366,7 +1366,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
-							wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
 						}
 						
 						if ((obj->flg & 0x40) != 0)
@@ -1386,7 +1386,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					if ((ct->field_0x1b8 & 0x20) != 0)
 					{
-						if (wnd->field_0x640 != 2)
+						if (wnd->sessionMode != 2)
 						{
 							uint8_t *pdata = packet_state->data;
 							for (int i = 0; i < packet_state->entry_count; i++)
@@ -1411,7 +1411,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								field_0x4974[i]->StoreToPacket(packet_state, 0);
 
 
-							CString fname = wnd->some_struc.FUN_00420070();
+							CString fname = wnd->m_GameSession.FUN_00420070();
 							WritePlayerFile_4F53EA(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
 						}
 
@@ -1426,7 +1426,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 					UpdateSelectionState();
 
-					if (wnd->field_0x418 & 2)
+					if (wnd->dialogsMask & 2)
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
 					else
 					{
@@ -1469,12 +1469,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
-							wnd->field_0xd0->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
 						}
 					}
 				}
 
-				if ((wnd->field_0x418 & 2) == 0)
+				if ((wnd->dialogsMask & 2) == 0)
 				{
 					for (int i = 0; i < tmp.GetSize(); i++)
 					{
@@ -1490,7 +1490,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			case 9:
 			{
-				if ((wnd->field_0x418 & 4) != 0)
+				if ((wnd->dialogsMask & 4) != 0)
 				{
 					VisTav* tavern = (VisTav*) wnd->vis_root->FindChild(0x44c);
 					uint8_t* pdata = packet_state->data;
@@ -1530,7 +1530,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				if (pak->typeId > 5)
 					pak->typeId = 5;
 
-				if ((wnd->field_0x418 & 1) != 0 && field_0x80 != nullptr)
+				if ((wnd->dialogsMask & 1) != 0 && field_0x80 != nullptr)
 					pak->FUN_0046190d();
 			}
 
@@ -1795,7 +1795,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{
 				MapPlayerData* dat = field_0x9b8[packet_join->player_id];
 
-				if (g_MessageColors == 0 || (wnd->field_0x418 & 1) == 0)
+				if (g_MessageColors == 0 || (wnd->dialogsMask & 1) == 0)
 				{
 					msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
 				}
@@ -1850,7 +1850,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				else
 					txt = TxtFile::AllLines[texid + 0x86];
 
-				if (wnd->field_0x640 == 2)
+				if (wnd->sessionMode == 2)
 				{
 					CUnit* ct = FUN_0041df23(serv_id);
 					if (ct)
@@ -1864,7 +1864,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 				msglog.Add(txt, clr_log_sblack, 3000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 			}
 				break;
@@ -1889,7 +1889,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdd], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xde]);
 				msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
@@ -1897,7 +1897,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xdf], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe0]);
 				msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
@@ -1905,7 +1905,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				sprintf(buf, "%s %s %s", TxtFile::AllLines[0xe1], field_0x9b8[packet_info->field_0xe]->name, TxtFile::AllLines[0xe2]);
 				msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
@@ -1913,14 +1913,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				sprintf(buf, "%s %d %s", TxtFile::AllLines[0x53], packet_info->field_0xe, TxtFile::AllLines[0x54]);
 				msglog.Add(buf, clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
 			case 0x10:
 				msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
@@ -1928,21 +1928,21 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
 				msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
 			case 0x40:
 				msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 
 			case 0x80:
 				msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
 
-				if ((wnd->field_0x418 & 1) != 0)
+				if ((wnd->dialogsMask & 1) != 0)
 					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				break;
 			}
@@ -1956,7 +1956,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			if (packet_join->__field_0xa == my_main_unit->index)
 			{
-				if ((wnd->field_0x418 & 1) == 0)
+				if ((wnd->dialogsMask & 1) == 0)
 				{
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
@@ -2011,7 +2011,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			if (field_0x9b8.GetSize() == 1)
 			{
-				wnd->some_struc.field_0x10c = (packet_join->flags & 2) != 0;
+				wnd->m_GameSession.field_0x10c = (packet_join->flags & 2) != 0;
 				my_main_unit = mp;
 				my_main_unit->diplomacy.SetAtGrow(0, 0);
 				my_main_unit->diplomacy.SetAtGrow(mp->index, 0x3a);
@@ -2172,9 +2172,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xaf:
-			if (wnd->field_0x640 == 0)
+			if (wnd->sessionMode == 0)
 			{
-				if ((wnd->field_0x418 & 1) == 0)
+				if ((wnd->dialogsMask & 1) == 0)
 				{
 					while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 					{}
@@ -2194,8 +2194,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0xb3:
 			kill_stats[packet_dword->value & 0xffff] = (packet_dword->value >> 16) & 0xff;
 
-			if (wnd->field_0x640 != 2)
-				wnd->some_struc.FUN_00494982();
+			if (wnd->sessionMode != 2)
+				wnd->m_GameSession.FUN_00494982();
 			break;
 
 		case 0xb4:
@@ -2211,7 +2211,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xb7:
-			if (wnd->field_0x640 == 0)
+			if (wnd->sessionMode == 0)
 			{
 				wnd->field_0x454 = 1;
 				wnd->PostMessage(0x45e, 0, 0);
@@ -2219,16 +2219,16 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xb8:
-			if (wnd->field_0x640 == 0)
+			if (wnd->sessionMode == 0)
 			{
-				if ((wnd->field_0x418 & 2) != 0)
+				if ((wnd->dialogsMask & 2) != 0)
 				{
 					VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
 					shop->FUN_004bcd02();
 					wnd->vis_root->RemoveChild(shop);
 				}
 
-				if ((wnd->field_0x418 & 4) != 0)
+				if ((wnd->dialogsMask & 4) != 0)
 				{
 					VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 					tavern->FUN_0049edec();
@@ -2311,8 +2311,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			delete[] stats;
 
-			if (wnd->field_0x640 != 2)
-				wnd->some_struc.FUN_00494982();
+			if (wnd->sessionMode != 2)
+				wnd->m_GameSession.FUN_00494982();
 		}
 			break;
 
@@ -2341,7 +2341,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xbc:
-			if ((wnd->field_0x418 & 4) != 0)
+			if ((wnd->dialogsMask & 4) != 0)
 			{
 				VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
 				if (tavern)
@@ -2499,11 +2499,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 		case 0xce:
 		{
 			wnd->field_0x3e0.field_0c = *(int32_t*)packet_data->data;
-			wnd->some_struc.field_0x130.RemoveAll();
+			wnd->m_GameSession.field_0x130.RemoveAll();
 
 			HatCharId* chars = (HatCharId*)(packet_data->data + 4);
 			for (int i = 0; i < packet_data->count / 8; i++)
-				wnd->some_struc.field_0x130.Add(chars[i]);
+				wnd->m_GameSession.field_0x130.Add(chars[i]);
 		}
 			break;
 
@@ -2530,8 +2530,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			break;
 
 		case 0xd0:
-			wnd->some_struc.field_0x148 = packet_info->field_0xa;
-			wnd->some_struc.field_0x14c = packet_info->field_0xe;
+			wnd->m_GameSession.field_0x148 = packet_info->field_0xa;
+			wnd->m_GameSession.field_0x14c = packet_info->field_0xe;
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
@@ -2574,7 +2574,7 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 	timestamp = timeGetTime();
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	field_0x20 = wnd->field_0x41c;
+	field_0x20 = wnd->serverLoopCounter;
 }
 
 
@@ -2701,7 +2701,7 @@ void BigStruct2::FUN_0041a8cc()
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 
-	((MainWindow*)AfxGetMainWnd())->field_0x418 &= ~2;
+	((MainWindow*)AfxGetMainWnd())->dialogsMask &= ~2;
 }
 
 
@@ -2710,7 +2710,7 @@ int32_t BigStruct2::FUN_0040d7f3()
 	//40d7f3
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->field_0x640 == 0)
+	if (wnd->sessionMode == 0)
 	{
 		g_NetStru1_local.sub_51C7CC(g_CmdLatency, 0);
 
@@ -2722,10 +2722,10 @@ int32_t BigStruct2::FUN_0040d7f3()
 	Packet3Dwords *pkt = &Packet3Dwords::Inst;
 
 	pkt->id = 2;
-	strcpy(pkt->field_0x16, wnd->some_struc.character_name);
-	memcpy(&pkt->field_0xa, &wnd->some_struc.field_0x8, 8);
+	strcpy(pkt->field_0x16, wnd->m_GameSession.character_name);
+	memcpy(&pkt->field_0xa, &wnd->m_GameSession.sessionKeyPart1, 8);
 
-	pkt->field_0x12 = g_IsCdPresent | (wnd->some_struc.color << 8) | (wnd->some_struc.FUN_004200f0() << 0x10) | (wnd->some_struc.FUN_00420110() << 0x18);
+	pkt->field_0x12 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.FUN_004200f0() << 0x10) | (wnd->m_GameSession.FUN_00420110() << 0x18);
 	pkt->to_player_id = 0;
 
 	field_0x9d0.RemoveAll();
@@ -2739,7 +2739,7 @@ int32_t BigStruct2::FUN_0040d7f3()
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 
-	if (wnd->field_0x63c != 0)
+	if (wnd->serverBootstrapEnabled != 0)
 		g_Server->FUN_0050907e();
 	
 	uint32_t stime = timeGetTime();
@@ -2789,7 +2789,7 @@ int BigStruct2::FUN_0040d4e2()
 
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->field_0x640 == 1 || wnd->field_0x640 == 2)
+	if (wnd->sessionMode == 1 || wnd->sessionMode == 2)
 	{
 		g_NetStru1_main.SetLinkedHLDriver(&g_NetStru1_local);
 		g_NetStru1_local.SetLinkedHLDriver(&g_NetStru1_main);
@@ -2802,7 +2802,7 @@ int BigStruct2::FUN_0040d4e2()
 		if (wnd->net_sessions.sessions)
 			session = wnd->net_sessions.sessions + wnd->net_sessions.selected_index;
 		
-		if (g_CLlDriver.Connect(wnd->some_struc.character_name, session) == 0)
+		if (g_CLlDriver.Connect(wnd->m_GameSession.character_name, session) == 0)
 		{
 			wnd->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, TxtFile::AllLines.GetAt(0x9a), nullptr, 0));
 			return 0;
@@ -2832,13 +2832,13 @@ void BigStruct2::FUN_0041cbb8()
 	pkt->id = 0x48;
 	pkt->field_0x5 = my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->field_a1 = wnd->some_struc.field_0x4c;
-	pkt->field_a2 = wnd->some_struc.field_0x50;
-	pkt->field_a3 = wnd->some_struc.field_0x54;
-	pkt->field_a4 = wnd->some_struc.field_0x58;
-	pkt->field_e1 = wnd->some_struc.main_sphere;
-	pkt->field_e2 = wnd->some_struc.face | wnd->some_struc.field_0x34;
-	pkt->field_e3 = wnd->some_struc.color;
+	pkt->field_a1 = wnd->m_GameSession.body;
+	pkt->field_a2 = wnd->m_GameSession.reaction;
+	pkt->field_a3 = wnd->m_GameSession.mind;
+	pkt->field_a4 = wnd->m_GameSession.spirit;
+	pkt->field_e1 = wnd->m_GameSession.main_sphere;
+	pkt->field_e2 = wnd->m_GameSession.face | wnd->m_GameSession.type;
+	pkt->field_e3 = wnd->m_GameSession.color;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -2962,7 +2962,7 @@ void BigStruct2::FUN_0041d2da(int32_t arg)
 int32_t BigStruct2::IsBookOpen()
 { // 41b4b0
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (wnd->field_0x418 & 2)
+	if (wnd->dialogsMask & 2)
 		return FindChild(1000)->FindChild(3) != nullptr;
 
 	return FindChild(3) != nullptr;
@@ -3158,7 +3158,7 @@ void BigStruct2::UpdateSelectionState()
 			firstsel = true;
 		}
 
-		if (mwnd->field_0x418 == 1 || (mwnd->field_0x418 & 2) != 0)
+		if (mwnd->dialogsMask == 1 || (mwnd->dialogsMask & 2) != 0)
 		{
 			if (obj->GetRuntimeClass() == RUNTIME_CLASS(CUnit))
 			{
@@ -3196,9 +3196,9 @@ void BigStruct2::UpdateSelectionState()
 		field_0x144 |= 4;
 	
 	if (field_0x140 == 0 || (field_0x140 & 0x24) != 0)
-		mwnd->field_0xd4->MsgProc(CVisualObject::MSG_40a, 0, 0);
+		mwnd->RightPanel->MsgProc(CVisualObject::MSG_40a, 0, 0);
 	else
-		mwnd->field_0xd4->MsgProc(CVisualObject::MSG_409, AvailableOrderMask(), 0);
+		mwnd->RightPanel->MsgProc(CVisualObject::MSG_409, AvailableOrderMask(), 0);
 
 	mwnd->field_0xe0->MsgProc(CVisualObject::MSG_410, 0, 0);
 	mwnd->field_0xe4->MsgProc(CVisualObject::MSG_410, 0, 0);
@@ -3601,14 +3601,14 @@ void BigStruct2::FUN_0041b636()
 { //41b636
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if ((mwnd->field_0x418 & 2) == 0)
+	if ((mwnd->dialogsMask & 2) == 0)
 		RemoveChild(mwnd->field_0xec);
 	else
 		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->field_0xec);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->field_0xd4->MsgProc(0x408, 0, 0);
+	mwnd->RightPanel->MsgProc(0x408, 0, 0);
 
 	FUN_0041b6e0();
 }
@@ -3624,7 +3624,7 @@ void BigStruct2::FUN_0041b509()
 	else
 		mwnd->field_0xec->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
 
-	if ((mwnd->field_0x418 & 2) == 0)
+	if ((mwnd->dialogsMask & 2) == 0)
 		AddChild(mwnd->field_0xec);
 	else
 	{
@@ -3634,7 +3634,7 @@ void BigStruct2::FUN_0041b509()
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->field_0xd4->MsgProc(0x408, 0, 0);
+	mwnd->RightPanel->MsgProc(0x408, 0, 0);
 
 	FUN_0041b6e0();
 }

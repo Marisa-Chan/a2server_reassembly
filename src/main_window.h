@@ -90,20 +90,20 @@ struct Fame2
 
 ASSERT_SIZE(Fame2, 0x3C);
 
-struct MWin_5e8
+struct CFameHall
 {
-    uint32_t field_x0;
-    uint32_t field_x4;
-    uint32_t field_x8;
-    uint32_t field_xc;
-    CArray<Fame1> fame1_arr;
-    CArray<Fame2> fame2_arr;
+    uint32_t difficulty;
+    uint32_t m_nTotalTime;
+    uint32_t m_nDifficultyWeight;
+    uint32_t m_nMaxEntries;
+    CArray<Fame1> m_Entries;
+    CArray<Fame2> m_Documents;
 
-    MWin_5e8();
-    ~MWin_5e8();
+    CFameHall();
+    ~CFameHall();
 
-    void FUN_004ac3af();
-    void FUN_00497270(uint32_t arg);
+    void ZeroFactors();
+    void SetDifficulty(uint32_t arg);
     uint32_t FUN_004ac566(int32_t arg);
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
@@ -115,11 +115,11 @@ struct MWin_5e8
 
     void SubmitScore(); //4ac498
 
-    int32_t FUN_00497290() { return field_x0; }; //497290
-    void AddMissionElapsedTime(int32_t t) { field_x4 += t; } //497250
+    int32_t GetDifficulty() { return difficulty; }; //497290
+    void AddMissionElapsedTime(int32_t t) { m_nTotalTime += t; } //497250
 };
 
-ASSERT_SIZE(MWin_5e8, 0x38);
+ASSERT_SIZE(CFameHall, 0x38);
 
 
 struct UserShortcut
@@ -146,7 +146,7 @@ struct HatCharId
     int32_t id2;
 };
 
-class SomeMainStructure : public CObject
+class CGameSession : public CObject
 {
 public:
     int32_t GetStringArray1Size(); //438d10
@@ -165,22 +165,26 @@ public:
     void FUN_00493d8d(); //493d8d
     void FUN_00494687(); //494687
     void FUN_004941c0(); //4941c0
+
+
+    void RefreshCharacterRosterFiles(int val); //49265a
+    void InitializeNewCharacterSession(int tp, const char* name); //493ab6
 public:
     int32_t field_0x4;
-    int32_t field_0x8;
-    int32_t field_0xc;
+    int32_t sessionKeyPart1;
+    int32_t sessionKeyPart2;
     char character_name[32];
     int32_t flags;
-    int32_t field_0x34;
+    int32_t type;
     int32_t money;
     int32_t monster_killed;
     int32_t player_killed;
-    int32_t field_0x44;
+    int32_t fragCount;
     int32_t death_count;
-    int32_t field_0x4c;
-    int32_t field_0x50;
-    int32_t field_0x54;
-    int32_t field_0x58;
+    int32_t body;
+    int32_t reaction;
+    int32_t mind;
+    int32_t spirit;
     int32_t main_sphere;
     int32_t face;
     int32_t field_0x64;
@@ -193,8 +197,8 @@ public:
     int32_t field_0x80;
     int32_t field_0x84;
     int32_t color;
-    UserShortcut field_0x8c[9];
-    CStringArray string_array1;
+    UserShortcut shortcuts[9];
+    CStringArray characterRosterNames;
     int32_t field_0x10c;
     int32_t field_0x110;
     int32_t field_0x114;
@@ -204,11 +208,11 @@ public:
     int32_t field_0x144;
     int32_t field_0x148;
     int32_t field_0x14c;
-    CStringArray string_array2;
+    CStringArray characterRosterFilePaths;
     int32_t field_0x164;
     CWordArray word_array;
 };
-ASSERT_SIZE(SomeMainStructure, 0x17c);
+ASSERT_SIZE(CGameSession, 0x17c);
 
 struct HatSettings
 {
@@ -270,6 +274,8 @@ public:
     {
         MSG_421 = 0x421,
         MSG_428 = 0x428,
+        MSG_42f = 0x42f,
+        MSG_487 = 0x487,
     };
 public: // VTable at 0060c1a8.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
@@ -305,7 +311,7 @@ public:
 
     void FUN_00494c91(); //494c91
 
-    void FUN_00491b3e(); //491b3e
+    void ShowStartGameSetupForNewSession(); //491b3e
 
     void Proc_44c(CVisualObject* obj); //48b061
 
@@ -338,9 +344,12 @@ public:
 
     void ShowGlobalMapDialog(); //48d34b
 
+    void InitNewCampaignSession(); //48dd3a
+
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
     void SetMusicProc(void (*func)()) { music_update_proc = func; } //45cc80
+
 
 public:
     int32_t field_0xbc;
@@ -348,15 +357,15 @@ public:
     void (*music_update_proc)();
     MusicPlayer* music_player;
     CVisualObject* vis_root;
-    BigStruct2* field_0xd0; // BigStruct2*
-    CVisualObject* field_0xd4;
+    BigStruct2* MapWnd; // 0xd0
+    CVisualObject* RightPanel; //0xd4
     CVisualObject* field_0xd8;
     CVisualObject* field_0xdc;
     VisCharInfo* field_0xe0;
     CVisualObject* field_0xe4;
     VisInvType1* field_0xe8;
     VisSpellBook* field_0xec;
-    VisGlobalMap* field_0xf0;
+    VisGlobalMap* global_map_wnd;
     VisScreen* field_0xf4;
     CVisualObject* field_0xf8;
     CVisualObject* field_0xfc;
@@ -386,7 +395,7 @@ public:
     int32_t field_0x368;
     VisScreen* field_0x36c;
     VisCharSelect* vis_charsel;
-    VisCharGen* field_0x374;
+    VisCharGen* StartGameSetupWnd; //0x374
     VisScreen* field_0x378; // BigStruct1*
     VisScreen* field_0x37c;
     CString field_0x380;
@@ -418,8 +427,8 @@ public:
     int32_t field_0x410;
     CCursor* item_cursor;
 
-    int32_t field_0x418; //dialogsMask
-    int32_t field_0x41c;
+    int32_t dialogsMask; //dialogsMask
+    int32_t serverLoopCounter;
     int32_t game_tic_counter;
     int32_t field_0x424;
     int32_t last_tic_time;
@@ -438,9 +447,9 @@ public:
     int32_t field_0x45c;
     int32_t field_0x460;
     int32_t field_0x464;
-    SomeMainStructure some_struc;
+    CGameSession m_GameSession;
     int32_t field_0x5e4;
-    MWin_5e8 field_0x5e8;
+    CFameHall m_FameHall; //5e8
     CString current_map_name;
     int32_t field_0x624;
     HCURSOR cursor_sizewe;
@@ -448,8 +457,8 @@ public:
     HCURSOR cursor_sizenwse;
     HCURSOR cursor_sizenesw;
     HCURSOR cursor_arrow;
-    int32_t field_0x63c;
-    int32_t field_0x640;
+    int32_t serverBootstrapEnabled; //0x63c
+    int32_t sessionMode; //0x640
     RECT clip_cursor_rect; //0x644
     CStatusBar status_bar;
     CListBox list_box1;

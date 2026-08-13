@@ -56,7 +56,7 @@ HMODULE g_scenario_dll;
 // 43A857
 void __cdecl sub_43A857(const char* source) {
 	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
-	if (!mainWnd || mainWnd->field_0x640 != 3) {
+	if (!mainWnd || mainWnd->sessionMode != 3) {
 		return;
 	}
 
@@ -465,9 +465,9 @@ BOOL GameApp::InitInstance()
 
 	FUN_00475e7a();
 
-	mwnd->field_0x5e8.FUN_004ac3af();
-	mwnd->field_0x5e8.FUN_00497270(1);
-	mwnd->field_0x5e8.FUN_004ac566(1);
+	mwnd->m_FameHall.ZeroFactors();
+	mwnd->m_FameHall.SetDifficulty(1);
+	mwnd->m_FameHall.FUN_004ac566(1);
 
 	g_DWORD_00659d18 = 0;
 
@@ -573,14 +573,14 @@ BOOL GameApp::InitInstance()
 	CFile ffame;
 	if (!ffame.Open("famehall.dat", 0))
 	{
-		mwnd->field_0x5e8.FUN_004acafa();
+		mwnd->m_FameHall.FUN_004acafa();
 	}
 	else
 	{
 		if (!ffame.GetLength())
-			mwnd->field_0x5e8.FUN_004acafa();
+			mwnd->m_FameHall.FUN_004acafa();
 		else
-			mwnd->field_0x5e8.FUN_004ac945(&ffame);
+			mwnd->m_FameHall.FUN_004ac945(&ffame);
 
 		ffame.Close();
 	}
@@ -617,15 +617,15 @@ BOOL GameApp::InitInstance()
 	ScenarioLeaveShop = GetProcAddress(g_scenario_dll, (LPCSTR)8);
 	ScenarioEnterInn = GetProcAddress(g_scenario_dll, (LPCSTR)9);
 	ScenarioLeaveInn = GetProcAddress(g_scenario_dll, (LPCSTR)10);
-	ScenarioNewGame = GetProcAddress(g_scenario_dll, (LPCSTR)11);
+	ScenarioNewGame = (void(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)11);
 	ScenarioSave = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
 	ScenarioLoad = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)13);
 	ScenarioGetAvailableLocations = (CList<ScenarioLocation*>* (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)14);
 	ScenarioGetShopAssortment = GetProcAddress(g_scenario_dll, (LPCSTR)15);
 	ScenarioIsTownAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)16);
 	ScenarioIsMissionAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)17);
-	ScenarioGetCurrentLocation = (Location * (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)18);
-	ScenarioGetAllLocations = GetProcAddress(g_scenario_dll, (LPCSTR)19);
+	ScenarioGetCurrentLocation = (ScenarioLocation * (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)18);
+	ScenarioGetAllLocations = (CList<ScenarioLocation*>*(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)19);
 
 	mwnd->field_0x45c = 0;
 

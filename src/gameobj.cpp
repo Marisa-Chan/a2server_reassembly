@@ -53,7 +53,7 @@ CGameObject::CGameObject()
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd)
-        field_0xe8 = wnd->field_0xd0;
+        field_0xe8 = wnd->MapWnd;
 
     field_0xe4 = 0;
     field_0xec[0] = 0;
@@ -131,7 +131,7 @@ void CGameObject::AssertValid() const
 { //461dfa
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    if ((mwnd->field_0x418 & 1) != 0 && 
+    if ((mwnd->dialogsMask & 1) != 0 && 
         (x_pos < 1792 || y_pos < 1792 || 
         (field_0xe8->field_0x84 - 7) * 256 <= x_pos ||
         (field_0xe8->field_0x88 - 7) * 256 <= y_pos || 

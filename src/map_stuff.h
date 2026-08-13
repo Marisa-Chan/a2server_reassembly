@@ -361,15 +361,6 @@ public:
 };
 ASSERT_SIZE(Scenario, 0x30);
 
-struct Location
-{
-    int32_t field_0x0;
-    int32_t loctype;
-    CRect rect;
-
-    int GetType() { return loctype; } //475150
-};
-
 
 void __cdecl MissionGetBriefing(CString* out); //4e13db
 void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4

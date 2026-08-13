@@ -122,6 +122,9 @@ struct ScenarioLocation
 	int32_t kind;
 	int32_t id;
 	CRect rect;
+
+	int GetId() { return id; } //475150
+	CRect& GetRect() { return rect; } //475170
 };
 
 extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
@@ -133,15 +136,15 @@ extern "C" FARPROC ScenarioEnterShop; //665b0c
 extern "C" FARPROC ScenarioLeaveShop; //665b08
 extern "C" FARPROC ScenarioEnterInn; //665be8
 extern "C" FARPROC ScenarioLeaveInn; //6658f0
-extern "C" FARPROC ScenarioNewGame; //6658cc
+extern "C" void(__stdcall* ScenarioNewGame)(); //6658cc
 extern "C" void (__stdcall* ScenarioSave)(CFile*); //6658d0
 extern "C" void (__stdcall* ScenarioLoad)(CFile*); //665bd8
 extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAvailableLocations)(); //6658c4
 extern "C" FARPROC ScenarioGetShopAssortment; //665bdc
 extern "C" FARPROC ScenarioIsTownAvailable; //665cf4
 extern "C" FARPROC ScenarioIsMissionAvailable; //6659f8
-extern "C" Location* (__stdcall* ScenarioGetCurrentLocation)(); //6658f4
-extern "C" FARPROC ScenarioGetAllLocations; //665cf0
+extern "C" ScenarioLocation* (__stdcall* ScenarioGetCurrentLocation)(); //6658f4
+extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAllLocations)(); //665cf0
 
 
 

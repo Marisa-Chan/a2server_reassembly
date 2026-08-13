@@ -9,7 +9,7 @@
 #include "gameobj.h"
 
 
-class SomeMainStructure;
+class CGameSession;
 class VisLabel;
 class CGameBitmap;
 class CGameObject;
@@ -623,7 +623,7 @@ public:
 	void FUN_00432655(CUnit* unit);
 
 public:
-	SomeMainStructure* pCharacters;
+	CGameSession* pCharacters;
 	CVisualObject* field_0x6c;
 	BigStruct2* gameinterface;
 	VisCharSellectStats* vis_stats;
@@ -1389,60 +1389,64 @@ public:
 
 	CString GetName() { return char_name; } // 4973f0
 	CString GetClan() { return clan_name; } // 497430
-	int32_t FUN_004973d0() { return field_0x20c; } //4973d0
-	int32_t FUN_004973b0() { return DWORD_0060bd60[field_0x208]; } //4973b0
+	int32_t GetSelectedDifficulty() { return selectedDifficultyIndex; } //4973d0
+	void SetSelectedDifficulty(int diff) { selectedDifficultyIndex = diff; } //497370
+	int32_t GetSelectedPortraitPlayerType() { return DWORD_0060bd60[selectedPortraitIndex]; } //4973b0
+	void SetSelectedPortraitPlayerType(int id) { selectedPortraitIndex = id; } //497350
+	void SetCharName(const CString& name) { char_name = name; } //497390
+
 public:
-	CBmp64* field_0x68;
-	CBmp256* field_0x6c;
-	CBmp64* field_0x70;
-	int32_t field_0x74;
-	CPoint field_0x78;
-	CArray<CRect> field_0x80;
-	CArray<CBmp64*> field_0x94;
-	CArray<CBmp64*> field_0xa8;
-	CArray<CBmp64*> field_0xbc;
-	CArray<CBmp64*> field_0xd0;
-	CArray<CBmp64*> field_0xe4;
-	CArray<CBmp64*> field_0xf8;
-	CArray<CRect> field_0x10c;
-	CArray<CRect> field_0x120;
-	CUIntArray field_0x134;
-	CUIntArray field_0x148;
-	CBmp64* field_0x15c;
-	CBmp64* field_0x160;
-	CBmp64* field_0x164;
-	CArray<CBmp64*> field_0x168;
-	CArray<CBmp64*> field_0x17c;
-	CRect field_0x190;
-	CRect field_0x1a0;
-	int32_t field_0x1b0;
-	int32_t field_0x1b4;
-	int32_t field_0x1b8;
+	CBmp64* mainAreaBitmap; //0x68
+	CBmp256* hotspotMaskBitmap; // 0x6c;
+	CBmp64* blindAnimation; // 0x70;
+	int32_t blindAnimationFrame; // 0x74;
+	CPoint blindAnimationPosition; // 0x78;
+	CArray<CRect> blindSpawnRects; // 0x80;
+	CArray<CBmp64*> portraitSelectedBitmaps; // 0x94;
+	CArray<CBmp64*> portraitHoverBitmaps; // 0xa8;
+	CArray<CBmp64*> portraitSelectedHoverBitmaps; // 0xbc;
+	CArray<CBmp64*> difficultySelectedBitmaps; // 0xd0;
+	CArray<CBmp64*> difficultyHoverBitmaps; // 0xe4;
+	CArray<CBmp64*> difficultySelectedHoverBitmaps; // 0xf8;
+	CArray<CRect> portraitRects; // 0x10c;
+	CArray<CRect> difficultyRects; // 0x120;
+	CUIntArray portraitStateFlags; // 0x134;
+	CUIntArray difficultyStateFlags; // 0x148;
+	CBmp64* returnToGameButtonBitmap; // 0x15c;
+	CBmp64* acceptButtonBitmap; // 0x160;
+	CBmp64* tableauBitmap; // 0x164;
+	CArray<CBmp64*> leftTorchFrames; // 0x168;
+	CArray<CBmp64*> rightTorchFrames; // 0x17c;
+	CRect returnToGameButtonRect; // 0x190;
+	CRect acceptButtonRect; // 0x1a0;
+	int32_t torchFrameTick; // 0x1b0;
+	CBmp64* returnToGameHoverBitmap; // 0x1b4;
+	CBmp64* acceptHoverBitmap; // 0x1b8;
 	int32_t field_0x1bc;
 	int32_t field_0x1c0;
-	CSound field_0x1c4;
-	CSound field_0x1c8;
-	CSound field_0x1cc;
-	CSound field_0x1d0;
-	CSound field_0x1d4;
-	CSound field_0x1d8;
-	CSound field_0x1dc;
-	CSound field_0x1e0;
-	CSound field_0x1e4;
-	int32_t field_0x1e8;
-	VisCharGenTextBox* field_0x1ec;
-	VisCharGenTextBox* field_0x1f0;
-	VisCharGenTextBox* field_0x1f4;
-	VisScreen* field_0x1f8;
-	CString char_name;
-	CString clan_name;
+	CSound difficultyLevel1Sound; // 0x1c4;
+	CSound difficultyLevel2Sound; // 0x1c8;
+	CSound difficultyLevel3Sound; // 0x1cc;
+	CSound portraitSelectSound; // 0x1d0;
+	CSound acceptSound; // 0x1d4;
+	CSound returnSound; // 0x1d8;
+	CSound labelInputSound1; // 0x1dc;
+	CSound labelInputSound2; // 0x1e0;
+	CSound labelInputSound3; // 0x1e4;
+	int32_t labelInputSoundIndex;
+	VisCharGenTextBox* networkNameLabel; // 0x1ec;
+	VisCharGenTextBox* nameLabel; // 0x1f0;
+	VisCharGenTextBox* clanLabel; // 0x1f4;
+	VisScreen* tipsPrompt; // 0x1f8;
+	CString char_name; // 0x1fc
+	CString clan_name; // 0x200
 	int32_t field_0x204;
-	int32_t field_0x208;
-	int32_t field_0x20c;
-	int32_t field_0x210;
-	int32_t field_0x214;
-	int32_t field_0x218;
-	int32_t field_0x21c;
+	int32_t selectedPortraitIndex; // 0x208;
+	int32_t selectedDifficultyIndex; // 0x20c;
+	int32_t committedDifficultyIndex; // 0x210;
+	int32_t committedPortraitIndex; // 0x214;
+	int32_t tipsProgress; // 0x218;
+	int32_t dialogActiveFlag; // 0x21c;
 
 	static const int32_t DWORD_0060bd60[4];
 };
@@ -1594,12 +1598,23 @@ public:
 };
 ASSERT_SIZE(VisServerScreen, 0x78);
 
+
+class GlobalMapRouteArray : public CWordArray
+{
+public:
+public:
+	int32_t routeCost = 0;
+};
+ASSERT_SIZE(GlobalMapRouteArray, 0x18);
+
 //60b760
 class VisGlobalMap : public VisScreen
 {
 public:
-	void FUN_0047024a(); //47024a
-	void FUN_004972a0(const CPoint& pt) { field_0x104 = pt; } //4972a0
+	void SetTravelOrigin(const CPoint& pt) { currentLocationPoint = pt; } //4972a0
+
+	void RebuildScenarioLocations(); //47024a
+	void PopulateScenarioLocationFlags(); //47025d
 public:
 	CBmp64* gmap;
 	CBmp64* hero_bmp;
@@ -1616,35 +1631,34 @@ public:
 	CBmp64* scrollp1_bmp;
 	CBmp64* scrollp3_bmp;
 	CBmp64* scrollp2_bmp;
-	CWordArray field_0xa4;
-	CArray<CRect> field_0xb8;
-	CArray<CPoint> field_0xcc;
-	CArray<CPoint> field_0xe0;
-	CPoint field_0xf4;
-	CPoint field_0xfc;
-	CPoint field_0x104;
-	CPoint field_0x10c;
-	CRect field_0x114;
-	int32_t field_0x124;
-	int32_t field_0x128;
-	int32_t field_0x12c;
-	uint32_t field_0x130; //unk
-	uint32_t field_0x134; //unk
-	uint32_t field_0x138;
-	CWordArray field_0x13c; //++
-	int32_t field_0x150;    //++
-	CArray<CPoint>*** field_0x154;
-	CArray<CPoint> field_0x158;
-	CArray<DWORD> field_0x16c; //unk
+	CWordArray locationAvailabilityFlags;
+	CArray<CRect> locationHitRects;
+	CArray<CPoint> locationPoints;
+	CArray<CPoint> travelRoutePoints;
+	CSize heroBitmapSize;
+	CPoint heroDrawPoint;
+	CPoint currentLocationPoint;
+	CPoint targetLocationPoint;
+	CRect partDetailsRect;
+	int32_t hoveredLocationIndex;
+	int32_t mapFlagAnimationFrame;
+	int32_t travelProgress;
+	int32_t partyFlagAnimationFrame;
+	int32_t targetCrossAnimationFrame;
+	uint32_t bestRouteCost;
+	GlobalMapRouteArray routeNodeIndices;
+	void* routeAdjacencyMatrix;
+	CArray<CPoint> graphNodePoints;
+	CArray<DWORD> locationMetadata;
 	CSound snd_scrollup;
 	CSound snd_scrolldn;
 	CSound snd_point1;
 	CSound snd_point2;
-	uint32_t field_0x190; //unk
-	uint32_t field_0x194; //unk
-	CString field_0x198;
-	CStringArray field_0x19c;
-	int32_t field_0x1b0;
+	int32_t routePointSoundIndex;
+	int32_t renderActiveFlag;
+	CString hoveredLocationTitle;
+	CStringArray hoveredLocationLines;
+	int32_t umoirMapMode;
 };
 ASSERT_SIZE(VisGlobalMap, 0x1b4);
 

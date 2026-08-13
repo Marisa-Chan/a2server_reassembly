@@ -1436,11 +1436,11 @@ extern ??0CEdit2@@QAE@XZ :proc   ; (public: __thiscall CEdit2::CEdit2(void))
 extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(void))
 
 
-;SomeMainStructure
-externdef ?FUN_004946e0@SomeMainStructure@@QAEXXZ  : proc
-externdef ?FUN_004946ae@SomeMainStructure@@QAEXXZ  : proc
-externdef ?FUN_00420070@SomeMainStructure@@QAE?AVCString@@XZ : proc
-externdef ?FUN_00494982@SomeMainStructure@@QAEXXZ : proc
+;CGameSession
+externdef ?FUN_004946e0@CGameSession@@QAEXXZ  : proc
+externdef ?FUN_004946ae@CGameSession@@QAEXXZ  : proc
+externdef ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ : proc
+externdef ?FUN_00494982@CGameSession@@QAEXXZ : proc
 
 
 
@@ -1467,7 +1467,7 @@ externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
-externdef ?FUN_00491b3e@MainWindow@@QAEXXZ : proc
+extern ?ShowStartGameSetupForNewSession@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00478130@MainWindow@@QAEXXZ : proc
 
@@ -1479,11 +1479,11 @@ extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
 
 
-extern ??0MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::MWin_5e8(void))
-extern ??1MWin_5e8@@QAE@XZ  :proc   ; (public: __thiscall MWin_5e8::~MWin_5e8(void))
-extern ?FUN_004ac3af@MWin_5e8@@QAEXXZ  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac3af(void))
-extern ?FUN_00497270@MWin_5e8@@QAEXI@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_00497270(unsigned int))
-extern ?FUN_004ac3ce@MWin_5e8@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall MWin_5e8::FUN_004ac3ce(struct Fame1 const &))
+extern ??0CFameHall@@QAE@XZ  :proc   ; (public: __thiscall CFameHall::CFameHall(void))
+extern ??1CFameHall@@QAE@XZ  :proc   ; (public: __thiscall CFameHall::~CFameHall(void))
+extern ?ZeroFactors@CFameHall@@QAEXXZ  :proc   ; (public: void __thiscall CFameHall::ZeroFactors(void))
+extern ?SetDifficulty@CFameHall@@QAEXI@Z  :proc   ; (public: void __thiscall CFameHall::SetDifficulty(unsigned int))
+extern ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall CFameHall::FUN_004ac3ce(struct Fame1 const &))
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
 extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
@@ -1551,11 +1551,14 @@ externdef ?g_kbControlState@@3HA : dword
 externdef ?g_kbShiftState@@3HA : dword
 externdef ?g_kbMenuState@@3HA : dword
 
-externdef ?FUN_00493cd8@SomeMainStructure@@QAEXXZ : proc
-externdef ?FUN_00492c66@SomeMainStructure@@QAEXH@Z : proc
+externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
+externdef ?FUN_00492c66@CGameSession@@QAEXH@Z : proc
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
-extern ?FUN_00493ffe@SomeMainStructure@@QAEHXZ : proc
-extern ?FUN_004941c0@SomeMainStructure@@QAEXXZ : proc
+extern ?FUN_00493ffe@CGameSession@@QAEHXZ : proc
+extern ?FUN_004941c0@CGameSession@@QAEXXZ : proc
+
+externdef ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
+externdef ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 extern ?ShowGlobalMapDialog@MainWindow@@QAEXXZ : proc
 
@@ -1969,7 +1972,7 @@ externdef ?FUN_00497310@Vis1200@@QAEHXZ  : proc
 externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
 
 ;VisGlobalMap
-externdef ?FUN_0047024a@VisGlobalMap@@QAEXXZ : proc
+extern ?RebuildScenarioLocations@VisGlobalMap@@QAEXXZ  : proc
 
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc

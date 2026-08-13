@@ -4083,12 +4083,12 @@ IngameMenu::IngameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     //Save game
     MenuButton* btn = new MenuButton(1, txt_dialogs.GetLine(34), g_font1, 0, 0x41a, 'S', "");
 
-    if (mwnd->field_0x640 == 0 || mwnd->field_0x640 == 1)
+    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1)
         btn->ChangeFlags(FLAG_ENABLED, false);
 
     AddElement(btn, 30);
 
-    if (mwnd->field_0x640 == 2)
+    if (mwnd->sessionMode == 2)
     {
         //Load game
         btn = new MenuButton(2, txt_dialogs.GetLine(35), g_font1, 0, 0x418, 'L', "");
@@ -4585,7 +4585,7 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         FindChild(2)->WriteData(&dat);
         mwnd->SetSpeed(dat.v);
 
-        if (mwnd->field_0x640 == 2)
+        if (mwnd->sessionMode == 2)
             FindChild(13)->WriteData(&g_settings.TipsMode);
         else
             FindChild(13)->WriteData(&g_settings.ClanNames);
@@ -4631,12 +4631,12 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
             g_settings.AutoCasting |= 4;
 
 
-        mwnd->field_0xd0->FUN_0041abd2(*g_settings.pFormationMode % 3);
-        mwnd->field_0xd0->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
-        mwnd->field_0xd0->FUN_0041ab74();
+        mwnd->MapWnd->FUN_0041abd2(*g_settings.pFormationMode % 3);
+        mwnd->MapWnd->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
+        mwnd->MapWnd->FUN_0041ab74();
     }
     if (g_settings.ShowTimeFlow != oldshtfl)
-        mwnd->field_0xd0->FUN_0041d97e(1);
+        mwnd->MapWnd->FUN_0041d97e(1);
 
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
@@ -4654,7 +4654,7 @@ void GameOptionsWindow::VMethod26()
     VisScrollBar* scrl = new VisScrollBar(2, 40, 84, 232, 108, txt_dialogs.GetLine(51));
     AddChild(scrl);
 
-    if (mwnd->field_0x640 == 0)
+    if (mwnd->sessionMode == 0)
         scrl->ChangeFlags(FLAG_ENABLED, false);
 
     VisScrollBar::Data sd;
@@ -4719,14 +4719,14 @@ void GameOptionsWindow::VMethod26()
 
     VisRadioType1* clantips = new VisRadioType1(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
 
-    if (mwnd->field_0x640 == 2)
+    if (mwnd->sessionMode == 2)
         clantips->AddEntry(txt_dialogs.GetLine(156)); //tips
     else
         clantips->AddEntry(txt_dialogs.GetLine(175)); //clans
 
     AddChild(clantips);
 
-    if (mwnd->field_0x640 == 2)
+    if (mwnd->sessionMode == 2)
         clantips->ReadData(&g_settings.TipsMode);
     else
         clantips->ReadData(&g_settings.ClanNames);
@@ -4856,13 +4856,13 @@ EndGameMenu::EndGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 
     MenuButton* btn = nullptr;
 
-    if (mwnd->field_0x640 == 1 || mwnd->field_0x640 == 3 || mwnd->field_0x640 == 0)
+    if (mwnd->sessionMode == 1 || mwnd->sessionMode == 3 || mwnd->sessionMode == 0)
         btn = new MenuButton(1, txt_dialogs.GetLine(42), g_font1, nullptr, 0x41d, 'C', ""); //restart mission
     else
         btn = new MenuButton(1, txt_dialogs.GetLine(43), g_font1, nullptr, 0x41d, 'V', ""); //win
     AddElement(btn, 30);
 
-    if (unk2 == 0 && mwnd->field_0x640 == 2)
+    if (unk2 == 0 && mwnd->sessionMode == 2)
         btn->ChangeFlags(FLAG_ENABLED, false);
     
     if (g_CLlDriver.GetProvider() == 4)
@@ -5043,7 +5043,7 @@ void SoundPreferencesDialogVisualObject::VMethod26()
     btn_raport->ReadData(&g_settings.Acknowledgement);
     AddChild(btn_raport);
 
-    if (mwnd->field_0x640 == 0 || mwnd->field_0x640 == 1)
+    if (mwnd->sessionMode == 0 || mwnd->sessionMode == 1)
         btn_raport->ChangeFlags(FLAG_ENABLED, false);
 
 
@@ -5162,4 +5162,24 @@ void SoundPreferencesDialogVisualObject::VMethod26()
     scrl_efvol->SetDownObj(scrl_svol);
 
     music_player->SetPlayNotify(1);
+}
+
+
+
+void VisGlobalMap::RebuildScenarioLocations()
+{ //47024a
+    PopulateScenarioLocationFlags();
+}
+
+void VisGlobalMap::PopulateScenarioLocationFlags()
+{ //47025d
+    CList<ScenarioLocation*> *locs = ScenarioGetAllLocations();
+    for (POSITION pos = locs->GetHeadPosition(); pos != nullptr;)
+    {
+        ScenarioLocation* loc = locs->GetNext(pos);
+        locationPoints.Add(loc->GetRect().TopLeft());
+
+        if (loc->GetRect().BottomRight() == CPoint(0, 0))
+            locationAvailabilityFlags.Add(1);
+    }
 }
