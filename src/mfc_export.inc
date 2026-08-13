@@ -1199,12 +1199,13 @@ externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
 externdef ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
-externdef ?sub_5AC289@World@@QAEXPAVGroup@@EE@Z :proc
 externdef ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z :proc
 externdef ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z :proc
 externdef ?sub_5AC206@World@@QAEXPAVGroup@@EEPAVSpell@@@Z :proc
 externdef ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z :proc
 externdef ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z :proc
+externdef ?sub_5A8EFB@World@@QAEXPAVUnit@@EE@Z :proc    ; World::sub_5A8EFB(Unit*, uint8_t, uint8_t)
+externdef ?sub_5AB719@World@@QAEIPAVGroup@@@Z :proc     ; World::sub_5AB719(Group*)
 externdef ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z :proc
 externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z :proc

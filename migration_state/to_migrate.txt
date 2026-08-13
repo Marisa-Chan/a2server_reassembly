@@ -276,6 +276,7 @@
 ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z	87
 ?sub_5AA485@World@@QAEXPAVUnit@@@Z	88
 ?sub_5AC983@World@@QAEXPAVGroup@@H@Z	89
+?sub_5A8EFB@World@@QAEXPAVUnit@@EE@Z	91
 ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z	93
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z	94
 ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z	110
@@ -284,12 +285,11 @@
 ?sub_5B6346@World@@QAEXXZ	162
 ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z	169
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z	190
+?sub_5AB719@World@@QAEIPAVGroup@@@Z	191
 ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z	198
 ?sub_5AF805@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5AFA01@World@@QAEXHHHPAVPlayer@@@Z	199
 ?sub_5A4757@World@@QAEXXZ	211
-?sub_5AC507@World@@QAEXPAVGroup@@EE@Z	222
-?sub_5AC289@World@@QAEXPAVGroup@@EE@Z	222
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

@@ -839,6 +839,8 @@
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
+?sub_5AC289@World@@QAEXPAVGroup@@EE@Z
+?sub_5AC507@World@@QAEXPAVGroup@@EE@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
 ?sub_5B0724@World@@QAEXXZ
 ?sub_5B0A6A@World@@QAEXXZ

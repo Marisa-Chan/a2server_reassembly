@@ -130,20 +130,22 @@ public:
     void sub_5ACA54(Group* group); //5aca54
     void sub_5AC80F(Group* group, Token* target);
     void sub_5ACB4D(Group* group, Token* target, uint8_t param_3);
-    void sub_5AC289(Group* group, uint8_t x, uint8_t y);
+    void sub_5AC289(Group* group, uint8_t x, uint8_t y); // Group move command.
+    void sub_5AC507(Group* group, uint8_t x, uint8_t y); // Group swarm command.
     void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
     void sub_5AC187(Group* group, Token* target, Spell*);
     void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
     void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
     void sub_5A9AC4(Unit* unit); //5a9ac4
+    void sub_5A8EFB(Unit* unit, uint8_t x, uint8_t y); // Set unit movement target, clamped to map bounds.
     void sub_5A90F4(Unit* unit, Building* bldg);
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);
     void sub_5AC8A2(Group* group, uint8_t param_2);
     void sub_5ACAFA(Group* group);
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);
-    void sub_5AC507(Group* group, uint8_t x, uint8_t y);
     void sub_5ACB9E(Group* group, Token* target, uint8_t param_3);
+    uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
     void sub_5AC7C8(Group* group);
     void sub_5A9383(Unit* unit);
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);

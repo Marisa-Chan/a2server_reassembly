@@ -1259,3 +1259,65 @@ void World::sub_5ACDF4(Group* group)
     FUN_005acd4c(group);
     sub_5ACA54(group);
 }
+
+// Group move command.
+// 5AC289
+void World::sub_5AC289(Group* group, uint8_t x, uint8_t y)
+{
+    this->FUN_005acd4c(group);
+
+    bool use_relative = true;
+    int8_t min_speed = 250;
+    uint8_t origin_x = 0;
+    uint8_t origin_y = 0;
+
+    if (group->owner->settings->formation == 2) {
+        uint32_t pos = this->sub_5AB719(group);
+        origin_x = static_cast<uint8_t>((pos >> 8) & 0xFF);
+        origin_y = static_cast<uint8_t>((pos >> 24) & 0xFF);
+
+        for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* unit = group->unit_list.GetNext(it);
+            uint8_t dist = this->field24_0xa50->sub_593B29(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
+            if (dist > this->gap_0xa724[0]) {
+                use_relative = false;
+            }
+        }
+    } else {
+        use_relative = group->owner->settings->formation != 0;
+        if (use_relative) {
+            uint32_t pos = this->sub_5AB719(group);
+            origin_x = static_cast<uint8_t>((pos >> 8) & 0xFF);
+            origin_y = static_cast<uint8_t>((pos >> 24) & 0xFF);
+        }
+    }
+
+    this->FUN_005acd4c(group);
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (!use_relative) {
+            this->sub_5A8EFB(unit, x, y);
+        } else {
+            unit->eye2->x = unit->position->GetX() - origin_x;
+            unit->eye2->y = unit->position->GetY() - origin_y;
+            this->sub_5A8EFB(unit, x + unit->eye2->x, y + unit->eye2->y);
+            if (unit->speed < min_speed) {
+                min_speed = unit->speed;
+            }
+        }
+    }
+
+    if (use_relative) {
+        group->group_sub->field_0x44 = min_speed;
+    }
+    group->group_sub->field_0x20 = 4;
+    group->group_sub->field_0xa = PosYX(x, y).val;
+}
+
+// Group swarm command. Same as move, but mode is 5.
+// 5AC507
+void World::sub_5AC507(Group* group, uint8_t x, uint8_t y)
+{ 
+    this->sub_5AC289(group, x, y);
+    group->group_sub->field_0x20 = 5;
+}
