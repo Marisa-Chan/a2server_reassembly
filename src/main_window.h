@@ -268,6 +268,7 @@ class MainWindow : public CFrameWnd
 public:
     enum
     {
+        MSG_421 = 0x421,
         MSG_428 = 0x428,
     };
 public: // VTable at 0060c1a8.

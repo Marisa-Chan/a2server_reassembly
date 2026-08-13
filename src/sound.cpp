@@ -20,6 +20,8 @@ HWND g_dsound_hwnd;
 
 int32_t g_CurrentMusicTrack = -1; //62faa0
 
+SfxBank SoundBank_fighter[2]; //6664b0
+
 
 SoundSettings::SoundSettings()
 {
@@ -258,9 +260,11 @@ void MusicPlayer::OpenTrack(int32_t track)
 		}
 
 		file->Seek(0x28, 0);
+
+		uint32_t data_length;
 		file->Read(&data_length, 4);
 
-		data_length = file->GetLength() - data_length;
+		data_begin_pos = file->GetLength() - data_length;
 		file_opened = 1;
 		UpdateBufferTime();
 	}
@@ -419,29 +423,29 @@ int32_t MusicPlayer::ComputeVolumeFade(int32_t cur_volume, uint32_t tm)
 
 void MusicPlayer::ReadPortion(uint8_t* buf)
 { //45a707
-	int32_t max_fill_sz = buffer_size / 2;
+	int32_t buffer_space = buffer_size / 2;
 	while (true)
 	{
 		uint32_t fpos = file->GetPosition();
-		uint32_t remain = file->GetLength() - data_length;
+		uint32_t remain = file->GetLength() - data_begin_pos;
 
-		uint32_t rsz = max_fill_sz;
+		uint32_t rsz = buffer_space;
 
-		if ((remain - fpos) < max_fill_sz)
+		if ((remain - fpos) < buffer_space)  //ERROR? because it's compare filepos with only data chunk size
 			rsz = remain - fpos;
 
-		if (file->Read(buf + (buffer_size / 2) - max_fill_sz, rsz) == 0)
+		if (file->Read(buf + (buffer_size / 2) - buffer_space, rsz) == 0)
 		{
 			file_opened = 0;
 			PostMessageA(g_dsound_hwnd, 0x486, 0, 0);
 			break;
 		}
 
-		max_fill_sz -= rsz;
-		if (max_fill_sz == 0)
+		buffer_space -= rsz;
+		if (buffer_space == 0)
 			break;
 
-		end_pos = (buffer_size / 2) - max_fill_sz;
+		end_pos = (buffer_size / 2) - buffer_space;
 		field_0x6c = 1;
 
 		if (g_CurrentMusicTrack < 0)
@@ -478,4 +482,68 @@ void MusicPlayer::StartPlayTrack(int32_t track)
 
 	elapsed_time = 0;
 	end_pos = buffer_size;
+}
+
+void MusicPlayer::SetRandom(int random)
+{ //45b655
+	if (ds_buffer)
+	{
+		field_0x20 = random;
+		play_mode = 0;
+	}
+}
+
+int32_t MusicPlayer::GetVolume()
+{ //451750
+	LONG vol = 0;
+	if (ds_buffer)
+		ds_buffer->GetVolume(&vol);
+	return vol;
+}
+
+int32_t MusicPlayer::GetBufPosition()
+{ //45cba0
+	DWORD pos = 0, wpos;
+	if (ds_buffer)
+		ds_buffer->GetCurrentPosition(&pos, &wpos);
+	return pos;
+}
+
+void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
+{ //45b408
+	if (ds_buffer && file_opened != 0)
+	{
+		fade_to_volume = vol;
+
+		LONG svol;
+		ds_buffer->GetVolume(&svol);
+		fade_start_volume = svol;
+
+		int32_t remain_bytes = (file->GetLength() - data_begin_pos) - file->GetPosition(); //Error because of remain!
+		uint32_t ms_remain = remain_bytes * 1000 / format.nAvgBytesPerSec; //remain to the end in milliseconds
+
+		uint32_t ms_buffend = 0xffffffff;
+		if (end_pos != buffer_size)
+		{
+			int32_t bpos = GetBufPosition();
+			if (end_pos < bpos)
+				ms_buffend = (buffer_size - bpos) + end_pos;
+			else
+				ms_buffend = end_pos - bpos;
+
+			//convert bytes count to milliseconds
+			ms_buffend = ms_buffend * 1000 / format.nAvgBytesPerSec;
+		}
+
+		uint32_t ms_tofade = ms_remain;
+		if (len < ms_remain)
+			ms_tofade = len;
+
+		if (ms_tofade < ms_buffend)
+			fade_length = ms_tofade;
+		else
+			fade_length = ms_buffend;
+
+		fadeout_enabled = 1;
+	}
 }

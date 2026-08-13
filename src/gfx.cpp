@@ -27,6 +27,7 @@ int32_t g_GBitMask = 0x7e0; //62f860
 int32_t g_BBitMask = 0x1f; //62f864
 
 
+uint16_t clrsh_CoralRed[16]; //65f608
 uint16_t clrsh_DullGold[16]; //65f4f8
 uint16_t clrsh_TechBlack[16]; //65f090
 uint16_t clrsh_ShockingBlack[16]; //65e1e8

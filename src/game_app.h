@@ -51,6 +51,7 @@ ASSERT_SIZE(GameSettings, 0x3c);
 
 extern GameSettings g_settings; //660ec0
 
+extern CMapStringToString g_TunesMap; //660d80
 
 
 

@@ -1560,6 +1560,7 @@ externdef ?g_LButtonDown@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
+extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
@@ -2061,6 +2062,7 @@ extern ?clrsh_TechBlack@@3PAGA  :word
 extern ?clrsh_ShockingBlack@@3PAGA  :word
 extern ?clrsh_CharlieBrown@@3PAGA  :word
 extern ?clrsh_LuxorGold@@3PAGA : word
+extern ?clrsh_CoralRed@@3PAGA : word
 
 extern ?clr_log_tblack@@3PAGA  : dword
 extern ?clr_log_sblack@@3PAGA  : dword
@@ -2133,9 +2135,12 @@ extern ??1MusicPlayer@@UAE@XZ : proc
 extern ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z  : proc
 extern ?Play@MusicPlayer@@QAEXXZ : proc
 extern ?OnEndTrack@MusicPlayer@@QAEXXZ : proc
+extern ?BeginFadeOut@MusicPlayer@@QAEXHH@Z : proc
+extern ?SetVolume@MusicPlayer@@QAEXH@Z : proc
 
 extern ?Player@MusicPlayer@@2PAV1@A : dword
 
+extern ?SoundBank_fighter@@3PAVSfxBank@@A : dword
 
 
 ; util.h
@@ -2269,3 +2274,12 @@ extern ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A  : dword
 ;ProjectileInfo
 extern  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 extern ?Init@ProjectileInfo@@QAEXXZ : proc
+
+;SoundPreferencesDialogVisualObject
+extern ??0SoundPreferencesDialogVisualObject@@QAE@HHHHHPAVCGameBitmap@@PAUSoundSettings@@@Z : proc
+
+;QuestObjectivesHeaderDialogVisualObject
+extern ??0QuestObjectivesHeaderDialogVisualObject@@QAE@HHHHH@Z : proc
+
+; TownMenuListDialogVisualObject
+extern ??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z : proc

@@ -3790,6 +3790,73 @@ VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, 
 }
 
 
+QuestObjectivesHeaderDialogVisualObject::QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisMessageBoxWithList(_id, l, t, r, b, g_MissionBriefing, txt_dialogs.GetLine(68), 0xffff)
+{} //445173
+
+void QuestObjectivesHeaderDialogVisualObject::VMethod26()
+{ //4451e1
+    VisMessageBox::VMethod26();
+
+    CStringArray sarr;
+
+    CRect r(0, 0, rect.Width() - 128, 480);
+    int32_t pos = FindChild(2)->GetRect().bottom + 16;
+
+    for (int i = 0; i < g_MissionSubjs.GetSize(); i++)
+    {
+        sarr.Copy(g_font1->StringArrayForRect(r, g_MissionSubjs[i]));
+
+        CRect opos(48, pos - 3, 72, pos + 21);
+        uint8_t bits = ScenarioGetVar(752 + i);
+        if (bits)
+        {
+            uint16_t* colorsh = nullptr;
+            CGameBitmap* bitmap = nullptr;
+            VisBitmap* vis_bitmap = nullptr;
+
+            if (bits & 2)
+            {
+                colorsh = clrsh_ShockingBlack;
+                bitmap = new CSprite256("graphics\\interface\\subobj.256");
+                bitmap->ResetPalette(1, 1, 0);
+                vis_bitmap = new VisBitmap(pos + 1, r, bitmap, 11);
+            }
+            else if (bits & 4)
+            {
+                colorsh = clrsh_CoralRed;
+                bitmap = new CSprite256("graphics\\interface\\subobj.256");
+                bitmap->ResetPalette(1, 1, 0);
+                vis_bitmap = new VisBitmap(pos + 1, r, bitmap, 12);
+            }
+            else if (bits & 1)
+            {
+                colorsh = clrsh_TechBlack;
+                bitmap = new CSprite256("graphics\\interface\\subobj.256");
+                bitmap->ResetPalette(1, 1, 0);
+                vis_bitmap = new VisBitmap(pos + 1, r, bitmap, 10);
+            }
+
+            AddChild(new VisMultiText(pos, 80, pos, rect.Width() - 48, pos + sarr.GetSize() * (g_font1->GetHeight() + 4), g_MissionSubjs[i], g_font1, colorsh, 0));
+            if (vis_bitmap)
+                AddChild(vis_bitmap);
+
+            int32_t dy = 10 + sarr.GetSize() * (g_font1->GetHeight() + 4);
+            pos += dy;
+            rect.bottom += dy;
+        }
+    }
+
+    rect.bottom += 40;
+    VisWindow::UpdateWinRect();
+
+    int32_t rh = rect.Height();
+    int32_t rw = rect.Width();
+
+    CRect cr(rw / 2 - 48, rh - 60, rw / 2 + 48, rh - 36);
+    AddChild(new VisButton(4, cr, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "")); //accept
+}
+
 
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
@@ -4823,4 +4890,276 @@ ExitGameMenu::ExitGameMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 
     btn = new MenuButton(4, txt_dialogs.GetLine(40), g_font1, nullptr, 0x446, 'R', ""); //return to game
     AddElement(btn, 30);
+}
+
+TownMenuListDialogVisualObject::TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r)
+: VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r)
+{ //44160e
+    MenuButton* btn = new MenuButton(2, txt_dialogs.GetLine(34), g_font1, nullptr, 0x41a, 'S', ""); //Save the game
+    AddElement(btn, 30);
+
+    btn = new MenuButton(1, txt_dialogs.GetLine(35), g_font1, nullptr, 0x418, 'L', ""); //load game
+    AddElement(btn, 30);
+
+    btn = new MenuButton(3, txt_dialogs.GetLine(37), g_font1, nullptr, 0x422, 'N', ""); //Sound options
+    AddElement(btn, 30);
+
+    btn = new MenuButton(4, txt_dialogs.GetLine(77), g_font1, nullptr, 0x41c, 'E', ""); //exit
+    AddElement(btn, 30);
+
+    btn = new MenuButton(5, txt_dialogs.GetLine(40), g_font1, nullptr, 0x446, 'E', ""); //return to game
+    AddElement(btn, 30);
+}
+
+
+SoundPreferencesDialogVisualObject::SoundPreferencesDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SoundSettings *pset)
+: VisWindow(_id, l, t, r, b, _bitmap)
+{ //43d917
+    settings = pset;
+}
+
+
+int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{ //43e6f0
+    int32_t result = 0;
+    switch (msg)
+    {
+    case 0x467:
+        result = 1;
+        break;
+
+    case 0x46e:
+        switch (wparam)
+        {
+        case 2:
+            settings->random = lparam;
+            music_player->SetRandom(lparam);
+            result = 1;
+            break;
+
+        case 3:
+            track_index = lparam;
+            result = 1;
+            break;
+
+        case 6:
+        {
+            int32_t vol = ConvSliderToVolume(lparam, settings->field_0xc);
+            int32_t cur_vol = music_player->GetVolume();
+            if (vol != cur_vol)
+            {
+                settings->mus_pos = vol;
+                if (music_player->GetState() != 2)
+                    music_player->SetVolume(vol);
+            }
+            result = 1;
+        }   break;
+
+
+        case 7:
+            settings->sfx_pos = ConvSliderToVolume(lparam, settings->field_0x14);
+            PostMessage(g_MainWndHWND, 0x485, 0, 0);
+            result = 1;
+            break;
+
+        case 8:
+            settings->speech_pos = ConvSliderToVolume(lparam, settings->field_0x1c);
+            result = 1;
+            break;
+        default:
+            result = 1;
+            break;
+        }
+        break;
+
+    case 0x474:
+        if (wparam == 7)
+            g_SfxArray[100]->Play(settings->sfx_pos, 0, 0, 220, 0);
+        else if (wparam == 8)
+            SoundBank_fighter[0].select[1]->Play(settings->sfx_pos, 0, 0, 220, 0);
+        result = 1;
+        break;
+
+    case 0x476:
+        music_player->SetPlayNotify(0);
+        FindChild(40)->WriteData(&g_settings.Acknowledgement);
+        VisScreen::MsgProc(0x445, 0, 0);
+        result = 1;
+        break;
+
+    case 0x477:
+        settings->music_enabled = 1;
+        music_player->SetFadeout(0);
+        if (track_index == music_player->GetCurrentTrackIndex())
+        {
+            music_player->SetVolume(settings->mus_pos);
+            music_player->Play();
+        }
+        else
+        {
+            music_player->OnEndTrack();
+            music_player->StartPlayTrack(track_index);
+            music_player->SetVolume(settings->mus_pos);
+            music_player->Play();
+        }
+        result = 1;
+        break;
+
+    case 0x478:
+        if (music_player->GetState() == 2)
+            music_player->OnEndTrack();
+        if (music_player->GetState() == 1)
+            music_player->BeginFadeOut(2000, 8000);
+
+        settings->music_enabled = 0;
+        result = 1;
+        break;
+
+    default:
+        result = VisScreen::MsgProc(msg, wparam, lparam);
+        break;
+    }
+    return result;
+}
+
+void SoundPreferencesDialogVisualObject::VMethod26()
+{ //43d959
+    MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
+
+    music_player = mwnd->music_player;
+    track_index = 0;
+
+    AddChild(new VisLabel(555, 40, 20, rect.Width() - 40, 45, txt_dialogs.GetLine(7), g_font1, p_clrsh_Black, 2)); //Sound options
+
+    VisLabel* lbl_melodies = new VisLabel(557, 40, 60, rect.Width() - 40, 78, txt_dialogs.GetLine(143), g_font1, p_clrsh_Black, 0); //melodies
+    AddChild(lbl_melodies);
+
+    VisButton* btn_acpt = new VisButton(1, 40, 290, 252, 314, txt_dialogs.GetLine(0), g_font1, nullptr, 0x476, 0, txt_dialogs.GetLine(8)); //Accept
+    btn_acpt->ChangeFlags(FLAG_10, true);
+    AddChild(btn_acpt);
+
+    VisRadioType1* btn_raport = new VisRadioType1(40, 40, 190, 252, 214, g_font1, p_clrsh_Black, txt_dialogs.GetLine(165)); //Raports
+    btn_raport->AddEntry(txt_dialogs.GetLine(165));
+    btn_raport->ReadData(&g_settings.Acknowledgement);
+    AddChild(btn_raport);
+
+    if (mwnd->field_0x640 == 0 || mwnd->field_0x640 == 1)
+        btn_raport->ChangeFlags(FLAG_ENABLED, false);
+
+
+    VisListBox* lst_melody = new VisListBox(3, 40, 80, rect.Width() - 64, 170, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 10, txt_dialogs.GetLine(11)); //Select melody
+    lst_melody->SetSelectedIndex(track_index);
+
+    for (int i = 0; i < music_player->GetPlaylistSize(); i++)
+    {
+        CString trk = music_player->GetPlaylistEntry(i);
+        trk.MakeLower();
+        trk = trk.Mid(6); // music/
+
+        CString name;
+        g_TunesMap.Lookup(trk, name);
+        lst_melody->AddItem(name);
+    }
+    AddChild(lst_melody);
+
+    lst_melody->SetCaptionLabel(lbl_melodies);
+
+
+    CRect r = lst_melody->GetRect();
+    AddChild(new VisScrollBar(10, r.right, r.top, r.right + 24, r.bottom, nullptr));
+
+    VisButton* btn_play = new VisButton(4, 40, 256, 140, 280, txt_dialogs.GetLine(12), g_font1, nullptr, 0x477, 0, txt_dialogs.GetLine(13)); //Play
+    if (settings->field_0x20 == 0)
+    {
+        btn_play->ChangeFlags(FLAG_ENABLED, false);
+        btn_play->SetHint(txt_dialogs.GetLine(23)); //Music disabled
+    }
+    if (music_player->GetPlaylistSize() == 0)
+    {
+        btn_play->ChangeFlags(FLAG_ENABLED, 0);
+        btn_play->SetHint(txt_dialogs.GetLine(75)); //Music opts now unav
+    }
+    AddChild(btn_play);
+
+
+    VisButton* btn_stop = new VisButton(5, 150, 256, 252, 280, txt_dialogs.GetLine(14), g_font1, nullptr, 0x478, 0, txt_dialogs.GetLine(15)); //stop
+    if (settings->field_0x20 == 0)
+    {
+        btn_stop->ChangeFlags(FLAG_ENABLED, 0);
+        btn_stop->SetHint(txt_dialogs.GetLine(23)); //Music unav
+    }
+    if (music_player->GetPlaylistSize() == 0)
+    {
+        btn_stop->ChangeFlags(FLAG_ENABLED, 0);
+        btn_stop->SetHint(txt_dialogs.GetLine(75)); //Music opts now unav
+    }
+    AddChild(btn_stop);
+
+
+    btn_stop->SetUpObj(btn_raport);
+    btn_play->SetUpObj(btn_raport);
+
+    btn_stop->SetDownObj(btn_acpt);
+    btn_play->SetDownObj(btn_acpt);
+
+    btn_play->SetRightObj(btn_stop);
+
+    VisLabel* lbl_mvol = new VisLabel(26, 258, 175, rect.Width() - 40, 190, txt_dialogs.GetLine(16), g_font1, p_clrsh_Black, 2);
+    AddChild(lbl_mvol);
+
+    VisScrollBar* scrl_mvol = new VisScrollBar(6, 258, 190, rect.Width() - 40, 214, txt_dialogs.GetLine(19));
+    AddChild(scrl_mvol);
+
+    scrl_mvol->SetCaptionLabel(lbl_mvol);
+
+    VisScrollBar::Data sd;
+    sd.v = ConvVolumeToSlider(settings->mus_pos, settings->field_0xc);
+    sd.vmax = settings->field_0xc;
+
+    scrl_mvol->ReadData(&sd);
+
+    if (settings->field_0x20 == 0)
+    {
+        scrl_mvol->ChangeFlags(FLAG_ENABLED, false);
+        scrl_mvol->SetHint(txt_dialogs.GetLine(23)); //Music unav
+    }
+    if (music_player->GetPlaylistSize() == 0)
+    {
+        scrl_mvol->ChangeFlags(FLAG_ENABLED, 0);
+        scrl_mvol->SetHint(txt_dialogs.GetLine(75)); //Music opts now unav
+    }
+
+
+    VisLabel* lbl_efvol = new VisLabel(27, 258, 224, rect.Width() - 40, 239, txt_dialogs.GetLine(17), g_font1, p_clrsh_Black, 2); //effects vol
+    AddChild(lbl_efvol);
+
+    VisScrollBar* scrl_efvol = new VisScrollBar(7, 258, 240, rect.Width() - 40, 264, txt_dialogs.GetLine(20));
+    AddChild(scrl_efvol);
+
+    sd.v = ConvVolumeToSlider(settings->sfx_pos, settings->field_0x14);
+    sd.vmax = settings->field_0x14;
+
+    scrl_efvol->ReadData(&sd);
+    scrl_efvol->SetCaptionLabel(lbl_efvol);
+
+
+    VisLabel* lbl_svol = new VisLabel(28, 258, 275, rect.Width() - 40, 290, txt_dialogs.GetLine(18), g_font1, p_clrsh_Black, 2); //speech vol
+    AddChild(lbl_svol);
+
+    VisScrollBar* scrl_svol = new VisScrollBar(8, 258, 290, rect.Width() - 40, 314, txt_dialogs.GetLine(21));
+    AddChild(scrl_svol);
+
+    sd.v = ConvVolumeToSlider(settings->speech_pos, settings->field_0x1c);
+    sd.vmax = settings->field_0x14;
+
+    scrl_svol->ReadData(&sd);
+    scrl_svol->SetCaptionLabel(lbl_svol);
+
+
+    scrl_svol->SetLeftObj(btn_acpt);
+
+    scrl_mvol->SetDownObj(scrl_efvol);
+    scrl_efvol->SetDownObj(scrl_svol);
+
+    music_player->SetPlayNotify(1);
 }

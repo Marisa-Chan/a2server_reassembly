@@ -16,6 +16,7 @@ char g_InitialWorkingDir[1024]; //6654c0
 char g_WorkingDir[1024]; //65fbc8
 
 GameSettings g_settings; //660ec0
+CMapStringToString g_TunesMap; //660d80
 
 uint32_t g_CmdLatency;
 uint32_t g_CmdTimeout = 15000;

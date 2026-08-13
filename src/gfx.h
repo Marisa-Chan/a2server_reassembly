@@ -44,6 +44,7 @@ extern uint16_t clrsh_TechBlack[16]; //65f090
 extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8
 extern uint16_t clrsh_LuxorGold[16]; //65e848
+extern uint16_t clrsh_CoralRed[16]; //65f608
 
 extern uint16_t g_colors_human_pals[16][16]; //65e230
 

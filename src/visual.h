@@ -594,6 +594,16 @@ public:
 };
 ASSERT_SIZE(VisMessageBoxWithList, 0x78);
 
+//60a3a8
+class QuestObjectivesHeaderDialogVisualObject : public VisMessageBoxWithList
+{
+public:
+	QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b);  //445173
+
+	virtual void VMethod26() override; //4451e1
+};
+ASSERT_SIZE(QuestObjectivesHeaderDialogVisualObject, 0x78);
+
 
 //609898
 class VisCharSelect : public VisScreen
@@ -1565,6 +1575,13 @@ public:
 ASSERT_SIZE(ExitGameMenu, 0x7c);
 
 
+class TownMenuListDialogVisualObject : public VisMenuWnd
+{
+public:
+	TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); //44160e
+};
+ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
+
 
 //60aef0
 class VisServerScreen : public VisScreen
@@ -1631,6 +1648,26 @@ public:
 };
 ASSERT_SIZE(VisGlobalMap, 0x1b4);
 
+//609cb0
+class SoundPreferencesDialogVisualObject : public VisWindow
+{
+public:
+	SoundPreferencesDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SoundSettings* pset); //43d917
 
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //43e6f0
+	virtual void VMethod26() override; //43d959
+
+	int32_t ConvVolumeToSlider(int32_t vol, int32_t max_val) { return max_val - (sqrt((float)-vol / (float)max_val) * (float)max_val); } //45ca10
+	int32_t ConvSliderToVolume(int32_t pos, int32_t max_val) //45ca45
+	{
+		float v = (float)(pos - max_val) / (float)max_val;
+		return max_val * (v * v);
+	}
+public:
+	MusicPlayer* music_player;
+	int32_t track_index;
+	SoundSettings* settings;
+};
+ASSERT_SIZE(SoundPreferencesDialogVisualObject, 0x74);
 
 #endif

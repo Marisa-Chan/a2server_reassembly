@@ -1815,6 +1815,30 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             
         }
         break;
+
+    case 0x41e:
+        g_Server->sub_4F1E2A();
+        PostMessage(MSG_421, 0, 0);
+        break;
+
+    case 0x41f:
+        PopUpScreen(new TownMenuListDialogVisualObject(1, 100, 100, 440, 340, CRect(0, 0, 240, 40)));
+        break;
+
+    case 0x420:
+        PopUpScreen(new QuestObjectivesHeaderDialogVisualObject(1, 20, 0, 620, 500));
+        break;
+
+    case 0x421:
+        if (field_0x418 == 0)
+            Proc_421();
+        break;
+
+    case 0x422:
+        if (field_0x418 == 1 || (field_0x418 == 0 && g_Server != nullptr))
+        {
+
+        }
     }
 
     return CWnd::WindowProc(message, wParam, lParam);

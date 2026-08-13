@@ -6,8 +6,10 @@
 
 class SoundChannel;
 class SfxSample;
+class SfxBank;
 struct SoundSettings;
 struct MapMusicInfo;
+
 
 extern IDirectSound* g_dsound; //65dd84
 extern int32_t g_dsound_channel_num; //65ddd8
@@ -15,6 +17,7 @@ extern SoundChannel* g_dsound_channels; //65dda4
 extern CArray<SfxSample*> g_SfxArray; //665eb0
 extern SoundSettings g_SoundSettings; //660df0
 extern CArray<MapMusicInfo*> g_mapmusicinfos; //660f00
+extern SfxBank SoundBank_fighter[2]; //6664b0
 
 
 class SfxSample : public CObject
@@ -102,6 +105,21 @@ public:
 
 	int32_t ComputeVolumeFade(int32_t volume, uint32_t tm); //45a8cc
 
+	int32_t GetPlaylistSize() const { return playlist.GetSize(); } //451890
+	CString& GetPlaylistEntry(int32_t idx) { return playlist[idx]; } //451870
+	CStringArray& GetPlaylist() { return playlist; } //4517f0
+
+	void SetPlayNotify(int _notify) { field_0x68 = _notify; } //451810
+	void SetRandom(int random); //45b655
+
+	void SetFadeout(int fade) { fadeout_enabled = fade; } //451830
+	int32_t GetCurrentTrackIndex() const { return field_0x2c[current_track_id]; } //451850
+
+	int32_t GetVolume(); //451750
+	int32_t GetBufPosition(); //45cba0
+
+	void BeginFadeOut(int32_t len, int32_t vol); //45b408
+
 	static void MusicUpdaterProc(); //45a99c
 public:
 	int32_t gap_0x4;
@@ -125,7 +143,7 @@ public:
 	int32_t elapsed_time;
 	int32_t fade_start_volume;
 	int32_t end_pos;
-	int32_t data_length;
+	int32_t data_begin_pos;
 	CFile* file = nullptr;
 	uint8_t* samples = nullptr;
 	WAVEFORMATEX format;
@@ -133,3 +151,27 @@ public:
 
 };
 ASSERT_SIZE(MusicPlayer, 0xa0);
+
+//60d9d0
+class SfxBank : public CObject
+{
+public:
+	SfxBank() {}; //4c87ef
+	~SfxBank() {}; //4c9480
+public:
+	SfxSample* select[4];
+	SfxSample* attack[4];
+	SfxSample* move[4];
+	SfxSample* swarm[4];
+	SfxSample* retreat;
+	SfxSample* pickup;
+	SfxSample* defend;
+	SfxSample* easy;
+	SfxSample* hard;
+	SfxSample* dead;
+	int32_t select_count;
+	int32_t attack_count;
+	int32_t move_count;
+	int32_t swarm_count;
+};
+ASSERT_SIZE(SfxBank, 0x6c);
