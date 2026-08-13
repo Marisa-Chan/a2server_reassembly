@@ -2141,6 +2141,9 @@ extern ?SetVolume@MusicPlayer@@QAEXH@Z : proc
 extern ?Player@MusicPlayer@@2PAV1@A : dword
 
 extern ?SoundBank_fighter@@3PAVSfxBank@@A : dword
+extern ?SoundBank_mage@@3PAVSfxBank@@A : dword
+extern ?SoundBank_peasant@@3PAVSfxBank@@A : dword
+extern ?SoundBank_other@@3PAVSfxBank@@A : dword
 
 
 ; util.h

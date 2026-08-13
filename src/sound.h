@@ -18,7 +18,9 @@ extern CArray<SfxSample*> g_SfxArray; //665eb0
 extern SoundSettings g_SoundSettings; //660df0
 extern CArray<MapMusicInfo*> g_mapmusicinfos; //660f00
 extern SfxBank SoundBank_fighter[2]; //6664b0
-
+extern SfxBank SoundBank_mage[2]; //665dd8
+extern SfxBank SoundBank_peasant[2]; //6663d8
+extern SfxBank SoundBank_other[12]; //665ec8
 
 class SfxSample : public CObject
 {

@@ -20,7 +20,11 @@ HWND g_dsound_hwnd;
 
 int32_t g_CurrentMusicTrack = -1; //62faa0
 
+
 SfxBank SoundBank_fighter[2]; //6664b0
+SfxBank SoundBank_mage[2]; //665dd8
+SfxBank SoundBank_peasant[2]; //6663d8
+SfxBank SoundBank_other[12]; //665ec8
 
 
 SoundSettings::SoundSettings()
