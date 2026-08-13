@@ -238,6 +238,7 @@ public:
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
     AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
+    UnitList* sub_5897AA(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA
 
     Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9

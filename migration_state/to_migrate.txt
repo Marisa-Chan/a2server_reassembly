@@ -162,6 +162,7 @@
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
+?sub_5897AA@MapStuff@@QAEPAVUnitList@@UPosYX@@E@Z	227
 ?ParseLine@MatShape@@QAEXVCString@@@Z	49
 ?ParseLine@MonsterInfo@@QAEXVCString@@@Z	62
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
@@ -286,7 +287,6 @@
 ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z	169
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z	190
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z	191
-?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z	198
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

@@ -512,6 +512,7 @@ externdef ?sub_58BFA3@MapStuff@@QAEHEEEE@Z :proc                     ; int32_t M
 
 ; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc
+externdef ?sub_5897AA@MapStuff@@QAEPAVUnitList@@UPosYX@@E@Z :proc ; UnitList* MapStuff::sub_5897AA(PosYX, uint8_t)
 externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
@@ -1188,7 +1189,6 @@ externdef _sub_595561 :proc                                                     
 externdef ?sub_5B6F40@World@@QAEHH@Z :proc                                       ; World::sub_5B6F40(int32_t)
 externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc                                         ; Unit::sub_5B6FB0()
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
-externdef ?sub_5ABB32@World@@QAEEPAVUnit@@UPosYX@@@Z :proc                               ; uint8_t World::sub_5ABB32(Unit*, uint16_t)
 externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc

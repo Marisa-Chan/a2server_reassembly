@@ -241,6 +241,58 @@ bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
 }
 
+// 5ABB32
+uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
+    Unit* unit_at_yx = this->field24_0xa50->sub_58CA1B(yx);
+
+    if (unit->VMethod3() != 1) {
+        return 0;
+    }
+    if (unit->pOwner->is_ai) {
+        return 0;
+    }
+    if (unit->eye->field121_0x80 == yx) {
+        return 0;
+    }
+
+    if (unit_at_yx == nullptr) {
+        UnitList* nearby_list = this->field24_0xa50->sub_5897AA(yx, 1);
+        CList<Unit*>* list = nearby_list != nullptr ? &nearby_list->unit_list : nullptr;
+        if (list != nullptr) {
+            POSITION unit_it = list->GetHeadPosition();
+            while (unit_it != nullptr) {
+                Unit* nearby_unit = list->GetNext(unit_it);
+                if (nearby_unit->eye->field111_0x70 == yx.val && nearby_unit->position->sub_58bec3() == 0) {
+                    return 2;
+                }
+            }
+        }
+        if (unit_at_yx == nullptr) {
+            return 0;
+        }
+    }
+
+    if (unit_at_yx->hp < 1) {
+        return 0;
+    }
+
+    if (unit_at_yx->position->sub_58bec3() == 0) {
+        if (unit->eye->position1 == yx.val) {
+            return 0;
+        }
+        return 1;
+    }
+
+    if (unit_at_yx->eye2->cast_action == 1 || unit_at_yx->eye2->cast_action == 4) {
+        if (unit->eye2->command_to == yx.val) {
+            return 0;
+        }
+        return 2;
+    }
+
+    return 0;
+}
+
 // Server turn tick: rebuild presence grid, run world updates, process each
 // player's groups, and log turn timing statistics when tracing is enabled.
 // 5ABD16
