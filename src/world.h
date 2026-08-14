@@ -218,6 +218,7 @@ public:
     void sub_5A3C5F(); // 5A3C5F — move unconscious targets out of field26_0xa64 into field27_0xa84.
     UnitList* sub_5A3808(Unit* caster, PosYX yx); // Get nearby enemy UnitList for caster at yx.
     UnitList* sub_5A384F(Unit* caster, PosYX yx); // Get nearby ally UnitList for caster at yx.
+    void sub_5A4590(); // 5A4590
     uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.

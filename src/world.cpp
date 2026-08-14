@@ -50,6 +50,8 @@ World::~World() {
     delete this->trigger_checks;
     delete this->trigger_actions;
     delete this->triggers;
+
+    this->sub_5A4590();
 }
 
 // 5A4757

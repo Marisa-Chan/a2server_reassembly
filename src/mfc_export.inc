@@ -1244,6 +1244,7 @@ externdef ?sub_5AF6F5@World@@QAEXPAVUnit@@@Z :proc              ; void World::su
 
 externdef ?sub_5B0556@World@@QAEXAAVCArchive@@@Z :proc
 externdef ?sub_5B2E7A@World@@QAEXXZ :proc
+externdef ?sub_5A4590@World@@QAEXXZ :proc
 
 
 ; Action
