@@ -1877,3 +1877,191 @@ int32_t World::sub_5B6F40(int32_t multiplier) {
 int32_t World::sub_5B6F60(int32_t min, int32_t max) {
     return (sub_5B6F30() * ((max - min) + 1)) / this->field0_0x0 + min;
 }
+
+// 5A8EFB — set unit movement target, clamped to map bounds.
+void World::sub_5A8EFB(Unit* unit, uint8_t x, uint8_t y) {
+    this->sub_5A9AC4(unit);
+
+    if (x < this->field24_0xa50->map_min_x) {
+        x = this->field24_0xa50->map_min_x;
+    }
+    if (x > this->field24_0xa50->map_max_x) {
+        x = this->field24_0xa50->map_max_x;
+    }
+    if (y < this->field24_0xa50->map_min_y) {
+        y = this->field24_0xa50->map_min_y;
+    }
+    if (y > this->field24_0xa50->map_max_y) {
+        y = this->field24_0xa50->map_max_y;
+    }
+
+    unit->state = 1;
+    unit->eye2->command_to = PosYX(x, y).val;
+    unit->eye->field136_0x90 = 0;
+    unit->eye2->cast_action = 1;
+}
+
+// 5AA375 — set a unit to move/cast toward `yx`.
+void World::sub_5AA375(Unit* unit, PosYX yx, uint8_t max_range) {
+    unit->eye->field107_0x6c = 1;
+
+    if (unit->eye->field114_0x74.val != yx.val) {
+        unit->eye->field8_0x9 = 0xFF;
+    }
+
+    this->field24_0xa50->sub_58FF51(unit, yx, max_range);
+
+    if (unit->position->sub_58bec3() == 0) {
+        unit->eye2->field4_0x9 = 3;
+        unit->eye2->counter = 0;
+    }
+
+    unit->some_state = 1;
+}
+
+// 5AA485 — pick a new random wander facing for a monster unit.
+void World::sub_5AA485(Unit* unit) {
+    if (unit->eye->field0_0x0 == unit->eye->field1_0x1) {
+        if (unit->eye2->field44_0x54 == 0 && sub_5B6F30() >= 205) {
+            unit->some_state = 0;
+            return;
+        }
+
+        uint8_t new_facing = unit->eye->field0_0x0 + 33 + this->sub_5B6F40(190);
+        unit->eye->field1_0x1 = new_facing;
+        unit->eye2->field44_0x54 = 0;
+    }
+
+    this->field24_0xa50->sub_590F94(unit, unit->eye->field1_0x1);
+    unit->some_state = 1;
+}
+
+// 5AAB85 — resume moving toward the unit's current command target.
+void World::sub_5AAB85(Unit* unit_same, Unit* unit) {
+    int result = this->field24_0xa50->sub_58FEDA(unit, unit->eye2->command_to, unit->eye2->max_range);
+    if (result != 0) {
+        if (unit->some_state == 0xF) {
+            this->sub_5A9A8F(unit);
+        } else {
+            unit->some_state = 0xF;
+        }
+    } else {
+        this->sub_5AA375(unit, unit->eye2->command_to, unit->eye2->max_range);
+        unit->some_state = 1;
+    }
+}
+
+// 5AAEBC — start a melee/cast action against the unit's current target.
+void World::sub_5AAEBC(Unit* unit) {
+    if (unit->sub_5B6FB0()) {
+        uint8_t max_range = this->UnitMaxRange(unit);
+        if (max_range < 2 && !unit->pOwner->is_ai) {
+            unit->eye2->cast_action = 0;
+            return;
+        }
+    }
+
+    if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
+        this->sub_5AA78C(unit);
+        unit->some_state = 3;
+    } else {
+        uint8_t facing = this->field24_0xa50->sub_591424(unit, unit->eye2->unit);
+        this->sub_5AAF84(unit, facing);
+        unit->some_state = 1;
+    }
+}
+
+// 5A3C5F — move unconscious targets out of the active target list into the alternate list.
+void World::sub_5A3C5F() {
+    this->field27_0xa84.unit_list.RemoveAll();
+
+    POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current = it;
+        Unit* unit = this->field26_0xa64.unit_list.GetNext(it);
+        if (unit->hp < 1) {
+            this->field26_0xa64.unit_list.RemoveAt(current);
+            this->field27_0xa84.AddTail(unit);
+        }
+    }
+}
+
+// 5AC206 — order a group to area-cast a spell at (x, y).
+void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (unit->spell == nullptr) {
+            this->sub_5A9A6A(unit);
+        } else {
+            this->sub_5A930F(unit, x, y, spell);
+        }
+        unit->spell = nullptr;
+    }
+
+    group->group_sub->field_0x20 = 0;
+}
+
+// 5AC983 — place a newly respawned group into the world.
+void World::sub_5AC983(Group* group, int param) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9383(unit);
+    }
+
+    group->group_sub->field_0x20 = 0x12;
+    this->sub_5AC137(group);
+
+    if (param == 0) {
+        if (group->group_sub->field_0x2d < this->MinimalGuardRange) {
+            group->group_sub->field_0x2d = 20;
+            group->group_sub->field_0x38 = 20;
+        }
+    } else {
+        if (group->group_sub->field_0x2d < param) {
+            group->group_sub->field_0x2d = static_cast<uint8_t>(param);
+            group->group_sub->field_0x38 = static_cast<uint8_t>(param);
+        }
+    }
+
+    group->group_sub->field_0x39 = 0;
+}
+
+// 5AF6F5 — initialize combat withdrawal thresholds for a unit.
+void World::sub_5AF6F5(Unit* unit) {
+    if (unit->VMethod8() == 0) {
+        return;
+    }
+
+    if (unit->spell_book != nullptr) {
+        unit->eye2->field39_0x4c = 2;
+        unit->eye2->withdraw = unit->hp_max;
+        unit->eye2->wimpy = unit->hp_max / 4;
+    } else {
+        uint8_t max_range = this->UnitMaxRange(unit);
+        if (max_range < 2 || unit->sub_59A030() == 3) {
+            unit->eye2->field39_0x4c = 0;
+            unit->eye2->withdraw = 0;
+            unit->eye2->wimpy = 0;
+        } else {
+            unit->eye2->field39_0x4c = 1;
+            unit->eye2->withdraw = unit->hp_max / 2;
+            unit->eye2->wimpy = 0;
+        }
+    }
+}
+
+// 5B0762 — evaluate pending trigger checks.
+void World::sub_5B0762() {
+    TriggerCheck local;
+
+    for (POSITION it = this->trigger_checks->GetHeadPosition(); it != nullptr;) {
+        TriggerCheck trigger_check = this->trigger_checks->GetNext(it); // Copies the value.
+        if (trigger_check.field_0x58 == 0) {
+            this->sub_5B081E(&trigger_check);
+        }
+    }
+}

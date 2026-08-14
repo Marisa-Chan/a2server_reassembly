@@ -122,10 +122,7 @@ struct UnitEye {
     uint8_t field104_0x69;
     uint8_t field105_0x6a;
     uint8_t field106_0x6b;
-    uint8_t field107_0x6c;
-    uint8_t field108_0x6d;
-    uint8_t field109_0x6e;
-    uint8_t field110_0x6f;
+    uint32_t field107_0x6c;
     uint16_t field111_0x70;
     uint16_t field113_0x72; // Effective speed?
     PosYX field114_0x74;

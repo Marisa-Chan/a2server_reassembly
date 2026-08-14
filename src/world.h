@@ -122,6 +122,7 @@ public:
     void sub_5ABD16(class PlayersList* players);
     void sub_5B0724(); // 5B0724
     void sub_5B0762(); // 5B0762
+    void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher (ASM).
     void sub_5B0A6A(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0
     void sub_5B6346(); // 5B6346
@@ -147,6 +148,7 @@ public:
     void sub_5AC8A2(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
     void sub_5ACAFA(Group* group);
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
+    void sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);
     void sub_5ACB9E(Group* group, Token* target, uint8_t param_3);
     uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
@@ -169,12 +171,14 @@ public:
     void sub_5AAB08(Unit* unit); // 5AAB08
     void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
     void sub_5AAEBC(Unit* unit); // 5AAEBC
+    void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
     void sub_5AAC17(Unit* unit); // 5AAC17
     void sub_5AA7CF(Unit* unit); // 5AA7CF
     int32_t sub_5B6F40(int32_t multiplier); // 5B6F40
     int32_t sub_5B6F60(int32_t min, int32_t max); // 5B6F60
     void sub_5AA581(Unit* target, Unit* attacker, int32_t param_4); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
+    void sub_5A9A8F(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
