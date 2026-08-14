@@ -138,10 +138,6 @@
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ?sub_541FD7@Effect@@QAEHHH@Z	206
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
-?sub_58E1C1@FieldBlock58ec0@@QAEXXZ	18
-?sub_58DE69@FieldBlock58ec0@@QAEXPAVUnit@@G@Z	19
-?sub_58CD84@FieldBlock58ec0@@QAEXXZ	89
-?sub_58CE74@FieldBlock58ec0@@QAEXXZ	329
 ?ExitInstance@GameApp@@UAEHXZ	125
 ?OnIdle@GameApp@@UAEHJ@Z	199
 ?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
@@ -236,6 +232,10 @@
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
 ?OpenRenameWindow@VisCharSelect@@QAEXXZ	103
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
+?sub_58E1C1@Visibility@@QAEXXZ	18
+?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z	19
+?sub_58CD84@Visibility@@QAEXXZ	89
+?sub_58CE74@Visibility@@QAEXXZ	329
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32

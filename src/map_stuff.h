@@ -1,15 +1,16 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 
+#include "2darray.h"
 #include "asm_mfc.h"
 #include "assert_offset.h"
 #include "mfc_templ.h"
 #include "perf.h"
-#include "unit_list.h"
 #include "token.h"
-#include <array>
-#include "2darray.h"
+#include "unit_list.h"
+#include "visibility.h"
 
 
 class AreaEffect;
@@ -87,23 +88,6 @@ public:
     FieldBlock5859c(); // 5A3180
 };
 ASSERT_SIZE(FieldBlock5859c, 2020);
-
-// Sub-field of MapStuff, immediately followed by field_0x78ec0 in MapStuff's layout. The
-// constructor reads World\Data\map.reg's Scanning/ScanShift setting and stores it into the
-// following field_0x78ec0 blob (offsets 0x2A004/0x2A000 relative to `this`, which spill past
-// this array's own bounds) before calling sub_58CD84/sub_58CE74 to build path-cost lookup
-// tables there; this array itself ends up zeroed. Not yet fully reversed.
-struct FieldBlock58ec0 {
-    uint8_t data[131072];
-
-public:
-    FieldBlock58ec0(); // 58E1E4
-    void sub_58CD84(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CD84
-    void sub_58CE74(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CE74
-    void sub_58E1C1(); // 58E1C1
-    void sub_58DE69(Unit* unit, uint16_t yx); // 58DE69
-};
-ASSERT_SIZE(FieldBlock58ec0, 131072);
 
 struct CellState {
     uint8_t  walk_cost;          // +0x00: saved original walk_cost_map byte
@@ -183,9 +167,7 @@ struct MapStuff { // aka astruct_5
     uint8_t map_max_y;
     int16_t map_min_xy;
     int16_t map_max_xy;
-    FieldBlock58ec0 field_0x58ec0;
-    uint8_t field_0x78ec0[106504];
-    MapStuff* self;
+    Visibility visibility;
     ScanPresenceGrid scan_presence_grid;
     uint8_t height_map[65536];
     CList<void*> field66_0xa44f4;
@@ -332,6 +314,7 @@ ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
 ASSERT_OFFSET(MapStuff, field_0x54190, 0x54190);
 ASSERT_OFFSET(MapStuff, field_0x54584, 0x54584);
 ASSERT_OFFSET(MapStuff, static_scan_ahead, 0x58584);
+ASSERT_OFFSET(MapStuff, visibility, 0x58ec0);
 ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
 ASSERT_OFFSET(MapStuff, height_map, 0x944f4);
 ASSERT_SIZE(MapStuff, 0xa4570);

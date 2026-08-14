@@ -150,14 +150,14 @@ void World::sub_5ADD64(Group* group) {
         return;
     }
 
-    FieldBlock58ec0* field = &this->field24_0xa50->field_0x58ec0;
-    field->sub_58E1C1();
-    uint8_t* scratch = reinterpret_cast<uint8_t*>(field) + 0x2A008; // TODO: fix field_0x58ec0 layout.
+    Visibility* visibility = &this->field24_0xa50->visibility;
+    visibility->sub_58E1C1();
+    uint8_t* scratch = visibility->field_0x2a008;
 
     for (; it != nullptr;) {
         Unit* u = group->unit_list.GetNext(it);
         uint16_t yx = u->position->CompatGetYX();
-        field->sub_58DE69(u, yx);
+        visibility->sub_58DE69(u, yx);
 
         if (u->pOwner->is_ai != 0 && u->eye2->position3 != 0) {
             scratch[u->eye2->position3] += 1;

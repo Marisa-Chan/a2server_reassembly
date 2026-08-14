@@ -58,6 +58,7 @@ set(A2_SOURCES
   unit_to_hit.cpp
   util.cpp
   virtual_caster.cpp
+  visibility.cpp
   visual.cpp
   world.cpp
   Main.asm

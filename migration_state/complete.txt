@@ -45,7 +45,6 @@
 ??0Fame2@@QAE@XZ
 ??0FieldBlock54190@@QAE@XZ
 ??0FieldBlock5859c@@QAE@XZ
-??0FieldBlock58ec0@@QAE@XZ
 ??0File2@@QAE@PBDI@Z
 ??0File2@@QAE@XZ
 ??0GameOptionsWindow@@QAE@HHHHH@Z
@@ -146,6 +145,7 @@
 ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
 ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
 ??0VisComboBox@@QAE@HVCRect@@PBD@Z
+??0Visibility@@QAE@XZ
 ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z
 ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
 ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z

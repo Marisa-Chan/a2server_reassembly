@@ -259,7 +259,7 @@
 329		sub_5B5CA8
 329		sub_44AAE5
 329		sub_403730
-329		?sub_58CE74@FieldBlock58ec0@@QAEXXZ
+329		?sub_58CE74@Visibility@@QAEXXZ
 329		?DrawDragRect@CDC@@QAEXPBUtagRECT@@UtagSIZE@@01PAVCBrush@@2@Z
 327		?sub_55BF31@SpellEffectList@@QAEXAAVCArchive@@@Z
 323		?sub_558908@BuildingsList@@QAEXAAVCArchive@@@Z
@@ -1284,7 +1284,7 @@
 89		sub_431B95
 89		sub_431764
 89		?sub_5AC983@World@@QAEXPAVGroup@@H@Z
-89		?sub_58CD84@FieldBlock58ec0@@QAEXXZ
+89		?sub_58CD84@Visibility@@QAEXXZ
 89		?putback@istream@@QAEAAV1@D@Z
 89		?ReadString@CStdioFile@@UAEHAAVCString@@@Z
 89		?ParseParamFlag@CCommandLineInfo@@IAEXPBD@Z
