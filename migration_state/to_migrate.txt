@@ -286,7 +286,7 @@
 ?sub_5A90F4@World@@QAEXPAVUnit@@PAVBuilding@@@Z	110
 ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z	118
 ?sub_5B0556@World@@QAEXAAVCArchive@@@Z	142
-?sub_5B6346@World@@QAEXXZ	162
+?sub_5B61D0@World@@QAEPAVUnit@@GEPAVPlayer@@H@Z	163
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

@@ -1235,6 +1235,7 @@ externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 externdef ?sub_5B0724@World@@QAEXXZ :proc
 externdef ?sub_5B0762@World@@QAEXXZ :proc                        ; void World::sub_5B0762()
 externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::sub_5B0A6A()
+externdef ?sub_5B61D0@World@@QAEPAVUnit@@GEPAVPlayer@@H@Z :proc
 externdef ?sub_5B6346@World@@QAEXXZ :proc
 externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc

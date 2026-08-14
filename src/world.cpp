@@ -23,6 +23,7 @@
 #include "spell.h"
 #include "token.h"
 #include "unit.h"
+#include "virtual_caster.h"
 
 // 5B5855
 Diplomacy::Diplomacy() {
@@ -526,6 +527,22 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     }
 
     caster->eye2->max_range = spell->max_range;
+}
+
+// Process pending virtual casters and fire their spells into the world.
+// 5B6346
+void World::sub_5B6346() {
+    CList<VirtualCaster*>& vc_list = g_Server->srv_stru1->virtual_casters_list;
+    POSITION it = vc_list.GetHeadPosition();
+    while (it != nullptr) {
+        VirtualCaster* vc = vc_list.GetNext(it);
+        Spell* spell = g_Server->spells[vc->properties[0]];
+        uint16_t pos_yx = PosYX{vc->properties[2], vc->properties[3]}.val;
+        Unit* unit = this->sub_5B61D0(pos_yx, vc->byte_0x3c, vc->pOwner, spell->is_defensive);
+        if (unit != nullptr) {
+            g_Server->srv_stru1->sub_4FBAE3(vc->properties[2], vc->properties[3], unit, vc->properties[0], vc->properties[1]);
+        }
+    }
 }
 
 // 5A9961
