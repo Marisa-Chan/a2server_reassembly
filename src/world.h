@@ -128,6 +128,7 @@ public:
     void sub_5ABF50(Player* player); // 5ABF50
 
     // Group-order dispatch helpers (called from Server::sub_504a96)
+    void sub_5AC137(Group* group); // Refresh group_sub position/range fields.
     void sub_5ACAA7(Group* group);
     void sub_5A99C7(Unit* unit);
     void sub_5ACA54(Group* group); //5aca54
@@ -143,7 +144,7 @@ public:
     void sub_5A8EFB(Unit* unit, uint8_t x, uint8_t y); // Set unit movement target, clamped to map bounds.
     void sub_5A90F4(Unit* unit, Building* bldg);
     void sub_5AC881(Group* group, uint8_t x, uint8_t y);
-    void sub_5AC8A2(Group* group, uint8_t param_2);
+    void sub_5AC8A2(Group* group, uint8_t range); // Group guard command, range=0 means use world's MinimalGuardRange.
     void sub_5ACAFA(Group* group);
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);

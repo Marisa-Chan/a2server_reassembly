@@ -141,6 +141,45 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     }
 }
 
+// Filter a UnitList by enemy/allied relationship and visibility.
+// Removes units where diplomacy&1 == flag, and invisible units
+// that no member of unit's group can see.
+// 5A3896
+void World::sub_5A3896(Unit* unit, UnitList* list, int32_t flag) {
+    if (list == nullptr) {
+        return;
+    }
+
+    POSITION it = list->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current = it;
+        Unit* other = list->unit_list.GetNext(it);
+
+        bool should_remove = false;
+        if ((int)this->sub_5B5816(unit, other) == flag) {
+            should_remove = true;
+        } else if ((other->enchantments & (1u << spell::invisibility)) != 0) {
+            bool can_see = false;
+            POSITION group_it = unit->group->unit_list.GetHeadPosition();
+            while (group_it != nullptr) {
+                Unit* group_unit = unit->group->unit_list.GetNext(group_it);
+                int32_t range = this->field24_0xa50->sub_59190D(other, group_unit);
+                if ((range & 0xFF) <= group_unit->eye2->seeInvisible) {
+                    can_see = true;
+                    break;
+                }
+            }
+            if (!can_see) {
+                should_remove = true;
+            }
+        }
+
+        if (should_remove) {
+            list->unit_list.RemoveAt(current);
+        }
+    }
+}
+
 // 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
 void World::sub_5ADD64(Group* group) {
     this->field26_0xa64.unit_list.RemoveAll();
@@ -859,6 +898,34 @@ void World::sub_5AAC17(Unit* unit) {
             this->sub_5AA485(unit);
         }
     }
+}
+
+// Check if `caster` should autobuff `target` based on diplomacy and settings.
+// 5A7A1C
+int32_t World::sub_5A7A1C(Unit* caster, Unit* target) {
+    uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & 3;
+
+    // Neutral.
+    if (relation == 0 && (caster->pOwner->settings->autobuff_mask & 4) != 0) {
+        return 1;
+    }
+
+    // Friend.
+    if ((relation & 2) != 0 && (caster->pOwner->settings->autobuff_mask & 2) != 0) {
+        return 1;
+    }
+
+    // Own units.
+    if (caster->pOwner == target->pOwner && (caster->pOwner->settings->autobuff_mask & 1) != 0) {
+        return 1;
+    }
+
+    // Self.
+    if (caster == target) {
+        return 1;
+    }
+
+    return 0;
 }
 
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
@@ -1691,6 +1758,66 @@ void World::sub_5AA78C(Unit* unit) {
     unit->cast_target = unit->eye2->unit;
 }
 
+// Refresh group_sub position/range fields from sub_5AB719 results.
+// 5AC137
+void World::sub_5AC137(Group* group) {
+    this->sub_5AB719(group);
+    group->group_sub->field_0x0 = group->group_sub->field_0x28;
+    group->group_sub->field_0x2d = group->group_sub->field_0x2c;
+    group->group_sub->field_0x38 = group->group_sub->field_0x2c;
+}
+
+// Issue a guard/hold command to `group`.
+// range=0 means use the world's MinimalGuardRange.
+// 5AC8A2
+void World::sub_5AC8A2(Group* group, uint8_t range) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9383(unit);
+    }
+
+    group->group_sub->field_0x20 = 1;
+    this->sub_5AC137(group);
+
+    if (range == 0) {
+        range = this->MinimalGuardRange;
+    }
+
+    if (group->group_sub->field_0x2d < range) {
+        group->group_sub->field_0x2d = range;
+        group->group_sub->field_0x38 = range;
+    }
+
+    group->group_sub->field_0x39 = 0;
+}
+
+// Order a unit to interact with/enter a building.
+// 5A90F4
+void World::sub_5A90F4(Unit* unit, Building* building) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0xF;
+    unit->eye2->field51_0x68 = building;
+    unit->eye2->max_range = 1;
+    unit->eye2->cast_action = 0;
+
+    PosYX command_to = building->position->CompatGetYX();
+    unit->eye2->command_to = command_to.val;
+
+    switch (building->width) {
+    case 1: case 2:
+        break;
+    case 3: case 4:
+        unit->eye2->max_range = 2;
+        unit->eye2->command_to = PosYX(command_to.x + 1, command_to.y + 1).val;
+        break;
+    default:
+        unit->eye2->max_range = 3;
+        unit->eye2->command_to = PosYX(command_to.x + 2, command_to.y + 2).val;
+    }
+}
+
 // 5AC881
 void World::sub_5AC881(Group* group, uint8_t x, uint8_t y) {
     this->sub_5AC507(group, x, y);
@@ -1709,6 +1836,36 @@ void World::sub_5AFBFD() {
 // 5B2E7A
 void World::sub_5B2E7A() {
     this->diplomacy.world = this;
+}
+
+// Serialize/Deserialize world state.
+// 5B0556
+void World::sub_5B0556(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar.Write(this->trigger_variables, sizeof(this->trigger_variables));
+        ar.Write(this->trigger_results, sizeof(this->trigger_results));
+        ar.Write(&this->field2_0x8, sizeof(this->field2_0x8));
+        ar.Write(this->field32_0xa728, sizeof(this->field32_0xa728));
+        ar.Write(&this->diplomacy, sizeof(this->diplomacy));
+        ar << this->field20_0xa48;
+        ar << this->field21_0xa49;
+        ar << this->counter;
+        ar << this->mission_complete;
+        ar << this->field52_0xbe10;
+        ar << this->mission_fail;
+    } else {
+        ar.Read(this->trigger_variables, sizeof(this->trigger_variables));
+        ar.Read(this->trigger_results, sizeof(this->trigger_results));
+        ar.Read(&this->field2_0x8, sizeof(this->field2_0x8));
+        ar.Read(this->field32_0xa728, sizeof(this->field32_0xa728));
+        ar.Read(&this->diplomacy, sizeof(this->diplomacy));
+        ar >> this->field20_0xa48;
+        ar >> this->field21_0xa49;
+        ar >> this->counter;
+        ar >> this->mission_complete;
+        ar >> this->field52_0xbe10;
+        ar >> this->mission_fail;
+    }
 }
 
 // 5B6F40

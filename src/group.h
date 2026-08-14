@@ -15,7 +15,8 @@ public:
     void Serialize(CArchive& ar);
 
 public:
-    uint8_t gap_0x0[7];
+    uint16_t field_0x0;
+    uint8_t gap_0x2[6];
     uint8_t field_0x8;
     uint8_t field_0x9;
     uint16_t field_0xa;
@@ -34,7 +35,8 @@ public:
     uint32_t field_0x30;
     uint32_t field_0x34;
     uint8_t field_0x38;
-    uint8_t gap_0x39[11];
+    uint8_t field_0x39;
+    uint8_t gap_0x3a[10];
     uint8_t field_0x44; // Group movement speed?
     uint8_t field_0x45;
     uint8_t gap_0x46[2];
