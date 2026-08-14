@@ -12,7 +12,7 @@ struct Action {
     int32_t y;
     uint8_t gap_0xc[32];
     Unit* unit;
-    Spell* spell;
+    CObject* payload; // Can be spell or unit.
     Unit* target;
     uint8_t gap_0x38[28];
 };

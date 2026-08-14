@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 
@@ -544,6 +545,39 @@ void World::sub_5A99C7(Unit* unit) {
     unit->eye2->cast_action = 0;
 }
 
+// Record a PvP hit: mark the attacker in UnitEye2, update diplomacy, push a combat
+// action onto the world's action list, and store the retaliation cell.
+// 5AA581
+void World::sub_5AA581(Unit* target, Unit* attacker, int32_t param_4) {
+    attacker->eye2->field44_0x54 = 1;
+    attacker->eye2->position3 = target->position->CompatGetYX();
+    attacker->eye2->counter2 = 0;
+
+    this->diplomacy.sub_5B5643(target, attacker, param_4);
+
+    this->scrape_action.action_kind = 1;
+    this->scrape_action.unit = target;
+    this->scrape_action.payload = attacker;
+    this->action_list.AddTail(this->scrape_action);
+
+    attacker->eye2->unit6 = target;
+    attacker->eye2->tick = g_Server->tick;
+
+    int32_t dxx = attacker->position->GetXx() - target->position->GetXx();
+    int32_t dyy = attacker->position->GetYy() - target->position->GetYy();
+    int32_t max_delta = (std::max)(std::abs(dxx), std::abs(dyy));
+
+    if (max_delta != 0) {
+        double scale = 10.0 / max_delta;
+        uint8_t new_x = attacker->position->GetX() + dxx * scale;
+        uint8_t new_y = attacker->position->GetY() + dyy * scale;
+        attacker->eye2->field69_0x9c = PosYX{new_x, new_y}.val;
+    } else {
+        // This wasn't in vanilla, but otherwise we divide by zero.
+        attacker->eye2->field69_0x9c = attacker->position->GetYX().val;
+    }
+}
+
 // 5AAA89
 void World::sub_5AAA89(Unit* unit) {
     if (unit != unit->eye2->unit5 && this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
@@ -637,13 +671,13 @@ void World::sub_5A9B6B(Unit* unit) {
                     if (unit->eye2->field48_0x5c == 0) {
                         this->scrape_action.action_kind = 3;
                         this->scrape_action.unit = unit;
-                        this->scrape_action.spell = unit->some_spell;
+                        this->scrape_action.payload = unit->some_spell;
                         this->scrape_action.x = unit->area_cast_x;
                         this->scrape_action.y = unit->area_cast_y;
                     } else {
                         this->scrape_action.action_kind = 2;
                         this->scrape_action.unit = unit;
-                        this->scrape_action.spell = unit->some_spell;
+                        this->scrape_action.payload = unit->some_spell;
                         this->scrape_action.target = unit->cast_target;
                     }
                     this->action_list.AddTail(this->scrape_action);

@@ -240,6 +240,7 @@
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
 ?sub_5A79C9@World@@QAEXPAVUnit@@@Z	11
+?sub_5A4590@World@@QAEXXZ	13
 ?sub_5A457A@World@@QAEXXZ	14
 ?sub_5B2E7A@World@@QAEXXZ	14
 ?sub_5AFBFD@World@@QAEXXZ	16
@@ -286,7 +287,6 @@
 ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z	118
 ?sub_5B0556@World@@QAEXAAVCArchive@@@Z	142
 ?sub_5B6346@World@@QAEXXZ	162
-?sub_5AA581@World@@QAEXPAVUnit@@0H@Z	169
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6
