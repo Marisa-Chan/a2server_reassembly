@@ -100,6 +100,8 @@ public:
     FieldBlock58ec0(); // 58E1E4
     void sub_58CD84(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CD84
     void sub_58CE74(); // Builds part of the path-cost lookup tables in field_0x78ec0 — 58CE74
+    void sub_58E1C1(); // 58E1C1
+    void sub_58DE69(Unit* unit, uint16_t yx); // 58DE69
 };
 ASSERT_SIZE(FieldBlock58ec0, 131072);
 

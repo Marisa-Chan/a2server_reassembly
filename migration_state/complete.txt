@@ -844,6 +844,7 @@
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
+?sub_5ADD64@World@@QAEXPAVGroup@@@Z
 ?sub_5B0724@World@@QAEXXZ
 ?sub_5B0A6A@World@@QAEXXZ
 ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z

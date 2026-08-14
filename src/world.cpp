@@ -137,6 +137,61 @@ void World::sub_5A3AD6(Unit* unit, UnitList* pList) {
     }
 }
 
+// 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
+void World::sub_5ADD64(Group* group) {
+    this->field26_0xa64.unit_list.RemoveAll();
+
+    if (group == nullptr) {
+        return;
+    }
+
+    POSITION it = group->unit_list.GetHeadPosition();
+    if (it == nullptr) {
+        return;
+    }
+
+    FieldBlock58ec0* field = &this->field24_0xa50->field_0x58ec0;
+    field->sub_58E1C1();
+    uint8_t* scratch = reinterpret_cast<uint8_t*>(field) + 0x2A008; // TODO: fix field_0x58ec0 layout.
+
+    for (; it != nullptr;) {
+        Unit* u = group->unit_list.GetNext(it);
+        uint16_t yx = u->position->CompatGetYX();
+        field->sub_58DE69(u, yx);
+
+        if (u->pOwner->is_ai != 0 && u->eye2->position3 != 0) {
+            scratch[u->eye2->position3] += 1;
+            u->eye2->counter2 += 1;
+            if (u->eye2->counter2 > 20) {
+                u->eye2->position3 = 0;
+            }
+        }
+    }
+
+    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    CList<Unit*>* src = all != nullptr ? &all->unit_list : nullptr;
+    if (src != nullptr) {
+        for (POSITION it = src->GetHeadPosition(); it != nullptr;) {
+            Unit* u = src->GetNext(it);
+            uint16_t yx = u->position->CompatGetYX();
+            if (scratch[yx] != 0) {
+                this->field26_0xa64.unit_list.AddTail(u);
+            }
+        }
+    }
+
+    this->sub_5A3C5F();
+
+    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
+        this->field26_0xa64.unit_list.RemoveAll();
+        for (POSITION it = this->field27_0xa84.unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* u = this->field27_0xa84.unit_list.GetNext(it);
+            this->field26_0xa64.unit_list.AddTail(u);
+        }
+        this->field27_0xa84.unit_list.RemoveAll();
+    }
+}
+
 // 5AF805
 void World::sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->field24_0xa50->field69_0xa456c;

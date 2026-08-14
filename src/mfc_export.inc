@@ -583,6 +583,8 @@ externdef ??0FieldBlock5859c@@QAE@XZ :proc
 externdef ??0FieldBlock58ec0@@QAE@XZ :proc
 externdef ?sub_58CD84@FieldBlock58ec0@@QAEXXZ :proc
 externdef ?sub_58CE74@FieldBlock58ec0@@QAEXXZ :proc
+externdef ?sub_58E1C1@FieldBlock58ec0@@QAEXXZ :proc
+externdef ?sub_58DE69@FieldBlock58ec0@@QAEXPAVUnit@@G@Z :proc
 
 externdef _unk_70B46C :byte
 externdef _unk_70B470 :byte
