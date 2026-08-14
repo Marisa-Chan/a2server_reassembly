@@ -1794,7 +1794,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
                 if (local_894 != 0)
                     MapWnd->SendAdjustPlayerGoldAction(local_894);
 
-                if (ScenarioIsTownAvailable() == 0)
+                if (ScenarioIsTownAvailable(0) == 0)
                 {
                     CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
                     ScenarioEnterLocation(locs->GetHead());

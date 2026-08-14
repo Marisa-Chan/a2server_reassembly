@@ -610,20 +610,20 @@ BOOL GameApp::InitInstance()
 
 	ScenarioGetVar = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)1);
 	ScenarioSetVar = (void(__stdcall*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
-	ScenarioTalkTo = GetProcAddress(g_scenario_dll, (LPCSTR)3);
+	ScenarioTalkTo = (void(__stdcall *)(uint32_t))GetProcAddress(g_scenario_dll, (LPCSTR)3);
 	ScenarioEnterLocation = (void(__stdcall*)(ScenarioLocation*))GetProcAddress(g_scenario_dll, (LPCSTR)5);
 	ScenarioLeaveLocation = (int32_t(__stdcall *)(int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)6);
-	ScenarioEnterShop = GetProcAddress(g_scenario_dll, (LPCSTR)7);
-	ScenarioLeaveShop = GetProcAddress(g_scenario_dll, (LPCSTR)8);
-	ScenarioEnterInn = GetProcAddress(g_scenario_dll, (LPCSTR)9);
-	ScenarioLeaveInn = GetProcAddress(g_scenario_dll, (LPCSTR)10);
+	ScenarioEnterShop = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)7);
+	ScenarioLeaveShop = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)8);
+	ScenarioEnterInn = (void(__stdcall*)(int32_t*,int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)9);
+	ScenarioLeaveInn = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)10);
 	ScenarioNewGame = (void(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)11);
 	ScenarioSave = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
 	ScenarioLoad = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)13);
 	ScenarioGetAvailableLocations = (CList<ScenarioLocation*>* (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)14);
-	ScenarioGetShopAssortment = GetProcAddress(g_scenario_dll, (LPCSTR)15);
-	ScenarioIsTownAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)16);
-	ScenarioIsMissionAvailable = GetProcAddress(g_scenario_dll, (LPCSTR)17);
+	ScenarioGetShopAssortment = (AssortGenParams*(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)15);
+	ScenarioIsTownAvailable = (int32_t (__stdcall *)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)16);
+	ScenarioIsMissionAvailable = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)17);
 	ScenarioGetCurrentLocation = (ScenarioLocation * (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)18);
 	ScenarioGetAllLocations = (CList<ScenarioLocation*>*(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)19);
 

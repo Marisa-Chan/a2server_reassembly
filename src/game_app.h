@@ -7,6 +7,7 @@
 #include "table.h"
 #include "txtfile.h"
 #include "server.h"
+#include "shop_assortment.h"
 
 class Item;
 class PlayersList;
@@ -129,20 +130,20 @@ struct ScenarioLocation
 
 extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
 extern "C" void(__stdcall* ScenarioSetVar)(int32_t, int32_t); //665a00
-extern "C" FARPROC ScenarioTalkTo; //665bd4
+extern "C" void(__stdcall* ScenarioTalkTo)(uint32_t); //665bd4
 extern "C" void(__stdcall* ScenarioEnterLocation)(ScenarioLocation* loc); //6659fc
 extern "C" int32_t(__stdcall* ScenarioLeaveLocation)(int32_t*); //6658c8
-extern "C" FARPROC ScenarioEnterShop; //665b0c
-extern "C" FARPROC ScenarioLeaveShop; //665b08
-extern "C" FARPROC ScenarioEnterInn; //665be8
-extern "C" FARPROC ScenarioLeaveInn; //6658f0
+extern "C" void(__stdcall* ScenarioEnterShop)(); //665b0c
+extern "C" void(__stdcall* ScenarioLeaveShop)(); //665b08
+extern "C" void(__stdcall* ScenarioEnterInn)(int32_t*, int32_t*); //665be8
+extern "C" void(__stdcall* ScenarioLeaveInn)(); //6658f0
 extern "C" void(__stdcall* ScenarioNewGame)(); //6658cc
 extern "C" void (__stdcall* ScenarioSave)(CFile*); //6658d0
 extern "C" void (__stdcall* ScenarioLoad)(CFile*); //665bd8
 extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAvailableLocations)(); //6658c4
-extern "C" FARPROC ScenarioGetShopAssortment; //665bdc
-extern "C" FARPROC ScenarioIsTownAvailable; //665cf4
-extern "C" FARPROC ScenarioIsMissionAvailable; //6659f8
+extern "C" AssortGenParams* (__stdcall* ScenarioGetShopAssortment)(); //665bdc
+extern "C" int32_t (__stdcall* ScenarioIsTownAvailable)(int32_t); //665cf4
+extern "C" int32_t (__stdcall* ScenarioIsMissionAvailable)(int32_t); //6659f8
 extern "C" ScenarioLocation* (__stdcall* ScenarioGetCurrentLocation)(); //6658f4
 extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAllLocations)(); //665cf0
 
