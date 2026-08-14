@@ -5179,7 +5179,6 @@ void Server::sub_5013D4(Player* player) {
             unit->eye2 = new UnitEye2();
             unit->eye2->spell_id = spell_id;
 
-            g_World->sub_5A79C9(unit);
             g_World->sub_5ACDF4(unit->group);
         }
         unit = unit_it ? player->unit_list->unit_list.GetNext(unit_it) : nullptr;
@@ -6105,7 +6104,6 @@ void Server::sub_5090FA(Player* player) {
             this->sub_5013D4(player);
             player->field_0x40 = 0;
             unit->eye2->spell_id = saved_spell_id;
-            g_World->sub_5A79C9(unit);
             if (g_Server->field4_0x74 != 0 && (g_ServerConfig.gameType == 0 || g_ServerConfig.gameType == 3)) {
                 Player* self_player = g_PlayersList->sub_535D39("Self");
                 if (self_player != nullptr) {

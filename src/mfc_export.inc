@@ -1173,6 +1173,8 @@ externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(c
 externdef _g_World :dword
 
 externdef ?sub_5A457A@World@@QAEXXZ :proc  ; World::sub_5A457A()
+externdef ?sub_5A44C5@World@@QAEXXZ :proc  ; World::sub_5A44C5()
+externdef ?sub_5A44DB@World@@QAEXXZ :proc  ; World::sub_5A44DB()
 externdef ?sub_5A4757@World@@QAEXXZ :proc  ; World::sub_5A4757()
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
@@ -1215,11 +1217,9 @@ externdef ?sub_5A8EFB@World@@QAEXPAVUnit@@EE@Z :proc    ; World::sub_5A8EFB(Unit
 externdef ?sub_5AB719@World@@QAEIPAVGroup@@@Z :proc     ; World::sub_5AB719(Group*)
 externdef ?sub_5AC8A2@World@@QAEXPAVGroup@@E@Z :proc
 externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5AF683@World@@QAEXPAVPlayer@@H@Z :proc
 externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5A79C9@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A79C9(Unit*)
 externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
 externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
 externdef ?sub_5A384F@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A384F(Unit*, uint16_t)

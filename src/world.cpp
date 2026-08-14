@@ -1672,3 +1672,51 @@ void World::sub_5AC507(Group* group, uint8_t x, uint8_t y)
     this->sub_5AC289(group, x, y);
     group->group_sub->field_0x20 = 5;
 }
+
+// 5A457A
+void World::sub_5A457A() {
+    this->sub_5A44C5();
+}
+
+// 5A4590
+void World::sub_5A4590() {
+    this->sub_5A44DB();
+}
+
+// 5AA78C
+void World::sub_5AA78C(Unit* unit) {
+    unit->eye2->field4_0x9 = 1;
+    unit->eye2->counter = 0;
+    unit->some_state = 3;
+    unit->cast_target = unit->eye2->unit;
+}
+
+// 5AC881
+void World::sub_5AC881(Group* group, uint8_t x, uint8_t y) {
+    this->sub_5AC507(group, x, y);
+}
+
+// 5AF683
+void World::sub_5AF683(Player* player, uint8_t param) {
+    player->settings->formation = param;
+}
+
+// 5AFBFD
+void World::sub_5AFBFD() {
+    this->field65_0xc780++;
+}
+
+// 5B2E7A
+void World::sub_5B2E7A() {
+    this->diplomacy.world = this;
+}
+
+// 5B6F40
+int32_t World::sub_5B6F40(int32_t multiplier) {
+    return (sub_5B6F30() * multiplier) / this->field0_0x0;
+}
+
+// 5B6F60
+int32_t World::sub_5B6F60(int32_t min, int32_t max) {
+    return (sub_5B6F30() * ((max - min) + 1)) / this->field0_0x0 + min;
+}

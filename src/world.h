@@ -112,6 +112,8 @@ public:
     ~World();
 
     void sub_5A457A(); // 5A457A
+    void sub_5A44C5(); // 5A44C5
+    void sub_5A44DB(); // 5A44DB
     void sub_5A4757(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void sub_5B2E7A(); // Post-load world relink helper
@@ -152,8 +154,7 @@ public:
     void sub_5A9383(Unit* unit);
     void sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player);
     void sub_5AFA01(int32_t a, int32_t b, int32_t c, Player* player);
-    void sub_5AF683(Player* player, int32_t param);
-    void sub_5A79C9(Unit* unit);
+    void sub_5AF683(Player* player, uint8_t param);
     void sub_5A9B6B(Unit* unit); // AI tick for a monster unit? 5A9B6B
     void sub_5AA375(Unit* unit, PosYX yx, uint8_t max_range); // 5AA375
     void sub_5AA426(Unit* unit, uint8_t facing); // 5AA426
