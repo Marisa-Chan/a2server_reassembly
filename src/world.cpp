@@ -529,6 +529,38 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     caster->eye2->max_range = spell->max_range;
 }
 
+// Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
+// (is_defensive=1) of owner, skipping invisible units.
+// 5B61D0
+Unit* World::sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
+    this->field24_0xa50->sub_5964D7(pos_yx, byte_0x3c, owner, &this->field26_0xa64);
+
+    CList<Unit*>& list = this->field26_0xa64.unit_list;
+    POSITION it = list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current = it;
+        Unit* unit = list.GetNext(it);
+        Player* unit_owner = unit->pOwner;
+        bool remove = false;
+        if ((this->diplomacy.diplomacy[owner->player_id][unit_owner->player_id] & 1) == is_defensive) {
+            remove = true;
+        } else if ((unit->enchantments & (1 << spell::invisibility)) != 0) {
+            remove = true;
+        }
+        if (remove) {
+            list.RemoveAt(current);
+        }
+    }
+
+    int32_t count = list.GetCount();
+    int32_t idx = this->sub_5B6F60(1, count);
+    POSITION selected = list.FindIndex(idx - 1);
+    if (selected != nullptr) {
+        return list.GetAt(selected);
+    }
+    return nullptr;
+}
+
 // Process pending virtual casters and fire their spells into the world.
 // 5B6346
 void World::sub_5B6346() {

@@ -530,6 +530,7 @@ externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc
 externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
 externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
 externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
+externdef ?sub_5964D7@MapStuff@@QAEXGEPAVPlayer@@PAVUnitList@@@Z :proc
 externdef ?sub_594125@MapStuff@@QAEXXZ :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
@@ -1235,7 +1236,7 @@ externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 externdef ?sub_5B0724@World@@QAEXXZ :proc
 externdef ?sub_5B0762@World@@QAEXXZ :proc                        ; void World::sub_5B0762()
 externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::sub_5B0A6A()
-externdef ?sub_5B61D0@World@@QAEPAVUnit@@GEPAVPlayer@@H@Z :proc
+externdef ?sub_5B6F60@World@@QAEHHH@Z :proc
 externdef ?sub_5B6346@World@@QAEXXZ :proc
 externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc

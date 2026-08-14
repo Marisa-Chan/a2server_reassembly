@@ -170,6 +170,7 @@ public:
     void sub_5AAC17(Unit* unit); // 5AAC17
     void sub_5AA7CF(Unit* unit); // 5AA7CF
     int32_t sub_5B6F40(int32_t multiplier); // 5B6F40
+    int32_t sub_5B6F60(int32_t min, int32_t max); // 5B6F60
     void sub_5AA581(Unit* target, Unit* attacker, int32_t param_4); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
