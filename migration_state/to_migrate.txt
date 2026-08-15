@@ -242,8 +242,9 @@
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
 ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z	29
+?sub_5A39AD@World@@QAEXPAVUnit@@PAVUnitList@@@Z	122
 ?sub_5ABFBC@World@@QAEXPAVGroup@@@Z	150
-?sub_5A845B@World@@QAEXPAVUnit@@@Z	155
+?sub_5B6862@World@@QAEXPAVUnit@@PAVUnitList@@@Z	358
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

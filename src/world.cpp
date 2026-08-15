@@ -699,6 +699,54 @@ void World::sub_5B0A6A() {
     }
 }
 
+// Try to cast a healing/buff spell on the caster or the most-damaged nearby ally.
+// 5A845B
+void World::sub_5A845B(Unit* unit) {
+    if (unit->spell_book == nullptr) {
+        return;
+    }
+    if (unit->mp <= 10) {
+        return;
+    }
+
+    Spell* spell = unit->spell_book->sub_53DB79(spell::heal);
+    if (spell == nullptr) {
+        return;
+    }
+
+    if (unit->hp != unit->hp_max) {
+        unit->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(unit, unit, spell);
+        return;
+    }
+
+    PosYX yx = unit->position->GetYX();
+    UnitList* list = this->field24_0xa50->sub_5897AA(yx, spell->max_range);
+    this->sub_5A39AD(unit, list);
+
+    double best_ratio = 2.0;
+    Unit* best_unit = nullptr;
+    if (list != nullptr) {
+        POSITION it = list->unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = list->unit_list.GetNext(it);
+            // WAT: that's integer division in vanilla, so `ratio` is likely 0 or 1.
+            double ratio = static_cast<double>(other->hp / other->hp_max);
+            if (ratio < best_ratio) {
+                best_ratio = ratio;
+                best_unit = other;
+            }
+        }
+    }
+
+    if (best_ratio >= 1.0) {
+        this->sub_5B6862(unit, list);
+    } else {
+        unit->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(unit, best_unit, spell);
+    }
+}
+
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4

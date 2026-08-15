@@ -1223,11 +1223,12 @@ externdef ?sub_5A6E59@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A
 externdef ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A6EA5(Unit*)
 externdef ?sub_5A6ED9@World@@QAEHPAVUnit@@0@Z :proc              ; World::sub_5A6ED9(Unit*, Unit*)
 externdef ?sub_5A8709@World@@QAEXPAVUnit@@0@Z :proc              ; void World::sub_5A8709(Unit*, Unit*)
-externdef ?sub_5A845B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A845B(Unit*)
 externdef ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z :proc   ; Spell* World::sub_5A79D6(Unit*, int, int)
 externdef ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z :proc             ; int World::sub_5A7A1C(Unit*, Unit*)
 externdef ?sub_5A7B44@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A7B44(Unit*)
 externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
+externdef ?sub_5A39AD@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A39AD(Unit*, UnitList*)
+externdef ?sub_5B6862@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5B6862(Unit*, UnitList*)
 externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::sub_5ADD64(Group*)
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
