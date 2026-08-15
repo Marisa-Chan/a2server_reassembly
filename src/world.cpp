@@ -109,6 +109,21 @@ void World::sub_5A44DB() {
     this->sub_5A3F88();
 }
 
+// 5A3F3A
+void World::sub_5A3F3A() {
+    this->sub_5A3F9B();
+    this->duration4 = 0;
+    this->duration4_low = 0;
+    this->field20_0xa48 = 0;
+    this->field21_0xa49 = 0;
+    this->counter = 0;
+}
+
+// 5A3F88
+void World::sub_5A3F88() {
+    this->sub_5A4284();
+}
+
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
@@ -1722,6 +1737,29 @@ void World::sub_5A6E2C(Unit* unit, int param) {
     } else {
         this->sub_5A6E59(unit);
     }
+}
+
+// 5A6E59
+void World::sub_5A6E59(Unit* unit) {
+    if (unit->pOwner->is_ai) {
+        unit->eye2->cast_action = 0x0B;
+        if (unit->sub_5B6FB0()) {
+            this->sub_5A845B(unit);
+        }
+    } else {
+        this->sub_5A6EA5(unit);
+    }
+}
+
+// 5A8709
+void World::sub_5A8709(Unit* unit, Unit* target) {
+    if (unit->sub_5B6FB0() && !unit->pOwner->is_ai && this->sub_5A6ED9(unit, target)) {
+        return;
+    }
+
+    unit->eye2->cast_action = 6;
+    unit->eye2->unit = target;
+    unit->eye2->max_range = this->UnitMaxRange(unit);
 }
 
 // Pick spell by number if the unit knows it and has enough MP.

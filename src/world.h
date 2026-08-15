@@ -116,6 +116,8 @@ public:
     void sub_5A44DB(); // 5A44DB
     void sub_5A3F3A(); // 5A3F3A
     void sub_5A3F88(); // 5A3F88
+    void sub_5A3F9B(); // 5A3F9B
+    void sub_5A4284(); // 5A4284
     void sub_5A4757(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void sub_5B2E7A(); // Post-load world relink helper
@@ -273,6 +275,9 @@ public:
     void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
     void sub_5A6E59(Unit* unit); // 5A6E59 — retreat helper.
     void sub_5A8709(Unit* unit, Unit* target); // 5A8709 — set unit to pursue the chosen target.
+    void sub_5A6EA5(Unit* unit); // 5A6EA5 — idle/wander helper (ASM).
+    int32_t sub_5A6ED9(Unit* unit, Unit* target); // 5A6ED9 — target-pursuit check (ASM).
+    void sub_5A845B(Unit* unit); // 5A845B — AI mage retreat helper (ASM).
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
     int32_t sub_5A7A1C(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void sub_5A7B44(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
