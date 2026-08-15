@@ -69,7 +69,8 @@ struct World {
     UnitList field28_0xaa4; // Non-attack list?
     UnitList field29_0xac4; // Attack list?
     uint32_t field_0xae4[10000];
-    uint8_t gap_0xa724[4];
+    uint8_t field_0xa724;
+    uint8_t gap_0xa725[3];
     uint8_t field32_0xa728[400];
     int32_t MinimalGuardRange;
     Diplomacy diplomacy;

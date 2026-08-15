@@ -4,6 +4,7 @@
 # Already migrated to C++ (derived from .obj symbol ownership).
 
 ??0A2NetSock@@QAE@XZ
+??0Action@@QAE@XZ
 ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@E@Z
 ??0AreaEffect@@QAE@XZ
 ??0Armor@@QAE@ABVCString@@@Z

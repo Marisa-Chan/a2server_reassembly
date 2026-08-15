@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 
 #include "world.h"
 
@@ -9,6 +10,7 @@
 #include "constants.h"
 #include "effect.h"
 #include "eye.h"
+#include "file.h"
 #include "game_app.h"
 #include "group.h"
 #include "inventory.h"
@@ -19,6 +21,7 @@
 #include "outpost.h"
 #include "player.h"
 #include "players_list.h"
+#include "resource.h"
 #include "server.h"
 #include "spell.h"
 #include "token.h"
@@ -122,6 +125,56 @@ void World::sub_5A3F3A() {
 // 5A3F88
 void World::sub_5A3F88() {
     this->sub_5A4284();
+}
+
+// (Re)initialize the world's runtime state and load AI settings from ai.reg.
+// 5A3F9B
+void World::sub_5A3F9B() {
+    this->field0_0x0 = 0x8000;
+    std::srand(static_cast<uint32_t>(std::time(nullptr)));
+
+    // Reconstruct members in place. CObject-derived types provide a placement
+    // new without a matching placement delete; this is expected for in-place
+    // reconstruction and matches the original ASM behavior.
+    new (&this->field2_0x8) Perf();
+    new (&this->field3_0x38) Perf();
+    new (&this->field4_0x68) Perf();
+    new (&this->field5_0x98) Perf();
+    new (&this->field_0xc8) FieldBlock5859c();
+    new (&this->field26_0xa64) UnitList();
+    new (&this->field27_0xa84) UnitList();
+    new (&this->field28_0xaa4) UnitList();
+    new (&this->field29_0xac4) UnitList();
+    new (&this->diplomacy) Diplomacy();
+    this->action_list.RemoveAll();
+    new (&this->scrape_action) Action();
+
+    this->duration4 = 0;
+    this->duration4_low = 0;
+    this->field20_0xa48 = 0;
+    this->field21_0xa49 = 0;
+    this->counter = 0;
+    this->field_0xa724 = 2;
+    this->field37_0xbbe8 = 0;
+
+    // TODO: extract [0x8b8--0xa48] into a struct?
+    std::memset(this->gap_0x8b8, 0, 400);
+
+    static constexpr uint8_t a54_init[16] = {2, 1, 2, 4, 4, 2, 1, 0, 2, 1, 4, 0, 2, 1, 2, 4};
+    std::memcpy(this->gap_0xa54, a54_init, sizeof(a54_init));
+
+    File2 file2;
+    file2.Open("World\\Data\\ai.reg", 0, nullptr);
+
+    RegFile* reg = new RegFile();
+    try {
+        reg->ReadFromFile(&file2, -1);
+    } catch (CException* e) {
+        e->Delete();
+    }
+
+    this->MinimalGuardRange = reg->GetInt("Scanning", "MinimalGuardRange", 10);
+    delete reg;
 }
 
 // 5A4284
@@ -2069,7 +2122,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y)
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(it);
             uint8_t dist = this->field24_0xa50->sub_593B29(PosYX(unit->position->CompatGetYX()), PosYX(origin_x, origin_y));
-            if (dist > this->gap_0xa724[0]) {
+            if (dist > this->field_0xa724) {
                 use_relative = false;
             }
         }

@@ -4,6 +4,7 @@ project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
 set(CMAKE_CXX_STANDARD 17)
 
 set(A2_SOURCES
+  action.cpp
   alm.cpp
   asm_mfc.cpp
   building.cpp
