@@ -1913,6 +1913,51 @@ uint8_t World::UnitMaxRange(Unit* unit)
     return unit->max_range;
 }
 
+// 5A5E54 — build active/alternate target lists around unit.
+void World::sub_5A5E54(Unit* unit) {
+    Visibility* visibility = &this->field24_0xa50->visibility;
+    visibility->sub_58E1C1();
+    uint8_t* scratch = visibility->field_0x2a008;
+
+    uint16_t yx = unit->position->CompatGetYX();
+    visibility->sub_58DE69(unit, yx);
+
+    if (unit->pOwner->is_ai && unit->eye2->position3 != 0) {
+        scratch[unit->eye2->position3] += 1;
+        unit->eye2->counter2++;
+        if (unit->eye2->counter2 > 20) {
+            unit->eye2->position3 = 0;
+        }
+    }
+
+    this->field26_0xa64.unit_list.RemoveAll();
+
+    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    if (all != nullptr) {
+        POSITION it = all->unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = all->unit_list.GetNext(it);
+            uint16_t other_yx = other->position->CompatGetYX();
+            if (scratch[other_yx] != 0) {
+                this->field26_0xa64.unit_list.AddTail(other);
+            }
+        }
+    }
+
+    this->sub_5A3896(unit, &this->field26_0xa64, 0);
+    this->sub_5A3C5F();
+
+    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
+        this->field26_0xa64.unit_list.RemoveAll();
+        POSITION it = this->field27_0xa84.unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = this->field27_0xa84.unit_list.GetNext(it);
+            this->field26_0xa64.unit_list.AddTail(other);
+        }
+        this->field27_0xa84.unit_list.RemoveAll();
+    }
+}
+
 // 5A607B — idle/wander helper: choose the best target from the active/alternate lists.
 void World::sub_5A607B(Unit* unit) {
     uint8_t max_range = this->UnitMaxRange(unit);
