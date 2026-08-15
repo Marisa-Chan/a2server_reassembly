@@ -1238,7 +1238,18 @@ externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::s
 externdef ?sub_5B6F60@World@@QAEHHH@Z :proc
 externdef ?sub_5B6346@World@@QAEXXZ :proc
 externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_5ABFBC@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5ABFBC(Group*)
+externdef ?sub_5AF623@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF623(Group*)
+externdef ?sub_5AF646@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF646(Group*)
+externdef ?sub_5AF022@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF022(Group*)
+externdef ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5ABCFD(Unit*)
+externdef ?sub_5AE628@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE628(Group*)
+externdef ?sub_5AEC20@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AEC20(Group*, uint16_t)
+externdef ?sub_5AEF66@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AEF66(Group*)
+externdef ?sub_5AF061@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AF061(Group*, uint16_t)
+externdef ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AECE7(Group*, uint16_t)
+externdef ?sub_5AED8D@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AED8D(Group*)
+externdef ?sub_5AE7C3@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE7C3(Group*)
+externdef ?sub_5AEFE5@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AEFE5(Group*)
 externdef ?sub_5A9087@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A9087(Unit*, Unit*)
 externdef ?sub_5A92AF@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc   ; World::sub_5A92AF(Unit*, Unit*, Spell*)
 externdef ?sub_5A9482@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A9482(Unit*, Unit*, uint8_t)

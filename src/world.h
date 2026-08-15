@@ -185,6 +185,18 @@ public:
     void sub_5AA84F(Unit* unit); // 5AA84F
     int32_t sub_5AD0B3(Unit* unit, Unit* target); // 5AD0B3
     void sub_5ABFBC(Group* group); // 5ABFBC
+    void sub_5AF623(Group* group); // 5AF623
+    void sub_5AF646(Group* group); // 5AF646
+    void sub_5AF022(Group* group); // 5AF022
+    void sub_5ABCFD(Unit* unit); // 5ABCFD
+    void sub_5AE628(Group* group); // 5AE628
+    void sub_5AEC20(Group* group, uint16_t param); // 5AEC20
+    void sub_5AEF66(Group* group); // 5AEF66
+    void sub_5AF061(Group* group, uint16_t param); // 5AF061
+    void sub_5AECE7(Group* group, uint16_t param); // 5AECE7
+    void sub_5AED8D(Group* group); // 5AED8D
+    void sub_5AE7C3(Group* group); // 5AE7C3
+    void sub_5AEFE5(Group* group); // 5AEFE5
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC
     void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).

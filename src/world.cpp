@@ -2821,6 +2821,49 @@ void World::sub_5ABF50(Player* player) {
     }
 }
 
+// 5ABFBC
+void World::sub_5ABFBC(Group* group) {
+    this->sub_5AF623(group);
+    uint8_t cmd = group->group_sub->field_0x20;
+    if (cmd == 0xFF) {
+        this->sub_5AF022(group);
+    } else {
+        switch (cmd) {
+        case 0:
+            for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+                Unit* unit = group->unit_list.GetNext(it);
+                this->sub_5ABCFD(unit);
+            }
+            break;
+        case 1:
+            this->sub_5AE628(group);
+            break;
+        case 2:
+            this->sub_5AEC20(group, group->group_sub->field_0xa);
+            break;
+        case 3:
+            this->sub_5AEF66(group);
+            break;
+        case 4:
+            this->sub_5AF061(group, group->group_sub->field_0xa);
+            break;
+        case 5:
+            this->sub_5AECE7(group, group->group_sub->field_0xa);
+            break;
+        case 0x11:
+            this->sub_5AED8D(group);
+            break;
+        case 0x12:
+            this->sub_5AE7C3(group);
+            break;
+        case 0x13:
+            this->sub_5AEFE5(group);
+            break;
+        }
+    }
+    this->sub_5AF646(group);
+}
+
 // 5AC80F
 void World::sub_5AC80F(Group* group, Unit* target) {
     this->FUN_005acd4c(group);
