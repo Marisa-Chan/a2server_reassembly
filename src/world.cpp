@@ -1793,6 +1793,122 @@ void World::sub_5AC8A2(Group* group, uint8_t range) {
     group->group_sub->field_0x39 = 0;
 }
 
+// 5A9087 — order `unit` to attack `target`.
+void World::sub_5A9087(Unit* unit, Unit* target) {
+    if (unit == target) {
+        this->sub_5A9A6A(unit);
+    } else {
+        this->sub_5A9AC4(unit);
+        unit->state = 3;
+        unit->eye2->unit = target;
+        unit->eye2->max_range = this->UnitMaxRange(unit);
+        unit->eye2->cast_action = 0;
+    }
+}
+
+// 5A930F — order `unit` to area-cast `spell` at (x, y).
+void World::sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0xE;
+    unit->eye2->field30_0x3c = PosYX(x, y).val;
+    unit->eye2->spell = spell;
+    unit->eye2->max_range = spell->max_range;
+    unit->eye2->cast_action = 0;
+}
+
+// 5A943B — helper used by sub_5ACAA7: set unit to retreat/evade state.
+void World::sub_5A943B(Unit* unit) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0x17;
+    unit->eye2->position1 = unit->position->CompatGetYX();
+    unit->eye2->cast_action = 0;
+}
+
+// 5A9482 — order `unit` to follow/guard `target` (state 8).
+void World::sub_5A9482(Unit* unit, Unit* target, uint8_t range) {
+    this->sub_5A9AC4(unit);
+    if (unit == target) {
+        this->sub_5A9A6A(unit);
+    } else {
+        unit->state = 8;
+        unit->eye2->unit2 = target;
+        unit->eye2->cast_action = 0;
+        unit->eye2->range = (range != 0) ? range : 3;
+    }
+}
+
+// 5A9501 — order `unit` to attack `target` (state 0x11).
+void World::sub_5A9501(Unit* unit, Unit* target, uint8_t range) {
+    this->sub_5A9AC4(unit);
+    if (unit == target) {
+        this->sub_5A9A6A(unit);
+    } else {
+        unit->state = 0x11;
+        unit->eye2->unit2 = target;
+        unit->eye2->cast_action = 0;
+        unit->eye2->range = (range != 0) ? range : 3;
+    }
+}
+
+// 5A9580 — order `unit` to move to (x, y) using path-list.
+void World::sub_5A9580(Unit* unit, uint8_t x, uint8_t y) {
+    this->sub_5A9AC4(unit);
+    unit->state = 10;
+    unit->eye2->position1 = unit->position->CompatGetYX();
+    unit->eye2->positions_list->RemoveAll();
+    unit->eye2->positions_list->AddHead(unit->position->CompatGetYX());
+    unit->eye2->positions_list->AddTail(PosYX(x, y).val);
+    unit->eye2->position2 = unit->eye2->positions_list->GetTail();
+    unit->eye2->field2_0x4 = 0;
+    unit->eye2->cast_action = 0;
+    this->field24_0xa50->visibility.sub_58D768(unit, unit->position->CompatGetYX());
+}
+
+// 5A9918 — helper used by sub_5ACAFA: set unit to idle/wander state 0x16.
+void World::sub_5A9918(Unit* unit) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0x16;
+    unit->eye2->cast_action = 0;
+}
+
+// 5AA426 — turn unit to face `facing`; if already facing, clear cast action.
+void World::sub_5AA426(Unit* unit, uint8_t facing) {
+    if (unit->eye->field0_0x0 != facing) {
+        this->field24_0xa50->sub_590F94(unit, facing);
+        unit->some_state = 1;
+    } else {
+        unit->eye2->cast_action = 0;
+        unit->some_state = 0;
+    }
+}
+
+// 5AA7CF — commit a targeted spell cast from eye2 setup.
+void World::sub_5AA7CF(Unit* unit) {
+    unit->eye2->field4_0x9 = 2;
+    unit->eye2->counter = 0;
+    unit->some_state = 0xD;
+    unit->cast_target = unit->eye2->unit5;
+    unit->some_spell = unit->eye2->spell;
+    unit->eye2->field48_0x5c = 1;
+    if (unit->eye2->field49_0x60 == 0) {
+        this->sub_5A9A8F(unit);
+    }
+}
+
+// 5AA84F — commit an area spell cast from eye2 setup.
+void World::sub_5AA84F(Unit* unit) {
+    unit->eye2->field4_0x9 = 2;
+    unit->eye2->counter = 0;
+    unit->some_state = 0xE;
+    unit->area_cast_x = PosYX(unit->eye2->field30_0x3c).x;
+    unit->area_cast_y = PosYX(unit->eye2->field30_0x3c).y;
+    unit->some_spell = unit->eye2->spell;
+    unit->eye2->field48_0x5c = 0;
+    if (unit->eye2->field49_0x60 == 0) {
+        this->sub_5A9A8F(unit);
+    }
+}
+
 // Order a unit to interact with/enter a building.
 // 5A90F4
 void World::sub_5A90F4(Unit* unit, Building* building) {
@@ -2171,6 +2287,30 @@ void World::sub_5AC187(Group* group, Unit* target, Spell*) {
             this->sub_5A92AF(unit, target, unit->spell);
         }
         unit->spell = nullptr;
+    }
+
+    group->group_sub->field_0x20 = 0;
+}
+
+// 5ACAA7 — order group to retreat/evade (state 0x13).
+void World::sub_5ACAA7(Group* group) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A943B(unit);
+    }
+
+    group->group_sub->field_0x20 = 0x13;
+}
+
+// 5ACAFA — order group to idle/wander (state 0).
+void World::sub_5ACAFA(Group* group) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9918(unit);
     }
 
     group->group_sub->field_0x20 = 0;

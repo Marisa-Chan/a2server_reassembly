@@ -236,6 +236,7 @@
 ?sub_58E1C1@Visibility@@QAEXXZ	18
 ?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z	19
 ?sub_58CD84@Visibility@@QAEXXZ	89
+?sub_58D768@Visibility@@QAEXPAVUnit@@G@Z	245
 ?sub_58CE74@Visibility@@QAEXXZ	329
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
@@ -254,16 +255,6 @@
 ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z	37
 ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z	39
 ?sub_5A7AF7@World@@QAEHPAVUnit@@0PAVSpell@@@Z	39
-?sub_5ACAA7@World@@QAEXPAVGroup@@@Z	40
-?sub_5ACAFA@World@@QAEXPAVGroup@@@Z	40
-?sub_5AA426@World@@QAEXPAVUnit@@E@Z	41
-?sub_5A930F@World@@QAEXPAVUnit@@EEPAVSpell@@@Z	42
-?sub_5AA7CF@World@@QAEXPAVUnit@@@Z	43
-?sub_5A9087@World@@QAEXPAVUnit@@0@Z	46
-?sub_5AA84F@World@@QAEXPAVUnit@@@Z	51
-?sub_5A9482@World@@QAEXPAVUnit@@0E@Z	55
-?sub_5A9501@World@@QAEXPAVUnit@@0E@Z	55
-?sub_5A9580@World@@QAEXPAVUnit@@EE@Z	73
 ?sub_5ABFBC@World@@QAEXPAVGroup@@@Z	150
 ?sub_5AD0B3@World@@QAEHPAVUnit@@0@Z	201
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
