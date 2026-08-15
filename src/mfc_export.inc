@@ -1233,7 +1233,6 @@ externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::s
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
 externdef ?sub_5B0724@World@@QAEXXZ :proc
 externdef ?sub_5B0762@World@@QAEXXZ :proc                        ; void World::sub_5B0762()
-externdef ?sub_5B081E@World@@QAEXPAUTriggerCheck@@@Z :proc      ; void World::sub_5B081E(TriggerCheck*)
 externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::sub_5B0A6A()
 externdef ?sub_5B6F60@World@@QAEHHH@Z :proc
 externdef ?sub_5B6346@World@@QAEXXZ :proc

@@ -122,7 +122,7 @@ public:
     void sub_5ABD16(class PlayersList* players);
     void sub_5B0724(); // 5B0724
     void sub_5B0762(); // 5B0762
-    void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher (ASM).
+    void sub_5B081E(TriggerCheck* check); // 5B081E — trigger-check dispatcher.
     void sub_5B0A6A(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0
     void sub_5B6346(); // 5B6346
@@ -181,6 +181,33 @@ public:
     void sub_5A9A8F(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
+
+    // Trigger check handlers, called from `sub_5B081E`.
+    void CheckOP_1(TriggerCheck* check); // 5B2E91. How many units contains this group
+    void CheckOP_2(TriggerCheck* check); // 5B2EF9. Is unit in a box
+    void CheckOP_3(TriggerCheck* check); // 5B2F9A. Is unit in a circle
+    void CheckOP_4(TriggerCheck* check); // 5B3071. Get unit parameter
+    void CheckOP_5(TriggerCheck* check); // 5B2EB8. Is unit alive?
+    void CheckOP_6(TriggerCheck* check); // 5B3131. Distance between units
+    void CheckOP_7(TriggerCheck* check); // 5B3016. Distance from point to unit
+    void CheckOP_8(TriggerCheck* check); // 5B30AD. How many units this player have
+    void CheckOP_9(TriggerCheck* check); // 5B31C9. Is unit make attack
+    void CheckOP_10(TriggerCheck* check); // 5B3222. Get diplomacy
+    void CheckOP_12(TriggerCheck* check); // 5B3273. Item in inventory, same as check 17.
+    void CheckOP_14(TriggerCheck* check); // 5B32CF. Get sack
+    void CheckOP_15(TriggerCheck* check); // 5B3324. Distance to nearest units of player
+    void CheckOP_16(TriggerCheck* check); // 5B33F0. Item to point
+    void CheckOP_17(TriggerCheck* check); // 5B347A. Item in inventory
+    void CheckOP_18(TriggerCheck* check); // 5B34C9. VIP
+    void CheckOP_19(TriggerCheck* check); // 5B34F7. Return value of variable
+    void CheckOP_20(TriggerCheck* check); // 5B3525. How many buildings this player have
+    void CheckOP_21(TriggerCheck* check); // 5B35A0. Health of building
+    void CheckOP_22(TriggerCheck* check); // 5B35C6. Teleportation
+    void CheckOP_23(TriggerCheck* check); // 5B3644. Get Scenario Variable
+    void CheckOP_24(TriggerCheck* check); // 5B366D. Get Subobjective
+    void CheckOP_25(TriggerCheck* check); // 5B369C. Spell on Tile
+    void CheckOP_26(TriggerCheck* check); // 5B3720. Spell on Unit
+    void CheckOP_27(TriggerCheck* check); // 5B3776. Centered on Tile
 
     // Trigger action dispatch handlers (called from DoScriptInstID)
     void ScriptOP_0x01(TriggerAction* action);

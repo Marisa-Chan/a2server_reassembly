@@ -268,7 +268,6 @@
 ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z	58
 ?sub_5AA9F6@World@@QAEXPAVUnit@@@Z	60
 ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z	61
-?sub_5B081E@World@@QAEXPAUTriggerCheck@@@Z	240
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

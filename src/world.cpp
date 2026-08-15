@@ -2065,3 +2065,261 @@ void World::sub_5B0762() {
         }
     }
 }
+
+// 5B081E — trigger-check dispatcher.
+void World::sub_5B081E(TriggerCheck* check) {
+    switch (check->type) {
+    case 1: this->CheckOP_1(check); break;
+    case 2: this->CheckOP_2(check); break;
+    case 3: this->CheckOP_3(check); break;
+    case 4: this->CheckOP_4(check); break;
+    case 5: this->CheckOP_5(check); break;
+    case 6: this->CheckOP_6(check); break;
+    case 7: this->CheckOP_7(check); break;
+    case 8: this->CheckOP_8(check); break;
+    case 9: this->CheckOP_9(check); break;
+    case 10: this->CheckOP_10(check); break;
+    case 11: break; // No-op.
+    case 12: this->CheckOP_12(check); break;
+    case 13: break; // No-op.
+    case 14: this->CheckOP_14(check); break;
+    case 15: this->CheckOP_15(check); break;
+    case 16: this->CheckOP_16(check); break;
+    case 17: this->CheckOP_17(check); break;
+    case 18: this->CheckOP_18(check); break;
+    case 19: this->CheckOP_19(check); break;
+    case 20: this->CheckOP_20(check); break;
+    case 21: this->CheckOP_21(check); break;
+    case 22: this->CheckOP_22(check); break;
+    case 23: this->CheckOP_23(check); break;
+    case 24: this->CheckOP_24(check); break;
+    case 25: this->CheckOP_25(check); break;
+    case 26: this->CheckOP_26(check); break;
+    case 27: this->CheckOP_27(check); break;
+    }
+}
+
+// 5B2E91
+void World::CheckOP_1(TriggerCheck* check) {
+    this->trigger_variables[check->id] = check->group->unit_list.GetCount();
+}
+
+// 5B2EF9
+void World::CheckOP_2(TriggerCheck* check) {
+    uint8_t x = check->unit->token_pos->GetX();
+    uint8_t y = check->unit->token_pos->GetY();
+    if (check->data[0] <= x && x <= check->data[2] && check->data[1] <= y && y <= check->data[3]) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B2F9A
+void World::CheckOP_3(TriggerCheck* check) {
+    TokenPos* pos = check->unit->token_pos;
+    int32_t distance = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+    if (distance > check->data[2]) {
+        this->trigger_variables[check->id] = 0;
+    } else {
+        this->trigger_variables[check->id] = 1;
+    }
+}
+
+// 5B3071
+void World::CheckOP_4(TriggerCheck* check) {
+    if (check->data[0] == modifier::health) {
+        this->trigger_variables[check->id] = check->unit->hp;
+    }
+}
+
+// 5B2EB8
+void World::CheckOP_5(TriggerCheck* check) {
+    if (check->unit->some_state == 0x10) {
+        this->trigger_variables[check->id] = 0;
+    } else {
+        this->trigger_variables[check->id] = 1;
+    }
+}
+
+// 5B3131
+void World::CheckOP_6(TriggerCheck* check) {
+    Unit* other = static_cast<Unit*>(check->multi);
+
+    if (check->unit->some_state == 0x10 || check->multi == nullptr || other->some_state == 0x10) {
+        this->trigger_variables[check->id] = 0xFF;
+    } else {
+        TokenPos* pos = check->unit->token_pos;
+        TokenPos* other_pos = other->token_pos;
+        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
+    }
+}
+
+// 5B3016
+void World::CheckOP_7(TriggerCheck* check) {
+    TokenPos* pos = check->unit->token_pos;
+    this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
+}
+
+// 5B30AD
+void World::CheckOP_8(TriggerCheck* check) {
+    int32_t count = 0;
+    CList<Group*>& groups = check->player->group_list->groups;
+    for (POSITION it = groups.GetHeadPosition(); it != nullptr;) {
+        Group* group = groups.GetNext(it);
+        count += group->unit_list.GetCount();
+    }
+    this->trigger_variables[check->id] = count;
+}
+
+// 5B31C9
+void World::CheckOP_9(TriggerCheck* check) {
+    if (check->unit->eye2->cast_action == 5) {
+        this->trigger_variables[check->id] = check->unit->eye2->unit->TokenID;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B3222
+void World::CheckOP_10(TriggerCheck* check) {
+    int other_id = static_cast<Player*>(check->multi)->player_id;
+    this->trigger_variables[check->id] = this->diplomacy.diplomacy[check->player->player_id][other_id] & 3;
+}
+
+// 5B3273
+void World::CheckOP_12(TriggerCheck* check) {
+    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B32CF
+void World::CheckOP_14(TriggerCheck* check) {
+    if (this->field24_0xa50->sub_58E5C7(check->data[0], check->data[1]) != nullptr) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B3324
+void World::CheckOP_15(TriggerCheck* check) {
+    int32_t best = 0xFF;
+    CList<Group*>& groups = check->player->group_list->groups;
+    for (POSITION it = groups.GetHeadPosition(); it != nullptr;) {
+        Group* group = groups.GetNext(it);
+        for (POSITION unit_it = group->unit_list.GetHeadPosition(); unit_it != nullptr;) {
+            Unit* unit = group->unit_list.GetNext(unit_it);
+            int32_t distance = this->field24_0xa50->sub_58BFA3(unit->token_pos->GetX(), unit->token_pos->GetY(), check->data[0], check->data[1]);
+            if (distance < best) {
+                best = distance;
+            }
+        }
+    }
+    this->trigger_variables[check->id] = best;
+}
+
+// 5B33F0
+void World::CheckOP_16(TriggerCheck* check) {
+    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(check->unit->token_pos->GetX(), check->unit->token_pos->GetY(), check->data[0], check->data[1]);
+    } else {
+        this->trigger_variables[check->id] = 0xFF;
+    }
+}
+
+// 5B347A
+void World::CheckOP_17(TriggerCheck* check) {
+    if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B34C9
+void World::CheckOP_18(TriggerCheck* check) {
+    if (check->unit->some_state == 0x10) {
+        this->mission_fail += 1;
+    }
+}
+
+// 5B34F7
+void World::CheckOP_19(TriggerCheck* check) {
+    this->trigger_variables[check->id] = this->trigger_variables[check->data[0]];
+}
+
+// 5B3525
+void World::CheckOP_20(TriggerCheck* check) {
+    int32_t count = 0;
+    BuildingsList* buildings = g_Server->srv_stru1->building_list;
+    for (POSITION it = buildings->GetHeadPosition(); it != nullptr;) {
+        Building* building = buildings->GetNext(it);
+        if (building->pOwner == check->player && building->hp > 0) {
+            count += 1;
+        }
+    }
+    this->trigger_variables[check->id] = count;
+}
+
+// 5B35A0
+void World::CheckOP_21(TriggerCheck* check) {
+    this->trigger_variables[check->id] = check->building->hp;
+}
+
+// 5B35C6
+void World::CheckOP_22(TriggerCheck* check) {
+    PosYX yx(check->data[0], check->data[1]);
+    Unit* unit = this->field24_0xa50->sub_58CB5A(yx.val);
+    if (unit != nullptr) {
+        this->field24_0xa50->sub_5954AC(unit, check->data[2], check->data[3]);
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B3644
+void World::CheckOP_23(TriggerCheck* check) {
+    this->trigger_variables[check->id] = ScenarioGetVar(check->data[0]);
+}
+
+// 5B366D
+void World::CheckOP_24(TriggerCheck* check) {
+    this->trigger_variables[check->id] = ScenarioGetVar(check->data[0] + 752);
+}
+
+// 5B369C
+void World::CheckOP_25(TriggerCheck* check) {
+    PosYX yx(check->data[0], check->data[1]);
+    AreaEffect** effects = this->field24_0xa50->sub_59536C(yx.val);
+    if (effects == nullptr) {
+        this->trigger_variables[check->id] = 0;
+    } else if (effects[check->data[2]] != nullptr) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
+
+// 5B3720
+void World::CheckOP_26(TriggerCheck* check) {
+    if ((check->unit->enchantments & (1 << check->data[0])) == 0) {
+        this->trigger_variables[check->id] = 0;
+    } else {
+        this->trigger_variables[check->id] = 1;
+    }
+}
+
+// 5B3776
+void World::CheckOP_27(TriggerCheck* check) {
+    TokenPos* pos = check->unit->token_pos;
+    if (pos->GetX() == check->data[1] && pos->GetY() == check->data[2] && pos->sub_58bec3() != 0) {
+        this->trigger_variables[check->id] = 1;
+    } else {
+        this->trigger_variables[check->id] = 0;
+    }
+}
