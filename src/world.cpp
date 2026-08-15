@@ -99,6 +99,16 @@ void World::sub_5A4757() {
     this->triggers = new CList<Trigger>();
 }
 
+// 5A44C5
+void World::sub_5A44C5() {
+    this->sub_5A3F3A();
+}
+
+// 5A44DB
+void World::sub_5A44DB() {
+    this->sub_5A3F88();
+}
+
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
@@ -178,6 +188,24 @@ void World::sub_5A3896(Unit* unit, UnitList* list, int32_t flag) {
             list->unit_list.RemoveAt(current);
         }
     }
+}
+
+// Build a temporary UnitList of enemy units near `yx` that `caster` can see.
+// 5A3808
+UnitList* World::sub_5A3808(Unit* caster, PosYX yx) {
+    uint8_t range = caster->eye->field7_0x8;
+    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    this->sub_5A3896(caster, list, 0);
+    return list;
+}
+
+// Build a temporary UnitList of allied units near `yx` that `caster` can see.
+// 5A384F
+UnitList* World::sub_5A384F(Unit* caster, PosYX yx) {
+    uint8_t range = caster->eye->field7_0x8;
+    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    this->sub_5A3896(caster, list, 1);
+    return list;
 }
 
 // 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
@@ -1611,6 +1639,46 @@ uint8_t World::UnitMaxRange(Unit* unit)
     return unit->max_range;
 }
 
+// Set unit to idle/wander (param=0) or retreat (param!=0).
+// 5A6E2C
+void World::sub_5A6E2C(Unit* unit, int param) {
+    if (param == 0) {
+        this->sub_5A607B(unit);
+    } else {
+        this->sub_5A6E59(unit);
+    }
+}
+
+// Pick spell by number if the unit knows it and has enough MP.
+// 5A79D6
+Spell* World::sub_5A79D6(Unit* unit, int32_t spell_number, int32_t /*flag*/) {
+    Spell* spell = unit->spell_book->sub_53DB79(spell_number);
+    if (spell == nullptr || unit->mp < spell->mana_cost) {
+        return nullptr;
+    }
+    return spell;
+}
+
+// Check whether `other` is within `spell`'s max range from `unit`.
+// 5A7AF7
+int32_t World::sub_5A7AF7(Unit* unit, Unit* other, Spell* spell) {
+    PosYX other_yx = other->position->GetYX();
+    PosYX unit_yx = unit->position->GetYX();
+    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, other_yx);
+    return distance <= spell->max_range ? 1 : 0;
+}
+
+// Set up a single-target cast action for `unit` on `target` using `spell`.
+// 5A92AF
+void World::sub_5A92AF(Unit* unit, Unit* target, Spell* spell) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0xD;
+    unit->eye2->unit5 = target;
+    unit->eye2->spell = spell;
+    unit->eye2->max_range = spell->max_range;
+    unit->eye2->cast_action = 0;
+}
+
 void World::FUN_005a9832(Unit* unit)
 { //5a9832
     if (unit->eye->field0_0x0 != unit->eye->field1_0x1)
@@ -1648,6 +1716,45 @@ void World::sub_5A9A6A(Unit* unit)
 { //5a9a6a
     sub_5A9AC4(unit);
     FUN_005a93f4(unit);
+}
+
+// Reset unit to idle and register it in the world.
+// 5A9A8F
+void World::sub_5A9A8F(Unit* unit) {
+    this->FUN_005a9832(unit);
+    this->sub_5A9A6A(unit);
+    unit->eye2->field43_0x50 = 1;
+}
+
+// Toggle a unit between state 2 and a full idle reset.
+// 5AA8ED
+void World::sub_5AA8ED(Unit* unit) {
+    if (unit->some_state == 2) {
+        this->sub_5A9A8F(unit);
+    } else {
+        unit->some_state = 2;
+    }
+}
+
+// Set unit to pursue `target`; if not centered in a cell, mark it for movement.
+// 5AA91B
+void World::sub_5AA91B(Unit* unit, Unit* target) {
+    this->field24_0xa50->sub_59028D(unit, target, unit->eye2->max_range);
+    if (!unit->position->sub_58bec3()) {
+        unit->eye2->field4_0x9 = 3;
+        unit->eye2->counter = 0;
+    }
+    unit->some_state = 1;
+}
+
+// Turn unit to face `facing`; if the facing changed, mark state as 1.
+// 5AAF84
+void World::sub_5AAF84(Unit* unit, uint8_t facing) {
+    uint8_t old_facing = unit->eye->field0_0x0;
+    this->field24_0xa50->sub_590F94(unit, facing);
+    if (unit->eye->field0_0x0 != old_facing) {
+        unit->some_state = 1;
+    }
 }
 
 void World::FUN_005acd4c(Group* grp)
@@ -1765,6 +1872,24 @@ void World::sub_5AC137(Group* group) {
     group->group_sub->field_0x0 = group->group_sub->field_0x28;
     group->group_sub->field_0x2d = group->group_sub->field_0x2c;
     group->group_sub->field_0x38 = group->group_sub->field_0x2c;
+}
+
+// Issue a move-to-point command to `group`.
+// 5AC785
+void World::sub_5AC785(Group* group, uint8_t x, uint8_t y) {
+    this->FUN_005acd4c(group);
+    group->group_sub->field_0x20 = 2;
+    group->group_sub->field_0xa = PosYX{x, y}.val;
+}
+
+// Issue a respawn/return command to `group` using the lead unit's position.
+// 5AC7C8
+void World::sub_5AC7C8(Group* group) {
+    this->FUN_005acd4c(group);
+    group->group_sub->field_0x20 = 0x11;
+    Unit* head = group->unit_list.GetHead();
+    group->group_sub->field_0xa = head->position->CompatGetYX();
+    group->group_sub->field_0x15 = 0;
 }
 
 // Issue a guard/hold command to `group`.

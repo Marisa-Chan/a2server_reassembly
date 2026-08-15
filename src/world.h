@@ -114,6 +114,8 @@ public:
     void sub_5A457A(); // 5A457A
     void sub_5A44C5(); // 5A44C5
     void sub_5A44DB(); // 5A44DB
+    void sub_5A3F3A(); // 5A3F3A
+    void sub_5A3F88(); // 5A3F88
     void sub_5A4757(); // 5A4757
     void sub_5B0556(CArchive& ar); // Serialize
     void sub_5B2E7A(); // Post-load world relink helper
@@ -267,6 +269,8 @@ public:
     void sub_5A4590(); // 5A4590
     uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
+    void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
+    void sub_5A6E59(Unit* unit); // 5A6E59 — retreat helper.
     Spell* sub_5A79D6(Unit* unit, int32_t spell_number, int32_t flag); // Pick spell by number if unit has enough MP.
     int32_t sub_5A7A1C(Unit* unit, Unit* other); // Check if `unit` should autobuff `other` (diplomacy/settings check).
     void sub_5A7B44(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
