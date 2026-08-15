@@ -2,8 +2,8 @@
 Find all sections of a function in Main.asm: proc body, FUNCTION CHUNKs, and SEH .rdata entries.
 
 Usage:
-    python asm_find_func.py <hex_addr>              # e.g. python asm_find_func.py 560DC2
-    python asm_find_func.py <hex_addr> [asm_file]   # custom path to Main.asm
+    python tool/asm_find_func.py <hex_addr>              # e.g. python tool/asm_find_func.py 560DC2
+    python tool/asm_find_func.py <hex_addr> [asm_file]   # custom path to Main.asm
 """
 import sys
 import os
@@ -168,7 +168,7 @@ def main():
 
     print()
     print("To delete, run:")
-    print(f"  python asm_delete_lines.py {' '.join(ranges)}")
+    print(f"  python tool/asm_delete_lines.py {' '.join(ranges)}")
     print()
     print("NOTE: SEH .rdata entries listed above may need manual review")
     print("      (they can be shared with other functions).")

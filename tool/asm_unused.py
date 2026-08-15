@@ -4,11 +4,11 @@ Strategy: extract all identifier-like tokens from each line, look them up in a
 set of known symbols.  This is O(total_tokens) instead of O(symbols * lines).
 
 Usage:
-    python asm_unused.py                       # report only
-    python asm_unused.py --cleanup=functions    # delete unused functions
-    python asm_unused.py --cleanup=data         # delete unused data symbols
-    python asm_unused.py --cleanup=all          # delete both
-    python asm_unused.py --cleanup=all --dry-run  # preview without writing
+    python tool/asm_unused.py                       # report only
+    python tool/asm_unused.py --cleanup=functions    # delete unused functions
+    python tool/asm_unused.py --cleanup=data         # delete unused data symbols
+    python tool/asm_unused.py --cleanup=all          # delete both
+    python tool/asm_unused.py --cleanup=all --dry-run  # preview without writing
 """
 import re
 import sys

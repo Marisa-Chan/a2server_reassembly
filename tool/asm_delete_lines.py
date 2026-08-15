@@ -2,9 +2,9 @@
 Delete line ranges from Main.asm (bottom-up to preserve line numbers).
 
 Usage:
-    python asm_delete_lines.py <start-end> [<start-end> ...]
-    python asm_delete_lines.py --dry-run <start-end> [<start-end> ...]
-    python asm_delete_lines.py --asm-file path/to/Main.asm <start-end> [...]
+    python tool/asm_delete_lines.py <start-end> [<start-end> ...]
+    python tool/asm_delete_lines.py --dry-run <start-end> [<start-end> ...]
+    python tool/asm_delete_lines.py --asm-file path/to/Main.asm <start-end> [...]
 """
 import sys
 import os

@@ -2,9 +2,9 @@
 Rename/replace a symbol throughout Main.asm (proc/endp labels, call sites, comments, etc.)
 
 Usage:
-    python asm_rename.py <old_name> <new_name>
-    python asm_rename.py --dry-run <old_name> <new_name>
-    python asm_rename.py --asm-file path/to/Main.asm <old_name> <new_name>
+    python tool/asm_rename.py <old_name> <new_name>
+    python tool/asm_rename.py --dry-run <old_name> <new_name>
+    python tool/asm_rename.py --asm-file path/to/Main.asm <old_name> <new_name>
 """
 import sys
 import os
