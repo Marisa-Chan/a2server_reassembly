@@ -1639,6 +1639,81 @@ uint8_t World::UnitMaxRange(Unit* unit)
     return unit->max_range;
 }
 
+// 5A607B — idle/wander helper: choose the best target from the active/alternate lists.
+void World::sub_5A607B(Unit* unit) {
+    uint8_t max_range = this->UnitMaxRange(unit);
+    uint8_t best_range = max_range + 1;
+    uint8_t best_score_diff = 0xFF;
+    Unit* best_target = nullptr;
+
+    this->sub_5A5E54(unit);
+
+    POSITION it = this->field26_0xa64.unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* other = this->field26_0xa64.unit_list.GetNext(it);
+        int32_t filter_result = this->sub_5AD0B3(unit, other);
+        if (filter_result == -1) {
+            continue;
+        }
+        int32_t range = this->field24_0xa50->sub_59190D(unit, other);
+        if (other->sub_59A030() == 3 && unit->sub_59A030() != 3) {
+            range += 1;
+        }
+        uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+        uint8_t score = sub_595561(facing, unit->eye->field0_0x0);
+        if (range < best_range) {
+            best_target = other;
+            best_score_diff = score;
+            best_range = static_cast<uint8_t>(range);
+        } else if (range == best_range && range <= max_range && score <= best_score_diff) {
+            best_target = other;
+            best_score_diff = score;
+        }
+    }
+
+    if (max_range < best_range) {
+        best_target = nullptr;
+    }
+
+    if (best_target == nullptr) {
+        best_range = max_range + 1;
+        best_score_diff = 0xFF;
+
+        it = this->field27_0xa84.unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = this->field27_0xa84.unit_list.GetNext(it);
+            int32_t range = this->field24_0xa50->sub_59190D(unit, other);
+            uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
+            uint8_t score = sub_595561(facing, unit->eye->field0_0x0);
+            if (range < best_range) {
+                best_target = other;
+                best_score_diff = score;
+                best_range = static_cast<uint8_t>(range);
+            } else if (range == best_range && range <= max_range && score <= best_score_diff) {
+                best_target = other;
+                best_score_diff = score;
+            }
+        }
+    }
+
+    if (max_range < best_range) {
+        best_target = nullptr;
+    }
+
+    if (best_target != nullptr) {
+        this->sub_5A8709(unit, best_target);
+    } else {
+        this->sub_5A6E59(unit);
+    }
+
+    if (unit->position->sub_58bec3() && unit->eye->field121_0x80.val != 0) {
+        PosYX current_yx = unit->position->CompatGetYX();
+        if (unit->eye->field121_0x80 != current_yx) {
+            this->field24_0xa50->FUN_005969c6(unit, PosYX(0), 1);
+        }
+    }
+}
+
 // Set unit to idle/wander (param=0) or retreat (param!=0).
 // 5A6E2C
 void World::sub_5A6E2C(Unit* unit, int param) {

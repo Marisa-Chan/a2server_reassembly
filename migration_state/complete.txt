@@ -838,6 +838,7 @@
 ?sub_5A457A@World@@QAEXXZ
 ?sub_5A4590@World@@QAEXXZ
 ?sub_5A4757@World@@QAEXXZ
+?sub_5A607B@World@@QAEXPAVUnit@@@Z
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z
 ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z
