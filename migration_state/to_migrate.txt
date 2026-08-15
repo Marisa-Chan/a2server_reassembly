@@ -242,7 +242,6 @@
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
 ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z	29
-?sub_5A4284@World@@QAEXXZ	75
 ?sub_5ABFBC@World@@QAEXPAVGroup@@@Z	150
 ?sub_5A845B@World@@QAEXPAVUnit@@@Z	155
 ?sub_5A5E54@World@@QAEXPAVUnit@@@Z	187

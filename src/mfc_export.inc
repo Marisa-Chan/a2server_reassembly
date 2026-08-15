@@ -1175,9 +1175,7 @@ externdef _g_World :dword
 
 externdef ?sub_5A457A@World@@QAEXXZ :proc  ; World::sub_5A457A()
 externdef ?sub_5A3F3A@World@@QAEXXZ :proc  ; World::sub_5A3F3A()
-externdef ?sub_5A3F88@World@@QAEXXZ :proc  ; World::sub_5A3F88()
 externdef ?sub_5A3F9B@World@@QAEXXZ :proc  ; World::sub_5A3F9B()
-externdef ?sub_5A4284@World@@QAEXXZ :proc  ; World::sub_5A4284()
 externdef ?sub_5A4757@World@@QAEXXZ :proc  ; World::sub_5A4757()
 externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)

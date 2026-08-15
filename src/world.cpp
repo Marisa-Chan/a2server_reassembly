@@ -124,6 +124,13 @@ void World::sub_5A3F88() {
     this->sub_5A4284();
 }
 
+// 5A4284
+void World::sub_5A4284() {
+    // The original ASM manually destroyed members in reverse declaration order here.
+    // In C++, the compiler-generated ~World destructor handles all member destruction,
+    // so this helper is now a no-op.
+}
+
 // Populate the attack-target list (field29_0xac4) and non-attack-target list
 // (field28_0xaa4) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
