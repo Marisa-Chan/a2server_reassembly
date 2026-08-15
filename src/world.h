@@ -133,12 +133,12 @@ public:
     void sub_5ACAA7(Group* group);
     void sub_5A99C7(Unit* unit);
     void sub_5ACA54(Group* group); //5aca54
-    void sub_5AC80F(Group* group, Token* target);
-    void sub_5ACB4D(Group* group, Token* target, uint8_t param_3);
+    void sub_5AC80F(Group* group, Unit* target);
+    void sub_5ACB4D(Group* group, Unit* target, uint8_t param_3);
     void sub_5AC289(Group* group, uint8_t x, uint8_t y); // Group move command.
     void sub_5AC507(Group* group, uint8_t x, uint8_t y); // Group swarm command.
     void sub_5ACBEF(Group* group, uint8_t x, uint8_t y);
-    void sub_5AC187(Group* group, Token* target, Spell*);
+    void sub_5AC187(Group* group, Unit* target, Spell*);
     void sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell*);
     void sub_5A9961(Unit* unit, uint8_t x, uint8_t y);
     void sub_5A9AC4(Unit* unit); //5a9ac4
@@ -150,7 +150,7 @@ public:
     void sub_5AC983(Group* group, int param); // Place a newly respawned group into the world.
     void sub_5A930F(Unit* unit, uint8_t x, uint8_t y, Spell* spell); // 5A930F — group area-cast setup (ASM).
     void sub_5AC785(Group* group, uint8_t x, uint8_t y);
-    void sub_5ACB9E(Group* group, Token* target, uint8_t param_3);
+    void sub_5ACB9E(Group* group, Unit* target, uint8_t param_3);
     uint32_t sub_5AB719(Group* group); // Compute average position of units in a group.
     uint8_t sub_5ABB32(Unit* unit, PosYX yx); // 5ABB32
     void sub_5AC7C8(Group* group);
@@ -170,6 +170,15 @@ public:
     void sub_5AAA89(Unit* unit);
     void sub_5AAB08(Unit* unit); // 5AAB08
     void sub_5AAB85(Unit* unit, Unit* target); // 5AAB85
+    void sub_5A9087(Unit* unit, Unit* target); // 5A9087
+    void sub_5A92AF(Unit* unit, Unit* target, Spell* spell); // 5A92AF
+    void sub_5A9482(Unit* unit, Unit* target, uint8_t range); // 5A9482
+    void sub_5A9501(Unit* unit, Unit* target, uint8_t range); // 5A9501
+    void sub_5A9580(Unit* unit, uint8_t x, uint8_t y); // 5A9580
+    void sub_5AA84F(Unit* unit); // 5AA84F
+    int32_t sub_5AD0B3(Unit* unit, Unit* target); // 5AD0B3
+    void sub_5ABFBC(Group* group); // 5ABFBC
+
     void sub_5AAEBC(Unit* unit); // 5AAEBC
     void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
     void sub_5AAC17(Unit* unit); // 5AAC17

@@ -3023,7 +3023,7 @@ void Server::sub_504a96(Packet* pkt)
             break;
         case 0x19: // move to building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5AC80F(group, target);
+                g_World->sub_5AC80F(group, static_cast<Unit*>(target));
                 player->sub_534B59();
             }
             break;
@@ -3037,7 +3037,7 @@ void Server::sub_504a96(Packet* pkt)
         case 0x1B: // attack building?
             CheckPacketType(pkt, "PacketItemOperation");
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5ACB4D(group, target, 0);
+                g_World->sub_5ACB4D(group, static_cast<Unit*>(target), 0);
                 player->sub_534B59();
             }
             break;
@@ -3054,7 +3054,7 @@ void Server::sub_504a96(Packet* pkt)
             break;
         case 0x1E: // cast at unit/building?
             if (g_ServerConfig.gameType != 2 || g_PlayersList->sub_53636E() != 0) {
-                g_World->sub_5AC187(group, target, cast_spell);
+                g_World->sub_5AC187(group, static_cast<Unit*>(target), cast_spell);
                 player->sub_534B59();
             }
             break;
@@ -3115,7 +3115,7 @@ void Server::sub_504a96(Packet* pkt)
 
                     spell->sub_539541(eff->spell_value);
                     if (packet_item->id == 0x25) {
-                        g_World->sub_5AC187(group, target, spell);
+                        g_World->sub_5AC187(group, static_cast<Unit*>(target), spell);
                     } else {
                         if (!spell->sub_53939E(packet_item->unit_id, packet_item->field_0xc)) {
                             player->main_unit->inventory->PutItemIntoBag(packet_item->field_0x10, item);

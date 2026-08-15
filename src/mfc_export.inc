@@ -1202,14 +1202,10 @@ externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc
 externdef ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5ACB9E@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
 externdef ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z :proc
 externdef ?sub_5AFBFD@World@@QAEXXZ :proc
 externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5AC80F@World@@QAEXPAVGroup@@PAVToken@@@Z :proc
-externdef ?sub_5ACB4D@World@@QAEXPAVGroup@@PAVToken@@E@Z :proc
 externdef ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5AC187@World@@QAEXPAVGroup@@PAVToken@@PAVSpell@@@Z :proc
 externdef ?sub_5A930F@World@@QAEXPAVUnit@@EEPAVSpell@@@Z :proc                       ; void World::sub_5A930F(Unit*, uint8_t, uint8_t, Spell*)
 externdef ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z :proc
 externdef ?sub_5AB719@World@@QAEIPAVGroup@@@Z :proc     ; World::sub_5AB719(Group*)
@@ -1237,6 +1233,14 @@ externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::s
 externdef ?sub_5B6F60@World@@QAEHHH@Z :proc
 externdef ?sub_5B6346@World@@QAEXXZ :proc
 externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
+externdef ?sub_5ABFBC@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5ABFBC(Group*)
+externdef ?sub_5A9087@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A9087(Unit*, Unit*)
+externdef ?sub_5A92AF@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc   ; World::sub_5A92AF(Unit*, Unit*, Spell*)
+externdef ?sub_5A9482@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A9482(Unit*, Unit*, uint8_t)
+externdef ?sub_5A9501@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A9501(Unit*, Unit*, uint8_t)
+externdef ?sub_5A9580@World@@QAEXPAVUnit@@EE@Z :proc            ; World::sub_5A9580(Unit*, uint8_t, uint8_t)
+externdef ?sub_5AA84F@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AA84F(Unit*)
+externdef ?sub_5AD0B3@World@@QAEHPAVUnit@@0@Z :proc             ; World::sub_5AD0B3(Unit*, Unit*)
 extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
 extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc

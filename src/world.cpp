@@ -2054,6 +2054,128 @@ void World::sub_5AF6F5(Unit* unit) {
     }
 }
 
+// 5A9383
+void World::sub_5A9383(Unit* unit) {
+    this->sub_5A9AC4(unit);
+    unit->state = 0xB;
+    if (unit->position->sub_58bec3() == 0) {
+        unit->eye2->position1 = unit->eye->position1;
+    } else {
+        unit->eye2->position1 = unit->position->GetYX();
+    }
+    unit->eye2->cast_action = 0;
+}
+
+// 5AA97E
+void World::sub_5AA97E(Unit* unit) {
+    if (this->field24_0xa50->sub_58FE6D(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
+        this->sub_5AA91B(unit, unit->eye2->unit);
+        unit->some_state = 1;
+    } else {
+        this->sub_5AA78C(unit);
+        unit->some_state = 3;
+    }
+}
+
+// 5AA9F6
+void World::sub_5AA9F6(Unit* unit) {
+    if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->sub_58bec3() != 0) {
+        if (unit->some_state == 2) {
+            unit->some_state = 0;
+            unit->eye2->cast_action = 0;
+        } else {
+            unit->some_state = 2;
+        }
+    } else {
+        this->sub_5AA375(unit, unit->eye2->command_to, 0);
+        unit->some_state = 1;
+    }
+}
+
+// 5AAB08
+void World::sub_5AAB08(Unit* unit) {
+    if (this->field24_0xa50->sub_58FEDA(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range) == 0) {
+        this->sub_5AA375(unit, PosYX(unit->eye2->field30_0x3c), unit->eye2->max_range);
+        unit->some_state = 1;
+    } else {
+        this->sub_5AA84F(unit);
+    }
+}
+
+// 5ABF50
+void World::sub_5ABF50(Player* player) {
+    POSITION it = player->group_list->groups.GetHeadPosition();
+    while (it != nullptr) {
+        Group* group = player->group_list->groups.GetNext(it);
+        if (this->field37_0xbbe8 != 0) {
+            this->sub_5ABFBC(group);
+        } else if (group->group_sub->field_0x45 != 0) {
+            this->sub_5ABFBC(group);
+        }
+    }
+}
+
+// 5AC80F
+void World::sub_5AC80F(Group* group, Unit* target) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (this->sub_5AD0B3(unit, target) == 0xFFFFFF) {
+            this->sub_5A9A6A(unit);
+        } else {
+            this->sub_5A9087(unit, target);
+        }
+    }
+}
+
+// 5ACB4D
+void World::sub_5ACB4D(Group* group, Unit* target, uint8_t param_3) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9482(unit, target, param_3);
+    }
+}
+
+// 5ACB9E
+void World::sub_5ACB9E(Group* group, Unit* target, uint8_t param_3) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9501(unit, target, param_3);
+    }
+}
+
+// 5ACBEF
+void World::sub_5ACBEF(Group* group, uint8_t x, uint8_t y) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A9580(unit, x, y);
+    }
+}
+
+// 5AC187
+void World::sub_5AC187(Group* group, Unit* target, Spell*) {
+    this->FUN_005acd4c(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (unit->spell == nullptr) {
+            this->sub_5A9A6A(unit);
+        } else {
+            this->sub_5A92AF(unit, target, unit->spell);
+        }
+        unit->spell = nullptr;
+    }
+
+    group->group_sub->field_0x20 = 0;
+}
+
 // 5B0762 — evaluate pending trigger checks.
 void World::sub_5B0762() {
     TriggerCheck local;

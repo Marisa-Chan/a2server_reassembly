@@ -840,6 +840,7 @@
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z
 ?sub_5A7B44@World@@QAEXPAVUnit@@@Z
 ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z
+?sub_5A9383@World@@QAEXPAVUnit@@@Z
 ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z
 ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z
 ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z
@@ -847,14 +848,19 @@
 ?sub_5AA485@World@@QAEXPAVUnit@@@Z
 ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z
 ?sub_5AA78C@World@@QAEXPAVUnit@@@Z
+?sub_5AA97E@World@@QAEXPAVUnit@@@Z
+?sub_5AA9F6@World@@QAEXPAVUnit@@@Z
 ?sub_5AAA89@World@@QAEXPAVUnit@@@Z
+?sub_5AAB08@World@@QAEXPAVUnit@@@Z
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
+?sub_5ABF50@World@@QAEXPAVPlayer@@@Z
 ?sub_5AC137@World@@QAEXPAVGroup@@@Z
 ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z
 ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z
 ?sub_5AC983@World@@QAEXPAVGroup@@H@Z
+?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z
 ?sub_5AFBFD@World@@QAEXXZ
