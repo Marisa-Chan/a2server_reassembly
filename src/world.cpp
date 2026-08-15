@@ -950,6 +950,151 @@ void World::sub_5AAC17(Unit* unit) {
     }
 }
 
+// Target-pursuit spell selection for AI-controlled mages.
+// Returns 1 if a cast action was set up, 0 otherwise.
+// 5A6ED9
+int32_t World::sub_5A6ED9(Unit* caster, Unit* target) {
+    if (caster->eye2->spell_id == 0) {
+        return 0;
+    }
+
+    Spell* spell = this->sub_5A79D6(caster, caster->eye2->spell_id, 0);
+    if (spell == nullptr) {
+        return 0;
+    }
+
+    switch (caster->eye2->spell_id) {
+    case spell::fire_arrow:
+    case spell::ice_missile:
+    case spell::lightning:
+    case spell::prismatic_spray:
+    case spell::stone_missile:
+    case spell::drain_life:
+        caster->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(caster, target, spell);
+        return 1;
+
+    case spell::fire_ball:
+    case spell::wall_of_fire:
+    case spell::poison_cloud:
+    case spell::blizzard: {
+        this->sub_5ADD64(caster->group);
+        this->field26_0xa64.unit_list.AddTail(target);
+        this->sub_5A3AD6(caster, &this->field26_0xa64);
+
+        bool adjust_pos = (caster->eye2->spell_id == spell::fire_ball) || (caster->eye2->spell_id == spell::wall_of_fire);
+        uint8_t range = (caster->eye2->spell_id == spell::fire_ball) ? 1 : 2;
+
+        int32_t best_score = -1000;
+        POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* nearby = this->field29_0xac4.unit_list.GetNext(it);
+            PosYX yx = nearby->position->CompatGetYX();
+            if (adjust_pos) {
+                if (nearby->position->sub_58bec3() == 0) {
+                    uint8_t dir = nearby->eye->field0_0x0 >> 5;
+                    yx.x = yx.x + this->field24_0xa50->field48_0x58e88[dir];
+                    yx.y = yx.y + this->field24_0xa50->field49_0x58e90[dir];
+                }
+            }
+            UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+            int32_t enemy_count = 0;
+            int32_t friendly_count = 0;
+            POSITION it2 = (list != nullptr) ? list->unit_list.GetHeadPosition() : nullptr;
+            while (it2 != nullptr) {
+                Unit* other = list->unit_list.GetNext(it2);
+                if (this->sub_5B5816(caster, other)) {
+                    enemy_count++;
+                } else if (other == caster) {
+                    friendly_count += 100;
+                } else {
+                    friendly_count++;
+                }
+            }
+            int32_t score = enemy_count - friendly_count;
+            if (score > best_score) {
+                best_score = score;
+            }
+        }
+
+        if (best_score < 1) {
+            return 0;
+        }
+        caster->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(caster, target, spell);
+        return 1;
+    }
+
+    case spell::stone_curse:
+    case spell::curse: {
+        uint32_t mask = 1 << caster->eye2->spell_id;
+        if ((target->enchantments & mask) == 0) {
+            this->sub_5ADD64(caster->group);
+            this->sub_5A3AD6(caster, &this->field26_0xa64);
+            POSITION it = this->field29_0xac4.unit_list.GetHeadPosition();
+            while (it != nullptr) {
+                Unit* other = this->field29_0xac4.unit_list.GetNext(it);
+                if ((other->enchantments & mask) == 0) {
+                    caster->eye2->field49_0x60 = 1;
+                    this->sub_5A85F4(caster, target, spell);
+                    return 1;
+                }
+            }
+            return 0;
+        }
+        caster->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(caster, target, spell);
+        return 1;
+    }
+
+    case spell::animate_dead:
+        return 0;
+
+    case spell::heal: {
+        this->sub_5ADD64(caster->group);
+        this->sub_5A3AD6(caster, &this->field26_0xa64);
+
+        Unit* best_unit = nullptr;
+        double best_ratio = 1.0;
+        POSITION it = this->field28_0xaa4.unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = this->field28_0xaa4.unit_list.GetNext(it);
+            if (this->sub_5A7A1C(caster, other) == 0) {
+                continue;
+            }
+            // WAT: this integer division is weird.
+            double ratio = (double)(other->hp / other->hp_max);
+            if (ratio < best_ratio) {
+                best_ratio = ratio;
+                best_unit = other;
+            }
+        }
+        if (best_ratio >= 1.0) {
+            caster->eye2->cast_action = 0;
+            return 1;
+        }
+        caster->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(caster, best_unit, spell);
+        return 1;
+    }
+
+    case spell::summon:
+        this->sub_5A85F4(caster, caster, spell);
+        return 1;
+
+    case spell::shield:
+        if ((caster->enchantments & (1 << spell::shield)) == 0) {
+            caster->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(caster, caster, spell);
+            return 1;
+        }
+        return 0;
+
+    default:
+        return 0;
+    }
+}
+
 // Check if `caster` should autobuff `target` based on diplomacy and settings.
 // 5A7A1C
 int32_t World::sub_5A7A1C(Unit* caster, Unit* target) {
