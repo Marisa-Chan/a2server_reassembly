@@ -888,6 +888,7 @@
 ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z
 ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
+?sub_5AD0B3@World@@QAEHPAVUnit@@0@Z
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z
 ?sub_5AFBFD@World@@QAEXXZ
 ?sub_5B0724@World@@QAEXXZ

@@ -283,6 +283,60 @@ UnitList* World::sub_5A384F(Unit* caster, PosYX yx) {
     return list;
 }
 
+// 5AD0B3 — compute an attack preference score for `unit` against `target`.
+// Returns 0xFFFFFF when the target should be ignored.
+int32_t World::sub_5AD0B3(Unit* unit, Unit* target) {
+    PosYX target_yx = target->position->CompatGetYX();
+    PosYX unit_yx = unit->position->CompatGetYX();
+    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+
+    uint8_t target_movement = target->sub_59A030();
+    if (target_movement == 1 && this->UnitMaxRange(target) > 1) {
+        target_movement = 0;
+    }
+
+    uint8_t lookup_value;
+    if (this->UnitMaxRange(unit) <= 1) {
+        uint8_t unit_movement = unit->sub_59A030();
+        lookup_value = this->gap_0xa54[target_movement + unit_movement * 4];
+    } else {
+        lookup_value = this->gap_0xa54[target_movement];
+        uint8_t unit_max_range = this->UnitMaxRange(unit);
+        if (unit_max_range < distance) {
+            distance = distance - unit_max_range + 1;
+        } else {
+            distance = 1;
+        }
+    }
+
+    uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
+    uint8_t angle_diff = sub_595561(unit->eye->field0_0x0, facing);
+    int32_t score = distance * 256 + angle_diff;
+
+    if (lookup_value == 0) {
+        score = 0xFFFFFF;
+    } else {
+        if (lookup_value == 1) {
+            if (unit->VMethod3() < 2 && unit->mind >= 15) {
+                score = score + (score >> 1);
+            }
+        } else if (lookup_value == 4) {
+            if (unit->VMethod3() < 2 && unit->mind >= 15) {
+                score = score - (score >> 2);
+            }
+        }
+
+        if ((target->enchantments & (1 << spell::stone_curse)) != 0) {
+            score += 127;
+            if (score < 1) {
+                score = 1;
+            }
+        }
+    }
+
+    return score;
+}
+
 // 5ADD64 — build a nearby-friendly-unit list from `group` into field26_0xa64.
 void World::sub_5ADD64(Group* group) {
     this->field26_0xa64.unit_list.RemoveAll();
