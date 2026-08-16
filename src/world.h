@@ -63,7 +63,7 @@ struct World {
     uint8_t gap_0xa4a[2];
     uint32_t counter;
     MapStuff *field24_0xa50;
-    uint8_t gap_0xa54[16];
+    uint8_t field_0xa54[16];
     UnitList field26_0xa64;
     UnitList field27_0xa84;
     UnitList field28_0xaa4; // Non-attack list?

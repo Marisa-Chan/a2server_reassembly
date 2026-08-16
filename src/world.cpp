@@ -161,7 +161,7 @@ void World::sub_5A3F9B() {
     std::memset(this->gap_0x8b8, 0, 400);
 
     static constexpr uint8_t a54_init[16] = {2, 1, 2, 4, 4, 2, 1, 0, 2, 1, 4, 0, 2, 1, 2, 4};
-    std::memcpy(this->gap_0xa54, a54_init, sizeof(a54_init));
+    std::memcpy(this->field_0xa54, a54_init, sizeof(a54_init));
 
     File2 file2;
     file2.Open("World\\Data\\ai.reg", 0, nullptr);
@@ -337,9 +337,9 @@ int32_t World::sub_5AD0B3(Unit* unit, Unit* target) {
     uint8_t lookup_value;
     if (this->UnitMaxRange(unit) <= 1) {
         uint8_t unit_movement = unit->sub_59A030();
-        lookup_value = this->gap_0xa54[target_movement + unit_movement * 4];
+        lookup_value = this->field_0xa54[target_movement + unit_movement * 4];
     } else {
-        lookup_value = this->gap_0xa54[target_movement];
+        lookup_value = this->field_0xa54[target_movement];
         uint8_t unit_max_range = this->UnitMaxRange(unit);
         if (unit_max_range < distance) {
             distance = distance - unit_max_range + 1;
@@ -4088,9 +4088,9 @@ int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
     uint8_t cost = 0;
     if (unit_range <= 1) {
         int32_t movement_type = unit->sub_59A030();
-        cost = this->gap_0xa54[target_movement + movement_type * 4];
+        cost = this->field_0xa54[target_movement + movement_type * 4];
     } else {
-        cost = this->gap_0xa54[target_movement];
+        cost = this->field_0xa54[target_movement];
         if (distance > unit_range) {
             distance = distance - unit_range + 1;
         } else {
