@@ -186,6 +186,11 @@ void WorldEquip::VMethod2(CString str, int32_t type_id, int32_t* out_value, doub
     }
 }
 
+// 578040
+void WorldEquip::ParseLine(CString line) {
+    this->VMethod1(line, 0x11, nullptr);
+}
+
 // 572740
 MagicItem::MagicItem() {
 }

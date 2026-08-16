@@ -18,7 +18,6 @@ extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
 ; WorldEquip
 externdef ??0WorldEquip@@QAE@XZ :proc
-externdef ?ParseLine@WorldEquip@@QAEXVCString@@@Z :proc
 
 
 ; MagicItem
