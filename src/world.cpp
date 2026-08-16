@@ -3275,7 +3275,7 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
 // 5A8885
 void World::sub_5A8885(Unit* unit) {
     if (unit->spell_book != nullptr) {
-        if (this->sub_5A79D6(unit, 0x17, 0) != nullptr) {
+        if (this->sub_5A79D6(unit, spell::teleport, 0) != nullptr) {
             this->sub_5A8A55(unit);
             return;
         }
@@ -3303,6 +3303,47 @@ void World::sub_5A8885(Unit* unit) {
         uint32_t packed_yx = this->sub_5AB62E(list);
         int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, 3);
         this->sub_5A8778(unit, result);
+    }
+}
+
+// 5A8A55
+void World::sub_5A8A55(Unit* unit) {
+    uint8_t range = (unit->scan_range >> 8) + 1;
+    PosYX pos = unit->position->GetYX();
+    UnitList* list = this->sub_5A3808(unit, pos);
+
+    uint8_t count = 0;
+    if (list != nullptr) {
+        POSITION it = list->unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = list->unit_list.GetNext(it);
+            if (other->hp > 0) {
+                count++;
+            }
+        }
+    }
+
+    if (count == 0) {
+        this->sub_5A6E2C(unit, 0);
+    } else {
+        uint32_t packed_yx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, range);
+
+        Spell* spell = this->sub_5A79D6(unit, spell::teleport, 0);
+        if (spell != nullptr) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A551C(unit, result, spell);
+        } else {
+            spell = this->sub_5A79D6(unit, spell::invisibility, 0);
+            // WAT: enchantments & 0xC is a check for whether the unit under a "fireball" and "fire wall" spells, which are not enchantments.
+            // Should this be "1 << 0xc" instead?
+            if (spell != nullptr && (unit->enchantments & 0xC) == 0) {
+                unit->eye2->field49_0x60 = 1;
+                this->sub_5A85F4(unit, unit, spell);
+            } else {
+                this->sub_5A8778(unit, result);
+            }
+        }
     }
 }
 
