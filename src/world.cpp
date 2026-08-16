@@ -2358,6 +2358,36 @@ void World::sub_5A6B48(Unit* unit, Unit* target) {
     }
 }
 
+// Pick a random affordable non-defensive spell from the caster's spellbook and
+// start casting it at the provided target. Falls back to sub_5A6B48 for units
+// with high mind when the random roll is low.
+// 5B6632
+int32_t World::sub_5B6632(Unit* unit, Unit* target) {
+    if (unit->mind >= 60 && this->sub_5B6F40(100) < 30) {
+        this->sub_5A6B48(unit, target);
+        return 0;
+    }
+
+    CList<Spell*> spells;
+    for (int32_t spell_id = 1; spell_id < spell::max_spell_id; spell_id++) {
+        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        if (spell != nullptr && spell->mana_cost <= unit->mp && !spell->is_defensive) {
+            spells.AddTail(spell);
+        }
+    }
+
+    int32_t index = this->sub_5B6F40(spells.GetCount());
+    POSITION pos = spells.FindIndex(index);
+    Spell* chosen = (pos != nullptr) ? spells.GetAt(pos) : nullptr;
+    if (chosen == nullptr) {
+        return 0;
+    }
+
+    unit->eye2->field49_0x60 = 1;
+    this->sub_5A85F4(unit, target, chosen);
+    return 1;
+}
+
 // Set unit to idle/wander (param=0) or retreat (param!=0).
 // 5A6E2C
 void World::sub_5A6E2C(Unit* unit, int param) {
