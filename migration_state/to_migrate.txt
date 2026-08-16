@@ -247,6 +247,7 @@
 ?sub_5A551C@World@@QAEXPAVUnit@@GPAVSpell@@@Z	30
 ?sub_5AB5E3@World@@QAEXPAVUnit@@@Z	34
 ?sub_5AF5DC@World@@QAEXPAVUnit@@@Z	38
+?sub_5A8829@World@@QAEXPAVUnit@@0E@Z	40
 ?sub_5A87A3@World@@QAEXPAVUnit@@G@Z	42
 ?sub_5A6789@World@@QAEXPAVUnit@@@Z	45
 ?sub_5A54B8@World@@QAEXPAVUnit@@G@Z	48
@@ -255,11 +256,12 @@
 ?sub_5A3D12@World@@QAEXGE@Z	78
 ?sub_5AEC20@World@@QAEXPAVGroup@@G@Z	86
 ?sub_5AB62E@World@@QAEIPAVUnitList@@@Z	98
+?sub_5A57E8@World@@QAEXPAVUnit@@0@Z	98
 ?sub_5A56D7@World@@QAEXPAVUnit@@0@Z	106
 ?sub_5A59E2@World@@QAEXPAVUnit@@@Z	117
 ?sub_5A647C@World@@QAEXPAVUnit@@@Z	120
 ?sub_5A39AD@World@@QAEXPAVUnit@@PAVUnitList@@@Z	122
-?sub_5A5568@World@@QAEXPAVUnit@@0@Z	138
+?sub_5A65BB@World@@QAEXPAVUnit@@0@Z	194
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

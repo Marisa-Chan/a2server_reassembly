@@ -212,9 +212,12 @@ public:
     void sub_5AE5F5(Group* group); // 5AE5F5
     void sub_5A8778(Unit* unit, uint16_t param); // 5A8778
     void sub_5A87A3(Unit* unit, uint16_t param); // 5A87A3
+    void sub_5A8829(Unit* unit, Unit* target, uint8_t range); // 5A8829
     void sub_5A6B48(Unit* unit, Unit* target); // 5A6B48
     void sub_5A5568(Unit* unit, Unit* target); // 5A5568
     void sub_5A56D7(Unit* unit, Unit* target); // 5A56D7
+    void sub_5A57E8(Unit* unit, Unit* target); // 5A57E8
+    void sub_5A65BB(Unit* unit, Unit* target); // 5A65BB
     void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC

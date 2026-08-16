@@ -3272,6 +3272,36 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
     unit->eye2->command_to = param;
 }
 
+// 5A5568
+void World::sub_5A5568(Unit* unit, Unit* target) {
+    uint8_t range = unit->eye2->range;
+    uint8_t distance = this->field24_0xa50->sub_58BFA3(
+        unit->position->GetX(),
+        unit->position->GetY(),
+        target->position->GetX(),
+        target->position->GetY()
+    );
+
+    if (range < distance) {
+        this->sub_5A8829(unit, target, range);
+    } else {
+        if (unit->spell_book != nullptr) {
+            this->sub_5A57E8(unit, target);
+        } else {
+            this->sub_5A65BB(unit, target);
+        }
+
+        uint8_t cast_action = unit->eye2->cast_action;
+        if (cast_action != 5 && cast_action != 6 && cast_action != 8 && cast_action != 9) {
+            if (distance < 2) {
+                uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
+                int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+                this->sub_5A8778(unit, result);
+            }
+        }
+    }
+}
+
 // 5A8885
 void World::sub_5A8885(Unit* unit) {
     if (unit->spell_book != nullptr) {
