@@ -3272,6 +3272,40 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
     unit->eye2->command_to = param;
 }
 
+// 5A8885
+void World::sub_5A8885(Unit* unit) {
+    if (unit->spell_book != nullptr) {
+        if (this->sub_5A79D6(unit, 0x17, 0) != nullptr) {
+            this->sub_5A8A55(unit);
+            return;
+        }
+    }
+
+    uint8_t range = unit->eye->field7_0x8 + 5;
+    PosYX pos = unit->position->GetYX();
+    UnitList* list = this->field24_0xa50->sub_5897AA(pos, range);
+    this->sub_5A3896(unit, list, 0);
+
+    uint8_t count = 0;
+    if (list != nullptr) {
+        POSITION it = list->unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* other = list->unit_list.GetNext(it);
+            if (other->hp > 0) {
+                count++;
+            }
+        }
+    }
+
+    if (count == 0) {
+        this->sub_5A6E2C(unit, 0);
+    } else {
+        uint32_t packed_yx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, 3);
+        this->sub_5A8778(unit, result);
+    }
+}
+
 // 5ABCFD
 void World::sub_5ABCFD(Unit* unit) {
     this->sub_5A5155(unit);

@@ -230,6 +230,8 @@ public:
     void sub_5A9A8F(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
     void sub_5A6789(Unit* unit); // 5A6789
     void sub_5A8885(Unit* unit); // 5A8885
+    void sub_5A8A55(Unit* unit); // 5A8A55
+    uint32_t sub_5AB62E(UnitList* list); // 5AB62E
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
