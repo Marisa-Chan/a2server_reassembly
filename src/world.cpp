@@ -3115,6 +3115,26 @@ void World::sub_5A3C5F() {
     }
 }
 
+// Filter a UnitList by movement type for short-range units.
+// Removes units whose movement type is 3 (flyers?) when `unit` has a max range below 2.
+// 5A3DC9
+void World::sub_5A3DC9(Unit* unit, UnitList* list) {
+    if (list == nullptr) {
+        return;
+    }
+
+    uint8_t max_range = this->UnitMaxRange(unit);
+    POSITION it = list->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current = it;
+        Unit* other = list->unit_list.GetNext(it);
+
+        if (max_range < 2 && other->sub_59A030() == 3) {
+            list->unit_list.RemoveAt(current);
+        }
+    }
+}
+
 // 5AC206 — order a group to area-cast a spell at (x, y).
 void World::sub_5AC206(Group* group, uint8_t x, uint8_t y, Spell* spell) {
     this->FUN_005acd4c(group);
