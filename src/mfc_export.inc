@@ -665,7 +665,7 @@ externdef ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z:proc   ; (public: virtual u
 
 externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
-
+externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
@@ -1178,119 +1178,18 @@ externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(c
 ; World
 externdef _g_World :dword
 
-externdef ?sub_5A457A@World@@QAEXXZ :proc  ; World::sub_5A457A()
-externdef ?sub_5A3F3A@World@@QAEXXZ :proc  ; World::sub_5A3F3A()
-externdef ?sub_5A4757@World@@QAEXXZ :proc  ; World::sub_5A4757()
-externdef ?sub_5A9B6B@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9B6B(Unit*)
-extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5A9AC4(Unit*)
-externdef ?sub_5AA7CF@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA7CF(Unit*)
-externdef ?sub_5AA91B@World@@QAEXPAVUnit@@0@Z :proc                              ; World::sub_5AA91B(Unit*, Unit*)
-externdef ?sub_5AAA89@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAA89(Unit*)
-externdef ?sub_5AA375@World@@QAEXPAVUnit@@UPosYX@@E@Z :proc                      ; World::sub_5AA375(Unit*, PosYX, uint8_t)
-externdef ?sub_5AA426@World@@QAEXPAVUnit@@E@Z :proc                              ; World::sub_5AA426(Unit*, uint8_t)
-externdef ?sub_5AA485@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA485(Unit*)
-externdef ?sub_5AA78C@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA78C(Unit*)
-externdef ?sub_5AA8ED@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA8ED(Unit*)
-externdef ?sub_5AA97E@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA97E(Unit*)
-externdef ?sub_5AA9F6@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA9F6(Unit*)
-externdef ?sub_5AAB08@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAB08(Unit*)
-externdef ?sub_5A5B49@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A5B49(Unit*)
-externdef ?sub_5A9A8F@World@@QAEXPAVUnit@@@Z :proc                              ; void World::sub_5A9A8F(Unit*)
-externdef ?sub_5A607B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A607B(Unit*)
-externdef ?sub_5A6789@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A6789(Unit*)
-externdef ?sub_5A8885@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A8885(Unit*)
-externdef ?sub_5A8A55@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A8A55(Unit*)
-externdef ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z :proc                              ; void World::sub_5AAF84(Unit*, uint8_t)
-externdef ?sub_5AAC17@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAC17(Unit*)
-externdef ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z :proc                 ; World::sub_5A3896(Unit*, UnitList*, int32_t)
-externdef ?sub_5A3C5F@World@@QAEXXZ :proc                                        ; World::sub_5A3C5F()
-externdef ?sub_5B6F40@World@@QAEHH@Z :proc                                       ; World::sub_5B6F40(int32_t)
-externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc                                         ; Unit::sub_5B6FB0()
-externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
-externdef ?sub_5A9383@World@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
-externdef ?sub_5AC785@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5AC507@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5AC7C8@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5AFBFD@World@@QAEXXZ :proc
-externdef ?sub_5ACAA7@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5ACBEF@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5A930F@World@@QAEXPAVUnit@@EEPAVSpell@@@Z :proc                       ; void World::sub_5A930F(Unit*, uint8_t, uint8_t, Spell*)
-externdef ?sub_5AC881@World@@QAEXPAVGroup@@EE@Z :proc
-externdef ?sub_5AB719@World@@QAEIPAVGroup@@@Z :proc     ; World::sub_5AB719(Group*)
-externdef ?sub_5AC137@World@@QAEXPAVGroup@@@Z :proc     ; World::sub_5AC137(Group*)
-externdef ?sub_5ACAFA@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
+extern ?DoScriptInstID@World@@QAEXH@Z :proc
+extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
+extern ?sub_5A457A@World@@QAEXXZ :proc
+extern ?sub_5A4590@World@@QAEXXZ :proc
+extern ?sub_5A4757@World@@QAEXXZ :proc
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
+extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc
+extern ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
+extern ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
-externdef ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A3AD6(Unit*, UnitList*)
-externdef ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z :proc  ; UnitList* World::sub_5A3808(Unit*, uint16_t)
-extern ?UnitMaxRange@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World::sub_5A6ADB(Unit*)
-externdef ?sub_5A551C@World@@QAEXPAVUnit@@GPAVSpell@@@Z :proc   ; void World::sub_5A551C(Unit*, uint16_t, Spell*)
-externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
-externdef ?sub_5A607B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A607B(Unit*)
-externdef ?sub_5A647C@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A647C(Unit*)
-externdef ?sub_5A6E59@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A6E59(Unit*)
-externdef ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A6EA5(Unit*)
-externdef ?sub_5A6ED9@World@@QAEHPAVUnit@@0@Z :proc              ; World::sub_5A6ED9(Unit*, Unit*)
-externdef ?sub_5B6632@World@@QAEHPAVUnit@@0@Z :proc              ; int World::sub_5B6632(Unit*, Unit*)
-externdef ?sub_5A8709@World@@QAEXPAVUnit@@0@Z :proc              ; void World::sub_5A8709(Unit*, Unit*)
-externdef ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z :proc   ; Spell* World::sub_5A79D6(Unit*, int, int)
-externdef ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z :proc             ; int World::sub_5A7A1C(Unit*, Unit*)
-externdef ?sub_5A7B44@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A7B44(Unit*)
-externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
-externdef ?sub_5A6DA3@World@@QAEXPAVUnit@@PAVBuilding@@@Z :proc  ; World::sub_5A6DA3(Unit*, Building*)
-externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::sub_5ADD64(Group*)
-externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
-externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc
-externdef ?sub_5B0724@World@@QAEXXZ :proc
-externdef ?sub_5B0762@World@@QAEXXZ :proc                        ; void World::sub_5B0762()
-externdef ?sub_5B0A6A@World@@QAEXXZ :proc                        ; void World::sub_5B0A6A()
-externdef ?sub_5B6F60@World@@QAEHHH@Z :proc
-externdef ?sub_5B6346@World@@QAEXXZ :proc
-externdef ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_5AF623@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF623(Group*)
-externdef ?sub_5AF646@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF646(Group*)
-externdef ?sub_5AF022@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AF022(Group*)
-externdef ?sub_5AB35B@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB35B(Unit*)
-externdef ?sub_5AB5E3@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB5E3(Unit*)
-externdef ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5ABCFD(Unit*)
-externdef ?sub_5AE628@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE628(Group*)
-externdef ?sub_5AF061@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AF061(Group*, uint16_t)
-externdef ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AECE7(Group*, uint16_t)
-externdef ?sub_5AED8D@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AED8D(Group*)
-externdef ?sub_5AEFE5@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AEFE5(Group*)
-externdef ?sub_5AF5DC@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AF5DC(Unit*)
-externdef ?sub_5ADB16@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5ADB16(Group*)
-externdef ?sub_5A5155@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A5155(Unit*)
-externdef ?sub_5A5188@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A5188(Unit*)
-externdef ?sub_5A51A1@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A51A1(Unit*)
-externdef ?sub_5AE2D4@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE2D4(Group*)
-externdef ?sub_5AE5C0@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE5C0(Group*)
-externdef ?sub_5AE5F5@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE5F5(Group*)
-externdef ?sub_5A8778@World@@QAEXPAVUnit@@G@Z :proc             ; World::sub_5A8778(Unit*, uint16_t)
-externdef ?sub_5A87A3@World@@QAEXPAVUnit@@G@Z :proc             ; World::sub_5A87A3(Unit*, uint16_t)
-externdef ?sub_5A8829@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A8829(Unit*, Unit*, uint8_t)
-externdef ?sub_5A6B48@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A6B48(Unit*, Unit*)
-externdef ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc ; World::sub_5A37C5(Unit*) -> UnitList*
-externdef ?sub_5A5568@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A5568(Unit*, Unit*)
-externdef ?sub_5A65BB@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A65BB(Unit*, Unit*)
-externdef ?sub_5A54B8@World@@QAEXPAVUnit@@G@Z :proc             ; World::sub_5A54B8(Unit*, uint16_t)
-externdef ?sub_5AB92C@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AB92C(Group*)
-externdef ?sub_5A9087@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A9087(Unit*, Unit*)
-externdef ?sub_5A92AF@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc   ; World::sub_5A92AF(Unit*, Unit*, Spell*)
-externdef ?sub_5A9482@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A9482(Unit*, Unit*, uint8_t)
-externdef ?sub_5A9501@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A9501(Unit*, Unit*, uint8_t)
-externdef ?sub_5A9580@World@@QAEXPAVUnit@@EE@Z :proc            ; World::sub_5A9580(Unit*, uint8_t, uint8_t)
-externdef ?sub_5AA84F@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AA84F(Unit*)
-externdef ?sub_5AD0B3@World@@QAEHPAVUnit@@0@Z :proc             ; World::sub_5AD0B3(Unit*, Unit*)
-extern ?FUN_005a9832@World@@QAEXPAVUnit@@@Z : proc
-extern ?FUN_005a93f4@World@@QAEXPAVUnit@@@Z : proc
-extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
-
-externdef ?sub_5B2E7A@World@@QAEXXZ :proc
-externdef ?sub_5A4590@World@@QAEXXZ :proc
-externdef ?sub_5A3DC9@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc ; World::sub_5A3DC9(Unit*, UnitList*) (ASM helper)
+extern ?sub_5ADB16@World@@QAEXPAVGroup@@@Z :proc
+extern ?sub_5B6F60@World@@QAEHHH@Z :proc
 
 
 ; Action
