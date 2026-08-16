@@ -849,7 +849,7 @@ void World::sub_5AA581(Unit* target, Unit* attacker, int32_t param_4) {
     this->diplomacy.sub_5B5643(target, attacker, param_4);
 
     this->scrape_action.action_kind = 1;
-    this->scrape_action.unit = target;
+    this->scrape_action.actor_unit = target;
     this->scrape_action.payload = attacker;
     this->action_list.AddTail(this->scrape_action);
 
@@ -963,13 +963,13 @@ void World::sub_5A9B6B(Unit* unit) {
                 if (unit->eye2->counter == 3) {
                     if (unit->eye2->field48_0x5c == 0) {
                         this->scrape_action.action_kind = 3;
-                        this->scrape_action.unit = unit;
+                        this->scrape_action.actor_unit = unit;
                         this->scrape_action.payload = unit->some_spell;
                         this->scrape_action.x = unit->area_cast_x;
                         this->scrape_action.y = unit->area_cast_y;
                     } else {
                         this->scrape_action.action_kind = 2;
-                        this->scrape_action.unit = unit;
+                        this->scrape_action.actor_unit = unit;
                         this->scrape_action.payload = unit->some_spell;
                         this->scrape_action.target = unit->cast_target;
                     }
@@ -2873,7 +2873,7 @@ void World::sub_5AE2D4(Group* group) {
         }
     } else {
         this->scrape_action.action_kind = 4;
-        this->scrape_action.unit = (Unit*)group;
+        this->scrape_action.actor_group = group;
         this->action_list.AddTail(this->scrape_action);
 
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
