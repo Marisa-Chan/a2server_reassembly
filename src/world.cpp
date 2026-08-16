@@ -78,7 +78,7 @@ void World::sub_5A4757() {
     this->mission_fail = 0;
     this->mission_state = 0;
     this->field65_0xc780 = 0;
-    this->field48_0xbe00 = 0;
+    this->field48_0xbe00 = nullptr;
     this->field24_0xa50 = nullptr;
 
     std::memset(this->field56_0xc52c, 0, sizeof(this->field56_0xc52c));
@@ -3090,6 +3090,61 @@ void World::sub_5A6EA5(Unit* unit) {
         this->sub_5A7B44(unit);
     } else {
         unit->eye2->cast_action = 0;
+    }
+}
+
+// 5AB35B
+void World::sub_5AB35B(Unit* unit) {
+    uint8_t v14 = this->field_0xbdec[1];
+    bool nearby = false;
+
+    if (unit->typeId == 0x18) {
+        this->field48_0xbe00 = unit;
+        unit->scan_range = (unit->scan_range & 0x00FF) | 0x0500;
+        unit->max_range = 5;
+        this->sub_5A607B(unit);
+        if (unit->eye2->cast_action == 6) {
+            this->field_0xbdfc++;
+        }
+        if (this->field_0xbdfc != 0) {
+            this->field_0xbdfc++;
+        }
+    } else if (this->field_0xbdfc == 0) {
+        if (v14 != 0) {
+            uint8_t y2 = this->field_0xbdec[v14 * 2 + 1];
+            uint8_t x2 = this->field_0xbdec[v14 * 2];
+            uint8_t y1 = unit->position->GetY();
+            uint8_t x1 = unit->position->GetX();
+            uint8_t dist = this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2);
+            if (dist < 5) {
+                nearby = true;
+                if (unit->eye2->field4_0x9 != 0xFF) {
+                    uint16_t pos = PosYX{x2, y2}.val;
+                    this->sub_5A8778(unit, pos);
+                }
+            }
+        }
+        if (!nearby) {
+            if (unit->eye2->field4_0x9 == 0xFF) {
+                unit->eye2->field4_0x9 = 0;
+            }
+            if (unit->eye2->position1.val == 0) {
+                unit->eye2->position1 = unit->position->GetYX();
+            }
+            this->sub_5A647C(unit);
+        }
+    } else {
+        if (unit->eye2->field4_0x9 == 0xFF) {
+            unit->eye2->field4_0x9 = 0;
+        }
+        if (unit->eye2->positions_list->IsEmpty()) {
+            uint8_t x = this->sub_5B6F60(77, 87);
+            uint8_t y = this->sub_5B6F60(45, 55);
+            PosYX pos = PosYX{x, y};
+            unit->eye2->position1 = pos;
+            unit->eye2->positions_list->AddTail(pos.val);
+        }
+        this->sub_5A647C(unit);
     }
 }
 

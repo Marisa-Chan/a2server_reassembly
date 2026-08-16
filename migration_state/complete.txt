@@ -881,6 +881,7 @@
 ?sub_5AAB08@World@@QAEXPAVUnit@@@Z
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z
+?sub_5AB35B@World@@QAEXPAVUnit@@@Z
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z
 ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z

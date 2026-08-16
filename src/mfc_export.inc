@@ -1225,6 +1225,7 @@ extern ?UnitMaxRange@World@@QAEEPAVUnit@@@Z :proc               ; uint8_t World:
 externdef ?sub_5A551C@World@@QAEXPAVUnit@@GPAVSpell@@@Z :proc   ; void World::sub_5A551C(Unit*, uint16_t, Spell*)
 externdef ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z :proc              ; void World::sub_5A6E2C(Unit*, int)
 externdef ?sub_5A607B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A607B(Unit*)
+externdef ?sub_5A647C@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A647C(Unit*)
 externdef ?sub_5A6E59@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A6E59(Unit*)
 externdef ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A6EA5(Unit*)
 externdef ?sub_5A6ED9@World@@QAEHPAVUnit@@0@Z :proc              ; World::sub_5A6ED9(Unit*, Unit*)
