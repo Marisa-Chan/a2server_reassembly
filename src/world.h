@@ -198,6 +198,15 @@ public:
     void sub_5AE7C3(Group* group); // 5AE7C3
     void sub_5AEFE5(Group* group); // 5AEFE5
 
+    void sub_5AB92C(Group* group); // 5AB92C
+    void sub_5ADB16(Group* group); // 5ADB16
+    void sub_5A3D12(uint16_t param1, uint8_t param2); // 5A3D12
+    void sub_5AE2D4(Group* group); // 5AE2D4
+    void sub_5AE5C0(Group* group); // 5AE5C0
+    void sub_5AE5F5(Group* group); // 5AE5F5
+    void sub_5A8778(Unit* unit, uint16_t param); // 5A8778
+    void sub_5A6B48(Unit* unit, Unit* target); // 5A6B48
+
     void sub_5AAEBC(Unit* unit); // 5AAEBC
     void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
     void sub_5AAC17(Unit* unit); // 5AAC17

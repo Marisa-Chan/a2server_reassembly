@@ -2864,6 +2864,66 @@ void World::sub_5ABFBC(Group* group) {
     this->sub_5AF646(group);
 }
 
+// 5AE7C3
+void World::sub_5AE7C3(Group* group) {
+    this->sub_5AB92C(group);
+    this->sub_5ADB16(group);
+    this->sub_5A3D12(group->group_sub->field_0x28, group->group_sub->field_0x2d);
+    this->sub_5AE2D4(group);
+
+    POSITION it = group->unit_list.GetHeadPosition();
+    if (it == nullptr) {
+        if (group->group_sub->field_0x30 == 0) {
+            group->group_sub->field_0x34++;
+        } else {
+            this->sub_5AE5F5(group);
+            group->group_sub->field_0x34 = 0;
+        }
+        group->group_sub->field_0x30 = 0;
+    } else {
+        if (group->group_sub->field_0x30 == 0) {
+            this->sub_5AE5C0(group);
+            group->group_sub->field_0x34 = 0;
+        } else {
+            group->group_sub->field_0x34++;
+        }
+        group->group_sub->field_0x30 = 1;
+    }
+
+    while (it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(it);
+        int32_t tick16_diff = std::abs(unit->eye2->tick16 - g_Server->tick16);
+        if (unit->hp != unit->hp_max && tick16_diff < 30) {
+            this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+        } else {
+            if (tick16_diff < 10) {
+                this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+            } else if (unit->eye2->unit4 != nullptr) {
+                this->sub_5A6B48(unit, unit->eye2->unit4);
+            } else {
+                int32_t tick_diff = std::abs((int32_t)unit->eye2->tick - g_Server->tick);
+                if (unit->hp == unit->hp_max || tick_diff > 9) {
+                    if (unit->eye2->counter3 == 0) {
+                        if (unit->position->GetYX() == unit->eye2->position1 && unit->position->sub_58bec3()) {
+                            this->sub_5A6E2C(unit, 1);
+                        } else {
+                            this->sub_5A8778(unit, unit->eye2->position1);
+                        }
+                    } else {
+                        unit->eye2->counter3 += 1;
+                        this->sub_5A8778(unit, unit->eye2->field72_0xa0);
+                        if (unit->eye2->counter3 > 10) {
+                            unit->eye2->counter3 = 0;
+                        }
+                    }
+                } else {
+                    this->sub_5A8778(unit, unit->eye2->field69_0x9c);
+                }
+            }
+        }
+    }
+}
+
 // 5AC80F
 void World::sub_5AC80F(Group* group, Unit* target) {
     this->FUN_005acd4c(group);
