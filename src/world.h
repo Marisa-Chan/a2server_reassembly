@@ -191,6 +191,8 @@ public:
     void sub_5AF022(Group* group); // 5AF022
     void sub_5ABCFD(Unit* unit); // 5ABCFD
     void sub_5A5155(Unit* unit); // 5A5155 — helper for sub_5ABCFD.
+    void sub_5A5188(Unit* unit); // 5A5188 — AI wrapper for sub_5A51A1.
+    void sub_5A51A1(Unit* unit); // 5A51A1 — per-state unit action dispatcher.
     void sub_5AE628(Group* group); // 5AE628
     void sub_5AEC20(Group* group, uint16_t param); // 5AEC20
     void sub_5AEF66(Group* group); // 5AEF66
@@ -200,6 +202,8 @@ public:
     void sub_5AE7C3(Group* group); // 5AE7C3
     void sub_5AEFE5(Group* group); // 5AEFE5
 
+    void sub_5AB35B(Unit* unit); // 5AB35B
+    void sub_5AB5E3(Unit* unit); // 5AB5E3
     void sub_5AB92C(Group* group); // 5AB92C
     void sub_5ADB16(Group* group); // 5ADB16
     void sub_5A3D12(uint16_t param1, uint8_t param2); // 5A3D12
@@ -207,7 +211,11 @@ public:
     void sub_5AE5C0(Group* group); // 5AE5C0
     void sub_5AE5F5(Group* group); // 5AE5F5
     void sub_5A8778(Unit* unit, uint16_t param); // 5A8778
+    void sub_5A87A3(Unit* unit, uint16_t param); // 5A87A3
     void sub_5A6B48(Unit* unit, Unit* target); // 5A6B48
+    void sub_5A5568(Unit* unit, Unit* target); // 5A5568
+    void sub_5A56D7(Unit* unit, Unit* target); // 5A56D7
+    void sub_5A54B8(Unit* unit, uint16_t command_to); // 5A54B8
 
     void sub_5AAEBC(Unit* unit); // 5AAEBC
     void sub_5AAF84(Unit* unit, uint8_t facing); // 5AAF84 — turn unit to face target (ASM).
@@ -217,7 +225,11 @@ public:
     int32_t sub_5B6F60(int32_t min, int32_t max); // 5B6F60
     void sub_5AA581(Unit* target, Unit* attacker, int32_t param_4); // Record PvP hit and update combat log
     void sub_5A9A6A(Unit* unit); // World callback: register newly summoned/placed unit
+    void sub_5A59E2(Unit* unit); // 5A59E2
+    void sub_5A5B49(Unit* unit); // 5A5B49
     void sub_5A9A8F(Unit* unit); // 5A9A8F — reset unit to idle (ASM).
+    void sub_5A6789(Unit* unit); // 5A6789
+    void sub_5A8885(Unit* unit); // 5A8885
     void sub_5ACDF4(Group* group); //5acdf4 // World callback for animate-dead group
     void DoScriptInstID(int32_t script_id); // Run script by instance ID
 
@@ -310,6 +322,7 @@ public:
     void sub_5A7B44(Unit* unit); // Autobuff handler: pick and cast buff spells on self or allies.
     int32_t sub_5A7AF7(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
+    void sub_5A6DA3(Unit* unit, Building* building); // 5A6DA3
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for sub_5A845B (ASM).
     void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for sub_5A845B.
     void sub_5AF6F5(Unit* unit); // in asm

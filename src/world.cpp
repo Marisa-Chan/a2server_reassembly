@@ -907,8 +907,8 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
             uint8_t distance = this->field24_0xa50->sub_593B29(caster_yx, target_yx);
             if (distance > 2) {
                 uint16_t found_yx = 0;
-                for (int32_t dy = -1; dy <= 1; dy++) {
-                    for (int32_t dx = -1; dx <= 1; dx++) {
+                for (int8_t dy = -1; dy <= 1; dy++) {
+                    for (int8_t dx = -1; dx <= 1; dx++) {
                         uint16_t check_yx = target_yx + PosYX{dx, dy}.val;
                         if (this->field24_0xa50->sub_5978F0(caster, check_yx) != 0) {
                             found_yx = check_yx;
@@ -3102,6 +3102,94 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
 // 5ABCFD
 void World::sub_5ABCFD(Unit* unit) {
     this->sub_5A5155(unit);
+}
+
+// 5A5155
+void World::sub_5A5155(Unit* unit) {
+    if (!unit->pOwner->is_ai) {
+        this->sub_5A51A1(unit);
+    } else {
+        this->sub_5A5188(unit);
+    }
+}
+
+// 5A5188
+void World::sub_5A5188(Unit* unit) {
+    this->sub_5A51A1(unit);
+}
+
+// 5A51A1
+void World::sub_5A51A1(Unit* unit) {
+    if (unit->state == 3 && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
+        this->sub_5A9A8F(unit);
+    }
+    if ((unit->state == 8 || unit->state == 0x11) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
+        this->sub_5A9A8F(unit);
+    }
+    if (unit->state == 1 && unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
+        this->sub_5A9A8F(unit);
+    }
+
+    switch (unit->state) {
+    case 0:
+        unit->some_state = 0;
+        break;
+    case 1:
+        this->sub_5A8778(unit, unit->eye2->command_to);
+        break;
+    case 2:
+        this->sub_5A87A3(unit, unit->eye2->command_to);
+        break;
+    case 3:
+        this->sub_5A6B48(unit, unit->eye2->unit);
+        break;
+    case 4:
+        this->sub_5A54B8(unit, unit->eye2->command_to);
+        break;
+    case 8:
+        this->sub_5A5568(unit, unit->eye2->unit2);
+        break;
+    case 10:
+        this->sub_5A59E2(unit);
+        break;
+    case 11:
+        this->sub_5A5B49(unit);
+        break;
+    case 12:
+        this->sub_5A607B(unit);
+        break;
+    case 13:
+        this->sub_5A85F4(unit, unit->eye2->unit5, unit->eye2->spell);
+        break;
+    case 14:
+        this->sub_5A551C(unit, unit->eye2->field30_0x3c, unit->eye2->spell);
+        break;
+    case 15:
+        this->sub_5A6DA3(unit, unit->eye2->field51_0x68);
+        break;
+    case 17:
+        this->sub_5A56D7(unit, unit->eye2->unit2);
+        break;
+    case 22:
+        this->sub_5A8885(unit);
+        break;
+    case 24:
+        this->sub_5AB35B(unit);
+        break;
+    case 25:
+        this->sub_5AB5E3(unit);
+        break;
+    case 26:
+        this->sub_5A6789(unit);
+        break;
+    case 27:
+        unit->some_state = 0x1b;
+        break;
+    default:
+        unit->some_state = 0;
+        this->sub_5A6E2C(unit, 0);
+        break;
+    }
 }
 
 // 5AE5C0
