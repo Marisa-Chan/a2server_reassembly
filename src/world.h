@@ -306,7 +306,7 @@ public:
     int32_t sub_5A7AF7(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for sub_5A845B (ASM).
-    void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for sub_5A845B (ASM).
+    void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for sub_5A845B.
     void sub_5AF6F5(Unit* unit); // in asm
     void sub_5ADD64(Group* group); // Build nearby friendly unit list from `group`.
     bool sub_5B5816(Unit* unit1, Unit* unit2); // Check if unit1's owner is at war with unit2's owner.

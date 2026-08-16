@@ -1228,7 +1228,6 @@ externdef ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z :proc             ; int World::sub
 externdef ?sub_5A7B44@World@@QAEXPAVUnit@@@Z :proc              ; void World::sub_5A7B44(Unit*)
 externdef ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z :proc    ; void World::sub_5A85F4(Unit*, Unit*, Spell*)
 externdef ?sub_5A39AD@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5A39AD(Unit*, UnitList*)
-externdef ?sub_5B6862@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc  ; void World::sub_5B6862(Unit*, UnitList*)
 externdef ?sub_5ADD64@World@@QAEXPAVGroup@@@Z :proc              ; void World::sub_5ADD64(Group*)
 externdef ?sub_5B5816@World@@QAE_NPAVUnit@@0@Z :proc             ; bool World::sub_5B5816(Unit*, Unit*)
 externdef ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z :proc

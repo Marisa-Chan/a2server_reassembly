@@ -773,6 +773,80 @@ void World::sub_5A85F4(Unit* caster, Unit* target, Spell* spell) {
     caster->eye2->max_range = spell->max_range;
 }
 
+// Fallback buff selection for sub_5A845B: pick a random allied unit from `list`
+// and attempt to cast heal/buff spells on it.
+// 5B6862
+void World::sub_5B6862(Unit* unit, UnitList* list) {
+    // Heal self.
+    if (unit->hp != unit->hp_max) {
+        Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
+        if (heal != nullptr) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, unit, heal);
+            return;
+        }
+    }
+
+    // Shield self, unless already shielded.
+    Spell* shield = unit->spell_book->sub_53DB79(spell::shield);
+    if (shield != nullptr && (unit->enchantments & (1 << shield->spell_id)) == 0) {
+        unit->eye2->field49_0x60 = 1;
+        this->sub_5A85F4(unit, unit, shield);
+        return;
+    }
+
+    // Pick a random same-player target from the provided list.
+    Unit* target = nullptr;
+    if (list != nullptr) {
+        int32_t count = list->unit_list.GetCount();
+        int32_t index = this->sub_5B6F40(count);
+        POSITION it = list->unit_list.FindIndex(index);
+        if (it != nullptr) {
+            target = list->unit_list.GetAt(it);
+        }
+    }
+
+    if (target == nullptr || target->pOwner != unit->pOwner) {
+        return;
+    }
+
+    // Heal.
+    if (target->hp != target->hp_max) {
+        Spell* heal = unit->spell_book->sub_53DB79(spell::heal);
+        if (heal != nullptr) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, target, heal);
+            return;
+        }
+    }
+
+    // Only consider buffs when caster has full mana.
+    if (unit->mp != unit->mp_max) {
+        return;
+    }
+
+    // Build a list of affordable defensive buff spells excluding heal/shield.
+    CList<Spell*> buffs;
+    for (int32_t spell_id = 1; spell_id < spell::max_spell_id; spell_id++) {
+        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        if (spell != nullptr && spell->mana_cost <= unit->mp && spell->is_defensive) {
+            if (spell->spell_id != spell::heal && spell->spell_id != spell::shield) {
+                buffs.AddTail(spell);
+            }
+        }
+    }
+
+    int32_t index = this->sub_5B6F40(buffs.GetCount());
+    POSITION buff_pos = buffs.FindIndex(index);
+    Spell* buff = (buff_pos != nullptr) ? buffs.GetAt(buff_pos) : nullptr;
+    if (buff == nullptr || (target->enchantments & (1 << buff->spell_id)) != 0) {
+        return;
+    }
+
+    unit->eye2->field49_0x60 = 1;
+    this->sub_5A85F4(unit, target, buff);
+}
+
 // Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
 // (is_defensive=1) of owner, skipping invisible units.
 // 5B61D0
