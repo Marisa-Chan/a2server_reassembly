@@ -3467,6 +3467,27 @@ void World::sub_5A8A55(Unit* unit) {
     }
 }
 
+// 5A8CD8
+void World::sub_5A8CD8(Unit* unit) {
+    if (unit->spell_book != nullptr) {
+        if (this->sub_5A79D6(unit, spell::teleport, 0) != nullptr) {
+            this->sub_5A8DBC(unit);
+            return;
+        }
+    }
+
+    PosYX pos = unit->position->GetYX();
+    UnitList* list = this->field24_0xa50->sub_5897AA(pos, 2);
+    this->sub_5A3896(unit, list, 0);
+    if (list->unit_list.GetCount() == 0) {
+        this->sub_5A607B(unit);
+    } else {
+        uint32_t packed_yx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, 3);
+        this->sub_5A8778(unit, result);
+    }
+}
+
 // 5A5B49
 void World::sub_5A5B49(Unit* unit) {
     this->sub_5A647C(unit);
