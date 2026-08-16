@@ -4108,6 +4108,21 @@ void World::sub_5AE471(Group* group) {
     }
 }
 
+// 5A3D12
+void World::sub_5A3D12(uint16_t pos_yx, uint8_t max_distance) {
+    CList<Unit*>& unit_list = this->field26_0xa64.unit_list;
+    POSITION it = unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current_it = it;
+        Unit* unit = unit_list.GetNext(it);
+        uint16_t unit_pos = unit->position->CompatGetYX();
+        uint8_t distance = this->field24_0xa50->sub_593B29(pos_yx, unit_pos);
+        if (distance > max_distance) {
+            unit_list.RemoveAt(current_it);
+        }
+    }
+}
+
 // 5AE2D4
 void World::sub_5AE2D4(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
