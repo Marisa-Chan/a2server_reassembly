@@ -1194,7 +1194,6 @@ externdef ?sub_5AA8ED@World@@QAEXPAVUnit@@@Z :proc                              
 externdef ?sub_5AA97E@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA97E(Unit*)
 externdef ?sub_5AA9F6@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AA9F6(Unit*)
 externdef ?sub_5AAB08@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAB08(Unit*)
-externdef ?sub_5A59E2@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A59E2(Unit*)
 externdef ?sub_5A5B49@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A5B49(Unit*)
 externdef ?sub_5A9A8F@World@@QAEXPAVUnit@@@Z :proc                              ; void World::sub_5A9A8F(Unit*)
 externdef ?sub_5A607B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A607B(Unit*)

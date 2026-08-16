@@ -3531,6 +3531,36 @@ void World::sub_5A8CD8(Unit* unit) {
     }
 }
 
+// 5A59E2
+void World::sub_5A59E2(Unit* unit) {
+    unit->eye2->cast_action = 0;
+    if (unit->eye2->field2_0x4 != 0) {
+        unit->eye2->position1 = unit->position->CompatGetYX();
+        unit->eye2->field2_0x4 = 0;
+    }
+    this->sub_5A647C(unit);
+    if (unit->eye2->cast_action == 0 || unit->eye2->cast_action == 0xB) {
+        unit->eye2->field2_0x4 = 1;
+        uint16_t pos = unit->eye2->position2.val;
+        if (unit->position->CompatGetYX() == pos) {
+            CList<uint16_t>* positions = unit->eye2->positions_list;
+            POSITION found = positions->Find(pos, NULL);
+            if (found == NULL) {
+                pos = positions->GetHead();
+            } else {
+                positions->GetNext(found);
+                if (found == NULL) {
+                    pos = positions->GetHead();
+                } else {
+                    pos = positions->GetAt(found);
+                }
+            }
+        }
+        unit->eye2->position2 = pos;
+        this->sub_5A8778(unit, pos);
+    }
+}
+
 // 5A5B49
 void World::sub_5A5B49(Unit* unit) {
     this->sub_5A647C(unit);
