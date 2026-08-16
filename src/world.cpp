@@ -392,6 +392,63 @@ void World::sub_5ADD64(Group* group) {
     }
 }
 
+// 5ADB16 — build a nearby-friendly-unit list from `group`, then filter by relationship to the group's first unit.
+void World::sub_5ADB16(Group* group) {
+    this->field26_0xa64.unit_list.RemoveAll();
+
+    if (group == nullptr) {
+        return;
+    }
+
+    POSITION it = group->unit_list.GetHeadPosition();
+    if (it == nullptr) {
+        return;
+    }
+
+    Visibility* visibility = &this->field24_0xa50->visibility;
+    visibility->sub_58E1C1();
+    uint8_t* scratch = visibility->field_0x2a008;
+
+    for (; it != nullptr;) {
+        Unit* u = group->unit_list.GetNext(it);
+        uint16_t yx = u->position->CompatGetYX();
+        visibility->sub_58DE69(u, yx);
+
+        if (u->pOwner->is_ai && u->eye2->position3 != 0) {
+            scratch[u->eye2->position3] += 1;
+            u->eye2->counter2 += 1;
+            if (u->eye2->counter2 > 20) {
+                u->eye2->position3 = 0;
+            }
+        }
+    }
+
+    UnitList* all = this->field24_0xa50->field69_0xa456c;
+    CList<Unit*>* src = all != nullptr ? &all->unit_list : nullptr;
+    if (src != nullptr) {
+        for (POSITION src_it = src->GetHeadPosition(); src_it != nullptr;) {
+            Unit* u = src->GetNext(src_it);
+            uint16_t yx = u->position->CompatGetYX();
+            if (scratch[yx] != 0) {
+                this->field26_0xa64.unit_list.AddTail(u);
+            }
+        }
+    }
+
+    Unit* head = group->unit_list.GetHead();
+    this->sub_5A3896(head, &this->field26_0xa64, 0);
+    this->sub_5A3C5F();
+
+    if (this->field26_0xa64.unit_list.GetCount() == 0 && this->field27_0xa84.unit_list.GetCount() != 0) {
+        this->field26_0xa64.unit_list.RemoveAll();
+        for (POSITION other_it = this->field27_0xa84.unit_list.GetHeadPosition(); other_it != nullptr;) {
+            Unit* u = this->field27_0xa84.unit_list.GetNext(other_it);
+            this->field26_0xa64.unit_list.AddTail(u);
+        }
+        this->field27_0xa84.unit_list.RemoveAll();
+    }
+}
+
 // 5AF805
 void World::sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
