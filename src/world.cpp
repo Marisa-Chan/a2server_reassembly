@@ -3349,6 +3349,51 @@ void World::sub_5AF646(Group* group) {
     }
 }
 
+// 5AB92C
+void World::sub_5AB92C(Group* group) {
+    int32_t count = group->unit_list.GetCount();
+    if (count == 0) {
+        return;
+    }
+
+    uint16_t sum_x = 0;
+    uint16_t sum_y = 0;
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        sum_x += unit->position->GetX();
+        sum_y += unit->position->GetY();
+    }
+
+    uint8_t avg_x = static_cast<uint8_t>(sum_x / count);
+    uint8_t avg_y = static_cast<uint8_t>(sum_y / count);
+    PosYX avg_yx(avg_x, avg_y);
+
+    group->group_sub->field_0x24 = (avg_y << 16) | avg_x;
+    group->group_sub->field_0x28 = avg_yx.val;
+
+    uint8_t max_distance = 0;
+    uint8_t max_scan_range = 0;
+    uint8_t max_sum = 0;
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), avg_yx);
+        uint8_t scan_range = unit->scan_range >> 8;
+        if (distance > max_distance) {
+            max_distance = distance;
+        }
+        if (scan_range > max_scan_range) {
+            max_scan_range = scan_range;
+        }
+        if (distance + scan_range > max_sum) {
+            max_sum = distance + scan_range;
+        }
+    }
+
+    group->group_sub->field_0x2a = max_distance;
+    group->group_sub->field_0x2b = max_scan_range;
+    group->group_sub->field_0x2c = max_sum;
+}
+
 // 5AE2D4
 void World::sub_5AE2D4(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
