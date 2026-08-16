@@ -1200,7 +1200,6 @@ externdef ?sub_5A607B@World@@QAEXPAVUnit@@@Z :proc               ; World::sub_5A
 externdef ?sub_5A6789@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A6789(Unit*)
 externdef ?sub_5A8885@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A8885(Unit*)
 externdef ?sub_5A8A55@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5A8A55(Unit*)
-externdef ?sub_5AB62E@World@@QAEIPAVUnitList@@@Z :proc          ; World::sub_5AB62E(UnitList*)
 externdef ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z :proc                              ; void World::sub_5AAF84(Unit*, uint8_t)
 externdef ?sub_5AAC17@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAC17(Unit*)
 externdef ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z :proc                 ; World::sub_5A3896(Unit*, UnitList*, int32_t)

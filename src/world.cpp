@@ -659,6 +659,29 @@ uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
     return 0;
 }
 
+// 5AB62E
+uint32_t World::sub_5AB62E(UnitList* list) {
+    int count = list->unit_list.GetCount();
+    if (count == 0) {
+        return 0;
+    }
+
+    uint32_t sum_xx = 0;
+    uint32_t sum_yy = 0;
+
+    POSITION pos = list->unit_list.GetHeadPosition();
+    while (pos != nullptr) {
+        Unit* unit = list->unit_list.GetNext(pos);
+        sum_xx += unit->position->GetXx();
+        sum_yy += unit->position->GetYy();
+    }
+
+    uint32_t avg_xx = sum_xx / count;
+    uint32_t avg_yy = sum_yy / count;
+
+    return (avg_yy << 16) + avg_xx;
+}
+
 // 5AB719
 uint32_t World::sub_5AB719(Group* group) {
     int count = group->unit_list.GetCount();
