@@ -2155,6 +2155,69 @@ void World::sub_5A607B(Unit* unit) {
     }
 }
 
+// 5A6B48
+void World::sub_5A6B48(Unit* unit, Unit* target) {
+    Unit* chosen_target = target;
+    int32_t chosen_spell = 0;
+
+    if ((target->unit_attrs & 8) != 0) {
+        this->sub_5A6E2C(unit, 0);
+        return;
+    }
+
+    for (int32_t i = 0; i < 3; i++) {
+        if (unit->eye2->known_spells[i] != 0 && sub_5B6F30() < (int32_t)unit->eye2->known_spell_probabilities[i]) {
+            chosen_spell = unit->eye2->known_spells[i];
+        }
+    }
+
+    if (chosen_spell != 0) {
+        if (chosen_spell != spell::teleport) {
+            this->sub_5A6801(unit, target, chosen_spell);
+            return;
+        }
+
+        uint16_t target_yx = target->position->CompatGetYX();
+        uint16_t unit_yx = unit->position->CompatGetYX();
+        uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+        if (distance > 2) {
+            this->sub_5A6801(unit, target, chosen_spell);
+            return;
+        }
+    }
+
+    if (unit == chosen_target) {
+        chosen_target = nullptr;
+    }
+
+    if (chosen_target == nullptr) {
+        uint16_t unit_yx = unit->position->CompatGetYX();
+        UnitList* nearby_list = this->sub_5A3808(unit, unit_yx);
+        if (nearby_list->unit_list.GetCount() != 0) {
+            chosen_target = nearby_list->unit_list.GetHead();
+        }
+    }
+
+    if (chosen_target == nullptr) {
+        this->sub_5A6E2C(unit, 0);
+    } else if (!unit->pOwner->is_ai) {
+        if (!unit->sub_5B6FB0() || this->sub_5A6ED9(unit, chosen_target) == 0) {
+            unit->eye2->cast_action = 5;
+            unit->eye2->unit = chosen_target;
+            unit->eye2->max_range = this->UnitMaxRange(unit);
+            if (unit->sub_5B6FB0() && unit->eye2->max_range < 2) {
+                this->sub_5A7B44(unit);
+            }
+        }
+    } else {
+        if (!unit->sub_5B6FB0() || this->sub_5B6632(unit, chosen_target) == 0) {
+            unit->eye2->cast_action = 5;
+            unit->eye2->unit = chosen_target;
+            unit->eye2->max_range = this->UnitMaxRange(unit);
+        }
+    }
+}
+
 // Set unit to idle/wander (param=0) or retreat (param!=0).
 // 5A6E2C
 void World::sub_5A6E2C(Unit* unit, int param) {
