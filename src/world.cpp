@@ -702,6 +702,25 @@ void World::sub_5AEC20(Group* group, uint16_t param) {
     }
 }
 
+// 5AECE7
+void World::sub_5AECE7(Group* group, uint16_t param) {
+    this->sub_5ADB16(group);
+    if (this->field26_0xa64.unit_list.GetCount() == 0) {
+        this->sub_5AF061(group, param);
+    } else {
+        this->sub_5AE2D4(group);
+        POSITION it = group->unit_list.GetHeadPosition();
+        while (it != nullptr) {
+            Unit* unit = group->unit_list.GetNext(it);
+            if (unit->eye2->unit4 == nullptr) {
+                this->sub_5A6E2C(unit, 1);
+            } else {
+                this->sub_5A6B48(unit, unit->eye2->unit4);
+            }
+        }
+    }
+}
+
 // 5AB719
 uint32_t World::sub_5AB719(Group* group) {
     int count = group->unit_list.GetCount();

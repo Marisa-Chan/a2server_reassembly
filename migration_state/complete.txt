@@ -918,6 +918,7 @@
 ?sub_5AE5C0@World@@QAEXPAVGroup@@@Z
 ?sub_5AE5F5@World@@QAEXPAVGroup@@@Z
 ?sub_5AE628@World@@QAEXPAVGroup@@@Z
+?sub_5AECE7@World@@QAEXPAVGroup@@G@Z
 ?sub_5AED8D@World@@QAEXPAVGroup@@@Z
 ?sub_5AEFE5@World@@QAEXPAVGroup@@@Z
 ?sub_5AF022@World@@QAEXPAVGroup@@@Z
