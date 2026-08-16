@@ -27,7 +27,6 @@ extern CString g_MissionBriefing; //660de8
 extern CStringArray g_MissionFailures; //660f18
 extern CStringArray g_MissionSubjs; //660ea8
 
-extern "C" uint8_t __cdecl sub_595561(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
 
 struct Obstacle
 {
@@ -221,6 +220,7 @@ public:
     int sub_597140(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
+    uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
     AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
     Unit* sub_58CA1B(PosYX yx); // Get unit at map coordinate yx — 58CA1B
     UnitList* sub_5897AA(PosYX yx, uint8_t range); // Build a temporary UnitList of units around yx — 5897AA

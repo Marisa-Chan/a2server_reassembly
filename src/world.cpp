@@ -310,7 +310,7 @@ int32_t World::sub_5AD0B3(Unit* unit, Unit* target) {
     }
 
     uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
-    uint8_t angle_diff = sub_595561(unit->eye->field0_0x0, facing);
+    uint8_t angle_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
     int32_t score = distance * 256 + angle_diff;
 
     if (lookup_value == 0) {
@@ -1083,7 +1083,7 @@ void World::sub_5AAC17(Unit* unit) {
         while (unit_it != nullptr) {
             Unit* other = this->field26_0xa64.unit_list.GetNext(unit_it);
             uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
-            uint8_t diff = sub_595561(unit->eye->field0_0x0, facing);
+            uint8_t diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
             if (diff <= best_diff) {
                 best_target = other;
                 best_diff = diff;
@@ -2027,7 +2027,7 @@ void World::sub_5A607B(Unit* unit) {
             range += 1;
         }
         uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
-        uint8_t score = sub_595561(facing, unit->eye->field0_0x0);
+        uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
         if (range < best_range) {
             best_target = other;
             best_score_diff = score;
@@ -2051,7 +2051,7 @@ void World::sub_5A607B(Unit* unit) {
             Unit* other = this->field27_0xa84.unit_list.GetNext(it);
             int32_t range = this->field24_0xa50->sub_59190D(unit, other);
             uint8_t facing = this->field24_0xa50->sub_591424(unit, other);
-            uint8_t score = sub_595561(facing, unit->eye->field0_0x0);
+            uint8_t score = this->field24_0xa50->FacingDiff(facing, unit->eye->field0_0x0);
             if (range < best_range) {
                 best_target = other;
                 best_score_diff = score;

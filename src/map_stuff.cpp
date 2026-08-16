@@ -1,5 +1,7 @@
 #include "map_stuff.h"
 
+#include <cstdlib>
+
 #include "alm.h"
 #include "constants.h"
 #include "building.h"
@@ -1603,6 +1605,15 @@ AreaEffect* MapStuff::sub_5953CB(AreaEffect* ae, uint16_t coord) {
 // 595438 --- check if area effect can be applied at (x, y)
 int MapStuff::sub_595438(AreaEffect* ae, uint8_t x, uint8_t y) {
     return this->sub_5953CB(ae, PosYX(x, y).val) != nullptr;
+}
+
+// 595561 --- smallest angular difference between two facing bytes.
+uint8_t MapStuff::FacingDiff(uint8_t a, uint8_t b) {
+    uint8_t diff = std::abs(a - b);
+    if (diff > 0x80) {
+        diff = 0x100 - diff;
+    }
+    return diff;
 }
 
 // 5954AC --- teleport unit to (x, y)

@@ -379,6 +379,7 @@
 ?EnumConnections@CLlDriver@@QAEXPAPAUCLlConn@@PAH@Z
 ?EnumPlayers@CLlDriver@@QAEXPAUCLlNetSession@@PAPAUCLlName@@PAH@Z
 ?EnumSessions@CLlDriver@@QAEHPAPAUCLlNetSession@@PAHP6AHXZI@Z
+?FacingDiff@MapStuff@@QAEEEE@Z
 ?FillRectColor@@YAXHHHHI@Z
 ?FillRectColorSimple@@YAXHHHHI@Z
 ?Find@CString@@QBEHD@Z

@@ -536,6 +536,7 @@ externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
+externdef ?FacingDiff@MapStuff@@QAEEEE@Z :proc                         ; uint8_t MapStuff::FacingDiff(uint8_t, uint8_t)
 externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc
 externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*)
@@ -1194,7 +1195,6 @@ externdef ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z :proc                             
 externdef ?sub_5AAC17@World@@QAEXPAVUnit@@@Z :proc                               ; World::sub_5AAC17(Unit*)
 externdef ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z :proc                 ; World::sub_5A3896(Unit*, UnitList*, int32_t)
 externdef ?sub_5A3C5F@World@@QAEXXZ :proc                                        ; World::sub_5A3C5F()
-externdef _sub_595561 :proc                                                      ; uint8_t __cdecl sub_595561(uint8_t, uint8_t)
 externdef ?sub_5B6F40@World@@QAEHH@Z :proc                                       ; World::sub_5B6F40(int32_t)
 externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc                                         ; Unit::sub_5B6FB0()
 externdef ?DoScriptInstID@World@@QAEXH@Z :proc                                   ; World::DoScriptInstID(int)
