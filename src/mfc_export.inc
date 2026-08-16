@@ -1291,11 +1291,7 @@ extern ?FUN_005acd4c@World@@QAEXPAVGroup@@@Z : proc
 
 externdef ?sub_5B2E7A@World@@QAEXXZ :proc
 externdef ?sub_5A4590@World@@QAEXXZ :proc
-externdef ?sub_5A3791@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc ; World::sub_5A3791(Unit*) -> UnitList* (ASM helper)
 externdef ?sub_5A3DC9@World@@QAEXPAVUnit@@PAVUnitList@@@Z :proc ; World::sub_5A3DC9(Unit*, UnitList*) (ASM helper)
-externdef ?sub_5A89D5@World@@QAEHPAVUnit@@@Z :proc              ; World::sub_5A89D5(Unit*) -> int32_t (ASM helper)
-externdef ?sub_5A8BDA@World@@QAEHPAVUnit@@@Z :proc              ; World::sub_5A8BDA(Unit*) -> int32_t (ASM helper)
-externdef ?sub_5A925C@World@@QAEXPAVUnit@@EE@Z :proc            ; World::sub_5A925C(Unit*, uint8_t, uint8_t) (ASM helper)
 
 
 ; Action

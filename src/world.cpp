@@ -3601,6 +3601,35 @@ void World::sub_5A8DBC(Unit* unit) {
     }
 }
 
+// Check whether the unit is below its wimpy threshold and has nearby enemies.
+// Returns 1 if the unit should flee, 0 otherwise.
+// 5A89D5
+int32_t World::sub_5A89D5(Unit* unit) {
+    if (unit->hp > unit->eye2->wimpy) {
+        return 0;
+    }
+
+    uint8_t range = unit->eye->field7_0x8 + 5;
+    PosYX yx = unit->position->CompatGetYX();
+    UnitList* list = this->field24_0xa50->sub_5897AA(yx, range);
+    this->sub_5A3896(unit, list, 0);
+    return list->unit_list.GetCount() != 0 ? 1 : 0;
+}
+
+// Check whether the unit is below its withdraw threshold and has nearby enemies.
+// Returns 1 if the unit should teleport away, 0 otherwise.
+// 5A8BDA
+int32_t World::sub_5A8BDA(Unit* unit) {
+    if (unit->hp > unit->eye2->withdraw) {
+        return 0;
+    }
+
+    PosYX yx = unit->position->CompatGetYX();
+    UnitList* list = this->field24_0xa50->sub_5897AA(yx, 2);
+    this->sub_5A3896(unit, list, 0);
+    return list->unit_list.GetCount() != 0 ? 1 : 0;
+}
+
 // 5A8CD8
 void World::sub_5A8CD8(Unit* unit) {
     if (unit->spell_book != nullptr) {
@@ -3699,6 +3728,14 @@ void World::sub_5A551C(Unit* unit, uint16_t pos_yx, Spell* spell) {
     unit->eye2->max_range = spell->max_range;
 }
 
+// Build a temporary UnitList of units near `unit` using the unit's eye range.
+// 5A3791
+UnitList* World::sub_5A3791(Unit* unit) {
+    uint8_t range = unit->eye->field7_0x8;
+    PosYX yx = unit->position->CompatGetYX();
+    return this->field24_0xa50->sub_5897AA(yx, range);
+}
+
 // 5A37C5
 UnitList* World::sub_5A37C5(Unit* unit) {
     UnitList* list = this->sub_5A3791(unit);
@@ -3747,6 +3784,15 @@ void World::sub_5A6789(Unit* unit) {
         unit->eye2->command_to = this->field24_0xa50->field67_0xa4510.GetHead();
         unit->eye2->cast_action = 0xC;
     }
+}
+
+// Reset unit state and set a movement target from two packed bytes.
+// 5A925C
+void World::sub_5A925C(Unit* unit, uint8_t a, uint8_t b) {
+    this->sub_5A9AC4(unit);
+    unit->state = 4;
+    unit->eye2->command_to = PosYX{a, b}.val;
+    unit->eye2->cast_action = 0;
 }
 
 // 5AB5E3
