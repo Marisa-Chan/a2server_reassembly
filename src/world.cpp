@@ -669,9 +669,9 @@ uint32_t World::sub_5AB62E(UnitList* list) {
     uint32_t sum_xx = 0;
     uint32_t sum_yy = 0;
 
-    POSITION pos = list->unit_list.GetHeadPosition();
-    while (pos != nullptr) {
-        Unit* unit = list->unit_list.GetNext(pos);
+    POSITION it = list->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = list->unit_list.GetNext(it);
         sum_xx += unit->position->GetXx();
         sum_yy += unit->position->GetYy();
     }
@@ -680,6 +680,26 @@ uint32_t World::sub_5AB62E(UnitList* list) {
     uint32_t avg_yy = sum_yy / count;
 
     return (avg_yy << 16) + avg_xx;
+}
+
+// 5AEC20
+void World::sub_5AEC20(Group* group, uint16_t param) {
+    this->sub_5ADB16(group);
+    this->sub_5AE2D4(group);
+
+    POSITION it = group->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (unit->eye2->unit4 != nullptr) {
+            this->sub_5A6B48(unit, unit->eye2->unit4);
+        } else {
+            if (unit->position->CompatGetYX() == param && unit->position->sub_58bec3()) {
+                this->sub_5A6E2C(unit, 1);
+            } else {
+                this->sub_5A8778(unit, param);
+            }
+        }
+    }
 }
 
 // 5AB719

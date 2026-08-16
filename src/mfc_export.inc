@@ -1256,7 +1256,6 @@ externdef ?sub_5AB35B@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB
 externdef ?sub_5AB5E3@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB5E3(Unit*)
 externdef ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5ABCFD(Unit*)
 externdef ?sub_5AE628@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE628(Group*)
-externdef ?sub_5AEC20@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AEC20(Group*, uint16_t)
 externdef ?sub_5AF061@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AF061(Group*, uint16_t)
 externdef ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AECE7(Group*, uint16_t)
 externdef ?sub_5AED8D@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AED8D(Group*)
