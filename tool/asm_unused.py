@@ -423,7 +423,9 @@ def main():
     parser.add_argument("--track", metavar="PROC",
                         help="Show reachability paths from external roots to PROC")
     parser.add_argument("--roots", metavar="SUBSTRING", default='',
-                        help="Show reachability paths from external roots that contain given substring")
+                            help="Show reachability paths from external roots that contain given substring")
+    parser.add_argument("--all-roots", action='store_true',
+                            help="Show reachability paths from all external roots")
     args = parser.parse_args()
 
     path = os.path.abspath(args.asm_file)
@@ -449,6 +451,13 @@ def main():
     reachable_sizes = compute_reachable_sizes(procs, endps, chunks, reachable)
 
     unused_procs, unused_data = report(procs, data_syms, ref_counts, reachable, reachable_sizes, external_refs)
+
+    if args.all_roots:
+        print("\n=== REACHABILITY FROM ALL EXTERNAL ROOTS ===")
+        for r in sorted(external_refs):
+            reach = compute_reachable(calls, {r})
+            _, reach_lines = compute_reachable_sizes(procs, endps, chunks, reach)
+            print(f'  {r} -> {len(reach)} reachable procs for {reach_lines} lines')
 
     if args.track:
         report_track(calls, external_refs, args.track, procs)
