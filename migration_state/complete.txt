@@ -844,12 +844,14 @@
 ?sub_5A6B48@World@@QAEXPAVUnit@@0@Z
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z
 ?sub_5A6E59@World@@QAEXPAVUnit@@@Z
+?sub_5A6EA5@World@@QAEXPAVUnit@@@Z
 ?sub_5A6ED9@World@@QAEHPAVUnit@@0@Z
 ?sub_5A79D6@World@@QAEPAVSpell@@PAVUnit@@HH@Z
 ?sub_5A7A1C@World@@QAEHPAVUnit@@0@Z
 ?sub_5A7B44@World@@QAEXPAVUnit@@@Z
 ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z
 ?sub_5A8709@World@@QAEXPAVUnit@@0@Z
+?sub_5A8778@World@@QAEXPAVUnit@@G@Z
 ?sub_5A9087@World@@QAEXPAVUnit@@0@Z
 ?sub_5A92AF@World@@QAEXPAVUnit@@0PAVSpell@@@Z
 ?sub_5A930F@World@@QAEXPAVUnit@@EEPAVSpell@@@Z
@@ -877,6 +879,7 @@
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z
+?sub_5ABCFD@World@@QAEXPAVUnit@@@Z
 ?sub_5ABD16@World@@QAEXPAVPlayersList@@@Z
 ?sub_5ABF50@World@@QAEXPAVPlayer@@@Z
 ?sub_5AC137@World@@QAEXPAVGroup@@@Z
@@ -892,6 +895,12 @@
 ?sub_5AD0B3@World@@QAEHPAVUnit@@0@Z
 ?sub_5ADD64@World@@QAEXPAVGroup@@@Z
 ?sub_5AE2D4@World@@QAEXPAVGroup@@@Z
+?sub_5AE5C0@World@@QAEXPAVGroup@@@Z
+?sub_5AE5F5@World@@QAEXPAVGroup@@@Z
+?sub_5AEFE5@World@@QAEXPAVGroup@@@Z
+?sub_5AF022@World@@QAEXPAVGroup@@@Z
+?sub_5AF623@World@@QAEXPAVGroup@@@Z
+?sub_5AF646@World@@QAEXPAVGroup@@@Z
 ?sub_5AFBFD@World@@QAEXXZ
 ?sub_5B0724@World@@QAEXXZ
 ?sub_5B0762@World@@QAEXXZ

@@ -3001,6 +3001,71 @@ void World::sub_5ABFBC(Group* group) {
     this->sub_5AF646(group);
 }
 
+// 5A6EA5
+void World::sub_5A6EA5(Unit* unit) {
+    if (unit->sub_5B6FB0()) {
+        this->sub_5A7B44(unit);
+    } else {
+        unit->eye2->cast_action = 0;
+    }
+}
+
+// 5A8778
+void World::sub_5A8778(Unit* unit, uint16_t param) {
+    unit->eye2->cast_action = 1;
+    unit->eye2->command_to = param;
+}
+
+// 5ABCFD
+void World::sub_5ABCFD(Unit* unit) {
+    this->sub_5A5155(unit);
+}
+
+// 5AE5C0
+void World::sub_5AE5C0(Group* group) {
+    uint8_t base = group->group_sub->field_0x38;
+    int32_t r = this->sub_5B6F60(-1, 1);
+    group->group_sub->field_0x2d = base + r + 4;
+}
+
+// 5AE5F5
+void World::sub_5AE5F5(Group* group) {
+    uint8_t base = group->group_sub->field_0x38;
+    int32_t r = this->sub_5B6F60(-1, 1);
+    group->group_sub->field_0x2d = base + r;
+}
+
+// 5AF623
+void World::sub_5AF623(Group* group) {
+    if (group->unit_list.GetCount() == 0) {
+        group->group_sub->field_0x20 = 0xFF;
+    }
+}
+
+// 5AEFE5
+void World::sub_5AEFE5(Group* group) {
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A6E59(unit);
+    }
+}
+
+// 5AF022
+void World::sub_5AF022(Group* group) {
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5A6E2C(unit, 0);
+    }
+}
+
+// 5AF646
+void World::sub_5AF646(Group* group) {
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->sub_5AF5DC(unit);
+    }
+}
+
 // 5AE2D4
 void World::sub_5AE2D4(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {

@@ -241,15 +241,8 @@
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
-?sub_5ABCFD@World@@QAEXPAVUnit@@@Z	16
-?sub_5A8778@World@@QAEXPAVUnit@@G@Z	20
-?sub_5AF623@World@@QAEXPAVGroup@@@Z	21
-?sub_5AE5C0@World@@QAEXPAVGroup@@@Z	27
-?sub_5AE5F5@World@@QAEXPAVGroup@@@Z	27
-?sub_5A6EA5@World@@QAEXPAVUnit@@@Z	29
-?sub_5AF646@World@@QAEXPAVGroup@@@Z	33
-?sub_5AEFE5@World@@QAEXPAVGroup@@@Z	33
-?sub_5AF022@World@@QAEXPAVGroup@@@Z	34
+?sub_5A5155@World@@QAEXPAVUnit@@@Z	30
+?sub_5AF5DC@World@@QAEXPAVUnit@@@Z	38
 ?sub_5AEF66@World@@QAEXPAVGroup@@@Z	59
 ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z	78
 ?sub_5A3D12@World@@QAEXGE@Z	78

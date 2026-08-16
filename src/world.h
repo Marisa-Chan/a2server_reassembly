@@ -187,8 +187,10 @@ public:
     void sub_5ABFBC(Group* group); // 5ABFBC
     void sub_5AF623(Group* group); // 5AF623
     void sub_5AF646(Group* group); // 5AF646
+    void sub_5AF5DC(Unit* unit); // 5AF5DC — helper for sub_5AF646.
     void sub_5AF022(Group* group); // 5AF022
     void sub_5ABCFD(Unit* unit); // 5ABCFD
+    void sub_5A5155(Unit* unit); // 5A5155 — helper for sub_5ABCFD.
     void sub_5AE628(Group* group); // 5AE628
     void sub_5AEC20(Group* group, uint16_t param); // 5AEC20
     void sub_5AEF66(Group* group); // 5AEF66
