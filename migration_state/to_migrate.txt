@@ -140,6 +140,8 @@
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
 ?ExitInstance@GameApp@@UAEHXZ	125
 ?OnIdle@GameApp@@UAEHJ@Z	199
+?sub_599F00@Group@@QAEPAVUnit@@XZ	13
+?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z	44
 ?ParseLine@HumanInfo@@QAEXVCString@@@Z	62
 ?sub_531418@Humanoid@@QAEXXZ	71
 ?sub_548F3F@Item@@QAEXABVCString@@@Z	23
@@ -247,7 +249,6 @@
 ?sub_5A925C@World@@QAEXPAVUnit@@EE@Z	32
 ?sub_5A8BDA@World@@QAEHPAVUnit@@@Z	48
 ?sub_5A89D5@World@@QAEHPAVUnit@@@Z	53
-?sub_5AEF66@World@@QAEXPAVGroup@@@Z	59
 ?sub_5A3DC9@World@@QAEXPAVUnit@@PAVUnitList@@@Z	74
 ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z	78
 ?sub_5A3D12@World@@QAEXGE@Z	78
@@ -257,6 +258,7 @@
 ?sub_5A56D7@World@@QAEXPAVUnit@@0@Z	106
 ?sub_5A59E2@World@@QAEXPAVUnit@@@Z	117
 ?sub_5A647C@World@@QAEXPAVUnit@@@Z	120
+?sub_5AE471@World@@QAEXPAVGroup@@@Z	144
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6

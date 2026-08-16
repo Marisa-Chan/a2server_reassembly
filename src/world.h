@@ -206,6 +206,7 @@ public:
     void sub_5AB5E3(Unit* unit); // 5AB5E3
     void sub_5AB92C(Group* group); // 5AB92C
     void sub_5ADB16(Group* group); // 5ADB16
+    void sub_5AE471(Group* group); // 5AE471
     void sub_5A3D12(uint16_t param1, uint8_t param2); // 5A3D12
     void sub_5AE2D4(Group* group); // 5AE2D4
     void sub_5AE5C0(Group* group); // 5AE5C0

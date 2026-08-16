@@ -60,6 +60,7 @@ public:
     uint32_t has_quest_kill;
     uint32_t has_quest_intercept;
 
+public:
     Group();  // Constructor - 554D9E
     ~Group();
 
@@ -68,6 +69,8 @@ public:
     // ASM member functions
     void RemoveUnit(Unit* unit);  // Remove unit from group
     void AddUnit(Unit* unit);  // Add unit to group
+    Unit* sub_599F00();  // 599F00. Avoid it, use `unit_list.GetHead()` instead.
+    Unit* sub_599F20(Unit* unit);  // 599F20. Avoid it, use `unit_list.GetNext()` instead (this method is O(N) for no reason).
 };
 
 ASSERT_OFFSET(Group, owner, 0x44);

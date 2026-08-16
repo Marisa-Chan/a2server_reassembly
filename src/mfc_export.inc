@@ -701,6 +701,8 @@ extern ??1Group@@QAE@XZ :proc
 extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
 extern ?Serialize@Group@@QAEXAAVCArchive@@@Z  :proc
+externdef ?sub_599F00@Group@@QAEPAVUnit@@XZ :proc              ; Group::sub_599F00()
+externdef ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z :proc         ; Group::sub_599F20(Unit*)
 
 ; GroupList
 extern ??0GroupList@@QAE@XZ   :proc
@@ -1256,8 +1258,8 @@ externdef ?sub_5AB35B@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB
 externdef ?sub_5AB5E3@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5AB5E3(Unit*)
 externdef ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z :proc              ; World::sub_5ABCFD(Unit*)
 externdef ?sub_5AE628@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE628(Group*)
+externdef ?sub_5AE471@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AE471(Group*)
 externdef ?sub_5AEC20@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AEC20(Group*, uint16_t)
-externdef ?sub_5AEF66@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AEF66(Group*)
 externdef ?sub_5AF061@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AF061(Group*, uint16_t)
 externdef ?sub_5AECE7@World@@QAEXPAVGroup@@G@Z :proc            ; World::sub_5AECE7(Group*, uint16_t)
 externdef ?sub_5AED8D@World@@QAEXPAVGroup@@@Z :proc             ; World::sub_5AED8D(Group*)

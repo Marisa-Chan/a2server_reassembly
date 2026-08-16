@@ -488,6 +488,21 @@ void World::sub_5ADB16(Group* group) {
     }
 }
 
+// 5AEF66
+void World::sub_5AEF66(Group* group) {
+    this->sub_5ADB16(group);
+    this->sub_5AE471(group);
+    POSITION it = group->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(it);
+        if (unit->eye2->unit4 == nullptr) {
+            this->sub_5A6E59(unit);
+        } else {
+            this->sub_5A6B48(unit, unit->eye2->unit4);
+        }
+    }
+}
+
 // 5AF805
 void World::sub_5AF805(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->field24_0xa50->field69_0xa456c;
