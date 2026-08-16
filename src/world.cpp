@@ -3536,6 +3536,34 @@ void World::sub_5A5B49(Unit* unit) {
     this->sub_5A647C(unit);
 }
 
+// 5A647C — helper for state 10/24 unit actions.
+void World::sub_5A647C(Unit* unit) {
+    if (unit->eye2->position1.val == 0) {
+        unit->eye2->position1 = unit->position->GetYX();
+    }
+
+    uint8_t y2 = unit->eye2->position1.y;
+    uint8_t x2 = unit->eye2->position1.x;
+    uint8_t y1 = unit->position->GetY();
+    uint8_t x1 = unit->position->GetX();
+    uint8_t dist = this->field24_0xa50->sub_58BFA3(x1, y1, x2, y2);
+    if (dist >= (unit->scan_range >> 8)) {
+        this->sub_5A8778(unit, unit->eye2->position1.val);
+    }
+
+    UnitList* list = this->sub_5A3808(unit, unit->eye2->position1);
+    if (list->unit_list.GetCount() != 0) {
+        this->sub_5A6B48(unit, list->unit_list.GetHead());
+    } else {
+        PosYX current_pos = unit->position->GetYX();
+        if (current_pos.val == unit->eye2->position1.val) {
+            this->sub_5A6E2C(unit, 0);
+        } else {
+            this->sub_5A8778(unit, unit->eye2->position1.val);
+        }
+    }
+}
+
 // 5A6DA3
 void World::sub_5A6DA3(Unit* unit, Building* building) {
     unit->eye2->cast_action = 0xF;
@@ -3866,7 +3894,7 @@ int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
 
     uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
     uint8_t facing_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
-    
+
     if (distance > 1) {
         return 0xFFFFFF;
     }

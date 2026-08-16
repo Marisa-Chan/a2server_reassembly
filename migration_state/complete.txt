@@ -849,6 +849,7 @@
 ?sub_5A5568@World@@QAEXPAVUnit@@0@Z
 ?sub_5A5B49@World@@QAEXPAVUnit@@@Z
 ?sub_5A607B@World@@QAEXPAVUnit@@@Z
+?sub_5A647C@World@@QAEXPAVUnit@@@Z
 ?sub_5A65BB@World@@QAEXPAVUnit@@0@Z
 ?sub_5A6789@World@@QAEXPAVUnit@@@Z
 ?sub_5A6B48@World@@QAEXPAVUnit@@0@Z
