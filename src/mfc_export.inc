@@ -1275,6 +1275,7 @@ externdef ?sub_5A8778@World@@QAEXPAVUnit@@G@Z :proc             ; World::sub_5A8
 externdef ?sub_5A87A3@World@@QAEXPAVUnit@@G@Z :proc             ; World::sub_5A87A3(Unit*, uint16_t)
 externdef ?sub_5A8829@World@@QAEXPAVUnit@@0E@Z :proc            ; World::sub_5A8829(Unit*, Unit*, uint8_t)
 externdef ?sub_5A6B48@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A6B48(Unit*, Unit*)
+externdef ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc ; World::sub_5A37C5(Unit*) -> UnitList*
 externdef ?sub_5A5568@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A5568(Unit*, Unit*)
 externdef ?sub_5A56D7@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A56D7(Unit*, Unit*)
 externdef ?sub_5A57E8@World@@QAEXPAVUnit@@0@Z :proc             ; World::sub_5A57E8(Unit*, Unit*)

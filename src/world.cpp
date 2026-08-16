@@ -3272,6 +3272,57 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
     unit->eye2->command_to = param;
 }
 
+// 5A65BB — pick a nearby target for `unit` from units around `target`.
+void World::sub_5A65BB(Unit* unit, Unit* target) {
+    UnitList* list = this->sub_5A37C5(target);
+    if (list == nullptr || list->unit_list.GetCount() == 0) {
+        this->sub_5A6E2C(unit, 0);
+        return;
+    }
+
+    Unit* best_type3 = nullptr;
+    uint8_t best_distance = 0;
+
+    POSITION pos = list->unit_list.GetHeadPosition();
+    while (pos != nullptr) {
+        Unit* other = list->unit_list.GetNext(pos);
+        if (other->sub_59A030() == 3) {
+            if (best_type3 == nullptr) {
+                best_type3 = other;
+                best_distance = this->field24_0xa50->sub_59190D(unit, other);
+            } else {
+                uint8_t distance = this->field24_0xa50->sub_59190D(unit, other);
+                if (distance < best_distance) {
+                    best_type3 = other;
+                    best_distance = distance;
+                }
+            }
+        }
+    }
+
+    if (best_type3 != nullptr) {
+        this->sub_5A6B48(unit, best_type3);
+        return;
+    }
+
+    Unit* best_any = nullptr;
+    best_distance = 0xFF;
+
+    pos = list->unit_list.GetHeadPosition();
+    while (pos != nullptr) {
+        Unit* other = list->unit_list.GetNext(pos);
+        uint8_t distance = this->field24_0xa50->sub_59190D(unit, other);
+        if (distance < best_distance) {
+            best_any = other;
+            best_distance = distance;
+        }
+    }
+
+    if (best_any != nullptr) {
+        this->sub_5A6B48(unit, best_any);
+    }
+}
+
 // 5A5568
 void World::sub_5A5568(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
