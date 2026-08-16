@@ -907,9 +907,9 @@ void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
             uint8_t distance = this->field24_0xa50->sub_593B29(caster_yx, target_yx);
             if (distance > 2) {
                 uint16_t found_yx = 0;
-                for (int8_t dy = -1; dy <= 1; dy++) {
-                    for (int8_t dx = -1; dx <= 1; dx++) {
-                        uint16_t check_yx = target_yx + PosYX{dx, dy}.val;
+                for (uint8_t dy = 0; dy <= 2; dy++) {
+                    for (uint8_t dx = 0; dx <= 2; dx++) {
+                        uint16_t check_yx = target_yx + PosYX{dx, dy}.val - PosYX{1, 1}.val;
                         if (this->field24_0xa50->sub_5978F0(caster, check_yx) != 0) {
                             found_yx = check_yx;
                             break;
