@@ -832,6 +832,7 @@
 ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z
 ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z
 ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z
+?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z
 ?sub_5A3808@World@@QAEPAVUnitList@@PAVUnit@@UPosYX@@@Z
 ?sub_5A3896@World@@QAEXPAVUnit@@PAVUnitList@@H@Z
 ?sub_5A3AD6@World@@QAEXPAVUnit@@PAVUnitList@@@Z
@@ -843,10 +844,15 @@
 ?sub_5A5155@World@@QAEXPAVUnit@@@Z
 ?sub_5A5188@World@@QAEXPAVUnit@@@Z
 ?sub_5A51A1@World@@QAEXPAVUnit@@@Z
+?sub_5A54B8@World@@QAEXPAVUnit@@G@Z
+?sub_5A551C@World@@QAEXPAVUnit@@GPAVSpell@@@Z
 ?sub_5A5568@World@@QAEXPAVUnit@@0@Z
+?sub_5A5B49@World@@QAEXPAVUnit@@@Z
 ?sub_5A607B@World@@QAEXPAVUnit@@@Z
 ?sub_5A65BB@World@@QAEXPAVUnit@@0@Z
+?sub_5A6789@World@@QAEXPAVUnit@@@Z
 ?sub_5A6B48@World@@QAEXPAVUnit@@0@Z
+?sub_5A6DA3@World@@QAEXPAVUnit@@PAVBuilding@@@Z
 ?sub_5A6E2C@World@@QAEXPAVUnit@@H@Z
 ?sub_5A6E59@World@@QAEXPAVUnit@@@Z
 ?sub_5A6EA5@World@@QAEXPAVUnit@@@Z
@@ -857,6 +863,8 @@
 ?sub_5A85F4@World@@QAEXPAVUnit@@0PAVSpell@@@Z
 ?sub_5A8709@World@@QAEXPAVUnit@@0@Z
 ?sub_5A8778@World@@QAEXPAVUnit@@G@Z
+?sub_5A87A3@World@@QAEXPAVUnit@@G@Z
+?sub_5A8829@World@@QAEXPAVUnit@@0E@Z
 ?sub_5A8885@World@@QAEXPAVUnit@@@Z
 ?sub_5A8A55@World@@QAEXPAVUnit@@@Z
 ?sub_5A9087@World@@QAEXPAVUnit@@0@Z
@@ -886,6 +894,7 @@
 ?sub_5AAC17@World@@QAEXPAVUnit@@@Z
 ?sub_5AAF84@World@@QAEXPAVUnit@@E@Z
 ?sub_5AB35B@World@@QAEXPAVUnit@@@Z
+?sub_5AB5E3@World@@QAEXPAVUnit@@@Z
 ?sub_5AB719@World@@QAEIPAVGroup@@@Z
 ?sub_5AB92C@World@@QAEXPAVGroup@@@Z
 ?sub_5ABCFD@World@@QAEXPAVUnit@@@Z
@@ -912,6 +921,7 @@
 ?sub_5AEFE5@World@@QAEXPAVGroup@@@Z
 ?sub_5AF022@World@@QAEXPAVGroup@@@Z
 ?sub_5AF061@World@@QAEXPAVGroup@@G@Z
+?sub_5AF5DC@World@@QAEXPAVUnit@@@Z
 ?sub_5AF623@World@@QAEXPAVGroup@@@Z
 ?sub_5AF646@World@@QAEXPAVGroup@@@Z
 ?sub_5AFBFD@World@@QAEXXZ

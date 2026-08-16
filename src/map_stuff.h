@@ -170,7 +170,7 @@ struct MapStuff { // aka astruct_5
     ScanPresenceGrid scan_presence_grid;
     uint8_t height_map[65536];
     CList<void*> field66_0xa44f4;
-    CList<void*> field67_0xa4510;
+    CList<uint16_t> field67_0xa4510;
     Array2D<uint8_t, 8, 8> field_0xa452c;
     UnitList* field69_0xa456c;
 
@@ -228,6 +228,7 @@ public:
 
     Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
+    void sub_594A2D(Unit* unit, int32_t flag); // 594A2D — helper for World::sub_5A6789 (ASM).
     int sub_58B1D7(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7
     void sub_58B593(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
     Sack* sub_58E611(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611

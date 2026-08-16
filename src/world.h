@@ -330,6 +330,15 @@ public:
     int32_t sub_5A7AF7(Unit* unit, Unit* other, Spell* spell); // Check if `other` is in range of spell from `unit`.
     void sub_5A85F4(Unit* caster, Unit* target, Spell* spell); // Set up autobuff cast action for caster.
     void sub_5A6DA3(Unit* unit, Building* building); // 5A6DA3
+
+    // Helpers for the functions above; bodies remain in Main.asm for now.
+    UnitList* sub_5A3791(Unit* unit); // 5A3791 — helper for sub_5A37C5 (ASM).
+    void sub_5A3DC9(Unit* unit, UnitList* list); // 5A3DC9 — helper for sub_5A37C5 (ASM).
+    int32_t sub_5A89D5(Unit* unit); // 5A89D5 — helper for sub_5AF5DC (ASM).
+    int32_t sub_5A8BDA(Unit* unit); // 5A8BDA — helper for sub_5AF5DC (ASM).
+    void sub_5A8CD8(Unit* unit); // 5A8CD8 — helper for sub_5AF5DC (ASM).
+    void sub_5A925C(Unit* unit, uint8_t a, uint8_t b); // 5A925C — helper for sub_5AB5E3 (ASM).
+
     void sub_5A39AD(Unit* unit, UnitList* list); // 5A39AD — filter UnitList for sub_5A845B (ASM).
     void sub_5B6862(Unit* unit, UnitList* list); // 5B6862 — fallback buff selection for sub_5A845B.
     void sub_5AF6F5(Unit* unit); // in asm

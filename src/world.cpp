@@ -3467,6 +3467,92 @@ void World::sub_5A8A55(Unit* unit) {
     }
 }
 
+// 5A5B49
+void World::sub_5A5B49(Unit* unit) {
+    this->sub_5A647C(unit);
+}
+
+// 5A6DA3
+void World::sub_5A6DA3(Unit* unit, Building* building) {
+    unit->eye2->cast_action = 0xF;
+    unit->eye2->field51_0x68 = building;
+}
+
+// 5A551C
+void World::sub_5A551C(Unit* unit, uint16_t pos_yx, Spell* spell) {
+    unit->eye2->cast_action = 9;
+    unit->eye2->field30_0x3c = pos_yx;
+    unit->eye2->spell = spell;
+    unit->eye2->max_range = spell->max_range;
+}
+
+// 5A37C5
+UnitList* World::sub_5A37C5(Unit* unit) {
+    UnitList* list = this->sub_5A3791(unit);
+    this->sub_5A3896(unit, list, 0);
+    this->sub_5A3DC9(unit, list);
+    return list;
+}
+
+// 5A54B8
+void World::sub_5A54B8(Unit* unit, uint16_t command_to) {
+    UnitList* list = this->sub_5A3808(unit, unit->position->GetYX());
+    if (list != nullptr && list->unit_list.GetCount() != 0) {
+        this->sub_5A6B48(unit, list->unit_list.GetHead());
+    } else {
+        this->sub_5A8778(unit, command_to);
+    }
+}
+
+// 5A87A3
+void World::sub_5A87A3(Unit* unit, uint16_t pos_yx) {
+    if (pos_yx != unit->position->CompatGetYX()) {
+        this->sub_5A8778(unit, pos_yx);
+    } else {
+        unit->eye2->cast_action = 7;
+        unit->eye2->command_to = pos_yx;
+    }
+}
+
+// 5A8829
+void World::sub_5A8829(Unit* unit, Unit* target, uint8_t range) {
+    unit->eye2->cast_action = 4;
+    unit->eye2->unit3 = target;
+    if (range != 0) {
+        unit->eye2->max_range = range;
+    } else {
+        unit->eye2->max_range = unit->max_range;
+    }
+}
+
+// 5A6789
+void World::sub_5A6789(Unit* unit) {
+    this->field24_0xa50->sub_594A2D(unit, 1);
+    if (this->field24_0xa50->field67_0xa4510.GetCount() == 0) {
+        this->FUN_005a93f4(unit);
+    } else {
+        unit->eye2->command_to = this->field24_0xa50->field67_0xa4510.GetHead();
+        unit->eye2->cast_action = 0xC;
+    }
+}
+
+// 5AB5E3
+void World::sub_5AB5E3(Unit* unit) {
+    this->sub_5A8778(unit, 0x4F5B);
+    if (unit->position->GetX() > 0x58) {
+        this->sub_5A925C(unit, 0x52, 0x2F);
+    }
+}
+
+// 5AF5DC
+void World::sub_5AF5DC(Unit* unit) {
+    if (this->sub_5A89D5(unit) != 0) {
+        this->sub_5A8885(unit);
+    } else if (this->sub_5A8BDA(unit) != 0) {
+        this->sub_5A8CD8(unit);
+    }
+}
+
 // 5ABCFD
 void World::sub_5ABCFD(Unit* unit) {
     this->sub_5A5155(unit);
