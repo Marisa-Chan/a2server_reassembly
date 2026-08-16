@@ -3402,6 +3402,42 @@ void World::sub_5AF022(Group* group) {
     }
 }
 
+// 5AF061
+void World::sub_5AF061(Group* group, uint16_t yx) {
+    this->sub_5AB719(group);
+
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+
+        if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->sub_58bec3() && unit->eye2->field43_0x50 == 0) {
+            this->sub_5A9A8F(unit);
+            unit->eye->field136_0x90 = 0;
+        } else {
+            if (unit->eye->field136_0x90 != 0 && unit->eye->field115_0x76.val == unit->position->CompatGetYX()) {
+                this->sub_5A9A8F(unit);
+                unit->eye->field136_0x90 = 0;
+            }
+        }
+
+        if (unit->eye2->field43_0x50 != 0) {
+            this->sub_5A6E2C(unit, 0);
+        } else {
+            if (group->group_sub->field_0x44 != 0) {
+                unit->eye2->field52_0x6c = 1;
+            }
+
+            this->sub_5A8778(unit, unit->eye2->command_to);
+
+            if (!this->field24_0xa50->sub_5978F0(unit, yx) && unit->eye2->command_to == yx) {
+                uint8_t distance = this->field24_0xa50->sub_593B29(yx, unit->position->CompatGetYX());
+                if (distance < 2) {
+                    this->sub_5A607B(unit);
+                }
+            }
+        }
+    }
+}
+
 // 5AF646
 void World::sub_5AF646(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
