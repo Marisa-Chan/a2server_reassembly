@@ -3407,6 +3407,27 @@ void World::sub_5A5568(Unit* unit, Unit* target) {
     }
 }
 
+// 5A56D7
+void World::sub_5A56D7(Unit* unit, Unit* target) {
+    uint8_t range = unit->eye2->range;
+    uint8_t distance = this->field24_0xa50->sub_58BFA3(
+        unit->position->GetX(),
+        unit->position->GetY(),
+        target->position->GetX(),
+        target->position->GetY()
+    );
+
+    if (range < distance) {
+        this->sub_5A8829(unit, target, range);
+    } else if (distance < 2) {
+        uint32_t packed_yyxx = (target->position->GetY() << 24) | (target->position->GetX() << 8);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
+        this->sub_5A8778(unit, result);
+    } else {
+        this->sub_5A6E2C(unit, 0);
+    }
+}
+
 // 5A8885
 void World::sub_5A8885(Unit* unit) {
     if (unit->spell_book != nullptr) {
