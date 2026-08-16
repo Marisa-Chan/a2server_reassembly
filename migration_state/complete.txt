@@ -281,7 +281,6 @@
 ?AddItem@VisComboBox@@QAEXPBD@Z
 ?AddPacketStatistic@NetStru1@@QAEXPAVPacket@@@Z
 ?AddStat1@NetStru1@@QAEXPAUNetStru2@@H@Z
-?AddTail@?$CList@UAction@@U1@@@QAEPAU__POSITION@@UAction@@@Z
 ?AddTail@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z

@@ -1274,7 +1274,6 @@ externdef ?sub_5A4590@World@@QAEXXZ :proc
 
 ; Action
 extern ??0Action@@QAE@XZ :proc
-externdef ?AddTail@?$CList@UAction@@U1@@@QAEPAU__POSITION@@UAction@@@Z :proc
 
 
 ; Diplomacy

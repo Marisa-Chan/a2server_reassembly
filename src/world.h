@@ -75,7 +75,7 @@ struct World {
     int32_t MinimalGuardRange;
     Diplomacy diplomacy;
     int32_t field37_0xbbe8;
-    CList<Action, Action> action_list; // TODO: Change to `CList<Action>` after migration. `CList<Action, Action>` copies values inefficiently, but that's what vanilla does.
+    CList<Action> action_list;
     uint8_t field39_0xbc08[400];
     Action scrape_action;
     uint8_t field_0xbdec[16];
