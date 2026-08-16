@@ -295,7 +295,8 @@ public:
     void sub_5A4590(); // 5A4590
     uint8_t UnitMaxRange(Unit* unit);                  // Get effective max cast range for unit.
     void sub_5A5E54(Unit* unit); // 5A5E54 — build active/alternate target lists around unit.
-    void sub_5A6801(Unit* unit, Unit* target, int32_t spell_id); // 5A6801 — pick and start casting a known spell (ASM).
+    void sub_5A551C(Unit* caster, uint16_t pos_yx, Spell* spell); // 5A551C — set up a position-targeted cast action (ASM).
+    void sub_5A6801(Unit* unit, Unit* target, int32_t spell_id); // 5A6801 — pick and start casting a known spell.
     void sub_5A6E2C(Unit* unit, int param);           // Set unit to idle/wander (param=0) or retreat (param!=0).
     void sub_5A607B(Unit* unit); // 5A607B — idle/wander helper.
     void sub_5A6E59(Unit* unit); // 5A6E59 — retreat helper.

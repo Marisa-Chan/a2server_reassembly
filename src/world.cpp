@@ -847,6 +847,89 @@ void World::sub_5B6862(Unit* unit, UnitList* list) {
     this->sub_5A85F4(unit, target, buff);
 }
 
+// Pick a spell from the caster's spellbook and start casting it at the
+// appropriate target (self, target unit, or target position).
+// 5A6801
+void World::sub_5A6801(Unit* caster, Unit* target, int32_t spell_id) {
+    Spell* spell = caster->spell_book->sub_53DB79(spell_id);
+    if (spell == nullptr) {
+        return;
+    }
+
+    switch (spell_id) {
+        case spell::fire_arrow:
+        case spell::ice_missile:
+        case spell::lightning:
+        case spell::prismatic_spray:
+        case spell::stone_missile:
+        case spell::stone_curse:
+        case spell::drain_life:
+        case spell::curse:
+        case spell::slow:
+            this->sub_5A85F4(caster, target, spell);
+            break;
+
+        case spell::protection_from_fire:
+        case spell::protection_from_water:
+        case spell::invisibility:
+        case spell::protection_from_air:
+        case spell::protection_from_earth:
+        case spell::bless:
+        case spell::haste:
+        case spell::heal:
+        case spell::summon:
+        case spell::shield:
+            this->sub_5A85F4(caster, caster, spell);
+            break;
+
+        case spell::fire_ball:
+        case spell::wall_of_fire:
+        case spell::poison_cloud:
+        case spell::blizzard:
+        case spell::darkness:
+        case spell::light:
+        case spell::wall_of_earth:
+            this->sub_5A551C(caster, target->position->CompatGetYX(), spell);
+            break;
+
+        case spell::acid_stream: {
+            uint8_t facing = this->field24_0xa50->sub_591424(caster, target);
+            uint8_t new_x = caster->position->GetX() + this->field24_0xa50->field48_0x58e88[facing >> 5];
+            uint8_t new_y = caster->position->GetY() + this->field24_0xa50->field49_0x58e90[facing >> 5];
+            uint16_t pos_yx = PosYX(new_x, new_y);
+            this->sub_5A551C(caster, pos_yx, spell);
+            break;
+        }
+
+        case spell::teleport: {
+            uint16_t target_yx = target->position->CompatGetYX();
+            uint16_t caster_yx = caster->position->CompatGetYX();
+            uint8_t distance = this->field24_0xa50->sub_593B29(caster_yx, target_yx);
+            if (distance > 2) {
+                uint16_t found_yx = 0;
+                for (int32_t dy = -1; dy <= 1; dy++) {
+                    for (int32_t dx = -1; dx <= 1; dx++) {
+                        uint16_t check_yx = target_yx + PosYX{dx, dy}.val;
+                        if (this->field24_0xa50->sub_5978F0(caster, check_yx) != 0) {
+                            found_yx = check_yx;
+                            break;
+                        }
+                    }
+                    if (found_yx != 0) {
+                        break;
+                    }
+                }
+                if (found_yx != 0) {
+                    this->sub_5A551C(caster, found_yx, spell);
+                }
+            }
+            break;
+        }
+    }
+
+    caster->eye2->field49_0x60 = 1;
+}
+
 // Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
 // (is_defensive=1) of owner, skipping invisible units.
 // 5B61D0
