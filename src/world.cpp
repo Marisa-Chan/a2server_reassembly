@@ -2864,6 +2864,41 @@ void World::sub_5ABFBC(Group* group) {
     this->sub_5AF646(group);
 }
 
+// 5AE2D4
+void World::sub_5AE2D4(Group* group) {
+    if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
+        for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* unit = group->unit_list.GetNext(it);
+            unit->eye2->unit4 = nullptr;
+        }
+    } else {
+        this->scrape_action.action_kind = 4;
+        this->scrape_action.unit = (Unit*)group;
+        this->action_list.AddTail(this->scrape_action);
+
+        for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* unit = group->unit_list.GetNext(it);
+            Unit* best_target = nullptr;
+            int32_t best_score = 0xFFFFFF;
+
+            for (POSITION target_it = this->field26_0xa64.unit_list.GetHeadPosition(); target_it != nullptr;) {
+                Unit* target = this->field26_0xa64.unit_list.GetNext(target_it);
+                int32_t score = this->sub_5AD0B3(unit, target);
+                if (score < best_score) {
+                    best_target = target;
+                    best_score = score;
+                }
+            }
+
+            if (best_score == 0xFFFFFF) {
+                unit->eye2->unit4 = nullptr;
+            } else {
+                unit->eye2->unit4 = best_target;
+            }
+        }
+    }
+}
+
 // 5AE7C3
 void World::sub_5AE7C3(Group* group) {
     this->sub_5AB92C(group);

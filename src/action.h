@@ -12,7 +12,7 @@ public:
     int32_t x;
     int32_t y;
     uint8_t gap_0xc[32];
-    Unit* unit;
+    Unit* unit; // TODO: this can be a `Group*`, change to `CObject*`.
     CObject* payload; // Can be spell or unit.
     Unit* target;
     uint8_t gap_0x38[28];
