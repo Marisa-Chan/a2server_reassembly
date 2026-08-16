@@ -3171,6 +3171,37 @@ void World::sub_5ABFBC(Group* group) {
     this->sub_5AF646(group);
 }
 
+// 5AED8D
+void World::sub_5AED8D(Group* group) {
+    uint8_t max_distance = 0;
+    for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = group->unit_list.GetNext(it);
+        uint8_t distance = this->field24_0xa50->sub_593B29(unit->position->GetYX(), PosYX(group->group_sub->field_0xa));
+        if (distance > max_distance) {
+            max_distance = distance;
+        }
+    }
+
+    if (max_distance < 10 || group->group_sub->field_0x15 > 50) {
+        bool retry = true;
+        uint8_t new_x = 0;
+        uint8_t new_y = 0;
+        while (retry) {
+            int32_t idx = this->sub_5B6F60(0, 7);
+            int32_t dx = this->field24_0xa50->field48_0x58e88[idx] * 20;
+            int32_t dy = this->field24_0xa50->field49_0x58e90[idx] * 20;
+            new_x = group->group_sub->field_0xa + dx;
+            new_y = (group->group_sub->field_0xa >> 8) + dy;
+            retry = (new_x < this->field24_0xa50->map_min_x || new_x > this->field24_0xa50->map_max_x || new_y < this->field24_0xa50->map_min_y || new_y > this->field24_0xa50->map_max_y);
+        }
+        group->group_sub->field_0xa = PosYX{new_x, new_y}.val;
+        group->group_sub->field_0x15 = 0;
+    }
+
+    this->sub_5AECE7(group, group->group_sub->field_0xa);
+    group->group_sub->field_0x15++;
+}
+
 // 5A6EA5
 void World::sub_5A6EA5(Unit* unit) {
     if (unit->sub_5B6FB0()) {

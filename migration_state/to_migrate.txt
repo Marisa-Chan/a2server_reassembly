@@ -261,7 +261,6 @@
 ?sub_5A8885@World@@QAEXPAVUnit@@@Z	147
 ?sub_5AE628@World@@QAEXPAVGroup@@@Z	165
 ?sub_5AF061@World@@QAEXPAVGroup@@G@Z	168
-?sub_5AED8D@World@@QAEXPAVGroup@@@Z	172
 ?ParseLine@WorldEquip@@QAEXVCString@@@Z	47
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetLockCountSurf2@@YAHXZ	6
