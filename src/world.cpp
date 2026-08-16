@@ -3836,6 +3836,52 @@ void World::sub_5AB92C(Group* group) {
     group->group_sub->field_0x2c = max_sum;
 }
 
+// 5AD2C1
+int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
+    PosYX unit_yx = unit->token_pos->GetYX();
+    PosYX target_yx = target->token_pos->GetYX();
+    uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
+
+    uint8_t target_movement = 0;
+    uint8_t target_range = this->UnitMaxRange(target);
+    if (target_range > 1 && target->sub_59A030() == 1) {
+        target_movement = 0;
+    } else {
+        target_movement = target->sub_59A030();
+    }
+
+    uint8_t unit_range = this->UnitMaxRange(unit);
+    uint8_t cost = 0;
+    if (unit_range <= 1) {
+        int32_t movement_type = unit->sub_59A030();
+        cost = this->gap_0xa54[target_movement + movement_type * 4];
+    } else {
+        cost = this->gap_0xa54[target_movement];
+        if (distance > unit_range) {
+            distance = distance - unit_range + 1;
+        } else {
+            distance = 1;
+        }
+    }
+
+    uint8_t facing = this->field24_0xa50->sub_591424(unit, target);
+    uint8_t facing_diff = this->field24_0xa50->FacingDiff(unit->eye->field0_0x0, facing);
+    
+    if (distance > 1) {
+        return 0xFFFFFF;
+    }
+
+    int32_t score = (distance << 8) + facing_diff;
+    if (cost == 0) {
+        return 0xFFFFFF;
+    } else if (cost == 1) {
+        score *= 2;
+    } else if (cost == 4) {
+        score /= 2;
+    }
+    return score;
+}
+
 // 5AE471
 void World::sub_5AE471(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->field26_0xa64.unit_list.GetCount() == 0) {
