@@ -3326,6 +3326,33 @@ void World::sub_5A8778(Unit* unit, uint16_t param) {
     unit->eye2->command_to = param;
 }
 
+// 5A57E8
+void World::sub_5A57E8(Unit* unit, Unit* target) {
+    int32_t spell_id = 0;
+    bool did_cast = false;
+
+    if (unit->mp2 == 0) {
+        if (target->hp < target->hp_max) {
+            spell_id = spell::heal;
+        }
+    } else if (unit->mp2 < unit->mp_max + 3 && target->hp < target->hp_max / 2) {
+        spell_id = spell::heal;
+    }
+
+    if (spell_id != 0) {
+        Spell* spell = unit->spell_book->sub_53DB79(spell_id);
+        if (spell != nullptr && spell->mana_cost <= unit->mp) {
+            unit->eye2->field49_0x60 = 1;
+            this->sub_5A85F4(unit, target, spell);
+            did_cast = true;
+        }
+    }
+
+    if (!did_cast) {
+        this->sub_5A65BB(unit, target);
+    }
+}
+
 // 5A65BB — pick a nearby target for `unit` from units around `target`.
 void World::sub_5A65BB(Unit* unit, Unit* target) {
     UnitList* list = this->sub_5A37C5(target);
