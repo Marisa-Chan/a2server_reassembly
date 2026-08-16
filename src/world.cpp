@@ -265,6 +265,45 @@ void World::sub_5A3896(Unit* unit, UnitList* list, int32_t flag) {
     }
 }
 
+// Filter a UnitList to keep only allied units that are visible to `unit`'s group.
+// Removes non-allies (diplomacy bit 2 not set) and invisible allies that no group
+// member can see.
+// 5A39AD
+void World::sub_5A39AD(Unit* unit, UnitList* list) {
+    if (list == nullptr) {
+        return;
+    }
+
+    POSITION it = list->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        POSITION current = it;
+        Unit* other = list->unit_list.GetNext(it);
+
+        bool should_remove = false;
+        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & 2) == 0) {
+            should_remove = true;
+        } else if ((other->enchantments & (1u << spell::invisibility)) != 0) {
+            bool can_see = false;
+            POSITION group_it = unit->group->unit_list.GetHeadPosition();
+            while (group_it != nullptr) {
+                Unit* group_unit = unit->group->unit_list.GetNext(group_it);
+                int32_t range = this->field24_0xa50->sub_59190D(other, group_unit);
+                if (range <= group_unit->eye2->seeInvisible) {
+                    can_see = true;
+                    break;
+                }
+            }
+            if (!can_see) {
+                should_remove = true;
+            }
+        }
+
+        if (should_remove) {
+            list->unit_list.RemoveAt(current);
+        }
+    }
+}
+
 // Build a temporary UnitList of enemy units near `yx` that `caster` can see.
 // 5A3808
 UnitList* World::sub_5A3808(Unit* caster, PosYX yx) {
