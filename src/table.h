@@ -454,4 +454,6 @@ ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);
 
+void __stdcall sub_514085(CString line, int count, CStringArray* items);
+
 #endif

@@ -18,41 +18,35 @@ extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
 ; WorldEquip
 externdef ??0WorldEquip@@QAE@XZ :proc
+externdef ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z :proc
 
 
 ; MagicItem
 externdef ??0MagicItem@@QAE@XZ :proc
-externdef ?ParseLine@MagicItem@@QAEXVCString@@@Z :proc
 
 
 ; MatShape
 externdef ??0MatShape@@QAE@XZ :proc
-externdef ?ParseLine@MatShape@@QAEXVCString@@@Z :proc
 
 
 ; MaginInfo
 externdef ??0MagicInfo@@QAE@XZ :proc
-externdef ?ParseLine@MagicInfo@@QAEXVCString@@@Z :proc
 
 
 ; MonsterInfo
 externdef ??0MonsterInfo@@QAE@XZ :proc
-externdef ?ParseLine@MonsterInfo@@QAEXVCString@@@Z :proc
 
 
 ; HumanInfo
 externdef ??0HumanInfo@@QAE@XZ :proc
-externdef ?ParseLine@HumanInfo@@QAEXVCString@@@Z :proc
 
 
 ; BuildingInfo
 externdef ??0BuildingInfo@@QAE@XZ :proc
-externdef ?ParseLine@BuildingInfo@@QAEXVCString@@@Z :proc
 
 
 ; SpellInfo
 externdef ??0SpellInfo@@QAE@XZ :proc
-externdef ?ParseLine@SpellInfo@@QAEXVCString@@@Z :proc
 
 
 ;CRuntimeClass

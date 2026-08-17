@@ -191,6 +191,13 @@ void WorldEquip::ParseLine(CString line) {
     this->VMethod1(line, 0x11, nullptr);
 }
 
+// 513B68
+void MagicItem::ParseLine(CString line) {
+    this->VMethod1(line, 2, nullptr);
+    int32_t tabIndex = line.ReverseFind('\t');
+    this->effect = line.Mid(tabIndex + 1);
+}
+
 // 572740
 MagicItem::MagicItem() {
 }
@@ -225,6 +232,11 @@ MatShape::MatShape() {
 MatShape::~MatShape() {
 }
 
+// 5780B0
+void MatShape::ParseLine(CString line) {
+    this->VMethod1(line, 9, (double*)&this->data);
+}
+
 // 513B05
 void MatShape::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
@@ -236,12 +248,23 @@ void MatShape::Serialize(CArchive& ar) {
     }
 }
 
+// 578120
+void MagicInfo::ParseLine(CString line) {
+    this->VMethod1(line, 0x1c, nullptr);
+}
+
 // 5729E0
 MagicInfo::MagicInfo() {
 }
 
 // 572AC0
 MagicInfo::~MagicInfo() {
+}
+
+// 578190
+void MonsterInfo::ParseLine(CString line) {
+    this->VMethod1(line, 0x3e, nullptr);
+    sub_514085(line, 2, &this->equipped_items);
 }
 
 // 572B90
@@ -313,6 +336,12 @@ void MonsterInfo::Serialize(CArchive& ar) {
     }
 }
 
+// 578220
+void HumanInfo::ParseLine(CString line) {
+    this->VMethod1(line, 0x1a, nullptr);
+    sub_514085(line, 10, &this->equipped_items);
+}
+
 // 572D80
 HumanInfo::HumanInfo() {
     this->equipped_items.SetSize(10, -1);
@@ -350,6 +379,11 @@ void HumanInfo::Serialize(CArchive& ar) {
     }
 }
 
+// 5782B0
+void BuildingInfo::ParseLine(CString line) {
+    this->VMethod1(line, 6, nullptr);
+}
+
 // 572F70
 BuildingInfo::BuildingInfo() {
 }
@@ -383,6 +417,13 @@ void BuildingInfo::VMethod2(CString str, int32_t type_id, int32_t* out_value, do
 // 514BCE
 void BuildingInfo::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
+}
+
+// 578320
+void SpellInfo::ParseLine(CString line) {
+    this->VMethod1(line, 0x16, nullptr);
+    int32_t tabIndex = line.ReverseFind('\t');
+    this->effect = line.Mid(tabIndex + 1);
 }
 
 // 573120
