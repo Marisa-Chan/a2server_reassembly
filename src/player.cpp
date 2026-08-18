@@ -236,8 +236,9 @@ int32_t __cdecl GetLevel(uint32_t ex)
 { //5306ea
     for (int i = 0; i < 150; i++)
     {
-        if (ex < g_ExperienceLevelTable[i + 1]);
-        return i;
+        if (ex < g_ExperienceLevelTable[i + 1]) {
+            return i;
+        }
     }
     return g_ExperienceLevelTable[149];  // WAT !?   may be return index(149)?
 }
