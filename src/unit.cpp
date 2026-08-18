@@ -141,9 +141,7 @@ extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); /
 extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
 
 // Free functions for Humanoid::VMethod21.
-extern "C" uint32_t __cdecl sub_530726(int32_t skill_level); // Returns experience required for given skill level.
 extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
-extern "C" int __cdecl sub_5306EA(int experience); // Convert experience to skill level (inverse of sub_530726).
 
 
 // 559393
@@ -1212,7 +1210,7 @@ void Unit::sub_52C98B(Sack* sack)
                         int16_t new_lvl = (std::min)(human->hit_values.skill_levels[sphere] + boost, 100);
                         human->hit_values.skill_levels[sphere] = new_lvl;
                         human->hit_values2.skill_levels[sphere] = new_lvl;
-                        int32_t exp_val = sub_530726(new_lvl);
+                        int32_t exp_val = ExperienceTable::GetExp(new_lvl);
                         human->experience_per_sphere[sphere - 1] = exp_val;
                         human->experience += exp_val;
                     }
@@ -2460,7 +2458,7 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
             this->experience_per_sphere[phys_sphere - 1] += new_exp;
             this->experience += new_exp;
 
-            leveled_up = sub_530726(this->hit_values.skill_levels[phys_sphere] + 1) <= this->experience_per_sphere[phys_sphere - 1];
+            leveled_up = ExperienceTable::GetExp(this->hit_values.skill_levels[phys_sphere] + 1) <= this->experience_per_sphere[phys_sphere - 1];
             update_mask = 0x100u << (phys_sphere - 1);
 
             if (leveled_up) {
@@ -2488,7 +2486,7 @@ void Humanoid::VMethod21(uint32_t new_exp, Unit* target, int32_t sphere)
             this->experience_per_sphere[sphere - 1] += new_exp;
             this->experience += new_exp;
 
-            leveled_up = sub_530726(this->hit_values.skill_levels[sphere] + 1) <= this->experience_per_sphere[sphere - 1];
+            leveled_up = ExperienceTable::GetExp(this->hit_values.skill_levels[sphere] + 1) <= this->experience_per_sphere[sphere - 1];
             update_mask = 0x100u << (sphere - 1);
 
             if (leveled_up) {
@@ -2607,15 +2605,15 @@ void Humanoid::sub_53116B() {
     for (int32_t i = 1; i < 6; i++) {
         if (g_ServerConfig.gameType == 1 || g_ServerConfig.gameType == 2) {
             this->hit_values.skill_levels[i] = 70;
-            this->experience_per_sphere[i - 1] = sub_530726(this->hit_values.skill_levels[i]);
+            this->experience_per_sphere[i - 1] = ExperienceTable::GetExp(this->hit_values.skill_levels[i]);
             this->experience += this->experience_per_sphere[i - 1];
         } else if (g_ServerConfig.gameType == 3) {
             this->experience += this->experience_per_sphere[i - 1];
-            this->hit_values.skill_levels[i] = sub_5306EA(this->experience_per_sphere[i - 1]);
+            this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         } else {
             this->experience_per_sphere[i - 1] = (this->experience_per_sphere[i - 1] * 9) / 10;
             this->experience += this->experience_per_sphere[i - 1];
-            this->hit_values.skill_levels[i] = sub_5306EA(this->experience_per_sphere[i - 1]);
+            this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         }
         this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
     }
@@ -2650,7 +2648,7 @@ void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
     // Recalculate experience from skills (inline sub_531418).
     this->experience = 0;
     for (int32_t i = 1; i < 6; i++) {
-        this->experience_per_sphere[i - 1] = sub_530726(this->hit_values.skill_levels[i]);
+        this->experience_per_sphere[i - 1] = ExperienceTable::GetExp(this->hit_values.skill_levels[i]);
         this->experience += this->experience_per_sphere[i - 1];
         
         this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];

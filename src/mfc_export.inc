@@ -1388,6 +1388,15 @@ externdef ?FUN_004946e0@CGameSession@@QAEXXZ  : proc
 externdef ?FUN_004946ae@CGameSession@@QAEXXZ  : proc
 externdef ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ : proc
 externdef ?FUN_00494982@CGameSession@@QAEXXZ : proc
+extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
+
+externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
+
+extern ?FUN_00493ffe@CGameSession@@QAEHXZ : proc
+extern ?FUN_004941c0@CGameSession@@QAEXXZ : proc
+
+extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
+externdef ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 
@@ -1491,22 +1500,15 @@ extern ?unk_660D28@@3VCMapWordToPtr@@A :byte
 extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
 externdef _dword_65FBB8 :dword
 externdef ?ParseTunes@@YAXXZ : proc
-externdef ?PrecomputeExperienceLevelsTable@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
 externdef ?g_kbControlState@@3HA : dword
 externdef ?g_kbShiftState@@3HA : dword
 externdef ?g_kbMenuState@@3HA : dword
 
-externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
-externdef ?FUN_00492c66@CGameSession@@QAEXH@Z : proc
+
+
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
-extern ?FUN_00493ffe@CGameSession@@QAEHXZ : proc
-extern ?FUN_004941c0@CGameSession@@QAEXXZ : proc
-
-externdef ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
-externdef ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
-
 extern ?ShowGlobalMapDialog@MainWindow@@QAEXXZ : proc
 
 externdef ?g_LButtonDown@@3HA : dword
@@ -1519,6 +1521,9 @@ extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
 
 
+;ExperienceTable
+extern ?GetLevel@ExperienceTable@@YAHI@Z : proc
+extern ?GetExp@ExperienceTable@@YAHI@Z : proc
 
 
 ;A2NetSock
@@ -1890,7 +1895,10 @@ extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall
 
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
+extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
 extern ?GetCastSpellId@TokenEntry@@QBEIXZ : proc
+
+extern ?GetId@TokenEntry@@QBEHXZ : proc
 
 externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 externdef ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
@@ -1962,17 +1970,16 @@ externdef _sub_536630 :proc   ; start attack?
 externdef _sub_53678F :proc   ; execute attack?
 externdef _Random0N :proc     ; 542216
 externdef _Random1N :proc     ; 54223F
-externdef _sub_530726 :proc   ; ExperienceToSkillLevel
-externdef _sub_5306EA :proc   ; SkillLevelFromExperience
+
 externdef _sub_530DCB :proc   ; ClampExperienceGain
 externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
-externdef _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
-externdef _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
-externdef _CheckSum_4F5308 :proc                         ; sub_4F5308 — checksum calculation
-externdef _LoadDecrypt_4F535E :proc                      ; sub_4F535E — XOR decrypt/encrypt
+extern _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
+extern _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
+extern ?CalcChecksum@@YAIPAEH@Z :proc                         ; sub_4F5308 — checksum calculation
+extern ?DecryptEncryptedData@@YAXPAEHG@Z :proc                      ; sub_4F535E — XOR decrypt/encrypt
 
 
 ;gfx
@@ -2146,6 +2153,7 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 
 ;CGameObject
+extern ?g_CUnitMaterialSpritePaths@@3VCStringArray@@A : dword
 extern ?IsSelected@CGameObject@@QAEHXZ : proc
 
 
@@ -2182,9 +2190,9 @@ externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 ;CUnit
 externdef ?g_CUnitStatic@@3VCUnit@@A : byte
 externdef ??0CUnit@@QAE@XZ : proc
-externdef ?FUN_0046b0d7@CUnit@@QAEXABVUnit@@@Z  :proc
-externdef ?FUN_0046b7d2@CUnit@@QAEXH@Z :proc
-externdef ?FUN_0046b91c@CUnit@@QAEXXZ : proc
+extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
+extern ?ApplyFace@CUnit@@QAEXH@Z :proc
+extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?GetRuntimeClass@CUnit@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 

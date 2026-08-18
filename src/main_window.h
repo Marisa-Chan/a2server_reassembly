@@ -137,13 +137,18 @@ struct UserShortcut
 
     void WriteToFile(CFile* f); //41e4d3
     void ReadFromFile(CFile* f); //41e53b
+
+    void LoadFromBuffer(uint8_t** buf); //41e689
 };
 
 
-struct HatCharId
+union HatCharId
 {
-    int32_t id1;
-    int32_t id2;
+    uint64_t id;
+    struct {
+        int32_t id1;
+        int32_t id2;
+    };
 };
 
 class CGameSession : public CObject
@@ -151,7 +156,7 @@ class CGameSession : public CObject
 public:
     int32_t GetStringArray1Size(); //438d10
     void FUN_00493cd8(); //493cd8
-    void FUN_00492c66(int32_t idx);  //492c66
+    void LoadCharacterRosterEntry(int32_t idx);  //492c66
     void FUN_004946e0(); //4946e0
     void FUN_004946ae(); //4946ae
 
@@ -203,13 +208,13 @@ public:
     int32_t field_0x110;
     int32_t field_0x114;
     int32_t field_0x118;
-    CArray<HatCharId> field_0x11c;
+    CArray<HatCharId> characterRosterHatId;
     CArray<HatCharId> field_0x130;
     int32_t field_0x144;
     int32_t field_0x148;
     int32_t field_0x14c;
     CStringArray characterRosterFilePaths;
-    int32_t field_0x164;
+    int32_t selectedCharacterRosterFileIndex;
     CWordArray word_array;
 };
 ASSERT_SIZE(CGameSession, 0x17c);

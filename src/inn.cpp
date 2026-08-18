@@ -1115,12 +1115,6 @@ void Inn::InnReward(Player* player) {
     this->rewards_per_player[player->player_id] = inv;
 }
 
-// sub_5306EA: Convert experience to skill level (inverse of sub_530726).
-extern "C" int __cdecl sub_5306EA(int experience);
-
-// sub_530726: Get experience required for given skill level.
-extern "C" uint32_t __cdecl sub_530726(int32_t skill_level);
-
 // 567A25
 Quest* Inn::sub_567A25(Player* player) {
     POSITION quest_it = g_QuestMap.quests_map.GetStartPosition();
@@ -1340,7 +1334,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                     // ---- Experience reward ----
                     uint32_t base_exp = ((uint32_t)item->count) * 250;
                     int32_t carry = 0;
-                    int32_t max_skill_exp = sub_530726(100);
+                    int32_t max_skill_exp = ExperienceTable::GetExp(100);
 
                     for (int32_t sphere = 1; sphere <= 5; sphere++) {
                         if (sphere == 5 || sphere == humanoid->main_sphere) {
@@ -1361,7 +1355,7 @@ void Inn::sub_560DC2(Humanoid* humanoid, int32_t id) {
                             humanoid->experience_per_sphere[sphere - 1] += carry;
                             carry = 0;
 
-                            int32_t new_level = sub_5306EA(humanoid->experience_per_sphere[sphere - 1]);
+                            int32_t new_level = ExperienceTable::GetLevel(humanoid->experience_per_sphere[sphere - 1]);
                             if (new_level > humanoid->hit_values2.skill_levels[sphere]) {
                                 g_NetStru1_main.FUN_0051ce86(2, sphere, humanoid->pOwner);
 

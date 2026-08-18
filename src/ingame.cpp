@@ -380,9 +380,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			if (field_0x9d0.Lookup(packet_word->value, *(CGameObject**)&unit))
 			{
 				if (pkt->id == 0x74)
-					unit->field_0x1b8 |= 0x80;
+					unit->unitFlags |= 0x80;
 				else
-					unit->field_0x1b8 &= ~0x80;
+					unit->unitFlags &= ~0x80;
 			}
 		}
 			break;
@@ -582,12 +582,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							{
 								auto tmp_hp = g_CUnitStatic.hp;
 								auto tmp_hpmax = g_CUnitStatic.hp_max;
-								g_CUnitStatic.FUN_0046b0d7(*uni);
+								g_CUnitStatic.CopyFromUnit(*uni);
 								g_CUnitStatic.hp = tmp_hp;
 								g_CUnitStatic.hp_max = tmp_hpmax;
 							}
 							else
-								g_CUnitStatic.FUN_0046b0d7(*uni);
+								g_CUnitStatic.CopyFromUnit(*uni);
 						}
 
 						CUnit* ct = nullptr;
@@ -606,12 +606,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct = new CAirUnit();
 
 							if (uni)
-								ct->FUN_0046b0d7(*uni);
+								ct->CopyFromUnit(*uni);
 							else
 							{
 								ct->typeId = g_CUnitStatic.typeId;
-								ct->FUN_0046b7d2(g_CUnitStatic.face);
-								ct->FUN_0046b91c();
+								ct->ApplyFace(g_CUnitStatic.face);
+								ct->ReloadSprite();
 							}
 
 							field_0x9d0.SetAt(packet_unit->unit_id, ct);
@@ -619,7 +619,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						}
 
 						if (packet_unit->flags_mask & 0x40)
-							ct->field_0x14 = mpl;
+							ct->map_player = mpl;
 
 						if (packet_unit->flags_mask & 1)
 							ct->hp = g_CUnitStatic.hp;
@@ -778,21 +778,21 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						ct->exp_summary = ct->experience_per_sphere[0] + ct->experience_per_sphere[1] + ct->experience_per_sphere[2] + ct->experience_per_sphere[3] + ct->experience_per_sphere[4];
 
 						if ((packet_unit->flags_mask & 0x10) != 0 && ct->unit_id > 0x5fff)
-							ct->field_0x1b8 &= ~0x80;
+							ct->unitFlags &= ~0x80;
 
 						if (packet_unit->flags_mask & 0x80000000)
 						{
-							memset(ct->field_0xec, 0, sizeof(ct->field_0xec));
+							memset(ct->str1, 0, sizeof(ct->str1));
 							char* dpos = strchr((char*)pdata, '|');
 							if (!dpos)
 							{
-								memcpy(ct->field_0xec, pdata, 11);
-								ct->field_0xf8[0] = 0;
+								memcpy(ct->str1, pdata, 11);
+								ct->str2[0] = 0;
 							}
 							else
 							{
-								memcpy(ct->field_0xec, pdata, dpos - (char*)pdata);
-								memcpy(ct->field_0xf8, dpos, 12);
+								memcpy(ct->str1, pdata, dpos - (char*)pdata);
+								memcpy(ct->str2, dpos, 12);
 							}
 							pdata += 12 + 12;
 						}
@@ -802,17 +802,17 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							if (ct->serverId == 0x15)
 							{
 								field_0x3f6c = ct;
-								field_0x3f6c->field_0x1b8 |= 0x20;
+								field_0x3f6c->unitFlags |= 0x20;
 							}
 						}
-						else if (ct->field_0x14 == my_main_unit && (ct->field_0x1b8 & 1) != 0)
+						else if (ct->map_player == my_main_unit && (ct->unitFlags & 1) != 0)
 						{
 							field_0x3f6c = ct;
-							field_0x3f6c->field_0x1b8 |= 0x20;
+							field_0x3f6c->unitFlags |= 0x20;
 						}
 
-						if (ct->field_0xec[0] == 0 && ct->serverId != 0)
-							strcpy(ct->field_0xec, txt_npcnames.GetLine(ct->serverId - 1));
+						if (ct->str1[0] == 0 && ct->serverId != 0)
+							strcpy(ct->str1, txt_npcnames.GetLine(ct->serverId - 1));
 
 						if (packet_unit->flags_mask & 0x800000)
 							ct->field_0x130.RemoveAll();
@@ -822,18 +822,18 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							if ((packet_unit->flags_mask & 0x20) != 0)
 								ct->face = g_CUnitStatic.face;
 
-							field_0x3f6c->field_0x1b8 |= 8;
+							field_0x3f6c->unitFlags |= 8;
 						}
 
 						if ((packet_unit->flags_mask & 0x100000) != 0)
 						{
-							ct->field_0x18 = 0;
-							if (ct->field_0x14 == my_main_unit && ct->spells != 0)
+							ct->availableSpellMask = 0;
+							if (ct->map_player == my_main_unit && ct->spells != 0)
 							{
 								for (int i = 0; i < 32; i++)
 								{
 									if ((ct->spells & (1 << i)) != 0)
-										ct->field_0x18 |= SpellBtB[i];
+										ct->availableSpellMask |= SpellBtB[i];
 								}
 							}
 						}
@@ -856,7 +856,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						if (ct->serverId != 0 && ct->serverId < 21 && ct->field_0x180[4] > 1)
 							ScenarioSetVar(ct->serverId + 0x213, 0);
 
-						if (wnd->sessionMode != 2 && (ct->field_0x1b8 & 0x20) != 0)
+						if (wnd->sessionMode != 2 && (ct->unitFlags & 0x20) != 0)
 						{
 							if ((packet_unit->flags_mask & 0x22100000) == 0)
 							{
@@ -873,8 +873,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							if (sval != 0)
 							{
 								ct->action = 0;
-								if (ct->field_0x1b8 & 1)
-									ct->FUN_0046b91c();
+								if (ct->unitFlags & 1)
+									ct->ReloadSprite();
 							}
 							break;
 
@@ -891,7 +891,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
 								ct->VMethod25(3);
-								ct->FUN_0046b91c();
+								ct->ReloadSprite();
 							}
 							else if (sval == 1)
 							{
@@ -905,7 +905,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								ct->action_x = ct->x_pos;
 								ct->action_y = ct->y_pos;
 								ct->VMethod25(2);
-								ct->FUN_0046b91c();
+								ct->ReloadSprite();
 							}
 							break;
 
@@ -918,12 +918,12 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
 
-							if (sval < 2 && my_main_unit->FUN_0041ee20(ct->field_0x14->index) != 0)
+							if (sval < 2 && my_main_unit->FUN_0041ee20(ct->map_player->index) != 0)
 								wnd->m_FameHall.FUN_00420050();
 
-							ct->field_0x88 = 0;
+							ct->controlGroupMask = 0;
 							ct->field_0x130.RemoveAll();
-							ct->field_0x11c.RemoveAll();
+							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0)
 							{
 								ct->VMethod1(0);
@@ -933,9 +933,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							break;
 
 						case 5:
-							ct->field_0x88 = 0;
+							ct->controlGroupMask = 0;
 							ct->field_0x130.RemoveAll();
-							ct->field_0x11c.RemoveAll();
+							ct->transientVisualElements.RemoveAll();
 							if (ct->IsSelected() != 0)
 							{
 								ct->VMethod1(0);
@@ -961,10 +961,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								wnd->field_0xe4->MsgProc(0x408, 0, 0);
 							}
 
-							if (ct->IsSelected() != 0 && ((ct->field_0x1b8 & 2) != 0 || (packet_unit->flags_mask & 0x100000) != 0))
+							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & 0x100000) != 0))
 								UpdateSelectionState();
 
-							ct->field_0x114 = 1;
+							ct->m_bSelectionDirty = 1;
 						}
 					}
 				}
@@ -1156,7 +1156,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			{
 				if (flying_hp && packet_ping->field_0xc < ct->hp)
 				{
-					bool not_me = ct->field_0x14 != my_main_unit;
+					bool not_me = ct->map_player != my_main_unit;
 
 					int32_t a = ct->VMethod4();
 					int32_t dx = a * 16;
@@ -1182,7 +1182,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					wnd->field_0xe0->MsgProc(0x408, 0, 0);
 					wnd->field_0xe4->MsgProc(0x408, 0, 0);
 				}
-				ct->field_0x114 = 1;
+				ct->m_bSelectionDirty = 1;
 			}
 		}
 			break;
@@ -1208,25 +1208,25 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					{
 						if ((packet_state->field_0xf & (1 << i)) != 0)
 						{
-							if (ct->field_0x188[i])
-								delete ct->field_0x188[i];
+							if (ct->equipmentTokens[i])
+								delete ct->equipmentTokens[i];
 
 							TokenEntry* itm = new TokenEntry(&pdata, 0);
 							if (itm->item_id == 0)
 							{
 								delete itm;
-								ct->field_0x188[i] = nullptr;
+								ct->equipmentTokens[i] = nullptr;
 							}
 							else 
 							{
 								itm->field_0x18 = 1;
-								ct->field_0x188[i] = itm;
+								ct->equipmentTokens[i] = itm;
 
 								if (g_EnableTrace)
 								{
-									CString logstr = "Invalid item weared " + ct->field_0x188[i]->FUN_004394f3();
+									CString logstr = "Invalid item weared " + ct->equipmentTokens[i]->FUN_004394f3();
 
-									if (ct->field_0x188[i]->FUN_004396d6() == 0 && g_EnableTrace != 0)
+									if (ct->equipmentTokens[i]->FUN_004396d6() == 0 && g_EnableTrace != 0)
 									{
 										CStdioFile f;
 										f.Open("error.log", CFile::modeNoTruncate | CFile::modeCreate | CFile::modeWrite);
@@ -1240,16 +1240,16 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						}
 					}
 
-					ct->field_0x1b8 |= 8;
+					ct->unitFlags |= 8;
 
 					if ((wnd->dialogsMask & 2) != 0)
 						wnd->vis_root->FindChild(1000)->MsgProc(0x413, packet_state->field_0xc & 0x7f, 0);
 
-					ct->FUN_0046b91c();
+					ct->ReloadSprite();
 
-					ct->field_0x114 = 1;
+					ct->m_bSelectionDirty = 1;
 
-					if ((ct->field_0x1b8 & 0x2U) != 0 && wnd->sessionMode != 2)
+					if ((ct->unitFlags & 0x2U) != 0 && wnd->sessionMode != 2)
 					{
 						uint8_t* pdata = packet_state->data;
 						for (int i = 0; i < 12; i++)
@@ -1294,7 +1294,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					{
 						int num = ct->tokenEntries.GetSize();
 
-						if ((ct->field_0x1b8 & 0x20) != 0)
+						if ((ct->unitFlags & 0x20) != 0)
 							num--;
 
 						if (num <= packet_state->field_0xf)
@@ -1344,7 +1344,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 						ct->tokenEntries.RemoveAt(packet_state->field_0xf, packet_state->entry_count);
 
-						if ((ct->field_0x1b8 & 0x20) != 0)
+						if ((ct->unitFlags & 0x20) != 0)
 							ct->tokenEntries.RemoveAt(ct->tokenEntries.GetUpperBound());
 					}
 
@@ -1384,7 +1384,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 						}
 					}
 
-					if ((ct->field_0x1b8 & 0x20) != 0)
+					if ((ct->unitFlags & 0x20) != 0)
 					{
 						if (wnd->sessionMode != 2)
 						{
@@ -1525,7 +1525,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 				pak->SetVals(packet_eight->unit_id, 1, packet_eight->xpos, packet_eight->ypos, 0, 0, 0, 0, 1);
 
-				pak->field_0x14 = my_main_unit;
+				pak->map_player = my_main_unit;
 				pak->typeId = packet_eight->type_id;
 				if (pak->typeId > 5)
 					pak->typeId = 5;
@@ -1612,10 +1612,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				pj->action_z = pj->z_pos;
 				pj->action_target = 0;
 				pj->action_phase = -1;
-				pj->field_0x14 = my_main_unit;
+				pj->map_player = my_main_unit;
 				pj->action_segments = packet_move->field_0xf;
 				pj->action = 1;
-				pj->field_0xe8 = this;
+				pj->pMapObject = this;
 
 				pj->FUN_0046190d();
 
@@ -1659,7 +1659,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				else
 					ct->field_0x130[idx] = (packet_effect->effect_type << 0x16) | 0xffff;
 
-				ct->field_0x114 = 1;
+				ct->m_bSelectionDirty = 1;
 			}
 		}
 			break;
@@ -1673,7 +1673,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				if (idx > -1)
 					ct->field_0x130.RemoveAt(idx);
 
-				ct->field_0x114 = 1;
+				ct->m_bSelectionDirty = 1;
 			}
 		}
 		break;
@@ -1688,9 +1688,9 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				ct->action = 8;
 				ct->action_phase = 0;
 
-				ct->field_0xb0.RemoveAll();
+				ct->actionTargets.RemoveAll();
 				for (int i = 1; i < packet_terrain->count; i++)
-					ct->field_0xb0.Add(packet_terrain->buf[i]);
+					ct->actionTargets.Add(packet_terrain->buf[i]);
 
 				ct->action_target = packet_terrain->buf[1];
 				ct->action_spell = 0x1e;
@@ -1719,10 +1719,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
-			pj->field_0x14 = my_main_unit;
+			pj->map_player = my_main_unit;
 			pj->action_segments = packet_move->field_0xf;
 			pj->action = 1;
-			pj->field_0xe8 = this;
+			pj->pMapObject = this;
 
 			pj->FUN_0046190d();
 			
@@ -1753,18 +1753,18 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 			pj->x_pos2 = pj->x_pos;
 			pj->y_pos2 = pj->y_pos;
 
-			pj->field_0xb0.RemoveAll();
+			pj->actionTargets.RemoveAll();
 
 			for (int i = 1; i < packet_terrain->count; i++)
-				pj->field_0xb0.Add(packet_terrain->buf[i]);
+				pj->actionTargets.Add(packet_terrain->buf[i]);
 
 			pj->action_target = packet_terrain->buf[1];
 			pj->action_z = pj->z_pos;
 			pj->action_phase = -1;
-			pj->field_0x14 = my_main_unit;
+			pj->map_player = my_main_unit;
 			pj->action_segments = 13;
 			pj->action = 1;
-			pj->field_0xe8 = this;
+			pj->pMapObject = this;
 
 			pj->FUN_0046190d();
 
@@ -1845,7 +1845,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 				CString txt;
 
-				if ((field_0x3f6c->field_0x1b8 & 2) == 0)
+				if ((field_0x3f6c->unitFlags & 2) == 0)
 					txt = TxtFile::AllLines[texid + 0x81];
 				else
 					txt = TxtFile::AllLines[texid + 0x86];
@@ -1855,10 +1855,10 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					CUnit* ct = FUN_0041df23(serv_id);
 					if (ct)
 					{
-						if ((ct->field_0x1b8 & 2) == 0)
-							txt = TxtFile::AllLines[texid + 0x81] + CString(" (") + ct->field_0xec + ")";
+						if ((ct->unitFlags & 2) == 0)
+							txt = TxtFile::AllLines[texid + 0x81] + CString(" (") + ct->str1 + ")";
 						else
-							txt = TxtFile::AllLines[texid + 0x86] + CString(" (") + ct->field_0xec + ")";
+							txt = TxtFile::AllLines[texid + 0x86] + CString(" (") + ct->str1 + ")";
 					}
 				}
 
@@ -2054,7 +2054,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				CGameObject* obj;
 				field_0x9d0.GetNextAssoc(it, key, obj);
 				
-				if (obj->field_0x14 == field_0x9b8[packet_info->field_0xa])
+				if (obj->map_player == field_0x9b8[packet_info->field_0xa])
 					tmp.Add(key);
 			}
 
@@ -2108,11 +2108,11 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				{
 					if ((packet_props->flags & (1 << i)) != 0)
 					{
-						if (ct->field_0x188[i])
-							delete ct->field_0x188[i];
+						if (ct->equipmentTokens[i])
+							delete ct->equipmentTokens[i];
 
 						if (packet_props->prop[pr] == 0)
-							ct->field_0x188[i] = nullptr;
+							ct->equipmentTokens[i] = nullptr;
 						else
 						{
 							TokenEntry* itm = new TokenEntry(0);
@@ -2123,14 +2123,14 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							itm->mods_size = 0;
 							itm->field_0x18 = 1;
 
-							ct->field_0x188[i] = itm;
+							ct->equipmentTokens[i] = itm;
 						}
 						pr++;
 					}
 				}
 
-				ct->field_0x1b8 |= 8;
-				ct->FUN_0046b91c();
+				ct->unitFlags |= 8;
+				ct->ReloadSprite();
 			}
 		}
 			break;
@@ -2567,7 +2567,7 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 	cunit = ct;
 
 	if (!clr)
-		color = g_colors_human_pals[ct->field_0x14->color];
+		color = g_colors_human_pals[ct->map_player->color];
 	else
 		color = clr;
 
@@ -2601,8 +2601,8 @@ int TakeDamage::Draw()
 	if (t - timestamp > 1000)
 		return 0;
 
-	if (cunit->field_0x7c == 0)
-		g_font2->DrawTextWithShadow(cunit->screen_x + dx, cunit->screen_y + dy - cunit->field_0x6c, txt, 0, color, 1);
+	if (cunit->bIsBlocked == 0)
+		g_font2->DrawTextWithShadow(cunit->centerScreenX + dx, cunit->centerScreenY + dy - cunit->terrainHeightOffset, txt, 0, color, 1);
 	return 1;
 }
 
@@ -3024,7 +3024,7 @@ void BigStruct2::CleanupCompletedMissionMapState()
 		else
 		{
 			CUnit* uni = (CUnit*)obj;
-			if ((uni->field_0x1b8 & 1) != 0 && uni->hp >= -10 && uni->field_0x14 == my_main_unit)
+			if ((uni->unitFlags & 1) != 0 && uni->hp >= -10 && uni->map_player == my_main_unit)
 			{
 				uni->field_0x180[4] = 0;
 				uni->action = 0;
@@ -3147,7 +3147,7 @@ void BigStruct2::UpdateSelectionState()
 
 		// if selected
 		field_0x140++;
-		field_0x148 |= obj->field_0x18;
+		field_0x148 |= obj->availableSpellMask;
 		if (obj->active_spell != 0)
 			field_0x14c |= SpellBtB[obj->active_spell];
 
@@ -3166,13 +3166,13 @@ void BigStruct2::UpdateSelectionState()
 
 				field_0x144 |= 1;
 
-				if ((unit->typeId == 0x17 || unit->typeId == 0x18) && unit->field_0x18 != 0)
+				if ((unit->typeId == 0x17 || unit->typeId == 0x18) && unit->availableSpellMask != 0)
 				{
 					field_0x144 |= 0x200;
 					UpdateSpellModifiers(unit);
 				}
 
-				if (unit->field_0x1b8 & 1)
+				if (unit->unitFlags & 1)
 					field_0x144 |= 8;
 
 				UpdateSpellEffects(unit);
@@ -3192,7 +3192,7 @@ void BigStruct2::UpdateSelectionState()
 		}
 	}
 
-	if (field_0x140 > 0 && field_0x138->field_0x14 != my_main_unit)
+	if (field_0x140 > 0 && field_0x138->map_player != my_main_unit)
 		field_0x144 |= 4;
 	
 	if (field_0x140 == 0 || (field_0x140 & 0x24) != 0)
@@ -3221,7 +3221,7 @@ void BigStruct2::UpdateSpellEffects(CUnit* unit)
 		if (t == 0)
 			continue;
 
-		unit->field_0x20 |= SpellBtB[cast_spell];
+		unit->activeSpellEffectMask |= SpellBtB[cast_spell];
 		field_0x150 |= SpellBtB[cast_spell];
 	}
 }
@@ -3230,7 +3230,7 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit)
 { //from 416cf7
 	for (int i = 0; i < 24; i++)
 	{
-		if ((unit->field_0x18 & (1 << i)) == 0)
+		if ((unit->availableSpellMask & (1 << i)) == 0)
 			continue;
 
 		Spell s(BOOK_POS_TO_SPELL_ID[i]);

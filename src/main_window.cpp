@@ -356,7 +356,7 @@ void CFameHall::SubmitScore()
     CUnit* unit = mwnd->MapWnd->GetUnit_3f6c();
     if (unit)
     {
-        fm.str = unit->field_0xec;
+        fm.str = unit->str1;
         if (m_nTotalTime == 0)
             fm.field_x4 = unit->exp_summary / 500000.0 * m_nDifficultyWeight;
         else
@@ -984,10 +984,10 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             m_GameSession.type = StartGameSetupWnd->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
 
             name = StartGameSetupWnd->GetName();
-            strncpy(MapWnd->GetUnit_3f6c()->field_0xec, name, 12);
+            strncpy(MapWnd->GetUnit_3f6c()->str1, name, 12);
 
             name = StartGameSetupWnd->GetClan();
-            strncpy(MapWnd->GetUnit_3f6c()->field_0xf8, name, 12);
+            strncpy(MapWnd->GetUnit_3f6c()->str2, name, 12);
 
             m_GameSession.FUN_00494687();
             FUN_00491a49();
@@ -2174,8 +2174,8 @@ int MainWindow::FUN_0048e502(int mode)
             proj->action_phase = reg.GetInt(buf, "actionphase", proj->action_phase);
             proj->action_segments = reg.GetInt(buf, "actionsegments", proj->action_segments);
             proj->action_spell = reg.GetInt(buf, "actionspell", proj->action_spell);
-            proj->field_0xe8 = MapWnd;
-            proj->field_0x14 = MapWnd->my_main_unit;
+            proj->pMapObject = MapWnd;
+            proj->map_player = MapWnd->my_main_unit;
 
             proj->unit_id = proj_ids[i];
             MapWnd->field_0x9ec[proj->unit_id] = proj;
@@ -2758,7 +2758,7 @@ int CGameSession::FUN_00493ffe()
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     if ((flags & 1) == 0 && wnd->sessionMode != 2)
-        wnd->MapWnd->FUN_0041cc78(characterRosterFilePaths[field_0x164]);
+        wnd->MapWnd->FUN_0041cc78(characterRosterFilePaths[selectedCharacterRosterFileIndex]);
     else
         wnd->MapWnd->FUN_0041cbb8();
 
@@ -2854,7 +2854,7 @@ void CGameSession::FUN_00493d8d()
     for (int i = 0; i < 9; i++)
         shortcuts[i].ToBuffer(&bufpos);
     
-    WritePlayerFile_4F53EA(characterRosterFilePaths[field_0x164], &local_40, &local_74, wnd->MapWnd->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
+    WritePlayerFile_4F53EA(characterRosterFilePaths[selectedCharacterRosterFileIndex], &local_40, &local_74, wnd->MapWnd->kill_stats.data(), &PacketUnitStateVec::Inst, nullptr, buffer, bufpos - buffer);
 }
 
 
@@ -2906,7 +2906,7 @@ void CGameSession::FUN_004941c0()
             main_sphere = hm->main_sphere;
 
         hm->sub_533345(main_sphere, 0x14);
-        cu->FUN_0046b0d7(*hm);
+        cu->CopyFromUnit(*hm);
 
         body = cu->field_0x180[0] = cu->body;
         reaction = cu->field_0x180[1] = cu->reaction;
@@ -2997,3 +2997,32 @@ void UserShortcut::ReadFromFile(CFile* f)
 }
 
 
+void UserShortcut::LoadFromBuffer(uint8_t** buf)
+{ //41e689
+    uint8_t* data = *buf;
+
+    if (mods_size != 0)
+    {
+        if (mods != nullptr)
+            free(mods);
+
+        mods = nullptr;
+        mods_size = 0;
+    }
+
+    kind = *(uint16_t*)data;
+    data += 2;
+    item_id = *(uint16_t*)data;
+    data += 2;
+    mods_size = *(uint32_t*)data;
+    data += 4;
+
+    if (mods_size != 0)
+    {
+        mods = (uint8_t*)malloc(mods_size);
+        memcpy(mods, data, mods_size);
+        data += mods_size;
+    }
+
+    *buf = data;
+}

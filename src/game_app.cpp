@@ -5,6 +5,7 @@
 #include "file.h"
 #include "table.h"
 #include "item.h"
+#include "player.h"
 
 GameApp GameApp::theApp;
 
@@ -629,7 +630,7 @@ BOOL GameApp::InitInstance()
 
 	mwnd->field_0x45c = 0;
 
-	PrecomputeExperienceLevelsTable();
+	ExperienceTable::InitTable();
 	SetMessageColors(g_MessageColors);
 
 	return TRUE;

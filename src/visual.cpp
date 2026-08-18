@@ -3919,7 +3919,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 
                         if (idx < parent_screen->pCharacters->GetStringArray1Size() - 1)
                         {
-                            parent_screen->pCharacters->FUN_00492c66(idx);
+                            parent_screen->pCharacters->LoadCharacterRosterEntry(idx);
                             parent_screen->vis_stats->FUN_0042f6f3();
                             parent_screen->FUN_00432655(parent_screen->field_0x84);
                         }

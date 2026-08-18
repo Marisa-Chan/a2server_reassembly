@@ -2337,9 +2337,6 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     return unit;
 }
 
-// sub_5306EA: Convert experience to skill level (inverse of sub_530726).
-extern "C" int __cdecl sub_5306EA(int experience);
-
 // 4ef4e7
 // Loads a `Human` unit from a saved character packet.
 Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
@@ -2388,7 +2385,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 
     int32_t max_stat = 0;
     for (int32_t sphere = 1; sphere < 6; sphere++) {
-        unit->hit_values.skill_levels[sphere] = sub_5306EA(unit->experience_per_sphere[sphere - 1]);
+        unit->hit_values.skill_levels[sphere] = ExperienceTable::GetLevel(unit->experience_per_sphere[sphere - 1]);
         max_stat = (std::max)(max_stat, (int32_t)unit->hit_values.skill_levels[sphere]);
     }
 

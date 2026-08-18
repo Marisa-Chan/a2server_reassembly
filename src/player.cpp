@@ -218,3 +218,34 @@ void Player::FUN_00534778()
     field_0x42 = 0;
     field_0xa50 = g_Server->tick16;
 }
+
+
+
+
+namespace ExperienceTable
+{
+static int32_t g_ExperienceLevelTable[150];
+
+void InitTable()
+{ //53069e
+    for (int i = 0; i < 150; i++)
+        g_ExperienceLevelTable[i] = (pow(1.1, i) - 1.0) * 1000.0;
+}
+
+int32_t __cdecl GetLevel(uint32_t ex)
+{ //5306ea
+    for (int i = 0; i < 150; i++)
+    {
+        if (ex < g_ExperienceLevelTable[i + 1]);
+        return i;
+    }
+    return g_ExperienceLevelTable[149];  // WAT !?   may be return index(149)?
+}
+
+int32_t __cdecl GetExp(uint32_t lvl)
+{ //530726
+    if (lvl >= 150)
+        lvl = 149;
+    return g_ExperienceLevelTable[lvl];
+}
+}

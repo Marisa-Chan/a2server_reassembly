@@ -5,31 +5,32 @@
 #include "file.h"
 #include "game_app.h"
 #include "packet.h"
+#include "main_window.h"
+#include "unit.h"
+#include "player.h"
+#include "inventory.h"
 
-
-// 4F5308
-extern "C" int32_t __cdecl CheckSum_4F5308(const uint8_t* data, int32_t size)
-{
-	int32_t checksum = 0;
-	for (int32_t index = 0; index < size; index++) {
-		checksum = checksum * 2 + data[index];
-	}
-
-	return checksum;
-}
-
-// 4F535E
-extern "C" void __cdecl LoadDecrypt_4F535E(uint8_t* data, int32_t size, uint16_t key)
-{
-	uint32_t state = key | (static_cast<uint32_t>(key) << 16);
-	for (int32_t index = 0; index < size; index++) {
-		data[index] ^= static_cast<uint8_t>(state >> 16);
-		state <<= 1;
-		if ((index & 0x0F) == 0x0F) {
-			state |= key;
-		}
+void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key)
+{ //4f535e
+	for (; size > 0; size--)
+	{
+		*data ^= key;
+		data++;
+		key = (key << 1) | (key >> 15);
 	}
 }
+
+uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size)
+{ //4f5308
+	uint32_t sum = 0;
+	for (; size > 0; size--)
+	{
+		sum = (sum << 1) + *data;
+		data++;
+	}
+	return sum;
+}
+
 
 namespace {
 
@@ -50,14 +51,14 @@ void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t si
 	header.tag = tag;
 	header.size = size;
 	header.key = GetRandS16(0x7FFF);
-	header.checksum = CheckSum_4F5308(data, size);
+	header.checksum = CalcChecksum(data, size);
 
-	LoadDecrypt_4F535E(data, size, header.key);
+	DecryptEncryptedData(data, size, header.key);
 	file.Write(&header, sizeof(header));
 	file.Write(data, size);
 
     // What's the point of this? Remove the unencrypted bytes from memory?
-	LoadDecrypt_4F535E(data, size, header.key);
+	DecryptEncryptedData(data, size, header.key);
 }
 
 uint8_t* GetPacketPayload(PacketUnitStateVec* packet)
@@ -91,7 +92,7 @@ void WriteStatsSection(CFile& file, FileSectionStats* stats)
 			header.size += 1;
 		}
 	}
-	header.checksum = CheckSum_4F5308(reinterpret_cast<uint8_t*>(stats), sizeof(FileSectionStats));
+	header.checksum = CalcChecksum(reinterpret_cast<uint8_t*>(stats), sizeof(FileSectionStats));
 
 	file.Write(&header, sizeof(header));
 
@@ -173,8 +174,8 @@ void MaybeSkipRandomByte(CFile& file, uint16_t key, uint16_t mask)
 bool ReadDecryptAndVerify(CFile& file, const PlayerFileSectionHeader& header, uint8_t* buffer)
 {
 	file.Read(buffer, header.size);
-	LoadDecrypt_4F535E(buffer, header.size, header.key);
-	return CheckSum_4F5308(buffer, header.size) == static_cast<int32_t>(header.checksum);
+	DecryptEncryptedData(buffer, header.size, header.key);
+	return CalcChecksum(buffer, header.size) == static_cast<int32_t>(header.checksum);
 }
 
 bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header)
@@ -232,14 +233,14 @@ bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header)
 		}
 	}
 
-	return CheckSum_4F5308(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
+	return CalcChecksum(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
 }
 
 bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header)
 {
 	file.Read(s_compressed_buf, header.size);
-	LoadDecrypt_4F535E(s_compressed_buf, header.size, header.key);
-	if (CheckSum_4F5308(s_compressed_buf, header.size) != header.checksum) {
+	DecryptEncryptedData(s_compressed_buf, header.size, header.key);
+	if (CalcChecksum(s_compressed_buf, header.size) != header.checksum) {
 		return false;
 	}
 
@@ -484,4 +485,271 @@ extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicI
 	}
 
 	return 1;
+}
+
+
+
+void CGameSession::RefreshCharacterRosterFiles(int val)
+{ //49265a
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	characterRosterFilePaths.RemoveAll();
+	characterRosterNames.RemoveAll();
+	characterRosterHatId.RemoveAll();
+
+	if (mwnd->sessionMode != 2)
+	{
+		CArray<FILETIME> ftimes;
+		CFileFind ff;
+		BOOL found = ff.FindFile("*.a2c");
+		while (found)
+		{
+			found = ff.FindNextFileA();
+
+			CFile f;
+			f.Open(ff.GetFileName(), CFile::modeRead);
+
+			uint32_t tag = 0;
+			f.Read(&tag, 4);
+			if (tag == kPlayerFileMagic)
+			{
+				PlayerFileSectionHeader hdr;
+				f.Read(&hdr, 0x10);
+
+				std::vector<uint8_t> data;
+				data.resize(hdr.size);
+
+				f.Read(data.data(), hdr.size);
+				DecryptEncryptedData(data.data(), hdr.size, hdr.key);
+				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum)
+				{
+					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
+					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d)
+						sec->hat_id = mwnd->field_0x3e0.field_0c;
+					if (sec->hat_id == mwnd->field_0x3e0.field_0c)
+					{
+						strcpy(character_name, sec->nick);
+
+						FILETIME tm;
+						ff.GetLastWriteTime(&tm);
+
+						int idx = 0;
+						for (; idx < ftimes.GetSize(); idx++)
+						{
+							if (CompareFileTime(&tm, &ftimes[idx]) > 0)
+								break;
+						}
+
+						ftimes.InsertAt(idx, tm);
+						characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+						characterRosterNames.InsertAt(idx, character_name);
+
+						HatCharId hatid;
+						hatid.id1 = sec->id1;
+						hatid.id2 = sec->id2;
+
+						if (val == 0)
+							characterRosterHatId.InsertAt(idx, hatid);
+						else
+						{
+							for (int i = 0; i < field_0x130.GetSize(); i++)
+							{
+								if (field_0x130[i].id == hatid.id)
+								{
+									characterRosterHatId.InsertAt(idx, hatid);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			f.Close();
+		}
+		ff.Close();
+
+		selectedCharacterRosterFileIndex = 0;
+		LoadCharacterRosterEntry(selectedCharacterRosterFileIndex);
+	}
+
+	characterRosterNames.Add(txt_main.GetLine(120)); // New character
+}
+
+void CGameSession::LoadCharacterRosterEntry(int32_t idx)
+{ //492c66
+    selectedCharacterRosterFileIndex = idx;
+
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* unit = mwnd->MapWnd->GetUnit_3f6c();
+
+    if (unit == nullptr)
+    {
+        unit = new CUnit();
+        unit->VMethod17(1, 1, 0, 0, 0, mwnd->MapWnd->field_0x9b8[0], 0, 0, 0, 1);
+		mwnd->MapWnd->field_0x9d0[1] = unit;
+        mwnd->MapWnd->field_0x3f6c = unit;
+        mwnd->MapWnd->MsgProc(0x405, 0, 0);
+    }
+
+    if (idx >= 0 && idx < characterRosterFilePaths.GetSize())
+	{
+        CFile f(characterRosterFilePaths[selectedCharacterRosterFileIndex], CFile::modeRead);
+
+		FileSectionStats* stats = nullptr;
+		FileSectionBasicInfo* basic = nullptr;
+		uint8_t* kills = nullptr;
+		PacketUnitStateVec* equip = nullptr;
+		PacketUnitStateVec* inv = nullptr;
+		uint8_t* sec40a = nullptr;
+		uint32_t size_40a = 0;
+		if (ParsePlayerFile_4F62E6(&f, &basic, &stats, &kills, &equip, &inv, &sec40a, &size_40a) != 0 && basic != nullptr && stats != nullptr)
+		{
+            strcpy(character_name, basic->nick);
+
+            memset(unit->str1, 0, 12);
+
+            char* delim = strchr(character_name, '|');
+            if (delim == NULL)
+			{
+                memcpy(unit->str1, character_name, 11);
+                unit->str2[0] = 0;
+            }
+            else {
+                memcpy(unit->str1, character_name, delim - character_name);
+                memcpy(unit->str2, delim + 1, 12);
+            }
+
+            type = basic->character_class;
+            main_sphere = basic->main_sphere;
+            flags = basic->flags;
+            color = basic->color;
+            field_0x64 = basic->hat_id;
+
+			sessionKeyPart1 = basic->id1;
+			sessionKeyPart2 = basic->id2;
+
+            money = stats->money;
+            monster_killed = stats->monster_kills;
+            player_killed = stats->player_kills;
+            death_count = stats->deaths;
+            fragCount = stats->frags;
+
+			Human* hum;
+            switch (type & 0xc0)
+			{
+			default:
+            case 0:
+                hum = new Human("Start_MF", 1, nullptr);
+                break;
+            case 0x40:
+				hum = new Human("Start_MM", 1, nullptr);
+                break;
+            case 0x80:
+				hum = new Human("Start_FF", 1, nullptr);
+                break;
+            case 0xc0:
+				hum = new Human("Start_FM", 1, nullptr);
+				break;
+            }
+
+            body = stats->body;
+            hum->body = body;
+
+            reaction = stats->reaction;
+            hum->reaction = reaction;
+
+            mind = stats->mind;
+            hum->mind = mind;
+
+            spirit = stats->spirit;
+            hum->spirit = spirit;
+
+            face = basic->picture;
+            hum->face = face;
+
+            hum->experience_per_sphere[0] = stats->experience[0];
+            hum->experience_per_sphere[1] = stats->experience[1];
+            hum->experience_per_sphere[2] = stats->experience[2];
+            hum->experience_per_sphere[3] = stats->experience[3];
+            hum->experience_per_sphere[4] = stats->experience[4];
+
+            int32_t maxlvl = 0;
+
+            for (int i = 1; i < 6; i++)
+			{
+                hum->hit_values.skill_levels[i] = ExperienceTable::GetLevel(hum->experience_per_sphere[i - 1]);
+
+                if (hum->hit_values.skill_levels[i] > maxlvl)
+					maxlvl = hum->hit_values.skill_levels[i];
+            }
+
+            for (int i = 1; i < 6; i++)
+                hum->hit_values2.skill_levels[i] = hum->hit_values.skill_levels[i];
+
+			if (maxlvl >= 96)
+				field_0x114 = 4;
+			else if (maxlvl >= 76)
+				field_0x114 = 3;
+			else if (maxlvl >= 51)
+				field_0x114 = 2;
+			else
+				field_0x114 = 1;
+
+			if (maxlvl >= 90)
+				field_0x118 = 4;
+			else if (maxlvl >= 51)
+				field_0x118 = 3;
+			else if (maxlvl >= 26)
+				field_0x118 = 2;
+			else
+				field_0x118 = 1;
+
+            hum->experience = 0;
+
+            for (int i = 1; i < 6; i++)
+                hum->experience += hum->experience_per_sphere[i - 1];
+            
+            hum->VMethod18();
+
+            if (equip != nullptr)
+			{
+				uint8_t* eq_data = equip->data;
+
+                hum->VMethod15();
+
+                if (hum->weapon)
+					hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->weapon));
+
+                if (hum->shield)
+					hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->shield));
+
+				if (hum->inventory)
+					delete hum->inventory;
+				
+                hum->inventory = new Inventory();
+                for (int i = 1; i < 13; i++)
+				{
+                    Item* itm = sub_4F499B(&eq_data);
+
+                    if (itm->item_id != 0)
+                        hum->VMethod13(itm);
+                }
+            }
+
+			unit->CopyFromUnit(*hum);
+
+            unit->field_0x180[0] = stats->body;
+            unit->field_0x180[1] = stats->reaction;
+            unit->field_0x180[2] = stats->mind;
+            unit->field_0x180[3] = stats->spirit;
+
+            unit->map_player = mwnd->MapWnd->field_0x9b8[0];
+
+            if (sec40a != nullptr)
+			{
+                for (int i = 0; i < 9; i++)
+					shortcuts[i].LoadFromBuffer(&sec40a);
+            }
+        }
+    }
 }

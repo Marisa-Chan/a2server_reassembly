@@ -12,6 +12,8 @@ class CGameBitmap;
 class CSprite256;
 class Unit;
 
+extern CStringArray g_CUnitMaterialSpritePaths; //660e70
+
 
 class TokenEntry : public CObject
 {
@@ -36,7 +38,9 @@ public:
 	CString FUN_004394f3(); //4394f3
 	int FUN_004396d6(); //4396d6
 
-	int GetType() const { return (item_id >> 8) & 0xf; }; //41f0b0
+	int GetType() const { return (item_id >> 8) & 0xf; } //41f0b0
+	int GetId() const { return item_id & 0x1f; } //43a800
+	int GetMaterial() const { return (item_id >> 0xc); } //43a7c0
 
 	uint32_t GetAttribute(uint8_t aid) const //4397de
 	{
@@ -122,80 +126,79 @@ public:
 	CGameObject();
 	CGameObject(const CGameObject *obj);
 
-	int32_t IsSelected() { return field_0x80; } //41f110
-	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & field_0x88; } //41f1c0
+	int32_t IsSelected() { return m_bSelected; } //41f110
+	uint32_t FUN_0041f1c0(uint32_t t) { return (1 << t) & controlGroupMask; } //41f1c0
 	void FUN_0046190d();
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
 	int32_t FUN_00462405(int32_t effect_id);
 	void FUN_0041f180(int32_t grp); //41f180
 public:
-	uint16_t unit_id;
+	uint16_t unit_id; // 4
 	uint8_t __pad[2];
-	int32_t x_pos;
-	int32_t y_pos;
-	int32_t z_pos;
-	MapPlayerData* field_0x14;
-	int32_t field_0x18; //availableSpellMask
-	int32_t spells;
-	int32_t field_0x20; //activeSpellEffectMask
-	int32_t typeId;
-	int32_t face;
-	int32_t x_pos2;
-	int32_t y_pos2;
+	int32_t x_pos;  // 8
+	int32_t y_pos;  // c
+	int32_t z_pos;  // 10
+	MapPlayerData* map_player; // 14
+	uint32_t availableSpellMask; // 18
+	uint32_t spells; // 1c
+	uint32_t activeSpellEffectMask; // 20
+	int32_t typeId; // 24
+	int32_t face; // 28
+	int32_t x_pos2; // 2c
+	int32_t y_pos2; // 30
 	int32_t field_0x34;
-	int32_t field_0x38;
-	int32_t field_0x3c;
-	int32_t field_0x40;
-	int32_t field_0x44;
-	int32_t field_0x48;
-	int32_t field_0x4c;
-	int32_t field_0x50;
-	int32_t field_0x54;
-	int32_t field_0x58;
-	int32_t field_0x5c;
-	int32_t field_0x60;
-	int32_t screen_x;
-	int32_t screen_y;
-	int32_t field_0x6c;
-	int32_t dir;
-	int32_t phase;
-	int32_t last_action;
-	int32_t field_0x7c;
-	int32_t field_0x80; //m_bSelected
+	int32_t tileX; // 38
+	int32_t tileY; // 3c
+	int32_t mapBoundsLeft; // 40
+	int32_t mapBoundsTop; // 44
+	int32_t mapBoundsRight; // 48
+	int32_t mapBoundsBottom; // 4c
+	int32_t mapLayerActive; // 50
+	int32_t screenX; // 54
+	int32_t screenY; // 58
+	int32_t centerWorldX8; // 5c
+	int32_t centerWorldY8; // 60
+	int32_t centerScreenX; // 64
+	int32_t centerScreenY; // 68
+	int32_t terrainHeightOffset; // 6c
+	int32_t dir; // 70
+	int32_t phase; // 74
+	int32_t last_action; // 78
+	int32_t bIsBlocked; // 7c
+	int32_t m_bSelected; // 80
 	int32_t field_0x84;
-	int32_t field_0x88; //controlGroupMask
-	uint8_t action;
-	int8_t action_dir;
-	uint16_t action_target;
-	int32_t action_x;
-	int32_t action_y;
-	int32_t action_z;
-	int32_t action_phase;
-	int32_t field_0xa0;
-	int32_t field_0xa4;
-	int32_t action_segments;
-	int32_t action_spell;
-	CArray<uint16_t> field_0xb0; //actionTargets
-	int32_t field_0xc4;
-	int32_t field_0xc8; //occupiedLocation
-	int32_t field_0xcc; //occupiedLocation
+	int32_t controlGroupMask; // 88
+	uint8_t action; // 8c
+	int8_t action_dir; // 8d
+	uint16_t action_target; // 8e
+	int32_t action_x; // 90
+	int32_t action_y; // 94
+	int32_t action_z; // 98
+	int32_t action_phase; // 9c
+	int32_t field_0xa0; // a0
+	int32_t field_0xa4; // a4
+	int32_t action_segments; // a8
+	int32_t action_spell; // ac
+	CArray<uint16_t> actionTargets; // b0
+	int32_t field_0xc4; // c4
+	CPoint occupiedLocation; // c8
 	CArray<TokenEntry*> tokenEntries; //0xd0
-	int32_t field_0xe4; //shopInventoryVisibleStart
-	BigStruct2* field_0xe8;
-	char field_0xec[12];
-	char field_0xf8[12];
-	int16_t hp;
-	int16_t field_0x106;
-	int16_t hp_max;
-	int16_t scan_range;
-	int16_t speed;
-	int16_t carrying_weight_100g;
-	int32_t exp_summary;
-	int32_t field_0x114; //m_bSelectionDirty
+	int32_t shopInventoryVisibleStart; // e4
+	BigStruct2* pMapObject; // e8
+	char str1[12]; // ec
+	char str2[12]; // f8
+	int16_t hp; // 104
+	int16_t field_0x106; // 106
+	int16_t hp_max; // 108
+	int16_t scan_range; // 10a
+	int16_t speed; // 10c
+	int16_t carrying_weight_100g; // 10e
+	int32_t exp_summary; // 110
+	int32_t m_bSelectionDirty; // 114
 	uint8_t active_spell; //autoCastSpellId
 	uint8_t __pad2[3];
-	CArray<GO_11c> field_0x11c; //CArray_VisualElem
+	CArray<GO_11c> transientVisualElements; // 11c
 	CDWordArray field_0x130;
 };
 ASSERT_SIZE(CGameObject, 0x144);
@@ -241,9 +244,9 @@ public:
 
 	CUnit();
 
-	void FUN_0046b0d7(const Unit& uni);
-	void FUN_0046b7d2(int32_t _face);
-	void FUN_0046b91c(); //46b91c
+	void CopyFromUnit(const Unit& uni); //46b0d7
+	void ApplyFace(int32_t _face); //46b7d2
+	void ReloadSprite(); //46b91c
 
 public:
 	uint8_t body;
@@ -269,16 +272,16 @@ public:
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
 	uint8_t field_0x180[8];
-	TokenEntry* field_0x188[12];
-	int32_t field_0x1b8;
-	int32_t field_0x1bc;
-	CSprite256* field_0x1c0;
-	CSprite256* field_0x1c4;
-	char field_0x1c8[16];
-	int32_t field_0x1dc;
+	TokenEntry* equipmentTokens[12]; // 0x188
+	int32_t unitFlags; // 0x1b8
+	int32_t lastVoicePlaybackTick; // 1bc
+	CSprite256* sprite;
+	CSprite256* sprite_b;
+	char heroSpritePictureName[16];
+	int32_t heroSpriteArmorMaterial;
 	uint16_t serverId;
 	uint8_t __gap_u4[2];
-	int32_t field_0x1e0;
+	int32_t questFlags; //1e0
 };
 ASSERT_SIZE(CUnit, 0x1e4);
 

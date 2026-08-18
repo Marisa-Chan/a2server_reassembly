@@ -108,4 +108,12 @@ ASSERT_OFFSET(Player, min_server_level, 0xa88);
 ASSERT_SIZE(Player, 0xaa0);
 
 
+namespace ExperienceTable
+{
+    void InitTable(); //53069e
+    int32_t __cdecl GetLevel(uint32_t ex); //5306ea
+    int32_t __cdecl GetExp(uint32_t lvl); //530726
+}
+
+
 #endif
