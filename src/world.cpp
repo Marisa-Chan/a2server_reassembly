@@ -2680,7 +2680,7 @@ void World::sub_5AC289(Group* group, uint8_t x, uint8_t y)
     this->FUN_005acd4c(group);
 
     bool use_relative = true;
-    int8_t min_speed = 250;
+    int32_t min_speed = 250;
     uint8_t origin_x = 0;
     uint8_t origin_y = 0;
 
@@ -4072,8 +4072,8 @@ void World::sub_5AB92C(Group* group) {
 
 // 5AD2C1
 int32_t World::sub_5AD2C1(Unit* unit, Unit* target) {
-    PosYX unit_yx = unit->token_pos->GetYX();
-    PosYX target_yx = target->token_pos->GetYX();
+    PosYX unit_yx = unit->position->GetYX();
+    PosYX target_yx = target->position->GetYX();
     uint8_t distance = this->field24_0xa50->sub_593B29(unit_yx, target_yx);
 
     uint8_t target_movement = 0;
@@ -4434,8 +4434,8 @@ void World::CheckOP_1(TriggerCheck* check) {
 
 // 5B2EF9
 void World::CheckOP_2(TriggerCheck* check) {
-    uint8_t x = check->unit->token_pos->GetX();
-    uint8_t y = check->unit->token_pos->GetY();
+    uint8_t x = check->unit->position->GetX();
+    uint8_t y = check->unit->position->GetY();
     if (check->data[0] <= x && x <= check->data[2] && check->data[1] <= y && y <= check->data[3]) {
         this->trigger_variables[check->id] = 1;
     } else {
@@ -4445,7 +4445,7 @@ void World::CheckOP_2(TriggerCheck* check) {
 
 // 5B2F9A
 void World::CheckOP_3(TriggerCheck* check) {
-    TokenPos* pos = check->unit->token_pos;
+    TokenPos* pos = check->unit->position;
     int32_t distance = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
     if (distance > check->data[2]) {
         this->trigger_variables[check->id] = 0;
@@ -4477,15 +4477,15 @@ void World::CheckOP_6(TriggerCheck* check) {
     if (check->unit->some_state == 0x10 || check->multi == nullptr || other->some_state == 0x10) {
         this->trigger_variables[check->id] = 0xFF;
     } else {
-        TokenPos* pos = check->unit->token_pos;
-        TokenPos* other_pos = other->token_pos;
+        TokenPos* pos = check->unit->position;
+        TokenPos* other_pos = other->position;
         this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), other_pos->GetX(), other_pos->GetY());
     }
 }
 
 // 5B3016
 void World::CheckOP_7(TriggerCheck* check) {
-    TokenPos* pos = check->unit->token_pos;
+    TokenPos* pos = check->unit->position;
     this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
 }
 
@@ -4541,7 +4541,7 @@ void World::CheckOP_15(TriggerCheck* check) {
         Group* group = groups.GetNext(it);
         for (POSITION unit_it = group->unit_list.GetHeadPosition(); unit_it != nullptr;) {
             Unit* unit = group->unit_list.GetNext(unit_it);
-            int32_t distance = this->field24_0xa50->sub_58BFA3(unit->token_pos->GetX(), unit->token_pos->GetY(), check->data[0], check->data[1]);
+            int32_t distance = this->field24_0xa50->sub_58BFA3(unit->position->GetX(), unit->position->GetY(), check->data[0], check->data[1]);
             if (distance < best) {
                 best = distance;
             }
@@ -4553,7 +4553,7 @@ void World::CheckOP_15(TriggerCheck* check) {
 // 5B33F0
 void World::CheckOP_16(TriggerCheck* check) {
     if (check->unit->inventory->sub_552B6B(check->item_id) != nullptr) {
-        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(check->unit->token_pos->GetX(), check->unit->token_pos->GetY(), check->data[0], check->data[1]);
+        this->trigger_variables[check->id] = this->field24_0xa50->sub_58BFA3(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
     } else {
         this->trigger_variables[check->id] = 0xFF;
     }
@@ -4644,7 +4644,7 @@ void World::CheckOP_26(TriggerCheck* check) {
 
 // 5B3776
 void World::CheckOP_27(TriggerCheck* check) {
-    TokenPos* pos = check->unit->token_pos;
+    TokenPos* pos = check->unit->position;
     if (pos->GetX() == check->data[1] && pos->GetY() == check->data[2] && pos->sub_58bec3() != 0) {
         this->trigger_variables[check->id] = 1;
     } else {

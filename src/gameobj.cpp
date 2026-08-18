@@ -555,7 +555,7 @@ void CUnit::CopyFromUnit(const Unit& uni)
             if (te->item_id == 0)
             {
                 delete te;
-                equipmentTokens[i] = te;
+                equipmentTokens[i] = nullptr;
             }
             else
             {

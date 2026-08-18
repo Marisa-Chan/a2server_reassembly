@@ -328,6 +328,7 @@
     <Image Include="res\Icon_1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="action.cpp" />
     <ClCompile Include="buildings_list.cpp" />
     <ClCompile Include="gameobj.cpp" />
     <ClCompile Include="game_app.cpp" />
@@ -384,11 +385,13 @@
     <ClCompile Include="unit_list.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="virtual_caster.cpp" />
+    <ClCompile Include="visibility.cpp" />
     <ClCompile Include="visual.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2darray.h" />
+    <ClInclude Include="action.h" />
     <ClInclude Include="afxmsg_.h" />
     <ClInclude Include="alm.h" />
     <ClInclude Include="asm_mfc.h" />
@@ -448,6 +451,7 @@
     <ClInclude Include="unit_list.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="virtual_caster.h" />
+    <ClInclude Include="visibility.h" />
     <ClInclude Include="visual.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
