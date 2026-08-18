@@ -1392,11 +1392,11 @@ extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
 externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
 
-extern ?FUN_00493ffe@CGameSession@@QAEHXZ : proc
-extern ?FUN_004941c0@CGameSession@@QAEXXZ : proc
+extern ?SubmitCharacterSetupAndWaitForSelectedUnit@CGameSession@@QAEHXZ : proc
+extern ?RecreateCUnit@CGameSession@@QAEXXZ : proc
 
 extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
-externdef ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
+extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 

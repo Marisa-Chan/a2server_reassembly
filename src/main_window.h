@@ -166,10 +166,10 @@ public:
     int32_t FUN_00420110() { return field_0x118; }; //420110
     int32_t FUN_004200f0() { return field_0x114; }; //4200f0
 
-    int FUN_00493ffe(); //493ffe
+    int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe
     void FUN_00493d8d(); //493d8d
     void FUN_00494687(); //494687
-    void FUN_004941c0(); //4941c0
+    void RecreateCUnit(); //4941c0
 
 
     void RefreshCharacterRosterFiles(int val); //49265a

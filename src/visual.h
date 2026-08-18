@@ -804,7 +804,7 @@ public:
 	void FUN_0041a8cc(); //41a8cc
 
 	int32_t FUN_0040d7f3(); //40d7f3
-	int FUN_0040d4e2(); //40d4e2
+	int ConnectAndJoinSession(); //40d4e2
 
 	void FUN_0041cbb8(); //0041cbb8
 	void FUN_0041cc78(const CString& str); //41cc78

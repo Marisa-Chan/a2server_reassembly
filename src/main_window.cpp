@@ -24,7 +24,7 @@
 #include "map_stuff.h"
 #include "gfx.h"
 #include "file.h"
-
+#include "inventory.h"
 
 
 int32_t DAT_00660f88 = 0;
@@ -908,8 +908,8 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 
             if (sessionMode == 2)
             {
-                MapWnd->FUN_0040d4e2();
-                m_GameSession.FUN_00493ffe();
+                MapWnd->ConnectAndJoinSession();
+                m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit();
 
                 ScenarioSetVar(0x308, (m_GameSession.type & 0x40) != 0);
                 ScenarioSetVar(0x30d, (m_GameSession.type & 0x80) != 0);
@@ -1524,7 +1524,7 @@ void MainWindow::FUN_004903d0()
     if (strstr(cmdline, "-timeout"))
         g_CLlDriver.SetTimeout(g_CmdTimeout);
 
-    if (MapWnd->FUN_0040d4e2() == 0)
+    if (MapWnd->ConnectAndJoinSession() == 0)
     {
         g_CLlDriver.Close();
         PostMessage(0x41d, 0, 0);
@@ -1601,7 +1601,7 @@ void MainWindow::FUN_004918ae()
 
     FUN_0048ca7e(sessionMode);
 
-    if (MapWnd->FUN_0040d4e2() == 0)
+    if (MapWnd->ConnectAndJoinSession() == 0)
     {
         vis_root->MsgProc(0x446, 0, 0);
         PostMessage(0x45c, 0, 0);
@@ -1934,7 +1934,7 @@ void MainWindow::FUN_0048f79d()
 
     g_Server->sub_4EDB83(field_0x148.buf2);
 
-    if (!MapWnd->FUN_0040d4e2())
+    if (!MapWnd->ConnectAndJoinSession())
         PostMessage(0x421, 0, 0);
     else if (GetSaveFileInBattle())
         FUN_0048e502(1);
@@ -2750,7 +2750,7 @@ void MainWindow::ShowStartGameSetupForNewSession()
 
 
 
-int CGameSession::FUN_00493ffe()
+int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()
 {
     //493ffe
     INT_00660f8c = 0;
@@ -2862,11 +2862,11 @@ void CGameSession::FUN_00494687()
 {
     body = 0;
     main_sphere = 0;
-    FUN_004941c0();
+    RecreateCUnit();
 }
 
 
-void CGameSession::FUN_004941c0()
+void CGameSession::RecreateCUnit()
 {   //4941c0
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* cu = mwnd->MapWnd->GetUnit_3f6c();
@@ -2875,6 +2875,7 @@ void CGameSession::FUN_004941c0()
         Human* hm = nullptr;
         switch (type & 0xc0)
         {
+        default:
         case 0:
             hm = new Human("Start_MF", 1, nullptr);
             break;
@@ -2920,6 +2921,231 @@ void CGameSession::FUN_004941c0()
 }
 
 
+void CGameSession::LoadCharacterRosterEntry(int32_t idx)
+{ //492c66
+    selectedCharacterRosterFileIndex = idx;
+
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* unit = mwnd->MapWnd->GetUnit_3f6c();
+
+    if (unit == nullptr)
+    {
+        unit = new CUnit();
+        unit->VMethod17(1, 1, 0, 0, 0, mwnd->MapWnd->field_0x9b8[0], 0, 0, 0, 1);
+        mwnd->MapWnd->field_0x9d0[1] = unit;
+        mwnd->MapWnd->field_0x3f6c = unit;
+        mwnd->MapWnd->MsgProc(0x405, 0, 0);
+    }
+
+    if (idx >= 0 && idx < characterRosterFilePaths.GetSize())
+    {
+        CFile f(characterRosterFilePaths[selectedCharacterRosterFileIndex], CFile::modeRead);
+
+        FileSectionStats* stats = nullptr;
+        FileSectionBasicInfo* basic = nullptr;
+        uint8_t* kills = nullptr;
+        PacketUnitStateVec* equip = nullptr;
+        PacketUnitStateVec* inv = nullptr;
+        uint8_t* sec40a = nullptr;
+        uint32_t size_40a = 0;
+        if (ParsePlayerFile_4F62E6(&f, &basic, &stats, &kills, &equip, &inv, &sec40a, &size_40a) != 0 && basic != nullptr && stats != nullptr)
+        {
+            strcpy(character_name, basic->nick);
+
+            memset(unit->str1, 0, 12);
+
+            char* delim = strchr(character_name, '|');
+            if (delim == NULL)
+            {
+                memcpy(unit->str1, character_name, 11);
+                unit->str2[0] = 0;
+            }
+            else {
+                memcpy(unit->str1, character_name, delim - character_name);
+                memcpy(unit->str2, delim + 1, 12);
+            }
+
+            type = basic->character_class;
+            main_sphere = basic->main_sphere;
+            flags = basic->flags;
+            color = basic->color;
+            field_0x64 = basic->hat_id;
+
+            sessionKeyPart1 = basic->id1;
+            sessionKeyPart2 = basic->id2;
+
+            money = stats->money;
+            monster_killed = stats->monster_kills;
+            player_killed = stats->player_kills;
+            death_count = stats->deaths;
+            fragCount = stats->frags;
+
+            Human* hum;
+            switch (type & 0xc0)
+            {
+            default:
+            case 0:
+                hum = new Human("Start_MF", 1, nullptr);
+                break;
+            case 0x40:
+                hum = new Human("Start_MM", 1, nullptr);
+                break;
+            case 0x80:
+                hum = new Human("Start_FF", 1, nullptr);
+                break;
+            case 0xc0:
+                hum = new Human("Start_FM", 1, nullptr);
+                break;
+            }
+
+            body = stats->body;
+            hum->body = body;
+
+            reaction = stats->reaction;
+            hum->reaction = reaction;
+
+            mind = stats->mind;
+            hum->mind = mind;
+
+            spirit = stats->spirit;
+            hum->spirit = spirit;
+
+            face = basic->picture;
+            hum->face = face;
+
+            hum->experience_per_sphere[0] = stats->experience[0];
+            hum->experience_per_sphere[1] = stats->experience[1];
+            hum->experience_per_sphere[2] = stats->experience[2];
+            hum->experience_per_sphere[3] = stats->experience[3];
+            hum->experience_per_sphere[4] = stats->experience[4];
+
+            int32_t maxlvl = 0;
+
+            for (int i = 1; i < 6; i++)
+            {
+                hum->hit_values.skill_levels[i] = ExperienceTable::GetLevel(hum->experience_per_sphere[i - 1]);
+
+                if (hum->hit_values.skill_levels[i] > maxlvl)
+                    maxlvl = hum->hit_values.skill_levels[i];
+            }
+
+            for (int i = 1; i < 6; i++)
+                hum->hit_values2.skill_levels[i] = hum->hit_values.skill_levels[i];
+
+            if (maxlvl >= 96)
+                field_0x114 = 4;
+            else if (maxlvl >= 76)
+                field_0x114 = 3;
+            else if (maxlvl >= 51)
+                field_0x114 = 2;
+            else
+                field_0x114 = 1;
+
+            if (maxlvl >= 90)
+                field_0x118 = 4;
+            else if (maxlvl >= 51)
+                field_0x118 = 3;
+            else if (maxlvl >= 26)
+                field_0x118 = 2;
+            else
+                field_0x118 = 1;
+
+            hum->experience = 0;
+
+            for (int i = 1; i < 6; i++)
+                hum->experience += hum->experience_per_sphere[i - 1];
+
+            hum->VMethod18();
+
+            if (equip != nullptr)
+            {
+                uint8_t* eq_data = equip->data;
+
+                hum->VMethod15();
+
+                if (hum->weapon)
+                    hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->weapon));
+
+                if (hum->shield)
+                    hum->inventory->PutItemIntoBagAtDefault(hum->Unequip(hum->shield));
+
+                if (hum->inventory)
+                    delete hum->inventory;
+
+                hum->inventory = new Inventory();
+                for (int i = 1; i < 13; i++)
+                {
+                    Item* itm = sub_4F499B(&eq_data);
+
+                    if (itm->item_id != 0)
+                        hum->VMethod13(itm);
+                }
+            }
+
+            unit->CopyFromUnit(*hum);
+
+            unit->field_0x180[0] = stats->body;
+            unit->field_0x180[1] = stats->reaction;
+            unit->field_0x180[2] = stats->mind;
+            unit->field_0x180[3] = stats->spirit;
+
+            unit->map_player = mwnd->MapWnd->field_0x9b8[0];
+
+            if (sec40a != nullptr)
+            {
+                for (int i = 0; i < 9; i++)
+                    shortcuts[i].LoadFromBuffer(&sec40a);
+            }
+        }
+    }
+}
+
+void CGameSession::InitializeNewCharacterSession(int tp, const char* name)
+{ //493ab6
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    field_0x64 = mwnd->field_0x3e0.field_0c;
+
+    if (name)
+    {
+        strcpy(character_name, name);
+        type = tp;
+    }
+
+    LARGE_INTEGER k;
+    if (QueryPerformanceCounter(&k) == 0)
+    {
+        sessionKeyPart2 = k.LowPart;
+        sessionKeyPart1 = timeGetTime();
+    }
+
+    characterRosterNames.InsertAt(characterRosterNames.GetSize() - 1, character_name);
+
+    CString fname;
+    fname.Format("%u%u.a2c", sessionKeyPart1, sessionKeyPart2);
+    characterRosterFilePaths.Add(fname);
+
+    selectedCharacterRosterFileIndex = characterRosterFilePaths.GetSize() - 1;
+
+    flags = 1;
+
+    mwnd->MapWnd->kill_stats.fill(0);
+
+    if (mwnd->MapWnd->GetUnit_3f6c() == nullptr)
+    {
+        CUnit* cunit = new CUnit();
+        cunit->VMethod17(1, 1, 0, 0, 0, mwnd->MapWnd->field_0x9b8[0], 0, 0, 0, 1);
+
+        mwnd->MapWnd->field_0x9d0[1] = cunit;
+        mwnd->MapWnd->field_0x3f6c = cunit;
+    }
+
+    field_0x118 = 1;
+    field_0x114 = 1;
+    main_sphere = 0;
+
+    RecreateCUnit();
+}
 
 UserShortcut::UserShortcut()
 { //4971a0

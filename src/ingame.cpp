@@ -2782,7 +2782,7 @@ int32_t BigStruct2::FUN_0040d7f3()
 }
 
 
-int BigStruct2::FUN_0040d4e2()
+int BigStruct2::ConnectAndJoinSession()
 {
 	//40d4e2
 	INT_00660f8c = 0;
