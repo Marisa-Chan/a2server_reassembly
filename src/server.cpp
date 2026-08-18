@@ -5462,7 +5462,7 @@ void Server::sub_5088DF(Packet* pkt) {
             CString login(data + block_size, login_len);
             CString name(data + block_size + login_len, name_len);
 
-            int32_t result = this->sub_4FC644(id1, id2, login, name, block, block_size, team_id);
+            int32_t result = this->sub_4FC644(id1, id2, name, login, block, block_size, team_id);
             if (result == 0) {
                 LogMessage("New player " + name + " has logged in as " + login);
                 NetStru1::HatConnector.sub_51E5FB(id1, id2);
