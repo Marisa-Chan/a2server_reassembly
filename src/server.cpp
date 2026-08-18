@@ -5450,8 +5450,8 @@ void Server::sub_5088DF(Packet* pkt) {
 
             uint32_t id1        = *reinterpret_cast<uint32_t*>(p + 0x0E);
             uint32_t id2        = *reinterpret_cast<uint32_t*>(p + 0x12);
-            uint32_t name_len   = *reinterpret_cast<uint32_t*>(p + 0x16);
-            uint32_t login_len  = *reinterpret_cast<uint32_t*>(p + 0x1A);
+            uint32_t login_len  = *reinterpret_cast<uint32_t*>(p + 0x16);
+            uint32_t name_len   = *reinterpret_cast<uint32_t*>(p + 0x1A);
             uint32_t block_size = *reinterpret_cast<uint32_t*>(p + 0x1E);
             int32_t  team_id    = *reinterpret_cast<int32_t*>(p + 0x22);
             const char* data    = reinterpret_cast<const char*>(p + 0x26);
@@ -5459,12 +5459,12 @@ void Server::sub_5088DF(Packet* pkt) {
             void*    block      = malloc(block_size);
             memcpy(block, data, block_size);
 
-            CString name(data + block_size, name_len);
-            CString login(data + block_size + name_len, login_len);
+            CString login(data + block_size, login_len);
+            CString name(data + block_size + login_len, name_len);
 
-            int32_t result = this->sub_4FC644(id1, id2, name, login, block, block_size, team_id);
+            int32_t result = this->sub_4FC644(id1, id2, login, name, block, block_size, team_id);
             if (result == 0) {
-                LogMessage("New player " + login + " has logged in as " + name);
+                LogMessage("New player " + name + " has logged in as " + login);
                 NetStru1::HatConnector.sub_51E5FB(id1, id2);
             } else {
                 NetStru1::HatConnector.sub_51E63F(id1, id2, result);
