@@ -871,7 +871,6 @@ externdef ??0Item@@QAE@EE@Z :proc                                             ; 
 externdef ??0Item@@QAE@PBV0@@Z :proc                                          ; Item::Item(const Item*)
 externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548F07@Item@@QAEHXZ :proc
-externdef ?sub_548E4E@Item@@QAEPAVEffect@@XZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
 externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                           ; Item::sub_548F3F(const CString&)
 externdef ?sub_54A0BE@Item@@QAEXXZ :proc                                       ; Item::sub_54A0BE()

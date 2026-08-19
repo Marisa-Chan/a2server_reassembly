@@ -140,7 +140,6 @@
 ?sub_548F07@Item@@QAEHXZ	30
 ?sub_548F6A@Item@@QAEHXZ	35
 ?sub_54A0BE@Item@@QAEXXZ	51
-?sub_548E4E@Item@@QAEPAVEffect@@XZ	100
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51

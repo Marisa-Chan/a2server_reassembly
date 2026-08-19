@@ -557,6 +557,18 @@ void Item::RemoveEffects(Unit* unit) {
     }
 }
 
+// 548E4E
+Effect* Item::sub_548E4E() {
+    POSITION it = this->_effects.GetHeadPosition();
+    while (it != nullptr) {
+        Effect* e = this->_effects.GetNext(it);
+        if (e->effect_id == modifier::castspell) {
+            return e;
+        }
+    }
+    return nullptr;
+}
+
 // 548FAA
 void Item::sub_548FAA(Effect* effect) {
     int32_t usable_by = g_GameDataRes.magics[effect->effect_id].Values()[0].usable_by;
