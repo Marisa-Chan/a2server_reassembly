@@ -74,6 +74,7 @@
 ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z	31
 ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z	49
 ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z	55
+?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z	57
 ?sub_547DD4@CMultiShopTemplate@@QAEXXZ	87
 ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z	198
 ?Play@CSound@@SAXAAU1@@Z	31
@@ -187,7 +188,6 @@
 ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z	23
 ?sub_544655@Shop@@QAEXPAVUnit@@@Z	24
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z	30
-?sub_5446EB@Shop@@QAEXPAVHumanoid@@EFEFH@Z	32
 ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z	106
 ?sub_5393C7@Spell@@QAEHXZ	20
 ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z	32

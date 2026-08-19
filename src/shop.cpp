@@ -58,3 +58,8 @@ void Shop::VMethod1() {
 Item* Shop::sub_5446C7(Humanoid* humanoid, int16_t src_slot, int32_t count) {
     return this->shop_template->sub_547C5A(humanoid, src_slot, count);
 }
+
+// 5446EB
+void Shop::sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
+    this->shop_template->sub_547CB9(unit, op_type, src_slot, dst_type, dst_word, count);
+}
