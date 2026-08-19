@@ -11,7 +11,6 @@
 extern "C" void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item); // add item to sorted CArray, merging stackables
 extern "C" void __cdecl sub_54C556(CArray<Item*>* arr); // sort CArray<Item*>
 extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts);
-extern "C" int32_t __cdecl sub_54F176(Item* item);
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };

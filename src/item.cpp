@@ -598,6 +598,30 @@ void Item::sub_548FAA(Effect* effect) {
     this->_effects.AddTail(effect);
 }
 
+// 54F176
+int32_t sub_54F176(Item* item) {
+    int32_t total = 0;
+    POSITION it = item->_effects.GetHeadPosition();
+    while (it != nullptr) {
+        Effect* e = item->_effects.GetNext(it);
+        total += e->EffectPrice();
+    }
+    return total;
+}
+
+// 54A0BE
+void Item::sub_54A0BE() {
+    if (this->VMethod16() != 0) {
+        return;
+    }
+
+    MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
+    MatShape* material = &g_GameDataRes.materials[this->material_id];
+    this->magic_volume = (int16_t)(material->data.magic_volume * shape->data.magic_volume);
+
+    this->magic_volume -= sub_54F176(this);
+}
+
 
 IMPLEMENT_SERIAL(Armor, Item, 1); // Runtime class definition at 6372d0.
 

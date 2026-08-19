@@ -306,7 +306,6 @@ externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssor
 externdef _sub_54C6DD :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
 externdef _sub_54C556 :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
 externdef _sub_54F04F :proc  ; Effect* __cdecl sub_54F04F(int, int, int, int)
-externdef _sub_54F176 :proc  ; int32_t __cdecl sub_54F176(Item*)
 externdef ?sub_541FD7@Effect@@QAEHHH@Z :proc  ; int32_t Effect::sub_541FD7(int, int)
 
 
@@ -873,7 +872,6 @@ externdef ?sub_548F6A@Item@@QAEHXZ :proc
 externdef ?sub_548F07@Item@@QAEHXZ :proc
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
 externdef ?sub_548F3F@Item@@QAEXABVCString@@@Z :proc                           ; Item::sub_548F3F(const CString&)
-externdef ?sub_54A0BE@Item@@QAEXXZ :proc                                       ; Item::sub_54A0BE()
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 

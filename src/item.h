@@ -88,6 +88,8 @@ public:
 };
 ASSERT_SIZE(Item, 0x58);
 
+int32_t sub_54F176(Item* item); // 54F176: total EffectPrice() of all effects
+
 class Armor : public Item {
 public:
     DECLARE_SERIAL(Armor); // Runtime class definition at 6372d0.
