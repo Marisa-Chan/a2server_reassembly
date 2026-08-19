@@ -1314,6 +1314,58 @@ Unit* MapStuff::sub_58CA1B(PosYX yx) {
     return this->scratch_cell_state.small_unit;
 }
 
+// 5897AA
+UnitList* MapStuff::sub_5897AA(PosYX yx, uint8_t range) {
+    this->field9_0x5400c.unit_list.RemoveAll();
+
+    if (this->ObstacleAt(yx).TestBits(0x20)) {
+        Unit* unit = this->sub_58CA1B(yx);
+        if (unit != nullptr) {
+            this->field9_0x5400c.AddTail(unit);
+        }
+    }
+
+    for (uint8_t ring = 1; ring < range + 1; ring++) {
+        for (int32_t offset = -(int32_t)ring; offset < ring + 1; offset++) {
+            uint16_t cell = (ring << 8) + offset + yx.val;
+            if (this->obstacle_map[cell].TestBits(0x20)) {
+                Unit* unit = this->sub_58CA1B(cell);
+                if (unit != nullptr) {
+                    this->field9_0x5400c.AddTail(unit);
+                }
+            }
+
+            cell = yx.val - (ring << 8) + offset;
+            if (this->obstacle_map[cell].TestBits(0x20)) {
+                Unit* unit = this->sub_58CA1B(cell);
+                if (unit != nullptr) {
+                    this->field9_0x5400c.AddTail(unit);
+                }
+            }
+
+            if (std::abs(offset) != ring) {
+                cell = yx.val + (offset << 8) + ring;
+                if (this->obstacle_map[cell].TestBits(0x20)) {
+                    Unit* unit = this->sub_58CA1B(cell);
+                    if (unit != nullptr) {
+                        this->field9_0x5400c.AddTail(unit);
+                    }
+                }
+
+                cell = yx.val + (offset << 8) - ring;
+                if (this->obstacle_map[cell].TestBits(0x20)) {
+                    Unit* unit = this->sub_58CA1B(cell);
+                    if (unit != nullptr) {
+                        this->field9_0x5400c.AddTail(unit);
+                    }
+                }
+            }
+        }
+    }
+
+    return &this->field9_0x5400c;
+}
+
 // 58CB5A
 Unit* MapStuff::sub_58CB5A(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {

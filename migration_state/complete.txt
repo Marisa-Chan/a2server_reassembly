@@ -766,13 +766,7 @@
 ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z
 ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z
 ?sub_542A31@Building@@QAEHPAUUnitToHit@@PAVUnit@@@Z
-?sub_54463F@Shop@@QAEXXZ
-?sub_544655@Shop@@QAEXPAVUnit@@@Z
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z
-?sub_54471B@Shop@@QAEXPAVUnit@@@Z
-?sub_544737@Shop@@QAEXPAVUnit@@@Z
-?sub_544777@Shop@@QAEXPAVUnit@@@Z
-?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z
 ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z
 ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z

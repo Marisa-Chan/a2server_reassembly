@@ -156,7 +156,6 @@
 ?sub_5964D7@MapStuff@@QAEXGEPAVPlayer@@PAVUnitList@@@Z	71
 ?sub_5936D2@MapStuff@@QAEFPAVUnit@@IE@Z	187
 ?sub_594A2D@MapStuff@@QAEXPAVUnit@@H@Z	203
-?sub_5897AA@MapStuff@@QAEPAVUnitList@@UPosYX@@E@Z	227
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43
