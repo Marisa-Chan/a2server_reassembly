@@ -136,9 +136,6 @@
 ?sub_599F00@Group@@QAEPAVUnit@@XZ	13
 ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z	44
 ?sub_531418@Humanoid@@QAEXXZ	71
-?sub_548F3F@Item@@QAEXABVCString@@@Z	23
-?sub_548F07@Item@@QAEHXZ	30
-?sub_548F6A@Item@@QAEHXZ	35
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
@@ -294,6 +291,7 @@ _sub_5049D1	85
 _sub_530DCB	67
 _sub_536630	167
 _sub_53678F	99
+_sub_540DAA	281
 _sub_5499A6	99
 _sub_54C556	26
 _sub_54C6DD	453

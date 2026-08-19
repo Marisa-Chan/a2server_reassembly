@@ -569,6 +569,28 @@ Effect* Item::sub_548E4E() {
     return nullptr;
 }
 
+// 548F07
+int Item::sub_548F07() {
+    if (this->_effects.GetCount() != 0 && this->_exp == 2) {
+        return 1;
+    }
+    return 0;
+}
+
+// 548F3F
+void Item::sub_548F3F(const CString& str) {
+    sub_540DAA(str, &this->_effects);
+    this->VMethod15();
+}
+
+// 548F6A
+int Item::sub_548F6A() {
+    if (this->world_equip == nullptr) {
+        return 0;
+    }
+    return this->world_equip->shape_material_matrix[this->shape_id] & (1 << (this->material_id & 0x1f));
+}
+
 // 548FAA
 void Item::sub_548FAA(Effect* effect) {
     int32_t usable_by = g_GameDataRes.magics[effect->effect_id].Values()[0].usable_by;
