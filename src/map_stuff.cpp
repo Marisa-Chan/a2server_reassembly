@@ -1477,6 +1477,53 @@ int MapStuff::sub_59449A(Building* building, PosYX yx) {
     return 1;
 }
 
+// 594A2D --- collect passable sack cells in expanding rings around the unit, up to its scan range
+void MapStuff::sub_594A2D(Unit* unit, int32_t flag) {
+    uint16_t yx = unit->position->CompatGetYX();
+    uint8_t range = unit->scan_range >> 8;
+    this->field67_0xa4510.RemoveAll();
+    if (this->sub_58E611(yx) != nullptr) {
+        this->field67_0xa4510.AddHead(yx);
+        if (flag != 0) {
+            return;
+        }
+    }
+
+    for (uint8_t ring = 1; ring < range + 1; ring++) {
+        for (int8_t offset = -ring; offset <= ring; offset++) {
+            uint16_t pos = yx + (ring << 8) + offset;
+            if (this->sub_594C4B(unit, pos) != 0) {
+                this->field67_0xa4510.AddHead(pos);
+            }
+            pos = yx - (ring << 8) + offset;
+            if (this->sub_594C4B(unit, pos) != 0) {
+                this->field67_0xa4510.AddHead(pos);
+            }
+            if (abs(offset) != ring) {
+                pos = yx + (offset << 8) + ring;
+                if (this->sub_594C4B(unit, pos) != 0) {
+                    this->field67_0xa4510.AddHead(pos);
+                }
+                pos = yx + (offset << 8) - ring;
+                if (this->sub_594C4B(unit, pos) != 0) {
+                    this->field67_0xa4510.AddHead(pos);
+                }
+            }
+            if (flag != 0 && this->field67_0xa4510.GetCount() != 0) {
+                return;
+            }
+        }
+    }
+}
+
+// 594C4B --- check whether cell yx holds a sack and is passable for unit
+int32_t MapStuff::sub_594C4B(Unit* unit, uint16_t yx) {
+    if (this->sub_58E611(yx) != nullptr && this->sub_5978F0(unit, yx) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
 // 595468
 int MapStuff::sub_595468(Unit* unit, PosYX yx) {
     if (!this->sub_597140(unit, yx, 0)) {

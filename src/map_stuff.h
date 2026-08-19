@@ -228,7 +228,8 @@ public:
 
     Unit* sub_58CB5A(uint16_t yx); // Get small unit occupying cell yx — 58CB5A
     Unit* sub_58CBB9(uint16_t yx); // Get large unit occupying cell yx — 58CBB9
-    void sub_594A2D(Unit* unit, int32_t flag); // 594A2D — helper for World::sub_5A6789 (ASM).
+    void sub_594A2D(Unit* unit, int32_t flag); // 594A2D — collect passable sack cells in expanding rings around the unit.
+    int32_t sub_594C4B(Unit* unit, uint16_t yx); // 594C4B — check whether cell yx holds a sack and is passable for unit.
     int sub_58B1D7(Unit* unit); // Check if unit fits/can be placed over all cells at its current position — 58B1D7
     void sub_58B593(PosYX yx); // Refresh derived obstacle bits for cell yx from its stored cell state — 58B593
     Sack* sub_58E611(uint16_t yx); // Get sack at cell yx if the cell has a stored state — 58E611
