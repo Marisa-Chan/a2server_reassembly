@@ -270,15 +270,6 @@ externdef ??_GShop@@UAEPAXI@Z :proc                                             
 externdef ?Serialize@Shop@@UAEXAAVCArchive@@@Z :proc                             ; void Shop::Serialize(CArchive&)
 externdef ?VMethod1@Shop@@UAEXXZ :proc                                           ; void Shop::VMethod1()
 
-externdef ?sub_544655@Shop@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_544793@Shop@@QAEXPAVHumanoid@@HPAVItem@@@Z :proc
-externdef ?sub_54463F@Shop@@QAEXXZ :proc
-externdef ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z :proc
-externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
-
-externdef ?sub_54471B@Shop@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_544737@Shop@@QAEXPAVUnit@@@Z :proc
-externdef ?sub_544777@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?sub_544685@Shop@@QAEXPAVUnit@@@Z :proc
 
 
@@ -288,6 +279,14 @@ externdef ?ClearItems@CMultiShopShelf@@QAEXXZ : proc
 ; MultiShopTemplate
 externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
 externdef ?sub_547DD4@CMultiShopTemplate@@QAEXXZ :proc                           ; void MultiShopTemplate::sub_547DD4()
+externdef ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z :proc
+externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
+externdef ?sub_5474D8@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_5474D8()
+externdef ?sub_547644@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547644(Unit*)
+externdef ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547B7B(Unit*)
+externdef ?sub_547BBC@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547BBC(Unit*)
+externdef ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z :proc        ; void CMultiShopTemplate::sub_547BFD(Unit*, int, Item*)
+externdef ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547D7F(Unit*)
 
 ; MultiShopInstance
 externdef ??0CMultiShopInstance@@QAE@XZ :proc                                     ; MultiShopInstance::MultiShopInstance()

@@ -54,6 +54,12 @@ public:
     void sub_547DD4(); // 547DD4
     CMultiShopInstance* sub_547468(Humanoid* humanoid); // 547468 - find shop instance for player's unit
     void sub_5479C6(Humanoid* humanoid); // 5479C6
+    void sub_5474D8(); // 5474D8
+    void sub_547644(Unit* unit); // 547644
+    void sub_547B7B(Unit* unit); // 547B7B
+    void sub_547BBC(Unit* unit); // 547BBC
+    void sub_547BFD(Unit* unit, int amount, Item* item); // 547BFD
+    void sub_547D7F(Unit* unit); // 547D7F
 
 public:
     uint32_t field_0x4;

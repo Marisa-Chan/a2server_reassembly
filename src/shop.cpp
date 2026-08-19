@@ -1,6 +1,10 @@
 #include "shop.h"
 
+#include "game_app.h"
+#include "net.h"
+#include "server.h"
 #include "shelf.h"
+#include "unit.h"
 
 
 IMPLEMENT_SERIAL(Shop, Building, 1);
@@ -62,4 +66,46 @@ Item* Shop::sub_5446C7(Humanoid* humanoid, int16_t src_slot, int32_t count) {
 // 5446EB
 void Shop::sub_5446EB(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
     this->shop_template->sub_547CB9(unit, op_type, src_slot, dst_type, dst_word, count);
+}
+
+// 54463F
+void Shop::sub_54463F() {
+    this->shop_template->sub_5474D8();
+}
+
+// 544655
+void Shop::sub_544655(Unit* unit) {
+    this->shop_template->sub_547644(unit);
+    if (g_Server->field4_0x74 != 0) {
+        unit->sub_52C163();
+    }
+}
+
+// 544685
+void Shop::sub_544685(Unit* unit) {
+    this->shop_template->sub_5479C6(static_cast<Humanoid*>(unit));
+    if (g_Server->field4_0x74 != 0) {
+        unit->sub_52C409();
+    }
+    g_NetStru1_main.sub_51AC77(unit, nullptr, 0);
+}
+
+// 54471B
+void Shop::sub_54471B(Unit* unit) {
+    this->shop_template->sub_547B7B(unit);
+}
+
+// 544737
+void Shop::sub_544737(Unit* unit) {
+    this->shop_template->sub_547BBC(unit);
+}
+
+// 544777
+void Shop::sub_544777(Unit* unit) {
+    this->shop_template->sub_547D7F(unit);
+}
+
+// 544793
+void Shop::sub_544793(Humanoid* humanoid, int amount, Item* item) {
+    this->shop_template->sub_547BFD(humanoid, amount, item);
 }
