@@ -19,7 +19,8 @@ extern CMapWordToPtr unk_660DA8;
 
 extern "C" Item* __cdecl sub_4F499B(uint8_t** packet_data);
 void LoadItemNames(); //475988
-extern "C" void __cdecl sub_540DAA(const CString& effect_str, CList<Effect*>* effects); // 540DAA: parse effect string into effects list
+void sub_540DAA(const CString& effect_str, CList<Effect*>* effects); // 540DAA: parse effect string into effects list
+int32_t sub_54F176(Item* item); // 54F176: total EffectPrice() of all effects
 
 class Item : public Token {
 public:
@@ -88,8 +89,6 @@ public:
     uint32_t field15_0x54;
 };
 ASSERT_SIZE(Item, 0x58);
-
-int32_t sub_54F176(Item* item); // 54F176: total EffectPrice() of all effects
 
 class Armor : public Item {
 public:

@@ -577,6 +577,35 @@ int Item::sub_548F07() {
     return 0;
 }
 
+// 540DAA
+void sub_540DAA(const CString& effect_str, CList<Effect*>* effects) {
+    CString name;
+    CString str;
+
+    str = effect_str;
+    str.MakeLower();
+    str.TrimLeft();
+    str.TrimRight();
+    str += ',';
+
+    int32_t index = str.Find(',');
+    while (index != -1) {
+        name = str.Left(index);
+        name.TrimLeft();
+        name.TrimRight();
+
+        Effect* effect = Effect::CreateFromString(name);
+        if (effect != nullptr) {
+            effects->AddTail(effect);
+        }
+
+        str = str.Right(str.GetLength() - index - 1);
+        str.TrimLeft();
+        str.TrimRight();
+        index = str.Find(',');
+    }
+}
+
 // 548F3F
 void Item::sub_548F3F(const CString& str) {
     sub_540DAA(str, &this->_effects);

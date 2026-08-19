@@ -869,7 +869,6 @@ externdef ??0Item@@QAE@ABVCString@@@Z :proc                                   ; 
 externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
 externdef ??0Item@@QAE@PBV0@@Z :proc                                          ; Item::Item(const Item*)
 externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
-externdef _sub_540DAA :proc                                                    ; void __cdecl sub_540DAA(const CString&, CList<Effect*>*)
 extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 
