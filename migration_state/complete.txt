@@ -308,12 +308,14 @@
 ?AppHasAnySaveFile@@YAHXZ
 ?ApplyCursor@@YAHPAVCCursor@@@Z
 ?ApplyEffects@Item@@QAEXPAVUnit@@@Z
+?ApplyFace@CUnit@@QAEXH@Z
 ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z
 ?AssertValid@CGameObject@@UBEXXZ
 ?AssertValid@CObject@@UBEXXZ
 ?AssignCopy@CString@@IAEXHPBD@Z
 ?BeginFadeOut@MusicPlayer@@QAEXHH@Z
 ?Buy@CMultiShopInstance@@QAEXXZ
+?CalcChecksum@@YAIPAEH@Z
 ?cbEnumSessions@CLlDriver@@SGHPBUtagDPSESSIONDESC2@@PAKKPAX@Z
 ?ChangeFlags@CVisualObject@@UAEXI_N@Z
 ?CharToOemA@CString@@QAEXXZ
@@ -339,6 +341,7 @@
 ?ConcatInPlace@CString@@IAEXHPBD@Z
 ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z
 ?CopyBeforeWrite@CString@@IAEXXZ
+?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z
 ?CountCD@PlayersList@@QAEHXZ
 ?CountHumanPlayers@PlayersList@@QAEHXZ
 ?Create@CPlex@@SGPAU1@AAPAU1@II@Z
@@ -351,6 +354,7 @@
 ?DataSize@VisRadioBase@@UAEIXZ
 ?DataSize@VisTextBox@@UAEIXZ
 ?DecodeChar@@YAEE@Z
+?DecryptEncryptedData@@YAXPAEHG@Z
 ?Deinit@SrvStru1@@QAEXXZ
 ?DeleteCursors@@YAXXZ
 ?DeleteTail@PackerDat@@QAEXPAUPackerTail@@@Z
@@ -417,8 +421,6 @@
 ?FUN_0048f905@MainWindow@@QAEXXZ
 ?FUN_00491822@MainWindow@@QAEXXZ
 ?FUN_004918ae@MainWindow@@QAEXXZ
-?FUN_00493ffe@CGameSession@@QAEHXZ
-?FUN_004941c0@CGameSession@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ
@@ -450,9 +452,11 @@
 ?GetCount@TxtFile@@QAEHXZ
 ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ
 ?GetDouble@ResBase@@QAENPBD0N@Z
+?GetExp@ExperienceTable@@YAHI@Z
 ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetId@CVisualObject@@QAEHXZ
+?GetId@TokenEntry@@QBEHXZ
 ?GetIndex@VisRadioBase@@UAEHH@Z
 ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z
 ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z
@@ -461,7 +465,9 @@
 ?GetItem@VisListBox@@QAEAAVCString@@H@Z
 ?GetItemCount@VisListBox@@UAEHXZ
 ?GetLength@File2@@UBEKXZ
+?GetLevel@ExperienceTable@@YAHI@Z
 ?GetLine@TxtFile@@QAEPADH@Z
+?GetMaterial@TokenEntry@@QBEHXZ
 ?GetPalette@CGamePalette@@QAEPAGH@Z
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
@@ -494,6 +500,7 @@
 ?Init@ProjectileInfo@@QAEXXZ
 ?Init@StructureInfo@@QAEXXZ
 ?Init@UnitGfxFile@@QAEXXZ
+?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z
 ?InitInstance@GameApp@@UAEHXZ
 ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z
 ?InnReward@Inn@@QAEXPAVPlayer@@@Z
@@ -507,6 +514,7 @@
 ?IsSimilar@Item@@QAEHPAV1@@Z
 ?IsValidIndex@VisListBox@@UAEHH@Z
 ?Left@CString@@QBE?AV1@H@Z
+?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
 ?LoadCursors@@YAXXZ
 ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z
@@ -606,12 +614,15 @@
 ?RebuildScenarioLocations@VisGlobalMap@@QAEXXZ
 ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ
 ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z
+?RecreateCUnit@CGameSession@@QAEXXZ
 ?RecreateDp@CLlDriver@@QAEXXZ
+?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z
 ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z
 ?Release@CString@@IAEXXZ
 ?Release@CString@@KGXPAUCStringData@@@Z
 ?Release@SfxSample@@QAEXXZ
 ?ReleaseBuffer@CString@@QAEXH@Z
+?ReloadSprite@CUnit@@QAEXXZ
 ?RemoveAllChilds@CVisualObject@@QAEXXZ
 ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
 ?RemoveChildById@CVisualObject@@QAEXH@Z
@@ -841,6 +852,7 @@
 ?sub_5ADB16@World@@QAEXPAVGroup@@@Z
 ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z
 ?sub_5B6F60@World@@QAEHHH@Z
+?SubmitCharacterSetupAndWaitForSelectedUnit@CGameSession@@QAEHXZ
 ?TabFocus@CVisualObject@@QAEX_N0@Z
 ?TakeOne@Armor@@UAEPAVItem@@XZ
 ?TakeOne@Item@@UAEPAV1@XZ
@@ -971,8 +983,6 @@ _BldIdSet_AllocBit
 _BldIdSet_Clear
 _BldIdSet_Set
 _BldIdSet_Unset
-_CheckSum_4F5308
-_LoadDecrypt_4F535E
 _ParsePlayerFile_4F62E6
 _pathStrCpy
 _ReportWarning

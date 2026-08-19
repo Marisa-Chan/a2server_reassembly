@@ -557,6 +557,35 @@ void Item::RemoveEffects(Unit* unit) {
     }
 }
 
+// 548FAA
+void Item::sub_548FAA(Effect* effect) {
+    int32_t usable_by = g_GameDataRes.magics[effect->effect_id].Values()[0].usable_by;
+    if (usable_by != 3) {
+        POSITION it = this->_effects.GetHeadPosition();
+        while (it != nullptr) {
+            Effect* e = this->_effects.GetNext(it);
+            if ((usable_by & g_GameDataRes.magics[e->effect_id].Values()[0].usable_by) == 0) {
+                // New effect is incompatible with an existing one.
+                delete effect;
+                return;
+            }
+        }
+    }
+
+    POSITION it = this->_effects.GetHeadPosition();
+    while (it != nullptr) {
+        Effect* e = this->_effects.GetNext(it);
+        if (e->effect_id == effect->effect_id) {
+            // Same effect - overwrite its value and discard the new one.
+            e->full_magic_value = effect->full_magic_value;
+            delete effect;
+            return;
+        }
+    }
+
+    this->_effects.AddTail(effect);
+}
+
 
 IMPLEMENT_SERIAL(Armor, Item, 1); // Runtime class definition at 6372d0.
 

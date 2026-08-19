@@ -56,9 +56,6 @@
 ?FUN_00494982@CGameSession@@QAEXXZ	51
 ?FUN_00493cd8@CGameSession@@QAEXXZ	58
 ?FUN_004946e0@CGameSession@@QAEXXZ	183
-?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z	191
-?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z	335
-?FUN_00492c66@CGameSession@@QAEXH@Z	963
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
 ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z	2
 ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z	2
@@ -81,9 +78,6 @@
 ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z	198
 ?Play@CSound@@SAXAAU1@@Z	31
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
-?FUN_0046b7d2@CUnit@@QAEXH@Z	115
-?FUN_0046b0d7@CUnit@@QAEXABVUnit@@@Z	480
-?FUN_0046b91c@CUnit@@QAEXXZ	586
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
 ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z	9
@@ -147,7 +141,6 @@
 ?sub_548F6A@Item@@QAEHXZ	35
 ?sub_54A0BE@Item@@QAEXXZ	51
 ?sub_548E4E@Item@@QAEPAVEffect@@XZ	100
-?sub_548FAA@Item@@QAEXPAVEffect@@@Z	391
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
@@ -263,7 +256,6 @@
 ??1CStatusBar@@UAE@XZ	32
 ?LogMessage@@YAXVCString@@@Z	33
 ??1CDialog@@UAE@XZ	33
-?PrecomputeExperienceLevelsTable@@YAXXZ	35
 ??1CArchive@@QAE@XZ	36
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
 ??0CProjectile@@QAE@XZ	36
@@ -301,8 +293,6 @@ _sub_43A820	26
 _sub_4FA768	20
 _sub_5008CA	25
 _sub_5049D1	85
-_sub_5306EA	35
-_sub_530726	15
 _sub_530DCB	67
 _sub_536630	167
 _sub_53678F	99
