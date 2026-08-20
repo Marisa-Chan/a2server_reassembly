@@ -1,8 +1,12 @@
 #include "outpost.h"
 
+#include "game_app.h"
 #include "group.h"
+#include "net.h"
 #include "player.h"
+#include "server.h"
 #include "unit.h"
+#include "world.h"
 
 IMPLEMENT_SERIAL(Outpost, Building, 1);
 
@@ -108,4 +112,60 @@ void Outpost::VMethod1() {
 
 int32_t Outpost::IsOutpost() {
     return 1;
+}
+
+// 543EC3
+void Outpost::sub_543EC3(Group* group) {
+    POSITION original_it = this->units_original.unit_list.GetHeadPosition();
+    Unit* unit_original = nullptr;
+    if (original_it != nullptr) {
+        unit_original = this->units_original.unit_list.GetNext(original_it);
+    }
+    POSITION copy_it = this->units_copy.unit_list.GetHeadPosition();
+    Unit* unit_copy = nullptr;
+    if (copy_it != nullptr) {
+        unit_copy = this->units_copy.unit_list.GetNext(copy_it);
+    }
+
+    while (unit_original != nullptr) {
+        // Detach the original unit from the server's global unit list.
+        CList<Unit*>& server_units = g_Server->srv_stru1->units_list->unit_list;
+        POSITION found = server_units.Find(unit_original);
+        if (found != nullptr) {
+            server_units.RemoveAt(found);
+        }
+
+        if (unit_copy->VMethod8()) {
+            ((Humanoid*)unit_original)->sub_530231((Humanoid*)unit_copy);
+        } else {
+            unit_original->VMethod11(unit_copy);
+        }
+        unit_original->field_x18 = 0;
+
+        int32_t placed;
+        if (this->spread != 0) {
+            placed = unit_original->sub_52BF3D(this->position->GetX(), this->position->GetY(), this->spread);
+        } else {
+            placed = unit_original->sub_52BF3D(unit_original->position->GetX(), unit_original->position->GetY(), 0);
+        }
+
+        if (placed != 0) {
+            this->is_awaiting_repop = 0;
+            this->repop_countdown = this->repop_delay;
+            dword_6CDB3C->AddTailId6xxx(unit_original);
+            group->AddUnit(unit_original);
+            this->pOwner->unit_list->AddTail(unit_original);
+            g_NetStru1_main.sub_519221(unit_original, nullptr, 0x800000fb, 0xffb, 0, 0);
+        }
+
+        unit_original = original_it ? this->units_original.unit_list.GetNext(original_it) : nullptr;
+        unit_copy = copy_it ? this->units_copy.unit_list.GetNext(copy_it) : nullptr;
+    }
+
+    group->has_quest_kill = this->has_quest_kill;
+    group->has_quest_intercept = this->has_quest_intercept;
+    g_World->sub_5AC983(group, 0);
+    if (this->script_id >= 0) {
+        g_World->DoScriptInstID(this->script_id);
+    }
 }

@@ -236,13 +236,6 @@ externdef ?CreateObject@Pointer@@SGPAVCObject@@XZ :proc                         
 
 
 ; Outpost
-externdef ??_7Outpost@@6B@ :dword
-externdef ?classOutpost@Outpost@@2UCRuntimeClass@@A :dword
-externdef ??0Outpost@@QAE@XZ :proc                                               ; Outpost::Outpost()
-externdef ??0Outpost@@QAE@PAUTokenPos@@@Z :proc                                  ; Outpost::Outpost(TokenPos*)
-externdef ??1Outpost@@UAE@XZ :proc                                               ; Outpost::~Outpost()
-externdef ?VMethod1@Outpost@@UAEXXZ : proc
-externdef ?sub_543EC3@Outpost@@QAEXPAVGroup@@@Z :proc
 externdef ?FillUnits@Outpost@@QAEXPAVGroup@@@Z :proc
 
 
@@ -599,16 +592,6 @@ extern ??1Token@@UAE@XZ:proc ; Token::~Token 005283d6
 
 extern ?Serialize@Token@@UAEXAAVCArchive@@@Z :proc ; Token::Serialize 0055AB39
 
-extern ?VMethod1@Token@@UAEXXZ:proc ;  Token::VMethod1
-extern ?VMethod2@Token@@UAEXXZ:proc ;  Token::VMethod2
-extern ?VMethod3@Token@@UAEHXZ:proc ;  Token::VMethod3
-extern ?VMethod4@Token@@UAEHXZ:proc ;  Token::VMethod4
-extern ?VMethod5@Token@@UAEXXZ:proc ;  Token::VMethod5
-extern ?VMethod6@Token@@UAEHXZ:proc ;  Token::VMethod6
-extern ?VMethod7@Token@@UAEHXZ:proc ;  Token::VMethod7
-extern ?VMethod8@Token@@UAEHXZ:proc ;  Token::VMethod8
-extern ?VMethod9@Token@@UAEHXZ:proc ;  Token::VMethod9
-
 
 ; VirtualCaster
 externdef ??_7VirtualCaster@@6B@ :dword                                         ; VirtualCaster vftable (C++ generated)
@@ -703,6 +686,7 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 externdef ?sub_531418@Humanoid@@QAEXXZ :proc
+externdef ?sub_530231@Humanoid@@QAEXPAV1@@Z :proc  ; void Humanoid::sub_530231(Humanoid*)
 
 
 ;Human
