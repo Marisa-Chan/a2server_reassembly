@@ -2277,6 +2277,63 @@ int16_t MapStuff::sub_593134(Unit* unit, int32_t zero, uint16_t yx, uint32_t rad
     return best_cost == 0xFFFF ? 0 : (int16_t)best_yx;
 }
 
+// 5936D2 --- Project a point `range` tiles away from unit along the line from packed_yyxx through the unit, clamped to the map with an 8-tile border.
+int16_t MapStuff::sub_5936D2(Unit* unit, uint32_t packed_yyxx, uint8_t range) {
+    uint16_t target_xx = packed_yyxx & 0xFFFF;
+    uint16_t target_yy = packed_yyxx >> 16;
+    uint16_t unit_xx = unit->position->GetXx();
+    uint16_t unit_yy = unit->position->GetYy();
+
+    int32_t dxx = unit_xx - target_xx;
+    int32_t dyy = unit_yy - target_yy;
+    if (dxx == 0) {
+        dxx = 1;
+    }
+    if (dyy == 0) {
+        dyy = 1;
+    }
+
+    int32_t out_x;
+    int32_t out_y;
+    if (abs(dxx) > abs(dyy)) {
+        float slope = (float)dyy / (float)dxx;
+        float intercept = (float)unit_yy - (float)unit_xx * slope;
+        if (dxx > 0) {
+            out_x = unit_xx + (range << 8);
+        } else {
+            out_x = unit_xx - (range << 8);
+        }
+        out_y = (int32_t)((float)out_x * slope + intercept);
+    } else {
+        float slope = (float)dxx / (float)dyy;
+        float intercept = (float)unit_xx - (float)unit_yy * slope;
+        if (dyy > 0) {
+            out_y = unit_yy + (range << 8);
+        } else {
+            out_y = unit_yy - (range << 8);
+        }
+        out_x = (int32_t)((float)out_y * slope + intercept);
+    }
+
+    out_x >>= 8;
+    out_y >>= 8;
+
+    if (out_x < 8) {
+        out_x = 8;
+    }
+    if (out_x > this->GetWidth() - 9) {
+        out_x = this->GetWidth() - 9;
+    }
+    if (out_y < 8) {
+        out_y = 8;
+    }
+    if (out_y > this->GetHeight() - 9) {
+        out_y = this->GetHeight() - 9;
+    }
+
+    return PosYX((uint8_t)out_x, (uint8_t)out_y).val;
+}
+
 // 59A6F0 --- get pointer into walk_cost_map for (x, y)
 uint8_t* MapStuff::sub_59A6F0(uint8_t x, uint8_t y) {
     return &this->WalkCostAt(PosYX(x, y));

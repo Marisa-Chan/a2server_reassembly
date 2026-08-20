@@ -502,7 +502,6 @@ externdef ?sub_58BFA3@MapStuff@@QAEHEEEE@Z :proc                     ; int32_t M
 
 ; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
 externdef ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z :proc
-externdef ?sub_5936D2@MapStuff@@QAEFPAVUnit@@IE@Z :proc         ; int16_t MapStuff::sub_5936D2(Unit*, uint32_t, uint8_t)
 externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)

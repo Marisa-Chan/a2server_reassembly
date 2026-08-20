@@ -3565,8 +3565,8 @@ void World::sub_5A8885(Unit* unit) {
     if (count == 0) {
         this->sub_5A6E2C(unit, 0);
     } else {
-        uint32_t packed_yx = this->sub_5AB62E(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, 3);
+        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
         this->sub_5A8778(unit, result);
     }
 }
@@ -3591,8 +3591,8 @@ void World::sub_5A8A55(Unit* unit) {
     if (count == 0) {
         this->sub_5A6E2C(unit, 0);
     } else {
-        uint32_t packed_yx = this->sub_5AB62E(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, range);
+        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
 
         Spell* spell = this->sub_5A79D6(unit, spell::teleport, 0);
         if (spell != nullptr) {
@@ -3621,8 +3621,8 @@ void World::sub_5A8DBC(Unit* unit) {
     if (list->unit_list.GetCount() == 0) {
         this->sub_5A607B(unit);
     } else {
-        uint32_t packed_yx = this->sub_5AB62E(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, range);
+        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, range);
         Spell* spell = this->sub_5A79D6(unit, spell::teleport, 0);
         if (spell != nullptr) {
             unit->eye2->field49_0x60 = 1;
@@ -3684,8 +3684,8 @@ void World::sub_5A8CD8(Unit* unit) {
     if (list->unit_list.GetCount() == 0) {
         this->sub_5A607B(unit);
     } else {
-        uint32_t packed_yx = this->sub_5AB62E(list);
-        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yx, 3);
+        uint32_t packed_yyxx = this->sub_5AB62E(list);
+        int16_t result = this->field24_0xa50->sub_5936D2(unit, packed_yyxx, 3);
         this->sub_5A8778(unit, result);
     }
 }
