@@ -42,6 +42,12 @@ DECL_RE = re.compile(
 ASM_NAME_RE = re.compile(r"\?(sub_[0-9A-Fa-f]+|FUN_[0-9A-Fa-f]+)@")
 PROC_NEAR_RE = re.compile(r"^\s*([^\s;]+)\s+proc\s+near\b", re.IGNORECASE)
 ENDP_RE = re.compile(r"^\s*([^\s;]+)\s+endp\b", re.IGNORECASE)
+# MSVC member mangling forms:
+#   ?Method@Class@@...            regular member function
+#   ??0Class@@... / ??1Class@@... constructor / destructor
+#   ??_GClass@@... / ??4Class@@.. deleting dtor / operator= (special members)
+MEMBER_CLASS_RE = re.compile(r"^\?[^?@]+@(.+?)@@")
+SPECIAL_MEMBER_CLASS_RE = re.compile(r"^\?\?(?:\d|_[A-Z0-9])(.+?)@@")
 
 
 @dataclass(frozen=True)
@@ -311,6 +317,26 @@ def choose_status_for_entry(owners: Set[str]) -> str:
     return "cpp"
 
 
+def extract_class_name(name: str) -> str:
+    """
+    Extract the class name from an MSVC-mangled symbol.
+
+    Covers regular members (?Method@Class@@...) and special members
+    (??0Class@@ ctors, ??1 dtors, ??_G deleting dtors, operators, ...).
+    Returns "" for free functions and non-mangled symbols.
+    """
+    base = name.split("\t", 1)[0].strip()
+    if not base.startswith("?"):
+        return ""
+
+    m = MEMBER_CLASS_RE.match(base)
+    if not m:
+        m = SPECIAL_MEMBER_CLASS_RE.match(base)
+    if not m:
+        return ""
+    return m.group(1)
+
+
 def entry_lookup_keys(entry: ExportSymbol) -> Set[str]:
     """
     Build lookup keys for an export symbol.
@@ -367,15 +393,9 @@ def collect_auto_to_migrate(
         if '\t' in line:
             span = int(line.split('\t', 1)[1])
 
-        is_free = True
-        class_name = line
-        if '@' in line:
-            class_name = line.split('@')[1]
+        class_name = extract_class_name(line)
 
-            if class_name:
-                is_free = False
-
-        return is_free, class_name.lower(), span
+        return class_name.lower(), span
 
     return sorted(result.values(), key=sort_key)
 
