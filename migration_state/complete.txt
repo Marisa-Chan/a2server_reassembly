@@ -770,6 +770,7 @@
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z
 ?sub_55401E@Sack@@QAEXXZ
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
+?sub_5561A1@UnitList@@QAEXXZ
 ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z
 ?sub_55DD10@QuestMap@@QAEXHHH@Z
 ?sub_55DE84@QuestMap@@QAEXXZ

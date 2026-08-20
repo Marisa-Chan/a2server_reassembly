@@ -286,6 +286,27 @@ void UnitList::ProcessTick()
 	}
 }
 
+// 5561A1
+void UnitList::sub_5561A1() {
+	POSITION it = this->unit_list.GetHeadPosition();
+	while (it != NULL) {
+		Unit* unit = this->unit_list.GetNext(it);
+
+		// Update the unit for a player if visibility tracking diverges
+		if (unit->field_0x1a4 != unit->field_0x1a6 && g_Server->field4_0x74 != 0) {
+			for (int32_t i = 0; i < 16; i++) {
+				if ((unit->field_0x1a4 & (1 << i)) != 0 && (unit->field_0x1a6 & (1 << i)) == 0) {
+					Player* player = g_PlayersList->sub_535B50(i + 16);
+					if (player != NULL) {
+						g_NetStru1_main.sub_519221(unit, player, unit->something_per_player[i], 0xffb, 0, 0);
+					}
+				}
+			}
+			unit->field_0x1a6 = unit->field_0x1a4;
+		}
+	}
+}
+
 // 5574B5
 void UnitList::sub_5574B5() {
 	// Tick all units in this list (call VMethod1 on each)
