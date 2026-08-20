@@ -13,6 +13,12 @@ TriggerCheck::TriggerCheck() {
     this->exec_once = 1;
 }
 
+// 5afc6f
+TriggerCheck& TriggerCheck::operator=(const TriggerCheck& other) {
+    memcpy(this, &other, sizeof(TriggerCheck));
+    return *this;
+}
+
 // 5afd79
 Trigger::Trigger() {
     memset(this, 0, sizeof(Trigger));
