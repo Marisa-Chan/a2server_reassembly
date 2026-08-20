@@ -648,7 +648,6 @@ externdef ??0UnitEye2@@QAE@XZ :proc                                       ; Unit
 externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
 
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
-externdef ?sub_59367D@UnitEye@@QAEHPAVUnit@@PAEEE@Z :proc                 ; int UnitEye::sub_59367D(Unit*, uint8_t*, uint8_t, uint8_t)
 externdef ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                  ; void NetStru1::sub_51B99E(Unit*, uint8_t, uint8_t, uint8_t)
 
 externdef ?sub_528763@Unit@@QAEGXZ :proc
@@ -659,7 +658,6 @@ externdef ?sub_59A030@Unit@@QAEHXZ :proc                                  ; int3
 ; UnitEye
 
 externdef ?sub_58c00e@UnitEye@@QAEEXZ :proc     ; UnitEye::sub_58c00e() – get position byte
-externdef ?sub_5925C9@UnitEye@@QAEXPAVUnit@@@Z :proc  ; void UnitEye::sub_5925C9(Unit*)
 
 ; Group
 extern ??0Group@@QAE@XZ :proc

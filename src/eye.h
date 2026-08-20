@@ -169,9 +169,9 @@ struct UnitEye {
 
 public:
     UnitEye(); // 58BE86
-    uint8_t sub_58c00e();
-    void sub_5925C9(Unit* unit); // in asm
-    int sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1);
+    uint8_t sub_58c00e(); // 58C00E
+    void sub_5925C9(Unit* unit); // 5925C9
+    int sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_OFFSET(UnitEye, field122_0x82, 0x82);

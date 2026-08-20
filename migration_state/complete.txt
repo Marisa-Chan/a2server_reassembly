@@ -788,6 +788,7 @@
 ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z
 ?sub_58bec3@TokenPos@@QAEHXZ
 ?sub_58BFA3@MapStuff@@QAEHEEEE@Z
+?sub_58c00e@UnitEye@@QAEEXZ
 ?sub_58CA1B@MapStuff@@QAEPAVUnit@@UPosYX@@@Z
 ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z
 ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z
