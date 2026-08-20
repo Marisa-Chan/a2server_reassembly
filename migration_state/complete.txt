@@ -134,6 +134,7 @@
 ??0TxtFile@@QAE@XZ
 ??0Unit@@QAE@ABVCString@@@Z
 ??0Unit@@QAE@XZ
+??0UnitEye2@@QAE@XZ
 ??0UnitEye@@QAE@XZ
 ??0UnitGfxFile@@QAE@PBD@Z
 ??0UnitList@@QAE@XZ

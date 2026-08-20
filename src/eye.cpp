@@ -40,6 +40,14 @@ int UnitEye::sub_59367D(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t angl
     return 1;
 }
 
+// 5A4E83
+UnitEye2::UnitEye2() {
+    memset(this, 0, sizeof(UnitEye2));
+    this->seeInvisible = 1;
+    this->tick16 = 65500;
+    this->positions_list = new CList<uint16_t>();
+}
+
 // 5A4F30
 UnitEye2::~UnitEye2()
 {
