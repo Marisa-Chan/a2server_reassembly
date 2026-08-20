@@ -760,6 +760,7 @@
 ?sub_52C409@Unit@@QAEHXZ
 ?sub_52C641@Unit@@QAEXXZ
 ?sub_52C813@Unit@@QAEXXZ
+?sub_531418@Humanoid@@QAEXXZ
 ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z
 ?sub_534AC1@Player@@QAEXHI@Z
 ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z

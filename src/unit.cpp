@@ -2676,6 +2676,18 @@ void Humanoid::sub_53116B() {
     this->sub_52C58F();
 }
 
+// 531418
+void Humanoid::sub_531418() {
+    this->experience = 0;
+    for (int32_t i = 0; i < this->experience_per_sphere.size(); i++) {
+        this->experience_per_sphere[i] = ExperienceTable::GetExp(this->hit_values.skill_levels[i+1]);
+        this->experience += this->experience_per_sphere[i];
+    }
+    for (int32_t i = 1; i < this->hit_values2.skill_levels.size(); i++) {
+        this->hit_values2.skill_levels[i] = this->hit_values.skill_levels[i];
+    }
+}
+
 // 533345
 void Humanoid::sub_533345(int8_t main_skill, int8_t skill_level) {
     CString m;
