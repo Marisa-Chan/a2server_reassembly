@@ -196,8 +196,6 @@
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
-?sub_59A030@Unit@@QAEHXZ	15
-?sub_5B6FB0@Unit@@QAEHXZ	16
 ?sub_58c00e@UnitEye@@QAEEXZ	25
 ?sub_59367D@UnitEye@@QAEHPAVUnit@@PAEEE@Z	32
 ?sub_5925C9@UnitEye@@QAEXPAVUnit@@@Z	42

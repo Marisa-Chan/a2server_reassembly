@@ -633,8 +633,6 @@ externdef ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z:proc   ; (public: virtual u
 
 externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
-externdef ?sub_5B6FB0@Unit@@QAEHXZ :proc
-
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
 extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
 extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
@@ -656,7 +654,7 @@ externdef ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                  ; void
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
-externdef ?sub_59A030@Unit@@QAEHXZ :proc                                  ; int32_t Unit::sub_59A030() [ASM]
+externdef ?sub_59A030@Unit@@QAEHXZ :proc                                  ; int32_t Unit::sub_59A030()
 
 ; UnitEye
 

@@ -834,6 +834,7 @@
 ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z
 ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z
 ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z
+?sub_59A030@Unit@@QAEHXZ
 ?sub_59A670@MapStuff@@QAEPAGEE@Z
 ?sub_59A6F0@MapStuff@@QAEPAEEE@Z
 ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z

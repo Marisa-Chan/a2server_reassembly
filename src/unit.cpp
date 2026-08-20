@@ -1485,6 +1485,18 @@ int32_t Unit::sub_52BABD()
     return g_Server->tick - this->last_action_tick;
 }
 
+// 59A030
+int32_t Unit::sub_59A030()
+{
+    return this->VMethod4();
+}
+
+// 5B6FB0
+int32_t Unit::sub_5B6FB0()
+{
+    return this->unit_attrs & 4;
+}
+
 // 528725
 uint16_t Unit::sub_528725()
 {
