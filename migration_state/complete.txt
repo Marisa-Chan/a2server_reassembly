@@ -279,9 +279,7 @@
 ?AddPacketStatistic@NetStru1@@QAEXPAVPacket@@@Z
 ?AddStat1@NetStru1@@QAEXPAUNetStru2@@H@Z
 ?AddTail@UnitList@@QAEXPAVUnit@@@Z
-?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z
-?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z
 ?AddTailNet2@NetStru1@@QAEXAAPAUNetStru2@@@Z
 ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z
 ?AddUnit@Group@@QAEXPAVUnit@@@Z
@@ -592,7 +590,6 @@
 ?Proc_44c@MainWindow@@QAEXPAVCVisualObject@@@Z
 ?ProcessConnections@NetStru1@@QAEXXZ
 ?ProcessPackets@BigStruct2@@QAEHE@Z
-?ProcessTick@UnitList@@QAEXXZ
 ?ProcSelectList@VisComboBox@@QAEXXZ
 ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z
 ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z

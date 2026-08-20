@@ -700,11 +700,7 @@ externdef _dword_6CDB3C :dword
 extern ??0UnitList@@QAE@XZ:proc                         ; UnitList::UnitList
 extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList
 extern ?AddTail@UnitList@@QAEXPAVUnit@@@Z:proc          ; UnitList::AddTail
-extern ?AddTailAllocId@UnitList@@QAEXPAVUnit@@@Z:proc   ; UnitList::AddTailAllocId
-extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xxx
-externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
-externdef ?ProcessTick@UnitList@@QAEXXZ :proc
 
 
 

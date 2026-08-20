@@ -320,6 +320,16 @@ void UnitList::sub_5561A1() {
 	}
 }
 
+// Clear this player's vision-sharing bit on every unit in the list.
+// 5579D8
+void UnitList::sub_5579D8(Player* player) {
+	POSITION it = this->unit_list.GetHeadPosition();
+	while (it) {
+		Unit* unit = this->unit_list.GetNext(it);
+		unit->field_x18 &= ~player->vision_sharing_id;
+	}
+}
+
 // 5574B5
 void UnitList::sub_5574B5() {
 	// Tick all units in this list (call VMethod1 on each)
