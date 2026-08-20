@@ -377,3 +377,18 @@ void UnitList::sub_5574B5() {
 		}
 	}
 }
+
+// 557AB0
+int UnitList::sub_557AB0() {
+	int32_t count = 0;
+	for (POSITION it = this->unit_list.GetHeadPosition(); it != NULL; ) {
+		Unit* unit = this->unit_list.GetNext(it);
+		if (unit->summon_id == 0 && unit->hp > -10 && 0x40 <= unit->typeId && unit->typeId <= 0x62) {
+			// Ghost.1, F_Zombie.1 and F_Skeleton.1 are excluded. They can be "summoned" via "raise dead".
+			if ((unit->typeId != 0x45 || unit->face != 1) && unit->typeId != 0x52 && unit->typeId != 0x59) {
+				count++;
+			}
+		}
+	}
+	return count;
+}

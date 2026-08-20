@@ -705,7 +705,6 @@ extern ?AddTailId6xxx@UnitList@@QAEXPAVUnit@@@Z:proc    ; UnitList::AddTailId6xx
 externdef ?sub_5579D8@UnitList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 externdef ?ProcessTick@UnitList@@QAEXXZ :proc
-externdef ?sub_557AB0@UnitList@@QAEHXZ :proc                                   ; UnitList::sub_557AB0()
 
 
 
