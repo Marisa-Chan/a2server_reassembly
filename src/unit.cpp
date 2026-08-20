@@ -1570,6 +1570,23 @@ void Unit::sub_52C58F()
     g_World->sub_5A9A6A(this);
 }
 
+// 52C641
+void Unit::sub_52C641()
+{
+    this->sub_52C813();
+    if (this->field_0x136 == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+        delete this->some_item;
+        this->some_item = nullptr;
+        delete this->some_spell;
+        this->some_spell = nullptr;
+    }
+    this->some_spell = nullptr;
+    this->some_state2 = 0;
+    this->field_0x136 = 1;
+    this->some_state = 0;
+    this->state = 0;
+}
+
 // 52E7FA
 void Unit::sub_52E7FA()
 {

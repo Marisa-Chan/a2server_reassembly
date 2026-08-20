@@ -755,6 +755,7 @@
 ?sub_52BF3D@Unit@@QAEHEEE@Z
 ?sub_52C163@Unit@@QAEXXZ
 ?sub_52C409@Unit@@QAEHXZ
+?sub_52C641@Unit@@QAEXXZ
 ?sub_52C813@Unit@@QAEXXZ
 ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z
 ?sub_534AC1@Player@@QAEXHI@Z

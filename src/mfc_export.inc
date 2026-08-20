@@ -620,7 +620,7 @@ externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z :proc        ; void Invent
 externdef ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z :proc             ; Item* Inventory::sub_552B6B(uint16_t)
 externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
 
-;Unit
+; Unit
 externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
 externdef ?VMethod1@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod1(void))
 externdef ?VMethod2@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod2(void))
