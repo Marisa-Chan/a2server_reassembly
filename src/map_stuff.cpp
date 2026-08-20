@@ -739,6 +739,25 @@ int MapStuff::sub_596576(uint16_t yx, void* src) {
     return 1;
 }
 
+// 5964D7
+void MapStuff::sub_5964D7(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list) {
+    out_list->unit_list.RemoveAll();
+    if (this->field69_0xa456c == nullptr) {
+        return;
+    }
+
+    CList<Unit*>& list = this->field69_0xa456c->unit_list;
+
+    POSITION it = list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = list.GetNext(it);
+        uint8_t distance = this->sub_593B29(yx, unit->position->GetYX());
+        if (distance <= range) {
+            out_list->AddTail(unit);
+        }
+    }
+}
+
 // 5948B0
 void MapStuff::sub_5948B0(CWordArray* encode_buf) {
     encode_buf->RemoveAll();

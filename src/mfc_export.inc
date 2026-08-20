@@ -519,7 +519,6 @@ externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc
 externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
 externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
 externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
-externdef ?sub_5964D7@MapStuff@@QAEXGEPAVPlayer@@PAVUnitList@@@Z :proc
 externdef ?sub_594125@MapStuff@@QAEXXZ :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
