@@ -1,7 +1,18 @@
 #include "eye.h"
 
+#include <cstring>
+
 #include "unit.h"
 
+
+// 58BE86
+UnitEye::UnitEye() {
+    memset(this, 0, sizeof(UnitEye));
+    this->field5_0x5 = 65;
+    this->rotation_speed = 16;
+    this->field8_0x9 = 0xff;
+    this->field7_0x8 = 5;
+}
 
 // 58C00E
 uint8_t UnitEye::sub_58c00e() {
