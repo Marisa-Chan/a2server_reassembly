@@ -25,3 +25,19 @@ Trigger::~Trigger() {
     delete this->checks;
     delete this->actions;
 }
+
+// 5b006e
+Trigger& Trigger::operator=(const Trigger& other) {
+    memcpy(this, &other, sizeof(Trigger));
+    this->checks = new CList<Check>();
+    this->actions = new CList<int32_t>();
+    for (POSITION it = other.checks->GetHeadPosition(); it != nullptr;) {
+        Check& check = other.checks->GetNext(it);
+        this->checks->AddTail(check);
+    }
+    for (POSITION it = other.actions->GetHeadPosition(); it != nullptr;) {
+        int32_t action = other.actions->GetNext(it);
+        this->actions->AddTail(action);
+    }
+    return *this;
+}

@@ -250,6 +250,7 @@
 ??4Protections@@QAEAAU0@ABU0@@Z
 ??4TokenEntry@@QAEXABV0@@Z
 ??4TokenPos@@QAEAAU0@ABU0@@Z
+??4Trigger@@QAEAAU0@ABU0@@Z
 ??4UnitToHit@@QAEAAU0@ABU0@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVBuilding@@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVEffect@@@Z
