@@ -201,7 +201,6 @@ _sub_54C6DD	453
 ?sub_599F00@Group@@QAEPAVUnit@@XZ	13
 ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z	44
 ?sub_531418@Humanoid@@QAEXXZ	71
-?sub_530231@Humanoid@@QAEXPAV1@@Z	149
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51

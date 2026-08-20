@@ -681,7 +681,6 @@ externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 externdef ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z :proc
 externdef ?sub_531418@Humanoid@@QAEXXZ :proc
-externdef ?sub_530231@Humanoid@@QAEXPAV1@@Z :proc  ; void Humanoid::sub_530231(Humanoid*)
 
 
 ;Human

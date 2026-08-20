@@ -2628,6 +2628,26 @@ int32_t Humanoid::VMethod25() {
     return val;
 }
 
+// Copy stats and equipment from another humanoid.
+// 530231
+void Humanoid::sub_530231(Humanoid* other) {
+    this->Unit::VMethod11(other);
+
+    for (int32_t i = 0; i < this->equipment.size(); i++) {
+        delete this->equipment[i];
+        if (other->equipment[i] != nullptr) {
+            this->equipment[i] = new Armor((Armor*)other->equipment[i]);
+        } else {
+            this->equipment[i] = nullptr;
+        }
+    }
+
+    this->main_sphere = other->main_sphere;
+    for (int32_t i = 0; i < this->experience_per_sphere.size(); i++) {
+        this->experience_per_sphere[i] = other->experience_per_sphere[i];
+    }
+}
+
 // 53116B
 void Humanoid::sub_53116B() {
     this->experience = 0;
