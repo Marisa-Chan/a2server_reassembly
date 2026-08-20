@@ -25,7 +25,7 @@ public:
     virtual void VMethod1() override;
 
 public:
-    void sub_543EC3(Group* group);
+    void sub_543EC3(Group* group); // Repop the group.
     void FillUnits(Group* group); // 54361E
     void sub_54335a(); // Initializes fields.
 

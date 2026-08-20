@@ -41,6 +41,27 @@ Outpost::~Outpost() {
     }
 }
 
+// 54361E
+void Outpost::FillUnits(Group* group) {
+    this->units_original.unit_list.RemoveAll();
+    this->units_copy.unit_list.RemoveAll();
+
+    POSITION it = group->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = group->unit_list.GetNext(it);
+        this->units_original.AddTail(unit);
+        if (unit->VMethod8()) { // IsHumanoid
+            Human* human = new Human();
+            human->sub_530231((Humanoid*)unit);
+            this->units_copy.AddTail(human);
+        } else {
+            Unit* unit_copy = new Unit();
+            unit_copy->VMethod11(unit);
+            this->units_copy.AddTail(unit_copy);
+        }
+    }
+}
+
 // 5438ED
 void Outpost::VMethod1() {
     Building::VMethod1();

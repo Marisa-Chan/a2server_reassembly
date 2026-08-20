@@ -236,7 +236,6 @@ externdef ?CreateObject@Pointer@@SGPAVCObject@@XZ :proc                         
 
 
 ; Outpost
-externdef ?FillUnits@Outpost@@QAEXPAVGroup@@@Z :proc
 
 
 ; Inn

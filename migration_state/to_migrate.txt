@@ -161,7 +161,6 @@
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68
 ?sub_51A8B2@NetStru1@@QAEXPAVUnit@@PAUInventory@@PAVPlayer@@H@Z	163
-?FillUnits@Outpost@@QAEXPAVGroup@@@Z	315
 ?Begin@Perf@@QAEXXZ	14
 ?End@Perf@@QAEXXZ	63
 ?sub_534B17@Player@@QAEXXZ	25
