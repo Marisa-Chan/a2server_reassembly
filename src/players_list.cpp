@@ -94,6 +94,15 @@ Player* PlayersList::sub_535C46(uint16_t token_id) {
 	return nullptr;
 }
 
+// Reset all players' frags to 0.
+// 536286
+void PlayersList::sub_536286() {
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+		Player* player = this->list.GetNext(it);
+		player->frags = 0;
+	}
+}
+
 // Returns max player_id in list.
 // 535F97
 int32_t PlayersList::sub_535F97() {

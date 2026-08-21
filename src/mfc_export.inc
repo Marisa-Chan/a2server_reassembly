@@ -1191,7 +1191,6 @@ externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
-externdef ?sub_536286@PlayersList@@QAEXXZ :proc                                ; void PlayersList::sub_536286()
 externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
 externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
