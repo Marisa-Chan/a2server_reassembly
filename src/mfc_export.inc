@@ -1151,6 +1151,7 @@ extern ??0Action@@QAE@XZ :proc
 
 ; Diplomacy
 extern ??0Diplomacy@@QAE@XZ :proc
+externdef ?sub_5B545F@Diplomacy@@QAEXPAVPlayer@@@Z :proc    ; void Diplomacy::sub_5B545F(Player*)
 externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 
 

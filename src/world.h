@@ -19,6 +19,7 @@ class Player;
 class PlayersList;
 struct ResFile;
 class Building;
+class Player;
 class Spell;
 class Token;
 class Unit;
@@ -32,6 +33,7 @@ public:
 
 public:
     Diplomacy(); // 5B5855
+    void sub_5B545F(Player* player); // Register player in the diplomacy matrix. 5B545F
     void sub_5B5643(Unit* attacker, Unit* target, int32_t hit_flag);
 };
 ASSERT_SIZE(Diplomacy, 0x132C);

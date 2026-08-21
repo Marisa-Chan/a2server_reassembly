@@ -9,7 +9,58 @@
 #include "server.h"
 #include "unit.h"
 #include "unit_list.h"
+#include "world.h"
 
+
+// 5357C6
+void PlayersList::sub_5357C6(Player* player) {
+	// Build a bitmask of player_id values (1..31) already in use.
+	uint32_t used_mask = 0;
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+		Player* other = this->list.GetNext(it);
+		if (other->player_id < 32) {
+			used_mask |= 1 << (other->player_id - 1);
+		}
+	}
+
+	// AI players start at 1, human players start at 16.
+	int32_t new_id = 1;
+	if (!player->is_ai && g_Server->field4_0x74 != 0 && player->name != "Self") {
+		new_id = 16;
+	}
+
+	while (new_id < 32) {
+		if ((used_mask & (1u << (new_id - 1))) == 0) {
+			player->player_id = new_id;
+			if (this->next_player_id <= new_id) {
+				this->next_player_id = new_id + 1;
+			}
+			break;
+		}
+		new_id++;
+	}
+
+	if (player->is_ai) {
+		player->vision_sharing_id = 0;
+	} else {
+		if (player->player_id == 0) {
+			LogMessage("Warning - no more free scanMask bit's");
+			player->player_id = this->next_player_id;
+			this->next_player_id = this->next_player_id + 1;
+		}
+		player->vision_sharing_id = 1 << (player->player_id % 16);
+		player->vision_sharing_mask = player->vision_sharing_id;
+		if (player->player_id > 32) {
+			LogMessage("Warning - player number overflow 32");
+		}
+	}
+
+	this->list.AddTail(player);
+
+	if (g_World != nullptr) {
+		g_World->diplomacy.sub_5B545F(player);
+	}
+}
 
 int PlayersList::CountHumanPlayers()
 {
