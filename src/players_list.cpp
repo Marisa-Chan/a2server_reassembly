@@ -207,3 +207,31 @@ PlayersList::~PlayersList()
 	}
 	list.RemoveAll();
 }
+
+// 55AFB3
+void PlayersList::sub_55AFB3(CArchive& ar) {
+	if (ar.IsStoring()) {
+		ar << this->next_player_id;
+	} else {
+		ar >> this->next_player_id;
+	}
+
+	g_Server->field23_0xdc[nullptr] = nullptr;
+
+	if (ar.IsStoring()) {
+		ar << this->list.GetCount();
+		for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+			Player* player = this->list.GetNext(it);
+			ar.WriteObject(player);
+		}
+	} else {
+		this->list.RemoveAll();
+		int32_t count;
+		ar >> count;
+		for (int32_t i = 0; i < count; i++) {
+			Player* player = nullptr;
+			ar >> player;
+			this->list.AddTail(player);
+		}
+	}
+}

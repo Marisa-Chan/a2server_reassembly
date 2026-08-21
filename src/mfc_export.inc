@@ -1195,7 +1195,6 @@ externdef ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z :proc                     ;
 externdef ?CountCD@PlayersList@@QAEHXZ :proc
 externdef ?sub_536286@PlayersList@@QAEXXZ :proc                                ; void PlayersList::sub_536286()
 externdef ?sub_535F97@PlayersList@@QAEHXZ :proc                  ; int32_t PlayersList::sub_535F97()
-externdef ?sub_55AFB3@PlayersList@@QAEXAAVCArchive@@@Z :proc
 externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
 externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
