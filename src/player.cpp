@@ -202,6 +202,14 @@ void Player::sub_534AC1(int32_t amount, uint32_t notify_flag) {
     g_NetStru1_main.FUN_0051cefb(0x67, this->money, notify_flag, this);
 }
 
+// 534B17
+void Player::sub_534B17() {
+    if (this->field_0xa90 == 0) {
+        this->field_0xa90 = GetTickCount() + 30500;
+        this->field_0xa94 = this->field_0xa90 - 35500;
+    }
+}
+
 // 534B59
 void Player::sub_534B59() {
     if (this->field_0xa90 != 0) {
