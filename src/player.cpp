@@ -250,6 +250,12 @@ void Player::sub_5347A1(Unit* unit) {
     }
 }
 
+// 534A74
+void Player::sub_534A74(Unit* unit) {
+    this->sub_5347A1(unit);
+    delete unit;
+}
+
 
 
 
