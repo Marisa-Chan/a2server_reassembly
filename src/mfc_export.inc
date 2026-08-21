@@ -1188,7 +1188,6 @@ externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 externdef ??1World@@QAE@XZ :proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
-externdef ?sub_53636E@PlayersList@@QAEHXZ :proc
 externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
 externdef ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z :proc

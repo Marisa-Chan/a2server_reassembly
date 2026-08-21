@@ -92,6 +92,35 @@ int PlayersList::CountCD()
 	return count;
 }
 
+// 53636E
+int PlayersList::sub_53636E() {
+	if (g_ServerConfig.gameType != 2) {
+		return 1;
+	}
+
+	int32_t has_players = 0;
+	int32_t has_blue = 0;
+	int32_t has_red = 0;
+
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+		Player* player = this->list.GetNext(it);
+		if (player->is_ai) {
+			continue;
+		}
+		if (player->field_0xa6c == 0) {
+			return 0;
+		}
+		if (player->field_0xa70 == 0) {
+			has_blue = 1;
+		} else {
+			has_red = 1;
+		}
+		has_players = 1;
+	}
+
+	return (has_players && has_blue && has_red) ? 1 : 0;
+}
+
 // 534DDD
 void PlayersList::sub_534DDD() {
 	POSITION pos = list.GetHeadPosition();
