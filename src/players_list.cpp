@@ -78,6 +78,22 @@ Player* PlayersList::sub_535B50(uint16_t player_id) {
 	return nullptr;
 }
 
+// Find player by token id.
+// 535C46
+Player* PlayersList::sub_535C46(uint16_t token_id) {
+	POSITION it = this->list.GetHeadPosition();
+	Player* player = it ? this->list.GetNext(it) : nullptr;
+	while (player != nullptr) {
+		if (player->token_id == token_id) {
+			return player;
+		}
+
+		player = it ? this->list.GetNext(it) : nullptr;
+	}
+
+	return nullptr;
+}
+
 // Find player by exact name match.
 // 535D39
 Player* PlayersList::sub_535D39(CString name) {
