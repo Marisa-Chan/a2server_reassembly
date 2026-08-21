@@ -78,6 +78,21 @@ Player* PlayersList::sub_535D39(CString name) {
 	return nullptr;
 }
 
+// 535E94
+Player* PlayersList::sub_535E94(int32_t a, int32_t b) {
+	POSITION it = this->list.GetHeadPosition();
+	Player* player = it ? this->list.GetNext(it) : nullptr;
+	while (player != nullptr) {
+		if (player->field_0xa80 == a && player->field_0xa84 == b) {
+			return player;
+		}
+
+		player = it ? this->list.GetNext(it) : nullptr;
+	}
+
+	return nullptr;
+}
+
 int PlayersList::CountHumanPlayers()
 {
 	//53618f
