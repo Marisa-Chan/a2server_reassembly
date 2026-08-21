@@ -94,6 +94,19 @@ Player* PlayersList::sub_535C46(uint16_t token_id) {
 	return nullptr;
 }
 
+// Returns max player_id in list.
+// 535F97
+int32_t PlayersList::sub_535F97() {
+	int32_t max_id = 0;
+	for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+		Player* player = this->list.GetNext(it);
+		if (player->player_id > max_id) {
+			max_id = player->player_id;
+		}
+	}
+	return max_id;
+}
+
 // Find player by exact name match.
 // 535D39
 Player* PlayersList::sub_535D39(CString name) {
