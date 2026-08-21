@@ -343,7 +343,6 @@
 ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z
 ?CopyBeforeWrite@CString@@IAEXXZ
 ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z
-?CountCD@PlayersList@@QAEHXZ
 ?CountHumanPlayers@PlayersList@@QAEHXZ
 ?Create@CPlex@@SGPAU1@AAPAU1@II@Z
 ?CreateObject@Building@@SGPAVCObject@@XZ
@@ -764,6 +763,7 @@
 ?sub_52C813@Unit@@QAEXXZ
 ?sub_531418@Humanoid@@QAEXXZ
 ?sub_532dde@Humanoid@@QAEXPAV?$CArray@UHumanInfoData@@ABU1@@@@Z
+?sub_5347A1@Player@@QAEXPAVUnit@@@Z
 ?sub_534AC1@Player@@QAEXHI@Z
 ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z
 ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z

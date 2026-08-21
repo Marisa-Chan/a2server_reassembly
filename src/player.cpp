@@ -219,6 +219,28 @@ void Player::FUN_00534778()
     field_0xa50 = g_Server->tick16;
 }
 
+// 5347A1
+void Player::sub_5347A1(Unit* unit) {
+    Group* group = unit->group;
+    if (group == nullptr) {
+        LogMessage("Warning! Player::RemoveUnit from NULL group!");
+    } else {
+        group->RemoveUnit(unit);
+        if (group->unit_list.GetCount() == 0 && !group->owner->is_ai) {
+            POSITION it = this->group_list->groups.Find(group);
+            if (it != nullptr) {
+                this->group_list->groups.RemoveAt(it);
+            }
+            delete group;
+        }
+    }
+
+    POSITION it = this->unit_list->unit_list.Find(unit);
+    if (it != nullptr) {
+        this->unit_list->unit_list.RemoveAt(it);
+    }
+}
+
 
 
 
