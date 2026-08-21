@@ -62,6 +62,22 @@ void PlayersList::sub_5357C6(Player* player) {
 	}
 }
 
+// Find player by numeric id.
+// 535B50
+Player* PlayersList::sub_535B50(uint16_t player_id) {
+	POSITION it = this->list.GetHeadPosition();
+	Player* player = it ? this->list.GetNext(it) : nullptr;
+	while (player != nullptr) {
+		if (player->player_id == player_id) {
+			return player;
+		}
+
+		player = it ? this->list.GetNext(it) : nullptr;
+	}
+
+	return nullptr;
+}
+
 // Find player by exact name match.
 // 535D39
 Player* PlayersList::sub_535D39(CString name) {
