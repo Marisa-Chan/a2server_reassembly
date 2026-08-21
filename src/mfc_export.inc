@@ -1131,6 +1131,7 @@ externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(c
 ; World
 externdef _g_World :dword
 
+externdef ??1World@@QAE@XZ :proc
 extern ?DoScriptInstID@World@@QAEXH@Z :proc
 extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
 extern ?sub_5A457A@World@@QAEXXZ :proc
@@ -1185,12 +1186,10 @@ externdef ?sub_5347A1@Player@@QAEXPAVUnit@@@Z :proc
 ; PlayersList
 externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
 
-externdef ??1World@@QAE@XZ :proc
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z :proc
-externdef ?CountCD@PlayersList@@QAEHXZ :proc
 externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
 externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
