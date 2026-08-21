@@ -219,6 +219,15 @@ void Player::FUN_00534778()
     field_0xa50 = g_Server->tick16;
 }
 
+// 5346AC
+void Player::sub_5346AC() {
+    POSITION it = this->unit_list->unit_list.GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = this->unit_list->unit_list.GetNext(it);
+        unit->hp = -50;
+    }
+}
+
 // 5347A1
 void Player::sub_5347A1(Unit* unit) {
     Group* group = unit->group;

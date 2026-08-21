@@ -226,7 +226,6 @@ _sub_54C6DD	453
 ?End@Perf@@QAEXXZ	63
 ?sub_534B17@Player@@QAEXXZ	25
 ?sub_534A74@Player@@QAEXPAVUnit@@@Z	39
-?sub_5346AC@Player@@QAEXXZ	103
 ??0ScanPresenceGrid@@QAE@XZ	14
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z	70
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243
