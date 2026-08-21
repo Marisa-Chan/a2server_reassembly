@@ -455,6 +455,7 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetExp@ExperienceTable@@YAHI@Z
 ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ
+?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetId@CVisualObject@@QAEHXZ
 ?GetId@TokenEntry@@QBEHXZ
@@ -469,6 +470,7 @@
 ?GetLevel@ExperienceTable@@YAHI@Z
 ?GetLine@TxtFile@@QAEPADH@Z
 ?GetMaterial@TokenEntry@@QBEHXZ
+?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z
 ?GetPalette@CGamePalette@@QAEPAGH@Z
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ

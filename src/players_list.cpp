@@ -362,6 +362,27 @@ void PlayersList::sub_534DDD() {
 	}
 }
 
+// 5B70F0
+Player* PlayersList::GetHead() {
+	if (this->list.IsEmpty()) {
+		return nullptr;
+	}
+	return this->list.GetHead();
+}
+
+// 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
+Player* PlayersList::GetNext(Player* player) {
+	POSITION it = this->list.Find(player);
+	if (it == nullptr) {
+		return nullptr;
+	}
+	this->list.GetNext(it);
+	if (it == nullptr) {
+		return nullptr;
+	}
+	return this->list.GetAt(it);
+}
+
 PlayersList::~PlayersList()
 { //534c02
 	for (POSITION it = list.GetHeadPosition(); it != nullptr;)
