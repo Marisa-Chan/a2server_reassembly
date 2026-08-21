@@ -62,6 +62,22 @@ void PlayersList::sub_5357C6(Player* player) {
 	}
 }
 
+// Find player by exact name match.
+// 535D39
+Player* PlayersList::sub_535D39(CString name) {
+	POSITION it = this->list.GetHeadPosition();
+	Player* player = it ? this->list.GetNext(it) : nullptr;
+	while (player != nullptr) {
+		if (player->name == name) {
+			return player;
+		}
+
+		player = it ? this->list.GetNext(it) : nullptr;
+	}
+
+	return nullptr;
+}
+
 int PlayersList::CountHumanPlayers()
 {
 	//53618f

@@ -235,7 +235,6 @@ _sub_54C6DD	453
 ?sub_535C46@PlayersList@@QAEPAVPlayer@@G@Z	131
 ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z	132
 ?sub_535E94@PlayersList@@QAEPAVPlayer@@HH@Z	136
-?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z	168
 ??0ScanPresenceGrid@@QAE@XZ	14
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z	70
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243
