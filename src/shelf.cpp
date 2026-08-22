@@ -151,6 +151,16 @@ CMultiShopTemplate::~CMultiShopTemplate() {
     }
 }
 
+// 546F18
+void CMultiShopTemplate::sub_546F18(CMultiShopInstance* inst, int param) {
+    for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
+        CMultiShopInstance* other = this->shop_instances[i];
+        if (other != nullptr && other != inst) {
+            other->sub_5464B6(param);
+        }
+    }
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
