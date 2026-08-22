@@ -773,6 +773,7 @@
 ?sub_538897@AreaEffect@@QBEIXZ
 ?sub_539541@Spell@@QAEXI@Z
 ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z
+?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z
 ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z
 ?sub_542A31@Building@@QAEHPAUUnitToHit@@PAVUnit@@@Z
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z

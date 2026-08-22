@@ -277,6 +277,16 @@ int32_t SpellBook::sub_53DD3D() {
     return mask;
 }
 
+// 53D7F0
+void SpellBook::sub_53D7F0(int32_t spell_id, Spell* spell) {
+    if (spell_id < this->spells.GetSize()) {
+        delete this->spells[spell_id];
+    } else {
+        this->spells.SetSize(spell_id + 1);
+    }
+    this->spells[spell_id] = spell;
+}
+
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 {
 	//53dbc5
