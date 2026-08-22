@@ -743,6 +743,7 @@
 ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z
 ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
 ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z
+?sub_51E5FB@NetStru1@@QAEXHH@Z
 ?sub_51EEB7@NetStru1@@QAEXXZ
 ?sub_528725@Unit@@QAEGXZ
 ?sub_528763@Unit@@QAEGXZ

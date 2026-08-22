@@ -4506,6 +4506,16 @@ void NetStru1::sub_51E205(CString name) {
     this->QueuePacketSend(&packet);
 }
 
+// 51E5FB
+void NetStru1::sub_51E5FB(int32_t a, int32_t b) {
+    PacketInfo& packet = PacketInfo::Inst;
+    packet.id = 0xD8;
+    packet.field_0xa = a;
+    packet.field_0xe = b;
+    packet.to_player_id = 0;
+    this->QueuePacketSend(&packet);
+}
+
 // 51A6D5
 void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6) {
     if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
