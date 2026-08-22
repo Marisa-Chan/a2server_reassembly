@@ -112,7 +112,6 @@ _sub_54C6DD	453
 ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z	130
 ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z	210
 ?sub_54546E@CMultiShopShelf@@QAEXH@Z	85
-?sub_547E91@CMultiShopTemplate@@QAEHXZ	29
 ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z	31
 ?sub_54749F@CMultiShopTemplate@@QAEXXZ	33
 ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z	34

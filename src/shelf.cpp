@@ -171,6 +171,16 @@ int CMultiShopTemplate::sub_54740C(Unit* unit) {
     return -1;
 }
 
+// 547E91
+int CMultiShopTemplate::sub_547E91() {
+    if (this->refresh_assortment_counter <= 0 || this->field_0x4 != 0) {
+        return 0;
+    }
+    this->sub_5474D8();
+    this->refresh_assortment_counter = 0;
+    return 1;
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
