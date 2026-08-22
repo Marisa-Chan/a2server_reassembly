@@ -148,6 +148,34 @@ void Spell::sub_53940D(Unit* unit)
     this->sub_539541(power);
 }
 
+// 539C49
+void Spell::sub_539C49(Unit* caster, Unit* target)
+{
+    int32_t rays = 7;
+    if (caster->some_item != nullptr) {
+        for (POSITION it = caster->some_item->_effects.GetHeadPosition(); it != nullptr; ) {
+            Effect* effect = caster->some_item->_effects.GetNext(it);
+            if (effect->effect_id == modifier::castspell) {
+                rays = (int16_t)effect->spell_value / 20 + 2;
+                break;
+            }
+        }
+    } else {
+        rays = caster->sub_52F5BB(spell_info->Values().GetData()[0].sphere) / 20 + 2;
+    }
+    if (rays > 7) {
+        rays = 7;
+    }
+
+    CList<Unit*> units;
+    g_World->sub_5B5CA8(caster, target, &units, (uint8_t)rays, this->max_range);
+    g_NetStru1_main.sub_51BC6B(caster, this, &units, 0);
+    for (POSITION it = units.GetHeadPosition(); it != nullptr; ) {
+        Unit* unit = units.GetNext(it);
+        this->sub_539F5A(caster, unit, 0, 0);
+    }
+}
+
 // 539F21
 void Spell::sub_539F21(Unit* caster, Unit* target)
 {

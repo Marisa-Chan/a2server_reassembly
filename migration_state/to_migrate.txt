@@ -187,6 +187,7 @@ _sub_54C6DD	453
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
 ??0MapPlayerData@@QAE@XZ	48
 ??0MapPlayerData@@QAE@HH@Z	62
+?sub_51BC6B@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAV?$CList@PAVUnit@@ABQAV1@@@H@Z	111
 ?Begin@Perf@@QAEXXZ	14
 ??0Perf@@QAE@XZ	28
 ?End@Perf@@QAEXXZ	63
@@ -198,10 +199,10 @@ _sub_54C6DD	453
 ??0ShopAssortment@@QAE@XZ	66
 ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z	106
 ??1ShopAssortment@@QAE@XZ	143
-?sub_539C49@Spell@@QAEXPAVUnit@@0@Z	300
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
+?sub_52F5BB@Unit@@QAEEI@Z	28
 ?FUN_004972d0@Vis1200@@QAEHXZ	14
 ?FUN_00497310@Vis1200@@QAEHXZ	14
 ?FUN_0043be9f@Vis1200@@QAEXXZ	100
@@ -217,3 +218,4 @@ _sub_54C6DD	453
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
+?sub_5B5CA8@World@@QAEXPAVUnit@@0PAV?$CList@PAVUnit@@ABQAV1@@@II@Z	329
