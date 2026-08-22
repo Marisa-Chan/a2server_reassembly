@@ -334,6 +334,26 @@ void AreaEffect::sub_5384FF() {
 	this->field2_0x40 = 1;
 }
 
+// 538137
+void AreaEffect::sub_538137(uint8_t x, uint8_t y, int32_t spread_damage) {
+	uint16_t yx = (y << 8) | x;
+	Unit* unit = MapStuff_Instance->sub_5946BF(x, y);
+	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & 4) != 0) {
+		return;
+	}
+	if (this->itemDataID == 0x11) {
+		if (MapStuff_Instance->sub_58CA1B(yx) == nullptr) {
+			MapStuff_Instance->sub_594E65(this, x, y);
+		}
+		return;
+	}
+	MapStuff_Instance->sub_594E65(this, x, y);
+	this->sub_53868D(x, y);
+	if (spread_damage != 0) {
+		MapStuff_Instance->sub_594768(x, y);
+	}
+}
+
 // 53868D
 void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 	AreaEffect** layers = MapStuff_Instance->sub_59536C((y << 8) | x);

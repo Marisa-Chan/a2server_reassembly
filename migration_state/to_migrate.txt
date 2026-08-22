@@ -36,7 +36,6 @@ _sub_54C6DD	453
 ?LogMessage@@YAXVCString@@@Z	33
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?sub_538137@AreaEffect@@QAEXEEH@Z	101
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ	13
 ?FUN_0041cb21@BigStruct2@@QAEXXZ	26
 ?FUN_0041cb67@BigStruct2@@QAEXH@Z	30
@@ -190,6 +189,7 @@ _sub_54C6DD	453
 ??0MapPlayerData@@QAE@HH@Z	62
 ?sub_5946BF@MapStuff@@QAEPAVUnit@@EE@Z	22
 ?sub_59501E@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
+?sub_594E65@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
 ?sub_594768@MapStuff@@QAEXEE@Z	43
 ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z	97
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
