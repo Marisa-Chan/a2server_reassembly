@@ -23,6 +23,12 @@ Building* BuildingsList::sub_558055(Player* player) {
 	return nullptr;
 }
 
+// 558128
+Building* BuildingsList::sub_558128(TokenPos* pos) {
+	TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
+	return this->sub_557EA5(&adjusted);
+}
+
 // 557DB2
 Building* BuildingsList::sub_557DB2(uint16_t id) {
 	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {

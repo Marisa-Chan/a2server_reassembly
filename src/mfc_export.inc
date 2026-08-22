@@ -204,8 +204,7 @@ externdef _unk_6B0BD0 :byte
 externdef _unk_6B1620 :byte
 
 ; BuildingsList
-externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_558128(TokenPos*)
-extern ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
+
 
 ; Building
 extern ?classBuilding@Building@@2UCRuntimeClass@@A  : dword
