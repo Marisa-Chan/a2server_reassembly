@@ -766,10 +766,16 @@ externdef ?VMethod5@AreaEffect@@UAEXXZ :proc                                   ;
 externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ; void AreaEffect::VMethod10(Unit*)
 externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
 externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
-externdef ?sub_537CD6@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537CD6()
 externdef ?sub_537F2C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537F2C()
 externdef ?sub_53801A@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53801A()
 externdef ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                               ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
+externdef ?sub_537B2B@WavePattern@@QAEXPBH0E@Z :proc                           ; void WavePattern::sub_537B2B(const int32_t*, const int32_t*, uint8_t)
+
+; AreaEffect wave tables
+externdef _unk_6364D0 :dword
+externdef _dword_6366C4 :dword
+externdef _dword_6366C8 :dword
+externdef _dword_636AA0 :dword
 
 ; PointEffect
 externdef ??0PointEffect@@QAE@XZ :proc                                         ; PointEffect::PointEffect()
@@ -1019,6 +1025,7 @@ externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
 externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
+externdef ?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z :proc
 externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc

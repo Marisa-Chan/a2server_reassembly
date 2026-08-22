@@ -759,6 +759,7 @@
 ?sub_5357C6@PlayersList@@QAEXPAVPlayer@@@Z
 ?sub_535B50@PlayersList@@QAEPAVPlayer@@G@Z
 ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z
+?sub_537B2B@WavePattern@@QAEXPBH0E@Z
 ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z
 ?sub_538897@AreaEffect@@QBEIXZ
 ?sub_539541@Spell@@QAEXI@Z

@@ -152,6 +152,7 @@ public:
     void sub_51B870(Unit* unit); // Broadcast unit to all players
     void sub_51CF5C(Unit* unit, int flag, Player* player); // Send unit visibility packet (retn 0Ch)
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
+    void sub_51BE0E(Effect* effect, uint8_t type); // Broadcast move-cmd packet for an effect token
     void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
     void sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int32_t param);
     void sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents, in asm

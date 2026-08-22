@@ -39,7 +39,6 @@ _sub_54C6DD	453
 ?sub_537F2C@AreaEffect@@QAEXXZ	105
 ?sub_53801A@AreaEffect@@QAEXXZ	132
 ?sub_53868D@AreaEffect@@QAEXEE@Z	197
-?sub_537CD6@AreaEffect@@QAEXXZ	221
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ	13
 ?FUN_0041cb21@BigStruct2@@QAEXXZ	26
 ?FUN_0041cb67@BigStruct2@@QAEXH@Z	30
@@ -198,6 +197,7 @@ _sub_54C6DD	453
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43
+?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z	47
 ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z	59
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68

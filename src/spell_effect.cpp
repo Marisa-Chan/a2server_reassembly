@@ -11,6 +11,78 @@
 // Distance between two TokenPos positions in sub-cell units (still in asm).
 uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
 
+extern "C" {
+	extern int32_t unk_6364D0[];  // Wave table for area-effect spell 7: count, 20 x-offsets, 20 y-offsets.
+	extern int32_t dword_6366C4;  // Number of wave patterns for area-effect spell 9 (= 6).
+	extern int32_t dword_6366C8[]; // Wave patterns A for area-effect spell 9 (6 records of 41 dwords).
+	extern int32_t dword_636AA0[]; // Wave patterns B for area-effect spell 9.
+}
+
+// Wave propagation descriptor built from the static wave tables.
+struct WavePattern {
+	const int32_t* x_offsets;
+	const int32_t* y_offsets;
+	int32_t count;
+	int32_t x_mult;
+	int32_t y_mult;
+
+	void sub_537AE8(const int32_t* table);
+	void sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
+};
+
+// 537AE8
+void WavePattern::sub_537AE8(const int32_t* table) {
+	this->x_offsets = table + 1;
+	this->y_offsets = table + 0x15;
+	this->count = table[0];
+	this->x_mult = 1;
+	this->y_mult = 1;
+}
+
+// 537B2B
+void WavePattern::sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
+	this->x_offsets = table_b + 1;
+	this->y_offsets = table_b + 0x15;
+	this->count = table_b[0];
+	this->x_mult = 1;
+	this->y_mult = 1;
+	switch (direction) {
+	case 0:
+		this->x_offsets = table_a + 1;
+		this->y_offsets = table_a + 0x15;
+		this->count = table_a[0];
+		this->y_mult = -1;
+		break;
+	case 1:
+		this->y_mult = -1;
+		break;
+	case 2:
+		this->x_offsets = table_a + 0x15;
+		this->y_offsets = table_a + 1;
+		this->count = table_a[0];
+		break;
+	case 4:
+		this->x_offsets = table_a + 1;
+		this->y_offsets = table_a + 0x15;
+		this->count = table_a[0];
+		this->x_mult = -1;
+		break;
+	case 5:
+		this->x_mult = -1;
+		break;
+	case 6:
+		this->x_offsets = table_a + 0x15;
+		this->y_offsets = table_a + 1;
+		this->count = table_a[0];
+		this->x_mult = -1;
+		break;
+	case 7:
+		this->x_mult = -1;
+		this->y_mult = -1;
+		break;
+	}
+}
+
 // 636488
 IMPLEMENT_SERIAL(SpellEffect, Token, 1);
 
@@ -258,6 +330,47 @@ void AreaEffect::sub_5384FF() {
 		}
 	}
 	this->field2_0x40 = 1;
+}
+
+// 537CD6
+void AreaEffect::sub_537CD6() {
+	uint16_t old_duration = this->duration;
+	this->duration--;
+	if (old_duration != 0) {
+		return;
+	}
+	this->duration = 2;
+	uint8_t x = this->position->GetX();
+	uint8_t y = this->position->GetY();
+	WavePattern wave = {};
+	int32_t wave_count = 0;
+	uint8_t packet_type = 0x10;
+	if (this->itemDataID == 7) {
+		unk_6364D0[1] = Random0N(5) - 2;
+		unk_6364D0[0x15] = Random0N(5) - 2;
+		wave.sub_537AE8(unk_6364D0);
+		wave_count = 0x20;
+	} else if (this->itemDataID == 9) {
+		wave.sub_537B2B(dword_6366C8 + this->field_0x4f * 41, dword_636AA0 + this->field_0x4f * 41, this->field_0x4e);
+		wave_count = dword_6366C4;
+		packet_type = 0x12;
+	}
+	for (int32_t i = 0; i < wave.count; i++) {
+		uint8_t nx = x + wave.x_mult * wave.x_offsets[i];
+		uint8_t ny = y + wave.y_mult * wave.y_offsets[i];
+		this->effect->typeId = this->itemDataID * 2 + 9;
+		if (this->effect->position->FUN_0058a7e8(nx, ny)) {
+			g_NetStru1_main.sub_51BE0E(this->effect, packet_type);
+			uint16_t yx = (ny << 8) | nx;
+			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
+			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
+			this->sub_53831D(MapStuff_Instance->sub_5946BF(nx, ny));
+		}
+	}
+	this->field_0x4f++;
+	if (this->field_0x4f >= wave_count) {
+		this->field2_0x40 = 1;
+	}
 }
 
 // 6364B8
