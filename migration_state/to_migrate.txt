@@ -189,7 +189,6 @@ _sub_54C6DD	453
 ??0MapPlayerData@@QAE@HH@Z	62
 ?sub_59501E@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
 ?sub_594E65@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
-?sub_594768@MapStuff@@QAEXEE@Z	43
 ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z	97
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41

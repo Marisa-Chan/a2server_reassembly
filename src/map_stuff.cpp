@@ -2368,6 +2368,13 @@ Unit* MapStuff::sub_5946BF(uint8_t x, uint8_t y) {
     return (Unit*)this->sub_594709(PosYX(x, y).val);
 }
 
+// 594768 --- set bit 0x10 in both obstacle maps at (x, y)
+void MapStuff::sub_594768(uint8_t x, uint8_t y) {
+    PosYX yx(x, y);
+    this->ObstacleAt(yx).SetBits(0x10);
+    this->Obstacle2At(yx).SetBits(0x10);
+}
+
 // 594709
 Building* MapStuff::sub_594709(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
