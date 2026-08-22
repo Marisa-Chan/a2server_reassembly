@@ -107,6 +107,7 @@ _sub_54C6DD	453
 ?GetText@CListBox@@QBEXHAAVCString@@@Z	28
 ??1CListBox@@UAE@XZ	29
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
+?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z	20
 ?sub_5464B6@CMultiShopInstance@@QAEXH@Z	60
 ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z	210
 ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z	31
@@ -120,7 +121,7 @@ _sub_54C6DD	453
 ?sub_547DD4@CMultiShopTemplate@@QAEXXZ	87
 ?sub_5474D8@CMultiShopTemplate@@QAEXXZ	147
 ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z	198
-?sub_547644@CMultiShopTemplate@@QAEXPAVUnit@@@Z	409
+?sub_546F8D@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVUnit@@@Z	514
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36

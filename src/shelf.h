@@ -49,6 +49,7 @@ public:
     CMultiShopTemplate(Shop* shop); // 546C72
 
     void sub_546F18(CMultiShopInstance* inst, int param); // 546F18
+    CMultiShopInstance* sub_546F8D(Unit* unit); // 546F8D
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 547CB9
     void sub_547DD4(); // 547DD4
@@ -92,6 +93,7 @@ public:
     void Buy(); // 546027
     int sub_5462C8(Item* item, int arg1); // 5462C8
     void sub_5464B6(int param); // 5464B6
+    Unit* sub_546857(Unit* unit); // 546857
 };
 ASSERT_OFFSET(CMultiShopInstance, unit, 0x74);
 ASSERT_OFFSET(CMultiShopInstance, shop_template, 0x9c);

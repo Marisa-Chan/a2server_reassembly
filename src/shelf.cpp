@@ -148,3 +148,17 @@ CMultiShopTemplate::~CMultiShopTemplate() {
         this->shelves[i].ClearItems();
     }
 }
+
+// 547644
+void CMultiShopTemplate::sub_547644(Unit* unit) {
+    if (this->shop_instances.GetSize() >= 250) {
+        return;
+    }
+    if (this->shelves[0].items.GetSize() == 0) {
+        this->sub_5474D8();
+    }
+    CMultiShopInstance* shop_instance = this->sub_546F8D(unit);
+    shop_instance->sub_546857(unit);
+    this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
+    shop_instance->sub_5464B6(-1);
+}
