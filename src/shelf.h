@@ -33,8 +33,8 @@ public:
 
     void ClearItems(); // 545865
     void sub_54546E(int index); // 54546E - remove item at index
-    Item* sub_5453E8(int32_t slot, int32_t count); // 5453E8 - pick item from shelf, in asm
-    int32_t sub_544BCE(Item** item); // 544BCE - add item to shelf, in asm
+    Item* sub_5453E8(int32_t slot, int32_t count); // 5453E8 - pick item from shelf
+    int32_t sub_544BCE(Item** item); // 544BCE - add item to shelf
 };
 ASSERT_SIZE(CMultiShopShelf, 0x1c);
 

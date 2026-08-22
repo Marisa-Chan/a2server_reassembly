@@ -52,6 +52,25 @@ Item* CMultiShopShelf::sub_5453E8(int32_t slot, int32_t count) {
     return taken;
 }
 
+// 544BCE
+int32_t CMultiShopShelf::sub_544BCE(Item** item) {
+    (*item)->field11_0x4d = this->shelf_id;
+
+    for (int32_t i = 0; i < this->items.GetSize(); i++) {
+        Item* existing = this->items[i];
+        if (((*item)->VMethod16() != 0 && existing->IsSimilar(*item)) ||
+            ((*item)->VMethod16() == 0 && existing->count == 0 && existing->IsSimilar(*item))) {
+            existing->count += (*item)->count;
+            delete *item;
+            *item = existing;
+            return 1;
+        }
+    }
+
+    this->items.SetAtGrow(this->items.GetSize(), *item);
+    return 0;
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopInstance, CObject, 1); // 637288
 
