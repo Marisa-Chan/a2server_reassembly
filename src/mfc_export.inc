@@ -275,7 +275,7 @@ externdef ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z :proc                
 
 
 ; ShopAssortment
-externdef ??0ShopAssortment@@QAE@XZ :proc
+externdef ?sub_54C08A@ShopAssortment@@QAEXXZ :proc  ; void ShopAssortment::sub_54C08A()
 externdef ??1ShopAssortment@@QAE@XZ :proc
 externdef ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z :proc
 externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc

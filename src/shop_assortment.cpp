@@ -15,6 +15,13 @@ extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
 
+// 54A13B
+ShopAssortment::ShopAssortment() {
+    this->min_cost = 0;
+    this->max_cost = 0;
+    this->sub_54C08A();
+}
+
 // 54EDE9
 Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
     if (budget <= 0 || magic_volume <= 0) {
