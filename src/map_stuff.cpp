@@ -2380,6 +2380,11 @@ void MapStuff::sub_594E65(AreaEffect* ae, uint8_t x, uint8_t y) {
     this->sub_594EBA(ae, PosYX(x, y).val);
 }
 
+// 59501E --- remove area effect from (x, y)
+void MapStuff::sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y) {
+    this->sub_595073(ae, PosYX(x, y).val);
+}
+
 // 594709
 Building* MapStuff::sub_594709(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {
