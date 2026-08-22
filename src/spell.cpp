@@ -128,6 +128,12 @@ int Spell::sub_53939E(uint8_t, uint8_t)
     return spell_info->Values().GetData()[0].spell_target == 2;
 }
 
+// 5393C7
+int Spell::sub_5393C7()
+{
+    return spell_info->Values().GetData()[0].spell_target == 1;
+}
+
 // 539541
 void Spell::sub_539541(uint32_t power)
 {

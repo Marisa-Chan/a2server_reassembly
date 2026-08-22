@@ -198,7 +198,6 @@ _sub_54C6DD	453
 ??0ShopAssortment@@QAE@XZ	66
 ?GenerateAssortment@ShopAssortment@@QAEXPAUAssortGenParams@@@Z	106
 ??1ShopAssortment@@QAE@XZ	143
-?sub_5393C7@Spell@@QAEHXZ	20
 ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z	32
 ?sub_53940D@Spell@@QAEXPAVUnit@@@Z	71
 ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z	300
