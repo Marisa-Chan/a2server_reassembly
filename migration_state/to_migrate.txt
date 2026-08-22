@@ -54,7 +54,6 @@ _sub_54C6DD	453
 ?sub_5427AC@Building@@QAEXEE@Z	148
 ?sub_542624@Building@@QAEXABVCString@@@Z	174
 ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z	33
-?sub_558055@BuildingsList@@QAEPAVBuilding@@PAVPlayer@@@Z	109
 ??0CA16@@QAE@PBD@Z	19
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7

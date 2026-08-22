@@ -1,5 +1,6 @@
 #include "buildings_list.h"
 #include "building.h"
+#include "inn.h"
 
 
 void BuildingsList::FUN_0055817b()
@@ -9,6 +10,17 @@ void BuildingsList::FUN_0055817b()
 		Building* bld = GetNext(pos);
 		bld->VMethod1();
 	}
+}
+
+// 558055
+Building* BuildingsList::sub_558055(Player* player) {
+	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+		Building* building = this->GetNext(it);
+		if (building->object_info_id != 0 && building->pOwner == player && building->IsKindOf(RUNTIME_CLASS(Inn))) {
+			return building;
+		}
+	}
+	return nullptr;
 }
 
 // 557DB2
