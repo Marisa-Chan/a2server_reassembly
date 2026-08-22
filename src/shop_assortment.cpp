@@ -22,6 +22,14 @@ ShopAssortment::ShopAssortment() {
     this->sub_54C08A();
 }
 
+// 54A2DD
+ShopAssortment::~ShopAssortment() {
+    this->sub_54BC09();
+    this->arr.SetSize(0, -1);
+    this->min_cost = 0;
+    this->max_cost = 0;
+}
+
 // 54EDE9
 Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
     if (budget <= 0 || magic_volume <= 0) {

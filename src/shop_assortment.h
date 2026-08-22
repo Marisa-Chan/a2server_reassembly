@@ -39,6 +39,7 @@ struct ShopAssortment {
     void GenerateAssortment(AssortGenParams* params);  // sub_54BF6B
 
     void sub_54C08A(); // 54C08A — reset fields (still in ASM)
+    void sub_54BC09(); // 54BC09 — ClearItemsArray: delete all items (still in ASM)
     Inventory* ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* result); // 54D423
 
     int32_t sub_54EA76(Item* item); // 54EA76 — add magic to item
