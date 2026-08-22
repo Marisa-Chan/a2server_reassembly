@@ -119,6 +119,13 @@ Item* CMultiShopInstance::sub_546557(int32_t item_number, int32_t count) {
     return this->inventory.sub_552E42(item_number, count);
 }
 
+// 546857
+Unit* CMultiShopInstance::sub_546857(Unit* new_unit) {
+    Unit* old_unit = this->unit;
+    this->unit = new_unit;
+    return old_unit;
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
