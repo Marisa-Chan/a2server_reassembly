@@ -1,5 +1,7 @@
 #include "shop_assortment.h"
 
+#include <cmath>
+
 #include "constants.h"
 #include "effect.h"
 #include "game_app.h"
@@ -131,6 +133,16 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     if ((this->flags & 0x4000000) != 0) {
         this->sub_54AF21(&g_GameDataRes.magic_items);
     }
+}
+
+// 54C08A
+void ShopAssortment::sub_54C08A() {
+    this->arr.SetSize(0x400, -1);
+    for (int32_t i = 0; i < this->arr.GetSize(); i++) {
+        double x = (3.2 / this->arr.GetSize()) * i + -1.6;
+        this->arr[i] = 1.0 / std::exp(x * x);
+    }
+    this->field_0x18 = 1.0 / std::exp(2.56);
 }
 
 // 54ACCB
