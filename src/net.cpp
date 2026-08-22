@@ -4346,6 +4346,43 @@ void MarkUnitHiddenForPlayer(PacketMoveCmd* packet, Player* player) {
     }
 }
 
+// 51B0F0
+void NetStru1::sub_51B0F0(Packet* packet, Unit* unit) {
+    if (packet->to_player_id != 0) {
+        Player* player = g_PlayersList->sub_535B50(packet->to_player_id);
+        if ((unit->field_0x1a4 & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+            int32_t pid = player->player_id;
+            if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
+                (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
+                unit->something_per_player[pid - 0x10] |= 0x40000010;
+                g_NetStru1_main.sub_51CF5C(unit, 1, player);
+            }
+        } else {
+            this->QueuePacketSend(packet);
+        }
+        return;
+    }
+
+    POSITION it = g_PlayersList->list.GetHeadPosition();
+    while (it != nullptr) {
+        Player* player = g_PlayersList->list.GetNext(it);
+        if (!player->field_0x43) {
+            continue;
+        }
+        if ((unit->field_0x1a4 & player->vision_sharing_id) == 0 && g_Server->field4_0x74 != 0) {
+            int32_t pid = player->player_id;
+            if (pid >= 0x10 && pid < 0x20 && packet->id == 0x6B &&
+                (unit->something_per_player[pid - 0x10] & 0x40000000) == 0) {
+                unit->something_per_player[pid - 0x10] |= 0x40000010;
+                g_NetStru1_main.sub_51CF5C(unit, 1, player);
+            }
+        } else {
+            packet->to_player_id = player->player_id;
+            this->QueuePacketSend(packet);
+        }
+    }
+}
+
 // 51B370
 void NetStru1::sub_51B370(PacketMoveCmd* packet, TokenPos* pos) {
     if (packet->to_player_id != 0) {

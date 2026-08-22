@@ -188,7 +188,6 @@ _sub_54C6DD	453
 ??0MapPlayerData@@QAE@XZ	48
 ??0MapPlayerData@@QAE@HH@Z	62
 ?sub_51AA26@NetStru1@@QAEXPAVShop@@PAVCMultiShopShelf@@PAVPlayer@@E@Z	149
-?sub_51B0F0@NetStru1@@QAEXPAVPacket@@PAVUnit@@@Z	247
 ?Begin@Perf@@QAEXXZ	14
 ??0Perf@@QAE@XZ	28
 ?End@Perf@@QAEXXZ	63

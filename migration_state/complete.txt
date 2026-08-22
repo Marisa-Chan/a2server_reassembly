@@ -735,6 +735,7 @@
 ?sub_514BE7@GameDataRes@@QAEXXZ
 ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z
 ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z
+?sub_51B0F0@NetStru1@@QAEXPAVPacket@@PAVUnit@@@Z
 ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z
 ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z
 ?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z
