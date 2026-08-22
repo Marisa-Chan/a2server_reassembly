@@ -905,7 +905,7 @@ externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inven
 ;Spell
 
 extern ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Spell::classSpell
-externdef ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
+extern ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
 externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)
 extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::RefreshForHumanoid()
 extern ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)

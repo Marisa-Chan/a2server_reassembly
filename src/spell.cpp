@@ -134,6 +134,14 @@ int Spell::sub_5393C7()
     return spell_info->Values().GetData()[0].spell_target == 1;
 }
 
+// 539F21
+void Spell::sub_539F21(Unit* caster, Unit* target)
+{
+    if (this->spell_id != spell::prismatic_spray) {
+        this->sub_539F5A(caster, target, 0, 0);
+    }
+}
+
 // 539541
 void Spell::sub_539541(uint32_t power)
 {
