@@ -133,6 +133,55 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     }
 }
 
+// 54ACCB
+void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
+    uint32_t param_5 = (flags & 0x20000000) != 0;
+    uint32_t low_flags = flags & 0x7FFF;
+    uint32_t shape_flags = (flags & 0x3F8000) >> 0xF;
+    uint32_t type_flags = flags & 0xFC00000;
+
+    CArray<uint32_t> shape_ids;
+    CArray<uint32_t> material_ids;
+
+    int32_t index = 0;
+    while (shape_flags != 0) {
+        if ((shape_flags & 1) != 0) {
+            shape_ids.SetAtGrow(shape_ids.GetSize(), index);
+        }
+        index++;
+        shape_flags >>= 1;
+    }
+
+    index = 0;
+    while (low_flags != 0) {
+        if ((low_flags & 1) != 0) {
+            material_ids.SetAtGrow(material_ids.GetSize(), index);
+        }
+        index++;
+        if (index == 0xD) {
+            index++;
+        }
+        low_flags >>= 1;
+    }
+
+    for (int32_t i = 0; i < shape_ids.GetSize(); i++) {
+        for (int32_t j = 0; j < material_ids.GetSize(); j++) {
+            if ((type_flags & 0x400000) != 0) {
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 2, 0);
+            }
+            if ((type_flags & 0x1000000) != 0) {
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 1, param_5);
+            }
+            if ((type_flags & 0x800000) != 0) {
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 7, 0);
+            }
+            if ((type_flags & 0x8000000) != 0 && param_5 != 0) {
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 8, param_5);
+            }
+        }
+    }
+}
+
 // 54D423
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
     CArray<Item*> item_array;
