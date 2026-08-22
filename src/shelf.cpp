@@ -36,6 +36,22 @@ void CMultiShopShelf::sub_54546E(int32_t index) {
     this->items.RemoveAt(index);
 }
 
+// 5453E8
+Item* CMultiShopShelf::sub_5453E8(int32_t slot, int32_t count) {
+    if (slot >= this->items.GetSize() || slot < 0) {
+        return nullptr;
+    }
+
+    Item* item = this->items[slot];
+    if (item->count < count) {
+        count = item->count;
+    }
+    item->count -= count - 1;
+    Item* taken = item->TakeOne();
+    taken->count = count;
+    return taken;
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopInstance, CObject, 1); // 637288
 
