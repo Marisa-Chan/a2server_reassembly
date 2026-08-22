@@ -37,7 +37,6 @@ _sub_54C6DD	453
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_538137@AreaEffect@@QAEXEEH@Z	101
-?sub_53801A@AreaEffect@@QAEXXZ	132
 ?sub_53868D@AreaEffect@@QAEXEE@Z	197
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ	13
 ?FUN_0041cb21@BigStruct2@@QAEXXZ	26

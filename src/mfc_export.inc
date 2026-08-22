@@ -767,7 +767,6 @@ externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ;
 externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
 externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
 externdef ?sub_538137@AreaEffect@@QAEXEEH@Z :proc                              ; void AreaEffect::sub_538137(uint8_t, uint8_t, int32_t)
-externdef ?sub_53801A@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53801A()
 externdef ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                               ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
 externdef ?sub_537B2B@WavePattern@@QAEXPBH0E@Z :proc                           ; void WavePattern::sub_537B2B(const int32_t*, const int32_t*, uint8_t)
 

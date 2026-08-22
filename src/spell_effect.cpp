@@ -334,6 +334,24 @@ void AreaEffect::sub_5384FF() {
 	this->field2_0x40 = 1;
 }
 
+// 53801A
+void AreaEffect::sub_53801A() {
+	uint8_t x = this->position->GetX();
+	uint8_t y = this->position->GetY();
+	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
+		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	int32_t radius = this->field_0x4d;
+	for (int32_t dx = -radius; dx <= radius; dx++) {
+		for (int32_t dy = -radius; dy <= radius; dy++) {
+			if (abs(dx) + abs(dy) <= radius + 1) {
+				this->sub_538137(x + dx, y + dy, spread_damage);
+			}
+		}
+	}
+	g_NetStru1_main.sub_51BE8F(this, 1);
+	this->field_0x4c = 1;
+}
+
 // 537F2C
 void AreaEffect::sub_537F2C() {
 	uint8_t x = this->position->GetX();
