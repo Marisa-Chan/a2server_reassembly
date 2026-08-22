@@ -172,6 +172,26 @@ void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t 
     }
 }
 
+// 54668B
+void CMultiShopInstance::sub_54668B() {
+    if (this->inventory.items.GetCount() == 0) {
+        return;
+    }
+    for (POSITION pos = this->inventory.items.GetHeadPosition(); pos != nullptr; ) {
+        Item* item = this->inventory.items.GetNext(pos);
+        if (item->pOwner != nullptr) {
+            this->unit->inventory->PutItemIntoBagAtDefault(item);
+        } else {
+            this->sub_5462C8(item, -1);
+        }
+    }
+    this->inventory.items.RemoveAll();
+    this->sub_5464B6(0);
+    this->sub_5464B6(-1);
+    this->shop_template->sub_546F18(this, -1);
+    g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
