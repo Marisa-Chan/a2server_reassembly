@@ -204,6 +204,25 @@ void AreaEffect::sub_537C8C() {
 	}
 }
 
+// 538897
+uint32_t AreaEffect::sub_538897() const {
+	switch (this->itemDataID) {
+	case 3:
+		return 0;
+	case 6:
+		return 2;
+	case 0xE:
+		return 5;
+	case 0xF:
+		return 4;
+	case 0x11:
+		return 3;
+	default:
+		// The original builds a temp CString "MapLayer() call - Invalid Area Effect" and immediately destroys it (dead code).
+		return 0;
+	}
+}
+
 // 6364B8
 IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 
