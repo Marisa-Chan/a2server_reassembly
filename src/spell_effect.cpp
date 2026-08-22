@@ -334,6 +334,52 @@ void AreaEffect::sub_5384FF() {
 	this->field2_0x40 = 1;
 }
 
+// 53868D
+void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
+	AreaEffect** layers = MapStuff_Instance->sub_59536C((y << 8) | x);
+	if (layers == nullptr) {
+		return;
+	}
+	switch (this->itemDataID) {
+	case 2:
+	case 3:
+		if (layers[2] != nullptr) {
+			AreaEffect* layer = layers[2];
+			MapStuff_Instance->sub_59501E(layer, x, y);
+			g_NetStru1_main.sub_51BE8F(layer, 0);
+		}
+		if (layers[1] != nullptr) {
+			AreaEffect* layer = layers[1];
+			MapStuff_Instance->sub_59501E(layer, x, y);
+			g_NetStru1_main.sub_51BE8F(layer, 0);
+		}
+		break;
+	case 6:
+		if (layers[0] != nullptr) {
+			AreaEffect* layer = layers[2];
+			MapStuff_Instance->sub_59501E(layer, x, y);
+			g_NetStru1_main.sub_51BE8F(layer, 0);
+		}
+		break;
+	case 0xE:
+		if (layers[4] != nullptr) {
+			MapStuff_Instance->sub_59501E(layers[5], x, y);
+			AreaEffect* layer = layers[4];
+			MapStuff_Instance->sub_59501E(layer, x, y);
+			g_NetStru1_main.sub_51BE8F(layer, 0);
+		}
+		break;
+	case 0xF:
+		if (layers[5] != nullptr) {
+			MapStuff_Instance->sub_59501E(layers[4], x, y);
+			AreaEffect* layer = layers[5];
+			MapStuff_Instance->sub_59501E(layer, x, y);
+			g_NetStru1_main.sub_51BE8F(layer, 0);
+		}
+		break;
+	}
+}
+
 // 53801A
 void AreaEffect::sub_53801A() {
 	uint8_t x = this->position->GetX();
