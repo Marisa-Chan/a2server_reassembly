@@ -22,6 +22,23 @@ Building* BuildingsList::sub_557DB2(uint16_t id) {
 	return nullptr;
 }
 
+// 557F69
+Building* BuildingsList::sub_557F69(TokenPos* pos) {
+	int32_t best_distance = 0x7FFF;
+	Building* best_building = nullptr;
+	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+		Building* building = this->GetNext(it);
+		if (building->object_info_id != 0) {
+			uint8_t distance = building->position->Distance(pos);
+			if (distance <= best_distance) {
+				best_distance = distance;
+				best_building = building;
+			}
+		}
+	}
+	return best_building;
+}
+
 // 558228
 void BuildingsList::sub_558228(Building* building) {
 	this->AddTail(building);
