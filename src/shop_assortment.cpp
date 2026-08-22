@@ -202,6 +202,66 @@ void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
     }
 }
 
+// 54A420
+void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t param_5) {
+    for (int32_t i = 1; i < items->GetSize(); i++) {
+        if ((((*items)[i].shape_material_matrix[shape] >> mat) & 1) == 0) {
+            continue;
+        }
+
+        int32_t cost = (int32_t)((*items)[i].Values()[0].price *
+                                 g_GameDataRes.materials[mat].data.price *
+                                 g_GameDataRes.shapes[shape].data.price);
+        if ((cost < this->min_cost || cost > this->max_cost) && param_5 == 0) {
+            continue;
+        }
+
+        Item* item = nullptr;
+        switch (item_type) {
+        case 1:
+            if ((shape != 0 || mat != 0 || i != 2) &&
+                (shape != 0 || mat != 1 || i != 2) &&
+                (shape != 6 || mat != 4 || i != 6)) {
+                item = new Armor(shape, mat, i);
+            }
+            break;
+        case 2: {
+            Weapon* weapon = new Weapon(shape, mat, i);
+            if ((weapon->world_equip->Values()[0].other_param & 1) == 0) {
+                delete weapon;
+            } else {
+                item = weapon;
+            }
+            break;
+        }
+        case 7:
+            item = new Shield(shape, mat, i);
+            break;
+        case 8: {
+            Weapon* weapon = new Weapon(shape, mat, i);
+            if ((weapon->world_equip->Values()[0].other_param & 1) != 0) {
+                delete weapon;
+            } else {
+                item = weapon;
+            }
+            break;
+        }
+        }
+
+        if (param_5 != 0 && item != nullptr &&
+            item->magic_volume < std::pow((double)this->min_cost, 0.4)) {
+            delete item;
+            item = nullptr;
+        }
+
+        if (item != nullptr) {
+            int32_t size = this->items.GetSize();
+            this->items.SetSize(size + 1, -1);
+            this->items[size] = item;
+        }
+    }
+}
+
 // 54AF21
 void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
     // First pass: spell books

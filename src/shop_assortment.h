@@ -44,7 +44,7 @@ struct ShopAssortment {
     void sub_54BC09(); // 54BC09 — ClearItemsArray: delete all items (still in ASM)
     void sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags); // 54ACCB — AddItemsFlags
     void sub_54AF21(CArray<MagicItem>* items); // 54AF21 — AddMagicItems
-    void sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t param_5); // 54A420 — AddItems (still in ASM)
+    void sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t param_5); // 54A420 — AddItems
     Inventory* ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* result); // 54D423
 
     int32_t sub_54EA76(Item* item); // 54EA76 — add magic to item
