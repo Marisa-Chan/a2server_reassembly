@@ -82,7 +82,7 @@ public:
     int16_t magic_volume;
     int16_t weight;
     uint8_t field10_0x4c;
-    uint8_t field11_0x4d;
+    uint8_t field11_0x4d; // Shelf ID?
     uint8_t field12_0x4e;
     uint8_t field13_0x4f;
     uint32_t field14_0x50;

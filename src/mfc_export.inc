@@ -255,11 +255,12 @@ externdef ?sub_54546E@CMultiShopShelf@@QAEXH@Z :proc                            
 ; MultiShopTemplate
 externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
 externdef ?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z :proc                  ; int CMultiShopTemplate::sub_54740C(Unit*)
+externdef ?sub_54749F@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_54749F()
 externdef ?sub_547E91@CMultiShopTemplate@@QAEHXZ :proc                           ; int CMultiShopTemplate::sub_547E91()
 externdef ?sub_547DD4@CMultiShopTemplate@@QAEXXZ :proc                           ; void MultiShopTemplate::sub_547DD4()
 externdef ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z :proc
 externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
-externdef ?sub_5474D8@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_5474D8()
+extern ?sub_5474D8@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_5474D8()
 externdef ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547B7B(Unit*)
 externdef ?sub_547BBC@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547BBC(Unit*)
 externdef ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z :proc        ; void CMultiShopTemplate::sub_547BFD(Unit*, int, Item*)

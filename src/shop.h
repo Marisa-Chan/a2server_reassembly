@@ -3,24 +3,15 @@
 
 #include <cstdint>
 
-#include "building.h"
 #include "assert_offset.h"
+#include "building.h"
+#include "shop_assortment.h"
 
 
 class CMultiShopTemplate;
 class Humanoid;
 class Item;
 class Unit;
-
-
-struct AssortmentGenParams {
-    int32_t min_cost;
-    int32_t max_cost;
-    int32_t max_count;
-    int32_t max_same_count;
-    uint32_t flags;
-};
-ASSERT_SIZE(AssortmentGenParams, 0x14);
 
 class Shop : public Building {
 public:
@@ -49,7 +40,7 @@ public:
 
 public:
     CMultiShopTemplate* shop_template;
-    AssortmentGenParams gen_params[4];
+    AssortGenParams gen_params[4];
     uint32_t field_0xc0;
 };
 ASSERT_OFFSET(Shop, gen_params, 0x70);

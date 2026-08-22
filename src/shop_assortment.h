@@ -19,6 +19,7 @@ struct AssortGenParams {
     int32_t max_same_count;
     int32_t flags;
 };
+ASSERT_SIZE(AssortGenParams, 0x14);
 
 
 struct ShopAssortment {

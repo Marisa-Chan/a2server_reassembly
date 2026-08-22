@@ -113,6 +113,7 @@ _sub_54C6DD	453
 ?sub_54546E@CMultiShopShelf@@QAEXH@Z	85
 ?sub_547E91@CMultiShopTemplate@@QAEHXZ	29
 ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z	31
+?sub_54749F@CMultiShopTemplate@@QAEXXZ	33
 ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z	34
 ?sub_547BBC@CMultiShopTemplate@@QAEXPAVUnit@@@Z	34
 ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z	42
@@ -122,7 +123,6 @@ _sub_54C6DD	453
 ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z	55
 ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z	57
 ?sub_547DD4@CMultiShopTemplate@@QAEXXZ	87
-?sub_5474D8@CMultiShopTemplate@@QAEXXZ	147
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36

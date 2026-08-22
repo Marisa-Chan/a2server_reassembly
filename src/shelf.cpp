@@ -4,7 +4,9 @@
 #include "item.h"
 #include "net.h"
 #include "player.h"
+#include "server.h"
 #include "shop.h"
+#include "shop_assortment.h"
 #include "unit.h"
 
 IMPLEMENT_SERIAL(CMultiShopShelf, CObject, 1); // 637270
@@ -161,6 +163,29 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
     shop_instance->sub_546857(unit);
     this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
     shop_instance->sub_5464B6(-1);
+}
+
+// 5474D8
+void CMultiShopTemplate::sub_5474D8() {
+    if (this->field_0x4 > 0) {
+        return;
+    }
+    ShopAssortment assort;
+    this->sub_54749F();
+    AssortGenParams* params;
+    if (g_Server->field4_0x74 == 0) {
+        params = ScenarioGetShopAssortment();
+    } else {
+        params = (AssortGenParams*)this->shop->gen_params;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        AssortGenParams* p = &params[i];
+        assort.GenerateAssortment(p);
+        assort.ArrangeShelfs(p->max_count, p->max_same_count, p->min_cost, p->max_cost, &this->shelves[i].items);
+        for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
+            this->shelves[i].items[j]->field11_0x4d = this->shelves[i].shelf_id;
+        }
+    }
 }
 
 // 546F8D
