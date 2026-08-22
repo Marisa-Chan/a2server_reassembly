@@ -635,7 +635,8 @@ externdef ??0UnitEye2@@QAE@XZ :proc                                       ; Unit
 externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
 
 externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
-externdef ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                  ; void NetStru1::sub_51B99E(Unit*, uint8_t, uint8_t, uint8_t)
+extern ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                     ; void NetStru1::sub_51B99E(Unit*, uint8_t, uint8_t, uint8_t)
+externdef ?sub_51B0F0@NetStru1@@QAEXPAVPacket@@PAVUnit@@@Z :proc          ; void NetStru1::sub_51B0F0(Packet*, Unit*)
 
 externdef ?sub_528763@Unit@@QAEGXZ :proc
 externdef ?sub_528725@Unit@@QAEGXZ :proc
