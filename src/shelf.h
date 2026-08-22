@@ -32,6 +32,7 @@ public:
     CArray<Item*> items;
 
     void ClearItems(); // 545865
+    void sub_54546E(int index); // 54546E - remove item at index
 };
 ASSERT_SIZE(CMultiShopShelf, 0x1c);
 
@@ -50,9 +51,11 @@ public:
 
     void sub_546F18(CMultiShopInstance* inst, int param); // 546F18
     CMultiShopInstance* sub_546F8D(Unit* unit); // 546F8D
+    int sub_54740C(Unit* unit); // 54740C - find shop instance index for unit's owner
     Item* sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count); // 547C5A
     void sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 547CB9
     void sub_547DD4(); // 547DD4
+    int sub_547E91(); // 547E91 - refresh assortment if no live instances
     CMultiShopInstance* sub_547468(Humanoid* humanoid); // 547468 - find shop instance for player's unit
     void sub_5479C6(Humanoid* humanoid); // 5479C6
     void sub_5474D8(); // 5474D8

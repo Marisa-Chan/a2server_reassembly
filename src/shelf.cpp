@@ -184,3 +184,24 @@ CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
     }
     return instance;
 }
+
+// 5479C6
+void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
+    int32_t index = this->sub_54740C(humanoid);
+    if (index == -1) {
+        return;
+    }
+    CMultiShopInstance* instance = this->shop_instances[index];
+    this->shop_instances.RemoveAt(index);
+    delete instance;
+    for (int32_t i = 0; i < 4; i++) {
+        for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
+            Item* item = this->shelves[i].items[j];
+            if (item->count == 0 && item->field10_0x4c == 0) {
+                this->shelves[i].sub_54546E(j);
+                j -= 1;
+            }
+        }
+    }
+    this->sub_547E91();
+}
