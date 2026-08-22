@@ -195,6 +195,15 @@ void AreaEffect::sub_53831D(Unit* unit) {
 	}
 }
 
+// 537C8C
+void AreaEffect::sub_537C8C() {
+	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == 4) {
+		this->sub_537F2C();
+	} else {
+		this->sub_53801A();
+	}
+}
+
 // 6364B8
 IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 

@@ -764,7 +764,8 @@ externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ;
 externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
 externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
 externdef ?sub_537CD6@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537CD6()
-externdef ?sub_537C8C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537C8C()
+externdef ?sub_537F2C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537F2C()
+externdef ?sub_53801A@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53801A()
 externdef ?sub_53822C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53822C()
 externdef ?sub_5384FF@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_5384FF()
 
