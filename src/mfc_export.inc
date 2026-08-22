@@ -1116,7 +1116,7 @@ extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
 
 
 extern ?sub_51E5FB@NetStru1@@QAEXHH@Z :proc          ; void NetStru1::sub_51E5FB(int, int)
-externdef ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc         ; void NetStru1::sub_51E63F(int, int, int)
+extern ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc         ; void NetStru1::sub_51E63F(int, int, int)
 externdef ?sub_51E794@NetStru1@@QAEXHHEF@Z :proc        ; void NetStru1::sub_51E794(int, int, uint8_t, int16_t)
 externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub_51E289(int, CString, int, int, int)
 externdef ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(const char*, int)
