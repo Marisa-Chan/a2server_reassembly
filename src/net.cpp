@@ -237,6 +237,19 @@ void NetStru1::sub_51B870(Unit* unit) {
     }
 }
 
+// 51BE0E
+void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
+    PacketMoveCmd& packet = PacketMoveCmd::Inst;
+    packet.id = 0x86;
+    packet.field_0xd = effect->position->GetX();
+    packet.field_0xe = effect->position->GetY();
+    packet.field_0xf = type;
+    packet.field_0xa = (uint16_t)effect->building_id;
+    packet.field_0xc = (uint8_t)effect->typeId;
+    packet.to_player_id = 0;
+    this->sub_51B370(&packet, effect->position);
+}
+
 // 51BE8F
 void NetStru1::sub_51BE8F(AreaEffect* obj, int32_t flag) {
     if (obj->itemDataID == 2) {

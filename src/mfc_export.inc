@@ -1021,7 +1021,7 @@ externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
 externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
-externdef ?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z :proc
+extern ?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z :proc
 externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
