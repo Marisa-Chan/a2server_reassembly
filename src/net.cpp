@@ -27,6 +27,7 @@
 #include "map_stuff.h"
 #include "quest.h"
 #include "inventory.h"
+#include "shelf.h"
 
 
 extern "C" uint32_t dword_665CFC;
@@ -4738,6 +4739,25 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
     }
 
     this->QueuePacketSend(&packet);
+}
+
+// 51AB99
+void NetStru1::sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param) {
+    if (param == -1) {
+        for (int32_t i = 0; i < 4; i++) {
+            Shop* shop = nullptr;
+            if (inst->shop_template != nullptr) {
+                shop = inst->shop_template->shop;
+            }
+            this->sub_51AA26(shop, &inst->shelves[i], player, i + 5);
+        }
+    } else if (param > 0) {
+        Shop* shop = nullptr;
+        if (inst->shop_template != nullptr) {
+            shop = inst->shop_template->shop;
+        }
+        this->sub_51AA26(shop, &inst->shelves[param - 1], player, param + 4);
+    }
 }
 
 // 51AC77

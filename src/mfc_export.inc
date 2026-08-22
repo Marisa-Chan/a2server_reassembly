@@ -1027,7 +1027,7 @@ externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51A8B2@NetStru1@@QAEXPAVUnit@@PAUInventory@@PAVPlayer@@H@Z :proc
-externdef ?sub_51AB99@NetStru1@@QAEXPAVCMultiShopInstance@@PAVPlayer@@H@Z :proc  ; void NetStru1::sub_51AB99(CMultiShopInstance*, Player*, int32_t)
+externdef ?sub_51AA26@NetStru1@@QAEXPAVShop@@PAVCMultiShopShelf@@PAVPlayer@@E@Z :proc  ; void NetStru1::sub_51AA26(Shop*, CMultiShopShelf*, Player*, uint8_t)
 externdef ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z :proc
 extern ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z :proc  ; void NetStru1::sub_51CDFB(CString&, uint32_t, char, Player*)
 
