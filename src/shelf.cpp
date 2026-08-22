@@ -28,6 +28,14 @@ void CMultiShopShelf::ClearItems() {
     items.RemoveAll();
 }
 
+// 54546E
+void CMultiShopShelf::sub_54546E(int32_t index) {
+    if (index >= this->items.GetSize() || index < 0) {
+        return;
+    }
+    this->items.RemoveAt(index);
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopInstance, CObject, 1); // 637288
 
