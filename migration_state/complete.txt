@@ -745,6 +745,7 @@
 ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z
 ?sub_51E5FB@NetStru1@@QAEXHH@Z
 ?sub_51E63F@NetStru1@@QAEXHHH@Z
+?sub_51E794@NetStru1@@QAEXHHEF@Z
 ?sub_51EEB7@NetStru1@@QAEXXZ
 ?sub_528725@Unit@@QAEGXZ
 ?sub_528763@Unit@@QAEGXZ

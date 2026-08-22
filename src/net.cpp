@@ -4529,6 +4529,19 @@ void NetStru1::sub_51E63F(int32_t a, int32_t b, int32_t error_code) {
     this->QueuePacketSend(&packet);
 }
 
+// 51E794
+void NetStru1::sub_51E794(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = player_id;
+    packet.id = 0xE1;
+    packet.count = 0xC;
+    uint32_t* p = (uint32_t*)packet.data;
+    *p++ = a;
+    *p++ = b;
+    *p = status;
+    this->QueuePacketSend(&packet);
+}
+
 // 51A6D5
 void NetStru1::sub_51A6D5(Unit* unit, Player* player, int32_t param5, int32_t param6) {
     if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
