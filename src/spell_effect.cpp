@@ -237,6 +237,29 @@ void AreaEffect::sub_53822C() {
 	this->field_0x4c = 0;
 }
 
+// 5384FF
+void AreaEffect::sub_5384FF() {
+	g_NetStru1_main.sub_51BE8F(this, 1);
+	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
+		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	uint8_t x = this->position->GetX();
+	uint8_t y = this->position->GetY();
+	int32_t radius = this->field_0x4d;
+	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
+		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
+			uint16_t yx = (dy << 8) | dx;
+			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
+			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
+			this->sub_53831D(MapStuff_Instance->sub_5946BF(dx, dy));
+			if (spread_damage) {
+				this->sub_53868D(dx, dy);
+				MapStuff_Instance->sub_594768(dx, dy);
+			}
+		}
+	}
+	this->field2_0x40 = 1;
+}
+
 // 6364B8
 IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 

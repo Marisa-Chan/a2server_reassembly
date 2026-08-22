@@ -197,6 +197,8 @@ public:
     uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     void sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
+    Unit* sub_5946BF(uint8_t x, uint8_t y); // 5946BF
+    void sub_594768(uint8_t x, uint8_t y); // 594768
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx
     AreaEffect** sub_59536C(uint32_t yx); // Get pointer to area_effects[6] array at cell yx.
     int16_t sub_5913BD(Unit* unit, uint8_t x, uint8_t y); // Movement time for unit entering tile (x,y).

@@ -502,6 +502,8 @@ externdef ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_59501E@MapStuff@@QAEXPAVAreaEffect@@EE@Z :proc
+externdef ?sub_5946BF@MapStuff@@QAEPAVUnit@@EE@Z :proc
+externdef ?sub_594768@MapStuff@@QAEXEE@Z :proc
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?FacingDiff@MapStuff@@QAEEEE@Z :proc                         ; uint8_t MapStuff::FacingDiff(uint8_t, uint8_t)
@@ -767,7 +769,7 @@ externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ;
 externdef ?sub_537CD6@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537CD6()
 externdef ?sub_537F2C@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_537F2C()
 externdef ?sub_53801A@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_53801A()
-externdef ?sub_5384FF@AreaEffect@@QAEXXZ :proc                                 ; void AreaEffect::sub_5384FF()
+externdef ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                               ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
 
 ; PointEffect
 externdef ??0PointEffect@@QAE@XZ :proc                                         ; PointEffect::PointEffect()
