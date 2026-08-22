@@ -108,7 +108,6 @@ _sub_54C6DD	453
 ??1CListBox@@UAE@XZ	29
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
 ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z	20
-?sub_546537@CMultiShopInstance@@QAEXHPAVItem@@@Z	20
 ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z	20
 ?sub_5464B6@CMultiShopInstance@@QAEXH@Z	60
 ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z	130
@@ -186,6 +185,7 @@ _sub_54C6DD	453
 ?OnIdle@GameApp@@UAEHJ@Z	199
 ?sub_599F00@Group@@QAEPAVUnit@@XZ	13
 ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z	44
+?sub_5524FA@Inventory@@QAEXHPAVItem@@@Z	502
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51

@@ -109,6 +109,11 @@ void CMultiShopInstance::Buy() {
     g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
 
+// 546537
+void CMultiShopInstance::sub_546537(int32_t amount, Item* item) {
+    this->inventory.sub_5524FA(amount, item);
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
