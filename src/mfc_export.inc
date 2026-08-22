@@ -218,7 +218,6 @@ externdef ?CreateObject@Building@@SGPAVCObject@@XZ :proc  ; Building::CreateObje
 externdef ?VMethod1@Building@@UAEXXZ :proc
 externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        ; void Building::Serialize(CArchive&)
 externdef ?sub_5427AC@Building@@QAEXEE@Z :proc                                  ; void Building::sub_5427AC(uint8_t, uint8_t)
-externdef ?sub_542624@Building@@QAEXABVCString@@@Z :proc                        ; void Building::sub_542624(const CString&)
 
 
 ; Pointer

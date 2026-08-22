@@ -35,6 +35,31 @@ Building::Building() {
     this->sub_542624("");
 }
 
+// 542624
+void Building::sub_542624(const CString& name) {
+    this->object_info_id = 0;
+    this->building_info = nullptr;
+    this->typeId = 0;
+    this->scan_range = 0;
+    this->hp = this->hp_max = 50;
+    if (name.GetLength() < 2) {
+        return;
+    }
+    int32_t info_index = 0;
+    for (int32_t i = g_GameDataRes.buildings.GetSize() - 1; i > 0; i--) {
+        if (name == g_GameDataRes.buildings[i].name) {
+            info_index = i;
+            break;
+        }
+    }
+    this->object_info_id = info_index;
+    if (this->object_info_id == 0) {
+        LogMessage("Invalid building " + name + " created.");
+    } else {
+        this->sub_5427AC(0, 0);
+    }
+}
+
 // 54293A
 Building::~Building() {
     if (this->building_id != 0) {
