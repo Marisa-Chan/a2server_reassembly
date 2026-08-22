@@ -135,6 +135,14 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     }
 }
 
+// 54BC09
+void ShopAssortment::sub_54BC09() {
+    for (int32_t i = 0; i < this->items.GetSize(); i++) {
+        delete this->items[i];
+    }
+    this->items.SetSize(0, -1);
+}
+
 // 54C08A
 void ShopAssortment::sub_54C08A() {
     this->arr.SetSize(0x400, -1);
