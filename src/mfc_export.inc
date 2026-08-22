@@ -502,6 +502,7 @@ externdef ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_59501E@MapStuff@@QAEXPAVAreaEffect@@EE@Z :proc
+externdef ?sub_594EBA@MapStuff@@QAEHPAVAreaEffect@@G@Z :proc            ; int MapStuff::sub_594EBA(AreaEffect*, uint16_t)
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?FacingDiff@MapStuff@@QAEEEE@Z :proc                         ; uint8_t MapStuff::FacingDiff(uint8_t, uint8_t)
@@ -764,7 +765,6 @@ externdef ?VMethod5@AreaEffect@@UAEXXZ :proc                                   ;
 externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ; void AreaEffect::VMethod10(Unit*)
 externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
 externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
-externdef ?sub_594E65@MapStuff@@QAEXPAVAreaEffect@@EE@Z :proc                  ; void MapStuff::sub_594E65(AreaEffect*, uint8_t, uint8_t)
 extern ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                                  ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
 externdef ?sub_537B2B@WavePattern@@QAEXPBH0E@Z :proc                           ; void WavePattern::sub_537B2B(const int32_t*, const int32_t*, uint8_t)
 
