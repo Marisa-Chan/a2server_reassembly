@@ -190,6 +190,13 @@ CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid* humanoid) {
     return this->shop_instances[index];
 }
 
+// 54749F
+void CMultiShopTemplate::sub_54749F() {
+    for (int32_t i = 0; i < 4; i++) {
+        this->shelves[i].ClearItems();
+    }
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
