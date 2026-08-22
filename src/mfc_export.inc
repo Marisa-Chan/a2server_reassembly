@@ -204,7 +204,6 @@ externdef _unk_6B0BD0 :byte
 externdef _unk_6B1620 :byte
 
 ; BuildingsList
-externdef ?sub_557DB2@BuildingsList@@QAEPAVBuilding@@G@Z :proc
 externdef ?sub_558128@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_558128(TokenPos*)
 externdef ?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557EA5(TokenPos*)
 externdef ?sub_557F69@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z :proc   ; BuildingsList::sub_557F69(TokenPos*)

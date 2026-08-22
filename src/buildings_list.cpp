@@ -11,6 +11,17 @@ void BuildingsList::FUN_0055817b()
 	}
 }
 
+// 557DB2
+Building* BuildingsList::sub_557DB2(uint16_t id) {
+	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+		Building* building = this->GetNext(it);
+		if (building->building_id == id) {
+			return building;
+		}
+	}
+	return nullptr;
+}
+
 // 558228
 void BuildingsList::sub_558228(Building* building) {
 	this->AddTail(building);
