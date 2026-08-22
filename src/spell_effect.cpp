@@ -223,6 +223,20 @@ uint32_t AreaEffect::sub_538897() const {
 	}
 }
 
+// 53822C
+void AreaEffect::sub_53822C() {
+	uint8_t x = this->position->GetX();
+	uint8_t y = this->position->GetY();
+	int32_t radius = this->field_0x4d;
+	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
+		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
+			MapStuff_Instance->sub_59501E(this, dx, dy);
+		}
+	}
+	g_NetStru1_main.sub_51BE8F(this, 0);
+	this->field_0x4c = 0;
+}
+
 // 6364B8
 IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 
