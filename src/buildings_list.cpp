@@ -22,6 +22,17 @@ Building* BuildingsList::sub_557DB2(uint16_t id) {
 	return nullptr;
 }
 
+// 557EA5
+Building* BuildingsList::sub_557EA5(TokenPos* pos) {
+	for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+		Building* building = this->GetNext(it);
+		if (building->position->Distance(pos) <= 2) {
+			return building;
+		}
+	}
+	return nullptr;
+}
+
 // 557F69
 Building* BuildingsList::sub_557F69(TokenPos* pos) {
 	int32_t best_distance = 0x7FFF;

@@ -778,6 +778,7 @@
 ?sub_55401E@Sack@@QAEXXZ
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
 ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z
+?sub_557EA5@BuildingsList@@QAEPAVBuilding@@PAUTokenPos@@@Z
 ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z
 ?sub_55DD10@QuestMap@@QAEXHHH@Z
 ?sub_55DE84@QuestMap@@QAEXXZ
