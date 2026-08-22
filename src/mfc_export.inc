@@ -274,6 +274,7 @@ externdef ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z :proc                     
 externdef ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z :proc              ; Unit* CMultiShopInstance::sub_546857(Unit*)
 externdef ?sub_54668B@CMultiShopInstance@@QAEXXZ :proc                           ; void CMultiShopInstance::sub_54668B()
 externdef ?sub_546537@CMultiShopInstance@@QAEXHPAVItem@@@Z :proc                 ; void CMultiShopInstance::sub_546537(int, Item*)
+externdef ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z :proc                 ; Item* CMultiShopInstance::sub_546557(int, int)
 
 
 ; ShopAssortment

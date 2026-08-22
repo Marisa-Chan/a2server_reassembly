@@ -239,6 +239,17 @@ void CMultiShopTemplate::sub_547BFD(Unit* unit, int amount, Item* item) {
     instance->sub_546537(amount, item);
 }
 
+// 547C5A
+Item* CMultiShopTemplate::sub_547C5A(Humanoid* humanoid, int16_t src_slot, int32_t count) {
+    CMultiShopInstance* instance = this->sub_547468(humanoid);
+    if (instance == nullptr) {
+        LogMessage("Invalid shop transaction - no such customer");
+        return nullptr;
+    }
+    instance->sub_546857(humanoid);
+    return instance->sub_546557(src_slot, count);
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {

@@ -774,6 +774,7 @@
 ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z
 ?sub_547BBC@CMultiShopTemplate@@QAEXPAVUnit@@@Z
 ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z
+?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z
 ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z
 ?sub_547E91@CMultiShopTemplate@@QAEHXZ
 ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z
