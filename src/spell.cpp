@@ -134,6 +134,20 @@ int Spell::sub_5393C7()
     return spell_info->Values().GetData()[0].spell_target == 1;
 }
 
+// 53940D
+void Spell::sub_53940D(Unit* unit)
+{
+    const SpellInfoData& info = spell_info->Values().GetData()[0];
+    int32_t power = unit->hit_values.skill_levels[info.sphere] + unit->mind - 30;
+    if (power < 0) {
+        power = 0;
+    }
+    if (power > 255) {
+        power = 255;
+    }
+    this->sub_539541(power);
+}
+
 // 539F21
 void Spell::sub_539F21(Unit* caster, Unit* target)
 {
