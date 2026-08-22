@@ -53,21 +53,21 @@ Item* CMultiShopShelf::sub_5453E8(int32_t slot, int32_t count) {
 }
 
 // 544BCE
-int32_t CMultiShopShelf::sub_544BCE(Item** item) {
-    (*item)->field11_0x4d = this->shelf_id;
+int32_t CMultiShopShelf::sub_544BCE(Item** item_ptr) {
+    Item* item = *item_ptr;
+    item->field11_0x4d = this->shelf_id;
 
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         Item* existing = this->items[i];
-        if (((*item)->VMethod16() != 0 && existing->IsSimilar(*item)) ||
-            ((*item)->VMethod16() == 0 && existing->count == 0 && existing->IsSimilar(*item))) {
-            existing->count += (*item)->count;
-            delete *item;
-            *item = existing;
+        if ((item->VMethod16() && existing->IsSimilar(item)) || (!item->VMethod16() && existing->count == 0 && existing->IsSimilar(item))) {
+            existing->count += item->count;
+            delete item;
+            *item_ptr = existing;
             return 1;
         }
     }
 
-    this->items.SetAtGrow(this->items.GetSize(), *item);
+    this->items.SetAtGrow(this->items.GetSize(), item);
     return 0;
 }
 
@@ -172,13 +172,11 @@ Unit* CMultiShopInstance::sub_546857(Unit* new_unit) {
 // 5464B6
 void CMultiShopInstance::sub_5464B6(int32_t param) {
     if (param == 0) {
-        // The shop building is passed where a Unit* is expected; both are Token-derived
-        // and only the shared Token fields are read.
-        Unit* shop_unit = nullptr;
+        Token* shop_token = nullptr;
         if (this->shop_template != nullptr) {
-            shop_unit = reinterpret_cast<Unit*>(this->shop_template->shop);
+            shop_token = this->shop_template->shop;
         }
-        g_NetStru1_main.sub_51A8B2(shop_unit, &this->inventory, this->unit->pOwner, 4);
+        g_NetStru1_main.sub_51A8B2(shop_token, &this->inventory, this->unit->pOwner, 4);
     } else {
         g_NetStru1_main.sub_51AB99(this, this->unit->pOwner, param);
     }
@@ -192,7 +190,7 @@ void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t 
     if (src_type == 4) {
         item = this->sub_546557(src_slot, count);
         if (item == nullptr || item->count == 0) {
-            this->sub_5464B6(src_type - 4);
+            this->sub_5464B6(0);
             return;
         }
     } else {
@@ -220,14 +218,16 @@ void CMultiShopInstance::sub_54668B() {
     if (this->inventory.items.GetCount() == 0) {
         return;
     }
-    for (POSITION pos = this->inventory.items.GetHeadPosition(); pos != nullptr; ) {
-        Item* item = this->inventory.items.GetNext(pos);
+
+    for (POSITION it = this->inventory.items.GetHeadPosition(); it != nullptr; ) {
+        Item* item = this->inventory.items.GetNext(it);
         if (item->pOwner != nullptr) {
             this->unit->inventory->PutItemIntoBagAtDefault(item);
         } else {
             this->sub_5462C8(item, -1);
         }
     }
+
     this->inventory.items.RemoveAll();
     this->sub_5464B6(0);
     this->sub_5464B6(-1);
@@ -451,7 +451,7 @@ void CMultiShopTemplate::sub_5474D8() {
     if (g_Server->field4_0x74 == 0) {
         params = ScenarioGetShopAssortment();
     } else {
-        params = (AssortGenParams*)this->shop->gen_params;
+        params = this->shop->gen_params;
     }
     for (int32_t i = 0; i < 4; i++) {
         AssortGenParams* p = &params[i];
@@ -489,7 +489,7 @@ CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
 void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
     CMultiShopInstance* shop_instance = this->sub_547468(humanoid);
     if (shop_instance == nullptr) {
-        LogMessage("Invalid shop transaction - no such customer (move)");
+        LogMessage("Invalid shop transaction - no such customer");
         return;
     }
     shop_instance->sub_546857(humanoid);

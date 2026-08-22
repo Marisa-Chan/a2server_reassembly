@@ -27,9 +27,6 @@ ShopAssortment::ShopAssortment() {
 // 54A2DD
 ShopAssortment::~ShopAssortment() {
     this->sub_54BC09();
-    this->arr.SetSize(0, -1);
-    this->min_cost = 0;
-    this->max_cost = 0;
 }
 
 // 54EDE9
@@ -155,8 +152,8 @@ void ShopAssortment::sub_54C08A() {
 
 // 54ACCB
 void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
-    uint32_t param_5 = (flags & 0x20000000) != 0;
-    uint32_t low_flags = flags & 0x7FFF;
+    uint32_t is_magic = (flags & 0x20000000) != 0;
+    uint32_t material_flags = flags & 0x7FFF;
     uint32_t shape_flags = (flags & 0x3F8000) >> 0xF;
     uint32_t type_flags = flags & 0xFC00000;
 
@@ -173,15 +170,15 @@ void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
     }
 
     index = 0;
-    while (low_flags != 0) {
-        if ((low_flags & 1) != 0) {
+    while (material_flags != 0) {
+        if ((material_flags & 1) != 0) {
             material_ids.SetAtGrow(material_ids.GetSize(), index);
         }
         index++;
         if (index == 0xD) {
             index++;
         }
-        low_flags >>= 1;
+        material_flags >>= 1;
     }
 
     for (int32_t i = 0; i < shape_ids.GetSize(); i++) {
@@ -190,66 +187,66 @@ void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
                 this->sub_54A420(items, shape_ids[i], material_ids[j], 2, 0);
             }
             if ((type_flags & 0x1000000) != 0) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 1, param_5);
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 1, is_magic);
             }
             if ((type_flags & 0x800000) != 0) {
                 this->sub_54A420(items, shape_ids[i], material_ids[j], 7, 0);
             }
-            if ((type_flags & 0x8000000) != 0 && param_5 != 0) {
-                this->sub_54A420(items, shape_ids[i], material_ids[j], 8, param_5);
+            if ((type_flags & 0x8000000) != 0 && is_magic) {
+                this->sub_54A420(items, shape_ids[i], material_ids[j], 8, is_magic);
             }
         }
     }
 }
 
 // 54A420
-void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t param_5) {
+void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic) {
     for (int32_t i = 1; i < items->GetSize(); i++) {
         if ((((*items)[i].shape_material_matrix[shape] >> mat) & 1) == 0) {
             continue;
         }
 
-        int32_t cost = (int32_t)((*items)[i].Values()[0].price *
-                                 g_GameDataRes.materials[mat].data.price *
-                                 g_GameDataRes.shapes[shape].data.price);
-        if ((cost < this->min_cost || cost > this->max_cost) && param_5 == 0) {
+        double material_price = g_GameDataRes.materials[mat].data.price;
+        double shape_price = g_GameDataRes.shapes[shape].data.price;
+
+        int32_t cost = (int32_t)((*items)[i].Values()[0].price * material_price * shape_price);
+        if ((cost < this->min_cost || cost > this->max_cost) && is_magic == 0) {
             continue;
         }
 
         Item* item = nullptr;
         switch (item_type) {
         case 1:
-            if ((shape != 0 || mat != 0 || i != 2) &&
-                (shape != 0 || mat != 1 || i != 2) &&
-                (shape != 6 || mat != 4 || i != 6)) {
+            if ((shape != 0 || mat != 0 || i != 2) && (shape != 0 || mat != 1 || i != 2) && (shape != 6 || mat != 4 || i != 6)) {
                 item = new Armor(shape, mat, i);
             }
             break;
-        case 2: {
-            Weapon* weapon = new Weapon(shape, mat, i);
-            if ((weapon->world_equip->Values()[0].other_param & 1) == 0) {
-                delete weapon;
-            } else {
-                item = weapon;
+        case 2:
+            {
+                Weapon* weapon = new Weapon(shape, mat, i);
+                if ((weapon->world_equip->Values()[0].other_param & 1) == 0) {
+                    delete weapon;
+                } else {
+                    item = weapon;
+                }
+                break;
             }
-            break;
-        }
         case 7:
             item = new Shield(shape, mat, i);
             break;
-        case 8: {
-            Weapon* weapon = new Weapon(shape, mat, i);
-            if ((weapon->world_equip->Values()[0].other_param & 1) != 0) {
-                delete weapon;
-            } else {
-                item = weapon;
+        case 8:
+            {
+                Weapon* weapon = new Weapon(shape, mat, i);
+                if ((weapon->world_equip->Values()[0].other_param & 1) != 0) {
+                    delete weapon;
+                } else {
+                    item = weapon;
+                }
+                break;
             }
-            break;
-        }
         }
 
-        if (param_5 != 0 && item != nullptr &&
-            item->magic_volume < std::pow((double)this->min_cost, 0.4)) {
+        if (is_magic && item != nullptr && item->magic_volume < std::pow((double)this->min_cost, 0.4)) {
             delete item;
             item = nullptr;
         }
@@ -265,21 +262,21 @@ void ShopAssortment::sub_54A420(CArray<WorldEquip>* items, int32_t shape, int32_
 // 54AF21
 void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
     // First pass: spell books
-    for (int32_t spell_id = 1; spell_id < 0x1E; spell_id++) {
-        if (spell_id == 9 || spell_id == 0xF || spell_id == 0xE || spell_id == 0x1C || spell_id == 0x1D || spell_id == 0x18) {
+    for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
+        if (spell_id == spell::acid_stream || spell_id == spell::darkness || spell_id == spell::light || spell_id == spell::curse || spell_id == spell::slow || spell_id == spell::heal) {
             continue;
         }
 
         Item* item = nullptr;
-        if (spell_id >= 1 && spell_id <= 4) {
+        if (spell_id >= spell::fire_arrow && spell_id <= spell::protection_from_fire) {
             item = new Item("Book Fire");
-        } else if (spell_id >= 5 && spell_id <= 8) {
+        } else if (spell_id >= spell::ice_missile && spell_id <= spell::protection_from_water) {
             item = new Item("Book Water");
-        } else if (spell_id >= 10 && spell_id <= 13) {
+        } else if (spell_id >= spell::lightning && spell_id <= spell::protection_from_air) {
             item = new Item("Book Air");
-        } else if (spell_id >= 16 && spell_id <= 19) {
+        } else if (spell_id >= spell::stone_missile && spell_id <= spell::protection_from_earth) {
             item = new Item("Book Earth");
-        } else if (spell_id >= 20 && spell_id <= 27) {
+        } else if (spell_id >= spell::bless && spell_id <= spell::shield) {
             item = new Item("Book Astral");
         }
 
@@ -295,7 +292,7 @@ void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
 
         Effect* effect = new Effect();
         item->_effects.AddTail(effect);
-        effect->effect_id = 42;
+        effect->effect_id = modifier::castspell;
         effect->spell_or_damage = (int16_t)spell_id;
 
         int32_t size = this->items.GetSize();
@@ -304,12 +301,12 @@ void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
     }
 
     // Second pass: scrolls and potions
-    for (int32_t spell_id = 1; spell_id < 0x1E; spell_id++) {
+    for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
         Item* item = nullptr;
         if (Random1N(2) == 1) {
             item = new Item(0xE, (uint8_t)(spell_id + 5));
         } else {
-            item = new Item(0xE, (uint8_t)(spell_id + 0x22));
+            item = new Item(0xE, (uint8_t)(spell_id + 34));
         }
         item->VMethod15();
 

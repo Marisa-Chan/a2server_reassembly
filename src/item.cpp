@@ -330,7 +330,7 @@ int32_t Item::VMethod15() {
 
 // 548817
 int32_t Item::VMethod16() {
-    if (this->item_type == 3 || this->item_type == 4 || this->_effects.IsEmpty()) {
+    if (this->item_type == Item::POTION || this->item_type == Item::SCROLL || this->_effects.IsEmpty()) {
         return 1;
     }
     return 0;

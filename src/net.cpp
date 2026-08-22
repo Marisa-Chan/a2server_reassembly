@@ -4780,13 +4780,13 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
 }
 
 // 51A8B2
-void NetStru1::sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int32_t param) {
+void NetStru1::sub_51A8B2(Token* token, Inventory* inventory, Player* player, int32_t param) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = 0x76;
     packet.entry_count = 0;
     packet.field_0xf = 0;
     packet.data_size = 0;
-    packet.building_id = unit->building_id;
+    packet.building_id = token->building_id;
     if (player == nullptr) {
         // Original code logged "Error - notify about shop table contents to all" (compiles to a no-op)
         packet.to_player_id = 0;

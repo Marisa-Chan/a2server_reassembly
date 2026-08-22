@@ -73,8 +73,8 @@ public:
     AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880
 
     void sub_53831D(Unit* unit);
-    void sub_538137(uint8_t x, uint8_t y, int32_t spread_damage);
-    void sub_537CD6();
+    void sub_538137(uint8_t x, uint8_t y, bool spread_damage);
+    void sub_537CD6(); // Acid stream and blizzard effects. 537CD6
     void sub_537C8C();
     void sub_537F2C();
     void sub_53801A();
@@ -117,3 +117,18 @@ public:
     uint8_t gap_0x53;
 };
 ASSERT_SIZE(SpellTransport, 0x54);
+
+// Wave propagation descriptor built from the static tables.
+struct WavePattern {
+public:
+	const int32_t* x_offsets;
+	const int32_t* y_offsets;
+	int32_t count;
+	int32_t x_mult;
+	int32_t y_mult;
+
+public:
+	void sub_537AE8(const int32_t* table);
+	void sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
+};
+ASSERT_SIZE(WavePattern, 0x14);

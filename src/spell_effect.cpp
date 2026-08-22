@@ -1,5 +1,6 @@
 #include "spell_effect.h"
 
+#include "constants.h"
 #include "effect.h"
 #include "game_app.h"
 #include "map_stuff.h"
@@ -12,77 +13,12 @@
 uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
 
 extern "C" {
-	extern int32_t unk_6364D0[];  // Wave table for area-effect spell 7: count, 20 x-offsets, 20 y-offsets.
-	extern int32_t dword_6366C4;  // Number of wave patterns for area-effect spell 9 (= 6).
-	extern int32_t dword_6366C8[]; // Wave patterns A for area-effect spell 9 (6 records of 41 dwords).
-	extern int32_t dword_636AA0[]; // Wave patterns B for area-effect spell 9.
+	extern int32_t unk_6364D0[];  // Wave table for blizzard: count, 20 x-offsets, 20 y-offsets.
+	extern int32_t dword_6366C4;  // Number of wave patterns for acid stream (= 6).
+	extern int32_t dword_6366C8[]; // Wave patterns A for acid stream (6 records of 41 dwords).
+	extern int32_t dword_636AA0[]; // Wave patterns B for acid stream.
 	extern int32_t unk_636578[];  // Wave table A used by AreaEffect::sub_537F2C.
 	extern int32_t unk_636620[];  // Wave table B used by AreaEffect::sub_537F2C.
-}
-
-// Wave propagation descriptor built from the static wave tables.
-struct WavePattern {
-	const int32_t* x_offsets;
-	const int32_t* y_offsets;
-	int32_t count;
-	int32_t x_mult;
-	int32_t y_mult;
-
-	void sub_537AE8(const int32_t* table);
-	void sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction);
-};
-
-// 537AE8
-void WavePattern::sub_537AE8(const int32_t* table) {
-	this->x_offsets = table + 1;
-	this->y_offsets = table + 0x15;
-	this->count = table[0];
-	this->x_mult = 1;
-	this->y_mult = 1;
-}
-
-// 537B2B
-void WavePattern::sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
-	this->x_offsets = table_b + 1;
-	this->y_offsets = table_b + 0x15;
-	this->count = table_b[0];
-	this->x_mult = 1;
-	this->y_mult = 1;
-	switch (direction) {
-	case 0:
-		this->x_offsets = table_a + 1;
-		this->y_offsets = table_a + 0x15;
-		this->count = table_a[0];
-		this->y_mult = -1;
-		break;
-	case 1:
-		this->y_mult = -1;
-		break;
-	case 2:
-		this->x_offsets = table_a + 0x15;
-		this->y_offsets = table_a + 1;
-		this->count = table_a[0];
-		break;
-	case 4:
-		this->x_offsets = table_a + 1;
-		this->y_offsets = table_a + 0x15;
-		this->count = table_a[0];
-		this->x_mult = -1;
-		break;
-	case 5:
-		this->x_mult = -1;
-		break;
-	case 6:
-		this->x_offsets = table_a + 0x15;
-		this->y_offsets = table_a + 1;
-		this->count = table_a[0];
-		this->x_mult = -1;
-		break;
-	case 7:
-		this->x_mult = -1;
-		this->y_mult = -1;
-		break;
-	}
 }
 
 // 636488
@@ -281,18 +217,18 @@ void AreaEffect::sub_537C8C() {
 // 538897
 uint32_t AreaEffect::sub_538897() const {
 	switch (this->itemDataID) {
-	case 3:
+	case spell::wall_of_fire:
 		return 0;
-	case 6:
+	case spell::poison_cloud:
 		return 2;
-	case 0xE:
+	case spell::darkness:
 		return 5;
-	case 0xF:
+	case spell::light:
 		return 4;
-	case 0x11:
+	case spell::wall_of_earth:
 		return 3;
 	default:
-		// The original builds a temp CString "MapLayer() call - Invalid Area Effect" and immediately destroys it (dead code).
+		// Vanilla constructed the string "MapLayer() call - Invalid Area Effect" here, but didn't log it --- likely because it would be logged on every blizzard spell.
 		return 0;
 	}
 }
@@ -314,14 +250,18 @@ void AreaEffect::sub_53822C() {
 // 5384FF
 void AreaEffect::sub_5384FF() {
 	g_NetStru1_main.sub_51BE8F(this, 1);
-	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
-		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+
+	bool spread_damage = false;
+	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	}
+
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
 	int32_t radius = this->field_0x4d;
 	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
 		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
-			uint16_t yx = (dy << 8) | dx;
+			uint16_t yx = PosYX(dx, dy).val;
 			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
 			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
 			this->sub_53831D(MapStuff_Instance->sub_5946BF(dx, dy));
@@ -335,34 +275,36 @@ void AreaEffect::sub_5384FF() {
 }
 
 // 538137
-void AreaEffect::sub_538137(uint8_t x, uint8_t y, int32_t spread_damage) {
-	uint16_t yx = (y << 8) | x;
+void AreaEffect::sub_538137(uint8_t x, uint8_t y, bool spread_damage) {
+	uint16_t yx = PosYX(x, y).val;
 	Unit* unit = MapStuff_Instance->sub_5946BF(x, y);
 	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & 4) != 0) {
 		return;
 	}
-	if (this->itemDataID == 0x11) {
+
+	if (this->itemDataID == spell::wall_of_earth) {
 		if (MapStuff_Instance->sub_58CA1B(yx) == nullptr) {
 			MapStuff_Instance->sub_594E65(this, x, y);
 		}
 		return;
 	}
+
 	MapStuff_Instance->sub_594E65(this, x, y);
 	this->sub_53868D(x, y);
-	if (spread_damage != 0) {
+	if (spread_damage) {
 		MapStuff_Instance->sub_594768(x, y);
 	}
 }
 
 // 53868D
 void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
-	AreaEffect** layers = MapStuff_Instance->sub_59536C((y << 8) | x);
+	AreaEffect** layers = MapStuff_Instance->sub_59536C(PosYX(x, y).val);
 	if (layers == nullptr) {
 		return;
 	}
 	switch (this->itemDataID) {
-	case 2:
-	case 3:
+	case spell::fire_ball:
+	case spell::wall_of_fire:
 		if (layers[2] != nullptr) {
 			AreaEffect* layer = layers[2];
 			MapStuff_Instance->sub_59501E(layer, x, y);
@@ -374,14 +316,14 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 			g_NetStru1_main.sub_51BE8F(layer, 0);
 		}
 		break;
-	case 6:
+	case spell::poison_cloud:
 		if (layers[0] != nullptr) {
 			AreaEffect* layer = layers[2];
 			MapStuff_Instance->sub_59501E(layer, x, y);
 			g_NetStru1_main.sub_51BE8F(layer, 0);
 		}
 		break;
-	case 0xE:
+	case spell::darkness:
 		if (layers[4] != nullptr) {
 			MapStuff_Instance->sub_59501E(layers[5], x, y);
 			AreaEffect* layer = layers[4];
@@ -389,7 +331,7 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 			g_NetStru1_main.sub_51BE8F(layer, 0);
 		}
 		break;
-	case 0xF:
+	case spell::light:
 		if (layers[5] != nullptr) {
 			MapStuff_Instance->sub_59501E(layers[4], x, y);
 			AreaEffect* layer = layers[5];
@@ -404,8 +346,12 @@ void AreaEffect::sub_53868D(uint8_t x, uint8_t y) {
 void AreaEffect::sub_53801A() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
-	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
-		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+
+	bool spread_damage = false;
+	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	}
+
 	int32_t radius = this->field_0x4d;
 	for (int32_t dx = -radius; dx <= radius; dx++) {
 		for (int32_t dy = -radius; dy <= radius; dy++) {
@@ -422,8 +368,12 @@ void AreaEffect::sub_53801A() {
 void AreaEffect::sub_537F2C() {
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
-	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
-		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+
+	bool spread_damage = false;
+	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	}
+
 	WavePattern wave;
 	wave.sub_537B2B(unk_636578, unk_636620, this->field_0x4e);
 	for (int32_t i = 0; i < wave.count; i++) {
@@ -435,25 +385,23 @@ void AreaEffect::sub_537F2C() {
 
 // 537CD6
 void AreaEffect::sub_537CD6() {
-	uint16_t old_duration = this->duration;
-	this->duration--;
-	if (old_duration != 0) {
+	if (this->duration--) {
 		return;
 	}
 	this->duration = 2;
 	uint8_t x = this->position->GetX();
 	uint8_t y = this->position->GetY();
 	WavePattern wave = {};
-	int32_t wave_count = 0;
+	int32_t count = 0;
 	uint8_t packet_type = 0x10;
-	if (this->itemDataID == 7) {
+	if (this->itemDataID == spell::blizzard) {
 		unk_6364D0[1] = Random0N(5) - 2;
 		unk_6364D0[0x15] = Random0N(5) - 2;
 		wave.sub_537AE8(unk_6364D0);
-		wave_count = 0x20;
-	} else if (this->itemDataID == 9) {
+		count = 32;
+	} else if (this->itemDataID == spell::acid_stream) {
 		wave.sub_537B2B(dword_6366C8 + this->field_0x4f * 41, dword_636AA0 + this->field_0x4f * 41, this->field_0x4e);
-		wave_count = dword_6366C4;
+		count = dword_6366C4;
 		packet_type = 0x12;
 	}
 	for (int32_t i = 0; i < wave.count; i++) {
@@ -462,14 +410,14 @@ void AreaEffect::sub_537CD6() {
 		this->effect->typeId = this->itemDataID * 2 + 9;
 		if (this->effect->position->FUN_0058a7e8(nx, ny)) {
 			g_NetStru1_main.sub_51BE0E(this->effect, packet_type);
-			uint16_t yx = (ny << 8) | nx;
+			uint16_t yx = PosYX(nx, ny).val;
 			this->sub_53831D(MapStuff_Instance->sub_58CB5A(yx));
 			this->sub_53831D(MapStuff_Instance->sub_58CBB9(yx));
 			this->sub_53831D(MapStuff_Instance->sub_5946BF(nx, ny));
 		}
 	}
 	this->field_0x4f++;
-	if (this->field_0x4f >= wave_count) {
+	if (this->field_0x4f >= count) {
 		this->field2_0x40 = 1;
 	}
 }
@@ -637,5 +585,61 @@ void SpellTransport::VMethod5() {
 	}
 	if (this->area_effect != nullptr) {
 		this->area_effect->VMethod5();
+	}
+}
+
+
+// 537AE8
+void WavePattern::sub_537AE8(const int32_t* table) {
+	this->x_offsets = table + 1;
+	this->y_offsets = table + 21;
+	this->count = table[0];
+	this->x_mult = 1;
+	this->y_mult = 1;
+}
+
+// 537B2B
+void WavePattern::sub_537B2B(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
+	this->x_offsets = table_b + 1;
+	this->y_offsets = table_b + 21;
+	this->count = table_b[0];
+	this->x_mult = 1;
+	this->y_mult = 1;
+	switch (direction) {
+	case 0:
+		this->x_offsets = table_a + 1;
+		this->y_offsets = table_a + 21;
+		this->count = table_a[0];
+		this->y_mult = -1;
+		break;
+	case 1:
+		this->y_mult = -1;
+		break;
+	case 2:
+		this->x_offsets = table_a + 21;
+		this->y_offsets = table_a + 1;
+		this->count = table_a[0];
+		break;
+	case 3:
+		break;
+	case 4:
+		this->x_offsets = table_a + 1;
+		this->y_offsets = table_a + 21;
+		this->count = table_a[0];
+		this->x_mult = -1;
+		break;
+	case 5:
+		this->x_mult = -1;
+		break;
+	case 6:
+		this->x_offsets = table_a + 21;
+		this->y_offsets = table_a + 1;
+		this->count = table_a[0];
+		this->x_mult = -1;
+		break;
+	case 7:
+		this->x_mult = -1;
+		this->y_mult = -1;
+		break;
 	}
 }
