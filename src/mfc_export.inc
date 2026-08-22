@@ -498,7 +498,7 @@ externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
 externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
 externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
 externdef ?sub_594125@MapStuff@@QAEXXZ :proc
-externdef ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z :proc
+externdef ?sub_5943D0@MapStuff@@QAEHPAVBuilding@@G@Z :proc              ; int MapStuff::sub_5943D0(Building*, uint16_t)
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_594EBA@MapStuff@@QAEHPAVAreaEffect@@G@Z :proc            ; int MapStuff::sub_594EBA(AreaEffect*, uint16_t)

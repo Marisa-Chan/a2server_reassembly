@@ -1696,6 +1696,24 @@ int32_t MapStuff::sub_5945EF(Building* building) {
     return 1;
 }
 
+// 59451F --- place building on the map
+int32_t MapStuff::sub_59451F(Building* building) {
+    int bit_index = 0;
+    for (int row = 0; row < building->height; row++) {
+        for (int col = 0; col < building->width; col++) {
+            if (building->tiles_mask & (1u << bit_index)) {
+                uint8_t x = building->position->GetX() + col;
+                uint8_t y = building->position->GetY() + row;
+                if (!this->sub_5943D0(building, PosYX(x, y).val)) {
+                    return 0;
+                }
+            }
+            bit_index++;
+        }
+    }
+    return 1;
+}
+
 // 59536C --- get pointer to area_effects[6] array at cell yx
 AreaEffect** MapStuff::sub_59536C(uint32_t yx) {
     uint16_t key = (uint16_t)yx;
