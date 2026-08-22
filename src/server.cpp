@@ -5984,6 +5984,26 @@ SpellEffectList::~SpellEffectList()
     list.RemoveAll();
 }
 
+// 55BF31
+void SpellEffectList::sub_55BF31(CArchive& ar)
+{
+    if (ar.IsStoring()) {
+        ar << this->list.GetCount();
+        for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+            SpellEffect* effect = this->list.GetNext(it);
+            ar.WriteObject(effect);
+        }
+    } else {
+        this->list.RemoveAll();
+        int32_t count;
+        ar >> count;
+        for (int32_t i = 0; i < count; i++) {
+            SpellEffect* effect = (SpellEffect*)ar.ReadObject(RUNTIME_CLASS(SpellEffect));
+            this->list.AddTail(effect);
+        }
+    }
+}
+
 // 502B4A
 Player* Server::sub_502B4A(uint16_t player_id) {
     Player* player = g_PlayersList->sub_535B50(player_id);
