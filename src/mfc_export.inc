@@ -1095,7 +1095,6 @@ externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
 externdef ?sub_4F950F@Server@@QAEXXZ :proc              ; void Server::sub_4F950F()
 externdef ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z :proc   ; void Server::sub_5090FA(Player*)
-externdef ?sub_5585F2@SpellEffectList@@QAEXXZ :proc     ; void SpellEffectList::sub_5585F2()
 externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
 
 

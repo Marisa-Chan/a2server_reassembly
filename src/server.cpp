@@ -6004,6 +6004,42 @@ void SpellEffectList::sub_55BF31(CArchive& ar)
     }
 }
 
+// 5585F2
+void SpellEffectList::sub_5585F2()
+{
+    for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
+        SpellEffect* effect = this->list.GetNext(it);
+
+        if (effect->caster != nullptr && effect->caster->pOwner == nullptr) {
+            effect->caster = nullptr;
+        }
+
+        if (effect->field4_0x42 != effect->field6_0x44 &&
+            effect->IsKindOf(RUNTIME_CLASS(AreaEffect)) &&
+            g_Server->field4_0x74 != 0) {
+            for (int32_t i = 0; i < 16; i++) {
+                if ((effect->field4_0x42 & (1 << i)) != 0 && (effect->field6_0x44 & (1 << i)) == 0) {
+                    Player* player = g_PlayersList->sub_535B50(i + 0x10);
+                    if (player != nullptr) {
+                        g_NetStru1_main.sub_51BE8F((AreaEffect*)effect, 1);
+                    }
+                }
+            }
+            effect->field6_0x44 = effect->field4_0x42;
+        }
+
+        effect->VMethod2();
+
+        if (effect->field2_0x40 != 0) {
+            POSITION found = this->list.Find(effect);
+            if (found != nullptr) {
+                this->list.RemoveAt(found);
+            }
+            delete effect;
+        }
+    }
+}
+
 // 502B4A
 Player* Server::sub_502B4A(uint16_t player_id) {
     Player* player = g_PlayersList->sub_535B50(player_id);
