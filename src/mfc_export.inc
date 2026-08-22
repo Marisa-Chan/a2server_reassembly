@@ -257,7 +257,6 @@ externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
 externdef ?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z :proc                  ; int CMultiShopTemplate::sub_54740C(Unit*)
 externdef ?sub_54749F@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_54749F()
 externdef ?sub_547E91@CMultiShopTemplate@@QAEHXZ :proc                           ; int CMultiShopTemplate::sub_547E91()
-externdef ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z :proc
 externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
 extern ?sub_5474D8@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_5474D8()
 externdef ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547B7B(Unit*)
@@ -271,6 +270,7 @@ externdef ?Sell@CMultiShopInstance@@QAEXXZ : proc
 externdef ?Buy@CMultiShopInstance@@QAEXXZ : proc
 externdef ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z : proc
 externdef ?sub_5464B6@CMultiShopInstance@@QAEXH@Z : proc
+externdef ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z :proc                      ; void CMultiShopInstance::sub_546577(uint8_t, int16_t, uint8_t, int16_t, int32_t)
 externdef ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z :proc              ; Unit* CMultiShopInstance::sub_546857(Unit*)
 
 

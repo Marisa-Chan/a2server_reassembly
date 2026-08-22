@@ -97,6 +97,7 @@ public:
     void Buy(); // 546027
     int sub_5462C8(Item* item, int arg1); // 5462C8
     void sub_5464B6(int param); // 5464B6
+    void sub_546577(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count); // 546577
     Unit* sub_546857(Unit* unit); // 546857
 };
 ASSERT_OFFSET(CMultiShopInstance, unit, 0x74);

@@ -210,6 +210,17 @@ CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
     return instance;
 }
 
+// 547CB9
+void CMultiShopTemplate::sub_547CB9(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
+    CMultiShopInstance* shop_instance = this->sub_547468(humanoid);
+    if (shop_instance == nullptr) {
+        LogMessage("Invalid shop transaction - no such customer (move)");
+        return;
+    }
+    shop_instance->sub_546857(humanoid);
+    shop_instance->sub_546577(op_type, src_slot, dst_type, dst_word, count);
+}
+
 // 5479C6
 void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
     int32_t index = this->sub_54740C(humanoid);
