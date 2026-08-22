@@ -14,6 +14,7 @@
 
 
 class AreaEffect;
+class CMultiShopInstance;
 class PacketAoeZone;
 class PacketMoveCmd;
 struct CLlDriver;
@@ -153,6 +154,7 @@ public:
     void sub_51BE8F(AreaEffect* obj, int flag); // Send area-effect packet
     void sub_51D4F6(QuestMap* quest_map, Player* player, int flag); // Send SrvStru1 state list from packet
     void sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int32_t param);
+    void sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param); // 51AB99 - send shop shelf contents, in asm
     void sub_51EEB7();
 
     void sub_51C7CC(int32_t latency, Player* player);  // Send latency update to player

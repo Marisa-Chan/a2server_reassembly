@@ -126,6 +126,21 @@ Unit* CMultiShopInstance::sub_546857(Unit* new_unit) {
     return old_unit;
 }
 
+// 5464B6
+void CMultiShopInstance::sub_5464B6(int32_t param) {
+    if (param == 0) {
+        // The shop building is passed where a Unit* is expected; both are Token-derived
+        // and only the shared Token fields are read.
+        Unit* shop_unit = nullptr;
+        if (this->shop_template != nullptr) {
+            shop_unit = reinterpret_cast<Unit*>(this->shop_template->shop);
+        }
+        g_NetStru1_main.sub_51A8B2(shop_unit, &this->inventory, this->unit->pOwner, 4);
+    } else {
+        g_NetStru1_main.sub_51AB99(this, this->unit->pOwner, param);
+    }
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 

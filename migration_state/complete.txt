@@ -765,6 +765,7 @@
 ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z
 ?sub_542A31@Building@@QAEHPAUUnitToHit@@PAVUnit@@@Z
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z
+?sub_5464B6@CMultiShopInstance@@QAEXH@Z
 ?sub_546537@CMultiShopInstance@@QAEXHPAVItem@@@Z
 ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z
 ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z

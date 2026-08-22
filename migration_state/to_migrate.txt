@@ -107,7 +107,6 @@ _sub_54C6DD	453
 ?GetText@CListBox@@QBEXHAAVCString@@@Z	28
 ??1CListBox@@UAE@XZ	29
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
-?sub_5464B6@CMultiShopInstance@@QAEXH@Z	60
 ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z	130
 ?sub_54668B@CMultiShopInstance@@QAEXXZ	203
 ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z	210
@@ -204,6 +203,7 @@ _sub_54C6DD	453
 ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z	59
 ?sub_51E40C@NetStru1@@QAEXPBDH@Z	64
 ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z	68
+?sub_51AB99@NetStru1@@QAEXPAVCMultiShopInstance@@PAVPlayer@@H@Z	106
 ?sub_51A8B2@NetStru1@@QAEXPAVUnit@@PAUInventory@@PAVPlayer@@H@Z	163
 ?Begin@Perf@@QAEXXZ	14
 ??0Perf@@QAE@XZ	28
