@@ -11,6 +11,12 @@ void BuildingsList::FUN_0055817b()
 	}
 }
 
+// 558228
+void BuildingsList::sub_558228(Building* building) {
+	this->AddTail(building);
+	building->building_id = building->TokenID + 0x6000;
+}
+
 // 558908
 void BuildingsList::sub_558908(CArchive& ar) {
 	if (ar.IsStoring()) {
