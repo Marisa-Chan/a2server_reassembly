@@ -197,7 +197,7 @@ public:
     uint8_t sub_59166C(Unit* unit, PosYX yx); // Pick rotation angle for the unit to look at `yx`.
     void sub_5954AC(Unit* unit, uint8_t x, uint8_t y); // Teleport unit to (x, y)
     void sub_59501E(AreaEffect* ae, uint8_t x, uint8_t y); // 59501E
-    int sub_595073(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx (body still in ASM)
+    int sub_595073(AreaEffect* ae, uint16_t yx); // 595073 — remove area effect from cell state at yx
     Unit* sub_5946BF(uint8_t x, uint8_t y); // 5946BF
     void sub_594768(uint8_t x, uint8_t y); // 594768
     int sub_596576(uint16_t yx, void* src); // Apply terrain modification from 6-byte src buffer at yx

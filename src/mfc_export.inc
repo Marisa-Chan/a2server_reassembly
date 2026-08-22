@@ -501,7 +501,6 @@ externdef ?sub_594125@MapStuff@@QAEXXZ :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_594EBA@MapStuff@@QAEHPAVAreaEffect@@G@Z :proc            ; int MapStuff::sub_594EBA(AreaEffect*, uint16_t)
-externdef ?sub_595073@MapStuff@@QAEHPAVAreaEffect@@G@Z :proc            ; int MapStuff::sub_595073(AreaEffect*, uint16_t)
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
 externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
 externdef ?FacingDiff@MapStuff@@QAEEEE@Z :proc                         ; uint8_t MapStuff::FacingDiff(uint8_t, uint8_t)

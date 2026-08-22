@@ -1735,6 +1735,30 @@ int32_t MapStuff::sub_59451F(Building* building) {
     return 1;
 }
 
+// 595073 --- remove area effect from cell state at yx
+int MapStuff::sub_595073(AreaEffect* ae, uint16_t yx) {
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return 0;
+    }
+    uint8_t idx = ae->sub_538897();
+    if (this->scratch_cell_state.area_effects[idx] != ae) {
+        return 0;
+    }
+    this->scratch_cell_state.area_effects[idx] = nullptr;
+    this->scratch_cell_state.effect_count = 0;
+    for (int32_t i = 0; i < 6; i++) {
+        if (this->scratch_cell_state.area_effects[i] != nullptr) {
+            this->scratch_cell_state.effect_count++;
+        }
+    }
+    this->cell_states[yx] = this->scratch_cell_state;
+    this->sub_58B593(yx);
+    if (this->scratch_cell_state.IsEmpty()) {
+        this->FUN_0058b4a6(yx);
+    }
+    return 1;
+}
+
 // 59536C --- get pointer to area_effects[6] array at cell yx
 AreaEffect** MapStuff::sub_59536C(uint32_t yx) {
     uint16_t key = (uint16_t)yx;
