@@ -2363,6 +2363,11 @@ uint16_t* MapStuff::sub_59A670(uint8_t x, uint8_t y) {
     return &this->field3_0x30000[PosYX(x, y).val];
 }
 
+// 5946BF --- get building at (x, y); callers use the result as Unit*
+Unit* MapStuff::sub_5946BF(uint8_t x, uint8_t y) {
+    return (Unit*)this->sub_594709(PosYX(x, y).val);
+}
+
 // 594709
 Building* MapStuff::sub_594709(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(0x20)) {

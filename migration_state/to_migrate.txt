@@ -187,7 +187,6 @@ _sub_54C6DD	453
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
 ??0MapPlayerData@@QAE@XZ	48
 ??0MapPlayerData@@QAE@HH@Z	62
-?sub_5946BF@MapStuff@@QAEPAVUnit@@EE@Z	22
 ?sub_59501E@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
 ?sub_594E65@MapStuff@@QAEXPAVAreaEffect@@EE@Z	25
 ?sub_594768@MapStuff@@QAEXEE@Z	43
