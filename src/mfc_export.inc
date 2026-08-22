@@ -252,6 +252,7 @@ externdef ?sub_544685@Shop@@QAEXPAVUnit@@@Z :proc
 externdef ?ClearItems@CMultiShopShelf@@QAEXXZ : proc
 externdef ?sub_54546E@CMultiShopShelf@@QAEXH@Z :proc                             ; void CMultiShopShelf::sub_54546E(int)
 externdef ?sub_5453E8@CMultiShopShelf@@QAEPAVItem@@HH@Z :proc                    ; Item* CMultiShopShelf::sub_5453E8(int32_t, int32_t)
+externdef ?sub_544BCE@CMultiShopShelf@@QAEHPAPAVItem@@@Z :proc                   ; int32_t CMultiShopShelf::sub_544BCE(Item**)
 
 ; MultiShopTemplate
 externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc

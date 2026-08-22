@@ -192,6 +192,56 @@ void CMultiShopInstance::sub_54668B() {
     g_NetStru1_main.sub_519221(this->unit, this->unit->pOwner, 0x282000, 0xFFB, 0, 0);
 }
 
+// 5462C8
+int32_t CMultiShopInstance::sub_5462C8(Item* item, int32_t arg1) {
+    int32_t shelf_id = 0;
+    int32_t result = 0;
+
+    if (item->field11_0x4d == 0) {
+        AssortGenParams* params;
+        if (g_Server->field4_0x74 != 0) {
+            params = this->shop_template->shop->gen_params;
+        } else {
+            params = ScenarioGetShopAssortment();
+        }
+
+        uint32_t type_flag = 0;
+        if (item->item_type == Item::BOOK || item->item_type == Item::SCROLL || item->item_type == Item::POTION) {
+            type_flag = 0x4000000;
+        } else if (item->item_type == Item::WEAPON) {
+            type_flag = 0x400000;
+        } else if (item->item_type == Item::EQUIPMENT) {
+            type_flag = 0x1000000;
+        }
+
+        if (item->VMethod16() == 0 && item->item_type != Item::BOOK) {
+            while ((params[shelf_id].flags & 0x20000000) == 0 && shelf_id < 3) {
+                shelf_id++;
+            }
+        } else {
+            while (((params[shelf_id].flags & type_flag) == 0 || (params[shelf_id].flags & 0x20000000) != 0) && shelf_id < 3) {
+                shelf_id++;
+            }
+            if ((params[shelf_id].flags & type_flag) == 0 || (params[shelf_id].flags & 0x20000000) != 0) {
+                shelf_id = 0;
+                while ((params[shelf_id].flags & type_flag) == 0 && shelf_id < 3) {
+                    shelf_id++;
+                }
+            }
+        }
+    } else {
+        shelf_id = item->field11_0x4d - 1;
+    }
+
+    result = this->shop_template->shelves[shelf_id].sub_544BCE(&item);
+    if (result != 0) {
+        item->field10_0x4c = 0;
+    } else {
+        result = this->shelves[shelf_id].sub_544BCE(&item);
+    }
+    return result;
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
