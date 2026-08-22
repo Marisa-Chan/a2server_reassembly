@@ -207,17 +207,7 @@ externdef _unk_6B1620 :byte
 
 
 ; Building
-extern ?classBuilding@Building@@2UCRuntimeClass@@A  : dword
-extern ??5@YGAAVCArchive@@AAV0@AAPAVBuilding@@@Z : proc
-externdef ??0Building@@QAE@EPAUTokenPos@@EE@Z :proc                             ; Building::Building(uint8_t, TokenPos*, uint8_t, uint8_t)
-externdef ??0Building@@QAE@PAUTokenPos@@@Z :proc                                ; Building::Building(TokenPos*)
-externdef ??0Building@@QAE@ABVCString@@@Z :proc                                 ; Building::Building(const CString&)
-externdef ??0Building@@QAE@XZ :proc                                             ; Building::Building()
-externdef ??1Building@@UAE@XZ :proc                                             ; Building::~Building()
-externdef ?CreateObject@Building@@SGPAVCObject@@XZ :proc  ; Building::CreateObject()
-externdef ?VMethod1@Building@@UAEXXZ :proc
 externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        ; void Building::Serialize(CArchive&)
-externdef ?sub_5427AC@Building@@QAEXEE@Z :proc                                  ; void Building::sub_5427AC(uint8_t, uint8_t)
 
 
 ; Pointer
@@ -505,6 +495,7 @@ externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
 externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
 externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
 externdef ?sub_594125@MapStuff@@QAEXXZ :proc
+externdef ?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
 externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
 externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc

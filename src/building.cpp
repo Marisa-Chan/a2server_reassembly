@@ -60,6 +60,31 @@ void Building::sub_542624(const CString& name) {
     }
 }
 
+// 5427AC
+void Building::sub_5427AC(uint8_t width, uint8_t height) {
+    if (this->object_info_id == 0 || this->object_info_id >= g_GameDataRes.buildings.GetSize()) {
+        return;
+    }
+    this->typeId = this->object_info_id;
+    this->building_info = &g_GameDataRes.buildings[this->object_info_id];
+    const CArray<BuildingInfoData>& values = this->building_info->Values();
+    this->scan_range = values[0].scan_range;
+    this->hp_max = values[0].health_max;
+    this->hp = this->hp_max;
+    if (width + height != 0) {
+        this->width = width;
+        this->height = height;
+        this->tiles_mask = 0xFFFFFFFF;
+        this->unpassable_mask = 0;
+    } else {
+        this->width = values[0].width;
+        this->height = values[0].height;
+        this->unpassable_mask = values[0].unpassable_mask;
+        this->tiles_mask = values[0].tiles_mask;
+    }
+    MapStuff_Instance->sub_59451F(this);
+}
+
 // 54293A
 Building::~Building() {
     if (this->building_id != 0) {

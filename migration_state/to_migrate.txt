@@ -51,7 +51,6 @@ _sub_54C6DD	453
 ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z	156
 ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z	238
 ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z	339
-?sub_5427AC@Building@@QAEXEE@Z	148
 ??0CA16@@QAE@PBD@Z	19
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
@@ -206,6 +205,7 @@ _sub_54C6DD	453
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
 ??0MapPlayerData@@QAE@XZ	48
 ??0MapPlayerData@@QAE@HH@Z	62
+?sub_59451F@MapStuff@@QAEHPAVBuilding@@@Z	97
 ?sub_51E5FB@NetStru1@@QAEXHH@Z	29
 ?sub_51E63F@NetStru1@@QAEXHHH@Z	41
 ?sub_51E794@NetStru1@@QAEXHHEF@Z	43

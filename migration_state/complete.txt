@@ -11,10 +11,6 @@
 ??0Armor@@QAE@EEE@Z
 ??0Armor@@QAE@PBV0@@Z
 ??0Armor@@QAE@XZ
-??0Building@@QAE@ABVCString@@@Z
-??0Building@@QAE@EPAUTokenPos@@EE@Z
-??0Building@@QAE@PAUTokenPos@@@Z
-??0Building@@QAE@XZ
 ??0BuildingInfo@@QAE@XZ
 ??0CCursor@@QAE@PBDHHH@Z
 ??0CEdit2@@QAE@XZ
@@ -175,7 +171,6 @@
 ??1A2NetSock@@QAE@XZ
 ??1AreaEffect@@UAE@XZ
 ??1Armor@@UAE@XZ
-??1Building@@UAE@XZ
 ??1CEdit2@@UAE@XZ
 ??1CFameHall@@QAE@XZ
 ??1CGameObject@@UAE@XZ
@@ -253,7 +248,6 @@
 ??4Trigger@@QAEAAU0@ABU0@@Z
 ??4TriggerCheck@@QAEAAU0@ABU0@@Z
 ??4UnitToHit@@QAEAAU0@ABU0@@Z
-??5@YGAAVCArchive@@AAV0@AAPAVBuilding@@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVEffect@@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z
 ??5@YGAAVCArchive@@AAV0@AAPAVVirtualCaster@@@Z
@@ -344,7 +338,6 @@
 ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z
 ?CountHumanPlayers@PlayersList@@QAEHXZ
 ?Create@CPlex@@SGPAU1@AAPAU1@II@Z
-?CreateObject@Building@@SGPAVCObject@@XZ
 ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ
 ?CreateObject@Pointer@@SGPAVCObject@@XZ
 ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ
@@ -926,7 +919,6 @@
 ?VMethod17@Shield@@UAEXPAVPacketUnitStateVec@@PAE@Z
 ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z
 ?VMethod17@Weapon@@UAEXPAVPacketUnitStateVec@@PAE@Z
-?VMethod1@Building@@UAEXXZ
 ?VMethod1@CGameObject@@UAEXH@Z
 ?VMethod1@Inn@@UAEXXZ
 ?VMethod1@Item@@UAEXXZ
