@@ -73,6 +73,7 @@ public:
     AreaEffect(Effect* effect, TokenPos* pos, uint8_t range); // 537880
 
     void sub_53831D(Unit* unit);
+    void sub_538137(uint8_t x, uint8_t y, int32_t spread_damage); // Still in asm.
     void sub_537CD6();
     void sub_537C8C();
     void sub_537F2C();

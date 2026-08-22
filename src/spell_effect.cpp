@@ -16,6 +16,8 @@ extern "C" {
 	extern int32_t dword_6366C4;  // Number of wave patterns for area-effect spell 9 (= 6).
 	extern int32_t dword_6366C8[]; // Wave patterns A for area-effect spell 9 (6 records of 41 dwords).
 	extern int32_t dword_636AA0[]; // Wave patterns B for area-effect spell 9.
+	extern int32_t unk_636578[];  // Wave table A used by AreaEffect::sub_537F2C.
+	extern int32_t unk_636620[];  // Wave table B used by AreaEffect::sub_537F2C.
 }
 
 // Wave propagation descriptor built from the static wave tables.
@@ -330,6 +332,21 @@ void AreaEffect::sub_5384FF() {
 		}
 	}
 	this->field2_0x40 = 1;
+}
+
+// 537F2C
+void AreaEffect::sub_537F2C() {
+	uint8_t x = this->position->GetX();
+	uint8_t y = this->position->GetY();
+	bool spread_damage = this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage)) &&
+		static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+	WavePattern wave;
+	wave.sub_537B2B(unk_636578, unk_636620, this->field_0x4e);
+	for (int32_t i = 0; i < wave.count; i++) {
+		this->sub_538137(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
+	}
+	g_NetStru1_main.sub_51BE8F(this, 1);
+	this->field_0x4c = 1;
 }
 
 // 537CD6
