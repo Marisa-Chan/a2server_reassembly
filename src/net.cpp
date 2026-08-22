@@ -207,6 +207,20 @@ void NetStru1::sub_51CD2A(Player* player, int32_t event_id, int32_t arg3) {
     this->QueuePacketSend(&packet);
 }
 
+// 51CDFB
+void NetStru1::sub_51CDFB(CString& name, uint32_t score, char type, Player* player) {
+    PacketJoin& packet = PacketJoin::Inst;
+    if (type != 0) {
+        packet.id = type;
+    } else {
+        packet.id = 0x91;
+    }
+    strcpy(packet.name, name);
+    packet.to_player_id = player ? player->player_id : 0;
+    packet.__field_0xa = score;
+    this->QueuePacketSend(&packet);
+}
+
 // 51CA5D
 void NetStru1::sub_51CA5D(Player* player) {
     POSITION pos = g_Server->srv_stru1->sack_list->list.GetHeadPosition();

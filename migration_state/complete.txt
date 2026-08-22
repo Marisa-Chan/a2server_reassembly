@@ -741,6 +741,7 @@
 ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z
 ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z
 ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z
+?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z
 ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z
 ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z
 ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
