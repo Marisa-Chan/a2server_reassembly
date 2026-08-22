@@ -767,6 +767,7 @@
 ?sub_544685@Shop@@QAEXPAVUnit@@@Z
 ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z
 ?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z
+?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z
 ?sub_5474D8@CMultiShopTemplate@@QAEXXZ
 ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z
 ?sub_547E91@CMultiShopTemplate@@QAEHXZ

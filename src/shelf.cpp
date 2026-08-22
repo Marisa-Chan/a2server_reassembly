@@ -181,6 +181,15 @@ int CMultiShopTemplate::sub_547E91() {
     return 1;
 }
 
+// 547468
+CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid* humanoid) {
+    int32_t index = this->sub_54740C(humanoid);
+    if (index == -1) {
+        return nullptr;
+    }
+    return this->shop_instances[index];
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
