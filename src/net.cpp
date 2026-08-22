@@ -28,6 +28,7 @@
 #include "quest.h"
 #include "inventory.h"
 #include "shelf.h"
+#include "shop.h"
 
 
 extern "C" uint32_t dword_665CFC;
@@ -4798,6 +4799,35 @@ void NetStru1::sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int3
     while (it != nullptr) {
         Item* item = inventory->items.GetNext(it);
         item->StoreToPacket(&packet, param == 4);
+        packet.entry_count++;
+    }
+    this->QueuePacketSend(&packet);
+}
+
+// 51AA26
+void NetStru1::sub_51AA26(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
+    PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
+    packet.id = 0x76;
+    packet.entry_count = 0;
+    packet.field_0xf = 0;
+    packet.data_size = 0;
+    packet.building_id = shop->building_id;
+    if (player == nullptr) {
+        // Original code logged "Error - notify about shop contents to all" (compiles to a no-op)
+        packet.to_player_id = 0;
+    } else {
+        packet.to_player_id = player->player_id;
+    }
+    packet.field_0xc = slot;
+    Item empty_item;
+    int32_t count = shelf->items.GetSize();
+    for (int32_t i = 0; i < count; i++) {
+        Item* item = shelf->items[i];
+        if (item != nullptr) {
+            item->StoreToPacket(&packet, 0);
+        } else {
+            empty_item.StoreToPacket(&packet, 0);
+        }
         packet.entry_count++;
     }
     this->QueuePacketSend(&packet);
