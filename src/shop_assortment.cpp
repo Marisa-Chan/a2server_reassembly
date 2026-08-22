@@ -110,6 +110,29 @@ Effect* __cdecl sub_54EDE9(int32_t is_warrior, int32_t item_type, int32_t sub_ty
     return effect;
 }
 
+// 54BF6B
+void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
+    this->sub_54BC09();
+    this->min_cost = params->min_cost;
+    this->max_cost = params->max_cost;
+    this->flags = params->flags;
+    if ((this->flags & 0x400000) != 0) {
+        this->sub_54ACCB(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x400000);
+    }
+    if ((this->flags & 0x8000000) != 0) {
+        this->sub_54ACCB(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x8000000);
+    }
+    if ((this->flags & 0x1000000) != 0) {
+        this->sub_54ACCB(&g_GameDataRes.armors, (this->flags & 0xF23FFFFF) | 0x1000000);
+    }
+    if ((this->flags & 0x800000) != 0) {
+        this->sub_54ACCB(&g_GameDataRes.shields, (this->flags & 0xF23FFFFF) | 0x800000);
+    }
+    if ((this->flags & 0x4000000) != 0) {
+        this->sub_54AF21(&g_GameDataRes.magic_items);
+    }
+}
+
 // 54D423
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
     CArray<Item*> item_array;
