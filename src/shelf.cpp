@@ -114,6 +114,11 @@ void CMultiShopInstance::sub_546537(int32_t amount, Item* item) {
     this->inventory.sub_5524FA(amount, item);
 }
 
+// 546557
+Item* CMultiShopInstance::sub_546557(int32_t item_number, int32_t count) {
+    return this->inventory.sub_552E42(item_number, count);
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
