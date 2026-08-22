@@ -1678,6 +1678,27 @@ void MapStuff::sub_594125() {
     }
 }
 
+// 5943D0 --- set building pointer in cell state at yx
+int MapStuff::sub_5943D0(Building* building, uint16_t yx) {
+    if (this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        if (this->scratch_cell_state.building != nullptr) {
+            return 0;
+        }
+        this->scratch_cell_state.building = building;
+        this->cell_states[yx] = this->scratch_cell_state;
+        return 1;
+    }
+
+    this->FUN_0058b3e0(yx);
+    if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
+        return 0;
+    }
+    this->scratch_cell_state.building = building;
+    this->cell_states[yx] = this->scratch_cell_state;
+    this->sub_58B593(yx);
+    return 1;
+}
+
 // 5945EF --- remove building from map
 int32_t MapStuff::sub_5945EF(Building* building) {
     int bit_index = 0;

@@ -224,7 +224,7 @@ public:
     int sub_597140(Unit* unit, PosYX yx, int32_t flag);
     int32_t sub_5945EF(class Building* building); // Remove building from map
     int32_t sub_59451F(class Building* building); // Place building on the map
-    int sub_5943D0(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx (body still in ASM)
+    int sub_5943D0(Building* building, uint16_t yx); // 5943D0 — set building pointer in cell state at yx
     int sub_595438(AreaEffect* ae, uint8_t x, uint8_t y); // Check if area effect can be applied at (x, y) — 595438
     uint8_t FacingDiff(uint8_t a, uint8_t b); // 595561 — smallest angular difference between two facing bytes.
     AreaEffect* sub_5953CB(AreaEffect* ae, uint16_t coord);  // Check if area effect covers cell coord — 5953CB
