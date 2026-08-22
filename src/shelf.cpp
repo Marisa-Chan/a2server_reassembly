@@ -162,3 +162,25 @@ void CMultiShopTemplate::sub_547644(Unit* unit) {
     this->shop_instances.SetAtGrow(this->shop_instances.GetSize(), shop_instance);
     shop_instance->sub_5464B6(-1);
 }
+
+// 546F8D
+CMultiShopInstance* CMultiShopTemplate::sub_546F8D(Unit* unit) {
+    CMultiShopInstance* instance = new CMultiShopInstance();
+    instance->unit = unit;
+    instance->shop_template = this;
+    this->field_0x4 += 1;
+    for (int32_t i = 0; i < 4; i++) {
+        instance->shelves[i].items.SetSize(this->shelves[i].items.GetSize(), -1);
+        int32_t added_items = 0;
+        for (int32_t j = 0; j < this->shelves[i].items.GetSize(); j++) {
+            Item* item = this->shelves[i].items[j];
+            if (item->count != 0) {
+                instance->shelves[i].items[added_items] = item;
+                item->field10_0x4c += 1;
+                added_items += 1;
+            }
+        }
+        instance->shelves[i].items.SetSize(added_items, -1);
+    }
+    return instance;
+}
