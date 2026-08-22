@@ -197,6 +197,16 @@ void CMultiShopTemplate::sub_54749F() {
     }
 }
 
+// 547B7B
+void CMultiShopTemplate::sub_547B7B(Unit* unit) {
+    CMultiShopInstance* instance = this->sub_547468(static_cast<Humanoid*>(unit));
+    if (instance == nullptr) {
+        return;
+    }
+    instance->sub_546857(unit);
+    instance->Buy();
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
