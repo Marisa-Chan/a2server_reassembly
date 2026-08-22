@@ -110,9 +110,9 @@ _sub_54C6DD	453
 ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z	20
 ?sub_5464B6@CMultiShopInstance@@QAEXH@Z	60
 ?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z	130
+?sub_54668B@CMultiShopInstance@@QAEXXZ	203
 ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z	210
 ?sub_54546E@CMultiShopShelf@@QAEXH@Z	85
-?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z	42
 ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z	48
 ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z	49
 ??3CNoTrackObject@@SGXPAX@Z	11
