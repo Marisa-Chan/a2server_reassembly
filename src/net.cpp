@@ -4741,6 +4741,31 @@ void NetStru1::sub_51A0EF(Unit* unit, Player* player, int32_t flags) {
     this->QueuePacketSend(&packet);
 }
 
+// 51A8B2
+void NetStru1::sub_51A8B2(Unit* unit, Inventory* inventory, Player* player, int32_t param) {
+    PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
+    packet.id = 0x76;
+    packet.entry_count = 0;
+    packet.field_0xf = 0;
+    packet.data_size = 0;
+    packet.building_id = unit->building_id;
+    if (player == nullptr) {
+        // Original code logged "Error - notify about shop table contents to all" (compiles to a no-op)
+        packet.to_player_id = 0;
+    } else {
+        packet.to_player_id = player->player_id;
+    }
+    packet.field_0xc = (uint8_t)param;
+    // ASM also calls a no-op library helper (unknown_libname_724) with inventory->items.m_nCount here.
+    POSITION it = inventory->items.GetHeadPosition();
+    while (it != nullptr) {
+        Item* item = inventory->items.GetNext(it);
+        item->StoreToPacket(&packet, param == 4);
+        packet.entry_count++;
+    }
+    this->QueuePacketSend(&packet);
+}
+
 // 51AB99
 void NetStru1::sub_51AB99(CMultiShopInstance* inst, Player* player, int32_t param) {
     if (param == -1) {
