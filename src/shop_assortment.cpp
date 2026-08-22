@@ -202,6 +202,68 @@ void ShopAssortment::sub_54ACCB(CArray<WorldEquip>* items, uint32_t flags) {
     }
 }
 
+// 54AF21
+void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
+    // First pass: spell books
+    for (int32_t spell_id = 1; spell_id < 0x1E; spell_id++) {
+        if (spell_id == 9 || spell_id == 0xF || spell_id == 0xE || spell_id == 0x1C || spell_id == 0x1D || spell_id == 0x18) {
+            continue;
+        }
+
+        Item* item = nullptr;
+        if (spell_id >= 1 && spell_id <= 4) {
+            item = new Item("Book Fire");
+        } else if (spell_id >= 5 && spell_id <= 8) {
+            item = new Item("Book Water");
+        } else if (spell_id >= 10 && spell_id <= 13) {
+            item = new Item("Book Air");
+        } else if (spell_id >= 16 && spell_id <= 19) {
+            item = new Item("Book Earth");
+        } else if (spell_id >= 20 && spell_id <= 27) {
+            item = new Item("Book Astral");
+        }
+
+        if (item == nullptr) {
+            continue;
+        }
+
+        item->_exp = g_GameDataRes.spells[spell_id].Values()[0].book_cost;
+        if (item->_exp < this->min_cost || item->_exp > this->max_cost) {
+            delete item;
+            continue;
+        }
+
+        Effect* effect = new Effect();
+        item->_effects.AddTail(effect);
+        effect->effect_id = 42;
+        effect->spell_or_damage = (int16_t)spell_id;
+
+        int32_t size = this->items.GetSize();
+        this->items.SetSize(size + 1, -1);
+        this->items[size] = item;
+    }
+
+    // Second pass: scrolls and potions
+    for (int32_t spell_id = 1; spell_id < 0x1E; spell_id++) {
+        Item* item = nullptr;
+        if (Random1N(2) == 1) {
+            item = new Item(0xE, (uint8_t)(spell_id + 5));
+        } else {
+            item = new Item(0xE, (uint8_t)(spell_id + 0x22));
+        }
+        item->VMethod15();
+
+        if (item->_exp < this->min_cost || item->_exp > this->max_cost) {
+            delete item;
+            continue;
+        }
+
+        int32_t size = this->items.GetSize();
+        this->items.SetSize(size + 1, -1);
+        this->items[size] = item;
+    }
+}
+
 // 54D423
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
     CArray<Item*> item_array;
