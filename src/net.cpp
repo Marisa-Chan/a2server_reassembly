@@ -4536,6 +4536,24 @@ void NetStru1::sub_51E205(CString name) {
     this->QueuePacketSend(&packet);
 }
 
+// 51E40C
+void NetStru1::sub_51E40C(const char* str, int32_t len) {
+    PacketData& packet = PacketData::Inst;
+    packet.to_player_id = 0;
+    packet.id = 0xD4;
+    while (len != 0) {
+        if (len <= 0x10000) {
+            packet.count = len;
+        } else {
+            packet.count = 0x10000;
+        }
+        len -= packet.count;
+        memcpy(packet.data, str, packet.count);
+        str += packet.count;
+        this->QueuePacketSend(&packet);
+    }
+}
+
 // 51E5FB
 void NetStru1::sub_51E5FB(int32_t a, int32_t b) {
     PacketInfo& packet = PacketInfo::Inst;
