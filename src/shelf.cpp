@@ -230,3 +230,24 @@ void CMultiShopTemplate::sub_5479C6(Humanoid* humanoid) {
     }
     this->sub_547E91();
 }
+
+// 547DD4
+void CMultiShopTemplate::sub_547DD4() {
+    if (g_Server->field4_0x74 == 0) {
+        return;
+    }
+    if (g_Server->tick16 % 180 == 0) {
+        this->refresh_assortment_counter += 1;
+        this->sub_547E91();
+    }
+    for (int i = 0; i < this->shop_instances.GetSize(); i++) {
+        Unit* unit = this->shop_instances[i]->unit;
+        if (unit->pOwner == nullptr) {
+            this->sub_5479C6(static_cast<Humanoid*>(unit));
+            continue;
+        }
+        if (unit->pOwner->field_0x43 == 0) {
+            this->shop->sub_544685(unit);
+        }
+    }
+}

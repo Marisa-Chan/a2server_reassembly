@@ -122,7 +122,6 @@ _sub_54C6DD	453
 ?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z	51
 ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z	55
 ?sub_547CB9@CMultiShopTemplate@@QAEXPAVHumanoid@@EFEFH@Z	57
-?sub_547DD4@CMultiShopTemplate@@QAEXXZ	87
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36
