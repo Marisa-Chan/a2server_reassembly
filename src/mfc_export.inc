@@ -921,7 +921,6 @@ externdef ?sub_539C49@Spell@@QAEXPAVUnit@@0@Z :proc
 ; SpellBook
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
 externdef ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
-externdef ?sub_53DD3D@SpellBook@@QAEHXZ :proc                               ; SpellBook::sub_53DD3D() – get current spell ID
 extern ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
 
 

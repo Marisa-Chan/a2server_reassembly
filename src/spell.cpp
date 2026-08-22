@@ -266,6 +266,17 @@ void SpellBook::Serialize(CArchive& ar) {
     }
 }
 
+// 53DD3D
+int32_t SpellBook::sub_53DD3D() {
+    int32_t mask = 0;
+    for (int32_t i = 1; i < this->spells.GetSize(); i++) {
+        if (this->spells[i] != nullptr) {
+            mask |= 1 << i;
+        }
+    }
+    return mask;
+}
+
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid)
 {
 	//53dbc5
