@@ -141,6 +141,37 @@ void CMultiShopInstance::sub_5464B6(int32_t param) {
     }
 }
 
+// 546577
+void CMultiShopInstance::sub_546577(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count) {
+    int32_t result = 0;
+    Item* item = nullptr;
+
+    if (src_type == 4) {
+        item = this->sub_546557(src_slot, count);
+        if (item == nullptr || item->count == 0) {
+            this->sub_5464B6(src_type - 4);
+            return;
+        }
+    } else {
+        item = this->shelves[src_type - 5].sub_5453E8(src_slot, count);
+        if (item == nullptr || item->count == 0) {
+            this->sub_5464B6(src_type - 4);
+            return;
+        }
+        this->shop_template->sub_546F18(this, src_type - 4);
+    }
+
+    if (dst_type == 4) {
+        this->sub_546537(dst_slot, item);
+    } else {
+        result = this->sub_5462C8(item, dst_slot);
+    }
+
+    if (result != 0) {
+        this->shop_template->sub_546F18(this, -1);
+    }
+}
+
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 

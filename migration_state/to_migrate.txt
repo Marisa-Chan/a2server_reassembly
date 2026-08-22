@@ -107,9 +107,9 @@ _sub_54C6DD	453
 ?GetText@CListBox@@QBEXHAAVCString@@@Z	28
 ??1CListBox@@UAE@XZ	29
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
-?sub_546577@CMultiShopInstance@@QAEXEFEFH@Z	130
 ?sub_54668B@CMultiShopInstance@@QAEXXZ	203
 ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z	210
+?sub_5453E8@CMultiShopShelf@@QAEPAVItem@@HH@Z	64
 ?sub_54546E@CMultiShopShelf@@QAEXH@Z	85
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
