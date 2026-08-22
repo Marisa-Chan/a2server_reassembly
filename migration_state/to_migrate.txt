@@ -120,7 +120,6 @@ _sub_54C6DD	453
 ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z	42
 ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z	48
 ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z	49
-?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z	51
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36

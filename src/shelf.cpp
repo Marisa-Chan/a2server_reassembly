@@ -161,6 +161,16 @@ void CMultiShopTemplate::sub_546F18(CMultiShopInstance* inst, int param) {
     }
 }
 
+// 54740C
+int CMultiShopTemplate::sub_54740C(Unit* unit) {
+    for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
+        if (this->shop_instances[i]->unit->pOwner == unit->pOwner) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 // 547644
 void CMultiShopTemplate::sub_547644(Unit* unit) {
     if (this->shop_instances.GetSize() >= 250) {
