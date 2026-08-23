@@ -914,7 +914,6 @@ extern ??1Spell@@UAE@XZ : proc
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
 externdef ?sub_52F5BB@Unit@@QAEEI@Z :proc                                ; uint8_t Unit::sub_52F5BB(uint32_t)
 externdef ?sub_5B5CA8@World@@QAEXPAVUnit@@0PAV?$CList@PAVUnit@@ABQAV1@@@II@Z :proc ; void World::sub_5B5CA8(Unit*,Unit*,CList<Unit*>*,uint32_t,uint32_t)
-externdef ?sub_51BC6B@NetStru1@@QAEXPAVUnit@@PAVSpell@@PAV?$CList@PAVUnit@@ABQAV1@@@H@Z :proc ; void NetStru1::sub_51BC6B(Unit*,Spell*,CList<Unit*>*,int32_t)
 
 ; SpellBook
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable

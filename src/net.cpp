@@ -4499,6 +4499,31 @@ void NetStru1::sub_51BB94(Unit* caster, Spell* spell, TokenPos* pos, int16_t del
     this->sub_51B370(&packet, caster->position);
 }
 
+// 51BC6B
+void NetStru1::sub_51BC6B(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
+    PacketTerrain& packet = PacketTerrain::Inst;
+    packet.id = 0x8A;
+    packet.count = units->GetCount() + 1;
+    packet.buf[0] = caster->building_id;
+    if (caster->typeId == 0) {
+        packet.id = 0x8C;
+        packet.buf[0] = caster->position->GetYX();
+    }
+    int32_t i = 1;
+    POSITION it = units->GetHeadPosition();
+    while (it != nullptr) {
+        Unit* unit = units->GetNext(it);
+        packet.buf[i] = unit->building_id;
+        i++;
+    }
+    if (caster->VMethod7()) {
+        caster->last_action_tick = g_Server->tick;
+    }
+    packet.to_player_id = 0;
+    // This reinterpret_cast is kinda weird, but it works, because `sub_51B370` only reads the 2-byte 0xa field from non-Packet fields.
+    this->sub_51B370(reinterpret_cast<PacketMoveCmd*>(&packet), caster->position);
+}
+
 // 51BDA4
 void NetStru1::sub_51BDA4(Effect* effect, Unit* unit, uint8_t arg) {
     PacketEffect& packet = PacketEffect::Inst;
