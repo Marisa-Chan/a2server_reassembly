@@ -148,6 +148,20 @@ Unit* Group::sub_599F00() {
 }
 
 
+// 599F20
+Unit* Group::sub_599F20(Unit* unit) {
+    POSITION it = this->unit_list.Find(unit);
+    if (it == nullptr) {
+        return nullptr;
+    }
+    this->unit_list.GetNext(it);
+    if (it == nullptr) {
+        return nullptr;
+    }
+    return this->unit_list.GetAt(it);
+}
+
+
 
 
 

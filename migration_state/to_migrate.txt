@@ -170,8 +170,6 @@ _sub_54C6DD	453
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
 ?ExitInstance@GameApp@@UAEHXZ	125
 ?OnIdle@GameApp@@UAEHJ@Z	199
-?sub_599F00@Group@@QAEPAVUnit@@XZ	13
-?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z	44
 ?sub_5524FA@Inventory@@QAEXHPAVItem@@@Z	502
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
