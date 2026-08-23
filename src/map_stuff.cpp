@@ -1203,6 +1203,35 @@ void CellState::Null()
     cell_yx = 0;
 }
 
+// 59423F
+void CellState::sub_59423F() {
+    void* remapped;
+
+    if (this->small_unit != nullptr && g_Server->field23_0xdc.Lookup(this->small_unit, remapped)) {
+        this->small_unit = (Unit*)remapped;
+    }
+    if (this->large_unit != nullptr && g_Server->field23_0xdc.Lookup(this->large_unit, remapped)) {
+        this->large_unit = (Unit*)remapped;
+    }
+    if (this->building != nullptr && g_Server->field23_0xdc.Lookup(this->building, remapped)) {
+        this->building = (Building*)remapped;
+    }
+    if (this->sack != nullptr && g_Server->field23_0xdc.Lookup(this->sack, remapped)) {
+        this->sack = (Sack*)remapped;
+    }
+    if (this->static_blocker != nullptr && g_Server->field23_0xdc.Lookup(this->static_blocker, remapped)) {
+        this->static_blocker = (Unit*)remapped;
+    }
+    if (this->dynamic_blocker != nullptr && g_Server->field23_0xdc.Lookup(this->dynamic_blocker, remapped)) {
+        this->dynamic_blocker = (Unit*)remapped;
+    }
+    for (int32_t i = 0; i < 6; i++) {
+        if (this->area_effects[i] != nullptr && g_Server->field23_0xdc.Lookup(this->area_effects[i], remapped)) {
+            this->area_effects[i] = (AreaEffect*)remapped;
+        }
+    }
+}
+
 
 
 void __cdecl MissionGetBriefing(CString* out)

@@ -77,7 +77,6 @@ _sub_54C6DD	453
 ??0CEdit@@QAE@XZ	16
 ??1CEdit@@UAE@XZ	29
 ?SetSel@CEdit@@QAEXKH@Z	37
-?sub_59423F@CellState@@QAEXXZ	158
 ?ResetPalette@CGameBitmap@@QAEXIHH@Z	29
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z	376
 ?FUN_00462405@CGameObject@@QAEHH@Z	51

@@ -517,7 +517,6 @@ externdef ?sub_59A670@MapStuff@@QAEPAGEE@Z :proc                          ; uint
 externdef ?sub_59A6F0@MapStuff@@QAEPAEEE@Z :proc                          ; uint8_t* MapStuff::sub_59A6F0(uint8_t, uint8_t) [ASM]
 
 extern ?IsEmpty@CellState@@QBEHXZ : proc
-externdef ?sub_59423F@CellState@@QAEXXZ :proc          ; void CellState::sub_59423F()
 extern ?sub_538897@AreaEffect@@QBEIXZ :proc              ; uint32_t AreaEffect::sub_538897() const
 
 
