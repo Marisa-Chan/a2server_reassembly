@@ -164,7 +164,6 @@ _sub_54C6DD	453
 ?OnCommand@CWnd@@UAEHIJ@Z	82
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
-?sub_5B545F@Diplomacy@@QAEXPAVPlayer@@@Z	170
 ?sub_541FD7@Effect@@QAEHHH@Z	206
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
 ?ExitInstance@GameApp@@UAEHXZ	125

@@ -37,6 +37,37 @@ Diplomacy::Diplomacy() {
     this->flags[3] = 0;
 }
 
+// 5B545F
+void Diplomacy::sub_5B545F(Player* player) {
+    int32_t player_id = player->player_id;
+    
+    this->diplomacy[player_id][0] = (player->is_ai == 2) ? 0 : static_cast<uint8_t>(player->is_ai);
+    
+    this->diplomacy[0][player_id] = 1;
+
+    for (int32_t i = 1; i < 70; ++i) {
+        if (this->diplomacy[0][i] != 0) {
+            if (this->diplomacy[player_id][0] == 0) {
+                if (this->diplomacy[i][0] == 0) {
+                    this->diplomacy[player_id][i] = this->flags[3];
+                    this->diplomacy[i][player_id] = this->flags[3];
+                } else {
+                    this->diplomacy[player_id][i] = this->flags[1];
+                    this->diplomacy[i][player_id] = this->flags[0];
+                }
+            } else if (this->diplomacy[i][0] == 0) {
+                this->diplomacy[player_id][i] = this->flags[0];
+                this->diplomacy[i][player_id] = this->flags[1];
+            } else {
+                this->diplomacy[player_id][i] = this->flags[2];
+                this->diplomacy[i][player_id] = this->flags[2];
+            }
+        }
+    }
+    
+    this->diplomacy[player_id][player_id] = 0x12;
+}
+
 // 5A4B1A
 World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->sub_5A457A();
