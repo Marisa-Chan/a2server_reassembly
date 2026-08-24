@@ -33,7 +33,6 @@ _sub_536630	167
 _sub_54C6DD	453
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
 ?gfxFlushRect@@YAXABVCRect@@@Z	155
-?LogMessage@@YAXVCString@@@Z	33
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ	13

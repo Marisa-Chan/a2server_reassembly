@@ -83,6 +83,12 @@ void __cdecl sub_43A857(const char* source) {
 	file.WriteString(timestamp + source + "\n");
 }
 
+// 43AA23
+void LogMessage(CString message)
+{
+	sub_43A857(message);
+}
+
 void ReadFileToString(const char* fname, CString* str)
 {
 	//4758cd

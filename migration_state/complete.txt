@@ -518,6 +518,7 @@
 ?LoadItemNames@@YAXXZ
 ?LoadStringA@CString@@QAEHI@Z
 ?LockBuffer@CString@@QAEPADXZ
+?LogMessage@@YAXVCString@@@Z
 ?MagicPriceBonus@Effect@@SA_JH@Z
 ?MakeLower@CString@@QAEXXZ
 ?MakeReverse@CString@@QAEXXZ
