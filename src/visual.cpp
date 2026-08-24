@@ -5183,3 +5183,106 @@ void VisGlobalMap::PopulateScenarioLocationFlags()
             locationAvailabilityFlags.Add(1);
     }
 }
+
+
+VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{ //4cd4d0
+    VisLogoWnd::VMethod26();
+}
+
+VisLogoWnd::~VisLogoWnd()
+{ //4cd53c
+    if (logoBitmap)
+        delete logoBitmap;
+}
+
+void VisLogoWnd::VMethod7()
+{ //4cd8d1
+    drawPendingFlag = 0;
+
+    LockSurface2();
+
+    if (logoBitmap)
+        logoBitmap->VMethod2(rect.left, rect.top, 0, 0, 0);
+
+    UnlockSurface2();
+}
+
+int32_t VisLogoWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{ //4cd72e
+
+    static const char* logos_files[] =
+    {
+        "graphics\\interface\\logo\\SSS256.bmp",
+        "graphics\\interface\\logo\\Buka256.bmp",
+        "graphics\\interface\\logo\\Nival256.bmp",
+        "graphics\\interface\\logo\\Allods.bmp",
+        "graphics\\interface\\logo\\Intro.bmp",
+        "graphics\\interface\\logo\\Web.bmp",
+        "graphics\\interface\\logo\\splash1.bmp",
+        "graphics\\interface\\logo\\splash2.bmp",
+        "graphics\\interface\\logo\\splash3.bmp",
+        "graphics\\interface\\logo\\splash4.bmp"
+    };
+
+    switch (msg)
+    {
+    case 0x402:
+        if (drawPendingFlag)
+            VMethod9();
+
+        if (timeoutTicks < timeGetTime() - timeoutStart)
+            AfxGetMainWnd()->PostMessage(0x438, step, 0);
+        break;
+
+    case 0x408:
+        drawPendingFlag = 1;
+        break;
+
+    case 0x439:
+        timeoutTicks = wparam;
+        timeoutStart = timeGetTime();
+        break;
+
+    case 0x43a:
+        step = wparam;
+        logoBitmap = new CBmp256(logos_files[wparam]);
+        logoBitmap->ResetPalette(1, 1, 0);
+        break;
+    default:
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+    return 1;
+}
+
+int32_t VisLogoWnd::OnLButtonDown(uint32_t wparam, CPoint pos)
+{ //4cd6c2
+    AfxGetMainWnd()->PostMessage(0x438, step, 0);
+    timeoutTicks = 0x7fffffff;
+    return 1;
+}
+
+int32_t VisLogoWnd::OnKeyDown(uint32_t wparam)
+{ //4cd6f8
+    AfxGetMainWnd()->PostMessage(0x438, step, 0);
+    timeoutTicks = 0x7fffffff;
+    return 1;
+}
+
+void VisLogoWnd::VMethod26()
+{ //4cd5be
+    timeoutTicks = 0x7fffffff;
+    logoBitmap = nullptr;
+    AddChild(new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x445, 0, nullptr)); // WTF?
+}
+
+void VisLogoWnd::DoClose(uint32_t code)
+{ //4cd666 29 method   
+    if (logoBitmap)
+    {
+        delete logoBitmap;
+        logoBitmap = nullptr;
+    }
+    VisScreen::DoClose(code);
+}

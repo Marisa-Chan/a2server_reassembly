@@ -950,7 +950,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             if (sessionMode == 2)
                 PostMessage(0x421, 0, 0);
             else
-                FUN_0048cff7();
+                ShowCharacterLoaderDialog();
         }
         else
         {
@@ -1118,7 +1118,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             if (sessionMode == 3)
                 PostMessage(0x421, 0, 0);
             else
-                FUN_0048cff7();
+                ShowCharacterLoaderDialog();
         }
 
         delete field_0x350;
@@ -1150,10 +1150,10 @@ void MainWindow::Proc_44c(CVisualObject* obj)
             if (hat_settings.ishat == 0)
             {
                 vis_root->MsgProc(0x446, 0, 0);
-                FUN_0048cff7();
+                ShowCharacterLoaderDialog();
             }
             else if (g_CLlDriver.IsListen())
-                FUN_0048cff7();
+                ShowCharacterLoaderDialog();
             else
                 PostMessage(0x487, 0, 0);
         }
@@ -1295,7 +1295,7 @@ void MainWindow::Proc_44c(CVisualObject* obj)
 }
 
 
-void MainWindow::FUN_0048cff7()
+void MainWindow::ShowCharacterLoaderDialog()
 { //48cff7
     g_Cursors[CURSOR_WAIT]->Use();
 
@@ -1858,6 +1858,13 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             m_GameSession.RefreshCharacterRosterFiles(1);
             m_GameSession.InitializeNewCharacterSession(0, nullptr);
             ShowStartGameSetupForNewSession();
+        break;
+
+    case 0x426:
+        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+        serverLoopCounter = 0;
+        sessionMode = 0;
+        ShowCharacterLoaderDialog();
         break;
     }
 
@@ -2748,6 +2755,15 @@ void MainWindow::ShowStartGameSetupForNewSession()
     }
 }
 
+
+void MainWindow::ShowStartupLogoDialog()
+{ // 48dba0
+    vis_root->AddChild(field_0x134);
+    field_0x134->VMethod28();
+
+    field_0x460 = 0;
+    dialogsMask |= 0x100;
+}
 
 
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()

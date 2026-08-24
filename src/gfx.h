@@ -144,10 +144,13 @@ public:
 	virtual ~CGamePalette(); //423c6d
 	virtual void Dump(CDumpContext& dc) const override;
 
+	void operator=(const CGamePalette& b);
+
 	CGamePalette() = default; // 423bdf
 	void Free();
 	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe
 	uint16_t* GetPalette(int32_t idx); //41ec40
+
 public:
 	uint32_t count = 0;
 	uint16_t* colors = nullptr;
@@ -155,11 +158,23 @@ public:
 
 ASSERT_SIZE(CGamePalette, 0xC);
 
-struct BtmapFrame
+struct BmpFrame
 {
 	uint32_t width;
 	uint32_t height;
+	uint8_t data[];
 };
+ASSERT_SIZE(BmpFrame, 8);
+
+struct SpriteFrame
+{
+	uint32_t width;
+	uint32_t height;
+	uint32_t datasize;
+	uint8_t data[];
+};
+ASSERT_SIZE(SpriteFrame, 0xc);
+
 
 class CGameBitmap : public CObject
 {
@@ -169,10 +184,10 @@ public:
 	virtual void Dump(CDumpContext& dc) const override;
 
 	virtual void VMethod1(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode);
+	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid);
 	virtual void VMethod3(int32_t x, int32_t y, int frame, int blevel, int mode);
-	virtual int32_t GetWidth(int frame);
-	virtual int32_t GetHeight(int frame);
+	virtual int32_t GetWidth(int frame = 0);
+	virtual int32_t GetHeight(int frame = 0);
 	virtual void SelectBitmapForDraw();
 	virtual void VMethod7();
 	virtual int GetPixelSize();
@@ -180,20 +195,20 @@ public:
 
 	CGameBitmap();
 	CGameBitmap(const char* fname);
-	CGameBitmap(const CGameBitmap* source);
+	CGameBitmap(const CGameBitmap& source);
 
-	void* GetData() { return pdata + 8; };
+	void* GetData();
 	void ResetPalette(uint32_t count, int mode, int useColor);
 
-	int32_t GetFrameCount() { return frames_count; } //4387f0
+	int32_t GetFrameCount(); //4387f0
 
 public:
-	uint32_t frames_count;
-	uint32_t data_size;
-	BtmapFrame** frames;
-	uint8_t* pdata;
+	uint32_t frames_count = 0;
+	uint32_t data_size = 0;
+	void** frames = nullptr;
+	uint8_t* pdata = nullptr;
 	CGamePalette palette;
-	uint8_t* palette_data;
+	uint8_t* palette_data = nullptr;
 };
 
 ASSERT_SIZE(CGameBitmap, 0x24);
@@ -206,9 +221,9 @@ public:
 	virtual ~CBmp256();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual int32_t GetWidth(int frame) override;
-	virtual int32_t GetHeight(int frame) override;
+	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) override;
+	virtual int32_t GetWidth(int frame = 0) override;
+	virtual int32_t GetHeight(int frame = 0) override;
 	virtual void VMethod7() override;
 	virtual int GetPixelSize() override;
 
@@ -227,9 +242,9 @@ public:
 	virtual ~CBmp64();
 	virtual void Dump(CDumpContext& dc) const override;
 
-	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual int32_t GetWidth(int frame) override;
-	virtual int32_t GetHeight(int frame) override;
+	virtual void VMethod2(int32_t x, int32_t y, int frame, int mode, int palid) override;
+	virtual int32_t GetWidth(int frame = 0) override;
+	virtual int32_t GetHeight(int frame = 0) override;
 	virtual void VMethod7() override;
 
 	virtual void VMethod9(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);
@@ -239,6 +254,9 @@ public:
 
 	CBmp64(const char* fname);
 	CBmp64(uint32_t w, uint32_t h);
+
+	void LoadFile(const char* fname, CGameBitmap* bmp2 = nullptr);
+	void WriteFile(const char* fname, CGameBitmap* bmp2 = nullptr);
 };
 
 class CSprite256 : public CGameBitmap
@@ -254,19 +272,18 @@ public:
 
 	virtual void VMethod9(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);
 	virtual void VMethod10(int32_t x, int32_t y, int frame, int palid, int mode);
-	virtual void VMethod11(int32_t x, int32_t y, int frame, int blevel, int arg5, int mode);
+	virtual void VMethod11(int32_t x, int32_t y, int frame, int blevel, int32_t arg5, int mode);
 	virtual void VMethod12(int32_t x, int32_t y, int frame, uint32_t arg4);
 
 	CSprite256(const char* fname);
-	CSprite256(uint32_t w, uint32_t h);
+	CSprite256(const CSprite256& b);
 };
 
 class CA16 : public CSprite256
 {
 	DECLARE_DYNAMIC(CA16);
 public:
-	virtual ~CA16();
-	virtual void Dump(CDumpContext& dc) const override;
+	virtual ~CA16() {}; //428ae0
 
 	virtual void VMethod2(int32_t x, int32_t y, int frame, int palid, int mode) override;
 
@@ -277,8 +294,8 @@ class CSprite16 : public CGameBitmap
 {
 	DECLARE_DYNAMIC(CSprite16);
 public:
-	virtual ~CSprite16();
-	virtual void Dump(CDumpContext& dc) const override;
+	virtual ~CSprite16() {}; //428950
+	virtual void Dump(CDumpContext& dc) const override {}; //424e2b
 
 	virtual void VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor);
 

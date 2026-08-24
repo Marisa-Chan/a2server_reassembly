@@ -1343,7 +1343,7 @@ extern ?Proc_421@MainWindow@@QAEXXZ : proc
 extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
 extern ?Proc_44c@MainWindow@@QAEXPAVCVisualObject@@@Z : proc
 extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
-extern ?FUN_0048cff7@MainWindow@@QAEXXZ : proc
+extern ?ShowCharacterLoaderDialog@MainWindow@@QAEXXZ : proc
 extern ?FUN_00491822@MainWindow@@QAEXXZ : proc
 extern ?FUN_004918ae@MainWindow@@QAEXXZ : proc
 
@@ -1368,6 +1368,7 @@ extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
 extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
+extern ?ShowStartupLogoDialog@MainWindow@@QAEXXZ : proc
 
 
 
@@ -1919,11 +1920,10 @@ extern ?DecryptEncryptedData@@YAXPAEHG@Z :proc                      ; sub_4F535E
 
 
 ;gfx
-externdef ?g_clipRect@@3VCRect@@A : RECT
-externdef ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A : dword
-externdef ?g_ScreenSize@@3VCRect@@A : dword
+extern ?g_clipRect@@3VCRect@@A : dword
+extern ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A : dword
+extern ?g_ScreenSize@@3VCRect@@A : dword
 
-extern ?FUN_004559d4@@YAXHHHHPAEPAG@Z : proc
 
 extern ?FillRectColor@@YAXHHHHI@Z : proc
 extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
@@ -1968,6 +1968,7 @@ extern ?clr_log_tok2@@3PAGA  : dword
 extern ?clr_log_tok3@@3PAGA  : dword
 
 extern ?g_isLowMemory@@3IA : dword
+extern ?g_ColorAddMask@@3GA : word
 
 extern ?g_colors_human_pals@@3PAY0BA@GA : word
 
@@ -1977,18 +1978,28 @@ extern ?g_spr_smoke@@3PAPAVCA16@@A : dword
 
 extern ?g_DeltaCLR@@3UColorThing@@A : byte
 
+;CBmp256
+extern ??0CBmp256@@QAE@PBD@Z : proc
+extern ??0CBmp256@@QAE@II@Z  : proc
 
 ;CBmp64
-externdef ??0CBmp64@@QAE@II@Z : proc
+extern ??0CBmp64@@QAE@II@Z : proc
+extern ??0CBmp64@@QAE@PBD@Z : proc
+extern ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z : proc
+extern ?WriteFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z : proc
 
 ;CGameBitmap
-externdef ?ResetPalette@CGameBitmap@@QAEXIHH@Z  : proc
+extern ?ResetPalette@CGameBitmap@@QAEXIHH@Z  : proc
 
 ;CSprite256
-externdef ??0CSprite256@@QAE@PBD@Z : proc
+extern ??0CSprite256@@QAE@PBD@Z : proc
+extern ??0CSprite256@@QAE@ABV0@@Z : proc
 
 ;CA16
-externdef ??0CA16@@QAE@PBD@Z  :proc
+extern ??0CA16@@QAE@PBD@Z  :proc
+
+;CSprite16
+extern ??0CSprite16@@QAE@PBD@Z : proc
 
 ;CGamePalette
 extern ?Free@CGamePalette@@QAEXXZ  : proc
@@ -2183,3 +2194,6 @@ extern ??0QuestObjectivesHeaderDialogVisualObject@@QAE@HHHHH@Z : proc
 
 ; TownMenuListDialogVisualObject
 extern ??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z : proc
+
+; VisLogoWnd
+extern ??0VisLogoWnd@@QAE@HHHHH@Z : proc

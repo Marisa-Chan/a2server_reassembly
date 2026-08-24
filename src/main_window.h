@@ -320,7 +320,7 @@ public:
 
     void Proc_44c(CVisualObject* obj); //48b061
 
-    void FUN_0048cff7(); //48cff7
+    void ShowCharacterLoaderDialog(); //48cff7
     void FUN_00491a49(); //491a49
     void FUN_0048f905(); //48f905
     void FUN_004903d0(); //4903d0
@@ -350,6 +350,8 @@ public:
     void ShowGlobalMapDialog(); //48d34b
 
     void InitNewCampaignSession(); //48dd3a
+
+    void ShowStartupLogoDialog(); // 48dba0
 
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
@@ -387,7 +389,7 @@ public:
     int32_t field_0x128;
     VisScreen* field_0x12c;
     CVisualObject* field_0x130;
-    CVisualObject* field_0x134;
+    VisLogoWnd* field_0x134;
     Vis1200* field_0x138;
     LoadGameWindow* field_0x13c;
     SaveGameWindow* field_0x140;

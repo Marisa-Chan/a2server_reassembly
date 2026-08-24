@@ -1684,4 +1684,31 @@ public:
 };
 ASSERT_SIZE(SoundPreferencesDialogVisualObject, 0x74);
 
+
+//60db28
+class VisLogoWnd : public VisScreen
+{
+public:
+	VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cd4d0
+	~VisLogoWnd(); //4cd53c
+
+	virtual void VMethod7() override; //4cd8d1
+	virtual void VMethod8(CRect* rect) override {}; //4cd91e
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //4cd72e
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4cd6c2
+	virtual int32_t OnKeyDown(uint32_t wparam) override; //4cd6f8
+
+	virtual void VMethod26(); //4cd5be
+	virtual void DoClose(uint32_t code); //4cd666 29 method   
+
+public:
+	CBmp256* logoBitmap;
+	int32_t step;
+	uint32_t timeoutStart;
+	uint32_t timeoutTicks;
+	uint32_t drawPendingFlag;
+};
+ASSERT_SIZE(VisLogoWnd, 0x7c);
+
+
 #endif
