@@ -82,8 +82,6 @@ void FUN_00475e7a();
 
 int32_t ParseConfig(const char* fname); //4f7188
 
-int32_t InitVideo(); //453fcc
-int32_t SetVideoMode(); //4546c6
 void ParseTunes(); //476b21
 void LoadFonts();  //460c37
 void LoadSettings(); //441a03
@@ -184,6 +182,7 @@ extern TxtFile txt_cutscene; //660DC8
 extern TxtFile txt_cutpaths; //660E18
 extern TxtFile txt_tunes; //660F30
 extern TxtFile txt_patch; //65FFE0
+extern TxtFile TxtFile_00660e88; //660e88
 
 extern ServerConfig g_ServerConfig; //6D15A0
 

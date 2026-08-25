@@ -6,6 +6,7 @@
 #include "table.h"
 #include "item.h"
 #include "player.h"
+#include "gfx.h"
 
 GameApp GameApp::theApp;
 
@@ -30,7 +31,6 @@ uint32_t INT_00660f74; //660f74
 
 uint32_t g_DWORD_00659d18;
 
-uint32_t g_MessageColors;
 
 CString g_HelpStr;
 
@@ -48,6 +48,7 @@ TxtFile txt_cutscene;
 TxtFile txt_cutpaths;
 TxtFile txt_tunes;
 TxtFile txt_patch;
+TxtFile TxtFile_00660e88; //660e88
 
 
 HANDLE g_AutoRunEvent;
@@ -640,6 +641,63 @@ BOOL GameApp::InitInstance()
 	SetMessageColors(g_MessageColors);
 
 	return TRUE;
+}
+
+int GameApp::ExitInstance()
+{ //4833f1
+	if (g_EnableTrace != 0)
+		g_NetStru1_main.WriteStatsLog("pkt.log");
+
+	FreeLibrary(g_scenario_dll);
+	CloseHandle(g_AutoRunEvent);
+
+	txt_patch.Free();
+	txt_tunes.Free();
+	txt_cutpaths.Free();
+	txt_cutscene.Free();
+	txt_npcnames.Free();
+	TxtFile_00660e88.Free();
+	txt_itemname.Free();
+	txt_building.Free();
+	txt_unitname.Free();
+	txt_dialogs.Free();
+	txt_spell.Free();
+	txt_spells.Free();
+	txt_stats.Free();
+	txt_heropicture.Free();
+	txt_main.Free();
+
+	UnloadGraphics();
+	FreeDSound();
+	FreeFontData();
+	DeleteCursors();
+	FreeDDraw();
+	FreeBrightnessLookup();
+
+	char path[256];
+	GetTempPathA(sizeof(path), path);
+
+	CString fpath = path;
+	fpath += "allods-2-*.$$$";
+
+	WIN32_FIND_DATAA fnd;
+	HANDLE fhndl = FindFirstFileA(fpath, &fnd);
+	if (fhndl != INVALID_HANDLE_VALUE)
+	{
+		while (true)
+		{
+			fpath = path;
+			fpath += fnd.cFileName;
+
+			DeleteFileA(fpath);
+
+			if (FindNextFileA(fhndl, &fnd) == 0)
+				break;
+		}
+	}
+	FindClose(fhndl);
+
+	return CWinApp::ExitInstance();
 }
 
 

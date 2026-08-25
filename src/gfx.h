@@ -8,17 +8,75 @@ class CGameBitmap;
 class CSprite256;
 class CGameFont;
 class CBmp64;
+class CBmp256;
+class CA16;
 
 
 extern CRect g_ScreenSize; //65fb78
-extern CSprite256* gfx_interface_lm; //6653ec
-extern CSprite256* gfx_scrollbars; //6653f0
-extern CSprite256* gfx_radiob; //6653f4
+
+
+extern CBmp64* g_bmp_t_back; //0066512c
+extern CBmp64* g_bmp_crystalr; //00665348
+extern CBmp64* g_bmp_crystall; //0066534c
+extern CBmp64* g_bmp_headsr; //00665350
+extern CBmp64* g_bmp_headsl; //00665354
+extern CBmp64* g_bmp_cmdbarr; //00665358
+extern CBmp64* g_bmp_cmdbarl; //0066535c
+extern CBmp64* g_bmp_cmddnr; //00665360
+extern CBmp64* g_bmp_cmdempr; //00665364
+extern CBmp64* g_bmp_humanbackl; //00665368
+extern CBmp64* g_bmp_humanbackr; //0066536c
+extern CBmp64* g_bmp_textbackl; //00665370
+extern CBmp64* g_bmp_textbackr; //00665374
+extern CBmp64* g_bmp_bookopened; //00665378
+extern CBmp64* g_bmp_bookclosed; //0066537c
+extern CBmp64* g_bmp_backpackop; //00665380
+extern CBmp64* g_bmp_backpackcl; //00665384
+extern CBmp64* g_bmp_humanmode; //00665388
+extern CBmp64* g_bmp_textmode; //0066538c
+extern CBmp64* g_bmp_diskette; //00665390
+extern CBmp64* g_bmp_ar1; //00665394
+extern CBmp64* g_bmp_ar2; //00665398
+extern CBmp64* g_bmp_ar3; //0066539c
+extern CBmp64* g_bmp_ar4; //006653a0
+extern CBmp64* g_bmp_spellbook; //006653a4
+extern CBmp64* g_bmp_spellback; //006653a8
+extern CBmp64* g_bmp_invframe; //006653ac
+extern CBmp64* g_bmp_invarrow1; //006653b0
+extern CBmp64* g_bmp_invarrow2; //006653b4
+extern CBmp64* g_bmp_invarrow3; //006653b8
+extern CBmp64* g_bmp_invarrow4; //006653bc
+extern CBmp64* g_bmp_backinv; //006653c0
+extern CBmp64* g_bmp_spb1024l; //006653c4
+extern CBmp64* g_bmp_spb1024r; //006653c8
+extern CBmp64* g_bmp_extra1024l; //006653cc
+extern CBmp64* g_bmp_extra1024r; //006653d0
+extern CBmp64* g_bmp_inv1024l; //006653d4
+extern CBmp64* g_bmp_inv1024r; //006653d8
+extern CBmp64* g_bmp_spb800l; //006653dc
+extern CBmp64* g_bmp_spb800r; //006653e0
+extern CBmp64* g_bmp_extra800l; //006653e4
+extern CBmp64* g_bmp_extra800r; //006653e8
+extern CSprite256* gfx_interface_lm; //006653ec
+extern CSprite256* gfx_scrollbars; //006653f0
+extern CSprite256* gfx_radiob; //006653f4
+extern CSprite256* g_spr_t_border; //006653f8
+extern CSprite256* g_spr_backm; //006653fc
+extern CSprite256* g_spr_backf; //00665400
+extern CA16* g_ca16_money; //00665404
+extern CBmp64* g_bmp_server; //00665408
+extern CSprite256* g_spr_backpack; //0066540c
+extern CSprite256* g_spr_backpackb; //00665410
+extern CBmp64* gfx_ball; //00665414
+extern CBmp64* g_bmp_minimapdata; //00665418
+extern CBmp256* g_bmp_testiva; //0066541c
 
 extern CGameFont* g_font1; //65e228
 extern CGameFont* g_font2; //65ec68
+extern CGameFont* g_font3; //65f598
+extern CGameFont* g_font4; //65f530
 
-extern CBmp64* gfx_ball; //665414
+
 
 extern int32_t g_Shadows; //62f880
 extern int32_t g_Animation; //62f884
@@ -71,20 +129,30 @@ void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr); //4586a4
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //457dcc
 void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //4579d8
 void __cdecl ShadowRect(CRect rect, int shadow); //457b6f
+
 void __cdecl gfxFlushRect(const CRect& rect); //454c74
 void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //458035
 
 void __cdecl FlushScreen(); //454e18
 
-void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t width, int32_t height, void* dst); //45455e
+void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst); //45455e
 
-extern void LockSurface2(); // 45426e
-extern void UnlockSurface2(); // 4542ca
-extern void LockSurface1(); // 45431c
-extern void UnlockSurface1(); // 454378
+uint32_t LockSurface2(); // 45426e
+uint32_t UnlockSurface2(); // 4542ca
+uint32_t LockSurface1(); // 45431c
+uint32_t UnlockSurface1(); // 454378
 
-extern int32_t GetLockCountSurf2(); //4538e1
+uint32_t GetLockCountSurf2(); //4538e1
 
+int32_t InitVideo(); //453fcc
+int32_t SetVideoMode(); //4546c6
+
+void LoadGraphics(); //47819d
+void UnloadGraphics(); //47961c
+
+void FreeFontData(); //460d7f
+void FreeDDraw(); //454219
+void FreeBrightnessLookup(); //453cf9
 
 
 struct ColorThing

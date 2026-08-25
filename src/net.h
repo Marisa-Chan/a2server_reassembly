@@ -207,6 +207,8 @@ public:
     void sub_51E1C7(uint16_t player_id);
     void sub_51E40C(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
 
+    void WriteStatsLog(CString fname);//51f124
+
     NetStru2* FUN_0041f520();
 };
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);

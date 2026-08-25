@@ -101,7 +101,7 @@ void CMousePointer::DrawToScreen()
 
     LockSurface1();
 
-    CopyScreenRectToBmp64(x - x_offset, y - y_offset, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), saved_screen_rect->GetData());
+    CopyScreenRectToBmp64(x - x_offset, y - y_offset, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), (uint8_t*)saved_screen_rect->GetData());
     cursor_sprite->VMethod2(x - x_offset, y - y_offset, frame, 0, 0);
 
     UnlockSurface1();
@@ -196,14 +196,14 @@ void CMousePointer::PaintSelectFrame()
         {
             if (r.Height() > 0)
             {
-                CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, saved_rect_frame[0]->GetData());
-                CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, saved_rect_frame[1]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[0]->GetData());
+                CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[1]->GetData());
             }
 
             if (r.Height() > 2)
             {
-                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Width() - 2, 2, 1600, saved_rect_frame[2]->GetData());
-                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Width() - 2, 2, 1600, saved_rect_frame[3]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Width() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Width() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
             }
         }
 
@@ -291,7 +291,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
             CopyScreenRectToBmp64(x - x_offset, y - y_offset, 
                                   cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), 
                                   cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0), 
-                                  saved_screen_rect->GetData());
+                                  (uint8_t*)saved_screen_rect->GetData());
             UnlockSurface2();
         }
 
@@ -304,7 +304,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
             CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, 
                                     hint_rect.Width(), hint_rect.Height(), 
                                     hint_image->GetWidth(0), hint_image->GetHeight(0), 
-                                    hint_image->GetData());
+                                    (uint8_t*)hint_image->GetData());
             UnlockSurface2();
 
             return;
@@ -329,13 +329,13 @@ void CMousePointer::SaveScreenParts(const CRect& rect)
                 }
             }
 
-            CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, saved_rect_frame[0]->GetData());
-            CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, saved_rect_frame[1]->GetData());
+            CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[0]->GetData());
+            CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[1]->GetData());
 
             if (r.Height() > 2)
             {
-                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, saved_rect_frame[2]->GetData());
-                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, saved_rect_frame[3]->GetData());
+                CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[3]->GetData());
             }
 
             UnlockSurface2();
@@ -360,7 +360,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
 
             CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, hint_rect.Width(), hint_rect.Height(),
                                     saved_screen_rect_hint->GetWidth(0), saved_screen_rect_hint->GetHeight(0),
-                                    saved_screen_rect_hint->GetData());
+                                    (uint8_t*)saved_screen_rect_hint->GetData());
 
             UnlockSurface2();
         }
@@ -372,14 +372,14 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
             {
                 if (r.Height() > 0)
                 {
-                    CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, saved_rect_frame[4]->GetData());
-                    CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, saved_rect_frame[5]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[4]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)saved_rect_frame[5]->GetData());
                 }
 
                 if (r.Height() > 2)
                 {
-                    CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, saved_rect_frame[6]->GetData());
-                    CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, saved_rect_frame[7]->GetData());
+                    CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[6]->GetData());
+                    CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)saved_rect_frame[7]->GetData());
                 }
             }
 
@@ -393,7 +393,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect)
             LockSurface2();
             CopyScreenRectToBmp64(x - x_offset, y - y_offset, cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0),
                                     cursor_sprite->GetWidth(0), cursor_sprite->GetHeight(0),
-                                    saved_screen_rect2->GetData());
+                                    (uint8_t*)saved_screen_rect2->GetData());
             cursor_sprite->VMethod2(x - x_offset, y - y_offset, frame, 0, 0);
             UnlockSurface2();
         }
@@ -573,7 +573,7 @@ void CMousePointer::UpdateHint()
 
     Unpaint();
     LockSurface1();
-    CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, hint_rect.Width(), hint_rect.Height(), hint_image->GetWidth(0), hint_image->GetHeight(0), hint_image->GetData());
+    CopyScreenRectToBmp64(hint_rect.left, hint_rect.top, hint_rect.Width(), hint_rect.Height(), hint_image->GetWidth(0), hint_image->GetHeight(0), (uint8_t*)hint_image->GetData());
     PaintHint();
     UnlockSurface1();
 

@@ -6,6 +6,7 @@
 #include "util.h"
 #include "game_app.h"
 #include "file.h"
+#include "main_window.h"
 
 IMPLEMENT_DYNAMIC(CGamePalette, CObject);
 
@@ -16,6 +17,15 @@ IMPLEMENT_DYNAMIC(CSprite256, CGameBitmap);
 IMPLEMENT_DYNAMIC(CA16, CSprite256);
 IMPLEMENT_DYNAMIC(CSprite16, CGameBitmap);
 
+int32_t gfx_bits = 16; //65fb74
+
+IDirectDraw* g_ddraw = nullptr; //659bec
+IDirectDrawSurface* g_ddsurface = nullptr; //659c90
+int32_t g_ddsurf_lock = 0; //659bfc
+IDirectDrawSurface* g_ddsurface2 = nullptr; //659c8c
+int32_t g_ddsurf_lock2 = 0; //659bf4
+IDirectDrawSurface* g_ddsurface3 = nullptr; //659a68
+int32_t g_ddsurf_lock3 = 0; //659bf8
 
 CRect g_clipRect; //659d08
 DDSURFACEDESC g_selDrawBitmap; //659c98
@@ -39,6 +49,15 @@ int32_t g_GBitMask = 0x7e0; //62f860
 int32_t g_BBitMask = 0x1f; //62f864
 
 
+uint16_t clrsh_Black[16]; //65f558
+uint16_t clrsh_Oxley[16]; //65f4d8
+uint16_t clrsh_GoldenFizz[16]; //65f578
+uint16_t clrsh_ScreaminGreen[16]; //65ec70
+uint16_t clrsh_Cumin[16]; //65f538
+uint16_t clrsh_CreteToRed[16]; //65f5c8
+uint16_t clrsh_ScreamGreenToRed[16]; //65f5a8
+uint16_t clrsh_InvBarleyCorn[16]; //65e208
+
 uint16_t clrsh_CoralRed[16]; //65f608
 uint16_t clrsh_DullGold[16]; //65f4f8
 uint16_t clrsh_TechBlack[16]; //65f090
@@ -48,6 +67,14 @@ uint16_t clrsh_LuxorGold[16]; //65e848
 uint16_t* p_clrsh_Black = clrsh_TechBlack; //62e584
 uint16_t* p_clrsh_Gold = clrsh_DullGold; //62e58c
 uint16_t* p_clrsh_ShockingBlack = clrsh_ShockingBlack; //62e588
+
+
+
+CGamePalette* palette_husk = nullptr; //65f628
+CGamePalette* palette_paris_daisy = nullptr; //65f52c
+CGamePalette* palette_black = nullptr; //65f604
+CGamePalette* palette_brown_derby = nullptr; //65f5e8
+CGamePalette* palette_tawny_port = nullptr; //65f5a0
 
 uint16_t g_colors_human_pals[16][16]; //65e230
 int32_t g_MessageColors; //660f80
@@ -59,6 +86,73 @@ ColorThing g_DeltaCLR; //660e28
 
 uint8_t g_GfxTempBuffer[92160]; //642d10
 uint16_t g_ColorAddMask; //660f60
+
+uint8_t g_TerrainHelper[128][128]; //659d20
+
+
+
+CBmp64* g_bmp_t_back = nullptr; //0066512c
+CBmp64* g_bmp_crystalr = nullptr; //00665348
+CBmp64* g_bmp_crystall = nullptr; //0066534c
+CBmp64* g_bmp_headsr = nullptr; //00665350
+CBmp64* g_bmp_headsl = nullptr; //00665354
+CBmp64* g_bmp_cmdbarr = nullptr; //00665358
+CBmp64* g_bmp_cmdbarl = nullptr; //0066535c
+CBmp64* g_bmp_cmddnr = nullptr; //00665360
+CBmp64* g_bmp_cmdempr = nullptr; //00665364
+CBmp64* g_bmp_humanbackl = nullptr; //00665368
+CBmp64* g_bmp_humanbackr = nullptr; //0066536c
+CBmp64* g_bmp_textbackl = nullptr; //00665370
+CBmp64* g_bmp_textbackr = nullptr; //00665374
+CBmp64* g_bmp_bookopened = nullptr; //00665378
+CBmp64* g_bmp_bookclosed = nullptr; //0066537c
+CBmp64* g_bmp_backpackop = nullptr; //00665380
+CBmp64* g_bmp_backpackcl = nullptr; //00665384
+CBmp64* g_bmp_humanmode = nullptr; //00665388
+CBmp64* g_bmp_textmode = nullptr; //0066538c
+CBmp64* g_bmp_diskette = nullptr; //00665390
+CBmp64* g_bmp_ar1 = nullptr; //00665394
+CBmp64* g_bmp_ar2 = nullptr; //00665398
+CBmp64* g_bmp_ar3 = nullptr; //0066539c
+CBmp64* g_bmp_ar4 = nullptr; //006653a0
+CBmp64* g_bmp_spellbook = nullptr; //006653a4
+CBmp64* g_bmp_spellback = nullptr; //006653a8
+CBmp64* g_bmp_invframe = nullptr; //006653ac
+CBmp64* g_bmp_invarrow1 = nullptr; //006653b0
+CBmp64* g_bmp_invarrow2 = nullptr; //006653b4
+CBmp64* g_bmp_invarrow3 = nullptr; //006653b8
+CBmp64* g_bmp_invarrow4 = nullptr; //006653bc
+CBmp64* g_bmp_backinv = nullptr; //006653c0
+CBmp64* g_bmp_spb1024l = nullptr; //006653c4
+CBmp64* g_bmp_spb1024r = nullptr; //006653c8
+CBmp64* g_bmp_extra1024l = nullptr; //006653cc
+CBmp64* g_bmp_extra1024r = nullptr; //006653d0
+CBmp64* g_bmp_inv1024l = nullptr; //006653d4
+CBmp64* g_bmp_inv1024r = nullptr; //006653d8
+CBmp64* g_bmp_spb800l = nullptr; //006653dc
+CBmp64* g_bmp_spb800r = nullptr; //006653e0
+CBmp64* g_bmp_extra800l = nullptr; //006653e4
+CBmp64* g_bmp_extra800r = nullptr; //006653e8
+CSprite256* gfx_interface_lm = nullptr; //006653ec
+CSprite256* gfx_scrollbars = nullptr; //006653f0
+CSprite256* gfx_radiob = nullptr; //006653f4
+CSprite256* g_spr_t_border = nullptr; //006653f8
+CSprite256* g_spr_backm = nullptr; //006653fc
+CSprite256* g_spr_backf = nullptr; //00665400
+CA16* g_ca16_money = nullptr; //00665404
+CBmp64* g_bmp_server = nullptr; //00665408
+CSprite256* g_spr_backpack = nullptr; //0066540c
+CSprite256* g_spr_backpackb = nullptr; //00665410
+CBmp64* gfx_ball = nullptr; //00665414
+CBmp64* g_bmp_minimapdata = nullptr; //00665418
+CBmp256* g_bmp_testiva = nullptr; //0066541c
+
+
+CGameFont* g_font1 = nullptr; //65e228
+CGameFont* g_font2 = nullptr; //65ec68
+CGameFont* g_font3 = nullptr; //65f598
+CGameFont* g_font4 = nullptr; //65f530
+
 
 
 //454a0c
@@ -2410,12 +2504,522 @@ void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint
 	FillRectColor(l, t, l, b, clr); //left
 }
 
+void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* dst, int32_t dx, int32_t dy, int32_t w, int32_t h, int32_t sp, int32_t dp)
+{ //454a54
+	int32_t t = g_clipRect.left - dx;
+	if (t > 0)
+	{
+		sx += t;
+		dx += t;
+		w -= t;
+	}
+	t = (dx + w) - g_clipRect.right;
+	if (t > -1)
+		w -= t;
 
+	t = g_clipRect.top - dy;
+	if (t > 0)
+	{
+		sy += t;
+		dy += t;
+		h -= t;
+	}
+
+	t = (dy + h) - g_clipRect.bottom;
+	if (t > -1)
+		h -= t;
+
+	if (w <= 0 || h <= 0)
+		return;
+
+	uint8_t* s = src + sy * sp + sx * 2;
+	uint8_t* d = dst + dy * dp + dx * 2;
+
+	for (; h; h--)
+	{
+		memcpy(d, s, w * 2);
+		s += sp;
+		d += dp;
+	}
+}
+
+void __cdecl gfxFlushRect(const CRect& rect)
+{ //454c74
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if (mwnd->field_0xbc != 0 && g_IsServer == 0)
+	{
+		CRect r;
+		r.IntersectRect(&rect, &g_ScreenSize);
+
+		while (g_ddsurface->IsLost() == DDERR_SURFACELOST)
+		{
+			g_ddraw->SetCooperativeLevel(mwnd->m_hWnd, DDSCL_EXCLUSIVE || DDSCL_FULLSCREEN);
+			g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits);
+			g_ddsurface->Restore();
+		}
+
+		g_mousept.SaveScreenParts2(r);
+		int32_t w = r.Width();
+		int32_t h = r.Height();
+
+		if (w < 1 || h < 1)
+		{
+			g_mousept.SaveScreenParts(r);
+		}
+		else
+		{
+			LockSurface2();
+
+			void* sv = g_selDrawBitmap.lpSurface;
+
+			uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2;
+			int32_t spitch = g_selDrawBitmap.lPitch;
+
+			LockSurface1();
+
+			CopySurface16Rect(src, 0, 0, 
+				             (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2, 0, 0, 
+				             w, h, 
+							 spitch, 
+				             g_selDrawBitmap.lPitch);
+
+			UnlockSurface1();
+
+			g_selDrawBitmap.lpSurface = sv;
+
+			UnlockSurface2();
+			g_mousept.SaveScreenParts(r);
+		}
+	}
+}
 
 void __cdecl FlushScreen()
 {
 	//454e18
 	gfxFlushRect(CRect(g_ScreenSize));
+}
+
+
+
+uint32_t LockSurface1()
+{ //45431c
+	if (g_IsServer)
+		return 0;
+
+	int res = 0;
+	if (g_ddsurf_lock == 0)
+	{
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		res = SUCCEEDED( g_ddsurface->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr) );
+		g_ddsurf_lock++;
+	}
+	return res;
+}
+
+
+uint32_t UnlockSurface1()
+{ //454378
+	if (g_IsServer)
+		return 0;
+
+	int res = 0;
+	if (g_ddsurf_lock != 0)
+	{
+		res = SUCCEEDED(g_ddsurface->Unlock(g_selDrawBitmap.lpSurface));
+		g_ddsurf_lock--;
+	}
+	return res;
+}
+
+
+uint32_t LockSurface2()
+{ //45431c
+	if (g_IsServer)
+		return 0;
+
+	int res = 0;
+	if (g_ddsurf_lock2 == 0)
+	{
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		res = SUCCEEDED(g_ddsurface2->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr));
+		g_ddsurf_lock2++;
+	}
+	return res;
+}
+
+uint32_t UnlockSurface2()
+{ //4542ca
+	if (g_IsServer)
+		return 0;
+
+	int res = 0;
+	if (g_ddsurf_lock2 != 0)
+	{
+		res = SUCCEEDED(g_ddsurface2->Unlock(g_selDrawBitmap.lpSurface));
+		g_ddsurf_lock2--;
+	}
+	return res;
+}
+
+uint32_t LockSurface3()
+{ //4543ca
+	if (g_IsServer)
+		return 0;
+
+	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST)
+		g_ddsurface3->Restore();
+
+	int res = 0;
+	if (g_ddsurf_lock3 == 0)
+	{
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		res = SUCCEEDED(g_ddsurface3->Lock(nullptr, &g_selDrawBitmap, DDLOCK_WAIT, nullptr));
+		g_ddsurf_lock3++;
+	}
+	return res;
+}
+
+
+uint32_t UnlockSurface3()
+{ //45444f
+	if (g_IsServer)
+		return 0;
+
+	if (g_ddsurface3->IsLost() == DDERR_SURFACELOST)
+		g_ddsurface3->Restore();
+
+	int res = 0;
+	if (g_ddsurf_lock3 != 0)
+	{
+		res = SUCCEEDED(g_ddsurface3->Unlock(g_selDrawBitmap.lpSurface));
+		g_ddsurf_lock3--;
+	}
+	return res;
+}
+
+uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }//4538e1
+
+void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst)
+{ //45455e
+	int32_t dy = 0;
+	int32_t dx = 0;
+	if (x < g_clipRect.left)
+	{
+		w -= g_clipRect.left - x;
+		dx = g_clipRect.left - x;
+		x = g_clipRect.left;
+	}
+	if (y < g_clipRect.top)
+	{
+		h -= g_clipRect.top - y;
+		dy = g_clipRect.top - y;
+		y = g_clipRect.top;
+	}
+	if (g_clipRect.right <= x + w)
+		w = g_clipRect.right - x;
+	if (g_clipRect.bottom <= y + h)
+		h = g_clipRect.bottom - y;
+
+	if (w <= 0 || h <= 0)
+		return;
+
+	uint8_t* s = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
+	uint8_t* d = (uint8_t*)dst + dx * 2 + ((dh - dy) - 1) * dw * 2;
+	for (int32_t yy = y; yy < y + h; yy++)
+	{
+		memcpy(d, s, w * 2);
+		s += g_selDrawBitmap.lPitch;
+		d -= dw * 2;
+	}
+}
+
+int BitmaskLowBound(uint32_t bm)
+{ //453f5c
+	for (int32_t i = 0; i < 32; i++)
+	{
+		if (bm & (1 << i))
+			return i;
+	}
+	return -1;
+}
+
+int BitmaskHighBound(uint32_t bm)
+{ //453f94
+	for (int32_t i = 15; i >= 0; i--)
+	{
+		if (bm & (1 << i))
+			return i;
+	}
+	return -1;
+}
+
+void FreeBrightnessLookup()
+{ //453cf9
+	if (g_brightnessLookup)
+		delete[] g_brightnessLookup;
+	g_brightnessLookup = nullptr;
+}
+
+void CalculateBrightness()
+{ //4538eb
+	MEMORYSTATUS ms;
+	GlobalMemoryStatus(&ms);
+	
+	g_isLowMemory = ms.dwTotalPhys < 24 * 1000 * 1000;
+
+	int32_t maxR = 1 << g_RBits;
+	int32_t maxG = 1 << g_GBits;
+	int32_t maxB = 1 << g_BBits;
+
+	if (g_isLowMemory == 0)
+		g_brightnessLookupCount = 0x10000;
+	else
+		g_brightnessLookupCount = 0x10000 >> 3;
+
+	g_brightnessLookup = new uint16_t[g_brightnessLookupCount * 17];
+
+	int db = 1;
+	int sb = 0;
+	if (g_isLowMemory)
+	{
+		db = 1 << 3;
+		sb = (1 << 3) / 2;
+	}
+
+	for (int32_t br = 16; br >= 0; br--)
+	{
+		int32_t off = g_brightnessLookupCount * (16 - br);
+		for (int32_t ri = 0; ri < maxR; ri++)
+		{
+			for (int32_t gi = 0; gi < maxG; gi++)
+			{
+				for (int32_t bi = sb; bi < maxB; bi += db)
+				{
+					int32_t r = (ri * br / 16) << (8 - g_RBits);
+					int32_t g = (gi * br / 16) << (8 - g_GBits);
+					int32_t b = (bi * br / 16) << (8 - g_BBits);
+					if (r > 255)
+						r = 255;
+					if (g > 255)
+						g = 255;
+					if (b > 255)
+						b = 255;
+					int32_t idx = (ri << g_RBitShift) | (gi << g_GBitShift) | (bi << g_BBitShift);
+					if (g_isLowMemory)
+						idx >>= 3;
+					g_brightnessLookup[off + idx] = GetColorRGB(r, g, b);
+				}
+			}
+		}
+	}
+
+	for (int32_t i = 1; i < 128; i++)
+	{
+		int32_t val = 0;
+		for (int32_t j = 0; j < i; j++)
+		{
+			val += 32 * 0x10000 / (i + 1);
+			g_TerrainHelper[i][j] = (val + 0x8000) >> 16; //  (val + 0x8000) / 0x10000    --- 0.5 round to ceil
+		}
+	}
+
+	g_ColorAddMask = GetColorRGB(0x7f, 0x7f, 0x7f);
+}
+
+void CalcColorsAndPalettes()
+{ //46011e
+	for (int32_t i = 0; i < 0x10; i++)
+	{
+		clrsh_Black[i] = GetColorRGB(8, 8, 8);
+		clrsh_ShockingBlack[i] = GetColorRGB(i * 0x11, i * 0x11, i * 0x11);
+		clrsh_TechBlack[i] = GetColorRGB(i * 0xe, i * 0xe, i * 0xe);
+		clrsh_DullGold[i] = GetColorRGB((i * 0xb9) / 0xf, (i * 0x9f) / 0xf, (i * 0x49) / 0xf);
+		clrsh_Oxley[i] = GetColorRGB((i * 0x6b) / 0xf, (i * 0x9a) / 0xf, (i * 0x78) / 0xf);
+		clrsh_GoldenFizz[i] = GetColorRGB((i * 0xff) / 0xf, (i * 0xff) / 0xf, (i * 0x40) / 0xf);
+		clrsh_CoralRed[i] = GetColorRGB((i * 0xff) / 0xf, (i * 0x40) / 0xf, (i * 0x40) / 0xf);
+		clrsh_ScreaminGreen[i] = GetColorRGB((i * 0x40) / 0xf, (i * 0xff) / 0xf, (i * 0x40) / 0xf);
+		clrsh_LuxorGold[i] = GetColorRGB((i * 0xa0) / 0xf, (i * 0x78) / 0xf, (i * 0x32) / 0xf);
+		clrsh_Cumin[i] = GetColorRGB((i * 0x8b) / 0xf, (i * 0x41) / 0xf, (i * 0x20) / 0xf);
+		clrsh_CharlieBrown[i] = GetColorRGB((i * 0x96) / 0xf, (i * 0x5a) / 0xf, 0);
+		clrsh_CreteToRed[i] = GetColorRGB(0x8d - (i * 0x3d) / 0xf, (i * 0x7e) / 0xf, (i * 0x31) / 0xf);
+		clrsh_ScreamGreenToRed[i] = GetColorRGB(0xff - (i * 0xaf) / 0xf, (i * 0xfc) / 0xf, (i * 0x62) / 0xf);
+		clrsh_InvBarleyCorn[i] = GetColorRGB(((0xf - i) * 0xa0) / 0xf + 0x20, ((0xf - i) * 0x94) / 0xf + 0x20, ((0xf - i) * 0x58) / 0xf + 0x20);
+	}
+
+	// seems this colors was define static, but we do not want useless memory usage. dynamic
+	std::vector<RGBQUAD>clrs_husk(256);
+	std::vector<RGBQUAD>clrs_paris_daisy(256);
+	std::vector<RGBQUAD>clrs_black(256);
+	std::vector<RGBQUAD>clrs_brown_derby(256);
+	std::vector<RGBQUAD>clrs_tawny_port(256);
+
+	for (int32_t i = 0; i < 0x100; i++)
+	{
+		clrs_husk[i].rgbRed = (i * 0xb9) / 0xff;
+		clrs_husk[i].rgbGreen = (i * 0x9f) / 0xff;
+		clrs_husk[i].rgbBlue = (i * 0x49) / 0xff;
+		clrs_paris_daisy[i].rgbRed = (i * 0xff) / 0xff;
+		clrs_paris_daisy[i].rgbGreen = (i * 0xff) / 0xff;
+		clrs_paris_daisy[i].rgbBlue = (i * 0x74) / 0xff;
+		clrs_black[i].rgbRed = 0;
+		clrs_black[i].rgbGreen = 0;
+		clrs_black[i].rgbBlue = 0;
+		clrs_brown_derby[i].rgbRed = (i * 0x41) / 0xff;
+		clrs_brown_derby[i].rgbGreen = (i * 0x2f) / 0xff;
+		clrs_brown_derby[i].rgbBlue = (i * 0x14) / 0xff;
+		clrs_tawny_port[i].rgbRed = (i * 0x65) / 0xff;
+		clrs_tawny_port[i].rgbGreen = (i * 0x27) / 0xff;
+		clrs_tawny_port[i].rgbBlue = (i * 0x3d) / 0xff;
+	}
+
+	palette_husk = new CGamePalette();
+	palette_husk->SetPalette(clrs_husk.data(), 0x10, 4, 0);
+
+	palette_paris_daisy = new CGamePalette();
+	palette_paris_daisy->SetPalette(clrs_paris_daisy.data(), 0x10, 4, 0);
+
+	palette_black = new CGamePalette();
+	palette_black->SetPalette(clrs_black.data(), 0x10, 4, 0);
+
+	palette_brown_derby = new CGamePalette();
+	palette_brown_derby->SetPalette(clrs_brown_derby.data(), 0x10, 4, 0);
+
+	palette_tawny_port = new CGamePalette();
+	palette_tawny_port->SetPalette(clrs_tawny_port.data(), 0x10, 4, 0);
+}
+
+
+uint32_t InitPixelColors()
+{ //45488c
+	DDPIXELFORMAT pfmt;
+	pfmt.dwSize = sizeof(DDPIXELFORMAT);
+	g_ddsurface->GetPixelFormat(&pfmt);
+
+	g_RBitMask = pfmt.dwRBitMask;
+	g_GBitMask = pfmt.dwGBitMask;
+	g_BBitMask = pfmt.dwBBitMask;
+
+	if (pfmt.dwRBitMask != 0)
+	{
+		g_RBitShift = BitmaskLowBound(g_RBitMask);
+		g_GBitShift = BitmaskLowBound(g_GBitMask);
+		g_BBitShift = BitmaskLowBound(g_BBitMask);
+		g_RBits = BitmaskHighBound(g_RBitMask) - g_RBitShift + 1;
+		g_GBits = BitmaskHighBound(g_GBitMask) - g_GBitShift + 1;
+		g_BBits = BitmaskHighBound(g_BBitMask) - g_BBitShift + 1;
+
+		FreeBrightnessLookup();
+		CalculateBrightness();
+		CalcColorsAndPalettes();
+	}
+
+	((MainWindow*)AfxGetMainWnd())->UpdateClipCursor();
+
+	return g_RBitMask;
+}
+
+int32_t InitVideo()
+{ //453fcc
+	if (g_IsServer)
+	{
+		CalcColorsAndPalettes();
+		return 1;
+	}
+
+	g_ddsurface = nullptr;
+	g_ddsurface2 = nullptr;
+
+	g_ddsurf_lock = 0;
+	g_ddsurf_lock2 = 0;
+
+	g_ScreenSize.top = 0;
+	g_ScreenSize.left = 0;
+	g_clipRect = g_ScreenSize;
+
+	gfx_bits = 16;
+	
+	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr)))
+		return 0;
+
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_NORMAL)))
+		return 0;
+
+	DDSURFACEDESC tmp;
+	tmp.dwSize = sizeof(DDSURFACEDESC);
+	tmp.dwFlags = DDSD_CAPS;
+	tmp.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
+	tmp.dwBackBufferCount = 0;
+
+	if (FAILED(g_ddraw->CreateSurface(&tmp, &g_ddsurface, nullptr)))
+		return 0;
+
+	//if we can't init pixel colors then try force video mode set which also call InitPixelColors
+	if (InitPixelColors() == 0 && SetVideoMode() == 0)
+	{
+		AfxMessageBox("Unable to set video mode", 0, 0);
+		exit(-1);
+	}
+
+	DDSURFACEDESC desc;
+	memset(&desc, 0, sizeof(DDSURFACEDESC));
+	desc.dwSize = sizeof(DDSURFACEDESC);
+	desc.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
+	desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
+	desc.dwWidth = g_ScreenSize.right;
+	desc.dwHeight = g_ScreenSize.bottom + 1;
+	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface2, nullptr)))
+		return 0;
+
+	if (!g_ddsurface2)
+		return 0;
+
+	memset(&desc, 0, sizeof(DDSURFACEDESC));
+	desc.dwSize = sizeof(DDSURFACEDESC);
+	desc.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
+	desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
+	desc.dwWidth = g_ScreenSize.right - 160;
+	desc.dwHeight = g_ScreenSize.bottom + 1;
+	if (FAILED(g_ddraw->CreateSurface(&desc, &g_ddsurface3, nullptr)))
+		return 0;
+
+	if (!g_ddsurface3)
+		return 0;
+	
+	/* NOT USED
+	DDCAPS g_ddrawCaps; //659a70
+	g_ddrawCaps.dwSize = sizeof(DDCAPS);
+	g_ddraw->GetCaps(&g_ddrawCaps, nullptr);
+	*/
+
+	return 1;
+}
+
+int32_t SetVideoMode()
+{ //4546c6
+	if (g_IsServer)
+		return 1;
+
+	if (g_ddsurface)
+		g_ddsurface->Release();
+	g_ddsurface = nullptr;
+
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN)))
+		return 0;
+
+	if (FAILED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits)))
+		return 0;
+
+	g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+	g_selDrawBitmap.dwFlags = DDSD_CAPS;
+	g_selDrawBitmap.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
+	g_selDrawBitmap.dwBackBufferCount = 0;
+
+	if (FAILED(g_ddraw->CreateSurface(&g_selDrawBitmap, &g_ddsurface, nullptr)))
+		return 0;
+
+	InitPixelColors();
+	return 1;
 }
 
 
@@ -3472,4 +4076,347 @@ void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor)
 { //424ddd
 	SpriteFrame* frm = ((SpriteFrame**)frames)[frame];
 	BlitRle4(x, y, frm->width, frm->height, frm->data, pcolor);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void LoadGraphics()
+{ //47819d
+		g_bmp_crystalr = new CBmp64("graphics\\interface\\CrystalR.bmp");
+		g_bmp_crystall = new CBmp64("graphics\\interface\\CrystalL.bmp");
+		g_bmp_headsr = new CBmp64("graphics\\interface\\HeadsR.bmp");
+		g_bmp_headsl = new CBmp64("graphics\\interface\\HeadsL.bmp");
+
+		g_mousept.Update();
+
+		g_bmp_cmdbarr = new CBmp64("graphics\\interface\\CommandBarR.bmp");
+		g_bmp_cmdbarl = new CBmp64("graphics\\interface\\CommandBarL.bmp");
+		g_bmp_cmddnr = new CBmp64("graphics\\interface\\CommandDnR.bmp");
+		g_bmp_cmdempr = new CBmp64("graphics\\interface\\CommandEmpR.bmp");
+		g_bmp_humanbackl = new CBmp64("graphics\\interface\\HumanBackL.bmp");
+
+		g_mousept.Update();
+
+		g_bmp_humanbackr = new CBmp64("graphics\\interface\\HumanBackR.bmp");
+		g_bmp_textbackl = new CBmp64("graphics\\interface\\TextBackL.bmp");
+		g_bmp_textbackr = new CBmp64("graphics\\interface\\TextBackR.bmp");
+		g_bmp_bookopened = new CBmp64("graphics\\interface\\BookOpened.bmp");
+		g_bmp_bookclosed = new CBmp64("graphics\\interface\\BookClosed.bmp");
+		g_bmp_backpackop = new CBmp64("graphics\\interface\\BackPackOp.bmp");
+		g_bmp_backpackcl = new CBmp64("graphics\\interface\\BackPackCl.bmp");
+
+		g_mousept.Update();
+
+		g_bmp_humanmode = new CBmp64("graphics\\interface\\HumanMode.bmp");
+		g_bmp_textmode = new CBmp64("graphics\\interface\\TextMode.bmp");
+		g_bmp_diskette = new CBmp64("graphics\\interface\\diskette.bmp");
+		g_bmp_ar1 = new CBmp64("graphics\\interface\\ar1.bmp");
+		g_bmp_ar2 = new CBmp64("graphics\\interface\\ar2.bmp");
+		g_bmp_ar3 = new CBmp64("graphics\\interface\\ar3.bmp");
+		g_bmp_ar4 = new CBmp64("graphics\\interface\\ar4.bmp");
+
+		g_mousept.Update();
+
+		g_bmp_spellbook = new CBmp64("graphics\\interface\\SpellBook.bmp");
+		g_bmp_spellback = new CBmp64("graphics\\interface\\SpellBack.bmp");
+		gfx_ball = new CBmp64("graphics\\interface\\Ball.bmp");
+
+		g_spr_backpack = new CSprite256("graphics\\backpack\\sprites.256");
+		g_spr_backpackb = new CSprite256("graphics\\backpack\\spritesb.256");
+		g_spr_backpack->ResetPalette(0x10, 2, 1);
+
+		g_bmp_invframe = new CBmp64("graphics\\interface\\InvFrame.bmp");
+		g_bmp_invarrow1 = new CBmp64("graphics\\interface\\InvArrow1.bmp");
+		g_bmp_invarrow2 = new CBmp64("graphics\\interface\\InvArrow2.bmp");
+		g_bmp_invarrow3 = new CBmp64("graphics\\interface\\InvArrow3.bmp");
+		g_bmp_invarrow4 = new CBmp64("graphics\\interface\\InvArrow4.bmp");
+		g_bmp_backinv = new CBmp64("graphics\\interface\\backinv.bmp");
+
+		g_mousept.Update();
+
+		if (g_ScreenSize.bottom < 601)
+		{
+			if (g_ScreenSize.bottom > 480)
+			{
+				g_bmp_spb800l = new CBmp64("graphics\\interface\\spb800l.bmp");
+				g_bmp_spb800r = new CBmp64("graphics\\interface\\spb800r.bmp");
+				g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
+				g_bmp_extra800r = new CBmp64("graphics\\interface\\extra800r.bmp");
+			}
+		}
+		else
+		{
+			g_bmp_spb1024l = new CBmp64("graphics\\interface\\spb1024l.bmp");
+			g_bmp_spb1024r = new CBmp64("graphics\\interface\\spb1024r.bmp");
+			g_bmp_extra1024l = new CBmp64("graphics\\interface\\extra1024l.bmp");
+			g_bmp_extra1024r = new CBmp64("graphics\\interface\\extra1024r.bmp");
+			g_bmp_inv1024l = new CBmp64("graphics\\interface\\inv1024l.bmp");
+			g_bmp_inv1024r = new CBmp64("graphics\\interface\\inv1024r.bmp");
+		}
+
+		gfx_interface_lm = new CSprite256("graphics\\interface\\lm.256");
+		gfx_interface_lm->ResetPalette(1, 1, 0);
+
+		g_mousept.Update();
+
+		gfx_scrollbars = new CSprite256("graphics\\interface\\scrlbars.256");
+		gfx_scrollbars->ResetPalette(1, 1, 0);
+
+		gfx_radiob = new CSprite256("graphics\\interface\\radiob.256");
+		gfx_radiob->ResetPalette(1, 1, 0);
+
+		g_ca16_money = new CA16("graphics\\interface\\money\\money.16a");
+		g_ca16_money->ResetPalette(0x10, 4, 0);
+
+		g_mousept.Update();
+
+		g_spr_t_border = new CSprite256("graphics\\interface\\t_border.256");
+		g_spr_t_border->ResetPalette(1, 1, 0);
+
+		g_bmp_t_back = new CBmp64("graphics\\interface\\t_back.bmp");
+		g_spr_backm = new CSprite256("graphics\\interface\\heroback\\backm.256");
+		g_spr_backm->ResetPalette(1, 1, 0);
+
+		g_spr_backf = new CSprite256("graphics\\interface\\heroback\\backf.256");
+		g_spr_backf->ResetPalette(1, 1, 0);
+
+		g_mousept.Update();
+
+		g_bmp_server = new CBmp64("graphics\\interface\\server.bmp");
+		g_bmp_minimapdata = new CBmp64("graphics\\interface\\MiniMapData.bmp");
+
+		g_bmp_testiva = new CBmp256("graphics\\interface\\testiva.bmp");
+		g_bmp_testiva->ResetPalette(0x10, 2, 0);
+}
+
+
+void UnloadGraphics()
+{ //47961c
+	if (g_bmp_crystalr)
+		delete g_bmp_crystalr;
+	if (g_bmp_crystall)
+		delete g_bmp_crystall;
+	if (g_bmp_headsr)
+		delete g_bmp_headsr;
+	if (g_bmp_headsl)
+		delete g_bmp_headsl;
+	if (g_bmp_cmdbarr)
+		delete g_bmp_cmdbarr;
+	if (g_bmp_cmdbarl)
+		delete g_bmp_cmdbarl;
+	if (g_bmp_cmddnr)
+		delete g_bmp_cmddnr;
+	if (g_bmp_cmdempr)
+		delete g_bmp_cmdempr;
+	if (g_bmp_humanbackl)
+		delete g_bmp_humanbackl;
+	if (g_bmp_humanbackr)
+		delete g_bmp_humanbackr;
+	if (g_bmp_textbackl)
+		delete g_bmp_textbackl;
+	if (g_bmp_textbackr)
+		delete g_bmp_textbackr;
+	if (g_bmp_bookopened)
+		delete g_bmp_bookopened;
+	if (g_bmp_bookclosed)
+		delete g_bmp_bookclosed;
+	if (g_bmp_backpackop)
+		delete g_bmp_backpackop;
+	if (g_bmp_backpackcl)
+		delete g_bmp_backpackcl;
+	if (g_bmp_humanmode)
+		delete g_bmp_humanmode;
+	if (g_bmp_textmode)
+		delete g_bmp_textmode;
+	if (g_bmp_diskette)
+		delete g_bmp_diskette;
+	if (g_bmp_ar1)
+		delete g_bmp_ar1;
+	if (g_bmp_ar2)
+		delete g_bmp_ar2;
+	if (g_bmp_ar3)
+		delete g_bmp_ar3;
+	if (g_bmp_ar4)
+		delete g_bmp_ar4;
+	if (g_bmp_spellbook)
+		delete g_bmp_spellbook;
+	if (g_bmp_spellback)
+		delete g_bmp_spellback;
+	if (g_bmp_invframe)
+		delete g_bmp_invframe;
+	if (g_bmp_invarrow1)
+		delete g_bmp_invarrow1;
+	if (g_bmp_invarrow2)
+		delete g_bmp_invarrow2;
+	if (g_bmp_invarrow3)
+		delete g_bmp_invarrow3;
+	if (g_bmp_invarrow4)
+		delete g_bmp_invarrow4;
+	if (g_bmp_backinv)
+		delete g_bmp_backinv;
+	if (g_bmp_spb1024l)
+		delete g_bmp_spb1024l;
+	if (g_bmp_spb1024r)
+		delete g_bmp_spb1024r;
+	if (g_bmp_extra1024l)
+		delete g_bmp_extra1024l;
+	if (g_bmp_extra1024r)
+		delete g_bmp_extra1024r;
+	if (g_bmp_inv1024l)
+		delete g_bmp_inv1024l;
+	if (g_bmp_inv1024r)
+		delete g_bmp_inv1024r;
+	if (g_bmp_spb800l)
+		delete g_bmp_spb800l;
+	if (g_bmp_spb800r)
+		delete g_bmp_spb800r;
+	if (g_bmp_extra800l)
+		delete g_bmp_extra800l;
+	if (g_bmp_extra800r)
+		delete g_bmp_extra800r;
+	if (gfx_interface_lm)
+		delete gfx_interface_lm;
+	if (gfx_scrollbars)
+		delete gfx_scrollbars;
+	if (gfx_radiob)
+		delete gfx_radiob;
+	if (g_ca16_money)
+		delete g_ca16_money;
+	if (g_spr_t_border)
+		delete g_spr_t_border;
+	if (g_bmp_t_back)
+		delete g_bmp_t_back;
+	if (g_spr_backm)
+		delete g_spr_backm;
+	if (g_spr_backf)
+		delete g_spr_backf;
+	if (g_bmp_minimapdata)
+		delete g_bmp_minimapdata;
+	if (g_bmp_server)
+		delete g_bmp_server;
+	if (gfx_ball)
+		delete gfx_ball;
+	if (g_spr_backpack)
+		delete g_spr_backpack;
+	if (g_spr_backpackb)
+		delete g_spr_backpackb;
+	if (g_bmp_testiva)
+		delete g_bmp_testiva;
+
+	g_bmp_crystalr = nullptr;
+	g_bmp_crystall = nullptr;
+	g_bmp_headsr = nullptr;
+	g_bmp_headsl = nullptr;
+	g_bmp_cmdbarr = nullptr;
+	g_bmp_cmdbarl = nullptr;
+	g_bmp_cmddnr = nullptr;
+	g_bmp_cmdempr = nullptr;
+	g_bmp_humanbackl = nullptr;
+	g_bmp_humanbackr = nullptr;
+	g_bmp_textbackl = nullptr;
+	g_bmp_textbackr = nullptr;
+	g_bmp_bookopened = nullptr;
+	g_bmp_bookclosed = nullptr;
+	g_bmp_backpackop = nullptr;
+	g_bmp_backpackcl = nullptr;
+	g_bmp_humanmode = nullptr;
+	g_bmp_textmode = nullptr;
+	g_bmp_diskette = nullptr;
+	g_bmp_ar1 = nullptr;
+	g_bmp_ar2 = nullptr;
+	g_bmp_ar3 = nullptr;
+	g_bmp_ar4 = nullptr;
+	g_bmp_spellbook = nullptr;
+	g_bmp_spellback = nullptr;
+	g_bmp_invframe = nullptr;
+	g_bmp_invarrow1 = nullptr;
+	g_bmp_invarrow2 = nullptr;
+	g_bmp_invarrow3 = nullptr;
+	g_bmp_invarrow4 = nullptr;
+	g_bmp_backinv = nullptr;
+	g_bmp_spb1024l = nullptr;
+	g_bmp_spb1024r = nullptr;
+	g_bmp_extra1024l = nullptr;
+	g_bmp_extra1024r = nullptr;
+	g_bmp_inv1024l = nullptr;
+	g_bmp_inv1024r = nullptr;
+	g_bmp_spb800l = nullptr;
+	g_bmp_spb800r = nullptr;
+	g_bmp_extra800l = nullptr;
+	g_bmp_extra800r = nullptr;
+	gfx_interface_lm = nullptr;
+	gfx_scrollbars = nullptr;
+	gfx_radiob = nullptr;
+	g_ca16_money = nullptr;
+	g_spr_t_border = nullptr;
+	g_bmp_t_back = nullptr;
+	g_spr_backm = nullptr;
+	g_spr_backf = nullptr;
+	g_bmp_minimapdata = nullptr;
+	g_bmp_server = nullptr;
+	gfx_ball = nullptr;
+	g_spr_backpack = nullptr;
+	g_spr_backpackb = nullptr;
+	g_bmp_testiva = nullptr;
+}
+
+void FreeFontData()
+{ //460d7f
+	if (g_font1)
+		delete g_font1;
+	if (g_font2)
+		delete g_font2;
+	if (g_font3)
+		delete g_font3;
+	if (g_font4)
+		delete g_font4;
+	if (palette_paris_daisy)
+		delete palette_paris_daisy;
+	if (palette_husk)
+		delete palette_husk;
+	if (palette_black)
+		delete palette_black;
+	if (palette_brown_derby)
+		delete palette_brown_derby;
+	if (palette_tawny_port)
+		delete palette_tawny_port;
+
+	g_font2 = nullptr;
+	g_font3 = nullptr;
+	g_font4 = nullptr;
+	palette_paris_daisy = nullptr;
+	palette_husk = nullptr;
+	palette_black = nullptr;
+	palette_brown_derby = nullptr;
+	palette_tawny_port = nullptr;
+}
+
+void FreeDDraw()
+{ //454219
+	if (g_IsServer == 0 && g_ddraw)
+	{
+		g_ddraw->Release();
+		g_ddraw = nullptr;
+	}
 }

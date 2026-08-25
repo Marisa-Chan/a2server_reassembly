@@ -160,11 +160,10 @@ externdef ?DoWaitCursor@CWinApp@@UAEXH@Z:proc   ; (public: virtual void __thisca
 externdef ?OnDDECommand@CWinApp@@UAEHPAD@Z:proc   ; (public: virtual int __thiscall CWinApp::OnDDECommand(char *))
 externdef ?WinHelpA@CWinApp@@UAEXKI@Z:proc   ; (public: virtual void __thiscall CWinApp::WinHelpA(unsigned long,unsigned int))
 externdef ??0CWinApp@@QAE@PBD@Z:proc   ; (public: __thiscall CWinApp::CWinApp(char const *))
+externdef ?ExitInstance@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
 ;GameApp
-externdef ?InitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::InitInstance(void))
 externdef ?OnIdle@GameApp@@UAEHJ@Z:proc   ; (public: virtual int __thiscall GameApp::OnIdle(long))
-externdef ?ExitInstance@GameApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
 extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
 extern  ?AppHasAnySaveFile@@YAHXZ  : proc
@@ -1421,8 +1420,9 @@ extern ?txt_cutscene@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutscene)
 extern ?txt_cutpaths@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutpaths)
 extern ?txt_tunes@@3VTxtFile@@A :byte   ; (class TxtFile txt_tunes)
 extern ?txt_patch@@3VTxtFile@@A :byte   ; (class TxtFile txt_patch)
+extern ?TxtFile_00660e88@@3VTxtFile@@A : byte
 
-extern ?g_MessageColors@@3IA  : dword
+extern ?g_MessageColors@@3HA  : dword
 
 extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
@@ -1877,25 +1877,97 @@ extern ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z :proc
 
 
 ;GFX things
-externdef ?gfxFlushRect@@YAXABVCRect@@@Z :proc
-externdef ?LockSurface2@@YAXXZ  :proc
-externdef ?UnlockSurface2@@YAXXZ  :proc
-externdef ?LockSurface1@@YAXXZ  :proc
-externdef ?UnlockSurface1@@YAXXZ :proc
-externdef ?InitVideo@@YAHXZ :proc
-externdef ?SetVideoMode@@YAHXZ :proc
-externdef ?GetLockCountSurf2@@YAHXZ : proc
-externdef ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z : proc
+extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
+extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
-externdef ?gfx_ball@@3PAVCBmp64@@A  : dword
-externdef ?gfx_interface_lm@@3PAVCSprite256@@A : dword
-externdef ?gfx_scrollbars@@3PAVCSprite256@@A : dword
-externdef ?gfx_radiob@@3PAVCSprite256@@A : dword
-externdef ?g_font1@@3PAVCGameFont@@A : dword
-externdef ?g_font2@@3PAVCGameFont@@A : dword
+
+extern ?LockSurface3@@YAIXZ  :proc
+extern ?UnlockSurface3@@YAIXZ  :proc
+extern ?LockSurface2@@YAIXZ  :proc
+extern ?UnlockSurface2@@YAIXZ  :proc
+extern ?LockSurface1@@YAIXZ  :proc
+extern ?UnlockSurface1@@YAIXZ :proc
+
+extern ?InitVideo@@YAHXZ :proc
+
+extern ?g_ddsurface@@3PAUIDirectDrawSurface@@A : dword
+
+extern ?g_ddsurface3@@3PAUIDirectDrawSurface@@A : dword
+
+extern ?g_ddraw@@3PAUIDirectDraw@@A : dword
+
+extern ?g_TerrainHelper@@3PAY0IA@EA : byte
+
+extern ?g_bmp_t_back@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_crystalr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_crystall@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_headsr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_headsl@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_cmdbarr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_cmdbarl@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_cmddnr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_cmdempr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_humanbackl@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_humanbackr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_textbackl@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_textbackr@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_bookopened@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_bookclosed@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_backpackop@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_backpackcl@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_humanmode@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_textmode@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_diskette@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_ar1@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_ar2@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_ar3@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_ar4@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spellbook@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spellback@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_invframe@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_invarrow1@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_invarrow2@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_invarrow3@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_invarrow4@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_backinv@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spb1024l@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spb1024r@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_extra1024l@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_extra1024r@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_inv1024l@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_inv1024r@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spb800l@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_spb800r@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_extra800l@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_extra800r@@3PAVCBmp64@@A  : dword
+extern ?gfx_interface_lm@@3PAVCSprite256@@A : dword
+extern ?gfx_scrollbars@@3PAVCSprite256@@A : dword
+extern ?gfx_radiob@@3PAVCSprite256@@A : dword
+extern ?g_spr_t_border@@3PAVCSprite256@@A : dword
+extern ?g_spr_backm@@3PAVCSprite256@@A : dword
+extern ?g_spr_backf@@3PAVCSprite256@@A : dword
+extern ?g_ca16_money@@3PAVCA16@@A : dword
+extern ?g_bmp_server@@3PAVCBmp64@@A  : dword
+extern ?g_spr_backpack@@3PAVCSprite256@@A : dword
+extern ?g_spr_backpackb@@3PAVCSprite256@@A : dword
+extern ?gfx_ball@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_minimapdata@@3PAVCBmp64@@A  : dword
+extern ?g_bmp_testiva@@3PAVCBmp256@@A  : dword
+
+
+
+
+
+
+extern ?g_font1@@3PAVCGameFont@@A : dword
+extern ?g_font2@@3PAVCGameFont@@A : dword
+extern ?g_font3@@3PAVCGameFont@@A : dword
+extern ?g_font4@@3PAVCGameFont@@A : dword
 
 
 ; Free functions
+
+extern ?LoadGraphics@@YAXXZ : proc
 
 externdef _sub_5B6F30 :proc   ; rand
 externdef ?sub_4954EA@@YAXXZ :proc
@@ -1950,12 +2022,29 @@ extern ?g_BBitMask@@3HA  :word
 extern ?p_clrsh_Black@@3PAGA  :dword
 extern ?p_clrsh_ShockingBlack@@3PAGA  :dword
 extern ?p_clrsh_Gold@@3PAGA  :dword
-extern ?clrsh_DullGold@@3PAGA  :word
-extern ?clrsh_TechBlack@@3PAGA  :word
-extern ?clrsh_ShockingBlack@@3PAGA  :word
-extern ?clrsh_CharlieBrown@@3PAGA  :word
-extern ?clrsh_LuxorGold@@3PAGA : word
-extern ?clrsh_CoralRed@@3PAGA : word
+
+extern ?clrsh_DullGold@@3PAGA  : dword
+extern ?clrsh_TechBlack@@3PAGA  : dword
+extern ?clrsh_ShockingBlack@@3PAGA  : dword
+extern ?clrsh_CharlieBrown@@3PAGA  : dword
+extern ?clrsh_LuxorGold@@3PAGA  : dword
+extern ?clrsh_CoralRed@@3PAGA  : dword
+
+extern ?clrsh_Black@@3PAGA  : dword
+extern ?clrsh_Oxley@@3PAGA  : dword
+extern ?clrsh_GoldenFizz@@3PAGA  : dword
+extern ?clrsh_ScreaminGreen@@3PAGA  : dword
+extern ?clrsh_Cumin@@3PAGA  : dword
+extern ?clrsh_CreteToRed@@3PAGA  : dword
+extern ?clrsh_ScreamGreenToRed@@3PAGA  : dword
+extern ?clrsh_InvBarleyCorn@@3PAGA  : dword
+
+extern ?palette_husk@@3PAVCGamePalette@@A  : dword
+extern ?palette_paris_daisy@@3PAVCGamePalette@@A  : dword
+extern ?palette_black@@3PAVCGamePalette@@A  : dword
+extern ?palette_brown_derby@@3PAVCGamePalette@@A  : dword
+extern ?palette_tawny_port@@3PAVCGamePalette@@A  : dword
+
 
 extern ?clr_log_tblack@@3PAGA  : dword
 extern ?clr_log_sblack@@3PAGA  : dword
@@ -2015,6 +2104,8 @@ externdef ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : pr
 ;sound
 externdef ?Play@CSound@@SAXAAU1@@Z :proc
 externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
+
+extern ?FreeDSound@@YAXXZ : proc
 
 extern ?Release@SfxSample@@QAEXXZ : proc
 extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc

@@ -22,6 +22,8 @@ extern SfxBank SoundBank_mage[2]; //665dd8
 extern SfxBank SoundBank_peasant[2]; //6663d8
 extern SfxBank SoundBank_other[12]; //665ec8
 
+void FreeDSound(); //45c7c5
+
 class SfxSample : public CObject
 {
 public:

@@ -551,3 +551,14 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 		fadeout_enabled = 1;
 	}
 }
+
+
+void FreeDSound()
+{ //45c7c5
+	if (g_dsound)
+		g_dsound->Release();
+	g_dsound = nullptr;
+	if (g_dsound_channels)
+		delete[] g_dsound_channels;
+	g_dsound_channels = nullptr;
+}

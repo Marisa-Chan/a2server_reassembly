@@ -4959,3 +4959,120 @@ void NetStru1::sub_51AC77(Token* token, Player* player, uint8_t flag) {
         }
     }
 }
+
+
+
+void NetStru1::WriteStatsLog(CString fname)
+{ //51f124
+    CStdioFile f(fname, CFile::modeCreate | CFile::modeWrite);
+
+    f.WriteString("Cmd|Packets|Avg Size| Total Size |Comment\n");
+    f.WriteString("-------------------------------------------\n");
+
+    for (int32_t i = 0; i < 0x100; i++)
+    {
+        if (stat_pkt_num[i] != 0)
+        {
+            CString pname;
+            switch (i)
+            {
+            case 0x64:
+                pname = "GM_ReportNewSegment";
+                break;
+            case 0x67:
+                pname = "GM_ReportMoney";
+                break;
+            case 0x69:
+                pname = "GM_ReportUnitShown";
+                break;
+            case 0x6b:
+                pname = "GM_ReportUnitMove";
+                break;
+            case 0x6c:
+            case 0x6e:
+            case 0x6f:
+            case 0x70:
+                pname = "GM_ReportUnitChange";
+                break;
+            case 0x6d:
+                pname = "GM_ReportUnitTurn";
+                break;
+            case 0x71:
+                pname = "GM_ReportUnitAttack";
+                break;
+            case 0x72:
+                pname = "GM_ReportRangedAttack";
+                break;
+            case 0x73:
+                pname = "GM_ReportUnitDamaged";
+                break;
+            case 0x74:
+                pname = "GM_ReportUnitHidden";
+                break;
+            case 0x76:
+                pname = "GM_ReportItemList";
+                break;
+            case 0x79:
+                pname = "GM_ReportUnitWearItems";
+                break;
+            case 0x7a:
+                pname = "GM_ReportSack";
+                break;
+            case 0x86:
+                pname = "GM_ReportEffect";
+                break;
+            case 0x87:
+                pname = "GM_ReportAreaEffect";
+                break;
+            case 0x88:
+                pname = "GM_ReportEffectHang";
+                break;
+            case 0x89:
+                pname = "GM_ReportEffectGone";
+                break;
+            case 0x8a:
+                pname = "GM_ReportEffectMultiTarget";
+                break;
+            case 0x8b:
+                pname = "GM_ReportEffectFrom";
+                break;
+            case 0x8c:
+                pname = "GM_ReportEffectMultiFrom";
+                break;
+            case 0x8d:
+                pname = "GM_ReportMessage";
+                break;
+            case 0x96:
+                pname = "GM_ReportNewPlayer";
+                break;
+            case 0x97:
+                pname = "GM_ReportDeletePlayer";
+                break;
+            case 0x98:
+                pname = "GM_ReportAshMap";
+                break;
+            case 0x9c:
+                pname = "GM_ReportEnemyEquipment";
+                break;
+            case 0xb9:
+                pname = "GM_ReportDiplomacy";
+                break;
+            case 0xba:
+                pname = "GM_ReportCreatureKnowledge";
+                break;
+            case 0xbb:
+                pname = "GM_ReportPlayerQuests";
+                break;
+            case 0xbc:
+                pname = "GM_ReportInnQuests";
+                break;
+            }
+
+            CString msg;
+            msg.Format("%3d|%7d|%8d|%11d|%s\n", i, stat_pkt_num[i], stat_pkt_size[i] / stat_pkt_num[i], stat_pkt_size[i], pname);
+            
+            f.WriteString(msg);
+        }
+    }
+    f.Close();
+}
