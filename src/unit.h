@@ -138,7 +138,7 @@ public:
     int8_t last_hit_spell_id;
     int8_t token_size;
     int8_t movement_type;
-    int8_t face;
+    uint8_t face;
     // Unit attributes. Fighters have `& 4 == 0`. Phased-out units have `& 8 == 0`.
     // Piercing attack: `& 0x10 != 0`.
     int8_t unit_attrs;

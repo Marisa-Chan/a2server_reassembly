@@ -485,8 +485,7 @@ public:
     virtual Packet* Duplicate() override; // sub_57A840
     virtual uint32_t GetDataSize() override;
 public:
-    uint8_t  field_0xa; // +0xA
-    uint8_t  field_0xb; // +0xB
+    uint16_t  field_0xa; // +0xA
     uint16_t unit_id;   // +0xC (= 0 in ctor)
 };
 __pragma(pack(pop))

@@ -144,7 +144,7 @@ public:
 	uint32_t spells; // 1c
 	uint32_t activeSpellEffectMask; // 20
 	int32_t typeId; // 24
-	int32_t face; // 28
+	uint32_t face; // 28
 	int32_t x_pos2; // 2c
 	int32_t y_pos2; // 30
 	int32_t field_0x34;
