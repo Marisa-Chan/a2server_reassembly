@@ -3352,7 +3352,6 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 { //45f10b
 	int32_t space_width = char_widths[' '];
 
-	CString local_14;
 	CStringArray words;
 	CDWordArray wordssz;
 
@@ -3366,12 +3365,12 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 		if (word_end == -1)
 			word_end = txt.GetLength();
 
-		local_14 = txt.Left(word_end);
-		local_14.TrimRight();
+		CString wrd = txt.Left(word_end);
+		wrd.TrimRight();
 
-		words.Add(local_14);
+		words.Add(wrd);
 
-		int32_t sz = GetStrWidth(local_14);
+		int32_t sz = GetStrWidth(wrd);
 		words_width += sz;
 
 		wordssz.Add(sz);
@@ -3395,7 +3394,6 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 { //45eed7
 	int32_t space_width = char_widths[' '];
 
-	CString local_14;
 	CStringArray words;
 	CDWordArray wordssz;
 
@@ -3409,12 +3407,12 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 		if (word_end == -1)
 			word_end = txt.GetLength();
 
-		local_14 = txt.Left(word_end);
-		local_14.TrimRight();
+		CString wrd = txt.Left(word_end);
+		wrd.TrimRight();
 
-		words.Add(local_14);
+		words.Add(wrd);
 
-		int32_t sz = GetStrWidth(local_14);
+		int32_t sz = GetStrWidth(wrd);
 		words_width += sz;
 
 		wordssz.Add(sz);
