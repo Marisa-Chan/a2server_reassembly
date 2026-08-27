@@ -143,7 +143,18 @@ extern "C" void __cdecl sub_53685B(Unit* self, Unit* target); // Attack a unit (
 extern "C" void __cdecl sub_536A62(Unit* self, Unit* target); // Attack a building (still in Main.asm)
 
 // Free functions for Humanoid::VMethod21.
-extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
+// 530DCB
+extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) // Clamps experience gain to the max gain for the given skill level.
+{
+    int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
+    if (g_Server->field4_0x74 != 0) {
+        max_gain /= 5;
+    }
+    if (max_gain < (int32_t)experience) {
+        return max_gain;
+    }
+    return experience;
+}
 
 // 536630
 extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) // Start attack?

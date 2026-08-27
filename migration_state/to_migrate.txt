@@ -17,7 +17,6 @@ _sub_43A820	26
 ?UnlockSurface1@@YAXXZ	38
 ?LockSurface2@@YAXXZ	41
 ?LockSurface1@@YAXXZ	41
-_sub_530DCB	67
 _sub_5049D1	85
 ?SetVideoMode@@YAHXZ	87
 _sub_5364D5	90

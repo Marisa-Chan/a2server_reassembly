@@ -2032,7 +2032,6 @@ externdef _sub_536A62 :proc   ; attack a building
 externdef _Random0N :proc     ; 542216
 externdef _Random1N :proc     ; 54223F
 
-externdef _sub_530DCB :proc   ; ClampExperienceGain
 externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
