@@ -1025,6 +1025,5 @@ _pathStrCpy
 _ReportWarning
 _sub_43A857
 _sub_4F499B
-_sub_5364D5
 _WritePlayerFile_4F53EA
 _XorData
