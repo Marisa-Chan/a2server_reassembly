@@ -12,6 +12,11 @@
 ??0Armor@@QAE@PBV0@@Z
 ??0Armor@@QAE@XZ
 ??0BuildingInfo@@QAE@XZ
+??0CA16@@QAE@PBD@Z
+??0CBmp256@@QAE@II@Z
+??0CBmp256@@QAE@PBD@Z
+??0CBmp64@@QAE@II@Z
+??0CBmp64@@QAE@PBD@Z
 ??0CCursor@@QAE@PBDHHH@Z
 ??0CEdit2@@QAE@XZ
 ??0CFameHall@@QAE@XZ
@@ -22,6 +27,9 @@
 ??0CLlDriver@@QAE@U_GUID@@PAVNetStru1@@@Z
 ??0CMultiShopInstance@@QAE@XZ
 ??0CObject@@IAE@XZ
+??0CSprite16@@QAE@PBD@Z
+??0CSprite256@@QAE@ABV0@@Z
+??0CSprite256@@QAE@PBD@Z
 ??0CString@@QAE@ABV0@@Z
 ??0CString@@QAE@DH@Z
 ??0CString@@QAE@PBD@Z
@@ -148,6 +156,7 @@
 ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
 ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
 ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
+??0VisLogoWnd@@QAE@HHHHH@Z
 ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z
 ??0VisMessageBox@@QAE@HHHHHPBD0H0@Z
 ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z
@@ -404,9 +413,7 @@
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
 ?FUN_0041f180@CGameObject@@QAEXH@Z
 ?FUN_0041f6b0@BigStruct2@@QAEHXZ
-?FUN_004559d4@@YAXHHHHPAEPAG@Z
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z
-?FUN_0048cff7@MainWindow@@QAEXXZ
 ?FUN_0048e502@MainWindow@@QAEHH@Z
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_0048f79d@MainWindow@@QAEXXZ
@@ -512,6 +519,7 @@
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
 ?LoadCursors@@YAXXZ
 ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z
+?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?LoadInfo@Armor@@QAEXXZ
 ?LoadInfo@Shield@@QAEXXZ
 ?LoadInfo@Weapon@@QAEXXZ
@@ -623,6 +631,7 @@
 ?RemoveEffects@Item@@QAEXPAVUnit@@@Z
 ?RemoveUnit@Group@@QAEXPAVUnit@@@Z
 ?ResetNext400msg@CMousePointer@@QAEXXZ
+?ResetPalette@CGameBitmap@@QAEXIHH@Z
 ?ResetProvider@CLlDriver@@QAEHH@Z
 ?ResetStates@CMousePointer@@QAEXXZ
 ?RestartModemServerDp@CLlDriver@@QAEHXZ
@@ -701,8 +710,10 @@
 ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z
 ?SetVolume@MusicPlayer@@QAEXH@Z
 ?ShadowRect@@YAXVCRect@@H@Z
+?ShowCharacterLoaderDialog@MainWindow@@QAEXXZ
 ?ShowGlobalMapDialog@MainWindow@@QAEXXZ
 ?ShowStartGameSetupForNewSession@MainWindow@@QAEXXZ
+?ShowStartupLogoDialog@MainWindow@@QAEXXZ
 ?SizesCheck@VisMultiText@@QAEXXZ
 ?SpanExcluding@CString@@QBE?AV1@PBD@Z
 ?SpanIncluding@CString@@QBE?AV1@PBD@Z
@@ -999,6 +1010,7 @@
 ?WriteData@VisRadioBase@@UAEXPAX@Z
 ?WriteData@VisTextBox@@UAEXPAX@Z
 ?WriteEffects@Item@@QAEXPAVPacketUnitStateVec@@PAE@Z
+?WriteFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?WriteObject@CArchive@@QAEXPBVCObject@@@Z
 ?WriteToBuffer@NetStru3@@QAEHPAXI@Z
 ?WriteToFile@ResBase@@QAEXPAVCFile@@H@Z

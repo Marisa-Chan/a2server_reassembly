@@ -45,13 +45,11 @@ _sub_54C6DD	453
 ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z	156
 ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z	238
 ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z	339
-??0CA16@@QAE@PBD@Z	19
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
 ??0CArchive@@QAE@PAVCFile@@IHPAX@Z	114
 ??0CBackPack@@QAE@XZ	16
-??0CBmp64@@QAE@II@Z	58
 ?GetDispatchIID@CCmdTarget@@UAEHPAU_GUID@@@Z	3
 ?GetTypeInfoCount@CCmdTarget@@UAEIXZ	3
 ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ	3
@@ -76,7 +74,6 @@ _sub_54C6DD	453
 ??0CEdit@@QAE@XZ	16
 ??1CEdit@@UAE@XZ	29
 ?SetSel@CEdit@@QAEXKH@Z	37
-?ResetPalette@CGameBitmap@@QAEXIHH@Z	29
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z	376
 ?FUN_00462405@CGameObject@@QAEHH@Z	51
 ?FUN_0046190d@CGameObject@@QAEXXZ	299
@@ -104,7 +101,6 @@ _sub_54C6DD	453
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36
 ?Play@CSound@@SAXAAU1@@Z	31
-??0CSprite256@@QAE@PBD@Z	191
 ??0CStatic@@QAE@XZ	16
 ??1CStatic@@UAE@XZ	29
 ??0CStatusBar@@QAE@XZ	27
@@ -193,7 +189,6 @@ _sub_54C6DD	453
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
-?sub_52F5BB@Unit@@QAEEI@Z	28
 ?FUN_004972d0@Vis1200@@QAEHXZ	14
 ?FUN_00497310@Vis1200@@QAEHXZ	14
 ?FUN_0043be9f@Vis1200@@QAEXXZ	100

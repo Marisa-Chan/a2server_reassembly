@@ -1969,6 +1969,16 @@ void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
     }
 }
 
+// 52F5BB
+uint8_t Unit::sub_52F5BB(uint32_t sphere)
+{
+    int32_t power = this->hit_values.skill_levels[sphere & 0xFF] + this->mind - 30;
+    if (power < 0) {
+        power = 0;
+    }
+    return power;
+}
+
 // 52F601
 void Unit::sub_52F601(const CString& name)
 {

@@ -268792,41 +268792,6 @@ sub_52C735      endp
 
 ; Attributes: bp-based frame
 
-?sub_52F5BB@Unit@@QAEEI@Z      proc near               ; CODE XREF: sub_539C49+128↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 0FFh
-                mov     ecx, dword ptr [ebp+var_8]
-                movsx   edx, word ptr [ecx+eax*2+0A8h]
-                mov     eax, dword ptr [ebp+var_8]
-                movsx   ecx, word ptr [eax+88h]
-                lea     edx, [edx+ecx-1Eh]
-                mov     [ebp+var_4], edx
-                xor     eax, eax
-                cmp     [ebp+var_4], 0
-                setl    al
-                dec     eax
-                and     eax, [ebp+var_4]
-                mov     [ebp+var_4], eax
-                mov     al, byte ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_52F5BB@Unit@@QAEEI@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_53064C      proc near               ; CODE XREF: ?PrecomputeExperienceLevelsTable@@YAXXZ+23↓p
 
 var__y           = qword ptr -8
