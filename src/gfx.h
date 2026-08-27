@@ -153,6 +153,7 @@ void UnloadGraphics(); //47961c
 void FreeFontData(); //460d7f
 void FreeDDraw(); //454219
 void FreeBrightnessLookup(); //453cf9
+void SaveScreenshot(); //453d33
 
 
 struct ColorThing

@@ -3695,3 +3695,23 @@ void BigStruct2::SendAdjustPlayerGoldAction(int32_t goldDelta) const
 	pkt->to_player_id = 0;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
+
+void BigStruct2::ScrollMapX(int32_t dx)
+{ //403f4f
+	field_0x78 += dx;
+	if (field_0x78 + view_x < MapMinX())
+		field_0x78 = MapMinX() - view_x;
+
+	if (field_0x78 + view_x > MapMaxX())
+		field_0x78 = MapMaxX() - view_x;
+}
+
+void BigStruct2::ScrollMapY(int32_t dy)
+{ //403fc5
+	field_0x7c += dy;
+	if (field_0x7c + view_y < MapMinY())
+		field_0x7c = MapMinY() - view_y;
+
+	if (field_0x7c + view_y > MapMaxX())
+		field_0x7c = MapMaxX() - view_y;
+}

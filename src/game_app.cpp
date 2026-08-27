@@ -643,6 +643,63 @@ BOOL GameApp::InitInstance()
 	return TRUE;
 }
 
+BOOL GameApp::OnIdle(LONG lCount)
+{ //4835b0
+	static uint32_t idle_tick = 0;
+
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	if (mwnd->sessionMode == 3 && g_Server)
+	{
+		mwnd->sub_48A756();
+	}
+	else if ((mwnd->dialogsMask & 1) == 0)
+	{
+		if (mwnd->serverBootstrapEnabled == 0 || !g_Server)
+		{
+			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0)
+				mwnd->field_0x378->MsgProc(0x446, 0, 0);
+
+			mwnd->MapWnd->ProcessPackets(0);
+		}
+		else
+		{
+			uint32_t tick = GetTickCount();
+			if (tick - idle_tick > 62)
+			{
+				g_Server->FUN_0050907e();
+				mwnd->MapWnd->ProcessPackets(0);
+				idle_tick = tick;
+			}
+		}
+
+		if (mwnd->field_0xbc != 0)
+			mwnd->vis_root->MsgProc(0x402, 0, 0);
+
+		g_mousept.Update();
+	}
+	else
+	{
+		if (mwnd->serverBootstrapEnabled == 0)
+		{
+			mwnd->RemoteGameIdle();
+		}
+		else if ((mwnd->dialogsMask & 1) != 0 && (mwnd->sessionMode != 2 || (mwnd->dialogsMask & 0x4008) == 0))
+		{
+			if (mwnd->field_0x448 == 0)
+				mwnd->SingleGameTimedIdle();
+			else
+				mwnd->SingleGameIdle();
+		}
+	}
+	g_NetStru1_local.ProcessConnections();
+	g_NetStru1_main.ProcessConnections();
+	g_mousept.Update();
+
+	mwnd->vis_root->MsgProc(0x462, 0, 0);
+	return 1;
+}
+
 int GameApp::ExitInstance()
 { //4833f1
 	if (g_EnableTrace != 0)

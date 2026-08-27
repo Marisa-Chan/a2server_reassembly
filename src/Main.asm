@@ -2731,11 +2731,11 @@ yBottom         = dword ptr  14h
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    sub_402FB8
                 mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 mov     ecx, dword ptr [ebp+var_2C]
                 mov     [ecx+5Ch], eax
                 mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_41F680
+                call    ?MapMinY@BigStruct2@@QBEHXZ
                 mov     edx, dword ptr [ebp+var_2C]
                 mov     [edx+60h], eax
                 mov     eax, dword ptr [ebp+var_2C]
@@ -4407,120 +4407,7 @@ arg_0           = dword ptr  8
 sub_403F08      endp
 
 
-; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-sub_403F4F      proc near               ; CODE XREF: sub_40C902+151↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+78h]
-                add     ecx, [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+78h], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esi, [eax+5Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                add     esi, [ecx+78h]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
-                cmp     esi, eax
-                jge     short loc_403F92
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
-                mov     edx, dword ptr [ebp+var_4]
-                sub     eax, [edx+5Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+78h], eax
-
-loc_403F92:                             ; CODE XREF: sub_403F4F+2D↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     esi, [edx+5Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                add     esi, [eax+78h]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F690
-                cmp     esi, eax
-                jle     short loc_403FBE
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F690
-                mov     ecx, dword ptr [ebp+var_4]
-                sub     eax, [ecx+5Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+78h], eax
-
-loc_403FBE:                             ; CODE XREF: sub_403F4F+59↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_403F4F      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_403FC5      proc near               ; CODE XREF: sub_40C902+11B↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+7Ch]
-                add     ecx, [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+7Ch], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esi, [eax+60h]
-                mov     ecx, dword ptr [ebp+var_4]
-                add     esi, [ecx+7Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F680
-                cmp     esi, eax
-                jge     short loc_404008
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F680
-                mov     edx, dword ptr [ebp+var_4]
-                sub     eax, [edx+60h]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+7Ch], eax
-
-loc_404008:                             ; CODE XREF: sub_403FC5+2D↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     esi, [edx+60h]
-                mov     eax, dword ptr [ebp+var_4]
-                add     esi, [eax+7Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_0041f6b0@BigStruct2@@QAEHXZ
-                cmp     esi, eax
-                jle     short loc_404034
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_0041f6b0@BigStruct2@@QAEHXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                sub     eax, [ecx+60h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+7Ch], eax
-
-loc_404034:                             ; CODE XREF: sub_403FC5+59↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_403FC5      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -15458,7 +15345,7 @@ loc_40CA0C:                             ; CODE XREF: sub_40C902+F6↑j
                 jnz     short loc_40CA22
                 push    0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_403FC5
+                call    ?ScrollMapY@BigStruct2@@QAEXH@Z
 
 loc_40CA22:                             ; CODE XREF: sub_40C902+114↑j
                 jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
@@ -15470,7 +15357,7 @@ loc_40CA27:                             ; CODE XREF: sub_40C902+F6↑j
                 jnz     short loc_40CA3D
                 push    1
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_403FC5
+                call    ?ScrollMapY@BigStruct2@@QAEXH@Z
 
 loc_40CA3D:                             ; CODE XREF: sub_40C902+12F↑j
                 jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
@@ -15482,7 +15369,7 @@ loc_40CA42:                             ; CODE XREF: sub_40C902+F6↑j
                 jnz     short loc_40CA58
                 push    0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_403F4F
+                call    ?ScrollMapX@BigStruct2@@QAEXH@Z
 
 loc_40CA58:                             ; CODE XREF: sub_40C902+14A↑j
                 jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
@@ -15494,7 +15381,7 @@ loc_40CA5D:                             ; CODE XREF: sub_40C902+F6↑j
                 jnz     short loc_40CA73
                 push    1
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_403F4F
+                call    ?ScrollMapX@BigStruct2@@QAEXH@Z
 
 loc_40CA73:                             ; CODE XREF: sub_40C902+165↑j
                 jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
@@ -16409,29 +16296,29 @@ arg_4           = dword ptr  0Ch
 
 loc_416811:                             ; CODE XREF: sub_4167F7+13↑j
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 cmp     [ebp+arg_0], eax
                 jge     short loc_416829
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 mov     [ebp+arg_0], eax
 
 loc_416829:                             ; CODE XREF: sub_4167F7+25↑j
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F680
+                call    ?MapMinY@BigStruct2@@QBEHXZ
                 cmp     [ebp+arg_4], eax
                 jge     short loc_416841
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F680
+                call    ?MapMinY@BigStruct2@@QBEHXZ
                 mov     [ebp+arg_4], eax
 
 loc_416841:                             ; CODE XREF: sub_4167F7+3D↑j
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F690
+                call    ?MapMaxX@BigStruct2@@QBEHXZ
                 cmp     [ebp+arg_0], eax
                 jle     short loc_416859
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F690
+                call    ?MapMaxX@BigStruct2@@QBEHXZ
                 mov     [ebp+arg_0], eax
 
 loc_416859:                             ; CODE XREF: sub_4167F7+55↑j
@@ -27737,68 +27624,6 @@ sub_41F640      endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_41F670      proc near               ; CODE XREF: sub_402AF6+12C↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_41F670      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_41F680      proc near               ; CODE XREF: sub_402AF6+13A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_41F680      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_41F690      proc near               ; CODE XREF: sub_403F4F+52↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+84h]
-                sub     eax, 8
-                mov     ecx, dword ptr [ebp+var_4]
-                sub     eax, [ecx+64h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_41F690      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -91441,1259 +91266,14 @@ sub_452570      endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
 
-sub_4525C0      proc near
 
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
 
-; FUNCTION CHUNK AT 005F9DA0 SIZE 00000014 BYTES
 
-; __unwind { // SEH_4525C0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4525C0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                push    38h ; '8'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4525FF
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_452674
-                mov     [ebp+var_1C], eax
-                jmp     short loc_452606
-; ---------------------------------------------------------------------------
 
-loc_4525FF:                             ; CODE XREF: sub_4525C0+30↑j
-                mov     [ebp+var_1C], 0
 
-loc_452606:                             ; CODE XREF: sub_4525C0+3D↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_18], eax
-;   } // starts at 4525E5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4525C0
-sub_4525C0      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_45262A      proc near               ; DATA XREF: .rdata:off_60B208↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset stru_62EB40 ; "CDib"
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45262A      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_499 proc near           ; DATA XREF: .data:0062C024↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_452644
-                pop     ebp
-                retn
-unknown_libname_499 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_452644      proc near               ; CODE XREF: unknown_libname_499+3↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset stru_62EB40 ; struct CRuntimeClass *
-                mov     ecx, offset unk_659A60 ; varThis
-                call    ??0AFX_CLASSINIT@@QAE@PAUCRuntimeClass@@@Z ; AFX_CLASSINIT::AFX_CLASSINIT(CRuntimeClass *)
-                pop     ebp
-                retn
-sub_452644      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_452674      proc near               ; CODE XREF: sub_4525C0+35↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9DB4 SIZE 00000013 BYTES
-
-; __unwind { // SEH_452674
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_452674
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CObject@@IAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B208
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+28h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+8], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+34h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+1Ch], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+18h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4536C3
-;   } // starts at 452698
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 452674
-sub_452674      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4526FA      proc near               ; CODE XREF: sub_453D33+63↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = word ptr  10h
-
-; FUNCTION CHUNK AT 005F9DC7 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4526FA
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4526FA
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CObject@@IAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B208
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+28h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+8], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+34h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+1Ch], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+18h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4536C3
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+24h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+24h]
-                lea     eax, ds:28h[edx*4]
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+10h], eax
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+18h], 1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+10h]
-                mov     dword ptr [ecx], 28h ; '('
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+10h]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+4], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+10h]
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     [eax+8], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+10h]
-                mov     word ptr [eax+0Ch], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+10h]
-                mov     ax, [ebp+arg_8]
-                mov     [edx+0Eh], ax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+10h]
-                mov     dword ptr [edx+10h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+10h]
-                mov     dword ptr [ecx+14h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+10h]
-                mov     dword ptr [eax+18h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+10h]
-                mov     dword ptr [edx+1Ch], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+10h]
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+24h]
-                mov     [ecx+20h], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+10h]
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+24h]
-                mov     [edx+24h], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_453625
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+24h]
-                shl     eax, 2
-                push    eax             ; varSize
-                push    0               ; Val
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+4]
-                push    edx             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+0Ch], 0
-;   } // starts at 45271E
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-; } // starts at 4526FA
-sub_4526FA      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_45286F      proc near               ; CODE XREF: sub_453830+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9DDA SIZE 00000013 BYTES
-
-; __unwind { // SEH_45286F
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45286F
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B208
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4536C3
-;   } // starts at 452894
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45286F
-sub_45286F      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_452B92      proc near               ; CODE XREF: .text:004529C1↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4536C3
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     [eax+14h], ecx
-                cmp     [ebp+arg_4], 0
-                jnz     short loc_452BBC
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+18h], 0
-                jmp     short loc_452BCC
-; ---------------------------------------------------------------------------
-
-loc_452BBC:                             ; CODE XREF: sub_452B92+1C↑j
-                xor     eax, eax
-                cmp     [ebp+arg_8], 0
-                setnz   al
-                inc     eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+18h], eax
-
-loc_452BCC:                             ; CODE XREF: sub_452B92+28↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [edx+10h], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+10h]
-                xor     eax, eax
-                mov     ax, [edx+0Eh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_45357A
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_453625
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+24h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                lea     edx, [ecx+edx*4]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+0Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_452D66
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_452B92      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_452D66      proc near               ; CODE XREF: .text:00452B82↑p
-
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-plpal           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_14], ecx
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+24h], 0
-                jnz     short loc_452D7F
-                xor     eax, eax
-                jmp     loc_452E56
-; ---------------------------------------------------------------------------
-
-loc_452D7F:                             ; CODE XREF: sub_452D66+10↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     dword ptr [ecx+34h], 0
-                jz      short loc_452D95
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+34h]
-                push    eax             ; ho
-                call    DeleteObject
-
-loc_452D95:                             ; CODE XREF: sub_452D66+20↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+24h]
-                lea     eax, ds:4[edx*4]
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+plpal], eax
-                mov     ecx, dword ptr [ebp+plpal]
-                mov     word ptr [ecx], 300h
-                mov     edx, dword ptr [ebp+plpal]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     cx, [eax+24h]
-                mov     [edx+2], cx
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+4]
-                mov     [ebp+var_4], eax
-                mov     [ebp+var_C], 0
-                jmp     short loc_452DDF
-; ---------------------------------------------------------------------------
-
-loc_452DD6:                             ; CODE XREF: sub_452D66+C7↓j
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 1
-                mov     [ebp+var_C], ecx
-
-loc_452DDF:                             ; CODE XREF: sub_452D66+6E↑j
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     eax, [edx+24h]
-                jge     short loc_452E2F
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+plpal]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     al, [eax+2]
-                mov     [edx+ecx*4+4], al
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+plpal]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     al, [eax+1]
-                mov     [edx+ecx*4+5], al
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+plpal]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     al, [eax]
-                mov     [edx+ecx*4+6], al
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+plpal]
-                mov     byte ptr [edx+ecx*4+7], 0
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 4
-                mov     [ebp+var_4], eax
-                jmp     short loc_452DD6
-; ---------------------------------------------------------------------------
-
-loc_452E2F:                             ; CODE XREF: sub_452D66+82↑j
-                mov     ecx, dword ptr [ebp+plpal]
-                push    ecx             ; plpal
-                call    CreatePalette
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [edx+34h], eax
-                mov     eax, dword ptr [ebp+plpal]
-                mov     [ebp+Block], eax
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-                mov     eax, 1
-
-loc_452E56:                             ; CODE XREF: sub_452D66+14↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_452D66      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_452F3F      proc near               ; CODE XREF: .text:00452FF3↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+20h], 0
-                jnz     short loc_452F55
-                xor     eax, eax
-                jmp     short loc_452F83
-; ---------------------------------------------------------------------------
-
-loc_452F55:                             ; CODE XREF: sub_452F3F+10↑j
-                push    0               ; iUsage
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+10h]
-                push    edx             ; pbmi
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0Ch]
-                push    ecx             ; pjBits
-                push    4               ; flInit
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+10h]
-                push    eax             ; pbmih
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    unknown_libname_501 ; MFC 3.1-14.0 32bit
-                push    eax             ; hdc
-                call    CreateDIBitmap
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-
-loc_452F83:                             ; CODE XREF: sub_452F3F+14↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_452F3F      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_453258      proc near               ; CODE XREF: sub_453535+3A↓p
-
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = byte ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_1A          = dword ptr -1Ah
-varSize            = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F9DED SIZE 00000013 BYTES
-
-; __unwind { // SEH_453258
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_453258
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                sub     esp, 34h
-                push    ebx
-                push    esi
-                push    edi
-                mov     [ebp+var_10], esp
-                mov     [ebp+var_44], ecx
-                mov     ecx, dword ptr [ebp+var_44]
-                call    sub_4536C3
-                lea     ecx, [ebp+var_30] ; varThis
-                call    ??0AFX_EXCEPTION_LINK@@QAE@XZ ; AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK(void)
-;   try {
-                mov     [ebp+var_4], 0
-;   } // starts at 45328D
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    0Eh
-                lea     eax, [ebp+var_24]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+3Ch]
-                mov     [ebp+var_28], eax
-                cmp     [ebp+var_28], 0Eh
-                jz      short loc_4532DE
-                push    0
-                push    0
-                push    offset aReadError1 ; "read error 1"
-                call    ?AfxMessageBox@@YAHPBDII@Z      ; ?AfxMessageBox@@YAHPBDII@Z
-                mov     [ebp+var_38], 0
-;   } // starts at 453294
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_30]
-                call    sub_41E9C0
-                mov     eax, dword ptr [ebp+var_38]
-                jmp     loc_453402
-; ---------------------------------------------------------------------------
-
-loc_4532DE:                             ; CODE XREF: sub_453258+58↑j
-                mov     eax, dword ptr [ebp+var_24]
-                and     eax, 0FFFFh
-                cmp     eax, 4D42h
-                jz      short loc_453319
-                push    0
-                push    0
-                push    offset aInvalidBitmapF_0 ; "Invalid bitmap file"
-                call    ?AfxMessageBox@@YAHPBDII@Z      ; ?AfxMessageBox@@YAHPBDII@Z
-                mov     [ebp+var_3C], 0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_30]
-                call    sub_41E9C0
-                mov     eax, dword ptr [ebp+var_3C]
-                jmp     loc_453402
-; ---------------------------------------------------------------------------
-
-loc_453319:                             ; CODE XREF: sub_453258+93↑j
-                mov     ecx, dword ptr [ebp+var_1A]
-                sub     ecx, 0Eh
-                mov     [ebp+varSize], ecx
-                mov     edx, dword ptr [ebp+varSize]
-                push    edx             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_44]
-                mov     [ecx+10h], eax
-                mov     edx, dword ptr [ebp+var_44]
-                mov     dword ptr [edx+1Ch], 1
-                mov     eax, dword ptr [ebp+var_44]
-                mov     dword ptr [eax+18h], 1
-                mov     ecx, dword ptr [ebp+varSize]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_44]
-                mov     eax, dword ptr [edx+10h]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+3Ch]
-                mov     [ebp+var_28], eax
-                mov     ecx, dword ptr [ebp+var_44]
-                call    sub_453625
-                mov     eax, dword ptr [ebp+var_44]
-                mov     ecx, dword ptr [eax+20h]
-                push    ecx             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_44]
-                mov     [edx+0Ch], eax
-                mov     eax, dword ptr [ebp+var_44]
-                mov     ecx, dword ptr [eax+20h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_44]
-                mov     eax, dword ptr [edx+0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+3Ch]
-                mov     [ebp+var_28], eax
-                jmp     short loc_4533D1
-; ---------------------------------------------------------------------------
-
-loc_45339C:                             ; DATA XREF: .rdata:stru_61A978↓o
-;   catch(CException *) // owned by 453294
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [ebp+var_2C], eax
-                push    0
-                push    0
-                push    offset aReadError1_0 ; "Read error 1"
-                call    ?AfxMessageBox@@YAHPBDII@Z      ; ?AfxMessageBox@@YAHPBDII@Z
-                mov     [ebp+var_40], 0
-                mov     eax, offset loc_4533BD
-                retn
-; ---------------------------------------------------------------------------
-
-loc_4533BD:                             ; CODE XREF: sub_453258+164↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_30]
-                call    sub_41E9C0
-                mov     eax, dword ptr [ebp+var_40]
-                jmp     short loc_453402
-; ---------------------------------------------------------------------------
-
-loc_4533D1:                             ; CODE XREF: sub_453258+142↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_30]
-                call    sub_41E9C0
-                mov     ecx, dword ptr [ebp+var_44]
-                mov     edx, dword ptr [ecx+10h]
-                xor     eax, eax
-                mov     ax, [edx+0Eh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                call    sub_45357A
-                mov     ecx, dword ptr [ebp+var_44]
-                call    sub_452D66
-                mov     eax, 1
-
-loc_453402:                             ; CODE XREF: sub_453258+81↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     edi
-                pop     esi
-                pop     ebx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 453258
-sub_453258      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_453415      proc near               ; CODE XREF: sub_453535+27↓p
-
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = byte ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = word ptr -24h
-var_22          = dword ptr -22h
-var_1E          = word ptr -1Eh
-var_1C          = word ptr -1Ch
-var_1A          = dword ptr -1Ah
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F9E00 SIZE 00000013 BYTES
-
-; __unwind { // SEH_453415
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_453415
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                sub     esp, 28h
-                push    ebx
-                push    esi
-                push    edi
-                mov     [ebp+var_10], esp
-                mov     [ebp+var_38], ecx
-                mov     [ebp+var_24], 4D42h
-                mov     eax, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [eax+24h]
-                mov     edx, dword ptr [ebp+var_38]
-                mov     eax, dword ptr [edx+20h]
-                lea     ecx, [eax+ecx*4+28h]
-                mov     [ebp+var_14], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 0Eh
-                mov     [ebp+var_22], edx
-                mov     [ebp+var_1C], 0
-                mov     ax, [ebp+var_1C]
-                mov     [ebp+var_1E], ax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ecx+24h]
-                lea     eax, ds:36h[edx*4]
-                mov     [ebp+var_1A], eax
-                lea     ecx, [ebp+var_2C] ; varThis
-                call    ??0AFX_EXCEPTION_LINK@@QAE@XZ ; AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK(void)
-;   try {
-                mov     [ebp+var_4], 0
-;   } // starts at 453482
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    0Eh
-                lea     ecx, [ebp+var_24]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [eax+40h]
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ecx+24h]
-                lea     eax, ds:28h[edx*4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ecx+10h]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+40h]
-                mov     eax, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [eax+20h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_38]
-                mov     eax, dword ptr [edx+0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+40h]
-                jmp     short loc_45350E
-; ---------------------------------------------------------------------------
-
-loc_4534D9:                             ; DATA XREF: .rdata:stru_61A9D8↓o
-;   catch(CException *) // owned by 453489
-                mov     eax, dword ptr [ebp+var_30]
-                mov     [ebp+var_28], eax
-                push    0
-                push    0
-                push    offset aWriteError ; "write error"
-                call    ?AfxMessageBox@@YAHPBDII@Z      ; ?AfxMessageBox@@YAHPBDII@Z
-                mov     [ebp+var_34], 0
-                mov     eax, offset loc_4534FA
-                retn
-;   } // starts at 453489
-; ---------------------------------------------------------------------------
-
-loc_4534FA:                             ; CODE XREF: sub_453415+E4↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_2C]
-                call    sub_41E9C0
-                mov     eax, dword ptr [ebp+var_34]
-                jmp     short loc_453522
-; ---------------------------------------------------------------------------
-
-loc_45350E:                             ; CODE XREF: sub_453415+C2↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_2C]
-                call    sub_41E9C0
-                mov     eax, 1
-
-loc_453522:                             ; CODE XREF: sub_453415+F7↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     edi
-                pop     esi
-                pop     ebx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 453415
-sub_453415      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_453535(CArchive *)
-sub_453535      proc near               ; DATA XREF: .rdata:0060B210↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?Flush@CArchive@@QAEXXZ ; CArchive::Flush(void)
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_401D70
-                test    eax, eax
-                jz      short loc_453563
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    unknown_libname_500 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_453415
-                jmp     short loc_453574
-; ---------------------------------------------------------------------------
-
-loc_453563:                             ; CODE XREF: sub_453535+19↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    unknown_libname_500 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_453258
-
-loc_453574:                             ; CODE XREF: sub_453535+2C↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_453535      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_45357A      proc near               ; CODE XREF: .text:00452B72↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+10h]
-                cmp     dword ptr [ecx+20h], 0
-                jnz     short loc_4535D4
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                sub     eax, 1          ; switch 32 cases
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 1Fh
-                ja      short def_4535AF ; jumptable 004535AF default case, cases 2,3,5-7,9-15,17-23,25-31
-                mov     edx, dword ptr [ebp+var_8]
-                xor     ecx, ecx
-                mov     cl, ds:byte_453605[edx]
-                jmp     ds:jpt_4535AF[ecx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_4535B6:                             ; CODE XREF: sub_45357A+35↑j
-                mov     eax, 1          ; jumptable 004535AF cases 1,4,8
-                mov     ecx, dword ptr [ebp+arg_0]
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+24h], eax
-                jmp     short def_4535AF ; jumptable 004535AF default case, cases 2,3,5-7,9-15,17-23,25-31
-; ---------------------------------------------------------------------------
-
-loc_4535C8:                             ; CODE XREF: sub_45357A+35↑j
-                mov     edx, dword ptr [ebp+var_4] ; jumptable 004535AF cases 16,24,32
-                mov     dword ptr [edx+24h], 0
-
-def_4535AF:                             ; CODE XREF: sub_45357A+28↑j
-                jmp     short loc_4535E3 ; jumptable 004535AF default case, cases 2,3,5-7,9-15,17-23,25-31
-; ---------------------------------------------------------------------------
-
-loc_4535D4:                             ; CODE XREF: sub_45357A+13↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+10h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+20h]
-                mov     [edx+24h], eax
-
-loc_4535E3:                             ; CODE XREF: sub_45357A:def_4535AF↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_45357A      endp
-
-; ---------------------------------------------------------------------------
-jpt_4535AF      dd offset loc_4535B6    ; DATA XREF: sub_45357A+35↑r
-                dd offset loc_4535B6    ; jump table for switch statement
-                dd offset loc_4535B6
-                dd offset loc_4535C8
-                dd offset loc_4535C8
-                dd offset loc_4535C8
-                dd offset def_4535AF
-byte_453605     db      0,     6,     6,     1
-                db      6,     6,     6,     2 ; indirect table for switch statement
-                db      6,     6,     6,     6
-                db      6,     6,     6,     3
-                db      6,     6,     6,     6
-                db      6,     6,     6,     4
-                db      6,     6,     6,     6
-                db      6,     6,     6,     5
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_453625      proc near               ; CODE XREF: sub_4526FA+131↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+10h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ecx+14h]
-                mov     [edx+20h], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     dword ptr [ecx+20h], 0
-                jnz     short loc_4536B0
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+10h]
-                xor     ecx, ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+10h]
-                xor     ecx, ecx
-                mov     cx, [edx+0Eh]
-                mov     edx, dword ptr [eax+4]
-                imul    edx, ecx
-                shr     edx, 5
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+10h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+10h]
-                xor     edx, edx
-                mov     dx, [eax+0Eh]
-                mov     eax, dword ptr [ecx+4]
-                imul    eax, edx
-                xor     edx, edx
-                mov     ecx, 20h ; ' '
-                div     ecx
-                test    edx, edx
-                jz      short loc_453694
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1
-                mov     [ebp+var_4], edx
-
-loc_453694:                             ; CODE XREF: sub_453625+64↑j
-                mov     eax, dword ptr [ebp+var_4]
-                shl     eax, 2
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+10h]
-                mov     eax, dword ptr [ebp+var_4]
-                imul    eax, [edx+8]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+20h], eax
-
-loc_4536B0:                             ; CODE XREF: sub_453625+1F↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+10h]
-                add     eax, 28h ; '('
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+4], eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_453625      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4536C3      proc near               ; CODE XREF: sub_452674+69↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-Block           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_4537E7
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+18h], 1
-                jnz     short loc_4536F4
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+10h]
-                mov     [ebp+Block], edx
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-                jmp     short loc_453717
-; ---------------------------------------------------------------------------
-
-loc_4536F4:                             ; CODE XREF: sub_4536C3+18↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+18h], 2
-                jnz     short loc_453717
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+14h]
-                push    eax             ; hMem
-                call    GlobalUnlock
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+14h]
-                push    edx             ; hMem
-                call    GlobalFree
-
-loc_453717:                             ; CODE XREF: sub_4536C3+2F↑j
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+1Ch], 1
-                jnz     short loc_453735
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+0Ch]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-
-loc_453735:                             ; CODE XREF: sub_4536C3+5B↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+34h], 0
-                jz      short loc_45374B
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+34h]
-                push    eax             ; ho
-                call    DeleteObject
-
-loc_45374B:                             ; CODE XREF: sub_4536C3+79↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+8], 0
-                jz      short loc_453761
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+8]
-                push    eax             ; ho
-                call    DeleteObject
-
-loc_453761:                             ; CODE XREF: sub_4536C3+8F↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+1Ch], 0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+18h], 0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+14h], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+10h], 0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+0Ch], 0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+4], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+24h], 0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+20h], 0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+30h], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+2Ch], 0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+28h], 0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+8], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+34h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4536C3      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4537E7      proc near               ; CODE XREF: sub_4536C3+C↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+28h], 0
-                jnz     short loc_4537F9
-                jmp     short loc_45382A
-; ---------------------------------------------------------------------------
-
-loc_4537F9:                             ; CODE XREF: sub_4537E7+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+30h]
-                push    edx             ; lpBaseAddress
-                call    UnmapViewOfFile
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+2Ch]
-                push    ecx             ; hObject
-                call    CloseHandle
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+28h]
-                push    eax             ; hObject
-                call    CloseHandle
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+28h], 0
-
-loc_45382A:                             ; CODE XREF: sub_4537E7+10↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4537E7      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_453830      proc near               ; DATA XREF: .rdata:0060B20C↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_45286F
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_453852
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_453852:                             ; CODE XREF: sub_453830+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_453830      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_500 proc near           ; CODE XREF: sub_453535+1E↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+20h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_500 endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -92754,205 +91334,6 @@ sub_4538B0      endp
 
 
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_453D33      proc near               ; CODE XREF: .text:00486B47↓p
-
-var_70          = byte ptr -70h
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = byte ptr -58h
-var_48          = byte ptr -48h
-Block           = dword ptr -3Ch
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9E20 SIZE 0000001C BYTES
-
-; __unwind { // SEH_453D33
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_453D33
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 64h
-                mov     eax, dword_65DD24
-                push    eax
-                push    offset aAllods04dBmp ; "Allods%04d.bmp"
-                push    offset g_Buffer   ; Buffer
-                call    _sprintf
-                add     esp, 0Ch
-                mov     ecx, dword_65DD24
-                add     ecx, 1
-                mov     dword_65DD24, ecx
-                push    18h
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    eax
-                lea     ecx, [ebp+var_70]
-                call    unknown_libname_454 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx
-                lea     ecx, [ebp+var_48]
-                call    sub_4526FA
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                imul    eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                imul    eax, 3
-                push    eax             ; varSize
-                call    _malloc
-                add     esp, 4
-                mov     [ebp+Block], eax
-                call    ?LockSurface1@@YAIXZ
-                mov     ecx, dword ptr [ebp+Block]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     edx, 1
-                mov     [ebp+var_5C], edx
-                jmp     short loc_453DDF
-; ---------------------------------------------------------------------------
-
-loc_453DD6:                             ; CODE XREF: sub_453D33:loc_453EEC↓j
-                mov     eax, dword ptr [ebp+var_5C]
-                sub     eax, 1
-                mov     [ebp+var_5C], eax
-
-loc_453DDF:                             ; CODE XREF: sub_453D33+A1↑j
-                cmp     [ebp+var_5C], 0
-                jl      loc_453EF1
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                imul    ecx, [ebp+var_5C]
-                mov     edx, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+24h
-                lea     eax, [edx+ecx*2]
-                mov     [ebp+var_64], eax
-                mov     [ebp+var_60], 0
-                jmp     short loc_453E11
-; ---------------------------------------------------------------------------
-
-loc_453E08:                             ; CODE XREF: sub_453D33+1B4↓j
-                mov     ecx, dword ptr [ebp+var_60]
-                add     ecx, 1
-                mov     [ebp+var_60], ecx
-
-loc_453E11:                             ; CODE XREF: sub_453D33+D3↑j
-                mov     edx, dword ptr [ebp+var_60]
-                cmp     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                jge     loc_453EEC
-                mov     eax, dword ptr [ebp+var_64]
-                mov     cx, [eax]
-                mov     word ptr [ebp+var_68], cx
-                mov     edx, dword ptr [ebp+var_64]
-                add     edx, 2
-                mov     [ebp+var_64], edx
-                mov     eax, dword ptr [ebp+var_68]
-                and     eax, 0FFFFh
-                xor     ecx, ecx
-                mov     cx, ?g_BBitMask@@3HA
-                and     eax, ecx
-                xor     ecx, ecx
-                mov     cl, ?g_BBitShift@@3HA
-                sar     eax, cl
-                xor     edx, edx
-                mov     dl, ?g_BBits@@3HA
-                mov     ecx, 8
-                sub     ecx, edx
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx], al
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 1
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_68]
-                and     eax, 0FFFFh
-                xor     ecx, ecx
-                mov     cx, ?g_GBitMask@@3HA
-                and     eax, ecx
-                xor     ecx, ecx
-                mov     cl, ?g_GBitShift@@3HA
-                sar     eax, cl
-                xor     edx, edx
-                mov     dl, ?g_GBits@@3HA
-                mov     ecx, 8
-                sub     ecx, edx
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx], al
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 1
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_68]
-                and     eax, 0FFFFh
-                xor     ecx, ecx
-                mov     cx, ?g_RBitMask@@3HA
-                and     eax, ecx
-                xor     ecx, ecx
-                mov     cl, ?g_RBitShift@@3HA
-                sar     eax, cl
-                xor     edx, edx
-                mov     dl, ?g_RBits@@3HA
-                mov     ecx, 8
-                sub     ecx, edx
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx], al
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 1
-                mov     [ebp+var_10], edx
-                jmp     loc_453E08
-; ---------------------------------------------------------------------------
-
-loc_453EEC:                             ; CODE XREF: sub_453D33+E7↑j
-                jmp     loc_453DD6
-; ---------------------------------------------------------------------------
-
-loc_453EF1:                             ; CODE XREF: sub_453D33+B0↑j
-                call    ?UnlockSurface1@@YAIXZ
-                push    1001h           ; unsigned int
-                push    offset g_Buffer   ; lpFileName
-                lea     ecx, [ebp+var_58] ; varThis
-                call    ??0CFile@@QAE@PBDI@Z ; CFile::CFile(char const *,uint)
-;   } // starts at 453D9B
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     eax, [ebp+var_58]
-                push    eax
-                lea     ecx, [ebp+var_48]
-                call    sub_453415
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    _free
-                add     esp, 4
-                mov     [ebp+Block], 0
-                lea     ecx, [ebp+var_58] ; varThis
-                call    ?Close@CFile@@UAEXXZ ; CFile::Close(void)
-;   } // starts at 453F08
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_58] ; varThis
-                call    ??1CFile@@UAE@XZ ; CFile::~CFile(void)
-;   } // starts at 453F33
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_48]
-                call    sub_45286F
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 453D33
-sub_453D33      endp
 
 
 
@@ -103429,7 +101810,7 @@ loc_4638F0:                             ; CODE XREF: sub_46380C+DD↑j
                 mov     esi, [eax+8]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 sar     esi, 1
                 mov     ecx, dword ptr [ebp+arg_0]
@@ -103439,7 +101820,7 @@ loc_4638F0:                             ; CODE XREF: sub_46380C+DD↑j
                 mov     esi, [edx+0Ch]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 sar     esi, 1
                 mov     eax, dword ptr [ebp+arg_4]
@@ -103463,7 +101844,7 @@ loc_463955:                             ; CODE XREF: sub_46380C+E8↑j
                 mov     esi, [eax+8]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 mov     ecx, dword ptr [ebp+arg_8]
                 shl     esi, cl
@@ -103474,7 +101855,7 @@ loc_463955:                             ; CODE XREF: sub_46380C+E8↑j
                 mov     esi, [edx+0Ch]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 mov     ecx, dword ptr [ebp+arg_8]
                 shl     esi, cl
@@ -109156,7 +107537,7 @@ loc_46775E:                             ; CODE XREF: sub_46761E+139↑j
                 mov     esi, [edx+8]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 sar     esi, 1
                 mov     eax, dword ptr [ebp+arg_0]
@@ -109166,7 +107547,7 @@ loc_46775E:                             ; CODE XREF: sub_46761E+139↑j
                 mov     esi, [ecx+0Ch]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 sar     esi, 1
                 mov     edx, dword ptr [ebp+arg_4]
@@ -109181,7 +107562,7 @@ loc_4677AE:                             ; CODE XREF: sub_46761E+144↑j
                 mov     esi, [eax+8]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 mov     ecx, dword ptr [ebp+arg_8]
                 shl     esi, cl
@@ -109192,7 +107573,7 @@ loc_4677AE:                             ; CODE XREF: sub_46761E+144↑j
                 mov     esi, [edx+0Ch]
                 sar     esi, 8
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_41F670
+                call    ?MapMinX@BigStruct2@@QBEHXZ
                 sub     esi, eax
                 mov     ecx, dword ptr [ebp+arg_8]
                 shl     esi, cl
@@ -140857,198 +139238,6 @@ sub_48236F      endp
 
 ; Attributes: bp-based frame
 
-?OnIdle@GameApp@@UAEHJ@Z      proc near               ; DATA XREF: .rdata:0060C168↓o
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FB85B SIZE 0000000A BYTES
-
-; __unwind { // SEH_4835B0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                sub     esp, 0Ch
-                push    ebx
-                push    esi
-                push    edi
-                mov     [ebp+var_10], esp
-                mov     [ebp+var_1C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_14], eax
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+640h], 3
-                jnz     short loc_4835FF
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jz      short loc_4835FF
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?sub_48A756@MainWindow@@QAEXXZ
-                jmp     loc_48377B
-; ---------------------------------------------------------------------------
-
-loc_4835FF:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+37↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+418h]
-                and     edx, 1
-                test    edx, edx
-                jz      loc_4836A9
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+63Ch], 0
-                jz      short loc_483675
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+418h]
-                and     edx, 1
-                test    edx, edx
-                jz      short loc_483673
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+640h], 2
-                jnz     short loc_483655
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+418h]
-                and     edx, 4008h
-                test    edx, edx
-                jnz     short loc_483673
-
-loc_483655:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+90↑j
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+448h], 0
-                jz      short loc_48366B
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_48A3A2
-                jmp     short loc_483673
-; ---------------------------------------------------------------------------
-
-loc_48366B:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+AF↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_48A543
-
-loc_483673:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+84↑j
-                jmp     short loc_48367D
-; ---------------------------------------------------------------------------
-
-loc_483675:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+74↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_48ACAC
-
-loc_48367D:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_483673↑j
-                nop
-
-loc_48369D:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_48367D↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                jmp     loc_48377B
-; ---------------------------------------------------------------------------
-
-loc_4836A9:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+5D↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     dword ptr [ecx+63Ch], 0
-                jz      short loc_4836FB
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jz      short loc_4836FB
-                call    GetTickCount
-                mov     [ebp+var_18], eax
-                mov     edx, dword ptr [ebp+var_18]
-                sub     edx, dword_665D1C
-                cmp     edx, 3Eh ; '>'
-                jbe     short loc_4836F9
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    sub_50907E
-                push    0
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?ProcessPackets@BigStruct2@@QAEHE@Z
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword_665D1C, ecx
-
-loc_4836F9:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+123↑j
-                jmp     short loc_483745
-; ---------------------------------------------------------------------------
-
-loc_4836FB:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+103↑j
-                mov     edx, dword ptr [ebp+var_14]
-                cmp     dword ptr [edx+378h], 0
-                jz      short loc_483735
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?IsActive@NetStru1@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_483735
-                push    0
-                push    0
-                push    446h
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+378h]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+378h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_483735:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+155↑j
-                push    0
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?ProcessPackets@BigStruct2@@QAEHE@Z
-
-loc_483745:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_4836F9↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     dword ptr [ecx+0BCh], 0
-                jz      short loc_483771
-                push    0
-                push    0
-                push    402h
-                mov     edx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [edx+0CCh]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [eax+0CCh]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+48h]
-
-loc_483771:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+19F↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-
-loc_48377B:                             ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+4A↑j
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?ProcessConnections@NetStru1@@QAEXXZ 
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?ProcessConnections@NetStru1@@QAEXXZ 
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                push    0
-                push    0
-                push    462h
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     eax, 1
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     edi
-                pop     esi
-                pop     ebx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 4835B0
-?OnIdle@GameApp@@UAEHJ@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; sCRuntimeClass *sub_4837D1()
 sub_4837D1      proc near               ; DATA XREF: .rdata:off_60C1A8↓o
 
@@ -144648,7 +142837,7 @@ loc_486B34:                             ; CODE XREF: .text:00486AF5↑j
                 jz      short loc_486B4E
                 cmp     dword ptr [ebp+8], 53h ; 'S'
                 jnz     short loc_486B4E
-                call    sub_453D33
+                call    ?SaveScreenshot@@YAXXZ
                 jmp     short loc_486B8C
 ; ---------------------------------------------------------------------------
 
@@ -146381,7 +144570,7 @@ loc_487F88:                             ; CODE XREF: sub_486C6C+1305↑j
                 call    GetTickCount
                 mov     [ebp+var_878], eax
                 mov     ecx, dword ptr [ebp+var_878]
-                sub     ecx, dword_665D14
+                sub     ecx, ?RemoteGameIdle@MainWindow@@QAEXXZ
                 push    ecx             ; Number
                 call    _abs
                 add     esp, 4
@@ -146392,7 +144581,7 @@ loc_487F88:                             ; CODE XREF: sub_486C6C+1305↑j
                 mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
                 call    ?SendPacket_64@NetStru1@@QAEXIG@Z
                 mov     edx, dword ptr [ebp+var_878]
-                mov     dword_665D14, edx
+                mov     ?RemoteGameIdle@MainWindow@@QAEXXZ, edx
 
 loc_487FCA:                             ; CODE XREF: sub_486C6C+131A↑j
                 push    1               ; wRemoveMsg
@@ -149016,294 +147205,6 @@ sub_48A35F      proc near
                 retn    0Ch
 sub_48A35F      endp
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_48A3A2      proc near               ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+B4↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    ?ServerTic@Server@@QAEXXZ
-                push    64h ; 'd'
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?ProcessPackets@BigStruct2@@QAEHE@Z
-                push    0
-                push    0
-                push    401h
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+420h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [edx+420h], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jnz     loc_48A504
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+418h], 1
-                jnz     loc_48A504
-                mov     [ebp+var_4], 0
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                test    eax, eax
-                jnz     short loc_48A45D
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0D0h]
-                call    sub_403F4F
-                mov     [ebp+var_4], 1
-
-loc_48A45D:                             ; CODE XREF: sub_48A3A2+A2↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jnz     short loc_48A482
-                push    0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-                mov     [ebp+var_4], 1
-
-loc_48A482:                             ; CODE XREF: sub_48A3A2+C7↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48A4B0
-                push    1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403F4F
-                mov     [ebp+var_4], 1
-
-loc_48A4B0:                             ; CODE XREF: sub_48A3A2+F5↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48A4DE
-                push    1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-                mov     [ebp+var_4], 1
-
-loc_48A4DE:                             ; CODE XREF: sub_48A3A2+123↑j
-                cmp     [ebp+var_4], 0
-                jz      short loc_48A504
-                push    0
-                push    0
-                push    408h
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D8h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0D8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_48A504:                             ; CODE XREF: sub_48A3A2+79↑j
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+0BCh], 0
-                jz      short loc_48A535
-                push    0
-                push    0
-                push    402h
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                call    sub_453D33
-
-loc_48A535:                             ; CODE XREF: sub_48A3A2+16C↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_48A3A2      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_48A543      proc near               ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+BE↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                push    esi
-                mov     [ebp+var_8], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-
-loc_48A557:                             ; CODE XREF: sub_48A543+CF↓j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+420h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+42Ch]
-                imul    eax, ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     esi, [ecx+428h]
-                add     esi, eax
-                call    timeGetTime
-                cmp     esi, eax
-                ja      loc_48A617
-                mov     edx, dword ptr [ebp+var_8]
-                cmp     dword ptr [edx+420h], 0
-                jnz     short loc_48A5A3
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+428h], eax
-
-loc_48A5A3:                             ; CODE XREF: sub_48A543+4F↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+420h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+420h], eax
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+420h]
-                and     eax, 0Fh
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+420h], eax
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    ?ServerTic@Server@@QAEXXZ
-                push    64h ; 'd'
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    ?ProcessPackets@BigStruct2@@QAEHE@Z
-                push    0
-                push    0
-                push    401h
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                jmp     loc_48A557
-; ---------------------------------------------------------------------------
-
-loc_48A617:                             ; CODE XREF: sub_48A543+3F↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jnz     loc_48A70C
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+418h], 1
-                jnz     loc_48A70C
-                mov     [ebp+var_4], 0
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                test    eax, eax
-                jnz     short loc_48A665
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0D0h]
-                call    sub_403F4F
-                mov     [ebp+var_4], 1
-
-loc_48A665:                             ; CODE XREF: sub_48A543+109↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jnz     short loc_48A68A
-                push    0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-                mov     [ebp+var_4], 1
-
-loc_48A68A:                             ; CODE XREF: sub_48A543+12E↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48A6B8
-                push    1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403F4F
-                mov     [ebp+var_4], 1
-
-loc_48A6B8:                             ; CODE XREF: sub_48A543+15C↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48A6E6
-                push    1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-                mov     [ebp+var_4], 1
-
-loc_48A6E6:                             ; CODE XREF: sub_48A543+18A↑j
-                cmp     [ebp+var_4], 0
-                jz      short loc_48A70C
-                push    0
-                push    0
-                push    408h
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D8h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0D8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_48A70C:                             ; CODE XREF: sub_48A543+E0↑j
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+0BCh], 0
-                jz      short loc_48A738
-                push    0
-                push    0
-                push    402h
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_48A738:                             ; CODE XREF: sub_48A543+1D3↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_48A543      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -149322,308 +147223,6 @@ sub_48A543      endp
                 pop     ebp
                 retn
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_48ACAC      proc near               ; CODE XREF: ?OnIdle@GameApp@@UAEHJ@Z+C8↑p
-
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = byte ptr -3Ch
-var_38          = byte ptr -38h
-var_34          = byte ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = byte ptr -28h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FBD9C SIZE 00000037 BYTES
-
-; __unwind { // SEH_48ACAC
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_48ACAC
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 4Ch
-                mov     [ebp+var_40], ecx
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?IsActive@NetStru1@@QAEHXZ
-                test    eax, eax
-                jnz     loc_48AE40
-                push    0
-                push    0
-                push    446h
-                mov     eax, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0               ; lParam
-                push    0               ; wParam
-                push    45Ch            ; Msg
-                mov     ecx, dword ptr [ebp+var_40]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                mov     eax, dword ptr [ebp+var_40]
-                mov     [ebp+var_10], eax
-                cmp     ?g_EnableTrace@@3IA, 0
-                jz      loc_48AE3B
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??0CStdioFile@@QAE@XZ ; CStdioFile::CStdioFile(void)
-;   try {
-                mov     [ebp+var_4], 0
-                push    0               ; Mode
-                push    3001h           ; unsigned int
-                push    offset aErrorLog_4 ; "error.log"
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?Open@CStdioFile@@UAEHPBDIPAVCFileException@@@Z ; CStdioFile::Open(char const *,uint,CFileException *)
-                lea     ecx, [ebp+var_28]
-                call    sub_41EA50
-                lea     ecx, [ebp+var_14]
-                push    ecx
-                call    ?GetTickCount@CTime@@SG?AV1@XZ ; CTime::GetTickCount(void)
-                push    offset aDMYHMS_5 ; "%d.%m.%y %H:%M:%S "
-                lea     edx, [ebp+var_2C]
-                push    edx
-                lea     ecx, [ebp+var_14]
-                call    ?Format@CTime@@QBE?AVCString@@PBD@Z ; CTime::Format(char const *)
-;   } // starts at 48AD28
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    offset asc_6314BC ; "\n"
-                push    offset aConnectionLost ; "Connection lost"
-                lea     ecx, [ebp+var_34] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_44], eax
-                mov     eax, dword ptr [ebp+var_44]
-                mov     [ebp+var_48], eax
-;   } // starts at 48AD65
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_48]
-                push    ecx             ; int
-                lea     edx, [ebp+var_2C]
-                push    edx             ; int
-                lea     eax, [ebp+var_38]
-                push    eax             ; CString *
-                call    ??H@YG?AVCString@@ABV0@0@Z ; operator+(CString const &,CString const &)
-                mov     [ebp+var_4C], eax
-                mov     ecx, dword ptr [ebp+var_4C]
-                mov     [ebp+var_50], ecx
-;   } // starts at 48AD84
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     edx, dword ptr [ebp+var_50]
-                push    edx             ; int
-                lea     eax, [ebp+var_3C]
-                push    eax             ; CString *
-                call    ??H@YG?AVCString@@ABV0@PBD@Z ; operator+(CString const &,char const *)
-                mov     [ebp+var_54], eax
-                mov     ecx, dword ptr [ebp+var_54]
-                mov     [ebp+var_58], ecx
-;   } // starts at 48ADA2
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_58]
-                call    unknown_libname_400 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; char *
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?WriteString@CStdioFile@@UAEXPBD@Z ; CStdioFile::WriteString(char const *)
-;   } // starts at 48ADBC
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_3C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 48ADD1
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_38] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 48ADDD
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_34] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?Close@CStdioFile@@UAEXXZ ; CStdioFile::Close(void)
-                push    7530h           ; int
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                push    offset aConnectionLost_0 ; "Connection lost"
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+0D0h]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-;   } // starts at 48ADE9
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_2C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 48AE20
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CStdioFile@@UAE@XZ ; CStdioFile::~CStdioFile(void)
-
-loc_48AE3B:                             ; CODE XREF: sub_48ACAC+6E↑j
-                jmp     loc_48B00F
-; ---------------------------------------------------------------------------
-
-loc_48AE40:                             ; CODE XREF: sub_48ACAC+2A↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?GetClientsPktNum@NetStru1@@QAEIXZ
-                test    eax, eax
-                jnz     short loc_48AE96
-                call    GetTickCount
-                mov     [ebp+var_30], eax
-                mov     eax, dword ptr [ebp+var_30]
-                sub     eax, dword_665D14
-                push    eax             ; Number
-                call    _abs
-                add     esp, 4
-                cmp     eax, 3E8h
-                jle     short loc_48AE91
-                push    0
-                push    1
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?SendPacket_64@NetStru1@@QAEXIG@Z
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     dword_665D14, ecx
-
-loc_48AE91:                             ; CODE XREF: sub_48ACAC+1CC↑j
-                jmp     loc_48AF2D
-; ---------------------------------------------------------------------------
-
-loc_48AE96:                             ; CODE XREF: sub_48ACAC+1AA↑j
-                mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword ptr [edx+420h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     [ecx+420h], eax
-                mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword ptr [edx+420h]
-                and     eax, 0Fh
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     [ecx+420h], eax
-                mov     edx, dword ptr [ebp+var_40]
-                cmp     dword ptr [edx+420h], 0
-                jnz     short loc_48AED6
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?sub_51EEB7@NetStru1@@QAEXXZ
-
-loc_48AED6:                             ; CODE XREF: sub_48ACAC+21E↑j
-                push    64h ; 'd'
-                mov     eax, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?ProcessPackets@BigStruct2@@QAEHE@Z
-                push    0
-                push    0
-                push    401h
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?GetClientsPktNum@NetStru1@@QAEIXZ
-                test    eax, eax
-                jnz     loc_48AE96
-                call    GetTickCount
-                mov     dword_665D14, eax
-
-loc_48AF2D:                             ; CODE XREF: sub_48ACAC:loc_48AE91↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jnz     loc_48AFD9
-                mov     eax, dword ptr [ebp+var_40]
-                cmp     dword ptr [eax+418h], 1
-                jnz     loc_48AFD9
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                test    eax, eax
-                jnz     short loc_48AF6D
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [ecx+0D0h]
-                call    sub_403F4F
-
-loc_48AF6D:                             ; CODE XREF: sub_48ACAC+2AF↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jnz     short loc_48AF8B
-                push    0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-
-loc_48AF8B:                             ; CODE XREF: sub_48ACAC+2CD↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48AFB2
-                push    1
-                mov     edx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403F4F
-
-loc_48AFB2:                             ; CODE XREF: sub_48ACAC+2F4↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 2
-                cmp     eax, ecx
-                jl      short loc_48AFD9
-                push    1
-                mov     edx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_403FC5
-
-loc_48AFD9:                             ; CODE XREF: sub_48ACAC+28D↑j
-                mov     eax, dword ptr [ebp+var_40]
-                cmp     dword ptr [eax+0BCh], 0
-                jz      short loc_48B005
-                push    0
-                push    0
-                push    402h
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_48B005:                             ; CODE XREF: sub_48ACAC+337↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-
-loc_48B00F:                             ; CODE XREF: sub_48ACAC:loc_48AE3B↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 48ACAC
-sub_48ACAC      endp
 
 ; ---------------------------------------------------------------------------
 sub_48B01D      proc near
@@ -379522,7 +377121,7 @@ arg_0           = dword ptr  8
 ; Attributes: library function bp-based frame
 
 ; CFile *__thiscall CFile::CFile(CFile *__hidden varThis, LPCSTR lpFileName, unsigned int)
-??0CFile@@QAE@PBDI@Z proc near          ; CODE XREF: sub_453D33+1D0↑p
+??0CFile@@QAE@PBDI@Z proc near          ; CODE XREF: ?SaveScreenshot@@YAXXZ+1D0↑p
 
 var_24          = dword ptr -24h
 var_1C          = dword ptr -1Ch
@@ -445171,22 +442770,7 @@ SEH_451990:                             ; DATA XREF: ??0VisMenuWnd@@QAE@HHHHHPAV
 ; END OF FUNCTION CHUNK FOR ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_4525C0
 
-unknown_libname_978:                    ; DATA XREF: .rdata:stru_61A8A8↓o
-; __unwind { // SEH_4525C0              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 4525E5
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4525C0:                             ; DATA XREF: sub_4525C0+5↑o
-                mov     eax, offset stru_61A888
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9DA0
-; END OF FUNCTION CHUNK FOR sub_4525C0
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_452674
 
@@ -445220,80 +442804,7 @@ SEH_4526FA:                             ; DATA XREF: sub_4526FA+5↑o
 ; } // starts at 5F9DC7
 ; END OF FUNCTION CHUNK FOR sub_4526FA
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_45286F
 
-loc_5F9DDA:                             ; DATA XREF: .rdata:stru_61A920↓o
-; __unwind { // SEH_45286F
-;   cleanup() // owned by 452894
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45286F:                             ; DATA XREF: sub_45286F+5↑o
-                mov     eax, offset stru_61A900
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9DDA
-; END OF FUNCTION CHUNK FOR sub_45286F
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_453258
-
-loc_5F9DED:                             ; DATA XREF: .rdata:stru_61A948↓o
-; __unwind { // SEH_453258
-;   cleanup() // owned by 45328D
-;   cleanup() // owned by 453294
-                lea     ecx, [ebp+var_30]
-                call    sub_41E9C0
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_453258:                             ; DATA XREF: sub_453258+5↑o
-                mov     eax, offset stru_61A928
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9DED
-; END OF FUNCTION CHUNK FOR sub_453258
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_453415
-
-loc_5F9E00:                             ; DATA XREF: .rdata:stru_61A9A8↓o
-; __unwind { // SEH_453415
-;   cleanup() // owned by 453482
-;   cleanup() // owned by 453489
-                lea     ecx, [ebp+var_2C]
-                call    sub_41E9C0
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_453415:                             ; DATA XREF: sub_453415+5↑o
-                mov     eax, offset stru_61A988
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9E00
-; END OF FUNCTION CHUNK FOR sub_453415
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR sub_453D33
-
-loc_5F9E20:                             ; DATA XREF: .rdata:stru_61AA08↓o
-; __unwind { // SEH_453D33
-;   cleanup() // owned by 453D9B
-;   cleanup() // owned by 453F33
-                lea     ecx, [ebp+var_48]
-                call    sub_45286F
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9E29:                             ; DATA XREF: .rdata:0061AA10↓o
-;   cleanup() // owned by 453F08        ; varThis
-                lea     ecx, [ebp+var_58]
-                call    ??1CFile@@UAE@XZ ; CFile::~CFile(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_453D33:                             ; DATA XREF: sub_453D33+5↑o
-                mov     eax, offset stru_61A9E8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9E20
-; END OF FUNCTION CHUNK FOR sub_453D33
 ; ---------------------------------------------------------------------------
 
 ; ---------------------------------------------------------------------------
@@ -474737,12 +472248,7 @@ off_60B168      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 10h
 
-off_60B208      dd offset sub_45262A    ; DATA XREF: sub_452674+2E↑o
-                dd offset sub_453830
-                dd offset sub_453535
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-                align 10h
+
 dbl_60B220      dq 4.0                  ; DATA XREF: sub_45A8CC+58↑r
 dbl_60B228      dq 0.3                  ; DATA XREF: sub_45A8CC+6F↑r
 dbl_60B230      dq 2.0                  ; DATA XREF: sub_45A8CC+85↑r
@@ -490305,12 +487811,7 @@ stru_61A860     FuncInfoV1 <19930520h, 1, offset stru_61A880, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61A880     UnwindMapEntry <-1, offset loc_5F9D80>
-stru_61A888     FuncInfoV1 <19930520h, 1, offset stru_61A8A8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A8A8     UnwindMapEntry <-1, offset unknown_libname_978>
+
 stru_61A8B0     FuncInfoV1 <19930520h, 1, offset stru_61A8D0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -490323,49 +487824,9 @@ stru_61A8D8     FuncInfoV1 <19930520h, 1, offset stru_61A8F8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61A8F8     UnwindMapEntry <-1, offset loc_5F9DC7>
-stru_61A900     FuncInfoV1 <19930520h, 1, offset stru_61A920, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A920     UnwindMapEntry <-1, offset loc_5F9DDA>
-stru_61A928     FuncInfoV1 <19930520h, 3, offset stru_61A948, 1, offset stru_61A960, \
-                            0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A948     UnwindMapEntry <-1, offset loc_5F9DED>
-                UnwindMapEntry <0>
-                UnwindMapEntry <0>
-stru_61A960     TryBlockMapEntry <1, 1, 2, 1, offset stru_61A978>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A978     HandlerType <0, offset ??_R0PAVCException@@@8, -52, offset loc_45339C>
-stru_61A988     FuncInfoV1 <19930520h, 3, offset stru_61A9A8, 1, offset stru_61A9C0, \
-                            0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A9A8     UnwindMapEntry <-1, offset loc_5F9E00>
-                UnwindMapEntry <0>
-                UnwindMapEntry <0>
-stru_61A9C0     TryBlockMapEntry <1, 1, 2, 1, offset stru_61A9D8>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A9D8     HandlerType <0, offset ??_R0PAVCException@@@8, -48, offset loc_4534D9>
-stru_61A9E8     FuncInfoV1 <19930520h, 2, offset stru_61AA08, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61AA08     UnwindMapEntry <-1, offset loc_5F9E20>
-                UnwindMapEntry <0, offset loc_5F9E29>
+
+
+
 
 
 
@@ -499050,9 +496511,7 @@ aCurse          db 'curse',0            ; DATA XREF: sub_44E4CE:loc_44E5AB↑o
 ; char off_62EB38[]
 off_62EB38      db 'M7R',0  ; DATA XREF: sub_44EC40+A3↑o
                 align 10h
-; struct CRuntimeClass stru_62EB40
-stru_62EB40     sCRuntimeClass <offset aCdib, 38h, 0, offset sub_4525C0, offset ?classCObject@CObject@@2UCRuntimeClass@@B, 0>
-aCdib           db 'CDib',0             ; DATA XREF: .data:stru_62EB40↑o
+
                 align 10h
 aEmptyBitmapFil db 'Empty bitmap file',0 ; DATA XREF: .text:0045296F↑o
                 align 4
@@ -499087,8 +496546,7 @@ aWriteError     db 'write error',0      ; DATA XREF: sub_453415+CE↑o
                 db    0
                 db    0
 ; char aAllods04dBmp[]
-aAllods04dBmp   db 'Allods%04d.bmp',0   ; DATA XREF: sub_453D33+21↑o
-                align 4
+
 aUnableToSetVid db 'Unable to set video mode',0
                 align 4
                 db    1
@@ -508091,8 +505549,6 @@ unk_659A60      db 8h dup(?)
 
                 align 10h
 
-; char Buffer[32]
-g_Buffer          db 20h dup(?)           ; DATA XREF: sub_453D33+26↑o
 
 
 dword_659C44    dd ?                    ; DATA XREF: .text:00454526↑r
@@ -508100,9 +505556,6 @@ dword_659C44    dd ?                    ; DATA XREF: .text:00454526↑r
 
 
 
-
-dword_65DD24    dd ?                    ; DATA XREF: sub_453D33+1B↑r
-                db 4h dup(?)
 dword_65DD2C    dd ?                    ; DATA XREF: sub_4553DB+13A↑w
 ; struct tACMSTREAMHEADER pash
 g_pash            tACMSTREAMHEADER <>    ; DATA XREF: sub_45BA94+2FE↑o
@@ -508257,8 +505710,7 @@ _dword_665CFC    dd ?                    ; DATA XREF: ?sub_51C822@NetStru1@@QAEX
 ?g_IsServer@@3HA     dd ?                    ; DATA XREF: ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z+1E↑r
 dword_665D04    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_48367F↑w
 
-dword_665D14    dd ?                    ; DATA XREF: sub_486C6C+132E↑r
-                db 4h dup(?)
+
 dword_665D1C    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z+11A↑r
 unk_665D20      db 4h dup(?)
 ; char byte_665D24[4]

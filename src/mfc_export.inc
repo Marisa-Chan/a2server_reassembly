@@ -163,13 +163,14 @@ externdef ??0CWinApp@@QAE@PBD@Z:proc   ; (public: __thiscall CWinApp::CWinApp(ch
 externdef ?ExitInstance@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall GameApp::ExitInstance(void))
 
 ;GameApp
-externdef ?OnIdle@GameApp@@UAEHJ@Z:proc   ; (public: virtual int __thiscall GameApp::OnIdle(long))
 
 extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
 extern  ?AppHasAnySaveFile@@YAHXZ  : proc
 extern ?AppFindSavesList@@YAXPAV?$CArray@U_WIN32_FIND_DATAA@@ABU1@@@H@Z  : proc
 
 extern ?g_WorkingDir@@3PADA : byte
+
+extern ?RemoteGameIdle@MainWindow@@QAEXXZ : dword
 
 
 
@@ -1812,6 +1813,13 @@ extern ?FUN_0041b636@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b509@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b40e@BigStruct2@@QAEXXZ : proc
 
+extern ?ScrollMapX@BigStruct2@@QAEXH@Z : proc
+extern ?ScrollMapY@BigStruct2@@QAEXH@Z : proc
+extern ?MapMinX@BigStruct2@@QBEHXZ : proc
+extern ?MapMinY@BigStruct2@@QBEHXZ : proc
+extern ?MapMaxX@BigStruct2@@QBEHXZ : proc
+
+
 extern ?CleanupCompletedMissionMapState@BigStruct2@@QAEXXZ : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
 
@@ -1879,6 +1887,8 @@ extern ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z :proc
 ;GFX things
 extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
+
+extern ?SaveScreenshot@@YAXXZ : proc
 
 
 extern ?LockSurface3@@YAIXZ  :proc

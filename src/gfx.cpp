@@ -4768,3 +4768,65 @@ void FreeDDraw()
 		g_ddraw = nullptr;
 	}
 }
+
+
+void SaveScreenshot()
+{ //453d33
+	static int32_t screenshot_num = 0; //65dd24
+	CString fname;
+	fname.Format("Allods%04d.bmp", screenshot_num);
+	screenshot_num++;
+
+	int32_t pixnum = g_ScreenSize.right * g_ScreenSize.bottom;
+	uint8_t* data = new uint8_t[pixnum * 3];
+
+	LockSurface1();
+	uint8_t* dst = data;
+	for (int32_t y = g_ScreenSize.bottom - 1; y >= 0; y--)
+	{
+		uint16_t* src = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_ScreenSize.bottom * 2);
+		for (int32_t x = 0; x < g_ScreenSize.right; x++)
+		{
+			uint16_t clr = *src;
+			dst[0] = ((clr & g_BBitMask) >> g_BBitShift) << (8 - g_BBits);
+			dst[1] = ((clr & g_GBitMask) >> g_GBitShift) << (8 - g_GBits);
+			dst[2] = ((clr & g_RBitMask) >> g_RBitShift) << (8 - g_RBits);
+
+			src++;
+			dst += 3;
+		}
+	}
+	UnlockSurface1();
+
+	CFile f(fname, CFile::modeWrite | CFile::modeCreate);
+
+	BITMAPFILEHEADER bhdr;
+	bhdr.bfType = 0x4d42; //BM
+	bhdr.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + pixnum * 3;
+	bhdr.bfReserved2 = 0;
+	bhdr.bfReserved1 = 0;
+	bhdr.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+
+	f.Write(&bhdr, sizeof(BITMAPFILEHEADER));
+
+	BITMAPINFOHEADER binf;
+	binf.biSize = 0x28;
+	binf.biWidth = g_ScreenSize.right;
+	binf.biHeight = g_ScreenSize.bottom;
+	binf.biPlanes = 1;
+	binf.biBitCount = 24;
+	binf.biCompression = 0;
+	binf.biSizeImage = 0;
+	binf.biXPelsPerMeter = 0;
+	binf.biYPelsPerMeter = 0;
+	binf.biClrUsed = 0;
+	binf.biClrImportant = 0;
+
+	f.Write(&binf, sizeof(BITMAPINFOHEADER));
+
+	f.Write(data, pixnum * 3);
+
+	f.Close();
+
+	delete[] data;
+}

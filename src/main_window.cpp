@@ -26,7 +26,7 @@
 #include "file.h"
 #include "inventory.h"
 
-
+uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
 CDWordArray DAT_006658d8;
 
@@ -2764,6 +2764,205 @@ void MainWindow::ShowStartupLogoDialog()
     field_0x460 = 0;
     dialogsMask |= 0x100;
 }
+
+
+void MainWindow::RemoteGameIdle()
+{ //48acac
+    if (g_NetStru1_local.IsActive() == 0)
+    {
+        vis_root->MsgProc(0x446, 0, 0);
+        PostMessage(0x45c, 0, 0);
+
+        if (g_EnableTrace != 0)
+        {
+            CStdioFile f;
+            f.Open("error.log", CFile::modeWrite | CFile::modeNoTruncate | CFile::modeCreate);
+            f.SeekToEnd();
+
+            CTime tm = CTime::GetCurrentTime();
+            f.WriteString(tm.Format("%d.%m.%y %H:%M:%S ") + "Connection lost\n");
+            
+            f.Close();
+
+            MapWnd->msglog.Add("Connection lost", clrsh_TechBlack, 30000);
+        }
+    }
+    else
+    {
+        g_mousept.Update();
+
+        if (g_NetStru1_local.GetClientsPktNum() == 0)
+        {
+            uint32_t tick = GetTickCount();
+            if (std::abs((int)(tick - g_RemoteTimestamp)) > 1000)
+            {
+                g_NetStru1_local.SendPacket_64(1, 0);
+                g_RemoteTimestamp = tick;
+            }
+        }
+        else
+        {
+            while(true)
+            {
+                game_tic_counter++;
+                game_tic_counter &= 0xf;
+
+                if (game_tic_counter == 0)
+                    g_NetStru1_local.sub_51EEB7();
+
+                MapWnd->ProcessPackets(100);
+                vis_root->MsgProc(0x401, 0, 0);
+
+                g_mousept.Update();
+
+                if (g_NetStru1_local.GetClientsPktNum() == 0)
+                    break;
+            }
+            g_RemoteTimestamp = GetTickCount();
+        }
+
+        if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+        {
+            if (g_mousept.GetX() <= 0)
+                MapWnd->ScrollMapX(-1);
+
+            if (g_mousept.GetY() <= 0)
+                MapWnd->ScrollMapY(-1);
+
+            if (g_mousept.GetX() >= g_ScreenSize.right - 2)
+                MapWnd->ScrollMapX(1);
+
+            if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
+                MapWnd->ScrollMapY(1);
+        }
+
+        if (field_0xbc != 0)
+            vis_root->MsgProc(0x402, 0, 0);
+
+        g_mousept.Update();
+    }
+}
+
+void MainWindow::SingleGameTimedIdle()
+{ //48a543
+    g_mousept.Update();
+
+    uint32_t ticks = timeGetTime();
+    while (ticks >= last_tic_time + game_tic_time * (game_tic_counter + 1))
+    {
+        if (game_tic_counter == 0)
+            last_tic_time = ticks;
+
+        game_tic_counter++;
+        game_tic_counter &= 0xf;
+
+        g_Server->ServerTic();
+
+        MapWnd->ProcessPackets(0x64);
+        vis_root->MsgProc(0x401, 0, 0);
+
+        g_mousept.Update();
+
+        ticks = timeGetTime();
+    }
+
+
+    if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+    {
+        bool scroll = false;
+
+        if (g_mousept.GetX() <= 0)
+        {
+            MapWnd->ScrollMapX(-1);
+            scroll = true;
+        }
+
+
+        if (g_mousept.GetY() <= 0)
+        {
+            MapWnd->ScrollMapY(-1);
+            scroll = true;
+        }
+
+        if (g_mousept.GetX() >= g_ScreenSize.right - 2)
+        {
+            MapWnd->ScrollMapX(1);
+            scroll = true;
+        }
+
+        if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
+        {
+            MapWnd->ScrollMapY(1);
+            scroll = true;
+        }
+
+        if (scroll)
+            field_0xd8->MsgProc(0x408, 0, 0);
+    }
+
+    if (field_0xbc != 0)
+        vis_root->MsgProc(0x402, 0, 0);
+
+    g_mousept.Update();
+}
+
+void MainWindow::SingleGameIdle()
+{ //48a3a2
+    g_mousept.Update();
+
+    g_Server->ServerTic();
+
+    MapWnd->ProcessPackets(0x64);
+
+    vis_root->MsgProc(0x401, 0, 0);
+
+    game_tic_counter++;
+    g_mousept.Update();
+
+
+    if (g_mousept.GetSelectState() == 0 && dialogsMask == 1)
+    {
+        bool scroll = false;
+
+        if (g_mousept.GetX() <= 0)
+        {
+            MapWnd->ScrollMapX(-1);
+            scroll = true;
+        }
+            
+
+        if (g_mousept.GetY() <= 0)
+        {
+            MapWnd->ScrollMapY(-1);
+            scroll = true;
+        }
+
+        if (g_mousept.GetX() >= g_ScreenSize.right - 2)
+        {
+            MapWnd->ScrollMapX(1);
+            scroll = true;
+        }
+
+        if (g_mousept.GetY() >= g_ScreenSize.bottom - 2)
+        {
+            MapWnd->ScrollMapY(1);
+            scroll = true;
+        }
+
+        if (scroll)
+            field_0xd8->MsgProc(0x408, 0, 0);
+    }
+
+    if (field_0xbc != 0)
+    {
+        vis_root->MsgProc(0x402, 0, 0);
+        SaveScreenshot();
+    }
+
+    g_mousept.Update();
+}
+
+
 
 
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()

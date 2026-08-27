@@ -166,7 +166,6 @@ externdef sub_5F6451:proc
 externdef sub_5D9D9B:proc
 externdef unknown_libname_409:proc ; MFC 3.1-14.0 32bit
 
-externdef unknown_libname_499:proc ; MFC 3.1-14.0 32bit
 externdef unknown_libname_526:proc ; MFC 3.1-14.0 32bit
 
 

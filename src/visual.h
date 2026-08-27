@@ -841,6 +841,14 @@ public:
 	uint32_t AvailableOrderMask() const; // 417af6
 	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be
 
+	int32_t MapMinX() const { return 8; } //41f670
+	int32_t MapMinY() const { return 8; } //41f680
+
+	int32_t MapMaxX() const { return field_0x88 - 8 - field_0x68; } //41f6b0
+
+	void ScrollMapX(int32_t dx); //403f4f
+	void ScrollMapY(int32_t dy); //403fc5
+
 public:
 	int32_t view_x;
 	int32_t view_y;
