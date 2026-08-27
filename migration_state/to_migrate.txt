@@ -6,9 +6,7 @@
 @sub_48A747@0	5
 ?GetLockCountSurf2@@YAHXZ	6
 _sub_5B6F30	12
-_Random1N	14
 _sub_4FA768	20
-_Random0N	25
 _sub_54C556	26
 ?SetMessageColors@@YAXI@Z	26
 _sub_43A820	26

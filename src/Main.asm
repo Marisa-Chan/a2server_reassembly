@@ -271409,63 +271409,6 @@ sub_5421FD      endp
 
 ; Attributes: bp-based frame
 
-_Random0N      proc near               ; CODE XREF: sub_41B8D0+993↑p
-
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                cmp     [ebp+arg_0], 0
-                jnz     short loc_542223
-                xor     eax, eax
-                jmp     short loc_54223D
-; ---------------------------------------------------------------------------
-
-loc_542223:                             ; CODE XREF: _Random0N+7↑j
-                call    _rand
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 1
-                imul    eax, ecx
-                cdq
-                and     edx, 7FFFh
-                add     eax, edx
-                sar     eax, 0Fh
-
-loc_54223D:                             ; CODE XREF: _Random0N+B↑j
-                pop     ebp
-                retn
-_Random0N      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-_Random1N      proc near               ; CODE XREF: ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z+6BC↑p
-
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 1
-                push    eax
-                call    _Random0N
-                add     esp, 4
-                add     eax, 1
-                pop     ebp
-                retn
-_Random1N      endp
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_545528      proc near               ; CODE XREF: CWinThread::~CWinThread(void)+53↓p
 
 var_5C          = dword ptr -5Ch

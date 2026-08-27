@@ -770,6 +770,21 @@ void SrandInit()
 	srand(timeGetTime());
 }
 
+// 542216
+// Returns a uniform integer in [0, n].
+extern "C" int32_t __cdecl Random0N(int32_t n) {
+    if (n == 0) {
+        return 0;
+    }
+    return (int32_t)(((int64_t)rand() * (n + 1)) / 0x8000);
+}
+
+// 54223F
+// Returns a uniform integer in [1, n].
+extern "C" int32_t __cdecl Random1N(int32_t n) {
+    return Random0N(n - 1) + 1;
+}
+
 
 int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
 { //4761dd

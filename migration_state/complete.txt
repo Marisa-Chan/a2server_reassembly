@@ -1022,6 +1022,8 @@ _BldIdSet_Set
 _BldIdSet_Unset
 _ParsePlayerFile_4F62E6
 _pathStrCpy
+_Random0N
+_Random1N
 _ReportWarning
 _StatLevelPoints
 _sub_43A857
