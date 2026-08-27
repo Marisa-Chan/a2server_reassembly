@@ -27,7 +27,7 @@ class Scenario;
 
 class CUnit;
 
-struct MWin_Unk1;
+struct SaveFileInfo;
 
 
 
@@ -1510,9 +1510,9 @@ public:
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //43f63c
 	virtual void VMethod26() override; //43ed94
 
-	LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk); //43ecfb
+	LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk); //43ecfb
 public:
-	MWin_Unk1* field_0x68;
+	SaveFileInfo* field_0x68;
 	CStringArray file_names;
 	CStringArray save_times;
 	int32_t field_0x94;
@@ -1527,12 +1527,12 @@ public:
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; //440726
 	virtual void VMethod26() override; //43fb2c
 
-	SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk); //43fa42
+	SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk); //43fa42
 	void CheckInput(); //440cc4
 
 	static int __cdecl Compare(void const* a, void const* b); //43faf4
 public:
-	MWin_Unk1* field_0x68;
+	SaveFileInfo* field_0x68;
 	CStringArray file_names;
 	CStringArray save_times;
 	int32_t field_0x94;

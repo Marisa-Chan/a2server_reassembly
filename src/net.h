@@ -368,6 +368,7 @@ struct ComSettings  //DPCOMPORTADDRESS
     uint32_t parity;
     uint32_t flow_control;
 };
+ASSERT_SIZE(ComSettings, 0x14);
 
 struct CLlName 
 {

@@ -30,6 +30,10 @@ uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
 CDWordArray DAT_006658d8;
 
+CRect vis_scr_rect; //65fb88
+
+
+
 //495033
 CListBox2::CListBox2() = default;
 
@@ -378,6 +382,144 @@ extern "C"
     void __fastcall sub_49585B(CWnd* obj);
     void __fastcall sub_48A747();
 };
+
+
+
+MainWindow::MainWindow()
+{ //4837e1
+    field_0x348 = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
+
+    vis_root = nullptr;
+
+    CPoint resolution;
+
+    if (g_IsServer == 0)
+    {
+        const char* cmdline = afxCurrentWinApp->m_lpCmdLine;
+
+        if (strstr(cmdline, "-800"))
+        {
+            resolution.x = 800;
+            resolution.y = 600;
+        }
+        else if (strstr(cmdline, "-1024"))
+        {
+            resolution.x = 1024;
+            resolution.y = 768;
+        }
+        else if (strstr(cmdline, "-640"))
+        {
+            resolution.x = 640;
+            resolution.y = 480;
+        }
+        else if(strstr(g_resolution, "-800"))
+        {
+            resolution.x = 800;
+            resolution.y = 600;
+        }
+        else if (strstr(g_resolution, "-1024"))
+        {
+            resolution.x = 1024;
+            resolution.y = 768;
+        }
+        else
+        {
+            resolution.x = 640;
+            resolution.y = 480;
+        }
+
+    }
+    else
+    {
+        resolution.x = 640;
+        resolution.y = 480;
+    }
+
+    g_ScreenSize.right = resolution.x;
+    g_ScreenSize.bottom = resolution.y;
+
+    vis_scr_rect.left = (resolution.x - 640) / 2;
+    vis_scr_rect.right = resolution.x - (resolution.x - 640) / 2;
+    vis_scr_rect.top = (resolution.y - 480) / 2;
+    vis_scr_rect.bottom = resolution.y - (resolution.y - 480) / 2;
+
+    if (g_IsServer == 0)
+    {
+        const char* cls = AfxRegisterWndClass(CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW, NULL, NULL, NULL);
+        CFrameWnd::Create(cls, "Allods", WS_POPUP, CRect(0, 0, resolution.x, resolution.y), NULL, 0, 0, NULL);
+    }
+    else
+    {
+        CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
+        SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
+        SetControlPositions();
+        ModifyStyle(0, 0, 0);
+    }
+
+    field_0x7fc = 0;
+    field_0x800 = 0;
+    music_player = nullptr;
+    field_0x408 = nullptr;
+    field_0x40c = -1;
+    item_cursor = nullptr;
+    music_update_proc = nullptr;
+    dialogsMask = 0;
+    field_0x44c = 0;
+    game_speed = 4;
+    field_0x438 = 0x7fffffff;
+    last_tic_time = 0x7fffffff;
+    field_0x448 = 0;
+    serverBootstrapEnabled = 0;
+    field_0x404 = 0;
+    field_0x144 = nullptr;
+    field_0x454 = 0;
+    field_0x34c = nullptr;
+    field_0x3dc = nullptr;
+    field_0x378 = nullptr;
+    field_0x37c = nullptr;
+    MapWnd = nullptr;
+
+    field_0x3e0.field_08.Empty();
+    field_0x3e0.field_00.Empty();
+    field_0x3e0.field_0c = 0;
+    field_0x3e0.field_10 = 0;
+
+    field_0x624 = 0;
+
+    cursor_sizewe = LoadCursorA(0, IDC_SIZEWE);
+    cursor_sizens = LoadCursorA(0, IDC_SIZENS);
+    cursor_sizenwse = LoadCursorA(0, IDC_SIZENWSE);
+    cursor_sizenesw = LoadCursorA(0, IDC_SIZENESW);
+    cursor_arrow = LoadCursorA(0, IDC_ARROW);
+}
+
+
+MainWindow::~MainWindow()
+{ // 4961b0
+    delete field_0x348;
+}
+
+void MainWindow::SetControlPositions()
+{ //484127
+    CRect r;
+    GetClientRect(&r);
+    static2.SetWindowPos(NULL, 0, 0, r.right, 40, SWP_NOREPOSITION);
+    list_box2.SetWindowPos(NULL, 0, 40, 200, 240, SWP_NOREPOSITION);
+
+    CRect rl2;
+    list_box2.GetClientRect(&rl2);
+    rl2.bottom += 6;
+
+    static1.SetWindowPos(NULL, 200, 40, r.right - 200, rl2.bottom, SWP_NOREPOSITION);
+    list_box1.SetWindowPos(NULL, 0, rl2.bottom + 40, r.right, r.bottom - rl2.bottom - 80, SWP_NOREPOSITION);
+
+    CRect rl1;
+    list_box1.GetClientRect(&rl1);
+    rl1.bottom += 6;
+
+    edit.SetWindowPos(NULL, 0, rl2.bottom + 40 + rl1.bottom, r.right, r.bottom - rl2.bottom - rl1.bottom - 60, SWP_NOREPOSITION);
+}
+
 
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
@@ -1345,7 +1487,7 @@ void MainWindow::FUN_0048f905()
 {  // 48f905
     if (sessionMode == 2)
     {
-        CString local_2a4 = field_0x148.buf2;
+        CString local_2a4 = field_0x148.filename;
         g_Server->sub_4ED2DC(&local_2a4);
 
         field_0x438 = timeGetTime();
@@ -1353,9 +1495,9 @@ void MainWindow::FUN_0048f905()
         field_0x43c = 0;
 
         CFile local_13c;
-        local_13c.Open(field_0x148.buf2, CFile::modeReadWrite);
+        local_13c.Open(field_0x148.filename, CFile::modeReadWrite);
         local_13c.Seek(0, CFile::end);
-        local_13c.Write(field_0x148.buf1, 0x100);
+        local_13c.Write(field_0x148.title, 0x100);
         
         int inbattle = dialogsMask & 1;
 
@@ -1503,7 +1645,7 @@ void MainWindow::FUN_0048f905()
     }
     else
     {
-        MapWnd->FUN_0041afcf(field_0x148.buf2);
+        MapWnd->FUN_0041afcf(field_0x148.filename);
     }
 }
 
@@ -1617,7 +1759,7 @@ void MainWindow::FUN_00491f7d(int32_t vid_id)
 }
 
 
-LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {  // 486c6c
 
     switch (message)
@@ -1673,8 +1815,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case 0x418:
-        field_0x148.buf1[0] = 0;
-        field_0x148.buf2[0] = 0;
+        field_0x148.title[0] = 0;
+        field_0x148.filename[0] = 0;
         field_0x13c = new LoadGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
         PopUpScreen(field_0x13c);
         break;
@@ -1707,8 +1849,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     case 0x41a:
         if (dialogsMask == 1 || dialogsMask == 0)
         {
-            field_0x148.buf1[0] = 0;
-            field_0x148.buf2[0] = 0;
+            field_0x148.title[0] = 0;
+            field_0x148.filename[0] = 0;
             field_0x140 = new SaveGameWindow(1, 100, 30, 600, 450, 0, &field_0x148);
             PopUpScreen(field_0x140);
         }
@@ -1939,7 +2081,7 @@ void MainWindow::FUN_0048f79d()
 
     FUN_0048ca7e(sessionMode);
 
-    g_Server->sub_4EDB83(field_0x148.buf2);
+    g_Server->sub_4EDB83(field_0x148.filename);
 
     if (!MapWnd->ConnectAndJoinSession())
         PostMessage(0x421, 0, 0);
@@ -1966,7 +2108,7 @@ void MainWindow::FUN_0048f79d()
 int MainWindow::GetSaveFileInBattle()
 { // 48de6f
     File2 f;
-    f.Open(field_0x148.buf2, CFile::modeRead);
+    f.Open(field_0x148.filename, CFile::modeRead);
     f.Seek(4, 0);
 
     int32_t offset;
@@ -2073,7 +2215,7 @@ int MainWindow::FUN_0048e502(int mode)
     if (sessionMode == 2 && mode != 0)
     {
         File2 fil;
-        fil.Open(field_0x148.buf2, CFile::modeRead);
+        fil.Open(field_0x148.filename, CFile::modeRead);
         fil.Seek(4, 0);
         int32_t offset;
         fil.Read(&offset, 4);
@@ -2533,7 +2675,7 @@ void MainWindow::FUN_0048df44()
 { //48df44
     File2 fil;
 
-    fil.Open(field_0x148.buf2, CFile::modeRead);
+    fil.Open(field_0x148.filename, CFile::modeRead);
     fil.Seek(4, 0);
 
     int32_t offset;
@@ -2964,6 +3106,15 @@ void MainWindow::SingleGameIdle()
 
 
 
+CGameSession::CGameSession()
+{ //49248a
+    //fields init in defination
+    strcpy(character_name, "Self");
+}
+
+CGameSession::~CGameSession()
+{ //4960f0
+}
 
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit()
 {

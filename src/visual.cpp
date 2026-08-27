@@ -4156,8 +4156,8 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         CStringArray arr;
         ((VisListBox*)FindChild(3))->WriteData(&arr);
 
-        strcpy(field_0x68->buf1, arr[field_0x94]);
-        strcpy(field_0x68->buf2, file_names[field_0x94]);
+        strcpy(field_0x68->title, arr[field_0x94]);
+        strcpy(field_0x68->filename, file_names[field_0x94]);
 
         return VisScreen::MsgProc(0x445, 0, 0);
     }
@@ -4295,7 +4295,7 @@ void LoadGameWindow::VMethod26()
     btn3->SetUpObj(list);
 }
 
-LoadGameWindow::LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk)
+LoadGameWindow::LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk)
 : VisWindow(_id, l, t, r, b, _bitmap)
 { //43ecfb
     field_0x68 = unk;
@@ -4346,7 +4346,7 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             char buf[256];
             FindChild(1)->WriteData(buf);
 
-            strcpy(field_0x68->buf1, buf);
+            strcpy(field_0x68->title, buf);
 
             CStringArray arr;
             ((VisListBox*)FindChild(3))->WriteData(&arr);
@@ -4360,7 +4360,7 @@ int32_t SaveGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
                 }
             }
 
-            strcpy(field_0x68->buf2, file_names[field_0x94]);
+            strcpy(field_0x68->filename, file_names[field_0x94]);
 
             VisScreen::MsgProc(0x445, 0, 0);
         }
@@ -4551,7 +4551,7 @@ void SaveGameWindow::VMethod26()
     CheckInput();
 }
 
-SaveGameWindow::SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, MWin_Unk1* unk)
+SaveGameWindow::SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk)
     : VisWindow(_id, l, t, r, b, _bitmap)
 { //43fa42
     field_0x68 = unk;

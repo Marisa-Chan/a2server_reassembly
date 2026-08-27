@@ -4,6 +4,7 @@
 #include "assert_offset.h"
 #include "visual.h"
 #include "mouse.h"
+#include "net.h"
 
 extern int32_t g_LButtonDown; //660f4c
 extern int32_t DAT_00660f88; //660f88
@@ -44,15 +45,15 @@ public:
 };
 
 
-struct MWin_Unk1
+struct SaveFileInfo
 {
-    char buf1[256];
-    char buf2[256];
+    char title[256];
+    char filename[256];
 
-    MWin_Unk1()
+    SaveFileInfo()
     {
-        buf1[0] = 0;
-        buf2[0] = 0;
+        title[0] = 0;
+        filename[0] = 0;
     }
 };
 
@@ -151,9 +152,13 @@ union HatCharId
     };
 };
 
+//60c2a8
 class CGameSession : public CObject
 {
 public:
+    CGameSession(); //49248a
+    ~CGameSession(); //4960f0
+
     int32_t GetStringArray1Size(); //438d10
     void FUN_00493cd8(); //493cd8
     void LoadCharacterRosterEntry(int32_t idx);  //492c66
@@ -175,49 +180,57 @@ public:
     void RefreshCharacterRosterFiles(int val); //49265a
     void InitializeNewCharacterSession(int tp, const char* name); //493ab6
 public:
-    int32_t field_0x4;
-    int32_t sessionKeyPart1;
-    int32_t sessionKeyPart2;
+    int32_t field_0x4 = 0;
+    int32_t sessionKeyPart1 = 0;
+    int32_t sessionKeyPart2 = 0;
     char character_name[32];
-    int32_t flags;
-    int32_t type;
-    int32_t money;
-    int32_t monster_killed;
-    int32_t player_killed;
-    int32_t fragCount;
-    int32_t death_count;
-    int32_t body;
-    int32_t reaction;
-    int32_t mind;
-    int32_t spirit;
-    int32_t main_sphere;
-    int32_t face;
-    int32_t field_0x64;
-    int32_t field_0x68;
-    int32_t field_0x6c;
-    int32_t field_0x70;
-    int32_t field_0x74;
-    int32_t field_0x78;
-    int32_t field_0x7c;
-    int32_t field_0x80;
-    int32_t field_0x84;
-    int32_t color;
+    int32_t flags = 0;
+    int32_t type = 0;
+    int32_t money = 0;
+    int32_t monster_killed = 0;
+    int32_t player_killed = 0;
+    int32_t fragCount = 0;
+    int32_t death_count = 0;
+    int32_t body = 0;
+    int32_t reaction = 0;
+    int32_t mind = 0;
+    int32_t spirit = 0;
+    int32_t main_sphere = 0;
+    int32_t face = 0;
+    int32_t field_0x64 = 0;
+    int32_t field_0x68 = 0;
+    int32_t field_0x6c = 0;
+    int32_t field_0x70 = 0;
+    int32_t field_0x74 = 0;
+    int32_t field_0x78 = 0;
+    int32_t field_0x7c = 0;
+    int32_t field_0x80 = 0;
+    int32_t field_0x84 = 0;
+    int32_t color = 0;
     UserShortcut shortcuts[9];
     CStringArray characterRosterNames;
-    int32_t field_0x10c;
-    int32_t field_0x110;
-    int32_t field_0x114;
-    int32_t field_0x118;
+    int32_t field_0x10c = 0;
+    int32_t field_0x110 = 0;
+    int32_t field_0x114 = 1;
+    int32_t field_0x118 = 1;
     CArray<HatCharId> characterRosterHatId;
     CArray<HatCharId> field_0x130;
-    int32_t field_0x144;
-    int32_t field_0x148;
-    int32_t field_0x14c;
+    int32_t field_0x144 = 0;
+    int32_t field_0x148 = 0;
+    int32_t field_0x14c = 0;
     CStringArray characterRosterFilePaths;
-    int32_t selectedCharacterRosterFileIndex;
+    int32_t selectedCharacterRosterFileIndex = -1;
     CWordArray word_array;
 };
 ASSERT_SIZE(CGameSession, 0x17c);
+
+struct PhoneBook
+{
+    CString entry;
+    CString dial;
+    CStringArray phones;
+};
+ASSERT_SIZE(PhoneBook, 0x1c);
 
 struct HatSettings
 {
@@ -285,9 +298,10 @@ public:
 public: // VTable at 0060c1a8.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
+    LRESULT NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam); // 486c6c
 
-    MainWindow(); //in asm 4837e1
-    virtual ~MainWindow(); //in asm 4961b0
+    MainWindow(); // 4837e1
+    virtual ~MainWindow(); // 4961b0
 
     void CreateUI(); //in asm 484ab0
     void LoadData(); //in asm 483d64
@@ -361,6 +375,7 @@ public:
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
     void SetMusicProc(void (*func)()) { music_update_proc = func; } //45cc80
 
+    void SetControlPositions(); //484127
 
 public:
     int32_t field_0xbc;
@@ -398,7 +413,7 @@ public:
     LoadGameWindow* field_0x13c;
     SaveGameWindow* field_0x140;
     VisMessageBox* field_0x144;
-    MWin_Unk1 field_0x148;
+    SaveFileInfo field_0x148;
     CArray<DiplomacyEntry*>* field_0x348;
     VisScreen* field_0x34c;
     VisScreen* field_0x350;
@@ -409,20 +424,10 @@ public:
     VisCharGen* StartGameSetupWnd; //0x374
     VisScreen* field_0x378; // BigStruct1*
     VisScreen* field_0x37c;
-    CString field_0x380;
-    int32_t field_0x384;
-    int32_t field_0x388;
-    int32_t field_0x38c;
-    int32_t field_0x390;
-    int32_t field_0x394;
-    int32_t field_0x398;
-    int32_t field_0x39c;
-    int32_t field_0x3a0;
-    int32_t field_0x3a4;
-    int32_t field_0x3a8;
-    int32_t field_0x3ac;
-    CString field_0x3b0;
-    HatSettings hat_settings;
+    PhoneBook phone_book; //380
+    ComSettings com_settings; //39c
+    CString last_ip; //3b0
+    HatSettings hat_settings; //3b4
     VisScreen* field_0x3d0;
     VisScreen* field_0x3d4;
     CVisualObject* field_0x3d8;

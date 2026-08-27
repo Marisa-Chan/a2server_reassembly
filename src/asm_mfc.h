@@ -3977,6 +3977,9 @@ public:
 	BOOL ShowWindow(int nCmdShow); //5e46df
 	void SetWindowText(LPCTSTR lpszString);//5e459a
 	void SetDlgItemText(int nID, LPCTSTR lpszString); //5e4426
+	BOOL SetWindowPos(const CWnd* pWndInsertAfter, int x, int y, int cx, int cy, UINT nFlags); //5e4690
+	void GetClientRect(LPRECT lpRect) const; //4963a0
+	BOOL ModifyStyle(DWORD dwRemove, DWORD dwAdd, UINT nFlags); //5e4532
 };
 
 ASSERT_SIZE(CWnd, 0x3C);
@@ -4023,6 +4026,17 @@ public:
 	virtual HACCEL GetDefaultAccelerator();
 	virtual void DelayUpdateFrameMenu(HMENU hMenuAlt);
 	virtual void ExitHelpMode();
+
+	CFrameWnd(); //5f051f
+
+	BOOL Create(LPCTSTR lpszClassName,
+		LPCTSTR lpszWindowName,
+		DWORD dwStyle = WS_OVERLAPPEDWINDOW,
+		const RECT& rect = CRect(),
+		CWnd* pParentWnd = NULL,        // != NULL for popups
+		LPCTSTR lpszMenuName = NULL,
+		DWORD dwExStyle = 0,
+		void* pContext = NULL);
 
 public:
 	BOOL m_bAutoMenuEnable;	
@@ -4275,5 +4289,10 @@ public:
 ASSERT_SIZE(CDialog, 0x5C);
 
 
+
+
+
+
+LPCTSTR AFXAPI AfxRegisterWndClass(UINT nClassStyle, HCURSOR hCursor = 0, HBRUSH hbrBackground = 0, HICON hIcon = 0);
 
 #endif

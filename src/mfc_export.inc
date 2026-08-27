@@ -90,7 +90,7 @@ public ??6@YGAAVCArchive@@AAV0@ABVCString@@@Z
 
 
 
-
+externdef ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z : proc
 public ?AfxGetModuleThreadState@@YGPAVAFX_MODULE_THREAD_STATE@@XZ  ; AfxGetModuleThreadState(); 005F4DB8
 public ??0AFX_CLASSINIT@@QAE@PAUCRuntimeClass@@@Z  ; AFX_CLASSINIT::AFX_CLASSINIT(CRuntimeClass *)
 public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
@@ -1294,6 +1294,43 @@ externdef ?ShowWindow@CWnd@@QAEHH@Z  :proc  ;CWnd::ShowWindow
 externdef ?SetWindowTextA@CWnd@@QAEXPBD@Z   :proc
 externdef ?SetDlgItemTextA@CWnd@@QAEXHPBD@Z : proc
 
+externdef ?GetClientRect@CWnd@@QBEXPAUtagRECT@@@Z : proc
+externdef ?ModifyStyle@CWnd@@QAEHKKI@Z : proc
+externdef ?SetWindowPos@CWnd@@QAEHPBV1@HHHHI@Z : proc
+
+;CFrameWnd
+externdef ??0CFrameWnd@@QAE@XZ : proc
+externdef ??1CFrameWnd@@UAE@XZ : proc
+
+externdef ?RecalcLayout@CFrameWnd@@UAEXH@Z  : proc
+externdef ?PostNcDestroy@CFrameWnd@@UAEXXZ  : proc
+externdef ?OnUpdateFrameTitle@CFrameWnd@@UAEXH@Z  : proc
+externdef ?OnUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z  : proc
+externdef ?OnSetPreviewMode@CFrameWnd@@UAEXHPAX@Z  : proc
+externdef ?GetMessageString@CFrameWnd@@UBEXIAAVCString@@@Z  : proc
+externdef ?ExitHelpMode@CFrameWnd@@UAEXXZ  : proc
+externdef ?EndModalState@CFrameWnd@@UAEXXZ  : proc
+externdef ?DelayUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z  : proc
+externdef ?BeginModalState@CFrameWnd@@UAEXXZ  : proc
+externdef ?ActivateFrame@CFrameWnd@@UAEXH@Z  : proc
+externdef ?GetDefaultAccelerator@CFrameWnd@@UAEPAUHACCEL__@@XZ  : proc
+externdef ?GetRuntimeClass@CFrameWnd@@UBEPAUCRuntimeClass@@XZ  : proc
+externdef ?PreTranslateMessage@CFrameWnd@@UAEHPAUtagMSG@@@Z  : proc
+externdef ?PreCreateWindow@CFrameWnd@@UAEHAAUtagCREATESTRUCTA@@@Z  : proc
+externdef ?OnCreateClient@CFrameWnd@@UAEHPAUtagCREATESTRUCTA@@PAX@Z  : proc
+externdef ?OnCommand@CFrameWnd@@UAEHIJ@Z  : proc
+externdef ?OnCmdMsg@CFrameWnd@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z  : proc
+externdef ?NegotiateBorderSpace@CFrameWnd@@UAEHIPAUtagRECT@@@Z  : proc
+externdef ?LoadFrame@CFrameWnd@@UAEHIKPAVCWnd@@PAX@Z  : proc
+externdef ?IsFrameWnd@CFrameWnd@@UBEHXZ  : proc
+externdef ?GetMessageBar@CFrameWnd@@UAEPAVCWnd@@XZ  : proc
+externdef ?GetActiveFrame@CFrameWnd@@UAEPAV1@XZ  : proc
+externdef ?GetActiveDocument@CFrameWnd@@UAEPAVCDocument@@XZ  : proc
+externdef ?Create@CFrameWnd@@QAEHPBD0KABUtagRECT@@PAVCWnd@@0KPAX@Z : proc
+
+externdef ?Create@CFrameWnd@@QAEHPBD0KABUtagRECT@@PAVCWnd@@0KPAX@Z : proc
+
+
 
 ;CDialog
 externdef ??0CDialog@@QAE@XZ :proc   ; (public: __thiscall CDialog::CDialog(void))
@@ -1349,7 +1386,13 @@ extern ?FUN_0041b6e0@BigStruct2@@QAEXXZ  : proc
 extern ?FUN_0048e502@MainWindow@@QAEHH@Z : proc
 extern ?FUN_0048f79d@MainWindow@@QAEXXZ : proc
 
-externdef ??0MainWindow@@QAE@XZ : proc
+externdef ?WindowProc@MainWindow@@UAEJIIJ@Z : proc
+externdef ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ : proc
+
+extern ?vis_scr_rect@@3VCRect@@A : dword
+
+extern ??0MainWindow@@QAE@XZ : proc
+extern ??1MainWindow@@UAE@XZ : proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
 externdef ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
@@ -1766,8 +1809,8 @@ extern ??0HintedListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
 extern ?SetHints@HintedListBox@@QAEXPAVCStringArray@@@Z  :proc
 
 ;LoadGameWindow SaveGameWindow
-extern ??0LoadGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUMWin_Unk1@@@Z : proc
-extern ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUMWin_Unk1@@@Z : proc
+extern ??0LoadGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z : proc
+extern ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z : proc
 
 
 ;GM_a28
@@ -2265,7 +2308,7 @@ externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
 externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc
 
 ;UnitVFXInfo
-externdef ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
+extern ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
 
 ;GfxObject
 extern ?Init@GfxFile@@QAEXXZ : proc

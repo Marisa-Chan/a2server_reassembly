@@ -29,6 +29,7 @@ uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 int INT_6362e8[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
 int INT_636328[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
 
+CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
 CArray<GfxFile*> g_GfxFiles; //661100
 CArray<GfxObject*> g_GfxObjects; //665330
 CArray<StructureInfo*> g_StructuresInfo; //661098
