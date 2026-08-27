@@ -137,7 +137,7 @@ Unit::~Unit()
 
 
 // Free functions called from VMethod2.
-// Distance to target in 1/256 cells, adjusted for both units' sizes.
+// Distance to target in sub-cells (1/256), adjusted for both units' sizes.
 // 5364D5
 extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target)
 {
@@ -151,8 +151,50 @@ extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target)
     return (dist + 0x40) >> 8;
 }
 
-extern "C" void __cdecl sub_53685B(Unit* self, Unit* target); // Attack a unit (still in Main.asm)
 extern "C" void __cdecl sub_536A62(Unit* self, Unit* target); // Attack a building (still in Main.asm)
+
+// Attack a unit.
+// 53685B
+extern "C" void __cdecl sub_53685B(Unit* self, Unit* target)
+{
+    if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr) {
+        return;
+    }
+    if (self->hp <= 0) {
+        return;
+    }
+    if (sub_5364D5(self, target) > self->max_range) {
+        return;
+    }
+
+    // Melee humanoid fighters cannot hit flying targets.
+    if (self->VMethod8() && (self->unit_attrs & 4) == 0
+        && self->hit_values.physical_damage_type != 5 && target->movement_type == 3) {
+        return;
+    }
+
+    bool was_alive = target->hp > 0;
+    int32_t damage = target->VMethod17(&self->hit_values, self);
+    target->hp -= damage;
+
+    // On a hit, non-mage units trigger the weapon's imbued spell.
+    if (self->weapon != nullptr && self->weapon->imbued_spell != nullptr && (self->unit_attrs & 4) == 0
+        && ((damage > 0 && target->hp > 0) || self->weapon->imbued_spell->spell_id == 2)) {
+        self->some_spell = self->weapon->imbued_spell;
+        self->some_item = self->weapon;
+        self->some_spell->sub_539F21(self, target);
+        self->some_spell = nullptr;
+        self->some_item = nullptr;
+    }
+
+    if (was_alive || target->hp > -10) {
+        g_NetStru1_main.sub_51C601(target, damage);
+    }
+
+    if (damage > 0 && was_alive && target->hp > -10) {
+        self->VMethod23(target, damage, 0);
+    }
+}
 
 // Clamps experience gain to the max gain for the given skill level.
 // 530DCB

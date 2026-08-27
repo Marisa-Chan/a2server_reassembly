@@ -2027,7 +2027,6 @@ externdef _sub_5049D1 :proc
 extern _sub_5364D5 :proc   ; int16_t sub_5364D5(Unit*, Unit*) - distance to target adjusted for unit sizes
 externdef ?sub_52C735@Unit@@QAEHE@Z :proc                       ; int32_t Unit::sub_52C735(uint8_t)
 externdef ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z :proc          ; void NetStru1::sub_51C59C(Unit*, Unit*)
-externdef _sub_53685B :proc   ; attack a unit
 externdef _sub_536A62 :proc   ; attack a building
 externdef _Random0N :proc     ; 542216
 externdef _Random1N :proc     ; 54223F
