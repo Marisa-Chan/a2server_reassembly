@@ -142,9 +142,9 @@ extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target);
 extern "C" void __cdecl sub_53685B(Unit* self, Unit* target); // Attack a unit (still in Main.asm)
 extern "C" void __cdecl sub_536A62(Unit* self, Unit* target); // Attack a building (still in Main.asm)
 
-// Free functions for Humanoid::VMethod21.
+// Clamps experience gain to the max gain for the given skill level.
 // 530DCB
-extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level) // Clamps experience gain to the max gain for the given skill level.
+extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level)
 {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
     if (g_Server->field4_0x74 != 0) {
@@ -156,21 +156,21 @@ extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level)
     return experience;
 }
 
+// Start attack.
 // 536630
-extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) // Start attack?
+void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge)
 {
     *out_charge = 0;
-    if (target == nullptr || target->pOwner == nullptr ||
-        self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
+    if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
         return;
     }
 
     int16_t dist = sub_5364D5(self, target);
-    if (self->sub_52C735(0xC)) {
-        // Enchantment 0xC is active: reset its spell_value to 1.
+    if (self->sub_52C735(spell::invisibility)) {
+        // Attacker is invisible: reset its spell_value to 1 so the invisibility finishes.
         for (POSITION pos = self->_effects.GetHeadPosition(); pos != nullptr; ) {
             Effect* effect = self->_effects.GetNext(pos);
-            if ((uint16_t)effect->itemDataID == 0xC) {
+            if (effect->itemDataID == spell::invisibility) {
                 effect->spell_value = 1;
             }
         }
@@ -183,8 +183,9 @@ extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge
     g_NetStru1_main.sub_51C59C(self, target);
 }
 
+// Execute attack.
 // 53678F
-extern "C" void __cdecl sub_53678F(Unit* self, Unit* target) // Execute attack?
+void __cdecl sub_53678F(Unit* self, Unit* target)
 {
     if (target == nullptr) {
         return;

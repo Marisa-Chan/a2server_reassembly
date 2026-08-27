@@ -193,7 +193,7 @@ public:
     int32_t tick;
     CowardActivation coward_activation;
     int32_t field3_0x70;
-    int32_t field4_0x74; // Fog of war flag?
+    int32_t field4_0x74; // Is server flag?
     CString field5_0x78;
     SrvStru1* srv_stru1;
     uint8_t gap_0x80[8];

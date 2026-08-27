@@ -268767,7 +268767,7 @@ sub_5288E4      endp
 
 ; Attributes: bp-based frame
 
-?sub_52C735@Unit@@QAEHI@Z      proc near               ; CODE XREF: _sub_536630+6F↓p
+?sub_52C735@Unit@@QAEHE@Z      proc near               ; CODE XREF: _sub_536630+6F↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -268785,7 +268785,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-?sub_52C735@Unit@@QAEHI@Z      endp
+?sub_52C735@Unit@@QAEHE@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -497899,11 +497899,6 @@ aClldriverGetbl db 'CLlDriver::GetBlockSizeDp().',0Ah
 ; CHAR aError[]
 aError          db 'ERROR',0            ; DATA XREF: sub_527CA4+5↑o
                 align 4
-; CHAR aIDonTKnowHowTo[]
-aIDonTKnowHowTo db 'I don',27h,'t know how to attack ',0
-; CHAR aUnknownMagicDa[]
-aUnknownMagicDa db 'Unknown magic damage type',0
-                align 10h
 ; CHAR aNoSuchId[]
 aNoSuchId       db ' - no such ID',0    ; DATA XREF: ??0Spell@@QAE@ABVCString@@@Z+C7↑o
                 align 4
