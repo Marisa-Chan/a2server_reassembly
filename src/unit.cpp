@@ -139,7 +139,8 @@ Unit::~Unit()
 // Free functions called from VMethod2.
 // 5364D5: Distance to target in 1/256 cells, adjusted for both units' sizes (still in Main.asm).
 extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target);
-extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
+extern "C" void __cdecl sub_53685B(Unit* self, Unit* target); // Attack a unit (still in Main.asm)
+extern "C" void __cdecl sub_536A62(Unit* self, Unit* target); // Attack a building (still in Main.asm)
 
 // Free functions for Humanoid::VMethod21.
 extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
@@ -169,6 +170,23 @@ extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge
     }
 
     g_NetStru1_main.sub_51C59C(self, target);
+}
+
+// 53678F
+extern "C" void __cdecl sub_53678F(Unit* self, Unit* target) // Execute attack?
+{
+    if (target == nullptr) {
+        return;
+    }
+    if (target->VMethod7()) { // IsUnit
+        sub_53685B(self, target);
+        return;
+    }
+    if (target->VMethod9()) { // IsBuilding
+        sub_536A62(self, target);
+        return;
+    }
+    LogMessage(CString("I don't know how to attack ") + target->GetRuntimeClass()->m_lpszClassName);
 }
 
 

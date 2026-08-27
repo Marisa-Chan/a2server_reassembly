@@ -21,14 +21,15 @@ _sub_530DCB	67
 _sub_5049D1	85
 ?SetVideoMode@@YAHXZ	87
 _sub_5364D5	90
+_sub_536A62	97
 ?ParseTunes@@YAXXZ	99
-_sub_53678F	99
 _sub_5499A6	99
 ?LoadFonts@@YAXXZ	134
 _sub_54F04F	139
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
 @sub_49585B@4	184
 ?InitVideo@@YAHXZ	191
+_sub_53685B	210
 ?FUN_00475e7a@@YAXXZ	258
 _sub_54C6DD	453
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
