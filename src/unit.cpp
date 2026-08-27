@@ -136,12 +136,40 @@ Unit::~Unit()
 }
 
 
-// Free functions called from VMethod2 (all in Main.asm)
-extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int* out_charge); // Start attack?
+// Free functions called from VMethod2.
+// 5364D5: Distance to target in 1/256 cells, adjusted for both units' sizes (still in Main.asm).
+extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target);
 extern "C" void __cdecl sub_53678F(Unit* self, Unit* target); // Execute attack?
 
 // Free functions for Humanoid::VMethod21.
 extern "C" uint32_t __cdecl sub_530DCB(uint32_t experience, int32_t skill_level); // Clamps experience gain to the max gain for the given skill level.
+
+// 536630
+extern "C" void __cdecl sub_536630(Unit* self, Unit* target, int32_t* out_charge) // Start attack?
+{
+    *out_charge = 0;
+    if (target == nullptr || target->pOwner == nullptr ||
+        self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
+        return;
+    }
+
+    int16_t dist = sub_5364D5(self, target);
+    if (self->sub_52C735(0xC)) {
+        // Enchantment 0xC is active: reset its spell_value to 1.
+        for (POSITION pos = self->_effects.GetHeadPosition(); pos != nullptr; ) {
+            Effect* effect = self->_effects.GetNext(pos);
+            if ((uint16_t)effect->itemDataID == 0xC) {
+                effect->spell_value = 1;
+            }
+        }
+    }
+
+    if (dist > 1) {
+        *out_charge = (dist * 256 + 0x80) / 200;
+    }
+
+    g_NetStru1_main.sub_51C59C(self, target);
+}
 
 
 // 559393
@@ -1970,7 +1998,7 @@ void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
 }
 
 // 52F5BB
-uint8_t Unit::sub_52F5BB(uint32_t sphere)
+uint8_t Unit::sub_52F5BB(uint8_t sphere)
 {
     int32_t power = this->hit_values.skill_levels[sphere & 0xFF] + this->mind - 30;
     if (power < 0) {

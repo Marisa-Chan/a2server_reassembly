@@ -266550,7 +266550,7 @@ sub_515484      endp
 
 ; Attributes: bp-based frame
 
-sub_51BA2F      proc near               ; CODE XREF: sub_51C59C+20↓p
+sub_51BA2F      proc near               ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+20↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -266614,7 +266614,7 @@ sub_51BA2F      endp
 
 ; Attributes: bp-based frame
 
-sub_51C59C      proc near               ; CODE XREF: _sub_536630+156↓p
+?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z      proc near               ; CODE XREF: _sub_536630+156↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -266635,7 +266635,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_51C5FB
 ; ---------------------------------------------------------------------------
 
-loc_51C5C3:                             ; CODE XREF: sub_51C59C+15↑j
+loc_51C5C3:                             ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+15↑j
                 push    71h ; 'q'
                 mov     eax, dword ptr [ebp+arg_0]
                 xor     ecx, ecx
@@ -266654,11 +266654,11 @@ loc_51C5C3:                             ; CODE XREF: sub_51C59C+15↑j
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z
 
-loc_51C5FB:                             ; CODE XREF: sub_51C59C+25↑j
+loc_51C5FB:                             ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+25↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_51C59C      endp
+?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -268767,7 +268767,7 @@ sub_5288E4      endp
 
 ; Attributes: bp-based frame
 
-sub_52C735      proc near               ; CODE XREF: _sub_536630+6F↓p
+?sub_52C735@Unit@@QAEHI@Z      proc near               ; CODE XREF: _sub_536630+6F↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -268785,7 +268785,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_52C735      endp
+?sub_52C735@Unit@@QAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -269380,7 +269380,7 @@ sub_534C02      endp
 
 ; Attributes: bp-based frame
 
-sub_5364D5      proc near               ; CODE XREF: _sub_536630+5C↓p
+_sub_5364D5      proc near               ; CODE XREF: _sub_536630+5C↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -269428,11 +269428,11 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_53654F
 ; ---------------------------------------------------------------------------
 
-loc_536549:                             ; CODE XREF: sub_5364D5+6A↑j
+loc_536549:                             ; CODE XREF: _sub_5364D5+6A↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [ebp+var_10], edx
 
-loc_53654F:                             ; CODE XREF: sub_5364D5+72↑j
+loc_53654F:                             ; CODE XREF: _sub_5364D5+72↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     [ebp+var_4], eax
                 mov     ecx, dword ptr [ebp+arg_0]
@@ -269459,18 +269459,18 @@ loc_53654F:                             ; CODE XREF: sub_5364D5+72↑j
                 jmp     short loc_5365A5
 ; ---------------------------------------------------------------------------
 
-loc_53659C:                             ; CODE XREF: sub_5364D5+BF↑j
+loc_53659C:                             ; CODE XREF: _sub_5364D5+BF↑j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 40h ; '@'
                 sar     eax, 8
 
-loc_5365A5:                             ; CODE XREF: sub_5364D5+C5↑j
+loc_5365A5:                             ; CODE XREF: _sub_5364D5+C5↑j
                 pop     esi
                 pop     ebx
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_5364D5      endp
+_sub_5364D5      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -269531,179 +269531,6 @@ arg_4           = dword ptr  0Ch
                 retn
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-_sub_536630      proc near               ; CODE XREF: ?VMethod2@Unit@@UAEXXZ+619↑p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 34h
-                mov     eax, dword ptr [ebp+arg_8]
-                mov     dword ptr [eax], 0
-                cmp     [ebp+arg_4], 0
-                jnz     short loc_53664A
-                jmp     loc_53678B
-; ---------------------------------------------------------------------------
-
-loc_53664A:                             ; CODE XREF: _sub_536630+13↑j
-                mov     ecx, dword ptr [ebp+arg_4]
-                cmp     dword ptr [ecx+14h], 0
-                jnz     short loc_536658
-                jmp     loc_53678B
-; ---------------------------------------------------------------------------
-
-loc_536658:                             ; CODE XREF: _sub_536630+21↑j
-                cmp     [ebp+arg_0], 0
-                jnz     short loc_536663
-                jmp     loc_53678B
-; ---------------------------------------------------------------------------
-
-loc_536663:                             ; CODE XREF: _sub_536630+2C↑j
-                mov     edx, dword ptr [ebp+arg_0]
-                cmp     dword ptr [edx+14h], 0
-                jnz     short loc_536671
-                jmp     loc_53678B
-; ---------------------------------------------------------------------------
-
-loc_536671:                             ; CODE XREF: _sub_536630+3A↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                movsx   ecx, word ptr [eax+94h]
-                test    ecx, ecx
-                jg      short loc_536684
-                jmp     loc_53678B
-; ---------------------------------------------------------------------------
-
-loc_536684:                             ; CODE XREF: _sub_536630+4D↑j
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    sub_5364D5
-                add     esp, 8
-                movsx   ecx, ax
-                mov     [ebp+var_4], ecx
-                push    0Ch
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_52C735
-                test    eax, eax
-                jz      loc_53675B
-                mov     edx, dword ptr [ebp+arg_0]
-                add     edx, 20h ; ' '
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+4]
-                mov     [ebp+var_14], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ebp+var_C], edx
-                cmp     [ebp+var_C], 0
-                jz      short loc_5366F9
-                lea     eax, [ebp+var_C]
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_1C], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx]
-                mov     [ebp+var_18], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx]
-                mov     [ecx], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ecx+8]
-                mov     [ebp+var_24], edx
-                mov     eax, dword ptr [ebp+var_24]
-                mov     [ebp+var_8], eax
-                jmp     short loc_536700
-; ---------------------------------------------------------------------------
-
-loc_5366F9:                             ; CODE XREF: _sub_536630+98↑j
-                mov     [ebp+var_8], 0
-
-loc_536700:                             ; CODE XREF: _sub_536630+C7↑j
-                cmp     [ebp+var_8], 0
-                jz      short loc_53675B
-                mov     ecx, dword ptr [ebp+var_8]
-                xor     edx, edx
-                mov     dx, [ecx+0Ch]
-                cmp     edx, 0Ch
-                jnz     short loc_53671D
-                mov     eax, dword ptr [ebp+var_8]
-                mov     word ptr [eax+42h], 1
-
-loc_53671D:                             ; CODE XREF: _sub_536630+E2↑j
-                cmp     [ebp+var_C], 0
-                jz      short loc_536752
-                lea     ecx, [ebp+var_C]
-                mov     [ebp+var_30], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [ebp+var_2C], edx
-                mov     eax, dword ptr [ebp+var_30]
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_28], ecx
-                mov     edx, dword ptr [ebp+var_30]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax]
-                mov     [edx], ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+8]
-                mov     [ebp+var_34], eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     [ebp+var_8], ecx
-                jmp     short loc_536759
-; ---------------------------------------------------------------------------
-
-loc_536752:                             ; CODE XREF: _sub_536630+F1↑j
-                mov     [ebp+var_8], 0
-
-loc_536759:                             ; CODE XREF: _sub_536630+120↑j
-                jmp     short loc_536700
-; ---------------------------------------------------------------------------
-
-loc_53675B:                             ; CODE XREF: _sub_536630+76↑j
-                cmp     [ebp+var_4], 1
-                jle     short loc_536779
-                mov     eax, dword ptr [ebp+var_4]
-                shl     eax, 8
-                add     eax, 80h
-                cdq
-                mov     ecx, 0C8h
-                idiv    ecx
-                mov     edx, dword ptr [ebp+arg_8]
-                mov     [edx], eax
-
-loc_536779:                             ; CODE XREF: _sub_536630+12F↑j
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    sub_51C59C
-
-loc_53678B:                             ; CODE XREF: _sub_536630+15↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-_sub_536630      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -269871,7 +269698,7 @@ loc_5368A7:                             ; CODE XREF: sub_53685B+45↑j
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
-                call    sub_5364D5
+                call    _sub_5364D5
                 add     esp, 8
                 movsx   edx, ax
                 cmp     esi, edx
@@ -270082,7 +269909,7 @@ loc_536AA0:                             ; CODE XREF: sub_536A62+37↑j
                 push    edx
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
-                call    sub_5364D5
+                call    _sub_5364D5
                 add     esp, 8
                 movsx   ecx, ax
                 cmp     esi, ecx
