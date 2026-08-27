@@ -3162,7 +3162,7 @@ void VisMultiText::VMethod7()
     parent->VMethod8(&rt);
 
     LockSurface2();
-    font->DrawTextLines(rt, vis_start_index, vis_start_index + num_vis_entry, entries, clr1, entry_height_full);
+    font->DrawTextLinesShadow(rt, vis_start_index, vis_start_index + num_vis_entry, entries, clr1, entry_height_full);
     UnlockSurface2();
 }
 

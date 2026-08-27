@@ -3035,7 +3035,7 @@ CGameFont::~CGameFont()
 {
 	//45e0f9
 	if (char_widths)
-		free(char_widths);
+		delete[] char_widths;
 
 	if (bitmap)
 		delete bitmap;
@@ -3227,6 +3227,230 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str)
 	return out;
 }
 
+void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
+{ //45f6c2
+	if (last > lines.GetSize())
+		last = lines.GetSize();
+	if (dy == 0)
+		dy = GetHeight();
+
+	for (int32_t i = first; i < last; i++)
+	{
+		uint8_t flags = 0;
+		CString line = lines[i];
+		if (i != lines.GetSize() - 1)
+		{
+			if (line[line.GetLength() - 1] != '\r')
+				flags |= 2;
+		}
+
+		if (i == 0)
+		{
+			flags |= 1;
+			if (GetStrWidth(line + ' ') > r.Width())
+				flags |= 2;
+		}
+		else
+		{
+			const CString& s = lines[i - 1];
+
+			if (s[s.GetLength() - 1] == '\r')
+			{
+				flags |= 1;
+				if (GetStrWidth(line + ' ') > r.Width())
+					flags |= 2;
+			}
+		}
+
+		if (i == lines.GetSize() - 1)
+			flags |= 4;
+		else
+		{
+			if (line[line.GetLength() - 1] != '\r')
+				flags |= 4;
+		}
+
+		if (line[line.GetLength() - 1] == '\r')
+			line.SetAt(line.GetLength() - 1, 0);
+
+		if ((flags & 2) == 0)
+		{
+			if ((flags & 1) == 0)
+				DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
+			else
+				DrawTextWithShadow(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr, 1);
+		}
+		else if ((flags & 1) == 0)
+			DrawTextJustifyShadow(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
+		else
+			DrawTextJustifyShadow(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+	}
+}
+
+void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy)
+{ //45f33e
+	if (last > lines.GetSize())
+		last = lines.GetSize();
+	if (dy == 0)
+		dy = GetHeight();
+
+	for (int32_t i = first; i < last; i++)
+	{
+		uint8_t flags = 0;
+		CString line = lines[i];
+		if (i != lines.GetSize() - 1)
+		{
+			if (line[line.GetLength() - 1] != '\r')
+				flags |= 2;
+		}
+
+		if (i == 0)
+		{
+			flags |= 1;
+			if (GetStrWidth(line + ' ') > r.Width())
+				flags |= 2;
+		}
+		else
+		{
+			const CString& s = lines[i - 1];
+
+			if (s[s.GetLength() - 1] == '\r')
+			{
+				flags |= 1;
+				if (GetStrWidth(line + ' ') > r.Width())
+					flags |= 2;
+			}
+		}
+
+		if (i == lines.GetSize() - 1)
+			flags |= 4;
+		else
+		{
+			if (line[line.GetLength() - 1] != '\r')
+				flags |= 4;
+		}
+
+		if (line[line.GetLength() - 1] == '\r')
+			line.SetAt(line.GetLength() - 1, 0);
+
+		if ((flags & 2) == 0)
+		{
+			if ((flags & 1) == 0)
+				DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
+			else
+				DrawTxt(r.left + char_widths[' '], r.top + (i - first) * dy, line, 0, clr);
+		}
+		else if ((flags & 1) == 0)
+			DrawTextJustify(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
+		else
+			DrawTextJustify(r.left + char_widths[' '], r.top + (i - first) * dy, r.Width() - char_widths[' '], line, clr);
+	}
+}
+
+
+void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
+{ //45f10b
+	int32_t space_width = char_widths[' '];
+
+	CString local_14;
+	CStringArray words;
+	CDWordArray wordssz;
+
+	txt.TrimRight();
+	int32_t words_width = 0;
+	while (txt.GetLength() != 0)
+	{
+		txt.TrimLeft();
+
+		int32_t word_end = txt.Find(' ');
+		if (word_end == -1)
+			word_end = txt.GetLength();
+
+		local_14 = txt.Left(word_end);
+		local_14.TrimRight();
+
+		words.Add(local_14);
+
+		int32_t sz = GetStrWidth(local_14);
+		words_width += sz;
+
+		wordssz.Add(sz);
+
+		txt = txt.Right(txt.GetLength() - word_end);		
+	} 
+
+	int32_t word_space = (w - words_width) << 8; //replace it with int, because no sense of float. Use << 8
+	if (words.GetSize() >= 2)
+		word_space /= (words.GetSize() - 1);
+
+	int32_t xx = x << 8;
+	for (int i = 0; i < words.GetSize(); i++)
+	{
+		DrawTextWithShadow(xx >> 8, y, words[i], 0, clr, 1);
+		xx += (wordssz[i] << 8) + word_space;
+	}
+}
+
+void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr)
+{ //45eed7
+	int32_t space_width = char_widths[' '];
+
+	CString local_14;
+	CStringArray words;
+	CDWordArray wordssz;
+
+	txt.TrimRight();
+	int32_t words_width = 0;
+	while (txt.GetLength() != 0)
+	{
+		txt.TrimLeft();
+
+		int32_t word_end = txt.Find(' ');
+		if (word_end == -1)
+			word_end = txt.GetLength();
+
+		local_14 = txt.Left(word_end);
+		local_14.TrimRight();
+
+		words.Add(local_14);
+
+		int32_t sz = GetStrWidth(local_14);
+		words_width += sz;
+
+		wordssz.Add(sz);
+
+		txt = txt.Right(txt.GetLength() - word_end);
+	}
+
+	int32_t word_space = (w - words_width) << 8; //replace it with int, because no sense of float. Use << 8
+	if (words.GetSize() >= 2)
+		word_space /= (words.GetSize() - 1);
+
+	int32_t xx = x << 8;
+	for (int i = 0; i < words.GetSize(); i++)
+	{
+		DrawTxt(xx >> 8, y, words[i], 0, clr);
+		xx += (wordssz[i] << 8) + word_space;
+	}
+}
+
+
+void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy)
+{ //45ed37
+	CStringArray& array = StringArrayForRect(r, str);
+
+	if (dy == 0)
+		dy = GetHeight();
+
+	for (int32_t i = 0; i < array.GetSize(); i++)
+	{
+		if (i * dy + GetHeight() > r.Height())
+			break;
+		DrawTextJustifyShadow(r.left, r.top + i * dy, r.Width(), array[i], clr);
+	}
+
+	array.RemoveAll();
+}
 
 
 
@@ -4082,13 +4306,131 @@ void CSprite16::VMethod9(int32_t x, int32_t y, int frame, uint16_t* pcolor)
 
 
 
+CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space)
+{ //45fa44
+	CString buf = fname;
+	buf += ".16";
+
+	bitmap = new CSprite16(buf);
+
+	buf = fname;
+	buf += ".dat";
+
+	File2 f;
+	f.Open(buf, CFile::modeRead);
+
+	char_widths = new int32_t[f.GetLength() / 4];
+	f.Read(char_widths, f.GetLength());
+
+	f.Close();
+
+	space = _space;
+}
+
+void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
+{ //45fbd7
+	if ((align & 1) != 0)
+		x -= GetStrWidth(txt);
+
+	if ((align & 2) != 0)
+		x -= GetStrWidth(txt) / 2;
+
+	if ((align & 4) != 0)
+		y -= bitmap->GetWidth();
+
+	if ((align & 8) != 0)
+		y -= bitmap->GetWidth() / 2;
+
+	int32_t tlen = strlen(txt);
+	for (int32_t i = 0; i < tlen; i++)
+	{
+		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
+		uint8_t chr2 = DecodeChar(txt[i + 1]) - 0x20;
+
+		if (chr1 == 0x5e && chr2 != 0x5e)
+		{
+			FillRectColor(x, y + bitmap->GetHeight(), x + char_widths[chr2], y + bitmap->GetHeight(), clr[15]);
+		}
+		else
+		{
+			if (chr1 == 0)
+				x += bitmap->GetHeight() / 2;
+			else
+				((CSprite16*)bitmap)->VMethod9(x, y, chr1, clr);
+
+			x += char_widths[chr1] + space;
+		}
+
+		if (chr1 == 0x5e && chr2 == 0x5e)
+			i++;
+	}
+}
+
+uint16_t* CSpriteFont16::GetShadowColors()
+{ // 45fdf2
+	return clrsh_Black;
+}
 
 
 
+CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space)
+{ // 45fe02
+	CString buf = fname;
+	buf += ".16a";
 
+	bitmap = new CA16(buf);
 
+	buf = fname;
+	buf += ".dat";
 
+	File2 f;
+	f.Open(buf, CFile::modeRead);
 
+	char_widths = new int32_t[f.GetLength() / 4];
+	f.Read(char_widths, f.GetLength());
+
+	f.Close();
+
+	space = _space;
+
+	bitmap->ResetPalette(16, 4, 0);
+}
+
+CSpriteFont16a::~CSpriteFont16a()
+{ // 461000
+}
+
+void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr)
+{ // 45ffa9
+	if ((align & 1) != 0)
+		x -= GetStrWidth(txt);
+
+	if ((align & 2) != 0)
+		x -= GetStrWidth(txt) / 2;
+
+	if ((align & 4) != 0)
+		y -= bitmap->GetWidth();
+
+	if ((align & 8) != 0)
+		y -= bitmap->GetWidth() / 2;
+
+	int32_t tlen = strlen(txt);
+	for (int32_t i = 0; i < tlen; i++)
+	{
+		uint8_t chr1 = DecodeChar(txt[i]) - 0x20;
+		if (chr1 == 0)
+			x += bitmap->GetHeight() / 2;
+		else
+			((CA16*)bitmap)->VMethod2(x, y, chr1, (int)clr, 0); //FIXME
+
+		x += char_widths[chr1] + space;
+	}
+}
+
+uint16_t* CSpriteFont16a::GetShadowColors()
+{ // 460106
+	return palette_black->GetPalette(0);
+}
 
 
 
@@ -4379,6 +4721,14 @@ void UnloadGraphics()
 	g_spr_backpack = nullptr;
 	g_spr_backpackb = nullptr;
 	g_bmp_testiva = nullptr;
+}
+
+void LoadFonts()
+{ //460c37
+	g_font1 = new CSpriteFont16("graphics\\font1\\font1", 2);
+	g_font2 = new CSpriteFont16("graphics\\font2\\font2", 2);
+	g_font3 = new CSpriteFont16("graphics\\font3\\font3", 2);
+	g_font4 = new CSpriteFont16a("graphics\\font4\\font4", 2);
 }
 
 void FreeFontData()

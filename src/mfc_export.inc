@@ -2098,8 +2098,9 @@ extern ?GetPalette@CGamePalette@@QAEPAGH@Z : proc
 ;CGameFont
 extern ?GetStrWidth@CGameFont@@QAEHPBD@Z : proc
 extern ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z  : proc
-externdef ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
-
+extern ?DrawTextJustifyInRectShadow@CGameFont@@QAEXABVCRect@@PBDPAGH@Z : proc
+extern ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z: proc
+extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 
 ;sound
 externdef ?Play@CSound@@SAXAAU1@@Z :proc

@@ -194,8 +194,13 @@ public:
 	CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f  internal
 
 	CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d
-	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2
+	void DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2
+	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy); //45f33e
 
+	void DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy); //45ed37
+
+	void DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45f10b
+	void DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45eed7
 public:
 	CGameBitmap* bitmap;
 	int32_t* char_widths;
@@ -378,9 +383,9 @@ public:
 class CSpriteFont16 : public CGameFont
 {
 public:
-	virtual ~CSpriteFont16();
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;
-	virtual uint16_t* GetShadowColors() override;
+	virtual ~CSpriteFont16() {}; //460fb0
+	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) override;
+	virtual uint16_t* GetShadowColors() override; //45fdf2
 
 public:
 	CSpriteFont16(const char* fname, int32_t _space);
