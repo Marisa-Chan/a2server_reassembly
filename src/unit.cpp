@@ -137,8 +137,20 @@ Unit::~Unit()
 
 
 // Free functions called from VMethod2.
-// 5364D5: Distance to target in 1/256 cells, adjusted for both units' sizes (still in Main.asm).
-extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target);
+// Distance to target in 1/256 cells, adjusted for both units' sizes.
+// 5364D5
+extern "C" int16_t __cdecl sub_5364D5(Unit* self, Unit* target)
+{
+    int32_t dx = abs(self->sub_528725() - target->sub_528725());
+    int32_t dy = abs(self->sub_528763() - target->sub_528763());
+    int32_t dist = (std::max)(dx, dy);
+    dist -= (self->VMethod3() + target->VMethod3()) * 0x80 - 0x100;
+    if (dist <= 0x180) {
+        return 1;
+    }
+    return (dist + 0x40) >> 8;
+}
+
 extern "C" void __cdecl sub_53685B(Unit* self, Unit* target); // Attack a unit (still in Main.asm)
 extern "C" void __cdecl sub_536A62(Unit* self, Unit* target); // Attack a building (still in Main.asm)
 

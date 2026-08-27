@@ -19,7 +19,6 @@ _sub_43A820	26
 ?LockSurface1@@YAXXZ	41
 _sub_5049D1	85
 ?SetVideoMode@@YAHXZ	87
-_sub_5364D5	90
 _sub_536A62	97
 ?ParseTunes@@YAXXZ	99
 _sub_5499A6	99

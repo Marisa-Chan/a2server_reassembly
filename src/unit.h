@@ -124,7 +124,7 @@ public:
     void sub_52D94E(); // Kill this unit (sets some_state to 0x10 and runs death cleanup)
     void sub_52E7FA(); // Corpse: decrement HP and recalculate decay.
     int32_t sub_52D904(); // Defense value for quests. Flyers get +25, mages get +50.
-    int32_t sub_52C735(uint8_t effect_bit); // 52C735: returns enchantments & (1 << effect_bit)
+    int32_t sub_52C735(uint8_t spell_id); // 52C735: HasEnchantment.
     uint8_t sub_52F5BB(uint8_t sphere); // 52F5BB: clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
     void sub_52F601(const CString& value);
     int32_t sub_59A030(); // Returns movement type.

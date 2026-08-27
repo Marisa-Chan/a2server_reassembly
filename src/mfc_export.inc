@@ -2024,7 +2024,7 @@ extern ?LoadGraphics@@YAXXZ : proc
 externdef _sub_5B6F30 :proc   ; rand
 externdef ?sub_4954EA@@YAXXZ :proc
 externdef _sub_5049D1 :proc
-externdef _sub_5364D5 :proc   ; int16_t sub_5364D5(Unit*, Unit*) - distance to target adjusted for unit sizes
+extern _sub_5364D5 :proc   ; int16_t sub_5364D5(Unit*, Unit*) - distance to target adjusted for unit sizes
 externdef ?sub_52C735@Unit@@QAEHE@Z :proc                       ; int32_t Unit::sub_52C735(uint8_t)
 externdef ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z :proc          ; void NetStru1::sub_51C59C(Unit*, Unit*)
 externdef _sub_53685B :proc   ; attack a unit
