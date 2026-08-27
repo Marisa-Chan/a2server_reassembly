@@ -8,7 +8,6 @@
 _sub_5B6F30	12
 _Random1N	14
 _sub_4FA768	20
-_sub_5008CA	25
 _Random0N	25
 _sub_54C556	26
 ?SetMessageColors@@YAXI@Z	26

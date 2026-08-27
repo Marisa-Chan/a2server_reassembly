@@ -1023,6 +1023,7 @@ _BldIdSet_Unset
 _ParsePlayerFile_4F62E6
 _pathStrCpy
 _ReportWarning
+_StatLevelPoints
 _sub_43A857
 _sub_4F499B
 _WritePlayerFile_4F53EA

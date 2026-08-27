@@ -40384,12 +40384,12 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+arg_0]
                 add     eax, 1
                 push    eax
-                call    _sub_5008CA
+                call    _StatLevelPoints
                 add     esp, 4
                 mov     esi, eax
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
-                call    _sub_5008CA
+                call    _StatLevelPoints
                 add     esp, 4
                 sub     esi, eax
                 mov     eax, esi
@@ -40416,13 +40416,13 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_4], ecx
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
-                call    _sub_5008CA
+                call    _StatLevelPoints
                 add     esp, 4
                 mov     esi, eax
                 mov     ecx, dword ptr [ebp+arg_0]
                 sub     ecx, 1
                 push    ecx
-                call    _sub_5008CA
+                call    _StatLevelPoints
                 add     esp, 4
                 sub     esi, eax
                 mov     eax, esi
@@ -261228,38 +261228,6 @@ sub_500792      endp
 
 ; Attributes: bp-based frame
 
-_sub_5008CA      proc near               ; CODE XREF: sub_42A96D+F↑p
-
-var__y           = qword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 1
-                mov     [ebp+var_4], eax
-                fild    [ebp+var_4]
-                sub     esp, 8
-                fstp    [esp+0Ch+var__y]     ; Y
-                push    3FF26666h
-                push    66666666h       ; X
-                call    _pow
-                add     esp, 10h
-                fmul    qword ptr [dbl_60E910]
-                fadd    qword ptr [dbl_60E918]
-                call    __ftol
-                mov     esp, ebp
-                pop     ebp
-                retn
-_sub_5008CA      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_50260A      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+2BDF↑p
 
 var_8C          = dword ptr -8Ch
@@ -469788,8 +469756,8 @@ word_60E8E8     dw 1                    ; DATA XREF: sub_54E5C7+2AB↑r
                 db    0
                 db    0
                 db    0
-dbl_60E910      dq 0.349                ; DATA XREF: _sub_5008CA+28↑r
-dbl_60E918      dq 0.5                  ; DATA XREF: _sub_5008CA+2E↑r
+dbl_60E910      dq 0.349                ; DATA XREF: _StatLevelPoints+28↑r
+dbl_60E918      dq 0.5                  ; DATA XREF: _StatLevelPoints+2E↑r
 dbl_60E920      dq 4.0                  ; DATA XREF: ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z+37E↑r
 dbl_60E928      dq 5.0                  ; DATA XREF: ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z+384↑r
 dbl_60E930      dq 100.0                ; DATA XREF: sub_511273+6DB↑r

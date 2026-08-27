@@ -44,7 +44,11 @@
 extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 
 // ---- Helpers used by FUN_00500907 ----
-extern "C" int32_t sub_5008CA(int arg);  // Stat point cost: (int)(pow(arg-1, 1.2)*C1+C2)
+// 5008CA
+// Stat point cost: (int)(pow(1.15, level - 1) * 0.349 + 0.5)
+extern "C" int32_t StatLevelPoints(int32_t level) {
+    return (int32_t)(pow(1.15, (double)(level - 1)) * 0.349 + 0.5);
+}
 extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID bits
 
@@ -2279,7 +2283,7 @@ Human* Server::sub_500907(Player* player, uint8_t body, uint8_t reaction, uint8_
     #endif
 
     // Validate stat budget: sum of point costs must not exceed 140
-    int32_t budget = 140 - sub_5008CA(body) - sub_5008CA(reaction) - sub_5008CA(mind) - sub_5008CA(spirit);
+    int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
     if (budget >= 0) {
         unit->body     = body;
         unit->reaction = reaction;
