@@ -5,7 +5,6 @@
 
 @sub_48A747@0	5
 _sub_5B6F30	12
-_sub_4FA768	20
 _sub_54C556	26
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99

@@ -1083,7 +1083,6 @@ extern ??1Server@@QAE@XZ :proc
 extern ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
-externdef _sub_4FA768 :proc                                                     ; void sub_4FA768(Player*)
 externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
 externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc

@@ -81,7 +81,11 @@ extern "C" CString* sub_43A820(CString* out, uint32_t value) {
 extern "C" int dword_6CDB38; // File checksum global
 
 // ---- Helpers used by arena Server methods ----
-extern "C" void sub_4FA768(Player* player); // Send game-end broadcast to all clients
+// 4FA768
+// Send game-end broadcast to all clients
+static void sub_4FA768(Player* player) {
+    g_NetStru1_main.FUN_0051cefb(0x5C, g_ServerConfig.frag_limit, 0, player);
+}
 
 uint16_t Server::somewords[32][32];
 

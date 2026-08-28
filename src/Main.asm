@@ -260926,28 +260926,6 @@ sub_4F893C      endp
 
 ; Attributes: bp-based frame
 
-_sub_4FA768      proc near               ; CODE XREF: ?sub_4FA348@Server@@QAEXPAVCString@@H@Z+168↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                push    0
-                mov     ecx, ?g_ServerConfig@@3UServerConfig@@A+0ACh
-                push    ecx
-                push    5Ch ; '\'
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-_sub_4FA768      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
