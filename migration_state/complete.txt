@@ -1028,5 +1028,6 @@ _ReportWarning
 _StatLevelPoints
 _sub_43A857
 _sub_4F499B
+_sub_5499A6
 _WritePlayerFile_4F53EA
 _XorData

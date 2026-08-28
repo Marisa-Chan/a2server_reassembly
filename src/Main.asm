@@ -271388,7 +271388,7 @@ loc_5421E2:                             ; CODE XREF: ?sub_541FD7@Effect@@QAEHHH@
 
 ; Attributes: bp-based frame
 
-sub_5421FD      proc near               ; CODE XREF: sub_5499A6+6↓p
+_sub_5421FD      proc near               ; CODE XREF: sub_5499A6+6↓p
 
 var_4           = dword ptr -4
 
@@ -271402,7 +271402,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_5421FD      endp
+_sub_5421FD      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -272308,8 +272308,8 @@ sub_547F64      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_549372(char *Str1, int, int)
-sub_549372      proc near               ; CODE XREF: sub_5499A6+39↓p
+; int __cdecl _sub_549372(char *Str1, int, int)
+_sub_549372      proc near               ; CODE XREF: sub_5499A6+39↓p
 
 var_AC          = dword ptr -0ACh
 var_A8          = dword ptr -0A8h
@@ -272384,7 +272384,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_5493C7:                             ; CODE XREF: sub_549372+35↑j
+loc_5493C7:                             ; CODE XREF: _sub_549372+35↑j
                 mov     [ebp+var_18], 0
                 push    offset aWeapon_0 ; "Weapon"
                 mov     ecx, dword ptr [ebp+Str1]
@@ -272399,7 +272399,7 @@ loc_5493C7:                             ; CODE XREF: sub_549372+35↑j
                 test    edx, edx
                 jz      loc_549500
 
-loc_5493F9:                             ; CODE XREF: sub_549372+174↓j
+loc_5493F9:                             ; CODE XREF: _sub_549372+174↓j
                 mov     eax, dword ptr [ebp+var_20]
                 mov     [ebp+var_2C], eax
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -272415,13 +272415,13 @@ loc_5493F9:                             ; CODE XREF: sub_549372+174↓j
                 jmp     short loc_54942A
 ; ---------------------------------------------------------------------------
 
-loc_549420:                             ; CODE XREF: sub_549372+97↑j
+loc_549420:                             ; CODE XREF: _sub_549372+97↑j
                 mov     [ebp+var_90], 0
 
-loc_54942A:                             ; CODE XREF: sub_549372+AC↑j
+loc_54942A:                             ; CODE XREF: _sub_549372+AC↑j
                 mov     [ebp+var_20], 0
 
-loc_549431:                             ; CODE XREF: sub_549372+DE↓j
+loc_549431:                             ; CODE XREF: _sub_549372+DE↓j
                 push    2
                 lea     ecx, [ebp+var_1C]
                 push    ecx
@@ -272459,10 +272459,10 @@ loc_549431:                             ; CODE XREF: sub_549372+DE↓j
                 jmp     short loc_54949E
 ; ---------------------------------------------------------------------------
 
-loc_549494:                             ; CODE XREF: sub_549372+FE↑j
+loc_549494:                             ; CODE XREF: _sub_549372+FE↑j
                 mov     [ebp+var_94], 0
 
-loc_54949E:                             ; CODE XREF: sub_549372+120↑j
+loc_54949E:                             ; CODE XREF: _sub_549372+120↑j
                 mov     ecx, dword ptr [ebp+var_94]
                 mov     [ebp+var_34], ecx
 ;   } // starts at 549468
@@ -272485,7 +272485,7 @@ loc_54949E:                             ; CODE XREF: sub_549372+120↑j
                 jmp     loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_5494DD:                             ; CODE XREF: sub_549372+14C↑j
+loc_5494DD:                             ; CODE XREF: _sub_549372+14C↑j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     eax, dword ptr [edx+1Ch]
                 cmp     eax, [ebp+arg_4]
@@ -272497,7 +272497,7 @@ loc_5494DD:                             ; CODE XREF: sub_549372+14C↑j
                 jmp     loc_549892
 ; ---------------------------------------------------------------------------
 
-loc_549500:                             ; CODE XREF: sub_549372+81↑j
+loc_549500:                             ; CODE XREF: _sub_549372+81↑j
                 push    offset aArmor_1 ; "Armor"
                 mov     eax, dword ptr [ebp+Str1]
                 push    eax             ; Str1
@@ -272511,7 +272511,7 @@ loc_549500:                             ; CODE XREF: sub_549372+81↑j
                 test    ecx, ecx
                 jz      loc_549629
 
-loc_549531:                             ; CODE XREF: sub_549372+29D↓j
+loc_549531:                             ; CODE XREF: _sub_549372+29D↓j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     [ebp+var_40], edx
                 mov     eax, dword ptr [ebp+var_40]
@@ -272527,10 +272527,10 @@ loc_549531:                             ; CODE XREF: sub_549372+29D↓j
                 jmp     short loc_549562
 ; ---------------------------------------------------------------------------
 
-loc_549558:                             ; CODE XREF: sub_549372+1CF↑j
+loc_549558:                             ; CODE XREF: _sub_549372+1CF↑j
                 mov     [ebp+var_98], 0
 
-loc_549562:                             ; CODE XREF: sub_549372+1E4↑j
+loc_549562:                             ; CODE XREF: _sub_549372+1E4↑j
                 mov     [ebp+var_20], 0
                 push    3
                 lea     eax, [ebp+var_1C]
@@ -272565,10 +272565,10 @@ loc_549562:                             ; CODE XREF: sub_549372+1E4↑j
                 jmp     short loc_5495C7
 ; ---------------------------------------------------------------------------
 
-loc_5495BD:                             ; CODE XREF: sub_549372+227↑j
+loc_5495BD:                             ; CODE XREF: _sub_549372+227↑j
                 mov     [ebp+var_9C], 0
 
-loc_5495C7:                             ; CODE XREF: sub_549372+249↑j
+loc_5495C7:                             ; CODE XREF: _sub_549372+249↑j
                 mov     eax, dword ptr [ebp+var_9C]
                 mov     [ebp+var_48], eax
 ;   } // starts at 549591
@@ -272591,7 +272591,7 @@ loc_5495C7:                             ; CODE XREF: sub_549372+249↑j
                 jmp     loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_549606:                             ; CODE XREF: sub_549372+275↑j
+loc_549606:                             ; CODE XREF: _sub_549372+275↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     edx, dword ptr [ecx+1Ch]
                 cmp     edx, [ebp+arg_4]
@@ -272603,7 +272603,7 @@ loc_549606:                             ; CODE XREF: sub_549372+275↑j
                 jmp     loc_549892
 ; ---------------------------------------------------------------------------
 
-loc_549629:                             ; CODE XREF: sub_549372+1B9↑j
+loc_549629:                             ; CODE XREF: _sub_549372+1B9↑j
                 push    offset aShield_2 ; "Shield"
                 mov     edx, dword ptr [ebp+Str1]
                 push    edx             ; Str1
@@ -272617,7 +272617,7 @@ loc_549629:                             ; CODE XREF: sub_549372+1B9↑j
                 test    eax, eax
                 jz      loc_549751
 
-loc_549659:                             ; CODE XREF: sub_549372+3C5↓j
+loc_549659:                             ; CODE XREF: _sub_549372+3C5↓j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     [ebp+var_54], ecx
                 mov     edx, dword ptr [ebp+var_54]
@@ -272633,10 +272633,10 @@ loc_549659:                             ; CODE XREF: sub_549372+3C5↓j
                 jmp     short loc_54968A
 ; ---------------------------------------------------------------------------
 
-loc_549680:                             ; CODE XREF: sub_549372+2F7↑j
+loc_549680:                             ; CODE XREF: _sub_549372+2F7↑j
                 mov     [ebp+var_A0], 0
 
-loc_54968A:                             ; CODE XREF: sub_549372+30C↑j
+loc_54968A:                             ; CODE XREF: _sub_549372+30C↑j
                 mov     [ebp+var_20], 0
                 push    1
                 lea     eax, [ebp+var_1C]
@@ -272671,10 +272671,10 @@ loc_54968A:                             ; CODE XREF: sub_549372+30C↑j
                 jmp     short loc_5496EF
 ; ---------------------------------------------------------------------------
 
-loc_5496E5:                             ; CODE XREF: sub_549372+34F↑j
+loc_5496E5:                             ; CODE XREF: _sub_549372+34F↑j
                 mov     [ebp+var_A4], 0
 
-loc_5496EF:                             ; CODE XREF: sub_549372+371↑j
+loc_5496EF:                             ; CODE XREF: _sub_549372+371↑j
                 mov     eax, dword ptr [ebp+var_A4]
                 mov     [ebp+var_5C], eax
 ;   } // starts at 5496B9
@@ -272697,7 +272697,7 @@ loc_5496EF:                             ; CODE XREF: sub_549372+371↑j
                 jmp     loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_54972E:                             ; CODE XREF: sub_549372+39D↑j
+loc_54972E:                             ; CODE XREF: _sub_549372+39D↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     edx, dword ptr [ecx+1Ch]
                 cmp     edx, [ebp+arg_4]
@@ -272709,7 +272709,7 @@ loc_54972E:                             ; CODE XREF: sub_549372+39D↑j
                 jmp     loc_549892
 ; ---------------------------------------------------------------------------
 
-loc_549751:                             ; CODE XREF: sub_549372+2E1↑j
+loc_549751:                             ; CODE XREF: _sub_549372+2E1↑j
                 push    offset aPotion_0 ; "Potion"
                 mov     edx, dword ptr [ebp+Str1]
                 push    edx             ; Str1
@@ -272725,7 +272725,7 @@ loc_549751:                             ; CODE XREF: sub_549372+2E1↑j
                 cmp     [ebp+arg_8], 1F4h
                 jl      loc_54986B
 
-loc_54978E:                             ; CODE XREF: sub_549372+4E2↓j
+loc_54978E:                             ; CODE XREF: _sub_549372+4E2↓j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     [ebp+var_68], ecx
                 mov     edx, dword ptr [ebp+var_68]
@@ -272741,10 +272741,10 @@ loc_54978E:                             ; CODE XREF: sub_549372+4E2↓j
                 jmp     short loc_5497BF
 ; ---------------------------------------------------------------------------
 
-loc_5497B5:                             ; CODE XREF: sub_549372+42C↑j
+loc_5497B5:                             ; CODE XREF: _sub_549372+42C↑j
                 mov     [ebp+var_A8], 0
 
-loc_5497BF:                             ; CODE XREF: sub_549372+441↑j
+loc_5497BF:                             ; CODE XREF: _sub_549372+441↑j
                 mov     [ebp+var_20], 0
                 push    0Ch
                 call    _Random0N
@@ -272769,10 +272769,10 @@ loc_5497BF:                             ; CODE XREF: sub_549372+441↑j
                 jmp     short loc_54980F
 ; ---------------------------------------------------------------------------
 
-loc_549805:                             ; CODE XREF: sub_549372+479↑j
+loc_549805:                             ; CODE XREF: _sub_549372+479↑j
                 mov     [ebp+var_AC], 0
 
-loc_54980F:                             ; CODE XREF: sub_549372+491↑j
+loc_54980F:                             ; CODE XREF: _sub_549372+491↑j
                 mov     ecx, dword ptr [ebp+var_AC]
                 mov     [ebp+var_70], ecx
 ;   } // starts at 5497E3
@@ -272795,7 +272795,7 @@ loc_54980F:                             ; CODE XREF: sub_549372+491↑j
                 jmp     short loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_54984B:                             ; CODE XREF: sub_549372+4BD↑j
+loc_54984B:                             ; CODE XREF: _sub_549372+4BD↑j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     eax, dword ptr [edx+1Ch]
                 cmp     eax, [ebp+arg_4]
@@ -272807,7 +272807,7 @@ loc_54984B:                             ; CODE XREF: sub_549372+4BD↑j
                 jmp     short loc_549892
 ; ---------------------------------------------------------------------------
 
-loc_54986B:                             ; CODE XREF: sub_549372+409↑j
+loc_54986B:                             ; CODE XREF: _sub_549372+409↑j
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax             ; char *
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -272822,7 +272822,7 @@ loc_54986B:                             ; CODE XREF: sub_549372+409↑j
                 jmp     short loc_5498AA
 ; ---------------------------------------------------------------------------
 
-loc_549892:                             ; CODE XREF: sub_549372+189↑j
+loc_549892:                             ; CODE XREF: _sub_549372+189↑j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     [ebp+var_7C], edx
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -272830,21 +272830,21 @@ loc_549892:                             ; CODE XREF: sub_549372+189↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 mov     eax, dword ptr [ebp+var_7C]
 
-loc_5498AA:                             ; CODE XREF: sub_549372+50↑j
+loc_5498AA:                             ; CODE XREF: _sub_549372+50↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 549372
-sub_549372      endp
+_sub_549372      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_5498B8      proc near               ; CODE XREF: sub_549372+D2↑p
+sub_5498B8      proc near               ; CODE XREF: _sub_549372+D2↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -272954,113 +272954,6 @@ loc_549961:                             ; CODE XREF: sub_5498B8+E8↓j
                 pop     ebp
                 retn
 sub_5498B8      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl sub_5499A6(char *Str1, char *)
-_sub_5499A6      proc near               ; CODE XREF: ?VMethod20@Human@@UAEXXZ+3A↑p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = qword ptr -8
-Str1            = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 28h
-                call    sub_5421FD
-                fstp    [ebp+var_8]
-                fld     [ebp+var_8]
-                fcomp   qword ptr [dbl_60E9D8]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_5499EC
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+Str1]
-                push    ecx             ; int
-                push    ecx             ; Str1
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_C], esp
-                push    offset aWeapon_1 ; "Weapon"
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_1C], eax
-                call    sub_549372
-                add     esp, 0Ch
-                jmp     loc_549A79
-; ---------------------------------------------------------------------------
-
-loc_5499EC:                             ; CODE XREF: sub_5499A6+1C↑j
-                fld     [ebp+var_8]
-                fcomp   qword ptr [dbl_60E9E0]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_549A21
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+Str1]
-                push    eax             ; int
-                push    ecx             ; Str1
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_10], esp
-                push    offset aArmor_2 ; "Armor"
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_20], eax
-                call    sub_549372
-                add     esp, 0Ch
-                jmp     short loc_549A79
-; ---------------------------------------------------------------------------
-
-loc_549A21:                             ; CODE XREF: sub_5499A6+54↑j
-                fld     [ebp+var_8]
-                fcomp   qword ptr [dbl_60E9E8]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_549A56
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+Str1]
-                push    edx             ; int
-                push    ecx             ; Str1
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_14], esp
-                push    offset aShield_3 ; "Shield"
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_24], eax
-                call    sub_549372
-                add     esp, 0Ch
-                jmp     short loc_549A79
-; ---------------------------------------------------------------------------
-
-loc_549A56:                             ; CODE XREF: sub_5499A6+89↑j
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+Str1]
-                push    ecx             ; int
-                push    ecx             ; Str1
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_18], esp
-                push    offset aPotion_1 ; "Potion"
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_28], eax
-                call    sub_549372
-                add     esp, 0Ch
-
-loc_549A79:                             ; CODE XREF: sub_5499A6+41↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-_sub_5499A6      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -455713,7 +455606,7 @@ SEH_5480E3:                             ; DATA XREF: ??0Item@@QAE@ABVCString@@@Z
 ; } // starts at 603728
 ; END OF FUNCTION CHUNK FOR ??0Item@@QAE@ABVCString@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_549372
+; START OF FUNCTION CHUNK FOR _sub_549372
 
 loc_60377E:                             ; DATA XREF: .rdata:stru_625968↓o
 ; __unwind { // SEH_549372              ; varThis
@@ -455759,11 +455652,11 @@ loc_6037A5:                             ; DATA XREF: .rdata:00625988↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_549372:                             ; DATA XREF: sub_549372+5↑o
+SEH_549372:                             ; DATA XREF: _sub_549372+5↑o
                 mov     eax, offset stru_625948
                 jmp     ___CxxFrameHandler
 ; } // starts at 60377E
-; END OF FUNCTION CHUNK FOR sub_549372
+; END OF FUNCTION CHUNK FOR _sub_549372
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
@@ -469721,7 +469614,7 @@ dbl_60E9B0      dq 50.0                 ; DATA XREF: ?MagicPriceBonus@Effect@@SA
 dbl_60E9B8      dq 10.0                 ; DATA XREF: ?VMethod16@Effect@@UAEHN@Z+52↑r
 dbl_60E9C0      dq 500.0                ; DATA XREF: ?VMethod16@Effect@@UAEHN@Z+E7↑r
 dbl_60E9C8      dq 0.0                  ; DATA XREF: ?sub_541FD7@Effect@@QAEHHH@Z+97↑r
-dbl_60E9D0      dq 32767.0              ; DATA XREF: sub_5421FD+F↑r
+dbl_60E9D0      dq 32767.0              ; DATA XREF: _sub_5421FD+F↑r
 dbl_60E9D8      dq 0.4                  ; DATA XREF: sub_5499A6+11↑r
 dbl_60E9E0      dq 0.65                 ; DATA XREF: sub_5499A6+49↑r
 dbl_60E9E8      dq 0.8                  ; DATA XREF: sub_5499A6+7E↑r
@@ -497472,16 +497365,16 @@ aScroll         db 'Scroll',0           ; DATA XREF: sub_5482AB:loc_548346↑o
 ; char aSuperscroll[]
 aSuperscroll    db 'SuperScroll',0      ; DATA XREF: sub_5482AB:loc_548366↑o
 ; char aWeapon_0[]
-aWeapon_0       db 'Weapon',0           ; DATA XREF: sub_549372+5C↑o
+aWeapon_0       db 'Weapon',0           ; DATA XREF: _sub_549372+5C↑o
                 align 4
 ; char aArmor_1[]
-aArmor_1        db 'Armor',0            ; DATA XREF: sub_549372:loc_549500↑o
+aArmor_1        db 'Armor',0            ; DATA XREF: _sub_549372:loc_549500↑o
                 align 4
 ; char aShield_2[]
-aShield_2       db 'Shield',0           ; DATA XREF: sub_549372:loc_549629↑o
+aShield_2       db 'Shield',0           ; DATA XREF: _sub_549372:loc_549629↑o
                 align 4
 ; char aPotion_0[]
-aPotion_0       db 'Potion',0           ; DATA XREF: sub_549372:loc_549751↑o
+aPotion_0       db 'Potion',0           ; DATA XREF: _sub_549372:loc_549751↑o
                 align 4
 ; CHAR aWeapon_1[]
 aWeapon_1       db 'Weapon',0           ; DATA XREF: sub_5499A6+2C↑o

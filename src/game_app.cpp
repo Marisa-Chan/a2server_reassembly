@@ -785,6 +785,23 @@ extern "C" int32_t __cdecl Random1N(int32_t n) {
     return Random0N(n - 1) + 1;
 }
 
+// 5499A6
+// Create a random item (level = min value, max_gold = max value).
+extern "C" Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
+    double roll = sub_5421FD();
+    const char* category;
+    if (roll < 0.4) {
+        category = "Weapon";
+    } else if (roll < 0.65) {
+        category = "Armor";
+    } else if (roll < 0.8) {
+        category = "Shield";
+    } else {
+        category = "Potion";
+    }
+    return sub_549372(category, level, max_gold);
+}
+
 
 int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf)
 { //4761dd

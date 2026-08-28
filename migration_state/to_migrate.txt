@@ -6,6 +6,7 @@
 @sub_48A747@0	5
 ?GetLockCountSurf2@@YAHXZ	6
 _sub_5B6F30	12
+_sub_5421FD	14
 _sub_4FA768	20
 _sub_54C556	26
 ?SetMessageColors@@YAXI@Z	26
@@ -17,7 +18,6 @@ _sub_43A820	26
 _sub_5049D1	85
 ?SetVideoMode@@YAHXZ	87
 ?ParseTunes@@YAXXZ	99
-_sub_5499A6	99
 ?LoadFonts@@YAXXZ	134
 _sub_54F04F	139
 ?CopyScreenRectToBmp64@@YAXHHHHHHPAX@Z	148
@@ -25,6 +25,7 @@ _sub_54F04F	139
 ?InitVideo@@YAHXZ	191
 ?FUN_00475e7a@@YAXXZ	258
 _sub_54C6DD	453
+_sub_549372	528
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
 ?gfxFlushRect@@YAXABVCRect@@@Z	155
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335

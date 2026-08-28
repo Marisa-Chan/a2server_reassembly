@@ -112,7 +112,11 @@ extern "C" int32_t __cdecl Random0N(int32_t n); // returns [0, n]
 extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 
 // sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
-extern "C" Item* __cdecl sub_5499A6(int level, int max_gold);
+extern "C" Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold);
+
+// in asm
+extern "C" double __cdecl sub_5421FD();                                        // 5421FD - returns rand()/RAND_MAX in [0,1)
+extern "C" Item* __cdecl sub_549372(const char* category, int32_t min_val, int32_t max_val); // 549372 - create item of given category in value range
 
 
 struct ScenarioLocation
