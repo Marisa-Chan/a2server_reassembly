@@ -791,6 +791,31 @@ extern "C" int32_t __cdecl Random1N(int32_t n) {
     return Random0N(n - 1) + 1;
 }
 
+// 5498B8
+// Pick a random (shape_id, material_id, item_data_id) combo from an equip table, skipping empty shape/material slots.
+void __cdecl sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id) {
+    while (true) {
+        *item_data_id = Random0N(table->GetSize() - 1 - min_id) + min_id;
+        bool has_material = false;
+        for (int32_t i = 0; i < 7; i++) {
+            if ((*table)[*item_data_id].shape_material_matrix[i] != 0) {
+                has_material = true;
+            }
+        }
+        if (has_material) {
+            break;
+        }
+    }
+
+    do {
+        *shape_id = Random0N(7);
+    } while ((*table)[*item_data_id].shape_material_matrix.data()[*shape_id] == 0);
+
+    do {
+        *material_id = Random0N(0x10);
+    } while (((*table)[*item_data_id].shape_material_matrix.data()[*shape_id] & (1 << *material_id)) == 0);
+}
+
 // 549372
 // Create item of given category in price range.
 Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price) {
