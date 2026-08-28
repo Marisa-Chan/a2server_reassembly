@@ -261772,93 +261772,6 @@ sub_502B0C      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl _sub_5049D1(CString *)
-_sub_5049D1      proc near               ; CODE XREF: sub_502D0B+7CC↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-String          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = byte ptr -1Ch
-var_18          = byte ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 00601780 SIZE 00000013 BYTES
-
-; __unwind { // SEH_5049D1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_5049D1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_10], 1
-                push    20h ; ' '       ; char
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_14], eax
-                cmp     [ebp+var_14], 0
-                jz      short loc_504A85
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                lea     ecx, [ebp+var_18]
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_20], eax
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx]
-                mov     [ebp+String], eax
-                mov     ecx, dword ptr [ebp+String]
-                push    ecx             ; String
-                call    _atoi
-                add     esp, 4
-                mov     [ebp+var_10], eax
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                cmp     [ebp+var_10], 0
-                jle     short loc_504A7E
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                push    edx
-                lea     eax, [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_28], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ebp+var_2C], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_2C]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 504A5A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     short loc_504A85
-; ---------------------------------------------------------------------------
-
-loc_504A7E:                             ; CODE XREF: _sub_5049D1+6B↑j
-                mov     [ebp+var_10], 1
-
-loc_504A85:                             ; CODE XREF: _sub_5049D1+33↑j
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 5049D1
-_sub_5049D1      endp
 
 
 
@@ -452986,21 +452899,6 @@ SEH_502D0B:                             ; DATA XREF: sub_502D0B+5↑o
 ; } // starts at 601699
 ; END OF FUNCTION CHUNK FOR sub_502D0B
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR _sub_5049D1
-
-loc_601780:                             ; DATA XREF: .rdata:stru_622F28↓o
-; __unwind { // SEH_5049D1              ; varThis
-;   cleanup() // owned by 504A5A
-                lea     ecx, [ebp+var_1C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_5049D1:                             ; DATA XREF: _sub_5049D1+5↑o
-                mov     eax, offset stru_622F08
-                jmp     ___CxxFrameHandler
-; } // starts at 601780
-; END OF FUNCTION CHUNK FOR _sub_5049D1
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_504A96
 
@@ -484113,12 +484011,6 @@ stru_622E70     UnwindMapEntry <-1, offset loc_601699>
                 UnwindMapEntry <0, offset loc_601752>
                 UnwindMapEntry <0, offset loc_60175E>
                 UnwindMapEntry <0, offset loc_60176A>
-stru_622F08     FuncInfoV1 <19930520h, 1, offset stru_622F28, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_622F28     UnwindMapEntry <-1, offset loc_601780>
 stru_622F30     FuncInfoV1 <19930520h, 31, offset stru_622F50, 0, 0, 0, 0>
                 db    0
                 db    0

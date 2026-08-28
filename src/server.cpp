@@ -52,9 +52,22 @@ extern "C" int32_t StatLevelPoints(int32_t level) {
 extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID bits
 
-// sub_5049D1: Strip an optional leading integer count from *str (modifies str in-place),
+// 5049D1
+// Strip an optional leading integer count from *str (modifies str in-place),
 // returns the parsed count (or 1 if none present).
-extern "C" int32_t sub_5049D1(CString* str);
+extern "C" int32_t sub_5049D1(CString* str) {
+    int32_t count = 1;
+    int32_t pos = str->Find(' ');
+    if (pos != 0) {
+        count = atoi(str->Left(pos));
+        if (count <= 0) {
+            count = 1;
+        } else {
+            *str = str->Mid(pos + 1);
+        }
+    }
+    return count;
+}
 
 // ---- Helpers used by sub_4F1471 ----
 extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
