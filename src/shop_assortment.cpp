@@ -10,8 +10,6 @@
 #include "server.h"
 #include "table.h"
 
-extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts);
-
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
 
@@ -66,6 +64,36 @@ static int32_t __cdecl sub_54C42A(const void* a, const void* b) {
 // 54C556
 extern "C" void __cdecl sub_54C556(CArray<Item*>* arr) {
     qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), sub_54C42A);
+}
+
+// 54F04F
+extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts) {
+    Effect* effect = new Effect();
+    effect->effect_id = modifier::castspell;
+
+    int32_t attempts = 0;
+    int32_t result = 0;
+
+    while (attempts < max_attempts) {
+        attempts++;
+        if (is_warrior) {
+            effect->spell_or_damage = warrior_spells[Random0N(1)];
+        } else {
+            effect->spell_or_damage = mage_spells[Random0N(6)];
+        }
+        result = effect->sub_541FD7(budget, magic_volume);
+        if (result >= 0) {
+            break;
+        }
+    }
+
+    if (attempts >= max_attempts) {
+        delete effect;
+        return nullptr;
+    }
+
+    effect->VMethod17(result);
+    return effect;
 }
 
 // 54A13B

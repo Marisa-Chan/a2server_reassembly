@@ -273813,150 +273813,6 @@ loc_54EA66:                             ; CODE XREF: sub_54E5C7+33E↑j
 sub_54E5C7      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-_sub_54F04F      proc near               ; CODE XREF: ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z+FF↑p
-
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-Block           = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-
-; FUNCTION CHUNK AT 00603AB8 SIZE 00000014 BYTES
-
-; __unwind { // SEH_54F04F
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_54F04F
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 24h
-                push    48h ; 'H'       ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_54F091
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0Effect@@QAE@XZ
-                mov     [ebp+var_2C], eax
-                jmp     short loc_54F098
-; ---------------------------------------------------------------------------
-
-loc_54F091:                             ; CODE XREF: _sub_54F04F+33↑j
-                mov     [ebp+var_2C], 0
-
-loc_54F098:                             ; CODE XREF: _sub_54F04F+40↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_20], eax
-;   } // starts at 54F077
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     byte ptr [edx+3Ch], 29h ; ')'
-                mov     [ebp+var_18], 0
-
-loc_54F0B9:                             ; CODE XREF: _sub_54F04F+CE↓j
-                mov     eax, dword ptr [ebp+var_18]
-                cmp     eax, [ebp+arg_C]
-                jge     short loc_54F11F
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 1
-                mov     [ebp+var_18], ecx
-                cmp     [ebp+arg_0], 0
-                jz      short loc_54F0EB
-                push    1
-                call    _Random0N
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ax, ds:word_60E8E0[eax*4]
-                mov     [edx+40h], ax
-                jmp     short loc_54F104
-; ---------------------------------------------------------------------------
-
-loc_54F0EB:                             ; CODE XREF: _sub_54F04F+7F↑j
-                push    6
-                call    _Random0N
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dx, ds:word_60E8E8[eax*4]
-                mov     [ecx+40h], dx
-
-loc_54F104:                             ; CODE XREF: _sub_54F04F+9A↑j
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?sub_541FD7@Effect@@QAEHHH@Z
-                mov     [ebp+var_14], eax
-                cmp     [ebp+var_14], 0
-                jge     short loc_54F11F
-                jmp     short loc_54F0B9
-; ---------------------------------------------------------------------------
-
-loc_54F11F:                             ; CODE XREF: _sub_54F04F+70↑j
-                mov     edx, dword ptr [ebp+var_18]
-                cmp     edx, [ebp+arg_C]
-                jl      short loc_54F156
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_28], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ebp+var_24], ecx
-                cmp     [ebp+var_24], 0
-                jz      short loc_54F14B
-                push    1
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_30], eax
-                jmp     short loc_54F152
-; ---------------------------------------------------------------------------
-
-loc_54F14B:                             ; CODE XREF: _sub_54F04F+E8↑j
-                mov     [ebp+var_30], 0
-
-loc_54F152:                             ; CODE XREF: _sub_54F04F+FA↑j
-                xor     eax, eax
-                jmp     short loc_54F168
-; ---------------------------------------------------------------------------
-
-loc_54F156:                             ; CODE XREF: _sub_54F04F+D6↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [eax+54h]
-                mov     eax, dword ptr [ebp+var_10]
-
-loc_54F168:                             ; CODE XREF: _sub_54F04F+105↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 54F04F
-_sub_54F04F      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -454218,23 +454074,6 @@ SEH_54E5C7:                             ; DATA XREF: sub_54E5C7+5↑o
 ; } // starts at 603A90
 ; END OF FUNCTION CHUNK FOR sub_54E5C7
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR _sub_54F04F
-
-loc_603AB8:                             ; DATA XREF: .rdata:stru_625C78↓o
-; __unwind { // SEH_54F04F
-;   cleanup() // owned by 54F077
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_54F04F:                             ; DATA XREF: _sub_54F04F+5↑o
-                mov     eax, offset stru_625C58
-                jmp     ___CxxFrameHandler
-; } // starts at 603AB8
-; END OF FUNCTION CHUNK FOR _sub_54F04F
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?LoadInfo@Armor@@QAEXXZ
 
 loc_603B3D:                             ; DATA XREF: .rdata:stru_625D60↓o
@@ -483781,12 +483620,6 @@ stru_625C08     FuncInfoV1 <19930520h, 1, offset stru_625C28, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_625C28     UnwindMapEntry <-1, offset loc_603A90>
-stru_625C58     FuncInfoV1 <19930520h, 1, offset stru_625C78, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_625C78     UnwindMapEntry <-1, offset loc_603AB8>
 stru_625D40     FuncInfoV1 <19930520h, 2, offset stru_625D60, 0, 0, 0, 0>
                 db    0
                 db    0
