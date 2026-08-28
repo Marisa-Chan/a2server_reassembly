@@ -10,7 +10,6 @@
 #include "server.h"
 #include "table.h"
 
-extern "C" void __cdecl sub_54C556(CArray<Item*>* arr); // sort CArray<Item*>
 extern "C" Effect* __cdecl sub_54F04F(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts);
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
@@ -26,6 +25,47 @@ extern "C" void __cdecl sub_54C6DD(CArray<Item*>* arr, Item* item) {
         }
     }
     arr->SetAtGrow(arr->GetSize(), item);
+}
+
+// 54C42A
+static int32_t __cdecl sub_54C42A(const void* a, const void* b) {
+    Item* item_a = *(Item**)a;
+    Item* item_b = *(Item**)b;
+
+    int32_t warrior_a = 0;
+    if (item_a->item_type == 2 || item_a->item_type == 1 || item_a->item_type == 7) {
+        warrior_a = item_a->world_equip->Values()[0].other_param & 1;
+    }
+
+    int32_t warrior_b = 0;
+    if (item_b->item_type == 2 || item_b->item_type == 1 || item_b->item_type == 7) {
+        warrior_b = item_b->world_equip->Values()[0].other_param & 1;
+    }
+
+    if (warrior_a < warrior_b) {
+        return 1;
+    }
+    if (warrior_a > warrior_b) {
+        return -1;
+    }
+    if ((uint16_t)item_a->itemDataID > (uint16_t)item_b->itemDataID) {
+        return 1;
+    }
+    if ((uint16_t)item_a->itemDataID < (uint16_t)item_b->itemDataID) {
+        return -1;
+    }
+    if (item_a->_exp > item_b->_exp) {
+        return 1;
+    }
+    if (item_a->_exp < item_b->_exp) {
+        return -1;
+    }
+    return 0;
+}
+
+// 54C556
+extern "C" void __cdecl sub_54C556(CArray<Item*>* arr) {
+    qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), sub_54C42A);
 }
 
 // 54A13B
