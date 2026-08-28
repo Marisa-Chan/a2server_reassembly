@@ -2030,7 +2030,7 @@ extern _Random0N:proc     ; 542216
 extern _Random1N:proc     ; 54223F
 
 externdef _sub_5499A6 :proc   ; CreateRandomItem
-externdef _sub_549372 :proc   ; Item* sub_549372(const char* category, int min_val, int max_val)
+externdef _sub_5498B8 :proc   ; void sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id)
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 

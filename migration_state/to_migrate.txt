@@ -11,11 +11,11 @@ _sub_54C556	26
 _sub_43A820	26
 _sub_5049D1	85
 ?ParseTunes@@YAXXZ	99
+_sub_5498B8	109
 _sub_54F04F	139
 @sub_49585B@4	184
 ?FUN_00475e7a@@YAXXZ	258
 _sub_54C6DD	453
-_sub_549372	528
 ?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335

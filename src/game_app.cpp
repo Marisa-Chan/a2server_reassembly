@@ -791,6 +791,90 @@ extern "C" int32_t __cdecl Random1N(int32_t n) {
     return Random0N(n - 1) + 1;
 }
 
+// 549372
+// Create item of given category in price range.
+Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price) {
+    Item* item = nullptr;
+    if (max_price - min_price < 10) {
+        return nullptr;
+    }
+
+    int32_t attempts = 0;
+	int32_t shape_id, material_id, item_data_id;
+
+    if (category == "Weapon") {
+        while (true) {
+            delete item;
+            item = nullptr;
+
+            do {
+                sub_5498B8(&g_GameDataRes.weapons, &shape_id, &material_id, &item_data_id, 2);
+            } while (item_data_id == 0xD || item_data_id == 0xE);
+            item = new Weapon(shape_id, material_id, item_data_id);
+
+            if (attempts++ > 50) {
+                return item;
+            }
+
+            if (min_price <= item->_exp && item->_exp <= max_price) {
+                return item;
+            }
+        }
+    }
+
+    if (category == "Armor") {
+        while (true) {
+            delete item;
+            item = nullptr;
+
+            sub_5498B8(&g_GameDataRes.armors, &shape_id, &material_id, &item_data_id, 3);
+            item = new Armor(shape_id, material_id, item_data_id);
+
+            if (attempts++ > 50) {
+                return item;
+            }
+
+            if (min_price <= item->_exp && item->_exp <= max_price) {
+                return item;
+            }
+        }
+    }
+
+    if (category == "Shield") {
+        while (true) {
+            delete item;
+            item = nullptr;
+
+            sub_5498B8(&g_GameDataRes.shields, &shape_id, &material_id, &item_data_id, 1);
+            item = new Shield(shape_id, material_id, item_data_id);
+
+            if (attempts++ > 50) {
+                return item;
+            }
+
+            if (min_price <= item->_exp && item->_exp <= max_price) {
+                return item;
+            }
+        }
+    }
+
+    if (category == "Potion" && max_price >= 500) {
+        while (true) {
+            delete item;
+            item = new Item(0xE, Random0N(12) + 1);
+
+            if (attempts++ > 20) {
+                return item;
+            }
+            if (item->_exp >= min_price && item->_exp <= max_price) {
+                return item;
+            }
+        }
+    }
+
+    return sub_5499A6(min_price, max_price);
+}
+
 // 5499A6
 // Create a random item (level = min value, max_gold = max value).
 extern "C" Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {

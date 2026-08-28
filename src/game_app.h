@@ -114,9 +114,10 @@ extern "C" int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 // sub_5499A6: Create a random item (arg1 = level, arg2 = max_gold range).
 extern "C" Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold);
 
-// in asm
 extern "C" double __cdecl sub_5421FD();                                        // 5421FD - returns rand()/RAND_MAX in [0,1)
-extern "C" Item* __cdecl sub_549372(const char* category, int32_t min_val, int32_t max_val); // 549372 - create item of given category in value range
+Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price); // 549372 - create item of given category in price range
+// 5498B8 - pick a random (shape, material, item_data_id) combo from an equip table, skipping empty shape/material slots
+extern "C" void __cdecl sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id);
 
 
 struct ScenarioLocation
