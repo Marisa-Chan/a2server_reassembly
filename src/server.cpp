@@ -55,7 +55,7 @@ extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID b
 // 5049D1
 // Strip an optional leading integer count from *str (modifies str in-place),
 // returns the parsed count (or 1 if none present).
-extern "C" int32_t sub_5049D1(CString* str) {
+int32_t sub_5049D1(CString* str) {
     int32_t count = 1;
     int32_t pos = str->Find(' ');
     if (pos != 0) {
@@ -70,7 +70,14 @@ extern "C" int32_t sub_5049D1(CString* str) {
 }
 
 // ---- Helpers used by sub_4F1471 ----
-extern "C" CString* sub_43A820(CString* out, uint32_t value); // itoa -> CString
+// 43A820
+// itoa -> CString
+extern "C" CString* sub_43A820(CString* out, uint32_t value) {
+    char buf[21];
+    _itoa(value, buf, 10);
+    *out = buf;
+    return out;
+}
 extern "C" int dword_6CDB38; // File checksum global
 
 // ---- Helpers used by arena Server methods ----

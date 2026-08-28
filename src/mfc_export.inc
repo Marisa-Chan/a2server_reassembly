@@ -1891,7 +1891,7 @@ externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
 
 
 extern _StatLevelPoints:proc ; int32_t StatLevelPoints(int32_t) 5008CA
-externdef _sub_43A820 :proc                                     ; CString* sub_43A820(CString*, uint32_t) — itoa
+extern _sub_43A820 :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _dword_6CDB38 :dword                                  ; file checksum global
 externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data
 

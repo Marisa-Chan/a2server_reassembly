@@ -1055,6 +1055,7 @@ _Random0N
 _Random1N
 _ReportWarning
 _StatLevelPoints
+_sub_43A820
 _sub_43A857
 _sub_4F499B
 _sub_5499A6

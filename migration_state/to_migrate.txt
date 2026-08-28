@@ -8,7 +8,6 @@ _sub_5B6F30	12
 _sub_4FA768	20
 _sub_54C556	26
 ?SetMessageColors@@YAXI@Z	26
-_sub_43A820	26
 ?ParseTunes@@YAXXZ	99
 _sub_54F04F	139
 @sub_49585B@4	184

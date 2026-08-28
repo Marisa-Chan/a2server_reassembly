@@ -63943,34 +63943,6 @@ sub_43A7E0      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_43A820(CString *, int Value)
-_sub_43A820      proc near               ; CODE XREF: ?sub_4F1471@Server@@QAEHVCString@@@Z+177↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-Value           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], 0
-                push    0Ah             ; Radix
-                push    offset asc_62E498 ; "                    "
-                mov     eax, dword ptr [ebp+Value]
-                push    eax             ; Value
-                call    __itoa
-                add     esp, 0Ch
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     ecx, dword ptr [ebp+var_4]
-                or      ecx, 1
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     esp, ebp
-                pop     ebp
-                retn
-_sub_43A820      endp
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -488571,8 +488543,6 @@ aQuestTreasure  db 'Quest Treasure',0   ; DATA XREF: sub_43A6D5:loc_43A6EE↑o
                 db    0
                 db    0
                 db    0
-; char asc_62E498[]
-asc_62E498      db '                    ',0 ; DATA XREF: _sub_43A820+D↑o
                 align 10h
 aTurnDDPlayersO db 'Turn %d. %d players online',0
                 align 4
