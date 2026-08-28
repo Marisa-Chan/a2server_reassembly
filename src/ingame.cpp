@@ -17,6 +17,7 @@
 #include "quest_map.h"
 #include "file.h"
 #include "spell.h"
+#include "resource.h"
 
 
 uint16_t* clr_log_sblack = clrsh_ShockingBlack; //62f88c
@@ -3715,4 +3716,205 @@ void BigStruct2::ScrollMapY(int32_t dy)
 
 	if (field_0x7c + view_y > MapMaxX())
 		field_0x7c = MapMaxX() - view_y;
+}
+
+
+
+void LoadVfxData()
+{ //47b24e
+
+	RegFile reg("graphics\\units\\units.reg");
+
+	int32_t file_count = reg.GetInt("Global", "FileCount", 0);
+	int32_t unit_count = reg.GetInt("Global", "UnitCount", 0);
+
+	CString tmp;
+	for (int32_t i = 0; i < file_count; i++)
+	{
+		tmp.Format("File%d", i);
+		char buf[256];
+		buf[0] = 0;
+
+		reg.GetSizedString("Files", tmp, "", buf, sizeof(buf));
+		g_UnitGfxFiles.Add(new UnitGfxFile(buf));
+	}
+
+	for (int32_t i = 0; i < unit_count; i++)
+	{
+		g_mousept.Update();
+
+		tmp.Format("Unit%d", i);
+
+		UnitVFXUnfo* inf = new UnitVFXUnfo();
+		inf->ID = reg.GetInt(tmp, "ID", -1);
+		inf->N = i;
+
+		int32_t parentid = reg.GetInt(tmp, "Parent", -1);
+
+		UnitVFXUnfo* pinfo = nullptr;
+		CString ptmp;
+		if (parentid != -1)
+		{
+			pinfo = g_VFX_info[parentid];
+			ptmp.Format("Unit%d", pinfo->N);
+		}
+
+		int32_t t = -1;
+		if (pinfo)
+			t = pinfo->file;
+
+		inf->file = reg.GetInt(tmp, "File", pinfo != nullptr ? pinfo->file : -1);
+		inf->index = reg.GetInt(tmp, "Index", pinfo != nullptr ? pinfo->index : -1);
+		inf->move_phases = reg.GetInt(tmp, "MovePhases", pinfo != nullptr ? pinfo->move_phases : -1);
+		inf->move_begin_phases = reg.GetInt(tmp, "MoveBeginPhases", pinfo != nullptr ? pinfo->move_begin_phases : -1);
+		inf->attack_phases = reg.GetInt(tmp, "AttackPhases", pinfo != nullptr ? pinfo->attack_phases : -1);
+		inf->dying_phases = reg.GetInt(tmp, "DyingPhases", pinfo != nullptr ? pinfo->dying_phases : -1);
+		inf->bone_phases = reg.GetInt(tmp, "BonePhases", pinfo != nullptr ? pinfo->bone_phases : -1);
+		inf->idle_phases = reg.GetInt(tmp, "IdlePhases", pinfo != nullptr ? pinfo->idle_phases : 0);
+		inf->width = reg.GetInt(tmp, "Width", pinfo != nullptr ? pinfo->width : -1);
+		inf->height = reg.GetInt(tmp, "Height", pinfo != nullptr ? pinfo->height : -1);
+		inf->center_x = reg.GetInt(tmp, "CenterX", pinfo != nullptr ? pinfo->center_x : -1);
+		inf->center_y = reg.GetInt(tmp, "CenterY", pinfo != nullptr ? pinfo->center_y : -1);
+		inf->selection.left = reg.GetInt(tmp, "SelectionX1", pinfo != nullptr ? pinfo->selection.left : -1);
+		inf->selection.top = reg.GetInt(tmp, "SelectionY1", pinfo != nullptr ? pinfo->selection.top : -1);
+		inf->selection.right = reg.GetInt(tmp, "SelectionX2", pinfo != nullptr ? pinfo->selection.right : -1);
+		inf->selection.bottom = reg.GetInt(tmp, "SelectionY2", pinfo != nullptr ? pinfo->selection.bottom : -1);
+		inf->dying = reg.GetInt(tmp, "Dying", pinfo != nullptr ? pinfo->dying : 0);
+		inf->palette = reg.GetInt(tmp, "Palette", pinfo != nullptr ? pinfo->palette : 0);
+
+		reg.GetSizedString(tmp, "DescText", "", inf->desc_text, sizeof(inf->desc_text));
+
+		for (int j = 0; j < inf->palette; j++)
+		{
+			inf->palettes[j] = new CGamePalette();
+
+			CString pfile = g_UnitGfxFiles[inf->file]->fname;
+			pfile = pfile.Left(pfile.ReverseFind('\\'));
+			if (j == 0)
+				pfile += "\\palette.pal";
+			else
+			{
+				CString pf;
+				pf.Format("\\palette%d.pal", j + 1);
+				pfile += pf;
+			}
+
+			File2 f;
+			f.Open(pfile, CFile::modeRead);
+			f.Seek(0x36, CFile::begin);
+
+			inf->palette_datas[j] = new uint8_t[256 * 4];
+			f.Read(inf->palette_datas[j], 256 * 4);
+			f.Close();
+		}
+		
+		inf->flip = reg.GetInt(tmp, "Flip", pinfo != nullptr ? pinfo->flip : 0);
+
+		reg.GetInt32Array(tmp, "Sound", &inf->sound);
+		if (inf->sound.GetSize() == 0 && pinfo)
+			inf->sound.Copy(pinfo->sound);
+
+		inf->tile_size = reg.GetInt(tmp, "TileSize", pinfo != nullptr ? pinfo->tile_size : 1);
+		inf->projectile = reg.GetInt(tmp, "Projectile", pinfo != nullptr ? pinfo->projectile : 0);
+
+		reg.GetSizedString(tmp, "InfoPicture", "", inf->info_picture, sizeof(inf->info_picture));
+		if (strlen(inf->info_picture) == 0 && pinfo)
+			strcpy(inf->info_picture, pinfo->info_picture);
+
+		inf->shoot_delay = reg.GetInt(tmp, "ShootDelay", pinfo != nullptr ? pinfo->shoot_delay : 0);
+		inf->attack_delay = reg.GetInt(tmp, "AttackDelay", pinfo != nullptr ? pinfo->attack_delay : 0);
+		inf->z = reg.GetInt(tmp, "Z", pinfo != nullptr ? pinfo->z : 0);
+
+		reg.GetInt32Array(tmp, "ShootOffset", &inf->shoot_offset);
+		if (inf->shoot_offset.GetSize() == 0 && pinfo)
+			inf->shoot_offset.Copy(pinfo->shoot_offset);
+
+		CArray<uint32_t> local_2b4;
+		CArray<uint32_t> local_4d0;
+
+		reg.GetInt32Array(tmp, "MoveAnimTime", &local_2b4);
+		if (local_2b4.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "MoveAnimTime", &local_2b4);
+
+
+		reg.GetInt32Array(tmp, "MoveAnimFrame", &local_4d0);
+		if (local_4d0.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "MoveAnimFrame", &local_4d0);
+
+		for(int j = 0; j < local_4d0.GetSize() && j < local_2b4.GetSize(); j++)
+		{
+			int32_t count = local_2b4[j];
+			int32_t frame = local_4d0[j];
+
+			inf->move_anim_frames.InsertAt(inf->move_anim_frames.GetSize(), frame, count);
+		}
+		inf->move_anim_frame_cnt = inf->move_anim_frames.GetSize();
+
+
+		reg.GetInt32Array(tmp, "IdleAnimTime", &local_2b4);
+		if (local_2b4.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "IdleAnimTime", &local_2b4);
+
+
+		reg.GetInt32Array(tmp, "IdleAnimFrame", &local_4d0);
+		if (local_4d0.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "IdleAnimFrame", &local_4d0);
+
+		for (int j = 0; j < local_4d0.GetSize() && j < local_2b4.GetSize(); j++)
+		{
+			int32_t count = local_2b4[j];
+			int32_t frame = local_4d0[j];
+
+			inf->idle_anim_frames.InsertAt(inf->idle_anim_frames.GetSize(), frame, count);
+		}
+		inf->idle_anim_frame_cnt = inf->idle_anim_frames.GetSize();
+
+
+
+		reg.GetInt32Array(tmp, "AttackAnimTime", &local_2b4);
+		if (local_2b4.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "AttackAnimTime", &local_2b4);
+
+
+		reg.GetInt32Array(tmp, "AttackAnimFrame", &local_4d0);
+		if (local_4d0.GetSize() == 0 && pinfo)
+			reg.GetInt32Array(ptmp, "AttackAnimFrame", &local_4d0);
+
+		for (int j = 0; j < local_4d0.GetSize() && j < local_2b4.GetSize(); j++)
+		{
+			int32_t count = local_2b4[j];
+			int32_t frame = local_4d0[j];
+
+			inf->attack_anim_frames.InsertAt(inf->attack_anim_frames.GetSize(), frame, count);
+		}
+		inf->attack_anim_frame_cnt = inf->attack_anim_frames.GetSize();
+
+		g_VFX_info.SetAtGrow(inf->ID, inf);
+	}
+
+	File2 f;
+	f.Open("graphics\\units\\humans\\human.pal", CFile::modeRead);
+	f.Read(g_human_pals_data, 16 * 4 * 256);
+	f.Close();
+
+	for (int i = 0; i < 16; i++)
+	{
+		CGamePalette* pal = new CGamePalette();
+
+		pal->SetPalette(g_human_pals_data[i], 16, 2, 1);
+		g_Human_palettes.Add(pal);
+
+		for (int j = 0; j < 8; j++)
+		{
+			g_colors_human_pals[i][j * 2] = pal->GetPalette(15 - j)[164];
+			g_colors_human_pals[i][j * 2 + 1] = pal->GetPalette(15 - j)[164];
+		}
+
+		if (i == 15)
+		{
+			pal = new CGamePalette();
+			pal->SetPalette(g_human_pals_data[0], 16, 5, 0);
+			g_Human_palettes.Add(pal);
+		}
+	}
 }

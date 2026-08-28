@@ -1351,6 +1351,43 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
     {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++)
+            array->SetAt(i, *(uint32_t*)(pdata + node->offset + i * 4));
+
+        return 1;
+    }
+
+    if (tp == 1)
+    {
+        array->SetSize(1);
+        array->SetAt(0, node->offset);
+        return 1;
+    }
+
+    if (tp == 0 && node->size <= 1)
+    {
+        array->RemoveAll();
+        return 1;
+    }
+
+    throw std::runtime_error("not an int array associated with specified key");
+    return 0;
+}
+
+int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array)
+{
+    //4eae99
+    //4eafb6 same?
+    FatEntry* nodePath = Find(&root, fpath);
+    FatEntry* node = Find(nodePath, fname);
+
+    if (node == nullptr)
+        return 0;
+
+    int tp = (node->flags & 0xe) >> 1;
+    if (tp == 3)
+    {
+        array->SetSize(node->size / 4);
+        for (int i = 0; i < node->size / 4; i++)
             array->SetAt(i, *(int32_t*)(pdata + node->offset + i * 4));
 
         return 1;

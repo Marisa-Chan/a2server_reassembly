@@ -89,7 +89,8 @@ uint16_t g_ColorAddMask; //660f60
 
 uint8_t g_TerrainHelper[128][128]; //659d20
 
-
+RGBQUAD g_human_pals_data[16][256]; //661118
+CArray<CGamePalette*> g_Human_palettes; //6610c8
 
 CBmp64* g_bmp_t_back = nullptr; //0066512c
 CBmp64* g_bmp_crystalr = nullptr; //00665348

@@ -23,20 +23,25 @@ extern SfxBank SoundBank_peasant[2]; //6663d8
 extern SfxBank SoundBank_other[12]; //665ec8
 
 void FreeDSound(); //45c7c5
+void LoadGameSounds(); //4c8217
+
 
 class SfxSample : public CObject
 {
 public:
+	SfxSample() {}; //45b7d7
+	SfxSample(const char* fname) { filename = fname; } //45b842
 
+	~SfxSample(); //45b8c2
 
 	void Play(int volume, int pan, int loop, uint8_t priority, int freq); //45c0cf
 	void Release(); //45ba0f
 	SoundChannel* FindPlayingChannel(); //45c004
 public:
-	uint32_t field_0x4;
+	uint32_t field_0x4 = 0;
 	CString filename;
-	int32_t loaded;
-	IDirectSoundBuffer** buffers;
+	int32_t loaded = 0;
+	IDirectSoundBuffer** buffers = nullptr;
 };
 ASSERT_SIZE(SfxSample, 0x14);
 
@@ -162,6 +167,9 @@ class SfxBank : public CObject
 public:
 	SfxBank() {}; //4c87ef
 	~SfxBank() {}; //4c9480
+
+	void Load(CString name); //4c880e
+	void Unload(); //4c926b
 public:
 	SfxSample* select[4];
 	SfxSample* attack[4];

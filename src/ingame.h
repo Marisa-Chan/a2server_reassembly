@@ -26,11 +26,39 @@ extern CGamePalette* g_pal_projectiles; //665490
 extern CGamePalette* g_pal_projectile_; //665494
 extern CA16* g_spr_smoke[2]; //6610f8
 
+
+void LoadVfxData(); //47b24e
+
+
 class UnitVFXUnfo : public CObject
 {
 public:
-	virtual ~UnitVFXUnfo();
-	UnitVFXUnfo();
+	virtual ~UnitVFXUnfo()
+	{ //47ccb4
+		if (palette)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				if (palettes[i])
+				{
+					delete palettes[i];
+					palettes[i] = nullptr;
+				}
+
+				if (palette_datas[i])
+				{
+					delete[] palette_datas[i];
+					palette_datas[i] = nullptr;
+				}
+			}
+		}
+	}
+
+	UnitVFXUnfo()
+	{ //47cb20
+		palettes.fill(nullptr);
+		palette_datas.fill(nullptr);
+	}
 
 public:
 	int32_t ID;
@@ -58,11 +86,11 @@ public:
 	int32_t palette;
 	std::array <CGamePalette*, 8> palettes;
 	std::array<uint8_t*, 8> palette_datas;
-	CArray<int32_t> sound;
+	CArray<uint32_t> sound;
 	int32_t tile_size;
 	int32_t projectile;
 	char info_picture[16];
-	CArray<int32_t> shoot_offset;
+	CArray<uint32_t> shoot_offset;
 	int32_t shoot_delay;
 	int32_t attack_delay;
 	int32_t z;

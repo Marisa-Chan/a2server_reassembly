@@ -1,6 +1,7 @@
 #include "sound.h"
 #include "main_window.h"
 #include "file.h"
+#include "resource.h"
 
 IDirectSound* g_dsound = nullptr; //65dd84
 int32_t g_dsound_channel_num = 0; //65ddd8
@@ -70,6 +71,30 @@ void SoundChannel::Stop()
 	}
 }
 
+SfxSample::~SfxSample()
+{ //45b8c2
+	if (g_dsound && loaded)
+	{
+		if (buffers)
+		{
+			for (int i = 0; i < g_dsound_channel_num; i++)
+			{
+				DWORD status;
+				buffers[i]->GetStatus(&status);
+
+				if (status & DSBSTATUS_PLAYING)
+					buffers[i]->Stop();
+
+				for (int j = 0; j < g_dsound_channel_num; j++)
+				{
+					if (g_dsound_channels[j].pbuffer == buffers[i])
+						g_dsound_channels[j].pbuffer = nullptr;
+				}
+			}
+		}
+		Release();
+	}
+}
 
 void SfxSample::Release()
 { //45ba0f
@@ -552,6 +577,105 @@ void MusicPlayer::BeginFadeOut(int32_t len, int32_t vol)
 	}
 }
 
+void SfxBank::Load(CString name)
+{ //4c880e
+	select_count = 0;
+	attack_count = 0;
+	move_count = 0;
+	swarm_count = 0;
+
+	File2 f;
+	for (int i = 0; i < 4; i++)
+	{
+		CString fname;
+		fname.Format("sfx\\characters\\%s\\select\\%d.wav", name, i + 1);
+		select[i] = new SfxSample(fname);
+		if (f.Open(fname, CFile::modeRead))
+		{
+			f.Close();
+			select_count++;
+		}
+
+		fname.Format("sfx\\characters\\%s\\attack\\%d.wav", name, i + 1);
+		attack[i] = new SfxSample(fname);
+		if (f.Open(fname, CFile::modeRead))
+		{
+			f.Close();
+			attack_count++;
+		}
+
+		fname.Format("sfx\\characters\\%s\\move\\%d.wav", name, i + 1);
+		move[i] = new SfxSample(fname);
+		if (f.Open(fname, CFile::modeRead))
+		{
+			f.Close();
+			move_count++;
+		}
+
+		fname.Format("sfx\\characters\\%s\\swarm\\%d.wav", name, i + 1);
+		swarm[i] = new SfxSample(fname);
+		if (f.Open(fname, CFile::modeRead))
+		{
+			f.Close();
+			swarm_count++;
+		}
+	}
+
+	retreat = new SfxSample("sfx\\characters\\" + name + "\\retreat\\1.wav");
+	defend = new SfxSample("sfx\\characters\\" + name + "\\defend\\1.wav");
+	pickup = new SfxSample("sfx\\characters\\" + name + "\\pickup\\1.wav");
+	easy = new SfxSample("sfx\\characters\\" + name + "\\easy\\1.wav");
+	hard = new SfxSample("sfx\\characters\\" + name + "\\hard\\1.wav");
+	dead = new SfxSample("sfx\\characters\\" + name + "\\dead\\1.wav");
+}
+
+void SfxBank::Unload()
+{ //4c926b
+	select_count = 0;
+	attack_count = 0;
+	move_count = 0;
+	swarm_count = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (select[i])
+			delete select[i];
+		select[i] = nullptr;
+
+		if (attack[i])
+			delete attack[i];
+		attack[i] = nullptr;
+
+		if (move[i])
+			delete move[i];
+		move[i] = nullptr;
+
+		if (swarm[i])
+			delete swarm[i];
+		swarm[i] = nullptr;
+	}
+
+	if (retreat)
+		delete retreat;
+	retreat = nullptr;
+	if (defend)
+		delete defend;
+	defend = nullptr;
+	if (pickup)
+		delete pickup;
+	pickup = nullptr;
+	if (easy)
+		delete easy;
+	easy = nullptr;
+	if (hard)
+		delete hard;
+	hard = nullptr;
+	if (dead)
+		delete dead;
+	dead = nullptr;
+}
+
+
 
 void FreeDSound()
 { //45c7c5
@@ -562,3 +686,57 @@ void FreeDSound()
 		delete[] g_dsound_channels;
 	g_dsound_channels = nullptr;
 }
+
+void LoadGameSounds()
+{ //4c8217
+	RegFile res("sfx\\sfx.reg");
+
+	int32_t sfx_count = res.GetInt("Global", "SfxCount", 0);
+
+	g_SfxArray.SetSize(sfx_count + 1);
+
+	CString tmp;
+	for (int32_t i = 1; i <= sfx_count; i++)
+	{
+		tmp.Format("Sfx%d", i);
+		char str[256];
+		str[0] = '\0';
+		res.GetSizedString("Sfx", tmp, "", str, sizeof(str));
+		CString sname = str;
+		if (!sname.IsEmpty())
+		{
+			CString fname = "sfx\\";
+			fname += sname;
+			fname += ".wav";
+			g_SfxArray.SetAt(i, new SfxSample(fname));
+		}
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		static const char* names[] =
+		{"m_fighter",
+		 "f_fighter",
+		"m_mage",
+		"f_mage",
+		"m_peasant",
+		"f_peasant"};
+
+		SoundBank_fighter[i].Load(names[i]);
+		SoundBank_mage[i].Load(names[2 + i]);
+		SoundBank_peasant[i].Load(names[4 + i]);
+	}
+
+	SoundBank_other[0].Load("aldor");
+	SoundBank_other[1].Load("sagita");
+	SoundBank_other[2].Load("hildarius");
+	SoundBank_other[3].Load("galinel");
+	SoundBank_other[4].Load("igles");
+	SoundBank_other[5].Load("dina");
+	SoundBank_other[6].Load("xbow");
+	SoundBank_other[7].Load("knight");
+	SoundBank_other[8].Load("druid");
+	SoundBank_other[9].Load("troll");
+	SoundBank_other[10].Load("orc");
+	SoundBank_other[11].Load("mage");
+}
+

@@ -81,6 +81,7 @@ struct ResBase {
     int GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array);
     int GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array);
     int GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array);
+    int GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array);
 
     int GetStringArray(const char* fpath, const char* fname, CStringArray* array);
 

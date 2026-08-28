@@ -2071,6 +2071,9 @@ extern ?g_RBitMask@@3HA  :word
 extern ?g_GBitMask@@3HA  :word
 extern ?g_BBitMask@@3HA  :word
 
+extern ?g_human_pals_data@@3PAY0BAA@UtagRGBQUAD@@A : byte
+extern ?g_Human_palettes@@3V?$CArray@PAVCGamePalette@@ABQAV1@@@A : dword
+
 
 extern ?p_clrsh_Black@@3PAGA  :dword
 extern ?p_clrsh_ShockingBlack@@3PAGA  :dword
@@ -2156,8 +2159,15 @@ extern ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z: proc
 extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 
 ;sound
+extern ??0SfxSample@@QAE@PBD@Z : proc
+extern ??1SfxSample@@UAE@XZ : proc
 externdef ?Play@CSound@@SAXAAU1@@Z :proc
 externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
+
+extern ?LoadGameSounds@@YAXXZ : proc
+
+extern ?Load@SfxBank@@QAEXVCString@@@Z : proc
+extern ?Unload@SfxBank@@QAEXXZ : proc
 
 extern ?FreeDSound@@YAXXZ : proc
 
@@ -2242,6 +2252,9 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 
 ;CGameObject
+
+extern ?LoadVfxData@@YAXXZ : proc
+
 extern ?g_CUnitMaterialSpritePaths@@3VCStringArray@@A : dword
 extern ?IsSelected@CGameObject@@QAEHXZ : proc
 

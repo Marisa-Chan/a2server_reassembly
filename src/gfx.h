@@ -1,6 +1,7 @@
 #pragma once
 
 #include "asm_mfc.h"
+#include "mfc_templ.h"
 
 
 
@@ -10,6 +11,7 @@ class CGameFont;
 class CBmp64;
 class CBmp256;
 class CA16;
+class CGamePalette;
 
 
 extern CRect g_ScreenSize; //65fb78
@@ -112,6 +114,9 @@ extern uint16_t* g_brightnessLookup; //65dd20
 extern uint32_t g_brightnessLookupCount; //659bf0
 
 extern uint32_t g_isLowMemory; //660f58
+
+extern RGBQUAD g_human_pals_data[16][256]; //661118
+extern CArray<CGamePalette*> g_Human_palettes; //6610c8
 
 
 void GetClipRect(CRect* r); //454a0c
