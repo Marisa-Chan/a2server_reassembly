@@ -278,7 +278,7 @@ externdef ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z :proc                
 externdef ?sub_54C08A@ShopAssortment@@QAEXXZ :proc  ; void ShopAssortment::sub_54C08A()
 externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
 externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
-externdef _sub_54C6DD :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
+extern _sub_54C6DD :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
 externdef _sub_54C556 :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
 externdef _sub_54F04F :proc  ; Effect* __cdecl sub_54F04F(int, int, int, int)
 externdef ?sub_541FD7@Effect@@QAEHHH@Z :proc  ; int32_t Effect::sub_541FD7(int, int)

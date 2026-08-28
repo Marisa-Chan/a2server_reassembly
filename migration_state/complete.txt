@@ -1059,5 +1059,6 @@ _sub_43A820
 _sub_43A857
 _sub_4F499B
 _sub_5499A6
+_sub_54C6DD
 _WritePlayerFile_4F53EA
 _XorData
