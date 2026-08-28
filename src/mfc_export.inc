@@ -2030,7 +2030,6 @@ extern _Random0N:proc     ; 542216
 extern _Random1N:proc     ; 54223F
 
 externdef _sub_5499A6 :proc   ; CreateRandomItem
-externdef _sub_5421FD :proc   ; double sub_5421FD() - rand()/RAND_MAX in [0,1)
 externdef _sub_549372 :proc   ; Item* sub_549372(const char* category, int min_val, int max_val)
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc

@@ -770,6 +770,12 @@ void SrandInit()
 	srand(timeGetTime());
 }
 
+// 5421FD
+// Returns rand() / 32767.0 in [0, 1].
+extern "C" double __cdecl sub_5421FD() {
+    return (double)rand() / 32767.0;
+}
+
 // 542216
 // Returns a uniform integer in [0, n].
 extern "C" int32_t __cdecl Random0N(int32_t n) {

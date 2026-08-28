@@ -271384,25 +271384,6 @@ loc_5421E2:                             ; CODE XREF: ?sub_541FD7@Effect@@QAEHHH@
 ?sub_541FD7@Effect@@QAEHHH@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-_sub_5421FD      proc near               ; CODE XREF: sub_5499A6+6↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                call    _rand
-                mov     [ebp+var_4], eax
-                fild    [ebp+var_4]
-                fdiv    qword ptr [dbl_60E9D0]
-                mov     esp, ebp
-                pop     ebp
-                retn
-_sub_5421FD      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -469613,8 +469594,7 @@ dbl_60E9A8      dq 70.0                 ; DATA XREF: ?MagicPriceBonus@Effect@@SA
 dbl_60E9B0      dq 50.0                 ; DATA XREF: ?MagicPriceBonus@Effect@@SA_JH@Z+2A↑r
 dbl_60E9B8      dq 10.0                 ; DATA XREF: ?VMethod16@Effect@@UAEHN@Z+52↑r
 dbl_60E9C0      dq 500.0                ; DATA XREF: ?VMethod16@Effect@@UAEHN@Z+E7↑r
-dbl_60E9C8      dq 0.0                  ; DATA XREF: ?sub_541FD7@Effect@@QAEHHH@Z+97↑r
-dbl_60E9D0      dq 32767.0              ; DATA XREF: _sub_5421FD+F↑r
+dbl_60E9C8      dq 0.0                  ; DATA XREF: ?sub_541FD7@Effect@@QAEHHH@Z+38↑r
 dbl_60E9D8      dq 0.4                  ; DATA XREF: sub_5499A6+11↑r
 dbl_60E9E0      dq 0.65                 ; DATA XREF: sub_5499A6+49↑r
 dbl_60E9E8      dq 0.8                  ; DATA XREF: sub_5499A6+7E↑r
