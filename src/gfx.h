@@ -2,6 +2,7 @@
 
 #include "asm_mfc.h"
 #include "mfc_templ.h"
+#include "2darray.h"
 
 
 
@@ -117,6 +118,8 @@ extern uint32_t g_isLowMemory; //660f58
 
 extern RGBQUAD g_human_pals_data[16][256]; //661118
 extern CArray<CGamePalette*> g_Human_palettes; //6610c8
+
+extern Array2D<CBmp256*, 4, 32> g_ter_tiles; //665130
 
 
 void GetClipRect(CRect* r); //454a0c

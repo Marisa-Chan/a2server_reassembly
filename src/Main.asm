@@ -5875,7 +5875,7 @@ loc_40502E:                             ; CODE XREF: sub_404E1A+1D6↑j
                 mov     edx, dword ptr [ebp+var_68]
                 shl     edx, 4
                 mov     eax, dword ptr [ebp+var_4C]
-                mov     ecx, dword_665130[edx+eax*4]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx+eax*4]
                 mov     [ebp+var_5C], ecx
                 mov     edx, dword ptr [ebp+var_48]
                 mov     eax, dword ptr [ebp+var_14]
@@ -6371,7 +6371,7 @@ loc_4056A7:                             ; CODE XREF: sub_405399+307↑j
                 mov     ecx, dword ptr [ebp+var_60]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_40]
-                mov     eax, dword_665130[ecx+edx*4]
+                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 mov     [ebp+var_54], eax
                 mov     ecx, dword ptr [ebp+var_44]
                 cmp     ecx, [ebp+var_50]
@@ -6770,7 +6770,7 @@ loc_405ADF:                             ; CODE XREF: sub_40587B+226↑j
                 mov     ecx, dword ptr [ebp+var_70]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_54]
-                mov     eax, dword_665130[ecx+edx*4]
+                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 mov     [ebp+var_64], eax
                 mov     ecx, dword ptr [ebp+var_50]
                 mov     edx, dword ptr [ebp+var_18]
@@ -7378,7 +7378,7 @@ loc_40614D:                             ; CODE XREF: sub_405D0E+3F5↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_60]
-                mov     eax, dword_665130[ecx+edx*4]
+                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 mov     [ebp+var_70], eax
                 mov     ecx, dword ptr [ebp+var_50]
                 mov     edx, dword ptr [ebp+var_14]
@@ -95634,12 +95634,12 @@ loc_45BC1E:                             ; CODE XREF: sub_45BA94+151↑j
                 mov     cx, [eax]
                 cmp     ecx, 2
                 jnz     short loc_45BC9C
-                mov     ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A+10h, offset g_pwfxDst
+                mov     ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A+10h, offset ?g_SoundFmt@@3UtWAVEFORMATEX@@A
                 push    0               ; fdwOpen
                 push    0               ; dwInstance
                 push    0               ; dwCallback
                 push    0               ; pwfltr
-                push    offset g_pwfxDst  ; pwfxDst
+                push    offset ?g_SoundFmt@@3UtWAVEFORMATEX@@A  ; pwfxDst
                 mov     edx, dword ptr [ebp+pwfxSrc]
                 push    edx             ; pwfxSrc
                 push    0               ; had
@@ -96343,254 +96343,6 @@ loc_45C450:                             ; CODE XREF: sub_45C408+E↑j
 sub_45C408      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl sub_45C489(int, int, LPCGUID pcGuidDevice)
-sub_45C489      proc near               ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+64↓p
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-pcGuidDevice    = dword ptr  10h
-
-; FUNCTION CHUNK AT 005F9F18 SIZE 00000015 BYTES
-
-; __unwind { // SEH_45C489
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45C489
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     word ptr [g_pwfxDst], 1 ; g_pwfxDst.wFormatTag
-                mov     word ptr [g_pwfxDst+2], 1 ; g_pwfxDst.nChannels
-                mov     dword ptr [g_pwfxDst+4], 5622h ; g_pwfxDst.nSamplesPerSec
-                mov     word ptr [g_pwfxDst+0Ch], 2 ; g_pwfxDst.nBlockAlign
-                xor     eax, eax
-                mov     ax, word ptr [g_pwfxDst+0Ch] ; g_pwfxDst.nBlockAlign
-                imul    eax, dword ptr [g_pwfxDst+4] ; g_pwfxDst.nSamplesPerSec
-                mov     dword ptr [g_pwfxDst+8], eax ; g_pwfxDst.nAvgBytesPerSec
-                mov     word ptr [g_pwfxDst+0Eh], 10h ; g_pwfxDst.wBitsPerSample
-                mov     word ptr [g_pwfxDst+10h], 0 ; g_pwfxDst.cbSize
-                call    timeGetTime
-                push    eax             ; Seed
-                call    _srand
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ?g_dsound_hwnd@@3PAUHWND__@@A, ecx
-                push    0               ; pUnkOuter
-                push    offset ?g_dsound@@3PAUIDirectSound@@A     ; ppDS
-                mov     edx, dword ptr [ebp+pcGuidDevice]
-                push    edx             ; pcGuidDevice
-                call    DirectSoundCreate
-                mov     [ebp+var_10], eax
-                mov     ?g_dsound_channels@@3PAVSoundChannel@@A, 0
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     ?g_dsound_channel_num@@3HA, eax
-                cmp     [ebp+var_10], 0
-                jz      short loc_45C544
-                mov     [?g_dsound@@3PAUIDirectSound@@A], 0
-                mov     eax, dword ptr [ebp+var_10]
-                jmp     loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C544:                             ; CODE XREF: sub_45C489+A7↑j
-                push    3
-                mov     ecx, ?g_dsound_hwnd@@3PAUHWND__@@A
-                push    ecx
-                mov     edx, [?g_dsound@@3PAUIDirectSound@@A]
-                mov     eax, dword ptr [edx]
-                mov     ecx, [?g_dsound@@3PAUIDirectSound@@A]
-                push    ecx
-                call    dword ptr [eax+18h]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jz      short loc_45C575
-                call    ?FreeDSound@@YAXXZ
-                mov     eax, dword ptr [ebp+var_10]
-                jmp     loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C575:                             ; CODE XREF: sub_45C489+DD↑j
-                mov     edx, ?g_dsound_channel_num@@3HA
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_14]
-                shl     eax, 4
-                add     eax, 4
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_45C5CF
-                push    offset sub_45CC60 ; void (__thiscall *)(void *)
-                push    offset sub_45CC20 ; void (__thiscall *)(void *)
-                mov     ecx, dword ptr [ebp+Block]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx], edx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax             ; int
-                push    10h             ; unsigned int
-                mov     ecx, dword ptr [ebp+Block]
-                add     ecx, 4
-                push    ecx             ; void *
-                call    ??_L@YGXPAXIHP6EX0@Z1@Z ; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))
-                mov     edx, dword ptr [ebp+Block]
-                add     edx, 4
-                mov     [ebp+var_20], edx
-                jmp     short loc_45C5D6
-; ---------------------------------------------------------------------------
-
-loc_45C5CF:                             ; CODE XREF: sub_45C489+115↑j
-                mov     [ebp+var_20], 0
-
-loc_45C5D6:                             ; CODE XREF: sub_45C489+144↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     [ebp+var_1C], eax
-;   } // starts at 45C593
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     ?g_dsound_channels@@3PAVSoundChannel@@A, ecx
-                push    14h             ; varSize
-                push    0               ; Val
-                push    offset ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A, 14h
-                mov     ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A+4h, 1
-                mov     [?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A+8h], 0
-                mov     ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A+10h, 0
-                push    0
-                push    offset dword_65DD88
-                push    offset ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A
-                mov     edx, [?g_dsound@@3PAUIDirectSound@@A]
-                mov     eax, dword ptr [edx]
-                mov     ecx, [?g_dsound@@3PAUIDirectSound@@A]
-                push    ecx
-                call    dword ptr [eax+0Ch]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jz      short loc_45C659
-                call    ?FreeDSound@@YAXXZ
-                mov     eax, dword ptr [ebp+var_10]
-                jmp     loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C659:                             ; CODE XREF: sub_45C489+1C1↑j
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A, 1
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+2, 2
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+4h, 5622h
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch, 4
-                xor     edx, edx
-                mov     dx, word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch
-                imul    edx, ?g_dsound_format@@3UtWAVEFORMATEX@@A+4h
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h, edx
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch+2, 10h
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+10h, 0
-                push    offset ?g_dsound_format@@3UtWAVEFORMATEX@@A
-                mov     eax, dword_65DD88
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword_65DD88
-                push    edx
-                call    dword ptr [ecx+38h]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jnz     short loc_45C6CC
-                xor     eax, eax
-                jmp     loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C6CC:                             ; CODE XREF: sub_45C489+23A↑j
-                mov     ax, word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch+2
-                shr     ax, 1
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch+2, ax
-                mov     ecx, ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h
-                shr     ecx, 1
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h, ecx
-                mov     dx, word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch
-                shr     dx, 1
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch, dx
-                push    offset ?g_dsound_format@@3UtWAVEFORMATEX@@A
-                mov     eax, dword_65DD88
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword_65DD88
-                push    edx
-                call    dword ptr [ecx+38h]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jnz     short loc_45C720
-                xor     eax, eax
-                jmp     loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C720:                             ; CODE XREF: sub_45C489+28E↑j
-                mov     ax, word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+2
-                shr     ax, 1
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+2, ax
-                mov     cx, word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch
-                shr     cx, 1
-                mov     word ptr ?g_dsound_format@@3UtWAVEFORMATEX@@A+0Ch, cx
-                mov     edx, ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h
-                shr     edx, 1
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h, edx
-                push    offset ?g_dsound_format@@3UtWAVEFORMATEX@@A
-                mov     eax, dword_65DD88
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword_65DD88
-                push    edx
-                call    dword ptr [ecx+38h]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jnz     short loc_45C771
-                xor     eax, eax
-                jmp     short loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C771:                             ; CODE XREF: sub_45C489+2E2↑j
-                mov     eax, ?g_dsound_format@@3UtWAVEFORMATEX@@A+4h
-                shr     eax, 1
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+4h, eax
-                mov     ecx, ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h
-                shr     ecx, 1
-                mov     ?g_dsound_format@@3UtWAVEFORMATEX@@A+8h, ecx
-                push    offset ?g_dsound_format@@3UtWAVEFORMATEX@@A
-                mov     edx, dword_65DD88
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword_65DD88
-                push    ecx
-                call    dword ptr [eax+38h]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jnz     short loc_45C7AF
-                xor     eax, eax
-                jmp     short loc_45C7B7
-; ---------------------------------------------------------------------------
-
-loc_45C7AF:                             ; CODE XREF: sub_45C489+320↑j
-                call    ?FreeDSound@@YAXXZ
-                mov     eax, dword ptr [ebp+var_10]
-
-loc_45C7B7:                             ; CODE XREF: sub_45C489+B6↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45C489
-sub_45C489      endp
-
 
 
 
@@ -96812,7 +96564,7 @@ sub_45CBE0      endp
 ; Attributes: bp-based frame
 
 ; void __thiscall sub_45CC20(void *)
-sub_45CC20      proc near               ; DATA XREF: sub_45C489+11C↑o
+sub_45CC20      proc near               ; DATA XREF: ?InitSound@@YAHPAUHWND__@@HI@Z+11C↑o
 
 var_4           = dword ptr -4
 
@@ -130548,12 +130300,12 @@ loc_477C39:                             ; CODE XREF: sub_477B59+D5↑j
                 mov     edx, dword ptr [ebp+var_30]
                 shl     edx, 4
                 mov     eax, dword ptr [ebp+var_34]
-                cmp     dword_665130[edx+eax*4], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx+eax*4], 0
                 jz      short loc_477CA6
                 mov     ecx, dword ptr [ebp+var_30]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword_665130[ecx+edx*4]
+                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 mov     [ebp+var_254], eax
                 mov     ecx, dword ptr [ebp+var_254]
                 mov     [ebp+var_250], ecx
@@ -130636,7 +130388,7 @@ loc_477D54:                             ; CODE XREF: sub_477B59+1EF↑j
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_34]
                 mov     eax, dword ptr [ebp+var_25C]
-                mov     dword_665130[ecx+edx*4], eax
+                mov     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4], eax
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Update@CMousePointer@@QAEXXZ 
                 jmp     loc_477C30
@@ -130662,12 +130414,12 @@ loc_477DA0:                             ; CODE XREF: sub_477B59+23C↑j
                 mov     edx, dword ptr [ebp+var_30]
                 shl     edx, 4
                 mov     eax, dword ptr [ebp+var_34]
-                cmp     dword_665130[edx+eax*4], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx+eax*4], 0
                 jz      short loc_477E1D
                 mov     ecx, dword ptr [ebp+var_30]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword_665130[ecx+edx*4]
+                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 mov     [ebp+var_264], eax
                 mov     ecx, dword ptr [ebp+var_264]
                 mov     [ebp+var_260], ecx
@@ -130689,7 +130441,7 @@ loc_477E09:                             ; CODE XREF: sub_477B59+2A4↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_34]
-                mov     dword_665130[ecx+edx*4], 0
+                mov     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4], 0
 
 loc_477E1D:                             ; CODE XREF: sub_477B59+25E↑j
                 jmp     loc_477D97
@@ -130764,12 +130516,12 @@ loc_477ECA:                             ; CODE XREF: sub_477B59+366↑j
                 mov     eax, dword ptr [ebp+var_30]
                 shl     eax, 4
                 mov     ecx, dword ptr [ebp+var_34]
-                cmp     dword_665130[eax+ecx*4], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax+ecx*4], 0
                 jz      short loc_477F37
                 mov     edx, dword ptr [ebp+var_30]
                 shl     edx, 4
                 mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword_665130[edx+eax*4]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx+eax*4]
                 mov     [ebp+var_274], ecx
                 mov     edx, dword ptr [ebp+var_274]
                 mov     [ebp+var_270], edx
@@ -130852,7 +130604,7 @@ loc_477FE5:                             ; CODE XREF: sub_477B59+480↑j
                 shl     eax, 4
                 mov     ecx, dword ptr [ebp+var_34]
                 mov     edx, dword ptr [ebp+var_27C]
-                mov     dword_665130[eax+ecx*4], edx
+                mov     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax+ecx*4], edx
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Update@CMousePointer@@QAEXXZ 
                 jmp     loc_477EC1
@@ -130878,12 +130630,12 @@ loc_478031:                             ; CODE XREF: sub_477B59+4CD↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_34]
-                cmp     dword_665130[ecx+edx*4], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4], 0
                 jz      short loc_4780AE
                 mov     eax, dword ptr [ebp+var_30]
                 shl     eax, 4
                 mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword_665130[eax+ecx*4]
+                mov     edx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax+ecx*4]
                 mov     [ebp+var_284], edx
                 mov     eax, dword ptr [ebp+var_284]
                 mov     [ebp+var_280], eax
@@ -130905,7 +130657,7 @@ loc_47809A:                             ; CODE XREF: sub_477B59+535↑j
                 mov     eax, dword ptr [ebp+var_30]
                 shl     eax, 4
                 mov     ecx, dword ptr [ebp+var_34]
-                mov     dword_665130[eax+ecx*4], 0
+                mov     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax+ecx*4], 0
 
 loc_4780AE:                             ; CODE XREF: sub_477B59+4EF↑j
                 jmp     loc_478028
@@ -130930,18 +130682,18 @@ loc_4780CA:                             ; CODE XREF: sub_477B59+566↑j
                 jge     short loc_478113
                 mov     eax, dword ptr [ebp+var_30]
                 shl     eax, 4
-                cmp     dword_665130[eax], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax], 0
                 jz      short loc_478111
                 push    1
                 push    3
                 push    60h ; '`'
                 mov     ecx, dword ptr [ebp+var_30]
                 shl     ecx, 4
-                mov     ecx, dword_665130[ecx]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx]
                 call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
                 mov     edx, dword ptr [ebp+var_30]
                 shl     edx, 4
-                mov     ecx, dword_665130[edx]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx]
                 call    unknown_libname_424 ; MFC 3.1-14.0 32bit
                 mov     ecx, dword ptr [ebp+var_30]
                 mov     dword_661018[ecx*4], eax
@@ -131008,24 +130760,6 @@ loc_478180:                             ; CODE XREF: ?FUN_00478130@MainWindow@@Q
                 pop     ebp
                 retn
 ?FUN_00478130@MainWindow@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_478184      proc near               ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+1E↓p
-                push    ebp
-                mov     ebp, esp
-                push    200h            ; varSize
-                push    0               ; Val
-                push    offset dword_665130 ; void *
-                call    _memset
-                add     esp, 0Ch
-                pop     ebp
-                retn
-sub_478184      endp
-
 
 
 
@@ -131540,12 +131274,12 @@ loc_47F81A:                             ; CODE XREF: sub_47F7E3+2C↑j
                 mov     edx, dword ptr [ebp+var_8]
                 shl     edx, 4
                 mov     eax, dword ptr [ebp+var_C]
-                cmp     dword_665130[edx+eax*4], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx+eax*4], 0
                 jz      short loc_47F850
                 mov     ecx, dword ptr [ebp+var_8]
                 shl     ecx, 4
                 mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword_665130[ecx+edx*4]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
                 call    unknown_libname_588 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, eax
@@ -131925,18 +131659,18 @@ loc_47FC9D:                             ; CODE XREF: sub_47FA75+21D↑j
                 jge     short loc_47FCE6
                 mov     edx, dword ptr [ebp+var_10]
                 shl     edx, 4
-                cmp     dword_665130[edx], 0
+                cmp     ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx], 0
                 jz      short loc_47FCE4
                 push    1
                 push    3
                 push    60h ; '`'
                 mov     eax, dword ptr [ebp+var_10]
                 shl     eax, 4
-                mov     ecx, dword_665130[eax]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[eax]
                 call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
                 mov     ecx, dword ptr [ebp+var_10]
                 shl     ecx, 4
-                mov     ecx, dword_665130[ecx]
+                mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx]
                 call    unknown_libname_424 ; MFC 3.1-14.0 32bit
                 mov     edx, dword ptr [ebp+var_10]
                 mov     dword_661018[edx*4], eax
@@ -136949,133 +136683,6 @@ var_4           = dword ptr -4
                 retn
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?LoadData@MainWindow@@QAEXXZ(_DWORD)
-?LoadData@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?InitInstance@GameApp@@UAEHXZ+DE0↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FB959 SIZE 0000001E BYTES
-
-; __unwind { // SEH_483D64
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_483D64
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_24], ecx
-                call    sub_478184
-                call    ?LoadCursors@@YAXXZ
-                call    ?LoadGraphics@@YAXXZ
-                push    0
-                push    0
-                call    ?LoadVfxData@@YAXXZ
-                add     esp, 8
-                call    ?LoadGameSounds@@YAXXZ
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Paint@CMousePointer@@QAEXXZ
-                push    0               ; pcGuidDevice
-                push    10h             ; int
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    sub_45A690
-                push    eax             ; int
-                call    sub_45C489
-                add     esp, 0Ch
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jz      short loc_483DE3
-                mov     ?g_SoundSettings@@3USoundSettings@@A+020h, 0
-
-loc_483DE3:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+73↑j
-                cmp     ?g_isLowMemory@@3IA, 0
-                jz      short loc_483E3A
-                push    0A0h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_483E18
-                push    56000h
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0MusicPlayer@@QAE@H@Z
-                mov     [ebp+var_28], eax
-                jmp     short loc_483E1F
-; ---------------------------------------------------------------------------
-
-loc_483E18:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+A0↑j
-                mov     [ebp+var_28], 0
-
-loc_483E1F:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+B2↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_18], eax
-;   } // starts at 483DF9
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ecx+0C8h], edx
-                jmp     short loc_483E86
-; ---------------------------------------------------------------------------
-
-loc_483E3A:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+86↑j
-                push    0A0h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_1C], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_1C], 0
-                jz      short loc_483E66
-                push    0AC000h
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??0MusicPlayer@@QAE@H@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_483E6D
-; ---------------------------------------------------------------------------
-
-loc_483E66:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+EE↑j
-                mov     [ebp+var_2C], 0
-
-loc_483E6D:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+100↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_20], eax
-;   } // starts at 483E47
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ebp+var_20]
-                mov     [ecx+0C8h], edx
-
-loc_483E86:                             ; CODE XREF: ?LoadData@MainWindow@@QAEXXZ+D4↑j
-                mov     eax, ?g_SoundSettings@@3USoundSettings@@A+08h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ecx+0C8h]
-                call    ?SetVolume@MusicPlayer@@QAEXH@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 483D64
-?LoadData@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -438307,7 +437914,7 @@ SEH_45BA94:                             ; DATA XREF: sub_45BA94+5↑o
 ; } // starts at 5F9F05
 ; END OF FUNCTION CHUNK FOR sub_45BA94
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_45C489
+; START OF FUNCTION CHUNK FOR ?InitSound@@YAHPAUHWND__@@HI@Z
 
 loc_5F9F18:                             ; DATA XREF: .rdata:stru_61AC40↓o
 ; __unwind { // SEH_45C489
@@ -438319,11 +437926,11 @@ loc_5F9F18:                             ; DATA XREF: .rdata:stru_61AC40↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_45C489:                             ; DATA XREF: sub_45C489+5↑o
+SEH_45C489:                             ; DATA XREF: ?InitSound@@YAHPAUHWND__@@HI@Z+5↑o
                 mov     eax, offset stru_61AC20
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9F18
-; END OF FUNCTION CHUNK FOR sub_45C489
+; END OF FUNCTION CHUNK FOR ?InitSound@@YAHPAUHWND__@@HI@Z
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_45CCA0
@@ -500292,11 +499899,8 @@ dword_65DD2C    dd ?                    ; DATA XREF: sub_4553DB+13A↑w
 g_pash            tACMSTREAMHEADER <>    ; DATA XREF: sub_45BA94+2FE↑o
 
 
-dword_65DD88    dd ?                    ; DATA XREF: sub_45C489+19E↑o
+dword_65DD88    dd ?                    ; DATA XREF: ?InitSound@@YAHPAUHWND__@@HI@Z+19E↑o
                 align 10h
-; struct tWAVEFORMATEX pwfxDst
-g_pwfxDst         tWAVEFORMATEX <>       ; DATA XREF: sub_45BA94+1C5↑o
-                align 4
 
 
 ; HACMSTREAM has
@@ -500358,10 +499962,6 @@ dword_661018    dd ?                    ; DATA XREF: sub_404E1A+2F8↑r
                 db 7Ch dup(?)
 
 
-
-
-dword_665130    dd ?                    ; DATA XREF: sub_404E1A+21D↑r
-                db 1FCh dup(?)
 
 dword_665344    dd ?                    ; DATA XREF: sub_404E1A+286↑r
 

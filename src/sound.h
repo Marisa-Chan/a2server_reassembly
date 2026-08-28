@@ -22,6 +22,7 @@ extern SfxBank SoundBank_mage[2]; //665dd8
 extern SfxBank SoundBank_peasant[2]; //6663d8
 extern SfxBank SoundBank_other[12]; //665ec8
 
+int InitSound(HWND hwnd, int channels); //45c489
 void FreeDSound(); //45c7c5
 void LoadGameSounds(); //4c8217
 
@@ -49,14 +50,16 @@ ASSERT_SIZE(SfxSample, 0x14);
 class SoundChannel : public CObject
 {
 public:
+	SoundChannel() = default; //45cc20
+	~SoundChannel() = default; //45cc60
 
 	void Clear(); //41fdd0
 	void Stop(); //41ff90
 public:
-	uint8_t priority;
+	uint8_t priority = 0;
 	uint8_t __pad[3];
-	IDirectSoundBuffer* pbuffer;
-	SfxSample* psample;
+	IDirectSoundBuffer* pbuffer = nullptr;
+	SfxSample* psample = nullptr;
 };
 ASSERT_SIZE(SoundChannel, 0x10);
 

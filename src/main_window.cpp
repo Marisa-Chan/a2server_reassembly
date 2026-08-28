@@ -499,6 +499,29 @@ MainWindow::~MainWindow()
     delete field_0x348;
 }
 
+
+
+void MainWindow::LoadData()
+{ //483d64
+
+    g_ter_tiles.fill(nullptr);
+    LoadCursors();
+    LoadGraphics();
+    LoadVfxData();
+    LoadGameSounds();
+    g_Cursors[CURSOR_DEFAULT]->Use();
+    g_mousept.Paint();
+
+    if (InitSound(AfxGetMainWnd()->m_hWnd, 16) != 0)
+        g_SoundSettings.field_0x20 = 0;
+
+    music_player = new MusicPlayer(g_isLowMemory == 0 ? 0xac000 : 0x56000);
+    music_player->SetVolume(g_SoundSettings.mus_pos);
+}
+
+
+
+
 void MainWindow::SetControlPositions()
 { //484127
     CRect r;

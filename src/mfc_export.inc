@@ -1394,7 +1394,7 @@ extern ?vis_scr_rect@@3VCRect@@A : dword
 extern ??0MainWindow@@QAE@XZ : proc
 extern ??1MainWindow@@UAE@XZ : proc
 externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
-externdef ?LoadData@MainWindow@@QAEXXZ  : proc
+extern ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
@@ -2010,7 +2010,7 @@ extern ?g_bmp_testiva@@3PAVCBmp256@@A  : dword
 
 
 
-
+extern ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A : dword
 
 extern ?g_font1@@3PAVCGameFont@@A : dword
 extern ?g_font2@@3PAVCGameFont@@A : dword
@@ -2170,6 +2170,9 @@ extern ?Load@SfxBank@@QAEXVCString@@@Z : proc
 extern ?Unload@SfxBank@@QAEXXZ : proc
 
 extern ?FreeDSound@@YAXXZ : proc
+
+extern ?g_SoundFmt@@3UtWAVEFORMATEX@@A : dword
+
 
 extern ?Release@SfxSample@@QAEXXZ : proc
 extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc

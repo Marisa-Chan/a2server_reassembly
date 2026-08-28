@@ -4,6 +4,7 @@
 #include "resource.h"
 
 IDirectSound* g_dsound = nullptr; //65dd84
+IDirectSoundBuffer* g_dsound_buffer = nullptr; //65dd88
 int32_t g_dsound_channel_num = 0; //65ddd8
 SoundChannel* g_dsound_channels = nullptr; //65dda4
 
@@ -26,6 +27,8 @@ SfxBank SoundBank_fighter[2]; //6664b0
 SfxBank SoundBank_mage[2]; //665dd8
 SfxBank SoundBank_peasant[2]; //6663d8
 SfxBank SoundBank_other[12]; //665ec8
+
+WAVEFORMATEX g_SoundFmt; //65dd90
 
 
 SoundSettings::SoundSettings()
@@ -676,6 +679,84 @@ void SfxBank::Unload()
 }
 
 
+int InitSound(HWND hwnd, int channels)
+{ //45c489
+	g_SoundFmt.wFormatTag = 1;
+	g_SoundFmt.nChannels = 1;
+	g_SoundFmt.nSamplesPerSec = 22050;
+	g_SoundFmt.nBlockAlign = 2;
+	g_SoundFmt.nAvgBytesPerSec = 44100;
+	g_SoundFmt.wBitsPerSample = 16;
+	g_SoundFmt.cbSize = 0;
+
+	srand(timeGetTime());
+
+	g_dsound_hwnd = hwnd;
+
+	g_dsound_channels = nullptr;
+	g_dsound_channel_num = channels;
+
+	if (FAILED(DirectSoundCreate(nullptr, &g_dsound, 0)))
+	{
+		g_dsound = nullptr;
+		return -1;
+	}
+
+	if (FAILED(g_dsound->SetCooperativeLevel(g_dsound_hwnd, DSSCL_EXCLUSIVE)))
+	{
+		FreeDSound();
+		return -1;
+	}
+
+	g_dsound_channels = new SoundChannel[g_dsound_channel_num];
+
+	memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
+	g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
+	g_dsound_buff_desc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+	g_dsound_buff_desc.dwBufferBytes = 0;
+	g_dsound_buff_desc.lpwfxFormat = nullptr;
+
+	if (FAILED(g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, &g_dsound_buffer, 0)))
+	{
+		FreeDSound();
+		return -1;
+	}
+
+	g_dsound_format.wFormatTag = 1;
+	g_dsound_format.nChannels = 2;
+	g_dsound_format.nSamplesPerSec = 22050;
+	g_dsound_format.nBlockAlign = 4;
+	g_dsound_format.nAvgBytesPerSec = 88200;
+	g_dsound_format.wBitsPerSample = 16;
+	g_dsound_format.cbSize = 0;
+
+	if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
+	{
+		g_dsound_format.wBitsPerSample /= 2;
+		g_dsound_format.nAvgBytesPerSec /= 2;
+		g_dsound_format.nBlockAlign /= 2;
+
+		if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
+		{
+			g_dsound_format.nChannels /= 2;
+			g_dsound_format.nBlockAlign /= 2;
+			g_dsound_format.nAvgBytesPerSec /= 2;
+
+			if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
+			{
+				g_dsound_format.nSamplesPerSec /= 2;
+				g_dsound_format.nAvgBytesPerSec /= 2;
+				if (FAILED(g_dsound_buffer->SetFormat(&g_dsound_format)))
+				{
+					FreeDSound();
+					return -1;
+				}
+			}
+		}
+	}
+	
+	return 0;
+}
 
 void FreeDSound()
 { //45c7c5
