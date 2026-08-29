@@ -26418,66 +26418,6 @@ sub_41EDD0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0041edf0@MapPlayerData@@QAEHH@Z      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+5D2F↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 38h ; '8'
-                call    sub_41EA10
-                xor     ecx, ecx
-                mov     cx, [eax]
-                mov     eax, ecx
-                and     eax, 4
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041edf0@MapPlayerData@@QAEHH@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?FUN_0041ee20@MapPlayerData@@QAEIH@Z      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+2EC7↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 38h ; '8'
-                call    sub_41EA10
-                xor     ecx, ecx
-                mov     cx, [eax]
-                mov     eax, ecx
-                and     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041ee20@MapPlayerData@@QAEIH@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_41EE50      proc near               ; CODE XREF: sub_406F7B+17D7↑p
 
 var_4           = dword ptr -4

@@ -20,6 +20,16 @@ MapPlayerData::MapPlayerData(int32_t index, int32_t color) {
     this->diplomacy.SetSize(0x20, -1);
 }
 
+// 41EDF0
+int32_t MapPlayerData::FUN_0041edf0(int32_t idx) {
+    return this->diplomacy[idx] & 4;
+}
+
+// 41EE20
+uint32_t MapPlayerData::FUN_0041ee20(int32_t idx) {
+    return this->diplomacy[idx] & 1;
+}
+
 // 56E910
 MapLogicData::MapLogicData() {
     this->name[0] = '\0';

@@ -178,8 +178,6 @@
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
-?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
-?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
 ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z	44
 ?Begin@Perf@@QAEXXZ	14
 ??0Perf@@QAE@XZ	28
