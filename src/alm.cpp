@@ -30,6 +30,11 @@ uint32_t MapPlayerData::FUN_0041ee20(int32_t idx) {
     return this->diplomacy[idx] & 1;
 }
 
+// 41EE50
+int32_t MapPlayerData::FUN_0041ee50(int32_t idx) {
+    return this->diplomacy[idx] & 8;
+}
+
 // 56E910
 MapLogicData::MapLogicData() {
     this->name[0] = '\0';
@@ -519,9 +524,4 @@ MapAlm::~MapAlm() {
     for (int32_t i = 0; i < this->music_info.GetSize(); i++) {
         delete this->music_info[i];
     }
-}
-
-int32_t MapPlayerData::FUN_0041ee50(int32_t idx)
-{ //41ee50
-    return diplomacy[idx] & 8;
 }

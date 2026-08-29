@@ -423,6 +423,7 @@
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z
+?FUN_0041ee50@MapPlayerData@@QAEHH@Z
 ?FUN_0041f180@CGameObject@@QAEXH@Z
 ?FUN_0041f6b0@BigStruct2@@QAEHXZ
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z

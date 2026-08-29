@@ -9907,7 +9907,7 @@ loc_408708:                             ; CODE XREF: sub_406F7B+1675↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [eax+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      loc_40888D
 
@@ -26410,36 +26410,6 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn    4
 sub_41EDD0      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_41EE50      proc near               ; CODE XREF: sub_406F7B+17D7↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 38h ; '8'
-                call    sub_41EA10
-                xor     ecx, ecx
-                mov     cx, [eax]
-                mov     eax, ecx
-                and     eax, 8
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_41EE50      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -99710,7 +99680,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     edx, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [edx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_462B6B
                 mov     eax, dword ptr [ebp+var_20]
@@ -103721,7 +103691,7 @@ loc_4653BA:                             ; CODE XREF: sub_464974+A30↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [eax+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_465501
                 mov     ecx, dword ptr [ebp+var_48]
@@ -103968,7 +103938,7 @@ loc_46566F:                             ; CODE XREF: sub_464974+A16↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [eax+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_4657F6
                 mov     ecx, dword ptr [ebp+var_48]
@@ -105077,7 +105047,7 @@ loc_4662B5:                             ; CODE XREF: sub_465B5A+754↑j
                 push    ecx
                 mov     edx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [edx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_466457
                 mov     eax, dword ptr [ebp+var_28]
@@ -105370,7 +105340,7 @@ loc_4665A3:                             ; CODE XREF: sub_465B5A+73D↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      loc_4667F1
                 cmp     [ebp+var_50], 0
@@ -105719,7 +105689,7 @@ loc_466A97:                             ; CODE XREF: sub_466A78+18↑j
                 push    eax
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ecx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jnz     short loc_466AD2
                 jmp     loc_467617
@@ -106725,7 +106695,7 @@ loc_467661:                             ; CODE XREF: sub_46761E+3C↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jnz     short loc_467690
                 jmp     loc_46783E
@@ -110545,7 +110515,7 @@ loc_469ECF:                             ; CODE XREF: sub_469E67+25↑j
                 push    ecx
                 mov     edx, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [edx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_469EFC
                 mov     eax, dword ptr [ebp+var_18]
@@ -112225,7 +112195,7 @@ loc_46C1DF:                             ; CODE XREF: sub_46C124+B0↑j
                 push    eax
                 mov     ecx, dword ptr [ebp+var_30]
                 mov     ecx, dword ptr [ecx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_46C202
                 mov     [ebp+var_78], 7
@@ -113586,7 +113556,7 @@ loc_46D198:                             ; CODE XREF: sub_46D0F7+96↑j
                 push    eax
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ecx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      short loc_46D1BB
                 mov     [ebp+var_18], 7
@@ -194693,7 +194663,7 @@ loc_4B1EC2:                             ; CODE XREF: sub_4B19B0+504↑j
                 push    ecx
                 mov     edx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [edx+9CCh]
-                call    sub_41EE50
+                call    ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
                 test    eax, eax
                 jz      loc_4B1FD9
 

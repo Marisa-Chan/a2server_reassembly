@@ -2314,6 +2314,7 @@ extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F
 extern ?FUN_0041ee20@MapPlayerData@@QAEIH@Z : proc  ; MapPlayerData::FUN_0041ee20 41EE20
 extern ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc  ; MapPlayerData::FUN_0041edf0 41EDF0
+extern ?FUN_0041ee50@MapPlayerData@@QAEHH@Z : proc  ; MapPlayerData::FUN_0041ee50 41EE50
 
 ;UnitVFXInfo
 extern ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A : byte
