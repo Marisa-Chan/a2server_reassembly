@@ -3,7 +3,6 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-@sub_48A747@0	5
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 @sub_49585B@4	184
@@ -181,7 +180,6 @@
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z	21
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z	21
-??0MapPlayerData@@QAE@XZ	48
 ??0MapPlayerData@@QAE@HH@Z	62
 ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z	44
 ?Begin@Perf@@QAEXXZ	14

@@ -35,8 +35,8 @@ public:
     CWordArray diplomacy;
 
 public:
-    MapPlayerData();
-    MapPlayerData(int32_t plid, int32_t arg2);
+    MapPlayerData(); // 43c040
+    MapPlayerData(int32_t plid, int32_t arg2); // 43c17f
 
     uint32_t FUN_0041ee20(int32_t idx);
     int32_t FUN_0041edf0(int32_t idx);

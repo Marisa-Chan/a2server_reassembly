@@ -380,7 +380,6 @@ void CFameHall::SubmitScore()
 extern "C"
 {
     void __fastcall sub_49585B(CWnd* obj);
-    void __fastcall sub_48A747();
 };
 
 

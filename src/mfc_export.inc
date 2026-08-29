@@ -1424,7 +1424,6 @@ extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall F
 extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
 externdef @sub_49585B@4 :proc
-externdef @sub_48A747@0 :proc
 
 externdef ?FUN_00475e7a@@YAXXZ  :proc
 
@@ -2312,7 +2311,6 @@ extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 
 
 ;MapPlayerData
-externdef ??0MapPlayerData@@QAE@XZ :proc  ; MapPlayerData::MapPlayerData()
 externdef ??0MapPlayerData@@QAE@HH@Z : proc
 externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
 externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc

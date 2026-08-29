@@ -3,6 +3,13 @@
 #include "file.h"
 #include <stdio.h>
 
+// 43C040
+MapPlayerData::MapPlayerData() {
+    this->gold = 0;
+    this->flags = 0;
+    this->diplomacy.SetSize(0x20, -1);
+}
+
 // 56E910
 MapLogicData::MapLogicData() {
     this->name[0] = '\0';

@@ -66436,60 +66436,6 @@ var_4           = dword ptr -4
 sub_43C030      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ??0MapPlayerData@@QAE@XZ(_DWORD)
-??0MapPlayerData@@QAE@XZ      proc near               ; CODE XREF: ??0MapAlm@@QAE@PBD@Z+1164↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8BF0 SIZE 0000001F BYTES
-
-; __unwind { // SEH_43C040
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C040
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CObject@@IAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB7FE
-;   } // starts at 43C064
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_609B70
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+10h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+34h], 0
-                push    0FFFFFFFFh      ; int
-                push    20h ; ' '       ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; varThis
-                call    ?SetSize@CWordArray@@QAEXHH@Z ; CWordArray::SetSize(int,int)
-;   } // starts at 43C076
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43C040
-??0MapPlayerData@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -144043,24 +143989,6 @@ sub_48A35F      proc near
                 pop     ebp
                 retn    0Ch
 sub_48A35F      endp
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: noreturn bp-based frame
-
-@sub_48A747@0      proc near               ; CODE XREF: ?sub_48A756@MainWindow@@QAEXXZ:loc_48AC86↓p
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh      ; Code
-                call    __exit
-@sub_48A747@0      endp
-
-; ---------------------------------------------------------------------------
-                add     esp, 4
-                pop     ebp
-                retn
 
 
 ; ---------------------------------------------------------------------------
@@ -431813,30 +431741,6 @@ SEH_43BC3C:                             ; DATA XREF: sub_43BC3C+5↑o
 ; END OF FUNCTION CHUNK FOR sub_43BC3C
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR ??0MapPlayerData@@QAE@XZ
-
-loc_5F8BF0:                             ; DATA XREF: .rdata:stru_619430↓o
-; __unwind { // SEH_43C040
-;   cleanup() // owned by 43C064
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8BF9:                             ; DATA XREF: .rdata:00619438↓o
-;   cleanup() // owned by 43C076
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB831
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43C040:                             ; DATA XREF: ??0MapPlayerData@@QAE@XZ+5↑o
-                mov     eax, offset stru_619410
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8BF0
-; END OF FUNCTION CHUNK FOR ??0MapPlayerData@@QAE@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43C0BE
 
 loc_5F8C0F:                             ; DATA XREF: .rdata:stru_619460↓o
@@ -478833,13 +478737,6 @@ stru_6193E8     FuncInfoV1 <19930520h, 1, offset stru_619408, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_619408     UnwindMapEntry <-1, offset loc_5F8BDA>
-stru_619410     FuncInfoV1 <19930520h, 2, offset stru_619430, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619430     UnwindMapEntry <-1, offset loc_5F8BF0>
-                UnwindMapEntry <0, offset loc_5F8BF9>
 stru_619440     FuncInfoV1 <19930520h, 2, offset stru_619460, 0, 0, 0, 0>
                 db    0
                 db    0
