@@ -266138,21 +266138,7 @@ sub_515484      endp
 
 ; Attributes: bp-based frame
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_51BA2F      proc near               ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+20↓p
+?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z      proc near
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -266197,7 +266183,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_51BA2F      endp
+?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -266216,51 +266202,6 @@ sub_51BA2F      endp
 
 ; Attributes: bp-based frame
 
-?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z      proc near               ; CODE XREF: _sub_536630+156↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                xor     ecx, ecx
-                mov     cl, [eax+12Ch]
-                cmp     ecx, 1
-                jle     short loc_51C5C3
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    sub_51BA2F
-                jmp     short loc_51C5FB
-; ---------------------------------------------------------------------------
-
-loc_51C5C3:                             ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+15↑j
-                push    71h ; 'q'
-                mov     eax, dword ptr [ebp+arg_0]
-                xor     ecx, ecx
-                mov     cl, [eax+134h]
-                mov     edx, dword ptr [ebp+arg_0]
-                xor     eax, eax
-                mov     al, [edx+135h]
-                add     ecx, eax
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ecx+1C0h]
-                call    ?sub_58c00e@UnitEye@@QAEEXZ
-                push    eax
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z
-
-loc_51C5FB:                             ; CODE XREF: ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z+25↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

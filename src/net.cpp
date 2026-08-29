@@ -270,6 +270,17 @@ void NetStru1::sub_51B99E(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t 
     this->sub_51B0F0(&packet, unit);
 }
 
+// 51C59C
+void NetStru1::sub_51C59C(Unit* unit, Unit* target) {
+    if (unit->max_range < 2) {
+        const uint8_t speed_dir = unit->charge + unit->relax;
+        const uint8_t angle = unit->eye->sub_58c00e();
+        g_NetStru1_main.sub_51B99E(unit, angle, speed_dir, 0x71);
+    } else {
+        g_NetStru1_main.sub_51BA2F(unit);
+    }
+}
+
 // 51BE0E
 void NetStru1::sub_51BE0E(Effect* effect, uint8_t type) {
     PacketMoveCmd& packet = PacketMoveCmd::Inst;

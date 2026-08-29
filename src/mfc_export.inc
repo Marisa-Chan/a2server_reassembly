@@ -2020,7 +2020,7 @@ extern ?LoadGraphics@@YAXXZ : proc
 
 externdef ?sub_4954EA@@YAXXZ :proc
 externdef ?sub_52C735@Unit@@QAEHE@Z :proc                       ; int32_t Unit::sub_52C735(uint8_t)
-externdef ?sub_51C59C@NetStru1@@QAEXPAVUnit@@0@Z :proc          ; void NetStru1::sub_51C59C(Unit*, Unit*)
+externdef ?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z :proc           ; void NetStru1::sub_51BA2F(Unit*)
 extern _Random0N:proc     ; 542216
 extern _Random1N:proc     ; 54223F
 
