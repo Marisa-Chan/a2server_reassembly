@@ -66519,73 +66519,6 @@ arg_0           = dword ptr  8
 sub_43C0BE      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??0MapPlayerData@@QAE@HH@Z      proc near               ; CODE XREF: sub_402AF6+383↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F8C2E SIZE 0000001F BYTES
-
-; __unwind { // SEH_43C17F
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C17F
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CObject@@IAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB7FE
-;   } // starts at 43C1A3
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_609B70
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+4], edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     [eax+0Ch], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+10h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+34h], 0
-                push    offset aNoname  ; "NoName"
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14h
-                push    ecx             ; Destination
-                call    _strcpy
-                add     esp, 8
-                push    0FFFFFFFFh      ; int
-                push    20h ; ' '       ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; varThis
-                call    ?SetSize@CWordArray@@QAEXHH@Z ; CWordArray::SetSize(int,int)
-;   } // starts at 43C1B5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 43C17F
-??0MapPlayerData@@QAE@HH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -431765,30 +431698,6 @@ SEH_43C0BE:                             ; DATA XREF: sub_43C0BE+5↑o
 ; } // starts at 5F8C0F
 ; END OF FUNCTION CHUNK FOR sub_43C0BE
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0MapPlayerData@@QAE@HH@Z
-
-loc_5F8C2E:                             ; DATA XREF: .rdata:stru_619490↓o
-; __unwind { // SEH_43C17F
-;   cleanup() // owned by 43C1A3
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8C37:                             ; DATA XREF: .rdata:00619498↓o
-;   cleanup() // owned by 43C1B5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 38h ; '8'  ; void *
-                call    sub_5DB831
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43C17F:                             ; DATA XREF: ??0MapPlayerData@@QAE@HH@Z+5↑o
-                mov     eax, offset stru_619470
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8C2E
-; END OF FUNCTION CHUNK FOR ??0MapPlayerData@@QAE@HH@Z
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_43C270
 
@@ -478744,13 +478653,6 @@ stru_619440     FuncInfoV1 <19930520h, 2, offset stru_619460, 0, 0, 0, 0>
                 db    0
 stru_619460     UnwindMapEntry <-1, offset loc_5F8C0F>
                 UnwindMapEntry <0, offset loc_5F8C18>
-stru_619470     FuncInfoV1 <19930520h, 2, offset stru_619490, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619490     UnwindMapEntry <-1, offset loc_5F8C2E>
-                UnwindMapEntry <0, offset loc_5F8C37>
 stru_6194A0     FuncInfoV1 <19930520h, 1, offset stru_6194C0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -487573,9 +487475,6 @@ asc_62E4F4      db '_',0                ; DATA XREF: sub_43AE1C+4D↑o
                 db    0
                 db    0
 aCplayer_0      db 'CPlayer',0          ; DATA XREF: .rdata:off_609B58↑o
-; char aNoname[]
-aNoname         db 'NoName',0           ; DATA XREF: ??0MapPlayerData@@QAE@HH@Z+69↑o
-                align 4
 ; CHAR aCplayer[]
 aCplayer        db 'CPlayer',0          ; DATA XREF: sub_43C225+7↑o
                 db    1

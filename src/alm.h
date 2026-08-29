@@ -22,7 +22,7 @@ struct MapSectionHeader {
     uint32_t section_id;
     uint32_t signature;
 };
-ASSERT_SIZE(MapHeader, 0x14);
+ASSERT_SIZE(MapSectionHeader, 0x14);
 
 class MapPlayerData : public CObject {
 public:
@@ -36,7 +36,7 @@ public:
 
 public:
     MapPlayerData(); // 43c040
-    MapPlayerData(int32_t plid, int32_t arg2); // 43c17f
+    MapPlayerData(int32_t index, int32_t color); // 43c17f
 
     uint32_t FUN_0041ee20(int32_t idx);
     int32_t FUN_0041edf0(int32_t idx);

@@ -2311,7 +2311,7 @@ extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 
 
 ;MapPlayerData
-externdef ??0MapPlayerData@@QAE@HH@Z : proc
+extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F
 externdef  ?FUN_0041ee20@MapPlayerData@@QAEIH@Z  : proc
 externdef ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc
 

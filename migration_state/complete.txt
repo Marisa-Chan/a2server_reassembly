@@ -74,6 +74,7 @@
 ??0MagicItem@@QAE@XZ
 ??0MainWindow@@QAE@XZ
 ??0MapAlm@@QAE@PBD@Z
+??0MapPlayerData@@QAE@HH@Z
 ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z
 ??0MatShape@@QAE@XZ
 ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
