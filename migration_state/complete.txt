@@ -316,6 +316,7 @@
 ?ApplyCursor@@YAHPAVCCursor@@@Z
 ?ApplyEffects@Item@@QAEXPAVUnit@@@Z
 ?ApplyFace@CUnit@@QAEXH@Z
+?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z
 ?AssertValid@CGameObject@@UBEXXZ
 ?AssertValid@CObject@@UBEXXZ
 ?AssignCopy@CString@@IAEXHPBD@Z
@@ -831,6 +832,8 @@
 ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z
 ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z
 ?sub_547E91@CMultiShopTemplate@@QAEHXZ
+?sub_54C08A@ShopAssortment@@QAEXXZ
+?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z
 ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z
 ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z
 ?sub_55401E@Sack@@QAEXXZ
@@ -1056,5 +1059,7 @@ _sub_43A820
 _sub_43A857
 _sub_4F499B
 _sub_5499A6
+_sub_54C556
+_sub_54C6DD
 _WritePlayerFile_4F53EA
 _XorData

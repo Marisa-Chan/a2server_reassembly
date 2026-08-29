@@ -3028,6 +3028,11 @@ void World::sub_5B0556(CArchive& ar) {
     }
 }
 
+// 5B6F30
+int32_t sub_5B6F30() {
+    return std::rand();
+}
+
 // 5B6F40
 int32_t World::sub_5B6F40(int32_t multiplier) {
     return (sub_5B6F30() * multiplier) / this->field0_0x0;

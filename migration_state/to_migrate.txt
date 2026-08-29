@@ -4,7 +4,6 @@
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
 @sub_48A747@0	5
-_sub_5B6F30	12
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 @sub_49585B@4	184
