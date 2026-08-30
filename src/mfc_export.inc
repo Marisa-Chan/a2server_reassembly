@@ -1196,10 +1196,6 @@ externdef ??0Settings@@QAE@XZ :proc
 externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 
-; ScriptSettings
-externdef ?sub_5B681A@ScriptSettings@@QAEXAAVCArchive@@@Z :proc
-
-
 ; QuestMap
 externdef ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 externdef ??1QuestMap@@UAE@XZ :proc                                              ; QuestMap::~QuestMap()

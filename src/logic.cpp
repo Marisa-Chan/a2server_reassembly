@@ -47,3 +47,12 @@ Trigger& Trigger::operator=(const Trigger& other) {
     }
     return *this;
 }
+
+// 5B681A
+void ScriptSettings::sub_5B681A(CArchive& ar) {
+    if (ar.IsStoring()) {
+        ar.Write(this, sizeof(ScriptSettings));
+    } else {
+        ar.Read(this, sizeof(ScriptSettings));
+    }
+}
