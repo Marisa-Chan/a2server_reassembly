@@ -16,6 +16,19 @@ void Visibility::sub_58DE69(Unit* unit, uint16_t yx) {
     this->sub_58D768(unit, yx);
 }
 
+// 58CD84
+void Visibility::sub_58CD84() {
+    for (int32_t y = 0; y <= 20; y++) {
+        for (int32_t x = 0; x <= 20; x++) {
+            int16_t dist_sq = static_cast<int16_t>(y * y + x * x);
+            this->field_0x20000[y + 20][x + 20] = dist_sq;
+            this->field_0x20000[y + 20][20 - x] = dist_sq;
+            this->field_0x20000[20 - y][x + 20] = dist_sq;
+            this->field_0x20000[20 - y][20 - x] = dist_sq;
+        }
+    }
+}
+
 // 58E1E4
 Visibility::Visibility() {
     File2 f;
