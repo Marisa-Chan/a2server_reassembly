@@ -193,7 +193,6 @@
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
 ?OpenRenameWindow@VisCharSelect@@QAEXXZ	103
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
-?sub_58E1C1@Visibility@@QAEXXZ	18
 ?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z	19
 ?sub_58CD84@Visibility@@QAEXXZ	89
 ?sub_58D768@Visibility@@QAEXPAVUnit@@G@Z	245

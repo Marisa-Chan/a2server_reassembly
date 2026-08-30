@@ -553,7 +553,6 @@ externdef _unk_70B474 :byte
 externdef ??0Visibility@@QAE@XZ :proc
 externdef ?sub_58CD84@Visibility@@QAEXXZ :proc
 externdef ?sub_58CE74@Visibility@@QAEXXZ :proc
-externdef ?sub_58E1C1@Visibility@@QAEXXZ :proc
 externdef ?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z :proc
 externdef ?sub_58D768@Visibility@@QAEXPAVUnit@@G@Z :proc
 

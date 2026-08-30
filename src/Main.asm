@@ -320805,31 +320805,6 @@ sub_58E006      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-?sub_58E1C1@Visibility@@QAEXXZ      proc near               ; CODE XREF: ?sub_5A5E54@World@@QAEXPAVUnit@@@Z+1E↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    10000h          ; varSize
-                push    0               ; Val
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 2A008h
-                push    eax             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_58E1C1@Visibility@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Microsoft VisualC 2-14/net runtime
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
