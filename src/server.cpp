@@ -46,11 +46,11 @@ extern "C" UnitList* dword_6CDB3C;  // pending-unit list
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA
 // Stat point cost: (int)(pow(1.15, level - 1) * 0.349 + 0.5)
-extern "C" int32_t StatLevelPoints(int32_t level) {
+int32_t StatLevelPoints(int32_t level) {
     return (int32_t)(pow(1.15, (double)(level - 1)) * 0.349 + 0.5);
 }
-extern "C" uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
-extern "C" void BldIdSet_Clear();         // Clear allocated token/building ID bits
+uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
+void BldIdSet_Clear();         // Clear allocated token/building ID bits
 
 // 5049D1
 // Strip an optional leading integer count from *str (modifies str in-place),
@@ -72,7 +72,7 @@ int32_t sub_5049D1(CString* str) {
 // ---- Helpers used by sub_4F1471 ----
 // 43A820
 // itoa -> CString
-extern "C" CString* sub_43A820(CString* out, uint32_t value) {
+CString* sub_43A820(CString* out, uint32_t value) {
     char buf[21];
     _itoa(value, buf, 10);
     *out = buf;

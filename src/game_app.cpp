@@ -772,13 +772,13 @@ void SrandInit()
 
 // 5421FD
 // Returns rand() / 32767.0 in [0, 1].
-extern "C" double __cdecl sub_5421FD() {
+double __cdecl sub_5421FD() {
     return (double)rand() / 32767.0;
 }
 
 // 542216
 // Returns a uniform integer in [0, n].
-extern "C" int32_t __cdecl Random0N(int32_t n) {
+int32_t __cdecl Random0N(int32_t n) {
     if (n == 0) {
         return 0;
     }
@@ -787,7 +787,7 @@ extern "C" int32_t __cdecl Random0N(int32_t n) {
 
 // 54223F
 // Returns a uniform integer in [1, n].
-extern "C" int32_t __cdecl Random1N(int32_t n) {
+int32_t __cdecl Random1N(int32_t n) {
     return Random0N(n - 1) + 1;
 }
 
@@ -902,7 +902,7 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
 
 // 5499A6
 // Create a random item (level = min value, max_gold = max value).
-extern "C" Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
+Item* __cdecl sub_5499A6(int32_t level, int32_t max_gold) {
     double roll = sub_5421FD();
     const char* category;
     if (roll < 0.4) {

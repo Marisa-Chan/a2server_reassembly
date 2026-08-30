@@ -364,5 +364,5 @@ ASSERT_OFFSET(World, players_list, 0xc77c);
 ASSERT_OFFSET(World, trigger_checks, 0xeaac);
 ASSERT_SIZE(World, 0xeb20);
 
-extern "C" int32_t __cdecl sub_5B6F30(); // 5B6F30 — rand() wrapper.
+int32_t __cdecl sub_5B6F30(); // 5B6F30 — rand() wrapper.
 extern "C" World* g_World;

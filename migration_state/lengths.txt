@@ -128,7 +128,7 @@
 462		sub_44BC6C
 453		sub_4D3922
 453		sub_468DCB
-453		_sub_54C6DD
+453		?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z
 451		sub_4BC32B
 450		sub_4CA2A1
 450		sub_405399
@@ -3468,8 +3468,8 @@
 26		sub_40C56C
 26		sub_4017E0
 26		sub_4016EF
-26		_sub_54C556
-26		_sub_43A820
+26		?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z
+26		?sub_43A820@@YAPAVCString@@PAV1@I@Z
 26		?StartDocA@CDC@@QAEHPBD@Z
 26		?SetMessageColors@@YAXI@Z
 26		?SetBarStyle@CControlBar@@QAEXK@Z
@@ -3583,7 +3583,7 @@
 25		sub_403F08
 25		sub_4017A0
 25		_sub_5008CA
-25		_Random0N
+25		?Random0N@@YAHH@Z
 25		?sub_58c00e@UnitEye@@QAEEXZ
 25		?sub_534B17@Player@@QAEXXZ
 25		?Write@CStdioFile@@UAEXPBXI@Z
@@ -4827,7 +4827,7 @@
 14		sub_41EC60
 14		sub_4029C0
 14		sub_4029A0
-14		_Random1N
+14		?Random1N@@YAHH@Z
 14		?sub_5B2E7A@World@@QAEXXZ
 14		?sub_54463F@Shop@@QAEXXZ
 14		?WriteString@CArchive@@QAEXPBD@Z

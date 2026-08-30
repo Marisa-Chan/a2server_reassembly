@@ -53,7 +53,7 @@ ASSERT_SIZE(FileSectionStats, 0x34);
 void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); //4f535e
 uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); //4f5308
 
-extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(
+int32_t __cdecl ParsePlayerFile_4F62E6(
     CFile* file,
     FileSectionBasicInfo** basic_info,
     FileSectionStats** stats,
@@ -64,7 +64,7 @@ extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(
     uint32_t* size_40a
 );
 
-extern "C" int32_t __cdecl WritePlayerFile_4F53EA(
+int32_t __cdecl WritePlayerFile_4F53EA(
     const char* filename,
     FileSectionBasicInfo* basic_info,
     FileSectionStats* stats,

@@ -327,7 +327,7 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats)
 } // namespace
 
 // 4F53EA
-extern "C" int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a)
+int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a)
 {
 	FileSectionBasicInfo* merged_basic_info = nullptr;
 	FileSectionStats* merged_stats = nullptr;
@@ -406,7 +406,7 @@ extern "C" int32_t __cdecl WritePlayerFile_4F53EA(const char* filename, FileSect
 }
 
 // 4F62E6
-extern "C" int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a)
+int32_t __cdecl ParsePlayerFile_4F62E6(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a)
 {
 	*basic_info = nullptr;
 	*stats = nullptr;

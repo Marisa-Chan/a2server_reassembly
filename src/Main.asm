@@ -22768,7 +22768,7 @@ loc_41C232:                             ; CODE XREF: sub_41B8D0:loc_41C202↑j
                 mov     eax, dword ptr [ebp+var_40]
                 lea     ecx, [edx+eax-1]
                 push    ecx
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     [ebp+var_C0], eax
                 mov     [ebp+var_C4], 258h
@@ -22817,7 +22817,7 @@ loc_41C307:                             ; CODE XREF: sub_41B8D0+A26↑j
 
 loc_41C311:                             ; CODE XREF: sub_41B8D0+A6B↓j
                 push    0Ah
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     [ebp+var_C8], eax
                 mov     eax, dword ptr [ebp+var_C4]
@@ -40294,12 +40294,12 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+arg_0]
                 add     eax, 1
                 push    eax
-                call    _StatLevelPoints
+                call    ?StatLevelPoints@@YAHH@Z
                 add     esp, 4
                 mov     esi, eax
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
-                call    _StatLevelPoints
+                call    ?StatLevelPoints@@YAHH@Z
                 add     esp, 4
                 sub     esi, eax
                 mov     eax, esi
@@ -40326,13 +40326,13 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_4], ecx
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
-                call    _StatLevelPoints
+                call    ?StatLevelPoints@@YAHH@Z
                 add     esp, 4
                 mov     esi, eax
                 mov     ecx, dword ptr [ebp+arg_0]
                 sub     ecx, 1
                 push    ecx
-                call    _StatLevelPoints
+                call    ?StatLevelPoints@@YAHH@Z
                 add     esp, 4
                 sub     esi, eax
                 mov     eax, esi
@@ -109872,7 +109872,7 @@ loc_4698EB:                             ; CODE XREF: sub_4698C0+24↑j
                 mov     eax, dword ptr [edx+60h]
                 sub     eax, 1
                 push    eax
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+eax*4+14h]
@@ -109968,7 +109968,7 @@ loc_4699CA:                             ; CODE XREF: sub_46999F+24↑j
                 mov     eax, dword ptr [edx+64h]
                 sub     eax, 1
                 push    eax
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+eax*4+24h]
@@ -110064,7 +110064,7 @@ loc_469AA9:                             ; CODE XREF: sub_469A7E+24↑j
                 mov     eax, dword ptr [edx+68h]
                 sub     eax, 1
                 push    eax
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+eax*4+34h]
@@ -110160,7 +110160,7 @@ loc_469B88:                             ; CODE XREF: sub_469B5D+24↑j
                 mov     eax, dword ptr [edx+5Ch]
                 sub     eax, 1
                 push    eax
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+eax*4+4]
@@ -128518,7 +128518,7 @@ loc_476DB5:                             ; CODE XREF: sub_476C0D+1D3↓j
                 call    sub_41F580
                 mov     esi, [eax]
                 push    3
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     edx, dword ptr [esi+eax*4+0Ch]
                 mov     ?g_CurrentMusicTrack@@3HA, edx
@@ -147943,7 +147943,7 @@ loc_4939AC:                             ; CODE XREF: sub_49381C+13F↑j
                 mov     ecx, eax
                 call    unknown_libname_400 ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
-                call    _WritePlayerFile_4F53EA
+                call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
                 add     esp, 20h
 ;   } // starts at 4938A0
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -148294,7 +148294,7 @@ loc_494742:                             ; CODE XREF: ?FUN_004946e0@CGameSession@
                 mov     ecx, eax
                 call    unknown_libname_400 ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
-                call    _WritePlayerFile_4F53EA
+                call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
                 add     esp, 20h
                 call    GetTickCount
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -148385,7 +148385,7 @@ loc_494933:                             ; CODE XREF: sub_4948B2+61↑j
                 mov     ecx, eax
                 call    unknown_libname_400 ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
-                call    _WritePlayerFile_4F53EA
+                call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
                 add     esp, 20h
 
 loc_49497E:                             ; CODE XREF: sub_4948B2+23↑j
@@ -148444,7 +148444,7 @@ loc_4949A1:                             ; CODE XREF: ?FUN_00494982@CGameSession@
                 mov     ecx, eax
                 call    unknown_libname_400 ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpFileName
-                call    _WritePlayerFile_4F53EA
+                call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
                 add     esp, 20h
 
 loc_4949F5:                             ; CODE XREF: ?FUN_00494982@CGameSession@@QAEXXZ+1D↑j
@@ -169922,7 +169922,7 @@ loc_4A2CB7:                             ; CODE XREF: sub_4A2BB8+E6↑j
                 mov     edx, dword ptr [ebp+var_34]
                 mov     dword ptr [edx+4BCh], 0
                 push    14h
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 add     eax, 1
                 mov     [ebp+var_28], eax
@@ -258230,7 +258230,7 @@ arg_4           = dword ptr  0Ch
                 push    eax
                 lea     ecx, [ebp+var_4C]
                 push    ecx
-                call    _ParsePlayerFile_4F62E6
+                call    ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z
                 add     esp, 20h
                 mov     [ebp+var_70], eax
                 lea     ecx, [ebp+var_4C] ; varThis
@@ -258901,7 +258901,7 @@ loc_4EF0E4:                             ; CODE XREF: sub_4EE801+8D8↑j
                 jg      short loc_4EF12D
                 lea     edx, [ebp+var_68]
                 push    edx
-                call    _sub_4F499B
+                call    ?sub_4F499B@@YAPAVItem@@PAPAE@Z
                 add     esp, 4
                 mov     [ebp+var_1C], eax
                 mov     eax, dword ptr [ebp+var_1C]
@@ -258944,7 +258944,7 @@ loc_4EF13C:                             ; CODE XREF: sub_4EE801:loc_4EF192↓j
                 jnb     short loc_4EF194
                 lea     ecx, [ebp+var_68]
                 push    ecx
-                call    _sub_4F499B
+                call    ?sub_4F499B@@YAPAVItem@@PAPAE@Z
                 add     esp, 4
                 mov     [ebp+var_1C], eax
                 mov     edx, dword ptr [ebp+var_1C]
@@ -261218,7 +261218,7 @@ loc_502873:                             ; CODE XREF: sub_50260A+205↑j
                 mov     edx, dword ptr [ebp+var_10]
                 mov     ax, word ptr [ebp+var_1C]
                 mov     [edx+14Ch], ax
-                call    _BldIdSet_AllocBit
+                call    ?BldIdSet_AllocBit@@YAIXZ
                 and     eax, 0FFFFh
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     [ecx+4], eax
@@ -262795,7 +262795,7 @@ loc_51139C:                             ; CODE XREF: sub_511273+11E↑j
                 push    eax             ; Value
                 lea     ecx, [ebp+var_A4]
                 push    ecx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_1A0], eax
                 mov     edx, dword ptr [ebp+var_1A0]
@@ -262934,7 +262934,7 @@ loc_511573:                             ; CODE XREF: sub_511273+2F5↑j
                 push    edx             ; Value
                 lea     eax, [ebp+var_B8]
                 push    eax             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_1C4], eax
                 mov     ecx, dword ptr [ebp+var_1C4]
@@ -263070,7 +263070,7 @@ loc_51172E:                             ; CODE XREF: sub_511273+4B0↑j
                 push    ecx             ; Value
                 lea     edx, [ebp+var_CC]
                 push    edx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_1E8], eax
                 mov     eax, dword ptr [ebp+var_1E8]
@@ -263228,7 +263228,7 @@ loc_511927:                             ; CODE XREF: sub_511273+6A9↑j
                 push    edx             ; Value
                 lea     edx, [ebp+var_E0]
                 push    edx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_20C], eax
                 mov     eax, dword ptr [ebp+var_20C]
@@ -263251,7 +263251,7 @@ loc_511927:                             ; CODE XREF: sub_511273+6A9↑j
                 push    eax             ; Value
                 lea     eax, [ebp+var_E4]
                 push    eax             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_214], eax
                 mov     ecx, dword ptr [ebp+var_214]
@@ -263439,7 +263439,7 @@ loc_511C03:                             ; CODE XREF: sub_511273+985↑j
                 push    edx             ; Value
                 lea     eax, [ebp+var_100]
                 push    eax             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_248], eax
                 mov     ecx, dword ptr [ebp+var_248]
@@ -263590,7 +263590,7 @@ loc_511DFC:                             ; CODE XREF: sub_511273+B7E↑j
                 push    edx             ; Value
                 lea     eax, [ebp+var_114]
                 push    eax             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_26C], eax
                 mov     ecx, dword ptr [ebp+var_26C]
@@ -263798,7 +263798,7 @@ loc_511FC5:                             ; CODE XREF: sub_511273+D47↑j
                 push    eax             ; Value
                 lea     ecx, [ebp+var_120]
                 push    ecx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_284], eax
                 mov     edx, dword ptr [ebp+var_284]
@@ -263812,7 +263812,7 @@ loc_511FC5:                             ; CODE XREF: sub_511273+D47↑j
                 push    ecx             ; Value
                 lea     edx, [ebp+var_124]
                 push    edx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_28C], eax
                 mov     eax, dword ptr [ebp+var_28C]
@@ -263827,7 +263827,7 @@ loc_511FC5:                             ; CODE XREF: sub_511273+D47↑j
                 push    edx             ; Value
                 lea     eax, [ebp+var_128]
                 push    eax             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_294], eax
                 mov     ecx, dword ptr [ebp+var_294]
@@ -263842,7 +263842,7 @@ loc_511FC5:                             ; CODE XREF: sub_511273+D47↑j
                 push    eax             ; Value
                 lea     ecx, [ebp+var_12C]
                 push    ecx             ; CString *
-                call    _sub_43A820
+                call    ?sub_43A820@@YAPAVCString@@PAV1@I@Z
                 add     esp, 8
                 mov     [ebp+var_29C], eax
                 mov     edx, dword ptr [ebp+var_29C]
@@ -272439,7 +272439,7 @@ loc_54CD7A:                             ; CODE XREF: sub_54CB7A+1F5↑j
 
 loc_54CD96:                             ; CODE XREF: sub_54CB7A+215↑j
                 push    64h ; 'd'
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     [ebp+var_D8], eax
                 fild    [ebp+var_D8]
@@ -272467,7 +272467,7 @@ loc_54CDEA:                             ; CODE XREF: sub_54CB7A+2D4↓j
                 mov     ecx, dword ptr [ebp+var_24]
                 sub     ecx, [ebp+var_14]
                 push    ecx
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, eax
@@ -272520,7 +272520,7 @@ loc_54CDEA:                             ; CODE XREF: sub_54CB7A+2D4↓j
                 test    ecx, ecx
                 jz      short loc_54CEE4
                 push    64h ; 'd'
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 cmp     eax, 32h ; '2'
                 jle     short loc_54CEDB
@@ -272587,7 +272587,7 @@ loc_54CF4B:                             ; CODE XREF: sub_54CB7A+325↑j
                 jz      short loc_54CF72
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 add     eax, 1
                 mov     ecx, dword ptr [ebp+var_28]
@@ -272604,7 +272604,7 @@ loc_54CF7B:                             ; CODE XREF: sub_54CB7A+3F6↑j
                 push    eax
                 lea     ecx, [ebp+var_44]
                 push    ecx
-                call    _sub_54C6DD
+                call    ?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z
                 add     esp, 8
                 jmp     loc_54CD71
 ; ---------------------------------------------------------------------------
@@ -272612,7 +272612,7 @@ loc_54CF7B:                             ; CODE XREF: sub_54CB7A+3F6↑j
 loc_54CF90:                             ; CODE XREF: sub_54CB7A+206↑j
                 lea     edx, [ebp+var_44]
                 push    edx
-                call    _sub_54C556
+                call    ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z
                 add     esp, 4
                 cmp     [ebp+arg_C], 0
                 jnz     loc_54D026
@@ -273152,7 +273152,7 @@ loc_54E68E:                             ; CODE XREF: sub_54E5C7+1AB↓j
                 mov     [ebp+var_1C], eax
                 mov     ecx, dword ptr [ebp+var_1C]
                 push    ecx
-                call    _Random1N
+                call    ?Random1N@@YAHH@Z
                 add     esp, 4
                 mov     [ebp+var_20], eax
                 mov     [ebp+var_30], 1
@@ -273303,7 +273303,7 @@ loc_54E835:                             ; CODE XREF: sub_54E5C7+24E↑j
                 cmp     [ebp+var_14], 0
                 jz      short loc_54E865
                 push    1
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dx, ds:word_60E8E0[eax*4]
@@ -273313,7 +273313,7 @@ loc_54E835:                             ; CODE XREF: sub_54E5C7+24E↑j
 
 loc_54E865:                             ; CODE XREF: sub_54E5C7+281↑j
                 push    6
-                call    _Random0N
+                call    ?Random0N@@YAHH@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dx, ds:word_60E8E8[eax*4]
@@ -286085,7 +286085,7 @@ sub_574B60      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_574BC0(void *, int)
-sub_574BC0      proc near               ; CODE XREF: _sub_4F499B+59C↑p
+sub_574BC0      proc near               ; CODE XREF: ?sub_4F499B@@YAPAVItem@@PAPAE@Z+59C↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -467519,8 +467519,8 @@ word_60E8E8     dw 1                    ; DATA XREF: sub_54E5C7+2AB↑r
                 db    0
                 db    0
                 db    0
-dbl_60E910      dq 0.349                ; DATA XREF: _StatLevelPoints+28↑r
-dbl_60E918      dq 0.5                  ; DATA XREF: _StatLevelPoints+2E↑r
+dbl_60E910      dq 0.349                ; DATA XREF: ?StatLevelPoints@@YAHH@Z+28↑r
+dbl_60E918      dq 0.5                  ; DATA XREF: ?StatLevelPoints@@YAHH@Z+2E↑r
 dbl_60E920      dq 4.0                  ; DATA XREF: ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z+37E↑r
 dbl_60E928      dq 5.0                  ; DATA XREF: ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z+384↑r
 dbl_60E930      dq 100.0                ; DATA XREF: sub_511273+6DB↑r
@@ -497018,7 +497018,7 @@ dword_6B0C10    dd ?                    ; DATA XREF: ?ParseTxtFiles@GameDataRes@
 unk_6B0C14      db 4h dup(?)
 ; AFX_CLASSINIT unk_6B0C18
 unk_6B0C18      db 8h dup(?)
-dword_6B0C20    dd ?                    ; DATA XREF: _ParsePlayerFile_4F62E6+6EF↑o
+dword_6B0C20    dd ?                    ; DATA XREF: ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z+6EF↑o
 unk_6B0C24      db 9FCh dup(?)
 ; CStringArray _unk_6B1620
 _unk_6B1620      db 18h dup(?)
@@ -497106,7 +497106,7 @@ dword_6D06BC    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QA
 dword_6D06C0    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z:loc_5106E1↑r
                 db 8h dup(?)
 unk_6D06CC      db 4h dup(?)
-dword_6D06D0    dd ?                    ; DATA XREF: _sub_4F499B+294↑r
+dword_6D06D0    dd ?                    ; DATA XREF: ?sub_4F499B@@YAPAVItem@@PAPAE@Z+294↑r
 dword_6D06D4    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z:loc_510A09↑r
                 db 0Ch dup(?)
 dword_6D06E4    dd ?                    ; DATA XREF: ?Start@Server@@QAEHH@Z+11D↑r
@@ -497180,7 +497180,7 @@ _unused_this_was_?Inst@PacketWord@@2V1@A      db 10h dup(?)
 ; AFX_CLASSINIT unk_6E9DA8
 unk_6E9DA8      db 8h dup(?)
 
-dword_709DC0    dd ?                    ; DATA XREF: _ParsePlayerFile_4F62E6+6AE↑w
+dword_709DC0    dd ?                    ; DATA XREF: ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z+6AE↑w
 ; AFX_CLASSINIT unk_709DC4
 unk_709DC4      db 4h dup(?)
 ; AFX_CLASSINIT unk_709DCC

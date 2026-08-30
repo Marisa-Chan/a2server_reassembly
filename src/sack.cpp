@@ -1,7 +1,7 @@
 #include "sack.h"
 #include "inventory.h"
 
-extern "C" uint32_t BldIdSet_AllocBit();
+uint32_t BldIdSet_AllocBit();
 
 IMPLEMENT_SERIAL(Sack, Token, 1); // 637318
 

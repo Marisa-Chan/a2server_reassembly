@@ -278,8 +278,8 @@ externdef ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z :proc                
 externdef ?sub_54C08A@ShopAssortment@@QAEXXZ :proc  ; void ShopAssortment::sub_54C08A()
 externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
 externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
-extern _sub_54C6DD :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
-extern _sub_54C556 :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
+extern ?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
+extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
 externdef ?sub_541FD7@Effect@@QAEHHH@Z :proc  ; int32_t Effect::sub_541FD7(int, int)
 
 
@@ -586,10 +586,7 @@ externdef ?classVirtualCaster@VirtualCaster@@2UCRuntimeClass@@A :dword
 
 
 ;BitSet g_buildingIdSet     in token.cpp
-extern _BldIdSet_Set:proc
-extern _BldIdSet_Unset:proc
-extern _BldIdSet_Clear:proc
-extern _BldIdSet_AllocBit:proc
+extern ?BldIdSet_AllocBit@@YAIXZ:proc
 
 
 
@@ -1887,10 +1884,10 @@ externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
 
 
 
-extern _StatLevelPoints:proc ; int32_t StatLevelPoints(int32_t) 5008CA
-extern _sub_43A820 :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
+extern ?StatLevelPoints@@YAHH@Z:proc ; int32_t StatLevelPoints(int32_t) 5008CA
+extern ?sub_43A820@@YAPAVCString@@PAV1@I@Z :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef _dword_6CDB38 :dword                                  ; file checksum global
-externdef _sub_4F499B :proc                                                     ; sub_4F499B — parse item from packet data
+externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                                     ; sub_4F499B — parse item from packet data
 
 
 ;VisSpellBook
@@ -2021,15 +2018,15 @@ extern ?LoadGraphics@@YAXXZ : proc
 externdef ?sub_4954EA@@YAXXZ :proc
 externdef ?sub_52C735@Unit@@QAEHE@Z :proc                       ; int32_t Unit::sub_52C735(uint8_t)
 externdef ?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z :proc           ; void NetStru1::sub_51BA2F(Unit*)
-extern _Random0N:proc     ; 542216
-extern _Random1N:proc     ; 54223F
+extern ?Random0N@@YAHH@Z:proc     ; 542216
+extern ?Random1N@@YAHH@Z:proc     ; 54223F
 
 externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
-extern _WritePlayerFile_4F53EA :proc                  ; sub_4F53EA — save character data to file
-extern _ParsePlayerFile_4F62E6 :proc                  ; sub_4F62E6 — parse character file sections
+extern ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z :proc                  ; sub_4F53EA — save character data to file
+extern ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z :proc                  ; sub_4F62E6 — parse character file sections
 extern ?CalcChecksum@@YAIPAEH@Z :proc                         ; sub_4F5308 — checksum calculation
 extern ?DecryptEncryptedData@@YAXPAEHG@Z :proc                      ; sub_4F535E — XOR decrypt/encrypt
 

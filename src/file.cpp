@@ -7,7 +7,7 @@
 #include "resource.h"
 
 
-extern "C" int __cdecl sub_4F1D0D(CString filename)
+int __cdecl sub_4F1D0D(CString filename)
 {
 	CFile file;
 	int checksum = 0;
