@@ -668,8 +668,6 @@ externdef ?sub_531418@Humanoid@@QAEXXZ :proc
 
 extern ??0Human@@QAE@XZ:proc   ; Human::Human
 extern ??0Human@@QAE@ABVCString@@HPBD@Z:proc    ; Human::Human(CString&, int, const char *)
-externdef _MALE_HUMAN_NAMES :dword
-externdef _FEMALE_HUMAN_NAMES :dword
 
 
 ;UnitList

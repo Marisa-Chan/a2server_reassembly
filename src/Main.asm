@@ -268385,181 +268385,6 @@ var__x           = qword ptr  8
 sub_53066C      endp
 
 
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_734 proc near           ; DATA XREF: .data:0062C188↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_53241B
-                call    sub_532489
-                pop     ebp
-                retn
-unknown_libname_734 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_53241B      proc near               ; CODE XREF: unknown_libname_734+3↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset byte_70B41C ; lpString
-                mov     ecx, offset _FEMALE_HUMAN_NAMES ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aLadyMoro ; "Lady Moro"
-                mov     ecx, offset unk_6D076C ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aReniesta ; "Reniesta"
-                mov     ecx, offset unk_6D0770 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aScilla  ; "Scilla"
-                mov     ecx, offset unk_6D0774 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aRedHat  ; "Red Hat"
-                mov     ecx, offset unk_6D0778 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aAlice   ; "Alice"
-                mov     ecx, offset unk_6D077C ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aKhisanth ; "Khisanth"
-                mov     ecx, offset unk_6D0780 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                pop     ebp
-                retn
-sub_53241B      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_532489      proc near               ; CODE XREF: unknown_libname_734+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_53249B ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_532489      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_53249B()
-sub_53249B      proc near               ; DATA XREF: sub_532489+3↑o
-                push    ebp
-                mov     ebp, esp
-                push    offset ??1CString@@QAE@XZ ; void (__thiscall *)(void *)
-                push    7               ; int
-                push    4               ; unsigned int
-                push    offset _FEMALE_HUMAN_NAMES ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                pop     ebp
-                retn
-sub_53249B      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_735 proc near           ; DATA XREF: .data:0062C18C↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_5324C2
-                call    sub_53255D
-                pop     ebp
-                retn
-unknown_libname_735 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_5324C2      proc near               ; CODE XREF: unknown_libname_735+3↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset byte_70B420 ; lpString
-                mov     ecx, offset _MALE_HUMAN_NAMES ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aBiker   ; "Biker"
-                mov     ecx, offset unk_6CDB9C ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aVasya   ; "Vasya"
-                mov     ecx, offset unk_6CDBA0 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aDukeKiller ; "Duke Killer"
-                mov     ecx, offset unk_6CDBA4 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aSamuil  ; "Samuil"
-                mov     ecx, offset unk_6CDBA8 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aDanath  ; "Danath"
-                mov     ecx, offset unk_6CDBAC ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aLegolas ; "Legolas"
-                mov     ecx, offset unk_6CDBB0 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aFatSam  ; "Fat Sam"
-                mov     ecx, offset unk_6CDBB4 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aRagnar  ; "Ragnar"
-                mov     ecx, offset unk_6CDBB8 ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                push    offset aSirGerald ; "Sir Gerald"
-                mov     ecx, offset unk_6CDBBC ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                pop     ebp
-                retn
-sub_5324C2      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_53255D      proc near               ; CODE XREF: unknown_libname_735+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_53256F ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_53255D      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_53256F()
-sub_53256F      proc near               ; DATA XREF: sub_53255D+3↑o
-                push    ebp
-                mov     ebp, esp
-                push    offset ??1CString@@QAE@XZ ; void (__thiscall *)(void *)
-                push    0Ah             ; int
-                push    4               ; unsigned int
-                push    offset _MALE_HUMAN_NAMES ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                pop     ebp
-                retn
-sub_53256F      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -494380,47 +494205,6 @@ aSelf_11        db 'Self',0             ; DATA XREF: .data:00636240↑o
                 align 10h
 aComputer       db 'Computer',0         ; DATA XREF: .data:00636244↑o
                 align 4
-; CHAR aLadyMoro[]
-aLadyMoro       db 'Lady Moro',0        ; DATA XREF: sub_53241B+12↑o
-                align 4
-; CHAR aReniesta[]
-aReniesta       db 'Reniesta',0         ; DATA XREF: sub_53241B+21↑o
-                align 4
-; CHAR aScilla[]
-aScilla         db 'Scilla',0           ; DATA XREF: sub_53241B+30↑o
-                align 4
-; CHAR aRedHat[]
-aRedHat         db 'Red Hat',0          ; DATA XREF: sub_53241B+3F↑o
-; CHAR aAlice[]
-aAlice          db 'Alice',0            ; DATA XREF: sub_53241B+4E↑o
-                align 4
-; CHAR aKhisanth[]
-aKhisanth       db 'Khisanth',0         ; DATA XREF: sub_53241B+5D↑o
-                align 4
-; CHAR aBiker[]
-aBiker          db 'Biker',0            ; DATA XREF: sub_5324C2+12↑o
-                align 10h
-; CHAR aVasya[]
-aVasya          db 'Vasya',0            ; DATA XREF: sub_5324C2+21↑o
-                align 4
-; CHAR aDukeKiller[]
-aDukeKiller     db 'Duke Killer',0      ; DATA XREF: sub_5324C2+30↑o
-; CHAR aSamuil[]
-aSamuil         db 'Samuil',0           ; DATA XREF: sub_5324C2+3F↑o
-                align 4
-; CHAR aDanath[]
-aDanath         db 'Danath',0           ; DATA XREF: sub_5324C2+4E↑o
-                align 4
-; CHAR aLegolas[]
-aLegolas        db 'Legolas',0          ; DATA XREF: sub_5324C2+5D↑o
-; CHAR aFatSam[]
-aFatSam         db 'Fat Sam',0          ; DATA XREF: sub_5324C2+6C↑o
-; CHAR aRagnar[]
-aRagnar         db 'Ragnar',0           ; DATA XREF: sub_5324C2+7B↑o
-                align 4
-; CHAR aSirGerald[]
-aSirGerald      db 'Sir Gerald',0       ; DATA XREF: sub_5324C2+8A↑o
-                align 4
 aSpell_1        db 'Spell',0            ; DATA XREF: .data:?classSpell@Spell@@2UCRuntimeClass@@A↑o
                 align 4
 aUnusedValue0   db 'unused_value_0',0   ; DATA XREF: .data:off_6370C8↑o
@@ -497045,26 +496829,6 @@ _dword_6CDB38    dd ?                    ; DATA XREF: ?sub_4F1471@Server@@QAEHVC
 _dword_6CDB3C    dd ?                    ; DATA XREF: sub_44DBE0+7FE↑r
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
-; CString _MALE_HUMAN_NAMES
-_MALE_HUMAN_NAMES    dd ?                    ; DATA XREF: sub_5324C2+8↑o
-; CString unk_6CDB9C
-unk_6CDB9C      db 4h dup(?)
-; CString unk_6CDBA0
-unk_6CDBA0      db 4h dup(?)
-; CString unk_6CDBA4
-unk_6CDBA4      db 4h dup(?)
-; CString unk_6CDBA8
-unk_6CDBA8      db 4h dup(?)
-; CString unk_6CDBAC
-unk_6CDBAC      db 4h dup(?)
-; CString unk_6CDBB0
-unk_6CDBB0      db 4h dup(?)
-; CString unk_6CDBB4
-unk_6CDBB4      db 4h dup(?)
-; CString unk_6CDBB8
-unk_6CDBB8      db 4h dup(?)
-; CString unk_6CDBBC
-unk_6CDBBC      db 4h dup(?)
 
 ?g_QuestMap@@3VQuestMap@@A      db 4h dup(?)
 ; _DWORD dword_6CE4DC[3]
@@ -497130,20 +496894,6 @@ dword_6D074C    dd ?                    ; DATA XREF: sub_502D0B+D92↑r
 ; CString dword_6D0760
 dword_6D0760    dd ?                    ; DATA XREF: ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z+2B94↑o
                 align 8
-; CString _FEMALE_HUMAN_NAMES
-_FEMALE_HUMAN_NAMES    dd ?                    ; DATA XREF: sub_53241B+8↑o
-; CString unk_6D076C
-unk_6D076C      db 4h dup(?)
-; CString unk_6D0770
-unk_6D0770      db 4h dup(?)
-; CString unk_6D0774
-unk_6D0774      db 4h dup(?)
-; CString unk_6D0778
-unk_6D0778      db 4h dup(?)
-; CString unk_6D077C
-unk_6D077C      db 4h dup(?)
-; CString unk_6D0780
-unk_6D0780      db 8h dup(?)
 
 
 byte_6D10B4      db    ?
@@ -497195,8 +496945,6 @@ unk_70B3E0      db 4h dup(?)
 dword_70B3E4    dd ?                    ; DATA XREF: ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z+10AB↑o
 dword_70B410    dd ?                    ; DATA XREF: ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z+1CF↑r
                 db 8h dup(?)
-; CHAR byte_70B41C[4]
-byte_70B41C     db 4 dup(?)             ; DATA XREF: sub_53241B+3↑o
 ; CHAR byte_70B420[4]
 byte_70B420     db 4 dup(?)             ; DATA XREF: sub_5324C2+3↑o
 ; CHAR byte_70B424[4]

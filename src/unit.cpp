@@ -25,8 +25,11 @@
 #include "virtual_caster.h"
 #include "world.h"
 
-extern "C" CString MALE_HUMAN_NAMES[10];
-extern "C" CString FEMALE_HUMAN_NAMES[7];  // Female human names.
+// 6cdb98
+std::array<CString, 10> MALE_HUMAN_NAMES = {"", "Biker", "Vasya", "Duke Killer", "Samuil", "Danath", "Legolas", "Fat Sam", "Ragnar", "Sir Gerald"};
+
+// 6d0768
+std::array<CString, 7> FEMALE_HUMAN_NAMES = {"", "Lady Moro", "Reniesta", "Scilla", "Red Hat", "Alice", "Khisanth"};
 
 //52e9e3
 EquipmentExtra::EquipmentExtra() = default;
@@ -3022,11 +3025,11 @@ void Human::FUN_00532587(CString hname, int32_t is_hero, const char* unk)
         }
         this->name = "Unknown";
         if (is_female == 0) {
-            if (face_index < 10) { // TODO: unhardcode after migrating the arrays to C++.
+            if (face_index < MALE_HUMAN_NAMES.size()) {
                 this->name = MALE_HUMAN_NAMES[face_index];
             }
         } else {
-            if (face_index < 7) {
+            if (face_index < FEMALE_HUMAN_NAMES.size()) {
                 this->name = FEMALE_HUMAN_NAMES[face_index];
             }
         }
