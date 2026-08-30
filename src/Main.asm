@@ -320471,32 +320471,6 @@ sub_58DB6F      endp
 
 ; Attributes: bp-based frame
 
-?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z      proc near               ; CODE XREF: ?sub_5A5E54@World@@QAEXPAVUnit@@@Z+36↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = word ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ax, [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_58D768@Visibility@@QAEXPAVUnit@@G@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_58DE69@Visibility@@QAEXPAVUnit@@G@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_58DE87      proc near               ; CODE XREF: .text:0058DD5D↑p
 
 var_1C          = dword ptr -1Ch

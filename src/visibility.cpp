@@ -11,6 +11,11 @@ void Visibility::sub_58E1C1() {
     memset(this->field_0x2a008, 0, sizeof(this->field_0x2a008));
 }
 
+// 58DE69
+void Visibility::sub_58DE69(Unit* unit, uint16_t yx) {
+    this->sub_58D768(unit, yx);
+}
+
 // 58E1E4
 Visibility::Visibility() {
     File2 f;
