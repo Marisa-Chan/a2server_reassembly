@@ -537,9 +537,7 @@ externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
 externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
 ; Perf
-externdef ??0Perf@@QAE@XZ :proc
-externdef ?Begin@Perf@@QAEXXZ :proc
-externdef ?End@Perf@@QAEXXZ :proc
+extern ??0Perf@@QAE@XZ :proc
 
 ; MapStuff sub-object init blocks (opaque, ASM-backed)
 externdef ??0FieldBlock54190@@QAE@XZ :proc

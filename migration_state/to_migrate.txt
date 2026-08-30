@@ -179,9 +179,6 @@
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
 ?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z	45
-?Begin@Perf@@QAEXXZ	14
-??0Perf@@QAE@XZ	28
-?End@Perf@@QAEXXZ	63
 ??0ScanPresenceGrid@@QAE@XZ	14
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z	70
 ?sub_596131@ScanPresenceGrid@@QAEXXZ	243

@@ -87,6 +87,7 @@
 ??0PacketJoin@@QAE@VCString@@@Z
 ??0PacketJoin@@QAE@XZ
 ??0PacketUnitStateVec@@QAE@XZ
+??0Perf@@QAE@XZ
 ??0Player@@QAE@XZ
 ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z
 ??0PointEffect@@QAE@XZ

@@ -323360,59 +323360,7 @@ sub_599F70      endp
 
 ; Attributes: bp-based frame
 
-??0Perf@@QAE@XZ      proc near               ; CODE XREF: sub_5879A0+AA↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 10h
-                push    eax             ; lpFrequency
-                call    QueryPerformanceFrequency
-                mov     ecx, dword ptr [ebp+var_4]
-                push    0
-                push    3E8h
-                mov     edx, dword ptr [ecx+14h]
-                push    edx
-                mov     eax, dword ptr [ecx+10h]
-                push    eax
-                call    __alldiv
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+20h], eax
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Begin@Perf@@QAEXXZ ; ATL::CComVariant::Clear(void)
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-??0Perf@@QAE@XZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
 ; int __thiscall ATL::CComVariant::Clear(ATL::CComVariant *__hidden varThis)
-?Begin@Perf@@QAEXXZ proc near ; CODE XREF: ??0Perf@@QAE@XZ+34↑p
-
-lpPerformanceCount= dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+lpPerformanceCount], ecx
-                mov     eax, dword ptr [ebp+lpPerformanceCount]
-                push    eax             ; lpPerformanceCount
-                call    QueryPerformanceCounter
-                mov     esp, ebp
-                pop     ebp
-                retn
-?Begin@Perf@@QAEXXZ endp
-
-
 ; ---------------------------------------------------------------------------
                 align 10h
 
@@ -338601,71 +338549,6 @@ unknown_libname_879 endp
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
-
-?End@Perf@@QAEXXZ      proc near               ; CODE XREF: .text:005A5107↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 8
-                push    eax             ; lpPerformanceCount
-                call    QueryPerformanceCounter
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+8]
-                sub     eax, [edx]
-                mov     ecx, dword ptr [ecx+0Ch]
-                sbb     ecx, [edx+4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+18h], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+18h]
-                xor     edx, edx
-                div     dword ptr [ecx+20h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+1Ch], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+18h]
-                xor     edx, edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+28h], ecx
-                mov     [eax+2Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                push    0
-                push    3E8h
-                mov     edx, dword ptr [ecx+2Ch]
-                push    edx
-                mov     eax, dword ptr [ecx+28h]
-                push    eax
-                call    __allmul
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+28h], eax
-                mov     [ecx+2Ch], edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+20h]
-                xor     eax, eax
-                push    eax
-                push    ecx
-                mov     ecx, dword ptr [edx+2Ch]
-                push    ecx
-                mov     edx, dword ptr [edx+28h]
-                push    edx
-                call    __alldiv
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+28h], eax
-                mov     [ecx+2Ch], edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+28h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?End@Perf@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
