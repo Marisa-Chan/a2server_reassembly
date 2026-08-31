@@ -493948,28 +493948,6 @@ asc_63D380      db '  ',0               ; DATA XREF: .text:loc_58D433↑o
                 align 4
 asc_63D384      db 0Ah,0                ; DATA XREF: .text:loc_58D446↑o
                 align 4
-                dd offset aDanath_0     ; "Danath"
-                dd offset aReniesta_0   ; "Reniesta"
-                dd offset aFergard      ; "Fergard"
-                dd offset aNaira        ; "Naira"
-                dd offset aTreyrak      ; "Treyrak"
-                dd offset aBrian        ; "Brian"
-                dd offset aGlaen        ; "Glaen"
-                dd offset aWoman        ; "Woman"
-aDanath_0       db 'Danath',0           ; DATA XREF: .data:0063D5D8↑o
-                align 10h
-aReniesta_0     db 'Reniesta',0         ; DATA XREF: .data:0063D5DC↑o
-                align 4
-aFergard        db 'Fergard',0          ; DATA XREF: .data:0063D5E0↑o
-aNaira          db 'Naira',0            ; DATA XREF: .data:0063D5E4↑o
-                align 4
-aTreyrak        db 'Treyrak',0          ; DATA XREF: .data:0063D5E8↑o
-aBrian          db 'Brian',0            ; DATA XREF: .data:0063D5EC↑o
-                align 4
-aGlaen          db 'Glaen',0            ; DATA XREF: .data:0063D5F0↑o
-                align 4
-aWoman          db 'Woman',0            ; DATA XREF: .data:0063D5F4↑o
-                align 4
 ; CHAR aWarning_1[]
 aWarning_1      db 'WARNING! : ',0      ; DATA XREF: sub_59B753+30↑o
 ; CHAR aWarning_2[]
