@@ -664,7 +664,7 @@ extern ??0Human@@QAE@ABVCString@@HPBD@Z:proc    ; Human::Human(CString&, int, co
 
 
 ;UnitList
-externdef _dword_6CDB3C :dword
+externdef ?dword_6CDB3C@@3PAVUnitList@@A :dword
 
 extern ??0UnitList@@QAE@XZ:proc                         ; UnitList::UnitList
 extern ??1UnitList@@QAE@XZ:proc                         ; UnitList::~UnitList

@@ -33,6 +33,11 @@ class Unit;
 class UnitList;
 class VirtualCaster;
 
+
+extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
+extern UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
+
+
 struct CowardActivation {
     char key[100];
     BOOL enabled;

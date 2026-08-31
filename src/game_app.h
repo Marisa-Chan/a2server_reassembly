@@ -105,9 +105,6 @@ extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 extern Server* g_Server;   //642c2c
 
-extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
-extern "C" UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
-
 int32_t __cdecl Random0N(int32_t n); // returns [0, n]
 int32_t __cdecl Random1N(int32_t n); // returns [1, n]
 

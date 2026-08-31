@@ -41,7 +41,7 @@
 #include "patch/flags.h"
 
 // ---- Global variables used by sub_4FC644 ----
-extern "C" UnitList* dword_6CDB3C;  // pending-unit list
+UnitList* dword_6CDB3C;  // pending-unit list
 
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA

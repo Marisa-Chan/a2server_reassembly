@@ -83666,7 +83666,7 @@ loc_44E371:                             ; CODE XREF: sub_44DBE0+76B↑j
                 mov     ecx, dword ptr [ecx]
                 call    sub_4512D0
                 push    eax
-                mov     ecx, _dword_6CDB3C
+                mov     ecx, ?dword_6CDB3C@@3PAVUnitList@@A
                 add     ecx, 4
                 call    sub_4512B0
                 push    eax
@@ -321605,9 +321605,9 @@ loc_59643A:                             ; CODE XREF: sub_5963B9+48↑j
 loc_596447:                             ; CODE XREF: sub_5963B9+3F↑j
                 lea     ecx, [ebp+var_18]
                 call    unknown_libname_829 ; Microsoft VisualC 2-14/net runtime
-                cmp     _dword_6CDB3C, 0
+                cmp     ?dword_6CDB3C@@3PAVUnitList@@A, 0
                 jz      short loc_596466
-                mov     ecx, _dword_6CDB3C
+                mov     ecx, ?dword_6CDB3C@@3PAVUnitList@@A
                 add     ecx, 4
                 mov     [ebp+var_2C], ecx
                 jmp     short loc_59646D
@@ -495594,7 +495594,6 @@ unk_6C3A00      db 8h dup(?)
 _unk_6CDB10      db 14h dup(?)
 ?g_PlayersList@@3PAVPlayersList@@A    dd ?                    ; DATA XREF: sub_44DBE0+180↑r
 _dword_6CDB38    dd ?                    ; DATA XREF: ?sub_4F1471@Server@@QAEHVCString@@@Z+40B↑w
-_dword_6CDB3C    dd ?                    ; DATA XREF: sub_44DBE0+7FE↑r
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
 
