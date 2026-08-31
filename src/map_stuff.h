@@ -186,6 +186,7 @@ public:
     int sub_58E3D1(Unit* unit); // add unit to map
     void sub_58AB48(CArchive& ar); // Serialize
     void sub_5948B0(CWordArray* encode_buf); // encode map terrain into encode_buf
+    bool IsInMapBounds(uint8_t x, uint8_t y) const; // 594076
     void sub_594125(); // Post-load map relink helper
     int sub_58E407(class Sack* sack); // Check if sack can be placed on map
     void sub_58E525(class Sack* sack); // Remove a sack token from the map

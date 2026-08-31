@@ -794,6 +794,17 @@ void MapStuff::sub_5948B0(CWordArray* encode_buf) {
     }
 }
 
+// 594076
+bool MapStuff::IsInMapBounds(uint8_t x, uint8_t y) const {
+    if (x < this->map_min_x || x > this->map_max_x) {
+        return false;
+    }
+    if (y < this->map_min_y || y > this->map_max_y) {
+        return false;
+    }
+    return true;
+}
+
 // 59190D
 int MapStuff::sub_59190D(Unit* target, Unit* observer) {
     int32_t target_size = target->VMethod3();
