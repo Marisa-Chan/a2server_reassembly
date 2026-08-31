@@ -268310,31 +268310,6 @@ sub_5288E4      endp
 
 ; Attributes: bp-based frame
 
-?sub_52C735@Unit@@QAEHE@Z      proc near               ; CODE XREF: _sub_536630+6F↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     ecx, dword ptr [ebp+arg_0]
-                shl     eax, cl
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+144h]
-                and     eax, edx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_52C735@Unit@@QAEHE@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_53064C      proc near               ; CODE XREF: ?PrecomputeExperienceLevelsTable@@YAXXZ+23↓p
 
 var__y           = qword ptr -8

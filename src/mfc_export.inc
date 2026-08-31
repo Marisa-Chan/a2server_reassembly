@@ -2003,7 +2003,6 @@ extern ?g_font4@@3PAVCGameFont@@A : dword
 extern ?LoadGraphics@@YAXXZ : proc
 
 externdef ?sub_4954EA@@YAXXZ :proc
-externdef ?sub_52C735@Unit@@QAEHE@Z :proc                       ; int32_t Unit::sub_52C735(uint8_t)
 externdef ?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z :proc           ; void NetStru1::sub_51BA2F(Unit*)
 extern ?Random0N@@YAHH@Z:proc     ; 542216
 extern ?Random1N@@YAHH@Z:proc     ; 54223F

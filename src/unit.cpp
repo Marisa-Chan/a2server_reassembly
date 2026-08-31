@@ -2103,6 +2103,12 @@ void Unit::FUN_0052ec7a(const CArray<MonsterInfoData>& values)
     }
 }
 
+// HasEnchantment.
+// 52C735
+int32_t Unit::sub_52C735(uint8_t spell_id) {
+    return (this->enchantments & (1 << spell_id));
+}
+
 // 52F5BB
 uint8_t Unit::sub_52F5BB(uint8_t sphere)
 {
