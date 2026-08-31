@@ -194,7 +194,6 @@
 ?OpenRenameWindow@VisCharSelect@@QAEXXZ	103
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
 ?sub_58D768@Visibility@@QAEXPAVUnit@@G@Z	245
-?sub_58CE74@Visibility@@QAEXXZ	329
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
