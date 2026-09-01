@@ -196,4 +196,4 @@
 ?FUN_004bcd02@VisShop@@QAEXXZ	30
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?FUN_0049edec@VisTav@@QAEXXZ	32
-?sub_5B5CA8@World@@QAEXPAVUnit@@0PAV?$CList@PAVUnit@@ABQAV1@@@II@Z	329
+?sub_5B5C2B@World@@QAEGPAVUnit@@0@Z	46

@@ -898,7 +898,7 @@ extern ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 extern ??1Spell@@UAE@XZ : proc
 
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
-externdef ?sub_5B5CA8@World@@QAEXPAVUnit@@0PAV?$CList@PAVUnit@@ABQAV1@@@II@Z :proc ; void World::sub_5B5CA8(Unit*,Unit*,CList<Unit*>*,uint32_t,uint32_t)
+externdef ?sub_5B5C2B@World@@QAEGPAVUnit@@0@Z :proc ; uint16_t World::sub_5B5C2B(Unit*,Unit*)
 
 ; SpellBook
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable

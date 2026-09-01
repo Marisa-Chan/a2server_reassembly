@@ -70,7 +70,8 @@ struct World {
     UnitList field27_0xa84;
     UnitList field28_0xaa4; // Non-attack list?
     UnitList field29_0xac4; // Attack list?
-    uint32_t field_0xae4[10000];
+    uint32_t field_0xae4[100];
+    uint32_t field_0xc74[9900];
     uint8_t field_0xa724;
     uint8_t gap_0xa725[3];
     uint8_t field32_0xa728[400];
@@ -133,7 +134,8 @@ public:
     void sub_5B0A6A(); // 5B0A6A
     Unit* sub_5B61D0(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive); // 5B61D0
     void sub_5B6346(); // 5B6346
-    void sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range); // 5B5CA8: collect units hit by a multi-ray spell
+    void sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint8_t rays, uint8_t max_range); // 5B5CA8: collect units hit by a multi-ray spell
+    uint16_t sub_5B5C2B(Unit* unit1, Unit* unit2); // 5B5C2B: packed distance/facing metric between two units (ASM)
     void sub_5ABF50(Player* player); // 5ABF50
 
     // Group-order dispatch helpers (called from Server::sub_504a96)

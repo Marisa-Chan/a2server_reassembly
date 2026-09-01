@@ -638,6 +638,77 @@ bool World::sub_5B5816(Unit* unit1, Unit* unit2) {
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & 1) != 0;
 }
 
+// Collect up to `rays` units hit by a multi-ray spell into `units`.
+// Fills the two scratch lists via sub_5ADB16, keeps the `rays` closest
+// candidates (list-27 distances are biased by <<8 so list-26 units win ties),
+// adds `target` first, then trims the list back down to `rays` entries.
+// 5B5CA8
+void World::sub_5B5CA8(Unit* caster, Unit* target, CList<Unit*>* units, uint8_t rays, uint8_t max_range) {
+    units->RemoveAll();
+    this->sub_5AA581(caster, target, 0);
+    this->sub_5ADB16(caster->group);
+
+    if (this->field26_0xa64.unit_list.GetCount() == 0) {
+        units->AddTail(target);
+        return;
+    }
+
+    uint16_t best_dist[10];
+    int32_t best_idx[10];
+    for (int32_t i = 0; i < 10; i++) {
+        best_idx[i] = 0xFFFA;
+        best_dist[i] = 0xFFFA;
+    }
+
+    int32_t range_subcells = max_range << 8;
+    Unit* near_units[100];
+    int32_t count = 0;
+
+    for (POSITION it = this->field26_0xa64.unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = this->field26_0xa64.unit_list.GetNext(it);
+        uint16_t dist = this->sub_5B5C2B(caster, unit);
+        if (dist <= range_subcells) {
+            this->field_0xc74[count] = dist;
+            near_units[count] = unit;
+            count++;
+        }
+    }
+
+    for (POSITION it = this->field27_0xa84.unit_list.GetHeadPosition(); it != nullptr;) {
+        Unit* unit = this->field27_0xa84.unit_list.GetNext(it);
+        uint16_t dist = this->sub_5B5C2B(caster, unit);
+        if (dist <= range_subcells) {
+            this->field_0xc74[count] = dist << 8;
+            near_units[count] = unit;
+            count++;
+        }
+    }
+
+    // For each ray, pick the closest not-yet-picked candidate and mark it used.
+    for (int32_t i = 0; i < rays; i++) {
+        for (int32_t j = 0; j < count; j++) {
+            if (this->field_0xc74[j] < best_dist[i]) {
+                best_dist[i] = (uint16_t)this->field_0xc74[j]; // Low word only, matches the ASM.
+                best_idx[i] = j;
+            }
+        }
+        if (best_idx[i] < 60000) {
+            this->field_0xc74[best_idx[i]] = 65500;
+        }
+    }
+
+    units->AddTail(target);
+    for (int32_t i = 0; i < rays; i++) {
+        if (best_idx[i] < 65000 && best_dist[i] < 65000 && near_units[best_idx[i]] != target) {
+            units->AddTail(near_units[best_idx[i]]);
+        }
+    }
+
+    while (units->GetCount() > rays) {
+        units->RemoveTail();
+    }
+}
+
 // 5ABB32
 uint8_t World::sub_5ABB32(Unit* unit, PosYX yx) {
     Unit* unit_at_yx = this->field24_0xa50->sub_58CA1B(yx);
