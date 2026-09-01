@@ -898,7 +898,6 @@ extern ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
 extern ??1Spell@@UAE@XZ : proc
 
 externdef ?sub_539541@Spell@@QAEXI@Z :proc
-externdef ?sub_5B5C2B@World@@QAEGPAVUnit@@0@Z :proc ; uint16_t World::sub_5B5C2B(Unit*,Unit*)
 
 ; SpellBook
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
@@ -1102,18 +1101,14 @@ extern ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(cons
 ; World
 externdef _g_World :dword
 
-externdef ??1World@@QAE@XZ :proc
-extern ?DoScriptInstID@World@@QAEXH@Z :proc
 extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
 extern ?sub_5A457A@World@@QAEXXZ :proc
 extern ?sub_5A4590@World@@QAEXXZ :proc
 extern ?sub_5A4757@World@@QAEXXZ :proc
 extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc
-extern ?sub_5AA581@World@@QAEXPAVUnit@@0H@Z :proc
 extern ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
 extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
-extern ?sub_5ADB16@World@@QAEXPAVGroup@@@Z :proc
 extern ?sub_5B6F60@World@@QAEHHH@Z :proc
 
 
@@ -1122,23 +1117,21 @@ extern ??0Action@@QAE@XZ :proc
 
 
 ; Diplomacy
-extern ??0Diplomacy@@QAE@XZ :proc
-externdef ?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z :proc  ; Diplomacy::sub_5B5643(Unit*, Unit*, int)
 
 
 ; Trigger
-externdef ??0Trigger@@QAE@XZ :proc          ; Trigger::Trigger()
-externdef ??1Trigger@@QAE@XZ :proc          ; Trigger::~Trigger()
-externdef ??4Trigger@@QAEAAU0@ABU0@@Z :proc ; Trigger::operator=(const Trigger&)
+extern ??0Trigger@@QAE@XZ :proc          ; Trigger::Trigger()
+extern ??1Trigger@@QAE@XZ :proc          ; Trigger::~Trigger()
+extern ??4Trigger@@QAEAAU0@ABU0@@Z :proc ; Trigger::operator=(const Trigger&)
 
 
 ; TriggerAction
-externdef ??0TriggerAction@@QAE@XZ :proc                                         ; TriggerAction::TriggerAction()
+extern ??0TriggerAction@@QAE@XZ :proc                                         ; TriggerAction::TriggerAction()
 
 
 ; TriggerCheck
-externdef ??0TriggerCheck@@QAE@XZ :proc             ; TriggerCheck::TriggerCheck()
-externdef ??4TriggerCheck@@QAEAAU0@ABU0@@Z :proc    ; TriggerCheck::operator=(const TriggerCheck&)
+extern ??0TriggerCheck@@QAE@XZ :proc             ; TriggerCheck::TriggerCheck()
+extern ??4TriggerCheck@@QAEAAU0@ABU0@@Z :proc    ; TriggerCheck::operator=(const TriggerCheck&)
 
 
 ; Player

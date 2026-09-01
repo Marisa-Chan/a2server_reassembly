@@ -335563,58 +335563,6 @@ var_4           = dword ptr -4
 unknown_libname_873 endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_5B5C2B@World@@QAEGPAVUnit@@0@Z      proc near               ; CODE XREF: ?sub_5B5CA8@World@@QAEXPAVUnit@@0PAV?$CList@PAVUnit@@ABQAV1@@@II@Z+138↓p
-
-var_8           = dword ptr -8
-var_4           = word ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0A50h]
-                call    ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z
-                movzx   ax, al
-                mov     [ebp+var_4], ax
-                mov     cx, [ebp+var_4]
-                shl     cx, 8
-                mov     [ebp+var_4], cx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0A50h]
-                call    ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z
-                push    eax
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+1C0h]
-                mov     cl, [eax]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0A50h]
-                call    ?FacingDiff@MapStuff@@QAEEEE@Z
-                movzx   ax, al
-                mov     cx, [ebp+var_4]
-                add     cx, ax
-                mov     [ebp+var_4], cx
-                mov     ax, [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_5B5C2B@World@@QAEGPAVUnit@@0@Z      endp
-
 
 
 

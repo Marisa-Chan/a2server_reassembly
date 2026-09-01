@@ -38,7 +38,6 @@
 ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z
 ??0CVisualObject@@QAE@HHHHHPBD@Z
 ??0CVisualObject@@QAE@XZ
-??0Diplomacy@@QAE@XZ
 ??0DirectDamage@@QAE@PAV0@@Z
 ??0DirectDamage@@QAE@XZ
 ??0Effect@@QAE@ABVCString@@@Z
@@ -247,7 +246,6 @@
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??1Weapon@@UAE@XZ
-??1World@@QAE@XZ
 ??2@YAPAXI@Z
 ??2CObject@@SGPAXI@Z
 ??3@YAXPAX@Z
@@ -374,7 +372,6 @@
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
 ?DoClose@VisScreen@@UAEXI@Z
-?DoScriptInstID@World@@QAEXH@Z
 ?Down@VisListBox@@QAEXXZ
 ?Draw@GM_a28@@QAEXXZ
 ?DrawDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z
@@ -932,11 +929,8 @@
 ?sub_5A4757@World@@QAEXXZ
 ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z
 ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z
-?sub_5AA581@World@@QAEXPAVUnit@@0H@Z
 ?sub_5AC983@World@@QAEXPAVGroup@@H@Z
 ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z
-?sub_5ADB16@World@@QAEXPAVGroup@@@Z
-?sub_5B5643@Diplomacy@@QAEXPAVUnit@@0H@Z
 ?sub_5B6F60@World@@QAEHHH@Z
 ?SubmitCharacterSetupAndWaitForSelectedUnit@CGameSession@@QAEHXZ
 ?TabFocus@CVisualObject@@QAEX_N0@Z
