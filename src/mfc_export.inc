@@ -534,7 +534,7 @@ extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
 ; ScanPresenceGrid
 extern ??0ScanPresenceGrid@@QAE@XZ :proc
 extern ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
-externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
+extern ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
 ; Perf
 extern ??0Perf@@QAE@XZ :proc

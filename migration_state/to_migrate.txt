@@ -179,7 +179,6 @@
 ?CreateUI@MainWindow@@QAEXXZ	1109
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
 ?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z	45
-?sub_596131@ScanPresenceGrid@@QAEXXZ	243
 ?Play@SfxSample@@QAEXHHHEH@Z	169
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20

@@ -912,6 +912,7 @@
 ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z
 ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z
 ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z
+?sub_596131@ScanPresenceGrid@@QAEXXZ
 ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z
 ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z
 ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z

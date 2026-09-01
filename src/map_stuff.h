@@ -54,12 +54,16 @@ struct ScanPresenceGrid {
     UnitList* unit_list;
     int32_t  num_detected;        // count of server units flagged as detected this scan
     int32_t  scan_delta;
-    uint8_t  gap_0x161c[12];
+    uint8_t  gap_0x161c[8];
+    int32_t  field_0x1624;        // count of units detected via active group while in an unwatched sector
 
 public:
     ScanPresenceGrid(); // 5955B5
     void sub_596047(AreaEffect* ae); // Register area effect into the scan grid (sub_596047)
     void sub_596131();                 // Rebuild presence grid from all active units/players
+    void sub_5957E2(Unit* unit); // OR the unit owner's vision mask into the 5x5 sector block around the unit (5957E2)
+    void sub_595F46(Unit* unit); // Mark unit detected when its sector is watched (595F46)
+    void sub_5963B9();           // Clear the sector grid and reset per-unit/per-group detection state (5963B9)
 };
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);

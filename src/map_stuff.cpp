@@ -11,6 +11,7 @@
 #include "group.h"
 #include "net.h"
 #include "player.h"
+#include "players_list.h"
 #include "resource.h"
 #include "sack.h"
 #include "spell_effect.h"
@@ -1170,6 +1171,102 @@ void ScanPresenceGrid::sub_596047(AreaEffect* ae) {
     ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec + 1][y_sec - 1];
     ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec + 1];
     ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec - 1];
+}
+
+// 5957E2
+void ScanPresenceGrid::sub_5957E2(Unit* unit) {
+    if (!unit->pOwner->is_ai) {
+        int32_t x_sec = (unit->position->GetX() >> 3) + 1;
+        int32_t y_sec = (unit->position->GetY() >> 3) + 1;
+        for (int32_t dx = -2; dx <= 2; dx++) {
+            for (int32_t dy = -2; dy <= 2; dy++) {
+                this->sector_grid[x_sec + dx][y_sec + dy] |= unit->pOwner->vision_sharing_mask;
+            }
+        }
+    } else if (unit->hp < unit->hp_max) {
+        unit->group->group_sub->field_0x45 = 1;
+    }
+}
+
+// 595F46
+void ScanPresenceGrid::sub_595F46(Unit* unit) {
+    uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
+    if (sector != 0) {
+        unit->group->group_sub->field_0x45 = 1;
+        this->num_detected++;
+        unit->field_0x1a4 = (uint16_t)sector;
+    } else if (unit->group->group_sub->active != 0) {
+        unit->group->group_sub->field_0x45 = 1;
+        this->num_detected++;
+        this->field_0x1624++;
+    }
+}
+
+// 5963B9
+void ScanPresenceGrid::sub_5963B9() {
+    memset(this->sector_grid, 0, sizeof(this->sector_grid));
+    POSITION player_it = g_PlayersList->list.GetHeadPosition();
+    while (player_it != NULL) {
+        Player* player = g_PlayersList->list.GetNext(player_it);
+        if (player->is_ai) {
+            POSITION group_it = player->group_list->groups.GetHeadPosition();
+            while (group_it != NULL) {
+                Group* group = player->group_list->groups.GetNext(group_it);
+                group->group_sub->field_0x45 = 0;
+            }
+        }
+    }
+    if (dword_6CDB3C != nullptr) {
+        POSITION it = dword_6CDB3C->unit_list.GetHeadPosition();
+        while (it != NULL) {
+            Unit* unit = dword_6CDB3C->unit_list.GetNext(it);
+            unit->field_0x1a4 = 0;
+        }
+    }
+}
+
+// 596131
+void ScanPresenceGrid::sub_596131() {
+    this->sub_5963B9();
+    this->num_detected = 0;
+    this->field_0x1624 = 0;
+
+    POSITION unit_it = this->unit_list->unit_list.GetHeadPosition();
+    while (unit_it != NULL) {
+        Unit* unit = this->unit_list->unit_list.GetNext(unit_it);
+        this->sub_5957E2(unit);
+    }
+
+    POSITION player_it = g_PlayersList->list.GetHeadPosition();
+    while (player_it != NULL) {
+        Player* player = g_PlayersList->list.GetNext(player_it);
+        if (!player->is_ai && player->main_unit != nullptr) {
+            this->sub_5957E2(player->main_unit);
+        }
+    }
+
+    unit_it = this->unit_list->unit_list.GetHeadPosition();
+    while (unit_it != NULL) {
+        Unit* unit = this->unit_list->unit_list.GetNext(unit_it);
+        this->sub_595F46(unit);
+    }
+
+    unit_it = g_Server->srv_stru1->units_list->unit_list.GetHeadPosition();
+    while (unit_it != NULL) {
+        Unit* unit = g_Server->srv_stru1->units_list->unit_list.GetNext(unit_it);
+        uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
+        if (sector != 0) {
+            unit->field_0x1a4 = (uint16_t)sector;
+        }
+    }
+
+    POSITION effect_it = g_Server->srv_stru1->effects_list->list.GetHeadPosition();
+    while (effect_it != NULL) {
+        SpellEffect* effect = g_Server->srv_stru1->effects_list->list.GetNext(effect_it);
+        this->sub_596047(static_cast<AreaEffect*>(effect));
+    }
+
+    this->scan_delta = this->unit_list->unit_list.GetCount() - this->num_detected;
 }
 
 
