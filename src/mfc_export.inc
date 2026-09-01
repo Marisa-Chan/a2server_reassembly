@@ -590,7 +590,6 @@ externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
 externdef ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z :proc ; void Inventory::PutItemIntoBagAtDefault(Item*)
 externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z :proc        ; void Inventory::PutItemIntoBag(int32_t, Item*)
 externdef ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z :proc             ; Item* Inventory::sub_552B6B(uint16_t)
-externdef ?sub_5524FA@Inventory@@QAEXHPAVItem@@@Z :proc            ; void Inventory::sub_5524FA(int32_t, Item*)
 externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
 
 ; Unit

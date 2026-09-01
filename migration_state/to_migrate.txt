@@ -168,7 +168,6 @@
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ?sub_541FD7@Effect@@QAEHHH@Z	206
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
-?sub_5524FA@Inventory@@QAEXHPAVItem@@@Z	502
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48

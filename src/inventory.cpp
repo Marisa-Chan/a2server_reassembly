@@ -76,6 +76,49 @@ void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
     this->total_weight += item->weight * item->count;
 }
 
+// 5524FA
+void Inventory::sub_5524FA(int32_t amount, Item* item) {
+    if (!item) {
+        return;
+    }
+
+    // Check if item is stackable
+    if (item->VMethod16() != 0) {
+        // Try to find an existing stackable item with the same item_id and shelf id
+        for (POSITION it = this->items.GetHeadPosition(); it != nullptr;) {
+            Item* existing = this->items.GetNext(it);
+            if (existing->item_id == item->item_id && existing->VMethod16() != 0 && existing->field11_0x4d == item->field11_0x4d) {
+                // Stack them together
+                this->total_weight += item->weight * item->count;
+                existing->count += item->count;
+                existing->TokenID |= item->TokenID;
+                delete item;
+                return;
+            }
+        }
+    }
+
+    // Insert item at the specified position
+    if (amount >= this->items.GetCount()) {
+        // Add at tail
+        this->items.AddTail(item);
+    } else {
+        // Insert at position
+        POSITION insert_pos = this->items.GetHeadPosition();
+        for (int32_t i = 0; i < amount; i++) {
+            this->items.GetNext(insert_pos);
+        }
+        if (insert_pos != nullptr) {
+            this->items.InsertBefore(insert_pos, item);
+        } else {
+            this->items.AddHead(item);
+        }
+    }
+
+    // Update total weight
+    this->total_weight += item->weight * item->count;
+}
+
 // 552A42
 void Inventory::sub_552A42(Inventory* src) {
     if (!src || this->items.GetCount() >= 0x400) {
