@@ -1162,6 +1162,16 @@ ScanPresenceGrid::ScanPresenceGrid() {
     memset(this->control, 0, sizeof(this->control));
 }
 
+// 596047
+void ScanPresenceGrid::sub_596047(AreaEffect* ae) {
+    int32_t x_sec = (ae->position->GetX() >> 3) + 1;
+    int32_t y_sec = (ae->position->GetY() >> 3) + 1;
+    ae->field4_0x42 = (uint16_t)this->sector_grid[x_sec + 1][y_sec + 1];
+    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec + 1][y_sec - 1];
+    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec + 1];
+    ae->field4_0x42 |= (uint16_t)this->sector_grid[x_sec - 1][y_sec - 1];
+}
+
 
 
 
