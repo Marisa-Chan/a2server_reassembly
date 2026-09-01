@@ -265021,53 +265021,6 @@ sub_515484      endp
 
 ; Attributes: bp-based frame
 
-?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z      proc near
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketMount@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 72h ; 'r'
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     ax, [edx+4]
-                mov     [ecx+0Ah], ax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+0Ch], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+arg_0]
-                xor     ecx, ecx
-                mov     cl, [eax+134h]
-                mov     edx, ?g_Server@@3PAUServer@@A
-                mov     eax, dword ptr [edx+4]
-                add     eax, ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                xor     edx, edx
-                mov     dl, [ecx+135h]
-                add     eax, edx
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [ecx+138h], eax
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?sub_51B0F0@NetStru1@@QAEXPAVPacket@@PAVUnit@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_51BA2F@NetStru1@@QAEXPAVUnit@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
