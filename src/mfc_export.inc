@@ -532,7 +532,7 @@ extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
 
 
 ; ScanPresenceGrid
-externdef ??0ScanPresenceGrid@@QAE@XZ :proc
+extern ??0ScanPresenceGrid@@QAE@XZ :proc
 externdef ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
 externdef ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
@@ -1166,8 +1166,6 @@ externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
 ; Server methods
 
 ; MapStuff methods
-externdef ?sub_58E407@MapStuff@@QAEHPAVSack@@@Z :proc   ; int MapStuff::sub_58E407(Sack*)
-externdef ?sub_596576@MapStuff@@QAEHGPAX@Z :proc
 
 ; Srv1
 externdef ??1Srv1@@UAE@XZ :proc

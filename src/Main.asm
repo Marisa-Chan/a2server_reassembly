@@ -319262,21 +319262,6 @@ sub_59516F      endp
 
 ; Attributes: bp-based frame
 
-??0ScanPresenceGrid@@QAE@XZ      proc near               ; CODE XREF: sub_5879A0+F4↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_5955D6
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-??0ScanPresenceGrid@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -319303,24 +319288,6 @@ unknown_libname_817 endp
 
 ; Attributes: bp-based frame
 
-sub_5955D6      proc near               ; CODE XREF: ??0ScanPresenceGrid@@QAE@XZ+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    400h            ; varSize
-                push    0               ; Val
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_5955D6      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -1157,6 +1157,14 @@ void MapStuff::FUN_005969c6(Unit* unit, PosYX yx, uint8_t t)
 
 
 
+// 5955B5
+ScanPresenceGrid::ScanPresenceGrid() {
+    memset(this->control, 0, sizeof(this->control));
+}
+
+
+
+
 // 599FF0
 FieldBlock54190::FieldBlock54190() {
     this->field_0x0 = 0;

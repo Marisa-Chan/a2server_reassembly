@@ -102,6 +102,7 @@
 ??0Sack@@QAE@PBUTokenPos@@@Z
 ??0Sack@@QAE@PBUTokenPos@@PAUInventory@@@Z
 ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z
+??0ScanPresenceGrid@@QAE@XZ
 ??0Settings@@QAE@XZ
 ??0SfxSample@@QAE@PBD@Z
 ??0Shield@@QAE@ABVCString@@@Z
@@ -875,7 +876,6 @@
 ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z
 ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z
 ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z
-?sub_58E407@MapStuff@@QAEHPAVSack@@@Z
 ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z
 ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z
 ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z
@@ -911,7 +911,6 @@
 ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z
 ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z
 ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z
-?sub_596576@MapStuff@@QAEHGPAX@Z
 ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z
 ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z
 ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z
