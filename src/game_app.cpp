@@ -1,4 +1,8 @@
 #include "game_app.h"
+
+#include <cmath>
+
+#include "gameobj.h"
 #include "server.h"
 #include "main_window.h"
 #include "resource.h"
@@ -7,6 +11,7 @@
 #include "item.h"
 #include "player.h"
 #include "gfx.h"
+#include "util.h"
 
 GameApp GameApp::theApp;
 
@@ -53,6 +58,50 @@ TxtFile TxtFile_00660e88; //660e88
 
 HANDLE g_AutoRunEvent;
 HMODULE g_scenario_dll;
+
+
+DistortMap* g_DistortMap;       // 65fbbc
+uint16_t g_DistTable[41][41];   // 660000
+uint32_t g_CpuFeatureFlags;     // 660f84
+
+// 475E7A
+void FUN_00475e7a() {
+	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
+	// We just hardcode the MMX flag to 1, because where would you get a non-MMX CPU nowadays?
+	g_CpuFeatureFlags = 2;
+
+	// Fill the squared-distance table over the 21x21 visible range
+	for (int32_t i = 0; i <= 20; i++) {
+		for (int32_t j = 0; j <= 20; j++) {
+			uint16_t dist = (uint16_t)(i * i + j * j);
+			g_DistTable[i + 20][j] = dist;
+			g_DistTable[i + 20][20 - j] = dist;
+			g_DistTable[20 - i][j] = dist;
+			g_DistTable[20 - i][20 - j] = dist;
+		}
+	}
+
+	// Read the codepage flag from the end of "main\id"
+	char idbuf[80];
+	memset(idbuf, 0, 80);
+	{
+		File2 file;
+		file.Open("main\\id", 0, NULL);
+		file.Read(idbuf, file.GetLength());
+		file.Close();
+	}
+	g_isDosCP = idbuf[strlen(idbuf) - 1] - '0';
+
+	g_DistortMap = new DistortMap(0x14, 0x10);
+
+	RegFile reg("graphics\\units\\material.reg");
+	for (int32_t i = 0; i < 16; i++) {
+		CString key;
+		key.Format("Material%d", i);
+		CString path = reg.GetValueString(key, "Path", "heroes");
+		g_CUnitMaterialSpritePaths.Add(path);
+	}
+}
 
 
 // 43A857

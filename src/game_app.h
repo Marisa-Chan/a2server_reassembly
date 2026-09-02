@@ -55,6 +55,27 @@ extern GameSettings g_settings; //660ec0
 extern CMapStringToString g_TunesMap; //660d80
 
 
+// Base address 0x65fbbc; consumed by sub_46E291 case 7 -> sub_4AA29B, freed by sub_47619A.
+class DistortMap
+{
+public:
+	int16_t** offsets = nullptr; // 0x00 - grid of {dx, dy} pairs
+	int32_t outer = 0;           // 0x04
+	int32_t inner = 0;           // 0x08
+	int32_t radius = 0;          // 0x0c
+
+public:
+	DistortMap(int32_t outer, int32_t inner); // 4a9f90
+};
+ASSERT_SIZE(DistortMap, 0x10);
+
+extern DistortMap* g_DistortMap; // 65fbbc
+
+// Squared-distance lookup table for the visible radius (indexes 0..20 are unused).
+extern uint16_t g_DistTable[41][41]; // 660000
+
+extern uint32_t g_CpuFeatureFlags; // 660f84 - bit 1 = MMX available. We're hardcoding it to 1, because where would you get a non-MMX CPU nowadays?
+
 
 class GameApp : public CWinApp
 {
@@ -77,8 +98,6 @@ void __cdecl sub_43A857(const char* source); // 43A857
 /* in asm */
 void LogMessage(CString message); //43AA23
 void LogWarning(const CString& msg); //59b753
-
-void FUN_00475e7a(); 
 
 int32_t ParseConfig(const char* fname); //4f7188
 

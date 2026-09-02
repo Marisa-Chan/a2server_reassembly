@@ -176,8 +176,7 @@ extern ?RemoteGameIdle@MainWindow@@QAEXXZ : dword
 
 
 
-externdef ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
-externdef _sub_43A857:proc                       ;  void __cdecl sub_43A857(const char* source)
+extern ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
 
 
 ;GameDataRes
@@ -1392,7 +1391,13 @@ extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
 externdef @sub_49585B@4 :proc
 
-externdef ?FUN_00475e7a@@YAXXZ  :proc
+extern ?FUN_00475e7a@@YAXXZ :proc
+externdef ??0DistortMap@@QAE@HH@Z :proc        ; DistortMap::DistortMap(int, int) - 4a9f90
+externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
+externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
+extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
+extern ?g_DistTable@@3PAY0CJ@GA : byte         ; uint16_t g_DistTable[41][41]
+extern ?g_CpuFeatureFlags@@3IA : dword         ; uint32_t g_CpuFeatureFlags
 
 extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
 extern ?GetRandS16@@YAHH@Z   : proc
@@ -2020,8 +2025,6 @@ extern ?LoadGraphics@@YAXXZ : proc
 externdef ?sub_4954EA@@YAXXZ :proc
 extern ?Random0N@@YAHH@Z:proc     ; 542216
 extern ?Random1N@@YAHH@Z:proc     ; 54223F
-
-externdef _sub_5499A6 :proc   ; CreateRandomItem
 
 externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
 
