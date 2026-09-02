@@ -6,7 +6,6 @@
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 @sub_49585B@4	184
-?sub_5365AB@@YAIPAUTokenPos@@0@Z	52
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6

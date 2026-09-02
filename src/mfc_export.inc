@@ -2026,8 +2026,6 @@ externdef ?sub_4954EA@@YAXXZ :proc
 extern ?Random0N@@YAHH@Z:proc     ; 542216
 extern ?Random1N@@YAHH@Z:proc     ; 54223F
 
-externdef ?sub_5365AB@@YAIPAUTokenPos@@0@Z :proc
-
 extern ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z :proc                  ; sub_4F53EA — save character data to file
 extern ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z :proc                  ; sub_4F62E6 — parse character file sections
 extern ?CalcChecksum@@YAIPAEH@Z :proc                         ; sub_4F5308 — checksum calculation

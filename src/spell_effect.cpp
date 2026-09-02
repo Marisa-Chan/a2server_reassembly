@@ -1,5 +1,7 @@
 #include "spell_effect.h"
 
+#include <cmath>
+
 #include "constants.h"
 #include "effect.h"
 #include "game_app.h"
@@ -9,8 +11,13 @@
 #include "unit.h"
 #include "world.h"
 
-// Distance between two TokenPos positions in sub-cell units (still in asm).
-uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b);
+// 5365AB
+// Distance between two TokenPos positions in sub-cell units.
+uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b) {
+	int32_t dx = a->GetXx() - b->GetXx();
+	int32_t dy = a->GetYy() - b->GetYy();
+	return (uint32_t)std::sqrt((double)(dx * dx + dy * dy));
+}
 
 extern "C" {
 	extern int32_t unk_6364D0[];  // Wave table for blizzard: count, 20 x-offsets, 20 y-offsets.

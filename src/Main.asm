@@ -267174,63 +267174,6 @@ loc_534D82:                             ; CODE XREF: sub_534C02+14F↑j
 sub_534C02      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_5365AB@@YAIPAUTokenPos@@0@Z      proc near               ; CODE XREF: sub_538A15+59↓p
-
-var__x           = qword ptr -1Ch
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                push    esi
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?GetXx@TokenPos@@QBEGXZ
-                xor     esi, esi
-                mov     si, ax
-                and     esi, 0FFFFh
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    ?GetXx@TokenPos@@QBEGXZ
-                and     eax, 0FFFFh
-                sub     esi, eax
-                mov     [ebp+var_8], esi
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?GetYy@TokenPos@@QBEGXZ
-                xor     esi, esi
-                mov     si, ax
-                and     esi, 0FFFFh
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    ?GetYy@TokenPos@@QBEGXZ
-                and     eax, 0FFFFh
-                sub     esi, eax
-                mov     [ebp+var_C], esi
-                mov     eax, dword ptr [ebp+var_8]
-                imul    eax, [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_C]
-                imul    ecx, [ebp+var_C]
-                add     eax, ecx
-                mov     [ebp+var_10], eax
-                fild    [ebp+var_10]
-                sub     esp, 8
-                fstp    [esp+1Ch+var__x]     ; X
-                call    _sqrt
-                add     esp, 8
-                call    __ftol
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_5365AB@@YAIPAUTokenPos@@0@Z      endp
 
 
 
