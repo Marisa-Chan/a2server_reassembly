@@ -166,7 +166,6 @@
 ?OnCommand@CWnd@@UAEHIJ@Z	82
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
-?sub_541FD7@Effect@@QAEHHH@Z	206
 ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z	759
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
 ?FUN_00478130@MainWindow@@QAEXXZ	39

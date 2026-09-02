@@ -280,7 +280,6 @@ externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVIte
 externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
 extern ?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
 extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
-externdef ?sub_541FD7@Effect@@QAEHHH@Z :proc  ; int32_t Effect::sub_541FD7(int, int)
 
 
 ;Scenario

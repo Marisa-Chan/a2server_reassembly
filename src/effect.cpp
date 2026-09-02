@@ -643,6 +643,39 @@ void Effect::VMethod17(int32_t power) {
     }
 }
 
+// 541FD7
+int32_t Effect::sub_541FD7(int32_t budget, int32_t magic_volume) {
+    const MagicInfoData* magic_data = &g_GameDataRes.magics[this->effect_id].Values()[0];
+    int32_t max_level = magic_volume / magic_data->mana_cost;
+    int32_t level;
+    if (this->effect_id == modifier::castspell) {
+        double cost_ratio = budget / (g_GameDataRes.spells[this->spell_or_damage].Values()[0].scroll_cost * 10.0);
+        double log2_ratio = std::log(cost_ratio) / std::log(2.0);
+        if (log2_ratio <= 0.0) {
+            level = -1;
+        } else {
+            level = (int32_t)((std::pow(1.2, log2_ratio) - 1.0) * 30.0);
+        }
+        level = (std::min)(level, max_level);
+        if (level > 100) {
+            level = 100;
+        }
+        if (level < 0) {
+            level = -1;
+        }
+    } else {
+        level = (int32_t)(std::log(budget / (magic_volume * 50.0) - 1.0) / std::log(1.5) * 70.0 / magic_data->mana_cost);
+        level = (std::min)(level, max_level);
+        if (level < magic_data->affect_min) {
+            return -1;
+        }
+        if (level > magic_data->affect_max) {
+            level = magic_data->affect_max;
+        }
+    }
+    return level;
+}
+
 // 540941
 int32_t Effect::EffectPrice() {
     if (this->effect_id == 0) {
