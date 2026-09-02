@@ -676,6 +676,119 @@ int32_t Effect::sub_541FD7(int32_t budget, int32_t magic_volume) {
     return level;
 }
 
+// 541046
+static const char* const g_EffectNames[50] = {
+    "unused_value_0", "price", "body", "mind", "reaction", "spirit", "health", "healthmax",
+    "healthregeneration", "mana", "manamax", "manaregeneration", "tohit", "damagemin", "damagemax",
+    "defence", "absorbtion", "speed", "rotationspeed", "scanrange", "protection0", "protectionfire",
+    "protectionwater", "protectionair", "protectionearth", "protectionastral", "fighterskill0",
+    "skillblade", "skillaxe", "skillbludgeon", "skillpike", "skillshooting", "mageskill0",
+    "skillfire", "skillwater", "skillair", "skillearth", "skillastral", "itemlore", "magiclore",
+    "creaturelore", "castspell", "teachspell", "damage", "damagefire", "damagewater", "damageair",
+    "damageearth", "damageastral", "damagebonus"
+};
+
+// 541046
+Effect* Effect::CreateFromString(const CString& effstr) {
+    if (effstr.GetLength() == 0) {
+        return nullptr;
+    }
+
+    CString name;    // effect name part (before '=')
+    CString value;   // first part after '=' (before ',' or ':')
+    CString subpart; // part before ':' when present
+    CString str = effstr;
+    Effect* effect = new Effect();
+    str += ',';
+    str.MakeLower();
+
+    int32_t eq_pos = str.Find('=');
+    if (eq_pos == -1) {
+        delete effect;
+        return nullptr;
+    }
+
+    name = str.Left(eq_pos);
+    name.TrimLeft();
+    name.TrimRight();
+    str = str.Right(str.GetLength() - eq_pos - 1);
+    str.TrimLeft();
+    str.TrimLeft();
+
+    int32_t effect_id = 0;
+    for (int32_t i = 0; i < 50; i++) {
+        if (strcmp(name, g_EffectNames[i]) == 0) {
+            effect_id = i;
+            break;
+        }
+    }
+    if (effect_id == 0) {
+        delete effect;
+        return nullptr;
+    }
+    effect->effect_id = (uint8_t)effect_id;
+
+    int32_t colon_pos = str.Find(':');
+    int32_t comma_pos = str.Find(',');
+    value = str.Left(comma_pos);
+    value.TrimLeft();
+    value.TrimRight();
+    str = str.Right(str.GetLength() - comma_pos - 1);
+
+    int32_t usage_flags;
+    if (colon_pos < comma_pos && colon_pos != -1) {
+        subpart = value.Left(colon_pos);
+        subpart.TrimLeft();
+        subpart.TrimRight();
+        value = value.Right(value.GetLength() - colon_pos - 1);
+        value.TrimLeft();
+
+        int32_t parsed_value = 0;
+        if (effect_id == modifier::castspell || effect_id == modifier::teachspell) {
+            int32_t spell_id = Effect::GetSpellIDByName(&subpart);
+            effect->spell_or_damage = (int16_t)spell_id;
+            effect->spell_value = 0;
+            if (spell_id == -1) {
+                delete effect;
+                return nullptr;
+            }
+        } else if (effect_id >= modifier::damage && effect_id <= modifier::damageastral) {
+            Effect::ParseDmg(&subpart, &effect->damage_min, &effect->damage_spread);
+        } else {
+            parsed_value = Effect::AtoI(&subpart);
+            effect->full_magic_value = parsed_value;
+        }
+
+        if (effect->effect_id == modifier::castspell) {
+            effect->spell_value = (uint16_t)Effect::StrToInt(&value);
+            effect->usage_type = 0;
+            usage_flags = 0;
+        } else {
+            usage_flags = Effect::ParseUsage(&value, &parsed_value);
+            effect->usage_type = (uint8_t)usage_flags;
+        }
+
+        if ((usage_flags & 1) != 0 || (usage_flags & 2) != 0 || (usage_flags & 4) != 0) {
+            effect->spell_value = (uint16_t)(parsed_value << 4);
+        }
+    } else if (effect_id == modifier::castspell || effect_id == modifier::teachspell) {
+        int32_t spell_id = Effect::GetSpellIDByName(&value);
+        effect->spell_or_damage = (int16_t)spell_id;
+        effect->spell_value = 0;
+        if (spell_id == -1) {
+            delete effect;
+            return nullptr;
+        }
+    } else if (effect_id >= modifier::damage && effect_id <= modifier::damageastral) {
+        Effect::ParseDmg(&value, &effect->damage_min, &effect->damage_spread);
+    } else {
+        int32_t val = Effect::AtoI(&value);
+        effect->full_magic_value = val;
+        effect->_exp = val * 50;
+    }
+    return effect;
+}
+
 // 540941
 int32_t Effect::EffectPrice() {
     if (this->effect_id == 0) {

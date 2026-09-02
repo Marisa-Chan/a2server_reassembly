@@ -268089,779 +268089,7 @@ loc_53EE4D:                             ; CODE XREF: sub_53EE08+3C↑j
 sub_53EE08      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z(struct CString *)
-?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z      proc near               ; CODE XREF: ??0Effect@@QAE@ABVCString@@@Z+3A↑p
-
-var_F4          = dword ptr -0F4h
-var_F0          = dword ptr -0F0h
-var_EC          = dword ptr -0ECh
-var_E8          = dword ptr -0E8h
-var_E4          = dword ptr -0E4h
-var_E0          = dword ptr -0E0h
-var_DC          = dword ptr -0DCh
-var_D8          = dword ptr -0D8h
-var_D4          = dword ptr -0D4h
-var_D0          = dword ptr -0D0h
-var_CC          = dword ptr -0CCh
-var_C8          = dword ptr -0C8h
-var_C4          = dword ptr -0C4h
-var_C0          = dword ptr -0C0h
-var_BC          = dword ptr -0BCh
-var_B8          = dword ptr -0B8h
-var_B4          = dword ptr -0B4h
-var_B0          = dword ptr -0B0h
-var_AC          = dword ptr -0ACh
-Str2            = dword ptr -0A8h
-var_A4          = dword ptr -0A4h
-var_A0          = dword ptr -0A0h
-var_9C          = dword ptr -9Ch
-var_98          = dword ptr -98h
-var_94          = dword ptr -94h
-var_90          = dword ptr -90h
-var_8C          = dword ptr -8Ch
-var_88          = dword ptr -88h
-var_84          = dword ptr -84h
-var_80          = dword ptr -80h
-var_7C          = byte ptr -7Ch
-var_78          = byte ptr -78h
-var_74          = byte ptr -74h
-var_70          = byte ptr -70h
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = byte ptr -60h
-var_5C          = byte ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-Block           = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-Str1            = dword ptr -2Ch
-var_28          = byte ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 006032A3 SIZE 0000006E BYTES
-
-; __unwind { // SEH_541046
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_541046
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 0E8h
-                mov     [ebp+var_24], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 541073
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 541082
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [ecx-8]
-                mov     [ebp+var_9C], edx
-                cmp     [ebp+var_9C], 0
-                jnz     short loc_5410DF
-                mov     [ebp+var_44], 0
-;   } // starts at 54108E
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5410B0
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5410BC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_44]
-                jmp     loc_5417FE
-; ---------------------------------------------------------------------------
-
-loc_5410DF:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+61↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CString *
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                push    48h ; 'H'       ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   } // starts at 5410EB
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                cmp     [ebp+Block], 0
-                jz      short loc_541116
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0Effect@@QAE@XZ
-                mov     [ebp+var_B4], eax
-                jmp     short loc_541120
-; ---------------------------------------------------------------------------
-
-loc_541116:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+BE↑j
-                mov     [ebp+var_B4], 0
-
-loc_541120:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+CE↑j
-                mov     ecx, dword ptr [ebp+var_B4]
-                mov     [ebp+var_4C], ecx
-;   } // starts at 5410FC
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     edx, dword ptr [ebp+var_4C]
-                mov     [ebp+var_10], edx
-                push    2Ch ; ','       ; Src
-                lea     ecx, [ebp+var_14]
-                call    ??YCString@@QAEABV0@D@Z ; CString::operator+=(char)
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?MakeLower@CString@@QAEXXZ ; CString::MakeLower(void)
-                push    3Dh ; '='       ; char
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_3C], eax
-                cmp     [ebp+var_3C], 0FFFFFFFFh
-                jnz     short loc_5411CB
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_54], eax
-                mov     ecx, dword ptr [ebp+var_54]
-                mov     [ebp+var_50], ecx
-                cmp     [ebp+var_50], 0
-                jz      short loc_54117F
-                push    1
-                mov     edx, dword ptr [ebp+var_50]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_50]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_B8], eax
-                jmp     short loc_541189
-; ---------------------------------------------------------------------------
-
-loc_54117F:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+122↑j
-                mov     [ebp+var_B8], 0
-
-loc_541189:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+137↑j
-                mov     [ebp+var_58], 0
-;   } // starts at 541129
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541190
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 54119C
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5411A8
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_58]
-                jmp     loc_5417FE
-; ---------------------------------------------------------------------------
-
-loc_5411CB:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+110↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                push    ecx
-                lea     edx, [ebp+var_5C]
-                push    edx
-                lea     ecx, [ebp+var_14]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_BC], eax
-                mov     eax, dword ptr [ebp+var_BC]
-                mov     [ebp+var_C0], eax
-;   try {
-                mov     byte ptr [ebp+var_4], 5
-                mov     ecx, dword ptr [ebp+var_C0]
-                push    ecx             ; int
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 5411ED
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_5C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx-8]
-                mov     [ebp+var_A0], eax
-                mov     ecx, dword ptr [ebp+var_A0]
-                sub     ecx, [ebp+var_3C]
-                sub     ecx, 1
-                push    ecx
-                lea     edx, [ebp+var_60]
-                push    edx
-                lea     ecx, [ebp+var_14]
-                call    ?Right@CString@@QBE?AV1@H@Z ; CString::Right(int)
-                mov     [ebp+var_C4], eax
-                mov     eax, dword ptr [ebp+var_C4]
-                mov     [ebp+var_C8], eax
-;   } // starts at 541200
-;   try {
-                mov     byte ptr [ebp+var_4], 6
-                mov     ecx, dword ptr [ebp+var_C8]
-                push    ecx             ; int
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 541253
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_60] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                mov     [ebp+var_34], 0
-                mov     [ebp+var_30], 0
-                jmp     short loc_54129B
-; ---------------------------------------------------------------------------
-
-loc_541292:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z:loc_5412E8↓j
-                mov     edx, dword ptr [ebp+var_30]
-                add     edx, 1
-                mov     [ebp+var_30], edx
-
-loc_54129B:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+24A↑j
-                cmp     [ebp+var_30], 32h ; '2'
-                jge     short loc_5412EA
-                mov     eax, dword ptr [ebp+var_30]
-                mov     ecx, off_6370C8[eax*4] ; "unused_value_0"
-                mov     [ebp+Str2], ecx
-                mov     edx, dword ptr [ebp+Str2]
-                push    edx             ; Str2
-                mov     eax, dword ptr [ebp+Str1]
-                push    eax             ; Str1
-                call    _strcmp
-                add     esp, 8
-                mov     [ebp+var_A4], eax
-                xor     ecx, ecx
-                cmp     [ebp+var_A4], 0
-                setz    cl
-                and     ecx, 0FFh
-                test    ecx, ecx
-                jz      short loc_5412E8
-                mov     edx, dword ptr [ebp+var_30]
-                mov     [ebp+var_34], edx
-                jmp     short loc_5412EA
-; ---------------------------------------------------------------------------
-
-loc_5412E8:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+298↑j
-                jmp     short loc_541292
-; ---------------------------------------------------------------------------
-
-loc_5412EA:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+259↑j
-                cmp     [ebp+var_34], 0
-                jnz     short loc_541363
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_68], eax
-                mov     ecx, dword ptr [ebp+var_68]
-                mov     [ebp+var_64], ecx
-                cmp     [ebp+var_64], 0
-                jz      short loc_541317
-                push    1
-                mov     edx, dword ptr [ebp+var_64]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_64]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_CC], eax
-                jmp     short loc_541321
-; ---------------------------------------------------------------------------
-
-loc_541317:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+2BA↑j
-                mov     [ebp+var_CC], 0
-
-loc_541321:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+2CF↑j
-                mov     [ebp+var_6C], 0
-;   } // starts at 541266
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541328
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541334
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541340
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_6C]
-                jmp     loc_5417FE
-; ---------------------------------------------------------------------------
-
-loc_541363:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+2A8↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dl, byte ptr [ebp+var_34]
-                mov     [ecx+3Ch], dl
-                push    3Ah ; ':'       ; char
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_40], eax
-                push    2Ch ; ','       ; char
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_1C], eax
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                lea     ecx, [ebp+var_70]
-                push    ecx
-                lea     ecx, [ebp+var_14]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_D0], eax
-                mov     edx, dword ptr [ebp+var_D0]
-                mov     [ebp+var_D4], edx
-;   try {
-                mov     byte ptr [ebp+var_4], 7
-                mov     eax, dword ptr [ebp+var_D4]
-                push    eax             ; int
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 5413A8
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_70] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx-8]
-                mov     [ebp+var_AC], edx
-                mov     eax, dword ptr [ebp+var_AC]
-                sub     eax, [ebp+var_1C]
-                sub     eax, 1
-                push    eax
-                lea     ecx, [ebp+var_74]
-                push    ecx
-                lea     ecx, [ebp+var_14]
-                call    ?Right@CString@@QBE?AV1@H@Z ; CString::Right(int)
-                mov     [ebp+var_D8], eax
-                mov     edx, dword ptr [ebp+var_D8]
-                mov     [ebp+var_DC], edx
-;   } // starts at 5413BB
-;   try {
-                mov     byte ptr [ebp+var_4], 8
-                mov     eax, dword ptr [ebp+var_DC]
-                push    eax             ; int
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 54140E
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_74] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_40]
-                cmp     ecx, [ebp+var_1C]
-                jge     loc_54168E
-                cmp     [ebp+var_40], 0FFFFFFFFh
-                jz      loc_54168E
-                mov     edx, dword ptr [ebp+var_40]
-                push    edx
-                lea     eax, [ebp+var_78]
-                push    eax
-                lea     ecx, [ebp+var_20]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_E0], eax
-                mov     ecx, dword ptr [ebp+var_E0]
-                mov     [ebp+var_E4], ecx
-;   } // starts at 541421
-;   try {
-                mov     byte ptr [ebp+var_4], 9
-                mov     edx, dword ptr [ebp+var_E4]
-                push    edx             ; int
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 541465
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_78] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax-8]
-                mov     [ebp+var_B0], ecx
-                mov     edx, dword ptr [ebp+var_B0]
-                sub     edx, [ebp+var_40]
-                sub     edx, 1
-                push    edx
-                lea     eax, [ebp+var_7C]
-                push    eax
-                lea     ecx, [ebp+var_20]
-                call    ?Right@CString@@QBE?AV1@H@Z ; CString::Right(int)
-                mov     [ebp+var_E8], eax
-                mov     ecx, dword ptr [ebp+var_E8]
-                mov     [ebp+var_EC], ecx
-;   } // starts at 541478
-;   try {
-                mov     byte ptr [ebp+var_4], 0Ah
-                mov     edx, dword ptr [ebp+var_EC]
-                push    edx             ; int
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 5414CB
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                lea     ecx, [ebp+var_7C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                cmp     [ebp+var_34], 29h ; ')'
-                jz      short loc_541502
-                cmp     [ebp+var_34], 2Ah ; '*'
-                jnz     loc_5415AC
-
-loc_541502:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4B0↑j
-                lea     eax, [ebp+var_28]
-                push    eax
-                call    sub_541963
-                add     esp, 4
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dx, word ptr [ebp+var_24]
-                mov     [ecx+40h], dx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     word ptr [eax+42h], 0
-                cmp     [ebp+var_24], 0FFFFFFFFh
-                jnz     short loc_5415AA
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_84], ecx
-                mov     edx, dword ptr [ebp+var_84]
-                mov     [ebp+var_80], edx
-                cmp     [ebp+var_80], 0
-                jz      short loc_541558
-                push    1
-                mov     eax, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_80]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_F0], eax
-                jmp     short loc_541562
-; ---------------------------------------------------------------------------
-
-loc_541558:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4FB↑j
-                mov     [ebp+var_F0], 0
-
-loc_541562:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+510↑j
-                mov     [ebp+var_88], 0
-;   } // starts at 5414DE
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 54156C
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541578
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541584
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_88]
-                jmp     loc_5417FE
-; ---------------------------------------------------------------------------
-
-loc_5415AA:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4E3↑j
-                jmp     short loc_541604
-; ---------------------------------------------------------------------------
-
-loc_5415AC:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4B6↑j
-                cmp     [ebp+var_34], 2Bh ; '+'
-                jz      short loc_5415D0
-                cmp     [ebp+var_34], 2Ch ; ','
-                jz      short loc_5415D0
-                cmp     [ebp+var_34], 2Dh ; '-'
-                jz      short loc_5415D0
-                cmp     [ebp+var_34], 2Eh ; '.'
-                jz      short loc_5415D0
-                cmp     [ebp+var_34], 2Fh ; '/'
-                jz      short loc_5415D0
-                cmp     [ebp+var_34], 30h ; '0'
-                jnz     short loc_5415EC
-
-loc_5415D0:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+56A↑j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 41h ; 'A'
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 40h ; '@'
-                push    ecx             ; int
-                lea     edx, [ebp+var_28]
-                push    edx             ; CString *
-                call    sub_54180C
-                add     esp, 0Ch
-                jmp     short loc_541604
-; ---------------------------------------------------------------------------
-
-loc_5415EC:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+588↑j
-                lea     eax, [ebp+var_28]
-                push    eax             ; CString *
-                call    sub_5419C3
-                add     esp, 4
-                mov     [ebp+var_38], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+var_38]
-                mov     [ecx+40h], edx
-
-loc_541604:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z:loc_5415AA↑j
-                mov     eax, dword ptr [ebp+var_10]
-                xor     ecx, ecx
-                mov     cl, [eax+3Ch]
-                cmp     ecx, 29h ; ')'
-                jnz     short loc_541634
-                lea     edx, [ebp+var_20]
-                push    edx             ; CString *
-                call    sub_5418F1
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+42h], ax
-                mov     edx, dword ptr [ebp+var_10]
-                mov     byte ptr [edx+3Dh], 0
-                mov     [ebp+var_18], 0
-                jmp     short loc_541650
-; ---------------------------------------------------------------------------
-
-loc_541634:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5C9↑j
-                lea     eax, [ebp+var_38]
-                push    eax             ; int
-                lea     ecx, [ebp+var_20]
-                push    ecx             ; CString *
-                call    sub_541A5D
-                add     esp, 8
-                mov     [ebp+var_18], eax
-                mov     edx, dword ptr [ebp+var_10]
-                mov     al, byte ptr [ebp+var_18]
-                mov     [edx+3Dh], al
-
-loc_541650:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5EC↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                and     ecx, 1
-                test    ecx, ecx
-                jnz     short loc_54166E
-                mov     edx, dword ptr [ebp+var_18]
-                and     edx, 2
-                test    edx, edx
-                jnz     short loc_54166E
-                mov     eax, dword ptr [ebp+var_18]
-                and     eax, 4
-                test    eax, eax
-                jz      short loc_541689
-
-loc_54166E:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+612↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ax, [edx+40h]
-                mov     [ecx+40h], ax
-                mov     ecx, dword ptr [ebp+var_38]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+42h], cx
-
-loc_541689:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+626↑j
-                jmp     loc_5417BC
-; ---------------------------------------------------------------------------
-
-loc_54168E:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+3ED↑j
-                cmp     [ebp+var_34], 29h ; ')'
-                jz      short loc_54169E
-                cmp     [ebp+var_34], 2Ah ; '*'
-                jnz     loc_541758
-
-loc_54169E:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+64C↑j
-                lea     eax, [ebp+var_20]
-                push    eax
-                call    sub_541963
-                add     esp, 4
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dx, word ptr [ebp+var_24]
-                mov     [ecx+40h], dx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     word ptr [eax+42h], 0
-                cmp     [ebp+var_24], 0FFFFFFFFh
-                jnz     loc_541756
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_90], ecx
-                mov     edx, dword ptr [ebp+var_90]
-                mov     [ebp+var_8C], edx
-                cmp     [ebp+var_8C], 0
-                jz      short loc_541704
-                push    1
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8C]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_F4], eax
-                jmp     short loc_54170E
-; ---------------------------------------------------------------------------
-
-loc_541704:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+6A1↑j
-                mov     [ebp+var_F4], 0
-
-loc_54170E:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+6BC↑j
-                mov     [ebp+var_94], 0
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541718
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541724
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 541730
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_94]
-                jmp     loc_5417FE
-; ---------------------------------------------------------------------------
-
-loc_541756:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+67F↑j
-                jmp     short loc_5417BC
-; ---------------------------------------------------------------------------
-
-loc_541758:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+652↑j
-                cmp     [ebp+var_34], 2Bh ; '+'
-                jz      short loc_54177C
-                cmp     [ebp+var_34], 2Ch ; ','
-                jz      short loc_54177C
-                cmp     [ebp+var_34], 2Dh ; '-'
-                jz      short loc_54177C
-                cmp     [ebp+var_34], 2Eh ; '.'
-                jz      short loc_54177C
-                cmp     [ebp+var_34], 2Fh ; '/'
-                jz      short loc_54177C
-                cmp     [ebp+var_34], 30h ; '0'
-                jnz     short loc_541798
-
-loc_54177C:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+716↑j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 41h ; 'A'
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 40h ; '@'
-                push    ecx             ; int
-                lea     edx, [ebp+var_20]
-                push    edx             ; CString *
-                call    sub_54180C
-                add     esp, 0Ch
-                jmp     short loc_5417BC
-; ---------------------------------------------------------------------------
-
-loc_541798:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+734↑j
-                lea     eax, [ebp+var_20]
-                push    eax             ; CString *
-                call    sub_5419C3
-                add     esp, 4
-                mov     [ebp+var_38], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+var_38]
-                mov     [ecx+40h], edx
-                mov     eax, dword ptr [ebp+var_38]
-                imul    eax, 32h ; '2'
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+1Ch], eax
-
-loc_5417BC:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z:loc_541689↑j
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [ebp+var_98], edx
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5417C5
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5417D1
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 5417DD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+Str1] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_98]
-
-loc_5417FE:                             ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+94↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 541046
-?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl sub_54180C(CString *, int, int)
-sub_54180C      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+59C↑p
+?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+59C↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -268893,7 +268121,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_5418E3
 ; ---------------------------------------------------------------------------
 
-loc_54183F:                             ; CODE XREF: sub_54180C+2C↑j
+loc_54183F:                             ; CODE XREF: ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z+2C↑j
                 mov     eax, dword ptr [ebp+var_18]
                 push    eax
                 lea     ecx, [ebp+var_10]
@@ -268928,13 +268156,13 @@ loc_54183F:                             ; CODE XREF: sub_54180C+2C↑j
                 call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
                 lea     edx, [ebp+var_10]
                 push    edx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+arg_4]
                 mov     [ecx], al
                 lea     edx, [ebp+var_14]
                 push    edx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+arg_4]
                 xor     edx, edx
@@ -268952,22 +268180,22 @@ loc_54183F:                             ; CODE XREF: sub_54180C+2C↑j
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_5418E3:                             ; CODE XREF: sub_54180C+2E↑j
+loc_5418E3:                             ; CODE XREF: ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z+2E↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 54180C
-sub_54180C      endp
+?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_5418F1(CString *)
-sub_5418F1      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5CF↑p
+; int __cdecl ?StrToInt@Effect@@SAHPAVCString@@@Z(CString *)
+?StrToInt@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5CF↑p
 
 var_14          = dword ptr -14h
 var_10          = byte ptr -10h
@@ -268999,7 +268227,7 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_4], 0
                 lea     ecx, [ebp+var_10]
                 push    ecx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     [ebp+var_14], eax
 ;   } // starts at 54192D
@@ -269013,14 +268241,14 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn
 ; } // starts at 5418F1
-sub_5418F1      endp
+?StrToInt@Effect@@SAHPAVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_541963      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4C0↑p
+?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4C0↑p
 
 Str2            = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -269034,12 +268262,12 @@ arg_0           = dword ptr  8
                 jmp     short loc_54197B
 ; ---------------------------------------------------------------------------
 
-loc_541972:                             ; CODE XREF: sub_541963:loc_5419BA↓j
+loc_541972:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z:loc_5419BA↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_54197B:                             ; CODE XREF: sub_541963+D↑j
+loc_54197B:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+D↑j
                 cmp     [ebp+var_4], 1Eh
                 jge     short loc_5419BC
                 mov     ecx, dword ptr [ebp+var_4]
@@ -269063,26 +268291,26 @@ loc_54197B:                             ; CODE XREF: sub_541963+D↑j
                 jmp     short loc_5419BF
 ; ---------------------------------------------------------------------------
 
-loc_5419BA:                             ; CODE XREF: sub_541963+50↑j
+loc_5419BA:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+50↑j
                 jmp     short loc_541972
 ; ---------------------------------------------------------------------------
 
-loc_5419BC:                             ; CODE XREF: sub_541963+1C↑j
+loc_5419BC:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+1C↑j
                 or      eax, 0FFFFFFFFh
 
-loc_5419BF:                             ; CODE XREF: sub_541963+55↑j
+loc_5419BF:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+55↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_541963      endp
+?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_5419C3(CString *)
-sub_5419C3      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5AA↑p
+; int __cdecl ?AtoI@Effect@@SAHPAVCString@@@Z(CString *)
+?AtoI@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5AA↑p
 
 var_24          = dword ptr -24h
 var_20          = dword ptr -20h
@@ -269115,7 +268343,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_541A4F
 ; ---------------------------------------------------------------------------
 
-loc_5419F3:                             ; CODE XREF: sub_5419C3+2A↑j
+loc_5419F3:                             ; CODE XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+2A↑j
                 push    offset a1234567890_0 ; "+-1234567890"
                 lea     eax, [ebp+var_14]
                 push    eax
@@ -269146,22 +268374,22 @@ loc_5419F3:                             ; CODE XREF: sub_5419C3+2A↑j
                 add     esp, 0Ch
                 mov     eax, dword ptr [ebp+var_10]
 
-loc_541A4F:                             ; CODE XREF: sub_5419C3+2E↑j
+loc_541A4F:                             ; CODE XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+2E↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 5419C3
-sub_5419C3      endp
+?AtoI@Effect@@SAHPAVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_541A5D(CString *, int)
-sub_541A5D      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5F6↑p
+; int __cdecl ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z(CString *, int)
+?ParseUsage@Effect@@SAHPAVCString@@PAH@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5F6↑p
 
 var_48          = dword ptr -48h
 var_44          = dword ptr -44h
@@ -269215,7 +268443,7 @@ arg_4           = dword ptr  0Ch
                 jmp     loc_541C79
 ; ---------------------------------------------------------------------------
 
-loc_541AB8:                             ; CODE XREF: sub_541A5D+52↑j
+loc_541AB8:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+52↑j
                 push    offset aSingleuse ; "singleuse"
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     ecx, dword ptr [eax]
@@ -269233,7 +268461,7 @@ loc_541AB8:                             ; CODE XREF: sub_541A5D+52↑j
                 jmp     loc_541C79
 ; ---------------------------------------------------------------------------
 
-loc_541AEB:                             ; CODE XREF: sub_541A5D+82↑j
+loc_541AEB:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+82↑j
                 push    offset aCharges ; "charges"
                 mov     ecx, dword ptr [ebp+arg_0] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
@@ -269269,7 +268497,7 @@ loc_541AEB:                             ; CODE XREF: sub_541A5D+82↑j
                 call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+arg_4]
                 mov     [edx], eax
@@ -269277,7 +268505,7 @@ loc_541AEB:                             ; CODE XREF: sub_541A5D+82↑j
                 jmp     loc_541C79
 ; ---------------------------------------------------------------------------
 
-loc_541B70:                             ; CODE XREF: sub_541A5D+A2↑j
+loc_541B70:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+A2↑j
                 push    offset aDuration ; "duration"
                 mov     ecx, dword ptr [ebp+arg_0] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
@@ -269313,7 +268541,7 @@ loc_541B70:                             ; CODE XREF: sub_541A5D+A2↑j
                 call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+arg_4]
                 mov     [edx], eax
@@ -269321,7 +268549,7 @@ loc_541B70:                             ; CODE XREF: sub_541A5D+A2↑j
                 jmp     loc_541C79
 ; ---------------------------------------------------------------------------
 
-loc_541BF5:                             ; CODE XREF: sub_541A5D+127↑j
+loc_541BF5:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+127↑j
                 push    offset aContinuous ; "continuous"
                 mov     ecx, dword ptr [ebp+arg_0] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
@@ -269357,7 +268585,7 @@ loc_541BF5:                             ; CODE XREF: sub_541A5D+127↑j
                 call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx             ; CString *
-                call    sub_5419C3
+                call    ?AtoI@Effect@@SAHPAVCString@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+arg_4]
                 mov     [edx], eax
@@ -269365,17 +268593,17 @@ loc_541BF5:                             ; CODE XREF: sub_541A5D+127↑j
                 jmp     short loc_541C79
 ; ---------------------------------------------------------------------------
 
-loc_541C77:                             ; CODE XREF: sub_541A5D+1AC↑j
+loc_541C77:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+1AC↑j
                 xor     eax, eax
 
-loc_541C79:                             ; CODE XREF: sub_541A5D+56↑j
+loc_541C79:                             ; CODE XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+56↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 541A5D
-sub_541A5D      endp
+?ParseUsage@Effect@@SAHPAVCString@@PAH@Z      endp
 
 
 
@@ -448650,118 +447878,7 @@ SEH_53EC55:                             ; DATA XREF: ??0Effect@@QAE@ABVCString@@
 ; } // starts at 6031ED
 ; END OF FUNCTION CHUNK FOR ??0Effect@@QAE@ABVCString@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z
-
-loc_6032A3:                             ; DATA XREF: .rdata:stru_6251E8↓o
-; __unwind { // SEH_541046              ; varThis
-;   cleanup() // owned by 541073
-;   cleanup() // owned by 5410BC
-;   cleanup() // owned by 5411A8
-;   cleanup() // owned by 541340
-;   cleanup() // owned by 541584
-;   cleanup() // owned by 541730
-;   cleanup() // owned by 5417DD
-                lea     ecx, [ebp+Str1]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032AC:                             ; DATA XREF: .rdata:006251F0↓o
-;   cleanup() // owned by 541082        ; varThis
-;   cleanup() // owned by 5410B0
-;   cleanup() // owned by 54119C
-;   cleanup() // owned by 541334
-;   cleanup() // owned by 541578
-;   cleanup() // owned by 541724
-;   cleanup() // owned by 5417D1
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032B5:                             ; DATA XREF: .rdata:006251F8↓o
-;   cleanup() // owned by 54108E        ; varThis
-;   cleanup() // owned by 541190
-;   cleanup() // owned by 541328
-;   cleanup() // owned by 54156C
-;   cleanup() // owned by 541718
-;   cleanup() // owned by 5417C5
-                lea     ecx, [ebp+var_28]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032BE:                             ; DATA XREF: .rdata:00625200↓o
-;   cleanup() // owned by 5410EB        ; varThis
-;   cleanup() // owned by 541129
-;   cleanup() // owned by 541200
-;   cleanup() // owned by 541266
-;   cleanup() // owned by 5413BB
-;   cleanup() // owned by 541421
-;   cleanup() // owned by 541478
-;   cleanup() // owned by 5414DE
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032C7:                             ; DATA XREF: .rdata:00625208↓o
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032D1:                             ; DATA XREF: .rdata:00625210↓o
-                lea     ecx, [ebp+var_5C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032DA:                             ; DATA XREF: .rdata:00625218↓o
-                lea     ecx, [ebp+var_60] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032E3:                             ; DATA XREF: .rdata:00625220↓o
-                lea     ecx, [ebp+var_70] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032EC:                             ; DATA XREF: .rdata:00625228↓o
-                lea     ecx, [ebp+var_74] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032F5:                             ; DATA XREF: .rdata:00625230↓o
-                lea     ecx, [ebp+var_78] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_6032FE:                             ; DATA XREF: .rdata:00625238↓o
-;   cleanup() // owned by 5410FC        ; varThis
-;   cleanup() // owned by 5411ED
-;   cleanup() // owned by 541253
-;   cleanup() // owned by 5413A8
-;   cleanup() // owned by 54140E
-;   cleanup() // owned by 541465
-;   cleanup() // owned by 5414CB
-                lea     ecx, [ebp+var_7C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_541046:                             ; DATA XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5↑o
-                mov     eax, offset stru_6251C8
-                jmp     ___CxxFrameHandler
-; } // starts at 6032A3
-; END OF FUNCTION CHUNK FOR ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_54180C
+; START OF FUNCTION CHUNK FOR ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z
 
 unknown_libname_1018:                   ; DATA XREF: .rdata:stru_625260↓o
 ; __unwind { // SEH_54180C              ; MFC 3.1-14.0 32bit
@@ -448779,13 +447896,13 @@ loc_60331A:                             ; DATA XREF: .rdata:00625268↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_54180C:                             ; DATA XREF: sub_54180C+5↑o
+SEH_54180C:                             ; DATA XREF: ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z+5↑o
                 mov     eax, offset stru_625240
                 jmp     ___CxxFrameHandler
 ; } // starts at 603311
-; END OF FUNCTION CHUNK FOR sub_54180C
+; END OF FUNCTION CHUNK FOR ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_5418F1
+; START OF FUNCTION CHUNK FOR ?StrToInt@Effect@@SAHPAVCString@@@Z
 
 unknown_libname_1019:                   ; DATA XREF: .rdata:stru_625290↓o
 ; __unwind { // SEH_5418F1              ; MFC 3.1-14.0 32bit
@@ -448795,13 +447912,13 @@ unknown_libname_1019:                   ; DATA XREF: .rdata:stru_625290↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_5418F1:                             ; DATA XREF: sub_5418F1+5↑o
+SEH_5418F1:                             ; DATA XREF: ?StrToInt@Effect@@SAHPAVCString@@@Z+5↑o
                 mov     eax, offset stru_625270
                 jmp     ___CxxFrameHandler
 ; } // starts at 60332D
-; END OF FUNCTION CHUNK FOR sub_5418F1
+; END OF FUNCTION CHUNK FOR ?StrToInt@Effect@@SAHPAVCString@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_5419C3
+; START OF FUNCTION CHUNK FOR ?AtoI@Effect@@SAHPAVCString@@@Z
 
 loc_603340:                             ; DATA XREF: .rdata:stru_6252B8↓o
 ; __unwind { // SEH_5419C3              ; varThis
@@ -448811,13 +447928,13 @@ loc_603340:                             ; DATA XREF: .rdata:stru_6252B8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_5419C3:                             ; DATA XREF: sub_5419C3+5↑o
+SEH_5419C3:                             ; DATA XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+5↑o
                 mov     eax, offset stru_625298
                 jmp     ___CxxFrameHandler
 ; } // starts at 603340
-; END OF FUNCTION CHUNK FOR sub_5419C3
+; END OF FUNCTION CHUNK FOR ?AtoI@Effect@@SAHPAVCString@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_541A5D
+; START OF FUNCTION CHUNK FOR ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z
 
 loc_603353:                             ; DATA XREF: .rdata:stru_6252E0↓o
 ; __unwind { // SEH_541A5D              ; varThis
@@ -448841,11 +447958,11 @@ loc_603365:                             ; DATA XREF: .rdata:006252F0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_541A5D:                             ; DATA XREF: sub_541A5D+5↑o
+SEH_541A5D:                             ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+5↑o
                 mov     eax, offset stru_6252C0
                 jmp     ___CxxFrameHandler
 ; } // starts at 603353
-; END OF FUNCTION CHUNK FOR sub_541A5D
+; END OF FUNCTION CHUNK FOR ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_5449E3
 
@@ -478440,22 +477557,6 @@ stru_625070     FuncInfoV1 <19930520h, 1, offset stru_625090, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_625090     UnwindMapEntry <-1, offset loc_6031ED>
-stru_6251C8     FuncInfoV1 <19930520h, 11, offset stru_6251E8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6251E8     UnwindMapEntry <-1, offset loc_6032A3>
-                UnwindMapEntry <0, offset loc_6032AC>
-                UnwindMapEntry <1, offset loc_6032B5>
-                UnwindMapEntry <2, offset loc_6032BE>
-                UnwindMapEntry <3, offset loc_6032C7>
-                UnwindMapEntry <3, offset loc_6032D1>
-                UnwindMapEntry <3, offset loc_6032DA>
-                UnwindMapEntry <3, offset loc_6032E3>
-                UnwindMapEntry <3, offset loc_6032EC>
-                UnwindMapEntry <3, offset loc_6032F5>
-                UnwindMapEntry <3, offset loc_6032FE>
 stru_625240     FuncInfoV1 <19930520h, 2, offset stru_625260, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -489079,7 +488180,7 @@ off_6370C8      dd offset aUnusedValue0 ; DATA XREF: ?CreateFromString@Effect@@S
                 dd offset aDamageearth  ; "damageearth"
                 dd offset aDamageastral ; "damageastral"
                 dd offset aDamagebonus  ; "damagebonus"
-off_637190      dd offset aUnusedSpell0 ; DATA XREF: sub_541963+21↑r
+off_637190      dd offset aUnusedSpell0 ; DATA XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+21↑r
                 dd offset aFireArrow_0  ; "fire_arrow"
                 dd offset aFireBall     ; "fire_ball"
                 dd offset aWallOfFire   ; "wall_of_fire"
@@ -490483,25 +489584,25 @@ aEffectAffectsN db 'Effect affects not implemented yet parameter',0
 ; CHAR aOopsUnknownEff[]
 aOopsUnknownEff db 'Oops - unknown Effect case',0
                 align 4
-a1234567890     db '+1234567890',0      ; DATA XREF: sub_5418F1+2B↑o
-a1234567890_0   db '+-1234567890',0     ; DATA XREF: sub_5419C3:loc_5419F3↑o
+a1234567890     db '+1234567890',0      ; DATA XREF: ?StrToInt@Effect@@SAHPAVCString@@@Z+2B↑o
+a1234567890_0   db '+-1234567890',0     ; DATA XREF: ?AtoI@Effect@@SAHPAVCString@@@Z:loc_5419F3↑o
                 align 10h
 ; char aD_53[]
-aD_53           db '%d',0               ; DATA XREF: sub_5419C3+78↑o
+aD_53           db '%d',0               ; DATA XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+78↑o
                 align 4
 ; char aPermanent[]
-aPermanent      db 'permanent',0        ; DATA XREF: sub_541A5D+2B↑o
+aPermanent      db 'permanent',0        ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z+2B↑o
                 align 10h
 ; char aSingleuse[]
-aSingleuse      db 'singleuse',0        ; DATA XREF: sub_541A5D:loc_541AB8↑o
+aSingleuse      db 'singleuse',0        ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z:loc_541AB8↑o
                 align 4
 ; char aCharges[]
-aCharges        db 'charges',0          ; DATA XREF: sub_541A5D:loc_541AEB↑o
+aCharges        db 'charges',0          ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z:loc_541AEB↑o
 ; char aDuration[]
-aDuration       db 'duration',0         ; DATA XREF: sub_541A5D:loc_541B70↑o
+aDuration       db 'duration',0         ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z:loc_541B70↑o
                 align 10h
 ; char aContinuous[]
-aContinuous     db 'continuous',0       ; DATA XREF: sub_541A5D:loc_541BF5↑o
+aContinuous     db 'continuous',0       ; DATA XREF: ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z:loc_541BF5↑o
                 align 4
 aWarningClientT db 'Warning - client tries to merge different items',0
 ; CHAR aInvalidShopTra_2[]
