@@ -789,6 +789,26 @@ Effect* Effect::CreateFromString(const CString& effstr) {
     return effect;
 }
 
+// 541963
+static const char* const g_SpellNames[30] = {
+    "unused_spell_0", "fire_arrow", "fire_ball", "wall_of_fire", "protection_from_fire",
+    "ice_missile", "poison_cloud", "blizzard", "protection_from_water", "acid_stream",
+    "lightning", "prismatic_spray", "invisibility", "protection_from_air", "darkness",
+    "light", "diamond_dust", "wall_of_earth", "stone_curse", "protection_from_earth",
+    "bless", "haste", "control_spirit", "teleport", "heal",
+    "summon", "drain_life", "shield", "curse", "slow"
+};
+
+// 541963
+int32_t Effect::GetSpellIDByName(CString* name) {
+    for (int32_t i = 0; i < 30; i++) {
+        if (strcmp(*name, g_SpellNames[i]) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 // 5418F1
 int32_t Effect::StrToInt(CString* str) {
     str->TrimLeft();

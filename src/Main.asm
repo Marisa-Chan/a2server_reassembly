@@ -268190,63 +268190,6 @@ loc_5418E3:                             ; CODE XREF: ?ParseDmg@Effect@@SAXPAVCSt
 ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z      endp
 
 
-?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4C0↑p
-
-Str2            = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_4], 0
-                jmp     short loc_54197B
-; ---------------------------------------------------------------------------
-
-loc_541972:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z:loc_5419BA↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_54197B:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+D↑j
-                cmp     [ebp+var_4], 1Eh
-                jge     short loc_5419BC
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, off_637190[ecx*4] ; "unused_spell_0"
-                mov     [ebp+Str2], edx
-                mov     eax, dword ptr [ebp+Str2]
-                push    eax             ; Str2
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; Str1
-                call    _strcmp
-                add     esp, 8
-                mov     [ebp+var_8], eax
-                xor     eax, eax
-                cmp     [ebp+var_8], 0
-                setz    al
-                and     eax, 0FFh
-                test    eax, eax
-                jz      short loc_5419BA
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_5419BF
-; ---------------------------------------------------------------------------
-
-loc_5419BA:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+50↑j
-                jmp     short loc_541972
-; ---------------------------------------------------------------------------
-
-loc_5419BC:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+1C↑j
-                or      eax, 0FFFFFFFFh
-
-loc_5419BF:                             ; CODE XREF: ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z+55↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      endp
-
-
 ; int __cdecl ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z(CString *, int)
 ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5F6↑p
 

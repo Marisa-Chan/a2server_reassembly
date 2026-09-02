@@ -499,6 +499,7 @@
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetSize@CStringArray@@QBEHXZ
 ?GetSizedString@ResBase@@QAEHPBD00PADI@Z
+?GetSpellIDByName@Effect@@SAHPAVCString@@@Z
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z

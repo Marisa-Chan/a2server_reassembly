@@ -166,7 +166,6 @@
 ?OnCommand@CWnd@@UAEHIJ@Z	82
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
-?GetSpellIDByName@Effect@@SAHPAVCString@@@Z	54
 ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z	98
 ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z	214
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
