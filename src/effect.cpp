@@ -676,6 +676,41 @@ int32_t Effect::sub_541FD7(int32_t budget, int32_t magic_volume) {
     return level;
 }
 
+// 541A5D
+int32_t Effect::ParseUsage(CString* str, int32_t* out_value) {
+    str->TrimLeft();
+    str->TrimRight();
+
+    if (strcmp(*str, "permanent") == 0) {
+        return 0;
+    }
+    if (strcmp(*str, "singleuse") == 0) {
+        return 8;
+    }
+    int32_t pos = str->Find("charges");
+    if (pos != -1) {
+        *str = str->Right(str->GetLength() - pos - 8);
+        str->TrimLeft();
+        *out_value = Effect::AtoI(str);
+        return 4;
+    }
+    pos = str->Find("duration");
+    if (pos != -1) {
+        *str = str->Right(str->GetLength() - pos - 9);
+        str->TrimLeft();
+        *out_value = Effect::AtoI(str);
+        return 1;
+    }
+    pos = str->Find("continuous");
+    if (pos != -1) {
+        *str = str->Right(str->GetLength() - pos - 11);
+        str->TrimLeft();
+        *out_value = Effect::AtoI(str);
+        return 2;
+    }
+    return 0;
+}
+
 // 541046
 static const char* const g_EffectNames[50] = {
     "unused_value_0", "price", "body", "mind", "reaction", "spirit", "health", "healthmax",

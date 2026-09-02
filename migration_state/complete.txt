@@ -321,7 +321,6 @@
 ?AssertValid@CGameObject@@UBEXXZ
 ?AssertValid@CObject@@UBEXXZ
 ?AssignCopy@CString@@IAEXHPBD@Z
-?AtoI@Effect@@SAHPAVCString@@@Z
 ?BeginFadeOut@MusicPlayer@@QAEXHH@Z
 ?BldIdSet_AllocBit@@YAIXZ
 ?Buy@CMultiShopInstance@@QAEXXZ
@@ -499,7 +498,6 @@
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetSize@CStringArray@@QBEHXZ
 ?GetSizedString@ResBase@@QAEHPBD00PADI@Z
-?GetSpellIDByName@Effect@@SAHPAVCString@@@Z
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z
@@ -617,7 +615,6 @@
 ?Paint@CMousePointer@@QAEXXZ
 ?ParseConfig@@YAHPBD@Z
 ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z
-?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z
 ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z
 ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
@@ -762,7 +759,6 @@
 ?Stop@SoundChannel@@QAEXXZ
 ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
-?StrToInt@Effect@@SAHPAVCString@@@Z
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_48A756@MainWindow@@QAEXXZ
 ?sub_4954EA@@YAXXZ

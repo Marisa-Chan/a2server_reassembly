@@ -715,11 +715,6 @@ extern ??0Effect@@QAE@PBV0@@Z  : proc
 
 externdef ?EffectPrice@Effect@@QAEHXZ :proc                                   ; int32_t Effect::EffectPrice()
 externdef ?MagicPriceBonus@Effect@@SA_JH@Z :proc                              ; int64_t Effect::MagicPriceBonus(int32_t)
-externdef ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z :proc                         ; void Effect::ParseDmg(CString*, uint8_t*, uint8_t*)
-externdef ?StrToInt@Effect@@SAHPAVCString@@@Z :proc                             ; int32_t Effect::StrToInt(CString*)
-externdef ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z :proc                     ; int32_t Effect::GetSpellIDByName(CString*)
-externdef ?AtoI@Effect@@SAHPAVCString@@@Z :proc                                 ; int32_t Effect::AtoI(CString*)
-externdef ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z :proc                        ; int32_t Effect::ParseUsage(CString*, int32_t*)
 
 
 ; DirectDamage
