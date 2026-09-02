@@ -789,6 +789,22 @@ Effect* Effect::CreateFromString(const CString& effstr) {
     return effect;
 }
 
+// 54180C
+void Effect::ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread) {
+    int32_t dash_pos = str->Find('-');
+    if (dash_pos == -1) {
+        return;
+    }
+    CString left = str->Left(dash_pos);
+    CString right = str->Right(str->GetLength() - dash_pos - 1);
+    left.TrimLeft();
+    left.TrimRight();
+    right.TrimLeft();
+    right.TrimRight();
+    *dmg_min = (uint8_t)Effect::AtoI(&left);
+    *dmg_spread = (uint8_t)Effect::AtoI(&right) - *dmg_min;
+}
+
 // 541963
 static const char* const g_SpellNames[30] = {
     "unused_spell_0", "fire_arrow", "fire_ball", "wall_of_fire", "protection_from_fire",

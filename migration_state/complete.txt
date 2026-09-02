@@ -617,6 +617,7 @@
 ?Paint@CMousePointer@@QAEXXZ
 ?ParseConfig@@YAHPBD@Z
 ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z
+?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z
 ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z
 ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
