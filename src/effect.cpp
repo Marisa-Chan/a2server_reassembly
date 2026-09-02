@@ -789,6 +789,16 @@ Effect* Effect::CreateFromString(const CString& effstr) {
     return effect;
 }
 
+// 5419C3
+int32_t Effect::AtoI(CString* str) {
+    int32_t value = 0;
+    if (str->GetLength() != 0) {
+        *str = str->SpanIncluding("+-1234567890");
+        sscanf(*str, "%d", &value);
+    }
+    return value;
+}
+
 // 540941
 int32_t Effect::EffectPrice() {
     if (this->effect_id == 0) {

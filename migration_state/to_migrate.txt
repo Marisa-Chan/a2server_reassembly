@@ -168,7 +168,6 @@
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ?StrToInt@Effect@@SAHPAVCString@@@Z	46
 ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z	54
-?AtoI@Effect@@SAHPAVCString@@@Z	71
 ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z	98
 ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z	214
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12

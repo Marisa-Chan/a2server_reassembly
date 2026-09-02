@@ -321,6 +321,7 @@
 ?AssertValid@CGameObject@@UBEXXZ
 ?AssertValid@CObject@@UBEXXZ
 ?AssignCopy@CString@@IAEXHPBD@Z
+?AtoI@Effect@@SAHPAVCString@@@Z
 ?BeginFadeOut@MusicPlayer@@QAEXHH@Z
 ?BldIdSet_AllocBit@@YAIXZ
 ?Buy@CMultiShopInstance@@QAEXXZ

@@ -268305,89 +268305,6 @@ loc_5419BF:                             ; CODE XREF: ?GetSpellIDByName@Effect@@S
 ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl ?AtoI@Effect@@SAHPAVCString@@@Z(CString *)
-?AtoI@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5AA↑p
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-Buffer          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 00603340 SIZE 00000013 BYTES
-
-; __unwind { // SEH_5419C3
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_5419C3
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 18h
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [ecx-8]
-                mov     [ebp+var_18], edx
-                cmp     [ebp+var_18], 0
-                jnz     short loc_5419F3
-                xor     eax, eax
-                jmp     short loc_541A4F
-; ---------------------------------------------------------------------------
-
-loc_5419F3:                             ; CODE XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+2A↑j
-                push    offset a1234567890_0 ; "+-1234567890"
-                lea     eax, [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?SpanIncluding@CString@@QBE?AV1@PBD@Z ; CString::SpanIncluding(char const *)
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_24], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_24]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 541A0D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+Buffer], ecx
-                lea     edx, [ebp+var_10]
-                push    edx
-                push    offset aD_53    ; "%d"
-                mov     eax, dword ptr [ebp+Buffer]
-                push    eax             ; Buffer
-                call    _sscanf
-                add     esp, 0Ch
-                mov     eax, dword ptr [ebp+var_10]
-
-loc_541A4F:                             ; CODE XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+2E↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 5419C3
-?AtoI@Effect@@SAHPAVCString@@@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; int __cdecl ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z(CString *, int)
 ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5F6↑p
 
@@ -447917,23 +447834,6 @@ SEH_5418F1:                             ; DATA XREF: ?StrToInt@Effect@@SAHPAVCSt
                 jmp     ___CxxFrameHandler
 ; } // starts at 60332D
 ; END OF FUNCTION CHUNK FOR ?StrToInt@Effect@@SAHPAVCString@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?AtoI@Effect@@SAHPAVCString@@@Z
-
-loc_603340:                             ; DATA XREF: .rdata:stru_6252B8↓o
-; __unwind { // SEH_5419C3              ; varThis
-;   cleanup() // owned by 541A0D
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_5419C3:                             ; DATA XREF: ?AtoI@Effect@@SAHPAVCString@@@Z+5↑o
-                mov     eax, offset stru_625298
-                jmp     ___CxxFrameHandler
-; } // starts at 603340
-; END OF FUNCTION CHUNK FOR ?AtoI@Effect@@SAHPAVCString@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z
 
 loc_603353:                             ; DATA XREF: .rdata:stru_6252E0↓o
@@ -477570,12 +477470,6 @@ stru_625270     FuncInfoV1 <19930520h, 1, offset stru_625290, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_625290     UnwindMapEntry <-1, offset unknown_libname_1019>
-stru_625298     FuncInfoV1 <19930520h, 1, offset stru_6252B8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6252B8     UnwindMapEntry <-1, offset loc_603340>
 stru_6252C0     FuncInfoV1 <19930520h, 3, offset stru_6252E0, 0, 0, 0, 0>
                 db    0
                 db    0
