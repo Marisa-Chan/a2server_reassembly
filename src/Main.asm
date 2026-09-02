@@ -268190,64 +268190,6 @@ loc_5418E3:                             ; CODE XREF: ?ParseDmg@Effect@@SAXPAVCSt
 ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __cdecl ?StrToInt@Effect@@SAHPAVCString@@@Z(CString *)
-?StrToInt@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+5CF↑p
-
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 0060332D SIZE 00000013 BYTES
-
-; __unwind { // SEH_5418F1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_5418F1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 8
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ?TrimRight@CString@@QAEXXZ ; CString::TrimRight(void)
-                push    offset a1234567890 ; "+1234567890"
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?SpanIncluding@CString@@QBE?AV1@PBD@Z ; CString::SpanIncluding(char const *)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    ?AtoI@Effect@@SAHPAVCString@@@Z
-                add     esp, 4
-                mov     [ebp+var_14], eax
-;   } // starts at 54192D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 5418F1
-?StrToInt@Effect@@SAHPAVCString@@@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ?GetSpellIDByName@Effect@@SAHPAVCString@@@Z      proc near               ; CODE XREF: ?CreateFromString@Effect@@SAPAV1@ABVCString@@@Z+4C0↑p
 
 Str2            = dword ptr -0Ch
@@ -447818,22 +447760,6 @@ SEH_54180C:                             ; DATA XREF: ?ParseDmg@Effect@@SAXPAVCSt
                 jmp     ___CxxFrameHandler
 ; } // starts at 603311
 ; END OF FUNCTION CHUNK FOR ?ParseDmg@Effect@@SAXPAVCString@@PAE1@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?StrToInt@Effect@@SAHPAVCString@@@Z
-
-unknown_libname_1019:                   ; DATA XREF: .rdata:stru_625290↓o
-; __unwind { // SEH_5418F1              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 54192D
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_5418F1:                             ; DATA XREF: ?StrToInt@Effect@@SAHPAVCString@@@Z+5↑o
-                mov     eax, offset stru_625270
-                jmp     ___CxxFrameHandler
-; } // starts at 60332D
-; END OF FUNCTION CHUNK FOR ?StrToInt@Effect@@SAHPAVCString@@@Z
 ; START OF FUNCTION CHUNK FOR ?ParseUsage@Effect@@SAHPAVCString@@PAH@Z
 
 loc_603353:                             ; DATA XREF: .rdata:stru_6252E0↓o
@@ -477464,12 +477390,6 @@ stru_625240     FuncInfoV1 <19930520h, 2, offset stru_625260, 0, 0, 0, 0>
                 db    0
 stru_625260     UnwindMapEntry <-1, offset unknown_libname_1018>
                 UnwindMapEntry <0, offset loc_60331A>
-stru_625270     FuncInfoV1 <19930520h, 1, offset stru_625290, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_625290     UnwindMapEntry <-1, offset unknown_libname_1019>
 stru_6252C0     FuncInfoV1 <19930520h, 3, offset stru_6252E0, 0, 0, 0, 0>
                 db    0
                 db    0

@@ -789,6 +789,14 @@ Effect* Effect::CreateFromString(const CString& effstr) {
     return effect;
 }
 
+// 5418F1
+int32_t Effect::StrToInt(CString* str) {
+    str->TrimLeft();
+    str->TrimRight();
+    CString span = str->SpanIncluding("+1234567890");
+    return Effect::AtoI(&span);
+}
+
 // 5419C3
 int32_t Effect::AtoI(CString* str) {
     int32_t value = 0;
