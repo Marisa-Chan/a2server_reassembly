@@ -137,6 +137,13 @@ SoundChannel* SfxSample::FindPlayingChannel()
 	return nullptr;
 }
 
+void SfxSample::Play()
+{
+	SoundChannel* chnl = FindPlayingChannel();
+	if (!chnl)
+		Play(g_SoundSettings.sfx_pos, 0, 0, 0x80, 0);
+}
+
 
 
 MusicPlayer::MusicPlayer(int32_t bufsz)

@@ -660,7 +660,7 @@ BOOL GameApp::OnIdle(LONG lCount)
 			if (mwnd->field_0x378 && g_NetStru1_local.IsActive() == 0)
 				mwnd->field_0x378->MsgProc(0x446, 0, 0);
 
-			mwnd->MapWnd->ProcessPackets(0);
+			mwnd->vis_map_context->ProcessPackets(0);
 		}
 		else
 		{
@@ -668,7 +668,7 @@ BOOL GameApp::OnIdle(LONG lCount)
 			if (tick - idle_tick > 62)
 			{
 				g_Server->FUN_0050907e();
-				mwnd->MapWnd->ProcessPackets(0);
+				mwnd->vis_map_context->ProcessPackets(0);
 				idle_tick = tick;
 			}
 		}

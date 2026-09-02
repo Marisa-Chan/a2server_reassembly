@@ -36,6 +36,10 @@ public:
 	~SfxSample(); //45b8c2
 
 	void Play(int volume, int pan, int loop, uint8_t priority, int freq); //45c0cf
+
+	void Play(); //438ec0 alt
+	static void Play(SfxSample* smpl) { if (smpl) smpl->Play(); } //438ec0 alt
+
 	void Release(); //45ba0f
 	SoundChannel* FindPlayingChannel(); //45c004
 public:

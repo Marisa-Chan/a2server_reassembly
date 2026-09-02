@@ -7,7 +7,7 @@
 #include "util.h"
 
 
-const int32_t VisCharGen::DWORD_0060bd60[4] = {0, 2, 3, 1};
+const int32_t VisStartGame::DWORD_0060bd60[4] = {0, 2, 3, 1};
 
 
 CVisualObject::CVisualObject()
@@ -3875,19 +3875,19 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
         switch (box)
         {
         case 0:
-            if (parent_screen->vis_list->field_0xd8 == 0)
+            if (parent_screen->roster_list->field_0xd8 == 0)
 #ifdef A2CLIENT
             {
-                int32_t idx = parent_screen->vis_list->field_0xd0;
-                if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
+                int32_t idx = parent_screen->roster_list->field_0xd0;
+                if (idx == parent_screen->session->GetStringArray1Size() - 1 &&
                     mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 &&
-                    parent_screen->pCharacters->field_0x130.GetSize() > 15)
+                    parent_screen->session->field_0x130.GetSize() > 15)
                 {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
                     mwnd->field_0x3dc = mbox;
                     mwnd->ModalScreen(mbox);
                 }
-                else if (idx == parent_screen->pCharacters->GetStringArray1Size() - 1 &&
+                else if (idx == parent_screen->session->GetStringArray1Size() - 1 &&
                     mwnd->field_0x3e0.field_10 != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0)
                 {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
@@ -3903,31 +3903,31 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
             break;
 
         case 1:
-            if (parent_screen->vis_list->field_0xd8 == 0)
+            if (parent_screen->roster_list->field_0xd8 == 0)
             {
-                int32_t idx = parent_screen->vis_list->field_0xd0;
-                if (idx != parent_screen->pCharacters->GetStringArray1Size() - 1)
+                int32_t idx = parent_screen->roster_list->field_0xd0;
+                if (idx != parent_screen->session->GetStringArray1Size() - 1)
                 {
-                    CString str = CString(txt_patch.GetLine(93)) + CString(parent_screen->pCharacters->character_name) + CString(txt_patch.GetLine(94));
+                    CString str = CString(txt_patch.GetLine(93)) + CString(parent_screen->session->character_name) + CString(txt_patch.GetLine(94));
                     VisScreen* box = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
                     mwnd->field_0x3dc = box;
                     mwnd->ModalScreen(box);
 
                     if (box->GetCloseCode() == 0x447)
                     {
-                        parent_screen->pCharacters->FUN_00493cd8();
+                        parent_screen->session->FUN_00493cd8();
 
-                        if (idx < parent_screen->pCharacters->GetStringArray1Size() - 1)
+                        if (idx < parent_screen->session->GetStringArray1Size() - 1)
                         {
-                            parent_screen->pCharacters->LoadCharacterRosterEntry(idx);
+                            parent_screen->session->LoadCharacterRosterEntry(idx);
                             parent_screen->vis_stats->FUN_0042f6f3();
-                            parent_screen->FUN_00432655(parent_screen->field_0x84);
+                            parent_screen->FUN_00432655(parent_screen->selected_unit);
                         }
                         else
                         {
-                            parent_screen->vis_list->field_0xd0 = parent_screen->pCharacters->GetStringArray1Size() - 1;
-                            parent_screen->field_0x84->VMethod1(0);
-                            parent_screen->gameinterface->UpdateSelectionState();
+                            parent_screen->roster_list->field_0xd0 = parent_screen->session->GetStringArray1Size() - 1;
+                            parent_screen->selected_unit->VMethod1(0);
+                            parent_screen->map_context->UpdateSelectionState();
                         }
                     }
                 }
@@ -3935,15 +3935,16 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
             break;
 
         case 2:
-            if (parent_screen->vis_list->field_0xd8 == 0)
+            if (parent_screen->roster_list->field_0xd8 == 0)
             {
                 parent_screen->OpenRenameWindow();
-                CSound::Play(parent_screen->field_0x8c);
+                if (parent_screen->snd_rename)
+                    parent_screen->snd_rename->Play();
             }
             break;
 
         case 3:
-            if (parent_screen->vis_list->field_0xd8 == 0)
+            if (parent_screen->roster_list->field_0xd8 == 0)
                 parent_screen->CloseCancel();
             break;
             
@@ -4631,12 +4632,12 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
             g_settings.AutoCasting |= 4;
 
 
-        mwnd->MapWnd->FUN_0041abd2(*g_settings.pFormationMode % 3);
-        mwnd->MapWnd->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
-        mwnd->MapWnd->FUN_0041ab74();
+        mwnd->vis_map_context->FUN_0041abd2(*g_settings.pFormationMode % 3);
+        mwnd->vis_map_context->FUN_0041aaaa(*g_settings.pWimpyMode % 3);
+        mwnd->vis_map_context->FUN_0041ab74();
     }
     if (g_settings.ShowTimeFlow != oldshtfl)
-        mwnd->MapWnd->FUN_0041d97e(1);
+        mwnd->vis_map_context->FUN_0041d97e(1);
 
     return VisScreen::MsgProc(msg, wparam, lparam);
 }

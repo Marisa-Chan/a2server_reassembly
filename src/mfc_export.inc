@@ -1374,7 +1374,6 @@ extern ?vis_scr_rect@@3VCRect@@A : dword
 
 extern ??0MainWindow@@QAE@XZ : proc
 extern ??1MainWindow@@UAE@XZ : proc
-externdef ?CreateUI@MainWindow@@QAEXXZ  : proc
 extern ?LoadData@MainWindow@@QAEXXZ  : proc
 externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
@@ -1477,6 +1476,38 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
+
+externdef   ??0BigStruct2@@QAE@HHHH@Z  : proc
+externdef   ??0VisCharSelect@@QAE@HHHHH@Z  : proc
+externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
+externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
+externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
+externdef   ??0VisInvType1@@QAE@HHHHH@Z  : proc
+externdef   ??0VisTav@@QAE@HHHHH@Z  : proc
+externdef   ??0VisTavDruid@@QAE@HHHHH@Z  : proc
+externdef   ??0VisTavKaarg@@QAE@HHHHH@Z  : proc
+externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
+externdef   ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
+externdef   ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
+externdef   ??0VisShopKaarg@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
+externdef   ??0VisTown@@QAE@HHHHH@Z  : proc
+externdef   ??0VisTownDruid@@QAE@HHHHH@Z  : proc
+externdef   ??0VisTownKaarg@@QAE@HHHHH@Z  : proc
+externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
+externdef   ??0VisCharGen@@QAE@HHHHH@Z  : proc
+externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
+externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
+externdef   ??0VisCharInfo@@QAE@HHHHH@Z  : proc
+externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
+externdef   ??0VisMainMenu@@QAE@HHHHH@Z  : proc
+externdef   ??0VisStartGame@@QAE@HHHHH@Z  : proc
+externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
+externdef   ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
+externdef   ??0VisLogoWnd@@QAE@HHHHH@Z  : proc
+externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
+externdef   ??0VisFameDocument@@QAE@HHHHH@Z  : proc
+
+
 
 
 ;ExperienceTable

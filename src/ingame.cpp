@@ -959,8 +959,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 
 							if (field_0x138 == ct)
 							{
-								wnd->field_0xe0->MsgProc(0x408, 0, 0);
-								wnd->field_0xe4->MsgProc(0x408, 0, 0);
+								wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+								wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 							}
 
 							if (ct->IsSelected() != 0 && ((ct->unitFlags & 2) != 0 || (packet_unit->flags_mask & 0x100000) != 0))
@@ -1181,8 +1181,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				ct->hp = packet_ping->field_0xc;
 				if (field_0x138 == ct)
 				{
-					wnd->field_0xe0->MsgProc(0x408, 0, 0);
-					wnd->field_0xe4->MsgProc(0x408, 0, 0);
+					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 				}
 				ct->m_bSelectionDirty = 1;
 			}
@@ -1235,7 +1235,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 										f.SeekToEnd();
 										f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 										f.Close();
-										wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
+										wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 									}
 								}
 							}
@@ -1310,7 +1310,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
-								wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
+								wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 							}
 							break;
 						}
@@ -1326,7 +1326,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 								f.SeekToEnd();
 								f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 								f.Close();
-								wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
+								wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 							}
 							packet_state->entry_count = num - packet_state->field_0xf;
 						}
@@ -1368,7 +1368,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
-							wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 						}
 						
 						if ((obj->flg & 0x40) != 0)
@@ -1433,7 +1433,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					else
 					{
 						if (field_0x140 == 1 && field_0x138 == ct)
-							wnd->field_0xe8->VMethod33(ct);
+							wnd->vis_invtype1->VMethod33(ct);
 					}
 					
 				}
@@ -1471,7 +1471,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 							f.SeekToEnd();
 							f.WriteString(CTime::GetCurrentTime().Format("%d.%m.%y %H:%M:%S ") + logstr + "\n");
 							f.Close();
-							wnd->MapWnd->msglog.Add(logstr, clrsh_TechBlack, 30000);
+							wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 						}
 					}
 				}
@@ -1500,7 +1500,7 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 					{
 						TokenEntry* d0 = new TokenEntry(&pdata, 0);
 						if (d0->FUN_004396d6() || d0->item_id > 0xfff0)
-							tavern->field_0x124.Add(d0);
+							tavern->rewards.Add(d0);
 						//WAT ?  else - delete ???
 					}
 				}
@@ -1547,8 +1547,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				ct->hp = packet_sync->field_0xc;
 				if (field_0x138 == ct)
 				{
-					wnd->field_0xe0->MsgProc(0x408, 0, 0);
-					wnd->field_0xe4->MsgProc(0x408, 0, 0);
+					wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+					wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
 				}
 			}
 		}
@@ -2069,8 +2069,8 @@ int32_t BigStruct2::ProcessPackets(uint8_t breakid)
 				if (obj->IsSelected() != 0)
 				{
 					field_0x9b4 = 0;
-					wnd->field_0xec->FUN_004caa69();
-					wnd->field_0xdc->MsgProc(0x40b, 0, 0);
+					wnd->vis_spellbook->FUN_004caa69();
+					wnd->vis_ordertoolbar->MsgProc(0x40b, 0, 0);
 				}
 
 				delete obj;
@@ -3198,16 +3198,16 @@ void BigStruct2::UpdateSelectionState()
 		field_0x144 |= 4;
 	
 	if (field_0x140 == 0 || (field_0x140 & 0x24) != 0)
-		mwnd->RightPanel->MsgProc(CVisualObject::MSG_40a, 0, 0);
+		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_40a, 0, 0);
 	else
-		mwnd->RightPanel->MsgProc(CVisualObject::MSG_409, AvailableOrderMask(), 0);
+		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, AvailableOrderMask(), 0);
 
-	mwnd->field_0xe0->MsgProc(CVisualObject::MSG_410, 0, 0);
-	mwnd->field_0xe4->MsgProc(CVisualObject::MSG_410, 0, 0);
+	mwnd->vis_charinfo->MsgProc(CVisualObject::MSG_410, 0, 0);
+	mwnd->vis_sidestatus->MsgProc(CVisualObject::MSG_410, 0, 0);
 	if (field_0x140 == 1 && (field_0x144 & 8) != 0)
-		mwnd->field_0xe8->VMethod33(field_0x138);
+		mwnd->vis_invtype1->VMethod33(field_0x138);
 	else
-		mwnd->field_0xe8->VMethod33(nullptr);
+		mwnd->vis_invtype1->VMethod33(nullptr);
 
 }
 
@@ -3594,7 +3594,7 @@ void BigStruct2::FUN_0041b6e0()
 		view_y = vy;
 
 	if (CVisualObject::FindChild(1200))
-		mwnd->field_0x138->FUN_0043be9f();
+		mwnd->vis_1200->FUN_0043be9f();
 
 	field_0x74 = 1;
 }
@@ -3604,13 +3604,13 @@ void BigStruct2::FUN_0041b636()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if ((mwnd->dialogsMask & 2) == 0)
-		RemoveChild(mwnd->field_0xec);
+		RemoveChild(mwnd->vis_spellbook);
 	else
-		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->field_0xec);
+		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->vis_spellbook);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->RightPanel->MsgProc(0x408, 0, 0);
+	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
 	FUN_0041b6e0();
 }
@@ -3622,21 +3622,21 @@ void BigStruct2::FUN_0041b509()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (FUN_0041b495() == 0)
-		mwnd->field_0xec->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+		mwnd->vis_spellbook->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
 	else
-		mwnd->field_0xec->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+		mwnd->vis_spellbook->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
 
 	if ((mwnd->dialogsMask & 2) == 0)
-		AddChild(mwnd->field_0xec);
+		AddChild(mwnd->vis_spellbook);
 	else
 	{
-		mwnd->field_0xec->SetRect(0, 305, 480, 390);
-		mwnd->vis_root->FindChild(1000)->AddChild(mwnd->field_0xec);
+		mwnd->vis_spellbook->SetRect(0, 305, 480, 390);
+		mwnd->vis_root->FindChild(1000)->AddChild(mwnd->vis_spellbook);
 	}
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
-	mwnd->RightPanel->MsgProc(0x408, 0, 0);
+	mwnd->vis_right_panel->MsgProc(0x408, 0, 0);
 
 	FUN_0041b6e0();
 }
@@ -3646,9 +3646,9 @@ void BigStruct2::FUN_0041b40e()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (IsBookOpen())
-		mwnd->field_0xec->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
+		mwnd->vis_spellbook->SetRect(0, rect.bottom - 85, rect.right, rect.bottom);
 
-	RemoveChild(mwnd->field_0xe8);
+	RemoveChild(mwnd->vis_invtype1);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
@@ -3660,9 +3660,9 @@ void BigStruct2::FUN_0041b381()
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 	if (IsBookOpen())
-		mwnd->field_0xec->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
+		mwnd->vis_spellbook->SetRect(0, rect.bottom - 175, rect.right, rect.bottom - 90);
 	
-	AddChild(mwnd->field_0xe8);
+	AddChild(mwnd->vis_invtype1);
 
 	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 	FUN_0041b6e0();

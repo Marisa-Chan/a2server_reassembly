@@ -7,6 +7,7 @@
 #include "mfc_templ.h"
 #include "sound.h"
 #include "gameobj.h"
+#include "txtfile.h"
 
 
 class CGameSession;
@@ -26,6 +27,8 @@ class QuestMap;
 class Scenario;
 
 class CUnit;
+
+class CFameHall;
 
 struct SaveFileInfo;
 
@@ -622,22 +625,26 @@ public:
 
 	void FUN_00432655(CUnit* unit);
 
+	VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //431eac in asm
+
 public:
-	CGameSession* pCharacters;
-	CVisualObject* field_0x6c;
-	BigStruct2* gameinterface;
+	CGameSession* session;
+	CVisualObject* info_panel;
+	BigStruct2* map_context;
 	VisCharSellectStats* vis_stats;
 	VisCharSellectButtons* buttons;
-	VisCharSellectList* vis_list;
-	CVisualObject* field_0x80;
-	CUnit* field_0x84;
-	int32_t field_0x88;
-	CSound field_0x8c;
-	int32_t field_0x90;
-	int32_t field_0x94;
-	int32_t field_0x98;
+	VisCharSellectList* roster_list;
+	CVisualObject* rename_txt;
+	CUnit* selected_unit;
+	SfxSample* snd_ok;
+	SfxSample* snd_rename;
+	SfxSample* snd_delete;
+	SfxSample* snd_cancel;
+	uint32_t active_flag;
 };
 ASSERT_SIZE(VisCharSelect, 0x9c);
+
+
 
 //6097a8
 class VisCharSellectButtons : public CVisualObject
@@ -778,6 +785,7 @@ public:
 class BigStruct2 : public CVisualObject
 {
 public:
+	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); //402af6 in asm
 
 	void UpdateSelectionState(); //416cf7
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
@@ -976,6 +984,47 @@ ASSERT_OFFSET(BigStruct2, field_0x9d0, 0x9d0);
 ASSERT_OFFSET(BigStruct2, damage_labels, 0x3f54);
 ASSERT_SIZE(BigStruct2, 0x49c8);
 
+//60ce80
+class VisRightPanel : public CVisualObject
+{
+public:
+	VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aedcf in asm
+};
+ASSERT_SIZE(VisRightPanel, 0x5c);
+
+
+//60cef8
+class VisMiniMap : public CVisualObject
+{
+public:
+	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3 in asm
+
+public:
+	BigStruct2* map_context;
+	CBmp64* bitmap1;
+	CBmp64* bitmap2;
+	int32_t zoom;
+	uint32_t viewer;
+};
+ASSERT_SIZE(VisMiniMap, 0x70);
+
+
+//60cf70
+class VisOrderToolbar : public CVisualObject
+{
+public:
+	VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b0cfc in asm
+public:
+	BigStruct2* map_context;
+	uint32_t selected_order;
+	uint32_t avail_orders_mask;
+	uint32_t enabled;
+	uint32_t dirty;
+};
+ASSERT_SIZE(VisOrderToolbar, 0x70);
+
+
+
 
 
 
@@ -1003,16 +1052,16 @@ public:
 	virtual int32_t VMethod38(); //4a79b0
 
 public:
-	CArray<CSprite256*> field_0x5c;
-	CDWordArray field_0x70;
-	CArray<TokenEntry*>* unit_d0;
-	int32_t field_0x88;
-	int32_t field_0x8c;
-	int32_t* unit_e4;
-	int32_t field_0x94[1024];
-	int32_t field_0x1094[1024];
-	CDWordArray field_0x2094;
-	int32_t field_0x20a8;
+	CArray<CSprite256*> spr_cells;
+	CDWordArray cell_update_counter;
+	CArray<TokenEntry*>* grid_source;
+	int32_t visible_columns;
+	int32_t visible_rows;
+	int32_t* visible_startref;
+	int32_t random_offsets1[1024];
+	int32_t random_offsets2[1024];
+	CDWordArray anim_frames;
+	int32_t has_anim_visible_cells;
 };
 ASSERT_SIZE(VisInvBase, 0x20ac);
 
@@ -1038,6 +1087,8 @@ public:
 	virtual int32_t VMethod27(TokenEntry* o) override;
 	virtual int32_t VMethod30(int32_t x, int32_t y) override;
 	virtual int32_t VMethod38() override;
+
+	VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a630b in asm
 
 public:
 };
@@ -1204,31 +1255,54 @@ public:
 
 	void FUN_0049edec();
 
+	VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //49db79 in asm
+
 public:
-	BigStruct2* p_bigstru2;
-	CVisualObject* field_0x6c;
-	CVisualObject* tav_44d;
-	CVisualObject* tav_44e;
+	BigStruct2* map_context;
+	CVisualObject* info_panel;
+	CVisualObject* left_panel;
+	CVisualObject* right_panel;
 	int32_t field_0x78; //unk type
-	CVisualObject* tav_450;
-	int32_t field_0x80; //unk type
+	CVisualObject* scene;
+	int32_t tips;
 	CSound sounds[13];
-	int32_t field_0xb8; //unk type
-	int32_t field_0xbc; //unk type
-	CArray <CUnit*> field_0xc0;
-	CArray <CUnit*> field_0xd4;
-	CArray <CUnit*> field_0xe8;
-	CDWordArray field_0xfc;
-	int32_t field_0x110; //unk type
+	int32_t selection_index;
+	int32_t select_party;
+	CArray <CUnit*> avail_entries;
+	CArray <CUnit*> selected_entries;
+	CArray <CUnit*> reserved_entries;
+	CDWordArray entrie_id;
+	int32_t dialog_active;
 	QuestMap* quest_map;
 	int32_t quest_id;
-	int32_t field_0x11c; //unk type
-	int32_t field_0x120; //unk type
-	CArray<TokenEntry*> field_0x124;
-	int32_t field_0x138; //unk type
-	int32_t field_0x13c; //unk type
+	int32_t quest_selection;
+	int32_t quest_mirror_selection;
+	CArray<TokenEntry*> rewards;
+	int32_t field_0x138;
+	int32_t field_0x13c;
 };
 ASSERT_SIZE(VisTav, 0x140);
+
+//60c768
+class VisTavDruid : public VisTav
+{
+public:
+	VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 in asm
+public:
+	SfxSample* snd_druid[11];
+};
+ASSERT_SIZE(VisTavDruid, 0x16c);
+
+//60c880
+class VisTavKaarg : public VisTav
+{
+public:
+	VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 in asm
+public:
+	SfxSample* snd_kaarg[10];
+};
+ASSERT_SIZE(VisTavKaarg, 0x168);
+
 
 class VisSpellBook : public CVisualObject
 {
@@ -1250,15 +1324,18 @@ public:
 
 	void FUN_004caa69();
 
+	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 in asm
+
 public:
 	int32_t field_0x5c;
 	int32_t pressed;
-	int32_t field_0x64;
-	int32_t field_0x68;
+	int32_t selected;
+	int32_t spell;
 };
 ASSERT_SIZE(VisSpellBook, 0x6c);
 
 
+//60d3e8
 class VisShop : public VisScreen
 {
 public:
@@ -1281,17 +1358,19 @@ public:
 
 	void FUN_004bcd02();
 
+	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm
+
 public:
 	VisInvExtType1* assortiment;
 	VisInvExtType2* to_sell;
 	VisInvExtType3* to_buy;
-	CVisualObject* field_0x74;
+	CVisualObject* shop_compass;
 	CVisualObject* buttons;
-	CVisualObject* field_0x7c;
+	CVisualObject* select_info_panel;
 	BigStruct2* gameplay;
-	VisSpellBook* field_0x84;
-	CVisualObject* field_0x88;
-	int32_t field_0x8c;
+	VisSpellBook* spell_panel;
+	CVisualObject* tips;
+	int32_t tips_update_flag;
 	SfxSample* snd_notif;
 	SfxSample* snd_step1;
 	SfxSample* snd_step2;
@@ -1311,34 +1390,257 @@ public:
 	CBmp64* bmp_backinvs;
 	CSprite256* spr_myitem;
 	CSprite256* spr_shopitem;
-	CArray<CBmp64*> field_0xdc;
-	CArray<CBmp64*> field_0xf0;
-	int32_t field_0x104;
-	CArray<CUnit*> field_0x108;
-	CWordArray field_0x11c;
-	int16_t field_0x130;
-	int16_t field_0x132;
+	CArray<CBmp64*> bmp_cost_medium;
+	CArray<CBmp64*> bmp_cost_small;
+	int32_t hovered_region;
+	CArray<CUnit*> selected_units;
+	CWordArray units_order;
+	int16_t select_index;
+	int16_t select_category;
 	int32_t field_0x134;
 	int32_t field_0x138;
 	int32_t field_0x13c;
 	int32_t field_0x140;
-	int32_t field_0x144;
-	int32_t field_0x148;
-	int32_t field_0x14c;
-	int32_t field_0x150;
-	int32_t field_0x154;
-	int32_t field_0x158;
-	int32_t field_0x15c;
-	int32_t field_0x160;
+	int32_t placement_lock;
+	int32_t dialog_active;
+	int32_t dirty;
+	int32_t current_gold;
+	int32_t buy_gold;
+	int32_t sell_gold;
+	int32_t result_gold;
+	int32_t scenario_talk_target;
 };
 ASSERT_SIZE(VisShop, 0x164);
+
+
+//60d5c0
+class VisShopDruid : public VisShop
+{
+public:
+	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad in asm
+public:
+	SfxSample* snd_bird[3];
+	SfxSample* snd_tool[4];
+	int32_t bird_tick;
+	int32_t tool_tick;
+	int32_t next_bird;
+	int32_t next_tool;
+};
+ASSERT_SIZE(VisShopDruid, 0x190);
+
+
+//60d708
+class VisShopKaarg : public VisShop
+{
+public:
+	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm
+public:
+	SfxSample* snd_voice[3];
+	SfxSample* snd_tool[4];
+	int32_t voice_tick;
+	int32_t tool_tick;
+	int32_t next_voice;
+	int32_t next_tool;
+};
+ASSERT_SIZE(VisShopKaarg, 0x190);
+
+
+
 
 //60dbb0
 class VisTown : public VisScreen
 {
 public:
-
+	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c in asm
+public:
+	CBmp64* bmp_bkg;
+	CBmp256* bmp_hover_mask;
+	CBmp64* bmp_bird_overlay;
+	SfxSample* sounds[14];
+	int32_t hover_snd_shop;
+	int32_t hover_snd_second;
+	int32_t hovered_action_mask;
+	int32_t last_bird;
+	int32_t bird_group_index;
+	int32_t active_bird;
+	CArray<CSprite256*> spr_birds;
+	int32_t bird_frame0;
+	int32_t bird_frame1;
+	int32_t bird_frame2;
+	CA16* spr_guard;
+	int32_t guard_frame;
+	uint32_t guard_frame_step;
+	int32_t guard_sound;
+	CA16* spr_cur_bbird;
+	CArray<CSprite256*> spr_bbird;
+	CPoint bbird_position;
+	int32_t bbird_frame;
+	uint32_t bbird_last_tick;
+	int32_t bbird_delay;
+	CA16* spr_cur_horse;
+	CArray<CSprite256*> spr_horse;
+	CPoint horse_position;
+	int32_t horse_frame;
+	int32_t horse_anim_index;
+	uint32_t horse_last_tick;
+	int32_t horse_delay;
+	CA16* spr_dervish;
+	CPoint dervish_position;
+	int32_t dervish_frame;
+	CA16* spr_tavern;
+	CBmp64* bmp_tavern_hover;
+	int32_t tavern_frame;
+	CArray<CBmp64*> bmp_sign;
+	CBmp64* bmp_cur_sign;
+	int32_t sign_frame;
+	CArray<CBmp64*> bmp_door;
+	CBmp64* bmp_cur_door;
+	int32_t door_frame;
+	uint32_t door_open_flag;
+	CArray<CBmp64*> bmp_stars;
+	CBmp64* bmp_cur_stars;
+	int32_t stars_frame;
+	CBmp64* bmp_trainer_hover;
+	CA16* spr_fighter;
+	int32_t fighter_frame;
+	CA16* spr_mage;
+	int32_t mage_frame;
+	CA16* spr_shop;
+	CBmp64* bmp_shop_hover;
+	int32_t shop_frame;
+	CArray<CBmp64*> bmp_flugel;
+	CBmp64* bmp_cur_flugel;
+	int32_t flugel_frame;
+	CVisualObject* tips;
+	uint32_t dialog_active;
+	uint32_t town_anim;
 };
+ASSERT_SIZE(VisTown, 0x20c);
+
+
+//60dc60
+class VisTownDruid : public VisTown
+{
+public:
+	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 in asm
+public:
+	SfxSample* snd_lizard[4];
+	SfxSample* snd_bug[3];
+	SfxSample* snd_bird[3];
+	SfxSample* snd_tree[4];
+	SfxSample* snd_forest;
+	SfxSample* snd_shop;
+	SfxSample* snd_tavern;
+	SfxSample* snd_shop_enter;
+	SfxSample* snd_tavern_enter;
+	SfxSample* snd_town_exit;
+	SfxSample* snd_wolf;
+	uint32_t tavern_hover_snd_flag;
+	uint32_t mission_exit_hover_snd_flag;
+	CArray<CBmp64*> tavern_frame_group[3];
+	int32_t tavern_group;
+	uint32_t tavern_tick;
+	int32_t tavern_delay;
+	CArray<CBmp64*> shop_frame_group[3];
+	int32_t shop_group;
+	uint32_t shop_tick;
+	int32_t shop_delay;
+	uint32_t tree_tick;
+	uint32_t wolf_tick;
+	CA16* spr_bug;
+	uint32_t bug_tick;
+	int32_t bug_delay;
+	int32_t bug_variant;
+	int32_t bug_frame;
+	CA16* spr_lizard;
+	int32_t lizard_variant;
+	int32_t lizard_frame;
+};
+ASSERT_SIZE(VisTownDruid, 0x320);
+
+
+//60dd10
+class VisTownKaarg : public VisTown
+{
+public:
+	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a in asm
+public:
+	SfxSample* snd_voice[3];
+	SfxSample* snd_bird[4];
+	SfxSample* snd_voice1;
+	SfxSample* snd_shop_enter;
+	SfxSample* snd_tavern_enter;
+	SfxSample* snd_dervish;
+	SfxSample* snd_guard[6];
+	uint32_t tavern_snd_flag;
+	uint32_t exit_snd_flag;
+	uint32_t guard_snd_flag;
+	uint32_t bird_snd_tick;
+	uint32_t dervish_snd_tick;
+	CArray<CBmp64*> bmp_guard;
+	uint32_t guard_tick;
+	int32_t guard_delay;
+	CArray<CBmp64*> bmp_dervish;
+	uint32_t dervish_tick;
+	int32_t dervish_delay;
+	CArray<CBmp64*> bmp_girl1[2];
+	int32_t girl1_group;
+	CArray<CBmp64*> bmp_girl2[2];
+	int32_t girl2_group;
+	int32_t girl2_frame;
+	uint32_t girl2_tick;
+	int32_t girl2_delay;
+	CArray<CBmp64*> bmp_gate;
+};
+ASSERT_SIZE(VisTownKaarg, 0x314);
+
+
+
+class VisCredits : public VisScreen
+{
+public:
+	VisCredits(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43c337 in asm
+public:
+	CMapStringToOb bitmaps;
+	TxtFile text;
+	uint32_t flag;
+	int32_t first_visible;
+	int32_t scroll;
+};
+ASSERT_SIZE(VisCredits, 0xa0);
+
+//6096a8
+class VisCharGen : public VisScreen
+{
+public:
+	VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //42dcd9 in asm
+public:
+	CVisualObject* info_panel;
+	CVisualObject* map_visual;
+	CVisualObject* stats_panel;
+	CVisualObject* fullstats_panel;
+	CVisualObject* action_panel;
+	CVisualObject* skills_panel;
+	CVisualObject* tips;
+	SfxSample* snd_stat;
+	SfxSample* snd_ok;
+	SfxSample* snd_reset;
+	SfxSample* snd_back;
+	CUnit* current_char;
+	int32_t fwd_btn;
+	int32_t field14_0x9c;
+	CWordArray face_sets[4];
+	uint32_t mage_flag;
+	int32_t female_face;
+	int32_t selected_face;
+	int32_t selected_face_set;
+	int32_t tips_step;
+	uint32_t active_flag;
+};
+ASSERT_SIZE(VisCharGen, 0x108);
+
+
+
 
 //609ad0
 class Vis1200 : public VisScreen
@@ -1349,37 +1651,96 @@ public:
 	int32_t FUN_00497310(); //497310
 	void FUN_0043be9f(); //43be9f
 
+	Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 in asm
+
+public:
+	char buffer[256];
+	CVisualObject* text_block;
+	uint32_t active;
 };
+ASSERT_SIZE(Vis1200, 0x170);
+
+
+
+//60a170
+class VisDropGold : public VisScreen
+{
+public:
+	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 60a170 in asm
+public:
+	int32_t selection;
+	char amount_text[100];
+};
+ASSERT_SIZE(VisDropGold, 0xd0);
+
+
 
 
 //60cfe8
 class VisCharInfo : public CVisualObject
 {
 public:
-
+	VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b16c3 in asm
 public:
-	BigStruct2* field_0x5c;
-	int32_t field_60;
+	BigStruct2* map_context;
+	int32_t dirty;
 	int32_t field_64;
-	int32_t field_68;
-	int32_t field_6c;
-	int32_t field_70;
-	CBmp64* field_0x74;
-	CBmp256* field_0x78;
-	char field_0x7c[256];
+	int32_t selection_panel_state;
+	int32_t spell_panel_state;
+	int32_t info_mode;
+	CBmp64* bitmap;
+	CBmp256* hitmap;
+	char picturename[256];
 };
 ASSERT_SIZE(VisCharInfo, 0x17c);
 
 
+//60d070
+class VisSideStatus : public CVisualObject
+{
+public:
+	VisSideStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b3fa3 in asm
+public:
+	uint32_t dirty;
+};
+ASSERT_SIZE(VisSideStatus, 0x60);
 
-class VisCharGen;
 
-class VisCharGenTextBox : public CVisualObject
+//60cd30
+class VisMainMenu : public VisScreen
+{
+public:
+	VisMainMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aa926 in asm
+public:
+	CArray<CBmp64*> bmp_button;
+	CArray<CBmp64*> bmp_pressed;
+	CArray<CBmp64*> bmp_labels;
+	CArray<CRect> rect_buttons;
+	CArray<CRect> rect_labels;
+	CBmp64* bmp_menu;
+	CBmp256* bmp_menu_mask;
+	SfxSample* snd_btn_click;
+	CBmp64* bmp_active_button;
+	CRect rect_active_button;
+	uint32_t over_button;
+	uint32_t active_button;
+	uint32_t pressed_button;
+	uint32_t disable_mask;
+	CA16* sprite;
+};
+ASSERT_SIZE(VisMainMenu, 0x100);
+
+
+
+
+class VisStartGame;
+
+class VisStartGameTextBox : public CVisualObject
 {
 public:
 
 public:
-	VisCharGen* vischargen;
+	VisStartGame* screen;
 	CString text;
 	uint16_t* clr;
 	uint16_t* clr_active;
@@ -1387,13 +1748,14 @@ public:
 	int32_t is_active;
 	uint32_t ts;
 };
-ASSERT_SIZE(VisCharGenTextBox, 0x78);
+ASSERT_SIZE(VisStartGameTextBox, 0x78);
 
 
 //609998
-class VisCharGen : public VisScreen
+class VisStartGame : public VisScreen
 {
 public:
+	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 
 	CString GetName() { return char_name; } // 4973f0
 	CString GetClan() { return clan_name; } // 497430
@@ -1442,9 +1804,9 @@ public:
 	CSound labelInputSound2; // 0x1e0;
 	CSound labelInputSound3; // 0x1e4;
 	int32_t labelInputSoundIndex;
-	VisCharGenTextBox* networkNameLabel; // 0x1ec;
-	VisCharGenTextBox* nameLabel; // 0x1f0;
-	VisCharGenTextBox* clanLabel; // 0x1f4;
+	VisStartGameTextBox* networkNameLabel; // 0x1ec;
+	VisStartGameTextBox* nameLabel; // 0x1f0;
+	VisStartGameTextBox* clanLabel; // 0x1f4;
 	VisScreen* tipsPrompt; // 0x1f8;
 	CString char_name; // 0x1fc
 	CString clan_name; // 0x200
@@ -1458,7 +1820,7 @@ public:
 
 	static const int32_t DWORD_0060bd60[4];
 };
-ASSERT_SIZE(VisCharGen, 0x220);
+ASSERT_SIZE(VisStartGame, 0x220);
 
 //60b180
 class VisMenuWnd : public VisWindow
@@ -1623,6 +1985,8 @@ public:
 
 	void RebuildScenarioLocations(); //47024a
 	void PopulateScenarioLocationFlags(); //47025d
+
+	VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b in asm
 public:
 	CBmp64* gmap;
 	CBmp64* hero_bmp;
@@ -1717,6 +2081,52 @@ public:
 	uint32_t drawPendingFlag;
 };
 ASSERT_SIZE(VisLogoWnd, 0x7c);
+
+
+//60b288
+class VisFameHall : public VisScreen
+{
+public:
+	VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 45cd35 in asm
+public:
+	CFameHall* fame;
+	CArray<CRect> name_rects;
+	CArray<CRect> rank_rects;
+	CArray<CRect> score_rects;
+	CRect close_rect;
+	CBmp64* bmp_bkg;
+	CBmp64* bmp_close_off;
+	CBmp64* bmp_close_on;
+	CBmp64* bmp_cur_close;
+	SfxSample* snd_close;
+	uint32_t visible_flag;
+};
+ASSERT_SIZE(VisFameHall, 0xd0);
+
+//60cdf8
+class VisFameDocument : public VisScreen
+{
+public:
+	VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4ad961 in asm
+public:
+	CFameHall* fame;
+	CBmp64* bmp_sheet;
+	CArray<CBmp64*> bmp_leftarrow;
+	CArray<CBmp64*> bmp_rightarrow;
+	CArray<CBmp64*> bmp_okbutton;
+	CBmp64* bmp_cur_left;
+	CBmp64* bmp_cur_right;
+	CBmp64* bmp_cur_ok;
+	int32_t selected_doc;
+	uint32_t field10_0xbc;
+	CRect rect_prev;
+	CRect rect_next;
+	CRect rect_ok;
+	uint32_t field17_0xf0;
+	uint32_t visible_flag;
+};
+ASSERT_SIZE(VisFameDocument, 0xf8);
+
 
 
 #endif

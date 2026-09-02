@@ -58,7 +58,7 @@ CGameObject::CGameObject()
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd)
-        pMapObject = wnd->MapWnd;
+        pMapObject = wnd->vis_map_context;
 
     shopInventoryVisibleStart = 0;
     str1[0] = 0;

@@ -303,8 +303,8 @@ public: // VTable at 0060c1a8.
     MainWindow(); // 4837e1
     virtual ~MainWindow(); // 4961b0
 
-    void CreateUI(); //in asm 484ab0
-    void LoadData(); //in asm 483d64
+    void CreateUI(); //484ab0
+    void LoadData(); //483d64
     void LoadSettings(); //in asm 441a03
 
     void RemoteGameIdle(); //48acac
@@ -383,33 +383,33 @@ public:
     void (*music_update_proc)();
     MusicPlayer* music_player;
     CVisualObject* vis_root;
-    BigStruct2* MapWnd; // 0xd0
-    CVisualObject* RightPanel; //0xd4
-    CVisualObject* field_0xd8;
-    CVisualObject* field_0xdc;
-    VisCharInfo* field_0xe0;
-    CVisualObject* field_0xe4;
-    VisInvType1* field_0xe8;
-    VisSpellBook* field_0xec;
-    VisGlobalMap* global_map_wnd;
-    VisScreen* field_0xf4;
-    CVisualObject* field_0xf8;
-    CVisualObject* field_0xfc;
-    CVisualObject* field_0x100;
+    BigStruct2* vis_map_context; // 0xd0
+    VisRightPanel* vis_right_panel; //0xd4
+    VisMiniMap* vis_minimap;
+    VisOrderToolbar* vis_ordertoolbar;
+    VisCharInfo* vis_charinfo;
+    VisSideStatus* vis_sidestatus;
+    VisInvType1* vis_invtype1;
+    VisSpellBook* vis_spellbook;
+    VisGlobalMap* vis_globalmap;
+    VisMainMenu* vis_mainmenu;
+    VisShop* vis_shop;
+    VisShopDruid* vis_shopdruid;
+    VisShopKaarg* vis_shopkaarg;
     VisTav* vis_tav;
-    CVisualObject* field_0x108;
-    CVisualObject* field_0x10c;
+    VisTavDruid* vis_tavdruid;
+    VisTavKaarg* vis_tavkaarg;
     VisTown* vis_town;
-    CVisualObject* field_0x114;
-    CVisualObject* field_0x118;
-    CVisualObject* field_0x11c;
-    CVisualObject* field_0x120;
+    VisTownDruid* vis_towndruid;
+    VisTownKaarg* vis_townkaarg;
+    VisFameHall* vis_famehall;
+    VisDropGold* vis_dropgold;
     VisScreen* field_0x124;
     int32_t field_0x128;
     VisScreen* field_0x12c;
-    CVisualObject* field_0x130;
-    VisLogoWnd* field_0x134;
-    Vis1200* field_0x138;
+    VisCredits* vis_credits;
+    VisLogoWnd* vis_logownd;
+    Vis1200* vis_1200;
     LoadGameWindow* field_0x13c;
     SaveGameWindow* field_0x140;
     VisMessageBox* field_0x144;
@@ -419,9 +419,9 @@ public:
     VisScreen* field_0x350;
     AvailNetSession net_sessions;
     int32_t field_0x368;
-    VisScreen* field_0x36c;
+    VisCharGen* vis_chargen;
     VisCharSelect* vis_charsel;
-    VisCharGen* StartGameSetupWnd; //0x374
+    VisStartGame* vis_startgame; //0x374
     VisScreen* field_0x378; // BigStruct1*
     VisScreen* field_0x37c;
     PhoneBook phone_book; //380
@@ -430,7 +430,7 @@ public:
     HatSettings hat_settings; //3b4
     VisScreen* field_0x3d0;
     VisScreen* field_0x3d4;
-    CVisualObject* field_0x3d8;
+    VisFameDocument* vis_famedocument;
     VisScreen* field_0x3dc;
     Main3e0 field_0x3e0;
     int32_t field_0x3f8;
