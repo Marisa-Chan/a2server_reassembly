@@ -876,11 +876,7 @@ externdef ?VMethod17@Weapon@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             
 
 ; Inventory
 extern ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z:proc   ;   (public: void __thiscall Inventory::PutItemIntoBagAtDefault(class Item *))
-externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z:proc   ; (public: void __thiscall Inventory::PutItemIntoBag(int,class Item *))
-externdef ??0Inventory@@QAE@XZ :proc
-externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
-
-
+extern ??0Inventory@@QAE@XZ :proc
 
 
 ;Spell

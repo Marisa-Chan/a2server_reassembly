@@ -33,17 +33,17 @@ public:
 
     static Effect* CreateFromString(const CString& effstr);
 
-    int sub_53EDB0(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
-    int32_t sub_541FD7(int32_t budget, int32_t magic_volume); // Compute effect level from budget and magic volume
-    int32_t EffectPrice(); // 540941
-    static int64_t MagicPriceBonus(int32_t total); // 540A33
-
-    // Helpers still in ASM, called by CreateFromString
+    // Helpers for CreateFromString
     static void ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread); // 54180C
     static int32_t StrToInt(CString* str); // 5418F1
     static int32_t GetSpellIDByName(CString* name); // 541963
     static int32_t AtoI(CString* str); // 5419C3
     static int32_t ParseUsage(CString* str, int32_t* out_value); // 541A5D
+
+    int sub_53EDB0(Effect* other); // Returns true if both effects have matching effect_id, usage_type, and spell values
+    int32_t sub_541FD7(int32_t budget, int32_t magic_volume); // Compute effect level from budget and magic volume
+    int32_t EffectPrice(); // 540941
+    static int64_t MagicPriceBonus(int32_t total); // 540A33
 
 public:
     uint8_t effect_id;

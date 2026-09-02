@@ -681,10 +681,10 @@ int32_t Effect::ParseUsage(CString* str, int32_t* out_value) {
     str->TrimLeft();
     str->TrimRight();
 
-    if (strcmp(*str, "permanent") == 0) {
+    if (*str == "permanent") {
         return 0;
     }
-    if (strcmp(*str, "singleuse") == 0) {
+    if (*str == "singleuse") {
         return 8;
     }
     int32_t pos = str->Find("charges");
@@ -711,7 +711,7 @@ int32_t Effect::ParseUsage(CString* str, int32_t* out_value) {
     return 0;
 }
 
-// 541046
+// 6370C8
 static const char* const g_EffectNames[50] = {
     "unused_value_0", "price", "body", "mind", "reaction", "spirit", "health", "healthmax",
     "healthregeneration", "mana", "manamax", "manaregeneration", "tohit", "damagemin", "damagemax",
@@ -724,15 +724,15 @@ static const char* const g_EffectNames[50] = {
 };
 
 // 541046
-Effect* Effect::CreateFromString(const CString& effstr) {
-    if (effstr.GetLength() == 0) {
+Effect* Effect::CreateFromString(const CString& effect_str) {
+    if (effect_str.GetLength() == 0) {
         return nullptr;
     }
 
     CString name;    // effect name part (before '=')
     CString value;   // first part after '=' (before ',' or ':')
     CString subpart; // part before ':' when present
-    CString str = effstr;
+    CString str = effect_str;
     Effect* effect = new Effect();
     str += ',';
     str.MakeLower();
@@ -752,7 +752,7 @@ Effect* Effect::CreateFromString(const CString& effstr) {
 
     int32_t effect_id = 0;
     for (int32_t i = 0; i < 50; i++) {
-        if (strcmp(name, g_EffectNames[i]) == 0) {
+        if (name == g_EffectNames[i]) {
             effect_id = i;
             break;
         }
@@ -761,7 +761,7 @@ Effect* Effect::CreateFromString(const CString& effstr) {
         delete effect;
         return nullptr;
     }
-    effect->effect_id = (uint8_t)effect_id;
+    effect->effect_id = effect_id;
 
     int32_t colon_pos = str.Find(':');
     int32_t comma_pos = str.Find(',');
@@ -840,7 +840,7 @@ void Effect::ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread) {
     *dmg_spread = (uint8_t)Effect::AtoI(&right) - *dmg_min;
 }
 
-// 541963
+// 637190
 static const char* const g_SpellNames[30] = {
     "unused_spell_0", "fire_arrow", "fire_ball", "wall_of_fire", "protection_from_fire",
     "ice_missile", "poison_cloud", "blizzard", "protection_from_water", "acid_stream",
@@ -853,7 +853,7 @@ static const char* const g_SpellNames[30] = {
 // 541963
 int32_t Effect::GetSpellIDByName(CString* name) {
     for (int32_t i = 0; i < 30; i++) {
-        if (strcmp(*name, g_SpellNames[i]) == 0) {
+        if (*name == g_SpellNames[i]) {
             return i;
         }
     }
