@@ -746,14 +746,6 @@ externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ;
 extern ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                                  ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
 externdef ?sub_537B2B@WavePattern@@QAEXPBH0E@Z :proc                           ; void WavePattern::sub_537B2B(const int32_t*, const int32_t*, uint8_t)
 
-; AreaEffect wave tables
-externdef _unk_6364D0 :dword
-externdef _dword_6366C4 :dword
-externdef _dword_6366C8 :dword
-externdef _dword_636AA0 :dword
-externdef _unk_636578 :byte
-externdef _unk_636620 :byte
-
 ; PointEffect
 externdef ??0PointEffect@@QAE@XZ :proc                                         ; PointEffect::PointEffect()
 externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc

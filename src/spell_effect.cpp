@@ -19,14 +19,87 @@ uint32_t __cdecl sub_5365AB(TokenPos* a, TokenPos* b) {
 	return (uint32_t)std::sqrt((double)(dx * dx + dy * dy));
 }
 
-extern "C" {
-	extern int32_t unk_6364D0[];  // Wave table for blizzard: count, 20 x-offsets, 20 y-offsets.
-	extern int32_t dword_6366C4;  // Number of wave patterns for acid stream (= 6).
-	extern int32_t dword_6366C8[]; // Wave patterns A for acid stream (6 records of 41 dwords).
-	extern int32_t dword_636AA0[]; // Wave patterns B for acid stream.
-	extern int32_t unk_636578[];  // Wave table A used by AreaEffect::sub_537F2C.
-	extern int32_t unk_636620[];  // Wave table B used by AreaEffect::sub_537F2C.
-}
+// 6364D0
+// Wave table for blizzard: count, 20 x-offsets, 20 y-offsets.
+int32_t unk_6364D0[41] = {1};
+
+// 636578
+// Wave table A used by AreaEffect::sub_537F2C.
+const int32_t unk_636578[41] = {
+	10, // count
+	-2, -1, 0, 1, 2, -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
+};
+
+// 636620
+// Wave table B used by AreaEffect::sub_537F2C.
+const int32_t unk_636620[41] = {
+	9, // count
+	-2, -1, 0, 1, 2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	2, 1, 0, -1, -2, 2, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
+};
+
+// 6366C4
+// Number of wave patterns for acid stream.
+const int32_t dword_6366C4 = 6;
+
+// 6366C8
+// Wave patterns A for acid stream (6 records of: count, 20 x-offsets, 20 y-offsets).
+const int32_t dword_6366C8[6][41] = {
+	{ 1, // count
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 3, // count
+	  -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 5, // count
+	  -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 7, // count
+	  -3, -2, -1, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 9, // count
+	  -4, -3, -2, -1, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 0, // count
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+};
+
+// 636AA0
+// Wave patterns B for acid stream.
+const int32_t dword_636AA0[6][41] = {
+	{ 1, // count
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 2, // count
+	  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 3, // count
+	  2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 4, // count
+	  3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 5, // count
+	  4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+	{ 6, // count
+	  5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+	  0, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+	},
+};
 
 // 636488
 IMPLEMENT_SERIAL(SpellEffect, Token, 1);
@@ -407,7 +480,7 @@ void AreaEffect::sub_537CD6() {
 		wave.sub_537AE8(unk_6364D0);
 		count = 32;
 	} else if (this->itemDataID == spell::acid_stream) {
-		wave.sub_537B2B(dword_6366C8 + this->field_0x4f * 41, dword_636AA0 + this->field_0x4f * 41, this->field_0x4e);
+		wave.sub_537B2B(dword_6366C8[this->field_0x4f], dword_636AA0[this->field_0x4f], this->field_0x4e);
 		count = dword_6366C4;
 		packet_type = 0x12;
 	}

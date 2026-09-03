@@ -546,6 +546,7 @@
 ?LoadInfo@Shield@@QAEXXZ
 ?LoadInfo@Weapon@@QAEXXZ
 ?LoadItemNames@@YAXXZ
+?LoadSettings@MainWindow@@QAEXXZ
 ?LoadStringA@CString@@QAEHI@Z
 ?LoadVfxData@@YAXXZ
 ?LockBuffer@CString@@QAEPADXZ

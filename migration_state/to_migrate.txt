@@ -172,7 +172,6 @@
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
-?LoadSettings@MainWindow@@QAEXXZ	90
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
