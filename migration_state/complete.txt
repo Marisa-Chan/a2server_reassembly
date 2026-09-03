@@ -525,6 +525,7 @@
 ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z
 ?IsEmpty@CellState@@QBEHXZ
 ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z
+?IsListen@CLlDriver@@QAEHXZ
 ?IsSameYX@TokenPos@@QBEHPBU1@@Z
 ?IsSelected@CGameObject@@QAEHXZ
 ?IsSerializable@CObject@@QBEHXZ

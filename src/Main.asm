@@ -142041,7 +142041,7 @@ loc_489E4A:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 test    eax, eax
                 jnz     short loc_489E93
                 mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
-                call    ?sub_496ED0@CLlDriver@@QAEHXZ
+                call    ?IsListen@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jz      short loc_489E7D
                 push    0               ; lParam
@@ -148061,7 +148061,7 @@ sub_495743      proc near
                 cmp     ?g_Server@@3PAUServer@@A, 0
                 jz      short loc_495770
                 mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    ?sub_496ED0@CLlDriver@@QAEHXZ
+                call    ?IsListen@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jnz     short loc_495770
                 mov     eax, ?g_Server@@3PAUServer@@A
@@ -148081,7 +148081,7 @@ sub_495774      proc near
                 cmp     ?g_Server@@3PAUServer@@A, 0
                 jz      short loc_4957A1
                 mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    ?sub_496ED0@CLlDriver@@QAEHXZ
+                call    ?IsListen@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jnz     short loc_4957A1
                 mov     eax, ?g_Server@@3PAUServer@@A
@@ -150717,31 +150717,6 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn    4
 sub_496EB0      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_496ED0@CLlDriver@@QAEHXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+31F2↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                cmp     dword ptr [eax+4], 1
-                setz    cl
-                mov     eax, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_496ED0@CLlDriver@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
