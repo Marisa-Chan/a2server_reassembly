@@ -78,7 +78,8 @@ CString* sub_43A820(CString* out, uint32_t value) {
     *out = buf;
     return out;
 }
-extern "C" int dword_6CDB38; // File checksum global
+
+int dword_6CDB38; // File checksum global
 
 // ---- Helpers used by arena Server methods ----
 // 4FA768

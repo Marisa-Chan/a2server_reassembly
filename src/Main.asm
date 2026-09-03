@@ -488343,7 +488343,6 @@ unk_6C3A00      db 8h dup(?)
 ; CStringArray _unk_6CDB10
 _unk_6CDB10      db 14h dup(?)
 ?g_PlayersList@@3PAVPlayersList@@A    dd ?                    ; DATA XREF: sub_44DBE0+180↑r
-_dword_6CDB38    dd ?                    ; DATA XREF: ?sub_4F1471@Server@@QAEHVCString@@@Z+40B↑w
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
 

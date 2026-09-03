@@ -992,7 +992,6 @@ extern ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z :proc  ; void NetSt
 externdef ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z :proc  ; NetStru1::sub_51AC77(Token*,Player*,uint8_t)
 
 externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
-externdef _dword_665CFC :dword
 externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 
 extern ?SendPacket_64@NetStru1@@QAEXIG@Z : proc
@@ -1885,7 +1884,6 @@ externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
 
 extern ?StatLevelPoints@@YAHH@Z:proc ; int32_t StatLevelPoints(int32_t) 5008CA
 extern ?sub_43A820@@YAPAVCString@@PAV1@I@Z :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
-externdef _dword_6CDB38 :dword                                  ; file checksum global
 externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                                     ; sub_4F499B — parse item from packet data
 
 
