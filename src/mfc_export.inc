@@ -191,14 +191,11 @@ extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
 externdef ?sub_514BE7@GameDataRes@@QAEXXZ :proc
 
 ; ParseTxtFiles header CStringArray globals
-externdef _unk_6B0BE8 :byte
-externdef _unk_6CDB10 :byte
-externdef _unk_6B1638 :byte
-externdef _unk_6CF3D8 :byte
-externdef _unk_6C37E8 :byte
-externdef _unk_6E18C8 :byte
-externdef _unk_6B0BD0 :byte
-externdef _unk_6B1620 :byte
+extern ?unk_6B0BE8@@3VCStringArray@@A :byte
+extern ?unk_6CDB10@@3VCStringArray@@A :byte
+extern ?unk_6B1638@@3VCStringArray@@A :byte
+extern ?unk_6B0BD0@@3VCStringArray@@A :byte
+extern ?unk_6B1620@@3VCStringArray@@A :byte
 
 ; BuildingsList
 

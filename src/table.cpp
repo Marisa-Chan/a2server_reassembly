@@ -9,14 +9,14 @@
 #include "item.h"
 #include "resource.h"
 
-extern "C" CStringArray unk_6B0BE8;
-extern "C" CStringArray unk_6CDB10;
-extern "C" CStringArray unk_6B1638;
-extern "C" CStringArray unk_6CF3D8;
-extern "C" CStringArray unk_6C37E8;
-extern "C" CStringArray unk_6E18C8;
-extern "C" CStringArray unk_6B0BD0;
-extern "C" CStringArray unk_6B1620;
+CStringArray unk_6B0BE8;
+CStringArray unk_6CDB10;
+CStringArray unk_6B1638;
+CStringArray unk_6CF3D8;
+CStringArray unk_6C37E8;
+CStringArray unk_6E18C8;
+CStringArray unk_6B0BD0;
+CStringArray unk_6B1620;
 
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0

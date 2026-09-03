@@ -263048,12 +263048,12 @@ loc_5146EB:                             ; CODE XREF: sub_51458B:loc_5147D2↓j
                 mov     [ebp+var_28], edx
 
 loc_5146F4:                             ; CODE XREF: sub_51458B+15E↑j
-                mov     eax, dword_6B0BD8
+                mov     eax, dword ptr ?unk_6B0BD0@@3VCStringArray@@A + 8  ; this was dword_6B0BD8
                 mov     [ebp+var_64], eax
                 mov     ecx, dword ptr [ebp+var_28]
                 cmp     ecx, [ebp+var_64]
                 jge     loc_5147D7
-                mov     edx, dword_6B0BD4
+                mov     edx, dword ptr ?unk_6B0BD0@@3VCStringArray@@A + 4  ; this was dword_6B0BD4
                 mov     eax, dword ptr [ebp+var_28]
                 mov     ecx, dword ptr [edx+eax*4]
                 mov     [ebp+var_68], ecx
@@ -263477,197 +263477,6 @@ loc_51540C:                             ; CODE XREF: sub_5152D2+122↑j
                 pop     ebp
                 retn
 sub_5152D2      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_693 proc near           ; DATA XREF: .data:0062C104↓o
-                push    ebp
-                mov     ebp, esp
-                call    ?CleanUpImages@CMFCToolBar@@SGXXZ_0 ; CMFCToolBar::CleanUpImages(void)
-                call    sub_515472
-                pop     ebp
-                retn
-unknown_libname_693 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; void __stdcall CMFCToolBar::CleanUpImages()
-?CleanUpImages@CMFCToolBar@@SGXXZ_0 proc near
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset _unk_6B1638
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6CDB10
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6C37E8
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6CF3D8
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6E18C8
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6B0BD0
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6B1620
-                call    sub_5DABF1
-                mov     ecx, offset _unk_6B0BE8
-                call    sub_5DABF1
-                pop     ebp
-                retn
-?CleanUpImages@CMFCToolBar@@SGXXZ_0 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-sub_515472      proc near               ; CODE XREF: unknown_libname_693+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_515484 ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_515472      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; void __cdecl sub_515484()
-sub_515484      proc near               ; DATA XREF: sub_515472+3↑o
-                push    ebp
-                mov     ebp, esp
-                xor     eax, eax
-                mov     al, byte_6A8B88
-                and     eax, 1
-                test    eax, eax
-                jnz     short loc_5154AE
-                mov     cl, byte_6A8B88
-                or      cl, 1
-                mov     byte_6A8B88, cl
-                mov     ecx, offset _unk_6B0BE8 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_5154AE:                             ; CODE XREF: sub_515484+F↑j
-                xor     edx, edx
-                mov     dl, byte_6A8B88
-                and     edx, 2
-                test    edx, edx
-                jnz     short loc_5154D3
-                mov     al, byte_6A8B88
-                or      al, 2
-                mov     byte_6A8B88, al
-                mov     ecx, offset _unk_6B1620 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_5154D3:                             ; CODE XREF: sub_515484+37↑j
-                xor     ecx, ecx
-                mov     cl, byte_6A8B88
-                and     ecx, 4
-                test    ecx, ecx
-                jnz     short loc_5154FB
-                mov     dl, byte_6A8B88
-                or      dl, 4
-                mov     byte_6A8B88, dl
-                mov     ecx, offset _unk_6B0BD0 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_5154FB:                             ; CODE XREF: sub_515484+5C↑j
-                xor     eax, eax
-                mov     al, byte_6A8B88
-                and     eax, 8
-                test    eax, eax
-                jnz     short loc_515522
-                mov     cl, byte_6A8B88
-                or      cl, 8
-                mov     byte_6A8B88, cl
-                mov     ecx, offset _unk_6E18C8 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_515522:                             ; CODE XREF: sub_515484+83↑j
-                xor     edx, edx
-                mov     dl, byte_6A8B88
-                and     edx, 10h
-                test    edx, edx
-                jnz     short loc_515547
-                mov     al, byte_6A8B88
-                or      al, 10h
-                mov     byte_6A8B88, al
-                mov     ecx, offset _unk_6CF3D8 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_515547:                             ; CODE XREF: sub_515484+AB↑j
-                xor     ecx, ecx
-                mov     cl, byte_6A8B88
-                and     ecx, 20h
-                test    ecx, ecx
-                jnz     short loc_51556F
-                mov     dl, byte_6A8B88
-                or      dl, 20h
-                mov     byte_6A8B88, dl
-                mov     ecx, offset _unk_6C37E8 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_51556F:                             ; CODE XREF: sub_515484+D0↑j
-                xor     eax, eax
-                mov     al, byte_6A8B88
-                and     eax, 40h
-                test    eax, eax
-                jnz     short loc_515596
-                mov     cl, byte_6A8B88
-                or      cl, 40h
-                mov     byte_6A8B88, cl
-                mov     ecx, offset _unk_6CDB10 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_515596:                             ; CODE XREF: sub_515484+F7↑j
-                xor     edx, edx
-                mov     dl, byte_6A8B88
-                and     edx, 80h
-                test    edx, edx
-                jnz     short loc_5155BE
-                mov     al, byte_6A8B88
-                or      al, 80h
-                mov     byte_6A8B88, al
-                mov     ecx, offset _unk_6B1638 ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-
-loc_5155BE:                             ; CODE XREF: sub_515484+122↑j
-                pop     ebp
-                retn
-sub_515484      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -287426,7 +287235,7 @@ arg_0           = byte ptr  8
                 push    0               ; int
                 mov     eax, dword_6362CC
                 push    eax             ; int
-                push    offset _unk_6CDB10 ; int
+                push    offset ?unk_6CDB10@@3VCStringArray@@A ; int
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 4
                 push    ecx             ; String1
@@ -287501,7 +287310,7 @@ arg_0           = byte ptr  8
                 push    eax             ; int
                 mov     ecx, dword_6362C8
                 push    ecx             ; int
-                push    offset _unk_6B1638 ; int
+                push    offset ?unk_6B1638@@3VCStringArray@@A ; int
                 mov     edx, dword ptr [ebp+var_18]
                 add     edx, 4
                 push    ecx             ; String1
@@ -287575,7 +287384,7 @@ arg_0           = byte ptr  8
                 push    0               ; int
                 mov     eax, dword_6362E0
                 push    eax             ; int
-                push    offset _unk_6B1620 ; int
+                push    offset ?unk_6B1620@@3VCStringArray@@A ; int
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 4
                 push    ecx             ; String1
@@ -287648,7 +287457,7 @@ arg_0           = byte ptr  8
                 push    0               ; int
                 mov     eax, dword_6362E4
                 push    eax             ; int
-                push    offset _unk_6B0BE8 ; int
+                push    offset ?unk_6B0BE8@@3VCStringArray@@A ; int
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 4
                 push    ecx             ; String1
@@ -488304,14 +488113,6 @@ unk_6A8BB8      db 0Ah dup(?)
 unk_6A8BC2      db 800Ah dup(?)
 byte_6B0BCC      db    ?
                 align 10h
-; CStringArray _unk_6B0BD0
-_unk_6B0BD0      db 4h dup(?)
-dword_6B0BD4    dd ?                    ; DATA XREF: sub_51458B+17D↑r
-dword_6B0BD8    dd ?                    ; DATA XREF: sub_51458B:loc_5146F4↑r
-                db 0Ch dup(?)
-; CStringArray _unk_6B0BE8
-_unk_6B0BE8      db 18h dup(?)
-
 ; CString dword_6B0C10
 dword_6B0C10    dd ?                    ; DATA XREF: ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z+2D5F↑o
 ; AFX_CLASSINIT unk_6B0C14
@@ -488320,10 +488121,6 @@ unk_6B0C14      db 4h dup(?)
 unk_6B0C18      db 8h dup(?)
 dword_6B0C20    dd ?                    ; DATA XREF: ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z+6EF↑o
 unk_6B0C24      db 9FCh dup(?)
-; CStringArray _unk_6B1620
-_unk_6B1620      db 18h dup(?)
-; CStringArray _unk_6B1638
-_unk_6B1638      db 14h dup(?)
 ; AFX_CLASSINIT unk_6B1664
 unk_6B1664      db 4h dup(?)
 ; AFX_CLASSINIT unk_6B1668
@@ -488332,14 +488129,9 @@ unk_6B1668      db 8h dup(?)
 
 ?dword_6B37C4@@3PAVUnitList@@A LABEL DWORD
 dword_6B37C4    dd ?                    ; DATA XREF: sub_4ECE8B+161↑w
-; CStringArray _unk_6C37E8
-_unk_6C37E8      db 18h dup(?)
 
 ; AFX_CLASSINIT unk_6C3A00
 unk_6C3A00      db 8h dup(?)
-
-; CStringArray _unk_6CDB10
-_unk_6CDB10      db 14h dup(?)
 ?g_PlayersList@@3PAVPlayersList@@A    dd ?                    ; DATA XREF: sub_44DBE0+180↑r
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
@@ -488357,8 +488149,6 @@ unk_6CE988      db 0A00h dup(?)
 ; CString unk_6CF388
 unk_6CF388      db 8h dup(?)
 
-; CStringArray _unk_6CF3D8
-_unk_6CF3D8      db 18h dup(?)
 unk_6CF3F0      db 0A00h dup(?)
 word_6CFDF0     dw ?                    ; DATA XREF: ?Start@Server@@QAEHH@Z+355↑w
                 db 7FEh dup(?)
@@ -488423,8 +488213,6 @@ unk_6D1598      db 8h dup(?)
 unk_6D1668      db 8h dup(?)
 ; CString unk_6D1884
 unk_6D1884      db 4h dup(?)
-; CStringArray _unk_6E18C8
-_unk_6E18C8      db 14h dup(?)
 ; AFX_CLASSINIT unk_6E18DC
 unk_6E18DC      db 4h dup(?)
 unk_6E18E8      db 0Ah dup(?)
