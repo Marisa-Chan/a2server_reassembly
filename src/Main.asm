@@ -488169,7 +488169,6 @@ _ScenarioGetAllLocations    dd ?                    ; DATA XREF: sub_47025D+9↑
 _ScenarioIsTownAvailable    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F8E↑w
 byte_665CF8      db    ?
                 db 3 dup(?)
-_dword_665CFC    dd ?                    ; DATA XREF: ?sub_51C822@NetStru1@@QAEXPAUNetStru2@@@Z+1A↑r
 ?g_IsServer@@3HA     dd ?                    ; DATA XREF: ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z+1E↑r
 dword_665D04    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_48367F↑w
 
