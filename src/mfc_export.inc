@@ -1389,7 +1389,10 @@ extern ?FUN_004ad880@Fame2@@QAEHXZ  :proc   ; (public: int __thiscall Fame2::FUN
 extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall Fame2::FUN_004ad890(void))
 extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
-externdef @sub_49585B@4 :proc
+extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
+externdef ?sub_496ED0@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
+externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
+externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e45a3
 
 extern ?FUN_00475e7a@@YAXXZ :proc
 externdef ??0DistortMap@@QAE@HH@Z :proc        ; DistortMap::DistortMap(int, int) - 4a9f90

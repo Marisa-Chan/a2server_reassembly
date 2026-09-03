@@ -285,6 +285,30 @@ ASSERT_SIZE(AvailNetSession, 0x14);
 
 
 
+// Server control dialog, resource 0x6b.
+class ServerControlDialog : public CDialog
+{
+public:
+    CEdit edit_5c;       // 0x5c
+    CStatic static_98;   // 0x98
+    CButton button_d4;   // 0xd4
+    CButton button_110;  // 0x110
+    CButton button_14c;  // 0x14c
+    CButton button_188;  // 0x188
+    CButton button_1c4;  // 0x1c4
+    CButton button_200;  // 0x200
+    CButton button_23c;  // 0x23c
+    CString str_278;     // 0x278
+    CString str_27c;     // 0x27c
+
+public:
+    void sub_49585B(); // 49585B — update control states.
+    int32_t sub_496ED0(); // 496ED0 — helper, body remains in Main.asm.
+};
+
+ASSERT_SIZE(ServerControlDialog, 0x280);
+
+
 class MainWindow : public CFrameWnd
 {
 public:
@@ -482,7 +506,7 @@ public:
     CStatic static1;
     CStatic static2;
     CEdit2 edit;
-    CWnd* field_0x7fc;
+    ServerControlDialog* field_0x7fc;
     int32_t field_0x800;
     int32_t field_0x804;
 };

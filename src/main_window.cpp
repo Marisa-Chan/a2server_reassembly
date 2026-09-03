@@ -377,10 +377,49 @@ void CFameHall::SubmitScore()
 
 
 
-extern "C"
+// 49585B
+void ServerControlDialog::sub_49585B()
 {
-    void __fastcall sub_49585B(CWnd* obj);
-};
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (g_Server == nullptr) {
+        this->button_188.EnableWindow(0);
+        this->button_200.EnableWindow(0);
+        this->edit_5c.EnableWindow(0);
+        this->button_23c.EnableWindow(0);
+        this->button_110.EnableWindow(0);
+        this->button_d4.EnableWindow(0);
+        this->button_14c.EnableWindow(0);
+        this->button_1c4.EnableWindow(0);
+        return;
+    }
+
+    int32_t enable = 0;
+    if (!g_HatLLDriver.IsListen() && g_Server->field51_0x1d8 != 1) {
+        enable = 1;
+    }
+    this->button_1c4.EnableWindow(enable);
+
+    this->button_14c.EnableWindow(main_wnd->list_box2.GetCurSel() != -1);
+    this->button_110.EnableWindow(g_Server->field18_0x94);
+    this->button_d4.EnableWindow(g_Server->field18_0x94);
+    this->button_188.EnableWindow(main_wnd->field_0x624 == 0);
+    this->edit_5c.EnableWindow(g_ShutdownIn == 0x7FFFFFFF);
+    this->button_23c.EnableWindow(g_ShutdownIn < 0x7FFFFFFF);
+
+    this->UpdateData(1);
+
+    int32_t minutes = atoi(this->str_27c);
+    this->button_200.EnableWindow(g_ShutdownIn == 0x7FFFFFFF && minutes > 0 && minutes < 100);
+
+    if (g_ShutdownIn == 0x7FFFFFFF) {
+        this->str_278 = "";
+    } else {
+        this->str_278.Format("T-%d:%02d", g_ShutdownIn / 60000, (g_ShutdownIn / 1000) % 60);
+    }
+
+    this->UpdateData(0);
+}
 
 
 
@@ -649,7 +688,7 @@ void MainWindow::sub_48A756()
                 }
                 
                 if (this->field_0x800 != 0) {
-                    sub_49585B(this->field_0x7fc);
+                    this->field_0x7fc->sub_49585B();
                 }
                 
                 // Check if should shut down.

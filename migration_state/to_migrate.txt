@@ -5,7 +5,6 @@
 
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
-@sub_49585B@4	184
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
@@ -98,6 +97,7 @@
 ?GetText@CListBox@@QBEXHAAVCString@@@Z	28
 ??1CListBox@@UAE@XZ	29
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
+?sub_496ED0@CLlDriver@@QAEHXZ	16
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
 ??0CProjectile@@QAE@XZ	36
@@ -149,6 +149,7 @@
 ?EndModalLoop@CWnd@@UAEXH@Z	20
 ?ShowWindow@CWnd@@QAEHH@Z	21
 ?SetWindowTextA@CWnd@@QAEXPBD@Z	21
+?EnableWindow@CWnd@@QAEHH@Z	21
 ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z	22
 ?PostMessageA@CWnd@@QAEHIIJ@Z	24
 ?SetDlgItemTextA@CWnd@@QAEXHPBD@Z	24
@@ -164,6 +165,7 @@
 ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z	55
 ?OnNotify@CWnd@@UAEHIJPAJ@Z	62
 ?OnCommand@CWnd@@UAEHIJ@Z	82
+?UpdateData@CWnd@@QAEHH@Z	83
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ??0DistortMap@@QAE@HH@Z	84

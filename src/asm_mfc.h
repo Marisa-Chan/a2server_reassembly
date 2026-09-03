@@ -3980,6 +3980,8 @@ public:
 	BOOL SetWindowPos(const CWnd* pWndInsertAfter, int x, int y, int cx, int cy, UINT nFlags); //5e4690
 	void GetClientRect(LPRECT lpRect) const; //4963a0
 	BOOL ModifyStyle(DWORD dwRemove, DWORD dwAdd, UINT nFlags); //5e4532
+	BOOL EnableWindow(BOOL bEnable); //5e4721 — body remains in Main.asm.
+	BOOL UpdateData(BOOL bSaveAndValidate); //5e45a3 — body remains in Main.asm.
 };
 
 ASSERT_SIZE(CWnd, 0x3C);

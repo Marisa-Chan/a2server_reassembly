@@ -142041,7 +142041,7 @@ loc_489E4A:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 test    eax, eax
                 jnz     short loc_489E93
                 mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
-                call    sub_496ED0
+                call    ?sub_496ED0@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jz      short loc_489E7D
                 push    0               ; lParam
@@ -147664,7 +147664,7 @@ loc_495194:                             ; CODE XREF: sub_4950C0+C4↑j
                 mov     dword ptr [edx+800h], 1
                 mov     eax, dword ptr [ebp+var_18]
                 mov     ecx, dword ptr [eax+7FCh]
-                call    @sub_49585B@4
+                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
@@ -148061,7 +148061,7 @@ sub_495743      proc near
                 cmp     ?g_Server@@3PAUServer@@A, 0
                 jz      short loc_495770
                 mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    sub_496ED0
+                call    ?sub_496ED0@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jnz     short loc_495770
                 mov     eax, ?g_Server@@3PAUServer@@A
@@ -148081,7 +148081,7 @@ sub_495774      proc near
                 cmp     ?g_Server@@3PAUServer@@A, 0
                 jz      short loc_4957A1
                 mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    sub_496ED0
+                call    ?sub_496ED0@CLlDriver@@QAEHXZ
                 test    eax, eax
                 jnz     short loc_4957A1
                 mov     eax, ?g_Server@@3PAUServer@@A
@@ -148089,7 +148089,7 @@ sub_495774      proc near
 
 loc_4957A1:                             ; CODE XREF: .text:00495782↑j
                 mov     ecx, dword ptr [ebp-4]
-                call    @sub_49585B@4
+                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -148111,7 +148111,7 @@ var_4           = dword ptr -4
                 mov     eax, [ebp+var_4]
                 mov     dword ptr [eax+624h], 1
                 mov     ecx, [ebp+var_8]
-                call    @sub_49585B@4
+                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -148155,7 +148155,7 @@ var_4           = dword ptr -4
 loc_495832:                             ; CODE XREF: sub_4957E2+31↑j
                                         ; sub_4957E2+37↑j
                 mov     ecx, [ebp+var_8]
-                call    @sub_49585B@4
+                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -148176,201 +148176,13 @@ var_4           = dword ptr -4
                 mov     [ebp+var_4], ecx
                 mov     ?g_ShutdownIn@@3HA, 7FFFFFFFh
                 mov     ecx, [ebp+var_4]
-                call    @sub_49585B@4
+                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
 sub_49583E      endp
 
 ; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-@sub_49585B@4      proc near               ; CODE XREF: ?sub_48A756@MainWindow@@QAEXXZ+204↑p
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jnz     loc_4958FB
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 188h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 200h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 23Ch       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 110h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0D4h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 14Ch       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 1C4h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                jmp     loc_495AAE
-; ---------------------------------------------------------------------------
-
-loc_4958FB:                             ; CODE XREF: @sub_49585B@4+18↑j
-                mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    sub_496ED0
-                test    eax, eax
-                jnz     short loc_495920
-                mov     eax, ?g_Server@@3PAUServer@@A
-                cmp     dword ptr [eax+1D8h], 1
-                jz      short loc_495920
-                mov     [ebp+var_10], 1
-                jmp     short loc_495927
-; ---------------------------------------------------------------------------
-
-loc_495920:                             ; CODE XREF: @sub_49585B@4+AC↑j
-                mov     [ebp+var_10], 0
-
-loc_495927:                             ; CODE XREF: @sub_49585B@4+C3↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 1C4h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70Ch
-                call    ?GetCurSel@CListBox@@QBEHXZ
-                xor     edx, edx
-                cmp     eax, 0FFFFFFFFh
-                setnz   dl
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 14Ch       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                mov     eax, ?g_Server@@3PAUServer@@A
-                mov     ecx, dword ptr [eax+94h]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 110h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                mov     edx, ?g_Server@@3PAUServer@@A
-                mov     eax, dword ptr [edx+94h]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0D4h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                cmp     dword ptr [ecx+624h], 0
-                setz    dl
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 188h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                xor     eax, eax
-                cmp     ?g_ShutdownIn@@3HA, 7FFFFFFFh
-                setz    al
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                xor     ecx, ecx
-                cmp     ?g_ShutdownIn@@3HA, 7FFFFFFFh
-                setl    cl
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 23Ch       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                push    1               ; int
-                mov     ecx, dword ptr [ebp+var_C] ; varThis
-                call    ?UpdateData@CWnd@@QAEHH@Z ; CWnd::UpdateData(int)
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 27Ch
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; String
-                call    _atoi
-                add     esp, 4
-                mov     [ebp+var_8], eax
-                cmp     ?g_ShutdownIn@@3HA, 7FFFFFFFh
-                jnz     short loc_495A2F
-                cmp     [ebp+var_8], 0
-                jle     short loc_495A2F
-                cmp     [ebp+var_8], 64h ; 'd'
-                jge     short loc_495A2F
-                mov     [ebp+var_14], 1
-                jmp     short loc_495A36
-; ---------------------------------------------------------------------------
-
-loc_495A2F:                             ; CODE XREF: @sub_49585B@4+1BD↑j
-                mov     [ebp+var_14], 0
-
-loc_495A36:                             ; CODE XREF: @sub_49585B@4+1D2↑j
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 200h       ; varThis
-                call    ?EnableWindow@CWnd@@QAEHH@Z ; CWnd::EnableWindow(int)
-                cmp     ?g_ShutdownIn@@3HA, 7FFFFFFFh
-                jnz     short loc_495A69
-                push    offset byte_665D34 ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 278h       ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                jmp     short loc_495AA4
-; ---------------------------------------------------------------------------
-
-loc_495A69:                             ; CODE XREF: @sub_49585B@4+1F7↑j
-                mov     eax, ?g_ShutdownIn@@3HA
-                cdq
-                mov     ecx, 3E8h
-                idiv    ecx
-                cdq
-                mov     ecx, 3Ch ; '<'
-                idiv    ecx
-                push    edx
-                mov     eax, ?g_ShutdownIn@@3HA
-                cdq
-                mov     ecx, 0EA60h
-                idiv    ecx
-                push    eax
-                push    offset aTD02d   ; "T-%d:%02d"
-                mov     edx, dword ptr [ebp+var_C]
-                add     edx, 278h
-                push    edx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 10h
-
-loc_495AA4:                             ; CODE XREF: @sub_49585B@4+20C↑j
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_C] ; varThis
-                call    ?UpdateData@CWnd@@QAEHH@Z ; CWnd::UpdateData(int)
-
-loc_495AAE:                             ; CODE XREF: @sub_49585B@4+9B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-@sub_49585B@4      endp
 
 ; ---------------------------------------------------------------------------
 sub_495AB2      proc near
@@ -150913,7 +150725,7 @@ sub_496EB0      endp
 
 ; Attributes: bp-based frame
 
-sub_496ED0      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+31F2↑p
+?sub_496ED0@CLlDriver@@QAEHXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+31F2↑p
 
 var_4           = dword ptr -4
 
@@ -150929,7 +150741,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_496ED0      endp
+?sub_496ED0@CLlDriver@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -376321,7 +376133,7 @@ loc_5E4717:                             ; CODE XREF: CWnd::IsWindowEnabled(void)
 ; Attributes: library function
 
 ; int __thiscall CWnd::EnableWindow(CWnd *__hidden varThis, int)
-?EnableWindow@CWnd@@QAEHH@Z proc near   ; CODE XREF: @sub_49585B@4+29↑p
+?EnableWindow@CWnd@@QAEHH@Z proc near   ; CODE XREF: ?sub_49585B@ServerControlDialog@@QAEXXZ+29↑p
 
 bEnable         = dword ptr  4
 
@@ -483281,9 +483093,6 @@ aMusicB16Wav_0  db 'music\B16.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@Q
                 align 4
 ; char aD_26[]
 aD_26           db '%d',0               ; DATA XREF: sub_4950C0+97↑o
-                align 4
-; char aTD02d[]
-aTD02d          db 'T-%d:%02d',0        ; DATA XREF: @sub_49585B@4+232↑o
                 align 10h
                 db    1
                 db    0
@@ -489820,7 +489629,7 @@ byte_665D2C     db 4 dup(?)             ; DATA XREF: sub_4951BD+FD↑o
 ; CHAR byte_665D30[4]
 byte_665D30     db 4 dup(?)             ; DATA XREF: sub_4951BD+110↑o
 ; CHAR byte_665D34[4]
-byte_665D34     db 4 dup(?)             ; DATA XREF: @sub_49585B@4+1F9↑o
+byte_665D34     db 4 dup(?)             ; DATA XREF: ?sub_49585B@ServerControlDialog@@QAEXXZ+1F9↑o
 dword_665D38    dd ?                    ; DATA XREF: sub_49B22F+DA↑w
 dword_665D3C    dd ?                    ; DATA XREF: sub_49B22F+89↑w
 byte_665D40      db    ?
