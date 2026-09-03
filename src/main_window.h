@@ -229,6 +229,8 @@ struct PhoneBook
     CString entry;
     CString dial;
     CStringArray phones;
+
+    void Load(HKEY& rkey); //43ce7d
 };
 ASSERT_SIZE(PhoneBook, 0x1c);
 
@@ -241,6 +243,8 @@ struct HatSettings
     CString password;
     int32_t deathmatch;
     int32_t store;
+
+    void Load(HKEY& rkey); //43d249
 };
 ASSERT_SIZE(HatSettings, 0x1c);
 
@@ -329,7 +333,7 @@ public: // VTable at 0060c1a8.
 
     void CreateUI(); //484ab0
     void LoadData(); //483d64
-    void LoadSettings(); //in asm 441a03
+    void LoadSettings(); //441a03
 
     void RemoteGameIdle(); //48acac
     void SingleGameTimedIdle(); //48a543
@@ -442,7 +446,7 @@ public:
     VisScreen* field_0x34c;
     VisScreen* field_0x350;
     AvailNetSession net_sessions;
-    int32_t field_0x368;
+    int32_t last_protocol;
     VisCharGen* vis_chargen;
     VisCharSelect* vis_charsel;
     VisStartGame* vis_startgame; //0x374

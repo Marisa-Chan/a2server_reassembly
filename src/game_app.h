@@ -47,6 +47,9 @@ struct GameSettings
 	int32_t* pAnimation = nullptr;
 	int32_t ClanNames = 1;
 	int32_t* pMessageColors = nullptr;
+
+	void Init(); // 442386
+	void Load(HKEY& rkey); //442420
 };
 ASSERT_SIZE(GameSettings, 0x3c);
 

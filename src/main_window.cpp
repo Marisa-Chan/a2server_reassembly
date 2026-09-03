@@ -28,6 +28,7 @@
 
 uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
+uint32_t g_using_vxd = 1; // 62fa9c
 CDWordArray DAT_006658d8;
 
 CRect vis_scr_rect; //65fb88
@@ -603,6 +604,140 @@ void MainWindow::LoadData()
 }
 
 
+
+void GameSettings::Init()
+{ // 442386
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    pGameSpeed = &mwnd->game_speed;
+    pFormationMode = &mwnd->vis_map_context->formation;
+    pWimpyMode = &mwnd->vis_map_context->wimpy;
+    pShowAllHitPoints = &mwnd->vis_map_context->show_hp;
+    pShowFlyingHP = &mwnd->vis_map_context->flying_hp;
+    pShadows = &g_Shadows;
+    pLightning = &g_Lightning;
+    pAnimation = &g_Animation;
+    pMessageColors = &g_MessageColors;
+}
+
+void GameSettings::Load(HKEY& rkey)
+{ //442420
+    DWORD sz = 4;
+    RegQueryValueExA(rkey, "GameSpeed", nullptr, nullptr, (LPBYTE)pGameSpeed, &sz);
+    RegQueryValueExA(rkey, "FormationMode", nullptr, nullptr, (LPBYTE)pFormationMode, &sz);
+    RegQueryValueExA(rkey, "WimpyMode", nullptr, nullptr, (LPBYTE)pWimpyMode, &sz);
+    RegQueryValueExA(rkey, "ShowAllHitPoints", nullptr, nullptr, (LPBYTE)pShowAllHitPoints, &sz);
+    RegQueryValueExA(rkey, "Smoothing", nullptr, nullptr, (LPBYTE)&g_settings.Smoothing, &sz);
+    RegQueryValueExA(rkey, "ShowFlyingHP", nullptr, nullptr, (LPBYTE)pShowFlyingHP, &sz);
+    RegQueryValueExA(rkey, "ShowTimeFlow", nullptr, nullptr, (LPBYTE)&g_settings.ShowTimeFlow, &sz);
+    RegQueryValueExA(rkey, "TipsMode", nullptr, nullptr, (LPBYTE)&g_settings.TipsMode, &sz);
+    RegQueryValueExA(rkey, "AutoCasting", nullptr, nullptr, (LPBYTE)&AutoCasting, &sz);
+    RegQueryValueExA(rkey, "Acknowledgement", nullptr, nullptr, (LPBYTE)&Acknowledgement, &sz);
+    RegQueryValueExA(rkey, "Shadows", nullptr, nullptr, (LPBYTE)pShadows, &sz);
+    RegQueryValueExA(rkey, "Lighting", nullptr, nullptr, (LPBYTE)pLightning, &sz);
+    RegQueryValueExA(rkey, "Animation", nullptr, nullptr, (LPBYTE)pAnimation, &sz);
+    RegQueryValueExA(rkey, "ClanNames", nullptr, nullptr, (LPBYTE)&ClanNames, &sz);
+    RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)pMessageColors, &sz);
+}
+
+void PhoneBook::Load(HKEY& rkey)
+{ //43ce7d
+    DWORD sz = 4;
+    int32_t num = 0;
+    RegQueryValueExA(rkey, "phonebooksize", nullptr, nullptr, (LPBYTE)&num, &sz);
+
+    for (int32_t i = 0; i < num; i++)
+    {
+        char name[64];
+        sprintf(name, "phone%d", i);
+
+        char data[64];
+        sz = sizeof(data);
+        RegQueryValueExA(rkey, name, nullptr, nullptr, (LPBYTE)data, &sz);
+        phones.Add(data);
+    }
+}
+
+void HatSettings::Load(HKEY& rkey)
+{ //43d249
+    char buf[256];
+
+    buf[0] = '\0';
+    DWORD sz = 255;
+    RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
+
+    hatip = buf;
+    if (hatip.IsEmpty())
+        hatip = txt_patch.GetLine(118);
+
+    buf[0] = '\0';
+    sz = 255;
+    RegQueryValueExA(rkey, "hatprogip", nullptr, nullptr, (LPBYTE)buf, &sz);
+
+    hatprogip = buf;
+    if (hatprogip.IsEmpty())
+        hatprogip = txt_patch.GetLine(119);
+
+    buf[0] = '\0';
+    sz = 255;
+    RegQueryValueExA(rkey, "login", nullptr, nullptr, (LPBYTE)buf, &sz);
+
+    login = XorRegString(buf);
+
+    buf[0] = '\0';
+    sz = 255;
+    RegQueryValueExA(rkey, "password", nullptr, nullptr, (LPBYTE)buf, &sz);
+
+    password = XorRegString(buf);
+
+    sz = 4;
+    ishat = 0;
+    RegQueryValueExA(rkey, "ishat", nullptr, nullptr, (LPBYTE)&ishat, &sz);
+
+    deathmatch = 0;
+    RegQueryValueExA(rkey, "deathmatch", nullptr, nullptr, (LPBYTE)&deathmatch, &sz);
+
+    store = 1;
+    RegQueryValueExA(rkey, "store", nullptr, nullptr, (LPBYTE)&store, &sz);
+}
+
+
+void MainWindow::LoadSettings()
+{ //441a03
+    g_settings.Init();
+    last_protocol = 0;
+    com_settings.Reset();
+
+    HKEY regkey;
+    if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey) != 0)
+        return;
+
+    g_SoundSettings.Load(regkey);
+    g_settings.Load(regkey);
+
+    DWORD sz = 4;
+    last_protocol = 0;
+    RegQueryValueExA(regkey, "lastprotocol", nullptr, nullptr, (LPBYTE)&last_protocol, &sz); //inline 43d091
+
+    phone_book.Load(regkey);
+
+    sz = 0x14;
+    RegQueryValueExA(regkey, "comportsetting", nullptr, nullptr, (LPBYTE)&com_settings, &sz); //inline 43d02e
+
+    char buf[256];
+    sz = 255;
+    buf[0] = 0;
+    RegQueryValueExA(regkey, "lastip", nullptr, nullptr, (LPBYTE)buf, &sz); //inline 43d0f5
+    last_ip = buf;
+
+    hat_settings.Load(regkey);
+
+    sz = 4;
+    RegQueryValueExA(regkey, "Using VxD", nullptr, nullptr, (LPBYTE)&g_using_vxd, &sz);
+    if (g_using_vxd == 0)
+        g_using_vxd = 1;
+
+    RegCloseKey(regkey);
+}
 
 
 void MainWindow::SetControlPositions()

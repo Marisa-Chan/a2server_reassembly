@@ -52,6 +52,14 @@ uint8_t __cdecl ToLowerChar(uint8_t c)
 }
 
 
+CString XorRegString(const CString& str)
+{ //43d1a9
+	CString tmp = str;
+	for (int i = 0; i < str.GetLength(); i++)
+		tmp.SetAt(i, tmp[i] ^ (i + 0x1c)); //0x9c in Allods2.exe
+	return tmp;
+}
+
 extern "C"
 {
 
@@ -113,8 +121,5 @@ void __cdecl XorData(void* data, uint32_t size)
 		size -= num;
 	}	
 }
-
-
-
 
 }

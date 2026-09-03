@@ -18,6 +18,7 @@ extern "C"
 	void __cdecl XorData(void* data, uint32_t size); //51fd7d
 }
 
+CString XorRegString(const CString& str); //43d1a9
 
 template<typename TYPE, class HLDR = CList<TYPE*> >
 struct Listerator

@@ -54,6 +54,16 @@ SoundSettings::~SoundSettings()
 		delete tracklist;
 }
 
+void SoundSettings::Load(HKEY& rkey)
+{ //43d7c4
+	DWORD sz = 4;
+	RegQueryValueExA(rkey, "SoundRandom", nullptr, nullptr, (LPBYTE)&random, &sz);
+	RegQueryValueExA(rkey, "SoundMusPos", nullptr, nullptr, (LPBYTE)&mus_pos, &sz);
+	RegQueryValueExA(rkey, "SoundSfxPos", nullptr, nullptr, (LPBYTE)&sfx_pos, &sz);
+	RegQueryValueExA(rkey, "SoundSpeechPos", nullptr, nullptr, (LPBYTE)&speech_pos, &sz);
+	RegQueryValueExA(rkey, "MusicEnabled", nullptr, nullptr, (LPBYTE)&music_enabled, &sz);
+}
+
 
 void SoundChannel::Clear()
 { //41fdd0

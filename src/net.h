@@ -369,6 +369,15 @@ struct ComSettings  //DPCOMPORTADDRESS
     uint32_t stop_bits;
     uint32_t parity;
     uint32_t flow_control;
+
+    void Reset()
+    { //43cff2
+        index = 1;
+        speed = 14400;
+        stop_bits = 0;
+        parity = 0;
+        flow_control = 4;
+    }
 };
 ASSERT_SIZE(ComSettings, 0x14);
 

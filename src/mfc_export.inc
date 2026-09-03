@@ -1358,7 +1358,7 @@ extern ?vis_scr_rect@@3VCRect@@A : dword
 extern ??0MainWindow@@QAE@XZ : proc
 extern ??1MainWindow@@UAE@XZ : proc
 extern ?LoadData@MainWindow@@QAEXXZ  : proc
-externdef ?LoadSettings@MainWindow@@QAEXXZ  : proc
+extern ?LoadSettings@MainWindow@@QAEXXZ  : proc
 externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
@@ -1439,6 +1439,7 @@ extern ?TxtFile_00660e88@@3VTxtFile@@A : byte
 
 extern ?g_MessageColors@@3HA  : dword
 
+extern ?g_using_vxd@@3IA : dword
 extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
 
