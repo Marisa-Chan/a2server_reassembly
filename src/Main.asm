@@ -258920,11 +258920,11 @@ loc_502A52:                             ; CODE XREF: sub_50260A+43D↑j
                 call    ?AddUnit@Group@@QAEXPAVUnit@@@Z
                 mov     ecx, dword ptr [ebp+var_10]
                 push    ecx             ; struct IUnknown *
-                mov     ecx, _g_World ; varThis
+                mov     ecx, ?g_World@@3PAUWorld@@A ; varThis
                 call    ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z ; ATL::CDynamicAccessor::ReleaseAccessors(IUnknown *)
                 mov     edx, dword ptr [ebp+var_24]
                 push    edx             ; struct IUnknown *
-                mov     ecx, _g_World ; varThis
+                mov     ecx, ?g_World@@3PAUWorld@@A ; varThis
                 call    ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z ; ATL::CDynamicAccessor::ReleaseAccessors(IUnknown *)
                 push    0
                 push    0
@@ -488297,8 +488297,6 @@ unk_6A6A68      db 8h dup(?)
 
 byte_6A8B88      db    ?
                 align 4
-; ATL::CDynamicAccessor *_g_World
-_g_World    dd ?                    ; DATA XREF: sub_4ECE8B+14D↑w
 ; AFX_CLASSINIT unk_6A8B90
 unk_6A8B90      db 8h dup(?)
 unk_6A8B98      db 20h dup(?)

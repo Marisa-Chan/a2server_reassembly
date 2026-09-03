@@ -1076,7 +1076,7 @@ extern ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(cons
 
 
 ; World
-externdef _g_World :dword
+externdef ?g_World@@3PAUWorld@@A :dword
 
 extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
 extern ?sub_5A457A@World@@QAEXXZ :proc

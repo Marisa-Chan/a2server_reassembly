@@ -28,6 +28,8 @@
 #include "unit.h"
 #include "virtual_caster.h"
 
+World* g_World; // 6a8b8c
+
 // 5B5855
 Diplomacy::Diplomacy() {
     std::memset(this->diplomacy, 0, sizeof(this->diplomacy));
