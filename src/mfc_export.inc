@@ -538,17 +538,13 @@ extern ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 extern ??0Perf@@QAE@XZ :proc
 
 ; MapStuff sub-object init blocks (opaque, ASM-backed)
-externdef ??0FieldBlock54190@@QAE@XZ :proc
-externdef ??0FieldBlock5859c@@QAE@XZ :proc
-
-externdef _unk_70B46C :byte
-externdef _unk_70B470 :byte
-externdef _unk_70B474 :byte
+extern ??0FieldBlock54190@@QAE@XZ :proc
+extern ??0FieldBlock5859c@@QAE@XZ :proc
 
 
 ; Visibility
 
-externdef ??0Visibility@@QAE@XZ :proc
+extern ??0Visibility@@QAE@XZ :proc
 
 
 ;Token

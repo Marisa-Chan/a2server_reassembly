@@ -1279,11 +1279,9 @@ FieldBlock54190::FieldBlock54190() {
     this->data[1000] = 2;
 }
 
-extern "C" {
-    extern uint8_t unk_70B46C[4];
-    extern uint8_t unk_70B470[4];
-    extern uint8_t unk_70B474[8];
-}
+uint8_t unk_70B46C[4] = {};
+uint8_t unk_70B470[4] = {};
+uint8_t unk_70B474[8] = {};
 
 // 5A3180
 FieldBlock5859c::FieldBlock5859c() {

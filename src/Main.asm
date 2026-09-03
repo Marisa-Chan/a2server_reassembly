@@ -488485,9 +488485,6 @@ byte_70B448      db    ?
                 align 4
 unk_70B44C      db 4h dup(?)
 unk_70B450      db 4h dup(?)
-_unk_70B46C      db 4h dup(?)
-_unk_70B470      db 4h dup(?)
-_unk_70B474      db 8h dup(?)
 ; AFX_CLASSINIT unk_70B47C
 unk_70B47C      db 4h dup(?)
 ; CHAR byte_70B480[4]
