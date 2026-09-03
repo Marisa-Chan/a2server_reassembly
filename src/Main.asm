@@ -126296,7 +126296,7 @@ var_4           = dword ptr -4
                 push    ebp
                 mov     ebp, esp
                 sub     esp, 0Ch
-                mov     eax, _dword_65FBB8
+                mov     eax, ?dword_65FBB8@@3PAXA
                 push    eax             ; Block
                 call    _free
                 add     esp, 4
@@ -488077,7 +488077,6 @@ dword_65FA68    dd ?                    ; DATA XREF: sub_472CC5+2F↑w
 unk_65FA70      db 104h dup(?)
 dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
-_dword_65FBB8   dd ?                    ; DATA XREF: ?LoadItemNames@@YAXXZ+E9↑w
                 db 0Ch dup(?)
 
 

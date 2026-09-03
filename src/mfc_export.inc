@@ -1440,7 +1440,7 @@ externdef ?LoadFonts@@YAXXZ  : proc
 externdef ?LoadItemNames@@YAXXZ  : proc
 extern ?unk_660D28@@3VCMapWordToPtr@@A :byte
 extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
-externdef _dword_65FBB8 :dword
+extern ?dword_65FBB8@@3PAXA :dword
 externdef ?ParseTunes@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 

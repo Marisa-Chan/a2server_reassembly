@@ -13,7 +13,7 @@
 #include "unit.h"
 #include "player.h"
 
-extern "C" void* dword_65FBB8; // Area for item names.
+void* dword_65FBB8; // Area for item names.
 
 
 CMapWordToPtr unk_660D28;
