@@ -1,5 +1,3 @@
-extern _pathStrCpy:proc
-
 
 ;CObject
 extern ??_7CObject@@6B@:dword ; CObject::vftable 60FE84
@@ -2190,10 +2188,6 @@ extern ?SoundBank_other@@3PAVSfxBank@@A : dword
 
 
 ; util.h
-
-extern _ReportWarning : proc
-extern _XorData : proc
-
 
 extern ?g_isDosCP@@3HA : dword
 extern ?DecodeChar@@YAEE@Z  :proc

@@ -60,9 +60,6 @@ CString XorRegString(const CString& str)
 	return tmp;
 }
 
-extern "C"
-{
-
 void pathStrCpy(const char* src, char* dst)
 {
 	//4e5fd9
@@ -120,6 +117,4 @@ void __cdecl XorData(void* data, uint32_t size)
 
 		size -= num;
 	}	
-}
-
 }

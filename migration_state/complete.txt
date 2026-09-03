@@ -1060,6 +1060,3 @@
 ?WriteToFile@ResBase@@QAEXPAVCFile@@H@Z
 ?YToIndex@VisListBox@@QAEHH@Z
 ?ZeroFactors@CFameHall@@QAEXXZ
-_pathStrCpy
-_ReportWarning
-_XorData
