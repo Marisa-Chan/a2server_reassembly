@@ -309,7 +309,6 @@ public:
     // Constructor at 4951bd
 
     void sub_49585B(); // 49585B — update control states.
-    int32_t sub_496ED0(); // 496ED0 — helper, body remains in Main.asm.
 };
 
 ASSERT_SIZE(ServerControlDialog, 0x280);

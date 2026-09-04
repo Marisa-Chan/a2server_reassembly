@@ -457,6 +457,7 @@
 ?GetBuffer@CString@@QAEPADH@Z
 ?GetBufferSetLength@CString@@QAEPADH@Z
 ?GetCastSpellId@TokenEntry@@QBEIXZ
+?GetChannel@SoundChannel@@SAPAV1@H@Z
 ?GetChildAt@CVisualObject@@QAEPAV1@UtagPOINT@@@Z
 ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z
 ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z
@@ -546,6 +547,7 @@
 ?LoadInfo@Shield@@QAEXXZ
 ?LoadInfo@Weapon@@QAEXXZ
 ?LoadItemNames@@YAXXZ
+?LoadSample@SfxSample@@QAEXXZ
 ?LoadSettings@MainWindow@@QAEXXZ
 ?LoadStringA@CString@@QAEHI@Z
 ?LoadVfxData@@YAXXZ
@@ -623,6 +625,8 @@
 ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z
 ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z
 ?Play@MusicPlayer@@QAEXXZ
+?Play@SfxSample@@QAEXHHHEH@Z
+?Play@SoundChannel@@QAEX_N@Z
 ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
 ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z
 ?Proc_421@MainWindow@@QAEXXZ
