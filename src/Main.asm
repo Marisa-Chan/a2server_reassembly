@@ -146164,7 +146164,7 @@ sub_4952FA      endp
 
 ; Attributes: bp-based frame
 
-sub_495429      proc near               ; DATA XREF: .rdata:0060C488↓o
+?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:0060C488↓o
 
 var_4           = dword ptr -4
 
@@ -146176,7 +146176,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_495429      endp
+?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 ; ---------------------------------------------------------------------------
 sub_495439      proc near               ; DATA XREF: .rdata:0060C014↓o
@@ -339423,10 +339423,10 @@ loc_5BC65C:                             ; CODE XREF: CDragListBox::OnChildNotify
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5BC661      proc near               ; DATA XREF: .rdata:00612C2C↓o
+?GetMessageMap@CToolBarCtrl@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00612C2C↓o
                 mov     eax, offset off_612800
                 retn
-sub_5BC661      endp
+?GetMessageMap@CToolBarCtrl@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -339998,10 +339998,10 @@ sub_5BC993      endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5BC9C1      proc near               ; DATA XREF: .rdata:00612DCC↓o
+?GetMessageMap@CListCtrl@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00612DCC↓o
                 mov     eax, offset off_612838
                 retn
-sub_5BC9C1      endp
+?GetMessageMap@CListCtrl@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -340635,10 +340635,10 @@ loc_5BCD8B:                             ; CODE XREF: CListCtrl::CreateDragImage(
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5BCD9B      proc near               ; DATA XREF: .rdata:00612EA4↓o
+?GetMessageMap@CTreeCtrl@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00612EA4↓o
                 mov     eax, offset off_612870
                 retn
-sub_5BCD9B      endp
+?GetMessageMap@CTreeCtrl@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -341814,10 +341814,10 @@ arg_4           = dword ptr  8
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5BD4C6      proc near               ; DATA XREF: .rdata:006133AC↓o
+?GetMessageMap@CTabCtrl@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006133AC↓o
                 mov     eax, offset off_6128A8
                 retn
-sub_5BD4C6      endp
+?GetMessageMap@CTabCtrl@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -342834,10 +342834,10 @@ sub_5BDA2E      endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5BDA4A      proc near               ; DATA XREF: .rdata:006136BC↓o
+?GetMessageMap@CToolTipCtrl@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006136BC↓o
                 mov     eax, offset off_6135F8
                 retn
-sub_5BDA4A      endp
+?GetMessageMap@CToolTipCtrl@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -362570,10 +362570,10 @@ locret_5DFCE7:                          ; CODE XREF: AfxDlgProc(HWND__ *,uint,ui
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5DFCEA      proc near               ; DATA XREF: .rdata:006109B4↓o
+?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006109B4↓o
                 mov     eax, offset off_610878
                 retn
-sub_5DFCEA      endp
+?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -367234,10 +367234,10 @@ loc_5E1B21:                             ; CODE XREF: ?WinHelpA@CWnd@@UAEXKI@Z+AF
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E1B43      proc near               ; DATA XREF: .rdata:00610E04↓o
+?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00610E04↓o
                 mov     eax, offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B
                 retn
-sub_5E1B43      endp
+?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -372842,10 +372842,10 @@ jpt_5E3EBA      dd offset loc_5E3EC1    ; DATA XREF: DispatchCmdMsg(CCmdTarget *
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E3FCE      proc near               ; DATA XREF: .rdata:0060FF1C↓o
+?GetMessageMap@CCmdTarget@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:0060FF1C↓o
                 mov     eax, offset unk_611630
                 retn
-sub_5E3FCE      endp
+?GetMessageMap@CCmdTarget@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -384834,10 +384834,10 @@ loc_5E8C94:                             ; CODE XREF: AfxCriticalNewHandler(uint)
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E8C9D      proc near               ; DATA XREF: .rdata:00612434↓o
+?GetMessageMap@CScrollView@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00612434↓o
                 mov     eax, offset off_6122F0
                 retn
-sub_5E8C9D      endp
+?GetMessageMap@CScrollView@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -387172,10 +387172,10 @@ loc_5E9CCD:                             ; CODE XREF: CScrollView::OnScrollBy(CSi
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E9CD4      proc near               ; DATA XREF: .rdata:00613944↓o
+?GetMessageMap@CView@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00613944↓o
                 mov     eax, offset off_613760
                 retn
-sub_5E9CD4      endp
+?GetMessageMap@CView@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -388193,10 +388193,10 @@ loc_5EA25B:                             ; CODE XREF: CView::OnEndPrintPreview(CD
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5EA292      proc near               ; DATA XREF: .rdata:00613A5C↓o
+?GetMessageMap@CCtrlView@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00613A5C↓o
                 mov     eax, offset off_613888
                 retn
-sub_5EA292      endp
+?GetMessageMap@CCtrlView@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -388328,10 +388328,10 @@ j_?Default@CWnd@@IAEJXZ_0 endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5EA35A      proc near               ; DATA XREF: .rdata:00613CB4↓o
+?GetMessageMap@CDocument@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00613CB4↓o
                 mov     eax, offset off_613BF0
                 retn
-sub_5EA35A      endp
+?GetMessageMap@CDocument@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -391638,10 +391638,10 @@ loc_5EB975:                             ; CODE XREF: CStatusBar::CalcFixedLayout
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5EB98E      proc near               ; DATA XREF: .rdata:00611F84↓o
+?GetMessageMap@CStatusBar@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00611F84↓o
                 mov     eax, offset off_611E18
                 retn
-sub_5EB98E      endp
+?GetMessageMap@CStatusBar@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -394815,10 +394815,10 @@ loc_5ECB87:                             ; CODE XREF: CWinApp::WriteProfileBinary
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5ECB8E      proc near               ; DATA XREF: .rdata:00612744↓o
+?GetMessageMap@CControlBar@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00612744↓o
                 mov     eax, offset off_612558
                 retn
-sub_5ECB8E      endp
+?GetMessageMap@CControlBar@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -398971,10 +398971,10 @@ loc_5EE9A7:                             ; CODE XREF: CDockContext::Track(void)+1
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5EE9AC      proc near               ; DATA XREF: .rdata:00613F44↓o
+?GetMessageMap@CDockBar@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00613F44↓o
                 mov     eax, offset off_613DA8
                 retn
-sub_5EE9AC      endp
+?GetMessageMap@CDockBar@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -401033,10 +401033,10 @@ loc_5EF920:                             ; CODE XREF: CControlBar::EnableDocking(
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5EF92F      proc near               ; DATA XREF: .rdata:00614034↓o
+?GetMessageMap@CMiniDockFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:00614034↓o
                 mov     eax, offset off_613E40
                 retn
-sub_5EF92F      endp
+?GetMessageMap@CMiniDockFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -402747,10 +402747,10 @@ unknown_libname_942 endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5F0519      proc near               ; DATA XREF: .rdata:0061138C↓o
+?GetMessageMap@CFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:0061138C↓o
                 mov     eax, offset off_610ED0
                 retn
-sub_5F0519      endp
+?GetMessageMap@CFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -408499,10 +408499,10 @@ sub_5F2BEA      endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5F2BFF      proc near               ; DATA XREF: .rdata:006142EC↓o
+?GetMessageMap@CMiniFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006142EC↓o
                 mov     eax, offset off_614108
                 retn
-sub_5F2BFF      endp
+?GetMessageMap@CMiniFrameWnd@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -456403,7 +456403,7 @@ unk_60BD90      db    2                 ; DATA XREF: .rdata:0060BD8C↑o
                 db    0
 
 
-off_60BFF8      dd offset off_610878    ; DATA XREF: sub_495429+7↑o
+off_60BFF8      dd offset off_610878    ; DATA XREF: ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ+7↑o
                 dd offset unk_60C000
 unk_60C000      db    2                 ; DATA XREF: .rdata:0060BFFC↑o
                 db    0
@@ -456686,7 +456686,7 @@ off_60C1A8      dd offset sub_4837D1    ; DATA XREF: ??0MainWindow@@QAE@XZ+14C�
                 dd offset ?ExitHelpMode@CFrameWnd@@UAEXXZ ; CFrameWnd::ExitHelpMode(void)
                 align 8
 
-
+; ServerControlDialog::vftable
 off_60C458      dd offset sub_5F4E04    ; DATA XREF: sub_4951BD+F7↑o
                 dd offset sub_4968D0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -456699,7 +456699,7 @@ off_60C458      dd offset sub_5F4E04    ; DATA XREF: sub_4951BD+F7↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_495429
+                dd offset ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -459214,7 +459214,7 @@ aCwinthread     db 'CWinThread',0       ; DATA XREF: .rdata:stru_60FEC0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E3FCE
+                dd offset ?GetMessageMap@CCmdTarget@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -459758,7 +459758,7 @@ aCmapstringtost db 'CMapStringToString',0
                 dd offset ??_R4_AFX_BASE_MODULE_STATE@@6B@ ; const _AFX_BASE_MODULE_STATE::`RTTI Complete Object Locator'
 ; const _AFX_BASE_MODULE_STATE::`vftable'
 ??_7_AFX_BASE_MODULE_STATE@@6B@ dd offset ??_GAFX_MODULE_STATE@@UAEPAXI@Z
-off_610878      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5DFCEA↑o
+off_610878      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_610880
 unk_610880      db  19h                 ; DATA XREF: .rdata:0061087C↑o
                 db    0
@@ -459972,7 +459972,7 @@ aEdit_0         db 'Edit',0             ; DATA XREF: CDialog::PreTranslateMessag
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5DFCEA
+                dd offset ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -460034,7 +460034,7 @@ aAfxolecontrol4 db 'AfxOleControl42s',0 ; DATA XREF: AfxEndDeferRegisterClass(sh
 ; const CHAR String[]
 afxString          db 'AfxOldWndProc',0    ; DATA XREF: _AfxActivationWndProc(HWND__ *,uint,uint,long)+14↑o
                 align 10h
-?messageMap@CWnd@@2UAFX_MSGMAP@@B      dd offset unk_611630    ; DATA XREF: sub_5E1B43↑o
+?messageMap@CWnd@@2UAFX_MSGMAP@@B      dd offset unk_611630    ; DATA XREF: ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_610AF8
 unk_610AF8      db  38h ; 8             ; DATA XREF: .rdata:00610AF4↑o
                 db    1
@@ -460650,7 +460650,7 @@ aCommctrlDragli db 'commctrl_DragListMsg',0 ; DATA XREF: sub_5E06F5↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -460699,7 +460699,7 @@ aAfxXX          db 'Afx:%x:%x',0        ; DATA XREF: AfxRegisterWndClass(uint,HI
                 dd offset nullsub_17
                 dd offset nullsub_18
                 align 10h
-off_610ED0      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5F0519↑o
+off_610ED0      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CFrameWnd@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_610ED8
 unk_610ED8      db  17h                 ; DATA XREF: .rdata:00610ED4↑o
                 db    1
@@ -461632,7 +461632,7 @@ aMswheelRollmsg db 'MSWHEEL_ROLLMSG',0  ; DATA XREF: unknown_libname_942:loc_5F0
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5F0519
+                dd offset ?GetMessageMap@CFrameWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -461860,7 +461860,7 @@ aP              db 'p',0                ; DATA XREF: CCommandLineInfo::ParsePara
 ; const CHAR aPt[3]
 g_aPt             db 'pt',0               ; DATA XREF: CCommandLineInfo::ParseParamFlag(char const *)+E↑o
                 align 10h
-unk_611630      dd    0                 ; DATA XREF: sub_5E3FCE↑o
+unk_611630      dd    0                 ; DATA XREF: ?GetMessageMap@CCmdTarget@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_611638
 unk_611638      db    0                 ; DATA XREF: .rdata:00611634↑o
                 db    0
@@ -461952,7 +461952,7 @@ aCcmdtarget     db 'CCmdTarget',0       ; DATA XREF: .rdata:stru_611710↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E3FCE
+                dd offset ?GetMessageMap@CCmdTarget@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462032,7 +462032,7 @@ aStatic         db 'STATIC',0           ; DATA XREF: unknown_libname_944+16↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462084,7 +462084,7 @@ aButton         db 'BUTTON',0           ; DATA XREF: unknown_libname_945+16↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462136,7 +462136,7 @@ aListbox        db 'LISTBOX',0          ; DATA XREF: unknown_libname_946+16↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462194,7 +462194,7 @@ aCombobox_0     db 'COMBOBOX',0         ; DATA XREF: .text:005F298E↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462250,7 +462250,7 @@ aEdit           db 'EDIT',0             ; DATA XREF: unknown_libname_948+16↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462302,7 +462302,7 @@ aScrollbar      db 'SCROLLBAR',0        ; DATA XREF: .text:005F2AF8↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462339,7 +462339,7 @@ aScrollbar      db 'SCROLLBAR',0        ; DATA XREF: .text:005F2AF8↑o
                 dd offset ?IsFrameWnd@CWnd@@UBEHXZ
                 dd offset ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z
                 align 8
-off_611E18      dd offset off_612558    ; DATA XREF: sub_5EB98E↑o
+off_611E18      dd offset off_612558    ; DATA XREF: ?GetMessageMap@CStatusBar@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_611E20
 unk_611E20      db  84h ; „             ; DATA XREF: .rdata:00611E1C↑o
                 db    0
@@ -462594,7 +462594,7 @@ aCstatusbar     db 'CStatusBar',0       ; DATA XREF: .rdata:stru_611F28↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5EB98E
+                dd offset ?GetMessageMap@CStatusBar@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462768,7 +462768,7 @@ aCmenu          db 'CMenu',0            ; DATA XREF: .rdata:stru_6122B0↑o
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset nullsub_25
                 dd offset nullsub_26
-off_6122F0      dd offset off_613760    ; DATA XREF: sub_5E8C9D↑o
+off_6122F0      dd offset off_613760    ; DATA XREF: ?GetMessageMap@CScrollView@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_6122F8
 unk_6122F8      db    5                 ; DATA XREF: .rdata:006122F4↑o
                 db    0
@@ -462918,7 +462918,7 @@ aMshScrollLines db 'MSH_SCROLL_LINES_MSG',0
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E8C9D
+                dd offset ?GetMessageMap@CScrollView@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -462992,7 +462992,7 @@ aD_55           db '&%d ',0             ; DATA XREF: CRecentFileList::UpdateMenu
 ; const CHAR asc_61254C[]
 asc_61254C      db '\...',0             ; DATA XREF: AbbreviateName(char *,int,int)+C2↑o
                 align 8
-off_612558      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5ECB8E↑o
+off_612558      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CControlBar@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_612560
 unk_612560      db  13h                 ; DATA XREF: .rdata:0061255C↑o
                 db    1
@@ -463377,6 +463377,7 @@ unk_612560      db  13h                 ; DATA XREF: .rdata:0061255C↑o
                 db    0
                 db    0
                 dd offset ??_R4CControlBar@@6B@ ; const CControlBar::`RTTI Complete Object Locator'
+; CControlBar::vftable
 off_612714      dd offset sub_5F4E83    ; DATA XREF: CControlBar::~CControlBar(void)+12↑o
                 dd offset sub_5F6BC0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -463389,7 +463390,7 @@ off_612714      dd offset sub_5F4E83    ; DATA XREF: CControlBar::~CControlBar(v
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5ECB8E
+                dd offset ?GetMessageMap@CControlBar@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463436,7 +463437,7 @@ off_612714      dd offset sub_5F4E83    ; DATA XREF: CControlBar::~CControlBar(v
                 dd offset ?DoPaint@CControlBar@@UAEXPAVCDC@@@Z ; CControlBar::DoPaint(CDC *)
                 dd offset ?SetStatusText@CControlBar@@UAEHH@Z ; CControlBar::SetStatusText(int)
                 align 10h
-off_612800      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5BC661↑o
+off_612800      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CToolBarCtrl@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_612808
 unk_612808      db    1                 ; DATA XREF: .rdata:00612804↑o
                 db    0
@@ -463483,7 +463484,7 @@ unk_612808      db    1                 ; DATA XREF: .rdata:00612804↑o
                 db    0
                 db    0
                 db    0
-off_612838      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5BC9C1↑o
+off_612838      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CListCtrl@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_612840
 unk_612840      db  82h ; ‚             ; DATA XREF: .rdata:0061283C↑o
                 db    0
@@ -463530,7 +463531,7 @@ unk_612840      db  82h ; ‚             ; DATA XREF: .rdata:0061283C↑o
                 db    0
                 db    0
                 db    0
-off_612870      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5BCD9B↑o
+off_612870      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CTreeCtrl@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_612878
 unk_612878      db    2                 ; DATA XREF: .rdata:00612874↑o
                 db    0
@@ -463577,7 +463578,7 @@ unk_612878      db    2                 ; DATA XREF: .rdata:00612874↑o
                 db    0
                 db    0
                 db    0
-off_6128A8      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5BD4C6↑o
+off_6128A8      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CTabCtrl@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_6128B0
 unk_6128B0      db    2                 ; DATA XREF: .rdata:006128AC↑o
                 db    0
@@ -463677,7 +463678,7 @@ aCdraglistbox   db 'CDragListBox',0     ; DATA XREF: .rdata:stru_6128E0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463739,7 +463740,7 @@ aToolbarwindow3 db 'ToolbarWindow32',0  ; DATA XREF: unknown_libname_906+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5BC661
+                dd offset ?GetMessageMap@CToolBarCtrl@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463790,7 +463791,7 @@ aToolbarwindow3 db 'ToolbarWindow32',0  ; DATA XREF: unknown_libname_906+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463843,7 +463844,7 @@ aSyslistview32  db 'SysListView32',0    ; DATA XREF: unknown_libname_908+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5BC9C1
+                dd offset ?GetMessageMap@CListCtrl@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463896,7 +463897,7 @@ aSystreeview32  db 'SysTreeView32',0    ; DATA XREF: unknown_libname_909+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5BCD9B
+                dd offset ?GetMessageMap@CTreeCtrl@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -463948,7 +463949,7 @@ aMsctlsUpdown32 db 'msctls_updown32',0  ; DATA XREF: unknown_libname_910+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464000,7 +464001,7 @@ aMsctlsTrackbar db 'msctls_trackbar32',0
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464052,7 +464053,7 @@ aMsctlsProgress db 'msctls_progress32',0
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464103,7 +464104,7 @@ aSysheader32    db 'SysHeader32',0      ; DATA XREF: unknown_libname_913+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464155,7 +464156,7 @@ aMsctlsHotkey32 db 'msctls_hotkey32',0  ; DATA XREF: unknown_libname_914+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464207,7 +464208,7 @@ aSystabcontrol3 db 'SysTabControl32',0  ; DATA XREF: unknown_libname_915+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5BD4C6
+                dd offset ?GetMessageMap@CTabCtrl@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464260,7 +464261,7 @@ aSysanimate32   db 'SysAnimate32',0     ; DATA XREF: unknown_libname_916+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464311,7 +464312,7 @@ aSysanimate32   db 'SysAnimate32',0     ; DATA XREF: unknown_libname_916+2D↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E1B43
+                dd offset ?GetMessageMap@CWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464355,7 +464356,7 @@ aSysanimate32   db 'SysAnimate32',0     ; DATA XREF: unknown_libname_916+2D↑o
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-off_6135F8      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5BDA4A↑o
+off_6135F8      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CToolTipCtrl@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613600
 unk_613600      db  6Ch ; l             ; DATA XREF: .rdata:006135FC↑o
                 db    3
@@ -464462,7 +464463,7 @@ aCtooltipctrl   db 'CToolTipCtrl',0     ; DATA XREF: .rdata:stru_613660↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5BDA4A
+                dd offset ?GetMessageMap@CToolTipCtrl@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464501,7 +464502,7 @@ aCtooltipctrl   db 'CToolTipCtrl',0     ; DATA XREF: .rdata:stru_613660↑o
 ; const char aTooltipsClass3[]
 aTooltipsClass3 db 'tooltips_class32',0 ; DATA XREF: CToolTipCtrl::Create(CWnd *,ulong)+2A↑o
                 align 10h
-off_613760      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: sub_5E9CD4↑o
+off_613760      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CView@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613768
 unk_613768      db  0Fh                 ; DATA XREF: .rdata:00613764↑o
                 db    0
@@ -464759,7 +464760,7 @@ unk_613768      db  0Fh                 ; DATA XREF: .rdata:00613764↑o
                 db    0
                 db    0
                 db    0
-off_613888      dd offset off_613760    ; DATA XREF: sub_5EA292↑o
+off_613888      dd offset off_613760    ; DATA XREF: ?GetMessageMap@CCtrlView@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613890
 unk_613890      db  0Fh                 ; DATA XREF: .rdata:0061388C↑o
                 db    0
@@ -464830,7 +464831,7 @@ aCsplitterwnd   db 'CSplitterWnd',0     ; DATA XREF: .rdata:stru_6138C0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5E9CD4
+                dd offset ?GetMessageMap@CView@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -464901,7 +464902,7 @@ aCsplitterwnd   db 'CSplitterWnd',0     ; DATA XREF: .rdata:stru_6138C0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5EA292
+                dd offset ?GetMessageMap@CCtrlView@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -465020,7 +465021,7 @@ aCmapstringtopt db 'CMapStringToPtr',0  ; DATA XREF: .rdata:stru_613BB0↑o
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-off_613BF0      dd offset unk_611630    ; DATA XREF: sub_5EA35A↑o
+off_613BF0      dd offset unk_611630    ; DATA XREF: ?GetMessageMap@CDocument@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613BF8
 unk_613BF8      db  11h                 ; DATA XREF: .rdata:00613BF4↑o
                 db    1
@@ -465127,7 +465128,7 @@ aCdocument      db 'CDocument',0        ; DATA XREF: .rdata:stru_613C58↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5EA35A
+                dd offset ?GetMessageMap@CDocument@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -465191,7 +465192,7 @@ PrefixString    dd offset loc_43464D    ; DATA XREF: CMirrorFile::Open(char cons
                 dd offset ?Flush@CFile@@UAEXXZ ; CFile::Flush(void)
                 dd offset ?Close@CMirrorFile@@UAEXXZ ; CMirrorFile::Close(void)
                 dd offset sub_5DF4C2
-off_613DA8      dd offset off_612558    ; DATA XREF: sub_5EE9AC↑o
+off_613DA8      dd offset off_612558    ; DATA XREF: ?GetMessageMap@CDockBar@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613DB0
 unk_613DB0      db  83h ; ѓ             ; DATA XREF: .rdata:00613DAC↑o
                 db    0
@@ -465323,7 +465324,7 @@ unk_613DB0      db  83h ; ѓ             ; DATA XREF: .rdata:00613DAC↑o
                 db    0
                 db    0
                 db    0
-off_613E40      dd offset off_614108    ; DATA XREF: sub_5EF92F↑o
+off_613E40      dd offset off_614108    ; DATA XREF: ?GetMessageMap@CMiniDockFrameWnd@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_613E48
 unk_613E48      db  10h                 ; DATA XREF: .rdata:00613E44↑o
                 db    0
@@ -465458,7 +465459,7 @@ aCdockbar       db 'CDockBar',0         ; DATA XREF: .rdata:stru_613EC0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5EE9AC
+                dd offset ?GetMessageMap@CDockBar@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -465519,7 +465520,7 @@ aCdockbar       db 'CDockBar',0         ; DATA XREF: .rdata:stru_613EC0↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5EF92F
+                dd offset ?GetMessageMap@CMiniDockFrameWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
@@ -465572,7 +465573,7 @@ aCdockbar       db 'CDockBar',0         ; DATA XREF: .rdata:stru_613EC0↑o
                 dd offset ?ExitHelpMode@CFrameWnd@@UAEXXZ ; CFrameWnd::ExitHelpMode(void)
                 dd offset ?Create@CMiniDockFrameWnd@@UAEHPAVCWnd@@K@Z ; CMiniDockFrameWnd::Create(CWnd *,ulong)
                 align 8
-off_614108      dd offset off_610ED0    ; DATA XREF: sub_5F2BFF↑o
+off_614108      dd offset off_610ED0    ; DATA XREF: ?GetMessageMap@CMiniFrameWnd@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_614110
 unk_614110      db  85h ; …             ; DATA XREF: .rdata:0061410C↑o
                 db    0
@@ -465931,7 +465932,7 @@ aCminiframewnd  db 'CMiniFrameWnd',0    ; DATA XREF: .rdata:stru_614290↑o
                 dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
                 dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
                 dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset sub_5F2BFF
+                dd offset ?GetMessageMap@CMiniFrameWnd@@UBEPBUAFX_MSGMAP@@XZ
                 dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
                 dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
