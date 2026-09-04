@@ -146056,8 +146056,8 @@ sub_4951BD      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4952FA(struct CDataExchange *)
-sub_4952FA      proc near               ; DATA XREF: .rdata:0060C4E4↓o
+; int __stdcall ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z(struct CDataExchange *)
+?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z      proc near               ; DATA XREF: .rdata:0060C4E4↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -146157,7 +146157,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4952FA      endp
+?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -147474,7 +147474,7 @@ sub_496480      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?DoDataExchange@CWnd@@UAEXPAX@Z proc near           ; CODE XREF: sub_4952FA+E↑p
+?DoDataExchange@CWnd@@UAEXPAX@Z proc near           ; CODE XREF: ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z+E↑p
 
 var_4           = dword ptr -4
 
@@ -148111,7 +148111,7 @@ sub_4968A0      endp
 
 ; Attributes: bp-based frame
 
-sub_4968D0      proc near               ; DATA XREF: .rdata:0060C45C↓o
+??_GServerControlDialog@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060C45C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -148130,12 +148130,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4968F2:                             ; CODE XREF: sub_4968D0+17↑j
+loc_4968F2:                             ; CODE XREF: ??_GServerControlDialog@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4968D0      endp
+??_GServerControlDialog@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -148144,7 +148144,7 @@ sub_4968D0      endp
 
 ; Attributes: bp-based frame
 
-sub_496900      proc near               ; CODE XREF: sub_4968D0+A↑p
+sub_496900      proc near               ; CODE XREF: ??_GServerControlDialog@@UAEPAXI@Z+A↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -362664,8 +362664,8 @@ loc_5DFD84:                             ; CODE XREF: CDialog::PreTranslateMessag
 ; doubtful name
 ; Attributes: library function bp-based frame
 
-; int __stdcall sub_5DFD89(unsigned int, int, void *Buf1, struct AFX_CMDHANDLERINFO *)
-sub_5DFD89      proc near               ; DATA XREF: .rdata:0060C46C↓o
+; int __stdcall ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z(unsigned int, int, void *Buf1, struct AFX_CMDHANDLERINFO *)
+?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z      proc near               ; DATA XREF: .rdata:0060C46C↓o
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -362692,7 +362692,7 @@ arg_C           = dword ptr  14h
                 cmp     edi, 0FFFFFFFFh
                 jnz     short loc_5DFE05
 
-loc_5DFDB1:                             ; CODE XREF: sub_5DFD89+21↑j
+loc_5DFDB1:                             ; CODE XREF: ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z+21↑j
                 test    bh, 80h
                 jz      short loc_5DFE05
                 cmp     ebx, 0F000h
@@ -362713,7 +362713,7 @@ loc_5DFDB1:                             ; CODE XREF: sub_5DFD89+21↑j
                 test    eax, eax
                 jnz     short loc_5DFE00
 
-loc_5DFDE4:                             ; CODE XREF: sub_5DFD89+46↑j
+loc_5DFDE4:                             ; CODE XREF: ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z+46↑j
                 call    ?AfxGetThread@@YGPAVCWinThread@@XZ ; AfxGetThread(void)
                 test    eax, eax
                 jz      short loc_5DFE05
@@ -362727,22 +362727,22 @@ loc_5DFDE4:                             ; CODE XREF: sub_5DFD89+46↑j
                 test    eax, eax
                 jz      short loc_5DFE05
 
-loc_5DFE00:                             ; CODE XREF: sub_5DFD89+1D↑j
+loc_5DFE00:                             ; CODE XREF: ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z+1D↑j
                 push    1
                 pop     eax
                 jmp     short loc_5DFE07
 ; ---------------------------------------------------------------------------
 
-loc_5DFE05:                             ; CODE XREF: sub_5DFD89+26↑j
+loc_5DFE05:                             ; CODE XREF: ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z+26↑j
                 xor     eax, eax
 
-loc_5DFE07:                             ; CODE XREF: sub_5DFD89+7A↑j
+loc_5DFE07:                             ; CODE XREF: ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z+7A↑j
                 pop     edi
                 pop     esi
                 pop     ebx
                 pop     ebp
                 retn    10h
-sub_5DFD89      endp
+?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363718,9 +363718,9 @@ arg_0           = dword ptr  4
 ; =============== S U B R O U T I N E =======================================
 
 
-nullsub_15      proc near               ; DATA XREF: .rdata:0060C52C↓o
+?PreInitDialog@CDialog@@MAEXXZ      proc near               ; DATA XREF: .rdata:0060C52C↓o
                 retn
-nullsub_15      endp
+?PreInitDialog@CDialog@@MAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363858,9 +363858,9 @@ loc_5E0587:                             ; CODE XREF: AfxHelpEnabled(void)+10↑j
 ; =============== S U B R O U T I N E =======================================
 
 
-nullsub_14      proc near               ; DATA XREF: .rdata:0060C520↓o
+?OnSetFont@CDialog@@MAEXPAVCFont@@@Z      proc near               ; DATA XREF: .rdata:0060C520↓o
                 retn    4
-nullsub_14      endp
+?OnSetFont@CDialog@@MAEXPAVCFont@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363950,11 +363950,11 @@ loc_5E0609:                             ; CODE XREF: CDialog::OnOK(void)+C↑j
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E060B      proc near               ; DATA XREF: .rdata:0060C528↓o
+?OnCancel@CDialog@@MAEXXZ      proc near               ; DATA XREF: .rdata:0060C528↓o
                 push    2               ; int
                 call    ?EndDialog@CDialog@@QAEXH@Z ; CDialog::EndDialog(int)
                 retn
-sub_5E060B      endp
+?OnCancel@CDialog@@MAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -413602,10 +413602,10 @@ loc_5F4E02:                             ; CODE XREF: CTypeLibCache::Unlock(void)
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5F4E04      proc near               ; DATA XREF: .rdata:off_60C458↓o
+?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60C458↓o
                 mov     eax, offset stru_610958 ; "CDialog"
                 retn
-sub_5F4E04      endp
+?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -456687,12 +456687,12 @@ off_60C1A8      dd offset sub_4837D1    ; DATA XREF: ??0MainWindow@@QAE@XZ+14C�
                 align 8
 
 ; ServerControlDialog::vftable
-off_60C458      dd offset sub_5F4E04    ; DATA XREF: sub_4951BD+F7↑o
-                dd offset sub_4968D0
+off_60C458      dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: sub_4951BD+F7↑o
+                dd offset ??_GServerControlDialog@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_5DFD89    ; ?OnCmdMsg@CPropertySheet@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z
+                dd offset ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z    ; ?OnCmdMsg@CPropertySheet@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z
                 dd offset ?OnFinalRelease@CWnd@@UAEXXZ ; CWnd::OnFinalRelease(void)
                 dd offset ?IsInvokeAllowed@CCmdTarget@@UAEHJ@Z
                 dd offset ?GetDispatchIID@CCmdTarget@@UAEHPAU_GUID@@@Z
@@ -456722,7 +456722,7 @@ off_60C458      dd offset sub_5F4E04    ; DATA XREF: sub_4951BD+F7↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset sub_4952FA
+                dd offset ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CDialog@@UAEHPAUtagMSG@@@Z ; CDialog::PreTranslateMessage(tagMSG *)
@@ -456737,10 +456737,10 @@ off_60C458      dd offset sub_5F4E04    ; DATA XREF: sub_4951BD+F7↑o
                 dd offset ?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
                 dd offset ?DoModal@CDialog@@UAEHXZ ; CDialog::DoModal(void)
                 dd offset ?OnInitDialog@CDialog@@UAEHXZ ; CDialog::OnInitDialog(void)
-                dd offset nullsub_14
+                dd offset ?OnSetFont@CDialog@@MAEXPAVCFont@@@Z
                 dd offset ?OnOK@CDialog@@MAEXXZ ; CDialog::OnOK(void)
-                dd offset sub_5E060B
-                dd offset nullsub_15
+                dd offset ?OnCancel@CDialog@@MAEXXZ
+                dd offset ?PreInitDialog@CDialog@@MAEXXZ
 off_60C530      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_496AE0+12↑o
                 dd offset sub_4971F0
                 dd offset sub_496D50
@@ -459960,12 +459960,12 @@ aEdit_0         db 'Edit',0             ; DATA XREF: CDialog::PreTranslateMessag
                 align 10h
                 dd offset ??_R4CDialog@@6B@ ; const CDialog::`RTTI Complete Object Locator'
 ; const CDialog::`vftable'
-??_7CDialog@@6B@ dd offset sub_5F4E04   ; DATA XREF: CDialog::CDialog(void)+10↑o
+??_7CDialog@@6B@ dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ   ; DATA XREF: CDialog::CDialog(void)+10↑o
                 dd offset sub_5DFE30
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_5DFD89    ; ?OnCmdMsg@CPropertySheet@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z
+                dd offset ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z    ; ?OnCmdMsg@CPropertySheet@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z
                 dd offset ?OnFinalRelease@CWnd@@UAEXXZ ; CWnd::OnFinalRelease(void)
                 dd offset ?IsInvokeAllowed@CCmdTarget@@UAEHJ@Z
                 dd offset ?GetDispatchIID@CCmdTarget@@UAEHPAU_GUID@@@Z
@@ -460010,10 +460010,10 @@ aEdit_0         db 'Edit',0             ; DATA XREF: CDialog::PreTranslateMessag
                 dd offset ?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
                 dd offset ?DoModal@CDialog@@UAEHXZ ; CDialog::DoModal(void)
                 dd offset ?OnInitDialog@CDialog@@UAEHXZ ; CDialog::OnInitDialog(void)
-                dd offset nullsub_14
+                dd offset ?OnSetFont@CDialog@@MAEXPAVCFont@@@Z
                 dd offset ?OnOK@CDialog@@MAEXXZ ; CDialog::OnOK(void)
-                dd offset sub_5E060B
-                dd offset nullsub_15
+                dd offset ?OnCancel@CDialog@@MAEXXZ
+                dd offset ?PreInitDialog@CDialog@@MAEXXZ
 ; const unsigned __int8 aHelv
 aHelv           db 'Helv',0             ; DATA XREF: CWnd::CreateDlgIndirect(DLGTEMPLATE const *,CWnd *,HINSTANCE__ *)+DA↑o
                 align 4
