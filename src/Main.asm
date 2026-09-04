@@ -146160,23 +146160,6 @@ arg_0           = dword ptr  8
 ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:0060C488↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset off_60BFF8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ      endp
 
 ; ---------------------------------------------------------------------------
 sub_495439      proc near               ; DATA XREF: .rdata:0060C014↓o
@@ -456403,7 +456386,7 @@ unk_60BD90      db    2                 ; DATA XREF: .rdata:0060BD8C↑o
                 db    0
 
 
-off_60BFF8      dd offset off_610878    ; DATA XREF: ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ+7↑o
+?off_60BFF8@@3UAFX_MSGMAP@@B      dd offset off_610878    ; DATA XREF: ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ+7↑o
                 dd offset unk_60C000
 unk_60C000      db    2                 ; DATA XREF: .rdata:0060BFFC↑o
                 db    0

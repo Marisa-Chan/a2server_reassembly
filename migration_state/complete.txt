@@ -484,6 +484,7 @@
 ?GetLevel@ExperienceTable@@YAHI@Z
 ?GetLine@TxtFile@@QAEPADH@Z
 ?GetMaterial@TokenEntry@@QBEHXZ
+?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ
 ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z
 ?GetPalette@CGamePalette@@QAEPAGH@Z
 ?GetRandS16@@YAHH@Z

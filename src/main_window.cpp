@@ -378,6 +378,14 @@ void CFameHall::SubmitScore()
 
 
 
+extern const AFX_MSGMAP off_60BFF8; //60bff8 — ServerControlDialog message map, data remains in Main.asm
+
+//495429
+const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const
+{
+    return &off_60BFF8;
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {

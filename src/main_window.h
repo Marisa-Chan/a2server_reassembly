@@ -308,6 +308,8 @@ public:
 public:
     // Constructor at 4951bd
 
+    virtual const AFX_MSGMAP* GetMessageMap() const override; //495429
+
     void sub_49585B(); // 49585B — update control states.
 };
 
