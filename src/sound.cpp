@@ -2,6 +2,9 @@
 #include "main_window.h"
 #include "file.h"
 #include "resource.h"
+#include <mmreg.h>
+#include <msacm.h>
+#include <array>
 
 IDirectSound* g_dsound = nullptr; //65dd84
 IDirectSoundBuffer* g_dsound_buffer = nullptr; //65dd88
@@ -84,6 +87,63 @@ void SoundChannel::Stop()
 	}
 }
 
+void SoundChannel::Play(bool bLoop)
+{ //45c408
+	if (pbuffer)
+		pbuffer->Play(0, 0, bLoop ? DSBPLAY_LOOPING : 0);
+}
+
+
+
+SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)
+{ //45c23e
+	int i = 0;
+	for (int i = 0; i < g_dsound_channel_num; i++)
+	{
+		SoundChannel& chn = g_dsound_channels[i];
+		if (chn.pbuffer == nullptr)
+		{
+			chn.priority = 0;
+			chn.psample = nullptr;
+			return &chn;
+		}
+
+		DWORD st;
+		chn.pbuffer->GetStatus(&st);
+
+		if ((st & DSBSTATUS_PLAYING) == 0)
+		{
+			chn.pbuffer = nullptr;
+			chn.priority = 0;
+			chn.psample = nullptr;
+			return &chn;
+		}
+	}
+
+	int idx = -1;
+	for (int i = 0; i < g_dsound_channel_num; i++)
+	{
+		if (g_dsound_channels[i].priority < priority)
+		{
+			priority = g_dsound_channels[i].priority;
+			idx = i;
+		}
+	}
+
+	if (idx == -1)
+		return nullptr;
+
+	SoundChannel& chn = g_dsound_channels[idx];
+
+	chn.Stop();
+
+	chn.pbuffer = nullptr;
+	chn.priority = 0;
+	chn.psample = nullptr;
+	return &chn;
+}
+
+
 SfxSample::~SfxSample()
 { //45b8c2
 	if (g_dsound && loaded)
@@ -154,6 +214,204 @@ void SfxSample::Play()
 		Play(g_SoundSettings.sfx_pos, 0, 0, 0x80, 0);
 }
 
+
+void SfxSample::LoadSample()
+{ //45ba94
+	if (!g_dsound)
+		return;
+
+	File2 f;
+
+	if (f.Open(filename, CFile::modeRead) == 0)
+		return;
+
+	buffers = new IDirectSoundBuffer*[g_dsound_channel_num];
+
+	std::array<uint8_t, sizeof(ADPCMWAVEFORMAT) + sizeof(ADPCMCOEFSET) * 16> hdr;
+
+	WAVEFORMATEX& pcm = *(WAVEFORMATEX*)hdr.data();
+	ADPCMWAVEFORMAT& adpcm = *(ADPCMWAVEFORMAT*)hdr.data();
+
+	f.Seek(0x14, CFile::begin);
+	f.Read(hdr.data(), sizeof(WAVEFORMAT));
+
+
+	if (pcm.wFormatTag == WAVE_FORMAT_PCM)
+	{
+		f.Read(&pcm.wBitsPerSample, 2);
+	}
+	else if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
+	{
+		f.Read(&adpcm.wfx.wBitsPerSample, 4);
+		if (adpcm.wfx.cbSize != 0)
+		{
+			f.Read(&adpcm.wSamplesPerBlock, 4);
+			if (adpcm.wNumCoef != 0)
+			{
+				f.Read(&adpcm.aCoef, adpcm.wNumCoef * sizeof(ADPCMCOEFSET));
+			}
+		}
+	}
+
+	uint32_t datsz;
+	while (true)
+	{
+		uint32_t tmp;
+		f.Read(&tmp, 4);
+
+		f.Read(&datsz, 4);
+
+		if (tmp == 0x61746164)
+			break;
+
+		f.Seek(datsz, CFile::current);
+	}
+
+	memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
+	g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
+	g_dsound_buff_desc.dwFlags = (DSBCAPS_STATIC | DSBCAPS_LOCSOFTWARE | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME);
+	g_dsound_buff_desc.dwBufferBytes = datsz;
+
+	HACMSTREAM acmstream = nullptr;
+	if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
+	{
+		g_dsound_buff_desc.lpwfxFormat = &g_SoundFmt;
+		acmStreamOpen(&acmstream, 0, &adpcm.wfx, &g_SoundFmt, nullptr, 0, 0, 0);
+		acmStreamSize(acmstream, datsz, &g_dsound_buff_desc.dwBufferBytes, 0);
+	}
+	else
+	{
+		g_dsound_buff_desc.lpwfxFormat = &pcm;
+	}
+
+	HRESULT res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, buffers, nullptr);
+	if (res != 0)
+	{
+		memset(&g_dsound_buff_desc, 0, sizeof(g_dsound_buff_desc));
+		g_dsound_buff_desc.dwSize = sizeof(g_dsound_buff_desc);
+		g_dsound_buff_desc.dwFlags = (DSBCAPS_STATIC | DSBCAPS_LOCHARDWARE | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME); 0xe6;
+		g_dsound_buff_desc.dwBufferBytes = datsz;
+		g_dsound_buff_desc.lpwfxFormat = &pcm;
+
+		res = g_dsound->CreateSoundBuffer(&g_dsound_buff_desc, buffers, nullptr);
+	}
+
+	if (res == 0)
+	{
+		ACMSTREAMHEADER acm;
+		void *bbuf1, *bbuf2;
+		DWORD dwbuf1, dwbuf2;
+
+		(*buffers)->Lock(0, datsz, &bbuf1, &dwbuf1, &bbuf2, &dwbuf2, 0);
+
+		uint8_t* dbuf = (uint8_t*)bbuf1;
+		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
+		{
+			memset(&acm, 0, sizeof(ACMSTREAMHEADER));
+			acm.cbStruct = sizeof(ACMSTREAMHEADER);
+			acm.pbSrc = (LPBYTE)malloc(0x10000);
+			acm.cbSrcLength = 0x10000;
+			acmStreamSize(acmstream, 0x10000, &acm.cbDstLength, 0);
+
+			acm.pbDst = (LPBYTE)malloc(acm.cbDstLength);
+			acmStreamPrepareHeader(acmstream, &acm, 0);
+		}
+
+		int32_t nnum = datsz;
+		while (nnum > 0x10000)
+		{
+			if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
+			{
+				f.Read(acm.pbSrc, 0x10000);
+				acm.cbSrcLength = 0x10000;
+				acmStreamConvert(acmstream, &acm, 4);
+				memcpy(dbuf, acm.pbDst, acm.cbDstLengthUsed);
+				dbuf += acm.cbDstLengthUsed;
+			}
+			else
+			{
+				f.Read(dbuf, 0x10000);
+				dbuf += 0x10000;
+			}
+
+			nnum -= 0x10000;
+			g_mousept.Update();
+		}
+
+		if (pcm.wFormatTag == WAVE_FORMAT_ADPCM)
+		{
+			f.Read(acm.pbSrc, nnum);
+			acm.cbSrcLength = nnum;
+			acmStreamConvert(acmstream, &acm, 0);
+
+			memcpy(dbuf, acm.pbDst, acm.cbDstLengthUsed);
+			acmStreamUnprepareHeader(acmstream, &acm, 0);
+
+			free(acm.pbSrc);
+			free(acm.pbDst);
+
+			acmStreamClose(acmstream, 0);
+		}
+		else
+		{
+			f.Read(dbuf, nnum);
+		}
+
+		g_mousept.Update();
+
+		(*buffers)->Unlock(bbuf1, dwbuf1, bbuf2, dwbuf2);
+
+		for (int i = 1; i < g_dsound_channel_num; i++)
+			g_dsound->DuplicateSoundBuffer(*buffers, buffers + i);
+
+		loaded = 1;
+	}
+	else
+	{
+		acmStreamClose(acmstream, 0);
+	}
+}
+
+void SfxSample::Play(int volume, int pan, int loop, uint8_t priority, int freq)
+{ //45c0cf
+	if (!g_dsound)
+		return;
+
+	if (loaded == 0)
+		LoadSample();
+
+	if (loaded && buffers)
+	{
+		if (volume < -10000)
+			volume = -10000;
+
+		for (int i = 0; i < g_dsound_channel_num; i++)
+		{
+			DWORD st;
+			buffers[i]->GetStatus(&st);
+
+			if ((st & DSBSTATUS_PLAYING) == 0)
+			{
+				SoundChannel* chan = SoundChannel::GetChannel(priority);
+				if (chan)
+				{
+					chan->pbuffer = buffers[i];
+					chan->psample = this;
+					chan->priority = priority;
+
+					buffers[i]->SetVolume(volume);
+					buffers[i]->SetPan(pan);
+
+					if (freq != 0)
+						buffers[i]->SetFrequency(freq);
+
+					chan->Play(loop);
+				}
+				break;
+			}
+		}
+	}
+}
 
 
 MusicPlayer::MusicPlayer(int32_t bufsz)

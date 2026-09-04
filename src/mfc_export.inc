@@ -2137,8 +2137,9 @@ extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 ;sound
 extern ??0SfxSample@@QAE@PBD@Z : proc
 extern ??1SfxSample@@UAE@XZ : proc
+extern ?LoadSample@SfxSample@@QAEXXZ : proc
 externdef ?Play@CSound@@SAXAAU1@@Z :proc
-externdef ?Play@SfxSample@@QAEXHHHEH@Z : proc
+extern ?Play@SfxSample@@QAEXHHHEH@Z : proc
 
 extern ?LoadGameSounds@@YAXXZ : proc
 
@@ -2155,6 +2156,8 @@ extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc
 
 extern ?Clear@SoundChannel@@QAEXXZ : proc
 extern ?Stop@SoundChannel@@QAEXXZ : proc
+extern ?Play@SoundChannel@@QAEX_N@Z : proc
+extern ?GetChannel@SoundChannel@@SAPAV1@H@Z : proc
 
 extern ?g_dsound@@3PAUIDirectSound@@A  :dword
 extern ?g_dsound_channel_num@@3HA  :dword

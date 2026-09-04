@@ -40,6 +40,8 @@ public:
 	void Play(); //438ec0 alt
 	static void Play(SfxSample* smpl) { if (smpl) smpl->Play(); } //438ec0 alt
 
+	void LoadSample(); //45ba94
+
 	void Release(); //45ba0f
 	SoundChannel* FindPlayingChannel(); //45c004
 public:
@@ -59,6 +61,9 @@ public:
 
 	void Clear(); //41fdd0
 	void Stop(); //41ff90
+	void Play(bool bLoop); //45c408
+
+	static SoundChannel* __cdecl GetChannel(int32_t priority); //45c23e
 public:
 	uint8_t priority = 0;
 	uint8_t __pad[3];
