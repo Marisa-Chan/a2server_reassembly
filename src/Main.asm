@@ -145934,22 +145934,6 @@ sub_4950C0      endp
 
 
 ; ---------------------------------------------------------------------------
-?sub_495439@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C014↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, [ebp+var_4] ; this
-                call    ?OnDestroy@CWnd@@IAEXXZ ; CWnd::OnDestroy(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_495439@ServerControlDialog@@QAEXXZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame

@@ -451,6 +451,12 @@ const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const
     return &ServerControlDialog::messageMap;
 }
 
+void ServerControlDialog::sub_495439()
+{
+    //495439
+    CWnd::OnDestroy();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {

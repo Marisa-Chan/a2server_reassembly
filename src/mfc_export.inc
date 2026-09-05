@@ -1178,7 +1178,6 @@ extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
 extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
 externdef ?off_610878@@3UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
-externdef ?sub_495439@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_495439() - 495439 ON_WM_DESTROY
 externdef ?sub_49544C@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49544C() - 49544C ON_COMMAND 0x3f5
 externdef ?sub_49549B@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49549B() - 49549B ON_COMMAND 0x3f6
 externdef ?sub_4956D5@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4956D5() - 4956D5 ON_WM_CLOSE
@@ -1228,6 +1227,7 @@ externdef ?OnFinalRelease@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscal
 externdef ?PreSubclassWindow@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::PreSubclassWindow(void))
 externdef ?Create@CWnd@@UAEHPBD0KABUtagRECT@@PAV1@IPAX@Z :proc   ; (public: virtual int __thiscall CWnd::Create(char const *,char const *,unsigned long,struct tagRECT const &,class CWnd *,unsigned int,v
 externdef ?DestroyWindow@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall CWnd::DestroyWindow(void))
+externdef ?OnDestroy@CWnd@@IAEXXZ :proc   ; CWnd::OnDestroy(void) - 5e130c
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )
