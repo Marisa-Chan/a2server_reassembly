@@ -145933,46 +145933,6 @@ loc_495194:                             ; CODE XREF: sub_4950C0+C4↑j
 sub_4950C0      endp
 
 
-; ---------------------------------------------------------------------------
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_49544C@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C02C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, [ebp+var_4]
-                mov     ecx, [eax+430h]
-                sub     ecx, 1
-                push    ecx
-                mov     ecx, [ebp+var_4]
-                call    ?SetSpeed@MainWindow@@QAEHH@Z
-                test    eax, eax
-                jz      short loc_495497
-                mov     edx, [ebp+var_4]
-                mov     eax, [edx+430h]
-                mov     ?g_ServerConfig@@3UServerConfig@@A+8h, eax
-                push    0
-                mov     ecx, ?g_ServerConfig@@3UServerConfig@@A+8h
-                push    ecx
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
-
-loc_495497:                             ; CODE XREF: ?sub_49544C@ServerControlDialog@@QAEXXZ+28↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_49544C@ServerControlDialog@@QAEXXZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame

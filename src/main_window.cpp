@@ -457,6 +457,16 @@ void ServerControlDialog::sub_495439()
     CWnd::OnDestroy();
 }
 
+void ServerControlDialog::sub_49544C()
+{
+    //49544C
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->SetSpeed(main_wnd->game_speed - 1)) {
+        g_ServerConfig.game_speed = main_wnd->game_speed;
+        g_NetStru1_main.sub_51D837(g_ServerConfig.game_speed, nullptr);
+    }
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {
