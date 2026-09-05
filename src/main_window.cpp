@@ -389,17 +389,41 @@ extern const AFX_MSGMAP off_610878; //610878 — CDialog message map, data remai
 AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
 { &off_610878, &ServerControlDialog::_messageEntries[0] };
 
+void __fastcall ServerControlDialog::MsgThunk495439(ServerControlDialog* _this, void* edx)
+{ _this->sub_495439(); }
+
+void __fastcall ServerControlDialog::MsgThunk49544C(ServerControlDialog* _this, void* edx)
+{ _this->sub_49544C(); }
+
+void __fastcall ServerControlDialog::MsgThunk49549B(ServerControlDialog* _this, void* edx)
+{ _this->sub_49549B(); }
+
+void __fastcall ServerControlDialog::MsgThunk4956D5(ServerControlDialog* _this, void* edx)
+{ _this->sub_4956D5(); }
+
+void __fastcall ServerControlDialog::MsgThunk495774(ServerControlDialog* _this, void* edx)
+{ _this->sub_495774(); }
+
+void __fastcall ServerControlDialog::MsgThunk4957AD(ServerControlDialog* _this, void* edx)
+{ _this->sub_4957AD(); }
+
+void __fastcall ServerControlDialog::MsgThunk4957E2(ServerControlDialog* _this, void* edx)
+{ _this->sub_4957E2(); }
+
+void __fastcall ServerControlDialog::MsgThunk49583E(ServerControlDialog* _this, void* edx)
+{ _this->sub_49583E(); }
+
 const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
-    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_495439 },
-    ON_COMMAND(0x3f5, sub_49544C)
-    ON_COMMAND(0x3f6, sub_49549B)
+    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MsgThunk495439 },
+    ON_COMMAND(0x3f5, MsgThunk49544C)
+    ON_COMMAND(0x3f6, MsgThunk49549B)
     ON_COMMAND(0x3f4, sub_4954EA)
-    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_4956D5 },
-    ON_COMMAND(0x3ff, sub_495774)
-    ON_COMMAND(0x3f7, sub_4957AD)
-    ON_COMMAND(0x3fb, sub_4957E2)
-    ON_COMMAND(0x3fe, sub_49583E)
+    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MsgThunk4956D5 },
+    ON_COMMAND(0x3ff, MsgThunk495774)
+    ON_COMMAND(0x3f7, MsgThunk4957AD)
+    ON_COMMAND(0x3fb, MsgThunk4957E2)
+    ON_COMMAND(0x3fe, MsgThunk49583E)
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 

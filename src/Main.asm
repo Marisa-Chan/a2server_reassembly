@@ -145934,7 +145934,7 @@ sub_4950C0      endp
 
 
 ; ---------------------------------------------------------------------------
-?sub_495439@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C014↓o
+?sub_495439@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C014↓o
 
 var_4           = dword ptr -4
 
@@ -145947,14 +145947,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_495439@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_495439@ServerControlDialog@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C02C↓o
+?sub_49544C@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C02C↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -145982,18 +145982,18 @@ var_4           = dword ptr -4
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
 
-loc_495497:                             ; CODE XREF: ?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z+28↑j
+loc_495497:                             ; CODE XREF: ?sub_49544C@ServerControlDialog@@QAEXXZ+28↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_49544C@ServerControlDialog@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C044↓o
+?sub_49549B@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C044↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146021,15 +146021,15 @@ var_4           = dword ptr -4
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
 
-loc_4954E6:                             ; CODE XREF: ?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z+28↑j
+loc_4954E6:                             ; CODE XREF: ?sub_49549B@ServerControlDialog@@QAEXXZ+28↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_49549B@ServerControlDialog@@QAEXXZ      endp
 
 
 ; ---------------------------------------------------------------------------
-?sub_4956D5@ServerControlDialog@@SIXPAV1@PAX@Z      proc near
+?sub_4956D5@ServerControlDialog@@QAEXXZ      proc near
                 push    ebp
                 mov     ebp, esp
                 sub     esp, 0Ch
@@ -146065,7 +146065,7 @@ loc_49572C:                             ; CODE XREF: .text:0049571B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_4956D5@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_4956D5@ServerControlDialog@@QAEXXZ      endp
 ; ---------------------------------------------------------------------------
 sub_495743      proc near
                 push    ebp
@@ -146087,7 +146087,7 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
                 retn
 sub_495743      endp
 ; ---------------------------------------------------------------------------
-?sub_495774@ServerControlDialog@@SIXPAV1@PAX@Z      proc near
+?sub_495774@ServerControlDialog@@QAEXXZ      proc near
                 push    ebp
                 mov     ebp, esp
                 push    ecx
@@ -146107,9 +146107,9 @@ loc_4957A1:                             ; CODE XREF: .text:00495782↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_495774@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_495774@ServerControlDialog@@QAEXXZ      endp
 ; ---------------------------------------------------------------------------
-?sub_4957AD@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0A4↓o
+?sub_4957AD@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0A4↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146129,14 +146129,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_4957AD@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_4957AD@ServerControlDialog@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0BC↓o
+?sub_4957E2@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0BC↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146166,21 +146166,21 @@ var_4           = dword ptr -4
                 imul    ecx, 0EA60h
                 mov     ?g_ShutdownIn@@3HA, ecx
 
-loc_495832:                             ; CODE XREF: ?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z+31↑j
-                                        ; ?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z+37↑j
+loc_495832:                             ; CODE XREF: ?sub_4957E2@ServerControlDialog@@QAEXXZ+31↑j
+                                        ; ?sub_4957E2@ServerControlDialog@@QAEXXZ+37↑j
                 mov     ecx, [ebp+var_8]
                 call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_4957E2@ServerControlDialog@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_49583E@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0D4↓o
+?sub_49583E@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0D4↓o
 
 var_4           = dword ptr -4
 
@@ -146194,7 +146194,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?sub_49583E@ServerControlDialog@@SIXPAV1@PAX@Z      endp
+?sub_49583E@ServerControlDialog@@QAEXXZ      endp
 
 ; =============== S U B R O U T I N E =======================================
 

@@ -321,14 +321,24 @@ public:
     static AFX_DATA const AFX_MSGMAP messageMap;
 
     // Message handlers, bodies remain in Main.asm.
-    static void __fastcall sub_495439(ServerControlDialog* _this, void* edx); // 495439 — ON_WM_DESTROY
-    static void __fastcall sub_49544C(ServerControlDialog* _this, void* edx); // 49544C — ON_COMMAND 0x3f5
-    static void __fastcall sub_49549B(ServerControlDialog* _this, void* edx); // 49549B — ON_COMMAND 0x3f6
-    static void __fastcall sub_4956D5(ServerControlDialog* _this, void* edx); // 4956D5 — ON_WM_CLOSE
-    static void __fastcall sub_495774(ServerControlDialog* _this, void* edx); // 495774 — ON_COMMAND 0x3ff
-    static void __fastcall sub_4957AD(ServerControlDialog* _this, void* edx); // 4957AD — ON_COMMAND 0x3f7
-    static void __fastcall sub_4957E2(ServerControlDialog* _this, void* edx); // 4957E2 — ON_COMMAND 0x3fb
-    static void __fastcall sub_49583E(ServerControlDialog* _this, void* edx); // 49583E — ON_COMMAND 0x3fe
+    void sub_495439(); // 495439 — ON_WM_DESTROY
+    void sub_49544C(); // 49544C — ON_COMMAND 0x3f5
+    void sub_49549B(); // 49549B — ON_COMMAND 0x3f6
+    void sub_4956D5(); // 4956D5 — ON_WM_CLOSE
+    void sub_495774(); // 495774 — ON_COMMAND 0x3ff
+    void sub_4957AD(); // 4957AD — ON_COMMAND 0x3f7
+    void sub_4957E2(); // 4957E2 — ON_COMMAND 0x3fb
+    void sub_49583E(); // 49583E — ON_COMMAND 0x3fe
+
+    // Message-map thunks (plain function pointers for AFX_PMSG).
+    static void __fastcall MsgThunk495439(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk49544C(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk49549B(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk4956D5(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk495774(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk4957AD(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk4957E2(ServerControlDialog* _this, void* edx);
+    static void __fastcall MsgThunk49583E(ServerControlDialog* _this, void* edx);
 };
 
 ASSERT_SIZE(ServerControlDialog, 0x280);

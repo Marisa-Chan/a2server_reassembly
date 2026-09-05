@@ -1178,14 +1178,14 @@ extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
 extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
 externdef ?off_610878@@3UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
-externdef ?sub_495439@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_495439() - 495439 ON_WM_DESTROY
-externdef ?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_49544C() - 49544C ON_COMMAND 0x3f5
-externdef ?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_49549B() - 49549B ON_COMMAND 0x3f6
-externdef ?sub_4956D5@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_4956D5() - 4956D5 ON_WM_CLOSE
-externdef ?sub_495774@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_495774() - 495774 ON_COMMAND 0x3ff
-externdef ?sub_4957AD@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_4957AD() - 4957AD ON_COMMAND 0x3f7
-externdef ?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_4957E2() - 4957E2 ON_COMMAND 0x3fb
-externdef ?sub_49583E@ServerControlDialog@@SIXPAV1@PAX@Z :proc ; ServerControlDialog::sub_49583E() - 49583E ON_COMMAND 0x3fe
+externdef ?sub_495439@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_495439() - 495439 ON_WM_DESTROY
+externdef ?sub_49544C@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49544C() - 49544C ON_COMMAND 0x3f5
+externdef ?sub_49549B@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49549B() - 49549B ON_COMMAND 0x3f6
+externdef ?sub_4956D5@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4956D5() - 4956D5 ON_WM_CLOSE
+externdef ?sub_495774@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_495774() - 495774 ON_COMMAND 0x3ff
+externdef ?sub_4957AD@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4957AD() - 4957AD ON_COMMAND 0x3f7
+externdef ?sub_4957E2@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4957E2() - 4957E2 ON_COMMAND 0x3fb
+externdef ?sub_49583E@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49583E() - 49583E ON_COMMAND 0x3fe
 
 
 ;CListBox2  in C++
