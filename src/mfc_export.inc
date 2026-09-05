@@ -1173,6 +1173,7 @@ externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 ; ServerControlDialog
 extern ??0ServerControlDialog@@QAE@PAVCWnd@@@Z :proc  ; ServerControlDialog::ServerControlDialog(CWnd*) - 4951bd
+extern ??_GServerControlDialog@@UAEPAXI@Z :proc  ; ServerControlDialog::`scalar deleting destructor' - 4968d4
 extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
 extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)

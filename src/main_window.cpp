@@ -378,6 +378,9 @@ ServerControlDialog::ServerControlDialog(CWnd* parent_window)
 {
 }
 
+ServerControlDialog::~ServerControlDialog() {
+}
+
 extern const AFX_MSGMAP off_60BFF8; //60bff8 — ServerControlDialog message map, data remains in Main.asm
 
 // 4952fa

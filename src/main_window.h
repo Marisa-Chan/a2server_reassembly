@@ -309,6 +309,7 @@ public:
     ServerControlDialog(CWnd* parent_window); // 4951bd
 
     // VTable at 60C458.
+    virtual ~ServerControlDialog() override; // 496900
     virtual const AFX_MSGMAP* GetMessageMap() const override; //495429
 protected:
     virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
