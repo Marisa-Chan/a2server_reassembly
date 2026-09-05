@@ -306,7 +306,7 @@ public:
     CString str_27c;     // 0x27c
 
 public:
-    // Constructor at 4951bd
+    ServerControlDialog(CWnd* parent_window); // 4951bd
 
     // VTable at 60C458.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //495429

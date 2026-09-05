@@ -1171,6 +1171,14 @@ externdef ?sub_55DE84@QuestMap@@QAEXXZ :proc
 externdef ?g_QuestMap@@3VQuestMap@@A :byte
 
 
+; ServerControlDialog
+extern ??0ServerControlDialog@@QAE@PAVCWnd@@@Z :proc  ; ServerControlDialog::ServerControlDialog(CWnd*) - 4951bd
+extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
+extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
+extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
+externdef ?off_60BFF8@@3UAFX_MSGMAP@@B :dword ; ServerControlDialog message map - 60bff8
+
+
 ;CListBox2  in C++
 extern  ??0CListBox2@@QAE@XZ  :proc
 extern  ??1CListBox2@@UAE@XZ  :proc
@@ -1281,11 +1289,29 @@ externdef ?Create@CFrameWnd@@QAEHPBD0KABUtagRECT@@PAVCWnd@@0KPAX@Z : proc
 
 
 
+;CButton
+externdef ?GetRuntimeClass@CButton@@UBEPAUCRuntimeClass@@XZ :proc   ; (public: virtual struct CRuntimeClass * __thiscall CButton::GetRuntimeClass(void)const )
+externdef ??0CButton@@QAE@XZ :proc   ; (public: __thiscall CButton::CButton(void))
+externdef ??1CButton@@UAE@XZ :proc   ; (public: virtual __thiscall CButton::~CButton(void))
+externdef ??_GCButton@@UAEPAXI@Z :proc   ; (public: virtual void * __thiscall CButton::`scalar deleting destructor'(unsigned int))
+
+
 ;CDialog
 externdef ??0CDialog@@QAE@XZ :proc   ; (public: __thiscall CDialog::CDialog(void))
 externdef ??0CDialog@@QAE@PBDPAVCWnd@@@Z :proc   ; (public: __thiscall CDialog::CDialog(char const *,class CWnd *))
 externdef ??0CDialog@@QAE@IPAVCWnd@@@Z :proc   ; (public: __thiscall CDialog::CDialog(unsigned int,class CWnd *))
 externdef ??1CDialog@@UAE@XZ :proc   ; (public: virtual __thiscall CDialog::~CDialog(void))
+externdef ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ :proc   ; (public: virtual struct CRuntimeClass * __thiscall CDialog::GetRuntimeClass(void)const )
+externdef ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z :proc   ; (public: virtual int __thiscall CDialog::OnCmdMsg(unsigned int,int,void *,struct AFX_CMDHANDLERINFO *))
+externdef ?PreTranslateMessage@CDialog@@UAEHPAUtagMSG@@@Z :proc   ; (public: virtual int __thiscall CDialog::PreTranslateMessage(struct tagMSG *))
+externdef ?CheckAutoCenter@CDialog@@UAEHXZ :proc   ; (public: virtual int __thiscall CDialog::CheckAutoCenter(void))
+externdef ?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (public: virtual int __thiscall CDialog::SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO *))
+externdef ?DoModal@CDialog@@UAEHXZ :proc   ; (public: virtual int __thiscall CDialog::DoModal(void))
+externdef ?OnInitDialog@CDialog@@UAEHXZ :proc   ; (public: virtual int __thiscall CDialog::OnInitDialog(void))
+externdef ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z :proc   ; (public: virtual void __thiscall CDialog::OnSetFont(class CFont *))
+externdef ?OnOK@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDialog::OnOK(void))
+externdef ?OnCancel@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDialog::OnCancel(void))
+externdef ?PreInitDialog@CDialog@@UAEXXZ :proc   ; (public: virtual void __thiscall CDialog::PreInitDialog(void))
 
 
 ;CStatic
@@ -1374,10 +1400,6 @@ extern ?FUN_004ad880@Fame2@@QAEHXZ  :proc   ; (public: int __thiscall Fame2::FUN
 extern ?FUN_004ad890@Fame2@@QAEIXZ  :proc   ; (public: unsigned int __thiscall Fame2::FUN_004ad890(void))
 extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
-extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
-extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
-extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
-externdef ?off_60BFF8@@3UAFX_MSGMAP@@B :dword ; ServerControlDialog message map - 60bff8
 extern ?IsListen@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
 externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
 externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e45a3

@@ -145871,7 +145871,7 @@ var_4           = dword ptr -4
                 jz      short loc_495113
                 push    0               ; struct CWnd *
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_4951BD
+                call    ??0ServerControlDialog@@QAE@PAVCWnd@@@Z
                 mov     [ebp+var_1C], eax
                 jmp     short loc_49511A
 ; ---------------------------------------------------------------------------
@@ -145931,128 +145931,6 @@ loc_495194:                             ; CODE XREF: sub_4950C0+C4↑j
                 retn
 ; } // starts at 4950C0
 sub_4950C0      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_4951BD(struct CWnd *)
-sub_4951BD      proc near               ; CODE XREF: sub_4950C0+49↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005FC431 SIZE 000000B5 BYTES
-
-; __unwind { // SEH_4951BD
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4951BD
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CWnd *
-                push    6Bh ; 'k'       ; unsigned int
-                mov     ecx, dword ptr [ebp+var_10] ; varThis
-                call    ??0CDialog@@QAE@IPAVCWnd@@@Z ; CDialog::CDialog(uint,CWnd *)
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'
-                call    ??0CEdit@@QAE@XZ
-;   } // starts at 4951E7
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 98h
-                call    ??0CStatic@@QAE@XZ
-;   } // starts at 4951F9
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0D4h
-                call    sub_496880
-;   } // starts at 49520B
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 110h
-                call    sub_496880
-;   } // starts at 49521D
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14Ch
-                call    sub_496880
-;   } // starts at 49522F
-;   try {
-                mov     byte ptr [ebp+var_4], 5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 188h
-                call    sub_496880
-;   } // starts at 495241
-;   try {
-                mov     byte ptr [ebp+var_4], 6
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1C4h
-                call    sub_496880
-;   } // starts at 495253
-;   try {
-                mov     byte ptr [ebp+var_4], 7
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 200h
-                call    sub_496880
-;   } // starts at 495265
-;   try {
-                mov     byte ptr [ebp+var_4], 8
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 23Ch
-                call    sub_496880
-;   } // starts at 495277
-;   try {
-                mov     byte ptr [ebp+var_4], 9
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 278h       ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 495289
-;   try {
-                mov     byte ptr [ebp+var_4], 0Ah
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 27Ch       ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 49529B
-;   try {
-                mov     byte ptr [ebp+var_4], 0Bh
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60C458
-                push    offset byte_665D2C ; lpString
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 278h       ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    offset byte_665D30 ; lpString
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 27Ch       ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-;   } // starts at 4952AD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 4951BD
-sub_4951BD      endp
-
-
-
 
 
 ; ---------------------------------------------------------------------------
@@ -147930,7 +147808,7 @@ sub_496850      endp
 
 ; Attributes: bp-based frame
 
-sub_496880      proc near               ; CODE XREF: sub_4951BD+5B↑p
+??0CButton@@QAE@XZ      proc near               ; CODE XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+5B↑p
 
 var_4           = dword ptr -4
 
@@ -147946,7 +147824,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_496880      endp
+??0CButton@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -147955,7 +147833,7 @@ sub_496880      endp
 
 ; Attributes: bp-based frame
 
-sub_4968A0      proc near               ; DATA XREF: .rdata:006119F0↓o
+??_GCButton@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:006119F0↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -147965,7 +147843,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -147974,12 +147852,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4968C2:                             ; CODE XREF: sub_4968A0+17↑j
+loc_4968C2:                             ; CODE XREF: ??_GCButton@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4968A0      endp
+??_GCButton@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -148055,43 +147933,43 @@ var_4           = dword ptr -4
                 mov     byte ptr [ebp+var_4], 8
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 23Ch
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 496943
 ;   try {
                 mov     byte ptr [ebp+var_4], 7
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 200h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 496955
 ;   try {
                 mov     byte ptr [ebp+var_4], 6
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1C4h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 496967
 ;   try {
                 mov     byte ptr [ebp+var_4], 5
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 188h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 496979
 ;   try {
                 mov     byte ptr [ebp+var_4], 4
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 14Ch
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 49698B
 ;   try {
                 mov     byte ptr [ebp+var_4], 3
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 110h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 49699D
 ;   try {
                 mov     byte ptr [ebp+var_4], 2
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 0D4h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
 ;   } // starts at 4969AF
 ;   try {
                 mov     byte ptr [ebp+var_4], 1
@@ -363155,7 +363033,7 @@ loc_5E01B3:                             ; CODE XREF: CWnd::CreateDlgIndirect(DLG
 ; Attributes: library function
 
 ; int __thiscall CDialog::SetOccDialogInfo(CDialog *__hidden varThis, struct _AFX_OCC_DIALOG_INFO *)
-?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z proc near
+?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z proc near
 
 arg_0           = dword ptr  4
 
@@ -363164,7 +363042,7 @@ arg_0           = dword ptr  4
                 mov     [ecx+58h], eax
                 pop     eax
                 retn    4
-?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z endp
+?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363212,7 +363090,7 @@ loc_5E0211:                             ; CODE XREF: ??0CDialog@@QAE@PBDPAVCWnd@
 ; Attributes: library function
 
 ; CDialog *__thiscall CDialog::CDialog(CDialog *__hidden varThis, unsigned int, struct CWnd *)
-??0CDialog@@QAE@IPAVCWnd@@@Z proc near  ; CODE XREF: sub_4951BD+25↑p
+??0CDialog@@QAE@IPAVCWnd@@@Z proc near  ; CODE XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+25↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -363595,9 +363473,9 @@ arg_0           = dword ptr  4
 ; =============== S U B R O U T I N E =======================================
 
 
-?PreInitDialog@CDialog@@MAEXXZ      proc near               ; DATA XREF: .rdata:0060C52C↓o
+?PreInitDialog@CDialog@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C52C↓o
                 retn
-?PreInitDialog@CDialog@@MAEXXZ      endp
+?PreInitDialog@CDialog@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363735,9 +363613,9 @@ loc_5E0587:                             ; CODE XREF: AfxHelpEnabled(void)+10↑j
 ; =============== S U B R O U T I N E =======================================
 
 
-?OnSetFont@CDialog@@MAEXPAVCFont@@@Z      proc near               ; DATA XREF: .rdata:0060C520↓o
+?OnSetFont@CDialog@@UAEXPAVCFont@@@Z      proc near               ; DATA XREF: .rdata:0060C520↓o
                 retn    4
-?OnSetFont@CDialog@@MAEXPAVCFont@@@Z      endp
+?OnSetFont@CDialog@@UAEXPAVCFont@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363807,7 +363685,7 @@ loc_5E05ED:                             ; CODE XREF: CDialog::OnInitDialog(void)
 ; Attributes: library function
 
 ; void __thiscall CDialog::OnOK(CDialog *__hidden varThis)
-?OnOK@CDialog@@MAEXXZ proc near         ; DATA XREF: .rdata:0060C524↓o
+?OnOK@CDialog@@UAEXXZ proc near         ; DATA XREF: .rdata:0060C524↓o
                 push    esi
                 mov     esi, ecx
                 push    1               ; int
@@ -363821,17 +363699,17 @@ loc_5E05ED:                             ; CODE XREF: CDialog::OnInitDialog(void)
 loc_5E0609:                             ; CODE XREF: CDialog::OnOK(void)+C↑j
                 pop     esi
                 retn
-?OnOK@CDialog@@MAEXXZ endp
+?OnOK@CDialog@@UAEXXZ endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 
-?OnCancel@CDialog@@MAEXXZ      proc near               ; DATA XREF: .rdata:0060C528↓o
+?OnCancel@CDialog@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C528↓o
                 push    2               ; int
                 call    ?EndDialog@CDialog@@QAEXH@Z ; CDialog::EndDialog(int)
                 retn
-?OnCancel@CDialog@@MAEXXZ      endp
+?OnCancel@CDialog@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -407519,7 +407397,7 @@ unknown_libname_945 endp
 
 ; Attributes: bp-based frame
 
-sub_5F275C      proc near               ; CODE XREF: sub_4968A0+A↑p
+??1CButton@@UAE@XZ      proc near               ; CODE XREF: ??_GCButton@@UAEPAXI@Z+A↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -407548,7 +407426,7 @@ var_4           = dword ptr -4
                 leave
                 retn
 ; } // starts at 5F275C
-sub_5F275C      endp
+??1CButton@@UAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -414657,10 +414535,10 @@ sub_5F55DE      endp
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5F55E4      proc near               ; DATA XREF: .rdata:const CButton::`vftable'↓o
+?GetRuntimeClass@CButton@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:const CButton::`vftable'↓o
                 mov     eax, offset stru_611858
                 retn
-sub_5F55E4      endp
+?GetRuntimeClass@CButton@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -431862,110 +431740,6 @@ SEH_4950C0:                             ; DATA XREF: sub_4950C0+5↑o
 ; } // starts at 5FC41D
 ; END OF FUNCTION CHUNK FOR sub_4950C0
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4951BD
-
-loc_5FC431:                             ; DATA XREF: .rdata:stru_61D570↓o
-; __unwind { // SEH_4951BD
-;   cleanup() // owned by 4951E7
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CDialog@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC43A:                             ; DATA XREF: .rdata:0061D578↓o
-;   cleanup() // owned by 4951F9
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'
-                call    ??1CEdit@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC446:                             ; DATA XREF: .rdata:0061D580↓o
-;   cleanup() // owned by 49520B
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 98h
-                call    ??1CStatic@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC455:                             ; DATA XREF: .rdata:0061D588↓o
-;   cleanup() // owned by 49521D
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0D4h
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC464:                             ; DATA XREF: .rdata:0061D590↓o
-;   cleanup() // owned by 49522F
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 110h
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC473:                             ; DATA XREF: .rdata:0061D598↓o
-;   cleanup() // owned by 495241
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14Ch
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC482:                             ; DATA XREF: .rdata:0061D5A0↓o
-;   cleanup() // owned by 495253
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 188h
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC491:                             ; DATA XREF: .rdata:0061D5A8↓o
-;   cleanup() // owned by 495265
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1C4h
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC4A0:                             ; DATA XREF: .rdata:0061D5B0↓o
-;   cleanup() // owned by 495277
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 200h
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC4AF:                             ; DATA XREF: .rdata:0061D5B8↓o
-;   cleanup() // owned by 495289
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 23Ch
-                call    sub_5F275C
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC4BE:                             ; DATA XREF: .rdata:0061D5C0↓o
-;   cleanup() // owned by 49529B
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 278h       ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC4CD:                             ; DATA XREF: .rdata:0061D5C8↓o
-;   cleanup() // owned by 4952AD
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 27Ch       ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4951BD:                             ; DATA XREF: sub_4951BD+5↑o
-                mov     eax, offset stru_61D550
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC431
-; END OF FUNCTION CHUNK FOR sub_4951BD
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_495E30
 
@@ -432182,7 +431956,7 @@ loc_5FC7A4:                             ; DATA XREF: .rdata:0061D870↓o
 ;   cleanup() // owned by 49699D
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 0D4h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432190,7 +431964,7 @@ loc_5FC7B3:                             ; DATA XREF: .rdata:0061D878↓o
 ;   cleanup() // owned by 49698B
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 110h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432198,7 +431972,7 @@ loc_5FC7C2:                             ; DATA XREF: .rdata:0061D880↓o
 ;   cleanup() // owned by 496979
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 14Ch
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432206,7 +431980,7 @@ loc_5FC7D1:                             ; DATA XREF: .rdata:0061D888↓o
 ;   cleanup() // owned by 496967
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 188h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432214,7 +431988,7 @@ loc_5FC7E0:                             ; DATA XREF: .rdata:0061D890↓o
 ;   cleanup() // owned by 496955
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1C4h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432222,7 +431996,7 @@ loc_5FC7EF:                             ; DATA XREF: .rdata:0061D898↓o
 ;   cleanup() // owned by 496943
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 200h
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -432230,7 +432004,7 @@ loc_5FC7FE:                             ; DATA XREF: .rdata:0061D8A0↓o
 ;   cleanup() // owned by 496931
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 23Ch
-                call    sub_5F275C
+                call    ??1CButton@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -450567,7 +450341,7 @@ loc_607290:                             ; DATA XREF: ??1CStatic@@UAE@XZ↑o
 ; END OF FUNCTION CHUNK FOR ??1CStatic@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 4
-; START OF FUNCTION CHUNK FOR sub_5F275C
+; START OF FUNCTION CHUNK FOR ??1CButton@@UAE@XZ
 
 loc_60729C:                             ; DATA XREF: .rdata:stru_62A610↓o
 ; __unwind { // loc_6072A4              ; varThis
@@ -450576,11 +450350,11 @@ loc_60729C:                             ; DATA XREF: .rdata:stru_62A610↓o
                 jmp     ??1CWnd@@UAE@XZ ; CWnd::~CWnd(void)
 ; ---------------------------------------------------------------------------
 
-loc_6072A4:                             ; DATA XREF: sub_5F275C↑o
+loc_6072A4:                             ; DATA XREF: ??1CButton@@UAE@XZ↑o
                 mov     eax, offset stru_62A5F0
                 jmp     ___CxxFrameHandler
 ; } // starts at 60729C
-; END OF FUNCTION CHUNK FOR sub_5F275C
+; END OF FUNCTION CHUNK FOR ??1CButton@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1CListBox@@UAE@XZ
@@ -456564,7 +456338,7 @@ off_60C1A8      dd offset sub_4837D1    ; DATA XREF: ??0MainWindow@@QAE@XZ+14C�
                 align 8
 
 ; ServerControlDialog::vftable
-off_60C458      dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: sub_4951BD+F7↑o
+off_60C458      dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+F7↑o
                 dd offset ??_GServerControlDialog@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
@@ -456611,13 +456385,13 @@ off_60C458      dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ    ;
                 dd offset ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z ; CWnd::OnChildNotify(uint,uint,long,long *)
                 dd offset ?CheckAutoCenter@CDialog@@UAEHXZ ; CDialog::CheckAutoCenter(void)
                 dd offset ?IsFrameWnd@CWnd@@UBEHXZ
-                dd offset ?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
+                dd offset ?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
                 dd offset ?DoModal@CDialog@@UAEHXZ ; CDialog::DoModal(void)
                 dd offset ?OnInitDialog@CDialog@@UAEHXZ ; CDialog::OnInitDialog(void)
-                dd offset ?OnSetFont@CDialog@@MAEXPAVCFont@@@Z
-                dd offset ?OnOK@CDialog@@MAEXXZ ; CDialog::OnOK(void)
-                dd offset ?OnCancel@CDialog@@MAEXXZ
-                dd offset ?PreInitDialog@CDialog@@MAEXXZ
+                dd offset ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z
+                dd offset ?OnOK@CDialog@@UAEXXZ ; CDialog::OnOK(void)
+                dd offset ?OnCancel@CDialog@@UAEXXZ
+                dd offset ?PreInitDialog@CDialog@@UAEXXZ
 off_60C530      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_496AE0+12↑o
                 dd offset sub_4971F0
                 dd offset sub_496D50
@@ -459884,13 +459658,13 @@ aEdit_0         db 'Edit',0             ; DATA XREF: CDialog::PreTranslateMessag
                 dd offset ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z ; CWnd::OnChildNotify(uint,uint,long,long *)
                 dd offset ?CheckAutoCenter@CDialog@@UAEHXZ ; CDialog::CheckAutoCenter(void)
                 dd offset ?IsFrameWnd@CWnd@@UBEHXZ
-                dd offset ?SetOccDialogInfo@CDialog@@MAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
+                dd offset ?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
                 dd offset ?DoModal@CDialog@@UAEHXZ ; CDialog::DoModal(void)
                 dd offset ?OnInitDialog@CDialog@@UAEHXZ ; CDialog::OnInitDialog(void)
-                dd offset ?OnSetFont@CDialog@@MAEXPAVCFont@@@Z
-                dd offset ?OnOK@CDialog@@MAEXXZ ; CDialog::OnOK(void)
-                dd offset ?OnCancel@CDialog@@MAEXXZ
-                dd offset ?PreInitDialog@CDialog@@MAEXXZ
+                dd offset ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z
+                dd offset ?OnOK@CDialog@@UAEXXZ ; CDialog::OnOK(void)
+                dd offset ?OnCancel@CDialog@@UAEXXZ
+                dd offset ?PreInitDialog@CDialog@@UAEXXZ
 ; const unsigned __int8 aHelv
 aHelv           db 'Helv',0             ; DATA XREF: CWnd::CreateDlgIndirect(DLGTEMPLATE const *,CWnd *,HINSTANCE__ *)+DA↑o
                 align 4
@@ -461949,8 +461723,8 @@ aButton         db 'BUTTON',0           ; DATA XREF: unknown_libname_945+16↑o
                 align 8
                 dd offset ??_R4CButton@@6B@ ; const CButton::`RTTI Complete Object Locator'
 ; const CButton::`vftable'
-??_7CButton@@6B@ dd offset sub_5F55E4   ; DATA XREF: sub_496880+12↑o
-                dd offset sub_4968A0
+??_7CButton@@6B@ dd offset ?GetRuntimeClass@CButton@@UBEPAUCRuntimeClass@@XZ   ; DATA XREF: ??0CButton@@QAE@XZ+12↑o
+                dd offset ??_GCButton@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -471509,23 +471283,6 @@ stru_61D528     FuncInfoV1 <19930520h, 1, offset stru_61D548, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61D548     UnwindMapEntry <-1, offset loc_5FC41D>
-stru_61D550     FuncInfoV1 <19930520h, 12, offset stru_61D570, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61D570     UnwindMapEntry <-1, offset loc_5FC431>
-                UnwindMapEntry <0, offset loc_5FC43A>
-                UnwindMapEntry <1, offset loc_5FC446>
-                UnwindMapEntry <2, offset loc_5FC455>
-                UnwindMapEntry <3, offset loc_5FC464>
-                UnwindMapEntry <4, offset loc_5FC473>
-                UnwindMapEntry <5, offset loc_5FC482>
-                UnwindMapEntry <6, offset loc_5FC491>
-                UnwindMapEntry <7, offset loc_5FC4A0>
-                UnwindMapEntry <8, offset loc_5FC4AF>
-                UnwindMapEntry <9, offset loc_5FC4BE>
-                UnwindMapEntry <10, offset loc_5FC4CD>
 stru_61D610     FuncInfoV1 <19930520h, 2, offset stru_61D630, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -486975,9 +486732,9 @@ byte_665D24     db 4 dup(?)             ; DATA XREF: ?sub_484259@MainWindow@@QAE
 ; char byte_665D28[4]
 byte_665D28     db 4 dup(?)             ; DATA XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+B41↑o
 ; CHAR byte_665D2C[4]
-byte_665D2C     db 4 dup(?)             ; DATA XREF: sub_4951BD+FD↑o
+byte_665D2C     db 4 dup(?)             ; DATA XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+FD↑o
 ; CHAR byte_665D30[4]
-byte_665D30     db 4 dup(?)             ; DATA XREF: sub_4951BD+110↑o
+byte_665D30     db 4 dup(?)             ; DATA XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+110↑o
 ; CHAR byte_665D34[4]
 byte_665D34     db 4 dup(?)             ; DATA XREF: ?sub_49585B@ServerControlDialog@@QAEXXZ+1F9↑o
 dword_665D38    dd ?                    ; DATA XREF: sub_49B22F+DA↑w

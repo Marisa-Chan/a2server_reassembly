@@ -370,13 +370,13 @@ void CFameHall::SubmitScore()
         FUN_004ac3ce(fm);
     }
 }
-    
 
 
-
-
-
-
+// 4951bd
+ServerControlDialog::ServerControlDialog(CWnd* parent_window)
+    : CDialog(0x6b, parent_window)
+{
+}
 
 extern const AFX_MSGMAP off_60BFF8; //60bff8 — ServerControlDialog message map, data remains in Main.asm
 

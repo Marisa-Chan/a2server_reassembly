@@ -103,6 +103,7 @@
 ??0Sack@@QAE@PBUTokenPos@@PAUInventory@@@Z
 ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z
 ??0ScanPresenceGrid@@QAE@XZ
+??0ServerControlDialog@@QAE@PAVCWnd@@@Z
 ??0Settings@@QAE@XZ
 ??0SfxSample@@QAE@PBD@Z
 ??0Shield@@QAE@ABVCString@@@Z
