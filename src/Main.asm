@@ -145954,29 +145954,6 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
                 retn
 sub_495743      endp
 ; ---------------------------------------------------------------------------
-?sub_4957AD@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0A4↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    ?sub_4F8831@Server@@QAEXXZ
-                mov     eax, [ebp+var_4]
-                mov     dword ptr [eax+624h], 1
-                mov     ecx, [ebp+var_8]
-                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4957AD@ServerControlDialog@@QAEXXZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame

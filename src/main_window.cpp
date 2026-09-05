@@ -502,6 +502,15 @@ void ServerControlDialog::sub_495774()
     this->sub_49585B();
 }
 
+void ServerControlDialog::sub_4957AD()
+{
+    //4957ad
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    g_Server->sub_4F8831();
+    main_wnd->field_0x624 = 1;
+    this->sub_49585B();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {
