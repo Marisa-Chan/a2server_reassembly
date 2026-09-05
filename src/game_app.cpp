@@ -77,6 +77,34 @@ DistortMap::DistortMap(int32_t outer, int32_t inner) {
 	this->sub_4AA0AF();
 }
 
+// 4aa0af
+void DistortMap::sub_4AA0AF() {
+	// scale[i] = i / (outer * sin(atan(i / (outer - inner))))
+	double* scale = new double[this->radius];
+	memset(scale, 0, this->radius * 4);
+	for (int32_t i = 0; i < this->radius; i++) {
+		double angle = atan((double)i / (this->outer - this->inner));
+		if (i == 0) {
+			scale[0] = 1.0;
+		} else {
+			scale[i] = i / (this->outer * sin(angle));
+		}
+	}
+	for (int32_t i = 0; i < this->radius; i++) {
+		for (int32_t j = 0; j < this->radius; j++) {
+			int32_t r = (int32_t)(sqrt((double)(i * i + j * j)) + 0.5);
+			if (r < this->radius) {
+				this->offsets[i][j * 2] = (int16_t)(int32_t)(i * scale[r] + 0.5);
+				this->offsets[i][j * 2 + 1] = (int16_t)(int32_t)(j * scale[r] + 0.5);
+			} else {
+				this->offsets[i][j * 2] = (int16_t)i;
+				this->offsets[i][j * 2 + 1] = (int16_t)j;
+			}
+		}
+	}
+	delete[] scale;
+}
+
 // 475E7A
 void FUN_00475e7a() {
 	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.

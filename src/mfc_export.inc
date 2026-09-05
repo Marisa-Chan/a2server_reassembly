@@ -1408,7 +1408,7 @@ externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e45a3
 
 extern ?FUN_00475e7a@@YAXXZ :proc
 extern ??0DistortMap@@QAE@HH@Z :proc           ; DistortMap::DistortMap(int, int) - 4a9f90
-externdef ?sub_4AA0AF@DistortMap@@QAEXXZ :proc ; void DistortMap::sub_4AA0AF() - 4aa0af
+extern ?sub_4AA0AF@DistortMap@@QAEXXZ :proc    ; void DistortMap::sub_4AA0AF() - 4aa0af
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
 extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
