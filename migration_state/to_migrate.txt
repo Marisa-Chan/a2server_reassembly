@@ -6,6 +6,9 @@
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
+?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
+?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
+?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ	13
@@ -139,7 +142,7 @@
 ?CheckAutoCenter@CWnd@@UAEHXZ	4
 ?ContinueModal@CWnd@@UAEHXZ	4
 ?OnFinalRelease@CWnd@@UAEXXZ	9
-?DoDataExchange@CWnd@@UAEXPAX@Z	11
+?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z	11
 ?OnAmbientProperty@CWnd@@UAEHPAXJPAUtagVARIANT@@@Z	13
 ?BeginModalState@CWnd@@UAEXXZ	16
 ?EndModalState@CWnd@@UAEXXZ	16

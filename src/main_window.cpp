@@ -380,6 +380,24 @@ void CFameHall::SubmitScore()
 
 extern const AFX_MSGMAP off_60BFF8; //60bff8 — ServerControlDialog message map, data remains in Main.asm
 
+// 4952fa
+void ServerControlDialog::DoDataExchange(CDataExchange* pDX)
+{
+    CDialog::DoDataExchange(pDX);
+    DDX_Control(pDX, 0x3f9, this->edit_5c);
+    DDX_Control(pDX, 0x400, this->static_98);
+    DDX_Control(pDX, 0x3f6, this->button_d4);
+    DDX_Control(pDX, 0x3f5, this->button_110);
+    DDX_Control(pDX, 0x3f4, this->button_14c);
+    DDX_Control(pDX, 0x3f7, this->button_188);
+    DDX_Control(pDX, 0x3ff, this->button_1c4);
+    DDX_Control(pDX, 0x3fb, this->button_200);
+    DDX_Control(pDX, 0x3fe, this->button_23c);
+    DDX_Text(pDX, 0x400, this->str_278);
+    DDX_Text(pDX, 0x3f9, this->str_27c);
+    DDV_MaxChars(pDX, this->str_27c, 2);
+}
+
 //495429
 const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const
 {

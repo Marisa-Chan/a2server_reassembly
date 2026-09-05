@@ -308,8 +308,12 @@ public:
 public:
     // Constructor at 4951bd
 
+    // VTable at 60C458.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //495429
+protected:
+    virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
 
+public:
     void sub_49585B(); // 49585B — update control states.
 };
 

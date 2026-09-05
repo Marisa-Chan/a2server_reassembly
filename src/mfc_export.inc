@@ -1220,7 +1220,10 @@ externdef ?EndModalLoop@CWnd@@UAEXH@Z :proc   ; (public: virtual void __thiscall
 externdef ?OnCommand@CWnd@@UAEHIJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnCommand(unsigned int,long))
 externdef ?OnNotify@CWnd@@UAEHIJPAJ@Z :proc   ; (public: virtual int __thiscall CWnd::OnNotify(unsigned int,long,long *))
 externdef ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ :proc   ; (public: virtual long (__stdcall** __thiscall CWnd::GetSuperWndProcAddr(void))(struct HWND__ *,unsigned int,unsigned int,long))
-externdef ?DoDataExchange@CWnd@@UAEXPAX@Z :proc   ; (public: virtual void __thiscall CWnd::DoDataExchange(void *))
+externdef ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z :proc   ; (public: virtual void __thiscall CWnd::DoDataExchange(void *))
+externdef ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z :proc   ; DDX_Control(CDataExchange*, int, CWnd&)
+externdef ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z :proc   ; DDX_Text(CDataExchange*, int, CString&)
+externdef ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z :proc   ; DDV_MaxChars(CDataExchange*, const CString&, int)
 externdef ?BeginModalState@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::BeginModalState(void))
 externdef ?EndModalState@CWnd@@UAEXXZ :proc   ; (public: virtual void __thiscall CWnd::EndModalState(void))
 externdef ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreTranslateMessage(struct tagMSG *))
@@ -1373,6 +1376,7 @@ extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
 extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
+extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
 externdef ?off_60BFF8@@3UAFX_MSGMAP@@B :dword ; ServerControlDialog message map - 60bff8
 extern ?IsListen@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
 externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721

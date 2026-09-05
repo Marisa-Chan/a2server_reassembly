@@ -3914,7 +3914,7 @@ struct CriticalSection {
 };
 
 
-
+class CDataExchange;
 
 class CWnd : public CCmdTarget
 {
@@ -3943,7 +3943,11 @@ public:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
 	virtual WNDPROC* GetSuperWndProcAddr();
-	virtual void DoDataExchange(void* pDX);
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);
+
+public:
 	virtual void BeginModalState();
 	virtual void EndModalState();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -4252,6 +4256,10 @@ ASSERT_SIZE(CEdit, 0x3C);
 
 
 class CFont;
+
+void AFXAPI DDX_Control(CDataExchange* pDX, int nIDC, CWnd& rControl); // 5ec518
+void AFXAPI DDX_Text(CDataExchange* pDX, int nIDC, CString& value); // 5ebf34
+void AFXAPI DDV_MaxChars(CDataExchange* pDX, const CString& value, int nChars); // 5ec470
 
 class CDialog : public CWnd
 {

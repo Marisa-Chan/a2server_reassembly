@@ -374,6 +374,7 @@
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
 ?DoClose@VisScreen@@UAEXI@Z
+?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z
 ?Down@VisListBox@@QAEXXZ
 ?Draw@GM_a28@@QAEXXZ
 ?DrawDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z

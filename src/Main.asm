@@ -146052,112 +146052,6 @@ arg_0           = dword ptr  8
 sub_4951BD      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z(struct CDataExchange *)
-?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z      proc near               ; DATA XREF: .rdata:0060C4E4↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 5Ch ; '\'
-                push    ecx             ; struct CWnd *
-                push    3F9h            ; int
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 98h
-                push    eax             ; struct CWnd *
-                push    400h            ; int
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0D4h
-                push    edx             ; struct CWnd *
-                push    3F6h            ; int
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 110h
-                push    ecx             ; struct CWnd *
-                push    3F5h            ; int
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 14Ch
-                push    eax             ; struct CWnd *
-                push    3F4h            ; int
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 188h
-                push    edx             ; struct CWnd *
-                push    3F7h            ; int
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1C4h
-                push    ecx             ; struct CWnd *
-                push    3FFh            ; int
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 200h
-                push    eax             ; struct CWnd *
-                push    3FBh            ; int
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 23Ch
-                push    edx             ; struct CWnd *
-                push    3FEh            ; int
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CDataExchange *
-                call    ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z ; DDX_Control(CDataExchange *,int,CWnd &)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 278h
-                push    ecx             ; struct CString *
-                push    400h            ; int
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; struct CDataExchange *
-                call    ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z ; DDX_Text(CDataExchange *,int,CString &)
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 27Ch
-                push    eax             ; struct CString *
-                push    3F9h            ; int
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct CDataExchange *
-                call    ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z ; DDX_Text(CDataExchange *,int,CString &)
-                push    2               ; wParam
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 27Ch
-                push    edx             ; struct CString *
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct CDataExchange *
-                call    ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z ; DDV_MaxChars(CDataExchange *,CString const &,int)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z      endp
 
 
 
@@ -147457,7 +147351,7 @@ sub_496480      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?DoDataExchange@CWnd@@UAEXPAX@Z proc near           ; CODE XREF: ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z+E↑p
+?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z proc near           ; CODE XREF: ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z+E↑p
 
 var_4           = dword ptr -4
 
@@ -147468,7 +147362,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-?DoDataExchange@CWnd@@UAEXPAX@Z endp
+?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -456639,7 +456533,7 @@ off_60C1A8      dd offset sub_4837D1    ; DATA XREF: ??0MainWindow@@QAE@XZ+14C�
                 dd offset ?OnCommand@CFrameWnd@@UAEHIJ@Z ; CFrameWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::BeginModalState(void)
                 dd offset ?EndModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::EndModalState(void)
                 dd offset ?PreTranslateMessage@CFrameWnd@@UAEHPAUtagMSG@@@Z ; CFrameWnd::PreTranslateMessage(tagMSG *)
@@ -459978,7 +459872,7 @@ aEdit_0         db 'Edit',0             ; DATA XREF: CDialog::PreTranslateMessag
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CDialog@@UAEHPAUtagMSG@@@Z ; CDialog::PreTranslateMessage(tagMSG *)
@@ -460656,7 +460550,7 @@ aCommctrlDragli db 'commctrl_DragListMsg',0 ; DATA XREF: sub_5E06F5↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -461638,7 +461532,7 @@ aMswheelRollmsg db 'MSWHEEL_ROLLMSG',0  ; DATA XREF: unknown_libname_942:loc_5F0
                 dd offset ?OnCommand@CFrameWnd@@UAEHIJ@Z ; CFrameWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::BeginModalState(void)
                 dd offset ?EndModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::EndModalState(void)
                 dd offset ?PreTranslateMessage@CFrameWnd@@UAEHPAUtagMSG@@@Z ; CFrameWnd::PreTranslateMessage(tagMSG *)
@@ -462038,7 +461932,7 @@ aStatic         db 'STATIC',0           ; DATA XREF: unknown_libname_944+16↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462090,7 +461984,7 @@ aButton         db 'BUTTON',0           ; DATA XREF: unknown_libname_945+16↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462142,7 +462036,7 @@ aListbox        db 'LISTBOX',0          ; DATA XREF: unknown_libname_946+16↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462200,7 +462094,7 @@ aCombobox_0     db 'COMBOBOX',0         ; DATA XREF: .text:005F298E↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462256,7 +462150,7 @@ aEdit           db 'EDIT',0             ; DATA XREF: unknown_libname_948+16↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462308,7 +462202,7 @@ aScrollbar      db 'SCROLLBAR',0        ; DATA XREF: .text:005F2AF8↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -462600,7 +462494,7 @@ aCstatusbar     db 'CStatusBar',0       ; DATA XREF: .rdata:stru_611F28↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CControlBar@@UAEHPAUtagMSG@@@Z ; CControlBar::PreTranslateMessage(tagMSG *)
@@ -462924,7 +462818,7 @@ aMshScrollLines db 'MSH_SCROLL_LINES_MSG',0
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463396,7 +463290,7 @@ off_612714      dd offset sub_5F4E83    ; DATA XREF: CControlBar::~CControlBar(v
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CControlBar@@UAEHPAUtagMSG@@@Z ; CControlBar::PreTranslateMessage(tagMSG *)
@@ -463684,7 +463578,7 @@ aCdraglistbox   db 'CDragListBox',0     ; DATA XREF: .rdata:stru_6128E0↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463746,7 +463640,7 @@ aToolbarwindow3 db 'ToolbarWindow32',0  ; DATA XREF: unknown_libname_906+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463797,7 +463691,7 @@ aToolbarwindow3 db 'ToolbarWindow32',0  ; DATA XREF: unknown_libname_906+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463850,7 +463744,7 @@ aSyslistview32  db 'SysListView32',0    ; DATA XREF: unknown_libname_908+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463903,7 +463797,7 @@ aSystreeview32  db 'SysTreeView32',0    ; DATA XREF: unknown_libname_909+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -463955,7 +463849,7 @@ aMsctlsUpdown32 db 'msctls_updown32',0  ; DATA XREF: unknown_libname_910+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464007,7 +463901,7 @@ aMsctlsTrackbar db 'msctls_trackbar32',0
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464059,7 +463953,7 @@ aMsctlsProgress db 'msctls_progress32',0
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464110,7 +464004,7 @@ aSysheader32    db 'SysHeader32',0      ; DATA XREF: unknown_libname_913+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464162,7 +464056,7 @@ aMsctlsHotkey32 db 'msctls_hotkey32',0  ; DATA XREF: unknown_libname_914+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464214,7 +464108,7 @@ aSystabcontrol3 db 'SysTabControl32',0  ; DATA XREF: unknown_libname_915+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464267,7 +464161,7 @@ aSysanimate32   db 'SysAnimate32',0     ; DATA XREF: unknown_libname_916+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464318,7 +464212,7 @@ aSysanimate32   db 'SysAnimate32',0     ; DATA XREF: unknown_libname_916+2D↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464469,7 +464363,7 @@ aCtooltipctrl   db 'CToolTipCtrl',0     ; DATA XREF: .rdata:stru_613660↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464837,7 +464731,7 @@ aCsplitterwnd   db 'CSplitterWnd',0     ; DATA XREF: .rdata:stru_6138C0↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -464908,7 +464802,7 @@ aCsplitterwnd   db 'CSplitterWnd',0     ; DATA XREF: .rdata:stru_6138C0↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z ; CWnd::PreTranslateMessage(tagMSG *)
@@ -465465,7 +465359,7 @@ aCdockbar       db 'CDockBar',0         ; DATA XREF: .rdata:stru_613EC0↑o
                 dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CWnd@@UAEXXZ
                 dd offset ?EndModalState@CWnd@@UAEXXZ
                 dd offset ?PreTranslateMessage@CControlBar@@UAEHPAUtagMSG@@@Z ; CControlBar::PreTranslateMessage(tagMSG *)
@@ -465526,7 +465420,7 @@ aCdockbar       db 'CDockBar',0         ; DATA XREF: .rdata:stru_613EC0↑o
                 dd offset ?OnCommand@CFrameWnd@@UAEHIJ@Z ; CFrameWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::BeginModalState(void)
                 dd offset ?EndModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::EndModalState(void)
                 dd offset ?PreTranslateMessage@CFrameWnd@@UAEHPAUtagMSG@@@Z ; CFrameWnd::PreTranslateMessage(tagMSG *)
@@ -465938,7 +465832,7 @@ aCminiframewnd  db 'CMiniFrameWnd',0    ; DATA XREF: .rdata:stru_614290↑o
                 dd offset ?OnCommand@CFrameWnd@@UAEHIJ@Z ; CFrameWnd::OnCommand(uint,long)
                 dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
                 dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@CWnd@@UAEXPAX@Z ; Microsoft VisualC 2-14/net runtime
+                dd offset ?DoDataExchange@CWnd@@MAEXPAVCDataExchange@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?BeginModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::BeginModalState(void)
                 dd offset ?EndModalState@CFrameWnd@@UAEXXZ ; CFrameWnd::EndModalState(void)
                 dd offset ?PreTranslateMessage@CFrameWnd@@UAEHPAUtagMSG@@@Z ; CFrameWnd::PreTranslateMessage(tagMSG *)
