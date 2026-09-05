@@ -145934,44 +145934,6 @@ sub_4950C0      endp
 
 
 ; ---------------------------------------------------------------------------
-?sub_4956D5@ServerControlDialog@@QAEXXZ      proc near
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp-0Ch], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp-4], eax
-                mov     eax, dword ptr [ebp-4]
-                mov     dword ptr [eax+800h], 0
-                push    1
-                mov     ecx, dword ptr [ebp-0Ch]
-                call    ?UpdateData@CWnd@@QAEHH@Z ; CWnd::UpdateData(int)
-                mov     ecx, dword ptr [ebp-0Ch]
-                add     ecx, 27Ch
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                call    _atoi
-                add     esp, 4
-                mov     [ebp-8], eax
-                cmp     dword ptr [ebp-8], 0
-                jle     short loc_49572C
-                cmp     dword ptr [ebp-8], 64h ; 'd'
-                jge     short loc_49572C
-                mov     ecx, dword ptr [ebp-8]
-                mov     ?g_ServerConfig@@3UServerConfig@@A+0B8h, ecx
-
-loc_49572C:                             ; CODE XREF: .text:0049571B↑j
-                mov     ecx, dword ptr [ebp-0Ch]
-                call    sub_496A00
-                mov     edx, dword ptr [ebp-0Ch]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp-0Ch]
-                call    dword ptr [eax+60h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4956D5@ServerControlDialog@@QAEXXZ      endp
-; ---------------------------------------------------------------------------
 sub_495743      proc near
                 push    ebp
                 mov     ebp, esp
@@ -147767,26 +147729,6 @@ loc_4968C2:                             ; CODE XREF: ??_GCButton@@UAEPAXI@Z+17�
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_496A00      proc near               ; CODE XREF: .text:0049572F↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_496A00      endp
-
-; ---------------------------------------------------------------------------
                 align 10h
 
 ; =============== S U B R O U T I N E =======================================

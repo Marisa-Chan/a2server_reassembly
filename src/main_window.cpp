@@ -477,6 +477,22 @@ void ServerControlDialog::sub_49549B()
     }
 }
 
+void ServerControlDialog::sub_4956D5()
+{
+    //4956d5
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->field_0x800 = 0;
+    this->UpdateData(1);
+
+    int32_t minutes = atoi(this->str_27c);
+    if (minutes > 0 && minutes < 100) {
+        g_ServerConfig.shutdown_delay = minutes;
+    }
+
+    this->Default();
+    this->DestroyWindow();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {
