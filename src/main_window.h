@@ -320,7 +320,7 @@ public:
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    // Message handlers, bodies remain in Main.asm.
+    // Message handlers
     void sub_495439(); // 495439 — ON_WM_DESTROY
     void sub_49544C(); // 49544C — ON_COMMAND 0x3f5
     void sub_49549B(); // 49549B — ON_COMMAND 0x3f6

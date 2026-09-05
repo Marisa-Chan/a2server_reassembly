@@ -451,15 +451,15 @@ const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const
     return &ServerControlDialog::messageMap;
 }
 
+// 495439
 void ServerControlDialog::sub_495439()
 {
-    //495439
     CWnd::OnDestroy();
 }
 
+// 49544C
 void ServerControlDialog::sub_49544C()
 {
-    //49544C
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed - 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
@@ -467,9 +467,9 @@ void ServerControlDialog::sub_49544C()
     }
 }
 
+// 49549B
 void ServerControlDialog::sub_49549B()
 {
-    //49549B
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed + 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
@@ -477,9 +477,9 @@ void ServerControlDialog::sub_49549B()
     }
 }
 
+// 4956d5
 void ServerControlDialog::sub_4956D5()
 {
-    //4956d5
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->field_0x800 = 0;
     this->UpdateData(1);
@@ -493,27 +493,27 @@ void ServerControlDialog::sub_4956D5()
     this->DestroyWindow();
 }
 
+// 495774
 void ServerControlDialog::sub_495774()
 {
-    //495774
     if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
         g_Server->field51_0x1d8 = 1;
     }
     this->sub_49585B();
 }
 
+// 4957ad
 void ServerControlDialog::sub_4957AD()
 {
-    //4957ad
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->sub_4F8831();
     main_wnd->field_0x624 = 1;
     this->sub_49585B();
 }
 
+// 4957e2
 void ServerControlDialog::sub_4957E2()
 {
-    //4957e2
     this->UpdateData(1);
 
     int32_t minutes = atoi(this->str_27c);
@@ -524,9 +524,9 @@ void ServerControlDialog::sub_4957E2()
     this->sub_49585B();
 }
 
+// 49583e
 void ServerControlDialog::sub_49583E()
 {
-    //49583e
     g_ShutdownIn = 0x7fffffff;
     this->sub_49585B();
 }

@@ -3988,7 +3988,7 @@ public:
 	BOOL UpdateData(BOOL bSaveAndValidate); //5e45a3 — body remains in Main.asm.
 
 protected:
-	void OnDestroy(); //5e130c — body remains in Main.asm.
+	void OnDestroy(); // 5e130c
 };
 
 ASSERT_SIZE(CWnd, 0x3C);
