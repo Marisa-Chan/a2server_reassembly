@@ -186,7 +186,7 @@
 ?UpdateData@CWnd@@QAEHH@Z	83
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
-??0DistortMap@@QAE@HH@Z	84
+?sub_4AA0AF@DistortMap@@QAEXXZ	201
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48

@@ -177728,97 +177728,6 @@ sub_4A9F70      endp
 
 ; Attributes: bp-based frame
 
-??0DistortMap@@QAE@HH@Z      proc near               ; CODE XREF: ?FUN_00475e7a@@YAXXZ+1E1↑p
-
-var__x           = qword ptr -1Ch
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                push    esi
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    sub_4AA860
-                add     esp, 4
-                mov     esi, eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, [ebp+arg_4]
-                push    ecx
-                call    sub_4AA860
-                add     esp, 4
-                sub     esi, eax
-                mov     [ebp+var_10], esi
-                fild    [ebp+var_10]
-                sub     esp, 8
-                fstp    [esp+1Ch+var__x]     ; X
-                call    _sqrt
-                add     esp, 8
-                call    __ftol
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [edx+0Ch], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0Ch]
-                mov     [ebp+var_8], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                shl     edx, 2
-                push    edx             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     [ecx], eax
-                mov     [ebp+var_4], 0
-                jmp     short loc_4AA007
-; ---------------------------------------------------------------------------
-
-loc_4A9FFE:                             ; CODE XREF: ??0DistortMap@@QAE@HH@Z+99↓j
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1
-                mov     [ebp+var_4], edx
-
-loc_4AA007:                             ; CODE XREF: ??0DistortMap@@QAE@HH@Z+6C↑j
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     eax, [ebp+var_8]
-                jge     short loc_4AA02B
-                mov     ecx, dword ptr [ebp+var_8]
-                shl     ecx, 2
-                push    ecx             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [edx]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [ecx+edx*4], eax
-                jmp     short loc_4A9FFE
-; ---------------------------------------------------------------------------
-
-loc_4AA02B:                             ; CODE XREF: ??0DistortMap@@QAE@HH@Z+7D↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+4], ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     [edx+8], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_4AA0AF
-                mov     eax, dword ptr [ebp+var_C]
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-??0DistortMap@@QAE@HH@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_4AA04F      proc near               ; CODE XREF: sub_476E50+A↑p
 
 var_14          = dword ptr -14h
@@ -177877,7 +177786,7 @@ sub_4AA04F      endp
 
 ; Attributes: bp-based frame
 
-sub_4AA0AF      proc near               ; CODE XREF: ??0DistortMap@@QAE@HH@Z+B0↑p
+?sub_4AA0AF@DistortMap@@QAEXXZ      proc near               ; CODE XREF: ??0DistortMap@@QAE@HH@Z+B0↑p
 
 var__x           = qword ptr -40h
 var_38          = dword ptr -38h
@@ -177916,12 +177825,12 @@ var_8           = qword ptr -8
                 jmp     short loc_4AA0F7
 ; ---------------------------------------------------------------------------
 
-loc_4AA0EE:                             ; CODE XREF: sub_4AA0AF:loc_4AA175↓j
+loc_4AA0EE:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ:loc_4AA175↓j
                 mov     edx, dword ptr [ebp+var_C]
                 add     edx, 1
                 mov     [ebp+var_C], edx
 
-loc_4AA0F7:                             ; CODE XREF: sub_4AA0AF+3D↑j
+loc_4AA0F7:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+3D↑j
                 mov     eax, dword ptr [ebp+var_20]
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     ecx, [eax+0Ch]
@@ -177948,7 +177857,7 @@ loc_4AA0F7:                             ; CODE XREF: sub_4AA0AF+3D↑j
                 jmp     short loc_4AA175
 ; ---------------------------------------------------------------------------
 
-loc_4AA147:                             ; CODE XREF: sub_4AA0AF+7F↑j
+loc_4AA147:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+7F↑j
                 fild    [ebp+var_C]
                 fstp    [ebp+var_2C]
                 mov     ecx, dword ptr [ebp+var_20]
@@ -177966,21 +177875,21 @@ loc_4AA147:                             ; CODE XREF: sub_4AA0AF+7F↑j
                 mov     edx, dword ptr [ebp+var_18]
                 fstp    qword ptr [edx+ecx*8]
 
-loc_4AA175:                             ; CODE XREF: sub_4AA0AF+96↑j
+loc_4AA175:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+96↑j
                 jmp     loc_4AA0EE
 ; ---------------------------------------------------------------------------
 
-loc_4AA17A:                             ; CODE XREF: sub_4AA0AF+51↑j
+loc_4AA17A:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+51↑j
                 mov     [ebp+var_C], 0
                 jmp     short loc_4AA18C
 ; ---------------------------------------------------------------------------
 
-loc_4AA183:                             ; CODE XREF: sub_4AA0AF:loc_4AA280↓j
+loc_4AA183:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ:loc_4AA280↓j
                 mov     eax, dword ptr [ebp+var_C]
                 add     eax, 1
                 mov     [ebp+var_C], eax
 
-loc_4AA18C:                             ; CODE XREF: sub_4AA0AF+D2↑j
+loc_4AA18C:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+D2↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     edx, dword ptr [ebp+var_C]
                 cmp     edx, [ecx+0Ch]
@@ -177989,12 +177898,12 @@ loc_4AA18C:                             ; CODE XREF: sub_4AA0AF+D2↑j
                 jmp     short loc_4AA1AD
 ; ---------------------------------------------------------------------------
 
-loc_4AA1A4:                             ; CODE XREF: sub_4AA0AF:loc_4AA27B↓j
+loc_4AA1A4:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ:loc_4AA27B↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4AA1AD:                             ; CODE XREF: sub_4AA0AF+F3↑j
+loc_4AA1AD:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+F3↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     edx, dword ptr [ebp+var_10]
                 cmp     edx, [ecx+0Ch]
@@ -178044,7 +177953,7 @@ loc_4AA1AD:                             ; CODE XREF: sub_4AA0AF+F3↑j
                 jmp     short loc_4AA27B
 ; ---------------------------------------------------------------------------
 
-loc_4AA24E:                             ; CODE XREF: sub_4AA0AF+148↑j
+loc_4AA24E:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+148↑j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     eax, dword ptr [edx]
                 mov     ecx, dword ptr [ebp+var_C]
@@ -178060,15 +177969,15 @@ loc_4AA24E:                             ; CODE XREF: sub_4AA0AF+148↑j
                 mov     cx, word ptr [ebp+var_10]
                 mov     [edx+eax*4+2], cx
 
-loc_4AA27B:                             ; CODE XREF: sub_4AA0AF+19D↑j
+loc_4AA27B:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+19D↑j
                 jmp     loc_4AA1A4
 ; ---------------------------------------------------------------------------
 
-loc_4AA280:                             ; CODE XREF: sub_4AA0AF+107↑j
+loc_4AA280:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+107↑j
                 jmp     loc_4AA183
 ; ---------------------------------------------------------------------------
 
-loc_4AA285:                             ; CODE XREF: sub_4AA0AF+E6↑j
+loc_4AA285:                             ; CODE XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+E6↑j
                 mov     edx, dword ptr [ebp+var_18]
                 mov     [ebp+Block], edx
                 mov     eax, dword ptr [ebp+Block]
@@ -178078,7 +177987,7 @@ loc_4AA285:                             ; CODE XREF: sub_4AA0AF+E6↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4AA0AF      endp
+?sub_4AA0AF@DistortMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -178692,25 +178601,6 @@ loc_4AA834:                             ; CODE XREF: sub_4AA71C+D9↑j
                 retn    4
 ; } // starts at 4AA71C
 sub_4AA71C      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4AA860      proc near               ; CODE XREF: ??0DistortMap@@QAE@HH@Z+E↑p
-
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, [ebp+arg_0]
-                pop     ebp
-                retn
-sub_4AA860      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -456120,7 +456010,7 @@ off_60CBC8      dd offset sub_461060    ; DATA XREF: Concurrency::scheduler_work
                 db  21h ; !
                 db    9
                 db  40h ; @
-dbl_60CC28      dq 0.5                  ; DATA XREF: sub_4AA0AF+131↑r
+dbl_60CC28      dq 0.5                  ; DATA XREF: ?sub_4AA0AF@DistortMap@@QAEXXZ+131↑r
 dword_60CC30    dd 0CCh                 ; DATA XREF: sub_4AAB71+F2↑r
 dword_60CC34    dd 34h                  ; DATA XREF: sub_4AAB71+D6↑r
 dword_60CC38    dd 68h                  ; DATA XREF: sub_4AAB71+FE↑r

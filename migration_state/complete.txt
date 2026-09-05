@@ -40,6 +40,7 @@
 ??0CVisualObject@@QAE@XZ
 ??0DirectDamage@@QAE@PAV0@@Z
 ??0DirectDamage@@QAE@XZ
+??0DistortMap@@QAE@HH@Z
 ??0Effect@@QAE@ABVCString@@@Z
 ??0Effect@@QAE@PBV0@@Z
 ??0Effect@@QAE@XZ

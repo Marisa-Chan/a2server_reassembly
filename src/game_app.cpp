@@ -64,6 +64,19 @@ DistortMap* g_DistortMap;       // 65fbbc
 uint16_t g_DistTable[41][41];   // 660000
 uint32_t g_CpuFeatureFlags;     // 660f84
 
+// 4a9f90
+DistortMap::DistortMap(int32_t outer, int32_t inner) {
+	int32_t radius = (int32_t)sqrt((double)(outer * outer - (outer - inner) * (outer - inner)));
+	this->radius = radius;
+	this->offsets = new int16_t * [radius];
+	for (int32_t i = 0; i < radius; i++) {
+		this->offsets[i] = new int16_t[radius * 2];
+	}
+	this->outer = outer;
+	this->inner = inner;
+	this->sub_4AA0AF();
+}
+
 // 475E7A
 void FUN_00475e7a() {
 	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.

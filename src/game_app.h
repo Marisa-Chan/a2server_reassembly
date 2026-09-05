@@ -69,6 +69,7 @@ public:
 
 public:
 	DistortMap(int32_t outer, int32_t inner); // 4a9f90
+	void sub_4AA0AF(); // 4aa0af
 };
 ASSERT_SIZE(DistortMap, 0x10);
 
