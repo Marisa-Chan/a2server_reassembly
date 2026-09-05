@@ -524,6 +524,13 @@ void ServerControlDialog::sub_4957E2()
     this->sub_49585B();
 }
 
+void ServerControlDialog::sub_49583E()
+{
+    //49583e
+    g_ShutdownIn = 0x7fffffff;
+    this->sub_49585B();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {

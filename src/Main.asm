@@ -145955,26 +145955,6 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
 sub_495743      endp
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-?sub_49583E@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0D4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ?g_ShutdownIn@@3HA, 7FFFFFFFh
-                mov     ecx, [ebp+var_4]
-                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_49583E@ServerControlDialog@@QAEXXZ      endp
-
-; =============== S U B R O U T I N E =======================================
-
 ; ---------------------------------------------------------------------------
 sub_495AB2      proc near
                 push    ebp
