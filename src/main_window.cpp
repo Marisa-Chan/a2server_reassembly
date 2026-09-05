@@ -381,7 +381,27 @@ ServerControlDialog::ServerControlDialog(CWnd* parent_window)
 ServerControlDialog::~ServerControlDialog() {
 }
 
-extern const AFX_MSGMAP off_60BFF8; //60bff8 — ServerControlDialog message map, data remains in Main.asm
+void sub_4954EA(); // 4954ea — game.cpp
+
+extern const AFX_MSGMAP off_610878; //610878 — CDialog message map, data remains in Main.asm
+
+//60bff8
+AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
+{ &off_610878, &ServerControlDialog::_messageEntries[0] };
+
+const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
+{
+    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_495439 },
+    ON_COMMAND(0x3f5, sub_49544C)
+    ON_COMMAND(0x3f6, sub_49549B)
+    ON_COMMAND(0x3f4, sub_4954EA)
+    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&sub_4956D5 },
+    ON_COMMAND(0x3ff, sub_495774)
+    ON_COMMAND(0x3f7, sub_4957AD)
+    ON_COMMAND(0x3fb, sub_4957E2)
+    ON_COMMAND(0x3fe, sub_49583E)
+    {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
+};
 
 // 4952fa
 void ServerControlDialog::DoDataExchange(CDataExchange* pDX)
@@ -404,7 +424,7 @@ void ServerControlDialog::DoDataExchange(CDataExchange* pDX)
 //495429
 const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const
 {
-    return &off_60BFF8;
+    return &ServerControlDialog::messageMap;
 }
 
 // 49585B

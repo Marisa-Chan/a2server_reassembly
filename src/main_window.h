@@ -310,12 +310,25 @@ public:
 
     // VTable at 60C458.
     virtual ~ServerControlDialog() override; // 496900
-    virtual const AFX_MSGMAP* GetMessageMap() const override; //495429
+    virtual const AFX_MSGMAP* GetMessageMap() const override; // 495429
 protected:
     virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
 
 public:
     void sub_49585B(); // 49585B — update control states.
+
+    static const AFX_MSGMAP_ENTRY _messageEntries[];
+    static AFX_DATA const AFX_MSGMAP messageMap;
+
+    // Message handlers, bodies remain in Main.asm.
+    static void __fastcall sub_495439(ServerControlDialog* _this, void* edx); // 495439 — ON_WM_DESTROY
+    static void __fastcall sub_49544C(ServerControlDialog* _this, void* edx); // 49544C — ON_COMMAND 0x3f5
+    static void __fastcall sub_49549B(ServerControlDialog* _this, void* edx); // 49549B — ON_COMMAND 0x3f6
+    static void __fastcall sub_4956D5(ServerControlDialog* _this, void* edx); // 4956D5 — ON_WM_CLOSE
+    static void __fastcall sub_495774(ServerControlDialog* _this, void* edx); // 495774 — ON_COMMAND 0x3ff
+    static void __fastcall sub_4957AD(ServerControlDialog* _this, void* edx); // 4957AD — ON_COMMAND 0x3f7
+    static void __fastcall sub_4957E2(ServerControlDialog* _this, void* edx); // 4957E2 — ON_COMMAND 0x3fb
+    static void __fastcall sub_49583E(ServerControlDialog* _this, void* edx); // 49583E — ON_COMMAND 0x3fe
 };
 
 ASSERT_SIZE(ServerControlDialog, 0x280);

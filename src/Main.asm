@@ -145934,7 +145934,7 @@ sub_4950C0      endp
 
 
 ; ---------------------------------------------------------------------------
-sub_495439      proc near               ; DATA XREF: .rdata:0060C014↓o
+?sub_495439@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C014↓o
 
 var_4           = dword ptr -4
 
@@ -145947,14 +145947,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_495439      endp
+?sub_495439@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_49544C      proc near               ; DATA XREF: .rdata:0060C02C↓o
+?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C02C↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -145982,18 +145982,18 @@ var_4           = dword ptr -4
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
 
-loc_495497:                             ; CODE XREF: sub_49544C+28↑j
+loc_495497:                             ; CODE XREF: ?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z+28↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49544C      endp
+?sub_49544C@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_49549B      proc near               ; DATA XREF: .rdata:0060C044↓o
+?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C044↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146021,15 +146021,15 @@ var_4           = dword ptr -4
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z
 
-loc_4954E6:                             ; CODE XREF: sub_49549B+28↑j
+loc_4954E6:                             ; CODE XREF: ?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z+28↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49549B      endp
+?sub_49549B@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 
 ; ---------------------------------------------------------------------------
-sub_4956D5      proc near
+?sub_4956D5@ServerControlDialog@@SIXPAV1@PAX@Z      proc near
                 push    ebp
                 mov     ebp, esp
                 sub     esp, 0Ch
@@ -146065,7 +146065,7 @@ loc_49572C:                             ; CODE XREF: .text:0049571B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4956D5      endp
+?sub_4956D5@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 ; ---------------------------------------------------------------------------
 sub_495743      proc near
                 push    ebp
@@ -146087,7 +146087,7 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
                 retn
 sub_495743      endp
 ; ---------------------------------------------------------------------------
-sub_495774      proc near
+?sub_495774@ServerControlDialog@@SIXPAV1@PAX@Z      proc near
                 push    ebp
                 mov     ebp, esp
                 push    ecx
@@ -146107,9 +146107,9 @@ loc_4957A1:                             ; CODE XREF: .text:00495782↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_495774      endp
+?sub_495774@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 ; ---------------------------------------------------------------------------
-sub_4957AD      proc near               ; DATA XREF: .rdata:0060C0A4↓o
+?sub_4957AD@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0A4↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146129,14 +146129,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4957AD      endp
+?sub_4957AD@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4957E2      proc near               ; DATA XREF: .rdata:0060C0BC↓o
+?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0BC↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -146166,21 +146166,21 @@ var_4           = dword ptr -4
                 imul    ecx, 0EA60h
                 mov     ?g_ShutdownIn@@3HA, ecx
 
-loc_495832:                             ; CODE XREF: sub_4957E2+31↑j
-                                        ; sub_4957E2+37↑j
+loc_495832:                             ; CODE XREF: ?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z+31↑j
+                                        ; ?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z+37↑j
                 mov     ecx, [ebp+var_8]
                 call    ?sub_49585B@ServerControlDialog@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4957E2      endp
+?sub_4957E2@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_49583E      proc near               ; DATA XREF: .rdata:0060C0D4↓o
+?sub_49583E@ServerControlDialog@@SIXPAV1@PAX@Z      proc near               ; DATA XREF: .rdata:0060C0D4↓o
 
 var_4           = dword ptr -4
 
@@ -146194,7 +146194,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49583E      endp
+?sub_49583E@ServerControlDialog@@SIXPAV1@PAX@Z      endp
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -362191,7 +362191,7 @@ locret_5DFCE7:                          ; CODE XREF: AfxDlgProc(HWND__ *,uint,ui
 
 
 ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006109B4↓o
-                mov     eax, offset off_610878
+                mov     eax, offset ?off_610878@@3UAFX_MSGMAP@@B
                 retn
 ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      endp
 
@@ -455818,224 +455818,6 @@ unk_60BD90      db    2                 ; DATA XREF: .rdata:0060BD8C↑o
                 db    0
 
 
-?off_60BFF8@@3UAFX_MSGMAP@@B      dd offset off_610878    ; DATA XREF: ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ+7↑o
-                dd offset unk_60C000
-unk_60C000      db    2                 ; DATA XREF: .rdata:0060BFFC↑o
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_495439
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0F5h ; х
-                db    3
-                db    0
-                db    0
-                db 0F5h ; х
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_49544C
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0F6h ; ц
-                db    3
-                db    0
-                db    0
-                db 0F6h ; ц
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_49549B
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0F4h ; ф
-                db    3
-                db    0
-                db    0
-                db 0F4h ; ф
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-EXTERN ?sub_4954EA@@YAXXZ :proc
-                dd offset ?sub_4954EA@@YAXXZ
-                db  10h
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_4956D5
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0FFh ; я
-                db    3
-                db    0
-                db    0
-                db 0FFh ; я
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_495774
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0F7h ; ч
-                db    3
-                db    0
-                db    0
-                db 0F7h ; ч
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_4957AD
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0FBh ; ы
-                db    3
-                db    0
-                db    0
-                db 0FBh ; ы
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_4957E2
-                db  11h
-                db    1
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db 0FEh ; ю
-                db    3
-                db    0
-                db    0
-                db 0FEh ; ю
-                db    3
-                db    0
-                db    0
-                db  0Ch
-                db    0
-                db    0
-                db    0
-                dd offset sub_49583E
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-                db    0
-
-
 off_60C1A8      dd offset sub_4837D1    ; DATA XREF: ??0MainWindow@@QAE@XZ+14C↑o
                 dd offset sub_495DC0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -459173,7 +458955,7 @@ aCmapstringtost db 'CMapStringToString',0
                 dd offset ??_R4_AFX_BASE_MODULE_STATE@@6B@ ; const _AFX_BASE_MODULE_STATE::`RTTI Complete Object Locator'
 ; const _AFX_BASE_MODULE_STATE::`vftable'
 ??_7_AFX_BASE_MODULE_STATE@@6B@ dd offset ??_GAFX_MODULE_STATE@@UAEPAXI@Z
-off_610878      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ↑o
+?off_610878@@3UAFX_MSGMAP@@B      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_610880
 unk_610880      db  19h                 ; DATA XREF: .rdata:0061087C↑o
                 db    0

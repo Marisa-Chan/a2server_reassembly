@@ -773,7 +773,6 @@
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_48A756@MainWindow@@QAEXXZ
-?sub_4954EA@@YAXXZ
 ?sub_49585B@ServerControlDialog@@QAEXXZ
 ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z
 ?sub_4F1471@Server@@QAEHVCString@@@Z
