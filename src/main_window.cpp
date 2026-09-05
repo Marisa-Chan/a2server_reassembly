@@ -493,6 +493,15 @@ void ServerControlDialog::sub_4956D5()
     this->DestroyWindow();
 }
 
+void ServerControlDialog::sub_495774()
+{
+    //495774
+    if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
+        g_Server->field51_0x1d8 = 1;
+    }
+    this->sub_49585B();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {

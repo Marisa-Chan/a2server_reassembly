@@ -145954,28 +145954,6 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
                 retn
 sub_495743      endp
 ; ---------------------------------------------------------------------------
-?sub_495774@ServerControlDialog@@QAEXXZ      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jz      short loc_4957A1
-                mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    ?IsListen@CLlDriver@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_4957A1
-                mov     eax, ?g_Server@@3PAUServer@@A
-                mov     dword ptr [eax+1D8h], 1
-
-loc_4957A1:                             ; CODE XREF: .text:00495782↑j
-                mov     ecx, dword ptr [ebp-4]
-                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_495774@ServerControlDialog@@QAEXXZ      endp
-; ---------------------------------------------------------------------------
 ?sub_4957AD@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0A4↓o
 
 var_8           = dword ptr -8

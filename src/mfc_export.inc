@@ -1178,7 +1178,6 @@ extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
 extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
 externdef ?off_610878@@3UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
-externdef ?sub_495774@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_495774() - 495774 ON_COMMAND 0x3ff
 externdef ?sub_4957AD@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4957AD() - 4957AD ON_COMMAND 0x3f7
 externdef ?sub_4957E2@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_4957E2() - 4957E2 ON_COMMAND 0x3fb
 externdef ?sub_49583E@ServerControlDialog@@QAEXXZ :proc ; ServerControlDialog::sub_49583E() - 49583E ON_COMMAND 0x3fe
