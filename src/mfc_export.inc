@@ -1177,7 +1177,7 @@ extern ??_GServerControlDialog@@UAEPAXI@Z :proc  ; ServerControlDialog::`scalar 
 extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
 extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
 extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
-externdef ?off_610878@@3UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
+externdef ?messageMap@CDialog@@2UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
 
 
 ;CListBox2  in C++

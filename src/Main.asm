@@ -361930,7 +361930,7 @@ locret_5DFCE7:                          ; CODE XREF: AfxDlgProc(HWND__ *,uint,ui
 
 
 ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      proc near               ; DATA XREF: .rdata:006109B4↓o
-                mov     eax, offset ?off_610878@@3UAFX_MSGMAP@@B
+                mov     eax, offset ?messageMap@CDialog@@2UAFX_MSGMAP@@B
                 retn
 ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ      endp
 
@@ -458694,7 +458694,7 @@ aCmapstringtost db 'CMapStringToString',0
                 dd offset ??_R4_AFX_BASE_MODULE_STATE@@6B@ ; const _AFX_BASE_MODULE_STATE::`RTTI Complete Object Locator'
 ; const _AFX_BASE_MODULE_STATE::`vftable'
 ??_7_AFX_BASE_MODULE_STATE@@6B@ dd offset ??_GAFX_MODULE_STATE@@UAEPAXI@Z
-?off_610878@@3UAFX_MSGMAP@@B      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ↑o
+?messageMap@CDialog@@2UAFX_MSGMAP@@B      dd offset ?messageMap@CWnd@@2UAFX_MSGMAP@@B    ; DATA XREF: ?GetMessageMap@CDialog@@UBEPBUAFX_MSGMAP@@XZ↑o
                 dd offset unk_610880
 unk_610880      db  19h                 ; DATA XREF: .rdata:0061087C↑o
                 db    0

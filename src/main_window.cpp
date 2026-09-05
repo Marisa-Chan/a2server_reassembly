@@ -383,11 +383,9 @@ ServerControlDialog::~ServerControlDialog() {
 
 void sub_4954EA(); // 4954ea — game.cpp
 
-extern const AFX_MSGMAP off_610878; //610878 — CDialog message map, data remains in Main.asm
-
 //60bff8
 AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
-{ &off_610878, &ServerControlDialog::_messageEntries[0] };
+{ &CDialog::messageMap, &ServerControlDialog::_messageEntries[0] };
 
 void __fastcall ServerControlDialog::MsgThunk495439(ServerControlDialog* _this, void* edx)
 { _this->sub_495439(); }

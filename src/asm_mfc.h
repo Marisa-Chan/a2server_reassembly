@@ -4297,6 +4297,9 @@ public:
 	CWnd* m_pParentWnd;             // parent/owner window
 	HWND m_hWndTop;                 // top level parent window (may be disabled)
 	_AFX_OCC_DIALOG_INFO* m_pOccDialogInfo;
+
+public:
+	static AFX_DATA const AFX_MSGMAP messageMap;
 };
 
 ASSERT_SIZE(CDialog, 0x5C);
