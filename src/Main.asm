@@ -145953,51 +145953,6 @@ loc_495770:                             ; CODE XREF: .text:00495751↑j
                 pop     ebp
                 retn
 sub_495743      endp
-; ---------------------------------------------------------------------------
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4957E2@ServerControlDialog@@QAEXXZ      proc near               ; DATA XREF: .rdata:0060C0BC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                push    1               ; int
-                mov     ecx, [ebp+var_8] ; this
-                call    ?UpdateData@CWnd@@QAEHH@Z ; CWnd::UpdateData(int)
-                mov     ecx, [ebp+var_8]
-                add     ecx, 27Ch
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                                        ; MFC 3.1-14.0 32bit
-                push    eax             ; String
-                call    _atoi
-                add     esp, 4
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jle     short loc_495832
-                cmp     [ebp+var_4], 64h ; 'd'
-                jge     short loc_495832
-                mov     eax, [ebp+var_4]
-                mov     ?g_ServerConfig@@3UServerConfig@@A+0B8h, eax
-                mov     ecx, [ebp+var_4]
-                imul    ecx, 0EA60h
-                mov     ?g_ShutdownIn@@3HA, ecx
-
-loc_495832:                             ; CODE XREF: ?sub_4957E2@ServerControlDialog@@QAEXXZ+31↑j
-                                        ; ?sub_4957E2@ServerControlDialog@@QAEXXZ+37↑j
-                mov     ecx, [ebp+var_8]
-                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4957E2@ServerControlDialog@@QAEXXZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame

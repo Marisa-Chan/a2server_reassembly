@@ -511,6 +511,19 @@ void ServerControlDialog::sub_4957AD()
     this->sub_49585B();
 }
 
+void ServerControlDialog::sub_4957E2()
+{
+    //4957e2
+    this->UpdateData(1);
+
+    int32_t minutes = atoi(this->str_27c);
+    if (minutes > 0 && minutes < 100) {
+        g_ServerConfig.shutdown_delay = minutes;
+        g_ShutdownIn = minutes * 60000;
+    }
+    this->sub_49585B();
+}
+
 // 49585B
 void ServerControlDialog::sub_49585B()
 {
