@@ -253394,67 +253394,6 @@ sub_4ECDFE      proc near               ; DATA XREF: sub_4ECDEC+3↑o
 sub_4ECDFE      endp
 
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_686 proc near           ; DATA XREF: .data:0062C0F4↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_4ECE5B
-                call    sub_4ECE6A
-                pop     ebp
-                retn
-unknown_libname_686 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4ECE5B      proc near               ; CODE XREF: unknown_libname_686+3↑p
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?g_QuestMap@@3VQuestMap@@A
-                call    ??0QuestMap@@QAE@XZ
-                pop     ebp
-                retn
-sub_4ECE5B      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4ECE6A      proc near               ; CODE XREF: unknown_libname_686+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_4ECE7C ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_4ECE6A      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_4ECE7C()
-sub_4ECE7C      proc near               ; DATA XREF: sub_4ECE6A+3↑o
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?g_QuestMap@@3VQuestMap@@A
-                call    ??1QuestMap@@UAE@XZ
-                pop     ebp
-                retn
-sub_4ECE7C      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -484885,7 +484824,6 @@ unk_6C3A00      db 8h dup(?)
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
 
-?g_QuestMap@@3VQuestMap@@A      db 4h dup(?)
 ; _DWORD dword_6CE4DC[3]
 dword_6CE4DC    dd 3 dup(?)             ; DATA XREF: sub_565307+69↑o
 dword_6CE4E8    dd ?                    ; DATA XREF: sub_565307+37↑r

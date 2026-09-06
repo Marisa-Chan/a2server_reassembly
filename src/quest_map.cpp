@@ -4,6 +4,8 @@
 #include "quest.h"
 #include "quest_glue.h"
 
+QuestMap g_QuestMap; // 6ce4d8
+
 // 55D579
 QuestMap::QuestMap() {
 	this->assoc = nullptr;

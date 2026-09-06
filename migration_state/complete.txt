@@ -216,7 +216,6 @@
 ??1Player@@UAE@XZ
 ??1PointEffect@@UAE@XZ
 ??1Pointer@@UAE@XZ
-??1QuestMap@@UAE@XZ
 ??1RegFile@@QAE@XZ
 ??1SackList@@QAE@XZ
 ??1Server@@QAE@XZ
@@ -274,7 +273,6 @@
 ??_7SpellBook@@6B@
 ??_7VirtualCaster@@6B@
 ??_GArmor@@UAEPAXI@Z
-??_GQuestMap@@UAEPAXI@Z
 ??_GServerControlDialog@@UAEPAXI@Z
 ??_GShield@@UAEPAXI@Z
 ??_GShop@@UAEPAXI@Z
@@ -1103,13 +1101,7 @@
 ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z
 ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z
 ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z
-?sub_55DD10@QuestMap@@QAEXHHH@Z
-?sub_55DE84@QuestMap@@QAEXXZ
-?sub_55E027@QuestMap@@QAEXXZ
-?sub_55E24A@QuestMap@@QAEXPAVQuest@@@Z
-?sub_55E5FB@QuestMap@@QAEXPAVQuest@@@Z
 ?sub_55ECFE@QuestMap@@QAEXH@Z
-?sub_55F441@QuestMap@@QAEHH@Z
 ?sub_560C67@Inn@@QAEXPAVUnit@@@Z
 ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z
 ?sub_567C21@Inn@@QAEXPAVPlayer@@@Z

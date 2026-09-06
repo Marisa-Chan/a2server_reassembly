@@ -32,7 +32,6 @@ _ScenarioGetAllLocations
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?DAT_00666a00@@3VCStringArray@@A
 ?g_CUnitStatic@@3VCUnit@@A
-?g_QuestMap@@3VQuestMap@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
