@@ -65,6 +65,8 @@ PlayersList* g_PlayersList;     // 6cdb24
 uint16_t g_DistTable[41][41];   // 660000
 uint32_t g_CpuFeatureFlags;     // 660f84
 
+GameDataRes g_GameDataRes; // 6d0668
+
 // 4a9f90
 DistortMap::DistortMap(int32_t outer, int32_t inner) {
 	int32_t radius = (int32_t)sqrt((double)(outer * outer - (outer - inner) * (outer - inner)));

@@ -513,6 +513,13 @@ void SpellInfo::Serialize(CArchive& ar) {
     }
 }
 
+// 509e1a
+GameDataRes::GameDataRes() {
+    this->loaded = 0;
+}
+
+GameDataRes::~GameDataRes() = default; // 56f280
+
 // 50E0F0
 void GameDataRes::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {

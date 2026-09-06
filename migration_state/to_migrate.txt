@@ -29,7 +29,6 @@ _ScenarioGetAllLocations
 ?INT_00660f90@@3HA
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
-?g_GameDataRes@@3UGameDataRes@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?DAT_00666a00@@3VCStringArray@@A
 ?g_CUnitStatic@@3VCUnit@@A

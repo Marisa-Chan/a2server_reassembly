@@ -178,7 +178,7 @@ extern ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
 
 
 ;GameDataRes
-externdef ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
+extern ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 
 externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc

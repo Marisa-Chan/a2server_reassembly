@@ -589,6 +589,7 @@
 ?g_font2@@3PAVCGameFont@@A
 ?g_font3@@3PAVCGameFont@@A
 ?g_font4@@3PAVCGameFont@@A
+?g_GameDataRes@@3UGameDataRes@@A
 ?g_GBitMask@@3HA
 ?g_GBits@@3HA
 ?g_GBitShift@@3HA

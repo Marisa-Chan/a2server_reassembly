@@ -428,6 +428,9 @@ struct GameDataRes {
     int loaded;
 
 public:
+    GameDataRes(); // 509e1a
+    ~GameDataRes(); // 56f280
+
     int ParseWorldIn(const CString& str); //50a15f
     int ParseDataBin(const CString& path); //50D421
     int ParseTxtFiles(const CString& path); //50A345
