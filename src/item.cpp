@@ -80,12 +80,12 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data)
             data += sizeof(uint8_t);
             effect_bytes_remaining -= 1;
 
-            if (effect->effect_id == 0x29) {
+            if (effect->effect_id == modifier::castspell) {
                 data += sizeof(uint8_t);
                 effect->spell_value = *data;
                 data += sizeof(uint8_t);
                 effect_bytes_remaining -= 1;
-            } else if (effect->effect_id == 0x2C || effect->effect_id == 0x2D || effect->effect_id == 0x2E || effect->effect_id == 0x2F || effect->effect_id == 0x30) {
+            } else if (effect->effect_id >= modifier::damagefire && effect->effect_id <= modifier::damageastral) {
                 data += sizeof(uint8_t);
                 effect->damage_spread = *data;
                 data += sizeof(uint8_t);
@@ -100,7 +100,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data)
 
     if (stored_price == 2 && !item->_effects.IsEmpty()) {
         Effect* effect = new Effect();
-        effect->effect_id = 1;
+        effect->effect_id = modifier::price;
         effect->spell_or_damage = 2;
         effect->spell_value = 0;
         item->_effects.AddTail(effect);
@@ -121,7 +121,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data)
         }
     } else if (item->material_id != 4 && item->material_id != 2) {
         Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
-        if (first_effect != nullptr && first_effect->effect_id == 2 && first_effect->full_magic_value > 3) {
+        if (first_effect != nullptr && first_effect->effect_id == modifier::body && first_effect->full_magic_value > 3) {
             first_effect->spell_or_damage = 3;
             first_effect->spell_value = 0;
         }
