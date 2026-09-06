@@ -482596,7 +482596,6 @@ aNotAnIntArrayW db 'not an int array with size 4 associated with specified key, 
                 db    0
                 db    0
                 db    0
-?g_ShutdownIn@@3HA    dd 7FFFFFFFh            ; DATA XREF: ?sub_48A756@MainWindow@@QAEXXZ+EA↑r
                 dd offset aSelf_11      ; "Self"
                 dd offset aComputer     ; "Computer"
 ; int dword_636248[]
@@ -485672,7 +485671,6 @@ _ScenarioGetAllLocations    dd ?                    ; DATA XREF: sub_47025D+9↑
 _ScenarioIsTownAvailable    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F8E↑w
 byte_665CF8      db    ?
                 db 3 dup(?)
-?g_IsServer@@3HA     dd ?                    ; DATA XREF: ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z+1E↑r
 dword_665D04    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_48367F↑w
 
 

@@ -602,6 +602,7 @@
 ?g_IsCdPresent@@3IA
 ?g_isDosCP@@3HA
 ?g_isLowMemory@@3IA
+?g_IsServer@@3HA
 ?g_Lightning@@3HA
 ?g_MainWndHWND@@3PAUHWND__@@A
 ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A
@@ -627,6 +628,7 @@
 ?g_settings@@3UGameSettings@@A
 ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A
 ?g_Shadows@@3HA
+?g_ShutdownIn@@3HA
 ?g_SoundFmt@@3UtWAVEFORMATEX@@A
 ?g_SoundSettings@@3USoundSettings@@A
 ?g_spr_backf@@3PAVCSprite256@@A

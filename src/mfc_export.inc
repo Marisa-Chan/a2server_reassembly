@@ -1025,8 +1025,8 @@ extern ?ReadFromBuffer@NetStru3@@QAEHPAXI@Z : proc
 
 ; Server
 externdef ?g_Server@@3PAUServer@@A : dword
-externdef ?g_IsServer@@3HA : dword
-externdef ?g_ShutdownIn@@3HA : dword
+extern ?g_IsServer@@3HA : dword
+extern ?g_ShutdownIn@@3HA : dword
 externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 
 externdef ?ServerTic@Server@@QAEXXZ :proc

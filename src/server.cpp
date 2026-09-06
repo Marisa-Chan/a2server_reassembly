@@ -42,6 +42,8 @@
 
 // ---- Global variables used by sub_4FC644 ----
 UnitList* dword_6CDB3C;  // pending-unit list
+int32_t g_IsServer;
+int32_t g_ShutdownIn;
 
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA

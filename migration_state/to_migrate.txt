@@ -21,8 +21,6 @@ _ScenarioIsTownAvailable
 _ScenarioIsMissionAvailable
 _ScenarioGetCurrentLocation
 _ScenarioGetAllLocations
-?g_IsServer@@3HA
-?g_ShutdownIn@@3HA
 ?g_kbControlState@@3HA
 ?g_kbShiftState@@3HA
 ?g_kbMenuState@@3HA
