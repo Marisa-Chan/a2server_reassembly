@@ -62,7 +62,7 @@ Item* __cdecl sub_4F499B(uint8_t** packet_data)
     } else if (slot == 2) {
         item = new Shield(shape_id, material_id, item_data_id);
     } else if (slot == 0x0E) {
-        item = new Item(g_GameDataRes.magic_items[item_data_id].name);
+        item = new Item(g_GameDataRes.magic_items[encoded_item_id & 0xff].name);
     } else {
         item = new Armor(shape_id, material_id, item_data_id);
     }
