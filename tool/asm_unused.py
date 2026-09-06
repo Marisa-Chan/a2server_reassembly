@@ -142,21 +142,68 @@ def build_call_graph(lines, procs, asm_path):
     return calls, external_refs
 
 
-def compute_reachable(calls, roots):
+def compute_reachable(calls, roots, skip=None):
+    """BFS from roots. Procs matching `skip` are neither added to the reachable
+    set nor traversed through, so anything reachable only via an MFC function
+    is excluded too."""
+    if skip is None:
+        skip = set()
+    roots = {r for r in roots if r not in skip}
     reachable = set(roots)
     stack = list(roots)
     while stack:
         node = stack.pop()
         for callee in calls.get(node, set()):
+            if callee in skip:
+                continue
             if callee not in reachable:
                 reachable.add(callee)
                 stack.append(callee)
     return reachable
 
 
-def find_shortest_path_to_target(calls, roots, target):
+# CRT/MFC-internal classes that appear mangled in Main.asm but are not
+# declared in asm_mfc.h.
+EXTRA_MFC_CLASSES = {
+    "std",              # ??0?$_Vector_val@...@@@std@@..., STL internals
+    "AUX_DATA",         # OLE auxiliary data
+    "CDialogTemplate",  # MFC-internal dialog template helper
+    "CThreadSlotData",  # MFC TLS internals
+}
+
+
+def load_mfc_class_names(asm_path):
+    """Parse src/asm_mfc.h for MFC class/struct names (incl. forward declarations)."""
+    header = os.path.join(os.path.dirname(asm_path), "asm_mfc.h")
+    cls_re = re.compile(r"^\s*(?:class|struct)\s+([A-Za-z_][A-Za-z0-9_]*)")
+    names = set(EXTRA_MFC_CLASSES)
+    try:
+        with open(header, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                m = cls_re.match(line)
+                if m:
+                    names.add(m.group(1))
+    except FileNotFoundError:
+        print(f"  WARNING: {header} not found, MFC filtering disabled.")
+    return names
+
+
+def is_mfc_proc(name, mfc_classes):
+    """True if the mangled name belongs to an MFC class.
+    Matches plain members ('?Foo@CWnd@@...') and template instantiations
+    ('?Bar@?$CList@PAVPlayer@@...')."""
+    for cls in mfc_classes:
+        if f"{cls}@@" in name or f"?${cls}@" in name:
+            return True
+    return False
+
+
+def find_shortest_path_to_target(calls, roots, target, skip=None):
     """Find one shortest path from any root to target using BFS.
     Returns a list of proc names from root to target, or None if unreachable."""
+    if skip is None:
+        skip = set()
+    roots = {r for r in roots if r not in skip}
     if target in roots:
         return [target]
 
@@ -170,7 +217,7 @@ def find_shortest_path_to_target(calls, roots, target):
     while queue:
         node = queue.pop(0)
         for callee in calls.get(node, set()):
-            if callee in seen:
+            if callee in seen or callee in skip:
                 continue
             seen.add(callee)
             parent[callee] = node
@@ -393,17 +440,17 @@ def report(procs, data_syms, ref_counts, reachable=None, reachable_sizes=None, r
     return unused_procs, unused_data
 
 
-def report_track(calls, roots, target, procs):
+def report_track(calls, roots, target, procs, skip=None):
     if target not in procs:
         print(f"\nERROR: '{target}' is not a known proc in Main.asm")
         return
 
-    reachable = compute_reachable(calls, roots)
+    reachable = compute_reachable(calls, roots, skip=skip)
     if target not in reachable:
         print(f"\n'{target}' is NOT reachable from any external root.")
         return
 
-    path = find_shortest_path_to_target(calls, roots, target)
+    path = find_shortest_path_to_target(calls, roots, target, skip=skip)
     print(f"\n=== TRACK: {target} ===")
     if path is None:
         print("No path found (unexpected: target was marked reachable).")
@@ -426,6 +473,8 @@ def main():
                             help="Show reachability paths from external roots that contain given substring")
     parser.add_argument("--all-roots", action='store_true',
                             help="Show reachability paths from all external roots")
+    parser.add_argument("--all-reachable", action='store_true',
+                            help="Show all reachable functions")
     args = parser.parse_args()
 
     path = os.path.abspath(args.asm_file)
@@ -443,7 +492,15 @@ def main():
     print("  Building call graph ...")
     calls, external_refs = build_call_graph(lines, procs, path)
     external_refs = {r for r in external_refs if args.roots in r}
-    reachable = compute_reachable(calls, external_refs)
+
+    mfc_classes = load_mfc_class_names(path)
+    mfc_procs = {n for n in procs if is_mfc_proc(n, mfc_classes)}
+    mfc_roots = mfc_procs & external_refs
+    if mfc_roots:
+        print(f"  Skipping {len(mfc_roots)} MFC roots and {len(mfc_procs - mfc_roots)} "
+              f"MFC procs during traversal ({len(mfc_classes)} MFC classes from asm_mfc.h).")
+    reachable = compute_reachable(calls, external_refs, skip=mfc_procs)
+    external_refs -= mfc_roots
 
     print("  Computing function sizes ...")
     endps = map_proc_endps(lines, procs)
@@ -455,12 +512,23 @@ def main():
     if args.all_roots:
         print("\n=== REACHABILITY FROM ALL EXTERNAL ROOTS ===")
         for r in sorted(external_refs):
-            reach = compute_reachable(calls, {r})
+            reach = compute_reachable(calls, {r}, skip=mfc_procs)
             _, reach_lines = compute_reachable_sizes(procs, endps, chunks, reach)
             print(f'  {r} -> {len(reach)} reachable procs for {reach_lines} lines')
 
+    if args.all_reachable:
+        print("\n=== ALL REACHABLE FUNCTIONS ===")
+        for name in sorted(reachable):
+            endp = endps.get(name)
+            if endp is None:
+                continue
+            size = endp - procs[name] + 1
+            for s, e in chunks.get(name, []):
+                size += e - s + 1
+            print(f"  {name} -> {size} lines")
+
     if args.track:
-        report_track(calls, external_refs, args.track, procs)
+        report_track(calls, external_refs, args.track, procs, skip=mfc_procs)
         return
 
     if args.cleanup is None:
