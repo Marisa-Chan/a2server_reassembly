@@ -324,7 +324,7 @@ ASSERT_SIZE(ServerConfig, 0xc8);
 
 
 
-
+extern Server* g_Server;   //642c2c
 extern int32_t g_IsServer; // 1 for server mode, 0 for client code. 665D00.
 extern int32_t g_ShutdownIn; // Server shutdown (in milliseconds?). 0x7FFFFFFF means no shutdown scheduled. 63623c.
 

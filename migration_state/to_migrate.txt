@@ -29,7 +29,6 @@ _ScenarioGetAllLocations
 ?INT_00660f90@@3HA
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
-?g_Server@@3PAUServer@@A
 ?g_PlayersList@@3PAVPlayersList@@A
 ?dword_6B37C4@@3PAVUnitList@@A
 ?g_GameDataRes@@3UGameDataRes@@A
@@ -79,6 +78,7 @@ _ScenarioGetAllLocations
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3

@@ -485386,7 +485386,6 @@ aAvistreamWitha db '.?AVistream_withassign@@',0 ; type descriptor name
                 db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ?, ?, ?, ?, ?, ?, ?, ?; 420
                 db ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?; 448
                 db ?, ?, ?, ?, ?, ?, ?, ?; 476
-?g_Server@@3PAUServer@@A    dd ?                    ; DATA XREF: ?FUN_0040d7f3@BigStruct2@@QAEHXZ+156↑r
                 db 38h dup(?)
 
 unk_646552      db 2D3h dup(?)

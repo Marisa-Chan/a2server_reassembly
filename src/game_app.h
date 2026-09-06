@@ -126,7 +126,6 @@ extern int32_t g_kbMenuState; //660f48
 
 extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
-extern Server* g_Server;   //642c2c
 
 int32_t __cdecl Random0N(int32_t n); // returns [0, n]
 int32_t __cdecl Random1N(int32_t n); // returns [1, n]

@@ -624,6 +624,7 @@
 ?g_scenario_dll@@3PAUHINSTANCE__@@A
 ?g_ScreenSize@@3VCRect@@A
 ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A
+?g_Server@@3PAUServer@@A
 ?g_ServerConfig@@3UServerConfig@@A
 ?g_settings@@3UGameSettings@@A
 ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A
@@ -787,7 +788,6 @@
 ?MapMinX@BigStruct2@@QBEHXZ
 ?MapMinY@BigStruct2@@QBEHXZ
 ?MapStuff_Instance@@3PAUMapStuff@@A
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
