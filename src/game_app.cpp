@@ -61,6 +61,7 @@ HMODULE g_scenario_dll;
 
 
 DistortMap* g_DistortMap;       // 65fbbc
+PlayersList* g_PlayersList;     // 6cdb24
 uint16_t g_DistTable[41][41];   // 660000
 uint32_t g_CpuFeatureFlags;     // 660f84
 

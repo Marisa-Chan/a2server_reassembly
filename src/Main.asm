@@ -485818,12 +485818,8 @@ unk_6B1664      db 4h dup(?)
 unk_6B1668      db 8h dup(?)
                 align 10h
 
-?dword_6B37C4@@3PAVUnitList@@A LABEL DWORD
-dword_6B37C4    dd ?                    ; DATA XREF: sub_4ECE8B+161↑w
-
 ; AFX_CLASSINIT unk_6C3A00
 unk_6C3A00      db 8h dup(?)
-?g_PlayersList@@3PAVPlayersList@@A    dd ?                    ; DATA XREF: sub_44DBE0+180↑r
 ; CString unk_6CDB74
 unk_6CDB74      db 4h dup(?)
 

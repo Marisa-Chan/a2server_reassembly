@@ -616,6 +616,7 @@
 ?g_NetStru1_main@@3VNetStru1@@A
 ?g_pal_projectile_@@3PAVCGamePalette@@A
 ?g_pal_projectiles@@3PAVCGamePalette@@A
+?g_PlayersList@@3PAVPlayersList@@A
 ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A
 ?g_RBitMask@@3HA
 ?g_RBits@@3HA

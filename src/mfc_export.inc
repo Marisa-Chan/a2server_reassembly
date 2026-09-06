@@ -1027,7 +1027,6 @@ extern ?ReadFromBuffer@NetStru3@@QAEHPAXI@Z : proc
 extern ?g_Server@@3PAUServer@@A : dword
 extern ?g_IsServer@@3HA : dword
 extern ?g_ShutdownIn@@3HA : dword
-externdef ?dword_6B37C4@@3PAVUnitList@@A :dword
 
 externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
@@ -1115,7 +1114,7 @@ extern ??1Player@@UAE@XZ :proc
 
 
 ; PlayersList
-externdef ?g_PlayersList@@3PAVPlayersList@@A :dword
+extern ?g_PlayersList@@3PAVPlayersList@@A :dword
 
 extern ?CountHumanPlayers@PlayersList@@QAEHXZ :proc
 externdef ?sub_535D39@PlayersList@@QAEPAVPlayer@@VCString@@@Z :proc
