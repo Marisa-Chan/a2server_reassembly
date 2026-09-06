@@ -63599,7 +63599,7 @@ loc_43A603:                             ; CODE XREF: sub_43A5E5+15↑j
                 call    ?GetId@TokenEntry@@QBEHXZ
                 or      esi, eax
                 push    esi
-                mov     ecx, offset unk_6D06CC
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+64h
                 call    sub_43A760
                 mov     ecx, eax
                 add     ecx, 4          ; varThis
@@ -63615,7 +63615,7 @@ loc_43A603:                             ; CODE XREF: sub_43A5E5+15↑j
                 call    ?GetId@TokenEntry@@QBEHXZ
                 or      esi, eax
                 push    esi
-                mov     ecx, offset unk_6D06CC
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+64h
                 call    sub_43A760
                 mov     ecx, eax
                 add     ecx, 4          ; varThis
@@ -63631,7 +63631,7 @@ loc_43A603:                             ; CODE XREF: sub_43A5E5+15↑j
                 call    ?GetId@TokenEntry@@QBEHXZ
                 or      esi, eax
                 push    esi
-                mov     ecx, offset unk_6D06CC
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+64h
                 call    sub_43A760
                 mov     ecx, eax
                 add     ecx, 4          ; varThis
@@ -63692,7 +63692,7 @@ loc_43A6EE:                             ; CODE XREF: sub_43A6D5+13↑j
                 call    ?GetId@TokenEntry@@QBEHXZ
                 or      esi, eax
                 push    esi
-                mov     ecx, offset unk_6D06CC
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+64h
                 call    sub_43A760
                 add     eax, 4
                 push    eax             ; int
@@ -174759,7 +174759,7 @@ loc_4A811C:                             ; CODE XREF: sub_4A7BEC+4C6↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 movsx   edx, word ptr [ecx+4]
                 push    edx
-                mov     ecx, offset unk_6D0730
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0C8h
                 call    sub_4A9D20
                 mov     ecx, eax
                 add     ecx, 8
@@ -174772,7 +174772,7 @@ loc_4A811C:                             ; CODE XREF: sub_4A7BEC+4C6↑j
                 mov     edx, dword ptr [ebp+var_20]
                 movsx   eax, word ptr [edx+4]
                 push    eax
-                mov     ecx, offset unk_6D0730
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0C8h
                 call    sub_4A9D20
                 mov     ecx, eax
                 add     ecx, 8
@@ -174877,7 +174877,7 @@ loc_4A8264:                             ; CODE XREF: sub_4A7BEC+66C↑j
                 xor     eax, eax
                 mov     ax, [edx+0Ch]
                 push    eax
-                mov     ecx, offset unk_6D0708
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0A0h
                 call    sub_4A9D00
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     [ecx+3Ch], eax
@@ -175011,7 +175011,7 @@ loc_4A83FF:                             ; CODE XREF: sub_4A7BEC+808↑j
                 xor     edx, edx
                 mov     dx, [ecx+0Ch]
                 push    edx
-                mov     ecx, offset unk_6D0708
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0A0h
                 call    sub_4A9D00
                 mov     ecx, eax
                 add     ecx, 1Ch
@@ -175026,7 +175026,7 @@ loc_4A83FF:                             ; CODE XREF: sub_4A7BEC+808↑j
                 xor     edx, edx
                 mov     dx, [ecx+0Ch]
                 push    edx
-                mov     ecx, offset unk_6D0708
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0A0h
                 call    sub_4A9D00
                 mov     ecx, eax
                 add     ecx, 1Ch
@@ -175208,7 +175208,7 @@ loc_4A85ED:                             ; CODE XREF: sub_4A7BEC+9F5↑j
                 xor     eax, eax
                 mov     ax, [edx+0Ch]
                 push    eax
-                mov     ecx, offset unk_6D06F4
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+8Ch
                 call    sub_41EDD0
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     [ecx+3Ch], eax
@@ -176248,7 +176248,7 @@ loc_4A92B6:                             ; CODE XREF: sub_4A8B94+6A4↑j
                 push    2
                 mov     eax, dword ptr [ebp+var_2B8]
                 push    eax
-                mov     ecx, offset unk_6D0730
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0C8h
                 call    sub_4A9D20
                 mov     ecx, eax
                 add     ecx, 8
@@ -176260,7 +176260,7 @@ loc_4A92B6:                             ; CODE XREF: sub_4A8B94+6A4↑j
                 push    3
                 mov     eax, dword ptr [ebp+var_2B8]
                 push    eax
-                mov     ecx, offset unk_6D0730
+                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+0C8h
                 call    sub_4A9D20
                 mov     ecx, eax
                 add     ecx, 8
@@ -256192,7 +256192,7 @@ loc_4F8983:                             ; CODE XREF: sub_4F893C:loc_4F8B55↓j
                 mov     [ebp+var_14], eax
 
 loc_4F898C:                             ; CODE XREF: sub_4F893C+45↑j
-                mov     ecx, dword_6D0710
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A8h
                 mov     [ebp+var_3C], ecx
                 mov     edx, dword ptr [ebp+var_14]
                 cmp     edx, [ebp+var_3C]
@@ -256200,7 +256200,7 @@ loc_4F898C:                             ; CODE XREF: sub_4F893C+45↑j
                 push    offset aDm ; char *
                 mov     eax, dword ptr [ebp+var_14]
                 imul    eax, 30h ; '0'
-                mov     ecx, dword_6D070C
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     ecx, [ecx+eax+4] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
                 cmp     eax, 0FFFFFFFFh
@@ -256208,7 +256208,7 @@ loc_4F898C:                             ; CODE XREF: sub_4F893C+45↑j
                 push    offset aTeam    ; "Team_"
                 mov     edx, dword ptr [ebp+var_14]
                 imul    edx, 30h ; '0'
-                mov     eax, dword_6D070C
+                mov     eax, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     ecx, [eax+edx+4] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
                 cmp     eax, 0FFFFFFFFh
@@ -256227,7 +256227,7 @@ loc_4F89E2:                             ; CODE XREF: sub_4F893C+82↑j
                 push    1               ; int
                 mov     ecx, dword ptr [ebp+var_14]
                 imul    ecx, 30h ; '0'
-                mov     edx, dword_6D070C
+                mov     edx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     eax, [edx+ecx+4]
                 push    eax             ; struct CString *
                 mov     ecx, dword ptr [ebp+Block]
@@ -256286,7 +256286,7 @@ loc_4F8A6C:                             ; CODE XREF: sub_4F893C+127↑j
                 mov     [ebp+var_10], edx
                 mov     eax, dword ptr [ebp+var_14]
                 imul    eax, 30h ; '0'
-                mov     ecx, dword_6D070C
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     edx, [ecx+eax+4]
                 push    edx             ; int
                 mov     ecx, dword ptr [ebp+var_20]
@@ -256821,7 +256821,7 @@ loc_5027AB:                             ; CODE XREF: sub_50260A+13F↑j
                 jz      short loc_5027EF
                 mov     ecx, dword ptr [ebp+var_30]
                 imul    ecx, 30h ; '0'
-                mov     edx, dword_6D06F8
+                mov     edx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+90h
                 lea     eax, [edx+ecx+4]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_3C]
@@ -256856,7 +256856,7 @@ loc_502811:                             ; CODE XREF: sub_50260A+1A5↑j
                 push    0               ; int
                 mov     eax, dword ptr [ebp+var_30]
                 imul    eax, 30h ; '0'
-                mov     ecx, dword_6D070C
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     edx, [ecx+eax+4]
                 push    edx             ; struct CString *
                 mov     ecx, dword ptr [ebp+var_44]
@@ -261129,7 +261129,7 @@ arg_4           = dword ptr  0Ch
                 and     edx, 0FFh
                 test    edx, edx
                 jz      loc_5146E2
-                mov     eax, dword_6D0710
+                mov     eax, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A8h
                 mov     [ebp+var_50], eax
                 mov     ecx, dword ptr [ebp+var_50]
                 sub     ecx, 1
@@ -261147,7 +261147,7 @@ loc_514676:                             ; CODE XREF: sub_51458B+E0↑j
                 jle     short loc_5146C7
                 mov     eax, dword ptr [ebp+var_4C]
                 imul    eax, 30h ; '0'
-                mov     ecx, dword_6D070C
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+0A4h
                 lea     edx, [ecx+eax+4]
                 mov     [ebp+var_5C], edx
                 mov     eax, dword ptr [ebp+var_5C]
@@ -266794,13 +266794,13 @@ loc_54E68E:                             ; CODE XREF: sub_54E5C7+1AB↓j
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 1
                 mov     [ebp+var_34], eax
-                mov     ecx, dword_6D06E8
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+80h
                 sub     ecx, 1
                 mov     [ebp+var_3C], ecx
                 mov     [ebp+var_40], 0
                 mov     edx, dword ptr [ebp+var_3C]
                 imul    edx, 1Ch
-                mov     eax, dword_6D06E4
+                mov     eax, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+7Ch
                 mov     ecx, dword ptr [eax+edx+0Ch]
                 mov     edx, dword ptr [ebp+var_28]
                 mov     eax, dword ptr [ecx+edx*4+0Ch]
@@ -266825,7 +266825,7 @@ loc_54E6F8:                             ; CODE XREF: sub_54E5C7+126↑j
                 jg      short loc_54E76C
                 mov     ecx, dword ptr [ebp+var_30]
                 imul    ecx, 1Ch
-                mov     edx, dword_6D06E4
+                mov     edx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+7Ch
                 mov     eax, dword ptr [edx+ecx+4]
                 mov     ecx, dword ptr [eax-8]
                 mov     [ebp+var_58], ecx
@@ -266834,14 +266834,14 @@ loc_54E6F8:                             ; CODE XREF: sub_54E5C7+126↑j
                 mov     edx, dword ptr [ebp+var_30]
                 sub     edx, 1
                 imul    edx, 1Ch
-                mov     eax, dword_6D06E4
+                mov     eax, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+7Ch
                 mov     ecx, dword ptr [eax+edx+0Ch]
                 mov     edx, dword ptr [ebp+var_28]
                 mov     eax, dword ptr [ecx+edx*4+0Ch]
                 mov     [ebp+var_40], eax
                 mov     ecx, dword ptr [ebp+var_30]
                 imul    ecx, 1Ch
-                mov     edx, dword_6D06E4
+                mov     edx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+7Ch
                 mov     eax, dword ptr [edx+ecx+0Ch]
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     edx, dword ptr [eax+ecx*4+0Ch]
@@ -266870,7 +266870,7 @@ loc_54E76C:                             ; CODE XREF: sub_54E5C7+137↑j
 loc_54E777:                             ; CODE XREF: sub_54E5C7+1A9↑j
                 mov     eax, dword ptr [ebp+var_38]
                 imul    eax, 1Ch
-                mov     ecx, dword_6D06E4
+                mov     ecx, dword ptr ?g_GameDataRes@@3UGameDataRes@@A+7Ch
                 mov     edx, 3
                 shl     edx, 2
                 mov     eax, dword ptr [ecx+eax+0Ch]
@@ -485845,43 +485845,12 @@ unk_6D0650      db 4h dup(?)
 ; AFX_CLASSINIT unk_6D065C
 unk_6D065C      db 4h dup(?)
 
-?g_GameDataRes@@3UGameDataRes@@A      db 4h dup(?)
-dword_6D066C    dd 5 dup(?)                    ; DATA XREF: ?sub_54A0BE@Item@@QAEXXZ+39↑r
-dword_6D0680    dd 4 dup(?)                    ; DATA XREF: ?sub_54A0BE@Item@@QAEXXZ+23↑r
-unk_6D0690      db 4h dup(?)
-dword_6D0694    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z+3F2↑r
-dword_6D0698    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z+3B4↑r
-                db 8h dup(?)
-unk_6D06A4      db 4h dup(?)
-dword_6D06A8    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z+DD↑r
-dword_6D06AC    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z+B4↑r
-                db 8h dup(?)
-unk_6D06B8      db 4h dup(?)
-dword_6D06BC    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z+21D↑r
-dword_6D06C0    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z:loc_5106E1↑r
-                db 8h dup(?)
-unk_6D06CC      db 4h dup(?)
-dword_6D06D0    dd ?                    ; DATA XREF: ?sub_4F499B@@YAPAVItem@@PAPAE@Z+294↑r
-dword_6D06D4    dd ?                    ; DATA XREF: ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z:loc_510A09↑r
-                db 0Ch dup(?)
-dword_6D06E4    dd ?                    ; DATA XREF: ?Start@Server@@QAEHH@Z+11D↑r
-dword_6D06E8    dd ?                    ; DATA XREF: sub_54E5C7+E4↑r
-                db 8h dup(?)
-unk_6D06F4      db 4h dup(?)
-dword_6D06F8    dd ?                    ; DATA XREF: ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z+560↑r
-dword_6D06FC    dd ?                    ; DATA XREF: ?sub_52F601@Unit@@QAEXABVCString@@@Z:loc_52F644↑r
-                db 8h dup(?)
-unk_6D0708      db 4h dup(?)
-dword_6D070C    dd ?                    ; DATA XREF: sub_4F893C+70↑r
-dword_6D0710    dd ?                    ; DATA XREF: sub_4F893C:loc_4F898C↑r
-                db 1Ch dup(?)
-unk_6D0730      db 4h dup(?)
-dword_6D0734    dd ?                    ; DATA XREF: ?sub_542624@Building@@QAEXABVCString@@@Z+90↑r
-dword_6D0738    dd ?                    ; DATA XREF: ?sub_542624@Building@@QAEXABVCString@@@Z:loc_54268C↑r
-                db 0ch dup(?)
-dword_6D0748    dd ?                    ; DATA XREF: ?VMethod2@MonsterInfo@@UAEXVCString@@HPAHPAN@Z+120↑r
-dword_6D074C    dd ?                    ; DATA XREF: sub_502D0B+D92↑r
-                db 0Ch dup(?)
+; GameDataRes g_GameDataRes (0x6D0668, size 0xF4): materials+0 shapes+14h shields+28h
+;   armors+3Ch weapons+50h magic_items+64h magics+78h monsters+8Ch humans+0A0h
+;   field9_0xb4+0B4h buildings+0C8h spells+0DCh loaded+0F0h
+?g_GameDataRes@@3UGameDataRes@@A      db 0F4h dup(?)
+; AFX_CLASSINIT (Shield::RTTI) at 0x6D075C in the original binary; no live references
+                db 4h dup(?)
 ; CString dword_6D0760
 dword_6D0760    dd ?                    ; DATA XREF: ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z+2B94↑o
                 align 8
