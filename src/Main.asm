@@ -251334,67 +251334,6 @@ loc_4E5013:                             ; CODE XREF: sub_4E4FD0+31↑j
                 retn    8
 sub_4E4FD0      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_670 proc near           ; DATA XREF: .data:0062C0DC↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_4E502F
-                call    sub_4E503E
-                pop     ebp
-                retn
-unknown_libname_670 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4E502F      proc near               ; CODE XREF: unknown_libname_670+3↑p
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    sub_5DABF1
-                pop     ebp
-                retn
-sub_4E502F      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4E503E      proc near               ; CODE XREF: unknown_libname_670+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_4E5050 ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_4E503E      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_4E5050()
-sub_4E5050      proc near               ; DATA XREF: sub_4E503E+3↑o
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                pop     ebp
-                retn
-sub_4E5050      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -484138,8 +484077,6 @@ byte_6669F0     db 4 dup(?)             ; DATA XREF: sub_4E1B5C+1E↑o
 unk_6669F4      db 4h dup(?)
 ; CHAR byte_6669F8[8]
 byte_6669F8     db 8 dup(?)             ; DATA XREF: ??0VisComboBox@@QAE@HVCRect@@PBD@Z+175↑o
-; CStringArray ?DAT_00666a00@@3VCStringArray@@A
-?DAT_00666a00@@3VCStringArray@@A      db 18h dup(?)
 ; char byte_666A18[64346]
 byte_666A18     db 0FB5Ah dup(?)        ; DATA XREF: sub_4E5466+1C1↑o
 unk_676572      db 304A6h dup(?)

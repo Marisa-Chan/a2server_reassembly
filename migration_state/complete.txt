@@ -408,6 +408,7 @@
 ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ
 ?DAT_00660f88@@3HA
 ?DAT_006658d8@@3VCDWordArray@@A
+?DAT_00666a00@@3VCStringArray@@A
 ?DataSize@CVisualObject@@UAEIXZ
 ?DataSize@VisListBox@@UAEIXZ
 ?DataSize@VisRadioBase@@UAEIXZ

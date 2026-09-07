@@ -30,7 +30,6 @@ _ScenarioGetAllLocations
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
-?DAT_00666a00@@3VCStringArray@@A
 ?g_CUnitStatic@@3VCUnit@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40

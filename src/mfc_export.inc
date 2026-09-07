@@ -1005,7 +1005,7 @@ extern ?IsActive@NetStru1@@QAEHXZ : proc
 externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
 externdef ?sub_51EEB7@NetStru1@@QAEXXZ :proc
 
-externdef ?DAT_00666a00@@3VCStringArray@@A  : byte
+extern ?DAT_00666a00@@3VCStringArray@@A  : byte
 
 ;NetStru2
 
