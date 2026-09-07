@@ -471,7 +471,10 @@ void CVisualObject::RemoveChild(CVisualObject* obj)
                 focus_obj = last_focus_obj;
             
             if (last_focus_obj == obj)
+            {
                 last_focus_obj = nullptr;
+                focus_obj = nullptr;
+            }
 
             break;
         }
