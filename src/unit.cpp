@@ -1537,9 +1537,8 @@ void Unit::sub_52D94E()
         if ((this->inventory->items.m_nCount > 0 || gold > 0) && this->pOwner != nullptr) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline sub_52D8D3: drop inventory as a sack on the map.
-            g_Server->srv_stru1->sack_list->sub_554927(this->position, this->inventory, gold, is_main);
-            delete this->inventory;
-            this->inventory = new Inventory();
+            Inventory* sack_items = DetachInventory();
+            g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_items, gold, is_main);
         }
     } else if (this->pOwner != nullptr && g_ServerConfig.gameType != 3) {
         if (g_ServerConfig.gameType == 2) {
@@ -1571,9 +1570,8 @@ void Unit::sub_52D94E()
         // Create sack if inventory has items.
         if (this->inventory->items.m_nCount > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
-            g_Server->srv_stru1->sack_list->sub_554927(this->position, this->inventory, 0, is_main);
-            delete this->inventory;
-            this->inventory = new Inventory();
+            Inventory* sack_inventory = DetachInventory();
+            g_Server->srv_stru1->sack_list->sub_554927(this->position, sack_inventory, 0, is_main);
         }
     }
 
@@ -2227,6 +2225,14 @@ void Unit::sub_52F601(const CString& name)
     this->eye->sub_5925C9(this);
     g_World->sub_5AF6F5(this);
 }
+
+Inventory* Unit::DetachInventory()
+{
+    Inventory* tmp = inventory;
+    inventory = new Inventory();
+    return tmp;
+}
+
 
 // 6363e8.
 IMPLEMENT_SERIAL(Unit, Token, 1);

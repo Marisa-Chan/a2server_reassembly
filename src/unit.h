@@ -131,6 +131,8 @@ public:
     int32_t sub_5B6FB0(); // 5B6FB0 — IsMage.
 
     void FUN_0052ec7a(const CArray<MonsterInfoData>& values);
+
+    Inventory* DetachInventory();
     
 public:
     MonsterInfo* monster_info;
