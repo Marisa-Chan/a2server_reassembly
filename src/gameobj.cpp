@@ -466,6 +466,45 @@ void TokenEntry::operator=(const TokenEntry& obj)
 }
 
 
+
+CUnit::CUnit()
+{ //46411c
+    mp_max = 0;
+    mp = 0;
+    lastVoicePlaybackTick = 0;
+    equipmentTokens.fill(nullptr);
+    sprite = nullptr;
+    sprite_b = nullptr;
+    heroSpritePictureName[0] = 0;
+    y_pos2 = 0;
+    x_pos2 = 0;
+    unitFlags = 0;
+    field_0x180[4] = 0;
+    heroSpriteArmorMaterial = -1;
+    field_0x161 = 0;
+    field_0x162 = 0;
+    field_0x164 = 0;
+    serverId = 0;
+    questFlags = -1;
+    field_0x156 = 0;
+}
+
+CUnit::~CUnit()
+{ //46459d
+    for (TokenEntry* eq : equipmentTokens)
+    {
+        if (eq)
+            delete eq;
+    }
+
+    if (sprite)
+        delete sprite;
+
+    if (sprite_b)
+        delete sprite_b;
+}
+
+
 void CUnit::CopyFromUnit(const Unit& uni)
 { //46b0d7
     typeId = uni.typeId;

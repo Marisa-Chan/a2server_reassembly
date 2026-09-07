@@ -7,6 +7,8 @@
 #include "alm.h"
 #include "util.h"
 
+#include <array>
+
 class BigStruct2;
 class CGameBitmap;
 class CSprite256;
@@ -209,9 +211,9 @@ class CUnit : public CGameObject
 	DECLARE_DYNAMIC(CUnit);
 public:
 
-	virtual ~CUnit();
+	virtual ~CUnit(); //46459d
 
-	virtual void VMethod1(int32_t arg1) override;
+	virtual void VMethod1(int32_t arg1) override; //4648e9
 	virtual int32_t VMethod2() override;
 	virtual int32_t VMethod3() override;
 	virtual int32_t VMethod4() override;
@@ -242,7 +244,7 @@ public:
 	virtual void VMethod29();
 	virtual void VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);
 
-	CUnit();
+	CUnit(); //46411c
 
 	void CopyFromUnit(const Unit& uni); //46b0d7
 	void ApplyFace(int32_t _face); //46b7d2
@@ -272,7 +274,7 @@ public:
 	uint8_t __gap_u3[6];
 	int32_t experience_per_sphere[5];
 	uint8_t field_0x180[8];
-	TokenEntry* equipmentTokens[12]; // 0x188
+	std::array<TokenEntry*, 12> equipmentTokens; // 0x188
 	int32_t unitFlags; // 0x1b8
 	int32_t lastVoicePlaybackTick; // 1bc
 	CSprite256* sprite;

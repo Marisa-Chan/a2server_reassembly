@@ -2287,13 +2287,42 @@ externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 
 ;CUnit
-externdef ?g_CUnitStatic@@3VCUnit@@A : byte
-externdef ??0CUnit@@QAE@XZ : proc
+extern ??0CUnit@@QAE@XZ : proc
+extern ??1CUnit@@UAE@XZ : proc
 extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
 extern ?ApplyFace@CUnit@@QAEXH@Z :proc
 extern ?ReloadSprite@CUnit@@QAEXXZ : proc
-extern ?GetRuntimeClass@CUnit@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
+
+externdef   ?VMethod1@CUnit@@UAEXH@Z  : proc
+externdef   ?VMethod2@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod3@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod4@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod5@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
+externdef   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
+externdef   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
+externdef   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
+externdef   ?VMethod10@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod11@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod13@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod14@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod15@CUnit@@UAEHXZ  : proc
+externdef   ?VMethod16@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z  : proc
+externdef   ?VMethod18@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod19@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod20@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod21@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod22@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod23@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod24@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod25@CUnit@@UAEXH@Z  : proc
+externdef   ?VMethod26@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod27@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod28@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod29@CUnit@@UAEXXZ  : proc
+externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc

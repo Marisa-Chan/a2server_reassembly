@@ -42,7 +42,7 @@ CGamePalette* g_pal_projectile_; //665494
 
 CA16* g_spr_smoke[2]; //6610f8
 
-extern CUnit g_CUnitStatic; //642a48
+CUnit g_CUnitStatic; //642a48
 extern CStringArray DAT_00666a00; //666a00
 
 
