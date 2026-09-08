@@ -3,10 +3,6 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-?g_kbControlState@@3HA
-?g_kbShiftState@@3HA
-?g_kbMenuState@@3HA
-?g_LButtonDown@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 ?SetMessageColors@@YAXI@Z	26
@@ -54,7 +50,6 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3

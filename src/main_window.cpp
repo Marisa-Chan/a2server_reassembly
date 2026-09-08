@@ -28,6 +28,7 @@
 
 uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
+int32_t g_LButtonDown; //660f4c
 uint32_t g_using_vxd = 1; // 62fa9c
 CDWordArray DAT_006658d8;
 

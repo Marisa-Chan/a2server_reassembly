@@ -483206,10 +483206,6 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 
 
-?g_kbControlState@@3HA    dd ?                    ; DATA XREF: sub_40B314:loc_40B3DA↑r
-?g_kbShiftState@@3HA    dd ?                    ; DATA XREF: sub_40B314+4E0↑r
-?g_kbMenuState@@3HA    dd ?                    ; DATA XREF: sub_40B314+CF↑r
-?g_LButtonDown@@3HA    dd ?                    ; DATA XREF: ?Update@CMousePointer@@QAEXXZ +9F↑r
                 db 8h dup(?)
 
 

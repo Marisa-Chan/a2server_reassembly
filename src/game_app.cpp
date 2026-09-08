@@ -34,6 +34,10 @@ uint32_t g_IsCdPresent;
 uint32_t g_EnableTrace;
 uint32_t INT_00660f74; //660f74
 
+int32_t g_kbControlState; //660f40
+int32_t g_kbShiftState; //660f44
+int32_t g_kbMenuState; //660f48
+
 uint32_t g_DWORD_00659d18;
 
 

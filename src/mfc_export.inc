@@ -1451,16 +1451,16 @@ extern ?dword_65FBB8@@3PAXA :dword
 externdef ?ParseTunes@@YAXXZ : proc
 externdef ?SetMessageColors@@YAXI@Z  : proc
 
-externdef ?g_kbControlState@@3HA : dword
-externdef ?g_kbShiftState@@3HA : dword
-externdef ?g_kbMenuState@@3HA : dword
+extern ?g_kbControlState@@3HA : dword
+extern ?g_kbShiftState@@3HA : dword
+extern ?g_kbMenuState@@3HA : dword
 
 
 
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
 extern ?ShowGlobalMapDialog@MainWindow@@QAEXXZ : proc
 
-externdef ?g_LButtonDown@@3HA : dword
+extern ?g_LButtonDown@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
