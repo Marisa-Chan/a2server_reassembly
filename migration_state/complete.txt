@@ -35,6 +35,7 @@
 ??0CString@@QAE@PBD@Z
 ??0CString@@QAE@PBDH@Z
 ??0CString@@QAE@XZ
+??0CUnit@@QAE@XZ
 ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z
 ??0CVisualObject@@QAE@HHHHHPBD@Z
 ??0CVisualObject@@QAE@XZ
@@ -194,6 +195,7 @@
 ??1CLlDriver@@QAE@XZ
 ??1CObject@@UAE@XZ
 ??1CString@@QAE@XZ
+??1CUnit@@UAE@XZ
 ??1CVisualObject@@UAE@XZ
 ??1Effect@@UAE@XZ
 ??1Fame2@@QAE@XZ
@@ -622,7 +624,6 @@
 ?g_RBits@@3HA
 ?g_RBitShift@@3HA
 ?g_resolution@@3PADA
-?g_scenario_dll@@3PAUHINSTANCE__@@A
 ?g_ScreenSize@@3VCRect@@A
 ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A
 ?g_Server@@3PAUServer@@A
@@ -688,7 +689,6 @@
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
-?GetRuntimeClass@CUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Effect@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Item@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ
@@ -915,6 +915,18 @@
 ?SaveScreenParts2@CMousePointer@@QAEXABVCRect@@@Z
 ?SaveScreenParts@CMousePointer@@QAEXABVCRect@@@Z
 ?SaveScreenshot@@YAXXZ
+?ScenarioEnterInn@@YGXPAH0@Z
+?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
+?ScenarioEnterShop@@YGHXZ
+?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
+?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
+?ScenarioGetVar@@YGHH@Z
+?ScenarioIsTownAvailable@@YGHH@Z
+?ScenarioLeaveInn@@YGXXZ
+?ScenarioLeaveLocation@@YGHPAH@Z
+?ScenarioLeaveShop@@YGXXZ
+?ScenarioNewGame@@YGXXZ
+?ScenarioTalkTo@@YGXI@Z
 ?ScrollMapX@BigStruct2@@QAEXH@Z
 ?ScrollMapY@BigStruct2@@QAEXH@Z
 ?Seek@File2@@UAEJJI@Z
@@ -988,7 +1000,11 @@
 ?SetVolume@MusicPlayer@@QAEXH@Z
 ?ShadowRect@@YAXVCRect@@H@Z
 ?ShowCharacterLoaderDialog@MainWindow@@QAEXXZ
+?ShowCreditsDialog@MainWindow@@QAEXXZ
+?ShowFameHallDialog@MainWindow@@QAEXXZ
 ?ShowGlobalMapDialog@MainWindow@@QAEXXZ
+?ShowInnDialog@MainWindow@@QAEXIH@Z
+?ShowShopDialog@MainWindow@@QAEXI@Z
 ?ShowStartGameSetupForNewSession@MainWindow@@QAEXXZ
 ?ShowStartupLogoDialog@MainWindow@@QAEXXZ
 ?SizesCheck@VisMultiText@@QAEXXZ

@@ -185,6 +185,7 @@ struct ScenarioLocation
 	ScenarioLocation(int32_t _kind, int32_t _id, int32_t x, int32_t y, int32_t w, int32_t h)
 	: kind(_kind), id(_id), rect(x, y, x + w, y + h) {}
 };
+ASSERT_SIZE(ScenarioLocation, 0x18);
 
 int32_t __stdcall ScenarioGetVar(int32_t); //665a04
 void __stdcall ScenarioSetVar(int32_t, int32_t); //665a00

@@ -8,51 +8,51 @@ AssortGenParams g_ShopsAssortment[4][4]; //10037420
 
 ScenarioLocation g_scenarioLocationTown1_1(2, 1, 215, 234, 0, 0); //10035f60
 ScenarioLocation g_scenarioLocationTown1_2(2, 2, 370, 305, 0, 0); //10035f78
-ScenarioLocation g_scenarioLocationTown3[4] = { ScenarioLocation(2, 3, 194, 225, 0, 0), //10037568
-                                                ScenarioLocation(1, 10, 380, 364, 0, 0),
-                                                ScenarioLocation(1, 20, 210, 260, 0, 0),
-                                                ScenarioLocation(1, 30, 511, 301, 0, 0) }; 
-ScenarioLocation g_scenarioLocationMission73[41] = {ScenarioLocation(1, 73, 343, 347, 0, 0), //10037048
-                                                    ScenarioLocation(1, 74, 595, 313, 0, 0),
-                                                    ScenarioLocation(1, 80, 554, 299, 0, 0),
-                                                    ScenarioLocation(1, 71, 337, 306, 0, 0),
-                                                    ScenarioLocation(1, 72, 530, 255, 0, 0),
-                                                    ScenarioLocation(1, 83, 521, 372, 0, 0),
-                                                    ScenarioLocation(1, 77, 406, 117, 0, 0),
-                                                    ScenarioLocation(1, 84, 552, 377, 0, 0),
-                                                    ScenarioLocation(1, 90, 283, 244, 0, 0),
-                                                    ScenarioLocation(1, 81, 510, 182, 0, 0),
-                                                    ScenarioLocation(1, 75, 356, 359, 0, 0),
-                                                    ScenarioLocation(1, 82, 424, 186, 0, 0),
-                                                    ScenarioLocation(1, 76, 111, 227, 0, 0),
-                                                    ScenarioLocation(1, 93, 306, 148, 0, 0),
-                                                    ScenarioLocation(1, 87, 509, 161, 0, 0),
-                                                    ScenarioLocation(1, 94, 306, 148, 0, 0),
-                                                    ScenarioLocation(1, 91, 477, 269, 0, 0),
-                                                    ScenarioLocation(1, 85, 393, 360, 0, 0),
-                                                    ScenarioLocation(1, 92, 93, 269, 0, 0),
-                                                    ScenarioLocation(1, 86, 67, 213, 0, 0),
-                                                    ScenarioLocation(1, 95, 306, 148, 0, 0),
-                                                    ScenarioLocation(1, 96, 306, 148, 0, 0),
-                                                    ScenarioLocation(1, 10, 302, 158, 0, 0),
-                                                    ScenarioLocation(1, 20, 380, 364, 0, 0),
-                                                    ScenarioLocation(1, 30, 331, 395, 0, 0),
-                                                    ScenarioLocation(1, 21, 423, 367, 0, 0),
-                                                    ScenarioLocation(1, 40, 339, 226, 0, 0),
-                                                    ScenarioLocation(1, 31, 443, 225, 0, 0),
-                                                    ScenarioLocation(1, 32, 457, 202, 0, 0),
-                                                    ScenarioLocation(1, 43, 454, 358, 0, 0),
-                                                    ScenarioLocation(1, 50, 210, 260, 0, 0),
-                                                    ScenarioLocation(1, 41, 403, 228, 0, 0),
-                                                    ScenarioLocation(1, 42, 531, 207, 0, 0),
-                                                    ScenarioLocation(1, 53, 292, 191, 0, 0),
-                                                    ScenarioLocation(1, 60, 511, 301, 0, 0),
-                                                    ScenarioLocation(1, 51, 450, 240, 0, 0),
-                                                    ScenarioLocation(1, 52, 132, 303, 0, 0),
-                                                    ScenarioLocation(1, 63, 385, 221, 0, 0),
-                                                    ScenarioLocation(1, 70, 86, 193, 0, 0),
-                                                    ScenarioLocation(1, 61, 475, 312, 0, 0),
-                                                    ScenarioLocation(1, 62, 253, 169, 0, 0) }; 
+ScenarioLocation g_scenarioLocationTown3(2, 3, 194, 225, 0, 0); //10037568
+ScenarioLocation g_scenarioLocationTown10(1, 10, 380, 364, 0, 0); //10037580
+ScenarioLocation g_scenarioLocationTown20(1, 20, 210, 260, 0, 0); //10037598
+ScenarioLocation g_scenarioLocationTown30(1, 30, 511, 301, 0, 0); //100375b0
+ScenarioLocation g_scenarioLocationMission73(1, 73, 343, 347, 0, 0); //10037048
+ScenarioLocation g_scenarioLocationMission74(1, 74, 595, 313, 0, 0); //10037060
+ScenarioLocation g_scenarioLocationMission80(1, 80, 554, 299, 0, 0); //10037078
+ScenarioLocation g_scenarioLocationMission71(1, 71, 337, 306, 0, 0); //10037090
+ScenarioLocation g_scenarioLocationMission72(1, 72, 530, 255, 0, 0); //100370a8
+ScenarioLocation g_scenarioLocationMission83(1, 83, 521, 372, 0, 0); //100370c0
+ScenarioLocation g_scenarioLocationMission77(1, 77, 406, 117, 0, 0); //100370d8
+ScenarioLocation g_scenarioLocationMission84(1, 84, 552, 377, 0, 0); //100370f0
+ScenarioLocation g_scenarioLocationMission90(1, 90, 283, 244, 0, 0); //10037108
+ScenarioLocation g_scenarioLocationMission81(1, 81, 510, 182, 0, 0); //10037120
+ScenarioLocation g_scenarioLocationMission75(1, 75, 356, 359, 0, 0); //10037138
+ScenarioLocation g_scenarioLocationMission82(1, 82, 424, 186, 0, 0); //10037150
+ScenarioLocation g_scenarioLocationMission76(1, 76, 111, 227, 0, 0); //10037168
+ScenarioLocation g_scenarioLocationMission93(1, 93, 306, 148, 0, 0); //10037180
+ScenarioLocation g_scenarioLocationMission87(1, 87, 509, 161, 0, 0); //10037198
+ScenarioLocation g_scenarioLocationMission94(1, 94, 306, 148, 0, 0); //100371b0
+ScenarioLocation g_scenarioLocationMission91(1, 91, 477, 269, 0, 0); //100371c8
+ScenarioLocation g_scenarioLocationMission85(1, 85, 393, 360, 0, 0); //100371e0
+ScenarioLocation g_scenarioLocationMission92(1, 92, 93, 269, 0, 0); //100371f8
+ScenarioLocation g_scenarioLocationMission86(1, 86, 67, 213, 0, 0); //10037210
+ScenarioLocation g_scenarioLocationMission95(1, 95, 306, 148, 0, 0); //10037228
+ScenarioLocation g_scenarioLocationMission96(1, 96, 306, 148, 0, 0); //10037240
+ScenarioLocation g_scenarioLocationMission10(1, 10, 302, 158, 0, 0); //10037258
+ScenarioLocation g_scenarioLocationMission20(1, 20, 380, 364, 0, 0); //10037270
+ScenarioLocation g_scenarioLocationMission30(1, 30, 331, 395, 0, 0); //10037288
+ScenarioLocation g_scenarioLocationMission21(1, 21, 423, 367, 0, 0); //100372a0
+ScenarioLocation g_scenarioLocationMission40(1, 40, 339, 226, 0, 0); //100372b8
+ScenarioLocation g_scenarioLocationMission31(1, 31, 443, 225, 0, 0); //100372d0
+ScenarioLocation g_scenarioLocationMission32(1, 32, 457, 202, 0, 0); //100372e8
+ScenarioLocation g_scenarioLocationMission43(1, 43, 454, 358, 0, 0); //10037300
+ScenarioLocation g_scenarioLocationMission50(1, 50, 210, 260, 0, 0); //10037318
+ScenarioLocation g_scenarioLocationMission41(1, 41, 403, 228, 0, 0); //10037330
+ScenarioLocation g_scenarioLocationMission42(1, 42, 531, 207, 0, 0); //10037348
+ScenarioLocation g_scenarioLocationMission53(1, 53, 292, 191, 0, 0); //10037360
+ScenarioLocation g_scenarioLocationMission60(1, 60, 511, 301, 0, 0); //10037378
+ScenarioLocation g_scenarioLocationMission51(1, 51, 450, 240, 0, 0); //10037390
+ScenarioLocation g_scenarioLocationMission52(1, 52, 132, 303, 0, 0); //100373a8
+ScenarioLocation g_scenarioLocationMission63(1, 63, 385, 221, 0, 0); //100373c0
+ScenarioLocation g_scenarioLocationMission70(1, 70, 86, 193, 0, 0); //100373d8
+ScenarioLocation g_scenarioLocationMission61(1, 61, 475, 312, 0, 0); //100373f0
+ScenarioLocation g_scenarioLocationMission62(1, 62, 253, 169, 0, 0); //10037408
 ScenarioLocation g_scenarioLocationMission100(1, 100, 388, 140, 0, 0); //10035fe0
 ScenarioLocation g_scenarioLocationMission101(1, 101, 273, 300, 0, 0); //10035fc8
 ScenarioLocation g_scenarioLocationMission102(1, 102, 351, 190, 0, 0); //10036010
@@ -66,48 +66,48 @@ void InitAllScenatioLocations()
     g_allLocations.RemoveAll();
     g_allLocations.AddTail(&g_scenarioLocationTown1_1);
     g_allLocations.AddTail(&g_scenarioLocationTown1_2);
-    g_allLocations.AddTail(g_scenarioLocationTown3);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 22);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 23);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 25);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 24);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 27);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 28);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 26);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 31);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 32);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 29);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 30);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 35);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 36);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 33);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 34);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 39);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 40);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 37);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 38);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 3);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 4);
-    g_allLocations.AddTail(g_scenarioLocationMission73);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 1);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 10);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 12);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 6);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 2);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 9);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 11);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 5);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 7);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 17);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 19);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 14);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 8);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 16);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 18);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 13);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 15);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 20);
-    g_allLocations.AddTail(g_scenarioLocationMission73 + 21);
+    g_allLocations.AddTail(&g_scenarioLocationTown3);
+    g_allLocations.AddTail(&g_scenarioLocationMission10);
+    g_allLocations.AddTail(&g_scenarioLocationMission20);
+    g_allLocations.AddTail(&g_scenarioLocationMission21);
+    g_allLocations.AddTail(&g_scenarioLocationMission30);
+    g_allLocations.AddTail(&g_scenarioLocationMission31);
+    g_allLocations.AddTail(&g_scenarioLocationMission32);
+    g_allLocations.AddTail(&g_scenarioLocationMission40);
+    g_allLocations.AddTail(&g_scenarioLocationMission41);
+    g_allLocations.AddTail(&g_scenarioLocationMission42);
+    g_allLocations.AddTail(&g_scenarioLocationMission43);
+    g_allLocations.AddTail(&g_scenarioLocationMission50);
+    g_allLocations.AddTail(&g_scenarioLocationMission51);
+    g_allLocations.AddTail(&g_scenarioLocationMission52);
+    g_allLocations.AddTail(&g_scenarioLocationMission53);
+    g_allLocations.AddTail(&g_scenarioLocationMission60);
+    g_allLocations.AddTail(&g_scenarioLocationMission61);
+    g_allLocations.AddTail(&g_scenarioLocationMission62);
+    g_allLocations.AddTail(&g_scenarioLocationMission63);
+    g_allLocations.AddTail(&g_scenarioLocationMission70);
+    g_allLocations.AddTail(&g_scenarioLocationMission71);
+    g_allLocations.AddTail(&g_scenarioLocationMission72);
+    g_allLocations.AddTail(&g_scenarioLocationMission73);
+    g_allLocations.AddTail(&g_scenarioLocationMission74);
+    g_allLocations.AddTail(&g_scenarioLocationMission75);
+    g_allLocations.AddTail(&g_scenarioLocationMission76);
+    g_allLocations.AddTail(&g_scenarioLocationMission77);
+    g_allLocations.AddTail(&g_scenarioLocationMission80);
+    g_allLocations.AddTail(&g_scenarioLocationMission81);
+    g_allLocations.AddTail(&g_scenarioLocationMission82);
+    g_allLocations.AddTail(&g_scenarioLocationMission83);
+    g_allLocations.AddTail(&g_scenarioLocationMission84);
+    g_allLocations.AddTail(&g_scenarioLocationMission85);
+    g_allLocations.AddTail(&g_scenarioLocationMission86);
+    g_allLocations.AddTail(&g_scenarioLocationMission87);
+    g_allLocations.AddTail(&g_scenarioLocationMission90);
+    g_allLocations.AddTail(&g_scenarioLocationMission91);
+    g_allLocations.AddTail(&g_scenarioLocationMission92);
+    g_allLocations.AddTail(&g_scenarioLocationMission93);
+    g_allLocations.AddTail(&g_scenarioLocationMission94);
+    g_allLocations.AddTail(&g_scenarioLocationMission95);
+    g_allLocations.AddTail(&g_scenarioLocationMission96);
     g_allLocations.AddTail(&g_scenarioLocationMission100);
     g_allLocations.AddTail(&g_scenarioLocationMission101);
     g_allLocations.AddTail(&g_scenarioLocationMission102);
@@ -562,54 +562,54 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
         g_scenarioState.rebuildAvailableLocationsPending = 0;
         g_availableLocations.RemoveAll();
         g_availableLocations.AddTail(&g_scenarioLocationTown1_2);
-        g_availableLocations.AddTail(&g_scenarioLocationTown3[0]);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 25);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 24);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 27);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 28);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 26);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 31);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 32);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 29);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 30);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 35);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 36);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 33);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 34);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 39);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 40);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 37);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 38);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 3);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 4);
-        g_availableLocations.AddTail(g_scenarioLocationMission73);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 1);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 10);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 12);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 6);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 2);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 9);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 11);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 5);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 7);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 17);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 19);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 14);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 8);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 16);
-        g_availableLocations.AddTail(g_scenarioLocationMission73 + 18);
+        g_availableLocations.AddTail(&g_scenarioLocationTown3);
+        g_availableLocations.AddTail(&g_scenarioLocationMission21);
+        g_availableLocations.AddTail(&g_scenarioLocationMission30);
+        g_availableLocations.AddTail(&g_scenarioLocationMission31);
+        g_availableLocations.AddTail(&g_scenarioLocationMission32);
+        g_availableLocations.AddTail(&g_scenarioLocationMission40);
+        g_availableLocations.AddTail(&g_scenarioLocationMission41);
+        g_availableLocations.AddTail(&g_scenarioLocationMission42);
+        g_availableLocations.AddTail(&g_scenarioLocationMission43);
+        g_availableLocations.AddTail(&g_scenarioLocationMission50);
+        g_availableLocations.AddTail(&g_scenarioLocationMission51);
+        g_availableLocations.AddTail(&g_scenarioLocationMission52);
+        g_availableLocations.AddTail(&g_scenarioLocationMission53);
+        g_availableLocations.AddTail(&g_scenarioLocationMission60);
+        g_availableLocations.AddTail(&g_scenarioLocationMission61);
+        g_availableLocations.AddTail(&g_scenarioLocationMission62);
+        g_availableLocations.AddTail(&g_scenarioLocationMission63);
+        g_availableLocations.AddTail(&g_scenarioLocationMission70);
+        g_availableLocations.AddTail(&g_scenarioLocationMission71);
+        g_availableLocations.AddTail(&g_scenarioLocationMission72);
+        g_availableLocations.AddTail(&g_scenarioLocationMission73);
+        g_availableLocations.AddTail(&g_scenarioLocationMission74);
+        g_availableLocations.AddTail(&g_scenarioLocationMission75);
+        g_availableLocations.AddTail(&g_scenarioLocationMission76);
+        g_availableLocations.AddTail(&g_scenarioLocationMission77);
+        g_availableLocations.AddTail(&g_scenarioLocationMission80);
+        g_availableLocations.AddTail(&g_scenarioLocationMission81);
+        g_availableLocations.AddTail(&g_scenarioLocationMission82);
+        g_availableLocations.AddTail(&g_scenarioLocationMission83);
+        g_availableLocations.AddTail(&g_scenarioLocationMission84);
+        g_availableLocations.AddTail(&g_scenarioLocationMission85);
+        g_availableLocations.AddTail(&g_scenarioLocationMission86);
+        g_availableLocations.AddTail(&g_scenarioLocationMission87);
+        g_availableLocations.AddTail(&g_scenarioLocationMission90);
+        g_availableLocations.AddTail(&g_scenarioLocationMission91);
+        g_availableLocations.AddTail(&g_scenarioLocationMission92);
 
         if (g_scenarioState.isMage == 0)
         {
             if (g_scenarioState.isFemale == 0)
-                g_availableLocations.AddTail(g_scenarioLocationMission73 + 13);
+                g_availableLocations.AddTail(&g_scenarioLocationMission93);
             else
-                g_availableLocations.AddTail(g_scenarioLocationMission73 + 15);
+                g_availableLocations.AddTail(&g_scenarioLocationMission94);
         }
         else if (g_scenarioState.isFemale == 0)
-            g_availableLocations.AddTail(g_scenarioLocationMission73 + 21);
+            g_availableLocations.AddTail(&g_scenarioLocationMission96);
         else
-            g_availableLocations.AddTail(g_scenarioLocationMission73 + 20);
+            g_availableLocations.AddTail(&g_scenarioLocationMission95);
 
         g_availableLocations.AddTail(&g_scenarioLocationMission100);
         g_availableLocations.AddTail(&g_scenarioLocationMission101);
@@ -677,7 +677,7 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id)
     case 50:
         ScenarioMakeTownAvailable(3);
         if (g_scenarioState.mission31UnlockedLowConfidence != 0)
-            g_availableLocations.AddTail(g_scenarioLocationMission73 + 36);
+            g_availableLocations.AddTail(&g_scenarioLocationMission52);
 
         g_scenarioState.innSceneUnlockedLowConfidence = 1;
 
@@ -1009,7 +1009,7 @@ void __stdcall ScenarioTalkTo(uint32_t t)
     {
         ScenarioMakeMissionAvailable(id);
 
-        if (id == g_scenarioLocationMission73[22].GetId())
+        if (id == g_scenarioLocationMission10.GetId())
             g_scenarioState.startMissionAllowed = 1;
 
         if (entry == 22 && id == 30)

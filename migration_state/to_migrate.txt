@@ -3,24 +3,6 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
-_ScenarioGetVar
-_ScenarioSetVar
-_ScenarioTalkTo
-_ScenarioEnterLocation
-_ScenarioLeaveLocation
-_ScenarioEnterShop
-_ScenarioLeaveShop
-_ScenarioEnterInn
-_ScenarioLeaveInn
-_ScenarioNewGame
-_ScenarioSave
-_ScenarioLoad
-_ScenarioGetAvailableLocations
-_ScenarioGetShopAssortment
-_ScenarioIsTownAvailable
-_ScenarioIsMissionAvailable
-_ScenarioGetCurrentLocation
-_ScenarioGetAllLocations
 ?g_kbControlState@@3HA
 ?g_kbShiftState@@3HA
 ?g_kbMenuState@@3HA
@@ -30,7 +12,6 @@ _ScenarioGetAllLocations
 ?SetMessageColors@@YAXI@Z	26
 ?ParseTunes@@YAXXZ	99
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
-?g_CUnitStatic@@3VCUnit@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
@@ -152,7 +133,35 @@ _ScenarioGetAllLocations
 ??1CStatusBar@@UAE@XZ	32
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
-??0CUnit@@QAE@XZ	57
+?VMethod2@CUnit@@UAEHXZ	12
+?VMethod3@CUnit@@UAEHXZ	12
+?VMethod4@CUnit@@UAEHXZ	18
+?VMethod5@CUnit@@UAEHXZ	18
+?VMethod13@CUnit@@UAEXXZ	20
+?VMethod14@CUnit@@UAEXXZ	20
+?VMethod1@CUnit@@UAEXH@Z	48
+?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z	65
+?VMethod20@CUnit@@UAEXXZ	66
+?VMethod26@CUnit@@UAEXXZ	77
+?VMethod27@CUnit@@UAEXXZ	77
+?VMethod29@CUnit@@UAEXXZ	77
+?VMethod21@CUnit@@UAEXXZ	84
+?VMethod22@CUnit@@UAEXXZ	89
+?VMethod23@CUnit@@UAEXXZ	89
+?VMethod24@CUnit@@UAEXXZ	89
+?VMethod28@CUnit@@UAEXXZ	89
+?VMethod10@CUnit@@UAEXXZ	113
+?VMethod15@CUnit@@UAEHXZ	131
+?VMethod9@CUnit@@UAEXHHH@Z	200
+?VMethod18@CUnit@@UAEXXZ	216
+?VMethod25@CUnit@@UAEXH@Z	237
+?VMethod16@CUnit@@UAEXXZ	453
+?VMethod19@CUnit@@UAEXXZ	521
+?VMethod8@CUnit@@UAEXHHH@Z	1002
+?VMethod11@CUnit@@UAEHXZ	1134
+?VMethod7@CUnit@@UAEXHHH@Z	1369
+?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z	1420
+?VMethod6@CUnit@@UAEXHHH@Z	1517
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
 ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z	9
