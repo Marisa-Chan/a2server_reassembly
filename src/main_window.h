@@ -429,6 +429,10 @@ public:
     void InitNewCampaignSession(); //48dd3a
 
     void ShowStartupLogoDialog(); // 48dba0
+    void ShowCreditsDialog(); //48da66
+    void ShowFameHallDialog(); //48d096
+    void ShowShopDialog(uint32_t id); //48cdce
+    void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da
 
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
     void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87

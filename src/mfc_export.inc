@@ -1375,6 +1375,10 @@ extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
 extern ?ShowStartupLogoDialog@MainWindow@@QAEXXZ : proc
 
+extern ?ShowCreditsDialog@MainWindow@@QAEXXZ : proc
+extern ?ShowFameHallDialog@MainWindow@@QAEXXZ : proc
+extern ?ShowShopDialog@MainWindow@@QAEXI@Z : proc
+extern ?ShowInnDialog@MainWindow@@QAEXIH@Z : proc
 
 
 extern ??0CFameHall@@QAE@XZ  :proc   ; (public: __thiscall CFameHall::CFameHall(void))

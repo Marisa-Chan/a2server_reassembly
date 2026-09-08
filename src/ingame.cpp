@@ -3718,7 +3718,27 @@ void BigStruct2::ScrollMapY(int32_t dy)
 		field_0x7c = MapMaxX() - view_y;
 }
 
+void BigStruct2::OnOpenShopDialog()
+{ //41a29b
+	PacketWord* pkt = &PacketWord::Inst;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->id = 0x32;
+	pkt->value = GetUnit_3f6c()->unit_id;
+	g_NetStru1_local.QueuePacketSend(pkt);
 
+	((MainWindow*)AfxGetMainWnd())->dialogsMask |= 2;
+}
+
+void BigStruct2::NetOnOpenInnDialog()
+{ //41adbb
+	PacketWord* pkt = &PacketWord::Inst;
+	pkt->field_0x5 = my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->id = 0x38;
+	pkt->value = GetUnit_3f6c()->unit_id;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
 
 void LoadVfxData()
 { //47b24e

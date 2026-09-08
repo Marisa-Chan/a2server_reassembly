@@ -2400,6 +2400,31 @@ LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         sessionMode = 0;
         ShowCharacterLoaderDialog();
         break;
+
+    case 0x427:
+        ShowStartupLogoDialog();
+        vis_logownd->MsgProc(0x43a, 1, 0);
+        vis_logownd->MsgProc(0x439, 4000, 0);
+        vis_root->VMethod9();
+        break;
+
+    case 0x428:
+        ShowCreditsDialog();
+        break;
+
+    case 0x429:
+        ShowFameHallDialog();
+        break;
+
+    case 0x42a:
+        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1))
+            ShowShopDialog(wParam);
+        break;
+
+    case 0x42b:
+        if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1))
+            ShowInnDialog(wParam, lParam);
+        break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -3297,6 +3322,192 @@ void MainWindow::ShowStartupLogoDialog()
 
     field_0x460 = 0;
     dialogsMask |= 0x100;
+}
+
+
+void MainWindow::ShowCreditsDialog()
+{ // 48da66
+    vis_root->AddChild(vis_credits);
+    vis_credits->VMethod28();
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+    dialogsMask |= 0x40;
+
+    if (g_SoundSettings.field_0x20 != 0)
+    {
+        CStringArray playlist;
+        playlist.Add("music\\credit.wav");
+
+        music_player->SetPlayList(playlist);
+        music_player->Play();
+    }
+}
+
+void MainWindow::ShowFameHallDialog()
+{ //48d096
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    vis_root->AddChild(vis_famehall);
+
+    vis_famehall->VMethod28();
+
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+    dialogsMask |= 0x1000;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+}
+
+
+void MainWindow::ShowShopDialog(uint32_t id)
+{ //48cdce
+    if (g_mousept.GetSelectState() != 0)
+    {
+        g_mousept.ResetStates();
+        UpdateCursorClip();
+    }
+
+    if (vis_map_context->IsBookOpen() != 0)
+        vis_map_context->FUN_0041b636();
+
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    int locid = 1;
+    if (sessionMode == 2)
+        locid = ScenarioGetCurrentLocation()->GetId();
+    else
+    {
+        switch (id)
+        {
+        case 0x22:
+        case 0x23:
+            locid = 1;
+            break;
+
+        case 0x5d:
+        case 0x5e:
+        case 0x5f:
+            locid = 2;
+            break;
+
+        case 0x69:
+        case 0x6a:
+        case 0x6b:
+            locid = 3;
+            break;
+        }
+    }
+
+    if (locid == 1)
+    {
+        vis_root->AddChild(vis_shop);
+        vis_shop->VMethod28();
+    }
+    else if (locid == 2)
+    {
+        vis_root->AddChild(vis_shopkaarg);
+        vis_shopkaarg->VMethod28();
+    }
+    else if (locid == 3)
+    {
+        vis_root->AddChild(vis_shopdruid);
+        vis_shopdruid->VMethod28();
+    }
+
+    dialogsMask |= 2;
+    vis_map_context->UpdateSelectionState();
+    vis_map_context->OnOpenShopDialog();
+    vis_root->VMethod9();
+    field_0x460 = 0;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
+}
+
+
+
+void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
+{ //48d4da
+    if (g_mousept.GetSelectState() != 0)
+    {
+        g_mousept.ResetStates();
+        UpdateCursorClip();
+    }
+
+    if (vis_map_context->IsBookOpen() != 0)
+        vis_map_context->FUN_0041b636();
+
+    g_Cursors[CURSOR_WAIT]->Use();
+
+    int locid = 1;
+    if (sessionMode == 2)
+        locid = ScenarioGetCurrentLocation()->GetId();
+    else
+    {
+        switch (id)
+        {
+        case 0x43:
+        case 0x44:
+        case 0x45:
+            locid = 1;
+            break;
+
+        case 0x63:
+        case 0x64:
+        case 0x65:
+            locid = 2;
+            break;
+
+        case 0x6f:
+        case 0x70:
+        case 0x71:
+            locid = 3;
+            break;
+        }
+    }
+
+    VisTav* inn = nullptr;
+    if (locid == 1)
+        inn = vis_tav;
+    else if (locid == 2)
+        inn = vis_tavkaarg;
+    else if (locid == 3)
+        inn = vis_tavdruid;
+
+    vis_root->AddChild(inn);
+
+    if (sessionMode == 2)
+    {
+        int32_t ids[32];
+        int32_t num = 0;
+        ScenarioEnterInn(ids, &num);
+
+        CDWordArray arr;
+        arr.SetSize(num);
+
+        for (int i = 0; i < num; i++)
+            arr[i] = ids[i];
+
+        g_Server->FUN_00501b9e(ScenarioGetVar(0x300), arr);
+
+        vis_map_context->ProcessPackets(0);
+    }
+    else
+        vis_map_context->NetOnOpenInnDialog();
+
+    inn->field_0x138 = interact_target;
+    inn->VMethod28();
+
+    dialogsMask |= 4;
+
+    vis_map_context->UpdateSelectionState();
+
+    vis_root->VMethod9();
+
+    field_0x460 = 0;
+
+    g_Cursors[CURSOR_DEFAULT]->Use();
 }
 
 
