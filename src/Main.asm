@@ -118038,7 +118038,7 @@ loc_47153F:                             ; CODE XREF: sub_4714E7+51↑j
                 mov     ecx, dword ptr [ebp+var_80]
                 cmp     dword ptr [ecx+12Ch], 8
                 jnb     short loc_4715E5
-                call    _ScenarioGetAvailableLocations
+                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
                 mov     [ebp+var_28], eax
                 mov     ecx, dword ptr [ebp+var_28]
                 call    sub_4744C0
@@ -118178,7 +118178,7 @@ loc_4716FF:                             ; CODE XREF: sub_4714E7+170↑j
 ; ---------------------------------------------------------------------------
 
 loc_471704:                             ; CODE XREF: sub_4714E7+159↑j
-                call    _ScenarioGetAvailableLocations
+                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
                 mov     [ebp+var_2C], eax
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    unknown_libname_533 ; Microsoft VisualC 2-14/net runtime
@@ -118789,7 +118789,7 @@ loc_471E0C:                             ; CODE XREF: sub_4714E7+7AA↑j
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
                 mov     ecx, eax
                 call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                call    _ScenarioGetAvailableLocations
+                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
                 mov     [ebp+var_48], eax
                 mov     ecx, dword ptr [ebp+var_80]
                 cmp     dword ptr [ecx+1B0h], 0
@@ -118798,7 +118798,7 @@ loc_471E0C:                             ; CODE XREF: sub_4714E7+7AA↑j
                 call    sub_4744C0
                 mov     edx, dword ptr [eax]
                 push    edx
-                call    _ScenarioEnterLocation
+                call    ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
                 jmp     short loc_471ECC
 ; ---------------------------------------------------------------------------
 
@@ -118835,7 +118835,7 @@ loc_471E73:                             ; CODE XREF: sub_4714E7:loc_471ECA↓j
                 jz      short loc_471ECA
                 mov     eax, dword ptr [ebp+var_50]
                 push    eax
-                call    _ScenarioEnterLocation
+                call    ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
                 jmp     short loc_471ECC
 ; ---------------------------------------------------------------------------
 
@@ -120167,7 +120167,7 @@ var_4           = dword ptr -4
                 lea     ecx, [ebp+var_28]
                 call    ??ZCPoint@@QAEXUtagSIZE@@@Z ; CPoint::operator-=(tagSIZE)
                 mov     [ebp+var_20], 7FFFFFFFh
-                call    _ScenarioGetAvailableLocations
+                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
                 mov     [ebp+var_1C], eax
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    unknown_libname_533 ; Microsoft VisualC 2-14/net runtime
@@ -136311,7 +136311,7 @@ loc_487155:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 mov     ecx, dword ptr [ebp+var_AA4]
                 mov     ecx, dword ptr [ecx+0D0h]
                 call    ?FUN_0041d2da@BigStruct2@@QAEXH@Z
-                call    _ScenarioGetCurrentLocation
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
                 mov     [ebp+var_830], eax
                 cmp     [ebp+var_830], 0
                 jz      loc_48726D
@@ -137138,7 +137138,7 @@ loc_487C3C:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 push    offset aMainTextTownTx ; "main\\text\\town.txt"
                 call    ?ReadFileToString@@YAXPBDPAVCString@@@Z
                 add     esp, 8
-                call    _ScenarioNewGame
+                call    ?ScenarioNewGame@@YGXXZ
                 mov     eax, dword ptr [ebp+var_AA4]
                 mov     dword ptr [eax+41Ch], 0
                 mov     ecx, dword ptr [ebp+var_AA4]
@@ -137809,7 +137809,7 @@ loc_48858C:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
 loc_4885A0:                             ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+1927↑j
                 mov     ecx, dword ptr [ebp+var_AA4]
                 call    sub_485A41
-                call    _ScenarioGetCurrentLocation
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
                 mov     ecx, eax
                 call    unknown_libname_539 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, eax
@@ -137820,7 +137820,7 @@ loc_4885A0:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 call    sub_4972A0
                 lea     ecx, [ebp+var_88C]
                 push    ecx
-                call    _ScenarioLeaveLocation
+                call    ?ScenarioLeaveLocation@@YGHPAH@Z
                 mov     [ebp+var_890], eax
                 lea     ecx, [ebp+var_8A8]
                 call    sub_5DB0C3
@@ -137838,7 +137838,7 @@ loc_4885A0:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 lea     eax, [ebp+var_8A8]
                 push    eax
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 mov     ecx, ?g_Server@@3PAUServer@@A
                 call    ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z
@@ -137890,16 +137890,16 @@ loc_4886BA:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
 
 loc_4886DB:                             ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+1A55↑j
                 push    0
-                call    _ScenarioIsTownAvailable
+                call    ?ScenarioIsTownAvailable@@YGHH@Z
                 test    eax, eax
                 jnz     short loc_48871D
-                call    _ScenarioGetAvailableLocations
+                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
                 mov     [ebp+var_8AC], eax
                 mov     ecx, dword ptr [ebp+var_8AC]
                 call    sub_4744C0
                 mov     eax, dword ptr [eax]
                 push    eax
-                call    _ScenarioEnterLocation
+                call    ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
                 push    0               ; lParam
                 push    0               ; wParam
                 push    468h            ; Msg
@@ -139066,7 +139066,7 @@ loc_4896C5:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
 ; ---------------------------------------------------------------------------
 
 loc_4896D5:                             ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+F1↑j
-                call    _ScenarioGetCurrentLocation    ; jumptable 00486D5D case 1069
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ    ; jumptable 00486D5D case 1069
                 mov     [ebp+var_93C], eax
                 mov     edx, dword ptr [ebp+var_AA4]
                 mov     eax, dword ptr [edx+0F0h]
@@ -139075,7 +139075,7 @@ loc_4896D5:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 call    unknown_libname_537 ; Microsoft VisualC 2-14/net runtime
                 cmp     eax, 2
                 jnz     short loc_48977B
-                call    _ScenarioGetCurrentLocation
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
                 mov     ecx, eax
                 call    unknown_libname_539 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, eax
@@ -139086,7 +139086,7 @@ loc_4896D5:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 call    sub_4972A0
                 lea     edx, [ebp+var_938]
                 push    edx
-                call    _ScenarioLeaveLocation
+                call    ?ScenarioLeaveLocation@@YGHPAH@Z
                 cmp     [ebp+var_938], 0
                 jl      short loc_489755
                 mov     eax, dword ptr [ebp+var_938]
@@ -139110,7 +139110,7 @@ loc_48977B:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
 ; ---------------------------------------------------------------------------
 
 loc_48978B:                             ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+F1↑j
-                call    _ScenarioGetCurrentLocation    ; jumptable 00486D5D case 1128
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ    ; jumptable 00486D5D case 1128
                 mov     [ebp+var_940], eax
                 mov     ecx, dword ptr [ebp+var_940]
                 call    unknown_libname_537 ; Microsoft VisualC 2-14/net runtime
@@ -139136,13 +139136,13 @@ loc_4897D5:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 mov     ecx, dword ptr [ebp+var_944]
                 add     ecx, 200h
                 push    ecx
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jz      short loc_489821
                 mov     edx, dword ptr [ebp+var_944]
                 add     edx, 214h
                 push    edx
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jz      short loc_489821
                 mov     eax, dword ptr [ebp+var_944]
@@ -139163,7 +139163,7 @@ loc_489823:                             ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 lea     ecx, [ebp+var_958]
                 push    ecx
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 mov     ecx, ?g_Server@@3PAUServer@@A
                 call    sub_50260A
@@ -140502,7 +140502,7 @@ loc_48D85E:                             ; CODE XREF: sub_48D815+40↑j
                 call    ?Use@CCursor@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 call    sub_485A41
-                call    _ScenarioGetCurrentLocation
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
                 mov     ecx, eax
                 call    unknown_libname_538 ; Microsoft VisualC 2-14/net runtime
                 mov     [ebp+var_14], eax
@@ -147943,7 +147943,7 @@ sub_497490      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 push    ebp
                 mov     ebp, esp
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 xor     ecx, ecx
                 cmp     eax, 78h ; 'x'
                 setnl   cl
@@ -147962,7 +147962,7 @@ sub_497490      endp
 sub_4974B0      proc near               ; CODE XREF: ?FUN_0048e502@MainWindow@@QAEHH@Z+19B↑p
                 push    ebp
                 mov     ebp, esp
-                call    _ScenarioGetCurrentLocation
+                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
                 mov     ecx, eax
                 call    unknown_libname_538 ; Microsoft VisualC 2-14/net runtime
                 pop     ebp
@@ -147980,7 +147980,7 @@ _cleanup        proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAE
                 push    ebp
                 mov     ebp, esp
                 push    305h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 pop     ebp
                 retn
 _cleanup        endp
@@ -158528,7 +158528,7 @@ loc_49E5B4:                             ; CODE XREF: sub_49E34F+1C8↑j
                 push    eax
                 lea     ecx, [ebp+var_B8]
                 push    ecx
-                call    _ScenarioEnterInn
+                call    ?ScenarioEnterInn@@YGXPAH0@Z
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0FCh
                 call    sub_402830
@@ -158984,7 +158984,7 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+var_8]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_49EB9A
-                call    _ScenarioLeaveInn
+                call    ?ScenarioLeaveInn@@YGXXZ
 
 loc_49EB9A:                             ; CODE XREF: sub_49EB6C+26↑j
                 mov     ecx, dword ptr [ebp+var_30]
@@ -159404,7 +159404,7 @@ var_4           = dword ptr -4
                 cmp     [ebp+var_1C], 10000000h
                 jnz     short loc_49F076
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_10]
                 push    ecx
@@ -159437,13 +159437,13 @@ var_4           = dword ptr -4
                 call    sub_402880
                 mov     eax, dword ptr [eax]
                 push    eax
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
                 jmp     short loc_49F0AB
 ; ---------------------------------------------------------------------------
 
 loc_49F076:                             ; CODE XREF: sub_49EF63+9B↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_10]
                 push    ecx
@@ -159527,7 +159527,7 @@ var_4           = dword ptr -4
                 call    sub_402880
                 mov     eax, dword ptr [eax]
                 push    eax
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx
@@ -159626,7 +159626,7 @@ var_4           = dword ptr -4
                 call    sub_402880
                 mov     ecx, dword ptr [eax]
                 push    ecx
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
                 mov     edx, dword ptr [ebp+var_24]
                 add     edx, 0B4h
                 push    edx
@@ -160518,7 +160518,7 @@ loc_49FD0F:                             ; CODE XREF: sub_49FAAA+1C8↑j
                 push    eax
                 lea     ecx, [ebp+var_B8]
                 push    ecx
-                call    _ScenarioEnterInn
+                call    ?ScenarioEnterInn@@YGXPAH0@Z
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0FCh
                 call    sub_402830
@@ -160941,7 +160941,7 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+var_8]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A02A6
-                call    _ScenarioLeaveInn
+                call    ?ScenarioLeaveInn@@YGXXZ
 
 loc_4A02A6:                             ; CODE XREF: sub_4A0278+26↑j
                 mov     ecx, dword ptr [ebp+var_30]
@@ -163373,7 +163373,7 @@ loc_4A1E07:                             ; CODE XREF: sub_4A1BA2+1C8↑j
                 push    eax
                 lea     ecx, [ebp+var_B8]
                 push    ecx
-                call    _ScenarioEnterInn
+                call    ?ScenarioEnterInn@@YGXPAH0@Z
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0FCh
                 call    sub_402830
@@ -163878,7 +163878,7 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+var_8]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A2476
-                call    _ScenarioLeaveInn
+                call    ?ScenarioLeaveInn@@YGXXZ
 
 loc_4A2476:                             ; CODE XREF: sub_4A2448+26↑j
                 mov     ecx, dword ptr [ebp+var_30]
@@ -205440,7 +205440,7 @@ loc_4BC26E:                             ; CODE XREF: sub_4BC0E7+173↑j
                 mov     edx, dword ptr [ebp+var_8]
                 cmp     dword ptr [edx+640h], 2
                 jnz     short loc_4BC325
-                call    _ScenarioLeaveShop
+                call    ?ScenarioLeaveShop@@YGXXZ
 
 loc_4BC325:                             ; CODE XREF: sub_4BC0E7+236↑j
                 mov     esp, ebp
@@ -205850,7 +205850,7 @@ loc_4BC81B:                             ; CODE XREF: sub_4BC32B+4B7↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 cmp     dword ptr [ecx+640h], 2
                 jnz     short loc_4BC838
-                call    _ScenarioEnterShop
+                call    ?ScenarioEnterShop@@YGHXZ
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [edx+160h], eax
                 jmp     short loc_4BC845
@@ -205889,7 +205889,7 @@ loc_4BC845:                             ; CODE XREF: sub_4BC32B+50B↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 mov     edx, dword ptr [ecx+160h]
                 push    edx
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
 ;   } // starts at 4BC86D
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_20] ; varThis
@@ -214166,7 +214166,7 @@ loc_4C23A0:                             ; CODE XREF: sub_4C1E5C+50B↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 cmp     dword ptr [ecx+640h], 2
                 jnz     short loc_4C23BD
-                call    _ScenarioEnterShop
+                call    ?ScenarioEnterShop@@YGHXZ
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [edx+160h], eax
                 jmp     short loc_4C23CA
@@ -214205,7 +214205,7 @@ loc_4C23CA:                             ; CODE XREF: sub_4C1E5C+55F↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 mov     edx, dword ptr [ecx+160h]
                 push    edx
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
 ;   } // starts at 4C23F2
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_20] ; varThis
@@ -214609,7 +214609,7 @@ var_4           = dword ptr -4
 
 loc_4C2866:                             ; CODE XREF: sub_4C2842+1B↑j
                 push    302h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jz      short loc_4C287C
                 mov     eax, 1
@@ -216999,7 +216999,7 @@ loc_4C40B4:                             ; CODE XREF: sub_4C3B70+50B↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 cmp     dword ptr [ecx+640h], 2
                 jnz     short loc_4C40D1
-                call    _ScenarioEnterShop
+                call    ?ScenarioEnterShop@@YGHXZ
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [edx+160h], eax
                 jmp     short loc_4C40DE
@@ -217038,7 +217038,7 @@ loc_4C40DE:                             ; CODE XREF: sub_4C3B70+55F↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 mov     edx, dword ptr [ecx+160h]
                 push    edx
-                call    _ScenarioTalkTo
+                call    ?ScenarioTalkTo@@YGXI@Z
 ;   } // starts at 4C4106
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_20] ; varThis
@@ -230775,7 +230775,7 @@ arg_8           = dword ptr  10h
 
 loc_4CE55F:                             ; CODE XREF: sub_4CE50A+4E↑j
                 push    301h            ; jumptable 004CE558 case 8
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jz      short loc_4CE5A8
                 mov     edx, dword ptr [ebp+var_C]
@@ -233666,7 +233666,7 @@ var_4           = dword ptr -4
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
                 mov     [ebp+var_4], eax
                 push    301h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jnz     short loc_4D0968
                 mov     eax, dword ptr [ebp+var_14]
@@ -234781,7 +234781,7 @@ loc_4D1547:                             ; CODE XREF: sub_4D1429+67↑j
 
 loc_4D1549:                             ; CODE XREF: sub_4D1429+67↑j
                 push    301h            ; jumptable 004D1490 case 8
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 test    eax, eax
                 jnz     short loc_4D1567
                 mov     eax, dword ptr [ebp+var_C]
@@ -238348,7 +238348,7 @@ loc_4D401C:                             ; CODE XREF: sub_4D3F18+55↑j
 
 loc_4D4033:                             ; CODE XREF: sub_4D3F18+62↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aDruidinnkeeper ; "druidinnkeeper%d"
                 lea     eax, [ebp+Buffer]
@@ -238365,7 +238365,7 @@ loc_4D4033:                             ; CODE XREF: sub_4D3F18+62↑j
 
 loc_4D4064:                             ; CODE XREF: sub_4D3F18+6F↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aDruidshopkeepe ; "druidshopkeeper%d"
                 lea     eax, [ebp+Buffer]
@@ -241818,7 +241818,7 @@ loc_4D6932:                             ; CODE XREF: sub_4D6802+79↑j
 
 loc_4D694C:                             ; CODE XREF: sub_4D6802+98↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aKaargguardD ; "kaargguard%d"
                 lea     eax, [ebp+Buffer]
@@ -241835,7 +241835,7 @@ loc_4D694C:                             ; CODE XREF: sub_4D6802+98↑j
 
 loc_4D6980:                             ; CODE XREF: sub_4D6802+6F↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aKaargwomanD ; "kaargwoman%d"
                 lea     eax, [ebp+Buffer]
@@ -241852,7 +241852,7 @@ loc_4D6980:                             ; CODE XREF: sub_4D6802+6F↑j
 
 loc_4D69B1:                             ; CODE XREF: sub_4D6802+54↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aKaargwomanD_0 ; "kaargwoman%d"
                 lea     eax, [ebp+Buffer]
@@ -241869,7 +241869,7 @@ loc_4D69B1:                             ; CODE XREF: sub_4D6802+54↑j
 
 loc_4D69E2:                             ; CODE XREF: sub_4D6802+8B↑j
                 push    300h
-                call    _ScenarioGetVar
+                call    ?ScenarioGetVar@@YGHH@Z
                 push    eax
                 push    offset aKaargmanD ; "kaargman%d"
                 lea     eax, [ebp+Buffer]
@@ -483254,37 +483254,9 @@ byte_6654BC     db 4 dup(?)             ; DATA XREF: sub_47EFDF+51F↑o
 
 ; CString dword_6658C0
 dword_6658C0    dd ?                    ; DATA XREF: sub_48234E+3↑o
-_ScenarioGetAvailableLocations    dd ?                    ; DATA XREF: sub_4714E7+94↑r
-_ScenarioLeaveLocation    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+ECA↑w
-_ScenarioNewGame    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F2C↑w
-_ScenarioSave    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F40↑w
-; HMODULE hLibModule
-hLibModule      dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+E1A↑w
 
 
-_ScenarioLeaveInn    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F18↑w
-_ScenarioGetCurrentLocation    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+FB6↑w
 
-_ScenarioIsMissionAvailable    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+FA2↑w
-_ScenarioEnterLocation    dd ?                    ; DATA XREF: sub_4714E7+979↑r
-; int (__cdecl *_ScenarioSetVar)(_DWORD, _DWORD)
-_ScenarioSetVar    dd ?                    ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+2B51↑r
-_ScenarioGetVar    dd ?                    ; DATA XREF: sub_4451E1+109↑r
-                db 100h dup(?)
-_ScenarioLeaveShop    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+EF1↑w
-_ScenarioEnterShop    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+EDD↑w
-
-_ScenarioTalkTo    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+EA2↑w
-_ScenarioLoad    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F53↑w
-_ScenarioGetShopAssortment    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F7B↑w
-                db 4 dup(?)
-; HANDLE hObject
-g_hObject         dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+E0A↑w
-_ScenarioEnterInn    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F05↑w
-                db 4 dup(?)
-
-_ScenarioGetAllLocations    dd ?                    ; DATA XREF: sub_47025D+9↑r
-_ScenarioIsTownAvailable    dd ?                    ; DATA XREF: ?InitInstance@GameApp@@UAEHXZ+F8E↑w
 byte_665CF8      db    ?
                 db 3 dup(?)
 dword_665D04    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z:loc_48367F↑w

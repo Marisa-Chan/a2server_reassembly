@@ -57,7 +57,6 @@ TxtFile TxtFile_00660e88; //660e88
 
 
 HANDLE g_AutoRunEvent;
-HMODULE g_scenario_dll;
 
 
 DistortMap* g_DistortMap;       // 65fbbc
@@ -701,32 +700,6 @@ BOOL GameApp::InitInstance()
 	mwnd->PostMessageA(0x421, 0, 0);
 
 	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
-	g_scenario_dll = LoadLibraryA("scenario.dll");
-
-	if (g_scenario_dll == NULL)
-	{
-		AfxMessageBox("Can\'t find scenario.dll");
-		return FALSE;
-	}
-
-	ScenarioGetVar = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)1);
-	ScenarioSetVar = (void(__stdcall*)(int32_t, int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)2);
-	ScenarioTalkTo = (void(__stdcall *)(uint32_t))GetProcAddress(g_scenario_dll, (LPCSTR)3);
-	ScenarioEnterLocation = (void(__stdcall*)(ScenarioLocation*))GetProcAddress(g_scenario_dll, (LPCSTR)5);
-	ScenarioLeaveLocation = (int32_t(__stdcall *)(int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)6);
-	ScenarioEnterShop = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)7);
-	ScenarioLeaveShop = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)8);
-	ScenarioEnterInn = (void(__stdcall*)(int32_t*,int32_t*))GetProcAddress(g_scenario_dll, (LPCSTR)9);
-	ScenarioLeaveInn = (void(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)10);
-	ScenarioNewGame = (void(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)11);
-	ScenarioSave = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)12);
-	ScenarioLoad = (void(__stdcall*)(CFile*))GetProcAddress(g_scenario_dll, (LPCSTR)13);
-	ScenarioGetAvailableLocations = (CList<ScenarioLocation*>* (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)14);
-	ScenarioGetShopAssortment = (AssortGenParams*(__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)15);
-	ScenarioIsTownAvailable = (int32_t (__stdcall *)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)16);
-	ScenarioIsMissionAvailable = (int32_t(__stdcall*)(int32_t))GetProcAddress(g_scenario_dll, (LPCSTR)17);
-	ScenarioGetCurrentLocation = (ScenarioLocation * (__stdcall*)())GetProcAddress(g_scenario_dll, (LPCSTR)18);
-	ScenarioGetAllLocations = (CList<ScenarioLocation*>*(__stdcall *)())GetProcAddress(g_scenario_dll, (LPCSTR)19);
 
 	mwnd->field_0x45c = 0;
 
@@ -798,7 +771,6 @@ int GameApp::ExitInstance()
 	if (g_EnableTrace != 0)
 		g_NetStru1_main.WriteStatsLog("pkt.log");
 
-	FreeLibrary(g_scenario_dll);
 	CloseHandle(g_AutoRunEvent);
 
 	txt_patch.Free();

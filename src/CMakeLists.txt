@@ -42,6 +42,7 @@ set(A2_SOURCES
   quest_map.cpp
   resource.cpp
   sack.cpp
+  scenario.cpp
   server.cpp
   shelf.cpp
   shop.cpp

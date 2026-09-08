@@ -139,34 +139,71 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
 void __cdecl sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id);
 
 
+
+struct ScenarioState
+{
+	int32_t vars[512];
+	int32_t locationEntrySelectionFlags[20];
+	int32_t locationEntryStates[20];
+	int32_t locationEntryLocationIds[20];
+	int32_t reserved23cTo2ef[180];
+	int32_t currentLocationTransientFlags[16];
+	int32_t scenarioChapter;
+	int32_t startMissionAllowed;
+	int32_t specialDialogStateLowConfidence;
+	int32_t innSceneUnlockedLowConfidence;
+	int32_t followupLocationUnlockFlagLowConfidence;
+	int32_t locationTransitionStateLowConfidence;
+	int32_t laterSceneStateLowConfidence;
+	int32_t rebuildAvailableLocationsPending;
+	int32_t isMage;
+	int32_t unk;
+	int32_t pairedObjectiveBCompletedLowConfidence;
+	int32_t endingVariantFlagLowConfidence;
+	int32_t mission31UnlockedLowConfidence;
+	int32_t isFemale;
+	int32_t reserved30eTo37f[114];
+	int32_t completedLocationFlags[128];
+};
+ASSERT_SIZE(ScenarioState, 0x1000);
+
 struct ScenarioLocation
 {
-	int32_t kind;
-	int32_t id;
+	int32_t kind = 0;
+	int32_t id = 0;
 	CRect rect;
 
 	int GetId() { return id; } //475150
 	CRect& GetRect() { return rect; } //475170
+	int32_t GetKind() { return kind; }
+
+	void Read(CFile* fl);
+	void Write(CFile* fl);
+
+	ScenarioLocation() = default;
+
+	ScenarioLocation(int32_t _kind, int32_t _id, int32_t x, int32_t y, int32_t w, int32_t h)
+	: kind(_kind), id(_id), rect(x, y, x + w, y + h) {}
 };
 
-extern "C" int32_t(__stdcall* ScenarioGetVar)(int32_t); //665a04
-extern "C" void(__stdcall* ScenarioSetVar)(int32_t, int32_t); //665a00
-extern "C" void(__stdcall* ScenarioTalkTo)(uint32_t); //665bd4
-extern "C" void(__stdcall* ScenarioEnterLocation)(ScenarioLocation* loc); //6659fc
-extern "C" int32_t(__stdcall* ScenarioLeaveLocation)(int32_t*); //6658c8
-extern "C" void(__stdcall* ScenarioEnterShop)(); //665b0c
-extern "C" void(__stdcall* ScenarioLeaveShop)(); //665b08
-extern "C" void(__stdcall* ScenarioEnterInn)(int32_t*, int32_t*); //665be8
-extern "C" void(__stdcall* ScenarioLeaveInn)(); //6658f0
-extern "C" void(__stdcall* ScenarioNewGame)(); //6658cc
-extern "C" void (__stdcall* ScenarioSave)(CFile*); //6658d0
-extern "C" void (__stdcall* ScenarioLoad)(CFile*); //665bd8
-extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAvailableLocations)(); //6658c4
-extern "C" AssortGenParams* (__stdcall* ScenarioGetShopAssortment)(); //665bdc
-extern "C" int32_t (__stdcall* ScenarioIsTownAvailable)(int32_t); //665cf4
-extern "C" int32_t (__stdcall* ScenarioIsMissionAvailable)(int32_t); //6659f8
-extern "C" ScenarioLocation* (__stdcall* ScenarioGetCurrentLocation)(); //6658f4
-extern "C" CList<ScenarioLocation*>* (__stdcall* ScenarioGetAllLocations)(); //665cf0
+int32_t __stdcall ScenarioGetVar(int32_t); //665a04
+void __stdcall ScenarioSetVar(int32_t, int32_t); //665a00
+void __stdcall ScenarioTalkTo(uint32_t); //665bd4
+void __stdcall ScenarioEnterLocation(ScenarioLocation* loc); //6659fc
+int32_t __stdcall ScenarioLeaveLocation(int32_t*); //6658c8
+int32_t __stdcall ScenarioEnterShop(); //665b0c
+void __stdcall ScenarioLeaveShop(); //665b08
+void __stdcall ScenarioEnterInn(int32_t*, int32_t*); //665be8
+void __stdcall ScenarioLeaveInn(); //6658f0
+void __stdcall ScenarioNewGame(); //6658cc
+void __stdcall ScenarioSave(CFile*); //6658d0
+void __stdcall ScenarioLoad(CFile*); //665bd8
+CList<ScenarioLocation*>* __stdcall ScenarioGetAvailableLocations(); //6658c4
+AssortGenParams* __stdcall ScenarioGetShopAssortment(); //665bdc
+int32_t __stdcall ScenarioIsTownAvailable(int32_t); //665cf4
+int32_t __stdcall ScenarioIsMissionAvailable(int32_t); //6659f8
+ScenarioLocation* __stdcall ScenarioGetCurrentLocation(); //6658f4
+CList<ScenarioLocation*>* __stdcall ScenarioGetAllLocations(); //665cf0
 
 
 

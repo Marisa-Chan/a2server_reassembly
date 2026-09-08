@@ -368,6 +368,7 @@
     <ClCompile Include="quest_map.cpp" />
     <ClCompile Include="resource.cpp" />
     <ClCompile Include="sack.cpp" />
+    <ClCompile Include="scenario.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="shelf.cpp" />
     <ClCompile Include="shop.cpp" />

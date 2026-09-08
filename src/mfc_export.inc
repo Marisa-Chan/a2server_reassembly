@@ -277,25 +277,18 @@ extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl su
 
 
 ;Scenario
-extern ?g_scenario_dll@@3PAUHINSTANCE__@@A  : dword
-externdef _ScenarioGetVar  :dword
-externdef _ScenarioSetVar  :dword
-externdef _ScenarioTalkTo  :dword
-externdef _ScenarioEnterLocation  :dword
-externdef _ScenarioLeaveLocation  :dword
-externdef _ScenarioEnterShop  :dword
-externdef _ScenarioLeaveShop  :dword
-externdef _ScenarioEnterInn  :dword
-externdef _ScenarioLeaveInn  :dword
-externdef _ScenarioNewGame  :dword
-externdef _ScenarioSave  :dword
-externdef _ScenarioLoad  :dword
-externdef _ScenarioGetAvailableLocations  :dword
-externdef _ScenarioGetShopAssortment  :dword
-externdef _ScenarioIsTownAvailable  :dword
-externdef _ScenarioIsMissionAvailable  :dword
-externdef _ScenarioGetCurrentLocation  :dword
-externdef _ScenarioGetAllLocations  :dword
+extern ?ScenarioGetVar@@YGHH@Z  :proc
+extern ?ScenarioTalkTo@@YGXI@Z  :proc
+extern ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z  :proc
+extern ?ScenarioLeaveLocation@@YGHPAH@Z  :proc
+extern ?ScenarioEnterShop@@YGHXZ  :proc
+extern ?ScenarioLeaveShop@@YGXXZ  :proc
+extern ?ScenarioEnterInn@@YGXPAH0@Z  :proc
+extern ?ScenarioLeaveInn@@YGXXZ  :proc
+extern ?ScenarioNewGame@@YGXXZ  :proc
+extern ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ  :proc
+extern ?ScenarioIsTownAvailable@@YGHH@Z  :proc
+extern ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ  :proc
 
 
 
