@@ -9,6 +9,7 @@
 #include "map_stuff.h"
 
 #include <cmath>
+#include <cstring>
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
@@ -506,6 +507,332 @@ CUnit::~CUnit()
 
     if (sprite_b)
         delete sprite_b;
+}
+
+void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2)
+{ // 469ffc
+    if (bmp1 != nullptr && bmp1->GetData() != nullptr) {
+        memset(bmp1->GetData(), 0, bmp1->GetWidth(0) * bmp1->GetHeight(0) * 2);
+    }
+
+    if (bmp2 != nullptr && bmp2->GetData() != nullptr) {
+        memset(bmp2->GetData(), 0, bmp2->GetWidth(0) * bmp2->GetHeight(0));
+    }
+
+    char sprite_prefix[256] = { 0 };
+    strcpy(sprite_prefix, "graphics\\equipment\\");
+
+    switch (this->unitFlags & 6) {
+    case 0:
+        strcat(sprite_prefix, "mfighter\\");
+        break;
+    case 2:
+        strcat(sprite_prefix, "mmage\\");
+        break;
+    case 4:
+        strcat(sprite_prefix, "ffighter\\");
+        break;
+    case 6:
+        strcat(sprite_prefix, "fmage\\");
+        break;
+    default:
+        break;
+    }
+
+    CSprite256* item_sprites[12] = { nullptr };
+    CSprite256* extra_sprites[10] = { nullptr };
+
+    for (int i = 0; i < 12; ++i) {
+        if (equipmentTokens[i] != nullptr) {
+            CString base_name = sprite_prefix;
+            CString extra_name = sprite_prefix;
+            CString item_name = equipmentTokens[i]->FUN_004394f3();
+            CString item_name2 = equipmentTokens[i]->FUN_004394f3();
+
+            base_name += "primary\\";
+            base_name += item_name;
+            base_name += ".256";
+
+            extra_name += "secondary\\";
+            extra_name += item_name2;
+            extra_name += ".256";
+
+            item_sprites[i] = new CSprite256(base_name);
+            item_sprites[i]->ResetPalette(1, 1, 0);
+
+            if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & 2) != 0)) {
+                extra_sprites[i] = new CSprite256(extra_name);
+                if (extra_sprites[i]) {
+                    extra_sprites[i]->ResetPalette(1, 1, 0);
+                }
+            }
+        }
+    }
+
+    char sprite_name[256] = { 0 };
+    sprintf(sprite_name, "%s%d.256", sprite_prefix, this->face);
+
+    CSprite256* unit_sprite = new CSprite256(sprite_name);
+    if (unit_sprite) {
+        unit_sprite->ResetPalette(1, 1, 0);
+    }
+
+    CBmp64* horse_sprite = nullptr;
+    if (0x10 < this->typeId && this->typeId < 0x16) {
+        horse_sprite = new CBmp64("graphics\\infowindow\\horse.bmp");
+    }
+
+    if (bmp1 != nullptr) {
+        bmp1->SelectBitmapForDraw();
+    }
+
+    if (horse_sprite != nullptr) {
+        horse_sprite->VMethod2(0, 0, 0, 0, 0);
+    }
+
+    if ((this->unitFlags & 1) != 0 && (this->unitFlags & 2) == 0) {
+        if ((this->unitFlags & 4) == 0) {
+            if (g_spr_backm != nullptr) {
+                g_spr_backm->VMethod2(0, 0, 0, 0, 0);
+            }
+        } else if (g_spr_backf != nullptr) {
+            g_spr_backf->VMethod2(0, 0, 0, 0, 0);
+        }
+    }
+
+    int first_equipment_state = 0;
+    if (this->equipmentTokens[0] != nullptr) {
+        first_equipment_state = this->equipmentTokens[0]->FUN_004396d6();
+    }
+
+    if ((this->unitFlags & 2) == 0) {
+        if (unit_sprite != nullptr) {
+            unit_sprite->VMethod2(0, 0, 0, 0, 0);
+        }
+
+        if (item_sprites[11] != nullptr) {
+            item_sprites[11]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[10] != nullptr) {
+            item_sprites[10]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[6] != nullptr) {
+            item_sprites[6]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[3] != nullptr) {
+            item_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[4] != nullptr) {
+            item_sprites[4]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[8] != nullptr) {
+            item_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[9] != nullptr) {
+            item_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (first_equipment_state == 0 && item_sprites[0] != nullptr) {
+            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[7] != nullptr) {
+            item_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[3] != nullptr) {
+            extra_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[5] != nullptr) {
+            item_sprites[5]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[8] != nullptr) {
+            extra_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[9] != nullptr) {
+            extra_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (first_equipment_state == 0) {
+            if (item_sprites[1] != nullptr) {
+                item_sprites[1]->VMethod2(0, 0, 0, 0, 0);
+            }
+        } else if (item_sprites[0] != nullptr) {
+            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+        }
+
+        if (bmp2 != nullptr) {
+            bmp2->SelectBitmapForDraw();
+
+            if (item_sprites[11] != nullptr) {
+                item_sprites[11]->VMethod12(0, 0, 0, 12);
+            }
+            if (item_sprites[10] != nullptr) {
+                item_sprites[10]->VMethod12(0, 0, 0, 11);
+            }
+            if (item_sprites[6] != nullptr) {
+                item_sprites[6]->VMethod12(0, 0, 0, 7);
+            }
+            if (item_sprites[3] != nullptr) {
+                item_sprites[3]->VMethod12(0, 0, 0, 4);
+            }
+            if (item_sprites[4] != nullptr) {
+                item_sprites[4]->VMethod12(0, 0, 0, 5);
+            }
+            if (item_sprites[8] != nullptr) {
+                item_sprites[8]->VMethod12(0, 0, 0, 9);
+            }
+            if (item_sprites[9] != nullptr) {
+                item_sprites[9]->VMethod12(0, 0, 0, 10);
+            }
+            if (first_equipment_state == 0 && item_sprites[0] != nullptr) {
+                item_sprites[0]->VMethod12(0, 0, 0, 1);
+            }
+            if (item_sprites[7] != nullptr) {
+                item_sprites[7]->VMethod12(0, 0, 0, 8);
+            }
+            if (extra_sprites[3] != nullptr) {
+                extra_sprites[3]->VMethod12(0, 0, 0, 4);
+            }
+            if (item_sprites[5] != nullptr) {
+                item_sprites[5]->VMethod12(0, 0, 0, 6);
+            }
+            if (extra_sprites[8] != nullptr) {
+                extra_sprites[8]->VMethod12(0, 0, 0, 9);
+            }
+            if (extra_sprites[9] != nullptr) {
+                extra_sprites[9]->VMethod12(0, 0, 0, 10);
+            }
+            if (first_equipment_state == 0) {
+                if (item_sprites[1] != nullptr) {
+                    item_sprites[1]->VMethod12(0, 0, 0, 2);
+                }
+            } else if (item_sprites[0] != nullptr) {
+                item_sprites[0]->VMethod12(0, 0, 0, 1);
+            }
+        }
+    } else {
+        if (item_sprites[7] != nullptr) {
+            item_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+        }
+        unit_sprite->VMethod2(0, 0, 0, 0, 0);
+        if (item_sprites[11] != nullptr) {
+            item_sprites[11]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[9] != nullptr) {
+            item_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[9] != nullptr) {
+            extra_sprites[9]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[3] != nullptr) {
+            item_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[3] != nullptr) {
+            extra_sprites[3]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[6] != nullptr) {
+            item_sprites[6]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[4] != nullptr) {
+            item_sprites[4]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[8] != nullptr) {
+            item_sprites[8]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[0] != nullptr) {
+            item_sprites[0]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (item_sprites[5] != nullptr) {
+            item_sprites[5]->VMethod2(0, 0, 0, 0, 0);
+        }
+        if (extra_sprites[7] != nullptr) {
+            extra_sprites[7]->VMethod2(0, 0, 0, 0, 0);
+        }
+
+        if (bmp2 != nullptr) {
+            bmp2->SelectBitmapForDraw();
+
+            if (item_sprites[7] != nullptr) {
+                item_sprites[7]->VMethod12(0, 0, 0, 8);
+            }
+            unit_sprite->VMethod12(0, 0, 0, 0);
+            if (item_sprites[11] != nullptr) {
+                item_sprites[11]->VMethod12(0, 0, 0, 8);
+            }
+            if (item_sprites[9] != nullptr) {
+                item_sprites[9]->VMethod12(0, 0, 0, 12);
+            }
+            if (extra_sprites[9] != nullptr) {
+                extra_sprites[9]->VMethod12(0, 0, 0, 10);
+            }
+            if (item_sprites[3] != nullptr) {
+                item_sprites[3]->VMethod12(0, 0, 0, 4);
+            }
+            if (extra_sprites[3] != nullptr) {
+                extra_sprites[3]->VMethod12(0, 0, 0, 4);
+            }
+            if (item_sprites[6] != nullptr) {
+                item_sprites[6]->VMethod12(0, 0, 0, 7);
+            }
+            if (item_sprites[4] != nullptr) {
+                item_sprites[4]->VMethod12(0, 0, 0, 5);
+            }
+            if (item_sprites[8] != nullptr) {
+                item_sprites[8]->VMethod12(0, 0, 0, 9);
+            }
+            if (item_sprites[0] != nullptr) {
+                item_sprites[0]->VMethod12(0, 0, 0, 1);
+            }
+            if (item_sprites[5] != nullptr) {
+                item_sprites[5]->VMethod12(0, 0, 0, 6);
+            }
+            if (extra_sprites[7] != nullptr) {
+                extra_sprites[7]->VMethod12(0, 0, 0, 8);
+            }
+        }
+    }
+
+    if (str != nullptr) {
+        bmp1->VMethod7();
+        static_cast<CBmp64*>(bmp1)->WriteFile(str, bmp2); // TODO: is `bmp1` actually `CBmp64*`?
+    }
+
+    uint8_t palette_data[256 * 4] = { 0 };
+    for (int i = 0; i < 0x100; ++i) {
+        palette_data[i * 4 + 0] = ((uint8_t)i & 0xF) * 8 - 0x80;
+        palette_data[i * 4 + 1] = ((uint8_t)i & 0xF) * 8 - 0x80;
+        palette_data[i * 4 + 2] = ((uint8_t)i & 0xF) * 8 - 0x80;
+    }
+
+    if (bmp2 != nullptr) {
+        bmp2->palette_data = palette_data;
+        bmp2->ResetPalette(1, 1, 0);
+    }
+
+    for (int i = 0; i < 12; ++i) {
+        delete item_sprites[i];
+        item_sprites[i] = nullptr;
+
+        delete extra_sprites[i];
+        extra_sprites[i] = nullptr;
+    }
+
+    if (unit_sprite != nullptr) {
+        delete unit_sprite;
+    }
+
+    if (str != nullptr) {
+        this->unitFlags &= ~0x8;
+    }
+
+    if (this->action == 3 || this->action == 7 || this->action == 8) {
+        this->action = 0;
+        this->phase = 0;
+        this->field_0x34 = -1;
+        this->action_phase = 0;
+        this->action_segments = 0;
+    }
+
+    if (horse_sprite != nullptr) {
+        delete horse_sprite;
+    }
 }
 
 
