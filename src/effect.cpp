@@ -31,12 +31,12 @@ void Effect::VMethod12(Unit* unit)
             }
             g_NetStru1_main.sub_51C601(unit, 0);
         }
-    } else if (this->itemDataID == spell::darkness) {
+    } else if (this->itemDataID == spell::light) {
         if (unit->VMethod8() == 0) {
             unit->scan_range -= this->spell_or_damage * 256;
             unit->field_0x150 |= 0x40000;
         }
-    } else if (this->itemDataID == spell::light) {
+    } else if (this->itemDataID == spell::darkness) {
         if (unit->VMethod8() != 0) {
             unit->equipment_extra.scan_range += this->spell_or_damage * 256;
             unit->scan_range += this->spell_or_damage * 256;
