@@ -60,6 +60,9 @@ public:
 		palette_datas.fill(nullptr);
 	}
 
+	CGamePalette* FUN_0046f680(int32_t idx); //46f680
+	uint8_t* FUN_0046f6e0(int32_t idx); //46f6e0
+
 public:
 	int32_t ID;
 	int32_t N;
@@ -154,6 +157,9 @@ public:
 
 	void Init(); //47c943
 	void Deinit(); //47caa4
+
+	CSprite256* FUN_0046f700(); //46f700
+	CSprite256* FUN_0046f730(); //46f730
 public:
 	CSprite256* spr;
 	CSprite256* spr_b;
@@ -208,6 +214,8 @@ public:
 
 	void Init(); //47e26b
 	void Deinit(); //47e56b
+
+	CSprite256* FUN_0041f8f0(); //41f8f0
 public:
 	CSprite256* sprite1 = nullptr;
 	CSprite256* sprite2 = nullptr;

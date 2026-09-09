@@ -2296,10 +2296,16 @@ externdef   ?VMethod2@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod3@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod4@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod5@CUnit@@UAEHXZ  : proc
-externdef   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
+extern   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
+externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
+externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc
+externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
+externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
+externdef   ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
+externdef   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?VMethod10@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod11@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod13@CUnit@@UAEXXZ  : proc

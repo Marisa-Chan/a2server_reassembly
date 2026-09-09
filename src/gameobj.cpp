@@ -5,6 +5,10 @@
 #include "unit.h"
 #include "packet.h"
 #include "gfx.h"
+#include "ingame.h"
+#include "map_stuff.h"
+
+#include <cmath>
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
@@ -764,6 +768,223 @@ void CUnit::ReloadSprite()
                 typeId = 23;
             else if (strcmp(heroSpritePictureName, "mage_st") == 0)
                 typeId = 24;
+        }
+    }
+}
+
+void CUnit::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
+{ // 464974
+    if (this->field_0x180[4] >= 5) {
+        return;
+    }
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* map = this->pMapObject;
+
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * 65536.0);
+    (void)sun_angle; // computed but never used in the original binary
+
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    int32_t file_idx = vfx->file;
+    int32_t palette_id = vfx->palette;
+    int32_t flip = 0;
+    int32_t base_phases = vfx->move_phases + vfx->move_begin_phases;
+    int32_t dir8 = ((this->dir - 8) & 0xE) >> 1;
+    if (vfx->flip != 0 && dir8 > 4) {
+        dir8 = 8 - dir8;
+        flip = 1;
+    }
+
+    int32_t vfx_idx = this->typeId;
+
+    for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
+        GO_11c* elem = &this->transientVisualElements[i];
+        if (elem->field_0x4 > 0) {
+            ProjectileInfo* proj = g_ProjectileInfos[elem->field_0x6];
+            int32_t x = this->centerScreenX + elem->field_0x0 - proj->width / 2;
+            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->field_0x2 - proj->height / 2 - elem->field_0x4;
+            proj->FUN_0041f8f0()->VMethod2(x, y, elem->field_0x7, 0, 0);
+        }
+    }
+
+    int32_t frame = 0;
+    switch (this->last_action) {
+    case 0:
+        if (vfx->idle_phases != 0) {
+            frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 0x10 + vfx->idle_anim_frames[this->phase];
+            if (vfx->flip != 0 && dir8 > 4) {
+                dir8 = 8 - dir8;
+                flip = 1;
+            }
+            if (vfx->flip != 0) {
+                frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + vfx->idle_anim_frames[this->phase];
+            }
+        } else if (this->field_0x180[4] == 1) {
+            vfx_idx = vfx->dying;
+            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            file_idx = dying_vfx->file;
+            base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
+            dir8 = ((this->dir - 8) & 0xE) >> 1;
+            if (dying_vfx->flip != 0 && dir8 > 4) {
+                dir8 = 8 - dir8;
+                flip = 1;
+            }
+            if (dying_vfx->flip != 0) {
+                frame = (base_phases + dying_vfx->attack_phases) * 5 + (dir8 + 1) * dying_vfx->dying_phases + 8;
+            } else {
+                frame = (dir8 + 1) * dying_vfx->dying_phases + (base_phases + dying_vfx->attack_phases) * 8 + 0xF;
+            }
+        } else if (this->field_0x180[4] <= 1 || g_VFX_info[vfx->dying]->bone_phases == 0) {
+            frame = (this->dir - 8) & 0xF;
+            if (vfx->flip != 0 && frame > 8) {
+                frame = 0x10 - frame;
+                flip = 1;
+            }
+        } else {
+            vfx_idx = vfx->dying;
+            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            file_idx = dying_vfx->file;
+            base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
+            dir8 = ((this->dir - 8) & 0xE) >> 1;
+            if (dying_vfx->flip != 0 && dir8 > 4) {
+                dir8 = 8 - dir8;
+                flip = 1;
+            }
+            if (dying_vfx->flip != 0) {
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 9 + this->field_0x180[4] - 2;
+            } else {
+                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->field_0x180[4] - 2;
+            }
+        }
+        break;
+    case 1:
+        if (vfx->flip != 0) {
+            frame = dir8 * base_phases + vfx->move_begin_phases + 9 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
+        } else {
+            frame = dir8 * base_phases + vfx->move_begin_phases + 0x10 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
+        }
+        break;
+    case 3:
+    case 7:
+    case 8:
+        if (vfx->flip != 0) {
+            frame = base_phases * 5 + dir8 * vfx->attack_phases + 9 + vfx->attack_anim_frames[this->phase];
+        } else {
+            frame = dir8 * vfx->attack_phases + base_phases * 8 + 0x10 + vfx->attack_anim_frames[this->phase];
+        }
+        break;
+    case 5:
+        frame = (this->dir - 8) & 0xF;
+        if (vfx->flip != 0 && frame > 8) {
+            frame = 0x10 - frame;
+            flip = 1;
+        }
+        break;
+    case 6: {
+        vfx_idx = vfx->dying;
+        UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+        file_idx = dying_vfx->file;
+        base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
+        dir8 = ((this->dir - 8) & 0xE) >> 1;
+        if (dying_vfx->flip != 0 && dir8 > 4) {
+            dir8 = 8 - dir8;
+            flip = 1;
+        }
+        if (dying_vfx->flip != 0) {
+            frame = (base_phases + dying_vfx->attack_phases) * 5 + dir8 * dying_vfx->dying_phases + 9 + this->phase / 2;
+        } else {
+            frame = dir8 * dying_vfx->dying_phases + (base_phases + dying_vfx->attack_phases) * 8 + 0x10 + this->phase / 2;
+        }
+        break;
+    }
+    }
+
+    if (this->FUN_00462405(0x2C) >= 0 && this->field_0x180[4] <= 2) {
+        frame = (this->dir - 8) & 0xF;
+        if (vfx->flip != 0 && frame > 8) {
+            frame = 0x10 - frame;
+            flip = 1;
+        }
+    }
+
+    CGamePalette tmp_palette;
+    CGamePalette* palette;
+    if (palette_id == 0) {
+        palette = g_Human_palettes[this->map_player->color];
+    } else if (palette_id == 1) {
+        palette = g_VFX_info[vfx_idx]->FUN_0046f680(0);
+    } else {
+        palette = g_VFX_info[vfx_idx]->FUN_0046f680(this->face - 1);
+    }
+
+    if (this->FUN_00462405(0x2C) >= 0 && this->field_0x180[4] <= 2) {
+        if (palette_id == 0) {
+            palette = g_Human_palettes[0x10];
+        } else {
+            palette = &tmp_palette;
+            tmp_palette.SetPalette((RGBQUAD*)g_VFX_info[vfx_idx]->FUN_0046f6e0(0), 0x10, 5, 0);
+        }
+    }
+
+    if (map->field_0x994 == this && main_wnd->field_0x408 == NULL) {
+        arg3 = 0;
+    }
+
+    UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
+    if ((this->unitFlags & 1) != 0) {
+        if (this->sprite->GetFrameCount() <= frame) {
+            return;
+        }
+        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite->GetWidth(frame) / 2;
+        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite->GetHeight(frame) / 2;
+        int32_t x = this->centerScreenX - cx;
+        int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
+        if (this->FUN_00462405(0x20) < 0) {
+            this->sprite->VMethod1(x, y, frame, arg3, palette, flip);
+        } else {
+            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+                return;
+            }
+            this->sprite->VMethod9(x, y, frame, arg3, palette, flip);
+        }
+        cx = draw_vfx->center_x - draw_vfx->width / 2 + this->sprite_b->GetWidth(frame) / 2;
+        cy = draw_vfx->center_y - draw_vfx->height / 2 + this->sprite_b->GetHeight(frame) / 2;
+        x = this->centerScreenX - cx;
+        y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
+        if (g_settings.Smoothing != 0) {
+            this->sprite_b->VMethod9(x, y, frame, arg3, palette, flip);
+        }
+    } else {
+        this->IsKindOf(RUNTIME_CLASS(CAirUnit)); // result unused in the original binary
+        UnitGfxFile* gfx_file = g_UnitGfxFiles[file_idx];
+        int32_t cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f700()->GetWidth(frame) / 2;
+        int32_t cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f700()->GetHeight(frame) / 2;
+        int32_t x = this->centerScreenX - cx;
+        int32_t y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
+        if (this->FUN_00462405(0x20) < 0) {
+            gfx_file->FUN_0046f700()->VMethod1(x, y, frame, arg3, palette, flip);
+        } else {
+            if (map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+                return;
+            }
+            gfx_file->FUN_0046f700()->VMethod9(x, y, frame, arg3, palette, flip);
+        }
+        cx = draw_vfx->center_x - draw_vfx->width / 2 + gfx_file->FUN_0046f730()->GetWidth(frame) / 2;
+        cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->FUN_0046f730()->GetHeight(frame) / 2;
+        x = this->centerScreenX - cx;
+        y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
+        if (g_settings.Smoothing != 0 || this->typeId == 0x45) {
+            gfx_file->FUN_0046f730()->VMethod9(x, y, frame, arg3, palette, flip);
+        }
+    }
+
+    for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
+        GO_11c* elem = &this->transientVisualElements[i];
+        if (elem->field_0x4 <= 0) {
+            ProjectileInfo* proj = g_ProjectileInfos[elem->field_0x6];
+            int32_t x = this->centerScreenX + elem->field_0x0 - proj->width / 2;
+            int32_t y = this->centerScreenY - this->terrainHeightOffset - this->z_pos + elem->field_0x2 - proj->height / 2 - elem->field_0x4;
+            proj->FUN_0041f8f0()->VMethod2(x, y, elem->field_0x7, 0, 0);
         }
     }
 }

@@ -348,6 +348,8 @@ public:
     uint16_t* GetLandscape() const { return landscape; }; //41ee80
     int32_t GetWidth() const { return width; }; //41ef20
     int32_t GetHeight() const { return height; }; //41ef40
+
+    double FUN_004a7b79(); //4a7b79
 public:
     int32_t width;
     int32_t height;

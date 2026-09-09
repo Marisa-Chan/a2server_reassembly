@@ -793,7 +793,6 @@
 ?MapMinX@BigStruct2@@QBEHXZ
 ?MapMinY@BigStruct2@@QBEHXZ
 ?MapStuff_Instance@@3PAUMapStuff@@A
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
@@ -1317,6 +1316,7 @@
 ?VMethod5@PointEffect@@UAEXXZ
 ?VMethod5@SpellTransport@@UAEXXZ
 ?VMethod5@Unit@@UAEXXZ
+?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod6@Item@@UAEHXZ
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
