@@ -1500,3 +1500,327 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
         }
     }
 }
+
+int32_t CUnit::VMethod11()
+{ // 46785f
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+
+    if (this->field_0x180[4] >= 5) {
+        return 1;
+    }
+
+    this->VMethod16();
+
+    if (this->action_segments == 0) {
+        if (this->last_action != 0 || this->field_0x130.GetSize() != 0 || g_VFX_info[this->typeId]->idle_phases > 0) {
+            this->m_bSelectionDirty = 1;
+        }
+        this->last_action = 0;
+        if (vfx->idle_phases == 0) {
+            this->field_0x34 = -1;
+            this->phase = 0;
+            this->action_phase = 0;
+        } else {
+            this->action_phase = this->action_phase + 1;
+            this->phase = this->action_phase % vfx->idle_anim_frame_cnt;
+        }
+        this->VMethod13();
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        return 1;
+    }
+
+    this->m_bSelectionDirty = 1;
+    switch (this->action) {
+    case 1: {
+        int32_t dx = this->action_x / this->action_segments;
+        int32_t dy = this->action_y / this->action_segments;
+        this->action_x -= dx;
+        this->field_0xa0 += std::abs(dx);
+        this->action_y -= dy;
+        this->field_0xa4 += std::abs(dy);
+        this->x_pos += dx;
+        this->y_pos += dy;
+        this->dir = this->action_dir;
+        this->action_phase = (int32_t)(std::sqrt((double)(dx * dx) + (double)(dy * dy) + 0.0) + this->action_phase);
+
+        if (this->typeId >= 0) {
+            this->x_pos2 = this->x_pos;
+            this->y_pos2 = this->y_pos;
+            this->phase = this->action_phase / 16;
+            break;
+        }
+
+        switch (this->dir) {
+        case 0:
+        case 8: {
+            int32_t sway = this->dir == 8 ? 8 : -8;
+            switch ((this->field_0xa4 / 26) & 7) {
+            case 0:
+                if (this->field_0x34 != 0) {
+                    this->field_0x34 = 0;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 1:
+                if (this->field_0x34 != 1) {
+                    this->field_0x34 = 1;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 2:
+                if (this->field_0x34 != 2) {
+                    this->field_0x34 = 2;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 3:
+                if (this->field_0x34 != 3) {
+                    this->field_0x34 = 3;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 4:
+                if (this->field_0x34 != 4) {
+                    this->field_0x34 = 4;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos - sway;
+                }
+                break;
+            case 5:
+                if (this->field_0x34 != 5) {
+                    this->field_0x34 = 5;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos + sway;
+                }
+                break;
+            case 6:
+                if (this->field_0x34 != 6) {
+                    this->field_0x34 = 6;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 7:
+                if (this->field_0x34 != 7) {
+                    this->field_0x34 = 7;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            }
+            break;
+        }
+        case 4:
+        case 12: {
+            int32_t sway = this->dir == 4 ? 8 : -8;
+            switch ((this->field_0xa0 / 32) & 7) {
+            case 0:
+                if (this->field_0x34 != 0) {
+                    this->field_0x34 = 0;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 1:
+                if (this->field_0x34 != 1) {
+                    this->field_0x34 = 1;
+                    this->x_pos2 = this->x_pos - sway;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 2:
+                if (this->field_0x34 != 2) {
+                    this->field_0x34 = 2;
+                    this->x_pos2 = this->x_pos - sway;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 3:
+                if (this->field_0x34 != 3) {
+                    this->field_0x34 = 3;
+                    this->x_pos2 = this->x_pos + sway;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 4:
+                if (this->field_0x34 != 4) {
+                    this->field_0x34 = 4;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 5:
+                if (this->field_0x34 != 5) {
+                    this->field_0x34 = 5;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 6:
+                if (this->field_0x34 != 6) {
+                    this->field_0x34 = 6;
+                    this->x_pos2 = this->x_pos + sway * 2;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 7:
+                if (this->field_0x34 != 7) {
+                    this->field_0x34 = 7;
+                    this->x_pos2 = this->x_pos + sway;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            }
+            break;
+        }
+        default: {
+            int32_t sway_x = this->dir < 8 ? 8 : -8;
+            int32_t sway_y = (this->dir == 6 || this->dir == 10) ? 8 : -8;
+            switch ((this->field_0xa0 / 25) & 7) {
+            case 0:
+                if (this->field_0x34 != 0) {
+                    this->field_0x34 = 0;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 1:
+                if (this->field_0x34 != 1) {
+                    this->field_0x34 = 1;
+                    this->x_pos2 = this->x_pos - sway_x;
+                    this->y_pos2 = this->y_pos - sway_y;
+                }
+                break;
+            case 2:
+                if (this->field_0x34 != 2) {
+                    this->field_0x34 = 2;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 3:
+                if (this->field_0x34 != 3) {
+                    this->field_0x34 = 3;
+                    this->x_pos2 = this->x_pos + sway_x * 2;
+                    this->y_pos2 = this->y_pos + sway_y * 2;
+                }
+                break;
+            case 4:
+                if (this->field_0x34 != 4) {
+                    this->field_0x34 = 4;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 5:
+                if (this->field_0x34 != 5) {
+                    this->field_0x34 = 5;
+                    this->x_pos2 = this->x_pos;
+                    this->y_pos2 = this->y_pos;
+                }
+                break;
+            case 6:
+                if (this->field_0x34 != 6) {
+                    this->field_0x34 = 6;
+                    this->x_pos2 = this->x_pos + sway_x;
+                    this->y_pos2 = this->y_pos + sway_y;
+                }
+                break;
+            case 7:
+                if (this->field_0x34 != 7) {
+                    this->field_0x34 = 7;
+                    this->x_pos2 = this->x_pos + sway_x;
+                    this->y_pos2 = this->y_pos + sway_y;
+                }
+                break;
+            }
+            break;
+        }
+        }
+        this->phase = this->field_0x34;
+        break;
+    }
+    case 3:
+        if (this->action_phase == vfx->attack_delay) {
+            this->VMethod21();
+        }
+        this->dir = this->action_dir;
+        this->phase = this->action_phase;
+        this->action_phase = this->action_phase + 1;
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        break;
+    case 5: {
+        int32_t turn = this->action_dir * 16 - this->field_0xc4;
+        if (turn < -0x7F) {
+            turn += 0x100;
+        }
+        if (turn > 0x80) {
+            turn -= 0x100;
+        }
+        this->field_0xc4 += turn / this->action_segments;
+        if (this->field_0xc4 < 0) {
+            this->field_0xc4 += 0x100;
+        }
+        this->dir = this->field_0xc4 >> 4;
+        this->action_phase = this->action_phase + 1;
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        break;
+    }
+    case 6:
+        this->x_pos = this->action_x;
+        this->y_pos = this->action_y;
+        this->action_phase = this->action_phase + 1;
+        this->phase = this->action_phase - 1;
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        break;
+    case 7:
+        if (this->action_phase == vfx->shoot_delay && vfx->projectile != 0) {
+            this->VMethod18();
+        }
+        if (this->action_phase == vfx->attack_delay) {
+            this->VMethod21();
+        }
+        this->dir = this->action_dir;
+        this->phase = this->action_phase;
+        this->action_phase = this->action_phase + 1;
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        break;
+    case 8:
+        if (this->action_phase == vfx->attack_delay) {
+            this->VMethod20();
+        }
+        if (this->action_spell == 0x36) {
+            if (this->action_phase == 0) {
+                this->VMethod19();
+            }
+        } else if (this->action_phase == vfx->shoot_delay) {
+            this->VMethod19();
+        }
+        this->phase = this->action_phase;
+        this->action_phase = this->action_phase + 1;
+        this->x_pos2 = this->x_pos;
+        this->y_pos2 = this->y_pos;
+        break;
+    }
+
+    this->last_action = this->action;
+    this->action_segments = this->action_segments - 1;
+    this->VMethod13();
+
+    if (this->m_bSelected != 0) {
+        main_wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+        main_wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+    }
+
+    return 1;
+}

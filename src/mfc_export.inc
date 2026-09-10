@@ -2317,7 +2317,7 @@ externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?VMethod10@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod11@CUnit@@UAEHXZ  : proc
+extern   ?VMethod11@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod13@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod14@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod15@CUnit@@UAEHXZ  : proc
