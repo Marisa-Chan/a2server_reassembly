@@ -1989,3 +1989,91 @@ int32_t CUnit::VMethod11()
 
     return 1;
 }
+
+void CUnit::VMethod19()
+{ // 468765
+    BigStruct2* map = this->pMapObject;
+    CGameObject* xd90_target = nullptr;
+    if (this->action_target != 0 && map->field_0x9d0.Lookup(this->action_target, xd90_target) == 0) {
+        return;
+    }
+
+    CUnit* target = (CUnit*)(xd90_target);
+
+    CProjectile* proj = new CProjectile();
+    proj->typeId = this->action_spell;
+    int32_t dir_idx = (this->dir - 8) & 0xE;
+    proj->action_dir = this->dir;
+    proj->dir = this->dir;
+
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    if (vfx->shoot_offset.GetSize() == 0 || this->action_spell == 0x36) {
+        proj->x_pos = this->centerWorldX8 - vfx->center_x + (vfx->selection.right - vfx->selection.left) / 2;
+        proj->y_pos = this->centerWorldY8 - vfx->center_y + (vfx->selection.bottom - vfx->selection.top) / 2;
+    } else {
+        proj->x_pos = this->centerWorldX8 + (vfx->center_x - vfx->shoot_offset[dir_idx]) * -8;
+        proj->y_pos = this->centerWorldY8 + (vfx->center_y - vfx->shoot_offset[dir_idx + 1]) * -8;
+    }
+
+    proj->x_pos2 = proj->x_pos;
+    proj->y_pos2 = proj->y_pos;
+    proj->action_target = this->action_target;
+    proj->map_player = this->map_player;
+
+    if (this->action_target != 0) {
+        proj->action_x = target->centerWorldX8;
+        proj->action_y = target->centerWorldY8;
+        proj->action_z = target->z_pos;
+        proj->action_dir = (uint8_t)this->FUN_00461f8e(this->action_x, this->action_y);
+    } else {
+        proj->action_x = this->action_x;
+        proj->action_y = this->action_y;
+        proj->action_z = this->action_z;
+    }
+
+    proj->actionTargets.Copy(this->actionTargets);
+
+    int32_t dx = proj->action_x - this->x_pos;
+    int32_t dy = proj->action_y - this->y_pos;
+    int32_t dist = (int32_t)std::sqrt((double)(dx * dx) + (double)(dy * dy));
+
+    switch (proj->typeId) {
+    case 0xA:
+    case 0x12:
+    case 0x28:
+        proj->action_segments = dist / 200;
+        break;
+    case 0xC:
+        proj->action_segments = dist / 0x180;
+        break;
+    case 0x1C:
+    case 0x1E:
+        proj->action_segments = 0xD;
+        break;
+    case 0x36:
+        proj->action_segments = 0x15;
+        break;
+    case 0x38:
+    case 0x3C:
+        proj->action_segments = 1;
+        break;
+    }
+
+    proj->action = 1;
+    proj->action_phase = 0;
+    proj->FUN_0046190d();
+    map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
+    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+
+    if (proj->typeId != 0x36) {
+        return;
+    }
+
+    CProjectile* ghost = new CProjectile(proj);
+    ghost->x_pos = ghost->action_x - vfx->center_x + (vfx->selection.right - vfx->selection.left) / 2;
+    ghost->y_pos = ghost->action_y - vfx->center_y + (vfx->selection.bottom - vfx->selection.top) / 2;
+    ghost->z_pos = ghost->action_z;
+    ghost->FUN_0046190d();
+    map->field_0x9ec[(uint16_t)map->field_0xa24] = ghost;
+    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+}

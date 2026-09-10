@@ -2294,6 +2294,7 @@ extern ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 externdef ?GetControlGroup@CGameObject@@QAEHXZ : proc
+externdef ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc
 externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
 externdef ?FUN_004627bb@CGameObject@@QAEXHH@Z : proc
 
@@ -2328,7 +2329,7 @@ externdef   ?VMethod15@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod16@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z  : proc
 externdef   ?VMethod18@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod19@CUnit@@UAEXXZ  : proc
+extern   ?VMethod19@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod20@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod21@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod22@CUnit@@UAEXXZ  : proc
@@ -2351,6 +2352,7 @@ externdef ??0CBackPack@@QAE@XZ : proc
 
 ;CProjectile
 externdef ??0CProjectile@@QAE@XZ : proc
+externdef ??0CProjectile@@QAE@PAV0@@Z : proc
 
 ;CStructure
 extern ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ  : proc
