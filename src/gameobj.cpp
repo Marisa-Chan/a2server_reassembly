@@ -7,8 +7,11 @@
 #include "gfx.h"
 #include "ingame.h"
 #include "map_stuff.h"
+#include "quest.h"
+#include "quest_map.h"
 
 #include <cmath>
+#include <cstdio>
 #include <cstring>
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
@@ -1096,6 +1099,168 @@ void CUnit::ReloadSprite()
             else if (strcmp(heroSpritePictureName, "mage_st") == 0)
                 typeId = 24;
         }
+    }
+}
+
+void CGameObject::FUN_0046246b(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi)
+{ // 46246B
+    BigStruct2* map = this->pMapObject;
+    if (map->show_hp != 0 && this->IsSelected() == 0) {
+        ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), 8);
+        FUN_00457aa6(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
+        FUN_00457aa6(left + 4, y - 1, left + fill_width + 4, y, color_lo);
+        FUN_00457aa6(left + 4, y, left + fill_width + 4, y + 1, color_mid);
+        FUN_00457aa6(left + 4, y + 1, left + fill_width + 4, y + 2, color_hi);
+        return;
+    }
+
+    FillRectColorSimple(left + 4, y - 2, right - 4, y + 2, GetColorRGB(0x40, 0x40, 0x40));
+    FillRectColorSimple(left + 4, y - 1, right - 4, y, GetColorRGB(0x80, 0x80, 0x80));
+    FillRectColorSimple(left + 4, y, right - 4, y + 1, GetColorRGB(0x60, 0x60, 0x60));
+    FillRectColorSimple(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
+    FillRectColorSimple(left + 4, y - 1, left + fill_width + 4, y, color_lo);
+    FillRectColorSimple(left + 4, y, left + fill_width + 4, y + 1, color_mid);
+}
+
+void CGameObject::FUN_004627bb(int32_t x, int32_t y)
+{ // 4627BB
+    BigStruct2* map = this->pMapObject;
+    int32_t group = this->GetControlGroup();
+    if (group < 0) {
+        return;
+    }
+
+    char buf[20];
+    sprintf(buf, "%d", group);
+
+    uint16_t* shadow = clrsh_ShockingBlack;
+    if (map->show_hp != 0 && this->IsSelected() == 0) {
+        shadow = clrsh_TechBlack;
+    }
+    g_font3->DrawTextWithShadow(x, y, buf, 0, shadow, 1);
+}
+
+void CUnit::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3)
+{ // 466a78
+    if (this->field_0x180[4] >= 5) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+
+    if (this->FUN_00462405(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+        return;
+    }
+
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    int32_t left = this->centerScreenX - vfx->center_x + vfx->selection.left;
+    int32_t top = this->centerScreenY - vfx->center_y - this->terrainHeightOffset + vfx->selection.top - this->z_pos;
+    int32_t bottom = this->centerScreenY - vfx->center_y - this->terrainHeightOffset + vfx->selection.bottom - this->z_pos;
+    int32_t right = this->centerScreenX - vfx->center_x + vfx->selection.right;
+
+    int32_t y = top;
+
+    gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
+    gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+
+    uint16_t color_lo;
+    uint16_t color_mid;
+    uint16_t color_hi;
+    if (this->hp < this->hp_max / 4) {
+        color_lo = GetColorRGB(0xFF, 0, 0);
+        color_mid = GetColorRGB(0xC0, 0, 0);
+        color_hi = GetColorRGB(0x80, 0, 0);
+    } else if (this->hp < this->hp_max / 2) {
+        color_lo = GetColorRGB(0xFF, 0xFF, 0);
+        color_mid = GetColorRGB(0xC0, 0xC0, 0);
+        color_hi = GetColorRGB(0x80, 0x80, 0);
+    } else {
+        color_lo = GetColorRGB(0, 0xFF, 0);
+        color_mid = GetColorRGB(0, 0xC0, 0);
+        color_hi = GetColorRGB(0, 0x80, 0);
+    }
+
+    uint16_t add_mask = g_ColorAddMask;
+    if (map->show_hp != 0 && this->IsSelected() == 0) {
+        color_lo = (color_lo >> 1) & add_mask;
+        color_mid = (color_mid >> 1) & add_mask;
+        color_hi = (color_hi >> 1) & add_mask;
+    }
+
+    int32_t fill = this->hp * (right - left - 8) / this->hp_max;
+    if (fill == 0 && this->hp != 0) {
+        fill = 1;
+    }
+    this->FUN_0046246b(left, right, y, fill, color_lo, color_mid, color_hi);
+
+    if (this->mp_max > 0) {
+        y += 4;
+        color_lo = GetColorRGB(0, 0, 0xFF);
+        color_mid = GetColorRGB(0, 0, 0xC0);
+        color_hi = GetColorRGB(0, 0, 0x80);
+        if (map->show_hp != 0 && this->IsSelected() == 0) {
+            color_lo = (color_lo >> 1) & add_mask;
+            color_mid = (color_mid >> 1) & add_mask;
+            color_hi = (color_hi >> 1) & add_mask;
+        }
+
+        int32_t mp_fill = this->mp * (right - left - 8) / this->mp_max;
+        if (mp_fill == 0) {
+            mp_fill = 1;
+        }
+
+        gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
+        gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+        this->FUN_0046246b(left, right, y, mp_fill, color_lo, color_mid, color_hi);
+    }
+
+    this->FUN_004627bb(left, y + 4);
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    int32_t session_mode = main_wnd->sessionMode;
+    if (session_mode == 2 || g_settings.ClanNames == 0 || this->str1[0] == 0 || (this->unitFlags & 1) == 0) {
+        if (session_mode != 2 && g_settings.ClanNames != 0) {
+            int32_t quest_flag = 0;
+            POSITION pos = map->field_0x4970->quests_map.GetStartPosition();
+            while (pos != nullptr) {
+                uint32_t quest_id;
+                Quest* quest;
+                map->field_0x4970->quests_map.GetNextAssoc(pos, quest_id, quest);
+
+                if (quest->IsInWork() != 0) {
+                    if (this->unit_id == quest->GetObj()) {
+                        if (quest->Kind() != 3 && quest->Kind() != 0xC) {
+                            quest_flag = 1;
+                        }
+                    } else if (this->typeId == (quest->GetObj() & 0xFF) && this->face == (quest->GetObj() >> 8)) {
+                        if (quest->Kind() == 2) {
+                            quest_flag = 1;
+                        }
+                    } else if (this->questFlags == quest->GetObj()) {
+                        if (quest->Kind() == 3 || quest->Kind() == 0xC) {
+                            quest_flag = 1;
+                        }
+                    } else if (this->map_player->index == quest->GetObj()) {
+                        if (quest->Kind() == 0xD) {
+                            quest_flag = 1;
+                        }
+                    }
+                }
+            }
+
+            if (quest_flag != 0) {
+                g_font2->DrawTxt((left + right) / 2, y - 0xF, TxtFile::AllLines[0x15A], 2, g_colors_human_pals[this->map_player->color]);
+                g_font2->DrawTxt((left + right) / 2, y - 0x19, TxtFile::AllLines[0x159], 2, g_colors_human_pals[this->map_player->color]);
+            }
+        }
+        return;
+    }
+
+    if (this->str2[0] != 0) {
+        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str2, 2, g_colors_human_pals[this->map_player->color]);
+        g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, 2, g_colors_human_pals[this->map_player->color]);
+    } else {
+        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     }
 }
 

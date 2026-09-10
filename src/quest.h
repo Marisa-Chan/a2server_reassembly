@@ -36,6 +36,9 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see FUN_0055ee4
     virtual int32_t Something2();                          // 57ff30
     virtual int32_t Something3();                          // 57ff40
 
+    int32_t IsInWork() { return this->quest_data.state == 0; } // 41eb90
+    uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70
+
 public:
     Quest(); // 55d0e0
 

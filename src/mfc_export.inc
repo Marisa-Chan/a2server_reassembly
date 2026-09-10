@@ -2051,6 +2051,7 @@ extern ?g_ScreenSize@@3VCRect@@A : dword
 
 extern ?FillRectColor@@YAXHHHHI@Z : proc
 extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
+externdef ?FUN_00457aa6@@YAXHHHHG@Z : proc
 extern ?SetPixelColor@@YAXHHI@Z : proc
 extern ?ShadowRect@@YAXVCRect@@H@Z : proc
 
@@ -2292,6 +2293,9 @@ extern ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
 
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
+externdef ?GetControlGroup@CGameObject@@QAEHXZ : proc
+externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
+externdef ?FUN_004627bb@CGameObject@@QAEXHH@Z : proc
 
 ;CUnit
 extern ??0CUnit@@QAE@XZ : proc
@@ -2308,7 +2312,7 @@ externdef   ?VMethod4@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod5@CUnit@@UAEHXZ  : proc
 extern   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
-externdef   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
+extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
 externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc

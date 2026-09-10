@@ -50,6 +50,7 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -96,6 +97,7 @@
 ?LoadFrame@CFrameWnd@@UAEHIKPAVCWnd@@PAX@Z	113
 ?BeginModalState@CFrameWnd@@UAEXXZ	129
 ?OnSetPreviewMode@CFrameWnd@@UAEXHPAX@Z	219
+?GetControlGroup@CGameObject@@QAEHXZ	44
 ?FUN_00462405@CGameObject@@QAEHH@Z	51
 ?FUN_0046190d@CGameObject@@QAEXXZ	299
 ?FUN_004946ae@CGameSession@@QAEXXZ	23
@@ -152,7 +154,6 @@
 ?VMethod25@CUnit@@UAEXH@Z	237
 ?VMethod16@CUnit@@UAEXXZ	453
 ?VMethod19@CUnit@@UAEXXZ	521
-?VMethod8@CUnit@@UAEXHHH@Z	1002
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
 ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z	9

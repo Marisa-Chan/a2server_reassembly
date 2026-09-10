@@ -134,6 +134,9 @@ public:
 	void SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t hp); //46187d
 
 	int32_t FUN_00462405(int32_t effect_id);
+	int32_t GetControlGroup(); //41f220
+	void FUN_0046246b(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi); //46246b
+	void FUN_004627bb(int32_t x, int32_t y); //4627bb
 	void FUN_0041f180(int32_t grp); //41f180
 public:
 	uint16_t unit_id; // 4
