@@ -2307,7 +2307,7 @@ externdef   ?VMethod3@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod4@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod5@CUnit@@UAEHXZ  : proc
 extern   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
-externdef   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
+extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 externdef   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
