@@ -2640,3 +2640,27 @@ void CUnit::VMethod22()
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
     }
 }
+
+void CUnit::VMethod23()
+{ // 46999f
+    uint32_t now = timeGetTime();
+    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+        return;
+    }
+    this->lastVoicePlaybackTick = now;
+
+    SfxBank* bank = this->FUN_0046978b();
+    if (bank->move_count == 0) {
+        return;
+    }
+
+    SfxSample* sample = bank->move[Random0N(bank->move_count - 1)];
+    BigStruct2* map = this->pMapObject;
+    int32_t vol;
+    int32_t pan;
+    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+
+    if (sample != nullptr) {
+        sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
+    }
+}
