@@ -2638,7 +2638,7 @@ LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             strcpy(field_0x148.title, txt_patch.GetLine(55));
         else
             strcpy(field_0x148.title, txt_patch.GetLine(95));
-        sprintf(field_0x148.filename, "game%d.sav");
+        sprintf(field_0x148.filename, "game%d.sav", 9999 - wParam);
         FUN_0048f905();
         field_0x438 = timeGetTime();
         game_tic_counter = 0;
