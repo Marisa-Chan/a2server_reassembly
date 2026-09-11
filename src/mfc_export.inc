@@ -2344,7 +2344,7 @@ extern   ?VMethod16@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z  : proc
 extern   ?VMethod18@CUnit@@UAEXXZ  : proc
 extern   ?VMethod19@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod20@CUnit@@UAEXXZ  : proc
+extern   ?VMethod20@CUnit@@UAEXXZ  : proc
 extern   ?VMethod21@CUnit@@UAEXXZ  : proc
 extern   ?VMethod22@CUnit@@UAEXXZ  : proc
 extern   ?VMethod23@CUnit@@UAEXXZ  : proc
