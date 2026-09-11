@@ -2783,6 +2783,36 @@ int32_t CUnit::VMethod3()
     return 0x50;
 }
 
+SfxBank* CUnit::FUN_0046978b()
+{ // 46978b
+    switch (this->serverId) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        return &SoundBank_other[this->serverId + 5];
+    case 0x15:
+        return &SoundBank_other[((this->unitFlags & 4) != 0) + ((this->unitFlags & 2) != 0) * 2];
+    case 0x16:
+        return &SoundBank_other[4];
+    case 0x17:
+        return &SoundBank_other[5];
+    default:
+        break;
+    }
+
+    int32_t is_hero = (this->unitFlags & 4) != 0;
+    if ((this->unitFlags & 2) != 0) {
+        return &SoundBank_mage[is_hero];
+    }
+    if (this->equipmentTokens[0] != nullptr) {
+        return &SoundBank_fighter[is_hero];
+    }
+    return &SoundBank_peasant[is_hero];
+}
+
 void CUnit::VMethod1(int32_t arg1)
 { // 4648e9
     BigStruct2* map = this->pMapObject;
