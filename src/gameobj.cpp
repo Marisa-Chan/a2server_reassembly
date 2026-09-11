@@ -2522,3 +2522,44 @@ void CUnit::VMethod18()
     map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
 }
+
+void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
+{ // 46761e
+    if (this->field_0x180[4] > 1) {
+        return;
+    }
+
+    if ((this->unitFlags & 0x80) != 0) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+
+    if (this->FUN_00462405(0x20) >= 0 && map->my_main_unit->FUN_0041ee50(this->map_player->index) == 0) {
+        return;
+    }
+
+    uint16_t* land = map->field_0x80->GetLandscape();
+    int32_t idx = (this->x_pos >> 8) + map->field_0x84 * (this->y_pos >> 8);
+
+    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) |
+        (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+    if (mask != 0xc000) {
+        return;
+    }
+
+    int32_t size;
+    if (arg3 < 0) {
+        arg3 = 0;
+        arg1 += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
+        arg2 += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
+        size = 1;
+    } else {
+        arg1 += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
+        arg2 += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
+        size = 1 << arg3;
+    }
+
+    uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
+    FillRectColorSimple(arg1, arg2, arg1 + size, arg2 + size, color);
+}
