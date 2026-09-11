@@ -1763,6 +1763,52 @@ void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, ui
     }
 }
 
+// 4cc5d1
+void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step)
+{
+    int32_t px = 0;
+    int32_t py = radius;
+    int32_t decision = (1 - radius) * 2;
+    int32_t counter = step;
+    this->field_0x68.RemoveAll();
+
+    while (py > 0) {
+        if (counter >= step) {
+            this->field_0x68.Add(CPoint(x + px, y + py));
+            this->field_0x68.Add(CPoint(x - px, y + py));
+            this->field_0x68.Add(CPoint(x + px, y - py));
+            this->field_0x68.Add(CPoint(x - px, y - py));
+            counter = 0;
+        }
+        counter += 1;
+        if (decision < 0) {
+            int32_t threshold = (decision + py) * 2 - 1;
+            if (threshold <= 0) {
+                px += 1;
+                decision = decision + px * 2 + 1;
+            } else {
+                px += 1;
+                py -= 1;
+                decision = decision + (px - py) * 2 + 2;
+            }
+        } else if (decision == 0) {
+            px += 1;
+            py -= 1;
+            decision = decision + (px - py) * 2 + 2;
+        } else {
+            int32_t threshold = (decision - px) * 2 - 1;
+            if (threshold <= 0) {
+                px += 1;
+                py -= 1;
+                decision = decision + (px - py) * 2 + 2;
+            } else {
+                py -= 1;
+                decision = decision + 1 - py * 2;
+            }
+        }
+    }
+}
+
 // 4cc22d
 int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id)
 {
