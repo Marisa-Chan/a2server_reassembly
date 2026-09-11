@@ -2426,6 +2426,540 @@ LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (dialogsMask == 0 || (sessionMode < 2 && dialogsMask == 1))
             ShowInnDialog(wParam, lParam);
         break;
+
+    case 0x42d:
+    {
+        vis_globalmap->umoirMapMode = 0;
+        ScenarioLocation* cloc = ScenarioGetCurrentLocation();
+        if (cloc->GetKind() == 2)
+        {
+            vis_globalmap->SetTravelOrigin(cloc->GetRect().TopLeft());
+
+            int32_t loc = -1;
+            ScenarioLeaveLocation(&loc);
+
+            if (loc > -1)
+                FUN_00491f7d(loc);
+
+            if (cloc->GetId() == 1)
+                vis_globalmap->umoirMapMode = 1;
+        }
+        ShowGlobalMapDialog();
+    }
+        break;
+
+    case 0x42e:
+        ShowCurrentTownDialog();
+        break;
+
+    case 0x42f:
+        RunSessionBootstrap(0);
+        break;
+
+    case 0x430:
+        if (FUN_00497490() == 0)
+        {
+            field_0x3f8 = 1;
+
+            CRect local_8d0(128, 200, 512, 380);
+            CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
+            field_0x128 = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, txt_main.GetLine(140), local_8c0);
+            PopUpScreen(field_0x128);
+            if (!g_SfxArray[14]->FindPlayingChannel())
+                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+        }
+        else
+        {
+            field_0x3f8 = 1;
+            PostMessage(0x41d, 0, 0);
+        }
+        break;
+
+    case 0x431:
+        if (field_0x3fc == 0 && sessionMode == 2)
+        {
+            field_0x3fc = 1;
+            field_0x124 = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
+            PopUpScreen(field_0x124);
+
+            if (!g_SfxArray[16]->FindPlayingChannel())
+                g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+        }
+        break;
+
+    case 0x432:
+        PostMessage(0x436, 0, 0);
+        break;
+
+    case 0x433:
+        field_0x450 = wParam;
+
+        if (field_0x450 == 255)
+            PostMessage(0x431, lParam, 0);
+        else if (field_0x450 == 254)
+        {
+            if (!g_SfxArray[16]->FindPlayingChannel())
+                g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+        }
+        else if (field_0x450 == 253)
+        {
+            if (!g_SfxArray[14]->FindPlayingChannel())
+                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+        }
+        else if (field_0x450 == 250)
+        {
+            if (!g_SfxArray[14]->FindPlayingChannel())
+                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
+        }
+        else if ((dialogsMask & 8) == 0)
+        {
+            CString local_850;
+            local_850.Format("event%d", field_0x450);
+            ShowRoleKeyDialog(local_850);
+        }
+        else
+        {
+            DAT_006658d8.Add(field_0x450);
+        }
+        break;
+
+    case 0x434:
+        if (dialogsMask == 1)
+            PopUpScreen(new VisMessageBoxWithList(1, 32, 48, 608, 432, g_HelpStr, nullptr, 0));
+        break;
+
+    case 0x435:
+        LoadData();
+        break;
+
+    case 0x436:
+        FUN_00491f7d(0);
+        PostMessage(WM_CLOSE, 0, 0);
+        break;
+
+    case 0x438:
+        switch (wParam)
+        {
+        case 0:
+        case 1:
+            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            vis_logownd->MsgProc(0x439, 4000, 0);
+            vis_root->VMethod9();
+            break;
+
+        case 2:
+            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            vis_logownd->MsgProc(0x439, 6000, 0);
+            vis_root->VMethod9();
+            LoadData();
+            break;
+
+        case 3:
+            vis_logownd->MsgProc(0x43a, wParam + 1, 0);
+            vis_logownd->MsgProc(0x439, 30000, 0);
+            vis_root->VMethod9();
+            break;
+
+        case 4:
+            vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(vis_logownd);
+            dialogsMask &= ~0x100;
+            PostMessage(0x421, 0, 0);
+            break;
+
+        case 5:
+            vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(vis_logownd);
+            dialogsMask &= ~0x100;
+            PostMessage(WM_CLOSE, 0, 0);
+            break;
+
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            vis_logownd->DoClose(0x445);
+            vis_root->RemoveChild(vis_logownd);
+            dialogsMask &= ~0x100;
+            PostMessage(0x425, 0, 0);
+            break;
+        }
+        break;
+
+    case 0x43b:
+        /*if (DAT_0062f87c == 0)     // if NO CD
+            PostMessage(0x421, 0, 0);
+        else*/
+        {
+            CStringArray local_934;
+            for (int i = 0; i < 32; i++)
+            {
+                if ((g_using_vxd & (1 << i)) != 0)
+                    local_934.Add(txt_cutscene.GetLine(i));
+            }
+            field_0x3d4 = new VisCutScenesDlg(17, 100, 30, 540, 450, local_934);
+            PopUpScreen(field_0x3d4);
+        }
+        break;
+
+    case 0x43c:
+        if (dialogsMask == 1)
+        {
+            FUN_00494a9e();
+            field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, field_0x348);
+            PopUpScreen(field_0x144);
+        }
+        break;
+
+    case 0x440:
+        StartHatDedicatedServer();
+        break;
+
+    case 0x441:
+        if (WaitHatConnection() == 0)
+        {
+            if (g_CLlDriver.IsListen() == 0)
+                CWnd::PostMessage(0x487, 0, 0);
+            else
+                CWnd::PostMessage(0x489, 0, 0);
+        }
+        else
+        {
+            if (ConnectToServerAddress() == 0)
+                PostMessage(0x487, 0, 0);
+            else
+                WaitConnectionCharacterJoin();
+        }
+        break;
+
+    case 0x442:
+        if (wParam == 0)
+            strcpy(field_0x148.title, txt_patch.GetLine(55));
+        else
+            strcpy(field_0x148.title, txt_patch.GetLine(95));
+        sprintf(field_0x148.filename, "game%d.sav");
+        FUN_0048f905();
+        field_0x438 = timeGetTime();
+        game_tic_counter = 0;
+        field_0x43c = 0;
+        break;
+
+    case 0x443:
+        dialogsMask |= 8;
+        g_Cursors[CURSOR_DEFAULT]->Use();
+        break;
+
+    case 0x44c:
+        Proc_44c((CVisualObject*)wParam);  // FIXME
+        break;
+
+    case 0x451:
+        if (field_0x3e0.field_08.IsEmpty() == 0)
+        {
+            WaitConnectionCharacterJoin();
+        }
+        else if (this->dialogsMask == 0)
+        {
+            music_player->OnEndTrack();
+            if (!IsDplayAvail)
+            {
+                ModalScreen(new VisMessageBoxWithList(1, 100, 100, 540, 380, txt_main.GetLine(152), nullptr, 0));
+                PostMessage(0x421, 0, 0);
+            }
+            else
+            {
+
+                field_0x350 = new VisConnectionDlg(1, 0, 0, 640, 350, &last_protocol);
+                PopUpScreen(field_0x350);
+
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol0"))
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(0);
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol1"))
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(1);
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol2"))
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(2);
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol3"))
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(3);
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol4"))
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(4);
+
+                if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol"))
+                    field_0x350->MsgProc(0x445, 0, 0);
+
+                if (g_ServerConfig.protocol > -1 && g_ServerConfig.protocol < 2)
+                {
+                    ((VisListBox*)field_0x350->FindChild(2))->SetSelectedIndex(g_ServerConfig.protocol);
+                    field_0x350->MsgProc(0x445, 0, 0);
+                }
+            }
+        }
+        break;
+
+    case 0x452:
+        if (g_CLlDriver.GetProvider() == 2)
+        {
+            g_CLlDriver.RecreateDp();
+            g_CLlDriver.PrepareForConnect("", nullptr);
+        }
+        else
+        {
+            if (g_CLlDriver.GetProvider() == 3)
+            {
+                g_CLlDriver.RecreateDp();
+
+                CLlAddress* addresses;
+                int num;
+                g_CLlDriver.EnumAddresses(&addresses, &num);
+
+                g_CLlDriver.PrepareForConnect(field_0x3e0.field_14, nullptr);
+            }
+        }
+
+        if (sessionMode == 3)
+        {
+            FUN_00491822();
+        }
+        else
+        {
+            field_0x34c = new VisNetDlg(1, 0, 30, 640, 450, &net_sessions);
+            PopUpScreen(field_0x34c);
+        }
+        break;
+
+    case 0x453:
+        PopUpScreen( new VisNetTcpIp(1, 0, 100, 640, 300, &last_ip) );
+        if (strstr(afxCurrentWinApp->m_lpCmdLine, "-protocol") != nullptr || g_ServerConfig.protocol > -1)
+            PostMessage(0x445, 0, 0);
+        break;
+
+    case 0x454:
+        PopUpScreen(new VisNetSerialSettings(1, 0, 100, 540, 480, &com_settings));
+        break;
+
+    case 0x455:
+        PopUpScreen(new VisNetPhoneBook(1, 0, 100, 650, 400, &phone_book));
+        break;
+
+    case 0x457:
+        if (sessionMode != 3)
+        {
+            if (sessionMode == 0)
+            {
+                INT_00660f8c = 0;
+                field_0x458 = 0;
+                vis_map_context->FUN_0041cb21();
+
+                while (field_0x458 == 0)
+                {
+                    if (g_NetStru1_local.GetClientsPktNum() == 0)
+                    {
+                        uint32_t ticks = GetTickCount();
+                        if (abs((int32_t)(ticks - g_RemoteTimestamp)) > 1000)
+                        {
+                            g_NetStru1_local.SendPacket_64(1, 0);
+                            g_RemoteTimestamp = ticks;
+                        }
+                    }
+                    else
+                    {
+                        vis_map_context->ProcessPackets(0x64);
+                    }
+
+                    MSG msg;
+                    if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0)
+                    {
+                        if (msg.message == WM_QUIT)
+                            return 0;
+
+                        TranslateMessage(&msg);
+                        DispatchMessageA(&msg);
+                    }
+
+                    g_mousept.Update();
+
+                    if (GetAsyncKeyState(VK_ESCAPE) < 0)
+                    {
+                        INT_00660f8c = 0x100c;
+                        PostMessage(0x45c, 0, 0);
+                        return 0;
+                    }
+
+                    if (INT_00660f8c)
+                    {
+                        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                        PostMessage(0x45c, 0, 0);
+                        break;
+                    }
+                }
+            }
+
+            if (m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit() == 0)
+            {
+                if ((INT_00660f8c & 0xff) < 11)
+                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+                else
+                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+                PostMessage(0x45c, 0, 0);
+                break;
+            }
+        }
+
+        if (RunSessionBootstrap(0) == 0)
+        {
+            if ((INT_00660f8c & 0xff) < 11)
+                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_main.GetLine(192 + (INT_00660f8c & 0xff)), nullptr, 0));
+            else
+                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            PostMessage(0x45c, 0, 0);
+        }
+        break;
+        
+    case 0x459:
+    {
+        char* token = strstr(afxCurrentWinApp->m_lpCmdLine, "-map\"");
+        if (!token)
+        {
+            if (g_ServerConfig.map_names.GetSize() == 0)
+            {
+                field_0x378 = new VisNetMapSelection(1, 0, -64, 640, 480, &current_map_name);
+                PopUpScreen(field_0x378);
+            }
+            else
+            {
+                current_map_name = g_ServerConfig.map_names[g_ServerConfig.current_map_index];
+                PostMessage(0x457, 0, 0);
+            }
+        }
+        else
+        {
+            current_map_name = token + 5;
+            int nidx = current_map_name.Find('"');
+            if (nidx != 0)
+                current_map_name = current_map_name.Left(nidx);
+
+            PostMessage(0x457, 0, 0);
+        }
+    }
+        break;
+
+
+    case 0x45a:
+    {
+        CVisualObject* local_96c = vis_map_context->FindChild(16);
+        if (!local_96c)
+            vis_root->MsgProc(message, wParam, lParam);
+        else
+        {
+            vis_map_context->RemoveChild(local_96c);
+            delete local_96c;
+        }
+    }
+        break;
+
+    case 0x45b:
+        if (g_settings.TipsMode != 0)
+        {
+            CString tip;
+            MissionGetTips(wParam, &tip);
+
+            CVisualObject* local_960 = vis_map_context->FindChild(16);
+            if (local_960)
+            {
+                vis_map_context->RemoveChild(local_960);
+                delete local_960;
+            }
+
+            vis_map_context->AddChild(new VisTipsDialog(16, 10, 20, 370, 188, tip));
+        }
+        break;
+
+    case 0x45c:
+        if (field_0x3e0.field_08.IsEmpty() == 0)
+        {
+            PostMessage(WM_CLOSE, 0, 0);
+        }
+        else if (sessionMode == 0 || sessionMode == 1)
+        {
+            if (dialogsMask & 8)
+                vis_root->MsgProc(0x446, 0, 0);
+
+            if (dialogsMask & 2)
+                vis_root->MsgProc(0x445, 0, 0);
+
+            if (dialogsMask & 4)
+                vis_root->MsgProc(0x445, 0, 0);
+            
+            vis_map_context->FUN_0041d2da(1);
+
+            if (dialogsMask & 1)
+                FUN_0048f6f7();
+            
+            FUN_0048cb3c();
+
+            if (g_CLlDriver.GetProvider() == 0)
+                PostMessage(0x454, 0, 0);
+            else if (g_CLlDriver.GetProvider() == 1)
+                PostMessage(0x455, 0, 0);
+            else
+                PostMessage(0x452, 0, 0);
+        }
+        else if (sessionMode == 3)
+        {
+            if (g_CLlDriver.GetProvider() == 3)
+            {
+                PostMessage(0x453, 0, 0);
+                FUN_0048cb3c();
+            }
+            else
+            {
+                PostMessage(0x451, 0, 0);
+                FUN_0048cb3c();
+            }
+        }
+        break;
+
+    case 0x45d:
+        if (sessionMode == 0)
+        {
+            vis_map_context->FUN_0041d2da(0);
+            if (dialogsMask & 1)
+                FUN_0048f6f7();
+            PostMessage(0x459, 0, 0);
+        }
+        break;
+
+    case 0x463:
+        if (dialogsMask == 1)
+            ShowFameHallDocDlg();
+        break;
+
+    case 0x464:
+    {
+        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(151), nullptr, 1);
+        ModalScreen(msgbox);
+
+        if (msgbox->GetCloseCode() == 0x445)
+        {
+            //DAT_00665cf8 = 0x35;
+            PostMessage(0x421, 0, 0);
+        }
+        else
+            PostMessage(WM_CLOSE, 0, 0);
+    }
+        break;
+
+    case 0x465: 
+    {
+        VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 480, txt_main.GetLine(181), nullptr, 1);
+        ModalScreen(msgbox);
+
+        if (msgbox->GetCloseCode() == 0x445)
+            PostMessage(0x421, 0, 0);
+        else
+            PostMessage(WM_CLOSE, 0, 0);
+    }
+              break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -2504,7 +3038,7 @@ void MainWindow::FUN_0048f79d()
     if (!vis_map_context->ConnectAndJoinSession())
         PostMessage(0x421, 0, 0);
     else if (GetSaveFileInBattle())
-        FUN_0048e502(1);
+        RunSessionBootstrap(1);
     else
     {
         vis_map_context->FUN_0041b10f();
@@ -2540,7 +3074,7 @@ int MainWindow::GetSaveFileInBattle()
     return reg.GetInt("CurrentState", "InBattle", 1);
 }
 
-int MainWindow::FUN_0048e502(int mode)
+int MainWindow::RunSessionBootstrap(int mode)
 { // 48e502
 
     vis_map_context->field_0x80 = nullptr;
@@ -3707,6 +4241,33 @@ void MainWindow::SingleGameIdle()
 
     g_mousept.Update();
 }
+
+void MainWindow::StartHatDedicatedServer()
+{ //49172d
+    //CHECK IN Allods2.exe
+    sessionMode = 3;
+    g_NetStru1_main.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_main);
+    g_CLlDriver.ResetProvider(4);
+
+    CLlAddress addr;
+    strcpy(addr.address, g_ServerConfig.ip_address);
+
+    if (g_CLlDriver.StartServer(g_ServerConfig.max_players, m_GameSession.character_name, &addr) == 0)
+    {
+        AfxMessageBox("Error initializing TCP/IP connection", 0, 0);
+        exit(1);
+    }
+
+    if (FUN_0048ca7e(0) != 0) {
+        AfxMessageBox("Missing or invalid world.res", 0, 0);
+        exit(1);
+    }
+
+    PostMessage(0x459, 0, 0);
+    PasswordManager::manager.OpenFile("passbase.txt");
+}
+
 
 
 

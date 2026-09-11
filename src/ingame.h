@@ -25,6 +25,7 @@ extern CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 extern CGamePalette* g_pal_projectiles; //665490
 extern CGamePalette* g_pal_projectile_; //665494
 extern CA16* g_spr_smoke[2]; //6610f8
+extern uint16_t* clr_log_sblack;
 
 
 void LoadVfxData(); //47b24e

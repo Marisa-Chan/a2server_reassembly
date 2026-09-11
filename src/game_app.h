@@ -138,6 +138,8 @@ Item* __cdecl sub_549372(CString category, int32_t min_price, int32_t max_price)
 // 5498B8 - pick a random (shape, material, item_data_id) combo from an equip table, skipping empty shape/material slots
 void __cdecl sub_5498B8(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id);
 
+void __stdcall ShowRoleKeyDialog(const char* str); //41d723
+
 
 
 struct ScenarioState

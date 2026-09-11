@@ -409,7 +409,7 @@ public:
 
     void FUN_0048f79d(); //48f79d
     int GetSaveFileInBattle(); //48de6f
-    int FUN_0048e502(int mode); //48e502
+    int RunSessionBootstrap(int mode); //48e502
     void FUN_00485969(); //485969
     void FUN_0047a5e6(); //47a5e6
     void FUN_0047efdf(); //47efdf
@@ -440,6 +440,14 @@ public:
 
     void SetControlPositions(); //484127
 
+    void StartHatDedicatedServer(); //49172d
+
+    void ShowCurrentTownDialog(); //48d815 in asm
+    int32_t WaitHatConnection(); //490f6c in asm
+    int32_t ConnectToServerAddress(); //491142 in asm
+    void WaitConnectionCharacterJoin(); //49152f in asm
+    void ShowFameHallDocDlg(); //48d125 in asm
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -468,7 +476,7 @@ public:
     VisFameHall* vis_famehall;
     VisDropGold* vis_dropgold;
     VisScreen* field_0x124;
-    int32_t field_0x128;
+    Vis2Action* field_0x128;
     VisScreen* field_0x12c;
     VisCredits* vis_credits;
     VisLogoWnd* vis_logownd;
@@ -479,13 +487,13 @@ public:
     SaveFileInfo field_0x148;
     CArray<DiplomacyEntry*>* field_0x348;
     VisScreen* field_0x34c;
-    VisScreen* field_0x350;
+    VisConnectionDlg* field_0x350;
     AvailNetSession net_sessions;
     int32_t last_protocol;
     VisCharGen* vis_chargen;
     VisCharSelect* vis_charsel;
     VisStartGame* vis_startgame; //0x374
-    VisScreen* field_0x378; // BigStruct1*
+    VisNetMapSelection* field_0x378; // BigStruct1*
     VisScreen* field_0x37c;
     PhoneBook phone_book; //380
     ComSettings com_settings; //39c

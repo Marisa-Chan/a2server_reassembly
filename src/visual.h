@@ -31,6 +31,11 @@ class CUnit;
 class CFameHall;
 
 struct SaveFileInfo;
+struct DiplomacyEntry;
+struct AvailNetSession;
+struct ComSettings;
+struct PhoneBook;
+struct CLlAddress;
 
 
 
@@ -573,13 +578,13 @@ public:
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
 	virtual void VMethod26() override;
 
-	virtual CVisualObject* VMethod30(const char* str, const RECT& r) = 0;
+	virtual CVisualObject* VMethod30(const void* str, const RECT& r) = 0;
 	virtual void VMethod31(int32_t code);
 
-	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes, const char* str3);
+	VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3);
 
 public:
-	const char* field_0x68;
+	const void* payload;
 	const char* field_0x6c;
 	const char* field_0x70;
 	int32_t button_types;
@@ -591,7 +596,7 @@ class VisMessageBoxWithList : public VisMessageBox
 {
 public:
 	virtual ~VisMessageBoxWithList() {}; //44f930
-	virtual CVisualObject* VMethod30(const char* str, const RECT& r); //4450d4
+	virtual CVisualObject* VMethod30(const void* str, const RECT& r); //4450d4
 
 	VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes); //445091
 };
@@ -2131,5 +2136,158 @@ public:
 ASSERT_SIZE(VisFameDocument, 0xf8);
 
 
+//60b098
+class Vis2Action : public VisMenuWnd
+{
+public:
+	Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r); //44f0a2
+
+public:
+	const char* txt;
+};
+ASSERT_SIZE(Vis2Action, 0x80);
+
+
+//60af78
+class VisMissionFailed : public VisMessageBoxWithList
+{
+public:
+	VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& _txt); //44e875
+};
+ASSERT_SIZE(VisMissionFailed, 0x78);
+
+//60b008
+class VisCutScenesDlg : public VisMessageBox
+{
+public:
+	VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload); //44eabb
+
+
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+};
+ASSERT_SIZE(VisCutScenesDlg, 0x78);
+
+//60a4c8
+class VisDiplomacy : public VisMessageBox
+{
+public:
+	VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); //44402b
+
+
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+public:
+	CArray<DiplomacyEntry*>* diplomacy;
+};
+ASSERT_SIZE(VisDiplomacy, 0x7c);
+
+
+//60a558
+class VisConnectionDlg : public VisMessageBox
+{
+public:
+	VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload); //445e52
+
+
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+public:
+	uint32_t protocols;
+	int32_t* pSelected;
+};
+ASSERT_SIZE(VisConnectionDlg, 0x80);
+
+
+//60a5e8
+class VisNetDlg : public VisWindow
+{
+public:
+	VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions); //4464c7
+
+public:
+	int32_t selected;
+	AvailNetSession* sessions;
+	CRect net_rect;
+	CArray<CStringArray*> cached_player_rows;
+};
+ASSERT_SIZE(VisNetDlg, 0x94);
+
+
+//60a810
+class VisNetTcpIp : public VisMessageBox
+{
+public:
+	VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip); //449f06
+
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+public:
+	CString* ip;
+};
+ASSERT_SIZE(VisNetTcpIp, 0x7c);
+
+
+//60a788
+class VisNetSerialSettings : public VisWindow
+{
+public:
+	VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, ComSettings* _com); //448cd5
+
+public:
+	ComSettings* pcom;
+};
+ASSERT_SIZE(VisNetSerialSettings, 0x6c);
+
+//60a670
+class VisNetPhoneBook : public VisWindow
+{
+public:
+	VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book); //447ea8
+
+public:
+	int32_t enum_addresses_num;
+	PhoneBook* phones;
+	CLlAddress* enum_addresses;
+};
+ASSERT_SIZE(VisNetPhoneBook, 0x74);
+
+
+struct NetMapInfo
+{
+	CString mapid;
+	CString name;
+	CString tooltip;
+	int32_t players;
+	int32_t maplevel;
+	int32_t width;
+	int32_t height;
+};
+ASSERT_SIZE(NetMapInfo, 0x1c);
+
+//60a930
+class VisNetMapSelection : public VisWindow
+{
+public:
+	VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName); //44af45
+
+public:
+	CString* p_mapname;
+	CArray<NetMapInfo> avail_maps;
+	CWinThread thread;
+	HANDLE stop_event;
+	int32_t selected_map_index;
+	GM_a28* chat_log;
+	BigStruct2* map_context;
+	int32_t mode;
+};
+ASSERT_SIZE(VisNetMapSelection, 0xfc);
+
+//60e650
+class VisTipsDialog : public VisScreen
+{
+public:
+	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541
+
+public:
+	uint8_t __unused__[12];
+};
+ASSERT_SIZE(VisTipsDialog, 0x74);
 
 #endif

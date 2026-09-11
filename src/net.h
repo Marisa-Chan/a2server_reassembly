@@ -34,6 +34,8 @@ class QuestMap;
 struct Inventory;
 
 
+constexpr const bool IsDplayAvail = true;
+
 struct PackerTail {
     PackerTail* field_0x0;
     PackerTail* field_0x4;

@@ -176,6 +176,8 @@ extern ?RemoteGameIdle@MainWindow@@QAEXXZ : dword
 
 extern ?LogMessage@@YAXVCString@@@Z:proc     ;  LogMessage
 
+externdef ?ShowRoleKeyDialog@@YGXPBD@Z : proc
+
 
 ;GameDataRes
 extern ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
@@ -1021,6 +1023,8 @@ extern ?g_Server@@3PAUServer@@A : dword
 extern ?g_IsServer@@3HA : dword
 extern ?g_ShutdownIn@@3HA : dword
 
+externdef ?OpenFile@PasswordManager@@QAEXPBD@Z : proc
+
 externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_4F465E@Server@@QAEXXZ :proc                                       ; void Server::sub_4F465E()
@@ -1330,6 +1334,12 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 ; MainWindow
+externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
+externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
+externdef ?WaitHatConnection@MainWindow@@QAEHXZ : proc
+externdef ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ : proc
+externdef ?StartHatDedicatedServer@MainWindow@@QAEXXZ : proc
+externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
 
@@ -1342,7 +1352,7 @@ extern ?FUN_004918ae@MainWindow@@QAEXXZ : proc
 
 extern ?FUN_0041f6b0@BigStruct2@@QAEHXZ  : proc
 extern ?FUN_0041b6e0@BigStruct2@@QAEXXZ  : proc
-extern ?FUN_0048e502@MainWindow@@QAEHH@Z : proc
+extern ?RunSessionBootstrap@MainWindow@@QAEHH@Z : proc
 extern ?FUN_0048f79d@MainWindow@@QAEXXZ : proc
 
 externdef ?WindowProc@MainWindow@@UAEJIIJ@Z : proc
@@ -1783,11 +1793,11 @@ extern ??1VisMessageBox@@UAE@XZ  :proc
 extern ?MsgProc@VisMessageBox@@UAEHIII@Z  :proc
 extern ?VMethod26@VisMessageBox@@UAEXXZ  :proc
 extern ?VMethod31@VisMessageBox@@UAEXH@Z  :proc
-extern ??0VisMessageBox@@QAE@HHHHHPBD0H0@Z  :proc
+extern ??0VisMessageBox@@QAE@HHHHHPBXPBDH1@Z  :proc
 
 ;VisMessageBoxWithList
 extern ??1VisMessageBoxWithList@@UAE@XZ  :proc
-extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBDABUtagRECT@@@Z  :proc
+extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z  :proc
 extern ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z  :proc
 
 ;VisCharSellectStats
@@ -2381,3 +2391,37 @@ extern ??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z : proc
 
 ; VisLogoWnd
 extern ??0VisLogoWnd@@QAE@HHHHH@Z : proc
+
+
+; Vis2Action
+externdef ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z : proc
+
+; VisMissionFailed
+externdef ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z : proc
+
+; VisCutScenesDlg
+externdef ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z : proc
+
+; VisDiplomacy
+externdef ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z : proc
+
+; VisConnectionDlg
+externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc
+
+; VisNetDlg
+externdef ??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z : proc
+
+; VisNetTcpIp
+externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc
+
+; VisNetSerialSettings
+externdef ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z : proc
+
+; VisNetPhoneBook
+externdef ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z : proc
+
+; VisNetMapSelection
+externdef ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z : proc
+
+; VisTipsDialog
+externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc

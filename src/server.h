@@ -37,6 +37,18 @@ class VirtualCaster;
 extern UnitList* dword_6B37C4;   // Pool of server units for summoning/reuse (0x6B37C4)
 extern UnitList* dword_6CDB3C;  // Global server unit list (0x6CDB3C) - used for AddTailAllocId
 
+struct PasswordManager
+{
+    CStringArray content;
+    CString fname;
+    CTime date;
+
+    void OpenFile(const char* name); //4f6bf9
+    void Load(); //4f6c92
+
+    static PasswordManager manager; //6a8b98
+};
+ASSERT_SIZE(PasswordManager, 0x1c);
 
 struct CowardActivation {
     char key[100];
@@ -286,7 +298,7 @@ ASSERT_SIZE(Server, 0x258);
 struct ServerConfig
 {
     uint32_t repop_delay;
-    uint32_t protocol; // Legacy protocol setting? Unset when reading the config. Only relevant values are 0 and 1. Default: 2.
+    int32_t protocol; // Legacy protocol setting? Unset when reading the config. Only relevant values are 0 and 1. Default: 2.
     uint32_t game_speed;
     CString  log_file;
     CString  ip_address;

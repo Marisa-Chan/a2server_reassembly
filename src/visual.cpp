@@ -3633,7 +3633,7 @@ void VisMessageBox::VMethod26()
         AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, field_0x70, g_font1, p_clrsh_Black, 0) );
     }
 
-    CVisualObject* obj = VMethod30(field_0x68, r2);
+    CVisualObject* obj = VMethod30(payload, r2);
     rect.bottom = rect.top + 144 + obj->GetRect().bottom;
     UpdateWinRect();
 
@@ -3768,20 +3768,20 @@ void VisMessageBox::VMethod31(int32_t code)
     //445084
 }
 
-VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes, const char* str3)
+VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3)
 : VisWindow(_id, l, t, r, b, nullptr)
 {
     //44402b
     field_0x70 = str2;
     field_0x6c = str3;
-    field_0x68 = str1;
+    payload = _payload;
     button_types = btypes;
 }
 
 
-CVisualObject* VisMessageBoxWithList::VMethod30(const char* str, const RECT& r)
+CVisualObject* VisMessageBoxWithList::VMethod30(const void* str, const RECT& r)
 { //4450d4
-    VisMultiText* txt = new VisMultiText(2, r, str, g_font1, p_clrsh_Black, 0);
+    VisMultiText* txt = new VisMultiText(2, r, (const char*)str, g_font1, p_clrsh_Black, 0);
     AddChild(txt);
     txt->SizesCheck();
     return txt;

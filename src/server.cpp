@@ -48,6 +48,9 @@ int32_t g_ShutdownIn; // 63623c
 
 UnitList* dword_6B37C4; // 6b37c4
 
+PasswordManager PasswordManager::manager; //6a8b98
+
+
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA
 // Stat point cost: (int)(pow(1.15, level - 1) * 0.349 + 0.5)
