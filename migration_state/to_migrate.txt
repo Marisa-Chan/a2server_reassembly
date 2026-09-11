@@ -150,7 +150,6 @@
 ?VMethod27@CUnit@@UAEXXZ	77
 ?VMethod29@CUnit@@UAEXXZ	77
 ?VMethod21@CUnit@@UAEXXZ	84
-?VMethod28@CUnit@@UAEXXZ	89
 ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ	111
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3

@@ -1322,6 +1322,7 @@
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
+?VMethod28@CUnit@@UAEXXZ
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod2@AreaEffect@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
