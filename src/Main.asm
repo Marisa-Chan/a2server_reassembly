@@ -105044,34 +105044,6 @@ var_4           = dword ptr -4
 ?VMethod3@CUnit@@UAEHXZ      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod13@CUnit@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B614↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cl, [eax+184h]
-                cmp     ecx, 3
-                jge     short loc_46F61F
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod13@CGameObject@@UAEXXZ
-
-loc_46F61F:                             ; CODE XREF: ?VMethod13@CUnit@@UAEXXZ+15↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod13@CUnit@@UAEXXZ      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 

@@ -1284,6 +1284,7 @@
 ?VMethod12@Effect@@UAEXPAVUnit@@@Z
 ?VMethod13@Armor@@UAEPAVItem@@XZ
 ?VMethod13@CGameObject@@UAEXXZ
+?VMethod13@CUnit@@UAEXXZ
 ?VMethod13@Effect@@UAEXPAVUnit@@@Z
 ?VMethod13@Item@@UAEPAV1@XZ
 ?VMethod13@Shield@@UAEPAVItem@@XZ
