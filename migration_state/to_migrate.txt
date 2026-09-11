@@ -53,7 +53,6 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -143,7 +142,6 @@
 ?VMethod5@CUnit@@UAEHXZ	18
 ?VMethod13@CUnit@@UAEXXZ	20
 ?VMethod14@CUnit@@UAEXXZ	20
-?VMethod1@CUnit@@UAEXH@Z	48
 ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ	111
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
@@ -247,6 +245,7 @@
 ??0VisFameDocument@@QAE@HHHHH@Z	78
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z	122
+?FUN_0046fb90@VisInvBase@@QAEHXZ	14
 ??0VisInvType1@@QAE@HHHHH@Z	67
 ??0VisMainMenu@@QAE@HHHHH@Z	84
 ??0VisMiniMap@@QAE@HHHHH@Z	36

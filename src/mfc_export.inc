@@ -2320,7 +2320,8 @@ extern ?ApplyFace@CUnit@@QAEXH@Z :proc
 extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
-externdef   ?VMethod1@CUnit@@UAEXH@Z  : proc
+extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
+externdef   ?FUN_0046fb90@VisInvBase@@QAEHXZ  : proc
 externdef   ?VMethod2@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod3@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod4@CUnit@@UAEHXZ  : proc

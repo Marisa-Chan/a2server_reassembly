@@ -99659,61 +99659,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod1@CUnit@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060B5E4↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0E8h]
-                mov     [ebp+var_4], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                cmp     [ebp+arg_0], 0
-                jnz     short loc_464962
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+138h]
-                cmp     eax, [ebp+var_C]
-                jnz     short loc_464962
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     dword ptr [ecx+408h], 0
-                jz      short loc_464962
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0E8h]
-                call    sub_46FB90
-                push    eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0E8h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0E8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+0A4h]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_48CD44
-
-loc_464962:                             ; CODE XREF: ?VMethod1@CUnit@@UAEXH@Z+21↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?VMethod1@CGameObject@@UAEXH@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod1@CUnit@@UAEXH@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -105928,7 +105873,7 @@ sub_46FB70      endp
 
 ; Attributes: bp-based frame
 
-sub_46FB90      proc near               ; CODE XREF: ?VMethod1@CUnit@@UAEXH@Z+51↑p
+?FUN_0046fb90@VisInvBase@@QAEHXZ      proc near               ; CODE XREF: ?VMethod1@CUnit@@UAEXH@Z+51↑p
 
 var_4           = dword ptr -4
 
@@ -105942,7 +105887,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46FB90      endp
+?FUN_0046fb90@VisInvBase@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -179661,7 +179606,7 @@ loc_4B22E1:                             ; CODE XREF: sub_4B2239+A2↑j
                 mov     [ebp+var_24], eax
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+0E8h]
-                call    sub_46FB90
+                call    ?FUN_0046fb90@VisInvBase@@QAEHXZ
                 push    eax
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [ecx+0E8h]
@@ -216265,7 +216210,7 @@ loc_4CAF30:                             ; CODE XREF: sub_4CAEA6+62↑j
                 jnz     short loc_4CAF65
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [ecx+0E8h]
-                call    sub_46FB90
+                call    ?FUN_0046fb90@VisInvBase@@QAEHXZ
                 push    eax
                 mov     edx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [edx+0E8h]

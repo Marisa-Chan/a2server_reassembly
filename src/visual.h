@@ -1059,6 +1059,8 @@ public:
 	virtual int32_t VMethod37(int32_t idx); //4a5c39
 	virtual int32_t VMethod38(); //4a79b0
 
+	int32_t FUN_0046fb90(); //46fb90
+
 public:
 	CArray<CSprite256*> spr_cells;
 	CDWordArray cell_update_counter;

@@ -10,6 +10,7 @@
 #include "quest.h"
 #include "quest_map.h"
 #include "sound.h"
+#include "mouse.h"
 
 #include <cmath>
 #include <cstdio>
@@ -2746,6 +2747,18 @@ void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, in
     this->face = this->typeId;
     this->map_player = arg6;
     this->unitFlags = 0;
+}
+
+void CUnit::VMethod1(int32_t arg1)
+{ // 4648e9
+    BigStruct2* map = this->pMapObject;
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    if (arg1 == 0 && map->field_0x138 == this && wnd->field_0x408 != nullptr) {
+        g_Cursors[CURSOR_DEFAULT]->Use();
+        wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->FUN_0046fb90());
+        wnd->ResetItemCursor();
+    }
+    CGameObject::VMethod1(arg1);
 }
 
 void CUnit::VMethod26()
