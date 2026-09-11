@@ -1742,6 +1742,24 @@ void TransientVisualEffectBuilder::FUN_004CCE04(int16_t height, uint8_t effect_t
     this->visual_elements.Add(GO_11c(-x_offset, -height - y_offset, 0, effect_type, phase));
 }
 
+// 4cd4b0
+extern double __cdecl FUN_004CD4B0(int32_t degrees);
+
+// 4ccaf2
+void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, uint32_t phase)
+{
+    for (int32_t angle = 0x59; angle > 0; angle -= 0x12) {
+        double rad = FUN_004CD4B0(angle + (phase & 0xFF) * 0x12);
+        int16_t x = (int16_t)(std::cos(rad) * radius);
+        int16_t z = (int16_t)(std::sin(rad) * radius);
+        uint8_t anim_phase = 4 - angle / 0x12;
+        this->visual_elements.Add(GO_11c(x, -height, z, 0x30, anim_phase));
+        this->visual_elements.Add(GO_11c(z, -height, -x, 0x30, anim_phase));
+        this->visual_elements.Add(GO_11c(-x, -height, -z, 0x30, anim_phase));
+        this->visual_elements.Add(GO_11c(-z, -height, x, 0x30, anim_phase));
+    }
+}
+
 // 4cb269
 int __cdecl CompareVisualElements(const void* left, const void* right)
 {

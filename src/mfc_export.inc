@@ -2301,6 +2301,7 @@ externdef ?FUN_004627bb@CGameObject@@QAEXHH@Z : proc
 ;TransientVisualEffectBuilder
 externdef ??0TransientVisualEffectBuilder@@QAE@XZ :proc
 externdef ??1TransientVisualEffectBuilder@@QAE@XZ :proc
+externdef ?FUN_004CD4B0@@YANH@Z :proc
 externdef ?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
 externdef ?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
 externdef ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z :proc
