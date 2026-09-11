@@ -1681,6 +1681,9 @@ public:
     void FUN_004CCE04(int16_t height, uint8_t effect_type, uint8_t phase); // 4cce04
     void FUN_004CCED2(int16_t height, uint8_t phase); // 4cced2
 
+    void FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step); // 4cc5d1
+    void FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle); // 4cc798
+
     CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0
 
 public:
@@ -1757,6 +1760,28 @@ void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, ui
         this->visual_elements.Add(GO_11c(z, -height, -x, 0x30, anim_phase));
         this->visual_elements.Add(GO_11c(-x, -height, -z, 0x30, anim_phase));
         this->visual_elements.Add(GO_11c(-z, -height, x, 0x30, anim_phase));
+    }
+}
+
+// 4cc944
+void TransientVisualEffectBuilder::FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase)
+{
+    this->FUN_004CC798(0, 0, height, speed, radius, (phase & 0xFF) << 2);
+
+    int32_t y_offset = (int32_t)std::fabs(speed * ((int32_t)(phase & 0xFF) * 0.02222222222222222 - 1.0));
+    int32_t span = (int32_t)(std::sin(std::acos(y_offset / (double)speed)) * radius);
+    uint8_t anim_phase = 4 - std::abs((int32_t)(phase & 0xFF) - 0x2D) / 9;
+
+    this->FUN_004CC5D1(0, 0, span, anim_phase * 2);
+
+    for (int32_t i = 0; i < this->field_0x68.GetSize(); i++) {
+        CPoint* pt = &this->field_0x68[i];
+        int16_t x = pt->x;
+        int16_t z = pt->y;
+        int16_t y_top = -(int16_t)(height + y_offset);
+        this->visual_elements.Add(GO_11c(x, y_top, z, 0x3E, anim_phase));
+        int16_t y_bottom = -(int16_t)(height - y_offset);
+        this->visual_elements.Add(GO_11c(x, y_bottom, z, 0x3E, anim_phase));
     }
 }
 
