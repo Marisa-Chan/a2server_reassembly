@@ -2596,3 +2596,23 @@ int32_t CUnit::VMethod15()
     this->m_bSelectionDirty = 1;
     return 1;
 }
+
+void CUnit::VMethod10()
+{ // 464765
+    if (this->field_0x180[4] < 2 && (this->unitFlags & 0x80) == 0) {
+        this->FUN_00461c41(2, this);
+    } else {
+        this->FUN_00461c41(4, this);
+    }
+
+    if (g_Animation == 0 && this->FUN_0041f130() == 0 && this->m_bSelectionDirty != 0) {
+        BigStruct2* map = this->pMapObject;
+        UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+        int32_t x = this->centerScreenX - vfx->center_x;
+        int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;
+        CRect rect(x & 0xffffffe0, y, ((x + vfx->width) & 0xffffffe0) + 0x20, y + vfx->height);
+        map->field_0xf4 |= rect;
+    }
+
+    this->m_bSelectionDirty = 0;
+}

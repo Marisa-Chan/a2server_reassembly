@@ -9160,7 +9160,7 @@ loc_407B52:                             ; CODE XREF: sub_406F7B+BCC↑j
                 cmp     [ebp+var_118], 0
                 jz      short loc_407D2D
                 mov     ecx, dword ptr [ebp+var_118] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 cmp     eax, 2
                 jge     short loc_407D2D
                 mov     eax, dword ptr [ebp+var_11C]
@@ -9323,7 +9323,7 @@ loc_407D84:                             ; CODE XREF: sub_406F7B+DFE↑j
                 cmp     [ebp+var_130], 0
                 jz      loc_4080AF
                 mov     ecx, dword ptr [ebp+var_130] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 cmp     eax, 2
                 jge     loc_4080AF
                 mov     edx, dword ptr [ebp+var_130]
@@ -9378,7 +9378,7 @@ loc_407D84:                             ; CODE XREF: sub_406F7B+DFE↑j
                 lea     ecx, [ebp+var_154]
                 call    sub_41E8F0
                 mov     ecx, dword ptr [ebp+var_130] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_4080AF
                 mov     ecx, dword ptr [ebp+var_130]
@@ -9529,7 +9529,7 @@ loc_408106:                             ; CODE XREF: sub_406F7B+1180↑j
                 cmp     [ebp+var_164], 0
                 jz      short loc_40834C
                 mov     ecx, dword ptr [ebp+var_164] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_40834C
                 cmp     ?g_Shadows@@3HA, 0
@@ -9563,7 +9563,7 @@ loc_40834C:                             ; CODE XREF: sub_406F7B+1366↑j
                 cmp     [ebp+var_170], 0
                 jz      short loc_4083BD
                 mov     ecx, dword ptr [ebp+var_170] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_4083BD
                 cmp     ?g_Shadows@@3HA, 0
@@ -9732,7 +9732,7 @@ loc_408414:                             ; CODE XREF: sub_406F7B+148E↑j
                 cmp     [ebp+var_184], 0
                 jz      loc_408708
                 mov     ecx, dword ptr [ebp+var_184] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 cmp     eax, 2
                 jge     loc_408708
                 mov     eax, dword ptr [ebp+var_184]
@@ -9787,7 +9787,7 @@ loc_408414:                             ; CODE XREF: sub_406F7B+148E↑j
                 lea     ecx, [ebp+var_1A4]
                 call    sub_41E8F0
                 mov     ecx, dword ptr [ebp+var_184] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_408708
                 mov     eax, dword ptr [ebp+var_184]
@@ -9803,7 +9803,7 @@ loc_408708:                             ; CODE XREF: sub_406F7B+1675↑j
                 cmp     [ebp+var_188], 0
                 jz      loc_40888D
                 mov     ecx, dword ptr [ebp+var_188] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     loc_40888D
                 push    20h ; ' '
@@ -10952,7 +10952,7 @@ loc_4096BC:                             ; CODE XREF: sub_406F7B+2736↑j
                 cmp     [ebp+var_224], 0
                 jz      short loc_409896
                 mov     ecx, dword ptr [ebp+var_224] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_409896
                 mov     eax, dword ptr [ebp+var_228]
@@ -11287,7 +11287,7 @@ loc_409BB9:                             ; CODE XREF: sub_406F7B+2C33↑j
                 cmp     [ebp+var_248], 0
                 jz      loc_409E8F
                 mov     ecx, dword ptr [ebp+var_248] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     loc_409E8F
                 mov     eax, dword ptr [ebp+var_248]
@@ -11461,7 +11461,7 @@ loc_409FD5:                             ; CODE XREF: sub_406F7B+3026↑j
                 cmp     dword ptr [eax+0AB8h], 0
                 jz      short loc_40A02E
                 mov     ecx, dword ptr [ebp+var_26C] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_40A02E
 
@@ -11488,7 +11488,7 @@ loc_40A02E:                             ; CODE XREF: sub_406F7B+3061↑j
                 cmp     dword ptr [eax+0AB8h], 0
                 jz      short loc_40A087
                 mov     ecx, dword ptr [ebp+var_270] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_40A087
 
@@ -26653,7 +26653,7 @@ var_4           = dword ptr -4
 ; Attributes: library function bp-based frame
 
 ; struct Concurrency::IExecutionContext *__thiscall Concurrency::details::VirtualProcessor::GetExecutingContext(Concurrency::details::VirtualProcessor *__hidden varThis)
-sub_41f130 proc near
+?FUN_0041f130@CGameObject@@QAEHXZ proc near
 
 var_4           = dword ptr -4
 
@@ -26666,7 +26666,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41f130 endp
+?FUN_0041f130@CGameObject@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -96605,7 +96605,7 @@ loc_461C3C:                             ; CODE XREF: ?FUN_0046190d@CGameObject@@
 
 ; Attributes: bp-based frame
 
-sub_461C41      proc near               ; CODE XREF: sub_462A98+10↓p
+?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z      proc near               ; CODE XREF: sub_462A98+10↓p
 
 var_24          = dword ptr -24h
 var_20          = dword ptr -20h
@@ -96630,7 +96630,7 @@ arg_4           = dword ptr  0Ch
                 jmp     loc_461DC5
 ; ---------------------------------------------------------------------------
 
-loc_461C59:                             ; CODE XREF: sub_461C41+11↑j
+loc_461C59:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+11↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     edx, dword ptr [ecx+0E8h]
                 mov     [ebp+var_4], edx
@@ -96642,14 +96642,14 @@ loc_461C59:                             ; CODE XREF: sub_461C41+11↑j
                 jmp     ds:jpt_461C78[ecx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_461C7F:                             ; CODE XREF: sub_461C41+37↑j
+loc_461C7F:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑j
                 mov     edx, dword ptr [ebp+var_4] ; jumptable 00461C78 case 0
                 mov     eax, dword ptr [edx+98h]
                 mov     [ebp+var_8], eax
                 jmp     def_461C78      ; jumptable 00461C78 default case
 ; ---------------------------------------------------------------------------
 
-loc_461C90:                             ; CODE XREF: sub_461C41+37↑j
+loc_461C90:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑j
                 mov     ecx, dword ptr [ebp+var_4] ; jumptable 00461C78 case 1
                 mov     edx, dword ptr [ecx+94h]
                 mov     [ebp+var_8], edx
@@ -96659,12 +96659,12 @@ loc_461C90:                             ; CODE XREF: sub_461C41+37↑j
                 jmp     short loc_461CB0
 ; ---------------------------------------------------------------------------
 
-loc_461CA7:                             ; CODE XREF: sub_461C41:loc_461CFE↓j
+loc_461CA7:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z:loc_461CFE↓j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 1
                 mov     [ebp+var_10], edx
 
-loc_461CB0:                             ; CODE XREF: sub_461C41+64↑j
+loc_461CB0:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+64↑j
                 mov     eax, dword ptr [ebp+var_20]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     ecx, [eax+48h]
@@ -96675,12 +96675,12 @@ loc_461CB0:                             ; CODE XREF: sub_461C41+64↑j
                 jmp     short loc_461CCF
 ; ---------------------------------------------------------------------------
 
-loc_461CC6:                             ; CODE XREF: sub_461C41+BB↓j
+loc_461CC6:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+BB↓j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 1
                 mov     [ebp+var_14], ecx
 
-loc_461CCF:                             ; CODE XREF: sub_461C41+83↑j
+loc_461CCF:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+83↑j
                 mov     edx, dword ptr [ebp+var_20]
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     eax, [edx+4Ch]
@@ -96699,34 +96699,34 @@ loc_461CCF:                             ; CODE XREF: sub_461C41+83↑j
                 jmp     short loc_461CC6
 ; ---------------------------------------------------------------------------
 
-loc_461CFE:                             ; CODE XREF: sub_461C41+97↑j
+loc_461CFE:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+97↑j
                 jmp     short loc_461CA7
 ; ---------------------------------------------------------------------------
 
-loc_461D00:                             ; CODE XREF: sub_461C41+78↑j
+loc_461D00:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+78↑j
                 jmp     loc_461DC5
 ; ---------------------------------------------------------------------------
 
-loc_461D05:                             ; CODE XREF: sub_461C41+37↑j
+loc_461D05:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑j
                 mov     eax, dword ptr [ebp+var_4] ; jumptable 00461C78 case 2
                 mov     ecx, dword ptr [eax+8Ch]
                 mov     [ebp+var_8], ecx
                 jmp     short def_461C78 ; jumptable 00461C78 default case
 ; ---------------------------------------------------------------------------
 
-loc_461D13:                             ; CODE XREF: sub_461C41+37↑j
+loc_461D13:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑j
                 mov     edx, dword ptr [ebp+var_4] ; jumptable 00461C78 case 3
                 mov     eax, dword ptr [edx+90h]
                 mov     [ebp+var_8], eax
                 jmp     short def_461C78 ; jumptable 00461C78 default case
 ; ---------------------------------------------------------------------------
 
-loc_461D21:                             ; CODE XREF: sub_461C41+37↑j
+loc_461D21:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑j
                 mov     ecx, dword ptr [ebp+var_4] ; jumptable 00461C78 case 4
                 mov     edx, dword ptr [ecx+9Ch]
                 mov     [ebp+var_8], edx
 
-def_461C78:                             ; CODE XREF: sub_461C41+2E↑j
+def_461C78:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+2E↑j
                 mov     eax, dword ptr [ebp+var_20] ; jumptable 00461C78 default case
                 mov     esi, [eax+2Ch]
                 mov     ecx, dword ptr [ebp+var_20]
@@ -96779,15 +96779,15 @@ def_461C78:                             ; CODE XREF: sub_461C41+2E↑j
                 mov     edx, dword ptr [ebp+arg_4]
                 mov     [ecx+eax*4], edx
 
-loc_461DC5:                             ; CODE XREF: sub_461C41+13↑j
+loc_461DC5:                             ; CODE XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+13↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_461C41      endp
+?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_461C78      dd offset loc_461C7F    ; DATA XREF: sub_461C41+37↑r
+jpt_461C78      dd offset loc_461C7F    ; DATA XREF: ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z+37↑r
                 dd offset loc_461C90    ; jump table for switch statement
                 dd offset loc_461D05
                 dd offset loc_461D13
@@ -97241,7 +97241,7 @@ var_4           = dword ptr -4
                 push    eax
                 push    0
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_461C41
+                call    ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -97337,7 +97337,7 @@ var_4           = dword ptr -4
                 push    eax
                 push    1
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_461C41
+                call    ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -98858,7 +98858,7 @@ var_4           = dword ptr -4
                 cmp     dword ptr [eax+3Ch], 0
                 jz      short loc_463A4F
                 mov     ecx, dword ptr [ebp+var_8] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     short loc_463A4F
                 mov     ecx, dword ptr [ebp+var_8]
@@ -99679,126 +99679,6 @@ arg_24          = word ptr  2Ch
                 pop     ebp
                 retn    28h ; '('
 ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod10@CUnit@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B608↓o
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_local_Rect          = RECT ptr -10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 20h
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+var_20]
-                xor     ecx, ecx
-                mov     cl, [eax+184h]
-                cmp     ecx, 2
-                jge     short loc_4647A0
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+1B8h]
-                and     eax, 80h
-                test    eax, eax
-                jnz     short loc_4647A0
-                mov     ecx, dword ptr [ebp+var_20]
-                push    ecx
-                push    2
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_461C41
-                jmp     short loc_4647AE
-; ---------------------------------------------------------------------------
-
-loc_4647A0:                             ; CODE XREF: ?VMethod10@CUnit@@UAEXXZ+17↑j
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                push    4
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_461C41
-
-loc_4647AE:                             ; CODE XREF: ?VMethod10@CUnit@@UAEXXZ+39↑j
-                cmp     ?g_Animation@@3HA, 0
-                jnz     loc_464890
-                mov     ecx, dword ptr [ebp+var_20] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
-                test    eax, eax
-                jnz     loc_464890
-                mov     eax, dword ptr [ebp+var_20]
-                cmp     dword ptr [eax+114h], 0
-                jz      loc_464890
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+0E8h]
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     ecx, offset ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
-                call    sub_421410
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+64h]
-                sub     ecx, [edx+34h]
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+24h]
-                push    eax
-                mov     ecx, offset ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
-                call    sub_421410
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+68h]
-                sub     eax, [ecx+38h]
-                mov     ecx, dword ptr [ebp+var_20]
-                sub     eax, [ecx+6Ch]
-                mov     edx, dword ptr [ebp+var_20]
-                sub     eax, [edx+10h]
-                mov     [ebp+var_1C], eax
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     ecx, offset ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
-                call    sub_421410
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [ebp+var_1C]
-                add     eax, [edx+30h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+24h]
-                push    edx
-                mov     ecx, offset ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
-                call    sub_421410
-                mov     eax, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, [eax+2Ch]
-                and     ecx, 0FFFFFFE0h
-                add     ecx, 20h ; ' '
-                push    ecx
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx
-                mov     eax, dword ptr [ebp+var_18]
-                and     eax, 0FFFFFFE0h
-                push    eax
-                lea     ecx, [ebp+var_local_Rect]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                lea     ecx, [ebp+var_local_Rect]
-                push    ecx             ; lprcSrc2
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 0F4h
-                call    sub_41E930
-
-loc_464890:                             ; CODE XREF: ?VMethod10@CUnit@@UAEXXZ+50↑j
-                mov     edx, dword ptr [ebp+var_20]
-                mov     dword ptr [edx+114h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod10@CUnit@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -102881,11 +102761,11 @@ var_local_Rect          = RECT ptr -10h
                 push    eax
                 push    3
                 mov     ecx, dword ptr [ebp+var_20]
-                call    sub_461C41
+                call    ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z
                 cmp     ?g_Animation@@3HA, 0
                 jnz     loc_46D7E4
                 mov     ecx, dword ptr [ebp+var_20] ; varThis
-                call    sub_41f130 ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
+                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
                 test    eax, eax
                 jnz     loc_46D7E4
                 mov     ecx, dword ptr [ebp+var_20]

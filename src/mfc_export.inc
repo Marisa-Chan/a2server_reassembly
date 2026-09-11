@@ -2335,7 +2335,7 @@ externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
 externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
-externdef   ?VMethod10@CUnit@@UAEXXZ  : proc
+extern   ?VMethod10@CUnit@@UAEXXZ  : proc
 extern   ?VMethod11@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod13@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod14@CUnit@@UAEXXZ  : proc
@@ -2351,6 +2351,8 @@ externdef   ?VMethod23@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod24@CUnit@@UAEXXZ  : proc
 extern   ?VMethod25@CUnit@@UAEXH@Z  : proc
 externdef   ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ  : proc
+externdef   ?FUN_0041f130@CGameObject@@QAEHXZ  : proc
+externdef   ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z  : proc
 externdef   ?VMethod26@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod27@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod28@CUnit@@UAEXXZ  : proc

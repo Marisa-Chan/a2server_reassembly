@@ -147,6 +147,8 @@ public:
 
 	int32_t FUN_00462405(int32_t effect_id);
 	int32_t GetControlGroup(); //41f220
+	int32_t FUN_0041f130(); //41f130
+	void FUN_00461c41(int32_t arg1, CGameObject* arg2); //461c41
 	int32_t FUN_00461f8e(int32_t x, int32_t y); //461f8e
 	void FUN_0046246b(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi); //46246b
 	void FUN_004627bb(int32_t x, int32_t y); //4627bb
