@@ -103677,7 +103677,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_46D6FB      proc near               ; DATA XREF: .rdata:0060B698↓o
+?VMethod10@CAirUnit@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B698↓o
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -103760,11 +103760,11 @@ var_local_Rect          = RECT ptr -10h
                 add     ecx, 0F4h
                 call    sub_41E930
 
-loc_46D7E4:                             ; CODE XREF: sub_46D6FB+1E↑j
+loc_46D7E4:                             ; CODE XREF: ?VMethod10@CAirUnit@@UAEXXZ+1E↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46D6FB      endp
+?VMethod10@CAirUnit@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -441488,7 +441488,7 @@ off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    
                 dd offset ?VMethod7@CUnit@@UAEXHHH@Z
                 dd offset ?VMethod8@CUnit@@UAEXHHH@Z
                 dd offset ?VMethod9@CUnit@@UAEXHHH@Z
-                dd offset sub_46D6FB
+                dd offset ?VMethod10@CAirUnit@@UAEXXZ
                 dd offset ?VMethod11@CUnit@@UAEHXZ
                 dd offset ?VMethod12@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod13@CUnit@@UAEXXZ
