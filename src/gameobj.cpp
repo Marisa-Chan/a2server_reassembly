@@ -1763,6 +1763,37 @@ void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, ui
     }
 }
 
+// 4cc22d
+int32_t TransientVisualEffectBuilder::FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id)
+{
+    int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
+    for (int32_t i = 0; i < existing->GetSize(); i++) {
+        GO_11c* elem = &(*existing)[i];
+        if (elem->field_0x6 == 0x38 && elem->field_0x7 < 7) {
+            elem->field_0x7 += 1;
+            elem->field_0x2 -= age_step;
+            this->visual_elements.Add(*elem);
+        }
+    }
+
+    if (visual_id < 8) {
+        return 0;
+    }
+
+    int32_t count = std::rand() % 3 + 3;
+    for (int32_t i = 0; i < count; i++) {
+        double rad = FUN_004CD4B0(std::rand() % 360);
+        GO_11c elem;
+        elem.field_0x0 = (int16_t)(std::cos(rad) * x_radius);
+        elem.field_0x2 = 0;
+        elem.field_0x4 = (int16_t)(std::sin(rad) * y_radius);
+        elem.field_0x6 = 0x38;
+        elem.field_0x7 = 0;
+        this->visual_elements.Add(elem);
+    }
+    return 1;
+}
+
 // 4cc944
 void TransientVisualEffectBuilder::FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase)
 {
