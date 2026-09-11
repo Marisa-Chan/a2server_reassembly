@@ -2730,6 +2730,24 @@ void CUnit::VMethod21()
     }
 }
 
+void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10)
+{ // 4646c1
+    this->unit_id = arg1;
+    this->x_pos = arg3;
+    this->y_pos = arg4;
+    this->x_pos2 = this->x_pos;
+    this->y_pos2 = this->y_pos;
+    this->z_pos = arg5;
+    this->dir = arg7;
+    this->phase = arg8;
+    this->speed = arg9;
+    this->hp = arg10;
+    this->typeId = arg2;
+    this->face = this->typeId;
+    this->map_player = arg6;
+    this->unitFlags = 0;
+}
+
 void CUnit::VMethod26()
 { // 469c3c
     uint32_t now = timeGetTime();
