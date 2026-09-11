@@ -2298,6 +2298,19 @@ externdef ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc
 externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
 externdef ?FUN_004627bb@CGameObject@@QAEXHH@Z : proc
 
+;TransientVisualEffectBuilder
+externdef ??0TransientVisualEffectBuilder@@QAE@XZ :proc
+externdef ??1TransientVisualEffectBuilder@@QAE@XZ :proc
+externdef ?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
+externdef ?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
+externdef ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z :proc
+externdef ?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z :proc
+externdef ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z :proc
+externdef ?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z :proc
+externdef ?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z :proc
+
+externdef ?CompareVisualElements@@YAHPBX0@Z :proc
+
 ;CUnit
 extern ??0CUnit@@QAE@XZ : proc
 extern ??1CUnit@@UAE@XZ : proc
@@ -2326,7 +2339,7 @@ extern   ?VMethod11@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod13@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod14@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod15@CUnit@@UAEHXZ  : proc
-externdef   ?VMethod16@CUnit@@UAEXXZ  : proc
+extern   ?VMethod16@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z  : proc
 externdef   ?VMethod18@CUnit@@UAEXXZ  : proc
 extern   ?VMethod19@CUnit@@UAEXXZ  : proc

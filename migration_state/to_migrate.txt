@@ -6,6 +6,7 @@
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 ?SetMessageColors@@YAXI@Z	26
+?CompareVisualElements@@YAHPBX0@Z	34
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
@@ -51,6 +52,7 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -154,7 +156,6 @@
 ?VMethod9@CUnit@@UAEXHHH@Z	200
 ?VMethod18@CUnit@@UAEXXZ	216
 ?VMethod25@CUnit@@UAEXH@Z	237
-?VMethod16@CUnit@@UAEXXZ	453
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
 ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z	9
@@ -228,6 +229,15 @@
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
+?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z	29
+??1TransientVisualEffectBuilder@@QAE@XZ	64
+?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z	74
+??0TransientVisualEffectBuilder@@QAE@XZ	87
+?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z	163
+?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z	163
+?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z	170
+?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z	189
+?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z	191
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15

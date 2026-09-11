@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
@@ -1664,6 +1665,138 @@ void CUnit::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
             }
         }
     }
+}
+
+class TransientVisualEffectBuilder
+{
+public:
+    TransientVisualEffectBuilder(); // 4cb0a0
+    ~TransientVisualEffectBuilder(); // 4cb190
+
+    int32_t FUN_004CC22D(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d
+    int32_t FUN_004CC3FD(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd
+    void FUN_004CC944(int16_t height, float speed, float radius, uint32_t phase); // 4cc944
+    void FUN_004CCAF2(int16_t height, float radius, uint32_t phase); // 4ccaf2
+    void FUN_004CCC7B(int16_t height, float radius, uint32_t phase); // 4ccc7b
+    void FUN_004CCE04(int16_t height, uint8_t effect_type, uint8_t phase); // 4cce04
+    void FUN_004CCED2(int16_t height, uint8_t phase); // 4cced2
+
+    CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0
+
+public:
+    CPoint field_0x0;
+    uint8_t gap_0x8[0x1c];
+    CPoint field_0x24;
+    CPoint field_0x2c;
+    CPoint field_0x34[2];
+    CPoint field_0x44[2];
+    int32_t field_0x54;
+    double field_0x58;
+    double field_0x60;
+    CArray<CPoint> field_0x68;
+    CArray<GO_11c> visual_elements; // 0x7c
+    CArray<double> field_0x90;
+    CArray<double> field_0xa4;
+    CArray<double> field_0xb8;
+    CArray<double> field_0xcc;
+};
+ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
+
+// 4cb269
+extern int __cdecl CompareVisualElements(const void* left, const void* right);
+// {
+//     const GO_11c* lhs = (const GO_11c*)left;
+//     const GO_11c* rhs = (const GO_11c*)right;
+
+//     if (lhs->field_0x2 < rhs->field_0x2) {
+//         return 1;
+//     }
+//     if (rhs->field_0x2 < lhs->field_0x2) {
+//         return -1;
+//     }
+//     return 0;
+// }
+
+void CUnit::VMethod16()
+{ // 468dcb
+    CArray<GO_11c> visual_elements;
+
+    for (int32_t i = 0; i < this->field_0x130.GetSize();) {
+        uint32_t effect = this->field_0x130[i];
+        uint16_t effect_timer = (uint16_t)effect;
+        uint32_t effect_type = effect >> 16;
+
+        switch (effect_type) {
+        case 0x10:
+        case 0x18:
+        case 0x22:
+        case 0x2e: {
+            TransientVisualEffectBuilder builder;
+            builder.FUN_004CCE04(this->VMethod4() << 5, effect_type, effect_timer % 6);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x14: {
+            TransientVisualEffectBuilder builder;
+            builder.FUN_004CCED2(this->VMethod4() << 5, effect_timer % 6);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x30: {
+            TransientVisualEffectBuilder builder;
+            builder.FUN_004CCAF2(this->VMethod4() << 5, 20.0f, effect_timer % 5);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x38: {
+            TransientVisualEffectBuilder builder;
+            int16_t z_radius = this->VMethod4() << 5;
+            int16_t y_radius = this->VMethod4() << 3;
+            int16_t x_radius = this->VMethod4() << 4;
+            builder.FUN_004CC22D(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x3c: {
+            TransientVisualEffectBuilder builder;
+            int16_t z_radius = this->VMethod4() << 5;
+            int16_t y_radius = this->VMethod4() << 3;
+            int16_t x_radius = this->VMethod4() << 4;
+            builder.FUN_004CC3FD(&this->transientVisualElements, x_radius, y_radius, z_radius, effect_timer);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x3e: {
+            TransientVisualEffectBuilder builder;
+            uint32_t phase = effect_timer % 90;
+            float radius = this->VMethod4() << 4;
+            float speed = this->VMethod4() * 28;
+            int16_t height = this->VMethod4() * 11;
+            builder.FUN_004CC944(height, speed, radius, phase);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        case 0x40: {
+            TransientVisualEffectBuilder builder;
+            builder.FUN_004CCC7B(this->VMethod4() << 5, 20.0f, effect_timer % 5);
+            visual_elements.Append(builder.visual_elements);
+            break;
+        }
+        }
+
+        uint32_t remaining = (uint32_t)effect_timer - 1;
+        this->field_0x130[i] = (effect & 0xffff0000) | remaining;
+        if (remaining == 0) {
+            this->field_0x130.RemoveAt(i, 1);
+        } else {
+            i++;
+        }
+    }
+
+    if (visual_elements.GetSize() != 0) {
+        std::qsort(visual_elements.GetData(), visual_elements.GetSize(), sizeof(GO_11c), CompareVisualElements);
+    }
+    this->transientVisualElements.Copy(visual_elements);
 }
 
 int32_t CUnit::VMethod11()
