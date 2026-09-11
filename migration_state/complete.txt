@@ -1314,6 +1314,7 @@
 ?VMethod1@Item@@UAEXXZ
 ?VMethod1@Shop@@UAEXXZ
 ?VMethod1@Unit@@UAEXXZ
+?VMethod21@CUnit@@UAEXXZ
 ?VMethod22@CUnit@@UAEXXZ
 ?VMethod23@CUnit@@UAEXXZ
 ?VMethod24@CUnit@@UAEXXZ

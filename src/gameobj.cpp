@@ -2712,3 +2712,20 @@ void CUnit::VMethod28()
         sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
     }
 }
+
+void CUnit::VMethod21()
+{ // 4693c1
+    if (g_VFX_info[this->typeId]->sound[0] == 0) {
+        return;
+    }
+
+    SfxSample* sample = g_SfxArray[g_VFX_info[this->typeId]->sound[0]];
+    BigStruct2* map = this->pMapObject;
+    int32_t vol;
+    int32_t pan;
+    map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+
+    if (sample != nullptr) {
+        sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
+    }
+}
