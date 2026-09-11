@@ -12,6 +12,7 @@
 class BigStruct2;
 class CGameBitmap;
 class CSprite256;
+class SfxBank;
 class Unit;
 
 extern CStringArray g_CUnitMaterialSpritePaths; //660e70
@@ -264,6 +265,7 @@ public:
 	void CopyFromUnit(const Unit& uni); //46b0d7
 	void ApplyFace(int32_t _face); //46b7d2
 	void ReloadSprite(); //46b91c
+	SfxBank* FUN_0046978b(); //46978b
 
 public:
 	uint8_t body;

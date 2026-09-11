@@ -9,6 +9,7 @@
 #include "map_stuff.h"
 #include "quest.h"
 #include "quest_map.h"
+#include "sound.h"
 
 #include <cmath>
 #include <cstdio>
@@ -2437,4 +2438,53 @@ void CUnit::VMethod19()
     ghost->FUN_0046190d();
     map->field_0x9ec[(uint16_t)map->field_0xa24] = ghost;
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+}
+
+// 469535
+void CUnit::VMethod25(int32_t arg1)
+{
+    if (0 < arg1 && arg1 < 3) {
+        uint32_t now = timeGetTime();
+        if (now - this->lastVoicePlaybackTick < 1500) {
+            return;
+        }
+        this->lastVoicePlaybackTick = now;
+    }
+
+    SfxSample* sample = nullptr;
+    BigStruct2* map = this->pMapObject;
+    int32_t vol;
+    int32_t pan;
+
+    if (arg1 == 0) {
+        if (g_VFX_info[this->typeId]->sound[1] != 0) {
+            sample = g_SfxArray[g_VFX_info[this->typeId]->sound[1]];
+        }
+
+        map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+        if (sample != nullptr) {
+            sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
+        }
+    } else {
+        if ((this->unitFlags & 0x11) != 0 || this->serverId <= 0x17) {
+            switch (arg1) {
+            case 1:
+                sample = this->FUN_0046978b()->easy;
+                break;
+            case 2:
+                sample = this->FUN_0046978b()->hard;
+                break;
+            case 3:
+                sample = this->FUN_0046978b()->dead;
+                break;
+            }
+        } else if (g_VFX_info[this->typeId]->sound[arg1 + 1] != 0) {
+            sample = g_SfxArray[g_VFX_info[this->typeId]->sound[arg1 + 1]];
+        }
+
+        map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+        if (sample != nullptr) {
+            sample->Play(vol + g_SoundSettings.speech_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
+        }
+    }
 }
