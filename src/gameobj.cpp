@@ -2778,6 +2778,11 @@ int32_t CUnit::VMethod2()
     return 0x30;
 }
 
+int32_t CUnit::VMethod3()
+{ // 46f5f0
+    return 0x50;
+}
+
 void CUnit::VMethod1(int32_t arg1)
 { // 4648e9
     BigStruct2* map = this->pMapObject;

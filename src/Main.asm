@@ -104956,25 +104956,6 @@ var_4           = dword ptr -4
 unknown_libname_523 endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod3@CUnit@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060B5EC↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 50h ; 'P'
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod3@CUnit@@UAEHXZ      endp
-
-
 
 
 ; =============== S U B R O U T I N E =======================================
