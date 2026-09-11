@@ -53,6 +53,7 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -149,7 +150,6 @@
 ?VMethod27@CUnit@@UAEXXZ	77
 ?VMethod29@CUnit@@UAEXXZ	77
 ?VMethod21@CUnit@@UAEXXZ	84
-?VMethod22@CUnit@@UAEXXZ	89
 ?VMethod23@CUnit@@UAEXXZ	89
 ?VMethod24@CUnit@@UAEXXZ	89
 ?VMethod28@CUnit@@UAEXXZ	89

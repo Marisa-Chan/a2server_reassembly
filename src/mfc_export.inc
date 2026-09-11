@@ -2346,7 +2346,7 @@ extern   ?VMethod18@CUnit@@UAEXXZ  : proc
 extern   ?VMethod19@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod20@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod21@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod22@CUnit@@UAEXXZ  : proc
+extern   ?VMethod22@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod23@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod24@CUnit@@UAEXXZ  : proc
 extern   ?VMethod25@CUnit@@UAEXH@Z  : proc
