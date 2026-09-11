@@ -230,9 +230,7 @@
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z	29
-??1TransientVisualEffectBuilder@@QAE@XZ	64
 ?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z	74
-??0TransientVisualEffectBuilder@@QAE@XZ	87
 ?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z	163
 ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z	163
 ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z	170

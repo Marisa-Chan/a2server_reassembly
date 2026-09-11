@@ -140,6 +140,7 @@
 ??0TokenPos@@QAE@EEPAUMapStuff@@@Z
 ??0TokenPos@@QAE@XZ
 ??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z
+??0TransientVisualEffectBuilder@@QAE@XZ
 ??0Trigger@@QAE@XZ
 ??0TriggerAction@@QAE@XZ
 ??0TriggerCheck@@QAE@XZ
@@ -232,6 +233,7 @@
 ??1TakeDamage@@QAE@XZ
 ??1Token@@UAE@XZ
 ??1TokenEntry@@UAE@XZ
+??1TransientVisualEffectBuilder@@QAE@XZ
 ??1Trigger@@QAE@XZ
 ??1TxtFile@@UAE@XZ
 ??1UnitEye2@@QAE@XZ
