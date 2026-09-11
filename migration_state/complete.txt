@@ -1290,6 +1290,7 @@
 ?VMethod13@Shield@@UAEPAVItem@@XZ
 ?VMethod13@Weapon@@UAEPAVItem@@XZ
 ?VMethod14@CGameObject@@UAEXXZ
+?VMethod14@CUnit@@UAEXXZ
 ?VMethod14@Effect@@UAEXPAVUnit@@H@Z
 ?VMethod14@Item@@UAEHHH@Z
 ?VMethod15@Armor@@UAEHXZ

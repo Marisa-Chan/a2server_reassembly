@@ -2756,6 +2756,13 @@ void CUnit::VMethod13()
     }
 }
 
+void CUnit::VMethod14()
+{ // 46f638
+    if (this->field_0x180[4] < 3) {
+        CGameObject::VMethod14();
+    }
+}
+
 void CUnit::VMethod1(int32_t arg1)
 { // 4648e9
     BigStruct2* map = this->pMapObject;
