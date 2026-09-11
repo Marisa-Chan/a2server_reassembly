@@ -28,7 +28,7 @@ from typing import Dict, List, Optional, Set, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INC = ROOT / "src" / "mfc_export.inc"
-DEFAULT_OBJ_DIR = ROOT / "build" / "a2serv_vsc.dir" / "Debug"
+DEFAULT_OBJ_DIR = ROOT / "build" / "rea2s.dir" / "Debug"
 DEFAULT_STATE_DIR = ROOT / "migration_state"
 DEFAULT_KNOWN = DEFAULT_STATE_DIR / "known_mfc.txt"
 DEFAULT_TO_MIGRATE = DEFAULT_STATE_DIR / "to_migrate.txt"

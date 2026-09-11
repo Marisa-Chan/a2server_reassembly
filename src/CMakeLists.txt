@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(a2serv_vsc LANGUAGES CXX RC ASM_MASM)
+project(rea2 LANGUAGES CXX RC ASM_MASM)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -73,14 +73,14 @@ set(A2SERVER_SOURCES
   patch/allowed_picture.cpp
 )
 
-add_executable(a2serv_vsc ${A2_SOURCES} ${A2SERVER_SOURCES})
-add_executable(a2client_vsc ${A2_SOURCES})
+add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
+add_executable(rea2c ${A2_SOURCES})
 
 set(A2_COMPILE_DEFS
   FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS
 )
 
-foreach(TARGET a2serv_vsc a2client_vsc)
+foreach(TARGET rea2s rea2c)
   target_include_directories(${TARGET} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/mfc/include"
   )
@@ -90,13 +90,13 @@ foreach(TARGET a2serv_vsc a2client_vsc)
   target_compile_definitions(${TARGET} PRIVATE ${A2_COMPILE_DEFS})
 endforeach()
 
-target_compile_definitions(a2client_vsc PRIVATE A2CLIENT)
+target_compile_definitions(rea2c PRIVATE A2CLIENT)
 
 # Additional definitions for the server build:
 # A2SERVER_PATCH: Enables various crash fixes.
 # A2SERVER_TANGAR_HAT: Enables the Tangar's hat balance changes (requires A2SERVER_PATCH).
 
-target_compile_definitions(a2serv_vsc PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
+target_compile_definitions(rea2s PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
 
 set(A2_LINK_LIBS
     kernel32.lib
@@ -156,7 +156,7 @@ add_custom_command(
 )
 add_custom_target(mfc_export_dep DEPENDS "${_MFC_EXPORT_STAMP}")
 
-foreach(TARGET a2serv_vsc a2client_vsc)
+foreach(TARGET rea2s rea2c)
   add_dependencies(${TARGET} mfc_export_dep)
   target_link_libraries(${TARGET} PRIVATE ${A2_LINK_LIBS})
   target_link_options(${TARGET} PRIVATE ${A2_LINK_OPTS})
