@@ -2324,7 +2324,7 @@ extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
 externdef   ?FUN_0046fb90@VisInvBase@@QAEHXZ  : proc
 externdef   ?VMethod2@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod3@CUnit@@UAEHXZ  : proc
-externdef   ?VMethod4@CUnit@@UAEHXZ  : proc
+extern   ?VMethod4@CUnit@@UAEHXZ  : proc
 externdef   ?VMethod5@CUnit@@UAEHXZ  : proc
 extern   ?VMethod6@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
