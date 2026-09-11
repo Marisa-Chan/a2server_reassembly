@@ -1715,19 +1715,19 @@ TransientVisualEffectBuilder::~TransientVisualEffectBuilder()
 }
 
 // 4cb269
-extern int __cdecl CompareVisualElements(const void* left, const void* right);
-// {
-//     const GO_11c* lhs = (const GO_11c*)left;
-//     const GO_11c* rhs = (const GO_11c*)right;
+int __cdecl CompareVisualElements(const void* left, const void* right)
+{
+    const GO_11c* lhs = (const GO_11c*)left;
+    const GO_11c* rhs = (const GO_11c*)right;
 
-//     if (lhs->field_0x2 < rhs->field_0x2) {
-//         return 1;
-//     }
-//     if (rhs->field_0x2 < lhs->field_0x2) {
-//         return -1;
-//     }
-//     return 0;
-// }
+    if (lhs->field_0x2 < rhs->field_0x2) {
+        return 1;
+    }
+    if (rhs->field_0x2 < lhs->field_0x2) {
+        return -1;
+    }
+    return 0;
+}
 
 void CUnit::VMethod16()
 { // 468dcb

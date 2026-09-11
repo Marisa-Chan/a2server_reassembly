@@ -2309,8 +2309,6 @@ externdef ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z :proc
 externdef ?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z :proc
 externdef ?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z :proc
 
-externdef ?CompareVisualElements@@YAHPBX0@Z :proc
-
 ;CUnit
 extern ??0CUnit@@QAE@XZ : proc
 extern ??1CUnit@@UAE@XZ : proc

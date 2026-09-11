@@ -166,7 +166,7 @@
 ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
 ??0VisLogoWnd@@QAE@HHHHH@Z
 ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z
-??0VisMessageBox@@QAE@HHHHHPBD0H0@Z
+??0VisMessageBox@@QAE@HHHHHPBXPBDH1@Z
 ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z
 ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z
 ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z
@@ -489,7 +489,6 @@
 ?FUN_004627bb@CGameObject@@QAEXHH@Z
 ?FUN_00475e7a@@YAXXZ
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z
-?FUN_0048e502@MainWindow@@QAEHH@Z
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_0048f79d@MainWindow@@QAEXXZ
 ?FUN_0048f905@MainWindow@@QAEXXZ
@@ -797,6 +796,7 @@
 ?MapMinX@BigStruct2@@QBEHXZ
 ?MapMinY@BigStruct2@@QBEHXZ
 ?MapStuff_Instance@@3PAUMapStuff@@A
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
@@ -920,6 +920,7 @@
 ?ReverseFind@CString@@QBEHD@Z
 ?Rewind@File2@@QAEXXZ
 ?Right@CString@@QBE?AV1@H@Z
+?RunSessionBootstrap@MainWindow@@QAEHH@Z
 ?SaveScreenParts2@CMousePointer@@QAEXABVCRect@@@Z
 ?SaveScreenParts@CMousePointer@@QAEXABVCRect@@@Z
 ?SaveScreenshot@@YAXXZ
@@ -1023,6 +1024,7 @@
 ?SpanExcluding@CString@@QBE?AV1@PBD@Z
 ?SpanIncluding@CString@@QBE?AV1@PBD@Z
 ?Start@Server@@QAEHH@Z
+?StartHatDedicatedServer@MainWindow@@QAEXXZ
 ?StartPlayTrack@MusicPlayer@@QAEXH@Z
 ?StartSelect@CMousePointer@@QAEXABVCPoint@@@Z
 ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z
@@ -1315,7 +1317,7 @@
 ?VMethod2@Unit@@UAEXXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
-?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBDABUtagRECT@@@Z
+?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod4@CGameObject@@UAEHXZ

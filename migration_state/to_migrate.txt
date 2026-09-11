@@ -6,9 +6,9 @@
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 ?SetMessageColors@@YAXI@Z	26
-?CompareVisualElements@@YAHPBX0@Z	34
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
+?ShowRoleKeyDialog@@YGXPBD@Z	237
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
@@ -52,7 +52,6 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -220,10 +219,16 @@
 ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
+?ShowFameHallDocDlg@MainWindow@@QAEXXZ	50
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
+?WaitHatConnection@MainWindow@@QAEHXZ	193
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
+?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ	199
+?ShowCurrentTownDialog@MainWindow@@QAEXXZ	202
+?ConnectToServerAddress@MainWindow@@QAEHXZ	316
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
+?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
@@ -244,13 +249,17 @@
 ?FUN_00497310@Vis1200@@QAEHXZ	14
 ??0Vis1200@@QAE@HHHHH@Z	51
 ?FUN_0043be9f@Vis1200@@QAEXXZ	100
+??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ??0VisCharGen@@QAE@HHHHH@Z	62
 ??0VisCharInfo@@QAE@HHHHH@Z	123
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
 ??0VisCharSelect@@QAE@HHHHH@Z	51
 ?OpenRenameWindow@VisCharSelect@@QAEXXZ	103
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
+??0VisConnectionDlg@@QAE@HHHHHPAH@Z	48
 ??0VisCredits@@QAE@HHHHH@Z	64
+??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
+??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z	47
 ??0VisDropGold@@QAE@HHH@Z	51
 ??0VisFameDocument@@QAE@HHHHH@Z	78
 ??0VisFameHall@@QAE@HHHHH@Z	72
@@ -258,6 +267,12 @@
 ??0VisInvType1@@QAE@HHHHH@Z	67
 ??0VisMainMenu@@QAE@HHHHH@Z	84
 ??0VisMiniMap@@QAE@HHHHH@Z	36
+??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
+??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z	65
+??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z	65
+??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z	38
+??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z	36
+??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z	46
 ??0VisOrderToolbar@@QAE@HHHHH@Z	38
 ??0VisRightPanel@@QAE@HHHHH@Z	32
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
@@ -273,6 +288,7 @@
 ??0VisTav@@QAE@HHHHH@Z	76
 ??0VisTavDruid@@QAE@HHHHH@Z	31
 ??0VisTavKaarg@@QAE@HHHHH@Z	31
+??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
 ??0VisTown@@QAE@HHHHH@Z	102
 ??0VisTownDruid@@QAE@HHHHH@Z	113
 ??0VisTownKaarg@@QAE@HHHHH@Z	119
