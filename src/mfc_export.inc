@@ -2354,7 +2354,7 @@ externdef   ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ  : proc
 externdef   ?FUN_0041f130@CGameObject@@QAEHXZ  : proc
 externdef   ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z  : proc
 extern   ?VMethod26@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod27@CUnit@@UAEXXZ  : proc
+extern   ?VMethod27@CUnit@@UAEXXZ  : proc
 extern   ?VMethod28@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
