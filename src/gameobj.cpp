@@ -1720,6 +1720,28 @@ void TransientVisualEffectBuilder::FUN_004CCED2(int16_t height, uint8_t phase)
     this->visual_elements.Add(GO_11c(0, -height, 0, 0x14, phase));
 }
 
+// 4cce04
+void TransientVisualEffectBuilder::FUN_004CCE04(int16_t height, uint8_t effect_type, uint8_t phase)
+{
+    int16_t x_offset = 0;
+    int16_t y_offset = 0;
+    switch (effect_type) {
+    case 0x10:
+        x_offset = 6;
+        break;
+    case 0x18:
+        x_offset = -6;
+        break;
+    case 0x22:
+        y_offset = 6;
+        break;
+    case 0x2e:
+        y_offset = -6;
+        break;
+    }
+    this->visual_elements.Add(GO_11c(-x_offset, -height - y_offset, 0, effect_type, phase));
+}
+
 // 4cb269
 int __cdecl CompareVisualElements(const void* left, const void* right)
 {
