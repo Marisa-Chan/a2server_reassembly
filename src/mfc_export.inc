@@ -2356,7 +2356,7 @@ externdef   ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z  : proc
 extern   ?VMethod26@CUnit@@UAEXXZ  : proc
 extern   ?VMethod27@CUnit@@UAEXXZ  : proc
 extern   ?VMethod28@CUnit@@UAEXXZ  : proc
-externdef   ?VMethod29@CUnit@@UAEXXZ  : proc
+extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
 
 ;CAirUnit
