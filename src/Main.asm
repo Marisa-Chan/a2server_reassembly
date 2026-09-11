@@ -220673,41 +220673,6 @@ byte_4CCEB3     db      0,     4,     4,     4
                 db      4,     4,     4,     4
                 db      4,     4,     3
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z      proc near               ; CODE XREF: ?VMethod16@CUnit@@UAEXXZ+3AF↑p
-
-var_C           = dword ptr -0Ch
-var_8           = byte ptr -8
-arg_0           = word ptr  8
-arg_4           = byte ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                xor     eax, eax
-                mov     al, [ebp+arg_4]
-                push    eax
-                push    14h
-                push    0
-                movsx   ecx, [ebp+arg_0]
-                neg     ecx
-                push    ecx
-                push    0
-                lea     ecx, [ebp+var_8]
-                call    sub_4CD3C0
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 7Ch ; '|'
-                call    sub_4CCFF0
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z      endp
-
 ; ---------------------------------------------------------------------------
                 align 10h
 

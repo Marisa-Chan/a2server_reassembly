@@ -1714,6 +1714,12 @@ TransientVisualEffectBuilder::~TransientVisualEffectBuilder()
     this->visual_elements.RemoveAll();
 }
 
+// 4cced2
+void TransientVisualEffectBuilder::FUN_004CCED2(int16_t height, uint8_t phase)
+{
+    this->visual_elements.Add(GO_11c(0, -height, 0, 0x14, phase));
+}
+
 // 4cb269
 int __cdecl CompareVisualElements(const void* left, const void* right)
 {

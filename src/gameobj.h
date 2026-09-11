@@ -89,6 +89,17 @@ ASSERT_SIZE(TokenEntry, 0x24);
 
 struct GO_11c
 {
+	GO_11c() = default;
+
+	GO_11c(int16_t f0, int16_t f2, int16_t f4, uint8_t f6, uint8_t f7) // 4cd3c0
+	{
+		this->field_0x0 = f0;
+		this->field_0x2 = f2;
+		this->field_0x4 = f4;
+		this->field_0x6 = f6;
+		this->field_0x7 = f7;
+	}
+
 	int16_t field_0x0;
 	int16_t field_0x2;
 	int16_t field_0x4;
