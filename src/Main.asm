@@ -218298,102 +218298,6 @@ arg_4           = dword ptr  0Ch
 unknown_libname_659 endp
 
 ; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??0TransientVisualEffectBuilder@@QAE@XZ      proc near               ; CODE XREF: ?VMethod16@CUnit@@UAEXXZ+B8↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FE9C0 SIZE 0000005E BYTES
-
-; __unwind { // SEH_4CB0A0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4CB0A0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10] ; void *
-                call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 24h ; '$'  ; void *
-                call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2Ch ; ','  ; void *
-                call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
-                push    offset unknown_libname_462 ; void (__thiscall *)(void *)
-                push    2               ; int
-                push    8               ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 34h ; '4'
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                push    offset unknown_libname_462 ; void (__thiscall *)(void *)
-                push    2               ; int
-                push    8               ; unsigned int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 44h ; 'D'
-                push    ecx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 68h ; 'h'
-                call    sub_473EA0
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'
-                call    sub_46F0B0
-;   } // starts at 4CB10F
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 90h
-                call    sub_4CD020
-;   } // starts at 4CB121
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A4h
-                call    sub_4CD020
-;   } // starts at 4CB133
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0B8h
-                call    sub_4CD020
-;   } // starts at 4CB145
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0CCh
-                call    sub_4CD020
-;   } // starts at 4CB157
-;   try {
-                mov     byte ptr [ebp+var_4], 5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'
-                call    sub_41F920
-;   } // starts at 4CB169
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4CB0A0
-??0TransientVisualEffectBuilder@@QAE@XZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -426638,64 +426542,6 @@ SEH_4C9A6F:                             ; DATA XREF: sub_4C9A6F+5↑o
 ; } // starts at 5FE980
 ; END OF FUNCTION CHUNK FOR sub_4C9A6F
 ; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??0TransientVisualEffectBuilder@@QAE@XZ
-
-loc_5FE9C0:                             ; DATA XREF: .rdata:stru_61FCC8↓o
-; __unwind { // SEH_4CB0A0
-;   cleanup() // owned by 4CB10F
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 68h ; 'h'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_13 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE9CC:                             ; DATA XREF: .rdata:0061FCD0↓o
-;   cleanup() // owned by 4CB121
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_12 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE9D8:                             ; DATA XREF: .rdata:0061FCD8↓o
-;   cleanup() // owned by 4CB133
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 90h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE9E7:                             ; DATA XREF: .rdata:0061FCE0↓o
-;   cleanup() // owned by 4CB145
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A4h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE9F6:                             ; DATA XREF: .rdata:0061FCE8↓o
-;   cleanup() // owned by 4CB157
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0B8h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA05:                             ; DATA XREF: .rdata:0061FCF0↓o
-;   cleanup() // owned by 4CB169
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0CCh       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CB0A0:                             ; DATA XREF: ??0TransientVisualEffectBuilder@@QAE@XZ+5↑o
-                mov     eax, offset stru_61FCA8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FE9C0
-; END OF FUNCTION CHUNK FOR ??0TransientVisualEffectBuilder@@QAE@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ??1TransientVisualEffectBuilder@@QAE@XZ
 
 loc_5FEA1E:                             ; DATA XREF: .rdata:stru_61FD18↓o
@@ -460850,17 +460696,6 @@ stru_61FC80     UnwindMapEntry <-1, offset loc_5FE980>
                 UnwindMapEntry <1, offset loc_5FE992>
                 UnwindMapEntry <2, offset loc_5FE99B>
                 UnwindMapEntry <3, offset loc_5FE9A4>
-stru_61FCA8     FuncInfoV1 <19930520h, 6, offset stru_61FCC8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61FCC8     UnwindMapEntry <-1, offset loc_5FE9C0>
-                UnwindMapEntry <0, offset loc_5FE9CC>
-                UnwindMapEntry <1, offset loc_5FE9D8>
-                UnwindMapEntry <2, offset loc_5FE9E7>
-                UnwindMapEntry <3, offset loc_5FE9F6>
-                UnwindMapEntry <4, offset loc_5FEA05>
 stru_61FCF8     FuncInfoV1 <19930520h, 6, offset stru_61FD18, 0, 0, 0, 0>
                 db    0
                 db    0

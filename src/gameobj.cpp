@@ -1702,6 +1702,12 @@ public:
 };
 ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
 
+// 4cb0a0
+TransientVisualEffectBuilder::TransientVisualEffectBuilder()
+{
+    this->visual_elements.RemoveAll();
+}
+
 // 4cb269
 extern int __cdecl CompareVisualElements(const void* left, const void* right);
 // {
