@@ -99609,31 +99609,6 @@ unknown_libname_507 endp
 
 ; Attributes: bp-based frame
 
-?VMethod5@CUnit@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060B5F4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     ecx, offset ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
-                call    sub_421410
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [edx+0F0h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod5@CUnit@@UAEHXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 
 ; =============== S U B R O U T I N E =======================================
 

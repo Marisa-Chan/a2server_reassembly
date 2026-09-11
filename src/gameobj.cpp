@@ -2768,6 +2768,11 @@ int32_t CUnit::VMethod4()
     return g_VFX_info[this->typeId]->tile_size;
 }
 
+int32_t CUnit::VMethod5()
+{ // 4648c5
+    return g_VFX_info[this->typeId]->tile_size;
+}
+
 void CUnit::VMethod1(int32_t arg1)
 { // 4648e9
     BigStruct2* map = this->pMapObject;
