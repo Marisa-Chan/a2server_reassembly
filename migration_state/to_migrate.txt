@@ -53,6 +53,7 @@
 ?OnCreateAggregates@CCmdTarget@@UAEHXZ	4
 ?OnFinalRelease@CCmdTarget@@UAEXXZ	27
 ?OnCmdMsg@CCmdTarget@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z	153
+?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z	2
 ?PreInitDialog@CDialog@@UAEXXZ	2
 ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ	3
@@ -136,7 +137,6 @@
 ??1CStatusBar@@UAE@XZ	32
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
-?VMethod2@CUnit@@UAEHXZ	12
 ?VMethod3@CUnit@@UAEHXZ	12
 ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ	111
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
