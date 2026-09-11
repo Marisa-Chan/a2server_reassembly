@@ -1708,6 +1708,12 @@ TransientVisualEffectBuilder::TransientVisualEffectBuilder()
     this->visual_elements.RemoveAll();
 }
 
+// 4cb190
+TransientVisualEffectBuilder::~TransientVisualEffectBuilder()
+{
+    this->visual_elements.RemoveAll();
+}
+
 // 4cb269
 extern int __cdecl CompareVisualElements(const void* left, const void* right);
 // {

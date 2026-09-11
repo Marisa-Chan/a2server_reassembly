@@ -218297,78 +218297,6 @@ arg_4           = dword ptr  0Ch
                 retn    8
 unknown_libname_659 endp
 
-; ---------------------------------------------------------------------------
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??1TransientVisualEffectBuilder@@QAE@XZ      proc near               ; CODE XREF: ?VMethod16@CUnit@@UAEXXZ+14E↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FEA1E SIZE 0000005E BYTES
-
-; __unwind { // SEH_4CB190
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4CB190
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'
-                call    sub_41F920
-;   } // starts at 4CB1AC
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0CCh       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CB1BE
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0B8h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CB1D0
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A4h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CB1E2
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 90h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CB1F4
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_12 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CB206
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 68h ; 'h'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_13 ; CWinThread::~CWinThread(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4CB190
-??1TransientVisualEffectBuilder@@QAE@XZ      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -426542,63 +426470,6 @@ SEH_4C9A6F:                             ; DATA XREF: sub_4C9A6F+5↑o
 ; } // starts at 5FE980
 ; END OF FUNCTION CHUNK FOR sub_4C9A6F
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1TransientVisualEffectBuilder@@QAE@XZ
-
-loc_5FEA1E:                             ; DATA XREF: .rdata:stru_61FD18↓o
-; __unwind { // SEH_4CB190
-;   cleanup() // owned by 4CB206
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 68h ; 'h'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_13 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA2A:                             ; DATA XREF: .rdata:0061FD20↓o
-;   cleanup() // owned by 4CB1F4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 7Ch ; '|'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_12 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA36:                             ; DATA XREF: .rdata:0061FD28↓o
-;   cleanup() // owned by 4CB1E2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 90h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA45:                             ; DATA XREF: .rdata:0061FD30↓o
-;   cleanup() // owned by 4CB1D0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A4h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA54:                             ; DATA XREF: .rdata:0061FD38↓o
-;   cleanup() // owned by 4CB1BE
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0B8h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA63:                             ; DATA XREF: .rdata:0061FD40↓o
-;   cleanup() // owned by 4CB1AC
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0CCh       ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CB190:                             ; DATA XREF: ??1TransientVisualEffectBuilder@@QAE@XZ+5↑o
-                mov     eax, offset stru_61FCF8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FEA1E
-; END OF FUNCTION CHUNK FOR ??1TransientVisualEffectBuilder@@QAE@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4CB993
 
 loc_5FEA7C:                             ; DATA XREF: .rdata:stru_61FD68↓o
@@ -460696,17 +460567,6 @@ stru_61FC80     UnwindMapEntry <-1, offset loc_5FE980>
                 UnwindMapEntry <1, offset loc_5FE992>
                 UnwindMapEntry <2, offset loc_5FE99B>
                 UnwindMapEntry <3, offset loc_5FE9A4>
-stru_61FCF8     FuncInfoV1 <19930520h, 6, offset stru_61FD18, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61FD18     UnwindMapEntry <-1, offset loc_5FEA1E>
-                UnwindMapEntry <0, offset loc_5FEA2A>
-                UnwindMapEntry <1, offset loc_5FEA36>
-                UnwindMapEntry <2, offset loc_5FEA45>
-                UnwindMapEntry <3, offset loc_5FEA54>
-                UnwindMapEntry <4, offset loc_5FEA63>
 stru_61FD48     FuncInfoV1 <19930520h, 2, offset stru_61FD68, 0, 0, 0, 0>
                 db    0
                 db    0
