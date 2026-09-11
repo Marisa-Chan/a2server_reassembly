@@ -2524,8 +2524,9 @@ void CUnit::VMethod18()
     map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
 }
 
+// 46761e
 void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
-{ // 46761e
+{
     if (this->field_0x180[4] > 1) {
         return;
     }
@@ -2543,8 +2544,7 @@ void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     uint16_t* land = map->field_0x80->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->field_0x84 * (this->y_pos >> 8);
 
-    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) |
-        (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
     if (mask != 0xc000) {
         return;
     }
@@ -2565,8 +2565,9 @@ void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     FillRectColorSimple(arg1, arg2, arg1 + size, arg2 + size, color);
 }
 
+// 469e67
 int32_t CUnit::VMethod15()
-{ // 469e67
+{
     BigStruct2* map = this->pMapObject;
 
     if ((this->unitFlags & 0x80) != 0) {
@@ -2586,8 +2587,7 @@ int32_t CUnit::VMethod15()
 
     uint16_t* land = map->field_0x80->GetLandscape();
     int32_t idx = this->tileX + map->field_0x84 * this->tileY;
-    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 |
-        land[idx + map->field_0x84] & 0xc000 | land[idx + map->field_0x84 + 1] & 0xc000) != 0xc000;
+    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 | land[idx + map->field_0x84] & 0xc000 | land[idx + map->field_0x84 + 1] & 0xc000) != 0xc000;
 
     if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
         return 0;
@@ -2598,8 +2598,9 @@ int32_t CUnit::VMethod15()
     return 1;
 }
 
+// 464765
 void CUnit::VMethod10()
-{ // 464765
+{
     if (this->field_0x180[4] < 2 && (this->unitFlags & 0x80) == 0) {
         this->FUN_00461c41(2, this);
     } else {
@@ -2618,10 +2619,11 @@ void CUnit::VMethod10()
     this->m_bSelectionDirty = 0;
 }
 
+// 4698c0
 void CUnit::VMethod22()
-{ // 4698c0
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2642,10 +2644,11 @@ void CUnit::VMethod22()
     }
 }
 
+// 46999f
 void CUnit::VMethod23()
-{ // 46999f
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2666,10 +2669,11 @@ void CUnit::VMethod23()
     }
 }
 
+// 469a7e
 void CUnit::VMethod24()
-{ // 469a7e
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2690,10 +2694,11 @@ void CUnit::VMethod24()
     }
 }
 
+// 469b5d
 void CUnit::VMethod28()
-{ // 469b5d
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0x7d0) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2714,8 +2719,9 @@ void CUnit::VMethod28()
     }
 }
 
+// 4693c1
 void CUnit::VMethod21()
-{ // 4693c1
+{
     if (g_VFX_info[this->typeId]->sound[0] == 0) {
         return;
     }
@@ -2731,8 +2737,9 @@ void CUnit::VMethod21()
     }
 }
 
+// 4646c1
 void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, int32_t arg5, MapPlayerData* arg6, int32_t arg7, int32_t arg8, int16_t arg9, int16_t arg10)
-{ // 4646c1
+{
     this->unit_id = arg1;
     this->x_pos = arg3;
     this->y_pos = arg4;
@@ -2749,42 +2756,49 @@ void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, in
     this->unitFlags = 0;
 }
 
+// 46f608
 void CUnit::VMethod13()
-{ // 46f608
+{
     if (this->field_0x180[4] < 3) {
         CGameObject::VMethod13();
     }
 }
 
+// 46f638
 void CUnit::VMethod14()
-{ // 46f638
+{
     if (this->field_0x180[4] < 3) {
         CGameObject::VMethod14();
     }
 }
 
+// 4648a1
 int32_t CUnit::VMethod4()
-{ // 4648a1
+{
     return g_VFX_info[this->typeId]->tile_size;
 }
 
+// 4648c5
 int32_t CUnit::VMethod5()
-{ // 4648c5
+{
     return g_VFX_info[this->typeId]->tile_size;
 }
 
+// 46f5e0
 int32_t CUnit::VMethod2()
-{ // 46f5e0
+{
     return 0x30;
 }
 
+// 46f5f0
 int32_t CUnit::VMethod3()
-{ // 46f5f0
+{
     return 0x50;
 }
 
+// 46978b
 SfxBank* CUnit::FUN_0046978b()
-{ // 46978b
+{
     switch (this->serverId) {
     case 1:
     case 2:
@@ -2813,8 +2827,9 @@ SfxBank* CUnit::FUN_0046978b()
     return &SoundBank_peasant[is_hero];
 }
 
+// 4648e9
 void CUnit::VMethod1(int32_t arg1)
-{ // 4648e9
+{
     BigStruct2* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (arg1 == 0 && map->field_0x138 == this && wnd->field_0x408 != nullptr) {
@@ -2825,10 +2840,11 @@ void CUnit::VMethod1(int32_t arg1)
     CGameObject::VMethod1(arg1);
 }
 
+// 469c3c
 void CUnit::VMethod26()
-{ // 469c3c
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2844,10 +2860,11 @@ void CUnit::VMethod26()
     }
 }
 
+// 469cf5
 void CUnit::VMethod27()
-{ // 469cf5
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2863,10 +2880,11 @@ void CUnit::VMethod27()
     }
 }
 
+// 469dae
 void CUnit::VMethod29()
-{ // 469dae
+{
     uint32_t now = timeGetTime();
-    if (now - this->lastVoicePlaybackTick < 0xbb8) {
+    if (now - this->lastVoicePlaybackTick < 3000) {
         return;
     }
     this->lastVoicePlaybackTick = now;
@@ -2882,9 +2900,10 @@ void CUnit::VMethod29()
     }
 }
 
+// 469499
 void CUnit::VMethod20()
-{ // 469499
-    SfxSample* sample = g_SfxArray[this->action_spell + 0x1f4];
+{
+    SfxSample* sample = g_SfxArray[this->action_spell + 500];
     BigStruct2* map = this->pMapObject;
     int32_t vol;
     int32_t pan;

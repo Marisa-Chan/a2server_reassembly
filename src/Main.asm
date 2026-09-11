@@ -412267,85 +412267,6 @@ SEH_464215:                             ; DATA XREF: sub_464215+5↑o
 ; } // starts at 5FA42D
 ; END OF FUNCTION CHUNK FOR sub_464215
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1CUnit@@UAE@XZ
-
-loc_5FA45E:                             ; DATA XREF: .rdata:stru_61B2D8↓o
-; __unwind { // SEH_46459D
-;   cleanup() // owned by 4645C4
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ??1CGameObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46459D:                             ; DATA XREF: ??1CUnit@@UAE@XZ+5↑o
-                mov     eax, offset stru_61B2B8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA45E
-; END OF FUNCTION CHUNK FOR ??1CUnit@@UAE@XZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z 
-
-loc_5FA573:                             ; DATA XREF: .rdata:stru_61B430↓o
-; __unwind { // SEH_46B0D7
-                lea     ecx, [ebp+var_78]
-                call    ??1Item@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA57C:                             ; DATA XREF: .rdata:0061B438↓o
-                lea     ecx, [ebp+var_D0]
-                call    ??1Item@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA588:                             ; DATA XREF: .rdata:0061B440↓o
-                lea     ecx, [ebp+var_128]
-                call    ??1Item@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA594:                             ; DATA XREF: .rdata:0061B448↓o
-;   cleanup() // owned by 46B425
-;   cleanup() // owned by 46B485
-;   cleanup() // owned by 46B50E
-;   cleanup() // owned by 46B5CC
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46B0D7:                             ; DATA XREF: ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z +5↑o
-                mov     eax, offset stru_61B410
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA573
-; END OF FUNCTION CHUNK FOR ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z 
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ReloadSprite@CUnit@@QAEXXZ
-
-loc_5FA5AB:                             ; DATA XREF: .rdata:stru_61B470↓o
-; __unwind { // SEH_46B91C
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA5B8:                             ; DATA XREF: .rdata:0061B478↓o
-;   cleanup() // owned by 46BCCA
-;   cleanup() // owned by 46BD2D
-                mov     eax, dword ptr [ebp+var_E0]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_46B91C:                             ; DATA XREF: ?ReloadSprite@CUnit@@QAEXXZ+5↑o
-                mov     eax, offset stru_61B450
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA5AB
-; END OF FUNCTION CHUNK FOR ?ReloadSprite@CUnit@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_46C124
 
 loc_5FA5CF:                             ; DATA XREF: .rdata:stru_61B4A0↓o
@@ -454720,28 +454641,6 @@ stru_61B298     UnwindMapEntry <-1, offset loc_5FA42D>
                 UnwindMapEntry <0, offset loc_5FA436>
                 UnwindMapEntry <0, offset loc_5FA440>
                 UnwindMapEntry <0, offset loc_5FA44A>
-stru_61B2B8     FuncInfoV1 <19930520h, 1, offset stru_61B2D8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B2D8     UnwindMapEntry <-1, offset loc_5FA45E>
-stru_61B410     FuncInfoV1 <19930520h, 4, offset stru_61B430, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B430     UnwindMapEntry <-1, offset loc_5FA573>
-                UnwindMapEntry <-1, offset loc_5FA57C>
-                UnwindMapEntry <-1, offset loc_5FA588>
-                UnwindMapEntry <-1, offset loc_5FA594>
-stru_61B450     FuncInfoV1 <19930520h, 2, offset stru_61B470, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B470     UnwindMapEntry <-1, offset loc_5FA5AB>
-                UnwindMapEntry <-1, offset loc_5FA5B8>
 stru_61B480     FuncInfoV1 <19930520h, 2, offset stru_61B4A0, 0, 0, 0, 0>
                 db    0
                 db    0
