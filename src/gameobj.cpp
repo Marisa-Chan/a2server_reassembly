@@ -2488,3 +2488,37 @@ void CUnit::VMethod25(int32_t arg1)
         }
     }
 }
+
+// 4684fb
+void CUnit::VMethod18()
+{
+    BigStruct2* map = this->pMapObject;
+    CGameObject* target = nullptr;
+    if (map->field_0x9d0.Lookup(this->action_target, target) == 0) {
+        return;
+    }
+
+    CProjectile* proj = new CProjectile();
+
+    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    proj->typeId = vfx->projectile;
+    int32_t dir_idx = (this->dir - 8) & 0xE;
+    proj->x_pos = this->x_pos + (vfx->center_x - vfx->shoot_offset[dir_idx]) * -8;
+    proj->y_pos = this->y_pos + (vfx->center_y - vfx->shoot_offset[dir_idx + 1]) * -8;
+
+    proj->x_pos2 = proj->x_pos;
+    proj->y_pos2 = proj->y_pos;
+    proj->action_target = this->action_target;
+    proj->map_player = this->map_player;
+
+    int32_t dx = this->x_pos - target->x_pos;
+    int32_t dy = this->y_pos - target->y_pos;
+    int32_t dist = (int32_t)std::sqrt((double)(dx * dx) + (double)(dy * dy));
+
+    proj->action_segments = dist / 200;
+    proj->action = 1;
+    proj->action_phase = 0;
+    proj->FUN_0046190d();
+    map->field_0x9ec[(uint16_t)map->field_0xa24] = proj;
+    map->field_0xa24 = (uint16_t)(map->field_0xa24 + 1);
+}
