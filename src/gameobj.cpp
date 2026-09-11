@@ -2563,3 +2563,36 @@ void CUnit::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
     FillRectColorSimple(arg1, arg2, arg1 + size, arg2 + size, color);
 }
+
+int32_t CUnit::VMethod15()
+{ // 469e67
+    BigStruct2* map = this->pMapObject;
+
+    if ((this->unitFlags & 0x80) != 0) {
+        this->bIsBlocked = 1;
+        if (this->m_bSelected == 0) {
+            return 0;
+        }
+        this->m_bSelected = 0;
+        this->m_bSelectionDirty = 1;
+        return 1;
+    }
+
+    if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+        this->bIsBlocked = 0;
+        return 0;
+    }
+
+    uint16_t* land = map->field_0x80->GetLandscape();
+    int32_t idx = this->tileX + map->field_0x84 * this->tileY;
+    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 |
+        land[idx + map->field_0x84] & 0xc000 | land[idx + map->field_0x84 + 1] & 0xc000) != 0xc000;
+
+    if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
+        return 0;
+    }
+
+    this->m_bSelected = 0;
+    this->m_bSelectionDirty = 1;
+    return 1;
+}

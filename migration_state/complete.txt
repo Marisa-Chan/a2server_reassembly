@@ -805,7 +805,6 @@
 ?MapMinX@BigStruct2@@QBEHXZ
 ?MapMinY@BigStruct2@@QBEHXZ
 ?MapStuff_Instance@@3PAUMapStuff@@A
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
@@ -1292,6 +1291,7 @@
 ?VMethod14@Item@@UAEHHH@Z
 ?VMethod15@Armor@@UAEHXZ
 ?VMethod15@CGameObject@@UAEHXZ
+?VMethod15@CUnit@@UAEHXZ
 ?VMethod15@Effect@@UAEHXZ
 ?VMethod15@Item@@UAEHXZ
 ?VMethod15@Shield@@UAEHXZ
