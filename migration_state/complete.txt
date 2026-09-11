@@ -498,6 +498,13 @@
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ
 ?FUN_004ad890@Fame2@@QAEIXZ
+?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z
+?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z
+?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z
+?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z
+?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z
+?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z
+?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z
 ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z
 ?FUN_005125a8@GameDataRes@@QAEHH@Z
 ?FUN_00512625@GameDataRes@@QAEHH@Z
@@ -796,7 +803,6 @@
 ?MapMinX@BigStruct2@@QBEHXZ
 ?MapMinY@BigStruct2@@QBEHXZ
 ?MapStuff_Instance@@3PAUMapStuff@@A
-?messageMap@CDialog@@2UAFX_MSGMAP@@B
 ?Mid@CString@@QBE?AV1@H@Z
 ?Mid@CString@@QBE?AV1@HH@Z
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
