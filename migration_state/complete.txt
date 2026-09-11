@@ -500,6 +500,8 @@
 ?FUN_004ad890@Fame2@@QAEIXZ
 ?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z
 ?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z
+?FUN_004CC5D1@TransientVisualEffectBuilder@@QAEXHHHH@Z
+?FUN_004CC798@TransientVisualEffectBuilder@@QAEXHHHMMH@Z
 ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z
 ?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z
 ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z

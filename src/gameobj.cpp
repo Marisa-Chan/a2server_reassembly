@@ -1763,6 +1763,28 @@ void TransientVisualEffectBuilder::FUN_004CCAF2(int16_t height, float radius, ui
     }
 }
 
+// 4cc798
+void TransientVisualEffectBuilder::FUN_004CC798(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle)
+{
+    float y_scale = speed / radius;
+    double rad = FUN_004CD4B0(angle);
+    double cos_a = std::cos(rad);
+    double sin_a = std::sin(rad);
+    double anim_scale = 5.0 / speed;
+
+    this->FUN_004CC5D1(x, y, (int32_t)radius, 4);
+
+    for (int32_t i = 0; i < this->field_0x68.GetSize(); i++) {
+        CPoint* pt = &this->field_0x68[i];
+        int16_t cos_x = (int16_t)(pt->x * cos_a);
+        int16_t sin_x = (int16_t)(pt->x * sin_a);
+        int16_t y_pos = -(int16_t)(pt->y * y_scale);
+        uint8_t anim_phase = std::abs(4 - (int32_t)(std::abs(pt->y) * anim_scale));
+        this->visual_elements.Add(GO_11c(x + cos_x, y + y_pos, height + sin_x, 0x3E, anim_phase));
+        this->visual_elements.Add(GO_11c(x - sin_x, y + y_pos, height + cos_x, 0x3E, anim_phase));
+    }
+}
+
 // 4cc5d1
 void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t radius, int32_t step)
 {
