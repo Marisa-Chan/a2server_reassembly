@@ -146,7 +146,6 @@
 ?VMethod1@CUnit@@UAEXH@Z	48
 ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z	65
 ?VMethod20@CUnit@@UAEXXZ	66
-?VMethod26@CUnit@@UAEXXZ	77
 ?VMethod27@CUnit@@UAEXXZ	77
 ?VMethod29@CUnit@@UAEXXZ	77
 ?FUN_0046978b@CUnit@@QAEPAVSfxBank@@XZ	111

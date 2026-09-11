@@ -1320,6 +1320,7 @@
 ?VMethod24@CUnit@@UAEXXZ
 ?VMethod25@CUnit@@UAEXH@Z
 ?VMethod25@Unit@@UAEHXZ
+?VMethod26@CUnit@@UAEXXZ
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
