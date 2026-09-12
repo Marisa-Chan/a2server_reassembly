@@ -3866,6 +3866,25 @@ void BigStruct2::FUN_0041d97e(int32_t arg)
 	}
 }
 
+// 40C83F
+int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+	if ((wparam & 2) != 0) {
+		int32_t dx = pos.x - g_mousept.GetX();
+		int32_t dy = pos.y - g_mousept.GetY();
+		int32_t cell_dx = dx / 8;
+		int32_t cell_dy = dy / 8;
+		if (dx != 0 || dy != 0) {
+			if (cell_dx != 0 || cell_dy != 0) {
+				this->MsgProc(0x406, this->view_x + cell_dx, this->view_y + cell_dy);
+				this->field_0xd8 = 1;
+			}
+			return 1;
+		}
+	}
+	return CVisualObject::OnMouseMove(wparam, pos);
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {

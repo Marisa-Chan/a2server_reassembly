@@ -20,7 +20,6 @@
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_40328E@BigStruct2@@QAEXXZ	81
-?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z	88
 ?sub_404912@BigStruct2@@QAEXXZ	101
 ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z	108
 ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z	109

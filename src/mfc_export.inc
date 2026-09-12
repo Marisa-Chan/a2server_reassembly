@@ -1864,7 +1864,7 @@ externdef ?sub_404912@BigStruct2@@QAEXXZ : proc
 extern ??_GBigStruct2@@UAEPAXI@Z : proc
 extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 externdef ?MsgProc@BigStruct2@@UAEHIII@Z : proc
-externdef ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
