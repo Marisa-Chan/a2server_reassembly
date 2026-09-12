@@ -3908,6 +3908,32 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 	*pvol = (int32_t)vol;
 }
 
+// 41C630
+void BigStruct2::FUN_0041c630(CWordArray* data)
+{
+	uint16_t flag = (*data)[0];
+	if (flag == 0) {
+		flag = 0x2000;
+	}
+	data->RemoveAt(0, 1);
+	uint16_t* land = this->field_0x80->GetLandscape();
+	int32_t x = 8;
+	int32_t y = 8;
+	while (data->GetSize() != 0) {
+		for (int32_t i = 0; i < (*data)[0]; i++) {
+			uint16_t* cell = land + x + y * this->field_0x84;
+			*cell = (*cell & 0xDFFF) | flag;
+			x++;
+			if (x == this->field_0x84 - 8) {
+				x = 8;
+				y++;
+			}
+		}
+		data->RemoveAt(0, 1);
+		flag ^= 0x2000;
+	}
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
