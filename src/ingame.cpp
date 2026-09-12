@@ -18,6 +18,7 @@
 #include "file.h"
 #include "spell.h"
 #include "resource.h"
+#include "sound.h"
 #include <cmath>
 
 
@@ -3906,6 +3907,78 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 		vol = -10000.0;
 	}
 	*pvol = (int32_t)vol;
+}
+
+// 40C232
+int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
+	if (result != 0) {
+		return result;
+	}
+	switch (msg) {
+	case 0x401:
+		this->sub_40BD34();
+		this->msglog.Update();
+		this->FUN_0041d97e(0);
+		break;
+	case 0x402:
+		this->sub_406F7B();
+		break;
+	case 0x405:
+		this->sub_4168BD();
+		result = 1;
+		break;
+	case 0x406:
+		this->sub_4167F7(wparam, lparam);
+		result = 1;
+		break;
+	case 0x408:
+		g_SfxArray[8]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+		this->sub_418F93(wparam + 1);
+		result = 1;
+		break;
+	case 0x40A:
+		if (this->IsBagOpen()) {
+			this->FUN_0041b40e();
+		} else {
+			this->sub_41B381();
+		}
+		if (g_mousept.GetSelectState() != 0) {
+			g_mousept.ResetStates();
+			wnd->sub_48CC87();
+			this->sub_40B314();
+			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+			this->sub_417B42(&pt);
+		}
+		result = 1;
+		break;
+	case 0x40B:
+		if (this->IsBookOpen()) {
+			this->FUN_0041b636();
+		} else {
+			this->FUN_0041b509();
+		}
+		if (g_mousept.GetSelectState() != 0) {
+			g_mousept.ResetStates();
+			wnd->sub_48CC87();
+			this->sub_40B314();
+			CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+			this->sub_417B42(&pt);
+		}
+		result = 1;
+		break;
+	case 0x485:
+		if ((wnd->dialogsMask & 1) != 0) {
+			this->field_0x49b8 = -1;
+			this->field_0x49bc = -1;
+			this->sub_41B8D0();
+			result = 0;
+		}
+		break;
+	}
+	return result;
 }
 
 // 40C633

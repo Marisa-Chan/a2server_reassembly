@@ -803,6 +803,12 @@ public:
 	void sub_417B42(CPoint* pt); //417b42
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
+	void sub_40BD34(); //40bd34
+	void sub_4168BD(); //4168bd
+	void sub_4167F7(int32_t wparam, int32_t lparam); //4167f7
+	void sub_418F93(int32_t arg); //418f93
+	void sub_41B381(); //41b381
+	void sub_41B8D0(); //41b8d0
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510

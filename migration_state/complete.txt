@@ -819,6 +819,7 @@
 ?MissionGetDescription@@YAXHHPAVCString@@@Z
 ?MissionGetLocName@@YAXHHPAVCString@@@Z
 ?MissionGetTips@@YAXHPAVCString@@@Z
+?MsgProc@BigStruct2@@UAEHIII@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
