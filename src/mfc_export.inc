@@ -1481,7 +1481,6 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 extern ?DAT_00660f88@@3HA : dword
 extern ?DAT_006658d8@@3VCDWordArray@@A : dword
 
-externdef   ??0BigStruct2@@QAE@HHHH@Z  : proc
 externdef   ??0VisCharSelect@@QAE@HHHHH@Z  : proc
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
@@ -1859,6 +1858,8 @@ externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc
 externdef ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
 externdef ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
 externdef ?sub_403B8F@BigStruct2@@QAEHHHHH@Z : proc
+externdef ?sub_402FB8@BigStruct2@@QAEXXZ : proc
+externdef ?sub_403730@BigStruct2@@QAEXXZ : proc
 externdef ?sub_40BD34@BigStruct2@@QAEXXZ : proc
 externdef ?sub_4168BD@BigStruct2@@QAEXXZ : proc
 externdef ?sub_4167F7@BigStruct2@@QAEXHH@Z : proc

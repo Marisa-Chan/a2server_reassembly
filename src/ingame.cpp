@@ -3761,6 +3761,67 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 	return this->OnLButtonDown(wparam, pos);
 }
 
+// 402AF6
+BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(1, l, t, r, b, nullptr)
+{
+	this->field_0x80 = nullptr;
+	this->sub_402FB8();
+	this->view_x = this->MapMinX();
+	this->view_y = this->MapMinY();
+	this->field_0xc4 = 0;
+	this->field_0xc8 = 0;
+	this->field_0xcc = 0;
+	this->field_0xd0 = 0;
+	this->field_0xd4 = 0;
+	this->field_0x10c.SetSize(0x40, 0x20);
+	this->field_0x120.SetSize(0x40, 0x20);
+	this->field_0x134 = 0;
+	this->field_0x140 = 0;
+	this->field_0x9b4 = 0;
+	this->field_0xa88 = 0;
+	this->field_0xa8c = 0;
+	this->field_0xa90 = 0;
+	this->field_0xd8 = 0;
+	this->field_0xdc = 1;
+	this->field_0xe0 = 1;
+	this->field_0xa24 = 0;
+	this->field_0x49b8 = 0x9C40;
+	this->field_0x49bc = 0x9C40;
+	this->field_0x49c0 = 0;
+	this->field_0xe4 = 0;
+	this->field_0xe8 = 0;
+	this->field_0xec = -1;
+	this->field_0xf0 = -1;
+	this->field_0x104 = 1;
+	this->field_0x148 = 0;
+	this->field_0x150 = 0;
+	this->field_0x14c = 0;
+	this->wimpy = 0;
+	this->formation = 1;
+	this->show_hp = 0;
+	this->flying_hp = 1;
+	this->field_0x3f68 = new CBmp256(0x20, 0x20);
+	this->field_0x80 = nullptr;
+	this->field_0x3f50 = 7;
+	this->field_0x3f4c = 1 << this->field_0x3f50;
+	this->sub_403730();
+	MapPlayerData* mpd = new MapPlayerData(0, 0xF);
+	this->field_0x9b8.Add(mpd);
+	this->field_0x9b8[0]->flags |= 1;
+	this->field_0x3f6c = nullptr;
+	this->my_main_unit = nullptr;
+	this->field_0x994 = nullptr;
+	this->field_0x9a8 = 0;
+	this->quest_some_id_2 = 0;
+	this->quest_landmark_some_id = 0;
+	this->quest_building_some_id = 0;
+	this->quest_some_id = 0;
+	this->field_0x4970 = new QuestMap();
+	for (int32_t i = 0; i < 12; i++) {
+		this->field_0x4988[i] = nullptr;
+	}
+}
+
 // 403CA0
 void BigStruct2::FUN_00403ca0(CGameObject* obj)
 {

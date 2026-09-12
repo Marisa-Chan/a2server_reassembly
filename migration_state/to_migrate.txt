@@ -30,9 +30,10 @@
 ?sub_403B8F@BigStruct2@@QAEHHHHH@Z	100
 ?sub_404912@BigStruct2@@QAEXXZ	101
 ?sub_418F93@BigStruct2@@QAEXH@Z	154
+?sub_402FB8@BigStruct2@@QAEXXZ	230
+?sub_403730@BigStruct2@@QAEXXZ	329
 ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z	334
 ?sub_40BD34@BigStruct2@@QAEXXZ	341
-??0BigStruct2@@QAE@HHHH@Z	349
 ?sub_41B8D0@BigStruct2@@QAEXXZ	850
 ?OnKeyDown@BigStruct2@@UAEHI@Z	895
 ?sub_40B314@BigStruct2@@QAEXXZ	898
