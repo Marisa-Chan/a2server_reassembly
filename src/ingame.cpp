@@ -3740,6 +3740,12 @@ void BigStruct2::NetOnOpenInnDialog()
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 41F830
+CUnit* BigStruct2::GetUnit_3f6c()
+{
+	return this->field_0x3f6c;
+}
+
 void LoadVfxData()
 { //47b24e
 

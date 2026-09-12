@@ -27552,21 +27552,6 @@ sub_41F810      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ(_DWORD)
-?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+70E0↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+3F6Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ      endp
-
 ; ---------------------------------------------------------------------------
                 align 10h
 

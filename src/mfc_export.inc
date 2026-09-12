@@ -1847,7 +1847,7 @@ extern ??0TakeDamage@@QAE@XZ : proc
 ;BigStruct2
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
-externdef ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
+extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc

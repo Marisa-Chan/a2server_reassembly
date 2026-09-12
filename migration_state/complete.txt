@@ -718,6 +718,7 @@
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z
 ?GetType@TokenEntry@@QBEHXZ
+?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ
 ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z
 ?GetX@CMousePointer@@QAEHXZ
 ?GetX@TokenPos@@QBEEXZ
