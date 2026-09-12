@@ -3934,6 +3934,26 @@ void BigStruct2::FUN_0041c630(CWordArray* data)
 	}
 }
 
+// 41C4A1
+void BigStruct2::FUN_0041c4a1(const char* name)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (this->field_0x80 != nullptr) {
+		delete this->field_0x80;
+	}
+	CString str(name);
+	if (wnd->sessionMode == 2) {
+		str = "scenario\\" + str;
+	}
+	this->field_0x80 = new Scenario(str);
+	this->field_0xdc = 1;
+	this->sub_403F08(this->field_0x80);
+	wnd->vis_right_panel->MsgProc(0x403, (uint32_t)this, 0);
+	this->FUN_0041d97e(1);
+	sub_477B59(this->field_0x80->field_0x28);
+	this->field_0x4970->sub_55ECFE(0);
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
