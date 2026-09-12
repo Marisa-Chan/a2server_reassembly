@@ -3753,6 +3753,12 @@ void BigStruct2::VMethod7()
 	this->sub_406F7B();
 }
 
+// 40C60F
+int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+	return this->OnLButtonDown(wparam, pos);
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {

@@ -14415,32 +14415,6 @@ loc_40C604:                             ; CODE XREF: ?OnRButtonUp@BigStruct2@@UA
 
 ; Attributes: bp-based frame
 
-?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006090E4↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+54h]
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

@@ -835,6 +835,7 @@
 ?OnKeyDown@VisTextBox@@UAEHI@Z
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z
+?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
