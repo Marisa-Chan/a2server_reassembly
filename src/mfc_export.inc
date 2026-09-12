@@ -1852,7 +1852,7 @@ extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?sub_406F7B@BigStruct2@@QAEXXZ : proc
 externdef ?sub_40328E@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
-externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
+extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc

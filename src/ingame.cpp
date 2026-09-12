@@ -18,6 +18,7 @@
 #include "file.h"
 #include "spell.h"
 #include "resource.h"
+#include <cmath>
 
 
 uint16_t* clr_log_sblack = clrsh_ShockingBlack; //62f88c
@@ -3883,6 +3884,28 @@ int32_t BigStruct2::OnMouseMove(uint32_t wparam, CPoint pos)
 		}
 	}
 	return CVisualObject::OnMouseMove(wparam, pos);
+}
+
+// 41B7B7
+void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan)
+{
+	int32_t center_x = (this->view_x << 8) + (this->field_0x64 << 7);
+	int32_t center_y = (this->view_y << 8) + (this->field_0x68 << 7);
+	double dx = xpos - center_x;
+	*ppan = (int32_t)(dx * 4000.0 / (this->field_0x64 << 8));
+	if (*ppan < -10000) {
+		*ppan = -10000;
+	}
+	if (*ppan > 10000) {
+		*ppan = 10000;
+	}
+	double dy = ypos - center_y;
+	double dist = std::sqrt(dx * dx + dy * dy) / 256.0;
+	double vol = (1.0 - std::exp(dist / 8.0)) * 100.0;
+	if (vol < -10000.0) {
+		vol = -10000.0;
+	}
+	*pvol = (int32_t)vol;
 }
 
 // 403395
