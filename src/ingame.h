@@ -15,6 +15,7 @@ class UnitGfxFile;
 
 extern int32_t INT_00660f8c;
 extern int32_t INT_00660f90;
+extern int32_t DAT_00660f70; //660f70
 extern CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
 extern CArray<GfxFile*> g_GfxFiles; //661100
 extern CArray<GfxObject*> g_GfxObjects; //665330

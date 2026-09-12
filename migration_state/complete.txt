@@ -411,6 +411,7 @@
 ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ
 ?CreateObject@Pointer@@SGPAVCObject@@XZ
 ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ
+?DAT_00660f70@@3HA
 ?DAT_00660f88@@3HA
 ?DAT_006658d8@@3VCDWordArray@@A
 ?DAT_00666a00@@3VCStringArray@@A
@@ -835,6 +836,7 @@
 ?OnChar@VisRadioType2@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z
 ?OnEndTrack@MusicPlayer@@QAEXXZ
+?OnKeyDown@BigStruct2@@UAEHI@Z
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z

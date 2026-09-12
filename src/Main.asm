@@ -11277,7 +11277,7 @@ loc_40AB8F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAE
                 mov     edx, dword ptr [ebp+var_68]
                 cmp     dword ptr [edx+640h], 0
                 jnz     loc_40AE3D
-                cmp     dword_660F70, 0
+                cmp     ?DAT_00660f70@@3HA, 0
                 jz      loc_40AE3D
                 push    0
                 mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
@@ -11533,7 +11533,7 @@ loc_40AEB9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAE
                 add     esp, 4
 
 loc_40AF2F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3FA3↑j
-                cmp     dword_660F70, 0
+                cmp     ?DAT_00660f70@@3HA, 0
                 jz      short loc_40AF53
                 mov     eax, dword ptr [ebp+var_68]
                 cmp     dword ptr [eax+640h], 0
@@ -13466,1016 +13466,6 @@ sub_40C18B      endp
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@BigStruct2@@UAEHI@Z      proc near               ; DATA XREF: .rdata:006090F4↓o
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 20h
-                mov     [ebp+var_C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+418h], 1
-                jnz     loc_40D26F
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+80h], 0
-                jz      loc_40D26F
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+0C0h], 0
-                jz      short loc_40C961
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+138h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+138h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+6Ch]
-                xor     eax, eax
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40C961:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+3B↑j
-                cmp     [ebp+arg_0], 30h ; '0'
-                jb      short loc_40C9D4
-                cmp     [ebp+arg_0], 39h ; '9'
-                ja      short loc_40C9D4
-                cmp     ?g_kbControlState@@3HA, 0
-                jz      short loc_40C9A1
-                cmp     ?g_kbShiftState@@3HA, 0
-                jz      short loc_40C990
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 30h ; '0'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_416AA6
-                jmp     short loc_40C99F
-; ---------------------------------------------------------------------------
-
-loc_40C990:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7B↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 30h ; '0'
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_416A02
-
-loc_40C99F:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+8C↑j
-                jmp     short loc_40C9CA
-; ---------------------------------------------------------------------------
-
-loc_40C9A1:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+72↑j
-                cmp     ?g_kbMenuState@@3HA, 0
-                jz      short loc_40C9BB
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, 30h ; '0'
-                push    edx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_416B4A
-                jmp     short loc_40C9CA
-; ---------------------------------------------------------------------------
-
-loc_40C9BB:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+A6↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 30h ; '0'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_416983
-
-loc_40C9CA:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z:loc_40C99F↑j
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40C9D4:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+63↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                sub     edx, 8          ; switch 116 cases
-                mov     [ebp+var_10], edx
-                cmp     [ebp+var_10], 73h
-                ja      def_40C9F8      ; jumptable 0040C9F8 default case, cases 9-12,14-36,41-114
-                mov     ecx, dword ptr [ebp+var_10]
-                xor     eax, eax
-                mov     al, ds:byte_40D319[ecx]
-                jmp     ds:jpt_40C9F8[eax*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_40C9FF:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     ecx, dword ptr [ebp+var_4] ; jumptable 0040C9F8 case 13
-                call    sub_4919C7
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CA0C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     edx, dword ptr [ebp+var_4] ; jumptable 0040C9F8 case 38
-                cmp     dword ptr [edx+418h], 1
-                jnz     short loc_40CA22
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?ScrollMapY@BigStruct2@@QAEXH@Z
-
-loc_40CA22:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+114↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CA27:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     eax, dword ptr [ebp+var_4] ; jumptable 0040C9F8 case 40
-                cmp     dword ptr [eax+418h], 1
-                jnz     short loc_40CA3D
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?ScrollMapY@BigStruct2@@QAEXH@Z
-
-loc_40CA3D:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+12F↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CA42:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     ecx, dword ptr [ebp+var_4] ; jumptable 0040C9F8 case 37
-                cmp     dword ptr [ecx+418h], 1
-                jnz     short loc_40CA58
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?ScrollMapX@BigStruct2@@QAEXH@Z
-
-loc_40CA58:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+14A↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CA5D:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     edx, dword ptr [ebp+var_4] ; jumptable 0040C9F8 case 39
-                cmp     dword ptr [edx+418h], 1
-                jnz     short loc_40CA73
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?ScrollMapX@BigStruct2@@QAEXH@Z
-
-loc_40CA73:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+165↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CA78:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     eax, dword ptr [ebp+arg_0] ; jumptable 0040C9F8 cases 115-123
-                sub     eax, 73h ; 's'
-                imul    eax, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dx, [ecx+eax+4F4h]
-                cmp     edx, 2
-                jnz     short loc_40CA9C
-                cmp     ?g_kbControlState@@3HA, 0
-                jz      short loc_40CACE
-
-loc_40CA9C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+18F↑j
-                cmp     ?g_kbShiftState@@3HA, 0
-                jnz     short loc_40CACE
-                mov     eax, ?g_kbControlState@@3HA
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 73h ; 's'
-                push    ecx
-                push    417h
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+0ECh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax+0ECh]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+48h]
-
-loc_40CACE:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+198↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 73h ; 's'
-                imul    ecx, 0Ch
-                mov     edx, dword ptr [ebp+var_4]
-                xor     eax, eax
-                mov     ax, [edx+ecx+4F4h]
-                cmp     eax, 1
-                jnz     short loc_40CAF2
-                cmp     ?g_kbShiftState@@3HA, 0
-                jz      short loc_40CB25
-
-loc_40CAF2:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+1E5↑j
-                cmp     ?g_kbControlState@@3HA, 0
-                jnz     short loc_40CB25
-                mov     ecx, ?g_kbShiftState@@3HA
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, 73h ; 's'
-                push    edx
-                push    417h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0E8h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0E8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-
-loc_40CB25:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+1EE↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 73h ; 's'
-                imul    eax, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dx, [ecx+eax+4F4h]
-                cmp     edx, 1
-                jnz     loc_40CBC4
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B4B0
-                test    eax, eax
-                jnz     short loc_40CB85
-                mov     eax, dword ptr [ebp+arg_0]
-                sub     eax, 73h ; 's'
-                imul    eax, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dx, [ecx+eax+4F6h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0ECh]
-                call    sub_4CA89B
-                test    eax, eax
-                jz      short loc_40CB85
-                push    9
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                jmp     short loc_40CBC4
-; ---------------------------------------------------------------------------
-
-loc_40CB85:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+24C↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B4B0
-                test    eax, eax
-                jnz     short loc_40CBC4
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 73h ; 's'
-                imul    ecx, 0Ch
-                mov     edx, dword ptr [ebp+var_4]
-                xor     eax, eax
-                mov     ax, [edx+ecx+4F6h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0ECh]
-                call    sub_4CA8E0
-                test    eax, eax
-                jz      short loc_40CBC4
-                push    0Ah
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-
-loc_40CBC4:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+23C↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CBC9:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0040C9F8 case 8
-                add     ecx, 0A28h
-                call    ?Clear@GM_a28@@QAEXXZ
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-def_40C9F8:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+E5↑j
-                mov     edx, dword ptr [ebp+var_4] ; jumptable 0040C9F8 default case, cases 9-12,14-36,41-114
-                cmp     dword ptr [edx+418h], 1
-                jnz     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-                cmp     ?g_kbControlState@@3HA, 0
-                jnz     def_40CC41      ; jumptable 0040CC41 default case, cases 66,69,70,72-75,78,79,81
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+140h], 0
-                jz      def_40CC41      ; jumptable 0040CC41 default case, cases 66,69,70,72-75,78,79,81
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+144h]
-                and     edx, 24h
-                test    edx, edx
-                jnz     def_40CC41      ; jumptable 0040CC41 default case, cases 66,69,70,72-75,78,79,81
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                sub     ecx, 41h ; 'A'  ; switch 20 cases
-                mov     [ebp+var_14], ecx
-                cmp     [ebp+var_14], 13h
-                ja      def_40CC41      ; jumptable 0040CC41 default case, cases 66,69,70,72-75,78,79,81
-                mov     eax, dword ptr [ebp+var_14]
-                xor     edx, edx
-                mov     dl, ds:byte_40D3B9[eax]
-                jmp     ds:jpt_40CC41[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_40CC48:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    2               ; jumptable 0040CC41 case 77
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CC5C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    1               ; jumptable 0040CC41 case 65
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CC70:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    3               ; jumptable 0040CC41 case 71
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CC84:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    7               ; jumptable 0040CC41 case 84
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CC98:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    8               ; jumptable 0040CC41 case 82
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CCAC:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    6               ; jumptable 0040CC41 case 83
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CCC0:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0040CC41 case 67
-                call    sub_41B4B0
-                test    eax, eax
-                jnz     short loc_40CCD6
-                push    5
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-
-loc_40CCD6:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+3C8↑j
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CCE0:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                push    4               ; jumptable 0040CC41 case 68
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?sub_418F93@BigStruct2@@QAEXH@Z
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CCF4:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0040CC41 case 80
-                call    sub_41A4DF
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-loc_40CD06:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0040CC41 case 76
-                call    sub_41A5B4
-                mov     eax, 1
-                jmp     loc_40D2F3
-; ---------------------------------------------------------------------------
-
-def_40CC41:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+2F1↑j
-                mov     ecx, dword ptr [ebp+arg_0] ; jumptable 0040CC41 default case, cases 66,69,70,72-75,78,79,81
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_18]
-                sub     edx, 20h ; ' '  ; switch 161 cases
-                mov     [ebp+var_18], edx
-                cmp     [ebp+var_18], 0A0h
-                ja      def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-                mov     ecx, dword ptr [ebp+var_18]
-                xor     eax, eax
-                mov     al, ds:byte_40D411[ecx]
-                jmp     ds:jpt_40CD3F[eax*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_40CD46:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                mov     edx, dword ptr [ebp+var_4] ; jumptable 0040CD3F cases 73,192
-                cmp     dword ptr [edx+418h], 1
-                jnz     short loc_40CD86
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-
-loc_40CD86:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+44E↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CD8B:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                mov     eax, dword ptr [ebp+var_4] ; jumptable 0040CD3F cases 66,81
-                cmp     dword ptr [eax+418h], 1
-                jnz     short loc_40CDCB
-                push    0
-                push    0
-                push    40Fh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Fh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-
-loc_40CDCB:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+493↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CDD0:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                mov     eax, dword ptr [ebp+var_4] ; jumptable 0040CD3F case 32
-                cmp     dword ptr [eax+418h], 1
-                jnz     loc_40CF23
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+0C0h], 0
-                jnz     loc_40CF23
-                mov     edx, dword ptr [ebp+var_C]
-                cmp     dword ptr [edx+3F6Ch], 0
-                jz      short loc_40CE1E
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+3F6Ch]
-                movsx   edx, word ptr [ecx+104h]
-                cmp     edx, 0FFFFFFD8h
-                jg      short loc_40CE1E
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B155
-                jmp     loc_40CF23
-; ---------------------------------------------------------------------------
-
-loc_40CE1E:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+4F8↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B495
-                test    eax, eax
-                jnz     short loc_40CEA3
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B4B0
-                test    eax, eax
-                jnz     short loc_40CEA3
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Fh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Fh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-                jmp     loc_40CF23
-; ---------------------------------------------------------------------------
-
-loc_40CEA3:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+526↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B495
-                test    eax, eax
-                jz      short loc_40CEE3
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Eh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-
-loc_40CEE3:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+5AB↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41B4B0
-                test    eax, eax
-                jz      short loc_40CF23
-                push    0
-                push    0
-                push    40Fh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Fh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-
-loc_40CF23:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+4D8↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CF28:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 87
-                jz      short loc_40CF6D
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F720
-                push    7D0h            ; int
-                mov     eax, ?clr_log_sblack@@3PAGA
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F7F0
-                add     eax, 5Eh ; '^'
-                push    eax
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-                jmp     short loc_40CF8A
-; ---------------------------------------------------------------------------
-
-loc_40CF6D:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+62D↑j
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+640h], 2
-                jz      short loc_40CF8A
-                push    0               ; lParam
-                push    0               ; wParam
-                push    466h            ; Msg
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_40CF8A:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+669↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CF8F:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 70
-                jz      short loc_40CFD2
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F6D0
-                push    7D0h            ; int
-                mov     eax, ?clr_log_sblack@@3PAGA
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F810
-                add     eax, 61h ; 'a'
-                push    eax
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-loc_40CFD2:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+694↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40CFD7:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 72
-                jz      short loc_40D01C
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F770
-                push    7D0h            ; int
-                mov     edx, ?clr_log_sblack@@3PAGA
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0AB8h]
-                add     ecx, 64h ; 'd'
-                push    ecx
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     edx, dword ptr [eax]
-                push    edx             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-loc_40D01C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+6DC↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D021:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 85
-                jz      short loc_40D08E
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41AB05
-                mov     [ebp+var_8], 0
-                mov     eax, ?g_settings@@3UGameSettings@@A+24h
-                and     eax, 10h
-                test    eax, eax
-                jz      short loc_40D04C
-                mov     [ebp+var_8], 1
-
-loc_40D04C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+741↑j
-                mov     ecx, ?g_settings@@3UGameSettings@@A+24h
-                and     ecx, 20h
-                test    ecx, ecx
-                jz      short loc_40D060
-                mov     [ebp+var_8], 2
-
-loc_40D060:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+755↑j
-                push    7D0h            ; int
-                mov     edx, ?clr_log_sblack@@3PAGA
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 73h ; 's'
-                push    eax
-                mov     ecx, offset ?txt_patch@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-                jmp     short loc_40D0A2
-; ---------------------------------------------------------------------------
-
-loc_40D08E:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+726↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+418h], 1
-                jnz     short loc_40D0A2
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41CE14
-
-loc_40D0A2:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+78A↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D0A7:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 76
-                jz      short loc_40D0EC
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F7B0
-                push    7D0h            ; int
-                mov     edx, ?clr_log_sblack@@3PAGA
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+0ABCh]
-                add     ecx, 66h ; 'f'
-                push    ecx
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     edx, dword ptr [eax]
-                push    edx             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-loc_40D0EC:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7AC↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D0F1:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 78
-                jz      short loc_40D146
-                xor     eax, eax
-                cmp     ?g_settings@@3UGameSettings@@A+18h, 0
-                setz    al
-                mov     ?g_settings@@3UGameSettings@@A+18h, eax
-                push    7D0h            ; int
-                mov     ecx, ?clr_log_sblack@@3PAGA
-                push    ecx             ; int
-                mov     edx, ?g_settings@@3UGameSettings@@A+18h
-                add     edx, 68h ; 'h'
-                push    edx
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?FUN_0041d97e@BigStruct2@@QAEXH@Z
-
-loc_40D146:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7F6↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D14B:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 79
-                jz      short loc_40D196
-                xor     ecx, ecx
-                cmp     ?g_settings@@3UGameSettings@@A+10h, 0
-                setz    cl
-                mov     ?g_settings@@3UGameSettings@@A+10h, ecx
-                push    7D0h            ; int
-                mov     edx, ?clr_log_sblack@@3PAGA
-                push    edx             ; int
-                mov     eax, ?g_settings@@3UGameSettings@@A+10h
-                add     eax, 6Ah ; 'j'
-                push    eax
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-loc_40D196:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+850↑j
-                jmp     def_40CD3F      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D19B:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 75
-                jz      short loc_40D1F5
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+640h], 2
-                jz      short loc_40D1F5
-                xor     eax, eax
-                cmp     ?g_settings@@3UGameSettings@@A+34h, 0
-                setz    al
-                mov     ?g_settings@@3UGameSettings@@A+34h, eax
-                push    7D0h            ; int
-                mov     ecx, ?clr_log_sblack@@3PAGA
-                push    ecx             ; int
-                mov     edx, ?g_settings@@3UGameSettings@@A+34h
-                add     edx, 16Fh
-                push    edx
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-loc_40D1F5:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+8A0↑j
-                jmp     short def_40CD3F ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D1F7:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0040CD3F case 69
-                call    sub_416C4C
-                jmp     short def_40CD3F ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D201:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 84
-                jz      short loc_40D21C
-                xor     ecx, ecx
-                cmp     dword_660F70, 0
-                setz    cl
-                mov     dword_660F70, ecx
-
-loc_40D21C:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+906↑j
-                jmp     short def_40CD3F ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D21E:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑j
-                cmp     ?g_kbControlState@@3HA, 0 ; jumptable 0040CD3F case 67
-                jz      short def_40CD3F ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-                xor     edx, edx
-                cmp     ?g_MessageColors@@3HA, 0
-                setz    dl
-                push    edx
-                call    ?SetMessageColors@@YAXI@Z
-                add     esp, 4
-                push    7D0h            ; int
-                mov     eax, ?clr_log_sblack@@3PAGA
-                push    eax             ; int
-                mov     ecx, ?g_MessageColors@@3HA
-                add     ecx, 55h ; 'U'
-                push    ecx
-                mov     ecx, offset ?txt_patch@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 0A28h
-                call    ?Add@GM_a28@@QAEXPBDPAGI@Z
-
-def_40CD3F:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+105↑j
-                jmp     loc_40D2F1      ; jumptable 0040CD3F default case, cases 33-65,68,71,74,77,80,82,83,86,88-191
-; ---------------------------------------------------------------------------
-
-loc_40D26F:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+1B↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+418h]
-                and     eax, 2
-                test    eax, eax
-                jz      short loc_40D2F1
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_1C], ecx
-                cmp     [ebp+var_1C], 42h ; 'B'
-                jz      short loc_40D293
-                cmp     [ebp+var_1C], 51h ; 'Q'
-                jz      short loc_40D293
-                jmp     short loc_40D2F1
-; ---------------------------------------------------------------------------
-
-loc_40D293:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+987↑j
-                push    0
-                push    0
-                push    40Fh
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+0D4h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax+0D4h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+48h]
-                push    0
-                push    0
-                push    40Fh
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+48h]
-                push    0
-                push    0
-                push    40Fh
-                push    3E8h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0CCh]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [edx+48h]
-
-loc_40D2F1:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z:def_40CD3F↑j
-                xor     eax, eax
-
-loc_40D2F3:                             ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+5A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@BigStruct2@@UAEHI@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_40C9F8      dd offset loc_40CBC9    ; DATA XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+F6↑r
-                dd offset loc_40C9FF    ; jump table for switch statement
-                dd offset loc_40CA42
-                dd offset loc_40CA0C
-                dd offset loc_40CA5D
-                dd offset loc_40CA27
-                dd offset loc_40CA78
-                dd offset def_40C9F8
-byte_40D319     db      0,     7,     7,     7
-                db      7,     1,     7,     7 ; indirect table for switch statement
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     2,     3,     4
-                db      5,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     6
-                db      6,     6,     6,     6
-                db      6,     6,     6,     6
-jpt_40CC41      dd offset loc_40CC5C    ; DATA XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+33F↑r
-                dd offset loc_40CCC0    ; jump table for switch statement
-                dd offset loc_40CCE0
-                dd offset loc_40CC70
-                dd offset loc_40CD06
-                dd offset loc_40CC48
-                dd offset loc_40CCF4
-                dd offset loc_40CC98
-                dd offset loc_40CCAC
-                dd offset loc_40CC84
-                dd offset def_40CC41
-byte_40D3B9     db      0,   0Ah,     1,     2
-                db    0Ah,   0Ah,     3,   0Ah ; indirect table for switch statement
-                db    0Ah,   0Ah,   0Ah,     4
-                db      5,   0Ah,   0Ah,     6
-                db    0Ah,     7,     8,     9
-jpt_40CD3F      dd offset loc_40CDD0    ; DATA XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+43D↑r
-                dd offset loc_40CD8B    ; jump table for switch statement
-                dd offset loc_40D21E
-                dd offset loc_40D1F7
-                dd offset loc_40CF8F
-                dd offset loc_40CFD7
-                dd offset loc_40CD46
-                dd offset loc_40D19B
-                dd offset loc_40D0A7
-                dd offset loc_40D0F1
-                dd offset loc_40D14B
-                dd offset loc_40CD8B
-                dd offset loc_40D201
-                dd offset loc_40D021
-                dd offset loc_40CF28
-                dd offset loc_40CD46
-                dd offset def_40CD3F
-byte_40D411     db      0,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h ; indirect table for switch statement
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,     1,     2
-                db    10h,     3,     4,   10h
-                db      5,     6,   10h,     7
-                db      8,   10h,     9,   0Ah
-                db    10h,   0Bh,   10h,   10h
-                db    0Ch,   0Dh,   10h,   0Eh
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    10h,   10h,   10h,   10h
-                db    0Fh
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -14658,7 +13648,7 @@ loc_41697F:                             ; CODE XREF: ?sub_4168BD@BigStruct2@@QAE
 
 ; Attributes: bp-based frame
 
-sub_416983      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+C3↑p
+?sub_416983@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+C3↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -14675,7 +13665,7 @@ arg_0           = dword ptr  8
                 call    sub_420720
                 mov     [ebp+var_8], eax
 
-loc_41699D:                             ; CODE XREF: sub_416983:loc_4169F2↓j
+loc_41699D:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z:loc_4169F2↓j
                 cmp     [ebp+var_8], 0
                 jz      short loc_4169F4
                 lea     eax, [ebp+var_C]
@@ -14701,7 +13691,7 @@ loc_41699D:                             ; CODE XREF: sub_416983:loc_4169F2↓j
                 jmp     short loc_4169F2
 ; ---------------------------------------------------------------------------
 
-loc_4169DC:                             ; CODE XREF: sub_416983+48↑j
+loc_4169DC:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+48↑j
                 cmp     ?g_kbShiftState@@3HA, 0
                 jnz     short loc_4169F2
                 push    0
@@ -14710,24 +13700,24 @@ loc_4169DC:                             ; CODE XREF: sub_416983+48↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    dword ptr [edx+14h]
 
-loc_4169F2:                             ; CODE XREF: sub_416983+57↑j
+loc_4169F2:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+57↑j
                 jmp     short loc_41699D
 ; ---------------------------------------------------------------------------
 
-loc_4169F4:                             ; CODE XREF: sub_416983+1E↑j
+loc_4169F4:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+1E↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_416983      endp
+?sub_416983@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_416A02      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+98↑p
+?sub_416A02@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+98↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -14747,13 +13737,13 @@ arg_0           = dword ptr  8
                 jmp     loc_416AA0
 ; ---------------------------------------------------------------------------
 
-loc_416A20:                             ; CODE XREF: sub_416A02+17↑j
+loc_416A20:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+17↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 9D0h
                 call    sub_420720
                 mov     [ebp+var_8], eax
 
-loc_416A31:                             ; CODE XREF: sub_416A02:loc_416A96↓j
+loc_416A31:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z:loc_416A96↓j
                 cmp     [ebp+var_8], 0
                 jz      short loc_416A98
                 lea     edx, [ebp+var_C]
@@ -14776,7 +13766,7 @@ loc_416A31:                             ; CODE XREF: sub_416A02:loc_416A96↓j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    sub_41F1F0
 
-loc_416A6D:                             ; CODE XREF: sub_416A02+5D↑j
+loc_416A6D:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+5D↑j
                 mov     ecx, dword ptr [ebp+var_C] ; varThis
                 call    ?IsSelected@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutionResourceId(void)
                 test    eax, eax
@@ -14791,26 +13781,26 @@ loc_416A6D:                             ; CODE XREF: sub_416A02+5D↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    sub_41F150
 
-loc_416A96:                             ; CODE XREF: sub_416A02+75↑j
+loc_416A96:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+75↑j
                 jmp     short loc_416A31
 ; ---------------------------------------------------------------------------
 
-loc_416A98:                             ; CODE XREF: sub_416A02+33↑j
+loc_416A98:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+33↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
 
-loc_416AA0:                             ; CODE XREF: sub_416A02+19↑j
+loc_416AA0:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+19↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_416A02      endp
+?sub_416A02@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_416AA6      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+87↑p
+?sub_416AA6@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+87↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -14830,13 +13820,13 @@ arg_0           = dword ptr  8
                 jmp     loc_416B44
 ; ---------------------------------------------------------------------------
 
-loc_416AC4:                             ; CODE XREF: sub_416AA6+17↑j
+loc_416AC4:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+17↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 9D0h
                 call    sub_420720
                 mov     [ebp+var_8], eax
 
-loc_416AD5:                             ; CODE XREF: sub_416AA6:loc_416B3A↓j
+loc_416AD5:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z:loc_416B3A↓j
                 cmp     [ebp+var_8], 0
                 jz      short loc_416B3C
                 lea     edx, [ebp+var_C]
@@ -14859,7 +13849,7 @@ loc_416AD5:                             ; CODE XREF: sub_416AA6:loc_416B3A↓j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    sub_41F1F0
 
-loc_416B11:                             ; CODE XREF: sub_416AA6+5D↑j
+loc_416B11:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+5D↑j
                 mov     ecx, dword ptr [ebp+var_C] ; varThis
                 call    ?IsSelected@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutionResourceId(void)
                 test    eax, eax
@@ -14874,26 +13864,26 @@ loc_416B11:                             ; CODE XREF: sub_416AA6+5D↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    ?FUN_0041f180@CGameObject@@QAEXH@Z
 
-loc_416B3A:                             ; CODE XREF: sub_416AA6+75↑j
+loc_416B3A:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+75↑j
                 jmp     short loc_416AD5
 ; ---------------------------------------------------------------------------
 
-loc_416B3C:                             ; CODE XREF: sub_416AA6+33↑j
+loc_416B3C:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+33↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
 
-loc_416B44:                             ; CODE XREF: sub_416AA6+19↑j
+loc_416B44:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+19↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_416AA6      endp
+?sub_416AA6@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_416B4A      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+B2↑p
+?sub_416B4A@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+B2↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -14916,7 +13906,7 @@ arg_0           = dword ptr  8
                 mov     [ebp+var_10], 0
                 mov     [ebp+var_8], 0
 
-loc_416B79:                             ; CODE XREF: sub_416B4A:loc_416BF0↓j
+loc_416B79:                             ; CODE XREF: ?sub_416B4A@BigStruct2@@QAEXH@Z:loc_416BF0↓j
                 cmp     [ebp+var_14], 0
                 jz      short loc_416BF2
                 lea     eax, [ebp+var_18]
@@ -14957,18 +13947,18 @@ loc_416B79:                             ; CODE XREF: sub_416B4A:loc_416BF0↓j
                 jmp     short loc_416BF0
 ; ---------------------------------------------------------------------------
 
-loc_416BE3:                             ; CODE XREF: sub_416B4A+5D↑j
+loc_416BE3:                             ; CODE XREF: ?sub_416B4A@BigStruct2@@QAEXH@Z+5D↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_18]
                 mov     edx, dword ptr [ecx]
                 mov     ecx, dword ptr [ebp+var_18]
                 call    dword ptr [edx+14h]
 
-loc_416BF0:                             ; CODE XREF: sub_416B4A+97↑j
+loc_416BF0:                             ; CODE XREF: ?sub_416B4A@BigStruct2@@QAEXH@Z+97↑j
                 jmp     short loc_416B79
 ; ---------------------------------------------------------------------------
 
-loc_416BF2:                             ; CODE XREF: sub_416B4A+33↑j
+loc_416BF2:                             ; CODE XREF: ?sub_416B4A@BigStruct2@@QAEXH@Z+33↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
                 cmp     [ebp+var_8], 0
@@ -15003,18 +13993,18 @@ loc_416BF2:                             ; CODE XREF: sub_416B4A+33↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    dword ptr [eax+48h]
 
-loc_416C46:                             ; CODE XREF: sub_416B4A+B4↑j
+loc_416C46:                             ; CODE XREF: ?sub_416B4A@BigStruct2@@QAEXH@Z+B4↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_416B4A      endp
+?sub_416B4A@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_416C4C      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+8F8↑p
+?sub_416C4C@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+8F8↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -15030,7 +14020,7 @@ var_4           = byte ptr -4
                 call    sub_420720
                 mov     [ebp+var_8], eax
 
-loc_416C66:                             ; CODE XREF: sub_416C4C:loc_416CE6↓j
+loc_416C66:                             ; CODE XREF: ?sub_416C4C@BigStruct2@@QAEXXZ:loc_416CE6↓j
                 cmp     [ebp+var_8], 0
                 jz      short loc_416CEB
                 lea     eax, [ebp+var_C]
@@ -15070,24 +14060,24 @@ loc_416C66:                             ; CODE XREF: sub_416C4C:loc_416CE6↓j
                 jmp     short loc_416CE6
 ; ---------------------------------------------------------------------------
 
-loc_416CD9:                             ; CODE XREF: sub_416C4C+49↑j
+loc_416CD9:                             ; CODE XREF: ?sub_416C4C@BigStruct2@@QAEXXZ+49↑j
                 push    0
                 mov     eax, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [eax]
                 mov     ecx, dword ptr [ebp+var_C]
                 call    dword ptr [edx+14h]
 
-loc_416CE6:                             ; CODE XREF: sub_416C4C+8B↑j
+loc_416CE6:                             ; CODE XREF: ?sub_416C4C@BigStruct2@@QAEXXZ+8B↑j
                 jmp     loc_416C66
 ; ---------------------------------------------------------------------------
 
-loc_416CEB:                             ; CODE XREF: sub_416C4C+1E↑j
+loc_416CEB:                             ; CODE XREF: ?sub_416C4C@BigStruct2@@QAEXXZ+1E↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_416C4C      endp
+?sub_416C4C@BigStruct2@@QAEXXZ      endp
 
 
 
@@ -15912,7 +14902,7 @@ loc_4183B2:                             ; CODE XREF: sub_417F09+2EC↑j
                 call    ?GetControlGroup@CGameObject@@QAEHXZ
                 push    eax
                 mov     ecx, dword ptr [ebp+var_9C]
-                call    sub_416983
+                call    ?sub_416983@BigStruct2@@QAEXH@Z
 
 loc_418407:                             ; CODE XREF: sub_417F09+4BB↑j
                 mov     eax, dword ptr [ebp+var_9C]
@@ -17701,7 +16691,7 @@ arg_8           = dword ptr  10h
                 push    edx
                 mov     eax, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [eax+0ECh]
-                call    sub_4CA89B
+                call    ?sub_4CA89B@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_41983C
                 mov     ecx, dword ptr [ebp+var_8]
@@ -17856,7 +16846,7 @@ loc_41996C:                             ; CODE XREF: sub_41972F+11A↑j
                 push    ecx
                 mov     edx, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [edx+0ECh]
-                call    sub_4CA8E0
+                call    ?sub_4CA8E0@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_419B93
                 mov     ecx, dword ptr [ebp+var_34]
@@ -18101,7 +17091,7 @@ arg_4           = dword ptr  0Ch
                 push    edx
                 mov     eax, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [eax+0ECh]
-                call    sub_4CA89B
+                call    ?sub_4CA89B@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_419C9C
                 mov     ecx, dword ptr [ebp+var_8]
@@ -18256,7 +17246,7 @@ loc_419DCC:                             ; CODE XREF: sub_419BA1+108↑j
                 push    ecx
                 mov     edx, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [edx+0ECh]
-                call    sub_4CA8E0
+                call    ?sub_4CA8E0@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_419FF3
                 mov     ecx, dword ptr [ebp+var_34]
@@ -18484,7 +17474,7 @@ arg_0           = dword ptr  8
                 push    eax
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [ecx+0ECh]
-                call    sub_4CA89B
+                call    ?sub_4CA89B@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_41A10A
                 mov     edx, dword ptr [ebp+var_8]
@@ -18556,7 +17546,7 @@ loc_41A10A:                             ; CODE XREF: sub_41A001+40↑j
                 push    edx
                 mov     eax, dword ptr [ebp+var_8]
                 mov     ecx, dword ptr [eax+0ECh]
-                call    sub_4CA8E0
+                call    ?sub_4CA8E0@VisSpellBook@@QAEHH@Z
                 test    eax, eax
                 jz      loc_41A331
                 mov     ecx, dword ptr [ebp+var_28]
@@ -18929,7 +17919,7 @@ sub_41A425      endp
 
 ; Attributes: bp-based frame
 
-sub_41A4DF      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+3F5↑p
+?sub_41A4DF@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+3F5↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -18960,7 +17950,7 @@ var_4           = byte ptr -4
                 mov     eax, dword ptr [ebp+var_10]
                 mov     byte ptr [eax+12h], 0
 
-loc_41A52B:                             ; CODE XREF: sub_41A4DF:loc_41A581↓j
+loc_41A52B:                             ; CODE XREF: ?sub_41A4DF@BigStruct2@@QAEXXZ:loc_41A581↓j
                 cmp     [ebp+var_C], 0
                 jz      short loc_41A583
                 lea     ecx, [ebp+var_14]
@@ -18992,11 +17982,11 @@ loc_41A52B:                             ; CODE XREF: sub_41A4DF:loc_41A581↓j
                 jmp     short loc_41A583
 ; ---------------------------------------------------------------------------
 
-loc_41A581:                             ; CODE XREF: sub_41A4DF+76↑j
+loc_41A581:                             ; CODE XREF: ?sub_41A4DF@BigStruct2@@QAEXXZ+76↑j
                 jmp     short loc_41A52B
 ; ---------------------------------------------------------------------------
 
-loc_41A583:                             ; CODE XREF: sub_41A4DF+50↑j
+loc_41A583:                             ; CODE XREF: ?sub_41A4DF@BigStruct2@@QAEXXZ+50↑j
                 mov     eax, dword ptr [ebp+var_10]
                 push    eax
                 mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
@@ -19011,18 +18001,18 @@ loc_41A583:                             ; CODE XREF: sub_41A4DF+50↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 call    dword ptr [edx+84h]
 
-loc_41A5B0:                             ; CODE XREF: sub_41A4DF+C1↑j
+loc_41A5B0:                             ; CODE XREF: ?sub_41A4DF@BigStruct2@@QAEXXZ+C1↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41A4DF      endp
+?sub_41A4DF@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_41A5B4      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+407↑p
+?sub_41A5B4@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+407↑p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -19052,7 +18042,7 @@ var_4           = byte ptr -4
                 mov     eax, dword ptr [ebp+var_10]
                 mov     byte ptr [eax+12h], 0
 
-loc_41A600:                             ; CODE XREF: sub_41A5B4:loc_41A63E↓j
+loc_41A600:                             ; CODE XREF: ?sub_41A5B4@BigStruct2@@QAEXXZ:loc_41A63E↓j
                 cmp     [ebp+var_C], 0
                 jz      short loc_41A640
                 lea     ecx, [ebp+var_14]
@@ -19075,11 +18065,11 @@ loc_41A600:                             ; CODE XREF: sub_41A5B4:loc_41A63E↓j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?AppendWord@PacketItemOperation@@QAEXG@Z
 
-loc_41A63E:                             ; CODE XREF: sub_41A5B4+76↑j
+loc_41A63E:                             ; CODE XREF: ?sub_41A5B4@BigStruct2@@QAEXXZ+76↑j
                 jmp     short loc_41A600
 ; ---------------------------------------------------------------------------
 
-loc_41A640:                             ; CODE XREF: sub_41A5B4+50↑j
+loc_41A640:                             ; CODE XREF: ?sub_41A5B4@BigStruct2@@QAEXXZ+50↑j
                 mov     eax, dword ptr [ebp+var_10]
                 push    eax
                 mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
@@ -19094,11 +18084,11 @@ loc_41A640:                             ; CODE XREF: sub_41A5B4+50↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 call    dword ptr [edx+78h]
 
-loc_41A66A:                             ; CODE XREF: sub_41A5B4+A9↑j
+loc_41A66A:                             ; CODE XREF: ?sub_41A5B4@BigStruct2@@QAEXXZ+A9↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41A5B4      endp
+?sub_41A5B4@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19369,7 +18359,7 @@ sub_41A9F6      endp
 
 ; Attributes: bp-based frame
 
-sub_41AB05      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+72B↑p
+?sub_41AB05@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+72B↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -19387,19 +18377,19 @@ var_4           = dword ptr -4
                 jmp     short loc_41AB44
 ; ---------------------------------------------------------------------------
 
-loc_41AB28:                             ; CODE XREF: sub_41AB05+18↑j
+loc_41AB28:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+18↑j
                 cmp     [ebp+var_4], 18h
                 jnz     short loc_41AB37
                 mov     [ebp+var_4], 38h ; '8'
                 jmp     short loc_41AB44
 ; ---------------------------------------------------------------------------
 
-loc_41AB37:                             ; CODE XREF: sub_41AB05+27↑j
+loc_41AB37:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+27↑j
                 cmp     [ebp+var_4], 38h ; '8'
                 jnz     short loc_41AB44
                 mov     [ebp+var_4], 8
 
-loc_41AB44:                             ; CODE XREF: sub_41AB05+21↑j
+loc_41AB44:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+21↑j
                 mov     ecx, ?g_settings@@3UGameSettings@@A+24h
                 and     ecx, 7
                 mov     ?g_settings@@3UGameSettings@@A+24h, ecx
@@ -19413,7 +18403,7 @@ loc_41AB44:                             ; CODE XREF: sub_41AB05+21↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41AB05      endp
+?sub_41AB05@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19845,7 +18835,7 @@ sub_41B0BE      endp
 
 ; Attributes: bp-based frame
 
-sub_41B155      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+512↑p
+?sub_41B155@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+512↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -19871,7 +18861,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41B155      endp
+?sub_41B155@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -20978,7 +19968,7 @@ sub_41CDA3      endp
 
 ; Attributes: bp-based frame
 
-sub_41CE14      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+79B↑p
+?sub_41CE14@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+79B↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -21004,7 +19994,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41CE14      endp
+?sub_41CE14@BigStruct2@@QAEXXZ      endp
 
 
 
@@ -24025,7 +23015,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_41F150      proc near               ; CODE XREF: sub_416A02+8F↑p
+sub_41F150      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+8F↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -24054,7 +23044,7 @@ sub_41F150      endp
 
 ; Attributes: bp-based frame
 
-sub_41F1C0      proc near               ; CODE XREF: sub_416983+41↑p
+sub_41F1C0      proc near               ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+41↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -24081,7 +23071,7 @@ sub_41F1C0      endp
 
 ; Attributes: bp-based frame
 
-sub_41F1F0      proc near               ; CODE XREF: sub_416A02+66↑p
+sub_41F1F0      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+66↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -24717,7 +23707,7 @@ sub_41F640      endp
 
 ; Attributes: bp-based frame
 
-sub_41F6D0      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+699↑p
+?sub_41F6D0@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+699↑p
 
 var_4           = dword ptr -4
 
@@ -24745,7 +23735,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F6D0      endp
+?sub_41F6D0@BigStruct2@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24754,7 +23744,7 @@ sub_41F6D0      endp
 
 ; Attributes: bp-based frame
 
-sub_41F720      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+632↑p
+?sub_41F720@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+632↑p
 
 var_4           = dword ptr -4
 
@@ -24782,7 +23772,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F720      endp
+?sub_41F720@BigStruct2@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24791,7 +23781,7 @@ sub_41F720      endp
 
 ; Attributes: bp-based frame
 
-sub_41F770      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+6E1↑p
+?sub_41F770@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+6E1↑p
 
 var_4           = dword ptr -4
 
@@ -24807,15 +23797,15 @@ var_4           = dword ptr -4
                 jmp     short loc_41F79F
 ; ---------------------------------------------------------------------------
 
-loc_41F792:                             ; CODE XREF: sub_41F770+11↑j
+loc_41F792:                             ; CODE XREF: ?sub_41F770@BigStruct2@@QAEXXZ+11↑j
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+0AB8h], 1
 
-loc_41F79F:                             ; CODE XREF: sub_41F770+20↑j
+loc_41F79F:                             ; CODE XREF: ?sub_41F770@BigStruct2@@QAEXXZ+20↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F770      endp
+?sub_41F770@BigStruct2@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24824,7 +23814,7 @@ sub_41F770      endp
 
 ; Attributes: bp-based frame
 
-sub_41F7B0      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7B1↑p
+?sub_41F7B0@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7B1↑p
 
 var_4           = dword ptr -4
 
@@ -24840,15 +23830,15 @@ var_4           = dword ptr -4
                 jmp     short loc_41F7DF
 ; ---------------------------------------------------------------------------
 
-loc_41F7D2:                             ; CODE XREF: sub_41F7B0+11↑j
+loc_41F7D2:                             ; CODE XREF: ?sub_41F7B0@BigStruct2@@QAEXXZ+11↑j
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+0ABCh], 1
 
-loc_41F7DF:                             ; CODE XREF: sub_41F7B0+20↑j
+loc_41F7DF:                             ; CODE XREF: ?sub_41F7B0@BigStruct2@@QAEXXZ+20↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F7B0      endp
+?sub_41F7B0@BigStruct2@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24857,7 +23847,7 @@ sub_41F7B0      endp
 
 ; Attributes: bp-based frame
 
-sub_41F7F0      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+645↑p
+?sub_41F7F0@BigStruct2@@QAEHXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+645↑p
 
 var_4           = dword ptr -4
 
@@ -24870,7 +23860,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F7F0      endp
+?sub_41F7F0@BigStruct2@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24879,7 +23869,7 @@ sub_41F7F0      endp
 
 ; Attributes: bp-based frame
 
-sub_41F810      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+6AC↑p
+?sub_41F810@BigStruct2@@QAEHXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+6AC↑p
 
 var_4           = dword ptr -4
 
@@ -24892,7 +23882,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41F810      endp
+?sub_41F810@BigStruct2@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -129697,7 +128687,7 @@ sub_4919B1      endp
 
 ; Attributes: bp-based frame
 
-sub_4919C7      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+100↑p
+?sub_4919C7@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+100↑p
 
 var_4           = dword ptr -4
 
@@ -129734,7 +128724,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4919C7      endp
+?sub_4919C7@MainWindow@@QAEXXZ      endp
 
 
 
@@ -212580,7 +211570,7 @@ sub_4CA7C2      endp
 
 ; Attributes: bp-based frame
 
-sub_4CA89B      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+26E↑p
+?sub_4CA89B@VisSpellBook@@QAEHH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+26E↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -212608,21 +211598,21 @@ arg_0           = dword ptr  8
                 jmp     short loc_4CA8DA
 ; ---------------------------------------------------------------------------
 
-loc_4CA8D8:                             ; CODE XREF: sub_4CA89B+34↑j
+loc_4CA8D8:                             ; CODE XREF: ?sub_4CA89B@VisSpellBook@@QAEHH@Z+34↑j
                 xor     eax, eax
 
-loc_4CA8DA:                             ; CODE XREF: sub_4CA89B+3B↑j
+loc_4CA8DA:                             ; CODE XREF: ?sub_4CA89B@VisSpellBook@@QAEHH@Z+3B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4CA89B      endp
+?sub_4CA89B@VisSpellBook@@QAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CA8E0      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+2AF↑p
+?sub_4CA8E0@VisSpellBook@@QAEHH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+2AF↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -212650,14 +211640,14 @@ arg_0           = dword ptr  8
                 jmp     short loc_4CA91F
 ; ---------------------------------------------------------------------------
 
-loc_4CA91D:                             ; CODE XREF: sub_4CA8E0+34↑j
+loc_4CA91D:                             ; CODE XREF: ?sub_4CA8E0@VisSpellBook@@QAEHH@Z+34↑j
                 xor     eax, eax
 
-loc_4CA91F:                             ; CODE XREF: sub_4CA8E0+3B↑j
+loc_4CA91F:                             ; CODE XREF: ?sub_4CA8E0@VisSpellBook@@QAEHH@Z+3B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4CA8E0      endp
+?sub_4CA8E0@VisSpellBook@@QAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -467884,7 +466874,6 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 dword_660F68    dd ?                    ; DATA XREF: sub_404E1A:loc_405202↑r
 dword_660F6C    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40AAAA↑r
-dword_660F70    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3C24↑r
 
 ?INT_00660f8c@@3HA    dd ?                    ; DATA XREF: ?ConnectAndJoinSession@BigStruct2@@QAEHXZ+1E↑w
 ?INT_00660f90@@3HA    dd ?                    ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z:loc_40DB73↑w

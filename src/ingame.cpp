@@ -40,6 +40,8 @@ CArray<ProjectileInfo*> g_ProjectileInfos; //6610b0
 CArray<UnitGfxFile*> g_UnitGfxFiles; //665118
 
 CGamePalette* g_pal_projectiles; //665490
+
+int32_t DAT_00660f70 = 0; //660f70
 CGamePalette* g_pal_projectile_; //665494
 
 CA16* g_spr_smoke[2]; //6610f8
@@ -4066,6 +4068,244 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 		vol = -10000.0;
 	}
 	*pvol = (int32_t)vol;
+}
+
+// 40C902
+int32_t BigStruct2::OnKeyDown(uint32_t wparam)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->dialogsMask == 1 && this->field_0x80 != nullptr) {
+		if (wnd->field_0xc0 != 0) {
+			wnd->vis_1200->OnKeyDown(wparam);
+			return 0;
+		}
+		if (wparam >= 0x30 && wparam <= 0x39) {
+			if (g_kbControlState == 0) {
+				if (g_kbMenuState == 0) {
+					this->sub_416983(wparam - 0x30);
+				} else {
+					this->sub_416B4A(wparam - 0x30);
+				}
+			} else if (g_kbShiftState == 0) {
+				this->sub_416A02(wparam - 0x30);
+			} else {
+				this->sub_416AA6(wparam - 0x30);
+			}
+			return 1;
+		}
+		switch (wparam) {
+		case 8:
+			this->msglog.Clear();
+			break;
+		case 0xD:
+			wnd->sub_4919C7();
+			break;
+		case 0x25:
+			if (wnd->dialogsMask == 1) {
+				this->ScrollMapX(-1);
+			}
+			break;
+		case 0x26:
+			if (wnd->dialogsMask == 1) {
+				this->ScrollMapY(-1);
+			}
+			break;
+		case 0x27:
+			if (wnd->dialogsMask == 1) {
+				this->ScrollMapX(1);
+			}
+			break;
+		case 0x28:
+			if (wnd->dialogsMask == 1) {
+				this->ScrollMapY(1);
+			}
+			break;
+		case 0x73:
+		case 0x74:
+		case 0x75:
+		case 0x76:
+		case 0x77:
+		case 0x78:
+		case 0x79:
+		case 0x7A:
+		case 0x7B: {
+			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - 0x73];
+			if ((shortcut.kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
+				wnd->vis_spellbook->MsgProc(0x417, wparam - 0x73, g_kbControlState);
+			}
+			if ((shortcut.kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
+				wnd->vis_invtype1->MsgProc(0x417, wparam - 0x73, g_kbShiftState);
+			}
+			if (shortcut.kind == 1) {
+				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->sub_4CA89B(shortcut.item_id) != 0) {
+					this->sub_418F93(9);
+				} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->sub_4CA8E0(shortcut.item_id) != 0) {
+					this->sub_418F93(10);
+				}
+			}
+			break;
+		}
+		default:
+			if (wnd->dialogsMask == 1) {
+				if (g_kbControlState == 0 && this->field_0x140 != 0 && (this->field_0x144 & 0x24) == 0) {
+					switch (wparam) {
+					case 0x41:
+						this->sub_418F93(1);
+						return 1;
+					case 0x43:
+						if (this->IsBookOpen() == 0) {
+							this->sub_418F93(5);
+						}
+						return 1;
+					case 0x44:
+						this->sub_418F93(4);
+						return 1;
+					case 0x47:
+						this->sub_418F93(3);
+						return 1;
+					case 0x4C:
+						this->sub_41A5B4();
+						return 1;
+					case 0x4D:
+						this->sub_418F93(2);
+						return 1;
+					case 0x50:
+						this->sub_41A4DF();
+						return 1;
+					case 0x52:
+						this->sub_418F93(8);
+						return 1;
+					case 0x53:
+						this->sub_418F93(6);
+						return 1;
+					case 0x54:
+						this->sub_418F93(7);
+						return 1;
+					}
+				}
+				switch (wparam) {
+				case 0x20:
+					if (wnd->dialogsMask == 1 && wnd->field_0xc0 == 0) {
+						if (this->field_0x3f6c == nullptr || this->field_0x3f6c->hp > -40) {
+							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
+								wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
+								this->MsgProc(0x40E, 0, 0);
+								wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
+								this->MsgProc(0x40F, 0, 0);
+							} else {
+								if (this->IsBagOpen() != 0) {
+									wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
+									this->MsgProc(0x40E, 0, 0);
+								}
+								if (this->IsBookOpen() != 0) {
+									wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
+									this->MsgProc(0x40F, 0, 0);
+								}
+							}
+						} else {
+							this->sub_41B155();
+						}
+					}
+					break;
+				case 0x42:
+				case 0x51:
+					if (wnd->dialogsMask == 1) {
+						wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
+						this->MsgProc(0x40F, 0, 0);
+					}
+					break;
+				case 0x43:
+					if (g_kbControlState != 0) {
+						SetMessageColors(g_MessageColors == 0);
+						this->msglog.Add(txt_patch.GetLine(g_MessageColors + 0x55), clr_log_sblack, 2000);
+					}
+					break;
+				case 0x45:
+					this->sub_416C4C();
+					break;
+				case 0x46:
+					if (g_kbControlState != 0) {
+						this->sub_41F6D0();
+						this->msglog.Add(TxtFile::AllLines[this->sub_41F810() + 0x61], clr_log_sblack, 2000);
+					}
+					break;
+				case 0x48:
+					if (g_kbControlState != 0) {
+						this->sub_41F770();
+						this->msglog.Add(TxtFile::AllLines[this->show_hp + 0x64], clr_log_sblack, 2000);
+					}
+					break;
+				case 0x49:
+				case 0xC0:
+					if (wnd->dialogsMask == 1) {
+						wnd->vis_right_panel->MsgProc(0x40E, 0, 0);
+						this->MsgProc(0x40E, 0, 0);
+					}
+					break;
+				case 0x4B:
+					if (g_kbControlState != 0 && wnd->sessionMode != 2) {
+						g_settings.ClanNames = g_settings.ClanNames == 0;
+						this->msglog.Add(TxtFile::AllLines[g_settings.ClanNames + 0x16F], clr_log_sblack, 2000);
+					}
+					break;
+				case 0x4C:
+					if (g_kbControlState != 0) {
+						this->sub_41F7B0();
+						this->msglog.Add(TxtFile::AllLines[this->flying_hp + 0x66], clr_log_sblack, 2000);
+					}
+					break;
+				case 0x4E:
+					if (g_kbControlState != 0) {
+						g_settings.ShowTimeFlow = g_settings.ShowTimeFlow == 0;
+						this->msglog.Add(TxtFile::AllLines[g_settings.ShowTimeFlow + 0x68], clr_log_sblack, 2000);
+						this->FUN_0041d97e(1);
+					}
+					break;
+				case 0x4F:
+					if (g_kbControlState != 0) {
+						g_settings.Smoothing = g_settings.Smoothing == 0;
+						this->msglog.Add(TxtFile::AllLines[g_settings.Smoothing + 0x6A], clr_log_sblack, 2000);
+					}
+					break;
+				case 0x54:
+					if (g_kbControlState != 0) {
+						DAT_00660f70 = DAT_00660f70 == 0;
+					}
+					break;
+				case 0x55:
+					if (g_kbControlState == 0) {
+						if (wnd->dialogsMask == 1) {
+							this->sub_41CE14();
+						}
+					} else {
+						this->sub_41AB05();
+						int32_t cast_state = (g_settings.AutoCasting & 0x10) != 0;
+						if ((g_settings.AutoCasting & 0x20) != 0) {
+							cast_state = 2;
+						}
+						this->msglog.Add(txt_patch.GetLine(cast_state + 0x73), clr_log_sblack, 2000);
+					}
+					break;
+				case 0x57:
+					if (g_kbControlState == 0) {
+						if (wnd->sessionMode != 2) {
+							wnd->PostMessage(0x466, 0, 0);
+						}
+					} else {
+						this->sub_41F720();
+						this->msglog.Add(TxtFile::AllLines[this->sub_41F7F0() + 0x5E], clr_log_sblack, 2000);
+					}
+					break;
+				}
+			}
+			break;
+		}
+	} else if ((wnd->dialogsMask & 2) != 0 && (wparam == 0x42 || wparam == 0x51)) {
+		wnd->vis_right_panel->MsgProc(0x40F, 0, 0);
+		this->MsgProc(0x40F, 0, 0);
+		wnd->vis_root->FindChild(1000)->MsgProc(0x40F, 0, 0);
+	}
+	return 0;
 }
 
 // 40C232

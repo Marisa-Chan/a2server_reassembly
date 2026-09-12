@@ -1343,6 +1343,7 @@ externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
+externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
 
 extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
@@ -1866,6 +1867,22 @@ externdef ?sub_4167F7@BigStruct2@@QAEXHH@Z : proc
 externdef ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_41B381@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41B8D0@BigStruct2@@QAEXXZ : proc
+externdef ?sub_416983@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_416A02@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_416AA6@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_416B4A@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_41A5B4@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41A4DF@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41B155@BigStruct2@@QAEXXZ : proc
+externdef ?sub_416C4C@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41F6D0@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41F770@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41F7B0@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41F720@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41F7F0@BigStruct2@@QAEHXZ : proc
+externdef ?sub_41F810@BigStruct2@@QAEHXZ : proc
+externdef ?sub_41AB05@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41CE14@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 extern ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
@@ -1883,8 +1900,9 @@ extern ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@BigStruct2@@UAEHI@Z : proc
+extern ?OnKeyDown@BigStruct2@@UAEHI@Z : proc
 extern ?OnChar@BigStruct2@@UAEHI@Z : proc
+externdef ?DAT_00660f70@@3HA :dword
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
@@ -1939,6 +1957,8 @@ externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                 
 
 ;VisSpellBook
 externdef ?FUN_004caa69@VisSpellBook@@QAEXXZ : proc
+externdef ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
+externdef ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 
 ;VisTav
 externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc

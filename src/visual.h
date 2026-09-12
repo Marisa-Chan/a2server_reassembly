@@ -812,6 +812,22 @@ public:
 	void sub_418F93(int32_t arg); //418f93
 	void sub_41B381(); //41b381
 	void sub_41B8D0(); //41b8d0
+	void sub_416983(int32_t digit); //416983
+	void sub_416A02(int32_t digit); //416a02
+	void sub_416AA6(int32_t digit); //416aa6
+	void sub_416B4A(int32_t digit); //416b4a
+	void sub_41A5B4(); //41a5b4
+	void sub_41A4DF(); //41a4df
+	void sub_41B155(); //41b155
+	void sub_416C4C(); //416c4c
+	void sub_41F6D0(); //41f6d0
+	void sub_41F770(); //41f770
+	void sub_41F7B0(); //41f7b0
+	void sub_41F720(); //41f720
+	int32_t sub_41F7F0(); //41f7f0
+	int32_t sub_41F810(); //41f810
+	void sub_41AB05(); //41ab05
+	void sub_41CE14(); //41ce14
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510
@@ -1363,6 +1379,9 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override;
 
 	void FUN_004caa69();
+
+	int32_t sub_4CA89B(int32_t id); //4ca89b
+	int32_t sub_4CA8E0(int32_t id); //4ca8e0
 
 	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 in asm
 
