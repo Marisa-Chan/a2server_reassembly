@@ -22901,34 +22901,6 @@ loc_41CAC9:                             ; CODE XREF: ?FUN_0041c74b@BigStruct2@@Q
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_0041cb21@BigStruct2@@QAEXXZ (_DWORD)
-?FUN_0041cb21@BigStruct2@@QAEXXZ       proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+82F↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketInfo@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 39h ; '9'
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+9CCh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+5], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041cb21@BigStruct2@@QAEXXZ       endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

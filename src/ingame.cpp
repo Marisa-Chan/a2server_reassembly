@@ -3759,6 +3759,16 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 	return this->OnLButtonDown(wparam, pos);
 }
 
+// 41CB21
+void BigStruct2::FUN_0041cb21()
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x39;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
