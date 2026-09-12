@@ -3908,6 +3908,41 @@ void BigStruct2::FUN_0041b7b7(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t
 	*pvol = (int32_t)vol;
 }
 
+// 40C633
+int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->dialogsMask != 1) {
+		return 0;
+	}
+	if (g_mousept.GetSelectState() != 0) {
+		g_mousept.ResetStates();
+		wnd->sub_48CC87();
+		this->sub_40B314();
+		this->sub_417B42(&pos);
+	}
+	if (wnd->field_0x408 != nullptr) {
+		if (this->field_0x140 == 1 && this->field_0x138 != nullptr) {
+			int32_t tile_x = this->field_0x138->tileX;
+			int32_t tile_y = this->field_0x138->tileY;
+			if (this->field_0x994 != nullptr && this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && (this->field_0x994->unitFlags & 1) != 0 &&
+				abs(this->field_0x994->tileX - this->field_0x138->tileX) <= 2 && abs(this->field_0x994->tileY - this->field_0x138->tileY) <= 2) {
+				tile_x = this->field_0x994->tileX;
+				tile_y = this->field_0x994->tileY;
+			}
+			if (wnd->field_0x408->FUN_0041f0d0() != 0) {
+				this->sub_41AC88(wnd->field_0x408->field_0x10, tile_x | (tile_y << 8));
+			} else {
+				this->sub_41A7C7(wnd->field_0x410, wnd->field_0x40c, 3, tile_x | (tile_y << 8), wnd->field_0x408->field_0x10);
+			}
+		}
+		delete wnd->field_0x408;
+		g_Cursors[0]->Use();
+		wnd->ResetItemCursor();
+	}
+	return 1;
+}
+
 // 41C630
 void BigStruct2::FUN_0041c630(CWordArray* data)
 {

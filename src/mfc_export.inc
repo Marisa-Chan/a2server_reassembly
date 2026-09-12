@@ -1342,6 +1342,7 @@ externdef ?StartHatDedicatedServer@MainWindow@@QAEXXZ : proc
 externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
+externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
 
 extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
@@ -1853,6 +1854,10 @@ externdef ?sub_406F7B@BigStruct2@@QAEXXZ : proc
 externdef ?sub_40328E@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z : proc
+externdef ?sub_40B314@BigStruct2@@QAEXXZ : proc
+externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc
+externdef ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
+externdef ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
@@ -1867,7 +1872,7 @@ extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 externdef ?MsgProc@BigStruct2@@UAEHIII@Z : proc
 extern ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc

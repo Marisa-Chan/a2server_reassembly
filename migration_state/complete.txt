@@ -855,6 +855,7 @@
 ?OnLButtonDown@VisRadioType2@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
+?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z

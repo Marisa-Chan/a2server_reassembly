@@ -385,6 +385,8 @@ public:
 
     void sub_48CBE2(); //48cbe2
 
+    void sub_48CC87(); //48cc87
+
     void FUN_00485a41(); //485a41
 
     void ModalScreen(VisScreen* scr);
