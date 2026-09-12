@@ -1866,7 +1866,7 @@ externdef ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_41B381@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41B8D0@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
-externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
+extern ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 extern ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 extern ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc

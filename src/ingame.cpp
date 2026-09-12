@@ -3800,6 +3800,65 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj)
 	}
 }
 
+// 41C74B
+void BigStruct2::FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2)
+{
+	uint8_t* overlay = this->field_0x80->FUN_0041eee0();
+	for (int32_t i = 0; i < w; i++) {
+		for (int32_t j = 0; j < h; j++) {
+			int32_t bit_index = j * w + i;
+			if ((dat[bit_index >> 3] & (1 << (bit_index & 7))) == 0) {
+				continue;
+			}
+			uint16_t packed = (x + i) | ((y + j) << 8);
+			uint32_t value;
+			if (this->field_0xa08.Lookup(packed, value) == 0) {
+				value = 0;
+			}
+			if (unk2 != 0) {
+				value |= 1 << unk1;
+				this->field_0xa08.SetAt(packed, value);
+				int32_t idx = (x + i) + (y + j) * this->field_0x84;
+				if (unk1 == 0xF) {
+					overlay[idx] = 0;
+					overlay[idx + 1] = 0;
+					overlay[idx + this->field_0x84] = 0;
+					overlay[idx + this->field_0x84 + 1] = 0;
+				} else if (unk1 == 0xE) {
+					overlay[idx] = 0x50;
+					overlay[idx + 1] = 0x50;
+					overlay[idx + this->field_0x84] = 0x50;
+					overlay[idx + this->field_0x84 + 1] = 0x50;
+				} else if (unk1 == 3) {
+					uint32_t zero_val = 0;
+					uint16_t* land = this->field_0x80->GetLandscape();
+					if ((land[idx] & 0x2000) == 0) {
+						uint8_t gfx_id = this->field_0x80->FUN_0041eec0()[idx];
+						if (gfx_id != 0 && g_GfxObjects[gfx_id - 1]->in_map_editor != -1) {
+							this->field_0xa94.SetAt(packed, zero_val);
+						}
+					}
+					this->field_0x49b8++;
+					land[idx] |= 0x2000;
+				}
+			} else {
+				value &= ~(1 << unk1);
+				if (value != 0) {
+					this->field_0xa08.SetAt(packed, value);
+				} else {
+					this->field_0xa08.RemoveKey(packed);
+				}
+				if (unk1 == 3) {
+					this->field_0x49b8++;
+				} else if (unk1 == 0xE || unk1 == 0xF) {
+					this->field_0x80->sub_4A952B(x + i, y + j, 2, 2);
+				}
+			}
+			this->field_0x74 = 1;
+		}
+	}
+}
+
 // 41CB21
 void BigStruct2::FUN_0041cb21()
 {

@@ -350,6 +350,8 @@ public:
     int32_t GetHeight() const { return height; }; //41ef40
 
     uint8_t* GetMapHeights() const { return map_heights; }; //41eea0
+    uint8_t* FUN_0041eec0() const { return field_0x14; }; //41eec0
+    uint8_t* FUN_0041eee0() const { return field_0x18; }; //41eee0
     int32_t sub_41EF60(int32_t x, int32_t y); //41ef60
 
     double FUN_004a7b79(); //4a7b79
