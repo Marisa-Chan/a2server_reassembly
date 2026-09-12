@@ -481,6 +481,7 @@
 ?FUN_0041b636@BigStruct2@@QAEXXZ
 ?FUN_0041b6e0@BigStruct2@@QAEXXZ
 ?FUN_0041cb21@BigStruct2@@QAEXXZ
+?FUN_0041cb67@BigStruct2@@QAEXH@Z
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z

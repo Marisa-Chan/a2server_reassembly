@@ -3788,6 +3788,17 @@ int32_t BigStruct2::OnChar(uint32_t wparam)
 	return 1;
 }
 
+// 41CB67
+void BigStruct2::FUN_0041cb67(int32_t val)
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x3b;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = val;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
