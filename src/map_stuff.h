@@ -349,6 +349,9 @@ public:
     int32_t GetWidth() const { return width; }; //41ef20
     int32_t GetHeight() const { return height; }; //41ef40
 
+    uint8_t* GetMapHeights() const { return map_heights; }; //41eea0
+    int32_t sub_41EF60(int32_t x, int32_t y); //41ef60
+
     double FUN_004a7b79(); //4a7b79
 
     void sub_4A952B(int32_t arg1, int32_t arg2, uint32_t arg3, uint32_t arg4); //4a952b

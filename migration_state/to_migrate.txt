@@ -27,9 +27,9 @@
 ?sub_4168BD@BigStruct2@@QAEXXZ	79
 ?sub_4167F7@BigStruct2@@QAEXHH@Z	80
 ?sub_40328E@BigStruct2@@QAEXXZ	81
+?sub_403B8F@BigStruct2@@QAEHHHHH@Z	100
 ?sub_404912@BigStruct2@@QAEXXZ	101
 ?sub_418F93@BigStruct2@@QAEXH@Z	154
-?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z	238
 ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z	334
 ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z	339
 ?sub_40BD34@BigStruct2@@QAEXXZ	341
@@ -224,6 +224,7 @@
 ?WindowProc@MainWindow@@UAEJIIJ@Z	4143
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
+?sub_41EF60@Scenario@@QAEHHH@Z	37
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?sub_4A952B@Scenario@@QAEXHHII@Z	471
 ??0Scenario@@QAE@PBD@Z	1363

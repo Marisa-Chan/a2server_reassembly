@@ -3543,7 +3543,7 @@ sub_403730      endp
 
 ; Attributes: bp-based frame
 
-sub_403B8F      proc near               ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +13D↓p
+?sub_403B8F@BigStruct2@@QAEHHHHH@Z      proc near               ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +13D↓p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -3569,7 +3569,7 @@ arg_C           = dword ptr  14h
                 jmp     short loc_403BCA
 ; ---------------------------------------------------------------------------
 
-loc_403BB3:                             ; CODE XREF: sub_403B8F+D↑j
+loc_403BB3:                             ; CODE XREF: ?sub_403B8F@BigStruct2@@QAEHHHHH@Z+D↑j
                 mov     edx, dword ptr [ebp+arg_4]
                 neg     edx
                 mov     eax, dword ptr [ebp+var_14]
@@ -3578,7 +3578,7 @@ loc_403BB3:                             ; CODE XREF: sub_403B8F+D↑j
                 sub     ecx, edx
                 mov     [ebp+var_4], ecx
 
-loc_403BCA:                             ; CODE XREF: sub_403B8F+22↑j
+loc_403BCA:                             ; CODE XREF: ?sub_403B8F@BigStruct2@@QAEHHHHH@Z+22↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 imul    edx, 52h ; 'R'
                 mov     eax, dword ptr [ebp+var_14]
@@ -3636,259 +3636,19 @@ loc_403BCA:                             ; CODE XREF: sub_403B8F+22↑j
                 jmp     short loc_403C9A
 ; ---------------------------------------------------------------------------
 
-loc_403C95:                             ; CODE XREF: sub_403B8F+100↑j
+loc_403C95:                             ; CODE XREF: ?sub_403B8F@BigStruct2@@QAEHHHHH@Z+100↑j
                 mov     eax, 1
 
-loc_403C9A:                             ; CODE XREF: sub_403B8F+104↑j
+loc_403C9A:                             ; CODE XREF: ?sub_403B8F@BigStruct2@@QAEHHHHH@Z+104↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    10h
-sub_403B8F      endp
+?sub_403B8F@BigStruct2@@QAEHHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
-
-?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z       proc near               ; CODE XREF: ?VMethod14@CGameObject@@UAEXXZ+A4↓p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax+38h]
-                sub     ecx, 14h
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+3Ch]
-                sub     eax, 14h
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_10]
-                imul    edx, [ecx+84h]
-                add     edx, [ebp+var_4]
-                mov     [ebp+var_20], edx
-                push    1A44h           ; varSize
-                push    0               ; Val
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, 17E4h
-                push    eax             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     ecx, dword ptr [ebp+arg_0]
-                movsx   edx, word ptr [ecx+10Ah]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, 8
-                sub     ecx, [eax+3F50h]
-                sar     edx, cl
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+3F50h]
-                sub     ecx, 1
-                mov     eax, 1
-                shl     eax, cl
-                add     edx, eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ecx+2504h], edx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+80h]  ; varThis
-                call    FUN_0041eea0 ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+3Ch]
-                imul    ecx, [edx+84h]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [edx+38h]
-                add     edx, eax
-                movsx   eax, byte ptr [ecx+edx]
-                mov     [ebp+var_8], eax
-                mov     [ebp+var_18], 1
-                jmp     short loc_403D63
-; ---------------------------------------------------------------------------
-
-loc_403D5A:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z :loc_403EFD↓j
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 1
-                mov     [ebp+var_18], ecx
-
-loc_403D63:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +B8↑j
-                cmp     [ebp+var_18], 14h
-                jge     loc_403F02
-                mov     [ebp+var_C], 1
-                mov     edx, dword ptr [ebp+var_18]
-                neg     edx
-                mov     [ebp+var_24], edx
-                jmp     short loc_403D87
-; ---------------------------------------------------------------------------
-
-loc_403D7E:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z :loc_403EF0↓j
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 1
-                mov     [ebp+var_24], eax
-
-loc_403D87:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +DC↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 1
-                cmp     [ebp+var_24], ecx
-                jge     loc_403EF5
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 14h
-                mov     [ebp+var_14], edx
-                mov     eax, 14h
-                sub     eax, [ebp+var_18]
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+80h]
-                call    sub_41EF60
-                test    eax, eax
-                jz      short loc_403DED
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_403B8F
-                test    eax, eax
-                jnz     short loc_403DED
-                mov     [ebp+var_C], 0
-
-loc_403DED:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +128↑j
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 14h
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_18]
-                add     eax, 14h
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+80h]
-                call    sub_41EF60
-                test    eax, eax
-                jz      short loc_403E42
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_403B8F
-                test    eax, eax
-                jnz     short loc_403E42
-                mov     [ebp+var_C], 0
-
-loc_403E42:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +17D↑j
-                mov     edx, 14h
-                sub     edx, [ebp+var_18]
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 14h
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+80h]
-                call    sub_41EF60
-                test    eax, eax
-                jz      short loc_403E99
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_403B8F
-                test    eax, eax
-                jnz     short loc_403E99
-                mov     [ebp+var_C], 0
-
-loc_403E99:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +1D4↑j
-                mov     edx, dword ptr [ebp+var_18]
-                add     edx, 14h
-                mov     [ebp+var_14], edx
-                mov     eax, 14h
-                sub     eax, [ebp+var_24]
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+80h]
-                call    sub_41EF60
-                test    eax, eax
-                jz      short loc_403EF0
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_403B8F
-                test    eax, eax
-                jnz     short loc_403EF0
-                mov     [ebp+var_C], 0
-
-loc_403EF0:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +22B↑j
-                jmp     loc_403D7E
-; ---------------------------------------------------------------------------
-
-loc_403EF5:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +F0↑j
-                cmp     [ebp+var_C], 0
-                jz      short loc_403EFD
-                jmp     short loc_403F02
-; ---------------------------------------------------------------------------
-
-loc_403EFD:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +259↑j
-                jmp     loc_403D5A
-; ---------------------------------------------------------------------------
-
-loc_403F02:                             ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +C7↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z       endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24704,7 +24464,7 @@ unknown_libname_437 endp
 
 ; Attributes: bp-based frame
 
-sub_41EF60      proc near               ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +121↑p
+?sub_41EF60@Scenario@@QAEHHH@Z      proc near               ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +121↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -24733,15 +24493,15 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_41EFA1
 ; ---------------------------------------------------------------------------
 
-loc_41EF9A:                             ; CODE XREF: sub_41EF60+D↑j
+loc_41EF9A:                             ; CODE XREF: ?sub_41EF60@Scenario@@QAEHHH@Z+D↑j
                 mov     [ebp+var_8], 0
 
-loc_41EFA1:                             ; CODE XREF: sub_41EF60+38↑j
+loc_41EFA1:                             ; CODE XREF: ?sub_41EF60@Scenario@@QAEHHH@Z+38↑j
                 mov     eax, dword ptr [ebp+var_8]
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_41EF60      endp
+?sub_41EF60@Scenario@@QAEHHH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

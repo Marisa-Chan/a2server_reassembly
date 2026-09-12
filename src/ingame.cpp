@@ -3761,6 +3761,45 @@ int32_t BigStruct2::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 	return this->OnLButtonDown(wparam, pos);
 }
 
+// 403CA0
+void BigStruct2::FUN_00403ca0(CGameObject* obj)
+{
+	int32_t base_x = obj->tileX - 0x14;
+	int32_t base_y = obj->tileY - 0x14;
+	int32_t base_idx = base_y * this->field_0x84 + base_x;
+	memset(this->field_0x17e4, 0, 0x1A44);
+	this->field_0x17e4[20][20] = (obj->scan_range >> (8 - this->field_0x3f50)) + (1 << (this->field_0x3f50 - 1));
+	int8_t base_height = (int8_t)this->field_0x80->GetMapHeights()[obj->tileY * this->field_0x84 + obj->tileX];
+	for (int32_t r = 1; r < 0x14; r++) {
+		int32_t ring_ok = 1;
+		for (int32_t d = -r; d < r + 1; d++) {
+			int32_t cx = d + 0x14;
+			int32_t cy = 0x14 - r;
+			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+				ring_ok = 0;
+			}
+			cx = d + 0x14;
+			cy = r + 0x14;
+			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+				ring_ok = 0;
+			}
+			cx = 0x14 - r;
+			cy = d + 0x14;
+			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+				ring_ok = 0;
+			}
+			cx = r + 0x14;
+			cy = 0x14 - d;
+			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
+				ring_ok = 0;
+			}
+		}
+		if (ring_ok != 0) {
+			break;
+		}
+	}
+}
+
 // 41CB21
 void BigStruct2::FUN_0041cb21()
 {

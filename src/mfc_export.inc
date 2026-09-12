@@ -1858,6 +1858,7 @@ externdef ?sub_40B314@BigStruct2@@QAEXXZ : proc
 externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc
 externdef ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
 externdef ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
+externdef ?sub_403B8F@BigStruct2@@QAEHHHHH@Z : proc
 externdef ?sub_40BD34@BigStruct2@@QAEXXZ : proc
 externdef ?sub_4168BD@BigStruct2@@QAEXXZ : proc
 externdef ?sub_4167F7@BigStruct2@@QAEXHH@Z : proc
@@ -1870,7 +1871,6 @@ extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 extern ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 extern ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 extern ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
-externdef ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z  : proc
 extern ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_404912@BigStruct2@@QAEXXZ : proc
 extern ??_GBigStruct2@@UAEPAXI@Z : proc
@@ -2362,6 +2362,7 @@ extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
 externdef ?sub_4A952B@Scenario@@QAEXHHII@Z : proc
+externdef ?sub_41EF60@Scenario@@QAEHHH@Z : proc
 externdef ??0Scenario@@QAE@PBD@Z : proc
 externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc
 externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
