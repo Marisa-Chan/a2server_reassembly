@@ -457758,9 +457758,6 @@ aCstructure_0   db 'CStructure',0       ; DATA XREF: sub_41864D:loc_4188E4↑o
                 align 4
 asc_62CAE8      db ':',0                ; DATA XREF: .text:0041B1CF↑o
                 align 4
-; CHAR aScenario[]
-aScenario       db 'scenario\',0        ; DATA XREF: ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z+86↑o
-                align 4
 ; CHAR aNothingToSay[]
 aNothingToSay   db 'Nothing to say',0   ; DATA XREF: ?ShowRoleKeyDialog@@YGXPBD@Z+112↑o
                 align 4

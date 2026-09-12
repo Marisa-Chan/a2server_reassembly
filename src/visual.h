@@ -790,8 +790,8 @@ public:
 class BigStruct2 : public CVisualObject
 {
 public:
-	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); //402af6 in asm
-	~BigStruct2(); //403395
+	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6
+	~BigStruct2(); // 403395
 
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a

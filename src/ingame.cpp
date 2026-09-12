@@ -19,6 +19,7 @@
 #include "spell.h"
 #include "resource.h"
 #include "sound.h"
+
 #include <cmath>
 
 
@@ -3787,8 +3788,8 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	this->field_0xdc = 1;
 	this->field_0xe0 = 1;
 	this->field_0xa24 = 0;
-	this->field_0x49b8 = 0x9C40;
-	this->field_0x49bc = 0x9C40;
+	this->field_0x49b8 = 40000;
+	this->field_0x49bc = 40000;
 	this->field_0x49c0 = 0;
 	this->field_0xe4 = 0;
 	this->field_0xe8 = 0;
@@ -3827,8 +3828,8 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 // 403CA0
 void BigStruct2::FUN_00403ca0(CGameObject* obj)
 {
-	int32_t base_x = obj->tileX - 0x14;
-	int32_t base_y = obj->tileY - 0x14;
+	int32_t base_x = obj->tileX - 20;
+	int32_t base_y = obj->tileY - 20;
 	int32_t base_idx = base_y * this->field_0x84 + base_x;
 	memset(this->field_0x17e4, 0, 0x1A44);
 	this->field_0x17e4[20][20] = (obj->scan_range >> (8 - this->field_0x3f50)) + (1 << (this->field_0x3f50 - 1));
@@ -3836,23 +3837,23 @@ void BigStruct2::FUN_00403ca0(CGameObject* obj)
 	for (int32_t r = 1; r < 0x14; r++) {
 		int32_t ring_ok = 1;
 		for (int32_t d = -r; d < r + 1; d++) {
-			int32_t cx = d + 0x14;
-			int32_t cy = 0x14 - r;
+			int32_t cx = d + 20;
+			int32_t cy = 20 - r;
 			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
-			cx = d + 0x14;
-			cy = r + 0x14;
+			cx = d + 20;
+			cy = r + 20;
 			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
-			cx = 0x14 - r;
-			cy = d + 0x14;
+			cx = 20 - r;
+			cy = d + 20;
 			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
-			cx = r + 0x14;
-			cy = 0x14 - d;
+			cx = r + 20;
+			cy = 20 - d;
 			if (this->field_0x80->sub_41EF60(base_x + cx, base_y + cy) != 0 && this->sub_403B8F(cx, cy, base_idx, base_height) == 0) {
 				ring_ok = 0;
 			}
@@ -4018,7 +4019,7 @@ void BigStruct2::FUN_0041d97e(int32_t arg)
 		return;
 	}
 	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
-	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 0x14 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
+	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 20 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
 		sub_4764BC(time_of_day);
 		this->field_0x80->sub_4A952B(1, 1, 0, 0);
 		this->sub_404912();
@@ -4445,9 +4446,7 @@ void BigStruct2::FUN_0041c630(CWordArray* data)
 void BigStruct2::FUN_0041c4a1(const char* name)
 {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (this->field_0x80 != nullptr) {
-		delete this->field_0x80;
-	}
+	delete this->field_0x80;
 	CString str(name);
 	if (wnd->sessionMode == 2) {
 		str = "scenario\\" + str;
@@ -4464,51 +4463,41 @@ void BigStruct2::FUN_0041c4a1(const char* name)
 // 403395
 BigStruct2::~BigStruct2()
 {
-	if (this->field_0x3f68 != nullptr) {
-		delete this->field_0x3f68;
-	}
+	delete this->field_0x3f68;
 	this->sub_40328E();
-	if (this->field_0x80 != nullptr) {
-		delete this->field_0x80;
-	}
+	delete this->field_0x80;
+
 	POSITION it = this->field_0x9d0.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9d0.GetNextAssoc(it, key, obj);
-		if (obj != nullptr) {
-			delete obj;
-		}
+		delete obj;
 	}
+
 	it = this->field_0x9ec.GetStartPosition();
 	while (it != nullptr) {
 		uint16_t key;
 		CGameObject* obj;
 		this->field_0x9ec.GetNextAssoc(it, key, obj);
-		if (obj != nullptr) {
-			delete obj;
-		}
+		delete obj;
 	}
+
 	for (int32_t i = 0; i < this->field_0x9b8.GetSize(); i++) {
 		MapPlayerData* data = this->field_0x9b8[i];
-		if (data != nullptr) {
-			delete data;
-		}
+		delete data;
 	}
-	if (this->field_0x4970 != nullptr) {
-		delete this->field_0x4970;
-	}
+
+	delete this->field_0x4970;
+
 	while (this->field_0x4974.GetSize() != 0) {
 		Item* item = this->field_0x4974[0];
-		if (item != nullptr) {
-			delete item;
-		}
+		delete item;
 		this->field_0x4974.RemoveAt(0, 1);
 	}
+
 	for (int32_t i = 0; i < 12; i++) {
-		if (this->field_0x4988[i] != nullptr) {
-			delete this->field_0x4988[i];
-		}
+		delete this->field_0x4988[i];
 	}
 }
 

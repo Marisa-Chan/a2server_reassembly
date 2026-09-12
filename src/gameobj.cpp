@@ -546,7 +546,7 @@ void CUnit::VMethod30(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2)
     }
 
     CSprite256* item_sprites[12] = { nullptr };
-    CSprite256* extra_sprites[10] = { nullptr };
+    CSprite256* extra_sprites[12] = { nullptr };
 
     for (int i = 0; i < 12; ++i) {
         if (equipmentTokens[i] != nullptr) {
