@@ -483,6 +483,7 @@
 ?FUN_0041cb21@BigStruct2@@QAEXXZ
 ?FUN_0041cb67@BigStruct2@@QAEXH@Z
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
+?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z
 ?FUN_0041edf0@MapPlayerData@@QAEHH@Z
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z
 ?FUN_0041ee50@MapPlayerData@@QAEHH@Z

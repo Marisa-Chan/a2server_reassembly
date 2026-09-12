@@ -3827,6 +3827,26 @@ int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos)
 	return 1;
 }
 
+// 41DF23
+CUnit* BigStruct2::FUN_0041df23(int32_t serv_id)
+{
+	CUnit* result = nullptr;
+	POSITION it = this->field_0x9d0.GetStartPosition();
+	while (it != nullptr) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
+			CUnit* unit = (CUnit*)obj;
+			if (unit->serverId == serv_id) {
+				result = unit;
+				break;
+			}
+		}
+	}
+	return result;
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
