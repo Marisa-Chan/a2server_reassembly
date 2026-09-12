@@ -791,10 +791,12 @@ class BigStruct2 : public CVisualObject
 {
 public:
 	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); //402af6 in asm
+	~BigStruct2(); //403395
 
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a
 	void sub_406F7B(); //406f7b
+	void sub_40328E(); //40328e
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510

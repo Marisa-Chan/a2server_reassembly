@@ -3753,6 +3753,57 @@ void BigStruct2::VMethod7()
 	this->sub_406F7B();
 }
 
+// 403395
+BigStruct2::~BigStruct2()
+{
+	if (this->field_0x3f68 != nullptr) {
+		delete this->field_0x3f68;
+	}
+	this->sub_40328E();
+	if (this->field_0x80 != nullptr) {
+		delete this->field_0x80;
+	}
+	POSITION it = this->field_0x9d0.GetStartPosition();
+	while (it != nullptr) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj != nullptr) {
+			delete obj;
+		}
+	}
+	it = this->field_0x9ec.GetStartPosition();
+	while (it != nullptr) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		if (obj != nullptr) {
+			delete obj;
+		}
+	}
+	for (int32_t i = 0; i < this->field_0x9b8.GetSize(); i++) {
+		MapPlayerData* data = this->field_0x9b8[i];
+		if (data != nullptr) {
+			delete data;
+		}
+	}
+	if (this->field_0x4970 != nullptr) {
+		delete this->field_0x4970;
+	}
+	while (this->field_0x4974.GetSize() != 0) {
+		Item* item = this->field_0x4974[0];
+		if (item != nullptr) {
+			delete item;
+		}
+		this->field_0x4974.RemoveAt(0, 1);
+	}
+	for (int32_t i = 0; i < 12; i++) {
+		if (this->field_0x4988[i] != nullptr) {
+			delete this->field_0x4988[i];
+		}
+	}
+}
+
 void LoadVfxData()
 { //47b24e
 

@@ -277,6 +277,7 @@
 ??_7SpellBook@@6B@
 ??_7VirtualCaster@@6B@
 ??_GArmor@@UAEPAXI@Z
+??_GBigStruct2@@UAEPAXI@Z
 ??_GServerControlDialog@@UAEPAXI@Z
 ??_GShield@@UAEPAXI@Z
 ??_GShop@@UAEPAXI@Z
