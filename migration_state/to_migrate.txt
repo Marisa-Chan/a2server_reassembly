@@ -12,6 +12,7 @@
 ?ShowRoleKeyDialog@@YGXPBD@Z	237
 ?sub_4764BC@@YAPAEH@Z	390
 ?sub_47FA75@@YAXXZ	439
+?sub_477B59@@YAXI@Z	535
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
@@ -19,9 +20,9 @@
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
+?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z	25
 ?sub_40328E@BigStruct2@@QAEXXZ	81
 ?sub_404912@BigStruct2@@QAEXXZ	101
-?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z	156
 ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z	177
 ?MsgProc@BigStruct2@@UAEHIII@Z	202
 ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z	238
@@ -216,6 +217,7 @@
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?sub_4A952B@Scenario@@QAEXHHII@Z	471
+??0Scenario@@QAE@PBD@Z	1363
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97

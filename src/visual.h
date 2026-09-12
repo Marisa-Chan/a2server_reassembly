@@ -798,6 +798,7 @@ public:
 	void sub_406F7B(); //406f7b
 	void sub_40328E(); //40328e
 	void sub_404912(); //404912
+	void sub_403F08(Scenario* scen); //403f08
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510
