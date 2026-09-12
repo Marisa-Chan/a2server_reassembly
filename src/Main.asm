@@ -15685,35 +15685,6 @@ byte_40D411     db      0,   10h,   10h,   10h
 
 ; Attributes: bp-based frame
 
-?OnChar@BigStruct2@@UAEHI@Z      proc near               ; DATA XREF: .rdata:006090FC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+418h]
-                and     ecx, 8
-                test    ecx, ecx
-                jz      short loc_40D4D7
-                xor     eax, eax
-                jmp     short loc_40D4DC
-; ---------------------------------------------------------------------------
-
-loc_40D4D7:                             ; CODE XREF: ?OnChar@BigStruct2@@UAEHI@Z+1F↑j
-                mov     eax, 1
-
-loc_40D4DC:                             ; CODE XREF: ?OnChar@BigStruct2@@UAEHI@Z+23↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnChar@BigStruct2@@UAEHI@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

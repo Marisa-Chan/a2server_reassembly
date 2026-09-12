@@ -3778,6 +3778,16 @@ int32_t BigStruct2::OnRButtonDown(uint32_t wparam, CPoint pos)
 	return 1;
 }
 
+// 40D4B2
+int32_t BigStruct2::OnChar(uint32_t wparam)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if ((wnd->dialogsMask & 8) != 0) {
+		return 0;
+	}
+	return 1;
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {

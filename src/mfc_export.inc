@@ -1869,7 +1869,7 @@ extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@BigStruct2@@UAEHI@Z : proc
-externdef ?OnChar@BigStruct2@@UAEHI@Z : proc
+extern ?OnChar@BigStruct2@@UAEHI@Z : proc
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc

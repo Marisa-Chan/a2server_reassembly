@@ -820,6 +820,7 @@
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?MsgProcOnChilds@CVisualObject@@QAEHIII@Z
+?OnChar@BigStruct2@@UAEHI@Z
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
