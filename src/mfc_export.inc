@@ -1859,7 +1859,8 @@ externdef ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 extern ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 extern ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 externdef ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z  : proc
-externdef ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
+extern ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_404912@BigStruct2@@QAEXXZ : proc
 extern ??_GBigStruct2@@UAEPAXI@Z : proc
 extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 externdef ?MsgProc@BigStruct2@@UAEHIII@Z : proc
@@ -2273,6 +2274,8 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 ;CGameObject
 
 extern ?LoadVfxData@@YAXXZ : proc
+externdef ?sub_4764BC@@YAPAEH@Z : proc
+externdef ?sub_47FA75@@YAXXZ : proc
 
 extern ?g_CUnitMaterialSpritePaths@@3VCStringArray@@A : dword
 extern ?IsSelected@CGameObject@@QAEHXZ : proc
@@ -2345,6 +2348,7 @@ extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
+externdef ?sub_4A952B@Scenario@@QAEXHHII@Z : proc
 externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc
 externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
 externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc

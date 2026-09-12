@@ -3847,6 +3847,25 @@ CUnit* BigStruct2::FUN_0041df23(int32_t serv_id)
 	return result;
 }
 
+// 41D97E
+void BigStruct2::FUN_0041d97e(int32_t arg)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if ((wnd->dialogsMask & 1) == 0) {
+		return;
+	}
+	int32_t time_of_day = ((uint32_t)wnd->serverLoopCounter >> 4) + 0x168;
+	if (((wnd->serverLoopCounter & 0xF) == 0 && time_of_day % 0x14 == 0 && g_settings.ShowTimeFlow != 0) || arg != 0) {
+		sub_4764BC(time_of_day);
+		this->field_0x80->sub_4A952B(1, 1, 0, 0);
+		this->sub_404912();
+		sub_47FA75();
+		this->field_0xdc = 1;
+		this->field_0x74 = 1;
+		wnd->vis_minimap->MsgProc(0x404, 0, 0);
+	}
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {

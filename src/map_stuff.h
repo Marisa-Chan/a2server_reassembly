@@ -350,6 +350,8 @@ public:
     int32_t GetHeight() const { return height; }; //41ef40
 
     double FUN_004a7b79(); //4a7b79
+
+    void sub_4A952B(int32_t arg1, int32_t arg2, uint32_t arg3, uint32_t arg4); //4a952b
 public:
     int32_t width;
     int32_t height;
