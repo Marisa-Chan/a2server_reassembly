@@ -98,6 +98,9 @@ target_compile_definitions(rea2c PRIVATE A2CLIENT)
 
 target_compile_definitions(rea2s PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
 
+# A2CLIENT_PATCH: Enables various crash fixes.
+target_compile_definitions(rea2c PRIVATE A2CLIENT_PATCH)
+
 set(A2_LINK_LIBS
     kernel32.lib
     shell32.lib

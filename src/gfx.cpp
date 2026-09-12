@@ -2749,7 +2749,12 @@ int BitmaskLowBound(uint32_t bm)
 
 int BitmaskHighBound(uint32_t bm)
 { //453f94
-	for (int32_t i = 15; i >= 0; i--)
+	int32_t max = 15;
+	#ifdef A2CLIENT_PATCH
+	max = 31;
+	#endif
+
+	for (int32_t i = max; i >= 0; i--)
 	{
 		if (bm & (1 << i))
 			return i;
@@ -2941,6 +2946,10 @@ int32_t InitVideo()
 	g_clipRect = g_ScreenSize;
 
 	gfx_bits = 16;
+
+	#ifdef A2CLIENT_PATCH
+	gfx_bits = g_RBits + g_GBits + g_BBits;
+	#endif
 	
 	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr)))
 		return 0;
