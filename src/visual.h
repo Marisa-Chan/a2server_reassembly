@@ -792,6 +792,18 @@ class BigStruct2 : public CVisualObject
 public:
 	BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b); //402af6 in asm
 
+	// VTable at 609088.
+	virtual void VMethod7() override; // 406f1a
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 40c633
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 40c60f
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 40c56c
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 40c59c
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 40c902
+	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2
+
 	void UpdateSelectionState(); //416cf7
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
