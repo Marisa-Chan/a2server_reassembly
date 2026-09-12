@@ -14329,34 +14329,6 @@ loc_40C566:                             ; CODE XREF: ?OnLButtonDown@BigStruct2@@
 
 ; Attributes: bp-based frame
 
-?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006090E8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    8
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+20h]
-                test    eax, eax
-                jnz     short loc_40C591
-                push    1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+24h]
-
-loc_40C591:                             ; CODE XREF: ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+16↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

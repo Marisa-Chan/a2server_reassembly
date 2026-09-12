@@ -859,6 +859,7 @@
 ?OnMouseMove@VisRadioType2@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
+?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z

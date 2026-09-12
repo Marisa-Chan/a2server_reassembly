@@ -17,7 +17,6 @@
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z	26
 ?OnChar@BigStruct2@@UAEHI@Z	27
 ?FUN_0041cb67@BigStruct2@@QAEXH@Z	30
 ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z	41

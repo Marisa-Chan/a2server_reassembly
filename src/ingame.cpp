@@ -3769,6 +3769,15 @@ void BigStruct2::FUN_0041cb21()
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 40C56C
+int32_t BigStruct2::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+	if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
+		this->SetCursorOver(true);
+	}
+	return 1;
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
