@@ -17,7 +17,6 @@
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?VMethod7@BigStruct2@@UAEXXZ	15
 ??_GBigStruct2@@UAEPAXI@Z	24
 ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z	24
 ?FUN_0041cb21@BigStruct2@@QAEXXZ	26
@@ -38,6 +37,7 @@
 ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z	339
 ??0BigStruct2@@QAE@HHHH@Z	349
 ?OnKeyDown@BigStruct2@@UAEHI@Z	895
+?sub_406F7B@BigStruct2@@QAEXXZ	4508
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36

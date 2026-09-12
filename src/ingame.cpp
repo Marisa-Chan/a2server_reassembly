@@ -3746,6 +3746,13 @@ CUnit* BigStruct2::GetUnit_3f6c()
 	return this->field_0x3f6c;
 }
 
+// 406F1A
+void BigStruct2::VMethod7()
+{
+	this->field_0x74 = 1;
+	this->sub_406F7B();
+}
+
 void LoadVfxData()
 { //47b24e
 

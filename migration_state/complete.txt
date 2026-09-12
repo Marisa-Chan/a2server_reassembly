@@ -1358,6 +1358,7 @@
 ?VMethod5@Unit@@UAEXXZ
 ?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod6@Item@@UAEHXZ
+?VMethod7@BigStruct2@@UAEXXZ
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ

@@ -4325,7 +4325,7 @@ sub_403F08      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_40403B(_DWORD)
-sub_40403B      proc near               ; CODE XREF: sub_406F7B+1A0↓p
+sub_40403B      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1A0↓p
 
 var_B0          = dword ptr -0B0h
 var_AC          = dword ptr -0ACh
@@ -5527,7 +5527,7 @@ sub_404A2C      endp
 
 ; Attributes: bp-based frame
 
-sub_404DA3      proc near               ; CODE XREF: sub_406F7B+112F↓p
+sub_404DA3      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+112F↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -5579,7 +5579,7 @@ sub_404DA3      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_404E1A(_DWORD)
-sub_404E1A      proc near               ; CODE XREF: sub_406F7B+375↓p
+sub_404E1A      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+375↓p
 
 var_7C          = dword ptr -7Ch
 var_78          = dword ptr -78h
@@ -5991,7 +5991,7 @@ sub_404E1A      endp
 
 ; Attributes: bp-based frame
 
-sub_405399      proc near               ; CODE XREF: sub_406F7B+9E9↓p
+sub_405399      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+9E9↓p
 
 var_74          = dword ptr -74h
 var_70          = dword ptr -70h
@@ -6448,7 +6448,7 @@ sub_405399      endp
 
 ; Attributes: bp-based frame
 
-sub_40587B      proc near               ; CODE XREF: sub_406F7B+658↓p
+sub_40587B      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+658↓p
 
 var_84          = dword ptr -84h
 var_80          = dword ptr -80h
@@ -6887,7 +6887,7 @@ sub_40587B      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_405D0E(_DWORD)
-sub_405D0E      proc near               ; CODE XREF: sub_406F7B+B00↓p
+sub_405D0E      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+B00↓p
 
 var_A0          = dword ptr -0A0h
 var_9C          = dword ptr -9Ch
@@ -7728,7 +7728,7 @@ sub_406340      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_4065D3(_DWORD)
-sub_4065D3      proc near               ; CODE XREF: sub_406F7B+195↓p
+sub_4065D3      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+195↓p
 
 var_30          = dword ptr -30h
 var_2C          = dword ptr -2Ch
@@ -8046,34 +8046,14 @@ loc_4068F7:                             ; CODE XREF: sub_4065D3+240↑j
 sub_4065D3      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod7@BigStruct2@@UAEXXZ      proc near               ; DATA XREF: .rdata:006090B4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+74h], 1
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_406F7B
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@BigStruct2@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; _DWORD *__thiscall sub_406F7B(int varThis)
-sub_406F7B      proc near               ; CODE XREF: ?VMethod7@BigStruct2@@UAEXXZ+14↑p
+; _DWORD *__thiscall ?sub_406F7B@BigStruct2@@QAEXXZ(int varThis)
+?sub_406F7B@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@BigStruct2@@UAEXXZ+14↑p
 
 var__x           = qword ptr -35Ch
 var_350         = qword ptr -350h
@@ -8265,14 +8245,14 @@ var_4           = dword ptr -4
                 jmp     loc_40AFB6
 ; ---------------------------------------------------------------------------
 
-loc_406FB9:                             ; CODE XREF: sub_406F7B+37↑j
+loc_406FB9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+37↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 cmp     dword ptr [ecx+80h], 0
                 jnz     short loc_406FCD
                 jmp     loc_40AFB6
 ; ---------------------------------------------------------------------------
 
-loc_406FCD:                             ; CODE XREF: sub_406F7B+4B↑j
+loc_406FCD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+4B↑j
                 lea     ecx, [ebp+var_30] ; void *
                 call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
                 lea     ecx, [ebp+var_local_Rect] ; void *
@@ -8322,11 +8302,11 @@ loc_406FCD:                             ; CODE XREF: sub_406F7B+4B↑j
                 cmp     ecx, eax
                 jl      short loc_407087
 
-loc_40707A:                             ; CODE XREF: sub_406F7B+D7↑j
+loc_40707A:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+D7↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     dword ptr [eax+74h], 1
 
-loc_407087:                             ; CODE XREF: sub_406F7B+FD↑j
+loc_407087:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+FD↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+5Ch]
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -8353,10 +8333,10 @@ loc_407087:                             ; CODE XREF: sub_406F7B+FD↑j
                 jmp     short loc_407101
 ; ---------------------------------------------------------------------------
 
-loc_4070F7:                             ; CODE XREF: sub_406F7B+157↑j
+loc_4070F7:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+157↑j
                 mov     [ebp+var_2F8], 1
 
-loc_407101:                             ; CODE XREF: sub_406F7B+17A↑j
+loc_407101:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+17A↑j
                 mov     eax, dword ptr [ebp+var_2F8]
                 mov     [ebp+var_70], eax
                 mov     ecx, dword ptr [ebp+var_2F4]
@@ -8381,7 +8361,7 @@ loc_407101:                             ; CODE XREF: sub_406F7B+17A↑j
                 mov     ecx, dword ptr [ebp+var_local_Rect+0Ch] 
                 mov     [edx+0Ch], ecx
 
-loc_40715E:                             ; CODE XREF: sub_406F7B+1BE↑j
+loc_40715E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1BE↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 cmp     dword ptr [edx+0E0h], 0
                 jz      short loc_40719F
@@ -8398,7 +8378,7 @@ loc_40715E:                             ; CODE XREF: sub_406F7B+1BE↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     dword ptr [eax+0E0h], 0
 
-loc_40719F:                             ; CODE XREF: sub_406F7B+1F0↑j
+loc_40719F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1F0↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [ecx+0A88h]
@@ -8414,7 +8394,7 @@ loc_40719F:                             ; CODE XREF: sub_406F7B+1F0↑j
                 mov     ecx, dword ptr [eax+0A88h]
                 mov     [edx+0A8Ch], ecx
 
-loc_4071E0:                             ; CODE XREF: sub_406F7B+24B↑j
+loc_4071E0:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+24B↑j
                 push    2
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
@@ -8444,7 +8424,7 @@ loc_4071E0:                             ; CODE XREF: sub_406F7B+24B↑j
                 lea     ecx, [ebp+rcSrc1]
                 call    sub_41E930
 
-loc_407243:                             ; CODE XREF: sub_406F7B+2B5↑j
+loc_407243:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2B5↑j
                 cmp     [ebp+var_38], 0
                 jz      short loc_40725A
                 mov     ecx, dword ptr [ebp+var_38]
@@ -8453,7 +8433,7 @@ loc_407243:                             ; CODE XREF: sub_406F7B+2B5↑j
                 lea     ecx, [ebp+rcSrc1]
                 call    sub_41E930
 
-loc_40725A:                             ; CODE XREF: sub_406F7B+2CC↑j
+loc_40725A:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2CC↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [ebp+var_50]
                 cmp     eax, [edx+104h]
@@ -8469,7 +8449,7 @@ loc_40725A:                             ; CODE XREF: sub_406F7B+2CC↑j
                 mov     eax, dword ptr [ebp+var_local_Rect+0Ch] 
                 mov     [ecx+0Ch], eax
 
-loc_40728E:                             ; CODE XREF: sub_406F7B+2EE↑j
+loc_40728E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2EE↑j
                 cmp     [ebp+var_64], 0
                 jz      short loc_4072C3
                 mov     ecx, dword ptr [ebp+var_64]
@@ -8487,7 +8467,7 @@ loc_40728E:                             ; CODE XREF: sub_406F7B+2EE↑j
                 mov     eax, dword ptr [ebp+var_local_Rect+0Ch] 
                 mov     [ecx+0Ch], eax
 
-loc_4072C3:                             ; CODE XREF: sub_406F7B+317↑j
+loc_4072C3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+317↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Update@CMousePointer@@QAEXXZ 
                 call    ?LockSurface3@@YAIXZ
@@ -8507,7 +8487,7 @@ loc_4072C3:                             ; CODE XREF: sub_406F7B+317↑j
                 jmp     loc_4079A9
 ; ---------------------------------------------------------------------------
 
-loc_40731A:                             ; CODE XREF: sub_406F7B+36D↑j
+loc_40731A:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+36D↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 cmp     dword ptr [edx+78h], 0
                 jnz     short loc_407336
@@ -8515,7 +8495,7 @@ loc_40731A:                             ; CODE XREF: sub_406F7B+36D↑j
                 cmp     dword ptr [eax+7Ch], 0
                 jz      loc_407911
 
-loc_407336:                             ; CODE XREF: sub_406F7B+3A9↑j
+loc_407336:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3A9↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+0E4h]
                 mov     [ebp+var_108], edx
@@ -8538,7 +8518,7 @@ loc_407336:                             ; CODE XREF: sub_406F7B+3A9↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     [ecx+0E4h], edx
 
-loc_4073AB:                             ; CODE XREF: sub_406F7B+40D↑j
+loc_4073AB:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+40D↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [edx+0E4h]
@@ -8551,7 +8531,7 @@ loc_4073AB:                             ; CODE XREF: sub_406F7B+40D↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     [edx+0E4h], ecx
 
-loc_4073E3:                             ; CODE XREF: sub_406F7B+445↑j
+loc_4073E3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+445↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [eax+0E8h]
                 mov     edx, dword ptr [ebp+var_2F4]
@@ -8568,7 +8548,7 @@ loc_4073E3:                             ; CODE XREF: sub_406F7B+445↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     [edx+0E8h], eax
 
-loc_407434:                             ; CODE XREF: sub_406F7B+496↑j
+loc_407434:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+496↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [eax+0E8h]
@@ -8581,7 +8561,7 @@ loc_407434:                             ; CODE XREF: sub_406F7B+496↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     [eax+0E8h], edx
 
-loc_40746C:                             ; CODE XREF: sub_406F7B+4CE↑j
+loc_40746C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+4CE↑j
                 lea     ecx, [ebp+var_D4] ; void *
                 call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
                 lea     ecx, [ebp+var_E4] ; void *
@@ -8672,7 +8652,7 @@ loc_40746C:                             ; CODE XREF: sub_406F7B+4CE↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_4075D8:                             ; CODE XREF: sub_406F7B+635↑j
+loc_4075D8:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+635↑j
                 lea     ecx, [ebp+var_D4]
                 call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
                 mov     eax, dword ptr [eax+4]
@@ -8706,7 +8686,7 @@ loc_4075D8:                             ; CODE XREF: sub_406F7B+635↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_407651:                             ; CODE XREF: sub_406F7B+6AE↑j
+loc_407651:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+6AE↑j
                 lea     ecx, [ebp+var_E4]
                 call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
                 mov     edx, dword ptr [eax+4]
@@ -8734,7 +8714,7 @@ loc_407651:                             ; CODE XREF: sub_406F7B+6AE↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_4076B5:                             ; CODE XREF: sub_406F7B+71C↑j
+loc_4076B5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+71C↑j
                 lea     ecx, [ebp+var_E4]
                 call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
                 mov     eax, dword ptr [eax+4]
@@ -8765,11 +8745,11 @@ loc_4076B5:                             ; CODE XREF: sub_406F7B+71C↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_407724:                             ; CODE XREF: sub_406F7B+78B↑j
+loc_407724:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+78B↑j
                 jmp     short loc_407786
 ; ---------------------------------------------------------------------------
 
-loc_407726:                             ; CODE XREF: sub_406F7B+5E9↑j
+loc_407726:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+5E9↑j
                 lea     ecx, [ebp+var_D4] ; varThis
                 call    ?Clear@CComVariant@ATL@@QAEJXZ ; ATL::CComVariant::Clear(void)
                 test    eax, eax
@@ -8785,7 +8765,7 @@ loc_407726:                             ; CODE XREF: sub_406F7B+5E9↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_40775B:                             ; CODE XREF: sub_406F7B+7B8↑j
+loc_40775B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+7B8↑j
                 lea     ecx, [ebp+var_E4] ; varThis
                 call    ?Clear@CComVariant@ATL@@QAEJXZ ; ATL::CComVariant::Clear(void)
                 test    eax, eax
@@ -8798,7 +8778,7 @@ loc_40775B:                             ; CODE XREF: sub_406F7B+7B8↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_407786:                             ; CODE XREF: sub_406F7B+527↑j
+loc_407786:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+527↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 cmp     dword ptr [ecx+7Ch], 0
                 jz      loc_40790C
@@ -8859,7 +8839,7 @@ loc_407786:                             ; CODE XREF: sub_406F7B+527↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_407868:                             ; CODE XREF: sub_406F7B+8C5↑j
+loc_407868:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+8C5↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [eax+68h]
                 shl     ecx, 5
@@ -8887,11 +8867,11 @@ loc_407868:                             ; CODE XREF: sub_406F7B+8C5↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_4078C9:                             ; CODE XREF: sub_406F7B+930↑j
+loc_4078C9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+930↑j
                 jmp     short loc_40790C
 ; ---------------------------------------------------------------------------
 
-loc_4078CB:                             ; CODE XREF: sub_406F7B+887↑j
+loc_4078CB:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+887↑j
                 lea     eax, [ebp+var_D4]
                 push    eax
                 call    SetRcSrc_4549BA
@@ -8905,7 +8885,7 @@ loc_4078CB:                             ; CODE XREF: sub_406F7B+887↑j
                 jmp     short loc_40790C
 ; ---------------------------------------------------------------------------
 
-loc_4078F5:                             ; CODE XREF: sub_406F7B+969↑j
+loc_4078F5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+969↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [edx+68h]
                 neg     eax
@@ -8913,11 +8893,11 @@ loc_4078F5:                             ; CODE XREF: sub_406F7B+969↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40587B
 
-loc_40790C:                             ; CODE XREF: sub_406F7B+815↑j
+loc_40790C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+815↑j
                 jmp     loc_4079A9
 ; ---------------------------------------------------------------------------
 
-loc_407911:                             ; CODE XREF: sub_406F7B+3B5↑j
+loc_407911:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3B5↑j
                 cmp     [ebp+var_20], 0
                 jz      loc_4079A9
                 cmp     ?g_Animation@@3HA, 0
@@ -8959,7 +8939,7 @@ loc_407911:                             ; CODE XREF: sub_406F7B+3B5↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_405399
 
-loc_4079A9:                             ; CODE XREF: sub_406F7B+39A↑j
+loc_4079A9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+39A↑j
                 lea     ecx, [ebp+var_30]
                 push    ecx
                 call    SetRcSrc_4549BA
@@ -9016,7 +8996,7 @@ loc_4079A9:                             ; CODE XREF: sub_406F7B+39A↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_405D0E
 
-loc_407A80:                             ; CODE XREF: sub_406F7B+AE3↑j
+loc_407A80:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+AE3↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+0A88h]
                 mov     [ebp+var_C4], edx
@@ -9044,12 +9024,12 @@ loc_407A80:                             ; CODE XREF: sub_406F7B+AE3↑j
                 jmp     short loc_407B20
 ; ---------------------------------------------------------------------------
 
-loc_407B11:                             ; CODE XREF: sub_406F7B:loc_407D32↓j
+loc_407B11:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_407D32↓j
                 mov     edx, dword ptr [ebp+var_98]
                 add     edx, 1
                 mov     [ebp+var_98], edx
 
-loc_407B20:                             ; CODE XREF: sub_406F7B+B94↑j
+loc_407B20:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+B94↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [eax+68h]
                 add     ecx, 8
@@ -9062,12 +9042,12 @@ loc_407B20:                             ; CODE XREF: sub_406F7B+B94↑j
                 jmp     short loc_407B52
 ; ---------------------------------------------------------------------------
 
-loc_407B49:                             ; CODE XREF: sub_406F7B:loc_407D2D↓j
+loc_407B49:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_407D2D↓j
                 mov     ecx, dword ptr [ebp+var_74]
                 sub     ecx, 1
                 mov     [ebp+var_74], ecx
 
-loc_407B52:                             ; CODE XREF: sub_406F7B+BCC↑j
+loc_407B52:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+BCC↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_407D32
                 mov     edx, dword ptr [ebp+var_2F4]
@@ -9174,25 +9154,25 @@ loc_407B52:                             ; CODE XREF: sub_406F7B+BCC↑j
                 mov     ecx, dword ptr [ebp+var_118]
                 call    dword ptr [edx+2Ch]
 
-loc_407D2D:                             ; CODE XREF: sub_406F7B+CC5↑j
+loc_407D2D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+CC5↑j
                 jmp     loc_407B49
 ; ---------------------------------------------------------------------------
 
-loc_407D32:                             ; CODE XREF: sub_406F7B+BDB↑j
+loc_407D32:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+BDB↑j
                 jmp     loc_407B11
 ; ---------------------------------------------------------------------------
 
-loc_407D37:                             ; CODE XREF: sub_406F7B+B84↑j
+loc_407D37:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+B84↑j
                 mov     [ebp+var_98], 0FFFFFFFCh
                 jmp     short loc_407D52
 ; ---------------------------------------------------------------------------
 
-loc_407D43:                             ; CODE XREF: sub_406F7B:loc_4080B4↓j
+loc_407D43:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_4080B4↓j
                 mov     eax, dword ptr [ebp+var_98]
                 add     eax, 1
                 mov     [ebp+var_98], eax
 
-loc_407D52:                             ; CODE XREF: sub_406F7B+DC6↑j
+loc_407D52:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+DC6↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+68h]
                 add     edx, 8
@@ -9205,12 +9185,12 @@ loc_407D52:                             ; CODE XREF: sub_406F7B+DC6↑j
                 jmp     short loc_407D84
 ; ---------------------------------------------------------------------------
 
-loc_407D7B:                             ; CODE XREF: sub_406F7B:loc_4080AF↓j
+loc_407D7B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_4080AF↓j
                 mov     edx, dword ptr [ebp+var_74]
                 sub     edx, 1
                 mov     [ebp+var_74], edx
 
-loc_407D84:                             ; CODE XREF: sub_406F7B+DFE↑j
+loc_407D84:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+DFE↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_4080B4
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -9390,25 +9370,25 @@ loc_407D84:                             ; CODE XREF: sub_406F7B+DFE↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_404DA3
 
-loc_4080AF:                             ; CODE XREF: sub_406F7B+EF7↑j
+loc_4080AF:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+EF7↑j
                 jmp     loc_407D7B
 ; ---------------------------------------------------------------------------
 
-loc_4080B4:                             ; CODE XREF: sub_406F7B+E0D↑j
+loc_4080B4:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+E0D↑j
                 jmp     loc_407D43
 ; ---------------------------------------------------------------------------
 
-loc_4080B9:                             ; CODE XREF: sub_406F7B+DE9↑j
+loc_4080B9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+DE9↑j
                 mov     [ebp+var_98], 0FFFFFFFCh
                 jmp     short loc_4080D4
 ; ---------------------------------------------------------------------------
 
-loc_4080C5:                             ; CODE XREF: sub_406F7B:loc_4083C2↓j
+loc_4080C5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_4083C2↓j
                 mov     ecx, dword ptr [ebp+var_98]
                 add     ecx, 1
                 mov     [ebp+var_98], ecx
 
-loc_4080D4:                             ; CODE XREF: sub_406F7B+1148↑j
+loc_4080D4:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1148↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [edx+68h]
                 add     eax, 8
@@ -9421,12 +9401,12 @@ loc_4080D4:                             ; CODE XREF: sub_406F7B+1148↑j
                 jmp     short loc_408106
 ; ---------------------------------------------------------------------------
 
-loc_4080FD:                             ; CODE XREF: sub_406F7B:loc_4083BD↓j
+loc_4080FD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_4083BD↓j
                 mov     eax, dword ptr [ebp+var_74]
                 sub     eax, 1
                 mov     [ebp+var_74], eax
 
-loc_408106:                             ; CODE XREF: sub_406F7B+1180↑j
+loc_408106:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1180↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_4083C2
                 mov     ecx, dword ptr [ebp+var_2F4]
@@ -9546,7 +9526,7 @@ loc_408106:                             ; CODE XREF: sub_406F7B+1180↑j
                 mov     ecx, dword ptr [ebp+var_164]
                 call    dword ptr [edx+2Ch]
 
-loc_408324:                             ; CODE XREF: sub_406F7B+137E↑j
+loc_408324:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+137E↑j
                 mov     eax, dword ptr [ebp+var_174]
                 and     eax, 0FFh
                 push    eax
@@ -9559,7 +9539,7 @@ loc_408324:                             ; CODE XREF: sub_406F7B+137E↑j
                 mov     ecx, dword ptr [ebp+var_164]
                 call    dword ptr [edx+28h]
 
-loc_40834C:                             ; CODE XREF: sub_406F7B+1366↑j
+loc_40834C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1366↑j
                 cmp     [ebp+var_170], 0
                 jz      short loc_4083BD
                 mov     ecx, dword ptr [ebp+var_170] ; varThis
@@ -9580,7 +9560,7 @@ loc_40834C:                             ; CODE XREF: sub_406F7B+1366↑j
                 mov     ecx, dword ptr [ebp+var_170]
                 call    dword ptr [edx+2Ch]
 
-loc_408395:                             ; CODE XREF: sub_406F7B+13F0↑j
+loc_408395:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+13F0↑j
                 mov     eax, dword ptr [ebp+var_174]
                 and     eax, 0FFh
                 push    eax
@@ -9593,25 +9573,25 @@ loc_408395:                             ; CODE XREF: sub_406F7B+13F0↑j
                 mov     ecx, dword ptr [ebp+var_170]
                 call    dword ptr [edx+28h]
 
-loc_4083BD:                             ; CODE XREF: sub_406F7B+1278↑j
+loc_4083BD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1278↑j
                 jmp     loc_4080FD
 ; ---------------------------------------------------------------------------
 
-loc_4083C2:                             ; CODE XREF: sub_406F7B+118F↑j
+loc_4083C2:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+118F↑j
                 jmp     loc_4080C5
 ; ---------------------------------------------------------------------------
 
-loc_4083C7:                             ; CODE XREF: sub_406F7B+116B↑j
+loc_4083C7:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+116B↑j
                 mov     [ebp+var_98], 0FFFFFFFCh
                 jmp     short loc_4083E2
 ; ---------------------------------------------------------------------------
 
-loc_4083D3:                             ; CODE XREF: sub_406F7B:loc_409628↓j
+loc_4083D3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409628↓j
                 mov     eax, dword ptr [ebp+var_98]
                 add     eax, 1
                 mov     [ebp+var_98], eax
 
-loc_4083E2:                             ; CODE XREF: sub_406F7B+1456↑j
+loc_4083E2:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1456↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+68h]
                 add     edx, 8
@@ -9624,12 +9604,12 @@ loc_4083E2:                             ; CODE XREF: sub_406F7B+1456↑j
                 jmp     short loc_408414
 ; ---------------------------------------------------------------------------
 
-loc_40840B:                             ; CODE XREF: sub_406F7B:loc_409623↓j
+loc_40840B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409623↓j
                 mov     edx, dword ptr [ebp+var_74]
                 sub     edx, 1
                 mov     [ebp+var_74], edx
 
-loc_408414:                             ; CODE XREF: sub_406F7B+148E↑j
+loc_408414:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+148E↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_409628
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -9799,7 +9779,7 @@ loc_408414:                             ; CODE XREF: sub_406F7B+148E↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_404DA3
 
-loc_408708:                             ; CODE XREF: sub_406F7B+1675↑j
+loc_408708:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1675↑j
                 cmp     [ebp+var_188], 0
                 jz      loc_40888D
                 mov     ecx, dword ptr [ebp+var_188] ; varThis
@@ -9821,7 +9801,7 @@ loc_408708:                             ; CODE XREF: sub_406F7B+1675↑j
                 test    eax, eax
                 jz      loc_40888D
 
-loc_40875F:                             ; CODE XREF: sub_406F7B+17BC↑j
+loc_40875F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+17BC↑j
                 mov     ecx, dword ptr [ebp+var_188]
                 mov     edx, dword ptr [ecx+24h]
                 push    edx
@@ -9877,7 +9857,7 @@ loc_40875F:                             ; CODE XREF: sub_406F7B+17BC↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_404DA3
 
-loc_408832:                             ; CODE XREF: sub_406F7B+1896↑j
+loc_408832:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1896↑j
                 cmp     ?g_Shadows@@3HA, 0
                 jz      short loc_408864
                 mov     edx, dword ptr [ebp+var_194]
@@ -9892,7 +9872,7 @@ loc_408832:                             ; CODE XREF: sub_406F7B+1896↑j
                 mov     ecx, dword ptr [ebp+var_188]
                 call    dword ptr [eax+2Ch]
 
-loc_408864:                             ; CODE XREF: sub_406F7B+18BE↑j
+loc_408864:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+18BE↑j
                 mov     ecx, dword ptr [ebp+var_194]
                 and     ecx, 0FFh
                 push    ecx
@@ -9905,7 +9885,7 @@ loc_408864:                             ; CODE XREF: sub_406F7B+18BE↑j
                 mov     ecx, dword ptr [ebp+var_188]
                 call    dword ptr [edx+28h]
 
-loc_40888D:                             ; CODE XREF: sub_406F7B+1794↑j
+loc_40888D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1794↑j
                 cmp     ?g_Lightning@@3HA, 0
                 jz      loc_4089AD
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -9978,7 +9958,7 @@ loc_40888D:                             ; CODE XREF: sub_406F7B+1794↑j
                 mov     ecx, dword ptr [ebp+var_2FC]
                 call    dword ptr [edx+18h]
 
-loc_4089AD:                             ; CODE XREF: sub_406F7B+1587↑j
+loc_4089AD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1587↑j
                 mov     eax, dword ptr [ebp+var_C0]
                 add     eax, [ebp+var_178]
                 mov     cl, [eax]
@@ -10105,7 +10085,7 @@ loc_4089AD:                             ; CODE XREF: sub_406F7B+1587↑j
                 jmp     short loc_408C4A
 ; ---------------------------------------------------------------------------
 
-loc_408BD5:                             ; CODE XREF: sub_406F7B+1BF2↑j
+loc_408BD5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1BF2↑j
                 mov     eax, dword ptr [ebp+var_C4]
                 add     eax, [ebp+var_74]
                 mov     ecx, dword ptr [ebp+var_2F4]
@@ -10135,11 +10115,11 @@ loc_408BD5:                             ; CODE XREF: sub_406F7B+1BF2↑j
                 add     edx, [eax]
                 mov     [ebp+var_200], edx
 
-loc_408C4A:                             ; CODE XREF: sub_406F7B+1C58↑j
+loc_408C4A:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1C58↑j
                 jmp     loc_408CDA
 ; ---------------------------------------------------------------------------
 
-loc_408C4F:                             ; CODE XREF: sub_406F7B+1BBD↑j
+loc_408C4F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1BBD↑j
                 mov     eax, dword ptr [ebp+var_178]
                 mov     ecx, dword ptr [ebp+var_4C]
                 xor     edx, edx
@@ -10173,16 +10153,16 @@ loc_408C4F:                             ; CODE XREF: sub_406F7B+1BBD↑j
                 jmp     short loc_408CDA
 ; ---------------------------------------------------------------------------
 
-loc_408CCE:                             ; CODE XREF: sub_406F7B+1CEB↑j
+loc_408CCE:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1CEB↑j
                 mov     ecx, dword ptr [ebp+var_1F8]
                 mov     [ebp+var_200], ecx
 
-loc_408CDA:                             ; CODE XREF: sub_406F7B:loc_408C4A↑j
+loc_408CDA:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_408C4A↑j
                 cmp     ?g_Animation@@3HA, 0
                 jnz     short loc_408CED
                 mov     [ebp+var_200], 0
 
-loc_408CED:                             ; CODE XREF: sub_406F7B+1D66↑j
+loc_408CED:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1D66↑j
                 mov     edx, dword ptr [ebp+var_200]
                 push    edx
                 mov     eax, dword ptr [ebp+var_20C]
@@ -10347,7 +10327,7 @@ loc_408CED:                             ; CODE XREF: sub_406F7B+1D66↑j
                 mov     ecx, dword ptr [ebp+var_318]
                 call    dword ptr [edx+3Ch]
 
-loc_408F5D:                             ; CODE XREF: sub_406F7B+1F8C↑j
+loc_408F5D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1F8C↑j
                 mov     eax, dword ptr [ebp+var_180]
                 and     eax, 0FFh
                 push    eax
@@ -10457,7 +10437,7 @@ loc_408F5D:                             ; CODE XREF: sub_406F7B+1F8C↑j
                 mov     ecx, dword ptr [ebp+var_324]
                 call    dword ptr [eax+3Ch]
 
-loc_4090F3:                             ; CODE XREF: sub_406F7B+211A↑j
+loc_4090F3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+211A↑j
                 mov     ecx, dword ptr [ebp+var_180]
                 and     ecx, 0FFh
                 push    ecx
@@ -10672,7 +10652,7 @@ loc_4090F3:                             ; CODE XREF: sub_406F7B+211A↑j
                 mov     ecx, dword ptr [ebp+var_33C]
                 call    dword ptr [eax+34h]
 
-loc_409419:                             ; CODE XREF: sub_406F7B+2309↑j
+loc_409419:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2309↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ebp+var_74]
                 add     edx, [ecx+5Ch]
@@ -10732,7 +10712,7 @@ loc_409419:                             ; CODE XREF: sub_406F7B+2309↑j
                 mov     ecx, dword ptr [ebp+var_340]
                 call    dword ptr [edx+18h]
 
-loc_4094EA:                             ; CODE XREF: sub_406F7B+1A54↑j
+loc_4094EA:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1A54↑j
                 cmp     [ebp+var_98], 0FFFFFFFDh
                 jl      loc_409623
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -10808,15 +10788,15 @@ loc_4094EA:                             ; CODE XREF: sub_406F7B+1A54↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40AFC5
 
-loc_409623:                             ; CODE XREF: sub_406F7B+2576↑j
+loc_409623:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2576↑j
                 jmp     loc_40840B
 ; ---------------------------------------------------------------------------
 
-loc_409628:                             ; CODE XREF: sub_406F7B+149D↑j
+loc_409628:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+149D↑j
                 jmp     loc_4083D3
 ; ---------------------------------------------------------------------------
 
-loc_40962D:                             ; CODE XREF: sub_406F7B+1479↑j
+loc_40962D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1479↑j
                 lea     eax, [ebp+var_30]
                 push    eax
                 call    SetRcSrc_4549BA
@@ -10836,12 +10816,12 @@ loc_40962D:                             ; CODE XREF: sub_406F7B+1479↑j
                 jmp     short loc_40968A
 ; ---------------------------------------------------------------------------
 
-loc_40967B:                             ; CODE XREF: sub_406F7B:loc_40989B↓j
+loc_40967B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40989B↓j
                 mov     edx, dword ptr [ebp+var_98]
                 add     edx, 1
                 mov     [ebp+var_98], edx
 
-loc_40968A:                             ; CODE XREF: sub_406F7B+26FE↑j
+loc_40968A:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+26FE↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [eax+68h]
                 add     ecx, 8
@@ -10854,12 +10834,12 @@ loc_40968A:                             ; CODE XREF: sub_406F7B+26FE↑j
                 jmp     short loc_4096BC
 ; ---------------------------------------------------------------------------
 
-loc_4096B3:                             ; CODE XREF: sub_406F7B:loc_409896↓j
+loc_4096B3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409896↓j
                 mov     ecx, dword ptr [ebp+var_74]
                 sub     ecx, 1
                 mov     [ebp+var_74], ecx
 
-loc_4096BC:                             ; CODE XREF: sub_406F7B+2736↑j
+loc_4096BC:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2736↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_40989B
                 mov     edx, dword ptr [ebp+var_2F4]
@@ -10966,21 +10946,21 @@ loc_4096BC:                             ; CODE XREF: sub_406F7B+2736↑j
                 mov     ecx, dword ptr [ebp+var_224]
                 call    dword ptr [edx+2Ch]
 
-loc_409896:                             ; CODE XREF: sub_406F7B+282F↑j
+loc_409896:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+282F↑j
                 jmp     loc_4096B3
 ; ---------------------------------------------------------------------------
 
-loc_40989B:                             ; CODE XREF: sub_406F7B+2745↑j
+loc_40989B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2745↑j
                 jmp     loc_40967B
 ; ---------------------------------------------------------------------------
 
-loc_4098A0:                             ; CODE XREF: sub_406F7B+26EE↑j
+loc_4098A0:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+26EE↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 add     ecx, 9ECh
                 call    sub_420720
                 mov     [ebp+var_B8], eax
 
-loc_4098B7:                             ; CODE XREF: sub_406F7B+297F↓j
+loc_4098B7:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+297F↓j
                 cmp     [ebp+var_B8], 0
                 jz      short loc_4098FC
                 lea     eax, [ebp+var_BC]
@@ -11002,17 +10982,17 @@ loc_4098B7:                             ; CODE XREF: sub_406F7B+297F↓j
                 jmp     short loc_4098B7
 ; ---------------------------------------------------------------------------
 
-loc_4098FC:                             ; CODE XREF: sub_406F7B+2943↑j
+loc_4098FC:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2943↑j
                 mov     [ebp+var_98], 0FFFFFFFCh
                 jmp     short loc_409917
 ; ---------------------------------------------------------------------------
 
-loc_409908:                             ; CODE XREF: sub_406F7B:loc_409B67↓j
+loc_409908:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409B67↓j
                 mov     eax, dword ptr [ebp+var_98]
                 add     eax, 1
                 mov     [ebp+var_98], eax
 
-loc_409917:                             ; CODE XREF: sub_406F7B+298B↑j
+loc_409917:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+298B↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+68h]
                 add     edx, 8
@@ -11025,12 +11005,12 @@ loc_409917:                             ; CODE XREF: sub_406F7B+298B↑j
                 jmp     short loc_409949
 ; ---------------------------------------------------------------------------
 
-loc_409940:                             ; CODE XREF: sub_406F7B:loc_409B62↓j
+loc_409940:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409B62↓j
                 mov     edx, dword ptr [ebp+var_74]
                 sub     edx, 1
                 mov     [ebp+var_74], edx
 
-loc_409949:                             ; CODE XREF: sub_406F7B+29C3↑j
+loc_409949:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+29C3↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_409B67
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -11153,25 +11133,25 @@ loc_409949:                             ; CODE XREF: sub_406F7B+29C3↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_40AFC5
 
-loc_409B62:                             ; CODE XREF: sub_406F7B+2ABC↑j
+loc_409B62:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2ABC↑j
                 jmp     loc_409940
 ; ---------------------------------------------------------------------------
 
-loc_409B67:                             ; CODE XREF: sub_406F7B+29D2↑j
+loc_409B67:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+29D2↑j
                 jmp     loc_409908
 ; ---------------------------------------------------------------------------
 
-loc_409B6C:                             ; CODE XREF: sub_406F7B+29AE↑j
+loc_409B6C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+29AE↑j
                 mov     [ebp+var_98], 0FFFFFFFCh
                 jmp     short loc_409B87
 ; ---------------------------------------------------------------------------
 
-loc_409B78:                             ; CODE XREF: sub_406F7B:loc_409E94↓j
+loc_409B78:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409E94↓j
                 mov     ecx, dword ptr [ebp+var_98]
                 add     ecx, 1
                 mov     [ebp+var_98], ecx
 
-loc_409B87:                             ; CODE XREF: sub_406F7B+2BFB↑j
+loc_409B87:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2BFB↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [edx+68h]
                 add     eax, 8
@@ -11184,12 +11164,12 @@ loc_409B87:                             ; CODE XREF: sub_406F7B+2BFB↑j
                 jmp     short loc_409BB9
 ; ---------------------------------------------------------------------------
 
-loc_409BB0:                             ; CODE XREF: sub_406F7B:loc_409E8F↓j
+loc_409BB0:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_409E8F↓j
                 mov     eax, dword ptr [ebp+var_74]
                 sub     eax, 1
                 mov     [ebp+var_74], eax
 
-loc_409BB9:                             ; CODE XREF: sub_406F7B+2C33↑j
+loc_409BB9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2C33↑j
                 cmp     [ebp+var_74], 0FFFFFFFCh
                 jl      loc_409E94
                 mov     ecx, dword ptr [ebp+var_2F4]
@@ -11345,7 +11325,7 @@ loc_409BB9:                             ; CODE XREF: sub_406F7B+2C33↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 call    sub_404DA3
 
-loc_409E66:                             ; CODE XREF: sub_406F7B+2ECA↑j
+loc_409E66:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2ECA↑j
                 mov     ecx, dword ptr [ebp+var_254]
                 and     ecx, 0FFh
                 push    ecx
@@ -11358,25 +11338,25 @@ loc_409E66:                             ; CODE XREF: sub_406F7B+2ECA↑j
                 mov     ecx, dword ptr [ebp+var_248]
                 call    dword ptr [edx+28h]
 
-loc_409E8F:                             ; CODE XREF: sub_406F7B+2D2B↑j
+loc_409E8F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2D2B↑j
                 jmp     loc_409BB0
 ; ---------------------------------------------------------------------------
 
-loc_409E94:                             ; CODE XREF: sub_406F7B+2C42↑j
+loc_409E94:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2C42↑j
                 jmp     loc_409B78
 ; ---------------------------------------------------------------------------
 
-loc_409E99:                             ; CODE XREF: sub_406F7B+2C1E↑j
+loc_409E99:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2C1E↑j
                 mov     [ebp+var_98], 0FFFFFFFDh
                 jmp     short loc_409EB4
 ; ---------------------------------------------------------------------------
 
-loc_409EA5:                             ; CODE XREF: sub_406F7B:loc_40A08C↓j
+loc_409EA5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40A08C↓j
                 mov     eax, dword ptr [ebp+var_98]
                 add     eax, 1
                 mov     [ebp+var_98], eax
 
-loc_409EB4:                             ; CODE XREF: sub_406F7B+2F28↑j
+loc_409EB4:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2F28↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     edx, dword ptr [ecx+68h]
                 add     edx, 7
@@ -11389,12 +11369,12 @@ loc_409EB4:                             ; CODE XREF: sub_406F7B+2F28↑j
                 jmp     short loc_409EE6
 ; ---------------------------------------------------------------------------
 
-loc_409EDD:                             ; CODE XREF: sub_406F7B:loc_40A087↓j
+loc_409EDD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40A087↓j
                 mov     edx, dword ptr [ebp+var_74]
                 sub     edx, 1
                 mov     [ebp+var_74], edx
 
-loc_409EE6:                             ; CODE XREF: sub_406F7B+2F60↑j
+loc_409EE6:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2F60↑j
                 cmp     [ebp+var_74], 0FFFFFFFDh
                 jl      loc_40A08C
                 mov     eax, dword ptr [ebp+var_98]
@@ -11450,7 +11430,7 @@ loc_409EE6:                             ; CODE XREF: sub_406F7B+2F60↑j
                 mov     ecx, dword ptr [ebp+var_268]
                 call    dword ptr [edx+30h]
 
-loc_409FD5:                             ; CODE XREF: sub_406F7B+3026↑j
+loc_409FD5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3026↑j
                 cmp     [ebp+var_26C], 0
                 jz      short loc_40A02E
                 mov     ecx, dword ptr [ebp+var_26C] ; varThis
@@ -11465,7 +11445,7 @@ loc_409FD5:                             ; CODE XREF: sub_406F7B+3026↑j
                 test    eax, eax
                 jnz     short loc_40A02E
 
-loc_40A00B:                             ; CODE XREF: sub_406F7B+3070↑j
+loc_40A00B:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3070↑j
                 mov     ecx, dword ptr [ebp+var_274]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_98]
@@ -11477,7 +11457,7 @@ loc_40A00B:                             ; CODE XREF: sub_406F7B+3070↑j
                 mov     ecx, dword ptr [ebp+var_26C]
                 call    dword ptr [edx+30h]
 
-loc_40A02E:                             ; CODE XREF: sub_406F7B+3061↑j
+loc_40A02E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3061↑j
                 cmp     [ebp+var_270], 0
                 jz      short loc_40A087
                 mov     ecx, dword ptr [ebp+var_270] ; varThis
@@ -11492,7 +11472,7 @@ loc_40A02E:                             ; CODE XREF: sub_406F7B+3061↑j
                 test    eax, eax
                 jnz     short loc_40A087
 
-loc_40A064:                             ; CODE XREF: sub_406F7B+30C9↑j
+loc_40A064:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+30C9↑j
                 mov     ecx, dword ptr [ebp+var_274]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_98]
@@ -11504,15 +11484,15 @@ loc_40A064:                             ; CODE XREF: sub_406F7B+30C9↑j
                 mov     ecx, dword ptr [ebp+var_270]
                 call    dword ptr [edx+30h]
 
-loc_40A087:                             ; CODE XREF: sub_406F7B+30BA↑j
+loc_40A087:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+30BA↑j
                 jmp     loc_409EDD
 ; ---------------------------------------------------------------------------
 
-loc_40A08C:                             ; CODE XREF: sub_406F7B+2F6F↑j
+loc_40A08C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2F6F↑j
                 jmp     loc_409EA5
 ; ---------------------------------------------------------------------------
 
-loc_40A091:                             ; CODE XREF: sub_406F7B+2F4B↑j
+loc_40A091:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2F4B↑j
                 lea     eax, [ebp+var_30]
                 push    eax
                 call    SetRcSrc_4549BA
@@ -11530,19 +11510,19 @@ loc_40A091:                             ; CODE XREF: sub_406F7B+2F4B↑j
                 jmp     short loc_40A0D8
 ; ---------------------------------------------------------------------------
 
-loc_40A0CF:                             ; CODE XREF: sub_406F7B:loc_40A618↓j
+loc_40A0CF:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40A618↓j
                 mov     edx, dword ptr [ebp+var_74]
                 add     edx, 1
                 mov     [ebp+var_74], edx
 
-loc_40A0D8:                             ; CODE XREF: sub_406F7B+3152↑j
+loc_40A0D8:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3152↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [ebp+var_74]
                 cmp     ecx, [eax+64h]
                 jge     loc_40A61D
                 mov     [ebp+var_98], 0
 
-loc_40A0F4:                             ; CODE XREF: sub_406F7B+348E↓j
+loc_40A0F4:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+348E↓j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [edx+68h]
                 add     eax, 4
@@ -11627,7 +11607,7 @@ loc_40A0F4:                             ; CODE XREF: sub_406F7B+348E↓j
                 mov     eax, dword ptr [edx+eax*4]
                 mov     [ebp+var_2B0], eax
 
-loc_40A2A5:                             ; CODE XREF: sub_406F7B+343B↓j
+loc_40A2A5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+343B↓j
                 mov     ecx, dword ptr [ebp+var_280]
                 cmp     ecx, [ebp+var_290]
                 jnz     loc_40A3BB
@@ -11648,7 +11628,7 @@ loc_40A2A5:                             ; CODE XREF: sub_406F7B+343B↓j
                 jmp     loc_40A3BB
 ; ---------------------------------------------------------------------------
 
-loc_40A306:                             ; CODE XREF: sub_406F7B+3384↑j
+loc_40A306:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3384↑j
                 mov     ecx, dword ptr [ebp+var_2A0]
                 add     ecx, [ebp+var_27C]
                 mov     [ebp+var_2A0], ecx
@@ -11685,7 +11665,7 @@ loc_40A306:                             ; CODE XREF: sub_406F7B+3384↑j
                 jmp     loc_40A2A5
 ; ---------------------------------------------------------------------------
 
-loc_40A3BB:                             ; CODE XREF: sub_406F7B+3336↑j
+loc_40A3BB:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3336↑j
                 mov     ecx, dword ptr [ebp+var_280]
                 cmp     ecx, [ebp+var_288]
                 jnz     loc_40A552
@@ -11703,7 +11683,7 @@ loc_40A3BB:                             ; CODE XREF: sub_406F7B+3336↑j
                 jmp     loc_40A0F4
 ; ---------------------------------------------------------------------------
 
-loc_40A40E:                             ; CODE XREF: sub_406F7B+347D↑j
+loc_40A40E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+347D↑j
                 cmp     [ebp+var_280], 10h
                 jnz     loc_40A4B0
                 mov     edx, dword ptr [ebp+var_298]
@@ -11728,7 +11708,7 @@ loc_40A40E:                             ; CODE XREF: sub_406F7B+347D↑j
                 jmp     short loc_40A49C
 ; ---------------------------------------------------------------------------
 
-loc_40A467:                             ; CODE XREF: sub_406F7B+34AC↑j
+loc_40A467:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+34AC↑j
                 mov     edx, dword ptr [ebp+var_2B0]
                 push    edx
                 mov     eax, dword ptr [ebp+var_2AC]
@@ -11747,14 +11727,14 @@ loc_40A467:                             ; CODE XREF: sub_406F7B+34AC↑j
                 call    sub_4590EF
                 add     esp, 18h
 
-loc_40A49C:                             ; CODE XREF: sub_406F7B+34EA↑j
+loc_40A49C:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+34EA↑j
                 mov     edx, dword ptr [ebp+var_98]
                 add     edx, 1
                 mov     [ebp+var_98], edx
                 jmp     loc_40A0F4
 ; ---------------------------------------------------------------------------
 
-loc_40A4B0:                             ; CODE XREF: sub_406F7B+349A↑j
+loc_40A4B0:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+349A↑j
                 cmp     [ebp+var_280], 8
                 jnz     loc_40A552
                 mov     eax, dword ptr [ebp+var_298]
@@ -11779,7 +11759,7 @@ loc_40A4B0:                             ; CODE XREF: sub_406F7B+349A↑j
                 jmp     short loc_40A53E
 ; ---------------------------------------------------------------------------
 
-loc_40A509:                             ; CODE XREF: sub_406F7B+354E↑j
+loc_40A509:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+354E↑j
                 mov     eax, dword ptr [ebp+var_2B0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_2AC]
@@ -11798,14 +11778,14 @@ loc_40A509:                             ; CODE XREF: sub_406F7B+354E↑j
                 call    sub_459B72
                 add     esp, 18h
 
-loc_40A53E:                             ; CODE XREF: sub_406F7B+358C↑j
+loc_40A53E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+358C↑j
                 mov     eax, dword ptr [ebp+var_98]
                 add     eax, 1
                 mov     [ebp+var_98], eax
                 jmp     loc_40A0F4
 ; ---------------------------------------------------------------------------
 
-loc_40A552:                             ; CODE XREF: sub_406F7B+344C↑j
+loc_40A552:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+344C↑j
                 mov     ecx, dword ptr [ebp+var_298]
                 cmp     ecx, [ebp+var_2A4]
                 jnz     short loc_40A5B3
@@ -11834,7 +11814,7 @@ loc_40A552:                             ; CODE XREF: sub_406F7B+344C↑j
                 jmp     short loc_40A604
 ; ---------------------------------------------------------------------------
 
-loc_40A5B3:                             ; CODE XREF: sub_406F7B+35E3↑j
+loc_40A5B3:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+35E3↑j
                 mov     ecx, dword ptr [ebp+var_294]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_290]
@@ -11861,18 +11841,18 @@ loc_40A5B3:                             ; CODE XREF: sub_406F7B+35E3↑j
                 call    sub_4595FD
                 add     esp, 28h
 
-loc_40A604:                             ; CODE XREF: sub_406F7B+3636↑j
+loc_40A604:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3636↑j
                 mov     edx, dword ptr [ebp+var_98]
                 add     edx, 1
                 mov     [ebp+var_98], edx
                 jmp     loc_40A0F4
 ; ---------------------------------------------------------------------------
 
-loc_40A618:                             ; CODE XREF: sub_406F7B+318B↑j
+loc_40A618:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+318B↑j
                 jmp     loc_40A0CF
 ; ---------------------------------------------------------------------------
 
-loc_40A61D:                             ; CODE XREF: sub_406F7B+3169↑j
+loc_40A61D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3169↑j
                 lea     eax, [ebp+var_30]
                 push    eax
                 call    SetRcSrc_4549BA
@@ -11926,7 +11906,7 @@ loc_40A61D:                             ; CODE XREF: sub_406F7B+3169↑j
                 jmp     short loc_40A727
 ; ---------------------------------------------------------------------------
 
-loc_40A6BD:                             ; CODE XREF: sub_406F7B+36DB↑j
+loc_40A6BD:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+36DB↑j
                 cmp     [ebp+var_38], 0
                 jz      short loc_40A6ED
                 push    0
@@ -11947,7 +11927,7 @@ loc_40A6BD:                             ; CODE XREF: sub_406F7B+36DB↑j
                 jmp     short loc_40A727
 ; ---------------------------------------------------------------------------
 
-loc_40A6ED:                             ; CODE XREF: sub_406F7B+3746↑j
+loc_40A6ED:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3746↑j
                 cmp     [ebp+var_64], 0
                 jz      short loc_40A727
                 cmp     dword ptr [?g_ScreenSize@@3VCRect@@A+8], 320h 
@@ -11968,7 +11948,7 @@ loc_40A6ED:                             ; CODE XREF: sub_406F7B+3746↑j
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_40A727:                             ; CODE XREF: sub_406F7B+3740↑j
+loc_40A727:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3740↑j
                 push    9Eh
                 push    10h
                 push    0
@@ -12010,7 +11990,7 @@ loc_40A727:                             ; CODE XREF: sub_406F7B+3740↑j
                 jmp     short loc_40A7D5
 ; ---------------------------------------------------------------------------
 
-loc_40A7AC:                             ; CODE XREF: sub_406F7B+3803↑j
+loc_40A7AC:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3803↑j
                 push    50h ; 'P'
                 push    10h
                 push    0
@@ -12026,7 +12006,7 @@ loc_40A7AC:                             ; CODE XREF: sub_406F7B+3803↑j
                 mov     ecx, ?g_bmp_cmdbarl@@3PAVCBmp64@@A
                 call    dword ptr [eax+38h]
 
-loc_40A7D5:                             ; CODE XREF: sub_406F7B+382F↑j
+loc_40A7D5:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+382F↑j
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
                 mov     ecx, dword ptr [eax+0E0h]
                 call    unknown_libname_639 ; Microsoft VisualC 2-14/net runtime
@@ -12050,7 +12030,7 @@ loc_40A7D5:                             ; CODE XREF: sub_406F7B+382F↑j
                 jmp     short loc_40A84E
 ; ---------------------------------------------------------------------------
 
-loc_40A822:                             ; CODE XREF: sub_406F7B+3877↑j
+loc_40A822:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3877↑j
                 push    0F2h
                 push    10h
                 push    0
@@ -12066,7 +12046,7 @@ loc_40A822:                             ; CODE XREF: sub_406F7B+3877↑j
                 mov     ecx, ?g_bmp_textbackl@@3PAVCBmp64@@A
                 call    dword ptr [eax+38h]
 
-loc_40A84E:                             ; CODE XREF: sub_406F7B+38A5↑j
+loc_40A84E:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+38A5↑j
                 mov     ecx, dword ptr [ebp+var_68]
                 mov     ecx, dword ptr [ecx+0E4h]
                 call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
@@ -12125,7 +12105,7 @@ loc_40A84E:                             ; CODE XREF: sub_406F7B+38A5↑j
                 jmp     short loc_40A956
 ; ---------------------------------------------------------------------------
 
-loc_40A910:                             ; CODE XREF: sub_406F7B+3916↑j
+loc_40A910:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3916↑j
                 cmp     dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch], 1E0h 
                 jle     short loc_40A956
                 push    0
@@ -12148,7 +12128,7 @@ loc_40A910:                             ; CODE XREF: sub_406F7B+3916↑j
                 mov     ecx, ?g_bmp_extra800l@@3PAVCBmp64@@A
                 call    dword ptr [eax+38h]
 
-loc_40A956:                             ; CODE XREF: sub_406F7B+3993↑j
+loc_40A956:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3993↑j
                 lea     ecx, [ebp+var_local_Rect]
                 push    ecx
                 call    SetRcSrc_4549BA
@@ -12175,7 +12155,7 @@ loc_40A956:                             ; CODE XREF: sub_406F7B+3993↑j
                 mov     edx, dword ptr [ebp+var_9C]
                 mov     [ecx+0CCh], edx
 
-loc_40A9D0:                             ; CODE XREF: sub_406F7B+3A41↑j
+loc_40A9D0:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3A41↑j
                 mov     eax, dword ptr [ebp+var_2F4]
                 mov     ecx, dword ptr [ebp+var_9C]
                 sub     ecx, [eax+0CCh]
@@ -12212,7 +12192,7 @@ loc_40A9D0:                             ; CODE XREF: sub_406F7B+3A41↑j
                 mov     ecx, dword ptr [ebp+var_2F4]
                 mov     dword ptr [ecx+0C4h], 0
 
-loc_40AAAA:                             ; CODE XREF: sub_406F7B+3AA3↑j
+loc_40AAAA:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3AA3↑j
                 cmp     dword_660F6C, 0
                 jz      loc_40AB8F
                 xor     edx, edx
@@ -12283,7 +12263,7 @@ loc_40AAAA:                             ; CODE XREF: sub_406F7B+3AA3↑j
                 mov     ecx, ?g_font1@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_40AB8F:                             ; CODE XREF: sub_406F7B+3B36↑j
+loc_40AB8F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3B36↑j
                 mov     edx, dword ptr [ebp+var_68]
                 cmp     dword ptr [edx+640h], 0
                 jnz     loc_40AE3D
@@ -12383,7 +12363,7 @@ loc_40AB8F:                             ; CODE XREF: sub_406F7B+3B36↑j
                 idiv    dword ptr [esi+10h]
                 mov     [ebp+var_2F0], eax
 
-loc_40ACF8:                             ; CODE XREF: sub_406F7B+3D62↑j
+loc_40ACF8:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3D62↑j
                 push    3Dh ; '='
                 mov     ecx, offset ?txt_patch@@3VTxtFile@@A
                 call    ?GetLine@TxtFile@@QAEPADH@Z
@@ -12479,7 +12459,7 @@ loc_40ACF8:                             ; CODE XREF: sub_406F7B+3D62↑j
                 lea     ecx, [ebp+var_2EC] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_40AE3D:                             ; CODE XREF: sub_406F7B+3C1E↑j
+loc_40AE3D:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3C1E↑j
                 lea     ecx, [ebp+var_30]
                 push    ecx
                 call    SetRcSrc_4549BA
@@ -12512,7 +12492,7 @@ loc_40AE3D:                             ; CODE XREF: sub_406F7B+3C1E↑j
                 call    ?gfxFlushRect@@YAXABVCRect@@@Z
                 add     esp, 4
 
-loc_40AEB9:                             ; CODE XREF: sub_406F7B+3EF8↑j
+loc_40AEB9:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3EF8↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     eax, dword ptr [ebp+var_50]
                 mov     [edx+104h], eax
@@ -12542,7 +12522,7 @@ loc_40AEB9:                             ; CODE XREF: sub_406F7B+3EF8↑j
                 call    ?gfxFlushRect@@YAXABVCRect@@@Z
                 add     esp, 4
 
-loc_40AF2F:                             ; CODE XREF: sub_406F7B+3FA3↑j
+loc_40AF2F:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3FA3↑j
                 cmp     dword_660F70, 0
                 jz      short loc_40AF53
                 mov     eax, dword ptr [ebp+var_68]
@@ -12553,7 +12533,7 @@ loc_40AF2F:                             ; CODE XREF: sub_406F7B+3FA3↑j
                 call    ?gfxFlushRect@@YAXABVCRect@@@Z
                 add     esp, 4
 
-loc_40AF53:                             ; CODE XREF: sub_406F7B+3FBB↑j
+loc_40AF53:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3FBB↑j
                 mov     edx, dword ptr [ebp+var_2F4]
                 mov     dword ptr [edx+74h], 0
                 mov     eax, dword ptr [ebp+var_2F4]
@@ -12573,7 +12553,7 @@ loc_40AF53:                             ; CODE XREF: sub_406F7B+3FBB↑j
                 lea     ecx, [ebp+var_B4]
                 call    sub_5DB0F6
 
-loc_40AFB6:                             ; CODE XREF: sub_406F7B+39↑j
+loc_40AFB6:                             ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+39↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -12581,14 +12561,14 @@ loc_40AFB6:                             ; CODE XREF: sub_406F7B+39↑j
                 pop     ebp
                 retn
 ; } // starts at 406F7B
-sub_406F7B      endp
+?sub_406F7B@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_40AFC5      proc near               ; CODE XREF: sub_406F7B+26A3↑p
+sub_40AFC5      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+26A3↑p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -12776,7 +12756,7 @@ sub_40AFC5      endp
 
 ; Attributes: bp-based frame
 
-sub_40B173      proc near               ; CODE XREF: sub_406F7B+1B43↑p
+sub_40B173      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1B43↑p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -12976,7 +12956,7 @@ sub_40B173      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_40B314(_DWORD)
-sub_40B314      proc near               ; CODE XREF: sub_406F7B+3EE4↑p
+sub_40B314      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3EE4↑p
 
 var_B4          = dword ptr -0B4h
 var_B0          = dword ptr -0B0h
@@ -14498,7 +14478,7 @@ loc_40C295:                             ; CODE XREF: ?MsgProc@BigStruct2@@UAEHII
 
 loc_40C2BA:                             ; CODE XREF: ?MsgProc@BigStruct2@@UAEHIII@Z+5C↑j
                 mov     ecx, dword ptr [ebp+var_1C] ; jumptable 0040C28E case 1026
-                call    sub_406F7B
+                call    ?sub_406F7B@BigStruct2@@QAEXXZ
                 jmp     def_40C28E      ; jumptable 0040C28E default case, cases 1027,1028,1031-1035,1037,1040-1156
 ; ---------------------------------------------------------------------------
 
@@ -21833,7 +21813,7 @@ loc_41B8BD:                             ; CODE XREF: ?FUN_0041b7b7@BigStruct2@@Q
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_41B8D0(_DWORD)
-sub_41B8D0      proc near               ; CODE XREF: sub_406F7B+AE↑p
+sub_41B8D0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+AE↑p
 
 var__x           = qword ptr -100h
 var_F4          = dword ptr -0F4h
@@ -25299,7 +25279,7 @@ var_4           = dword ptr -4
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_414(_DWORD)
-unknown_libname_414 proc near           ; CODE XREF: sub_406F7B+604↑p
+unknown_libname_414 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+604↑p
 
 var_4           = dword ptr -4
 
@@ -25323,7 +25303,7 @@ unknown_libname_414 endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_415(_DWORD)
-unknown_libname_415 proc near           ; CODE XREF: sub_406F7B+5F5↑p
+unknown_libname_415 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+5F5↑p
 
 var_4           = dword ptr -4
 
@@ -25348,7 +25328,7 @@ unknown_libname_415 endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_416(_DWORD)
-unknown_libname_416 proc near           ; CODE XREF: sub_406F7B+3EFD↑p
+unknown_libname_416 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3EFD↑p
 
 var_4           = dword ptr -4
 
@@ -25370,7 +25350,7 @@ unknown_libname_416 endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall ATL::CComVariant::Clear(ATL::CComVariant *__hidden varThis)
-?Clear@CComVariant@ATL@@QAEJXZ proc near ; CODE XREF: sub_406F7B+62E↑p
+?Clear@CComVariant@ATL@@QAEJXZ proc near ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+62E↑p
 
 lprc            = dword ptr -4
 
@@ -25394,7 +25374,7 @@ lprc            = dword ptr -4
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_41E8A0(int xLeft, int yTop, int xRight, int yBottom)
-sub_41E8A0      proc near               ; CODE XREF: sub_406F7B+55F↑p
+sub_41E8A0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+55F↑p
 
 lprc            = dword ptr -4
 xLeft           = dword ptr  8
@@ -25454,7 +25434,7 @@ lprc            = dword ptr -4
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_41E8F0(int, int dy)
-sub_41E8F0      proc near               ; CODE XREF: sub_406F7B+1101↑p
+sub_41E8F0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1101↑p
 
 lprc            = dword ptr -4
 arg_0           = dword ptr  8
@@ -25484,7 +25464,7 @@ sub_41E8F0      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_41E910(RECT *lprcSrc2)
-sub_41E910      proc near               ; CODE XREF: sub_406F7B+1B5↑p
+sub_41E910      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1B5↑p
 
 lprcDst         = dword ptr -4
 lprcSrc2        = dword ptr  8
@@ -25542,7 +25522,7 @@ sub_41E930      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_41E950(RECT *lprcSrc1, RECT *lprcSrc2)
-sub_41E950      proc near               ; CODE XREF: sub_406F7B+3F21↑p
+sub_41E950      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3F21↑p
 
 lprcDst         = dword ptr -4
 lprcSrc1        = dword ptr  8
@@ -26168,7 +26148,7 @@ sub_41EC60      endp
 
 ; int __thiscall unknown_libname_424(_DWORD)
 ; FUN_0041ec80
-unknown_libname_424 proc near           ; CODE XREF: sub_406F7B+1F7A↑p
+unknown_libname_424 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1F7A↑p
 
 var_4           = dword ptr -4
 
@@ -26296,7 +26276,7 @@ FUN_0041eea0 endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_433(_DWORD)
-unknown_libname_433 proc near           ; CODE XREF: sub_406F7B+B23↑p
+unknown_libname_433 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+B23↑p
 
 var_4           = dword ptr -4
 
@@ -26969,7 +26949,7 @@ sub_41F350      endp
 ; Attributes: library function bp-based frame
 
 ; void __thiscall CDaoIndexFieldInfo::~CDaoIndexFieldInfo(CDaoIndexFieldInfo *__hidden varThis)
-??1CDaoIndexFieldInfo@@QAE@XZ_1 proc near ; CODE XREF: sub_406F7B+2A7↑p
+??1CDaoIndexFieldInfo@@QAE@XZ_1 proc near ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2A7↑p
 
 var_4           = dword ptr -4
 
@@ -27177,7 +27157,7 @@ sub_41F490      endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_440(_DWORD)
-unknown_libname_440 proc near           ; CODE XREF: sub_406F7B+3C56↑p
+unknown_libname_440 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3C56↑p
 
 var_4           = dword ptr -4
 
@@ -27585,7 +27565,7 @@ sub_41F850      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_41F870(_DWORD)
-sub_41F870      proc near               ; CODE XREF: sub_406F7B+1D8C↑p
+sub_41F870      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1D8C↑p
 
 var_4           = dword ptr -4
 
@@ -27615,7 +27595,7 @@ sub_41F870      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_41F8A0(_DWORD)
-sub_41F8A0      proc near               ; CODE XREF: sub_406F7B+2035↑p
+sub_41F8A0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2035↑p
 
 var_4           = dword ptr -4
 
@@ -27646,7 +27626,7 @@ sub_41F8A0      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ(_DWORD)
-?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: sub_406F7B+1A16↑p
+?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1A16↑p
 
 var_4           = dword ptr -4
 
@@ -27701,7 +27681,7 @@ sub_41F920      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_41F940(_DWORD)
-sub_41F940      proc near               ; CODE XREF: sub_406F7B+31C↑p
+sub_41F940      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+31C↑p
 
 var_4           = dword ptr -4
 
@@ -28626,7 +28606,7 @@ sub_41FFF0      endp
 
 ; Attributes: bp-based frame
 
-sub_420010      proc near               ; CODE XREF: sub_406F7B+3C74↑p
+sub_420010      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3C74↑p
 
 var_C           = dword ptr -0Ch
 var_8           = byte ptr -8
@@ -29888,7 +29868,7 @@ sub_420960      endp
 
 ; Attributes: bp-based frame
 
-sub_4209C0      proc near               ; CODE XREF: sub_406F7B+1960↑p
+sub_4209C0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1960↑p
 
 var_C           = dword ptr -0Ch
 var_8           = byte ptr -8
@@ -31220,7 +31200,7 @@ sub_421340      endp
 
 ; Attributes: bp-based frame
 
-sub_4213B0      proc near               ; CODE XREF: sub_406F7B+1D85↑p
+sub_4213B0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1D85↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31245,7 +31225,7 @@ sub_4213B0      endp
 
 ; Attributes: bp-based frame
 
-sub_4213D0      proc near               ; CODE XREF: sub_406F7B+1B62↑p
+sub_4213D0      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1B62↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31295,7 +31275,7 @@ sub_4213F0      endp
 
 ; Attributes: bp-based frame
 
-sub_421410      proc near               ; CODE XREF: sub_406F7B+17F3↑p
+sub_421410      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+17F3↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31320,7 +31300,7 @@ sub_421410      endp
 
 ; Attributes: bp-based frame
 
-sub_421430      proc near               ; CODE XREF: sub_406F7B+1044↑p
+sub_421430      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1044↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31370,7 +31350,7 @@ unknown_libname_450 endp
 
 ; Attributes: bp-based frame
 
-sub_421470      proc near               ; CODE XREF: sub_406F7B+19B9↑p
+sub_421470      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+19B9↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -90143,7 +90123,7 @@ sub_45424D      endp
 ; Attributes: bp-based frame
 
 ; RECT *__cdecl SetRcSrc_4549BA(RECT *rcIn)
-SetRcSrc_4549BA proc near               ; CODE XREF: sub_406F7B+63E↑p
+SetRcSrc_4549BA proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+63E↑p
 
 rcIn            = dword ptr  8
 
@@ -90167,7 +90147,7 @@ SetRcSrc_4549BA endp
 
 ; Attributes: bp-based frame
 
-sub_4549E5      proc near               ; CODE XREF: sub_406F7B+9D9↑p
+sub_4549E5      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+9D9↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -90194,7 +90174,7 @@ sub_4549E5      endp
 ; Attributes: bp-based frame
 
 ; int sub_454A0C()
-sub_454A0C      proc near               ; CODE XREF: sub_406F7B+35B↑p
+sub_454A0C      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+35B↑p
 
 arg_0           = dword ptr  8
 
@@ -90274,7 +90254,7 @@ sub_454E18      endp
 
 ; Attributes: bp-based frame
 
-sub_454E40      proc near               ; CODE XREF: sub_406F7B+A92↑p
+sub_454E40      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+A92↑p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -92277,7 +92257,7 @@ sub_458CA0      endp
 
 ; Attributes: bp-based frame
 
-sub_458FE6      proc near               ; CODE XREF: sub_406F7B+34E2↑p
+sub_458FE6      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+34E2↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -92404,7 +92384,7 @@ sub_458FE6      endp
 
 ; Attributes: bp-based frame
 
-sub_4590EF      proc near               ; CODE XREF: sub_406F7B+3519↑p
+sub_4590EF      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3519↑p
 
 var_30          = dword ptr -30h
 var_2C          = dword ptr -2Ch
@@ -92788,7 +92768,7 @@ sub_4590EF      endp
 
 ; Attributes: bp-based frame
 
-sub_459449      proc near               ; CODE XREF: sub_406F7B+362E↑p
+sub_459449      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+362E↑p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -92974,7 +92954,7 @@ sub_459449      endp
 
 ; Attributes: bp-based frame
 
-sub_4595FD      proc near               ; CODE XREF: sub_406F7B+3681↑p
+sub_4595FD      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3681↑p
 
 var_3C          = dword ptr -3Ch
 var_38          = dword ptr -38h
@@ -93345,7 +93325,7 @@ sub_4595FD      endp
 
 ; Attributes: bp-based frame
 
-sub_45995E      proc near               ; CODE XREF: sub_406F7B+3584↑p
+sub_45995E      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3584↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -93566,7 +93546,7 @@ sub_45995E      endp
 
 ; Attributes: bp-based frame
 
-sub_459B72      proc near               ; CODE XREF: sub_406F7B+35BB↑p
+sub_459B72      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+35BB↑p
 
 var_34          = dword ptr -34h
 var_30          = dword ptr -30h
@@ -96912,7 +96892,7 @@ loc_46206E:                             ; CODE XREF: ?FUN_00461f8e@CGameObject@@
 
 ; Attributes: bp-based frame
 
-?FUN_00462405@CGameObject@@QAEHH@Z      proc near               ; CODE XREF: sub_406F7B+17B5↑p
+?FUN_00462405@CGameObject@@QAEHH@Z      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+17B5↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -162773,7 +162753,7 @@ sub_4A7B3C      endp
 ; Attributes: bp-based frame
 
 ; double __thiscall ?FUN_004a7b79@Scenario@@QAENXZ(_DWORD)
-?FUN_004a7b79@Scenario@@QAENXZ      proc near               ; CODE XREF: sub_406F7B+1AA6↑p
+?FUN_004a7b79@Scenario@@QAENXZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1AA6↑p
 
 var_4           = dword ptr -4
 
@@ -181325,7 +181305,7 @@ sub_4B36B4      endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall unknown_libname_639(_DWORD)
-unknown_libname_639 proc near           ; CODE XREF: sub_406F7B+3865↑p
+unknown_libname_639 proc near           ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3865↑p
 
 var_4           = dword ptr -4
 
@@ -387494,7 +387474,7 @@ loc_5F038E:                             ; CODE XREF: CFont::CreatePointFontIndir
 ; Attributes: library function
 
 ; void __thiscall CRect::NormalizeRect(CRect *__hidden varThis)
-?NormalizeRect@CRect@@QAEXXZ proc near  ; CODE XREF: sub_406F7B+5AC↑p
+?NormalizeRect@CRect@@QAEXXZ proc near  ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+5AC↑p
                 mov     eax, dword ptr [ecx]
                 mov     edx, dword ptr [ecx+8]
                 cmp     eax, edx
@@ -404344,7 +404324,7 @@ SEH_403395:                             ; DATA XREF: sub_403395+5↑o
 ; } // starts at 5F71D7
 ; END OF FUNCTION CHUNK FOR sub_403395
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_406F7B
+; START OF FUNCTION CHUNK FOR ?sub_406F7B@BigStruct2@@QAEXXZ
 
 loc_5F7280:                             ; DATA XREF: .rdata:stru_617660↓o
 ; __unwind { // SEH_406F7B
@@ -404362,11 +404342,11 @@ loc_5F728C:                             ; DATA XREF: .rdata:00617668↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_406F7B:                             ; DATA XREF: sub_406F7B+5↑o
+SEH_406F7B:                             ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+5↑o
                 mov     eax, offset stru_617640
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7280
-; END OF FUNCTION CHUNK FOR sub_406F7B
+; END OF FUNCTION CHUNK FOR ?sub_406F7B@BigStruct2@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_40BD34
 
@@ -437665,8 +437645,8 @@ off_609088      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@BigStruct2@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@BigStruct2@@UAEHI@Z
-dbl_609100      dq 65536.0              ; DATA XREF: sub_406F7B+1AB9↑r
-dbl_609108      dq 1000.0               ; DATA XREF: sub_406F7B+3ACB↑r
+dbl_609100      dq 65536.0              ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1AB9↑r
+dbl_609108      dq 1000.0               ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3ACB↑r
 dbl_609110      dq 0.5                  ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+1AC7↑r
 dbl_609118      dq 1.5                  ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+1B53↑r
 dbl_609120      dq 4000.0               ; DATA XREF: ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z+46↑r
@@ -461450,16 +461430,16 @@ stru_62BEA8     UnwindMapEntry <-1, offset unknown_libname_398>
                 db    0
                 db    0
 ; char Format[]
-g_Format          db '%3.1f fps',0        ; DATA XREF: sub_406F7B+3BDA↑o
+g_Format          db '%3.1f fps',0        ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3BDA↑o
                 align 10h
 ; char aSDS[]
-aSDS            db '%s %d %s',0         ; DATA XREF: sub_406F7B+3DA1↑o
+aSDS            db '%s %d %s',0         ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3DA1↑o
                 align 4
 ; char aSDS_0[]
-aSDS_0          db '%s %d %s',0         ; DATA XREF: sub_406F7B+3E06↑o
+aSDS_0          db '%s %d %s',0         ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3E06↑o
                 align 4
 ; char aSDS_1[]
-aSDS_1          db '%s %d %s',0         ; DATA XREF: sub_406F7B+3E6F↑o
+aSDS_1          db '%s %d %s',0         ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3E6F↑o
                 align 4
 ; CHAR aTmp[]
 aTmp            db '.tmp',0             ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+468↑o
@@ -470830,8 +470810,8 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 
 dword_660F68    dd ?                    ; DATA XREF: sub_404E1A:loc_405202↑r
-dword_660F6C    dd ?                    ; DATA XREF: sub_406F7B:loc_40AAAA↑r
-dword_660F70    dd ?                    ; DATA XREF: sub_406F7B+3C24↑r
+dword_660F6C    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40AAAA↑r
+dword_660F70    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3C24↑r
 
 ?INT_00660f8c@@3HA    dd ?                    ; DATA XREF: ?ConnectAndJoinSession@BigStruct2@@QAEHXZ+1E↑w
 ?INT_00660f90@@3HA    dd ?                    ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z:loc_40DB73↑w

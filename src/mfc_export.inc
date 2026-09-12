@@ -1848,6 +1848,7 @@ extern ??0TakeDamage@@QAE@XZ : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
+externdef ?sub_406F7B@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 externdef ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
@@ -1858,7 +1859,7 @@ externdef ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 externdef ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z  : proc
 externdef ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
 externdef ??_GBigStruct2@@UAEPAXI@Z : proc
-externdef ?VMethod7@BigStruct2@@UAEXXZ : proc
+extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 externdef ?MsgProc@BigStruct2@@UAEHIII@Z : proc
 externdef ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
