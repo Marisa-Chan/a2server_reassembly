@@ -864,6 +864,7 @@
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
+?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z
 ?Open@File2@@UAEHPBDIPAVCFileException@@@Z

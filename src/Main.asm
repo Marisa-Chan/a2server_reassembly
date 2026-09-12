@@ -14291,54 +14291,6 @@ byte_40C48B     db      0,     1,     8,     8
 
 ; Attributes: bp-based frame
 
-?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006090EC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+0D8h], 0
-                jnz     short loc_40C5D9
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+418h], 1
-                jnz     short loc_40C5D9
-                push    0
-                push    0
-                push    405h
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+48h]
-
-loc_40C5D9:                             ; CODE XREF: ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+1B↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+0D8h], 0
-                push    8
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+20h]
-                test    eax, eax
-                jz      short loc_40C604
-                push    0
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+24h]
-
-loc_40C604:                             ; CODE XREF: ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+59↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

@@ -3813,6 +3813,20 @@ int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos)
 	return 1;
 }
 
+// 40C59C
+int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (this->field_0xd8 == 0 && wnd->dialogsMask == 1) {
+		this->MsgProc(0x405, 0, 0);
+	}
+	this->field_0xd8 = 0;
+	if (this->TestFlags(FLAG_OVERCURSOR) != 0) {
+		this->SetCursorOver(false);
+	}
+	return 1;
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {
