@@ -14281,49 +14281,6 @@ byte_40C48B     db      0,     1,     8,     8
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006090DC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = byte ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+418h], 1
-                jz      short loc_40C531
-                xor     eax, eax
-                jmp     short loc_40C566
-; ---------------------------------------------------------------------------
-
-loc_40C531:                             ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+1B↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jnz     short loc_40C561
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     dword ptr [ecx+80h], 0
-                jz      short loc_40C561
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_48CBE2
-                lea     edx, [ebp+arg_4]
-                push    edx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?StartSelect@CMousePointer@@QAEXABVCPoint@@@Z
-
-loc_40C561:                             ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+2D↑j
-                mov     eax, 1
-
-loc_40C566:                             ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+1F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -129410,7 +129367,7 @@ loc_48CB82:                             ; CODE XREF: ?FUN_0048cb3c@MainWindow@@Q
 
 ; Attributes: bp-based frame
 
-sub_48CBE2      proc near               ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+3E↑p
+?sub_48CBE2@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+3E↑p
 
 var_14          = dword ptr -14h
 var_10          = byte ptr -10h
@@ -129444,7 +129401,7 @@ var_10          = byte ptr -10h
                 jmp     short loc_48CC73
 ; ---------------------------------------------------------------------------
 
-loc_48CC3C:                             ; CODE XREF: sub_48CBE2+31↑j
+loc_48CC3C:                             ; CODE XREF: ?sub_48CBE2@MainWindow@@QAEXXZ+31↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [edx+0D0h]
                 call    sub_41B495
@@ -129461,7 +129418,7 @@ loc_48CC3C:                             ; CODE XREF: sub_48CBE2+31↑j
                 mov     ecx, dword ptr [esi+4]
                 mov     [eax+4], ecx
 
-loc_48CC73:                             ; CODE XREF: sub_48CBE2+58↑j
+loc_48CC73:                             ; CODE XREF: ?sub_48CBE2@MainWindow@@QAEXXZ+58↑j
                 lea     ecx, [ebp+var_10]
                 call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpRect
@@ -129470,7 +129427,7 @@ loc_48CC73:                             ; CODE XREF: sub_48CBE2+58↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_48CBE2      endp
+?sub_48CBE2@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

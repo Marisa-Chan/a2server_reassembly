@@ -3799,6 +3799,20 @@ void BigStruct2::FUN_0041cb67(int32_t val)
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 40C510
+int32_t BigStruct2::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->dialogsMask != 1) {
+		return 0;
+	}
+	if (g_mousept.GetSelectState() == 0 && this->field_0x80 != nullptr) {
+		wnd->sub_48CBE2();
+		g_mousept.StartSelect(pos);
+	}
+	return 1;
+}
+
 // 403395
 BigStruct2::~BigStruct2()
 {

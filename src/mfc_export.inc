@@ -1341,6 +1341,7 @@ externdef ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ : proc
 externdef ?StartHatDedicatedServer@MainWindow@@QAEXXZ : proc
 externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
+externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
 
 extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
@@ -1863,7 +1864,7 @@ extern ??_GBigStruct2@@UAEPAXI@Z : proc
 extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 externdef ?MsgProc@BigStruct2@@UAEHIII@Z : proc
 externdef ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc

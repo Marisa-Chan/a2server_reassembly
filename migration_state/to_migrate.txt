@@ -17,7 +17,6 @@
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z	41
 ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z	46
 ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z	60
 ?FUN_0041d97e@BigStruct2@@QAEXH@Z	78
@@ -208,6 +207,7 @@
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ShowFameHallDocDlg@MainWindow@@QAEXXZ	50
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
+?sub_48CBE2@MainWindow@@QAEXXZ	60
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?WaitHatConnection@MainWindow@@QAEHXZ	193
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
