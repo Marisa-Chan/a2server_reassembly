@@ -4420,7 +4420,7 @@ int32_t BigStruct2::OnLButtonUp(uint32_t wparam, CPoint pos)
 void BigStruct2::FUN_0041c630(CWordArray* data)
 {
 	uint16_t flag = (*data)[0];
-	if (flag == 0) {
+	if (flag != 0) {
 		flag = 0x2000;
 	}
 	data->RemoveAt(0, 1);
