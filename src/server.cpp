@@ -5642,13 +5642,7 @@ void SrvStru1::sub_4FAEB4()
     }
 
     if (this->units_list) {
-        while (!this->units_list->unit_list.IsEmpty()) {
-            Unit* unit = this->units_list->unit_list.RemoveTail();
-            delete unit;
-        }
-        // WAT: Original keeps units_list alive; only its elements are destroyed.
-        delete this->units_list;
-        this->units_list = nullptr;
+        this->units_list->unit_list.RemoveAll();
     }
 
     while (!this->virtual_casters_list.IsEmpty()) {
