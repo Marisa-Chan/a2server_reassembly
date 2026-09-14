@@ -5642,6 +5642,10 @@ void SrvStru1::sub_4FAEB4()
     }
 
     if (this->units_list) {
+        for (POSITION it = this->units_list->unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* unit = this->units_list->unit_list.GetNext(it);
+            delete unit;
+        }
         this->units_list->unit_list.RemoveAll();
     }
 
