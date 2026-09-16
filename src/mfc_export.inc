@@ -1248,6 +1248,8 @@ externdef ?SetWindowPos@CWnd@@QAEHPBV1@HHHHI@Z : proc
 externdef ??0CFrameWnd@@QAE@XZ : proc
 externdef ??1CFrameWnd@@UAE@XZ : proc
 
+externdef ?messageMap@CFrameWnd@@2UAFX_MSGMAP@@B : dword
+
 externdef ?RecalcLayout@CFrameWnd@@UAEXH@Z  : proc
 externdef ?PostNcDestroy@CFrameWnd@@UAEXXZ  : proc
 externdef ?OnUpdateFrameTitle@CFrameWnd@@UAEXH@Z  : proc
@@ -1335,6 +1337,26 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 ; MainWindow
+externdef   ?_OnDestroy@MainWindow@@QAEXXZ  : proc
+externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
+externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
+externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc
+externdef   ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
+externdef   ?_OnKeyDown@MainWindow@@QAEXIII@Z  : proc
+externdef   ?_OnSysKeyDown@MainWindow@@QAEXIII@Z  : proc
+externdef   ?_OnKeyUp@MainWindow@@QAEXIII@Z  : proc
+externdef   ?_OnSysKeyUp@MainWindow@@QAEXIII@Z  : proc
+externdef   ?_OnChar@MainWindow@@QAEXIII@Z  : proc
+externdef   ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
+externdef   ?_OnClose@MainWindow@@QAEXXZ  : proc
+externdef   ?_OnSize@MainWindow@@QAEXIHH@Z  : proc
+externdef   ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z  : proc
+externdef   ?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z  : proc
+externdef   ?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z  : proc
+externdef   ?_FUN_00495010@MainWindow@@QAEXXZ  : proc
+externdef   ?_FUN_004950c0@MainWindow@@QAEXXZ  : proc
+externdef   ?_FUN_00495743@MainWindow@@QAEXXZ  : proc
+
 externdef ??0VisQuestStatus@@QAE@HHHHH@Z : proc
 externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
@@ -1363,8 +1385,6 @@ extern ?FUN_0041b6e0@BigStruct2@@QAEXXZ  : proc
 extern ?RunSessionBootstrap@MainWindow@@QAEHH@Z : proc
 extern ?FUN_0048f79d@MainWindow@@QAEXXZ : proc
 
-externdef ?WindowProc@MainWindow@@UAEJIIJ@Z : proc
-externdef ?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ : proc
 
 extern ?vis_scr_rect@@3VCRect@@A : dword
 

@@ -579,6 +579,59 @@ void ServerControlDialog::sub_49585B()
 
 
 
+const AFX_MSGMAP* MainWindow::GetMessageMap() const
+{
+    return &MainWindow::messageMap;
+}
+
+AFX_DATADEF const AFX_MSGMAP MainWindow::messageMap =
+{ &CFrameWnd::messageMap, &MainWindow::_messageEntries[0] };
+
+const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
+{
+    ON_WM_DESTROY()
+    ON_WM_CREATE()
+    ON_WM_PAINT()
+    ON_WM_SETCURSOR()
+    ON_WM_SETFOCUS()
+    ON_WM_KEYDOWN()
+    ON_WM_SYSKEYDOWN()
+    ON_WM_KEYUP()
+    ON_WM_SYSKEYUP()
+    ON_WM_CHAR()
+    ON_WM_KILLFOCUS()
+    ON_WM_CLOSE()
+    ON_WM_SIZE()
+    ON_COMMAND(0x9c4e, FUN_00495010)
+    ON_COMMAND(0x9c4f, FUN_004950c0)
+    ON_COMMAND(0x9c50, FUN_00495743)
+    ON_WM_SIZING()
+    ON_WM_NCMOUSEMOVE()
+    ON_WM_NCLBUTTONDOWN()
+    {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
+};
+
+void __fastcall MainWindow::OnDestroy(MainWindow* wnd) { wnd->_OnDestroy(); }
+int __fastcall MainWindow::OnCreate(MainWindow* wnd, void*, LPCREATESTRUCT lpCreateStruct) { return wnd->_OnCreate(lpCreateStruct); }
+void __fastcall MainWindow::OnPaint(MainWindow* wnd) { wnd->_OnPaint(); }
+BOOL __fastcall MainWindow::OnSetCursor(MainWindow* _this, void*, CWnd* wnd, UINT a, UINT b) { return _this->_OnSetCursor(wnd, a, b); }
+void __fastcall MainWindow::OnSetFocus(MainWindow* _this, void*, CWnd* wnd) { _this->_OnSetFocus(wnd); }
+void __fastcall MainWindow::OnKeyDown(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnKeyDown(a, b, c); }
+void __fastcall MainWindow::OnSysKeyDown(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnSysKeyDown(a, b, c); }
+void __fastcall MainWindow::OnKeyUp(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnKeyUp(a, b, c); }
+void __fastcall MainWindow::OnSysKeyUp(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnSysKeyUp(a, b, c); }
+void __fastcall MainWindow::OnChar(MainWindow* _this, void*, UINT a, UINT b, UINT c) { _this->_OnChar(a, b, c); }
+void __fastcall MainWindow::OnKillFocus(MainWindow* _this, void*, CWnd* wnd) { _this->_OnKillFocus(wnd); }
+void __fastcall MainWindow::OnClose(MainWindow* _this) { _this->_OnClose(); }
+void __fastcall MainWindow::OnSize(MainWindow* _this, void*, UINT a, int b, int c) { _this->_OnSize(a, b, c); }
+void __fastcall MainWindow::FUN_00495010(MainWindow* _this) { _this->_FUN_00495010(); }
+void __fastcall MainWindow::FUN_004950c0(MainWindow* _this) { _this->_FUN_004950c0(); }
+void __fastcall MainWindow::FUN_00495743(MainWindow* _this) { _this->_FUN_00495743(); }
+void __fastcall MainWindow::OnSizing(MainWindow* _this, void*, UINT a, LPRECT b) { _this->_OnSizing(a, b); }
+void __fastcall MainWindow::OnNcMouseMove(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcMouseMove(a, b); }
+void __fastcall MainWindow::OnNcLButtonDown(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcLButtonDown(a, b); }
+
+
 MainWindow::MainWindow()
 { //4837e1
     field_0x348 = new CArray<DiplomacyEntry*>; //avoid struct with only one this field

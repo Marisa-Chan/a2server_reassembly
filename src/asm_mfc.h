@@ -4047,6 +4047,8 @@ public:
 		DWORD dwExStyle = 0,
 		void* pContext = NULL);
 
+
+	static AFX_DATA const AFX_MSGMAP messageMap;
 public:
 	BOOL m_bAutoMenuEnable;	
 	int m_nWindow; 
