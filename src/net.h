@@ -36,6 +36,15 @@ struct Inventory;
 
 constexpr const bool IsDplayAvail = true;
 
+union HatCharId
+{
+    uint64_t id;
+    struct {
+        int32_t id1;
+        int32_t id2;
+    };
+};
+
 struct PackerTail {
     PackerTail* field_0x0;
     PackerTail* field_0x4;
@@ -210,6 +219,10 @@ public:
     void sub_51E0B7(int32_t param1, int32_t param2, CString name, void* data, uint32_t size, uint16_t player_id);
     void sub_51E1C7(uint16_t player_id);
     void sub_51E40C(const char* str, int32_t len); // 51E40C - Send raw string data to HAT
+
+    void FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags); //51d8d6
+    void FUN_0051d9d0(HatCharId charid); //51d9d0
+    void FUN_0051d9a0(); //51d9a0
 
     void WriteStatsLog(CString fname);//51f124
 

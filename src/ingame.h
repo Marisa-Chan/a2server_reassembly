@@ -28,6 +28,8 @@ extern CGamePalette* g_pal_projectile_; //665494
 extern CA16* g_spr_smoke[2]; //6610f8
 extern uint16_t* clr_log_sblack;
 
+extern CStringArray DAT_00666a00; // 666a00
+
 
 void LoadVfxData(); //47b24e
 

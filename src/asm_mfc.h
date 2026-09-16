@@ -4109,6 +4109,7 @@ public:
 	void ResetContent(); //496620
 	int SelectString(int nStartAfter, LPCTSTR lpszItem); //496650
 
+	void SetCurSel(int); //4965c0
 };
 
 ASSERT_SIZE(CListBox, 0x3C);

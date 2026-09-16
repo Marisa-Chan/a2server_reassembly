@@ -25,6 +25,9 @@
 #include "gfx.h"
 #include "file.h"
 #include "inventory.h"
+#include "group.h"
+#include "world.h"
+#include <wininet.h>
 
 uint32_t g_RemoteTimestamp = 0;
 int32_t DAT_00660f88 = 0;
@@ -2152,7 +2155,7 @@ void MainWindow::FUN_00491f7d(int32_t vid_id)
 }
 
 
-LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {  // 486c6c
 
     switch (message)
@@ -2959,7 +2962,109 @@ LRESULT MainWindow::NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         else
             PostMessage(WM_CLOSE, 0, 0);
     }
-              break;
+        break;
+
+    case 0x466:
+    {
+        CVisualObject* obj = vis_map_context->FindChild(18);
+        if (obj)
+        {
+            vis_map_context->RemoveChild(obj);
+            delete obj;
+        }
+        else
+        {
+            vis_map_context->AddChild(new VisQuestStatus(18, 10, 20, 370, 188));
+        }
+        vis_map_context->field_0xe0 = 1;
+    }
+        break;
+
+    case 0x468:
+        if (ScenarioGetCurrentLocation()->GetKind() == 1)
+        {
+            CDWordArray local_95c;
+            for (int i = 0; i < 20; i++)
+            {
+                if (ScenarioGetVar(0x200 + i) != 0 && ScenarioGetVar(0x214 + i) != 0)
+                    local_95c.Add(i + 1);
+            }
+            if (local_95c.GetSize() != 0)
+            {
+                SpawnScenarioMissionUnits(ScenarioGetVar(0x300), local_95c);
+                vis_map_context->ProcessPackets(0);
+            }
+
+            RunSessionBootstrap(0);
+        }
+        else
+        {
+            vis_map_context->FUN_0041b064(0, 0);
+            ShowCurrentTownDialog();
+        }
+        break;
+
+    case 0x472:
+        if (g_IsServer == 0)
+        {
+            if (sessionMode == 3)
+            {
+                vis_map_context->msglog.Add((const char*)wParam, clrsh_ShockingBlack, 30000);
+                free((void*)wParam);
+            }
+        }
+        else
+        {
+            char buf[2048];
+            OemToCharA((const char*)wParam, buf);
+            list_box1.SetCurSel(list_box1.AddString(buf));
+        }
+        break;
+
+    case 0x47f:
+        FUN_004918ae();
+        break;
+
+    case 0x482:
+        FUN_004918ae();
+        break;
+
+    case 0x486:
+        PostMessage(WM_CLOSE, 0, 0);
+        break;
+
+    case 0x487:
+        PopUpScreen(new VisHatServerListDlg(1, 40, 100, 600, 480, &hat_settings));
+        break;
+
+    case 0x488:
+        if (FUN_0049057b() == 0)
+            PostMessage(0x422, 0, 0);
+        else
+            PostMessage(0x426, 0, 0);
+        break;
+
+    case 0x489:
+    {
+        field_0x37c = new VisHatBrowserDlg(1, 0, -64, 640, 480);
+        PopUpScreen(field_0x37c);
+
+        int32_t res;
+        if (hat_settings.ishat == 0)
+            res = FUN_004e5466(hat_settings.hatip);
+        else
+        {
+            res = FUN_00490eb3();
+            if (res == 0)
+            {
+                g_CLlDriver.Close();
+                PostMessage(0x487, 0, 0);
+                break;
+            }
+        }
+        PostMessage(0x48a, res, 0);
+    }
+        break;
     }
 
     return CWnd::WindowProc(message, wParam, lParam);
@@ -4268,6 +4373,339 @@ void MainWindow::StartHatDedicatedServer()
     PasswordManager::manager.OpenFile("passbase.txt");
 }
 
+void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array)
+{ //50260a
+    for (int i = 0; i < array.GetSize(); i++)
+    {
+        uint16_t uid = array[i];
+
+        int32_t unit_info_id = g_GameDataRes.FUN_005125a8(uid * 10 + 10000);
+        bool not_human = unit_info_id == 0;
+        if (not_human)
+            unit_info_id = g_GameDataRes.FUN_00512625(uid * 10 + 10000);
+
+        for (int j = 1; j < 10; j += 1)
+        {
+            int32_t id_variant;
+            if (not_human)
+                id_variant = g_GameDataRes.FUN_00512625(uid * 10 + 10000 + j);
+            else
+                id_variant = g_GameDataRes.FUN_005125a8(uid * 10 + 10000 + j);
+
+            if (id_variant > 0)
+            {
+                int32_t tmp_id;
+                if (not_human)
+                    tmp_id = g_GameDataRes.FUN_00512625(uid * 10 + 9998 + id / 10);
+                else
+                    tmp_id = g_GameDataRes.FUN_005125a8(uid * 10 + 9998 + id / 10);
+
+                if (tmp_id != 0)
+                    unit_info_id = tmp_id;
+
+break;
+            }
+        }
+
+        Unit* unit;
+        if (not_human)
+            unit = new Unit(g_GameDataRes.monsters[unit_info_id].name);
+        else
+            unit = new Human(g_GameDataRes.humans[unit_info_id].name, 0, nullptr);
+
+        unit->server_id = array[i];
+        unit->building_id = g_buildingIdSet.AllocBit() & 0xffff;
+
+        Player* pl = g_PlayersList->GetHead();
+        unit->pOwner = pl;
+
+        pl->unit_list->AddTail(unit);
+
+        Group* grp = new Group();
+
+        pl->group_list->groups.AddTail(grp);
+
+        grp->AddUnit(unit);
+        g_World->sub_5A9A6A(unit);
+        g_World->sub_5ACDF4(grp);
+        g_NetStru1_main.sub_519221(unit, unit->pOwner, 0xffffffff, 0xffb, 0, 0);
+    }
+
+    g_NetStru1_main.FUN_0051c748(nullptr);
+    g_NetStru1_main.SendAllData();
+}
+
+
+int32_t MainWindow::FUN_0049057b()
+{ //49057b
+    MSG msg;
+
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    //Connection to hat in process...
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), 2, clrsh_ShockingBlack, 1);
+    UnlockSurface2();
+    FlushScreen();
+
+    sessionMode = 0;
+
+    g_NetStru1_local.SetLLDriver(&g_CLlDriver);
+    g_CLlDriver.SetHlDriver(&g_NetStru1_local);
+    g_CLlDriver.ResetProvider(4);
+
+    if (strstr(afxCurrentWinApp->m_lpCmdLine, "-timeout"))
+        g_CLlDriver.SetTimeout(g_CmdTimeout);
+
+    CLlAddress local_224;
+    strcpy(local_224.address, "0.0.0.0");
+
+    int local_230 = g_CLlDriver.PrepareForConnect(hat_settings.hatprogip, &local_224);
+    if (local_230)
+        local_230 = g_CLlDriver.Connect(m_GameSession.character_name, nullptr);
+
+    if (local_230 == 0)
+    {
+        g_CLlDriver.Close();
+
+        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(19), nullptr, 0));
+        PostMessage(WM_CLOSE, 0, 0);
+
+        return 0;
+    }
+
+    g_NetStru1_local.ProcessConnections();
+
+    g_NetStru1_local.FUN_0051d8d6(hat_settings.login, hat_settings.password, hat_settings.deathmatch);
+    field_0x3e0.field_0c = 0;
+
+    uint32_t start_time = timeGetTime();
+    INT_00660f8c = 0;
+    while(field_0x3e0.field_0c == 0)
+    {
+        if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
+        {
+            if (msg.message == WM_QUIT)
+                return 0;
+
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (g_NetStru1_local.GetClientsPktNum() == 0)
+        {
+            if (g_CmdTimeout < timeGetTime() - start_time)
+            {
+                ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                PostMessage(WM_CLOSE, 0, 0);
+                return 0;
+            }
+
+            g_mousept.Update();
+        }
+        else if (vis_map_context->ProcessPackets(100) == 0)
+        {
+            ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0));
+            PostMessage(WM_CLOSE, 0, 0);
+            return 0;
+        }
+    }
+
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), 2, clrsh_ShockingBlack, 1);
+    UnlockSurface2();
+    FlushScreen();
+
+    m_GameSession.RefreshCharacterRosterFiles(0);
+
+    for (int j = 0; j < m_GameSession.field_0x130.GetSize(); j++)
+    {
+        HatCharId& curid = m_GameSession.field_0x130[j];
+
+        bool has_file = false;
+
+        for (int k = 0; k < m_GameSession.characterRosterHatId.GetSize(); k++)
+        {
+            if (curid.id == m_GameSession.characterRosterHatId[k].id)
+            {
+                has_file = true;
+                break;
+            }
+        }
+
+        if (!has_file)
+        {
+            g_NetStru1_local.FUN_0051d9d0(m_GameSession.field_0x130[j]);
+            INT_00660f8c = 0;
+
+            while (true)
+            {
+                if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
+                {
+                    if (msg.message == WM_QUIT)
+                        return 0;
+
+                    TranslateMessage(&msg);
+                    DispatchMessageA(&msg);
+                }
+
+                if (g_NetStru1_local.GetClientsPktNum() != 0)
+                {
+                    if (vis_map_context->ProcessPackets(100) == 0)
+                    {
+                        ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(17), nullptr, 0));
+                        PostMessage(WM_CLOSE, 0, 0);
+                        return 0;
+                    }
+                    break;
+                }
+
+                if (g_CmdTimeout < timeGetTime() - start_time)
+                {
+                    ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+                    PostMessage(WM_CLOSE, 0, 0);
+                    return 0;
+                }
+                g_mousept.Update();
+            }
+        }
+
+        LockSurface2();
+        FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
+
+        CString local_260;
+        local_260.Format("%d / %d", j, m_GameSession.field_0x130.GetSize());
+        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, 2, clrsh_ShockingBlack, 1);
+        UnlockSurface2();
+        FlushScreen();
+    }
+    return 1;
+}
+
+
+int32_t MainWindow::FUN_004e5466(const CString& addr)
+{ //4e5466
+    HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
+    if (!agent)
+        return 0;
+
+    CString tmp;
+    for (int i = 0; i < addr.GetLength(); i++)
+    {
+        char chr = addr[i];
+        if (chr == ' ')
+            tmp += '+';
+        else
+            tmp += chr;
+    }
+
+    CString proto = tmp.Left(7);
+    proto.MakeLower();
+
+    if (proto != "http://")
+        tmp = "http://" + tmp;
+
+    HINTERNET url = InternetOpenUrlA(agent, tmp, nullptr, 0, INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD, 0);
+    if (!url == 0)
+    {
+        InternetCloseHandle(agent);
+        return 0;
+    }
+
+    static char buf[0x40000];
+    DWORD readed = 0;
+
+    char* buf_pos = buf;
+    while (true)
+    {
+        if (!InternetReadFile(url, buf_pos, 0x40000, &readed))
+        {
+            InternetCloseHandle(agent);
+            return 0;
+        }
+
+        if (!readed)
+            break;
+
+        buf_pos += readed; // WAT FIXME  OVERFLOW!!
+    }
+
+    InternetCloseHandle(agent);
+
+    DAT_00666a00.RemoveAll();
+    if (!strstr(buf, "CURRENTCOUNT"))
+        return 0;
+
+    char *cursor = strchr(buf, '|');
+    if (!cursor)
+        return 0;
+
+    cursor++;
+
+    int nnum = atoi(cursor);
+
+    cursor = strchr(buf, '\n');
+    cursor++;
+    cursor = strchr(cursor, '\n');
+    cursor++;
+    cursor = strchr(cursor, '\n');
+
+    for (int i = 0; i < nnum; i++)
+    {
+        while (isprint(*cursor) == 0)
+            cursor++;
+
+        CString srv = '|';
+        while(*cursor >= ' ')
+        {
+            srv += *cursor;
+            cursor++;
+        }
+
+        DAT_00666a00.Add(srv);
+    }
+
+    return 1;
+}
+
+int32_t MainWindow::FUN_00490eb3()
+{ //490eb3
+
+    g_NetStru1_main.FUN_0051d9a0();
+    INT_00660f8c = 0;
+
+    uint32_t start_time = timeGetTime();
+    while (true)
+    {
+        if (false)
+            return 1;
+
+        MSG msg;
+        if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0)
+        {
+            if (msg.message == WM_QUIT)
+                return 0;
+
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (g_NetStru1_local.GetClientsPktNum() != 0)
+            break;
+
+        if (timeGetTime() - start_time > g_CmdTimeout)
+            return 0;
+
+        g_mousept.Update();
+    }
+
+    int32_t res = vis_map_context->ProcessPackets(100);
+
+    if (res != 0)
+        return res;
+
+    return 0;
+}
 
 
 

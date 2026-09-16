@@ -5098,3 +5098,39 @@ void NetStru1::WriteStatsLog(CString fname)
     }
     f.Close();
 }
+
+void NetStru1::FUN_0051d8d6(const CString& login, const CString& password, uint32_t flags)
+{ //51d8d6
+    PacketJoin* pkt = &PacketJoin::Inst;
+    CString namepwd = login + password;
+
+    strcpy(pkt->name, namepwd);
+
+    pkt->id = 0xc9;
+
+    pkt->player_id = login.GetLength();
+    pkt->token_id = 0;
+    pkt->field_0xc = flags;
+    pkt->flags = 7;
+    pkt->to_player_id = 0;
+
+    QueuePacketSend(pkt);
+}
+
+void NetStru1::FUN_0051d9d0(HatCharId chid)
+{ //51d9d0
+    PacketInfo* pkt = &PacketInfo::Inst;
+    pkt->id = 0xca;
+    pkt->field_0xa = chid.id1;
+    pkt->field_0xe = chid.id2;
+    pkt->to_player_id = 0;
+    QueuePacketSend(pkt);
+}
+
+void NetStru1::FUN_0051d9a0()
+{ //51d9a0
+    Packet* pkt = &Packet::Inst;
+    pkt->id = 0xc8;
+    pkt->to_player_id = 0;
+    QueuePacketSend(pkt);
+}

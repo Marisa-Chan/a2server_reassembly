@@ -1188,6 +1188,7 @@ externdef ?GetText@CListBox@@QBEXHAAVCString@@@Z : proc
 externdef ?AddString@CListBox@@QAEHPBD@Z  : proc
 externdef ?ResetContent@CListBox@@QAEXXZ : proc
 externdef ?SelectString@CListBox@@QAEHHPBD@Z : proc
+externdef ?SetCurSel@CListBox@@QAEXH@Z : proc
 
 
 ;CEdit
@@ -1334,6 +1335,7 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 ; MainWindow
+externdef ??0VisQuestStatus@@QAE@HHHHH@Z : proc
 externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
 externdef ?WaitHatConnection@MainWindow@@QAEHXZ : proc
@@ -1345,7 +1347,10 @@ externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
 extern ?Proc_421@MainWindow@@QAEXXZ : proc
+extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc
+extern ?FUN_00490eb3@MainWindow@@QAEHXZ : proc
 
+extern ?SpawnScenarioMissionUnits@MainWindow@@QAEXHABVCDWordArray@@@Z : proc
 extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
 extern ?Proc_44c@MainWindow@@QAEXPAVCVisualObject@@@Z : proc
 extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
@@ -2502,3 +2507,9 @@ externdef ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z : proc
 
 ; VisTipsDialog
 externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc
+
+; VisHatServerListDlg
+externdef ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z : proc
+
+; VisHatBrowserDlg
+externdef ??0VisHatBrowserDlg@@QAE@HHHHH@Z : proc

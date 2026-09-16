@@ -143,14 +143,6 @@ struct UserShortcut
 };
 
 
-union HatCharId
-{
-    uint64_t id;
-    struct {
-        int32_t id1;
-        int32_t id2;
-    };
-};
 
 //60c2a8
 class CGameSession : public CObject
@@ -357,7 +349,6 @@ public:
 public: // VTable at 0060c1a8.
     virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c
-    LRESULT NewWindowProc(UINT message, WPARAM wParam, LPARAM lParam); // 486c6c
 
     MainWindow(); // 4837e1
     virtual ~MainWindow(); // 4961b0
@@ -454,6 +445,11 @@ public:
     void WaitConnectionCharacterJoin(); //49152f in asm
     void ShowFameHallDocDlg(); //48d125 in asm
 
+    void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
+    int32_t FUN_0049057b(); //49057b
+    int32_t FUN_004e5466(const CString& str); //4e5466
+    int32_t FUN_00490eb3(); //490eb3
+
 public:
     int32_t field_0xbc;
     int32_t field_0xc0;
@@ -500,7 +496,7 @@ public:
     VisCharSelect* vis_charsel;
     VisStartGame* vis_startgame; //0x374
     VisNetMapSelection* field_0x378; // BigStruct1*
-    VisScreen* field_0x37c;
+    VisHatBrowserDlg* field_0x37c;
     PhoneBook phone_book; //380
     ComSettings com_settings; //39c
     CString last_ip; //3b0

@@ -36,6 +36,7 @@ struct AvailNetSession;
 struct ComSettings;
 struct PhoneBook;
 struct CLlAddress;
+struct HatSettings;
 
 
 
@@ -2340,5 +2341,38 @@ public:
 	uint8_t __unused__[12];
 };
 ASSERT_SIZE(VisTipsDialog, 0x74);
+
+
+//60e6d8
+class VisQuestStatus : public VisScreen
+{
+public:
+	VisQuestStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e2e3d
+
+public:
+	CSprite256* icon;
+};
+ASSERT_SIZE(VisQuestStatus, 0x6c);
+
+//60a8a0
+class VisHatServerListDlg : public VisMessageBox
+{
+public:
+	VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2
+
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+public:
+	HatSettings* hat_settings;
+};
+ASSERT_SIZE(VisHatServerListDlg, 0x7c);
+
+
+//60a9b8
+class VisHatBrowserDlg : public VisWindow
+{
+public:
+	VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35
+};
+ASSERT_SIZE(VisHatBrowserDlg, 0x68);
 
 #endif
