@@ -166,6 +166,7 @@ foreach(TARGET rea2s rea2c)
 
   # Enable MASM51 compatibility and SAFESEH.
   target_compile_options(${TARGET} PRIVATE
+    $<$<COMPILE_LANGUAGE:CXX>:/MP>
     $<$<COMPILE_LANGUAGE:ASM_MASM>:/Zm;/safeseh>
     $<$<AND:$<COMPILE_LANGUAGE:ASM_MASM>,$<CONFIG:Debug>>:/Zi>
   )
