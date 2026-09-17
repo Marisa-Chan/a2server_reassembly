@@ -1877,7 +1877,6 @@ extern ??0TakeDamage@@QAE@XZ : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-externdef ?sub_4065D3@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4065D3()
 externdef ?sub_40403B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40403B()
 externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
 externdef ?sub_405399@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_405399(int)

@@ -799,7 +799,6 @@ public:
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a
 	void sub_406F7B(); //406f7b
-	void sub_4065D3(); //4065d3
 	void sub_40403B(); //40403b
 	void sub_404E1A(); //404e1a
 	void sub_405399(int32_t arg); //405399
@@ -924,6 +923,7 @@ public:
 	void NetOnOpenInnDialog(); //41adbb
 
 	void UpdateAmbientSounds(); //41b8d0
+	void MakeHeightCells(); //4065d3
 
 public:
 	int32_t view_x;

@@ -3765,7 +3765,7 @@ void BigStruct2::sub_406F7B()
 
 	this->field_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
-	this->UpdateAmbientSounds();
+	UpdateAmbientSounds();
 	if (abs(this->field_0x78) >= this->field_0x64 / 2 || abs(this->field_0x7c) >= this->field_0x68 / 2) {
 		this->field_0x74 = 1;
 	}
@@ -3777,7 +3777,7 @@ void BigStruct2::sub_406F7B()
 	} else {
 		view_moved = 1;
 	}
-	this->sub_4065D3();
+	MakeHeightCells();
 	this->sub_40403B();
 	this->field_0xf4.IntersectRect(&this->field_0xf4, &local_rect);
 	if (view_moved != 0) {
@@ -5532,6 +5532,48 @@ void BigStruct2::UpdateAmbientSounds()
 
 			smpl->Play(g_SoundSettings.sfx_pos, local_28, 0, 220);
 			field_0x49c0 = timeGetTime() + 5000 + rand() / 7;
+		}
+	}
+}
+
+void BigStruct2::MakeHeightCells()
+{ //4065d3
+	uint8_t* hmap = field_0x80->GetMapHeights();
+	for (int32_t y = -3; y <= field_0x68 + 7; y++)
+	{
+		for (int32_t x = -3; x <= field_0x64 + 3; x++)
+		{
+			field_0xb4[x + 3 + (y + 3) * (field_0x64 + 7)] = y * 32 - hmap[x + view_x + (y + view_y) * field_0x84];
+		}
+	}
+
+	for (int32_t y = -3; y < field_0x68 + 7; y++)
+	{
+		for (int32_t x = -3; x < field_0x64 + 3; x++)
+		{
+			const int32_t idx = x + 3 + (y + 3) * (field_0x64 + 7);
+			const int32_t out_idx = x + 3 + (y + 3) * (field_0x64 + 6);
+			if (field_0xb4[idx] < field_0xb4[idx + 1])
+				field_0xb8[out_idx] = field_0xb4[idx];
+			else
+				field_0xb8[out_idx] = field_0xb4[idx + 1];
+			
+			if (field_0xb4[idx + field_0x64 + 8] < field_0xb4[idx + field_0x64 + 7])
+				field_0xbc[out_idx] = field_0xb4[idx + field_0x64 + 7];
+			else
+				field_0xbc[out_idx] = field_0xb4[idx + field_0x64 + 8];
+		}
+	}
+
+	for (int32_t y = -3; y < field_0x68 + 9; y++)
+	{
+		for (int32_t x = -3; x < field_0x64 + 5; x++)
+		{
+			int32_t idx = x - 1 + view_x + (y - 1 + view_y) * field_0x84;
+			if (y + view_y < field_0x88)
+			{
+				field_0xc0[x + 3 + (y + 3) * (field_0x64 + 8)] = (hmap[idx] + hmap[idx + 1] + hmap[idx + field_0x84] + hmap[idx + 1 + field_0x84]) / 4;
+			}
 		}
 	}
 }
