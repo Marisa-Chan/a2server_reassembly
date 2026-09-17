@@ -371,7 +371,7 @@ void ShopAssortment::sub_54AF21(CArray<MagicItem>* items) {
 
         Effect* effect = new Effect();
         item->_effects.AddTail(effect);
-        effect->effect_id = modifier::castspell;
+        effect->effect_id = modifier::teachspell;
         effect->spell_or_damage = (int16_t)spell_id;
 
         int32_t size = this->items.GetSize();
