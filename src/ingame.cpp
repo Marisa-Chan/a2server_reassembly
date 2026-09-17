@@ -4334,12 +4334,12 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 		this->sub_4167F7(wparam, lparam);
 		result = 1;
 		break;
-	case 0x408:
+	case 0x40C:
 		g_SfxArray[8]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
 		this->sub_418F93(wparam + 1);
 		result = 1;
 		break;
-	case 0x40A:
+	case 0x40E:
 		if (this->IsBagOpen()) {
 			this->FUN_0041b40e();
 		} else {
@@ -4354,7 +4354,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 		}
 		result = 1;
 		break;
-	case 0x40B:
+	case 0x40F:
 		if (this->IsBookOpen()) {
 			this->FUN_0041b636();
 		} else {
