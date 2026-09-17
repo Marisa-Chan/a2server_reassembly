@@ -3829,7 +3829,7 @@ def_404552:                             ; CODE XREF: ?sub_40403B@BigStruct2@@QAE
                 mov     ecx, dword ptr [ebp+var_5C]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_AC]
-                call    sub_406340
+                call    ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
 
 loc_4045F8:                             ; CODE XREF: ?sub_40403B@BigStruct2@@QAEXXZ+5A2↑j
                 cmp     ?g_Animation@@3HA, 0
@@ -4348,7 +4348,7 @@ loc_404BBC:                             ; CODE XREF: sub_404A2C+187↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_4C]
-                call    sub_406340
+                call    ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
 
 loc_404BD2:                             ; CODE XREF: sub_404A2C+9B↑j
                 jmp     loc_404A77
@@ -6474,263 +6474,6 @@ loc_40633C:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAE
                 pop     ebp
                 retn
 ?sub_405D0E@BigStruct2@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_406340      proc near               ; CODE XREF: ?sub_40403B@BigStruct2@@QAEXXZ+5B8↑p
-
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_local_Rect          = RECT ptr -28h
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = byte ptr  14h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 3Ch
-                mov     [ebp+var_3C], ecx
-                cmp     ?g_Animation@@3HA, 0
-                jnz     short loc_4063BA
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [ebp+arg_4]
-                sub     ecx, [eax+60h]
-                mov     edx, dword ptr [ebp+arg_8]
-                lea     eax, [ecx+edx+2]
-                shl     eax, 5
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, [ecx+5Ch]
-                mov     eax, dword ptr [ebp+arg_8]
-                lea     ecx, [edx+eax+2]
-                shl     ecx, 5
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [ebp+arg_4]
-                sub     eax, [edx+60h]
-                sub     eax, 1
-                sub     eax, [ebp+arg_8]
-                shl     eax, 5
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, [ecx+5Ch]
-                sub     edx, 1
-                sub     edx, [ebp+arg_8]
-                shl     edx, 5
-                push    edx
-                lea     ecx, [ebp+var_local_Rect]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                lea     eax, [ebp+var_local_Rect]
-                push    eax             ; lprcSrc2
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 0F4h
-                call    sub_41E930
-
-loc_4063BA:                             ; CODE XREF: sub_406340+10↑j
-                cmp     ?g_Lightning@@3HA, 0
-                jnz     short loc_4063C8
-                jmp     loc_4065CD
-; ---------------------------------------------------------------------------
-
-loc_4063C8:                             ; CODE XREF: sub_406340+81↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+arg_8]
-                imul    edx, ecx
-                mov     [ebp+var_4], edx
-                cmp     [ebp+arg_8], 0
-                jnz     short loc_4063E4
-                mov     [ebp+var_4], 1
-
-loc_4063E4:                             ; CODE XREF: sub_406340+9B↑j
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+0A8h]
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+64h]
-                add     eax, 7
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+68h]
-                add     edx, 0Bh
-                mov     [ebp+var_C], edx
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, [eax+5Ch]
-                mov     [ebp+arg_0], ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [ebp+arg_4]
-                sub     eax, [edx+60h]
-                mov     [ebp+arg_4], eax
-                mov     [ebp+var_10], 0
-                jmp     short loc_406432
-; ---------------------------------------------------------------------------
-
-loc_406429:                             ; CODE XREF: sub_406340:loc_4065C8↓j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1
-                mov     [ebp+var_10], ecx
-
-loc_406432:                             ; CODE XREF: sub_406340+E7↑j
-                mov     edx, dword ptr [ebp+var_10]
-                cmp     edx, [ebp+arg_8]
-                jg      loc_4065CD
-                mov     [ebp+var_14], 0
-                jmp     short loc_406450
-; ---------------------------------------------------------------------------
-
-loc_406447:                             ; CODE XREF: sub_406340:loc_4065C3↓j
-                mov     eax, dword ptr [ebp+var_14]
-                add     eax, 1
-                mov     [ebp+var_14], eax
-
-loc_406450:                             ; CODE XREF: sub_406340+105↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     ecx, [ebp+arg_8]
-                jg      loc_4065C8
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 14h
-                imul    edx, 52h ; 'R'
-                mov     eax, dword ptr [ebp+var_14]
-                xor     ecx, ecx
-                mov     cx, word ptr ?g_DistTable@@3PAY0CJ@GA+0A50h[edx+eax*2]
-                cmp     ecx, [ebp+var_4]
-                jge     loc_4065C3
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [ebp+arg_0]
-                lea     ecx, [eax+edx+4]
-                mov     [ebp+var_2C], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [ebp+arg_4]
-                lea     ecx, [eax+edx+4]
-                mov     [ebp+var_34], ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                sub     edx, [ebp+var_10]
-                add     edx, 3
-                mov     [ebp+var_30], edx
-                mov     eax, dword ptr [ebp+arg_4]
-                sub     eax, [ebp+var_14]
-                add     eax, 3
-                mov     [ebp+var_38], eax
-                cmp     [ebp+var_2C], 3
-                jl      loc_406538
-                mov     ecx, dword ptr [ebp+var_8]
-                sub     ecx, 3
-                cmp     [ebp+var_2C], ecx
-                jg      short loc_406538
-                cmp     [ebp+var_34], 3
-                jl      short loc_4064FD
-                mov     edx, dword ptr [ebp+var_C]
-                sub     edx, 3
-                cmp     [ebp+var_34], edx
-                jg      short loc_4064FD
-                mov     eax, dword ptr [ebp+var_34]
-                imul    eax, [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_2C]
-                add     ecx, eax
-                mov     edx, dword ptr [ebp+var_18]
-                mov     al, [ebp+arg_C]
-                mov     [edx+ecx], al
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx+108h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     [eax+108h], edx
-
-loc_4064FD:                             ; CODE XREF: sub_406340+186↑j
-                cmp     [ebp+var_38], 3
-                jl      short loc_406538
-                mov     ecx, dword ptr [ebp+var_C]
-                sub     ecx, 3
-                cmp     [ebp+var_38], ecx
-                jg      short loc_406538
-                mov     edx, dword ptr [ebp+var_38]
-                imul    edx, [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_2C]
-                add     eax, edx
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dl, [ebp+arg_C]
-                mov     [ecx+eax], dl
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+108h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     [edx+108h], ecx
-
-loc_406538:                             ; CODE XREF: sub_406340+171↑j
-                cmp     [ebp+var_30], 3
-                jl      loc_4065C3
-                mov     eax, dword ptr [ebp+var_8]
-                sub     eax, 3
-                cmp     [ebp+var_30], eax
-                jg      short loc_4065C3
-                cmp     [ebp+var_34], 3
-                jl      short loc_406588
-                mov     ecx, dword ptr [ebp+var_C]
-                sub     ecx, 3
-                cmp     [ebp+var_34], ecx
-                jg      short loc_406588
-                mov     edx, dword ptr [ebp+var_34]
-                imul    edx, [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_30]
-                add     eax, edx
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dl, [ebp+arg_C]
-                mov     [ecx+eax], dl
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+108h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     [edx+108h], ecx
-
-loc_406588:                             ; CODE XREF: sub_406340+211↑j
-                cmp     [ebp+var_38], 3
-                jl      short loc_4065C3
-                mov     eax, dword ptr [ebp+var_C]
-                sub     eax, 3
-                cmp     [ebp+var_38], eax
-                jg      short loc_4065C3
-                mov     ecx, dword ptr [ebp+var_38]
-                imul    ecx, [ebp+var_8]
-                mov     edx, dword ptr [ebp+var_30]
-                add     edx, ecx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     cl, [ebp+arg_C]
-                mov     [eax+edx], cl
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     eax, dword ptr [edx+108h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     [ecx+108h], eax
-
-loc_4065C3:                             ; CODE XREF: sub_406340+135↑j
-                jmp     loc_406447
-; ---------------------------------------------------------------------------
-
-loc_4065C8:                             ; CODE XREF: sub_406340+116↑j
-                jmp     loc_406429
-; ---------------------------------------------------------------------------
-
-loc_4065CD:                             ; CODE XREF: sub_406340+83↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    10h
-sub_406340      endp
 
 
 
@@ -93934,7 +93677,7 @@ def_46E868:                             ; CODE XREF: sub_46E805+5E↑j
                 mov     eax, dword ptr [edx+38h]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_406340
+                call    ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
                 jmp     loc_46EB11
 ; ---------------------------------------------------------------------------
 
@@ -93948,7 +93691,7 @@ loc_46E8EF:                             ; CODE XREF: sub_46E805+3C↑j
                 mov     ecx, dword ptr [eax+38h]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_406340
+                call    ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
                 jmp     loc_46EB11
 ; ---------------------------------------------------------------------------
 
@@ -93962,7 +93705,7 @@ loc_46E90E:                             ; CODE XREF: sub_46E805+3C↑j
                 mov     edx, dword ptr [ecx+38h]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_406340
+                call    ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
                 jmp     loc_46EB11
 ; ---------------------------------------------------------------------------
 

@@ -1874,6 +1874,7 @@ extern ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z : proc
 extern ??0TakeDamage@@QAE@XZ : proc
 
 ;BigStruct2
+extern ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc

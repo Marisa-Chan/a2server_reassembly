@@ -924,6 +924,7 @@ public:
 
 	void UpdateAmbientSounds(); //41b8d0
 	void MakeHeightCells(); //4065d3
+	void ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness); //406340
 
 public:
 	int32_t view_x;

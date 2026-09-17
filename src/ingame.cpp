@@ -5577,3 +5577,72 @@ void BigStruct2::MakeHeightCells()
 		}
 	}
 }
+
+
+
+void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness)
+{ //406340
+	if (g_Animation == 0)
+	{
+		CRect local_2c((tx - view_x - 1 - radius) * 32, 
+			           (ty - view_y - 1 - radius) * 32,
+			           (tx - view_x + 2 + radius) * 32, 
+			           (ty - view_y + 2 + radius) * 32);
+		field_0xf4.UnionRect(field_0xf4, local_2c);
+	}
+
+	if (g_Lightning != 0)
+	{
+		int32_t mdist = radius * (radius + 1);
+
+		if (radius == 0)
+			mdist = 1;
+		
+		int32_t maxX = field_0x64 + 4;
+		int32_t out_w = field_0x64 + 7;
+		int32_t maxY = field_0x68 + 8;
+		int32_t dx = tx - view_x;
+		int32_t dy = ty - view_y;
+
+		for (int32_t y = 0; y <= radius; y++)
+		{
+			for (int32_t x = 0; x <= radius; x++)
+			{
+				if (g_DistTable[y + 20][x + 20] < mdist)
+				{
+					int32_t out_x = dx + 4 + y;
+					int32_t out_y = dy + 4 + x;
+					int32_t out_x2 = (dx - y) + 3;
+					int32_t out_y2 = (dy - x) + 3;
+
+					if (out_x > 2 && out_x <= maxX)
+					{
+						if (out_y > 2 && out_y <= maxY)
+						{
+							field_0xa8[out_x + out_y * out_w] = brightness;
+							field_0x108++;
+						}
+						if (out_y2 > 2 && out_y2 <= maxY)
+						{
+							field_0xa8[out_x + out_y2 * out_w] = brightness;
+							field_0x108++;
+						}
+					}
+					if (out_x2 > 2 && out_x2 <= maxX)
+					{
+						if (out_y > 2 && out_y <= maxY)
+						{
+							field_0xa8[out_x2 + out_y * out_w] = brightness;
+							field_0x108++;
+						}
+						if (out_y2 > 2 && out_y2 <= maxY)
+						{
+							field_0xa8[out_x2 + out_y2 * out_w] = brightness;
+							field_0x108++;
+						}
+					}
+				}
+			}
+		}
+	}
+}
