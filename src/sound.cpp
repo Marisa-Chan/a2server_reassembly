@@ -93,6 +93,24 @@ void SoundChannel::Play(bool bLoop)
 		pbuffer->Play(0, 0, bLoop ? DSBPLAY_LOOPING : 0);
 }
 
+void SoundChannel::SetVolume(int32_t volume)
+{ //41fea0
+	if (volume < -10000)
+		volume = -10000;
+
+	if (volume > 0)
+		volume = 0;
+
+	if (pbuffer)
+		pbuffer->SetVolume(volume);
+}
+
+void SoundChannel::SetPan(int32_t pan)
+{ //41ff60
+	if (pbuffer)
+		pbuffer->SetPan(pan);
+}
+
 
 
 SoundChannel* __cdecl SoundChannel::GetChannel(int32_t priority)

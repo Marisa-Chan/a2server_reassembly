@@ -912,6 +912,8 @@ public:
 	void OnOpenShopDialog(); //41a29b
 	void NetOnOpenInnDialog(); //41adbb
 
+	void UpdateAmbientSounds(); //41b8d0
+
 public:
 	int32_t view_x;
 	int32_t view_y;

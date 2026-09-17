@@ -4373,7 +4373,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 		if ((wnd->dialogsMask & 1) != 0) {
 			this->field_0x49b8 = -1;
 			this->field_0x49bc = -1;
-			this->sub_41B8D0();
+			this->UpdateAmbientSounds();
 			result = 0;
 		}
 		break;
@@ -4699,3 +4699,223 @@ void LoadVfxData()
 		}
 	}
 }
+
+
+
+
+void BigStruct2::UpdateAmbientSounds()
+{ //41b8d0
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+	bool local_d8;
+	if (view_x == field_0x49b8 && view_y == field_0x49bc)
+		local_d8 = false;
+	else
+		local_d8 = true;
+
+	bool local_10 = timeGetTime() > field_0x49c0;
+	if (local_d8 || local_10)
+	{
+		if (local_d8)
+		{
+			field_0x49b8 = view_x;
+			field_0x49bc = view_y;
+		}
+
+		SfxSample* smpl_50 = g_SfxArray[50];
+		SfxSample* smpl_90 = g_SfxArray[90];
+		SoundChannel* channel_50 = smpl_50->FindPlayingChannel();
+		SoundChannel* channel_90 = smpl_90->FindPlayingChannel();
+
+		int32_t vol_50 = -10000;
+		int32_t vol_90 = -10000;
+		int32_t pan_50 = 0;
+		int32_t pan_90 = 0;
+		int32_t local_28 = 0;
+		int32_t local_2c = 0;
+
+		int32_t minX = view_x - field_0x64;
+		if (minX < 8)
+			minX = 8;
+		
+		int32_t maxX = view_x + field_0x64 * 2;
+		if (maxX > field_0x84 - 8)
+			maxX = field_0x84 - 8;
+		
+		int32_t minY = view_y - field_0x68;
+		if (minY < 8)
+			minY = 8;
+		
+		int32_t maxY = view_y + field_0x68 * 2;
+		if (maxY > field_0x88 - 8)
+			maxY = field_0x88 - 8;
+		
+		uint16_t* landscape = field_0x80->GetLandscape();
+		uint8_t* local_78 = field_0x80->FUN_0041eec0();
+		int32_t count_50 = 0;
+		int32_t count_90 = 0;
+		int32_t local_34 = 0;
+		int32_t local_58 = 0;
+		int32_t local_44 = 0;
+		int32_t centerX = view_x + (field_0x64 / 2);
+		int32_t centerY = view_y + (field_0x68 / 2);
+
+		for (int32_t yy = minY; yy <= maxY; yy++)
+		{
+			int32_t land_idx = minX + yy * field_0x84;
+			int32_t dy = yy - centerY;
+
+			for (int32_t xx = minX; xx <= maxX; xx++)
+			{
+				int32_t dx = xx - centerX;
+
+				uint16_t tmp = (landscape[land_idx] & 0x1fff) >> 6;
+				if (tmp > 7 && tmp < 12)
+				{
+					int32_t scale = (dx * 2000) / field_0x64;
+					if (scale < -2000)
+						scale = -2000;
+					
+					if (scale > 2000)
+						scale = 2000;
+				
+					int32_t vol = 10000.0 - (exp(sqrt(dx * dx + dy * dy) / 8) - 1.0) * 100.0;
+					if (vol < 0)
+						vol = 0;
+					
+					if (vol_50 < vol - 10000)
+						vol_50 = vol - 10000;
+					
+					pan_50 += (scale * vol) / 10000;
+					count_50++;
+				}
+
+				uint32_t local_88;
+				if (field_0xa08.Lookup(PosYX(xx, yy).val, local_88) != 0 && (local_88 & 8) != 0)
+				{
+					int32_t scale = (dx * 2000) / field_0x64;
+					if (scale < -2000)
+						scale = -2000;
+					
+					if (scale > 2000)
+						scale = 2000;					
+
+					int32_t vol = 10000.0 - (exp(sqrt(dx * dx + dy * dy) / 8) - 1.0) * 100.0;
+
+					if (vol < 0)
+						vol = 0;
+
+					if (vol_90 < vol - 10000)
+						vol_90 = vol - 10000;
+					
+					pan_90 += (scale * vol) / 10000;
+					count_90++;
+				}
+
+				if (local_10 && local_78[land_idx] != 0)
+				{
+					uint8_t objid = local_78[land_idx] - 1;
+					GfxObject* gobj = g_GfxObjects[objid];
+
+					if (gobj->dead_object < 0)
+					{
+						if (gobj->fire_object == -2)
+						{
+							local_44++;
+
+							int32_t scale = (dx * 2000) / field_0x64;
+							if (scale < -2000)
+								scale = -2000;
+							if (scale > 2000)
+								scale = 2000;
+
+							int32_t vol = 10000.0 - (exp(sqrt(dx * dx + dy * dy) / 8) - 1.0) * 100.0;
+							if (vol < 0)
+								vol = 0;
+
+							local_28 += (scale * vol) / 10000;
+						}
+					}
+					else
+					{
+						if (gobj->phases < 2)
+							local_58++;
+						else
+							local_34++;
+
+						int32_t scale = (dx * 2000) / field_0x64;
+						if (scale < -2000)
+							scale = -2000;
+						if (scale > 2000)
+							scale = 2000;
+
+						int32_t vol = 10000.0 - (exp(sqrt(dx * dx + dy * dy) / 8) - 1.0) * 100.0;
+						if (vol < 0)
+							vol = 0;
+
+						local_28 += (scale * vol) / 10000;
+					}
+				}
+				land_idx++;
+			}
+		}
+		if (count_50 != 0)
+			pan_50 /= count_50;
+
+		if (count_90 != 0)
+			pan_90 /= count_90;
+
+		if (!channel_50)
+		{
+			if (count_50)
+				smpl_50->Play(vol_50 + g_SoundSettings.sfx_pos, pan_50, 1, 220, 0);
+		}
+		else if (count_50 == 0)
+			channel_50->Stop();
+		else
+		{
+			channel_50->SetVolume(vol_50 + g_SoundSettings.sfx_pos);
+			channel_50->SetPan(pan_50);
+		}
+
+		if (!channel_90)
+		{
+			if (count_90)
+				smpl_90->Play(vol_90 + g_SoundSettings.sfx_pos, pan_90, 1, 0xdc, 0);
+		}
+		else if (count_90 == 0)
+			channel_90->Stop();
+		else
+		{
+			channel_90->SetVolume(vol_90 + g_SoundSettings.sfx_pos);
+			channel_90->SetPan(pan_90);
+		}
+
+		if (local_34 + local_58 + local_44 != 0)
+		{
+			local_28 /= local_34 + local_58 + local_44;
+			int32_t iVar4 = Random0N(local_34 + local_58 + local_44 - 1);
+			
+			int32_t base_idx = 600;
+
+			if (local_34 <= iVar4)
+				base_idx += 20;
+			
+			if (local_34 + local_58 <= iVar4)
+				base_idx += 20;
+			
+
+			int32_t tmp = (((mwnd->serverLoopCounter / 16) + 360) / 60) % 24;
+			if (tmp < 4 || tmp > 19)
+				base_idx += 10;
+
+			SfxSample* smpl = nullptr;
+			while(!smpl)
+				smpl = g_SfxArray[base_idx + Random0N(10)];
+
+			smpl->Play(g_SoundSettings.sfx_pos, local_28, 0, 220);
+			field_0x49c0 = timeGetTime() + 5000 + rand() / 7;
+		}
+	}
+}
+

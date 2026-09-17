@@ -62,6 +62,8 @@ public:
 	void Clear(); //41fdd0
 	void Stop(); //41ff90
 	void Play(bool bLoop); //45c408
+	void SetVolume(int32_t volume); //41fea0
+	void SetPan(int32_t pan); //41ff60
 
 	static SoundChannel* __cdecl GetChannel(int32_t priority); //45c23e
 public:
