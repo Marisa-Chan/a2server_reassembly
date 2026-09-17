@@ -108,6 +108,8 @@ public:
 
 	CVisualObject* FindChild(int32_t _id);
 	CVisualObject* GetChildAt(POINT pt);
+
+	int32_t sub_41F940(); //41f940. TODO: Move to a proper subclass.
 	
 	void ClientPtToScreen(CPoint* out, const CPoint& _point);
 	void ClientRectToScreen(CRect* out, const CRect& _rect);
@@ -797,6 +799,15 @@ public:
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a
 	void sub_406F7B(); //406f7b
+	void sub_4065D3(); //4065d3
+	void sub_40403B(); //40403b
+	void sub_404E1A(); //404e1a
+	void sub_405399(int32_t arg); //405399
+	void sub_40587B(int32_t arg); //40587b
+	void sub_405D0E(); //405d0e
+	void sub_404DA3(CRect* rect, uint16_t unit_id); //404da3
+	void sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag); //40afc5
+	int32_t sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173
 	void sub_40328E(); //40328e
 	void sub_404912(); //404912
 	void sub_403F08(Scenario* scen); //403f08

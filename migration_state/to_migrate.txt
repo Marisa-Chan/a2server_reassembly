@@ -3,14 +3,23 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
+?DAT_00660f6c@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 ?FUN_004CD4B0@@YANH@Z	12
+?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
+?FUN_00458fe6@@YAXHHH@Z	120
+?FUN_00454e40@@YAXHHHH@Z	127
+?FUN_00459449@@YAXHHHHHH@Z	179
+?FUN_0045995e@@YAXHHH@Z	214
 ?ShowRoleKeyDialog@@YGXPBD@Z	237
+?FUN_004595fd@@YAXHHHHHHHHHH@Z	364
+?FUN_004590ef@@YAXHHHHHH@Z	377
 ?sub_4764BC@@YAPAEH@Z	390
+?FUN_00459b72@@YAXHHHHHH@Z	430
 ?sub_47FA75@@YAXXZ	439
 ?sub_477B59@@YAXI@Z	535
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
@@ -30,6 +39,7 @@
 ?sub_41F6D0@BigStruct2@@QAEXXZ	28
 ?sub_41F720@BigStruct2@@QAEXXZ	28
 ?sub_41AC88@BigStruct2@@QAEXHH@Z	34
+?sub_404DA3@BigStruct2@@QAEXPAVCRect@@G@Z	44
 ?sub_41AB05@BigStruct2@@QAEXXZ	44
 ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z	51
 ?sub_41B381@BigStruct2@@QAEXXZ	53
@@ -46,13 +56,20 @@
 ?sub_404912@BigStruct2@@QAEXXZ	101
 ?sub_416B4A@BigStruct2@@QAEXH@Z	114
 ?sub_418F93@BigStruct2@@QAEXH@Z	154
+?sub_40AFC5@BigStruct2@@QAEXHHIH@Z	181
+?sub_40B173@BigStruct2@@QAEHHHHH@Z	192
 ?sub_402FB8@BigStruct2@@QAEXXZ	230
+?sub_4065D3@BigStruct2@@QAEXXZ	315
 ?sub_403730@BigStruct2@@QAEXXZ	329
 ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z	334
 ?sub_40BD34@BigStruct2@@QAEXXZ	341
+?sub_404E1A@BigStruct2@@QAEXXZ	405
+?sub_40587B@BigStruct2@@QAEXH@Z	431
+?sub_405399@BigStruct2@@QAEXH@Z	450
+?sub_405D0E@BigStruct2@@QAEXXZ	576
+?sub_40403B@BigStruct2@@QAEXXZ	723
 ?sub_41B8D0@BigStruct2@@QAEXXZ	850
 ?sub_40B314@BigStruct2@@QAEXXZ	898
-?sub_406F7B@BigStruct2@@QAEXXZ	4508
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -98,6 +115,7 @@
 ??0CEdit@@QAE@XZ	16
 ??1CEdit@@UAE@XZ	29
 ?SetSel@CEdit@@QAEXKH@Z	37
+?messageMap@CFrameWnd@@2UAFX_MSGMAP@@B
 ?GetRuntimeClass@CFrameWnd@@UBEPAUCRuntimeClass@@XZ	3
 ?GetActiveFrame@CFrameWnd@@UAEPAV1@XZ	3
 ?IsFrameWnd@CFrameWnd@@UBEHXZ	4
@@ -147,6 +165,7 @@
 ?GetCurSel@CListBox@@QBEHXZ	18
 ?ResetContent@CListBox@@QAEXXZ	18
 ?AddString@CListBox@@QAEHPBD@Z	20
+?SetCurSel@CListBox@@QAEXH@Z	20
 ?SelectString@CListBox@@QAEHHPBD@Z	22
 ?GetText@CListBox@@QBEXHAAVCString@@@Z	28
 ??1CListBox@@UAE@XZ	29
@@ -162,6 +181,7 @@
 ??1CStatusBar@@UAE@XZ	32
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
+?sub_41F940@CVisualObject@@QAEHXZ	13
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
 ?OpenDocumentFile@CWinApp@@UAEPAVCDocument@@PBD@Z	9
@@ -223,21 +243,40 @@
 ?UpdateData@CWnd@@QAEHH@Z	83
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
-?GetMessageMap@MainWindow@@UBEPBUAFX_MSGMAP@@XZ	12
+?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ	20
+?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
+?_FUN_00495010@MainWindow@@QAEXXZ	12
+?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z	15
 ?sub_48CC87@MainWindow@@QAEXXZ	15
+?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z	17
+?_OnClose@MainWindow@@QAEXXZ	17
+?_FUN_00495743@MainWindow@@QAEXXZ	18
+?_OnSize@MainWindow@@QAEXIHH@Z	22
+?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z	23
+?_OnSysKeyUp@MainWindow@@QAEXIII@Z	26
+?_OnChar@MainWindow@@QAEXIII@Z	26
 ?sub_4919C7@MainWindow@@QAEXXZ	37
 ?FUN_00478130@MainWindow@@QAEXXZ	39
+?_OnKeyUp@MainWindow@@QAEXIII@Z	46
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
 ?ShowFameHallDocDlg@MainWindow@@QAEXXZ	50
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
 ?sub_48CBE2@MainWindow@@QAEXXZ	60
+?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z	66
+?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z	66
+?_OnPaint@MainWindow@@QAEXXZ	69
+?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
+?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
+?_FUN_004950c0@MainWindow@@QAEXXZ	92
+?_OnSysKeyDown@MainWindow@@QAEXIII@Z	133
+?_OnDestroy@MainWindow@@QAEXXZ	137
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?WaitHatConnection@MainWindow@@QAEHXZ	193
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ	199
 ?ShowCurrentTownDialog@MainWindow@@QAEXXZ	202
 ?ConnectToServerAddress@MainWindow@@QAEHXZ	316
-?WindowProc@MainWindow@@UAEJIIJ@Z	4143
+?_OnKeyDown@MainWindow@@QAEXIII@Z	480
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?sub_41EF60@Scenario@@QAEHHH@Z	37
@@ -270,6 +309,8 @@
 ??0VisFameDocument@@QAE@HHHHH@Z	78
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z	122
+??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
+??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z	46
 ?FUN_0046fb90@VisInvBase@@QAEHXZ	14
 ??0VisInvType1@@QAE@HHHHH@Z	67
 ??0VisMainMenu@@QAE@HHHHH@Z	84
@@ -281,6 +322,7 @@
 ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z	36
 ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z	46
 ??0VisOrderToolbar@@QAE@HHHHH@Z	38
+??0VisQuestStatus@@QAE@HHHHH@Z	85
 ??0VisRightPanel@@QAE@HHHHH@Z	32
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
 ?FUN_004bcd02@VisShop@@QAEXXZ	30

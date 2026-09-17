@@ -502,6 +502,7 @@
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_0048f79d@MainWindow@@QAEXXZ
 ?FUN_0048f905@MainWindow@@QAEXXZ
+?FUN_00490eb3@MainWindow@@QAEHXZ
 ?FUN_00491822@MainWindow@@QAEXXZ
 ?FUN_004918ae@MainWindow@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
@@ -517,6 +518,7 @@
 ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z
 ?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z
 ?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z
+?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z
 ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z
 ?FUN_005125a8@GameDataRes@@QAEHH@Z
 ?FUN_00512625@GameDataRes@@QAEHH@Z
@@ -1051,6 +1053,7 @@
 ?SoundBank_peasant@@3PAVSfxBank@@A
 ?SpanExcluding@CString@@QBE?AV1@PBD@Z
 ?SpanIncluding@CString@@QBE?AV1@PBD@Z
+?SpawnScenarioMissionUnits@MainWindow@@QAEXHABVCDWordArray@@@Z
 ?Start@Server@@QAEHH@Z
 ?StartHatDedicatedServer@MainWindow@@QAEXXZ
 ?StartPlayTrack@MusicPlayer@@QAEXH@Z

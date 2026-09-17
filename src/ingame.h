@@ -15,6 +15,7 @@ class UnitGfxFile;
 
 extern int32_t INT_00660f8c;
 extern int32_t INT_00660f90;
+extern int32_t DAT_00660f6c; //660f6c
 extern int32_t DAT_00660f70; //660f70
 extern CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
 extern CArray<GfxFile*> g_GfxFiles; //661100
@@ -119,6 +120,9 @@ public:
 
 	void Init();
 	void Deinit(); //47b0ab
+
+	CSprite256* sub_41F870(); //41f870
+	CSprite256* sub_41F8A0(); //41f8a0
 
 public:
 	CSprite256* spr;

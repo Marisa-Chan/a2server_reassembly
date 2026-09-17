@@ -3751,6 +3751,623 @@ CUnit* BigStruct2::GetUnit_3f6c()
 	return this->field_0x3f6c;
 }
 
+// 406F7B
+void BigStruct2::sub_406F7B()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->dialogsMask != 1 || this->field_0x80 == nullptr) {
+		return;
+	}
+
+	CRect clip_rect;
+	CRect local_rect;
+	CDWordArray dummy_arr;
+
+	this->field_0xa90++;
+	this->ClientRectToScreen(&local_rect, this->rect);
+	this->UpdateAmbientSounds();
+	if (abs(this->field_0x78) >= this->field_0x64 / 2 || abs(this->field_0x7c) >= this->field_0x68 / 2) {
+		this->field_0x74 = 1;
+	}
+	this->view_x += this->field_0x78;
+	this->view_y += this->field_0x7c;
+	int32_t view_moved;
+	if (this->view_x == this->field_0xec && this->view_y == this->field_0xf0) {
+		view_moved = 0;
+	} else {
+		view_moved = 1;
+	}
+	this->sub_4065D3();
+	this->sub_40403B();
+	this->field_0xf4.IntersectRect(&this->field_0xf4, &local_rect);
+	if (view_moved != 0) {
+		this->field_0xf4 = local_rect;
+	}
+	if (this->field_0xe0 != 0) {
+		this->field_0xf4 = local_rect;
+		this->field_0xe0 = 0;
+	}
+	uint32_t anim_redraw = this->field_0xa88 - this->field_0xa8c > 3;
+	if (anim_redraw != 0) {
+		this->field_0xa8c = this->field_0xa88;
+	}
+	CVisualObject* child2 = this->FindChild(2);
+	CVisualObject* child3 = this->FindChild(3);
+	CRect childs_rect(0, 0, 0, 0);
+	int32_t childs_size = (int32_t)child2 + (int32_t)child3 + this->msglog.text.GetSize();
+	if (child2 != nullptr) {
+		childs_rect |= child2->GetRect();
+	}
+	if (child3 != nullptr) {
+		childs_rect |= child3->GetRect();
+	}
+	if (childs_size != this->field_0x104) {
+		this->field_0xf4 = local_rect;
+	}
+	if (child2 != nullptr && child2->sub_41F940() != 0) {
+		this->field_0xf4 = local_rect;
+	}
+	g_mousept.Update();
+	LockSurface3();
+	GetClipRect(&clip_rect);
+	if (this->field_0x74 != 0) {
+		this->sub_404E1A();
+		this->field_0xe8 = 0;
+		this->field_0xe4 = 0;
+	} else if (this->field_0x78 != 0 || this->field_0x7c != 0) {
+		int32_t old_tx = this->field_0xe4;
+		int32_t old_ty = this->field_0xe8;
+		this->field_0xe4 += this->field_0x78;
+		if (this->field_0xe4 < 0) {
+			this->field_0xe4 += this->field_0x64;
+		}
+		if (this->field_0xe4 >= this->field_0x64) {
+			this->field_0xe4 -= this->field_0x64;
+		}
+		this->field_0xe8 += this->field_0x7c;
+		if (this->field_0xe8 < 0) {
+			this->field_0xe8 += this->field_0x68;
+		}
+		if (this->field_0xe8 >= this->field_0x68) {
+			this->field_0xe8 -= this->field_0x68;
+		}
+		CRect rc1;
+		CRect rc2;
+		CRect rc3;
+		CRect rc4;
+		if (this->field_0x78 != 0) {
+			rc1.SetRect(old_tx << 5, 0, this->field_0xe4 << 5, this->field_0xe8 << 5);
+			rc2.SetRect(old_tx << 5, this->field_0xe8 << 5, this->field_0xe4 << 5, this->field_0x68 << 5);
+			rc1.NormalizeRect();
+			rc2.NormalizeRect();
+			if (abs(this->field_0xe4 - old_tx) < this->field_0x64 / 2) {
+				if (!rc1.IsRectEmpty()) {
+					SetClipRect(rc1);
+					this->sub_40587B(-this->field_0x68);
+				}
+				if (!rc2.IsRectEmpty()) {
+					SetClipRect(rc2);
+					this->sub_40587B(0);
+				}
+			} else {
+				rc3.SetRect(0, rc1.TopLeft().y, rc1.TopLeft().x, rc1.BottomRight().y);
+				if (!rc3.IsRectEmpty()) {
+					SetClipRect(rc3);
+					this->sub_40587B(-this->field_0x68);
+				}
+				rc3.SetRect(rc1.BottomRight().x, rc1.TopLeft().y, this->field_0x64 << 5, rc1.BottomRight().y);
+				if (!rc3.IsRectEmpty()) {
+					SetClipRect(rc3);
+					this->sub_40587B(-this->field_0x68);
+				}
+				rc3.SetRect(0, rc2.TopLeft().y, rc2.TopLeft().x, rc2.BottomRight().y);
+				if (!rc3.IsRectEmpty()) {
+					SetClipRect(rc3);
+					this->sub_40587B(0);
+				}
+				rc3.SetRect(rc2.BottomRight().x, rc2.TopLeft().y, this->field_0x64 << 5, rc2.BottomRight().y);
+				if (!rc3.IsRectEmpty()) {
+					SetClipRect(rc3);
+					this->sub_40587B(0);
+				}
+			}
+		}
+		if (this->field_0x7c != 0) {
+			rc1.SetRect(0, old_ty << 5, this->field_0x64 << 5, this->field_0xe8 << 5);
+			rc1.NormalizeRect();
+			if (abs(this->field_0xe8 - old_ty) < this->field_0x68 / 2) {
+				SetClipRect(rc1);
+				if (this->field_0x7c < 0) {
+					this->sub_40587B(0);
+				} else {
+					this->sub_40587B(-this->field_0x68);
+				}
+			} else {
+				rc2.SetRect(0, 0, this->field_0x64 << 5, rc1.TopLeft().y);
+				if (!rc2.IsRectEmpty()) {
+					SetClipRect(rc2);
+					this->sub_40587B(-this->field_0x68);
+				}
+				rc2.SetRect(0, rc1.BottomRight().y, this->field_0x64 << 5, this->field_0x68 << 5);
+				if (!rc2.IsRectEmpty()) {
+					SetClipRect(rc2);
+					this->sub_40587B(0);
+				}
+			}
+		}
+	} else {
+		if (anim_redraw != 0 && g_Animation != 0) {
+			FUN_004549e5(0, this->field_0xe8 << 5, this->field_0x64 << 5, this->field_0x68 << 5);
+			this->sub_405399(0);
+			FUN_004549e5(0, 0, this->field_0x64 << 5, this->field_0xe8 << 5);
+			this->sub_405399(-this->field_0x68);
+		}
+	}
+	SetClipRect(clip_rect);
+	UnlockSurface3();
+	g_mousept.Update();
+	SetClipRect(this->field_0xf4);
+	FUN_00454e40(this->field_0xe4, this->field_0xe8, this->field_0x64 << 5, this->field_0x68 << 5);
+	SetClipRect(clip_rect);
+	g_mousept.Update();
+	LockSurface2();
+	GetClipRect(&clip_rect);
+	SetClipRect(this->field_0xf4);
+	if (this->field_0x108 != 0 && (g_DWORD_00659d18 & 2) == 0 && g_Lightning != 0) {
+		this->sub_405D0E();
+	}
+	int32_t tick = this->field_0xa88;
+	uint8_t* gfx_cells = this->field_0x80->FUN_0041eec0();
+	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint8_t* hmap = this->field_0x80->GetMapHeights();
+	uint16_t* landscape = this->field_0x80->GetLandscape();
+	this->field_0x134 = 0;
+
+	if (g_Shadows != 0) {
+		for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+					(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+				if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+					int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					CGameObject* obj = (CGameObject*)this->field_0x94[idx];
+					uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+					if (obj != nullptr && obj->FUN_0041f130() < 2) {
+						obj->VMethod7(x, y, hgt);
+					}
+				}
+			}
+		}
+	}
+
+	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+				uint8_t light = this->field_0xb0[idx];
+				CGameObject* obj9c = (CGameObject*)this->field_0x9c[idx];
+				CGameObject* obj98 = (CGameObject*)this->field_0x98[idx];
+				CGameObject* obj8c = (CGameObject*)this->field_0x8c[idx];
+				CGameObject* obj94 = (CGameObject*)this->field_0x94[idx];
+				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				if (obj94 != nullptr && obj94->FUN_0041f130() < 2 && g_StructuresInfo[obj94->typeId]->flat != 0) {
+					obj94->VMethod6(x, y, light);
+					StructureInfo* si = g_StructuresInfo[obj94->typeId];
+					CRect sel = si->selection;
+					sel.OffsetRect(obj94->mapBoundsLeft << 5,
+						((obj94->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
+					if (obj94->FUN_0041f130() == 0) {
+						this->sub_404DA3(&sel, obj94->unit_id);
+					}
+				}
+			}
+		}
+	}
+
+	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+				uint8_t light = this->field_0xb0[idx];
+				CUnit* unit = (CUnit*)this->field_0x8c[idx];
+				CGameObject* bld = (CGameObject*)this->field_0x94[idx];
+				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				if (bld != nullptr && bld->FUN_0041f130() < 2 && g_StructuresInfo[bld->typeId]->flat == 0) {
+					bld->VMethod6(x, y, light);
+					StructureInfo* si = g_StructuresInfo[bld->typeId];
+					CRect sel = si->selection;
+					sel.OffsetRect(bld->mapBoundsLeft << 5,
+						((bld->mapBoundsTop + si->tile_height) - si->full_height) * 0x20 - hgt);
+					if (bld->FUN_0041f130() == 0) {
+						this->sub_404DA3(&sel, bld->unit_id);
+					}
+				}
+				if (unit != nullptr && unit->FUN_0041f130() == 0 &&
+					(unit->FUN_00462405(0x20) < 0 || this->my_main_unit->FUN_0041ee50(unit->map_player->index) != 0)) {
+					UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
+					CRect sel = vfx->selection;
+					sel.OffsetRect(unit->centerScreenX - vfx->center_x,
+						(unit->centerScreenY - vfx->center_y) - unit->terrainHeightOffset - unit->z_pos);
+					if (unit->field_0x180[4] < 2) {
+						this->sub_404DA3(&sel, unit->unit_id);
+					}
+					if (g_Shadows != 0) {
+						unit->VMethod7(x, y, light);
+					}
+					unit->VMethod6(x, y, light);
+				}
+				if (g_Lightning != 0) {
+					uint16_t lkey = (x + this->view_x) | ((y + this->view_y) << 8);
+					uint32_t lval;
+					if (this->field_0xa94.Lookup(lkey, lval)) {
+						int32_t terrain = (uint16_t)(landscape[cell] & 0x1FFF) >> 6;
+						if (lval < 0x12 && terrain > 7 && terrain < 0xC) {
+							ProjectileInfo* proj = g_ProjectileInfos[8];
+							proj->FUN_0041f8f0()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
+								((y * 0x20 + 0x10) - hgt) - proj->height / 2, lval >> 1, 0, 0);
+						}
+					}
+				}
+			}
+			uint8_t gfxb = gfx_cells[cell];
+			if (gfxb != 0) {
+				int32_t gidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+				uint8_t light2 = this->field_0xb0[gidx];
+				int32_t tanval = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) * 65536.0);
+				uint32_t hgt2 = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				gfxb--;
+				if (this->sub_40B173(gfxb, x, y, hgt2) == 0) {
+					GfxObject* gobj = g_GfxObjects[gfxb];
+					int32_t file = gobj->file;
+					int32_t index = gobj->index;
+					int32_t frame_count = gobj->frame_count;
+					int32_t frame;
+					if (frame_count == 0 || lflags != 0xC000) {
+						if ((landscape[cell] & 0x2000) == 0 || gobj->dead_object == -1) {
+							frame = index;
+						} else {
+							file = g_GfxObjects[gobj->dead_object]->file;
+							index = 0;
+							frame = 0;
+						}
+					} else if ((landscape[cell] & 0x2000) == 0 || gobj->dead_object == -1) {
+						int32_t fidx = (tick + x + this->view_x + (y + this->view_y) * (x + this->view_x)) % frame_count;
+						frame = index + gobj->frames[fidx];
+					} else {
+						file = g_GfxObjects[gobj->dead_object]->file;
+						index = 0;
+						frame = 0;
+					}
+					if (g_Animation == 0) {
+						frame = 0;
+					}
+					CSprite256* spr = g_GfxFiles[file]->sub_41F870();
+					int32_t yoff = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) *
+						(double)((spr->GetHeight(frame) / 2 + gobj->height / 2) - gobj->center_y));
+					int32_t cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(0) / 2;
+					int32_t cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(0) / 2;
+					int32_t draw_x = ((x * 0x20 + 0x10) - cx) - yoff;
+					int32_t draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
+					CGamePalette* palette = &spr->palette;
+					if (g_Shadows != 0) {
+						spr->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.field_c, tanval, 0);
+					}
+					CSprite256* spr_b = g_GfxFiles[file]->sub_41F8A0();
+					cx = (gobj->center_x - gobj->width / 2) + spr_b->GetWidth(0) / 2;
+					cy = (gobj->center_y - gobj->height / 2) + spr_b->GetHeight(0) / 2;
+					draw_x = ((x * 0x20 + 0x10) - cx) - yoff;
+					draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
+					if (g_settings.Smoothing != 0 && g_Shadows != 0) {
+						spr_b->VMethod11(draw_x, draw_y, frame, g_DeltaCLR.field_10, tanval, 0);
+					}
+					cx = (gobj->center_x - gobj->width / 2) + spr->GetWidth(frame) / 2;
+					cy = (gobj->center_y - gobj->height / 2) + spr->GetHeight(frame) / 2;
+					draw_x = (x * 0x20 + 0x10) - cx;
+					draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
+					spr->VMethod1(draw_x, draw_y, frame, light2, palette, 0);
+					if (g_settings.Smoothing != 0) {
+						cx = (gobj->center_x - gobj->width / 2) + spr_b->GetWidth(frame) / 2;
+						cy = (gobj->center_y - gobj->height / 2) + spr_b->GetHeight(frame) / 2;
+						draw_x = (x * 0x20 + 0x10) - cx;
+						draw_y = ((y * 0x20 + 0x10) - cy) - hgt2;
+						spr_b->VMethod9(draw_x, draw_y, frame, light2, palette, 0);
+					}
+					uint16_t fkey = (x + this->view_x) | ((y + this->view_y) << 8);
+					uint32_t fval;
+					if (this->field_0xa94.Lookup(fkey, fval)) {
+						ProjectileInfo* proj = g_ProjectileInfos[0xF];
+						proj->FUN_0041f8f0()->VMethod2((x * 0x20 + 0x10) - proj->width / 2,
+							((y * 0x20 + 0x10) - hgt2) - proj->height / 2, (int32_t)fval / 2, 0, 0);
+					}
+				}
+			}
+			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
+				uint32_t tval;
+				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+					int32_t tidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					this->sub_40AFC5(x * 0x20 + 0x10,
+						(int32_t)(this->field_0xb8[tidx] + this->field_0xbc[tidx]) / 2, tval, 1);
+				}
+			}
+		}
+	}
+	SetClipRect(clip_rect);
+	UnlockSurface2();
+	g_mousept.Update();
+	LockSurface2();
+	SetClipRect(this->field_0xf4);
+
+	if (g_Shadows != 0) {
+		for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+					(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+				if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+					int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					CGameObject* obj = (CGameObject*)this->field_0x90[idx];
+					uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+					if (obj != nullptr && obj->FUN_0041f130() == 0) {
+						obj->VMethod7(x, y, hgt);
+					}
+				}
+			}
+		}
+	}
+
+	POSITION it = this->field_0x9ec.GetStartPosition();
+	while (it != nullptr) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		obj->VMethod6(0, 0, 0);
+	}
+
+	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+			if (y > -1 && y < this->field_0x68 + 4 && x > -1 && x < this->field_0x64) {
+				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
+				uint32_t tval;
+				if (this->field_0xa08.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+					int32_t tidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+					this->sub_40AFC5(x * 0x20 + 0x10,
+						(int32_t)(this->field_0xb8[tidx] + this->field_0xbc[tidx]) / 2, tval, 0);
+				}
+			}
+		}
+	}
+
+	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
+			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
+			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+				(landscape[cell + this->field_0x84] & 0xC000) | (landscape[cell + this->field_0x84 + 1] & 0xC000);
+			if (y > -4 && y < this->field_0x68 + 7 && x > -4 && x < this->field_0x64 + 3) {
+				int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+				uint8_t light = this->field_0xb0[idx];
+				CGameObject* obj = (CGameObject*)this->field_0x90[idx];
+				uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+				if (obj != nullptr && obj->FUN_0041f130() == 0) {
+					UnitVFXUnfo* vfx = g_VFX_info[obj->typeId];
+					CRect sel = vfx->selection;
+					sel.OffsetRect(obj->centerScreenX - vfx->center_x,
+						(obj->centerScreenY - vfx->center_y) - obj->terrainHeightOffset - obj->z_pos);
+					if (((CUnit*)obj)->field_0x180[4] < 2) {
+						this->sub_404DA3(&sel, obj->unit_id);
+					}
+					obj->VMethod6(x, y, light);
+				}
+			}
+		}
+	}
+
+	for (int32_t y = -3; y < this->field_0x68 + 7; y++) {
+		for (int32_t x = this->field_0x64 + 2; x > -4; x--) {
+			int32_t idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+			CGameObject* obj8c = (CGameObject*)this->field_0x8c[idx];
+			CGameObject* obj90 = (CGameObject*)this->field_0x90[idx];
+			CGameObject* obj94 = (CGameObject*)this->field_0x94[idx];
+			uint32_t hgt = this->field_0xc0[x + 4 + (y + 4) * (this->field_0x64 + 8)];
+			if (obj94 != nullptr && obj94->IsSelected()) {
+				obj94->VMethod8(x, y, hgt);
+			}
+			if (obj8c != nullptr && (obj8c->IsSelected() || (this->show_hp != 0 && obj8c->FUN_0041f130() == 0))) {
+				obj8c->VMethod8(x, y, hgt);
+			}
+			if (obj90 != nullptr && (obj90->IsSelected() || (this->show_hp != 0 && obj90->FUN_0041f130() == 0))) {
+				obj90->VMethod8(x, y, hgt);
+			}
+		}
+	}
+	SetClipRect(clip_rect);
+	UnlockSurface2();
+	g_mousept.Update();
+	LockSurface2();
+	SetClipRect(this->field_0xf4);
+
+	for (int32_t x = 0; x < this->field_0x64; x++) {
+		int32_t y = 0;
+		while (y < this->field_0x68 + 4) {
+			int32_t stride = this->field_0x64 + 7;
+			int32_t idx = x + 3 + (y + 3) * stride;
+			uint32_t t0 = this->field_0xa0[idx];
+			uint32_t t1 = this->field_0xa0[idx + 1];
+			uint32_t t2 = this->field_0xa0[idx + stride];
+			uint32_t t3 = this->field_0xa0[idx + 1 + stride];
+			uint32_t t4 = this->field_0xa0[idx + stride * 2];
+			uint32_t t5 = this->field_0xa0[idx + 1 + stride * 2];
+			uint32_t h0 = this->field_0xb4[idx];
+			uint32_t h1 = this->field_0xb4[idx + 1];
+			uint32_t h2 = this->field_0xb4[idx + stride];
+			uint32_t h3 = this->field_0xb4[idx + 1 + stride];
+			for (; t0 == t2 && t1 == t3 && t2 == t4 && t3 == t5 && y != this->field_0x68 + 3; y++) {
+				idx += stride;
+				h2 = this->field_0xb4[idx + stride];
+				h3 = this->field_0xb4[idx + 1 + stride];
+				t4 = this->field_0xa0[idx + stride * 2];
+				t5 = this->field_0xa0[idx + 1 + stride * 2];
+			}
+			if (t0 == t1 && t1 == t2 && t2 == t3) {
+				if (t0 == 0) {
+					y++;
+				} else if (t0 == 0x10) {
+					if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
+						FUN_00458fe6(x << 5, h0, h2);
+					} else {
+						FUN_004590ef(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
+					}
+					y++;
+				} else {
+					if (t0 != 8) {
+						if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
+							FUN_00459449(x << 5, h0, t0, t1, t2, t3);
+						} else {
+							FUN_004595fd(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
+						}
+						y++;
+						continue;
+					}
+					if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
+						FUN_0045995e(x << 5, h0, h2);
+					} else {
+						FUN_00459b72(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
+					}
+					y++;
+				}
+			} else {
+				if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
+					FUN_00459449(x << 5, h0, t0, t1, t2, t3);
+				} else {
+					FUN_004595fd(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
+				}
+				y++;
+			}
+		}
+	}
+	SetClipRect(clip_rect);
+	UnlockSurface2();
+	g_mousept.Update();
+	LockSurface2();
+	SetClipRect(this->field_0xf4);
+
+	if (child2 == nullptr || child3 == nullptr) {
+		if (child3 == nullptr) {
+			if (child2 != nullptr && g_ScreenSize.right == 800) {
+				FillRectColorSimple(local_rect.right - 0x20, child2->GetRect().top + 2, local_rect.right, local_rect.bottom, 0);
+			}
+		} else {
+			FillRectColorSimple(local_rect.right - 0x20, child3->GetRect().top + 2, local_rect.right, local_rect.bottom, 0);
+		}
+	} else {
+		FillRectColorSimple(local_rect.right - 0x20, child3->GetRect().top + 2, local_rect.right, child2->GetRect().bottom, 0);
+		FillRectColorSimple(local_rect.left, child3->GetRect().bottom, local_rect.right, child3->GetRect().bottom + 4, 0);
+	}
+	g_bmp_crystall->VMethod10(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
+	uint32_t top_panel_kind = (uint32_t)(this->field_0x140 == 0) | (this->field_0x144 & 0x24);
+	if (top_panel_kind == 0) {
+		g_bmp_cmdbarl->VMethod10(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
+	} else {
+		g_bmp_headsl->VMethod10(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
+	}
+	int32_t info_mode = wnd->vis_charinfo->info_mode;
+	if (info_mode == 0) {
+		g_bmp_textbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
+	} else {
+		g_bmp_humanbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 0xee, 0, 0, 0x10, 0xf2);
+	}
+	int32_t sidestatus_h = wnd->vis_sidestatus->GetRect().Height();
+	int32_t charinfo_h = wnd->vis_charinfo->GetRect().Height();
+	uint32_t panel_cmp = charinfo_h <= sidestatus_h;
+	if (g_ScreenSize.bottom > 600) {
+		g_bmp_extra1024l->VMethod10(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
+		g_bmp_textbackl->VMethod10(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
+	} else if (g_ScreenSize.bottom > 480) {
+		g_bmp_extra800l->VMethod10(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
+	}
+	SetClipRect(local_rect);
+	TakeDamage::DrawDamages(&this->damage_labels);
+	this->msglog.Draw();
+	this->field_0xc4++;
+	uint32_t now = timeGetTime();
+	if (this->field_0xcc == 0) {
+		this->field_0xcc = now;
+	}
+	this->field_0xc8 += now - this->field_0xcc;
+	this->field_0xcc = now;
+	if ((uint32_t)this->field_0xc8 > 1000) {
+		*(double*)&this->field_0xd0 = ((double)(uint32_t)this->field_0xc4 * 1000.0) / (double)(uint32_t)this->field_0xc8;
+		this->field_0xc8 -= 1000;
+		this->field_0xc4 = 0;
+	}
+	if (DAT_00660f6c != 0) {
+		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
+			GetColorRGB(8, 8, 8));
+		char buf[32];
+		sprintf(buf, "%3.1f fps", *(double*)&this->field_0xd0);
+		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
+	}
+	if (wnd->sessionMode == 0 && DAT_00660f70 != 0) {
+		NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
+		if (client != nullptr) {
+			uint32_t uid = client->GetUid();
+			ConnStatInfo* stat;
+			if (g_NetStru1_local.client_stat.Lookup(uid, stat)) {
+				FillRectColorSimple(local_rect.right - 0xb4, local_rect.top + 0x1e, local_rect.right - 0x1e, local_rect.top + 0x69,
+					GetColorRGB(8, 8, 8));
+				g_font1->DrawTextWithShadow(local_rect.right - 0x69, local_rect.top + 0x23, txt_patch.GetLine(74), 2, clrsh_ShockingBlack, 1);
+				CString str;
+				int32_t speed = 0;
+				if (stat->time != 0) {
+					speed = (int32_t)stat->total_bytes / (int32_t)stat->time;
+				}
+				str.Format("%s %d %s", txt_patch.GetLine(75), stat->cur_bs, txt_patch.GetLine(61));
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x34, (const char*)str, 0, clrsh_ShockingBlack, 1);
+				str.Format("%s %d %s", txt_patch.GetLine(76), speed, txt_patch.GetLine(61));
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x45, (const char*)str, 0, clrsh_ShockingBlack, 1);
+				str.Format("%s %d %s", txt_patch.GetLine(77), stat->max_bs, txt_patch.GetLine(61));
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x56, (const char*)str, 0, clrsh_ShockingBlack, 1);
+			}
+		}
+	}
+	SetClipRect(clip_rect);
+	CVisualObject::VMethod7();
+	UnlockSurface2();
+	this->sub_40B314();
+	if (childs_size == this->field_0x104) {
+		this->field_0xf4.SubtractRect(&this->field_0xf4, &childs_rect);
+		if (!childs_rect.IsRectEmpty()) {
+			gfxFlushRect(childs_rect);
+		}
+	}
+	this->field_0x104 = childs_size;
+	gfxFlushRect(this->field_0xf4);
+	CRect fps_area;
+	CRect fps_flush(0x168, 0, 0x1c2, 0x18);
+	CRect net_flush(300, 0x1e, 0x1c2, 0x69);
+	if (DAT_00660f6c != 0) {
+		gfxFlushRect(fps_flush);
+	}
+	if (DAT_00660f70 != 0 && wnd->sessionMode == 0) {
+		gfxFlushRect(net_flush);
+	}
+	this->field_0x74 = 0;
+	this->field_0x78 = 0;
+	this->field_0x7c = 0;
+	this->field_0xec = this->view_x;
+	this->field_0xf0 = this->view_y;
+}
+
 // 406F1A
 void BigStruct2::VMethod7()
 {
@@ -4918,4 +5535,3 @@ void BigStruct2::UpdateAmbientSounds()
 		}
 	}
 }
-

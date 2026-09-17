@@ -1662,6 +1662,8 @@ extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __this
 extern ?GetId@CVisualObject@@QAEHXZ : proc
 extern ?GetRect@CVisualObject@@QAEAAVCRect@@XZ : proc
 
+externdef ?sub_41F940@CVisualObject@@QAEHXZ : proc  ; int CVisualObject::sub_41F940()
+
 
 ;VizLabel
 extern ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,int,int,int,int,char const *,class CGameFont *,unsigned short *,unsigned int))
@@ -1875,7 +1877,16 @@ extern ??0TakeDamage@@QAE@XZ : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-externdef ?sub_406F7B@BigStruct2@@QAEXXZ : proc
+externdef ?sub_4065D3@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4065D3()
+externdef ?sub_40403B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40403B()
+externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
+externdef ?sub_405399@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_405399(int)
+externdef ?sub_40587B@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_40587B(int)
+externdef ?sub_405D0E@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_405D0E()
+externdef ?sub_404DA3@BigStruct2@@QAEXPAVCRect@@G@Z : proc  ; void BigStruct2::sub_404DA3(CRect*, uint16)
+externdef ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z : proc  ; void BigStruct2::sub_40AFC5(int, int, uint, int)
+externdef ?sub_40B173@BigStruct2@@QAEHHHHH@Z : proc  ; int BigStruct2::sub_40B173(int, int, int, int)
+externdef ?DAT_00660f6c@@3HA :dword
 externdef ?sub_40328E@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z : proc
@@ -1952,6 +1963,16 @@ extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
 
 externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
+
+
+externdef ?FUN_004549e5@@YAXHHHH@Z : proc  ; void __cdecl FUN_004549e5(int, int, int, int)
+externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int, int, int)
+externdef ?FUN_00458fe6@@YAXHHH@Z : proc  ; void __cdecl FUN_00458fe6(int, int, int)
+externdef ?FUN_004590ef@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_004590ef(int x6)
+externdef ?FUN_00459449@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459449(int x6)
+externdef ?FUN_004595fd@@YAXHHHHHHHHHH@Z : proc  ; void __cdecl FUN_004595fd(int x10)
+externdef ?FUN_0045995e@@YAXHHH@Z : proc  ; void __cdecl FUN_0045995e(int, int, int)
+externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
 
 
 ;TokenEntry
@@ -2469,10 +2490,17 @@ extern ?Init@GfxFile@@QAEXXZ : proc
 extern ?g_GfxFiles@@3V?$CArray@PAVGfxFile@@ABQAV1@@@A : dword
 extern ?g_GfxObjects@@3V?$CArray@PAVGfxObject@@ABQAV1@@@A  : dword
 
+
+; GfxFile
+externdef ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F870()
+externdef ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F8A0()
+
+
 ;UnitGfxObject
 extern ?g_UnitGfxFiles@@3V?$CArray@PAVUnitGfxFile@@ABQAV1@@@A : dword
 extern ?Init@UnitGfxFile@@QAEXXZ : proc
 extern ??0UnitGfxFile@@QAE@PBD@Z : proc
+
 
 ;StructureInfo
 extern ?Init@StructureInfo@@QAEXXZ : proc

@@ -126,6 +126,16 @@ extern Array2D<CBmp256*, 4, 32> g_ter_tiles; //665130
 void GetClipRect(CRect* r); //454a0c
 void SetClipRect(CRect& r); //4549ba
 
+void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b); //4549e5
+void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e40
+
+void __cdecl FUN_00458fe6(int32_t x, int32_t h0, int32_t h2); //458fe6
+void __cdecl FUN_004590ef(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //4590ef
+void __cdecl FUN_00459449(int32_t x, int32_t h0, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //459449
+void __cdecl FUN_004595fd(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //4595fd
+void __cdecl FUN_0045995e(int32_t x, int32_t h0, int32_t h2); //45995e
+void __cdecl FUN_00459b72(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //459b72
+
 
 inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
@@ -149,6 +159,8 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
 
 uint32_t LockSurface2(); // 45426e
 uint32_t UnlockSurface2(); // 4542ca
+uint32_t LockSurface3(); // 4543ca
+uint32_t UnlockSurface3(); // 45444f
 uint32_t LockSurface1(); // 45431c
 uint32_t UnlockSurface1(); // 454378
 
