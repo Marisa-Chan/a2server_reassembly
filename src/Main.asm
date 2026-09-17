@@ -420616,36 +420616,6 @@ off_609058      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 10h
 
-off_609088      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0BigStruct2@@QAE@HHHH@Z+10E↑o
-                dd offset ??_GBigStruct2@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@BigStruct2@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@BigStruct2@@UAEHIII@Z
-                dd offset ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@BigStruct2@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@BigStruct2@@UAEHI@Z
 dbl_609100      dq 65536.0              ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1AB9↑r
 dbl_609108      dq 1000.0               ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+3ACB↑r
 dbl_609110      dq 0.5                  ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+1AC7↑r
