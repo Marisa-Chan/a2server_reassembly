@@ -1490,19 +1490,18 @@ void Srv1::sub_59F1BE(MapAlm* alm) {
                     }
                     
                     // Add modifier effects
-                    for (int32_t mod_idx = 0; mod_idx < effect_data->modifiers_data.GetSize(); mod_idx++) {
-                        MapEffectModifier* modifier = &effect_data->modifiers_data[mod_idx];
+                    for (int32_t i = 0; i < effect_data->modifiers_data.GetSize(); i++) {
+                        MapEffectModifier* mod = &effect_data->modifiers_data[i];
                         Effect* effect = new Effect();
                         
-                        uint8_t mod_type = static_cast<uint8_t>(modifier->flags & 0xFF);
-                        if (mod_type == modifier::castspell) {
+                        if (mod->x == modifier::castspell) {
                             effect->effect_id = modifier::damagebonus;
                         } else {
-                            effect->effect_id = mod_type;
+                            effect->effect_id = mod->x;
                         }
                         
-                        effect->spell_or_damage = modifier->y;
-                        effect->spell_value = modifier->flags;
+                        effect->spell_or_damage = mod->y;
+                        effect->spell_value = mod->flags;
                         item->_effects.AddTail(effect);
                         item->VMethod15();
                     }
