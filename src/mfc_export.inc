@@ -2255,6 +2255,19 @@ externdef ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 
+;VisOrderToolbar
+externdef ??_GVisOrderToolbar@@UAEPAXI@Z : proc
+externdef ?GetHint@VisOrderToolbar@@UAEPBDXZ : proc
+externdef ?VMethod7@VisOrderToolbar@@UAEXXZ : proc
+externdef ?MsgProc@VisOrderToolbar@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc

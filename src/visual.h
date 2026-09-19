@@ -1105,6 +1105,19 @@ ASSERT_SIZE(VisMiniMap, 0x70);
 class VisOrderToolbar : public CVisualObject
 {
 public:
+	virtual ~VisOrderToolbar();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
+
 	VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b0cfc in asm
 public:
 	BigStruct2* map_context;
