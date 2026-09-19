@@ -73704,8 +73704,8 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_44EB08(char, RECT *lprcSrc)
-sub_44EB08      proc near               ; DATA XREF: .rdata:0060B090↓o
+; int __stdcall ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(char, RECT *lprcSrc)
+?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060B090↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -73761,10 +73761,10 @@ lprcSrc         = dword ptr  0Ch
                 jmp     short loc_44EB84
 ; ---------------------------------------------------------------------------
 
-loc_44EB7D:                             ; CODE XREF: sub_44EB08+45↑j
+loc_44EB7D:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+45↑j
                 mov     [ebp+var_28], 0
 
-loc_44EB84:                             ; CODE XREF: sub_44EB08+73↑j
+loc_44EB84:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+73↑j
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     [ebp+var_18], ecx
 ;   } // starts at 44EB42
@@ -73813,10 +73813,10 @@ loc_44EB84:                             ; CODE XREF: sub_44EB08+73↑j
                 jmp     short loc_44EC14
 ; ---------------------------------------------------------------------------
 
-loc_44EC0D:                             ; CODE XREF: sub_44EB08+D0↑j
+loc_44EC0D:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+D0↑j
                 mov     [ebp+var_2C], 0
 
-loc_44EC14:                             ; CODE XREF: sub_44EB08+103↑j
+loc_44EC14:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+103↑j
                 mov     ecx, dword ptr [ebp+var_2C]
                 mov     [ebp+var_20], ecx
 ;   } // starts at 44EBCD
@@ -73832,7 +73832,7 @@ loc_44EC14:                             ; CODE XREF: sub_44EB08+103↑j
                 pop     ebp
                 retn    8
 ; } // starts at 44EB08
-sub_44EB08      endp
+?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -77005,7 +77005,7 @@ sub_450B30      endp
 
 ; Attributes: bp-based frame
 
-sub_450B50      proc near               ; DATA XREF: .rdata:0060B00C↓o
+??_GVisCutScenesDlg@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B00C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -77024,12 +77024,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_450B72:                             ; CODE XREF: sub_450B50+17↑j
+loc_450B72:                             ; CODE XREF: ??_GVisCutScenesDlg@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_450B50      endp
+??_GVisCutScenesDlg@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -77038,7 +77038,7 @@ sub_450B50      endp
 
 ; Attributes: bp-based frame
 
-sub_450B80      proc near               ; CODE XREF: sub_450B50+A↑p
+sub_450B80      proc near               ; CODE XREF: ??_GVisCutScenesDlg@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -394590,7 +394590,7 @@ SEH_44E8CA:                             ; DATA XREF: ?VMethod26@VisMissionFailed
 ; } // starts at 5F9ADD
 ; END OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44EB08
+; START OF FUNCTION CHUNK FOR ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 
 loc_5F9AFB:                             ; DATA XREF: .rdata:stru_61A528↓o
 ; __unwind { // SEH_44EB08
@@ -394609,11 +394609,11 @@ loc_5F9B05:                             ; DATA XREF: .rdata:0061A530↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44EB08:                             ; DATA XREF: sub_44EB08+5↑o
+SEH_44EB08:                             ; DATA XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
                 mov     eax, offset stru_61A508
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9AFB
-; END OF FUNCTION CHUNK FOR sub_44EB08
+; END OF FUNCTION CHUNK FOR ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44EC40
 
@@ -421943,7 +421943,7 @@ off_60AF78      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
                 dd offset ?VMethod31@VisMessageBox@@UAEXH@Z ; Microsoft VisualC 2-14/net runtime
 off_60B008      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z+3E↑o
-                dd offset sub_450B50
+                dd offset ??_GVisCutScenesDlg@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421976,7 +421976,7 @@ off_60B008      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
-                dd offset sub_44EB08
+                dd offset ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
                 dd offset ?VMethod31@VisMessageBox@@UAEXH@Z ; Microsoft VisualC 2-14/net runtime
 off_60B098      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z+2E↑o
                 dd offset sub_450BA0

@@ -2231,6 +2231,8 @@ ASSERT_SIZE(VisMissionFailed, 0x78);
 class VisCutScenesDlg : public VisMessageBox
 {
 public:
+	virtual ~VisCutScenesDlg();
+
 	VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload); //44eabb
 
 
