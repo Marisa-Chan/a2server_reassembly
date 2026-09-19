@@ -2283,6 +2283,12 @@ ASSERT_SIZE(VisConnectionDlg, 0x80);
 class VisNetDlg : public VisWindow
 {
 public:
+	virtual ~VisNetDlg();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod26() override;
+
 	VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions); //4464c7
 
 public:
