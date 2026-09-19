@@ -1066,6 +1066,11 @@ ASSERT_SIZE(BigStruct2, 0x49c8);
 class VisRightPanel : public CVisualObject
 {
 public:
+	virtual ~VisRightPanel();
+
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+
 	VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aedcf in asm
 };
 ASSERT_SIZE(VisRightPanel, 0x5c);

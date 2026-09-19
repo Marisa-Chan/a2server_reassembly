@@ -159143,7 +159143,7 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_4AEE31      proc near               ; DATA XREF: .rdata:0060CEAC↓o
+?VMethod7@VisRightPanel@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060CEAC↓o
 
 var_4           = dword ptr -4
 
@@ -159156,14 +159156,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4AEE31      endp
+?VMethod7@VisRightPanel@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4AEE44      proc near               ; DATA XREF: .rdata:0060CEC8↓o
+?MsgProc@VisRightPanel@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060CEC8↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -159182,7 +159182,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_4AEE76
 ; ---------------------------------------------------------------------------
 
-loc_4AEE5E:                             ; CODE XREF: sub_4AEE44+16↑j
+loc_4AEE5E:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAEHIII@Z+16↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
                 call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
                 test    eax, eax
@@ -159190,7 +159190,7 @@ loc_4AEE5E:                             ; CODE XREF: sub_4AEE44+16↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?ResetStates@CMousePointer@@QAEXXZ
 
-loc_4AEE76:                             ; CODE XREF: sub_4AEE44+18↑j
+loc_4AEE76:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAEHIII@Z+18↑j
                 mov     ecx, dword ptr [ebp+arg_8]
                 push    ecx
                 mov     edx, dword ptr [ebp+arg_4]
@@ -159202,7 +159202,7 @@ loc_4AEE76:                             ; CODE XREF: sub_4AEE44+18↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4AEE44      endp
+?MsgProc@VisRightPanel@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -167856,7 +167856,7 @@ sub_4B45BB      endp
 
 ; Attributes: bp-based frame
 
-sub_4B46E0      proc near               ; DATA XREF: .rdata:0060CE84↓o
+??_GVisRightPanel@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CE84↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -167875,12 +167875,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4B4702:                             ; CODE XREF: sub_4B46E0+17↑j
+loc_4B4702:                             ; CODE XREF: ??_GVisRightPanel@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4B46E0      endp
+??_GVisRightPanel@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -167889,7 +167889,7 @@ sub_4B46E0      endp
 
 ; Attributes: bp-based frame
 
-sub_4B4710      proc near               ; CODE XREF: sub_4B46E0+A↑p
+sub_4B4710      proc near               ; CODE XREF: ??_GVisRightPanel@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -423909,7 +423909,7 @@ off_60CDF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod28@VisFameDocument@@UAEXXZ
                 dd offset ?DoClose@VisFameDocument@@UAEXI@Z
 off_60CE80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004AEDC2↑o
-                dd offset sub_4B46E0
+                dd offset ??_GVisRightPanel@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -423919,14 +423919,14 @@ off_60CE80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_4AEE31
+                dd offset ?VMethod7@VisRightPanel@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_4AEE44
+                dd offset ?MsgProc@VisRightPanel@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit

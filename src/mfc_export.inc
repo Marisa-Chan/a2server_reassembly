@@ -2241,6 +2241,11 @@ externdef ??_GVisCharSellectStats@@UAEPAXI@Z : proc
 externdef ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
 externdef ?VMethod7@VisCharSellectStats@@UAEXXZ : proc
 
+;VisRightPanel
+externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
+externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
