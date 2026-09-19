@@ -2325,6 +2325,23 @@ externdef ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc
 externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
 
+;VisInvType1
+externdef ??_GVisInvType1@@UAEPAXI@Z : proc
+externdef ?GetHint@VisInvType1@@UAEPBDXZ : proc
+externdef ?VMethod7@VisInvType1@@UAEXXZ : proc
+externdef ?MsgProc@VisInvType1@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z : proc
+externdef ?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z : proc
+externdef ?VMethod30@VisInvType1@@UAEHHH@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
