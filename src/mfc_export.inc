@@ -2572,6 +2572,10 @@ externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc
 
 ; VisHatServerListDlg
 externdef ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z : proc
+externdef ??_GVisHatServerListDlg@@UAEPAXI@Z : proc
+externdef ?MsgProc@VisHatServerListDlg@@UAEHIII@Z : proc
+externdef ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisHatServerListDlg@@UAEXH@Z : proc
 
 ; VisHatBrowserDlg
 externdef ??0VisHatBrowserDlg@@QAE@HHHHH@Z : proc

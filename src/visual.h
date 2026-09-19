@@ -2387,9 +2387,13 @@ ASSERT_SIZE(VisQuestStatus, 0x6c);
 class VisHatServerListDlg : public VisMessageBox
 {
 public:
+	virtual ~VisHatServerListDlg();
+
 	VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2
 
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
 public:
 	HatSettings* hat_settings;
 };
