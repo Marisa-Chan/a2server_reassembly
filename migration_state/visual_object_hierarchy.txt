@@ -1,6 +1,6 @@
 # Classes whose ctor/dtor are already in C++ (no ASM vtable should exist).
 # Derived from `extern ??0X@@`/`extern ??1X@@` in mfc_export.inc; keep in sync.
-MIGRATED: CVisualObject BigStruct2 VisLabel VisButton VisScrollBar VisListBox VisTextBox VisRadioBase VisRadioType1 VisRadioType2 VisBitmap VisComboBox VisMultiText VisScreen VisWindow VisMessageBox VisMessageBoxWithList QuestObjectivesHeaderDialogVisualObject VisMenuWnd IngameMenu MenuButton LoadGameWindow SaveGameWindow HintedListBox GameOptionsWindow EndGameMenu ExitGameMenu TownMenuListDialogVisualObject SoundPreferencesDialogVisualObject VisLogoWnd
+MIGRATED: CVisualObject BigStruct2 VisLabel VisButton VisScrollBar VisListBox VisTextBox VisRadioBase VisRadioType1 VisRadioType2 VisBitmap VisComboBox VisMultiText VisScreen VisWindow VisMessageBox VisMessageBoxWithList QuestObjectivesHeaderDialogVisualObject VisMenuWnd IngameMenu MenuButton LoadGameWindow SaveGameWindow HintedListBox GameOptionsWindow EndGameMenu ExitGameMenu TownMenuListDialogVisualObject SoundPreferencesDialogVisualObject VisLogoWnd VisComboBoxButton VisComboBoxList VisComboBoxText
 VisLabel : CVisualObject
 VisButton : CVisualObject
 VisScrollBar : CVisualObject

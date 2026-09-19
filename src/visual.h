@@ -1376,6 +1376,7 @@ public:
 ASSERT_SIZE(VisTavKaarg, 0x168);
 
 
+// VTable at 60da00
 class VisSpellBook : public CVisualObject
 {
 public:
@@ -1670,7 +1671,7 @@ public:
 ASSERT_SIZE(VisTownKaarg, 0x314);
 
 
-
+// VTable at 609b88
 class VisCredits : public VisScreen
 {
 public:
