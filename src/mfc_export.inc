@@ -2135,6 +2135,17 @@ externdef ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
 externdef ?VMethod26@VisDropGold@@UAEXXZ : proc
 externdef ?VMethod28@VisDropGold@@UAEXXZ : proc
 externdef ?DoClose@VisDropGold@@UAEXI@Z : proc
+;VisMainMenu
+externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisMainMenu@@UAEXXZ : proc
+externdef ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod26@VisMainMenu@@UAEXXZ : proc
+externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
+externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
