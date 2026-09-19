@@ -2314,6 +2314,17 @@ externdef ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
+;VisInvBase
+externdef ??_GVisInvBase@@UAEPAXI@Z : proc
+externdef ?GetHint@VisInvBase@@UAEPBDXZ : proc
+externdef ?MsgProc@VisInvBase@@UAEHIII@Z : proc
+externdef ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc
+externdef ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc
+externdef ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc
+externdef ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc
+externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
+externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
