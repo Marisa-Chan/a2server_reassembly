@@ -2554,6 +2554,9 @@ externdef ??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z : proc
 
 ; VisNetTcpIp
 externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc
+externdef ??_GVisNetTcpIp@@UAEPAXI@Z : proc
+externdef ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisNetTcpIp@@UAEXH@Z : proc
 
 ; VisNetSerialSettings
 externdef ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z : proc

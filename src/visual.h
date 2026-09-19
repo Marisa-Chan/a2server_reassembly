@@ -2293,9 +2293,12 @@ ASSERT_SIZE(VisNetDlg, 0x94);
 class VisNetTcpIp : public VisMessageBox
 {
 public:
+	virtual ~VisNetTcpIp();
+
 	VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip); //449f06
 
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
 public:
 	CString* ip;
 };

@@ -66377,7 +66377,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_449F67      proc near               ; DATA XREF: .rdata:0060A89C↓o
+?VMethod31@VisNetTcpIp@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060A89C↓o
 
 var_10C         = dword ptr -10Ch
 var_108         = dword ptr -108h
@@ -66421,7 +66421,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_44A00E
 ; ---------------------------------------------------------------------------
 
-loc_449FEF:                             ; CODE XREF: sub_449F67+1E↑j
+loc_449FEF:                             ; CODE XREF: ?VMethod31@VisNetTcpIp@@UAEXH@Z+1E↑j
                 mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
                 call    ?Close@CLlDriver@@QAEXXZ
                 push    0               ; lParam
@@ -66431,18 +66431,18 @@ loc_449FEF:                             ; CODE XREF: sub_449F67+1E↑j
                 mov     ecx, eax
                 call    ?PostMessageA@CWnd@@QAEHIIJ@Z
 
-loc_44A00E:                             ; CODE XREF: sub_449F67+86↑j
+loc_44A00E:                             ; CODE XREF: ?VMethod31@VisNetTcpIp@@UAEXH@Z+86↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_449F67      endp
+?VMethod31@VisNetTcpIp@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44A014      proc near               ; DATA XREF: .rdata:0060A898↓o
+?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060A898↓o
 
 var_24          = dword ptr -24h
 var_20          = dword ptr -20h
@@ -66503,10 +66503,10 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_44A09C
 ; ---------------------------------------------------------------------------
 
-loc_44A095:                             ; CODE XREF: sub_44A014+39↑j
+loc_44A095:                             ; CODE XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+39↑j
                 mov     [ebp+var_24], 0
 
-loc_44A09C:                             ; CODE XREF: sub_44A014+7F↑j
+loc_44A09C:                             ; CODE XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+7F↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     [ebp+var_1C], ecx
 ;   } // starts at 44A042
@@ -66531,7 +66531,7 @@ loc_44A09C:                             ; CODE XREF: sub_44A014+7F↑j
                 pop     ebp
                 retn    8
 ; } // starts at 44A014
-sub_44A014      endp
+?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -75521,7 +75521,7 @@ sub_44FCF0      endp
 
 ; Attributes: bp-based frame
 
-sub_44FD10      proc near               ; DATA XREF: .rdata:0060A814↓o
+??_GVisNetTcpIp@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A814↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -75540,12 +75540,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44FD32:                             ; CODE XREF: sub_44FD10+17↑j
+loc_44FD32:                             ; CODE XREF: ??_GVisNetTcpIp@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44FD10      endp
+??_GVisNetTcpIp@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -75554,7 +75554,7 @@ sub_44FD10      endp
 
 ; Attributes: bp-based frame
 
-sub_44FD40      proc near               ; CODE XREF: sub_44FD10+A↑p
+sub_44FD40      proc near               ; CODE XREF: ??_GVisNetTcpIp@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -393952,7 +393952,7 @@ SEH_448D15:                             ; DATA XREF: sub_448D15+5↑o
 ; } // starts at 5F9724
 ; END OF FUNCTION CHUNK FOR sub_448D15
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44A014
+; START OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 
 loc_5F97D6:                             ; DATA XREF: .rdata:stru_61A130↓o
 ; __unwind { // SEH_44A014
@@ -393963,11 +393963,11 @@ loc_5F97D6:                             ; DATA XREF: .rdata:stru_61A130↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44A014:                             ; DATA XREF: sub_44A014+5↑o
+SEH_44A014:                             ; DATA XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
                 mov     eax, offset stru_61A110
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F97D6
-; END OF FUNCTION CHUNK FOR sub_44A014
+; END OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44A34D
 
@@ -421524,7 +421524,7 @@ off_60A788      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60A810      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z+49↑o
-                dd offset sub_44FD10
+                dd offset ??_GVisNetTcpIp@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421557,8 +421557,8 @@ off_60A810      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
-                dd offset sub_44A014
-                dd offset sub_449F67
+                dd offset ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod31@VisNetTcpIp@@UAEXH@Z
 off_60A8A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z+46↑o
                 dd offset sub_44FD60
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
