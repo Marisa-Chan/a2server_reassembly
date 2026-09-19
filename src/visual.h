@@ -1899,6 +1899,24 @@ ASSERT_SIZE(VisDropGold, 0xd0);
 class VisCharInfo : public CVisualObject
 {
 public:
+	virtual ~VisCharInfo();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual int32_t VMethod26(int32_t a); //4b38af
+	virtual int32_t VMethod27(int32_t a); //4b3a0d
+	virtual int32_t VMethod28();
+
 	VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b16c3 in asm
 public:
 	BigStruct2* map_context;
