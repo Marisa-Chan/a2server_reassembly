@@ -2300,6 +2300,12 @@ externdef ?VMethod26@VisCharInfo@@UAEHH@Z : proc
 externdef ?VMethod27@VisCharInfo@@UAEHH@Z : proc
 externdef ?VMethod28@VisCharInfo@@UAEHXZ : proc
 
+;VisSideStatus
+externdef ??_GVisSideStatus@@UAEPAXI@Z : proc
+externdef ?GetHint@VisSideStatus@@UAEPBDXZ : proc
+externdef ?VMethod7@VisSideStatus@@UAEXXZ : proc
+externdef ?MsgProc@VisSideStatus@@UAEHIII@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc

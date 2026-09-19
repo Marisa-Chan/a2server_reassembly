@@ -1936,6 +1936,12 @@ ASSERT_SIZE(VisCharInfo, 0x17c);
 class VisSideStatus : public CVisualObject
 {
 public:
+	virtual ~VisSideStatus();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+
 	VisSideStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b3fa3 in asm
 public:
 	uint32_t dirty;
