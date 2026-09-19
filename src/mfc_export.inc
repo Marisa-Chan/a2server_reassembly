@@ -2181,6 +2181,20 @@ externdef ?OnChar@VisGlobalMap@@UAEHI@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 externdef ?VMethod28@VisGlobalMap@@UAEXXZ : proc
 externdef ?DoClose@VisGlobalMap@@UAEXI@Z : proc
+;VisFameHall
+externdef ??_GVisFameHall@@UAEPAXI@Z : proc
+externdef ?GetHint@VisFameHall@@UAEPBDXZ : proc
+externdef ?VMethod7@VisFameHall@@UAEXXZ : proc
+externdef ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisFameHall@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisFameHall@@UAEHI@Z : proc
+externdef ?OnChar@VisFameHall@@UAEHI@Z : proc
+externdef ?VMethod26@VisFameHall@@UAEXXZ : proc
+externdef ?VMethod28@VisFameHall@@UAEXXZ : proc
+externdef ?DoClose@VisFameHall@@UAEXI@Z : proc
 
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc

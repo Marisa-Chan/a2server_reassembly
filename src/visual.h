@@ -2326,6 +2326,22 @@ ASSERT_SIZE(VisLogoWnd, 0x7c);
 class VisFameHall : public VisScreen
 {
 public:
+	virtual ~VisFameHall();
+
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
 	VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 45cd35 in asm
 public:
 	CFameHall* fame;
