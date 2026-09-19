@@ -2119,6 +2119,15 @@ externdef ?OnKeyDown@VisCharGen@@UAEHI@Z : proc
 externdef ?VMethod26@VisCharGen@@UAEXXZ : proc
 externdef ?VMethod28@VisCharGen@@UAEXXZ : proc
 externdef ?DoClose@VisCharGen@@UAEXI@Z : proc
+;Vis1200
+externdef ??_GVis1200@@UAEPAXI@Z : proc
+externdef ?VMethod7@Vis1200@@UAEXXZ : proc
+externdef ?VMethod8@Vis1200@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@Vis1200@@UAEHIII@Z : proc
+externdef ?OnKeyDown@Vis1200@@UAEHI@Z : proc
+externdef ?VMethod26@Vis1200@@UAEXXZ : proc
+externdef ?VMethod28@Vis1200@@UAEXXZ : proc
+externdef ?DoClose@Vis1200@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc

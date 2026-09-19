@@ -1813,6 +1813,16 @@ ASSERT_SIZE(VisCharGen, 0x108);
 class Vis1200 : public VisScreen
 {
 public:
+	virtual ~Vis1200();
+
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
 
 	int32_t FUN_004972d0(); //4972d0
 	int32_t FUN_00497310(); //497310
