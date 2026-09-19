@@ -1534,6 +1534,13 @@ ASSERT_SIZE(VisShopDruid, 0x190);
 class VisShopKaarg : public VisShop
 {
 public:
+	virtual ~VisShopKaarg();
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
+
 	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm
 public:
 	SfxSample* snd_voice[3];

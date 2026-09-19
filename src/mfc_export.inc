@@ -2063,6 +2063,12 @@ externdef ?VMethod26@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod28@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisShopDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisShopDruid@@UAEXH@Z : proc
+;VisShopKaarg
+externdef ??_GVisShopKaarg@@UAEPAXI@Z : proc
+externdef ?VMethod26@VisShopKaarg@@UAEXXZ : proc
+externdef ?VMethod28@VisShopKaarg@@UAEXXZ : proc
+externdef ?VMethod30@VisShopKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisShopKaarg@@UAEXH@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
