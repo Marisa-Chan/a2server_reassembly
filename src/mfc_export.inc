@@ -2098,6 +2098,16 @@ externdef ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod28@VisTownKaarg@@UAEXXZ : proc
 externdef ?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisTownKaarg@@UAEXH@Z : proc
+;VisCredits
+externdef ??_GVisCredits@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisCredits@@UAEXXZ : proc
+externdef ?VMethod8@VisCredits@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisCredits@@UAEHIII@Z : proc
+externdef ?OnLButtonDown@VisCredits@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisCredits@@UAEHI@Z : proc
+externdef ?VMethod26@VisCredits@@UAEXXZ : proc
+externdef ?VMethod28@VisCredits@@UAEXXZ : proc
+externdef ?DoClose@VisCredits@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc

@@ -1741,6 +1741,18 @@ ASSERT_SIZE(VisTownKaarg, 0x314);
 class VisCredits : public VisScreen
 {
 public:
+	virtual ~VisCredits();
+
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
 	VisCredits(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43c337 in asm
 public:
 	CMapStringToOb bitmaps;
