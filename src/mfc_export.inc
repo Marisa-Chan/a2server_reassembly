@@ -2525,6 +2525,9 @@ extern ??0VisLogoWnd@@QAE@HHHHH@Z : proc
 
 ; Vis2Action
 externdef ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z : proc
+externdef ??_GVis2Action@@UAEPAXI@Z : proc
+externdef ?MsgProc@Vis2Action@@UAEHIII@Z : proc
+externdef ?VMethod26@Vis2Action@@UAEXXZ : proc
 
 ; VisMissionFailed
 externdef ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z : proc

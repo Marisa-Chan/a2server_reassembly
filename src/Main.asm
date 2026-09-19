@@ -74339,7 +74339,7 @@ arg_18          = dword ptr  20h
 
 ; Attributes: bp-based frame
 
-sub_44F0E8      proc near               ; DATA XREF: .rdata:0060B110↓o
+?VMethod26@Vis2Action@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B110↓o
 
 var_54          = dword ptr -54h
 var_50          = dword ptr -50h
@@ -74394,10 +74394,10 @@ var_4           = dword ptr -4
                 jmp     short loc_44F154
 ; ---------------------------------------------------------------------------
 
-loc_44F14D:                             ; CODE XREF: sub_44F0E8+33↑j
+loc_44F14D:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+33↑j
                 mov     [ebp+var_4C], 0
 
-loc_44F154:                             ; CODE XREF: sub_44F0E8+63↑j
+loc_44F154:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+63↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     [ebp+var_34], ecx
 ;   } // starts at 44F110
@@ -74490,10 +74490,10 @@ loc_44F154:                             ; CODE XREF: sub_44F0E8+63↑j
                 jmp     short loc_44F265
 ; ---------------------------------------------------------------------------
 
-loc_44F25E:                             ; CODE XREF: sub_44F0E8+140↑j
+loc_44F25E:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+140↑j
                 mov     [ebp+var_50], 0
 
-loc_44F265:                             ; CODE XREF: sub_44F0E8+174↑j
+loc_44F265:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+174↑j
                 mov     edx, dword ptr [ebp+var_50]
                 mov     [ebp+var_3C], edx
 ;   } // starts at 44F21D
@@ -74531,10 +74531,10 @@ loc_44F265:                             ; CODE XREF: sub_44F0E8+174↑j
                 jmp     short loc_44F2DD
 ; ---------------------------------------------------------------------------
 
-loc_44F2D6:                             ; CODE XREF: sub_44F0E8+1B4↑j
+loc_44F2D6:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+1B4↑j
                 mov     [ebp+var_54], 0
 
-loc_44F2DD:                             ; CODE XREF: sub_44F0E8+1EC↑j
+loc_44F2DD:                             ; CODE XREF: ?VMethod26@Vis2Action@@UAEXXZ+1EC↑j
                 mov     eax, dword ptr [ebp+var_54]
                 mov     [ebp+var_44], eax
 ;   } // starts at 44F291
@@ -74552,15 +74552,15 @@ loc_44F2DD:                             ; CODE XREF: sub_44F0E8+1EC↑j
                 pop     ebp
                 retn
 ; } // starts at 44F0E8
-sub_44F0E8      endp
+?VMethod26@Vis2Action@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_44F30D(int, UINT Msg, int)
-sub_44F30D      proc near               ; DATA XREF: .rdata:0060B0E0↓o
+; int __stdcall ?MsgProc@Vis2Action@@UAEHIII@Z(int, UINT Msg, int)
+?MsgProc@Vis2Action@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060B0E0↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -74585,7 +74585,7 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_44F30D      endp
+?MsgProc@Vis2Action@@UAEHIII@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -77060,7 +77060,7 @@ sub_450B80      endp
 
 ; Attributes: bp-based frame
 
-sub_450BA0      proc near               ; DATA XREF: .rdata:0060B09C↓o
+??_GVis2Action@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B09C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -77079,12 +77079,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_450BC2:                             ; CODE XREF: sub_450BA0+17↑j
+loc_450BC2:                             ; CODE XREF: ??_GVis2Action@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_450BA0      endp
+??_GVis2Action@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -77093,7 +77093,7 @@ sub_450BA0      endp
 
 ; Attributes: bp-based frame
 
-sub_450BD0      proc near               ; CODE XREF: sub_450BA0+A↑p
+sub_450BD0      proc near               ; CODE XREF: ??_GVis2Action@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -394632,7 +394632,7 @@ SEH_44EC40:                             ; DATA XREF: sub_44EC40+5↑o
 ; } // starts at 5F9B19
 ; END OF FUNCTION CHUNK FOR sub_44EC40
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44F0E8
+; START OF FUNCTION CHUNK FOR ?VMethod26@Vis2Action@@UAEXXZ
 
 loc_5F9B30:                             ; DATA XREF: .rdata:stru_61A580↓o
 ; __unwind { // SEH_44F0E8
@@ -394659,11 +394659,11 @@ loc_5F9B44:                             ; DATA XREF: .rdata:0061A590↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44F0E8:                             ; DATA XREF: sub_44F0E8+5↑o
+SEH_44F0E8:                             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A560
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9B30
-; END OF FUNCTION CHUNK FOR sub_44F0E8
+; END OF FUNCTION CHUNK FOR ?VMethod26@Vis2Action@@UAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 
@@ -421979,7 +421979,7 @@ off_60B008      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
                 dd offset ?VMethod31@VisMessageBox@@UAEXH@Z ; Microsoft VisualC 2-14/net runtime
 off_60B098      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z+2E↑o
-                dd offset sub_450BA0
+                dd offset ??_GVis2Action@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421996,7 +421996,7 @@ off_60B098      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_44F30D
+                dd offset ?MsgProc@Vis2Action@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -422008,7 +422008,7 @@ off_60B098      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@VisMenuWnd@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_44F0E8
+                dd offset ?VMethod26@Vis2Action@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
@@ -452991,9 +452991,9 @@ byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed
 ; CHAR byte_659A50[4]
 byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15D↑o
 ; CHAR byte_659A54[4]
-byte_659A54     db 4 dup(?)             ; DATA XREF: sub_44F0E8+142↑o
+byte_659A54     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+142↑o
 ; CHAR byte_659A58[4]
-byte_659A58     db 4 dup(?)             ; DATA XREF: sub_44F0E8+1B6↑o
+byte_659A58     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+1B6↑o
 ; CHAR byte_659A5C[4]
 byte_659A5C     db 4 dup(?)             ; DATA XREF: sub_4502C0+2D↑o
 ; AFX_CLASSINIT unk_659A60

@@ -2208,6 +2208,11 @@ ASSERT_SIZE(VisFameDocument, 0xf8);
 class Vis2Action : public VisMenuWnd
 {
 public:
+	virtual ~Vis2Action();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual void VMethod26() override;
+
 	Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r); //44f0a2
 
 public:
