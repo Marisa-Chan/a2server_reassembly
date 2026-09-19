@@ -423150,64 +423150,6 @@ dword_60BD60    dd 0                    ; DATA XREF: sub_4973B0+10↑r
                 db    0
                 db    0
 
-
-
-
-; ServerControlDialog::vftable
-off_60C458      dd offset ?GetRuntimeClass@CDialog@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0ServerControlDialog@@QAE@PAVCWnd@@@Z+F7↑o
-                dd offset ??_GServerControlDialog@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?OnCmdMsg@CDialog@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z    ; ?OnCmdMsg@CPropertySheet@@UAEHIHPAXPAUAFX_CMDHANDLERINFO@@@Z
-                dd offset ?OnFinalRelease@CWnd@@UAEXXZ ; CWnd::OnFinalRelease(void)
-                dd offset ?IsInvokeAllowed@CCmdTarget@@UAEHJ@Z
-                dd offset ?GetDispatchIID@CCmdTarget@@UAEHPAU_GUID@@@Z
-                dd offset ?GetTypeInfoCount@CCmdTarget@@UAEIXZ
-                dd offset ?GetTypeLibCache@CCmdTarget@@UAEPAVCTypeLibCache@@XZ
-                dd offset ?GetTypeLib@CCmdTarget@@UAEJKPAPAUITypeLib@@@Z ; CCmdTarget::GetTypeLib(ulong,ITypeLib * *)
-                dd offset ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ
-                dd offset ?GetCommandMap@CCmdTarget@@UBEPBXXZ
-                dd offset ?GetDispatchMap@CCmdTarget@@UBEPBXXZ
-                dd offset ?GetConnectionMap@CCmdTarget@@UBEPBXXZ
-                dd offset ?GetInterfaceMap@CCmdTarget@@UBEPBXXZ
-                dd offset ?GetEventSinkMap@CCmdTarget@@UBEPBXXZ
-                dd offset ?OnCreateAggregates@CCmdTarget@@UAEHXZ
-                dd offset ?GetInterfaceHook@CCmdTarget@@UAEPAUIUnknown@@PBX@Z
-                dd offset ?GetExtraConnectionPoints@CCmdTarget@@UAEHPAVCPtrArray@@@Z
-                dd offset ?GetConnectionHook@CCmdTarget@@UAEPAUIConnectionPoint@@ABU_GUID@@@Z
-                dd offset ?PreSubclassWindow@CWnd@@UAEXXZ
-                dd offset ?Create@CWnd@@UAEHPBD0KABUtagRECT@@PAV1@IPAX@Z ; CWnd::Create(char const *,char const *,ulong,tagRECT const &,CWnd *,uint,CCreateContext *)
-                dd offset ?DestroyWindow@CWnd@@UAEHXZ ; CWnd::DestroyWindow(void)
-                dd offset ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z
-                dd offset ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z ; CWnd::CalcWindowRect(tagRECT *,uint)
-                dd offset ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z ; CWnd::OnToolHitTest(CPoint,tagTOOLINFOA *)
-                dd offset ?GetScrollBarCtrl@CWnd@@UBEPAXH@Z
-                dd offset ?WinHelpA@CWnd@@UAEXKI@Z
-                dd offset ?ContinueModal@CWnd@@UAEHXZ ; CWnd::ContinueModal(void)
-                dd offset ?EndModalLoop@CWnd@@UAEXH@Z ; CWnd::EndModalLoop(int)
-                dd offset ?OnCommand@CWnd@@UAEHIJ@Z ; CWnd::OnCommand(uint,long)
-                dd offset ?OnNotify@CWnd@@UAEHIJPAJ@Z ; CWnd::OnNotify(uint,long,long *)
-                dd offset ?GetSuperWndProcAddr@CWnd@@UAEPAP6GJPAUHWND__@@IIJ@ZXZ
-                dd offset ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z
-                dd offset ?BeginModalState@CWnd@@UAEXXZ
-                dd offset ?EndModalState@CWnd@@UAEXXZ
-                dd offset ?PreTranslateMessage@CDialog@@UAEHPAUtagMSG@@@Z ; CDialog::PreTranslateMessage(tagMSG *)
-                dd offset ?OnAmbientProperty@CWnd@@UAEHPAXJPAUtagVARIANT@@@Z ; CWnd::OnAmbientProperty(COleControlSite *,long,tagVARIANT *)
-                dd offset ?WindowProc@CWnd@@UAEJIIJ@Z ; CWnd::WindowProc(uint,uint,long)
-                dd offset ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z    ; ?OnWndMsg@CWnd@@MAEHIIJPAJ@Z
-                dd offset ?DefWindowProcA@CWnd@@UAEJIIJ@Z ; CWnd::DefWindowProcA(uint,uint,long)
-                dd offset ?PostNcDestroy@CWnd@@UAEXXZ
-                dd offset ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z ; CWnd::OnChildNotify(uint,uint,long,long *)
-                dd offset ?CheckAutoCenter@CDialog@@UAEHXZ ; CDialog::CheckAutoCenter(void)
-                dd offset ?IsFrameWnd@CWnd@@UBEHXZ
-                dd offset ?SetOccDialogInfo@CDialog@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z ; CDialog::SetOccDialogInfo(_AFX_OCC_DIALOG_INFO *)
-                dd offset ?DoModal@CDialog@@UAEHXZ ; CDialog::DoModal(void)
-                dd offset ?OnInitDialog@CDialog@@UAEHXZ ; CDialog::OnInitDialog(void)
-                dd offset ?OnSetFont@CDialog@@UAEXPAVCFont@@@Z
-                dd offset ?OnOK@CDialog@@UAEXXZ ; CDialog::OnOK(void)
-                dd offset ?OnCancel@CDialog@@UAEXXZ
-                dd offset ?PreInitDialog@CDialog@@UAEXXZ
 off_60C530      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_496AE0+12↑o
                 dd offset sub_4971F0
                 dd offset sub_496D50
