@@ -1812,6 +1812,13 @@ extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 ;VisCharSelect
 externdef ?OpenRenameWindow@VisCharSelect@@QAEXXZ : proc
 externdef ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
+externdef ??_GVisCharSelect@@UAEPAXI@Z : proc
+externdef ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisCharSelect@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod26@VisCharSelect@@UAEXXZ : proc
+externdef ?VMethod28@VisCharSelect@@UAEXXZ : proc
+externdef ?DoClose@VisCharSelect@@UAEXI@Z : proc
 
 ;VisCharSellectButtons
 extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc

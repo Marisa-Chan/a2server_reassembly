@@ -621,6 +621,8 @@ ASSERT_SIZE(QuestObjectivesHeaderDialogVisualObject, 0x78);
 class VisCharSelect : public VisScreen
 {
 public:
+	virtual ~VisCharSelect();
+
 	virtual void VMethod8(CRect* rect) override;
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
