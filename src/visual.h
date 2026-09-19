@@ -1647,6 +1647,14 @@ ASSERT_SIZE(VisTown, 0x20c);
 class VisTownDruid : public VisTown
 {
 public:
+	virtual ~VisTownDruid();
+
+	virtual void VMethod7() override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual void VMethod28() override;
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
+
 	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 in asm
 public:
 	SfxSample* snd_lizard[4];
