@@ -64750,7 +64750,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_448D15      proc near               ; DATA XREF: .rdata:0060A800↓o
+?VMethod26@VisNetSerialSettings@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060A800↓o
 
 var_F4          = dword ptr -0F4h
 var_F0          = dword ptr -0F0h
@@ -64850,10 +64850,10 @@ var_4           = dword ptr -4
                 jmp     short loc_448DA3
 ; ---------------------------------------------------------------------------
 
-loc_448D99:                             ; CODE XREF: sub_448D15+39↑j
+loc_448D99:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+39↑j
                 mov     [ebp+var_BC], 0
 
-loc_448DA3:                             ; CODE XREF: sub_448D15+82↑j
+loc_448DA3:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+82↑j
                 mov     edx, dword ptr [ebp+var_BC]
                 mov     [ebp+var_44], edx
 ;   } // starts at 448D43
@@ -64896,10 +64896,10 @@ loc_448DA3:                             ; CODE XREF: sub_448D15+82↑j
                 jmp     short loc_448E31
 ; ---------------------------------------------------------------------------
 
-loc_448E27:                             ; CODE XREF: sub_448D15+DE↑j
+loc_448E27:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+DE↑j
                 mov     [ebp+var_C0], 0
 
-loc_448E31:                             ; CODE XREF: sub_448D15+110↑j
+loc_448E31:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+110↑j
                 mov     edx, dword ptr [ebp+var_C0]
                 mov     [ebp+var_4C], edx
 ;   } // starts at 448DE8
@@ -64937,10 +64937,10 @@ loc_448E31:                             ; CODE XREF: sub_448D15+110↑j
                 jmp     short loc_448EB0
 ; ---------------------------------------------------------------------------
 
-loc_448EA6:                             ; CODE XREF: sub_448D15+15C↑j
+loc_448EA6:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+15C↑j
                 mov     [ebp+var_C4], 0
 
-loc_448EB0:                             ; CODE XREF: sub_448D15+18F↑j
+loc_448EB0:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+18F↑j
                 mov     ecx, dword ptr [ebp+var_C4]
                 mov     [ebp+var_54], ecx
 ;   } // starts at 448E66
@@ -64978,10 +64978,10 @@ loc_448EB0:                             ; CODE XREF: sub_448D15+18F↑j
                 jmp     short loc_448F2E
 ; ---------------------------------------------------------------------------
 
-loc_448F24:                             ; CODE XREF: sub_448D15+1DB↑j
+loc_448F24:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+1DB↑j
                 mov     [ebp+var_C8], 0
 
-loc_448F2E:                             ; CODE XREF: sub_448D15+20D↑j
+loc_448F2E:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+20D↑j
                 mov     eax, dword ptr [ebp+var_C8]
                 mov     [ebp+var_5C], eax
 ;   } // starts at 448EE5
@@ -65019,10 +65019,10 @@ loc_448F2E:                             ; CODE XREF: sub_448D15+20D↑j
                 jmp     short loc_448FAC
 ; ---------------------------------------------------------------------------
 
-loc_448FA2:                             ; CODE XREF: sub_448D15+259↑j
+loc_448FA2:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+259↑j
                 mov     [ebp+var_CC], 0
 
-loc_448FAC:                             ; CODE XREF: sub_448D15+28B↑j
+loc_448FAC:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+28B↑j
                 mov     edx, dword ptr [ebp+var_CC]
                 mov     [ebp+var_64], edx
 ;   } // starts at 448F63
@@ -65060,10 +65060,10 @@ loc_448FAC:                             ; CODE XREF: sub_448D15+28B↑j
                 jmp     short loc_44902B
 ; ---------------------------------------------------------------------------
 
-loc_449021:                             ; CODE XREF: sub_448D15+2D7↑j
+loc_449021:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+2D7↑j
                 mov     [ebp+var_D0], 0
 
-loc_44902B:                             ; CODE XREF: sub_448D15+30A↑j
+loc_44902B:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+30A↑j
                 mov     ecx, dword ptr [ebp+var_D0]
                 mov     [ebp+var_6C], ecx
 ;   } // starts at 448FE1
@@ -65104,10 +65104,10 @@ loc_44902B:                             ; CODE XREF: sub_448D15+30A↑j
                 jmp     short loc_4490B6
 ; ---------------------------------------------------------------------------
 
-loc_4490AC:                             ; CODE XREF: sub_448D15+356↑j
+loc_4490AC:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+356↑j
                 mov     [ebp+var_D4], 0
 
-loc_4490B6:                             ; CODE XREF: sub_448D15+395↑j
+loc_4490B6:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+395↑j
                 mov     ecx, dword ptr [ebp+var_D4]
                 mov     [ebp+var_74], ecx
 ;   } // starts at 449060
@@ -65175,10 +65175,10 @@ loc_4490B6:                             ; CODE XREF: sub_448D15+395↑j
                 jmp     short loc_44919F
 ; ---------------------------------------------------------------------------
 
-loc_449195:                             ; CODE XREF: sub_448D15+44F↑j
+loc_449195:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+44F↑j
                 mov     [ebp+var_D8], 0
 
-loc_44919F:                             ; CODE XREF: sub_448D15+47E↑j
+loc_44919F:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+47E↑j
                 mov     eax, dword ptr [ebp+var_D8]
                 mov     [ebp+var_7C], eax
 ;   } // starts at 449159
@@ -65225,7 +65225,7 @@ loc_44919F:                             ; CODE XREF: sub_448D15+47E↑j
                 jmp     loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_449253:                             ; CODE XREF: sub_448D15+52D↑j
+loc_449253:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+52D↑j
                 cmp     [ebp+var_10], 4B00h
                 jnz     short loc_44926B
                 push    1
@@ -65234,7 +65234,7 @@ loc_449253:                             ; CODE XREF: sub_448D15+52D↑j
                 jmp     loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_44926B:                             ; CODE XREF: sub_448D15+545↑j
+loc_44926B:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+545↑j
                 cmp     [ebp+var_10], 9600h
                 jnz     short loc_449280
                 push    2
@@ -65243,7 +65243,7 @@ loc_44926B:                             ; CODE XREF: sub_448D15+545↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_449280:                             ; CODE XREF: sub_448D15+55D↑j
+loc_449280:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+55D↑j
                 cmp     [ebp+var_10], 0DAC0h
                 jnz     short loc_449295
                 push    3
@@ -65252,7 +65252,7 @@ loc_449280:                             ; CODE XREF: sub_448D15+55D↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_449295:                             ; CODE XREF: sub_448D15+572↑j
+loc_449295:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+572↑j
                 cmp     [ebp+var_10], 0E100h
                 jnz     short loc_4492AA
                 push    4
@@ -65261,7 +65261,7 @@ loc_449295:                             ; CODE XREF: sub_448D15+572↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_4492AA:                             ; CODE XREF: sub_448D15+587↑j
+loc_4492AA:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+587↑j
                 cmp     [ebp+var_10], 1C200h
                 jnz     short loc_4492BF
                 push    5
@@ -65270,7 +65270,7 @@ loc_4492AA:                             ; CODE XREF: sub_448D15+587↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_4492BF:                             ; CODE XREF: sub_448D15+59C↑j
+loc_4492BF:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+59C↑j
                 cmp     [ebp+var_10], 1F400h
                 jnz     short loc_4492D4
                 push    6
@@ -65279,7 +65279,7 @@ loc_4492BF:                             ; CODE XREF: sub_448D15+59C↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_4492D4:                             ; CODE XREF: sub_448D15+5B1↑j
+loc_4492D4:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+5B1↑j
                 cmp     [ebp+var_10], 3E800h
                 jnz     short loc_4492E9
                 push    7
@@ -65288,12 +65288,12 @@ loc_4492D4:                             ; CODE XREF: sub_448D15+5B1↑j
                 jmp     short loc_4492F3
 ; ---------------------------------------------------------------------------
 
-loc_4492E9:                             ; CODE XREF: sub_448D15+5C6↑j
+loc_4492E9:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+5C6↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_34]
                 call    ?SelectItem@VisComboBox@@QAEXH@Z
 
-loc_4492F3:                             ; CODE XREF: sub_448D15+539↑j
+loc_4492F3:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+539↑j
                 push    28h ; '('       ; dy
                 push    0               ; int
                 lea     ecx, [ebp+var_20]
@@ -65327,10 +65327,10 @@ loc_4492F3:                             ; CODE XREF: sub_448D15+539↑j
                 jmp     short loc_449358
 ; ---------------------------------------------------------------------------
 
-loc_44934E:                             ; CODE XREF: sub_448D15+608↑j
+loc_44934E:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+608↑j
                 mov     [ebp+var_DC], 0
 
-loc_449358:                             ; CODE XREF: sub_448D15+637↑j
+loc_449358:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+637↑j
                 mov     edx, dword ptr [ebp+var_DC]
                 mov     [ebp+var_84], edx
 ;   } // starts at 449312
@@ -65404,10 +65404,10 @@ loc_449358:                             ; CODE XREF: sub_448D15+637↑j
                 jmp     short loc_44945A
 ; ---------------------------------------------------------------------------
 
-loc_449450:                             ; CODE XREF: sub_448D15+707↑j
+loc_449450:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+707↑j
                 mov     [ebp+var_E0], 0
 
-loc_44945A:                             ; CODE XREF: sub_448D15+739↑j
+loc_44945A:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+739↑j
                 mov     ecx, dword ptr [ebp+var_E0]
                 mov     [ebp+var_8C], ecx
 ;   } // starts at 44940E
@@ -65487,10 +65487,10 @@ loc_44945A:                             ; CODE XREF: sub_448D15+739↑j
                 jmp     short loc_449571
 ; ---------------------------------------------------------------------------
 
-loc_449567:                             ; CODE XREF: sub_448D15+81E↑j
+loc_449567:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+81E↑j
                 mov     [ebp+var_E4], 0
 
-loc_449571:                             ; CODE XREF: sub_448D15+850↑j
+loc_449571:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+850↑j
                 mov     eax, dword ptr [ebp+var_E4]
                 mov     [ebp+var_94], eax
 ;   } // starts at 449525
@@ -65560,10 +65560,10 @@ loc_449571:                             ; CODE XREF: sub_448D15+850↑j
                 jmp     short loc_44967B
 ; ---------------------------------------------------------------------------
 
-loc_449671:                             ; CODE XREF: sub_448D15+914↑j
+loc_449671:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+914↑j
                 mov     [ebp+var_E8], 0
 
-loc_44967B:                             ; CODE XREF: sub_448D15+95A↑j
+loc_44967B:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+95A↑j
                 mov     eax, dword ptr [ebp+var_E8]
                 mov     [ebp+var_9C], eax
 ;   } // starts at 44961B
@@ -65605,10 +65605,10 @@ loc_44967B:                             ; CODE XREF: sub_448D15+95A↑j
                 jmp     short loc_449719
 ; ---------------------------------------------------------------------------
 
-loc_44970F:                             ; CODE XREF: sub_448D15+9B2↑j
+loc_44970F:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+9B2↑j
                 mov     [ebp+var_EC], 0
 
-loc_449719:                             ; CODE XREF: sub_448D15+9F8↑j
+loc_449719:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+9F8↑j
                 mov     ecx, dword ptr [ebp+var_EC]
                 mov     [ebp+var_A4], ecx
 ;   } // starts at 4496B9
@@ -65628,7 +65628,7 @@ loc_449719:                             ; CODE XREF: sub_448D15+9F8↑j
                 mov     ecx, dword ptr [ebp+var_3C]
                 call    dword ptr [edx+1Ch]
 
-loc_44975C:                             ; CODE XREF: sub_448D15+A36↑j
+loc_44975C:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+A36↑j
                 push    1Eh             ; dy
                 push    0               ; int
                 lea     ecx, [ebp+var_20]
@@ -65671,10 +65671,10 @@ loc_44975C:                             ; CODE XREF: sub_448D15+A36↑j
                 jmp     short loc_4497F9
 ; ---------------------------------------------------------------------------
 
-loc_4497EF:                             ; CODE XREF: sub_448D15+A90↑j
+loc_4497EF:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+A90↑j
                 mov     [ebp+var_F0], 0
 
-loc_4497F9:                             ; CODE XREF: sub_448D15+AD8↑j
+loc_4497F9:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+AD8↑j
                 mov     edx, dword ptr [ebp+var_F0]
                 mov     [ebp+var_AC], edx
 ;   } // starts at 449797
@@ -65722,10 +65722,10 @@ loc_4497F9:                             ; CODE XREF: sub_448D15+AD8↑j
                 jmp     short loc_4498AE
 ; ---------------------------------------------------------------------------
 
-loc_4498A4:                             ; CODE XREF: sub_448D15+B52↑j
+loc_4498A4:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+B52↑j
                 mov     [ebp+var_F4], 0
 
-loc_4498AE:                             ; CODE XREF: sub_448D15+B8D↑j
+loc_4498AE:                             ; CODE XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+B8D↑j
                 mov     eax, dword ptr [ebp+var_F4]
                 mov     [ebp+var_B4], eax
 ;   } // starts at 449859
@@ -65749,14 +65749,14 @@ loc_4498AE:                             ; CODE XREF: sub_448D15+B8D↑j
                 pop     ebp
                 retn
 ; } // starts at 448D15
-sub_448D15      endp
+?VMethod26@VisNetSerialSettings@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_449903      proc near               ; CODE XREF: sub_449C98+52↓p
+sub_449903      proc near               ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+52↓p
 
 var_60          = dword ptr -60h
 var_5C          = dword ptr -5Ch
@@ -66125,7 +66125,7 @@ sub_449903      endp
 
 ; Attributes: bp-based frame
 
-sub_449C98      proc near               ; DATA XREF: .rdata:0060A7D0↓o
+?MsgProc@VisNetSerialSettings@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060A7D0↓o
 
 var_438         = dword ptr -438h
 var_434         = dword ptr -434h
@@ -66156,7 +66156,7 @@ arg_8           = dword ptr  10h
                 jmp     ds:jpt_449CDD[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_449CE4:                             ; CODE XREF: sub_449C98+45↑j
+loc_449CE4:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+45↑j
                 mov     ecx, dword ptr [ebp+var_434] ; jumptable 00449CDD case 1152
                 call    sub_449903
                 push    14h             ; varSize
@@ -66186,12 +66186,12 @@ loc_449CE4:                             ; CODE XREF: sub_449C98+45↑j
                 mov     ecx, dword ptr [ebp+var_434]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_449D4A:                             ; CODE XREF: sub_449C98+87↑j
+loc_449D4A:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+87↑j
                 mov     eax, 1
                 jmp     loc_449EAE
 ; ---------------------------------------------------------------------------
 
-loc_449D54:                             ; CODE XREF: sub_449C98+45↑j
+loc_449D54:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+45↑j
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ      ; jumptable 00449CDD case 1153
                 mov     [ebp+var_42C], eax
                 mov     ecx, dword ptr [ebp+var_434]
@@ -66225,12 +66225,12 @@ loc_449D54:                             ; CODE XREF: sub_449C98+45↑j
                 mov     ecx, dword ptr [ebp+var_42C]
                 call    ?PostMessageA@CWnd@@QAEHIIJ@Z
 
-loc_449DD0:                             ; CODE XREF: sub_449C98+10E↑j
+loc_449DD0:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+10E↑j
                 mov     eax, 1
                 jmp     loc_449EAE
 ; ---------------------------------------------------------------------------
 
-loc_449DDA:                             ; CODE XREF: sub_449C98+45↑j
+loc_449DDA:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+45↑j
                 mov     ecx, dword ptr [ebp+var_434] ; jumptable 00449CDD case 1155
                 call    ?DestroyAllChilds@CVisualObject@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_434]
@@ -66260,7 +66260,7 @@ loc_449DDA:                             ; CODE XREF: sub_449C98+45↑j
                 jmp     short loc_449EAE
 ; ---------------------------------------------------------------------------
 
-loc_449E5D:                             ; CODE XREF: sub_449C98+45↑j
+loc_449E5D:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+45↑j
                 mov     eax, dword ptr [ebp+arg_8] ; jumptable 00449CDD case 1094
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -66280,7 +66280,7 @@ loc_449E5D:                             ; CODE XREF: sub_449C98+45↑j
                 jmp     short loc_449EAE
 ; ---------------------------------------------------------------------------
 
-def_449CDD:                             ; CODE XREF: sub_449C98+31↑j
+def_449CDD:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+31↑j
                 mov     eax, dword ptr [ebp+arg_8] ; jumptable 00449CDD default case, cases 1095-1151,1154
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -66290,14 +66290,14 @@ def_449CDD:                             ; CODE XREF: sub_449C98+31↑j
                 mov     ecx, dword ptr [ebp+var_434]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_449EAE:                             ; CODE XREF: sub_449C98+B7↑j
+loc_449EAE:                             ; CODE XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+B7↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_449C98      endp
+?MsgProc@VisNetSerialSettings@@UAEHIII@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_449CDD      dd offset loc_449E5D    ; DATA XREF: sub_449C98+45↑r
+jpt_449CDD      dd offset loc_449E5D    ; DATA XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+45↑r
                 dd offset loc_449CE4    ; jump table for switch statement
                 dd offset loc_449D54
                 dd offset loc_449DDA
@@ -75466,7 +75466,7 @@ sub_44FCA0      endp
 
 ; Attributes: bp-based frame
 
-sub_44FCC0      proc near               ; DATA XREF: .rdata:0060A78C↓o
+??_GVisNetSerialSettings@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A78C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -75485,12 +75485,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44FCE2:                             ; CODE XREF: sub_44FCC0+17↑j
+loc_44FCE2:                             ; CODE XREF: ??_GVisNetSerialSettings@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44FCC0      endp
+??_GVisNetSerialSettings@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -75499,7 +75499,7 @@ sub_44FCC0      endp
 
 ; Attributes: bp-based frame
 
-sub_44FCF0      proc near               ; CODE XREF: sub_44FCC0+A↑p
+sub_44FCF0      proc near               ; CODE XREF: ??_GVisNetSerialSettings@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -393823,7 +393823,7 @@ SEH_44878A:                             ; DATA XREF: sub_44878A+5↑o
 ; } // starts at 5F96EC
 ; END OF FUNCTION CHUNK FOR sub_44878A
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_448D15
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisNetSerialSettings@@UAEXXZ
 
 loc_5F9724:                             ; DATA XREF: .rdata:stru_61A098↓o
 ; __unwind { // SEH_448D15
@@ -393946,11 +393946,11 @@ loc_5F97BF:                             ; DATA XREF: .rdata:0061A108↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_448D15:                             ; DATA XREF: sub_448D15+5↑o
+SEH_448D15:                             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A078
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9724
-; END OF FUNCTION CHUNK FOR sub_448D15
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisNetSerialSettings@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 
@@ -421490,7 +421490,7 @@ off_60A6F8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 8
 off_60A788      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z+28↑o
-                dd offset sub_44FCC0
+                dd offset ??_GVisNetSerialSettings@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421507,7 +421507,7 @@ off_60A788      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_449C98
+                dd offset ?MsgProc@VisNetSerialSettings@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -421519,7 +421519,7 @@ off_60A788      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@VisWindow@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_448D15
+                dd offset ?VMethod26@VisNetSerialSettings@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
@@ -444914,40 +444914,40 @@ asc_62EA54      db '-',0                ; DATA XREF: sub_447C27+DA↑o
 a1234567890_1   db '1234567890',0
                 align 4
 ; char aCom1[]
-aCom1           db 'COM1',0             ; DATA XREF: sub_448D15+3C6↑o
+aCom1           db 'COM1',0             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+3C6↑o
                 align 4
 ; char aCom2[]
-aCom2           db 'COM2',0             ; DATA XREF: sub_448D15+3D3↑o
+aCom2           db 'COM2',0             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+3D3↑o
                 align 4
 ; char aCom3[]
-aCom3           db 'COM3',0             ; DATA XREF: sub_448D15+3E0↑o
+aCom3           db 'COM3',0             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+3E0↑o
                 align 4
 ; char aCom4[]
-aCom4           db 'COM4',0             ; DATA XREF: sub_448D15+3ED↑o
+aCom4           db 'COM4',0             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+3ED↑o
                 align 4
 ; char a14400[]
-a14400          db '14400',0            ; DATA XREF: sub_448D15+4AF↑o
+a14400          db '14400',0            ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4AF↑o
                 align 4
 ; char a19200[]
-a19200          db '19200',0            ; DATA XREF: sub_448D15+4BC↑o
+a19200          db '19200',0            ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4BC↑o
                 align 4
 ; char a38400[]
-a38400          db '38400',0            ; DATA XREF: sub_448D15+4C9↑o
+a38400          db '38400',0            ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4C9↑o
                 align 4
 ; char a56000[]
-a56000          db '56000',0            ; DATA XREF: sub_448D15+4D6↑o
+a56000          db '56000',0            ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4D6↑o
                 align 4
 ; char a57600[]
-a57600          db '57600',0            ; DATA XREF: sub_448D15+4E3↑o
+a57600          db '57600',0            ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4E3↑o
                 align 4
 ; char a115200[]
-a115200         db '115200',0           ; DATA XREF: sub_448D15+4F0↑o
+a115200         db '115200',0           ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4F0↑o
                 align 4
 ; char a128000[]
-a128000         db '128000',0           ; DATA XREF: sub_448D15+4FD↑o
+a128000         db '128000',0           ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+4FD↑o
                 align 4
 ; char a256000[]
-a256000         db '256000',0           ; DATA XREF: sub_448D15+50A↑o
+a256000         db '256000',0           ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+50A↑o
                 align 4
 ; char aAlm[]
 aAlm            db '\*.alm',0           ; DATA XREF: sub_44AAE5+38↑o
@@ -452970,9 +452970,9 @@ byte_659A1C     db 4 dup(?)             ; DATA XREF: sub_447EF2+734↑o
 unk_659A20      db 4h dup(?)
 unk_659A24      db 4h dup(?)
 ; CHAR byte_659A28[4]
-byte_659A28     db 4 dup(?)             ; DATA XREF: sub_448D15+B54↑o
+byte_659A28     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+B54↑o
 ; char byte_659A2C[4]
-byte_659A2C     db 4 dup(?)             ; DATA XREF: sub_449C98+76↑o
+byte_659A2C     db 4 dup(?)             ; DATA XREF: ?MsgProc@VisNetSerialSettings@@UAEHIII@Z+76↑o
 ; CHAR byte_659A30[4]
 byte_659A30     db 4 dup(?)             ; DATA XREF: sub_44AAE5+275↑o
 ; CHAR byte_659A34[4]

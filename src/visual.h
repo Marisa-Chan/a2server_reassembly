@@ -2320,6 +2320,11 @@ ASSERT_SIZE(VisNetTcpIp, 0x7c);
 class VisNetSerialSettings : public VisWindow
 {
 public:
+	virtual ~VisNetSerialSettings();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual void VMethod26() override;
+
 	VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, ComSettings* _com); //448cd5
 
 public:

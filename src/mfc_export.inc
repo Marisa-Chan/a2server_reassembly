@@ -2567,6 +2567,9 @@ externdef ?VMethod31@VisNetTcpIp@@UAEXH@Z : proc
 
 ; VisNetSerialSettings
 externdef ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z : proc
+externdef ??_GVisNetSerialSettings@@UAEPAXI@Z : proc
+externdef ?MsgProc@VisNetSerialSettings@@UAEHIII@Z : proc
+externdef ?VMethod26@VisNetSerialSettings@@UAEXXZ : proc
 
 ; VisNetPhoneBook
 externdef ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z : proc
