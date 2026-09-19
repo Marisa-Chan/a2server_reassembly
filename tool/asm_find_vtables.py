@@ -47,6 +47,20 @@ REPORT_PATH = os.path.join(ROOT_DIR, 'migration_state', 'vtables_report.txt')
 ROOT_CLASS = 'CVisualObject'
 COBJECT = 'CObject'
 
+# Manually curated vtable address -> class mapping, for classes whose vtable
+# cannot be auto-attributed (ctors still in ASM and unnamed, etc.).
+# Sourced from `//<hexaddr>` comments above class declarations in visual.h.
+# Keys are uppercase hex without the `off_` prefix. Add new ones as found.
+KNOWN_ADDRESSES = {
+    '609730': 'VisCharSellectStats',
+    '609820': 'VisCharSellectList',
+    '60C9B0': 'VisInvBase',
+    '60D0E8': 'VisInvExtBase',
+    '60D1A8': 'VisInvExtType1',
+    '60D268': 'VisInvExtType2',
+    '60D328': 'VisInvExtType3',
+}
+
 # ---------------------------------------------------------------- regexes
 
 PROC_RE       = re.compile(r'^(\S+)\s+proc\s+(?:near|far)\b')
@@ -275,8 +289,24 @@ def main():
         pr = proc_refs.get(proc)
         return pr and pr[0][1] == vt.label
 
+    # definitive claims from KNOWN_ADDRESSES (curated, highest priority)
+    for addr, cls in KNOWN_ADDRESSES.items():
+        vt = vtables.get('off_' + addr)
+        if vt is None:
+            print(f'WARNING: KNOWN_ADDRESSES {addr} ({cls}) — no vtable '
+                  f'found at that address')
+            continue
+        if cls not in SCOPE:
+            print(f'WARNING: KNOWN_ADDRESSES {addr} ({cls}) — class not in '
+                  f'hierarchy')
+            continue
+        vt.cls = cls
+        vt.conf = 'KNOWN_ADDRESSES'
+
     # definitive claims from already-named ctor/dtor procs
     for vt in vtables.values():
+        if vt.cls:
+            continue
         claims = set()
         for proc, _ln in vt.refs:
             c = claim_class(proc)
@@ -496,7 +526,8 @@ def main():
     w(f'  out of scope (other CObject classes): {out_of_scope}')
 
     missing = [c for c in hier_order
-               if c not in vtable_of and c not in MIGRATED]
+               if c not in vtable_of and c not in MIGRATED
+               and c not in KNOWN_ADDRESSES.values()]
     migrated_no_vt = [c for c in hier_order
                       if c not in vtable_of and c in MIGRATED]
     # inconsistency checks
@@ -631,11 +662,20 @@ def main():
       f'{len(migrated_no_vt)} migrated as expected)')
     w('=' * 70)
     if missing:
-        w('  MISSING — no ASM vtable found and not marked MIGRATED:')
+        w('  MISSING — no ASM vtable found and not marked MIGRATED '
+          'or KNOWN_ADDRESSES:')
         for c in missing:
             w(f'  {c}')
     else:
         w('  none')
+    known_no_vt = [c for a, c in KNOWN_ADDRESSES.items()
+                   if 'off_' + a not in vtables]
+    if known_no_vt:
+        w('')
+        w('  WARNING — KNOWN_ADDRESSES entry has no vtable in ASM '
+          '(migrated or wrong address):')
+        for c in known_no_vt:
+            w(f'  {c}')
     if bad_mark:
         w('')
         w('  WARNING — marked MIGRATED but an ASM vtable was attributed:')
