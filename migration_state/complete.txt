@@ -329,6 +329,7 @@
 ?AppGetWorkingDir@@YAHHPAD@Z
 ?AppHasAnySaveFile@@YAHXZ
 ?ApplyCursor@@YAHPAVCCursor@@@Z
+?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z
 ?ApplyEffects@Item@@QAEXPAVUnit@@@Z
 ?ApplyFace@CUnit@@QAEXH@Z
 ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z
@@ -1276,6 +1277,7 @@
 ?Up@VisListBox@@QAEXXZ
 ?Update@CMousePointer@@QAEXXZ
 ?Update@GM_a28@@QAEXXZ
+?UpdateAmbientSounds@BigStruct2@@QAEXXZ
 ?UpdateClipCursor@MainWindow@@QAEHXZ
 ?UpdateDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z
 ?UpdateSelectionState@BigStruct2@@QAEXXZ
