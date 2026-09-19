@@ -2146,6 +2146,18 @@ externdef ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod26@VisMainMenu@@UAEXXZ : proc
 externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
+;VisStartGame
+externdef ??_GVisStartGame@@UAEPAXI@Z : proc
+externdef ?GetHint@VisStartGame@@UAEPBDXZ : proc
+externdef ?VMethod7@VisStartGame@@UAEXXZ : proc
+externdef ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisStartGame@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
+externdef ?VMethod26@VisStartGame@@UAEXXZ : proc
+externdef ?VMethod28@VisStartGame@@UAEXXZ : proc
+externdef ?DoClose@VisStartGame@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
