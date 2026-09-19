@@ -2369,6 +2369,17 @@ externdef ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc
 externdef ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc
 externdef ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc
 
+;VisInvExtType2
+externdef ??_GVisInvExtType2@@UAEPAXI@Z : proc
+externdef ?GetHint@VisInvExtType2@@UAEPBDXZ : proc
+externdef ?VMethod7@VisInvExtType2@@UAEXXZ : proc
+externdef ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
+externdef ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z : proc
+externdef ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
