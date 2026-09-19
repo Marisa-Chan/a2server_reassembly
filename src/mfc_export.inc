@@ -2108,6 +2108,17 @@ externdef ?OnKeyDown@VisCredits@@UAEHI@Z : proc
 externdef ?VMethod26@VisCredits@@UAEXXZ : proc
 externdef ?VMethod28@VisCredits@@UAEXXZ : proc
 externdef ?DoClose@VisCredits@@UAEXI@Z : proc
+;VisCharGen
+externdef ??_GVisCharGen@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisCharGen@@UAEXXZ : proc
+externdef ?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisCharGen@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisCharGen@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisCharGen@@UAEHI@Z : proc
+externdef ?VMethod26@VisCharGen@@UAEXXZ : proc
+externdef ?VMethod28@VisCharGen@@UAEXXZ : proc
+externdef ?DoClose@VisCharGen@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
