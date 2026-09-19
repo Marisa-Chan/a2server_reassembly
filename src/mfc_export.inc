@@ -2538,6 +2538,10 @@ externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : p
 
 ; VisDiplomacy
 externdef ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z : proc
+externdef ??_GVisDiplomacy@@UAEPAXI@Z : proc
+externdef ?ReadData@VisDiplomacy@@UAEXPBX@Z : proc
+externdef ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisDiplomacy@@UAEXH@Z : proc
 
 ; VisConnectionDlg
 externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc

@@ -60007,8 +60007,8 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_445C2E(int, RECT *lprcSrc)
-sub_445C2E      proc near               ; DATA XREF: .rdata:0060A550↓o
+; int __stdcall ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(int, RECT *lprcSrc)
+?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060A550↓o
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -60059,10 +60059,10 @@ lprcSrc         = dword ptr  0Ch
                 jmp     short loc_445CA4
 ; ---------------------------------------------------------------------------
 
-loc_445C9D:                             ; CODE XREF: sub_445C2E+40↑j
+loc_445C9D:                             ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+40↑j
                 mov     [ebp+var_20], 0
 
-loc_445CA4:                             ; CODE XREF: sub_445C2E+6D↑j
+loc_445CA4:                             ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+6D↑j
                 mov     eax, dword ptr [ebp+var_20]
                 mov     [ebp+var_18], eax
 ;   } // starts at 445C63
@@ -60088,14 +60088,14 @@ loc_445CA4:                             ; CODE XREF: sub_445C2E+6D↑j
                 pop     ebp
                 retn    8
 ; } // starts at 445C2E
-sub_445C2E      endp
+?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_445CF1      proc near               ; DATA XREF: .rdata:0060A554↓o
+?VMethod31@VisDiplomacy@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060A554↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -60112,18 +60112,18 @@ arg_0           = dword ptr  8
                 mov     ecx, eax
                 call    sub_4DD1B2
 
-loc_445D12:                             ; CODE XREF: sub_445CF1+E↑j
+loc_445D12:                             ; CODE XREF: ?VMethod31@VisDiplomacy@@UAEXH@Z+E↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_445CF1      endp
+?VMethod31@VisDiplomacy@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_445D18      proc near               ; CODE XREF: sub_44F9E0+A↓p
+sub_445D18      proc near               ; CODE XREF: ??_GVisDiplomacy@@UAEPAXI@Z+A↓p
 
 var_4           = dword ptr -4
 
@@ -60145,7 +60145,7 @@ sub_445D18      endp
 
 ; Attributes: bp-based frame
 
-sub_445D34      proc near               ; DATA XREF: .rdata:0060A50C↓o
+?ReadData@VisDiplomacy@@UAEXPBX@Z      proc near               ; DATA XREF: .rdata:0060A50C↓o
 
 var_30          = dword ptr -30h
 var_2C          = dword ptr -2Ch
@@ -60214,10 +60214,10 @@ arg_0           = dword ptr  8
                 jmp     short loc_445DE0
 ; ---------------------------------------------------------------------------
 
-loc_445DD9:                             ; CODE XREF: sub_445D34+71↑j
+loc_445DD9:                             ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+71↑j
                 mov     [ebp+var_30], 0
 
-loc_445DE0:                             ; CODE XREF: sub_445D34+A3↑j
+loc_445DE0:                             ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+A3↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 mov     [ebp+var_28], ecx
 ;   } // starts at 445D9A
@@ -60250,7 +60250,7 @@ loc_445DE0:                             ; CODE XREF: sub_445D34+A3↑j
                 pop     ebp
                 retn    4
 ; } // starts at 445D34
-sub_445D34      endp
+?ReadData@VisDiplomacy@@UAEXPBX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -75049,7 +75049,7 @@ sub_44F9B0      endp
 
 ; Attributes: bp-based frame
 
-sub_44F9E0      proc near               ; DATA XREF: .rdata:0060A4CC↓o
+??_GVisDiplomacy@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A4CC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -75068,12 +75068,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44FA02:                             ; CODE XREF: sub_44F9E0+17↑j
+loc_44FA02:                             ; CODE XREF: ??_GVisDiplomacy@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44F9E0      endp
+??_GVisDiplomacy@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -215960,7 +215960,7 @@ sub_4DB615      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_4DC9FB(int, RECT *lprcSrc, int, int, int, int, int)
-sub_4DC9FB      proc near               ; CODE XREF: sub_445C2E+65↑p
+sub_4DC9FB      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+65↑p
 
 var_84          = dword ptr -84h
 var_80          = dword ptr -80h
@@ -216819,7 +216819,7 @@ sub_4DD0BD      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD1B2      proc near               ; CODE XREF: sub_445CF1+1C↑p
+sub_4DD1B2      proc near               ; CODE XREF: ?VMethod31@VisDiplomacy@@UAEXH@Z+1C↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -216933,7 +216933,7 @@ sub_4DD1B2      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD2C7      proc near               ; CODE XREF: sub_445C2E+98↑p
+sub_4DD2C7      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+98↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -217071,7 +217071,7 @@ sub_4DD2C7      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD424      proc near               ; CODE XREF: sub_445D34+37↑p
+sub_4DD424      proc near               ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+37↑p
 
 var_4           = dword ptr -4
 
@@ -393391,7 +393391,7 @@ SEH_445ACA:                             ; DATA XREF: sub_445ACA+5↑o
 ; } // starts at 5F94C9
 ; END OF FUNCTION CHUNK FOR sub_445ACA
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_445C2E
+; START OF FUNCTION CHUNK FOR ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 
 unknown_libname_974:                    ; DATA XREF: .rdata:stru_619DD0↓o
 ; __unwind { // SEH_445C2E              ; MFC 3.1-14.0 32bit
@@ -393402,13 +393402,13 @@ unknown_libname_974:                    ; DATA XREF: .rdata:stru_619DD0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_445C2E:                             ; DATA XREF: sub_445C2E+5↑o
+SEH_445C2E:                             ; DATA XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
                 mov     eax, offset stru_619DB0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94DD
-; END OF FUNCTION CHUNK FOR sub_445C2E
+; END OF FUNCTION CHUNK FOR ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_445D34
+; START OF FUNCTION CHUNK FOR ?ReadData@VisDiplomacy@@UAEXPBX@Z
 
 loc_5F94F1:                             ; DATA XREF: .rdata:stru_619DF8↓o
 ; __unwind { // SEH_445D34
@@ -393419,11 +393419,11 @@ loc_5F94F1:                             ; DATA XREF: .rdata:stru_619DF8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_445D34:                             ; DATA XREF: sub_445D34+5↑o
+SEH_445D34:                             ; DATA XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+5↑o
                 mov     eax, offset stru_619DD8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94F1
-; END OF FUNCTION CHUNK FOR sub_445D34
+; END OF FUNCTION CHUNK FOR ?ReadData@VisDiplomacy@@UAEXPBX@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_445EBD
 
@@ -421314,7 +421314,7 @@ off_60A438      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_44582E
                 dd offset sub_4459AF
 off_60A4C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z+4B↑o
-                dd offset sub_44F9E0
+                dd offset ??_GVisDiplomacy@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421330,7 +421330,7 @@ off_60A4C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset sub_445D34
+                dd offset ?ReadData@VisDiplomacy@@UAEXPBX@Z
                 dd offset ?MsgProc@VisMessageBox@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
@@ -421347,8 +421347,8 @@ off_60A4C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
-                dd offset sub_445C2E
-                dd offset sub_445CF1
+                dd offset ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod31@VisDiplomacy@@UAEXH@Z
 off_60A558      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisConnectionDlg@@QAE@HHHHHPAH@Z+49↑o
                 dd offset sub_44FA10
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime

@@ -2244,10 +2244,13 @@ ASSERT_SIZE(VisCutScenesDlg, 0x78);
 class VisDiplomacy : public VisMessageBox
 {
 public:
+	virtual ~VisDiplomacy();
+
 	VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); //44402b
 
-
+	virtual void ReadData(const void* buf) override;
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
 public:
 	CArray<DiplomacyEntry*>* diplomacy;
 };
