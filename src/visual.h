@@ -2367,6 +2367,12 @@ ASSERT_SIZE(NetMapInfo, 0x1c);
 class VisNetMapSelection : public VisWindow
 {
 public:
+	virtual ~VisNetMapSelection();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod26() override;
+
 	VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName); //44af45
 
 public:

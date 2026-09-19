@@ -2579,6 +2579,10 @@ externdef ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
 
 ; VisNetMapSelection
 externdef ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z : proc
+externdef ??_GVisNetMapSelection@@UAEPAXI@Z : proc
+externdef ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
+externdef ?OnKeyDown@VisNetMapSelection@@UAEHI@Z : proc
+externdef ?VMethod26@VisNetMapSelection@@UAEXXZ : proc
 
 ; VisTipsDialog
 externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc
