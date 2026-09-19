@@ -38404,7 +38404,7 @@ sub_42FD5C      endp
 
 ; Attributes: bp-based frame
 
-sub_42FDF8      proc near               ; CODE XREF: sub_4385B0+A↓p
+sub_42FDF8      proc near               ; CODE XREF: ??_GVisCharSellectButtons@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -38622,7 +38622,7 @@ sub_42FE62      endp
 
 ; Attributes: bp-based frame
 
-sub_43005F      proc near               ; DATA XREF: .rdata:006097D4↓o
+?VMethod7@VisCharSellectButtons@@UAEXXZ      proc near               ; DATA XREF: .rdata:006097D4↓o
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -38650,7 +38650,7 @@ var_4           = dword ptr -4
                 jmp     loc_4302F0
 ; ---------------------------------------------------------------------------
 
-loc_430096:                             ; CODE XREF: sub_43005F+30↑j
+loc_430096:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+30↑j
                 call    ?LockSurface2@@YAIXZ
                 push    0
                 push    0
@@ -38673,12 +38673,12 @@ loc_430096:                             ; CODE XREF: sub_43005F+30↑j
                 jmp     short loc_4300DE
 ; ---------------------------------------------------------------------------
 
-loc_4300D5:                             ; CODE XREF: sub_43005F:loc_4302E6↓j
+loc_4300D5:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ:loc_4302E6↓j
                 mov     eax, dword ptr [ebp+var_8]
                 add     eax, 1
                 mov     [ebp+var_8], eax
 
-loc_4300DE:                             ; CODE XREF: sub_43005F+74↑j
+loc_4300DE:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+74↑j
                 cmp     [ebp+var_8], 4
                 jge     loc_4302EB
                 mov     ecx, dword ptr [ebp+var_14]
@@ -38692,13 +38692,13 @@ loc_4300DE:                             ; CODE XREF: sub_43005F+74↑j
                 jmp     short loc_430118
 ; ---------------------------------------------------------------------------
 
-loc_430108:                             ; CODE XREF: sub_43005F+95↑j
+loc_430108:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+95↑j
                 push    0
                 mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 mov     [ebp+var_4], eax
 
-loc_430118:                             ; CODE XREF: sub_43005F+A7↑j
+loc_430118:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+A7↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+0DCh], 0
                 jl      loc_430258
@@ -38793,7 +38793,7 @@ loc_430118:                             ; CODE XREF: sub_43005F+A7↑j
                 jmp     loc_4302E6
 ; ---------------------------------------------------------------------------
 
-loc_430258:                             ; CODE XREF: sub_43005F+C3↑j
+loc_430258:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+C3↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 push    ecx
                 push    0Ah
@@ -38840,26 +38840,26 @@ loc_430258:                             ; CODE XREF: sub_43005F+C3↑j
                 mov     ecx, ?g_font4@@3PAVCGameFont@@A
                 call    dword ptr [eax+14h]
 
-loc_4302E6:                             ; CODE XREF: sub_43005F+1F4↑j
+loc_4302E6:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+1F4↑j
                 jmp     loc_4300D5
 ; ---------------------------------------------------------------------------
 
-loc_4302EB:                             ; CODE XREF: sub_43005F+83↑j
+loc_4302EB:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+83↑j
                 call    ?UnlockSurface2@@YAIXZ
 
-loc_4302F0:                             ; CODE XREF: sub_43005F+32↑j
+loc_4302F0:                             ; CODE XREF: ?VMethod7@VisCharSellectButtons@@UAEXXZ+32↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43005F      endp
+?VMethod7@VisCharSellectButtons@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4302F5      proc near               ; DATA XREF: .rdata:006097F4↓o
+?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006097F4↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -38882,14 +38882,14 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4302F5      endp
+?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_430318      proc near               ; DATA XREF: .rdata:006097FC↓o
+?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006097FC↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -38920,7 +38920,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_43039C
 ; ---------------------------------------------------------------------------
 
-loc_43035A:                             ; CODE XREF: sub_430318+32↑j
+loc_43035A:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+32↑j
                 mov     edx, dword ptr [ebp+var_4]
                 mov     eax, dword ptr [edx+5Ch]
                 add     eax, 88h
@@ -38930,7 +38930,7 @@ loc_43035A:                             ; CODE XREF: sub_430318+32↑j
                 jmp     short loc_43039C
 ; ---------------------------------------------------------------------------
 
-loc_430370:                             ; CODE XREF: sub_430318+38↑j
+loc_430370:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+38↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 90h
@@ -38940,7 +38940,7 @@ loc_430370:                             ; CODE XREF: sub_430318+38↑j
                 jmp     short loc_43039C
 ; ---------------------------------------------------------------------------
 
-loc_430387:                             ; CODE XREF: sub_430318+3E↑j
+loc_430387:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+3E↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+5Ch]
                 add     ecx, 94h
@@ -38948,7 +38948,7 @@ loc_430387:                             ; CODE XREF: sub_430318+3E↑j
                 call    ?Play@CSound@@SAXAAU1@@Z
                 add     esp, 4
 
-loc_43039C:                             ; CODE XREF: sub_430318+40↑j
+loc_43039C:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+40↑j
                 mov     edx, dword ptr [ebp+var_4]
                 cmp     dword ptr [edx+0D8h], 0
                 jnz     short loc_4303BD
@@ -38959,12 +38959,12 @@ loc_43039C:                             ; CODE XREF: sub_430318+40↑j
                 call    ?Play@CSound@@SAXAAU1@@Z
                 add     esp, 4
 
-loc_4303BD:                             ; CODE XREF: sub_430318+8E↑j
+loc_4303BD:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+8E↑j
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_430318      endp
+?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z      endp
 
 
 
@@ -38997,7 +38997,7 @@ sub_43072B      endp
 
 ; Attributes: bp-based frame
 
-sub_430750      proc near               ; CODE XREF: sub_430318+14↑p
+sub_430750      proc near               ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+14↑p
 
 var_18          = dword ptr -18h
 pt              = POINT ptr -14h
@@ -39074,7 +39074,7 @@ sub_430750      endp
 
 ; Attributes: bp-based frame
 
-sub_4307D7      proc near               ; CODE XREF: sub_4302F5+16↑p
+sub_4307D7      proc near               ; CODE XREF: ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z+16↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -51067,7 +51067,7 @@ sub_438580      endp
 
 ; Attributes: bp-based frame
 
-sub_4385B0      proc near               ; DATA XREF: .rdata:006097AC↓o
+??_GVisCharSellectButtons@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:006097AC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -51086,12 +51086,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4385D2:                             ; CODE XREF: sub_4385B0+17↑j
+loc_4385D2:                             ; CODE XREF: ??_GVisCharSellectButtons@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4385B0      endp
+??_GVisCharSellectButtons@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -420898,7 +420898,7 @@ off_609730      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 off_6097A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42FCE2+54↑o
-                dd offset sub_4385B0
+                dd offset ??_GVisCharSellectButtons@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -420908,7 +420908,7 @@ off_6097A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_43005F
+                dd offset ?VMethod7@VisCharSellectButtons@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
@@ -420916,9 +420916,9 @@ off_6097A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
                 dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset sub_4302F5
+                dd offset ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_430318
+                dd offset ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z
                 dd offset ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
                 dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit

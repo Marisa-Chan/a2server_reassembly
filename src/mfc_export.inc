@@ -2221,6 +2221,12 @@ externdef ??_GVisQuestStatus@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisQuestStatus@@UAEXXZ : proc
 externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 
+;VisCharSellectButtons
+externdef ??_GVisCharSellectButtons@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
+externdef ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
