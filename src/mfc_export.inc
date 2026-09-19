@@ -2069,6 +2069,20 @@ externdef ?VMethod26@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod28@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod30@VisShopKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisShopKaarg@@UAEXH@Z : proc
+;VisTown
+externdef ??_GVisTown@@UAEPAXI@Z : proc
+externdef ?GetHint@VisTown@@UAEPBDXZ : proc
+externdef ?VMethod7@VisTown@@UAEXXZ : proc
+externdef ?VMethod8@VisTown@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisTown@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisTown@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisTown@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisTown@@UAEHI@Z : proc
+externdef ?VMethod26@VisTown@@UAEXXZ : proc
+externdef ?VMethod28@VisTown@@UAEXXZ : proc
+externdef ?DoClose@VisTown@@UAEXI@Z : proc
+externdef ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisTown@@UAEXH@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
