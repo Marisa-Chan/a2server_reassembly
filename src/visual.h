@@ -1994,6 +1994,12 @@ class VisStartGame;
 class VisStartGameTextBox : public CVisualObject
 {
 public:
+	virtual const char* GetHint() override;
+	virtual void VMethod7() override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual int32_t OnChar(uint32_t wparam) override;
 
 public:
 	VisStartGame* screen;

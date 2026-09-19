@@ -2306,6 +2306,14 @@ externdef ?GetHint@VisSideStatus@@UAEPBDXZ : proc
 externdef ?VMethod7@VisSideStatus@@UAEXXZ : proc
 externdef ?MsgProc@VisSideStatus@@UAEHIII@Z : proc
 
+;VisStartGameTextBox
+externdef ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
+externdef ?VMethod7@VisStartGameTextBox@@UAEXXZ : proc
+externdef ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
+externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc

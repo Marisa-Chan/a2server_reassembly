@@ -42773,7 +42773,7 @@ sub_432AD1      endp
 
 ; Attributes: bp-based frame
 
-sub_432B33      proc near               ; CODE XREF: sub_432D1B+29↓p
+sub_432B33      proc near               ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+29↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -42812,7 +42812,7 @@ sub_432B33      endp
 
 ; Attributes: bp-based frame
 
-sub_432B80      proc near               ; CODE XREF: sub_432CE3+1A↓p
+sub_432B80      proc near               ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+1A↓p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -42897,7 +42897,7 @@ sub_432C03      endp
 
 ; Attributes: bp-based frame
 
-sub_432C1F      proc near               ; DATA XREF: .rdata:0060996C↓o
+?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060996C↓o
 
 var_24          = dword ptr -24h
 pt              = POINT ptr -20h
@@ -42947,25 +42947,25 @@ arg_8           = dword ptr  10h
                 jmp     short loc_432C96
 ; ---------------------------------------------------------------------------
 
-loc_432C8A:                             ; CODE XREF: sub_432C1F+5B↑j
+loc_432C8A:                             ; CODE XREF: ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z+5B↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+6Ch]
                 mov     [edx+64h], ecx
 
-loc_432C96:                             ; CODE XREF: sub_432C1F+69↑j
+loc_432C96:                             ; CODE XREF: ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z+69↑j
                 xor     eax, eax
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_432C1F      endp
+?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_432C9E      proc near               ; DATA XREF: .rdata:00609974↓o
+?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609974↓o
 
 var_C           = dword ptr -0Ch
 pt              = POINT ptr -8
@@ -42996,20 +42996,20 @@ arg_8           = dword ptr  10h
                 mov     ecx, dword ptr [edx+5Ch]
                 call    ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z
 
-loc_432CDB:                             ; CODE XREF: sub_432C9E+2A↑j
+loc_432CDB:                             ; CODE XREF: ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z+2A↑j
                 xor     eax, eax
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_432C9E      endp
+?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_432CE3(struct type_info *)
-sub_432CE3      proc near               ; DATA XREF: .rdata:0060998C↓o
+; int __stdcall ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z(struct type_info *)
+?OnKeyDown@VisStartGameTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060998C↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -43026,31 +43026,31 @@ arg_0           = dword ptr  8
                 jmp     short loc_432D09
 ; ---------------------------------------------------------------------------
 
-loc_432CFA:                             ; CODE XREF: sub_432CE3+13↑j
+loc_432CFA:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+13↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    sub_432B80
                 mov     eax, 1
                 jmp     short loc_432D15
 ; ---------------------------------------------------------------------------
 
-loc_432D09:                             ; CODE XREF: sub_432CE3+15↑j
+loc_432D09:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+15↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx             ; struct type_info *
                 mov     ecx, dword ptr [ebp+var_4] ; varThis
                 call    ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 
-loc_432D15:                             ; CODE XREF: sub_432CE3+24↑j
+loc_432D15:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+24↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_432CE3      endp
+?OnKeyDown@VisStartGameTextBox@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_432D1B      proc near               ; DATA XREF: .rdata:00609994↓o
+?OnChar@VisStartGameTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609994↓o
 
 var_4           = dword ptr -4
 arg_0           = byte ptr  8
@@ -43076,21 +43076,21 @@ arg_0           = byte ptr  8
                 jmp     short loc_432D52
 ; ---------------------------------------------------------------------------
 
-loc_432D50:                             ; CODE XREF: sub_432D1B+15↑j
+loc_432D50:                             ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+15↑j
                 xor     eax, eax
 
-loc_432D52:                             ; CODE XREF: sub_432D1B+33↑j
+loc_432D52:                             ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+33↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_432D1B      endp
+?OnChar@VisStartGameTextBox@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_432D58      proc near               ; DATA XREF: .rdata:0060994C↓o
+?VMethod7@VisStartGameTextBox@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060994C↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -43167,14 +43167,14 @@ var_4           = dword ptr -4
                 jmp     short loc_432E13
 ; ---------------------------------------------------------------------------
 
-loc_432E04:                             ; CODE XREF: sub_432D58+60↑j
+loc_432E04:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+60↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 add     ecx, 60h ; '`'
                 push    ecx             ; int
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
 
-loc_432E13:                             ; CODE XREF: sub_432D58+AA↑j
+loc_432E13:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+AA↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+64h]
                 push    eax
@@ -43211,7 +43211,7 @@ loc_432E13:                             ; CODE XREF: sub_432D58+AA↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     [eax+70h], edx
 
-loc_432E80:                             ; CODE XREF: sub_432D58+10E↑j
+loc_432E80:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+10E↑j
                 call    ?UnlockSurface2@@YAIXZ
 ;   } // starts at 432DF6
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -43224,14 +43224,14 @@ loc_432E80:                             ; CODE XREF: sub_432D58+10E↑j
                 pop     ebp
                 retn
 ; } // starts at 432D58
-sub_432D58      endp
+?VMethod7@VisStartGameTextBox@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_432EA3      proc near               ; DATA XREF: .rdata:00609934↓o
+?GetHint@VisStartGameTextBox@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:00609934↓o
 
 var_4           = dword ptr -4
 
@@ -43247,17 +43247,17 @@ var_4           = dword ptr -4
                 jmp     short loc_432ECE
 ; ---------------------------------------------------------------------------
 
-loc_432EBD:                             ; CODE XREF: sub_432EA3+14↑j
+loc_432EBD:                             ; CODE XREF: ?GetHint@VisStartGameTextBox@@UAEPBDXZ+14↑j
                 push    100h
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
                 mov     eax, dword ptr [eax]
 
-loc_432ECE:                             ; CODE XREF: sub_432EA3+18↑j
+loc_432ECE:                             ; CODE XREF: ?GetHint@VisStartGameTextBox@@UAEPBDXZ+18↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_432EA3      endp
+?GetHint@VisStartGameTextBox@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -390470,7 +390470,7 @@ SEH_432B80:                             ; DATA XREF: sub_432B80+5↑o
 ; } // starts at 5F838B
 ; END OF FUNCTION CHUNK FOR sub_432B80
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_432D58
+; START OF FUNCTION CHUNK FOR ?VMethod7@VisStartGameTextBox@@UAEXXZ
 
 loc_5F839E:                             ; DATA XREF: .rdata:stru_618B78↓o
 ; __unwind { // SEH_432D58              ; varThis
@@ -390488,11 +390488,11 @@ loc_5F83A7:                             ; DATA XREF: .rdata:00618B80↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_432D58:                             ; DATA XREF: sub_432D58+5↑o
+SEH_432D58:                             ; DATA XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+5↑o
                 mov     eax, offset stru_618B58
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F839E
-; END OF FUNCTION CHUNK FOR sub_432D58
+; END OF FUNCTION CHUNK FOR ?VMethod7@VisStartGameTextBox@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_432ED2
 
@@ -420996,13 +420996,13 @@ off_609920      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset sub_432EA3
+                dd offset ?GetHint@VisStartGameTextBox@@UAEPBDXZ
                 dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
                 dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_432D58
+                dd offset ?VMethod7@VisStartGameTextBox@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
@@ -421010,17 +421010,17 @@ off_609920      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
                 dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset sub_432C1F
+                dd offset ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_432C9E
+                dd offset ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z
                 dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_432CE3
+                dd offset ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_432D1B
+                dd offset ?OnChar@VisStartGameTextBox@@UAEHI@Z
 off_609998      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_432ED2+163↑o
                 dd offset ??_GVisStartGame@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
