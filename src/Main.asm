@@ -12346,7 +12346,7 @@ sub_419BA1      endp
 
 ; Attributes: bp-based frame
 
-sub_41A001      proc near               ; CODE XREF: sub_4CADEE+6B↓p
+sub_41A001      proc near               ; CODE XREF: ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z+6B↓p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -13393,7 +13393,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-sub_41ACE2      proc near               ; CODE XREF: sub_4CAC9B+BA↓p
+sub_41ACE2      proc near               ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+BA↓p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -15139,7 +15139,7 @@ sub_41E2AF      endp
 
 ; Attributes: bp-based frame
 
-sub_41E323      proc near               ; CODE XREF: sub_4CAAD7+92↓p
+sub_41E323      proc near               ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+92↓p
 
 var_4           = dword ptr -4
 arg_0           = word ptr  8
@@ -15318,7 +15318,7 @@ sub_41E3AF      endp
 
 ; Attributes: bp-based frame
 
-sub_41E456      proc near               ; CODE XREF: sub_4CA2A1+3BF↓p
+sub_41E456      proc near               ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+3BF↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -199159,7 +199159,7 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_4C9A6F      proc near               ; DATA XREF: .rdata:0060DA14↓o
+?GetHint@VisSpellBook@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:0060DA14↓o
 
 var_50          = qword ptr -50h
 var_48          = qword ptr -48h
@@ -199220,7 +199220,7 @@ var_4           = dword ptr -4
                 jmp     loc_4CA292
 ; ---------------------------------------------------------------------------
 
-loc_4C9AEF:                             ; CODE XREF: sub_4C9A6F+77↑j
+loc_4C9AEF:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+77↑j
                 mov     eax, dword ptr [ebp+var_18]
                 mov     ecx, dword ptr [eax+418h]
                 and     ecx, 2
@@ -199233,7 +199233,7 @@ loc_4C9AEF:                             ; CODE XREF: sub_4C9A6F+77↑j
                 jmp     loc_4CA292
 ; ---------------------------------------------------------------------------
 
-loc_4C9B12:                             ; CODE XREF: sub_4C9A6F+8E↑j
+loc_4C9B12:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+8E↑j
                 mov     byte_666590, 0
                 cmp     [ebp+var_14], 0
                 jl      loc_4CA290
@@ -199312,7 +199312,7 @@ loc_4C9B12:                             ; CODE XREF: sub_4C9A6F+8E↑j
                 jmp     short loc_4C9C52
 ; ---------------------------------------------------------------------------
 
-loc_4C9C16:                             ; CODE XREF: sub_4C9A6F+175↑j
+loc_4C9C16:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+175↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [edx+ecx*4+1B4h]
@@ -199332,7 +199332,7 @@ loc_4C9C16:                             ; CODE XREF: sub_4C9A6F+175↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4C9C52:                             ; CODE XREF: sub_4C9A6F+155↑j
+loc_4C9C52:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+155↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     dword ptr [ecx+eax*4+274h], 0
@@ -199361,7 +199361,7 @@ loc_4C9C52:                             ; CODE XREF: sub_4C9A6F+155↑j
                 jmp     short loc_4C9CEE
 ; ---------------------------------------------------------------------------
 
-loc_4C9CB2:                             ; CODE XREF: sub_4C9A6F+211↑j
+loc_4C9CB2:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+211↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+edx*4+274h]
@@ -199381,7 +199381,7 @@ loc_4C9CB2:                             ; CODE XREF: sub_4C9A6F+211↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4C9CEE:                             ; CODE XREF: sub_4C9A6F+1F1↑j
+loc_4C9CEE:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+1F1↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 cmp     dword ptr [edx+ecx*4+3F4h], 0
@@ -199412,7 +199412,7 @@ loc_4C9CEE:                             ; CODE XREF: sub_4C9A6F+1F1↑j
                 jmp     short loc_4C9DAB
 ; ---------------------------------------------------------------------------
 
-loc_4C9D59:                             ; CODE XREF: sub_4C9A6F+2AD↑j
+loc_4C9D59:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+2AD↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 fild    dword ptr [eax+edx*4+3F4h]
@@ -199436,7 +199436,7 @@ loc_4C9D59:                             ; CODE XREF: sub_4C9A6F+2AD↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 1Ch
 
-loc_4C9DAB:                             ; CODE XREF: sub_4C9A6F+28D↑j
+loc_4C9DAB:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+28D↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 cmp     dword ptr [eax+edx*4+4B4h], 0FFFF0001h
@@ -199465,7 +199465,7 @@ loc_4C9DAB:                             ; CODE XREF: sub_4C9A6F+28D↑j
                 jmp     short loc_4C9E50
 ; ---------------------------------------------------------------------------
 
-loc_4C9E11:                             ; CODE XREF: sub_4C9A6F+36D↑j
+loc_4C9E11:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+36D↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [edx+ecx*4+4B4h]
@@ -199485,7 +199485,7 @@ loc_4C9E11:                             ; CODE XREF: sub_4C9A6F+36D↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4C9E50:                             ; CODE XREF: sub_4C9A6F+34D↑j
+loc_4C9E50:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+34D↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     dword ptr [ecx+eax*4+574h], 0
@@ -199514,7 +199514,7 @@ loc_4C9E50:                             ; CODE XREF: sub_4C9A6F+34D↑j
                 jmp     short loc_4C9EF2
 ; ---------------------------------------------------------------------------
 
-loc_4C9EB3:                             ; CODE XREF: sub_4C9A6F+40F↑j
+loc_4C9EB3:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+40F↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+edx*4+574h]
@@ -199534,7 +199534,7 @@ loc_4C9EB3:                             ; CODE XREF: sub_4C9A6F+40F↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4C9EF2:                             ; CODE XREF: sub_4C9A6F+3EF↑j
+loc_4C9EF2:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+3EF↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 cmp     dword ptr [edx+ecx*4+634h], 0FFFF0001h
@@ -199563,7 +199563,7 @@ loc_4C9EF2:                             ; CODE XREF: sub_4C9A6F+3EF↑j
                 jmp     short loc_4C9F97
 ; ---------------------------------------------------------------------------
 
-loc_4C9F58:                             ; CODE XREF: sub_4C9A6F+4B4↑j
+loc_4C9F58:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+4B4↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     edx, dword ptr [ecx+eax*4+634h]
@@ -199583,7 +199583,7 @@ loc_4C9F58:                             ; CODE XREF: sub_4C9A6F+4B4↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4C9F97:                             ; CODE XREF: sub_4C9A6F+494↑j
+loc_4C9F97:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+494↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 cmp     dword ptr [eax+edx*4+6F4h], 0
@@ -199612,7 +199612,7 @@ loc_4C9F97:                             ; CODE XREF: sub_4C9A6F+494↑j
                 jmp     short loc_4CA039
 ; ---------------------------------------------------------------------------
 
-loc_4C9FFA:                             ; CODE XREF: sub_4C9A6F+556↑j
+loc_4C9FFA:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+556↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [edx+ecx*4+6F4h]
@@ -199632,7 +199632,7 @@ loc_4C9FFA:                             ; CODE XREF: sub_4C9A6F+556↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4CA039:                             ; CODE XREF: sub_4C9A6F+536↑j
+loc_4CA039:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+536↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     dword ptr [ecx+eax*4+7B4h], 0
@@ -199661,7 +199661,7 @@ loc_4CA039:                             ; CODE XREF: sub_4C9A6F+536↑j
                 jmp     short loc_4CA0DB
 ; ---------------------------------------------------------------------------
 
-loc_4CA09C:                             ; CODE XREF: sub_4C9A6F+5F8↑j
+loc_4CA09C:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+5F8↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+edx*4+7B4h]
@@ -199681,7 +199681,7 @@ loc_4CA09C:                             ; CODE XREF: sub_4C9A6F+5F8↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4CA0DB:                             ; CODE XREF: sub_4C9A6F+5D8↑j
+loc_4CA0DB:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+5D8↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 cmp     dword ptr [edx+ecx*4+874h], 0
@@ -199710,7 +199710,7 @@ loc_4CA0DB:                             ; CODE XREF: sub_4C9A6F+5D8↑j
                 jmp     short loc_4CA17D
 ; ---------------------------------------------------------------------------
 
-loc_4CA13E:                             ; CODE XREF: sub_4C9A6F+69A↑j
+loc_4CA13E:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+69A↑j
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     edx, dword ptr [ecx+eax*4+874h]
@@ -199730,7 +199730,7 @@ loc_4CA13E:                             ; CODE XREF: sub_4C9A6F+69A↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4CA17D:                             ; CODE XREF: sub_4C9A6F+67A↑j
+loc_4CA17D:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+67A↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     eax, dword ptr [ebp+var_10]
                 cmp     dword ptr [eax+edx*4+934h], 0
@@ -199759,7 +199759,7 @@ loc_4CA17D:                             ; CODE XREF: sub_4C9A6F+67A↑j
                 jmp     short loc_4CA21F
 ; ---------------------------------------------------------------------------
 
-loc_4CA1E0:                             ; CODE XREF: sub_4C9A6F+73C↑j
+loc_4CA1E0:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+73C↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [edx+ecx*4+934h]
@@ -199779,7 +199779,7 @@ loc_4CA1E0:                             ; CODE XREF: sub_4C9A6F+73C↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_4CA21F:                             ; CODE XREF: sub_4C9A6F+71C↑j
+loc_4CA21F:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+71C↑j
                 mov     eax, dword ptr [ebp+var_24]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_30]
@@ -199823,10 +199823,10 @@ loc_4CA21F:                             ; CODE XREF: sub_4C9A6F+71C↑j
                 jmp     short loc_4CA292
 ; ---------------------------------------------------------------------------
 
-loc_4CA290:                             ; CODE XREF: sub_4C9A6F+AE↑j
+loc_4CA290:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+AE↑j
                 xor     eax, eax
 
-loc_4CA292:                             ; CODE XREF: sub_4C9A6F+7B↑j
+loc_4CA292:                             ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+7B↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -199834,14 +199834,14 @@ loc_4CA292:                             ; CODE XREF: sub_4C9A6F+7B↑j
                 pop     ebp
                 retn
 ; } // starts at 4C9A6F
-sub_4C9A6F      endp
+?GetHint@VisSpellBook@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CA2A1      proc near               ; DATA XREF: .rdata:0060DA2C↓o
+?VMethod7@VisSpellBook@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DA2C↓o
 
 var_8C          = dword ptr -8Ch
 var_88          = dword ptr -88h
@@ -199887,7 +199887,7 @@ var_4           = dword ptr -4
                 jz      short loc_4CA30B
                 mov     [ebp+var_70], 0
 
-loc_4CA30B:                             ; CODE XREF: sub_4CA2A1+61↑j
+loc_4CA30B:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+61↑j
                 cmp     [ebp+var_70], 0
                 jz      loc_4CA481
                 cmp     dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch], 258h 
@@ -199947,7 +199947,7 @@ loc_4CA30B:                             ; CODE XREF: sub_4CA2A1+61↑j
                 jmp     loc_4CA481
 ; ---------------------------------------------------------------------------
 
-loc_4CA3CE:                             ; CODE XREF: sub_4CA2A1+7E↑j
+loc_4CA3CE:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+7E↑j
                 cmp     dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch], 1E0h 
                 jle     loc_4CA481
                 push    0
@@ -200003,7 +200003,7 @@ loc_4CA3CE:                             ; CODE XREF: sub_4CA2A1+7E↑j
                 mov     ecx, ?g_bmp_spb800r@@3PAVCBmp64@@A
                 call    dword ptr [edx+38h]
 
-loc_4CA481:                             ; CODE XREF: sub_4CA2A1+6E↑j
+loc_4CA481:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+6E↑j
                 push    0
                 mov     eax, ?g_bmp_spellbook@@3PAVCBmp64@@A
                 mov     edx, dword ptr [eax]
@@ -200031,12 +200031,12 @@ loc_4CA481:                             ; CODE XREF: sub_4CA2A1+6E↑j
                 jmp     short loc_4CA4D9
 ; ---------------------------------------------------------------------------
 
-loc_4CA4D0:                             ; CODE XREF: sub_4CA2A1:loc_4CA546↓j
+loc_4CA4D0:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ:loc_4CA546↓j
                 mov     ecx, dword ptr [ebp+var_6C]
                 add     ecx, 1
                 mov     [ebp+var_6C], ecx
 
-loc_4CA4D9:                             ; CODE XREF: sub_4CA2A1+22D↑j
+loc_4CA4D9:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+22D↑j
                 cmp     [ebp+var_6C], 18h
                 jge     short loc_4CA548
                 mov     edx, dword ptr [ebp+var_4]
@@ -200074,11 +200074,11 @@ loc_4CA4D9:                             ; CODE XREF: sub_4CA2A1+22D↑j
                 mov     ecx, ?g_bmp_spellback@@3PAVCBmp64@@A
                 call    dword ptr [edx+18h]
 
-loc_4CA546:                             ; CODE XREF: sub_4CA2A1+25E↑j
+loc_4CA546:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+25E↑j
                 jmp     short loc_4CA4D0
 ; ---------------------------------------------------------------------------
 
-loc_4CA548:                             ; CODE XREF: sub_4CA2A1+23C↑j
+loc_4CA548:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+23C↑j
                 mov     eax, dword ptr [ebp+var_8C]
                 cmp     dword ptr [eax+60h], 0
                 jl      loc_4CA5E8
@@ -200129,17 +200129,17 @@ loc_4CA548:                             ; CODE XREF: sub_4CA2A1+23C↑j
                 call    sub_457C5D
                 add     esp, 14h
 
-loc_4CA5E8:                             ; CODE XREF: sub_4CA2A1+2B1↑j
+loc_4CA5E8:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+2B1↑j
                 mov     [ebp+var_6C], 0
                 jmp     short loc_4CA5FA
 ; ---------------------------------------------------------------------------
 
-loc_4CA5F1:                             ; CODE XREF: sub_4CA2A1:loc_4CA7B3↓j
+loc_4CA5F1:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ:loc_4CA7B3↓j
                 mov     ecx, dword ptr [ebp+var_6C]
                 add     ecx, 1
                 mov     [ebp+var_6C], ecx
 
-loc_4CA5FA:                             ; CODE XREF: sub_4CA2A1+34E↑j
+loc_4CA5FA:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+34E↑j
                 cmp     [ebp+var_6C], 18h
                 jge     loc_4CA7B8
                 mov     edx, dword ptr [ebp+var_4]
@@ -200157,12 +200157,12 @@ loc_4CA5FA:                             ; CODE XREF: sub_4CA2A1+34E↑j
                 jmp     short loc_4CA643
 ; ---------------------------------------------------------------------------
 
-loc_4CA63A:                             ; CODE XREF: sub_4CA2A1:loc_4CA672↓j
+loc_4CA63A:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ:loc_4CA672↓j
                 mov     ecx, dword ptr [ebp+var_80]
                 add     ecx, 1
                 mov     [ebp+var_80], ecx
 
-loc_4CA643:                             ; CODE XREF: sub_4CA2A1+397↑j
+loc_4CA643:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+397↑j
                 cmp     [ebp+var_80], 9
                 jge     short loc_4CA674
                 xor     edx, edx
@@ -200179,11 +200179,11 @@ loc_4CA643:                             ; CODE XREF: sub_4CA2A1+397↑j
                 add     edx, 4
                 mov     [ebp+var_7C], edx
 
-loc_4CA672:                             ; CODE XREF: sub_4CA2A1+3C6↑j
+loc_4CA672:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+3C6↑j
                 jmp     short loc_4CA63A
 ; ---------------------------------------------------------------------------
 
-loc_4CA674:                             ; CODE XREF: sub_4CA2A1+3A6↑j
+loc_4CA674:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+3A6↑j
                 cmp     [ebp+var_7C], 0
                 jz      loc_4CA70C
                 mov     eax, dword ptr [ebp+var_7C]
@@ -200200,7 +200200,7 @@ loc_4CA674:                             ; CODE XREF: sub_4CA2A1+3A6↑j
                 jnz     short loc_4CA6B5
                 mov     [ebp+var_84], 2
 
-loc_4CA6B5:                             ; CODE XREF: sub_4CA2A1+408↑j
+loc_4CA6B5:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+408↑j
                 push    1
                 push    offset ?clrsh_TechBlack@@3PAGA
                 push    0
@@ -200230,7 +200230,7 @@ loc_4CA6B5:                             ; CODE XREF: sub_4CA2A1+408↑j
                 mov     ecx, ?g_font3@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_4CA70C:                             ; CODE XREF: sub_4CA2A1+383↑j
+loc_4CA70C:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+383↑j
                 mov     edx, 1
                 mov     ecx, dword ptr [ebp+var_6C]
                 shl     edx, cl
@@ -200251,7 +200251,7 @@ loc_4CA70C:                             ; CODE XREF: sub_4CA2A1+383↑j
                 jnz     short loc_4CA75C
                 mov     [ebp+var_88], 2
 
-loc_4CA75C:                             ; CODE XREF: sub_4CA2A1+4AF↑j
+loc_4CA75C:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+4AF↑j
                 push    1
                 push    offset ?clrsh_TechBlack@@3PAGA
                 push    0
@@ -200281,24 +200281,24 @@ loc_4CA75C:                             ; CODE XREF: sub_4CA2A1+4AF↑j
                 mov     ecx, ?g_font3@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_4CA7B3:                             ; CODE XREF: sub_4CA2A1+482↑j
+loc_4CA7B3:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+482↑j
                 jmp     loc_4CA5F1
 ; ---------------------------------------------------------------------------
 
-loc_4CA7B8:                             ; CODE XREF: sub_4CA2A1+35D↑j
+loc_4CA7B8:                             ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+35D↑j
                 call    ?UnlockSurface2@@YAIXZ
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4CA2A1      endp
+?VMethod7@VisSpellBook@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CA7C2      proc near               ; CODE XREF: sub_4C9A6F+58↑p
+sub_4CA7C2      proc near               ; CODE XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+58↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -200603,7 +200603,7 @@ sub_4CAAA7      endp
 
 ; Attributes: bp-based frame
 
-sub_4CAAD7      proc near               ; DATA XREF: .rdata:0060DA48↓o
+?MsgProc@VisSpellBook@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060DA48↓o
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -200631,13 +200631,13 @@ arg_8           = dword ptr  10h
                 jmp     loc_4CAC81
 ; ---------------------------------------------------------------------------
 
-loc_4CAB05:                             ; CODE XREF: sub_4CAAD7+1E↑j
+loc_4CAB05:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+1E↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 mov     dword ptr [ecx+60h], 0FFFFFFFFh
                 jmp     loc_4CAC81
 ; ---------------------------------------------------------------------------
 
-loc_4CAB14:                             ; CODE XREF: sub_4CAAD7+27↑j
+loc_4CAB14:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+27↑j
                 cmp     [ebp+arg_8], 0
                 jz      loc_4CAC50
                 mov     edx, dword ptr [ebp+var_1C]
@@ -200667,12 +200667,12 @@ loc_4CAB14:                             ; CODE XREF: sub_4CAAD7+27↑j
                 jmp     short loc_4CAB80
 ; ---------------------------------------------------------------------------
 
-loc_4CAB77:                             ; CODE XREF: sub_4CAAD7:loc_4CABC3↓j
+loc_4CAB77:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z:loc_4CABC3↓j
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 1
                 mov     [ebp+var_14], edx
 
-loc_4CAB80:                             ; CODE XREF: sub_4CAAD7+9E↑j
+loc_4CAB80:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+9E↑j
                 cmp     [ebp+var_14], 9
                 jge     short loc_4CABC5
                 mov     eax, dword ptr [ebp+var_14]
@@ -200694,15 +200694,15 @@ loc_4CAB80:                             ; CODE XREF: sub_4CAAD7+9E↑j
                 lea     ecx, [edx+ecx+4F4h]
                 call    sub_4971C0
 
-loc_4CABC3:                             ; CODE XREF: sub_4CAAD7+B5↑j
+loc_4CABC3:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+B5↑j
                 jmp     short loc_4CAB77
 ; ---------------------------------------------------------------------------
 
-loc_4CABC5:                             ; CODE XREF: sub_4CAAD7+79↑j
+loc_4CABC5:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+79↑j
                 jmp     short loc_4CAC40
 ; ---------------------------------------------------------------------------
 
-loc_4CABC7:                             ; CODE XREF: sub_4CAAD7+4E↑j
+loc_4CABC7:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+4E↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 xor     ecx, ecx
                 mov     cx, [eax+60h]
@@ -200716,12 +200716,12 @@ loc_4CABC7:                             ; CODE XREF: sub_4CAAD7+4E↑j
                 jmp     short loc_4CABF8
 ; ---------------------------------------------------------------------------
 
-loc_4CABEF:                             ; CODE XREF: sub_4CAAD7:loc_4CAC3E↓j
+loc_4CABEF:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z:loc_4CAC3E↓j
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 1
                 mov     [ebp+var_18], ecx
 
-loc_4CABF8:                             ; CODE XREF: sub_4CAAD7+116↑j
+loc_4CABF8:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+116↑j
                 cmp     [ebp+var_18], 9
                 jge     short loc_4CAC40
                 mov     edx, dword ptr [ebp+var_18]
@@ -200744,18 +200744,18 @@ loc_4CABF8:                             ; CODE XREF: sub_4CAAD7+116↑j
                 lea     ecx, [edx+ecx+4F4h]
                 call    sub_4971C0
 
-loc_4CAC3E:                             ; CODE XREF: sub_4CAAD7+12D↑j
+loc_4CAC3E:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+12D↑j
                 jmp     short loc_4CABEF
 ; ---------------------------------------------------------------------------
 
-loc_4CAC40:                             ; CODE XREF: sub_4CAAD7:loc_4CABC5↑j
+loc_4CAC40:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z:loc_4CABC5↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 468h
                 call    sub_4948B2
                 jmp     short loc_4CAC81
 ; ---------------------------------------------------------------------------
 
-loc_4CAC50:                             ; CODE XREF: sub_4CAAD7+41↑j
+loc_4CAC50:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+41↑j
                 mov     eax, dword ptr [ebp+arg_4]
                 imul    eax, 0Ch
                 mov     ecx, dword ptr [ebp+var_4]
@@ -200771,7 +200771,7 @@ loc_4CAC50:                             ; CODE XREF: sub_4CAAD7+41↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     [eax+60h], edx
 
-loc_4CAC81:                             ; CODE XREF: sub_4CAAD7+29↑j
+loc_4CAC81:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+29↑j
                 mov     ecx, dword ptr [ebp+arg_8]
                 push    ecx
                 mov     edx, dword ptr [ebp+arg_4]
@@ -200783,14 +200783,14 @@ loc_4CAC81:                             ; CODE XREF: sub_4CAAD7+29↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAAD7      endp
+?MsgProc@VisSpellBook@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAC9B      proc near               ; DATA XREF: .rdata:0060DA6C↓o
+?OnKeyDown@VisSpellBook@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060DA6C↓o
 
 var_1C          = dword ptr -1Ch
 Point           = tagPOINT ptr -18h
@@ -200811,7 +200811,7 @@ arg_0           = dword ptr  8
                 cmp     [ebp+arg_0], 41h ; 'A'
                 jnz     loc_4CAD62
 
-loc_4CACC1:                             ; CODE XREF: sub_4CAC9B+1A↑j
+loc_4CACC1:                             ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+1A↑j
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
                 mov     [ebp+var_8], eax
                 mov     eax, dword ptr [ebp+var_8]
@@ -200840,11 +200840,11 @@ loc_4CACC1:                             ; CODE XREF: sub_4CAC9B+1A↑j
                 mov     ecx, dword_63624C[eax*4]
                 mov     [ebp+var_C], ecx
 
-loc_4CAD26:                             ; CODE XREF: sub_4CAC9B+6F↑j
+loc_4CAD26:                             ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+6F↑j
                 jmp     short loc_4CAD48
 ; ---------------------------------------------------------------------------
 
-loc_4CAD28:                             ; CODE XREF: sub_4CAC9B+48↑j
+loc_4CAD28:                             ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+48↑j
                 mov     edx, dword ptr [ebp+var_1C]
                 mov     eax, dword ptr [edx+60h]
                 cmp     dword_62F968[eax*4], 0
@@ -200854,7 +200854,7 @@ loc_4CAD28:                             ; CODE XREF: sub_4CAC9B+48↑j
                 mov     eax, dword_63624C[edx*4]
                 mov     [ebp+var_C], eax
 
-loc_4CAD48:                             ; CODE XREF: sub_4CAC9B:loc_4CAD26↑j
+loc_4CAD48:                             ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z:loc_4CAD26↑j
                 cmp     [ebp+var_C], 0
                 jz      short loc_4CAD62
                 mov     ecx, dword ptr [ebp+var_C]
@@ -200864,19 +200864,19 @@ loc_4CAD48:                             ; CODE XREF: sub_4CAC9B:loc_4CAD26↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
 
-loc_4CAD62:                             ; CODE XREF: sub_4CAC9B+10↑j
+loc_4CAD62:                             ; CODE XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+10↑j
                 xor     eax, eax
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4CAC9B      endp
+?OnKeyDown@VisSpellBook@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAD6A      proc near               ; DATA XREF: .rdata:0060DA54↓o
+?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA54↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -200914,19 +200914,19 @@ arg_4           = byte ptr  0Ch
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [ecx+60h], edx
 
-loc_4CADC7:                             ; CODE XREF: sub_4CAD6A+30↑j
+loc_4CADC7:                             ; CODE XREF: ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z+30↑j
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAD6A      endp
+?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CADD2      proc near               ; DATA XREF: .rdata:0060DA60↓o
+?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA60↓o
 
 var_4           = dword ptr -4
 
@@ -200940,14 +200940,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CADD2      endp
+?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CADEE      proc near               ; DATA XREF: .rdata:0060DA5C↓o
+?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA5C↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -201004,7 +201004,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_4CAE8E
 ; ---------------------------------------------------------------------------
 
-loc_4CAE77:                             ; CODE XREF: sub_4CADEE+30↑j
+loc_4CAE77:                             ; CODE XREF: ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z+30↑j
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -201016,11 +201016,11 @@ loc_4CAE77:                             ; CODE XREF: sub_4CADEE+30↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 call    dword ptr [edx+54h]
 
-loc_4CAE8E:                             ; CODE XREF: sub_4CADEE+87↑j
+loc_4CAE8E:                             ; CODE XREF: ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z+87↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CADEE      endp
+?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -201028,7 +201028,7 @@ sub_4CADEE      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_658 proc near           ; DATA XREF: .rdata:0060DA68↓o
+?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z proc near           ; DATA XREF: .rdata:0060DA68↓o
 
 var_4           = dword ptr -4
 
@@ -201040,14 +201040,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-unknown_libname_658 endp
+?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAEA6      proc near               ; DATA XREF: .rdata:0060DA58↓o
+?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA58↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -201077,7 +201077,7 @@ var_4           = dword ptr -4
                 jmp     short loc_4CAF65
 ; ---------------------------------------------------------------------------
 
-loc_4CAEFE:                             ; CODE XREF: sub_4CAEA6+3A↑j
+loc_4CAEFE:                             ; CODE XREF: ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z+3A↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 cmp     dword ptr [ecx+410h], 2
                 jnz     short loc_4CAF30
@@ -201093,7 +201093,7 @@ loc_4CAEFE:                             ; CODE XREF: sub_4CAEA6+3A↑j
                 jmp     short loc_4CAF65
 ; ---------------------------------------------------------------------------
 
-loc_4CAF30:                             ; CODE XREF: sub_4CAEA6+62↑j
+loc_4CAF30:                             ; CODE XREF: ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z+62↑j
                 mov     eax, dword ptr [ebp+var_4]
                 cmp     dword ptr [eax+410h], 1
                 jnz     short loc_4CAF65
@@ -201108,19 +201108,19 @@ loc_4CAF30:                             ; CODE XREF: sub_4CAEA6+62↑j
                 mov     eax, dword ptr [edx]
                 call    dword ptr [eax+0A4h]
 
-loc_4CAF65:                             ; CODE XREF: sub_4CAEA6+1B↑j
+loc_4CAF65:                             ; CODE XREF: ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z+1B↑j
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAEA6      endp
+?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAF70      proc near               ; DATA XREF: .rdata:0060DA64↓o
+?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA64↓o
 
 var_4           = dword ptr -4
 
@@ -201134,14 +201134,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAF70      endp
+?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAF8C      proc near               ; DATA XREF: .rdata:0060DA4C↓o
+?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA4C↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -201159,7 +201159,7 @@ arg_8           = dword ptr  10h
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?ResetStates@CMousePointer@@QAEXXZ
 
-loc_4CAFAB:                             ; CODE XREF: sub_4CAF8C+13↑j
+loc_4CAFAB:                             ; CODE XREF: ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z+13↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -201175,7 +201175,7 @@ loc_4CAFAB:                             ; CODE XREF: sub_4CAF8C+13↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    dword ptr [edx+54h]
 
-loc_4CAFCC:                             ; CODE XREF: sub_4CAF8C+27↑j
+loc_4CAFCC:                             ; CODE XREF: ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z+27↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 2
                 test    eax, eax
@@ -201191,19 +201191,19 @@ loc_4CAFCC:                             ; CODE XREF: sub_4CAF8C+27↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    dword ptr [edx+60h]
 
-loc_4CAFED:                             ; CODE XREF: sub_4CAF8C+48↑j
+loc_4CAFED:                             ; CODE XREF: ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z+48↑j
                 xor     eax, eax
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAF8C      endp
+?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4CAFF5      proc near               ; DATA XREF: .rdata:0060DA50↓o
+?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060DA50↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -201227,7 +201227,7 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4CAFF5      endp
+?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -201236,7 +201236,7 @@ sub_4CAFF5      endp
 
 ; Attributes: bp-based frame
 
-sub_4CB020      proc near               ; DATA XREF: .rdata:0060DA04↓o
+??_GVisSpellBook@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060DA04↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -201255,12 +201255,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4CB042:                             ; CODE XREF: sub_4CB020+17↑j
+loc_4CB042:                             ; CODE XREF: ??_GVisSpellBook@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4CB020      endp
+??_GVisSpellBook@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -201269,7 +201269,7 @@ sub_4CB020      endp
 
 ; Attributes: bp-based frame
 
-sub_4CB050      proc near               ; CODE XREF: sub_4CB020+A↑p
+sub_4CB050      proc near               ; CODE XREF: ??_GVisSpellBook@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -406091,7 +406091,7 @@ SEH_4C97A0:                             ; DATA XREF: CWinThread::~CWinThread(voi
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_4C9A6F
+; START OF FUNCTION CHUNK FOR ?GetHint@VisSpellBook@@UAEPBDXZ
 
 loc_5FE980:                             ; DATA XREF: .rdata:stru_61FC80↓o
 ; __unwind { // SEH_4C9A6F              ; varThis
@@ -406133,11 +406133,11 @@ loc_5FE9A4:                             ; DATA XREF: .rdata:0061FCA0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4C9A6F:                             ; DATA XREF: sub_4C9A6F+5↑o
+SEH_4C9A6F:                             ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+5↑o
                 mov     eax, offset stru_61FC60
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE980
-; END OF FUNCTION CHUNK FOR sub_4C9A6F
+; END OF FUNCTION CHUNK FOR ?GetHint@VisSpellBook@@UAEPBDXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4CB993
 
@@ -424638,36 +424638,36 @@ off_60D9E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 10h
 off_60DA00      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C9992↑o
-                dd offset sub_4CB020
+                dd offset ??_GVisSpellBook@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset sub_4C9A6F
+                dd offset ?GetHint@VisSpellBook@@UAEPBDXZ
                 dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
                 dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_4CA2A1
+                dd offset ?VMethod7@VisSpellBook@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_4CAAD7
-                dd offset sub_4CAF8C
-                dd offset sub_4CAFF5
-                dd offset sub_4CAD6A
-                dd offset sub_4CAEA6
-                dd offset sub_4CADEE
-                dd offset sub_4CADD2
-                dd offset sub_4CAF70
-                dd offset unknown_libname_658 ; MFC 3.1-14.0 32bit
-                dd offset sub_4CAC9B
+                dd offset ?MsgProc@VisSpellBook@@UAEHIII@Z
+                dd offset ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
+                dd offset ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
+                dd offset ?OnKeyDown@VisSpellBook@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-dbl_60DA78      dq 16.0                 ; DATA XREF: sub_4C9A6F+2BC↑r
+dbl_60DA78      dq 16.0                 ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+2BC↑r
 dbl_60DA80      dq 3.141592653589793    ; DATA XREF: ?FUN_004CD4B0@@YANH@Z+6↑r
 dbl_60DA88      dq 0.2                  ; DATA XREF: .text:004CB45A↑r
 dbl_60DA90      dq 6.0                  ; DATA XREF: sub_4CB85F+123↑r
@@ -445598,7 +445598,7 @@ dword_62F908    dd 1                    ; DATA XREF: ?sub_40B314@BigStruct2@@QAE
                 db    0
                 db    0
                 db    0
-dword_62F968    dd 1                    ; DATA XREF: sub_4CAC9B+74↑r
+dword_62F968    dd 1                    ; DATA XREF: ?OnKeyDown@VisSpellBook@@UAEHI@Z+74↑r
                 db    1
                 db    0
                 db    0
@@ -445691,7 +445691,7 @@ dword_62F968    dd 1                    ; DATA XREF: sub_4CAC9B+74↑r
                 db    0
                 db    0
                 db    0
-dword_62F9C8    dd 0                    ; DATA XREF: sub_4CADEE+57↑r
+dword_62F9C8    dd 0                    ; DATA XREF: ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z+57↑r
                 db    0
                 db    0
                 db    0
@@ -448810,69 +448810,69 @@ aSfxCharacters_4 db 'sfx\characters\',0 ; DATA XREF: ?Load@SfxBank@@QAEXVCString
                 db    0
                 db    0
 ; char aSSD[]
-aSSD            db '%s#%s: %d',0        ; DATA XREF: sub_4C9A6F+136↑o
+aSSD            db '%s#%s: %d',0        ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+136↑o
                 align 4
 ; char aSD_13[]
-aSD_13          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+194↑o
+aSD_13          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+194↑o
 ; char aSDD_1[]
-aSDD_1          db '#%s: %d-%d',0       ; DATA XREF: sub_4C9A6F+1D2↑o
+aSDD_1          db '#%s: %d-%d',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+1D2↑o
                 align 4
 ; char aSD_14[]
-aSD_14          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+230↑o
+aSD_14          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+230↑o
 ; char aSDD_2[]
-aSDD_2          db '#%s: %d-%d',0       ; DATA XREF: sub_4C9A6F+26E↑o
+aSDD_2          db '#%s: %d-%d',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+26E↑o
                 align 10h
 ; char aS51f_0[]
-aS51f_0         db '#%s: %5.1f',0       ; DATA XREF: sub_4C9A6F+2D7↑o
+aS51f_0         db '#%s: %5.1f',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+2D7↑o
                 align 4
 ; char aS51f51f[]
-aS51f51f        db '#%s: %5.1f -%5.1f',0 ; DATA XREF: sub_4C9A6F+32B↑o
+aS51f51f        db '#%s: %5.1f -%5.1f',0 ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+32B↑o
                 align 10h
 ; char aSD_15[]
-aSD_15          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+38F↑o
+aSD_15          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+38F↑o
 ; char aSDD_3[]
-aSDD_3          db '#%s: %d...%d',0     ; DATA XREF: sub_4C9A6F+3D0↑o
+aSDD_3          db '#%s: %d...%d',0     ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+3D0↑o
                 align 4
 ; char aSD_16[]
-aSD_16          db '#%s: +%d',0         ; DATA XREF: sub_4C9A6F+431↑o
+aSD_16          db '#%s: +%d',0         ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+431↑o
                 align 4
 ; char aSDD_4[]
-aSDD_4          db '#%s: +%d...+%d',0   ; DATA XREF: sub_4C9A6F+472↑o
+aSDD_4          db '#%s: +%d...+%d',0   ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+472↑o
                 align 4
 ; char aSD_17[]
-aSD_17          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+4D6↑o
+aSD_17          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+4D6↑o
 ; char aSDD_5[]
-aSDD_5          db '#%s: %d...%d',0     ; DATA XREF: sub_4C9A6F+517↑o
+aSDD_5          db '#%s: %d...%d',0     ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+517↑o
                 align 4
 ; char aSD_18[]
-aSD_18          db '#%s: +%d%%',0       ; DATA XREF: sub_4C9A6F+578↑o
+aSD_18          db '#%s: +%d%%',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+578↑o
                 align 4
 ; char aSDD_6[]
-aSDD_6          db '#%s: +%d...+%d%%',0 ; DATA XREF: sub_4C9A6F+5B9↑o
+aSDD_6          db '#%s: +%d...+%d%%',0 ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+5B9↑o
                 align 4
 ; char aSD_19[]
-aSD_19          db '#%s: +%d%%',0       ; DATA XREF: sub_4C9A6F+61A↑o
+aSD_19          db '#%s: +%d%%',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+61A↑o
                 align 4
 ; char aSDD_7[]
-aSDD_7          db '#%s: +%d...+%d%%',0 ; DATA XREF: sub_4C9A6F+65B↑o
+aSDD_7          db '#%s: +%d...+%d%%',0 ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+65B↑o
                 align 4
 ; char aSD_20[]
-aSD_20          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+6BC↑o
+aSD_20          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+6BC↑o
 ; char aSDD_8[]
-aSDD_8          db '#%s: %d-%d',0       ; DATA XREF: sub_4C9A6F+6FD↑o
+aSDD_8          db '#%s: %d-%d',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+6FD↑o
                 align 10h
 ; char aSD_21[]
-aSD_21          db '#%s: %d',0          ; DATA XREF: sub_4C9A6F+75E↑o
+aSD_21          db '#%s: %d',0          ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+75E↑o
 ; char aSDD_9[]
-aSDD_9          db '#%s: %d-%d',0       ; DATA XREF: sub_4C9A6F+79F↑o
+aSDD_9          db '#%s: %d-%d',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+79F↑o
                 align 4
 ; char aSSSSS_0[]
-aSSSSS_0        db '%s%s%s%s%s',0       ; DATA XREF: sub_4C9A6F+7C4↑o
+aSSSSS_0        db '%s%s%s%s%s',0       ; DATA XREF: ?GetHint@VisSpellBook@@UAEPBDXZ+7C4↑o
                 align 10h
 ; char aFD_0[]
 aFD_0           db 'F%d',0
 ; char aA[2]
-aA              db 'A',0                ; DATA XREF: sub_4CA2A1+488↑o
+aA              db 'A',0                ; DATA XREF: ?VMethod7@VisSpellBook@@UAEXXZ+488↑o
                 align 4
                 db    1
                 db    0
