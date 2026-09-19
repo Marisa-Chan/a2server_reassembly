@@ -2128,6 +2128,13 @@ externdef ?OnKeyDown@Vis1200@@UAEHI@Z : proc
 externdef ?VMethod26@Vis1200@@UAEXXZ : proc
 externdef ?VMethod28@Vis1200@@UAEXXZ : proc
 externdef ?DoClose@Vis1200@@UAEXI@Z : proc
+;VisDropGold
+externdef ??_GVisDropGold@@UAEPAXI@Z : proc
+externdef ?VMethod9@VisDropGold@@UAEXXZ : proc
+externdef ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
+externdef ?VMethod26@VisDropGold@@UAEXXZ : proc
+externdef ?VMethod28@VisDropGold@@UAEXXZ : proc
+externdef ?DoClose@VisDropGold@@UAEXI@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc

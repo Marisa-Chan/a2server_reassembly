@@ -1843,6 +1843,15 @@ ASSERT_SIZE(Vis1200, 0x170);
 class VisDropGold : public VisScreen
 {
 public:
+	virtual ~VisDropGold();
+
+	virtual void VMethod9() override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+
 	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 60a170 in asm
 public:
 	int32_t selection;

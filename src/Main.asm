@@ -58695,7 +58695,7 @@ yTop            = dword ptr  10h
                 mov     edx, dword ptr [ebp+var_10]
                 mov     dword ptr [edx], offset off_60A170
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_441C7F
+                call    ?VMethod26@VisDropGold@@UAEXXZ
 ;   } // starts at 441C31
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -58712,7 +58712,7 @@ yTop            = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-sub_441C63      proc near               ; CODE XREF: sub_44F870+A↓p
+sub_441C63      proc near               ; CODE XREF: ??_GVisDropGold@@UAEPAXI@Z+A↓p
 
 var_4           = dword ptr -4
 
@@ -58734,7 +58734,7 @@ sub_441C63      endp
 
 ; Attributes: bp-based frame
 
-sub_441C7F      proc near               ; CODE XREF: ??0VisDropGold@@QAE@HHH@Z+58↑p
+?VMethod26@VisDropGold@@UAEXXZ      proc near               ; CODE XREF: ??0VisDropGold@@QAE@HHH@Z+58↑p
 
 var_4C          = dword ptr -4Ch
 var_48          = dword ptr -48h
@@ -58789,10 +58789,10 @@ var_4           = dword ptr -4
                 jmp     short loc_441CE5
 ; ---------------------------------------------------------------------------
 
-loc_441CDE:                             ; CODE XREF: sub_441C7F+33↑j
+loc_441CDE:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+33↑j
                 mov     [ebp+var_3C], 0
 
-loc_441CE5:                             ; CODE XREF: sub_441C7F+5D↑j
+loc_441CE5:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+5D↑j
                 mov     ecx, dword ptr [ebp+var_3C]
                 mov     [ebp+var_14], ecx
 ;   } // starts at 441CA7
@@ -58840,10 +58840,10 @@ loc_441CE5:                             ; CODE XREF: sub_441C7F+5D↑j
                 jmp     short loc_441D7F
 ; ---------------------------------------------------------------------------
 
-loc_441D78:                             ; CODE XREF: sub_441C7F+94↑j
+loc_441D78:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+94↑j
                 mov     [ebp+var_40], 0
 
-loc_441D7F:                             ; CODE XREF: sub_441C7F+F7↑j
+loc_441D7F:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+F7↑j
                 mov     ecx, dword ptr [ebp+var_40]
                 mov     [ebp+var_1C], ecx
 ;   } // starts at 441D08
@@ -58891,10 +58891,10 @@ loc_441D7F:                             ; CODE XREF: sub_441C7F+F7↑j
                 jmp     short loc_441E1C
 ; ---------------------------------------------------------------------------
 
-loc_441E15:                             ; CODE XREF: sub_441C7F+12E↑j
+loc_441E15:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+12E↑j
                 mov     [ebp+var_44], 0
 
-loc_441E1C:                             ; CODE XREF: sub_441C7F+194↑j
+loc_441E1C:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+194↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 mov     [ebp+var_24], ecx
 ;   } // starts at 441DA2
@@ -58929,10 +58929,10 @@ loc_441E1C:                             ; CODE XREF: sub_441C7F+194↑j
                 jmp     short loc_441E8A
 ; ---------------------------------------------------------------------------
 
-loc_441E83:                             ; CODE XREF: sub_441C7F+1CB↑j
+loc_441E83:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+1CB↑j
                 mov     [ebp+var_48], 0
 
-loc_441E8A:                             ; CODE XREF: sub_441C7F+202↑j
+loc_441E8A:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+202↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 mov     [ebp+var_2C], ecx
 ;   } // starts at 441E3F
@@ -58967,10 +58967,10 @@ loc_441E8A:                             ; CODE XREF: sub_441C7F+202↑j
                 jmp     short loc_441EF8
 ; ---------------------------------------------------------------------------
 
-loc_441EF1:                             ; CODE XREF: sub_441C7F+239↑j
+loc_441EF1:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+239↑j
                 mov     [ebp+var_4C], 0
 
-loc_441EF8:                             ; CODE XREF: sub_441C7F+270↑j
+loc_441EF8:                             ; CODE XREF: ?VMethod26@VisDropGold@@UAEXXZ+270↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     [ebp+var_34], ecx
 ;   } // starts at 441EAD
@@ -58985,14 +58985,14 @@ loc_441EF8:                             ; CODE XREF: sub_441C7F+270↑j
                 pop     ebp
                 retn
 ; } // starts at 441C7F
-sub_441C7F      endp
+?VMethod26@VisDropGold@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_441F1F      proc near               ; DATA XREF: .rdata:0060A1A4↓o
+?VMethod9@VisDropGold@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060A1A4↓o
 
 var_4           = dword ptr -4
 
@@ -59007,14 +59007,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_441F1F      endp
+?VMethod9@VisDropGold@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_441F3C      proc near               ; DATA XREF: .rdata:0060A1DC↓o
+?OnKeyDown@VisDropGold@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060A1DC↓o
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -59036,7 +59036,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_441F91
 ; ---------------------------------------------------------------------------
 
-loc_441F61:                             ; CODE XREF: sub_441F3C+1B↑j
+loc_441F61:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+1B↑j
                 push    0               ; lParam
                 push    0               ; wParam
                 push    445h            ; Msg
@@ -59046,7 +59046,7 @@ loc_441F61:                             ; CODE XREF: sub_441F3C+1B↑j
                 jmp     short loc_441F9D
 ; ---------------------------------------------------------------------------
 
-loc_441F79:                             ; CODE XREF: sub_441F3C+21↑j
+loc_441F79:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+21↑j
                 push    0               ; lParam
                 push    0               ; wParam
                 push    446h            ; Msg
@@ -59056,24 +59056,24 @@ loc_441F79:                             ; CODE XREF: sub_441F3C+21↑j
                 jmp     short loc_441F9D
 ; ---------------------------------------------------------------------------
 
-loc_441F91:                             ; CODE XREF: sub_441F3C+23↑j
+loc_441F91:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+23↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_8]
                 call    ?OnKeyDown@VisScreen@@UAEHI@Z
 
-loc_441F9D:                             ; CODE XREF: sub_441F3C+3B↑j
+loc_441F9D:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+3B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_441F3C      endp
+?OnKeyDown@VisDropGold@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_441FA3      proc near               ; DATA XREF: .rdata:0060A1F0↓o
+?VMethod28@VisDropGold@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060A1F0↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -59104,14 +59104,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_441FA3      endp
+?VMethod28@VisDropGold@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_441FEE      proc near               ; DATA XREF: .rdata:0060A1F4↓o
+?DoClose@VisDropGold@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060A1F4↓o
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -59157,7 +59157,7 @@ arg_0           = dword ptr  8
                 jz      short loc_44205D
                 mov     [ebp+var_8], 0
 
-loc_44205D:                             ; CODE XREF: sub_441FEE+66↑j
+loc_44205D:                             ; CODE XREF: ?DoClose@VisDropGold@@UAEXI@Z+66↑j
                 mov     edx, dword ptr [ebp+var_4]
                 mov     eax, dword ptr [edx+0D0h]
                 mov     ecx, dword ptr [eax+9CCh]
@@ -59172,7 +59172,7 @@ loc_44205D:                             ; CODE XREF: sub_441FEE+66↑j
                 fild    dword ptr [ecx+10h]
                 fstp    [ebp+var_8]
 
-loc_44208E:                             ; CODE XREF: sub_441FEE+89↑j
+loc_44208E:                             ; CODE XREF: ?DoClose@VisDropGold@@UAEXI@Z+89↑j
                 fld     [ebp+var_8]
                 call    __ftol
                 push    eax
@@ -59230,10 +59230,10 @@ loc_44208E:                             ; CODE XREF: sub_441FEE+89↑j
                 jmp     short loc_442157
 ; ---------------------------------------------------------------------------
 
-loc_442150:                             ; CODE XREF: sub_441FEE+14E↑j
+loc_442150:                             ; CODE XREF: ?DoClose@VisDropGold@@UAEXI@Z+14E↑j
                 mov     [ebp+var_20], 0
 
-loc_442157:                             ; CODE XREF: sub_441FEE+18↑j
+loc_442157:                             ; CODE XREF: ?DoClose@VisDropGold@@UAEXI@Z+18↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_18]
@@ -59241,7 +59241,7 @@ loc_442157:                             ; CODE XREF: sub_441FEE+18↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_441FEE      endp
+?DoClose@VisDropGold@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -74944,7 +74944,7 @@ sub_44F710      endp
 
 ; Attributes: bp-based frame
 
-sub_44F870      proc near               ; DATA XREF: .rdata:0060A174↓o
+??_GVisDropGold@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A174↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -74963,12 +74963,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44F892:                             ; CODE XREF: sub_44F870+17↑j
+loc_44F892:                             ; CODE XREF: ??_GVisDropGold@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44F870      endp
+??_GVisDropGold@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -392857,7 +392857,7 @@ SEH_441BEC:                             ; DATA XREF: ??0VisDropGold@@QAE@HHH@Z+5
 ; } // starts at 5F91BD
 ; END OF FUNCTION CHUNK FOR ??0VisDropGold@@QAE@HHH@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_441C7F
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisDropGold@@UAEXXZ
 
 loc_5F91D0:                             ; DATA XREF: .rdata:stru_619B20↓o
 ; __unwind { // SEH_441C7F
@@ -392900,11 +392900,11 @@ loc_5F91F8:                             ; DATA XREF: .rdata:00619B40↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_441C7F:                             ; DATA XREF: sub_441C7F+5↑o
+SEH_441C7F:                             ; DATA XREF: ?VMethod26@VisDropGold@@UAEXXZ+5↑o
                 mov     eax, offset stru_619B00
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F91D0
-; END OF FUNCTION CHUNK FOR sub_441C7F
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisDropGold@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_442646
 
@@ -421239,7 +421239,7 @@ off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 
 
 off_60A170      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisDropGold@@QAE@HHH@Z+4F↑o
-                dd offset sub_44F870
+                dd offset ??_GVisDropGold@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421251,7 +421251,7 @@ off_60A170      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
                 dd offset ?VMethod7@VisScreen@@UAEXXZ
                 dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset sub_441F1F
+                dd offset ?VMethod9@VisDropGold@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
@@ -421265,14 +421265,14 @@ off_60A170      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_441F3C
+                dd offset ?OnKeyDown@VisDropGold@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_441C7F
+                dd offset ?VMethod26@VisDropGold@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_441FA3
-                dd offset sub_441FEE
-flt_60A1F8      dd 0.0                  ; DATA XREF: sub_441FEE+5B↑r
+                dd offset ?VMethod28@VisDropGold@@UAEXXZ
+                dd offset ?DoClose@VisDropGold@@UAEXI@Z
+flt_60A1F8      dd 0.0                  ; DATA XREF: ?DoClose@VisDropGold@@UAEXI@Z+5B↑r
                 align 10h
 
 
@@ -444806,10 +444806,10 @@ aUsingVxd       db 'Using VxD',0        ; DATA XREF: ?LoadSettings@MainWindow@@Q
 aUsingVxd_0     db 'Using VxD',0        ; DATA XREF: sub_441B1E+AC↑o
                 align 4
 ; char a0[]
-a0              db '0',0                ; DATA XREF: sub_441FA3+9↑o
+a0              db '0',0                ; DATA XREF: ?VMethod28@VisDropGold@@UAEXXZ+9↑o
                 align 10h
 ; char asc_62E810[]
-asc_62E810      db '%f',0               ; DATA XREF: sub_441FEE+44↑o
+asc_62E810      db '%f',0               ; DATA XREF: ?DoClose@VisDropGold@@UAEXI@Z+44↑o
                 align 4
 ; CHAR aGamespeed[]
 aGamespeed      db 'GameSpeed',0        ; DATA XREF: sub_4421BE+13↑o
