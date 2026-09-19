@@ -1361,6 +1361,14 @@ ASSERT_SIZE(VisTav, 0x140);
 class VisTavDruid : public VisTav
 {
 public:
+	virtual ~VisTavDruid();
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual void DoClose(uint32_t code) override;
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
+
 	VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 in asm
 public:
 	SfxSample* snd_druid[11];
