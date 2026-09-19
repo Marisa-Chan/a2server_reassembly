@@ -1080,6 +1080,15 @@ ASSERT_SIZE(VisRightPanel, 0x5c);
 class VisMiniMap : public CVisualObject
 {
 public:
+	virtual ~VisMiniMap();
+
+	virtual void VMethod7() override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override;
+
 	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3 in asm
 
 public:

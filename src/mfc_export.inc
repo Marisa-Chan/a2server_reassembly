@@ -2246,6 +2246,15 @@ externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
 
+;VisMiniMap
+externdef ??_GVisMiniMap@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisMiniMap@@UAEXXZ : proc
+externdef ?MsgProc@VisMiniMap@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+externdef ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
