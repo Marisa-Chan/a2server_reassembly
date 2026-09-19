@@ -2236,6 +2236,11 @@ externdef ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
 
+;VisCharSellectStats
+externdef ??_GVisCharSellectStats@@UAEPAXI@Z : proc
+externdef ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
+externdef ?VMethod7@VisCharSellectStats@@UAEXXZ : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc

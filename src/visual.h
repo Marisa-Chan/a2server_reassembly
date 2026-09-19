@@ -725,6 +725,8 @@ ASSERT_SIZE(VisCharSellectList, 0xdc);
 class VisCharSellectStats : public CVisualObject
 {
 public:
+	virtual ~VisCharSellectStats();
+
 	virtual const char* GetHint() override;
 	virtual void VMethod7() override;
 
