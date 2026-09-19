@@ -2227,6 +2227,15 @@ externdef ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
 externdef ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 
+;VisCharSellectList
+externdef ??_GVisCharSellectList@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisCharSellectList@@UAEXXZ : proc
+externdef ?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc

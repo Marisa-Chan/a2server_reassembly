@@ -688,6 +688,8 @@ ASSERT_SIZE(VisCharSellectButtons, 0xe0);
 class VisCharSellectList : public CVisualObject
 {
 public:
+	virtual ~VisCharSellectList();
+
 	virtual void VMethod7() override;
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override;
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override;
