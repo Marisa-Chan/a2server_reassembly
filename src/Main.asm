@@ -220911,7 +220911,7 @@ loc_4E2EB6:                             ; CODE XREF: ??0VisQuestStatus@@QAE@HHHH
 
 ; Attributes: bp-based frame
 
-sub_4E2EF4      proc near               ; CODE XREF: sub_4E4540+A↓p
+sub_4E2EF4      proc near               ; CODE XREF: ??_GVisQuestStatus@@UAEPAXI@Z+A↓p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -220976,7 +220976,7 @@ sub_4E2EF4      endp
 
 ; Attributes: bp-based frame
 
-sub_4E2F76      proc near               ; DATA XREF: .rdata:0060E704↓o
+?VMethod7@VisQuestStatus@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060E704↓o
 
 var_B0          = dword ptr -0B0h
 var_AC          = dword ptr -0ACh
@@ -221101,12 +221101,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4E308D
 ; ---------------------------------------------------------------------------
 
-loc_4E3084:                             ; CODE XREF: sub_4E2F76+15A↓j
+loc_4E3084:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+15A↓j
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 1
                 mov     [ebp+var_34], eax
 
-loc_4E308D:                             ; CODE XREF: sub_4E2F76+10C↑j
+loc_4E308D:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+10C↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
                 sub     eax, 40h ; '@'
@@ -221133,17 +221133,17 @@ loc_4E308D:                             ; CODE XREF: sub_4E2F76+10C↑j
                 jmp     short loc_4E3084
 ; ---------------------------------------------------------------------------
 
-loc_4E30D2:                             ; CODE XREF: sub_4E2F76+12D↑j
+loc_4E30D2:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+12D↑j
                 mov     [ebp+var_34], 0
                 jmp     short loc_4E30E4
 ; ---------------------------------------------------------------------------
 
-loc_4E30DB:                             ; CODE XREF: sub_4E2F76+1B3↓j
+loc_4E30DB:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+1B3↓j
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 1
                 mov     [ebp+var_34], eax
 
-loc_4E30E4:                             ; CODE XREF: sub_4E2F76+163↑j
+loc_4E30E4:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+163↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
                 sub     eax, 40h ; '@'
@@ -221171,7 +221171,7 @@ loc_4E30E4:                             ; CODE XREF: sub_4E2F76+163↑j
                 jmp     short loc_4E30DB
 ; ---------------------------------------------------------------------------
 
-loc_4E312B:                             ; CODE XREF: sub_4E2F76+185↑j
+loc_4E312B:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+185↑j
                 push    0
                 push    0
                 push    0Ah
@@ -221224,12 +221224,12 @@ loc_4E312B:                             ; CODE XREF: sub_4E2F76+185↑j
                 jmp     short loc_4E31C3
 ; ---------------------------------------------------------------------------
 
-loc_4E31BA:                             ; CODE XREF: sub_4E2F76+2B9↓j
+loc_4E31BA:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+2B9↓j
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 1
                 mov     [ebp+var_34], ecx
 
-loc_4E31C3:                             ; CODE XREF: sub_4E2F76+242↑j
+loc_4E31C3:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+242↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
                 sub     eax, 40h ; '@'
@@ -221270,17 +221270,17 @@ loc_4E31C3:                             ; CODE XREF: sub_4E2F76+242↑j
                 jmp     short loc_4E31BA
 ; ---------------------------------------------------------------------------
 
-loc_4E3231:                             ; CODE XREF: sub_4E2F76+263↑j
+loc_4E3231:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+263↑j
                 mov     [ebp+var_34], 0
                 jmp     short loc_4E3243
 ; ---------------------------------------------------------------------------
 
-loc_4E323A:                             ; CODE XREF: sub_4E2F76+33B↓j
+loc_4E323A:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+33B↓j
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 1
                 mov     [ebp+var_34], eax
 
-loc_4E3243:                             ; CODE XREF: sub_4E2F76+2C2↑j
+loc_4E3243:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+2C2↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
                 sub     eax, 40h ; '@'
@@ -221322,17 +221322,17 @@ loc_4E3243:                             ; CODE XREF: sub_4E2F76+2C2↑j
                 jmp     short loc_4E323A
 ; ---------------------------------------------------------------------------
 
-loc_4E32B3:                             ; CODE XREF: sub_4E2F76+2E4↑j
+loc_4E32B3:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+2E4↑j
                 mov     [ebp+var_34], 0
                 jmp     short loc_4E32C5
 ; ---------------------------------------------------------------------------
 
-loc_4E32BC:                             ; CODE XREF: sub_4E2F76:loc_4E333C↓j
+loc_4E32BC:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ:loc_4E333C↓j
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 1
                 mov     [ebp+var_34], ecx
 
-loc_4E32C5:                             ; CODE XREF: sub_4E2F76+344↑j
+loc_4E32C5:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+344↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
                 sub     eax, 40h ; '@'
@@ -221345,12 +221345,12 @@ loc_4E32C5:                             ; CODE XREF: sub_4E2F76+344↑j
                 jmp     short loc_4E32EF
 ; ---------------------------------------------------------------------------
 
-loc_4E32E6:                             ; CODE XREF: sub_4E2F76+3C4↓j
+loc_4E32E6:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+3C4↓j
                 mov     edx, dword ptr [ebp+var_40]
                 add     edx, 1
                 mov     [ebp+var_40], edx
 
-loc_4E32EF:                             ; CODE XREF: sub_4E2F76+36E↑j
+loc_4E32EF:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+36E↑j
                 lea     ecx, [ebp+var_1C] ; varThis
                 call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
                 sub     eax, 40h ; '@'
@@ -221380,11 +221380,11 @@ loc_4E32EF:                             ; CODE XREF: sub_4E2F76+36E↑j
                 jmp     short loc_4E32E6
 ; ---------------------------------------------------------------------------
 
-loc_4E333C:                             ; CODE XREF: sub_4E2F76+390↑j
+loc_4E333C:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+390↑j
                 jmp     loc_4E32BC
 ; ---------------------------------------------------------------------------
 
-loc_4E3341:                             ; CODE XREF: sub_4E2F76+365↑j
+loc_4E3341:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+365↑j
                 mov     eax, dword ptr [ebp+var_A0]
                 mov     ecx, dword ptr [eax+8]
                 add     ecx, 20h ; ' '
@@ -221423,7 +221423,7 @@ loc_4E3341:                             ; CODE XREF: sub_4E2F76+365↑j
                 jmp     short loc_4E3405
 ; ---------------------------------------------------------------------------
 
-loc_4E33B9:                             ; CODE XREF: sub_4E2F76+3F3↑j
+loc_4E33B9:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+3F3↑j
                 push    1
                 push    offset ?clrsh_TechBlack@@3PAGA
                 push    2
@@ -221448,12 +221448,12 @@ loc_4E33B9:                             ; CODE XREF: sub_4E2F76+3F3↑j
                 mov     ecx, ?g_font2@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_4E3405:                             ; CODE XREF: sub_4E2F76+441↑j
+loc_4E3405:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+441↑j
                 mov     ecx, dword ptr [ebp+var_38] ; varThis
                 call    ??1CDaoIndexFieldInfo@@QAE@XZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 mov     [ebp+var_3C], eax
 
-loc_4E3410:                             ; CODE XREF: sub_4E2F76+B5E↓j
+loc_4E3410:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+B5E↓j
                 cmp     [ebp+var_3C], 0
                 jz      loc_4E3AD9
                 lea     edx, [ebp+var_20]
@@ -221492,10 +221492,10 @@ loc_4E3410:                             ; CODE XREF: sub_4E2F76+B5E↓j
                 jmp     short loc_4E34A8
 ; ---------------------------------------------------------------------------
 
-loc_4E349E:                             ; CODE XREF: sub_4E2F76+4CF↑j
+loc_4E349E:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+4CF↑j
                 mov     [ebp+var_A4], 1
 
-loc_4E34A8:                             ; CODE XREF: sub_4E2F76+526↑j
+loc_4E34A8:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+526↑j
                 mov     eax, dword ptr [ebp+var_A4]
                 mov     [ebp+var_44], eax
                 cmp     [ebp+var_44], 0
@@ -221519,7 +221519,7 @@ loc_4E34A8:                             ; CODE XREF: sub_4E2F76+526↑j
                 call    sub_457C5D
                 add     esp, 14h
 
-loc_4E34EC:                             ; CODE XREF: sub_4E2F76+53F↑j
+loc_4E34EC:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+53F↑j
                 lea     ecx, [ebp+var_4C] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   try {
@@ -221540,7 +221540,7 @@ loc_4E34EC:                             ; CODE XREF: sub_4E2F76+53F↑j
                 jmp     ds:jpt_4E3536[ecx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4E353D:                             ; CODE XREF: sub_4E2F76+5C0↑j
+loc_4E353D:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5C0↑j
                 lea     eax, [ebp+var_54] ; jumptable 004E3536 cases 1,4,11
                 push    eax
                 mov     ecx, dword ptr [ebp+var_20]
@@ -221573,7 +221573,7 @@ loc_4E353D:                             ; CODE XREF: sub_4E2F76+5C0↑j
                 jmp     short loc_4E3605
 ; ---------------------------------------------------------------------------
 
-loc_4E35A4:                             ; CODE XREF: sub_4E2F76+5FE↑j
+loc_4E35A4:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5FE↑j
                 mov     ecx, dword ptr [ebp+var_54]
                 cmp     dword ptr [ecx+24h], 52h ; 'R'
                 jl      short loc_4E35DB
@@ -221594,7 +221594,7 @@ loc_4E35A4:                             ; CODE XREF: sub_4E2F76+5FE↑j
                 jmp     short loc_4E3605
 ; ---------------------------------------------------------------------------
 
-loc_4E35DB:                             ; CODE XREF: sub_4E2F76+635↑j
+loc_4E35DB:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+635↑j
                 mov     eax, dword ptr [ebp+var_54]
                 mov     ecx, dword ptr [eax+28h]
                 push    ecx
@@ -221610,11 +221610,11 @@ loc_4E35DB:                             ; CODE XREF: sub_4E2F76+635↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_4E3605:                             ; CODE XREF: sub_4E2F76+5EA↑j
+loc_4E3605:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5EA↑j
                 jmp     def_4E3536      ; jumptable 004E3536 default case, cases 3,5-10
 ; ---------------------------------------------------------------------------
 
-loc_4E360A:                             ; CODE XREF: sub_4E2F76+5C0↑j
+loc_4E360A:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5C0↑j
                 mov     ecx, dword ptr [ebp+var_20] ; jumptable 004E3536 case 2
                 call    unknown_libname_423 ; Microsoft VisualC 2-14/net runtime
                 and     eax, 0FFh
@@ -221640,7 +221640,7 @@ loc_4E360A:                             ; CODE XREF: sub_4E2F76+5C0↑j
                 jmp     short def_4E3536 ; jumptable 004E3536 default case, cases 3,5-10
 ; ---------------------------------------------------------------------------
 
-loc_4E365A:                             ; CODE XREF: sub_4E2F76+6A4↑j
+loc_4E365A:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+6A4↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 call    unknown_libname_423 ; Microsoft VisualC 2-14/net runtime
                 shr     eax, 8
@@ -221658,7 +221658,7 @@ loc_4E365A:                             ; CODE XREF: sub_4E2F76+6A4↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-def_4E3536:                             ; CODE XREF: sub_4E2F76+5AC↑j
+def_4E3536:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5AC↑j
                 lea     ecx, [ebp+var_5C] ; jumptable 004E3536 default case, cases 3,5-10
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   } // starts at 4E34F4
@@ -221724,7 +221724,7 @@ def_4E3536:                             ; CODE XREF: sub_4E2F76+5AC↑j
                 lea     ecx, [ebp+var_5C] ; varThis
                 call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
 
-loc_4E3761:                             ; CODE XREF: sub_4E2F76+75A↑j
+loc_4E3761:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+75A↑j
                 lea     ecx, [ebp+var_70] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   } // starts at 4E36A4
@@ -221744,7 +221744,7 @@ loc_4E3761:                             ; CODE XREF: sub_4E2F76+75A↑j
                 jmp     ds:jpt_4E37A0[ecx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4E37A7:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E37A7:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_74] ; jumptable 004E37A0 case 1
                 push    edx
                 mov     eax, dword ptr [ebp+var_5C]
@@ -221768,7 +221768,7 @@ loc_4E37A7:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     def_4E37A0      ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E37E2:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E37E2:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     eax, dword ptr [ebp+var_4C] ; jumptable 004E37A0 case 2
                 push    eax
                 mov     ecx, dword ptr [ebp+var_20]
@@ -221791,7 +221791,7 @@ loc_4E37E2:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     def_4E37A0      ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E381E:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E381E:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_74] ; jumptable 004E37A0 case 3
                 push    edx
                 mov     eax, dword ptr [ebp+var_5C]
@@ -221813,7 +221813,7 @@ loc_4E381E:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     def_4E37A0      ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E3855:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E3855:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_5C] ; jumptable 004E37A0 cases 4,5,13
                 push    edx
                 mov     eax, dword ptr [ebp+var_20]
@@ -221833,7 +221833,7 @@ loc_4E3855:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     def_4E37A0      ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E3888:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E3888:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_5C] ; jumptable 004E37A0 case 6
                 push    edx
                 mov     ecx, dword ptr [ebp+var_20]
@@ -221866,7 +221866,7 @@ loc_4E3888:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     def_4E37A0      ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E38E2:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E38E2:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     ecx, dword ptr [ebp+var_20] ; jumptable 004E37A0 cases 8-10
                 call    unknown_libname_611 ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -221887,7 +221887,7 @@ loc_4E38E2:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     short def_4E37A0 ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E3917:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E3917:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_4C] ; jumptable 004E37A0 case 11
                 push    edx
                 mov     eax, dword ptr [ebp+var_20]
@@ -221907,7 +221907,7 @@ loc_4E3917:                             ; CODE XREF: sub_4E2F76+82A↑j
                 jmp     short def_4E37A0 ; jumptable 004E37A0 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_4E3947:                             ; CODE XREF: sub_4E2F76+82A↑j
+loc_4E3947:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑j
                 mov     edx, dword ptr [ebp+var_20] ; jumptable 004E37A0 case 12
                 mov     eax, dword ptr [edx]
                 mov     ecx, dword ptr [ebp+var_20]
@@ -221923,7 +221923,7 @@ loc_4E3947:                             ; CODE XREF: sub_4E2F76+82A↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 8
 
-def_4E37A0:                             ; CODE XREF: sub_4E2F76+81E↑j
+def_4E37A0:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+81E↑j
                 push    20h ; ' '       ; jumptable 004E37A0 default case, case 7
                 mov     ecx, dword ptr [ebp+var_A0]
                 add     ecx, 8          ; varThis
@@ -221971,23 +221971,23 @@ def_4E37A0:                             ; CODE XREF: sub_4E2F76+81E↑j
                 jmp     short loc_4E3A4D
 ; ---------------------------------------------------------------------------
 
-loc_4E3A1F:                             ; CODE XREF: sub_4E2F76+A93↑j
+loc_4E3A1F:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+A93↑j
                 mov     [ebp+var_50], offset ?clrsh_TechBlack@@3PAGA
                 mov     [ebp+var_58], 0
                 jmp     short loc_4E3A4D
 ; ---------------------------------------------------------------------------
 
-loc_4E3A2F:                             ; CODE XREF: sub_4E2F76+A9C↑j
+loc_4E3A2F:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+A9C↑j
                 mov     [ebp+var_50], offset ?clrsh_ShockingBlack@@3PAGA
                 mov     [ebp+var_58], 1
                 jmp     short loc_4E3A4D
 ; ---------------------------------------------------------------------------
 
-loc_4E3A3F:                             ; CODE XREF: sub_4E2F76+AA5↑j
+loc_4E3A3F:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+AA5↑j
                 mov     [ebp+var_50], offset ?clrsh_CoralRed@@3PAGA
                 mov     [ebp+var_58], 2
 
-loc_4E3A4D:                             ; CODE XREF: sub_4E2F76+AA7↑j
+loc_4E3A4D:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+AA7↑j
                 push    0Ah             ; int
                 mov     edx, dword ptr [ebp+var_50]
                 push    edx             ; int
@@ -222039,7 +222039,7 @@ loc_4E3A4D:                             ; CODE XREF: sub_4E2F76+AA7↑j
                 jmp     loc_4E3410
 ; ---------------------------------------------------------------------------
 
-loc_4E3AD9:                             ; CODE XREF: sub_4E2F76+49E↑j
+loc_4E3AD9:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+49E↑j
                 call    ?UnlockSurface2@@YAIXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
@@ -222048,10 +222048,10 @@ loc_4E3AD9:                             ; CODE XREF: sub_4E2F76+49E↑j
                 pop     ebp
                 retn
 ; } // starts at 4E2F76
-sub_4E2F76      endp
+?VMethod7@VisQuestStatus@@UAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4E3536      dd offset loc_4E353D    ; DATA XREF: sub_4E2F76+5C0↑r
+jpt_4E3536      dd offset loc_4E353D    ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5C0↑r
                 dd offset loc_4E360A    ; jump table for switch statement
                 dd offset loc_4E353D
                 dd offset loc_4E353D
@@ -222059,7 +222059,7 @@ jpt_4E3536      dd offset loc_4E353D    ; DATA XREF: sub_4E2F76+5C0↑r
 byte_4E3B01     db      0,     1,     4,     2
                 db      4,     4,     4,     4 ; indirect table for switch statement
                 db      4,     4,     3
-jpt_4E37A0      dd offset loc_4E37A7    ; DATA XREF: sub_4E2F76+82A↑r
+jpt_4E37A0      dd offset loc_4E37A7    ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+82A↑r
                 dd offset loc_4E37E2    ; jump table for switch statement
                 dd offset loc_4E381E
                 dd offset loc_4E3855
@@ -222476,7 +222476,7 @@ sub_4E4510      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_667 proc near           ; DATA XREF: .rdata:0060E720↓o
+?MsgProc@VisQuestStatus@@UAEHIII@Z proc near           ; DATA XREF: .rdata:0060E720↓o
 
 var_4           = dword ptr -4
 
@@ -222488,7 +222488,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-unknown_libname_667 endp
+?MsgProc@VisQuestStatus@@UAEHIII@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -222497,7 +222497,7 @@ unknown_libname_667 endp
 
 ; Attributes: bp-based frame
 
-sub_4E4540      proc near               ; DATA XREF: .rdata:0060E6DC↓o
+??_GVisQuestStatus@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060E6DC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -222516,12 +222516,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4E4562:                             ; CODE XREF: sub_4E4540+17↑j
+loc_4E4562:                             ; CODE XREF: ??_GVisQuestStatus@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4E4540      endp
+??_GVisQuestStatus@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -408831,7 +408831,7 @@ SEH_4E2EF4:                             ; DATA XREF: sub_4E2EF4+5↑o
 ; } // starts at 5FF9B5
 ; END OF FUNCTION CHUNK FOR sub_4E2EF4
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E2F76
+; START OF FUNCTION CHUNK FOR ?VMethod7@VisQuestStatus@@UAEXXZ
 
 loc_5FF9C8:                             ; DATA XREF: .rdata:stru_620FF0↓o
 ; __unwind { // SEH_4E2F76              ; varThis
@@ -408865,11 +408865,11 @@ loc_5FF9E3:                             ; DATA XREF: .rdata:00621008↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4E2F76:                             ; DATA XREF: sub_4E2F76+5↑o
+SEH_4E2F76:                             ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+5↑o
                 mov     eax, offset stru_620FD0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF9C8
-; END OF FUNCTION CHUNK FOR sub_4E2F76
+; END OF FUNCTION CHUNK FOR ?VMethod7@VisQuestStatus@@UAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1VisLabel@@UAE@XZ
@@ -424938,7 +424938,7 @@ off_60E650      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60E6D8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4E2CF3+30↑o
-                dd offset sub_4E4540
+                dd offset ??_GVisQuestStatus@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -424948,14 +424948,14 @@ off_60E6D8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_4E2F76
+                dd offset ?VMethod7@VisQuestStatus@@UAEXXZ
                 dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset unknown_libname_667 ; MFC 3.1-14.0 32bit
+                dd offset ?MsgProc@VisQuestStatus@@UAEHIII@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -449850,19 +449850,19 @@ aGraphicsInterf_298 db 'graphics\interface\subobj.256',0
 aGraphicsInterf_299 db 'graphics\interface\subobj.256',0
                 align 10h
 ; char aS_2[]
-aS_2            db '%s',0               ; DATA XREF: sub_4E2F76+61B↑o
+aS_2            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+61B↑o
                 align 4
 ; char aS_3[]
-aS_3            db '%s',0               ; DATA XREF: sub_4E2F76+652↑o
+aS_3            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+652↑o
                 align 4
 ; char aSD_22[]
-aSD_22          db '%s[%d]',0           ; DATA XREF: sub_4E2F76+67E↑o
+aSD_22          db '%s[%d]',0           ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+67E↑o
                 align 10h
 ; char aS_4[]
-aS_4            db '%s',0               ; DATA XREF: sub_4E2F76+6D1↑o
+aS_4            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+6D1↑o
                 align 4
 ; char aSD_23[]
-aSD_23          db '%s[%d]',0           ; DATA XREF: sub_4E2F76+709↑o
+aSD_23          db '%s[%d]',0           ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+709↑o
                 align 4
 ; CHAR szAgent[]
 szAgent         db 'RageOfMages2',0     ; DATA XREF: sub_4E505F+40↑o
