@@ -2210,6 +2210,12 @@ externdef ?VMethod26@VisFameDocument@@UAEXXZ : proc
 externdef ?VMethod28@VisFameDocument@@UAEXXZ : proc
 externdef ?DoClose@VisFameDocument@@UAEXI@Z : proc
 
+;VisTipsDialog
+externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
+externdef ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
+externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
