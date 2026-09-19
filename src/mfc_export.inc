@@ -2545,6 +2545,9 @@ externdef ?VMethod31@VisDiplomacy@@UAEXH@Z : proc
 
 ; VisConnectionDlg
 externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc
+externdef ??_GVisConnectionDlg@@UAEPAXI@Z : proc
+externdef ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisConnectionDlg@@UAEXH@Z : proc
 
 ; VisNetDlg
 externdef ??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z : proc

@@ -2261,10 +2261,12 @@ ASSERT_SIZE(VisDiplomacy, 0x7c);
 class VisConnectionDlg : public VisMessageBox
 {
 public:
+	virtual ~VisConnectionDlg();
+
 	VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload); //445e52
 
-
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
 public:
 	uint32_t protocols;
 	int32_t* pSelected;
