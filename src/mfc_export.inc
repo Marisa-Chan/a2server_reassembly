@@ -2015,6 +2015,17 @@ externdef ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 
 ;VisTav
 externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
+externdef ??_GVisTav@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisTav@@UAEXXZ : proc
+externdef ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisTav@@UAEHIII@Z : proc
+externdef ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisTav@@UAEHI@Z : proc
+externdef ?VMethod26@VisTav@@UAEXXZ : proc
+externdef ?VMethod28@VisTav@@UAEXXZ : proc
+externdef ?DoClose@VisTav@@UAEXI@Z : proc
+externdef ?VMethod30@VisTav@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisTav@@UAEXH@Z : proc
 
 ;VisShop
 externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
