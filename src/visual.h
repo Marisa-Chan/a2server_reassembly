@@ -2174,6 +2174,14 @@ ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 class VisServerScreen : public VisScreen
 {
 public:
+	virtual ~VisServerScreen();
+
+	virtual void VMethod7() override;
+	virtual void VMethod8(CRect* rect) override;
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual int32_t OnKeyDown(uint32_t wparam) override;
+	virtual void VMethod26() override;
+
 	VisServerScreen(int32_t _id, int32_t l, int32_t, int32_t r, int32_t b, GM_a28 *log); // 44e469
 
 public:

@@ -2169,6 +2169,12 @@ extern ?RebuildScenarioLocations@VisGlobalMap@@QAEXXZ  : proc
 
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
+externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisServerScreen@@UAEXXZ : proc
+externdef ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z : proc
+externdef ?MsgProc@VisServerScreen@@UAEHIII@Z : proc
+externdef ?OnKeyDown@VisServerScreen@@UAEHI@Z : proc
+externdef ?VMethod26@VisServerScreen@@UAEXXZ : proc
 
 ;GameOptionsWindow
 extern ??0GameOptionsWindow@@QAE@HHHHH@Z : proc

@@ -71911,8 +71911,8 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-; int __thiscall sub_44D909(_DWORD *varThis)
-sub_44D909      proc near               ; DATA XREF: .rdata:0060AF68↓o
+; int __thiscall ?VMethod26@VisServerScreen@@UAEXXZ(_DWORD *varThis)
+?VMethod26@VisServerScreen@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AF68↓o
 
 var_48          = dword ptr -48h
 var_44          = dword ptr -44h
@@ -71978,10 +71978,10 @@ var_4           = dword ptr -4
                 jmp     short loc_44D99A
 ; ---------------------------------------------------------------------------
 
-loc_44D993:                             ; CODE XREF: sub_44D909+3D↑j
+loc_44D993:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+3D↑j
                 mov     [ebp+var_3C], 0
 
-loc_44D99A:                             ; CODE XREF: sub_44D909+88↑j
+loc_44D99A:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+88↑j
                 mov     ecx, dword ptr [ebp+var_3C]
                 mov     [ebp+var_1C], ecx
 ;   } // starts at 44D93B
@@ -72022,10 +72022,10 @@ loc_44D99A:                             ; CODE XREF: sub_44D909+88↑j
                 jmp     short loc_44DA1C
 ; ---------------------------------------------------------------------------
 
-loc_44DA15:                             ; CODE XREF: sub_44D909+BF↑j
+loc_44DA15:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+BF↑j
                 mov     [ebp+var_40], 0
 
-loc_44DA1C:                             ; CODE XREF: sub_44D909+10A↑j
+loc_44DA1C:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+10A↑j
                 mov     eax, dword ptr [ebp+var_40]
                 mov     [ebp+var_24], eax
 ;   } // starts at 44D9BD
@@ -72060,10 +72060,10 @@ loc_44DA1C:                             ; CODE XREF: sub_44D909+10A↑j
                 jmp     short loc_44DA8A
 ; ---------------------------------------------------------------------------
 
-loc_44DA83:                             ; CODE XREF: sub_44D909+144↑j
+loc_44DA83:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+144↑j
                 mov     [ebp+var_44], 0
 
-loc_44DA8A:                             ; CODE XREF: sub_44D909+178↑j
+loc_44DA8A:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+178↑j
                 mov     edx, dword ptr [ebp+var_44]
                 mov     [ebp+var_2C], edx
 ;   } // starts at 44DA42
@@ -72098,17 +72098,17 @@ loc_44DA8A:                             ; CODE XREF: sub_44D909+178↑j
                 test    eax, eax
                 jz      short loc_44DB09
 
-loc_44DAF9:                             ; CODE XREF: sub_44D909+1D4↑j
+loc_44DAF9:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1D4↑j
                 mov     ecx, ?g_Server@@3PAUServer@@A
                 mov     dword ptr [ecx+1A8h], 0
 
-loc_44DB09:                             ; CODE XREF: sub_44D909+1EE↑j
+loc_44DB09:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1EE↑j
                 mov     edx, ?g_Server@@3PAUServer@@A
                 cmp     dword ptr [edx+1A8h], 0
                 jz      short loc_44DB1F
                 mov     [ebp+var_10], 0
 
-loc_44DB1F:                             ; CODE XREF: sub_44D909+20D↑j
+loc_44DB1F:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+20D↑j
                 lea     eax, [ebp+var_10]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_14]
@@ -72143,10 +72143,10 @@ loc_44DB1F:                             ; CODE XREF: sub_44D909+20D↑j
                 jmp     short loc_44DB87
 ; ---------------------------------------------------------------------------
 
-loc_44DB80:                             ; CODE XREF: sub_44D909+23A↑j
+loc_44DB80:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+23A↑j
                 mov     [ebp+var_48], 0
 
-loc_44DB87:                             ; CODE XREF: sub_44D909+275↑j
+loc_44DB87:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+275↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 mov     [ebp+var_34], ecx
 ;   } // starts at 44DB38
@@ -72161,14 +72161,14 @@ loc_44DB87:                             ; CODE XREF: sub_44D909+275↑j
                 pop     ebp
                 retn
 ; } // starts at 44D909
-sub_44D909      endp
+?VMethod26@VisServerScreen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44DBAE      proc near               ; DATA XREF: .rdata:0060AF20↓o
+?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z      proc near               ; DATA XREF: .rdata:0060AF20↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -72195,14 +72195,14 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44DBAE      endp
+?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44DBE0      proc near               ; DATA XREF: .rdata:0060AF1C↓o
+?VMethod7@VisServerScreen@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AF1C↓o
 
 var_48          = dword ptr -48h
 var_44          = dword ptr -44h
@@ -72307,7 +72307,7 @@ var_4           = dword ptr -4
                 mov     [ebp+var_28], 0
                 mov     [ebp+var_24], 24h ; '$'
 
-loc_44DCFF:                             ; CODE XREF: sub_44DBE0+165↓j
+loc_44DCFF:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+165↓j
                 cmp     [ebp+var_34], 0
                 jz      loc_44E337
                 mov     ecx, dword ptr [ebp+var_48]
@@ -72333,7 +72333,7 @@ loc_44DCFF:                             ; CODE XREF: sub_44DBE0+165↓j
                 jmp     short loc_44DCFF
 ; ---------------------------------------------------------------------------
 
-loc_44DD47:                             ; CODE XREF: sub_44DBE0+15A↑j
+loc_44DD47:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+15A↑j
                 mov     eax, dword ptr [ebp+var_30]
                 shr     eax, 10h
                 push    eax
@@ -72353,7 +72353,7 @@ loc_44DD47:                             ; CODE XREF: sub_44DBE0+15A↑j
                 jmp     short loc_44DCFF
 ; ---------------------------------------------------------------------------
 
-loc_44DD7F:                             ; CODE XREF: sub_44DBE0+192↑j
+loc_44DD7F:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+192↑j
                 mov     edx, dword ptr [ebp+var_38]
                 movsx   eax, word ptr [edx+4]
                 and     eax, 0Fh
@@ -72371,7 +72371,7 @@ loc_44DD7F:                             ; CODE XREF: sub_44DBE0+192↑j
                 idiv    dword ptr [ecx+10h]
                 mov     [ebp+var_40], eax
 
-loc_44DDB4:                             ; CODE XREF: sub_44DBE0+1C2↑j
+loc_44DDB4:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+1C2↑j
                 mov     [ebp+var_44], 0
                 mov     edx, dword ptr [ebp+var_48]
                 mov     eax, dword ptr [ebp+var_28]
@@ -72389,7 +72389,7 @@ loc_44DDB4:                             ; CODE XREF: sub_44DBE0+1C2↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44DDE3:                             ; CODE XREF: sub_44DBE0+1E4↑j
+loc_44DDE3:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+1E4↑j
                 mov     edx, dword ptr [ebp+var_44]
                 add     edx, 0Ch
                 mov     [ebp+var_44], edx
@@ -72447,7 +72447,7 @@ loc_44DDE3:                             ; CODE XREF: sub_44DBE0+1E4↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44DE88:                             ; CODE XREF: sub_44DBE0+289↑j
+loc_44DE88:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+289↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 30h ; '0'
                 mov     [ebp+var_44], ecx
@@ -72498,7 +72498,7 @@ loc_44DE88:                             ; CODE XREF: sub_44DBE0+289↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44DF16:                             ; CODE XREF: sub_44DBE0+317↑j
+loc_44DF16:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+317↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 24h ; '$'
                 mov     [ebp+var_44], ecx
@@ -72575,7 +72575,7 @@ loc_44DF16:                             ; CODE XREF: sub_44DBE0+317↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44DFE9:                             ; CODE XREF: sub_44DBE0+3EA↑j
+loc_44DFE9:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+3EA↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 18h
                 mov     [ebp+var_44], ecx
@@ -72633,7 +72633,7 @@ loc_44DFE9:                             ; CODE XREF: sub_44DBE0+3EA↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44E08C:                             ; CODE XREF: sub_44DBE0+48D↑j
+loc_44E08C:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+48D↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 18h
                 mov     [ebp+var_44], ecx
@@ -72690,7 +72690,7 @@ loc_44E08C:                             ; CODE XREF: sub_44DBE0+48D↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44E12D:                             ; CODE XREF: sub_44DBE0+52E↑j
+loc_44E12D:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+52E↑j
                 mov     edx, dword ptr [ebp+var_44]
                 add     edx, 18h
                 mov     [ebp+var_44], edx
@@ -72748,7 +72748,7 @@ loc_44E12D:                             ; CODE XREF: sub_44DBE0+52E↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44E1D1:                             ; CODE XREF: sub_44DBE0+5D2↑j
+loc_44E1D1:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+5D2↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 18h
                 mov     [ebp+var_44], ecx
@@ -72806,7 +72806,7 @@ loc_44E1D1:                             ; CODE XREF: sub_44DBE0+5D2↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44E277:                             ; CODE XREF: sub_44DBE0+678↑j
+loc_44E277:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+678↑j
                 mov     ecx, dword ptr [ebp+var_44]
                 add     ecx, 0Ch
                 mov     [ebp+var_44], ecx
@@ -72868,14 +72868,14 @@ loc_44E277:                             ; CODE XREF: sub_44DBE0+678↑j
                 call    ?FillRectColor@@YAXHHHHI@Z
                 add     esp, 14h
 
-loc_44E329:                             ; CODE XREF: sub_44DBE0+71E↑j
+loc_44E329:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+71E↑j
                 mov     eax, dword ptr [ebp+var_24]
                 add     eax, 0Ah
                 mov     [ebp+var_24], eax
                 jmp     loc_44DCFF
 ; ---------------------------------------------------------------------------
 
-loc_44E337:                             ; CODE XREF: sub_44DBE0+123↑j
+loc_44E337:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+123↑j
                 mov     [ebp+var_2C], 0
                 mov     ecx, ?g_Server@@3PAUServer@@A
                 cmp     dword ptr [ecx+1C0h], 0
@@ -72890,7 +72890,7 @@ loc_44E337:                             ; CODE XREF: sub_44DBE0+123↑j
                 idiv    ecx
                 mov     [ebp+var_2C], eax
 
-loc_44E371:                             ; CODE XREF: sub_44DBE0+76B↑j
+loc_44E371:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+76B↑j
                 mov     edx, ?g_Server@@3PAUServer@@A
                 mov     eax, dword ptr [edx+7Ch]
                 cmp     dword ptr [eax+8], 0
@@ -72951,7 +72951,7 @@ loc_44E371:                             ; CODE XREF: sub_44DBE0+76B↑j
                 mov     ecx, ?g_font2@@3PAVCGameFont@@A
                 call    dword ptr [edx+14h]
 
-loc_44E43C:                             ; CODE XREF: sub_44DBE0+79E↑j
+loc_44E43C:                             ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+79E↑j
                 mov     eax, dword ptr [ebp+var_48]
                 mov     ecx, dword ptr [eax+68h]
                 call    ?Draw@GM_a28@@QAEXXZ
@@ -72966,7 +72966,7 @@ loc_44E43C:                             ; CODE XREF: sub_44DBE0+79E↑j
                 pop     ebp
                 retn
 ; } // starts at 44DBE0
-sub_44DBE0      endp
+?VMethod7@VisServerScreen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -73018,7 +73018,7 @@ arg_14          = dword ptr  1Ch
 ; Attributes: bp-based frame
 
 ; int __cdecl sub_44E4CE(LPCSTR lpString)
-sub_44E4CE      proc near               ; CODE XREF: sub_44E6DE+6D↓p
+sub_44E4CE      proc near               ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+6D↓p
 
 var_3C          = dword ptr -3Ch
 var_38          = dword ptr -38h
@@ -73212,7 +73212,7 @@ sub_44E4CE      endp
 
 ; Attributes: bp-based frame
 
-sub_44E6DE      proc near               ; DATA XREF: .rdata:0060AF5C↓o
+?OnKeyDown@VisServerScreen@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060AF5C↓o
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -73235,7 +73235,7 @@ arg_0           = dword ptr  8
                 jmp     loc_44E7A6
 ; ---------------------------------------------------------------------------
 
-loc_44E6F8:                             ; CODE XREF: sub_44E6DE+13↑j
+loc_44E6F8:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+13↑j
                 mov     [ebp+var_4], offset ?Inst@PacketJoin@@2V1@A
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     byte ptr [ecx+9], 91h
@@ -73266,7 +73266,7 @@ loc_44E6F8:                             ; CODE XREF: sub_44E6DE+13↑j
                 jmp     short loc_44E782
 ; ---------------------------------------------------------------------------
 
-loc_44E755:                             ; CODE XREF: sub_44E6DE+64↑j
+loc_44E755:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+64↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 10h
                 push    ecx
@@ -73283,7 +73283,7 @@ loc_44E755:                             ; CODE XREF: sub_44E6DE+64↑j
                 mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
                 call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
 
-loc_44E782:                             ; CODE XREF: sub_44E6DE+75↑j
+loc_44E782:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+75↑j
                 push    offset unk_659A48
                 push    68h ; 'h'
                 mov     ecx, dword ptr [ebp+var_C]
@@ -73297,7 +73297,7 @@ loc_44E782:                             ; CODE XREF: sub_44E6DE+75↑j
                 jmp     short loc_44E7C2
 ; ---------------------------------------------------------------------------
 
-loc_44E7A6:                             ; CODE XREF: sub_44E6DE+15↑j
+loc_44E7A6:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+15↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
                 push    68h ; 'h'
@@ -73309,18 +73309,18 @@ loc_44E7A6:                             ; CODE XREF: sub_44E6DE+15↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 call    dword ptr [edx+6Ch]
 
-loc_44E7C2:                             ; CODE XREF: sub_44E6DE+C6↑j
+loc_44E7C2:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+C6↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44E6DE      endp
+?OnKeyDown@VisServerScreen@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44E7C8      proc near               ; DATA XREF: .rdata:0060AF38↓o
+?MsgProc@VisServerScreen@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060AF38↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -73343,7 +73343,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_44E85B
 ; ---------------------------------------------------------------------------
 
-loc_44E7F4:                             ; CODE XREF: sub_44E7C8+1F↑j
+loc_44E7F4:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+1F↑j
                 push    0
                 push    0
                 push    446h
@@ -73359,7 +73359,7 @@ loc_44E7F4:                             ; CODE XREF: sub_44E7C8+1F↑j
                 jmp     short loc_44E86F
 ; ---------------------------------------------------------------------------
 
-loc_44E822:                             ; CODE XREF: sub_44E7C8+28↑j
+loc_44E822:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+28↑j
                 cmp     [ebp+arg_4], 65h ; 'e'
                 jnz     short loc_44E843
                 xor     edx, edx
@@ -73371,11 +73371,11 @@ loc_44E822:                             ; CODE XREF: sub_44E7C8+28↑j
                 jmp     short loc_44E86F
 ; ---------------------------------------------------------------------------
 
-loc_44E843:                             ; CODE XREF: sub_44E7C8+5E↑j
+loc_44E843:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+5E↑j
                 jmp     short loc_44E85B
 ; ---------------------------------------------------------------------------
 
-loc_44E845:                             ; CODE XREF: sub_44E7C8+16↑j
+loc_44E845:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+16↑j
                 mov     ecx, dword ptr [ebp+arg_4]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_4]
@@ -73386,7 +73386,7 @@ loc_44E845:                             ; CODE XREF: sub_44E7C8+16↑j
                 jmp     short loc_44E86F
 ; ---------------------------------------------------------------------------
 
-loc_44E85B:                             ; CODE XREF: sub_44E7C8+2A↑j
+loc_44E85B:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+2A↑j
                 mov     ecx, dword ptr [ebp+arg_8]
                 push    ecx
                 mov     edx, dword ptr [ebp+arg_4]
@@ -73396,11 +73396,11 @@ loc_44E85B:                             ; CODE XREF: sub_44E7C8+2A↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_44E86F:                             ; CODE XREF: sub_44E7C8+58↑j
+loc_44E86F:                             ; CODE XREF: ?MsgProc@VisServerScreen@@UAEHIII@Z+58↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_44E7C8      endp
+?MsgProc@VisServerScreen@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -76788,7 +76788,7 @@ UnkAfxetModuleStateIncremented1_450910 endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_450920(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
-sub_450920      proc near               ; CODE XREF: sub_44D909+170↑p
+sub_450920      proc near               ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+170↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -76895,7 +76895,7 @@ sub_4509A0      endp
 
 ; Attributes: bp-based frame
 
-sub_450AB0      proc near               ; DATA XREF: .rdata:0060AEF4↓o
+??_GVisServerScreen@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060AEF4↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -76914,12 +76914,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_450AD2:                             ; CODE XREF: sub_450AB0+17↑j
+loc_450AD2:                             ; CODE XREF: ??_GVisServerScreen@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_450AB0      endp
+??_GVisServerScreen@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -76928,7 +76928,7 @@ sub_450AB0      endp
 
 ; Attributes: bp-based frame
 
-sub_450AE0      proc near               ; CODE XREF: sub_450AB0+A↑p
+sub_450AE0      proc near               ; CODE XREF: ??_GVisServerScreen@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -77118,7 +77118,7 @@ sub_450BD0      endp
 
 ; Attributes: bp-based frame
 
-sub_450C40      proc near               ; CODE XREF: sub_44DBE0+17A↑p
+sub_450C40      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+17A↑p
 
 var_4           = dword ptr -4
 
@@ -77140,7 +77140,7 @@ sub_450C40      endp
 
 ; Attributes: bp-based frame
 
-sub_450C60      proc near               ; CODE XREF: sub_44DBE0+109↑p
+sub_450C60      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+109↑p
 
 var_4           = dword ptr -4
 
@@ -77164,7 +77164,7 @@ sub_450C60      endp
 
 ; Attributes: bp-based frame
 
-sub_450C80      proc near               ; CODE XREF: sub_44DBE0+14C↑p
+sub_450C80      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+14C↑p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -77976,7 +77976,7 @@ sub_451240      endp
 
 ; Attributes: bp-based frame
 
-sub_4512B0      proc near               ; CODE XREF: sub_44DBE0+7E8↑p
+sub_4512B0      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+7E8↑p
 
 var_4           = dword ptr -4
 
@@ -77998,7 +77998,7 @@ sub_4512B0      endp
 
 ; Attributes: bp-based frame
 
-sub_4512D0      proc near               ; CODE XREF: sub_44DBE0+7F8↑p
+sub_4512D0      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+7F8↑p
 
 var_4           = dword ptr -4
 
@@ -78020,7 +78020,7 @@ sub_4512D0      endp
 
 ; Attributes: bp-based frame
 
-sub_4512F0      proc near               ; CODE XREF: sub_44DBE0+7D3↑p
+sub_4512F0      proc near               ; CODE XREF: ?VMethod7@VisServerScreen@@UAEXXZ+7D3↑p
 
 var_4           = dword ptr -4
 
@@ -394476,7 +394476,7 @@ SEH_44D275:                             ; DATA XREF: ?MsgProc@VisNetMapSelection
 ; } // starts at 5F9A57
 ; END OF FUNCTION CHUNK FOR ?MsgProc@VisNetMapSelection@@UAEHIII@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44D909
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisServerScreen@@UAEXXZ
 
 loc_5F9A73:                             ; DATA XREF: .rdata:stru_61A458↓o
 ; __unwind { // SEH_44D909
@@ -394511,13 +394511,13 @@ loc_5F9A91:                             ; DATA XREF: .rdata:0061A470↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44D909:                             ; DATA XREF: sub_44D909+5↑o
+SEH_44D909:                             ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A438 ; MFC 3.1-14.0 32bit
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9A73
-; END OF FUNCTION CHUNK FOR sub_44D909
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisServerScreen@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44DBE0
+; START OF FUNCTION CHUNK FOR ?VMethod7@VisServerScreen@@UAEXXZ
 
 loc_5F9AA5:                             ; DATA XREF: .rdata:stru_61A498↓o
 ; __unwind { // SEH_44DBE0              ; varThis
@@ -394527,11 +394527,11 @@ loc_5F9AA5:                             ; DATA XREF: .rdata:stru_61A498↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44DBE0:                             ; DATA XREF: sub_44DBE0+5↑o
+SEH_44DBE0:                             ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A478
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9AA5
-; END OF FUNCTION CHUNK FOR sub_44DBE0
+; END OF FUNCTION CHUNK FOR ?VMethod7@VisServerScreen@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44E4CE
 
@@ -421873,7 +421873,7 @@ off_60ADF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 align 8
 
 off_60AEF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z+2B↑o
-                dd offset sub_450AB0
+                dd offset ??_GVisServerScreen@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421883,14 +421883,14 @@ off_60AEF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_44DBE0
-                dd offset sub_44DBAE
+                dd offset ?VMethod7@VisServerScreen@@UAEXXZ
+                dd offset ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_44E7C8
+                dd offset ?MsgProc@VisServerScreen@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -421899,10 +421899,10 @@ off_60AEF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_44E6DE
+                dd offset ?OnKeyDown@VisServerScreen@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_44D909
+                dd offset ?VMethod26@VisServerScreen@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
@@ -444956,30 +444956,30 @@ aAlm            db '\*.alm',0           ; DATA XREF: sub_44AAE5+38↑o
 aSDxDDD         db '%s#%dx%d#%d#%d',0   ; DATA XREF: sub_44D13D+83↑o
                 align 4
 ; char aSaveonserver[]
-aSaveonserver   db '-saveonserver',0    ; DATA XREF: sub_44D909+1BC↑o
+aSaveonserver   db '-saveonserver',0    ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1BC↑o
                 align 4
 ; char aInternetserver[]
-aInternetserver db '-internetserver',0  ; DATA XREF: sub_44D909+1D6↑o
+aInternetserver db '-internetserver',0  ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1D6↑o
 ; char aD_5[]
-aD_5            db '%d',0               ; DATA XREF: sub_44DBE0+23F↑o
+aD_5            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+23F↑o
                 align 10h
 ; char aD02d02d[]
-aD02d02d        db '%d:%02d:%02d',0     ; DATA XREF: sub_44DBE0+3A0↑o
+aD02d02d        db '%d:%02d:%02d',0     ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+3A0↑o
                 align 10h
 ; char aD_6[]
-aD_6            db '%d',0               ; DATA XREF: sub_44DBE0+443↑o
+aD_6            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+443↑o
                 align 4
 ; char aD_7[]
-aD_7            db '%d',0               ; DATA XREF: sub_44DBE0+4E3↑o
+aD_7            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+4E3↑o
                 align 4
 ; char aD_8[]
-aD_8            db '%d',0               ; DATA XREF: sub_44DBE0+588↑o
+aD_8            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+588↑o
                 align 4
 ; char aD_9[]
-aD_9            db '%d',0               ; DATA XREF: sub_44DBE0+62E↑o
+aD_9            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+62E↑o
                 align 10h
 ; char aD_10[]
-aD_10           db '%d',0               ; DATA XREF: sub_44DBE0+6D4↑o
+aD_10           db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+6D4↑o
                 align 4
 ; char aDisconnect[]
 aDisconnect     db 'disconnect',0       ; DATA XREF: sub_44E4CE+36↑o
