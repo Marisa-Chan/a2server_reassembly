@@ -2220,6 +2220,9 @@ ASSERT_SIZE(Vis2Action, 0x80);
 class VisMissionFailed : public VisMessageBoxWithList
 {
 public:
+	virtual ~VisMissionFailed();
+	virtual void VMethod26() override;
+
 	VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& _txt); //44e875
 };
 ASSERT_SIZE(VisMissionFailed, 0x78);

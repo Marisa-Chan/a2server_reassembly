@@ -73456,7 +73456,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_44E8CA      proc near               ; DATA XREF: .rdata:0060AFF0↓o
+?VMethod26@VisMissionFailed@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AFF0↓o
 
 var_4C          = dword ptr -4Ch
 var_48          = dword ptr -48h
@@ -73574,10 +73574,10 @@ var_4           = dword ptr -4
                 jmp     short loc_44E9F7
 ; ---------------------------------------------------------------------------
 
-loc_44E9F0:                             ; CODE XREF: sub_44E8CA+F0↑j
+loc_44E9F0:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F0↑j
                 mov     [ebp+var_48], 0
 
-loc_44E9F7:                             ; CODE XREF: sub_44E8CA+124↑j
+loc_44E9F7:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+124↑j
                 mov     edx, dword ptr [ebp+var_48]
                 mov     [ebp+var_38], edx
 ;   } // starts at 44E9AF
@@ -73612,10 +73612,10 @@ loc_44E9F7:                             ; CODE XREF: sub_44E8CA+124↑j
                 jmp     short loc_44EA63
 ; ---------------------------------------------------------------------------
 
-loc_44EA5C:                             ; CODE XREF: sub_44E8CA+15B↑j
+loc_44EA5C:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15B↑j
                 mov     [ebp+var_4C], 0
 
-loc_44EA63:                             ; CODE XREF: sub_44E8CA+190↑j
+loc_44EA63:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+190↑j
                 mov     eax, dword ptr [ebp+var_4C]
                 mov     [ebp+var_40], eax
 ;   } // starts at 44EA1A
@@ -73642,14 +73642,14 @@ loc_44EA63:                             ; CODE XREF: sub_44E8CA+190↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 call    dword ptr [edx+1Ch]
 
-loc_44EAAD:                             ; CODE XREF: sub_44E8CA+1D2↑j
+loc_44EAAD:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+1D2↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 44E8CA
-sub_44E8CA      endp
+?VMethod26@VisMissionFailed@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -76950,7 +76950,7 @@ sub_450AE0      endp
 
 ; Attributes: bp-based frame
 
-sub_450B00      proc near               ; DATA XREF: .rdata:0060AF7C↓o
+??_GVisMissionFailed@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060AF7C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -76969,12 +76969,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_450B22:                             ; CODE XREF: sub_450B00+17↑j
+loc_450B22:                             ; CODE XREF: ??_GVisMissionFailed@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_450B00      endp
+??_GVisMissionFailed@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -76983,7 +76983,7 @@ sub_450B00      endp
 
 ; Attributes: bp-based frame
 
-sub_450B30      proc near               ; CODE XREF: sub_450B00+A↑p
+sub_450B30      proc near               ; CODE XREF: ??_GVisMissionFailed@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -394565,7 +394565,7 @@ SEH_44E4CE:                             ; DATA XREF: sub_44E4CE+5↑o
 ; } // starts at 5F9AB8
 ; END OF FUNCTION CHUNK FOR sub_44E4CE
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44E8CA
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
 
 loc_5F9ADD:                             ; DATA XREF: .rdata:stru_61A4F8↓o
 ; __unwind { // SEH_44E8CA
@@ -394584,11 +394584,11 @@ loc_5F9AE7:                             ; DATA XREF: .rdata:0061A500↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44E8CA:                             ; DATA XREF: sub_44E8CA+5↑o
+SEH_44E8CA:                             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A4D8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9ADD
-; END OF FUNCTION CHUNK FOR sub_44E8CA
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44EB08
 
@@ -421907,7 +421907,7 @@ off_60AEF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60AF78      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z+46↑o
-                dd offset sub_450B00
+                dd offset ??_GVisMissionFailed@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421936,7 +421936,7 @@ off_60AF78      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@VisWindow@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_44E8CA
+                dd offset ?VMethod26@VisMissionFailed@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
@@ -452987,9 +452987,9 @@ byte_659A40     db 4 dup(?)             ; DATA XREF: sub_44C788+4FD↑o
 byte_659A44     db 4 dup(?)             ; DATA XREF: sub_44C788+87A↑o
 unk_659A48      db 4h dup(?)
 ; CHAR byte_659A4C[4]
-byte_659A4C     db 4 dup(?)             ; DATA XREF: sub_44E8CA+F2↑o
+byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o
 ; CHAR byte_659A50[4]
-byte_659A50     db 4 dup(?)             ; DATA XREF: sub_44E8CA+15D↑o
+byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15D↑o
 ; CHAR byte_659A54[4]
 byte_659A54     db 4 dup(?)             ; DATA XREF: sub_44F0E8+142↑o
 ; CHAR byte_659A58[4]

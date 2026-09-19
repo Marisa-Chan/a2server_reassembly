@@ -2528,6 +2528,8 @@ externdef ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z : proc
 
 ; VisMissionFailed
 externdef ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z : proc
+externdef ??_GVisMissionFailed@@UAEPAXI@Z : proc
+externdef ?VMethod26@VisMissionFailed@@UAEXXZ : proc
 
 ; VisCutScenesDlg
 externdef ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z : proc
