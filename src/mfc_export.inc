@@ -2035,6 +2035,14 @@ externdef ?DoClose@VisTavDruid@@UAEXI@Z : proc
 externdef ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisTavDruid@@UAEXH@Z : proc
 
+;VisTavKaarg
+externdef ??_GVisTavKaarg@@UAEPAXI@Z : proc
+externdef ?VMethod26@VisTavKaarg@@UAEXXZ : proc
+externdef ?VMethod28@VisTavKaarg@@UAEXXZ : proc
+externdef ?DoClose@VisTavKaarg@@UAEXI@Z : proc
+externdef ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisTavKaarg@@UAEXH@Z : proc
+
 ;VisShop
 externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
 

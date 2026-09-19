@@ -137969,7 +137969,7 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_4A190D      proc near               ; DATA XREF: .rdata:0060C8F8↓o
+?VMethod26@VisTavKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C8F8↓o
 
 var_40          = dword ptr -40h
 var_3C          = dword ptr -3Ch
@@ -138049,10 +138049,10 @@ var_4           = dword ptr -4
                 jmp     short loc_4A1A33
 ; ---------------------------------------------------------------------------
 
-loc_4A1A2C:                             ; CODE XREF: sub_4A190D+F9↑j
+loc_4A1A2C:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+F9↑j
                 mov     [ebp+var_34], 0
 
-loc_4A1A33:                             ; CODE XREF: sub_4A190D+11D↑j
+loc_4A1A33:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+11D↑j
                 mov     ecx, dword ptr [ebp+var_34]
                 mov     [ebp+var_14], ecx
 ;   } // starts at 4A19FB
@@ -138080,10 +138080,10 @@ loc_4A1A33:                             ; CODE XREF: sub_4A190D+11D↑j
                 jmp     short loc_4A1A91
 ; ---------------------------------------------------------------------------
 
-loc_4A1A8A:                             ; CODE XREF: sub_4A190D+154↑j
+loc_4A1A8A:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+154↑j
                 mov     [ebp+var_38], 0
 
-loc_4A1A91:                             ; CODE XREF: sub_4A190D+17B↑j
+loc_4A1A91:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+17B↑j
                 mov     edx, dword ptr [ebp+var_38]
                 mov     [ebp+var_1C], edx
 ;   } // starts at 4A1A56
@@ -138111,10 +138111,10 @@ loc_4A1A91:                             ; CODE XREF: sub_4A190D+17B↑j
                 jmp     short loc_4A1AEF
 ; ---------------------------------------------------------------------------
 
-loc_4A1AE8:                             ; CODE XREF: sub_4A190D+1B2↑j
+loc_4A1AE8:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+1B2↑j
                 mov     [ebp+var_3C], 0
 
-loc_4A1AEF:                             ; CODE XREF: sub_4A190D+1D9↑j
+loc_4A1AEF:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+1D9↑j
                 mov     eax, dword ptr [ebp+var_3C]
                 mov     [ebp+var_24], eax
 ;   } // starts at 4A1AB4
@@ -138155,10 +138155,10 @@ loc_4A1AEF:                             ; CODE XREF: sub_4A190D+1D9↑j
                 jmp     short loc_4A1B7B
 ; ---------------------------------------------------------------------------
 
-loc_4A1B74:                             ; CODE XREF: sub_4A190D+258↑j
+loc_4A1B74:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+258↑j
                 mov     [ebp+var_40], 0
 
-loc_4A1B7B:                             ; CODE XREF: sub_4A190D+265↑j
+loc_4A1B7B:                             ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+265↑j
                 mov     ecx, dword ptr [ebp+var_40]
                 mov     [ebp+var_2C], ecx
 ;   } // starts at 4A1B5A
@@ -138172,14 +138172,14 @@ loc_4A1B7B:                             ; CODE XREF: sub_4A190D+265↑j
                 pop     ebp
                 retn
 ; } // starts at 4A190D
-sub_4A190D      endp
+?VMethod26@VisTavKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4A1BA2      proc near               ; DATA XREF: .rdata:0060C900↓o
+?VMethod28@VisTavKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C900↓o
 
 var_F8          = dword ptr -0F8h
 var_F4          = dword ptr -0F4h
@@ -138306,10 +138306,10 @@ var_4           = dword ptr -4
                 jmp     short loc_4A1D1E
 ; ---------------------------------------------------------------------------
 
-loc_4A1D14:                             ; CODE XREF: sub_4A1BA2+141↑j
+loc_4A1D14:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+141↑j
                 mov     [ebp+var_EC], 0
 
-loc_4A1D1E:                             ; CODE XREF: sub_4A1BA2+170↑j
+loc_4A1D1E:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+170↑j
                 mov     eax, dword ptr [ebp+var_EC]
                 mov     [ebp+var_DC], eax
 ;   } // starts at 4A1CD8
@@ -138331,7 +138331,7 @@ loc_4A1D1E:                             ; CODE XREF: sub_4A1BA2+170↑j
                 jmp     loc_4A1E07
 ; ---------------------------------------------------------------------------
 
-loc_4A1D6F:                             ; CODE XREF: sub_4A1BA2+F6↑j
+loc_4A1D6F:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+F6↑j
                 mov     eax, dword ptr [ebp+var_E8]
                 cmp     dword ptr [eax+80h], 0
                 jz      short loc_4A1DF7
@@ -138357,20 +138357,20 @@ loc_4A1D6F:                             ; CODE XREF: sub_4A1BA2+F6↑j
                 jmp     short loc_4A1DE5
 ; ---------------------------------------------------------------------------
 
-loc_4A1DDB:                             ; CODE XREF: sub_4A1BA2+21C↑j
+loc_4A1DDB:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+21C↑j
                 mov     [ebp+var_F0], 0
 
-loc_4A1DE5:                             ; CODE XREF: sub_4A1BA2+237↑j
+loc_4A1DE5:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+237↑j
                 mov     eax, dword ptr [ebp+var_E8]
                 mov     dword ptr [eax+80h], 0
                 jmp     short loc_4A1E07
 ; ---------------------------------------------------------------------------
 
-loc_4A1DF7:                             ; CODE XREF: sub_4A1BA2+1DA↑j
+loc_4A1DF7:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+1DA↑j
                 mov     ecx, dword ptr [ebp+var_E8]
                 mov     dword ptr [ecx+80h], 0
 
-loc_4A1E07:                             ; CODE XREF: sub_4A1BA2+1C8↑j
+loc_4A1E07:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+1C8↑j
                 mov     edx, dword ptr [ebp+var_14]
                 cmp     dword ptr [edx+640h], 2
                 jnz     short loc_4A1E7C
@@ -138386,12 +138386,12 @@ loc_4A1E07:                             ; CODE XREF: sub_4A1BA2+1C8↑j
                 jmp     short loc_4A1E50
 ; ---------------------------------------------------------------------------
 
-loc_4A1E41:                             ; CODE XREF: sub_4A1BA2+2D8↓j
+loc_4A1E41:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+2D8↓j
                 mov     edx, dword ptr [ebp+var_BC]
                 add     edx, 1
                 mov     [ebp+var_BC], edx
 
-loc_4A1E50:                             ; CODE XREF: sub_4A1BA2+29D↑j
+loc_4A1E50:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+29D↑j
                 mov     eax, dword ptr [ebp+var_BC]
                 cmp     eax, [ebp+var_38]
                 jge     short loc_4A1E7C
@@ -138404,7 +138404,7 @@ loc_4A1E50:                             ; CODE XREF: sub_4A1BA2+29D↑j
                 jmp     short loc_4A1E41
 ; ---------------------------------------------------------------------------
 
-loc_4A1E7C:                             ; CODE XREF: sub_4A1BA2+26F↑j
+loc_4A1E7C:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+26F↑j
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0C0h
                 call    sub_475050
@@ -138415,12 +138415,12 @@ loc_4A1E7C:                             ; CODE XREF: sub_4A1BA2+26F↑j
                 jmp     short loc_4A1EB0
 ; ---------------------------------------------------------------------------
 
-loc_4A1EA7:                             ; CODE XREF: sub_4A1BA2:loc_4A1F72↓j
+loc_4A1EA7:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ:loc_4A1F72↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A1EB0:                             ; CODE XREF: sub_4A1BA2+303↑j
+loc_4A1EB0:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+303↑j
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0FCh
                 call    unknown_libname_411 ; Microsoft VisualC 2-14/net runtime
@@ -138448,7 +138448,7 @@ loc_4A1EB0:                             ; CODE XREF: sub_4A1BA2+303↑j
                 cmp     [ebp+var_C4], 2
                 jnz     short loc_4A1F4B
 
-loc_4A1F22:                             ; CODE XREF: sub_4A1BA2+375↑j
+loc_4A1F22:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+375↑j
                 mov     edx, dword ptr [ebp+var_C0]
                 push    edx
                 mov     eax, dword ptr [ebp+var_E8]
@@ -138461,7 +138461,7 @@ loc_4A1F22:                             ; CODE XREF: sub_4A1BA2+375↑j
                 jmp     short loc_4A1F72
 ; ---------------------------------------------------------------------------
 
-loc_4A1F4B:                             ; CODE XREF: sub_4A1BA2+37E↑j
+loc_4A1F4B:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+37E↑j
                 mov     ecx, dword ptr [ebp+var_C0]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_E8]
@@ -138472,11 +138472,11 @@ loc_4A1F4B:                             ; CODE XREF: sub_4A1BA2+37E↑j
                 add     ecx, 0E8h
                 call    sub_421570
 
-loc_4A1F72:                             ; CODE XREF: sub_4A1BA2+3A7↑j
+loc_4A1F72:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+3A7↑j
                 jmp     loc_4A1EA7
 ; ---------------------------------------------------------------------------
 
-loc_4A1F77:                             ; CODE XREF: sub_4A1BA2+322↑j
+loc_4A1F77:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+322↑j
                 mov     ecx, dword ptr [ebp+var_E8]
                 add     ecx, 0C0h
                 call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
@@ -138492,11 +138492,11 @@ loc_4A1F77:                             ; CODE XREF: sub_4A1BA2+322↑j
                 jmp     short loc_4A1FC3
 ; ---------------------------------------------------------------------------
 
-loc_4A1FB3:                             ; CODE XREF: sub_4A1BA2+3FD↑j
+loc_4A1FB3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+3FD↑j
                 mov     ecx, dword ptr [ebp+var_E8]
                 mov     dword ptr [ecx+0B8h], 0FFFFFFFFh
 
-loc_4A1FC3:                             ; CODE XREF: sub_4A1BA2+40F↑j
+loc_4A1FC3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+40F↑j
                 mov     ecx, offset unk_65FA38
                 call    sub_473B80
                 mov     ecx, offset unk_65FA38
@@ -138567,12 +138567,12 @@ loc_4A1FC3:                             ; CODE XREF: sub_4A1BA2+40F↑j
                 jmp     short loc_4A20E8
 ; ---------------------------------------------------------------------------
 
-loc_4A20DF:                             ; CODE XREF: sub_4A1BA2+575↓j
+loc_4A20DF:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+575↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A20E8:                             ; CODE XREF: sub_4A1BA2+53B↑j
+loc_4A20E8:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+53B↑j
                 cmp     [ebp+var_2C], 0Fh
                 jge     short loc_4A2119
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -138591,7 +138591,7 @@ loc_4A20E8:                             ; CODE XREF: sub_4A1BA2+53B↑j
                 jmp     short loc_4A20DF
 ; ---------------------------------------------------------------------------
 
-loc_4A2119:                             ; CODE XREF: sub_4A1BA2+54A↑j
+loc_4A2119:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+54A↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A213D
@@ -138602,19 +138602,19 @@ loc_4A2119:                             ; CODE XREF: sub_4A1BA2+54A↑j
                 add     ecx, 3CCh
                 call    sub_4010EE
 
-loc_4A213D:                             ; CODE XREF: sub_4A1BA2+581↑j
+loc_4A213D:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+581↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_401780
                 mov     [ebp+var_2C], 0
                 jmp     short loc_4A2157
 ; ---------------------------------------------------------------------------
 
-loc_4A214E:                             ; CODE XREF: sub_4A1BA2+5E4↓j
+loc_4A214E:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+5E4↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A2157:                             ; CODE XREF: sub_4A1BA2+5AA↑j
+loc_4A2157:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+5AA↑j
                 cmp     [ebp+var_2C], 19h
                 jge     short loc_4A2188
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -138633,7 +138633,7 @@ loc_4A2157:                             ; CODE XREF: sub_4A1BA2+5AA↑j
                 jmp     short loc_4A214E
 ; ---------------------------------------------------------------------------
 
-loc_4A2188:                             ; CODE XREF: sub_4A1BA2+5B9↑j
+loc_4A2188:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+5B9↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A21AC
@@ -138644,19 +138644,19 @@ loc_4A2188:                             ; CODE XREF: sub_4A1BA2+5B9↑j
                 add     ecx, 3FCh
                 call    sub_4010EE
 
-loc_4A21AC:                             ; CODE XREF: sub_4A1BA2+5F0↑j
+loc_4A21AC:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+5F0↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_401780
                 mov     [ebp+var_2C], 0
                 jmp     short loc_4A21C6
 ; ---------------------------------------------------------------------------
 
-loc_4A21BD:                             ; CODE XREF: sub_4A1BA2+653↓j
+loc_4A21BD:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+653↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A21C6:                             ; CODE XREF: sub_4A1BA2+619↑j
+loc_4A21C6:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+619↑j
                 cmp     [ebp+var_2C], 3
                 jge     short loc_4A21F7
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -138675,7 +138675,7 @@ loc_4A21C6:                             ; CODE XREF: sub_4A1BA2+619↑j
                 jmp     short loc_4A21BD
 ; ---------------------------------------------------------------------------
 
-loc_4A21F7:                             ; CODE XREF: sub_4A1BA2+628↑j
+loc_4A21F7:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+628↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A221B
@@ -138686,19 +138686,19 @@ loc_4A21F7:                             ; CODE XREF: sub_4A1BA2+628↑j
                 add     ecx, 42Ch
                 call    sub_4010EE
 
-loc_4A221B:                             ; CODE XREF: sub_4A1BA2+65F↑j
+loc_4A221B:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+65F↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_401780
                 mov     [ebp+var_2C], 0
                 jmp     short loc_4A2235
 ; ---------------------------------------------------------------------------
 
-loc_4A222C:                             ; CODE XREF: sub_4A1BA2+6BF↓j
+loc_4A222C:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+6BF↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A2235:                             ; CODE XREF: sub_4A1BA2+688↑j
+loc_4A2235:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+688↑j
                 cmp     [ebp+var_2C], 7
                 jge     short loc_4A2263
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -138716,7 +138716,7 @@ loc_4A2235:                             ; CODE XREF: sub_4A1BA2+688↑j
                 jmp     short loc_4A222C
 ; ---------------------------------------------------------------------------
 
-loc_4A2263:                             ; CODE XREF: sub_4A1BA2+697↑j
+loc_4A2263:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+697↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A2287
@@ -138727,19 +138727,19 @@ loc_4A2263:                             ; CODE XREF: sub_4A1BA2+697↑j
                 add     ecx, 45Ch
                 call    sub_4010EE
 
-loc_4A2287:                             ; CODE XREF: sub_4A1BA2+6CB↑j
+loc_4A2287:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+6CB↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_401780
                 mov     [ebp+var_2C], 0
                 jmp     short loc_4A22A1
 ; ---------------------------------------------------------------------------
 
-loc_4A2298:                             ; CODE XREF: sub_4A1BA2+72B↓j
+loc_4A2298:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+72B↓j
                 mov     eax, dword ptr [ebp+var_2C]
                 add     eax, 1
                 mov     [ebp+var_2C], eax
 
-loc_4A22A1:                             ; CODE XREF: sub_4A1BA2+6F4↑j
+loc_4A22A1:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+6F4↑j
                 cmp     [ebp+var_2C], 1Dh
                 jge     short loc_4A22CF
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -138757,7 +138757,7 @@ loc_4A22A1:                             ; CODE XREF: sub_4A1BA2+6F4↑j
                 jmp     short loc_4A2298
 ; ---------------------------------------------------------------------------
 
-loc_4A22CF:                             ; CODE XREF: sub_4A1BA2+703↑j
+loc_4A22CF:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+703↑j
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     dword ptr [eax+640h], 2
                 jnz     short loc_4A22F3
@@ -138768,7 +138768,7 @@ loc_4A22CF:                             ; CODE XREF: sub_4A1BA2+703↑j
                 add     ecx, 48Ch
                 call    sub_4010EE
 
-loc_4A22F3:                             ; CODE XREF: sub_4A1BA2+737↑j
+loc_4A22F3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+737↑j
                 lea     ecx, [ebp+var_28]
                 call    sub_401780
                 mov     eax, dword ptr [ebp+var_E8]
@@ -138847,14 +138847,14 @@ loc_4A22F3:                             ; CODE XREF: sub_4A1BA2+737↑j
                 pop     ebp
                 retn
 ; } // starts at 4A1BA2
-sub_4A1BA2      endp
+?VMethod28@VisTavKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4A2448      proc near               ; DATA XREF: .rdata:0060C904↓o
+?DoClose@VisTavKaarg@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060C904↓o
 
 var_38          = dword ptr -38h
 var_34          = dword ptr -34h
@@ -138885,7 +138885,7 @@ arg_0           = dword ptr  8
                 jnz     short loc_4A2476
                 call    ?ScenarioLeaveInn@@YGXXZ
 
-loc_4A2476:                             ; CODE XREF: sub_4A2448+26↑j
+loc_4A2476:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+26↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 cmp     dword ptr [ecx+13Ch], 0
                 jz      short loc_4A2497
@@ -138896,7 +138896,7 @@ loc_4A2476:                             ; CODE XREF: sub_4A2448+26↑j
                 jmp     short loc_4A24AF
 ; ---------------------------------------------------------------------------
 
-loc_4A2497:                             ; CODE XREF: sub_4A2448+38↑j
+loc_4A2497:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+38↑j
                 mov     eax, dword ptr [ebp+var_30]
                 mov     ecx, dword ptr [eax+11Ch]
                 push    ecx
@@ -138904,7 +138904,7 @@ loc_4A2497:                             ; CODE XREF: sub_4A2448+38↑j
                 mov     ecx, dword ptr [edx+0D0h]
                 call    sub_41AE1C
 
-loc_4A24AF:                             ; CODE XREF: sub_4A2448+4D↑j
+loc_4A24AF:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+4D↑j
                 mov     eax, dword ptr [ebp+var_30]
                 mov     dword ptr [eax+110h], 0
                 mov     ecx, dword ptr [ebp+var_30]
@@ -138969,14 +138969,14 @@ loc_4A24AF:                             ; CODE XREF: sub_4A2448+4D↑j
                 jmp     short loc_4A2582
 ; ---------------------------------------------------------------------------
 
-loc_4A257B:                             ; CODE XREF: sub_4A2448+11F↑j
+loc_4A257B:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+11F↑j
                 mov     [ebp+var_34], 0
 
-loc_4A2582:                             ; CODE XREF: sub_4A2448+131↑j
+loc_4A2582:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+131↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 mov     dword ptr [ecx+80h], 0
 
-loc_4A258F:                             ; CODE XREF: sub_4A2448+F2↑j
+loc_4A258F:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+F2↑j
                 mov     edx, dword ptr [ebp+var_30]
                 mov     ecx, dword ptr [edx+74h]
                 call    sub_499CDF
@@ -139037,7 +139037,7 @@ loc_4A258F:                             ; CODE XREF: sub_4A2448+F2↑j
                 mov     ecx, dword ptr [ecx+114h]
                 call    ?sub_55ECFE@QuestMap@@QAEXH@Z
 
-loc_4A2673:                             ; CODE XREF: sub_4A2448+289↓j
+loc_4A2673:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+289↓j
                 mov     ecx, dword ptr [ebp+var_30]
                 add     ecx, 124h
                 call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
@@ -139062,10 +139062,10 @@ loc_4A2673:                             ; CODE XREF: sub_4A2448+289↓j
                 jmp     short loc_4A26BF
 ; ---------------------------------------------------------------------------
 
-loc_4A26B8:                             ; CODE XREF: sub_4A2448+25C↑j
+loc_4A26B8:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+25C↑j
                 mov     [ebp+var_38], 0
 
-loc_4A26BF:                             ; CODE XREF: sub_4A2448+26E↑j
+loc_4A26BF:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+26E↑j
                 push    1
                 push    0
                 mov     ecx, dword ptr [ebp+var_30]
@@ -139074,18 +139074,18 @@ loc_4A26BF:                             ; CODE XREF: sub_4A2448+26E↑j
                 jmp     short loc_4A2673
 ; ---------------------------------------------------------------------------
 
-loc_4A26D3:                             ; CODE XREF: sub_4A2448+23B↑j
+loc_4A26D3:                             ; CODE XREF: ?DoClose@VisTavKaarg@@UAEXI@Z+23B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4A2448      endp
+?DoClose@VisTavKaarg@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4A26D9      proc near               ; DATA XREF: .rdata:0060C908↓o
+?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060C908↓o
 
 var_4           = dword ptr -4
 
@@ -139202,14 +139202,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A26D9      endp
+?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4A2873      proc near               ; DATA XREF: .rdata:0060C90C↓o
+?VMethod31@VisTavKaarg@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060C90C↓o
 
 var_4           = dword ptr -4
 
@@ -139305,7 +139305,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A2873      endp
+?VMethod31@VisTavKaarg@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -139401,7 +139401,7 @@ sub_4A29AA      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_4A2AA4(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_4A2AA4      proc near               ; CODE XREF: sub_4A190D+1D1↑p
+sub_4A2AA4      proc near               ; CODE XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+1D1↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -141507,7 +141507,7 @@ sub_4A3FC0      endp
 
 ; Attributes: bp-based frame
 
-sub_4A4040      proc near               ; DATA XREF: .rdata:0060C884↓o
+??_GVisTavKaarg@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060C884↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -141526,12 +141526,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4A4062:                             ; CODE XREF: sub_4A4040+17↑j
+loc_4A4062:                             ; CODE XREF: ??_GVisTavKaarg@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4A4040      endp
+??_GVisTavKaarg@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -141540,7 +141540,7 @@ sub_4A4040      endp
 
 ; Attributes: bp-based frame
 
-sub_4A4070      proc near               ; CODE XREF: sub_4A4040+A↑p
+sub_4A4070      proc near               ; CODE XREF: ??_GVisTavKaarg@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -401605,7 +401605,7 @@ SEH_4A11E3:                             ; DATA XREF: sub_4A11E3+5↑o
 ; } // starts at 5FCF29
 ; END OF FUNCTION CHUNK FOR sub_4A11E3
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4A190D
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisTavKaarg@@UAEXXZ
 
 loc_5FCF89:                             ; DATA XREF: .rdata:stru_61E098↓o
 ; __unwind { // SEH_4A190D
@@ -401640,13 +401640,13 @@ loc_5FCFA7:                             ; DATA XREF: .rdata:0061E0B0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4A190D:                             ; DATA XREF: sub_4A190D+5↑o
+SEH_4A190D:                             ; DATA XREF: ?VMethod26@VisTavKaarg@@UAEXXZ+5↑o
                 mov     eax, offset stru_61E078
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FCF89
-; END OF FUNCTION CHUNK FOR sub_4A190D
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisTavKaarg@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4A1BA2
+; START OF FUNCTION CHUNK FOR ?VMethod28@VisTavKaarg@@UAEXXZ
 
 loc_5FCFBB:                             ; DATA XREF: .rdata:stru_61E0D8↓o
 ; __unwind { // SEH_4A1BA2              ; varThis
@@ -401680,11 +401680,11 @@ loc_5FCFDA:                             ; DATA XREF: .rdata:0061E0F0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4A1BA2:                             ; DATA XREF: sub_4A1BA2+5↑o
+SEH_4A1BA2:                             ; DATA XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+5↑o
                 mov     eax, offset stru_61E0B8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FCFBB
-; END OF FUNCTION CHUNK FOR sub_4A1BA2
+; END OF FUNCTION CHUNK FOR ?VMethod28@VisTavKaarg@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4A29AA
 
@@ -423363,7 +423363,7 @@ off_60C7F8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4A11E3
                 dd offset sub_4A158F
 off_60C880      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004A18CB↑o
-                dd offset sub_4A4040
+                dd offset ??_GVisTavKaarg@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -423392,12 +423392,12 @@ off_60C880      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@VisTav@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_4A190D
+                dd offset ?VMethod26@VisTavKaarg@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_4A1BA2
-                dd offset sub_4A2448
-                dd offset sub_4A26D9
-                dd offset sub_4A2873
+                dd offset ?VMethod28@VisTavKaarg@@UAEXXZ
+                dd offset ?DoClose@VisTavKaarg@@UAEXI@Z
+                dd offset ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod31@VisTavKaarg@@UAEXH@Z
 off_60C910      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4A29AA+88↑o
                 dd offset sub_4A4090
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -447897,9 +447897,9 @@ aGraphicsInterf_192 db 'graphics\interface\inn_kaarg\taverner\a4%04d.bmp',0
 aGraphicsInterf_193 db 'graphics\interface\inn_kaarg\taverner\a5%04d.bmp',0
                 align 4
 ; CHAR aSfxAddWav_1[]
-aSfxAddWav_1    db 'SFX\Add.wav',0      ; DATA XREF: sub_4A26D9+15↑o
+aSfxAddWav_1    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+15↑o
 ; CHAR aSfxNoaddWav_1[]
-aSfxNoaddWav_1  db 'SFX\NoAdd.wav',0    ; DATA XREF: sub_4A26D9+2B↑o
+aSfxNoaddWav_1  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+2B↑o
                 align 10h
 ; CHAR aSfxTownShopNof_1[]
 aSfxTownShopNof_1 db 'SFX\Town\Shop\nofit.wav',0
@@ -447908,9 +447908,9 @@ aSfxTownKaargIn db 'SFX\Town_kaarg\Inn\Kin1.wav',0
 ; CHAR aSfxTownInnHelp_1[]
 aSfxTownInnHelp_1 db 'SFX\Town\Inn\Helper.wav',0
 ; CHAR aSfxOutWav_1[]
-aSfxOutWav_1    db 'SFX\Out.wav',0      ; DATA XREF: sub_4A26D9+86↑o
+aSfxOutWav_1    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+86↑o
 ; CHAR aSfxTalkWav_1[]
-aSfxTalkWav_1   db 'SFX\Talk.wav',0     ; DATA XREF: sub_4A26D9+9D↑o
+aSfxTalkWav_1   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+9D↑o
                 align 4
 ; CHAR aSfxTownKaargIn_0[]
 aSfxTownKaargIn_0 db 'SFX\Town_kaarg\Inn\Kdish1.wav',0
