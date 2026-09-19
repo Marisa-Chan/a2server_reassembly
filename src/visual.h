@@ -1511,6 +1511,13 @@ ASSERT_SIZE(VisShop, 0x164);
 class VisShopDruid : public VisShop
 {
 public:
+	virtual ~VisShopDruid();
+
+	virtual void VMethod26() override;
+	virtual void VMethod28() override;
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override;
+	virtual void VMethod31(int32_t code) override;
+
 	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad in asm
 public:
 	SfxSample* snd_bird[3];
