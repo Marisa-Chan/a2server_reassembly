@@ -2090,6 +2090,14 @@ externdef ?OnLButtonDown@VisTownDruid@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod28@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisTownDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisTownDruid@@UAEXH@Z : proc
+;VisTownKaarg
+externdef ??_GVisTownKaarg@@UAEPAXI@Z : proc
+externdef ?GetHint@VisTownKaarg@@UAEPBDXZ : proc
+externdef ?VMethod7@VisTownKaarg@@UAEXXZ : proc
+externdef ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod28@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod31@VisTownKaarg@@UAEXH@Z : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
