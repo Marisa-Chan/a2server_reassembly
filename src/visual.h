@@ -161,6 +161,7 @@ class VisLabel : public CVisualObject
 public:
 	~VisLabel();
 
+	// VTable at 60de38.
 	virtual void VMethod7() override;
 
 public:
