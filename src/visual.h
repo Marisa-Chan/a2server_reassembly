@@ -1445,8 +1445,8 @@ public:
 	virtual void VMethod28() override;
 	virtual void DoClose(uint32_t code) override;
 
-	virtual void VMethod30();
-	virtual void VMethod31();
+	virtual CVisualObject* VMethod30(const void* data, const RECT& r);
+	virtual void VMethod31(int32_t code);
 	virtual void VMethod32();
 
 
