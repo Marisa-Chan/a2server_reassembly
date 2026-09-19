@@ -69289,7 +69289,7 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_44BC6C      proc near               ; DATA XREF: .rdata:0060AA30↓o
+?VMethod26@VisHatBrowserDlg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AA30↓o
 
 var_A8          = dword ptr -0A8h
 var_A4          = dword ptr -0A4h
@@ -69375,10 +69375,10 @@ var_4           = dword ptr -4
                 jmp     short loc_44BCFF
 ; ---------------------------------------------------------------------------
 
-loc_44BCF5:                             ; CODE XREF: sub_44BC6C+41↑j
+loc_44BCF5:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+41↑j
                 mov     [ebp+var_8C], 0
 
-loc_44BCFF:                             ; CODE XREF: sub_44BC6C+87↑j
+loc_44BCFF:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+87↑j
                 mov     edx, dword ptr [ebp+var_8C]
                 mov     [ebp+var_4C], edx
 ;   } // starts at 44BCA2
@@ -69418,10 +69418,10 @@ loc_44BCFF:                             ; CODE XREF: sub_44BC6C+87↑j
                 jmp     short loc_44BD88
 ; ---------------------------------------------------------------------------
 
-loc_44BD7E:                             ; CODE XREF: sub_44BC6C+C7↑j
+loc_44BD7E:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+C7↑j
                 mov     [ebp+var_90], 0
 
-loc_44BD88:                             ; CODE XREF: sub_44BC6C+110↑j
+loc_44BD88:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+110↑j
                 mov     eax, dword ptr [ebp+var_90]
                 mov     [ebp+var_54], eax
 ;   } // starts at 44BD28
@@ -69461,10 +69461,10 @@ loc_44BD88:                             ; CODE XREF: sub_44BC6C+110↑j
                 jmp     short loc_44BE0E
 ; ---------------------------------------------------------------------------
 
-loc_44BE04:                             ; CODE XREF: sub_44BC6C+150↑j
+loc_44BE04:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+150↑j
                 mov     [ebp+var_94], 0
 
-loc_44BE0E:                             ; CODE XREF: sub_44BC6C+196↑j
+loc_44BE0E:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+196↑j
                 mov     ecx, dword ptr [ebp+var_94]
                 mov     [ebp+var_5C], ecx
 ;   } // starts at 44BDB1
@@ -69507,10 +69507,10 @@ loc_44BE0E:                             ; CODE XREF: sub_44BC6C+196↑j
                 jmp     short loc_44BEA3
 ; ---------------------------------------------------------------------------
 
-loc_44BE99:                             ; CODE XREF: sub_44BC6C+1D9↑j
+loc_44BE99:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+1D9↑j
                 mov     [ebp+var_98], 0
 
-loc_44BEA3:                             ; CODE XREF: sub_44BC6C+22B↑j
+loc_44BEA3:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+22B↑j
                 mov     eax, dword ptr [ebp+var_98]
                 mov     [ebp+var_64], eax
 ;   } // starts at 44BE3A
@@ -69556,10 +69556,10 @@ loc_44BEA3:                             ; CODE XREF: sub_44BC6C+22B↑j
                 jmp     short loc_44BF3A
 ; ---------------------------------------------------------------------------
 
-loc_44BF30:                             ; CODE XREF: sub_44BC6C+29B↑j
+loc_44BF30:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+29B↑j
                 mov     [ebp+var_9C], 0
 
-loc_44BF3A:                             ; CODE XREF: sub_44BC6C+2C2↑j
+loc_44BF3A:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+2C2↑j
                 mov     ecx, dword ptr [ebp+var_9C]
                 mov     [ebp+var_6C], ecx
 ;   } // starts at 44BEFC
@@ -69625,10 +69625,10 @@ loc_44BF3A:                             ; CODE XREF: sub_44BC6C+2C2↑j
                 jmp     short loc_44C01C
 ; ---------------------------------------------------------------------------
 
-loc_44C012:                             ; CODE XREF: sub_44BC6C+36C↑j
+loc_44C012:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+36C↑j
                 mov     [ebp+var_A0], 0
 
-loc_44C01C:                             ; CODE XREF: sub_44BC6C+3A4↑j
+loc_44C01C:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+3A4↑j
                 mov     ecx, dword ptr [ebp+var_A0]
                 mov     [ebp+var_74], ecx
 ;   } // starts at 44BFCD
@@ -69675,10 +69675,10 @@ loc_44C01C:                             ; CODE XREF: sub_44BC6C+3A4↑j
                 jmp     short loc_44C0B7
 ; ---------------------------------------------------------------------------
 
-loc_44C0AD:                             ; CODE XREF: sub_44BC6C+408↑j
+loc_44C0AD:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+408↑j
                 mov     [ebp+var_A4], 0
 
-loc_44C0B7:                             ; CODE XREF: sub_44BC6C+43F↑j
+loc_44C0B7:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+43F↑j
                 mov     edx, dword ptr [ebp+var_A4]
                 mov     [ebp+var_7C], edx
 ;   } // starts at 44C069
@@ -69725,10 +69725,10 @@ loc_44C0B7:                             ; CODE XREF: sub_44BC6C+43F↑j
                 jmp     short loc_44C15A
 ; ---------------------------------------------------------------------------
 
-loc_44C150:                             ; CODE XREF: sub_44BC6C+4AA↑j
+loc_44C150:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AA↑j
                 mov     [ebp+var_A8], 0
 
-loc_44C15A:                             ; CODE XREF: sub_44BC6C+4E2↑j
+loc_44C15A:                             ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4E2↑j
                 mov     ecx, dword ptr [ebp+var_A8]
                 mov     [ebp+var_84], ecx
 ;   } // starts at 44C10B
@@ -69751,14 +69751,14 @@ loc_44C15A:                             ; CODE XREF: sub_44BC6C+4E2↑j
                 pop     ebp
                 retn
 ; } // starts at 44BC6C
-sub_44BC6C      endp
+?VMethod26@VisHatBrowserDlg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44C1A9      proc near               ; DATA XREF: .rdata:0060AA00↓o
+?MsgProc@VisHatBrowserDlg@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060AA00↓o
 
 var_74          = dword ptr -74h
 var_70          = dword ptr -70h
@@ -69819,7 +69819,7 @@ arg_8           = dword ptr  10h
                 jmp     ds:jpt_44C1F6[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_44C1FD:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C1FD:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 cmp     [ebp+arg_4], 1  ; jumptable 0044C1F6 cases 1134,1139
                 jnz     short loc_44C275
                 cmp     [ebp+arg_8], 0
@@ -69858,17 +69858,17 @@ loc_44C1FD:                             ; CODE XREF: sub_44C1A9+4D↑j
                 mov     ecx, dword ptr [ebp+var_58]
                 call    dword ptr [edx+34h]
 
-loc_44C26B:                             ; CODE XREF: sub_44C1A9+5E↑j
+loc_44C26B:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+5E↑j
                 mov     eax, 1
                 jmp     loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C275:                             ; CODE XREF: sub_44C1A9+58↑j
+loc_44C275:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+58↑j
                 xor     eax, eax
                 jmp     loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C27C:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C27C:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 push    1               ; jumptable 0044C1F6 case 1162
                 mov     ecx, dword ptr [ebp+var_4C]
                 call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
@@ -69891,12 +69891,12 @@ loc_44C27C:                             ; CODE XREF: sub_44C1A9+4D↑j
                 jmp     short loc_44C2D5
 ; ---------------------------------------------------------------------------
 
-loc_44C2CC:                             ; CODE XREF: sub_44C1A9+159↓j
+loc_44C2CC:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+159↓j
                 mov     eax, dword ptr [ebp+var_28]
                 add     eax, 1
                 mov     [ebp+var_28], eax
 
-loc_44C2D5:                             ; CODE XREF: sub_44C1A9+121↑j
+loc_44C2D5:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+121↑j
                 mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
                 call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
                 cmp     [ebp+var_28], eax
@@ -69913,7 +69913,7 @@ loc_44C2D5:                             ; CODE XREF: sub_44C1A9+121↑j
                 jmp     short loc_44C2CC
 ; ---------------------------------------------------------------------------
 
-loc_44C304:                             ; CODE XREF: sub_44C1A9+139↑j
+loc_44C304:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+139↑j
                 mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
                 call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
                 cmp     [ebp+var_1C], eax
@@ -69923,7 +69923,7 @@ loc_44C304:                             ; CODE XREF: sub_44C1A9+139↑j
                 sub     eax, 1
                 mov     [ebp+var_1C], eax
 
-loc_44C323:                             ; CODE XREF: sub_44C1A9+168↑j
+loc_44C323:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+168↑j
                 mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
                 call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
                 cmp     [ebp+var_20], eax
@@ -69933,7 +69933,7 @@ loc_44C323:                             ; CODE XREF: sub_44C1A9+168↑j
                 sub     eax, 1
                 mov     [ebp+var_20], eax
 
-loc_44C342:                             ; CODE XREF: sub_44C1A9+187↑j
+loc_44C342:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+187↑j
                 mov     edx, dword ptr [ebp+var_20]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_24]
@@ -69945,7 +69945,7 @@ loc_44C342:                             ; CODE XREF: sub_44C1A9+187↑j
                 jmp     short loc_44C370
 ; ---------------------------------------------------------------------------
 
-loc_44C35C:                             ; CODE XREF: sub_44C1A9+114↑j
+loc_44C35C:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+114↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_24]
                 call    unknown_libname_486 ; MFC 3.1-14.0 32bit
@@ -69953,7 +69953,7 @@ loc_44C35C:                             ; CODE XREF: sub_44C1A9+114↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
 
-loc_44C370:                             ; CODE XREF: sub_44C1A9+1B1↑j
+loc_44C370:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+1B1↑j
                 mov     ecx, dword ptr [ebp+var_24] ; varThis
                 call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
                 push    eax
@@ -69971,13 +69971,13 @@ loc_44C370:                             ; CODE XREF: sub_44C1A9+1B1↑j
                 jmp     loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C3A0:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C3A0:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 cmp     [ebp+arg_4], 1  ; jumptable 0044C1F6 case 1092
                 jz      short loc_44C3AB ; jumptable 0044C1F6 case 1093
                 jmp     loc_44C5B1
 ; ---------------------------------------------------------------------------
 
-loc_44C3AB:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C3AB:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 push    1               ; jumptable 0044C1F6 case 1093
                 push    14h
                 mov     ecx, dword ptr [ebp+var_4C]
@@ -70065,12 +70065,12 @@ loc_44C3AB:                             ; CODE XREF: sub_44C1A9+4D↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_44C4C3:                             ; CODE XREF: sub_44C1A9+21E↑j
+loc_44C4C3:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+21E↑j
                 mov     eax, 1
                 jmp     loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C4CD:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C4CD:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 push    0               ; jumptable 0044C1F6 case 1094
                 push    0
                 push    446h
@@ -70080,7 +70080,7 @@ loc_44C4CD:                             ; CODE XREF: sub_44C1A9+4D↑j
                 jmp     loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C4E8:                             ; CODE XREF: sub_44C1A9+4D↑j
+loc_44C4E8:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
                 push    1               ; jumptable 0044C1F6 case 1163
                 mov     ecx, dword ptr [ebp+var_4C]
                 call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
@@ -70116,7 +70116,7 @@ loc_44C4E8:                             ; CODE XREF: sub_44C1A9+4D↑j
                 jmp     short loc_44C5B1
 ; ---------------------------------------------------------------------------
 
-loc_44C55E:                             ; CODE XREF: sub_44C1A9+396↑j
+loc_44C55E:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+396↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 3B4h
                 push    ecx
@@ -70130,7 +70130,7 @@ loc_44C55E:                             ; CODE XREF: sub_44C1A9+396↑j
                 add     esp, 4
                 mov     [ebp+var_38], eax
 
-loc_44C583:                             ; CODE XREF: sub_44C1A9+38A↑j
+loc_44C583:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+38A↑j
                 push    0
                 mov     eax, dword ptr [ebp+var_38]
                 push    eax
@@ -70142,7 +70142,7 @@ loc_44C583:                             ; CODE XREF: sub_44C1A9+38A↑j
                 jmp     short loc_44C5B1
 ; ---------------------------------------------------------------------------
 
-def_44C1F6:                             ; CODE XREF: sub_44C1A9+3C↑j
+def_44C1F6:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+3C↑j
                 mov     eax, dword ptr [ebp+arg_8] ; jumptable 0044C1F6 default case, cases 1095-1133,1135-1138,1140-1161
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -70154,7 +70154,7 @@ def_44C1F6:                             ; CODE XREF: sub_44C1A9+3C↑j
                 jmp     short loc_44C5C5
 ; ---------------------------------------------------------------------------
 
-loc_44C5B1:                             ; CODE XREF: sub_44C1A9+1FD↑j
+loc_44C5B1:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+1FD↑j
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -70164,17 +70164,17 @@ loc_44C5B1:                             ; CODE XREF: sub_44C1A9+1FD↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 call    ?MsgProc@VisScreen@@UAEHIII@Z
 
-loc_44C5C5:                             ; CODE XREF: sub_44C1A9+C7↑j
+loc_44C5C5:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+C7↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
 ; } // starts at 44C1A9
-sub_44C1A9      endp
+?MsgProc@VisHatBrowserDlg@@UAEHIII@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_44C1F6      dd offset loc_44C3A0    ; DATA XREF: sub_44C1A9+4D↑r
+jpt_44C1F6      dd offset loc_44C3A0    ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑r
                 dd offset loc_44C3AB    ; jump table for switch statement
                 dd offset loc_44C4CD
                 dd offset loc_44C1FD
@@ -75795,7 +75795,7 @@ loc_44FEC2:                             ; CODE XREF: ??_GVisNetMapSelection@@UAE
 
 ; Attributes: bp-based frame
 
-sub_44FED0      proc near               ; DATA XREF: .rdata:0060A9BC↓o
+??_GVisHatBrowserDlg@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A9BC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -75814,12 +75814,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_44FEF2:                             ; CODE XREF: sub_44FED0+17↑j
+loc_44FEF2:                             ; CODE XREF: ??_GVisHatBrowserDlg@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_44FED0      endp
+??_GVisHatBrowserDlg@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -75828,7 +75828,7 @@ sub_44FED0      endp
 
 ; Attributes: bp-based frame
 
-sub_44FF00      proc near               ; CODE XREF: sub_44FED0+A↑p
+sub_44FF00      proc near               ; CODE XREF: ??_GVisHatBrowserDlg@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -75851,7 +75851,7 @@ sub_44FF00      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_44FF20(int, int xLeft, int yTop, int xRight, int yBottom, int, int, int, int, LPCSTR lpString)
-sub_44FF20      proc near               ; CODE XREF: sub_44BC6C+220↑p
+sub_44FF20      proc near               ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+220↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -76640,7 +76640,7 @@ var_4           = dword ptr -4
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 ;FUN_00450760
-unknown_libname_486 proc near           ; CODE XREF: sub_44C1A9+1A0↑p
+unknown_libname_486 proc near           ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+1A0↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -76742,7 +76742,7 @@ sub_450830      endp
 
 ; Attributes: bp-based frame
 
-sub_450880      proc near               ; CODE XREF: sub_44C1A9+F9↑p
+sub_450880      proc near               ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+F9↑p
 
 var_4           = dword ptr -4
 
@@ -394244,7 +394244,7 @@ SEH_44B60C:                             ; DATA XREF: sub_44B60C+5↑o
 ; } // starts at 5F98E5
 ; END OF FUNCTION CHUNK FOR sub_44B60C
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44BC6C
+; START OF FUNCTION CHUNK FOR ?VMethod26@VisHatBrowserDlg@@UAEXXZ
 
 loc_5F9940:                             ; DATA XREF: .rdata:stru_61A310↓o
 ; __unwind { // SEH_44BC6C
@@ -394311,13 +394311,13 @@ loc_5F9986:                             ; DATA XREF: .rdata:0061A348↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44BC6C:                             ; DATA XREF: sub_44BC6C+5↑o
+SEH_44BC6C:                             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+5↑o
                 mov     eax, offset stru_61A2F0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9940
-; END OF FUNCTION CHUNK FOR sub_44BC6C
+; END OF FUNCTION CHUNK FOR ?VMethod26@VisHatBrowserDlg@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44C1A9
+; START OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
 
 loc_5F999A:                             ; DATA XREF: .rdata:stru_61A370↓o
 ; __unwind { // SEH_44C1A9              ; varThis
@@ -394334,11 +394334,11 @@ loc_5F99A3:                             ; DATA XREF: .rdata:0061A378↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44C1A9:                             ; DATA XREF: sub_44C1A9+5↑o
+SEH_44C1A9:                             ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+5↑o
                 mov     eax, offset stru_61A350
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F999A
-; END OF FUNCTION CHUNK FOR sub_44C1A9
+; END OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod26@VisNetMapSelection@@UAEXXZ
 
@@ -421630,7 +421630,7 @@ off_60A930      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60A9B8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisHatBrowserDlg@@QAE@HHHHH@Z+28↑o
-                dd offset sub_44FED0
+                dd offset ??_GVisHatBrowserDlg@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -421647,7 +421647,7 @@ off_60A9B8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset sub_44C1A9
+                dd offset ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
                 dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
@@ -421659,7 +421659,7 @@ off_60A9B8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@VisWindow@@UAEHI@Z
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_44BC6C
+                dd offset ?VMethod26@VisHatBrowserDlg@@UAEXXZ
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
@@ -452976,11 +452976,11 @@ byte_659A2C     db 4 dup(?)             ; DATA XREF: ?MsgProc@VisNetSerialSettin
 ; CHAR byte_659A30[4]
 byte_659A30     db 4 dup(?)             ; DATA XREF: sub_44AAE5+275↑o
 ; CHAR byte_659A34[4]
-byte_659A34     db 4 dup(?)             ; DATA XREF: sub_44BC6C+36E↑o
+byte_659A34     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+36E↑o
 ; CHAR byte_659A38[4]
-byte_659A38     db 4 dup(?)             ; DATA XREF: sub_44BC6C+40A↑o
+byte_659A38     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+40A↑o
 ; CHAR byte_659A3C[4]
-byte_659A3C     db 4 dup(?)             ; DATA XREF: sub_44BC6C+4AC↑o
+byte_659A3C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AC↑o
 ; CHAR byte_659A40[4]
 byte_659A40     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+4FD↑o
 ; CHAR byte_659A44[4]

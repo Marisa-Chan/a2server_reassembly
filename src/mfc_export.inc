@@ -2596,3 +2596,6 @@ externdef ?VMethod31@VisHatServerListDlg@@UAEXH@Z : proc
 
 ; VisHatBrowserDlg
 externdef ??0VisHatBrowserDlg@@QAE@HHHHH@Z : proc
+externdef ??_GVisHatBrowserDlg@@UAEPAXI@Z : proc
+externdef ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z : proc
+externdef ?VMethod26@VisHatBrowserDlg@@UAEXXZ : proc

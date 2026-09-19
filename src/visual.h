@@ -2431,6 +2431,11 @@ ASSERT_SIZE(VisHatServerListDlg, 0x7c);
 class VisHatBrowserDlg : public VisWindow
 {
 public:
+	virtual ~VisHatBrowserDlg();
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override;
+	virtual void VMethod26() override;
+
 	VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35
 };
 ASSERT_SIZE(VisHatBrowserDlg, 0x68);
