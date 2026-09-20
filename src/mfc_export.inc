@@ -1879,13 +1879,15 @@ extern ?DrawDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z  : proc
 extern ??1TakeDamage@@QAE@XZ : proc
 extern ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z : proc
 extern ??0TakeDamage@@QAE@XZ : proc
+externdef ?FUN_0041f620@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f620()
+externdef ?FUN_0041f640@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f640()
 
 ;BigStruct2
 extern ?ApplyDynamicLight@BigStruct2@@QAEXHHHH@Z : proc
 extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
-externdef ?sub_40403B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40403B()
+externdef ?sub_404A2C@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404A2C()
 externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
 externdef ?sub_405399@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_405399(int)
 externdef ?sub_40587B@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_40587B(int)

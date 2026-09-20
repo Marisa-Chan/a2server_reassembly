@@ -4009,6 +4009,152 @@ void BigStruct2::sub_40328E()
 	free(this->field_0xc0);
 }
 
+// 40403B
+void BigStruct2::sub_40403B()
+{
+	this->field_0xf4.SetRectEmpty();
+	memset(this->field_0x8c, 0, this->field_0x6c);
+	memset(this->field_0x90, 0, this->field_0x6c);
+	memset(this->field_0x94, 0, this->field_0x6c);
+	memset(this->field_0x98, 0, this->field_0x6c);
+	memset(this->field_0x9c, 0, this->field_0x6c);
+	if (g_DWORD_00659d18 == 2) {
+		memcpy(this->field_0xac, this->field_0xa8, this->field_0x70 / 4);
+	}
+	memset(this->field_0xa8, 0xFF, this->field_0x70 / 4);
+	this->field_0x108 = 0;
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		obj->FUN_0046190d();
+		obj->VMethod10();
+		obj->VMethod12();
+	}
+	memset(this->field_0xa0, 0, this->field_0x70);
+	uint16_t* landscape = this->field_0x80->GetLandscape();
+	int32_t src_idx = (this->view_y - 3) * this->field_0x84 + this->view_x - 3;
+	int32_t out_idx = 0;
+	for (int32_t y = -3; y <= this->field_0x68 + 7; y++) {
+		for (int32_t x = -3; x <= this->field_0x64 + 3; x++) {
+			int32_t h_idx = x + 3 + (y + 3) * (this->field_0x64 + 6);
+			if (x == this->field_0x64 + 3) {
+				h_idx--;
+			}
+			if (y == this->field_0x68 + 7) {
+				h_idx -= this->field_0x64;
+			}
+			uint16_t tile = landscape[src_idx] & 0xC000;
+			src_idx++;
+			if (tile == 0xC000) {
+				if (g_Animation != 0) {
+					CRect rect((x - 3) * 0x20, this->field_0xb8[h_idx] - 0x60, (x + 3) * 0x20, this->field_0xbc[h_idx] + 0x60);
+					this->field_0xf4 |= rect;
+				} else if (this->field_0xdc != 0) {
+					CRect rect((x - 1) * 0x20, this->field_0xb8[h_idx] - 0x60, (x + 2) * 0x20, this->field_0xbc[h_idx] + 0x60);
+					this->field_0xf4 |= rect;
+				}
+				this->field_0xa0[out_idx] = 0;
+			} else if (tile == 0x8000) {
+				this->field_0xa0[out_idx] = 8;
+			} else {
+				this->field_0xa0[out_idx] = 0x10;
+			}
+			out_idx++;
+		}
+		src_idx += this->field_0x84 - this->field_0x64 - 7;
+	}
+	memcpy(this->field_0xa4, this->field_0xa0, this->field_0x70);
+	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		obj->FUN_0046190d();
+		obj->VMethod12();
+	}
+	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		uint32_t value;
+		this->field_0xa94.GetNextAssoc(it, key, value);
+		int32_t brightness = -1;
+		switch (value >> 1) {
+		case 0:
+			brightness = 0x24;
+			break;
+		case 1:
+			brightness = 0x18;
+			break;
+		case 2:
+			brightness = 0xC;
+			break;
+		case 3:
+			brightness = 0;
+			break;
+		case 4:
+			brightness = 0xC;
+			break;
+		case 5:
+			brightness = 0;
+			break;
+		case 6:
+			brightness = 0xC;
+			break;
+		case 7:
+			brightness = 0;
+			break;
+		case 8:
+			brightness = 0x14;
+			break;
+		case 9:
+			brightness = 0x1C;
+			break;
+		case 10:
+			brightness = 0x24;
+			break;
+		}
+		int32_t lx = key & 0xFF;
+		int32_t ly = key >> 8;
+		if (brightness >= 0) {
+			this->ApplyDynamicLight(lx, ly, 1, brightness);
+		}
+		if (g_Animation == 0) {
+			lx -= this->view_x;
+			ly -= this->view_y;
+			CRect rect((lx - 1) * 0x20, (ly - 2) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
+			this->field_0xf4 |= rect;
+		}
+	}
+	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		uint32_t value;
+		this->field_0xa08.GetNextAssoc(it, key, value);
+		int32_t lx = key & 0xFF;
+		int32_t ly = key >> 8;
+		if (this->view_x - 3 <= lx && lx < this->view_x + 3 + this->field_0x64 &&
+			this->view_y - 3 <= ly && ly < this->view_y + 7 + this->field_0x68 && value != 0) {
+			lx -= this->view_x;
+			ly -= this->view_y;
+			if (g_Lightning == 0) {
+				CRect rect((lx - 1) * 0x20, (ly - 3) * 0x20, (lx + 2) * 0x20, (ly + 2) * 0x20);
+				this->field_0xf4 |= rect;
+			} else {
+				CRect rect((lx - 3) * 0x20, (ly - 3) * 0x20, (lx + 4) * 0x20, (ly + 4) * 0x20);
+				this->field_0xf4 |= rect;
+			}
+		}
+	}
+	for (int32_t i = 0; i < this->damage_labels.GetSize(); i++) {
+		TakeDamage& dmg = this->damage_labels.ElementAt(i);
+		int32_t left = (dmg.FUN_0041f620() - 0x30) & ~0x1F;
+		int32_t top = dmg.FUN_0041f640() - 0x30;
+		int32_t right = ((dmg.FUN_0041f620() + 0x30) & ~0x1F) + 0x20;
+		int32_t bottom = dmg.FUN_0041f640() + 0x30;
+		CRect rect(left, top, right, bottom);
+		this->field_0xf4 |= rect;
+	}
+	this->sub_404A2C();
+}
+
 // 404912
 void BigStruct2::sub_404912()
 {

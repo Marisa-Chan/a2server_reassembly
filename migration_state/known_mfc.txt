@@ -9,3 +9,12 @@ sub_496880
 sub_4968A0
 sub_5F275C
 sub_5F55E4
+sub_420720
+sub_420740
+sub_420B70
+sub_420B90
+sub_420E40
+sub_41E930
+unknown_libname_413
+unknown_libname_448
+?Clear@CComVariant@ATL@@QAEJXZ_0

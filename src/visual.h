@@ -768,6 +768,9 @@ struct TakeDamage
 	void Update(); //45dd1b
 	int Draw(); //45dd6d
 
+	int32_t FUN_0041f620(); //41f620 in asm
+	int32_t FUN_0041f640(); //41f640 in asm
+
 	static void __cdecl AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg); //45dea1
 	static void __cdecl DrawDamages(CArray<TakeDamage>* arr); //45ddf6
 	static void __cdecl UpdateDamages(CArray<TakeDamage>* arr); //45de65
@@ -818,6 +821,7 @@ public:
 	int32_t sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173
 	void sub_40328E(); //40328e
 	void sub_404912(); //404912
+	void sub_404A2C(); //404a2c in asm
 	void sub_403F08(Scenario* scen); //403f08
 	void sub_40B314(); //40b314
 	uint32_t sub_41864D(); //41864d
