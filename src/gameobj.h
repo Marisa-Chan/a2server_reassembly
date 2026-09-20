@@ -153,6 +153,8 @@ public:
 	void FUN_0046246b(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi); //46246b
 	void FUN_004627bb(int32_t x, int32_t y); //4627bb
 	void FUN_0041f180(int32_t grp); //41f180
+	void FUN_0041f150(int32_t grp); //41f150
+	void FUN_0041f1f0(int32_t grp); //41f1f0
 public:
 	uint16_t unit_id; // 4
 	uint8_t __pad[2];

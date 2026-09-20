@@ -1912,7 +1912,8 @@ externdef ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_41B381@BigStruct2@@QAEXXZ : proc
 extern ?UpdateAmbientSounds@BigStruct2@@QAEXXZ : proc
 extern ?sub_416983@BigStruct2@@QAEXH@Z : proc
-externdef ?sub_416A02@BigStruct2@@QAEXH@Z : proc
+externdef ?FUN_0041f150@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f150(int)
+externdef ?FUN_0041f1f0@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f1f0(int)
 externdef ?sub_416AA6@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_416B4A@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_41A5B4@BigStruct2@@QAEXXZ : proc

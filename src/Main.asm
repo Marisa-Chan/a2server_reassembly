@@ -7647,83 +7647,6 @@ loc_41697F:                             ; CODE XREF: ?sub_4168BD@BigStruct2@@QAE
 
 ; Attributes: bp-based frame
 
-?sub_416A02@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+98↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = byte ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+144h]
-                and     ecx, 4
-                test    ecx, ecx
-                jz      short loc_416A20
-                jmp     loc_416AA0
-; ---------------------------------------------------------------------------
-
-loc_416A20:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+17↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420720
-                mov     [ebp+var_8], eax
-
-loc_416A31:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z:loc_416A96↓j
-                cmp     [ebp+var_8], 0
-                jz      short loc_416A98
-                lea     edx, [ebp+var_C]
-                push    edx
-                lea     eax, [ebp+var_4]
-                push    eax
-                lea     ecx, [ebp+var_8]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420740
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F1C0
-                test    eax, eax
-                jz      short loc_416A6D
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F1F0
-
-loc_416A6D:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+5D↑j
-                mov     ecx, dword ptr [ebp+var_C] ; varThis
-                call    ?IsSelected@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutionResourceId(void)
-                test    eax, eax
-                jz      short loc_416A96
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [ecx+14h]
-                cmp     eax, [edx+9CCh]
-                jnz     short loc_416A96
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F150
-
-loc_416A96:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+75↑j
-                jmp     short loc_416A31
-; ---------------------------------------------------------------------------
-
-loc_416A98:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+33↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-
-loc_416AA0:                             ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+19↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_416A02@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -7777,7 +7700,7 @@ loc_416AD5:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAE
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F1F0
+                call    ?FUN_0041f1f0@CGameObject@@QAEXH@Z
 
 loc_416B11:                             ; CODE XREF: ?sub_416AA6@BigStruct2@@QAEXH@Z+5D↑j
                 mov     ecx, dword ptr [ebp+var_C] ; varThis
@@ -16084,7 +16007,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_41F150      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+8F↑p
+?FUN_0041f150@CGameObject@@QAEXH@Z      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+8F↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16103,7 +16026,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_41F150      endp
+?FUN_0041f150@CGameObject@@QAEXH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -16140,7 +16063,7 @@ sub_41F1C0      endp
 
 ; Attributes: bp-based frame
 
-sub_41F1F0      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+66↑p
+?FUN_0041f1f0@CGameObject@@QAEXH@Z      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+66↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16161,7 +16084,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_41F1F0      endp
+?FUN_0041f1f0@CGameObject@@QAEXH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
