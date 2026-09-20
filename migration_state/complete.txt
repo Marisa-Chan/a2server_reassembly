@@ -1066,6 +1066,7 @@
 ?Stop@SoundChannel@@QAEXXZ
 ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
+?sub_416983@BigStruct2@@QAEXH@Z
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_48A756@MainWindow@@QAEXXZ
 ?sub_49585B@ServerControlDialog@@QAEXXZ

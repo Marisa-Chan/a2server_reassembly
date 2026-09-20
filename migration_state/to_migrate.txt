@@ -37,10 +37,6 @@
 ?sub_41AB05@BigStruct2@@QAEXXZ	44
 ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z	51
 ?sub_41B381@BigStruct2@@QAEXXZ	53
-?sub_416983@BigStruct2@@QAEXH@Z	62
-?sub_416C4C@BigStruct2@@QAEXXZ	73
-?sub_416A02@BigStruct2@@QAEXH@Z	76
-?sub_416AA6@BigStruct2@@QAEXH@Z	76
 ?sub_41A5B4@BigStruct2@@QAEXXZ	76
 ?sub_4168BD@BigStruct2@@QAEXXZ	79
 ?sub_4167F7@BigStruct2@@QAEXHH@Z	80
@@ -48,7 +44,6 @@
 ?sub_41A4DF@BigStruct2@@QAEXXZ	86
 ?sub_403B8F@BigStruct2@@QAEHHHHH@Z	100
 ?sub_404912@BigStruct2@@QAEXXZ	101
-?sub_416B4A@BigStruct2@@QAEXH@Z	114
 ?sub_418F93@BigStruct2@@QAEXH@Z	154
 ?sub_4184B8@BigStruct2@@QAEHHH@Z	158
 ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z	181
@@ -137,6 +132,8 @@
 ?BeginModalState@CFrameWnd@@UAEXXZ	129
 ?OnSetPreviewMode@CFrameWnd@@UAEXHPAX@Z	219
 ?FUN_0041f130@CGameObject@@QAEHXZ	13
+?FUN_0041f150@CGameObject@@QAEXH@Z	19
+?FUN_0041f1f0@CGameObject@@QAEXH@Z	21
 ?GetControlGroup@CGameObject@@QAEHXZ	44
 ?FUN_00462405@CGameObject@@QAEHH@Z	51
 ?FUN_00461f8e@CGameObject@@QAEHHH@Z	115
