@@ -3940,6 +3940,21 @@ void BigStruct2::sub_404DA3(CRect* rect, uint16_t unit_id)
 	this->field_0x134++;
 }
 
+// 41AB05
+void BigStruct2::sub_41AB05()
+{
+	int32_t mode = g_settings.AutoCasting & 0x38;
+	if (mode == 8) {
+		mode = 0x18;
+	} else if (mode == 0x18) {
+		mode = 0x38;
+	} else if (mode == 0x38) {
+		mode = 8;
+	}
+	g_settings.AutoCasting = (g_settings.AutoCasting & 7) | mode;
+	this->FUN_0041ab74();
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {

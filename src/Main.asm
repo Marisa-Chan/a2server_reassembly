@@ -11875,51 +11875,6 @@ sub_41A9F6      endp
 
 ; Attributes: bp-based frame
 
-?sub_41AB05@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+72B↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, ?g_settings@@3UGameSettings@@A+24h
-                and     eax, 38h
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 8
-                jnz     short loc_41AB28
-                mov     [ebp+var_4], 18h
-                jmp     short loc_41AB44
-; ---------------------------------------------------------------------------
-
-loc_41AB28:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+18↑j
-                cmp     [ebp+var_4], 18h
-                jnz     short loc_41AB37
-                mov     [ebp+var_4], 38h ; '8'
-                jmp     short loc_41AB44
-; ---------------------------------------------------------------------------
-
-loc_41AB37:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+27↑j
-                cmp     [ebp+var_4], 38h ; '8'
-                jnz     short loc_41AB44
-                mov     [ebp+var_4], 8
-
-loc_41AB44:                             ; CODE XREF: ?sub_41AB05@BigStruct2@@QAEXXZ+21↑j
-                mov     ecx, ?g_settings@@3UGameSettings@@A+24h
-                and     ecx, 7
-                mov     ?g_settings@@3UGameSettings@@A+24h, ecx
-                mov     edx, ?g_settings@@3UGameSettings@@A+24h
-                or      edx, [ebp+var_4]
-                mov     ?g_settings@@3UGameSettings@@A+24h, edx
-                mov     eax, ?g_settings@@3UGameSettings@@A+24h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_0041ab74@BigStruct2@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41AB05@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
