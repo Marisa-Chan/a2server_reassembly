@@ -3751,6 +3751,220 @@ CUnit* BigStruct2::GetUnit_3f6c()
 	return this->field_0x3f6c;
 }
 
+// 40B314
+void BigStruct2::sub_40B314()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->dialogsMask != 1) {
+		return;
+	}
+	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
+	CRect screen_rect;
+	this->ClientRectToScreen(&screen_rect, &this->rect);
+	CCursor* cursor = nullptr;
+	CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+	CRect select_frame = g_mousept.GetSelectFrame();
+	select_frame.NormalizeRect();
+	if (!screen_rect.PtInRect(mouse_pt)) {
+		this->sub_41864D();
+		return;
+	}
+	int32_t kb_control = g_kbControlState;
+	int32_t kb_menu = g_kbMenuState;
+	if (g_mousept.GetX() == 0) {
+		if (g_mousept.GetY() == 0) {
+			cursor = g_Cursors[CURSOR_ARROW7];
+		} else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
+			cursor = g_Cursors[CURSOR_ARROW6];
+		} else {
+			cursor = g_Cursors[CURSOR_ARROW5];
+		}
+	} else if (g_mousept.GetX() < g_ScreenSize.right - 2) {
+		if (g_mousept.GetY() == 0) {
+			cursor = g_Cursors[CURSOR_ARROW0];
+		} else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
+			if (screen_rect.PtInRect(mouse_pt)) {
+				if (this->field_0x9b4 != 0) {
+					switch (this->field_0x9b4) {
+					case 1:
+						cursor = g_Cursors[CURSOR_ATTACK];
+						break;
+					case 2:
+						cursor = g_Cursors[CURSOR_MOVE];
+						break;
+					case 4:
+						cursor = g_Cursors[CURSOR_DEFEND];
+						break;
+					case 5:
+						cursor = g_Cursors[CURSOR_CAST];
+						break;
+					case 6:
+						cursor = g_Cursors[CURSOR_SWARM];
+						break;
+					case 8:
+						cursor = g_Cursors[CURSOR_PATROL];
+						break;
+					}
+					uint32_t avail = this->sub_41864D();
+					if ((avail & 0x400) != 0 && cursor == g_Cursors[CURSOR_CAST]) {
+						cursor = g_Cursors[CURSOR_MOVE];
+					}
+					if (g_mousept.GetSelectState() != 0 && !select_frame.IsRectEmpty()) {
+						cursor = g_Cursors[CURSOR_DEFAULT];
+					}
+				} else if (this->IsBookOpen() != 0 && wnd->vis_spellbook->sub_41F9B0() >= 0 &&
+					(this->field_0x148 != 0 || this->field_0x150 != 0) && (this->field_0x144 & 4) == 0) {
+					uint32_t avail = this->sub_41864D();
+					cursor = g_Cursors[CURSOR_CAST];
+					if ((avail & 0x400) != 0) {
+						cursor = g_Cursors[CURSOR_MOVE];
+					}
+					if ((avail & 3) == 0 && wnd->vis_spellbook->sub_4CAAA7() != 0) {
+						cursor = g_Cursors[CURSOR_MOVE];
+					}
+					int32_t pickup_flag = (this->field_0x140 == 1 && (this->field_0x144 & 1) != 0) ? 1 : 0;
+					int32_t town_flag = pickup_flag;
+					if (pickup_flag != 0) {
+						pickup_flag = ((CUnit*)this->field_0x138)->unitFlags & 1;
+						if (pickup_flag != 0) {
+							pickup_flag = (avail == 0x40 || (this->field_0x994 == this->field_0x138 && (avail & 0x40) != 0)) ? 1 : 0;
+						}
+					}
+					if (town_flag != 0) {
+						town_flag = ((((CUnit*)this->field_0x138)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+					}
+					if (kb_menu != 0) {
+						cursor = g_Cursors[CURSOR_MOVE];
+					} else if (kb_control != 0) {
+						if ((avail & 3) != 0) {
+							cursor = g_Cursors[CURSOR_ATTACK];
+						} else {
+							cursor = g_Cursors[CURSOR_SWARM];
+						}
+					} else if ((avail & 0x24) == 0 && g_kbShiftState != 0) {
+						cursor = g_Cursors[CURSOR_SELECT];
+					}
+					if (pickup_flag != 0 && cursor == g_Cursors[CURSOR_MOVE]) {
+						cursor = g_Cursors[CURSOR_PICKUP];
+					}
+					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->sub_4CAAA7() != 0 && (avail & 4) == 0 &&
+						wnd->vis_spellbook->sub_41F9E0() == 0 && dword_62F908[wnd->vis_spellbook->sub_41F9B0()] != 0) {
+						if ((avail & 3) != 0) {
+							cursor = g_Cursors[CURSOR_SELECT];
+						} else {
+							cursor = g_Cursors[CURSOR_MOVE];
+						}
+					}
+					if (town_flag != 0 && (avail & 4) == 0) {
+						cursor = g_Cursors[CURSOR_TOWN];
+					}
+					this->sub_41864D();
+				} else {
+					uint32_t avail = this->sub_41864D();
+					if (this->field_0x140 == 0) {
+						if ((avail & 0x23) != 0) {
+							cursor = g_Cursors[CURSOR_SELECT];
+						} else {
+							cursor = g_Cursors[CURSOR_DEFAULT];
+						}
+					} else if ((this->field_0x144 & 0x24) != 0) {
+						if ((avail & 0x23) != 0) {
+							cursor = g_Cursors[CURSOR_SELECT];
+						} else {
+							cursor = g_Cursors[CURSOR_DEFAULT];
+						}
+					} else {
+						int32_t pickup_flag = (this->field_0x140 == 1 && (this->field_0x144 & 1) != 0) ? 1 : 0;
+						int32_t town_flag = pickup_flag;
+						if (pickup_flag != 0) {
+							pickup_flag = ((CUnit*)this->field_0x138)->unitFlags & 1;
+							if (pickup_flag != 0) {
+								pickup_flag = (avail == 0x40 || (this->field_0x994 == this->field_0x138 && (avail & 0x40) != 0)) ? 1 : 0;
+							}
+						}
+						if (town_flag != 0) {
+							town_flag = ((((CUnit*)this->field_0x138)->unitFlags & 1) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+						}
+						if ((avail & 4) != 0) {
+							if (kb_menu != 0) {
+								cursor = g_Cursors[CURSOR_MOVE];
+							} else if ((avail & 0x20) == 0) {
+								if (kb_control != 0) {
+									cursor = g_Cursors[CURSOR_SWARM];
+								} else {
+									cursor = g_Cursors[CURSOR_ATTACK];
+								}
+							} else {
+								cursor = g_Cursors[CURSOR_SELECT];
+							}
+						} else if ((avail & 0x23) != 0) {
+							if (kb_menu != 0) {
+								cursor = g_Cursors[CURSOR_MOVE];
+							} else if (kb_control != 0) {
+								cursor = g_Cursors[CURSOR_ATTACK];
+							} else if (pickup_flag != 0) {
+								cursor = g_Cursors[CURSOR_PICKUP];
+							} else if (town_flag != 0) {
+								cursor = g_Cursors[CURSOR_TOWN];
+							} else {
+								cursor = g_Cursors[CURSOR_SELECT];
+							}
+						} else {
+							if (kb_control != 0) {
+								cursor = g_Cursors[CURSOR_SWARM];
+							} else if (kb_menu != 0) {
+								cursor = g_Cursors[CURSOR_MOVE];
+							} else if (pickup_flag != 0) {
+								cursor = g_Cursors[CURSOR_PICKUP];
+							} else {
+								cursor = g_Cursors[CURSOR_MOVE];
+							}
+						}
+					}
+					if (g_mousept.GetSelectState() != 0 && !select_frame.IsRectEmpty()) {
+						cursor = g_Cursors[CURSOR_DEFAULT];
+					}
+				}
+			}
+		} else {
+			cursor = g_Cursors[CURSOR_ARROW4];
+		}
+	} else {
+		if (g_mousept.GetY() == 0) {
+			cursor = g_Cursors[CURSOR_ARROW1];
+		} else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
+			cursor = g_Cursors[CURSOR_ARROW2];
+		} else {
+			cursor = g_Cursors[CURSOR_ARROW3];
+		}
+	}
+	CVisualObject* child2 = this->FindChild(2);
+	CVisualObject* child3 = this->FindChild(3);
+	if (child2 != nullptr && child2->GetRect().PtInRect(mouse_pt)) {
+		cursor = g_Cursors[CURSOR_DEFAULT];
+	}
+	if (child3 != nullptr && child3->GetRect().PtInRect(mouse_pt)) {
+		cursor = g_Cursors[CURSOR_DEFAULT];
+	}
+	if (wnd->field_0x408 != nullptr) {
+		uint32_t avail = this->sub_41864D();
+		cursor = wnd->item_cursor;
+		if (wnd->dialogsMask == 1 && this->field_0x140 == 1 &&
+			(((CUnit*)this->field_0x138)->unitFlags & 1) != 0 &&
+			this->field_0x138->map_player == this->my_main_unit) {
+			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
+			int32_t tile_y = this->sub_4184B8(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
+			if (abs(tile_x - this->field_0x138->tileX) <= 2 &&
+				abs(tile_y - this->field_0x138->tileY) <= 2 && (avail & 1) != 0) {
+				cursor = g_Cursors[CURSOR_BACKPACK];
+			}
+		}
+	}
+	if (cursor != nullptr && cursor_sprite != cursor->GetSprite()) {
+		cursor->Use();
+	}
+}
+
 // 406F7B
 void BigStruct2::sub_406F7B()
 {

@@ -820,6 +820,8 @@ public:
 	void sub_404912(); //404912
 	void sub_403F08(Scenario* scen); //403f08
 	void sub_40B314(); //40b314
+	uint32_t sub_41864D(); //41864d
+	int32_t sub_4184B8(int32_t x, int32_t y); //4184b8
 	void sub_417B42(CPoint* pt); //417b42
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
@@ -1450,6 +1452,9 @@ public:
 
 	int32_t sub_4CA89B(int32_t id); //4ca89b
 	int32_t sub_4CA8E0(int32_t id); //4ca8e0
+	int32_t sub_41F9B0(); //41f9b0
+	int32_t sub_41F9E0(); //41f9e0
+	int32_t sub_4CAAA7(); //4caaa7
 
 	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 in asm
 

@@ -6,6 +6,7 @@
 ?DAT_00660f6c@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
+?dword_62F908@@3PAHA
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
@@ -56,6 +57,7 @@
 ?sub_404912@BigStruct2@@QAEXXZ	101
 ?sub_416B4A@BigStruct2@@QAEXH@Z	114
 ?sub_418F93@BigStruct2@@QAEXH@Z	154
+?sub_4184B8@BigStruct2@@QAEHHH@Z	158
 ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z	181
 ?sub_40B173@BigStruct2@@QAEHHHHH@Z	192
 ?sub_402FB8@BigStruct2@@QAEXXZ	230
@@ -66,8 +68,8 @@
 ?sub_40587B@BigStruct2@@QAEXH@Z	431
 ?sub_405399@BigStruct2@@QAEXH@Z	450
 ?sub_405D0E@BigStruct2@@QAEXXZ	576
+?sub_41864D@BigStruct2@@QAEIXZ	688
 ?sub_40403B@BigStruct2@@QAEXXZ	723
-?sub_40B314@BigStruct2@@QAEXXZ	898
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -607,8 +609,11 @@
 ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z	14
 ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z	14
+?sub_41F9E0@VisSpellBook@@QAEHXZ	16
+?sub_41F9B0@VisSpellBook@@QAEHXZ	24
 ??_GVisSpellBook@@UAEPAXI@Z	24
 ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z	24
+?sub_4CAAA7@VisSpellBook@@QAEHXZ	26
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?sub_4CA89B@VisSpellBook@@QAEHH@Z	35
 ?sub_4CA8E0@VisSpellBook@@QAEHH@Z	35
