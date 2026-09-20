@@ -3754,6 +3754,13 @@ CUnit* BigStruct2::GetUnit_3f6c()
 	return this->field_0x3f6c;
 }
 
+// 41F6D0
+void BigStruct2::sub_41F6D0()
+{
+	this->formation = (this->formation + 1) % 3;
+	this->FUN_0041abd2(this->formation);
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
