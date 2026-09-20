@@ -3875,6 +3875,23 @@ void BigStruct2::sub_416B4A(int32_t digit)
 	}
 }
 
+// 416C4C
+void BigStruct2::sub_416C4C()
+{
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) && obj->map_player == this->my_main_unit &&
+			((CUnit*)obj)->field_0x180[4] <= 1 && !(((CUnit*)obj)->unitFlags & 0x80)) {
+			obj->VMethod1(1);
+		} else {
+			obj->VMethod1(0);
+		}
+	}
+	this->UpdateSelectionState();
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
