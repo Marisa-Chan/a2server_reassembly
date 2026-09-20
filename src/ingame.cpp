@@ -4404,6 +4404,77 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2)
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 404A2C
+void BigStruct2::sub_404A2C()
+{
+	int32_t delta = g_DeltaCLR.field_4;
+	memset(this->field_0xb0, delta >> 2, this->field_0x6c / 4);
+	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		uint32_t value;
+		this->field_0xa08.GetNextAssoc(it, key, value);
+		int32_t x = key & 0xFF;
+		int32_t y = key >> 8;
+		if (x < this->view_x - 3 || y < this->view_y - 3 ||
+			x >= this->view_x + this->field_0x64 + 3 || y >= this->view_y + this->field_0x68 + 7) {
+			continue;
+		}
+		int32_t idx = (x - this->view_x) + ((y - this->view_y) + 3) * (this->field_0x64 + 6) + 3;
+		if ((value & 0x8000) != 0) {
+			this->field_0xb0[idx] = 0;
+		}
+		if ((value & 0x4000) != 0) {
+			this->field_0xb0[idx] = 0xC;
+		}
+		if ((value & 8) != 0) {
+			int32_t brightness = (abs(this->field_0xa88 / 2 + x * y) % 5 & 1) != 0 ? 0xC : 0;
+			this->ApplyDynamicLight(x, y, 1, brightness);
+		}
+	}
+	for (int32_t ty = 0; ty < this->field_0x68 + 10; ty++) {
+		for (int32_t tx = 0; tx < this->field_0x64 + 6; tx++) {
+			int32_t idx = ty * (this->field_0x64 + 7) + tx;
+			int32_t idx_next = idx + this->field_0x64 + 7;
+			int32_t v0 = this->field_0xa8[idx] - 0x20;
+			if (v0 < 0) {
+				v0 = 0;
+			}
+			int32_t v1 = this->field_0xa8[idx + 1] - 0x20;
+			if (v1 < 0) {
+				v1 = 0;
+			}
+			int32_t v2 = this->field_0xa8[idx_next] - 0x20;
+			if (v2 < 0) {
+				v2 = 0;
+			}
+			int32_t v3 = this->field_0xa8[idx_next + 1] - 0x20;
+			if (v3 < 0) {
+				v3 = 0;
+			}
+			if (v0 + v1 + v2 + v3 == 0x37C) {
+				continue;
+			}
+			if (v0 == 0xDF) {
+				v0 = delta;
+			}
+			if (v1 == 0xDF) {
+				v1 = delta;
+			}
+			if (v2 == 0xDF) {
+				v2 = delta;
+			}
+			if (v3 == 0xDF) {
+				v3 = delta;
+			}
+			int32_t light = (v0 + v1 + v2 + v3) >> 4;
+			if (light >= delta >> 2) {
+				light = delta >> 2;
+			}
+			this->field_0xb0[ty * (this->field_0x64 + 6) + tx] = light;
+		}
+	}
+}
+
 // 404DA3
 void BigStruct2::sub_404DA3(CRect* rect, uint16_t unit_id)
 {
