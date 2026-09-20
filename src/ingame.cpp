@@ -3900,6 +3900,16 @@ void BigStruct2::sub_403F08(Scenario* scen)
 	this->field_0x88 = this->field_0x80->GetHeight();
 }
 
+// 41B155
+void BigStruct2::sub_41B155()
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x4B;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
