@@ -4018,6 +4018,33 @@ void BigStruct2::sub_419154(uint16_t x, uint16_t y)
 	}
 }
 
+// 41930D
+void BigStruct2::sub_41930D(uint16_t x, uint16_t y)
+{
+	POSITION it = this->field_0x9d0.GetStartPosition();
+	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	pkt->id = 0x1A;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->unit_id = x;
+	pkt->field_0xc = y;
+	pkt->field_0xd = y >> 8;
+	pkt->to_player_id = 0;
+	pkt->count = 0;
+	while (it != nullptr) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsSelected()) {
+			pkt->AppendWord(obj->unit_id);
+		}
+	}
+	g_NetStru1_local.QueuePacketSend(pkt);
+	CUnit* unit = this->sub_41DFDB();
+	if (unit != nullptr && unit->last_action != 1) {
+		unit->VMethod24();
+	}
+}
+
 // 41955C
 void BigStruct2::sub_41955C(uint16_t id)
 {
