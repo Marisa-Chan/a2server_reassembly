@@ -1890,7 +1890,6 @@ externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
 externdef ?sub_405399@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_405399(int)
 externdef ?sub_40587B@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_40587B(int)
 externdef ?sub_405D0E@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_405D0E()
-externdef ?sub_404DA3@BigStruct2@@QAEXPAVCRect@@G@Z : proc  ; void BigStruct2::sub_404DA3(CRect*, uint16)
 externdef ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z : proc  ; void BigStruct2::sub_40AFC5(int, int, uint, int)
 externdef ?sub_40B173@BigStruct2@@QAEHHHHH@Z : proc  ; int BigStruct2::sub_40B173(int, int, int, int)
 externdef ?DAT_00660f6c@@3HA :dword

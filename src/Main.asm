@@ -4511,51 +4511,6 @@ sub_404A2C      endp
 
 ; Attributes: bp-based frame
 
-?sub_404DA3@BigStruct2@@QAEXPAVCRect@@G@Z      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+112F↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = word ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                sub     esp, 10h
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, esp
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+134h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10Ch
-                call    sub_4203A0
-                xor     eax, eax
-                mov     ax, [ebp+arg_4]
-                push    eax             ; unsigned __int16
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+134h]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 120h       ; varThis
-                call    ?SetAtGrow@CWordArray@@QAEXHG@Z ; CWordArray::SetAtGrow(int,ushort)
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+134h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+134h], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_404DA3@BigStruct2@@QAEXPAVCRect@@G@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

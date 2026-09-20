@@ -3932,6 +3932,14 @@ void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2)
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 404DA3
+void BigStruct2::sub_404DA3(CRect* rect, uint16_t unit_id)
+{
+	this->field_0x10c.SetAtGrow(this->field_0x134, *rect);
+	this->field_0x120.SetAtGrow(this->field_0x134, unit_id);
+	this->field_0x134++;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
