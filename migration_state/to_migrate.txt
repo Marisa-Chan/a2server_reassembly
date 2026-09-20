@@ -3,25 +3,32 @@
 # Optional second tab-separated column stores ASM span (endp_line - proc_line, functions only).
 # Edit migration_state/known_mfc.txt to exclude symbols you do not plan to migrate.
 
+?DAT_00660f68@@3HA
 ?DAT_00660f6c@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
+?FUN_0045424d@@YAXPAE0H@Z	31
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
 ?FUN_00458fe6@@YAXHHH@Z	120
 ?FUN_00454e40@@YAXHHHH@Z	127
+?FUN_00458b29@@YAXHHHHHHPAEPAG@Z	161
 ?FUN_00459449@@YAXHHHHHH@Z	179
+?FUN_00476c0d@@YAXHH@Z	183
 ?FUN_0045995e@@YAXHHH@Z	214
 ?ShowRoleKeyDialog@@YGXPBD@Z	237
+?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z	363
 ?FUN_004595fd@@YAXHHHHHHHHHH@Z	364
 ?FUN_004590ef@@YAXHHHHHH@Z	377
 ?sub_4764BC@@YAPAEH@Z	390
 ?FUN_00459b72@@YAXHHHHHH@Z	430
 ?sub_47FA75@@YAXXZ	439
 ?sub_477B59@@YAXI@Z	535
+?DAT_00661018@@3PAPAVCGamePalette@@A
+?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
@@ -29,23 +36,23 @@
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
+?sub_40C112@BigStruct2@@QAEXXZ	58
+?sub_40C18B@BigStruct2@@QAEXXZ	69
 ?sub_4193E8@BigStruct2@@QAEXXZ	76
 ?sub_4194A2@BigStruct2@@QAEXXZ	76
 ?sub_41A425@BigStruct2@@QAEXXZ	76
-?sub_4184B8@BigStruct2@@QAEHHH@Z	158
-?sub_40AFC5@BigStruct2@@QAEXHHIH@Z	181
-?sub_40B173@BigStruct2@@QAEHHHHH@Z	192
-?sub_402FB8@BigStruct2@@QAEXXZ	230
+?sub_419246@BigStruct2@@QAEXG@Z	80
+?sub_41A66E@BigStruct2@@QAEXG@Z	80
+?sub_41965D@BigStruct2@@QAEXGG@Z	84
+?sub_41930D@BigStruct2@@QAEXGG@Z	87
+?sub_41A33F@BigStruct2@@QAEXGG@Z	88
+?sub_419154@BigStruct2@@QAEXGG@Z	93
+?sub_41955C@BigStruct2@@QAEXG@Z	107
 ?sub_41DFDB@BigStruct2@@QAEPAVCUnit@@XZ	286
-?sub_403730@BigStruct2@@QAEXXZ	329
-?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z	334
-?sub_40BD34@BigStruct2@@QAEXXZ	341
-?sub_404E1A@BigStruct2@@QAEXXZ	405
-?sub_40587B@BigStruct2@@QAEXH@Z	431
-?sub_405399@BigStruct2@@QAEXH@Z	450
-?sub_405D0E@BigStruct2@@QAEXXZ	576
-?sub_41864D@BigStruct2@@QAEIXZ	688
-?sub_40403B@BigStruct2@@QAEXXZ	723
+?sub_404A2C@BigStruct2@@QAEXXZ	345
+?sub_419BA1@BigStruct2@@QAEXGH@Z	393
+?sub_41972F@BigStruct2@@QAEXGGH@Z	399
+?sub_417F09@BigStruct2@@QAEXPAVCRect@@@Z	475
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -261,6 +268,8 @@
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?sub_4A952B@Scenario@@QAEXHHII@Z	471
 ??0Scenario@@QAE@PBD@Z	1363
+?FUN_0041f620@TakeDamage@@QAEHXZ	16
+?FUN_0041f640@TakeDamage@@QAEHXZ	19
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97

@@ -1067,6 +1067,7 @@
 ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
 ?sub_416983@BigStruct2@@QAEXH@Z
+?sub_4184B8@BigStruct2@@QAEHHH@Z
 ?sub_418F93@BigStruct2@@QAEXH@Z
 ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z
 ?sub_41AC88@BigStruct2@@QAEXHH@Z
