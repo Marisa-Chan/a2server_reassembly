@@ -6210,6 +6210,51 @@ CUnit* BigStruct2::FUN_0041df23(int32_t serv_id)
 	return result;
 }
 
+// 41DFDB
+CUnit* BigStruct2::sub_41DFDB()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->sessionMode != 2) {
+		return nullptr;
+	}
+	if (g_settings.Acknowledgement == 0) {
+		return nullptr;
+	}
+	CArray<CUnit*> primary;
+	CArray<CUnit*> secondary;
+	CArray<CUnit*> tertiary;
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (!obj->IsSelected() || obj->hp <= 0) {
+			continue;
+		}
+		CUnit* unit = (CUnit*)obj;
+		if ((unit->unitFlags & 1) != 0) {
+			primary.Add(unit);
+		} else if (primary.GetSize() == 0 && (unit->unitFlags & 0x10) != 0) {
+			if (unit->equipmentTokens[0] != nullptr) {
+				secondary.Add(unit);
+			} else if (secondary.GetSize() == 0) {
+				tertiary.Add(unit);
+			}
+		} else if (unit->serverId != 0 && unit->serverId < 0x15) {
+			secondary.Add(unit);
+		}
+	}
+	if (primary.GetSize() != 0) {
+		return primary[(primary.GetSize() * rand()) / 0x7FFF];
+	}
+	if (secondary.GetSize() != 0) {
+		return secondary[(secondary.GetSize() * rand()) / 0x7FFF];
+	}
+	if (tertiary.GetSize() != 0) {
+		return tertiary[(tertiary.GetSize() * rand()) / 0x7FFF];
+	}
+	return nullptr;
+}
+
 // 41D97E
 void BigStruct2::FUN_0041d97e(int32_t arg)
 {
