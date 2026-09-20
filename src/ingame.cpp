@@ -4317,6 +4317,40 @@ void BigStruct2::sub_41A4DF()
 	}
 }
 
+// 4184B8
+int32_t BigStruct2::sub_4184B8(int32_t x, int32_t y)
+{
+	int32_t tx = (x >> 5) + 3;
+	int32_t frac = x & 0x1F;
+	for (int32_t ty = -3; ty < this->field_0x68 + 7; ty++) {
+		int32_t idx6 = tx + (ty + 3) * (this->field_0x64 + 6);
+		int32_t h_min = this->field_0xb8[idx6];
+		if (h_min > y) {
+			continue;
+		}
+		int32_t h_max = this->field_0xbc[idx6];
+		if (h_max < y) {
+			continue;
+		}
+		int32_t idx7 = tx + (ty + 3) * (this->field_0x64 + 7);
+		int32_t h1 = this->field_0xb4[idx7];
+		int32_t h2 = this->field_0xb4[idx7 + 1];
+		int32_t top = h1 + (h2 - h1) * frac / 32;
+		int32_t idx7b = tx + (ty + 4) * (this->field_0x64 + 7);
+		int32_t h3 = this->field_0xb4[idx7b];
+		int32_t h4 = this->field_0xb4[idx7b + 1];
+		int32_t bottom = h3 + (h4 - h3) * frac / 32;
+		if (top > y) {
+			continue;
+		}
+		if (bottom < y) {
+			continue;
+		}
+		return ty;
+	}
+	return this->field_0x68 + 4;
+}
+
 // 41864D
 uint32_t BigStruct2::sub_41864D()
 {
