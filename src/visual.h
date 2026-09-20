@@ -838,6 +838,7 @@ public:
 	void sub_416AA6(int32_t digit); //416aa6
 	void sub_416B4A(int32_t digit); //416b4a
 	void sub_41A5B4(); //41a5b4
+	CUnit* sub_41DFDB(); //41dfdb
 	void sub_41A4DF(); //41a4df
 	void sub_41B155(); //41b155
 	void sub_416C4C(); //416c4c
