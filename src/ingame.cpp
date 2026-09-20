@@ -6399,6 +6399,102 @@ void BigStruct2::sub_417B42(CPoint* pt)
 	}
 }
 
+// 417F09
+void BigStruct2::sub_417F09(CRect* rect)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	int32_t min_size = g_ScreenSize.right * 10 / 0x280;
+	int32_t small_rect = rect->Width() < min_size && rect->Height() < min_size;
+	int32_t selected = g_kbShiftState == 0;
+	if (small_rect == 0 && g_kbShiftState == 0) {
+		selected = 0;
+		for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
+			CRect unit_rect = this->field_0x10c[i];
+			CRect intersection;
+			unit_rect.NormalizeRect();
+			intersection.IntersectRect(&unit_rect, rect);
+			if (intersection.Width() * intersection.Height() > 10) {
+				CGameObject* obj;
+				if (this->field_0x9d0.Lookup(this->field_0x120[i], obj) &&
+					obj->map_player == this->my_main_unit && !obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+					selected = 1;
+				}
+			}
+		}
+		if (selected == 0) {
+			return;
+		}
+	}
+	if (small_rect != 0 && g_kbShiftState == 0) {
+		for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
+			CRect unit_rect = this->field_0x10c[i];
+			CRect intersection;
+			unit_rect.NormalizeRect();
+			intersection.IntersectRect(&unit_rect, rect);
+			if (!intersection.IsRectEmpty()) {
+				CGameObject* obj;
+				if (this->field_0x9d0.Lookup(this->field_0x120[i], obj) && obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+					selected = 0;
+				}
+			}
+		}
+	}
+	if (selected != 0) {
+		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			obj->VMethod1(0);
+		}
+	}
+	for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
+		CRect unit_rect = this->field_0x10c[i];
+		CRect intersection;
+		unit_rect.NormalizeRect();
+		int32_t hit;
+		if (small_rect != 0) {
+			hit = intersection.IntersectRect(&unit_rect, rect);
+		} else {
+			intersection.IntersectRect(&unit_rect, rect);
+			hit = intersection.Width() * intersection.Height() > 10;
+		}
+		if (hit == 0) {
+			continue;
+		}
+		CGameObject* obj;
+		if (!this->field_0x9d0.Lookup(this->field_0x120[i], obj)) {
+			continue;
+		}
+		if (g_kbShiftState != 0) {
+			if (obj->map_player == this->my_main_unit && (this->field_0x144 & 4) == 0) {
+				obj->VMethod1(obj->IsSelected() == 0);
+			}
+		} else if (small_rect == 0) {
+			if (obj->map_player == this->my_main_unit && !obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+				obj->VMethod1(1);
+			}
+		} else if (!obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+			obj->VMethod1(1);
+		}
+		if (small_rect != 0) {
+			break;
+		}
+	}
+	this->UpdateSelectionState();
+	if (g_kbMenuState != 0 && this->field_0x140 == 1 && this->field_0x138->GetControlGroup() >= 0) {
+		this->sub_416983(this->field_0x138->GetControlGroup());
+	}
+	this->field_0x9b4 = 0;
+	wnd->vis_spellbook->FUN_004caa69();
+	wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+	if (g_kbShiftState == 0 && this->field_0x140 != 0 && (this->field_0x144 & 1) != 0 && (this->field_0x144 & 4) == 0) {
+		CUnit* unit = this->sub_41DFDB();
+		if (unit != nullptr) {
+			unit->VMethod28();
+		}
+	}
+}
+
 // 40C232
 int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {

@@ -1894,7 +1894,6 @@ externdef ?DAT_00665344@@3PAVCGameBitmap@@A :dword
 externdef ?DAT_00660f6c@@3HA :dword
 extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 extern ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc
-externdef ?sub_417F09@BigStruct2@@QAEXPAVCRect@@@Z : proc  ; void BigStruct2::sub_417F09(CRect*)
 externdef ?sub_419154@BigStruct2@@QAEXGG@Z : proc  ; void BigStruct2::sub_419154(uint16_t, uint16_t)
 externdef ?sub_419246@BigStruct2@@QAEXG@Z : proc  ; void BigStruct2::sub_419246(uint16_t)
 externdef ?sub_41930D@BigStruct2@@QAEXGG@Z : proc  ; void BigStruct2::sub_41930D(uint16_t, uint16_t)
