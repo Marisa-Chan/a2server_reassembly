@@ -3965,6 +3965,32 @@ void BigStruct2::sub_40328E()
 	free(this->field_0xc0);
 }
 
+// 404912
+void BigStruct2::sub_404912()
+{
+	uint8_t* buf = this->field_0x80->FUN_0041eee0();
+	for (POSITION it = this->field_0xa08.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		uint32_t value;
+		this->field_0xa08.GetNextAssoc(it, key, value);
+		int32_t x = key & 0xFF;
+		int32_t y = key >> 8;
+		int32_t idx = y * this->field_0x84 + x;
+		if (value & 0x8000) {
+			buf[idx] = 0;
+			buf[idx + 1] = 0;
+			buf[idx + this->field_0x84] = 0;
+			buf[idx + this->field_0x84 + 1] = 0;
+		}
+		if (value & 0x4000) {
+			buf[idx] = 0x50;
+			buf[idx + 1] = 0x50;
+			buf[idx + this->field_0x84] = 0x50;
+			buf[idx + this->field_0x84 + 1] = 0x50;
+		}
+	}
+}
+
 // 41B155
 void BigStruct2::sub_41B155()
 {

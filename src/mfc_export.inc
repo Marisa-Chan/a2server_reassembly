@@ -1916,7 +1916,6 @@ extern ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
 extern ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
 extern ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
 extern ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
-externdef ?sub_404912@BigStruct2@@QAEXXZ : proc
 extern ??_GBigStruct2@@UAEPAXI@Z : proc
 extern ?VMethod7@BigStruct2@@UAEXXZ : proc
 extern ?MsgProc@BigStruct2@@UAEHIII@Z : proc
