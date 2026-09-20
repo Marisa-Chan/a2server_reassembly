@@ -2016,7 +2016,6 @@ externdef ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
 externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E0()
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
-externdef ?dword_62F908@@3PAHA :dword  ; int dword_62F908[24]
 
 ;VisTav
 externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
