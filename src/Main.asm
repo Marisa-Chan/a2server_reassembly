@@ -3299,32 +3299,6 @@ loc_403C9A:                             ; CODE XREF: ?sub_403B8F@BigStruct2@@QAE
 
 ; Attributes: bp-based frame
 
-?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z      proc near               ; CODE XREF: ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z+11A↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+80h], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+80h]
-                call    unknown_libname_436 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+84h], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+80h]
-                call    unknown_libname_437 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+88h], eax
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z      endp
 
 
 

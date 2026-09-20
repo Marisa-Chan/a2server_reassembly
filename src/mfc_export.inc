@@ -1896,7 +1896,6 @@ externdef ?sub_40B173@BigStruct2@@QAEHHHHH@Z : proc  ; int BigStruct2::sub_40B17
 externdef ?DAT_00660f6c@@3HA :dword
 externdef ?sub_40328E@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
-externdef ?sub_403F08@BigStruct2@@QAEXPAVScenario@@@Z : proc
 externdef ?sub_41864D@BigStruct2@@QAEIXZ : proc  ; uint BigStruct2::sub_41864D()
 externdef ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc  ; int BigStruct2::sub_4184B8(int, int)
 externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc

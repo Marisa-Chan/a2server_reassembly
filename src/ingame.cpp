@@ -3892,6 +3892,14 @@ void BigStruct2::sub_416C4C()
 	this->UpdateSelectionState();
 }
 
+// 403F08
+void BigStruct2::sub_403F08(Scenario* scen)
+{
+	this->field_0x80 = scen;
+	this->field_0x84 = this->field_0x80->GetWidth();
+	this->field_0x88 = this->field_0x80->GetHeight();
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
