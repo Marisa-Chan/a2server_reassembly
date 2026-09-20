@@ -3990,6 +3990,34 @@ void BigStruct2::sub_418F93(int32_t arg)
 	}
 }
 
+// 41955C
+void BigStruct2::sub_41955C(uint16_t id)
+{
+	POSITION it = this->field_0x9d0.GetStartPosition();
+	CGameObject* obj;
+	if (!this->field_0x9d0.Lookup(id, obj) || !obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
+		return;
+	}
+	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	pkt->id = 0x1B;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xe = id;
+	pkt->count = 0;
+	while (it != nullptr) {
+		uint16_t key;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsSelected()) {
+			pkt->AppendWord(obj->unit_id);
+		}
+	}
+	g_NetStru1_local.QueuePacketSend(pkt);
+	CUnit* unit = this->sub_41DFDB();
+	if (unit != nullptr) {
+		unit->VMethod26();
+	}
+}
+
 // 41972F
 void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell)
 {
