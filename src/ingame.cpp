@@ -3786,6 +3786,12 @@ int32_t BigStruct2::sub_41F7F0()
 	return this->wimpy;
 }
 
+// 41F810
+int32_t BigStruct2::sub_41F810()
+{
+	return this->formation;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
