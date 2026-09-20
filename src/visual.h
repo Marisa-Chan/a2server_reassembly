@@ -830,6 +830,8 @@ public:
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
 	void sub_40BD34(); //40bd34
+	void sub_40C112(); //40c112 in asm
+	void sub_40C18B(); //40c18b in asm
 	int32_t sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4); //403b8f
 	void sub_402FB8(); //402fb8
 	void sub_403730(); //403730

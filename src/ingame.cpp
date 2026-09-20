@@ -6096,6 +6096,73 @@ int32_t BigStruct2::OnKeyDown(uint32_t wparam)
 	return 0;
 }
 
+// 40BD34
+void BigStruct2::sub_40BD34()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	uint32_t update_selection = 0;
+
+	this->field_0xa88++;
+	TakeDamage::UpdateDamages(&this->damage_labels);
+	if (INT_00660f74 == 0 && (this->field_0xa88 & 0x1F) == 0) {
+		this->sub_40C18B();
+	}
+	if ((this->field_0xa88 & 0xF) == 0 && g_SoundSettings.field_0x20 != 0 && this->field_0x3f6c != nullptr) {
+		FUN_00476c0d(this->field_0x3f6c->x_pos, this->field_0x3f6c->y_pos);
+	}
+
+	CDWordArray arr;
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->VMethod11() == 0) {
+			arr.Add(key);
+		}
+	}
+	for (int32_t i = 0; i < arr.GetSize(); i++) {
+		CGameObject* obj;
+		this->field_0x9d0.Lookup(arr[i], obj);
+		this->field_0x9d0.RemoveKey(arr[i]);
+		if (obj->IsSelected() != 0) {
+			this->field_0x9b4 = 0;
+			wnd->vis_spellbook->FUN_004caa69();
+			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+		}
+		delete obj;
+	}
+	if (arr.GetSize() != 0) {
+		update_selection = 1;
+	}
+
+	this->sub_40C112();
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		update_selection = update_selection | obj->VMethod15();
+	}
+	if (update_selection != 0) {
+		this->UpdateSelectionState();
+	}
+
+	arr.RemoveAll();
+	for (POSITION it = this->field_0x9ec.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9ec.GetNextAssoc(it, key, obj);
+		if (obj->VMethod11() == 0) {
+			arr.Add(key);
+		}
+	}
+	for (int32_t i = 0; i < arr.GetSize(); i++) {
+		CGameObject* obj;
+		this->field_0x9ec.Lookup(arr[i], obj);
+		this->field_0x9ec.RemoveKey(arr[i]);
+		delete obj;
+	}
+}
+
 // 40C232
 int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {

@@ -25,6 +25,7 @@ extern SfxBank SoundBank_other[12]; //665ec8
 int InitSound(HWND hwnd, int channels); //45c489
 void FreeDSound(); //45c7c5
 void LoadGameSounds(); //4c8217
+void FUN_00476c0d(int32_t x, int32_t y); //476c0d in asm
 
 
 class SfxSample : public CObject

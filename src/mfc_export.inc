@@ -1899,7 +1899,8 @@ externdef ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc  ; int BigStruct2::sub_4184B8(
 externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc
 externdef ?sub_402FB8@BigStruct2@@QAEXXZ : proc
 externdef ?sub_403730@BigStruct2@@QAEXXZ : proc
-externdef ?sub_40BD34@BigStruct2@@QAEXXZ : proc
+externdef ?sub_40C112@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C112()
+externdef ?sub_40C18B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C18B()
 extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 externdef ?sub_4193E8@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4193E8()
 externdef ?sub_4194A2@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4194A2()
@@ -2721,6 +2722,7 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 extern ?LoadVfxData@@YAXXZ : proc
 externdef ?sub_4764BC@@YAPAEH@Z : proc
+externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, int32_t)
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc
 
