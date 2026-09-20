@@ -1898,7 +1898,6 @@ extern ?sub_419246@BigStruct2@@QAEXG@Z : proc
 extern ?sub_41930D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_41955C@BigStruct2@@QAEXG@Z : proc
 extern ?sub_41965D@BigStruct2@@QAEXGG@Z : proc
-externdef ?sub_41A66E@BigStruct2@@QAEXG@Z : proc  ; void BigStruct2::sub_41A66E(uint16_t)
 externdef ?sub_40C112@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C112()
 externdef ?sub_40C18B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C18B()
 extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
