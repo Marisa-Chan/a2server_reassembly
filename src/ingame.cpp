@@ -3774,6 +3774,12 @@ void BigStruct2::sub_41F770()
 	this->show_hp = this->show_hp == 0;
 }
 
+// 41F7B0
+void BigStruct2::sub_41F7B0()
+{
+	this->flying_hp = this->flying_hp == 0;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {

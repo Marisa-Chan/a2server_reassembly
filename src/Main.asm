@@ -16863,31 +16863,6 @@ sub_41F640      endp
 
 ; Attributes: bp-based frame
 
-?sub_41F7B0@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+7B1↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+0ABCh], 0
-                jz      short loc_41F7D2
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0ABCh], 0
-                jmp     short loc_41F7DF
-; ---------------------------------------------------------------------------
-
-loc_41F7D2:                             ; CODE XREF: ?sub_41F7B0@BigStruct2@@QAEXXZ+11↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+0ABCh], 1
-
-loc_41F7DF:                             ; CODE XREF: ?sub_41F7B0@BigStruct2@@QAEXXZ+20↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41F7B0@BigStruct2@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
