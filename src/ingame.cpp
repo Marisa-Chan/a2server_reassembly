@@ -4667,6 +4667,64 @@ void BigStruct2::sub_40B314()
 	}
 }
 
+// 405399
+void BigStruct2::sub_405399(int32_t arg)
+{
+	this->field_0x80->GetMapHeights();
+	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint16_t* landscape = this->field_0x80->GetLandscape();
+	CRect rect;
+	this->ClientRectToScreen(&rect, this->rect);
+	int32_t y_off = (this->field_0xe8 + arg) * 0x20;
+	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
+		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
+			int32_t map_x = x + this->field_0xe4;
+			if (map_x >= this->field_0x64) {
+				map_x -= this->field_0x64;
+			}
+			int32_t tile_x = x + this->view_x;
+			int32_t tile_y = y + this->view_y;
+			int32_t cell = tile_x + tile_y * this->field_0x84;
+			if (((landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
+				(landscape[cell + this->field_0x84] & 0xC000) |
+				(landscape[cell + this->field_0x84 + 1] & 0xC000)) != 0xC000) {
+				continue;
+			}
+			int32_t h_idx = x + 3 + (y + 3) * (this->field_0x64 + 7);
+			int32_t h1 = this->field_0xb4[h_idx] + y_off;
+			int32_t h2 = this->field_0xb4[h_idx + 1] + y_off;
+			int32_t h_idx2 = h_idx + this->field_0x64 + 7;
+			int32_t h3 = this->field_0xb4[h_idx2] + y_off;
+			int32_t h4 = this->field_0xb4[h_idx2 + 1] + y_off;
+			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			int32_t ter_type = tile_id >> 6;
+			int32_t ter_var = (tile_id >> 4) & 3;
+			bool animated = ter_type >= 8 && ter_type < 12;
+			if (!animated) {
+				continue;
+			}
+			int32_t frame = (ter_type + tile_x + tile_x * tile_y + (this->field_0xa88 >> 2)) & 3;
+			if (g_Animation == 0) {
+				frame = 0;
+			}
+			ter_type = frame + 8;
+			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
+			int32_t cell2 = cell + this->field_0x84;
+			int32_t l1 = f18map[cell];
+			int32_t l2 = f18map[cell + 1];
+			int32_t l3 = f18map[cell2];
+			int32_t l4 = f18map[cell2 + 1];
+			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
+			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
+				FUN_00458b29(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+			} else {
+				FUN_00458ca0(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+			}
+		}
+	}
+}
+
 // 405D0E
 void BigStruct2::sub_405D0E()
 {
