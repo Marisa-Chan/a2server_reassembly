@@ -3761,6 +3761,13 @@ void BigStruct2::sub_41F6D0()
 	this->FUN_0041abd2(this->formation);
 }
 
+// 41F720
+void BigStruct2::sub_41F720()
+{
+	this->wimpy = (this->wimpy + 1) % 3;
+	this->FUN_0041aaaa(this->wimpy);
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
