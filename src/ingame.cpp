@@ -3768,6 +3768,12 @@ void BigStruct2::sub_41F720()
 	this->FUN_0041aaaa(this->wimpy);
 }
 
+// 41F770
+void BigStruct2::sub_41F770()
+{
+	this->show_hp = this->show_hp == 0;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
