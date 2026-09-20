@@ -5612,6 +5612,38 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	}
 }
 
+// 40B173
+int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height)
+{
+	GfxObject* gobj = g_GfxObjects[gfx_id];
+	int32_t min_tx = x - 1;
+	int32_t max_tx = x + 2;
+	if (min_tx < 0) {
+		min_tx = 0;
+	}
+	if (max_tx > this->field_0x64) {
+		max_tx = this->field_0x64;
+	}
+	int32_t cy = (gobj->center_y - gobj->height / 2) + g_GfxFiles[gobj->file]->sub_41F870()->GetHeight(0) / 2;
+	int32_t min_ty = this->sub_4184B8(x * 0x20 + 0x10, ((y * 0x20 + 0x10) - cy) - height);
+	int32_t max_ty = this->sub_4184B8(x * 0x20 + 0x10,
+		(((y * 0x20 + 0x10) - cy) - height) + g_GfxFiles[gobj->file]->sub_41F870()->GetHeight(0)) + 1;
+	if (min_ty < 0) {
+		min_ty = 0;
+	}
+	if (max_ty > this->field_0x68 + 4) {
+		max_ty = this->field_0x68 + 4;
+	}
+	for (int32_t tx = min_tx; tx <= max_tx; tx++) {
+		for (int32_t ty = min_ty; ty <= max_ty; ty++) {
+			if (this->field_0xa0[tx + 3 + (ty + 3) * (this->field_0x64 + 7)] != 0x10) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
 // 402FB8
 void BigStruct2::sub_402FB8()
 {
