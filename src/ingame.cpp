@@ -5612,6 +5612,52 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	}
 }
 
+// 403730
+void BigStruct2::sub_403730()
+{
+	for (int32_t i = 0; i <= 0x14; i++) {
+		for (int32_t j = 0; j <= 0x14; j++) {
+			if (j < i / 2) {
+				this->field_0xac0[i + 0x14][j + 0x14][0] = 0xFF;
+				this->field_0xac0[i + 0x14][j + 0x14][1] = 0;
+				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
+				this->field_0xac0[0x14 - i][0x14 - j][1] = 0;
+				this->field_0xac0[i + 0x14][0x14 - j][0] = 0xFF;
+				this->field_0xac0[i + 0x14][0x14 - j][1] = 0;
+				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
+				this->field_0xac0[0x14 - i][j + 0x14][1] = 0;
+			} else if (j > 2 * i) {
+				this->field_0xac0[i + 0x14][j + 0x14][0] = 0;
+				this->field_0xac0[i + 0x14][j + 0x14][1] = 0xFF;
+				this->field_0xac0[0x14 - i][0x14 - j][0] = 0;
+				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
+				this->field_0xac0[i + 0x14][0x14 - j][0] = 0;
+				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
+				this->field_0xac0[0x14 - i][j + 0x14][0] = 0;
+				this->field_0xac0[0x14 - i][j + 0x14][1] = 0xFF;
+			} else {
+				this->field_0xac0[i + 0x14][j + 0x14][0] = 0xFF;
+				this->field_0xac0[i + 0x14][j + 0x14][1] = 0xFF;
+				this->field_0xac0[0x14 - i][0x14 - j][0] = 1;
+				this->field_0xac0[0x14 - i][0x14 - j][1] = 1;
+				this->field_0xac0[i + 0x14][0x14 - j][0] = 0xFF;
+				this->field_0xac0[i + 0x14][0x14 - j][1] = 1;
+				this->field_0xac0[0x14 - i][j + 0x14][0] = 1;
+				this->field_0xac0[0x14 - i][j + 0x14][1] = 0xFF;
+			}
+			int16_t val = (int16_t)(std::sqrt(i * i + j * j) * this->field_0x3f4c / (std::max)(i, j));
+			this->field_3228[i + 0x14][j + 0x14] = val;
+			this->field_3228[0x14 - i][0x14 - j] = val;
+			this->field_3228[i + 0x14][0x14 - j] = val;
+			this->field_3228[0x14 - i][j + 0x14] = val;
+		}
+	}
+	this->field_0xac0[0x15][0x14][0] = 0xFF;
+	this->field_0xac0[0x15][0x14][1] = 0;
+	this->field_0xac0[0x13][0x14][0] = 1;
+	this->field_0xac0[0x13][0x14][1] = 0;
+}
+
 // 403CA0
 void BigStruct2::FUN_00403ca0(CGameObject* obj)
 {
