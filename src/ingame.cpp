@@ -6163,6 +6163,74 @@ void BigStruct2::sub_40BD34()
 	}
 }
 
+// 417B42
+void BigStruct2::sub_417B42(CPoint* pt)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	CRect select_rect = g_mousept.GetSelectFrame();
+	select_rect.right = pt->x;
+	select_rect.bottom = pt->y;
+	select_rect.NormalizeRect();
+	int32_t min_size = g_ScreenSize.right * 10 / 0x280;
+	if (!select_rect.IsRectEmpty()) {
+		select_rect.InflateRect(1, 1);
+	}
+	if (select_rect.Width() > min_size || select_rect.Height() > min_size) {
+		this->sub_417F09(&select_rect);
+		return;
+	}
+	CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
+	if (this->field_0x140 == 0) {
+		this->sub_417F09(&select_rect);
+		return;
+	}
+	uint16_t target_id = (uint16_t)this->field_0x9a8;
+	if (cursor_sprite == g_Cursors[CURSOR_ATTACK]->GetSprite()) {
+		if (target_id != 0 && this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit))) {
+			this->sub_419246(target_id);
+		} else {
+			this->sub_419154(this->field_0x9ac, this->field_0x9b0);
+		}
+	} else if (cursor_sprite == g_Cursors[CURSOR_SWARM]->GetSprite()) {
+		this->sub_41930D(this->field_0x9ac, this->field_0x9b0);
+	} else if (cursor_sprite == g_Cursors[CURSOR_MOVE]->GetSprite()) {
+		this->sub_419154(this->field_0x9ac, this->field_0x9b0);
+	} else if (cursor_sprite == g_Cursors[CURSOR_PATROL]->GetSprite()) {
+		this->sub_41965D(this->field_0x9ac, this->field_0x9b0);
+	} else if (cursor_sprite == g_Cursors[CURSOR_DEFEND]->GetSprite()) {
+		if (target_id != 0) {
+			this->sub_41955C(target_id);
+		}
+	} else if (cursor_sprite == g_Cursors[CURSOR_SELECT]->GetSprite()) {
+		this->sub_417F09(&select_rect);
+	} else if (cursor_sprite == g_Cursors[CURSOR_PICKUP]->GetSprite()) {
+		this->sub_41A33F(this->field_0x9ac, this->field_0x9b0);
+	} else if (cursor_sprite == g_Cursors[CURSOR_TOWN]->GetSprite()) {
+		this->sub_41A66E(target_id);
+	} else if (cursor_sprite == g_Cursors[CURSOR_CAST]->GetSprite()) {
+		int32_t spell_pos = wnd->vis_spellbook->sub_41F9B0();
+		if (spell_pos >= 0) {
+			if (target_id != 0) {
+				if (this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && wnd->vis_spellbook->sub_4CAAA7() != 0) {
+					this->sub_419BA1(target_id, spell_pos + 1);
+				} else {
+					this->sub_41972F(this->field_0x9ac, this->field_0x9b0, spell_pos + 1);
+				}
+			} else if (wnd->vis_spellbook->sub_4CAAA7() == 0) {
+				this->sub_41972F(this->field_0x9ac, this->field_0x9b0, spell_pos + 1);
+			}
+			if (this->field_0x9b4 == 5 && this->IsBookOpen() != 0) {
+				this->FUN_0041b636();
+			}
+		}
+	}
+	if (this->field_0x9b4 != 0) {
+		this->field_0x9b4 = 0;
+		wnd->vis_spellbook->FUN_004caa69();
+		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+	}
+}
+
 // 40C232
 int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {

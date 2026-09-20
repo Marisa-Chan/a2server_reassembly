@@ -827,6 +827,16 @@ public:
 	uint32_t sub_41864D(); //41864d
 	int32_t sub_4184B8(int32_t x, int32_t y); //4184b8
 	void sub_417B42(CPoint* pt); //417b42
+	void sub_417F09(CRect* rect); //417f09
+	void sub_419154(uint16_t x, uint16_t y); //419154
+	void sub_419246(uint16_t id); //419246
+	void sub_41930D(uint16_t x, uint16_t y); //41930d
+	void sub_41955C(uint16_t id); //41955c
+	void sub_41965D(uint16_t x, uint16_t y); //41965d
+	void sub_41972F(uint16_t x, uint16_t y, int32_t spell); //41972f
+	void sub_419BA1(uint16_t id, int32_t spell); //419ba1
+	void sub_41A33F(uint16_t x, uint16_t y); //41a33f
+	void sub_41A66E(uint16_t id); //41a66e
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
 	void sub_40BD34(); //40bd34
