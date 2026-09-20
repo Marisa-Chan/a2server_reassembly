@@ -1069,8 +1069,14 @@
 ?sub_416983@BigStruct2@@QAEXH@Z
 ?sub_4184B8@BigStruct2@@QAEHHH@Z
 ?sub_418F93@BigStruct2@@QAEXH@Z
+?sub_419154@BigStruct2@@QAEXGG@Z
+?sub_419246@BigStruct2@@QAEXG@Z
+?sub_41930D@BigStruct2@@QAEXGG@Z
+?sub_41955C@BigStruct2@@QAEXG@Z
+?sub_41965D@BigStruct2@@QAEXGG@Z
 ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z
 ?sub_41AC88@BigStruct2@@QAEXHH@Z
+?sub_41DFDB@BigStruct2@@QAEPAVCUnit@@XZ
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_48A756@MainWindow@@QAEXXZ
 ?sub_49585B@ServerControlDialog@@QAEXXZ
