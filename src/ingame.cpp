@@ -3946,6 +3946,25 @@ void BigStruct2::sub_403F08(Scenario* scen)
 	this->field_0x88 = this->field_0x80->GetHeight();
 }
 
+// 40328E
+void BigStruct2::sub_40328E()
+{
+	free(this->field_0x8c);
+	free(this->field_0x90);
+	free(this->field_0x94);
+	free(this->field_0x98);
+	free(this->field_0x9c);
+	free(this->field_0xa0);
+	free(this->field_0xa4);
+	free(this->field_0xa8);
+	free(this->field_0xac);
+	free(this->field_0xb0);
+	free(this->field_0xb4);
+	free(this->field_0xb8);
+	free(this->field_0xbc);
+	free(this->field_0xc0);
+}
+
 // 41B155
 void BigStruct2::sub_41B155()
 {
