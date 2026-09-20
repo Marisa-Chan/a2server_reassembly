@@ -3892,6 +3892,28 @@ void BigStruct2::sub_416C4C()
 	this->UpdateSelectionState();
 }
 
+// 4168BD
+void BigStruct2::sub_4168BD()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (this->field_0x9b4 != 0) {
+		if (this->field_0x9b4 == 5 && this->IsBookOpen()) {
+			this->FUN_0041b636();
+		}
+		wnd->vis_spellbook->FUN_004caa69();
+		this->field_0x9b4 = 0;
+		wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+	} else {
+		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			obj->VMethod1(0);
+		}
+		this->UpdateSelectionState();
+	}
+}
+
 // 403F08
 void BigStruct2::sub_403F08(Scenario* scen)
 {

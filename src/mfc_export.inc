@@ -1902,7 +1902,6 @@ externdef ?sub_403B8F@BigStruct2@@QAEHHHHH@Z : proc
 externdef ?sub_402FB8@BigStruct2@@QAEXXZ : proc
 externdef ?sub_403730@BigStruct2@@QAEXXZ : proc
 externdef ?sub_40BD34@BigStruct2@@QAEXXZ : proc
-externdef ?sub_4168BD@BigStruct2@@QAEXXZ : proc
 externdef ?sub_4167F7@BigStruct2@@QAEXHH@Z : proc
 externdef ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 extern ?UpdateAmbientSounds@BigStruct2@@QAEXXZ : proc
