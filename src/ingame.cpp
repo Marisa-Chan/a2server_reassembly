@@ -3991,6 +3991,24 @@ void BigStruct2::sub_404912()
 	}
 }
 
+// 403B8F
+int32_t BigStruct2::sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4)
+{
+	int32_t idx;
+	if (arg2 > 0) {
+		idx = arg2 * this->field_0x84 + arg1;
+	} else {
+		idx = arg1 - (-arg2) * this->field_0x84;
+	}
+	int32_t nx = arg1 + (int8_t)this->field_0xac0[arg1][arg2][0];
+	int32_t ny = arg2 + (int8_t)this->field_0xac0[arg1][arg2][1];
+	uint8_t* heights = this->field_0x80->GetMapHeights();
+	int32_t base = (int8_t)heights[arg3 + idx] - arg4;
+	int32_t val = (int32_t)this->field_0x17e4[nx][ny] - ((int16_t)this->field_3228[arg1][arg2] + base);
+	this->field_0x17e4[arg1][arg2] = val;
+	return val <= 0;
+}
+
 // 41B155
 void BigStruct2::sub_41B155()
 {
