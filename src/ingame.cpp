@@ -3955,6 +3955,22 @@ void BigStruct2::sub_41AB05()
 	this->FUN_0041ab74();
 }
 
+// 41A7C7
+void BigStruct2::sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5)
+{
+	PacketCmd* pkt = &PacketCmd::Inst;
+	pkt->id = 0x22;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->unit_id = this->field_0x138->unit_id;
+	pkt->type = arg1;
+	pkt->subtype = arg3;
+	pkt->field_0xe = arg2;
+	pkt->field_0x10 = arg4;
+	pkt->field_0x12 = arg5;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {

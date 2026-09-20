@@ -11698,58 +11698,6 @@ sub_41A66E      endp
 
 ; Attributes: bp-based frame
 
-?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z      proc near               ; CODE XREF: ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+1B8↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-arg_4           = word ptr  0Ch
-arg_8           = byte ptr  10h
-arg_C           = word ptr  14h
-arg_10          = word ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketCmd@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 22h ; '"'
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+9CCh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+5], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+138h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ax, [ecx+4]
-                mov     [edx+0Ah], ax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dx, [ebp+arg_4]
-                mov     [ecx+0Eh], dx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cl, [ebp+arg_0]
-                mov     [eax+0Ch], cl
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ax, [ebp+arg_C]
-                mov     [edx+10h], ax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dl, [ebp+arg_8]
-                mov     [ecx+0Dh], dl
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [ebp+arg_10]
-                mov     [eax+12h], cx
-                mov     edx, dword ptr [ebp+var_4]
-                push    edx
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z      endp
 
 
 
