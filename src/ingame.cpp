@@ -3848,6 +3848,33 @@ void BigStruct2::sub_416AA6(int32_t digit)
 	this->UpdateSelectionState();
 }
 
+// 416B4A
+void BigStruct2::sub_416B4A(int32_t digit)
+{
+	int32_t sum_x = 0;
+	int32_t sum_y = 0;
+	int32_t count = 0;
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->FUN_0041f1c0(digit)) {
+			obj->VMethod1(1);
+			count++;
+			sum_x += obj->x_pos >> 8;
+			sum_y += obj->y_pos >> 8;
+		} else {
+			obj->VMethod1(0);
+		}
+	}
+	this->UpdateSelectionState();
+	if (count > 0) {
+		int32_t avg_x = sum_x / count;
+		int32_t avg_y = sum_y / count;
+		this->MsgProc(0x406, avg_x - this->field_0x64 / 2, avg_y - this->field_0x68 / 2);
+	}
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
