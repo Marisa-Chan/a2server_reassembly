@@ -38,6 +38,9 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see FUN_0055ee4
 
     int32_t IsInWork() { return this->quest_data.state == 0; } // 41eb90
     uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70
+    uint32_t GetSomeId() { return this->quest_data.some_id; }           // 41eb10
+    uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30
+    uint32_t GetLandmarkId() { return this->quest_data.landmark_id; }   // 41eb50
 
 public:
     Quest(); // 55d0e0

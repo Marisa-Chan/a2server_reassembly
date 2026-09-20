@@ -15,6 +15,11 @@ sub_420B70
 sub_420B90
 sub_420E40
 sub_41E930
+sub_41E9A0
+sub_41EAC0
+sub_41EBD0
+unknown_libname_408
 unknown_libname_413
+unknown_libname_417
 unknown_libname_448
 ?Clear@CComVariant@ATL@@QAEJXZ_0

@@ -4317,6 +4317,142 @@ void BigStruct2::sub_41A4DF()
 	}
 }
 
+// 41864D
+uint32_t BigStruct2::sub_41864D()
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	uint32_t avail = 0;
+	CUnit* old_unit = this->field_0x994;
+	uint16_t old_id = (uint16_t)this->field_0x9a8;
+	this->field_0x994 = nullptr;
+	this->field_0x9a8 = 0;
+	this->quest_some_id_2 = 0;
+	this->quest_landmark_some_id = 0;
+	this->quest_building_some_id = 0;
+	this->quest_some_id = 0;
+
+	CRect screen_rect;
+	this->ClientRectToScreen(&screen_rect, &this->rect);
+	CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+	if (!screen_rect.PtInRect(mouse_pt)) {
+		if (this->field_0x994 != old_unit) {
+			wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+			wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+		}
+		return avail;
+	}
+
+	CRect mouse_rect(g_mousept.x - 1, g_mousept.y - 1, g_mousept.x + 1, g_mousept.y + 1);
+	for (int32_t i = this->field_0x134 - 1; i >= 0; i--) {
+		CRect unit_rect = this->field_0x10c[i];
+		unit_rect.NormalizeRect();
+		CRect intersect_rect;
+		if (!intersect_rect.IntersectRect(&unit_rect, &mouse_rect)) {
+			continue;
+		}
+		CGameObject* obj;
+		if (!this->field_0x9d0.Lookup(this->field_0x120[i], obj)) {
+			break;
+		}
+		const char* class_name = obj->GetRuntimeClass()->m_lpszClassName;
+		if (strcmp(class_name, "CUnit") == 0) {
+			avail |= 1;
+		}
+		if (strcmp(class_name, "CAirUnit") == 0) {
+			avail |= 2;
+		}
+		if (strcmp(class_name, "CStructure") == 0) {
+			StructureInfo* info = g_StructuresInfo[obj->typeId];
+			if (info->usable != 0) {
+				avail |= 0x800;
+			} else if (info->indestructible != 0) {
+				continue;
+			}
+			avail |= 0x20;
+		}
+		if (this->my_main_unit->FUN_0041ee20(obj->map_player->index) != 0) {
+			avail |= 4;
+		}
+		this->field_0x994 = (CUnit*)obj;
+		if (wnd->sessionMode != 2) {
+			for (POSITION it = this->field_0x4970->quests_map.GetStartPosition(); it != nullptr;) {
+				uint32_t quest_id;
+				Quest* quest;
+				this->field_0x4970->quests_map.GetNextAssoc(it, quest_id, quest);
+				if (this->field_0x994->unit_id == quest->GetObj() && quest->IsInWork() != 0) {
+					if (quest->Kind() != 3 && quest->Kind() != 0xC) {
+						this->quest_some_id_2 = quest->GetSomeId();
+					}
+				} else if (this->field_0x994->unit_id == (quest->GetLandmarkId() & 0xFFFF)) {
+					this->quest_landmark_some_id = quest->GetSomeId();
+				}
+				if (this->field_0x994->unit_id == quest->GetBuildingId()) {
+					this->quest_building_some_id = quest->GetSomeId();
+				}
+				if (this->field_0x994->IsKindOf(RUNTIME_CLASS(CUnit)) && quest->IsInWork() != 0) {
+					if (this->field_0x994->questFlags == quest->GetObj() && (quest->Kind() == 3 || quest->Kind() == 0xC)) {
+						this->quest_some_id = quest->GetSomeId();
+					}
+					if (this->field_0x994->typeId == (quest->GetObj() & 0xFF) && this->field_0x994->face == (quest->GetObj() >> 8) && quest->Kind() == 2) {
+						this->quest_some_id_2 = quest->GetSomeId();
+					}
+					if (this->field_0x994->map_player->index == quest->GetObj() && quest->Kind() == 0xD) {
+						this->quest_some_id_2 = quest->GetSomeId();
+					}
+				}
+			}
+		}
+		this->field_0x9a8 = this->field_0x120[i];
+		break;
+	}
+
+	CVisualObject* child2 = this->FindChild(2);
+	CVisualObject* child3 = this->FindChild(3);
+	if (child2 != nullptr) {
+		CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+		if (child2->GetRect().PtInRect(pt)) {
+			this->field_0x994 = nullptr;
+			this->field_0x9a8 = 0;
+		}
+	}
+	if (child3 != nullptr) {
+		CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+		if (child3->GetRect().PtInRect(pt)) {
+			this->field_0x994 = nullptr;
+			this->field_0x9a8 = 0;
+		}
+	}
+
+	int32_t tile_x = g_mousept.x >> 5;
+	int32_t tile_y = this->sub_4184B8(g_mousept.x, g_mousept.y);
+	uint16_t* land = this->field_0x80->GetLandscape();
+	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->field_0x84;
+	uint16_t land_flags = (land[cell] & 0xC000) | (land[cell + 1] & 0xC000) |
+		(land[cell + 1 + this->field_0x84] & 0xC000) | (land[cell + this->field_0x84] & 0xC000);
+	if (land_flags == 0xC000 && this->field_0x98[tile_x + 3 + (tile_y + 3) * (this->field_0x64 + 6)] != 0) {
+		avail |= 0x40;
+	}
+	if (land_flags != 0xC000) {
+		avail |= 0x400;
+	}
+	tile_x += this->view_x;
+	tile_y += this->view_y;
+	if (this->field_0x994 != old_unit) {
+		wnd->vis_charinfo->MsgProc(0x408, 0, 0);
+		wnd->vis_sidestatus->MsgProc(0x408, 0, 0);
+		if (this->field_0x994 != nullptr) {
+			this->field_0x994->m_bSelectionDirty = 1;
+		}
+		CGameObject* prev_obj = old_unit;
+		if (this->field_0x9d0.Lookup(old_id, prev_obj)) {
+			prev_obj->m_bSelectionDirty = 1;
+		}
+	}
+	this->field_0x9ac = tile_x;
+	this->field_0x9b0 = tile_y;
+	return avail;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
