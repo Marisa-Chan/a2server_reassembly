@@ -5612,6 +5612,43 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	}
 }
 
+// 402FB8
+void BigStruct2::sub_402FB8()
+{
+	this->field_0x64 = this->rect.Width() / 32;
+	this->field_0x68 = this->rect.Height() / 32;
+	if (this->field_0x80 != nullptr) {
+		if (this->view_x + this->field_0x64 >= this->field_0x80->GetWidth() - 8) {
+			this->view_x = (this->field_0x80->GetWidth() - 8) - this->field_0x64;
+		}
+		if (this->view_y + this->field_0x68 >= this->field_0x80->GetHeight() - 8) {
+			this->view_y = (this->field_0x80->GetHeight() - 8) - this->field_0x68;
+		}
+	}
+	this->rect.bottom = this->field_0x68 * 0x20 + this->rect.top;
+	this->field_0x6c = (this->field_0x64 + 6) * (this->field_0x68 + 0xA) * 4;
+	this->field_0x70 = (this->field_0x64 + 7) * (this->field_0x68 + 0xB) * 4;
+	this->field_0x8c = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0x90 = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0x94 = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0x98 = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0x9c = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0xa0 = (uint32_t*)malloc(this->field_0x70);
+	this->field_0xa4 = (uint32_t*)malloc(this->field_0x70);
+	this->field_0xa8 = (uint8_t*)malloc(this->field_0x70 / 4);
+	this->field_0xac = (uint8_t*)malloc(this->field_0x70 / 4);
+	memset(this->field_0xac, 0, this->field_0x70 / 4);
+	this->field_0xb0 = (uint8_t*)malloc(this->field_0x6c / 4);
+	this->field_0xb4 = (uint32_t*)malloc(this->field_0x70);
+	this->field_0xb8 = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0xbc = (uint32_t*)malloc(this->field_0x6c);
+	this->field_0xc0 = (uint32_t*)malloc((this->field_0x64 + 8) * (this->field_0x68 + 0xC) * 4);
+	this->field_0x74 = 1;
+	this->field_0x78 = 0;
+	this->field_0x7c = 0;
+	this->msglog.SetRect(this->rect);
+}
+
 // 403730
 void BigStruct2::sub_403730()
 {
