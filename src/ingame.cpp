@@ -3792,6 +3792,22 @@ int32_t BigStruct2::sub_41F810()
 	return this->formation;
 }
 
+// 416983
+void BigStruct2::sub_416983(int32_t digit)
+{
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->FUN_0041f1c0(digit)) {
+			obj->VMethod1(1);
+		} else if (g_kbShiftState == 0) {
+			obj->VMethod1(0);
+		}
+	}
+	this->UpdateSelectionState();
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {

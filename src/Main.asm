@@ -7641,69 +7641,6 @@ loc_41697F:                             ; CODE XREF: ?sub_4168BD@BigStruct2@@QAE
 
 ; Attributes: bp-based frame
 
-?sub_416983@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+C3↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = byte ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420720
-                mov     [ebp+var_8], eax
-
-loc_41699D:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z:loc_4169F2↓j
-                cmp     [ebp+var_8], 0
-                jz      short loc_4169F4
-                lea     eax, [ebp+var_C]
-                push    eax
-                lea     ecx, [ebp+var_4]
-                push    ecx
-                lea     edx, [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420740
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    sub_41F1C0
-                test    eax, eax
-                jz      short loc_4169DC
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+14h]
-                jmp     short loc_4169F2
-; ---------------------------------------------------------------------------
-
-loc_4169DC:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+48↑j
-                cmp     ?g_kbShiftState@@3HA, 0
-                jnz     short loc_4169F2
-                push    0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+14h]
-
-loc_4169F2:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+57↑j
-                jmp     short loc_41699D
-; ---------------------------------------------------------------------------
-
-loc_4169F4:                             ; CODE XREF: ?sub_416983@BigStruct2@@QAEXH@Z+1E↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_416983@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
