@@ -5612,6 +5612,25 @@ BigStruct2::BigStruct2(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObje
 	}
 }
 
+// 40AFC5
+void BigStruct2::sub_40AFC5(int32_t x, int32_t y, uint32_t flags, int32_t flag)
+{
+	if ((flags & 8) != 0 && flag != 0) {
+		ProjectileInfo* proj = g_ProjectileInfos[0xF];
+		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % 5 + 3;
+		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+	}
+	if ((flags & 0x40) != 0 && flag == 0) {
+		ProjectileInfo* proj = g_ProjectileInfos[0x15];
+		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
+		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+	} else if ((flags & 0x20000) != 0 && flag != 0) {
+		ProjectileInfo* proj = g_ProjectileInfos[0x2B];
+		int32_t phase = abs(this->field_0xa88 / 2 + x * y) % proj->phases;
+		proj->FUN_0041f8f0()->VMethod2(x - proj->width / 2, y - proj->height / 2, phase, 0, 0);
+	}
+}
+
 // 40B173
 int32_t BigStruct2::sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height)
 {
