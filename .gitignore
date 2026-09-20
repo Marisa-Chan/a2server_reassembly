@@ -367,6 +367,7 @@ build/
 
 # Visual Studio Code workspace settings
 .vscode/
+AGENTS.md
 
 # GitHub settings
 .github/
