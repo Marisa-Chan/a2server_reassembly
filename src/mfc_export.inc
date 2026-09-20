@@ -1888,7 +1888,6 @@ extern ?ProcessPackets@BigStruct2@@QAEHE@Z : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ  : proc
 extern ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ : proc
 externdef ?sub_404A2C@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404A2C()
-externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
 externdef ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z : proc  ; void BigStruct2::sub_40AFC5(int, int, uint, int)
 externdef ?sub_40B173@BigStruct2@@QAEHHHHH@Z : proc  ; int BigStruct2::sub_40B173(int, int, int, int)
 externdef ?DAT_00660f68@@3HA :dword

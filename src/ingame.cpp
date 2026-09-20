@@ -4667,6 +4667,67 @@ void BigStruct2::sub_40B314()
 	}
 }
 
+// 404E1A
+void BigStruct2::sub_404E1A()
+{
+	AfxGetMainWnd();
+	timeGetTime();
+	this->field_0x80->GetMapHeights();
+	uint8_t* f18map = this->field_0x80->FUN_0041eee0();
+	uint16_t* landscape = this->field_0x80->GetLandscape();
+	CRect rect;
+	this->ClientRectToScreen(&rect, this->rect);
+	for (int32_t y = 0; y < this->field_0x68 + 4; y++) {
+		for (int32_t x = this->field_0x64 - 1; x >= 0; x--) {
+			int32_t tile_x = x + this->view_x;
+			int32_t tile_y = y + this->view_y;
+			int32_t h_row = this->field_0x64 + 7;
+			int32_t cell = tile_x + tile_y * this->field_0x84;
+			int32_t h_idx = (y + 3) * h_row + 3;
+			int32_t cell2 = cell + this->field_0x84;
+			int32_t h_idx2 = (y + 4) * h_row + 3;
+			int32_t h1 = this->field_0xb4[x + h_idx];
+			int32_t h2 = this->field_0xb4[x + h_idx + 1];
+			int32_t h3 = this->field_0xb4[x + h_idx2];
+			int32_t h4 = this->field_0xb4[x + h_idx2 + 1];
+			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			int32_t ter_type = tile_id >> 6;
+			int32_t ter_var = (tile_id >> 4) & 3;
+			bool animated = ter_type >= 8 && ter_type < 12;
+			if (animated) {
+				int32_t frame = (ter_type + (tile_x + 1) * tile_y + (this->field_0xa88 >> 2)) & 3;
+				if (g_Animation == 0) {
+					frame = 0;
+				}
+				ter_type = frame + 8;
+			}
+			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
+			if ((landscape[cell] & 0x2000) != 0 && !animated) {
+				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
+				FUN_0045424d((uint8_t*)this->field_0x3f68->GetData(),
+					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
+				tile = this->field_0x3f68;
+				tile_id &= 0xFFF0;
+			}
+			int32_t l1 = f18map[cell];
+			int32_t l2 = f18map[cell + 1];
+			int32_t l3 = f18map[cell2];
+			int32_t l4 = f18map[cell2 + 1];
+			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
+			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
+			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
+				FUN_00458b29(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+			} else {
+				FUN_00458ca0(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+			}
+			if (DAT_00660f68 != 0) {
+				FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
+				FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
+			}
+		}
+	}
+}
+
 // 405399
 void BigStruct2::sub_405399(int32_t arg)
 {
