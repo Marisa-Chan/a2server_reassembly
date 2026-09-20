@@ -3914,6 +3914,30 @@ void BigStruct2::sub_4168BD()
 	}
 }
 
+// 4167F7
+void BigStruct2::sub_4167F7(int32_t wparam, int32_t lparam)
+{
+	if (this->field_0x80 == nullptr) {
+		return;
+	}
+	if (wparam < this->MapMinX()) {
+		wparam = this->MapMinX();
+	}
+	if (lparam < this->MapMinY()) {
+		lparam = this->MapMinY();
+	}
+	if (wparam > this->MapMaxX()) {
+		wparam = this->MapMaxX();
+	}
+	if (lparam > this->FUN_0041f6b0()) {
+		lparam = this->FUN_0041f6b0();
+	}
+	this->field_0x78 = wparam - this->view_x;
+	this->field_0x7c = lparam - this->view_y;
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	wnd->vis_minimap->MsgProc(0x408, 0, 0);
+}
+
 // 403F08
 void BigStruct2::sub_403F08(Scenario* scen)
 {
