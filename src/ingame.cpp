@@ -5394,7 +5394,7 @@ int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 		if (this->IsBagOpen()) {
 			this->FUN_0041b40e();
 		} else {
-			this->sub_41B381();
+			this->FUN_0041b381();
 		}
 		if (g_mousept.GetSelectState() != 0) {
 			g_mousept.ResetStates();

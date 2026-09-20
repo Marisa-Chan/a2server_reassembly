@@ -12225,60 +12225,6 @@ sub_41B0BE      endp
 
 ; Attributes: bp-based frame
 
-?sub_41B381@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@BigStruct2@@UAEHIII@Z+11D↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41B4B0
-                test    eax, eax
-                jz      short loc_41B3CC
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+14h]
-                sub     ecx, 5Ah ; 'Z'
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+10h]
-                push    eax             ; xRight
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+14h]
-                sub     edx, 0AFh
-                push    edx             ; yTop
-                push    0               ; xLeft
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0ECh]
-                call    ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z
-
-loc_41B3CC:                             ; CODE XREF: ?sub_41B381@BigStruct2@@QAEXXZ+1B↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+0E8h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    0
-                push    0DCh
-                push    0
-                push    0
-                mov     eax, ?g_SoundSettings@@3USoundSettings@@A+010h
-                push    eax
-                push    7
-                mov     ecx, offset ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A
-                call    sub_4214E0
-                mov     ecx, dword ptr [eax]
-                call    ?Play@SfxSample@@QAEXHHHEH@Z
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_0041b6e0@BigStruct2@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41B381@BigStruct2@@QAEXXZ      endp
 
 
 
