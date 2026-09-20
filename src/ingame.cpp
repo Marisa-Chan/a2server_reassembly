@@ -3828,6 +3828,26 @@ void BigStruct2::sub_416A02(int32_t digit)
 	this->UpdateSelectionState();
 }
 
+// 416AA6
+void BigStruct2::sub_416AA6(int32_t digit)
+{
+	if (this->field_0x144 & 4) {
+		return;
+	}
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->FUN_0041f1c0(digit)) {
+			obj->FUN_0041f1f0(digit);
+		}
+		if (obj->IsSelected() && obj->map_player == this->my_main_unit) {
+			obj->FUN_0041f180(digit);
+		}
+	}
+	this->UpdateSelectionState();
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
