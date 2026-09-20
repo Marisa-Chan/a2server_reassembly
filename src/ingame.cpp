@@ -4078,6 +4078,91 @@ void BigStruct2::sub_41972F(uint16_t x, uint16_t y, int32_t spell)
 	this->UpdateSelectionState();
 }
 
+// 419BA1
+void BigStruct2::sub_419BA1(uint16_t id, int32_t spell)
+{
+	POSITION it = this->field_0x9d0.GetStartPosition();
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xe = id;
+	pkt->count = 0;
+	if (wnd->vis_spellbook->sub_4CA89B(spell - 1) != 0 && wnd->vis_spellbook->spell == -1) {
+		pkt->id = 0x1E;
+		pkt->field_0x10 = spell;
+		while (it != nullptr) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (spell - 1))) != 0) {
+				pkt->AppendWord(obj->unit_id);
+			}
+		}
+		g_NetStru1_local.QueuePacketSend(pkt);
+	}
+	if (wnd->vis_spellbook->spell >= 0 && this->field_0x140 == 1 && this->field_0x138 != nullptr) {
+		pkt->count = 0;
+		pkt->AppendWord(this->field_0x138->unit_id);
+		uint16_t slot = wnd->vis_spellbook->spell;
+		pkt->field_0x10 = slot;
+		pkt->field_0x11 = slot >> 8;
+		pkt->id = 0x25;
+		g_NetStru1_local.QueuePacketSend(pkt);
+		TokenEntry* entry = this->field_0x138->tokenEntries[slot];
+		if (entry->field_0x10 == 1) {
+			this->field_0x138->tokenEntries.RemoveAt(slot, 1);
+			delete entry;
+		} else {
+			entry->field_0x10--;
+		}
+		wnd->vis_spellbook->spell = -1;
+		wnd->vis_spellbook->selected = -1;
+	} else {
+		if (wnd->vis_spellbook->sub_4CA8E0(spell - 1) != 0) {
+			for (it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+				uint16_t key;
+				CGameObject* obj;
+				this->field_0x9d0.GetNextAssoc(it, key, obj);
+				if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (spell - 1))) == 0) {
+					continue;
+				}
+				pkt->count = 0;
+				pkt->AppendWord(obj->unit_id);
+				uint16_t slot = 0xFFFF;
+				if (wnd->vis_spellbook->spell >= 0) {
+					slot = wnd->vis_spellbook->spell;
+				} else {
+					for (int32_t i = 0; i < obj->tokenEntries.GetSize(); i++) {
+						TokenEntry* entry = obj->tokenEntries[i];
+						if (entry != nullptr && (entry->flg & 0x10) != 0 && entry->GetCastSpellId() == BOOK_POS_TO_SPELL_ID[spell]) {
+							slot = i;
+							break;
+						}
+					}
+				}
+				pkt->field_0x10 = slot;
+				pkt->field_0x11 = slot >> 8;
+				if (slot == 0xFFFF) {
+					continue;
+				}
+				pkt->id = 0x25;
+				g_NetStru1_local.QueuePacketSend(pkt);
+				TokenEntry* entry = obj->tokenEntries[slot];
+				if (entry->field_0x10 == 1) {
+					obj->tokenEntries.RemoveAt(slot, 1);
+					delete entry;
+				} else {
+					entry->field_0x10--;
+				}
+				wnd->vis_spellbook->spell = -1;
+				wnd->vis_spellbook->selected = -1;
+			}
+		}
+	}
+	this->UpdateSelectionState();
+}
+
 // 40328E
 void BigStruct2::sub_40328E()
 {
