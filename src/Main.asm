@@ -2670,65 +2670,6 @@ sub_40C0A8      endp
 
 ; Attributes: bp-based frame
 
-?sub_40C112@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_40BD34@BigStruct2@@QAEXXZ+20F↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = byte ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A94h
-                call    sub_420B70
-                mov     [ebp+var_C], eax
-
-loc_40C12C:                             ; CODE XREF: ?sub_40C112@BigStruct2@@QAEXXZ:loc_40C185↓j
-                cmp     [ebp+var_C], 0
-                jz      short loc_40C187
-                lea     eax, [ebp+var_8]
-                push    eax
-                lea     ecx, [ebp+var_4]
-                push    ecx
-                lea     edx, [ebp+var_C]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A94h
-                call    sub_420B90
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 1
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 16h
-                jnb     short loc_40C173
-                lea     ecx, [ebp+var_8]
-                push    ecx
-                lea     edx, [ebp+var_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A94h
-                call    sub_420A00
-                jmp     short loc_40C185
-; ---------------------------------------------------------------------------
-
-loc_40C173:                             ; CODE XREF: ?sub_40C112@BigStruct2@@QAEXXZ+47↑j
-                lea     eax, [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A94h
-                call    sub_420A20
-
-loc_40C185:                             ; CODE XREF: ?sub_40C112@BigStruct2@@QAEXXZ+5F↑j
-                jmp     short loc_40C12C
-; ---------------------------------------------------------------------------
-
-loc_40C187:                             ; CODE XREF: ?sub_40C112@BigStruct2@@QAEXXZ+1E↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_40C112@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

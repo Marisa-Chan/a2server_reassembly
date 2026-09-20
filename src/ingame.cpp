@@ -7044,6 +7044,22 @@ void BigStruct2::sub_417F09(CRect* rect)
 	}
 }
 
+// 40C112
+void BigStruct2::sub_40C112()
+{
+	for (POSITION it = this->field_0xa94.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		uint32_t value;
+		this->field_0xa94.GetNextAssoc(it, key, value);
+		value++;
+		if (value < 0x16) {
+			this->field_0xa94.SetAt(key, value);
+		} else {
+			this->field_0xa94.RemoveKey(key);
+		}
+	}
+}
+
 // 40C18B
 void BigStruct2::sub_40C18B()
 {
