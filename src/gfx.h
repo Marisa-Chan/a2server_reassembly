@@ -117,10 +117,12 @@ extern uint32_t g_brightnessLookupCount; //659bf0
 
 extern uint32_t g_isLowMemory; //660f58
 
+extern CGamePalette* DAT_00661018[32]; //661018
 extern RGBQUAD g_human_pals_data[16][256]; //661118
 extern CArray<CGamePalette*> g_Human_palettes; //6610c8
 
 extern Array2D<CBmp256*, 4, 32> g_ter_tiles; //665130
+extern CGameBitmap* DAT_00665344; //665344
 
 
 void GetClipRect(CRect* r); //454a0c
@@ -128,6 +130,10 @@ void SetClipRect(CRect& r); //4549ba
 
 void __cdecl FUN_004549e5(int32_t l, int32_t t, int32_t r, int32_t b); //4549e5
 void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e40
+
+void __cdecl FUN_0045424d(uint8_t* dst, uint8_t* src, int32_t size); //45424d
+void __cdecl FUN_00458b29(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458b29
+void __cdecl FUN_00458ca0(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458ca0
 
 void __cdecl FUN_00458fe6(int32_t x, int32_t h0, int32_t h2); //458fe6
 void __cdecl FUN_004590ef(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //4590ef

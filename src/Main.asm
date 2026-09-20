@@ -3727,7 +3727,7 @@ loc_40502E:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
                 call    _memcpy
                 add     esp, 0Ch
                 push    400h
-                mov     ecx, dword_665344
+                mov     ecx, ?DAT_00665344@@3PAVCGameBitmap@@A
                 call    sub_41EC60
                 mov     ecx, dword ptr [ebp+var_44]
                 imul    ecx, 5
@@ -3741,7 +3741,7 @@ loc_40502E:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
                 mov     ecx, dword ptr [eax+3F68h]
                 call    sub_41EC60
                 push    eax
-                call    sub_45424D
+                call    ?FUN_0045424d@@YAXPAE0H@Z
                 add     esp, 0Ch
                 mov     ecx, dword ptr [ebp+var_78]
                 mov     edx, dword ptr [ecx+3F68h]
@@ -3763,7 +3763,7 @@ loc_4050EE:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
                 jnz     short loc_40517F
                 push    0
                 mov     ecx, dword ptr [ebp+var_68]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_5C]
@@ -3799,7 +3799,7 @@ loc_4050EE:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
                 mov     eax, dword ptr [ebp+var_24]
                 shl     eax, 5
                 push    eax
-                call    sub_458B29
+                call    ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z
                 add     esp, 20h
                 jmp     loc_405202
 ; ---------------------------------------------------------------------------
@@ -3807,7 +3807,7 @@ loc_4050EE:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
 loc_40517F:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2DA↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_68]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_5C]
@@ -3853,11 +3853,11 @@ loc_40517F:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAE
                 mov     ecx, dword ptr [ebp+var_24]
                 shl     ecx, 5
                 push    ecx
-                call    sub_458CA0
+                call    ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z
                 add     esp, 30h
 
 loc_405202:                             ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+360↑j
-                cmp     dword_660F68, 0
+                cmp     ?DAT_00660f68@@3HA, 0
                 jz      short loc_40524E
                 push    0
                 mov     edx, dword ptr [ebp+var_58]
@@ -4210,7 +4210,7 @@ loc_4056A7:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAE
                 jnz     loc_40579D
                 push    0
                 mov     ecx, dword ptr [ebp+var_60]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_54]
@@ -4266,7 +4266,7 @@ loc_4056A7:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAE
                 mov     eax, dword ptr [ebp+var_2C]
                 shl     eax, 5
                 push    eax
-                call    sub_458B29
+                call    ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z
                 add     esp, 20h
                 jmp     loc_40586A
 ; ---------------------------------------------------------------------------
@@ -4274,7 +4274,7 @@ loc_4056A7:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAE
 loc_40579D:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAEXH@Z+327↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_60]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_54]
@@ -4340,7 +4340,7 @@ loc_40579D:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAE
                 mov     ecx, dword ptr [ebp+var_2C]
                 shl     ecx, 5
                 push    ecx
-                call    sub_458CA0
+                call    ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z
                 add     esp, 30h
 
 loc_40586A:                             ; CODE XREF: ?sub_405399@BigStruct2@@QAEXH@Z+3FF↑j
@@ -4622,7 +4622,7 @@ loc_405ADF:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
                 call    _memcpy
                 add     esp, 0Ch
                 push    400h
-                mov     ecx, dword_665344
+                mov     ecx, ?DAT_00665344@@3PAVCGameBitmap@@A
                 call    sub_41EC60
                 mov     ecx, dword ptr [ebp+var_4C]
                 imul    ecx, 5
@@ -4636,7 +4636,7 @@ loc_405ADF:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
                 mov     ecx, dword ptr [eax+3F68h]
                 call    sub_41EC60
                 push    eax
-                call    sub_45424D
+                call    ?FUN_0045424d@@YAXPAE0H@Z
                 add     esp, 0Ch
                 mov     ecx, dword ptr [ebp+var_80]
                 mov     edx, dword ptr [ecx+3F68h]
@@ -4658,7 +4658,7 @@ loc_405B9E:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
                 jnz     short loc_405C2F
                 push    0
                 mov     ecx, dword ptr [ebp+var_70]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_64]
@@ -4694,7 +4694,7 @@ loc_405B9E:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
                 mov     eax, dword ptr [ebp+var_40]
                 shl     eax, 5
                 push    eax
-                call    sub_458B29
+                call    ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z
                 add     esp, 20h
                 jmp     loc_405CB2
 ; ---------------------------------------------------------------------------
@@ -4702,7 +4702,7 @@ loc_405B9E:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
 loc_405C2F:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAEXH@Z+329↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_70]
-                mov     ecx, dword_661018[ecx*4]
+                mov     ecx, ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4]
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 push    eax
                 mov     ecx, dword ptr [ebp+var_64]
@@ -4748,11 +4748,11 @@ loc_405C2F:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
                 mov     ecx, dword ptr [ebp+var_40]
                 shl     ecx, 5
                 push    ecx
-                call    sub_458CA0
+                call    ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z
                 add     esp, 30h
 
 loc_405CB2:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAEXH@Z+3AF↑j
-                cmp     dword_660F68, 0
+                cmp     ?DAT_00660f68@@3HA, 0
                 jz      short loc_405CFE
                 push    0
                 mov     edx, dword ptr [ebp+var_60]
@@ -4797,588 +4797,6 @@ loc_405D08:                             ; CODE XREF: ?sub_40587B@BigStruct2@@QAE
 ?sub_40587B@BigStruct2@@QAEXH@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?sub_405D0E@BigStruct2@@QAEXXZ(_DWORD)
-?sub_405D0E@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+B00↓p
-
-var_A0          = dword ptr -0A0h
-var_9C          = dword ptr -9Ch
-var_98          = dword ptr -98h
-var_94          = dword ptr -94h
-var_90          = dword ptr -90h
-var_8C          = dword ptr -8Ch
-var_88          = dword ptr -88h
-var_84          = dword ptr -84h
-var_80          = dword ptr -80h
-var_7C          = dword ptr -7Ch
-var_78          = dword ptr -78h
-var_74          = dword ptr -74h
-var_70          = dword ptr -70h
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0A0h
-                mov     [ebp+var_8C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_18], eax
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+80h]  ; varThis
-                call    FUN_0041eea0 ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [ecx+80h]
-                call    unknown_libname_435 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_28], eax
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [edx+80h]
-                call    FUN_0041ee80 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_14], eax
-                lea     ecx, [ebp+var_10] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_8C]
-                add     eax, 8
-                push    eax
-                lea     ecx, [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8C]
-                call    ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
-                mov     [ebp+var_24], 0
-                jmp     short loc_405D94
-; ---------------------------------------------------------------------------
-
-loc_405D8B:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ:loc_406337↓j
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 1
-                mov     [ebp+var_24], edx
-
-loc_405D94:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+7B↑j
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+68h]
-                add     ecx, 4
-                cmp     [ebp+var_24], ecx
-                jge     loc_40633C
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [edx+64h]
-                sub     eax, 1
-                mov     [ebp+var_20], eax
-                jmp     short loc_405DC3
-; ---------------------------------------------------------------------------
-
-loc_405DBA:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+16B↓j
-                mov     ecx, dword ptr [ebp+var_20]
-                sub     ecx, 1
-                mov     [ebp+var_20], ecx
-
-loc_405DC3:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+AA↑j
-                cmp     [ebp+var_20], 0
-                jl      loc_406337
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 3
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+64h]
-                add     ecx, 7
-                imul    edx, ecx
-                mov     eax, dword ptr [ebp+var_20]
-                lea     ecx, [eax+edx+3]
-                mov     [ebp+var_5C], ecx
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [edx+64h]
-                mov     ecx, dword ptr [ebp+var_5C]
-                lea     edx, [ecx+eax+7]
-                mov     [ebp+var_58], edx
-                xor     eax, eax
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+0A8h]
-                mov     edx, dword ptr [ebp+var_5C]
-                xor     eax, eax
-                mov     al, [ecx+edx]
-                mov     [ebp+var_3C], eax
-                xor     ecx, ecx
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+0A8h]
-                mov     eax, dword ptr [ebp+var_5C]
-                xor     ecx, ecx
-                mov     cl, [edx+eax+1]
-                mov     [ebp+var_44], ecx
-                xor     edx, edx
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [edx+0A8h]
-                mov     ecx, dword ptr [ebp+var_58]
-                xor     edx, edx
-                mov     dl, [eax+ecx]
-                mov     [ebp+var_4C], edx
-                xor     eax, eax
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+0A8h]
-                mov     edx, dword ptr [ebp+var_58]
-                xor     eax, eax
-                mov     al, [ecx+edx+1]
-                mov     [ebp+var_54], eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, [ebp+var_44]
-                add     ecx, [ebp+var_4C]
-                add     ecx, [ebp+var_54]
-                cmp     ecx, 3FCh
-                jnz     short loc_405E7E
-                jmp     loc_405DBA
-; ---------------------------------------------------------------------------
-
-loc_405E7E:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+169↑j
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [ebp+var_20]
-                add     eax, [edx+5Ch]
-                mov     [ebp+var_40], eax
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, [ecx+60h]
-                mov     [ebp+var_48], edx
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 1
-                mov     [ebp+var_84], eax
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+64h]
-                add     edx, 7
-                mov     [ebp+var_30], edx
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [ebp+var_48]
-                imul    ecx, [eax+84h]
-                mov     edx, dword ptr [ebp+var_40]
-                add     edx, ecx
-                mov     [ebp+var_50], edx
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 3
-                imul    eax, [ebp+var_30]
-                add     eax, 3
-                mov     [ebp+var_2C], eax
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, [ecx+84h]
-                mov     [ebp+var_34], edx
-                mov     eax, dword ptr [ebp+var_84]
-                add     eax, 3
-                imul    eax, [ebp+var_30]
-                add     eax, 3
-                mov     [ebp+var_68], eax
-                cmp     [ebp+var_3C], 0FFh
-                jnz     short loc_405F1C
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, [ebp+var_50]
-                xor     edx, edx
-                mov     dl, [ecx]
-                mov     [ebp+var_3C], edx
-                jmp     short loc_405F4F
-; ---------------------------------------------------------------------------
-
-loc_405F1C:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+1FD↑j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, [ebp+var_50]
-                xor     ecx, ecx
-                mov     cl, [eax]
-                cmp     [ebp+var_3C], ecx
-                jge     short loc_405F36
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     [ebp+var_90], edx
-                jmp     short loc_405F46
-; ---------------------------------------------------------------------------
-
-loc_405F36:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+21B↑j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, [ebp+var_50]
-                xor     ecx, ecx
-                mov     cl, [eax]
-                mov     [ebp+var_90], ecx
-
-loc_405F46:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+226↑j
-                mov     edx, dword ptr [ebp+var_90]
-                mov     [ebp+var_3C], edx
-
-loc_405F4F:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+20C↑j
-                cmp     [ebp+var_44], 0FFh
-                jnz     short loc_405F68
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, [ebp+var_50]
-                xor     ecx, ecx
-                mov     cl, [eax+1]
-                mov     [ebp+var_44], ecx
-                jmp     short loc_405F9D
-; ---------------------------------------------------------------------------
-
-loc_405F68:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+248↑j
-                mov     edx, dword ptr [ebp+var_28]
-                add     edx, [ebp+var_50]
-                xor     eax, eax
-                mov     al, [edx+1]
-                cmp     [ebp+var_44], eax
-                jge     short loc_405F83
-                mov     ecx, dword ptr [ebp+var_44]
-                mov     [ebp+var_94], ecx
-                jmp     short loc_405F94
-; ---------------------------------------------------------------------------
-
-loc_405F83:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+268↑j
-                mov     edx, dword ptr [ebp+var_28]
-                add     edx, [ebp+var_50]
-                xor     eax, eax
-                mov     al, [edx+1]
-                mov     [ebp+var_94], eax
-
-loc_405F94:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+273↑j
-                mov     ecx, dword ptr [ebp+var_94]
-                mov     [ebp+var_44], ecx
-
-loc_405F9D:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+258↑j
-                cmp     [ebp+var_4C], 0FFh
-                jnz     short loc_405FB5
-                mov     edx, dword ptr [ebp+var_28]
-                add     edx, [ebp+var_34]
-                xor     eax, eax
-                mov     al, [edx]
-                mov     [ebp+var_4C], eax
-                jmp     short loc_405FE8
-; ---------------------------------------------------------------------------
-
-loc_405FB5:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+296↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, [ebp+var_34]
-                xor     edx, edx
-                mov     dl, [ecx]
-                cmp     [ebp+var_4C], edx
-                jge     short loc_405FCF
-                mov     eax, dword ptr [ebp+var_4C]
-                mov     [ebp+var_98], eax
-                jmp     short loc_405FDF
-; ---------------------------------------------------------------------------
-
-loc_405FCF:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+2B4↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, [ebp+var_34]
-                xor     edx, edx
-                mov     dl, [ecx]
-                mov     [ebp+var_98], edx
-
-loc_405FDF:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+2BF↑j
-                mov     eax, dword ptr [ebp+var_98]
-                mov     [ebp+var_4C], eax
-
-loc_405FE8:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+2A5↑j
-                cmp     [ebp+var_54], 0FFh
-                jnz     short loc_406001
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, [ebp+var_34]
-                xor     edx, edx
-                mov     dl, [ecx+1]
-                mov     [ebp+var_54], edx
-                jmp     short loc_406036
-; ---------------------------------------------------------------------------
-
-loc_406001:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+2E1↑j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, [ebp+var_34]
-                xor     ecx, ecx
-                mov     cl, [eax+1]
-                cmp     [ebp+var_54], ecx
-                jge     short loc_40601C
-                mov     edx, dword ptr [ebp+var_54]
-                mov     [ebp+var_9C], edx
-                jmp     short loc_40602D
-; ---------------------------------------------------------------------------
-
-loc_40601C:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+301↑j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, [ebp+var_34]
-                xor     ecx, ecx
-                mov     cl, [eax+1]
-                mov     [ebp+var_9C], ecx
-
-loc_40602D:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+30C↑j
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     [ebp+var_54], edx
-
-loc_406036:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+2F1↑j
-                mov     eax, dword ptr [ebp+var_20]
-                add     eax, [ebp+var_2C]
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+0B4h]
-                mov     eax, dword ptr [edx+eax*4]
-                mov     [ebp+var_64], eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     edx, dword ptr [ebp+var_20]
-                lea     eax, [edx+ecx+1]
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+0B4h]
-                mov     eax, dword ptr [edx+eax*4]
-                mov     [ebp+var_6C], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, [ebp+var_68]
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [edx+0B4h]
-                mov     ecx, dword ptr [eax+ecx*4]
-                mov     [ebp+var_78], ecx
-                mov     edx, dword ptr [ebp+var_68]
-                mov     eax, dword ptr [ebp+var_20]
-                lea     ecx, [eax+edx+1]
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     eax, dword ptr [edx+0B4h]
-                mov     ecx, dword ptr [eax+ecx*4]
-                mov     [ebp+var_80], ecx
-                mov     edx, dword ptr [ebp+var_50]
-                mov     eax, dword ptr [ebp+var_14]
-                xor     ecx, ecx
-                mov     cx, [eax+edx*2]
-                and     ecx, 1FFFh
-                mov     word ptr [ebp+var_74], cx
-                mov     edx, dword ptr [ebp+var_74]
-                and     edx, 0FFFFh
-                sar     edx, 6
-                mov     [ebp+var_7C], edx
-                mov     eax, dword ptr [ebp+var_74]
-                and     eax, 0FFFFh
-                sar     eax, 4
-                and     eax, 3
-                mov     [ebp+var_60], eax
-                cmp     [ebp+var_7C], 8
-                jl      short loc_4060EC
-                cmp     [ebp+var_7C], 0Ch
-                jge     short loc_4060EC
-                mov     [ebp+var_A0], 1
-                jmp     short loc_4060F6
-; ---------------------------------------------------------------------------
-
-loc_4060EC:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+3CA↑j
-                mov     [ebp+var_A0], 0
-
-loc_4060F6:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+3DC↑j
-                mov     ecx, dword ptr [ebp+var_A0]
-                mov     [ebp+var_38], ecx
-                cmp     [ebp+var_38], 0
-                jz      short loc_40614D
-                mov     edx, dword ptr [ebp+var_40]
-                add     edx, 1
-                imul    edx, [ebp+var_48]
-                mov     eax, dword ptr [ebp+var_7C]
-                add     eax, edx
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+0A88h]
-                sar     edx, 2
-                add     eax, edx
-                and     eax, 3
-                mov     [ebp+var_88], eax
-                cmp     ?g_Animation@@3HA, 0
-                jnz     short loc_406141
-                mov     [ebp+var_88], 0
-
-loc_406141:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+427↑j
-                mov     eax, dword ptr [ebp+var_88]
-                add     eax, 8
-                mov     [ebp+var_7C], eax
-
-loc_40614D:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+3F5↑j
-                mov     ecx, dword ptr [ebp+var_7C]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_60]
-                mov     eax, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx+edx*4]
-                mov     [ebp+var_70], eax
-                mov     ecx, dword ptr [ebp+var_50]
-                mov     edx, dword ptr [ebp+var_14]
-                xor     eax, eax
-                mov     ax, [edx+ecx*2]
-                and     eax, 2000h
-                test    eax, eax
-                jz      loc_406215
-                cmp     [ebp+var_38], 0
-                jnz     loc_406215
-                push    400h            ; varSize
-                mov     ecx, dword ptr [ebp+var_70]
-                call    sub_41EC60
-                mov     ecx, dword ptr [ebp+var_74]
-                and     ecx, 0FFFFh
-                and     ecx, 0Fh
-                shl     ecx, 0Ah
-                add     eax, ecx
-                push    eax             ; Src
-                mov     edx, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [edx+3F68h]
-                call    sub_41EC60
-                push    eax             ; void *
-                call    _memcpy
-                add     esp, 0Ch
-                push    400h
-                mov     ecx, dword_665344
-                call    sub_41EC60
-                mov     ecx, dword ptr [ebp+var_48]
-                imul    ecx, 5
-                mov     edx, dword ptr [ebp+var_40]
-                add     edx, ecx
-                and     edx, 3
-                shl     edx, 0Ah
-                add     eax, edx
-                push    eax
-                mov     eax, dword ptr [ebp+var_8C]
-                mov     ecx, dword ptr [eax+3F68h]
-                call    sub_41EC60
-                push    eax
-                call    sub_45424D
-                add     esp, 0Ch
-                mov     ecx, dword ptr [ebp+var_8C]
-                mov     edx, dword ptr [ecx+3F68h]
-                mov     [ebp+var_70], edx
-                mov     ax, word ptr [ebp+var_74]
-                and     ax, 0FFF0h
-                mov     word ptr [ebp+var_74], ax
-
-loc_406215:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+465↑j
-                mov     ecx, dword ptr [ebp+var_64]
-                cmp     ecx, [ebp+var_6C]
-                jnz     short loc_406281
-                mov     edx, dword ptr [ebp+var_78]
-                cmp     edx, [ebp+var_80]
-                jnz     short loc_406281
-                mov     eax, dword ptr [ebp+var_64]
-                add     eax, 20h ; ' '
-                cmp     eax, [ebp+var_78]
-                jnz     short loc_406281
-                push    0
-                mov     ecx, dword ptr [ebp+var_7C]
-                mov     ecx, dword_661018[ecx*4]
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_70]
-                call    sub_41EC60
-                mov     edx, dword ptr [ebp+var_74]
-                and     edx, 0FFFFh
-                and     edx, 0Fh
-                shl     edx, 0Ah
-                add     eax, edx
-                push    eax
-                mov     eax, dword ptr [ebp+var_54]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_44]
-                push    edx
-                mov     eax, dword ptr [ebp+var_3C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_64]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                shl     edx, 5
-                push    edx
-                call    sub_458B29
-                add     esp, 20h
-                jmp     short loc_4062E6
-; ---------------------------------------------------------------------------
-
-loc_406281:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+50D↑j
-                push    0
-                mov     eax, dword ptr [ebp+var_7C]
-                mov     ecx, dword_661018[eax*4]
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_70]
-                call    sub_41EC60
-                mov     ecx, dword ptr [ebp+var_74]
-                and     ecx, 0FFFFh
-                and     ecx, 0Fh
-                shl     ecx, 0Ah
-                add     eax, ecx
-                push    eax
-                mov     edx, dword ptr [ebp+var_54]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_3C]
-                push    edx
-                mov     eax, dword ptr [ebp+var_80]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_78]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_6C]
-                push    edx
-                mov     eax, dword ptr [ebp+var_64]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 1
-                shl     ecx, 5
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                shl     edx, 5
-                push    edx
-                call    sub_458CA0
-                add     esp, 30h
-
-loc_4062E6:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+571↑j
-                cmp     dword_660F68, 0
-                jz      short loc_406332
-                push    0
-                mov     eax, dword ptr [ebp+var_6C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 1
-                shl     ecx, 5
-                push    ecx
-                mov     edx, dword ptr [ebp+var_64]
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                shl     eax, 5
-                push    eax
-                call    ?FillRectColor@@YAXHHHHI@Z
-                add     esp, 14h
-                push    0
-                mov     ecx, dword ptr [ebp+var_78]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                shl     edx, 5
-                push    edx
-                mov     eax, dword ptr [ebp+var_64]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                shl     ecx, 5
-                push    ecx
-                call    ?FillRectColor@@YAXHHHHI@Z
-                add     esp, 14h
-
-loc_406332:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+5DF↑j
-                jmp     loc_405DBA
-; ---------------------------------------------------------------------------
-
-loc_406337:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+B9↑j
-                jmp     loc_405D8B
-; ---------------------------------------------------------------------------
-
-loc_40633C:                             ; CODE XREF: ?sub_405D0E@BigStruct2@@QAEXXZ+95↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_405D0E@BigStruct2@@QAEXXZ      endp
 
 
 
@@ -76429,7 +75847,7 @@ sub_453F94      endp
 
 ; Attributes: bp-based frame
 
-sub_45424D      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2B4↑p
+?FUN_0045424d@@YAXPAE0H@Z      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2B4↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -76444,14 +75862,14 @@ arg_8           = dword ptr  10h
                 mov     esi, [ebp+arg_4]
                 mov     ecx, dword ptr [ebp+arg_8]
 
-loc_45425C:                             ; CODE XREF: sub_45424D+1A↓j
+loc_45425C:                             ; CODE XREF: ?FUN_0045424d@@YAXPAE0H@Z+1A↓j
                 mov     al, [esi]
                 inc     esi
                 or      al, al
                 jz      short loc_454265
                 mov     [edi], al
 
-loc_454265:                             ; CODE XREF: sub_45424D+14↑j
+loc_454265:                             ; CODE XREF: ?FUN_0045424d@@YAXPAE0H@Z+14↑j
                 inc     edi
                 dec     ecx
                 jnz     short loc_45425C
@@ -76460,7 +75878,7 @@ loc_454265:                             ; CODE XREF: sub_45424D+14↑j
                 pop     ebx
                 pop     ebp
                 retn
-sub_45424D      endp
+?FUN_0045424d@@YAXPAE0H@Z      endp
 
 
 
@@ -78070,7 +77488,7 @@ sub_4588EC      endp
 
 ; Attributes: bp-based frame
 
-sub_458B29      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+358↑p
+?FUN_00458b29@@YAXHHHHHHPAEPAG@Z      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+358↑p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -78101,18 +77519,18 @@ arg_1C          = dword ptr  24h
                 cmp     ecx, [?g_clipRect@@3VCRect@@A+08h]
                 jle     short loc_458B50
 
-loc_458B4B:                             ; CODE XREF: sub_458B29+12↑j
+loc_458B4B:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+12↑j
                 jmp     loc_458C99
 ; ---------------------------------------------------------------------------
 
-loc_458B50:                             ; CODE XREF: sub_458B29+20↑j
+loc_458B50:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+20↑j
                 mov     edx, dword ptr [ebp+arg_4]
                 cmp     edx, [?g_clipRect@@3VCRect@@A+0Ch]
                 jl      short loc_458B60
                 jmp     loc_458C99
 ; ---------------------------------------------------------------------------
 
-loc_458B60:                             ; CODE XREF: sub_458B29+30↑j
+loc_458B60:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+30↑j
                 mov     eax, dword ptr [ebp+arg_4]
                 add     eax, 20h ; ' '
                 cmp     eax, [?g_clipRect@@3VCRect@@A+04h]
@@ -78120,7 +77538,7 @@ loc_458B60:                             ; CODE XREF: sub_458B29+30↑j
                 jmp     loc_458C99
 ; ---------------------------------------------------------------------------
 
-loc_458B73:                             ; CODE XREF: sub_458B29+43↑j
+loc_458B73:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+43↑j
                 mov     ecx, dword ptr [ebp+arg_C]
                 sub     ecx, [ebp+arg_8]
                 shl     ecx, 4
@@ -78144,7 +77562,7 @@ loc_458B73:                             ; CODE XREF: sub_458B29+43↑j
                 mov     [ebp+var_4], ecx
                 mov     [ebp+var_C], 0
 
-loc_458BBE:                             ; CODE XREF: sub_458B29+16B↓j
+loc_458BBE:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+16B↓j
                 cmp     [ebp+var_C], 20h ; ' '
                 jge     loc_458C99
                 mov     [ebp+var_18], 20h ; ' '
@@ -78163,12 +77581,12 @@ loc_458BBE:                             ; CODE XREF: sub_458B29+16B↓j
                 sub     ecx, [ebp+arg_4]
                 mov     [ebp+var_18], ecx
 
-loc_458BFB:                             ; CODE XREF: sub_458B29+C4↑j
+loc_458BFB:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+C4↑j
                 cmp     [ebp+var_18], 0
                 jge     short loc_458C08
                 mov     [ebp+var_18], 0
 
-loc_458C08:                             ; CODE XREF: sub_458B29+D6↑j
+loc_458C08:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+D6↑j
                 mov     edi, [ebp+var_4]
                 mov     esi, [ebp+arg_18]
                 add     esi, [ebp+var_C]
@@ -78181,7 +77599,7 @@ loc_458C08:                             ; CODE XREF: sub_458B29+D6↑j
                 cmp     eax, [?g_clipRect@@3VCRect@@A+04h]
                 jge     short loc_458C45
 
-loc_458C2D:                             ; CODE XREF: sub_458B29+11A↓j
+loc_458C2D:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+11A↓j
                 add     edx, [ebp+var_14]
                 add     esi, 20h ; ' '
                 inc     eax
@@ -78191,10 +77609,10 @@ loc_458C2D:                             ; CODE XREF: sub_458B29+11A↓j
                 cmp     eax, [?g_clipRect@@3VCRect@@A+04h]
                 jl      short loc_458C2D
 
-loc_458C45:                             ; CODE XREF: sub_458B29+102↑j
+loc_458C45:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+102↑j
                 sub     edi, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+10h
 
-loc_458C4B:                             ; CODE XREF: sub_458B29+145↓j
+loc_458C4B:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+145↓j
                 xor     eax, eax
                 add     edi, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+10h
                 mov     ebx, edx
@@ -78208,7 +77626,7 @@ loc_458C4B:                             ; CODE XREF: sub_458B29+145↓j
                 mov     [edi], ax
                 jnz     short loc_458C4B
 
-loc_458C70:                             ; CODE XREF: sub_458B29+FA↑j
+loc_458C70:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z+FA↑j
                 mov     edx, dword ptr [ebp+arg_8]
                 add     edx, [ebp+var_8]
                 mov     [ebp+arg_8], edx
@@ -78224,21 +77642,21 @@ loc_458C70:                             ; CODE XREF: sub_458B29+FA↑j
                 jmp     loc_458BBE
 ; ---------------------------------------------------------------------------
 
-loc_458C99:                             ; CODE XREF: sub_458B29:loc_458B4B↑j
+loc_458C99:                             ; CODE XREF: ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z:loc_458B4B↑j
                 pop     edi
                 pop     esi
                 pop     ebx
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_458B29      endp
+?FUN_00458b29@@YAXHHHHHHPAEPAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_458CA0      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+3E0↑p
+?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z      proc near               ; CODE XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+3E0↑p
 
 var_48          = dword ptr -48h
 var_44          = dword ptr -44h
@@ -78284,11 +77702,11 @@ arg_2C          = dword ptr  34h
                 cmp     ecx, [?g_clipRect@@3VCRect@@A+08h]
                 jle     short loc_458CC4
 
-loc_458CBF:                             ; CODE XREF: sub_458CA0+12↑j
+loc_458CBF:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+12↑j
                 jmp     loc_458FDF
 ; ---------------------------------------------------------------------------
 
-loc_458CC4:                             ; CODE XREF: sub_458CA0+1D↑j
+loc_458CC4:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1D↑j
                 mov     edx, dword ptr [ebp+arg_8]
                 cmp     edx, [?g_clipRect@@3VCRect@@A+0Ch]
                 jl      short loc_458CDF
@@ -78298,7 +77716,7 @@ loc_458CC4:                             ; CODE XREF: sub_458CA0+1D↑j
                 jmp     loc_458FDF
 ; ---------------------------------------------------------------------------
 
-loc_458CDF:                             ; CODE XREF: sub_458CA0+2D↑j
+loc_458CDF:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+2D↑j
                 mov     ecx, dword ptr [ebp+arg_10]
                 cmp     ecx, [?g_clipRect@@3VCRect@@A+04h]
                 jge     short loc_458CFA
@@ -78308,7 +77726,7 @@ loc_458CDF:                             ; CODE XREF: sub_458CA0+2D↑j
                 jmp     loc_458FDF
 ; ---------------------------------------------------------------------------
 
-loc_458CFA:                             ; CODE XREF: sub_458CA0+48↑j
+loc_458CFA:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+48↑j
                 mov     eax, dword ptr [ebp+arg_C]
                 sub     eax, [ebp+arg_8]
                 push    eax             ; Number
@@ -78358,12 +77776,12 @@ loc_458CFA:                             ; CODE XREF: sub_458CA0+48↑j
                 jmp     short loc_458D9F
 ; ---------------------------------------------------------------------------
 
-loc_458D96:                             ; CODE XREF: sub_458CA0+EB↑j
+loc_458D96:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+EB↑j
                 mov     ecx, dword ptr [ebp+var_18]
                 sub     ecx, 1
                 mov     [ebp+var_8], ecx
 
-loc_458D9F:                             ; CODE XREF: sub_458CA0+F4↑j
+loc_458D9F:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+F4↑j
                 mov     edx, dword ptr [ebp+arg_10]
                 cmp     edx, [ebp+arg_14]
                 jge     short loc_458DB2
@@ -78373,14 +77791,14 @@ loc_458D9F:                             ; CODE XREF: sub_458CA0+F4↑j
                 jmp     short loc_458DB9
 ; ---------------------------------------------------------------------------
 
-loc_458DB2:                             ; CODE XREF: sub_458CA0+105↑j
+loc_458DB2:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+105↑j
                 mov     [ebp+var_2C], 0
 
-loc_458DB9:                             ; CODE XREF: sub_458CA0+110↑j
+loc_458DB9:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+110↑j
                 mov     [ebp+var_10], 0
                 mov     [ebp+var_28], 0
 
-loc_458DC7:                             ; CODE XREF: sub_458CA0+33A↓j
+loc_458DC7:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+33A↓j
                 cmp     [ebp+var_20], 20h ; ' '
                 jge     loc_458FDF
                 mov     ecx, dword ptr [ebp+var_4]
@@ -78392,7 +77810,7 @@ loc_458DC7:                             ; CODE XREF: sub_458CA0+33A↓j
                 cmp     edx, [ebp+arg_C]
                 jge     short loc_458E14
 
-loc_458DE8:                             ; CODE XREF: sub_458CA0+170↓j
+loc_458DE8:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+170↓j
                 mov     eax, dword ptr [ebp+var_C]
                 add     eax, [ebp+var_8]
                 movsx   ecx, byte ptr [eax]
@@ -78410,11 +77828,11 @@ loc_458DE8:                             ; CODE XREF: sub_458CA0+170↓j
                 jmp     short loc_458DE8
 ; ---------------------------------------------------------------------------
 
-loc_458E12:                             ; CODE XREF: sub_458CA0+154↑j
+loc_458E12:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+154↑j
                 jmp     short loc_458E43
 ; ---------------------------------------------------------------------------
 
-loc_458E14:                             ; CODE XREF: sub_458CA0+146↑j
+loc_458E14:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+146↑j
                 mov     edx, dword ptr [ebp+var_C]
                 add     edx, [ebp+var_8]
                 movsx   eax, byte ptr [edx]
@@ -78433,24 +77851,24 @@ loc_458E14:                             ; CODE XREF: sub_458CA0+146↑j
                 jmp     short loc_458E14
 ; ---------------------------------------------------------------------------
 
-loc_458E43:                             ; CODE XREF: sub_458CA0:loc_458E12↑j
+loc_458E43:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z:loc_458E12↑j
                 cmp     [ebp+var_8], 0
                 jl      short loc_458E51
                 mov     ecx, dword ptr [ebp+var_8]
                 cmp     ecx, [ebp+var_18]
                 jnz     short loc_458E58
 
-loc_458E51:                             ; CODE XREF: sub_458CA0+1A7↑j
+loc_458E51:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1A7↑j
                 mov     [ebp+var_10], 1
 
-loc_458E58:                             ; CODE XREF: sub_458CA0+13E↑j
+loc_458E58:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+13E↑j
                 cmp     [ebp+var_28], 0
                 jnz     short loc_458ED6
                 mov     edx, dword ptr [ebp+arg_10]
                 cmp     edx, [ebp+arg_14]
                 jge     short loc_458E97
 
-loc_458E66:                             ; CODE XREF: sub_458CA0+1F3↓j
+loc_458E66:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1F3↓j
                 mov     eax, dword ptr [ebp+var_1C]
                 add     eax, [ebp+var_2C]
                 movsx   ecx, byte ptr [eax]
@@ -78469,11 +77887,11 @@ loc_458E66:                             ; CODE XREF: sub_458CA0+1F3↓j
                 jmp     short loc_458E66
 ; ---------------------------------------------------------------------------
 
-loc_458E95:                             ; CODE XREF: sub_458CA0+1D9↑j
+loc_458E95:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1D9↑j
                 jmp     short loc_458EC1
 ; ---------------------------------------------------------------------------
 
-loc_458E97:                             ; CODE XREF: sub_458CA0+1C4↑j
+loc_458E97:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1C4↑j
                 mov     edx, dword ptr [ebp+var_1C]
                 add     edx, [ebp+var_2C]
                 movsx   eax, byte ptr [edx]
@@ -78491,17 +77909,17 @@ loc_458E97:                             ; CODE XREF: sub_458CA0+1C4↑j
                 jmp     short loc_458E97
 ; ---------------------------------------------------------------------------
 
-loc_458EC1:                             ; CODE XREF: sub_458CA0:loc_458E95↑j
+loc_458EC1:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z:loc_458E95↑j
                 cmp     [ebp+var_2C], 0
                 jl      short loc_458ECF
                 mov     ecx, dword ptr [ebp+var_2C]
                 cmp     ecx, [ebp+var_34]
                 jnz     short loc_458ED6
 
-loc_458ECF:                             ; CODE XREF: sub_458CA0+225↑j
+loc_458ECF:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+225↑j
                 mov     [ebp+var_28], 1
 
-loc_458ED6:                             ; CODE XREF: sub_458CA0+1BC↑j
+loc_458ED6:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+1BC↑j
                 mov     edx, dword ptr [ebp+var_20]
                 add     edx, 1
                 mov     [ebp+var_20], edx
@@ -78535,12 +77953,12 @@ loc_458ED6:                             ; CODE XREF: sub_458CA0+1BC↑j
                 sub     ecx, [ebp+arg_8]
                 mov     [ebp+var_3C], ecx
 
-loc_458F40:                             ; CODE XREF: sub_458CA0+292↑j
+loc_458F40:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+292↑j
                 cmp     [ebp+var_3C], 0
                 jge     short loc_458F4D
                 mov     [ebp+var_3C], 0
 
-loc_458F4D:                             ; CODE XREF: sub_458CA0+2A4↑j
+loc_458F4D:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+2A4↑j
                 mov     edi, [ebp+var_38]
                 xor     esi, esi
                 mov     edx, dword ptr [ebp+arg_18]
@@ -78551,7 +77969,7 @@ loc_458F4D:                             ; CODE XREF: sub_458CA0+2A4↑j
                 cmp     eax, [?g_clipRect@@3VCRect@@A+04h]
                 jge     short loc_458F8B
 
-loc_458F6C:                             ; CODE XREF: sub_458CA0+2E9↓j
+loc_458F6C:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+2E9↓j
                 add     edx, [ebp+var_48]
                 add     esi, [ebp+var_44]
                 inc     [ebp+var_40]
@@ -78562,11 +77980,11 @@ loc_458F6C:                             ; CODE XREF: sub_458CA0+2E9↓j
                 cmp     eax, [?g_clipRect@@3VCRect@@A+04h]
                 jl      short loc_458F6C
 
-loc_458F8B:                             ; CODE XREF: sub_458CA0+2CA↑j
+loc_458F8B:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+2CA↑j
                 sub     edi, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+10h
                 mov     ebx, edx
 
-loc_458F93:                             ; CODE XREF: sub_458CA0+326↓j
+loc_458F93:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+326↓j
                 add     edi, ?g_selDrawBitmap@@3U_DDSURFACEDESC@@A+10h
                 and     ebx, 0FFFFFE00h
                 mov     ecx, esi
@@ -78584,7 +78002,7 @@ loc_458F93:                             ; CODE XREF: sub_458CA0+326↓j
                 mov     [edi], ax
                 jnz     short loc_458F93
 
-loc_458FC8:                             ; CODE XREF: sub_458CA0+264↑j
+loc_458FC8:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z+264↑j
                 mov     edx, dword ptr [ebp+arg_18]
                 add     edx, [ebp+var_14]
                 mov     [ebp+arg_18], edx
@@ -78594,14 +78012,14 @@ loc_458FC8:                             ; CODE XREF: sub_458CA0+264↑j
                 jmp     loc_458DC7
 ; ---------------------------------------------------------------------------
 
-loc_458FDF:                             ; CODE XREF: sub_458CA0:loc_458CBF↑j
+loc_458FDF:                             ; CODE XREF: ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z:loc_458CBF↑j
                 pop     edi
                 pop     esi
                 pop     ebx
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_458CA0      endp
+?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -103547,7 +102965,7 @@ loc_477BD8:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+73↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
                 mov     edx, dword ptr [ebp+var_24C]
-                mov     dword_665344, edx
+                mov     ?DAT_00665344@@3PAVCGameBitmap@@A, edx
 
 loc_477BF4:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+41↑j
                 mov     [ebp+var_30], 0
@@ -103763,7 +103181,7 @@ loc_477E69:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+304↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_26C]
-                mov     dword_665344, ecx
+                mov     ?DAT_00665344@@3PAVCGameBitmap@@A, ecx
 
 loc_477E85:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+2D2↑j
                 mov     [ebp+var_30], 0
@@ -103980,7 +103398,7 @@ loc_4780CA:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+566↑j
                 mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[edx]
                 call    unknown_libname_424 ; MFC 3.1-14.0 32bit
                 mov     ecx, dword ptr [ebp+var_30]
-                mov     dword_661018[ecx*4], eax
+                mov     ?DAT_00661018@@3PAPAVCGamePalette@@A[ecx*4], eax
 
 loc_478111:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+584↑j
                 jmp     short loc_4780C1
@@ -104016,9 +103434,9 @@ var_4           = dword ptr -4
                 push    0
                 call    ?sub_477B59@@YAXI@Z
                 add     esp, 4
-                cmp     dword_665344, 0
+                cmp     ?DAT_00665344@@3PAVCGameBitmap@@A, 0
                 jz      short loc_478180
-                mov     eax, dword_665344
+                mov     eax, ?DAT_00665344@@3PAVCGameBitmap@@A
                 mov     [ebp+var_8], eax
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     [ebp+var_4], ecx
@@ -104037,7 +103455,7 @@ loc_47816F:                             ; CODE XREF: ?FUN_00478130@MainWindow@@Q
                 mov     [ebp+var_C], 0
 
 loc_478176:                             ; CODE XREF: ?FUN_00478130@MainWindow@@QAEXXZ+3D↑j
-                mov     dword_665344, 0
+                mov     ?DAT_00665344@@3PAVCGameBitmap@@A, 0
 
 loc_478180:                             ; CODE XREF: ?FUN_00478130@MainWindow@@QAEXXZ+17↑j
                 mov     esp, ebp
@@ -104957,7 +104375,7 @@ loc_47FC9D:                             ; CODE XREF: ?sub_47FA75@@YAXXZ+21D↑j
                 mov     ecx, ?g_ter_tiles@@3U?$Array2D@PAVCBmp256@@$03$0CA@@@A[ecx]
                 call    unknown_libname_424 ; MFC 3.1-14.0 32bit
                 mov     edx, dword ptr [ebp+var_10]
-                mov     dword_661018[edx*4], eax
+                mov     ?DAT_00661018@@3PAPAVCGamePalette@@A[edx*4], eax
 
 loc_47FCE4:                             ; CODE XREF: ?sub_47FA75@@YAXXZ+23B↑j
                 jmp     short loc_47FC94
@@ -448989,19 +448407,19 @@ dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w
 
 
 
-dword_660F68    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ:loc_405202↑r
+?DAT_00660f68@@3HA    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ:loc_405202↑r
 ?DAT_00660f6c@@3HA    dd ?                    ; DATA XREF: ?sub_406F7B@BigStruct2@@QAEXXZ:loc_40AAAA↑r
 
 ?INT_00660f8c@@3HA    dd ?                    ; DATA XREF: ?ConnectAndJoinSession@BigStruct2@@QAEHXZ+1E↑w
 ?INT_00660f90@@3HA    dd ?                    ; DATA XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z:loc_40DB73↑w
 
                 db 80h dup(?)
-dword_661018    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2F8↑r
+?DAT_00661018@@3PAPAVCGamePalette@@A    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+2F8↑r
                 db 7Ch dup(?)
 
 
 
-dword_665344    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+286↑r
+?DAT_00665344@@3PAVCGameBitmap@@A    dd ?                    ; DATA XREF: ?sub_404E1A@BigStruct2@@QAEXXZ+286↑r
 
 
 

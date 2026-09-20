@@ -15,6 +15,7 @@ class UnitGfxFile;
 
 extern int32_t INT_00660f8c;
 extern int32_t INT_00660f90;
+extern int32_t DAT_00660f68; //660f68
 extern int32_t DAT_00660f6c; //660f6c
 extern int32_t DAT_00660f70; //660f70
 extern int32_t dword_62F908[24]; //62f908

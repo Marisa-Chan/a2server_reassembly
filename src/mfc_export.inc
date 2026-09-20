@@ -1891,9 +1891,11 @@ externdef ?sub_404A2C@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404A2C()
 externdef ?sub_404E1A@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_404E1A()
 externdef ?sub_405399@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_405399(int)
 externdef ?sub_40587B@BigStruct2@@QAEXH@Z : proc  ; void BigStruct2::sub_40587B(int)
-externdef ?sub_405D0E@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_405D0E()
 externdef ?sub_40AFC5@BigStruct2@@QAEXHHIH@Z : proc  ; void BigStruct2::sub_40AFC5(int, int, uint, int)
 externdef ?sub_40B173@BigStruct2@@QAEHHHHH@Z : proc  ; int BigStruct2::sub_40B173(int, int, int, int)
+externdef ?DAT_00660f68@@3HA :dword
+externdef ?DAT_00661018@@3PAPAVCGamePalette@@A :dword
+externdef ?DAT_00665344@@3PAVCGameBitmap@@A :dword
 externdef ?DAT_00660f6c@@3HA :dword
 extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 externdef ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc  ; int BigStruct2::sub_4184B8(int, int)
@@ -1957,8 +1959,11 @@ externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
 
 
+externdef ?FUN_0045424d@@YAXPAE0H@Z : proc  ; void __cdecl FUN_0045424d(uint8_t*, uint8_t*, int)
 externdef ?FUN_004549e5@@YAXHHHH@Z : proc  ; void __cdecl FUN_004549e5(int, int, int, int)
 externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int, int, int)
+externdef ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z : proc  ; void __cdecl FUN_00458b29(int x6, uint8_t*, uint16_t*)
+externdef ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z : proc  ; void __cdecl FUN_00458ca0(int x10, uint8_t*, uint16_t*)
 externdef ?FUN_00458fe6@@YAXHHH@Z : proc  ; void __cdecl FUN_00458fe6(int, int, int)
 externdef ?FUN_004590ef@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_004590ef(int x6)
 externdef ?FUN_00459449@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459449(int x6)
