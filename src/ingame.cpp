@@ -3946,6 +3946,50 @@ void BigStruct2::sub_403F08(Scenario* scen)
 	this->field_0x88 = this->field_0x80->GetHeight();
 }
 
+// 418F93
+void BigStruct2::sub_418F93(int32_t arg)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	uint32_t avail = this->AvailableOrderMask();
+	int32_t mode = arg;
+	if (arg == 9) {
+		mode = 5;
+	}
+	if (arg == 0xA) {
+		mode = 5;
+	}
+	if (this->field_0x9b4 == 5 && mode != 5 && this->IsBookOpen()) {
+		this->FUN_0041b636();
+		wnd->vis_spellbook->FUN_004caa69();
+	}
+	if ((avail & (1 << (mode - 1))) != 0 || arg == 0xA) {
+		this->field_0x9b4 = mode;
+		wnd->vis_ordertoolbar->MsgProc(0x40D, mode - 1, 0);
+		switch (arg) {
+		case 3:
+			this->sub_4193E8();
+			this->field_0x9b4 = 0;
+			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			break;
+		case 7:
+			this->sub_4194A2();
+			this->field_0x9b4 = 0;
+			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			break;
+		case 8:
+			this->sub_41A425();
+			this->field_0x9b4 = 0;
+			wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+			break;
+		case 5:
+			if (!this->IsBookOpen()) {
+				this->FUN_0041b509();
+			}
+			break;
+		}
+	}
+}
+
 // 40328E
 void BigStruct2::sub_40328E()
 {

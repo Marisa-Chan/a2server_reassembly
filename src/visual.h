@@ -832,6 +832,9 @@ public:
 	void sub_4168BD(); //4168bd
 	void sub_4167F7(int32_t wparam, int32_t lparam); //4167f7
 	void sub_418F93(int32_t arg); //418f93
+	void sub_4193E8(); //4193e8
+	void sub_4194A2(); //4194a2
+	void sub_41A425(); //41a425
 	void sub_41B8D0(); //41b8d0
 	void sub_416983(int32_t digit); //416983
 	void sub_416A02(int32_t digit); //416a02

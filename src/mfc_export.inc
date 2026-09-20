@@ -1900,7 +1900,10 @@ externdef ?sub_417B42@BigStruct2@@QAEXPAVCPoint@@@Z : proc
 externdef ?sub_402FB8@BigStruct2@@QAEXXZ : proc
 externdef ?sub_403730@BigStruct2@@QAEXXZ : proc
 externdef ?sub_40BD34@BigStruct2@@QAEXXZ : proc
-externdef ?sub_418F93@BigStruct2@@QAEXH@Z : proc
+extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_4193E8@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4193E8()
+externdef ?sub_4194A2@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_4194A2()
+externdef ?sub_41A425@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_41A425()
 extern ?UpdateAmbientSounds@BigStruct2@@QAEXXZ : proc
 extern ?sub_416983@BigStruct2@@QAEXH@Z : proc
 extern ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
