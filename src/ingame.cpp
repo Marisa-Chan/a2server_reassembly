@@ -3920,6 +3920,18 @@ void BigStruct2::sub_41CE14()
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 41AC88
+void BigStruct2::sub_41AC88(int32_t arg1, int32_t arg2)
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	pkt->id = 0x23;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->field_0xa = arg1;
+	pkt->field_0xe = arg2;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {

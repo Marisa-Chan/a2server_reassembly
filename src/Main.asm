@@ -12010,41 +12010,6 @@ sub_41AC2D      endp
 
 ; Attributes: bp-based frame
 
-?sub_41AC88@BigStruct2@@QAEXHH@Z      proc near               ; CODE XREF: ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+17F↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketInfo@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 23h ; '#'
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+9CCh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+5], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+0Ah], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     [edx+0Eh], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_41AC88@BigStruct2@@QAEXHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
