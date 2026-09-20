@@ -1899,7 +1899,6 @@ extern ?sub_41930D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_41955C@BigStruct2@@QAEXG@Z : proc
 extern ?sub_41965D@BigStruct2@@QAEXGG@Z : proc
 externdef ?sub_40C112@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C112()
-externdef ?sub_40C18B@BigStruct2@@QAEXXZ : proc  ; void BigStruct2::sub_40C18B()
 extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 extern ?UpdateAmbientSounds@BigStruct2@@QAEXXZ : proc
 extern ?sub_416983@BigStruct2@@QAEXH@Z : proc

@@ -7044,6 +7044,24 @@ void BigStruct2::sub_417F09(CRect* rect)
 	}
 }
 
+// 40C18B
+void BigStruct2::sub_40C18B()
+{
+	this->field_0xdc = 1;
+	this->field_0xe0 = 1;
+	uint16_t* landscape = this->field_0x80->GetLandscape();
+	int32_t count = this->field_0x84 * this->field_0x88;
+	for (int32_t i = 0; i < count; i++) {
+		landscape[i] &= 0xBFFF;
+	}
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		obj->VMethod14();
+	}
+}
+
 // 40C232
 int32_t BigStruct2::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
