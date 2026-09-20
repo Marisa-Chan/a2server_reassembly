@@ -1919,7 +1919,6 @@ externdef ?sub_41A5B4@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41A4DF@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41B155@BigStruct2@@QAEXXZ : proc
 externdef ?sub_416C4C@BigStruct2@@QAEXXZ : proc
-externdef ?sub_41F7F0@BigStruct2@@QAEHXZ : proc
 externdef ?sub_41F810@BigStruct2@@QAEHXZ : proc
 externdef ?sub_41AB05@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41CE14@BigStruct2@@QAEXXZ : proc

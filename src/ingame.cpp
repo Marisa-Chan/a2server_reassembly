@@ -3780,6 +3780,12 @@ void BigStruct2::sub_41F7B0()
 	this->flying_hp = this->flying_hp == 0;
 }
 
+// 41F7F0
+int32_t BigStruct2::sub_41F7F0()
+{
+	return this->wimpy;
+}
+
 // 40B314
 void BigStruct2::sub_40B314()
 {
