@@ -11,7 +11,6 @@ extern ?AssertValid@CObject@@UBEXXZ:proc ; CObject::AssertValid 00401980
 extern ?Dump@CObject@@UBEXAAVCDumpContext@@@Z:proc ; CObject::Dump  00401990
 extern ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ:proc ; CObject::GetRuntimeClass 005DDF9B
 extern ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z:proc  ; CObject::IsKindOf
-extern ?IsSerializable@CObject@@QBEHXZ:proc  ; CObject::IsSerializable
 
 
 ; WorldEquip
@@ -164,11 +163,8 @@ externdef ?ExitInstance@CWinApp@@UAEHXZ:proc   ; (public: virtual int __thiscall
 
 extern  ?AppGetWorkingDir@@YAHHPAD@Z  : proc
 extern  ?AppHasAnySaveFile@@YAHXZ  : proc
-extern ?AppFindSavesList@@YAXPAV?$CArray@U_WIN32_FIND_DATAA@@ABU1@@@H@Z  : proc
 
-extern ?g_WorkingDir@@3PADA : byte
 
-extern ?RemoteGameIdle@MainWindow@@QAEXXZ : dword
 
 
 
@@ -183,14 +179,8 @@ externdef ?ShowRoleKeyDialog@@YGXPBD@Z : proc
 extern ?g_GameDataRes@@3UGameDataRes@@A:byte    ; g_GameDataRes
 externdef ?sub_510EE6@GameDataRes@@QAEPAVItem@@G@Z :proc
 
-externdef ?ParseWorldIn@GameDataRes@@QAEHABVCString@@@Z : proc
-externdef ?ParseDataBin@GameDataRes@@QAEHABVCString@@@Z : proc
-externdef ?ParseTxtFiles@GameDataRes@@QAEHABVCString@@@Z : proc
-externdef ?Serialize@GameDataRes@@QAEXAAVCArchive@@@Z : proc
-externdef ?sub_510502@GameDataRes@@QAEPAVItem@@PAVCString@@@Z :proc
 extern ?FUN_00512625@GameDataRes@@QAEHH@Z : proc
 extern ?FUN_005125a8@GameDataRes@@QAEHH@Z : proc
-externdef ?sub_514BE7@GameDataRes@@QAEXXZ :proc
 
 ; ParseTxtFiles header CStringArray globals
 extern ?unk_6B0BE8@@3VCStringArray@@A :byte
@@ -207,72 +197,33 @@ externdef ?Serialize@Building@@UAEXAAVCArchive@@@Z :proc                        
 
 
 ; Pointer
-externdef ??0Pointer@@QAE@EPAUTokenPos@@EE@Z :proc                              ; Pointer::Pointer(uint8_t, TokenPos*, uint8_t, uint8_t)
-externdef ??0Pointer@@QAE@XZ :proc                                              ; Pointer::Pointer()
 externdef ??1Pointer@@UAE@XZ :proc                                              ; Pointer::~Pointer()
-externdef ?Serialize@Pointer@@UAEXAAVCArchive@@@Z :proc                         ; void Pointer::Serialize(CArchive&)
-externdef ?CreateObject@Pointer@@SGPAVCObject@@XZ :proc                         ; Pointer::CreateObject()
 
 
 ; Outpost
 
 
 ; Inn
-externdef ??_7Inn@@6B@ :dword
-externdef ?classInn@Inn@@2UCRuntimeClass@@A :dword
-externdef ??0Inn@@QAE@XZ :proc                                                   ; Inn::Inn()
-externdef ??0Inn@@QAE@EPAUTokenPos@@@Z :proc                                     ; Inn::Inn(uint8_t, TokenPos*)
-externdef ??1Inn@@UAE@XZ :proc                                                   ; Inn::~Inn()
 
-externdef ?VMethod1@Inn@@UAEXXZ :proc
-externdef ?sub_560C67@Inn@@QAEXPAVUnit@@@Z :proc
-externdef ?InnCreateQuests@Inn@@QAEXPAVPlayer@@@Z :proc
-externdef ?InnReward@Inn@@QAEXPAVPlayer@@@Z :proc                               ; void Inn::InnReward(Player*)
-externdef ?sub_567A25@Inn@@QAEPAVQuest@@PAVPlayer@@@Z :proc                     ; Quest* Inn::sub_567A25(Player*)
-externdef ?sub_567C21@Inn@@QAEXPAVPlayer@@@Z :proc
 
 
 ; Shop
-externdef ??0Shop@@QAE@XZ :proc                                                  ; Shop::Shop()
-externdef ??0Shop@@QAE@ABVCString@@@Z :proc                                      ; Shop::Shop(const CString&)
-externdef ??0Shop@@QAE@EPAUTokenPos@@@Z :proc                                    ; Shop::Shop(uint8_t, TokenPos*)
-externdef ??1Shop@@UAE@XZ :proc                                                  ; Shop::~Shop()
-externdef ??_GShop@@UAEPAXI@Z :proc                                              ; Shop scalar deleting destructor
-externdef ?Serialize@Shop@@UAEXAAVCArchive@@@Z :proc                             ; void Shop::Serialize(CArchive&)
-externdef ?VMethod1@Shop@@UAEXXZ :proc                                           ; void Shop::VMethod1()
 
-externdef ?sub_544685@Shop@@QAEXPAVUnit@@@Z :proc
 
 
 ; MultiShopShelf
-externdef ?ClearItems@CMultiShopShelf@@QAEXXZ : proc
 
 ; MultiShopTemplate
 externdef ?sub_546F18@CMultiShopTemplate@@QAEXPAVCMultiShopInstance@@H@Z : proc
-externdef ?sub_54740C@CMultiShopTemplate@@QAEHPAVUnit@@@Z :proc                  ; int CMultiShopTemplate::sub_54740C(Unit*)
-externdef ?sub_54749F@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_54749F()
-externdef ?sub_547E91@CMultiShopTemplate@@QAEHXZ :proc                           ; int CMultiShopTemplate::sub_547E91()
-externdef ?sub_547C5A@CMultiShopTemplate@@QAEPAVItem@@PAVHumanoid@@FH@Z :proc
-extern ?sub_5474D8@CMultiShopTemplate@@QAEXXZ :proc                           ; void CMultiShopTemplate::sub_5474D8()
-externdef ?sub_547B7B@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547B7B(Unit*)
-externdef ?sub_547BBC@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547BBC(Unit*)
-externdef ?sub_547BFD@CMultiShopTemplate@@QAEXPAVUnit@@HPAVItem@@@Z :proc        ; void CMultiShopTemplate::sub_547BFD(Unit*, int, Item*)
-externdef ?sub_547D7F@CMultiShopTemplate@@QAEXPAVUnit@@@Z :proc                  ; void CMultiShopTemplate::sub_547D7F(Unit*)
 
 ; MultiShopInstance
-externdef ??0CMultiShopInstance@@QAE@XZ :proc                                     ; MultiShopInstance::MultiShopInstance()
-externdef ?Sell@CMultiShopInstance@@QAEXXZ : proc
-externdef ?Buy@CMultiShopInstance@@QAEXXZ : proc
 externdef ?sub_5462C8@CMultiShopInstance@@QAEHPAVItem@@H@Z : proc
 externdef ?sub_5464B6@CMultiShopInstance@@QAEXH@Z : proc
 externdef ?sub_546857@CMultiShopInstance@@QAEPAVUnit@@PAV2@@Z :proc              ; Unit* CMultiShopInstance::sub_546857(Unit*)
-externdef ?sub_546537@CMultiShopInstance@@QAEXHPAVItem@@@Z :proc                 ; void CMultiShopInstance::sub_546537(int, Item*)
-externdef ?sub_546557@CMultiShopInstance@@QAEPAVItem@@HH@Z :proc                 ; Item* CMultiShopInstance::sub_546557(int, int)
 
 
 ; ShopAssortment
 externdef ?sub_54C08A@ShopAssortment@@QAEXXZ :proc  ; void ShopAssortment::sub_54C08A()
-externdef ?ArrangeShelfs@ShopAssortment@@QAEPAUInventory@@HHHHPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc
 externdef ?sub_54EA76@ShopAssortment@@QAEHPAVItem@@@Z :proc  ; int32_t ShopAssortment::sub_54EA76(Item*)
 extern ?sub_54C6DD@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@PAVItem@@@Z :proc  ; void __cdecl sub_54C6DD(CArray<Item*>*, Item*)
 extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl sub_54C556(CArray<Item*>*)
@@ -282,14 +233,11 @@ extern ?sub_54C556@@YAXPAV?$CArray@PAVItem@@ABQAV1@@@@Z :proc  ; void __cdecl su
 extern ?ScenarioGetVar@@YGHH@Z  :proc
 extern ?ScenarioTalkTo@@YGXI@Z  :proc
 extern ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z  :proc
-extern ?ScenarioLeaveLocation@@YGHPAH@Z  :proc
 extern ?ScenarioEnterShop@@YGHXZ  :proc
 extern ?ScenarioLeaveShop@@YGXXZ  :proc
 extern ?ScenarioEnterInn@@YGXPAH0@Z  :proc
 extern ?ScenarioLeaveInn@@YGXXZ  :proc
-extern ?ScenarioNewGame@@YGXXZ  :proc
 extern ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ  :proc
-extern ?ScenarioIsTownAvailable@@YGHH@Z  :proc
 extern ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ  :proc
 
 
@@ -300,50 +248,35 @@ public ?AfxThrowMemoryException@@YGXXZ    ; AfxThrowMemoryException
 extern ?AfxGetEmptyString@@YGABVCString@@XZ:proc   ;AfxGetEmptyString in strcore.cpp
 extern ??0CString@@QAE@XZ:proc ; CString::CString
 extern ??0CString@@QAE@ABV0@@Z:proc   ; (public: __thiscall CString::CString(class CString const &))
-extern ?AllocBuffer@CString@@IAEXH@Z:proc   ; (protected: void __thiscall CString::AllocBuffer(int))
-extern ?Release@CString@@IAEXXZ:proc   ; (protected: void __thiscall CString::Release(void))
-extern ?Release@CString@@KGXPAUCStringData@@@Z:proc   ; (protected: static void __stdcall CString::Release(struct CStringData *))
 extern ?Empty@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::Empty(void))
-extern ?CopyBeforeWrite@CString@@IAEXXZ:proc   ; (protected: void __thiscall CString::CopyBeforeWrite(void))
-extern ?AllocBeforeWrite@CString@@IAEXH@Z:proc   ; (protected: void __thiscall CString::AllocBeforeWrite(int))
 extern ??1CString@@QAE@XZ:proc   ; (public: __thiscall CString::~CString(void))
-extern ?AllocCopy@CString@@IBEXAAV1@HHH@Z:proc   ; (protected: void __thiscall CString::AllocCopy(class CString &,int,int,int)const )
 extern ??0CString@@QAE@PBD@Z:proc   ; (public: __thiscall CString::CString(char const *))
 ;extern ??0CString@@QAE@PB_W@Z:proc   ; (public: __thiscall CString::CString(wchar_t const *))
-extern ?AssignCopy@CString@@IAEXHPBD@Z:proc   ; (protected: void __thiscall CString::AssignCopy(int,char const *))
 extern ??4CString@@QAEABV0@ABV0@@Z:proc   ; (public: class CString const & __thiscall CString::operator=(class CString const &))
 extern ??4CString@@QAEABV0@PBD@Z:proc   ; (public: class CString const & __thiscall CString::operator=(char const *))
 extern ??4CString@@QAEABV0@PB_W@Z:proc   ; (public: class CString const & __thiscall CString::operator=(wchar_t const *))
-extern ?ConcatCopy@CString@@IAEXHPBDH0@Z:proc   ; (protected: void __thiscall CString::ConcatCopy(int,char const *,int,char const *))
 extern ??H@YG?AVCString@@ABV0@0@Z:proc   ; (class CString __stdcall operator+(class CString const &,class CString const &))
 extern ??H@YG?AVCString@@ABV0@PBD@Z:proc   ; (class CString __stdcall operator+(class CString const &,char const *))
 extern ??H@YG?AVCString@@PBDABV0@@Z:proc   ; (class CString __stdcall operator+(char const *,class CString const &))
-extern ?ConcatInPlace@CString@@IAEXHPBD@Z:proc   ; (protected: void __thiscall CString::ConcatInPlace(int,char const *))
 extern ??YCString@@QAEABV0@PBD@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(char const *))
 extern ??YCString@@QAEABV0@D@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(char))
 extern ??YCString@@QAEABV0@ABV0@@Z:proc   ; (public: class CString const & __thiscall CString::operator+=(class CString const &))
 extern ?GetBuffer@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBuffer(int))
 extern ?ReleaseBuffer@CString@@QAEXH@Z:proc   ; (public: void __thiscall CString::ReleaseBuffer(int))
 extern ?GetBufferSetLength@CString@@QAEPADH@Z:proc   ; (public: char * __thiscall CString::GetBufferSetLength(int))
-extern ?FreeExtra@CString@@QAEXXZ:proc   ; (public: void __thisall CString::FreeExtra(void))
-extern ?LockBuffer@CString@@QAEPADXZ:proc   ; (public: char * __thiscall CString::LockBuffer(void))
-extern ?UnlockBuffer@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::UnlockBuffer(void))
 extern ?Find@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::Find(char)const )
 extern ?FindOneOf@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::FindOneOf(char const *)const )
 ;extern ?MakeUpper@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeUpper(void))
 extern ?MakeLower@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeLower(void))
-extern ?MakeReverse@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::MakeReverse(void))
 extern ?SetAt@CString@@QAEXHD@Z:proc   ; (public: void __thiscall CString::SetAt(int,char))
 extern ?CharToOemA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::CharToOemA(void))
 ;extern ?OemToCharA@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::OemToCharA(void))
 extern ?_wcstombsz@@YAHPADPB_WI@Z:proc   ; (int __cdecl _wcstombsz(char *,wchar_t const *,unsigned int))
 extern ?_mbstowcsz@@YAHPA_WPBDI@Z:proc   ; (int __cdecl _mbstowcsz(wchar_t *,char const *,unsigned int))
 extern ?AfxA2WHelper@@YGPA_WPA_WPBDH@Z:proc    ;  (wchar_t * __stdcall AfxA2WHelper(wchar_t *,char const *,int))
-extern ?AfxW2AHelper@@YGPADPADPB_WH@Z:proc
 extern ?LoadStringA@CString@@QAEHI@Z:proc   ; (public: int __thiscall CString::LoadStringA(unsigned int))
 
 extern ??0CString@@QAE@DH@Z:proc   ; (public: __thiscall CString::CString(char,int))
-extern ??0CString@@QAE@PBDH@Z:proc   ; (public: __thiscall CString::CString(char const *,int))
 ;extern ??4CString@@QAEABV0@D@Z:proc   ; (public: class CString const & __thiscall CString::operator=(char))
 extern ??H@YG?AVCString@@ABV0@D@Z:proc   ; (class CString __stdcall operator+(class CString const &,char))
 extern ??H@YG?AVCString@@DABV0@@Z:proc   ; (class CString __stdcall operator+(char,class CString const &))
@@ -351,14 +284,9 @@ extern ?Mid@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CStr
 extern ?Mid@CString@@QBE?AV1@HH@Z:proc   ; (public: class CString __thiscall CString::Mid(int,int)const )
 extern ?Right@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Right(int)const )
 extern ?Left@CString@@QBE?AV1@H@Z:proc   ; (public: class CString __thiscall CString::Left(int)const )
-extern ?SpanIncluding@CString@@QBE?AV1@PBD@Z:proc   ; (public: class CString __thiscall CString::SpanIncluding(char const *)const )
-extern ?SpanExcluding@CString@@QBE?AV1@PBD@Z:proc   ; (public: class CString __thiscall CString::SpanExcluding(char const *)const )
 extern ?ReverseFind@CString@@QBEHD@Z:proc   ; (public: int __thiscall CString::ReverseFind(char)const )
 extern ?Find@CString@@QBEHPBD@Z:proc   ; (public: int __thiscall CString::Find(char const *)const )
-extern ?FormatV@CString@@IAEXPBDPAD@Z:proc   ; (protected: void __thiscall CString::FormatV(char const *,char *))
 extern ?Format@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString::Format(char const *,...))
-extern ?Format@CString@@QAAXIZZ:proc   ; (public: void __cdecl CString::Format(unsigned int,...))
-extern ?FormatMessageA@CString@@QAAXPBDZZ:proc   ; (public: void __cdecl CString::FormatMessageA(char const *,...))
 ;extern ?FormatMessageA@CString@@QAAXIZZ:proc   ; (public: void __cdecl CString::FormatMessageA(unsigned int,...))
 extern ?TrimRight@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimRight(void))
 extern ?TrimLeft@CString@@QAEXXZ:proc   ; (public: void __thiscall CString::TrimLeft(void))
@@ -379,39 +307,30 @@ extern ??3@YAXPAX@Z:proc ; operator delete      5ddf90
 ;File2
 extern ??1File2@@UAE@XZ:proc   ; (public: virtual __thiscall File2::~File2(void))
 extern ??0File2@@QAE@XZ:proc   ; (public: __thiscall File2::File2(void))
-extern ??0File2@@QAE@PBDI@Z:proc   ; (public: __thiscall File2::File2(char const *,unsigned int))
 extern ?Seek@File2@@UAEJJI@Z:proc   ; (public: virtual long __thiscall File2::Seek(long,unsigned int))
-extern ?GetLength@File2@@UBEKXZ:proc   ; (public: virtual unsigned long __thiscall File2::GetLength(void)const )
 extern ?Read@File2@@UAEIPAXI@Z:proc   ; (public: virtual unsigned int __thiscall File2::Read(void *,unsigned int))
 extern ?Close@File2@@UAEXXZ:proc   ; (public: virtual void __thiscall File2::Close(void))
 extern ?Open@File2@@UAEHPBDIPAVCFileException@@@Z:proc   ; (public: virtual int __thiscall File2::Open(char const *,unsigned int,class CFileException *))
-extern ?Rewind@File2@@QAEXXZ:proc    ; (public: void __thiscall File2::Rewind(void))
 
 
 ;Resources
-extern ?StaticAddResFile@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::StaticAddResFile(char const *))
 extern ?StaticAddPath@Resources@@SAXPBD@Z:proc   ; (public: static void __cdecl Resources::StaticAddPath(char const *))
 
 
 
 ;ResFile
 extern ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z:proc   ; (public: void __thiscall ResBase::ReadFromFile(class CFile *,int))
-extern ?WriteToFile@ResBase@@QAEXPAVCFile@@H@Z:proc   ; (public: void __thiscall ResBase::WriteToFile(class CFile *,int))
 extern ??0RegFile@@QAE@XZ:proc      ; (public: __thiscall RegFile::RegFile(void))
 extern ??0RegFile@@QAE@PBD@Z:proc      ;  (public: __thiscall RegFile::RegFile(char const *))
 extern ??1RegFile@@QAE@XZ:proc       ;   RegFile::~RegFile
 extern ?GetSizedString@ResBase@@QAEHPBD00PADI@Z:proc   ; (public: int __thiscall ResBase::GetSizedString(char const *,char const *,char const *,char *,unsigned int))
 extern ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z:proc   ; (public: class CString __thiscall ResBase::GetValueString(char const *,char const *,char const *))
-extern ?SetString@ResBase@@QAEXPBD00@Z:proc   ; (public: void __thiscall ResBase::SetString(char const *,char const *,char const *))
 extern ?GetInt@ResBase@@QAEHPBD0H@Z:proc   ; (public: int __thiscall ResBase::GetInt(char const *,char const *,int))
-extern ?SetInt@ResBase@@QAEXPBD0H@Z:proc   ; (public: void __thiscall ResBase::SetInt(char const *,char const *,int))
 extern ?GetDouble@ResBase@@QAENPBD0N@Z:proc   ; (public: double __thiscall ResBase::GetDouble(char const *,char const *,double))
 extern ?GetInt8Array@ResBase@@QAEHPBD0PAV?$CArray@EABE@@@Z:proc   ; (public: int __thiscall ResBase::GetInt8Array(char const *,char const *,class CArray<uint8_t>
 extern ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z:proc   ; (public: int __thiscall ResBase::GetInt16Array(char const *,char const *,class CArray<uint16_t>
 extern ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z:proc   ; (public: int __thiscall ResBase::GetInt32Array(char const *,char const *,class CArray<uint32_t>
 extern ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z:proc   ; (public: int __thiscall ResBase::GetStringArray(char const *,char const *,class CStringArray *))
-extern ?SetInt16Array@ResBase@@QAEXPBD0AAV?$CArray@GABG@@@Z:proc   ; (public: void __thiscall ResBase::SetInt16Array(char const *,char const *,class CArray<uint16_t>
-extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: void __thiscall ResBase::SetInt32Array(char const *,char const *,class CArray<uint32_t)
 
 
 
@@ -419,48 +338,24 @@ extern ?SetInt32Array@ResBase@@QAEXPBD0AAV?$CArray@IABI@@@Z:proc   ; (public: vo
 
 
 ;TokenPos
-extern ??0TokenPos@@QAE@EEPAUMapStuff@@@Z:proc  ;  TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst)
 extern ??0TokenPos@@QAE@XZ:proc  ; TokenPos::TokenPos()
-extern ??0TokenPos@@QAE@ABU0@@Z:proc  ; TokenPos::TokenPos(struct TokenPos const &)
-extern ??4TokenPos@@QAEAAU0@ABU0@@Z:proc   ; TokenPos::operator=(struct TokenPos const &)
-extern ?Serialize@TokenPos@@QAEXAAVCArchive@@@Z:proc    ; TokenPos::Serialize(CArchive&)
 extern ?GetX@TokenPos@@QBEEXZ:proc  ; TokenPos::GetX
 extern ?GetY@TokenPos@@QBEEXZ:proc  ; TokenPos::GetY
 extern ?CompatGetYX@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYX
 extern ?GetXx@TokenPos@@QBEGXZ:proc   ; TokenPos::GetXx
 extern ?GetYy@TokenPos@@QBEGXZ:proc   ; TokenPos::GetYy
-extern ?SetCoords@TokenPos@@QAEXEE@Z:proc   ; TokenPos::SetCoords
 extern ?SetCoords2@TokenPos@@QAEXGG@Z:proc   ; TokenPos::SetCoords2
 extern ?Distance@TokenPos@@QBEEPBU1@@Z:proc   ; TokenPos::Distance
-extern ?IsSameYX@TokenPos@@QBEHPBU1@@Z:proc   ; TokenPos::IsSameYX
 extern ?sub_58bec3@TokenPos@@QAEHXZ :proc  ; TokenPos::sub_58bec3() – position mode check
-extern ?FUN_0058a7e8@TokenPos@@QAEHEE@Z : proc   ;  TokenPos::FUN_0058a7e8
 
 
 
 ; MapStuff
-externdef ??0MapStuff@@QAE@PAUMapAlm@@PAVUnitList@@@Z :proc  ; MapStuff::MapStuff(MapAlm*, UnitList*)
 externdef ?sub_58E670@MapStuff@@QAEXXZ :proc         ; void MapStuff::sub_58E670()
 
-externdef ?sub_5913BD@MapStuff@@QAEFPAVUnit@@EE@Z :proc
-externdef ?sub_5948B0@MapStuff@@QAEXPAVCWordArray@@@Z :proc
-externdef ?sub_59166C@MapStuff@@QAEEPAVUnit@@UPosYX@@@Z  :proc
-externdef ?sub_59190D@MapStuff@@QAEHPAVUnit@@0@Z :proc          ; int MapStuff::sub_59190D(Unit* target, Unit* observer)
-externdef ?sub_591424@MapStuff@@QAEEPAVUnit@@0@Z :proc          ; uint8_t MapStuff::sub_591424(Unit*, Unit*)
-externdef ?sub_58FE6D@MapStuff@@QAEHPAVUnit@@0E@Z :proc         ; int MapStuff::sub_58FE6D(Unit*, Unit*, uint8_t)
-externdef ?sub_58FEDA@MapStuff@@QAEHPAVUnit@@UPosYX@@E@Z :proc         ; int MapStuff::sub_58FEDA(Unit*, uint16_t, uint8_t)
-externdef ?sub_58FF51@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z :proc         ; void MapStuff::sub_58FF51(Unit*, uint16_t, uint8_t)
-externdef ?sub_590678@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_590678(Unit*)
-externdef ?sub_5907BE@MapStuff@@QAEXPAVUnit@@@Z :proc           ; void MapStuff::sub_5907BE(Unit*)
-externdef ?sub_590902@MapStuff@@QAEXPAVUnit@@0@Z :proc          ; void MapStuff::sub_590902(Unit*, Unit*)
-externdef ?sub_597140@MapStuff@@QAEHPAVUnit@@UPosYX@@H@Z :proc         ; int MapStuff::sub_597140(Unit*, uint16_t, int32_t)
-externdef ?sub_59028D@MapStuff@@QAEXPAVUnit@@0E@Z :proc         ; void MapStuff::sub_59028D(Unit*, Unit*, uint8_t)
 externdef ?sub_58AD4A@MapStuff@@QAEHPAVUnit@@@Z :proc
 
-externdef ?sub_5882AE@MapStuff@@QAEXPAVUnit@@EEEEH0@Z :proc         ; void MapStuff::sub_5882AE(Unit*, uint8_t, uint8_t, uint8_t, uint8_t, int32_t, Unit*)
-externdef ?sub_590F94@MapStuff@@QAEXPAVUnit@@E@Z :proc               ; void MapStuff::sub_590F94(Unit*, uint8_t)
 externdef ?sub_58A158@MapStuff@@QAEHPAVUnit@@G@Z :proc               ; int32_t MapStuff::sub_58A158(Unit*, uint16_t) [ASM]
-externdef ?sub_58AEEF@MapStuff@@QAEHPAVUnit@@EE@Z :proc              ; int32_t MapStuff::sub_58AEEF(Unit*, uint8_t, uint8_t)
 externdef ?sub_58BFA3@MapStuff@@QAEHEEEE@Z :proc                     ; int32_t MapStuff::sub_58BFA3(uint8_t, uint8_t, uint8_t, uint8_t) [ASM]
 
 ; Migrated to C++ (map_stuff.cpp), still called directly from remaining ASM code.
@@ -469,50 +364,16 @@ externdef ?sub_58CB5A@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58CBB9@MapStuff@@QAEPAVUnit@@G@Z :proc
 externdef ?sub_58B1D7@MapStuff@@QAEHPAVUnit@@@Z :proc                ; int MapStuff::sub_58B1D7(Unit*)
 externdef ?sub_58B593@MapStuff@@QAEXUPosYX@@@Z :proc                 ; void MapStuff::sub_58B593(PosYX)
-externdef ?sub_58E611@MapStuff@@QAEPAVSack@@G@Z :proc                ; Sack* MapStuff::sub_58E611(uint16_t)
-externdef ?sub_59449A@MapStuff@@QAEHPAVBuilding@@UPosYX@@@Z :proc    ; int MapStuff::sub_59449A(Building*, PosYX)
-externdef ?sub_595468@MapStuff@@QAEHPAVUnit@@UPosYX@@@Z :proc       ; int MapStuff::sub_595468(Unit*, PosYX)
-externdef ?sub_58826D@MapStuff@@QAEXPAVUnit@@EEH0@Z :proc
-externdef ?sub_58E3D1@MapStuff@@QAEHPAVUnit@@@Z :proc
-externdef ?sub_58E525@MapStuff@@QAEXPAVSack@@@Z :proc
-externdef ?sub_58E5C7@MapStuff@@QAEPAVSack@@GG@Z :proc
-externdef ?sub_58E5F3@MapStuff@@QAEPAVSack@@PAUTokenPos@@@Z :proc
-externdef ?sub_590F0A@MapStuff@@QAEHPAVUnit@@@Z :proc
-externdef ?sub_5918B8@MapStuff@@QAEXPAVUnit@@0@Z :proc
-externdef ?sub_5918E2@MapStuff@@QAEXPAVUnit@@UPosYX@@@Z :proc
-externdef ?sub_593AA4@MapStuff@@QAEGPAVUnit@@@Z :proc
-externdef ?sub_593B29@MapStuff@@QAEEUPosYX@@0@Z :proc
-externdef ?sub_594125@MapStuff@@QAEXXZ :proc
-externdef ?sub_5945EF@MapStuff@@QAEHPAVBuilding@@@Z :proc
-externdef ?sub_59536C@MapStuff@@QAEPAPAVAreaEffect@@I@Z :proc
-externdef ?sub_5953CB@MapStuff@@QAEPAVAreaEffect@@PAV2@G@Z :proc
-externdef ?sub_595438@MapStuff@@QAEHPAVAreaEffect@@EE@Z :proc
-externdef ?FacingDiff@MapStuff@@QAEEEE@Z :proc                         ; uint8_t MapStuff::FacingDiff(uint8_t, uint8_t)
-externdef ?sub_5954AC@MapStuff@@QAEXPAVUnit@@EE@Z :proc
 externdef ?sub_58E891@MapStuff@@QAEXPAVUnitList@@@Z :proc
 externdef ?sub_58F166@MapStuff@@QAEXPAUMapAlm@@@Z :proc             ; void MapStuff::sub_58F166(MapAlm*)
 
-extern ?FUN_0058b5d6@MapStuff@@QAEXAAUCellState@@@Z : proc
-extern ?FUN_0058b4a6@MapStuff@@QAEHUPosYX@@@Z : proc
-extern ?FUN_0058b3e0@MapStuff@@QAEXUPosYX@@@Z : proc
 extern ?FUN_005969c6@MapStuff@@QAEXPAVUnit@@UPosYX@@E@Z : proc
-externdef ?sub_594709@MapStuff@@QAEPAVBuilding@@G@Z :proc                 ; Building* MapStuff::sub_594709(uint16_t) [ASM]
-externdef ?sub_591A96@MapStuff@@QAEEGGH@Z :proc                           ; uint8_t MapStuff::sub_591A96(uint16_t, uint16_t, int32_t) [ASM]
-externdef ?sub_596F80@MapStuff@@QAEHPAVUnit@@G@Z :proc                    ; int32_t MapStuff::sub_596F80(Unit*, uint16_t) [ASM]
-externdef ?sub_5978F0@MapStuff@@QAEHPAVUnit@@G@Z :proc                    ; int32_t MapStuff::sub_5978F0(Unit*, uint16_t) [ASM]
-externdef ?sub_59A670@MapStuff@@QAEPAGEE@Z :proc                          ; uint16_t* MapStuff::sub_59A670(uint8_t, uint8_t) [ASM]
 externdef ?sub_59A6F0@MapStuff@@QAEPAEEE@Z :proc                          ; uint8_t* MapStuff::sub_59A6F0(uint8_t, uint8_t) [ASM]
 
-extern ?IsEmpty@CellState@@QBEHXZ : proc
-extern ?sub_538897@AreaEffect@@QBEIXZ :proc              ; uint32_t AreaEffect::sub_538897() const
 
 
-extern ?MapStuff_Instance@@3PAUMapStuff@@A:dword   ;  MapStuff_Instance
 
 extern ?g_MissionText@@3VCString@@A : dword
-extern ?g_MissionBriefing@@3VCString@@A : dword
-extern ?g_MissionFailures@@3VCStringArray@@A : dword
-extern ?g_MissionSubjs@@3VCStringArray@@A : dword
 
 extern ?MissionGetTips@@YAXHPAVCString@@@Z  :proc
 extern ?MissionGetLocName@@YAXHHPAVCString@@@Z  :proc
@@ -521,8 +382,6 @@ extern ?MissionGetDescription@@YAXHHPAVCString@@@Z  :proc
 
 ; ScanPresenceGrid
 extern ??0ScanPresenceGrid@@QAE@XZ :proc
-extern ?sub_596047@ScanPresenceGrid@@QAEXPAVAreaEffect@@@Z :proc
-extern ?sub_596131@ScanPresenceGrid@@QAEXXZ :proc
 
 ; Perf
 extern ??0Perf@@QAE@XZ :proc
@@ -539,97 +398,50 @@ extern ??0Visibility@@QAE@XZ :proc
 
 ;Token
 ;extern ??_7Token@@6B@:dword ; Token::`vftable`
-extern ?classToken@Token@@2UCRuntimeClass@@A:dword ; Token::classToken
 
-extern ??0Token@@QAE@XZ:proc ; Token::Token
-extern ??0Token@@QAE@ABV0@@Z:proc ; Token::Token(const Token&)
-extern ??0Token@@QAE@PBUTokenPos@@@Z:proc ; Token::Token(const TokenPos*)
-extern ??0Token@@QAE@PBUTokenPos@@PAVPlayer@@@Z:proc ; Token::Token(const TokenPos*, Player*)
 
 extern ??1Token@@UAE@XZ:proc ; Token::~Token 005283d6
 
-extern ?Serialize@Token@@UAEXAAVCArchive@@@Z :proc ; Token::Serialize 0055AB39
 
 
 ; VirtualCaster
-externdef ??_7VirtualCaster@@6B@ :dword                                         ; VirtualCaster vftable (C++ generated)
-extern ??5@YGAAVCArchive@@AAV0@AAPAVVirtualCaster@@@Z : proc                    ; operator>>(CArchive&, VirtualCaster*&)
-externdef ??0VirtualCaster@@QAE@XZ :proc                                        ; VirtualCaster::VirtualCaster()
-externdef ??1VirtualCaster@@UAE@XZ :proc                                        ; VirtualCaster::~VirtualCaster()
-externdef ?Serialize@VirtualCaster@@UAEXAAVCArchive@@@Z :proc                   ; void VirtualCaster::Serialize(CArchive&)
-externdef ?CreateObject@VirtualCaster@@SGPAVCObject@@XZ :proc                   ; VirtualCaster::CreateObject()
 externdef ?classVirtualCaster@VirtualCaster@@2UCRuntimeClass@@A :dword
 
 
 
 ;BitSet g_buildingIdSet     in token.cpp
-extern ?BldIdSet_AllocBit@@YAIXZ:proc
 
 
 
 ; Inventory
 externdef ??0Inventory@@QAE@XZ :proc             ; Inventory::Inventory()
-externdef ??0Inventory@@QAE@PBU0@@Z :proc        ; Inventory::Inventory(const Inventory*)
 externdef ??1Inventory@@QAE@XZ :proc             ; Inventory::~Inventory()
 externdef ?PutItemIntoBagAtDefault@Inventory@@QAEXPAVItem@@@Z :proc ; void Inventory::PutItemIntoBagAtDefault(Item*)
-externdef ?PutItemIntoBag@Inventory@@QAEXHPAVItem@@@Z :proc        ; void Inventory::PutItemIntoBag(int32_t, Item*)
-externdef ?sub_552B6B@Inventory@@QAEPAVItem@@G@Z :proc             ; Item* Inventory::sub_552B6B(uint16_t)
-externdef ?sub_552E42@Inventory@@QAEPAVItem@@HH@Z :proc            ; Item* Inventory::sub_552E42(int32_t, int32_t)
 
 ; Unit
-externdef ?Serialize@Unit@@UAEXAAVCArchive@@@Z:proc   ; (public: virtual void __thiscall Unit::Serialize(class CArchive &))
-externdef ?VMethod1@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod1(void))
-externdef ?VMethod2@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod2(void))
-externdef ?VMethod5@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod5(void))
 
-externdef ?VMethod10@Unit@@UAEXXZ:proc   ; (public: virtual void __thiscall Unit::VMethod10(void))
-externdef ?VMethod11@Unit@@UAEXPAV1@@Z:proc   ; (public: virtual void __thiscall Unit::VMethod11(class Unit *))
 
-externdef ?VMethod17@Unit@@UAEIPAUUnitToHit@@PAV1@@Z:proc   ; (public: virtual unsigned int __thiscall Unit::VMethod17(struct UnitToHit *,class Unit *))
 
-externdef ?VMethod25@Unit@@UAEHXZ:proc   ; (public: virtual int __thiscall Unit::VMethod25(void))
 
 extern ??0Unit@@QAE@XZ:proc    ; (public: __thiscall Unit::Unit(void))
-extern ??0Unit@@QAE@ABVCString@@@Z:proc   ; (public: __thiscall Unit::Unit(class CString const &))
-extern ??5@YGAAVCArchive@@AAV0@AAPAVUnit@@@Z:proc     ;  CArchive & __stdcall operator>>(class CArchive &,class Unit * &)
-externdef ?sub_52C813@Unit@@QAEXXZ :proc
-externdef ?sub_52BF3D@Unit@@QAEHEEE@Z :proc
-externdef ?sub_52C163@Unit@@QAEXXZ :proc
-externdef ?sub_542A31@Building@@QAEHPAUUnitToHit@@PAVUnit@@@Z :proc       ; int32_t Building::sub_542A31(UnitToHit*, Unit*)
 externdef ?FUN_0052ec7a@Unit@@QAEXABV?$CArray@UMonsterInfoData@@ABU1@@@@Z :proc
 
-externdef ?sub_52C409@Unit@@QAEHXZ :proc
 externdef ??0UnitEye@@QAE@XZ :proc                                        ; UnitEye::UnitEye()
 externdef ??0UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::UnitEye2()
 externdef ??1UnitEye2@@QAE@XZ :proc                                       ; UnitEye2::~UnitEye2()
 
-externdef ?sub_52BABD@Unit@@QAEHXZ :proc                                  ; Unit::sub_52BABD()
-extern ?sub_51B99E@NetStru1@@QAEXPAVUnit@@EEE@Z :proc                     ; void NetStru1::sub_51B99E(Unit*, uint8_t, uint8_t, uint8_t)
-externdef ?sub_51B0F0@NetStru1@@QAEXPAVPacket@@PAVUnit@@@Z :proc          ; void NetStru1::sub_51B0F0(Packet*, Unit*)
 
-externdef ?sub_528763@Unit@@QAEGXZ :proc
-externdef ?sub_528725@Unit@@QAEGXZ :proc
 externdef ?sub_52A790@Unit@@QAEXH@Z :proc
-externdef ?sub_59A030@Unit@@QAEHXZ :proc                                  ; int32_t Unit::sub_59A030()
 
 ; UnitEye
 
-externdef ?sub_58c00e@UnitEye@@QAEEXZ :proc     ; UnitEye::sub_58c00e() – get position byte
 
 ; Group
-extern ??0Group@@QAE@XZ :proc
 extern ??1Group@@QAE@XZ :proc
-extern ?RemoveUnit@Group@@QAEXPAVUnit@@@Z :proc
-extern ?AddUnit@Group@@QAEXPAVUnit@@@Z :proc
-extern ?Serialize@Group@@QAEXAAVCArchive@@@Z  :proc
 externdef ?sub_599F00@Group@@QAEPAVUnit@@XZ :proc              ; Group::sub_599F00()
 externdef ?sub_599F20@Group@@QAEPAVUnit@@PAV2@@Z :proc         ; Group::sub_599F20(Unit*)
 
 ; GroupList
-extern ??0GroupList@@QAE@XZ   :proc
-extern ??1GroupList@@QAE@XZ   :proc
-extern ?AllocGroup@GroupList@@QAEPAVGroup@@XZ   :proc
-externdef ?Serialize@GroupList@@QAEXAAVCArchive@@@Z :proc
 
 
 
@@ -657,198 +469,59 @@ externdef ?sub_5560D2@UnitList@@QAEPAVUnit@@G@Z :proc
 
 
 ;UnitToHit
-extern ??0UnitToHit@@QAE@XZ:proc   ; (public: __thiscall UnitToHit::UnitToHit(void))
-extern ??0UnitToHit@@QAE@ABU0@@Z:proc   ; (public: __thiscall UnitToHit::UnitToHit(struct UnitToHit const &))
-extern ??4UnitToHit@@QAEAAU0@ABU0@@Z:proc   ; (public: struct UnitToHit & __thiscall UnitToHit::operator=(struct UnitToHit const &))
-extern ?AddHits@UnitToHit@@QAEXABU1@@Z:proc   ; (public: void __thiscall UnitToHit::AddHits(struct UnitToHit const &))
-extern ?Serialize@UnitToHit@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall UnitToHit::Serialize(class CArchive &))
 
 ;Protections
-extern ??0Protections@@QAE@XZ:proc   ; (public: __thiscall Protections::Protections(void))
-extern ??0Protections@@QAE@ABU0@@Z:proc   ; (public: __thiscall Protections::Protections(struct Protections const &))
-extern ??0Protections@@QAE@$$QAU0@@Z:proc   ; (public: __thiscall Protections::Protections(struct Protections &&))
-extern ??4Protections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator=(struct Protections const &))
-extern ??YProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator+=(struct Protections const &))
-extern ??ZProtections@@QAEAAU0@ABU0@@Z:proc   ; (public: struct Protections & __thiscall Protections::operator-=(struct Protections const &))
-extern ?Clear@Protections@@QAEXXZ:proc   ; (public: void __thiscall Protections::Clear(void))
-extern ?Serialize@Protections@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall Protections::Serialize(class CArchive &))
 
 
 ; Effect
 
 
-extern ??5@YGAAVCArchive@@AAV0@AAPAVEffect@@@Z : proc   ; CArchive >> Effect
 
-extern ?classEffect@Effect@@2UCRuntimeClass@@A  : byte
 
-extern ?GetRuntimeClass@Effect@@UBEPAUCRuntimeClass@@XZ  : proc
-extern ??1Effect@@UAE@XZ  : proc
-extern ?Serialize@Effect@@UAEXAAVCArchive@@@Z  : proc
 
-externdef ?VMethod10@Effect@@UAEXPAVUnit@@@Z  : proc
-externdef ?VMethod11@Effect@@UAEXPAVUnit@@@Z  : proc
-externdef ?VMethod12@Effect@@UAEXPAVUnit@@@Z  : proc
-externdef ?VMethod13@Effect@@UAEXPAVUnit@@@Z  : proc
-externdef ?VMethod14@Effect@@UAEXPAVUnit@@H@Z  : proc
-externdef ?VMethod15@Effect@@UAEHXZ  : proc
-externdef ?VMethod16@Effect@@UAEHN@Z  : proc
-externdef ?VMethod17@Effect@@UAEXH@Z  : proc
 
 extern ??0Effect@@QAE@XZ  : proc
-extern ??0Effect@@QAE@ABVCString@@@Z  : proc
-extern ??0Effect@@QAE@PBV0@@Z  : proc
 
-externdef ?EffectPrice@Effect@@QAEHXZ :proc                                   ; int32_t Effect::EffectPrice()
-externdef ?MagicPriceBonus@Effect@@SA_JH@Z :proc                              ; int64_t Effect::MagicPriceBonus(int32_t)
 
 
 ; DirectDamage
 
-externdef ??0DirectDamage@@QAE@XZ :proc
-externdef ??0DirectDamage@@QAE@PAV0@@Z :proc             ; DirectDamage::DirectDamage(DirectDamage*)
-externdef ?VMethod11@DirectDamage@@UAEXPAVUnit@@@Z :proc ; void DirectDamage::VMethod11(Unit*)
-externdef ?classDirectDamage@DirectDamage@@2UCRuntimeClass@@A :dword
 
 
 ; SpellEffect
-externdef ??0SpellEffect@@QAE@XZ :proc                              ; SpellEffect::SpellEffect()
-externdef ??0SpellEffect@@QAE@PBUTokenPos@@@Z :proc                 ; SpellEffect::SpellEffect(const TokenPos*)
-externdef ??1SpellEffect@@UAE@XZ :proc                              ; SpellEffect::~SpellEffect()
-externdef ?Serialize@SpellEffect@@UAEXAAVCArchive@@@Z :proc         ; void SpellEffect::Serialize(CArchive&)
-externdef ?VMethod2@SpellEffect@@UAEXXZ :proc                       ; void SpellEffect::VMethod2()
-externdef ?VMethod10@SpellEffect@@UAEXPAVUnit@@@Z :proc             ; void SpellEffect::VMethod10(Unit*)
 externdef ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A :byte   ; static CRuntimeClass SpellEffect::classSpellEffect
 
 ; AreaEffect
-externdef ??0AreaEffect@@QAE@XZ :proc                                          ; AreaEffect::AreaEffect()
-externdef ??0AreaEffect@@QAE@PAVEffect@@PAUTokenPos@@E@Z :proc                 ; AreaEffect::AreaEffect(Effect*, TokenPos*, uint8_t)
-externdef ??1AreaEffect@@UAE@XZ :proc                                          ; AreaEffect::~AreaEffect()
-externdef ?Serialize@AreaEffect@@UAEXAAVCArchive@@@Z :proc                     ; void AreaEffect::Serialize(CArchive&)
-externdef ?VMethod2@AreaEffect@@UAEXXZ :proc                                   ; void AreaEffect::VMethod2()
-externdef ?VMethod5@AreaEffect@@UAEXXZ :proc                                   ; void AreaEffect::VMethod5()
-externdef ?VMethod10@AreaEffect@@UAEXPAVUnit@@@Z :proc                         ; void AreaEffect::VMethod10(Unit*)
-externdef ?classAreaEffect@AreaEffect@@2UCRuntimeClass@@A :byte                ; static CRuntimeClass AreaEffect::classAreaEffect
-externdef ?sub_53831D@AreaEffect@@QAEXPAVUnit@@@Z :proc                        ; void AreaEffect::sub_53831D(Unit*)
-extern ?sub_53868D@AreaEffect@@QAEXEE@Z :proc                                  ; void AreaEffect::sub_53868D(uint8_t, uint8_t)
-externdef ?sub_537B2B@WavePattern@@QAEXPBH0E@Z :proc                           ; void WavePattern::sub_537B2B(const int32_t*, const int32_t*, uint8_t)
 
 ; PointEffect
-externdef ??0PointEffect@@QAE@XZ :proc                                         ; PointEffect::PointEffect()
-externdef ??0PointEffect@@QAE@PAVEffect@@PAVUnit@@@Z :proc
-externdef ??1PointEffect@@UAE@XZ :proc                                         ; PointEffect::~PointEffect()
-externdef ?Serialize@PointEffect@@UAEXAAVCArchive@@@Z :proc                    ; void PointEffect::Serialize(CArchive&)
-externdef ?VMethod2@PointEffect@@UAEXXZ :proc                                  ; void PointEffect::VMethod2()
-externdef ?VMethod5@PointEffect@@UAEXXZ :proc                                  ; void PointEffect::VMethod5()
-externdef ?classPointEffect@PointEffect@@2UCRuntimeClass@@A :byte              ; static CRuntimeClass PointEffect::classPointEffect
 
 ; SpellTransport
-externdef ??0SpellTransport@@QAE@XZ :proc                                        ; SpellTransport::SpellTransport()
-externdef ??0SpellTransport@@QAE@PAVSpellEffect@@PAUTokenPos@@F@Z :proc          ; SpellTransport::SpellTransport(SpellEffect*, TokenPos*, int16_t)
-externdef ??0SpellTransport@@QAE@PAVAreaEffect@@PAUTokenPos@@F@Z :proc           ; SpellTransport::SpellTransport(AreaEffect*, TokenPos*, int16_t)
-externdef ??1SpellTransport@@UAE@XZ :proc                                        ; SpellTransport::~SpellTransport()
-externdef ?Serialize@SpellTransport@@UAEXAAVCArchive@@@Z :proc                   ; void SpellTransport::Serialize(CArchive&)
-externdef ?VMethod2@SpellTransport@@UAEXXZ :proc                                 ; void SpellTransport::VMethod2()
-externdef ?VMethod5@SpellTransport@@UAEXXZ :proc                                 ; void SpellTransport::VMethod5()
-externdef ?classSpellTransport@SpellTransport@@2UCRuntimeClass@@A :byte          ; static CRuntimeClass SpellTransport::classSpellTransport
 
 
 ; SpellEffectList
-externdef ??0SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::SpellEffectList()
-externdef ??1SpellEffectList@@QAE@XZ :proc                                       ; SpellEffectList::~SpellEffectList()
 
 
 ;EquipmentExtra
-extern ??0EquipmentExtra@@QAE@XZ:proc   ; (public: __thiscall EquipmentExtra::EquipmentExtra(void))
-extern ??4EquipmentExtra@@QAEAAU0@ABU0@@Z:proc   ; (public: struct EquipmentExtra & __thiscall EquipmentExtra::operator=(struct EquipmentExtra const &))
-extern ?Serialize@EquipmentExtra@@QAEXAAVCArchive@@@Z:proc   ; (public: void __thiscall EquipmentExtra::Serialize(class CArchive &))
-extern ?AddToUnit@EquipmentExtra@@QAEXPAVUnit@@@Z:proc   ; (public: void __thiscall EquipmentExtra::AddToUnit(class Unit *))
 
 
 ; Item
-externdef ??0Item@@QAE@XZ :proc                                               ; Item::Item()
 externdef ?classItem@Item@@2UCRuntimeClass@@A :byte                           ; static CRuntimeClass Item::classItem
 externdef ??1Item@@UAE@XZ :proc                                               ; Item::~Item()
-externdef ?GetRuntimeClass@Item@@UBEPAUCRuntimeClass@@XZ :proc                ; Item::GetRuntimeClass
-externdef ?Serialize@Item@@UAEXAAVCArchive@@@Z :proc                          ; Item::Serialize
-externdef ?VMethod1@Item@@UAEXXZ :proc
-externdef ?VMethod2@Item@@UAEXXZ :proc
-externdef ?VMethod6@Item@@UAEHXZ :proc
-externdef ?VMethod10@Item@@UAEPAV1@PAVUnit@@@Z :proc
-externdef ?VMethod11@Item@@UAEXPAVUnit@@@Z :proc
-externdef ?TakeOne@Item@@UAEPAV1@XZ :proc
-externdef ?VMethod13@Item@@UAEPAV1@XZ :proc
-externdef ?VMethod14@Item@@UAEHHH@Z :proc
-externdef ?VMethod15@Item@@UAEHXZ :proc
-externdef ?VMethod16@Item@@UAEHXZ :proc
-externdef ?VMethod17@Item@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc
-externdef ?WriteEffects@Item@@QAEXPAVPacketUnitStateVec@@PAE@Z :proc          ; sub_549F2C
-externdef ?ApplyEffects@Item@@QAEXPAVUnit@@@Z :proc                           ; void Item::ApplyEffects(Unit*)
-externdef ?RemoveEffects@Item@@QAEXPAVUnit@@@Z :proc                          ; void Item::RemoveEffects(Unit*)
-externdef ??0Item@@QAE@ABVCString@@@Z :proc                                   ; Item::Item(const CString&)
-externdef ??0Item@@QAE@EE@Z :proc                                             ; Item::Item(uint8_t, uint8_t)
-externdef ??0Item@@QAE@PBV0@@Z :proc                                          ; Item::Item(const Item*)
-externdef ?IsSimilar@Item@@QAEHPAV1@@Z :proc
-extern ?StoreToPacket@Item@@QAEXPAVPacketUnitStateVec@@H@Z : proc
 
 
 ; Armor
-externdef ?classArmor@Armor@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Armor::classArmor
 
-externdef ??1Armor@@UAE@XZ :proc                                               ; Armor::~Armor()
-externdef ??_GArmor@@UAEPAXI@Z :proc                                           ; Armor scalar deleting destructor
-externdef ?LoadInfo@Armor@@QAEXXZ :proc
-externdef ??0Armor@@QAE@XZ :proc                                               ; Armor::Armor()
 externdef ??0Armor@@QAE@ABVCString@@@Z :proc                                   ; Armor::Armor(const CString&)
-externdef ??0Armor@@QAE@EEE@Z :proc                                            ; Armor::Armor(uint8_t, uint8_t, uint8_t)
-externdef ??0Armor@@QAE@PBV0@@Z :proc                                          ; Armor::Armor(const Armor*)
-externdef ?Serialize@Armor@@UAEXAAVCArchive@@@Z :proc                          ; void Armor::Serialize(CArchive&)
-externdef ?VMethod10@Armor@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Armor::VMethod10(Unit*)
-externdef ?VMethod11@Armor@@UAEXPAVUnit@@@Z :proc                              ; void Armor::VMethod11(Unit*)
-externdef ?TakeOne@Armor@@UAEPAVItem@@XZ :proc                                 ; Item* Armor::TakeOne()
-externdef ?VMethod13@Armor@@UAEPAVItem@@XZ :proc                               ; Item* Armor::VMethod13()
-externdef ?VMethod15@Armor@@UAEHXZ :proc                                       ; int32_t Armor::VMethod15()
-externdef ?VMethod17@Armor@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Armor::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Shield
-externdef ?classShield@Shield@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Shield::classShield
 
-externdef ??1Shield@@UAE@XZ :proc                                               ; Shield::~Shield()
-externdef ??_GShield@@UAEPAXI@Z :proc                                           ; Shield scalar deleting destructor
-externdef ?GetRuntimeClass@Shield@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Shield::GetRuntimeClass() const
-externdef ?LoadInfo@Shield@@QAEXXZ :proc
-externdef ??0Shield@@QAE@XZ :proc                                               ; Shield::Shield()
 externdef ??0Shield@@QAE@ABVCString@@@Z :proc                                   ; Shield::Shield(const CString&)
-externdef ??0Shield@@QAE@EEE@Z :proc                                            ; Shield::Shield(uint8_t, uint8_t, uint8_t)
-externdef ??0Shield@@QAE@PBV0@@Z :proc                                          ; Shield::Shield(const Shield*)
-externdef ?Serialize@Shield@@UAEXAAVCArchive@@@Z :proc                          ; void Shield::Serialize(CArchive&)
-externdef ?VMethod10@Shield@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Shield::VMethod10(Unit*)
-externdef ?VMethod11@Shield@@UAEXPAVUnit@@@Z :proc                              ; void Shield::VMethod11(Unit*)
-externdef ?TakeOne@Shield@@UAEPAVItem@@XZ :proc                                 ; Item* Shield::TakeOne()
-externdef ?VMethod13@Shield@@UAEPAVItem@@XZ :proc                               ; Item* Shield::VMethod13()
-externdef ?VMethod15@Shield@@UAEHXZ :proc                                       ; int32_t Shield::VMethod15()
-externdef ?VMethod17@Shield@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Shield::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Weapon
-externdef ?classWeapon@Weapon@@2UCRuntimeClass@@A :byte  ; static CRuntimeClass Weapon::classWeapon
 
-externdef ??1Weapon@@UAE@XZ :proc                                               ; Weapon::~Weapon()
-externdef ??_GWeapon@@UAEPAXI@Z :proc                                           ; Weapon scalar deleting destructor
-externdef ?GetRuntimeClass@Weapon@@UBEPAUCRuntimeClass@@XZ :proc               ; CRuntimeClass* Weapon::GetRuntimeClass() const
-externdef ?LoadEquipInfo@Weapon@@QAEXPAVWorldEquip@@@Z :proc
-externdef ?LoadInfo@Weapon@@QAEXXZ :proc
-externdef ??0Weapon@@QAE@XZ :proc                                               ; Weapon::Weapon()
 externdef ??0Weapon@@QAE@ABVCString@@@Z :proc                                  ; Weapon::Weapon(const CString&)
-externdef ??0Weapon@@QAE@EEE@Z :proc                                           ; Weapon::Weapon(uint8_t, uint8_t, uint8_t)
-externdef ??0Weapon@@QAE@PBV0@@Z :proc                                         ; Weapon::Weapon(const Weapon*)
-externdef ?Serialize@Weapon@@UAEXAAVCArchive@@@Z :proc                          ; void Weapon::Serialize(CArchive&)
-externdef ?VMethod10@Weapon@@UAEPAVItem@@PAVUnit@@@Z :proc                      ; Item* Weapon::VMethod10(Unit*)
-externdef ?VMethod11@Weapon@@UAEXPAVUnit@@@Z :proc                              ; void Weapon::VMethod11(Unit*)
-externdef ?TakeOne@Weapon@@UAEPAVItem@@XZ :proc                                 ; Item* Weapon::TakeOne()
-externdef ?VMethod13@Weapon@@UAEPAVItem@@XZ :proc                               ; Item* Weapon::VMethod13()
-externdef ?VMethod15@Weapon@@UAEHXZ :proc                                       ; int32_t Weapon::VMethod15()
-externdef ?VMethod17@Weapon@@UAEXPAVPacketUnitStateVec@@PAE@Z :proc             ; void Weapon::VMethod17(PacketUnitStateVec*, uint8_t*)
 
 
 ; Inventory
@@ -858,10 +531,6 @@ extern ??0Inventory@@QAE@XZ :proc
 
 ;Spell
 
-extern ?classSpell@Spell@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Spell::classSpell
-extern ?sub_539F21@Spell@@QAEXPAVUnit@@0@Z :proc                           ; Spell::sub_539F21(Unit*,Unit*)
-externdef ?sub_539F5A@Spell@@QAEXPAVUnit@@0CC@Z :proc                         ; Spell::sub_539F5A(Unit*,Unit*,int8_t,int8_t)
-extern ?RefreshForHumanoid@SpellBook@@QAEXPAVHumanoid@@@Z:proc  ; SpellBook::RefreshForHumanoid()
 extern ??0Spell@@QAE@XZ:proc   ;  Spell::Spell(void)
 extern ??0Spell@@QAE@E@Z:proc  ;  Spell::Spell(uint8_t)
 extern ??0Spell@@QAE@ABVCString@@@Z:proc    ;  Spell::Spell(const CString&)
@@ -872,19 +541,15 @@ externdef ?sub_539541@Spell@@QAEXI@Z :proc
 ; SpellBook
 externdef ??_7SpellBook@@6B@ :dword                                         ; SpellBook vtable
 extern ?sub_53D7F0@SpellBook@@QAEXHPAVSpell@@@Z :proc
-extern ?sub_53DB79@SpellBook@@QAEPAVSpell@@H@Z :proc
 
 
 
 ;Packets
-externdef ?Inst@Packet@@2V1@A : byte
 externdef ??_7Packet@@6B@ : dword
 externdef ?Duplicate@Packet@@UAEPAV1@XZ : proc
 
 externdef ?Inst@PacketJoin@@2V1@A : byte
-externdef ??0PacketJoin@@QAE@XZ : proc
 externdef ??0PacketJoin@@QAE@VCString@@@Z : proc
-externdef ??1PacketJoin@@UAE@XZ : proc
 
 externdef ?Inst@PacketInfo@@2V1@A : byte
 
@@ -892,68 +557,38 @@ externdef ?Inst@PacketWord@@2V1@A : byte                              ; unk_6E9B
 
 externdef ?Inst@PacketItemOperation@@2V1@A : byte                     ; unk_6D1670
 externdef ?AppendWord@PacketItemOperation@@QAEXG@Z : proc             ; sub_52695A
-externdef ?AppendByteByte@PacketUnitStateVec@@QAEXEEPAE@Z : proc      ; sub_5275F8
-externdef ?AppendByteInt@PacketUnitStateVec@@QAEXEHPAE@Z : proc       ; sub_5276E0
 
 
-externdef ?Inst@PacketCmd@@2V1@A : byte                               ; unk_6B1650
 
-externdef ?Inst@Packet3Dwords@@2V1@A : byte                           ; unk_6B1670
 
-externdef ?Inst@PacketDword@@2V1@A : byte                             ; unk_6CDB78
 
-externdef ?Inst@PacketAbility@@2V1@A : byte                           ; unk_70A7D0
 
-externdef ?Inst@PacketEight@@2V1@A : byte                             ; unk_6CE970
 
-externdef ?Inst@PacketMoveCmd@@2V1@A : byte                           ; unk_6A6A70
 
-externdef ?Inst@PacketEffect@@2V1@A : byte                            ; unk_6CDB28
 
-externdef ?Inst@PacketAoeZone@@2V1@A : byte                           ; unk_6B37A8
 
-externdef ?Inst@PacketMount@@2V1@A : byte                             ; unk_6B37C8
 
-externdef ?Inst@PacketPlayerInfo@@2V1@A : byte                        ; unk_6D1888
 
 externdef ?Inst@PacketData@@2V1@A : byte                              ; unk_6B37D8
 
-externdef ?Inst@PacketTerrain@@2V1@A : byte                           ; unk_6e9db0
 
-externdef ?Inst@PacketUnitStateVec@@2V1@A : byte                      ; unk_6C5AF8
-externdef ??0PacketUnitStateVec@@QAE@XZ : proc                        ; sub_527415
-externdef ??1PacketUnitStateVec@@UAE@XZ : proc                        ; sub_527456
 
-externdef ?Inst@PacketSync@@2V1@A : byte                              ; unk_6A6A88
 
-externdef ?Inst@PacketUnitProperties@@2V1@A : byte                    ; unk_6D0628
 
-externdef ?Inst@PacketPing@@2V1@A : byte                              ; unk_6CDB88
 
-externdef ?Inst@PacketUnitUpdate@@2V1@A : byte                        ; _unk_6D1180
 
 
 
 ;PackerDat
-extern ?DeleteTail@PackerDat@@QAEXPAUPackerTail@@@Z  : proc
 extern ?Clear@PackerDat@@QAEXXZ : proc
-extern ??0PackerDat@@QAE@XZ : proc
-extern ??1PackerDat@@QAE@XZ : proc
 
 ;NetStru1
 
-externdef ??_7NetStru1@@6B@ : dword
-extern ??0NetStru1@@QAE@H@Z : proc
-extern ??1NetStru1@@QAE@XZ : proc
 
 extern ?HatConnector@NetStru1@@2V1@A : dword
 extern ?g_NetStru1_main@@3VNetStru1@@A:byte
 extern ?g_NetStru1_local@@3VNetStru1@@A:byte
 
-extern ?AddTailNet2@NetStru1@@QAEXAAPAUNetStru2@@@Z : proc
-extern ?AddTailFreeNet3@NetStru1@@QAEXPAUNetStru3@@@Z : proc
-extern ?AllocClientBufManager@NetStru1@@QAEPAUNetStru2@@I@Z : proc
-extern ?GetFreeNet3@NetStru1@@QAEPAUNetStru3@@XZ :proc
 
 extern ?ProcessConnections@NetStru1@@QAEXXZ : proc
 extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
@@ -962,43 +597,21 @@ extern ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z :proc
 
 extern ?GetClientByPlayerID@NetStru1@@QAEPAUNetStru2@@G@Z : proc
 
-externdef ?FUN_0051ce86@NetStru1@@QAEXIIPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051ce86(unsigned int,unsigned int,class Player *)
 externdef ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z :proc   ; NetStru1::FUN_0051c748(class Player *)
-externdef ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc             ; void NetStru1::sub_51E63F(int, int, int)
-externdef ?sub_51E794@NetStru1@@QAEXHHEF@Z :proc            ; void NetStru1::sub_51E794(int, int, uint8_t, short)
 
-externdef ?FUN_0051d6b4@NetStru1@@QAEXG@Z :proc
 externdef ?FUN_0051cefb@NetStru1@@QAEXEHHPAVPlayer@@@Z :proc
 externdef ?sub_519221@NetStru1@@QAEXPAVUnit@@PAVPlayer@@IHHH@Z :proc
-externdef ?sub_51BE8F@NetStru1@@QAEXPAVAreaEffect@@H@Z :proc
-extern ?sub_51BE0E@NetStru1@@QAEXPAVEffect@@E@Z :proc
-externdef ?sub_51CB21@NetStru1@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_51CF5C@NetStru1@@QAEXPAVUnit@@HPAVPlayer@@@Z :proc
-externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
-externdef ?sub_51B370@NetStru1@@QAEXPAVPacketMoveCmd@@PAUTokenPos@@@Z :proc
-extern ?sub_51CDFB@NetStru1@@QAEXAAVCString@@IDPAVPlayer@@@Z :proc  ; void NetStru1::sub_51CDFB(CString&, uint32_t, char, Player*)
 
 
-externdef ?sub_51AC77@NetStru1@@QAEXPAVToken@@PAVPlayer@@E@Z :proc  ; NetStru1::sub_51AC77(Token*,Player*,uint8_t)
 
-externdef ?sub_51C601@NetStru1@@QAEXPAVUnit@@H@Z :proc
-externdef ?sub_51D837@NetStru1@@QAEXHPAVPlayer@@@Z :proc
 
-extern ?SendPacket_64@NetStru1@@QAEXIG@Z : proc
 
-extern ?AddStat1@NetStru1@@QAEXPAUNetStru2@@H@Z : proc
-extern ?AddPacketStatistic@NetStru1@@QAEXPAVPacket@@@Z : proc
 
 extern ?SendAllData@NetStru1@@QAEXXZ : proc
 extern ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z : proc
-extern ?SetLLDriver@NetStru1@@QAEXPAUCLlDriver@@@Z : proc
-extern ?SetLinkedHLDriver@NetStru1@@QAEXPAV1@@Z  : proc
 extern ?GetClientByLowUid@NetStru1@@QAEPAUNetStru2@@I@Z : proc
 extern ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ : proc
 extern ?GetClientsPktNum@NetStru1@@QAEIXZ : proc
-extern ?IsActive@NetStru1@@QAEHXZ : proc
-externdef ?sub_51D4F6@NetStru1@@QAEXPAVQuestMap@@PAVPlayer@@H@Z :proc
-externdef ?sub_51EEB7@NetStru1@@QAEXXZ :proc
 
 extern ?DAT_00666a00@@3VCStringArray@@A  : byte
 
@@ -1007,78 +620,46 @@ extern ?DAT_00666a00@@3VCStringArray@@A  : byte
 extern ?WriteData@NetStru2@@QAEHPAXI@Z : proc
 extern ?ReadData@NetStru2@@QAEHPAXI@Z : proc
 
-extern ?ReceiveData@NetStru2@@QAEHPAUNetStru3@@@Z : proc
-extern ??1NetStru2@@QAE@XZ :proc
 
 ;NetStru3
-extern ??0NetStru3@@QAE@XZ :proc
-extern ??1NetStru3@@QAE@XZ :proc
-extern ?Clear@NetStru3@@QAEXXZ :proc
-extern ?WriteToBuffer@NetStru3@@QAEHPAXI@Z : proc
-extern ?ReadFromBuffer@NetStru3@@QAEHPAXI@Z : proc
 
 
 ; Server
 extern ?g_Server@@3PAUServer@@A : dword
 extern ?g_IsServer@@3HA : dword
-extern ?g_ShutdownIn@@3HA : dword
 
 externdef ?OpenFile@PasswordManager@@QAEXPBD@Z : proc
 
-externdef ?ServerTic@Server@@QAEXXZ :proc
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
-externdef ?sub_4F465E@Server@@QAEXXZ :proc                                       ; void Server::sub_4F465E()
-externdef ?sub_4F9E55@Server@@QAEXXZ :proc                                       ; void Server::sub_4F9E55()
-externdef ?sub_4FAEB4@SrvStru1@@QAEXXZ :proc                                     ; void SrvStru1::sub_4FAEB4()
 externdef ?sub_52C641@Unit@@QAEXXZ :proc                                         ; void Unit::sub_52C641()
 externdef ?sub_547468@CMultiShopTemplate@@QAEPAVCMultiShopInstance@@PAVHumanoid@@@Z :proc ; CMultiShopInstance* CMultiShopTemplate::sub_547468(Humanoid*)
-extern ?sub_5479C6@CMultiShopTemplate@@QAEXPAVHumanoid@@@Z :proc              ; void CMultiShopTemplate::sub_5479C6(Humanoid*)
 
 extern ??1Server@@QAE@XZ :proc
 
-extern ?Deinit@SrvStru1@@QAEXXZ :proc
 externdef ?sub_4F1471@Server@@QAEHVCString@@@Z :proc    ; int Server::sub_4F1471(CString)
 externdef ?sub_4F8831@Server@@QAEXXZ :proc
-externdef ?CheatCommand@Server@@QAEXPAVPlayer@@VCString@@@Z :proc
 externdef ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z :proc
-externdef ?sub_5013D4@Server@@QAEXPAVPlayer@@@Z :proc
-externdef ?sub_4F950F@Server@@QAEXXZ :proc              ; void Server::sub_4F950F()
-externdef ?sub_5090FA@Server@@QAEXPAVPlayer@@@Z :proc   ; void Server::sub_5090FA(Player*)
-externdef ?sub_500907@Server@@QAEPAVHuman@@PAVPlayer@@EEEEEE@Z :proc
 
 
 extern ?sub_504a96@Server@@QAEXPAVPacket@@@Z : proc
 extern ?Start@Server@@QAEHH@Z : proc
 
-extern ?FUN_00501b9e@Server@@QAEXHAAVCDWordArray@@@Z : proc
 
 
 ; SrvStru1
 
-extern ?Instance@SrvStru1@@2U1@A : dword
-
-extern ?sub_4FBB24@SrvStru1@@QAEXEEEEII@Z :proc
-extern ?sub_4FBAE3@SrvStru1@@QAEXEEPAVUnit@@II@Z :proc
 
 
-extern ?sub_51E5FB@NetStru1@@QAEXHH@Z :proc          ; void NetStru1::sub_51E5FB(int, int)
-extern ?sub_51E63F@NetStru1@@QAEXHHH@Z :proc         ; void NetStru1::sub_51E63F(int, int, int)
-extern ?sub_51E794@NetStru1@@QAEXHHEF@Z :proc        ; void NetStru1::sub_51E794(int, int, uint8_t, int16_t)
-externdef ?sub_51E289@NetStru1@@QAEXHVCString@@HHH@Z :proc  ; void NetStru1::sub_51E289(int, CString, int, int, int)
-extern ?sub_51E40C@NetStru1@@QAEXPBDH@Z :proc   ; void NetStru1::sub_51E40C(const char*, int)
+
 
 
 ; World
-externdef ?g_World@@3PAUWorld@@A :dword
 
 extern ?sub_5A37C5@World@@QAEPAVUnitList@@PAVUnit@@@Z :proc
 extern ?sub_5A457A@World@@QAEXXZ :proc
 extern ?sub_5A4590@World@@QAEXXZ :proc
 extern ?sub_5A4757@World@@QAEXXZ :proc
-extern ?sub_5A9A6A@World@@QAEXPAVUnit@@@Z :proc
 extern ?sub_5A9AC4@World@@QAEXPAVUnit@@@Z :proc
-extern ?sub_5AC983@World@@QAEXPAVGroup@@H@Z :proc
-extern ?sub_5ACDF4@World@@QAEXPAVGroup@@@Z :proc
 extern ?sub_5B6F60@World@@QAEHHH@Z :proc
 
 
@@ -1121,17 +702,10 @@ externdef ?GetHead@PlayersList@@QAEPAVPlayer@@XZ :proc
 externdef ?GetNext@PlayersList@@QAEPAVPlayer@@PAV2@@Z :proc
 
 ; Sack
-externdef ??0Sack@@QAE@PBUTokenPos@@@Z :proc                                 ; Sack::Sack(const TokenPos*)
-externdef ??0Sack@@QAE@PBUTokenPos@@PAUInventory@@@Z :proc                   ; Sack::Sack(const TokenPos*, Inventory*)
-externdef ?classSack@Sack@@2UCRuntimeClass@@A :byte                          ; static CRuntimeClass Sack::classSack
 
 ; SackList method
-externdef ?sub_554460@SackList@@QAEHPAUTokenPos@@PAUInventory@@HH@Z :proc
-externdef ??1SackList@@QAE@XZ :proc   ; SackList::~SackList()
-externdef ?sub_55BC58@SackList@@QAEXAAVCArchive@@@Z :proc
 
 ; Sack methods
-externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
 
 ; Server methods
 
@@ -1139,17 +713,12 @@ externdef ?sub_55401E@Sack@@QAEXXZ :proc   ; void Sack::sub_55401E()
 
 ; Srv1
 externdef ??1Srv1@@UAE@XZ :proc
-externdef ?sub_59D891@Srv1@@QAEXPAUMapAlm@@H@Z :proc ; void Srv1::sub_59D891(MapAlm*, int)
-externdef ?sub_59F1BE@Srv1@@QAEXPAUMapAlm@@@Z :proc  ; void Srv1::sub_59F1BE(MapAlm*)
-externdef ?sub_59BEDB@Srv1@@QAEXPAVGroup@@PAUMapAlm@@@Z :proc  ; void Srv1::sub_59BEDB(Group*, MapAlm*)
 
 ; MapAlm
 externdef ??0MapAlm@@QAE@PBD@Z :proc  ; MapAlm::MapAlm(const char*)
 externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 
 ; Settings
-externdef ??0Settings@@QAE@XZ :proc
-externdef ?Serialize@Settings@@QAEXAAVCArchive@@@Z :proc
 
 
 ; QuestMap
@@ -1159,16 +728,11 @@ extern ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 
 ; ServerControlDialog
 extern ??0ServerControlDialog@@QAE@PAVCWnd@@@Z :proc  ; ServerControlDialog::ServerControlDialog(CWnd*) - 4951bd
-extern ??_GServerControlDialog@@UAEPAXI@Z :proc  ; ServerControlDialog::`scalar deleting destructor' - 4968d4
 extern ?sub_49585B@ServerControlDialog@@QAEXXZ :proc  ; ServerControlDialog::sub_49585B() - 49585B
-extern ?GetMessageMap@ServerControlDialog@@UBEPBUAFX_MSGMAP@@XZ :proc ; ServerControlDialog::GetMessageMap() - 495429
-extern ?DoDataExchange@ServerControlDialog@@MAEXPAVCDataExchange@@@Z :proc ; ServerControlDialog::DoDataExchange(void*)
 externdef ?messageMap@CDialog@@2UAFX_MSGMAP@@B :dword ; CDialog message map - 610878
 
 
 ;CListBox2  in C++
-extern  ??0CListBox2@@QAE@XZ  :proc
-extern  ??1CListBox2@@UAE@XZ  :proc
 
 
 
@@ -1315,8 +879,6 @@ externdef ??0CStatusBar@@QAE@XZ :proc   ; (public: __thiscall CStatusBar::CStatu
 externdef ??1CStatusBar@@UAE@XZ :proc   ; (public: virtual __thiscall CStatusBar::~CStatusBar(void))
 
 ;CEdit2
-extern ??0CEdit2@@QAE@XZ :proc   ; (public: __thiscall CEdit2::CEdit2(void))
-extern ??1CEdit2@@UAE@XZ :proc   ; (public: virtual __thiscall CEdit2::~CEdit2(void))
 
 
 ;CGameSession
@@ -1328,7 +890,6 @@ extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
 externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
 
-extern ?SubmitCharacterSetupAndWaitForSelectedUnit@CGameSession@@QAEHXZ : proc
 extern ?RecreateCUnit@CGameSession@@QAEXXZ : proc
 
 extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
@@ -1362,60 +923,32 @@ externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
 externdef ?WaitHatConnection@MainWindow@@QAEHXZ : proc
 externdef ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ : proc
-externdef ?StartHatDedicatedServer@MainWindow@@QAEXXZ : proc
 externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
-extern ?Proc_421@MainWindow@@QAEXXZ : proc
 extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc
 extern ?FUN_00490eb3@MainWindow@@QAEHXZ : proc
 
-extern ?SpawnScenarioMissionUnits@MainWindow@@QAEXHABVCDWordArray@@@Z : proc
-extern ?FUN_0048f905@MainWindow@@QAEXXZ : proc
-extern ?Proc_44c@MainWindow@@QAEXPAVCVisualObject@@@Z : proc
 extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
-extern ?ShowCharacterLoaderDialog@MainWindow@@QAEXXZ : proc
-extern ?FUN_00491822@MainWindow@@QAEXXZ : proc
-extern ?FUN_004918ae@MainWindow@@QAEXXZ : proc
 
-extern ?FUN_0041f6b0@BigStruct2@@QAEHXZ  : proc
-extern ?FUN_0041b6e0@BigStruct2@@QAEXXZ  : proc
-extern ?RunSessionBootstrap@MainWindow@@QAEHH@Z : proc
-extern ?FUN_0048f79d@MainWindow@@QAEXXZ : proc
 
 
 extern ?vis_scr_rect@@3VCRect@@A : dword
 
-extern ??0MainWindow@@QAE@XZ : proc
-extern ??1MainWindow@@UAE@XZ : proc
-extern ?LoadData@MainWindow@@QAEXXZ  : proc
-extern ?LoadSettings@MainWindow@@QAEXXZ  : proc
-externdef ?sub_48A756@MainWindow@@QAEXXZ :proc
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
-extern ?ShowStartGameSetupForNewSession@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00478130@MainWindow@@QAEXXZ : proc
 
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
-extern ?UpdateClipCursor@MainWindow@@QAEHXZ  : proc
 extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
 extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
-extern ?ShowStartupLogoDialog@MainWindow@@QAEXXZ : proc
-
-extern ?ShowCreditsDialog@MainWindow@@QAEXXZ : proc
-extern ?ShowFameHallDialog@MainWindow@@QAEXXZ : proc
-extern ?ShowShopDialog@MainWindow@@QAEXI@Z : proc
-extern ?ShowInnDialog@MainWindow@@QAEXIH@Z : proc
 
 
-extern ??0CFameHall@@QAE@XZ  :proc   ; (public: __thiscall CFameHall::CFameHall(void))
-extern ??1CFameHall@@QAE@XZ  :proc   ; (public: __thiscall CFameHall::~CFameHall(void))
-extern ?ZeroFactors@CFameHall@@QAEXXZ  :proc   ; (public: void __thiscall CFameHall::ZeroFactors(void))
-extern ?SetDifficulty@CFameHall@@QAEXI@Z  :proc   ; (public: void __thiscall CFameHall::SetDifficulty(unsigned int))
+
 extern ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall CFameHall::FUN_004ac3ce(struct Fame1 const &))
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
@@ -1430,35 +963,23 @@ extern ?IsListen@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
 externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
 externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e45a3
 
-extern ?FUN_00475e7a@@YAXXZ :proc
-extern ??0DistortMap@@QAE@HH@Z :proc           ; DistortMap::DistortMap(int, int) - 4a9f90
-extern ?sub_4AA0AF@DistortMap@@QAEXXZ :proc    ; void DistortMap::sub_4AA0AF() - 4aa0af
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
 extern ?g_DistortMap@@3PAVDistortMap@@A : dword ; DistortMap* g_DistortMap
-extern ?g_DistTable@@3PAY0CJ@GA : byte         ; uint16_t g_DistTable[41][41]
 extern ?g_CpuFeatureFlags@@3IA : dword         ; uint32_t g_CpuFeatureFlags
 
 extern ?ReadFileToString@@YAXPBDPAVCString@@@Z  : proc
 extern ?GetRandS16@@YAHH@Z   : proc
 
 
-extern ?g_CdSpeed@@3PADA : byte  ; char * g_CdSpeed
-extern ?g_resolution@@3PADA : byte  ; char * g_resolution
-extern ?g_InitialWorkingDir@@3PADA : byte  ; char * g_InitialWorkingDir
-extern ?g_CmdLatency@@3IA : dword  ; unsigned int g_CmdLatency
 extern ?g_CmdTimeout@@3IA : dword  ; unsigned int g_CmdTimeout
 extern ?g_MainWndHWND@@3PAUHWND__@@A  : dword  ; HWND g_MainWndHWND
 extern ?g_IsCdPresent@@3IA  : dword
-extern ?g_EnableTrace@@3IA  : dword
 extern ?g_DWORD_00659d18@@3IA  : dword
-extern ?g_CmdSafeVideo@@3IA  : dword
 extern ?INT_00660f74@@3IA  : dword
 
-extern ?g_HelpStr@@3VCString@@A : byte
 
 
-extern ?txt_main@@3VTxtFile@@A :byte   ; (class TxtFile txt_main)
 extern ?txt_heropicture@@3VTxtFile@@A :byte   ; (class TxtFile txt_heropicture)
 extern ?txt_stats@@3VTxtFile@@A :byte   ; (class TxtFile txt_stats)
 extern ?txt_spells@@3VTxtFile@@A :byte   ; (class TxtFile txt_spells)
@@ -1466,9 +987,7 @@ extern ?txt_spell@@3VTxtFile@@A :byte   ; (class TxtFile txt_spell)
 extern ?txt_dialogs@@3VTxtFile@@A :byte   ; (class TxtFile txt_dialogs)
 extern ?txt_unitname@@3VTxtFile@@A :byte   ; (class TxtFile txt_unitname)
 extern ?txt_building@@3VTxtFile@@A :byte   ; (class TxtFile txt_building)
-extern ?txt_itemname@@3VTxtFile@@A :byte   ; (class TxtFile txt_itemname)
 extern ?txt_npcnames@@3VTxtFile@@A :byte   ; (class TxtFile txt_npcnames)
-extern ?txt_cutscene@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutscene)
 extern ?txt_cutpaths@@3VTxtFile@@A :byte   ; (class TxtFile txt_cutpaths)
 extern ?txt_tunes@@3VTxtFile@@A :byte   ; (class TxtFile txt_tunes)
 extern ?txt_patch@@3VTxtFile@@A :byte   ; (class TxtFile txt_patch)
@@ -1480,10 +999,6 @@ extern ?g_using_vxd@@3IA : dword
 extern ?g_ServerConfig@@3UServerConfig@@A   : dword
 
 
-externdef ?ParseConfig@@YAHPBD@Z :proc
-externdef ?LoadFonts@@YAXXZ  : proc
-externdef ?LoadItemNames@@YAXXZ  : proc
-extern ?unk_660D28@@3VCMapWordToPtr@@A :byte
 extern ?unk_660DA8@@3VCMapWordToPtr@@A :byte
 extern ?dword_65FBB8@@3PAXA :dword
 externdef ?ParseTunes@@YAXXZ : proc
@@ -1496,16 +1011,13 @@ extern ?g_kbMenuState@@3HA : dword
 
 
 externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
-extern ?ShowGlobalMapDialog@MainWindow@@QAEXXZ : proc
 
-extern ?g_LButtonDown@@3HA : dword
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
 extern ?g_settings@@3UGameSettings@@A : dword
 extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
-extern ?DAT_006658d8@@3VCDWordArray@@A : dword
 
 externdef   ??0VisCharSelect@@QAE@HHHHH@Z  : proc
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
@@ -1532,7 +1044,6 @@ externdef   ??0VisMainMenu@@QAE@HHHHH@Z  : proc
 externdef   ??0VisStartGame@@QAE@HHHHH@Z  : proc
 externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
 externdef   ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
-externdef   ??0VisLogoWnd@@QAE@HHHHH@Z  : proc
 externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
 externdef   ??0VisFameDocument@@QAE@HHHHH@Z  : proc
 
@@ -1541,29 +1052,21 @@ externdef   ??0VisFameDocument@@QAE@HHHHH@Z  : proc
 
 ;ExperienceTable
 extern ?GetLevel@ExperienceTable@@YAHI@Z : proc
-extern ?GetExp@ExperienceTable@@YAHI@Z : proc
 
 
 ;A2NetSock
-extern ??0A2NetSock@@QAE@XZ :proc
-extern ??1A2NetSock@@QAE@XZ :proc
 
 
 ; CLlDriver
-extern ??0CLlDriver@@QAE@U_GUID@@PAVNetStru1@@@Z  : proc
-extern ??1CLlDriver@@QAE@XZ  : proc
 
 extern ?Close@CLlDriver@@QAEXXZ :proc
 
 extern ?EnumAddresses@CLlDriver@@QAEHPAPAUCLlAddress@@PAH@Z : proc
 
-extern ?GetClientBySocketId@CLlDriver@@QAEPAUA2NetSock@@I@Z : proc
 
 extern ?ResetProvider@CLlDriver@@QAEHH@Z : proc
-extern ?RecreateDp@CLlDriver@@QAEXXZ : proc
 
 extern ?EnumSessions@CLlDriver@@QAEHPAPAUCLlNetSession@@PAHP6AHXZI@Z :proc
-extern ?cbEnumSessions@CLlDriver@@SGHPBUtagDPSESSIONDESC2@@PAKKPAX@Z :proc
 
 extern ?EnumConnections@CLlDriver@@QAEXPAPAUCLlConn@@PAH@Z : proc
 
@@ -1574,14 +1077,8 @@ extern ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z : proc
 extern ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z : proc
 extern ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z : proc
 
-extern ?SendData@CLlDriver@@QAEHIPAUNetStru3@@@Z :proc
 
-extern ?DisconnectClient@CLlDriver@@QAEXI@Z :proc
-extern ?CleanupInvalidTcpClient@CLlDriver@@QAEXI@Z :proc
-extern ?CleanupAllInvalid@CLlDriver@@QAEXXZ : proc
-extern ?RestartModemServerDp@CLlDriver@@QAEHXZ : proc
 
-extern ?SetLatency@CLlDriver@@QAEXIH@Z :proc
 
 extern ?g_CLlDriver@@3UCLlDriver@@A  : dword
 extern ?g_HatLLDriver@@3UCLlDriver@@A : dword
@@ -1638,7 +1135,6 @@ extern ?OnKeyDown@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thisca
 extern ?OnKeyUp@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnKeyUp(unsigned int))
 extern ?OnChar@CVisualObject@@UAEHI@Z :proc   ; (public: virtual int __thiscall CVisualObject::OnChar(unsigned int))
 
-extern ?MsgProcOnChilds@CVisualObject@@QAEHIII@Z  :proc    ;   CVisualObject::MsgProcOnChilds
 extern ?AddChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::AddChild(class CVisualObject *))
 extern ?RemoveChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChild(class CVisualObject *))
 extern ?RemoveChildById@CVisualObject@@QAEXH@Z :proc   ; (public: void __thiscall CVisualObject::RemoveChildById(int))
@@ -1646,20 +1142,15 @@ extern ?RemoveAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall
 extern ?DestroyChild@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::DestroyChild(class CVisualObject *))
 extern ?DestroyAllChilds@CVisualObject@@QAEXXZ :proc   ; (public: void __thiscall CVisualObject::DestroyAllChilds(void))
 extern ?FindChild@CVisualObject@@QAEPAV1@H@Z :proc   ; (public: class CVisualObject * __thiscall CVisualObject::FindChild(int))
-extern ?GetChildAt@CVisualObject@@QAEPAV1@UtagPOINT@@@Z :proc   ; (public: class CVisualObject * __thiscall CVisualObject::GetChildAt(struct tagPOINT))
 extern ?ClientPtToScreen@CVisualObject@@QAEXPAVCPoint@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientPtToScreen(class CPoint *,class CPoint const &))
 extern ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z :proc   ; (public: void __thiscall CVisualObject::ClientRectToScreen(class CRect *,class CRect const &))
 extern ?SetLeftObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetLeftObj(class CVisualObject *))
-extern ?SetRightObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetRightObj(class CVisualObject *))
 extern ?SetUpObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetUpObj(class CVisualObject *))
-extern ?SetDownObj@CVisualObject@@QAEXPAV1@@Z :proc   ; (public: void __thiscall CVisualObject::SetDownObj(class CVisualObject *))
 extern ?SetCaptionLabel@CVisualObject@@QAEXPAVVisLabel@@@Z :proc   ; (public: void __thiscall CVisualObject::SetCaptionLabel(class VisLabel *))
 extern ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z :proc   ; (public: void __thiscall CVisualObject::FocusTo(class CVisualObject *,bool))
-extern ?TabFocus@CVisualObject@@QAEX_N0@Z :proc   ; (public: void __thiscall CVisualObject::TabFocus(bool,bool))
 extern ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT))
 extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __thiscall CVisualObject::SetRect(struct tagRECT const *))
 
-extern ?GetId@CVisualObject@@QAEHXZ : proc
 extern ?GetRect@CVisualObject@@QAEAAVCRect@@XZ : proc
 
 externdef ?sub_41F940@CVisualObject@@QAEHXZ : proc  ; int CVisualObject::sub_41F940()
@@ -1668,9 +1159,6 @@ externdef ?sub_41F940@CVisualObject@@QAEHXZ : proc  ; int CVisualObject::sub_41F
 ;VizLabel
 extern ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,int,int,int,int,char const *,class CGameFont *,unsigned short *,unsigned int))
 extern ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z :proc   ; (public: __thiscall VisLabel::VisLabel(int,struct tagRECT const &,char const *,class CGameFont *,unsigned short *,unsigned i
-extern ?VMethod7@VisLabel@@UAEXXZ :proc   ; (public: virtual void __thiscall VisLabel::VMethod7(void))
-extern ?SetActiveColor@VisLabel@@QAEX_N@Z :proc   ; (public: void __thiscall VisLabel::SetActiveColor(bool))
-extern ??1VisLabel@@UAE@XZ :proc   ; (public: virtual __thiscall VisLabel::~VisLabel(void))
 
 
 ;VisButton
@@ -1708,10 +1196,6 @@ extern ?GetItemCount@VisListBox@@UAEHXZ  :proc
 extern ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z  :proc
 extern ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z  :proc
 extern ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
-extern ?Down@VisListBox@@QAEXXZ  :proc
-extern ?Up@VisListBox@@QAEXXZ  :proc
-extern ?PageDown@VisListBox@@QAEXXZ  :proc
-extern ?PageUp@VisListBox@@QAEXXZ  :proc
 extern ?YToIndex@VisListBox@@QAEHH@Z  :proc
 extern ?GetItem@VisListBox@@QAEAAVCString@@H@Z : proc
 extern ?SetSelectedIndex@VisListBox@@QAEXH@Z : proc
@@ -1732,15 +1216,9 @@ extern ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 extern ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z  :proc
 
 ;VisRadioBase
-extern ??1VisRadioBase@@UAE@XZ  :proc
 extern ?SetCursorOver@VisRadioBase@@UAEX_N@Z  :proc
 extern ?WriteData@VisRadioBase@@UAEXPAX@Z  :proc
 extern ?DataSize@VisRadioBase@@UAEIXZ  :proc
-extern ?ReadData@VisRadioBase@@UAEXPBX@Z  :proc
-extern ?OnMouseMove@VisRadioBase@@UAEHIVCPoint@@@Z  :proc
-extern ?GetIndex@VisRadioBase@@UAEHH@Z  :proc
-extern ??0VisRadioBase@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
-extern ?AddEntry@VisRadioBase@@QAEXPBD@Z  :proc
 
 ;VisRadioType1
 extern ??1VisRadioType1@@UAE@XZ  :proc
@@ -1753,16 +1231,10 @@ extern ?OnChar@VisRadioType1@@UAEHI@Z  :proc
 extern ??0VisRadioType1@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 
 ;VisRadioType2
-extern ??1VisRadioType2@@UAE@XZ  :proc
-extern ?OnMouseMove@VisRadioType2@@UAEHIVCPoint@@@Z  :proc
-extern ?OnLButtonDown@VisRadioType2@@UAEHIVCPoint@@@Z  :proc
-extern ?OnKeyDown@VisRadioType2@@UAEHI@Z  :proc
-extern ?OnChar@VisRadioType2@@UAEHI@Z  :proc
 extern ??0VisRadioType2@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z  :proc
 
 ;VisBitmap
 extern ??0VisBitmap@@QAE@HHHHHPAVCGameBitmap@@H@Z  :proc
-extern ??0VisBitmap@@QAE@HABUtagRECT@@PAVCGameBitmap@@H@Z  :proc
 extern ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ  :proc
 extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
 
@@ -1770,17 +1242,12 @@ extern ?SetBitmap@VisBitmap@@QAEXPAVCGameBitmap@@@Z  :proc
 ;VisComboBox
 extern ??0VisComboBox@@QAE@HVCRect@@PBD@Z  :proc
 extern ?AddItem@VisComboBox@@QAEXPBD@Z  :proc
-extern ?ToggleList@VisComboBox@@QAEXXZ  :proc
-extern ?HideList@VisComboBox@@QAEXXZ  :proc
-extern ?ProcSelectList@VisComboBox@@QAEXXZ  :proc
 extern ?SelectItem@VisComboBox@@QAEXH@Z  :proc
 
 
 ;VisMultiText
 extern ??0VisMultiText@@QAE@HHHHHPBDPAVCGameFont@@PAGH@Z  :proc
-extern ??0VisMultiText@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGH@Z  :proc
 extern ?SetText@VisMultiText@@QAEXPBD@Z  : proc
-extern ?SizesCheck@VisMultiText@@QAEXXZ : proc
 
 
 ;VisScreen
@@ -1799,7 +1266,6 @@ extern ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z  :proc
 extern ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
 extern ?GetCloseCode@VisScreen@@QAEHXZ  :proc
 extern ?CloseOk@VisScreen@@QAEXXZ  :proc
-extern ?CloseCancel@VisScreen@@QAEXXZ  :proc
 
 
 ;VisWindow
@@ -1847,37 +1313,21 @@ extern ?OnKeyDown@VisMenuWnd@@UAEHI@Z : proc
 extern ?AddElement@VisMenuWnd@@QAEXPAVCVisualObject@@H@Z : proc
 
 ;MenuButton
-extern ??0MenuButton@@QAE@HPBDPAVCGameFont@@PAGHH0@Z : proc
 extern ??0MenuButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z : proc
 
 ;IngameMenu
-extern ??0IngameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
 
 ;HintedListBox
-extern ??0HintedListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z  :proc
-extern ?SetHints@HintedListBox@@QAEXPAVCStringArray@@@Z  :proc
 
 ;LoadGameWindow SaveGameWindow
-extern ??0LoadGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z : proc
-extern ??0SaveGameWindow@@QAE@HHHHHPAVCGameBitmap@@PAUSaveFileInfo@@@Z : proc
 
 
 ;GM_a28
-extern ??1GM_a28@@UAE@XZ  :proc
-extern ??0GM_a28@@QAE@XZ  :proc
-extern ?Add@GM_a28@@QAEXPBDPAGI@Z  :proc
 extern ?AddWithCheck@GM_a28@@QAEXPBDPAGI@Z  :proc
-extern ?Clear@GM_a28@@QAEXXZ  :proc
 extern ?Draw@GM_a28@@QAEXXZ  :proc
-extern ?SetRect@GM_a28@@QAEXABVCRect@@@Z  :proc
-extern ?Update@GM_a28@@QAEXXZ  :proc
 
 ;TakeDamage
-extern ?AddDamage@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@ABU1@@Z  :proc
-extern ?UpdateDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z : proc
-extern ?DrawDamages@TakeDamage@@SAXPAV?$CArray@UTakeDamage@@ABU1@@@@Z  : proc
 extern ??1TakeDamage@@QAE@XZ : proc
-extern ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z : proc
 extern ??0TakeDamage@@QAE@XZ : proc
 externdef ?FUN_0041f620@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f620()
 externdef ?FUN_0041f640@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f640()
@@ -1891,7 +1341,6 @@ externdef ?DAT_00660f68@@3HA :dword
 externdef ?DAT_00661018@@3PAPAVCGamePalette@@A :dword
 externdef ?DAT_00665344@@3PAVCGameBitmap@@A :dword
 externdef ?DAT_00660f6c@@3HA :dword
-extern ?FUN_0041c4a1@BigStruct2@@QAEXPBD@Z  : proc
 extern ?sub_4184B8@BigStruct2@@QAEHHH@Z : proc
 extern ?sub_419154@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_419246@BigStruct2@@QAEXG@Z : proc
@@ -1899,52 +1348,22 @@ extern ?sub_41930D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_41955C@BigStruct2@@QAEXG@Z : proc
 extern ?sub_41965D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
-extern ?UpdateAmbientSounds@BigStruct2@@QAEXXZ : proc
-extern ?sub_416983@BigStruct2@@QAEXH@Z : proc
 extern ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
 extern ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
 externdef ?FUN_0041f150@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f150(int)
 externdef ?FUN_0041f1f0@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f1f0(int)
-extern ?sub_41DFDB@BigStruct2@@QAEPAVCUnit@@XZ : proc
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
-extern ?FUN_0041c74b@BigStruct2@@QAEXHHHHHPAEH@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
-extern ?FUN_0041c630@BigStruct2@@QAEXPAVCWordArray@@@Z : proc
-extern ?FUN_0041cb67@BigStruct2@@QAEXH@Z : proc
-extern ?FUN_0041cb21@BigStruct2@@QAEXXZ  : proc
-extern ?FUN_0041d97e@BigStruct2@@QAEXH@Z : proc
-extern ??_GBigStruct2@@UAEPAXI@Z : proc
-extern ?VMethod7@BigStruct2@@UAEXXZ : proc
-extern ?MsgProc@BigStruct2@@UAEHIII@Z : proc
-extern ?OnMouseMove@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDown@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonUp@BigStruct2@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@BigStruct2@@UAEHI@Z : proc
-extern ?OnChar@BigStruct2@@UAEHI@Z : proc
-externdef ?DAT_00660f70@@3HA :dword
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
 extern ?FUN_0041d2da@BigStruct2@@QAEXH@Z : proc
 
-extern ?FUN_0041aaaa@BigStruct2@@QAEXH@Z : proc
-extern ?FUN_0041abd2@BigStruct2@@QAEXH@Z : proc
-extern ?FUN_0041ab74@BigStruct2@@QAEXXZ : proc
 extern ?FUN_0041b636@BigStruct2@@QAEXXZ : proc
-extern ?FUN_0041b509@BigStruct2@@QAEXXZ : proc
-extern ?FUN_0041b40e@BigStruct2@@QAEXXZ : proc
 
-extern ?ScrollMapX@BigStruct2@@QAEXH@Z : proc
-extern ?ScrollMapY@BigStruct2@@QAEXH@Z : proc
 extern ?MapMinX@BigStruct2@@QBEHXZ : proc
-extern ?MapMinY@BigStruct2@@QBEHXZ : proc
-extern ?MapMaxX@BigStruct2@@QBEHXZ : proc
 
 
-extern ?CleanupCompletedMissionMapState@BigStruct2@@QAEXXZ : proc
 extern ?UpdateSelectionState@BigStruct2@@QAEXXZ : proc
 
 externdef ?INT_00660f8c@@3HA  :dword
@@ -1967,9 +1386,7 @@ externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
 ;TokenEntry
 extern ??1TokenEntry@@UAE@XZ  :proc   ; (public: virtual __thiscall TokenEntry::~TokenEntry(void))
 extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEntry(void))
-extern ??0TokenEntry@@QAE@H@Z : proc ; (int)
 extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
-extern ??0TokenEntry@@QAE@PAPAEH@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(unsigned char * *,int))
 extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
@@ -2150,7 +1567,6 @@ externdef ?FUN_00497310@Vis1200@@QAEHXZ  : proc
 externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
 
 ;VisGlobalMap
-extern ?RebuildScenarioLocations@VisGlobalMap@@QAEXXZ  : proc
 externdef ??_GVisGlobalMap@@UAEPAXI@Z : proc
 externdef ?GetHint@VisGlobalMap@@UAEPBDXZ : proc
 externdef ?VMethod7@VisGlobalMap@@UAEXXZ : proc
@@ -2386,13 +1802,10 @@ externdef ?OnKeyDown@VisServerScreen@@UAEHI@Z : proc
 externdef ?VMethod26@VisServerScreen@@UAEXXZ : proc
 
 ;GameOptionsWindow
-extern ??0GameOptionsWindow@@QAE@HHHHH@Z : proc
 
 ;MPGameMenu
-extern ??0EndGameMenu@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@H@Z :proc
 
 ;WinGameMenu
-extern ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z :proc
 
 
 ;GFX things
@@ -2406,14 +1819,10 @@ extern ?LockSurface3@@YAIXZ  :proc
 extern ?UnlockSurface3@@YAIXZ  :proc
 extern ?LockSurface2@@YAIXZ  :proc
 extern ?UnlockSurface2@@YAIXZ  :proc
-extern ?LockSurface1@@YAIXZ  :proc
-extern ?UnlockSurface1@@YAIXZ :proc
 
-extern ?InitVideo@@YAHXZ :proc
 
 extern ?g_ddsurface@@3PAUIDirectDrawSurface@@A : dword
 
-extern ?g_ddsurface3@@3PAUIDirectDrawSurface@@A : dword
 
 extern ?g_ddraw@@3PAUIDirectDraw@@A : dword
 
@@ -2453,27 +1862,22 @@ extern ?g_bmp_invarrow4@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_backinv@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_spb1024l@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_spb1024r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_extra1024l@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_extra1024r@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_inv1024l@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_inv1024r@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_spb800l@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_spb800r@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_extra800l@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_extra800r@@3PAVCBmp64@@A  : dword
 extern ?gfx_interface_lm@@3PAVCSprite256@@A : dword
 extern ?gfx_scrollbars@@3PAVCSprite256@@A : dword
 extern ?gfx_radiob@@3PAVCSprite256@@A : dword
 extern ?g_spr_t_border@@3PAVCSprite256@@A : dword
-extern ?g_spr_backm@@3PAVCSprite256@@A : dword
-extern ?g_spr_backf@@3PAVCSprite256@@A : dword
 extern ?g_ca16_money@@3PAVCA16@@A : dword
 extern ?g_bmp_server@@3PAVCBmp64@@A  : dword
 extern ?g_spr_backpack@@3PAVCSprite256@@A : dword
 extern ?g_spr_backpackb@@3PAVCSprite256@@A : dword
 extern ?gfx_ball@@3PAVCBmp64@@A  : dword
 extern ?g_bmp_minimapdata@@3PAVCBmp64@@A  : dword
-extern ?g_bmp_testiva@@3PAVCBmp256@@A  : dword
 
 
 
@@ -2488,15 +1892,12 @@ extern ?g_font4@@3PAVCGameFont@@A : dword
 
 ; Free functions
 
-extern ?LoadGraphics@@YAXXZ : proc
 
 extern ?Random0N@@YAHH@Z:proc     ; 542216
 extern ?Random1N@@YAHH@Z:proc     ; 54223F
 
 extern ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z :proc                  ; sub_4F53EA — save character data to file
 extern ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z :proc                  ; sub_4F62E6 — parse character file sections
-extern ?CalcChecksum@@YAIPAEH@Z :proc                         ; sub_4F5308 — checksum calculation
-extern ?DecryptEncryptedData@@YAXPAEHG@Z :proc                      ; sub_4F535E — XOR decrypt/encrypt
 
 
 ;gfx
@@ -2508,7 +1909,6 @@ extern ?g_ScreenSize@@3VCRect@@A : dword
 extern ?FillRectColor@@YAXHHHHI@Z : proc
 extern ?FillRectColorSimple@@YAXHHHHI@Z : proc
 externdef ?FUN_00457aa6@@YAXHHHHG@Z : proc
-extern ?SetPixelColor@@YAXHHI@Z : proc
 extern ?ShadowRect@@YAXVCRect@@H@Z : proc
 
 extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc
@@ -2516,7 +1916,6 @@ extern ?DrawRectangleFrame@@YAXHHHHI@Z : proc
 extern ?g_brightnessLookup@@3PAGA  :dword
 extern ?g_brightnessLookupCount@@3IA  :dword
 
-extern ?g_Shadows@@3HA : dword
 extern ?g_Animation@@3HA : dword
 extern ?g_Lightning@@3HA : dword
 
@@ -2536,27 +1935,19 @@ extern ?g_Human_palettes@@3V?$CArray@PAVCGamePalette@@ABQAV1@@@A : dword
 
 extern ?p_clrsh_Black@@3PAGA  :dword
 extern ?p_clrsh_ShockingBlack@@3PAGA  :dword
-extern ?p_clrsh_Gold@@3PAGA  :dword
 
 extern ?clrsh_DullGold@@3PAGA  : dword
 extern ?clrsh_TechBlack@@3PAGA  : dword
 extern ?clrsh_ShockingBlack@@3PAGA  : dword
 extern ?clrsh_CharlieBrown@@3PAGA  : dword
-extern ?clrsh_LuxorGold@@3PAGA  : dword
 extern ?clrsh_CoralRed@@3PAGA  : dword
 
-extern ?clrsh_Black@@3PAGA  : dword
 extern ?clrsh_Oxley@@3PAGA  : dword
 extern ?clrsh_GoldenFizz@@3PAGA  : dword
-extern ?clrsh_ScreaminGreen@@3PAGA  : dword
-extern ?clrsh_Cumin@@3PAGA  : dword
-extern ?clrsh_CreteToRed@@3PAGA  : dword
-extern ?clrsh_ScreamGreenToRed@@3PAGA  : dword
 extern ?clrsh_InvBarleyCorn@@3PAGA  : dword
 
 extern ?palette_husk@@3PAVCGamePalette@@A  : dword
 extern ?palette_paris_daisy@@3PAVCGamePalette@@A  : dword
-extern ?palette_black@@3PAVCGamePalette@@A  : dword
 extern ?palette_brown_derby@@3PAVCGamePalette@@A  : dword
 extern ?palette_tawny_port@@3PAVCGamePalette@@A  : dword
 
@@ -2574,7 +1965,6 @@ extern ?g_ColorAddMask@@3GA : word
 extern ?g_colors_human_pals@@3PAY0BA@GA : word
 
 extern ?g_pal_projectiles@@3PAVCGamePalette@@A   : dword
-extern ?g_pal_projectile_@@3PAVCGamePalette@@A   : dword
 extern ?g_spr_smoke@@3PAPAVCA16@@A : dword
 
 extern ?g_DeltaCLR@@3UColorThing@@A : byte
@@ -2587,20 +1977,17 @@ extern ??0CBmp256@@QAE@II@Z  : proc
 extern ??0CBmp64@@QAE@II@Z : proc
 extern ??0CBmp64@@QAE@PBD@Z : proc
 extern ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z : proc
-extern ?WriteFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z : proc
 
 ;CGameBitmap
 extern ?ResetPalette@CGameBitmap@@QAEXIHH@Z  : proc
 
 ;CSprite256
 extern ??0CSprite256@@QAE@PBD@Z : proc
-extern ??0CSprite256@@QAE@ABV0@@Z : proc
 
 ;CA16
 extern ??0CA16@@QAE@PBD@Z  :proc
 
 ;CSprite16
-extern ??0CSprite16@@QAE@PBD@Z : proc
 
 ;CGamePalette
 extern ?Free@CGamePalette@@QAEXXZ  : proc
@@ -2619,50 +2006,31 @@ extern ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z : proc
 
 ;sound
 extern ??0SfxSample@@QAE@PBD@Z : proc
-extern ??1SfxSample@@UAE@XZ : proc
 extern ?LoadSample@SfxSample@@QAEXXZ : proc
 externdef ?Play@CSound@@SAXAAU1@@Z :proc
 extern ?Play@SfxSample@@QAEXHHHEH@Z : proc
 
-extern ?LoadGameSounds@@YAXXZ : proc
 
-extern ?Load@SfxBank@@QAEXVCString@@@Z : proc
 extern ?Unload@SfxBank@@QAEXXZ : proc
 
-extern ?FreeDSound@@YAXXZ : proc
-
-extern ?g_SoundFmt@@3UtWAVEFORMATEX@@A : dword
 
 
-extern ?Release@SfxSample@@QAEXXZ : proc
+
 extern ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ : proc
 
-extern ?Clear@SoundChannel@@QAEXXZ : proc
 extern ?Stop@SoundChannel@@QAEXXZ : proc
-extern ?Play@SoundChannel@@QAEX_N@Z : proc
-extern ?GetChannel@SoundChannel@@SAPAV1@H@Z : proc
 
-extern ?g_dsound@@3PAUIDirectSound@@A  :dword
-extern ?g_dsound_channel_num@@3HA  :dword
-extern ?g_dsound_channels@@3PAVSoundChannel@@A  :dword
 extern ?g_SfxArray@@3V?$CArray@PAVSfxSample@@ABQAV1@@@A  :dword
 extern ?g_SoundSettings@@3USoundSettings@@A : dword
 
-extern ?g_dsound_format@@3UtWAVEFORMATEX@@A : dword
-extern ?g_dsound_buff_desc@@3U_DSBUFFERDESC@@A : dword
-extern ?g_dsound_hwnd@@3PAUHWND__@@A : dword
 extern ?g_CurrentMusicTrack@@3HA : dword
 
 extern ?StartPlayTrack@MusicPlayer@@QAEXH@Z : proc
-extern ??0MusicPlayer@@QAE@H@Z : proc
-extern ??1MusicPlayer@@UAE@XZ : proc
 extern ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z  : proc
 extern ?Play@MusicPlayer@@QAEXXZ : proc
 extern ?OnEndTrack@MusicPlayer@@QAEXXZ : proc
 extern ?BeginFadeOut@MusicPlayer@@QAEXHH@Z : proc
-extern ?SetVolume@MusicPlayer@@QAEXH@Z : proc
 
-extern ?Player@MusicPlayer@@2PAV1@A : dword
 
 extern ?SoundBank_fighter@@3PAVSfxBank@@A : dword
 extern ?SoundBank_mage@@3PAVSfxBank@@A : dword
@@ -2673,26 +2041,18 @@ extern ?SoundBank_other@@3PAVSfxBank@@A : dword
 ; util.h
 
 extern ?g_isDosCP@@3HA : dword
-extern ?DecodeChar@@YAEE@Z  :proc
 extern ?EncodeChar@@YAEE@Z  :proc
-extern ?ToLowerChar@@YAEE@Z  :proc
 
 
 
 ; CMousePointer
 extern ?g_mousept@@3VCMousePointer@@A : byte 
 
-extern ?SetCursor@CMousePointer@@QAEXPAVCSprite256@@HHHH@Z  :proc
 extern ?Unpaint@CMousePointer@@QAEXXZ  :proc
 extern ?Paint@CMousePointer@@QAEXXZ  :proc
-extern ?ResetNext400msg@CMousePointer@@QAEXXZ  :proc
 extern ?Update@CMousePointer@@QAEXXZ  :proc
-extern ?SaveScreenParts2@CMousePointer@@QAEXABVCRect@@@Z  :proc
-extern ?SaveScreenParts@CMousePointer@@QAEXABVCRect@@@Z  :proc
-extern ?StartSelect@CMousePointer@@QAEXABVCPoint@@@Z  :proc
 extern ?ResetStates@CMousePointer@@QAEXXZ  : proc
 extern ?ForceDisableHint@CMousePointer@@QAEXXZ : proc
-extern ?GetSelectFrame@CMousePointer@@QAEAAVCRect@@XZ : proc
 extern ?GetSelectState@CMousePointer@@QAEHXZ : proc
 extern ?GetY@CMousePointer@@QAEHXZ : proc
 extern ?GetX@CMousePointer@@QAEHXZ : proc
@@ -2700,8 +2060,6 @@ extern ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ : proc
 extern ?DisableHint@CMousePointer@@QAEXXZ : proc
 extern ?EnableHint@CMousePointer@@QAEXXZ : proc
 
-extern ?LoadCursors@@YAXXZ  : proc
-extern ?DeleteCursors@@YAXXZ : proc
 extern ?ApplyCursor@@YAHPAVCCursor@@@Z : proc
 extern ?g_Cursors@@3PAPAVCCursor@@A : dword
 
@@ -2714,13 +2072,11 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 ;CGameObject
 
-extern ?LoadVfxData@@YAXXZ : proc
 externdef ?sub_4764BC@@YAPAEH@Z : proc
 externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, int32_t)
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc
 
-extern ?g_CUnitMaterialSpritePaths@@3VCStringArray@@A : dword
 extern ?IsSelected@CGameObject@@QAEHXZ : proc
 
 
@@ -2732,8 +2088,6 @@ extern ?AssertValid@CGameObject@@UBEXXZ : proc
 extern ?VMethod1@CGameObject@@UAEXH@Z  :proc
 extern ?VMethod2@CGameObject@@UAEHXZ  :proc
 extern ?VMethod3@CGameObject@@UAEHXZ  :proc
-extern ?VMethod4@CGameObject@@UAEHXZ  :proc
-extern ?VMethod5@CGameObject@@UAEHXZ  :proc
 ;extern ?VMethod6@CGameObject@@UAEXHHH@Z  :proc
 extern ?VMethod7@CGameObject@@UAEXHHH@Z  :proc
 extern ?VMethod8@CGameObject@@UAEXHHH@Z  :proc
@@ -2747,36 +2101,23 @@ extern ?VMethod15@CGameObject@@UAEHXZ  :proc
 extern ?VMethod16@CGameObject@@UAEXXZ  :proc
 extern ??0CGameObject@@QAE@XZ  :proc
 extern ??0CGameObject@@QAE@PBV0@@Z  :proc
-extern ?FUN_0041f180@CGameObject@@QAEXH@Z  :proc
 
-extern ?SetVals@CGameObject@@QAEXGHHHHHHHH@Z : proc
 
 externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 externdef ?GetControlGroup@CGameObject@@QAEHXZ : proc
 externdef ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc
 externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
-externdef ?FUN_004627bb@CGameObject@@QAEXHH@Z : proc
 
 ;TransientVisualEffectBuilder
 externdef ??0TransientVisualEffectBuilder@@QAE@XZ :proc
 externdef ??1TransientVisualEffectBuilder@@QAE@XZ :proc
 externdef ?FUN_004CD4B0@@YANH@Z :proc
-externdef ?FUN_004CC5D1@TransientVisualEffectBuilder@@QAEXHHHH@Z :proc
-externdef ?FUN_004CC798@TransientVisualEffectBuilder@@QAEXHHHMMH@Z :proc
-externdef ?FUN_004CC22D@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
-externdef ?FUN_004CC3FD@TransientVisualEffectBuilder@@QAEHPAV?$CArray@UGO_11c@@ABU1@@@FFFG@Z :proc
-externdef ?FUN_004CC944@TransientVisualEffectBuilder@@QAEXFMMI@Z :proc
-externdef ?FUN_004CCAF2@TransientVisualEffectBuilder@@QAEXFMI@Z :proc
-externdef ?FUN_004CCC7B@TransientVisualEffectBuilder@@QAEXFMI@Z :proc
-externdef ?FUN_004CCE04@TransientVisualEffectBuilder@@QAEXFEE@Z :proc
-externdef ?FUN_004CCED2@TransientVisualEffectBuilder@@QAEXFE@Z :proc
 
 ;CUnit
 extern ??0CUnit@@QAE@XZ : proc
 extern ??1CUnit@@UAE@XZ : proc
 extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
-extern ?ApplyFace@CUnit@@QAEXH@Z :proc
 extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
@@ -2799,7 +2140,6 @@ externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
 externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 externdef   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
-extern   ?VMethod10@CUnit@@UAEXXZ  : proc
 extern   ?VMethod11@CUnit@@UAEHXZ  : proc
 extern   ?VMethod13@CUnit@@UAEXXZ  : proc
 extern   ?VMethod14@CUnit@@UAEXXZ  : proc
@@ -2824,7 +2164,6 @@ externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc
-extern ?classCAirUnit@CAirUnit@@2UCRuntimeClass@@B : dword
 extern ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ : proc
 
 ;CBackPack
@@ -2842,7 +2181,6 @@ extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 ;MapPlayerData
 extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F
 extern ?FUN_0041ee20@MapPlayerData@@QAEIH@Z : proc  ; MapPlayerData::FUN_0041ee20 41EE20
-extern ?FUN_0041edf0@MapPlayerData@@QAEHH@Z : proc  ; MapPlayerData::FUN_0041edf0 41EDF0
 extern ?FUN_0041ee50@MapPlayerData@@QAEHH@Z : proc  ; MapPlayerData::FUN_0041ee50 41EE50
 
 ;UnitVFXInfo
@@ -2862,7 +2200,6 @@ externdef ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFil
 ;UnitGfxObject
 extern ?g_UnitGfxFiles@@3V?$CArray@PAVUnitGfxFile@@ABQAV1@@@A : dword
 extern ?Init@UnitGfxFile@@QAEXXZ : proc
-extern ??0UnitGfxFile@@QAE@PBD@Z : proc
 
 
 ;StructureInfo
@@ -2874,16 +2211,12 @@ extern  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 extern ?Init@ProjectileInfo@@QAEXXZ : proc
 
 ;SoundPreferencesDialogVisualObject
-extern ??0SoundPreferencesDialogVisualObject@@QAE@HHHHHPAVCGameBitmap@@PAUSoundSettings@@@Z : proc
 
 ;QuestObjectivesHeaderDialogVisualObject
-extern ??0QuestObjectivesHeaderDialogVisualObject@@QAE@HHHHH@Z : proc
 
 ; TownMenuListDialogVisualObject
-extern ??0TownMenuListDialogVisualObject@@QAE@HHHHHABVCRect@@@Z : proc
 
 ; VisLogoWnd
-extern ??0VisLogoWnd@@QAE@HHHHH@Z : proc
 
 
 ; Vis2Action
