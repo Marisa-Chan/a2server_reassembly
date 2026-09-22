@@ -5808,3 +5808,11 @@ void VisShop::VMethod28()
 
     g_mousept.EnableHint();
 }
+
+
+// 4BCD79
+void VisShop::sub_4BCD79()
+{
+    this->spell_panel = nullptr;
+    this->AddChild(this->to_buy);
+}

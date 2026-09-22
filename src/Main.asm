@@ -168392,30 +168392,6 @@ var_4           = dword ptr -4
 ?sub_4BCD4B@VisShop@@QAEXXZ      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BCD79@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisShop@@UAEHIII@Z+C1↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+84h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+70h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4BCD79@VisShop@@QAEXXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
