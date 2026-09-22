@@ -5518,3 +5518,48 @@ void VisShop::DoClose(uint32_t code)
         ScenarioLeaveShop();
     }
 }
+
+
+// 4BADCB
+int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    pos -= CPoint(this->rect.left, this->rect.top);
+
+    if (main_wnd->field_0x408 != nullptr) {
+        TokenEntry* item = main_wnd->field_0x408;
+        bool reset = false;
+
+        if ((this->to_sell->GetRect().PtInRect(pos) || this->select_info_panel->GetRect().PtInRect(pos))
+            && (int32_t)item->field_0x18 >= 5 && (int32_t)item->field_0x18 <= 8) {
+            reset = true;
+        }
+        if (!reset && this->assortiment->GetRect().PtInRect(pos)
+            && (item->field_0x18 == 2 || (int32_t)item->field_0x18 <= 1)) {
+            reset = true;
+        }
+        if (!reset
+            && !this->to_sell->GetRect().PtInRect(pos)
+            && !this->to_buy->GetRect().PtInRect(pos)
+            && !this->assortiment->GetRect().PtInRect(pos)
+            && !this->select_info_panel->GetRect().PtInRect(pos)) {
+            reset = true;
+        }
+        if (!reset && !this->to_sell->GetRect().PtInRect(pos) && item->GetAttribute(1) == 0) {
+            reset = true;
+        }
+
+        if (reset) {
+            this->placement_lock = 0;
+            ApplyCursor(g_Cursors[0x17]);
+        }
+    }
+
+    if (this->select_info_panel->GetRect().PtInRect(pos) && this->hovered_region != 0x66) {
+        this->hovered_region = 0x66;
+        this->sub_4BCEA4();
+    }
+
+    return 0;
+}

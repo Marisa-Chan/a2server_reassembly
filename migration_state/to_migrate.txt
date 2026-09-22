@@ -551,10 +551,10 @@
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
 ?sub_4BCD79@VisShop@@QAEXXZ	18
+?sub_4BCEA4@VisShop@@QAEXXZ	39
 ?sub_4BCC38@VisShop@@QAEXXZ	70
 ?VMethod32@VisShop@@UAEXXZ	81
 ?sub_4BC97B@VisShop@@QAEXXZ	118
-?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z	236
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
 ?VMethod26@VisShop@@UAEXXZ	265
 ?MsgProc@VisShop@@UAEHIII@Z	356
