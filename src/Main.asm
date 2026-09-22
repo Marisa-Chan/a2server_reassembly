@@ -172919,27 +172919,6 @@ jpt_4C12AB      dd offset loc_4C12B2    ; DATA XREF: sub_4C11C2+E9↑r
                 dd offset loc_4C12CC
                 dd offset loc_4C12D9
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4C1358@VisShopButtons@@QAEXXZ      proc near               ; CODE XREF: ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z+52↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0F8h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0FCh], 0FFFFFFFFh
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4C1358@VisShopButtons@@QAEXXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

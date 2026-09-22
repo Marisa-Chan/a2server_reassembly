@@ -6076,3 +6076,11 @@ void VisShop::sub_4BB102()
     this->bmp_backinvs = new CBmp64("graphics\\interface\\backinvs.bmp");
     g_mousept.Update();
 }
+
+
+// 4C1358
+void VisShopButtons::sub_4C1358()
+{
+    this->field_0xf8 = -1;
+    this->field_0xfc = -1;
+}

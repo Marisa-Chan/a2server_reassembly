@@ -1535,7 +1535,21 @@ public:
 	void sub_4C1358(); //4c1358
 
 	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a in asm
+
+public:
+	VisShop* shop; // 0x5c
+	int32_t field_0x60;
+	int32_t field_0x64;
+	int32_t field_0x68;
+	int32_t field_0x6c;
+	int32_t field_0x70;
+	int32_t field_0x74;
+	CRect field_0x78[4];
+	CRect field_0xb8[4];
+	int32_t field_0xf8;
+	int32_t field_0xfc;
 };
+ASSERT_SIZE(VisShopButtons, 0x100);
 
 
 void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc in asm
