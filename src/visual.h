@@ -1248,6 +1248,8 @@ public:
 	virtual void VMethod41();
 	virtual void VMethod42();
 
+	void sub_4B4C1C(); //4b4c1c
+
 public:
 	int32_t field_0x20ac; //unk type
 	CSound field_0x20b0;
@@ -1283,6 +1285,8 @@ public:
 
 	virtual void VMethod41() override;
 	virtual void VMethod42() override;
+
+	void sub_4B7859(); //4b7859
 
 public:
 	int32_t field_0x20c8; //unk type
@@ -1487,6 +1491,34 @@ public:
 ASSERT_SIZE(VisSpellBook, 0x6c);
 
 
+//60d480
+class VisShopCompass : public CVisualObject
+{
+public:
+	virtual void VMethod26(); // 4be238
+	virtual void VMethod27(); // 4be372
+	virtual void VMethod28(); // 4be5de
+	virtual void VMethod29(); // 4be6df
+	virtual void VMethod30(); // 4be7e0
+	virtual void VMethod31(int32_t arg); // 4be45d
+	virtual void VMethod32(int32_t arg); // 4be541
+	virtual void VMethod33(); // 4be8b0
+	virtual void VMethod34(); // 4be92d
+	virtual void VMethod35(); // 4be9aa
+	virtual void VMethod36(); // 4bea01
+	virtual void VMethod37(int32_t arg); // 4bf4e8
+	virtual void VMethod38(); // 4c6bc0
+};
+
+
+//60d540
+class VisShopButtons : public CVisualObject
+{
+public:
+	void sub_4C0352(); //4c0352
+};
+
+
 //60d3e8
 class VisShop : public VisScreen
 {
@@ -1520,8 +1552,8 @@ public:
 	VisInvExtType1* assortiment;
 	VisInvExtType2* to_sell;
 	VisInvExtType3* to_buy;
-	CVisualObject* shop_compass;
-	CVisualObject* buttons;
+	VisShopCompass* shop_compass;
+	VisShopButtons* buttons;
 	CVisualObject* select_info_panel;
 	BigStruct2* gameplay;
 	VisSpellBook* spell_panel;

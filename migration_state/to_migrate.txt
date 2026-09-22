@@ -426,6 +426,7 @@
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ??_GVisInvExtBase@@UAEPAXI@Z	24
 ?VMethod30@VisInvExtBase@@UAEHHH@Z	25
+?sub_4B4C1C@VisInvExtBase@@QAEXXZ	28
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	29
 ?GetHint@VisInvExtBase@@UAEPBDXZ	84
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
@@ -437,6 +438,7 @@
 ??_GVisInvExtType1@@UAEPAXI@Z	24
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z	77
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z	80
+?sub_4B7859@VisInvExtType1@@QAEXXZ	84
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z	119
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z	123
 ?GetHint@VisInvExtType1@@UAEPBDXZ	128
@@ -552,12 +554,12 @@
 ?sub_4BCC38@VisShop@@QAEXXZ	70
 ?VMethod32@VisShop@@UAEXXZ	81
 ?sub_4BC97B@VisShop@@QAEXXZ	118
-?DoClose@VisShop@@UAEXI@Z	187
 ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z	236
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
 ?VMethod26@VisShop@@UAEXXZ	265
 ?MsgProc@VisShop@@UAEHIII@Z	356
 ?VMethod28@VisShop@@UAEXXZ	451
+?sub_4C0352@VisShopButtons@@QAEXXZ	151
 ??_GVisShopDruid@@UAEPAXI@Z	24
 ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z	34
 ?VMethod31@VisShopDruid@@UAEXH@Z	117

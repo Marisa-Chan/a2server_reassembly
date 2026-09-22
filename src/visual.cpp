@@ -5461,3 +5461,60 @@ void VisShop::VMethod30()
         }
     }
 }
+
+
+// 4BC0E7
+void VisShop::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    this->VMethod9();
+    this->dialog_active = 0;
+    this->VMethod32();
+
+    if (main_wnd->field_0x408 != nullptr) {
+        this->sub_4BC97B();
+        ApplyCursor(g_Cursors[0]);
+        main_wnd->ResetItemCursor();
+        this->placement_lock = 0;
+    }
+
+    if (this->tips != nullptr) {
+        this->shop_compass->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+
+    *reinterpret_cast<uint32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x240) = 0;
+
+    CRect& panel_rect = this->select_info_panel->GetRect();
+    CPoint pt(panel_rect.Width() - 0x280, 0);
+    panel_rect.OffsetRect(pt.x, pt.y);
+    this->select_info_panel->SetRect(&panel_rect);
+    this->RemoveChild(this->select_info_panel);
+    main_wnd->vis_right_panel->AddChild(this->select_info_panel);
+    this->select_info_panel = nullptr;
+    this->gameplay = nullptr;
+
+    if (this->spell_panel != nullptr) {
+        this->RemoveChild(this->spell_panel);
+    }
+    this->spell_panel = nullptr;
+
+    this->to_buy->VMethod42();
+    this->assortiment->VMethod42();
+    this->buttons->sub_4C0352();
+    this->shop_compass->VMethod27();
+    this->shop_compass->VMethod36();
+    this->sub_4BB4FB();
+    this->assortiment->sub_4B7859();
+    this->assortiment->sub_4B4C1C();
+    this->to_sell->sub_4B4C1C();
+    this->to_buy->sub_4B4C1C();
+
+    VisScreen::DoClose(code);
+
+    if (main_wnd->sessionMode == 2) {
+        ScenarioLeaveShop();
+    }
+}
