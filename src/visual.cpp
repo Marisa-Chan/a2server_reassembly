@@ -5851,3 +5851,22 @@ void VisShop::sub_4BC8D7()
         }
     }
 }
+
+
+// 4BCC38
+void VisShop::sub_4BCC38()
+{
+    TokenEntry* removed = nullptr;
+    this->sub_4BCDA0();
+    while (this->to_buy->grid_source->GetSize() != 0) {
+        TokenEntry* first = (*this->to_buy->grid_source)[0];
+        removed = this->to_buy->VMethod36(0, first->field_0x10);
+        if (removed != nullptr) {
+            if (removed->field_0x18 == 2) {
+                this->to_sell->VMethod37(-1);
+            } else {
+                this->assortiment->VMethod37(-1);
+            }
+        }
+    }
+}
