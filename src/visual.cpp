@@ -5928,3 +5928,24 @@ void VisShop::sub_4BB895()
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->dirty |= 9;
 }
+
+
+// 4BBA06
+void VisShop::sub_4BBA06()
+{
+    this->gameplay->MsgProc(0x405, 0, 0);
+    if (this->select_index != 0) {
+        this->select_index--;
+    } else {
+        this->select_index = this->selected_units.GetUpperBound();
+    }
+    CUnit* unit = this->selected_units[this->select_index];
+    unit->VMethod1(1);
+    this->gameplay->UpdateSelectionState();
+    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
+    this->to_sell->sub_4B4D33();
+    this->to_sell->sub_4B4FD1();
+    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->dirty |= 9;
+}

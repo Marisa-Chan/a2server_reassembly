@@ -1451,7 +1451,6 @@ extern ??_GVisShop@@UAEPAXI@Z : proc
 extern ??1VisShop@@UAE@XZ : proc
 externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
 externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
-externdef ?sub_4BBA06@VisShop@@QAEXXZ : proc
 externdef ?sub_4BB102@VisShop@@QAEXXZ : proc
 externdef ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
 extern ?sub_4BCC38@VisShop@@QAEXXZ : proc

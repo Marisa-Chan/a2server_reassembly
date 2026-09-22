@@ -563,7 +563,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?sub_4BBA06@VisShop@@QAEXXZ	114
 ?sub_4BC97B@VisShop@@QAEXXZ	118
 ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	166
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
