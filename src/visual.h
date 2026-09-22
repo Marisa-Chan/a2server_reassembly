@@ -1539,11 +1539,8 @@ public:
 public:
 	VisShop* shop; // 0x5c
 	int32_t field_0x60;
-	int32_t field_0x64;
-	int32_t field_0x68;
-	int32_t field_0x6c;
-	int32_t field_0x70;
-	int32_t field_0x74;
+	CBmp64* button_bmps[4]; // 0x64
+	CBmp64* menu_bmp; // 0x74
 	CRect field_0x78[4];
 	CRect field_0xb8[4];
 	int32_t field_0xf8;

@@ -6084,3 +6084,22 @@ void VisShopButtons::sub_4C1358()
     this->field_0xf8 = -1;
     this->field_0xfc = -1;
 }
+
+
+// 4C0352
+void VisShopButtons::sub_4C0352()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        if (this->button_bmps[i] != nullptr) {
+            delete this->button_bmps[i];
+        }
+    }
+    if (this->menu_bmp != nullptr) {
+        delete this->menu_bmp;
+    }
+    this->menu_bmp = nullptr;
+    this->button_bmps[3] = nullptr;
+    this->button_bmps[2] = nullptr;
+    this->button_bmps[1] = nullptr;
+    this->button_bmps[0] = nullptr;
+}

@@ -628,6 +628,7 @@
 ?sub_4BC97B@VisShop@@QAEXXZ
 ?sub_4BCC38@VisShop@@QAEXXZ
 ?sub_4BCDA0@VisShop@@QAEXXZ
+?sub_4C0352@VisShopButtons@@QAEXXZ
 ?sub_4C1358@VisShopButtons@@QAEXXZ
 ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z
 ?sub_4F1471@Server@@QAEHVCString@@@Z
