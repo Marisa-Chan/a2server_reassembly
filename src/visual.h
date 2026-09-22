@@ -1538,6 +1538,9 @@ public:
 };
 
 
+void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc in asm
+
+
 //60d3e8
 class VisShop : public VisScreen
 {

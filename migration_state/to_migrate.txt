@@ -35,6 +35,7 @@
 ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z	53
 ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
+?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	18
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
@@ -563,7 +564,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	166
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
 ?sub_4BB102@VisShop@@QAEXXZ	294
 ?sub_4C1358@VisShopButtons@@QAEXXZ	15

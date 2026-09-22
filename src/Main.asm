@@ -166362,7 +166362,7 @@ unknown_libname_649 endp
 ; Attributes: bp-based frame
 
 ; int __cdecl sub_4B9F20(const void *, const void *)
-sub_4B9F20      proc near               ; DATA XREF: sub_4BA1CC+3↓o
+sub_4B9F20      proc near               ; DATA XREF: ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+3↓o
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -166655,7 +166655,7 @@ sub_4B9F20      endp
 
 ; Attributes: bp-based frame
 
-sub_4BA1CC      proc near               ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+16C↓p
+?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      proc near               ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+16C↓p
 
 arg_0           = dword ptr  8
 
@@ -166673,7 +166673,7 @@ arg_0           = dword ptr  8
                 add     esp, 10h
                 pop     ebp
                 retn
-sub_4BA1CC      endp
+?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -167517,178 +167517,6 @@ loc_4BB77A:                             ; CODE XREF: ?sub_4BB4FB@VisShop@@QAEXXZ
 
 
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      proc near               ; CODE XREF: ?MsgProc@VisShop@@UAEHIII@Z+38C↑p
-
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 18h
-                push    esi
-                mov     [ebp+var_14], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     [ebp+var_8], 0
-                jmp     short loc_4BBBFA
-; ---------------------------------------------------------------------------
-
-loc_4BBBF1:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+58↓j
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 1
-                mov     [ebp+var_8], eax
-
-loc_4BBBFA:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+19↑j
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     short loc_4BBC30
-                mov     esi, [ebp+arg_0]
-                add     esi, 5
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    sub_46FB50
-                mov     [eax+18h], esi
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    sub_46FB50
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+14h], ecx
-                jmp     short loc_4BBBF1
-; ---------------------------------------------------------------------------
-
-loc_4BBC30:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+2F↑j
-                mov     [ebp+var_8], 0
-                jmp     short loc_4BBC42
-; ---------------------------------------------------------------------------
-
-loc_4BBC39:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+116↓j
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 1
-                mov     [ebp+var_8], edx
-
-loc_4BBC42:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+61↑j
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+68h]
-                mov     edx, dword ptr [ebp+arg_0]
-                imul    edx, 14h
-                lea     ecx, [ecx+edx+2100h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     loc_4BBCF1
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+68h]
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, 14h
-                lea     ecx, [edx+eax+2100h]
-                call    sub_41FC60
-                cmp     dword ptr [eax], 0
-                jz      short loc_4BBCCA
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+68h]
-                mov     ecx, dword ptr [ebp+arg_0]
-                imul    ecx, 14h
-                lea     ecx, [eax+ecx+2100h]
-                call    sub_41FC60
-                mov     edx, dword ptr [eax]
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 0
-                jz      short loc_4BBCC3
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_18], eax
-                jmp     short loc_4BBCCA
-; ---------------------------------------------------------------------------
-
-loc_4BBCC3:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+D9↑j
-                mov     [ebp+var_18], 0
-
-loc_4BBCCA:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+AC↑j
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+68h]
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, 14h
-                lea     ecx, [edx+eax+2100h]
-                call    sub_41FC60
-                mov     dword ptr [eax], 0
-                jmp     loc_4BBC39
-; ---------------------------------------------------------------------------
-
-loc_4BBCF1:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+87↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+68h]
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, 14h
-                lea     ecx, [edx+eax+2100h]
-                call    sub_41FC10
-                mov     [ebp+var_8], 0
-                jmp     short loc_4BBD1B
-; ---------------------------------------------------------------------------
-
-loc_4BBD12:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+166↓j
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 1
-                mov     [ebp+var_8], ecx
-
-loc_4BBD1B:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+13A↑j
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     short loc_4BBD3E
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    sub_41FC60
-                mov     eax, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [eax+20h], ecx
-                jmp     short loc_4BBD12
-; ---------------------------------------------------------------------------
-
-loc_4BBD3E:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+150↑j
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                call    sub_4BA1CC
-                add     esp, 4
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+68h]
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, 14h
-                lea     ecx, [edx+eax+2100h]
-                call    sub_4C6B10
-                mov     ecx, dword ptr [ebp+arg_4]
-                call    sub_41FC10
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      endp
 
 
 
@@ -181867,7 +181695,7 @@ sub_4C6AD0      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_651 proc near           ; CODE XREF: sub_4BA1CC+16↑p
+unknown_libname_651 proc near           ; CODE XREF: ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+16↑p
 
 var_4           = dword ptr -4
 

@@ -5984,3 +5984,28 @@ void VisShop::sub_4BC97B()
     }
     main_wnd->ResetItemCursor();
 }
+
+
+// 4BBBD6
+void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr)
+{
+    AfxGetMainWnd();
+    for (int32_t i = 0; i < arr->GetSize(); i++) {
+        (*arr)[i]->field_0x18 = category + 5;
+        (*arr)[i]->field_0x14 = category;
+    }
+    CArray<TokenEntry*>& cat_arr = this->assortiment->field_0x2100[category];
+    for (int32_t i = 0; i < cat_arr.GetSize(); i++) {
+        if (cat_arr[i] != nullptr) {
+            delete cat_arr[i];
+        }
+        cat_arr[i] = nullptr;
+    }
+    cat_arr.RemoveAll();
+    for (int32_t i = 0; i < arr->GetSize(); i++) {
+        (*arr)[i]->field_0x20 = i;
+    }
+    FUN_004ba1cc(arr);
+    cat_arr.Copy(*arr);
+    arr->RemoveAll();
+}
