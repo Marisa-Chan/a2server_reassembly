@@ -735,6 +735,7 @@
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
 ?VMethod28@VisScreen@@UAEXXZ
+?VMethod28@VisShop@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
@@ -743,7 +744,7 @@
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShop@@UAEXXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
-?VMethod31@VisShop@@UAEXH@Z
+?VMethod31@VisShop@@UAEXXZ
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ

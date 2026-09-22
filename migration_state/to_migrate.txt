@@ -29,14 +29,18 @@
 ?sub_477B59@@YAXI@Z	535
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
+?g_StructEnter@@3UStructEnter@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?FUN_00475110@@YA_NPAUCSound@@@Z	28
+?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
+?FUN_00473d10@@YIHPAUStructEnter@@@Z	47
+?FUN_00473b80@@YIXPAUStructEnter@@@Z	85
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
@@ -428,6 +432,7 @@
 ?VMethod30@VisInvExtBase@@UAEHHH@Z	25
 ?sub_4B4C1C@VisInvExtBase@@QAEXXZ	28
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	29
+?sub_4B4BC5@VisInvExtBase@@QAEXXZ	31
 ?sub_4B4D33@VisInvExtBase@@QAEXXZ	42
 ?GetHint@VisInvExtBase@@UAEPBDXZ	84
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
@@ -435,6 +440,7 @@
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	168
 ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	256
 ?VMethod7@VisInvExtBase@@UAEXXZ	750
+?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType1@@UAEPAXI@Z	24
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z	77
@@ -462,6 +468,7 @@
 ??_GVisInvExtType3@@UAEPAXI@Z	24
 ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z	36
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z	47
+?sub_4B970E@VisInvExtType3@@QAEXXZ	59
 ?GetHint@VisInvExtType3@@UAEPBDXZ	59
 ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z	65
 ?VMethod7@VisInvExtType3@@UAEXXZ	66
@@ -566,19 +573,21 @@
 ?sub_4BC97B@VisShop@@QAEXXZ	118
 ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	166
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
-?VMethod28@VisShop@@UAEXXZ	451
+?sub_4BB102@VisShop@@QAEXXZ	294
+?sub_4C1358@VisShopButtons@@QAEXXZ	15
 ?sub_4C0352@VisShopButtons@@QAEXXZ	151
 ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z	217
+?sub_4C0088@VisShopButtons@@QAEXXZ	306
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z	527
 ??_GVisShopDruid@@UAEPAXI@Z	24
 ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z	34
-?VMethod31@VisShopDruid@@UAEXH@Z	117
+?VMethod31@VisShopDruid@@UAEXXZ	117
 ?VMethod30@VisShopDruid@@UAEXXZ	197
 ?VMethod26@VisShopDruid@@UAEXXZ	265
 ?VMethod28@VisShopDruid@@UAEXXZ	469
 ??_GVisShopKaarg@@UAEPAXI@Z	24
 ??0VisShopKaarg@@QAE@HHHHHPAVCGameBitmap@@@Z	34
-?VMethod31@VisShopKaarg@@UAEXH@Z	117
+?VMethod31@VisShopKaarg@@UAEXXZ	117
 ?VMethod30@VisShopKaarg@@UAEXXZ	197
 ?VMethod26@VisShopKaarg@@UAEXXZ	265
 ?VMethod28@VisShopKaarg@@UAEXXZ	469

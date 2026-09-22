@@ -1452,6 +1452,7 @@ extern ??1VisShop@@UAE@XZ : proc
 externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
 externdef ?sub_4BB895@VisShop@@QAEXXZ : proc
 externdef ?sub_4BBA06@VisShop@@QAEXXZ : proc
+externdef ?sub_4BB102@VisShop@@QAEXXZ : proc
 externdef ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
 externdef ?sub_4BC8D7@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCC38@VisShop@@QAEXXZ : proc
@@ -1461,6 +1462,8 @@ externdef ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCEA4@VisShop@@QAEXXZ : proc
 externdef ?sub_4BC97B@VisShop@@QAEXXZ : proc
 externdef ?sub_4C0352@VisShopButtons@@QAEXXZ : proc
+externdef ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
+externdef ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
 externdef ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ?VMethod32@VisShop@@UAEXXZ : proc
@@ -1470,23 +1473,23 @@ extern ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisShop@@UAEHI@Z : proc
 extern ?VMethod26@VisShop@@UAEXXZ : proc
-externdef ?VMethod28@VisShop@@UAEXXZ : proc
+extern ?VMethod28@VisShop@@UAEXXZ : proc
 extern ?DoClose@VisShop@@UAEXI@Z : proc
 extern ?VMethod30@VisShop@@UAEXXZ : proc
-extern ?VMethod31@VisShop@@UAEXH@Z : proc
+extern ?VMethod31@VisShop@@UAEXXZ : proc
 
 ;VisShopDruid
 externdef ??_GVisShopDruid@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod28@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisShopDruid@@UAEXXZ : proc
-externdef ?VMethod31@VisShopDruid@@UAEXH@Z : proc
+externdef ?VMethod31@VisShopDruid@@UAEXXZ : proc
 ;VisShopKaarg
 externdef ??_GVisShopKaarg@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod28@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod30@VisShopKaarg@@UAEXXZ : proc
-externdef ?VMethod31@VisShopKaarg@@UAEXH@Z : proc
+externdef ?VMethod31@VisShopKaarg@@UAEXXZ : proc
 ;VisTown
 externdef ??_GVisTown@@UAEPAXI@Z : proc
 externdef ?GetHint@VisTown@@UAEPBDXZ : proc
@@ -1775,6 +1778,7 @@ externdef ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc
 externdef ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc
 externdef ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc
+externdef ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc
 
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -1789,6 +1793,7 @@ externdef ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc
 externdef ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc
 externdef ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc
 externdef ?sub_4B7859@VisInvExtType1@@QAEXXZ : proc
+externdef ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc
 
 ;VisInvExtType2
 externdef ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -1804,6 +1809,7 @@ externdef ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z : proc
 
 ;VisInvExtType3
 externdef ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z : proc
+externdef ?sub_4B970E@VisInvExtType3@@QAEXXZ : proc
 externdef ??_GVisInvExtType3@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtType3@@UAEPBDXZ : proc
 externdef ?VMethod7@VisInvExtType3@@UAEXXZ : proc
@@ -2098,6 +2104,10 @@ externdef ?sub_4764BC@@YAPAEH@Z : proc
 externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, int32_t)
 externdef ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z : proc  ; void __cdecl FUN_00438e40(SfxSample**, const char*)
 externdef ?FUN_00475110@@YA_NPAUCSound@@@Z : proc  ; bool __cdecl FUN_00475110(CSound*)
+externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
+externdef ?FUN_00473b80@@YIXPAUStructEnter@@@Z : proc  ; void __fastcall FUN_00473b80(StructEnter*)
+externdef ?FUN_00473d10@@YIHPAUStructEnter@@@Z : proc  ; int32_t __fastcall FUN_00473d10(StructEnter*)
+externdef ?g_StructEnter@@3UStructEnter@@A : byte
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc
 

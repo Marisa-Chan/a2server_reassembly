@@ -1250,6 +1250,7 @@ public:
 	virtual void VMethod42();
 
 	void sub_4B4C1C(); //4b4c1c
+	void sub_4B4BC5(); //4b4bc5
 	void sub_4B4D33(); //4b4d33
 
 public:
@@ -1289,6 +1290,7 @@ public:
 	virtual void VMethod42() override;
 
 	void sub_4B7859(); //4b7859
+	void sub_4B73E4(int32_t category); //4b73e4
 
 	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 in asm
 
@@ -1364,6 +1366,8 @@ public:
 	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);
 
 	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba in asm
+
+	void sub_4B970E(); //4b970e
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
@@ -1526,6 +1530,8 @@ class VisShopButtons : public CVisualObject
 {
 public:
 	void sub_4C0352(); //4c0352
+	void sub_4C0088(); //4c0088
+	void sub_4C1358(); //4c1358
 
 	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a in asm
 };
@@ -1548,7 +1554,7 @@ public:
 	virtual void DoClose(uint32_t code) override; // 4BC0E7
 
 	virtual void VMethod30(); // 4BCF2F
-	virtual void VMethod31(int32_t code); // 4BD0FB
+	virtual void VMethod31(); // 4BD0FB
 	virtual void VMethod32();
 
 
@@ -1556,6 +1562,7 @@ public:
 	void sub_4BB4FB(); //4bb4fb
 	void sub_4BB895(); //4bb895
 	void sub_4BBA06(); //4bba06
+	void sub_4BB102(); //4bb102
 	void sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6
 	void sub_4BC8D7(); //4bc8d7
 	void sub_4BCC38(); //4bcc38
@@ -1629,7 +1636,7 @@ public:
 	virtual void VMethod26() override; // 4C15E6
 	virtual void VMethod28() override; // 4C1E5C
 	virtual void VMethod30() override; // 4C1958
-	virtual void VMethod31(int32_t code) override; // 4C1B8B
+	virtual void VMethod31() override; // 4C1B8B
 
 	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad in asm
 public:
@@ -1652,7 +1659,7 @@ public:
 	virtual void VMethod26() override; // 4C37FE
 	virtual void VMethod28() override; // 4C3B70
 	virtual void VMethod30() override; // 4C4170
-	virtual void VMethod31(int32_t code) override; // 4C43A3
+	virtual void VMethod31() override; // 4C43A3
 
 	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm
 public:
