@@ -1457,7 +1457,8 @@ extern ?sub_4BCC38@VisShop@@QAEXXZ : proc
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ?sub_4C0352@VisShopButtons@@QAEXXZ : proc
-externdef ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
+extern ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
+externdef ?VMethod33@VisShop@@UAE?AVCString@@XZ : proc
 extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
 externdef ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc

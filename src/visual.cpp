@@ -6103,3 +6103,21 @@ void VisShopButtons::sub_4C0352()
     this->button_bmps[1] = nullptr;
     this->button_bmps[0] = nullptr;
 }
+
+
+// 4C0088
+void VisShopButtons::sub_4C0088()
+{
+    this->sub_4C0352();
+    CString base = "graphics\\interface\\";
+    if (this->shop != nullptr) {
+        base += this->shop->VMethod33();
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        CString fname = base + "ShopButton" + CString((char)('1' + i), 1) + ".bmp";
+        this->button_bmps[i] = new CBmp64(fname);
+        g_mousept.Update();
+    }
+    this->menu_bmp = new CBmp64(base + "ShopMenu.bmp");
+    g_mousept.Update();
+}

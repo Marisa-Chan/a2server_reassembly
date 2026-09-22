@@ -1571,6 +1571,7 @@ public:
 	virtual void VMethod30(); // 4BCF2F
 	virtual void VMethod31(); // 4BD0FB
 	virtual void VMethod32();
+	virtual CString VMethod33(); // 4c6b90
 
 
 	void FUN_004bcd02();
