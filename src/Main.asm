@@ -157828,7 +157828,7 @@ var_4           = dword ptr -4
                 sub     esp, 8
                 mov     [ebp+var_8], ecx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 mov     [ebp+var_4], 0
                 jmp     short loc_4B4D56
 ; ---------------------------------------------------------------------------
@@ -158149,7 +158149,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-sub_4B4FD1      proc near               ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+C↑p
+?sub_4B4FD1@VisInvExtBase@@QAEXXZ      proc near               ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+C↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -158192,20 +158192,20 @@ var_4           = dword ptr -4
                 jmp     short loc_4B5060
 ; ---------------------------------------------------------------------------
 
-loc_4B5059:                             ; CODE XREF: sub_4B4FD1+5E↑j
+loc_4B5059:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+5E↑j
                 mov     [ebp+var_8], 0
 
-loc_4B5060:                             ; CODE XREF: sub_4B4FD1+86↑j
+loc_4B5060:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+86↑j
                 mov     edx, dword ptr [ebp+var_4]
                 mov     eax, dword ptr [edx+90h]
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     [eax], ecx
 
-loc_4B506E:                             ; CODE XREF: sub_4B4FD1+37↑j
+loc_4B506E:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+37↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4B4FD1      endp
+?sub_4B4FD1@VisInvExtBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -159221,7 +159221,7 @@ loc_4B5CE3:                             ; CODE XREF: ?OnMouseMove@VisInvExtBase@
                 mov     ecx, dword ptr [ebp+var_C]
                 call    sub_4B5A6C
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 call    ?sub_4B4D33@VisInvExtBase@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_C]
@@ -165313,7 +165313,7 @@ loc_4B9608:                             ; CODE XREF: sub_4B95C5+38↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     dword ptr [edx+10h], 1
                 mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_14]
                 jmp     short loc_4B96FE
 ; ---------------------------------------------------------------------------
@@ -165349,7 +165349,7 @@ loc_4B96B9:                             ; CODE XREF: sub_4B95C5+EB↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     dword ptr [eax+10h], 1
                 mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_10]
                 jmp     short loc_4B96FE
 ; ---------------------------------------------------------------------------
@@ -165360,7 +165360,7 @@ loc_4B96EF:                             ; CODE XREF: sub_4B95C5+7B↑j
 
 loc_4B96F4:                             ; CODE XREF: sub_4B95C5+54↑j
                 mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 xor     eax, eax
 
 loc_4B96FE:                             ; CODE XREF: sub_4B95C5+2C↑j
@@ -167516,131 +167516,6 @@ loc_4BB77A:                             ; CODE XREF: ?sub_4BB4FB@VisShop@@QAEXXZ
 ?sub_4BB4FB@VisShop@@QAEXXZ      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BB895@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisShop@@UAEHIII@Z+D8↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                push    esi
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    405h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+80h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+80h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [eax+130h]
-                add     cx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+130h], cx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax+130h]
-                mov     esi, ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 108h
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                cmp     esi, eax
-                jl      short loc_4BB903
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+130h], 0
-
-loc_4BB903:                             ; CODE XREF: ?sub_4BB895@VisShop@@QAEXXZ+60↑j
-                push    1
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax+130h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 108h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+80h]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dx, [ecx+130h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 108h
-                call    sub_4215A0
-                mov     eax, dword ptr [eax]
-                add     eax, 0D0h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+6Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+6Ch]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+90h]
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax+130h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 108h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                add     edx, 0E4h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+6Ch]
-                mov     [ecx+90h], edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+6Ch]
-                call    ?sub_4B4D33@VisInvExtBase@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+6Ch]
-                call    sub_4B4FD1
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dx, [ecx+130h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 108h
-                call    sub_4215A0
-                mov     eax, dword ptr [eax]
-                add     eax, 1B8h
-                mov     [ebp+var_C], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx]
-                or      edx, 8
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [eax], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                or      edx, 9
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4BB895@VisShop@@QAEXXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -167736,7 +167611,7 @@ loc_4BBA71:                             ; CODE XREF: ?sub_4BBA06@VisShop@@QAEXXZ
                 call    ?sub_4B4D33@VisInvExtBase@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+6Ch]
-                call    sub_4B4FD1
+                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_4]
                 xor     edx, edx
                 mov     dx, [ecx+130h]

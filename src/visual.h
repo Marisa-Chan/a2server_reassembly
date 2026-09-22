@@ -1252,6 +1252,7 @@ public:
 	void sub_4B4C1C(); //4b4c1c
 	void sub_4B4BC5(); //4b4bc5
 	void sub_4B4D33(); //4b4d33
+	void sub_4B4FD1(); //4b4fd1
 
 public:
 	int32_t field_0x20ac; //unk type

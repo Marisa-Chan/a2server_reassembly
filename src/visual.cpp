@@ -5908,3 +5908,23 @@ void VisShop::sub_4BCDA0()
     }
     this->result_gold = this->current_gold + this->buy_gold + this->sell_gold;
 }
+
+
+// 4BB895
+void VisShop::sub_4BB895()
+{
+    this->gameplay->MsgProc(0x405, 0, 0);
+    this->select_index++;
+    if (this->select_index >= this->selected_units.GetSize()) {
+        this->select_index = 0;
+    }
+    CUnit* unit = this->selected_units[this->select_index];
+    unit->VMethod1(1);
+    this->gameplay->UpdateSelectionState();
+    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
+    this->to_sell->sub_4B4D33();
+    this->to_sell->sub_4B4FD1();
+    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->dirty |= 9;
+}

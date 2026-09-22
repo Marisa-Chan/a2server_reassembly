@@ -435,6 +435,7 @@
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	29
 ?sub_4B4BC5@VisInvExtBase@@QAEXXZ	31
 ?sub_4B4D33@VisInvExtBase@@QAEXXZ	42
+?sub_4B4FD1@VisInvExtBase@@QAEXXZ	56
 ?GetHint@VisInvExtBase@@UAEPBDXZ	84
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z	121
@@ -562,7 +563,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?sub_4BB895@VisShop@@QAEXXZ	113
 ?sub_4BBA06@VisShop@@QAEXXZ	114
 ?sub_4BC97B@VisShop@@QAEXXZ	118
 ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	166
