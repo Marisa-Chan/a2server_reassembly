@@ -5388,3 +5388,21 @@ void VisShop::VMethod8(CRect* rect)
         UnlockSurface2();
     }
 }
+
+
+// 4BA342
+VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
+    : VisScreen(_id, l, t, r, b, btm)
+{
+    this->placement_lock = 1;
+    this->select_index = 0;
+    this->select_info_panel = nullptr;
+    this->gameplay = nullptr;
+    this->dirty = 0;
+    this->hovered_region = -1;
+    this->result_gold = 0;
+    this->sell_gold = 0;
+    this->buy_gold = 0;
+    this->current_gold = 0;
+    this->scenario_talk_target = 0;
+}

@@ -166774,107 +166774,6 @@ sub_4BA1F2      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+46E↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FDE00 SIZE 00000040 BYTES
-
-; __unwind { // SEH_4BA342
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BA342
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+yBottom]
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+xRight]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+yTop]
-                push    eax             ; yTop
-                mov     ecx, dword ptr [ebp+xLeft]
-                push    ecx             ; xLeft
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0DCh       ; void *
-                call    sub_4018B0
-;   } // starts at 4BA37E
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0F0h       ; void *
-                call    sub_4018B0
-;   } // starts at 4BA393
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 108h
-                call    sub_421500
-;   } // starts at 4BA3A5
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 11Ch       ; void *
-                call    sub_5DB7FE
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60D3E8
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+144h], 1
-                mov     edx, dword ptr [ebp+var_10]
-                mov     word ptr [edx+130h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+7Ch], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+80h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+14Ch], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+104h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+15Ch], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+158h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+154h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+150h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+160h], 0
-;   } // starts at 4BA3B7
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 4BA342
-??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; int __stdcall sub_4BA477(int, RECT *lprcSrc, int)
 sub_4BA477      proc near
 
@@ -392819,47 +392718,6 @@ SEH_4BA1F2:                             ; DATA XREF: sub_4BA1F2+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FDDC0
 ; END OF FUNCTION CHUNK FOR sub_4BA1F2
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
-
-loc_5FDE00:                             ; DATA XREF: .rdata:stru_61F2A0↓o
-; __unwind { // SEH_4BA342
-;   cleanup() // owned by 4BA37E
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDE09:                             ; DATA XREF: .rdata:0061F2A8↓o
-;   cleanup() // owned by 4BA393
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0DCh       ; varThis
-                call    ??1CWinThread@@UAE@XZ ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDE18:                             ; DATA XREF: .rdata:0061F2B0↓o
-;   cleanup() // owned by 4BA3A5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0F0h       ; varThis
-                call    ??1CWinThread@@UAE@XZ ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDE27:                             ; DATA XREF: .rdata:0061F2B8↓o
-;   cleanup() // owned by 4BA3B7
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 108h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BA342:                             ; DATA XREF: ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z+5↑o
-                mov     eax, offset stru_61F280
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDE00
-; END OF FUNCTION CHUNK FOR ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4BA477
 
 loc_5FDE40:                             ; DATA XREF: .rdata:stru_61F2E0↓o
@@ -427319,15 +427177,6 @@ stru_61F260     UnwindMapEntry <-1, offset loc_5FDDC0>
                 UnwindMapEntry <0, offset loc_5FDDC9>
                 UnwindMapEntry <1, offset loc_5FDDD8>
                 UnwindMapEntry <2, offset loc_5FDDE7>
-stru_61F280     FuncInfoV1 <19930520h, 4, offset stru_61F2A0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61F2A0     UnwindMapEntry <-1, offset loc_5FDE00>
-                UnwindMapEntry <0, offset loc_5FDE09>
-                UnwindMapEntry <1, offset loc_5FDE18>
-                UnwindMapEntry <2, offset loc_5FDE27>
 stru_61F2C0     FuncInfoV1 <19930520h, 4, offset stru_61F2E0, 0, 0, 0, 0>
                 db    0
                 db    0

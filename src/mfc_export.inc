@@ -1028,7 +1028,7 @@ externdef   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
-externdef   ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
+extern   ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
 externdef   ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
 externdef   ??0VisShopKaarg@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
 externdef   ??0VisTown@@QAE@HHHHH@Z  : proc

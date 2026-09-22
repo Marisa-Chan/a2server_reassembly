@@ -87,6 +87,7 @@
 ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0VisScreen@@QAE@XZ
 ??0VisScrollBar@@QAE@HHHHHPBD@Z
+??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
