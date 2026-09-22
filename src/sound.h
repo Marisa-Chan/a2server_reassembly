@@ -85,6 +85,8 @@ struct CSound
 };
 ASSERT_SIZE(CSound, 4);
 
+bool FUN_00475110(CSound* sound); //475110 in asm
+
 
 struct SoundSettings
 {

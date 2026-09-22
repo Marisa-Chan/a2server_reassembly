@@ -1503,7 +1503,7 @@ public:
 	virtual void VMethod28() override; // 4BC32B
 	virtual void DoClose(uint32_t code) override; // 4BC0E7
 
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r); // 4BCF2F
+	virtual void VMethod30(); // 4BCF2F
 	virtual void VMethod31(int32_t code); // 4BD0FB
 	virtual void VMethod32();
 
@@ -1577,7 +1577,7 @@ public:
 
 	virtual void VMethod26() override; // 4C15E6
 	virtual void VMethod28() override; // 4C1E5C
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4C1958
+	virtual void VMethod30() override; // 4C1958
 	virtual void VMethod31(int32_t code) override; // 4C1B8B
 
 	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad in asm
@@ -1600,7 +1600,7 @@ public:
 
 	virtual void VMethod26() override; // 4C37FE
 	virtual void VMethod28() override; // 4C3B70
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4C4170
+	virtual void VMethod30() override; // 4C4170
 	virtual void VMethod31(int32_t code) override; // 4C43A3
 
 	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm

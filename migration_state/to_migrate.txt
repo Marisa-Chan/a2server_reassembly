@@ -30,6 +30,7 @@
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
+?FUN_00475110@@YA_NPAUCSound@@@Z	28
 ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
@@ -551,7 +552,6 @@
 ?sub_4BCC38@VisShop@@QAEXXZ	70
 ?VMethod32@VisShop@@UAEXXZ	81
 ?sub_4BC97B@VisShop@@QAEXXZ	118
-?VMethod30@VisShop@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	153
 ?DoClose@VisShop@@UAEXI@Z	187
 ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z	236
 ?sub_4BB4FB@VisShop@@QAEXXZ	257
@@ -561,13 +561,13 @@
 ??_GVisShopDruid@@UAEPAXI@Z	24
 ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z	34
 ?VMethod31@VisShopDruid@@UAEXH@Z	117
-?VMethod30@VisShopDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	197
+?VMethod30@VisShopDruid@@UAEXXZ	197
 ?VMethod26@VisShopDruid@@UAEXXZ	265
 ?VMethod28@VisShopDruid@@UAEXXZ	469
 ??_GVisShopKaarg@@UAEPAXI@Z	24
 ??0VisShopKaarg@@QAE@HHHHHPAVCGameBitmap@@@Z	34
 ?VMethod31@VisShopKaarg@@UAEXH@Z	117
-?VMethod30@VisShopKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	197
+?VMethod30@VisShopKaarg@@UAEXXZ	197
 ?VMethod26@VisShopKaarg@@UAEXXZ	265
 ?VMethod28@VisShopKaarg@@UAEXXZ	469
 ??_GVisSideStatus@@UAEPAXI@Z	24

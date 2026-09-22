@@ -5427,3 +5427,37 @@ void VisShop::VMethod31(int32_t code)
     FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
     FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
 }
+
+
+// 4BCF2F
+void VisShop::VMethod30()
+{
+    static uint8_t snd_timing_init = 0; // byte_665DA8 in asm
+    static uint32_t last_snd_time; // dword_665DA0 in asm
+
+    if ((snd_timing_init & 1) == 0) {
+        snd_timing_init |= 1;
+        last_snd_time = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    uint32_t delay = GetRandS16(30000) + 30000;
+    uint32_t compass_flags = *reinterpret_cast<uint32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x240);
+    if ((compass_flags & 0x10) == 0 && (compass_flags & 0x20) == 0 && (compass_flags & 0x40) == 0) {
+        if (now - last_snd_time > delay && !FUN_00475110(&this->to_buy->field_0x20b0)) {
+            if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
+                this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+            }
+            last_snd_time = now;
+            delay = GetRandS16(10000) + 10000;
+        }
+    } else if ((compass_flags & 0x10) != 0) {
+        int32_t compass_state = *reinterpret_cast<int32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x254);
+        if (compass_state == 1) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+        } else if (compass_state == 0xa || compass_state == 0xe || compass_state == 0x12 || compass_state == 0x16) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_step1));
+        } else if (compass_state == 0x18) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+        }
+    }
+}
