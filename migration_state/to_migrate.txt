@@ -549,7 +549,6 @@
 ?sub_4BCD79@VisShop@@QAEXXZ	18
 ?sub_4BCC38@VisShop@@QAEXXZ	70
 ?VMethod32@VisShop@@UAEXXZ	81
-?VMethod8@VisShop@@UAEXPAVCRect@@@Z	81
 ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z	94
 ?VMethod31@VisShop@@UAEXH@Z	99
 ?sub_4BC97B@VisShop@@QAEXXZ	118

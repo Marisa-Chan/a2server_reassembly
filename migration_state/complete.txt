@@ -753,6 +753,7 @@
 ?VMethod8@CUnit@@UAEXHHH@Z
 ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
+?VMethod8@VisShop@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ

@@ -5375,3 +5375,16 @@ int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos)
     }
     return CVisualObject::OnLButtonUp(wparam, pos);
 }
+
+
+// 4BB79A
+void VisShop::VMethod8(CRect* rect)
+{
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    if (this->dialog_active != 0) {
+        LockSurface2();
+        FillRectColorSimple(screen_rect.left, screen_rect.top + 0x184, screen_rect.right + 0x1d0, screen_rect.bottom + 0x188, GetColorRGB(0, 0, 0));
+        UnlockSurface2();
+    }
+}

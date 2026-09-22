@@ -1454,7 +1454,7 @@ externdef ?sub_4BCC38@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCD79@VisShop@@QAEXXZ : proc
 externdef ?sub_4BC97B@VisShop@@QAEXXZ : proc
 externdef ?VMethod32@VisShop@@UAEXXZ : proc
-externdef ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
+extern ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisShop@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
