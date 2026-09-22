@@ -1155,6 +1155,7 @@ ASSERT_SIZE(VisOrderToolbar, 0x70);
 
 
 //60c9b0
+class VisShop;
 class VisInvBase : public CVisualObject
 {
 public:
@@ -1288,6 +1289,8 @@ public:
 
 	void sub_4B7859(); //4b7859
 
+	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 in asm
+
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
@@ -1321,6 +1324,8 @@ public:
 
 	virtual int32_t VMethod38() override;
 	virtual void VMethod39() override;
+
+	VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 in asm
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
@@ -1356,6 +1361,8 @@ public:
 	virtual void VMethod42() override;
 
 	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);
+
+	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba in asm
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
@@ -1508,6 +1515,8 @@ public:
 	virtual void VMethod36(); // 4bea01
 	virtual void VMethod37(int32_t arg); // 4bf4e8
 	virtual void VMethod38(); // 4c6bc0
+
+	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495 in asm
 };
 
 
@@ -1516,6 +1525,8 @@ class VisShopButtons : public CVisualObject
 {
 public:
 	void sub_4C0352(); //4c0352
+
+	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a in asm
 };
 
 

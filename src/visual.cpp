@@ -5563,3 +5563,44 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos)
 
     return 0;
 }
+
+
+// 4BBD75
+void VisShop::VMethod26()
+{
+    this->tips = nullptr;
+    this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
+    this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
+    this->assortiment = new VisInvExtType1(0x3EA, 0, 0, 0xA4, 0x12F, this);
+    this->shop_compass = new VisShopCompass(0x3ED, 0xA4, 0, 0x1E0, 0x12F, this);
+    this->buttons = new VisShopButtons(0x3EE, 0x1D0, 0, 0x280, 0xEE, this);
+
+    this->AddChild(this->assortiment);
+    this->AddChild(this->to_sell);
+    this->AddChild(this->to_buy);
+    this->AddChild(this->shop_compass);
+    this->AddChild(this->buttons);
+
+    this->gameplay = nullptr;
+    this->select_info_panel = nullptr;
+    this->spell_panel = nullptr;
+    this->spr_myitem = nullptr;
+    this->spr_shopitem = nullptr;
+    this->bmp_backinvg = nullptr;
+    this->bmp_backinvb = nullptr;
+    this->bmp_backinvs = nullptr;
+    this->snd_notif = nullptr;
+    this->snd_step1 = nullptr;
+    this->snd_step2 = nullptr;
+    this->snd_breath = nullptr;
+    this->snd_depart = nullptr;
+    this->snd_buy = nullptr;
+    this->snd_sell = nullptr;
+    this->snd_enter = nullptr;
+    this->snd_start = nullptr;
+    this->snd_pov1 = nullptr;
+    this->snd_pov2 = nullptr;
+    this->snd_inshop = nullptr;
+    this->snd_out = nullptr;
+    this->snd_undo = nullptr;
+}
