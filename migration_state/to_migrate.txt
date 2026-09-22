@@ -33,6 +33,7 @@
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?FUN_00475110@@YA_NPAUCSound@@@Z	28
 ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
+?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z	53
 ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
@@ -561,7 +562,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?VMethod32@VisShop@@UAEXXZ	81
 ?sub_4BCDA0@VisShop@@QAEXXZ	89
 ?sub_4BB895@VisShop@@QAEXXZ	113
 ?sub_4BBA06@VisShop@@QAEXXZ	114

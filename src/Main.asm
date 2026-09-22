@@ -24162,27 +24162,27 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 120h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 124h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 128h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 12Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 130h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -26241,22 +26241,22 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 84h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 88h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 8Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -31150,22 +31150,22 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 88h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 8Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 90h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 94h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -39539,47 +39539,47 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1C4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1C8h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1CCh
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1D0h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1D4h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1DCh
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1E0h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1E4h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1D8h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -41336,7 +41336,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_438DD0      proc near               ; CODE XREF: sub_42DA5A+10↑p
+?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: sub_42DA5A+10↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -41361,7 +41361,7 @@ arg_0           = dword ptr  8
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+8], 0
 
-loc_438E03:                             ; CODE XREF: sub_438DD0+1F↑j
+loc_438E03:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+1F↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     ecx, dword ptr [eax]
                 mov     [ebp+var_C], ecx
@@ -41378,18 +41378,18 @@ loc_438E03:                             ; CODE XREF: sub_438DD0+1F↑j
                 jmp     short loc_438E30
 ; ---------------------------------------------------------------------------
 
-loc_438E29:                             ; CODE XREF: sub_438DD0+45↑j
+loc_438E29:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+45↑j
                 mov     [ebp+var_10], 0
 
-loc_438E30:                             ; CODE XREF: sub_438DD0+57↑j
+loc_438E30:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+57↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     dword ptr [eax], 0
 
-loc_438E39:                             ; CODE XREF: sub_438DD0+C↑j
+loc_438E39:                             ; CODE XREF: ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z+C↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_438DD0      endp
+?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -41422,7 +41422,7 @@ lpString        = dword ptr  0Ch
                 sub     esp, 0Ch
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 push    14h             ; varSize
                 call    ??2CObject@@SGPAXI@Z
@@ -74871,7 +74871,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -86014,22 +86014,22 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 180h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 184h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 188h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 18Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -123968,67 +123968,67 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 84h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 88h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 8Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 94h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 98h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 9Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -124430,92 +124430,92 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 98h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A8h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 140h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 144h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 148h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 14Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 150h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 154h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 158h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 15Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 160h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -128423,87 +128423,87 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 98h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A8h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 140h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 144h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 148h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 14Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 150h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 154h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 158h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 15Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 160h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -143322,7 +143322,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0D4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -157642,7 +157642,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20B0h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -157705,17 +157705,17 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20B4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 20B8h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 20BCh
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -168324,99 +168324,6 @@ loc_4BCE7C:                             ; CODE XREF: ?sub_4BCDA0@VisShop@@QAEXXZ
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod32@VisShop@@UAEXXZ      proc near               ; CODE XREF: ??1VisShop@@UAE@XZ+39↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 90h
-                push    eax
-                call    sub_438DD0
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 94h
-                push    ecx
-                call    sub_438DD0
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 98h
-                push    edx
-                call    sub_438DD0
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 9Ch
-                push    eax
-                call    sub_438DD0
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0A0h
-                push    ecx
-                call    sub_438DD0
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0A4h
-                push    edx
-                call    sub_438DD0
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0A8h
-                push    eax
-                call    sub_438DD0
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0ACh
-                push    ecx
-                call    sub_438DD0
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0B0h
-                push    edx
-                call    sub_438DD0
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0B4h
-                push    eax
-                call    sub_438DD0
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0B8h
-                push    ecx
-                call    sub_438DD0
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0BCh
-                push    edx
-                call    sub_438DD0
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0C0h
-                push    eax
-                call    sub_438DD0
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0C4h
-                push    ecx
-                call    sub_438DD0
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod32@VisShop@@UAEXXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -175156,87 +175063,87 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B4h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0BCh
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0C0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 16Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 170h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 174h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 178h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 17Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -178901,87 +178808,87 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B4h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B8h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0BCh
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0C0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 16Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 170h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 174h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 178h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 17Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -193308,7 +193215,7 @@ loc_4D075E:                             ; CODE XREF: sub_4D06AA+6A↑j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 7Ch ; '|'
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 jmp     short loc_4D07E4
 ; ---------------------------------------------------------------------------
@@ -193331,7 +193238,7 @@ loc_4D0795:                             ; CODE XREF: sub_4D06AA+BE↑j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 7Ch ; '|'
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
 
 loc_4D07E4:                             ; CODE XREF: sub_4D06AA+E9↑j
@@ -194905,72 +194812,72 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 74h ; 't'
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 78h ; 'x'
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 7Ch ; '|'
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 80h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 84h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 88h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 8Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 90h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 94h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 98h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A0h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A8h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -196515,107 +196422,107 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 210h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 214h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 218h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 21Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 220h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 224h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 228h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 22Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 230h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 234h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 238h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 23Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 240h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 244h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 248h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 24Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 250h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 254h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 258h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 25Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp
@@ -199984,87 +199891,87 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 210h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 214h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 218h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 21Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 220h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 224h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 228h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 22Ch
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 230h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 234h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 238h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 23Ch
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 240h
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 244h
                 push    edx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 248h
                 push    eax
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 24Ch
                 push    ecx
-                call    sub_438DD0
+                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     esp, ebp
                 pop     ebp

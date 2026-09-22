@@ -28,6 +28,7 @@ void LoadGameSounds(); //4c8217
 void FUN_00476c0d(int32_t x, int32_t y); //476c0d in asm
 void FUN_00438e40(SfxSample** sample, const char* fname); //438e40 in asm
 void FUN_004a4740(SfxSample** sample); //4a4740 in asm
+void FUN_00438dd0(SfxSample** sample); //438dd0 in asm
 
 
 class SfxSample : public CObject

@@ -5870,3 +5870,23 @@ void VisShop::sub_4BCC38()
         }
     }
 }
+
+
+// 4BD251
+void VisShop::VMethod32()
+{
+    FUN_00438dd0(&this->snd_notif);
+    FUN_00438dd0(&this->snd_step1);
+    FUN_00438dd0(&this->snd_step2);
+    FUN_00438dd0(&this->snd_breath);
+    FUN_00438dd0(&this->snd_depart);
+    FUN_00438dd0(&this->snd_buy);
+    FUN_00438dd0(&this->snd_sell);
+    FUN_00438dd0(&this->snd_enter);
+    FUN_00438dd0(&this->snd_start);
+    FUN_00438dd0(&this->snd_pov1);
+    FUN_00438dd0(&this->snd_pov2);
+    FUN_00438dd0(&this->snd_inshop);
+    FUN_00438dd0(&this->snd_out);
+    FUN_00438dd0(&this->snd_undo);
+}
