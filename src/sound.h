@@ -26,6 +26,7 @@ int InitSound(HWND hwnd, int channels); //45c489
 void FreeDSound(); //45c7c5
 void LoadGameSounds(); //4c8217
 void FUN_00476c0d(int32_t x, int32_t y); //476c0d in asm
+void FUN_00438e40(SfxSample** sample, const char* fname); //438e40 in asm
 
 
 class SfxSample : public CObject

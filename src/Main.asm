@@ -24079,31 +24079,31 @@ arg_0           = dword ptr  8
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 120h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_0 ; "SFX\\ChrGen\\Skill\\FAxe.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 124h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_1 ; "SFX\\ChrGen\\Skill\\FClub.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 128h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_2 ; "SFX\\ChrGen\\Skill\\FPike.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 12Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_3 ; "SFX\\ChrGen\\Skill\\FBow.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 130h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 jmp     short loc_42DA54
 ; ---------------------------------------------------------------------------
@@ -24113,31 +24113,31 @@ loc_42D9E3:                             ; CODE XREF: sub_42D963+B↑j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 120h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_5 ; "SFX\\ChrGen\\Skill\\MWater.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 124h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_6 ; "SFX\\ChrGen\\Skill\\MAir.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 128h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_7 ; "SFX\\ChrGen\\Skill\\MEarth.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 12Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenSkill_8 ; "SFX\\ChrGen\\Skill\\MAstral.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 130h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
 
 loc_42DA54:                             ; CODE XREF: sub_42D963+7E↑j
@@ -26200,25 +26200,25 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 84h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxClickOkWav ; "SFX\\Click_Ok.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 88h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxSbrosWav ; "SFX\\Sbros.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 8Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxBackWav ; "SFX\\Back.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -31109,25 +31109,25 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 88h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxRenameWav ; "SFX\\Rename.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 8Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxDeleteWav ; "SFX\\Delete.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 90h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxUndoWav ; "SFX\\Undo.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 94h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -39468,55 +39468,55 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1C4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenLevel_0 ; "SFX\\ChrGen\\Level2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1C8h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenLevel_1 ; "SFX\\ChrGen\\Level3.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1CCh
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenCharW ; "SFX\\ChrGen\\Char.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1D0h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenOkWav ; "SFX\\ChrGen\\Ok.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1D4h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxLetter1Wav ; "SFX\\Letter1.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1DCh
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxLetter2Wav ; "SFX\\Letter2.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1E0h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxLetter3Wav ; "SFX\\Letter3.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1E4h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxChrgenOkWav_0 ; "SFX\\ChrGen\\Ok.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1D8h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -41398,8 +41398,8 @@ sub_438DD0      endp
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_438E40(int, LPCSTR lpString)
-sub_438E40      proc near               ; CODE XREF: sub_42D963+1B↑p
+; int __cdecl ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z(int, LPCSTR lpString)
+?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z      proc near               ; CODE XREF: sub_42D963+1B↑p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -41439,10 +41439,10 @@ lpString        = dword ptr  0Ch
                 jmp     short loc_438E96
 ; ---------------------------------------------------------------------------
 
-loc_438E8F:                             ; CODE XREF: sub_438E40+3C↑j
+loc_438E8F:                             ; CODE XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+3C↑j
                 mov     [ebp+var_18], 0
 
-loc_438E96:                             ; CODE XREF: sub_438E40+4D↑j
+loc_438E96:                             ; CODE XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+4D↑j
                 mov     edx, dword ptr [ebp+var_18]
                 mov     [ebp+var_14], edx
 ;   } // starts at 438E71
@@ -41456,7 +41456,7 @@ loc_438E96:                             ; CODE XREF: sub_438E40+4D↑j
                 pop     ebp
                 retn
 ; } // starts at 438E40
-sub_438E40      endp
+?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -74848,7 +74848,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -85973,25 +85973,25 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 180h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxScrolldnWav ; "SFX\\ScrollDn.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 184h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxPoint1Wav ; "SFX\\Point1.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 188h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxPoint2Wav ; "SFX\\Point2.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 18Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -123873,79 +123873,79 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 84h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnGlot ; "SFX\\Town\\Inn\\glotok.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 88h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnStea ; "SFX\\Town\\Inn\\steam.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 8Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnWate ; "SFX\\Town\\Inn\\water.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnChai ; "SFX\\Town\\Inn\\chair.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 94h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxAddWav ; "SFX\\Add.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 98h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxNoaddWav ; "SFX\\NoAdd.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 9Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownShopNof ; "SFX\\Town\\Shop\\nofit.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnEnte ; "SFX\\Town\\Inn\\enter.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnHelp ; "SFX\\Town\\Inn\\Helper.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownShopBre ; "SFX\\Town\\Shop\\Breath.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxOutWav ; "SFX\\Out.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTalkWav ; "SFX\\Talk.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -124305,109 +124305,109 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 98h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxNoaddWav_0 ; "SFX\\NoAdd.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownShopNof_0 ; "SFX\\Town\\Shop\\nofit.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn ; "SFX\\Town_druid\\Inn\\din1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnHelp_0 ; "SFX\\Town\\Inn\\Helper.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A8h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxOutWav_0 ; "SFX\\Out.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTalkWav_0 ; "SFX\\Talk.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_0 ; "SFX\\Town_druid\\Inn\\DWater1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 140h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_1 ; "SFX\\Town_druid\\Inn\\DWater2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 144h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_2 ; "SFX\\Town_druid\\Inn\\DWater3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 148h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_3 ; "SFX\\Town_druid\\Inn\\DWater4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 14Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_4 ; "SFX\\Town_druid\\Inn\\DDruid3.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 150h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_5 ; "SFX\\Town_druid\\Inn\\Ddruid4.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 154h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_6 ; "SFX\\Town_druid\\Inn\\Ddruid41.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 158h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_7 ; "SFX\\Town_druid\\Inn\\Dforest2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 15Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_8 ; "SFX\\Town_druid\\Inn\\Dbird4.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 160h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_9 ; "SFX\\Town_druid\\Inn\\Dbird41.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_10 ; "SFX\\Town_druid\\Inn\\Dbird42.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -128304,103 +128304,103 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 98h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxNoaddWav_1 ; "SFX\\NoAdd.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 9Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownShopNof_1 ; "SFX\\Town\\Shop\\nofit.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn ; "SFX\\Town_kaarg\\Inn\\Kin1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownInnHelp_1 ; "SFX\\Town\\Inn\\Helper.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A8h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxOutWav_1 ; "SFX\\Out.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTalkWav_1 ; "SFX\\Talk.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_0 ; "SFX\\Town_kaarg\\Inn\\Kdish1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 140h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_1 ; "SFX\\Town_kaarg\\Inn\\Kdish2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 144h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_2 ; "SFX\\Town_kaarg\\Inn\\Kdish3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 148h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_3 ; "SFX\\Town_kaarg\\Inn\\Kdish4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 14Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_4 ; "SFX\\Town_kaarg\\Inn\\Kman2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 150h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_5 ; "SFX\\Town_kaarg\\Inn\\Kman3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 154h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_6 ; "SFX\\Town_kaarg\\Inn\\Kvox5.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 158h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_7 ; "SFX\\Town_kaarg\\Inn\\Kvox6.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 15Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_8 ; "SFX\\Town_kaarg\\Inn\\Kvox7.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 160h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_9 ; "SFX\\Town_kaarg\\Inn\\Kvox8.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -143299,7 +143299,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0D4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -157668,19 +157668,19 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20B4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxPutOffWav ; "SFX\\Put_Off.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 20B8h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxScrollWav ; "SFX\\Scroll.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 20BCh
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -170307,106 +170307,6 @@ loc_4BD0F7:                             ; CODE XREF: ?VMethod30@VisShop@@UAEPAVC
 
 ; Attributes: bp-based frame
 
-?VMethod31@VisShop@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060D474↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+90h]
-                push    offset aSfxTownShopNof_2 ; "SFX\\Town\\Shop\\nofit.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 90h
-                push    eax             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopSte ; "SFX\\Town\\Shop\\step1.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 94h
-                push    ecx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopSte_0 ; "SFX\\Town\\Shop\\step2.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 98h
-                push    edx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopBre_0 ; "SFX\\Town\\Shop\\breath.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 9Ch
-                push    eax             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopDep ; "SFX\\Town\\Shop\\depart.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0A0h
-                push    ecx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownBuyWav ; "SFX\\Town\\buy.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0A4h
-                push    edx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownSellWav ; "SFX\\Town\\sell.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0A8h
-                push    eax             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopEnt ; "SFX\\Town\\Shop\\enter.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0ACh
-                push    ecx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopSta ; "SFX\\Town\\Shop\\start.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0B0h
-                push    edx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopPov ; "SFX\\Town\\Shop\\Povorot1.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0B4h
-                push    eax             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopPov_0 ; "SFX\\Town\\Shop\\Povorot2.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0B8h
-                push    ecx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxTownShopIns ; "SFX\\Town\\Shop\\InShop.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0BCh
-                push    edx             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxOutWav_2 ; "SFX\\Out.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0C0h
-                push    eax             ; int
-                call    sub_438E40
-                add     esp, 8
-                push    offset aSfxUndoWav_0 ; "SFX\\Undo.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0C4h
-                push    ecx             ; int
-                call    sub_438E40
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod31@VisShop@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -177116,103 +177016,103 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh ; "SFX\\Town_Druid\\Shop\\Dotdel.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownBuyWav_0 ; "SFX\\Town\\buy.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownSellWav_0 ; "SFX\\Town\\sell.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_0 ; "SFX\\Town_Druid\\Shop\\Din2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_1 ; "SFX\\Town_Druid\\Shop\\Ddruid5.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B4h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_2 ; "SFX\\Town_Druid\\Shop\\Ddruid6.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_11 ; "SFX\\Town_Druid\\Inn\\Dforest2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0BCh
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxOutWav_3 ; "SFX\\Out.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0C0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxUndoWav_1 ; "SFX\\Undo.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_12 ; "SFX\\Town_druid\\Inn\\Dbird4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_13 ; "SFX\\Town_druid\\Inn\\Dbird41.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidIn_14 ; "SFX\\Town_druid\\Inn\\Dbird42.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 16Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_3 ; "SFX\\Town_druid\\shop\\Dtools1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 170h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_4 ; "SFX\\Town_druid\\shop\\Dtools2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 174h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_5 ; "SFX\\Town_druid\\shop\\Dtools3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 178h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidSh_6 ; "SFX\\Town_druid\\shop\\Dtools4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 17Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -180861,103 +180761,103 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh ; "SFX\\Town_kaarg\\Shop\\Kotdel.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A0h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownBuyWav_1 ; "SFX\\Town\\buy.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A4h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownSellWav_1 ; "SFX\\Town\\sell.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_0 ; "SFX\\Town_kaarg\\Shop\\Kin2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0ACh
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_1 ; "SFX\\Town_kaarg\\Shop\\Kman4.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0B4h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_2 ; "SFX\\Town_kaarg\\Shop\\Kman4.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0B8h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_10 ; "SFX\\Town_kaarg\\Inn\\Kvox5.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0BCh
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxOutWav_4 ; "SFX\\Out.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0C0h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxUndoWav_2 ; "SFX\\Undo.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0C4h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_11 ; "SFX\\Town_kaarg\\Inn\\Kvox6.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 164h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_12 ; "SFX\\Town_kaarg\\Inn\\Kvox7.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 168h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargIn_13 ; "SFX\\Town_kaarg\\Inn\\Kvox8.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 16Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_3 ; "SFX\\Town_kaarg\\shop\\Ktools1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 170h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_4 ; "SFX\\Town_kaarg\\shop\\Ktools2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 174h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_5 ; "SFX\\Town_kaarg\\shop\\Ktools3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 178h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargSh_6 ; "SFX\\Town_kaarg\\shop\\Ktools4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 17Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -195343,7 +195243,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 7Ch ; '|'
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 7Ch ; '|'
@@ -195366,7 +195266,7 @@ loc_4D0716:                             ; CODE XREF: sub_4D06AA+2C↑j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 7Ch ; '|'
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 7Ch ; '|'
@@ -195598,7 +195498,7 @@ loc_4D0968:                             ; CODE XREF: sub_4D0913+1E↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 78h ; 'x'
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 78h ; 'x'
@@ -195637,7 +195537,7 @@ loc_4D0A31:                             ; CODE XREF: sub_4D0913+97↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 78h ; 'x'
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 78h ; 'x'
@@ -196895,73 +196795,73 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 74h ; 't'
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownBirds1W ; "SFX\\Town\\Birds1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 80h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownBirds2W ; "SFX\\Town\\Birds2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 84h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownFlugelW ; "SFX\\Town\\Flugel.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 88h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownFlagWav ; "SFX\\Town\\Flag.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 8Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownPointWa ; "SFX\\Town\\Point.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 90h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownShopEnt_0 ; "SFX\\Town\\Shop\\enter.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 94h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownSchoolP ; "SFX\\Town\\School\\Point.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 98h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownStarsWa ; "SFX\\Town\\Stars.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 9Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownHorse2W ; "SFX\\Town\\Horse2.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A0h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownHorse3W ; "SFX\\Town\\Horse3.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0A4h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownHorse1W ; "SFX\\Town\\Horse1.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 0A8h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     esp, ebp
                 pop     ebp
@@ -198445,127 +198345,127 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDl_0 ; "sfx\\town_druid\\Dlizard2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 210h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDl_1 ; "sfx\\town_druid\\Dlizard3.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 214h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDl_2 ; "sfx\\town_druid\\Dlizard4.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 218h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb ; "sfx\\town_druid\\Dbug1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 21Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb_0 ; "sfx\\town_druid\\Dbug2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 220h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb_1 ; "sfx\\town_druid\\Dbug3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 224h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb_2 ; "sfx\\town_druid\\Dbird1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 228h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb_3 ; "sfx\\town_druid\\Dbird2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 22Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDb_4 ; "sfx\\town_druid\\Dbird3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 230h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDt ; "sfx\\town_druid\\Dtree1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 234h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDt_0 ; "sfx\\town_druid\\Dtree2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 238h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDt_1 ; "sfx\\town_druid\\Dtree3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 23Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDt_2 ; "sfx\\town_druid\\Dtree4.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 240h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDf ; "sfx\\town_druid\\Dforest1.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 244h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDd ; "sfx\\town_druid\\Ddruid1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 248h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDd_0 ; "sfx\\town_druid\\Ddruid2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 24Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDe ; "sfx\\town_druid\\Denter2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 250h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDe_0 ; "sfx\\town_druid\\Denter1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 254h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDo ; "sfx\\town_druid\\Dout.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 258h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownDruidDw ; "sfx\\town_druid\\Dwolf1.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 25Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     eax, dword ptr [ebp+var_4]
                 mov     dword ptr [eax+260h], 0
@@ -201938,103 +201838,103 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKv_0 ; "sfx\\town_kaarg\\Kvox3.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 210h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKv_1 ; "sfx\\town_kaarg\\Kvox4.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 214h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKb ; "sfx\\town_kaarg\\Kbird1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 218h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKb_0 ; "sfx\\town_kaarg\\Kbird2.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 21Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKb_1 ; "sfx\\town_kaarg\\Kbird3.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 220h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKb_2 ; "sfx\\town_kaarg\\Kbird4.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 224h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKv_2 ; "sfx\\town_kaarg\\Kvox1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 228h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKe ; "sfx\\town_kaarg\\Kenter2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 22Ch
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKe_0 ; "sfx\\town_kaarg\\Kenter1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 230h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKm ; "sfx\\town_kaarg\\Kman1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 234h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs ; "sfx\\town_kaarg\\Ksteps2.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 238h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs_0 ; "sfx\\town_kaarg\\Ksteps21.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 23Ch
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs_1 ; "sfx\\town_kaarg\\Ksteps1.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 240h
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs_2 ; "sfx\\town_kaarg\\Ksteps11.wav"
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 244h
                 push    edx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs_3 ; "sfx\\town_kaarg\\Ksteps3.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 248h
                 push    eax             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 push    offset aSfxTownKaargKs_4 ; "sfx\\town_kaarg\\Ksteps31.wav"
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 24Ch
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+250h], 0
@@ -203289,7 +203189,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 78h ; 'x'
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 78h ; 'x'
@@ -203328,7 +203228,7 @@ loc_4D655A:                             ; CODE XREF: sub_4D6480+53↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 78h ; 'x'
                 push    ecx             ; int
-                call    sub_438E40
+                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
                 add     esp, 8
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 78h ; 'x'
@@ -379864,7 +379764,7 @@ SEH_438BC0:                             ; DATA XREF: CWinThread::~CWinThread(voi
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_438E40
+; START OF FUNCTION CHUNK FOR ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
 
 loc_5F8920:                             ; DATA XREF: .rdata:stru_619020↓o
 ; __unwind { // SEH_438E40
@@ -379875,11 +379775,11 @@ loc_5F8920:                             ; DATA XREF: .rdata:stru_619020↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_438E40:                             ; DATA XREF: sub_438E40+5↑o
+SEH_438E40:                             ; DATA XREF: ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z+5↑o
                 mov     eax, offset stru_619000
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8920
-; END OF FUNCTION CHUNK FOR sub_438E40
+; END OF FUNCTION CHUNK FOR ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PAPAEH@Z

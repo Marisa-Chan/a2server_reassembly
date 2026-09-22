@@ -5406,3 +5406,24 @@ VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameB
     this->current_gold = 0;
     this->scenario_talk_target = 0;
 }
+
+
+// 4BD0FB
+void VisShop::VMethod31(int32_t code)
+{
+    this->VMethod32();
+    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->snd_step1, "SFX\\Town\\Shop\\step1.wav");
+    FUN_00438e40(&this->snd_step2, "SFX\\Town\\Shop\\step2.wav");
+    FUN_00438e40(&this->snd_breath, "SFX\\Town\\Shop\\breath.wav");
+    FUN_00438e40(&this->snd_depart, "SFX\\Town\\Shop\\depart.wav");
+    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
+    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
+    FUN_00438e40(&this->snd_enter, "SFX\\Town\\Shop\\enter.wav");
+    FUN_00438e40(&this->snd_start, "SFX\\Town\\Shop\\start.wav");
+    FUN_00438e40(&this->snd_pov1, "SFX\\Town\\Shop\\Povorot1.wav");
+    FUN_00438e40(&this->snd_pov2, "SFX\\Town\\Shop\\Povorot2.wav");
+    FUN_00438e40(&this->snd_inshop, "SFX\\Town\\Shop\\InShop.wav");
+    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
+    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
+}

@@ -1463,7 +1463,7 @@ externdef ?VMethod26@VisShop@@UAEXXZ : proc
 externdef ?VMethod28@VisShop@@UAEXXZ : proc
 externdef ?DoClose@VisShop@@UAEXI@Z : proc
 externdef ?VMethod30@VisShop@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisShop@@UAEXH@Z : proc
+extern ?VMethod31@VisShop@@UAEXH@Z : proc
 
 ;VisShopDruid
 externdef ??_GVisShopDruid@@UAEPAXI@Z : proc
@@ -2080,6 +2080,7 @@ extern ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ : proc
 
 externdef ?sub_4764BC@@YAPAEH@Z : proc
 externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, int32_t)
+externdef ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z : proc  ; void __cdecl FUN_00438e40(SfxSample**, const char*)
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc
 

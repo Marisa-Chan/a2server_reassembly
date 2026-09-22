@@ -30,6 +30,7 @@
 ?DAT_00661018@@3PAPAVCGamePalette@@A
 ?DAT_00665344@@3PAVCGameBitmap@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
+?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
 ?AfxRegisterWndClass@@YGPBDIPAUHICON__@@PAUHBRUSH__@@0@Z	84
 ?DDX_Control@@YGXPAVCDataExchange@@HAAVCWnd@@@Z	40
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
@@ -549,7 +550,6 @@
 ?sub_4BCD79@VisShop@@QAEXXZ	18
 ?sub_4BCC38@VisShop@@QAEXXZ	70
 ?VMethod32@VisShop@@UAEXXZ	81
-?VMethod31@VisShop@@UAEXH@Z	99
 ?sub_4BC97B@VisShop@@QAEXXZ	118
 ?VMethod30@VisShop@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	153
 ?DoClose@VisShop@@UAEXI@Z	187
