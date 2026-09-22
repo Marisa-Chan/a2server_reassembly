@@ -167937,71 +167937,6 @@ loc_4BBD3E:                             ; CODE XREF: ?sub_4BBBD6@VisShop@@QAEXHP
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BC8D7@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisShop@@UAEHIII@Z+130↑p
-
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FDF96 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4BC8D7
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BC8D7
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 8
-                mov     [ebp+var_14], ecx
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+88h], 0
-                jz      short loc_4BC96D
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+70h]
-                mov     ecx, dword ptr [edx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      short loc_4BC96D
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+8Ch], 0
-                jnz     short loc_4BC96D
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     dword ptr [ecx+8Ch], 1
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     edx, [ebp+var_10]
-                push    edx             ; CString *
-                push    4               ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ecx+88h]
-                call    sub_438B80
-;   } // starts at 4BC937
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_4BC96D:                             ; CODE XREF: ?sub_4BC8D7@VisShop@@QAEXXZ+28↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4BC8D7
-?sub_4BC8D7@VisShop@@QAEXXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -390884,22 +390819,6 @@ SEH_4BB102:                             ; DATA XREF: ?sub_4BB102@VisShop@@QAEXXZ
 ; } // starts at 5FDECF
 ; END OF FUNCTION CHUNK FOR ?sub_4BB102@VisShop@@QAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?sub_4BC8D7@VisShop@@QAEXXZ
-
-loc_5FDF96:                             ; DATA XREF: .rdata:stru_61F440↓o
-; __unwind { // SEH_4BC8D7              ; varThis
-;   cleanup() // owned by 4BC937
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BC8D7:                             ; DATA XREF: ?sub_4BC8D7@VisShop@@QAEXXZ+5↑o
-                mov     eax, offset stru_61F420
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDF96
-; END OF FUNCTION CHUNK FOR ?sub_4BC8D7@VisShop@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ATL::CStringT<wchar_t,StrTraitMFC<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator+=(char const *)
 
 loc_5FDFA9:                             ; DATA XREF: .rdata:stru_61F468↓o
@@ -425179,12 +425098,6 @@ stru_61F368     UnwindMapEntry <-1, offset loc_5FDECF>
                 UnwindMapEntry <-1, offset loc_5FDF03>
                 UnwindMapEntry <-1, offset loc_5FDF10>
                 UnwindMapEntry <-1, offset loc_5FDF1D>
-stru_61F420     FuncInfoV1 <19930520h, 1, offset stru_61F440, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61F440     UnwindMapEntry <-1, offset loc_5FDF96>
 stru_61F448     FuncInfoV1 <19930520h, 1, offset stru_61F468, 0, 0, 0, 0>
                 db    0
                 db    0

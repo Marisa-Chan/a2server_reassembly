@@ -5837,3 +5837,17 @@ void VisShop::sub_4BCEA4()
     this->dirty &= ~0x100;
     this->dirty |= 0x20;
 }
+
+
+// 4BC8D7
+void VisShop::sub_4BC8D7()
+{
+    if (this->tips != nullptr) {
+        if (this->to_buy->grid_source->GetSize() != 0 && this->tips_update_flag == 0) {
+            this->tips_update_flag = 1;
+            CString tips_text;
+            MissionGetTips(4, &tips_text);
+            ((VisMultiText*)this->tips->FindChild(13))->SetText(tips_text);
+        }
+    }
+}

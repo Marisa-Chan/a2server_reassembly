@@ -1454,7 +1454,6 @@ externdef ?sub_4BB895@VisShop@@QAEXXZ : proc
 externdef ?sub_4BBA06@VisShop@@QAEXXZ : proc
 externdef ?sub_4BB102@VisShop@@QAEXXZ : proc
 externdef ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
-externdef ?sub_4BC8D7@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCC38@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 externdef ?sub_4BC97B@VisShop@@QAEXXZ : proc
