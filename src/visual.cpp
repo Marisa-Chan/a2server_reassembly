@@ -5339,3 +5339,21 @@ void VisShop::FUN_004bcd02()
     this->sub_4BCC38();
     this->MsgProc(0x445, 0, 0);
 }
+
+
+// 4BA832
+int32_t VisShop::OnKeyDown(uint32_t wparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (wparam == 0xd) {
+        return 1;
+    }
+    if (wparam == 0x1b) {
+        this->FUN_004bcd02();
+        if (main_wnd->dialogsMask == 2) {
+            main_wnd->PostMessage(0x42e, 0, 0);
+        }
+        return 1;
+    }
+    return 0;
+}

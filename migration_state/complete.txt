@@ -493,6 +493,7 @@
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
 ?OnKeyDown@VisScreen@@UAEHI@Z
+?OnKeyDown@VisShop@@UAEHI@Z
 ?OnKeyDown@VisTextBox@@UAEHI@Z
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z

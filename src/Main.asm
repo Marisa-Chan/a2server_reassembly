@@ -166968,58 +166968,6 @@ sub_4BA477      endp
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisShop@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060D454↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 0Dh
-                jz      short loc_4BA883
-                cmp     [ebp+var_C], 1Bh
-                jz      short loc_4BA857
-                jmp     short loc_4BA88A
-; ---------------------------------------------------------------------------
-
-loc_4BA857:                             ; CODE XREF: ?OnKeyDown@VisShop@@UAEHI@Z+21↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_004bcd02@VisShop@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+418h], 2
-                jnz     short loc_4BA87C
-                push    0               ; lParam
-                push    0               ; wParam
-                push    42Eh            ; Msg
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_4BA87C:                             ; CODE XREF: ?OnKeyDown@VisShop@@UAEHI@Z+37↑j
-                mov     eax, 1
-                jmp     short loc_4BA88C
-; ---------------------------------------------------------------------------
-
-loc_4BA883:                             ; CODE XREF: ?OnKeyDown@VisShop@@UAEHI@Z+1B↑j
-                mov     eax, 1
-                jmp     short loc_4BA88C
-; ---------------------------------------------------------------------------
-
-loc_4BA88A:                             ; CODE XREF: ?OnKeyDown@VisShop@@UAEHI@Z+23↑j
-                xor     eax, eax
-
-loc_4BA88C:                             ; CODE XREF: ?OnKeyDown@VisShop@@UAEHI@Z+4F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisShop@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
