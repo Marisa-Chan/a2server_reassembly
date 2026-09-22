@@ -6009,3 +6009,41 @@ void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr)
     cat_arr.Copy(*arr);
     arr->RemoveAll();
 }
+
+
+// 4BB4FB
+void VisShop::sub_4BB4FB()
+{
+    if (this->spr_myitem != nullptr) {
+        delete this->spr_myitem;
+    }
+    this->spr_myitem = nullptr;
+    if (this->spr_shopitem != nullptr) {
+        delete this->spr_shopitem;
+    }
+    this->spr_shopitem = nullptr;
+    if (this->bmp_backinvg != nullptr) {
+        delete this->bmp_backinvg;
+    }
+    this->bmp_backinvg = nullptr;
+    if (this->bmp_backinvb != nullptr) {
+        delete this->bmp_backinvb;
+    }
+    this->bmp_backinvb = nullptr;
+    if (this->bmp_backinvs != nullptr) {
+        delete this->bmp_backinvs;
+    }
+    this->bmp_backinvs = nullptr;
+    for (int32_t i = 0; i < this->bmp_cost_small.GetSize(); i++) {
+        if (this->bmp_cost_small[i] != nullptr) {
+            delete this->bmp_cost_small[i];
+        }
+        this->bmp_cost_small[i] = nullptr;
+        if (this->bmp_cost_medium[i] != nullptr) {
+            delete this->bmp_cost_medium[i];
+        }
+        this->bmp_cost_medium[i] = nullptr;
+    }
+    this->bmp_cost_small.RemoveAll();
+    this->bmp_cost_medium.RemoveAll();
+}

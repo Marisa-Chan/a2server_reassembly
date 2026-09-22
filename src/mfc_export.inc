@@ -1449,7 +1449,7 @@ externdef ?VMethod31@VisTavKaarg@@UAEXH@Z : proc
 extern ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
 extern ??_GVisShop@@UAEPAXI@Z : proc
 extern ??1VisShop@@UAE@XZ : proc
-externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
+extern ?sub_4BB4FB@VisShop@@QAEXXZ : proc
 externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
 externdef ?sub_4BB102@VisShop@@QAEXXZ : proc
 externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
