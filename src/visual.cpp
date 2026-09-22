@@ -5327,3 +5327,15 @@ VisShop::~VisShop()
         this->buttons = nullptr;
     }
 }
+
+
+// 4BCD02
+void VisShop::FUN_004bcd02()
+{
+    if (this->spell_panel != nullptr) {
+        this->sub_4BCD79();
+        this->gameplay->FUN_0041b636();
+    }
+    this->sub_4BCC38();
+    this->MsgProc(0x445, 0, 0);
+}

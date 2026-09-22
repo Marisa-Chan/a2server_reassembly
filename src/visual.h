@@ -1510,6 +1510,8 @@ public:
 
 	void FUN_004bcd02();
 	void sub_4BB4FB(); //4bb4fb
+	void sub_4BCC38(); //4bcc38
+	void sub_4BCD79(); //4bcd79
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm
 

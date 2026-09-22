@@ -546,8 +546,9 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?FUN_004bcd02@VisShop@@QAEXXZ	30
+?sub_4BCD79@VisShop@@QAEXXZ	18
 ?OnKeyDown@VisShop@@UAEHI@Z	51
+?sub_4BCC38@VisShop@@QAEXXZ	70
 ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z	80
 ?VMethod32@VisShop@@UAEXXZ	81
 ?VMethod8@VisShop@@UAEXPAVCRect@@@Z	81
