@@ -1452,11 +1452,12 @@ extern ??1VisShop@@UAE@XZ : proc
 externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCC38@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCD79@VisShop@@QAEXXZ : proc
+externdef ?sub_4BC97B@VisShop@@QAEXXZ : proc
 externdef ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisShop@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisShop@@UAEHI@Z : proc
 externdef ?VMethod26@VisShop@@UAEXXZ : proc
 externdef ?VMethod28@VisShop@@UAEXXZ : proc

@@ -5357,3 +5357,21 @@ int32_t VisShop::OnKeyDown(uint32_t wparam)
     }
     return 0;
 }
+
+
+// 4BB045
+int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr && this->spell_panel != nullptr) {
+        if (this->spell_panel->GetRect().PtInRect(pos)) {
+            this->sub_4BC97B();
+            return 1;
+        }
+    }
+    if (main_wnd->field_0x408 != nullptr && !this->rect.PtInRect(pos)) {
+        this->sub_4BC97B();
+        return 1;
+    }
+    return CVisualObject::OnLButtonUp(wparam, pos);
+}
