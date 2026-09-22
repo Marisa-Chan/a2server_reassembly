@@ -5825,3 +5825,15 @@ void VisShop::sub_4BCD4B()
     this->spell_panel = main_wnd->vis_spellbook;
     this->RemoveChild(this->to_buy);
 }
+
+
+// 4BCEA4
+void VisShop::sub_4BCEA4()
+{
+    this->buttons->sub_4C1358();
+    this->dirty &= ~0x200;
+    this->dirty &= ~0x400;
+    this->dirty &= ~0x80;
+    this->dirty &= ~0x100;
+    this->dirty |= 0x20;
+}

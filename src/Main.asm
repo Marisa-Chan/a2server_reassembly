@@ -168463,52 +168463,6 @@ loc_4BCE7C:                             ; CODE XREF: ?sub_4BCDA0@VisShop@@QAEXXZ
 ?sub_4BCDA0@VisShop@@QAEXXZ      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BCEA4@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z+26D↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+78h]
-                call    ?sub_4C1358@VisShopButtons@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                and     edx, 0FFFFFDFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                and     edx, 0FFFFFBFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                and     edx, 0FFFFFF7Fh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                and     edx, 0FFFFFEFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+14Ch]
-                or      edx, 20h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+14Ch], edx
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4BCEA4@VisShop@@QAEXXZ      endp
-
-
 
 
 ; =============== S U B R O U T I N E =======================================
