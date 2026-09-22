@@ -1250,6 +1250,7 @@ public:
 	virtual void VMethod42();
 
 	void sub_4B4C1C(); //4b4c1c
+	void sub_4B4D33(); //4b4d33
 
 public:
 	int32_t field_0x20ac; //unk type
@@ -1553,9 +1554,15 @@ public:
 
 	void FUN_004bcd02();
 	void sub_4BB4FB(); //4bb4fb
+	void sub_4BB895(); //4bb895
+	void sub_4BBA06(); //4bba06
+	void sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr); //4bbbd6
+	void sub_4BC8D7(); //4bc8d7
 	void sub_4BCC38(); //4bcc38
 	void sub_4BC97B(); //4bc97b
+	void sub_4BCD4B(); //4bcd4b
 	void sub_4BCD79(); //4bcd79
+	void sub_4BCDA0(); //4bcda0
 	void sub_4BCEA4(); //4bcea4
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm

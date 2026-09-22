@@ -1450,8 +1450,14 @@ extern ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
 extern ??_GVisShop@@UAEPAXI@Z : proc
 extern ??1VisShop@@UAE@XZ : proc
 externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
+externdef ?sub_4BB895@VisShop@@QAEXXZ : proc
+externdef ?sub_4BBA06@VisShop@@QAEXXZ : proc
+externdef ?sub_4BBBD6@VisShop@@QAEXHPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
+externdef ?sub_4BC8D7@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCC38@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCD79@VisShop@@QAEXXZ : proc
+externdef ?sub_4BCD4B@VisShop@@QAEXXZ : proc
+externdef ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCEA4@VisShop@@QAEXXZ : proc
 externdef ?sub_4BC97B@VisShop@@QAEXXZ : proc
 externdef ?sub_4C0352@VisShopButtons@@QAEXXZ : proc
@@ -1459,7 +1465,7 @@ externdef ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ?VMethod32@VisShop@@UAEXXZ : proc
 extern ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisShop@@UAEHIII@Z : proc
+extern ?MsgProc@VisShop@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisShop@@UAEHI@Z : proc
@@ -1768,6 +1774,7 @@ externdef ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc
 externdef ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc
+externdef ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc
 
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc

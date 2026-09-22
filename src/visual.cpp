@@ -5604,3 +5604,112 @@ void VisShop::VMethod26()
     this->snd_out = nullptr;
     this->snd_undo = nullptr;
 }
+
+
+// 4BA892
+int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    switch (msg) {
+    case 0x402:
+        if ((main_wnd->dialogsMask & 8) == 0) {
+            this->sub_4BC8D7();
+            this->shop_compass->VMethod9();
+            this->to_sell->VMethod9();
+            this->assortiment->VMethod9();
+            if (this->spell_panel != nullptr) {
+                this->spell_panel->VMethod9();
+            } else {
+                this->to_buy->VMethod9();
+            }
+            this->select_info_panel->VMethod9();
+            this->sub_4BCDA0();
+            this->buttons->VMethod9();
+        }
+        break;
+    case 0x40F:
+        if (this->spell_panel != nullptr) {
+            this->sub_4BCD79();
+        } else {
+            this->sub_4BCD4B();
+        }
+        break;
+    case 0x413:
+        if (lparam == 0) {
+            this->to_sell->sub_4B4D33();
+            this->assortiment->sub_4B4D33();
+            this->to_buy->sub_4B4D33();
+            ((CUnit*)this->gameplay->field_0x138)->unitFlags |= 8;
+            this->dirty |= 0x28;
+        } else {
+            switch (wparam) {
+            case 1:
+                ((CUnit*)this->gameplay->field_0x138)->unitFlags |= 8;
+                this->dirty |= 8;
+                break;
+            case 2:
+                this->to_sell->VMethod40((CArray<TokenEntry*>*)lparam);
+                this->to_sell->sub_4B4D33();
+                break;
+            case 4:
+                this->to_buy->VMethod40((CArray<TokenEntry*>*)lparam);
+                this->to_buy->sub_4B4D33();
+                this->sub_4BCDA0();
+                this->dirty |= 0x20;
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                this->sub_4BBBD6(wparam - 5, (CArray<TokenEntry*>*)lparam);
+                this->assortiment->sub_4B4D33();
+                break;
+            }
+            ((CArray<TokenEntry*>*)lparam)->RemoveAll();
+        }
+        break;
+    case 0x414:
+        this->sub_4BBA06();
+        this->dirty |= 1;
+        break;
+    case 0x415:
+        this->sub_4BB895();
+        this->dirty |= 1;
+        break;
+    case 0x45A:
+        if (this->tips != nullptr) {
+            if (this->shop_compass != nullptr) {
+                this->shop_compass->RemoveChild(this->tips);
+            }
+            delete this->tips;
+            this->tips = nullptr;
+        }
+        break;
+    case 0x46E:
+        if (wparam == 7) {
+            this->to_sell->sub_4B4D33();
+            this->to_buy->sub_4B4D33();
+        } else {
+            switch (wparam) {
+            case 1:
+            case 2:
+                this->to_sell->sub_4B4D33();
+                break;
+            case 4:
+                this->to_buy->sub_4B4D33();
+                this->sub_4BCDA0();
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                this->assortiment->sub_4B4D33();
+                break;
+            }
+        }
+        break;
+    }
+
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
