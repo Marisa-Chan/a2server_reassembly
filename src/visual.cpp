@@ -5890,3 +5890,21 @@ void VisShop::VMethod32()
     FUN_00438dd0(&this->snd_out);
     FUN_00438dd0(&this->snd_undo);
 }
+
+
+// 4BCDA0
+void VisShop::sub_4BCDA0()
+{
+    this->current_gold = this->gameplay->my_main_unit->gold;
+    this->sell_gold = 0;
+    this->buy_gold = 0;
+    for (int32_t i = 0; i < this->to_buy->grid_source->GetSize(); i++) {
+        TokenEntry* entry = (*this->to_buy->grid_source)[i];
+        if (entry->field_0x18 == 2) {
+            this->sell_gold += (int32_t)(entry->GetAttribute(1) + 1) / 2 * entry->field_0x10;
+        } else {
+            this->buy_gold -= entry->GetAttribute(1) * entry->field_0x10;
+        }
+    }
+    this->result_gold = this->current_gold + this->buy_gold + this->sell_gold;
+}
