@@ -5816,3 +5816,12 @@ void VisShop::sub_4BCD79()
     this->spell_panel = nullptr;
     this->AddChild(this->to_buy);
 }
+
+
+// 4BCD4B
+void VisShop::sub_4BCD4B()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->spell_panel = main_wnd->vis_spellbook;
+    this->RemoveChild(this->to_buy);
+}
