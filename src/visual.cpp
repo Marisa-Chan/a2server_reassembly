@@ -6047,3 +6047,32 @@ void VisShop::sub_4BB4FB()
     this->bmp_cost_small.RemoveAll();
     this->bmp_cost_medium.RemoveAll();
 }
+
+
+// 4BB102
+void VisShop::sub_4BB102()
+{
+    char fname[0x400];
+
+    this->sub_4BB4FB();
+    this->spr_myitem = new CSprite256("graphics\\interface\\myitem.256");
+    this->spr_myitem->ResetPalette(1, 1, 0);
+    g_mousept.Update();
+    this->spr_shopitem = new CSprite256("graphics\\interface\\shopitem.256");
+    this->spr_shopitem->ResetPalette(1, 1, 0);
+    g_mousept.Update();
+    for (int32_t i = 0; i < 7; i++) {
+        sprintf(fname, "graphics\\interface\\costs%d.bmp", i + 1);
+        this->bmp_cost_small.Add(new CBmp64(fname));
+        g_mousept.Update();
+        sprintf(fname, "graphics\\interface\\costm%d.bmp", i + 1);
+        this->bmp_cost_medium.Add(new CBmp64(fname));
+        g_mousept.Update();
+    }
+    this->bmp_backinvg = new CBmp64("graphics\\interface\\backinvg.bmp");
+    g_mousept.Update();
+    this->bmp_backinvb = new CBmp64("graphics\\interface\\backinvb.bmp");
+    g_mousept.Update();
+    this->bmp_backinvs = new CBmp64("graphics\\interface\\backinvs.bmp");
+    g_mousept.Update();
+}
