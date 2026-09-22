@@ -5949,3 +5949,38 @@ void VisShop::sub_4BBA06()
     this->selected_units[this->select_index]->unitFlags |= 8;
     this->dirty |= 9;
 }
+
+
+// 4BC97B
+void VisShop::sub_4BC97B()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    ApplyCursor(g_Cursors[0]);
+    switch (main_wnd->field_0x410) {
+    case 1:
+        ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->field_0x40c);
+        this->dirty |= 8;
+        break;
+    case 2:
+        this->to_sell->VMethod37(main_wnd->field_0x40c);
+        this->to_sell->sub_4B4D33();
+        this->dirty |= 1;
+        break;
+    case 4:
+        this->to_buy->VMethod37(main_wnd->field_0x40c);
+        this->to_buy->sub_4B4D33();
+        if (this->spell_panel == nullptr) {
+            this->dirty |= 4;
+        }
+        break;
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+        this->assortiment->VMethod37(main_wnd->field_0x40c);
+        this->assortiment->sub_4B4D33();
+        this->dirty |= 2;
+        break;
+    }
+    main_wnd->ResetItemCursor();
+}
