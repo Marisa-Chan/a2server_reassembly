@@ -1447,7 +1447,10 @@ externdef ?VMethod31@VisTavKaarg@@UAEXH@Z : proc
 
 ;VisShop
 externdef ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
-externdef ??_GVisShop@@UAEPAXI@Z : proc
+extern ??_GVisShop@@UAEPAXI@Z : proc
+extern ??1VisShop@@UAE@XZ : proc
+externdef ?sub_4BB4FB@VisShop@@QAEXXZ : proc
+externdef ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisShop@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc

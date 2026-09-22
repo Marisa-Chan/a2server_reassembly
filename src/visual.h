@@ -1491,7 +1491,7 @@ ASSERT_SIZE(VisSpellBook, 0x6c);
 class VisShop : public VisScreen
 {
 public:
-	virtual ~VisShop(); // 4C6920
+	virtual ~VisShop(); // 4BA5A0
 
 	virtual void VMethod8(CRect* rect) override; // 4BB79A
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4BA892
@@ -1509,6 +1509,7 @@ public:
 
 
 	void FUN_004bcd02();
+	void sub_4BB4FB(); //4bb4fb
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm
 

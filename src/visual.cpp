@@ -5290,3 +5290,40 @@ void VisLogoWnd::DoClose(uint32_t code)
     }
     VisScreen::DoClose(code);
 }
+
+// 4BA5A0
+VisShop::~VisShop()
+{
+    this->sub_4BB4FB();
+    this->VMethod32();
+    if (this->assortiment != nullptr) {
+        this->RemoveChild(this->assortiment);
+        delete this->assortiment;
+        this->assortiment = nullptr;
+    }
+    if (this->to_sell != nullptr) {
+        this->RemoveChild(this->to_sell);
+        delete this->to_sell;
+        this->to_sell = nullptr;
+    }
+    if (this->to_buy != nullptr) {
+        this->RemoveChild(this->to_buy);
+        delete this->to_buy;
+        this->to_buy = nullptr;
+    }
+    if (this->tips != nullptr) {
+        this->shop_compass->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+    if (this->shop_compass != nullptr) {
+        this->RemoveChild(this->shop_compass);
+        delete this->shop_compass;
+        this->shop_compass = nullptr;
+    }
+    if (this->buttons != nullptr) {
+        this->RemoveChild(this->buttons);
+        delete this->buttons;
+        this->buttons = nullptr;
+    }
+}
