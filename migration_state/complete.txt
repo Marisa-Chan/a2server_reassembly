@@ -772,6 +772,7 @@
 ?VMethod32@VisShopKaarg@@UAEXXZ
 ?VMethod33@VisShop@@UAE?AVCString@@XZ
 ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ
+?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ

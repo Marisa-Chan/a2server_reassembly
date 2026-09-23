@@ -1739,6 +1739,7 @@ public:
 	virtual void VMethod30() override; // 4C4170
 	virtual void VMethod31() override; // 4C43A3
 	virtual void VMethod32() override; // 4C453D
+	virtual CString VMethod33() override; // 4C6C10
 
 	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm
 public:

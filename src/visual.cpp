@@ -6654,3 +6654,10 @@ void VisShopKaarg::VMethod32()
     FUN_00438dd0(&this->snd_tool[2]);
     FUN_00438dd0(&this->snd_tool[3]);
 }
+
+
+// 4C6C10
+CString VisShopKaarg::VMethod33()
+{
+    return CString("shop_kaarg\\");
+}
