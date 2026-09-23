@@ -6449,3 +6449,55 @@ void VisShopDruid::VMethod31()
     FUN_00438e40(&this->snd_tool[2], "SFX\\Town_druid\\shop\\Dtools3.wav");
     FUN_00438e40(&this->snd_tool[3], "SFX\\Town_druid\\shop\\Dtools4.wav");
 }
+
+
+// 4C1958
+void VisShopDruid::VMethod30()
+{
+    static uint8_t snd_timing_init = 0; // byte_665D9C in asm
+    static uint32_t last_snd_time; // dword_665DD4 in asm
+
+    if ((snd_timing_init & 1) == 0) {
+        snd_timing_init |= 1;
+        last_snd_time = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    GetRandS16(30000);
+    if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
+        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+    }
+    if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
+        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+    }
+    if (now - this->bird_tick > (uint32_t)this->next_bird) {
+        int32_t bird = GetRandS16(3) + 1;
+        if (bird == 1) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[0]));
+        } else if (bird == 2) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[1]));
+        } else if (bird == 3) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[2]));
+        }
+        this->next_bird = GetRandS16(2000) + 2000;
+        this->bird_tick = timeGetTime();
+    }
+    if (now - this->tool_tick > (uint32_t)this->next_tool) {
+        int32_t tool = GetRandS16(4) + 1;
+        switch (tool) {
+        case 1:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[0]));
+            break;
+        case 2:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[1]));
+            break;
+        case 3:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[2]));
+            break;
+        case 4:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[3]));
+            break;
+        }
+        this->next_tool = GetRandS16(2000) + 2000;
+        this->tool_tick = timeGetTime();
+    }
+}

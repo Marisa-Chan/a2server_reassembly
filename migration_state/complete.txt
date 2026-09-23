@@ -762,6 +762,7 @@
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShop@@UAEXXZ
 ?VMethod30@VisShopButtons@@UAEHXZ
+?VMethod30@VisShopDruid@@UAEXXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShop@@UAEXXZ
 ?VMethod31@VisShopDruid@@UAEXXZ
