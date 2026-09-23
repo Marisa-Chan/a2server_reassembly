@@ -521,6 +521,7 @@
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z

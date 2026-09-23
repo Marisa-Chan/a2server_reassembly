@@ -6124,6 +6124,18 @@ int32_t VisShopButtons::VMethod30()
 }
 
 
+// 4C10C4
+int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (this->shop->hovered_region != this->VMethod30()) {
+        this->shop->hovered_region = this->VMethod30();
+        this->shop->dirty |= 0x2F;
+    }
+    this->sub_4C14C4(wparam, pos);
+    return 0;
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {
