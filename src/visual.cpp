@@ -6674,3 +6674,27 @@ VisShopKaarg::VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
     : VisShop(_id, l, t, r, b, btm)
 {
 }
+
+
+// 4C43A3
+void VisShopKaarg::VMethod31()
+{
+    this->VMethod32();
+    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->snd_depart, "SFX\\Town_kaarg\\Shop\\Kotdel.wav");
+    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
+    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
+    FUN_00438e40(&this->snd_enter, "SFX\\Town_kaarg\\Shop\\Kin2.wav");
+    FUN_00438e40(&this->snd_pov1, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
+    FUN_00438e40(&this->snd_pov2, "SFX\\Town_kaarg\\Shop\\Kman4.wav");
+    FUN_00438e40(&this->snd_inshop, "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
+    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
+    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
+    FUN_00438e40(&this->snd_voice[0], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
+    FUN_00438e40(&this->snd_voice[1], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
+    FUN_00438e40(&this->snd_voice[2], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
+    FUN_00438e40(&this->snd_tool[0], "SFX\\Town_kaarg\\shop\\Ktools1.wav");
+    FUN_00438e40(&this->snd_tool[1], "SFX\\Town_kaarg\\shop\\Ktools2.wav");
+    FUN_00438e40(&this->snd_tool[2], "SFX\\Town_kaarg\\shop\\Ktools3.wav");
+    FUN_00438e40(&this->snd_tool[3], "SFX\\Town_kaarg\\shop\\Ktools4.wav");
+}

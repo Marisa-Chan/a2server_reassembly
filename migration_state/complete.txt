@@ -769,6 +769,7 @@
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShop@@UAEXXZ
 ?VMethod31@VisShopDruid@@UAEXXZ
+?VMethod31@VisShopKaarg@@UAEXXZ
 ?VMethod32@VisShop@@UAEXXZ
 ?VMethod32@VisShopDruid@@UAEXXZ
 ?VMethod32@VisShopKaarg@@UAEXXZ

@@ -1521,7 +1521,7 @@ extern ??_GVisShopKaarg@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod28@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod30@VisShopKaarg@@UAEXXZ : proc
-externdef ?VMethod31@VisShopKaarg@@UAEXXZ : proc
+extern ?VMethod31@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod32@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ : proc
 ;VisTown
