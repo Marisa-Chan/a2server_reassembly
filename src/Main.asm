@@ -177332,34 +177332,6 @@ var_4           = dword ptr -4
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_4C6BE0(CString *)
-sub_4C6BE0      proc near               ; DATA XREF: .rdata:0060D654↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                push    offset aShopDruid_0 ; "shop_druid\\"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     eax, dword ptr [ebp+var_4]
-                or      eax, 1
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4C6BE0      endp
-
 ; ---------------------------------------------------------------------------
                 align 10h
 
@@ -405030,7 +405002,7 @@ off_60D5C0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod31@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod32@VisShopDruid@@UAEXXZ
-                dd offset sub_4C6BE0
+                dd offset ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ
 off_60D658      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C246E↑o
                 dd offset sub_4C6A00
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -429044,7 +429016,7 @@ aMoviesShopKaar_1 db 'movies\shop_kaarg\a2%04d.bmp',0
 aMoviesShopKaar_2 db 'movies\shop_kaarg\a10000.bmp',0
                 align 4
 ; CHAR aShopDruid_0[]
-aShopDruid_0    db 'shop_druid\',0      ; DATA XREF: sub_4C6BE0+10↑o
+aShopDruid_0    db 'shop_druid\',0      ; DATA XREF: ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ+10↑o
 ; CHAR aShopKaarg_0[]
 aShopKaarg_0    db 'shop_kaarg\',0      ; DATA XREF: sub_4C6C10+10↑o
 ; CHAR Caption[]

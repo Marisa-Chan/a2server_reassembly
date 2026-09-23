@@ -6624,3 +6624,10 @@ void VisShopDruid::VMethod32()
     FUN_00438dd0(&this->snd_tool[2]);
     FUN_00438dd0(&this->snd_tool[3]);
 }
+
+
+// 4C6BE0
+CString VisShopDruid::VMethod33()
+{
+    return CString("shop_druid\\");
+}
