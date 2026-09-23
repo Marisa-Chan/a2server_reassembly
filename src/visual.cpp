@@ -6108,6 +6108,15 @@ VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int
 }
 
 
+// 4C0020
+VisShopButtons::~VisShopButtons()
+{
+    this->shop = nullptr;
+    this->sub_4C0352();
+    this->field_0xf8 = -1;
+}
+
+
 // 4C6BD0
 int32_t VisShopButtons::VMethod30()
 {

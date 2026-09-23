@@ -170872,50 +170872,6 @@ arg_8           = dword ptr  10h
 sub_4BFD43      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??1VisShopButtons@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopButtons@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FE0B3 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4C0020
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4C0020
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60D540
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+5Ch], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?sub_4C0352@VisShopButtons@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+0F8h], 0FFFFFFFFh
-;   } // starts at 4C0045
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4C0020
-??1VisShopButtons@@UAE@XZ      endp
-
 
 
 
@@ -388773,22 +388729,6 @@ SEH_4BFD43:                             ; DATA XREF: sub_4BFD43+5↑o
 ; } // starts at 5FE09D
 ; END OF FUNCTION CHUNK FOR sub_4BFD43
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1VisShopButtons@@UAE@XZ
-
-loc_5FE0B3:                             ; DATA XREF: .rdata:stru_61F640↓o
-; __unwind { // SEH_4C0020
-;   cleanup() // owned by 4C0045
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4C0020:                             ; DATA XREF: ??1VisShopButtons@@UAE@XZ+5↑o
-                mov     eax, offset stru_61F620
-                jmp     ___CxxFrameHandler
-; } // starts at 5FE0B3
-; END OF FUNCTION CHUNK FOR ??1VisShopButtons@@UAE@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod7@VisShopButtons@@UAEXXZ
 
 loc_5FE169:                             ; DATA XREF: .rdata:stru_61F6D0↓o
@@ -422763,12 +422703,6 @@ stru_61F5F8     FuncInfoV1 <19930520h, 1, offset stru_61F618, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61F618     UnwindMapEntry <-1, offset loc_5FE09D>
-stru_61F620     FuncInfoV1 <19930520h, 1, offset stru_61F640, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61F640     UnwindMapEntry <-1, offset loc_5FE0B3>
 stru_61F6B0     FuncInfoV1 <19930520h, 3, offset stru_61F6D0, 0, 0, 0, 0>
                 align 10h
 stru_61F6D0     UnwindMapEntry <-1, offset loc_5FE169>

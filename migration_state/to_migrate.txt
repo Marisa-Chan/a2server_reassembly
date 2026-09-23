@@ -564,7 +564,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-??1VisShopButtons@@UAE@XZ	38
 ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z	49
 ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z	59
 ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z	138
