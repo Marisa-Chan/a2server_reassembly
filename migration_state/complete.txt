@@ -751,6 +751,7 @@
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShop@@UAEXXZ
 ?VMethod26@VisShopDruid@@UAEXXZ
+?VMethod26@VisShopKaarg@@UAEXXZ
 ?VMethod27@CUnit@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ

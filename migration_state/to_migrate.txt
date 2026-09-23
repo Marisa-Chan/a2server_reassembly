@@ -457,6 +457,7 @@
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z	140
 ?VMethod7@VisInvExtType1@@UAEXXZ	155
 ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z	245
+??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z	34
 ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z	18
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z	21
 ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z	22
@@ -590,7 +591,7 @@
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z	236
 ?VMethod7@VisShopCompass@@UAEXXZ	723
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
-?VMethod26@VisShopKaarg@@UAEXXZ	265
+??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
 ?VMethod28@VisShopKaarg@@UAEXXZ	469
 ??_GVisSideStatus@@UAEPAXI@Z	24
 ??0VisSideStatus@@QAE@HHHHH@Z	34

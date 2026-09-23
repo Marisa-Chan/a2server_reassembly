@@ -1309,6 +1309,17 @@ public:
 ASSERT_SIZE(VisInvExtType1, 0x2150);
 
 
+//60d910
+class VisInvExtType1Kaarg : public VisInvExtType1
+{
+public:
+	virtual void VMethod41() override; //4b69ee in asm
+
+	VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6cd0 in asm
+};
+ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
+
+
 //60d268
 class VisInvExtType2 : public VisInvExtBase
 {
@@ -1571,6 +1582,18 @@ public:
 	int32_t field_0x26c;
 };
 ASSERT_SIZE(VisShopCompassDruid, 0x270);
+
+
+//60d7a0
+class VisShopCompassKaarg : public VisShopCompass
+{
+public:
+	VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c4693 in asm
+
+public:
+	int32_t field_0x258[43];
+};
+ASSERT_SIZE(VisShopCompassKaarg, 0x304);
 
 
 //60d540
