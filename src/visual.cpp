@@ -6085,6 +6085,48 @@ void VisShop::sub_4BB102()
 }
 
 
+// 4BD495
+VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+    CPoint topleft = this->rect.TopLeft();
+    this->field_0xa0[3] = CRect(topleft.x + 0x25, topleft.y + 0x14, topleft.x + 0x95, topleft.y + 0x6C);
+    this->field_0xa0[2] = CRect(topleft.x + 0x95, topleft.y + 0x14, topleft.x + 0x119, topleft.y + 0x6C);
+    this->field_0xa0[1] = CRect(topleft.x + 0x21, topleft.y + 0x6C, topleft.x + 0x71, topleft.y + 0xDC);
+    this->field_0xa0[0] = CRect(topleft.x + 0xBD, topleft.y + 0x6C, topleft.x + 0x10D, topleft.y + 0xDC);
+    this->field_0x60[0] = CRect(topleft.x + 0xBE, topleft.y + 0x6E, topleft.x + 0x127, topleft.y + 0x127);
+    this->field_0x60[1] = CRect(topleft.x + 5, topleft.y + 0x6E, topleft.x + 0x6E, topleft.y + 0x127);
+    this->field_0x60[2] = CRect(topleft.x + 0x96, topleft.y + 5, topleft.x + 0x122, topleft.y + 0x69);
+    this->field_0x60[3] = CRect(topleft.x + 8, topleft.y + 5, topleft.x + 0x96, topleft.y + 0x69);
+    this->field_0xe0 = CRect(topleft.x + 0x6E, topleft.y + 0x6E, topleft.x + 0xBE, topleft.y + 0x127);
+    this->field_0xf0 = CRect(0xDC, 0x14, 0x1C7, 0x73);
+    this->field_0x100 = CRect((int32_t)(this->field_0xf0.Width() * 0.25) - 9, 0x22, (int32_t)(this->field_0xf0.Width() * 0.25) + 9, 0x2E);
+    this->field_0x110 = CRect((int32_t)(this->field_0xf0.Width() * 0.75) - 9, 0x22, (int32_t)(this->field_0xf0.Width() * 0.75) + 9, 0x2E);
+    this->shop = shop;
+    this->field_0x120 = 0;
+    this->field_0x124 = 0;
+    this->field_0x128 = 0;
+    this->field_0x240 = 0;
+    this->field_0x244 = 0;
+    this->field_0x248 = 0;
+    this->field_0x24c = 0;
+    this->field_0x250 = 0;
+    this->field_0x254 = 0;
+    for (int32_t i = 0; i < 4; i++) {
+        for (int32_t j = 0; j < 11; j++) {
+            this->field_0x130[i][j] = 0;
+        }
+    }
+    for (int32_t i = 0; i < 12; i++) {
+        this->field_0x1e0[i] = 0;
+    }
+    for (int32_t i = 0; i < 12; i++) {
+        this->field_0x210[i] = 0;
+    }
+    this->field_0x12c = 0;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

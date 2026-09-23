@@ -1508,6 +1508,13 @@ ASSERT_SIZE(VisSpellBook, 0x6c);
 class VisShopCompass : public CVisualObject
 {
 public:
+	virtual ~VisShopCompass(); //4be1df in asm
+	virtual const char* GetHint() override; //4bea64 in asm
+	virtual void VMethod7() override; //4beb77 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4bf6ce in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4bf748 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4bfa01 in asm
+
 	virtual void VMethod26(); // 4be238
 	virtual void VMethod27(); // 4be372
 	virtual void VMethod28(); // 4be5de
@@ -1522,8 +1529,31 @@ public:
 	virtual void VMethod37(int32_t arg); // 4bf4e8
 	virtual void VMethod38(); // 4c6bc0
 
-	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495 in asm
+	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495
+
+public:
+	VisShop* shop; // 0x5c
+	CRect field_0x60[4];
+	CRect field_0xa0[4];
+	CRect field_0xe0;
+	CRect field_0xf0;
+	CRect field_0x100;
+	CRect field_0x110;
+	int32_t field_0x120;
+	int32_t field_0x124;
+	int32_t field_0x128;
+	int32_t field_0x12c;
+	int32_t field_0x130[4][11];
+	int32_t field_0x1e0[12];
+	int32_t field_0x210[12];
+	int32_t field_0x240;
+	int32_t field_0x244;
+	int32_t field_0x248;
+	int32_t field_0x24c;
+	int32_t field_0x250;
+	int32_t field_0x254;
 };
+ASSERT_SIZE(VisShopCompass, 0x258);
 
 
 //60d540

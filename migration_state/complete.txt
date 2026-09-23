@@ -89,6 +89,7 @@
 ??0VisScrollBar@@QAE@HHHHHPBD@Z
 ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z
+??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
@@ -146,6 +147,7 @@
 ??_7SpellBook@@6B@
 ??_GVisShop@@UAEPAXI@Z
 ??_GVisShopButtons@@UAEPAXI@Z
+??_GVisShopCompass@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
