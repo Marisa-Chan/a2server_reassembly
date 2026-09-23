@@ -6377,3 +6377,10 @@ void VisShopButtons::sub_4C0088()
 VisShopDruid::~VisShopDruid()
 {
 }
+
+
+// 4C15AD
+VisShopDruid::VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
+    : VisShop(_id, l, t, r, b, btm)
+{
+}

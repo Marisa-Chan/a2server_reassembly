@@ -1697,7 +1697,7 @@ public:
 	virtual void VMethod30() override; // 4C1958
 	virtual void VMethod31() override; // 4C1B8B
 
-	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad in asm
+	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad
 public:
 	SfxSample* snd_bird[3];
 	SfxSample* snd_tool[4];

@@ -90,6 +90,7 @@
 ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z
+??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z

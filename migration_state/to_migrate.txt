@@ -589,7 +589,6 @@
 ?VMethod26@VisShopCompass@@UAEXXZ	122
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z	236
 ?VMethod7@VisShopCompass@@UAEXXZ	723
-??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z	34
 ?VMethod31@VisShopDruid@@UAEXXZ	117
 ?VMethod30@VisShopDruid@@UAEXXZ	197
 ?VMethod26@VisShopDruid@@UAEXXZ	265

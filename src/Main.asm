@@ -170612,47 +170612,6 @@ loc_4C1588:                             ; CODE XREF: ?sub_4C14C4@VisShopButtons@
 ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+4E3↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+yBottom]
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+xRight]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+yTop]
-                push    eax             ; yTop
-                mov     ecx, dword ptr [ebp+xLeft]
-                push    ecx             ; xLeft
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60D5C0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
