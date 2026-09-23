@@ -1534,7 +1534,7 @@ public:
 	virtual void VMethod7() override; //4c04b1 in asm
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2
 	virtual int32_t VMethod30(); //4c6bd0 in asm
 
 	void sub_4C0352(); //4c0352
@@ -1596,6 +1596,9 @@ public:
 	void sub_4BCD79(); //4bcd79
 	void sub_4BCDA0(); //4bcda0
 	void sub_4BCEA4(); //4bcea4
+	void sub_4BCAF1(); //4bcaf1 in asm
+	void sub_4BCB63(); //4bcb63 in asm
+	void sub_4BCCE1(); //4bcce1 in asm
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm
 

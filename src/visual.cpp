@@ -6153,6 +6153,46 @@ int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 4C11C2
+int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        this->shop->sub_4BC97B();
+        this->field_0xf8 = -1;
+        this->sub_4C14C4(wparam, pos);
+        this->shop->dirty |= 0x20;
+        return 1;
+    }
+    if (this->field_0xf8 >= 0 && this->field_0xf8 < 4 && this->sub_4C137D(pos.x, pos.y) == this->field_0xf8) {
+        int32_t button = this->field_0xf8;
+        this->field_0xf8 = -1;
+        this->sub_4C14C4(wparam, pos);
+        switch (button) {
+        case 0:
+            this->shop->sub_4BCCE1();
+            break;
+        case 1:
+            this->shop->sub_4BCB63();
+            break;
+        case 2:
+            this->shop->sub_4BCAF1();
+            break;
+        case 3:
+            this->shop->FUN_004bcd02();
+            if (main_wnd->dialogsMask == 2) {
+                main_wnd->PostMessageA(0x42E, 0, 0);
+            }
+            break;
+        }
+    }
+    this->shop->dirty |= 0x20;
+    this->field_0xf8 = -1;
+    this->sub_4C14C4(wparam, pos);
+    return 1;
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {

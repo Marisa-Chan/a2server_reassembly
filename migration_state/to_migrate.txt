@@ -564,8 +564,10 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
+?sub_4BCCE1@VisShop@@QAEXXZ	16
+?sub_4BCAF1@VisShop@@QAEXXZ	40
+?sub_4BCB63@VisShop@@QAEXXZ	74
 ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z	77
-?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z	138
 ?sub_4C137D@VisShopButtons@@QAEHHH@Z	154
 ?VMethod7@VisShopButtons@@UAEXXZ	1001
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z	527
