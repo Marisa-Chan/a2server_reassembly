@@ -5892,6 +5892,13 @@ void VisShop::VMethod32()
 }
 
 
+// 4C6B90
+CString VisShop::VMethod33()
+{
+    return CString();
+}
+
+
 // 4BCDA0
 void VisShop::sub_4BCDA0()
 {

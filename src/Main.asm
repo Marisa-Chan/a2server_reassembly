@@ -180736,36 +180736,6 @@ sub_4C6B50      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?VMethod33@VisShop@@UAE?AVCString@@XZ(CString *)
-?VMethod33@VisShop@@UAE?AVCString@@XZ      proc near               ; DATA XREF: .rdata:0060D47C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-                mov     eax, dword ptr [ebp+var_4]
-                or      eax, 1
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod33@VisShop@@UAE?AVCString@@XZ      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_4C6BC0      proc near               ; DATA XREF: .rdata:0060D528↓o
 
 var_4           = dword ptr -4
