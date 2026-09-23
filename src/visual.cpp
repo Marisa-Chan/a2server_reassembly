@@ -6601,3 +6601,26 @@ void VisShopDruid::VMethod28()
 
     g_mousept.EnableHint();
 }
+
+
+// 4C1D25
+void VisShopDruid::VMethod32()
+{
+    FUN_00438dd0(&this->snd_notif);
+    FUN_00438dd0(&this->snd_depart);
+    FUN_00438dd0(&this->snd_buy);
+    FUN_00438dd0(&this->snd_sell);
+    FUN_00438dd0(&this->snd_enter);
+    FUN_00438dd0(&this->snd_pov1);
+    FUN_00438dd0(&this->snd_pov2);
+    FUN_00438dd0(&this->snd_inshop);
+    FUN_00438dd0(&this->snd_out);
+    FUN_00438dd0(&this->snd_undo);
+    FUN_00438dd0(&this->snd_bird[0]);
+    FUN_00438dd0(&this->snd_bird[1]);
+    FUN_00438dd0(&this->snd_bird[2]);
+    FUN_00438dd0(&this->snd_tool[0]);
+    FUN_00438dd0(&this->snd_tool[1]);
+    FUN_00438dd0(&this->snd_tool[2]);
+    FUN_00438dd0(&this->snd_tool[3]);
+}
