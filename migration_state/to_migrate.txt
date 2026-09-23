@@ -590,7 +590,6 @@
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z	236
 ?VMethod7@VisShopCompass@@UAEXXZ	723
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
-?VMethod31@VisShopDruid@@UAEXXZ	117
 ?VMethod30@VisShopDruid@@UAEXXZ	197
 ?VMethod28@VisShopDruid@@UAEXXZ	469
 ??_GVisShopKaarg@@UAEPAXI@Z	24

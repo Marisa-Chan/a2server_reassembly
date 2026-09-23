@@ -1513,7 +1513,7 @@ extern ??_GVisShopDruid@@UAEPAXI@Z : proc
 extern ?VMethod26@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod28@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisShopDruid@@UAEXXZ : proc
-externdef ?VMethod31@VisShopDruid@@UAEXXZ : proc
+extern ?VMethod31@VisShopDruid@@UAEXXZ : proc
 ;VisShopKaarg
 externdef ??_GVisShopKaarg@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisShopKaarg@@UAEXXZ : proc

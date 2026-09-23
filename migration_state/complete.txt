@@ -764,6 +764,7 @@
 ?VMethod30@VisShopButtons@@UAEHXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShop@@UAEXXZ
+?VMethod31@VisShopDruid@@UAEXXZ
 ?VMethod32@VisShop@@UAEXXZ
 ?VMethod33@VisShop@@UAE?AVCString@@XZ
 ?VMethod3@CGameObject@@UAEHXZ

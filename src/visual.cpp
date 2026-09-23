@@ -6425,3 +6425,27 @@ void VisShopDruid::VMethod26()
     this->snd_out = nullptr;
     this->snd_undo = nullptr;
 }
+
+
+// 4C1B8B
+void VisShopDruid::VMethod31()
+{
+    this->VMethod32();
+    FUN_00438e40(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->snd_depart, "SFX\\Town_Druid\\Shop\\Dotdel.wav");
+    FUN_00438e40(&this->snd_buy, "SFX\\Town\\buy.wav");
+    FUN_00438e40(&this->snd_sell, "SFX\\Town\\sell.wav");
+    FUN_00438e40(&this->snd_enter, "SFX\\Town_Druid\\Shop\\Din2.wav");
+    FUN_00438e40(&this->snd_pov1, "SFX\\Town_Druid\\Shop\\Ddruid5.wav");
+    FUN_00438e40(&this->snd_pov2, "SFX\\Town_Druid\\Shop\\Ddruid6.wav");
+    FUN_00438e40(&this->snd_inshop, "SFX\\Town_Druid\\Inn\\Dforest2.wav");
+    FUN_00438e40(&this->snd_out, "SFX\\Out.wav");
+    FUN_00438e40(&this->snd_undo, "SFX\\Undo.wav");
+    FUN_00438e40(&this->snd_bird[0], "SFX\\Town_druid\\Inn\\Dbird4.wav");
+    FUN_00438e40(&this->snd_bird[1], "SFX\\Town_druid\\Inn\\Dbird41.wav");
+    FUN_00438e40(&this->snd_bird[2], "SFX\\Town_druid\\Inn\\Dbird42.wav");
+    FUN_00438e40(&this->snd_tool[0], "SFX\\Town_druid\\shop\\Dtools1.wav");
+    FUN_00438e40(&this->snd_tool[1], "SFX\\Town_druid\\shop\\Dtools2.wav");
+    FUN_00438e40(&this->snd_tool[2], "SFX\\Town_druid\\shop\\Dtools3.wav");
+    FUN_00438e40(&this->snd_tool[3], "SFX\\Town_druid\\shop\\Dtools4.wav");
+}
