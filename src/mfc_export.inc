@@ -1508,7 +1508,7 @@ extern ?VMethod30@VisShop@@UAEXXZ : proc
 extern ?VMethod31@VisShop@@UAEXXZ : proc
 
 ;VisShopDruid
-externdef ??_GVisShopDruid@@UAEPAXI@Z : proc
+extern ??_GVisShopDruid@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod28@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisShopDruid@@UAEXXZ : proc

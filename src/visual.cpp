@@ -6371,3 +6371,9 @@ void VisShopButtons::sub_4C0088()
     this->menu_bmp = new CBmp64(base + "ShopMenu.bmp");
     g_mousept.Update();
 }
+
+
+// 4C69E0
+VisShopDruid::~VisShopDruid()
+{
+}

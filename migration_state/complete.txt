@@ -148,6 +148,7 @@
 ??_GVisShop@@UAEPAXI@Z
 ??_GVisShopButtons@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
+??_GVisShopDruid@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
