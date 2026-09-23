@@ -5441,7 +5441,7 @@ void VisShop::VMethod30()
     }
     uint32_t now = timeGetTime();
     uint32_t delay = GetRandS16(30000) + 30000;
-    uint32_t compass_flags = *reinterpret_cast<uint32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x240);
+    uint32_t compass_flags = this->shop_compass->field_0x240;
     if ((compass_flags & 0x10) == 0 && (compass_flags & 0x20) == 0 && (compass_flags & 0x40) == 0) {
         if (now - last_snd_time > delay && !FUN_00475110(&this->to_buy->field_0x20b0)) {
             if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
@@ -5451,13 +5451,13 @@ void VisShop::VMethod30()
             delay = GetRandS16(10000) + 10000;
         }
     } else if ((compass_flags & 0x10) != 0) {
-        int32_t compass_state = *reinterpret_cast<int32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x254);
+        int32_t compass_state = this->shop_compass->field_0x254;
         if (compass_state == 1) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+            this->snd_pov1->Play();
         } else if (compass_state == 0xa || compass_state == 0xe || compass_state == 0x12 || compass_state == 0x16) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_step1));
+            this->snd_step1->Play();
         } else if (compass_state == 0x18) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+            this->snd_pov2->Play();
         }
     }
 }
@@ -5485,7 +5485,7 @@ void VisShop::DoClose(uint32_t code)
         this->tips = nullptr;
     }
 
-    *reinterpret_cast<uint32_t*>(reinterpret_cast<char*>(this->shop_compass) + 0x240) = 0;
+    this->shop_compass->field_0x240 = 0;
 
     CRect& panel_rect = this->select_info_panel->GetRect();
     CPoint pt(panel_rect.Width() - 0x280, 0);
@@ -5785,7 +5785,7 @@ void VisShop::VMethod28()
     VisScreen::VMethod28();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
-    CSound::Play(reinterpret_cast<CSound&>(this->snd_enter));
+    this->snd_enter->Play();
     FUN_004a4740(&this->snd_inshop);
 
     if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
@@ -6186,10 +6186,10 @@ int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
     this->shop->dirty |= 0x20;
     switch (this->field_0xf8) {
     case 0:
-        CSound::Play(reinterpret_cast<CSound&>(this->shop->snd_undo));
+        this->shop->snd_undo->Play();
         break;
     case 3:
-        CSound::Play(reinterpret_cast<CSound&>(this->shop->snd_out));
+        this->shop->snd_out->Play();
         break;
     }
     return 1;
@@ -6466,19 +6466,19 @@ void VisShopDruid::VMethod30()
     uint32_t now = timeGetTime();
     GetRandS16(30000);
     if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
-        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+        this->snd_pov1->Play();
     }
     if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
-        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+        this->snd_pov2->Play();
     }
     if (now - this->bird_tick > (uint32_t)this->next_bird) {
         int32_t bird = GetRandS16(3) + 1;
         if (bird == 1) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[0]));
+            this->snd_bird[0]->Play();
         } else if (bird == 2) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[1]));
+            this->snd_bird[1]->Play();
         } else if (bird == 3) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_bird[2]));
+            this->snd_bird[2]->Play();
         }
         this->next_bird = GetRandS16(2000) + 2000;
         this->bird_tick = timeGetTime();
@@ -6487,16 +6487,16 @@ void VisShopDruid::VMethod30()
         int32_t tool = GetRandS16(4) + 1;
         switch (tool) {
         case 1:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[0]));
+            this->snd_tool[0]->Play();
             break;
         case 2:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[1]));
+            this->snd_tool[1]->Play();
             break;
         case 3:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[2]));
+            this->snd_tool[2]->Play();
             break;
         case 4:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[3]));
+            this->snd_tool[3]->Play();
             break;
         }
         this->next_tool = GetRandS16(2000) + 2000;
@@ -6575,7 +6575,7 @@ void VisShopDruid::VMethod28()
     VisScreen::VMethod28();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
-    CSound::Play(reinterpret_cast<CSound&>(this->snd_enter));
+    this->snd_enter->Play();
     FUN_004a4740(&this->snd_inshop);
 
     this->next_bird = GetRandS16(2000) + 2000;
@@ -6717,19 +6717,19 @@ void VisShopKaarg::VMethod30()
     uint32_t now = timeGetTime();
     GetRandS16(30000);
     if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
-        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+        this->snd_pov1->Play();
     }
     if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
-        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+        this->snd_pov2->Play();
     }
     if (now - this->voice_tick > (uint32_t)this->next_voice) {
         int32_t voice = GetRandS16(3) + 1;
         if (voice == 1) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[0]));
+            this->snd_voice[0]->Play();
         } else if (voice == 2) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[1]));
+            this->snd_voice[1]->Play();
         } else if (voice == 3) {
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[2]));
+            this->snd_voice[2]->Play();
         }
         this->next_voice = GetRandS16(2000) + 2000;
         this->voice_tick = timeGetTime();
@@ -6738,16 +6738,16 @@ void VisShopKaarg::VMethod30()
         int32_t tool = GetRandS16(4) + 1;
         switch (tool) {
         case 1:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[0]));
+            this->snd_tool[0]->Play();
             break;
         case 2:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[1]));
+            this->snd_tool[1]->Play();
             break;
         case 3:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[2]));
+            this->snd_tool[2]->Play();
             break;
         case 4:
-            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[3]));
+            this->snd_tool[3]->Play();
             break;
         }
         this->next_tool = GetRandS16(2000) + 2000;
@@ -6867,7 +6867,7 @@ void VisShopKaarg::VMethod28()
     VisScreen::VMethod28();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
-    CSound::Play(reinterpret_cast<CSound&>(this->snd_enter));
+    this->snd_enter->Play();
     FUN_004a4740(&this->snd_inshop);
 
     this->next_voice = GetRandS16(2000) + 2000;
@@ -6913,7 +6913,7 @@ void VisShop::sub_4BCAF1()
         this->shop_compass->VMethod28();
         this->shop_compass->field_0x240 |= 0x20;
         this->gameplay->sub_41A99C();
-        CSound::Play(reinterpret_cast<CSound&>(this->snd_sell));
+        this->snd_sell->Play();
     }
 }
 
