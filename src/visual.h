@@ -869,6 +869,7 @@ public:
 	int32_t sub_41F810(); //41f810
 	void sub_41AB05(); //41ab05
 	void sub_41A9F6(); //41a9f6 in asm
+	void sub_41A99C(); //41a99c in asm
 	void sub_41CE14(); //41ce14
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f

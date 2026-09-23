@@ -6899,3 +6899,16 @@ void VisShop::sub_4BCCE1()
     this->sub_4BCC38();
     this->gameplay->sub_41A9F6();
 }
+
+
+// 4BCAF1
+void VisShop::sub_4BCAF1()
+{
+    this->sub_4BCDA0();
+    if (this->sell_gold != 0) {
+        this->shop_compass->VMethod28();
+        this->shop_compass->field_0x240 |= 0x20;
+        this->gameplay->sub_41A99C();
+        CSound::Play(reinterpret_cast<CSound&>(this->snd_sell));
+    }
+}

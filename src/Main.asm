@@ -3042,7 +3042,7 @@ sub_41A942      endp
 
 ; Attributes: bp-based frame
 
-sub_41A99C      proc near               ; CODE XREF: ?sub_4BCAF1@VisShop@@QAEXXZ+53↓p
+?sub_41A99C@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_4BCAF1@VisShop@@QAEXXZ+53↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -3073,7 +3073,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41A99C      endp
+?sub_41A99C@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -166951,52 +166951,6 @@ sub_4BAD1D      endp
 
 
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BCAF1@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+110↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_4BCDA0@VisShop@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+158h], 0
-                jz      short loc_4BCB5A
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+74h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+74h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+74h]
-                mov     edx, dword ptr [ecx+240h]
-                or      edx, 20h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+74h]
-                mov     [ecx+240h], edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+80h]
-                call    sub_41A99C
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0A8h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4BCB5A:                             ; CODE XREF: ?sub_4BCAF1@VisShop@@QAEXXZ+19↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4BCAF1@VisShop@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

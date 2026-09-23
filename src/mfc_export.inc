@@ -1494,9 +1494,9 @@ externdef ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?sub_4C137D@VisShopButtons@@QAEHHH@Z : proc
 extern ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z : proc
-externdef ?sub_4BCAF1@VisShop@@QAEXXZ : proc
 externdef ?sub_4BCB63@VisShop@@QAEXXZ : proc
 externdef ?sub_41A9F6@BigStruct2@@QAEXXZ : proc
+externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
 extern ?VMethod30@VisShopButtons@@UAEHXZ : proc
 extern ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
