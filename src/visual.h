@@ -1741,7 +1741,7 @@ public:
 	virtual void VMethod32() override; // 4C453D
 	virtual CString VMethod33() override; // 4C6C10
 
-	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5 in asm
+	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5
 public:
 	SfxSample* snd_voice[3];
 	SfxSample* snd_tool[4];
