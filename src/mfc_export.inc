@@ -1468,7 +1468,7 @@ externdef ?VMethod7@VisShopButtons@@UAEXXZ : proc
 externdef ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod30@VisShopButtons@@UAEHXZ : proc
+extern ?VMethod30@VisShopButtons@@UAEHXZ : proc
 extern ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 extern ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc

@@ -6108,6 +6108,13 @@ VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int
 }
 
 
+// 4C6BD0
+int32_t VisShopButtons::VMethod30()
+{
+    return 0x65;
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {

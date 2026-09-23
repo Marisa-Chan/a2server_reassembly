@@ -180494,24 +180494,6 @@ var_4           = dword ptr -4
 sub_4C6BC0      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod30@VisShopButtons@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060D5B8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 65h ; 'e'
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod30@VisShopButtons@@UAEHXZ      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
