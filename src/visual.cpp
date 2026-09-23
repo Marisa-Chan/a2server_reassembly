@@ -6193,6 +6193,99 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 4C04B1
+void VisShopButtons::VMethod7()
+{
+    CPoint topleft = this->shop->rect.TopLeft();
+    CString str;
+    if (this->shop->dialog_active == 0) {
+        return;
+    }
+    if (this->button_bmps[0] == nullptr || this->button_bmps[1] == nullptr || this->button_bmps[2] == nullptr || this->button_bmps[3] == nullptr || this->menu_bmp == nullptr) {
+        return;
+    }
+    LockSurface2();
+    this->menu_bmp->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    uint16_t* pal;
+    if (this->field_0xfc == 0) {
+        pal = palette_paris_daisy->GetPalette(0);
+    } else {
+        pal = palette_husk->GetPalette(0);
+    }
+    str = TxtFile::AllLines[0x48];
+    g_font4->DrawTxt(topleft.x + this->field_0x78[0].left + this->field_0x78[0].Width() / 2, topleft.y + this->field_0x78[0].top + 6 + this->field_0x78[0].Height() / 4, str, 10, pal);
+    str.Format("%d", this->shop->current_gold);
+    FUN_00476987(&str);
+    g_font4->DrawTxt(topleft.x + this->field_0x78[0].left + this->field_0x78[0].Width() / 2, topleft.y + this->field_0x78[0].top - 2 + this->field_0x78[0].Height() * 3 / 4, str, 10, pal);
+    if (this->field_0xfc == 1) {
+        pal = palette_paris_daisy->GetPalette(0);
+    } else {
+        pal = palette_husk->GetPalette(0);
+    }
+    str = TxtFile::AllLines[0x46];
+    g_font4->DrawTxt(topleft.x + this->field_0x78[1].left + this->field_0x78[1].Width() / 2, topleft.y + this->field_0x78[1].top + 6 + this->field_0x78[1].Height() / 4, str, 10, pal);
+    str.Format("%d", this->shop->buy_gold);
+    FUN_00476987(&str);
+    g_font4->DrawTxt(topleft.x + this->field_0x78[1].left + this->field_0x78[1].Width() / 2, topleft.y + this->field_0x78[1].top - 2 + this->field_0x78[1].Height() * 3 / 4, str, 10, pal);
+    if (this->field_0xfc == 2) {
+        pal = palette_paris_daisy->GetPalette(0);
+    } else {
+        pal = palette_husk->GetPalette(0);
+    }
+    str = TxtFile::AllLines[0x47];
+    g_font4->DrawTxt(topleft.x + this->field_0x78[2].left + this->field_0x78[2].Width() / 2, topleft.y + this->field_0x78[2].top + 8 + this->field_0x78[2].Height() / 4, str, 10, pal);
+    str.Format("%d", this->shop->sell_gold);
+    FUN_00476987(&str);
+    g_font4->DrawTxt(topleft.x + this->field_0x78[2].left + this->field_0x78[2].Width() / 2, topleft.y + this->field_0x78[2].top + this->field_0x78[2].Height() * 3 / 4, str, 10, pal);
+    if (this->field_0xfc == 3) {
+        pal = palette_paris_daisy->GetPalette(0);
+    } else {
+        pal = palette_husk->GetPalette(0);
+    }
+    str = TxtFile::AllLines[0x49];
+    g_font4->DrawTxt(topleft.x + this->field_0x78[3].left + this->field_0x78[3].Width() / 2, topleft.y + this->field_0x78[3].top + 6 + this->field_0x78[3].Height() / 4, str, 10, pal);
+    str.Format("%d", this->shop->result_gold);
+    FUN_00476987(&str);
+    g_font4->DrawTxt(topleft.x + this->field_0x78[3].left + this->field_0x78[3].Width() / 2, topleft.y + this->field_0x78[3].top - 2 + this->field_0x78[3].Height() * 3 / 4, str, 10, pal);
+    if (this->field_0xfc >= 0 && this->field_0xf8 >= 0 && this->field_0xf8 == this->field_0xfc) {
+        CRect& rect = this->field_0x78[this->field_0xfc];
+        this->button_bmps[this->field_0xfc]->VMethod10(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
+        pal = palette_paris_daisy->GetPalette(0);
+        switch (this->field_0xfc) {
+        case 0:
+            str = TxtFile::AllLines[0x48];
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            str.Format("%d", this->shop->current_gold);
+            FUN_00476987(&str);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            break;
+        case 1:
+            str = TxtFile::AllLines[0x46];
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            str.Format("%d", this->shop->buy_gold);
+            FUN_00476987(&str);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            break;
+        case 2:
+            str = TxtFile::AllLines[0x47];
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 9 + rect.Height() / 4, str, 10, pal);
+            str.Format("%d", this->shop->sell_gold);
+            FUN_00476987(&str);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 1 + rect.Height() * 3 / 4, str, 10, pal);
+            break;
+        case 3:
+            str = TxtFile::AllLines[0x49];
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            str.Format("%d", this->shop->result_gold);
+            FUN_00476987(&str);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            break;
+        }
+    }
+    UnlockSurface2();
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {

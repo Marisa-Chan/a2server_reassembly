@@ -79,6 +79,9 @@ extern CGameFont* g_font2; //65ec68
 extern CGameFont* g_font3; //65f598
 extern CGameFont* g_font4; //65f530
 
+extern CGamePalette* palette_husk; //65f628
+extern CGamePalette* palette_paris_daisy; //65f52c
+
 
 
 extern int32_t g_Shadows; //62f880

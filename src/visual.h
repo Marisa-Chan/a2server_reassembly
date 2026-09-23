@@ -1531,7 +1531,7 @@ class VisShopButtons : public CVisualObject
 {
 public:
 	virtual ~VisShopButtons(); //4c0020
-	virtual void VMethod7() override; //4c04b1 in asm
+	virtual void VMethod7() override; //4c04b1
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2
@@ -1559,6 +1559,7 @@ ASSERT_SIZE(VisShopButtons, 0x100);
 
 
 void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr); //4ba1cc in asm
+void __cdecl FUN_00476987(CString* str); //476987 in asm
 
 
 //60d3e8

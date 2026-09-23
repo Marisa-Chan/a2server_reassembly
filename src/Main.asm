@@ -18525,7 +18525,7 @@ loc_429DD5:                             ; CODE XREF: sub_429D03+C7↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 0Ch
                 push    offset unk_659538 ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    0
@@ -19338,7 +19338,7 @@ loc_42A632:                             ; CODE XREF: sub_42A43B+1AB↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 0Ch
                 push    offset unk_659540 ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 mov     ecx, offset unk_659540
                 call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
@@ -19380,7 +19380,7 @@ loc_42A6C3:                             ; CODE XREF: sub_42A43B+239↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 0Ch
                 push    offset unk_659540 ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 mov     ecx, offset unk_659540
                 call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
@@ -75398,7 +75398,7 @@ loc_45D8CB:                             ; CODE XREF: ?VMethod7@VisFameHall@@UAEX
                 add     esp, 0Ch
                 lea     eax, [ebp+var_10]
                 push    eax             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    0
@@ -94744,8 +94744,8 @@ loc_476983:                             ; CODE XREF: ?sub_4764BC@@YAPAEH@Z+63↑
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_476987(CString *)
-sub_476987      proc near               ; CODE XREF: sub_429D03+293↑p
+; int __cdecl ?FUN_00476987@@YAXPAVCString@@@Z(CString *)
+?FUN_00476987@@YAXPAVCString@@@Z      proc near               ; CODE XREF: sub_429D03+293↑p
 
 var_50          = dword ptr -50h
 var_4C          = dword ptr -4Ch
@@ -94791,7 +94791,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [ebp+arg_0] ; varThis
                 call    ?Empty@CString@@QAEXXZ ; CString::Empty(void)
 
-loc_4769C8:                             ; CODE XREF: sub_476987+142↓j
+loc_4769C8:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCString@@@Z+142↓j
                 cmp     [ebp+var_14], 3
                 jle     loc_476ACE
                 cmp     [ebp+var_14], 4
@@ -94809,11 +94809,11 @@ loc_4769C8:                             ; CODE XREF: sub_476987+142↓j
                 cmp     edx, 2Bh ; '+'
                 jnz     short loc_476A01
 
-loc_4769FC:                             ; CODE XREF: sub_476987+61↑j
+loc_4769FC:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCString@@@Z+61↑j
                 jmp     loc_476ACE
 ; ---------------------------------------------------------------------------
 
-loc_476A01:                             ; CODE XREF: sub_476987+4F↑j
+loc_476A01:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCString@@@Z+4F↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax             ; int
                 push    3
@@ -94897,7 +94897,7 @@ loc_476A01:                             ; CODE XREF: sub_476987+4F↑j
                 jmp     loc_4769C8
 ; ---------------------------------------------------------------------------
 
-loc_476ACE:                             ; CODE XREF: sub_476987+45↑j
+loc_476ACE:                             ; CODE XREF: ?FUN_00476987@@YAXPAVCString@@@Z+45↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx             ; int
                 lea     eax, [ebp+var_10]
@@ -94930,7 +94930,7 @@ loc_476ACE:                             ; CODE XREF: sub_476987+45↑j
                 pop     ebp
                 retn
 ; } // starts at 476987
-sub_476987      endp
+?FUN_00476987@@YAXPAVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -119282,7 +119282,7 @@ loc_49C10B:                             ; CODE XREF: sub_49BC23+4E1↑j
                 add     esp, 0Ch
                 lea     edx, [ebp+var_40]
                 push    edx             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    offset ?clrsh_DullGold@@3PAGA
@@ -119347,7 +119347,7 @@ loc_49C1C7:                             ; CODE XREF: sub_49BC23+4D1↑j
                 add     esp, 0Ch
                 lea     eax, [ebp+var_44]
                 push    eax             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    offset ?clrsh_DullGold@@3PAGA
@@ -135256,7 +135256,7 @@ loc_4A699F:                             ; CODE XREF: ?VMethod7@VisInvType1@@UAEX
                 add     esp, 0Ch
                 lea     edx, [ebp+var_58]
                 push    edx             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    offset ?clrsh_DullGold@@3PAGA
@@ -158672,7 +158672,7 @@ loc_4B5570:                             ; CODE XREF: ?VMethod7@VisInvExtBase@@UA
                 add     esp, 0Ch
                 lea     edx, [ebp+var_48]
                 push    edx             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    offset ?clrsh_DullGold@@3PAGA
@@ -158912,7 +158912,7 @@ loc_4B598D:                             ; CODE XREF: ?VMethod7@VisInvExtBase@@UA
                 mov     [ebp+var_4], 1
                 lea     ecx, [ebp+var_54]
                 push    ecx             ; CString *
-                call    sub_476987
+                call    ?FUN_00476987@@YAXPAVCString@@@Z
                 add     esp, 4
                 push    1
                 push    offset ?clrsh_DullGold@@3PAGA
@@ -170896,1018 +170896,6 @@ var_4           = dword ptr -4
 unknown_libname_650 endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod7@VisShopButtons@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D56C↓o
-
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = byte ptr -24h
-var_20          = byte ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FE169 SIZE 00000025 BYTES
-
-; __unwind { // SEH_4C04B1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4C04B1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 30h
-                push    esi
-                mov     [ebp+var_28], ecx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_1C], ecx
-                mov     [ebp+var_18], edx
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+148h], 0
-                jnz     short loc_4C051B
-;   } // starts at 4C04F1
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_4C107F
-; ---------------------------------------------------------------------------
-
-loc_4C051B:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+54↑j
-                mov     edx, dword ptr [ebp+var_28]
-                cmp     dword ptr [edx+64h], 0
-                jz      short loc_4C0548
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+68h], 0
-                jz      short loc_4C0548
-                mov     ecx, dword ptr [ebp+var_28]
-                cmp     dword ptr [ecx+6Ch], 0
-                jz      short loc_4C0548
-                mov     edx, dword ptr [ebp+var_28]
-                cmp     dword ptr [edx+70h], 0
-                jz      short loc_4C0548
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+74h], 0
-                jnz     short loc_4C055C
-
-loc_4C0548:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+71↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     loc_4C107F
-; ---------------------------------------------------------------------------
-
-loc_4C055C:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+95↑j
-                call    ?LockSurface2@@YAIXZ
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                push    eax
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_18]
-                add     edx, [ecx+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, [eax+8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+74h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax+74h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+38h]
-                mov     ecx, dword ptr [ebp+var_28]
-                cmp     dword ptr [ecx+0FCh], 0
-                jnz     short loc_4C05C0
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-                jmp     short loc_4C05D0
-; ---------------------------------------------------------------------------
-
-loc_4C05C0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+FB↑j
-                push    0
-                mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-
-loc_4C05D0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+10D↑j
-                push    48h ; 'H'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     edx, dword ptr [eax]
-                push    edx             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [ecx+7Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     edx, [esi+eax+6]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+78h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+150h]
-                push    edx
-                push    offset aD_40    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+7Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax-2]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+78h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+0FCh], 1
-                jnz     short loc_4C06ED
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-                jmp     short loc_4C06FD
-; ---------------------------------------------------------------------------
-
-loc_4C06ED:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+228↑j
-                push    0
-                mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-
-loc_4C06FD:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+23A↑j
-                push    46h ; 'F'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+8Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax+6]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+88h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+154h]
-                push    edx
-                push    offset aD_41    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+8Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax-2]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+88h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+0FCh], 2
-                jnz     short loc_4C0831
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-                jmp     short loc_4C0841
-; ---------------------------------------------------------------------------
-
-loc_4C0831:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+36C↑j
-                push    0
-                mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-
-loc_4C0841:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+37E↑j
-                push    47h ; 'G'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+9Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax+8]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+98h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+158h]
-                push    edx
-                push    offset aD_42    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+9Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                add     esi, eax
-                push    esi
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [ecx+98h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     edx, ?g_font4@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-                mov     ecx, dword ptr [ebp+var_28]
-                cmp     dword ptr [ecx+0FCh], 3
-                jnz     short loc_4C0974
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-                jmp     short loc_4C0984
-; ---------------------------------------------------------------------------
-
-loc_4C0974:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+4AF↑j
-                push    0
-                mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     [ebp+var_14], eax
-
-loc_4C0984:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+4C1↑j
-                push    49h ; 'I'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     edx, dword ptr [eax]
-                push    edx             ; lpString
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_2C], eax
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_30], eax
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_30]
-                push    ecx             ; int
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 4C09A4
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+0ACh]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax+6]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+0A8h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+15Ch]
-                push    edx
-                push    offset aD_43    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+0ACh]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax-2]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+0A8h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+0FCh], 0
-                jl      def_4C0B99      ; jumptable 004C0B99 default case
-                mov     ecx, dword ptr [ebp+var_28]
-                cmp     dword ptr [ecx+0F8h], 0
-                jl      def_4C0B99      ; jumptable 004C0B99 default case
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0F8h]
-                cmp     ecx, [eax+0FCh]
-                jnz     def_4C0B99      ; jumptable 004C0B99 default case
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+0FCh]
-                shl     eax, 4
-                mov     ecx, dword ptr [ebp+var_28]
-                lea     ecx, [ecx+eax+78h] ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                push    eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+0FCh]
-                shl     eax, 4
-                mov     ecx, dword ptr [ebp+var_28]
-                lea     ecx, [ecx+eax+78h] ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                push    eax
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+0FCh]
-                shl     eax, 4
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_18]
-                add     edx, [ecx+eax+7Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+0FCh]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [ebp+var_1C]
-                add     eax, [edx+ecx+78h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx+0FCh]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+edx*4+64h]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+0FCh]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+eax*4+64h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+38h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+0FCh]
-                mov     [ebp+var_34], ecx
-                cmp     [ebp+var_34], 3 ; switch 4 cases
-                ja      def_4C0B99      ; jumptable 004C0B99 default case
-                mov     edx, dword ptr [ebp+var_34]
-                jmp     ds:jpt_4C0B99[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_4C0BA0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
-                push    48h ; 'H'       ; jumptable 004C0B99 case 0
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [ecx+7Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     edx, [esi+eax+7]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+78h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+150h]
-                push    edx
-                push    offset aD_44    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [edx+7Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     eax, [esi+eax-1]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [ecx+78h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 78h ; 'x'  ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     edx, ?g_font4@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-                jmp     def_4C0B99      ; jumptable 004C0B99 default case
-; ---------------------------------------------------------------------------
-
-loc_4C0CB9:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
-                push    46h ; 'F'       ; jumptable 004C0B99 case 1
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [edx+8Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     eax, [esi+eax+7]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [ecx+88h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     edx, ?g_font4@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+154h]
-                push    eax
-                push    offset aD_45    ; "%d"
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     edx, [ebp+var_10]
-                push    edx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [eax+8Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     ecx, [esi+eax-1]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [edx+88h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 88h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     eax, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                jmp     def_4C0B99      ; jumptable 004C0B99 default case
-; ---------------------------------------------------------------------------
-
-loc_4C0DE9:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
-                push    47h ; 'G'       ; jumptable 004C0B99 case 2
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [ecx+9Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     edx, [esi+eax+9]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+98h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+158h]
-                push    edx
-                push    offset aD_46    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [edx+9Ch]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     eax, [esi+eax+1]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [ecx+98h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 98h        ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     edx, ?g_font4@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-                jmp     def_4C0B99      ; jumptable 004C0B99 default case
-; ---------------------------------------------------------------------------
-
-loc_4C0F1A:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
-                push    49h ; 'I'       ; jumptable 004C0B99 case 3
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_38], eax
-                mov     edx, dword ptr [ebp+var_38]
-                mov     [ebp+var_3C], edx
-;   } // starts at 4C09B4
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     eax, dword ptr [ebp+var_3C]
-                push    eax             ; int
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 4C0F3A
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [ecx+0ACh]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     edx, [esi+eax+7]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+0A8h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+15Ch]
-                push    edx
-                push    offset aD_47    ; "%d"
-                lea     eax, [ebp+var_10]
-                push    eax             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                call    sub_476987
-                add     esp, 4
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    0Ah
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_18]
-                add     esi, [edx+0ACh]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                imul    eax, 3
-                cdq
-                and     edx, 3
-                add     eax, edx
-                sar     eax, 2
-                lea     eax, [esi+eax-1]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     esi, [ebp+var_1C]
-                add     esi, [ecx+0A8h]
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0A8h       ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                add     esi, eax
-                push    esi
-                mov     edx, ?g_font4@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-
-def_4C0B99:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+618↑j
-                call    ?UnlockSurface2@@YAIXZ      ; jumptable 004C0B99 default case
-;   } // starts at 4C0F4A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_4C107F:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+65↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4C04B1
-?VMethod7@VisShopButtons@@UAEXXZ      endp
-
-; ---------------------------------------------------------------------------
-jpt_4C0B99      dd offset loc_4C0BA0    ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑r
-                dd offset loc_4C0CB9    ; jump table for switch statement
-                dd offset loc_4C0DE9
-                dd offset loc_4C0F1A
 
 
 
@@ -381082,7 +380070,7 @@ SEH_476236:                             ; DATA XREF: sub_476236+5↑o
 ; } // starts at 5FAC4E
 ; END OF FUNCTION CHUNK FOR sub_476236
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_476987
+; START OF FUNCTION CHUNK FOR ?FUN_00476987@@YAXPAVCString@@@Z
 
 loc_5FAC61:                             ; DATA XREF: .rdata:stru_61BC30↓o
 ; __unwind { // SEH_476987              ; varThis
@@ -381132,11 +380120,11 @@ loc_5FAC8E:                             ; DATA XREF: .rdata:0061BC58↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_476987:                             ; DATA XREF: sub_476987+5↑o
+SEH_476987:                             ; DATA XREF: ?FUN_00476987@@YAXPAVCString@@@Z+5↑o
                 mov     eax, offset stru_61BC10
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAC61
-; END OF FUNCTION CHUNK FOR sub_476987
+; END OF FUNCTION CHUNK FOR ?FUN_00476987@@YAXPAVCString@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?ParseTunes@@YAXXZ
 
@@ -388458,38 +387446,6 @@ SEH_4BFD43:                             ; DATA XREF: sub_4BFD43+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE09D
 ; END OF FUNCTION CHUNK FOR sub_4BFD43
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod7@VisShopButtons@@UAEXXZ
-
-loc_5FE169:                             ; DATA XREF: .rdata:stru_61F6D0↓o
-; __unwind { // SEH_4C04B1              ; varThis
-;   cleanup() // owned by 4C04F1
-;   cleanup() // owned by 4C09B4
-;   cleanup() // owned by 4C0F4A
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE172:                             ; DATA XREF: .rdata:0061F6D8↓o
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE17B:                             ; DATA XREF: .rdata:0061F6E0↓o
-;   cleanup() // owned by 4C09A4        ; varThis
-;   cleanup() // owned by 4C0F3A
-                lea     ecx, [ebp+var_24]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4C04B1:                             ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+5↑o
-                mov     eax, offset stru_61F6B0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FE169
-; END OF FUNCTION CHUNK FOR ?VMethod7@VisShopButtons@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod26@VisShopDruid@@UAEXXZ
 
@@ -422433,11 +421389,6 @@ stru_61F5F8     FuncInfoV1 <19930520h, 1, offset stru_61F618, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61F618     UnwindMapEntry <-1, offset loc_5FE09D>
-stru_61F6B0     FuncInfoV1 <19930520h, 3, offset stru_61F6D0, 0, 0, 0, 0>
-                align 10h
-stru_61F6D0     UnwindMapEntry <-1, offset loc_5FE169>
-                UnwindMapEntry <0, offset loc_5FE172>
-                UnwindMapEntry <0, offset loc_5FE17B>
 stru_61F6E8     FuncInfoV1 <19930520h, 5, offset stru_61F708, 0, 0, 0, 0>
                 align 8
 stru_61F708     UnwindMapEntry <-1, offset loc_5FE18E>
