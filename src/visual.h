@@ -1556,6 +1556,23 @@ public:
 ASSERT_SIZE(VisShopCompass, 0x258);
 
 
+//60d658
+class VisShopCompassDruid : public VisShopCompass
+{
+public:
+	VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c247b in asm
+
+public:
+	int32_t field_0x258;
+	int32_t field_0x25c;
+	int32_t field_0x260;
+	int32_t field_0x264;
+	int32_t field_0x268;
+	int32_t field_0x26c;
+};
+ASSERT_SIZE(VisShopCompassDruid, 0x270);
+
+
 //60d540
 class VisShopButtons : public CVisualObject
 {
