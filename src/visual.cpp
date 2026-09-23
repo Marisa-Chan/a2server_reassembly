@@ -6085,6 +6085,29 @@ void VisShop::sub_4BB102()
 }
 
 
+// 4BFA5A
+VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->shop = shop;
+    this->field_0x78[0] = CRect(0x1EE, 0x0F, 0x266, 0x43);
+    this->field_0x78[1] = CRect(0x1E3, 0x43, 0x26F, 0x71);
+    this->field_0x78[2] = CRect(0x1E3, 0x72, 0x26F, 0xA0);
+    this->field_0x78[3] = CRect(0x1EE, 0xA0, 0x266, 0xD4);
+    this->field_0xb8[0] = CRect(0x203, 0x0F, 0x24E, 0x23);
+    this->field_0xb8[1] = CRect(0x1EE, 0x23, 0x27B, 0x43);
+    this->field_0xb8[2] = CRect(0x1EE, 0xA0, 0x266, 0xC0);
+    this->field_0xb8[3] = CRect(0x203, 0xC0, 0x24E, 0xD4);
+    this->menu_bmp = nullptr;
+    this->button_bmps[3] = nullptr;
+    this->button_bmps[2] = nullptr;
+    this->button_bmps[1] = nullptr;
+    this->button_bmps[0] = nullptr;
+    this->field_0xf8 = -1;
+    this->field_0xfc = -1;
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {

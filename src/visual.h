@@ -1530,11 +1530,18 @@ public:
 class VisShopButtons : public CVisualObject
 {
 public:
+	virtual ~VisShopButtons(); //4c0020 in asm
+	virtual void VMethod7() override; //4c04b1 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2 in asm
+	virtual int32_t VMethod30(); //4c6bd0 in asm
+
 	void sub_4C0352(); //4c0352
 	void sub_4C0088(); //4c0088
 	void sub_4C1358(); //4c1358
 
-	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a in asm
+	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a
 
 public:
 	VisShop* shop; // 0x5c

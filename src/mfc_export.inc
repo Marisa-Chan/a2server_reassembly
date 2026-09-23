@@ -1461,7 +1461,14 @@ extern ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
 extern ?VMethod33@VisShop@@UAE?AVCString@@XZ : proc
 extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
 externdef ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc
+extern ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc
+externdef ??1VisShopButtons@@UAE@XZ : proc
+extern ??_GVisShopButtons@@UAEPAXI@Z : proc
+externdef ?VMethod7@VisShopButtons@@UAEXXZ : proc
+externdef ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z : proc
+externdef ?VMethod30@VisShopButtons@@UAEHXZ : proc
 extern ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 extern ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc

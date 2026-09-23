@@ -166956,7 +166956,7 @@ sub_4BAD1D      endp
 
 ; Attributes: bp-based frame
 
-sub_4BCAF1      proc near               ; CODE XREF: sub_4C11C2+110↓p
+sub_4BCAF1      proc near               ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+110↓p
 
 var_4           = dword ptr -4
 
@@ -167003,7 +167003,7 @@ sub_4BCAF1      endp
 
 ; Attributes: bp-based frame
 
-sub_4BCB63      proc near               ; CODE XREF: sub_4C11C2+103↓p
+sub_4BCB63      proc near               ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+103↓p
 
 var_4           = dword ptr -4
 
@@ -167085,7 +167085,7 @@ sub_4BCB63      endp
 
 ; Attributes: bp-based frame
 
-sub_4BCCE1      proc near               ; CODE XREF: sub_4C11C2+F6↓p
+sub_4BCCE1      proc near               ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+F6↓p
 
 var_4           = dword ptr -4
 
@@ -170655,230 +170655,6 @@ loc_4BFA4F:                             ; CODE XREF: sub_4BFA01+1B↑j
 sub_4BFA01      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z      proc near               ; CODE XREF: ?VMethod26@VisShop@@UAEXXZ+1D7↑p
-
-var_90          = dword ptr -90h
-var_8C          = byte ptr -8Ch
-var_7C          = byte ptr -7Ch
-var_6C          = byte ptr -6Ch
-var_5C          = byte ptr -5Ch
-var_4C          = byte ptr -4Ch
-var_3C          = byte ptr -3Ch
-var_2C          = byte ptr -2Ch
-var_1C          = byte ptr -1Ch
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FE087 SIZE 00000016 BYTES
-
-; __unwind { // SEH_4BFA5A
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BFA5A
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 84h
-                mov     [ebp+var_90], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_90]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    10h             ; unsigned int
-                mov     edx, dword ptr [ebp+var_90]
-                add     edx, 78h ; 'x'
-                push    edx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    10h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_90]
-                add     eax, 0B8h
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_90]
-                mov     dword ptr [ecx], offset off_60D540
-                mov     edx, dword ptr [ebp+var_90]
-                mov     eax, dword ptr [ebp+arg_14]
-                mov     [edx+5Ch], eax
-                push    43h ; 'C'
-                push    266h
-                push    0Fh
-                push    1EEh
-                lea     ecx, [ebp+var_1C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 78h ; 'x'
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    71h ; 'q'
-                push    26Fh
-                push    43h ; 'C'
-                push    1E3h
-                lea     ecx, [ebp+var_2C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 88h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0A0h
-                push    26Fh
-                push    72h ; 'r'
-                push    1E3h
-                lea     ecx, [ebp+var_3C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 98h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0D4h
-                push    266h
-                push    0A0h
-                push    1EEh
-                lea     ecx, [ebp+var_4C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0A8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    23h ; '#'
-                push    24Eh
-                push    0Fh
-                push    203h
-                lea     ecx, [ebp+var_5C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0B8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    43h ; 'C'
-                push    27Bh
-                push    23h ; '#'
-                push    1EEh
-                lea     ecx, [ebp+var_6C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0C8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0C0h
-                push    266h
-                push    0A0h
-                push    1EEh
-                lea     ecx, [ebp+var_7C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0D8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0D4h
-                push    24Eh
-                push    0C0h
-                push    203h
-                lea     ecx, [ebp+var_8C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0E8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                mov     ecx, dword ptr [ebp+var_90]
-                mov     dword ptr [ecx+74h], 0
-                mov     edx, dword ptr [ebp+var_90]
-                mov     dword ptr [edx+70h], 0
-                mov     eax, dword ptr [ebp+var_90]
-                mov     dword ptr [eax+6Ch], 0
-                mov     ecx, dword ptr [ebp+var_90]
-                mov     dword ptr [ecx+68h], 0
-                mov     edx, dword ptr [ebp+var_90]
-                mov     dword ptr [edx+64h], 0
-                mov     eax, dword ptr [ebp+var_90]
-                mov     dword ptr [eax+0F8h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_90]
-                mov     dword ptr [ecx+0FCh], 0FFFFFFFFh
-;   } // starts at 4BFA9F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_90]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 4BFA5A
-??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -171100,7 +170876,7 @@ sub_4BFD43      endp
 
 ; Attributes: bp-based frame
 
-sub_4C0020      proc near               ; CODE XREF: sub_4C6980+A↓p
+??1VisShopButtons@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopButtons@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -171138,7 +170914,7 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 ; } // starts at 4C0020
-sub_4C0020      endp
+??1VisShopButtons@@UAE@XZ      endp
 
 
 
@@ -171168,7 +170944,7 @@ unknown_libname_650 endp
 
 ; Attributes: bp-based frame
 
-sub_4C04B1      proc near               ; DATA XREF: .rdata:0060D56C↓o
+?VMethod7@VisShopButtons@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D56C↓o
 
 var_3C          = dword ptr -3Ch
 var_38          = dword ptr -38h
@@ -171221,7 +170997,7 @@ var_4           = dword ptr -4
                 jmp     loc_4C107F
 ; ---------------------------------------------------------------------------
 
-loc_4C051B:                             ; CODE XREF: sub_4C04B1+54↑j
+loc_4C051B:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+54↑j
                 mov     edx, dword ptr [ebp+var_28]
                 cmp     dword ptr [edx+64h], 0
                 jz      short loc_4C0548
@@ -171238,14 +171014,14 @@ loc_4C051B:                             ; CODE XREF: sub_4C04B1+54↑j
                 cmp     dword ptr [eax+74h], 0
                 jnz     short loc_4C055C
 
-loc_4C0548:                             ; CODE XREF: sub_4C04B1+71↑j
+loc_4C0548:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+71↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 jmp     loc_4C107F
 ; ---------------------------------------------------------------------------
 
-loc_4C055C:                             ; CODE XREF: sub_4C04B1+95↑j
+loc_4C055C:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+95↑j
                 call    ?LockSurface2@@YAIXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 add     ecx, 8          ; varThis
@@ -171281,13 +171057,13 @@ loc_4C055C:                             ; CODE XREF: sub_4C04B1+95↑j
                 jmp     short loc_4C05D0
 ; ---------------------------------------------------------------------------
 
-loc_4C05C0:                             ; CODE XREF: sub_4C04B1+FB↑j
+loc_4C05C0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+FB↑j
                 push    0
                 mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 mov     [ebp+var_14], eax
 
-loc_4C05D0:                             ; CODE XREF: sub_4C04B1+10D↑j
+loc_4C05D0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+10D↑j
                 push    48h ; 'H'
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171385,13 +171161,13 @@ loc_4C05D0:                             ; CODE XREF: sub_4C04B1+10D↑j
                 jmp     short loc_4C06FD
 ; ---------------------------------------------------------------------------
 
-loc_4C06ED:                             ; CODE XREF: sub_4C04B1+228↑j
+loc_4C06ED:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+228↑j
                 push    0
                 mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 mov     [ebp+var_14], eax
 
-loc_4C06FD:                             ; CODE XREF: sub_4C04B1+23A↑j
+loc_4C06FD:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+23A↑j
                 push    46h ; 'F'
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171489,13 +171265,13 @@ loc_4C06FD:                             ; CODE XREF: sub_4C04B1+23A↑j
                 jmp     short loc_4C0841
 ; ---------------------------------------------------------------------------
 
-loc_4C0831:                             ; CODE XREF: sub_4C04B1+36C↑j
+loc_4C0831:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+36C↑j
                 push    0
                 mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 mov     [ebp+var_14], eax
 
-loc_4C0841:                             ; CODE XREF: sub_4C04B1+37E↑j
+loc_4C0841:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+37E↑j
                 push    47h ; 'G'
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171593,13 +171369,13 @@ loc_4C0841:                             ; CODE XREF: sub_4C04B1+37E↑j
                 jmp     short loc_4C0984
 ; ---------------------------------------------------------------------------
 
-loc_4C0974:                             ; CODE XREF: sub_4C04B1+4AF↑j
+loc_4C0974:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+4AF↑j
                 push    0
                 mov     ecx, ?palette_husk@@3PAVCGamePalette@@A
                 call    ?GetPalette@CGamePalette@@QAEPAGH@Z
                 mov     [ebp+var_14], eax
 
-loc_4C0984:                             ; CODE XREF: sub_4C04B1+4C1↑j
+loc_4C0984:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+4C1↑j
                 push    49h ; 'I'
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171761,7 +171537,7 @@ loc_4C0984:                             ; CODE XREF: sub_4C04B1+4C1↑j
                 jmp     ds:jpt_4C0B99[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4C0BA0:                             ; CODE XREF: sub_4C04B1+6E8↑j
+loc_4C0BA0:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
                 push    48h ; 'H'       ; jumptable 004C0B99 case 0
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171856,7 +171632,7 @@ loc_4C0BA0:                             ; CODE XREF: sub_4C04B1+6E8↑j
                 jmp     def_4C0B99      ; jumptable 004C0B99 default case
 ; ---------------------------------------------------------------------------
 
-loc_4C0CB9:                             ; CODE XREF: sub_4C04B1+6E8↑j
+loc_4C0CB9:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
                 push    46h ; 'F'       ; jumptable 004C0B99 case 1
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -171951,7 +171727,7 @@ loc_4C0CB9:                             ; CODE XREF: sub_4C04B1+6E8↑j
                 jmp     def_4C0B99      ; jumptable 004C0B99 default case
 ; ---------------------------------------------------------------------------
 
-loc_4C0DE9:                             ; CODE XREF: sub_4C04B1+6E8↑j
+loc_4C0DE9:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
                 push    47h ; 'G'       ; jumptable 004C0B99 case 2
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -172046,7 +171822,7 @@ loc_4C0DE9:                             ; CODE XREF: sub_4C04B1+6E8↑j
                 jmp     def_4C0B99      ; jumptable 004C0B99 default case
 ; ---------------------------------------------------------------------------
 
-loc_4C0F1A:                             ; CODE XREF: sub_4C04B1+6E8↑j
+loc_4C0F1A:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑j
                 push    49h ; 'I'       ; jumptable 004C0B99 case 3
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -172154,14 +171930,14 @@ loc_4C0F1A:                             ; CODE XREF: sub_4C04B1+6E8↑j
                 mov     ecx, ?g_font4@@3PAVCGameFont@@A
                 call    dword ptr [eax+14h]
 
-def_4C0B99:                             ; CODE XREF: sub_4C04B1+618↑j
+def_4C0B99:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+618↑j
                 call    ?UnlockSurface2@@YAIXZ      ; jumptable 004C0B99 default case
 ;   } // starts at 4C0F4A
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_4C107F:                             ; CODE XREF: sub_4C04B1+65↑j
+loc_4C107F:                             ; CODE XREF: ?VMethod7@VisShopButtons@@UAEXXZ+65↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -172169,10 +171945,10 @@ loc_4C107F:                             ; CODE XREF: sub_4C04B1+65↑j
                 pop     ebp
                 retn
 ; } // starts at 4C04B1
-sub_4C04B1      endp
+?VMethod7@VisShopButtons@@UAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4C0B99      dd offset loc_4C0BA0    ; DATA XREF: sub_4C04B1+6E8↑r
+jpt_4C0B99      dd offset loc_4C0BA0    ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+6E8↑r
                 dd offset loc_4C0CB9    ; jump table for switch statement
                 dd offset loc_4C0DE9
                 dd offset loc_4C0F1A
@@ -172182,7 +171958,7 @@ jpt_4C0B99      dd offset loc_4C0BA0    ; DATA XREF: sub_4C04B1+6E8↑r
 
 ; Attributes: bp-based frame
 
-sub_4C10C4      proc near               ; DATA XREF: .rdata:0060D58C↓o
+?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D58C↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -172217,7 +171993,7 @@ arg_8           = dword ptr  10h
                 mov     ecx, dword ptr [eax+5Ch]
                 mov     [ecx+14Ch], edx
 
-loc_4C1117:                             ; CODE XREF: sub_4C10C4+1F↑j
+loc_4C1117:                             ; CODE XREF: ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z+1F↑j
                 mov     edx, dword ptr [ebp+arg_8]
                 push    edx
                 mov     eax, dword ptr [ebp+arg_4]
@@ -172231,14 +172007,14 @@ loc_4C1117:                             ; CODE XREF: sub_4C10C4+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4C10C4      endp
+?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C1134      proc near               ; DATA XREF: .rdata:0060D594↓o
+?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D594↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -172274,7 +172050,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_4C11B7
 ; ---------------------------------------------------------------------------
 
-loc_4C118B:                             ; CODE XREF: sub_4C1134+4D↑j
+loc_4C118B:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+4D↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 0C4h
@@ -172284,7 +172060,7 @@ loc_4C118B:                             ; CODE XREF: sub_4C1134+4D↑j
                 jmp     short loc_4C11B7
 ; ---------------------------------------------------------------------------
 
-loc_4C11A2:                             ; CODE XREF: sub_4C1134+53↑j
+loc_4C11A2:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+53↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+5Ch]
                 add     ecx, 0C0h
@@ -172292,19 +172068,19 @@ loc_4C11A2:                             ; CODE XREF: sub_4C1134+53↑j
                 call    ?Play@CSound@@SAXAAU1@@Z
                 add     esp, 4
 
-loc_4C11B7:                             ; CODE XREF: sub_4C1134+55↑j
+loc_4C11B7:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+55↑j
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4C1134      endp
+?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4C11C2      proc near               ; DATA XREF: .rdata:0060D598↓o
+?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D598↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -172347,7 +172123,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_4C1342
 ; ---------------------------------------------------------------------------
 
-loc_4C1230:                             ; CODE XREF: sub_4C11C2+1B↑j
+loc_4C1230:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+1B↑j
                 mov     edx, dword ptr [ebp+var_C]
                 cmp     dword ptr [edx+0F8h], 0
                 jl      def_4C12AB      ; jumptable 004C12AB default case
@@ -172384,28 +172160,28 @@ loc_4C1230:                             ; CODE XREF: sub_4C11C2+1B↑j
                 jmp     ds:jpt_4C12AB[eax*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4C12B2:                             ; CODE XREF: sub_4C11C2+E9↑j
+loc_4C12B2:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+E9↑j
                 mov     ecx, dword ptr [ebp+var_C] ; jumptable 004C12AB case 0
                 mov     ecx, dword ptr [ecx+5Ch]
                 call    sub_4BCCE1
                 jmp     short def_4C12AB ; jumptable 004C12AB default case
 ; ---------------------------------------------------------------------------
 
-loc_4C12BF:                             ; CODE XREF: sub_4C11C2+E9↑j
+loc_4C12BF:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+E9↑j
                 mov     edx, dword ptr [ebp+var_C] ; jumptable 004C12AB case 1
                 mov     ecx, dword ptr [edx+5Ch]
                 call    sub_4BCB63
                 jmp     short def_4C12AB ; jumptable 004C12AB default case
 ; ---------------------------------------------------------------------------
 
-loc_4C12CC:                             ; CODE XREF: sub_4C11C2+E9↑j
+loc_4C12CC:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+E9↑j
                 mov     eax, dword ptr [ebp+var_C] ; jumptable 004C12AB case 2
                 mov     ecx, dword ptr [eax+5Ch]
                 call    sub_4BCAF1
                 jmp     short def_4C12AB ; jumptable 004C12AB default case
 ; ---------------------------------------------------------------------------
 
-loc_4C12D9:                             ; CODE XREF: sub_4C11C2+E9↑j
+loc_4C12D9:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+E9↑j
                 mov     ecx, dword ptr [ebp+var_C] ; jumptable 004C12AB case 3
                 mov     ecx, dword ptr [ecx+5Ch]
                 call    ?FUN_004bcd02@VisShop@@QAEXXZ
@@ -172418,7 +172194,7 @@ loc_4C12D9:                             ; CODE XREF: sub_4C11C2+E9↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?PostMessageA@CWnd@@QAEHIIJ@Z
 
-def_4C12AB:                             ; CODE XREF: sub_4C11C2+78↑j
+def_4C12AB:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+78↑j
                 mov     eax, dword ptr [ebp+var_C] ; jumptable 004C12AB default case
                 mov     ecx, dword ptr [eax+5Ch]
                 mov     edx, dword ptr [ecx+14Ch]
@@ -172438,14 +172214,14 @@ def_4C12AB:                             ; CODE XREF: sub_4C11C2+78↑j
                 call    sub_4C14C4
                 mov     eax, 1
 
-loc_4C1342:                             ; CODE XREF: sub_4C11C2+69↑j
+loc_4C1342:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+69↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4C11C2      endp
+?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4C12AB      dd offset loc_4C12B2    ; DATA XREF: sub_4C11C2+E9↑r
+jpt_4C12AB      dd offset loc_4C12B2    ; DATA XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+E9↑r
                 dd offset loc_4C12BF    ; jump table for switch statement
                 dd offset loc_4C12CC
                 dd offset loc_4C12D9
@@ -172455,7 +172231,7 @@ jpt_4C12AB      dd offset loc_4C12B2    ; DATA XREF: sub_4C11C2+E9↑r
 
 ; Attributes: bp-based frame
 
-sub_4C137D      proc near               ; CODE XREF: sub_4C1134+14↑p
+sub_4C137D      proc near               ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+14↑p
 
 var_38          = dword ptr -38h
 var_34          = POINT ptr -34h
@@ -172616,7 +172392,7 @@ sub_4C137D      endp
 
 ; Attributes: bp-based frame
 
-sub_4C14C4      proc near               ; CODE XREF: sub_4C10C4+62↑p
+sub_4C14C4      proc near               ; CODE XREF: ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z+62↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -180381,39 +180157,6 @@ sub_4C6950      endp
 
 ; Attributes: bp-based frame
 
-sub_4C6980      proc near               ; DATA XREF: .rdata:0060D544↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4C0020
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4C69A2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4C69A2:                             ; CODE XREF: sub_4C6980+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4C6980      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ??_GVisShopDruid@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060D5C4↓o
 
 Block           = dword ptr -4
@@ -180755,7 +180498,7 @@ sub_4C6BC0      endp
 
 ; Attributes: bp-based frame
 
-sub_4C6BD0      proc near               ; DATA XREF: .rdata:0060D5B8↓o
+?VMethod30@VisShopButtons@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060D5B8↓o
 
 var_4           = dword ptr -4
 
@@ -180767,7 +180510,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4C6BD0      endp
+?VMethod30@VisShopButtons@@UAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -389032,22 +388775,6 @@ SEH_4BE7E0:                             ; DATA XREF: sub_4BE7E0+5↑o
 ; } // starts at 5FE073
 ; END OF FUNCTION CHUNK FOR sub_4BE7E0
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z
-
-loc_5FE087:                             ; DATA XREF: .rdata:stru_61F5F0↓o
-; __unwind { // SEH_4BFA5A
-;   cleanup() // owned by 4BFA9F
-                mov     ecx, dword ptr [ebp+var_90]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BFA5A:                             ; DATA XREF: ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z+5↑o
-                mov     eax, offset stru_61F5D0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FE087
-; END OF FUNCTION CHUNK FOR ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4BFD43
 
 loc_5FE09D:                             ; DATA XREF: .rdata:stru_61F618↓o
@@ -389064,7 +388791,7 @@ SEH_4BFD43:                             ; DATA XREF: sub_4BFD43+5↑o
 ; } // starts at 5FE09D
 ; END OF FUNCTION CHUNK FOR sub_4BFD43
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4C0020
+; START OF FUNCTION CHUNK FOR ??1VisShopButtons@@UAE@XZ
 
 loc_5FE0B3:                             ; DATA XREF: .rdata:stru_61F640↓o
 ; __unwind { // SEH_4C0020
@@ -389074,13 +388801,13 @@ loc_5FE0B3:                             ; DATA XREF: .rdata:stru_61F640↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4C0020:                             ; DATA XREF: sub_4C0020+5↑o
+SEH_4C0020:                             ; DATA XREF: ??1VisShopButtons@@UAE@XZ+5↑o
                 mov     eax, offset stru_61F620
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE0B3
-; END OF FUNCTION CHUNK FOR sub_4C0020
+; END OF FUNCTION CHUNK FOR ??1VisShopButtons@@UAE@XZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4C04B1
+; START OF FUNCTION CHUNK FOR ?VMethod7@VisShopButtons@@UAEXXZ
 
 loc_5FE169:                             ; DATA XREF: .rdata:stru_61F6D0↓o
 ; __unwind { // SEH_4C04B1              ; varThis
@@ -389106,11 +388833,11 @@ loc_5FE17B:                             ; DATA XREF: .rdata:0061F6E0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4C04B1:                             ; DATA XREF: sub_4C04B1+5↑o
+SEH_4C04B1:                             ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+5↑o
                 mov     eax, offset stru_61F6B0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE169
-; END OF FUNCTION CHUNK FOR sub_4C04B1
+; END OF FUNCTION CHUNK FOR ?VMethod7@VisShopButtons@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod26@VisShopDruid@@UAEXXZ
 
@@ -408561,7 +408288,7 @@ off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 dbl_60D530      dq 0.25                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+442↑r
 dbl_60D538      dq 0.75                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+4CB↑r
 off_60D540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z+84↑o
-                dd offset sub_4C6980
+                dd offset ??_GVisShopButtons@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
@@ -408571,7 +408298,7 @@ off_60D540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_4C04B1
+                dd offset ?VMethod7@VisShopButtons@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
@@ -408579,10 +408306,10 @@ off_60D540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
                 dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset sub_4C10C4
+                dd offset ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z
                 dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_4C1134
-                dd offset sub_4C11C2
+                dd offset ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z
                 dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
@@ -408590,7 +408317,7 @@ off_60D540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset sub_4C6BD0
+                dd offset ?VMethod30@VisShopButtons@@UAEHXZ
                 align 10h
 off_60D5C0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C15A0↑o
                 dd offset ??_GVisShopDruid@@UAEPAXI@Z
@@ -423048,12 +422775,6 @@ stru_61F598     UnwindMapEntry <-1, offset loc_5FE055>
 stru_61F5A8     FuncInfoV1 <19930520h, 1, offset stru_61F5C8, 0, 0, 0, 0>
                 align 8
 stru_61F5C8     UnwindMapEntry <-1, offset loc_5FE073>
-stru_61F5D0     FuncInfoV1 <19930520h, 1, offset stru_61F5F0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61F5F0     UnwindMapEntry <-1, offset loc_5FE087>
 stru_61F5F8     FuncInfoV1 <19930520h, 1, offset stru_61F618, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -432466,28 +432187,28 @@ aShopbutton     db 'ShopButton',0       ; DATA XREF: ?sub_4C0088@VisShopButtons@
 aShopmenuBmp    db 'ShopMenu.bmp',0     ; DATA XREF: ?sub_4C0088@VisShopButtons@@QAEXXZ+22E↑o
                 align 4
 ; char aD_40[]
-aD_40           db '%d',0               ; DATA XREF: sub_4C04B1+1A1↑o
+aD_40           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+1A1↑o
                 align 4
 ; char aD_41[]
-aD_41           db '%d',0               ; DATA XREF: sub_4C04B1+2D9↑o
+aD_41           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+2D9↑o
                 align 4
 ; char aD_42[]
-aD_42           db '%d',0               ; DATA XREF: sub_4C04B1+41D↑o
+aD_42           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+41D↑o
                 align 10h
 ; char aD_43[]
-aD_43           db '%d',0               ; DATA XREF: sub_4C04B1+585↑o
+aD_43           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+585↑o
                 align 4
 ; char aD_44[]
-aD_44           db '%d',0               ; DATA XREF: sub_4C04B1+77B↑o
+aD_44           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+77B↑o
                 align 4
 ; char aD_45[]
-aD_45           db '%d',0               ; DATA XREF: sub_4C04B1+8A0↑o
+aD_45           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+8A0↑o
                 align 4
 ; char aD_46[]
-aD_46           db '%d',0               ; DATA XREF: sub_4C04B1+9D0↑o
+aD_46           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+9D0↑o
                 align 10h
 ; char aD_47[]
-aD_47           db '%d',0               ; DATA XREF: sub_4C04B1+B26↑o
+aD_47           db '%d',0               ; DATA XREF: ?VMethod7@VisShopButtons@@UAEXXZ+B26↑o
                 align 4
 ; CHAR aSfxTownShopNof_3[]
 aSfxTownShopNof_3 db 'SFX\Town\Shop\nofit.wav',0
