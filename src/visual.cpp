@@ -6501,3 +6501,103 @@ void VisShopDruid::VMethod30()
         this->tool_tick = timeGetTime();
     }
 }
+
+
+// 4C1E5C
+void VisShopDruid::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    g_mousept.DisableHint();
+    this->buttons->sub_4C1358();
+    this->to_buy->VMethod41();
+    this->assortiment->VMethod41();
+    this->shop_compass->VMethod26();
+    this->buttons->sub_4C0088();
+    this->sub_4BB102();
+    this->VMethod31();
+
+    this->gameplay = main_wnd->vis_map_context;
+    this->select_info_panel = main_wnd->vis_charinfo;
+
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+        CString tips_text;
+        MissionGetTips(3, &tips_text);
+        this->tips = new VisTipsDialog(0x3F3, 0, 0xA2, 0x138, 0x12A, tips_text);
+        this->shop_compass->AddChild(this->tips);
+    } else {
+        if (this->tips != nullptr) {
+            this->shop_compass->RemoveChild(this->tips);
+            delete this->tips;
+        }
+        this->tips = nullptr;
+    }
+    this->tips_update_flag = 0;
+
+    main_wnd->vis_right_panel->RemoveChild(this->select_info_panel);
+    CRect& panel_rect = this->select_info_panel->GetRect();
+    CPoint pt(0x280 - panel_rect.Width(), 0);
+    panel_rect.OffsetRect(pt.x, pt.y);
+    this->select_info_panel->SetRect(&panel_rect);
+    this->AddChild(this->select_info_panel);
+
+    FUN_00473b80(&g_StructEnter);
+    this->selected_units.Copy(g_StructEnter.field_0x0);
+    this->select_index = FUN_00473d10(&g_StructEnter);
+
+    this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
+    *this->assortiment->visible_startref = 0;
+    this->select_category = 100;
+    this->shop_compass->VMethod37(0);
+    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->assortiment->sub_4B73E4(0);
+    this->assortiment->sub_4B7859();
+    this->to_buy->sub_4B970E();
+    this->gameplay->MsgProc(0x405, 0, 0);
+    this->selected_units[this->select_index]->VMethod1(1);
+    this->gameplay->UpdateSelectionState();
+    this->selected_units[this->select_index]->unitFlags |= 8;
+    this->to_sell->sub_4B4D33();
+    this->assortiment->sub_4B4D33();
+    this->to_buy->sub_4B4D33();
+    this->dirty |= 0x2F;
+    this->assortiment->sub_4B4BC5();
+    this->to_sell->sub_4B4BC5();
+    this->to_buy->sub_4B4BC5();
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+
+    VisScreen::VMethod28();
+    this->dialog_active = 1;
+    ApplyCursor(g_Cursors[0]);
+    CSound::Play(reinterpret_cast<CSound&>(this->snd_enter));
+    FUN_004a4740(&this->snd_inshop);
+
+    this->next_bird = GetRandS16(2000) + 2000;
+    this->bird_tick = timeGetTime();
+    this->next_tool = GetRandS16(2000) + 2000;
+    this->tool_tick = timeGetTime();
+
+    if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
+        this->snd_start->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+    }
+
+    if (main_wnd->sessionMode == 2) {
+        this->scenario_talk_target = ScenarioEnterShop();
+    } else {
+        this->scenario_talk_target = 0;
+    }
+
+    if (this->scenario_talk_target != 0) {
+        int32_t npc_id = (this->scenario_talk_target >> 16) & 0xFFF;
+        CString npc_name;
+        npc_name.Format("shop\\npc31m%d", npc_id);
+        ShowRoleKeyDialog(npc_name);
+        ScenarioTalkTo(this->scenario_talk_target);
+    }
+
+    g_mousept.EnableHint();
+}
