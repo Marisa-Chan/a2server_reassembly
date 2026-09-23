@@ -1464,6 +1464,7 @@ extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
+externdef ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??1VisShopCompass@@UAE@XZ : proc
 extern ??_GVisShopCompass@@UAEPAXI@Z : proc
 externdef ?GetHint@VisShopCompass@@UAEPBDXZ : proc

@@ -1320,6 +1320,17 @@ public:
 ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
 
 
+//60d850
+class VisInvExtType1Druid : public VisInvExtType1
+{
+public:
+	virtual void VMethod41() override; //4b6815 in asm
+
+	VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6c40 in asm
+};
+ASSERT_SIZE(VisInvExtType1Druid, 0x2150);
+
+
 //60d268
 class VisInvExtType2 : public VisInvExtBase
 {

@@ -176544,8 +176544,8 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4C6C40(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_4C6C40      proc near               ; CODE XREF: ?VMethod26@VisShopDruid@@UAEXXZ+11B↑p
+; int __stdcall ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z      proc near               ; CODE XREF: ?VMethod26@VisShopDruid@@UAEXXZ+11B↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -176579,7 +176579,7 @@ arg_14          = dword ptr  1Ch
                 mov     esp, ebp
                 pop     ebp
                 retn    18h
-sub_4C6C40      endp
+??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -404254,7 +404254,7 @@ off_60D7A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4C65BA
                 dd offset ?VMethod38@VisShopCompass@@UAEXXZ
                 align 10h
-off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4C6C40+2A↑o
+off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z+2A↑o
                 dd offset sub_4C6C80
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime

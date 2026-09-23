@@ -457,6 +457,7 @@
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z	140
 ?VMethod7@VisInvExtType1@@UAEXXZ	155
 ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z	245
+??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z	34
 ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z	34
 ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z	18
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z	21
