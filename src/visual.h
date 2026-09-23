@@ -1533,12 +1533,13 @@ public:
 	virtual ~VisShopButtons(); //4c0020
 	virtual void VMethod7() override; //4c04b1 in asm
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2 in asm
 	virtual int32_t VMethod30(); //4c6bd0 in asm
 
 	void sub_4C0352(); //4c0352
 	void sub_4C14C4(uint32_t wparam, CPoint pos); //4c14c4 in asm
+	int32_t sub_4C137D(int32_t x, int32_t y); //4c137d in asm
 	void sub_4C0088(); //4c0088
 	void sub_4C1358(); //4c1358
 

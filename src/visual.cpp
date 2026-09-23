@@ -6136,6 +6136,23 @@ int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 4C1134
+int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    this->field_0xf8 = this->sub_4C137D(pos.x, pos.y);
+    this->shop->dirty |= 0x20;
+    switch (this->field_0xf8) {
+    case 0:
+        CSound::Play(reinterpret_cast<CSound&>(this->shop->snd_undo));
+        break;
+    case 3:
+        CSound::Play(reinterpret_cast<CSound&>(this->shop->snd_out));
+        break;
+    }
+    return 1;
+}
+
+
 // 4C1358
 void VisShopButtons::sub_4C1358()
 {

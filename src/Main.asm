@@ -171911,71 +171911,6 @@ jpt_4C0B99      dd offset loc_4C0BA0    ; DATA XREF: ?VMethod7@VisShopButtons@@U
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D594↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4C137D
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+0F8h], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+14Ch]
-                or      edx, 20h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     [ecx+14Ch], edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0F8h]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0
-                jz      short loc_4C118B
-                cmp     [ebp+var_8], 3
-                jz      short loc_4C11A2
-                jmp     short loc_4C11B7
-; ---------------------------------------------------------------------------
-
-loc_4C118B:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+4D↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                add     edx, 0C4h
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     short loc_4C11B7
-; ---------------------------------------------------------------------------
-
-loc_4C11A2:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+53↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 0C0h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4C11B7:                             ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+55↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -172036,7 +171971,7 @@ loc_4C1230:                             ; CODE XREF: ?OnLButtonUp@VisShopButtons
                 mov     edx, dword ptr [ebp+arg_4]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_4C137D
+                call    ?sub_4C137D@VisShopButtons@@QAEHHH@Z
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     eax, [ecx+0F8h]
                 jnz     def_4C12AB      ; jumptable 004C12AB default case
@@ -172132,7 +172067,7 @@ jpt_4C12AB      dd offset loc_4C12B2    ; DATA XREF: ?OnLButtonUp@VisShopButtons
 
 ; Attributes: bp-based frame
 
-sub_4C137D      proc near               ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+14↑p
+?sub_4C137D@VisShopButtons@@QAEHHH@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z+14↑p
 
 var_38          = dword ptr -38h
 var_34          = POINT ptr -34h
@@ -172168,12 +172103,12 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_4C13C1
 ; ---------------------------------------------------------------------------
 
-loc_4C13B8:                             ; CODE XREF: sub_4C137D:loc_4C14B6↓j
+loc_4C13B8:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z:loc_4C14B6↓j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1
                 mov     [ebp+var_4], edx
 
-loc_4C13C1:                             ; CODE XREF: sub_4C137D+39↑j
+loc_4C13C1:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+39↑j
                 cmp     [ebp+var_4], 4
                 jnb     loc_4C14BB
                 mov     eax, dword ptr [ebp+arg_0]
@@ -172220,17 +172155,17 @@ loc_4C13C1:                             ; CODE XREF: sub_4C137D+39↑j
                 test    eax, eax
                 jz      short loc_4C1450
 
-loc_4C144B:                             ; CODE XREF: sub_4C137D+A6↑j
+loc_4C144B:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+A6↑j
                 mov     eax, dword ptr [ebp+var_4]
                 jmp     short loc_4C14BE
 ; ---------------------------------------------------------------------------
 
-loc_4C1450:                             ; CODE XREF: sub_4C137D+CC↑j
+loc_4C1450:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+CC↑j
                 or      eax, 0FFFFFFFFh
                 jmp     short loc_4C14BE
 ; ---------------------------------------------------------------------------
 
-loc_4C1455:                             ; CODE XREF: sub_4C137D+80↑j
+loc_4C1455:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+80↑j
                 cmp     [ebp+var_4], 3
                 jnz     short loc_4C14B1
                 mov     edx, dword ptr [ebp+arg_0]
@@ -172260,33 +172195,33 @@ loc_4C1455:                             ; CODE XREF: sub_4C137D+80↑j
                 test    eax, eax
                 jz      short loc_4C14AC
 
-loc_4C14A7:                             ; CODE XREF: sub_4C137D+102↑j
+loc_4C14A7:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+102↑j
                 mov     eax, dword ptr [ebp+var_4]
                 jmp     short loc_4C14BE
 ; ---------------------------------------------------------------------------
 
-loc_4C14AC:                             ; CODE XREF: sub_4C137D+128↑j
+loc_4C14AC:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+128↑j
                 or      eax, 0FFFFFFFFh
                 jmp     short loc_4C14BE
 ; ---------------------------------------------------------------------------
 
-loc_4C14B1:                             ; CODE XREF: sub_4C137D+DC↑j
+loc_4C14B1:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+DC↑j
                 mov     eax, dword ptr [ebp+var_4]
                 jmp     short loc_4C14BE
 ; ---------------------------------------------------------------------------
 
-loc_4C14B6:                             ; CODE XREF: sub_4C137D+76↑j
+loc_4C14B6:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+76↑j
                 jmp     loc_4C13B8
 ; ---------------------------------------------------------------------------
 
-loc_4C14BB:                             ; CODE XREF: sub_4C137D+48↑j
+loc_4C14BB:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+48↑j
                 or      eax, 0FFFFFFFFh
 
-loc_4C14BE:                             ; CODE XREF: sub_4C137D+D1↑j
+loc_4C14BE:                             ; CODE XREF: ?sub_4C137D@VisShopButtons@@QAEHHH@Z+D1↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_4C137D      endp
+?sub_4C137D@VisShopButtons@@QAEHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -172310,7 +172245,7 @@ arg_8           = dword ptr  10h
                 mov     ecx, dword ptr [ebp+arg_4]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4C137D
+                call    ?sub_4C137D@VisShopButtons@@QAEHHH@Z
                 mov     [ebp+var_4], eax
                 cmp     [ebp+var_4], 0
                 jl      short loc_4C1519
