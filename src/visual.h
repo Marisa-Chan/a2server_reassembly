@@ -810,6 +810,17 @@ public:
 
 	// VTable at 609088.
 	virtual void VMethod7() override; // 406f1a
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 40c633
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 40c60f
+	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 40c56c
+	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 40c59c
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 40c902
+	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2
+
+public:
 	void sub_406F7B(); //406f7b
 	void sub_40403B(); //40403b
 	void sub_404E1A(); //404e1a
@@ -871,15 +882,7 @@ public:
 	void sub_41A9F6(); //41a9f6 in asm
 	void sub_41A99C(); //41a99c in asm
 	void sub_41CE14(); //41ce14
-	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232
-	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f
-	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510
-	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 40c633
-	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 40c60f
-	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 40c56c
-	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 40c59c
-	virtual int32_t OnKeyDown(uint32_t wparam) override; // 40c902
-	virtual int32_t OnChar(uint32_t wparam) override; // 40d4b2
+	void sub_41A942(); //41a942
 
 	void UpdateSelectionState(); //416cf7
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
@@ -1664,7 +1667,7 @@ public:
 	virtual void VMethod30(); // 4BCF2F
 	virtual void VMethod31(); // 4BD0FB
 	virtual void VMethod32();
-	virtual CString VMethod33(); // 4c6b90
+	virtual CString& VMethod33(CString&); // 4c6b90
 
 
 	void FUN_004bcd02();
@@ -1680,9 +1683,9 @@ public:
 	void sub_4BCD79(); //4bcd79
 	void sub_4BCDA0(); //4bcda0
 	void sub_4BCEA4(); //4bcea4
-	void sub_4BCAF1(); //4bcaf1 in asm
-	void sub_4BCB63(); //4bcb63 in asm
-	void sub_4BCCE1(); //4bcce1 in asm
+	void sub_4BCAF1(); //4bcaf1
+	int sub_4BCB63(); //4bcb63
+	void sub_4BCCE1(); //4bcce1
 
 	VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4ba342 in asm
 
@@ -1750,7 +1753,7 @@ public:
 	virtual void VMethod30() override; // 4C1958
 	virtual void VMethod31() override; // 4C1B8B
 	virtual void VMethod32() override; // 4C1D25
-	virtual CString VMethod33() override; // 4C6BE0
+	virtual CString& VMethod33(CString&) override; // 4C6BE0
 
 	VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c15ad
 public:
@@ -1775,7 +1778,7 @@ public:
 	virtual void VMethod30() override; // 4C4170
 	virtual void VMethod31() override; // 4C43A3
 	virtual void VMethod32() override; // 4C453D
-	virtual CString VMethod33() override; // 4C6C10
+	virtual CString& VMethod33(CString&) override; // 4C6C10
 
 	VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); //4c37c5
 public:

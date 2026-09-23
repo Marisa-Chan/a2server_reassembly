@@ -1354,6 +1354,7 @@ externdef ?FUN_0041f150@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_004
 externdef ?FUN_0041f1f0@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f1f0(int)
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
+externdef ?sub_41A942@BigStruct2@@QAEXXZ : proc
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
@@ -1458,7 +1459,7 @@ extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ?sub_4C0352@VisShopButtons@@QAEXXZ : proc
 extern ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
-extern ?VMethod33@VisShop@@UAE?AVCString@@XZ : proc
+extern ?VMethod33@VisShop@@UAEAAVCString@@AAV2@@Z : proc
 extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -1518,7 +1519,7 @@ extern ?VMethod28@VisShopDruid@@UAEXXZ : proc
 extern ?VMethod30@VisShopDruid@@UAEXXZ : proc
 extern ?VMethod31@VisShopDruid@@UAEXXZ : proc
 externdef ?VMethod32@VisShopDruid@@UAEXXZ : proc
-externdef ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ : proc
+externdef ?VMethod33@VisShopDruid@@UAEAAVCString@@AAV2@@Z : proc
 ;VisShopKaarg
 extern ??_GVisShopKaarg@@UAEPAXI@Z : proc
 extern ?VMethod26@VisShopKaarg@@UAEXXZ : proc
@@ -1526,7 +1527,7 @@ extern ?VMethod28@VisShopKaarg@@UAEXXZ : proc
 extern ?VMethod30@VisShopKaarg@@UAEXXZ : proc
 extern ?VMethod31@VisShopKaarg@@UAEXXZ : proc
 externdef ?VMethod32@VisShopKaarg@@UAEXXZ : proc
-externdef ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ : proc
+externdef ?VMethod33@VisShopKaarg@@UAEAAVCString@@AAV2@@Z : proc
 ;VisTown
 externdef ??_GVisTown@@UAEPAXI@Z : proc
 externdef ?GetHint@VisTown@@UAEPBDXZ : proc

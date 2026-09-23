@@ -776,9 +776,9 @@
 ?VMethod32@VisShop@@UAEXXZ
 ?VMethod32@VisShopDruid@@UAEXXZ
 ?VMethod32@VisShopKaarg@@UAEXXZ
-?VMethod33@VisShop@@UAE?AVCString@@XZ
-?VMethod33@VisShopDruid@@UAE?AVCString@@XZ
-?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ
+?VMethod33@VisShop@@UAEAAVCString@@AAV2@@Z
+?VMethod33@VisShopDruid@@UAEAAVCString@@AAV2@@Z
+?VMethod33@VisShopKaarg@@UAEAAVCString@@AAV2@@Z
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ

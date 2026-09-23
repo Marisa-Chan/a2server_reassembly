@@ -5893,9 +5893,10 @@ void VisShop::VMethod32()
 
 
 // 4C6B90
-CString VisShop::VMethod33()
+CString& VisShop::VMethod33(CString& str)
 {
-    return CString();
+    str = CString();
+    return str;
 }
 
 
@@ -6361,7 +6362,8 @@ void VisShopButtons::sub_4C0088()
     this->sub_4C0352();
     CString base = "graphics\\interface\\";
     if (this->shop != nullptr) {
-        base += this->shop->VMethod33();
+        CString str;
+        base += this->shop->VMethod33(str);
     }
     for (int32_t i = 0; i < 4; i++) {
         CString fname = base + "ShopButton" + CString((char)('1' + i), 1) + ".bmp";
@@ -6627,9 +6629,10 @@ void VisShopDruid::VMethod32()
 
 
 // 4C6BE0
-CString VisShopDruid::VMethod33()
+CString& VisShopDruid::VMethod33(CString& str)
 {
-    return CString("shop_druid\\");
+    str = CString("shop_druid\\");
+    return str;
 }
 
 
@@ -6657,9 +6660,10 @@ void VisShopKaarg::VMethod32()
 
 
 // 4C6C10
-CString VisShopKaarg::VMethod33()
+CString& VisShopKaarg::VMethod33(CString& str)
 {
-    return CString("shop_kaarg\\");
+    str = CString("shop_kaarg\\");
+    return str;
 }
 
 
@@ -6911,4 +6915,28 @@ void VisShop::sub_4BCAF1()
         this->gameplay->sub_41A99C();
         CSound::Play(reinterpret_cast<CSound&>(this->snd_sell));
     }
+}
+
+// 4BCB63
+int VisShop::sub_4BCB63()
+{
+    this->sub_4BCDA0();
+
+    if (this->buy_gold == 0) {
+        return 0;
+    }
+  
+    if (this->current_gold + this->buy_gold < 0) {
+        this->shop_compass->VMethod29();
+        this->shop_compass->field_0x240 |= 0x40;
+        this->snd_notif->Play();
+        return 0;
+    }
+    
+    this->shop_compass->VMethod28();
+    this->shop_compass->field_0x240 |= 0x20;
+    this->snd_notif->Play();
+    this->gameplay->sub_41A942();
+    this->snd_buy->Play();
+    return 1;
 }

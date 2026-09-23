@@ -3004,7 +3004,7 @@ sub_41A001      endp
 
 ; Attributes: bp-based frame
 
-sub_41A942      proc near               ; CODE XREF: ?sub_4BCB63@VisShop@@QAEXXZ+B2↓p
+?sub_41A942@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_4BCB63@VisShop@@QAEXXZ+B2↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -3035,7 +3035,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41A942      endp
+?sub_41A942@BigStruct2@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -167014,7 +167014,7 @@ loc_4BCBDD:                             ; CODE XREF: ?sub_4BCB63@VisShop@@QAEXXZ
                 mov     [ecx+240h], edx
                 mov     edx, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [edx+80h]
-                call    sub_41A942
+                call    ?sub_41A942@BigStruct2@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 0A4h
                 push    eax
@@ -403436,7 +403436,7 @@ off_60D3E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShop@@UAEXXZ
                 dd offset ?VMethod31@VisShop@@UAEXXZ
                 dd offset ?VMethod32@VisShop@@UAEXXZ
-                dd offset ?VMethod33@VisShop@@UAE?AVCString@@XZ
+                dd offset ?VMethod33@VisShop@@UAEAAVCString@@AAV2@@Z
 off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
                 dd offset ??_GVisShopCompass@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -403552,7 +403552,7 @@ off_60D5C0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod31@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod32@VisShopDruid@@UAEXXZ
-                dd offset ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ
+                dd offset ?VMethod33@VisShopDruid@@UAEAAVCString@@AAV2@@Z
 off_60D658      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C246E↑o
                 dd offset sub_4C6A00
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -403634,7 +403634,7 @@ off_60D708      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShopKaarg@@UAEXXZ
                 dd offset ?VMethod31@VisShopKaarg@@UAEXXZ
                 dd offset ?VMethod32@VisShopKaarg@@UAEXXZ
-                dd offset ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ
+                dd offset ?VMethod33@VisShopKaarg@@UAEAAVCString@@AAV2@@Z
 off_60D7A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C4686↑o
                 dd offset sub_4C6AA0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -427553,10 +427553,6 @@ aMoviesShopKaar_1 db 'movies\shop_kaarg\a2%04d.bmp',0
 ; char aMoviesShopKaar_2[]
 aMoviesShopKaar_2 db 'movies\shop_kaarg\a10000.bmp',0
                 align 4
-; CHAR aShopDruid_0[]
-aShopDruid_0    db 'shop_druid\',0      ; DATA XREF: ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ+10↑o
-; CHAR aShopKaarg_0[]
-aShopKaarg_0    db 'shop_kaarg\',0      ; DATA XREF: ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ+10↑o
 ; CHAR Caption[]
 Caption         db 'Smacker Error',0    ; DATA XREF: sub_4C6FE9+71↑o
                 align 4
