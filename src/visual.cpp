@@ -6698,3 +6698,55 @@ void VisShopKaarg::VMethod31()
     FUN_00438e40(&this->snd_tool[2], "SFX\\Town_kaarg\\shop\\Ktools3.wav");
     FUN_00438e40(&this->snd_tool[3], "SFX\\Town_kaarg\\shop\\Ktools4.wav");
 }
+
+
+// 4C4170
+void VisShopKaarg::VMethod30()
+{
+    static uint8_t snd_timing_init = 0; // byte_665DA4 in asm
+    static uint32_t last_snd_time; // dword_665DB8 in asm
+
+    if ((snd_timing_init & 1) == 0) {
+        snd_timing_init |= 1;
+        last_snd_time = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    GetRandS16(30000);
+    if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
+        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov1));
+    }
+    if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
+        CSound::Play(reinterpret_cast<CSound&>(this->snd_pov2));
+    }
+    if (now - this->voice_tick > (uint32_t)this->next_voice) {
+        int32_t voice = GetRandS16(3) + 1;
+        if (voice == 1) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[0]));
+        } else if (voice == 2) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[1]));
+        } else if (voice == 3) {
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_voice[2]));
+        }
+        this->next_voice = GetRandS16(2000) + 2000;
+        this->voice_tick = timeGetTime();
+    }
+    if (now - this->tool_tick > (uint32_t)this->next_tool) {
+        int32_t tool = GetRandS16(4) + 1;
+        switch (tool) {
+        case 1:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[0]));
+            break;
+        case 2:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[1]));
+            break;
+        case 3:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[2]));
+            break;
+        case 4:
+            CSound::Play(reinterpret_cast<CSound&>(this->snd_tool[3]));
+            break;
+        }
+        this->next_tool = GetRandS16(2000) + 2000;
+        this->tool_tick = timeGetTime();
+    }
+}
