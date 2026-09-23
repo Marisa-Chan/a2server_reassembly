@@ -6661,3 +6661,9 @@ CString VisShopKaarg::VMethod33()
 {
     return CString("shop_kaarg\\");
 }
+
+
+// 4C6A50
+VisShopKaarg::~VisShopKaarg()
+{
+}
