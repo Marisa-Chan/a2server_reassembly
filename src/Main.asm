@@ -3080,7 +3080,7 @@ sub_41A99C      endp
 
 ; Attributes: bp-based frame
 
-sub_41A9F6      proc near               ; CODE XREF: ?sub_4BCCE1@VisShop@@QAEXXZ+18↓p
+?sub_41A9F6@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_4BCCE1@VisShop@@QAEXXZ+18↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -3111,7 +3111,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_41A9F6      endp
+?sub_41A9F6@BigStruct2@@QAEXXZ      endp
 
 
 
@@ -167080,28 +167080,6 @@ loc_4BCC34:                             ; CODE XREF: ?sub_4BCB63@VisShop@@QAEXXZ
 ?sub_4BCB63@VisShop@@QAEXXZ      endp
 
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_4BCCE1@VisShop@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z+F6↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_4BCC38@VisShop@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+80h]
-                call    sub_41A9F6
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4BCCE1@VisShop@@QAEXXZ      endp
 
 
 

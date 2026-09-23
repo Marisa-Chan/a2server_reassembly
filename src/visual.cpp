@@ -6891,3 +6891,11 @@ void VisShopKaarg::VMethod28()
 
     g_mousept.EnableHint();
 }
+
+
+// 4BCCE1
+void VisShop::sub_4BCCE1()
+{
+    this->sub_4BCC38();
+    this->gameplay->sub_41A9F6();
+}

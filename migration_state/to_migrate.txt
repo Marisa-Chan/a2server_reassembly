@@ -45,6 +45,7 @@
 ?FUN_00473d10@@YIHPAUStructEnter@@@Z	47
 ?FUN_00473b80@@YIXPAUStructEnter@@@Z	85
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
+?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -567,7 +568,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?sub_4BCCE1@VisShop@@QAEXXZ	16
 ?sub_4BCAF1@VisShop@@QAEXXZ	40
 ?sub_4BCB63@VisShop@@QAEXXZ	74
 ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z	77
