@@ -166701,53 +166701,6 @@ loc_4BE9F0:                             ; CODE XREF: ?VMethod35@VisShopCompass@@
 
 ; Attributes: bp-based frame
 
-?VMethod36@VisShopCompass@@UAEXXZ      proc near               ; CODE XREF: ??1VisShopCompass@@UAE@XZ+37↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_4BEA1C
-; ---------------------------------------------------------------------------
-
-loc_4BEA13:                             ; CODE XREF: ?VMethod36@VisShopCompass@@UAEXXZ+33↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4BEA1C:                             ; CODE XREF: ?VMethod36@VisShopCompass@@UAEXXZ+10↑j
-                cmp     [ebp+var_4], 4
-                jge     short loc_4BEA36
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+90h]
-                jmp     short loc_4BEA13
-; ---------------------------------------------------------------------------
-
-loc_4BEA36:                             ; CODE XREF: ?VMethod36@VisShopCompass@@UAEXXZ+1F↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+94h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+98h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+9Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod36@VisShopCompass@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
