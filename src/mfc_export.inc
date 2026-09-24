@@ -1471,7 +1471,7 @@ externdef ?VMethod33@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod34@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod35@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod36@VisShopCompass@@UAEXXZ : proc
-externdef ?VMethod37@VisShopCompass@@UAEHH@Z : proc
+extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
 externdef ?VMethod38@VisShopCompass@@UAEXXZ : proc
 
 externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
@@ -1481,6 +1481,7 @@ extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 externdef ?sub_41A9F6@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
+externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 
 ;VisTown

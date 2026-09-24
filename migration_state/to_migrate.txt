@@ -32,6 +32,7 @@
 ?g_StructEnter@@3UStructEnter@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?FUN_00475110@@YA_NPAUCSound@@@Z	28
+?FUN_00438f20@@YAXPAPAVSfxSample@@@Z	24
 ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z	53
 ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z	57
@@ -583,7 +584,6 @@
 ?VMethod30@VisShopCompass@@UAEXXZ	79
 ?VMethod27@VisShopCompass@@UAEXXZ	95
 ?VMethod31@VisShopCompass@@UAEXH@Z	96
-?VMethod37@VisShopCompass@@UAEHH@Z	101
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
 ??_GVisSideStatus@@UAEPAXI@Z	24

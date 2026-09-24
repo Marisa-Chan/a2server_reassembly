@@ -19485,7 +19485,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [eax+5Ch]
                 add     ecx, 84h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_C]
                 mov     eax, dword ptr [edx+5Ch]
@@ -19572,7 +19572,7 @@ arg_0           = dword ptr  8
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 84h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
@@ -38720,7 +38720,7 @@ loc_437748:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 1C4h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_50]
                 add     eax, 1C4h
@@ -38741,7 +38741,7 @@ loc_437789:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     eax, dword ptr [ebp+var_50]
                 add     eax, 1C8h
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_50]
                 add     ecx, 1C8h
@@ -38762,7 +38762,7 @@ loc_4377CA:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     ecx, dword ptr [ebp+var_50]
                 add     ecx, 1CCh
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 1CCh
@@ -38824,7 +38824,7 @@ loc_43789E:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 1D0h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_50]
                 add     eax, 1D0h
@@ -38884,7 +38884,7 @@ loc_437965:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     eax, dword ptr [ebp+var_50]
                 add     eax, 1D0h
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_50]
                 add     ecx, 1D0h
@@ -38944,7 +38944,7 @@ loc_437A2C:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     ecx, dword ptr [ebp+var_50]
                 add     ecx, 1D0h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 1D0h
@@ -39004,7 +39004,7 @@ loc_437AF4:                             ; CODE XREF: ?OnLButtonDown@VisStartGame
                 mov     edx, dword ptr [ebp+var_50]
                 add     edx, 1D0h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_50]
                 add     eax, 1D0h
@@ -41531,7 +41531,7 @@ sub_438F00      endp
 
 ; Attributes: bp-based frame
 
-sub_438F20      proc near               ; CODE XREF: sub_42A778+D8↑p
+?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: sub_42A778+D8↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -41551,11 +41551,11 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?Stop@SoundChannel@@QAEXXZ
 
-loc_438F47:                             ; CODE XREF: sub_438F20+A↑j
+loc_438F47:                             ; CODE XREF: ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z+A↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_438F20      endp
+?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -161469,7 +161469,7 @@ arg_4           = byte ptr  0Ch
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_34]
                 add     edx, 20BCh
@@ -161501,7 +161501,7 @@ loc_4B74F6:                             ; CODE XREF: ?OnWmUser@VisInvExtType1@@U
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_34]
                 add     edx, 20BCh
@@ -161592,7 +161592,7 @@ arg_8           = dword ptr  10h
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 20BCh
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
@@ -161624,7 +161624,7 @@ loc_4B7616:                             ; CODE XREF: ?OnLButtonDown@VisInvExtTyp
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 20BCh
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
@@ -161781,7 +161781,7 @@ loc_4B779C:                             ; CODE XREF: ?OnKeyDown@VisInvExtType1@@
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 20BCh
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 20BCh
@@ -161808,7 +161808,7 @@ loc_4B77F7:                             ; CODE XREF: ?OnKeyDown@VisInvExtType1@@
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20BCh
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 20BCh
@@ -163557,7 +163557,7 @@ arg_8           = dword ptr  10h
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 20BCh
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
@@ -163587,7 +163587,7 @@ loc_4B887A:                             ; CODE XREF: ?OnLButtonDown@VisInvExtTyp
                 mov     eax, dword ptr [ebp+var_34]
                 add     eax, 20BCh
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_34]
                 add     ecx, 20BCh
@@ -165495,7 +165495,7 @@ loc_4B9AE7:                             ; CODE XREF: sub_4B9790+39↑j
                 mov     edx, dword ptr [ebp+var_488]
                 add     edx, 20B4h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_488]
                 add     eax, 20B4h
@@ -165638,7 +165638,7 @@ arg_4           = dword ptr  0Ch
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 20B8h
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 20B8h
@@ -167229,108 +167229,6 @@ loc_4BEA36:                             ; CODE XREF: ?VMethod36@VisShopCompass@@
 
 ; Attributes: bp-based frame
 
-?VMethod37@VisShopCompass@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060D524↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                xor     edx, edx
-                mov     dx, [ecx+132h]
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 0FFFFh
-                cmp     edx, eax
-                jnz     short loc_4BF511
-                xor     eax, eax
-                jmp     loc_4BF639
-; ---------------------------------------------------------------------------
-
-loc_4BF511:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+20↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                add     edx, 0A0h
-                push    edx
-                call    sub_438F20
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 0A0h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                xor     ecx, ecx
-                mov     cx, [eax+132h]
-                cmp     ecx, 64h ; 'd'
-                jz      short loc_4BF56E
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                xor     ecx, ecx
-                mov     cx, [eax+132h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+ecx*4+244h], 9
-                jmp     short loc_4BF5BD
-; ---------------------------------------------------------------------------
-
-loc_4BF56E:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+65↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+240h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+250h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+24Ch], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+248h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+244h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [eax+0A0h]
-
-loc_4BF5BD:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+84↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                and     ecx, 0FFFFh
-                mov     edx, 1
-                shl     edx, cl
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+240h]
-                or      ecx, edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+240h], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 0FFFFh
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+8Ch]
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 0FFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+eax*4+244h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     cx, word ptr [ebp+arg_0]
-                mov     [eax+132h], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+68h]
-                mov     edx, dword ptr [ecx+90h]
-                mov     dword ptr [edx], 0
-                mov     eax, 1
-
-loc_4BF639:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+24↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod37@VisShopCompass@@UAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -169233,7 +169131,7 @@ loc_4C352D:                             ; CODE XREF: sub_4C34E6+41↑j
                 mov     eax, dword ptr [edx+5Ch]
                 add     eax, 0A0h
                 push    eax
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ecx+5Ch]
@@ -172301,7 +172199,7 @@ loc_4C65E3:                             ; CODE XREF: sub_4C65BA+20↑j
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 0A0h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+5Ch]
@@ -183576,12 +183474,12 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 94h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 98h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 90h
@@ -184781,7 +184679,7 @@ loc_4D14FC:                             ; CODE XREF: sub_4D1429+AC↑j
                 mov     edx, dword ptr [ebp+var_C]
                 add     edx, 98h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_C]
                 add     eax, 94h
@@ -187305,7 +187203,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 94h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 90h
@@ -187563,7 +187461,7 @@ loc_4D3677:                             ; CODE XREF: sub_4D359C+7B↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 248h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 call    timeGetTime
                 mov     edx, dword ptr [ebp+var_10]
@@ -187592,12 +187490,12 @@ loc_4D36FB:                             ; CODE XREF: sub_4D359C+E5↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 254h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 258h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 250h
@@ -187626,7 +187524,7 @@ loc_4D3768:                             ; CODE XREF: sub_4D359C+7B↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 24Ch
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 call    timeGetTime
                 mov     edx, dword ptr [ebp+var_10]
@@ -187655,12 +187553,12 @@ loc_4D37EC:                             ; CODE XREF: sub_4D359C+1D6↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 250h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 258h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 254h
@@ -187693,12 +187591,12 @@ loc_4D385E:                             ; CODE XREF: sub_4D359C+5F↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 250h
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 254h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 258h
@@ -187823,7 +187721,7 @@ loc_4D39ED:                             ; CODE XREF: sub_4D3922+B6↑j
                 mov     edx, dword ptr [ebp+var_20]
                 add     edx, 248h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_20]
                 add     eax, 248h
@@ -187875,7 +187773,7 @@ loc_4D3AA8:                             ; CODE XREF: sub_4D3922+171↑j
                 mov     edx, dword ptr [ebp+var_20]
                 add     edx, 24Ch
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_20]
                 add     eax, 24Ch
@@ -190824,7 +190722,7 @@ loc_4D5D82:                             ; CODE XREF: sub_4D5C9A+7B↑j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 230h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 22Ch
@@ -190849,7 +190747,7 @@ loc_4D5DDD:                             ; CODE XREF: sub_4D5C9A+7B↑j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 22Ch
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 230h
@@ -190882,12 +190780,12 @@ loc_4D5E3D:                             ; CODE XREF: sub_4D5C9A+5F↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 22Ch
                 push    ecx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 230h
                 push    edx
-                call    sub_438F20
+                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
                 add     esp, 4
                 mov     eax, dword ptr [ebp+var_10]
                 mov     dword ptr [eax+254h], 1

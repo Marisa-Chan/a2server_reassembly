@@ -6305,6 +6305,33 @@ void VisShopCompass::VMethod29()
 }
 
 
+// 4BF4E8
+int32_t VisShopCompass::VMethod37(int32_t arg)
+{
+    if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
+        return 0;
+    }
+    FUN_00438f20(&this->shop->snd_depart);
+    CSound::Play((CSound&)this->shop->snd_depart);
+    if (this->shop->select_category == 100) {
+        this->state = 0;
+        this->dir3_frm = 0;
+        this->dir2_frm = 0;
+        this->dir1_frm = 0;
+        this->dir0_frm = 0;
+        this->VMethod36();
+    } else {
+        (&this->dir0_frm)[(uint16_t)this->shop->select_category] = 9;
+    }
+    this->state |= 1 << (arg & 0x1F);
+    this->VMethod31((uint16_t)arg);
+    (&this->dir0_frm)[(uint16_t)arg] = 0;
+    this->shop->select_category = arg;
+    *this->shop->assortiment->visible_startref = 0;
+    return 1;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
