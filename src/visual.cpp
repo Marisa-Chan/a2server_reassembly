@@ -5503,7 +5503,7 @@ void VisShop::DoClose(uint32_t code)
 
     this->to_buy->VMethod42();
     this->assortiment->VMethod42();
-    this->buttons->sub_4C0352();
+    this->buttons->ReleaseBmp();
     this->shop_compass->VMethod27();
     this->shop_compass->VMethod36();
     this->sub_4BB4FB();
@@ -5721,11 +5721,11 @@ void VisShop::VMethod28()
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
-    this->buttons->sub_4C1358();
+    this->buttons->ResetSelected();
     this->to_buy->VMethod41();
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
-    this->buttons->sub_4C0088();
+    this->buttons->LoadBmp();
     this->sub_4BB102();
     this->VMethod31();
 
@@ -5830,7 +5830,7 @@ void VisShop::sub_4BCD4B()
 // 4BCEA4
 void VisShop::sub_4BCEA4()
 {
-    this->buttons->sub_4C1358();
+    this->buttons->ResetSelected();
     this->dirty &= ~0x200;
     this->dirty &= ~0x400;
     this->dirty &= ~0x80;
@@ -6132,21 +6132,21 @@ VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int
     : CVisualObject(_id, l, t, r, b, nullptr)
 {
     this->shop = shop;
-    this->field_0x78[0] = CRect(0x1EE, 0x0F, 0x266, 0x43);
-    this->field_0x78[1] = CRect(0x1E3, 0x43, 0x26F, 0x71);
-    this->field_0x78[2] = CRect(0x1E3, 0x72, 0x26F, 0xA0);
-    this->field_0x78[3] = CRect(0x1EE, 0xA0, 0x266, 0xD4);
-    this->field_0xb8[0] = CRect(0x203, 0x0F, 0x24E, 0x23);
-    this->field_0xb8[1] = CRect(0x1EE, 0x23, 0x27B, 0x43);
-    this->field_0xb8[2] = CRect(0x1EE, 0xA0, 0x266, 0xC0);
-    this->field_0xb8[3] = CRect(0x203, 0xC0, 0x24E, 0xD4);
+    this->outer_rects[0] = CRect(0x1EE, 0x0F, 0x266, 0x43);
+    this->outer_rects[1] = CRect(0x1E3, 0x43, 0x26F, 0x71);
+    this->outer_rects[2] = CRect(0x1E3, 0x72, 0x26F, 0xA0);
+    this->outer_rects[3] = CRect(0x1EE, 0xA0, 0x266, 0xD4);
+    this->inner_rects[0] = CRect(0x203, 0x0F, 0x24E, 0x23);
+    this->inner_rects[1] = CRect(0x1EE, 0x23, 0x27B, 0x43);
+    this->inner_rects[2] = CRect(0x1EE, 0xA0, 0x266, 0xC0);
+    this->inner_rects[3] = CRect(0x203, 0xC0, 0x24E, 0xD4);
     this->menu_bmp = nullptr;
     this->button_bmps[3] = nullptr;
     this->button_bmps[2] = nullptr;
     this->button_bmps[1] = nullptr;
     this->button_bmps[0] = nullptr;
-    this->field_0xf8 = -1;
-    this->field_0xfc = -1;
+    this->pressed_btn = -1;
+    this->hovered_btn = -1;
 }
 
 
@@ -6154,8 +6154,8 @@ VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int
 VisShopButtons::~VisShopButtons()
 {
     this->shop = nullptr;
-    this->sub_4C0352();
-    this->field_0xf8 = -1;
+    this->ReleaseBmp();
+    this->pressed_btn = -1;
 }
 
 
@@ -6173,7 +6173,7 @@ int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos)
         this->shop->hovered_region = this->VMethod30();
         this->shop->dirty |= 0x2F;
     }
-    this->sub_4C14C4(wparam, pos);
+    this->UpdateHoveredState(wparam, pos);
     return 0;
 }
 
@@ -6181,9 +6181,9 @@ int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos)
 // 4C1134
 int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
-    this->field_0xf8 = this->sub_4C137D(pos.x, pos.y);
+    this->pressed_btn = this->GetButtonAt(pos);
     this->shop->dirty |= 0x20;
-    switch (this->field_0xf8) {
+    switch (this->pressed_btn) {
     case 0:
         this->shop->snd_undo->Play();
         break;
@@ -6201,15 +6201,15 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->field_0x408 != nullptr) {
         this->shop->sub_4BC97B();
-        this->field_0xf8 = -1;
-        this->sub_4C14C4(wparam, pos);
+        this->pressed_btn = -1;
+        this->UpdateHoveredState(wparam, pos);
         this->shop->dirty |= 0x20;
         return 1;
     }
-    if (this->field_0xf8 >= 0 && this->field_0xf8 < 4 && this->sub_4C137D(pos.x, pos.y) == this->field_0xf8) {
-        int32_t button = this->field_0xf8;
-        this->field_0xf8 = -1;
-        this->sub_4C14C4(wparam, pos);
+    if (this->pressed_btn >= 0 && this->pressed_btn < 4 && this->GetButtonAt(pos) == this->pressed_btn) {
+        int32_t button = this->pressed_btn;
+        this->pressed_btn = -1;
+        this->UpdateHoveredState(wparam, pos);
         switch (button) {
         case 0:
             this->shop->sub_4BCCE1();
@@ -6229,8 +6229,8 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
         }
     }
     this->shop->dirty |= 0x20;
-    this->field_0xf8 = -1;
-    this->sub_4C14C4(wparam, pos);
+    this->pressed_btn = -1;
+    this->UpdateHoveredState(wparam, pos);
     return 1;
 }
 
@@ -6249,51 +6249,51 @@ void VisShopButtons::VMethod7()
     LockSurface2();
     this->menu_bmp->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
     uint16_t* pal;
-    if (this->field_0xfc == 0) {
+    if (this->hovered_btn == 0) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x48];
-    g_font4->DrawTxt(topleft.x + this->field_0x78[0].left + this->field_0x78[0].Width() / 2, topleft.y + this->field_0x78[0].top + 6 + this->field_0x78[0].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top + 6 + this->outer_rects[0].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->current_gold);
     FUN_00476987(&str);
-    g_font4->DrawTxt(topleft.x + this->field_0x78[0].left + this->field_0x78[0].Width() / 2, topleft.y + this->field_0x78[0].top - 2 + this->field_0x78[0].Height() * 3 / 4, str, 10, pal);
-    if (this->field_0xfc == 1) {
+    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top - 2 + this->outer_rects[0].Height() * 3 / 4, str, 10, pal);
+    if (this->hovered_btn == 1) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x46];
-    g_font4->DrawTxt(topleft.x + this->field_0x78[1].left + this->field_0x78[1].Width() / 2, topleft.y + this->field_0x78[1].top + 6 + this->field_0x78[1].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top + 6 + this->outer_rects[1].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->buy_gold);
     FUN_00476987(&str);
-    g_font4->DrawTxt(topleft.x + this->field_0x78[1].left + this->field_0x78[1].Width() / 2, topleft.y + this->field_0x78[1].top - 2 + this->field_0x78[1].Height() * 3 / 4, str, 10, pal);
-    if (this->field_0xfc == 2) {
+    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top - 2 + this->outer_rects[1].Height() * 3 / 4, str, 10, pal);
+    if (this->hovered_btn == 2) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x47];
-    g_font4->DrawTxt(topleft.x + this->field_0x78[2].left + this->field_0x78[2].Width() / 2, topleft.y + this->field_0x78[2].top + 8 + this->field_0x78[2].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + 8 + this->outer_rects[2].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->sell_gold);
     FUN_00476987(&str);
-    g_font4->DrawTxt(topleft.x + this->field_0x78[2].left + this->field_0x78[2].Width() / 2, topleft.y + this->field_0x78[2].top + this->field_0x78[2].Height() * 3 / 4, str, 10, pal);
-    if (this->field_0xfc == 3) {
+    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + this->outer_rects[2].Height() * 3 / 4, str, 10, pal);
+    if (this->hovered_btn == 3) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x49];
-    g_font4->DrawTxt(topleft.x + this->field_0x78[3].left + this->field_0x78[3].Width() / 2, topleft.y + this->field_0x78[3].top + 6 + this->field_0x78[3].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top + 6 + this->outer_rects[3].Height() / 4, str, 10, pal);
     str.Format("%d", this->shop->result_gold);
     FUN_00476987(&str);
-    g_font4->DrawTxt(topleft.x + this->field_0x78[3].left + this->field_0x78[3].Width() / 2, topleft.y + this->field_0x78[3].top - 2 + this->field_0x78[3].Height() * 3 / 4, str, 10, pal);
-    if (this->field_0xfc >= 0 && this->field_0xf8 >= 0 && this->field_0xf8 == this->field_0xfc) {
-        CRect& rect = this->field_0x78[this->field_0xfc];
-        this->button_bmps[this->field_0xfc]->VMethod10(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
+    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top - 2 + this->outer_rects[3].Height() * 3 / 4, str, 10, pal);
+    if (this->hovered_btn >= 0 && this->pressed_btn >= 0 && this->pressed_btn == this->hovered_btn) {
+        CRect& rect = this->outer_rects[this->hovered_btn];
+        this->button_bmps[this->hovered_btn]->VMethod10(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
         pal = palette_paris_daisy->GetPalette(0);
-        switch (this->field_0xfc) {
+        switch (this->hovered_btn) {
         case 0:
             str = TxtFile::AllLines[0x48];
             g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
@@ -6329,15 +6329,15 @@ void VisShopButtons::VMethod7()
 
 
 // 4C1358
-void VisShopButtons::sub_4C1358()
+void VisShopButtons::ResetSelected()
 {
-    this->field_0xf8 = -1;
-    this->field_0xfc = -1;
+    this->pressed_btn = -1;
+    this->hovered_btn = -1;
 }
 
 
 // 4C0352
-void VisShopButtons::sub_4C0352()
+void VisShopButtons::ReleaseBmp()
 {
     for (int32_t i = 0; i < 4; i++) {
         if (this->button_bmps[i] != nullptr) {
@@ -6356,9 +6356,9 @@ void VisShopButtons::sub_4C0352()
 
 
 // 4C0088
-void VisShopButtons::sub_4C0088()
+void VisShopButtons::LoadBmp()
 {
-    this->sub_4C0352();
+    this->ReleaseBmp();
     CString base = "graphics\\interface\\";
     if (this->shop != nullptr)
         base += this->shop->VMethod33();
@@ -6370,6 +6370,54 @@ void VisShopButtons::sub_4C0088()
     }
     this->menu_bmp = new CBmp64(base + "ShopMenu.bmp");
     g_mousept.Update();
+}
+
+void VisShopButtons::UpdateHoveredState(uint32_t wparam, CPoint pos)
+{ //4c14c4
+    int32_t idx = GetButtonAt(pos);
+    if (idx < 0 || (wparam & 1) != 0)
+    {
+        if (idx < 0 || idx != pressed_btn || (wparam & 1) == 0)
+            hovered_btn = -1;
+        else
+            hovered_btn = idx;
+    }
+    else
+        hovered_btn = idx;
+
+    shop->dirty |= 0x20;
+}
+
+int32_t VisShopButtons::GetButtonAt(CPoint pos)
+{ //4c137d
+    CPoint pt = pos - shop->rect.TopLeft();
+    int32_t idx = -1;
+    for (int i = 0; i < 4; i++)
+    {
+        if (outer_rects[i].PtInRect(pt))
+        {
+            idx = i;
+            break;
+        }
+    }
+
+    if (idx < 0)
+        return -1;
+
+    if (idx == 0)
+    {
+        if (inner_rects[0].PtInRect(pt) || inner_rects[1].PtInRect(pt))
+            return 0;
+        return -1;
+    }
+
+    if (idx != 3)
+        return idx;
+
+    if (inner_rects[2].PtInRect(pt) || inner_rects[3].PtInRect(pt))
+        return 3;
+
+    return -1;
 }
 
 
@@ -6509,11 +6557,11 @@ void VisShopDruid::VMethod28()
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
-    this->buttons->sub_4C1358();
+    this->buttons->ResetSelected();
     this->to_buy->VMethod41();
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
-    this->buttons->sub_4C0088();
+    this->buttons->LoadBmp();
     this->sub_4BB102();
     this->VMethod31();
 
@@ -6799,11 +6847,11 @@ void VisShopKaarg::VMethod28()
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
-    this->buttons->sub_4C1358();
+    this->buttons->ResetSelected();
     this->to_buy->VMethod41();
     this->assortiment->VMethod41();
     this->shop_compass->VMethod26();
-    this->buttons->sub_4C0088();
+    this->buttons->LoadBmp();
     this->sub_4BB102();
     this->VMethod31();
 

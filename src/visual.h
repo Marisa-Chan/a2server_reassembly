@@ -1617,17 +1617,18 @@ class VisShopButtons : public CVisualObject
 {
 public:
 	virtual ~VisShopButtons(); //4c0020
+	virtual const char* GetHint() override { return nullptr; } //4c04a4
 	virtual void VMethod7() override; //4c04b1
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; //4c10c4
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; //4c1134
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; //4c11c2
-	virtual int32_t VMethod30(); //4c6bd0 in asm
+	virtual int32_t VMethod30(); //4c6bd0
 
-	void sub_4C0352(); //4c0352
-	void sub_4C14C4(uint32_t wparam, CPoint pos); //4c14c4 in asm
-	int32_t sub_4C137D(int32_t x, int32_t y); //4c137d in asm
-	void sub_4C0088(); //4c0088
-	void sub_4C1358(); //4c1358
+	void ReleaseBmp(); //4c0352
+	void UpdateHoveredState(uint32_t wparam, CPoint pos); //4c14c4
+	int32_t GetButtonAt(CPoint pos); //4c137d
+	void LoadBmp(); //4c0088
+	void ResetSelected(); //4c1358
 
 	VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bfa5a
 
@@ -1636,10 +1637,10 @@ public:
 	int32_t field_0x60;
 	CBmp64* button_bmps[4]; // 0x64
 	CBmp64* menu_bmp; // 0x74
-	CRect field_0x78[4];
-	CRect field_0xb8[4];
-	int32_t field_0xf8;
-	int32_t field_0xfc;
+	CRect outer_rects[4];
+	CRect inner_rects[4];
+	int32_t pressed_btn;
+	int32_t hovered_btn;
 };
 ASSERT_SIZE(VisShopButtons, 0x100);
 

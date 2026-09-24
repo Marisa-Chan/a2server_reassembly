@@ -1475,9 +1475,8 @@ externdef ?VMethod37@VisShopCompass@@UAEXH@Z : proc
 externdef ?VMethod38@VisShopCompass@@UAEXXZ : proc
 
 externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
-externdef ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z : proc
-externdef ?sub_4C137D@VisShopButtons@@QAEHHH@Z : proc
-extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
+
+extern ?ResetSelected@VisShopButtons@@QAEXXZ : proc
 
 externdef ?sub_41A9F6@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
