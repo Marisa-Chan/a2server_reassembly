@@ -733,6 +733,7 @@
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
 ?VMethod28@VisScreen@@UAEXXZ
+?VMethod28@VisShopCompass@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ

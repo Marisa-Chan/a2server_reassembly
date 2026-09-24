@@ -166888,119 +166888,6 @@ loc_4BE5D8:                             ; CODE XREF: ?VMethod32@VisShopCompass@@
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisShopCompass@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D500↓o
-
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-Block           = dword ptr -48h
-var_44          = dword ptr -44h
-Buffer          = byte ptr -40h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FE037 SIZE 0000001E BYTES
-
-; __unwind { // SEH_4BE5DE
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BE5DE
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 54h
-                mov     [ebp+var_58], ecx
-                mov     eax, dword ptr [ebp+var_58]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_58]
-                call    dword ptr [edx+94h]
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4BE633
-                push    offset aMoviesShopanim_0 ; "movies\\shopanim\\Pose2-3\\1.bmp"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_5C], eax
-                jmp     short loc_4BE63A
-; ---------------------------------------------------------------------------
-
-loc_4BE633:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+41↑j
-                mov     [ebp+var_5C], 0
-
-loc_4BE63A:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+53↑j
-                mov     eax, dword ptr [ebp+var_5C]
-                mov     [ebp+var_4C], eax
-;   } // starts at 4BE614
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_58]
-                mov     edx, dword ptr [ebp+var_4C]
-                mov     [ecx+1E0h], edx
-                mov     [ebp+var_44], 1
-                jmp     short loc_4BE665
-; ---------------------------------------------------------------------------
-
-loc_4BE65C:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+F1↓j
-                mov     eax, dword ptr [ebp+var_44]
-                add     eax, 1
-                mov     [ebp+var_44], eax
-
-loc_4BE665:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+7C↑j
-                cmp     [ebp+var_44], 0Ch
-                jge     short loc_4BE6D1
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 1
-                push    ecx
-                push    offset aMoviesShopanim_1 ; "movies\\shopanim\\Yes\\%d.bmp"
-                lea     edx, [ebp+Buffer]
-                push    edx             ; Buffer
-                call    _sprintf
-                add     esp, 0Ch
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_50], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_50], 0
-                jz      short loc_4BE6AB
-                lea     eax, [ebp+Buffer]
-                push    eax             ; Source
-                mov     ecx, dword ptr [ebp+var_50]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_60], eax
-                jmp     short loc_4BE6B2
-; ---------------------------------------------------------------------------
-
-loc_4BE6AB:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+BA↑j
-                mov     [ebp+var_60], 0
-
-loc_4BE6B2:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+CB↑j
-                mov     ecx, dword ptr [ebp+var_60]
-                mov     [ebp+var_54], ecx
-;   } // starts at 4BE68D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_44]
-                mov     eax, dword ptr [ebp+var_58]
-                mov     ecx, dword ptr [ebp+var_54]
-                mov     [eax+edx*4+1E0h], ecx
-                jmp     short loc_4BE65C
-; ---------------------------------------------------------------------------
-
-loc_4BE6D1:                             ; CODE XREF: ?VMethod28@VisShopCompass@@UAEXXZ+8B↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4BE5DE
-?VMethod28@VisShopCompass@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -381188,30 +381075,6 @@ SEH_4BE45D:                             ; DATA XREF: ?VMethod31@VisShopCompass@@
 ; } // starts at 5FE023
 ; END OF FUNCTION CHUNK FOR ?VMethod31@VisShopCompass@@UAEXH@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod28@VisShopCompass@@UAEXXZ
-
-loc_5FE037:                             ; DATA XREF: .rdata:stru_61F568↓o
-; __unwind { // SEH_4BE5DE
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE041:                             ; DATA XREF: .rdata:0061F570↓o
-;   cleanup() // owned by 4BE614
-;   cleanup() // owned by 4BE68D
-                mov     eax, dword ptr [ebp+var_50]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BE5DE:                             ; DATA XREF: ?VMethod28@VisShopCompass@@UAEXXZ+5↑o
-                mov     eax, offset stru_61F548
-                jmp     ___CxxFrameHandler
-; } // starts at 5FE037
-; END OF FUNCTION CHUNK FOR ?VMethod28@VisShopCompass@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod29@VisShopCompass@@UAEXXZ
 
@@ -414881,10 +414744,6 @@ stru_61F4E0     UnwindMapEntry <-1, offset loc_5FDFE8>
 stru_61F520     FuncInfoV1 <19930520h, 1, offset stru_61F540, 0, 0, 0, 0>
                 align 10h
 stru_61F540     UnwindMapEntry <-1, offset loc_5FE023>
-stru_61F548     FuncInfoV1 <19930520h, 2, offset stru_61F568, 0, 0, 0, 0>
-                align 8
-stru_61F568     UnwindMapEntry <-1, offset loc_5FE037>
-                UnwindMapEntry <-1, offset loc_5FE041>
 stru_61F578     FuncInfoV1 <19930520h, 2, offset stru_61F598, 0, 0, 0, 0>
                 align 8
 stru_61F598     UnwindMapEntry <-1, offset loc_5FE055>
