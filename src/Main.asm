@@ -167701,7 +167701,7 @@ loc_4BEB72:                             ; CODE XREF: ?GetHint@VisShopCompass@@UA
 
 ; Attributes: bp-based frame
 
-?VMethod37@VisShopCompass@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060D524↓o
+?VMethod37@VisShopCompass@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060D524↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -167722,7 +167722,7 @@ arg_0           = dword ptr  8
                 jmp     loc_4BF639
 ; ---------------------------------------------------------------------------
 
-loc_4BF511:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEXH@Z+20↑j
+loc_4BF511:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+20↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 0A0h
@@ -167750,7 +167750,7 @@ loc_4BF511:                             ; CODE XREF: ?VMethod37@VisShopCompass@@
                 jmp     short loc_4BF5BD
 ; ---------------------------------------------------------------------------
 
-loc_4BF56E:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEXH@Z+65↑j
+loc_4BF56E:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+65↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     dword ptr [eax+240h], 0
                 mov     ecx, dword ptr [ebp+var_4]
@@ -167766,7 +167766,7 @@ loc_4BF56E:                             ; CODE XREF: ?VMethod37@VisShopCompass@@
                 mov     ecx, dword ptr [ebp+var_4]
                 call    dword ptr [eax+0A0h]
 
-loc_4BF5BD:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEXH@Z+84↑j
+loc_4BF5BD:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+84↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 and     ecx, 0FFFFh
                 mov     edx, 1
@@ -167798,11 +167798,11 @@ loc_4BF5BD:                             ; CODE XREF: ?VMethod37@VisShopCompass@@
                 mov     dword ptr [edx], 0
                 mov     eax, 1
 
-loc_4BF639:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEXH@Z+24↑j
+loc_4BF639:                             ; CODE XREF: ?VMethod37@VisShopCompass@@UAEHH@Z+24↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-?VMethod37@VisShopCompass@@UAEXH@Z      endp
+?VMethod37@VisShopCompass@@UAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -167919,243 +167919,6 @@ loc_4BF73F:                             ; CODE XREF: ?OnMouseMove@VisShopCompass
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D4D4↓o
-
-var_9C          = dword ptr -9Ch
-var_98          = POINT ptr -98h
-var_90          = dword ptr -90h
-var_80          = POINT ptr -80h
-pt              = POINT ptr -78h
-var_70          = dword ptr -70h
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_38          = dword ptr -38h
-dy              = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_1C          = dword ptr -1Ch
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 9Ch
-                mov     [ebp+var_9C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_C], ecx
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [eax+240h]
-                and     ecx, 80h
-                test    ecx, ecx
-                jz      loc_4BF8F3
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [ebp+var_50], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4C], eax
-                mov     ecx, dword ptr [ebp+var_4C]
-                push    ecx             ; dy
-                mov     edx, dword ptr [ebp+var_50]
-                push    edx             ; int
-                lea     eax, [ebp+var_1C]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_9C]
-                add     ecx, 0F0h
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_38], ecx
-                mov     [ebp+dy], edx
-                mov     eax, dword ptr [ebp+dy]
-                push    eax             ; dy
-                mov     ecx, dword ptr [ebp+var_38]
-                push    ecx             ; int
-                lea     edx, [ebp+var_48]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_9C]
-                add     ecx, 100h
-                call    sub_438520
-                mov     ecx, eax
-                call    sub_438520
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [ebp+var_70], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_6C], ecx
-                mov     edx, dword ptr [ebp+var_6C]
-                push    edx             ; dy
-                mov     eax, dword ptr [ebp+var_70]
-                push    eax             ; int
-                lea     ecx, [ebp+var_2C]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_9C]
-                add     ecx, 0F0h
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_58], edx
-                mov     [ebp+var_54], eax
-                mov     ecx, dword ptr [ebp+var_54]
-                push    ecx             ; dy
-                mov     edx, dword ptr [ebp+var_58]
-                push    edx             ; int
-                lea     eax, [ebp+var_68]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_9C]
-                add     ecx, 110h
-                call    sub_438520
-                mov     ecx, eax
-                call    sub_438520
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt], ecx ; pt.x
-                mov     edx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+pt+4], edx ; pt.y
-                mov     eax, dword ptr [ebp+pt+4] ; pt.y
-                push    eax
-                mov     ecx, dword ptr [ebp+pt] ; pt.x
-                push    ecx             ; pt
-                lea     ecx, [ebp+var_1C]
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_4BF89A
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     eax, dword ptr [edx+240h]
-                and     eax, 0FFFFFF7Fh
-                mov     ecx, dword ptr [ebp+var_9C]
-                mov     [ecx+240h], eax
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [edx+5Ch]
-                call    ?sub_4BC97B@VisShop@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_48CD44
-                jmp     short loc_4BF8EE
-; ---------------------------------------------------------------------------
-
-loc_4BF89A:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z+11B↑j
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+var_80], eax ; var_80.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+var_80+4], ecx ; var_80.y
-                mov     edx, dword ptr [ebp+var_80+4] ; var_80.y
-                push    edx
-                mov     eax, dword ptr [ebp+var_80] ; var_80.x
-                push    eax             ; pt
-                lea     ecx, [ebp+var_2C]
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_4BF8EE
-                mov     ecx, dword ptr [ebp+var_9C]
-                mov     edx, dword ptr [ecx+240h]
-                and     edx, 0FFFFFF7Fh
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     [eax+240h], edx
-                mov     ecx, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [ecx+5Ch]
-                call    ?sub_4BC97B@VisShop@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_48CD44
-
-loc_4BF8EE:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z+150↑j
-                jmp     loc_4BF9F9
-; ---------------------------------------------------------------------------
-
-loc_4BF8F3:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z+47↑j
-                mov     [ebp+var_30], 0
-                jmp     short loc_4BF905
-; ---------------------------------------------------------------------------
-
-loc_4BF8FC:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z:loc_4BF9F4↓j
-                mov     edx, dword ptr [ebp+var_30]
-                add     edx, 1
-                mov     [ebp+var_30], edx
-
-loc_4BF905:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z+1B2↑j
-                cmp     [ebp+var_30], 4
-                jge     loc_4BF9F9
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+var_98], eax ; var_98.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+var_98+4], ecx ; var_98.y
-                mov     edx, dword ptr [ebp+var_98+4] ; var_98.y
-                push    edx
-                mov     eax, dword ptr [ebp+var_98] ; var_98.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_30]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_9C]
-                lea     ecx, [edx+ecx+60h]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     eax, [ebp+var_90]
-                push    eax             ; int
-                lea     ecx, [ebp+var_C]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      loc_4BF9F4
-                xor     ecx, ecx
-                mov     cx, word ptr [ebp+var_30]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_9C]
-                call    dword ptr [eax+0A4h]
-                test    eax, eax
-                jz      short loc_4BF9F4
-                mov     ecx, dword ptr [ebp+var_9C]
-                mov     edx, dword ptr [ecx+240h]
-                or      edx, 20h
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     [eax+240h], edx
-                mov     ecx, dword ptr [ebp+var_9C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_9C]
-                call    dword ptr [edx+80h]
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [eax+5Ch]
-                xor     edx, edx
-                mov     dx, [ecx+132h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_9C]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+68h]
-                call    ?sub_4B73E4@VisInvExtType1@@QAEXH@Z
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+68h]
-                mov     edx, dword ptr [ebp+var_9C]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     edx, dword ptr [eax+68h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+34h]
-                jmp     short loc_4BF9F9
-; ---------------------------------------------------------------------------
-
-loc_4BF9F4:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z+215↑j
-                jmp     loc_4BF8FC
-; ---------------------------------------------------------------------------
-
-loc_4BF9F9:                             ; CODE XREF: ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z:loc_4BF8EE↑j
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -401030,7 +400793,7 @@ off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
                 dd offset ?VMethod34@VisShopCompass@@UAEXXZ
                 dd offset ?VMethod35@VisShopCompass@@UAEXXZ
                 dd offset ?VMethod36@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod37@VisShopCompass@@UAEXH@Z
+                dd offset ?VMethod37@VisShopCompass@@UAEHH@Z
                 dd offset ?VMethod38@VisShopCompass@@UAEXXZ
                 align 10h
 dbl_60D530      dq 0.25                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+442↑r

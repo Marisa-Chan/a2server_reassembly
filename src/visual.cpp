@@ -6212,6 +6212,35 @@ void VisShopCompass::VMethod7()
 }
 
 
+// 4BF748
+int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CPoint topleft = this->shop->rect.TopLeft();
+    if (this->state & 0x80) {
+        CRect yes_rect = this->confirm_yes_rect + this->confirm_rect.TopLeft() + topleft;
+        CRect no_rect = this->confirm_no_rect + this->confirm_rect.TopLeft() + topleft;
+        if (yes_rect.PtInRect(pos) || no_rect.PtInRect(pos)) {
+            this->state &= ~0x80;
+            this->shop->sub_4BC97B();
+            main_wnd->ResetItemCursor();
+        }
+    } else {
+        for (int32_t i = 0; i < 4; i++) {
+            CRect hit_rect = this->outer_rects[i] + topleft;
+            if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
+                this->state |= 0x20;
+                this->VMethod28();
+                this->shop->assortiment->sub_4B73E4((uint16_t)this->shop->select_category);
+                this->shop->assortiment->VMethod10();
+                break;
+            }
+        }
+    }
+    return 0;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

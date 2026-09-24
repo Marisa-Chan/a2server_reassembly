@@ -1553,7 +1553,7 @@ public:
 	virtual void VMethod34(); // 4be92d
 	virtual void VMethod35(); // 4be9aa
 	virtual void VMethod36(); // 4bea01
-	virtual void VMethod37(int32_t arg); // 4bf4e8
+	virtual int32_t VMethod37(int32_t arg); // 4bf4e8
 	virtual void VMethod38(); // 4c6bc0
 
 	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495
