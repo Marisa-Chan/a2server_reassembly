@@ -511,6 +511,7 @@
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z

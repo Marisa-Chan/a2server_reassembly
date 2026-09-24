@@ -6454,6 +6454,20 @@ VisShopCompass::~VisShopCompass()
 }
 
 
+// 4BFA01
+int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        this->shop->placement_lock = 0;
+        ApplyCursor(g_Cursors[0]);
+        this->shop->sub_4BC97B();
+        main_wnd->ResetItemCursor();
+    }
+    return 1;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

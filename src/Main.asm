@@ -166718,39 +166718,6 @@ loc_4BF6C8:                             ; CODE XREF: ?sub_4BF63F@VisShopCompass@
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D4D8↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+408h], 0
-                jz      short loc_4BFA4F
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     dword ptr [edx+144h], 0
-                mov     eax, ?g_Cursors@@3PAPAVCCursor@@A
-                push    eax
-                call    ?ApplyCursor@@YAHPAVCCursor@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+5Ch]
-                call    ?sub_4BC97B@VisShop@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_48CD44
-
-loc_4BFA4F:                             ; CODE XREF: ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z+1B↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z      endp
 
 
 
