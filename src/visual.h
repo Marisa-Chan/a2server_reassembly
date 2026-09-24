@@ -1560,25 +1560,25 @@ public:
 
 public:
 	VisShop* shop; // 0x5c
-	CRect field_0x60[4];
-	CRect field_0xa0[4];
-	CRect field_0xe0;
-	CRect field_0xf0;
-	CRect field_0x100;
-	CRect field_0x110;
-	int32_t field_0x120;
-	int32_t field_0x124;
-	int32_t field_0x128;
-	int32_t field_0x12c;
-	int32_t field_0x130[4][11];
-	int32_t field_0x1e0[12];
-	int32_t field_0x210[12];
-	int32_t field_0x240;
-	int32_t field_0x244;
-	int32_t field_0x248;
-	int32_t field_0x24c;
-	int32_t field_0x250;
-	int32_t field_0x254;
+	CRect outer_rects[4]; // 0x60
+	CRect inner_rects[4]; // 0xa0
+	CRect center_rect; // 0xe0
+	CRect confirm_rect; // 0xf0
+	CRect confirm_yes_rect; // 0x100
+	CRect confirm_no_rect; // 0x110
+	CSprite256* frame_sprite; // 0x120
+	CBmp64* bkg_bmp; // 0x124
+	CBmp64* idle_bmp; // 0x128
+	CBmp64* trigger_bmp; // 0x12c
+	CBmp64* direction_frames[4][11]; // 0x130
+	CBmp64* fwd_frames[12]; // 0x1e0
+	CBmp64* ret_frames[12]; // 0x210
+	int32_t state; // 0x240
+	int32_t dir0_frm; // 0x244
+	int32_t dir1_frm; // 0x248
+	int32_t dir2_frm; // 0x24c
+	int32_t dir3_frm; // 0x250
+	int32_t center_frm; // 0x254
 };
 ASSERT_SIZE(VisShopCompass, 0x258);
 
@@ -1590,12 +1590,12 @@ public:
 	VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c247b in asm
 
 public:
-	int32_t field_0x258;
-	int32_t field_0x25c;
-	int32_t field_0x260;
-	int32_t field_0x264;
-	int32_t field_0x268;
-	int32_t field_0x26c;
+	int32_t field_0x258; // 0x258
+	CBmp64* armor_bmp; // 0x25c
+	CBmp64* magic_bmp; // 0x260
+	CBmp64* potions_bmp; // 0x264
+	CBmp64* sel_goods_bmp; // 0x268
+	CBmp64* category_bmp; // 0x26c
 };
 ASSERT_SIZE(VisShopCompassDruid, 0x270);
 
@@ -1607,7 +1607,15 @@ public:
 	VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c4693 in asm
 
 public:
-	int32_t field_0x258[43];
+	int32_t field_0x258; // 0x258
+	CBmp64* armor_bmp; // 0x25c
+	CBmp64* magic_bmp; // 0x260
+	CBmp64* scrolls_bmp; // 0x264
+	CBmp64* weapons_bmp; // 0x268
+	CBmp64* tail_frames[18]; // 0x26c
+	CBmp64* wpn_tail_frames[18]; // 0x2b4
+	int tail_frame; // 0x2fc
+	int wpn_tail_frame; // 0x300
 };
 ASSERT_SIZE(VisShopCompassKaarg, 0x304);
 
@@ -1637,10 +1645,10 @@ public:
 	int32_t field_0x60;
 	CBmp64* button_bmps[4]; // 0x64
 	CBmp64* menu_bmp; // 0x74
-	CRect outer_rects[4];
-	CRect inner_rects[4];
-	int32_t pressed_btn;
-	int32_t hovered_btn;
+	CRect outer_rects[4]; // 0x78
+	CRect inner_rects[4]; // 0xb8
+	int32_t pressed_btn; // 0xf8
+	int32_t hovered_btn; // 0xfc
 };
 ASSERT_SIZE(VisShopButtons, 0x100);
 

@@ -5441,7 +5441,7 @@ void VisShop::VMethod30()
     }
     uint32_t now = timeGetTime();
     uint32_t delay = GetRandS16(30000) + 30000;
-    uint32_t compass_flags = this->shop_compass->field_0x240;
+    uint32_t compass_flags = this->shop_compass->state;
     if ((compass_flags & 0x10) == 0 && (compass_flags & 0x20) == 0 && (compass_flags & 0x40) == 0) {
         if (now - last_snd_time > delay && !FUN_00475110(&this->to_buy->field_0x20b0)) {
             if (this->snd_start != nullptr && this->snd_start->FindPlayingChannel() == nullptr) {
@@ -5451,7 +5451,7 @@ void VisShop::VMethod30()
             delay = GetRandS16(10000) + 10000;
         }
     } else if ((compass_flags & 0x10) != 0) {
-        int32_t compass_state = this->shop_compass->field_0x254;
+        int32_t compass_state = this->shop_compass->center_frm;
         if (compass_state == 1) {
             this->snd_pov1->Play();
         } else if (compass_state == 0xa || compass_state == 0xe || compass_state == 0x12 || compass_state == 0x16) {
@@ -5485,7 +5485,7 @@ void VisShop::DoClose(uint32_t code)
         this->tips = nullptr;
     }
 
-    this->shop_compass->field_0x240 = 0;
+    this->shop_compass->state = 0;
 
     CRect& panel_rect = this->select_info_panel->GetRect();
     CPoint pt(panel_rect.Width() - 0x280, 0);
@@ -6090,40 +6090,40 @@ VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int
     : CVisualObject(_id, l, t, r, b, nullptr)
 {
     CPoint topleft = this->rect.TopLeft();
-    this->field_0xa0[3] = CRect(topleft.x + 0x25, topleft.y + 0x14, topleft.x + 0x95, topleft.y + 0x6C);
-    this->field_0xa0[2] = CRect(topleft.x + 0x95, topleft.y + 0x14, topleft.x + 0x119, topleft.y + 0x6C);
-    this->field_0xa0[1] = CRect(topleft.x + 0x21, topleft.y + 0x6C, topleft.x + 0x71, topleft.y + 0xDC);
-    this->field_0xa0[0] = CRect(topleft.x + 0xBD, topleft.y + 0x6C, topleft.x + 0x10D, topleft.y + 0xDC);
-    this->field_0x60[0] = CRect(topleft.x + 0xBE, topleft.y + 0x6E, topleft.x + 0x127, topleft.y + 0x127);
-    this->field_0x60[1] = CRect(topleft.x + 5, topleft.y + 0x6E, topleft.x + 0x6E, topleft.y + 0x127);
-    this->field_0x60[2] = CRect(topleft.x + 0x96, topleft.y + 5, topleft.x + 0x122, topleft.y + 0x69);
-    this->field_0x60[3] = CRect(topleft.x + 8, topleft.y + 5, topleft.x + 0x96, topleft.y + 0x69);
-    this->field_0xe0 = CRect(topleft.x + 0x6E, topleft.y + 0x6E, topleft.x + 0xBE, topleft.y + 0x127);
-    this->field_0xf0 = CRect(0xDC, 0x14, 0x1C7, 0x73);
-    this->field_0x100 = CRect((int32_t)(this->field_0xf0.Width() * 0.25) - 9, 0x22, (int32_t)(this->field_0xf0.Width() * 0.25) + 9, 0x2E);
-    this->field_0x110 = CRect((int32_t)(this->field_0xf0.Width() * 0.75) - 9, 0x22, (int32_t)(this->field_0xf0.Width() * 0.75) + 9, 0x2E);
+    this->inner_rects[3] = CRect(topleft.x + 0x25, topleft.y + 0x14, topleft.x + 0x95, topleft.y + 0x6C);
+    this->inner_rects[2] = CRect(topleft.x + 0x95, topleft.y + 0x14, topleft.x + 0x119, topleft.y + 0x6C);
+    this->inner_rects[1] = CRect(topleft.x + 0x21, topleft.y + 0x6C, topleft.x + 0x71, topleft.y + 0xDC);
+    this->inner_rects[0] = CRect(topleft.x + 0xBD, topleft.y + 0x6C, topleft.x + 0x10D, topleft.y + 0xDC);
+    this->outer_rects[0] = CRect(topleft.x + 0xBE, topleft.y + 0x6E, topleft.x + 0x127, topleft.y + 0x127);
+    this->outer_rects[1] = CRect(topleft.x + 5, topleft.y + 0x6E, topleft.x + 0x6E, topleft.y + 0x127);
+    this->outer_rects[2] = CRect(topleft.x + 0x96, topleft.y + 5, topleft.x + 0x122, topleft.y + 0x69);
+    this->outer_rects[3] = CRect(topleft.x + 8, topleft.y + 5, topleft.x + 0x96, topleft.y + 0x69);
+    this->center_rect = CRect(topleft.x + 0x6E, topleft.y + 0x6E, topleft.x + 0xBE, topleft.y + 0x127);
+    this->confirm_rect = CRect(0xDC, 0x14, 0x1C7, 0x73);
+    this->confirm_yes_rect = CRect((int32_t)(this->confirm_rect.Width() * 0.25) - 9, 0x22, (int32_t)(this->confirm_rect.Width() * 0.25) + 9, 0x2E);
+    this->confirm_no_rect = CRect((int32_t)(this->confirm_rect.Width() * 0.75) - 9, 0x22, (int32_t)(this->confirm_rect.Width() * 0.75) + 9, 0x2E);
     this->shop = shop;
-    this->field_0x120 = 0;
-    this->field_0x124 = 0;
-    this->field_0x128 = 0;
-    this->field_0x240 = 0;
-    this->field_0x244 = 0;
-    this->field_0x248 = 0;
-    this->field_0x24c = 0;
-    this->field_0x250 = 0;
-    this->field_0x254 = 0;
+    this->frame_sprite = 0;
+    this->bkg_bmp = nullptr;
+    this->idle_bmp = nullptr;
+    this->state = 0;
+    this->dir0_frm = 0;
+    this->dir1_frm = 0;
+    this->dir2_frm = 0;
+    this->dir3_frm = 0;
+    this->center_frm = 0;
     for (int32_t i = 0; i < 4; i++) {
         for (int32_t j = 0; j < 11; j++) {
-            this->field_0x130[i][j] = 0;
+            this->direction_frames[i][j] = nullptr;
         }
     }
     for (int32_t i = 0; i < 12; i++) {
-        this->field_0x1e0[i] = 0;
+        this->fwd_frames[i] = nullptr;
     }
     for (int32_t i = 0; i < 12; i++) {
-        this->field_0x210[i] = 0;
+        this->ret_frames[i] = nullptr;
     }
-    this->field_0x12c = 0;
+    this->trigger_bmp = nullptr;
 }
 
 
@@ -6511,10 +6511,10 @@ void VisShopDruid::VMethod30()
     }
     uint32_t now = timeGetTime();
     GetRandS16(30000);
-    if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
+    if ((this->shop_compass->state & 0x10) != 0 && this->shop_compass->center_frm == 1) {
         this->snd_pov1->Play();
     }
-    if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
+    if ((this->shop_compass->state & 0x20) != 0 && this->shop_compass->center_frm == 1) {
         this->snd_pov2->Play();
     }
     if (now - this->bird_tick > (uint32_t)this->next_bird) {
@@ -6760,10 +6760,10 @@ void VisShopKaarg::VMethod30()
     }
     uint32_t now = timeGetTime();
     GetRandS16(30000);
-    if ((this->shop_compass->field_0x240 & 0x10) != 0 && this->shop_compass->field_0x254 == 1) {
+    if ((this->shop_compass->state & 0x10) != 0 && this->shop_compass->center_frm == 1) {
         this->snd_pov1->Play();
     }
-    if ((this->shop_compass->field_0x240 & 0x20) != 0 && this->shop_compass->field_0x254 == 1) {
+    if ((this->shop_compass->state & 0x20) != 0 && this->shop_compass->center_frm == 1) {
         this->snd_pov2->Play();
     }
     if (now - this->voice_tick > (uint32_t)this->next_voice) {
@@ -6955,7 +6955,7 @@ void VisShop::sub_4BCAF1()
     this->sub_4BCDA0();
     if (this->sell_gold != 0) {
         this->shop_compass->VMethod28();
-        this->shop_compass->field_0x240 |= 0x20;
+        this->shop_compass->state |= 0x20;
         this->gameplay->sub_41A99C();
         this->snd_sell->Play();
     }
@@ -6972,13 +6972,13 @@ int VisShop::sub_4BCB63()
   
     if (this->current_gold + this->buy_gold < 0) {
         this->shop_compass->VMethod29();
-        this->shop_compass->field_0x240 |= 0x40;
+        this->shop_compass->state |= 0x40;
         this->snd_notif->Play();
         return 0;
     }
     
     this->shop_compass->VMethod28();
-    this->shop_compass->field_0x240 |= 0x20;
+    this->shop_compass->state |= 0x20;
     this->snd_notif->Play();
     this->gameplay->sub_41A942();
     this->snd_buy->Play();
