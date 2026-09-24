@@ -42,8 +42,6 @@
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
-?FUN_00473d10@@YIHPAUStructEnter@@@Z	47
-?FUN_00473b80@@YIXPAUStructEnter@@@Z	85
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_41A942@BigStruct2@@QAEXXZ	31
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
@@ -263,6 +261,8 @@
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?sub_4A952B@Scenario@@QAEXHHII@Z	471
 ??0Scenario@@QAE@PBD@Z	1363
+?FUN_00473d10@StructEnter@@QAEHXZ	47
+?FUN_00473b80@StructEnter@@QAEXXZ	85
 ?FUN_0041f620@TakeDamage@@QAEHXZ	16
 ?FUN_0041f640@TakeDamage@@QAEHXZ	19
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
@@ -570,8 +570,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z	77
-?sub_4C137D@VisShopButtons@@QAEHHH@Z	154
 ?VMethod38@VisShopCompass@@UAEXXZ	12
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z	32
 ??1VisShopCompass@@UAE@XZ	36
