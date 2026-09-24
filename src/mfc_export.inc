@@ -2142,8 +2142,8 @@ externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, in
 externdef ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z : proc  ; void __cdecl FUN_00438e40(SfxSample**, const char*)
 externdef ?FUN_00475110@@YA_NPAUCSound@@@Z : proc  ; bool __cdecl FUN_00475110(CSound*)
 externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
-externdef ?FUN_00473b80@@YIXPAUStructEnter@@@Z : proc  ; void __fastcall FUN_00473b80(StructEnter*)
-externdef ?FUN_00473d10@@YIHPAUStructEnter@@@Z : proc  ; int32_t __fastcall FUN_00473d10(StructEnter*)
+externdef ?FUN_00473b80@StructEnter@@QAEXXZ : proc  ; void StructEnter::FUN_00473b80()
+externdef ?FUN_00473d10@StructEnter@@QAEHXZ : proc  ; int32_t StructEnter::FUN_00473d10()
 externdef ?g_StructEnter@@3UStructEnter@@A : byte
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc

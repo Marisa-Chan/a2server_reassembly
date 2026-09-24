@@ -91078,7 +91078,7 @@ sub_473B4A      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00473b80@@YIXPAUStructEnter@@@Z      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+426↓p
+?FUN_00473b80@StructEnter@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+426↓p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -91100,7 +91100,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_14]
                 call    sub_475010
 
-loc_473BB0:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z:loc_473C4E↓j
+loc_473BB0:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ:loc_473C4E↓j
                 cmp     [ebp+var_C], 0
                 jz      loc_473C53
                 lea     ecx, [ebp+var_10]
@@ -91139,7 +91139,7 @@ loc_473BB0:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStruct
                 jmp     short loc_473C4E
 ; ---------------------------------------------------------------------------
 
-loc_473C23:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+84↑j
+loc_473C23:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+84↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+1B8h]
                 and     ecx, 10h
@@ -91155,22 +91155,22 @@ loc_473C23:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStruct
                 mov     ecx, dword ptr [ebp+var_14]
                 call    sub_475080
 
-loc_473C4E:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+63↑j
+loc_473C4E:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+63↑j
                 jmp     loc_473BB0
 ; ---------------------------------------------------------------------------
 
-loc_473C53:                             ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+34↑j
+loc_473C53:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+34↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?FUN_00473b80@@YIXPAUStructEnter@@@Z      endp
+?FUN_00473b80@StructEnter@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?FUN_00473d10@@YIHPAUStructEnter@@@Z      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+44C↓p
+?FUN_00473d10@StructEnter@@QAEHXZ      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+44C↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -91183,12 +91183,12 @@ var_4           = dword ptr -4
                 jmp     short loc_473D2B
 ; ---------------------------------------------------------------------------
 
-loc_473D22:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStructEnter@@@Z:loc_473D58↓j
+loc_473D22:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ:loc_473D58↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_473D2B:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStructEnter@@@Z+10↑j
+loc_473D2B:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+10↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
                 cmp     [ebp+var_4], eax
@@ -91206,18 +91206,18 @@ loc_473D2B:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStruct
                 jmp     short loc_473D5D
 ; ---------------------------------------------------------------------------
 
-loc_473D58:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStructEnter@@@Z+41↑j
+loc_473D58:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+41↑j
                 jmp     short loc_473D22
 ; ---------------------------------------------------------------------------
 
-loc_473D5A:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStructEnter@@@Z+26↑j
+loc_473D5A:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+26↑j
                 or      eax, 0FFFFFFFFh
 
-loc_473D5D:                             ; CODE XREF: ?FUN_00473d10@@YIHPAUStructEnter@@@Z+46↑j
+loc_473D5D:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+46↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-?FUN_00473d10@@YIHPAUStructEnter@@@Z      endp
+?FUN_00473d10@StructEnter@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -93812,7 +93812,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_474FF0      proc near               ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+9C↑p
+sub_474FF0      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+9C↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -93837,7 +93837,7 @@ sub_474FF0      endp
 
 ; Attributes: bp-based frame
 
-sub_475010      proc near               ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+2B↑p
+sub_475010      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+2B↑p
 
 var_4           = dword ptr -4
 
@@ -93913,7 +93913,7 @@ unknown_libname_536 endp
 
 ; Attributes: bp-based frame
 
-sub_475080      proc near               ; CODE XREF: ?FUN_00473b80@@YIXPAUStructEnter@@@Z+C9↑p
+sub_475080      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+C9↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -122856,7 +122856,7 @@ loc_49E760:                             ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+3
 
 loc_49E770:                             ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+40F↑j
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473b80@@YIXPAUStructEnter@@@Z
+                call    ?FUN_00473b80@StructEnter@@QAEXXZ
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
                 call    unknown_libname_536 ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -122864,7 +122864,7 @@ loc_49E770:                             ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+4
                 add     ecx, 0D4h
                 call    sub_4A4540
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473d10@@YIHPAUStructEnter@@@Z
+                call    ?FUN_00473d10@StructEnter@@QAEHXZ
                 mov     edx, dword ptr [ebp+var_E8]
                 mov     [edx+0BCh], eax
                 push    0
@@ -124846,7 +124846,7 @@ loc_49FEBB:                             ; CODE XREF: ?VMethod28@VisTavDruid@@UAE
 
 loc_49FECB:                             ; CODE XREF: ?VMethod28@VisTavDruid@@UAEXXZ+40F↑j
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473b80@@YIXPAUStructEnter@@@Z
+                call    ?FUN_00473b80@StructEnter@@QAEXXZ
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
                 call    unknown_libname_536 ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -124854,7 +124854,7 @@ loc_49FECB:                             ; CODE XREF: ?VMethod28@VisTavDruid@@UAE
                 add     ecx, 0D4h
                 call    sub_4A4540
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473d10@@YIHPAUStructEnter@@@Z
+                call    ?FUN_00473d10@StructEnter@@QAEHXZ
                 mov     edx, dword ptr [ebp+var_E8]
                 mov     [edx+0BCh], eax
                 push    0
@@ -127701,7 +127701,7 @@ loc_4A1FB3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAE
 
 loc_4A1FC3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAEXXZ+40F↑j
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473b80@@YIXPAUStructEnter@@@Z
+                call    ?FUN_00473b80@StructEnter@@QAEXXZ
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
                 call    unknown_libname_536 ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -127709,7 +127709,7 @@ loc_4A1FC3:                             ; CODE XREF: ?VMethod28@VisTavKaarg@@UAE
                 add     ecx, 0D4h
                 call    sub_4A4540
                 mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    ?FUN_00473d10@@YIHPAUStructEnter@@@Z
+                call    ?FUN_00473d10@StructEnter@@QAEHXZ
                 mov     edx, dword ptr [ebp+var_E8]
                 mov     [edx+0BCh], eax
                 push    0

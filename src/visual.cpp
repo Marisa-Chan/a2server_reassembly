@@ -5753,9 +5753,9 @@ void VisShop::VMethod28()
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    FUN_00473b80(&g_StructEnter);
+    g_StructEnter.FUN_00473b80();
     this->selected_units.Copy(g_StructEnter.field_0x0);
-    this->select_index = FUN_00473d10(&g_StructEnter);
+    this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
@@ -6543,9 +6543,9 @@ void VisShopDruid::VMethod28()
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    FUN_00473b80(&g_StructEnter);
+    g_StructEnter.FUN_00473b80();
     this->selected_units.Copy(g_StructEnter.field_0x0);
-    this->select_index = FUN_00473d10(&g_StructEnter);
+    this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
@@ -6835,9 +6835,9 @@ void VisShopKaarg::VMethod28()
     this->select_info_panel->SetRect(&panel_rect);
     this->AddChild(this->select_info_panel);
 
-    FUN_00473b80(&g_StructEnter);
+    g_StructEnter.FUN_00473b80();
     this->selected_units.Copy(g_StructEnter.field_0x0);
-    this->select_index = FUN_00473d10(&g_StructEnter);
+    this->select_index = g_StructEnter.FUN_00473d10();
 
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;

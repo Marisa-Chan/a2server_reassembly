@@ -316,13 +316,13 @@ struct StructEnter
 	CArray<CUnit*> field_0x14;
 	int32_t field_0x28;
 	int32_t field_0x2c;
+
+	void FUN_00473b80(); //473b80 in asm
+	int32_t FUN_00473d10(); //473d10 in asm
 };
 ASSERT_SIZE(StructEnter, 0x30);
 
 extern StructEnter g_StructEnter; //65fa38 in asm
-
-void __fastcall FUN_00473b80(StructEnter* se); //473b80 in asm
-int32_t __fastcall FUN_00473d10(StructEnter* se); //473d10 in asm
 
 
 class CAirUnit : public CUnit
