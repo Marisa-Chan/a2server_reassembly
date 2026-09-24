@@ -6436,6 +6436,16 @@ int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 4BE9AA
+void VisShopCompass::VMethod35()
+{
+    if (this->trigger_bmp != nullptr) {
+        delete this->trigger_bmp;
+    }
+    this->trigger_bmp = nullptr;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

@@ -166655,46 +166655,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod35@VisShopCompass@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D51C↓o
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+12Ch], 0
-                jz      short loc_4BE9F0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+12Ch]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_4BE9E9
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_10], eax
-                jmp     short loc_4BE9F0
-; ---------------------------------------------------------------------------
-
-loc_4BE9E9:                             ; CODE XREF: ?VMethod35@VisShopCompass@@UAEXXZ+2B↑j
-                mov     [ebp+var_10], 0
-
-loc_4BE9F0:                             ; CODE XREF: ?VMethod35@VisShopCompass@@UAEXXZ+13↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+12Ch], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod35@VisShopCompass@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
