@@ -6107,10 +6107,9 @@ VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int
     this->bkg_bmp = nullptr;
     this->idle_bmp = nullptr;
     this->state = 0;
-    this->dir0_frm = 0;
-    this->dir1_frm = 0;
-    this->dir2_frm = 0;
-    this->dir3_frm = 0;
+    for (int i = 0; i < 4; ++i) {
+        this->dir_frm[i] = 0;
+    }
     this->center_frm = 0;
     for (int32_t i = 0; i < 4; i++) {
         for (int32_t j = 0; j < 11; j++) {
@@ -6140,7 +6139,7 @@ void VisShopCompass::VMethod7()
         this->shop->VMethod30();
         last_frame_tick = timeGetTime();
         for (int32_t i = 0; i < 4; i++) {
-            if ((this->state & (1 << i)) != 0 && this->direction_frames[i][(&this->dir0_frm)[i]] != nullptr) {
+            if ((this->state & (1 << i)) != 0 && this->direction_frames[i][this->dir_frm[i]] != nullptr) {
                 this->sub_4BF63F(i);
             }
         }
@@ -6181,8 +6180,8 @@ void VisShopCompass::VMethod7()
         this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
     }
     for (int32_t i = 0; i < 4; i++) {
-        if ((this->state & (1 << i)) != 0 && this->direction_frames[i][(&this->dir0_frm)[i]] != nullptr) {
-            this->direction_frames[i][(&this->dir0_frm)[i]]->VMethod2(topleft.x + this->outer_rects[i].left, topleft.y + this->outer_rects[i].top, 0, 0, 0);
+        if ((this->state & (1 << i)) != 0 && this->direction_frames[i][this->dir_frm[i]] != nullptr) {
+            this->direction_frames[i][this->dir_frm[i]]->VMethod2(topleft.x + this->outer_rects[i].left, topleft.y + this->outer_rects[i].top, 0, 0, 0);
         }
     }
     if (this->state & 0x10) {
@@ -6315,17 +6314,17 @@ int32_t VisShopCompass::VMethod37(int32_t arg)
     CSound::Play((CSound&)this->shop->snd_depart);
     if (this->shop->select_category == 100) {
         this->state = 0;
-        this->dir3_frm = 0;
-        this->dir2_frm = 0;
-        this->dir1_frm = 0;
-        this->dir0_frm = 0;
+        this->dir_frm[3] = 0;
+        this->dir_frm[2] = 0;
+        this->dir_frm[1] = 0;
+        this->dir_frm[0] = 0;
         this->VMethod36();
     } else {
-        (&this->dir0_frm)[(uint16_t)this->shop->select_category] = 9;
+        this->dir_frm[(uint16_t)this->shop->select_category] = 9;
     }
     this->state |= 1 << (arg & 0x1F);
     this->VMethod31((uint16_t)arg);
-    (&this->dir0_frm)[(uint16_t)arg] = 0;
+    this->dir_frm[(uint16_t)arg] = 0;
     this->shop->select_category = arg;
     *this->shop->assortiment->visible_startref = 0;
     return 1;
@@ -6342,7 +6341,7 @@ void VisShopCompass::VMethod31(int32_t arg)
         sprintf(fname, "graphics\\interface\\shopanim\\%.2d\\%d.bmp", 4 - arg, i + 1);
         this->direction_frames[arg][i] = new CBmp64(fname);
     }
-    (&this->dir0_frm)[arg] = 0;
+    this->dir_frm[arg] = 0;
 }
 
 
@@ -6472,6 +6471,18 @@ int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos)
 int32_t VisShopCompass::VMethod38()
 {
     return 0x64;
+}
+
+// 4bf63f
+void VisShopCompass::sub_4BF63F(int32_t dir) {
+    ++this->dir_frm[dir];
+
+    if (this->dir_frm[dir] == 9) {
+        this->dir_frm[dir] = 3;
+    } else if (this->dir_frm[dir] == 10) {
+        this->state &= ~(1 << dir);
+        this->VMethod32(dir);
+    }
 }
 
 

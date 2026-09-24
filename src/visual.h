@@ -1576,10 +1576,7 @@ public:
 	CBmp64* fwd_frames[12]; // 0x1e0
 	CBmp64* ret_frames[12]; // 0x210
 	int32_t state; // 0x240
-	int32_t dir0_frm; // 0x244
-	int32_t dir1_frm; // 0x248
-	int32_t dir2_frm; // 0x24c
-	int32_t dir3_frm; // 0x250
+	int32_t dir_frm[4]; // 0x244
 	int32_t center_frm; // 0x254
 };
 ASSERT_SIZE(VisShopCompass, 0x258);
