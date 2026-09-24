@@ -6241,6 +6241,29 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 4BEA64
+const char* VisShopCompass::GetHint()
+{
+    if (this->shop->dialog_active == 0) {
+        return nullptr;
+    }
+    CPoint topleft = this->shop->rect.TopLeft();
+    CPoint pt(g_mousept.GetX() - topleft.x, g_mousept.GetY() - topleft.y);
+    if (this->state & 0x80) {
+        return nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        if (this->outer_rects[i].PtInRect(pt)) {
+            return TxtFile::AllLines[i + 0x3E];
+        }
+    }
+    if (this->center_rect.PtInRect(pt)) {
+        return TxtFile::AllLines[0x3D];
+    }
+    return nullptr;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
