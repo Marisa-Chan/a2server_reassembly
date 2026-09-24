@@ -6486,6 +6486,28 @@ void VisShopCompass::sub_4BF63F(int32_t dir) {
 }
 
 
+// 4C247B
+VisShopCompassDruid::VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisShopCompass(_id, l, t, r, b, shop)
+{
+    CPoint topleft = this->rect.TopLeft();
+    this->outer_rects[0] = CRect(CPoint(topleft.x, topleft.y + 0x68), CSize(0x58, 0x70));
+    this->outer_rects[1] = CRect(CPoint(topleft.x, topleft.y + 0x2C), CSize(0x60, 0x3C));
+    this->outer_rects[2] = CRect(CPoint(topleft.x + 0x74, topleft.y + 0x1C), CSize(0x48, 0x70));
+    this->outer_rects[3] = CRect(CPoint(topleft.x + 0x58, topleft.y + 0xA4), CSize(0x60, 0x68));
+    for (int32_t i = 0; i < 4; i++) {
+        this->outer_rects[i].OffsetRect(5, 5);
+    }
+    this->center_rect = CRect(CPoint(topleft.x + 0xC0, topleft.y + 0x54), CSize(0x48, 0xA4));
+    this->center_rect.OffsetRect(5, 5);
+    this->armor_bmp = nullptr;
+    this->magic_bmp = nullptr;
+    this->potions_bmp = nullptr;
+    this->sel_goods_bmp = nullptr;
+    this->category_bmp = nullptr;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
