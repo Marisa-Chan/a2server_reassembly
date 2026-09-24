@@ -403340,7 +403340,7 @@ off_60D3E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShop@@UAEXXZ
                 dd offset ?VMethod31@VisShop@@UAEXXZ
                 dd offset ?VMethod32@VisShop@@UAEXXZ
-                dd offset ?VMethod33@VisShop@@UAEAAVCString@@AAV2@@Z
+                dd offset ?VMethod33@VisShop@@UAE?AVCString@@XZ
 off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
                 dd offset ??_GVisShopCompass@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -403456,7 +403456,7 @@ off_60D5C0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod31@VisShopDruid@@UAEXXZ
                 dd offset ?VMethod32@VisShopDruid@@UAEXXZ
-                dd offset ?VMethod33@VisShopDruid@@UAEAAVCString@@AAV2@@Z
+                dd offset ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ
 off_60D658      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C246E↑o
                 dd offset sub_4C6A00
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -403538,7 +403538,7 @@ off_60D708      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisShopKaarg@@UAEXXZ
                 dd offset ?VMethod31@VisShopKaarg@@UAEXXZ
                 dd offset ?VMethod32@VisShopKaarg@@UAEXXZ
-                dd offset ?VMethod33@VisShopKaarg@@UAEAAVCString@@AAV2@@Z
+                dd offset ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ
 off_60D7A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C4686↑o
                 dd offset sub_4C6AA0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime

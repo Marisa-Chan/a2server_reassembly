@@ -5893,10 +5893,9 @@ void VisShop::VMethod32()
 
 
 // 4C6B90
-CString& VisShop::VMethod33(CString& str)
+CString VisShop::VMethod33()
 {
-    str = CString();
-    return str;
+    return CString();
 }
 
 
@@ -6361,10 +6360,9 @@ void VisShopButtons::sub_4C0088()
 {
     this->sub_4C0352();
     CString base = "graphics\\interface\\";
-    if (this->shop != nullptr) {
-        CString str;
-        base += this->shop->VMethod33(str);
-    }
+    if (this->shop != nullptr)
+        base += this->shop->VMethod33();
+
     for (int32_t i = 0; i < 4; i++) {
         CString fname = base + "ShopButton" + CString((char)('1' + i), 1) + ".bmp";
         this->button_bmps[i] = new CBmp64(fname);
@@ -6629,10 +6627,9 @@ void VisShopDruid::VMethod32()
 
 
 // 4C6BE0
-CString& VisShopDruid::VMethod33(CString& str)
+CString VisShopDruid::VMethod33()
 {
-    str = CString("shop_druid\\");
-    return str;
+    return "shop_druid\\";
 }
 
 
@@ -6660,10 +6657,9 @@ void VisShopKaarg::VMethod32()
 
 
 // 4C6C10
-CString& VisShopKaarg::VMethod33(CString& str)
+CString VisShopKaarg::VMethod33()
 {
-    str = CString("shop_kaarg\\");
-    return str;
+    return "shop_kaarg\\";
 }
 
 
