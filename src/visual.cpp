@@ -6332,6 +6332,20 @@ int32_t VisShopCompass::VMethod37(int32_t arg)
 }
 
 
+// 4BE45D
+void VisShopCompass::VMethod31(int32_t arg)
+{
+    char fname[52];
+
+    this->VMethod32(arg);
+    for (int32_t i = 0; i < 11; i++) {
+        sprintf(fname, "graphics\\interface\\shopanim\\%.2d\\%d.bmp", 4 - arg, i + 1);
+        this->direction_frames[arg][i] = new CBmp64(fname);
+    }
+    (&this->dir0_frm)[arg] = 0;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

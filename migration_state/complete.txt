@@ -742,6 +742,7 @@
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
+?VMethod31@VisShopCompass@@UAEXH@Z
 ?VMethod37@VisShopCompass@@UAEHH@Z
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ

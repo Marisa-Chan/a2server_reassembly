@@ -1465,7 +1465,7 @@ externdef ?VMethod27@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod28@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod29@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod30@VisShopCompass@@UAEXXZ : proc
-externdef ?VMethod31@VisShopCompass@@UAEXH@Z : proc
+extern ?VMethod31@VisShopCompass@@UAEXH@Z : proc
 externdef ?VMethod32@VisShopCompass@@UAEXH@Z : proc
 externdef ?VMethod33@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod34@VisShopCompass@@UAEXXZ : proc
