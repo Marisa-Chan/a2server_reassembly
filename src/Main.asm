@@ -172087,19 +172087,6 @@ sub_4C6B50      endp
 
 ; Attributes: bp-based frame
 
-?VMethod38@VisShopCompass@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060D528↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 64h ; 'd'
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod38@VisShopCompass@@UAEHXZ      endp
 
 
 

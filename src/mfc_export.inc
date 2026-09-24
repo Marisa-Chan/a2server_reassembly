@@ -1472,7 +1472,7 @@ extern ?VMethod34@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod35@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
-externdef ?VMethod38@VisShopCompass@@UAEHXZ : proc
+extern ?VMethod38@VisShopCompass@@UAEHXZ : proc
 
 externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
 

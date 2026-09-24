@@ -6468,6 +6468,13 @@ int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 4C6BC0
+int32_t VisShopCompass::VMethod38()
+{
+    return 0x64;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
