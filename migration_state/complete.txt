@@ -88,6 +88,8 @@
 ??0VisScreen@@QAE@XZ
 ??0VisScrollBar@@QAE@HHHHHPBD@Z
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z
+??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z
+??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z

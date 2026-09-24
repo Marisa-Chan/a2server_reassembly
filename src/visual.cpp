@@ -6508,6 +6508,33 @@ VisShopCompassDruid::VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int3
 }
 
 
+// 4C4693
+VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisShopCompass(_id, l, t, r, b, shop)
+{
+    CPoint topleft = this->rect.TopLeft();
+    this->outer_rects[0] = CRect(CPoint(topleft.x, topleft.y), CSize(0x3C, 0xCA));
+    this->outer_rects[1] = CRect(CPoint(topleft.x + 0x3C, topleft.y + 0x3A), CSize(0x30, 0x96));
+    this->outer_rects[2] = CRect(CPoint(topleft.x + 0x3C, topleft.y), CSize(0x7C, 0x3A));
+    this->outer_rects[3] = CRect(CPoint(topleft.x + 0xBE, topleft.y), CSize(0x62, 0x104));
+    for (int32_t i = 0; i < 4; i++) {
+        this->outer_rects[i].OffsetRect(5, 5);
+    }
+    this->center_rect = CRect(CPoint(topleft.x + 0x78, topleft.y + 0x6C), CSize(0x48, 0x60));
+    this->center_rect.OffsetRect(5, 5);
+    this->armor_bmp = nullptr;
+    this->magic_bmp = nullptr;
+    this->scrolls_bmp = nullptr;
+    this->weapons_bmp = nullptr;
+    for (int32_t i = 0; i < 18; i++) {
+        this->tail_frames[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 18; i++) {
+        this->wpn_tail_frames[i] = nullptr;
+    }
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

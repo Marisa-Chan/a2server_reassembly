@@ -1449,7 +1449,7 @@ extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
+extern ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??1VisShopCompass@@UAE@XZ : proc

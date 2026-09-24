@@ -569,8 +569,6 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
-??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
 ??_GVisSideStatus@@UAEPAXI@Z	24
 ??0VisSideStatus@@QAE@HHHHH@Z	34
 ?GetHint@VisSideStatus@@UAEPBDXZ	108
