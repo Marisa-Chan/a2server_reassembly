@@ -6446,6 +6446,14 @@ void VisShopCompass::VMethod35()
 }
 
 
+// 4BE1DF
+VisShopCompass::~VisShopCompass()
+{
+    this->VMethod27();
+    this->VMethod36();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

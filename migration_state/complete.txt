@@ -126,6 +126,7 @@
 ??1VisMessageBoxWithList@@UAE@XZ
 ??1VisRadioType1@@UAE@XZ
 ??1VisScreen@@UAE@XZ
+??1VisShopCompass@@UAE@XZ
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??2@YAPAXI@Z

@@ -166558,43 +166558,6 @@ sub_4BAD1D      endp
 
 ; Attributes: bp-based frame
 
-??1VisShopCompass@@UAE@XZ      proc near               ; CODE XREF: ??_GVisShopCompass@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FDFE8 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4BE1DF
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BE1DF
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60D480
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod27@VisShopCompass@@UAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod36@VisShopCompass@@UAEXXZ
-;   } // starts at 4BE204
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4BE1DF
-??1VisShopCompass@@UAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -380230,21 +380193,6 @@ SEH_4BDB40:                             ; DATA XREF: sub_4BDB40+5↑o
 ; } // starts at 5FDFD2
 ; END OF FUNCTION CHUNK FOR sub_4BDB40
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1VisShopCompass@@UAE@XZ
-
-loc_5FDFE8:                             ; DATA XREF: .rdata:stru_61F4E0↓o
-; __unwind { // SEH_4BE1DF
-;   cleanup() // owned by 4BE204
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BE1DF:                             ; DATA XREF: ??1VisShopCompass@@UAE@XZ+5↑o
-                mov     eax, offset stru_61F4C0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDFE8
-; END OF FUNCTION CHUNK FOR ??1VisShopCompass@@UAE@XZ
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
@@ -413868,12 +413816,6 @@ stru_61F498     FuncInfoV1 <19930520h, 1, offset stru_61F4B8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61F4B8     UnwindMapEntry <-1, offset loc_5FDFD2>
-stru_61F4C0     FuncInfoV1 <19930520h, 1, offset stru_61F4E0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61F4E0     UnwindMapEntry <-1, offset loc_5FDFE8>
 stru_61F5F8     FuncInfoV1 <19930520h, 1, offset stru_61F618, 0, 0, 0, 0>
                 db    0
                 db    0

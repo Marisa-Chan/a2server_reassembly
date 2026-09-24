@@ -573,7 +573,6 @@
 ?VMethod7@VisServerScreen@@UAEXXZ	764
 ?VMethod38@VisShopCompass@@UAEHXZ	12
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z	32
-??1VisShopCompass@@UAE@XZ	36
 ?sub_4BF63F@VisShopCompass@@QAEXH@Z	51
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
