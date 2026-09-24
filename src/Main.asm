@@ -166601,129 +166601,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisShopCompass@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D4F8↓o
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FDFFB SIZE 00000028 BYTES
-
-; __unwind { // SEH_4BE238
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4BE238
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_28]
-                call    dword ptr [edx+7Ch]
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4BE28A
-                push    offset aGraphicsInterf_238 ; "graphics\\interface\\ShopFrame.256"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CSprite256@@QAE@PBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_4BE291
-; ---------------------------------------------------------------------------
-
-loc_4BE28A:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+3E↑j
-                mov     [ebp+var_2C], 0
-
-loc_4BE291:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+50↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_14], eax
-;   } // starts at 4BE26B
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+120h], edx
-                push    0
-                push    1
-                push    1
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+120h]
-                call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_18], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_18], 0
-                jz      short loc_4BE2F1
-                push    offset aGraphicsInterf_239 ; "graphics\\interface\\shopanim\\ShopMain"...
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_30], eax
-                jmp     short loc_4BE2F8
-; ---------------------------------------------------------------------------
-
-loc_4BE2F1:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+A5↑j
-                mov     [ebp+var_30], 0
-
-loc_4BE2F8:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+B7↑j
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 4BE2D2
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [edx+124h], eax
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_20], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_20], 0
-                jz      short loc_4BE33A
-                push    offset aMoviesShopanim ; "movies\\shopanim\\Pose2-3\\1.bmp"
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_34], eax
-                jmp     short loc_4BE341
-; ---------------------------------------------------------------------------
-
-loc_4BE33A:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+EE↑j
-                mov     [ebp+var_34], 0
-
-loc_4BE341:                             ; CODE XREF: ?VMethod26@VisShopCompass@@UAEXXZ+100↑j
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     [ebp+var_24], ecx
-;   } // starts at 4BE31B
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [ebp+var_24]
-                mov     [edx+128h], eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4BE238
-?VMethod26@VisShopCompass@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -381293,38 +381170,6 @@ SEH_4BE1DF:                             ; DATA XREF: ??1VisShopCompass@@UAE@XZ+5
 ; } // starts at 5FDFE8
 ; END OF FUNCTION CHUNK FOR ??1VisShopCompass@@UAE@XZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisShopCompass@@UAEXXZ
-
-loc_5FDFFB:                             ; DATA XREF: .rdata:stru_61F508↓o
-; __unwind { // SEH_4BE238
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE005:                             ; DATA XREF: .rdata:0061F510↓o
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FE00F:                             ; DATA XREF: .rdata:0061F518↓o
-;   cleanup() // owned by 4BE26B
-;   cleanup() // owned by 4BE2D2
-;   cleanup() // owned by 4BE31B
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4BE238:                             ; DATA XREF: ?VMethod26@VisShopCompass@@UAEXXZ+5↑o
-                mov     eax, offset stru_61F4E8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDFFB
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisShopCompass@@UAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod31@VisShopCompass@@UAEXH@Z
 
@@ -415033,11 +414878,6 @@ stru_61F4C0     FuncInfoV1 <19930520h, 1, offset stru_61F4E0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61F4E0     UnwindMapEntry <-1, offset loc_5FDFE8>
-stru_61F4E8     FuncInfoV1 <19930520h, 3, offset stru_61F508, 0, 0, 0, 0>
-                align 8
-stru_61F508     UnwindMapEntry <-1, offset loc_5FDFFB>
-                UnwindMapEntry <-1, offset loc_5FE005>
-                UnwindMapEntry <-1, offset loc_5FE00F>
 stru_61F520     FuncInfoV1 <19930520h, 1, offset stru_61F540, 0, 0, 0, 0>
                 align 10h
 stru_61F540     UnwindMapEntry <-1, offset loc_5FE023>
@@ -424349,15 +424189,6 @@ aGraphicsInterf_235 db 'graphics\interface\backinvg.bmp',0
 aGraphicsInterf_236 db 'graphics\interface\backinvb.bmp',0
 ; char aGraphicsInterf_237[]
 aGraphicsInterf_237 db 'graphics\interface\backinvs.bmp',0
-; char aGraphicsInterf_238[]
-aGraphicsInterf_238 db 'graphics\interface\ShopFrame.256',0
-                align 4
-; char aGraphicsInterf_239[]
-aGraphicsInterf_239 db 'graphics\interface\shopanim\ShopMain.bmp',0
-                align 4
-; char aMoviesShopanim[]
-aMoviesShopanim db 'movies\shopanim\Pose2-3\1.bmp',0
-                align 4
 ; char aGraphicsInterf_240[]
 aGraphicsInterf_240 db 'graphics\interface\shopanim\%.2d\%d.bmp',0
 ; char aMoviesShopanim_0[]

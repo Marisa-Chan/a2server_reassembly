@@ -6264,6 +6264,19 @@ const char* VisShopCompass::GetHint()
 }
 
 
+// 4BE238
+void VisShopCompass::VMethod26()
+{
+    this->VMethod27();
+    this->frame_sprite = new CSprite256("graphics\\interface\\ShopFrame.256");
+    this->frame_sprite->ResetPalette(1, 1, 0);
+    g_mousept.Update();
+    this->bkg_bmp = new CBmp64("graphics\\interface\\shopanim\\ShopMain.bmp");
+    this->idle_bmp = new CBmp64("movies\\shopanim\\Pose2-3\\1.bmp");
+    g_mousept.Update();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

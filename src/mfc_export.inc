@@ -1460,7 +1460,7 @@ externdef ?sub_4BF63F@VisShopCompass@@QAEXH@Z : proc ; void VisShopCompass::sub_
 externdef ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod26@VisShopCompass@@UAEXXZ : proc
+extern ?VMethod26@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod27@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod28@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod29@VisShopCompass@@UAEXXZ : proc

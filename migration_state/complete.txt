@@ -728,6 +728,7 @@
 ?VMethod26@CUnit@@UAEXXZ
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
+?VMethod26@VisShopCompass@@UAEXXZ
 ?VMethod27@CUnit@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
