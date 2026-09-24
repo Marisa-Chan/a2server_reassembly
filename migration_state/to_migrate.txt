@@ -580,7 +580,6 @@
 ?sub_4BF63F@VisShopCompass@@QAEXH@Z	51
 ?VMethod33@VisShopCompass@@UAEXXZ	59
 ?VMethod34@VisShopCompass@@UAEXXZ	59
-?VMethod32@VisShopCompass@@UAEXH@Z	69
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
 ??_GVisSideStatus@@UAEPAXI@Z	24

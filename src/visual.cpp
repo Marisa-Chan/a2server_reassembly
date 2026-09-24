@@ -6376,6 +6376,18 @@ void VisShopCompass::VMethod30()
 }
 
 
+// 4BE541
+void VisShopCompass::VMethod32(int32_t arg)
+{
+    for (int32_t i = 0; i < 11; i++) {
+        if (this->direction_frames[arg][i] != nullptr) {
+            delete this->direction_frames[arg][i];
+        }
+        this->direction_frames[arg][i] = nullptr;
+    }
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
