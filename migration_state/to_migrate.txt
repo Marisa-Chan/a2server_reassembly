@@ -582,7 +582,6 @@
 ?VMethod34@VisShopCompass@@UAEXXZ	59
 ?VMethod32@VisShopCompass@@UAEXH@Z	69
 ?VMethod30@VisShopCompass@@UAEXXZ	79
-?VMethod27@VisShopCompass@@UAEXXZ	95
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331
 ??_GVisSideStatus@@UAEPAXI@Z	24

@@ -6346,6 +6346,24 @@ void VisShopCompass::VMethod31(int32_t arg)
 }
 
 
+// 4BE372
+void VisShopCompass::VMethod27()
+{
+    if (this->frame_sprite != nullptr) {
+        delete this->frame_sprite;
+    }
+    if (this->bkg_bmp != nullptr) {
+        delete this->bkg_bmp;
+    }
+    if (this->idle_bmp != nullptr) {
+        delete this->idle_bmp;
+    }
+    this->frame_sprite = nullptr;
+    this->bkg_bmp = nullptr;
+    this->idle_bmp = nullptr;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
