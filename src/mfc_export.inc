@@ -1028,9 +1028,6 @@ externdef   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
-extern   ??0VisShop@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
-extern   ??0VisShopDruid@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
-extern   ??0VisShopKaarg@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
 externdef   ??0VisTown@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownKaarg@@QAE@HHHHH@Z  : proc
@@ -1447,20 +1444,10 @@ externdef ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisTavKaarg@@UAEXH@Z : proc
 
 ;VisShop
-extern ?FUN_004bcd02@VisShop@@QAEXXZ  : proc
-extern ??_GVisShop@@UAEPAXI@Z : proc
-extern ??1VisShop@@UAE@XZ : proc
-extern ?sub_4BB4FB@VisShop@@QAEXXZ : proc
 externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
-extern ?sub_4BB102@VisShop@@QAEXXZ : proc
 externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
-extern ?sub_4BCC38@VisShop@@QAEXXZ : proc
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
-extern ?sub_4C0352@VisShopButtons@@QAEXXZ : proc
-extern ?sub_4C0088@VisShopButtons@@QAEXXZ : proc
-extern ?VMethod33@VisShop@@UAE?AVCString@@XZ : proc
-extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -1486,47 +1473,17 @@ externdef ?VMethod35@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod36@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod37@VisShopCompass@@UAEXH@Z : proc
 externdef ?VMethod38@VisShopCompass@@UAEXXZ : proc
-extern ??0VisShopButtons@@QAE@HHHHHPAVVisShop@@@Z : proc
-extern ??_GVisShopButtons@@UAEPAXI@Z : proc
-extern ?VMethod7@VisShopButtons@@UAEXXZ : proc
+
 externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
-extern ?OnMouseMove@VisShopButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?sub_4C14C4@VisShopButtons@@QAEXIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisShopButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?sub_4C137D@VisShopButtons@@QAEHHH@Z : proc
-extern ?OnLButtonUp@VisShopButtons@@UAEHIVCPoint@@@Z : proc
+extern ?sub_4C1358@VisShopButtons@@QAEXXZ : proc
+
 externdef ?sub_41A9F6@BigStruct2@@QAEXXZ : proc
 externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
-extern ?VMethod30@VisShopButtons@@UAEHXZ : proc
-extern ?VMethod32@VisShop@@UAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
-extern ?VMethod8@VisShop@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisShop@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisShop@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisShop@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisShop@@UAEHI@Z : proc
-extern ?VMethod26@VisShop@@UAEXXZ : proc
-extern ?VMethod28@VisShop@@UAEXXZ : proc
-extern ?DoClose@VisShop@@UAEXI@Z : proc
-extern ?VMethod30@VisShop@@UAEXXZ : proc
-extern ?VMethod31@VisShop@@UAEXXZ : proc
 
-;VisShopDruid
-extern ??_GVisShopDruid@@UAEPAXI@Z : proc
-extern ?VMethod26@VisShopDruid@@UAEXXZ : proc
-extern ?VMethod28@VisShopDruid@@UAEXXZ : proc
-extern ?VMethod30@VisShopDruid@@UAEXXZ : proc
-extern ?VMethod31@VisShopDruid@@UAEXXZ : proc
-externdef ?VMethod32@VisShopDruid@@UAEXXZ : proc
-externdef ?VMethod33@VisShopDruid@@UAE?AVCString@@XZ : proc
-;VisShopKaarg
-extern ??_GVisShopKaarg@@UAEPAXI@Z : proc
-extern ?VMethod26@VisShopKaarg@@UAEXXZ : proc
-extern ?VMethod28@VisShopKaarg@@UAEXXZ : proc
-extern ?VMethod30@VisShopKaarg@@UAEXXZ : proc
-extern ?VMethod31@VisShopKaarg@@UAEXXZ : proc
-externdef ?VMethod32@VisShopKaarg@@UAEXXZ : proc
-externdef ?VMethod33@VisShopKaarg@@UAE?AVCString@@XZ : proc
+
 ;VisTown
 externdef ??_GVisTown@@UAEPAXI@Z : proc
 externdef ?GetHint@VisTown@@UAEPBDXZ : proc
