@@ -578,7 +578,6 @@
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z	45
 ?VMethod36@VisShopCompass@@UAEXXZ	46
 ?sub_4BF63F@VisShopCompass@@QAEXH@Z	51
-?VMethod33@VisShopCompass@@UAEXXZ	59
 ?VMethod34@VisShopCompass@@UAEXXZ	59
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331

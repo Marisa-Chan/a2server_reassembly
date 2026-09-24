@@ -6388,6 +6388,18 @@ void VisShopCompass::VMethod32(int32_t arg)
 }
 
 
+// 4BE8B0
+void VisShopCompass::VMethod33()
+{
+    for (int32_t i = 0; i < 12; i++) {
+        if (this->fwd_frames[i] != nullptr) {
+            delete this->fwd_frames[i];
+        }
+        this->fwd_frames[i] = nullptr;
+    }
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)
