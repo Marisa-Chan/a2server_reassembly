@@ -1558,6 +1558,8 @@ public:
 
 	VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4bd495
 
+	void sub_4BF63F(int32_t dir); // 4bf63f
+
 public:
 	VisShop* shop; // 0x5c
 	CRect outer_rects[4]; // 0x60

@@ -6127,6 +6127,91 @@ VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int
 }
 
 
+// 4BEB77
+void VisShopCompass::VMethod7()
+{
+    static uint32_t last_frame_tick = timeGetTime() - 100;
+    static uint32_t idle_tick = timeGetTime();
+    CPoint topleft = this->shop->rect.TopLeft();
+    if (this->shop->dialog_active == 0) {
+        return;
+    }
+    if (timeGetTime() - last_frame_tick >= 100) {
+        this->shop->VMethod30();
+        last_frame_tick = timeGetTime();
+        for (int32_t i = 0; i < 4; i++) {
+            if ((this->state & (1 << i)) != 0 && this->direction_frames[i][(&this->dir0_frm)[i]] != nullptr) {
+                this->sub_4BF63F(i);
+            }
+        }
+        if (timeGetTime() - idle_tick >= (uint32_t)(rand() % 5 * 1000 + 5000) &&
+            (this->state & 0x10) == 0 && (this->state & 0x20) == 0 && (this->state & 0x40) == 0) {
+            this->state |= 0x10;
+        }
+        if (this->state & 0x10) {
+            this->VMethod30();
+            if (this->center_frm == 0x1C) {
+                this->state &= ~0x10;
+                idle_tick = timeGetTime();
+                this->center_frm = 0;
+            }
+        } else if (this->state & 0x20) {
+            this->center_frm++;
+            if (this->center_frm == 0xC) {
+                this->state &= ~0x20;
+                idle_tick = timeGetTime();
+                this->center_frm = 0;
+                this->VMethod33();
+            }
+        } else if (this->state & 0x40) {
+            this->center_frm++;
+            if (this->center_frm == 0xC) {
+                this->state &= ~0x40;
+                idle_tick = timeGetTime();
+                this->center_frm = 0;
+                this->VMethod34();
+            }
+        }
+    }
+    LockSurface2();
+    if (this->frame_sprite != nullptr) {
+        this->frame_sprite->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    }
+    if (this->bkg_bmp != nullptr) {
+        this->bkg_bmp->VMethod2(topleft.x + this->rect.left + 5, topleft.y + this->rect.top + 8, 0, 0, 0);
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        if ((this->state & (1 << i)) != 0 && this->direction_frames[i][(&this->dir0_frm)[i]] != nullptr) {
+            this->direction_frames[i][(&this->dir0_frm)[i]]->VMethod2(topleft.x + this->outer_rects[i].left, topleft.y + this->outer_rects[i].top, 0, 0, 0);
+        }
+    }
+    if (this->state & 0x10) {
+        this->trigger_bmp->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+    } else if (this->state & 0x20) {
+        this->fwd_frames[this->center_frm]->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+    } else if (this->state & 0x40) {
+        this->ret_frames[this->center_frm]->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+    } else if (this->idle_bmp != nullptr) {
+        this->idle_bmp->VMethod2(topleft.x + this->rect.left + 0x71, topleft.y + this->rect.top + 0x70, 0, 0, 0);
+    }
+    if (this->state & 0x80) {
+        CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+        CRect dlg_rect(pt.x + this->confirm_rect.left, pt.y + this->confirm_rect.top, pt.x + this->confirm_rect.right, pt.y + this->confirm_rect.bottom);
+        ShadowRect(dlg_rect, 8);
+        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 5, TxtFile::AllLines[0x4F], 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 0xF, TxtFile::AllLines[0x50], 2, clrsh_ShockingBlack);
+        CRect yes_rect = this->confirm_yes_rect + this->confirm_rect.TopLeft() + pt;
+        uint16_t* color = yes_rect.PtInRect(pt) ? clrsh_DullGold : clrsh_ShockingBlack;
+        g_font2->DrawTxt(yes_rect.left + yes_rect.Width() / 2, yes_rect.top + 1, "Yes", 2, color);
+        CRect no_rect = this->confirm_no_rect + this->confirm_rect.TopLeft() + pt;
+        color = no_rect.PtInRect(pt) ? clrsh_DullGold : clrsh_ShockingBlack;
+        g_font2->DrawTxt(no_rect.left + no_rect.Width() / 2, no_rect.top + 1, "No", 2, color);
+    }
+    UnlockSurface2();
+    CVisualObject::VMethod7();
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

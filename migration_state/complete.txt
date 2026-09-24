@@ -748,6 +748,7 @@
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
+?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisTextBox@@UAEXXZ
 ?VMethod8@CGameObject@@UAEXHHH@Z
 ?VMethod8@CUnit@@UAEXHHH@Z
