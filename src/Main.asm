@@ -399197,54 +399197,6 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B8E43
                 dd offset sub_4B95C5
 
-off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
-                dd offset ??_GVisShopCompass@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@VisShopCompass@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod27@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod28@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod29@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod30@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod31@VisShopCompass@@UAEXH@Z
-                dd offset ?VMethod32@VisShopCompass@@UAEXH@Z
-                dd offset ?VMethod33@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod34@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod35@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod36@VisShopCompass@@UAEXXZ
-                dd offset ?VMethod37@VisShopCompass@@UAEHH@Z
-                dd offset ?VMethod38@VisShopCompass@@UAEHXZ
-                align 10h
-dbl_60D530      dq 0.25                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+442↑r
-dbl_60D538      dq 0.75                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+4CB↑r
-
-
 off_60D658      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C246E↑o
                 dd offset sub_4C6A00
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -422898,9 +422850,6 @@ aMoviesShopanim_0 db 'movies\shopanim\Pose2-3\1.bmp',0
 ; char aMoviesShopanim_1[]
 aMoviesShopanim_1 db 'movies\shopanim\Yes\%d.bmp',0
                 align 4
-aYes            db 'Yes',0              ; DATA XREF: ?VMethod7@VisShopCompass@@UAEXXZ+848↑o
-aNo             db 'No',0               ; DATA XREF: ?VMethod7@VisShopCompass@@UAEXXZ+92C↑o
-                align 4
 ; CHAR aGraphicsInterf_241[]
 aGraphicsInterf_241 db 'graphics\interface\',0
 ; CHAR aBmp_0[]
@@ -427651,9 +427600,7 @@ dword_665DB8    dd ?                    ; DATA XREF: ?VMethod30@VisShopKaarg@@UA
 byte_665DBC      db    ?
                 db 3 dup(?)
 dword_665DC0    dd ?                    ; DATA XREF: sub_4C30B4+56↑w
-dword_665DC4    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompass@@UAEXXZ+5C↑w
 dword_665DC8    dd ?                    ; DATA XREF: sub_4C30B4+30↑w
-dword_665DCC    dd ?                    ; DATA XREF: ?VMethod7@VisShopCompass@@UAEXXZ+36↑w
 byte_665DD0      db    ?
                 db 3 dup(?)
 dword_665DD4    dd ?                    ; DATA XREF: ?VMethod30@VisShopDruid@@UAEXXZ+2C↑w
