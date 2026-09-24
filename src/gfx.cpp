@@ -2498,6 +2498,76 @@ void __cdecl ShadowRect(CRect rect, int shadow)
 }
 
 
+void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
+{ //45424d
+	while (size > 0)
+	{
+		uint8_t px = *src;
+		if (px != 0)
+			*dst = px;
+		dst++;
+		src++;
+		size--;
+	}
+}
+
+
+void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
+{
+	if (x >= g_clipRect.right || x + 32 < g_clipRect.left || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
+		return;
+
+	int32_t tl = l2 - l1; //top light diff
+	int32_t bl = l4 - l3; //bottom light diff
+
+	l1 *= 256;
+	l3 *= 256;
+	
+	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
+	for (int32_t i = 0; i < 32; i++)
+	{
+		int32_t num_row = 32;
+		int32_t lstep = (l3 - l1) / 16; // 256 / 16 ? vertical light step.... why 16?
+
+		if (y + 32 > g_clipRect.bottom)
+			num_row = g_clipRect.bottom - y;
+		
+		if (num_row < 0)
+			num_row = 0;
+
+		uint8_t* srcpx = src + i;
+
+		int32_t lght = l1 + 128; //128  half light step
+		int32_t yy = y;
+		uint8_t* out_dst = dst;
+
+		while (num_row > 0)
+		{
+			if (yy >= g_clipRect.top)
+			{
+				const int32_t pal_idx = lght & (~0xff); //256
+				*(uint16_t*)out_dst = pal[pal_idx + *srcpx];
+			}
+
+			out_dst += g_selDrawBitmap.lPitch;
+
+			lght += lstep;
+			srcpx += 32;
+			yy++;
+			num_row--;
+		}
+
+		l1 += tl * 8; // tl * 256 / 32  <-- per one horizontal pixel
+		l3 += bl * 8;
+
+		dst += 2;
+	}
+}
+
+
+
+
+
 void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)
 {
 	//458035

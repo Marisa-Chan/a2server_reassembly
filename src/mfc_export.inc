@@ -1368,10 +1368,9 @@ externdef ?INT_00660f8c@@3HA  :dword
 externdef ?INT_00660f90@@3HA  :dword
 
 
-externdef ?FUN_0045424d@@YAXPAE0H@Z : proc  ; void __cdecl FUN_0045424d(uint8_t*, uint8_t*, int)
 externdef ?FUN_004549e5@@YAXHHHH@Z : proc  ; void __cdecl FUN_004549e5(int, int, int, int)
 externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int, int, int)
-externdef ?FUN_00458b29@@YAXHHHHHHPAEPAG@Z : proc  ; void __cdecl FUN_00458b29(int x6, uint8_t*, uint16_t*)
+
 externdef ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z : proc  ; void __cdecl FUN_00458ca0(int x10, uint8_t*, uint16_t*)
 externdef ?FUN_00458fe6@@YAXHHH@Z : proc  ; void __cdecl FUN_00458fe6(int, int, int)
 externdef ?FUN_004590ef@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_004590ef(int x6)

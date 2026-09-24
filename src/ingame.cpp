@@ -5242,7 +5242,7 @@ void BigStruct2::sub_404E1A()
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				FUN_0045424d((uint8_t*)this->field_0x3f68->GetData(),
+				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->field_0x3f68;
 				tile_id &= 0xFFF0;
@@ -5254,7 +5254,7 @@ void BigStruct2::sub_404E1A()
 			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
-				FUN_00458b29(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				FUN_00458ca0(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
@@ -5316,7 +5316,7 @@ void BigStruct2::sub_405399(int32_t arg)
 			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
-				FUN_00458b29(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				FUN_00458ca0(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
@@ -5366,7 +5366,7 @@ void BigStruct2::sub_40587B(int32_t arg)
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				FUN_0045424d((uint8_t*)this->field_0x3f68->GetData(),
+				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->field_0x3f68;
 				tile_id &= 0xFFF0;
@@ -5378,7 +5378,7 @@ void BigStruct2::sub_40587B(int32_t arg)
 			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
-				FUN_00458b29(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				FUN_00458ca0(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
@@ -5439,7 +5439,7 @@ void BigStruct2::sub_405D0E()
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
 			if ((landscape[cell] & 0x2000) != 0 && !animated) {
 				memcpy(this->field_0x3f68->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
-				FUN_0045424d((uint8_t*)this->field_0x3f68->GetData(),
+				CopyIndexedSkip0((uint8_t*)this->field_0x3f68->GetData(),
 					(uint8_t*)DAT_00665344->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
 				tile = this->field_0x3f68;
 				tile_id &= 0xFFF0;
@@ -5447,7 +5447,7 @@ void BigStruct2::sub_405D0E()
 			uint16_t* pal = DAT_00661018[ter_type]->GetPalette(0);
 			uint8_t* tile_data = (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400;
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
-				FUN_00458b29(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
+				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
 				FUN_00458ca0(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
