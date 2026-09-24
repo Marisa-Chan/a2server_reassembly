@@ -1457,7 +1457,7 @@ extern ??_GVisShopCompass@@UAEPAXI@Z : proc
 extern ?GetHint@VisShopCompass@@UAEPBDXZ : proc
 extern ?VMethod7@VisShopCompass@@UAEXXZ : proc
 externdef ?sub_4BF63F@VisShopCompass@@QAEXH@Z : proc ; void VisShopCompass::sub_4BF63F(int32_t)
-externdef ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod26@VisShopCompass@@UAEXXZ : proc
@@ -1472,7 +1472,7 @@ extern ?VMethod34@VisShopCompass@@UAEXXZ : proc
 externdef ?VMethod35@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod36@VisShopCompass@@UAEXXZ : proc
 extern ?VMethod37@VisShopCompass@@UAEHH@Z : proc
-externdef ?VMethod38@VisShopCompass@@UAEXXZ : proc
+externdef ?VMethod38@VisShopCompass@@UAEHXZ : proc
 
 externdef ?FUN_00476987@@YAXPAVCString@@@Z : proc
 

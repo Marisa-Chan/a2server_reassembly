@@ -6424,6 +6424,18 @@ void VisShopCompass::VMethod36()
 }
 
 
+// 4BF6CE
+int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (this->shop->hovered_region != this->VMethod38()) {
+        this->shop->hovered_region = this->VMethod38();
+        this->shop->buttons->ResetSelected();
+        this->shop->dirty |= 0x2F;
+    }
+    return 0;
+}
+
+
 // 4BFA5A
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

@@ -571,11 +571,10 @@
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
 ?VMethod7@VisServerScreen@@UAEXXZ	764
-?VMethod38@VisShopCompass@@UAEXXZ	12
+?VMethod38@VisShopCompass@@UAEHXZ	12
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z	32
 ??1VisShopCompass@@UAE@XZ	36
 ?VMethod35@VisShopCompass@@UAEXXZ	39
-?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z	45
 ?sub_4BF63F@VisShopCompass@@QAEXH@Z	51
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z	321
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z	331

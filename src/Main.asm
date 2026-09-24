@@ -166783,52 +166783,6 @@ loc_4BF6C8:                             ; CODE XREF: ?sub_4BF63F@VisShopCompass@
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D4CC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                push    esi
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     esi, [eax+5Ch]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+0A8h]
-                cmp     [esi+104h], eax
-                jz      short loc_4BF73F
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+0A8h]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     [edx+104h], eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+78h]
-                call    ?ResetSelected@VisShopButtons@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+14Ch]
-                or      ecx, 2Fh
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     [eax+14Ch], ecx
-
-loc_4BF73F:                             ; CODE XREF: ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z+2C↑j
-                xor     eax, eax
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -172243,7 +172197,7 @@ sub_4C6B50      endp
 
 ; Attributes: bp-based frame
 
-?VMethod38@VisShopCompass@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D528↓o
+?VMethod38@VisShopCompass@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060D528↓o
 
 var_4           = dword ptr -4
 
@@ -172255,7 +172209,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?VMethod38@VisShopCompass@@UAEXXZ      endp
+?VMethod38@VisShopCompass@@UAEHXZ      endp
 
 
 
@@ -399598,7 +399552,7 @@ off_60D480      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
                 dd offset ?VMethod35@VisShopCompass@@UAEXXZ
                 dd offset ?VMethod36@VisShopCompass@@UAEXXZ
                 dd offset ?VMethod37@VisShopCompass@@UAEHH@Z
-                dd offset ?VMethod38@VisShopCompass@@UAEXXZ
+                dd offset ?VMethod38@VisShopCompass@@UAEHXZ
                 align 10h
 dbl_60D530      dq 0.25                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+442↑r
 dbl_60D538      dq 0.75                 ; DATA XREF: ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z+4CB↑r
@@ -399646,7 +399600,7 @@ off_60D658      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4C2FFA
                 dd offset sub_4C3051
                 dd offset sub_4C34E6
-                dd offset ?VMethod38@VisShopCompass@@UAEXXZ
+                dd offset ?VMethod38@VisShopCompass@@UAEHXZ
                 align 8
 
 off_60D7A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004C4686↑o
@@ -399691,7 +399645,7 @@ off_60D7A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4C5FD4
                 dd offset sub_4C602B
                 dd offset sub_4C65BA
-                dd offset ?VMethod38@VisShopCompass@@UAEXXZ
+                dd offset ?VMethod38@VisShopCompass@@UAEHXZ
                 align 10h
 off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z+2A↑o
                 dd offset sub_4C6C80
