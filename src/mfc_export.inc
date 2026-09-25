@@ -1414,7 +1414,6 @@ externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA
 
 ;VisTav
 externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
-externdef ?FUN_0049ee36@VisTav@@QAEXXZ  : proc
 extern ??_GVisTav@@UAEPAXI@Z : proc
 externdef ??1VisTav@@UAE@XZ : proc
 externdef ?VMethod7@VisTav@@UAEXXZ : proc

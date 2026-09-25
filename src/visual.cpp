@@ -7707,3 +7707,18 @@ void VisTav::FUN_0049eecd()
     this->selected_entries[this->select_party]->VMethod1(1);
     this->map_context->UpdateSelectionState();
 }
+
+
+// 49EE36
+void VisTav::FUN_0049ee36()
+{
+    this->map_context->MsgProc(0x405, 0, 0);
+
+    this->select_party++;
+    if (this->select_party >= this->selected_entries.GetSize()) {
+        this->select_party = 0;
+    }
+
+    this->selected_entries[this->select_party]->VMethod1(1);
+    this->map_context->UpdateSelectionState();
+}

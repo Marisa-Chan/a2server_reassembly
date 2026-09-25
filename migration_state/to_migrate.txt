@@ -618,7 +618,6 @@
 ?VMethod7@VisTav@@UAEXXZ	23
 ?OnKeyDown@VisTav@@UAEHI@Z	31
 ?FUN_0049edec@VisTav@@QAEXXZ	32
-?FUN_0049ee36@VisTav@@QAEXXZ	52
 ??1VisTav@@UAE@XZ	138
 ??_GVisTavDruid@@UAEPAXI@Z	24
 ??0VisTavDruid@@QAE@HHHHH@Z	31
