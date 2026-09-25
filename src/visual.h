@@ -901,6 +901,7 @@ public:
 
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23
 	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 in asm
+	void FUN_0041ae1c(int32_t serv_id); //41ae1c in asm
 
 	void FUN_0041c630(CWordArray *data); //41c630
 
@@ -1413,6 +1414,7 @@ class VisTavSceneAnim
 {
 public:
 	void FUN_004010ee(CStringArray* names); //4010ee in asm
+	void FUN_004014f2(); //4014f2 in asm
 
 public:
 	CArray<CBmp64*> frames;
@@ -1430,6 +1432,7 @@ public:
 	void FUN_00499a67(); //499a67 in asm
 	void FUN_0049a84e(); //49a84e in asm
 	void FUN_0049a973(); //49a973 in asm
+	void FUN_00499cdf(); //499cdf in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1443,6 +1446,7 @@ class VisTavLeftPanel : public CVisualObject
 {
 public:
 	void FUN_004995d1(); //4995d1 in asm
+	void FUN_004996ab(); //4996ab in asm
 
 public:
 	uint8_t __gap_0x5c[0x134];
@@ -1457,6 +1461,7 @@ public:
 	virtual void VMethod26(); //49ced4 in asm
 	virtual void VMethod27(); //49d1b0 in asm
 	virtual void VMethod28(); //49d2bb in asm
+	virtual void VMethod29(); //49d5f9 in asm
 
 public:
 	VisTav* vis_tav; // 0x5c

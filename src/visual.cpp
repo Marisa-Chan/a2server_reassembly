@@ -4,6 +4,7 @@
 #include "gfx.h"
 #include "mouse.h"
 #include "game_app.h"
+#include "quest_map.h"
 #include "util.h"
 
 
@@ -7523,4 +7524,64 @@ void VisTav::VMethod28()
     this->quest_id = 0;
     this->quest_selection = -1;
     this->field_0x13c = 0;
+}
+
+
+// 49EB6C
+void VisTav::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    this->VMethod9();
+    if (main_wnd->sessionMode == 2) {
+        ScenarioLeaveInn();
+    }
+
+    if (this->field_0x13c != 0) {
+        main_wnd->vis_map_context->FUN_0041ae1c(0xAAAAAAAA);
+    } else {
+        main_wnd->vis_map_context->FUN_0041ae1c(this->quest_selection);
+    }
+
+    this->dialog_active = 0;
+
+    CRect& panel_rect = this->info_panel->GetRect();
+    CPoint pt(panel_rect.Width() - 0x280, 0);
+    panel_rect.OffsetRect(pt.x, pt.y);
+    this->info_panel->SetRect(&panel_rect);
+    this->RemoveChild(this->info_panel);
+    main_wnd->vis_right_panel->AddChild(this->info_panel);
+
+    if (this->tips != nullptr) {
+        this->scene->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+
+    this->right_panel->FUN_00499cdf();
+    this->scene->VMethod29();
+    this->scene->VMethod27();
+    this->left_panel->FUN_004996ab();
+
+    this->scene->anims[0].FUN_004014f2();
+    this->scene->anims[1].FUN_004014f2();
+    this->scene->anims[3].FUN_004014f2();
+    this->scene->anims[2].FUN_004014f2();
+
+    this->VMethod31();
+
+    this->avail_entries.RemoveAll();
+    this->selected_entries.RemoveAll();
+    this->reserved_entries.RemoveAll();
+
+    VisScreen::DoClose(code);
+    this->quest_map->sub_55ECFE(0);
+
+    while (this->rewards.GetSize() != 0) {
+        TokenEntry* entry = this->rewards[0];
+        if (entry != nullptr) {
+            delete entry;
+        }
+        this->rewards.RemoveAt(0, 1);
+    }
 }
