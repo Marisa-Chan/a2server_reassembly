@@ -1442,7 +1442,7 @@ externdef ??_GVisTavDruid@@UAEPAXI@Z : proc
 extern ?VMethod26@VisTavDruid@@UAEXXZ : proc
 extern ?VMethod28@VisTavDruid@@UAEXXZ : proc
 extern ?DoClose@VisTavDruid@@UAEXI@Z : proc
-externdef ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+extern ?VMethod30@VisTavDruid@@UAEXXZ : proc
 externdef ?VMethod31@VisTavDruid@@UAEXH@Z : proc
 
 ;VisTavKaarg

@@ -7994,3 +7994,28 @@ void VisTavDruid::VMethod26()
     this->avail_entries.RemoveAll();
     this->quest_map = new QuestMap();
 }
+
+
+// 49F7B0
+void VisTavDruid::VMethod30()
+{
+    this->VMethod31();
+    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
+    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town_druid\\Inn\\din1.wav");
+    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
+    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
+    FUN_00438e40(&this->snd_druid[0], "SFX\\Town_druid\\Inn\\DWater1.wav");
+    FUN_00438e40(&this->snd_druid[1], "SFX\\Town_druid\\Inn\\DWater2.wav");
+    FUN_00438e40(&this->snd_druid[2], "SFX\\Town_druid\\Inn\\DWater3.wav");
+    FUN_00438e40(&this->snd_druid[3], "SFX\\Town_druid\\Inn\\DWater4.wav");
+    FUN_00438e40(&this->snd_druid[4], "SFX\\Town_druid\\Inn\\DDruid3.wav");
+    FUN_00438e40(&this->snd_druid[5], "SFX\\Town_druid\\Inn\\Ddruid4.wav");
+    FUN_00438e40(&this->snd_druid[6], "SFX\\Town_druid\\Inn\\Ddruid41.wav");
+    FUN_00438e40(&this->snd_druid[7], "SFX\\Town_druid\\Inn\\Dforest2.wav");
+    FUN_00438e40(&this->snd_druid[8], "SFX\\Town_druid\\Inn\\Dbird4.wav");
+    FUN_00438e40(&this->snd_druid[9], "SFX\\Town_druid\\Inn\\Dbird41.wav");
+    FUN_00438e40(&this->snd_druid[10], "SFX\\Town_druid\\Inn\\Dbird42.wav");
+}

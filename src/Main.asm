@@ -121860,130 +121860,6 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060C7F0↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+8Ch]
-                push    offset aSfxAddWav_0 ; "SFX\\Add.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 98h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxNoaddWav_0 ; "SFX\\NoAdd.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 9Ch
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownShopNof_0 ; "SFX\\Town\\Shop\\nofit.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0A0h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn ; "SFX\\Town_druid\\Inn\\din1.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0A4h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownInnHelp_0 ; "SFX\\Town\\Inn\\Helper.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0A8h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxOutWav_0 ; "SFX\\Out.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0B0h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTalkWav_0 ; "SFX\\Talk.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0B4h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_0 ; "SFX\\Town_druid\\Inn\\DWater1.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 140h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_1 ; "SFX\\Town_druid\\Inn\\DWater2.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 144h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_2 ; "SFX\\Town_druid\\Inn\\DWater3.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 148h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_3 ; "SFX\\Town_druid\\Inn\\DWater4.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 14Ch
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_4 ; "SFX\\Town_druid\\Inn\\DDruid3.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 150h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_5 ; "SFX\\Town_druid\\Inn\\Ddruid4.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 154h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_6 ; "SFX\\Town_druid\\Inn\\Ddruid41.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 158h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_7 ; "SFX\\Town_druid\\Inn\\Dforest2.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 15Ch
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_8 ; "SFX\\Town_druid\\Inn\\Dbird4.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 160h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_9 ; "SFX\\Town_druid\\Inn\\Dbird41.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 164h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownDruidIn_10 ; "SFX\\Town_druid\\Inn\\Dbird42.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 168h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -394169,7 +394045,7 @@ off_60C768      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisTavDruid@@UAEXXZ
                 dd offset ?DoClose@VisTavDruid@@UAEXI@Z
-                dd offset ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod30@VisTavDruid@@UAEXXZ
                 dd offset ?VMethod31@VisTavDruid@@UAEXH@Z
 off_60C7F8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4A04E7+64↑o
                 dd offset sub_4A3F90
@@ -418045,9 +417921,9 @@ aSfxTownInnHelp db 'SFX\Town\Inn\Helper.wav',0
 aSfxTownShopBre db 'SFX\Town\Shop\Breath.wav',0
                 align 4
 ; CHAR aSfxAddWav_0[]
-aSfxAddWav_0    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+15↑o
+aSfxAddWav_0    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+15↑o
 ; CHAR aSfxNoaddWav_0[]
-aSfxNoaddWav_0  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+2B↑o
+aSfxNoaddWav_0  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+2B↑o
                 align 4
 ; CHAR aSfxTownShopNof_0[]
 aSfxTownShopNof_0 db 'SFX\Town\Shop\nofit.wav',0
@@ -418056,9 +417932,9 @@ aSfxTownDruidIn db 'SFX\Town_druid\Inn\din1.wav',0
 ; CHAR aSfxTownInnHelp_0[]
 aSfxTownInnHelp_0 db 'SFX\Town\Inn\Helper.wav',0
 ; CHAR aSfxOutWav_0[]
-aSfxOutWav_0    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+86↑o
+aSfxOutWav_0    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+86↑o
 ; CHAR aSfxTalkWav_0[]
-aSfxTalkWav_0   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+9D↑o
+aSfxTalkWav_0   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+9D↑o
                 align 4
 ; CHAR aSfxTownDruidIn_0[]
 aSfxTownDruidIn_0 db 'SFX\Town_druid\Inn\DWater1.wav',0
