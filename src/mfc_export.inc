@@ -1024,7 +1024,7 @@ externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 externdef   ??0VisInvType1@@QAE@HHHHH@Z  : proc
-externdef   ??0VisTav@@QAE@HHHHH@Z  : proc
+extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
@@ -1416,7 +1416,8 @@ externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA
 externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
 externdef ?FUN_0049ee36@VisTav@@QAEXXZ  : proc
 externdef ?FUN_0049eecd@VisTav@@QAEXXZ  : proc
-externdef ??_GVisTav@@UAEPAXI@Z : proc
+extern ??_GVisTav@@UAEPAXI@Z : proc
+externdef ??1VisTav@@UAE@XZ : proc
 externdef ?VMethod7@VisTav@@UAEXXZ : proc
 externdef ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisTav@@UAEHIII@Z : proc

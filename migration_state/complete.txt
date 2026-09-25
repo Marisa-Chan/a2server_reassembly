@@ -90,6 +90,7 @@
 ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z
+??0VisTav@@QAE@HHHHH@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
@@ -146,6 +147,7 @@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
 ??_GVisShopCompass@@UAEPAXI@Z
+??_GVisTav@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
