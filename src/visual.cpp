@@ -7756,3 +7756,9 @@ void VisTav::VMethod7()
 
     FUN_004a4740(&this->sounds[3].sample);
 }
+
+
+// 49E075
+void VisTav::VMethod8(CRect* rect)
+{
+}
