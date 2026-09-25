@@ -623,7 +623,6 @@
 ?FUN_0049eecd@VisTav@@QAEXXZ	56
 ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z	60
 ??0VisTav@@QAE@HHHHH@Z	76
-?VMethod31@VisTav@@UAEXXZ	76
 ??_GVisTavDruid@@UAEPAXI@Z	24
 ??0VisTavDruid@@QAE@HHHHH@Z	31
 ?VMethod31@VisTavDruid@@UAEXH@Z	101

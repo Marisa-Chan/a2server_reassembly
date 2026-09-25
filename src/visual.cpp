@@ -7663,3 +7663,12 @@ void VisTav::VMethod30()
     FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
     FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
 }
+
+
+// 49F3D7
+void VisTav::VMethod31()
+{
+    for (int32_t i = 0; i < 13; i++) {
+        FUN_00438dd0(&this->sounds[i].sample);
+    }
+}

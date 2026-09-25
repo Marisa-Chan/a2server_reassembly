@@ -755,6 +755,7 @@
 ?VMethod30@VisTav@@UAEXXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
+?VMethod31@VisTav@@UAEXXZ
 ?VMethod32@VisShopCompass@@UAEXH@Z
 ?VMethod33@VisShopCompass@@UAEXXZ
 ?VMethod34@VisShopCompass@@UAEXXZ
