@@ -8019,3 +8019,19 @@ void VisTavDruid::VMethod30()
     FUN_00438e40(&this->snd_druid[9], "SFX\\Town_druid\\Inn\\Dbird41.wav");
     FUN_00438e40(&this->snd_druid[10], "SFX\\Town_druid\\Inn\\Dbird42.wav");
 }
+
+
+// 49F961
+void VisTavDruid::VMethod31()
+{
+    FUN_00438dd0(&this->sounds[5].sample);
+    FUN_00438dd0(&this->sounds[6].sample);
+    FUN_00438dd0(&this->sounds[7].sample);
+    FUN_00438dd0(&this->sounds[8].sample);
+    FUN_00438dd0(&this->sounds[9].sample);
+    FUN_00438dd0(&this->sounds[11].sample);
+    FUN_00438dd0(&this->sounds[12].sample);
+    for (int32_t i = 0; i < 11; i++) {
+        FUN_00438dd0(&this->snd_druid[i]);
+    }
+}
