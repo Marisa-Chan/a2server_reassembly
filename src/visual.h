@@ -1465,7 +1465,7 @@ public:
 	CBmp256* field_0x164; // 0x164
 	CBmp64* field_0x168; // 0x168
 	CBmp256* field_0x16c; // 0x16c
-	uint8_t gap_0x170[16]; // 0x170
+	CRect field_0x170; // 0x170
 	CRect field_0x180; // 0x180
 };
 ASSERT_SIZE(VisTavLeftPanel, 0x190);
