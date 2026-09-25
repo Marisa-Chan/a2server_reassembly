@@ -22,6 +22,7 @@ class BigStruct2;
 class VisCharSellectStats;
 class VisCharSellectButtons;
 class VisCharSellectList;
+class VisTav;
 class Item;
 class QuestMap;
 class Scenario;
@@ -899,6 +900,7 @@ public:
 	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
 
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23
+	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 in asm
 
 	void FUN_0041c630(CWordArray *data); //41c630
 
@@ -1407,6 +1409,64 @@ public:
 ASSERT_SIZE(VisInvExtType3, 0x2108);
 
 
+class VisTavSceneAnim
+{
+public:
+	void FUN_004010ee(CStringArray* names); //4010ee in asm
+
+public:
+	CArray<CBmp64*> frames;
+	int32_t field_0x14;
+	int32_t field_0x18;
+	CStringArray names;
+};
+ASSERT_SIZE(VisTavSceneAnim, 0x30);
+
+
+//60c5d8
+class VisTavRightPanel : public CVisualObject
+{
+public:
+	void FUN_00499a67(); //499a67 in asm
+	void FUN_0049a84e(); //49a84e in asm
+	void FUN_0049a973(); //49a973 in asm
+
+public:
+	VisTav* vis_tav; // 0x5c
+	CStringArray texts; // 0x60
+	uint8_t __gap_0x74[0x54];
+};
+ASSERT_SIZE(VisTavRightPanel, 0xc8);
+
+
+class VisTavLeftPanel : public CVisualObject
+{
+public:
+	void FUN_004995d1(); //4995d1 in asm
+
+public:
+	uint8_t __gap_0x5c[0x134];
+};
+ASSERT_SIZE(VisTavLeftPanel, 0x190);
+
+
+//60c650
+class VisTavScene : public CVisualObject
+{
+public:
+	virtual void VMethod26(); //49ced4 in asm
+	virtual void VMethod27(); //49d1b0 in asm
+	virtual void VMethod28(); //49d2bb in asm
+
+public:
+	VisTav* vis_tav; // 0x5c
+	uint8_t __gap_0x60[0x220];
+	VisTavSceneAnim anims[4]; // 0x280
+	uint8_t __gap_0x340[0x8c];
+};
+ASSERT_SIZE(VisTavScene, 0x3cc);
+
+
 //60c6d8
 class VisTav : public VisScreen
 {
@@ -1423,8 +1483,8 @@ public:
 	virtual void VMethod28() override; // 49E34F
 	virtual void DoClose(uint32_t code) override; // 49EB6C
 
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r); // 49F298
-	virtual void VMethod31(int32_t code); // 49F3D7
+	virtual void VMethod30(); // 49F298
+	virtual void VMethod31(); // 49F3D7
 
 	void FUN_0049edec();
 
@@ -1433,11 +1493,11 @@ public:
 public:
 	BigStruct2* map_context;
 	CVisualObject* info_panel;
-	CVisualObject* left_panel;
-	CVisualObject* right_panel;
+	VisTavLeftPanel* left_panel;
+	VisTavRightPanel* right_panel;
 	int32_t field_0x78; //unk type
-	CVisualObject* scene;
-	int32_t tips;
+	VisTavScene* scene;
+	CVisualObject* tips;
 	CSound sounds[13];
 	int32_t selection_index;
 	int32_t select_party;
@@ -1465,8 +1525,8 @@ public:
 	virtual void VMethod26() override; // 49F51B
 	virtual void VMethod28() override; // 49FAAA
 	virtual void DoClose(uint32_t code) override; // 4A0278
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 49F7B0
-	virtual void VMethod31(int32_t code) override; // 49F961
+	virtual void VMethod30() override; // 49F7B0
+	virtual void VMethod31() override; // 49F961
 
 	VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 in asm
 public:
@@ -1483,8 +1543,8 @@ public:
 	virtual void VMethod26() override; // 4A190D
 	virtual void VMethod28() override; // 4A1BA2
 	virtual void DoClose(uint32_t code) override; // 4A2448
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4A26D9
-	virtual void VMethod31(int32_t code) override; // 4A2873
+	virtual void VMethod30() override; // 4A26D9
+	virtual void VMethod31() override; // 4A2873
 
 	VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 in asm
 public:

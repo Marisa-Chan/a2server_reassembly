@@ -43,6 +43,7 @@
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_41A942@BigStruct2@@QAEXXZ	31
+?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z	31
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
 ??0CAirUnit@@QAE@XZ	18
@@ -619,12 +620,11 @@
 ?FUN_0049edec@VisTav@@QAEXXZ	32
 ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z	60
 ??0VisTav@@QAE@HHHHH@Z	76
-?VMethod31@VisTav@@UAEXH@Z	76
-?VMethod30@VisTav@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	93
+?VMethod31@VisTav@@UAEXXZ	76
+?VMethod30@VisTav@@UAEXXZ	93
 ?MsgProc@VisTav@@UAEHIII@Z	136
 ?VMethod26@VisTav@@UAEXXZ	203
 ?DoClose@VisTav@@UAEXI@Z	220
-?VMethod28@VisTav@@UAEXXZ	619
 ??_GVisTavDruid@@UAEPAXI@Z	24
 ??0VisTavDruid@@QAE@HHHHH@Z	31
 ?VMethod31@VisTavDruid@@UAEXH@Z	101
@@ -639,6 +639,11 @@
 ?VMethod26@VisTavKaarg@@UAEXXZ	203
 ?DoClose@VisTavKaarg@@UAEXI@Z	224
 ?VMethod28@VisTavKaarg@@UAEXXZ	668
+?FUN_004995d1@VisTavLeftPanel@@QAEXXZ	86
+?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
+?FUN_0049a973@VisTavRightPanel@@QAEXXZ	233
+?FUN_00499a67@VisTavRightPanel@@QAEXXZ	239
+?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z	137
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
 ?MsgProc@VisTipsDialog@@UAEHIII@Z	71

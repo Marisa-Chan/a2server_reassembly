@@ -7392,3 +7392,135 @@ int VisShop::sub_4BCB63()
     this->snd_buy->Play();
     return 1;
 }
+
+
+// 49E34F
+void VisTav::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    g_mousept.DisableHint();
+
+    this->map_context = main_wnd->vis_map_context;
+    this->info_panel = main_wnd->vis_charinfo;
+    main_wnd->vis_right_panel->RemoveChild(this->info_panel);
+
+    CRect& panel_rect = this->info_panel->GetRect();
+    CPoint pt(0x280 - panel_rect.Width(), 0);
+    panel_rect.OffsetRect(pt.x, pt.y);
+    this->info_panel->SetRect(&panel_rect);
+    this->AddChild(this->info_panel);
+
+    if (g_settings.TipsMode != 0 && main_wnd->sessionMode == 2) {
+        CString tips_text;
+        MissionGetTips(2, &tips_text);
+        this->tips = new VisTipsDialog(0x467, 0, 0, 0x138, 0xC8, tips_text);
+        this->scene->AddChild(this->tips);
+    } else {
+        if (this->tips != nullptr) {
+            this->scene->RemoveChild(this->tips);
+            delete this->tips;
+        }
+        this->tips = nullptr;
+    }
+
+    if (main_wnd->sessionMode == 2) {
+        int32_t ids[32];
+        int32_t count;
+        ScenarioEnterInn(ids, &count);
+        this->entrie_id.RemoveAll();
+        for (int32_t i = 0; i < count; i++) {
+            this->entrie_id.Add(ids[i]);
+        }
+    }
+
+    this->avail_entries.RemoveAll();
+    this->reserved_entries.RemoveAll();
+    for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
+        uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
+        uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
+        if (category == 1 || category == 2) {
+            this->avail_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+        } else {
+            this->reserved_entries.Add(this->map_context->FUN_0041dfa6(unit_id));
+        }
+    }
+
+    if (this->avail_entries.GetSize() + this->reserved_entries.GetSize() != 0) {
+        this->selection_index = 0;
+    } else {
+        this->selection_index = -1;
+    }
+
+    g_StructEnter.FUN_00473b80();
+    this->selected_entries.Copy(g_StructEnter.field_0x0);
+    this->select_party = g_StructEnter.FUN_00473d10();
+
+    this->map_context->MsgProc(0x405, 0, 0);
+    this->selected_entries[this->select_party]->VMethod1(1);
+    this->map_context->UpdateSelectionState();
+    this->selected_entries[this->select_party]->unitFlags |= 8;
+
+    this->scene->VMethod26();
+
+    CStringArray names;
+    CString name;
+
+    for (int32_t i = 0; i < 10; i++) {
+        name.Format("graphics\\interface\\inn\\candle\\t%.4d.bmp", i);
+        names.Add(name);
+    }
+    if (main_wnd->sessionMode == 2) {
+        this->scene->anims[0].FUN_004010ee(&names);
+    }
+    names.RemoveAll();
+
+    for (int32_t i = 0; i < 0x15; i++) {
+        name.Format("graphics\\interface\\inn\\cauldron\\t%.4d.bmp", i);
+        names.Add(name);
+    }
+    if (main_wnd->sessionMode == 2) {
+        this->scene->anims[1].FUN_004010ee(&names);
+    }
+    names.RemoveAll();
+
+    for (int32_t i = 1; i <= 0x18; i++) {
+        name.Format("graphics\\interface\\inn\\tender\\breath\\br%.4d.bmp", i);
+        names.Add(name);
+    }
+    if (main_wnd->sessionMode == 2) {
+        this->scene->anims[2].FUN_004010ee(&names);
+    }
+    names.RemoveAll();
+
+    for (int32_t i = 1; i <= 0x28; i++) {
+        name.Format("graphics\\interface\\inn\\tender\\drink\\dr%.4d.bmp", i);
+        names.Add(name);
+    }
+    if (main_wnd->sessionMode == 2) {
+        this->scene->anims[3].FUN_004010ee(&names);
+    }
+    names.RemoveAll();
+
+    this->right_panel->FUN_00499a67();
+    this->right_panel->FUN_0049a84e();
+    this->scene->VMethod28();
+    this->left_panel->FUN_004995d1();
+    this->right_panel->FUN_0049a973();
+    this->VMethod30();
+
+    this->dialog_active = 1;
+
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+
+    VisScreen::VMethod28();
+    CSound::Play(this->sounds[8]);
+    g_Cursors[0]->Use();
+    g_mousept.EnableHint();
+
+    this->quest_id = 0;
+    this->quest_selection = -1;
+    this->field_0x13c = 0;
+}
