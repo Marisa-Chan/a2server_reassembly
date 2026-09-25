@@ -7734,3 +7734,14 @@ void VisTav::FUN_0049edec()
         AfxGetMainWnd()->PostMessageA(0x42E, 0, 0);
     }
 }
+
+
+// 49E233
+int32_t VisTav::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == VK_ESCAPE) {
+        this->FUN_0049edec();
+        return 1;
+    }
+    return 0;
+}
