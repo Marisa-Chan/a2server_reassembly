@@ -7762,3 +7762,26 @@ void VisTav::VMethod7()
 void VisTav::VMethod8(CRect* rect)
 {
 }
+
+
+// 49DC33
+VisTav::~VisTav()
+{
+    this->VMethod31();
+    this->avail_entries.RemoveAll();
+    this->entrie_id.RemoveAll();
+
+    this->RemoveChild(this->info_panel);
+    this->info_panel = nullptr;
+    this->map_context = nullptr;
+
+    if (this->tips != nullptr) {
+        this->scene->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+
+    if (this->quest_map != nullptr) {
+        delete this->quest_map;
+    }
+}
