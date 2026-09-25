@@ -1421,7 +1421,7 @@ externdef ??1VisTav@@UAE@XZ : proc
 externdef ?VMethod7@VisTav@@UAEXXZ : proc
 externdef ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisTav@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisTav@@UAEHI@Z : proc
 extern ?VMethod26@VisTav@@UAEXXZ : proc
 extern ?VMethod28@VisTav@@UAEXXZ : proc

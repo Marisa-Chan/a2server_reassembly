@@ -7679,3 +7679,15 @@ VisTav::VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 {
 }
+
+
+// 49E261
+int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    CRect r = this->right_panel->GetRect() + this->rect.TopLeft();
+    if (!r.PtInRect(pos)) {
+        this->right_panel->FUN_0049a84e();
+    }
+
+    return CVisualObject::OnMouseMove(wparam, pos);
+}
