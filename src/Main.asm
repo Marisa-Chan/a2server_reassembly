@@ -121934,63 +121934,6 @@ loc_49EE94:                             ; CODE XREF: ?FUN_0049ee36@VisTav@@QAEXX
 
 ; Attributes: bp-based frame
 
-?FUN_0049eecd@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+125↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    405h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+68h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+68h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+0BCh], 0
-                jz      short loc_49EF13
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+0BCh]
-                sub     edx, 1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+0BCh], edx
-                jmp     short loc_49EF2A
-; ---------------------------------------------------------------------------
-
-loc_49EF13:                             ; CODE XREF: ?FUN_0049eecd@VisTav@@QAEXXZ+2D↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0D4h
-                call    unknown_libname_608 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+0BCh], eax
-
-loc_49EF2A:                             ; CODE XREF: ?FUN_0049eecd@VisTav@@QAEXXZ+44↑j
-                push    1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0BCh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0D4h
-                call    sub_4215A0
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_8], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+14h]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+68h]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0049eecd@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

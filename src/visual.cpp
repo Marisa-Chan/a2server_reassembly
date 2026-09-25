@@ -7691,3 +7691,19 @@ int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos)
 
     return CVisualObject::OnMouseMove(wparam, pos);
 }
+
+
+// 49EECD
+void VisTav::FUN_0049eecd()
+{
+    this->map_context->MsgProc(0x405, 0, 0);
+
+    if (this->select_party != 0) {
+        this->select_party--;
+    } else {
+        this->select_party = this->selected_entries.GetUpperBound();
+    }
+
+    this->selected_entries[this->select_party]->VMethod1(1);
+    this->map_context->UpdateSelectionState();
+}
