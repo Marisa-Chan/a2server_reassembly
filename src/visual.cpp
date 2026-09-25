@@ -7643,3 +7643,23 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
+
+
+// 49F298
+void VisTav::VMethod30()
+{
+    this->VMethod31();
+    FUN_00438e40(&this->sounds[0].sample, "SFX\\Town\\Inn\\drink.wav");
+    FUN_00438e40(&this->sounds[1].sample, "SFX\\Town\\Inn\\glotok.wav");
+    FUN_00438e40(&this->sounds[2].sample, "SFX\\Town\\Inn\\steam.wav");
+    FUN_00438e40(&this->sounds[3].sample, "SFX\\Town\\Inn\\water.wav");
+    FUN_00438e40(&this->sounds[4].sample, "SFX\\Town\\Inn\\chair.wav");
+    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
+    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town\\Inn\\enter.wav");
+    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    FUN_00438e40(&this->sounds[10].sample, "SFX\\Town\\Shop\\Breath.wav");
+    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
+    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
+}

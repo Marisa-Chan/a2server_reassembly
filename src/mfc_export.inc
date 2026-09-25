@@ -1425,7 +1425,7 @@ externdef ?OnKeyDown@VisTav@@UAEHI@Z : proc
 extern ?VMethod26@VisTav@@UAEXXZ : proc
 extern ?VMethod28@VisTav@@UAEXXZ : proc
 extern ?DoClose@VisTav@@UAEXI@Z : proc
-externdef ?VMethod30@VisTav@@UAEXXZ : proc
+extern ?VMethod30@VisTav@@UAEXXZ : proc
 externdef ?VMethod31@VisTav@@UAEXXZ : proc
 
 ;VisTav helpers
