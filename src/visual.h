@@ -1504,6 +1504,21 @@ public:
 ASSERT_SIZE(VisTavScene, 0x3cc);
 
 
+//60c7f8
+class VisTavSceneDruid : public VisTavScene
+{
+public:
+	VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a05a0 in asm
+
+public:
+	int32_t field_0x3cc;
+	VisTavSceneAnim anims_druid[3]; // 0x3d0
+	uint32_t field_0x460;
+	uint32_t field_0x464;
+};
+ASSERT_SIZE(VisTavSceneDruid, 0x468);
+
+
 //60c6d8
 class VisTav : public VisScreen
 {

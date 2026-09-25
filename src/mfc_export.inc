@@ -1439,7 +1439,7 @@ externdef ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
 ;VisTavDruid
 externdef ??_GVisTavDruid@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisTavDruid@@UAEXXZ : proc
-externdef ?VMethod28@VisTavDruid@@UAEXXZ : proc
+extern ?VMethod28@VisTavDruid@@UAEXXZ : proc
 externdef ?DoClose@VisTavDruid@@UAEXI@Z : proc
 externdef ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisTavDruid@@UAEXH@Z : proc
