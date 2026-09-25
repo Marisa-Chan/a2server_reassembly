@@ -1444,6 +1444,7 @@ public:
 ASSERT_SIZE(VisTavRightPanel, 0xc8);
 
 
+// 60c560
 class VisTavLeftPanel : public CVisualObject
 {
 public:
