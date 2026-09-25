@@ -1429,6 +1429,8 @@ ASSERT_SIZE(VisTavSceneAnim, 0x30);
 class VisTavRightPanel : public CVisualObject
 {
 public:
+	VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 in asm
+
 	void FUN_00499a67(); //499a67 in asm
 	void FUN_0049a84e(); //49a84e in asm
 	void FUN_0049a973(); //49a973 in asm
@@ -1445,6 +1447,8 @@ ASSERT_SIZE(VisTavRightPanel, 0xc8);
 class VisTavLeftPanel : public CVisualObject
 {
 public:
+	VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //497990 in asm
+
 	void FUN_004995d1(); //4995d1 in asm
 	void FUN_004996ab(); //4996ab in asm
 
@@ -1462,6 +1466,8 @@ public:
 	virtual void VMethod27(); //49d1b0 in asm
 	virtual void VMethod28(); //49d2bb in asm
 	virtual void VMethod29(); //49d5f9 in asm
+
+	VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
