@@ -1414,18 +1414,12 @@ externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA
 
 ;VisTav
 extern ?FUN_0049edec@VisTav@@QAEXXZ  : proc
-extern ??_GVisTav@@UAEPAXI@Z : proc
 extern ??1VisTav@@UAE@XZ : proc
 extern ?VMethod7@VisTav@@UAEXXZ : proc
 extern ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisTav@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
-extern ?VMethod26@VisTav@@UAEXXZ : proc
-extern ?VMethod28@VisTav@@UAEXXZ : proc
-extern ?DoClose@VisTav@@UAEXI@Z : proc
-extern ?VMethod30@VisTav@@UAEXXZ : proc
-extern ?VMethod31@VisTav@@UAEXXZ : proc
 
 ;VisTav helpers
 externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
