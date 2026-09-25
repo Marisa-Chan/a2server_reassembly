@@ -741,6 +741,7 @@
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ
+?VMethod26@VisTavDruid@@UAEXXZ
 ?VMethod27@CUnit@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod27@VisShopCompass@@UAEXXZ

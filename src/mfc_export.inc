@@ -1425,6 +1425,7 @@ extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
 externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z : proc
+externdef ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 externdef ?FUN_0041ae1c@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ : proc
@@ -1438,7 +1439,7 @@ externdef ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
 
 ;VisTavDruid
 externdef ??_GVisTavDruid@@UAEPAXI@Z : proc
-externdef ?VMethod26@VisTavDruid@@UAEXXZ : proc
+extern ?VMethod26@VisTavDruid@@UAEXXZ : proc
 extern ?VMethod28@VisTavDruid@@UAEXXZ : proc
 extern ?DoClose@VisTavDruid@@UAEXI@Z : proc
 externdef ?VMethod30@VisTavDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc

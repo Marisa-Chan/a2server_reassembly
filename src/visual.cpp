@@ -7971,3 +7971,26 @@ void VisTavDruid::DoClose(uint32_t code)
         this->rewards.RemoveAt(0, 1);
     }
 }
+
+
+// 49F51B
+void VisTavDruid::VMethod26()
+{
+    this->dialog_active = 0;
+    for (int32_t i = 0; i < 13; i++) {
+        this->sounds[i].sample = nullptr;
+    }
+    this->tips = nullptr;
+
+    this->left_panel = new VisTavLeftPanel(0x44D, 0, 0, 0xA0, 0x1E0, this);
+    this->right_panel = new VisTavRightPanel(0x44E, 0x1E0, 0, 0x280, 0xEE, this);
+    this->scene = new VisTavSceneDruid(0x450, 0xA0, 0, 0x1E0, 0x1E0, this);
+
+    this->AddChild(this->left_panel);
+    this->AddChild(this->right_panel);
+    this->AddChild(this->scene);
+
+    this->selection_index = 0;
+    this->avail_entries.RemoveAll();
+    this->quest_map = new QuestMap();
+}
