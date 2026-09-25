@@ -615,7 +615,6 @@
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
 ?VMethod7@VisStartGameTextBox@@UAEXXZ	134
 ?VMethod8@VisTav@@UAEXPAVCRect@@@Z	11
-?VMethod7@VisTav@@UAEXXZ	23
 ??1VisTav@@UAE@XZ	138
 ??_GVisTavDruid@@UAEPAXI@Z	24
 ??0VisTavDruid@@QAE@HHHHH@Z	31

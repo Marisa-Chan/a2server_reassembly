@@ -7745,3 +7745,14 @@ int32_t VisTav::OnKeyDown(uint32_t wparam)
     }
     return 0;
 }
+
+
+// 49E044
+void VisTav::VMethod7()
+{
+    if (this->dialog_active != 0) {
+        VisScreen::VMethod7();
+    }
+
+    FUN_004a4740(&this->sounds[3].sample);
+}

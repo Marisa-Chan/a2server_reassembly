@@ -121661,30 +121661,6 @@ loc_49DD38:                             ; CODE XREF: ??1VisTav@@UAE@XZ+FC↑j
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisTav@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C704↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+110h], 0
-                jz      short loc_49E05F
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod7@VisScreen@@UAEXXZ
-
-loc_49E05F:                             ; CODE XREF: ?VMethod7@VisTav@@UAEXXZ+11↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 90h
-                push    ecx
-                call    ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@VisTav@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
