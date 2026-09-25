@@ -121836,39 +121836,6 @@ sub_49E2E3      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_0049edec@VisTav@@QAEXXZ(_DWORD)
-?FUN_0049edec@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+21E↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                push    0
-                push    0
-                push    445h
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+48h]
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+418h], 4
-                jnz     short loc_49EE32
-                push    0               ; lParam
-                push    0               ; wParam
-                push    42Eh            ; Msg
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_49EE32:                             ; CODE XREF: ?FUN_0049edec@VisTav@@QAEXXZ+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0049edec@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -271,6 +271,7 @@
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_00490eb3@MainWindow@@QAEHXZ
+?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ

@@ -1413,7 +1413,7 @@ externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
 
 ;VisTav
-externdef ?FUN_0049edec@VisTav@@QAEXXZ  : proc
+extern ?FUN_0049edec@VisTav@@QAEXXZ  : proc
 extern ??_GVisTav@@UAEPAXI@Z : proc
 externdef ??1VisTav@@UAE@XZ : proc
 externdef ?VMethod7@VisTav@@UAEXXZ : proc

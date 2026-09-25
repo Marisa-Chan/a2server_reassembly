@@ -7722,3 +7722,15 @@ void VisTav::FUN_0049ee36()
     this->selected_entries[this->select_party]->VMethod1(1);
     this->map_context->UpdateSelectionState();
 }
+
+
+// 49EDEC
+void VisTav::FUN_0049edec()
+{
+    this->MsgProc(0x445, 0, 0);
+
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    if (wnd->dialogsMask == 4) {
+        AfxGetMainWnd()->PostMessageA(0x42E, 0, 0);
+    }
+}
