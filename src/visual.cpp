@@ -7608,3 +7608,38 @@ void VisTav::VMethod26()
     this->avail_entries.RemoveAll();
     this->quest_map = new QuestMap();
 }
+
+
+// 49E082
+int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    switch (msg) {
+    case 0x402:
+        if (this->rewards.GetSize() != 0 || this->quest_map->FUN_0041ec00() != 0) {
+            if (this->right_panel->texts[0] == " ") {
+                this->right_panel->FUN_0049a973();
+            }
+        }
+        if (main_wnd->dialogsMask == 4 || main_wnd->dialogsMask == 5) {
+            this->VMethod9();
+        }
+        break;
+    case 0x414:
+        this->FUN_0049eecd();
+        break;
+    case 0x415:
+        this->FUN_0049ee36();
+        break;
+    case 0x45A:
+        if (this->tips != nullptr) {
+            this->scene->RemoveChild(this->tips);
+            delete this->tips;
+            this->tips = nullptr;
+        }
+        break;
+    }
+
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}

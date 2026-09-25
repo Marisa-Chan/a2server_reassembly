@@ -485,6 +485,7 @@
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
+?MsgProc@VisTav@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z

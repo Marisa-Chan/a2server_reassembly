@@ -5809,7 +5809,7 @@ sub_41EBD0      endp
 ; Attributes: library function bp-based frame
 
 ; void __thiscall CDaoIndexFieldInfo::~CDaoIndexFieldInfo(CDaoIndexFieldInfo *__hidden varThis)
-??1CDaoIndexFieldInfo@@QAE@XZ_0 proc near ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+83A1↑p
+?FUN_0041ec00@QuestMap@@QAEHXZ proc near ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+83A1↑p
 
 var_4           = dword ptr -4
 
@@ -5823,7 +5823,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-??1CDaoIndexFieldInfo@@QAE@XZ_0 endp
+?FUN_0041ec00@QuestMap@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -116527,7 +116527,7 @@ loc_49A5A2:                             ; CODE XREF: sub_49A30A+276↑j
                 mov     edx, dword ptr [ebp+var_2C]
                 mov     eax, dword ptr [edx+5Ch]
                 mov     ecx, dword ptr [eax+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jnz     short loc_49A5DB
                 mov     ecx, dword ptr [ebp+var_2C]
@@ -116571,7 +116571,7 @@ loc_49A624:                             ; CODE XREF: sub_49A30A+21A↑j
                 mov     ecx, dword ptr [ebp+var_2C]
                 mov     edx, dword ptr [ecx+5Ch]
                 mov     ecx, dword ptr [edx+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jz      loc_49A6DC
                 lea     ecx, [ebp+var_20] ; varThis
@@ -117033,7 +117033,7 @@ loc_49AAAB:                             ; CODE XREF: ?FUN_0049a973@VisTavRightPa
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+5Ch]
                 mov     ecx, dword ptr [edx+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jz      short loc_49AB11
                 push    15Fh
@@ -118793,7 +118793,7 @@ loc_49BDD3:                             ; CODE XREF: sub_49BC23+B1↑j
                 mov     edx, dword ptr [ebp+var_C0]
                 mov     eax, dword ptr [edx+5Ch]
                 mov     ecx, dword ptr [eax+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jz      loc_49BF8B
                 mov     ecx, dword ptr [ebp+var_C0]
@@ -119905,7 +119905,7 @@ loc_49CBBF:                             ; CODE XREF: sub_49CAB8+64↑j
                 mov     eax, dword ptr [ebp+var_58]
                 mov     ecx, dword ptr [eax+5Ch]
                 mov     ecx, dword ptr [ecx+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jz      loc_49CC88
                 mov     edx, dword ptr [ebp+var_58]
@@ -121788,173 +121788,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisTav@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060C720↓o
 
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 18h
-                mov     [ebp+var_10], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                sub     ecx, 402h       ; switch 89 cases
-                mov     [ebp+var_14], ecx
-                cmp     [ebp+var_14], 58h
-                ja      def_49E0BA      ; jumptable 0049E0BA default case, cases 1027-1043,1046-1113
-                mov     eax, dword ptr [ebp+var_14]
-                xor     edx, edx
-                mov     dl, ds:byte_49E1DA[eax]
-                jmp     ds:jpt_49E0BA[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_49E0C1:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+38↑j
-                mov     ecx, dword ptr [ebp+var_10] ; jumptable 0049E0BA case 1026
-                add     ecx, 124h
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jnz     short loc_49E0E5
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ecx+114h] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
-                test    eax, eax
-                jz      short loc_49E114
-
-loc_49E0E5:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+4F↑j
-                push    offset asc_632438 ; " "
-                push    0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+74h]
-                add     ecx, 60h ; '`'
-                call    sub_401820
-                push    eax             ; int
-                call    sub_43A780
-                and     eax, 0FFh
-                test    eax, eax
-                jz      short loc_49E114
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+74h]
-                call    ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
-
-loc_49E114:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+61↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+418h], 4
-                jz      short loc_49E12C
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+418h], 5
-                jnz     short loc_49E137
-
-loc_49E12C:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+9C↑j
-                mov     eax, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+34h]
-
-loc_49E137:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+A8↑j
-                jmp     short def_49E0BA ; jumptable 0049E0BA default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_49E139:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+38↑j
-                mov     eax, dword ptr [ebp+var_10] ; jumptable 0049E0BA case 1114
-                cmp     dword ptr [eax+80h], 0
-                jz      short loc_49E198
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+80h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+7Ch]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+80h]
-                mov     [ebp+var_C], edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0
-                jz      short loc_49E184
-                push    1
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_18], eax
-                jmp     short loc_49E18B
-; ---------------------------------------------------------------------------
-
-loc_49E184:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+EE↑j
-                mov     [ebp+var_18], 0
-
-loc_49E18B:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+100↑j
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+80h], 0
-
-loc_49E198:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+C1↑j
-                jmp     short def_49E0BA ; jumptable 0049E0BA default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_49E19A:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+38↑j
-                mov     ecx, dword ptr [ebp+var_10] ; jumptable 0049E0BA case 1045
-                call    sub_49EE36
-                jmp     short def_49E0BA ; jumptable 0049E0BA default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_49E1A4:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+38↑j
-                mov     ecx, dword ptr [ebp+var_10] ; jumptable 0049E0BA case 1044
-                call    sub_49EECD
-
-def_49E0BA:                             ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+27↑j
-                mov     ecx, dword ptr [ebp+arg_8] ; jumptable 0049E0BA default case, cases 1027-1043,1046-1113
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisTav@@UAEHIII@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_49E0BA      dd offset loc_49E0C1    ; DATA XREF: ?MsgProc@VisTav@@UAEHIII@Z+38↑r
-                dd offset loc_49E1A4    ; jump table for switch statement
-                dd offset loc_49E19A
-                dd offset loc_49E139
-                dd offset def_49E0BA
-byte_49E1DA     db      0,     4,     4,     4
-                db      4,     4,     4,     4 ; indirect table for switch statement
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     1,     2
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      3
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -122179,7 +122013,7 @@ loc_49EE32:                             ; CODE XREF: ?FUN_0049edec@VisTav@@QAEXX
 
 ; Attributes: bp-based frame
 
-sub_49EE36      proc near               ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+11B↑p
+?FUN_0049ee36@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+11B↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -122211,7 +122045,7 @@ var_4           = dword ptr -4
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx+0BCh], 0
 
-loc_49EE94:                             ; CODE XREF: sub_49EE36+4F↑j
+loc_49EE94:                             ; CODE XREF: ?FUN_0049ee36@VisTav@@QAEXXZ+4F↑j
                 push    1
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+0BCh]
@@ -122231,14 +122065,14 @@ loc_49EE94:                             ; CODE XREF: sub_49EE36+4F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49EE36      endp
+?FUN_0049ee36@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_49EECD      proc near               ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+125↑p
+?FUN_0049eecd@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisTav@@UAEHIII@Z+125↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -122267,14 +122101,14 @@ var_4           = dword ptr -4
                 jmp     short loc_49EF2A
 ; ---------------------------------------------------------------------------
 
-loc_49EF13:                             ; CODE XREF: sub_49EECD+2D↑j
+loc_49EF13:                             ; CODE XREF: ?FUN_0049eecd@VisTav@@QAEXXZ+2D↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 0D4h
                 call    unknown_libname_608 ; MFC 3.1-14.0 32bit
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     [ecx+0BCh], eax
 
-loc_49EF2A:                             ; CODE XREF: sub_49EECD+44↑j
+loc_49EF2A:                             ; CODE XREF: ?FUN_0049eecd@VisTav@@QAEXXZ+44↑j
                 push    1
                 mov     edx, dword ptr [ebp+var_4]
                 mov     eax, dword ptr [edx+0BCh]
@@ -122294,7 +122128,7 @@ loc_49EF2A:                             ; CODE XREF: sub_49EECD+44↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49EECD      endp
+?FUN_0049eecd@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -195055,7 +194889,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_A0]
                 mov     esi, [eax+0Ch]
                 mov     ecx, dword ptr [ebp+var_38] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 shl     eax, 5
                 lea     ecx, [esi+eax+48h]
                 mov     edx, dword ptr [ebp+var_A0]
@@ -195412,7 +195246,7 @@ loc_4E3341:                             ; CODE XREF: ?VMethod7@VisQuestStatus@@U
                 add     eax, 28h ; '('
                 mov     [ebp+var_30], eax
                 mov     ecx, dword ptr [ebp+var_38] ; varThis
-                call    ??1CDaoIndexFieldInfo@@QAE@XZ_0 ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
+                call    ?FUN_0041ec00@QuestMap@@QAEHXZ ; CDaoIndexFieldInfo::~CDaoIndexFieldInfo(void)
                 test    eax, eax
                 jz      short loc_4E33B9
                 push    1

@@ -1498,6 +1498,8 @@ public:
 	virtual void VMethod31(); // 49F3D7
 
 	void FUN_0049edec();
+	void FUN_0049ee36(); //49ee36 in asm
+	void FUN_0049eecd(); //49eecd in asm
 
 	VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //49db79 in asm
 
