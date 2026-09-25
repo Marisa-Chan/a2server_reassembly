@@ -1439,7 +1439,12 @@ public:
 public:
 	VisTav* vis_tav; // 0x5c
 	CStringArray texts; // 0x60
-	uint8_t __gap_0x74[0x54];
+	CBmp64* field_0x74[3]; // 0x74
+	CBmp64* field_0x80[3]; // 0x80
+	CBmp64* field_0x8c; // 0x8c
+	CRect field_0x90[3]; // 0x90
+	int32_t field_0xc0; // 0xc0
+	int32_t field_0xc4; // 0xc4
 };
 ASSERT_SIZE(VisTavRightPanel, 0xc8);
 
@@ -1454,7 +1459,14 @@ public:
 	void FUN_004996ab(); //4996ab in asm
 
 public:
-	uint8_t __gap_0x5c[0x134];
+	VisTav* vis_tav; // 0x5c
+	uint8_t __gap_0x60[0x100];
+	CBmp64* field_0x160; // 0x160
+	CBmp256* field_0x164; // 0x164
+	CBmp64* field_0x168; // 0x168
+	CBmp256* field_0x16c; // 0x16c
+	uint8_t gap_0x170[16]; // 0x170
+	CRect field_0x180; // 0x180
 };
 ASSERT_SIZE(VisTavLeftPanel, 0x190);
 
@@ -1472,9 +1484,22 @@ public:
 
 public:
 	VisTav* vis_tav; // 0x5c
-	uint8_t __gap_0x60[0x220];
+	CRect field_0x60[18]; // 0x60
+	CRect field_0x180[9]; // 0x180
+	CArray<CSprite256*> field_0x210; // 0x210
+	CArray<CSprite256*> field_0x224; // 0x224
+	CArray<CSprite256*> field_0x238; // 0x238
+	CArray<uint32_t> field_0x24c; // 0x24c
+	CArray<uint32_t> field_0x260; // 0x260
+	CBmp64* field_0x274; // 0x274
+	CBmp64* field_0x278; // 0x278
+	CBmp64* field_0x27c; // 0x27c
 	VisTavSceneAnim anims[4]; // 0x280
-	uint8_t __gap_0x340[0x8c];
+	CBmp64* field_0x340; // 0x340
+	CBmp64* field_0x344; // 0x344
+	CBmp64* field_0x348; // 0x348
+	CBmp64* field_0x34c[13]; // 0x34c
+	uint8_t __gap_0x380[76];
 };
 ASSERT_SIZE(VisTavScene, 0x3cc);
 
