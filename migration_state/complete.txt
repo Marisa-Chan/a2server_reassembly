@@ -152,6 +152,7 @@
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavLeftPanel@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
+??_GVisTavSceneDruid@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z

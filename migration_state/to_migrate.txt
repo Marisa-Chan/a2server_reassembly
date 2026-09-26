@@ -628,9 +628,7 @@
 ?FUN_0049f179@VisTav@@QAEXXZ	99
 ?FUN_0049ef63@VisTav@@QAEXXZ	131
 ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z	71
-??_GVisTavSceneDruid@@UAEPAXI@Z	24
 ??1VisTavSceneDruid@@UAE@XZ	45
-??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80
 ??_GVisTavSceneKaarg@@UAEPAXI@Z	24
 ??1VisTavSceneKaarg@@UAE@XZ	57
 ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z	99

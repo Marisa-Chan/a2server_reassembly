@@ -112987,88 +112987,6 @@ sub_4A04E7      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z      proc near               ; CODE XREF: ?VMethod26@VisTavDruid@@UAEXXZ+1D1↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FCEE9 SIZE 00000040 BYTES
-
-; __unwind { // SEH_4A05A0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A05A0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+yBottom]
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+xRight]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+yTop]
-                push    eax             ; yTop
-                mov     ecx, dword ptr [ebp+xLeft]
-                push    ecx             ; xLeft
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3D0h
-                call    sub_401000
-;   } // starts at 4A05DC
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 400h
-                call    sub_401000
-;   } // starts at 4A05F1
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 430h
-                call    sub_401000
-;   } // starts at 4A0603
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60C7F8
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+460h], eax
-                push    7D0h
-                call    ?GetRandS16@@YAHH@Z
-                add     esp, 4
-                add     eax, 7D0h
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+464h], eax
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+3CCh], 0
-;   } // starts at 4A0615
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 4A05A0
-??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -115025,31 +114943,6 @@ sub_4A3EE0      endp
 
 ; Attributes: bp-based frame
 
-??_GVisTavSceneDruid@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060C7FC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1VisTavSceneDruid@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4A3FB2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4A3FB2:                             ; CODE XREF: ??_GVisTavSceneDruid@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisTavSceneDruid@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -360060,45 +359953,6 @@ SEH_4A04E7:                             ; DATA XREF: sub_4A04E7+5↑o
 ; } // starts at 5FCEA9
 ; END OF FUNCTION CHUNK FOR sub_4A04E7
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z
-
-loc_5FCEE9:                             ; DATA XREF: .rdata:stru_61DFF8↓o
-; __unwind { // SEH_4A05A0
-;   cleanup() // owned by 4A05DC
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisTavScene@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCEF2:                             ; DATA XREF: .rdata:0061E000↓o
-;   cleanup() // owned by 4A05F1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3D0h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCF01:                             ; DATA XREF: .rdata:0061E008↓o
-;   cleanup() // owned by 4A0603
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 400h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCF10:                             ; DATA XREF: .rdata:0061E010↓o
-;   cleanup() // owned by 4A0615
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 430h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A05A0:                             ; DATA XREF: ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z+5↑o
-                mov     eax, offset stru_61DFD8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FCEE9
-; END OF FUNCTION CHUNK FOR ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4A29AA
@@ -395202,15 +395056,6 @@ stru_61DFB8     UnwindMapEntry <-1, offset loc_5FCEA9>
                 UnwindMapEntry <0, offset loc_5FCEB2>
                 UnwindMapEntry <1, offset loc_5FCEC1>
                 UnwindMapEntry <2, offset loc_5FCED0>
-stru_61DFD8     FuncInfoV1 <19930520h, 4, offset stru_61DFF8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61DFF8     UnwindMapEntry <-1, offset loc_5FCEE9>
-                UnwindMapEntry <0, offset loc_5FCEF2>
-                UnwindMapEntry <1, offset loc_5FCF01>
-                UnwindMapEntry <2, offset loc_5FCF10>
 stru_61E0F8     FuncInfoV1 <19930520h, 6, offset stru_61E118, 0, 0, 0, 0>
                 db    0
                 db    0

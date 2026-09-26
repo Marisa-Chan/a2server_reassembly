@@ -9299,6 +9299,16 @@ void VisTavSceneDruid::VMethod7()
 }
 
 
+// 4A05A0
+VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
+: VisTavScene(_id, l, t, r, b, tav)
+{
+    this->field_0x460 = timeGetTime();
+    this->field_0x464 = GetRandS16(2000) + 2000;
+    this->field_0x3cc = nullptr;
+}
+
+
 // 4A158F
 void VisTavSceneDruid::VMethod29()
 {
