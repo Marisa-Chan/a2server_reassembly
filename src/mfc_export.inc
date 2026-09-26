@@ -1380,6 +1380,8 @@ externdef ?FUN_00459449@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459449(int x6)
 externdef ?FUN_004595fd@@YAXHHHHHHHHHH@Z : proc  ; void __cdecl FUN_004595fd(int x10)
 externdef ?FUN_0045995e@@YAXHHH@Z : proc  ; void __cdecl FUN_0045995e(int, int, int)
 externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
+externdef ?sub_457C5D@@YAXHHHHH@Z : proc  ; void __cdecl sub_457C5D(int, int, int, int, int)
+externdef ?sub_4588EC@@YAXHHHHHH@Z : proc  ; void __cdecl sub_4588EC(int x6)
 externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 externdef ?FUN_0041ae1c@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z : proc  ; int32_t BigStruct2::FUN_0041e2af(int32_t, CUnit**)
@@ -1777,6 +1779,7 @@ externdef ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc
 externdef ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc
 externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
+externdef ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc

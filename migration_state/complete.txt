@@ -263,7 +263,6 @@
 ?Free@CGamePalette@@QAEXXZ
 ?Free@TxtFile@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
-?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ
 ?FUN_0040d7f3@BigStruct2@@QAEHXZ
 ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z
@@ -279,6 +278,7 @@
 ?FUN_00490eb3@MainWindow@@QAEHXZ
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
+?FUN_0049bc23@VisTavScene@@QAEXXZ
 ?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
@@ -633,7 +633,6 @@
 ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z
 ?StaticAddPath@Resources@@SAXPBD@Z
 ?StatLevelPoints@@YAHH@Z
-?StepBackward@VisTavSceneAnim@@QAE_NXZ
 ?StepForward@VisTavSceneAnim@@QAE_NXZ
 ?Stop@SoundChannel@@QAEXXZ
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z

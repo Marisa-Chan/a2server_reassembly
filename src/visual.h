@@ -1189,6 +1189,7 @@ public:
 	virtual int32_t VMethod38(); //4a79b0
 
 	int32_t FUN_0046fb90(); //46fb90
+	void sub_4A5FAB(int32_t x, int32_t y, int32_t idx); //4a5fab in asm
 
 public:
 	CArray<CSprite256*> spr_cells;

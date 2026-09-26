@@ -8920,6 +8920,118 @@ VisTavScene::VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 }
 
 
+// 49BC23
+void VisTavScene::FUN_0049bc23()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+
+    int32_t quest_found = main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    if (quest_found != 0) {
+        Quest* quest = nullptr;
+        this->vis_tav->quest_map->FUN_004a47a0(quest_found, &quest);
+        CPoint pt = this->field_0x60[0].TopLeft();
+        int32_t kind = quest->Kind();
+        this->field_0x34c[kind - 1]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+        if (this->vis_tav->field_0x13c == 0) {
+            CRect& r = this->field_0x60[0];
+            g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
+        }
+        return;
+    }
+
+    if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+        POSITION it = this->vis_tav->quest_map->quests_map.GetStartPosition();
+        int32_t i = 0;
+        while (it != nullptr) {
+            uint32_t key;
+            Quest* quest;
+            this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            int32_t kind = quest->Kind();
+            this->field_0x34c[kind - 1]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            if (this->vis_tav->quest_selection == key) {
+                CRect& r = this->field_0x60[row * 6 + col];
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
+            }
+            i++;
+        }
+        return;
+    }
+
+    for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
+        int32_t row = i / 3;
+        int32_t col = i % 3;
+        CPoint pt = this->field_0x180[row * 3 + col].TopLeft();
+        g_bmp_backinv->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+        if (this->vis_tav->quest_id == i) {
+            sub_457C5D(tav_topleft.x + pt.x, tav_topleft.y + pt.y, tav_topleft.x + pt.x + 0x50, tav_topleft.y + pt.y + 0x50, 2);
+        }
+        if (this->field_0x210.GetSize() <= i) {
+            this->field_0x210.SetSize(i + 1, -1);
+        }
+
+        TokenEntry* entry = this->vis_tav->rewards[i];
+        if (entry->item_id == 0xFFFD) {
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x166], 2, clrsh_DullGold, 1);
+        } else if (entry->item_id == 0xFFFE) {
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
+            CString text;
+            text.Format("%d", entry->field_0x10 * 250);
+            FUN_00476987(&text);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
+        } else if (entry->item_id == 0xFFFF) {
+            g_ca16_money->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            CString text;
+            text.Format("%d", entry->field_0x10 * 250);
+            FUN_00476987(&text);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
+        } else {
+            if (this->field_0x210[i] == nullptr) {
+                if (this->field_0x210.GetSize() <= i) {
+                    this->field_0x210.SetSize(i + 1, -1);
+                }
+                CString path = "graphics\\inventory\\" + entry->FUN_004394f3() + ".16a";
+                this->field_0x210[i] = new CA16(path);
+                this->field_0x210[i]->ResetPalette(0x10, 4, 0);
+            }
+            this->field_0x210[i]->VMethod2(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
+            if (entry->field_0x10 > 1) {
+                char buf[80];
+                sprintf(buf, "%d", entry->field_0x10);
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, buf, 0, clrsh_DullGold, 1);
+            }
+
+            if (entry->flg & 0x20) {
+                uint32_t t = GetTickCount() / 120;
+                int32_t cell_x = tav_topleft.x + pt.x;
+                int32_t cell_y = tav_topleft.y + pt.y;
+                static const uint32_t sparkle_alpha[7] = {0x3F, 0x7F, 0xBF, 0xFF, 0xBF, 0x7F, 0x3F};
+                for (uint32_t k = 0; k < 7; k++) {
+                    if (t >= k) {
+                        sub_4588EC(cell_x + main_wnd->vis_invtype1->random_offsets1[(t - k) & 0x3FF],
+                                   cell_y + main_wnd->vis_invtype1->random_offsets2[(t - k) & 0x3FF],
+                                   0xFF, 0, 0xFF, sparkle_alpha[k]);
+                    }
+                }
+                main_wnd->vis_invtype1->sub_4A5FAB(cell_x, cell_y, i);
+            }
+
+            if (i > 1 && this->vis_tav->rewards[i - 1]->item_id >= 0xFFFD) {
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x161], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x2D, TxtFile::AllLines[0x162], 2, clrsh_DullGold, 1);
+            }
+        }
+
+        if (this->vis_tav->quest_selection == i) {
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0xF, TxtFile::AllLines[0x163], 2, clrsh_TechBlack, 1);
+        }
+    }
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
