@@ -9032,6 +9032,37 @@ void VisTavScene::FUN_0049bc23()
 }
 
 
+// 49AF8C
+void VisTavScene::FUN_0049af8c()
+{
+    CPoint base(this->rect.left + 0x10, this->rect.bottom);
+
+    for (int32_t i = 0; i < 3; i++) {
+        for (int32_t j = 0; j < 6; j++) {
+            CPoint pt = base + CPoint(j * 0x30, -(i + 1) * 0x40);
+            this->field_0x60[i * 6 + j] = CRect(pt, CSize(0x30, 0x40));
+        }
+    }
+
+    for (int32_t i = 0; i < 3; i++) {
+        for (int32_t j = 0; j < 3; j++) {
+            CPoint pt = base + CPoint(j * 0x50 + 0x18, -(i + 1) * 0x50);
+            this->field_0x180[i * 3 + j] = CRect(pt, CSize(0x50, 0x50));
+        }
+    }
+
+    this->field_0x274 = nullptr;
+    this->field_0x278 = nullptr;
+    this->field_0x27c = nullptr;
+    this->field_0x340 = nullptr;
+    this->field_0x344 = nullptr;
+    this->field_0x348 = nullptr;
+    for (int32_t i = 0; i < 13; i++) {
+        this->field_0x34c[i] = nullptr;
+    }
+}
+
+
 // 49CAB8
 int32_t VisTavScene::FUN_0049cab8(CPoint* pos)
 {
