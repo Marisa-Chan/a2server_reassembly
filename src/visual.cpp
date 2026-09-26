@@ -8547,7 +8547,7 @@ void VisTavSceneAnim::NextFrame()
 // 4016EF
 void VisTavSceneAnim::Draw(int32_t x, int32_t y)
 {
-    this->current_frame->VMethod3(x, y, 0, 0, 0);
+    this->current_frame->VMethod2(x, y, 0, 0, 0);
 }
 
 
@@ -8588,7 +8588,7 @@ void VisTavScene::VMethod7()
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
 
-    this->field_0x27c->VMethod3(x, y, 0, 0, 0);
+    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
 
     if (main_wnd->sessionMode == 2) {
         this->anims[0].Draw(x, y + 0x30);
@@ -8654,9 +8654,9 @@ void VisTavScene::VMethod7()
                 continue;
             }
 
-            this->field_0x274->VMethod3(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
             CSprite256* sprite = this->field_0x224[i];
-            sprite->VMethod3(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
             if (this->vis_tav->selection_index == i && now - tavscene_frame_ts > 0x7D) {
                 this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
                 tavscene_frame_ts = now;
@@ -8682,20 +8682,20 @@ void VisTavScene::VMethod7()
                 this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
                 tavscene_frame_ts = now;
             }
-            this->field_0x278->VMethod3(x + pt.x, y + pt.y, 0, 0, 0);
-            this->field_0x238[i]->VMethod3(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
         }
     } else {
         this->FUN_0049bc23();
     }
 
-    this->field_0x340->VMethod11(x + 0xA0, y, 0, 0, 0x10, 0xEE);
-    this->field_0x344->VMethod11(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
-    this->field_0x348->VMethod11(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
     if (this->vis_tav->info_panel->info_mode) {
-        g_bmp_humanbackl->VMethod11(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     } else {
-        g_bmp_textbackl->VMethod11(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
