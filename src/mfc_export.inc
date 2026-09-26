@@ -1449,7 +1449,6 @@ extern ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 extern ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ?FUN_00499a67@VisTavRightPanel@@QAEXXZ : proc
-externdef ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ : proc
 extern ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
 extern ?FUN_00499cdf@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z : proc  ; int32_t VisTavRightPanel::FUN_0049a873(CPoint)

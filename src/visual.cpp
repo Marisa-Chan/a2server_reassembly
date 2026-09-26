@@ -8257,6 +8257,14 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A84E
+void VisTavRightPanel::FUN_0049a84e()
+{
+    this->field_0xc0 = -1;
+    this->field_0xc4 = -1;
+}
+
+
 // 49A26E
 int32_t VisTavRightPanel::OnMouseMove(uint32_t wparam, CPoint pos)
 {
