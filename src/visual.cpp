@@ -8257,6 +8257,45 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A973
+void VisTavRightPanel::FUN_0049a973()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (main_wnd->sessionMode == 2) {
+        if (this->vis_tav->avail_entries.GetSize() < this->vis_tav->selection_index || this->vis_tav->selection_index == -1) {
+            this->texts[0] = "";
+        } else {
+            CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+            if (this->vis_tav->entrie_id[this->vis_tav->FUN_0049e2e3(unit)] & 0x80000000) {
+                this->texts[0] = TxtFile::AllLines[0x103];
+            } else {
+                this->texts[0] = TxtFile::AllLines[0x102];
+            }
+        }
+        this->texts[1] = TxtFile::AllLines[0xF2];
+    } else {
+        if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+            this->texts[0] = TxtFile::AllLines[0x15F];
+            this->texts[1] = TxtFile::AllLines[0x160];
+        } else {
+            if (this->vis_tav->rewards.GetSize() != 0) {
+                this->texts[0] = TxtFile::AllLines[0x164];
+                this->texts[1] = TxtFile::AllLines[0x165];
+            } else {
+                if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+                    this->texts[0] = txt_patch.GetLine(0x60);
+                    this->texts[1] = " ";
+                } else {
+                    this->texts[0] = " ";
+                    this->texts[1] = " ";
+                }
+            }
+        }
+    }
+}
+
+
 // 499DFA
 void VisTavRightPanel::VMethod7()
 {
