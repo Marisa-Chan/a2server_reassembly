@@ -112730,152 +112730,6 @@ sub_497E06      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_49974C      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FC92E SIZE 0000001F BYTES
-
-; __unwind { // SEH_49974C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_49974C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'
-                call    sub_5DABF1
-;   } // starts at 499770
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    3               ; int
-                push    10h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 90h
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60C5D8
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_004998c2@VisTavRightPanel@@QAEXXZ
-;   } // starts at 499782
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 49974C
-sub_49974C      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_49AC33      proc near               ; CODE XREF: sub_4A04E7+1F↓p
 
 var_10          = dword ptr -10h
@@ -366174,29 +366028,7 @@ SEH_497920:                             ; DATA XREF: sub_497920+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC870
 ; END OF FUNCTION CHUNK FOR sub_497920
-; START OF FUNCTION CHUNK FOR sub_49974C
-
-loc_5FC92E:                             ; DATA XREF: .rdata:stru_61DA40↓o
-; __unwind { // SEH_49974C
-;   cleanup() // owned by 499770
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
 ; ---------------------------------------------------------------------------
-
-loc_5FC937:                             ; DATA XREF: .rdata:0061DA48↓o
-;   cleanup() // owned by 499782
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_49974C:                             ; DATA XREF: sub_49974C+5↑o
-                mov     eax, offset stru_61DA20
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC92E
-; END OF FUNCTION CHUNK FOR sub_49974C
 ; START OF FUNCTION CHUNK FOR sub_49AC33
 
 loc_5FC9F7:                             ; DATA XREF: .rdata:stru_61DB58↓o
@@ -387560,36 +387392,6 @@ off_60C560      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-off_60C5D8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_49974C+54↑o
-                dd offset ??_GVisTavRightPanel@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@VisTavRightPanel@@UAEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisTavRightPanel@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 off_60C650      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_49AC33+FD↑o
                 dd offset ??_GVisTavScene@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -401921,13 +401723,6 @@ stru_61D900     FuncInfoV1 <19930520h, 1, offset stru_61D920, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61D920     UnwindMapEntry <-1, offset unknown_libname_986>
-stru_61DA20     FuncInfoV1 <19930520h, 2, offset stru_61DA40, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61DA40     UnwindMapEntry <-1, offset loc_5FC92E>
-                UnwindMapEntry <0, offset loc_5FC937>
 stru_61DB38     FuncInfoV1 <19930520h, 10, offset stru_61DB58, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -411267,34 +411062,6 @@ aGraphicsInterf_161 db 'graphics\interface\Inn\button3off.bmp',0
 ; char aGraphicsInterf_162[]
 aGraphicsInterf_162 db 'graphics\interface\Inn\ButtonsArea.bmp',0
                 align 4
-; char aNpcDabout[]
-aNpcDabout      db 'npc%dabout',0       ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+1BB↑o
-                align 4
-; char aQuestD[]
-aQuestD         db 'quest%d',0          ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+384↑o
-; CHAR aTreasuremoney[]
-aTreasuremoney  db 'treasuremoney',0    ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z:loc_49A774↑o
-                align 4
-; CHAR aTreasurexp[]
-aTreasurexp     db 'treasurexp',0       ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z:loc_49A789↑o
-                align 4
-; CHAR aTreasureally[]
-aTreasureally   db 'treasureally',0     ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z:loc_49A79E↑o
-                align 4
-; CHAR aTreasureenchan[]
-aTreasureenchan db 'treasureenchant',0  ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+4AF↑o
-; CHAR aTreasureitem[]
-aTreasureitem   db 'treasureitem',0     ; DATA XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z:loc_49A7CE↑o
-                align 4
-; CHAR asc_632248[]
-asc_632248      db ' ',0                ; DATA XREF: ?FUN_0049a973@VisTavRightPanel@@QAEXXZ+26E↑o
-                align 4
-; CHAR asc_63224C[]
-asc_63224C      db ' ',0                ; DATA XREF: ?FUN_0049a973@VisTavRightPanel@@QAEXXZ:loc_49ABFC↑o
-                align 10h
-; CHAR asc_632250[]
-asc_632250      db ' ',0                ; DATA XREF: ?FUN_0049a973@VisTavRightPanel@@QAEXXZ+2A2↑o
-                align 4
 ; char aD_31[]
 aD_31           db '%d',0               ; DATA XREF: sub_49BC23+540↑o
                 align 4
@@ -416630,8 +416397,6 @@ dword_665D78    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEX
 dword_665D7C    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEXXZ+100↑w
 dword_665D80    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEXXZ+232↑w
 dword_665D84    dd ?                    ; DATA XREF: ?VMethod7@VisTavScene@@UAEXXZ+228↑w
-; CHAR byte_665D88[4]
-byte_665D88     db 4 dup(?)             ; DATA XREF: ?FUN_0049a973@VisTavRightPanel@@QAEXXZ:loc_49A9C3↑o
 ; char byte_665D8C[4]
 byte_665D8C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMainMenu@@UAEXXZ+1EC↑o
 ; char byte_665D90[4]

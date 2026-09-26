@@ -1439,16 +1439,7 @@ extern ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 extern ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN_00497ace()
 
 ; VisTavRightPanel
-extern ??_GVisTavRightPanel@@UAEPAXI@Z :proc
-extern ?GetHint@VisTavRightPanel@@UAEPBDXZ :proc
-extern ?VMethod7@VisTavRightPanel@@UAEXXZ :proc
-extern ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
-extern ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
-extern ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
-extern ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 extern ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
-extern ?FUN_004998c2@VisTavRightPanel@@QAEXXZ : proc  ; void VisTavRightPanel::FUN_004998c2()
-extern ?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z : proc  ; int32_t VisTavRightPanel::FUN_0049a873(CPoint)
 
 ; VisTavScene
 externdef ??_GVisTavScene@@UAEPAXI@Z :proc
