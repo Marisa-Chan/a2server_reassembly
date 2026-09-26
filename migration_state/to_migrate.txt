@@ -620,8 +620,8 @@
 ??_GVisTavLeftPanel@@UAEPAXI@Z	24
 ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z	61
 ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ	67
-?VMethod7@VisTavLeftPanel@@UAEXXZ	69
 ??1VisTavLeftPanel@@UAE@XZ	78
+?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z	1466
 ?GetHint@VisTavRightPanel@@UAEPBDXZ	12
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
 ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z	23

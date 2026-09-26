@@ -7842,6 +7842,19 @@ void VisTavLeftPanel::FUN_004995d1()
 }
 
 
+// 497ED0
+void VisTavLeftPanel::VMethod7()
+{
+    if (this->vis_tav->selection_index < 0) {
+        this->FUN_00497f82(nullptr);
+    } else if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+        this->FUN_00497f82(this->vis_tav->avail_entries[this->vis_tav->selection_index]);
+    } else {
+        this->FUN_00497f82(this->vis_tav->reserved_entries[this->vis_tav->selection_index - this->vis_tav->avail_entries.GetSize()]);
+    }
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

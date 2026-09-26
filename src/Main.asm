@@ -4413,7 +4413,7 @@ loc_41DFD5:                             ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@Q
 
 ; Attributes: bp-based frame
 
-sub_41E2AF      proc near               ; CODE XREF: sub_497F82+636↓p
+sub_41E2AF      proc near               ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+636↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -113105,83 +113105,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisTavLeftPanel@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060C58C↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+0B8h], 0
-                jl      loc_497F73
-                mov     edx, dword ptr [ebp+var_4]
-                mov     esi, [edx+5Ch]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 0C0h
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                cmp     [esi+0B8h], eax
-                jl      short loc_497F48
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     esi, [ecx+5Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+5Ch]
-                add     ecx, 0C0h
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [esi+0B8h]
-                sub     ecx, eax
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+5Ch]
-                add     ecx, 0E8h
-                call    sub_4215A0
-                mov     eax, dword ptr [eax]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_497F82
-                jmp     short loc_497F71
-; ---------------------------------------------------------------------------
-
-loc_497F48:                             ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+38↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+0B8h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+5Ch]
-                add     ecx, 0C0h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_497F82
-
-loc_497F71:                             ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+76↑j
-                jmp     short loc_497F7D
-; ---------------------------------------------------------------------------
-
-loc_497F73:                             ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+15↑j
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_497F82
-
-loc_497F7D:                             ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ:loc_497F71↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@VisTavLeftPanel@@UAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_497F82      proc near               ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+71↑p
+?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z      proc near               ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+71↑p
 
 var_994         = dword ptr -994h
 var_990         = dword ptr -990h
@@ -113349,7 +113273,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [ebp+arg_0]
                 call    sub_46C124
 
-loc_498103:                             ; CODE XREF: sub_497F82+140↑j
+loc_498103:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+140↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     ecx, dword ptr [eax+1B8h]
                 and     ecx, 11h
@@ -113415,7 +113339,7 @@ loc_498103:                             ; CODE XREF: sub_497F82+140↑j
                 jmp     short loc_498213
 ; ---------------------------------------------------------------------------
 
-loc_4981EE:                             ; CODE XREF: sub_497F82+22F↑j
+loc_4981EE:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+22F↑j
                 mov     ecx, dword ptr [ebp+var_988]
                 mov     edx, dword ptr [ecx+164h]
                 push    edx             ; int
@@ -113425,11 +113349,11 @@ loc_4981EE:                             ; CODE XREF: sub_497F82+22F↑j
                 mov     ecx, dword ptr [ecx+160h]
                 call    ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 
-loc_498213:                             ; CODE XREF: sub_497F82+26A↑j
+loc_498213:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+26A↑j
                 jmp     short loc_49825E
 ; ---------------------------------------------------------------------------
 
-loc_498215:                             ; CODE XREF: sub_497F82+202↑j
+loc_498215:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+202↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 mov     eax, dword ptr [edx+1B8h]
                 and     eax, 8
@@ -113450,11 +113374,11 @@ loc_498215:                             ; CODE XREF: sub_497F82+202↑j
                 call    dword ptr [edx+88h]
                 call    ?LockSurface2@@YAIXZ
 
-loc_49825E:                             ; CODE XREF: sub_497F82:loc_498213↑j
+loc_49825E:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z:loc_498213↑j
                 jmp     loc_498398
 ; ---------------------------------------------------------------------------
 
-loc_498263:                             ; CODE XREF: sub_497F82+18F↑j
+loc_498263:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+18F↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     ecx, dword ptr [eax+24h]
                 push    ecx
@@ -113485,7 +113409,7 @@ loc_498263:                             ; CODE XREF: sub_497F82+18F↑j
                 call    _strcat
                 add     esp, 8
 
-loc_4982C6:                             ; CODE XREF: sub_497F82+32C↑j
+loc_4982C6:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+32C↑j
                 lea     ecx, [ebp+Destination]
                 push    ecx             ; Str2
                 mov     edx, dword ptr [ebp+var_988]
@@ -113541,7 +113465,7 @@ loc_4982C6:                             ; CODE XREF: sub_497F82+32C↑j
                 call    _memset
                 add     esp, 0Ch
 
-loc_498398:                             ; CODE XREF: sub_497F82:loc_49825E↑j
+loc_498398:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z:loc_49825E↑j
                 push    0F0h
                 push    0A0h
                 push    0
@@ -113561,7 +113485,7 @@ loc_498398:                             ; CODE XREF: sub_497F82:loc_49825E↑j
                 jmp     short loc_498446
 ; ---------------------------------------------------------------------------
 
-loc_4983D6:                             ; CODE XREF: sub_497F82+12C↑j
+loc_4983D6:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+12C↑j
                 mov     [ebp+var_3D8], offset ?clrsh_DullGold@@3PAGA
                 push    1
                 mov     eax, dword ptr [ebp+var_3D8]
@@ -113598,7 +113522,7 @@ loc_4983D6:                             ; CODE XREF: sub_497F82+12C↑j
                 mov     ecx, ?g_font2@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_498446:                             ; CODE XREF: sub_497F82+122↑j
+loc_498446:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+122↑j
                 mov     edx, dword ptr [ebp+var_988]
                 mov     eax, dword ptr [edx+5Ch]
                 mov     ecx, dword ptr [eax+138h]
@@ -113632,7 +113556,7 @@ loc_498446:                             ; CODE XREF: sub_497F82+122↑j
                 jmp     short loc_4984F8
 ; ---------------------------------------------------------------------------
 
-loc_4984C7:                             ; CODE XREF: sub_497F82+519↑j
+loc_4984C7:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+519↑j
                 lea     edx, [ebp+var_3DC]
                 push    edx
                 mov     eax, dword ptr [ebp+var_988]
@@ -113645,7 +113569,7 @@ loc_4984C7:                             ; CODE XREF: sub_497F82+519↑j
                 call    sub_4A47A0
                 mov     [ebp+var_3E8], eax
 
-loc_4984F8:                             ; CODE XREF: sub_497F82+543↑j
+loc_4984F8:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+543↑j
                 cmp     [ebp+var_3E8], 0
                 jz      loc_499062
                 mov     [ebp+var_464], 0
@@ -113669,7 +113593,7 @@ loc_4984F8:                             ; CODE XREF: sub_497F82+543↑j
                 jmp     ds:jpt_49855F[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_498566:                             ; CODE XREF: sub_497F82+5DD↑j
+loc_498566:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+5DD↑j
                 mov     [ebp+var_46C], 0 ; jumptable 0049855F cases 1,3,4,11,12
                 mov     ecx, dword ptr [ebp+var_3DC]
                 mov     edx, dword ptr [ecx]
@@ -113684,7 +113608,7 @@ loc_498566:                             ; CODE XREF: sub_497F82+5DD↑j
                 cmp     eax, 0Ch
                 jnz     short loc_4985C5
 
-loc_49859C:                             ; CODE XREF: sub_497F82+602↑j
+loc_49859C:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+602↑j
                 lea     eax, [ebp+var_3F4]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_3DC]
@@ -113697,7 +113621,7 @@ loc_49859C:                             ; CODE XREF: sub_497F82+602↑j
                 jmp     short loc_4985F2
 ; ---------------------------------------------------------------------------
 
-loc_4985C5:                             ; CODE XREF: sub_497F82+618↑j
+loc_4985C5:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+618↑j
                 lea     edx, [ebp+var_3F4]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_3DC]
@@ -113709,7 +113633,7 @@ loc_4985C5:                             ; CODE XREF: sub_497F82+618↑j
                 call    sub_420560
                 mov     [ebp+var_46C], eax
 
-loc_4985F2:                             ; CODE XREF: sub_497F82+641↑j
+loc_4985F2:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+641↑j
                 mov     ecx, dword ptr [ebp+var_3F4]
                 mov     [ebp+var_468], ecx
                 cmp     [ebp+var_46C], 0
@@ -113779,7 +113703,7 @@ loc_4985F2:                             ; CODE XREF: sub_497F82+641↑j
                 jmp     short loc_49872A
 ; ---------------------------------------------------------------------------
 
-loc_498705:                             ; CODE XREF: sub_497F82+740↑j
+loc_498705:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+740↑j
                 mov     eax, dword ptr [ebp+var_988]
                 mov     ecx, dword ptr [eax+164h]
                 push    ecx             ; int
@@ -113789,11 +113713,11 @@ loc_498705:                             ; CODE XREF: sub_497F82+740↑j
                 mov     ecx, dword ptr [eax+160h]
                 call    ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 
-loc_49872A:                             ; CODE XREF: sub_497F82+781↑j
+loc_49872A:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+781↑j
                 jmp     short loc_49877E
 ; ---------------------------------------------------------------------------
 
-loc_49872C:                             ; CODE XREF: sub_497F82+710↑j
+loc_49872C:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+710↑j
                 mov     ecx, dword ptr [ebp+var_468]
                 mov     edx, dword ptr [ecx+1B8h]
                 and     edx, 8
@@ -113814,7 +113738,7 @@ loc_49872C:                             ; CODE XREF: sub_497F82+710↑j
                 call    dword ptr [eax+88h]
                 call    ?LockSurface2@@YAIXZ
 
-loc_49877E:                             ; CODE XREF: sub_497F82:loc_49872A↑j
+loc_49877E:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z:loc_49872A↑j
                 mov     ecx, dword ptr [ebp+var_468]
                 xor     edx, edx
                 mov     dx, [ecx+1DCh]
@@ -113828,7 +113752,7 @@ loc_49877E:                             ; CODE XREF: sub_497F82:loc_49872A↑j
                 jmp     loc_498960
 ; ---------------------------------------------------------------------------
 
-loc_4987AC:                             ; CODE XREF: sub_497F82+69A↑j
+loc_4987AC:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+69A↑j
                 mov     eax, dword ptr [ebp+var_468]
                 mov     ecx, dword ptr [eax+24h]
                 push    ecx
@@ -113859,7 +113783,7 @@ loc_4987AC:                             ; CODE XREF: sub_497F82+69A↑j
                 call    _strcat
                 add     esp, 8
 
-loc_498818:                             ; CODE XREF: sub_497F82+87E↑j
+loc_498818:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+87E↑j
                 lea     ecx, [ebp+var_7C0]
                 push    ecx             ; Str2
                 mov     edx, dword ptr [ebp+var_988]
@@ -113915,7 +113839,7 @@ loc_498818:                             ; CODE XREF: sub_497F82+87E↑j
                 call    _memset
                 add     esp, 0Ch
 
-loc_4988EA:                             ; CODE XREF: sub_497F82+8B1↑j
+loc_4988EA:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+8B1↑j
                 mov     ecx, dword ptr [ebp+var_3F4]
                 cmp     dword ptr [ecx+24h], 52h ; 'R'
                 jl      short loc_49892D
@@ -113936,7 +113860,7 @@ loc_4988EA:                             ; CODE XREF: sub_497F82+8B1↑j
                 jmp     short loc_498960
 ; ---------------------------------------------------------------------------
 
-loc_49892D:                             ; CODE XREF: sub_497F82+972↑j
+loc_49892D:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+972↑j
                 mov     eax, dword ptr [ebp+var_3F4]
                 mov     ecx, dword ptr [eax+28h]
                 push    ecx
@@ -113952,7 +113876,7 @@ loc_49892D:                             ; CODE XREF: sub_497F82+972↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_498960:                             ; CODE XREF: sub_497F82+825↑j
+loc_498960:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+825↑j
                 push    0F0h
                 push    0A0h
                 push    0
@@ -113970,11 +113894,11 @@ loc_498960:                             ; CODE XREF: sub_497F82+825↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+38h]
 
-loc_49899C:                             ; CODE XREF: sub_497F82+683↑j
+loc_49899C:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+683↑j
                 jmp     def_49855F      ; jumptable 0049855F default case, cases 5-10
 ; ---------------------------------------------------------------------------
 
-loc_4989A1:                             ; CODE XREF: sub_497F82+5DD↑j
+loc_4989A1:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+5DD↑j
                 mov     ecx, dword ptr [ebp+var_3DC] ; jumptable 0049855F case 2
                 call    unknown_libname_423 ; Microsoft VisualC 2-14/net runtime
                 and     eax, 0FFh
@@ -114009,7 +113933,7 @@ loc_4989A1:                             ; CODE XREF: sub_497F82+5DD↑j
                 call    _strcat
                 add     esp, 8
 
-loc_498A1F:                             ; CODE XREF: sub_497F82+A85↑j
+loc_498A1F:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+A85↑j
                 mov     ecx, dword ptr [ebp+var_3DC]
                 call    unknown_libname_423 ; Microsoft VisualC 2-14/net runtime
                 and     eax, 0FFh
@@ -114035,7 +113959,7 @@ loc_498A1F:                             ; CODE XREF: sub_497F82+A85↑j
                 jmp     short loc_498ABA
 ; ---------------------------------------------------------------------------
 
-loc_498A7B:                             ; CODE XREF: sub_497F82+AB0↑j
+loc_498A7B:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+AB0↑j
                 mov     ecx, dword ptr [ebp+var_3DC]
                 call    unknown_libname_423 ; Microsoft VisualC 2-14/net runtime
                 shr     eax, 8
@@ -114053,7 +113977,7 @@ loc_498A7B:                             ; CODE XREF: sub_497F82+AB0↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_498ABA:                             ; CODE XREF: sub_497F82+AF7↑j
+loc_498ABA:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+AF7↑j
                 movsx   ecx, [ebp+var_464]
                 test    ecx, ecx
                 jz      def_49855F      ; jumptable 0049855F default case, cases 5-10
@@ -114112,7 +114036,7 @@ loc_498ABA:                             ; CODE XREF: sub_497F82+AF7↑j
                 call    _memset
                 add     esp, 0Ch
 
-loc_498B9B:                             ; CODE XREF: sub_497F82+B62↑j
+loc_498B9B:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+B62↑j
                 push    0F0h
                 push    0A0h
                 push    0
@@ -114130,7 +114054,7 @@ loc_498B9B:                             ; CODE XREF: sub_497F82+B62↑j
                 mov     edx, dword ptr [eax]
                 call    dword ptr [edx+38h]
 
-def_49855F:                             ; CODE XREF: sub_497F82+5C9↑j
+def_49855F:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+5C9↑j
                 lea     ecx, [ebp+var_3F8] ; jumptable 0049855F default case, cases 5-10
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   } // starts at 498517
@@ -114196,7 +114120,7 @@ def_49855F:                             ; CODE XREF: sub_497F82+5C9↑j
                 lea     ecx, [ebp+var_3F8] ; varThis
                 call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
 
-loc_498CCF:                             ; CODE XREF: sub_497F82+CA1↑j
+loc_498CCF:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+CA1↑j
                 lea     ecx, [ebp+var_40C] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   } // starts at 498BF1
@@ -114216,7 +114140,7 @@ loc_498CCF:                             ; CODE XREF: sub_497F82+CA1↑j
                 jmp     ds:jpt_498D17[ecx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_498D1E:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498D1E:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_410] ; jumptable 00498D17 case 1
                 push    edx
                 mov     eax, dword ptr [ebp+var_3F8]
@@ -114240,7 +114164,7 @@ loc_498D1E:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     def_498D17      ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498D6B:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498D6B:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     eax, dword ptr [ebp+var_3F0] ; jumptable 00498D17 case 2
                 push    eax
                 mov     ecx, dword ptr [ebp+var_3DC]
@@ -114263,7 +114187,7 @@ loc_498D6B:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     def_498D17      ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498DB6:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498DB6:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_410] ; jumptable 00498D17 case 3
                 push    edx
                 mov     eax, dword ptr [ebp+var_3F8]
@@ -114285,7 +114209,7 @@ loc_498DB6:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     def_498D17      ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498DFC:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498DFC:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_3F8] ; jumptable 00498D17 cases 4,5,13
                 push    edx
                 mov     eax, dword ptr [ebp+var_3DC]
@@ -114305,7 +114229,7 @@ loc_498DFC:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     def_498D17      ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498E3B:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498E3B:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_3F8] ; jumptable 00498D17 case 6
                 push    edx
                 mov     ecx, dword ptr [ebp+var_3DC]
@@ -114338,7 +114262,7 @@ loc_498E3B:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     def_498D17      ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498EA7:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498EA7:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     ecx, dword ptr [ebp+var_3DC] ; jumptable 00498D17 cases 8-10
                 call    unknown_libname_611 ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -114359,7 +114283,7 @@ loc_498EA7:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     short def_498D17 ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498EE8:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498EE8:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_3F0] ; jumptable 00498D17 case 11
                 push    edx
                 mov     eax, dword ptr [ebp+var_3DC]
@@ -114379,7 +114303,7 @@ loc_498EE8:                             ; CODE XREF: sub_497F82+D95↑j
                 jmp     short def_498D17 ; jumptable 00498D17 default case, case 7
 ; ---------------------------------------------------------------------------
 
-loc_498F24:                             ; CODE XREF: sub_497F82+D95↑j
+loc_498F24:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑j
                 mov     edx, dword ptr [ebp+var_3DC] ; jumptable 00498D17 case 12
                 mov     eax, dword ptr [edx]
                 mov     ecx, dword ptr [ebp+var_3DC]
@@ -114395,7 +114319,7 @@ loc_498F24:                             ; CODE XREF: sub_497F82+D95↑j
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 8
 
-def_498D17:                             ; CODE XREF: sub_497F82+D89↑j
+def_498D17:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D89↑j
                 lea     ecx, [ebp+var_30] ; jumptable 00498D17 default case, case 7
                 call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [eax]
@@ -114467,7 +114391,7 @@ def_498D17:                             ; CODE XREF: sub_497F82+D89↑j
                 jmp     loc_4992E3
 ; ---------------------------------------------------------------------------
 
-loc_499062:                             ; CODE XREF: sub_497F82+57D↑j
+loc_499062:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+57D↑j
                 mov     ecx, dword ptr [ebp+var_988]
                 mov     ecx, dword ptr [ecx+5Ch]
                 add     ecx, 124h
@@ -114491,7 +114415,7 @@ loc_499062:                             ; CODE XREF: sub_497F82+57D↑j
                 jmp     loc_4992E3
 ; ---------------------------------------------------------------------------
 
-loc_4990C1:                             ; CODE XREF: sub_497F82+1138↑j
+loc_4990C1:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+1138↑j
                 mov     [ebp+var_8C4], 0
                 lea     ecx, [ebp+var_86C] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
@@ -114555,7 +114479,7 @@ loc_4990C1:                             ; CODE XREF: sub_497F82+1138↑j
                 call    _strcat
                 add     esp, 8
 
-loc_4991B4:                             ; CODE XREF: sub_497F82+121A↑j
+loc_4991B4:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+121A↑j
                 movsx   ecx, [ebp+var_8C4]
                 test    ecx, ecx
                 jz      loc_4992D1
@@ -114614,7 +114538,7 @@ loc_4991B4:                             ; CODE XREF: sub_497F82+121A↑j
                 call    _memset
                 add     esp, 0Ch
 
-loc_499295:                             ; CODE XREF: sub_497F82+125C↑j
+loc_499295:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+125C↑j
                 push    0F0h
                 push    0A0h
                 push    0
@@ -114633,12 +114557,12 @@ loc_499295:                             ; CODE XREF: sub_497F82+125C↑j
                 call    dword ptr [edx+38h]
 ;   } // starts at 4990D3
 
-loc_4992D1:                             ; CODE XREF: sub_497F82+123B↑j
+loc_4992D1:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+123B↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_86C] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_4992E3:                             ; CODE XREF: sub_497F82+10DB↑j
+loc_4992E3:                             ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+10DB↑j
                 call    ?UnlockSurface2@@YAIXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
@@ -114647,10 +114571,10 @@ loc_4992E3:                             ; CODE XREF: sub_497F82+10DB↑j
                 pop     ebp
                 retn    4
 ; } // starts at 497F82
-sub_497F82      endp
+?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_49855F      dd offset loc_498566    ; DATA XREF: sub_497F82+5DD↑r
+jpt_49855F      dd offset loc_498566    ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+5DD↑r
                 dd offset loc_4989A1    ; jump table for switch statement
                 dd offset loc_498566
                 dd offset loc_498566
@@ -114658,7 +114582,7 @@ jpt_49855F      dd offset loc_498566    ; DATA XREF: sub_497F82+5DD↑r
 byte_49930D     db      0,     1,     2,     2
                 db      4,     4,     4,     4 ; indirect table for switch statement
                 db      4,     4,     3,     3
-jpt_498D17      dd offset loc_498D1E    ; DATA XREF: sub_497F82+D95↑r
+jpt_498D17      dd offset loc_498D1E    ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+D95↑r
                 dd offset loc_498D6B    ; jump table for switch statement
                 dd offset loc_498DB6
                 dd offset loc_498DFC
@@ -126330,7 +126254,7 @@ loc_4A477B:                             ; CODE XREF: ?FUN_004a4740@@YAXPAPAVSfxS
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_611 proc near           ; CODE XREF: sub_497F82+DF6↑p
+unknown_libname_611 proc near           ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+DF6↑p
 
 var_4           = dword ptr -4
 
@@ -126352,7 +126276,7 @@ unknown_libname_611 endp
 
 ; Attributes: bp-based frame
 
-sub_4A47A0      proc near               ; CODE XREF: sub_497F82+538↑p
+sub_4A47A0      proc near               ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+538↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -370247,7 +370171,7 @@ SEH_497ACE:                             ; DATA XREF: sub_497ACE+5↑o
 ; } // starts at 5FC8A9
 ; END OF FUNCTION CHUNK FOR sub_497ACE
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_497F82
+; START OF FUNCTION CHUNK FOR ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z
 
 loc_5FC8CA:                             ; DATA XREF: .rdata:stru_61D9C8↓o
 ; __unwind { // SEH_497F82              ; varThis
@@ -370288,11 +370212,11 @@ loc_5FC8FA:                             ; DATA XREF: .rdata:0061D9E8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_497F82:                             ; DATA XREF: sub_497F82+5↑o
+SEH_497F82:                             ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+5↑o
                 mov     eax, offset stru_61D9A8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC8CA
-; END OF FUNCTION CHUNK FOR sub_497F82
+; END OF FUNCTION CHUNK FOR ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_49974C
 
@@ -415512,47 +415436,47 @@ dword_631E30    dd 0                    ; DATA XREF: ?VMethod7@VisTavSceneKaarg@
 dword_631FB0    dd 0FFFFFFFFh           ; DATA XREF: ?VMethod7@VisTavSceneDruid@@UAEXXZ+266↑w
 dword_631FB4    dd 0FFFFFFFFh           ; DATA XREF: ?VMethod7@VisTavSceneKaarg@@UAEXXZ+14E↑r
 ; char aAllods2D[]
-aAllods2D       db 'allods-2-%d.$$$',0  ; DATA XREF: sub_497F82+1B1↑o
+aAllods2D       db 'allods-2-%d.$$$',0  ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+1B1↑o
 ; char aSS_1[]
-aSS_1           db '%s%s',0             ; DATA XREF: sub_497F82+1D3↑o
+aSS_1           db '%s%s',0             ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+1D3↑o
                 align 10h
 ; char aD_27[]
-aD_27           db '%d',0               ; DATA XREF: sub_497F82+311↑o
+aD_27           db '%d',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+311↑o
                 align 4
 ; char aGraphicsInfowi_1[]
 aGraphicsInfowi_1 db 'graphics\infowindow\%s.bmp',0
                 align 10h
 ; char aAllods2D_0[]
-aAllods2D_0     db 'allods-2-%d.$$$',0  ; DATA XREF: sub_497F82+6BF↑o
+aAllods2D_0     db 'allods-2-%d.$$$',0  ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+6BF↑o
 ; char aSS_2[]
-aSS_2           db '%s%s',0             ; DATA XREF: sub_497F82+6E1↑o
+aSS_2           db '%s%s',0             ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+6E1↑o
                 align 4
 ; char aD_28[]
-aD_28           db '%d',0               ; DATA XREF: sub_497F82+860↑o
+aD_28           db '%d',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+860↑o
                 align 4
 ; char aGraphicsInfowi_2[]
 aGraphicsInfowi_2 db 'graphics\infowindow\%s.bmp',0
                 align 4
 ; char aS[]
-aS              db '%s',0               ; DATA XREF: sub_497F82+995↑o
+aS              db '%s',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+995↑o
                 align 4
 ; char aSD_11[]
-aSD_11          db '%s[%d]',0           ; DATA XREF: sub_497F82+9CA↑o
+aSD_11          db '%s[%d]',0           ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+9CA↑o
                 align 4
 ; char aD_29[]
-aD_29           db '%d',0               ; DATA XREF: sub_497F82+A60↑o
+aD_29           db '%d',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+A60↑o
                 align 4
 ; char aS_0[]
-aS_0            db '%s',0               ; DATA XREF: sub_497F82+AE3↑o
+aS_0            db '%s',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+AE3↑o
                 align 4
 ; char aSD_12[]
-aSD_12          db '%s[%d]',0           ; DATA XREF: sub_497F82+B24↑o
+aSD_12          db '%s[%d]',0           ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+B24↑o
                 align 4
 ; char aGraphicsInfowi_3[]
 aGraphicsInfowi_3 db 'graphics\infowindow\%s.bmp',0
                 align 10h
 ; char aD_30[]
-aD_30           db '%d',0               ; DATA XREF: sub_497F82+11D7↑o
+aD_30           db '%d',0               ; DATA XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+11D7↑o
                 align 4
 ; char aGraphicsInfowi_4[]
 aGraphicsInfowi_4 db 'graphics\infowindow\%s.bmp',0
