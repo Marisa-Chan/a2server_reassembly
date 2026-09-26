@@ -7842,6 +7842,20 @@ void VisTavLeftPanel::FUN_004995d1()
 }
 
 
+// 4996AB
+void VisTavLeftPanel::FUN_004996ab()
+{
+    if (this->field_0x168 != nullptr) {
+        delete this->field_0x168;
+    }
+    this->field_0x168 = nullptr;
+    if (this->field_0x16c != nullptr) {
+        delete this->field_0x16c;
+    }
+    this->field_0x16c = nullptr;
+}
+
+
 // 497ED0
 void VisTavLeftPanel::VMethod7()
 {

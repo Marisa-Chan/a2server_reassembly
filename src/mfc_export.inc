@@ -1429,7 +1429,6 @@ extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
 externdef ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ : proc
 externdef ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z : proc  ; void VisTavLeftPanel::FUN_00497f82(CUnit*)
 
 ; VisTavRightPanel
