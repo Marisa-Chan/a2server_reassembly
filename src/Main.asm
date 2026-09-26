@@ -223,144 +223,6 @@ sub_4010BC      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+593↓p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = byte ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F6F8E SIZE 0000002B BYTES
-
-; __unwind { // SEH_4010EE
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4010EE
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                mov     [ebp+var_24], 0
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_4019E0
-                mov     [ebp+var_14], 0
-                jmp     short loc_401140
-; ---------------------------------------------------------------------------
-
-loc_401137:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+117↓j
-                mov     eax, dword ptr [ebp+var_14]
-                add     eax, 1
-                mov     [ebp+var_14], eax
-
-loc_401140:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+47↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                call    unknown_libname_404 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     loc_40120A
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4011A4
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx             ; int
-                lea     edx, [ebp+var_20]
-                push    edx             ; CString *
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_4017A0
-                mov     [ebp+var_2C], eax
-                mov     eax, dword ptr [ebp+var_24]
-                or      eax, 1
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     [ebp+var_30], ecx
-;   } // starts at 40115B
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_34], eax
-                jmp     short loc_4011AB
-; ---------------------------------------------------------------------------
-
-loc_4011A4:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+78↑j
-                mov     [ebp+var_34], 0
-
-loc_4011AB:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+B4↑j
-                mov     edx, dword ptr [ebp+var_34]
-                mov     [ebp+var_1C], edx
-;   } // starts at 40118A
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_24]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4011CE
-                and     [ebp+var_24], 0FFFFFFFEh
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 4011B1
-
-loc_4011CE:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+D2↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_401C60
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [eax], edx
-                mov     eax, dword ptr [ebp+var_10]
-                cmp     dword ptr [eax+0C4h], 0
-                jz      short loc_4011FB
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [ecx+0C4h]
-
-loc_4011FB:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+102↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                jmp     loc_401137
-; ---------------------------------------------------------------------------
-
-loc_40120A:                             ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+5D↑j
-                mov     edx, dword ptr [ebp+var_28]
-                mov     dword ptr [edx+18h], 0
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+18h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_401C60
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [eax]
-                mov     [edx+14h], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 4010EE
-?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -351247,37 +351109,6 @@ SEH_40105A:                             ; DATA XREF: CHandleMap::~CHandleMap(voi
 ; } // starts at 5F6F6F
 ; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z
-
-loc_5F6F8E:                             ; DATA XREF: .rdata:stru_617340↓o
-; __unwind { // SEH_4010EE
-;   cleanup() // owned by 40115B
-;   cleanup() // owned by 4011B1
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F6F98:                             ; DATA XREF: .rdata:00617348↓o
-;   cleanup() // owned by 40118A
-                mov     eax, dword ptr [ebp+var_24]
-                and     eax, 1
-                test    eax, eax
-                jz      locret_5F6FAE
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-locret_5F6FAE:                          ; CODE XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+1F5EB2↑j
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4010EE:                             ; DATA XREF: ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z+5↑o
-                mov     eax, offset stru_617320
-                jmp     ___CxxFrameHandler
-; } // starts at 5F6F8E
-; END OF FUNCTION CHUNK FOR ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_40123B
 
 unknown_libname_962:                    ; DATA XREF: .rdata:stru_617370↓o
@@ -396236,13 +396067,6 @@ stru_6172F0     FuncInfoV1 <19930520h, 2, offset stru_617310, 0, 0, 0, 0>
                 db    0
 stru_617310     UnwindMapEntry <-1, offset unknown_libname_961>
                 UnwindMapEntry <0, offset loc_5F6F78>
-stru_617320     FuncInfoV1 <19930520h, 2, offset stru_617340, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_617340     UnwindMapEntry <-1, offset loc_5F6F8E>
-                UnwindMapEntry <0, offset loc_5F6F98>
 stru_617350     FuncInfoV1 <19930520h, 1, offset stru_617370, 0, 0, 0, 0>
                 db    0
                 db    0

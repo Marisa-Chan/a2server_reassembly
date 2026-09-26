@@ -8475,6 +8475,25 @@ void VisTavRightPanel::VMethod7()
 }
 
 
+// 4010EE
+void VisTavSceneAnim::FUN_004010ee(CStringArray* names)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    this->frames.SetSize(names->GetSize(), -1);
+    for (int32_t i = 0; i < this->frames.GetSize(); i++) {
+        this->frames[i] = new CBmp64(names->GetAt(i));
+        if (main_wnd->music_update_proc != nullptr) {
+            main_wnd->music_update_proc();
+        }
+        g_mousept.Update();
+    }
+
+    this->frame_idx = 0;
+    this->current_frame = this->frames[this->frame_idx];
+}
+
+
 // Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
 static bool tavscene_statics_inited = false;
 static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays

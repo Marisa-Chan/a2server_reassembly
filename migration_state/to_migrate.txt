@@ -633,7 +633,6 @@
 ?StepBackward@VisTavSceneAnim@@QAE_NXZ	36
 ?StepForward@VisTavSceneAnim@@QAE_NXZ	38
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ	98
-?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z	137
 ??_GVisTavSceneDruid@@UAEPAXI@Z	24
 ??1VisTavSceneDruid@@UAE@XZ	45
 ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80
