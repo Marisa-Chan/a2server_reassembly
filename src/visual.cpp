@@ -8660,6 +8660,39 @@ void VisTavScene::VMethod29()
 }
 
 
+// 49CED4
+void VisTavScene::VMethod26()
+{
+    this->field_0x224.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
+    this->field_0x24c.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
+    this->field_0x238.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
+    this->field_0x260.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
+
+    CString name;
+    for (int32_t i = 0; i < this->vis_tav->avail_entries.GetSize(); i++) {
+        CUnit* unit = this->vis_tav->avail_entries[i];
+        name.Format("graphics\\interface\\inn\\Unit%d\\sprites.16a", unit->typeId);
+        this->field_0x224[i] = new CA16(name);
+        this->field_0x224[i]->ResetPalette(0x10, 4, 0);
+    }
+
+    for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
+        CUnit* unit = this->vis_tav->reserved_entries[i];
+        if (unit->unitFlags & 1) {
+            if (unit->unitFlags & 2) {
+                name.Format("graphics\\interface\\inn\\HeroMage\\sprites.16a");
+            } else {
+                name.Format("graphics\\interface\\inn\\HeroFighter\\sprites.16a");
+            }
+        } else {
+            name.Format("graphics\\interface\\inn\\Unit%d\\sprites.16a", unit->typeId);
+        }
+        this->field_0x238[i] = new CA16(name);
+        this->field_0x238[i]->ResetPalette(0x10, 4, 0);
+    }
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

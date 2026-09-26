@@ -1449,7 +1449,7 @@ extern ?VMethod7@VisTavScene@@UAEXXZ :proc
 externdef ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
 externdef ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z :proc
 externdef ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z :proc
-externdef ?VMethod26@VisTavScene@@UAEXXZ :proc
+extern ?VMethod26@VisTavScene@@UAEXXZ :proc
 externdef ?VMethod27@VisTavScene@@UAEXXZ :proc
 externdef ?VMethod28@VisTavScene@@UAEXXZ :proc
 extern ?VMethod29@VisTavScene@@UAEXXZ :proc
