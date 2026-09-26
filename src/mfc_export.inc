@@ -1376,6 +1376,8 @@ externdef ?FUN_00459449@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459449(int x6)
 externdef ?FUN_004595fd@@YAXHHHHHHHHHH@Z : proc  ; void __cdecl FUN_004595fd(int x10)
 externdef ?FUN_0045995e@@YAXHHH@Z : proc  ; void __cdecl FUN_0045995e(int, int, int)
 externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
+externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
+externdef ?FUN_0041ae1c@BigStruct2@@QAEXH@Z : proc
 
 
 ;TokenEntry
@@ -1419,20 +1421,62 @@ extern ?MsgProc@VisTav@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
 
-;VisTav helpers
+; VisTavLeftPanel
+externdef ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
+externdef ??1VisTavLeftPanel@@UAE@XZ :proc
+externdef ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
+externdef ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
+externdef ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
-externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
-externdef ?FUN_0041ae1c@BigStruct2@@QAEXH@Z : proc
 externdef ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ : proc
 externdef ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ : proc
+
+; VisTavRightPanel
+externdef ??_GVisTavRightPanel@@UAEPAXI@Z :proc
+externdef ??1VisTavRightPanel@@UAE@XZ :proc
+externdef ?GetHint@VisTavRightPanel@@UAEPBDXZ :proc
+externdef ?VMethod7@VisTavRightPanel@@UAEXXZ :proc
+externdef ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+externdef ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+externdef ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+externdef ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ?FUN_00499a67@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_00499cdf@VisTavRightPanel@@QAEXXZ : proc
+
+; VisTavScene
+externdef ??_GVisTavScene@@UAEPAXI@Z :proc
+externdef ??1VisTavScene@@UAE@XZ :proc
+externdef ?GetHint@VisTavScene@@UAEPBDXZ :proc
+externdef ?VMethod7@VisTavScene@@UAEXXZ :proc
+externdef ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
+externdef ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z :proc
+externdef ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z :proc
+externdef ?VMethod26@VisTavScene@@UAEXXZ :proc
+externdef ?VMethod27@VisTavScene@@UAEXXZ :proc
+externdef ?VMethod28@VisTavScene@@UAEXXZ :proc
+externdef ?VMethod29@VisTavScene@@UAEXXZ :proc
+externdef ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z : proc
+
+; VisTavSceneDruid
+externdef ??_GVisTavSceneDruid@@UAEPAXI@Z :proc
+externdef ??1VisTavSceneDruid@@UAE@XZ :proc
+externdef ?VMethod7@VisTavSceneDruid@@UAEXXZ :proc
+externdef ?VMethod28@VisTavSceneDruid@@UAEXXZ :proc
+externdef ?VMethod29@VisTavSceneDruid@@UAEXXZ :proc
+externdef ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z : proc
+
+; VisTavSceneKaarg
+externdef ??_GVisTavSceneKaarg@@UAEPAXI@Z :proc
+externdef ??1VisTavSceneKaarg@@UAE@XZ :proc
+externdef ?VMethod7@VisTavSceneKaarg@@UAEXXZ :proc
+externdef ?VMethod28@VisTavSceneKaarg@@UAEXXZ :proc
+externdef ?VMethod29@VisTavSceneKaarg@@UAEXXZ :proc
+externdef ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
+
+; VisTavSceneAnim
 externdef ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z : proc
 externdef ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
 

@@ -1429,6 +1429,15 @@ ASSERT_SIZE(VisTavSceneAnim, 0x30);
 class VisTavRightPanel : public CVisualObject
 {
 public:
+	virtual ~VisTavRightPanel(); // 4A3E40
+
+	virtual const char* GetHint() override; // 4a4710 in asm
+	virtual void VMethod7() override; // 499dfa in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49a26e in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49a291 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 49a30a in asm
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49a2e6 in asm
+
 	VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 in asm
 
 	void FUN_00499a67(); //499a67 in asm
@@ -1453,6 +1462,12 @@ ASSERT_SIZE(VisTavRightPanel, 0xc8);
 class VisTavLeftPanel : public CVisualObject
 {
 public:
+	virtual ~VisTavLeftPanel(); // 4A3E10
+
+	virtual const char* GetHint() override; // 49934d in asm
+	virtual void VMethod7() override; // 497ed0 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 497ec1 in asm
+
 	VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //497990 in asm
 
 	void FUN_004995d1(); //4995d1 in asm
@@ -1475,6 +1490,14 @@ ASSERT_SIZE(VisTavLeftPanel, 0x190);
 class VisTavScene : public CVisualObject
 {
 public:
+	virtual ~VisTavScene(); // 4A3E70
+
+	virtual const char* GetHint() override; // 49cd2b in asm
+	virtual void VMethod7() override; // 49b22f in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49d8d9 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49da98 in asm
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49d8e8 in asm
+
 	virtual void VMethod26(); //49ced4 in asm
 	virtual void VMethod27(); //49d1b0 in asm
 	virtual void VMethod28(); //49d2bb in asm
@@ -1508,6 +1531,12 @@ ASSERT_SIZE(VisTavScene, 0x3cc);
 class VisTavSceneDruid : public VisTavScene
 {
 public:
+	virtual ~VisTavSceneDruid(); // 4A3F90
+
+	virtual void VMethod7() override; // 4a0673 in asm
+	virtual void VMethod28() override; // 4a11e3 in asm
+	virtual void VMethod29() override; // 4a158f in asm
+
 	VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a05a0 in asm
 
 public:
@@ -1523,6 +1552,12 @@ ASSERT_SIZE(VisTavSceneDruid, 0x468);
 class VisTavSceneKaarg : public VisTavScene
 {
 public:
+	virtual ~VisTavSceneKaarg(); // 4A4090
+
+	virtual void VMethod7() override; // 4a2bb8 in asm
+	virtual void VMethod28() override; // 4a37e7 in asm
+	virtual void VMethod29() override; // 4a3b25 in asm
+
 	VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a2aa4 in asm
 
 public:
