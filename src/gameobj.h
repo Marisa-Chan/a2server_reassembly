@@ -88,6 +88,8 @@ public:
 };
 ASSERT_SIZE(TokenEntry, 0x24);
 
+const char* __fastcall FUN_00439973(TokenEntry* entry); //439973 in asm
+
 struct GO_11c
 {
 	GO_11c() = default;
@@ -270,6 +272,7 @@ public:
 	void ApplyFace(int32_t _face); //46b7d2
 	void ReloadSprite(); //46b91c
 	SfxBank* FUN_0046978b(); //46978b
+	const char* FUN_0046d0f7(int32_t x, int32_t y); //46d0f7 in asm
 
 public:
 	uint8_t body;

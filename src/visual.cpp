@@ -7787,6 +7787,50 @@ VisTav::~VisTav()
 }
 
 
+// 49934D
+const char* VisTavLeftPanel::GetHint()
+{
+    if (this->vis_tav->dialog_active == 0) {
+        return nullptr;
+    }
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode != 2) {
+        return nullptr;
+    }
+    CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    CPoint pt(mouse_pt.x - tav_topleft.x, mouse_pt.y - tav_topleft.y);
+    CRect client_rect;
+    this->ClientRectToScreen(&client_rect, this->rect);
+
+    CUnit* unit = nullptr;
+    if (this->vis_tav->avail_entries.GetSize() != 0 || this->vis_tav->reserved_entries.GetSize() != 0) {
+        if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+            unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+        } else {
+            unit = this->vis_tav->reserved_entries[this->vis_tav->selection_index - this->vis_tav->avail_entries.GetSize()];
+        }
+    }
+
+    CRect item_rect(CPoint(0, 0), CSize(client_rect.Width(), 0xEE));
+    if (item_rect.PtInRect(pt)) {
+        if (unit->unitFlags & 0x40) {
+            return nullptr;
+        }
+        return unit->FUN_0046d0f7(pt.x, pt.y);
+    }
+
+    client_rect.TopLeft().x -= 4;
+    uint8_t* data = (uint8_t*)this->field_0x164->GetData();
+    CPoint client_topleft = client_rect.TopLeft();
+    uint8_t index = data[(mouse_pt.y - client_topleft.y - 0xF0) * 0xA0 + (mouse_pt.x - client_topleft.x) - 0x10];
+    if (index == 0) {
+        return nullptr;
+    }
+    return FUN_00439973(unit->equipmentTokens[index - 1]);
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

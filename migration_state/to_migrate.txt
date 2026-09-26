@@ -41,6 +41,7 @@
 ?DDX_Text@@YGXPAVCDataExchange@@HAAVCString@@@Z	44
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
+?FUN_00439973@@YIPBDPAVTokenEntry@@@Z	812
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_41A942@BigStruct2@@QAEXXZ	31
 ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z	31
@@ -160,6 +161,7 @@
 ??1CStatusBar@@UAE@XZ	32
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
+?FUN_0046d0f7@CUnit@@QAEPBDHH@Z	522
 ?sub_41F940@CVisualObject@@QAEHXZ	13
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
@@ -621,7 +623,6 @@
 ?VMethod7@VisTavLeftPanel@@UAEXXZ	69
 ??1VisTavLeftPanel@@UAE@XZ	78
 ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ	86
-?GetHint@VisTavLeftPanel@@UAEPBDXZ	242
 ?GetHint@VisTavRightPanel@@UAEPBDXZ	12
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
 ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z	23

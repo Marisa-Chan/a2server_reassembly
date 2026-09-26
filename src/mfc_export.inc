@@ -1396,6 +1396,7 @@ extern ?GetId@TokenEntry@@QBEHXZ : proc
 externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 externdef ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
 externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
+externdef ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z : proc  ; const char* __fastcall FUN_00439973(TokenEntry*)
 
 
 
@@ -1424,7 +1425,7 @@ extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
 ; VisTavLeftPanel
 externdef ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
 externdef ??1VisTavLeftPanel@@UAE@XZ :proc
-externdef ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
+extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
 externdef ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
 externdef ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
@@ -2226,6 +2227,7 @@ extern   ?VMethod27@CUnit@@UAEXXZ  : proc
 extern   ?VMethod28@CUnit@@UAEXXZ  : proc
 extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
+externdef ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z : proc  ; const char* CUnit::FUN_0046d0f7(int32_t, int32_t)
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc
