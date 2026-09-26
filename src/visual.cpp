@@ -9603,6 +9603,21 @@ void VisTavSceneKaarg::VMethod7()
 }
 
 
+// 4A2AA4
+VisTavSceneKaarg::VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
+: VisTavScene(_id, l, t, r, b, tav)
+{
+    this->field_0x4c0 = timeGetTime();
+    this->field_0x4c4 = GetRandS16(2000) + 2000;
+    this->field_0x4c8 = timeGetTime();
+    this->field_0x4cc = GetRandS16(2000) + 2000;
+}
+
+
+// 4A40C0
+VisTavSceneKaarg::~VisTavSceneKaarg() {}
+
+
 // 4A3B25
 void VisTavSceneKaarg::VMethod29()
 {

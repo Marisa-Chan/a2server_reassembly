@@ -92,6 +92,7 @@
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisTav@@QAE@HHHHH@Z
 ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
+??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
@@ -134,6 +135,7 @@
 ??1VisTav@@UAE@XZ
 ??1VisTavScene@@UAE@XZ
 ??1VisTavSceneDruid@@UAE@XZ
+??1VisTavSceneKaarg@@UAE@XZ
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??2@YAPAXI@Z
@@ -154,6 +156,7 @@
 ??_GVisTavLeftPanel@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
+??_GVisTavSceneKaarg@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z

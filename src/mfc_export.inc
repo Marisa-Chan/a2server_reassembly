@@ -1469,12 +1469,12 @@ extern ?VMethod28@VisTavSceneDruid@@UAEXXZ :proc
 extern ?VMethod29@VisTavSceneDruid@@UAEXXZ :proc
 
 ; VisTavSceneKaarg
-externdef ??_GVisTavSceneKaarg@@UAEPAXI@Z :proc
-externdef ??1VisTavSceneKaarg@@UAE@XZ :proc
-externdef ?VMethod7@VisTavSceneKaarg@@UAEXXZ :proc
-externdef ?VMethod28@VisTavSceneKaarg@@UAEXXZ :proc
-externdef ?VMethod29@VisTavSceneKaarg@@UAEXXZ :proc
-externdef ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
+extern ??_GVisTavSceneKaarg@@UAEPAXI@Z :proc
+extern ??1VisTavSceneKaarg@@UAE@XZ :proc
+extern ?VMethod7@VisTavSceneKaarg@@UAEXXZ :proc
+extern ?VMethod28@VisTavSceneKaarg@@UAEXXZ :proc
+extern ?VMethod29@VisTavSceneKaarg@@UAEXXZ :proc
+extern ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
 
 ; VisTavSceneAnim
 extern ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
