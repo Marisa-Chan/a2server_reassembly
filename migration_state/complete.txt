@@ -279,6 +279,7 @@
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
 ?FUN_0049bc23@VisTavScene@@QAEXXZ
+?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z
 ?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z

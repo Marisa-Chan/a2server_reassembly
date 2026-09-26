@@ -9032,6 +9032,54 @@ void VisTavScene::FUN_0049bc23()
 }
 
 
+// 49CAB8
+int32_t VisTavScene::FUN_0049cab8(CPoint* pos)
+{
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    CPoint pt = *pos - tav_topleft;
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (main_wnd->sessionMode == 2) {
+        int32_t count = this->vis_tav->avail_entries.GetSize() + this->vis_tav->reserved_entries.GetSize();
+        for (int32_t i = 0; i < count; i++) {
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            if (this->field_0x60[row * 6 + col].PtInRect(pt)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+        POSITION it = this->vis_tav->quest_map->quests_map.GetStartPosition();
+        int32_t i = 0;
+        while (it != nullptr) {
+            uint32_t key;
+            Quest* quest;
+            this->vis_tav->quest_map->quests_map.GetNextAssoc(it, key, quest);
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            if (this->field_0x60[row * 6 + col].PtInRect(pt)) {
+                return quest->GetSomeId();
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
+        int32_t row = i / 3;
+        int32_t col = i % 3;
+        if (this->field_0x180[row * 3 + col].PtInRect(pt)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
