@@ -112864,63 +112864,6 @@ sub_49974C      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z      proc near               ; CODE XREF: ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z+16↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jl      short loc_49A934
-                mov     edx, dword ptr [ebp+arg_0]
-                and     edx, 1
-                test    edx, edx
-                jnz     short loc_49A934
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [eax+0C4h], ecx
-                jmp     short loc_49A96D
-; ---------------------------------------------------------------------------
-
-loc_49A934:                             ; CODE XREF: ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z+20↑j
-                cmp     [ebp+var_4], 0
-                jl      short loc_49A960
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     eax, [edx+0C0h]
-                jnz     short loc_49A960
-                mov     ecx, dword ptr [ebp+arg_0]
-                and     ecx, 1
-                test    ecx, ecx
-                jz      short loc_49A960
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [edx+0C4h], eax
-                jmp     short loc_49A96D
-; ---------------------------------------------------------------------------
-
-loc_49A960:                             ; CODE XREF: ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z+3E↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+0C4h], 0FFFFFFFFh
-
-loc_49A96D:                             ; CODE XREF: ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z+38↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -8257,6 +8257,22 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A8FA
+void VisTavRightPanel::FUN_0049a8fa(uint32_t wparam, CPoint pos)
+{
+    int32_t index = this->FUN_0049a873(pos);
+    if (index < 0 || (wparam & 1) != 0) {
+        if (index < 0 || index != this->field_0xc0 || (wparam & 1) == 0) {
+            this->field_0xc4 = -1;
+        } else {
+            this->field_0xc4 = index;
+        }
+    } else {
+        this->field_0xc4 = index;
+    }
+}
+
+
 // 49A873
 int32_t VisTavRightPanel::FUN_0049a873(CPoint pos)
 {
