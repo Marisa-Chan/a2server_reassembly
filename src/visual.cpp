@@ -8277,3 +8277,27 @@ void VisTavKaarg::VMethod26()
     this->avail_entries.RemoveAll();
     this->quest_map = new QuestMap();
 }
+
+
+// 4A26D9
+void VisTavKaarg::VMethod30()
+{
+    this->VMethod31();
+    FUN_00438e40(&this->sounds[5].sample, "SFX\\Add.wav");
+    FUN_00438e40(&this->sounds[6].sample, "SFX\\NoAdd.wav");
+    FUN_00438e40(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
+    FUN_00438e40(&this->sounds[8].sample, "SFX\\Town_kaarg\\Inn\\Kin1.wav");
+    FUN_00438e40(&this->sounds[9].sample, "SFX\\Town\\Inn\\Helper.wav");
+    FUN_00438e40(&this->sounds[11].sample, "SFX\\Out.wav");
+    FUN_00438e40(&this->sounds[12].sample, "SFX\\Talk.wav");
+    FUN_00438e40(&this->snd_kaarg[0], "SFX\\Town_kaarg\\Inn\\Kdish1.wav");
+    FUN_00438e40(&this->snd_kaarg[1], "SFX\\Town_kaarg\\Inn\\Kdish2.wav");
+    FUN_00438e40(&this->snd_kaarg[2], "SFX\\Town_kaarg\\Inn\\Kdish3.wav");
+    FUN_00438e40(&this->snd_kaarg[3], "SFX\\Town_kaarg\\Inn\\Kdish4.wav");
+    FUN_00438e40(&this->snd_kaarg[4], "SFX\\Town_kaarg\\Inn\\Kman2.wav");
+    FUN_00438e40(&this->snd_kaarg[5], "SFX\\Town_kaarg\\Inn\\Kman3.wav");
+    FUN_00438e40(&this->snd_kaarg[6], "SFX\\Town_kaarg\\Inn\\Kvox5.wav");
+    FUN_00438e40(&this->snd_kaarg[7], "SFX\\Town_kaarg\\Inn\\Kvox6.wav");
+    FUN_00438e40(&this->snd_kaarg[8], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
+    FUN_00438e40(&this->snd_kaarg[9], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
+}

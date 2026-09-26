@@ -123650,124 +123650,6 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060C908↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+8Ch]
-                push    offset aSfxAddWav_1 ; "SFX\\Add.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 98h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxNoaddWav_1 ; "SFX\\NoAdd.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 9Ch
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownShopNof_1 ; "SFX\\Town\\Shop\\nofit.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0A0h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn ; "SFX\\Town_kaarg\\Inn\\Kin1.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0A4h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownInnHelp_1 ; "SFX\\Town\\Inn\\Helper.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0A8h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxOutWav_1 ; "SFX\\Out.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 0B0h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTalkWav_1 ; "SFX\\Talk.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0B4h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_0 ; "SFX\\Town_kaarg\\Inn\\Kdish1.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 140h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_1 ; "SFX\\Town_kaarg\\Inn\\Kdish2.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 144h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_2 ; "SFX\\Town_kaarg\\Inn\\Kdish3.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 148h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_3 ; "SFX\\Town_kaarg\\Inn\\Kdish4.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 14Ch
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_4 ; "SFX\\Town_kaarg\\Inn\\Kman2.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 150h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_5 ; "SFX\\Town_kaarg\\Inn\\Kman3.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 154h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_6 ; "SFX\\Town_kaarg\\Inn\\Kvox5.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 158h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_7 ; "SFX\\Town_kaarg\\Inn\\Kvox6.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 15Ch
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_8 ; "SFX\\Town_kaarg\\Inn\\Kvox7.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 160h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxTownKaargIn_9 ; "SFX\\Town_kaarg\\Inn\\Kvox8.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 164h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -392656,7 +392538,7 @@ off_60C880      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisTavKaarg@@UAEXXZ
                 dd offset ?DoClose@VisTavKaarg@@UAEXI@Z
-                dd offset ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod30@VisTavKaarg@@UAEXXZ
                 dd offset ?VMethod31@VisTavKaarg@@UAEXH@Z
 off_60C910      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4A29AA+88↑o
                 dd offset sub_4A4090
@@ -416534,9 +416416,9 @@ aGraphicsInterf_192 db 'graphics\interface\inn_kaarg\taverner\a4%04d.bmp',0
 aGraphicsInterf_193 db 'graphics\interface\inn_kaarg\taverner\a5%04d.bmp',0
                 align 4
 ; CHAR aSfxAddWav_1[]
-aSfxAddWav_1    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+15↑o
+aSfxAddWav_1    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+15↑o
 ; CHAR aSfxNoaddWav_1[]
-aSfxNoaddWav_1  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+2B↑o
+aSfxNoaddWav_1  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+2B↑o
                 align 10h
 ; CHAR aSfxTownShopNof_1[]
 aSfxTownShopNof_1 db 'SFX\Town\Shop\nofit.wav',0
@@ -416545,9 +416427,9 @@ aSfxTownKaargIn db 'SFX\Town_kaarg\Inn\Kin1.wav',0
 ; CHAR aSfxTownInnHelp_1[]
 aSfxTownInnHelp_1 db 'SFX\Town\Inn\Helper.wav',0
 ; CHAR aSfxOutWav_1[]
-aSfxOutWav_1    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+86↑o
+aSfxOutWav_1    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+86↑o
 ; CHAR aSfxTalkWav_1[]
-aSfxTalkWav_1   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+9D↑o
+aSfxTalkWav_1   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+9D↑o
                 align 4
 ; CHAR aSfxTownKaargIn_0[]
 aSfxTownKaargIn_0 db 'SFX\Town_kaarg\Inn\Kdish1.wav',0

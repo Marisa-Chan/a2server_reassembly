@@ -617,7 +617,6 @@
 ??_GVisTavKaarg@@UAEPAXI@Z	24
 ??0VisTavKaarg@@QAE@HHHHH@Z	31
 ?VMethod31@VisTavKaarg@@UAEXH@Z	96
-?VMethod30@VisTavKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	117
 ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z	61
 ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ	67
 ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ	86
