@@ -631,7 +631,6 @@
 ?Draw@VisTavSceneAnim@@QAEXHH@Z	26
 ?NextFrame@VisTavSceneAnim@@QAEXXZ	34
 ?StepBackward@VisTavSceneAnim@@QAE_NXZ	36
-?StepForward@VisTavSceneAnim@@QAE_NXZ	38
 ??_GVisTavSceneDruid@@UAEPAXI@Z	24
 ??1VisTavSceneDruid@@UAE@XZ	45
 ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80

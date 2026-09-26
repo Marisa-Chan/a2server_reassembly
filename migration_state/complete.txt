@@ -631,6 +631,7 @@
 ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z
 ?StaticAddPath@Resources@@SAXPBD@Z
 ?StatLevelPoints@@YAHH@Z
+?StepForward@VisTavSceneAnim@@QAE_NXZ
 ?Stop@SoundChannel@@QAEXXZ
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
 ?sub_4184B8@BigStruct2@@QAEHHH@Z

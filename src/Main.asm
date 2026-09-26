@@ -561,45 +561,6 @@ sub_40140E      endp
 
 ; Attributes: bp-based frame
 
-?StepForward@VisTavSceneAnim@@QAE_NXZ      proc near               ; CODE XREF: ?VMethod7@VisTavScene@@UAEXXZ+351↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    unknown_libname_405 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     [ecx+18h], eax
-                jnz     short loc_4015E1
-                xor     eax, eax
-                jmp     short loc_40160F
-; ---------------------------------------------------------------------------
-
-loc_4015E1:                             ; CODE XREF: ?StepForward@VisTavSceneAnim@@QAE_NXZ+15↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+18h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+18h], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+18h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_401C60
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     [ecx+14h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    unknown_libname_406 ; Microsoft VisualC 2-14/net runtime
-
-loc_40160F:                             ; CODE XREF: ?StepForward@VisTavSceneAnim@@QAE_NXZ+19↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?StepForward@VisTavSceneAnim@@QAE_NXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
