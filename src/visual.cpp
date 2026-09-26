@@ -8721,6 +8721,33 @@ void VisTavScene::VMethod28()
 }
 
 
+// 49CD2B
+const char* VisTavScene::GetHint()
+{
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    CPoint pt = CPoint(g_mousept.GetX(), g_mousept.GetY()) - tav_topleft;
+
+    for (int32_t i = 0; i < this->vis_tav->rewards.GetSize(); i++) {
+        int32_t row = i / 3;
+        int32_t col = i % 3;
+        if (this->field_0x180[row * 3 + col].PtInRect(pt)) {
+            TokenEntry* entry = this->vis_tav->rewards[i];
+            if (entry->item_id == 0xFFFD) {
+                return TxtFile::AllLines[0x166];
+            }
+            if (entry->item_id == 0xFFFE) {
+                return TxtFile::AllLines[0x2E];
+            }
+            if (entry->item_id == 0xFFFF) {
+                return TxtFile::AllLines[0x4A];
+            }
+            return entry->FUN_00439973();
+        }
+    }
+    return nullptr;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
