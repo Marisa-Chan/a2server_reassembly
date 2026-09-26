@@ -631,7 +631,6 @@
 ??_GVisTavSceneKaarg@@UAEPAXI@Z	24
 ??1VisTavSceneKaarg@@UAE@XZ	57
 ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z	99
-?VMethod28@VisTavSceneKaarg@@UAEXXZ	270
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
 ?MsgProc@VisTipsDialog@@UAEHIII@Z	71

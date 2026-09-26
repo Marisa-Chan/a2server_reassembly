@@ -771,6 +771,7 @@
 ?VMethod28@VisShopCompass@@UAEXXZ
 ?VMethod28@VisTavScene@@UAEXXZ
 ?VMethod28@VisTavSceneDruid@@UAEXXZ
+?VMethod28@VisTavSceneKaarg@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod29@VisTavScene@@UAEXXZ
