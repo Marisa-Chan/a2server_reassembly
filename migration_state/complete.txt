@@ -760,6 +760,7 @@
 ?VMethod30@VisTavKaarg@@UAEXXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
+?VMethod31@VisTavKaarg@@UAEXXZ
 ?VMethod32@VisShopCompass@@UAEXH@Z
 ?VMethod33@VisShopCompass@@UAEXXZ
 ?VMethod34@VisShopCompass@@UAEXXZ

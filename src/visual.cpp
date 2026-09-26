@@ -8301,3 +8301,19 @@ void VisTavKaarg::VMethod30()
     FUN_00438e40(&this->snd_kaarg[8], "SFX\\Town_kaarg\\Inn\\Kvox7.wav");
     FUN_00438e40(&this->snd_kaarg[9], "SFX\\Town_kaarg\\Inn\\Kvox8.wav");
 }
+
+
+// 4A2873
+void VisTavKaarg::VMethod31()
+{
+    FUN_00438dd0(&this->sounds[5].sample);
+    FUN_00438dd0(&this->sounds[6].sample);
+    FUN_00438dd0(&this->sounds[7].sample);
+    FUN_00438dd0(&this->sounds[8].sample);
+    FUN_00438dd0(&this->sounds[9].sample);
+    FUN_00438dd0(&this->sounds[11].sample);
+    FUN_00438dd0(&this->sounds[12].sample);
+    for (int32_t i = 0; i < 10; i++) {
+        FUN_00438dd0(&this->snd_kaarg[i]);
+    }
+}

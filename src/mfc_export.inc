@@ -1443,7 +1443,7 @@ extern ?VMethod26@VisTavKaarg@@UAEXXZ : proc
 extern ?VMethod28@VisTavKaarg@@UAEXXZ : proc
 extern ?DoClose@VisTavKaarg@@UAEXI@Z : proc
 extern ?VMethod30@VisTavKaarg@@UAEXXZ : proc
-externdef ?VMethod31@VisTavKaarg@@UAEXH@Z : proc
+extern ?VMethod31@VisTavKaarg@@UAEXXZ : proc
 
 ;VisShop
 externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
