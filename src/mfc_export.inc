@@ -1444,7 +1444,7 @@ externdef ??1VisTavRightPanel@@UAE@XZ :proc
 externdef ?GetHint@VisTavRightPanel@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavRightPanel@@UAEXXZ :proc
 externdef ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
-externdef ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+extern ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 extern ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc

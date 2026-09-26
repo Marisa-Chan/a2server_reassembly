@@ -8257,6 +8257,17 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A291
+int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    this->field_0xc0 = this->FUN_0049a873(pos);
+    if (this->field_0xc0 == 2) {
+        CSound::Play(this->vis_tav->sounds[11]);
+    }
+    return 1;
+}
+
+
 // 499CDF
 void VisTavRightPanel::FUN_00499cdf()
 {

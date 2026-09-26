@@ -113103,47 +113103,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060C62C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+0C0h], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0C0h]
-                mov     [ebp+var_8], ecx
-                cmp     [ebp+var_8], 2
-                jz      short loc_49A2C7
-                jmp     short loc_49A2DB
-; ---------------------------------------------------------------------------
-
-loc_49A2C7:                             ; CODE XREF: ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z+32↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                add     eax, 0B0h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_49A2DB:                             ; CODE XREF: ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z+34↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -520,6 +520,7 @@
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
