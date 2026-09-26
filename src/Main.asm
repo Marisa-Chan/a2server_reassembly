@@ -121803,55 +121803,6 @@ sub_49F179      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisTavDruid@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_4A04E7      proc near
 
 var_10          = dword ptr -10h
@@ -127038,28 +126989,6 @@ arg_8           = dword ptr  10h
 sub_4A3EE0      endp
 
 ; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
                 align 10h
 
 ; =============== S U B R O U T I N E =======================================
@@ -417709,22 +417638,12 @@ aSfxTownInnHelp db 'SFX\Town\Inn\Helper.wav',0
 ; CHAR aSfxTownShopBre[]
 aSfxTownShopBre db 'SFX\Town\Shop\Breath.wav',0
                 align 4
-; CHAR aSfxAddWav_0[]
-aSfxAddWav_0    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+15↑o
-; CHAR aSfxNoaddWav_0[]
-aSfxNoaddWav_0  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+2B↑o
-                align 4
 ; CHAR aSfxTownShopNof_0[]
 aSfxTownShopNof_0 db 'SFX\Town\Shop\nofit.wav',0
 ; CHAR aSfxTownDruidIn[]
 aSfxTownDruidIn db 'SFX\Town_druid\Inn\din1.wav',0
 ; CHAR aSfxTownInnHelp_0[]
 aSfxTownInnHelp_0 db 'SFX\Town\Inn\Helper.wav',0
-; CHAR aSfxOutWav_0[]
-aSfxOutWav_0    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+86↑o
-; CHAR aSfxTalkWav_0[]
-aSfxTalkWav_0   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavDruid@@UAEXXZ+9D↑o
-                align 4
 ; CHAR aSfxTownDruidIn_0[]
 aSfxTownDruidIn_0 db 'SFX\Town_druid\Inn\DWater1.wav',0
                 align 4
