@@ -113083,26 +113083,6 @@ sub_497E06      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z proc near           ; DATA XREF: .rdata:0060C5B4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z endp
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Attributes: bp-based frame
 
 ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z      proc near               ; CODE XREF: ?VMethod7@VisTavLeftPanel@@UAEXXZ+71↑p

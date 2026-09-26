@@ -7856,6 +7856,13 @@ void VisTavLeftPanel::FUN_004996ab()
 }
 
 
+// 497EC1
+int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    return 0;
+}
+
+
 // 497ED0
 void VisTavLeftPanel::VMethod7()
 {
