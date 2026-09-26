@@ -8524,6 +8524,18 @@ bool VisTavSceneAnim::StepForward()
 }
 
 
+// 401613
+bool VisTavSceneAnim::StepBackward()
+{
+    if (this->frame_idx == 0) {
+        return false;
+    }
+    this->frame_idx--;
+    this->current_frame = this->frames.GetAt(this->frame_idx);
+    return this->current_frame != nullptr;
+}
+
+
 // Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
 static bool tavscene_statics_inited = false;
 static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays
