@@ -8475,6 +8475,157 @@ void VisTavRightPanel::VMethod7()
 }
 
 
+// Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
+static bool tavscene_statics_inited = false;
+static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays
+static uint32_t tavscene_frame_ts = 0;      // 665D3C
+static uint32_t tavscene_anims_ts = 0;      // 665D68
+static uint32_t tavscene_state_ts = 0;      // 665D38
+static uint32_t tavscene_ambient_ts = 0;    // 665D7C
+static int32_t tavscene_anim_state = 0;     // 665D80 0=none, 1=anims[3], 2=anims[2]
+static int32_t tavscene_anim_substate = 0;  // 665D84 1=playing forward, -1=playing backward
+
+
+// 49B22F
+void VisTavScene::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (!tavscene_statics_inited) {
+        tavscene_statics_inited = true;
+        tavscene_anim_delay = 3000 + rand() % 16;
+        uint32_t t = timeGetTime();
+        tavscene_frame_ts = t;
+        tavscene_anims_ts = t;
+        tavscene_state_ts = t;
+        tavscene_ambient_ts = t;
+    }
+
+    uint32_t now = timeGetTime();
+    if (now - tavscene_ambient_ts > 10000) {
+        CSound::Play(this->vis_tav->sounds[2]);
+        tavscene_ambient_ts = now;
+    }
+
+    LockSurface2();
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    int32_t x = tav_topleft.x + this->rect.left;
+    int32_t y = tav_topleft.y + this->rect.top;
+
+    this->field_0x27c->VMethod3(x, y, 0, 0, 0);
+
+    if (main_wnd->sessionMode == 2) {
+        this->anims[0].Draw(x, y + 0x30);
+        this->anims[1].Draw(x + 0x104, y + 0xA0);
+        if (now - tavscene_anims_ts > 100) {
+            this->anims[0].NextFrame();
+            this->anims[1].NextFrame();
+            tavscene_anims_ts = now;
+        }
+
+        if (now - tavscene_state_ts > tavscene_anim_delay) {
+            if ((tavscene_anim_delay & 1) == 0) {
+                tavscene_anim_state = 2;
+                CSound::Play(this->vis_tav->sounds[4]);
+                CSound::Play(this->vis_tav->sounds[10]);
+            } else {
+                tavscene_anim_substate = 1;
+                tavscene_anim_state = 1;
+            }
+        }
+
+        if (tavscene_anim_state == 1) {
+            this->anims[3].Draw(x + 0x50, y + 0x98);
+            if (this->anims[3].frame_idx == 0x1E) {
+                CSound::Play(this->vis_tav->sounds[0]);
+            }
+        } else if (tavscene_anim_state == 2) {
+            this->anims[2].Draw(x + 0x50, y + 0x98);
+        }
+
+        if (tavscene_anim_state != 0 && now - tavscene_state_ts > 0x53) {
+            if (tavscene_anim_state == 1) {
+                if (tavscene_anim_substate == -1) {
+                    if (!this->anims[3].StepBackward()) {
+                        tavscene_anim_substate = 0;
+                        tavscene_anim_state = 0;
+                        tavscene_anim_delay = 3000 + rand() % 16;
+                        CSound::Play(this->vis_tav->sounds[1]);
+                    }
+                } else if (tavscene_anim_substate == 1) {
+                    if (!this->anims[3].StepForward()) {
+                        tavscene_anim_substate = -1;
+                        this->anims[3].StepBackward();
+                    }
+                }
+                tavscene_state_ts = now;
+            } else if (tavscene_anim_state == 2) {
+                if (!this->anims[2].StepForward()) {
+                    tavscene_anim_state = 0;
+                    tavscene_anim_delay = 3000 + rand() % 16;
+                    this->anims[2].frame_idx = 0;
+                }
+                tavscene_state_ts = now;
+            }
+        }
+
+        int32_t avail_count = this->vis_tav->avail_entries.GetSize();
+        for (int32_t i = 0; i < avail_count; i++) {
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            this->field_0x274->VMethod3(x + pt.x, y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->field_0x224[i];
+            sprite->VMethod3(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            if (this->vis_tav->selection_index == i && now - tavscene_frame_ts > 0x7D) {
+                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                tavscene_frame_ts = now;
+            }
+
+            CUnit* unit = this->vis_tav->avail_entries[i];
+            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+                CRect& r = this->field_0x60[row * 6 + col];
+                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+            }
+        }
+
+        for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
+            int32_t row = (avail_count + i) / 6;
+            int32_t col = (avail_count + i) % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            if (this->vis_tav->selection_index == avail_count + i && now - tavscene_frame_ts > 0x7D) {
+                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                tavscene_frame_ts = now;
+            }
+            this->field_0x278->VMethod3(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->VMethod3(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+        }
+    } else {
+        this->FUN_0049bc23();
+    }
+
+    this->field_0x340->VMethod11(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->VMethod11(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->VMethod11(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    if (this->vis_tav->info_panel->info_mode) {
+        g_bmp_humanbackl->VMethod11(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    } else {
+        g_bmp_textbackl->VMethod11(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    }
+    UnlockSurface2();
+    CVisualObject::VMethod7();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

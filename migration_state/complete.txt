@@ -149,7 +149,6 @@
 ??_7SpellBook@@6B@
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavLeftPanel@@UAEPAXI@Z
-??_GVisTavRightPanel@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
@@ -273,8 +272,6 @@
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_00490eb3@MainWindow@@QAEHXZ
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
-?FUN_004998c2@VisTavRightPanel@@QAEXXZ
-?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
 ?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
@@ -418,7 +415,6 @@
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisTavLeftPanel@@UAEPBDXZ
-?GetHint@VisTavRightPanel@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ
 ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z
 ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z
@@ -515,7 +511,6 @@
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
-?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
@@ -523,21 +518,18 @@
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z
-?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
-?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z
-?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
@@ -790,7 +782,7 @@
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisTav@@UAEXXZ
 ?VMethod7@VisTavLeftPanel@@UAEXXZ
-?VMethod7@VisTavRightPanel@@UAEXXZ
+?VMethod7@VisTavScene@@UAEXXZ
 ?VMethod7@VisTextBox@@UAEXXZ
 ?VMethod8@CGameObject@@UAEXHHH@Z
 ?VMethod8@CUnit@@UAEXHHH@Z

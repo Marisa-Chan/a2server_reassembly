@@ -635,7 +635,11 @@
 ?VMethod28@VisTavScene@@UAEXXZ	270
 ?VMethod26@VisTavScene@@UAEXXZ	274
 ?VMethod29@VisTavScene@@UAEXXZ	294
-?VMethod7@VisTavScene@@UAEXXZ	854
+?FUN_0049bc23@VisTavScene@@QAEXXZ	1151
+?Draw@VisTavSceneAnim@@QAEXHH@Z	26
+?NextFrame@VisTavSceneAnim@@QAEXXZ	34
+?StepBackward@VisTavSceneAnim@@QAE_NXZ	36
+?StepForward@VisTavSceneAnim@@QAE_NXZ	38
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ	98
 ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z	137
 ??_GVisTavSceneDruid@@UAEPAXI@Z	24

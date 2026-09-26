@@ -23,6 +23,7 @@ class VisCharSellectStats;
 class VisCharSellectButtons;
 class VisCharSellectList;
 class VisTav;
+class VisCharInfo;
 class Item;
 class QuestMap;
 class Scenario;
@@ -1416,11 +1417,15 @@ class VisTavSceneAnim
 public:
 	void FUN_004010ee(CStringArray* names); //4010ee in asm
 	void FUN_004014f2(); //4014f2 in asm
+	bool StepForward(); //4015c6 in asm
+	bool StepBackward(); //401613 in asm
+	void NextFrame(); //401659 in asm
+	void Draw(int32_t x, int32_t y); //4016ef in asm
 
 public:
 	CArray<CBmp64*> frames;
-	int32_t field_0x14;
-	int32_t field_0x18;
+	CBmp64* current_frame; // 0x14
+	int32_t frame_idx; // 0x18
 	CStringArray names;
 };
 ASSERT_SIZE(VisTavSceneAnim, 0x30);
@@ -1510,6 +1515,8 @@ public:
 	virtual void VMethod29(); //49d5f9 in asm
 
 	VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 in asm
+
+	void FUN_0049bc23(); //49bc23 in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1608,7 +1615,7 @@ public:
 
 public:
 	BigStruct2* map_context;
-	CVisualObject* info_panel;
+	VisCharInfo* info_panel;
 	VisTavLeftPanel* left_panel;
 	VisTavRightPanel* right_panel;
 	int32_t field_0x78; //unk type
