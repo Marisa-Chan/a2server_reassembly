@@ -9299,6 +9299,42 @@ void VisTavSceneDruid::VMethod7()
 }
 
 
+// 4A158F
+void VisTavSceneDruid::VMethod29()
+{
+    delete this->field_0x274;
+    this->field_0x274 = nullptr;
+    delete this->field_0x278;
+    this->field_0x278 = nullptr;
+    delete this->field_0x27c;
+    this->field_0x27c = nullptr;
+    delete this->field_0x340;
+    this->field_0x340 = nullptr;
+    delete this->field_0x344;
+    this->field_0x344 = nullptr;
+    delete this->field_0x348;
+    this->field_0x348 = nullptr;
+    delete this->field_0x3cc;
+    this->field_0x3cc = nullptr;
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode != 2) {
+        for (int32_t i = 0; i < 13; i++) {
+            delete this->field_0x34c[i];
+            this->field_0x34c[i] = nullptr;
+        }
+    }
+
+    for (int32_t i = 0; i < this->field_0x210.GetSize(); i++) {
+        if (this->field_0x210[i] != nullptr) {
+            delete this->field_0x210[i];
+            this->field_0x210[i] = nullptr;
+        }
+    }
+    this->field_0x210.RemoveAll();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
