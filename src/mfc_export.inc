@@ -1476,10 +1476,8 @@ externdef ?VMethod29@VisTavSceneKaarg@@UAEXXZ :proc
 externdef ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z : proc
 
 ; VisTavSceneAnim
-extern ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z : proc
 extern ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
 extern ?StepForward@VisTavSceneAnim@@QAE_NXZ : proc
-extern ?StepBackward@VisTavSceneAnim@@QAE_NXZ : proc
 extern ?NextFrame@VisTavSceneAnim@@QAEXXZ : proc
 extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
