@@ -1557,7 +1557,7 @@ public:
 	VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a05a0 in asm
 
 public:
-	int32_t field_0x3cc;
+	CBmp64* field_0x3cc;
 	VisTavSceneAnim anims_druid[3]; // 0x3d0
 	uint32_t field_0x460;
 	uint32_t field_0x464;

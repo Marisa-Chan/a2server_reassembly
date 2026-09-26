@@ -9111,6 +9111,194 @@ int32_t VisTavScene::FUN_0049cab8(CPoint* pos)
 }
 
 
+// Statics for VisTavSceneDruid::VMethod7 (665D44-665D6C, 631FB0 in the binary).
+static bool tavscene_druid_statics_inited = false;  // 665D64 init bitmask
+static uint32_t tavscene_druid_anim_delay = 0;      // 665D50 delay before druid animation; low bits select which one plays
+static uint32_t tavscene_druid_frame_ts = 0;        // 665D58
+static uint32_t tavscene_druid_anims_ts = 0;        // 665D5C
+static uint32_t tavscene_druid_state_ts = 0;        // 665D44
+static uint32_t tavscene_druid_ambient_ts = 0;      // 665D6C (written, never read)
+static int32_t tavscene_druid_anim_state = -1;      // 631FB0 -1=idle, 1=anims_druid[1], 2=anims_druid[2], 3/4=field_0x3cc flash
+
+
+// 4A0673
+void VisTavSceneDruid::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    VisTavDruid* tav_druid = (VisTavDruid*)this->vis_tav;
+
+    if (!tavscene_druid_statics_inited) {
+        tavscene_druid_statics_inited = true;
+        tavscene_druid_anim_delay = 3200 + rand() % 16;
+        uint32_t t = timeGetTime();
+        tavscene_druid_frame_ts = t;
+        tavscene_druid_anims_ts = t;
+        tavscene_druid_state_ts = t;
+        tavscene_druid_ambient_ts = t;
+    }
+
+    uint32_t now = timeGetTime();
+    LockSurface2();
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    int32_t x = tav_topleft.x + this->rect.left;
+    int32_t y = tav_topleft.y + this->rect.top;
+
+    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
+
+    if (main_wnd->sessionMode == 2) {
+        this->anims_druid[0].Draw(x + 0xA8, y + 0x90);
+        if (now - tavscene_druid_anims_ts > 100) {
+            if (this->anims_druid[0].frame_idx == 0) {
+                switch (GetRandS16(4) + 1) {
+                case 1:
+                    CSound::Play((CSound&)tav_druid->snd_druid[0]);
+                    break;
+                case 2:
+                    CSound::Play((CSound&)tav_druid->snd_druid[1]);
+                    break;
+                case 3:
+                    CSound::Play((CSound&)tav_druid->snd_druid[2]);
+                    break;
+                case 4:
+                    CSound::Play((CSound&)tav_druid->snd_druid[3]);
+                    break;
+                }
+            }
+            this->anims_druid[0].NextFrame();
+            tavscene_druid_anims_ts = now;
+        }
+
+        if (now - tavscene_druid_state_ts > tavscene_druid_anim_delay) {
+            tavscene_druid_anim_state = (tavscene_druid_anim_delay & 3) + 1;
+            if (tavscene_druid_anim_state == 4) {
+                tavscene_druid_anim_state = 3;
+            }
+            if (tavscene_druid_anim_state == 1) {
+                CSound::Play((CSound&)tav_druid->snd_druid[5]);
+            }
+            if (tavscene_druid_anim_state == 2) {
+                CSound::Play((CSound&)tav_druid->snd_druid[4]);
+            }
+        }
+
+        switch (tavscene_druid_anim_state) {
+        case 1:
+            this->anims_druid[1].Draw(x + 0x28, y + 0x80);
+            if (this->anims_druid[1].frame_idx == 0x1E) {
+                CSound::Play((CSound&)tav_druid->snd_druid[6]);
+            }
+            break;
+        case 2:
+            this->anims_druid[2].Draw(x + 0x28, y + 0x80);
+            break;
+        case 3:
+        case 4:
+            this->field_0x3cc->VMethod2(x + 0x68, y + 0x98, 0, 0, 0);
+            break;
+        }
+
+        if (tavscene_druid_anim_state != -1 && now - tavscene_druid_state_ts > 100) {
+            switch (tavscene_druid_anim_state) {
+            case 1:
+                if (!this->anims_druid[1].StepForward()) {
+                    tavscene_druid_anim_state = -1;
+                    tavscene_druid_anim_delay = 3200 + rand() % 16;
+                    this->anims_druid[1].frame_idx = 0;
+                }
+                tavscene_druid_state_ts = now;
+                break;
+            case 2:
+                if (!this->anims_druid[2].StepForward()) {
+                    tavscene_druid_anim_state = -1;
+                    tavscene_druid_anim_delay = 3200 + rand() % 16;
+                    this->anims_druid[2].frame_idx = 0;
+                }
+                tavscene_druid_state_ts = now;
+                break;
+            case 3:
+                tavscene_druid_anim_state++;
+                tavscene_druid_anim_delay = 1000 + rand() % 16;
+                tavscene_druid_state_ts = now;
+                break;
+            case 4:
+                tavscene_druid_anim_state = -1;
+                break;
+            }
+        }
+
+        int32_t avail_count = this->vis_tav->avail_entries.GetSize();
+        for (int32_t i = 0; i < avail_count; i++) {
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->field_0x224[i];
+            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            if (this->vis_tav->selection_index == i && now - tavscene_druid_frame_ts > 0x7D) {
+                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                tavscene_druid_frame_ts = now;
+            }
+
+            CUnit* unit = this->vis_tav->avail_entries[i];
+            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+                CRect& r = this->field_0x60[row * 6 + col];
+                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+            }
+        }
+
+        for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
+            int32_t row = (avail_count + i) / 6;
+            int32_t col = (avail_count + i) % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            if (this->vis_tav->selection_index == avail_count + i && now - tavscene_druid_frame_ts > 0x7D) {
+                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                tavscene_druid_frame_ts = now;
+            }
+            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+        }
+    } else {
+        this->FUN_0049bc23();
+    }
+
+    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    if (this->vis_tav->info_panel->info_mode) {
+        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    } else {
+        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    }
+    UnlockSurface2();
+    CVisualObject::VMethod7();
+
+    if (main_wnd->sessionMode == 2 && now - this->field_0x460 > this->field_0x464) {
+        switch (GetRandS16(3) + 1) {
+        case 1:
+            CSound::Play((CSound&)tav_druid->snd_druid[8]);
+            break;
+        case 2:
+            CSound::Play((CSound&)tav_druid->snd_druid[9]);
+            break;
+        case 3:
+            CSound::Play((CSound&)tav_druid->snd_druid[10]);
+            break;
+        }
+        this->field_0x464 = GetRandS16(2000) + 2000;
+        this->field_0x460 = timeGetTime();
+    }
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

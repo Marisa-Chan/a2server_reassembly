@@ -633,7 +633,6 @@
 ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80
 ?VMethod28@VisTavSceneDruid@@UAEXXZ	300
 ?VMethod29@VisTavSceneDruid@@UAEXXZ	322
-?VMethod7@VisTavSceneDruid@@UAEXXZ	977
 ??_GVisTavSceneKaarg@@UAEPAXI@Z	24
 ??1VisTavSceneKaarg@@UAE@XZ	57
 ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z	99
