@@ -42073,7 +42073,7 @@ byte_43994F     db      0,     0,     0,     0
 
 ; Attributes: bp-based frame
 
-?FUN_00439973@@YIPBDPAVTokenEntry@@@Z      proc near               ; CODE XREF: ?GetHint@VisTavLeftPanel@@UAEPBDXZ+27A↓p
+?FUN_00439973@TokenEntry@@QAEPBDXZ      proc near               ; CODE XREF: ?GetHint@VisTavLeftPanel@@UAEPBDXZ+27A↓p
 
 var_F4          = qword ptr -0F4h
 var_EC          = dword ptr -0ECh
@@ -42129,7 +42129,7 @@ var_4           = dword ptr -4
                 jmp     loc_43A368
 ; ---------------------------------------------------------------------------
 
-loc_4399CA:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+4B↑j
+loc_4399CA:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+4B↑j
                 mov     eax, dword ptr [ebp+Source]
                 push    eax             ; Source
                 push    offset g_Destination ; Destination
@@ -42144,12 +42144,12 @@ loc_4399CA:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     short loc_439A16
 ; ---------------------------------------------------------------------------
 
-loc_439A07:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z:loc_43A35E↓j
+loc_439A07:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ:loc_43A35E↓j
                 mov     eax, dword ptr [ebp+var_9C]
                 add     eax, 1
                 mov     [ebp+var_9C], eax
 
-loc_439A16:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+92↑j
+loc_439A16:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+92↑j
                 mov     ecx, dword ptr [ebp+var_DC]
                 xor     edx, edx
                 mov     dl, [ecx+9]
@@ -42175,14 +42175,14 @@ loc_439A16:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     ds:jpt_439A7C[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_439A83:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_439A83:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     ecx, dword ptr [ebp+var_10] ; jumptable 00439A7C case 1
                 add     ecx, 4
                 mov     [ebp+var_10], ecx
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_439A91:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_439A91:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     edx, dword ptr [ebp+var_10] ; jumptable 00439A7C cases 13,44-48
                 xor     eax, eax
                 mov     al, [edx]
@@ -42217,7 +42217,7 @@ loc_439A91:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    _strcat
                 add     esp, 8
 
-loc_439B07:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+15F↑j
+loc_439B07:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+15F↑j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 1
                 mov     [ebp+var_10], edx
@@ -42248,7 +42248,7 @@ loc_439B07:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_439B68:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_439B68:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     edx, dword ptr [ebp+var_10] ; jumptable 00439A7C case 42
                 xor     eax, eax
                 mov     al, [edx]
@@ -42285,7 +42285,7 @@ loc_439B68:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_439BD8:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_439BD8:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     ecx, dword ptr [ebp+var_10] ; jumptable 00439A7C case 41
                 xor     edx, edx
                 mov     dl, [ecx]
@@ -42323,7 +42323,7 @@ loc_439BD8:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     short loc_439C8E
 ; ---------------------------------------------------------------------------
 
-loc_439C4A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+28F↑j
+loc_439C4A:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+28F↑j
                 push    5Dh ; ']'
                 mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
                 call    sub_41F850
@@ -42346,7 +42346,7 @@ loc_439C4A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    _sprintf
                 add     esp, 14h
 
-loc_439C8E:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+2D5↑j
+loc_439C8E:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+2D5↑j
                 lea     ecx, [ebp+Buffer]
                 push    ecx             ; Source
                 push    offset g_Destination ; Destination
@@ -42355,7 +42355,7 @@ loc_439C8E:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_439CA7:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_439CA7:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     edx, dword ptr [ebp+var_10] ; jumptable 00439A7C case 50
                 xor     eax, eax
                 mov     al, [edx]
@@ -42380,7 +42380,7 @@ loc_439CA7:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 shr     cx, 1
                 mov     word ptr [ebp+var_AC], cx
 
-loc_439CFE:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+378↑j
+loc_439CFE:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+378↑j
                 lea     ecx, [ebp+var_C8] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   } // starts at 439CCE
@@ -42425,7 +42425,7 @@ loc_439CFE:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_439D94:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+3D5↑j
+loc_439D94:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+3D5↑j
                 mov     ecx, dword ptr [ebp+var_DC]
                 call    ?GetType@TokenEntry@@QBEHXZ
                 cmp     eax, 0Eh
@@ -42448,11 +42448,11 @@ loc_439D94:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_439DE3:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+43F↑j
+loc_439DE3:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+43F↑j
                 jmp     loc_439E7A
 ; ---------------------------------------------------------------------------
 
-loc_439DE8:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+42F↑j
+loc_439DE8:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+42F↑j
                 mov     eax, dword ptr [ebp+var_DC]
                 xor     ecx, ecx
                 mov     cx, [eax+6]
@@ -42489,10 +42489,10 @@ loc_439DE8:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     short loc_439E7A
 ; ---------------------------------------------------------------------------
 
-loc_439E70:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+4E0↑j
+loc_439E70:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+4E0↑j
                 mov     [ebp+var_E4], 0
 
-loc_439E7A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z:loc_439DE3↑j
+loc_439E7A:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ:loc_439DE3↑j
                 mov     ecx, dword ptr [ebp+var_AC]
                 and     ecx, 0FFFFh
                 test    ecx, ecx
@@ -42519,7 +42519,7 @@ loc_439E7A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     short loc_439F27
 ; ---------------------------------------------------------------------------
 
-loc_439EE0:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+522↑j
+loc_439EE0:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+522↑j
                 mov     edx, dword ptr [ebp+var_AC]
                 and     edx, 0FFFFh
                 mov     [ebp+var_EC], edx
@@ -42538,7 +42538,7 @@ loc_439EE0:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 14h
 
-loc_439F27:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+515↑j
+loc_439F27:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+515↑j
                 xor     edx, edx
                 mov     dl, byte ptr [ebp+var_14]
                 push    edx
@@ -42565,7 +42565,7 @@ loc_439F27:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_439F7A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+5CA↑j
+loc_439F7A:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5CA↑j
                 xor     edx, edx
                 mov     dl, byte ptr [ebp+var_14]
                 push    edx
@@ -42592,7 +42592,7 @@ loc_439F7A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_439FD1:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+61F↑j
+loc_439FD1:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+61F↑j
                 xor     eax, eax
                 mov     al, byte ptr [ebp+var_14]
                 push    eax
@@ -42619,7 +42619,7 @@ loc_439FD1:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_43A028:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+676↑j
+loc_43A028:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+676↑j
                 xor     ecx, ecx
                 mov     cl, byte ptr [ebp+var_14]
                 push    ecx
@@ -42646,7 +42646,7 @@ loc_43A028:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_43A07F:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+6CD↑j
+loc_43A07F:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+6CD↑j
                 xor     edx, edx
                 mov     dl, byte ptr [ebp+var_14]
                 push    edx
@@ -42673,7 +42673,7 @@ loc_43A07F:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_43A0D6:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+724↑j
+loc_43A0D6:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+724↑j
                 xor     eax, eax
                 mov     al, byte ptr [ebp+var_14]
                 push    eax
@@ -42700,7 +42700,7 @@ loc_43A0D6:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
                 add     esp, 10h
 
-loc_43A129:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+779↑j
+loc_43A129:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+779↑j
                 lea     ecx, [ebp+var_C4]
                 call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Source
@@ -42752,7 +42752,7 @@ loc_43A129:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_43A1E0:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_43A1E0:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     eax, dword ptr [ebp+var_10] ; jumptable 00439A7C case 51
                 xor     ecx, ecx
                 mov     cl, [eax]
@@ -42777,11 +42777,11 @@ loc_43A1E0:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    _strcat
                 add     esp, 8
 
-loc_43A234:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+88E↑j
+loc_43A234:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+88E↑j
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-loc_43A239:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑j
+loc_43A239:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑j
                 mov     ecx, dword ptr [ebp+var_10] ; jumptable 00439A7C case 38
                 xor     edx, edx
                 mov     dl, [ecx]
@@ -42816,11 +42816,11 @@ loc_43A239:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    _strcat
                 add     esp, 8
 
-loc_43A2AF:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+907↑j
+loc_43A2AF:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+907↑j
                 jmp     loc_43A35E
 ; ---------------------------------------------------------------------------
 
-def_439A7C:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+F5↑j
+def_439A7C:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+F5↑j
                 mov     ecx, dword ptr [ebp+var_10] ; jumptable 00439A7C default case, cases 2-12,14-37,39,40,43,49
                 xor     edx, edx
                 mov     dl, [ecx]
@@ -42855,7 +42855,7 @@ def_439A7C:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 call    _strcat
                 add     esp, 8
 
-loc_43A32A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+982↑j
+loc_43A32A:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+982↑j
                 mov     ecx, dword ptr [ebp+var_A8]
                 and     ecx, 0FFh
                 cmp     ecx, 0Bh
@@ -42865,30 +42865,30 @@ loc_43A32A:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVToke
                 cmp     edx, 8
                 jnz     short loc_43A35E
 
-loc_43A34C:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+9C6↑j
+loc_43A34C:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+9C6↑j
                 push    offset asc_62E430 ; "%"
                 push    offset g_Destination ; Destination
                 call    _strcat
                 add     esp, 8
 
-loc_43A35E:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+119↑j
+loc_43A35E:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+119↑j
                 jmp     loc_439A07
 ; ---------------------------------------------------------------------------
 
-loc_43A363:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+B4↑j
+loc_43A363:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+B4↑j
                 mov     eax, offset g_Destination
 
-loc_43A368:                             ; CODE XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+52↑j
+loc_43A368:                             ; CODE XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+52↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 439973
-?FUN_00439973@@YIPBDPAVTokenEntry@@@Z      endp
+?FUN_00439973@TokenEntry@@QAEPBDXZ      endp
 
 ; ---------------------------------------------------------------------------
-jpt_439A7C      dd offset loc_439A83    ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+109↑r
+jpt_439A7C      dd offset loc_439A83    ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+109↑r
                 dd offset loc_439A91    ; jump table for switch statement
                 dd offset loc_43A239
                 dd offset loc_439BD8
@@ -117849,7 +117849,7 @@ loc_49CEAB:                             ; CODE XREF: ?GetHint@VisTavScene@@UAEPB
                 add     ecx, 124h
                 call    sub_41FC60
                 mov     ecx, dword ptr [eax]
-                call    ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+                call    ?FUN_00439973@TokenEntry@@QAEPBDXZ
                 jmp     short loc_49CED0
 ; ---------------------------------------------------------------------------
 
@@ -129180,7 +129180,7 @@ loc_4A77B2:                             ; CODE XREF: ?GetHint@VisInvType1@@UAEPB
                 mov     ecx, dword ptr [eax+84h]
                 call    sub_41FC60
                 mov     ecx, dword ptr [eax]
-                call    ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+                call    ?FUN_00439973@TokenEntry@@QAEPBDXZ
 
 loc_4A77CB:                             ; CODE XREF: ?GetHint@VisInvType1@@UAEPBDXZ+20↑j
                 pop     esi
@@ -145851,7 +145851,7 @@ loc_4B1F7B:                             ; CODE XREF: ?GetHint@VisCharInfo@@UAEPB
                 mov     eax, dword ptr [ebp+var_90]
                 mov     ecx, dword ptr [ebp+var_18]
                 mov     ecx, dword ptr [ecx+eax*4+184h]
-                call    ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+                call    ?FUN_00439973@TokenEntry@@QAEPBDXZ
                 jmp     short loc_4B2017
 ; ---------------------------------------------------------------------------
 
@@ -150351,7 +150351,7 @@ loc_4B4D16:                             ; CODE XREF: ?GetHint@VisInvExtBase@@UAE
                 mov     ecx, dword ptr [edx+84h]
                 call    sub_46FB50
                 mov     ecx, eax
-                call    ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+                call    ?FUN_00439973@TokenEntry@@QAEPBDXZ
 
 loc_4B4D2F:                             ; CODE XREF: ?GetHint@VisInvExtBase@@UAEPBDXZ+1D↑j
                 mov     esp, ebp
@@ -359252,7 +359252,7 @@ SEH_4395E0:                             ; DATA XREF: sub_4395E0+5↑o
 ; } // starts at 5F8990
 ; END OF FUNCTION CHUNK FOR sub_4395E0
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+; START OF FUNCTION CHUNK FOR ?FUN_00439973@TokenEntry@@QAEPBDXZ
 
 loc_5F89BE:                             ; DATA XREF: .rdata:stru_619118↓o
 ; __unwind { // SEH_439973
@@ -359294,11 +359294,11 @@ loc_5F89EE:                             ; DATA XREF: .rdata:00619138↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_439973:                             ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+5↑o
+SEH_439973:                             ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5↑o
                 mov     eax, offset stru_6190F8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F89BE
-; END OF FUNCTION CHUNK FOR ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z
+; END OF FUNCTION CHUNK FOR ?FUN_00439973@TokenEntry@@QAEPBDXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ?LogMessage@@YAXVCString@@@Z
@@ -387536,7 +387536,7 @@ off_609A20      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 8
 
-dbl_609A50      dq 16.0                 ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+53C↑r
+dbl_609A50      dq 16.0                 ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+53C↑r
 off_609A58      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_43AB28+72↑o
                 dd offset sub_43BFA0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -410289,56 +410289,56 @@ aSwordsman2h    db 'swordsman2h',0      ; DATA XREF: sub_4396FB:loc_4397A0↑o
 ; char aMageSt[]
 aMageSt         db 'mage_st',0          ; DATA XREF: sub_4396FB:loc_4397BC↑o
 ; char aSD_0[]
-aSD_0           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+16C↑o
+aSD_0           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+16C↑o
                 align 10h
 ; char aD_59[]
 aD_59           db '-%d',0
 ; char aSSS_11[]
-aSSS_11         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+238↑o
+aSSS_11         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+238↑o
                 align 10h
 ; char aSSS_12[]
-aSSS_12         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+2C1↑o
+aSSS_12         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+2C1↑o
                 align 4
 ; char aSSS_13[]
-aSSS_13         db '#%s %s%s',0         ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+307↑o
+aSSS_13         db '#%s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+307↑o
                 align 4
 ; char aSDD[]
-aSDD            db '#%s: %d-%d',0       ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+40D↑o
+aSDD            db '#%s: %d-%d',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+40D↑o
                 align 4
 ; char aSD_1[]
-aSD_1           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+45C↑o
+aSD_1           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+45C↑o
 ; char aSD_2[]
-aSD_2           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+4AD↑o
+aSD_2           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+4AD↑o
 ; char aS0051f[]
-aS0051f         db '#%s: 0.0 -%5.1f',0  ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+557↑o
+aS0051f         db '#%s: 0.0 -%5.1f',0  ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+557↑o
 ; char aS51f[]
-aS51f           db '#%s: %5.1f',0       ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+5A0↑o
+aS51f           db '#%s: %5.1f',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5A0↑o
                 align 10h
 ; char aSD_3[]
-aSD_3           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+5F3↑o
+aSD_3           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5F3↑o
 ; char aSD_4[]
-aSD_4           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+64A↑o
+aSD_4           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+64A↑o
                 align 4
 ; char aSD_5[]
-aSD_5           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+6A1↑o
+aSD_5           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+6A1↑o
                 align 10h
 ; char aSD_6[]
-aSD_6           db '#%s: +%d',0         ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+6F8↑o
+aSD_6           db '#%s: +%d',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+6F8↑o
                 align 4
 ; char aSD_7[]
-aSD_7           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+74F↑o
+aSD_7           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+74F↑o
 ; char aSD_8[]
-aSD_8           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+7A2↑o
+aSD_8           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+7A2↑o
 ; char asc_62E41C[]
-asc_62E41C      db '#',0                ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+890↑o
+asc_62E41C      db '#',0                ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+890↑o
                 align 10h
 ; char aSD_9[]
-aSD_9           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+914↑o
+aSD_9           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+914↑o
                 align 4
 ; char aSD_10[]
-aSD_10          db '#%s %+d',0          ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z+98F↑o
+aSD_10          db '#%s %+d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+98F↑o
 ; char asc_62E430[]
-asc_62E430      db '%',0                ; DATA XREF: ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z:loc_43A34C↑o
+asc_62E430      db '%',0                ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ:loc_43A34C↑o
                 align 4
 ; char aCrown[]
 aCrown          db 'Crown',0            ; DATA XREF: sub_43A5E5+26↑o

@@ -7829,7 +7829,7 @@ const char* VisTavLeftPanel::GetHint()
     if (index == 0) {
         return nullptr;
     }
-    return FUN_00439973(unit->equipmentTokens[index - 1]);
+    return unit->equipmentTokens[index - 1]->FUN_00439973();
 }
 
 

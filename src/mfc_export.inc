@@ -1401,7 +1401,7 @@ extern ?GetId@TokenEntry@@QBEHXZ : proc
 externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 externdef ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
 externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
-externdef ?FUN_00439973@@YIPBDPAVTokenEntry@@@Z : proc  ; const char* __fastcall FUN_00439973(TokenEntry*)
+externdef ?FUN_00439973@TokenEntry@@QAEPBDXZ : proc  ; const char* TokenEntry::FUN_00439973()
 
 
 

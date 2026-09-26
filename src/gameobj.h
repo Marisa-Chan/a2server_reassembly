@@ -40,6 +40,7 @@ public:
 
 	CString FUN_004394f3(); //4394f3
 	int FUN_004396d6(); //4396d6
+	const char* FUN_00439973(); //439973
 
 	int GetType() const { return (item_id >> 8) & 0xf; } //41f0b0
 	int GetId() const { return item_id & 0x1f; } //43a800
@@ -87,8 +88,6 @@ public:
 	int32_t field_0x20 = -1;
 };
 ASSERT_SIZE(TokenEntry, 0x24);
-
-const char* __fastcall FUN_00439973(TokenEntry* entry); //439973 in asm
 
 struct GO_11c
 {
