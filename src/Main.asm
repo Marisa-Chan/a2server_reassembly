@@ -123593,43 +123593,6 @@ sub_4A158F      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisTavKaarg@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_4A29AA      proc near
 
 var_10          = dword ptr -10h
@@ -125729,22 +125692,6 @@ var_4           = dword ptr -4
                 retn
 ; } // starts at 4A3FC0
 sub_4A3FC0      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -416211,22 +416158,12 @@ aGraphicsInterf_192 db 'graphics\interface\inn_kaarg\taverner\a4%04d.bmp',0
 ; char aGraphicsInterf_193[]
 aGraphicsInterf_193 db 'graphics\interface\inn_kaarg\taverner\a5%04d.bmp',0
                 align 4
-; CHAR aSfxAddWav_1[]
-aSfxAddWav_1    db 'SFX\Add.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+15↑o
-; CHAR aSfxNoaddWav_1[]
-aSfxNoaddWav_1  db 'SFX\NoAdd.wav',0    ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+2B↑o
-                align 10h
 ; CHAR aSfxTownShopNof_1[]
 aSfxTownShopNof_1 db 'SFX\Town\Shop\nofit.wav',0
 ; CHAR aSfxTownKaargIn[]
 aSfxTownKaargIn db 'SFX\Town_kaarg\Inn\Kin1.wav',0
 ; CHAR aSfxTownInnHelp_1[]
 aSfxTownInnHelp_1 db 'SFX\Town\Inn\Helper.wav',0
-; CHAR aSfxOutWav_1[]
-aSfxOutWav_1    db 'SFX\Out.wav',0      ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+86↑o
-; CHAR aSfxTalkWav_1[]
-aSfxTalkWav_1   db 'SFX\Talk.wav',0     ; DATA XREF: ?VMethod30@VisTavKaarg@@UAEXXZ+9D↑o
-                align 4
 ; CHAR aSfxTownKaargIn_0[]
 aSfxTownKaargIn_0 db 'SFX\Town_kaarg\Inn\Kdish1.wav',0
                 align 4
