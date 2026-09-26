@@ -806,6 +806,7 @@
 ?VMethod7@VisTavLeftPanel@@UAEXXZ
 ?VMethod7@VisTavScene@@UAEXXZ
 ?VMethod7@VisTavSceneDruid@@UAEXXZ
+?VMethod7@VisTavSceneKaarg@@UAEXXZ
 ?VMethod7@VisTextBox@@UAEXXZ
 ?VMethod8@CGameObject@@UAEXHHH@Z
 ?VMethod8@CUnit@@UAEXHHH@Z

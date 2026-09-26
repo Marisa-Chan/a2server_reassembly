@@ -9379,6 +9379,230 @@ void VisTavSceneDruid::VMethod28()
 }
 
 
+// Statics for VisTavSceneKaarg::VMethod7 (665D40-665D74, 631E30, 631FB4 in the binary).
+static bool tavscene_kaarg_statics_inited = false;  // 665D40 init bitmask
+static uint32_t tavscene_kaarg_unused_rand = 0;     // 665D48 (written, never read)
+static uint32_t tavscene_kaarg_frame_ts = 0;        // 665D4C
+static uint32_t tavscene_kaarg_unused_ts1 = 0;      // 665D74 (written, never read)
+static uint32_t tavscene_kaarg_state_ts = 0;        // 665D54
+static uint32_t tavscene_kaarg_unused_ts2 = 0;      // 665D70 (written, never read)
+static int32_t tavscene_kaarg_anim_state = -1;      // 631FB4 -1=idle, 1-5=current animation
+// 631E30 Scripted frame indices for anims_kaarg[4] (state 5), -1 terminated.
+static const int32_t kaarg_frame_script[96] = {
+    0, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+    8, 8, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 13,
+    13, 13, 13, 13, 13, 13, 13, 13, 14, 15, 16, 17, 18,
+    19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 21,
+    22, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 5,
+    6, 7, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+    25, 26, 27, 28, -1,
+};
+
+
+// 4A2BB8
+void VisTavSceneKaarg::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    VisTavKaarg* tav_kaarg = (VisTavKaarg*)this->vis_tav;
+
+    if (!tavscene_kaarg_statics_inited) {
+        tavscene_kaarg_statics_inited = true;
+        tavscene_kaarg_unused_rand = rand() / 0x41;
+        uint32_t t = timeGetTime();
+        tavscene_kaarg_frame_ts = t;
+        tavscene_kaarg_unused_ts1 = t;
+        tavscene_kaarg_state_ts = t;
+        tavscene_kaarg_unused_ts2 = t;
+    }
+
+    uint32_t now = timeGetTime();
+    LockSurface2();
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    int32_t x = tav_topleft.x + this->rect.left;
+    int32_t y = tav_topleft.y + this->rect.top;
+
+    this->field_0x27c->VMethod2(x, y, 0, 0, 0);
+
+    if (main_wnd->sessionMode == 2) {
+        if (tavscene_kaarg_anim_state == -1) {
+            this->field_0x4bc = 0;
+            int32_t which = Random0N(0x14) + 1;
+            switch (which) {
+            case 1:
+            case 2:
+            case 5:
+                tavscene_kaarg_anim_state = which;
+                break;
+            case 3:
+            case 4:
+            case 6:
+                tavscene_kaarg_anim_state = 3;
+                break;
+            default:
+                tavscene_kaarg_anim_state = 4;
+                break;
+            }
+            if (tavscene_kaarg_anim_state == 1) {
+                CSound::Play((CSound&)tav_kaarg->snd_kaarg[5]);
+            }
+            if (tavscene_kaarg_anim_state == 2) {
+                CSound::Play((CSound&)tav_kaarg->snd_kaarg[4]);
+            }
+        }
+
+        switch (tavscene_kaarg_anim_state) {
+        case 1:
+            this->anims_kaarg[0].Draw(x + 0x48, y + 0x58);
+            break;
+        case 2:
+            this->anims_kaarg[1].Draw(x + 0x48, y + 0x58);
+            break;
+        case 3:
+            this->anims_kaarg[2].Draw(x + 0x70, y + 0x70);
+            break;
+        case 4:
+            this->anims_kaarg[3].Draw(x + 0xC8, y + 0x88);
+            break;
+        case 5:
+            this->anims_kaarg[4].frames[kaarg_frame_script[this->field_0x4bc]]->VMethod2(x + 0x58, y + 0x54, 0, 0, 0);
+            break;
+        }
+
+        if (tavscene_kaarg_anim_state != -1 && now - tavscene_kaarg_state_ts > 100) {
+            switch (tavscene_kaarg_anim_state) {
+            case 1:
+                if (!this->anims_kaarg[0].StepForward()) {
+                    tavscene_kaarg_anim_state = -1;
+                    this->anims_kaarg[0].frame_idx = 0;
+                }
+                tavscene_kaarg_state_ts = now;
+                break;
+            case 2:
+                if (!this->anims_kaarg[1].StepForward()) {
+                    tavscene_kaarg_anim_state = -1;
+                    this->anims_kaarg[1].frame_idx = 0;
+                }
+                tavscene_kaarg_state_ts = now;
+                break;
+            case 3:
+                if (!this->anims_kaarg[2].StepForward()) {
+                    tavscene_kaarg_anim_state = -1;
+                    this->anims_kaarg[2].frame_idx = 0;
+                }
+                tavscene_kaarg_state_ts = now;
+                break;
+            case 4:
+                if (!this->anims_kaarg[3].StepForward()) {
+                    tavscene_kaarg_anim_state = -1;
+                    this->anims_kaarg[3].frame_idx = 0;
+                }
+                tavscene_kaarg_state_ts = now;
+                break;
+            case 5:
+                this->field_0x4bc++;
+                if (kaarg_frame_script[this->field_0x4bc] == -1) {
+                    tavscene_kaarg_anim_state = -1;
+                    this->anims_kaarg[4].frame_idx = 0;
+                }
+                tavscene_kaarg_state_ts = now;
+                break;
+            }
+        }
+
+        int32_t avail_count = this->vis_tav->avail_entries.GetSize();
+        for (int32_t i = 0; i < avail_count; i++) {
+            int32_t row = i / 6;
+            int32_t col = i % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            this->field_0x274->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            CSprite256* sprite = this->field_0x224[i];
+            sprite->VMethod2(x + pt.x, y + pt.y, this->field_0x24c[i], 0, 0);
+            if (this->vis_tav->selection_index == i && now - tavscene_kaarg_frame_ts > 0x7D) {
+                this->field_0x24c[i] = (this->field_0x24c[i] + 1) % sprite->GetFrameCount();
+                tavscene_kaarg_frame_ts = now;
+            }
+
+            CUnit* unit = this->vis_tav->avail_entries[i];
+            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+                CRect& r = this->field_0x60[row * 6 + col];
+                g_font2->DrawTextWithShadow(x + r.left + r.Width() / 2, y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+            }
+        }
+
+        for (int32_t i = 0; i < this->vis_tav->reserved_entries.GetSize(); i++) {
+            int32_t row = (avail_count + i) / 6;
+            int32_t col = (avail_count + i) % 6;
+            CPoint pt = this->field_0x60[row * 6 + col].TopLeft();
+            if (this->vis_tav->selection_index == -1) {
+                continue;
+            }
+
+            if (this->vis_tav->selection_index == avail_count + i && now - tavscene_kaarg_frame_ts > 0x7D) {
+                this->field_0x260[i] = (this->field_0x260[i] + 1) % this->field_0x238[i]->GetFrameCount();
+                tavscene_kaarg_frame_ts = now;
+            }
+            this->field_0x278->VMethod2(x + pt.x, y + pt.y, 0, 0, 0);
+            this->field_0x238[i]->VMethod2(x + pt.x, y + pt.y, this->field_0x260[i], 0, 0);
+        }
+    } else {
+        this->FUN_0049bc23();
+    }
+
+    this->field_0x340->VMethod10(x + 0xA0, y, 0, 0, 0x10, 0xEE);
+    this->field_0x344->VMethod10(x + 0xA0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    this->field_0x348->VMethod10(x + 0x1D0, y, 0, 0, 0x10, 0xEE);
+    if (this->vis_tav->info_panel->info_mode) {
+        g_bmp_humanbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    } else {
+        g_bmp_textbackl->VMethod10(x + 0x1D0, y + 0xEE, 0, 0, 0x10, 0xF2);
+    }
+    UnlockSurface2();
+
+    if (main_wnd->sessionMode == 2 && now - this->field_0x4c8 > this->field_0x4cc) {
+        switch (GetRandS16(3) + 1) {
+        case 1:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[7]);
+            break;
+        case 2:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[8]);
+            break;
+        case 3:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[9]);
+            break;
+        }
+        this->field_0x4cc = GetRandS16(2000) + 2000;
+        this->field_0x4c8 = timeGetTime();
+    }
+
+    if (main_wnd->sessionMode == 2 && now - this->field_0x4c0 > this->field_0x4c4) {
+        switch (GetRandS16(4) + 1) {
+        case 1:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[0]);
+            break;
+        case 2:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[1]);
+            break;
+        case 3:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[2]);
+            break;
+        case 4:
+            CSound::Play((CSound&)tav_kaarg->snd_kaarg[3]);
+            break;
+        }
+        this->field_0x4c4 = GetRandS16(2000) + 2000;
+        this->field_0x4c0 = timeGetTime();
+    }
+
+    CVisualObject::VMethod7();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
