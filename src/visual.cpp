@@ -9335,6 +9335,36 @@ void VisTavSceneDruid::VMethod29()
 }
 
 
+// 4A11E3
+void VisTavSceneDruid::VMethod28()
+{
+    this->VMethod29();
+    this->field_0x274 = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
+    g_mousept.Update();
+    this->field_0x278 = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
+    g_mousept.Update();
+    this->field_0x27c = new CBmp64("graphics\\Interface\\Inn_druid\\TavernMain.bmp");
+    g_mousept.Update();
+    this->field_0x340 = new CBmp64("graphics\\interface\\inn\\LUOver.bmp");
+    g_mousept.Update();
+    this->field_0x344 = new CBmp64("graphics\\interface\\inn\\LDOver.bmp");
+    g_mousept.Update();
+    this->field_0x348 = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    g_mousept.Update();
+    this->field_0x3cc = new CBmp64("graphics\\interface\\inn_druid\\taverner\\a30001.bmp");
+    g_mousept.Update();
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode != 2) {
+        CString name;
+        for (int32_t i = 0; i < 13; i++) {
+            name.Format("graphics\\interface\\inn\\quests\\%02d.bmp", i + 1);
+            this->field_0x34c[i] = new CBmp64(name);
+        }
+    }
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

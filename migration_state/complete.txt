@@ -768,6 +768,7 @@
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod28@VisShopCompass@@UAEXXZ
 ?VMethod28@VisTavScene@@UAEXXZ
+?VMethod28@VisTavSceneDruid@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod29@VisTavScene@@UAEXXZ

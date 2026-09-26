@@ -631,7 +631,6 @@
 ??_GVisTavSceneDruid@@UAEPAXI@Z	24
 ??1VisTavSceneDruid@@UAE@XZ	45
 ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80
-?VMethod28@VisTavSceneDruid@@UAEXXZ	300
 ??_GVisTavSceneKaarg@@UAEPAXI@Z	24
 ??1VisTavSceneKaarg@@UAE@XZ	57
 ??0VisTavSceneKaarg@@QAE@HHHHHPAVVisTav@@@Z	99
