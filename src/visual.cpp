@@ -8835,6 +8835,15 @@ VisTavScene::~VisTavScene()
 }
 
 
+// 49AD56
+VisTavScene::VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->vis_tav = tav;
+    this->FUN_0049af8c();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

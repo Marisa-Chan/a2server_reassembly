@@ -1519,6 +1519,7 @@ public:
 
 	void FUN_0049bc23(); //49bc23 in asm
 	int32_t FUN_0049cab8(CPoint* pos); //49cab8 in asm
+	void FUN_0049af8c(); //49af8c in asm
 
 public:
 	VisTav* vis_tav; // 0x5c

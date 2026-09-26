@@ -112823,7 +112823,7 @@ var_4           = dword ptr -4
                 mov     edx, dword ptr [ebp+var_10]
                 mov     dword ptr [edx], offset off_60C650
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_49AF8C
+                call    ?FUN_0049af8c@VisTavScene@@QAEXXZ
 ;   } // starts at 49AD29
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -112841,130 +112841,6 @@ sub_49AC33      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z      proc near               ; CODE XREF: ?VMethod26@VisTav@@UAEXXZ+1D1↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FCA91 SIZE 0000009A BYTES
-
-; __unwind { // SEH_49AD56
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_49AD56
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    12h             ; int
-                push    10h             ; unsigned int
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 60h ; '`'
-                push    edx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    9               ; int
-                push    10h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 180h
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 210h
-                call    sub_4A4160
-;   } // starts at 49AD90
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 224h
-                call    sub_4A4160
-;   } // starts at 49ADD1
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 238h
-                call    sub_4A4160
-;   } // starts at 49ADE3
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 24Ch
-                call    sub_5DBBEC
-;   } // starts at 49ADF5
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 260h
-                call    sub_5DBBEC
-;   } // starts at 49AE07
-;   try {
-                mov     byte ptr [ebp+var_4], 5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 280h
-                call    sub_401000
-;   } // starts at 49AE19
-;   try {
-                mov     byte ptr [ebp+var_4], 6
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2B0h
-                call    sub_401000
-;   } // starts at 49AE2B
-;   try {
-                mov     byte ptr [ebp+var_4], 7
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2E0h
-                call    sub_401000
-;   } // starts at 49AE3D
-;   try {
-                mov     byte ptr [ebp+var_4], 8
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 310h
-                call    sub_401000
-;   } // starts at 49AE4F
-;   try {
-                mov     byte ptr [ebp+var_4], 9
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60C650
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [ebp+arg_14]
-                mov     [edx+5Ch], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_49AF8C
-;   } // starts at 49AE61
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 49AD56
-??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -112977,7 +112853,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_49AF8C      proc near               ; CODE XREF: sub_49AC33+106↑p
+?FUN_0049af8c@VisTavScene@@QAEXXZ      proc near               ; CODE XREF: sub_49AC33+106↑p
 
 var_94          = dword ptr -94h
 var_90          = byte ptr -90h
@@ -113021,24 +112897,24 @@ var_4           = dword ptr -4
                 jmp     short loc_49AFDB
 ; ---------------------------------------------------------------------------
 
-loc_49AFD2:                             ; CODE XREF: sub_49AF8C:loc_49B0A8↓j
+loc_49AFD2:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ:loc_49B0A8↓j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1
                 mov     [ebp+var_4], edx
 
-loc_49AFDB:                             ; CODE XREF: sub_49AF8C+44↑j
+loc_49AFDB:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+44↑j
                 cmp     [ebp+var_4], 3
                 jge     loc_49B0AD
                 mov     [ebp+var_8], 0
                 jmp     short loc_49AFF7
 ; ---------------------------------------------------------------------------
 
-loc_49AFEE:                             ; CODE XREF: sub_49AF8C+117↓j
+loc_49AFEE:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+117↓j
                 mov     eax, dword ptr [ebp+var_8]
                 add     eax, 1
                 mov     [ebp+var_8], eax
 
-loc_49AFF7:                             ; CODE XREF: sub_49AF8C+60↑j
+loc_49AFF7:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+60↑j
                 cmp     [ebp+var_8], 6
                 jge     loc_49B0A8
                 push    40h ; '@'
@@ -113103,33 +112979,33 @@ loc_49AFF7:                             ; CODE XREF: sub_49AF8C+60↑j
                 jmp     loc_49AFEE
 ; ---------------------------------------------------------------------------
 
-loc_49B0A8:                             ; CODE XREF: sub_49AF8C+6F↑j
+loc_49B0A8:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+6F↑j
                 jmp     loc_49AFD2
 ; ---------------------------------------------------------------------------
 
-loc_49B0AD:                             ; CODE XREF: sub_49AF8C+53↑j
+loc_49B0AD:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+53↑j
                 mov     [ebp+var_4], 0
                 jmp     short loc_49B0BF
 ; ---------------------------------------------------------------------------
 
-loc_49B0B6:                             ; CODE XREF: sub_49AF8C:loc_49B198↓j
+loc_49B0B6:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ:loc_49B198↓j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1
                 mov     [ebp+var_4], ecx
 
-loc_49B0BF:                             ; CODE XREF: sub_49AF8C+128↑j
+loc_49B0BF:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+128↑j
                 cmp     [ebp+var_4], 3
                 jge     loc_49B19D
                 mov     [ebp+var_8], 0
                 jmp     short loc_49B0DB
 ; ---------------------------------------------------------------------------
 
-loc_49B0D2:                             ; CODE XREF: sub_49AF8C+207↓j
+loc_49B0D2:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+207↓j
                 mov     edx, dword ptr [ebp+var_8]
                 add     edx, 1
                 mov     [ebp+var_8], edx
 
-loc_49B0DB:                             ; CODE XREF: sub_49AF8C+144↑j
+loc_49B0DB:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+144↑j
                 cmp     [ebp+var_8], 3
                 jge     loc_49B198
                 push    50h ; 'P'
@@ -113195,11 +113071,11 @@ loc_49B0DB:                             ; CODE XREF: sub_49AF8C+144↑j
                 jmp     loc_49B0D2
 ; ---------------------------------------------------------------------------
 
-loc_49B198:                             ; CODE XREF: sub_49AF8C+153↑j
+loc_49B198:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+153↑j
                 jmp     loc_49B0B6
 ; ---------------------------------------------------------------------------
 
-loc_49B19D:                             ; CODE XREF: sub_49AF8C+137↑j
+loc_49B19D:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+137↑j
                 mov     ecx, dword ptr [ebp+var_94]
                 mov     dword ptr [ecx+274h], 0
                 mov     edx, dword ptr [ebp+var_94]
@@ -113216,12 +113092,12 @@ loc_49B19D:                             ; CODE XREF: sub_49AF8C+137↑j
                 jmp     short loc_49B20F
 ; ---------------------------------------------------------------------------
 
-loc_49B206:                             ; CODE XREF: sub_49AF8C+29D↓j
+loc_49B206:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+29D↓j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 1
                 mov     [ebp+var_4], ecx
 
-loc_49B20F:                             ; CODE XREF: sub_49AF8C+278↑j
+loc_49B20F:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+278↑j
                 cmp     [ebp+var_4], 0Dh
                 jge     short loc_49B22B
                 mov     edx, dword ptr [ebp+var_4]
@@ -113230,11 +113106,11 @@ loc_49B20F:                             ; CODE XREF: sub_49AF8C+278↑j
                 jmp     short loc_49B206
 ; ---------------------------------------------------------------------------
 
-loc_49B22B:                             ; CODE XREF: sub_49AF8C+287↑j
+loc_49B22B:                             ; CODE XREF: ?FUN_0049af8c@VisTavScene@@QAEXXZ+287↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_49AF8C      endp
+?FUN_0049af8c@VisTavScene@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -363805,94 +363681,6 @@ SEH_49AC33:                             ; DATA XREF: sub_49AC33+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC9F7
 ; END OF FUNCTION CHUNK FOR sub_49AC33
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
-
-loc_5FCA91:                             ; DATA XREF: .rdata:stru_61DBC8↓o
-; __unwind { // SEH_49AD56
-;   cleanup() // owned by 49AD90
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCA9A:                             ; DATA XREF: .rdata:0061DBD0↓o
-;   cleanup() // owned by 49ADD1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 210h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAA9:                             ; DATA XREF: .rdata:0061DBD8↓o
-;   cleanup() // owned by 49ADE3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 224h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAB8:                             ; DATA XREF: .rdata:0061DBE0↓o
-;   cleanup() // owned by 49ADF5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 238h       ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAC7:                             ; DATA XREF: .rdata:0061DBE8↓o
-;   cleanup() // owned by 49AE07
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 24Ch
-                call    sub_5DBC1F
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAD6:                             ; DATA XREF: .rdata:0061DBF0↓o
-;   cleanup() // owned by 49AE19
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 260h
-                call    sub_5DBC1F
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAE5:                             ; DATA XREF: .rdata:0061DBF8↓o
-;   cleanup() // owned by 49AE2B
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 280h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCAF4:                             ; DATA XREF: .rdata:0061DC00↓o
-;   cleanup() // owned by 49AE3D
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2B0h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCB03:                             ; DATA XREF: .rdata:0061DC08↓o
-;   cleanup() // owned by 49AE4F
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2E0h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FCB12:                             ; DATA XREF: .rdata:0061DC10↓o
-;   cleanup() // owned by 49AE61
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 310h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_49AD56:                             ; DATA XREF: ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z+5↑o
-                mov     eax, offset stru_61DBA8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FCA91
-; END OF FUNCTION CHUNK FOR ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
 ; START OF FUNCTION CHUNK FOR ?FUN_0049bc23@VisTavScene@@QAEXXZ
 
 loc_5FCBC5:                             ; DATA XREF: .rdata:stru_61DCA8↓o
@@ -399241,21 +399029,6 @@ stru_61DB58     UnwindMapEntry <-1, offset loc_5FC9F7>
                 UnwindMapEntry <6, offset loc_5FCA5A>
                 UnwindMapEntry <7, offset loc_5FCA69>
                 UnwindMapEntry <8, offset loc_5FCA78>
-stru_61DBA8     FuncInfoV1 <19930520h, 10, offset stru_61DBC8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61DBC8     UnwindMapEntry <-1, offset loc_5FCA91>
-                UnwindMapEntry <0, offset loc_5FCA9A>
-                UnwindMapEntry <1, offset loc_5FCAA9>
-                UnwindMapEntry <2, offset loc_5FCAB8>
-                UnwindMapEntry <3, offset loc_5FCAC7>
-                UnwindMapEntry <4, offset loc_5FCAD6>
-                UnwindMapEntry <5, offset loc_5FCAE5>
-                UnwindMapEntry <6, offset loc_5FCAF4>
-                UnwindMapEntry <7, offset loc_5FCB03>
-                UnwindMapEntry <8, offset loc_5FCB12>
 stru_61DC88     FuncInfoV1 <19930520h, 6, offset stru_61DCA8, 0, 0, 0, 0>
                 db    0
                 db    0

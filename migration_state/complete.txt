@@ -91,6 +91,7 @@
 ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisTav@@QAE@HHHHH@Z
+??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z
 ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
 ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
