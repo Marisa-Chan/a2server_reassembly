@@ -629,7 +629,6 @@
 ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z	258
 ?FUN_0049bc23@VisTavScene@@QAEXXZ	1151
 ?Draw@VisTavSceneAnim@@QAEXHH@Z	26
-?NextFrame@VisTavSceneAnim@@QAEXXZ	34
 ??_GVisTavSceneDruid@@UAEPAXI@Z	24
 ??1VisTavSceneDruid@@UAE@XZ	45
 ??0VisTavSceneDruid@@QAE@HHHHHPAVVisTav@@@Z	80

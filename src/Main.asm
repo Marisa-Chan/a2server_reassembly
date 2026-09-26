@@ -573,41 +573,6 @@ sub_40140E      endp
 
 ; Attributes: bp-based frame
 
-?NextFrame@VisTavSceneAnim@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisTavScene@@UAEXXZ+1EF↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esi, [eax+18h]
-                add     esi, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                call    unknown_libname_405 ; MFC 3.1-14.0 32bit
-                mov     ecx, eax
-                mov     eax, esi
-                cdq
-                idiv    ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+18h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+18h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_401C60
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     [ecx+14h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    unknown_libname_406 ; Microsoft VisualC 2-14/net runtime
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?NextFrame@VisTavSceneAnim@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -499,6 +499,7 @@
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisTav@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
+?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
