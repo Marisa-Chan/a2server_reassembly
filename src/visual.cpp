@@ -8236,6 +8236,54 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 499DFA
+void VisTavRightPanel::VMethod7()
+{
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    if (this->vis_tav->dialog_active == 0) {
+        return;
+    }
+
+    LockSurface2();
+    this->field_0x8c->VMethod2(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
+
+    uint16_t* pal;
+    if (this->field_0xc4 == 1) {
+        pal = palette_paris_daisy->GetPalette(0);
+    } else {
+        pal = palette_husk->GetPalette(0);
+    }
+
+    if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != 1) {
+        this->field_0x80[1]->VMethod2(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
+        g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
+    } else {
+        this->field_0x74[1]->VMethod2(tav_topleft.x + this->field_0x90[1].left, tav_topleft.y + this->field_0x90[1].top, 0, 0, 0);
+        g_font4->DrawTxt(tav_topleft.x + this->field_0x90[1].left + this->field_0x90[1].Width() / 2, tav_topleft.y + this->field_0x90[1].top + 1 + this->field_0x90[1].Height() / 2, this->texts[1], 10, pal);
+    }
+
+    for (int32_t i = 0; i < 3; i++) {
+        if (i == 1) {
+            continue;
+        }
+        if (this->field_0xc4 == i) {
+            pal = palette_paris_daisy->GetPalette(0);
+        } else {
+            pal = palette_husk->GetPalette(0);
+        }
+        if (this->field_0xc4 < 0 || this->field_0xc0 != this->field_0xc4 || this->field_0xc4 != i) {
+            this->field_0x80[i]->VMethod2(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
+            g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
+        } else {
+            this->field_0x74[i]->VMethod2(tav_topleft.x + this->field_0x90[i].left, tav_topleft.y + this->field_0x90[i].top, 0, 0, 0);
+            g_font4->DrawTxt(tav_topleft.x + this->field_0x90[i].left + this->field_0x90[i].Width() / 2, tav_topleft.y + this->field_0x90[i].top + 1 + this->field_0x90[i].Height() / 2, this->texts[i], 10, pal);
+        }
+    }
+
+    UnlockSurface2();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
