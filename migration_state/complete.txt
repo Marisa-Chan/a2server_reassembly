@@ -775,6 +775,7 @@
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod29@VisTavScene@@UAEXXZ
 ?VMethod29@VisTavSceneDruid@@UAEXXZ
+?VMethod29@VisTavSceneKaarg@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
