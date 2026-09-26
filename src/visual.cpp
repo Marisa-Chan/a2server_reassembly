@@ -7877,6 +7877,22 @@ VisTavLeftPanel::~VisTavLeftPanel()
 }
 
 
+// 497ACE
+void VisTavLeftPanel::FUN_00497ace()
+{
+    this->flags |= 2;
+    CRect client_rect;
+    this->ClientRectToScreen(&client_rect, this->rect);
+    this->field_0x170 = CRect(CPoint(client_rect.left + 0x11, client_rect.top + 0x1BB), CSize(0x20, 0x20));
+    this->field_0x180 = CRect(CPoint(client_rect.left + 0x87, client_rect.top + 0x1BB), CSize(0x20, 0x20));
+    this->field_0x164 = new CBmp256(0xA0, 0xF0);
+    this->field_0x160 = new CBmp64(0xA0, 0xF0);
+    this->__gap_0x60[0] = 0;
+    this->field_0x16c = nullptr;
+    this->field_0x168 = nullptr;
+}
+
+
 // 497EC1
 int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
