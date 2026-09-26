@@ -616,9 +616,8 @@
 ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z	36
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
 ?VMethod7@VisStartGameTextBox@@UAEXXZ	134
-??_GVisTavLeftPanel@@UAEPAXI@Z	24
-??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z	61
 ??1VisTavLeftPanel@@UAE@XZ	78
+?FUN_00497ace@VisTavLeftPanel@@QAEXXZ	194
 ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z	1466
 ?GetHint@VisTavRightPanel@@UAEPBDXZ	12
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15

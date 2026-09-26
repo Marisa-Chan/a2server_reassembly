@@ -1423,12 +1423,12 @@ extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
 
 ; VisTavLeftPanel
-externdef ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
+extern ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
 externdef ??1VisTavLeftPanel@@UAE@XZ :proc
 extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
 extern ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
-externdef ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
+externdef ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN_00497ace()
 externdef ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z : proc  ; void VisTavLeftPanel::FUN_00497f82(CUnit*)
 
 ; VisTavRightPanel

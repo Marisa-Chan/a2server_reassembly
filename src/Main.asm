@@ -112635,7 +112635,7 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_10]
                 mov     dword ptr [eax], offset off_60C560
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_497ACE
+                call    ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ;   } // starts at 497944
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -112646,75 +112646,6 @@ var_4           = dword ptr -4
                 retn
 ; } // starts at 497920
 sub_497920      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z      proc near               ; CODE XREF: ?VMethod26@VisTav@@UAEXXZ+115↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FC883 SIZE 00000013 BYTES
-
-; __unwind { // SEH_497990
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_497990
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 170h       ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 180h       ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60C560
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+arg_14]
-                mov     [eax+5Ch], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_497ACE
-;   } // starts at 4979CA
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 497990
-??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -112806,7 +112737,7 @@ loc_497AB1:                             ; CODE XREF: ??1VisTavLeftPanel@@UAE@XZ+
 
 ; Attributes: bp-based frame
 
-sub_497ACE      proc near               ; CODE XREF: sub_497920+53↑p
+?FUN_00497ace@VisTavLeftPanel@@QAEXXZ      proc near               ; CODE XREF: sub_497920+53↑p
 
 var_98          = dword ptr -98h
 var_94          = dword ptr -94h
@@ -112951,10 +112882,10 @@ var_4           = dword ptr -4
                 jmp     short loc_497C4E
 ; ---------------------------------------------------------------------------
 
-loc_497C44:                             ; CODE XREF: sub_497ACE+15A↑j
+loc_497C44:                             ; CODE XREF: ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ+15A↑j
                 mov     [ebp+var_94], 0
 
-loc_497C4E:                             ; CODE XREF: sub_497ACE+174↑j
+loc_497C4E:                             ; CODE XREF: ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ+174↑j
                 mov     ecx, dword ptr [ebp+var_94]
                 mov     [ebp+var_84], ecx
 ;   } // starts at 497C1D
@@ -112977,10 +112908,10 @@ loc_497C4E:                             ; CODE XREF: sub_497ACE+174↑j
                 jmp     short loc_497CB7
 ; ---------------------------------------------------------------------------
 
-loc_497CAD:                             ; CODE XREF: sub_497ACE+1C0↑j
+loc_497CAD:                             ; CODE XREF: ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ+1C0↑j
                 mov     [ebp+var_98], 0
 
-loc_497CB7:                             ; CODE XREF: sub_497ACE+1DD↑j
+loc_497CB7:                             ; CODE XREF: ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ+1DD↑j
                 mov     ecx, dword ptr [ebp+var_98]
                 mov     [ebp+var_8C], ecx
 ;   } // starts at 497C80
@@ -113000,7 +112931,7 @@ loc_497CB7:                             ; CODE XREF: sub_497ACE+1DD↑j
                 pop     ebp
                 retn
 ; } // starts at 497ACE
-sub_497ACE      endp
+?FUN_00497ace@VisTavLeftPanel@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -124908,39 +124839,6 @@ loc_4A3DF3:                             ; CODE XREF: ?VMethod29@VisTavSceneKaarg
                 pop     ebp
                 retn
 ?VMethod29@VisTavSceneKaarg@@UAEXXZ      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??_GVisTavLeftPanel@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060C564↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1VisTavLeftPanel@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4A3E32
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4A3E32:                             ; CODE XREF: ??_GVisTavLeftPanel@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisTavLeftPanel@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -370020,22 +369918,6 @@ SEH_497920:                             ; DATA XREF: sub_497920+5↑o
 ; } // starts at 5FC870
 ; END OF FUNCTION CHUNK FOR sub_497920
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z
-
-loc_5FC883:                             ; DATA XREF: .rdata:stru_61D948↓o
-; __unwind { // SEH_497990
-;   cleanup() // owned by 4979CA
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_497990:                             ; DATA XREF: ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z+5↑o
-                mov     eax, offset stru_61D928
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC883
-; END OF FUNCTION CHUNK FOR ??0VisTavLeftPanel@@QAE@HHHHHPAVVisTav@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ??1VisTavLeftPanel@@UAE@XZ
 
 loc_5FC896:                             ; DATA XREF: .rdata:stru_61D970↓o
@@ -370052,7 +369934,7 @@ SEH_497A21:                             ; DATA XREF: ??1VisTavLeftPanel@@UAE@XZ+
 ; } // starts at 5FC896
 ; END OF FUNCTION CHUNK FOR ??1VisTavLeftPanel@@UAE@XZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_497ACE
+; START OF FUNCTION CHUNK FOR ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 
 loc_5FC8A9:                             ; DATA XREF: .rdata:stru_61D998↓o
 ; __unwind { // SEH_497ACE
@@ -370071,11 +369953,11 @@ loc_5FC8B3:                             ; DATA XREF: .rdata:0061D9A0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_497ACE:                             ; DATA XREF: sub_497ACE+5↑o
+SEH_497ACE:                             ; DATA XREF: ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ+5↑o
                 mov     eax, offset stru_61D978
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC8A9
-; END OF FUNCTION CHUNK FOR sub_497ACE
+; END OF FUNCTION CHUNK FOR ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z
 
@@ -406009,12 +405891,6 @@ stru_61D900     FuncInfoV1 <19930520h, 1, offset stru_61D920, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61D920     UnwindMapEntry <-1, offset unknown_libname_986>
-stru_61D928     FuncInfoV1 <19930520h, 1, offset stru_61D948, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61D948     UnwindMapEntry <-1, offset loc_5FC883>
 stru_61D950     FuncInfoV1 <19930520h, 1, offset stru_61D970, 0, 0, 0, 0>
                 db    0
                 db    0

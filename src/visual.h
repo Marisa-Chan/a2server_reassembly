@@ -1472,6 +1472,7 @@ public:
 
 	void FUN_004995d1(); //4995d1 in asm
 	void FUN_004996ab(); //4996ab in asm
+	void FUN_00497ace(); //497ace in asm
 	void FUN_00497f82(CUnit* unit); //497f82 in asm
 
 public:

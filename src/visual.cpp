@@ -7856,6 +7856,15 @@ void VisTavLeftPanel::FUN_004996ab()
 }
 
 
+// 497990
+VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->vis_tav = tav;
+    this->FUN_00497ace();
+}
+
+
 // 497EC1
 int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
 {

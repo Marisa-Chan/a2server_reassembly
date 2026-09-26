@@ -148,6 +148,7 @@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
 ??_GVisShopCompass@@UAEPAXI@Z
+??_GVisTavLeftPanel@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
