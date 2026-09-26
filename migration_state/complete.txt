@@ -746,6 +746,7 @@
 ?VMethod28@CUnit@@UAEXXZ
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod28@VisShopCompass@@UAEXXZ
+?VMethod28@VisTavKaarg@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
