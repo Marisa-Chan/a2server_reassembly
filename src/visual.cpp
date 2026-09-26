@@ -8494,6 +8494,24 @@ void VisTavSceneAnim::FUN_004010ee(CStringArray* names)
 }
 
 
+// 4014F2
+void VisTavSceneAnim::FUN_004014f2()
+{
+    if (this->frames.GetSize() == 0 && this->current_frame != nullptr) {
+        delete this->current_frame;
+    }
+    this->current_frame = nullptr;
+
+    for (int32_t i = 0; i < this->frames.GetSize(); i++) {
+        if (this->frames[i] != nullptr) {
+            delete this->frames[i];
+        }
+    }
+    this->frames.RemoveAll();
+    this->frame_idx = -1;
+}
+
+
 // Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
 static bool tavscene_statics_inited = false;
 static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays
