@@ -1445,6 +1445,7 @@ public:
 	void FUN_0049a84e(); //49a84e in asm
 	void FUN_0049a973(); //49a973 in asm
 	void FUN_00499cdf(); //499cdf in asm
+	void FUN_004998c2(); //4998c2 in asm
 	int32_t FUN_0049a873(CPoint pos); //49a873 in asm
 	void FUN_0049a8fa(uint32_t wparam, CPoint pos); //49a8fa in asm
 

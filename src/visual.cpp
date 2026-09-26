@@ -8257,6 +8257,22 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 4997C6
+VisTavRightPanel::VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->vis_tav = tav;
+    this->FUN_004998c2();
+}
+
+
+// 4A3E40
+VisTavRightPanel::~VisTavRightPanel()
+{
+    this->FUN_00499cdf();
+}
+
+
 // 4A4710
 const char* VisTavRightPanel::GetHint()
 {

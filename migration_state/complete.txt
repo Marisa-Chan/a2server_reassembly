@@ -149,6 +149,7 @@
 ??_7SpellBook@@6B@
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavLeftPanel@@UAEPAXI@Z
+??_GVisTavRightPanel@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z
@@ -272,8 +273,6 @@
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_00490eb3@MainWindow@@QAEHXZ
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
-?FUN_00499a67@VisTavRightPanel@@QAEXXZ
-?FUN_00499cdf@VisTavRightPanel@@QAEXXZ
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
 ?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
