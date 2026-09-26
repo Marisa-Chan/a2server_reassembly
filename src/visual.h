@@ -1483,6 +1483,7 @@ public:
 	void FUN_004996ab(); //4996ab in asm
 	void FUN_00497ace(); //497ace in asm
 	void FUN_00497f82(CUnit* unit); //497f82 in asm
+	void FUN_00497e06(int32_t idx); //497e06 in asm
 
 public:
 	VisTav* vis_tav; // 0x5c
@@ -1517,6 +1518,7 @@ public:
 	VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 in asm
 
 	void FUN_0049bc23(); //49bc23 in asm
+	int32_t FUN_0049cab8(CPoint* pos); //49cab8 in asm
 
 public:
 	VisTav* vis_tav; // 0x5c

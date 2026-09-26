@@ -112652,7 +112652,7 @@ sub_497920      endp
 
 ; Attributes: bp-based frame
 
-sub_497E06      proc near               ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+2B↓p
+?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+2B↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -112691,7 +112691,7 @@ arg_0           = dword ptr  8
                 jmp     short loc_497E87
 ; ---------------------------------------------------------------------------
 
-loc_497E72:                             ; CODE XREF: sub_497E06+40↑j
+loc_497E72:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+40↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_8]
@@ -112699,7 +112699,7 @@ loc_497E72:                             ; CODE XREF: sub_497E06+40↑j
                 add     ecx, 0C0h
                 call    sub_4215A0
 
-loc_497E87:                             ; CODE XREF: sub_497E06+6A↑j
+loc_497E87:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+6A↑j
                 mov     edx, dword ptr [ebp+var_8]
                 mov     eax, dword ptr [edx+5Ch]
                 mov     ecx, dword ptr [eax+74h]
@@ -112707,13 +112707,13 @@ loc_497E87:                             ; CODE XREF: sub_497E06+6A↑j
                 jmp     short loc_497EA6
 ; ---------------------------------------------------------------------------
 
-loc_497E97:                             ; CODE XREF: sub_497E06+1B↑j
+loc_497E97:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+1B↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     edx, dword ptr [ecx+5Ch]
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     [edx+118h], eax
 
-loc_497EA6:                             ; CODE XREF: sub_497E06+8F↑j
+loc_497EA6:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+8F↑j
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 0A8h
@@ -112723,7 +112723,7 @@ loc_497EA6:                             ; CODE XREF: sub_497E06+8F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_497E06      endp
+?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -114494,7 +114494,7 @@ loc_49CAA9:                             ; CODE XREF: ?FUN_0049bc23@VisTavScene@@
 
 ; Attributes: bp-based frame
 
-sub_49CAB8      proc near               ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+10↓p
+?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+10↓p
 
 var_58          = dword ptr -58h
 var_54          = POINT ptr -54h
@@ -114556,12 +114556,12 @@ arg_0           = dword ptr  8
                 jmp     short loc_49CB34
 ; ---------------------------------------------------------------------------
 
-loc_49CB2B:                             ; CODE XREF: sub_49CAB8:loc_49CBB5↓j
+loc_49CB2B:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z:loc_49CBB5↓j
                 mov     eax, dword ptr [ebp+var_18]
                 add     eax, 1
                 mov     [ebp+var_18], eax
 
-loc_49CB34:                             ; CODE XREF: sub_49CAB8+71↑j
+loc_49CB34:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+71↑j
                 mov     ecx, dword ptr [ebp+var_58]
                 mov     ecx, dword ptr [ecx+5Ch]
                 add     ecx, 0C0h
@@ -114606,15 +114606,15 @@ loc_49CB34:                             ; CODE XREF: sub_49CAB8+71↑j
                 jmp     loc_49CD24
 ; ---------------------------------------------------------------------------
 
-loc_49CBB5:                             ; CODE XREF: sub_49CAB8+F3↑j
+loc_49CBB5:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+F3↑j
                 jmp     loc_49CB2B
 ; ---------------------------------------------------------------------------
 
-loc_49CBBA:                             ; CODE XREF: sub_49CAB8+A5↑j
+loc_49CBBA:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+A5↑j
                 jmp     loc_49CD21
 ; ---------------------------------------------------------------------------
 
-loc_49CBBF:                             ; CODE XREF: sub_49CAB8+64↑j
+loc_49CBBF:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+64↑j
                 mov     eax, dword ptr [ebp+var_58]
                 mov     ecx, dword ptr [eax+5Ch]
                 mov     ecx, dword ptr [ecx+114h] ; varThis
@@ -114628,7 +114628,7 @@ loc_49CBBF:                             ; CODE XREF: sub_49CAB8+64↑j
                 mov     [ebp+var_24], eax
                 mov     [ebp+var_18], 0
 
-loc_49CBF3:                             ; CODE XREF: sub_49CAB8+1C6↓j
+loc_49CBF3:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+1C6↓j
                 cmp     [ebp+var_24], 0
                 jz      loc_49CC83
                 lea     ecx, [ebp+var_1C]
@@ -114674,18 +114674,18 @@ loc_49CBF3:                             ; CODE XREF: sub_49CAB8+1C6↓j
                 jmp     loc_49CD24
 ; ---------------------------------------------------------------------------
 
-loc_49CC75:                             ; CODE XREF: sub_49CAB8+1AE↑j
+loc_49CC75:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+1AE↑j
                 mov     eax, dword ptr [ebp+var_18]
                 add     eax, 1
                 mov     [ebp+var_18], eax
                 jmp     loc_49CBF3
 ; ---------------------------------------------------------------------------
 
-loc_49CC83:                             ; CODE XREF: sub_49CAB8+13F↑j
+loc_49CC83:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+13F↑j
                 jmp     loc_49CD21
 ; ---------------------------------------------------------------------------
 
-loc_49CC88:                             ; CODE XREF: sub_49CAB8+11A↑j
+loc_49CC88:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+11A↑j
                 mov     ecx, dword ptr [ebp+var_58]
                 mov     ecx, dword ptr [ecx+5Ch]
                 add     ecx, 124h
@@ -114696,12 +114696,12 @@ loc_49CC88:                             ; CODE XREF: sub_49CAB8+11A↑j
                 jmp     short loc_49CCB3
 ; ---------------------------------------------------------------------------
 
-loc_49CCAA:                             ; CODE XREF: sub_49CAB8:loc_49CD1F↓j
+loc_49CCAA:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z:loc_49CD1F↓j
                 mov     edx, dword ptr [ebp+var_18]
                 add     edx, 1
                 mov     [ebp+var_18], edx
 
-loc_49CCB3:                             ; CODE XREF: sub_49CAB8+1F0↑j
+loc_49CCB3:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+1F0↑j
                 mov     eax, dword ptr [ebp+var_58]
                 mov     ecx, dword ptr [eax+5Ch]
                 add     ecx, 124h
@@ -114740,19 +114740,19 @@ loc_49CCB3:                             ; CODE XREF: sub_49CAB8+1F0↑j
                 jmp     short loc_49CD24
 ; ---------------------------------------------------------------------------
 
-loc_49CD1F:                             ; CODE XREF: sub_49CAB8+260↑j
+loc_49CD1F:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+260↑j
                 jmp     short loc_49CCAA
 ; ---------------------------------------------------------------------------
 
-loc_49CD21:                             ; CODE XREF: sub_49CAB8:loc_49CBBA↑j
+loc_49CD21:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z:loc_49CBBA↑j
                 or      eax, 0FFFFFFFFh
 
-loc_49CD24:                             ; CODE XREF: sub_49CAB8+F8↑j
+loc_49CD24:                             ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+F8↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_49CAB8      endp
+?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -114815,41 +114815,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060C6A4↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = byte ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                lea     eax, [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_49CAB8
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0FFFFFFFFh
-                jz      short loc_49DACF
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+70h]
-                call    sub_497E06
-                mov     eax, 1
-                jmp     short loc_49DAD1
-; ---------------------------------------------------------------------------
-
-loc_49DACF:                             ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+1C↑j
-                xor     eax, eax
-
-loc_49DAD1:                             ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+35↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -118889,7 +118854,7 @@ loc_4A3E92:                             ; CODE XREF: ??_GVisTavScene@@UAEPAXI@Z+
 
 ; Attributes: bp-based frame
 
-sub_4A3EA0      proc near               ; CODE XREF: sub_49CAB8+4D↑p
+sub_4A3EA0      proc near               ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+4D↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -118941,7 +118906,7 @@ sub_4A3EC0      endp
 
 ; Attributes: bp-based frame
 
-sub_4A3EE0      proc near               ; CODE XREF: sub_49CAB8+32↑p
+sub_4A3EE0      proc near               ; CODE XREF: ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z+32↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8

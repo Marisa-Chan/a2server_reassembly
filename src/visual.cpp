@@ -8809,6 +8809,18 @@ void VisTavScene::VMethod27()
 }
 
 
+// 49DA98
+int32_t VisTavScene::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    int32_t idx = this->FUN_0049cab8(&pos);
+    if (idx == -1) {
+        return 0;
+    }
+    this->vis_tav->left_panel->FUN_00497e06(idx);
+    return 1;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {
