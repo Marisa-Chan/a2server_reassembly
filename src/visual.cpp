@@ -8748,6 +8748,46 @@ const char* VisTavScene::GetHint()
 }
 
 
+// 49D8E8
+int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (main_wnd->sessionMode != 2) {
+        if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+            this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0) ? 1 : 0;
+            return 1;
+        }
+    }
+
+    if (this->OnLButtonDown(wparam, pos) == 0) {
+        return 0;
+    }
+
+    if (main_wnd->sessionMode == 2) {
+        if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+            CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+            int32_t entry = this->vis_tav->FUN_0049e2e3(unit);
+            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+                this->vis_tav->FUN_0049f0da();
+            } else {
+                this->vis_tav->FUN_0049ef63();
+            }
+            this->vis_tav->right_panel->FUN_0049a973();
+        } else {
+            this->vis_tav->FUN_0049f179();
+        }
+    } else {
+        if (this->vis_tav->quest_selection != this->vis_tav->quest_id) {
+            this->vis_tav->quest_selection = this->vis_tav->quest_id;
+        } else {
+            this->vis_tav->quest_selection = -1;
+        }
+    }
+    return 1;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

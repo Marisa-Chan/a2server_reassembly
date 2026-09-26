@@ -630,7 +630,6 @@
 ??1VisTavScene@@UAE@XZ	88
 ?VMethod27@VisTavScene@@UAEXXZ	116
 ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z	123
-?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z	159
 ?FUN_0049bc23@VisTavScene@@QAEXXZ	1151
 ?Draw@VisTavSceneAnim@@QAEXHH@Z	26
 ?NextFrame@VisTavSceneAnim@@QAEXXZ	34
