@@ -417,6 +417,7 @@
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisTavLeftPanel@@UAEPBDXZ
+?GetHint@VisTavRightPanel@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ
 ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z
 ?GetInt32Array@ResBase@@QAEHPBD0PAV?$CArray@IABI@@@Z

@@ -8257,6 +8257,13 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 4A4710
+const char* VisTavRightPanel::GetHint()
+{
+    return nullptr;
+}
+
+
 // 49A84E
 void VisTavRightPanel::FUN_0049a84e()
 {
