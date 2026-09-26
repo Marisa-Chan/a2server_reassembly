@@ -1424,7 +1424,6 @@ extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
 
 ; VisTavLeftPanel
 extern ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
-externdef ??1VisTavLeftPanel@@UAE@XZ :proc
 extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
 extern ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc

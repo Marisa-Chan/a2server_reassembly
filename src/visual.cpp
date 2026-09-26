@@ -7865,6 +7865,18 @@ VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, i
 }
 
 
+// 4A3E10
+VisTavLeftPanel::~VisTavLeftPanel()
+{
+    if (this->field_0x160 != nullptr) {
+        delete this->field_0x160;
+    }
+    if (this->field_0x164 != nullptr) {
+        delete this->field_0x164;
+    }
+}
+
+
 // 497EC1
 int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
