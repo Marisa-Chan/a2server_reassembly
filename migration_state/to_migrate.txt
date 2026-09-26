@@ -634,7 +634,6 @@
 ?GetHint@VisTavScene@@UAEPBDXZ	174
 ?VMethod28@VisTavScene@@UAEXXZ	270
 ?VMethod26@VisTavScene@@UAEXXZ	274
-?VMethod29@VisTavScene@@UAEXXZ	294
 ?FUN_0049bc23@VisTavScene@@QAEXXZ	1151
 ?Draw@VisTavSceneAnim@@QAEXHH@Z	26
 ?NextFrame@VisTavSceneAnim@@QAEXXZ	34

@@ -753,6 +753,7 @@
 ?VMethod28@VisShopCompass@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisShopCompass@@UAEXXZ
+?VMethod29@VisTavScene@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
