@@ -1420,19 +1420,6 @@ externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B
 externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E0()
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
 
-;VisTav
-extern ?FUN_0049edec@VisTav@@QAEXXZ  : proc
-extern ??1VisTav@@UAE@XZ : proc
-extern ?VMethod7@VisTav@@UAEXXZ : proc
-extern ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisTav@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
-externdef ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z : proc  ; int32_t VisTav::FUN_0049e2e3(CUnit*)
-externdef ?FUN_0049ef63@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049ef63()
-externdef ?FUN_0049f0da@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049f0da()
-externdef ?FUN_0049f179@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049f179()
-
 ; VisTavLeftPanel
 extern ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
 extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
@@ -1451,7 +1438,6 @@ extern ?VMethod7@VisTavScene@@UAEXXZ :proc
 extern ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
 extern ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z :proc
 externdef ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z : proc
-externdef ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z : proc
 extern ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z :proc
 extern ?VMethod26@VisTavScene@@UAEXXZ :proc
 extern ?VMethod27@VisTavScene@@UAEXXZ :proc

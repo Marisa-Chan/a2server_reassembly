@@ -8216,6 +8216,22 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit)
 }
 
 
+// 497E06
+void VisTavLeftPanel::FUN_00497e06(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (main_wnd->sessionMode == 2) {
+        this->vis_tav->selection_index = idx;
+        this->vis_tav->right_panel->FUN_0049a973();
+    } else {
+        this->vis_tav->quest_id = idx;
+    }
+
+    CSound::Play(this->vis_tav->sounds[9]);
+}
+
+
 // 49A30A
 int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

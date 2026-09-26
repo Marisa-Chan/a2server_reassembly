@@ -112277,78 +112277,6 @@ sub_497920      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z+2B↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+640h], 2
-                jnz     short loc_497E97
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [edx+0B8h], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+5Ch]
-                add     ecx, 0C0h
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+arg_0], eax
-                jl      short loc_497E72
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+5Ch]
-                add     ecx, 0C0h
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, eax
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+5Ch]
-                add     ecx, 0E8h
-                call    sub_4215A0
-                jmp     short loc_497E87
-; ---------------------------------------------------------------------------
-
-loc_497E72:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+40↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+5Ch]
-                add     ecx, 0C0h
-                call    sub_4215A0
-
-loc_497E87:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+6A↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+74h]
-                call    ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
-                jmp     short loc_497EA6
-; ---------------------------------------------------------------------------
-
-loc_497E97:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+1B↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [edx+118h], eax
-
-loc_497EA6:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z+8F↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                add     edx, 0A8h
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -400741,14 +400669,6 @@ aGraphicsInterf_176 db 'graphics\interface\inn\tender\breath\br%.4d.bmp',0
 ; char aGraphicsInterf_177[]
 aGraphicsInterf_177 db 'graphics\interface\inn\tender\drink\dr%.4d.bmp',0
                 align 10h
-; char aNpcDacceptD[]
-aNpcDacceptD    db 'npc%daccept%d',0    ; DATA XREF: ?FUN_0049ef63@VisTav@@QAEXXZ+AD↑o
-                align 10h
-; char aNpcDrejectD[]
-aNpcDrejectD    db 'npc%dreject%d',0    ; DATA XREF: ?FUN_0049ef63@VisTav@@QAEXXZ+123↑o
-                align 10h
-; char aNpcDtalkD[]
-aNpcDtalkD      db 'npc%dtalk%d',0      ; DATA XREF: ?FUN_0049f179@VisTav@@QAEXXZ+B0↑o
 ; CHAR aSfxTownInnDrin[]
 aSfxTownInnDrin db 'SFX\Town\Inn\drink.wav',0
                 align 4

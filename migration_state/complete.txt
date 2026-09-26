@@ -132,7 +132,6 @@
 ??1VisRadioType1@@UAE@XZ
 ??1VisScreen@@UAE@XZ
 ??1VisShopCompass@@UAE@XZ
-??1VisTav@@UAE@XZ
 ??1VisTavScene@@UAE@XZ
 ??1VisTavSceneDruid@@UAE@XZ
 ??1VisTavSceneKaarg@@UAE@XZ
@@ -286,11 +285,6 @@
 ?FUN_0049af8c@VisTavScene@@QAEXXZ
 ?FUN_0049bc23@VisTavScene@@QAEXXZ
 ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z
-?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z
-?FUN_0049edec@VisTav@@QAEXXZ
-?FUN_0049ef63@VisTav@@QAEXXZ
-?FUN_0049f0da@VisTav@@QAEXXZ
-?FUN_0049f179@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ
@@ -509,7 +503,6 @@
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
-?MsgProc@VisTav@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
@@ -523,7 +516,6 @@
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
 ?OnKeyDown@VisScreen@@UAEHI@Z
-?OnKeyDown@VisTav@@UAEHI@Z
 ?OnKeyDown@VisTextBox@@UAEHI@Z
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z
@@ -550,7 +542,6 @@
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
-?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
@@ -811,7 +802,6 @@
 ?VMethod7@VisListBox@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ
-?VMethod7@VisTav@@UAEXXZ
 ?VMethod7@VisTavLeftPanel@@UAEXXZ
 ?VMethod7@VisTavScene@@UAEXXZ
 ?VMethod7@VisTavSceneDruid@@UAEXXZ
@@ -821,7 +811,6 @@
 ?VMethod8@CUnit@@UAEXHHH@Z
 ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-?VMethod8@VisTav@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ
