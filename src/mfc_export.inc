@@ -1421,10 +1421,6 @@ externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
 
 ; VisTavLeftPanel
-extern ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
-extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
-extern ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
-extern ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 extern ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN_00497ace()
 
 ; VisTavRightPanel
