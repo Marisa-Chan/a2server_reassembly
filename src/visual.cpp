@@ -8151,6 +8151,91 @@ void VisTavLeftPanel::FUN_00497f82(CUnit* unit)
 }
 
 
+// 49A30A
+int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (this->field_0xc0 >= 0 && this->field_0xc0 < 3 && this->FUN_0049a873(pos) == this->field_0xc0) {
+        int32_t button = this->field_0xc0;
+        this->field_0xc0 = -1;
+        this->FUN_0049a8fa(wparam, pos);
+
+        if (main_wnd->sessionMode == 2) {
+            if (button == 0) {
+                if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+                    CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+                    if (this->vis_tav->entrie_id[this->vis_tav->FUN_0049e2e3(unit)] & 0x80000000) {
+                        this->vis_tav->FUN_0049f0da();
+                    } else {
+                        this->vis_tav->FUN_0049ef63();
+                    }
+                    this->FUN_0049a973();
+                }
+            } else if (button == 1) {
+                if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
+                    CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
+                    CString str;
+                    str.Format("npc%dabout", unit->serverId);
+                    ShowRoleKeyDialog(str);
+                    CSound::Play(this->vis_tav->sounds[12]);
+                } else {
+                    this->vis_tav->FUN_0049f179();
+                }
+            } else if (button == 2) {
+                this->vis_tav->FUN_0049edec();
+            }
+        } else {
+            if (button == 0) {
+                if (main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138) != 0) {
+                    this->vis_tav->field_0x13c = (this->vis_tav->field_0x13c == 0);
+                } else {
+                    if (this->vis_tav->quest_map->FUN_0041ec00() != 0 || this->vis_tav->rewards.GetSize() != 0) {
+                        if (this->vis_tav->quest_selection == this->vis_tav->quest_id) {
+                            this->vis_tav->quest_selection = -1;
+                        } else {
+                            this->vis_tav->quest_selection = this->vis_tav->quest_id;
+                        }
+                    }
+                }
+            } else if (button == 1) {
+                if (this->vis_tav->quest_map->FUN_0041ec00() != 0) {
+                    Quest* quest;
+                    if (this->vis_tav->quest_map->FUN_004a47a0(this->vis_tav->quest_id, &quest) != 0) {
+                        CString quest_str;
+                        quest_str.Format("quest%d", quest->Kind());
+                        ShowRoleKeyDialog(quest_str);
+                    }
+                    CSound::Play(this->vis_tav->sounds[12]);
+                } else {
+                    if (this->vis_tav->rewards.GetSize() != 0) {
+                        TokenEntry* reward = this->vis_tav->rewards[this->vis_tav->quest_id];
+                        if (reward->item_id == 0xFFFD) {
+                            ShowRoleKeyDialog("treasureally");
+                        } else if (reward->item_id == 0xFFFE) {
+                            ShowRoleKeyDialog("treasurexp");
+                        } else if (reward->item_id == 0xFFFF) {
+                            ShowRoleKeyDialog("treasuremoney");
+                        } else if ((uint32_t)this->vis_tav->quest_id < (uint32_t)(this->vis_tav->rewards.GetSize() - 1)) {
+                            ShowRoleKeyDialog("treasureitem");
+                        } else {
+                            ShowRoleKeyDialog("treasureenchant");
+                        }
+                        CSound::Play(this->vis_tav->sounds[12]);
+                    }
+                }
+            } else if (button == 2) {
+                this->vis_tav->FUN_0049edec();
+            }
+        }
+    }
+
+    this->field_0xc0 = -1;
+    this->FUN_0049a8fa(wparam, pos);
+    return 1;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

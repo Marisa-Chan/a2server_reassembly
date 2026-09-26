@@ -1426,6 +1426,10 @@ extern ?VMethod8@VisTav@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisTav@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisTav@@UAEHI@Z : proc
+externdef ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z : proc  ; int32_t VisTav::FUN_0049e2e3(CUnit*)
+externdef ?FUN_0049ef63@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049ef63()
+externdef ?FUN_0049f0da@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049f0da()
+externdef ?FUN_0049f179@VisTav@@QAEXXZ : proc  ; void VisTav::FUN_0049f179()
 
 ; VisTavLeftPanel
 extern ??_GVisTavLeftPanel@@UAEPAXI@Z :proc
@@ -1441,13 +1445,15 @@ externdef ?GetHint@VisTavRightPanel@@UAEPBDXZ :proc
 externdef ?VMethod7@VisTavRightPanel@@UAEXXZ :proc
 externdef ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ?OnLButtonDown@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
-externdef ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
+extern ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z :proc
 externdef ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z : proc
 externdef ?FUN_00499a67@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_00499cdf@VisTavRightPanel@@QAEXXZ : proc
+externdef ?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z : proc  ; int32_t VisTavRightPanel::FUN_0049a873(CPoint)
+externdef ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z : proc  ; void VisTavRightPanel::FUN_0049a8fa(uint32_t, CPoint)
 
 ; VisTavScene
 externdef ??_GVisTavScene@@UAEPAXI@Z :proc
