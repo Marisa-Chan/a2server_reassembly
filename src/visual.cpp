@@ -8035,3 +8035,16 @@ void VisTavDruid::VMethod31()
         FUN_00438dd0(&this->snd_druid[i]);
     }
 }
+
+
+// 4A3F70
+VisTavDruid::~VisTavDruid()
+{
+}
+
+
+// 49F4E6
+VisTavDruid::VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisTav(_id, l, t, r, b)
+{
+}

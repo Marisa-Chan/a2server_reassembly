@@ -227,7 +227,6 @@
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
 ?DoClose@VisScreen@@UAEXI@Z
-?DoClose@VisTavDruid@@UAEXI@Z
 ?Draw@GM_a28@@QAEXXZ
 ?DrawItem@VisListBox@@UAEXHVCPoint@@PAG@Z
 ?DrawRectangleFrame@@YAXHHHHI@Z
@@ -741,14 +740,12 @@
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ
-?VMethod26@VisTavDruid@@UAEXXZ
 ?VMethod27@CUnit@@UAEXXZ
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod27@VisShopCompass@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod28@VisShopCompass@@UAEXXZ
-?VMethod28@VisTavDruid@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod2@CGameObject@@UAEHXZ
@@ -757,10 +754,8 @@
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShopCompass@@UAEXXZ
-?VMethod30@VisTavDruid@@UAEXXZ
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
-?VMethod31@VisTavDruid@@UAEXXZ
 ?VMethod32@VisShopCompass@@UAEXH@Z
 ?VMethod33@VisShopCompass@@UAEXXZ
 ?VMethod34@VisShopCompass@@UAEXXZ

@@ -1025,7 +1025,6 @@ externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 externdef   ??0VisInvType1@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
-externdef   ??0VisTavDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTavKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTown@@QAE@HHHHH@Z  : proc
@@ -1436,14 +1435,6 @@ externdef ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_00499cdf@VisTavRightPanel@@QAEXXZ : proc
 externdef ?FUN_004010ee@VisTavSceneAnim@@QAEXPAVCStringArray@@@Z : proc
 externdef ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
-
-;VisTavDruid
-externdef ??_GVisTavDruid@@UAEPAXI@Z : proc
-extern ?VMethod26@VisTavDruid@@UAEXXZ : proc
-extern ?VMethod28@VisTavDruid@@UAEXXZ : proc
-extern ?DoClose@VisTavDruid@@UAEXI@Z : proc
-extern ?VMethod30@VisTavDruid@@UAEXXZ : proc
-extern ?VMethod31@VisTavDruid@@UAEXXZ : proc
 
 ;VisTavKaarg
 externdef ??_GVisTavKaarg@@UAEPAXI@Z : proc
