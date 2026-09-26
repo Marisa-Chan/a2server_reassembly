@@ -8257,6 +8257,28 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 4998C2
+void VisTavRightPanel::FUN_004998c2()
+{
+    this->field_0xc0 = -1;
+    this->field_0xc4 = -1;
+    this->field_0x90[0] = CRect(0x1E4, 0x2C, 0x270, 0x5A);
+    this->field_0x90[1] = CRect(0x1E4, 0x5B, 0x270, 0x89);
+    this->field_0x90[2] = CRect(0x1E4, 0x8A, 0x270, 0xB8);
+    for (int32_t i = 0; i < 3; i++) {
+        this->field_0x74[i] = nullptr;
+        this->field_0x80[i] = nullptr;
+    }
+    this->field_0x8c = nullptr;
+
+    this->texts.SetSize(3, -1);
+    this->texts[0] = TxtFile::AllLines[0xF3];
+    this->texts[1] = TxtFile::AllLines[0xF2];
+    this->texts[2] = TxtFile::AllLines[0xE8];
+    this->flags |= 2;
+}
+
+
 // 4997C6
 VisTavRightPanel::VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr)
