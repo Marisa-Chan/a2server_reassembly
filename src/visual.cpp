@@ -8257,6 +8257,14 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A26E
+int32_t VisTavRightPanel::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    this->FUN_0049a8fa(wparam, pos);
+    return 0;
+}
+
+
 // 49A2E6
 int32_t VisTavRightPanel::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {

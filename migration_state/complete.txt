@@ -535,6 +535,7 @@
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTav@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
