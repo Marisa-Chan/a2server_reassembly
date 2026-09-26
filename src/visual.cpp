@@ -7726,6 +7726,28 @@ void VisTav::FUN_0049ee36()
 }
 
 
+// 49EF63
+void VisTav::FUN_0049ef63()
+{
+    CUnit* unit = this->avail_entries[this->selection_index];
+    int32_t entry = this->FUN_0049e2e3(unit);
+    uint32_t npc_id = this->entrie_id[entry] & 0xFFFF;
+
+    CString text;
+    if ((this->entrie_id[entry] & 0x70000000) == 0x10000000) {
+        text.Format("npc%daccept%d", npc_id, ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(text);
+        this->entrie_id[entry] |= 0x80000000;
+        ScenarioTalkTo(this->entrie_id[entry]);
+    } else {
+        text.Format("npc%dreject%d", npc_id, ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(text);
+    }
+
+    CSound::Play(this->sounds[5]);
+}
+
+
 // 49EDEC
 void VisTav::FUN_0049edec()
 {

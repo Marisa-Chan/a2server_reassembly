@@ -112417,138 +112417,6 @@ loc_49E348:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHP
 
 ; Attributes: bp-based frame
 
-?FUN_0049ef63@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+153↑p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FCE1F SIZE 00000013 BYTES
-
-; __unwind { // SEH_49EF63
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_49EF63
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_24], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_18], eax
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+0B8h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0C0h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z
-                mov     [ebp+var_20], eax
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     ecx, dword ptr [eax]
-                and     ecx, 70000000h
-                mov     [ebp+var_1C], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     eax, dword ptr [eax]
-                and     eax, 0FFFFh
-                mov     [ebp+var_10], eax
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+var_1C], 10000000h
-                jnz     short loc_49F076
-                push    300h
-                call    ?ScenarioGetVar@@YGHH@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                push    offset aNpcDacceptD ; "npc%daccept%d"
-                lea     edx, [ebp+var_14]
-                push    edx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 10h
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+68h]
-                call    ?ShowRoleKeyDialog@@YGXPBD@Z
-                mov     ecx, dword ptr [ebp+var_20]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     [ebp+var_28], eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx]
-                or      eax, 80000000h
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ecx], eax
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     eax, dword ptr [eax]
-                push    eax
-                call    ?ScenarioTalkTo@@YGXI@Z
-                jmp     short loc_49F0AB
-; ---------------------------------------------------------------------------
-
-loc_49F076:                             ; CODE XREF: ?FUN_0049ef63@VisTav@@QAEXXZ+9B↑j
-                push    300h
-                call    ?ScenarioGetVar@@YGHH@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                push    offset aNpcDrejectD ; "npc%dreject%d"
-                lea     edx, [ebp+var_14]
-                push    edx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 10h
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+68h]
-                call    ?ShowRoleKeyDialog@@YGXPBD@Z
-
-loc_49F0AB:                             ; CODE XREF: ?FUN_0049ef63@VisTav@@QAEXXZ+111↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 98h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-;   } // starts at 49EFF0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 49EF63
-?FUN_0049ef63@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -357528,23 +357396,6 @@ SEH_497920:                             ; DATA XREF: sub_497920+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC870
 ; END OF FUNCTION CHUNK FOR sub_497920
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_0049ef63@VisTav@@QAEXXZ
-
-loc_5FCE1F:                             ; DATA XREF: .rdata:stru_61DEE8↓o
-; __unwind { // SEH_49EF63              ; varThis
-;   cleanup() // owned by 49EFF0
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_49EF63:                             ; DATA XREF: ?FUN_0049ef63@VisTav@@QAEXXZ+5↑o
-                mov     eax, offset stru_61DEC8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FCE1F
-; END OF FUNCTION CHUNK FOR ?FUN_0049ef63@VisTav@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?FUN_0049f179@VisTav@@QAEXXZ
 
 loc_5FCE32:                             ; DATA XREF: .rdata:stru_61DF10↓o
@@ -392264,12 +392115,6 @@ stru_61D900     FuncInfoV1 <19930520h, 1, offset stru_61D920, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61D920     UnwindMapEntry <-1, offset unknown_libname_986>
-stru_61DEC8     FuncInfoV1 <19930520h, 1, offset stru_61DEE8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61DEE8     UnwindMapEntry <-1, offset loc_5FCE1F>
 stru_61DEF0     FuncInfoV1 <19930520h, 1, offset stru_61DF10, 0, 0, 0, 0>
                 db    0
                 db    0
