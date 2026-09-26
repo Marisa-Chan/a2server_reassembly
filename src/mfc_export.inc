@@ -1463,7 +1463,7 @@ externdef ?FUN_0049af8c@VisTavScene@@QAEXXZ : proc
 
 ; VisTavSceneDruid
 extern ??_GVisTavSceneDruid@@UAEPAXI@Z :proc
-externdef ??1VisTavSceneDruid@@UAE@XZ :proc
+extern ??1VisTavSceneDruid@@UAE@XZ :proc
 extern ?VMethod7@VisTavSceneDruid@@UAEXXZ :proc
 extern ?VMethod28@VisTavSceneDruid@@UAEXXZ :proc
 extern ?VMethod29@VisTavSceneDruid@@UAEXXZ :proc

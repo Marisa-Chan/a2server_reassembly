@@ -9299,6 +9299,10 @@ void VisTavSceneDruid::VMethod7()
 }
 
 
+// 4A3FC0
+VisTavSceneDruid::~VisTavSceneDruid() {}
+
+
 // 4A05A0
 VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : VisTavScene(_id, l, t, r, b, tav)

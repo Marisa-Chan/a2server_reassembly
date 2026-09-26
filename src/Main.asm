@@ -114951,52 +114951,6 @@ sub_4A3EE0      endp
 
 ; Attributes: bp-based frame
 
-??1VisTavSceneDruid@@UAE@XZ      proc near               ; CODE XREF: ??_GVisTavSceneDruid@@UAEPAXI@Z+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FD100 SIZE 00000031 BYTES
-
-; __unwind { // SEH_4A3FC0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A3FC0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 430h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-;   } // starts at 4A3FDC
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 400h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-;   } // starts at 4A3FF1
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3D0h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-;   } // starts at 4A4003
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisTavScene@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4A3FC0
-??1VisTavSceneDruid@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -360133,37 +360087,6 @@ SEH_4A37E7:                             ; DATA XREF: ?VMethod28@VisTavSceneKaarg
 ; END OF FUNCTION CHUNK FOR ?VMethod28@VisTavSceneKaarg@@UAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR ??1VisTavSceneDruid@@UAE@XZ
-
-loc_5FD100:                             ; DATA XREF: .rdata:stru_61E210↓o
-; __unwind { // SEH_4A3FC0
-;   cleanup() // owned by 4A4003
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisTavScene@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD109:                             ; DATA XREF: .rdata:0061E218↓o
-;   cleanup() // owned by 4A3FF1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3D0h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD118:                             ; DATA XREF: .rdata:0061E220↓o
-;   cleanup() // owned by 4A3FDC
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 400h       ; varThis
-                call    ??1CHandleMap@@QAE@XZ ; CHandleMap::~CHandleMap(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A3FC0:                             ; DATA XREF: ??1VisTavSceneDruid@@UAE@XZ+5↑o
-                mov     eax, offset stru_61E1F0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FD100
-; END OF FUNCTION CHUNK FOR ??1VisTavSceneDruid@@UAE@XZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1VisTavSceneKaarg@@UAE@XZ
@@ -395087,14 +395010,6 @@ stru_61E1B8     UnwindMapEntry <-1, offset loc_5FD0A9>
                 UnwindMapEntry <-1, offset loc_5FD0D1>
                 UnwindMapEntry <-1, offset loc_5FD0DB>
                 UnwindMapEntry <-1, offset loc_5FD0E5>
-stru_61E1F0     FuncInfoV1 <19930520h, 3, offset stru_61E210, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61E210     UnwindMapEntry <-1, offset loc_5FD100>
-                UnwindMapEntry <0, offset loc_5FD109>
-                UnwindMapEntry <1, offset loc_5FD118>
 stru_61E228     FuncInfoV1 <19930520h, 5, offset stru_61E248, 0, 0, 0, 0>
                 db    0
                 db    0

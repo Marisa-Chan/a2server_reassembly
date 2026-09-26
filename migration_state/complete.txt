@@ -133,6 +133,7 @@
 ??1VisShopCompass@@UAE@XZ
 ??1VisTav@@UAE@XZ
 ??1VisTavScene@@UAE@XZ
+??1VisTavSceneDruid@@UAE@XZ
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??2@YAPAXI@Z
