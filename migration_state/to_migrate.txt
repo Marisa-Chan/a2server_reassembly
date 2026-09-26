@@ -628,7 +628,6 @@
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
 ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z	23
 ??_GVisTavRightPanel@@UAEPAXI@Z	24
-?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z	24
 ??1VisTavRightPanel@@UAE@XZ	40
 ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z	56
 ??0VisTavRightPanel@@QAE@HHHHHPAVVisTav@@@Z	68

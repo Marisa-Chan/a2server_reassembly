@@ -8257,6 +8257,13 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A2E6
+int32_t VisTavRightPanel::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return this->OnLButtonDown(wparam, pos);
+}
+
+
 // 49A291
 int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos)
 {

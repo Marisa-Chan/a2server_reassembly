@@ -513,6 +513,7 @@
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
+?OnLButtonDblClk@VisTavRightPanel@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
