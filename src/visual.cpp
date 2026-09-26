@@ -7748,6 +7748,22 @@ void VisTav::FUN_0049ef63()
 }
 
 
+// 49F179
+void VisTav::FUN_0049f179()
+{
+    CUnit* unit = this->reserved_entries[this->selection_index - this->avail_entries.GetSize()];
+    int32_t entry = this->FUN_0049e2e3(unit);
+    uint32_t v = this->entrie_id[entry];
+
+    CString text;
+    text.Format("npc%dtalk%d", v & 0xFFFF, (v >> 0x10) & 0xFFF);
+    ShowRoleKeyDialog(text);
+    ScenarioTalkTo(this->entrie_id[entry]);
+
+    CSound::Play(this->sounds[12]);
+}
+
+
 // 49EDEC
 void VisTav::FUN_0049edec()
 {
