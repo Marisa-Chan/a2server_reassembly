@@ -112355,62 +112355,6 @@ loc_497EA6:                             ; CODE XREF: ?FUN_00497e06@VisTavLeftPan
 
 ; Attributes: bp-based frame
 
-?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z      proc near               ; CODE XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+11D↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                push    esi
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_49E2FF
-; ---------------------------------------------------------------------------
-
-loc_49E2F6:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z:loc_49E343↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_49E2FF:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z+11↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 0FCh
-                call    unknown_libname_411 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_49E345
-                mov     ecx, dword ptr [ebp+arg_0]
-                xor     edx, edx
-                mov     dx, [ecx+1DCh]
-                mov     esi, edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     ecx, dword ptr [eax]
-                and     ecx, 0FFFFh
-                cmp     esi, ecx
-                jnz     short loc_49E343
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_49E348
-; ---------------------------------------------------------------------------
-
-loc_49E343:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z+59↑j
-                jmp     short loc_49E2F6
-; ---------------------------------------------------------------------------
-
-loc_49E345:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z+2D↑j
-                or      eax, 0FFFFFFFFh
-
-loc_49E348:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z+5E↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -112423,61 +112367,6 @@ loc_49E348:                             ; CODE XREF: ?FUN_0049e2e3@VisTav@@QAEHP
 
 ; Attributes: bp-based frame
 
-?FUN_0049f0da@VisTav@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisTavRightPanel@@UAEHIVCPoint@@@Z+146↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0C0h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax]
-                and     ecx, 7FFFFFFFh
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [edx], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0C0h
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_0049e2e3@VisTav@@QAEHPAVCUnit@@@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0FCh
-                call    sub_402880
-                mov     eax, dword ptr [eax]
-                push    eax
-                call    ?ScenarioTalkTo@@YGXI@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 9Ch
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0049f0da@VisTav@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

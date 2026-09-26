@@ -7764,6 +7764,33 @@ void VisTav::FUN_0049f179()
 }
 
 
+// 49F0DA
+void VisTav::FUN_0049f0da()
+{
+    CUnit* unit = this->avail_entries[this->selection_index];
+    int32_t entry = this->FUN_0049e2e3(unit);
+    this->entrie_id[entry] &= 0x7FFFFFFF;
+
+    unit = this->avail_entries[this->selection_index];
+    entry = this->FUN_0049e2e3(unit);
+    ScenarioTalkTo(this->entrie_id[entry]);
+
+    CSound::Play(this->sounds[6]);
+}
+
+
+// 49E2E3
+int32_t VisTav::FUN_0049e2e3(CUnit* unit)
+{
+    for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
+        if (unit->serverId == (this->entrie_id[i] & 0xFFFF)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 // 49EDEC
 void VisTav::FUN_0049edec()
 {
