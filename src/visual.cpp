@@ -8236,6 +8236,27 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 499A67
+void VisTavRightPanel::FUN_00499a67()
+{
+    this->FUN_00499cdf();
+    this->field_0x74[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
+    g_mousept.Update();
+    this->field_0x74[1] = new CBmp64("graphics\\interface\\Inn\\button2on.bmp");
+    g_mousept.Update();
+    this->field_0x74[2] = new CBmp64("graphics\\interface\\Inn\\button3on.bmp");
+    g_mousept.Update();
+    this->field_0x80[0] = new CBmp64("graphics\\interface\\Inn\\button1off.bmp");
+    g_mousept.Update();
+    this->field_0x80[1] = new CBmp64("graphics\\interface\\Inn\\button2off.bmp");
+    g_mousept.Update();
+    this->field_0x80[2] = new CBmp64("graphics\\interface\\Inn\\button3off.bmp");
+    g_mousept.Update();
+    this->field_0x8c = new CBmp64("graphics\\interface\\Inn\\ButtonsArea.bmp");
+    g_mousept.Update();
+}
+
+
 // 499DFA
 void VisTavRightPanel::VMethod7()
 {
