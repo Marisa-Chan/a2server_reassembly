@@ -8544,6 +8544,13 @@ void VisTavSceneAnim::NextFrame()
 }
 
 
+// 4016EF
+void VisTavSceneAnim::Draw(int32_t x, int32_t y)
+{
+    this->current_frame->VMethod3(x, y, 0, 0, 0);
+}
+
+
 // Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
 static bool tavscene_statics_inited = false;
 static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays

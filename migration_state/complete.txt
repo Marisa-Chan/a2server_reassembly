@@ -232,6 +232,7 @@
 ?Distance@TokenPos@@QBEEPBU1@@Z
 ?DoClose@VisScreen@@UAEXI@Z
 ?Draw@GM_a28@@QAEXXZ
+?Draw@VisTavSceneAnim@@QAEXHH@Z
 ?DrawItem@VisListBox@@UAEXHVCPoint@@PAG@Z
 ?DrawRectangleFrame@@YAXHHHHI@Z
 ?DrawTextJustifyInRectShadow@CGameFont@@QAEXABVCRect@@PBDPAGH@Z

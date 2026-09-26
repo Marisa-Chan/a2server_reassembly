@@ -618,33 +618,6 @@ sub_4016B6      endp
 
 ; Attributes: bp-based frame
 
-?Draw@VisTavSceneAnim@@QAEXHH@Z      proc near               ; CODE XREF: ?VMethod7@VisTavScene@@UAEXXZ+1A3↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax+14h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?Draw@VisTavSceneAnim@@QAEXHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

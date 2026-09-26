@@ -1481,7 +1481,7 @@ extern ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ : proc
 extern ?StepForward@VisTavSceneAnim@@QAE_NXZ : proc
 extern ?StepBackward@VisTavSceneAnim@@QAE_NXZ : proc
 extern ?NextFrame@VisTavSceneAnim@@QAEXXZ : proc
-externdef ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
+extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
 ;VisShop
 externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
