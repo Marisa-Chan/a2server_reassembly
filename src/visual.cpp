@@ -8788,6 +8788,27 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 }
 
 
+// 49D1B0
+void VisTavScene::VMethod27()
+{
+    for (int32_t i = 0; i < this->field_0x224.GetSize(); i++) {
+        if (this->field_0x224[i] != nullptr) {
+            delete this->field_0x224[i];
+        }
+    }
+    this->field_0x224.RemoveAll();
+    this->field_0x24c.RemoveAll();
+
+    for (int32_t i = 0; i < this->field_0x238.GetSize(); i++) {
+        if (this->field_0x238[i] != nullptr) {
+            delete this->field_0x238[i];
+        }
+    }
+    this->field_0x238.RemoveAll();
+    this->field_0x260.RemoveAll();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

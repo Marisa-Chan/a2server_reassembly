@@ -628,7 +628,6 @@
 ??_GVisTavScene@@UAEPAXI@Z	24
 ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z	34
 ??1VisTavScene@@UAE@XZ	88
-?VMethod27@VisTavScene@@UAEXXZ	116
 ??0VisTavScene@@QAE@HHHHHPAVVisTav@@@Z	123
 ?FUN_0049bc23@VisTavScene@@QAEXXZ	1151
 ?Draw@VisTavSceneAnim@@QAEXHH@Z	26
