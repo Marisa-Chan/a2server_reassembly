@@ -8257,6 +8257,27 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 499CDF
+void VisTavRightPanel::FUN_00499cdf()
+{
+    for (int32_t i = 0; i < 3; i++) {
+        if (this->field_0x74[i] != nullptr) {
+            delete this->field_0x74[i];
+        }
+        this->field_0x74[i] = nullptr;
+        if (this->field_0x80[i] != nullptr) {
+            delete this->field_0x80[i];
+        }
+        this->field_0x80[i] = nullptr;
+    }
+
+    if (this->field_0x8c != nullptr) {
+        delete this->field_0x8c;
+    }
+    this->field_0x8c = nullptr;
+}
+
+
 // 49A973
 void VisTavRightPanel::FUN_0049a973()
 {
