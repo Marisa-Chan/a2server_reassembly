@@ -274,6 +274,7 @@
 ?FUN_00490eb3@MainWindow@@QAEHXZ
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ?FUN_004998c2@VisTavRightPanel@@QAEXXZ
+?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
 ?FUN_0049edec@VisTav@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z

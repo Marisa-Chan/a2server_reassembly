@@ -8257,6 +8257,21 @@ void VisTavRightPanel::FUN_00499a67()
 }
 
 
+// 49A873
+int32_t VisTavRightPanel::FUN_0049a873(CPoint pos)
+{
+    CPoint tav_topleft = this->vis_tav->rect.TopLeft();
+    CPoint pt(pos.x - tav_topleft.x, pos.y - tav_topleft.y);
+
+    for (int32_t i = 0; i < 3; i++) {
+        if (this->field_0x90[i].PtInRect(pt)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 // 4998C2
 void VisTavRightPanel::FUN_004998c2()
 {

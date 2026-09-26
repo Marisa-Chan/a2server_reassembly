@@ -625,7 +625,6 @@
 ?FUN_0049f179@VisTav@@QAEXXZ	99
 ?FUN_0049ef63@VisTav@@QAEXXZ	131
 ?FUN_0049a8fa@VisTavRightPanel@@QAEXIVCPoint@@@Z	56
-?FUN_0049a873@VisTavRightPanel@@QAEHVCPoint@@@Z	70
 ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z	12
 ??_GVisTavScene@@UAEPAXI@Z	24
 ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z	34
