@@ -8821,6 +8821,13 @@ int32_t VisTavScene::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 49D8D9
+int32_t VisTavScene::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    return 0;
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

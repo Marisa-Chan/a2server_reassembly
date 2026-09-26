@@ -1446,7 +1446,7 @@ externdef ??_GVisTavScene@@UAEPAXI@Z :proc
 externdef ??1VisTavScene@@UAE@XZ :proc
 extern ?GetHint@VisTavScene@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavScene@@UAEXXZ :proc
-externdef ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
+extern ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
 extern ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z :proc
 externdef ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z : proc
 externdef ?FUN_00497e06@VisTavLeftPanel@@QAEXH@Z : proc
