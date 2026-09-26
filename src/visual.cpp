@@ -8317,3 +8317,16 @@ void VisTavKaarg::VMethod31()
         FUN_00438dd0(&this->snd_kaarg[i]);
     }
 }
+
+
+// 4A18D8
+VisTavKaarg::VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisTav(_id, l, t, r, b)
+{
+}
+
+
+// 4A4070
+VisTavKaarg::~VisTavKaarg()
+{
+}
