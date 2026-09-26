@@ -131,6 +131,7 @@
 ??1VisScreen@@UAE@XZ
 ??1VisShopCompass@@UAE@XZ
 ??1VisTav@@UAE@XZ
+??1VisTavScene@@UAE@XZ
 ??1VisTextBox@@UAE@XZ
 ??1VisWindow@@UAE@XZ
 ??2@YAPAXI@Z
@@ -149,6 +150,7 @@
 ??_7SpellBook@@6B@
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavLeftPanel@@UAEPAXI@Z
+??_GVisTavScene@@UAEPAXI@Z
 ??H@YG?AVCString@@ABV0@0@Z
 ??H@YG?AVCString@@ABV0@D@Z
 ??H@YG?AVCString@@ABV0@PBD@Z

@@ -8828,6 +8828,13 @@ int32_t VisTavScene::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 4A3E70
+VisTavScene::~VisTavScene()
+{
+    this->VMethod29();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

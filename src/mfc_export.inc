@@ -1442,8 +1442,8 @@ extern ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN
 extern ?FUN_0049a973@VisTavRightPanel@@QAEXXZ : proc
 
 ; VisTavScene
-externdef ??_GVisTavScene@@UAEPAXI@Z :proc
-externdef ??1VisTavScene@@UAE@XZ :proc
+extern ??_GVisTavScene@@UAEPAXI@Z :proc
+extern ??1VisTavScene@@UAE@XZ :proc
 extern ?GetHint@VisTavScene@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavScene@@UAEXXZ :proc
 extern ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z :proc
