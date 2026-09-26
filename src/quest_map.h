@@ -41,6 +41,7 @@ public:
     void sub_55E24A(Quest* quest);
     void sub_55E5FB(Quest* quest); // Remove quest from quest map flags
     int32_t sub_55F441(int32_t building_id);
+    int32_t FUN_004a47a0(uint32_t id, Quest** out); //4a47a0 in asm
     void sub_55EA81(QuestInnGlue* glue); // Add QuestInnGlue to quest map
     void sub_55ECFE(int32_t player_id);
 

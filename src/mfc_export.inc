@@ -724,6 +724,10 @@ externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 ; QuestMap
 extern ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 extern ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
+externdef ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z : proc  ; int32_t QuestMap::FUN_004a47a0(uint32_t, Quest**)
+
+; Quest
+externdef ?FUN_004a4780@Quest@@QAEIXZ : proc  ; uint32_t Quest::FUN_004a4780()
 
 
 ; ServerControlDialog
@@ -1378,6 +1382,7 @@ externdef ?FUN_0045995e@@YAXHHH@Z : proc  ; void __cdecl FUN_0045995e(int, int, 
 externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
 externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 externdef ?FUN_0041ae1c@BigStruct2@@QAEXH@Z : proc
+externdef ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z : proc  ; int32_t BigStruct2::FUN_0041e2af(int32_t, CUnit**)
 
 
 ;TokenEntry
@@ -1428,7 +1433,6 @@ extern ?GetHint@VisTavLeftPanel@@UAEPBDXZ :proc
 extern ?VMethod7@VisTavLeftPanel@@UAEXXZ :proc
 extern ?OnLButtonDown@VisTavLeftPanel@@UAEHIVCPoint@@@Z :proc
 extern ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ : proc  ; void VisTavLeftPanel::FUN_00497ace()
-externdef ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z : proc  ; void VisTavLeftPanel::FUN_00497f82(CUnit*)
 
 ; VisTavRightPanel
 externdef ??_GVisTavRightPanel@@UAEPAXI@Z :proc
@@ -2226,6 +2230,7 @@ extern   ?VMethod28@CUnit@@UAEXXZ  : proc
 extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
 externdef ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z : proc  ; const char* CUnit::FUN_0046d0f7(int32_t, int32_t)
+externdef ?FUN_0046c124@CUnit@@QAEXPAVCRect@@@Z : proc  ; void CUnit::FUN_0046c124(CRect*)
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc

@@ -5,6 +5,8 @@
 #include "mouse.h"
 #include "game_app.h"
 #include "quest_map.h"
+#include "quest.h"
+#include "ingame.h"
 #include "util.h"
 
 
@@ -7887,7 +7889,7 @@ void VisTavLeftPanel::FUN_00497ace()
     this->field_0x180 = CRect(CPoint(client_rect.left + 0x87, client_rect.top + 0x1BB), CSize(0x20, 0x20));
     this->field_0x164 = new CBmp256(0xA0, 0xF0);
     this->field_0x160 = new CBmp64(0xA0, 0xF0);
-    this->__gap_0x60[0] = 0;
+    this->field_0x60[0] = 0;
     this->field_0x16c = nullptr;
     this->field_0x168 = nullptr;
 }
@@ -7910,6 +7912,242 @@ void VisTavLeftPanel::VMethod7()
     } else {
         this->FUN_00497f82(this->vis_tav->reserved_entries[this->vis_tav->selection_index - this->vis_tav->avail_entries.GetSize()]);
     }
+}
+
+
+// 497F82
+void VisTavLeftPanel::FUN_00497f82(CUnit* unit)
+{
+    CRect screen_rect;
+    CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    LockSurface2();
+    this->field_0x168->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    this->field_0x16c->VMethod2(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode == 2) {
+        if (unit == nullptr) {
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
+        } else {
+            if ((unit->unitFlags & 0x40) == 0) {
+                CRect unit_rect = rect_1C + screen_rect.TopLeft();
+                unit->FUN_0046c124(&unit_rect);
+            }
+            if ((unit->unitFlags & 0x11) == 0) {
+                char picture[0x100];
+                char suffix[0x50];
+                strcpy(picture, g_VFX_info[unit->typeId]->info_picture);
+                sprintf(suffix, "%d", unit->face);
+                if (unit->face > 1) {
+                    strcat(picture, suffix);
+                }
+                if (strcmp(this->field_0x60, picture) != 0) {
+                    strcpy(this->field_0x60, picture);
+                    char path[0x100];
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
+                    this->field_0x160->LoadFile(path, nullptr);
+                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                }
+            } else {
+                char temp_path[0x100];
+                char fname[0x100];
+                char full_path[0x100];
+                GetTempPathA(0x100, temp_path);
+                sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
+                sprintf(full_path, "%s%s", temp_path, fname);
+                if (strcmp(this->field_0x60, fname) != 0) {
+                    strcpy(this->field_0x60, fname);
+                    if ((unit->unitFlags & 8) != 0) {
+                        UnlockSurface2();
+                        unit->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                        LockSurface2();
+                    } else {
+                        this->field_0x160->LoadFile(fname, this->field_0x164);
+                    }
+                } else if ((unit->unitFlags & 8) != 0) {
+                    UnlockSurface2();
+                    unit->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                    LockSurface2();
+                }
+            }
+            this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+        }
+    }
+
+    uint32_t quest_result = main_wnd->vis_map_context->field_0x4970->VMethod1(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->field_0x138);
+    Quest* quest;
+    int32_t quest_found;
+    if (quest_result != 0) {
+        quest_found = main_wnd->vis_map_context->field_0x4970->FUN_004a47a0(quest_result, &quest);
+    } else {
+        quest_found = this->vis_tav->quest_map->FUN_004a47a0(this->vis_tav->quest_id, &quest);
+    }
+
+    if (quest_found != 0) {
+        char picture[0x100];
+        picture[0] = 0;
+        CString unit_name;
+        switch (quest->Kind()) {
+        case 1:
+        case 3:
+        case 4:
+        case 0xB:
+        case 0xC: {
+            int32_t found = 0;
+            CGameObject* obj;
+            if (quest->Kind() == 3 || quest->Kind() == 0xC) {
+                found = main_wnd->vis_map_context->FUN_0041e2af(quest->GetObj(), (CUnit**)&obj);
+            } else {
+                found = main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetObj(), obj);
+            }
+            CUnit* target = (CUnit*)obj;
+            if (found != 0) {
+                if ((target->unitFlags & 0x11) != 0) {
+                    char temp_path[0x100];
+                    char fname[0x100];
+                    char full_path[0x100];
+                    GetTempPathA(0x100, temp_path);
+                    sprintf(fname, "allods-2-%d.$$$", target->unit_id);
+                    sprintf(full_path, "%s%s", temp_path, fname);
+                    if (strcmp(this->field_0x60, fname) != 0) {
+                        strcpy(this->field_0x60, fname);
+                        if ((target->unitFlags & 8) != 0) {
+                            UnlockSurface2();
+                            target->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                            LockSurface2();
+                        } else {
+                            this->field_0x160->LoadFile(fname, this->field_0x164);
+                        }
+                    } else if ((target->unitFlags & 8) != 0) {
+                        UnlockSurface2();
+                        target->VMethod30(full_path, this->field_0x160, this->field_0x164);
+                        LockSurface2();
+                    }
+                    unit_name = txt_npcnames.GetLine(target->serverId - 1);
+                } else {
+                    char suffix[0x50];
+                    strcpy(picture, g_VFX_info[target->typeId]->info_picture);
+                    sprintf(suffix, "%d", target->face);
+                    if (target->face > 1) {
+                        strcat(picture, suffix);
+                    }
+                    if (strcmp(this->field_0x60, picture) != 0) {
+                        strcpy(this->field_0x60, picture);
+                        char path[0x100];
+                        sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
+                        this->field_0x160->LoadFile(path, nullptr);
+                        memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                    }
+                    if (obj->typeId >= 0x52 && obj->typeId <= 0x66) {
+                        unit_name.Format("%s", txt_unitname.GetLine(obj->typeId));
+                    } else {
+                        unit_name.Format("%s[%d]", txt_unitname.GetLine(obj->typeId), target->face);
+                    }
+                }
+                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+            }
+            break;
+        }
+        case 2: {
+            char suffix[0x50];
+            strcpy(picture, g_VFX_info[quest->GetObj() & 0xFF]->info_picture);
+            sprintf(suffix, "%d", quest->GetObj() >> 8);
+            if ((quest->GetObj() >> 8) > 1) {
+                strcat(picture, suffix);
+            }
+            if ((quest->GetObj() & 0xFF) >= 0x52 && (quest->GetObj() & 0xFF) <= 0x66) {
+                unit_name.Format("%s", txt_unitname.GetLine(quest->GetObj() & 0xFF));
+            } else {
+                unit_name.Format("%s[%d]", txt_unitname.GetLine(quest->GetObj() & 0xFF), quest->GetObj() >> 8);
+            }
+            if (picture[0] != 0) {
+                if (strcmp(this->field_0x60, picture) != 0) {
+                    strcpy(this->field_0x60, picture);
+                    char path[0x100];
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
+                    this->field_0x160->LoadFile(path, nullptr);
+                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                }
+                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        CString area_name;
+        CString building_name;
+        CGameObject* landmark;
+        if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
+            building_name = txt_building.GetLine(landmark->typeId - 1);
+            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->field_0x84 - 0x10);
+            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->field_0x88 - 0x10);
+            area_name = TxtFile::AllLines[cell_x + 0x13D + cell_y * 5];
+        }
+
+        CString quest_text;
+        switch (quest->Kind()) {
+        case 1:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
+            break;
+        case 2:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780(), (const char*)unit_name);
+            break;
+        case 3:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
+            break;
+        case 4:
+        case 5:
+        case 0xD:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
+            break;
+        case 6:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780() / 0x3C0, (quest->FUN_004a4780() >> 4) % 0x3C, (const char*)area_name);
+            break;
+        case 8:
+        case 9:
+        case 0xA:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780());
+            break;
+        case 0xB:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
+            break;
+        case 0xC:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C]);
+            break;
+        default:
+            break;
+        }
+
+        CRect text_rect = CRect(CPoint(0x12, 0x32), CSize(0x84, 0xEE)) + screen_rect.TopLeft();
+        g_font2->DrawTextJustifyInRectShadow(text_rect, quest_text, clrsh_DullGold, 0xA);
+    } else {
+        if (this->vis_tav->rewards.GetSize() != 0 && this->vis_tav->rewards[this->vis_tav->quest_id]->item_id == 0xFFFD) {
+            char picture[0x100];
+            picture[0] = 0;
+            char suffix[0x50];
+            strcpy(picture, g_VFX_info[this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 & 0xFF]->info_picture);
+            sprintf(suffix, "%d", (int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 >> 8);
+            if ((int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->field_0x10 >> 8 > 1) {
+                strcat(picture, suffix);
+            }
+            if (picture[0] != 0) {
+                if (strcmp(this->field_0x60, picture) != 0) {
+                    strcpy(this->field_0x60, picture);
+                    char path[0x100];
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->field_0x60);
+                    this->field_0x160->LoadFile(path, nullptr);
+                    memset(this->field_0x164->GetData(), 0, this->field_0x164->GetWidth() * this->field_0x164->GetHeight());
+                }
+                this->field_0x160->VMethod10(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
+            }
+        }
+    }
+
+    UnlockSurface2();
 }
 
 

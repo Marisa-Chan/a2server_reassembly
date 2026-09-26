@@ -900,6 +900,7 @@ public:
 	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
 
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23
+	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af in asm
 	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 in asm
 	void FUN_0041ae1c(int32_t serv_id); //41ae1c in asm
 
@@ -1477,7 +1478,7 @@ public:
 
 public:
 	VisTav* vis_tav; // 0x5c
-	uint8_t __gap_0x60[0x100];
+	char field_0x60[0x100]; // 0x60
 	CBmp64* field_0x160; // 0x160
 	CBmp256* field_0x164; // 0x164
 	CBmp64* field_0x168; // 0x168

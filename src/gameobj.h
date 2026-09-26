@@ -273,6 +273,7 @@ public:
 	void ReloadSprite(); //46b91c
 	SfxBank* FUN_0046978b(); //46978b
 	const char* FUN_0046d0f7(int32_t x, int32_t y); //46d0f7 in asm
+	void FUN_0046c124(CRect* rect); //46c124 in asm
 
 public:
 	uint8_t body;

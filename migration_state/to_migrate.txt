@@ -47,6 +47,7 @@
 ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z	31
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
+?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z	58
 ?FUN_0041ae1c@BigStruct2@@QAEXH@Z	170
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
@@ -162,6 +163,7 @@
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ?GetData@CThreadLocalObject@@QAEPAVCNoTrackObject@@P6GPAV2@XZ@Z	63
 ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z	522
+?FUN_0046c124@CUnit@@QAEXPAVCRect@@@Z	1367
 ?sub_41F940@CVisualObject@@QAEHXZ	13
 ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ	3
 ?GetMessageMap@CWinApp@@UBEPBUAFX_MSGMAP@@XZ	3
@@ -260,6 +262,8 @@
 ?_OnKeyDown@MainWindow@@QAEXIII@Z	480
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
+?FUN_004a4780@Quest@@QAEIXZ	13
+?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z	20
 ?sub_41EF60@Scenario@@QAEHHH@Z	37
 ?FUN_004a7b79@Scenario@@QAENXZ	50
 ?sub_4A952B@Scenario@@QAEXHHII@Z	471
@@ -616,7 +620,6 @@
 ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z	36
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
 ?VMethod7@VisStartGameTextBox@@UAEXXZ	134
-?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z	1466
 ?GetHint@VisTavRightPanel@@UAEPBDXZ	12
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
 ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z	23
