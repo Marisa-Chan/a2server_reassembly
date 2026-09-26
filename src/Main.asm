@@ -114676,99 +114676,6 @@ jpt_498D17      dd offset loc_498D1E    ; DATA XREF: sub_497F82+D95↑r
 
 ; Attributes: bp-based frame
 
-?FUN_004995d1@VisTavLeftPanel@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+723↓p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FC910 SIZE 0000001E BYTES
-
-; __unwind { // SEH_4995D1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4995D1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_20], ecx
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_499620
-                push    offset aGraphicsInterf_154 ; "graphics\\Interface\\Inn\\LeftStats.bmp"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_24], eax
-                jmp     short loc_499627
-; ---------------------------------------------------------------------------
-
-loc_499620:                             ; CODE XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+3B↑j
-                mov     [ebp+var_24], 0
-
-loc_499627:                             ; CODE XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+4D↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     [ebp+var_14], eax
-;   } // starts at 499601
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+168h], edx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_18], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_18], 0
-                jz      short loc_499673
-                push    offset aGraphicsInterf_155 ; "graphics\\Interface\\Inn\\LeftPicture.b"...
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_28], eax
-                jmp     short loc_49967A
-; ---------------------------------------------------------------------------
-
-loc_499673:                             ; CODE XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+8E↑j
-                mov     [ebp+var_28], 0
-
-loc_49967A:                             ; CODE XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+A0↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_1C], eax
-;   } // starts at 499654
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ecx+16Ch], edx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4995D1
-?FUN_004995d1@VisTavLeftPanel@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ      proc near               ; CODE XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+21↑p
 
 var_1C          = dword ptr -1Ch
@@ -370387,31 +370294,6 @@ SEH_497F82:                             ; DATA XREF: sub_497F82+5↑o
 ; } // starts at 5FC8CA
 ; END OF FUNCTION CHUNK FOR sub_497F82
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ
-
-loc_5FC910:                             ; DATA XREF: .rdata:stru_61DA10↓o
-; __unwind { // SEH_4995D1
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FC91A:                             ; DATA XREF: .rdata:0061DA18↓o
-;   cleanup() // owned by 499601
-;   cleanup() // owned by 499654
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4995D1:                             ; DATA XREF: ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ+5↑o
-                mov     eax, offset stru_61D9F0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC910
-; END OF FUNCTION CHUNK FOR ?FUN_004995d1@VisTavLeftPanel@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_49974C
 
 loc_5FC92E:                             ; DATA XREF: .rdata:stru_61DA40↓o
@@ -406326,13 +406208,6 @@ stru_61D9C8     UnwindMapEntry <-1, offset loc_5FC8CA>
                 UnwindMapEntry <1, offset loc_5FC8E2>
                 UnwindMapEntry <2, offset loc_5FC8EE>
                 UnwindMapEntry <-1, offset loc_5FC8FA>
-stru_61D9F0     FuncInfoV1 <19930520h, 2, offset stru_61DA10, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61DA10     UnwindMapEntry <-1, offset loc_5FC910>
-                UnwindMapEntry <-1, offset loc_5FC91A>
 stru_61DA20     FuncInfoV1 <19930520h, 2, offset stru_61DA40, 0, 0, 0, 0>
                 db    0
                 db    0

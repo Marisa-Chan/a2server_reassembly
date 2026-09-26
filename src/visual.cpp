@@ -7831,6 +7831,17 @@ const char* VisTavLeftPanel::GetHint()
 }
 
 
+// 4995D1
+void VisTavLeftPanel::FUN_004995d1()
+{
+    this->FUN_004996ab();
+    this->field_0x168 = new CBmp64("graphics\\Interface\\Inn\\LeftStats.bmp");
+    g_mousept.Update();
+    this->field_0x16c = new CBmp64("graphics\\Interface\\Inn\\LeftPicture.bmp");
+    g_mousept.Update();
+}
+
+
 // 49FAAA
 void VisTavDruid::VMethod28()
 {

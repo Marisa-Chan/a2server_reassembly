@@ -622,7 +622,6 @@
 ?FUN_004996ab@VisTavLeftPanel@@QAEXXZ	67
 ?VMethod7@VisTavLeftPanel@@UAEXXZ	69
 ??1VisTavLeftPanel@@UAE@XZ	78
-?FUN_004995d1@VisTavLeftPanel@@QAEXXZ	86
 ?GetHint@VisTavRightPanel@@UAEPBDXZ	12
 ?FUN_0049a84e@VisTavRightPanel@@QAEXXZ	15
 ?OnMouseMove@VisTavRightPanel@@UAEHIVCPoint@@@Z	23
