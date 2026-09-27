@@ -10580,3 +10580,21 @@ void VisInvBase::VMethod35()
         this->cell_update_counter.ElementAt(i) = 0;
     }
 }
+
+
+// 4A4D05
+void VisInvBase::VMethod33(CGameObject* uni)
+{
+    if (uni == nullptr) {
+        this->grid_source = nullptr;
+        this->visible_startref = nullptr;
+    } else {
+        this->grid_source = &uni->tokenEntries;
+        this->visible_startref = &uni->shopInventoryVisibleStart;
+    }
+    int32_t total = this->visible_columns * this->visible_rows;
+    for (int32_t i = 0; i < total; i++) {
+        this->cell_update_counter.ElementAt(i) = 0;
+    }
+    this->VMethod34();
+}

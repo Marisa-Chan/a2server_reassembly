@@ -793,6 +793,7 @@
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
 ?VMethod32@VisShopCompass@@UAEXH@Z
+?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
 ?VMethod33@VisShopCompass@@UAEXXZ
 ?VMethod34@VisShopCompass@@UAEXXZ
 ?VMethod35@VisInvBase@@UAEXXZ
