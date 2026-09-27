@@ -11880,6 +11880,13 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B9436
+int32_t VisInvExtType3::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return VisInvExtBase::OnLButtonDblClk(wparam, pos);
+}
+
+
 // 4B93AE
 int32_t VisInvExtType3::OnLButtonDown(uint32_t wparam, CPoint pos)
 {
