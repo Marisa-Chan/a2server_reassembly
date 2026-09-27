@@ -137275,115 +137275,6 @@ sub_4B4A0C      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; int __stdcall sub_4B62D8(int, RECT *lprcSrc, int)
 sub_4B62D8      proc near
 
@@ -396776,23 +396667,6 @@ aDD_7           db '%d/%d',0            ; DATA XREF: ?VMethod7@VisSideStatus@@UA
                 db    0
                 db    0
                 db    0
-; CHAR aSfxPutOnWav[]
-aSfxPutOnWav    db 'SFX\Put_On.wav',0   ; DATA XREF: ?sub_4B4BC5@VisInvExtBase@@QAEXXZ+F↑o
-                align 4
-; CHAR aSfxPutOffWav[]
-aSfxPutOffWav   db 'SFX\Put_Off.wav',0  ; DATA XREF: ?sub_4B4BC5@VisInvExtBase@@QAEXXZ+25↑o
-; CHAR aSfxScrollWav[]
-aSfxScrollWav   db 'SFX\Scroll.wav',0   ; DATA XREF: ?sub_4B4BC5@VisInvExtBase@@QAEXXZ+3C↑o
-                align 4
-; char aD_38[]
-aD_38           db '%d',0               ; DATA XREF: ?VMethod7@VisInvExtBase@@UAEXXZ+5A5↑o
-                align 4
-; char aD_39[]
-aD_39           db '%d',0               ; DATA XREF: ?VMethod7@VisInvExtBase@@UAEXXZ+922↑o
-                align 10h
-; CHAR a16a_6[]
-a16a_6          db '.16a',0             ; DATA XREF: ?sub_4B5A6C@VisInvExtBase@@QAEHH@Z+41↑o
-                align 4
 ; CHAR aGraphicsInvent_4[]
 aGraphicsInvent_4 db 'graphics\inventory\',0
 ; char aGraphicsInterf_215[]
@@ -401615,7 +401489,6 @@ byte_665D40      db    ?
 byte_665D8C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMainMenu@@UAEXXZ+1EC↑o
 ; char byte_665D90[4]
 byte_665D90     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisFameDocument@@UAEXXZ+1FF↑o
-dword_665D94    dd ?                    ; DATA XREF: ?VMethod7@VisInvExtBase@@UAEXXZ+67↑w
 byte_665D98      db    ?
                 db 3 dup(?)
 byte_665D9C      db    ?
