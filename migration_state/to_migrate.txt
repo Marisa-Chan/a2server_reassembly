@@ -444,7 +444,6 @@
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z	47
 ?sub_4B970E@VisInvExtType3@@QAEXXZ	59
 ?GetHint@VisInvExtType3@@UAEPBDXZ	59
-?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z	65
 ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z	93
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z	12

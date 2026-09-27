@@ -570,6 +570,7 @@
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z

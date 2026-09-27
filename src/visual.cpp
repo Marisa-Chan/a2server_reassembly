@@ -11848,6 +11848,27 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B92F9
+int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (wparam & 1) {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        if (main_wnd->field_0x408 != nullptr) {
+            if (this->sub_4B91F9(main_wnd->field_0x408) == 0) {
+                if (main_wnd->field_0x408->GetAttribute(1) > 0) {
+                    this->field_0x20ac->placement_lock = 1;
+                    ApplyCursor(main_wnd->item_cursor);
+                }
+            } else {
+                this->field_0x20ac->placement_lock = 0;
+                ApplyCursor(g_Cursors[23]);
+            }
+        }
+    }
+    return VisInvExtBase::OnMouseMove(wparam, pos);
+}
+
+
 // 4B9155
 void VisInvExtType3::VMethod7()
 {
