@@ -11053,3 +11053,19 @@ int32_t VisInvExtBase::OnRButtonDblClk(uint32_t wparam, CPoint pos)
 {
     return 1;
 }
+
+
+// 4B4AEC
+VisInvExtBase::~VisInvExtBase()
+{
+    if (this->field_0x20c4 != nullptr) {
+        delete this->field_0x20c4;
+    }
+    this->field_0x20ac = nullptr;
+    this->grid_source = nullptr;
+    if (this->visible_startref != nullptr) {
+        delete this->visible_startref;
+    }
+    this->sub_4B4BA9();
+    this->sub_4B4C1C();
+}

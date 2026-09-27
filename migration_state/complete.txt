@@ -126,6 +126,7 @@
 ??1UnitList@@QAE@XZ
 ??1VisButton@@UAE@XZ
 ??1VisInvBase@@UAE@XZ
+??1VisInvExtBase@@UAE@XZ
 ??1VisListBox@@UAE@XZ
 ??1VisMenuWnd@@UAE@XZ
 ??1VisMessageBox@@UAE@XZ
@@ -153,6 +154,7 @@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
 ??_GVisInvBase@@UAEPAXI@Z
+??_GVisInvExtBase@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
