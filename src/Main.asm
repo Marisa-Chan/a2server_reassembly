@@ -139084,19 +139084,6 @@ sub_4B9E10      endp
 ; Attributes: library function bp-based frame
 
 ; public: virtual enum Concurrency::details::ContextBase::ContextKind __thiscall Concurrency::details::UMSThreadInternalContext::GetContextKind(void)const
-?VMethod38@VisInvExtType2@@UAEHXZ proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 2
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod38@VisInvExtType2@@UAEHXZ endp
 
 
 ; =============== S U B R O U T I N E =======================================

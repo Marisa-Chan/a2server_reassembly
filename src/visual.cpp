@@ -11920,3 +11920,10 @@ void VisInvExtType2::sub_4B871C()
         g_bmp_invarrow2->VMethod10(topleft.x + 0x1B0, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
+
+
+// 4B9F00
+int32_t VisInvExtType2::VMethod38()
+{
+    return 2;
+}

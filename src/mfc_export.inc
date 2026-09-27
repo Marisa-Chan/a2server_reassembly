@@ -1857,7 +1857,7 @@ externdef ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??_GVisInvExtType2@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtType2@@UAEPBDXZ : proc
 externdef ?VMethod7@VisInvExtType2@@UAEXXZ : proc
-externdef ?VMethod38@VisInvExtType2@@UAEHXZ : proc
+extern ?VMethod38@VisInvExtType2@@UAEHXZ : proc
 externdef ?VMethod39@VisInvExtType2@@UAEXXZ : proc
 externdef ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
