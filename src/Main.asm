@@ -137376,22 +137376,6 @@ sub_4B4AEC      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_641 proc near           ; DATA XREF: .rdata:0060D178↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+84h], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-unknown_libname_641 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -374525,7 +374509,7 @@ off_60D0E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
@@ -374573,7 +374557,7 @@ off_60D1A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
@@ -374621,7 +374605,7 @@ off_60D268      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
@@ -374669,7 +374653,7 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
@@ -374718,7 +374702,7 @@ off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
@@ -374766,7 +374750,7 @@ off_60D910      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z
                 dd offset ?VMethod30@VisInvExtBase@@UAEHHH@Z
                 dd offset ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
-                dd offset unknown_libname_641 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ

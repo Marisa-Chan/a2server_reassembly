@@ -1811,6 +1811,7 @@ externdef ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc  ; int32_t VisInvExtBase::VMethod30(int32_t, int32_t)
 extern ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvExtBase::VMethod31(const CPoint*)
+extern ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvExtBase::VMethod32(CArray<TokenEntry*>*)
 extern ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4C1C()
 extern ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4D33()
 extern ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BC5()

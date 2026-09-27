@@ -10980,3 +10980,10 @@ int32_t VisInvExtBase::VMethod30(int32_t x, int32_t y)
     CPoint pt(x, y);
     return this->VMethod31(&pt);
 }
+
+
+// 4B4D90
+void VisInvExtBase::VMethod32(CArray<TokenEntry*>* arr)
+{
+    this->grid_source = arr;
+}

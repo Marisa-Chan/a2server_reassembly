@@ -806,6 +806,7 @@
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
 ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
+?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
 ?VMethod32@VisShopCompass@@UAEXH@Z
 ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
 ?VMethod33@VisShopCompass@@UAEXXZ
