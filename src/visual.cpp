@@ -11133,6 +11133,16 @@ int32_t VisInvType1::VMethod38()
 }
 
 
+// 4A630B
+VisInvType1::VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : VisInvBase(_id, l, t, r, b)
+{
+    this->visible_columns = this->rect.Width() / 0x50 - 1;
+    this->visible_rows = this->rect.Height() / 0x50;
+    this->VMethod35();
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {

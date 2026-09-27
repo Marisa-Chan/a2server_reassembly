@@ -1028,7 +1028,6 @@ externdef   ??0VisCharSelect@@QAE@HHHHH@Z  : proc
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
-externdef   ??0VisInvType1@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTown@@QAE@HHHHH@Z  : proc

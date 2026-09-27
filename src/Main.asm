@@ -113581,75 +113581,6 @@ sub_4A627C      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisInvType1@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisInvType1@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+348↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005FD336 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4A630B
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A630B
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisInvBase@@QAE@HHHHH@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60CA60
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                mov     ecx, 50h ; 'P'
-                idiv    ecx
-                sub     eax, 1
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+88h], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                mov     ecx, 50h ; 'P'
-                idiv    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+8Ch], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod35@VisInvBase@@UAEXXZ
-;   } // starts at 4A6343
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 4A630B
-??0VisInvType1@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -344448,23 +344379,6 @@ SEH_4A627C:                             ; DATA XREF: sub_4A627C+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FD323
 ; END OF FUNCTION CHUNK FOR sub_4A627C
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisInvType1@@QAE@HHHHH@Z
-
-loc_5FD336:                             ; DATA XREF: .rdata:stru_61E478↓o
-; __unwind { // SEH_4A630B
-;   cleanup() // owned by 4A6343
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisInvBase@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A630B:                             ; DATA XREF: ??0VisInvType1@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_61E458
-                jmp     ___CxxFrameHandler
-; } // starts at 5FD336
-; END OF FUNCTION CHUNK FOR ??0VisInvType1@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4A63B0
 
 loc_5FD349:                             ; DATA XREF: .rdata:stru_61E4A0↓o
@@ -378232,12 +378146,6 @@ stru_61E430     FuncInfoV1 <19930520h, 1, offset stru_61E450, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61E450     UnwindMapEntry <-1, offset unknown_libname_988>
-stru_61E458     FuncInfoV1 <19930520h, 1, offset stru_61E478, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61E478     UnwindMapEntry <-1, offset loc_5FD336>
 stru_61E480     FuncInfoV1 <19930520h, 1, offset stru_61E4A0, 0, 0, 0, 0>
                 db    0
                 db    0
