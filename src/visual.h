@@ -1401,6 +1401,7 @@ public:
 
 	virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);
 
+	int32_t sub_4B91F9(TokenEntry* entry); //4b91f9 in asm
 	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba in asm
 
 	void sub_4B970E(); //4b970e

@@ -1397,6 +1397,7 @@ externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A78
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
 externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
+externdef ?sub_43A6D5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A6D5()  //43a6d5 in asm
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
 extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
@@ -1801,7 +1802,7 @@ extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
 externdef ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDblClk(uint32_t, CPoint)
 externdef ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
@@ -1841,6 +1842,7 @@ externdef ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z : proc
 
 ;VisInvExtType3
 externdef ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z : proc
+externdef ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvExtType3::sub_4B91F9(TokenEntry*)  //4b91f9 in asm
 externdef ?sub_4B970E@VisInvExtType3@@QAEXXZ : proc
 externdef ??_GVisInvExtType3@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtType3@@UAEPBDXZ : proc

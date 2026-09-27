@@ -279,6 +279,7 @@
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
 ?FUN_004a78c0@TokenEntry@@QAEHXZ	28
 ?sub_4A7880@TokenEntry@@QAEHH@Z	33
+?sub_43A6D5@TokenEntry@@QAEHXZ	39
 ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z	66
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?FUN_00439973@TokenEntry@@QAEPBDXZ	812
@@ -450,7 +451,6 @@
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z	121
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	168
-?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	256
 ?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType1@@UAEPAXI@Z	24
@@ -486,6 +486,7 @@
 ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z	65
 ?VMethod7@VisInvExtType3@@UAEXXZ	66
 ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z	93
+?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z	108
 ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z	120
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z	12

@@ -10749,3 +10749,56 @@ void VisInvExtBase::VMethod7()
     UnlockSurface2();
     shop->dirty |= 0x40;
 }
+
+
+// 4B5F3F
+int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    VisShop* shop = this->field_0x20ac;
+    int32_t idx = this->VMethod31(&pos);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (idx >= 0 && this->grid_source->GetSize() > idx) {
+        TokenEntry* entry = this->grid_source->GetAt(idx);
+        if (entry->sub_43A6D5() == 0) {
+            this->VMethod36(idx, 1);
+            if (main_wnd->field_0x408 != nullptr) {
+                if (main_wnd->field_0x410 == 4) {
+                    switch (main_wnd->field_0x408->field_0x18) {
+                    case 1:
+                        ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x40c);
+                        shop->dirty |= 8;
+                        break;
+                    case 2:
+                        shop->to_sell->VMethod37(*shop->to_sell->visible_startref);
+                        shop->to_sell->sub_4B4D33();
+                        break;
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[main_wnd->field_0x408->field_0x18 - 5];
+                        shop->assortiment->VMethod37(-1);
+                        shop->assortiment->grid_source = &shop->assortiment->field_0x2100[shop->select_category];
+                        shop->assortiment->sub_4B4D33();
+                        break;
+                    }
+                    this->sub_4B4D33();
+                    shop->sub_4BCDA0();
+                    shop->dirty |= 0x20;
+                } else if (main_wnd->field_0x410 == 2) {
+                    ((VisCharInfo*)shop->select_info_panel)->VMethod27(main_wnd->field_0x408->GetType() - 1);
+                } else {
+                    if (shop->to_buy->sub_4B91F9(main_wnd->field_0x408) == 0) {
+                        shop->to_buy->VMethod37(*shop->to_buy->visible_startref);
+                        this->sub_4B4D33();
+                        this->VMethod9();
+                        shop->to_buy->sub_4B4D33();
+                        shop->sub_4BCDA0();
+                        shop->dirty |= 0x20;
+                    }
+                }
+            }
+        }
+    }
+    return 1;
+}
