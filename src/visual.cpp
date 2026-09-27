@@ -11848,6 +11848,23 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B91F9
+int32_t VisInvExtType3::sub_4B91F9(TokenEntry* o)
+{
+    TokenEntry copy(o);
+    if (o->field_0x18 == 1) {
+        copy.field_0x18 = 2;
+    }
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (copy.sub_4A7900(entry)) {
+            return 0;
+        }
+    }
+    return this->grid_source->GetSize() >= this->visible_columns * this->visible_rows;
+}
+
+
 // 4B949A
 int32_t VisInvExtType3::VMethod27(TokenEntry* o)
 {

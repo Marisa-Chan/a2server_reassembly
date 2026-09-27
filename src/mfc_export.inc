@@ -1872,7 +1872,7 @@ externdef ?sub_4B871C@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_
 
 ;VisInvExtType3
 externdef ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvExtType3::sub_4B91F9(TokenEntry*)  //4b91f9 in asm
+extern ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvExtType3::sub_4B91F9(TokenEntry*)  //4b91f9
 externdef ?sub_4B970E@VisInvExtType3@@QAEXXZ : proc
 externdef ??_GVisInvExtType3@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtType3@@UAEPBDXZ : proc
