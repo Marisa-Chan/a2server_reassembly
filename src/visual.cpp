@@ -10871,3 +10871,20 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos)
     }
     return 0;
 }
+
+
+// 4B4E88
+int32_t VisInvExtBase::VMethod31(const CPoint* pt)
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint rel = *pt - CPoint(shop->rect.left, shop->rect.top);
+    for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
+        if (this->field_0x20c4[i].PtInRect(rel)) {
+            int32_t idx = i + *this->visible_startref;
+            if (idx <= this->grid_source->GetUpperBound() && this->grid_source->GetAt(idx)->item_id != 0xffff) {
+                return idx;
+            }
+        }
+    }
+    return -1;
+}

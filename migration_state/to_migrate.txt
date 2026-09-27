@@ -451,7 +451,6 @@
 ?sub_4B4FD1@VisInvExtBase@@QAEXXZ	56
 ?GetHint@VisInvExtBase@@UAEPBDXZ	84
 ?sub_4B5A6C@VisInvExtBase@@QAEHH@Z	111
-?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
 ?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType1@@UAEPAXI@Z	24

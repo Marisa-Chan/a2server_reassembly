@@ -794,6 +794,7 @@
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShopCompass@@UAEXXZ
 ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z
+?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
 ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
