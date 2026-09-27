@@ -1755,7 +1755,7 @@ externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
 ;VisInvBase
 externdef ??_GVisInvBase@@UAEPAXI@Z : proc
-externdef ?GetHint@VisInvBase@@UAEPBDXZ : proc
+extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
 extern ?MsgProc@VisInvBase@@UAEHIII@Z : proc  ; int32_t VisInvBase::MsgProc(uint32_t, uint32_t, uint32_t)
 extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBase::VMethod26(TokenEntry*, int32_t)
 extern ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvBase::VMethod27(TokenEntry*)

@@ -10447,3 +10447,10 @@ int32_t VisInvBase::VMethod31(const CPoint* pt)
 {
     return -1;
 }
+
+
+// 4A4CF8
+const char* VisInvBase::GetHint()
+{
+    return nullptr;
+}
