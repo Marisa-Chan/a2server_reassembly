@@ -449,7 +449,6 @@
 ?VMethod7@VisInvExtType3@@UAEXXZ	66
 ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z	93
 ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z	108
-?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z	120
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z	12

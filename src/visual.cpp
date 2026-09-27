@@ -11838,6 +11838,31 @@ int32_t VisInvExtType2::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B949A
+int32_t VisInvExtType3::VMethod27(TokenEntry* o)
+{
+    if (this->grid_source == nullptr) {
+        return -1;
+    }
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (entry->field_0x4 != o->field_0x4) {
+            continue;
+        }
+        if (entry->field_0x18 != o->field_0x18) {
+            continue;
+        }
+        entry->sub_4A7850(o->field_0x10);
+        delete o;
+        return i;
+    }
+    if (this->grid_source->GetSize() < this->visible_columns * this->visible_rows) {
+        this->grid_source->Add(o);
+    }
+    return this->grid_source->GetSize() - 1;
+}
+
+
 // 4B80D9
 VisInvExtType2::~VisInvExtType2()
 {
