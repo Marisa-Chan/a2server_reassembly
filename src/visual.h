@@ -1308,6 +1308,10 @@ public:
 
 	void sub_4B7859(); //4b7859
 	void sub_4B73E4(int32_t category); //4b73e4
+	void sub_4B7264(); //4b7264 in asm
+	void sub_4B72C1(); //4b72c1 in asm
+	void sub_4B731E(); //4b731e in asm
+	void sub_4B7381(); //4b7381 in asm
 
 	VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 in asm
 

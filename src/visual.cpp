@@ -11166,3 +11166,41 @@ TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num)
     }
     return nullptr;
 }
+
+
+// 4B70C0
+void VisInvExtType1::VMethod7()
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+
+    if (shop->dialog_active == 0 || this->shop_inv == nullptr) {
+        return;
+    }
+
+    LockSurface2();
+    this->shop_inv->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    UnlockSurface2();
+    VisInvExtBase::VMethod7();
+
+    if (*this->visible_startref > 0) {
+        CPoint pos(g_mousept.GetX(), g_mousept.GetY());
+        CRect rc = this->field_0x20cc;
+        rc.OffsetRect(topleft.x, topleft.y);
+        if (rc.PtInRect(pos)) {
+            this->sub_4B7264();
+        } else {
+            this->sub_4B72C1();
+        }
+    }
+    if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
+        CPoint pos(g_mousept.GetX(), g_mousept.GetY());
+        CRect rc = this->field_0x20dc;
+        rc.OffsetRect(topleft.x, topleft.y);
+        if (rc.PtInRect(pos)) {
+            this->sub_4B731E();
+        } else {
+            this->sub_4B7381();
+        }
+    }
+}
