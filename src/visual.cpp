@@ -11880,6 +11880,20 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B93CF
+int32_t VisInvExtType3::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        return 1;
+    }
+    if (this->sub_4B91F9(main_wnd->field_0x408) != 0) {
+        this->field_0x20ac->placement_lock = 0;
+    }
+    return VisInvExtBase::OnLButtonUp(wparam, pos);
+}
+
+
 // 4B92F9
 int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos)
 {

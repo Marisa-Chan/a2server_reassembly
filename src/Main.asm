@@ -137624,54 +137624,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D380↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+408h], 0
-                jnz     short loc_4B93F3
-                mov     eax, 1
-                jmp     short loc_4B9430
-; ---------------------------------------------------------------------------
-
-loc_4B93F3:                             ; CODE XREF: ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z+1B↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+408h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z
-                test    eax, eax
-                jz      short loc_4B941C
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+20ACh]
-                mov     dword ptr [ecx+144h], 0
-
-loc_4B941C:                             ; CODE XREF: ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z+38↑j
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
-
-loc_4B9430:                             ; CODE XREF: ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z+22↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
