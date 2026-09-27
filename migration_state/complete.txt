@@ -558,6 +558,7 @@
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z

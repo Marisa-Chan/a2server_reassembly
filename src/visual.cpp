@@ -11040,6 +11040,27 @@ int32_t VisInvType1::VMethod30(int32_t x, int32_t y)
 }
 
 
+// 4A6E57
+int32_t VisInvType1::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    CRect screen_rect = this->ClientRectToScreen(this->rect);
+
+    int32_t edge_width = ((g_ScreenSize.right - 0xf0) % 0x50) / 2;
+
+    CRect left_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x20 + edge_width, screen_rect.bottom);
+    CRect right_rect(screen_rect.right - 0x30 - edge_width, screen_rect.top, screen_rect.right - 0x10, screen_rect.bottom);
+
+    if (left_rect.PtInRect(pos)) {
+        this->sub_4A5350();
+    }
+    if (right_rect.PtInRect(pos)) {
+        this->sub_4A51C9();
+    }
+
+    return 1;
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
