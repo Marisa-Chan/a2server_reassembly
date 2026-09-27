@@ -11880,6 +11880,30 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B8E9A
+void VisInvExtType3::VMethod39()
+{
+    this->field_0x20c4 = new CRect[this->visible_columns * this->visible_rows];
+
+    CPoint topleft = this->rect.TopLeft();
+    CPoint bottomright = this->rect.BottomRight();
+
+    this->field_0x20cc = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
+    this->field_0x20dc = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
+
+    CPoint start(this->field_0x20cc.right, this->field_0x20cc.top);
+    for (int32_t col = 0; col < this->visible_columns; col++) {
+        for (int32_t row = 0; row < this->visible_rows; row++) {
+            this->field_0x20c4[row * this->visible_columns + col] = CRect(
+                start.x + col * 0x50,
+                start.y + row * 0x50,
+                start.x + col * 0x50 + 0x50,
+                start.y + row * 0x50 + 0x50);
+        }
+    }
+}
+
+
 // 4B9F10
 int32_t VisInvExtType3::VMethod38()
 {
