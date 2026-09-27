@@ -450,7 +450,6 @@
 ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z	77
 ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z	88
 ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z	119
-?GetHint@VisInvExtType2@@UAEPBDXZ	128
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType3@@UAEPAXI@Z	24

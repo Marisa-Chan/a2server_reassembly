@@ -11731,3 +11731,31 @@ void VisInvExtType2::VMethod7()
         }
     }
 }
+
+
+// 4B8339
+const char* VisInvExtType2::GetHint()
+{
+    VisShop* shop = this->field_0x20ac;
+    if (shop->dialog_active == 0) {
+        return nullptr;
+    }
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return nullptr;
+    }
+    CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
+    CPoint topleft = shop->rect.TopLeft();
+    CPoint rel = mouse - topleft;
+    int32_t region = this->VMethod31(&mouse);
+    if (region < 0) {
+        if (this->field_0x20cc.PtInRect(rel)) {
+            return TxtFile::AllLines.GetAt(0x36);
+        }
+        if (this->field_0x20dc.PtInRect(rel)) {
+            return TxtFile::AllLines.GetAt(0x37);
+        }
+        return TxtFile::AllLines.GetAt(0x3A);
+    }
+    return VisInvExtBase::GetHint();
+}
