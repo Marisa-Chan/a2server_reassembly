@@ -1242,6 +1242,7 @@ ASSERT_SIZE(VisInvType1, 0x20ac);
 class VisInvExtBase : public VisInvBase
 {
 public:
+	VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b4a0c in asm
 	virtual ~VisInvExtBase(); // 4B4AEC
 
 	virtual const char* GetHint() override; // 4B4C64

@@ -11408,3 +11408,19 @@ void VisInvExtType1::sub_4B73E4(int32_t category)
     this->grid_source = &this->field_0x2100[category];
     this->sub_4B4D33();
 }
+
+
+// 4B63F7
+VisInvExtType1::VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisInvExtBase(_id, l, t, r, b, shop)
+{
+    this->visible_columns = this->rect.Width() / 0x50;
+    this->visible_rows = this->rect.Height() / 0x50;
+    this->VMethod39();
+    this->VisInvBase::VMethod35();
+    this->arrow1 = nullptr;
+    this->arrow3 = nullptr;
+    this->arrow2 = nullptr;
+    this->arrow4 = nullptr;
+    this->shop_inv = nullptr;
+}

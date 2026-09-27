@@ -1826,7 +1826,8 @@ extern ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4FD
 extern ?sub_4B4BA9@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BA9()
 
 ;VisInvExtType1
-externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc
+extern ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1::VisInvExtType1(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
+externdef ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtBase::VisInvExtBase(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
 extern ??1VisInvExtType1@@UAE@XZ : proc  ; virtual VisInvExtType1::~VisInvExtType1()
 extern ??_GVisInvExtType1@@UAEPAXI@Z : proc  ; virtual VisInvExtType1::~VisInvExtType1() (scalar deleting dtor)
 extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::GetHint()

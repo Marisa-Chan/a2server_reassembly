@@ -136890,8 +136890,8 @@ sub_4B4938      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4B4A0C(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_4B4A0C      proc near               ; CODE XREF: ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z+37↓p
+; int __stdcall ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z      proc near               ; CODE XREF: ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z+37↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -136966,7 +136966,7 @@ arg_14          = dword ptr  1Ch
                 pop     ebp
                 retn    18h
 ; } // starts at 4B4A0C
-sub_4B4A0C      endp
+??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -137071,105 +137071,6 @@ sub_4B62D8      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z      proc near               ; CODE XREF: ?VMethod26@VisShop@@UAEXXZ+11B↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005FDB18 SIZE 0000002B BYTES
-
-; __unwind { // SEH_4B63F7
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4B63F7
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+yBottom]
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+xRight]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+yTop]
-                push    eax             ; yTop
-                mov     ecx, dword ptr [ebp+xLeft]
-                push    ecx             ; xLeft
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4B4A0C
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 20CCh      ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 20DCh      ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                push    offset ??1CWinThread@@UAE@XZ_2 ; void (__thiscall *)(void *)
-                push    offset sub_41FB80 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 2100h
-                push    eax             ; void *
-                call    ??_L@YGXPAXIHP6EX0@Z1@Z ; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))
-;   } // starts at 4B6433
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60D1A8
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                mov     ecx, 50h ; 'P'
-                idiv    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+88h], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                cdq
-                mov     ecx, 50h ; 'P'
-                idiv    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+8Ch], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod39@VisInvExtType1@@UAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod35@VisInvBase@@UAEXXZ
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+20ECh], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+20F0h], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+20F4h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+20F8h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+20FCh], 0
-;   } // starts at 4B6472
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 4B63F7
-??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -138702,7 +138603,7 @@ arg_14          = dword ptr  1Ch
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx             ; int
                 mov     ecx, dword ptr [ebp+var_14]
-                call    sub_4B4A0C
+                call    ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_14]
@@ -139982,7 +139883,7 @@ arg_14          = dword ptr  1Ch
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx             ; int
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4B4A0C
+                call    ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_10]
@@ -352764,7 +352665,7 @@ SEH_4B4938:                             ; DATA XREF: sub_4B4938+5↑o
 ; } // starts at 5FDA73
 ; END OF FUNCTION CHUNK FOR sub_4B4938
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4B4A0C
+; START OF FUNCTION CHUNK FOR ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 
 unknown_libname_991:                    ; DATA XREF: .rdata:stru_61EDA0↓o
 ; __unwind { // SEH_4B4A0C              ; MFC 3.1-14.0 32bit
@@ -352774,11 +352675,11 @@ unknown_libname_991:                    ; DATA XREF: .rdata:stru_61EDA0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4B4A0C:                             ; DATA XREF: sub_4B4A0C+5↑o
+SEH_4B4A0C:                             ; DATA XREF: ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z+5↑o
                 mov     eax, offset stru_61ED80
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FDA86
-; END OF FUNCTION CHUNK FOR sub_4B4A0C
+; END OF FUNCTION CHUNK FOR ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 ; START OF FUNCTION CHUNK FOR sub_4B62D8
 
 loc_5FDAED:                             ; DATA XREF: .rdata:stru_61EE58↓o
@@ -352806,35 +352707,6 @@ SEH_4B62D8:                             ; DATA XREF: sub_4B62D8+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FDAED
 ; END OF FUNCTION CHUNK FOR sub_4B62D8
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
-
-loc_5FDB18:                             ; DATA XREF: .rdata:stru_61EE88↓o
-; __unwind { // SEH_4B63F7
-;   cleanup() // owned by 4B6433
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisInvExtBase@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDB21:                             ; DATA XREF: .rdata:0061EE90↓o
-;   cleanup() // owned by 4B6472        ; void (__thiscall *)(void *)
-                push    offset ??1CWinThread@@UAE@XZ_2
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 2100h
-                push    eax             ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4B63F7:                             ; DATA XREF: ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z+5↑o
-                mov     eax, offset stru_61EE68
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDB18
-; END OF FUNCTION CHUNK FOR ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
-; ---------------------------------------------------------------------------
 ; END OF FUNCTION CHUNK FOR std::locale::_Locimp::~_Locimp(void)
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod41@VisInvExtType1@@UAEXXZ
@@ -386062,13 +385934,6 @@ stru_61EE38     FuncInfoV1 <19930520h, 2, offset stru_61EE58, 0, 0, 0, 0>
                 db    0
 stru_61EE58     UnwindMapEntry <-1, offset loc_5FDAED>
                 UnwindMapEntry <0, offset loc_5FDAF6>
-stru_61EE68     FuncInfoV1 <19930520h, 2, offset stru_61EE88, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61EE88     UnwindMapEntry <-1, offset loc_5FDB18>
-                UnwindMapEntry <0, offset loc_5FDB21>
 stru_61EEC8     FuncInfoV1 <19930520h, 5, offset stru_61EEE8, 0, 0, 0, 0>
                 align 8
 stru_61EEE8     UnwindMapEntry <-1, offset loc_5FDB6E>
