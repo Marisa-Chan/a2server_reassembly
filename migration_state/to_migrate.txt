@@ -449,7 +449,6 @@
 ?sub_4B871C@VisInvExtType2@@QAEXXZ	39
 ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z	77
 ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z	88
-?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z	119
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType3@@UAEPAXI@Z	24

@@ -11759,3 +11759,26 @@ const char* VisInvExtType2::GetHint()
     }
     return VisInvExtBase::GetHint();
 }
+
+
+// 4B87CE
+int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+    CPoint rel = pos - topleft;
+
+    if (this->field_0x20cc.PtInRect(rel)) {
+        this->sub_4A5350();
+        FUN_00438f20(&this->field_0x20bc.sample);
+        CSound::Play(this->field_0x20bc);
+        return 1;
+    }
+    if (this->field_0x20dc.PtInRect(rel)) {
+        this->sub_4A51C9();
+        FUN_00438f20(&this->field_0x20bc.sample);
+        CSound::Play(this->field_0x20bc);
+        return 1;
+    }
+    return VisInvExtBase::OnLButtonDown(wparam, pos);
+}
