@@ -144101,18 +144101,6 @@ sub_4B9E10      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_645 proc near           ; DATA XREF: .rdata:0060D194↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_645 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -374503,7 +374491,7 @@ off_60D0E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z
                 dd offset ?VMethod37@VisInvBase@@UAEHH@Z
                 dd offset ?VMethod38@VisInvExtBase@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset unknown_libname_645 ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod39@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset sub_4B4DAA
                 dd offset unknown_libname_647 ; Microsoft VisualC 2-14/net runtime
                 dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime

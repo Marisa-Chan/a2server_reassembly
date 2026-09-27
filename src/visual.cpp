@@ -10994,3 +10994,9 @@ int32_t VisInvExtBase::VMethod38()
 {
     return -1;
 }
+
+
+// 4B9E30
+void VisInvExtBase::VMethod39()
+{
+}

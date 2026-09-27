@@ -821,6 +821,7 @@
 ?VMethod38@VisInvBase@@UAEHXZ
 ?VMethod38@VisInvExtBase@@UAEHXZ
 ?VMethod38@VisShopCompass@@UAEHXZ
+?VMethod39@VisInvExtBase@@UAEXXZ
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
