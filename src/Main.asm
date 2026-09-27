@@ -34707,7 +34707,7 @@ loc_43573D:                             ; CODE XREF: ?GetHotspotId@VisStartGame@
 
 ; Attributes: bp-based frame
 
-sub_435743      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+64↓p
+?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+64↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34721,12 +34721,12 @@ var_4           = dword ptr -4
                 jmp     short loc_43575E
 ; ---------------------------------------------------------------------------
 
-loc_435755:                             ; CODE XREF: sub_435743+43↓j
+loc_435755:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+43↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_43575E:                             ; CODE XREF: sub_435743+10↑j
+loc_43575E:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+10↑j
                 cmp     [ebp+var_4], 3
                 jge     short loc_435788
                 mov     ecx, dword ptr [ebp+var_4]
@@ -34743,18 +34743,18 @@ loc_43575E:                             ; CODE XREF: sub_435743+10↑j
                 jmp     short loc_435755
 ; ---------------------------------------------------------------------------
 
-loc_435788:                             ; CODE XREF: sub_435743+1F↑j
+loc_435788:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_435743      endp
+?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_43578C      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+112↓p
+?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+112↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34768,12 +34768,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4357A7
 ; ---------------------------------------------------------------------------
 
-loc_43579E:                             ; CODE XREF: sub_43578C+43↓j
+loc_43579E:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+43↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4357A7:                             ; CODE XREF: sub_43578C+10↑j
+loc_4357A7:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+10↑j
                 cmp     [ebp+var_4], 4
                 jge     short loc_4357D1
                 mov     ecx, dword ptr [ebp+var_4]
@@ -34790,18 +34790,18 @@ loc_4357A7:                             ; CODE XREF: sub_43578C+10↑j
                 jmp     short loc_43579E
 ; ---------------------------------------------------------------------------
 
-loc_4357D1:                             ; CODE XREF: sub_43578C+1F↑j
+loc_4357D1:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43578C      endp
+?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4357D5      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+27↓p
+?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+27↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34815,12 +34815,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4357F0
 ; ---------------------------------------------------------------------------
 
-loc_4357E7:                             ; CODE XREF: sub_4357D5+43↓j
+loc_4357E7:                             ; CODE XREF: ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ+43↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4357F0:                             ; CODE XREF: sub_4357D5+10↑j
+loc_4357F0:                             ; CODE XREF: ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ+10↑j
                 cmp     [ebp+var_4], 3
                 jge     short loc_43581A
                 mov     ecx, dword ptr [ebp+var_4]
@@ -34837,18 +34837,18 @@ loc_4357F0:                             ; CODE XREF: sub_4357D5+10↑j
                 jmp     short loc_4357E7
 ; ---------------------------------------------------------------------------
 
-loc_43581A:                             ; CODE XREF: sub_4357D5+1F↑j
+loc_43581A:                             ; CODE XREF: ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4357D5      endp
+?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_43581E      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+1F↓p
+?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+1F↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34862,12 +34862,12 @@ var_4           = dword ptr -4
                 jmp     short loc_435839
 ; ---------------------------------------------------------------------------
 
-loc_435830:                             ; CODE XREF: sub_43581E+43↓j
+loc_435830:                             ; CODE XREF: ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ+43↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_435839:                             ; CODE XREF: sub_43581E+10↑j
+loc_435839:                             ; CODE XREF: ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ+10↑j
                 cmp     [ebp+var_4], 4
                 jge     short loc_435863
                 mov     ecx, dword ptr [ebp+var_4]
@@ -34884,423 +34884,12 @@ loc_435839:                             ; CODE XREF: sub_43581E+10↑j
                 jmp     short loc_435830
 ; ---------------------------------------------------------------------------
 
-loc_435863:                             ; CODE XREF: sub_43581E+1F↑j
+loc_435863:                             ; CODE XREF: ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ+1F↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43581E      endp
+?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?UpdateHotspots@VisStartGame@@QAEIHHI@Z      proc near               ; CODE XREF: ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z+19↓p
-
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 48h
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?GetHotspotId@VisStartGame@@QAEIHH@Z
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_43581E
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4357D5
-                cmp     [ebp+arg_8], 0
-                jz      def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [ebp+var_C], edx
-                mov     eax, dword ptr [ebp+var_C]
-                sub     eax, 14h        ; switch 121 cases
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 78h
-                ja      def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     edx, dword ptr [ebp+var_C]
-                xor     ecx, ecx
-                mov     cl, ds:byte_435BE4[edx]
-                jmp     ds:jpt_4358C1[ecx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_4358C8:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 20
-                call    sub_435743
-                push    0
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_10], eax
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax]
-                or      ecx, 1
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+20Ch], 0
-                jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_435902:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 40
-                call    sub_435743
-                push    1
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx]
-                or      edx, 1
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [eax], edx
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+20Ch], 1
-                jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_43593C:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 60
-                call    sub_435743
-                push    2
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_18], eax
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx]
-                or      eax, 1
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ecx], eax
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+20Ch], 2
-                jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_435976:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 80
-                call    sub_43578C
-                push    0
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_1C], eax
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     ecx, dword ptr [eax]
-                or      ecx, 1
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [edx], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+208h], 0
-                jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_4359B0:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 140
-                call    sub_43578C
-                push    3
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx]
-                or      edx, 1
-                mov     eax, dword ptr [ebp+var_20]
-                mov     [eax], edx
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+208h], 3
-                jmp     short def_4358C1 ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_4359E7:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 100
-                call    sub_43578C
-                push    1
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_24], eax
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx]
-                or      eax, 1
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ecx], eax
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+208h], 1
-                jmp     short def_4358C1 ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_435A1E:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 120
-                call    sub_43578C
-                push    2
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_28], eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax]
-                or      ecx, 1
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [edx], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+208h], 2
-
-def_4358C1:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+30↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     dword ptr [ecx+1B8h], 0
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+1B4h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [ebp+var_2C], eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                sub     ecx, 14h        ; switch 161 cases
-                mov     [ebp+var_2C], ecx
-                cmp     [ebp+var_2C], 0A0h
-                ja      def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-                mov     eax, dword ptr [ebp+var_2C]
-                xor     edx, edx
-                mov     dl, ds:byte_435C85[eax]
-                jmp     ds:jpt_435A94[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_435A9B:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    0               ; jumptable 00435A94 case 20
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_30], eax
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_30]
-                mov     [eax], edx
-                jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435AC0:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    1               ; jumptable 00435A94 case 40
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_34], eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [eax], edx
-                jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435AE5:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    2               ; jumptable 00435A94 case 60
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_38], eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_38]
-                mov     [eax], edx
-                jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435B0A:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    0               ; jumptable 00435A94 case 80
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_3C], eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     [eax], edx
-                jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435B2F:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    3               ; jumptable 00435A94 case 140
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_40], eax
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_40]
-                mov     [eax], edx
-                jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435B51:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    1               ; jumptable 00435A94 case 100
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_44], eax
-                mov     ecx, dword ptr [ebp+var_44]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_44]
-                mov     [eax], edx
-                jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435B73:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                push    2               ; jumptable 00435A94 case 120
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_48], eax
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     edx, dword ptr [ecx]
-                or      edx, 2
-                mov     eax, dword ptr [ebp+var_48]
-                mov     [eax], edx
-                jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435B95:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 00435A94 case 160
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+15Ch]
-                mov     [ecx+1B4h], eax
-                jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_435BA9:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 00435A94 case 180
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+160h]
-                mov     [ecx+1B8h], eax
-
-def_435A94:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+21C↑j
-                mov     eax, dword ptr [ebp+var_4] ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?UpdateHotspots@VisStartGame@@QAEIHHI@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_4358C1      dd offset loc_4358C8    ; DATA XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑r
-                dd offset loc_435902    ; jump table for switch statement
-                dd offset loc_43593C
-                dd offset loc_435976
-                dd offset loc_4359E7
-                dd offset loc_435A1E
-                dd offset loc_4359B0
-                dd offset def_4358C1
-byte_435BE4     db      0,     7,     7,     7
-                db      7,     7,     7,     7 ; indirect table for switch statement
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      1,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      2,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      3,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      4,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      5,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      6
-jpt_435A94      dd offset loc_435A9B    ; DATA XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑r
-                dd offset loc_435AC0    ; jump table for switch statement
-                dd offset loc_435AE5
-                dd offset loc_435B0A
-                dd offset loc_435B51
-                dd offset loc_435B73
-                dd offset loc_435B2F
-                dd offset loc_435B95
-                dd offset loc_435BA9
-                dd offset def_435A94
-byte_435C85     db      0,     9,     9,     9
-                db      9,     9,     9,     9 ; indirect table for switch statement
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      1,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      2,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      3,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      4,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      5,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      6,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      7,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      8
 
 ; =============== S U B R O U T I N E =======================================
 

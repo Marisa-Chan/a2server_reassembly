@@ -795,6 +795,7 @@
 ?UnlockSurface3@@YAIXZ
 ?Unpaint@CMousePointer@@QAEXXZ
 ?Update@CMousePointer@@QAEXXZ
+?UpdateHotspots@VisStartGame@@QAEIHHI@Z
 ?UpdateSelectionState@BigStruct2@@QAEXXZ
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ

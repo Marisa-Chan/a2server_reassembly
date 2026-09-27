@@ -13214,3 +13214,84 @@ uint32_t VisStartGame::DrawTipsHighlight(uint32_t hotspot)
     }
     return elapsed;
 }
+
+
+// 435867
+uint32_t VisStartGame::UpdateHotspots(int32_t x, int32_t y, uint32_t pressed)
+{
+    uint32_t hotspot = this->GetHotspotId(x, y);
+    this->ClearPortraitHoverFlags();
+    this->ClearDifficultyHoverFlags();
+    if (pressed != 0) {
+        switch (hotspot) {
+        case 0x14:
+            this->ClearDifficultySelectedFlags();
+            this->difficultyStateFlags.ElementAt(0) |= 1;
+            this->selectedDifficultyIndex = 0;
+            break;
+        case 0x28:
+            this->ClearDifficultySelectedFlags();
+            this->difficultyStateFlags.ElementAt(1) |= 1;
+            this->selectedDifficultyIndex = 1;
+            break;
+        case 0x3C:
+            this->ClearDifficultySelectedFlags();
+            this->difficultyStateFlags.ElementAt(2) |= 1;
+            this->selectedDifficultyIndex = 2;
+            break;
+        case 0x50:
+            this->ClearPortraitSelectedFlags();
+            this->portraitStateFlags.ElementAt(0) |= 1;
+            this->selectedPortraitIndex = 0;
+            break;
+        case 0x64:
+            this->ClearPortraitSelectedFlags();
+            this->portraitStateFlags.ElementAt(1) |= 1;
+            this->selectedPortraitIndex = 1;
+            break;
+        case 0x78:
+            this->ClearPortraitSelectedFlags();
+            this->portraitStateFlags.ElementAt(2) |= 1;
+            this->selectedPortraitIndex = 2;
+            break;
+        case 0x8C:
+            this->ClearPortraitSelectedFlags();
+            this->portraitStateFlags.ElementAt(3) |= 1;
+            this->selectedPortraitIndex = 3;
+            break;
+        }
+    }
+
+    this->acceptHoverBitmap = nullptr;
+    this->returnToGameHoverBitmap = nullptr;
+    switch (hotspot) {
+    case 0x14:
+        this->difficultyStateFlags.ElementAt(0) |= 2;
+        break;
+    case 0x28:
+        this->difficultyStateFlags.ElementAt(1) |= 2;
+        break;
+    case 0x3C:
+        this->difficultyStateFlags.ElementAt(2) |= 2;
+        break;
+    case 0x50:
+        this->portraitStateFlags.ElementAt(0) |= 2;
+        break;
+    case 0x64:
+        this->portraitStateFlags.ElementAt(1) |= 2;
+        break;
+    case 0x78:
+        this->portraitStateFlags.ElementAt(2) |= 2;
+        break;
+    case 0x8C:
+        this->portraitStateFlags.ElementAt(3) |= 2;
+        break;
+    case 0xA0:
+        this->returnToGameHoverBitmap = this->returnToGameButtonBitmap;
+        break;
+    case 0xB4:
+        this->acceptHoverBitmap = this->acceptButtonBitmap;
+        break;
+    }
+    return hotspot;
+}

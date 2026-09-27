@@ -545,6 +545,10 @@
 ?Cancel@VisStartGame@@QAEXXZ	23
 ??_GVisStartGame@@UAEPAXI@Z	24
 ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z	31
+?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ	40
+?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
+?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40
+?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
 ?OnKeyDown@VisStartGame@@UAEHI@Z	43
 ?GetHotspotId@VisStartGame@@QAEIHH@Z	61
 ?MsgProc@VisStartGame@@UAEHIII@Z	76
@@ -554,7 +558,6 @@
 ??0VisStartGame@@QAE@HHHHH@Z	150
 ?DoClose@VisStartGame@@UAEXI@Z	152
 ?VMethod28@VisStartGame@@UAEXXZ	310
-?UpdateHotspots@VisStartGame@@QAEIHHI@Z	313
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26

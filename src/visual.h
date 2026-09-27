@@ -2470,6 +2470,11 @@ public:
 	void Accept(); // 43817d
 	void Cancel(); // 4382a9
 
+	void ClearDifficultySelectedFlags(); // 435743
+	void ClearPortraitSelectedFlags(); // 43578c
+	void ClearDifficultyHoverFlags(); // 4357d5
+	void ClearPortraitHoverFlags(); // 43581e
+
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 
 	CString GetName() { return char_name; } // 4973f0
