@@ -782,6 +782,7 @@
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
+?VMethod30@VisInvBase@@UAEHHH@Z
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShopCompass@@UAEXXZ

@@ -10433,3 +10433,10 @@ int32_t VisInvBase::FUN_0046fb90()
 {
     return *this->visible_startref;
 }
+
+
+// 4A79A0
+int32_t VisInvBase::VMethod30(int32_t x, int32_t y)
+{
+    return -1;
+}

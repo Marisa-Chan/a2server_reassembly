@@ -1761,7 +1761,7 @@ extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBas
 extern ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvBase::VMethod27(TokenEntry*)
 extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInvBase::VMethod28(uint32_t)
 extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
-externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
+extern ?VMethod30@VisInvBase@@UAEHHH@Z : proc  ; int32_t VisInvBase::VMethod30(int32_t, int32_t)
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 
