@@ -114760,136 +114760,6 @@ loc_4A579B:                             ; CODE XREF: ?VMethod27@VisInvBase@@UAEH
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z      proc near               ; DATA XREF: .rdata:0060CA30↓o
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005FD2F1 SIZE 00000014 BYTES
-
-; __unwind { // SEH_4A57A1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A57A1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 18h
-                mov     [ebp+var_20], ecx
-                mov     [ebp+var_14], 0
-                jmp     short loc_4A57D1
-; ---------------------------------------------------------------------------
-
-loc_4A57C8:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z:loc_4A58C5↓j
-                mov     eax, dword ptr [ebp+var_14]
-                add     eax, 1
-                mov     [ebp+var_14], eax
-
-loc_4A57D1:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+25↑j
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [ecx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     loc_4A58CA
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+84h]
-                call    sub_46FB50
-                xor     ecx, ecx
-                mov     cx, [eax+4]
-                cmp     [ebp+arg_0], ecx
-                jnz     loc_4A58C5
-                push    1
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+84h]
-                call    sub_46FB50
-                mov     ecx, eax
-                call    ?sub_4A7880@TokenEntry@@QAEHH@Z
-                test    eax, eax
-                jnz     short loc_4A585D
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [edx+84h]
-                call    sub_46FB50
-                mov     [ebp+var_10], eax
-                push    1
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [ecx+84h]
-                call    sub_41FD50
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+10h], 1
-                jmp     short loc_4A58C0
-; ---------------------------------------------------------------------------
-
-loc_4A585D:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+85↑j
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4A5881
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0TokenEntry@@QAE@XZ
-                mov     [ebp+var_24], eax
-                jmp     short loc_4A5888
-; ---------------------------------------------------------------------------
-
-loc_4A5881:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+D1↑j
-                mov     [ebp+var_24], 0
-
-loc_4A5888:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+DE↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     [ebp+var_1C], eax
-;   } // starts at 4A5867
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+84h]
-                call    sub_46FB50
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??4TokenEntry@@QAEXABV0@@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+10h], 1
-
-loc_4A58C0:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+BA↑j
-                mov     eax, dword ptr [ebp+var_10]
-                jmp     short loc_4A58CC
-; ---------------------------------------------------------------------------
-
-loc_4A58C5:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+62↑j
-                jmp     loc_4A57C8
-; ---------------------------------------------------------------------------
-
-loc_4A58CA:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+41↑j
-                xor     eax, eax
-
-loc_4A58CC:                             ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+122↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 4A57A1
-?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -356656,23 +356526,6 @@ SEH_4A4EBC:                             ; DATA XREF: sub_4A4EBC+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FD298
 ; END OF FUNCTION CHUNK FOR sub_4A4EBC
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
-
-loc_5FD2F1:                             ; DATA XREF: .rdata:stru_61E3F8↓o
-; __unwind { // SEH_4A57A1
-;   cleanup() // owned by 4A5867
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A57A1:                             ; DATA XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+5↑o
-                mov     eax, offset stru_61E3D8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FD2F1
-; END OF FUNCTION CHUNK FOR ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
 ; START OF FUNCTION CHUNK FOR sub_4A627C
 
 unknown_libname_988:                    ; DATA XREF: .rdata:stru_61E450↓o
@@ -391112,9 +390965,7 @@ stru_61E3B8     UnwindMapEntry <-1, offset loc_5FD298>
                 UnwindMapEntry <0, offset loc_5FD2A2>
                 UnwindMapEntry <1, offset loc_5FD2B9>
                 UnwindMapEntry <2, offset loc_5FD2D0>
-stru_61E3D8     FuncInfoV1 <19930520h, 1, offset stru_61E3F8, 0, 0, 0, 0>
                 align 8
-stru_61E3F8     UnwindMapEntry <-1, offset loc_5FD2F1>
                 align 10h
 stru_61E430     FuncInfoV1 <19930520h, 1, offset stru_61E450, 0, 0, 0, 0>
                 db    0

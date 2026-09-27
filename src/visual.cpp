@@ -10374,3 +10374,25 @@ int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx)
     this->grid_source->Add(o);
     return this->grid_source->GetUpperBound();
 }
+
+
+// 4A57A1
+TokenEntry* VisInvBase::VMethod28(uint32_t id)
+{
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (id != entry->field_0x4) {
+            continue;
+        }
+        if (entry->sub_4A7880(1)) {
+            TokenEntry* result = new TokenEntry();
+            *result = *entry;
+            result->field_0x10 = 1;
+            return result;
+        }
+        this->grid_source->RemoveAt(i, 1);
+        entry->field_0x10 = 1;
+        return entry;
+    }
+    return nullptr;
+}

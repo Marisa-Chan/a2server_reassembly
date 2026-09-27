@@ -1759,7 +1759,7 @@ externdef ?GetHint@VisInvBase@@UAEPBDXZ : proc
 externdef ?MsgProc@VisInvBase@@UAEHIII@Z : proc
 extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBase::VMethod26(TokenEntry*, int32_t)
 externdef ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc
-externdef ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc
+extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInvBase::VMethod28(uint32_t)
 extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
 externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
