@@ -1587,6 +1587,7 @@ externdef ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
 externdef ?VMethod26@VisDropGold@@UAEXXZ : proc
 externdef ?VMethod28@VisDropGold@@UAEXXZ : proc
 externdef ?DoClose@VisDropGold@@UAEXI@Z : proc
+externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004a7a30(int32_t idx)  //4a7a30 in asm
 ;VisMainMenu
 externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisMainMenu@@UAEXXZ : proc
@@ -1802,7 +1803,7 @@ extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc

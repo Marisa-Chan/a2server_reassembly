@@ -2307,6 +2307,8 @@ public:
 	virtual void VMethod28() override; // 441FA3
 	virtual void DoClose(uint32_t code) override; // 441FEE
 
+	void FUN_004a7a30(int32_t idx); //4a7a30 in asm
+
 	VisDropGold(int32_t _id, int32_t _x, int32_t _y); // 60a170 in asm
 public:
 	int32_t selection;

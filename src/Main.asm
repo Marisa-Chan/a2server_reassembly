@@ -113990,144 +113990,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CABC↓o
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                cmp     dword ptr [eax+84h], 0
-                jnz     short loc_4A6F63
-                mov     eax, 1
-                jmp     loc_4A70D4
-; ---------------------------------------------------------------------------
-
-loc_4A6F63:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+13↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                neg     ecx
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+88h]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0FFFFFFFFh
-                jnz     short loc_4A6F8E
-                mov     eax, 1
-                jmp     loc_4A70D4
-; ---------------------------------------------------------------------------
-
-loc_4A6F8E:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+3E↑j
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ecx+84h]
-                call    sub_46FB50
-                mov     ecx, eax
-                call    ?FUN_0041f0d0@TokenEntry@@QAEHXZ
-                test    eax, eax
-                jz      loc_4A7072
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0D0h]
-                mov     ecx, dword ptr [eax+9CCh]
-                cmp     dword ptr [ecx+10h], 0
-                jle     loc_4A7070
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+418h]
-                or      eax, 8
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+418h], eax
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+120h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_4]
-                push    edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+120h]
-                call    sub_4A7A30
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+120h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+120h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+34h]
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jz      short loc_4A7063
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ResetStates@CMousePointer@@QAEXXZ
-
-loc_4A7063:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+113↑j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+460h], 0
-
-loc_4A7070:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+86↑j
-                jmp     short loc_4A70CF
-; ---------------------------------------------------------------------------
-
-loc_4A7072:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+6D↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+84h]
-                call    sub_46FB50
-                mov     ecx, eax
-                call    ?sub_43A6D5@TokenEntry@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_4A70CF
-                push    1
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+0A0h]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 0
-                jz      short loc_4A70CF
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                sub     eax, 1
-                push    eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0E0h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+0E0h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+7Ch]
-
-loc_4A70CF:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z:loc_4A7070↑j
-                mov     eax, 1
-
-loc_4A70D4:                             ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+1A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -114624,7 +114486,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_4A7A30      proc near               ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+C6↑p
+?FUN_004a7a30@VisDropGold@@QAEXH@Z      proc near               ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+C6↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -114639,7 +114501,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4A7A30      endp
+?FUN_004a7a30@VisDropGold@@QAEXH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

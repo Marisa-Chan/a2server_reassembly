@@ -384,6 +384,7 @@
 ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	80
 ?ReadData@VisDiplomacy@@UAEXPBX@Z	105
 ?VMethod9@VisDropGold@@UAEXXZ	15
+?FUN_004a7a30@VisDropGold@@QAEXH@Z	15
 ??_GVisDropGold@@UAEPAXI@Z	24
 ?VMethod28@VisDropGold@@UAEXXZ	31
 ??0VisDropGold@@QAE@HHH@Z	51
@@ -453,7 +454,6 @@
 ??0VisInvType1@@QAE@HHHHH@Z	67
 ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	99
 ?VMethod30@VisInvType1@@UAEHHH@Z	129
-?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z	137
 ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
 ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23
 ??_GVisMainMenu@@UAEPAXI@Z	24

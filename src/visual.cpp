@@ -11005,6 +11005,45 @@ const char* VisInvType1::GetHint()
 }
 
 
+// 4A6F44
+int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    if (this->grid_source == nullptr) {
+        return 1;
+    }
+
+    int32_t idx = this->VMethod30(pos.x, -pos.y);
+    if (idx == -1) {
+        return 1;
+    }
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+        if (main_wnd->vis_map_context->my_main_unit->gold > 0) {
+            main_wnd->dialogsMask |= 8;
+            main_wnd->vis_root->AddChild(main_wnd->vis_dropgold);
+            main_wnd->vis_dropgold->FUN_004a7a30(idx);
+            main_wnd->vis_dropgold->VMethod28();
+            main_wnd->vis_root->VMethod9();
+            ApplyCursor(g_Cursors[0]);
+            if (g_mousept.GetSelectState() != 0) {
+                g_mousept.ResetStates();
+            }
+            main_wnd->field_0x460 = 0;
+        }
+    } else {
+        if (this->grid_source->GetAt(idx)->sub_43A6D5() == 0) {
+            TokenEntry* entry = this->VMethod36(idx, 1);
+            if (entry != nullptr) {
+                main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
+            }
+        }
+    }
+
+    return 1;
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {

@@ -548,6 +548,7 @@
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z
+?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z
