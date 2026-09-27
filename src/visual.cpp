@@ -11204,3 +11204,29 @@ void VisInvExtType1::VMethod7()
         }
     }
 }
+
+
+// 4B790D
+int32_t VisInvExtType1::VMethod26(TokenEntry* o, int32_t idx)
+{
+    o->field_0x18 = o->field_0x14 + 5;
+    if (o->field_0x18 >= 5 && o->field_0x18 <= 8 && o->field_0x1c >= 0 && o->field_0x1c < this->grid_source->GetSize()) {
+        TokenEntry* entry = this->grid_source->GetAt(o->field_0x1c);
+        if (entry->FUN_004a78c0()) {
+            *entry = *o;
+        } else {
+            entry->sub_4A7850(o->field_0x10);
+        }
+        return o->field_0x1c;
+    }
+    if (idx >= 0 && idx < this->grid_source->GetSize()) {
+        this->grid_source->InsertAt(idx, o, 1);
+        return idx;
+    }
+    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->FUN_0041f0d0()) {
+        this->grid_source->InsertAt(this->grid_source->GetUpperBound(), o, 1);
+        return this->grid_source->GetUpperBound() - 1;
+    }
+    this->grid_source->Add(o);
+    return this->grid_source->GetUpperBound();
+}
