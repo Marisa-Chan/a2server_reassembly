@@ -1831,7 +1831,7 @@ externdef ??_GVisInvExtType1@@UAEPAXI@Z : proc
 extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::GetHint()
 externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
 externdef ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
-externdef ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnWmUser(uint32_t, CPoint)
 extern ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonDown(uint32_t, CPoint)
 externdef ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc

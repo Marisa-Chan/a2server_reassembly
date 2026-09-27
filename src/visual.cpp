@@ -11282,3 +11282,29 @@ int32_t VisInvExtType1::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return VisInvExtBase::OnLButtonDown(wparam, pos);
 }
+
+
+// 4B7433
+int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos)
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+    CPoint pt = pos - topleft;
+    if (wparam & 1) {
+        if (this->field_0x20cc.PtInRect(pt)) {
+            this->sub_4A5350();
+            this->sub_4A5350();
+            FUN_00438f20(&this->field_0x20bc.sample);
+            CSound::Play(this->field_0x20bc);
+            return 1;
+        }
+        if (this->field_0x20dc.PtInRect(pt)) {
+            this->sub_4A51C9();
+            this->sub_4A51C9();
+            FUN_00438f20(&this->field_0x20bc.sample);
+            CSound::Play(this->field_0x20bc);
+            return 1;
+        }
+    }
+    return 1;
+}
