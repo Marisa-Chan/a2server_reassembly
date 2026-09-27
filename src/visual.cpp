@@ -10909,3 +10909,17 @@ const char* VisInvExtBase::GetHint()
     }
     return this->grid_source->GetAt(idx)->FUN_00439973();
 }
+
+
+// 4B4FD1
+void VisInvExtBase::sub_4B4FD1()
+{
+    int32_t size = this->grid_source->GetSize();
+    if (size - *this->visible_startref < this->visible_columns * this->visible_rows) {
+        int32_t start = size - this->visible_columns * this->visible_rows;
+        if (start <= 0) {
+            start = 0;
+        }
+        *this->visible_startref = start;
+    }
+}

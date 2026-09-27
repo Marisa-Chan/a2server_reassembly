@@ -657,6 +657,7 @@
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_49585B@ServerControlDialog@@QAEXXZ
 ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z
+?sub_4B4FD1@VisInvExtBase@@QAEXXZ
 ?sub_4BC97B@VisShop@@QAEXXZ
 ?sub_4BCDA0@VisShop@@QAEXXZ
 ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z

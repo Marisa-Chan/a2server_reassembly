@@ -137663,63 +137663,6 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-?sub_4B4FD1@VisInvExtBase@@QAEXXZ      proc near               ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+C↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+90h]
-                sub     eax, [edx]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+88h]
-                imul    ecx, [edx+8Ch]
-                cmp     eax, ecx
-                jge     short loc_4B506E
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+88h]
-                imul    ecx, [edx+8Ch]
-                sub     eax, ecx
-                test    eax, eax
-                jle     short loc_4B5059
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+88h]
-                imul    ecx, [edx+8Ch]
-                sub     eax, ecx
-                mov     [ebp+var_8], eax
-                jmp     short loc_4B5060
-; ---------------------------------------------------------------------------
-
-loc_4B5059:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+5E↑j
-                mov     [ebp+var_8], 0
-
-loc_4B5060:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+86↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+90h]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [eax], ecx
-
-loc_4B506E:                             ; CODE XREF: ?sub_4B4FD1@VisInvExtBase@@QAEXXZ+37↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B4FD1@VisInvExtBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
