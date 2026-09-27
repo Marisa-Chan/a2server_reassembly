@@ -11880,6 +11880,13 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B9F10
+int32_t VisInvExtType3::VMethod38()
+{
+    return 4;
+}
+
+
 // 4B9790
 int32_t VisInvExtType3::VMethod37(int32_t idx)
 {

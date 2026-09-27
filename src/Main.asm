@@ -138171,19 +138171,6 @@ sub_4B9E10      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_649 proc near           ; DATA XREF: .rdata:0060D3D0↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_649 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -367906,7 +367893,7 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
                 dd offset ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
                 dd offset ?VMethod37@VisInvExtType3@@UAEHH@Z
-                dd offset unknown_libname_649 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod38@VisInvExtType3@@UAEHXZ ; MFC 3.1-14.0 32bit
                 dd offset sub_4B8E9A
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset sub_4B8D43
