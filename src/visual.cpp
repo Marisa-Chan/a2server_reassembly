@@ -11563,3 +11563,43 @@ int32_t VisInvExtType1::VMethod37(int32_t idx)
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
     return new_idx;
 }
+
+
+// 4B7264
+void VisInvExtType1::sub_4B7264()
+{
+    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    if (this->arrow1 != nullptr) {
+        this->arrow1->VMethod2(topleft.x + 0x2E, topleft.y, 0, 0, 0);
+    }
+}
+
+
+// 4B72C1
+void VisInvExtType1::sub_4B72C1()
+{
+    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    if (this->arrow3 != nullptr) {
+        this->arrow3->VMethod2(topleft.x + 0x2E, topleft.y, 0, 0, 0);
+    }
+}
+
+
+// 4B731E
+void VisInvExtType1::sub_4B731E()
+{
+    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    if (this->arrow2 != nullptr) {
+        this->arrow2->VMethod2(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
+    }
+}
+
+
+// 4B7381
+void VisInvExtType1::sub_4B7381()
+{
+    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    if (this->arrow4 != nullptr) {
+        this->arrow4->VMethod2(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
+    }
+}

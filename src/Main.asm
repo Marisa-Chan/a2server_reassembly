@@ -137126,190 +137126,24 @@ sub_4B62D8      endp
 
 ; Attributes: bp-based frame
 
-?sub_4B7264@VisInvExtType1@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisInvExtType1@@UAEXXZ+F8↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20ACh]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+20ECh], 0
-                jz      short loc_4B72BD
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 2Eh ; '.'
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20ECh]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+20ECh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4B72BD:                             ; CODE XREF: ?sub_4B7264@VisInvExtType1@@QAEXXZ+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B7264@VisInvExtType1@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_4B72C1@VisInvExtType1@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisInvExtType1@@UAEXXZ+102↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20ACh]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+20ECh], 0
-                jz      short loc_4B731A
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 2Eh ; '.'
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20F0h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+20F0h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4B731A:                             ; CODE XREF: ?sub_4B72C1@VisInvExtType1@@QAEXXZ+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B72C1@VisInvExtType1@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_4B731E@VisInvExtType1@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisInvExtType1@@UAEXXZ+191↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20ACh]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+20F4h], 0
-                jz      short loc_4B737D
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10Fh
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 2Eh ; '.'
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20F4h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+20F4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4B737D:                             ; CODE XREF: ?sub_4B731E@VisInvExtType1@@QAEXXZ+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B731E@VisInvExtType1@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?sub_4B7381@VisInvExtType1@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisInvExtType1@@UAEXXZ+19B↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20ACh]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+20F4h], 0
-                jz      short loc_4B73E0
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10Fh
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 2Eh ; '.'
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+20F8h]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+20F8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_4B73E0:                             ; CODE XREF: ?sub_4B7381@VisInvExtType1@@QAEXXZ+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B7381@VisInvExtType1@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

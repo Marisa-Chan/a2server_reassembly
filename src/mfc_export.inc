@@ -1848,10 +1848,6 @@ externdef ?VMethod38@VisInvExtType1@@UAEHXZ : proc  ; int32_t VisInvExtType1::VM
 extern ?VMethod39@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod39()
 extern ?VMethod41@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod41()
 extern ?VMethod42@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod42()
-externdef ?sub_4B7264@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B7264()
-externdef ?sub_4B72C1@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B72C1()
-externdef ?sub_4B731E@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B731E()
-externdef ?sub_4B7381@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B7381()
 extern ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc  ; void VisInvExtType1::sub_4B73E4(int32_t)
 
 ;VisInvExtType2
