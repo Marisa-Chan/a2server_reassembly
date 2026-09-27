@@ -10416,3 +10416,13 @@ int32_t VisInvBase::VMethod27(TokenEntry* o)
     this->grid_source->Add(o);
     return this->grid_source->GetUpperBound();
 }
+
+
+// 4A5DE0
+int32_t VisInvBase::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x401) {
+        this->FUN_004a5e12();
+    }
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}

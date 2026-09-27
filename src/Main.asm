@@ -114987,42 +114987,13 @@ sub_4A5C39      endp
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisInvBase@@UAEHIII@Z      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+211↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 401h
-                jnz     short loc_4A5DF8
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4A5E12
-
-loc_4A5DF8:                             ; CODE XREF: ?MsgProc@VisInvBase@@UAEHIII@Z+E↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@CVisualObject@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisInvBase@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4A5E12      proc near               ; CODE XREF: ?MsgProc@VisInvBase@@UAEHIII@Z+13↑p
+?FUN_004a5e12@VisInvBase@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisInvBase@@UAEHIII@Z+13↑p
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -115042,7 +115013,7 @@ var_4           = dword ptr -4
                 jmp     loc_4A5FA7
 ; ---------------------------------------------------------------------------
 
-loc_4A5E34:                             ; CODE XREF: sub_4A5E12+1B↑j
+loc_4A5E34:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+1B↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ecx+84h]
                 call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
@@ -115059,26 +115030,26 @@ loc_4A5E34:                             ; CODE XREF: sub_4A5E12+1B↑j
                 jmp     short loc_4A5E82
 ; ---------------------------------------------------------------------------
 
-loc_4A5E6C:                             ; CODE XREF: sub_4A5E12+45↑j
+loc_4A5E6C:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+45↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     edx, dword ptr [ebp+var_10]
                 mov     eax, dword ptr [ecx+88h]
                 imul    eax, [edx+8Ch]
                 mov     [ebp+var_C], eax
 
-loc_4A5E82:                             ; CODE XREF: sub_4A5E12+58↑j
+loc_4A5E82:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+58↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+20A8h], 0
                 mov     [ebp+var_8], 0
                 jmp     short loc_4A5EA1
 ; ---------------------------------------------------------------------------
 
-loc_4A5E98:                             ; CODE XREF: sub_4A5E12:loc_4A5FA2↓j
+loc_4A5E98:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ:loc_4A5FA2↓j
                 mov     edx, dword ptr [ebp+var_8]
                 add     edx, 1
                 mov     [ebp+var_8], edx
 
-loc_4A5EA1:                             ; CODE XREF: sub_4A5E12+84↑j
+loc_4A5EA1:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+84↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     edx, dword ptr [eax+88h]
@@ -115115,7 +115086,7 @@ loc_4A5EA1:                             ; CODE XREF: sub_4A5E12+84↑j
                 cmp     dword ptr [edx+10h], 1
                 jz      short loc_4A5FA2
 
-loc_4A5F26:                             ; CODE XREF: sub_4A5E12+F7↑j
+loc_4A5F26:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+F7↑j
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+90h]
                 mov     edx, dword ptr [ebp+var_8]
@@ -115154,15 +115125,15 @@ loc_4A5F26:                             ; CODE XREF: sub_4A5E12+F7↑j
                 mov     edx, dword ptr [ebp+var_10]
                 mov     dword ptr [edx+20A8h], 1
 
-loc_4A5FA2:                             ; CODE XREF: sub_4A5E12+B1↑j
+loc_4A5FA2:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+B1↑j
                 jmp     loc_4A5E98
 ; ---------------------------------------------------------------------------
 
-loc_4A5FA7:                             ; CODE XREF: sub_4A5E12+1D↑j
+loc_4A5FA7:                             ; CODE XREF: ?FUN_004a5e12@VisInvBase@@QAEXXZ+1D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A5E12      endp
+?FUN_004a5e12@VisInvBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -138975,7 +138946,7 @@ loc_4B5185:                             ; CODE XREF: ?VMethod7@VisInvExtBase@@UA
 loc_4B51A1:                             ; CODE XREF: ?VMethod7@VisInvExtBase@@UAEXXZ+111↑j
                 call    ?LockSurface2@@YAIXZ
                 mov     ecx, dword ptr [ebp+var_CC]
-                call    sub_4A5E12
+                call    ?FUN_004a5e12@VisInvBase@@QAEXXZ
                 mov     [ebp+var_20], 0
                 jmp     short loc_4B51C3
 ; ---------------------------------------------------------------------------

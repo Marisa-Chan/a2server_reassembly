@@ -438,7 +438,7 @@
 ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z	12
 ?FUN_0046fb90@VisInvBase@@QAEHXZ	14
 ??_GVisInvBase@@UAEPAXI@Z	24
-?MsgProc@VisInvBase@@UAEHIII@Z	28
+?FUN_004a5e12@VisInvBase@@QAEXXZ	140
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12

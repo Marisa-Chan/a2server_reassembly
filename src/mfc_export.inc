@@ -1756,7 +1756,7 @@ externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 ;VisInvBase
 externdef ??_GVisInvBase@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvBase@@UAEPBDXZ : proc
-externdef ?MsgProc@VisInvBase@@UAEHIII@Z : proc
+extern ?MsgProc@VisInvBase@@UAEHIII@Z : proc  ; int32_t VisInvBase::MsgProc(uint32_t, uint32_t, uint32_t)
 extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBase::VMethod26(TokenEntry*, int32_t)
 extern ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvBase::VMethod27(TokenEntry*)
 extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInvBase::VMethod28(uint32_t)
@@ -2175,6 +2175,7 @@ extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
+externdef ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()  //4a5e12 in asm
 externdef   ?FUN_0046fb90@VisInvBase@@QAEHXZ  : proc
 extern   ?VMethod2@CUnit@@UAEHXZ  : proc
 extern   ?VMethod3@CUnit@@UAEHXZ  : proc
