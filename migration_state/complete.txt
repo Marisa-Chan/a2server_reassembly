@@ -432,6 +432,7 @@
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
+?GetHint@VisInvExtType1@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisTavScene@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ

@@ -451,7 +451,6 @@
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z	98
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z	119
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z	123
-?GetHint@VisInvExtType1@@UAEPBDXZ	128
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z	34
 ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z	34
 ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z	18

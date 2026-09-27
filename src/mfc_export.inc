@@ -1826,7 +1826,7 @@ extern ?sub_4B4BA9@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BA
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??_GVisInvExtType1@@UAEPAXI@Z : proc
-externdef ?GetHint@VisInvExtType1@@UAEPBDXZ : proc
+extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::GetHint()
 externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
 externdef ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
