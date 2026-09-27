@@ -10638,6 +10638,42 @@ int32_t VisInvBase::VMethod38()
 }
 
 
+// 4A4EBC
+void VisInvBase::FUN_004a4ebc()
+{
+    if (this->grid_source == nullptr) {
+        return;
+    }
+    int32_t total_cells = this->visible_columns * this->visible_rows;
+    int32_t count = this->grid_source->GetSize();
+    if (count >= total_cells) {
+        count = total_cells;
+    }
+    for (int32_t i = 0; i < count; i++) {
+        if (this->cell_update_counter.GetAt(i) != 0) {
+            continue;
+        }
+        TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry == nullptr) {
+            continue;
+        }
+        if (entry->FUN_0041f0d0() != 0 || entry->FUN_004a78c0() != 0) {
+            this->cell_update_counter.ElementAt(i) = 1;
+            continue;
+        }
+        CSprite256* sprite = this->spr_cells.GetAt(i);
+        if (sprite != nullptr) {
+            delete sprite;
+        }
+        CString name = entry->FUN_004394f3();
+        sprite = new CA16("graphics\\inventory\\" + name + ".16a");
+        this->spr_cells.ElementAt(i) = sprite;
+        sprite->ResetPalette(0x10, 4, 0);
+        this->cell_update_counter.ElementAt(i) = 1;
+    }
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {

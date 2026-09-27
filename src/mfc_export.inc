@@ -1778,7 +1778,7 @@ extern ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
 extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
-externdef ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()  //4a4ebc in asm
+extern ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
