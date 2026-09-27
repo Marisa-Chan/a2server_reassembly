@@ -11813,3 +11813,10 @@ int32_t VisInvExtType2::OnWmUser(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4B87AD
+int32_t VisInvExtType2::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    return VisInvExtBase::OnLButtonUp(wparam, pos);
+}
