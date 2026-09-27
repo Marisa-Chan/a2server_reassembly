@@ -13475,3 +13475,17 @@ void VisStartGame::Accept()
         }
     }
 }
+
+
+// 437571
+int32_t VisStartGame::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->VMethod9();
+    } else if (msg == 0x45A && this->tipsPrompt != nullptr) {
+        this->RemoveChild(this->tipsPrompt);
+        delete this->tipsPrompt;
+        this->tipsPrompt = nullptr;
+    }
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}

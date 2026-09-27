@@ -533,6 +533,7 @@
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
+?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
