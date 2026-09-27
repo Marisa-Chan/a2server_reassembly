@@ -443,7 +443,6 @@
 ?sub_4B8666@VisInvExtType2@@QAEXXZ	38
 ?sub_4B86BE@VisInvExtType2@@QAEXXZ	39
 ?sub_4B871C@VisInvExtType2@@QAEXXZ	39
-?VMethod39@VisInvExtType2@@UAEXXZ	222
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType3@@UAEPAXI@Z	24

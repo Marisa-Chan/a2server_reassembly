@@ -861,6 +861,7 @@
 ?VMethod38@VisShopCompass@@UAEHXZ
 ?VMethod39@VisInvExtBase@@UAEXXZ
 ?VMethod39@VisInvExtType1@@UAEXXZ
+?VMethod39@VisInvExtType2@@UAEXXZ
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
 ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z

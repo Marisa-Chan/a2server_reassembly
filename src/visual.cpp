@@ -11856,3 +11856,27 @@ VisInvExtType2::VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int
     this->VMethod39();
     this->VisInvBase::VMethod35();
 }
+
+
+// 4B8102
+void VisInvExtType2::VMethod39()
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+    CPoint bottomright = shop->rect.BottomRight();
+
+    this->field_0x20c4 = new CRect[this->visible_columns * this->visible_rows];
+    this->field_0x20cc = CRect(topleft.x, topleft.y, topleft.x + 0x20, bottomright.y);
+    this->field_0x20dc = CRect(topleft.x + 0x1B0, topleft.y, bottomright.x, bottomright.y);
+
+    CPoint start(this->field_0x20cc.right, this->field_0x20cc.top);
+    for (int32_t col = 0; col < this->visible_columns; col++) {
+        for (int32_t row = 0; row < this->visible_rows; row++) {
+            this->field_0x20c4[row * this->visible_columns + col] = CRect(
+                start.x + col * 0x50,
+                start.y + row * 0x50 + 5,
+                start.x + col * 0x50 + 0x50,
+                start.y + row * 0x50 + 0x55);
+        }
+    }
+}
