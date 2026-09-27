@@ -113607,121 +113607,6 @@ sub_4A4A08      endp
 
 ; Attributes: bp-based frame
 
-sub_4A4ACC      proc near               ; CODE XREF: ??_GVisInvBase@@UAEPAXI@Z+A↓p
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FD25E SIZE 0000003A BYTES
-
-; __unwind { // SEH_4A4ACC
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A4ACC
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     [ebp+var_1C], ecx
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     dword ptr [eax], offset off_60C9B0
-;   try {
-                mov     [ebp+var_4], 3
-                mov     [ebp+var_10], 0
-                jmp     short loc_4A4B0C
-; ---------------------------------------------------------------------------
-
-loc_4A4B03:                             ; CODE XREF: sub_4A4ACC:loc_4A4B71↓j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1
-                mov     [ebp+var_10], ecx
-
-loc_4A4B0C:                             ; CODE XREF: sub_4A4ACC+35↑j
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     ecx, dword ptr [edx+88h]
-                imul    ecx, [eax+8Ch]
-                cmp     [ebp+var_10], ecx
-                jge     short loc_4A4B73
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 5Ch ; '\'
-                call    sub_4A4410
-                cmp     dword ptr [eax], 0
-                jz      short loc_4A4B71
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 5Ch ; '\'
-                call    sub_4A4410
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_14], edx
-                cmp     [ebp+var_14], 0
-                jz      short loc_4A4B6A
-                push    1
-                mov     eax, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_20], eax
-                jmp     short loc_4A4B71
-; ---------------------------------------------------------------------------
-
-loc_4A4B6A:                             ; CODE XREF: sub_4A4ACC+8A↑j
-                mov     [ebp+var_20], 0
-
-loc_4A4B71:                             ; CODE XREF: sub_4A4ACC+6A↑j
-                jmp     short loc_4A4B03
-; ---------------------------------------------------------------------------
-
-loc_4A4B73:                             ; CODE XREF: sub_4A4ACC+56↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 5Ch ; '\'
-                call    sub_4A43F0
-;   } // starts at 4A4AF3
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 2094h
-                call    sub_5DB0F6
-;   } // starts at 4A4B7E
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    sub_5DB0F6
-;   } // starts at 4A4B90
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-;   } // starts at 4A4B9F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4A4ACC
-sub_4A4ACC      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_4A4BCB      proc near               ; CODE XREF: sub_4A4880+9B↑p
 
 var_8           = dword ptr -8
@@ -116594,7 +116479,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -137449,7 +137334,7 @@ loc_4B4B7C:                             ; CODE XREF: sub_4B4AEC+76↑j
 ;   } // starts at 4B4B13
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
@@ -355519,46 +355404,6 @@ SEH_4A4A08:                             ; DATA XREF: sub_4A4A08+5↑o
 ; } // starts at 5FD224
 ; END OF FUNCTION CHUNK FOR sub_4A4A08
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4A4ACC
-
-loc_5FD25E:                             ; DATA XREF: .rdata:stru_61E378↓o
-; __unwind { // SEH_4A4ACC
-;   cleanup() // owned by 4A4B9F
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD267:                             ; DATA XREF: .rdata:0061E380↓o
-;   cleanup() // owned by 4A4B90
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD273:                             ; DATA XREF: .rdata:0061E388↓o
-;   cleanup() // owned by 4A4B7E
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    sub_5DB0F6
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD27F:                             ; DATA XREF: .rdata:0061E390↓o
-;   cleanup() // owned by 4A4AF3
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 2094h
-                call    sub_5DB0F6
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A4ACC:                             ; DATA XREF: sub_4A4ACC+5↑o
-                mov     eax, offset stru_61E358
-                jmp     ___CxxFrameHandler
-; } // starts at 5FD25E
-; END OF FUNCTION CHUNK FOR sub_4A4ACC
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4A4EBC
 
 loc_5FD298:                             ; DATA XREF: .rdata:stru_61E3B8↓o
@@ -355623,7 +355468,7 @@ unknown_libname_988:                    ; DATA XREF: .rdata:stru_61E450↓o
 ; __unwind { // SEH_4A627C              ; MFC 3.1-14.0 32bit
 ;   cleanup() // owned by 4A62A0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -355639,7 +355484,7 @@ loc_5FD336:                             ; DATA XREF: .rdata:stru_61E478↓o
 ; __unwind { // SEH_4A630B
 ;   cleanup() // owned by 4A6343
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -355655,7 +355500,7 @@ loc_5FD349:                             ; DATA XREF: .rdata:stru_61E4A0↓o
 ; __unwind { // SEH_4A63B0
 ;   cleanup() // owned by 4A63DC
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -356910,7 +356755,7 @@ unknown_libname_990:                    ; DATA XREF: .rdata:stru_61ED50↓o
 ; __unwind { // SEH_4B4860              ; MFC 3.1-14.0 32bit
 ;   cleanup() // owned by 4B4884
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -356926,7 +356771,7 @@ loc_5FDA73:                             ; DATA XREF: .rdata:stru_61ED78↓o
 ; __unwind { // SEH_4B4938
 ;   cleanup() // owned by 4B4964
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -356942,7 +356787,7 @@ unknown_libname_991:                    ; DATA XREF: .rdata:stru_61EDA0↓o
 ; __unwind { // SEH_4B4A0C              ; MFC 3.1-14.0 32bit
 ;   cleanup() // owned by 4B4A44
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -356958,7 +356803,7 @@ loc_5FDA99:                             ; DATA XREF: .rdata:stru_61EDC8↓o
 ; __unwind { // SEH_4B4AEC
 ;   cleanup() // owned by 4B4B13
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_4A4ACC
+                call    ??1VisInvBase@@UAE@XZ
                 retn
 ; ---------------------------------------------------------------------------
 
@@ -390038,15 +389883,6 @@ stru_61E338     UnwindMapEntry <-1, offset loc_5FD224>
                 UnwindMapEntry <0, offset loc_5FD22D>
                 UnwindMapEntry <1, offset loc_5FD239>
                 UnwindMapEntry <2, offset loc_5FD245>
-stru_61E358     FuncInfoV1 <19930520h, 4, offset stru_61E378, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61E378     UnwindMapEntry <-1, offset loc_5FD25E>
-                UnwindMapEntry <0, offset loc_5FD267>
-                UnwindMapEntry <1, offset loc_5FD273>
-                UnwindMapEntry <2, offset loc_5FD27F>
 stru_61E398     FuncInfoV1 <19930520h, 4, offset stru_61E3B8, 0, 0, 0, 0>
                 db    0
                 db    0

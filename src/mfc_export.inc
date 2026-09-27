@@ -1468,7 +1468,6 @@ extern ?NextFrame@VisTavSceneAnim@@QAEXXZ : proc
 extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
 ;VisShop
-externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
 externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
@@ -1754,6 +1753,7 @@ externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
 ;VisInvBase
+extern ??1VisInvBase@@UAE@XZ :proc
 extern ??_GVisInvBase@@UAEPAXI@Z : proc  ; virtual VisInvBase::~VisInvBase() (scalar deleting dtor)
 extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
 extern ?MsgProc@VisInvBase@@UAEHIII@Z : proc  ; int32_t VisInvBase::MsgProc(uint32_t, uint32_t, uint32_t)
@@ -1771,6 +1771,8 @@ extern ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisIn
 extern ?VMethod37@VisInvBase@@UAEHH@Z : proc  ; int32_t VisInvBase::VMethod37(int32_t)  ; int32_t VisInvBase::VMethod37(int32_t)  //4a5c39 in asm
 extern ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  ; int32_t VisInvBase::VMethod38()  //4a79b0 in asm
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
+extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
+extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
@@ -1805,6 +1807,7 @@ externdef ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc
 externdef ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc
 externdef ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc
 externdef ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc
+externdef ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc
 
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -2182,8 +2185,6 @@ extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
-extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
-extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
 extern   ?VMethod2@CUnit@@UAEHXZ  : proc
 extern   ?VMethod3@CUnit@@UAEHXZ  : proc
 extern   ?VMethod4@CUnit@@UAEHXZ  : proc

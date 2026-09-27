@@ -125,6 +125,7 @@
 ??1UnitEye2@@QAE@XZ
 ??1UnitList@@QAE@XZ
 ??1VisButton@@UAE@XZ
+??1VisInvBase@@UAE@XZ
 ??1VisListBox@@UAE@XZ
 ??1VisMenuWnd@@UAE@XZ
 ??1VisMessageBox@@UAE@XZ

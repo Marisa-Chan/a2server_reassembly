@@ -19,11 +19,12 @@ class CBmp64;
 class CBmp256;
 class CA16;
 class BigStruct2;
+class VisCharInfo;
 class VisCharSellectStats;
 class VisCharSellectButtons;
 class VisCharSellectList;
+class VisShop;
 class VisTav;
-class VisCharInfo;
 class Item;
 class QuestMap;
 class Scenario;
@@ -1165,7 +1166,6 @@ ASSERT_SIZE(VisOrderToolbar, 0x70);
 
 
 //60c9b0
-class VisShop;
 class VisInvBase : public CVisualObject
 {
 public:
