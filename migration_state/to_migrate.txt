@@ -447,7 +447,6 @@
 ?sub_4B72C1@VisInvExtType1@@QAEXXZ	40
 ?sub_4B731E@VisInvExtType1@@QAEXXZ	41
 ?sub_4B7381@VisInvExtType1@@QAEXXZ	41
-?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z	77
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z	98
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z	34
 ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z	34
