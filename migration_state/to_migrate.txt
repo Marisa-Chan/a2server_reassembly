@@ -135,6 +135,7 @@
 ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ	45
 ?FUN_00494982@CGameSession@@QAEXXZ	51
 ?FUN_00493cd8@CGameSession@@QAEXXZ	58
+?FUN_004948b2@CGameSession@@QAEXXZ	81
 ?FUN_004946e0@CGameSession@@QAEXXZ	183
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
 ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z	2
@@ -290,6 +291,7 @@
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15
 ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z	35
+?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
 ?VMethod8@Vis1200@@UAEXPAVCRect@@@Z	11
 ?FUN_004972d0@Vis1200@@QAEHXZ	14
@@ -453,7 +455,6 @@
 ?VMethod30@VisInvType1@@UAEHHH@Z	129
 ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z	137
 ?GetHint@VisInvType1@@UAEPBDXZ	148
-?MsgProc@VisInvType1@@UAEHIII@Z	202
 ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
 ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23
 ??_GVisMainMenu@@UAEPAXI@Z	24

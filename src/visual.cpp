@@ -10926,6 +10926,46 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 4A7441
+int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (msg == 0x417) {
+        if (lparam != 0) {
+            CRect screen_rect = this->ClientRectToScreen(this->rect);
+            CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+            if (screen_rect.PtInRect(mouse_pt)) {
+                int32_t idx = this->VMethod30(g_mousept.GetX(), -g_mousept.GetY());
+                if (idx >= 0) {
+                    main_wnd->m_GameSession.shortcuts[wparam].sub_41E343(this->grid_source->GetAt(idx));
+                    for (int32_t i = 0; i < 9; i++) {
+                        if (i != wparam && main_wnd->m_GameSession.shortcuts[i].FUN_0041e3af(this->grid_source->GetAt(idx)) != 0) {
+                            main_wnd->m_GameSession.shortcuts[i].kind = 0;
+                        }
+                    }
+                    main_wnd->m_GameSession.FUN_004948b2();
+                }
+            }
+        } else {
+            if (this->grid_source != nullptr) {
+                for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+                    if (main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e3af(this->grid_source->GetAt(i)) != 0) {
+                        TokenEntry* entry = this->VMethod36(i, 1);
+                        if (entry != nullptr) {
+                            main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return VisInvBase::MsgProc(msg, wparam, lparam);
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {

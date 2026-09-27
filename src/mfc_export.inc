@@ -1395,6 +1395,8 @@ extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::Tok
 extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
 externdef ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t UserShortcut::FUN_0041e3af(TokenEntry*)  //41e3af in asm
+externdef ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z : proc  ; void UserShortcut::sub_41E343(TokenEntry*)  //41e343 in asm
+externdef ?FUN_004948b2@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_004948b2()  //4948b2 in asm
 
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
@@ -1795,7 +1797,7 @@ extern ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvType1@@UAEPBDXZ : proc
 extern ?VMethod7@VisInvType1@@UAEXXZ : proc
-externdef ?MsgProc@VisInvType1@@UAEHIII@Z : proc
+extern ?MsgProc@VisInvType1@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc

@@ -137,6 +137,7 @@ struct UserShortcut
     int ToBuffer(uint8_t** buf); //41e5ed
 
     int32_t FUN_0041e3af(TokenEntry* entry); //41e3af in asm
+    void sub_41E343(TokenEntry* entry); //41e343 in asm
 
     void WriteToFile(CFile* f); //41e4d3
     void ReadFromFile(CFile* f); //41e53b
@@ -173,6 +174,7 @@ public:
 
     void RefreshCharacterRosterFiles(int val); //49265a
     void InitializeNewCharacterSession(int tp, const char* name); //493ab6
+    void FUN_004948b2(); //4948b2 in asm
 public:
     int32_t field_0x4 = 0;
     int32_t sessionKeyPart1 = 0;

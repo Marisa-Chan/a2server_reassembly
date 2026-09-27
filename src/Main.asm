@@ -4127,7 +4127,7 @@ sub_41E323      endp
 
 ; Attributes: bp-based frame
 
-sub_41E343      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+DD↓p
+?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+DD↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -4169,11 +4169,11 @@ arg_0           = dword ptr  8
                 call    _memcpy
                 add     esp, 0Ch
 
-loc_41E3A9:                             ; CODE XREF: sub_41E343+32↑j
+loc_41E3A9:                             ; CODE XREF: ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z+32↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_41E343      endp
+?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -107521,7 +107521,7 @@ loc_4948AE:                             ; CODE XREF: ?FUN_004946e0@CGameSession@
 
 ; Attributes: bp-based frame
 
-sub_4948B2      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+14E↓p
+?FUN_004948b2@CGameSession@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+14E↓p
 
 var_A18         = dword ptr -0A18h
 var_A14         = dword ptr -0A14h
@@ -107543,7 +107543,7 @@ var_4           = dword ptr -4
                 jmp     loc_49497E
 ; ---------------------------------------------------------------------------
 
-loc_4948DA:                             ; CODE XREF: sub_4948B2+21↑j
+loc_4948DA:                             ; CODE XREF: ?FUN_004948b2@CGameSession@@QAEXXZ+21↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+0D0h]
                 mov     [ebp+var_8], edx
@@ -107556,12 +107556,12 @@ loc_4948DA:                             ; CODE XREF: sub_4948B2+21↑j
                 jmp     short loc_49490F
 ; ---------------------------------------------------------------------------
 
-loc_494906:                             ; CODE XREF: sub_4948B2+7F↓j
+loc_494906:                             ; CODE XREF: ?FUN_004948b2@CGameSession@@QAEXXZ+7F↓j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1
                 mov     [ebp+var_10], ecx
 
-loc_49490F:                             ; CODE XREF: sub_4948B2+52↑j
+loc_49490F:                             ; CODE XREF: ?FUN_004948b2@CGameSession@@QAEXXZ+52↑j
                 cmp     [ebp+var_10], 9
                 jge     short loc_494933
                 lea     edx, [ebp+var_4]
@@ -107574,7 +107574,7 @@ loc_49490F:                             ; CODE XREF: sub_4948B2+52↑j
                 jmp     short loc_494906
 ; ---------------------------------------------------------------------------
 
-loc_494933:                             ; CODE XREF: sub_4948B2+61↑j
+loc_494933:                             ; CODE XREF: ?FUN_004948b2@CGameSession@@QAEXXZ+61↑j
                 mov     edx, dword ptr [ebp+var_4]
                 lea     eax, [ebp+var_A10]
                 sub     edx, eax
@@ -107598,11 +107598,11 @@ loc_494933:                             ; CODE XREF: sub_4948B2+61↑j
                 call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
                 add     esp, 20h
 
-loc_49497E:                             ; CODE XREF: sub_4948B2+23↑j
+loc_49497E:                             ; CODE XREF: ?FUN_004948b2@CGameSession@@QAEXXZ+23↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4948B2      endp
+?FUN_004948b2@CGameSession@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -114268,209 +114268,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisInvType1@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060CAA8↓o
-
-var_38          = dword ptr -38h
-pt              = POINT ptr -34h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 38h
-                mov     [ebp+var_38], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+arg_0], 417h
-                jnz     loc_4A7643
-                cmp     [ebp+arg_8], 0
-                jz      loc_4A7599
-                lea     ecx, [ebp+var_14] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_38]
-                add     eax, 8
-                push    eax
-                lea     ecx, [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                push    eax
-                lea     ecx, [ebp+var_1C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     dword ptr [ebp+pt], edx ; pt.x
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [ebp+pt+4], eax ; pt.y
-                mov     ecx, dword ptr [ebp+pt+4] ; pt.y
-                push    ecx
-                mov     edx, dword ptr [ebp+pt] ; pt.x
-                push    edx             ; pt
-                lea     ecx, [ebp+var_14]
-                call    sub_41E9A0
-                test    eax, eax
-                jz      loc_4A7594
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                neg     eax
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                push    eax
-                mov     eax, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_38]
-                call    dword ptr [edx+88h]
-                mov     [ebp+var_20], eax
-                cmp     [ebp+var_20], 0
-                jl      loc_4A7594
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [ecx+84h]
-                call    sub_41FC60
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                imul    eax, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                lea     ecx, [ecx+eax+4F4h]
-                call    sub_41E343
-                mov     [ebp+var_24], 0
-                jmp     short loc_4A7535
-; ---------------------------------------------------------------------------
-
-loc_4A752C:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z:loc_4A7584↓j
-                mov     edx, dword ptr [ebp+var_24]
-                add     edx, 1
-                mov     [ebp+var_24], edx
-
-loc_4A7535:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+E9↑j
-                cmp     [ebp+var_24], 9
-                jge     short loc_4A7586
-                mov     eax, dword ptr [ebp+var_24]
-                cmp     eax, [ebp+arg_4]
-                jz      short loc_4A7584
-                mov     ecx, dword ptr [ebp+var_20]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [edx+84h]
-                call    sub_41FC60
-                mov     eax, dword ptr [eax]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                imul    ecx, 0Ch
-                mov     edx, dword ptr [ebp+var_4]
-                lea     ecx, [edx+ecx+4F4h]
-                call    ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z
-                test    eax, eax
-                jz      short loc_4A7584
-                mov     eax, dword ptr [ebp+var_24]
-                imul    eax, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     word ptr [ecx+eax+4F4h], 0
-
-loc_4A7584:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+100↑j
-                jmp     short loc_4A752C
-; ---------------------------------------------------------------------------
-
-loc_4A7586:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+F8↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 468h
-                call    sub_4948B2
-
-loc_4A7594:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+7F↑j
-                jmp     loc_4A7643
-; ---------------------------------------------------------------------------
-
-loc_4A7599:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+22↑j
-                mov     edx, dword ptr [ebp+var_38]
-                cmp     dword ptr [edx+84h], 0
-                jz      loc_4A7643
-                mov     [ebp+var_28], 0
-                jmp     short loc_4A75BB
-; ---------------------------------------------------------------------------
-
-loc_4A75B2:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z:loc_4A763E↓j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, 1
-                mov     [ebp+var_28], eax
-
-loc_4A75BB:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+16F↑j
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [ecx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_28], eax
-                jge     short loc_4A7643
-                mov     edx, dword ptr [ebp+var_28]
-                push    edx
-                mov     eax, dword ptr [ebp+var_38]
-                mov     ecx, dword ptr [eax+84h]
-                call    sub_41FC60
-                mov     ecx, dword ptr [eax]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                imul    edx, 0Ch
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+4F4h]
-                call    ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z
-                test    eax, eax
-                jz      short loc_4A763E
-                push    1
-                mov     ecx, dword ptr [ebp+var_28]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_38]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_38]
-                call    dword ptr [eax+0A0h]
-                mov     [ebp+var_2C], eax
-                cmp     [ebp+var_2C], 0
-                jz      short loc_4A763C
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                sub     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0E0h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0E0h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+7Ch]
-
-loc_4A763C:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+1D6↑j
-                jmp     short loc_4A7643
-; ---------------------------------------------------------------------------
-
-loc_4A763E:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+1B9↑j
-                jmp     loc_4A75B2
-; ---------------------------------------------------------------------------
-
-loc_4A7643:                             ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?MsgProc@VisInvBase@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisInvType1@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -145736,7 +145533,7 @@ loc_4CAC3E:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEH
 loc_4CAC40:                             ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z:loc_4CABC5↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 468h
-                call    sub_4948B2
+                call    ?FUN_004948b2@CGameSession@@QAEXXZ
                 jmp     short loc_4CAC81
 ; ---------------------------------------------------------------------------
 

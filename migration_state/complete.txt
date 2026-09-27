@@ -522,6 +522,7 @@
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
+?MsgProc@VisInvType1@@UAEHIII@Z
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
