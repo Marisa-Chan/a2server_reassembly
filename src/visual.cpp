@@ -11431,3 +11431,10 @@ VisInvExtType1Druid::VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int3
     : VisInvExtType1(_id, l, t, r, b, shop)
 {
 }
+
+
+// 4C6CD0
+VisInvExtType1Kaarg::VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisInvExtType1(_id, l, t, r, b, shop)
+{
+}

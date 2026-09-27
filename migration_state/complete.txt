@@ -75,6 +75,7 @@
 ??0Visibility@@QAE@XZ
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z
+??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z
 ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
 ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
@@ -160,6 +161,7 @@
 ??_GVisInvExtBase@@UAEPAXI@Z
 ??_GVisInvExtType1@@UAEPAXI@Z
 ??_GVisInvExtType1Druid@@UAEPAXI@Z
+??_GVisInvExtType1Kaarg@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
