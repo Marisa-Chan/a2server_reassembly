@@ -11005,6 +11005,41 @@ const char* VisInvType1::GetHint()
 }
 
 
+// 4A6D11
+int32_t VisInvType1::VMethod30(int32_t x, int32_t y)
+{
+    if (this->grid_source == nullptr) {
+        return -1;
+    }
+
+    int32_t edge_width = ((g_ScreenSize.right - 0xf0) % 0x50) / 2;
+
+    if (y < 0) {
+        if (x < edge_width + 0x20) {
+            return -1;
+        }
+        if (x >= edge_width + 0x20 + this->visible_columns * 0x50) {
+            return -1;
+        }
+    } else {
+        if (x < edge_width + 0x20) {
+            return *this->visible_startref;
+        }
+        if (x >= edge_width + 0x20 + this->visible_columns * 0x50) {
+            if (*this->visible_startref + this->visible_columns * this->visible_rows - 1 < this->grid_source->GetSize()) {
+                return *this->visible_startref + this->visible_columns * this->visible_rows - 1;
+            }
+        }
+    }
+
+    int32_t idx = *this->visible_startref + ((x - 0x20) - edge_width) / 0x50;
+    if (idx >= this->grid_source->GetSize()) {
+        return -1;
+    }
+    return idx;
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
