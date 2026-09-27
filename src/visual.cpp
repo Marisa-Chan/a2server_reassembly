@@ -10966,6 +10966,45 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 4A765D
+const char* VisInvType1::GetHint()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return nullptr;
+    }
+    if (main_wnd->dialogsMask != 1) {
+        return nullptr;
+    }
+
+    int32_t edge_width = ((g_ScreenSize.right - 0xf0) % 0x50) / 2;
+    int32_t mouse_x = g_mousept.GetX();
+
+    if (mouse_x < edge_width + 0x20) {
+        return TxtFile::AllLines[0x36];
+    }
+    if (mouse_x >= edge_width + 0x20 + this->visible_columns * 0x50) {
+        return TxtFile::AllLines[0x37];
+    }
+    if (this->grid_source == nullptr) {
+        return TxtFile::AllLines[0x3a];
+    }
+
+    int32_t idx = *this->visible_startref + ((mouse_x - 0x20) - edge_width) / 0x50;
+    if (idx >= this->grid_source->GetSize()) {
+        return TxtFile::AllLines[0x3a];
+    }
+    TokenEntry* entry = this->grid_source->GetAt(idx);
+    if (entry == nullptr) {
+        return nullptr;
+    }
+    if (entry->FUN_0041f0d0() != 0) {
+        return TxtFile::AllLines[0x4a];
+    }
+    return entry->FUN_00439973();
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {

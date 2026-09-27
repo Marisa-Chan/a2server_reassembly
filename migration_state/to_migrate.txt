@@ -454,7 +454,6 @@
 ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	99
 ?VMethod30@VisInvType1@@UAEHHH@Z	129
 ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z	137
-?GetHint@VisInvType1@@UAEPBDXZ	148
 ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
 ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23
 ??_GVisMainMenu@@UAEPAXI@Z	24
