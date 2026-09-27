@@ -392293,11 +392293,6 @@ aGraphicsInterf_200 db 'graphics\interface\inn\quests\%02d.bmp',0
                 db    0
                 db    0
                 db    0
-; CHAR a16a_3[]
-a16a_3          db '.16a',0             ; DATA XREF: ?FUN_004a4ebc@VisInvBase@@QAEXXZ+1A0↑o
-                align 4
-; CHAR aGraphicsInvent_1[]
-aGraphicsInvent_1 db 'graphics\inventory\',0
 ; char aD_34[]
 aD_34           db '%d',0               ; DATA XREF: ?VMethod7@VisInvType1@@UAEXXZ+633↑o
                 align 4

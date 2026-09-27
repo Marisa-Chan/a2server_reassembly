@@ -678,6 +678,7 @@
 ?sub_41AC88@BigStruct2@@QAEXHH@Z
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_49585B@ServerControlDialog@@QAEXXZ
+?sub_4A4BCB@VisInvBase@@QAEXXZ
 ?sub_4A51C9@VisInvBase@@QAEXXZ
 ?sub_4A5350@VisInvBase@@QAEXXZ
 ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z
