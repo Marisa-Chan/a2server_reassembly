@@ -1760,7 +1760,7 @@ externdef ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc
 externdef ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc
 externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
-externdef ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
+extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc

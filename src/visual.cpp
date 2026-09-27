@@ -10304,3 +10304,19 @@ VisTavKaarg::VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 VisTavKaarg::~VisTavKaarg()
 {
 }
+
+
+// 4A5FAB
+void VisInvBase::sub_4A5FAB(int32_t x, int32_t y, int32_t idx)
+{
+    static const int32_t trail_alpha[7] = {0x3F, 0x7F, 0xBF, 0xFF, 0xBF, 0x7F, 0x3F};
+
+    int32_t i = this->anim_frames.GetAt(idx) >> 1;
+    for (int32_t k = 0; k < 7; k++) {
+        if (i < k) {
+            break;
+        }
+        int32_t j = (i - k) % 1024;
+        sub_4588EC(x + this->random_offsets1[j], y + this->random_offsets2[j], 0xFF, 0, 0xFF, trail_alpha[k]);
+    }
+}

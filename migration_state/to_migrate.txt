@@ -440,7 +440,6 @@
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z	129
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z	144
 ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z	188
-?sub_4A5FAB@VisInvBase@@QAEXHHH@Z	262
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12
