@@ -137570,66 +137570,6 @@ sub_4B8E9A      endp
 
 ; Attributes: bp-based frame
 
-?GetHint@VisInvExtType3@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:0060D33C↓o
-
-var_10          = dword ptr -10h
-var_C           = byte ptr -0Ch
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+20ACh]
-                cmp     dword ptr [ecx+148h], 0
-                jnz     short loc_4B90EE
-                xor     eax, eax
-                jmp     short loc_4B9151
-; ---------------------------------------------------------------------------
-
-loc_4B90EE:                             ; CODE XREF: ?GetHint@VisInvExtType3@@UAEPBDXZ+19↑j
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                cmp     dword ptr [eax+408h], 0
-                jz      short loc_4B9100
-                xor     eax, eax
-                jmp     short loc_4B9151
-; ---------------------------------------------------------------------------
-
-loc_4B9100:                             ; CODE XREF: ?GetHint@VisInvExtType3@@UAEPBDXZ+2B↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                push    eax
-                lea     ecx, [ebp+var_C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                lea     edx, [ebp+var_C]
-                push    edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+8Ch]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jge     short loc_4B9149
-                push    3Bh ; ';'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                jmp     short loc_4B9151
-; ---------------------------------------------------------------------------
-
-loc_4B9149:                             ; CODE XREF: ?GetHint@VisInvExtType3@@UAEPBDXZ+68↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?GetHint@VisInvExtBase@@UAEPBDXZ
-
-loc_4B9151:                             ; CODE XREF: ?GetHint@VisInvExtType3@@UAEPBDXZ+1D↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetHint@VisInvExtType3@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

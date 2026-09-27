@@ -11848,6 +11848,26 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B90CF
+const char* VisInvExtType3::GetHint()
+{
+    VisShop* shop = this->field_0x20ac;
+    if (shop->dialog_active == 0) {
+        return nullptr;
+    }
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return nullptr;
+    }
+    CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
+    int32_t region = this->VMethod31(&mouse);
+    if (region < 0) {
+        return TxtFile::AllLines.GetAt(0x3B);
+    }
+    return VisInvExtBase::GetHint();
+}
+
+
 // 4B92F9
 int32_t VisInvExtType3::OnMouseMove(uint32_t wparam, CPoint pos)
 {
