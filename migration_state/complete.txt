@@ -428,6 +428,7 @@
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
+?GetHint@VisInvExtBase@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisTavScene@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ

@@ -1798,7 +1798,7 @@ externdef ?VMethod30@VisInvType1@@UAEHHH@Z : proc
 
 ;VisInvExtBase
 externdef ??_GVisInvExtBase@@UAEPAXI@Z : proc
-externdef ?GetHint@VisInvExtBase@@UAEPBDXZ : proc
+extern ?GetHint@VisInvExtBase@@UAEPBDXZ : proc  ; const char* VisInvExtBase::GetHint()
 extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
 externdef ?sub_4B5B81@VisInvExtBase@@QAEHXZ : proc  ; int32_t VisInvExtBase::sub_4B5B81()  //4b5b81 in asm
 externdef ?sub_4B5A6C@VisInvExtBase@@QAEHH@Z : proc  ; int32_t VisInvExtBase::sub_4B5A6C(int32_t)  //4b5a6c in asm

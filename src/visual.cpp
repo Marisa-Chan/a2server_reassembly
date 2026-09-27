@@ -10888,3 +10888,24 @@ int32_t VisInvExtBase::VMethod31(const CPoint* pt)
     }
     return -1;
 }
+
+
+// 4B4C64
+const char* VisInvExtBase::GetHint()
+{
+    VisShop* shop = this->field_0x20ac;
+    if (shop->dialog_active == 0) {
+        return nullptr;
+    }
+    int32_t idx = this->VMethod30(g_mousept.GetX(), g_mousept.GetY());
+    if (this->grid_source->GetAt(idx) == nullptr) {
+        return nullptr;
+    }
+    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+        return TxtFile::AllLines.GetAt(0x4A);
+    }
+    if (this->grid_source->GetAt(idx)->FUN_004a78c0() != 0) {
+        return nullptr;
+    }
+    return this->grid_source->GetAt(idx)->FUN_00439973();
+}
