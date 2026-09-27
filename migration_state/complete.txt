@@ -521,6 +521,7 @@
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
+?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
