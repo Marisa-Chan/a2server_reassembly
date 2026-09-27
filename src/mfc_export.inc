@@ -1762,7 +1762,7 @@ extern ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvBase
 extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInvBase::VMethod28(uint32_t)
 extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
 extern ?VMethod30@VisInvBase@@UAEHHH@Z : proc  ; int32_t VisInvBase::VMethod30(int32_t, int32_t)
-externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
+extern ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvBase::VMethod31(const CPoint*)
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 
 ;VisInvType1

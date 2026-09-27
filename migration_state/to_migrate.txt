@@ -434,7 +434,6 @@
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
 ?GetHint@VisInvBase@@UAEPBDXZ	12
-?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z	12
 ??_GVisInvBase@@UAEPAXI@Z	24
 ?FUN_004a5e12@VisInvBase@@QAEXXZ	140
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12

@@ -10440,3 +10440,10 @@ int32_t VisInvBase::VMethod30(int32_t x, int32_t y)
 {
     return -1;
 }
+
+
+// 4A7990
+int32_t VisInvBase::VMethod31(const CPoint* pt)
+{
+    return -1;
+}
