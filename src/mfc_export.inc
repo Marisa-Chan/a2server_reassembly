@@ -1397,6 +1397,7 @@ extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
+externdef ?sub_43988E@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43988E()  //43988e in asm
 externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
 externdef ?sub_43A6D5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A6D5()  //43a6d5 in asm
 externdef ?sub_43A5E5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A5E5()  //43a5e5 in asm
@@ -1883,6 +1884,8 @@ externdef ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z : proc
 extern ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod36(int32_t,int32_t) — vtable slot 40
+extern ?VMethod37@VisInvExtType3@@UAEHH@Z : proc  ; int32_t VisInvExtType3::VMethod37(int32_t) — vtable slot 41
+externdef ?sub_4B9B2F@VisInvExtType3@@QAEHH@Z : proc  ; int32_t VisInvExtType3::sub_4B9B2F(int32_t)  //4b9b2f in asm
 externdef ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
 
 ;VisServerScreen

@@ -11880,6 +11880,49 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B9790
+int32_t VisInvExtType3::VMethod37(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (GetRandS16(100) < 0x1E && main_wnd->sessionMode == 2 && main_wnd->field_0x408 != nullptr) {
+        TokenEntry* entry = main_wnd->field_0x408;
+        if (entry->field_0x18 > 4 && entry->field_0x18 < 9) {
+            char shopname[80];
+            if (main_wnd->vis_shopkaarg == this->field_0x20ac) {
+                strcpy(shopname, "shop_kaarg");
+            } else if (main_wnd->vis_shopdruid == this->field_0x20ac) {
+                strcpy(shopname, "shop_druid");
+            } else {
+                strcpy(shopname, "shop");
+            }
+            char path[1024];
+            int32_t effect = entry->sub_43988E();
+            if (effect != 0) {
+                sprintf(path, "speech\\%s\\effects\\%.2d.wav", shopname, effect);
+            } else if (entry->GetAttribute(0x2A) != 0) {
+                sprintf(path, "speech\\%s\\books\\%.2d.wav", shopname, entry->GetAttribute(0x2A));
+            } else {
+                sprintf(path, "speech\\%s\\s%.2di%.2dp%d.wav", shopname, entry->GetType(), entry->GetId(), GetRandS16(3) + 1);
+            }
+            if (this->field_0x20b0.sample != nullptr) {
+                if (this->field_0x20b0.sample->FindPlayingChannel() == nullptr) {
+                    delete this->field_0x20b0.sample;
+                    this->field_0x20b0.sample = nullptr;
+                    this->field_0x20b0.sample = new SfxSample(path);
+                    this->field_0x20b0.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+                }
+            } else {
+                this->field_0x20b0.sample = new SfxSample(path);
+                this->field_0x20b0.sample->Play(g_SoundSettings.speech_pos, 0, 0, 0x80, 0);
+            }
+        }
+    }
+    FUN_00438f20(&this->field_0x20b4.sample);
+    CSound::Play(this->field_0x20b4);
+    return this->sub_4B9B2F(idx);
+}
+
+
 // 4B9C3C
 TokenEntry* VisInvExtType3::VMethod36(int32_t idx, int32_t num)
 {

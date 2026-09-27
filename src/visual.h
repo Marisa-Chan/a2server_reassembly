@@ -1421,6 +1421,7 @@ public:
 	VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba in asm
 
 	void sub_4B970E(); //4b970e
+	int32_t sub_4B9B2F(int32_t idx); //4b9b2f in asm
 public:
 	int32_t field_0x20c8; //unk type
 	CRect field_0x20cc;
