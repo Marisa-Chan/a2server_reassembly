@@ -11512,3 +11512,29 @@ void VisInvExtType1Kaarg::VMethod41()
     this->shop_inv = new CBmp64("graphics\\interface\\shop_druid\\ShopInv.bmp");
     g_mousept.Update();
 }
+
+
+// 4B6BC7
+void VisInvExtType1::VMethod42()
+{
+    if (this->arrow1 != nullptr) {
+        delete this->arrow1;
+    }
+    this->arrow1 = nullptr;
+    if (this->arrow3 != nullptr) {
+        delete this->arrow3;
+    }
+    this->arrow3 = nullptr;
+    if (this->arrow2 != nullptr) {
+        delete this->arrow2;
+    }
+    this->arrow2 = nullptr;
+    if (this->arrow4 != nullptr) {
+        delete this->arrow4;
+    }
+    this->arrow4 = nullptr;
+    if (this->shop_inv != nullptr) {
+        delete this->shop_inv;
+    }
+    this->shop_inv = nullptr;
+}

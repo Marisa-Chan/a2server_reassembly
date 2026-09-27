@@ -853,6 +853,7 @@
 ?VMethod41@VisInvExtType1Druid@@UAEXXZ
 ?VMethod41@VisInvExtType1Kaarg@@UAEXXZ
 ?VMethod42@VisInvExtBase@@UAEXXZ
+?VMethod42@VisInvExtType1@@UAEXXZ
 ?VMethod4@CUnit@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CUnit@@UAEXHHH@Z
