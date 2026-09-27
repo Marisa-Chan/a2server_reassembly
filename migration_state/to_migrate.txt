@@ -449,7 +449,6 @@
 ?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z	18
 ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z	21
 ??_GVisInvType1@@UAEPAXI@Z	24
-?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z	24
 ??0VisInvType1@@QAE@HHHHH@Z	67
 ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
 ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23

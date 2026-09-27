@@ -596,6 +596,7 @@
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z
+?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z
 ?Open@File2@@UAEHPBDIPAVCFileException@@@Z
 ?p_clrsh_Black@@3PAGA
 ?p_clrsh_ShockingBlack@@3PAGA
