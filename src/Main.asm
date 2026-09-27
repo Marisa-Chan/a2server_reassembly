@@ -137328,7 +137328,7 @@ loc_4B4B3E:                             ; CODE XREF: sub_4B4AEC+38↑j
 
 loc_4B4B7C:                             ; CODE XREF: sub_4B4AEC+76↑j
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_4B4BA9
+                call    ?sub_4B4BA9@VisInvExtBase@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_18]
                 call    ?sub_4B4C1C@VisInvExtBase@@QAEXXZ
 ;   } // starts at 4B4B13
@@ -137348,23 +137348,6 @@ sub_4B4AEC      endp
 
 ; Attributes: bp-based frame
 
-sub_4B4BA9      proc near               ; CODE XREF: sub_4B4AEC+93↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 20B0h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4B4BA9      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -137377,38 +137360,6 @@ sub_4B4BA9      endp
 
 ; Attributes: bp-based frame
 
-?sub_4B4C1C@VisInvExtBase@@QAEXXZ      proc near               ; CODE XREF: sub_4B4AEC+9B↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4B4BA9
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 20B4h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 20B8h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 20BCh
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B4C1C@VisInvExtBase@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 

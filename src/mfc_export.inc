@@ -1811,10 +1811,11 @@ externdef ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc
 extern ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvExtBase::VMethod31(const CPoint*)
-externdef ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc
+extern ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4C1C()
 extern ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4D33()
 extern ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BC5()
 extern ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4FD1()
+extern ?sub_4B4BA9@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BA9()
 
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc

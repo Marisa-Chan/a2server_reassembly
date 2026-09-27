@@ -10955,3 +10955,20 @@ int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4B4BA9
+void VisInvExtBase::sub_4B4BA9()
+{
+    FUN_00438dd0(&this->field_0x20b0.sample);
+}
+
+
+// 4B4C1C
+void VisInvExtBase::sub_4B4C1C()
+{
+    this->sub_4B4BA9();
+    FUN_00438dd0(&this->field_0x20b4.sample);
+    FUN_00438dd0(&this->field_0x20b8.sample);
+    FUN_00438dd0(&this->field_0x20bc.sample);
+}
