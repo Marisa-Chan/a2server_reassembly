@@ -12706,3 +12706,213 @@ int32_t VisInvExtType2::VMethod38()
 {
     return 2;
 }
+
+// Statics for VisStartGame::VMethod7 (659514-659534 in the binary).
+static uint8_t startgame_init_flags = 0;    // 659514 init-done flags for the three timestamps/delays below
+static uint32_t startgame_blind_delay = 0;  // 659528 delay before the next blind-spawn event (ms)
+static uint32_t startgame_blind_ts = 0;     // 65954C blind animation timestamp
+static uint32_t startgame_frame_ts = 0;     // 659534 frame throttle timestamp
+
+
+// 435D72
+void VisStartGame::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if ((startgame_init_flags & 1) == 0) {
+        startgame_init_flags |= 1;
+        startgame_blind_delay = rand() / 0x41 + 500;
+    }
+    if ((startgame_init_flags & 2) == 0) {
+        startgame_init_flags |= 2;
+        startgame_blind_ts = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    CPoint screen_pt = this->rect.TopLeft();
+    int32_t screen_x = screen_pt.x;
+    int32_t screen_y = screen_pt.y;
+
+    if ((startgame_init_flags & 4) == 0) {
+        startgame_init_flags |= 4;
+        startgame_frame_ts = timeGetTime();
+    }
+    if (timeGetTime() - startgame_frame_ts <= 0x43) {
+        return;
+    }
+    startgame_frame_ts = timeGetTime();
+
+    if (g_mousept.GetCursorSprite() != g_Cursors[CURSOR_SELECT]->GetSprite()) {
+        g_Cursors[CURSOR_SELECT]->Use();
+    }
+
+    CRect old_clip;
+    GetClipRect(&old_clip);
+    SetClipRect(this->rect);
+    LockSurface2();
+
+    this->mainAreaBitmap->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+
+    if (this->returnToGameHoverBitmap != nullptr) {
+        this->returnToGameHoverBitmap->VMethod10(
+            screen_x + this->returnToGameButtonRect.left,
+            screen_y + this->returnToGameButtonRect.top,
+            0, 0,
+            this->returnToGameButtonRect.Width(),
+            this->returnToGameButtonRect.Height());
+    }
+    if (this->acceptHoverBitmap != nullptr) {
+        this->acceptHoverBitmap->VMethod10(
+            screen_x + this->acceptButtonRect.left,
+            screen_y + this->acceptButtonRect.top,
+            0, 0,
+            this->acceptButtonRect.Width(),
+            this->acceptButtonRect.Height());
+    }
+    if (main_wnd->sessionMode == 2) {
+        for (int32_t i = 0; i < 3; i++) {
+            if (this->difficultyStateFlags.ElementAt(i) == 2) {
+                const CRect& r = this->difficultyRects.ElementAt(i);
+                this->difficultyHoverBitmaps.GetAt(i)->VMethod10(
+                    screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+            }
+            if (this->difficultyStateFlags.ElementAt(i) == 1) {
+                const CRect& r = this->difficultyRects.ElementAt(i);
+                this->difficultySelectedBitmaps.GetAt(i)->VMethod10(
+                    screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+            }
+            if (this->difficultyStateFlags.ElementAt(i) == 3) {
+                const CRect& r = this->difficultyRects.ElementAt(i);
+                this->difficultySelectedHoverBitmaps.GetAt(i)->VMethod10(
+                    screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+            }
+        }
+    }
+    if (this->portraitStateFlags.ElementAt(0) & 1) {
+        if ((this->portraitStateFlags.ElementAt(1) & 2) == 0) {
+            this->portraitHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        } else {
+            this->portraitSelectedHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        }
+        if (this->portraitStateFlags.ElementAt(2) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(2);
+            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+        if (this->portraitStateFlags.ElementAt(3) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(3);
+            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    }
+    if (this->portraitStateFlags.ElementAt(1) & 1) {
+        if ((this->portraitStateFlags.ElementAt(0) & 2) == 0) {
+            this->portraitHoverBitmaps.GetAt(1)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        } else {
+            this->portraitSelectedHoverBitmaps.GetAt(1)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        }
+        if (this->portraitStateFlags.ElementAt(2) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(2);
+            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+        if (this->portraitStateFlags.ElementAt(3) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(3);
+            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    }
+    if (this->portraitStateFlags.ElementAt(2) & 1) {
+        if ((this->portraitStateFlags.ElementAt(3) & 2) == 0) {
+            this->portraitHoverBitmaps.GetAt(2)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        } else {
+            this->portraitSelectedHoverBitmaps.GetAt(2)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        }
+        if (this->portraitStateFlags.ElementAt(0) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(0);
+            this->portraitSelectedBitmaps.GetAt(0)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+        if (this->portraitStateFlags.ElementAt(1) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(1);
+            this->portraitSelectedBitmaps.GetAt(1)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    }
+    if (this->portraitStateFlags.ElementAt(3) & 1) {
+        if ((this->portraitStateFlags.ElementAt(2) & 2) == 0) {
+            this->portraitHoverBitmaps.GetAt(3)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        } else {
+            this->portraitSelectedHoverBitmaps.GetAt(3)->VMethod10(screen_x + 0x104, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        }
+        if (this->portraitStateFlags.ElementAt(0) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(0);
+            this->portraitSelectedBitmaps.GetAt(0)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+        if (this->portraitStateFlags.ElementAt(1) & 2) {
+            const CRect& r = this->portraitRects.ElementAt(1);
+            this->portraitSelectedBitmaps.GetAt(1)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    }
+    if (this->returnToGameHoverBitmap != nullptr) {
+        this->returnToGameHoverBitmap->VMethod10(
+            screen_x + this->returnToGameButtonRect.left,
+            screen_y + this->returnToGameButtonRect.top,
+            0, 0,
+            this->returnToGameButtonRect.Width(),
+            this->returnToGameButtonRect.Height());
+    }
+    if (this->acceptHoverBitmap != nullptr) {
+        this->acceptHoverBitmap->VMethod10(
+            screen_x + this->acceptButtonRect.left,
+            screen_y + this->acceptButtonRect.top,
+            0, 0,
+            this->acceptButtonRect.Width(),
+            this->acceptButtonRect.Height());
+    }
+    if (g_settings.TipsMode != 0 && this->tipsPrompt != nullptr) {
+        uint32_t hotspot = this->GetHotspotId(g_mousept.GetX(), g_mousept.GetY());
+        this->DrawTipsHighlight(hotspot);
+    }
+
+    if (this->blindAnimationFrame == 0) {
+        if (now - startgame_blind_ts > startgame_blind_delay) {
+            int32_t idx = rand() / (0x7FFF / this->blindSpawnRects.GetSize());
+            CRect spawn_rect = this->blindSpawnRects.ElementAt(idx);
+            int32_t x_off = rand() / (0x7FFF / spawn_rect.Width());
+            int32_t y_off = rand() / (0x7FFF / spawn_rect.Height());
+            this->blindAnimationPosition = spawn_rect.TopLeft() + CPoint(x_off, y_off);
+            startgame_blind_delay = rand() / 0x41 + 500;
+            this->blindAnimationFrame = 1;
+        }
+    } else {
+        this->blindAnimation->VMethod2(
+            screen_x + this->blindAnimationPosition.x,
+            screen_y + this->blindAnimationPosition.y,
+            this->blindAnimationFrame, 0, 0);
+        if (now - startgame_blind_ts > 0x3F) {
+            this->blindAnimationFrame = (this->blindAnimationFrame + 1) % (int32_t)this->blindAnimation->GetFrameCount();
+            startgame_blind_ts = now;
+        }
+    }
+
+    CVisualObject* obj = this->FindChild(0x464);
+    if (obj != nullptr) {
+        CPoint pt = obj->GetRect().TopLeft();
+        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16D), 1, palette_husk->GetPalette(0));
+    }
+    obj = this->FindChild(0x465);
+    if (obj != nullptr) {
+        CPoint pt = obj->GetRect().TopLeft();
+        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16E), 1, palette_husk->GetPalette(0));
+    }
+
+    this->torchFrameTick = this->torchFrameTick + 1;
+    this->leftTorchFrames.GetAt(this->torchFrameTick % 0xF)->VMethod2(screen_x + 4, screen_y + 200, 0, 0, 0);
+    this->rightTorchFrames.GetAt((this->torchFrameTick + 8) % 0xF)->VMethod2(screen_x + 0x24C, screen_y + 200, 0, 0, 0);
+
+    UnlockSurface2();
+    SetClipRect(old_clip);
+    VisScreen::VMethod7();
+}

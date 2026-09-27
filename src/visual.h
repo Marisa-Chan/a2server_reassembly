@@ -2455,6 +2455,9 @@ public:
 	virtual void VMethod28() override; // 433E2D
 	virtual void DoClose(uint32_t code) override; // 4341EB
 
+	uint32_t GetHotspotId(int32_t x, int32_t y); // 4356c2
+	uint32_t DrawTipsHighlight(uint32_t hotspot); // 436e4b
+
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 
 	CString GetName() { return char_name; } // 4973f0
