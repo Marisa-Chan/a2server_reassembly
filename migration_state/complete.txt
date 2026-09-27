@@ -795,6 +795,7 @@
 ?VMethod33@VisShopCompass@@UAEXXZ
 ?VMethod34@VisShopCompass@@UAEXXZ
 ?VMethod35@VisShopCompass@@UAEXXZ
+?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z
 ?VMethod36@VisShopCompass@@UAEXXZ
 ?VMethod37@VisInvBase@@UAEHH@Z
 ?VMethod37@VisShopCompass@@UAEHH@Z

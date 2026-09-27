@@ -439,7 +439,6 @@
 ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z	63
 ?VMethod35@VisInvBase@@UAEXXZ	71
 ?FUN_004a5e12@VisInvBase@@QAEXXZ	140
-?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z	148
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12

@@ -1767,7 +1767,7 @@ externdef ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : pr
 externdef ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z : proc  ; void VisInvBase::VMethod33(CGameObject*)  //4a4d05 in asm
 externdef ?VMethod34@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod34()  //4a4e28 in asm
 externdef ?VMethod35@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod35()  //4a4c2f in asm
-externdef ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  //4a5aae in asm
+extern ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  //4a5aae in asm
 extern ?VMethod37@VisInvBase@@UAEHH@Z : proc  ; int32_t VisInvBase::VMethod37(int32_t)  ; int32_t VisInvBase::VMethod37(int32_t)  //4a5c39 in asm
 externdef ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  //4a79b0 in asm
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)

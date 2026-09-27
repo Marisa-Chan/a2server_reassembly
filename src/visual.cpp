@@ -10502,3 +10502,34 @@ int32_t VisInvBase::VMethod37(int32_t idx)
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
     return idx;
 }
+
+
+// 4A5AAE
+TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr || this->grid_source->GetSize() <= idx) {
+        return nullptr;
+    }
+    CGameObject* selected = main_wnd->vis_map_context->field_0x138;
+    if (selected->map_player != main_wnd->vis_map_context->my_main_unit) {
+        return nullptr;
+    }
+    TokenEntry* entry = this->grid_source->GetAt(idx);
+    if (entry == nullptr) {
+        return nullptr;
+    }
+    if (entry->GetType() < 2 && (selected->last_action == 3 || selected->last_action == 7 || selected->last_action == 8)) {
+        return nullptr;
+    }
+    main_wnd->field_0x408 = this->VMethod29(entry, num);
+    main_wnd->field_0x40c = idx;
+    main_wnd->field_0x410 = this->VMethod38();
+    if (this->VMethod38() == 2) {
+        this->VMethod33(selected);
+    } else {
+        this->VMethod32(this->grid_source);
+    }
+    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    return main_wnd->field_0x408;
+}
