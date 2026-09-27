@@ -113429,7 +113429,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+84h], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4BCB
+                call    ?sub_4A4BCB@VisInvBase@@QAEXXZ
 ;   } // starts at 4A48D7
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -113440,91 +113440,6 @@ var_4           = dword ptr -4
                 retn
 ; } // starts at 4A4880
 sub_4A4880      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisInvBase@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisInvBase@@QAE@HHHHH@Z      proc near               ; CODE XREF: ??0VisInvType1@@QAE@HHHHH@Z+33↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005FD1EA SIZE 0000003A BYTES
-
-; __unwind { // SEH_4A4938
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4A4938
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'
-                call    sub_4A4160
-;   } // starts at 4A4972
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 70h ; 'p'
-                call    sub_5DB0C3
-;   } // starts at 4A4984
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2094h
-                call    sub_5DB0C3
-;   } // starts at 4A4993
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60C9B0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+88h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+8Ch], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+90h], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+84h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4BCB
-;   } // starts at 4A49A5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 4A4938
-??0VisInvBase@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -113590,7 +113505,7 @@ lprcSrc         = dword ptr  0Ch
                 mov     eax, dword ptr [ebp+var_10]
                 mov     dword ptr [eax+84h], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4A4BCB
+                call    ?sub_4A4BCB@VisInvBase@@QAEXXZ
 ;   } // starts at 4A4A69
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -113607,7 +113522,7 @@ sub_4A4A08      endp
 
 ; Attributes: bp-based frame
 
-sub_4A4BCB      proc near               ; CODE XREF: sub_4A4880+9B↑p
+?sub_4A4BCB@VisInvBase@@QAEXXZ      proc near               ; CODE XREF: sub_4A4880+9B↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -113620,12 +113535,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4A4BE6
 ; ---------------------------------------------------------------------------
 
-loc_4A4BDD:                             ; CODE XREF: sub_4A4BCB+5E↓j
+loc_4A4BDD:                             ; CODE XREF: ?sub_4A4BCB@VisInvBase@@QAEXXZ+5E↓j
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1
                 mov     [ebp+var_4], eax
 
-loc_4A4BE6:                             ; CODE XREF: sub_4A4BCB+10↑j
+loc_4A4BE6:                             ; CODE XREF: ?sub_4A4BCB@VisInvBase@@QAEXXZ+10↑j
                 cmp     [ebp+var_4], 400h
                 jge     short loc_4A4C2B
                 call    _rand
@@ -113647,11 +113562,11 @@ loc_4A4BE6:                             ; CODE XREF: sub_4A4BCB+10↑j
                 jmp     short loc_4A4BDD
 ; ---------------------------------------------------------------------------
 
-loc_4A4C2B:                             ; CODE XREF: sub_4A4BCB+22↑j
+loc_4A4C2B:                             ; CODE XREF: ?sub_4A4BCB@VisInvBase@@QAEXXZ+22↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A4BCB      endp
+?sub_4A4BCB@VisInvBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -349491,47 +349406,6 @@ SEH_4A4880:                             ; DATA XREF: sub_4A4880+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FD1B0
 ; END OF FUNCTION CHUNK FOR sub_4A4880
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisInvBase@@QAE@HHHHH@Z
-
-loc_5FD1EA:                             ; DATA XREF: .rdata:stru_61E2F8↓o
-; __unwind { // SEH_4A4938
-;   cleanup() // owned by 4A4972
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD1F3:                             ; DATA XREF: .rdata:0061E300↓o
-;   cleanup() // owned by 4A4984
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_26 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD1FF:                             ; DATA XREF: .rdata:0061E308↓o
-;   cleanup() // owned by 4A4993
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 70h ; 'p'
-                call    sub_5DB0F6
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FD20B:                             ; DATA XREF: .rdata:0061E310↓o
-;   cleanup() // owned by 4A49A5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 2094h
-                call    sub_5DB0F6
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4A4938:                             ; DATA XREF: ??0VisInvBase@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_61E2D8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FD1EA
-; END OF FUNCTION CHUNK FOR ??0VisInvBase@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4A4A08
 
 loc_5FD224:                             ; DATA XREF: .rdata:stru_61E338↓o
@@ -383638,15 +383512,6 @@ stru_61E2B8     UnwindMapEntry <-1, offset loc_5FD1B0>
                 UnwindMapEntry <0, offset loc_5FD1B9>
                 UnwindMapEntry <1, offset loc_5FD1C5>
                 UnwindMapEntry <2, offset loc_5FD1D1>
-stru_61E2D8     FuncInfoV1 <19930520h, 4, offset stru_61E2F8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61E2F8     UnwindMapEntry <-1, offset loc_5FD1EA>
-                UnwindMapEntry <0, offset loc_5FD1F3>
-                UnwindMapEntry <1, offset loc_5FD1FF>
-                UnwindMapEntry <2, offset loc_5FD20B>
 stru_61E318     FuncInfoV1 <19930520h, 4, offset stru_61E338, 0, 0, 0, 0>
                 db    0
                 db    0

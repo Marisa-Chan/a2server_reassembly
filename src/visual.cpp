@@ -10456,6 +10456,18 @@ const char* VisInvBase::GetHint()
 }
 
 
+// 4A4938
+VisInvBase::VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->visible_columns = 0;
+    this->visible_rows = 0;
+    this->visible_startref = nullptr;
+    this->grid_source = nullptr;
+    this->sub_4A4BCB();
+}
+
+
 // 4A4ACC
 VisInvBase::~VisInvBase()
 {
