@@ -1872,17 +1872,15 @@ externdef ?sub_4B86BE@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_
 externdef ?sub_4B871C@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B871C()
 
 ;VisInvExtType3
-externdef ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z : proc
-extern ?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t VisInvExtType3::sub_4B91F9(TokenEntry*)  //4b91f9
-externdef ?sub_4B970E@VisInvExtType3@@QAEXXZ : proc
-externdef ??_GVisInvExtType3@@UAEPAXI@Z : proc
-externdef ?GetHint@VisInvExtType3@@UAEPBDXZ : proc
-externdef ?VMethod7@VisInvExtType3@@UAEXXZ : proc
-externdef ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z : proc
+extern ??_GVisInvExtType3@@UAEPAXI@Z : proc
+extern ?GetHint@VisInvExtType3@@UAEPBDXZ : proc
+extern ?VMethod7@VisInvExtType3@@UAEXXZ : proc
+extern ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
+extern ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z : proc
+extern ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
 extern ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod36(int32_t,int32_t) — vtable slot 40
 extern ?VMethod37@VisInvExtType3@@UAEHH@Z : proc  ; int32_t VisInvExtType3::VMethod37(int32_t) — vtable slot 41
 extern ?VMethod38@VisInvExtType3@@UAEHXZ : proc  ; int32_t VisInvExtType3::VMethod38() — vtable slot 42
@@ -1891,7 +1889,6 @@ extern ?VMethod41@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod4
 extern ?VMethod42@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod42() — vtable slot 46
 extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod43(int32_t,int32_t) — vtable slot 47
 externdef ?sub_4B9B2F@VisInvExtType3@@QAEHH@Z : proc  ; int32_t VisInvExtType3::sub_4B9B2F(int32_t)  //4b9b2f in asm
-externdef ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
 
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc

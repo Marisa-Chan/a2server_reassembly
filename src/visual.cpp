@@ -11921,6 +11921,29 @@ void VisInvExtType3::VMethod42()
 }
 
 
+// 4B8CC5
+VisInvExtType3::~VisInvExtType3()
+{
+    this->grid_source->RemoveAll();
+    this->grid_source = nullptr;
+    this->sub_4B4C1C();
+}
+
+
+// 4B8BBA
+VisInvExtType3::VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisInvExtBase(_id, l, t, r, b, shop)
+{
+    this->visible_columns = this->rect.Width() / 0x50 - 1;
+    this->visible_rows = this->rect.Height() / 0x50;
+    this->grid_source = &this->field_0x20f4;
+    this->field_0x20f4.RemoveAll();
+    this->VMethod39();
+    this->VisInvBase::VMethod35();
+    this->shoptable = nullptr;
+}
+
+
 // 4B8D43
 void VisInvExtType3::VMethod41()
 {

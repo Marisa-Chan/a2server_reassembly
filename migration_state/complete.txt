@@ -166,6 +166,7 @@
 ??_GVisInvExtType1Druid@@UAEPAXI@Z
 ??_GVisInvExtType1Kaarg@@UAEPAXI@Z
 ??_GVisInvExtType2@@UAEPAXI@Z
+??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
@@ -704,8 +705,6 @@
 ?sub_4B8666@VisInvExtType2@@QAEXXZ
 ?sub_4B86BE@VisInvExtType2@@QAEXXZ
 ?sub_4B871C@VisInvExtType2@@QAEXXZ
-?sub_4B91F9@VisInvExtType3@@QAEHPAVTokenEntry@@@Z
-?sub_4B970E@VisInvExtType3@@QAEXXZ
 ?sub_4BC97B@VisShop@@QAEXXZ
 ?sub_4BCDA0@VisShop@@QAEXXZ
 ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z
