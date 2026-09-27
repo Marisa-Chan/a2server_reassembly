@@ -11091,6 +11091,22 @@ int32_t VisInvExtBase::OnRButtonDblClk(uint32_t wparam, CPoint pos)
 }
 
 
+// 4B4A0C
+VisInvExtBase::VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+: VisInvBase(_id, l, t, r, b)
+{
+    this->grid_source = nullptr;
+    this->field_0x20ac = shop;
+    this->flags |= 2;
+    this->visible_startref = new int32_t(0);
+    this->field_0x20b0.sample = nullptr;
+    this->field_0x20b4.sample = nullptr;
+    this->field_0x20b8.sample = nullptr;
+    this->field_0x20bc.sample = nullptr;
+    // field_0x20c4 is deliberately left uninitialized here, as in the original
+}
+
+
 // 4B4AEC
 VisInvExtBase::~VisInvExtBase()
 {

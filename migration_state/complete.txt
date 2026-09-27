@@ -73,6 +73,7 @@
 ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
 ??0VisComboBox@@QAE@HVCRect@@PBD@Z
 ??0Visibility@@QAE@XZ
+??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z

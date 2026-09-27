@@ -1169,11 +1169,11 @@ ASSERT_SIZE(VisOrderToolbar, 0x70);
 class VisInvBase : public CVisualObject
 {
 public:
-	virtual ~VisInvBase(); // 4A77D0
+	VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a4938
 
+	virtual ~VisInvBase(); // 4A77D0
 	virtual const char* GetHint() override; // 4a4cf8
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4A5DE0
-
 	virtual int32_t VMethod26(TokenEntry* o, int32_t idx); //4a554f
 	virtual int32_t VMethod27(TokenEntry* o); //4a56c3
 	virtual TokenEntry* VMethod28(uint32_t id); //4a57a1

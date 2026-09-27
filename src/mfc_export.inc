@@ -1762,6 +1762,7 @@ externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
 ;VisInvBase
+externdef ??0VisInvBase@@QAE@HHHHH@Z : proc  ; VisInvBase::VisInvBase(int32_t, int32_t, int32_t, int32_t, int32_t)  //4a4938 in asm
 extern ??1VisInvBase@@UAE@XZ :proc
 extern ??_GVisInvBase@@UAEPAXI@Z : proc  ; virtual VisInvBase::~VisInvBase() (scalar deleting dtor)
 extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
