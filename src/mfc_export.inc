@@ -1799,9 +1799,10 @@ externdef ?VMethod30@VisInvType1@@UAEHHH@Z : proc
 externdef ??_GVisInvExtBase@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtBase@@UAEPBDXZ : proc
 extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
+externdef ?sub_4B5B81@VisInvExtBase@@QAEHXZ : proc  ; int32_t VisInvExtBase::sub_4B5B81()  //4b5b81 in asm
 externdef ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonUp(uint32_t, CPoint)
 extern ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDblClk(uint32_t, CPoint)
 externdef ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc

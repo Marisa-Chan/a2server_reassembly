@@ -1262,6 +1262,7 @@ public:
 	virtual void VMethod41();
 	virtual void VMethod42();
 
+	int32_t sub_4B5B81(); //4b5b81 in asm
 	void sub_4B4C1C(); //4b4c1c
 	void sub_4B4BC5(); //4b4bc5
 	void sub_4B4D33(); //4b4d33

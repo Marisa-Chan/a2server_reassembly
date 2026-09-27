@@ -10802,3 +10802,41 @@ int32_t VisInvExtBase::OnLButtonDblClk(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4B5D5C
+int32_t VisInvExtBase::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    VisShop* shop = this->field_0x20ac;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        return 1;
+    }
+    ApplyCursor(g_Cursors[0]);
+    if (main_wnd->field_0x408->GetAttribute(1) == 0 && this->VMethod38() != 2) {
+        shop->placement_lock = 0;
+    }
+    if (shop->placement_lock == 0) {
+        shop->sub_4BC97B();
+        CSound::Play((CSound&)shop->snd_notif);
+        return 1;
+    }
+    int32_t region = this->VMethod38();
+    if (region == 4) {
+        this->VMethod37(this->VMethod31(&pos));
+        shop->sub_4BCDA0();
+        shop->dirty |= 0x20;
+    } else if (region < 4 || region > 8) {
+        this->VMethod37(this->VMethod31(&pos));
+    } else {
+        if (this->VMethod38() == main_wnd->field_0x408->field_0x18) {
+            this->VMethod37(this->VMethod31(&pos));
+        } else {
+            shop->sub_4BC97B();
+        }
+    }
+    this->sub_4B5B81();
+    this->sub_4B4D33();
+    this->VMethod9();
+    return 1;
+}

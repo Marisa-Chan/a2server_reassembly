@@ -440,6 +440,7 @@
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12
+?sub_4B5B81@VisInvExtBase@@QAEHXZ	22
 ??_GVisInvExtBase@@UAEPAXI@Z	24
 ?VMethod30@VisInvExtBase@@UAEHHH@Z	25
 ?sub_4B4C1C@VisInvExtBase@@QAEXXZ	28
@@ -450,7 +451,6 @@
 ?GetHint@VisInvExtBase@@UAEPBDXZ	84
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z	117
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z	121
-?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	168
 ?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType1@@UAEPAXI@Z	24
