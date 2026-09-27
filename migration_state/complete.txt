@@ -826,6 +826,7 @@
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z
+?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ

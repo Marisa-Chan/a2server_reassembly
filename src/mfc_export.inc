@@ -1807,7 +1807,7 @@ extern ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z : proc
+extern ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z : proc
 extern ?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z : proc
 extern ?VMethod30@VisInvType1@@UAEHHH@Z : proc
 

@@ -11112,6 +11112,14 @@ int32_t VisInvType1::VMethod27(TokenEntry* o)
 }
 
 
+// 4A79F0
+int32_t VisInvType1::VMethod26(TokenEntry* o, int32_t idx)
+{
+    o->field_0x18 = 2;
+    return VisInvBase::VMethod26(o, idx);
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
