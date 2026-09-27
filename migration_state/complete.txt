@@ -286,6 +286,7 @@
 ?FUN_0049af8c@VisTavScene@@QAEXXZ
 ?FUN_0049bc23@VisTavScene@@QAEXXZ
 ?FUN_0049cab8@VisTavScene@@QAEHPAVCPoint@@@Z
+?FUN_004a5e12@VisInvBase@@QAEXXZ
 ?FUN_004abf0f@Fame2@@QAEXHI@Z
 ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
 ?FUN_004ad880@Fame2@@QAEHXZ

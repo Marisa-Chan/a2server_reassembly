@@ -438,7 +438,6 @@
 ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	56
 ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z	63
 ?VMethod35@VisInvBase@@UAEXXZ	71
-?FUN_004a5e12@VisInvBase@@QAEXXZ	140
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12

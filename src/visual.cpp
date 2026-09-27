@@ -10533,3 +10533,36 @@ TokenEntry* VisInvBase::VMethod36(int32_t idx, int32_t num)
     main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
     return main_wnd->field_0x408;
 }
+
+
+// 4A5E12
+void VisInvBase::FUN_004a5e12()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (this->grid_source == nullptr) {
+        return;
+    }
+    int32_t total_cells = this->visible_columns * this->visible_rows;
+    int32_t count = this->grid_source->GetSize();
+    if (count >= total_cells) {
+        count = total_cells;
+    }
+    this->has_anim_visible_cells = 0;
+    for (int32_t i = 0; i < total_cells; i++) {
+        if (i >= count) {
+            continue;
+        }
+        if (this->cell_update_counter.GetAt(i) == 0) {
+            continue;
+        }
+        TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->field_0x10 == 1) {
+            continue;
+        }
+        if (entry == nullptr || !(entry->flg & 0x20)) {
+            continue;
+        }
+        this->anim_frames.ElementAt(i)++;
+        this->has_anim_visible_cells = 1;
+    }
+}

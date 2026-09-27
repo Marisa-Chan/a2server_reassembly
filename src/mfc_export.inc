@@ -2182,7 +2182,7 @@ extern ?ReloadSprite@CUnit@@QAEXXZ : proc
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 extern   ?VMethod1@CUnit@@UAEXH@Z  : proc
-externdef ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()  //4a5e12 in asm
+extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
 extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
 extern   ?VMethod2@CUnit@@UAEHXZ  : proc
 extern   ?VMethod3@CUnit@@UAEHXZ  : proc
