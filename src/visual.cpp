@@ -11438,3 +11438,26 @@ VisInvExtType1Kaarg::VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int3
     : VisInvExtType1(_id, l, t, r, b, shop)
 {
 }
+
+
+// 4B6D46
+void VisInvExtType1::VMethod39()
+{
+    int32_t total_cells = this->visible_columns * this->visible_rows;
+    this->field_0x20c4 = new CRect[total_cells];
+
+    CPoint topleft = this->rect.TopLeft();
+    this->field_0x20cc = CRect(topleft.x + 0x2E, topleft.y, topleft.x + 0x76, topleft.y + 0x20);
+    this->field_0x20dc = CRect(topleft.x + 0x2E, topleft.y + 0x10F, topleft.x + 0x76, topleft.y + 0x12F);
+    CPoint origin(this->rect.left, this->field_0x20cc.bottom);
+
+    for (int32_t i = 0; i < this->visible_columns; i++) {
+        for (int32_t j = 0; j < this->visible_rows; j++) {
+            this->field_0x20c4[j * this->visible_columns + i] = CRect(
+                origin.x + i * 0x50 + 1,
+                origin.y + j * 0x50 - 1,
+                origin.x + i * 0x50 + 0x51,
+                origin.y + j * 0x50 + 0x4F);
+        }
+    }
+}
