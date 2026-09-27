@@ -13072,3 +13072,145 @@ int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return VisScreen::OnLButtonDown(wparam, pos);
 }
+
+
+// Statics for VisStartGame::DrawTipsHighlight (65951C-659554, 62CCFC-62CD00 in the binary).
+static uint8_t startgame_tips_init_flags = 0;     // 65951C init-done flags for the two timestamps below
+static uint32_t startgame_tips_show_ts = 0;       // 659524 timestamp when the cursor entered the current hotspot
+static uint32_t startgame_tips_frame_ts = 0;      // 65952C timestamp of the last highlight frame advance
+static uint32_t startgame_tips_frame = 0;         // 659554 current highlight animation frame
+static int32_t startgame_tips_last_hotspot = -1;  // 62CCFC hotspot id the highlight is currently locked to
+static int32_t startgame_tips_cycle_len = 1;      // 62CD00 frames per cycle for the active tips section (-1 = none)
+
+
+// 436E4B
+uint32_t VisStartGame::DrawTipsHighlight(uint32_t hotspot)
+{
+    CPoint screen_pt = this->rect.TopLeft();
+    int32_t screen_x = screen_pt.x;
+    int32_t screen_y = screen_pt.y;
+
+    if ((startgame_tips_init_flags & 1) == 0) {
+        startgame_tips_init_flags |= 1;
+        startgame_tips_show_ts = timeGetTime();
+    }
+    if ((startgame_tips_init_flags & 2) == 0) {
+        startgame_tips_init_flags |= 2;
+        startgame_tips_frame_ts = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    if (now - startgame_tips_show_ts < 500) {
+        startgame_tips_frame_ts = now;
+        return now;
+    }
+
+    switch (startgame_tips_last_hotspot) {
+    case 0x14:
+        startgame_tips_frame = 1;
+        break;
+    case 0x28:
+        startgame_tips_frame = 2;
+        break;
+    case 0x3C:
+        startgame_tips_frame = 3;
+        break;
+    case 0x50:
+        startgame_tips_frame = 1;
+        break;
+    case 0x64:
+        startgame_tips_frame = 2;
+        break;
+    case 0x78:
+        startgame_tips_frame = 3;
+        break;
+    case 0x8C:
+        startgame_tips_frame = 4;
+        break;
+    case 0xA0:
+        startgame_tips_frame = 1;
+        break;
+    case 0xB4:
+        startgame_tips_frame = 2;
+        break;
+    }
+
+    if (this->tipsProgress == 0) {
+        if (hotspot == 0x50 || hotspot == 0x64 || hotspot == 0x8C || hotspot == 0x78) {
+            startgame_tips_show_ts = now;
+            startgame_tips_frame_ts = now;
+            startgame_tips_last_hotspot = hotspot;
+            return now;
+        }
+        startgame_tips_cycle_len = 4;
+        startgame_tips_frame = startgame_tips_frame % 4;
+        if (startgame_tips_frame == 1) {
+            this->portraitSelectedHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        } else {
+            this->portraitHoverBitmaps.GetAt(0)->VMethod10(screen_x + 0x70, screen_y + 0x2C, 0, 0, 0x10C, 0x154);
+        }
+        if (startgame_tips_frame == 2) {
+            const CRect& r = this->portraitRects.ElementAt(2);
+            this->portraitSelectedBitmaps.GetAt(2)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+        if (startgame_tips_frame == 3) {
+            const CRect& r = this->portraitRects.ElementAt(3);
+            this->portraitSelectedBitmaps.GetAt(3)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    } else if (this->tipsProgress == 1) {
+        if (hotspot == 0x14 || hotspot == 0x28 || hotspot == 0x3C) {
+            startgame_tips_show_ts = now;
+            startgame_tips_frame_ts = now;
+            startgame_tips_last_hotspot = hotspot;
+            return now;
+        }
+        startgame_tips_cycle_len = 3;
+        startgame_tips_frame = startgame_tips_frame % 3;
+        if (this->difficultyStateFlags.ElementAt(startgame_tips_frame) == 1) {
+            const CRect& r = this->difficultyRects.ElementAt(startgame_tips_frame);
+            this->difficultySelectedHoverBitmaps.GetAt(startgame_tips_frame)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        } else {
+            const CRect& r = this->difficultyRects.ElementAt(startgame_tips_frame);
+            this->difficultyHoverBitmaps.GetAt(startgame_tips_frame)->VMethod10(
+                screen_x + r.left, screen_y + r.top, 0, 0, r.Width(), r.Height());
+        }
+    } else if (this->tipsProgress == 2) {
+        if (hotspot == 0xA0 || hotspot == 0xB4) {
+            startgame_tips_show_ts = now;
+            startgame_tips_frame_ts = now;
+            startgame_tips_last_hotspot = hotspot;
+            return now;
+        }
+        startgame_tips_cycle_len = 2;
+        startgame_tips_frame = startgame_tips_frame % 2;
+        if (startgame_tips_frame == 0) {
+            this->returnToGameButtonBitmap->VMethod10(
+                screen_x + this->returnToGameButtonRect.left,
+                screen_y + this->returnToGameButtonRect.top,
+                0, 0,
+                this->returnToGameButtonRect.Width(),
+                this->returnToGameButtonRect.Height());
+        } else if (startgame_tips_frame == 1) {
+            this->acceptButtonBitmap->VMethod10(
+                screen_x + this->acceptButtonRect.left,
+                screen_y + this->acceptButtonRect.top,
+                0, 0,
+                this->acceptButtonRect.Width(),
+                this->acceptButtonRect.Height());
+        }
+    } else {
+        startgame_tips_cycle_len = -1;
+    }
+
+    startgame_tips_last_hotspot = -1;
+    uint32_t elapsed = now - startgame_tips_frame_ts;
+    if (elapsed > 0x12C && startgame_tips_cycle_len != -1) {
+        uint32_t next_frame = startgame_tips_frame + 1;
+        startgame_tips_frame = next_frame % startgame_tips_cycle_len;
+        startgame_tips_frame_ts = now;
+        return next_frame / startgame_tips_cycle_len;
+    }
+    return elapsed;
+}

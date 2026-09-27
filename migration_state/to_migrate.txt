@@ -555,7 +555,6 @@
 ?DoClose@VisStartGame@@UAEXI@Z	152
 ?VMethod28@VisStartGame@@UAEXXZ	310
 ?UpdateHotspots@VisStartGame@@QAEIHHI@Z	313
-?DrawTipsHighlight@VisStartGame@@QAEII@Z	535
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26
