@@ -31701,7 +31701,7 @@ sub_432B80      endp
 
 ; Attributes: bp-based frame
 
-sub_432C03      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1E5↓p
+?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1E5↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31718,7 +31718,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_432C03      endp
+?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -32684,7 +32684,7 @@ loc_433F24:                             ; CODE XREF: ?VMethod28@VisStartGame@@UA
                 add     ecx, 1FCh
                 call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; Str2
-                call    sub_4386E0
+                call    ?IsDefaultNpcName@@YAIPBD@Z
                 add     esp, 4
                 test    eax, eax
                 jz      short loc_433FA3
@@ -32724,7 +32724,7 @@ loc_433FA3:                             ; CODE XREF: ?VMethod28@VisStartGame@@UA
                 push    edx
                 mov     eax, dword ptr [ebp+var_34]
                 mov     ecx, dword ptr [eax+1ECh]
-                call    sub_432C03
+                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
                 jmp     short loc_43406C
 ; ---------------------------------------------------------------------------
 
@@ -32739,7 +32739,7 @@ loc_434019:                             ; CODE XREF: ?VMethod28@VisStartGame@@UA
                 push    eax
                 mov     ecx, dword ptr [ebp+var_34]
                 mov     ecx, dword ptr [ecx+1F0h]
-                call    sub_432C03
+                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
                 mov     edx, dword ptr [ebp+var_34]
                 mov     eax, dword ptr [edx+1F4h]
                 push    eax
@@ -32750,7 +32750,7 @@ loc_434019:                             ; CODE XREF: ?VMethod28@VisStartGame@@UA
                 push    ecx
                 mov     edx, dword ptr [ebp+var_34]
                 mov     ecx, dword ptr [edx+1F4h]
-                call    sub_432C03
+                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
 
 loc_43406C:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1EA↑j
                 cmp     ?g_settings@@3UGameSettings@@A+1ch, 0
@@ -32931,7 +32931,7 @@ arg_0           = dword ptr  8
                 push    edx             ; CString *
                 mov     eax, dword ptr [ebp+var_28]
                 mov     ecx, dword ptr [eax+1ECh]
-                call    sub_438D80
+                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
                 mov     [ebp+var_2C], eax
                 mov     ecx, dword ptr [ebp+var_2C]
                 mov     [ebp+var_30], ecx
@@ -32954,7 +32954,7 @@ loc_43428D:                             ; CODE XREF: ?DoClose@VisStartGame@@UAEX
                 push    eax             ; CString *
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     ecx, dword ptr [ecx+1F0h]
-                call    sub_438D80
+                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
                 mov     [ebp+var_34], eax
                 mov     edx, dword ptr [ebp+var_34]
                 mov     [ebp+var_38], edx
@@ -32973,7 +32973,7 @@ loc_43428D:                             ; CODE XREF: ?DoClose@VisStartGame@@UAEX
                 push    ecx             ; CString *
                 mov     edx, dword ptr [ebp+var_28]
                 mov     ecx, dword ptr [edx+1F4h]
-                call    sub_438D80
+                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
                 mov     [ebp+var_3C], eax
                 mov     eax, dword ptr [ebp+var_3C]
                 mov     [ebp+var_40], eax
@@ -34639,7 +34639,7 @@ sub_435097      endp
 
 ; Attributes: bp-based frame
 
-?GetHotspotId@VisStartGame@@QAEIHH@Z      proc near               ; CODE XREF: sub_435867+14↓p
+?GetHotspotId@VisStartGame@@QAEIHH@Z      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+14↓p
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -34707,7 +34707,7 @@ loc_43573D:                             ; CODE XREF: ?GetHotspotId@VisStartGame@
 
 ; Attributes: bp-based frame
 
-sub_435743      proc near               ; CODE XREF: sub_435867+64↓p
+sub_435743      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+64↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34754,7 +34754,7 @@ sub_435743      endp
 
 ; Attributes: bp-based frame
 
-sub_43578C      proc near               ; CODE XREF: sub_435867+112↓p
+sub_43578C      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+112↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34801,7 +34801,7 @@ sub_43578C      endp
 
 ; Attributes: bp-based frame
 
-sub_4357D5      proc near               ; CODE XREF: sub_435867+27↓p
+sub_4357D5      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+27↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34848,7 +34848,7 @@ sub_4357D5      endp
 
 ; Attributes: bp-based frame
 
-sub_43581E      proc near               ; CODE XREF: sub_435867+1F↓p
+sub_43581E      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+1F↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -34895,7 +34895,7 @@ sub_43581E      endp
 
 ; Attributes: bp-based frame
 
-sub_435867      proc near               ; CODE XREF: ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z+19↓p
+?UpdateHotspots@VisStartGame@@QAEIHHI@Z      proc near               ; CODE XREF: ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z+19↓p
 
 var_48          = dword ptr -48h
 var_44          = dword ptr -44h
@@ -34949,7 +34949,7 @@ arg_8           = dword ptr  10h
                 jmp     ds:jpt_4358C1[ecx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4358C8:                             ; CODE XREF: sub_435867+5A↑j
+loc_4358C8:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 20
                 call    sub_435743
                 push    0
@@ -34967,7 +34967,7 @@ loc_4358C8:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_435902:                             ; CODE XREF: sub_435867+5A↑j
+loc_435902:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 40
                 call    sub_435743
                 push    1
@@ -34985,7 +34985,7 @@ loc_435902:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_43593C:                             ; CODE XREF: sub_435867+5A↑j
+loc_43593C:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 60
                 call    sub_435743
                 push    2
@@ -35003,7 +35003,7 @@ loc_43593C:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_435976:                             ; CODE XREF: sub_435867+5A↑j
+loc_435976:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 80
                 call    sub_43578C
                 push    0
@@ -35021,7 +35021,7 @@ loc_435976:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     def_4358C1      ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_4359B0:                             ; CODE XREF: sub_435867+5A↑j
+loc_4359B0:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 140
                 call    sub_43578C
                 push    3
@@ -35039,7 +35039,7 @@ loc_4359B0:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     short def_4358C1 ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_4359E7:                             ; CODE XREF: sub_435867+5A↑j
+loc_4359E7:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 100
                 call    sub_43578C
                 push    1
@@ -35057,7 +35057,7 @@ loc_4359E7:                             ; CODE XREF: sub_435867+5A↑j
                 jmp     short def_4358C1 ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
 ; ---------------------------------------------------------------------------
 
-loc_435A1E:                             ; CODE XREF: sub_435867+5A↑j
+loc_435A1E:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 case 120
                 call    sub_43578C
                 push    2
@@ -35073,7 +35073,7 @@ loc_435A1E:                             ; CODE XREF: sub_435867+5A↑j
                 mov     eax, dword ptr [ebp+var_8]
                 mov     dword ptr [eax+208h], 2
 
-def_4358C1:                             ; CODE XREF: sub_435867+30↑j
+def_4358C1:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+30↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 004358C1 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
                 mov     dword ptr [ecx+1B8h], 0
                 mov     edx, dword ptr [ebp+var_8]
@@ -35091,7 +35091,7 @@ def_4358C1:                             ; CODE XREF: sub_435867+30↑j
                 jmp     ds:jpt_435A94[edx*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_435A9B:                             ; CODE XREF: sub_435867+22D↑j
+loc_435A9B:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    0               ; jumptable 00435A94 case 20
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 148h
@@ -35105,7 +35105,7 @@ loc_435A9B:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435AC0:                             ; CODE XREF: sub_435867+22D↑j
+loc_435AC0:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    1               ; jumptable 00435A94 case 40
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 148h
@@ -35119,7 +35119,7 @@ loc_435AC0:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435AE5:                             ; CODE XREF: sub_435867+22D↑j
+loc_435AE5:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    2               ; jumptable 00435A94 case 60
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 148h
@@ -35133,7 +35133,7 @@ loc_435AE5:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435B0A:                             ; CODE XREF: sub_435867+22D↑j
+loc_435B0A:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    0               ; jumptable 00435A94 case 80
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 134h
@@ -35147,7 +35147,7 @@ loc_435B0A:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     def_435A94      ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435B2F:                             ; CODE XREF: sub_435867+22D↑j
+loc_435B2F:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    3               ; jumptable 00435A94 case 140
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 134h
@@ -35161,7 +35161,7 @@ loc_435B2F:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435B51:                             ; CODE XREF: sub_435867+22D↑j
+loc_435B51:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    1               ; jumptable 00435A94 case 100
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 134h
@@ -35175,7 +35175,7 @@ loc_435B51:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435B73:                             ; CODE XREF: sub_435867+22D↑j
+loc_435B73:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 push    2               ; jumptable 00435A94 case 120
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 134h
@@ -35189,7 +35189,7 @@ loc_435B73:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435B95:                             ; CODE XREF: sub_435867+22D↑j
+loc_435B95:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 00435A94 case 160
                 mov     edx, dword ptr [ebp+var_8]
                 mov     eax, dword ptr [edx+15Ch]
@@ -35197,21 +35197,21 @@ loc_435B95:                             ; CODE XREF: sub_435867+22D↑j
                 jmp     short def_435A94 ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
 ; ---------------------------------------------------------------------------
 
-loc_435BA9:                             ; CODE XREF: sub_435867+22D↑j
+loc_435BA9:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑j
                 mov     ecx, dword ptr [ebp+var_8] ; jumptable 00435A94 case 180
                 mov     edx, dword ptr [ebp+var_8]
                 mov     eax, dword ptr [edx+160h]
                 mov     [ecx+1B8h], eax
 
-def_435A94:                             ; CODE XREF: sub_435867+21C↑j
+def_435A94:                             ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+21C↑j
                 mov     eax, dword ptr [ebp+var_4] ; jumptable 00435A94 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_435867      endp
+?UpdateHotspots@VisStartGame@@QAEIHHI@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4358C1      dd offset loc_4358C8    ; DATA XREF: sub_435867+5A↑r
+jpt_4358C1      dd offset loc_4358C8    ; DATA XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+5A↑r
                 dd offset loc_435902    ; jump table for switch statement
                 dd offset loc_43593C
                 dd offset loc_435976
@@ -35250,7 +35250,7 @@ byte_435BE4     db      0,     7,     7,     7
                 db      7,     7,     7,     7
                 db      7,     7,     7,     7
                 db      6
-jpt_435A94      dd offset loc_435A9B    ; DATA XREF: sub_435867+22D↑r
+jpt_435A94      dd offset loc_435A9B    ; DATA XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+22D↑r
                 dd offset loc_435AC0    ; jump table for switch statement
                 dd offset loc_435AE5
                 dd offset loc_435B0A
@@ -36038,14 +36038,14 @@ arg_0           = dword ptr  8
 
 loc_437634:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+13↑j
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43817D
+                call    ?Accept@VisStartGame@@QAEXXZ
                 mov     eax, 1
                 jmp     short loc_43765E
 ; ---------------------------------------------------------------------------
 
 loc_437643:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+19↑j
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4382A9
+                call    ?Cancel@VisStartGame@@QAEXXZ
                 mov     eax, 1
                 jmp     short loc_43765E
 ; ---------------------------------------------------------------------------
@@ -36086,7 +36086,7 @@ arg_8           = dword ptr  10h
                 mov     edx, dword ptr [ebp+arg_4]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_435867
+                call    ?UpdateHotspots@VisStartGame@@QAEIHHI@Z
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -36103,488 +36103,10 @@ arg_8           = dword ptr  10h
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006099EC↓o
-
-var_74          = dword ptr -74h
-var_70          = dword ptr -70h
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = byte ptr -4Ch
-var_48          = byte ptr -48h
-var_44          = dword ptr -44h
-var_40          = byte ptr -40h
-var_3C          = byte ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = byte ptr -34h
-var_30          = byte ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = byte ptr -28h
-var_24          = byte ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-; FUNCTION CHUNK AT 005F886B SIZE 00000052 BYTES
-
-; __unwind { // SEH_43769C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43769C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 68h
-                mov     [ebp+var_50], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     [ebp+var_14], 1
-                push    1
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_50]
-                call    sub_435867
-                mov     [ebp+var_1C], eax
-                mov     edx, dword ptr [ebp+var_10]
-                cmp     dword ptr [edx+640h], 2
-                jnz     short loc_4376F8
-                mov     eax, dword ptr [ebp+var_50]
-                mov     ecx, dword ptr [eax+1ECh]
-                mov     [ebp+var_18], ecx
-                jmp     short loc_437704
-; ---------------------------------------------------------------------------
-
-loc_4376F8:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+4C↑j
-                mov     edx, dword ptr [ebp+var_50]
-                mov     eax, dword ptr [edx+1F0h]
-                mov     [ebp+var_18], eax
-
-loc_437704:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+5A↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_50] ; varThis
-                call    ?_Register@facet@locale@std@@QAEXXZ ; std::locale::facet::_Register(void)
-                cmp     [ebp+var_1C], 0
-                jz      def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_54], edx
-                mov     eax, dword ptr [ebp+var_54]
-                sub     eax, 14h        ; switch 161 cases
-                mov     [ebp+var_54], eax
-                cmp     [ebp+var_54], 0A0h
-                ja      def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-                mov     edx, dword ptr [ebp+var_54]
-                xor     ecx, ecx
-                mov     cl, ds:byte_437B84[edx]
-                jmp     ds:jpt_437741[ecx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_437748:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     eax, dword ptr [ebp+var_10] ; jumptable 00437741 case 20
-                cmp     dword ptr [eax+640h], 2
-                jnz     short loc_437784
-                mov     ecx, dword ptr [ebp+var_50]
-                mov     dword ptr [ecx+210h], 0
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, 1C4h
-                push    edx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_50]
-                add     eax, 1C4h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_437784:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+B6↑j
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_437789:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     ecx, dword ptr [ebp+var_10] ; jumptable 00437741 case 40
-                cmp     dword ptr [ecx+640h], 2
-                jnz     short loc_4377C5
-                mov     edx, dword ptr [ebp+var_50]
-                mov     dword ptr [edx+210h], 1
-                mov     eax, dword ptr [ebp+var_50]
-                add     eax, 1C8h
-                push    eax
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_50]
-                add     ecx, 1C8h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4377C5:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+F7↑j
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_4377CA:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     edx, dword ptr [ebp+var_10] ; jumptable 00437741 case 60
-                cmp     dword ptr [edx+640h], 2
-                jnz     short loc_437807
-                mov     eax, dword ptr [ebp+var_50]
-                mov     dword ptr [eax+210h], 2
-                mov     ecx, dword ptr [ebp+var_50]
-                add     ecx, 1CCh
-                push    ecx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, 1CCh
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_437807:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+138↑j
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_43780C:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     eax, dword ptr [ebp+var_50] ; jumptable 00437741 case 80
-                cmp     dword ptr [eax+214h], 0
-                jz      loc_43789E
-                cmp     [ebp+var_14], 0
-                jz      short loc_43789E
-                lea     ecx, [ebp+var_24]
-                push    ecx             ; CString *
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_438D80
-                mov     [ebp+var_58], eax
-                mov     edx, dword ptr [ebp+var_58]
-                mov     [ebp+var_5C], edx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_5C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                call    sub_4386E0
-                add     esp, 4
-                mov     [ebp+var_20], eax
-;   } // starts at 437837
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                cmp     [ebp+var_20], 0
-                jz      short loc_43789E
-                push    17h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 1
-                lea     eax, [ebp+var_28]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_432C03
-;   } // starts at 43787C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_43789E:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+17A↑j
-                mov     ecx, dword ptr [ebp+var_50]
-                mov     dword ptr [ecx+214h], 0
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, 1D0h
-                push    edx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_50]
-                add     eax, 1D0h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_4378D3:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     ecx, dword ptr [ebp+var_50] ; jumptable 00437741 case 140
-                cmp     dword ptr [ecx+214h], 3
-                jz      loc_437965
-                cmp     [ebp+var_14], 0
-                jz      short loc_437965
-                lea     edx, [ebp+var_30]
-                push    edx             ; CString *
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_438D80
-                mov     [ebp+var_60], eax
-                mov     eax, dword ptr [ebp+var_60]
-                mov     [ebp+var_64], eax
-;   try {
-                mov     [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_64]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                call    sub_4386E0
-                add     esp, 4
-                mov     [ebp+var_2C], eax
-;   } // starts at 4378FE
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_30] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                cmp     [ebp+var_2C], 0
-                jz      short loc_437965
-                push    19h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_34] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 3
-                lea     ecx, [ebp+var_34]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_432C03
-;   } // starts at 437943
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_34] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_437965:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+241↑j
-                mov     edx, dword ptr [ebp+var_50]
-                mov     dword ptr [edx+214h], 3
-                mov     eax, dword ptr [ebp+var_50]
-                add     eax, 1D0h
-                push    eax
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_50]
-                add     ecx, 1D0h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_43799A:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     edx, dword ptr [ebp+var_50] ; jumptable 00437741 case 100
-                cmp     dword ptr [edx+214h], 1
-                jz      loc_437A2C
-                cmp     [ebp+var_14], 0
-                jz      short loc_437A2C
-                lea     eax, [ebp+var_3C]
-                push    eax             ; CString *
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_438D80
-                mov     [ebp+var_68], eax
-                mov     ecx, dword ptr [ebp+var_68]
-                mov     [ebp+var_6C], ecx
-;   try {
-                mov     [ebp+var_4], 4
-                mov     ecx, dword ptr [ebp+var_6C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                call    sub_4386E0
-                add     esp, 4
-                mov     [ebp+var_38], eax
-;   } // starts at 4379C5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_3C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                cmp     [ebp+var_38], 0
-                jz      short loc_437A2C
-                push    18h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_40] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 5
-                lea     edx, [ebp+var_40]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_432C03
-;   } // starts at 437A0A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_40] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_437A2C:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+308↑j
-                mov     eax, dword ptr [ebp+var_50]
-                mov     dword ptr [eax+214h], 1
-                mov     ecx, dword ptr [ebp+var_50]
-                add     ecx, 1D0h
-                push    ecx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, 1D0h
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     def_437741      ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_437A62:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     eax, dword ptr [ebp+var_50] ; jumptable 00437741 case 120
-                cmp     dword ptr [eax+214h], 2
-                jz      loc_437AF4
-                cmp     [ebp+var_14], 0
-                jz      short loc_437AF4
-                lea     ecx, [ebp+var_48]
-                push    ecx             ; CString *
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_438D80
-                mov     [ebp+var_70], eax
-                mov     edx, dword ptr [ebp+var_70]
-                mov     [ebp+var_74], edx
-;   try {
-                mov     [ebp+var_4], 6
-                mov     ecx, dword ptr [ebp+var_74]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                call    sub_4386E0
-                add     esp, 4
-                mov     [ebp+var_44], eax
-;   } // starts at 437A8D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_48] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                cmp     [ebp+var_44], 0
-                jz      short loc_437AF4
-                push    1Ah
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_4C] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 7
-                lea     eax, [ebp+var_4C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_432C03
-;   } // starts at 437AD2
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_4C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_437AF4:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+3D0↑j
-                mov     ecx, dword ptr [ebp+var_50]
-                mov     dword ptr [ecx+214h], 2
-                mov     edx, dword ptr [ebp+var_50]
-                add     edx, 1D0h
-                push    edx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_50]
-                add     eax, 1D0h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     short def_437741 ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_437B26:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     ecx, dword ptr [ebp+var_50] ; jumptable 00437741 case 180
-                call    sub_43817D
-                jmp     short def_437741 ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-; ---------------------------------------------------------------------------
-
-loc_437B30:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑j
-                mov     ecx, dword ptr [ebp+var_50] ; jumptable 00437741 case 160
-                call    sub_4382A9
-
-def_437741:                             ; CODE XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+78↑j
-                mov     ecx, dword ptr [ebp+arg_8] ; jumptable 00437741 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139,141-159,161-179
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_50]
-                call    ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-; } // starts at 43769C
-?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_437741      dd offset loc_437748    ; DATA XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+A5↑r
-                dd offset loc_437789    ; jump table for switch statement
-                dd offset loc_4377CA
-                dd offset loc_43780C
-                dd offset loc_43799A
-                dd offset loc_437A62
-                dd offset loc_4378D3
-                dd offset loc_437B30
-                dd offset loc_437B26
-                dd offset def_437741
-byte_437B84     db      0,     9,     9,     9
-                db      9,     9,     9,     9 ; indirect table for switch statement
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      1,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      2,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      3,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      4,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      5,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      6,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      7,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      9,     9,     9,     9
-                db      8
-
-; =============== S U B R O U T I N E =======================================
-
 ; Attributes: library function bp-based frame
 
 ; void __thiscall std::locale::facet::_Register(std::locale::facet *__hidden varThis)
-?_Register@facet@locale@std@@QAEXXZ proc near
+?UpdateTipsProgress@VisStartGame@@QAEXI@Z proc near
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -36600,7 +36122,7 @@ arg_0           = dword ptr  8
                 push    ebp
                 mov     ebp, esp
                 push    0FFFFFFFFh
-                push    offset ?_Register@facet@locale@std@@QAEXXZ_SEH
+                push    offset ?UpdateTipsProgress@VisStartGame@@QAEXI@Z_SEH
                 mov     eax, fs:0
                 push    eax
                 mov     fs:0, esp
@@ -36705,7 +36227,7 @@ def_437C81:                             ; CODE XREF: std::locale::facet::_Regist
                 pop     ebp
                 retn    4
 ; } // starts at 437C25
-?_Register@facet@locale@std@@QAEXXZ endp
+?UpdateTipsProgress@VisStartGame@@QAEXI@Z endp
 
 ; ---------------------------------------------------------------------------
 jpt_437C81      dd offset loc_437CFA    ; DATA XREF: std::locale::facet::_Register(void)+5C↑r
@@ -37076,7 +36598,7 @@ sub_4380D3      endp
 
 ; Attributes: bp-based frame
 
-sub_43817D      proc near               ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+20↑p
+?Accept@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+20↑p
 
 var_34          = dword ptr -34h
 var_30          = dword ptr -30h
@@ -37112,7 +36634,7 @@ var_4           = dword ptr -4
                 push    ecx             ; CString *
                 mov     edx, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [edx+1ECh]
-                call    sub_438D80
+                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
                 mov     [ebp+var_28], eax
                 mov     eax, dword ptr [ebp+var_28]
                 mov     [ebp+var_2C], eax
@@ -37145,16 +36667,16 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_24]
                 call    dword ptr [edx+48h]
 
-loc_438224:                             ; CODE XREF: sub_43817D+80↑j
+loc_438224:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ+80↑j
                 jmp     short loc_43829B
 ; ---------------------------------------------------------------------------
 
-loc_438226:                             ; CODE XREF: sub_43817D+30↑j
+loc_438226:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ+30↑j
                 lea     eax, [ebp+var_20]
                 push    eax             ; CString *
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [ecx+1F0h]
-                call    sub_438D80
+                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
                 mov     [ebp+var_30], eax
                 mov     edx, dword ptr [ebp+var_30]
                 mov     [ebp+var_34], edx
@@ -37187,21 +36709,21 @@ loc_438226:                             ; CODE XREF: sub_43817D+30↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 call    dword ptr [edx+48h]
 
-loc_43829B:                             ; CODE XREF: sub_43817D:loc_438224↑j
+loc_43829B:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ:loc_438224↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 43817D
-sub_43817D      endp
+?Accept@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4382A9      proc near               ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+2F↑p
+?Cancel@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+2F↑p
 
 var_4           = dword ptr -4
 
@@ -37224,7 +36746,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4382A9      endp
+?Cancel@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -37956,8 +37478,8 @@ loc_4386D2:                             ; CODE XREF: ??_GVisStartGame@@UAEPAXI@Z
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_4386E0(char *Str2)
-sub_4386E0      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+14F↑p
+; int __cdecl ?IsDefaultNpcName@@YAIPBD@Z(char *Str2)
+?IsDefaultNpcName@@YAIPBD@Z      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+14F↑p
 
 var_4           = dword ptr -4
 Str2            = dword ptr  8
@@ -38016,15 +37538,15 @@ Str2            = dword ptr  8
                 jmp     short loc_43877D
 ; ---------------------------------------------------------------------------
 
-loc_438776:                             ; CODE XREF: sub_4386E0+1F↑j
+loc_438776:                             ; CODE XREF: ?IsDefaultNpcName@@YAIPBD@Z+1F↑j
                 mov     [ebp+var_4], 1
 
-loc_43877D:                             ; CODE XREF: sub_4386E0+94↑j
+loc_43877D:                             ; CODE XREF: ?IsDefaultNpcName@@YAIPBD@Z+94↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4386E0      endp
+?IsDefaultNpcName@@YAIPBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -38766,8 +38288,8 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_438D80(CString *)
-sub_438D80      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+67↑p
+; int __stdcall ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ(CString *)
+?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+67↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -38790,7 +38312,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_438D80      endp
+?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -332973,70 +332495,6 @@ SEH_43438B:                             ; DATA XREF: sub_43438B+5↑o
 ; } // starts at 5F8709
 ; END OF FUNCTION CHUNK FOR sub_43438B
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z
-
-loc_5F886B:                             ; DATA XREF: .rdata:stru_618F38↓o
-; __unwind { // SEH_43769C              ; varThis
-                lea     ecx, [ebp+var_24]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8874:                             ; DATA XREF: .rdata:00618F40↓o
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F887D:                             ; DATA XREF: .rdata:00618F48↓o
-                lea     ecx, [ebp+var_30] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8886:                             ; DATA XREF: .rdata:00618F50↓o
-                lea     ecx, [ebp+var_34] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F888F:                             ; DATA XREF: .rdata:00618F58↓o
-                lea     ecx, [ebp+var_3C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8898:                             ; DATA XREF: .rdata:00618F60↓o
-                lea     ecx, [ebp+var_40] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F88A1:                             ; DATA XREF: .rdata:00618F68↓o
-                lea     ecx, [ebp+var_48] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F88AA:                             ; DATA XREF: .rdata:00618F70↓o
-;   cleanup() // owned by 437837        ; varThis
-;   cleanup() // owned by 43787C
-;   cleanup() // owned by 4378FE
-;   cleanup() // owned by 437943
-;   cleanup() // owned by 4379C5
-;   cleanup() // owned by 437A0A
-;   cleanup() // owned by 437A8D
-;   cleanup() // owned by 437AD2
-                lea     ecx, [ebp+var_4C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43769C:                             ; DATA XREF: ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z+5↑o
-                mov     eax, offset stru_618F18
-                jmp     ___CxxFrameHandler
-; } // starts at 5F886B
-; END OF FUNCTION CHUNK FOR ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR std::locale::facet::_Register(void)
 
@@ -333056,13 +332514,13 @@ loc_5F88C6:                             ; DATA XREF: .rdata:00618FA0↓o
 ; ---------------------------------------------------------------------------
 
 SEH_437C25:                             ; DATA XREF: std::locale::facet::_Register(void)+5↑o
-?_Register@facet@locale@std@@QAEXXZ_SEH:
+?UpdateTipsProgress@VisStartGame@@QAEXI@Z_SEH:
                 mov     eax, offset stru_618F78
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F88BD
 ; END OF FUNCTION CHUNK FOR std::locale::facet::_Register(void)
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43817D
+; START OF FUNCTION CHUNK FOR ?Accept@VisStartGame@@QAEXXZ
 
 loc_5F88D9:                             ; DATA XREF: .rdata:stru_618FC8↓o
 ; __unwind { // SEH_43817D              ; varThis
@@ -333079,11 +332537,11 @@ loc_5F88E2:                             ; DATA XREF: .rdata:00618FD0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43817D:                             ; DATA XREF: sub_43817D+5↑o
+SEH_43817D:                             ; DATA XREF: ?Accept@VisStartGame@@QAEXXZ+5↑o
                 mov     eax, offset stru_618FA8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F88D9
-; END OF FUNCTION CHUNK FOR sub_43817D
+; END OF FUNCTION CHUNK FOR ?Accept@VisStartGame@@QAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
@@ -373910,16 +373368,6 @@ stru_618E28     UnwindMapEntry <-1, offset loc_5F8709>
                 UnwindMapEntry <-1, offset loc_5F883E>
                 UnwindMapEntry <27, offset loc_5F8847>
                 UnwindMapEntry <27, offset loc_5F8854>
-stru_618F18     FuncInfoV1 <19930520h, 8, offset stru_618F38, 0, 0, 0, 0>
-                align 8
-stru_618F38     UnwindMapEntry <-1, offset loc_5F886B>
-                UnwindMapEntry <-1, offset loc_5F8874>
-                UnwindMapEntry <-1, offset loc_5F887D>
-                UnwindMapEntry <-1, offset loc_5F8886>
-                UnwindMapEntry <-1, offset loc_5F888F>
-                UnwindMapEntry <-1, offset loc_5F8898>
-                UnwindMapEntry <-1, offset loc_5F88A1>
-                UnwindMapEntry <-1, offset loc_5F88AA>
 stru_618F78     FuncInfoV1 <19930520h, 2, offset stru_618F98, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -381739,7 +381187,7 @@ aSfxLetter3Wav  db 'SFX\Letter3.wav',0  ; DATA XREF: sub_437FF4+AD↑o
 aSfxChrgenOkWav_0 db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: sub_437FF4+C4↑o
                 align 4
 ; char Str1[]
-g_Str1            db 'Unnamed',0          ; DATA XREF: sub_4386E0+7C↑o
+g_Str1            db 'Unnamed',0          ; DATA XREF: ?IsDefaultNpcName@@YAIPBD@Z+7C↑o
                 db    3
                 db    0
                 db    0

@@ -12982,3 +12982,93 @@ void VisStartGame::VMethod26()
     this->tipsProgress = 0;
     this->torchFrameTick = 0;
 }
+
+
+// 43769C
+int32_t VisStartGame::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    VisStartGameTextBox* label;
+    if (main_wnd->sessionMode == 2) {
+        label = this->networkNameLabel;
+    } else {
+        label = this->nameLabel;
+    }
+    uint32_t hotspot = this->UpdateHotspots(pos.x, pos.y, 1);
+    this->UpdateTipsProgress(hotspot);
+    switch (hotspot) {
+    case 0x14:
+        if (main_wnd->sessionMode == 2) {
+            this->committedDifficultyIndex = 0;
+            FUN_00438f20(&this->difficultyLevel1Sound.sample);
+            CSound::Play(this->difficultyLevel1Sound);
+        }
+        break;
+    case 0x28:
+        if (main_wnd->sessionMode == 2) {
+            this->committedDifficultyIndex = 1;
+            FUN_00438f20(&this->difficultyLevel2Sound.sample);
+            CSound::Play(this->difficultyLevel2Sound);
+        }
+        break;
+    case 0x3C:
+        if (main_wnd->sessionMode == 2) {
+            this->committedDifficultyIndex = 2;
+            FUN_00438f20(&this->difficultyLevel3Sound.sample);
+            CSound::Play(this->difficultyLevel3Sound);
+        }
+        break;
+    case 0x50:
+        if (this->committedPortraitIndex != 0) {
+            CString text = label->GetText();
+            if (IsDefaultNpcName(text)) {
+                label->SetText(txt_npcnames.GetLine(0x17));
+            }
+        }
+        this->committedPortraitIndex = 0;
+        FUN_00438f20(&this->portraitSelectSound.sample);
+        CSound::Play(this->portraitSelectSound);
+        break;
+    case 100:
+        if (this->committedPortraitIndex != 1) {
+            CString text = label->GetText();
+            if (IsDefaultNpcName(text)) {
+                label->SetText(txt_npcnames.GetLine(0x18));
+            }
+        }
+        this->committedPortraitIndex = 1;
+        FUN_00438f20(&this->portraitSelectSound.sample);
+        CSound::Play(this->portraitSelectSound);
+        break;
+    case 0x78:
+        if (this->committedPortraitIndex != 2) {
+            CString text = label->GetText();
+            if (IsDefaultNpcName(text)) {
+                label->SetText(txt_npcnames.GetLine(0x1A));
+            }
+        }
+        this->committedPortraitIndex = 2;
+        FUN_00438f20(&this->portraitSelectSound.sample);
+        CSound::Play(this->portraitSelectSound);
+        break;
+    case 0x8C:
+        if (this->committedPortraitIndex != 3) {
+            CString text = label->GetText();
+            if (IsDefaultNpcName(text)) {
+                label->SetText(txt_npcnames.GetLine(0x19));
+            }
+        }
+        this->committedPortraitIndex = 3;
+        FUN_00438f20(&this->portraitSelectSound.sample);
+        CSound::Play(this->portraitSelectSound);
+        break;
+    case 0xA0:
+        this->Cancel();
+        break;
+    case 0xB4:
+        this->Accept();
+        break;
+    }
+    return VisScreen::OnLButtonDown(wparam, pos);
+}

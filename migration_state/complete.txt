@@ -564,6 +564,7 @@
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z

@@ -1607,7 +1607,14 @@ externdef ?DrawTipsHighlight@VisStartGame@@QAEII@Z : proc
 externdef ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisStartGame@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z  : proc
+externdef ?UpdateHotspots@VisStartGame@@QAEIHHI@Z : proc
+externdef ?UpdateTipsProgress@VisStartGame@@QAEXI@Z : proc
+externdef ?Accept@VisStartGame@@QAEXXZ : proc
+externdef ?Cancel@VisStartGame@@QAEXXZ : proc
+externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
+externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
+externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 externdef ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
 externdef ?VMethod28@VisStartGame@@UAEXXZ : proc

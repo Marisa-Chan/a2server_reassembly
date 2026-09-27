@@ -10,6 +10,9 @@
 #include "txtfile.h"
 
 
+uint32_t IsDefaultNpcName(const char* name); // 4386e0
+
+
 class CGameSession;
 class VisLabel;
 class CGameBitmap;
@@ -2427,6 +2430,9 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 432CE3
 	virtual int32_t OnChar(uint32_t wparam) override; // 432D1B
 
+	CString GetText(); // 438d80
+	void SetText(const CString& text); // 432c03
+
 public:
 	VisStartGame* screen;
 	CString text;
@@ -2459,6 +2465,10 @@ public:
 
 	uint32_t GetHotspotId(int32_t x, int32_t y); // 4356c2
 	uint32_t DrawTipsHighlight(uint32_t hotspot); // 436e4b
+	uint32_t UpdateHotspots(int32_t x, int32_t y, uint32_t pressed); // 435867
+	void UpdateTipsProgress(uint32_t hotspot); // 437c25
+	void Accept(); // 43817d
+	void Cancel(); // 4382a9
 
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 
