@@ -1480,7 +1480,9 @@ extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??0VisShopCompassDruid@@QAE@HHHHHPAVVisShop@@@Z : proc
 extern ??0VisShopCompassKaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
 externdef ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z : proc
+extern ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z : proc  ; VisInvExtType1Druid::VisInvExtType1Druid(int32_t, int32_t, int32_t, int32_t, int32_t, VisShop*)
+extern ??_GVisInvExtType1Druid@@UAEPAXI@Z : proc  ; virtual VisInvExtType1Druid::~VisInvExtType1Druid() (scalar deleting dtor)
+externdef ?VMethod41@VisInvExtType1Druid@@UAEXXZ : proc  ; void VisInvExtType1Druid::VMethod41()
 extern ??1VisShopCompass@@UAE@XZ : proc
 extern ??_GVisShopCompass@@UAEPAXI@Z : proc
 extern ?GetHint@VisShopCompass@@UAEPBDXZ : proc

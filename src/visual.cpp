@@ -11424,3 +11424,10 @@ VisInvExtType1::VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int
     this->arrow4 = nullptr;
     this->shop_inv = nullptr;
 }
+
+
+// 4C6C40
+VisInvExtType1Druid::VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisInvExtType1(_id, l, t, r, b, shop)
+{
+}
