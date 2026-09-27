@@ -137382,104 +137382,6 @@ sub_4B4AEC      endp
 
 ; Attributes: bp-based frame
 
-sub_4B4DAA      proc near               ; DATA XREF: .rdata:0060D198↓o
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                push    esi
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+0A8h]
-                cmp     eax, 4
-                jz      short loc_4B4E07
-                mov     [ebp+var_4], 0
-                jmp     short loc_4B4DD9
-; ---------------------------------------------------------------------------
-
-loc_4B4DD0:                             ; CODE XREF: sub_4B4DAA+5B↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4B4DD9:                             ; CODE XREF: sub_4B4DAA+24↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_4B4E07
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+0A8h]
-                mov     esi, eax
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_46FB50
-                mov     [eax+18h], esi
-                jmp     short loc_4B4DD0
-; ---------------------------------------------------------------------------
-
-loc_4B4E07:                             ; CODE XREF: sub_4B4DAA+1B↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ecx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      short loc_4B4E65
-                push    0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+84h]
-                call    sub_46FB50
-                mov     [ebp+var_C], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0
-                jz      short loc_4B4E4A
-                push    1
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_14], eax
-                jmp     short loc_4B4E51
-; ---------------------------------------------------------------------------
-
-loc_4B4E4A:                             ; CODE XREF: sub_4B4DAA+8C↑j
-                mov     [ebp+var_14], 0
-
-loc_4B4E51:                             ; CODE XREF: sub_4B4DAA+9E↑j
-                push    1
-                push    0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+84h]
-                call    sub_41FD50
-                jmp     short loc_4B4E07
-; ---------------------------------------------------------------------------
-
-loc_4B4E65:                             ; CODE XREF: sub_4B4DAA+6D↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                push    0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+84h]
-                call    sub_4B9D70
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_41FC10
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4B4DAA      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -143983,7 +143885,7 @@ sub_4B9D40      endp
 
 ; Attributes: bp-based frame
 
-sub_4B9D70      proc near               ; CODE XREF: sub_4B4DAA+CA↑p
+sub_4B9D70      proc near               ; CODE XREF: ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+CA↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -374492,7 +374394,7 @@ off_60D0E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod37@VisInvBase@@UAEHH@Z
                 dd offset ?VMethod38@VisInvExtBase@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod39@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset unknown_libname_647 ; Microsoft VisualC 2-14/net runtime
                 dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
                 align 8
@@ -374540,7 +374442,7 @@ off_60D1A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B7D1C
                 dd offset sub_4B9E70
                 dd offset sub_4B6D46
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset sub_4B663C
                 dd offset sub_4B6BC7
                 align 8
@@ -374588,7 +374490,7 @@ off_60D268      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod37@VisInvBase@@UAEHH@Z
                 dd offset ?GetContextKind@UMSThreadInternalContext@details@Concurrency@@UBE?AW4ContextKind@ContextBase@23@XZ_1 ; Concurrency::details::UMSThreadInternalContext::GetContextKind(void)
                 dd offset sub_4B8102
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset unknown_libname_647 ; Microsoft VisualC 2-14/net runtime
                 dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
                 align 8
@@ -374636,7 +374538,7 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B9790
                 dd offset unknown_libname_649 ; MFC 3.1-14.0 32bit
                 dd offset sub_4B8E9A
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset sub_4B8D43
                 dd offset sub_4B8E43
                 dd offset sub_4B95C5
@@ -374685,7 +374587,7 @@ off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B7D1C
                 dd offset sub_4B9E70
                 dd offset sub_4B6D46
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset sub_4B6815
                 dd offset sub_4B6BC7
                 align 10h
@@ -374733,7 +374635,7 @@ off_60D910      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B7D1C
                 dd offset sub_4B9E70
                 dd offset sub_4B6D46
-                dd offset sub_4B4DAA
+                dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset sub_4B69EE
                 dd offset sub_4B6BC7
                 align 10h

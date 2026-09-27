@@ -824,6 +824,7 @@
 ?VMethod39@VisInvExtBase@@UAEXXZ
 ?VMethod3@CGameObject@@UAEHXZ
 ?VMethod3@CUnit@@UAEHXZ
+?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
 ?VMethod4@CUnit@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CUnit@@UAEXHHH@Z

@@ -11000,3 +11000,23 @@ int32_t VisInvExtBase::VMethod38()
 void VisInvExtBase::VMethod39()
 {
 }
+
+
+// 4B4DAA
+void VisInvExtBase::VMethod40(CArray<TokenEntry*>* arr)
+{
+    if (this->VMethod38() != 4) {
+        for (int32_t i = 0; i < arr->GetSize(); i++) {
+            arr->GetAt(i)->field_0x18 = this->VMethod38();
+        }
+    }
+    while (this->grid_source->GetSize() != 0) {
+        TokenEntry* entry = this->grid_source->GetAt(0);
+        if (entry != nullptr) {
+            delete entry;
+        }
+        this->grid_source->RemoveAt(0, 1);
+    }
+    this->grid_source->InsertAt(0, arr);
+    arr->RemoveAll();
+}
