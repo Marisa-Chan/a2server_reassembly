@@ -11820,3 +11820,11 @@ int32_t VisInvExtType2::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     return VisInvExtBase::OnLButtonUp(wparam, pos);
 }
+
+
+// 4B9EA0
+int32_t VisInvExtType2::VMethod27(TokenEntry* o)
+{
+    o->field_0x18 = 2;
+    return VisInvBase::VMethod27(o);
+}
