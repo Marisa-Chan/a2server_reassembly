@@ -1613,7 +1613,7 @@ externdef ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ : proc
-externdef ?Accept@VisStartGame@@QAEXXZ : proc
+extern ?Accept@VisStartGame@@QAEXXZ  : proc
 externdef ?Cancel@VisStartGame@@QAEXXZ : proc
 externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
 externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc

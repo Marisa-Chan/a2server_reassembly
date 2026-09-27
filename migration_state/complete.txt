@@ -182,6 +182,7 @@
 ??YCString@@QAEABV0@PBD@Z
 ?_mbstowcsz@@YAHPA_WPBDI@Z
 ?_wcstombsz@@YAHPADPB_WI@Z
+?Accept@VisStartGame@@QAEXXZ
 ?Add@CStringArray@@QAEHPBD@Z
 ?AddChild@CVisualObject@@QAEXPAV1@@Z
 ?AddElement@VisMenuWnd@@QAEXPAVCVisualObject@@H@Z

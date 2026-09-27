@@ -34789,125 +34789,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?Accept@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+20↑p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = byte ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = byte ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F88D9 SIZE 0000001C BYTES
-
-; __unwind { // SEH_43817D
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43817D
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_24], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     eax, dword ptr [ebp+var_10]
-                cmp     dword ptr [eax+640h], 2
-                jnz     short loc_438226
-                lea     ecx, [ebp+var_18]
-                push    ecx             ; CString *
-                mov     edx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [edx+1ECh]
-                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
-                mov     [ebp+var_28], eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_2C], eax
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_4029A0
-                xor     ecx, ecx
-                test    eax, eax
-                setnle  cl
-                mov     byte ptr [ebp+var_14], cl
-;   } // starts at 4381CA
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     edx, dword ptr [ebp+var_14]
-                and     edx, 0FFh
-                test    edx, edx
-                jz      short loc_438224
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 1D4h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                push    0
-                push    0
-                push    445h
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [edx+48h]
-
-loc_438224:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ+80↑j
-                jmp     short loc_43829B
-; ---------------------------------------------------------------------------
-
-loc_438226:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ+30↑j
-                lea     eax, [ebp+var_20]
-                push    eax             ; CString *
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ecx+1F0h]
-                call    ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
-                mov     [ebp+var_30], eax
-                mov     edx, dword ptr [ebp+var_30]
-                mov     [ebp+var_34], edx
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_34]
-                call    sub_4029A0
-                xor     ecx, ecx
-                test    eax, eax
-                setnle  cl
-                mov     byte ptr [ebp+var_1C], cl
-;   } // starts at 438241
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     edx, dword ptr [ebp+var_1C]
-                and     edx, 0FFh
-                test    edx, edx
-                jz      short loc_43829B
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 1D4h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                push    0
-                push    0
-                push    445h
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [edx+48h]
-
-loc_43829B:                             ; CODE XREF: ?Accept@VisStartGame@@QAEXXZ:loc_438224↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43817D
-?Accept@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -329370,30 +329251,6 @@ SEH_43438B:                             ; DATA XREF: ?LoadBitmaps@VisStartGame@@
 ; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisStartGame@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?Accept@VisStartGame@@QAEXXZ
-
-loc_5F88D9:                             ; DATA XREF: .rdata:stru_618FC8↓o
-; __unwind { // SEH_43817D              ; varThis
-                lea     ecx, [ebp+var_18]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F88E2:                             ; DATA XREF: .rdata:00618FD0↓o
-;   cleanup() // owned by 4381CA        ; varThis
-;   cleanup() // owned by 438241
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43817D:                             ; DATA XREF: ?Accept@VisStartGame@@QAEXXZ+5↑o
-                mov     eax, offset stru_618FA8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F88D9
-; END OF FUNCTION CHUNK FOR ?Accept@VisStartGame@@QAEXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -369622,13 +369479,6 @@ stru_618E28     UnwindMapEntry <-1, offset loc_5F8709>
                 UnwindMapEntry <-1, offset loc_5F883E>
                 UnwindMapEntry <27, offset loc_5F8847>
                 UnwindMapEntry <27, offset loc_5F8854>
-stru_618FA8     FuncInfoV1 <19930520h, 2, offset stru_618FC8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618FC8     UnwindMapEntry <-1, offset loc_5F88D9>
-                UnwindMapEntry <-1, offset loc_5F88E2>
 stru_618FD8     FuncInfoV1 <19930520h, 1, offset stru_618FF8, 0, 0, 0, 0>
                 db    0
                 db    0

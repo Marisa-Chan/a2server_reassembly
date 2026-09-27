@@ -13457,3 +13457,21 @@ void VisStartGame::UpdateTipsProgress(uint32_t hotspot)
         break;
     }
 }
+
+
+// 43817D
+void VisStartGame::Accept()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode == 2) {
+        if (this->networkNameLabel->GetText().GetLength() > 0) {
+            CSound::Play(this->acceptSound);
+            this->MsgProc(0x445, 0, 0);
+        }
+    } else {
+        if (this->nameLabel->GetText().GetLength() > 0) {
+            CSound::Play(this->acceptSound);
+            this->MsgProc(0x445, 0, 0);
+        }
+    }
+}
