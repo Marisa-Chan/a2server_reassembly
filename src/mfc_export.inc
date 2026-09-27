@@ -1834,7 +1834,7 @@ externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
 extern ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnMouseMove(uint32_t, CPoint)
 extern ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnWmUser(uint32_t, CPoint)
 extern ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonDown(uint32_t, CPoint)
-externdef ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonUp(uint32_t, CPoint)
 extern ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc  ; int32_t VisInvExtType1::OnKeyDown(uint32_t)
 extern ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvExtType1::VMethod26(TokenEntry*, int32_t)
 extern ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvExtType1::VMethod29(TokenEntry*, int32_t)

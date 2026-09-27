@@ -11393,3 +11393,10 @@ VisInvExtType1::~VisInvExtType1()
     }
     this->grid_source = nullptr;
 }
+
+
+// 4B7412
+int32_t VisInvExtType1::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    return VisInvExtBase::OnLButtonUp(wparam, pos);
+}
