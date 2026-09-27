@@ -594,6 +594,7 @@
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
+?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z
