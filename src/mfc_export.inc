@@ -1796,7 +1796,7 @@ externdef ??_GVisInvType1@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvType1@@UAEPBDXZ : proc
 extern ?VMethod7@VisInvType1@@UAEXXZ : proc
 externdef ?MsgProc@VisInvType1@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc

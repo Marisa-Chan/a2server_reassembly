@@ -10863,6 +10863,69 @@ void VisInvType1::VMethod7()
 }
 
 
+// 4A716F
+int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (g_mousept.GetSelectState() != 0) {
+        g_mousept.ResetStates();
+    }
+
+    if ((wparam & 1) == 0) {
+        return 0;
+    }
+
+    if (this->grid_source == nullptr) {
+        return 0;
+    }
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return 0;
+    }
+
+    int32_t idx = this->VMethod30(pos.x, -pos.y);
+    if (idx == -1) {
+        return 0;
+    }
+
+    int32_t count;
+    if (this->grid_source->GetAt(idx)->FUN_0041f0d0() != 0) {
+        if (main_wnd->vis_map_context->my_main_unit->gold < 1) {
+            count = 0;
+        } else if (g_kbShiftState == 0) {
+            count = 1000;
+        } else {
+            count = this->grid_source->GetAt(idx)->field_0x10;
+        }
+    } else {
+        if (g_kbShiftState == 0) {
+            count = 1;
+        } else {
+            count = this->grid_source->GetAt(idx)->field_0x10;
+        }
+    }
+
+    if (this->grid_source->GetAt(idx)->sub_43A5E5() != 0) {
+        return 0;
+    }
+
+    if (this->VMethod36(idx, count) == 0) {
+        return 0;
+    }
+
+    if (main_wnd->field_0x408->FUN_0041f0d0() != 0) {
+        main_wnd->vis_map_context->my_main_unit->gold -= main_wnd->field_0x408->field_0x10;
+        main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, "graphics\\interface\\money\\money.16a", main_wnd->field_0x410);
+    } else {
+        CString name = main_wnd->field_0x408->FUN_004394f3();
+        CString path = "graphics\\inventory\\" + name + ".16a";
+        main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+    }
+
+    return 0;
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {
