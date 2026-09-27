@@ -891,6 +891,7 @@
 ?VMethod42@VisInvExtBase@@UAEXXZ
 ?VMethod42@VisInvExtType1@@UAEXXZ
 ?VMethod42@VisInvExtType3@@UAEXXZ
+?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 ?VMethod4@CUnit@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CUnit@@UAEXHHH@Z

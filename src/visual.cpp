@@ -11848,6 +11848,37 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B95C5
+TokenEntry* VisInvExtType3::VMethod43(int32_t id1, int32_t id2)
+{
+    if (this->grid_source == nullptr) {
+        return nullptr;
+    }
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (entry->field_0x4 != id1) {
+            continue;
+        }
+        if (entry->field_0x18 != id2) {
+            continue;
+        }
+        if (entry->sub_4A7880(1) == 0) {
+            this->grid_source->RemoveAt(i, 1);
+            entry->field_0x10 = 1;
+            this->sub_4B4FD1();
+            return entry;
+        }
+        TokenEntry* copy = new TokenEntry();
+        *copy = *entry;
+        copy->field_0x10 = 1;
+        this->sub_4B4FD1();
+        return copy;
+    }
+    this->sub_4B4FD1();
+    return nullptr;
+}
+
+
 // 4B970E
 void VisInvExtType3::sub_4B970E()
 {

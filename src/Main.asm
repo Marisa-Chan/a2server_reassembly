@@ -137258,142 +137258,6 @@ sub_4B8CC5      endp
 
 ; Attributes: bp-based frame
 
-sub_4B95C5      proc near               ; DATA XREF: .rdata:0060D3E4↓o
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-Block           = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005FDD83 SIZE 00000014 BYTES
-
-; __unwind { // SEH_4B95C5
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4B95C5
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_24], ecx
-                mov     eax, dword ptr [ebp+var_24]
-                cmp     dword ptr [eax+84h], 0
-                jnz     short loc_4B95F6
-                xor     eax, eax
-                jmp     loc_4B96FE
-; ---------------------------------------------------------------------------
-
-loc_4B95F6:                             ; CODE XREF: sub_4B95C5+28↑j
-                mov     [ebp+var_18], 0
-                jmp     short loc_4B9608
-; ---------------------------------------------------------------------------
-
-loc_4B95FF:                             ; CODE XREF: sub_4B95C5:loc_4B96EF↓j
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 1
-                mov     [ebp+var_18], ecx
-
-loc_4B9608:                             ; CODE XREF: sub_4B95C5+38↑j
-                mov     edx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [edx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_18], eax
-                jge     loc_4B96F4
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ecx+84h]
-                call    sub_46FB50
-                mov     [ebp+var_14], eax
-                mov     edx, dword ptr [ebp+var_14]
-                xor     eax, eax
-                mov     ax, [edx+4]
-                cmp     eax, [ebp+arg_0]
-                jnz     loc_4B96EF
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+18h]
-                cmp     edx, [ebp+arg_4]
-                jnz     loc_4B96EF
-                push    1
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?sub_4A7880@TokenEntry@@QAEHH@Z
-                test    eax, eax
-                jnz     short loc_4B968E
-                push    1
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ecx+84h]
-                call    sub_41FD50
-                mov     edx, dword ptr [ebp+var_14]
-                mov     dword ptr [edx+10h], 1
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_14]
-                jmp     short loc_4B96FE
-; ---------------------------------------------------------------------------
-
-loc_4B968E:                             ; CODE XREF: sub_4B95C5+9C↑j
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4B96B2
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0TokenEntry@@QAE@XZ
-                mov     [ebp+var_28], eax
-                jmp     short loc_4B96B9
-; ---------------------------------------------------------------------------
-
-loc_4B96B2:                             ; CODE XREF: sub_4B95C5+DE↑j
-                mov     [ebp+var_28], 0
-
-loc_4B96B9:                             ; CODE XREF: sub_4B95C5+EB↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_20], eax
-;   } // starts at 4B9698
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??4TokenEntry@@QAEXABV0@@Z
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+10h], 1
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_10]
-                jmp     short loc_4B96FE
-; ---------------------------------------------------------------------------
-
-loc_4B96EF:                             ; CODE XREF: sub_4B95C5+7B↑j
-                jmp     loc_4B95FF
-; ---------------------------------------------------------------------------
-
-loc_4B96F4:                             ; CODE XREF: sub_4B95C5+54↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
-                xor     eax, eax
-
-loc_4B96FE:                             ; CODE XREF: sub_4B95C5+2C↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 4B95C5
-sub_4B95C5      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -348427,23 +348291,6 @@ SEH_4B8CC5:                             ; DATA XREF: sub_4B8CC5+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FDD13
 ; END OF FUNCTION CHUNK FOR sub_4B8CC5
-; START OF FUNCTION CHUNK FOR sub_4B95C5
-
-loc_5FDD83:                             ; DATA XREF: .rdata:stru_61F208↓o
-; __unwind { // SEH_4B95C5
-;   cleanup() // owned by 4B9698
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4B95C5:                             ; DATA XREF: sub_4B95C5+5↑o
-                mov     eax, offset stru_61F1E8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDD83
-; END OF FUNCTION CHUNK FOR sub_4B95C5
-; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_4BA1F2
@@ -367478,7 +367325,7 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset ?VMethod41@VisInvExtType3@@UAEXXZ
                 dd offset ?VMethod42@VisInvExtType3@@UAEXXZ
-                dd offset sub_4B95C5
+                dd offset ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 
 off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z+2A↑o
                 dd offset ??_GVisInvExtType1Druid@@UAEPAXI@Z
@@ -381259,8 +381106,6 @@ stru_61F130     FuncInfoV1 <19930520h, 2, offset stru_61F150, 0, 0, 0, 0>
 stru_61F150     UnwindMapEntry <-1, offset loc_5FDD13>
                 UnwindMapEntry <0, offset loc_5FDD1C>
                 align 8
-stru_61F1E8     FuncInfoV1 <19930520h, 1, offset stru_61F208, 0, 0, 0, 0>
-stru_61F208     UnwindMapEntry <-1, offset loc_5FDD83>
 stru_61F240     FuncInfoV1 <19930520h, 4, offset stru_61F260, 0, 0, 0, 0>
                 db    0
                 db    0
