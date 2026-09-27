@@ -10566,3 +10566,17 @@ void VisInvBase::FUN_004a5e12()
         this->has_anim_visible_cells = 1;
     }
 }
+
+
+// 4A4C2F
+void VisInvBase::VMethod35()
+{
+    int32_t total = this->visible_columns * this->visible_rows;
+    this->spr_cells.SetSize(total, -1);
+    this->cell_update_counter.SetSize(total, -1);
+    this->anim_frames.SetSize(total, -1);
+    for (int32_t i = 0; i < total; i++) {
+        this->spr_cells.ElementAt(i) = nullptr;
+        this->cell_update_counter.ElementAt(i) = 0;
+    }
+}
