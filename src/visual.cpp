@@ -10987,3 +10987,10 @@ void VisInvExtBase::VMethod32(CArray<TokenEntry*>* arr)
 {
     this->grid_source = arr;
 }
+
+
+// 4B9E40
+int32_t VisInvExtBase::VMethod38()
+{
+    return -1;
+}
