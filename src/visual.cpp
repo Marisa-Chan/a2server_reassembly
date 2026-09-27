@@ -10468,6 +10468,16 @@ VisInvBase::VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 }
 
 
+// 4a4bcb
+void VisInvBase::sub_4A4BCB()
+{
+    for (int32_t i = 0; i < 1024; i++) {
+        this->random_offsets1[i] = rand() / 0x1FF + 8;
+        this->random_offsets2[i] = rand() / 0x1FF + 8;
+    }
+}
+
+
 // 4A4ACC
 VisInvBase::~VisInvBase()
 {

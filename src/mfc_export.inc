@@ -1763,7 +1763,7 @@ externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
 ;VisInvBase
 extern ??0VisInvBase@@QAE@HHHHH@Z : proc  ; VisInvBase::VisInvBase(int32_t, int32_t, int32_t, int32_t, int32_t)
-externdef ?sub_4A4BCB@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A4BCB()
+extern ?sub_4A4BCB@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A4BCB()
 extern ??1VisInvBase@@UAE@XZ :proc
 extern ??_GVisInvBase@@UAEPAXI@Z : proc  ; virtual VisInvBase::~VisInvBase() (scalar deleting dtor)
 extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
