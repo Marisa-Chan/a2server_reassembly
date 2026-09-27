@@ -531,6 +531,7 @@
 ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z

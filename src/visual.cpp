@@ -10944,3 +10944,14 @@ void VisInvExtBase::sub_4B4BC5()
     FUN_00438e40(&this->field_0x20b8.sample, "SFX\\Put_Off.wav");
     FUN_00438e40(&this->field_0x20bc.sample, "SFX\\Scroll.wav");
 }
+
+
+// 4B5D19
+int32_t VisInvExtBase::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        main_wnd->field_0x40c = this->VMethod31(&pos);
+    }
+    return 1;
+}

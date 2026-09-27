@@ -137753,36 +137753,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z+123↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = byte ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+408h], 0
-                jnz     short loc_4B5D51
-                lea     ecx, [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+8Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+40Ch], eax
-
-loc_4B5D51:                             ; CODE XREF: ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z+1B↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
