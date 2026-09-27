@@ -11921,6 +11921,31 @@ void VisInvExtType3::VMethod42()
 }
 
 
+// 4B9B2F
+int32_t VisInvExtType3::sub_4B9B2F(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        return -1;
+    }
+    TokenEntry* entry = main_wnd->field_0x408;
+    int32_t amount = entry->field_0x10;
+    int32_t grade = -1;
+    if (main_wnd->field_0x410 >= 5 && main_wnd->field_0x410 <= 8) {
+        grade = entry->field_0x20;
+    } else {
+        grade = main_wnd->field_0x40c;
+    }
+    int32_t result = this->VMethod26(entry, idx);
+    this->VMethod32(this->grid_source);
+    uint8_t kind = this->VMethod38();
+    main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, grade, kind, result, amount);
+    main_wnd->ResetItemCursor();
+    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    return result;
+}
+
+
 // 4B8CC5
 VisInvExtType3::~VisInvExtType3()
 {
