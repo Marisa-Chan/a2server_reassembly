@@ -11828,3 +11828,11 @@ int32_t VisInvExtType2::VMethod27(TokenEntry* o)
     o->field_0x18 = 2;
     return VisInvBase::VMethod27(o);
 }
+
+
+// 4B9ED0
+int32_t VisInvExtType2::VMethod26(TokenEntry* o, int32_t idx)
+{
+    o->field_0x18 = 2;
+    return VisInvBase::VMethod26(o, idx);
+}
