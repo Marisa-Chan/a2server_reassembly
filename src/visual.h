@@ -2418,6 +2418,8 @@ class VisStartGame;
 class VisStartGameTextBox : public CVisualObject
 {
 public:
+	VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen); // 4329f9
+
 	virtual const char* GetHint() override; // 432EA3
 	virtual void VMethod7() override; // 432D58
 	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 432C1F

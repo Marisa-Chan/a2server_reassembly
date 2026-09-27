@@ -552,11 +552,11 @@
 ?VMethod28@VisStartGame@@UAEXXZ	310
 ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z	419
 ?DrawTipsHighlight@VisStartGame@@QAEII@Z	535
-?VMethod26@VisStartGame@@UAEXXZ	730
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26
 ?OnChar@VisStartGameTextBox@@UAEHI@Z	33
 ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z	34
 ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z	36
+??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
 ?VMethod7@VisStartGameTextBox@@UAEXXZ	134
 ??_GVisTipsDialog@@UAEPAXI@Z	24

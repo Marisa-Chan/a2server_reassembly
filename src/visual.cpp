@@ -12916,3 +12916,69 @@ void VisStartGame::VMethod7()
     SetClipRect(old_clip);
     VisScreen::VMethod7();
 }
+
+
+// 4333B9
+void VisStartGame::VMethod26()
+{
+    this->dialogActiveFlag = 0;
+    this->blindAnimationPosition = CPoint(0, 0);
+    this->blindAnimationFrame = 0;
+    this->mainAreaBitmap = nullptr;
+    this->hotspotMaskBitmap = nullptr;
+    this->returnToGameButtonBitmap = nullptr;
+    this->acceptButtonBitmap = nullptr;
+    this->blindAnimation = nullptr;
+    this->tableauBitmap = nullptr;
+    this->returnToGameHoverBitmap = nullptr;
+    this->acceptHoverBitmap = nullptr;
+    this->field_0x1bc = 0;
+    this->field_0x1c0 = 0;
+    this->difficultyLevel1Sound.sample = nullptr;
+    this->difficultyLevel2Sound.sample = nullptr;
+    this->difficultyLevel3Sound.sample = nullptr;
+    this->portraitSelectSound.sample = nullptr;
+    this->acceptSound.sample = nullptr;
+    this->returnSound.sample = nullptr;
+    this->labelInputSound1.sample = nullptr;
+    this->labelInputSound2.sample = nullptr;
+    this->labelInputSound3.sample = nullptr;
+    this->labelInputSoundIndex = 0;
+
+    this->portraitHoverBitmaps.SetSize(4, -1);
+    this->portraitSelectedBitmaps.SetSize(4, -1);
+    this->portraitSelectedHoverBitmaps.SetSize(4, -1);
+    this->difficultySelectedBitmaps.SetSize(3, -1);
+    this->difficultyHoverBitmaps.SetSize(3, -1);
+    this->difficultySelectedHoverBitmaps.SetSize(3, -1);
+    this->portraitRects.SetSize(4, -1);
+    this->difficultyRects.SetSize(3, -1);
+    this->portraitStateFlags.SetSize(4, -1);
+    this->difficultyStateFlags.SetSize(3, -1);
+
+    this->difficultyRects.ElementAt(0) = CRect(CPoint(8, 0), CSize(0x30, 0x48));
+    this->difficultyRects.ElementAt(1) = CRect(CPoint(0x128, 0), CSize(0x30, 0x48));
+    this->difficultyRects.ElementAt(2) = CRect(CPoint(0x244, 0), CSize(0x30, 0x48));
+    this->portraitRects.ElementAt(0) = CRect(CPoint(0x74, 0x2C), CSize(0x40, 0xF4));
+    this->portraitRects.ElementAt(1) = CRect(CPoint(0xB4, 0x2C), CSize(0x40, 0xF4));
+    this->portraitRects.ElementAt(2) = CRect(CPoint(0x188, 0x2C), CSize(0x40, 0xF4));
+    this->portraitRects.ElementAt(3) = CRect(CPoint(0x1C8, 0x2C), CSize(0x40, 0xF4));
+    this->returnToGameButtonRect = CRect(CPoint(0x10, 400), CSize(0x40, 0x4C));
+    this->acceptButtonRect = CRect(CPoint(0x224, 400), CSize(0x50, 0x4C));
+
+    this->blindSpawnRects.SetSize(this->difficultyRects.GetSize() + 2, -1);
+    for (int32_t i = 0; i < this->difficultyRects.GetSize(); i++) {
+        this->blindSpawnRects.ElementAt(i) = this->difficultyRects.ElementAt(i);
+    }
+    this->blindSpawnRects.ElementAt(this->difficultyRects.GetSize()) = this->returnToGameButtonRect;
+    this->blindSpawnRects.ElementAt(this->difficultyRects.GetSize() + 1) = this->acceptButtonRect;
+
+    this->char_name = "Master Oberic";
+
+    this->networkNameLabel = new VisStartGameTextBox(0x464, 0x12C, 0x1B1, 0x1D0, 0x1C1, this);
+    this->nameLabel = new VisStartGameTextBox(0x464, 0x12C, 0x1A6, 0x1D0, 0x1B6, this);
+    this->clanLabel = new VisStartGameTextBox(0x465, 0x12C, 0x1BC, 0x1D0, 0x1CC, this);
+    this->tipsPrompt = nullptr;
+    this->tipsProgress = 0;
+    this->torchFrameTick = 0;
+}
