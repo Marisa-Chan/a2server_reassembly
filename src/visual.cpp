@@ -10396,3 +10396,23 @@ TokenEntry* VisInvBase::VMethod28(uint32_t id)
     }
     return nullptr;
 }
+
+
+// 4A56C3
+int32_t VisInvBase::VMethod27(TokenEntry* o)
+{
+    if (this->grid_source == nullptr) {
+        return -1;
+    }
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (!entry->sub_4A7900(o)) {
+            continue;
+        }
+        entry->sub_4A7850(o->field_0x10);
+        delete o;
+        return i;
+    }
+    this->grid_source->Add(o);
+    return this->grid_source->GetUpperBound();
+}
