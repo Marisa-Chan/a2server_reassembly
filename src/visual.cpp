@@ -11890,3 +11890,13 @@ void VisInvExtType2::sub_4B860E()
         g_bmp_invarrow3->VMethod10(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
     }
 }
+
+
+// 4B8666
+void VisInvExtType2::sub_4B8666()
+{
+    CPoint topleft = this->field_0x20ac->rect.TopLeft();
+    if (g_bmp_invarrow3 != nullptr) {
+        g_bmp_invarrow1->VMethod10(topleft.x, topleft.y + 0x188, 0, 0, 0x20, 0x58);
+    }
+}

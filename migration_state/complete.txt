@@ -696,6 +696,7 @@
 ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
 ?sub_4B73E4@VisInvExtType1@@QAEXH@Z
 ?sub_4B860E@VisInvExtType2@@QAEXXZ
+?sub_4B8666@VisInvExtType2@@QAEXXZ
 ?sub_4BC97B@VisShop@@QAEXXZ
 ?sub_4BCDA0@VisShop@@QAEXXZ
 ?sub_4EE028@Server@@QAEXPAVHumanoid@@@Z
