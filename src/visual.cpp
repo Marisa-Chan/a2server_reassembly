@@ -10598,3 +10598,19 @@ void VisInvBase::VMethod33(CGameObject* uni)
     }
     this->VMethod34();
 }
+
+
+// 4A4DA9
+void VisInvBase::VMethod32(CArray<TokenEntry*>* arr)
+{
+    if (arr == nullptr) {
+        this->grid_source = nullptr;
+    } else {
+        this->grid_source = arr;
+    }
+    int32_t total = this->visible_columns * this->visible_rows;
+    for (int32_t i = 0; i < total; i++) {
+        this->cell_update_counter.ElementAt(i) = 0;
+    }
+    this->VMethod34();
+}

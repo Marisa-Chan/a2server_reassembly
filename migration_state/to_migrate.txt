@@ -435,7 +435,6 @@
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
 ?VMethod38@VisInvBase@@UAEHXZ	12
 ?VMethod34@VisInvBase@@UAEXXZ	52
-?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	56
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12

@@ -113793,63 +113793,6 @@ sub_4A4BCB      endp
 
 ; Attributes: bp-based frame
 
-?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      proc near               ; DATA XREF: .rdata:0060CA40↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                cmp     [ebp+arg_0], 0
-                jnz     short loc_4A4DC7
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+84h], 0
-                jmp     short loc_4A4DD3
-; ---------------------------------------------------------------------------
-
-loc_4A4DC7:                             ; CODE XREF: ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+D↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+84h], edx
-
-loc_4A4DD3:                             ; CODE XREF: ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+1C↑j
-                mov     [ebp+var_4], 0
-                jmp     short loc_4A4DE5
-; ---------------------------------------------------------------------------
-
-loc_4A4DDC:                             ; CODE XREF: ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+69↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4A4DE5:                             ; CODE XREF: ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+31↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ecx+88h]
-                imul    eax, [edx+8Ch]
-                cmp     [ebp+var_4], eax
-                jge     short loc_4A4E14
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 70h ; 'p'
-                call    sub_402880
-                mov     dword ptr [eax], 0
-                jmp     short loc_4A4DDC
-; ---------------------------------------------------------------------------
-
-loc_4A4E14:                             ; CODE XREF: ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z+52↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+98h]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
