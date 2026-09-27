@@ -1754,7 +1754,7 @@ externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 
 ;VisInvBase
-externdef ??_GVisInvBase@@UAEPAXI@Z : proc
+extern ??_GVisInvBase@@UAEPAXI@Z : proc  ; virtual VisInvBase::~VisInvBase() (scalar deleting dtor)
 extern ?GetHint@VisInvBase@@UAEPBDXZ : proc  ; const char* VisInvBase::GetHint()
 extern ?MsgProc@VisInvBase@@UAEHIII@Z : proc  ; int32_t VisInvBase::MsgProc(uint32_t, uint32_t, uint32_t)
 extern ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvBase::VMethod26(TokenEntry*, int32_t)
@@ -1763,6 +1763,13 @@ extern ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc  ; TokenEntry* VisInv
 extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
 extern ?VMethod30@VisInvBase@@UAEHHH@Z : proc  ; int32_t VisInvBase::VMethod30(int32_t, int32_t)
 extern ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvBase::VMethod31(const CPoint*)
+externdef ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvBase::VMethod32(CArray<TokenEntry*>*)  //4a4da9 in asm
+externdef ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z : proc  ; void VisInvBase::VMethod33(CGameObject*)  //4a4d05 in asm
+externdef ?VMethod34@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod34()  //4a4e28 in asm
+externdef ?VMethod35@VisInvBase@@UAEXXZ : proc  ; void VisInvBase::VMethod35()  //4a4c2f in asm
+externdef ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvBase::VMethod36(int32_t, int32_t)  //4a5aae in asm
+externdef ?VMethod37@VisInvBase@@UAEHH@Z : proc  ; int32_t VisInvBase::VMethod37(int32_t)  //4a5c39 in asm
+externdef ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  //4a79b0 in asm
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 
 ;VisInvType1

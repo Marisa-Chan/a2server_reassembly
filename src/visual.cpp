@@ -10454,3 +10454,16 @@ const char* VisInvBase::GetHint()
 {
     return nullptr;
 }
+
+
+// 4A4ACC
+VisInvBase::~VisInvBase()
+{
+    for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
+        CSprite256* sprite = this->spr_cells.GetAt(i);
+        if (sprite != nullptr) {
+            delete sprite;
+        }
+    }
+    this->spr_cells.RemoveAll();
+}

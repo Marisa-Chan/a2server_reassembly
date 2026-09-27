@@ -151,6 +151,7 @@
 ??_7CObject@@6B@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
+??_GVisInvBase@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z

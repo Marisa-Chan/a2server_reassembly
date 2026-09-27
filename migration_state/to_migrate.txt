@@ -433,8 +433,14 @@
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
-??_GVisInvBase@@UAEPAXI@Z	24
+?VMethod38@VisInvBase@@UAEHXZ	12
+?VMethod34@VisInvBase@@UAEXXZ	52
+?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z	56
+?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z	63
+?VMethod35@VisInvBase@@UAEXXZ	71
 ?FUN_004a5e12@VisInvBase@@QAEXXZ	140
+?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z	148
+?VMethod37@VisInvBase@@UAEHH@Z	152
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12
