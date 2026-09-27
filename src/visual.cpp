@@ -11020,3 +11020,9 @@ void VisInvExtBase::VMethod40(CArray<TokenEntry*>* arr)
     this->grid_source->InsertAt(0, arr);
     arr->RemoveAll();
 }
+
+
+// 4B9E50
+void VisInvExtBase::VMethod41()
+{
+}

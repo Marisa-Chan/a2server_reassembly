@@ -144023,18 +144023,6 @@ sub_4B9E10      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_647 proc near           ; DATA XREF: .rdata:0060D19C↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_647 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -374395,7 +374383,7 @@ off_60D0E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod38@VisInvExtBase@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod39@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
-                dd offset unknown_libname_647 ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod41@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
                 align 8
 off_60D1A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4B62D8+76↑o
@@ -374491,7 +374479,7 @@ off_60D268      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?GetContextKind@UMSThreadInternalContext@details@Concurrency@@UBE?AW4ContextKind@ContextBase@23@XZ_1 ; Concurrency::details::UMSThreadInternalContext::GetContextKind(void)
                 dd offset sub_4B8102
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
-                dd offset unknown_libname_647 ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod41@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
                 align 8
 off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4B89D8+5C↑o

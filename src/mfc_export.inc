@@ -1815,6 +1815,7 @@ extern ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : pr
 extern ?VMethod38@VisInvExtBase@@UAEHXZ : proc  ; int32_t VisInvExtBase::VMethod38()
 extern ?VMethod39@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod39()
 extern ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvExtBase::VMethod40(CArray<TokenEntry*>*)
+extern ?VMethod41@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod41()
 extern ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4C1C()
 extern ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4D33()
 extern ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BC5()
