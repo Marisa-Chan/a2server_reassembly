@@ -11104,6 +11104,14 @@ int32_t VisInvType1::OnRButtonDblClk(uint32_t wparam, CPoint pos)
 }
 
 
+// 4A79C0
+int32_t VisInvType1::VMethod27(TokenEntry* o)
+{
+    o->field_0x18 = 2;
+    return VisInvBase::VMethod27(o);
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {

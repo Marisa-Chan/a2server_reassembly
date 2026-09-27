@@ -114064,25 +114064,6 @@ loc_4A7987:                             ; CODE XREF: ?sub_4A7900@TokenEntry@@QAE
 
 ; Attributes: bp-based frame
 
-?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z      proc near               ; DATA XREF: .rdata:0060CADC↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [eax+18h], 2
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

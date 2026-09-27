@@ -834,6 +834,7 @@
 ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z
 ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z
 ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z
+?VMethod27@VisInvType1@@UAEHPAVTokenEntry@@@Z
 ?VMethod27@VisScreen@@UAEXXZ
 ?VMethod27@VisShopCompass@@UAEXXZ
 ?VMethod27@VisTavScene@@UAEXXZ
