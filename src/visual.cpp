@@ -11836,3 +11836,10 @@ int32_t VisInvExtType2::VMethod26(TokenEntry* o, int32_t idx)
     o->field_0x18 = 2;
     return VisInvBase::VMethod26(o, idx);
 }
+
+
+// 4B80D9
+VisInvExtType2::~VisInvExtType2()
+{
+    this->visible_startref = nullptr;
+}

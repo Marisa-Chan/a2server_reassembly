@@ -438,12 +438,13 @@
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
-??_GVisInvExtType2@@UAEPAXI@Z	24
+?VMethod38@VisInvExtType2@@UAEHXZ	12
 ?sub_4B860E@VisInvExtType2@@QAEXXZ	38
 ?sub_4B8666@VisInvExtType2@@QAEXXZ	38
 ?sub_4B86BE@VisInvExtType2@@QAEXXZ	39
 ?sub_4B871C@VisInvExtType2@@QAEXXZ	39
 ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z	88
+?VMethod39@VisInvExtType2@@UAEXXZ	222
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType3@@UAEPAXI@Z	24

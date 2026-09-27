@@ -164,6 +164,7 @@
 ??_GVisInvExtType1@@UAEPAXI@Z
 ??_GVisInvExtType1Druid@@UAEPAXI@Z
 ??_GVisInvExtType1Kaarg@@UAEPAXI@Z
+??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z

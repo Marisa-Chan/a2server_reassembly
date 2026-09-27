@@ -1854,9 +1854,11 @@ extern ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc  ; void VisInvExtType1::sub_4B
 
 ;VisInvExtType2
 externdef ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ??_GVisInvExtType2@@UAEPAXI@Z : proc
+extern ??_GVisInvExtType2@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtType2@@UAEPBDXZ : proc
 externdef ?VMethod7@VisInvExtType2@@UAEXXZ : proc
+externdef ?VMethod38@VisInvExtType2@@UAEHXZ : proc
+externdef ?VMethod39@VisInvExtType2@@UAEXXZ : proc
 externdef ?OnMouseMove@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
