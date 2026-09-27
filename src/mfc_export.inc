@@ -902,6 +902,7 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 
 ; MainWindow
+externdef ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z : proc  ; void MainWindow::sub_48CCA1(TokenEntry*, int32_t, const char*, int32_t)  //48cca1 in asm
 externdef   ?_OnDestroy@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
 externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
@@ -1801,8 +1802,6 @@ extern ??1VisInvExtBase@@UAE@XZ : proc
 extern ??_GVisInvExtBase@@UAEPAXI@Z : proc  ; virtual VisInvExtBase::~VisInvExtBase() (scalar deleting dtor)
 extern ?GetHint@VisInvExtBase@@UAEPBDXZ : proc  ; const char* VisInvExtBase::GetHint()
 extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
-externdef ?sub_4B5B81@VisInvExtBase@@QAEHXZ : proc  ; int32_t VisInvExtBase::sub_4B5B81()  //4b5b81 in asm
-externdef ?sub_4B5A6C@VisInvExtBase@@QAEHH@Z : proc  ; int32_t VisInvExtBase::sub_4B5A6C(int32_t)  //4b5a6c in asm
 extern ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnMouseMove(uint32_t, CPoint)
 extern ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDown(uint32_t, CPoint)
 extern ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonUp(uint32_t, CPoint)

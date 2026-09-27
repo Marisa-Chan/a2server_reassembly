@@ -249,6 +249,7 @@
 ?sub_48CBE2@MainWindow@@QAEXXZ	60
 ?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z	66
 ?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z	66
+?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z	69
 ?_OnPaint@MainWindow@@QAEXXZ	69
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
@@ -438,8 +439,6 @@
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
 ?FUN_004a4ebc@VisInvBase@@QAEXXZ	301
-?sub_4B5B81@VisInvExtBase@@QAEHXZ	22
-?sub_4B5A6C@VisInvExtBase@@QAEHH@Z	111
 ?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType1@@UAEPAXI@Z	24

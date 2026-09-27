@@ -11069,3 +11069,30 @@ VisInvExtBase::~VisInvExtBase()
     this->sub_4B4BA9();
     this->sub_4B4C1C();
 }
+
+
+// 4B5A6C
+int32_t VisInvExtBase::sub_4B5A6C(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    TokenEntry* entry = main_wnd->field_0x408;
+    int32_t region = this->VMethod38();
+    CString name = entry->FUN_004394f3();
+    CString cs1 = "graphics\\inventory\\" + name;
+    CString cs2 = cs1 + ".16a";
+    main_wnd->sub_48CCA1(entry, idx, cs2, region);
+    ApplyCursor(main_wnd->item_cursor);
+    this->field_0x20ac->placement_lock = 1;
+    return 1;
+}
+
+
+// 4B5B81
+int32_t VisInvExtBase::sub_4B5B81()
+{
+    ApplyCursor(g_Cursors[0]);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->ResetItemCursor();
+    this->field_0x20ac->placement_lock = 0;
+    return 1;
+}
