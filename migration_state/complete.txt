@@ -889,6 +889,7 @@
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ
 ?VMethod7@VisInvExtType2@@UAEXXZ
+?VMethod7@VisInvExtType3@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ

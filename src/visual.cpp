@@ -11848,6 +11848,26 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B9155
+void VisInvExtType3::VMethod7()
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+
+    if (shop->dialog_active == 0) {
+        return;
+    }
+    if (this->shoptable == nullptr) {
+        return;
+    }
+
+    LockSurface2();
+    this->shoptable->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    UnlockSurface2();
+    VisInvExtBase::VMethod7();
+}
+
+
 // 4B91F9
 int32_t VisInvExtType3::sub_4B91F9(TokenEntry* o)
 {
