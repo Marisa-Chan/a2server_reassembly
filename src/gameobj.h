@@ -28,6 +28,8 @@ public:
 public:
 
 	int32_t FUN_0041f0d0();
+	int32_t sub_4A7880(int32_t num); //4a7880
+	int32_t sub_4A7900(TokenEntry* other); //4a7900
 
 	virtual ~TokenEntry(); //4394bf
 

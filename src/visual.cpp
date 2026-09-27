@@ -10320,3 +10320,32 @@ void VisInvBase::sub_4A5FAB(int32_t x, int32_t y, int32_t idx)
         sub_4588EC(x + this->random_offsets1[j], y + this->random_offsets2[j], 0xFF, 0, 0xFF, trail_alpha[k]);
     }
 }
+
+
+// 4A58DC
+TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num)
+{
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (!o->sub_4A7900(entry)) {
+            continue;
+        }
+        if (entry->sub_4A7880(num)) {
+            o = new TokenEntry();
+            *o = *entry;
+            o->field_0x10 = num;
+            return o;
+        }
+        if (entry->FUN_0041f0d0()) {
+            o = new TokenEntry();
+            *o = *entry;
+            entry->field_0x10 = 0;
+            return o;
+        }
+        o = entry;
+        this->grid_source->RemoveAt(i, 1);
+        o->field_0x10 = num;
+        return o;
+    }
+    return nullptr;
+}

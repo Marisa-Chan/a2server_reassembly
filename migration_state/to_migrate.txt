@@ -275,6 +275,8 @@
 ?FUN_0041f640@TakeDamage@@QAEHXZ	19
 ?FUN_0041f0d0@TokenEntry@@QAEHXZ	19
 ?FUN_004396d6@TokenEntry@@QAEHXZ	20
+?sub_4A7880@TokenEntry@@QAEHH@Z	33
+?sub_4A7900@TokenEntry@@QAEHPAV1@@Z	66
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?FUN_00439973@TokenEntry@@QAEPBDXZ	812
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
@@ -439,7 +441,6 @@
 ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z	98
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z	129
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z	144
-?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z	188
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z	12

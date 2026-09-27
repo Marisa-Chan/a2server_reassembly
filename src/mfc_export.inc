@@ -1393,6 +1393,8 @@ extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEnt
 extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
 extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
+externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
+externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
 extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
@@ -1757,7 +1759,7 @@ externdef ?MsgProc@VisInvBase@@UAEHIII@Z : proc
 externdef ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z : proc
 externdef ?VMethod27@VisInvBase@@UAEHPAVTokenEntry@@@Z : proc
 externdef ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z : proc
-externdef ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc
+extern ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvBase::VMethod29(TokenEntry*, int32_t)
 externdef ?VMethod30@VisInvBase@@UAEHHH@Z : proc
 externdef ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z : proc
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
