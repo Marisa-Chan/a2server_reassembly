@@ -11803,3 +11803,13 @@ int32_t VisInvExtType2::OnMouseMove(uint32_t wparam, CPoint pos)
     }
     return VisInvExtBase::OnMouseMove(wparam, pos);
 }
+
+
+// 4B877A
+int32_t VisInvExtType2::OnWmUser(uint32_t wparam, CPoint pos)
+{
+    if (wparam & 1) {
+        this->OnLButtonDown(wparam, pos);
+    }
+    return 1;
+}

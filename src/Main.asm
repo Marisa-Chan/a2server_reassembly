@@ -137324,38 +137324,6 @@ loc_4B8776:                             ; CODE XREF: ?sub_4B871C@VisInvExtType2@
 
 ; Attributes: bp-based frame
 
-?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D2B8↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4B87A2
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+54h]
-
-loc_4B87A2:                             ; CODE XREF: ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z+F↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
