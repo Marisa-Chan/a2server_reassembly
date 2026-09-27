@@ -13386,3 +13386,41 @@ void VisStartGame::DoClose(uint32_t code)
     }
     VisScreen::DoClose(code);
 }
+
+
+// 437E13
+const char* VisStartGame::GetHint()
+{
+    if (this->dialogActiveFlag == 0) {
+        return nullptr;
+    }
+
+    uint32_t hotspot = this->GetHotspotId(g_mousept.GetX(), g_mousept.GetY());
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode == 2) {
+        switch (hotspot) {
+        case 0x14:
+            return TxtFile::AllLines.GetAt(0xF7);
+        case 0x28:
+            return TxtFile::AllLines.GetAt(0xF8);
+        case 0x3C:
+            return TxtFile::AllLines.GetAt(0xF9);
+        }
+    }
+
+    switch (hotspot) {
+    case 0x50:
+        return TxtFile::AllLines.GetAt(0xFA);
+    case 0x8C:
+        return TxtFile::AllLines.GetAt(0xFB);
+    case 0x64:
+        return TxtFile::AllLines.GetAt(0xFC);
+    case 0x78:
+        return TxtFile::AllLines.GetAt(0xFD);
+    case 0xB4:
+        return TxtFile::AllLines.GetAt(0xFE);
+    case 0xA0:
+        return TxtFile::AllLines.GetAt(0xFF);
+    }
+    return nullptr;
+}

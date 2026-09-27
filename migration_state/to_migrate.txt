@@ -557,7 +557,6 @@
 ?MsgProc@VisStartGame@@UAEHIII@Z	76
 ?Accept@VisStartGame@@QAEXXZ	118
 ?UpdateTipsProgress@VisStartGame@@QAEXI@Z	121
-?GetHint@VisStartGame@@UAEPBDXZ	146
 ??0VisStartGame@@QAE@HHHHH@Z	150
 ?FreeBitmaps@VisStartGame@@QAEXXZ	571
 ?LoadBitmaps@VisStartGame@@QAEXXZ	1015

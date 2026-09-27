@@ -452,6 +452,7 @@
 ?GetHint@VisInvExtType3@@UAEPBDXZ
 ?GetHint@VisInvType1@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
+?GetHint@VisStartGame@@UAEPBDXZ
 ?GetHint@VisTavScene@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ
 ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z

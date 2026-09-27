@@ -1600,7 +1600,7 @@ externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
 externdef ??_GVisStartGame@@UAEPAXI@Z : proc
-externdef ?GetHint@VisStartGame@@UAEPBDXZ : proc
+extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGame@@UAEXXZ  : proc
 externdef ?GetHotspotId@VisStartGame@@QAEIHH@Z : proc
 externdef ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
