@@ -137450,49 +137450,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?sub_4B4D33@VisInvExtBase@@QAEXXZ      proc near               ; CODE XREF: ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z+142↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?sub_4B4FD1@VisInvExtBase@@QAEXXZ
-                mov     [ebp+var_4], 0
-                jmp     short loc_4B4D56
-; ---------------------------------------------------------------------------
-
-loc_4B4D4D:                             ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+50↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4B4D56:                             ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+18↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ecx+88h]
-                imul    eax, [edx+8Ch]
-                cmp     [ebp+var_4], eax
-                jge     short loc_4B4D85
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 70h ; 'p'
-                call    sub_402880
-                mov     dword ptr [eax], 0
-                jmp     short loc_4B4D4D
-; ---------------------------------------------------------------------------
-
-loc_4B4D85:                             ; CODE XREF: ?sub_4B4D33@VisInvExtBase@@QAEXXZ+39↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_004a4ebc@VisInvBase@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B4D33@VisInvExtBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

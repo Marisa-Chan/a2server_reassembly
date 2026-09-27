@@ -10923,3 +10923,14 @@ void VisInvExtBase::sub_4B4FD1()
         *this->visible_startref = start;
     }
 }
+
+
+// 4B4D33
+void VisInvExtBase::sub_4B4D33()
+{
+    this->sub_4B4FD1();
+    for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
+        this->cell_update_counter.ElementAt(i) = 0;
+    }
+    this->FUN_004a4ebc();
+}
