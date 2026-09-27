@@ -73,6 +73,7 @@
 ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
 ??0VisComboBox@@QAE@HVCRect@@PBD@Z
 ??0Visibility@@QAE@XZ
+??0VisInvBase@@QAE@HHHHH@Z
 ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z
@@ -677,6 +678,8 @@
 ?sub_41AC88@BigStruct2@@QAEXHH@Z
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
 ?sub_49585B@ServerControlDialog@@QAEXXZ
+?sub_4A51C9@VisInvBase@@QAEXXZ
+?sub_4A5350@VisInvBase@@QAEXXZ
 ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z
 ?sub_4B4BA9@VisInvExtBase@@QAEXXZ
 ?sub_4B4BC5@VisInvExtBase@@QAEXXZ
