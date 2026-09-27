@@ -850,6 +850,7 @@
 ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
 ?VMethod41@VisInvExtBase@@UAEXXZ
 ?VMethod41@VisInvExtType1@@UAEXXZ
+?VMethod41@VisInvExtType1Druid@@UAEXXZ
 ?VMethod42@VisInvExtBase@@UAEXXZ
 ?VMethod4@CUnit@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ

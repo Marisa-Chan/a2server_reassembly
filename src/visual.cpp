@@ -11478,3 +11478,20 @@ void VisInvExtType1::VMethod41()
     this->shop_inv = new CBmp64("graphics\\interface\\ShopInv.bmp");
     g_mousept.Update();
 }
+
+
+// 4B69EE
+void VisInvExtType1Druid::VMethod41()
+{
+    this->VMethod42();
+    this->arrow1 = new CBmp64("graphics\\interface\\shop_kaarg\\ShopArrow1.bmp");
+    g_mousept.Update();
+    this->arrow3 = new CBmp64("graphics\\interface\\shop_kaarg\\ShopArrow3.bmp");
+    g_mousept.Update();
+    this->arrow2 = new CBmp64("graphics\\interface\\shop_kaarg\\ShopArrow2.bmp");
+    g_mousept.Update();
+    this->arrow4 = new CBmp64("graphics\\interface\\shop_kaarg\\ShopArrow4.bmp");
+    g_mousept.Update();
+    this->shop_inv = new CBmp64("graphics\\interface\\shop_kaarg\\ShopInv.bmp");
+    g_mousept.Update();
+}
