@@ -11308,3 +11308,19 @@ int32_t VisInvExtType1::OnWmUser(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4B7859
+void VisInvExtType1::sub_4B7859()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        CArray<TokenEntry*>& arr = this->field_0x2100[i];
+        for (int32_t j = 0; j < arr.GetSize(); j++) {
+            TokenEntry* entry = arr[j];
+            if (entry != nullptr) {
+                delete entry;
+            }
+        }
+        arr.RemoveAll();
+    }
+}
