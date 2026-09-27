@@ -10674,6 +10674,29 @@ void VisInvBase::FUN_004a4ebc()
 }
 
 
+// 4a51c9
+void VisInvBase::sub_4A51C9()
+{
+    if (this->grid_source == nullptr) {
+        return;
+    }
+    int32_t total_cells = this->visible_columns * this->visible_rows;
+    if (this->grid_source->GetSize() <= *this->visible_startref + total_cells) {
+        return;
+    }
+    CSprite256* first = this->spr_cells.GetAt(0);
+    for (int32_t i = 0; i < total_cells - 1; i++) {
+        this->spr_cells.ElementAt(i) = this->spr_cells.GetAt(i + 1);
+        this->anim_frames.ElementAt(i) = this->anim_frames.GetAt(i + 1);
+    }
+    this->anim_frames.ElementAt(total_cells - 1) = 0;
+    this->spr_cells.ElementAt(total_cells - 1) = first;
+    this->cell_update_counter.ElementAt(total_cells - 1) = 0;
+    *this->visible_startref += 1;
+    this->FUN_004a4ebc();
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {
