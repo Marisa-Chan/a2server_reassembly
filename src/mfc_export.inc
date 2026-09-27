@@ -1834,7 +1834,7 @@ externdef ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc
 externdef ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc
-externdef ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc
+extern ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvExtType1::VMethod29(TokenEntry*, int32_t)
 externdef ?sub_4B7859@VisInvExtType1@@QAEXXZ : proc
 externdef ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc
 

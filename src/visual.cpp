@@ -11132,3 +11132,37 @@ int32_t VisInvExtBase::sub_4B5B81()
     this->field_0x20ac->placement_lock = 0;
     return 1;
 }
+
+
+// 4B7A9F
+TokenEntry* VisInvExtType1::VMethod29(TokenEntry* o, int32_t num)
+{
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (!o->sub_4A7900(entry)) {
+            continue;
+        }
+        if (entry->FUN_004a78c0()) {
+            return nullptr;
+        }
+        if (entry->sub_4A7880(num)) {
+            o = new TokenEntry();
+            *o = *entry;
+            o->field_0x10 = num;
+        } else if (entry->FUN_0041f0d0()) {
+            o = new TokenEntry();
+            *o = *entry;
+            entry->field_0x10 = 0;
+        } else {
+            o = new TokenEntry();
+            *o = *entry;
+            o->field_0x10 = num;
+            entry->field_0x10 = 0;
+            entry->item_id = 0;
+        }
+        o->field_0x1c = i;
+        o->field_0x18 = this->VMethod38();
+        return o;
+    }
+    return nullptr;
+}

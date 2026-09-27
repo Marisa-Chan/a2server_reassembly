@@ -795,6 +795,7 @@
 ?VMethod28@VisTavSceneKaarg@@UAEXXZ
 ?VMethod29@CUnit@@UAEXXZ
 ?VMethod29@VisInvBase@@UAEPAVTokenEntry@@PAV2@H@Z
+?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z
 ?VMethod29@VisShopCompass@@UAEXXZ
 ?VMethod29@VisTavScene@@UAEXXZ
 ?VMethod29@VisTavSceneDruid@@UAEXXZ
