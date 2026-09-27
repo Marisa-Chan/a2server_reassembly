@@ -138162,36 +138162,6 @@ sub_4B9B2F      endp
 
 ; Attributes: bp-based frame
 
-sub_4B9C3C      proc near               ; DATA XREF: .rdata:0060D3C8↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 20B8h
-                push    eax
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 20B8h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_4B9C3C      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -368234,7 +368204,7 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod33@VisInvBase@@UAEXPAVCGameObject@@@Z
                 dd offset ?VMethod34@VisInvBase@@UAEXXZ
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
-                dd offset sub_4B9C3C
+                dd offset ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
                 dd offset sub_4B9790
                 dd offset unknown_libname_649 ; MFC 3.1-14.0 32bit
                 dd offset sub_4B8E9A

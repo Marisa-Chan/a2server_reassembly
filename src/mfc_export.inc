@@ -1882,6 +1882,7 @@ externdef ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z : proc
+extern ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod36(int32_t,int32_t) — vtable slot 40
 externdef ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
 
 ;VisServerScreen

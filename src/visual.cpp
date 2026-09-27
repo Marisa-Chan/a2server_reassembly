@@ -11880,6 +11880,15 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B9C3C
+TokenEntry* VisInvExtType3::VMethod36(int32_t idx, int32_t num)
+{
+    FUN_00438f20(&this->field_0x20b8.sample);
+    CSound::Play(this->field_0x20b8);
+    return VisInvBase::VMethod36(idx, num);
+}
+
+
 // 4B9436
 int32_t VisInvExtType3::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
