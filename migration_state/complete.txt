@@ -843,6 +843,7 @@
 ?VMethod37@VisShopCompass@@UAEHH@Z
 ?VMethod38@VisInvBase@@UAEHXZ
 ?VMethod38@VisInvExtBase@@UAEHXZ
+?VMethod38@VisInvExtType1@@UAEHXZ
 ?VMethod38@VisShopCompass@@UAEHXZ
 ?VMethod39@VisInvExtBase@@UAEXXZ
 ?VMethod39@VisInvExtType1@@UAEXXZ

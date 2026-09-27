@@ -140688,24 +140688,6 @@ sub_4B9E10      endp
 
 ; Attributes: bp-based frame
 
-?VMethod38@VisInvExtType1@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060D250↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+20ACh]
-                xor     edx, edx
-                mov     dx, [ecx+132h]
-                mov     eax, edx
-                add     eax, 5
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod38@VisInvExtType1@@UAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

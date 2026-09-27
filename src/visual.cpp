@@ -11603,3 +11603,10 @@ void VisInvExtType1::sub_4B7381()
         this->arrow4->VMethod2(topleft.x + 0x2E, topleft.y + 0x10F, 0, 0, 0);
     }
 }
+
+
+// 4B9E70
+int32_t VisInvExtType1::VMethod38()
+{
+    return (uint16_t)this->field_0x20ac->select_category + 5;
+}
