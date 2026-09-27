@@ -10934,3 +10934,13 @@ void VisInvExtBase::sub_4B4D33()
     }
     this->FUN_004a4ebc();
 }
+
+
+// 4B4BC5
+void VisInvExtBase::sub_4B4BC5()
+{
+    this->sub_4B4C1C();
+    FUN_00438e40(&this->field_0x20b4.sample, "SFX\\Put_On.wav");
+    FUN_00438e40(&this->field_0x20b8.sample, "SFX\\Put_Off.wav");
+    FUN_00438e40(&this->field_0x20bc.sample, "SFX\\Scroll.wav");
+}

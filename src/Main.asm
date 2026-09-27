@@ -137371,38 +137371,6 @@ sub_4B4BA9      endp
 
 ; Attributes: bp-based frame
 
-?sub_4B4BC5@VisInvExtBase@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisShop@@UAEXXZ+417↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_4B4C1C@VisInvExtBase@@QAEXXZ
-                push    offset aSfxPutOnWav ; "SFX\\Put_On.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 20B4h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxPutOffWav ; "SFX\\Put_Off.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 20B8h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxScrollWav ; "SFX\\Scroll.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 20BCh
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B4BC5@VisInvExtBase@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

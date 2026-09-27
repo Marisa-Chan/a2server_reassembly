@@ -1813,7 +1813,7 @@ externdef ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc
 extern ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvExtBase::VMethod31(const CPoint*)
 externdef ?sub_4B4C1C@VisInvExtBase@@QAEXXZ : proc
 extern ?sub_4B4D33@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4D33()
-externdef ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc
+extern ?sub_4B4BC5@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BC5()
 extern ?sub_4B4FD1@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4FD1()
 
 ;VisInvExtType1
