@@ -113805,31 +113805,6 @@ sub_4A63B0      endp
 
 ; Attributes: bp-based frame
 
-??_GVisInvType1@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CA64↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4A7830
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4A7822
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4A7822:                             ; CODE XREF: ??_GVisInvType1@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisInvType1@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -113838,20 +113813,6 @@ loc_4A7822:                             ; CODE XREF: ??_GVisInvType1@@UAEPAXI@Z+
 
 ; Attributes: bp-based frame
 
-sub_4A7830      proc near               ; CODE XREF: ??_GVisInvType1@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisInvBase@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4A7830      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -114081,19 +114042,6 @@ loc_4A7987:                             ; CODE XREF: ?sub_4A7900@TokenEntry@@QAE
 ; Attributes: library function bp-based frame
 
 ; public: virtual enum Concurrency::details::ContextBase::ContextKind __thiscall Concurrency::details::UMSThreadInternalContext::GetContextKind(void)const
-?GetContextKind@UMSThreadInternalContext@details@Concurrency@@UBE?AW4ContextKind@ContextBase@23@XZ_0 proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 2
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetContextKind@UMSThreadInternalContext@details@Concurrency@@UBE?AW4ContextKind@ContextBase@23@XZ_0 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -364128,7 +364076,7 @@ off_60CA60      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod35@VisInvBase@@UAEXXZ
                 dd offset ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z
                 dd offset ?VMethod37@VisInvBase@@UAEHH@Z
-                dd offset ?GetContextKind@UMSThreadInternalContext@details@Concurrency@@UBE?AW4ContextKind@ContextBase@23@XZ_0 ; Concurrency::details::UMSThreadInternalContext::GetContextKind(void)
+                dd offset ?VMethod38@VisInvType1@@UAEHXZ ; Concurrency::details::UMSThreadInternalContext::GetContextKind(void)
                 align 10h
 off_60CB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4A7A50+12↑o
                 dd offset sub_4A9B50

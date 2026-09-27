@@ -167,6 +167,7 @@
 ??_GVisInvExtType1Kaarg@@UAEPAXI@Z
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
+??_GVisInvType1@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
@@ -887,6 +888,7 @@
 ?VMethod38@VisInvExtType1@@UAEHXZ
 ?VMethod38@VisInvExtType2@@UAEHXZ
 ?VMethod38@VisInvExtType3@@UAEHXZ
+?VMethod38@VisInvType1@@UAEHXZ
 ?VMethod38@VisShopCompass@@UAEHXZ
 ?VMethod39@VisInvExtBase@@UAEXXZ
 ?VMethod39@VisInvExtType1@@UAEXXZ

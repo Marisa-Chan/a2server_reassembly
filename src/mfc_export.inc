@@ -1795,9 +1795,10 @@ extern ?sub_4A5350@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A5350()
 extern ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
 
 ;VisInvType1
-externdef ??_GVisInvType1@@UAEPAXI@Z : proc
+extern ??_GVisInvType1@@UAEPAXI@Z : proc
 extern ?GetHint@VisInvType1@@UAEPBDXZ : proc
 extern ?VMethod7@VisInvType1@@UAEXXZ : proc
+extern ?VMethod38@VisInvType1@@UAEHXZ : proc  ; int32_t VisInvType1::VMethod38()
 extern ?MsgProc@VisInvType1@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
