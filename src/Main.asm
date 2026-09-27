@@ -138332,27 +138332,6 @@ loc_4B73E0:                             ; CODE XREF: ?sub_4B7381@VisInvExtType1@
 
 ; Attributes: bp-based frame
 
-?sub_4B73E4@VisInvExtType1@@QAEXH@Z      proc near               ; CODE XREF: ?VMethod28@VisShop@@UAEXXZ+333↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                imul    eax, 14h
-                mov     ecx, dword ptr [ebp+var_4]
-                lea     edx, [ecx+eax+2100h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+84h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_4B4D33@VisInvExtBase@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_4B73E4@VisInvExtType1@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

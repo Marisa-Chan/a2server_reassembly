@@ -11400,3 +11400,11 @@ int32_t VisInvExtType1::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     return VisInvExtBase::OnLButtonUp(wparam, pos);
 }
+
+
+// 4B73E4
+void VisInvExtType1::sub_4B73E4(int32_t category)
+{
+    this->grid_source = &this->field_0x2100[category];
+    this->sub_4B4D33();
+}

@@ -1847,7 +1847,7 @@ externdef ?sub_4B7264@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_
 externdef ?sub_4B72C1@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B72C1()
 externdef ?sub_4B731E@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B731E()
 externdef ?sub_4B7381@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B7381()
-externdef ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc
+extern ?sub_4B73E4@VisInvExtType1@@QAEXH@Z : proc  ; void VisInvExtType1::sub_4B73E4(int32_t)
 
 ;VisInvExtType2
 externdef ??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z : proc

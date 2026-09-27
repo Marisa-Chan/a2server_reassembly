@@ -441,7 +441,6 @@
 ?sub_4A5350@VisInvBase@@QAEXXZ	112
 ?sub_4A51C9@VisInvBase@@QAEXXZ	136
 ?VMethod38@VisInvExtType1@@UAEHXZ	17
-?sub_4B73E4@VisInvExtType1@@QAEXH@Z	20
 ?sub_4B7264@VisInvExtType1@@QAEXXZ	40
 ?sub_4B72C1@VisInvExtType1@@QAEXXZ	40
 ?sub_4B731E@VisInvExtType1@@QAEXXZ	41
