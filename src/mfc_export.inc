@@ -1779,6 +1779,8 @@ extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(i
 extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
 extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
 extern ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()
+externdef ?sub_4A5350@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A5350()
+externdef ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
@@ -1830,7 +1832,7 @@ extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::G
 externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
 externdef ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnLButtonDown(uint32_t, CPoint)
 externdef ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc
 extern ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvExtType1::VMethod26(TokenEntry*, int32_t)

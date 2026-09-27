@@ -1190,6 +1190,8 @@ public:
 
 	int32_t FUN_0046fb90(); //46fb90
 	void FUN_004a4ebc(); //4a4ebc
+	void sub_4A5350(); //4a5350 in asm
+	void sub_4A51C9(); //4a51c9 in asm
 	void FUN_004a5e12(); //4a5e12 in asm
 	void sub_4A5FAB(int32_t x, int32_t y, int32_t idx); //4a5fab in asm
 
