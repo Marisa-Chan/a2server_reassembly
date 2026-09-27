@@ -1827,7 +1827,8 @@ extern ?sub_4B4BA9@VisInvExtBase@@QAEXXZ : proc  ; void VisInvExtBase::sub_4B4BA
 
 ;VisInvExtType1
 externdef ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z : proc
-externdef ??_GVisInvExtType1@@UAEPAXI@Z : proc
+extern ??1VisInvExtType1@@UAE@XZ : proc  ; virtual VisInvExtType1::~VisInvExtType1()
+extern ??_GVisInvExtType1@@UAEPAXI@Z : proc  ; virtual VisInvExtType1::~VisInvExtType1() (scalar deleting dtor)
 extern ?GetHint@VisInvExtType1@@UAEPBDXZ : proc  ; const char* VisInvExtType1::GetHint()
 externdef ?VMethod7@VisInvExtType1@@UAEXXZ : proc
 extern ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtType1::OnMouseMove(uint32_t, CPoint)
@@ -1837,6 +1838,11 @@ externdef ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisInvExtType1@@UAEHI@Z : proc  ; int32_t VisInvExtType1::OnKeyDown(uint32_t)
 extern ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z : proc  ; int32_t VisInvExtType1::VMethod26(TokenEntry*, int32_t)
 extern ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntry* VisInvExtType1::VMethod29(TokenEntry*, int32_t)
+externdef ?VMethod37@VisInvExtType1@@UAEHH@Z : proc  ; int32_t VisInvExtType1::VMethod37(int32_t)
+externdef ?VMethod38@VisInvExtType1@@UAEHXZ : proc  ; int32_t VisInvExtType1::VMethod38()
+externdef ?VMethod39@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod39()
+externdef ?VMethod41@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod41()
+externdef ?VMethod42@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod42()
 externdef ?sub_4B7264@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B7264()
 externdef ?sub_4B72C1@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B72C1()
 externdef ?sub_4B731E@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B731E()
