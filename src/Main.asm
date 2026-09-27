@@ -138010,43 +138010,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z      proc near               ; DATA XREF: .rdata:0060D3A0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                cmp     dword ptr [eax+18h], 1
-                jnz     short loc_4B9472
-                mov     [ebp+var_8], 2
-                jmp     short loc_4B947B
-; ---------------------------------------------------------------------------
-
-loc_4B9472:                             ; CODE XREF: ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z+10↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+18h]
-                mov     [ebp+var_8], edx
-
-loc_4B947B:                             ; CODE XREF: ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z+19↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [eax+18h], ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

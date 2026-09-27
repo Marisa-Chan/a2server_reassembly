@@ -441,7 +441,6 @@
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z	22
 ??_GVisInvExtType3@@UAEPAXI@Z	24
-?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z	36
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z	47
 ?sub_4B970E@VisInvExtType3@@QAEXXZ	59
 ?GetHint@VisInvExtType3@@UAEPBDXZ	59

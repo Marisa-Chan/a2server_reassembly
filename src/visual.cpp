@@ -11838,6 +11838,16 @@ int32_t VisInvExtType2::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B9457
+int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
+{
+    if (o->field_0x18 == 1) {
+        o->field_0x18 = 2;
+    }
+    return VisInvBase::VMethod26(o, idx);
+}
+
+
 // 4B949A
 int32_t VisInvExtType3::VMethod27(TokenEntry* o)
 {
