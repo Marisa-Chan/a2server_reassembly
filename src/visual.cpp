@@ -11693,3 +11693,41 @@ int32_t VisInvExtType1::VMethod38()
 {
     return (uint16_t)this->field_0x20ac->select_category + 5;
 }
+
+
+// 4B846C
+void VisInvExtType2::VMethod7()
+{
+    VisShop* shop = this->field_0x20ac;
+    CPoint topleft = shop->rect.TopLeft();
+
+    if (shop->dialog_active == 0) {
+        return;
+    }
+
+    LockSurface2();
+    g_bmp_invframe->VMethod10(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
+    UnlockSurface2();
+    VisInvExtBase::VMethod7();
+
+    if (*this->visible_startref > 0) {
+        CPoint pos(g_mousept.GetX(), g_mousept.GetY());
+        CRect rc = this->field_0x20cc;
+        rc.OffsetRect(topleft.x, topleft.y);
+        if (rc.PtInRect(pos)) {
+            this->sub_4B860E();
+        } else {
+            this->sub_4B8666();
+        }
+    }
+    if (this->grid_source->GetSize() - *this->visible_startref > this->visible_columns * this->visible_rows) {
+        CPoint pos(g_mousept.GetX(), g_mousept.GetY());
+        CRect rc = this->field_0x20dc;
+        rc.OffsetRect(topleft.x, topleft.y);
+        if (rc.PtInRect(pos)) {
+            this->sub_4B86BE();
+        } else {
+            this->sub_4B871C();
+        }
+    }
+}

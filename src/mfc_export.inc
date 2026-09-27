@@ -1863,6 +1863,10 @@ externdef ?OnLButtonDown@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z : proc
 externdef ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z : proc
+externdef ?sub_4B860E@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B860E()
+externdef ?sub_4B8666@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B8666()
+externdef ?sub_4B86BE@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B86BE()
+externdef ?sub_4B871C@VisInvExtType2@@QAEXXZ : proc  ; void VisInvExtType2::sub_4B871C()
 
 ;VisInvExtType3
 externdef ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z : proc

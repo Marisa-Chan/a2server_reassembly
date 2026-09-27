@@ -1375,6 +1375,11 @@ public:
 	virtual int32_t VMethod38() override;
 	virtual void VMethod39() override;
 
+	void sub_4B860E(); //4b860e in asm
+	void sub_4B8666(); //4b8666 in asm
+	void sub_4B86BE(); //4b86be in asm
+	void sub_4B871C(); //4b871c in asm
+
 	VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 in asm
 public:
 	int32_t field_0x20c8; //unk type
