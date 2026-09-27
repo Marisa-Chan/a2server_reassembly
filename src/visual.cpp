@@ -11880,6 +11880,16 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B8E43
+void VisInvExtType3::VMethod42()
+{
+    if (this->shoptable != nullptr) {
+        delete this->shoptable;
+    }
+    this->shoptable = nullptr;
+}
+
+
 // 4B8D43
 void VisInvExtType3::VMethod41()
 {
