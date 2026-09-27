@@ -78,6 +78,7 @@
 ??0VisInvExtType1@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisInvExtType1Kaarg@@QAE@HHHHHPAVVisShop@@@Z
+??0VisInvExtType2@@QAE@HHHHHPAVVisShop@@@Z
 ??0VisLabel@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGI@Z
 ??0VisLabel@@QAE@HHHHHPBDPAVCGameFont@@PAGI@Z
 ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z

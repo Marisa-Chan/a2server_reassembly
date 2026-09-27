@@ -11843,3 +11843,16 @@ VisInvExtType2::~VisInvExtType2()
 {
     this->visible_startref = nullptr;
 }
+
+
+// 4B7FE5
+VisInvExtType2::VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
+    : VisInvExtBase(_id, l, t, r, b, shop)
+{
+    this->visible_columns = this->rect.Width() / 0x50 - 1;
+    this->visible_rows = this->rect.Height() / 0x50;
+    delete this->visible_startref;
+    this->visible_startref = nullptr;
+    this->VMethod39();
+    this->VisInvBase::VMethod35();
+}
