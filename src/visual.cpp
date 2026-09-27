@@ -10636,3 +10636,116 @@ int32_t VisInvBase::VMethod38()
 {
     return -1;
 }
+
+
+// 4B5072
+void VisInvExtBase::VMethod7()
+{
+    VisShop* shop = this->field_0x20ac;
+    int32_t off_x = shop->rect.left;
+    int32_t off_y = shop->rect.top;
+
+    if (shop->dialog_active == 0) {
+        return;
+    }
+
+    this->FUN_004a4ebc();
+
+    if (this->grid_source == nullptr) {
+        return;
+    }
+
+    int32_t total_cells = this->visible_columns * this->visible_rows;
+    int32_t draw_count = this->grid_source->GetSize();
+    if (draw_count >= total_cells) {
+        draw_count = total_cells;
+    }
+
+    LockSurface2();
+    this->FUN_004a5e12();
+
+    for (int32_t i = 0; i < total_cells; i++) {
+        CPoint pos(this->field_0x20c4[i].left + off_x, this->field_0x20c4[i].top + off_y);
+        if (i >= draw_count) {
+            continue;
+        }
+        if (this->cell_update_counter.GetAt(i) == 0) {
+            continue;
+        }
+        TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry->FUN_0041f0d0() != 0) {
+            if (shop->gameplay != nullptr) {
+                entry->field_0x10 = shop->gameplay->my_main_unit->gold;
+            }
+            g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+            g_ca16_money->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+        } else if (entry->FUN_004a78c0() != 0) {
+            shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+        } else {
+            CUnit* unit = shop->selected_units[shop->select_index];
+            int32_t compatible = unit->FUN_0046c0c9(entry);
+            if (entry->field_0x18 >= 5 && entry->field_0x18 <= 8) {
+                int32_t price = entry->GetAttribute(1);
+                if (shop->current_gold < price || compatible == 0) {
+                    shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                } else {
+                    shop->bmp_backinvs->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                }
+            } else {
+                if (compatible != 0) {
+                    g_bmp_backinv->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                } else {
+                    shop->bmp_backinvg->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+                }
+            }
+            CSprite256* sprite = this->spr_cells.GetAt(i);
+            sprite->VMethod2(pos.x, pos.y + 1, 0, 0, 0);
+            if (entry->flg & 0x20) {
+                this->sub_4A5FAB(pos.x, pos.y + 1, i);
+            }
+        }
+
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry->field_0x10 > 1) {
+            CPoint bottom_right(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].bottom + off_y);
+            CString text;
+            text.Format("%d", entry->field_0x10);
+            FUN_00476987(&text);
+            g_font2->DrawTextWithShadow(pos.x + 10, bottom_right.y - 15, text, 0, clrsh_DullGold, 1);
+        }
+
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry->FUN_0041f0d0() == 0 && entry->FUN_004a78c0() == 0) {
+            CPoint cost_pos(this->field_0x20c4[i].right + off_x, this->field_0x20c4[i].top + off_y + 1);
+            CArray<CBmp64*>* cost_arr;
+            if (entry->field_0x18 == 2) {
+                cost_arr = &shop->bmp_cost_medium;
+            } else {
+                cost_arr = &shop->bmp_cost_small;
+            }
+            int32_t digits = (int32_t)log10((double)entry->GetAttribute(1));
+            if (digits > cost_arr->GetUpperBound()) {
+                digits = cost_arr->GetUpperBound();
+            }
+            CBmp64* cost_bmp = cost_arr->GetAt(digits);
+            cost_bmp->VMethod3(cost_pos.x - 3, cost_pos.y + 2, 0, 8, 0);
+            int32_t bmp_w = cost_bmp->GetWidth(0);
+            int32_t bmp_h = cost_bmp->GetHeight(0);
+            cost_bmp->VMethod10(cost_pos.x, cost_pos.y, 0, 0, bmp_w, bmp_h);
+            int32_t amount;
+            if (entry->field_0x18 == 2) {
+                amount = (entry->GetAttribute(1) + 1) / 2;
+            } else {
+                amount = entry->GetAttribute(1);
+            }
+            CString cost_text;
+            cost_text.Format("%d", amount);
+            FUN_00476987(&cost_text);
+            g_font2->DrawTextWithShadow(cost_pos.x - 6 + cost_bmp->GetWidth(0), cost_pos.y, cost_text, 1, clrsh_DullGold, 1);
+        }
+    }
+
+    shop->sub_4BAD1D();
+    UnlockSurface2();
+    shop->dirty |= 0x40;
+}

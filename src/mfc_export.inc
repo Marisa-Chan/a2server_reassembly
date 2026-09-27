@@ -1396,6 +1396,7 @@ extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
+externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
 extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
@@ -1469,6 +1470,7 @@ extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
 ;VisShop
 externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
+externdef ?sub_4BAD1D@VisShop@@QAEXXZ : proc  ; void VisShop::sub_4BAD1D()  //4bad1d in asm
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
@@ -1773,6 +1775,7 @@ extern ?VMethod38@VisInvBase@@UAEHXZ : proc  ; int32_t VisInvBase::VMethod38()  
 extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(int, int, int)
 extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
 extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
+externdef ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()  //4a4ebc in asm
 
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
@@ -1794,7 +1797,7 @@ externdef ?VMethod30@VisInvType1@@UAEHHH@Z : proc
 ;VisInvExtBase
 externdef ??_GVisInvExtBase@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvExtBase@@UAEPBDXZ : proc
-externdef ?VMethod7@VisInvExtBase@@UAEXXZ : proc
+extern ?VMethod7@VisInvExtBase@@UAEXXZ : proc  ; void VisInvExtBase::VMethod7()
 externdef ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
@@ -2182,6 +2185,7 @@ extern ??0CUnit@@QAE@XZ : proc
 extern ??1CUnit@@UAE@XZ : proc
 extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
 extern ?ReloadSprite@CUnit@@QAEXXZ : proc
+externdef ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t CUnit::FUN_0046c0c9(TokenEntry*)  //46c0c9 in asm
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 extern   ?VMethod1@CUnit@@UAEXH@Z  : proc

@@ -1189,6 +1189,7 @@ public:
 	virtual int32_t VMethod38(); //4a79b0
 
 	int32_t FUN_0046fb90(); //46fb90
+	void FUN_004a4ebc(); //4a4ebc in asm
 	void FUN_004a5e12(); //4a5e12 in asm
 	void sub_4A5FAB(int32_t x, int32_t y, int32_t idx); //4a5fab in asm
 
@@ -1267,7 +1268,7 @@ public:
 	void sub_4B4FD1(); //4b4fd1
 
 public:
-	int32_t field_0x20ac; //unk type
+	VisShop* field_0x20ac;
 	CSound field_0x20b0;
 	CSound field_0x20b4;
 	CSound field_0x20b8;
@@ -1867,6 +1868,7 @@ public:
 
 
 	void FUN_004bcd02();
+	void sub_4BAD1D(); //4bad1d in asm
 	void sub_4BB4FB(); //4bb4fb
 	void sub_4BB895(); //4bb895
 	void sub_4BBA06(); //4bba06

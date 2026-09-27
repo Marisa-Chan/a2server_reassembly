@@ -28,6 +28,7 @@ public:
 public:
 
 	int32_t FUN_0041f0d0();
+	int32_t FUN_004a78c0(); //4a78c0 in asm
 	int32_t sub_4A7850(int32_t num); //4a7850
 	int32_t sub_4A7880(int32_t num); //4a7880
 	int32_t sub_4A7900(TokenEntry* other); //4a7900
@@ -276,6 +277,7 @@ public:
 	SfxBank* FUN_0046978b(); //46978b
 	const char* FUN_0046d0f7(int32_t x, int32_t y); //46d0f7 in asm
 	void FUN_0046c124(CRect* rect); //46c124 in asm
+	int32_t FUN_0046c0c9(TokenEntry* entry); //46c0c9 in asm
 
 public:
 	uint8_t body;
