@@ -1784,7 +1784,7 @@ extern ?sub_4A5FAB@VisInvBase@@QAEXHHH@Z : proc  ; void VisInvBase::sub_4A5FAB(i
 extern ?FUN_004a5e12@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a5e12()
 extern ?FUN_0046fb90@VisInvBase@@QAEHXZ : proc  ; int32_t VisInvBase::FUN_0046fb90()
 extern ?FUN_004a4ebc@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::FUN_004a4ebc()
-externdef ?sub_4A5350@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A5350()
+extern ?sub_4A5350@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A5350()
 extern ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
 
 ;VisInvType1
