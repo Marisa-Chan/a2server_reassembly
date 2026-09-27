@@ -11032,3 +11032,24 @@ void VisInvExtBase::VMethod41()
 void VisInvExtBase::VMethod42()
 {
 }
+
+
+// 4B62A2
+int32_t VisInvExtBase::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}
+
+
+// 4B62B4
+int32_t VisInvExtBase::OnRButtonUp(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}
+
+
+// 4B62C6
+int32_t VisInvExtBase::OnRButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}

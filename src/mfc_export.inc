@@ -1806,9 +1806,9 @@ extern ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtB
 extern ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDown(uint32_t, CPoint)
 extern ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonUp(uint32_t, CPoint)
 extern ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnLButtonDblClk(uint32_t, CPoint)
-externdef ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonDown(uint32_t, CPoint)
+extern ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonUp(uint32_t, CPoint)
+extern ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z : proc  ; int32_t VisInvExtBase::OnRButtonDblClk(uint32_t, CPoint)
 extern ?VMethod30@VisInvExtBase@@UAEHHH@Z : proc  ; int32_t VisInvExtBase::VMethod30(int32_t, int32_t)
 extern ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z : proc  ; int32_t VisInvExtBase::VMethod31(const CPoint*)
 extern ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc  ; void VisInvExtBase::VMethod32(CArray<TokenEntry*>*)
