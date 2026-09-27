@@ -136,6 +136,8 @@ struct UserShortcut
     void SetNull(); //4971c0
     int ToBuffer(uint8_t** buf); //41e5ed
 
+    int32_t FUN_0041e3af(TokenEntry* entry); //41e3af in asm
+
     void WriteToFile(CFile* f); //41e4d3
     void ReadFromFile(CFile* f); //41e53b
 

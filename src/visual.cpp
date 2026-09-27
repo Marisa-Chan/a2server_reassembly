@@ -10741,6 +10741,128 @@ void VisInvBase::sub_4A5350()
 }
 
 
+// 4A6449
+void VisInvType1::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->FUN_004a4ebc();
+
+    CRect screen_rect = this->ClientRectToScreen(this->rect);
+
+    int32_t edge_width = ((g_ScreenSize.right - 0xf0) % 0x50) / 2;
+
+    g_bmp_invframe->VMethod10(screen_rect.left + edge_width, screen_rect.top, 0, 0, 0x110, g_bmp_invframe->GetHeight(0));
+
+    for (int32_t i = 0; i < (g_ScreenSize.right - 0x280) / 0x50; i++) {
+        g_bmp_invframe->VMethod10(screen_rect.left + edge_width + 0x110 + i * 0x50, screen_rect.top, 0xc0, 0, 0x110, g_bmp_invframe->GetHeight(0));
+    }
+
+    if (edge_width != 0 && g_ScreenSize.bottom > 600) {
+        g_bmp_inv1024l->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        g_bmp_inv1024r->VMethod10(screen_rect.right - edge_width - 0x10, screen_rect.top, 0, 0, g_bmp_inv1024r->GetWidth(0), g_bmp_inv1024r->GetHeight(0));
+    }
+
+    int32_t frame_w = g_bmp_invframe->GetWidth(0);
+    int32_t frame_h = g_bmp_invframe->GetHeight(0);
+    g_bmp_invframe->VMethod10(screen_rect.right - edge_width - g_bmp_invframe->GetWidth(0) + 0x110, screen_rect.top, 0x110, 0, frame_w, frame_h);
+
+    CRect left_arrow_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x20 + edge_width, screen_rect.bottom);
+    CRect right_arrow_rect(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top,
+        screen_rect.left + 0x40 + edge_width * 2 + this->visible_columns * 0x50, screen_rect.bottom);
+
+    CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+
+    if (this->grid_source != nullptr) {
+        if (*this->visible_startref != 0) {
+            if (left_arrow_rect.PtInRect(mouse_pt)) {
+                g_bmp_invarrow3->VMethod10(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+            } else {
+                g_bmp_invarrow1->VMethod10(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+            }
+        }
+        if (this->grid_source->GetSize() > this->visible_columns + *this->visible_startref) {
+            if (right_arrow_rect.PtInRect(mouse_pt)) {
+                g_bmp_invarrow4->VMethod10(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+            } else {
+                g_bmp_invarrow2->VMethod10(screen_rect.left + edge_width + 0x20 + this->visible_columns * 0x50, screen_rect.top + 2, 0, 0, 0x20, 0x58);
+            }
+        }
+    }
+
+    if (this->grid_source == nullptr) {
+        g_font2->DrawTextWithShadow(edge_width + (screen_rect.left + screen_rect.right - 0x10) / 2, (screen_rect.top + screen_rect.bottom) / 2,
+            TxtFile::AllLines[0x33], 10, clrsh_DullGold, 1);
+        return;
+    }
+
+    int32_t draw_count;
+    if (this->grid_source->GetSize() < this->visible_columns * this->visible_rows) {
+        draw_count = this->grid_source->GetSize();
+    } else {
+        draw_count = this->visible_columns * this->visible_rows;
+    }
+
+    for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
+        if (i >= draw_count) {
+            continue;
+        }
+        if (this->cell_update_counter.GetAt(i) == 0) {
+            continue;
+        }
+
+        TokenEntry* entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (main_wnd->field_0x408 == entry && main_wnd->field_0x408 != nullptr && main_wnd->field_0x408->field_0x10 == 1) {
+            continue;
+        }
+
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry == nullptr) {
+            continue;
+        }
+
+        int32_t cell_x = edge_width + screen_rect.left + 0x20 + i * 0x50;
+        int32_t cell_y = screen_rect.top + 6;
+
+        if (entry->FUN_0041f0d0() != 0) {
+            g_bmp_backinv->VMethod2(cell_x, cell_y, 0, 0, 0);
+            g_ca16_money->VMethod2(cell_x, cell_y, 0, 0, 0);
+
+            CString text;
+            text.Format("%d", main_wnd->vis_map_context->my_main_unit->gold);
+            FUN_00476987(&text);
+            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, text, 0, clrsh_DullGold, 1);
+            continue;
+        }
+
+        g_bmp_backinv->VMethod2(cell_x, cell_y, 0, 0, 0);
+        CSprite256* sprite = this->spr_cells.GetAt(i);
+        sprite->VMethod2(cell_x, cell_y, 0, 0, 0);
+
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry->field_0x10 > 1) {
+            char buf[0x50];
+            sprintf(buf, "%d", entry->field_0x10);
+            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, buf, 0, clrsh_DullGold, 1);
+        }
+
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        if (entry->flg & 0x20) {
+            this->sub_4A5FAB(cell_x, cell_y, i);
+        }
+
+        for (int32_t j = 0; j < 9; j++) {
+            entry = this->grid_source->GetAt(i + *this->visible_startref);
+            if (main_wnd->m_GameSession.shortcuts[j].FUN_0041e3af(entry) != 0) {
+                char key_buf[0x50];
+                sprintf(key_buf, "F%d", j + 4);
+                g_font3->DrawTextWithShadow(cell_x + 3, screen_rect.top + 8, key_buf, 0, clrsh_ShockingBlack, 1);
+                break;
+            }
+        }
+    }
+}
+
+
 // 4B5072
 void VisInvExtBase::VMethod7()
 {

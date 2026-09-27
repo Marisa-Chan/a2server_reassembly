@@ -1394,6 +1394,8 @@ extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEnt
 extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
 extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
+externdef ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t UserShortcut::FUN_0041e3af(TokenEntry*)  //41e3af in asm
+
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
@@ -1792,7 +1794,7 @@ extern ?sub_4A51C9@VisInvBase@@QAEXXZ : proc  ; void VisInvBase::sub_4A51C9()
 ;VisInvType1
 externdef ??_GVisInvType1@@UAEPAXI@Z : proc
 externdef ?GetHint@VisInvType1@@UAEPBDXZ : proc
-externdef ?VMethod7@VisInvType1@@UAEXXZ : proc
+extern ?VMethod7@VisInvType1@@UAEXXZ : proc
 externdef ?MsgProc@VisInvType1@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc

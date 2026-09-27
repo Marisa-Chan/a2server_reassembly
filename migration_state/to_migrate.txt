@@ -290,6 +290,7 @@
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15
 ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z	35
+?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
 ?VMethod8@Vis1200@@UAEXPAVCRect@@@Z	11
 ?FUN_004972d0@Vis1200@@QAEHXZ	14
 ?FUN_00497310@Vis1200@@QAEHXZ	14
@@ -454,7 +455,6 @@
 ?GetHint@VisInvType1@@UAEPBDXZ	148
 ?MsgProc@VisInvType1@@UAEHIII@Z	202
 ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z	268
-?VMethod7@VisInvType1@@UAEXXZ	735
 ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
 ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23
 ??_GVisMainMenu@@UAEPAXI@Z	24
