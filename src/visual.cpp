@@ -11848,6 +11848,18 @@ int32_t VisInvExtType3::VMethod26(TokenEntry* o, int32_t idx)
 }
 
 
+// 4B970E
+void VisInvExtType3::sub_4B970E()
+{
+    while (this->field_0x20f4.GetSize() != 0) {
+        if (this->field_0x20f4.GetAt(0) != nullptr) {
+            delete this->field_0x20f4.GetAt(0);
+        }
+        this->field_0x20f4.RemoveAt(0, 1);
+    }
+}
+
+
 // 4B90CF
 const char* VisInvExtType3::GetHint()
 {

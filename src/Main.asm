@@ -137862,66 +137862,6 @@ sub_4B95C5      endp
 
 ; Attributes: bp-based frame
 
-?sub_4B970E@VisInvExtType3@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisShop@@UAEXXZ+349↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_C], ecx
-
-loc_4B9717:                             ; CODE XREF: ?sub_4B970E@VisInvExtType3@@QAEXXZ+7C↓j
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 20F4h
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      short loc_4B978C
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 20F4h
-                call    sub_41FC60
-                cmp     dword ptr [eax], 0
-                jz      short loc_4B9778
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 20F4h
-                call    sub_41FC60
-                mov     eax, dword ptr [eax]
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+var_4], 0
-                jz      short loc_4B9771
-                push    1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_10], eax
-                jmp     short loc_4B9778
-; ---------------------------------------------------------------------------
-
-loc_4B9771:                             ; CODE XREF: ?sub_4B970E@VisInvExtType3@@QAEXXZ+4F↑j
-                mov     [ebp+var_10], 0
-
-loc_4B9778:                             ; CODE XREF: ?sub_4B970E@VisInvExtType3@@QAEXXZ+2E↑j
-                push    1
-                push    0
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 20F4h
-                call    sub_41FD50
-                jmp     short loc_4B9717
-; ---------------------------------------------------------------------------
-
-loc_4B978C:                             ; CODE XREF: ?sub_4B970E@VisInvExtType3@@QAEXXZ+19↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4B970E@VisInvExtType3@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
