@@ -11538,3 +11538,28 @@ void VisInvExtType1::VMethod42()
     }
     this->shop_inv = nullptr;
 }
+
+
+// 4B7D1C
+int32_t VisInvExtType1::VMethod37(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        return -1;
+    }
+    int32_t count = main_wnd->field_0x408->field_0x10;
+    int32_t tab_before = this->VMethod38();
+    int32_t new_idx = this->VMethod26(main_wnd->field_0x408, idx);
+    TokenEntry* entry = this->grid_source->GetAt(new_idx);
+    if (this->VMethod38() == 2) {
+        this->VisInvBase::VMethod33(main_wnd->vis_map_context->field_0x138);
+    } else {
+        this->VMethod32(this->grid_source);
+    }
+    if (tab_before != main_wnd->field_0x410) {
+        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod38(), entry->field_0x20, count);
+    }
+    main_wnd->ResetItemCursor();
+    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    return new_idx;
+}

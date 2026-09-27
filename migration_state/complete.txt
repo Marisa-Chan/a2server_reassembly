@@ -839,6 +839,7 @@
 ?VMethod36@VisInvBase@@UAEPAVTokenEntry@@HH@Z
 ?VMethod36@VisShopCompass@@UAEXXZ
 ?VMethod37@VisInvBase@@UAEHH@Z
+?VMethod37@VisInvExtType1@@UAEHH@Z
 ?VMethod37@VisShopCompass@@UAEHH@Z
 ?VMethod38@VisInvBase@@UAEHXZ
 ?VMethod38@VisInvExtBase@@UAEHXZ

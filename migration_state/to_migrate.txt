@@ -446,7 +446,6 @@
 ?sub_4B72C1@VisInvExtType1@@QAEXXZ	40
 ?sub_4B731E@VisInvExtType1@@QAEXXZ	41
 ?sub_4B7381@VisInvExtType1@@QAEXXZ	41
-?VMethod37@VisInvExtType1@@UAEHH@Z	126
 ?VMethod27@VisInvExtType2@@UAEHPAVTokenEntry@@@Z	18
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z	21
 ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z	22
