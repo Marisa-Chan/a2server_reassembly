@@ -10426,3 +10426,10 @@ int32_t VisInvBase::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
+
+
+// 46FB90
+int32_t VisInvBase::FUN_0046fb90()
+{
+    return *this->visible_startref;
+}

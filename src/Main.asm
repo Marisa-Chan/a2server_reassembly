@@ -84509,21 +84509,6 @@ sub_46FB70      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0046fb90@VisInvBase@@QAEHXZ      proc near               ; CODE XREF: ?VMethod1@CUnit@@UAEXH@Z+51↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+90h]
-                mov     eax, dword ptr [ecx]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0046fb90@VisInvBase@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

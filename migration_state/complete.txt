@@ -276,6 +276,7 @@
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z
 ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
 ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z
+?FUN_0046fb90@VisInvBase@@QAEHXZ
 ?FUN_0048ca7e@MainWindow@@QAEHH@Z
 ?FUN_0048f6f7@MainWindow@@QAEXXZ
 ?FUN_00490eb3@MainWindow@@QAEHXZ
