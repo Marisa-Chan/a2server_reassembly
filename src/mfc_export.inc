@@ -1620,7 +1620,12 @@ externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
 externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 externdef ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
-externdef ?VMethod28@VisStartGame@@UAEXXZ : proc
+externdef ?LoadBitmaps@VisStartGame@@QAEXXZ : proc
+externdef ?LoadSamples@VisStartGame@@QAEXXZ : proc
+externdef ?FreeSamples@VisStartGame@@QAEXXZ : proc
+externdef ?ResetHoverState@VisStartGame@@QAEXXZ : proc
+extern ?FlushScreen@@YAXXZ  : proc
+extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
 externdef ?DoClose@VisStartGame@@UAEXI@Z : proc
 
 ;Vis1200

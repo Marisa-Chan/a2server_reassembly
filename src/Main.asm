@@ -24973,7 +24973,7 @@ loc_42E6FC:                             ; CODE XREF: ?VMethod28@VisCharGen@@UAEX
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_88]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
@@ -30931,7 +30931,7 @@ loc_432410:                             ; CODE XREF: ?VMethod28@VisCharSelect@@U
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
@@ -32563,317 +32563,6 @@ sub_4331FC      endp
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisStartGame@@UAEXXZ      proc near               ; DATA XREF: .rdata:00609A18↓o
-
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-Block           = dword ptr -24h
-var_20          = byte ptr -20h
-var_18          = byte ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F86C7 SIZE 0000001D BYTES
-
-; __unwind { // SEH_433E2D
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_433E2D
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 30h
-                mov     [ebp+var_34], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?DisableHint@CMousePointer@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_34]
-                mov     dword ptr [eax+1B0h], 0
-                mov     ecx, dword ptr [ebp+var_34]
-                call    sub_43438B
-                mov     ecx, dword ptr [ebp+var_34]
-                call    sub_437FF4
-                mov     ecx, dword ptr [ebp+var_34]
-                call    sub_435D26
-                push    0
-                push    0
-                lea     ecx, [ebp+var_20]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [eax+78h], ecx
-                mov     [eax+7Ch], edx
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     dword ptr [ecx+74h], 0
-                mov     [ebp+var_14], 0
-                jmp     short loc_433EB8
-; ---------------------------------------------------------------------------
-
-loc_433EAF:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+B6↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_433EB8:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+80↑j
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 134h
-                call    unknown_libname_463 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     short loc_433EE5
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     dword ptr [eax], 0
-                jmp     short loc_433EAF
-; ---------------------------------------------------------------------------
-
-loc_433EE5:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+9C↑j
-                mov     [ebp+var_14], 0
-                jmp     short loc_433EF7
-; ---------------------------------------------------------------------------
-
-loc_433EEE:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+F5↓j
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 1
-                mov     [ebp+var_14], ecx
-
-loc_433EF7:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+BF↑j
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 148h
-                call    unknown_libname_463 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     short loc_433F24
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     dword ptr [eax], 0
-                jmp     short loc_433EEE
-; ---------------------------------------------------------------------------
-
-loc_433F24:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+DB↑j
-                mov     eax, dword ptr [ebp+var_34]
-                mov     dword ptr [eax+208h], 0
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ecx+208h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     dword ptr [eax], 1
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+20Ch]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     dword ptr [eax], 1
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 1FCh
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Str2
-                call    ?IsDefaultNpcName@@YAIPBD@Z
-                add     esp, 4
-                test    eax, eax
-                jz      short loc_433FA3
-                push    14h
-                mov     ecx, offset ?txt_npcnames@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 1FCh       ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-
-loc_433FA3:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+159↑j
-                mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+208h]
-                mov     [edx+214h], ecx
-                mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+20Ch]
-                mov     [edx+210h], ecx
-                push    464h
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?RemoveChildById@CVisualObject@@QAEXH@Z
-                push    465h
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?RemoveChildById@CVisualObject@@QAEXH@Z
-                mov     edx, dword ptr [ebp+var_10]
-                cmp     dword ptr [edx+640h], 2
-                jnz     short loc_434019
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+1ECh]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_34]
-                add     edx, 1FCh
-                push    edx
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+1ECh]
-                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
-                jmp     short loc_43406C
-; ---------------------------------------------------------------------------
-
-loc_434019:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1BE↑j
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ecx+1F0h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_34]
-                add     eax, 1FCh
-                push    eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [ecx+1F0h]
-                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
-                mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword ptr [edx+1F4h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_34]
-                add     ecx, 200h
-                push    ecx
-                mov     edx, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [edx+1F4h]
-                call    ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
-
-loc_43406C:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1EA↑j
-                cmp     ?g_settings@@3UGameSettings@@A+1ch, 0
-                jz      loc_434116
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     eax, [ebp+var_18]
-                push    eax             ; CString *
-                push    8               ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                push    74h ; 't'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 434081
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                cmp     [ebp+Block], 0
-                jz      short loc_4340D6
-                lea     ecx, [ebp+var_18]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                push    0B8h            ; yBottom
-                push    280h            ; xRight
-                push    30h ; '0'       ; yTop
-                push    0E8h            ; xLeft
-                push    467h            ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisTipsDialog@@QAE@HHHHHPBD@Z
-                mov     [ebp+var_38], eax
-                jmp     short loc_4340DD
-; ---------------------------------------------------------------------------
-
-loc_4340D6:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+27B↑j
-                mov     [ebp+var_38], 0
-
-loc_4340DD:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+2A7↑j
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     [ebp+var_28], ecx
-;   } // starts at 4340A0
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [edx+1F8h], eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ecx+1F8h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-;   } // starts at 4340E3
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_18] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     short loc_434172
-; ---------------------------------------------------------------------------
-
-loc_434116:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+246↑j
-                mov     eax, dword ptr [ebp+var_34]
-                cmp     dword ptr [eax+1F8h], 0
-                jz      short loc_434172
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ecx+1F8h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_34]
-                mov     ecx, dword ptr [eax+1F8h]
-                mov     [ebp+var_30], ecx
-                mov     edx, dword ptr [ebp+var_30]
-                mov     [ebp+var_2C], edx
-                cmp     [ebp+var_2C], 0
-                jz      short loc_43415E
-                push    1
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_3C], eax
-                jmp     short loc_434165
-; ---------------------------------------------------------------------------
-
-loc_43415E:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+31D↑j
-                mov     [ebp+var_3C], 0
-
-loc_434165:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+32F↑j
-                mov     eax, dword ptr [ebp+var_34]
-                mov     dword ptr [eax+1F8h], 0
-
-loc_434172:                             ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+2E7↑j
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     dword ptr [ecx+218h], 0
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    eax
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+4] 
-                push    ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A] 
-                push    edx
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+14h
-                call    ?Use@CCursor@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_34]
-                mov     dword ptr [eax+21Ch], 1
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 433E2D
-?VMethod28@VisStartGame@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -32923,7 +32612,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [ebp+var_28]
                 call    sub_435097
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_4380D3
+                call    ?FreeSamples@VisStartGame@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     dword ptr [ecx+640h], 2
                 jnz     short loc_43428D
@@ -33039,7 +32728,7 @@ loc_43436F:                             ; CODE XREF: ?DoClose@VisStartGame@@UAEX
 
 ; Attributes: bp-based frame
 
-sub_43438B      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+40↑p
+?LoadBitmaps@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+40↑p
 
 var_174         = dword ptr -174h
 var_170         = dword ptr -170h
@@ -33162,10 +32851,10 @@ var_4           = dword ptr -4
                 jmp     short loc_4343F0
 ; ---------------------------------------------------------------------------
 
-loc_4343E6:                             ; CODE XREF: sub_43438B+44↑j
+loc_4343E6:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+44↑j
                 mov     [ebp+var_104], 0
 
-loc_4343F0:                             ; CODE XREF: sub_43438B+59↑j
+loc_4343F0:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+59↑j
                 mov     eax, dword ptr [ebp+var_104]
                 mov     [ebp+var_1C], eax
 ;   } // starts at 4343C4
@@ -33189,10 +32878,10 @@ loc_4343F0:                             ; CODE XREF: sub_43438B+59↑j
                 jmp     short loc_43444C
 ; ---------------------------------------------------------------------------
 
-loc_434442:                             ; CODE XREF: sub_43438B+A0↑j
+loc_434442:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+A0↑j
                 mov     [ebp+var_108], 0
 
-loc_43444C:                             ; CODE XREF: sub_43438B+B5↑j
+loc_43444C:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+B5↑j
                 mov     eax, dword ptr [ebp+var_108]
                 mov     [ebp+var_24], eax
 ;   } // starts at 434420
@@ -33216,10 +32905,10 @@ loc_43444C:                             ; CODE XREF: sub_43438B+B5↑j
                 jmp     short loc_4344A8
 ; ---------------------------------------------------------------------------
 
-loc_43449E:                             ; CODE XREF: sub_43438B+FC↑j
+loc_43449E:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+FC↑j
                 mov     [ebp+var_10C], 0
 
-loc_4344A8:                             ; CODE XREF: sub_43438B+111↑j
+loc_4344A8:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+111↑j
                 mov     eax, dword ptr [ebp+var_10C]
                 mov     [ebp+var_2C], eax
 ;   } // starts at 43447C
@@ -33243,10 +32932,10 @@ loc_4344A8:                             ; CODE XREF: sub_43438B+111↑j
                 jmp     short loc_434507
 ; ---------------------------------------------------------------------------
 
-loc_4344FD:                             ; CODE XREF: sub_43438B+15B↑j
+loc_4344FD:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+15B↑j
                 mov     [ebp+var_110], 0
 
-loc_434507:                             ; CODE XREF: sub_43438B+170↑j
+loc_434507:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+170↑j
                 mov     eax, dword ptr [ebp+var_110]
                 mov     [ebp+var_34], eax
 ;   } // starts at 4344DB
@@ -33270,10 +32959,10 @@ loc_434507:                             ; CODE XREF: sub_43438B+170↑j
                 jmp     short loc_434566
 ; ---------------------------------------------------------------------------
 
-loc_43455C:                             ; CODE XREF: sub_43438B+1BA↑j
+loc_43455C:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+1BA↑j
                 mov     [ebp+var_114], 0
 
-loc_434566:                             ; CODE XREF: sub_43438B+1CF↑j
+loc_434566:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+1CF↑j
                 mov     eax, dword ptr [ebp+var_114]
                 mov     [ebp+var_3C], eax
 ;   } // starts at 43453A
@@ -33297,10 +32986,10 @@ loc_434566:                             ; CODE XREF: sub_43438B+1CF↑j
                 jmp     short loc_4345C5
 ; ---------------------------------------------------------------------------
 
-loc_4345BB:                             ; CODE XREF: sub_43438B+219↑j
+loc_4345BB:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+219↑j
                 mov     [ebp+var_118], 0
 
-loc_4345C5:                             ; CODE XREF: sub_43438B+22E↑j
+loc_4345C5:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+22E↑j
                 mov     eax, dword ptr [ebp+var_118]
                 mov     [ebp+var_44], eax
 ;   } // starts at 434599
@@ -33330,10 +33019,10 @@ loc_4345C5:                             ; CODE XREF: sub_43438B+22E↑j
                 jmp     short loc_434635
 ; ---------------------------------------------------------------------------
 
-loc_43462B:                             ; CODE XREF: sub_43438B+289↑j
+loc_43462B:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+289↑j
                 mov     [ebp+var_11C], 0
 
-loc_434635:                             ; CODE XREF: sub_43438B+29E↑j
+loc_434635:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+29E↑j
                 mov     ecx, dword ptr [ebp+var_11C]
                 mov     [ebp+var_4C], ecx
 ;   } // starts at 434609
@@ -33362,10 +33051,10 @@ loc_43464D:                             ; DATA XREF: .rdata:PrefixString↓o
                 jmp     short loc_43469D
 ; ---------------------------------------------------------------------------
 
-loc_434693:                             ; CODE XREF: sub_43438B+2F1↑j
+loc_434693:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+2F1↑j
                 mov     [ebp+var_120], 0
 
-loc_43469D:                             ; CODE XREF: sub_43438B+306↑j
+loc_43469D:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+306↑j
                 mov     eax, dword ptr [ebp+var_120]
                 mov     [ebp+var_54], eax
 ;   } // starts at 434671
@@ -33392,10 +33081,10 @@ loc_43469D:                             ; CODE XREF: sub_43438B+306↑j
                 jmp     short loc_434705
 ; ---------------------------------------------------------------------------
 
-loc_4346FB:                             ; CODE XREF: sub_43438B+359↑j
+loc_4346FB:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+359↑j
                 mov     [ebp+var_124], 0
 
-loc_434705:                             ; CODE XREF: sub_43438B+36E↑j
+loc_434705:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+36E↑j
                 mov     edx, dword ptr [ebp+var_124]
                 mov     [ebp+var_5C], edx
 ;   } // starts at 4346D9
@@ -33422,10 +33111,10 @@ loc_434705:                             ; CODE XREF: sub_43438B+36E↑j
                 jmp     short loc_43476D
 ; ---------------------------------------------------------------------------
 
-loc_434763:                             ; CODE XREF: sub_43438B+3C1↑j
+loc_434763:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+3C1↑j
                 mov     [ebp+var_128], 0
 
-loc_43476D:                             ; CODE XREF: sub_43438B+3D6↑j
+loc_43476D:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+3D6↑j
                 mov     edx, dword ptr [ebp+var_128]
                 mov     [ebp+var_64], edx
 ;   } // starts at 434741
@@ -33452,10 +33141,10 @@ loc_43476D:                             ; CODE XREF: sub_43438B+3D6↑j
                 jmp     short loc_4347D5
 ; ---------------------------------------------------------------------------
 
-loc_4347CB:                             ; CODE XREF: sub_43438B+429↑j
+loc_4347CB:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+429↑j
                 mov     [ebp+var_12C], 0
 
-loc_4347D5:                             ; CODE XREF: sub_43438B+43E↑j
+loc_4347D5:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+43E↑j
                 mov     edx, dword ptr [ebp+var_12C]
                 mov     [ebp+var_6C], edx
 ;   } // starts at 4347A9
@@ -33482,10 +33171,10 @@ loc_4347D5:                             ; CODE XREF: sub_43438B+43E↑j
                 jmp     short loc_43483D
 ; ---------------------------------------------------------------------------
 
-loc_434833:                             ; CODE XREF: sub_43438B+491↑j
+loc_434833:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+491↑j
                 mov     [ebp+var_130], 0
 
-loc_43483D:                             ; CODE XREF: sub_43438B+4A6↑j
+loc_43483D:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+4A6↑j
                 mov     edx, dword ptr [ebp+var_130]
                 mov     [ebp+var_74], edx
 ;   } // starts at 434811
@@ -33512,10 +33201,10 @@ loc_43483D:                             ; CODE XREF: sub_43438B+4A6↑j
                 jmp     short loc_4348A5
 ; ---------------------------------------------------------------------------
 
-loc_43489B:                             ; CODE XREF: sub_43438B+4F9↑j
+loc_43489B:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+4F9↑j
                 mov     [ebp+var_134], 0
 
-loc_4348A5:                             ; CODE XREF: sub_43438B+50E↑j
+loc_4348A5:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+50E↑j
                 mov     edx, dword ptr [ebp+var_134]
                 mov     [ebp+var_7C], edx
 ;   } // starts at 434879
@@ -33542,10 +33231,10 @@ loc_4348A5:                             ; CODE XREF: sub_43438B+50E↑j
                 jmp     short loc_43490D
 ; ---------------------------------------------------------------------------
 
-loc_434903:                             ; CODE XREF: sub_43438B+561↑j
+loc_434903:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+561↑j
                 mov     [ebp+var_138], 0
 
-loc_43490D:                             ; CODE XREF: sub_43438B+576↑j
+loc_43490D:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+576↑j
                 mov     edx, dword ptr [ebp+var_138]
                 mov     [ebp+var_84], edx
 ;   } // starts at 4348E1
@@ -33572,10 +33261,10 @@ loc_43490D:                             ; CODE XREF: sub_43438B+576↑j
                 jmp     short loc_434984
 ; ---------------------------------------------------------------------------
 
-loc_43497A:                             ; CODE XREF: sub_43438B+5D5↑j
+loc_43497A:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+5D5↑j
                 mov     [ebp+var_13C], 0
 
-loc_434984:                             ; CODE XREF: sub_43438B+5ED↑j
+loc_434984:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+5ED↑j
                 mov     edx, dword ptr [ebp+var_13C]
                 mov     [ebp+var_8C], edx
 ;   } // starts at 434952
@@ -33602,10 +33291,10 @@ loc_434984:                             ; CODE XREF: sub_43438B+5ED↑j
                 jmp     short loc_4349FB
 ; ---------------------------------------------------------------------------
 
-loc_4349F1:                             ; CODE XREF: sub_43438B+64C↑j
+loc_4349F1:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+64C↑j
                 mov     [ebp+var_140], 0
 
-loc_4349FB:                             ; CODE XREF: sub_43438B+664↑j
+loc_4349FB:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+664↑j
                 mov     edx, dword ptr [ebp+var_140]
                 mov     [ebp+var_94], edx
 ;   } // starts at 4349C9
@@ -33632,10 +33321,10 @@ loc_4349FB:                             ; CODE XREF: sub_43438B+664↑j
                 jmp     short loc_434A72
 ; ---------------------------------------------------------------------------
 
-loc_434A68:                             ; CODE XREF: sub_43438B+6C3↑j
+loc_434A68:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+6C3↑j
                 mov     [ebp+var_144], 0
 
-loc_434A72:                             ; CODE XREF: sub_43438B+6DB↑j
+loc_434A72:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+6DB↑j
                 mov     edx, dword ptr [ebp+var_144]
                 mov     [ebp+var_9C], edx
 ;   } // starts at 434A40
@@ -33662,10 +33351,10 @@ loc_434A72:                             ; CODE XREF: sub_43438B+6DB↑j
                 jmp     short loc_434AE9
 ; ---------------------------------------------------------------------------
 
-loc_434ADF:                             ; CODE XREF: sub_43438B+73A↑j
+loc_434ADF:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+73A↑j
                 mov     [ebp+var_148], 0
 
-loc_434AE9:                             ; CODE XREF: sub_43438B+752↑j
+loc_434AE9:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+752↑j
                 mov     edx, dword ptr [ebp+var_148]
                 mov     [ebp+var_A4], edx
 ;   } // starts at 434AB7
@@ -33692,10 +33381,10 @@ loc_434AE9:                             ; CODE XREF: sub_43438B+752↑j
                 jmp     short loc_434B60
 ; ---------------------------------------------------------------------------
 
-loc_434B56:                             ; CODE XREF: sub_43438B+7B1↑j
+loc_434B56:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+7B1↑j
                 mov     [ebp+var_14C], 0
 
-loc_434B60:                             ; CODE XREF: sub_43438B+7C9↑j
+loc_434B60:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+7C9↑j
                 mov     edx, dword ptr [ebp+var_14C]
                 mov     [ebp+var_AC], edx
 ;   } // starts at 434B2E
@@ -33722,10 +33411,10 @@ loc_434B60:                             ; CODE XREF: sub_43438B+7C9↑j
                 jmp     short loc_434BD7
 ; ---------------------------------------------------------------------------
 
-loc_434BCD:                             ; CODE XREF: sub_43438B+828↑j
+loc_434BCD:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+828↑j
                 mov     [ebp+var_150], 0
 
-loc_434BD7:                             ; CODE XREF: sub_43438B+840↑j
+loc_434BD7:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+840↑j
                 mov     edx, dword ptr [ebp+var_150]
                 mov     [ebp+var_B4], edx
 ;   } // starts at 434BA5
@@ -33752,10 +33441,10 @@ loc_434BD7:                             ; CODE XREF: sub_43438B+840↑j
                 jmp     short loc_434C4E
 ; ---------------------------------------------------------------------------
 
-loc_434C44:                             ; CODE XREF: sub_43438B+89F↑j
+loc_434C44:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+89F↑j
                 mov     [ebp+var_154], 0
 
-loc_434C4E:                             ; CODE XREF: sub_43438B+8B7↑j
+loc_434C4E:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+8B7↑j
                 mov     edx, dword ptr [ebp+var_154]
                 mov     [ebp+var_BC], edx
 ;   } // starts at 434C1C
@@ -33782,10 +33471,10 @@ loc_434C4E:                             ; CODE XREF: sub_43438B+8B7↑j
                 jmp     short loc_434CC5
 ; ---------------------------------------------------------------------------
 
-loc_434CBB:                             ; CODE XREF: sub_43438B+916↑j
+loc_434CBB:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+916↑j
                 mov     [ebp+var_158], 0
 
-loc_434CC5:                             ; CODE XREF: sub_43438B+92E↑j
+loc_434CC5:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+92E↑j
                 mov     edx, dword ptr [ebp+var_158]
                 mov     [ebp+var_C4], edx
 ;   } // starts at 434C93
@@ -33812,10 +33501,10 @@ loc_434CC5:                             ; CODE XREF: sub_43438B+92E↑j
                 jmp     short loc_434D3C
 ; ---------------------------------------------------------------------------
 
-loc_434D32:                             ; CODE XREF: sub_43438B+98D↑j
+loc_434D32:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+98D↑j
                 mov     [ebp+var_15C], 0
 
-loc_434D3C:                             ; CODE XREF: sub_43438B+9A5↑j
+loc_434D3C:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+9A5↑j
                 mov     edx, dword ptr [ebp+var_15C]
                 mov     [ebp+var_CC], edx
 ;   } // starts at 434D0A
@@ -33842,10 +33531,10 @@ loc_434D3C:                             ; CODE XREF: sub_43438B+9A5↑j
                 jmp     short loc_434DB3
 ; ---------------------------------------------------------------------------
 
-loc_434DA9:                             ; CODE XREF: sub_43438B+A04↑j
+loc_434DA9:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+A04↑j
                 mov     [ebp+var_160], 0
 
-loc_434DB3:                             ; CODE XREF: sub_43438B+A1C↑j
+loc_434DB3:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+A1C↑j
                 mov     edx, dword ptr [ebp+var_160]
                 mov     [ebp+var_D4], edx
 ;   } // starts at 434D81
@@ -33872,10 +33561,10 @@ loc_434DB3:                             ; CODE XREF: sub_43438B+A1C↑j
                 jmp     short loc_434E2A
 ; ---------------------------------------------------------------------------
 
-loc_434E20:                             ; CODE XREF: sub_43438B+A7B↑j
+loc_434E20:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+A7B↑j
                 mov     [ebp+var_164], 0
 
-loc_434E2A:                             ; CODE XREF: sub_43438B+A93↑j
+loc_434E2A:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+A93↑j
                 mov     edx, dword ptr [ebp+var_164]
                 mov     [ebp+var_DC], edx
 ;   } // starts at 434DF8
@@ -33902,10 +33591,10 @@ loc_434E2A:                             ; CODE XREF: sub_43438B+A93↑j
                 jmp     short loc_434EA1
 ; ---------------------------------------------------------------------------
 
-loc_434E97:                             ; CODE XREF: sub_43438B+AF2↑j
+loc_434E97:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+AF2↑j
                 mov     [ebp+var_168], 0
 
-loc_434EA1:                             ; CODE XREF: sub_43438B+B0A↑j
+loc_434EA1:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+B0A↑j
                 mov     edx, dword ptr [ebp+var_168]
                 mov     [ebp+var_E4], edx
 ;   } // starts at 434E6F
@@ -33932,10 +33621,10 @@ loc_434EA1:                             ; CODE XREF: sub_43438B+B0A↑j
                 jmp     short loc_434F18
 ; ---------------------------------------------------------------------------
 
-loc_434F0E:                             ; CODE XREF: sub_43438B+B69↑j
+loc_434F0E:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+B69↑j
                 mov     [ebp+var_16C], 0
 
-loc_434F18:                             ; CODE XREF: sub_43438B+B81↑j
+loc_434F18:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+B81↑j
                 mov     edx, dword ptr [ebp+var_16C]
                 mov     [ebp+var_EC], edx
 ;   } // starts at 434EE6
@@ -33952,12 +33641,12 @@ loc_434F18:                             ; CODE XREF: sub_43438B+B81↑j
                 jmp     short loc_434F62
 ; ---------------------------------------------------------------------------
 
-loc_434F59:                             ; CODE XREF: sub_43438B+CF9↓j
+loc_434F59:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+CF9↓j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 1
                 mov     [ebp+var_10], edx
 
-loc_434F62:                             ; CODE XREF: sub_43438B+BCC↑j
+loc_434F62:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+BCC↑j
                 cmp     [ebp+var_10], 0Fh
                 jge     loc_435089
                 lea     ecx, [ebp+var_14] ; varThis
@@ -33988,10 +33677,10 @@ loc_434F62:                             ; CODE XREF: sub_43438B+BCC↑j
                 jmp     short loc_434FD0
 ; ---------------------------------------------------------------------------
 
-loc_434FC6:                             ; CODE XREF: sub_43438B+C1D↑j
+loc_434FC6:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+C1D↑j
                 mov     [ebp+var_170], 0
 
-loc_434FD0:                             ; CODE XREF: sub_43438B+C39↑j
+loc_434FD0:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+C39↑j
                 mov     edx, dword ptr [ebp+var_170]
                 mov     [ebp+var_F4], edx
 ;   } // starts at 434F9D
@@ -34026,10 +33715,10 @@ loc_434FD0:                             ; CODE XREF: sub_43438B+C39↑j
                 jmp     short loc_43504D
 ; ---------------------------------------------------------------------------
 
-loc_435043:                             ; CODE XREF: sub_43438B+C9A↑j
+loc_435043:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+C9A↑j
                 mov     [ebp+var_174], 0
 
-loc_43504D:                             ; CODE XREF: sub_43438B+CB6↑j
+loc_43504D:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+CB6↑j
                 mov     eax, dword ptr [ebp+var_174]
                 mov     [ebp+var_FC], eax
 ;   } // starts at 43501A
@@ -34047,14 +33736,14 @@ loc_43504D:                             ; CODE XREF: sub_43438B+CB6↑j
                 jmp     loc_434F59
 ; ---------------------------------------------------------------------------
 
-loc_435089:                             ; CODE XREF: sub_43438B+BDB↑j
+loc_435089:                             ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+BDB↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 43438B
-sub_43438B      endp
+?LoadBitmaps@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -34895,7 +34584,7 @@ loc_435863:                             ; CODE XREF: ?ClearPortraitHoverFlags@Vi
 
 ; Attributes: bp-based frame
 
-sub_435D26      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+50↑p
+?ResetHoverState@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+50↑p
 
 var_4           = dword ptr -4
 
@@ -34916,7 +34605,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_435D26      endp
+?ResetHoverState@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -35461,7 +35150,7 @@ byte_437F8F     db      0,     6,     6,     6
 
 ; Attributes: bp-based frame
 
-sub_437FF4      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+48↑p
+?LoadSamples@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+48↑p
 
 var_4           = dword ptr -4
 
@@ -35470,7 +35159,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4380D3
+                call    ?FreeSamples@VisStartGame@@QAEXXZ
                 push    offset aSfxChrgenLevel ; "SFX\\ChrGen\\Level1.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 1C4h
@@ -35528,14 +35217,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_437FF4      endp
+?LoadSamples@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4380D3      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+49↑p
+?FreeSamples@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+49↑p
 
 var_4           = dword ptr -4
 
@@ -35591,7 +35280,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4380D3      endp
+?FreeSamples@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -37132,7 +36821,7 @@ sub_438C40      endp
 
 ; Attributes: bp-based frame
 
-sub_438CB0      proc near               ; CODE XREF: sub_43438B+C68↑p
+sub_438CB0      proc near               ; CODE XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+C68↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -42145,7 +41834,7 @@ var_4           = dword ptr -4
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     esp, ebp
@@ -65718,30 +65407,6 @@ sub_454A1E      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int sub_454E18(void)
-sub_454E18      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+5FB↑p
-
-rcSrc1          = RECT ptr -10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                push    offset ?g_ScreenSize@@3VCRect@@A   ; lprcSrc
-                lea     ecx, [ebp+rcSrc1]
-                call    sub_45A650
-                lea     eax, [ebp+rcSrc1]
-                push    eax             ; lprcSrc1
-                call    ?gfxFlushRect@@YAXABVCRect@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_454E18      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -69311,7 +68976,7 @@ loc_459F36:                             ; CODE XREF: ?FUN_00459b72@@YAXHHHHHH@Z:
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_45A650(RECT *lprcSrc)
-sub_45A650      proc near               ; CODE XREF: sub_454E18+E↑p
+sub_45A650      proc near               ; CODE XREF: ?FlushScreen@@YAXXZ+E↑p
 
 lprcDst         = dword ptr -4
 lprcSrc         = dword ptr  8
@@ -82969,7 +82634,7 @@ loc_4712AA:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UA
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_430]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+14h
@@ -102058,7 +101723,7 @@ var_4           = dword ptr -4
                 mov     ecx, ?g_font1@@3PAVCGameFont@@A
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
                 call    ?Close@CLlDriver@@QAEXXZ
                 mov     edx, dword ptr [ebp+var_26C]
@@ -102672,7 +102337,7 @@ loc_491DFA:                             ; CODE XREF: sub_491D8A+67↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 call    dword ptr [eax+18h]
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_30]
                 mov     [ebp+var_40], ecx
                 mov     edx, dword ptr [ebp+var_40]
@@ -102767,7 +102432,7 @@ loc_491F1A:                             ; CODE XREF: sub_491D8A+163↑j
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Paint@CMousePointer@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_C]
@@ -102883,7 +102548,7 @@ loc_49201B:                             ; CODE XREF: sub_491F7D+8D↑j
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     [ebp+var_10], 0
 
 loc_4920D6:                             ; CODE XREF: sub_491F7D+109↑j
@@ -102934,7 +102599,7 @@ loc_49214F:                             ; CODE XREF: sub_491F7D+1C6↑j
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
 
 loc_492183:                             ; CODE XREF: sub_491F7D+3E↑j
                 mov     ecx, dword ptr [ebp+var_C]
@@ -116117,7 +115782,7 @@ var_4           = dword ptr -4
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     esp, ebp
@@ -120190,7 +119855,7 @@ var_4           = dword ptr -4
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+0F4h], 1
                 mov     ecx, dword ptr [ebp+var_10]
@@ -120316,7 +119981,7 @@ arg_8           = dword ptr  10h
                 mov     edx, dword ptr [eax]
                 mov     ecx, dword ptr [ebp+var_8]
                 call    dword ptr [edx+34h]
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
 
 loc_4AE5FF:                             ; CODE XREF: ?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z+2F↑j
                 xor     eax, eax
@@ -121011,7 +120676,7 @@ loc_4AEB9D:                             ; CODE XREF: sub_4AE952+1B7↑j
                 mov     edx, dword ptr [eax]
                 mov     ecx, dword ptr [ebp+var_28]
                 call    dword ptr [edx+34h]
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
 
 loc_4AEC71:                             ; CODE XREF: sub_4AE952+30D↑j
                 or      eax, 0FFFFFFFFh
@@ -142921,7 +142586,7 @@ loc_4CE18A:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     eax, dword ptr [ebp+var_28]
@@ -148183,7 +147848,7 @@ loc_4D2008:                             ; CODE XREF: ?VMethod28@VisTownDruid@@UA
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     ecx, dword ptr [ebp+var_28]
@@ -151414,7 +151079,7 @@ loc_4D471A:                             ; CODE XREF: ?VMethod28@VisTownKaarg@@UA
                 call    ?FillRectColorSimple@@YAXHHHHI@Z
                 add     esp, 14h
                 call    ?UnlockSurface2@@YAIXZ
-                call    sub_454E18
+                call    ?FlushScreen@@YAXXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 call    ?VMethod28@VisScreen@@UAEXXZ
                 mov     edx, dword ptr [ebp+var_28]
@@ -329953,32 +329618,6 @@ SEH_4331FC:                             ; DATA XREF: sub_4331FC+5↑o
 ; } // starts at 5F85A2
 ; END OF FUNCTION CHUNK FOR sub_4331FC
 ; ---------------------------------------------------------------------------
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod28@VisStartGame@@UAEXXZ
-
-loc_5F86C7:                             ; DATA XREF: .rdata:stru_618DC0↓o
-; __unwind { // SEH_433E2D              ; varThis
-;   cleanup() // owned by 434081
-;   cleanup() // owned by 4340E3
-                lea     ecx, [ebp+var_18]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F86D0:                             ; DATA XREF: .rdata:00618DC8↓o
-;   cleanup() // owned by 4340A0
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_433E2D:                             ; DATA XREF: ?VMethod28@VisStartGame@@UAEXXZ+5↑o
-                mov     eax, offset stru_618DA0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F86C7
-; END OF FUNCTION CHUNK FOR ?VMethod28@VisStartGame@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?DoClose@VisStartGame@@UAEXI@Z
 
 loc_5F86E4:                             ; DATA XREF: .rdata:stru_618DF0↓o
@@ -330009,7 +329648,7 @@ SEH_4341EB:                             ; DATA XREF: ?DoClose@VisStartGame@@UAEX
 ; } // starts at 5F86E4
 ; END OF FUNCTION CHUNK FOR ?DoClose@VisStartGame@@UAEXI@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43438B
+; START OF FUNCTION CHUNK FOR ?LoadBitmaps@VisStartGame@@QAEXXZ
 
 loc_5F8709:                             ; DATA XREF: .rdata:stru_618E28↓o
 ; __unwind { // SEH_43438B
@@ -330253,11 +329892,11 @@ loc_5F8854:                             ; DATA XREF: .rdata:00618F10↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43438B:                             ; DATA XREF: sub_43438B+5↑o
+SEH_43438B:                             ; DATA XREF: ?LoadBitmaps@VisStartGame@@QAEXXZ+5↑o
                 mov     eax, offset stru_618E08
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8709
-; END OF FUNCTION CHUNK FOR sub_43438B
+; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisStartGame@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR std::locale::facet::_Register(void)
@@ -370500,10 +370139,6 @@ stru_618CE8     UnwindMapEntry <-1, offset loc_5F85A2>
                 UnwindMapEntry <12, offset loc_5F865F>
                 UnwindMapEntry <13, offset loc_5F866E>
                 UnwindMapEntry <14, offset loc_5F867D>
-stru_618DA0     FuncInfoV1 <19930520h, 2, offset stru_618DC0, 0, 0, 0, 0>
-                align 10h
-stru_618DC0     UnwindMapEntry <-1, offset loc_5F86C7>
-                UnwindMapEntry <0, offset loc_5F86D0>
 stru_618DD0     FuncInfoV1 <19930520h, 3, offset stru_618DF0, 0, 0, 0, 0>
                 align 10h
 stru_618DF0     UnwindMapEntry <-1, offset loc_5F86E4>
@@ -378277,7 +377912,7 @@ aGraphicsInterf_94 db 'graphics\interface\chrgen\PreCreate\torch1\t1%04d.bmp',0
 aGraphicsInterf_95 db 'graphics\interface\chrgen\PreCreate\torch2\t2%04d.bmp',0
                 align 4
 ; CHAR aSfxChrgenLevel[]
-aSfxChrgenLevel db 'SFX\ChrGen\Level1.wav',0 ; DATA XREF: sub_437FF4+F↑o
+aSfxChrgenLevel db 'SFX\ChrGen\Level1.wav',0 ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+F↑o
                 align 4
 ; CHAR aSfxChrgenLevel_0[]
 aSfxChrgenLevel_0 db 'SFX\ChrGen\Level2.wav',0
@@ -378286,18 +377921,18 @@ aSfxChrgenLevel_0 db 'SFX\ChrGen\Level2.wav',0
 aSfxChrgenLevel_1 db 'SFX\ChrGen\Level3.wav',0
                 align 4
 ; CHAR aSfxChrgenCharW[]
-aSfxChrgenCharW db 'SFX\ChrGen\Char.wav',0 ; DATA XREF: sub_437FF4+53↑o
+aSfxChrgenCharW db 'SFX\ChrGen\Char.wav',0 ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+53↑o
 ; CHAR aSfxChrgenOkWav[]
-aSfxChrgenOkWav db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: sub_437FF4+69↑o
+aSfxChrgenOkWav db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+69↑o
                 align 4
 ; CHAR aSfxLetter1Wav[]
-aSfxLetter1Wav  db 'SFX\Letter1.wav',0  ; DATA XREF: sub_437FF4+80↑o
+aSfxLetter1Wav  db 'SFX\Letter1.wav',0  ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+80↑o
 ; CHAR aSfxLetter2Wav[]
-aSfxLetter2Wav  db 'SFX\Letter2.wav',0  ; DATA XREF: sub_437FF4+97↑o
+aSfxLetter2Wav  db 'SFX\Letter2.wav',0  ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+97↑o
 ; CHAR aSfxLetter3Wav[]
-aSfxLetter3Wav  db 'SFX\Letter3.wav',0  ; DATA XREF: sub_437FF4+AD↑o
+aSfxLetter3Wav  db 'SFX\Letter3.wav',0  ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+AD↑o
 ; CHAR aSfxChrgenOkWav_0[]
-aSfxChrgenOkWav_0 db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: sub_437FF4+C4↑o
+aSfxChrgenOkWav_0 db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: ?LoadSamples@VisStartGame@@QAEXXZ+C4↑o
                 align 4
 ; char Str1[]
 g_Str1            db 'Unnamed',0          ; DATA XREF: ?IsDefaultNpcName@@YAIPBD@Z+7C↑o

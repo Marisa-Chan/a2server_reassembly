@@ -542,6 +542,7 @@
 ?VMethod7@VisSpellBook@@UAEXXZ	450
 ?GetHint@VisSpellBook@@UAEPBDXZ	675
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z	11
+?ResetHoverState@VisStartGame@@QAEXXZ	21
 ?Cancel@VisStartGame@@QAEXXZ	23
 ??_GVisStartGame@@UAEPAXI@Z	24
 ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z	31
@@ -550,14 +551,16 @@
 ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
 ?OnKeyDown@VisStartGame@@UAEHI@Z	43
+?FreeSamples@VisStartGame@@QAEXXZ	56
 ?GetHotspotId@VisStartGame@@QAEIHH@Z	61
+?LoadSamples@VisStartGame@@QAEXXZ	67
 ?MsgProc@VisStartGame@@UAEHIII@Z	76
 ?Accept@VisStartGame@@QAEXXZ	118
 ?UpdateTipsProgress@VisStartGame@@QAEXI@Z	121
 ?GetHint@VisStartGame@@UAEPBDXZ	146
 ??0VisStartGame@@QAE@HHHHH@Z	150
 ?DoClose@VisStartGame@@UAEXI@Z	152
-?VMethod28@VisStartGame@@UAEXXZ	310
+?LoadBitmaps@VisStartGame@@QAEXXZ	1015
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26

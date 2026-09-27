@@ -13295,3 +13295,71 @@ uint32_t VisStartGame::UpdateHotspots(int32_t x, int32_t y, uint32_t pressed)
     }
     return hotspot;
 }
+
+
+// 433E2D
+void VisStartGame::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    g_mousept.DisableHint();
+    this->torchFrameTick = 0;
+    this->LoadBitmaps();
+    this->LoadSamples();
+    this->ResetHoverState();
+    this->blindAnimationPosition = CPoint(0, 0);
+    this->blindAnimationFrame = 0;
+
+    for (int32_t i = 0; i < this->portraitStateFlags.GetSize(); i++) {
+        this->portraitStateFlags.ElementAt(i) = 0;
+    }
+    for (int32_t i = 0; i < this->difficultyStateFlags.GetSize(); i++) {
+        this->difficultyStateFlags.ElementAt(i) = 0;
+    }
+
+    this->selectedPortraitIndex = 0;
+    this->portraitStateFlags.ElementAt(this->selectedPortraitIndex) = 1;
+    this->difficultyStateFlags.ElementAt(this->selectedDifficultyIndex) = 1;
+
+    if (IsDefaultNpcName(this->char_name)) {
+        this->char_name = txt_npcnames.GetLine(0x14);
+    }
+    this->committedPortraitIndex = this->selectedPortraitIndex;
+    this->committedDifficultyIndex = this->selectedDifficultyIndex;
+
+    this->RemoveChildById(0x464);
+    this->RemoveChildById(0x465);
+
+    if (main_wnd->sessionMode == 2) {
+        this->AddChild(this->networkNameLabel);
+        this->networkNameLabel->SetText(this->char_name);
+    } else {
+        this->AddChild(this->nameLabel);
+        this->nameLabel->SetText(this->char_name);
+        this->AddChild(this->clanLabel);
+        this->clanLabel->SetText(this->clan_name);
+    }
+
+    if (g_settings.TipsMode != 0) {
+        CString tips;
+        MissionGetTips(8, &tips);
+        this->tipsPrompt = new VisTipsDialog(0x467, 0xE8, 0x30, 0x280, 0xB8, tips);
+        this->AddChild(this->tipsPrompt);
+    } else {
+        if (this->tipsPrompt != nullptr) {
+            this->RemoveChild(this->tipsPrompt);
+            delete this->tipsPrompt;
+            this->tipsPrompt = nullptr;
+        }
+    }
+
+    this->tipsProgress = 0;
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    VisScreen::VMethod28();
+    g_Cursors[CURSOR_SELECT]->Use();
+    this->dialogActiveFlag = 1;
+    g_mousept.EnableHint();
+}

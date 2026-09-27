@@ -277,6 +277,7 @@
 ?FindChild@CVisualObject@@QAEPAV1@H@Z
 ?FindOneOf@CString@@QBEHPBD@Z
 ?FindPlayingChannel@SfxSample@@QAEPAVSoundChannel@@XZ
+?FlushScreen@@YAXXZ
 ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z
 ?ForceDisableHint@CMousePointer@@QAEXXZ
 ?Format@CString@@QAAXPBDZZ
@@ -847,6 +848,7 @@
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod28@VisShopCompass@@UAEXXZ
+?VMethod28@VisStartGame@@UAEXXZ
 ?VMethod28@VisTavScene@@UAEXXZ
 ?VMethod28@VisTavSceneDruid@@UAEXXZ
 ?VMethod28@VisTavSceneKaarg@@UAEXXZ
