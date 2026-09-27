@@ -10614,3 +10614,18 @@ void VisInvBase::VMethod32(CArray<TokenEntry*>* arr)
     }
     this->VMethod34();
 }
+
+
+// 4A4E28
+void VisInvBase::VMethod34()
+{
+    if (this->grid_source == nullptr) {
+        return;
+    }
+    if (this->grid_source->GetSize() - *this->visible_startref < this->visible_columns * this->visible_rows) {
+        *this->visible_startref = this->grid_source->GetSize() - this->visible_columns * this->visible_rows;
+    }
+    if (*this->visible_startref < 0) {
+        *this->visible_startref = 0;
+    }
+}

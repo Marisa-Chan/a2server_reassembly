@@ -113799,59 +113799,6 @@ sub_4A4BCB      endp
 
 ; Attributes: bp-based frame
 
-?VMethod34@VisInvBase@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060CA48↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+84h], 0
-                jnz     short loc_4A4E3D
-                jmp     short loc_4A4EB8
-; ---------------------------------------------------------------------------
-
-loc_4A4E3D:                             ; CODE XREF: ?VMethod34@VisInvBase@@UAEXXZ+11↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+90h]
-                sub     eax, [ecx]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [edx+88h]
-                imul    edx, [ecx+8Ch]
-                cmp     eax, edx
-                jge     short loc_4A4E9B
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+84h]
-                call    unknown_libname_444 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+88h]
-                imul    ecx, [edx+8Ch]
-                sub     eax, ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+90h]
-                mov     [ecx], eax
-
-loc_4A4E9B:                             ; CODE XREF: ?VMethod34@VisInvBase@@UAEXXZ+43↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+90h]
-                cmp     dword ptr [eax], 0
-                jge     short loc_4A4EB8
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+90h]
-                mov     dword ptr [edx], 0
-
-loc_4A4EB8:                             ; CODE XREF: ?VMethod34@VisInvBase@@UAEXXZ+13↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod34@VisInvBase@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
