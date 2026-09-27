@@ -10349,3 +10349,28 @@ TokenEntry* VisInvBase::VMethod29(TokenEntry* o, int32_t num)
     }
     return nullptr;
 }
+
+
+// 4A554F
+int32_t VisInvBase::VMethod26(TokenEntry* o, int32_t idx)
+{
+    for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+        TokenEntry* entry = this->grid_source->GetAt(i);
+        if (!o->sub_4A7900(entry)) {
+            continue;
+        }
+        entry->sub_4A7850(o->field_0x10);
+        delete o;
+        return i;
+    }
+    if (idx >= 0 && idx < this->grid_source->GetSize()) {
+        this->grid_source->InsertAt(idx, o, 1);
+        return idx;
+    }
+    if (this->grid_source->GetSize() != 0 && this->grid_source->GetAt(this->grid_source->GetUpperBound())->FUN_0041f0d0()) {
+        this->grid_source->InsertAt(this->grid_source->GetUpperBound(), o, 1);
+        return this->grid_source->GetUpperBound() - 1;
+    }
+    this->grid_source->Add(o);
+    return this->grid_source->GetUpperBound();
+}
