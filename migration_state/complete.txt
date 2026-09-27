@@ -251,6 +251,7 @@
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
 ?DoClose@VisScreen@@UAEXI@Z
+?DoClose@VisStartGame@@UAEXI@Z
 ?Draw@GM_a28@@QAEXXZ
 ?Draw@VisTavSceneAnim@@QAEXHH@Z
 ?DrawItem@VisListBox@@UAEXHVCPoint@@PAG@Z

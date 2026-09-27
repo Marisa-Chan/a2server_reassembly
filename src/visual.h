@@ -2479,6 +2479,7 @@ public:
 	void LoadSamples(); // 437ff4
 	void FreeSamples(); // 4380d3
 	void ResetHoverState(); // 435d26
+	void FreeBitmaps(); // 435097
 
 	VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43305b in asm
 

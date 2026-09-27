@@ -1625,8 +1625,9 @@ externdef ?LoadSamples@VisStartGame@@QAEXXZ : proc
 externdef ?FreeSamples@VisStartGame@@QAEXXZ : proc
 externdef ?ResetHoverState@VisStartGame@@QAEXXZ : proc
 extern ?FlushScreen@@YAXXZ  : proc
+externdef ?FreeBitmaps@VisStartGame@@QAEXXZ : proc
 extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
-externdef ?DoClose@VisStartGame@@UAEXI@Z : proc
+extern ?DoClose@VisStartGame@@UAEXI@Z  : proc
 
 ;Vis1200
 externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc

@@ -559,7 +559,7 @@
 ?UpdateTipsProgress@VisStartGame@@QAEXI@Z	121
 ?GetHint@VisStartGame@@UAEPBDXZ	146
 ??0VisStartGame@@QAE@HHHHH@Z	150
-?DoClose@VisStartGame@@UAEXI@Z	152
+?FreeBitmaps@VisStartGame@@QAEXXZ	571
 ?LoadBitmaps@VisStartGame@@QAEXXZ	1015
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23

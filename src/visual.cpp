@@ -13363,3 +13363,26 @@ void VisStartGame::VMethod28()
     this->dialogActiveFlag = 1;
     g_mousept.EnableHint();
 }
+
+
+// 4341EB
+void VisStartGame::DoClose(uint32_t code)
+{
+    this->VMethod9();
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->dialogActiveFlag = 0;
+    this->FreeBitmaps();
+    this->FreeSamples();
+    if (main_wnd->sessionMode == 2) {
+        this->char_name = this->networkNameLabel->GetText();
+    } else {
+        this->char_name = this->nameLabel->GetText();
+        this->clan_name = this->clanLabel->GetText();
+    }
+    if (this->tipsPrompt != nullptr) {
+        this->RemoveChild(this->tipsPrompt);
+        delete this->tipsPrompt;
+        this->tipsPrompt = nullptr;
+    }
+    VisScreen::DoClose(code);
+}
