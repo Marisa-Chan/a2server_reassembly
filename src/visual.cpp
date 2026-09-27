@@ -10972,3 +10972,11 @@ void VisInvExtBase::sub_4B4C1C()
     FUN_00438dd0(&this->field_0x20b8.sample);
     FUN_00438dd0(&this->field_0x20bc.sample);
 }
+
+
+// 4B4FA3
+int32_t VisInvExtBase::VMethod30(int32_t x, int32_t y)
+{
+    CPoint pt(x, y);
+    return this->VMethod31(&pt);
+}

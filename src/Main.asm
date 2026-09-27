@@ -137507,34 +137507,6 @@ sub_4B4DAA      endp
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisInvExtBase@@UAEHHH@Z      proc near               ; DATA XREF: .rdata:0060D170↓o
-
-var_C           = dword ptr -0Ch
-var_8           = byte ptr -8
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                lea     ecx, [ebp+var_8]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [eax+8Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?VMethod30@VisInvExtBase@@UAEHHH@Z      endp
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
