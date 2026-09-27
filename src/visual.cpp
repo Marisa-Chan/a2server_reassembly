@@ -11026,3 +11026,9 @@ void VisInvExtBase::VMethod40(CArray<TokenEntry*>* arr)
 void VisInvExtBase::VMethod41()
 {
 }
+
+
+// 4B9E60
+void VisInvExtBase::VMethod42()
+{
+}

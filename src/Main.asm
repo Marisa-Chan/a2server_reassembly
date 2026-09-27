@@ -144033,18 +144033,6 @@ sub_4B9E10      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_648 proc near           ; DATA XREF: .rdata:0060D1A0↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_648 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -374384,7 +374372,7 @@ off_60D0E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod39@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset ?VMethod41@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod42@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 align 8
 off_60D1A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4B62D8+76↑o
                 dd offset ??_GVisInvExtType1@@UAEPAXI@Z
@@ -374480,7 +374468,7 @@ off_60D268      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4B8102
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
                 dd offset ?VMethod41@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset unknown_libname_648 ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod42@VisInvExtBase@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 align 8
 off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4B89D8+5C↑o
                 dd offset ??_GVisInvExtType3@@UAEPAXI@Z
