@@ -10467,3 +10467,38 @@ VisInvBase::~VisInvBase()
     }
     this->spr_cells.RemoveAll();
 }
+
+
+// 4A5C39
+int32_t VisInvBase::VMethod37(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 == nullptr) {
+        return -1;
+    }
+    if (main_wnd->field_0x408->FUN_0041f0d0()) {
+        main_wnd->vis_map_context->my_main_unit->gold += main_wnd->field_0x408->field_0x10;
+    }
+    int32_t count = main_wnd->field_0x408->field_0x10;
+
+    int32_t same_tab;
+    int32_t tab = this->VMethod38();
+    if (tab >= 5 && tab <= 8 && tab == main_wnd->field_0x410) {
+        same_tab = 0;
+    } else {
+        same_tab = 1;
+    }
+
+    idx = this->VMethod26(main_wnd->field_0x408, idx);
+    if (this->VMethod38() == 2) {
+        this->VMethod33(main_wnd->vis_map_context->field_0x138);
+    } else {
+        this->VMethod32(this->grid_source);
+    }
+    if (same_tab != 0) {
+        main_wnd->vis_map_context->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, this->VMethod38(), idx, count);
+    }
+    main_wnd->ResetItemCursor();
+    main_wnd->vis_root->MsgProc(0x46E, this->id, 0);
+    return idx;
+}

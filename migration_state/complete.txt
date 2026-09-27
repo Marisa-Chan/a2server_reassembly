@@ -796,6 +796,7 @@
 ?VMethod34@VisShopCompass@@UAEXXZ
 ?VMethod35@VisShopCompass@@UAEXXZ
 ?VMethod36@VisShopCompass@@UAEXXZ
+?VMethod37@VisInvBase@@UAEHH@Z
 ?VMethod37@VisShopCompass@@UAEHH@Z
 ?VMethod38@VisShopCompass@@UAEHXZ
 ?VMethod3@CGameObject@@UAEHXZ
