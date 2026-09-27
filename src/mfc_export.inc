@@ -1846,7 +1846,7 @@ extern ?VMethod29@VisInvExtType1@@UAEPAVTokenEntry@@PAV2@H@Z : proc  ; TokenEntr
 externdef ?VMethod37@VisInvExtType1@@UAEHH@Z : proc  ; int32_t VisInvExtType1::VMethod37(int32_t)
 externdef ?VMethod38@VisInvExtType1@@UAEHXZ : proc  ; int32_t VisInvExtType1::VMethod38()
 extern ?VMethod39@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod39()
-externdef ?VMethod41@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod41()
+extern ?VMethod41@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod41()
 externdef ?VMethod42@VisInvExtType1@@UAEXXZ : proc  ; void VisInvExtType1::VMethod42()
 externdef ?sub_4B7264@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B7264()
 externdef ?sub_4B72C1@VisInvExtType1@@QAEXXZ : proc  ; void VisInvExtType1::sub_4B72C1()

@@ -11461,3 +11461,20 @@ void VisInvExtType1::VMethod39()
         }
     }
 }
+
+
+// 4B663C
+void VisInvExtType1::VMethod41()
+{
+    this->VMethod42();
+    this->arrow1 = new CBmp64("graphics\\interface\\ShopArrow1.bmp");
+    g_mousept.Update();
+    this->arrow3 = new CBmp64("graphics\\interface\\ShopArrow3.bmp");
+    g_mousept.Update();
+    this->arrow2 = new CBmp64("graphics\\interface\\ShopArrow2.bmp");
+    g_mousept.Update();
+    this->arrow4 = new CBmp64("graphics\\interface\\ShopArrow4.bmp");
+    g_mousept.Update();
+    this->shop_inv = new CBmp64("graphics\\interface\\ShopInv.bmp");
+    g_mousept.Update();
+}
