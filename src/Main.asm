@@ -137595,29 +137595,6 @@ sub_4B8E9A      endp
 ; Attributes: library function bp-based frame
 
 ; int __thiscall CFormView::accHitTest(CFormView *__hidden varThis, int, int, struct tagVARIANT *)
-?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z proc near
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
