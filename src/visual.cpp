@@ -11782,3 +11782,24 @@ int32_t VisInvExtType2::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return VisInvExtBase::OnLButtonDown(wparam, pos);
 }
+
+
+// 4B88EC
+int32_t VisInvExtType2::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        switch (main_wnd->field_0x408->field_0x18) {
+        case 1:
+        case 2:
+            this->field_0x20ac->placement_lock = 1;
+            ApplyCursor(main_wnd->item_cursor);
+            break;
+        default:
+            ApplyCursor(g_Cursors[23]);
+            this->field_0x20ac->placement_lock = 0;
+            break;
+        }
+    }
+    return VisInvExtBase::OnMouseMove(wparam, pos);
+}
