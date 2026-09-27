@@ -137184,118 +137184,13 @@ sub_4B8CC5      endp
 
 ; Attributes: bp-based frame
 
-sub_4B8D43      proc near               ; DATA XREF: .rdata:0060D3DC↓o
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FDD35 SIZE 00000026 BYTES
-
-; __unwind { // SEH_4B8D43
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4B8D43
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [edx+0B8h]
-                push    offset aGraphicsInterf_230 ; "graphics\\interface\\"
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_20]
-                cmp     dword ptr [eax+20ACh], 0
-                jz      short loc_4B8DD2
-                lea     ecx, [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [edx+20ACh]
-                mov     eax, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [eax+20ACh]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+94h]
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ebp+var_28], ecx
-;   } // starts at 4B8D7C
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     edx, dword ptr [ebp+var_28]
-                push    edx
-                lea     ecx, [ebp+var_10]
-                call    ??YCString@@QAEABV0@ABV0@@Z ; CString::operator+=(CString const &)
-;   } // starts at 4B8DB6
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_4B8DD2:                             ; CODE XREF: sub_4B8D43+4A↑j
-                push    offset aShoptableBmp ; "ShopTable.bmp"
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??YCString@@QAEABV0@PBD@Z ; CString::operator+=(char const *)
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 4B8DC6
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                cmp     [ebp+Block], 0
-                jz      short loc_4B8E09
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_4B8E10
-; ---------------------------------------------------------------------------
-
-loc_4B8E09:                             ; CODE XREF: sub_4B8D43+AE↑j
-                mov     [ebp+var_2C], 0
-
-loc_4B8E10:                             ; CODE XREF: sub_4B8D43+C4↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_1C], eax
-;   } // starts at 4B8DE9
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ecx+20ECh], edx
-;   } // starts at 4B8E16
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4B8D43
-sub_4B8D43      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4B8E43      proc near               ; DATA XREF: .rdata:0060D3E0↓o
+?VMethod42@VisInvExtType3@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060D3E0↓o
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -137325,16 +137220,16 @@ var_4           = dword ptr -4
                 jmp     short loc_4B8E89
 ; ---------------------------------------------------------------------------
 
-loc_4B8E82:                             ; CODE XREF: sub_4B8E43+2B↑j
+loc_4B8E82:                             ; CODE XREF: ?VMethod42@VisInvExtType3@@UAEXXZ+2B↑j
                 mov     [ebp+var_10], 0
 
-loc_4B8E89:                             ; CODE XREF: sub_4B8E43+13↑j
+loc_4B8E89:                             ; CODE XREF: ?VMethod42@VisInvExtType3@@UAEXXZ+13↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     dword ptr [eax+20ECh], 0
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4B8E43      endp
+?VMethod42@VisInvExtType3@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -348572,39 +348467,6 @@ SEH_4B8CC5:                             ; DATA XREF: sub_4B8CC5+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FDD13
 ; END OF FUNCTION CHUNK FOR sub_4B8CC5
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4B8D43
-
-loc_5FDD35:                             ; DATA XREF: .rdata:stru_61F180↓o
-; __unwind { // SEH_4B8D43              ; varThis
-;   cleanup() // owned by 4B8D7C
-;   cleanup() // owned by 4B8DC6
-;   cleanup() // owned by 4B8E16
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDD3E:                             ; DATA XREF: .rdata:0061F188↓o
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FDD47:                             ; DATA XREF: .rdata:0061F190↓o
-;   cleanup() // owned by 4B8DB6
-;   cleanup() // owned by 4B8DE9
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4B8D43:                             ; DATA XREF: sub_4B8D43+5↑o
-                mov     eax, offset stru_61F160
-                jmp     ___CxxFrameHandler
-; } // starts at 5FDD35
-; END OF FUNCTION CHUNK FOR sub_4B8D43
 ; START OF FUNCTION CHUNK FOR sub_4B95C5
 
 loc_5FDD83:                             ; DATA XREF: .rdata:stru_61F208↓o
@@ -367654,8 +367516,8 @@ off_60D328      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod38@VisInvExtType3@@UAEHXZ ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod39@VisInvExtType3@@UAEXXZ
                 dd offset ?VMethod40@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
-                dd offset sub_4B8D43
-                dd offset sub_4B8E43
+                dd offset ?VMethod41@VisInvExtType3@@UAEXXZ
+                dd offset ?VMethod42@VisInvExtType3@@UAEXXZ
                 dd offset sub_4B95C5
 
 off_60D850      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisInvExtType1Druid@@QAE@HHHHHPAVVisShop@@@Z+2A↑o
@@ -381436,13 +381298,8 @@ stru_61F130     FuncInfoV1 <19930520h, 2, offset stru_61F150, 0, 0, 0, 0>
                 db    0
 stru_61F150     UnwindMapEntry <-1, offset loc_5FDD13>
                 UnwindMapEntry <0, offset loc_5FDD1C>
-stru_61F160     FuncInfoV1 <19930520h, 3, offset stru_61F180, 0, 0, 0, 0>
-                align 10h
-stru_61F180     UnwindMapEntry <-1, offset loc_5FDD35>
-                UnwindMapEntry <0, offset loc_5FDD3E>
-                UnwindMapEntry <0, offset loc_5FDD47>
-stru_61F1E8     FuncInfoV1 <19930520h, 1, offset stru_61F208, 0, 0, 0, 0>
                 align 8
+stru_61F1E8     FuncInfoV1 <19930520h, 1, offset stru_61F208, 0, 0, 0, 0>
 stru_61F208     UnwindMapEntry <-1, offset loc_5FDD83>
 stru_61F240     FuncInfoV1 <19930520h, 4, offset stru_61F260, 0, 0, 0, 0>
                 db    0
@@ -390190,7 +390047,7 @@ aGraphicsInterf_229 db 'graphics\interface\shop_kaarg\ShopInv.bmp',0
 ; CHAR aGraphicsInterf_230[]
 aGraphicsInterf_230 db 'graphics\interface\',0
 ; CHAR aShoptableBmp[]
-aShoptableBmp   db 'ShopTable.bmp',0    ; DATA XREF: sub_4B8D43:loc_4B8DD2↑o
+aShoptableBmp   db 'ShopTable.bmp',0    ; DATA XREF: ?VMethod41@VisInvExtType3@@UAEXXZ:loc_4B8DD2↑o
                 align 4
 ; char aShopKaarg[]
 aShopKaarg      db 'shop_kaarg',0       ; DATA XREF: ?VMethod37@VisInvExtType3@@UAEHH@Z+9B↑o

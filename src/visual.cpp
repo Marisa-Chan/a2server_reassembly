@@ -11880,6 +11880,19 @@ const char* VisInvExtType3::GetHint()
 }
 
 
+// 4B8D43
+void VisInvExtType3::VMethod41()
+{
+    this->VMethod42();
+    CString path = "graphics\\interface\\";
+    if (this->field_0x20ac != nullptr) {
+        path += this->field_0x20ac->VMethod33();
+    }
+    path += "ShopTable.bmp";
+    this->shoptable = new CBmp64(path);
+}
+
+
 // 4B8E9A
 void VisInvExtType3::VMethod39()
 {

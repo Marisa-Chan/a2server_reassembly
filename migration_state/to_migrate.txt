@@ -440,6 +440,7 @@
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
 ??_GVisInvExtType3@@UAEPAXI@Z	24
+?VMethod42@VisInvExtType3@@UAEXXZ	39
 ??0VisInvExtType3@@QAE@HHHHHPAVVisShop@@@Z	93
 ?sub_4B9B2F@VisInvExtType3@@QAEHH@Z	99
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z	12

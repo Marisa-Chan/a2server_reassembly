@@ -1887,6 +1887,8 @@ extern ?VMethod36@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* V
 extern ?VMethod37@VisInvExtType3@@UAEHH@Z : proc  ; int32_t VisInvExtType3::VMethod37(int32_t) — vtable slot 41
 extern ?VMethod38@VisInvExtType3@@UAEHXZ : proc  ; int32_t VisInvExtType3::VMethod38() — vtable slot 42
 extern ?VMethod39@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod39() — vtable slot 43
+extern ?VMethod41@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod41() — vtable slot 45
+externdef ?VMethod42@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod42() — vtable slot 46, body in asm
 externdef ?sub_4B9B2F@VisInvExtType3@@QAEHH@Z : proc  ; int32_t VisInvExtType3::sub_4B9B2F(int32_t)  //4b9b2f in asm
 externdef ?VMethod27@VisInvExtType3@@UAEHPAVTokenEntry@@@Z : proc
 
