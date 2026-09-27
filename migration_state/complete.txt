@@ -572,6 +572,7 @@
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z

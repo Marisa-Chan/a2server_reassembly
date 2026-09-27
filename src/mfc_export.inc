@@ -1802,7 +1802,7 @@ extern ?MsgProc@VisInvType1@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z : proc

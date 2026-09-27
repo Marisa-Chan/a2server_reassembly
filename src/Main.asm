@@ -113786,57 +113786,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CAB8↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+84h], 0
-                jnz     short loc_4A7110
-                mov     eax, 1
-                jmp     short loc_4A7157
-; ---------------------------------------------------------------------------
-
-loc_4A7110:                             ; CODE XREF: ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z+1B↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+88h]
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+408h], 0
-                jz      short loc_4A7152
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [eax+0A4h]
-
-loc_4A7152:                             ; CODE XREF: ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z+47↑j
-                mov     eax, 1
-
-loc_4A7157:                             ; CODE XREF: ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z+22↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

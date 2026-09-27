@@ -11061,6 +11061,21 @@ int32_t VisInvType1::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 4A70EC
+int32_t VisInvType1::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (this->grid_source != nullptr) {
+        int32_t idx = this->VMethod30(pos.x, pos.y);
+        if (main_wnd->field_0x408 != nullptr) {
+            ApplyCursor(g_Cursors[0]);
+            this->VMethod37(idx);
+        }
+    }
+    return 1;
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
