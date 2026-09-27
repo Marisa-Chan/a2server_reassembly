@@ -116803,19 +116803,6 @@ loc_4A7987:                             ; CODE XREF: ?sub_4A7900@TokenEntry@@QAE
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod38@VisInvBase@@UAEHXZ proc near           ; DATA XREF: .rdata:0060CA58↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                or      eax, 0FFFFFFFFh
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod38@VisInvBase@@UAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

@@ -10629,3 +10629,10 @@ void VisInvBase::VMethod34()
         *this->visible_startref = 0;
     }
 }
+
+
+// 4A79B0
+int32_t VisInvBase::VMethod38()
+{
+    return -1;
+}
