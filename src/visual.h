@@ -3106,6 +3106,8 @@ public:
 
 	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541
 
+	void SetText(const char* text); // 4e2b73
+
 public:
 	uint8_t __unused__[12];
 };

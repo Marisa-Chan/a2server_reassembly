@@ -1600,6 +1600,7 @@ externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
 externdef ??_GVisStartGame@@UAEPAXI@Z : proc
+externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGame@@UAEXXZ  : proc
 externdef ?GetHotspotId@VisStartGame@@QAEIHH@Z : proc
@@ -1612,7 +1613,6 @@ externdef ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ : proc
-externdef ?UpdateTipsProgress@VisStartGame@@QAEXI@Z : proc
 externdef ?Accept@VisStartGame@@QAEXXZ : proc
 externdef ?Cancel@VisStartGame@@QAEXXZ : proc
 externdef ?IsDefaultNpcName@@YAIPBD@Z : proc

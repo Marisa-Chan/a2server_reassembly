@@ -13424,3 +13424,36 @@ const char* VisStartGame::GetHint()
     }
     return nullptr;
 }
+
+
+// 437C25
+void VisStartGame::UpdateTipsProgress(uint32_t hotspot)
+{
+    if (g_settings.TipsMode == 0 || this->tipsPrompt == nullptr) {
+        return;
+    }
+
+    switch (hotspot) {
+    case 0x50:
+    case 0x64:
+    case 0x78:
+    case 0x8C:
+        if (this->tipsProgress == 0) {
+            this->tipsProgress++;
+            CString tips;
+            MissionGetTips(9, &tips);
+            static_cast<VisTipsDialog*>(this->tipsPrompt)->SetText(tips);
+        }
+        break;
+    case 0x14:
+    case 0x28:
+    case 0x3C:
+        if (this->tipsProgress == 1) {
+            this->tipsProgress++;
+            CString tips;
+            MissionGetTips(10, &tips);
+            static_cast<VisTipsDialog*>(this->tipsPrompt)->SetText(tips);
+        }
+        break;
+    }
+}

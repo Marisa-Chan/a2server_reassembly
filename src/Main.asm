@@ -34642,169 +34642,6 @@ arg_8           = dword ptr  10h
 ; Attributes: library function bp-based frame
 
 ; void __thiscall std::locale::facet::_Register(std::locale::facet *__hidden varThis)
-?UpdateTipsProgress@VisStartGame@@QAEXI@Z proc near
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F88BD SIZE 0000001C BYTES
-
-; __unwind { // SEH_437C25
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset ?UpdateTipsProgress@VisStartGame@@QAEXI@Z_SEH
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                cmp     ?g_settings@@3UGameSettings@@A+1ch, 0
-                jz      short loc_437C58
-                mov     eax, dword ptr [ebp+var_18]
-                cmp     dword ptr [eax+1F8h], 0
-                jnz     short loc_437C5D
-
-loc_437C58:                             ; CODE XREF: std::locale::facet::_Register(void)+25↑j
-                jmp     def_437C81      ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_437C5D:                             ; CODE XREF: std::locale::facet::_Register(void)+31↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_1C], ecx
-                mov     edx, dword ptr [ebp+var_1C]
-                sub     edx, 14h        ; switch 121 cases
-                mov     [ebp+var_1C], edx
-                cmp     [ebp+var_1C], 78h
-                ja      def_437C81      ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     ecx, dword ptr [ebp+var_1C]
-                xor     eax, eax
-                mov     al, ds:byte_437D9A[ecx]
-                jmp     ds:jpt_437C81[eax*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_437C88:                             ; CODE XREF: std::locale::facet::_Register(void)+5C↑j
-                mov     edx, dword ptr [ebp+var_18] ; jumptable 00437C81 cases 80,100,120,140
-                cmp     dword ptr [edx+218h], 0
-                jnz     short loc_437CF8
-                mov     eax, dword ptr [ebp+var_18]
-                cmp     dword ptr [eax+1F8h], 0
-                jz      short loc_437CF8
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ecx+218h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_18]
-                mov     [eax+218h], edx
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_10]
-                push    ecx             ; CString *
-                push    9               ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                mov     edx, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [edx+1F8h]
-                call    sub_4E2B73
-;   } // starts at 437CBD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_437CF8:                             ; CODE XREF: std::locale::facet::_Register(void)+6D↑j
-                jmp     short def_437C81 ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-; ---------------------------------------------------------------------------
-
-loc_437CFA:                             ; CODE XREF: std::locale::facet::_Register(void)+5C↑j
-                mov     eax, dword ptr [ebp+var_18] ; jumptable 00437C81 cases 20,40,60
-                cmp     dword ptr [eax+218h], 1
-                jnz     short def_437C81 ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+1F8h], 0
-                jz      short def_437C81 ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx+218h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ecx+218h], eax
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 1
-                lea     edx, [ebp+var_14]
-                push    edx             ; CString *
-                push    0Ah             ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+1F8h]
-                call    sub_4E2B73
-;   } // starts at 437D2F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-def_437C81:                             ; CODE XREF: std::locale::facet::_Register(void):loc_437C58↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 00437C81 default case, cases 21-39,41-59,61-79,81-99,101-119,121-139
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 437C25
-?UpdateTipsProgress@VisStartGame@@QAEXI@Z endp
-
-; ---------------------------------------------------------------------------
-jpt_437C81      dd offset loc_437CFA    ; DATA XREF: std::locale::facet::_Register(void)+5C↑r
-                dd offset loc_437CFA    ; jump table for switch statement
-                dd offset loc_437CFA
-                dd offset loc_437C88
-                dd offset loc_437C88
-                dd offset loc_437C88
-                dd offset loc_437C88
-                dd offset def_437C81
-byte_437D9A     db      0,     7,     7,     7
-                db      7,     7,     7,     7 ; indirect table for switch statement
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      1,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      2,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      3,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      4,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      5,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      7,     7,     7,     7
-                db      6
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -36327,7 +36164,7 @@ arg_0           = dword ptr  8
                 call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax             ; lpString
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4E2B73
+                call    ?SetText@VisTipsDialog@@QAEXPBD@Z
                 mov     esp, ebp
                 pop     ebp
                 retn    4
@@ -158913,8 +158750,8 @@ loc_4E2B5C:                             ; CODE XREF: ?VMethod8@VisTipsDialog@@UA
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4E2B73(LPCSTR lpString)
-sub_4E2B73      proc near               ; CODE XREF: std::locale::facet::_Register(void)+BF↑p
+; int __stdcall ?SetText@VisTipsDialog@@QAEXPBD@Z(LPCSTR lpString)
+?SetText@VisTipsDialog@@QAEXPBD@Z      proc near               ; CODE XREF: std::locale::facet::_Register(void)+BF↑p
 
 var_4           = dword ptr -4
 lpString        = dword ptr  8
@@ -158933,7 +158770,7 @@ lpString        = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4E2B73      endp
+?SetText@VisTipsDialog@@QAEXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -329533,29 +329370,6 @@ SEH_43438B:                             ; DATA XREF: ?LoadBitmaps@VisStartGame@@
 ; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisStartGame@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR std::locale::facet::_Register(void)
-
-unknown_libname_969:                    ; DATA XREF: .rdata:stru_618F98↓o
-; __unwind { // SEH_437C25              ; MFC 3.1-14.0 32bit
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F88C6:                             ; DATA XREF: .rdata:00618FA0↓o
-;   cleanup() // owned by 437CBD        ; varThis
-;   cleanup() // owned by 437D2F
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_437C25:                             ; DATA XREF: std::locale::facet::_Register(void)+5↑o
-?UpdateTipsProgress@VisStartGame@@QAEXI@Z_SEH:
-                mov     eax, offset stru_618F78
-                jmp     ___CxxFrameHandler
-; } // starts at 5F88BD
-; END OF FUNCTION CHUNK FOR std::locale::facet::_Register(void)
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?Accept@VisStartGame@@QAEXXZ
 
@@ -369808,13 +369622,6 @@ stru_618E28     UnwindMapEntry <-1, offset loc_5F8709>
                 UnwindMapEntry <-1, offset loc_5F883E>
                 UnwindMapEntry <27, offset loc_5F8847>
                 UnwindMapEntry <27, offset loc_5F8854>
-stru_618F78     FuncInfoV1 <19930520h, 2, offset stru_618F98, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618F98     UnwindMapEntry <-1, offset unknown_libname_969>
-                UnwindMapEntry <-1, offset loc_5F88C6>
 stru_618FA8     FuncInfoV1 <19930520h, 2, offset stru_618FC8, 0, 0, 0, 0>
                 db    0
                 db    0

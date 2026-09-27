@@ -556,7 +556,6 @@
 ?LoadSamples@VisStartGame@@QAEXXZ	67
 ?MsgProc@VisStartGame@@UAEHIII@Z	76
 ?Accept@VisStartGame@@QAEXXZ	118
-?UpdateTipsProgress@VisStartGame@@QAEXI@Z	121
 ??0VisStartGame@@QAE@HHHHH@Z	150
 ?FreeBitmaps@VisStartGame@@QAEXXZ	571
 ?LoadBitmaps@VisStartGame@@QAEXXZ	1015
@@ -569,6 +568,7 @@
 ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
 ?VMethod7@VisStartGameTextBox@@UAEXXZ	134
+?SetText@VisTipsDialog@@QAEXPBD@Z	19
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
 ?MsgProc@VisTipsDialog@@UAEHIII@Z	71
