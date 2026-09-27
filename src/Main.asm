@@ -113741,19 +113741,6 @@ sub_4A63B0      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z proc near           ; DATA XREF: .rdata:0060CAC0↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================

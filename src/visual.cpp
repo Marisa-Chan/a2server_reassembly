@@ -11083,6 +11083,13 @@ int32_t VisInvType1::OnWmUser(uint32_t wparam, CPoint pos)
 }
 
 
+// 4A6F32
+int32_t VisInvType1::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}
+
+
 // 4A6F44
 int32_t VisInvType1::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 {
