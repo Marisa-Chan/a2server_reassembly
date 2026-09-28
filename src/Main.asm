@@ -24273,51 +24273,12 @@ sub_42E92A      endp
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609700↓o
 
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
 
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+98h], 0
-                jz      short loc_42EA35
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+58h]
-                xor     eax, eax
-                jmp     short loc_42EA49
-; ---------------------------------------------------------------------------
+; =============== S U B R O U T I N E =======================================
 
-loc_42EA35:                             ; CODE XREF: ?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z+11↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
+; Attributes: bp-based frame
 
-loc_42EA49:                             ; CODE XREF: ?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z+32↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24360,10 +24321,6 @@ loc_42EA81:                             ; CODE XREF: ?OnKeyDown@VisCharGen@@UAEH
                 retn    4
 ?OnKeyDown@VisCharGen@@UAEHI@Z      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
 
 sub_42EA87      proc near               ; CODE XREF: sub_42C072+11A↑p
 

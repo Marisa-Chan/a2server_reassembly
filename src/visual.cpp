@@ -5882,6 +5882,17 @@ void VisCharGen::VMethod26()
 }
 
 
+// 42EA01
+int32_t VisCharGen::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    if (this->fwd_btn == 0) {
+        return this->CVisualObject::OnLButtonUp(wparam, pos);
+    }
+    this->stats_panel->OnLButtonUp(wparam, pos);
+    return 0;
+}
+
+
 // 42E196
 int32_t VisCharGen::OnMouseMove(uint32_t wparam, CPoint pos)
 {
