@@ -6721,6 +6721,19 @@ int32_t VisCharGenAction::HitTest(CPoint pt) {
 }
 
 
+// 42b505
+void VisCharGenAction::UpdateMouseOver(uint32_t wparam, CPoint pos) {
+    int32_t hit = this->HitTest(pos);
+    if (hit >= 0 && !(wparam & 1)) {
+        this->mouse_over_box = hit;
+    } else if (hit >= 0 && hit == this->mouse_down_box && (wparam & 1)) {
+        this->mouse_over_box = hit;
+    } else {
+        this->mouse_over_box = -1;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

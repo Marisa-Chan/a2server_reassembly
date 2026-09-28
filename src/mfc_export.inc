@@ -1576,8 +1576,6 @@ extern ?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z :proc   ; (public: virtua
 extern ?OnLButtonDown@VisCharGenAction@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenAction::OnLButtonDown(unsigned int,class CPoint))
 extern ?OnLButtonUp@VisCharGenAction@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenAction::OnLButtonUp(unsigned int,class CPoint))
 extern ?FreeBitmaps@VisCharGenAction@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenAction::FreeBitmaps(void))
-externdef ?HitTest@VisCharGenAction@@AAEHVCPoint@@@Z : proc
-externdef ?UpdateMouseOver@VisCharGenAction@@AAEXIVCPoint@@@Z : proc
 ;VisCharGenSkills
 externdef ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ??_GVisCharGenSkills@@UAEPAXI@Z : proc
