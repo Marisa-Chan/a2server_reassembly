@@ -2494,7 +2494,7 @@ public:
 public:
 	CBmp64* mainAreaBitmap; //0x68
 	CBmp256* hotspotMaskBitmap; // 0x6c;
-	CBmp64* blindAnimation; // 0x70;
+	CA16* blindAnimation; // 0x70;
 	int32_t blindAnimationFrame; // 0x74;
 	CPoint blindAnimationPosition; // 0x78;
 	CArray<CRect> blindSpawnRects; // 0x80;

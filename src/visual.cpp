@@ -13718,3 +13718,74 @@ void VisStartGame::FreeBitmaps()
     this->leftTorchFrames.RemoveAll();
     this->rightTorchFrames.RemoveAll();
 }
+
+
+// 43438B
+void VisStartGame::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->hotspotMaskBitmap = new CBmp256("graphics\\interface\\chrgen\\PreCreate\\Mask.bmp");
+    g_mousept.Update();
+    this->mainAreaBitmap = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\MainArea.bmp");
+    g_mousept.Update();
+    this->returnToGameButtonBitmap = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\cancell.bmp");
+    g_mousept.Update();
+    this->acceptButtonBitmap = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Okl.bmp");
+    g_mousept.Update();
+    this->tableauBitmap = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\tablol.bmp");
+    g_mousept.Update();
+    this->blindAnimation = new CA16("graphics\\interface\\chrgen\\PreCreate\\Blind\\sprites.16a");
+    this->blindAnimation->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+
+    this->portraitHoverBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h1sel.bmp");
+    g_mousept.Update();
+    this->portraitHoverBitmaps.ElementAt(3) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h4sel.bmp");
+    g_mousept.Update();
+    this->portraitHoverBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h2sel.bmp");
+    g_mousept.Update();
+    this->portraitHoverBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h3sel.bmp");
+    g_mousept.Update();
+    this->portraitSelectedBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h1on.bmp");
+    g_mousept.Update();
+    this->portraitSelectedBitmaps.ElementAt(3) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h4on.bmp");
+    g_mousept.Update();
+    this->portraitSelectedBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h2on.bmp");
+    g_mousept.Update();
+    this->portraitSelectedBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h3on.bmp");
+    g_mousept.Update();
+    this->portraitSelectedHoverBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h1sel2.bmp");
+    g_mousept.Update();
+    this->portraitSelectedHoverBitmaps.ElementAt(3) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h4sel3.bmp");
+    g_mousept.Update();
+    this->portraitSelectedHoverBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h2sel1.bmp");
+    g_mousept.Update();
+    this->portraitSelectedHoverBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Heroes\\h3sel4.bmp");
+    g_mousept.Update();
+    this->difficultySelectedBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level0on.bmp");
+    g_mousept.Update();
+    this->difficultySelectedBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level1on.bmp");
+    g_mousept.Update();
+    this->difficultySelectedBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level2on.bmp");
+    g_mousept.Update();
+    this->difficultyHoverBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level0l.bmp");
+    g_mousept.Update();
+    this->difficultyHoverBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level1l.bmp");
+    g_mousept.Update();
+    this->difficultyHoverBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level2l.bmp");
+    g_mousept.Update();
+    this->difficultySelectedHoverBitmaps.ElementAt(0) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level0lon.bmp");
+    g_mousept.Update();
+    this->difficultySelectedHoverBitmaps.ElementAt(1) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level1lon.bmp");
+    g_mousept.Update();
+    this->difficultySelectedHoverBitmaps.ElementAt(2) = new CBmp64("graphics\\interface\\chrgen\\PreCreate\\Levels\\level2lon.bmp");
+    g_mousept.Update();
+
+    for (int32_t i = 0; i < 0xF; i++) {
+        CString name;
+        name.Format("graphics\\interface\\chrgen\\PreCreate\\torch1\\t1%04d.bmp", i);
+        this->leftTorchFrames.Add(new CBmp64(name));
+        name.Format("graphics\\interface\\chrgen\\PreCreate\\torch2\\t2%04d.bmp", i);
+        this->rightTorchFrames.Add(new CBmp64(name));
+    }
+}

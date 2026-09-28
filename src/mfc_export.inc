@@ -1613,7 +1613,6 @@ externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
 externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 extern ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
-externdef ?LoadBitmaps@VisStartGame@@QAEXXZ : proc
 extern ?FlushScreen@@YAXXZ  : proc
 extern ?FreeSamples@VisStartGame@@QAEXXZ  : proc
 extern ?FreeBitmaps@VisStartGame@@QAEXXZ  : proc
