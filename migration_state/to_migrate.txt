@@ -429,7 +429,6 @@
 ?OnMapClick@VisGlobalMap@@QAEXXZ	226
 ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z	249
 ?FreeBitmaps@VisGlobalMap@@QAEXXZ	431
-?LoadBitmaps@VisGlobalMap@@QAEXXZ	573
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413

@@ -5587,6 +5587,54 @@ VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 }
 
 
+// 4705C2
+void VisGlobalMap::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    if (this->umoirMapMode != 0) {
+        this->gmap = new CBmp64("main\\graphics\\Global.Map\\Umoir.bmp");
+    } else {
+        this->gmap = new CBmp64("main\\graphics\\Global.Map\\GMap.bmp");
+    }
+    g_mousept.Update();
+    this->flag1_spr = new CA16("graphics\\Global.Map\\Flag1\\sprites.16a");
+    this->flag1_spr->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->flag_spr = new CA16("graphics\\Global.Map\\Flag\\sprites.16a");
+    this->flag_spr->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->cross_spr = new CA16("graphics\\Global.Map\\Cross\\sprites.16a");
+    this->cross_spr->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->ballmap = new CBmp64("graphics\\Global.Map\\BallMap.bmp");
+    g_mousept.Update();
+    this->hero_bmp = new CBmp64("graphics\\Global.Map\\Hero.bmp");
+    g_mousept.Update();
+    this->heroBitmapSize = CSize(this->hero_bmp->GetWidth(0), this->hero_bmp->GetHeight(0));
+    this->flg_on_map = new CA16("graphics\\Global.Map\\FlagOnMap\\sprites.16a");
+    this->flg_on_map->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->mission_flg = new CA16("graphics\\Global.Map\\MissionFlag\\sprites.16a");
+    this->mission_flg->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->yflag_spr = new CA16("graphics\\Global.Map\\YourFlag\\sprites.16a");
+    this->yflag_spr->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->scroll1_bmp = new CBmp64("graphics\\Global.Map\\Scroll01.bmp");
+    g_mousept.Update();
+    this->scroll2_bmp = new CBmp64("graphics\\Global.Map\\Scroll02.bmp");
+    g_mousept.Update();
+    this->scroll3_bmp = new CBmp64("graphics\\Global.Map\\Scroll03.bmp");
+    g_mousept.Update();
+    this->scrollp1_bmp = new CBmp64("graphics\\Global.Map\\ScrollP1.bmp");
+    g_mousept.Update();
+    this->scrollp3_bmp = new CBmp64("graphics\\Global.Map\\ScrollP3.bmp");
+    g_mousept.Update();
+    this->scrollp2_bmp = new CBmp64("graphics\\Global.Map\\ScrollP2.bmp");
+    g_mousept.Update();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
