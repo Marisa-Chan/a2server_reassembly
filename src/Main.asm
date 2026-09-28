@@ -24192,135 +24192,6 @@ sub_42DD66      endp
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisCharGen@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:006096F0↓o
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                sub     ecx, 402h       ; switch 89 cases
-                mov     [ebp+var_10], ecx
-                cmp     [ebp+var_10], 58h
-                ja      def_42E088      ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-                mov     eax, dword ptr [ebp+var_10]
-                xor     edx, edx
-                mov     dl, ds:byte_42E13D[eax]
-                jmp     ds:jpt_42E088[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_42E08F:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+30↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0042E088 case 1026
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [edx+34h]
-                jmp     short def_42E088 ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_42E09C:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+30↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0042E088 case 1045
-                call    sub_42EBE0
-                jmp     short def_42E088 ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_42E0A6:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+30↑j
-                mov     ecx, dword ptr [ebp+var_C] ; jumptable 0042E088 case 1044
-                call    sub_42EDC2
-                jmp     short def_42E088 ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-; ---------------------------------------------------------------------------
-
-loc_42E0B0:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+30↑j
-                mov     eax, dword ptr [ebp+var_C] ; jumptable 0042E088 case 1114
-                cmp     dword ptr [eax+80h], 0
-                jz      short def_42E088 ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+80h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+7Ch]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+80h]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_42E0FB
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_14], eax
-                jmp     short loc_42E102
-; ---------------------------------------------------------------------------
-
-loc_42E0FB:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+8F↑j
-                mov     [ebp+var_14], 0
-
-loc_42E102:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+A1↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+80h], 0
-
-def_42E088:                             ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+1F↑j
-                mov     ecx, dword ptr [ebp+arg_8] ; jumptable 0042E088 default case, cases 1027-1043,1046-1113
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisCharGen@@UAEHIII@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_42E088      dd offset loc_42E08F    ; DATA XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+30↑r
-                dd offset loc_42E0A6    ; jump table for switch statement
-                dd offset loc_42E09C
-                dd offset loc_42E0B0
-                dd offset def_42E088
-byte_42E13D     db      0,     4,     4,     4
-                db      4,     4,     4,     4 ; indirect table for switch statement
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     1,     2
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     4
-                db      3
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ?OnMouseMove@VisCharGen@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006096F4↓o
 
 var_24          = dword ptr -24h
@@ -24331,7 +24202,6 @@ var_4           = dword ptr -4
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
 arg_8           = dword ptr  10h
-
                 push    ebp
                 mov     ebp, esp
                 sub     esp, 24h
@@ -24741,7 +24611,7 @@ sub_42EBAB      endp
 
 ; Attributes: bp-based frame
 
-sub_42EBE0      proc near               ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+47↑p
+?OnNextFace@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+47↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -24759,7 +24629,7 @@ var_4           = dword ptr -4
                 jmp     loc_42EDBE
 ; ---------------------------------------------------------------------------
 
-loc_42EC02:                             ; CODE XREF: sub_42EBE0+1B↑j
+loc_42EC02:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+1B↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     dword ptr [ecx+0F0h], 0
                 jnz     loc_42ECC5
@@ -24790,7 +24660,7 @@ loc_42EC02:                             ; CODE XREF: sub_42EBE0+1B↑j
                 jmp     short loc_42ECC0
 ; ---------------------------------------------------------------------------
 
-loc_42EC70:                             ; CODE XREF: sub_42EBE0+3C↑j
+loc_42EC70:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+3C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 add     ecx, 0DCh
                 call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
@@ -24813,11 +24683,11 @@ loc_42EC70:                             ; CODE XREF: sub_42EBE0+3C↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [edx+0F8h], ecx
 
-loc_42ECC0:                             ; CODE XREF: sub_42EBE0+8E↑j
+loc_42ECC0:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+8E↑j
                 jmp     loc_42ED73
 ; ---------------------------------------------------------------------------
 
-loc_42ECC5:                             ; CODE XREF: sub_42EBE0+2C↑j
+loc_42ECC5:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+2C↑j
                 mov     eax, dword ptr [ebp+var_C]
                 cmp     dword ptr [eax+0F4h], 0
                 jnz     short loc_42ED23
@@ -24845,7 +24715,7 @@ loc_42ECC5:                             ; CODE XREF: sub_42EBE0+2C↑j
                 jmp     short loc_42ED73
 ; ---------------------------------------------------------------------------
 
-loc_42ED23:                             ; CODE XREF: sub_42EBE0+EF↑j
+loc_42ED23:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+EF↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 add     ecx, 0C8h
                 call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
@@ -24868,7 +24738,7 @@ loc_42ED23:                             ; CODE XREF: sub_42EBE0+EF↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [edx+0F8h], ecx
 
-loc_42ED73:                             ; CODE XREF: sub_42EBE0:loc_42ECC0↑j
+loc_42ED73:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ:loc_42ECC0↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+94h]
                 mov     edx, dword ptr [ebp+var_C]
@@ -24887,18 +24757,18 @@ loc_42ED73:                             ; CODE XREF: sub_42EBE0:loc_42ECC0↑j
                 mov     eax, dword ptr [ecx+28h]
                 mov     [edx+4C8h], eax
 
-loc_42EDBE:                             ; CODE XREF: sub_42EBE0+1D↑j
+loc_42EDBE:                             ; CODE XREF: ?OnNextFace@VisCharGen@@QAEXXZ+1D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42EBE0      endp
+?OnNextFace@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42EDC2      proc near               ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+51↑p
+?OnPrevFace@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisCharGen@@UAEHIII@Z+51↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -24916,7 +24786,7 @@ var_4           = dword ptr -4
                 jmp     loc_42EFB0
 ; ---------------------------------------------------------------------------
 
-loc_42EDE4:                             ; CODE XREF: sub_42EDC2+1B↑j
+loc_42EDE4:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+1B↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 cmp     dword ptr [ecx+0F0h], 0
                 jnz     loc_42EEAF
@@ -24948,7 +24818,7 @@ loc_42EDE4:                             ; CODE XREF: sub_42EDC2+1B↑j
                 jmp     short loc_42EEAA
 ; ---------------------------------------------------------------------------
 
-loc_42EE56:                             ; CODE XREF: sub_42EDC2+3C↑j
+loc_42EE56:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+3C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 add     ecx, 0DCh
                 call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
@@ -24972,11 +24842,11 @@ loc_42EE56:                             ; CODE XREF: sub_42EDC2+3C↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [edx+0F8h], ecx
 
-loc_42EEAA:                             ; CODE XREF: sub_42EDC2+92↑j
+loc_42EEAA:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+92↑j
                 jmp     loc_42EF65
 ; ---------------------------------------------------------------------------
 
-loc_42EEAF:                             ; CODE XREF: sub_42EDC2+2C↑j
+loc_42EEAF:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+2C↑j
                 mov     eax, dword ptr [ebp+var_C]
                 cmp     dword ptr [eax+0F4h], 0
                 jnz     short loc_42EF11
@@ -25005,7 +24875,7 @@ loc_42EEAF:                             ; CODE XREF: sub_42EDC2+2C↑j
                 jmp     short loc_42EF65
 ; ---------------------------------------------------------------------------
 
-loc_42EF11:                             ; CODE XREF: sub_42EDC2+F7↑j
+loc_42EF11:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+F7↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 add     ecx, 0C8h
                 call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
@@ -25029,7 +24899,7 @@ loc_42EF11:                             ; CODE XREF: sub_42EDC2+F7↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     [edx+0F8h], ecx
 
-loc_42EF65:                             ; CODE XREF: sub_42EDC2:loc_42EEAA↑j
+loc_42EF65:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ:loc_42EEAA↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+94h]
                 mov     edx, dword ptr [ebp+var_C]
@@ -25048,11 +24918,11 @@ loc_42EF65:                             ; CODE XREF: sub_42EDC2:loc_42EEAA↑j
                 mov     eax, dword ptr [ecx+28h]
                 mov     [edx+4C8h], eax
 
-loc_42EFB0:                             ; CODE XREF: sub_42EDC2+1D↑j
+loc_42EFB0:                             ; CODE XREF: ?OnPrevFace@VisCharGen@@QAEXXZ+1D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42EDC2      endp
+?OnPrevFace@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

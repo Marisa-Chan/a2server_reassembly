@@ -5882,6 +5882,31 @@ void VisCharGen::VMethod26()
 }
 
 
+// 42E058
+int32_t VisCharGen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    switch (msg) {
+    case 0x402:
+        this->VMethod9();
+        break;
+    case 0x414:
+        this->OnPrevFace();
+        break;
+    case 0x415:
+        this->OnNextFace();
+        break;
+    case 0x45A:
+        if (this->tips != nullptr) {
+            this->skills_panel->RemoveChild(this->tips);
+            delete this->tips;
+            this->tips = nullptr;
+        }
+        break;
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
 // 42E7BC
 void VisCharGen::DoClose(uint32_t code)
 {
