@@ -34058,28 +34058,6 @@ loc_435863:                             ; CODE XREF: ?ClearPortraitHoverFlags@Vi
 
 ; Attributes: bp-based frame
 
-?ResetHoverState@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+50↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+204h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+1B4h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+1B8h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+1BCh], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+1C0h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?ResetHoverState@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -13562,3 +13562,14 @@ VisStartGame::VisStartGame(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 {
     this->VMethod26();
 }
+
+
+// 435D26
+void VisStartGame::ResetHoverState()
+{
+    this->field_0x204 = 0;
+    this->returnToGameHoverBitmap = nullptr;
+    this->acceptHoverBitmap = nullptr;
+    this->field_0x1bc = 0;
+    this->field_0x1c0 = 0;
+}
