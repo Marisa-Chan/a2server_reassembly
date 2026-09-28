@@ -1630,7 +1630,7 @@ extern ?GetHint@VisGlobalMap@@UAEPBDXZ : proc
 extern ?VMethod7@VisGlobalMap@@UAEXXZ : proc
 externdef ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc

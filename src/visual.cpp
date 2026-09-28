@@ -5505,6 +5505,17 @@ int32_t VisGlobalMap::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 472D99
+int32_t VisGlobalMap::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (this->travelProgress == 0) {
+        this->OnMapClick();
+    }
+    this->UpdateHoveredLocation(pos);
+    return 0;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

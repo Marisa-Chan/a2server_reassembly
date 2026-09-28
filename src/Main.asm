@@ -80328,33 +80328,6 @@ arg_0           = byte ptr  8
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060B7AC↓o
-
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+12Ch], 0
-                jnz     short loc_472DB4
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnMapClick@VisGlobalMap@@QAEXXZ
-
-loc_472DB4:                             ; CODE XREF: ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z+11↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
