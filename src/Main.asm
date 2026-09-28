@@ -20451,7 +20451,7 @@ arg_8           = dword ptr  10h
 loc_42B425:                             ; CODE XREF: sub_42B392+83↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
-                call    sub_42EB8C
+                call    ?OnClickFwd@VisCharGen@@QAEXXZ
                 jmp     short loc_42B44A
 ; ---------------------------------------------------------------------------
 
@@ -24285,43 +24285,6 @@ sub_42E92A      endp
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisCharGen@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609714↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0Dh
-                jz      short loc_42EA66
-                jmp     short loc_42EA75
-; ---------------------------------------------------------------------------
-
-loc_42EA66:                             ; CODE XREF: ?OnKeyDown@VisCharGen@@UAEHI@Z+13↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_42EB8C
-                mov     eax, 1
-                jmp     short loc_42EA81
-; ---------------------------------------------------------------------------
-
-loc_42EA75:                             ; CODE XREF: ?OnKeyDown@VisCharGen@@UAEHI@Z+15↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-
-loc_42EA81:                             ; CODE XREF: ?OnKeyDown@VisCharGen@@UAEHI@Z+24↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisCharGen@@UAEHI@Z      endp
-
-
 sub_42EA87      proc near               ; CODE XREF: sub_42C072+11A↑p
 
 var_14          = dword ptr -14h
@@ -24453,8 +24416,8 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __thiscall sub_42EB8C(void *varThis)
-sub_42EB8C      proc near               ; CODE XREF: sub_42B392+99↑p
+; int __thiscall ?OnClickFwd@VisCharGen@@QAEXXZ(void *varThis)
+?OnClickFwd@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+99↑p
 
 var_4           = dword ptr -4
 
@@ -24472,7 +24435,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42EB8C      endp
+?OnClickFwd@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

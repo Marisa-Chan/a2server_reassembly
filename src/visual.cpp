@@ -5893,6 +5893,17 @@ int32_t VisCharGen::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 42EA4F
+int32_t VisCharGen::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0xD) {
+        this->OnClickFwd();
+        return 1;
+    }
+    return this->VisScreen::OnKeyDown(wparam);
+}
+
+
 // 42E196
 int32_t VisCharGen::OnMouseMove(uint32_t wparam, CPoint pos)
 {
