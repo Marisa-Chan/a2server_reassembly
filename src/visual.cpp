@@ -5898,6 +5898,13 @@ void VisCharGen::VMethod7()
 }
 
 
+// 42EB7F
+void VisCharGen::VMethod8(CRect* rect)
+{
+    (void)rect;
+}
+
+
 // 42EA01
 int32_t VisCharGen::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

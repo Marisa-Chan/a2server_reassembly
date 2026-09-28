@@ -24356,19 +24356,6 @@ sub_42EA87      endp
 
 ; Attributes: bp-based frame
 
-?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:006096D8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z endp
-
 
 
 ; =============== S U B R O U T I N E =======================================
