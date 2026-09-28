@@ -6532,6 +6532,20 @@ VisCharGenStats::VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, i
 }
 
 
+// 42abea
+void VisCharGenFullStats::VMethod7() {
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    LockSurface2();
+    this->bmp->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    CRect unit_rect = screen_rect;
+    unit_rect.left += 0xC;
+    unit_rect.right += 0xC;
+    this->parent_screen->current_char->FUN_0046c124(&unit_rect);
+    UnlockSurface2();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
