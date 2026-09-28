@@ -79303,18 +79303,6 @@ loc_47114C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:0060B790↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -1628,7 +1628,7 @@ externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
 externdef ??_GVisGlobalMap@@UAEPAXI@Z : proc
 extern ?GetHint@VisGlobalMap@@UAEPBDXZ : proc
 extern ?VMethod7@VisGlobalMap@@UAEXXZ : proc
-externdef ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
+extern ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc

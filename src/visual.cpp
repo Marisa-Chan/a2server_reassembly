@@ -5547,6 +5547,12 @@ int32_t VisGlobalMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 471F08
+void VisGlobalMap::VMethod8(CRect* rect)
+{
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
