@@ -79695,42 +79695,12 @@ loc_4726C8:                             ; CODE XREF: ?FinishTravel@VisGlobalMap@
 
 ; Attributes: bp-based frame
 
-?OnChar@VisGlobalMap@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060B7D4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FinishTravel@VisGlobalMap@@QAEXXZ
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnChar@VisGlobalMap@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisGlobalMap@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060B7CC↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FinishTravel@VisGlobalMap@@QAEXXZ
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisGlobalMap@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

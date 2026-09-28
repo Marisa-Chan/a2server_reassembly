@@ -424,8 +424,6 @@
 ?VMethod7@VisFameHall@@UAEXXZ	218
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z	11
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z	12
-?OnKeyDown@VisGlobalMap@@UAEHI@Z	14
-?OnChar@VisGlobalMap@@UAEHI@Z	14
 ??_GVisGlobalMap@@UAEPAXI@Z	24
 ?FinishTravel@VisGlobalMap@@QAEXXZ	28
 ?FreeSamples@VisGlobalMap@@QAEXXZ	31
