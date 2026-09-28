@@ -1629,7 +1629,7 @@ externdef ??_GVisGlobalMap@@UAEPAXI@Z : proc
 extern ?GetHint@VisGlobalMap@@UAEPBDXZ : proc
 extern ?VMethod7@VisGlobalMap@@UAEXXZ : proc
 externdef ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
+extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc

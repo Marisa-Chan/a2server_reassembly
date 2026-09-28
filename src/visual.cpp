@@ -5471,6 +5471,28 @@ int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// Statics for VisGlobalMap::MsgProc (65FA30, 65FA68 in the binary).
+static uint8_t gmap_repaint_init = 0;     // 65FA30 init-done flag
+static uint32_t gmap_repaint_ts = 0;      // 65FA68 timestamp of the last throttled repaint
+
+
+// 472CC5
+int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if ((gmap_repaint_init & 1) == 0) {
+        gmap_repaint_init |= 1;
+        gmap_repaint_ts = timeGetTime() - 100;
+    }
+    if (msg == 0x402) {
+        if (timeGetTime() - gmap_repaint_ts >= 100) {
+            this->VMethod9();
+            gmap_repaint_ts = timeGetTime();
+        }
+    }
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

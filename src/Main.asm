@@ -80280,63 +80280,6 @@ sub_472ADA      endp
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisGlobalMap@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060B7A8↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     al, byte_65FA30
-                and     eax, 1
-                test    eax, eax
-                jnz     short loc_472CF9
-                mov     cl, byte_65FA30
-                or      cl, 1
-                mov     byte_65FA30, cl
-                call    timeGetTime
-                sub     eax, 64h ; 'd'
-                mov     dword_65FA68, eax
-
-loc_472CF9:                             ; CODE XREF: ?MsgProc@VisGlobalMap@@UAEHIII@Z+15↑j
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], edx
-                cmp     [ebp+var_8], 402h
-                jz      short loc_472D0A
-                jmp     short loc_472D31
-; ---------------------------------------------------------------------------
-
-loc_472D0A:                             ; CODE XREF: ?MsgProc@VisGlobalMap@@UAEHIII@Z+41↑j
-                call    timeGetTime
-                sub     eax, dword_65FA68
-                cmp     eax, 64h ; 'd'
-                jb      short loc_472D31
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-                call    timeGetTime
-                mov     dword_65FA68, eax
-
-loc_472D31:                             ; CODE XREF: ?MsgProc@VisGlobalMap@@UAEHIII@Z+43↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisGlobalMap@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
