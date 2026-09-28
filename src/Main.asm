@@ -79660,7 +79660,7 @@ sub_471F15      endp
 
 ; Attributes: bp-based frame
 
-sub_472684      proc near               ; CODE XREF: ?OnChar@VisGlobalMap@@UAEHI@Z+A↓p
+?FinishTravel@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?OnChar@VisGlobalMap@@UAEHI@Z+A↓p
 
 var_4           = dword ptr -4
 
@@ -79684,11 +79684,11 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     [ecx+134h], eax
 
-loc_4726C8:                             ; CODE XREF: sub_472684+11↑j
+loc_4726C8:                             ; CODE XREF: ?FinishTravel@VisGlobalMap@@QAEXXZ+11↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_472684      endp
+?FinishTravel@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -79704,7 +79704,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_472684
+                call    ?FinishTravel@VisGlobalMap@@QAEXXZ
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
@@ -79725,7 +79725,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_472684
+                call    ?FinishTravel@VisGlobalMap@@QAEXXZ
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
@@ -80594,35 +80594,6 @@ loc_47302A:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@Q
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060B7B4↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+12Ch], 0
-                jnz     short loc_473064
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+12Ch], 8
-                jmp     short loc_47306C
-; ---------------------------------------------------------------------------
-
-loc_473064:                             ; CODE XREF: ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z+1B↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_472684
-
-loc_47306C:                             ; CODE XREF: ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z+2A↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

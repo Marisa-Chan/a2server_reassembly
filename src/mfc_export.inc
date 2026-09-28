@@ -1631,7 +1631,7 @@ extern ?VMethod7@VisGlobalMap@@UAEXXZ : proc
 externdef ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
@@ -1641,6 +1641,7 @@ externdef ?LoadBitmaps@VisGlobalMap@@QAEXXZ : proc
 externdef ?LoadSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?Init@GMapThing@@QAEPAV1@XZ : proc
 externdef ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z : proc
+externdef ?FinishTravel@VisGlobalMap@@QAEXXZ : proc
 externdef ?Destroy@GMapThing@@QAEXI@Z : proc
 externdef ?FreeBitmaps@VisGlobalMap@@QAEXXZ : proc
 externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc

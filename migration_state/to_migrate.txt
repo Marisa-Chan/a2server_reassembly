@@ -429,7 +429,7 @@
 ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z	15
 ??_GVisGlobalMap@@UAEPAXI@Z	24
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z	26
-?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	28
+?FinishTravel@VisGlobalMap@@QAEXXZ	28
 ?FreeSamples@VisGlobalMap@@QAEXXZ	31
 ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
 ?LoadSamples@VisGlobalMap@@QAEXXZ	37

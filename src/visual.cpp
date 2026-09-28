@@ -5493,6 +5493,18 @@ int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 473038
+int32_t VisGlobalMap::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    if (this->travelProgress == 0) {
+        this->travelProgress = 8;
+    } else {
+        this->FinishTravel();
+    }
+    return 1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
