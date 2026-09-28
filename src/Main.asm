@@ -24356,48 +24356,6 @@ sub_42EA87      endp
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisCharGen@@UAEXXZ      proc near               ; DATA XREF: .rdata:006096D4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     esi, eax
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ ; Microsoft VisualC 2-14/net runtime
-                cmp     esi, eax
-                jz      short loc_42EB72
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetCursorSprite@CMousePointer@@QAEPAVCSprite256@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     esi, eax
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+64h
-                call    ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ ; Microsoft VisualC 2-14/net runtime
-                cmp     esi, eax
-                jz      short loc_42EB72
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-
-loc_42EB72:                             ; CODE XREF: ?VMethod7@VisCharGen@@UAEXXZ+21↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod7@VisScreen@@UAEXXZ
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@VisCharGen@@UAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
 ?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:006096D8↓o
 
 var_4           = dword ptr -4
@@ -24410,6 +24368,15 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn    4
 ?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z endp
+
+
+
+; =============== S U B R O U T I N E =======================================
+
+; Microsoft VisualC 2-14/net runtime
+; MFC 3.1-14.0 32bit
+; Attributes: library function bp-based frame
+
 
 
 ; =============== S U B R O U T I N E =======================================

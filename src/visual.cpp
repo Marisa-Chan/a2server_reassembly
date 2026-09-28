@@ -5882,6 +5882,22 @@ void VisCharGen::VMethod26()
 }
 
 
+// 42EB29
+void VisCharGen::VMethod7()
+{
+    CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
+    CSprite256* default_sprite = g_Cursors[CURSOR_DEFAULT]->GetSprite();
+    if (cursor_sprite != default_sprite) {
+        cursor_sprite = g_mousept.GetCursorSprite();
+        default_sprite = g_Cursors[CURSOR_DICE]->GetSprite();
+        if (cursor_sprite != default_sprite) {
+            g_Cursors[CURSOR_DEFAULT]->Use();
+        }
+    }
+    this->VisScreen::VMethod7();
+}
+
+
 // 42EA01
 int32_t VisCharGen::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
