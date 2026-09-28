@@ -24065,127 +24065,12 @@ sub_42DC65      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisCharGen@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisCharGen@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+ABC↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005F8039 SIZE 0000002B BYTES
-
-; __unwind { // SEH_42DCD9
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42DCD9
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset sub_5DB831 ; void (__thiscall *)(void *)
-                push    offset sub_5DB7FE ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 0A0h
-                push    edx             ; void *
-                call    ??_L@YGXPAXIHP6EX0@Z1@Z ; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))
-;   } // starts at 42DD13
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_6096A8
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisCharGen@@UAEXXZ
-;   } // starts at 42DD37
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 42DCD9
-??0VisCharGen@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42DD66      proc near               ; CODE XREF: ??_GVisCharGen@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8064 SIZE 0000002B BYTES
-
-; __unwind { // SEH_42DD66
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42DD66
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_6096A8
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+68h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+68h], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FreeSamples@VisCharGen@@QAEXXZ
-;   } // starts at 42DD8B
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                push    offset sub_5DB831 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A0h
-                push    ecx             ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-;   } // starts at 42DDB3
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42DD66
-sub_42DD66      endp
 
 
 
@@ -31214,31 +31099,6 @@ sub_4383C0      endp
 
 ; Attributes: bp-based frame
 
-??_GVisCharGen@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:006096AC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_42DD66
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_438412
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_438412:                             ; CODE XREF: ??_GVisCharGen@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisCharGen@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -319670,61 +319530,7 @@ SEH_42DC65:                             ; DATA XREF: sub_42DC65+5↑o
 ; } // starts at 5F800E
 ; END OF FUNCTION CHUNK FOR sub_42DC65
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisCharGen@@QAE@HHHHH@Z
-
-loc_5F8039:                             ; DATA XREF: .rdata:stru_618638↓o
-; __unwind { // SEH_42DCD9
-;   cleanup() // owned by 42DD13
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
 ; ---------------------------------------------------------------------------
-
-loc_5F8042:                             ; DATA XREF: .rdata:00618640↓o
-;   cleanup() // owned by 42DD37        ; void (__thiscall *)(void *)
-                push    offset sub_5DB831
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0A0h
-                push    eax             ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42DCD9:                             ; DATA XREF: ??0VisCharGen@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_618618
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8039
-; END OF FUNCTION CHUNK FOR ??0VisCharGen@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42DD66
-
-loc_5F8064:                             ; DATA XREF: .rdata:stru_618668↓o
-; __unwind { // SEH_42DD66
-;   cleanup() // owned by 42DDB3
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F806D:                             ; DATA XREF: .rdata:00618670↓o
-;   cleanup() // owned by 42DD8B        ; void (__thiscall *)(void *)
-                push    offset sub_5DB831
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0A0h
-                push    eax             ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42DD66:                             ; DATA XREF: sub_42DD66+5↑o
-                mov     eax, offset stru_618648
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8064
-; END OF FUNCTION CHUNK FOR sub_42DD66
 ; START OF FUNCTION CHUNK FOR sub_42EA87
 
 loc_5F80E7:                             ; DATA XREF: .rdata:stru_618710↓o
@@ -359569,20 +359375,6 @@ stru_6185E8     FuncInfoV1 <19930520h, 2, offset stru_618608, 0, 0, 0, 0>
                 db    0
 stru_618608     UnwindMapEntry <-1, offset loc_5F800E>
                 UnwindMapEntry <0, offset loc_5F8017>
-stru_618618     FuncInfoV1 <19930520h, 2, offset stru_618638, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618638     UnwindMapEntry <-1, offset loc_5F8039>
-                UnwindMapEntry <0, offset loc_5F8042>
-stru_618648     FuncInfoV1 <19930520h, 2, offset stru_618668, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618668     UnwindMapEntry <-1, offset loc_5F8064>
-                UnwindMapEntry <0, offset loc_5F806D>
 stru_6186F0     FuncInfoV1 <19930520h, 1, offset stru_618710, 0, 0, 0, 0>
                 db    0
                 db    0

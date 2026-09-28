@@ -5857,6 +5857,23 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42DCD9
+VisCharGen::VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 42DD66
+VisCharGen::~VisCharGen()
+{
+    this->RemoveChild(this->info_panel);
+    this->info_panel = nullptr;
+    this->FreeSamples();
+}
+
+
 // 42DDEC
 void VisCharGen::VMethod26()
 {

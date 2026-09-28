@@ -1034,7 +1034,6 @@ externdef   ??0VisTown@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
-externdef   ??0VisCharGen@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
 externdef   ??0VisCharInfo@@QAE@HHHHH@Z  : proc
