@@ -1637,12 +1637,14 @@ externdef ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 externdef ?OnChar@VisGlobalMap@@UAEHI@Z : proc
+externdef ?FreeBitmaps@VisGlobalMap@@QAEXXZ : proc
+externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?OnMapClick@VisGlobalMap@@QAEXXZ : proc
 externdef ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 externdef ?VMethod28@VisGlobalMap@@UAEXXZ : proc
-externdef ?DoClose@VisGlobalMap@@UAEXI@Z : proc
+extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
 ;VisFameHall
 externdef ??_GVisFameHall@@UAEPAXI@Z : proc
 externdef ?GetHint@VisFameHall@@UAEPBDXZ : proc

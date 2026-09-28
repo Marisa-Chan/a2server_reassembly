@@ -5345,6 +5345,34 @@ void VisGlobalMap::VMethod7()
 }
 
 
+// 471367
+void VisGlobalMap::DoClose(uint32_t code)
+{
+    this->renderActiveFlag = 0;
+    this->FreeBitmaps();
+    this->FreeSamples();
+    if (this->routeAdjacencyMatrix != nullptr) {
+        void** rows = static_cast<void**>(this->routeAdjacencyMatrix);
+        for (int32_t i = 0; i < this->graphNodePoints.GetSize(); i++) {
+            CArray<CPoint>** row = static_cast<CArray<CPoint>**>(rows[i]);
+            for (int32_t j = 0; j < this->graphNodePoints.GetSize(); j++) {
+                if (row[j] != nullptr) {
+                    delete row[j];
+                }
+            }
+        }
+        for (int32_t i = 0; i < this->graphNodePoints.GetSize(); i++) {
+            operator delete(rows[i]);
+        }
+        operator delete(rows);
+    }
+    this->routeAdjacencyMatrix = nullptr;
+    this->graphNodePoints.RemoveAll();
+    this->travelRoutePoints.RemoveAll();
+    VisScreen::DoClose(code);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

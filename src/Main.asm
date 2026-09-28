@@ -77963,7 +77963,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 9
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_470CD9
+                call    ?FreeBitmaps@VisGlobalMap@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_28]
                 call    sub_4702F6
                 mov     ecx, dword ptr [ebp+var_28]
@@ -78316,7 +78316,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_470571
+                call    ?FreeSamples@VisGlobalMap@@QAEXXZ
                 push    offset aSfxScrollupWav ; "SFX\\ScrollUp.wav"
                 mov     eax, dword ptr [ebp+var_4]
                 add     eax, 180h
@@ -78351,7 +78351,7 @@ sub_470504      endp
 
 ; Attributes: bp-based frame
 
-sub_470571      proc near               ; CODE XREF: sub_470504+A↑p
+?FreeSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: sub_470504+A↑p
 
 var_4           = dword ptr -4
 
@@ -78382,7 +78382,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_470571      endp
+?FreeSamples@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -78457,7 +78457,7 @@ var_4           = dword ptr -4
                 sub     esp, 0CCh
                 mov     [ebp+var_98], ecx
                 mov     ecx, dword ptr [ebp+var_98]
-                call    sub_470CD9
+                call    ?FreeBitmaps@VisGlobalMap@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_98]
                 cmp     dword ptr [eax+1B0h], 0
                 jz      short loc_470654
@@ -78969,7 +78969,7 @@ sub_4705C2      endp
 
 ; Attributes: bp-based frame
 
-sub_470CD9      proc near               ; CODE XREF: sub_47001B+31↑p
+?FreeBitmaps@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: sub_47001B+31↑p
 
 var_B8          = dword ptr -0B8h
 var_B4          = dword ptr -0B4h
@@ -79041,10 +79041,10 @@ var_4           = dword ptr -4
                 jmp     short loc_470D1C
 ; ---------------------------------------------------------------------------
 
-loc_470D15:                             ; CODE XREF: sub_470CD9+28↑j
+loc_470D15:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+28↑j
                 mov     [ebp+var_80], 0
 
-loc_470D1C:                             ; CODE XREF: sub_470CD9+13↑j
+loc_470D1C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+13↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+68h], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79066,10 +79066,10 @@ loc_470D1C:                             ; CODE XREF: sub_470CD9+13↑j
                 jmp     short loc_470D63
 ; ---------------------------------------------------------------------------
 
-loc_470D59:                             ; CODE XREF: sub_470CD9+69↑j
+loc_470D59:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+69↑j
                 mov     [ebp+var_84], 0
 
-loc_470D63:                             ; CODE XREF: sub_470CD9+54↑j
+loc_470D63:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+54↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+6Ch], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79091,10 +79091,10 @@ loc_470D63:                             ; CODE XREF: sub_470CD9+54↑j
                 jmp     short loc_470DAA
 ; ---------------------------------------------------------------------------
 
-loc_470DA0:                             ; CODE XREF: sub_470CD9+B0↑j
+loc_470DA0:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+B0↑j
                 mov     [ebp+var_88], 0
 
-loc_470DAA:                             ; CODE XREF: sub_470CD9+9B↑j
+loc_470DAA:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+9B↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+70h], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79116,10 +79116,10 @@ loc_470DAA:                             ; CODE XREF: sub_470CD9+9B↑j
                 jmp     short loc_470DF1
 ; ---------------------------------------------------------------------------
 
-loc_470DE7:                             ; CODE XREF: sub_470CD9+F7↑j
+loc_470DE7:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+F7↑j
                 mov     [ebp+var_8C], 0
 
-loc_470DF1:                             ; CODE XREF: sub_470CD9+E2↑j
+loc_470DF1:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+E2↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+74h], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79141,10 +79141,10 @@ loc_470DF1:                             ; CODE XREF: sub_470CD9+E2↑j
                 jmp     short loc_470E38
 ; ---------------------------------------------------------------------------
 
-loc_470E2E:                             ; CODE XREF: sub_470CD9+13E↑j
+loc_470E2E:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+13E↑j
                 mov     [ebp+var_90], 0
 
-loc_470E38:                             ; CODE XREF: sub_470CD9+129↑j
+loc_470E38:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+129↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+78h], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79166,10 +79166,10 @@ loc_470E38:                             ; CODE XREF: sub_470CD9+129↑j
                 jmp     short loc_470E7F
 ; ---------------------------------------------------------------------------
 
-loc_470E75:                             ; CODE XREF: sub_470CD9+185↑j
+loc_470E75:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+185↑j
                 mov     [ebp+var_94], 0
 
-loc_470E7F:                             ; CODE XREF: sub_470CD9+170↑j
+loc_470E7F:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+170↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+7Ch], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79191,10 +79191,10 @@ loc_470E7F:                             ; CODE XREF: sub_470CD9+170↑j
                 jmp     short loc_470ECC
 ; ---------------------------------------------------------------------------
 
-loc_470EC2:                             ; CODE XREF: sub_470CD9+1D2↑j
+loc_470EC2:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+1D2↑j
                 mov     [ebp+var_98], 0
 
-loc_470ECC:                             ; CODE XREF: sub_470CD9+1BA↑j
+loc_470ECC:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+1BA↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+8Ch], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79216,10 +79216,10 @@ loc_470ECC:                             ; CODE XREF: sub_470CD9+1BA↑j
                 jmp     short loc_470F1C
 ; ---------------------------------------------------------------------------
 
-loc_470F12:                             ; CODE XREF: sub_470CD9+222↑j
+loc_470F12:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+222↑j
                 mov     [ebp+var_9C], 0
 
-loc_470F1C:                             ; CODE XREF: sub_470CD9+20A↑j
+loc_470F1C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+20A↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+90h], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79241,10 +79241,10 @@ loc_470F1C:                             ; CODE XREF: sub_470CD9+20A↑j
                 jmp     short loc_470F6C
 ; ---------------------------------------------------------------------------
 
-loc_470F62:                             ; CODE XREF: sub_470CD9+272↑j
+loc_470F62:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+272↑j
                 mov     [ebp+var_A0], 0
 
-loc_470F6C:                             ; CODE XREF: sub_470CD9+25A↑j
+loc_470F6C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+25A↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+94h], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79266,10 +79266,10 @@ loc_470F6C:                             ; CODE XREF: sub_470CD9+25A↑j
                 jmp     short loc_470FBC
 ; ---------------------------------------------------------------------------
 
-loc_470FB2:                             ; CODE XREF: sub_470CD9+2C2↑j
+loc_470FB2:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+2C2↑j
                 mov     [ebp+var_A4], 0
 
-loc_470FBC:                             ; CODE XREF: sub_470CD9+2AA↑j
+loc_470FBC:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+2AA↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+98h], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79291,10 +79291,10 @@ loc_470FBC:                             ; CODE XREF: sub_470CD9+2AA↑j
                 jmp     short loc_47100C
 ; ---------------------------------------------------------------------------
 
-loc_471002:                             ; CODE XREF: sub_470CD9+312↑j
+loc_471002:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+312↑j
                 mov     [ebp+var_A8], 0
 
-loc_47100C:                             ; CODE XREF: sub_470CD9+2FA↑j
+loc_47100C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+2FA↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+9Ch], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79316,10 +79316,10 @@ loc_47100C:                             ; CODE XREF: sub_470CD9+2FA↑j
                 jmp     short loc_47105C
 ; ---------------------------------------------------------------------------
 
-loc_471052:                             ; CODE XREF: sub_470CD9+362↑j
+loc_471052:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+362↑j
                 mov     [ebp+var_AC], 0
 
-loc_47105C:                             ; CODE XREF: sub_470CD9+34A↑j
+loc_47105C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+34A↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+0A0h], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79341,10 +79341,10 @@ loc_47105C:                             ; CODE XREF: sub_470CD9+34A↑j
                 jmp     short loc_4710AC
 ; ---------------------------------------------------------------------------
 
-loc_4710A2:                             ; CODE XREF: sub_470CD9+3B2↑j
+loc_4710A2:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+3B2↑j
                 mov     [ebp+var_B0], 0
 
-loc_4710AC:                             ; CODE XREF: sub_470CD9+39A↑j
+loc_4710AC:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+39A↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+88h], 0
                 mov     ecx, dword ptr [ebp+var_7C]
@@ -79366,10 +79366,10 @@ loc_4710AC:                             ; CODE XREF: sub_470CD9+39A↑j
                 jmp     short loc_4710FC
 ; ---------------------------------------------------------------------------
 
-loc_4710F2:                             ; CODE XREF: sub_470CD9+402↑j
+loc_4710F2:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+402↑j
                 mov     [ebp+var_B4], 0
 
-loc_4710FC:                             ; CODE XREF: sub_470CD9+3EA↑j
+loc_4710FC:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+3EA↑j
                 mov     ecx, dword ptr [ebp+var_7C]
                 mov     dword ptr [ecx+84h], 0
                 mov     edx, dword ptr [ebp+var_7C]
@@ -79391,16 +79391,16 @@ loc_4710FC:                             ; CODE XREF: sub_470CD9+3EA↑j
                 jmp     short loc_47114C
 ; ---------------------------------------------------------------------------
 
-loc_471142:                             ; CODE XREF: sub_470CD9+452↑j
+loc_471142:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+452↑j
                 mov     [ebp+var_B8], 0
 
-loc_47114C:                             ; CODE XREF: sub_470CD9+43A↑j
+loc_47114C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@QAEXXZ+43A↑j
                 mov     eax, dword ptr [ebp+var_7C]
                 mov     dword ptr [eax+80h], 0
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_470CD9      endp
+?FreeBitmaps@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -79562,156 +79562,6 @@ loc_4712AA:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UA
 
 ; Attributes: bp-based frame
 
-?DoClose@VisGlobalMap@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060B7E4↓o
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 24h
-                mov     [ebp+var_20], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_20]
-                mov     dword ptr [eax+194h], 0
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_470CD9
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_470571
-                mov     ecx, dword ptr [ebp+var_20]
-                cmp     dword ptr [ecx+154h], 0
-                jz      loc_4714AC
-                mov     [ebp+var_8], 0
-                jmp     short loc_4713B7
-; ---------------------------------------------------------------------------
-
-loc_4713AE:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z:loc_47144A↓j
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 1
-                mov     [ebp+var_8], edx
-
-loc_4713B7:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+45↑j
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 158h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     loc_47144F
-                mov     [ebp+var_C], 0
-                jmp     short loc_4713E0
-; ---------------------------------------------------------------------------
-
-loc_4713D7:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z:loc_471448↓j
-                mov     eax, dword ptr [ebp+var_C]
-                add     eax, 1
-                mov     [ebp+var_C], eax
-
-loc_4713E0:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+6E↑j
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 158h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_C], eax
-                jge     short loc_47144A
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+154h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+eax*4]
-                mov     edx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+edx*4], 0
-                jz      short loc_471448
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+154h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ecx+edx*4]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [eax+ecx*4]
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0
-                jz      short loc_471441
-                push    1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_24], eax
-                jmp     short loc_471448
-; ---------------------------------------------------------------------------
-
-loc_471441:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+C6↑j
-                mov     [ebp+var_24], 0
-
-loc_471448:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+A2↑j
-                jmp     short loc_4713D7
-; ---------------------------------------------------------------------------
-
-loc_47144A:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+8A↑j
-                jmp     loc_4713AE
-; ---------------------------------------------------------------------------
-
-loc_47144F:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+61↑j
-                mov     [ebp+var_8], 0
-                jmp     short loc_471461
-; ---------------------------------------------------------------------------
-
-loc_471458:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+12B↓j
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 1
-                mov     [ebp+var_8], eax
-
-loc_471461:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+EF↑j
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 158h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     short loc_471494
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+154h]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+eax*4]
-                mov     [ebp+Block], ecx
-                mov     edx, dword ptr [ebp+Block]
-                push    edx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-                jmp     short loc_471458
-; ---------------------------------------------------------------------------
-
-loc_471494:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+10B↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+154h]
-                mov     [ebp+var_1C], ecx
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-
-loc_4714AC:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEXI@Z+38↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     dword ptr [eax+154h], 0
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 158h
-                call    sub_473F30
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 0E0h
-                call    sub_473F30
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@VisGlobalMap@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

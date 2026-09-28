@@ -2740,6 +2740,8 @@ public:
 	void ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY); // 472820
 	void OnMapClick(); // 472dca
 	void UpdateHoveredLocation(CPoint pos); // 472d4b
+	void FreeBitmaps(); // 470cd9
+	void FreeSamples(); // 470571
 
 	VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b in asm
 public:
