@@ -1570,7 +1570,7 @@ extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 ;VisCharGenFullStats
 externdef ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ??_GVisCharGenFullStats@@UAEPAXI@Z : proc
-externdef ?GetHint@VisCharGenFullStats@@UAEPBDXZ : proc
+extern ?GetHint@VisCharGenFullStats@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall VisCharGenFullStats::GetHint(void))
 extern ?VMethod7@VisCharGenFullStats@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenFullStats::VMethod7(void))
 externdef ?FreeBitmaps@VisCharGenFullStats@@QAEXXZ : proc
 ;VisCharGenAction

@@ -16820,62 +16820,6 @@ unknown_libname_458 endp
 
 ; Attributes: bp-based frame
 
-?GetHint@VisCharGenFullStats@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:00609554↓o
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_1C], ecx
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+104h], 0
-                jnz     short loc_42ACA1
-                xor     eax, eax
-                jmp     short loc_42ACFF
-; ---------------------------------------------------------------------------
-
-loc_42ACA1:                             ; CODE XREF: ?GetHint@VisCharGenFullStats@@UAEPBDXZ+16↑j
-                lea     ecx, [ebp+var_10] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [ebp+var_1C]
-                add     edx, 8
-                push    edx
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                sub     eax, [ebp+var_C]
-                sub     eax, 0Ch
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                sub     eax, [ebp+var_10]
-                sub     eax, 0Ch
-                push    eax
-                lea     ecx, [ebp+var_18]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_18]
-                push    edx
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+94h]
-                call    ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z
-
-loc_42ACFF:                             ; CODE XREF: ?GetHint@VisCharGenFullStats@@UAEPBDXZ+1A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetHint@VisCharGenFullStats@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

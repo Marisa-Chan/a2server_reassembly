@@ -6554,6 +6554,18 @@ void VisCharGenFullStats::LoadBitmaps() {
 }
 
 
+// 42ac85
+const char* VisCharGenFullStats::GetHint() {
+    if (this->parent_screen->active_flag == 0) {
+        return nullptr;
+    }
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    CPoint pt(g_mousept.GetX() - screen_rect.left - 0xC, g_mousept.GetY() - screen_rect.top - 0xC);
+    return this->parent_screen->current_char->FUN_0046d0f7(pt.x, pt.y);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
