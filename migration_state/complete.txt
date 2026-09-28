@@ -605,6 +605,7 @@
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
+?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z

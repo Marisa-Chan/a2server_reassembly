@@ -5454,6 +5454,23 @@ const char* VisGlobalMap::GetHint()
 }
 
 
+// 473077
+int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    CRect popup_rect(CPoint(this->targetLocationPoint), this->heroBitmapSize);
+    CPoint screen_pt = this->rect.TopLeft();
+    pos -= CSize(screen_pt.x, screen_pt.y);
+    if (popup_rect.PtInRect(pos)) {
+        int32_t count = g_StructEnter.field_0x0.GetSize();
+        if (count < 2) {
+            count = 2;
+        }
+        this->partDetailsRect = CRect(0x64, 0x64, 0x15E, count * 0x14 + 0x78);
+    }
+    return 1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
