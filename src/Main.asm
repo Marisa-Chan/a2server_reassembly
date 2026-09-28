@@ -24166,50 +24166,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?FreeSamples@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42DD66+48↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 84h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 88h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 8Ch
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 90h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreeSamples@VisCharGen@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_42F072      proc near
 
 var_10          = dword ptr -10h

@@ -5857,6 +5857,16 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42F021
+void VisCharGen::FreeSamples()
+{
+    FUN_00438dd0(&this->snd_stat);
+    FUN_00438dd0(&this->snd_ok);
+    FUN_00438dd0(&this->snd_reset);
+    FUN_00438dd0(&this->snd_back);
+}
+
+
 // 42EFB4
 void VisCharGen::LoadSamples()
 {
