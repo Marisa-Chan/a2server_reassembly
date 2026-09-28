@@ -1599,7 +1599,7 @@ externdef ?VMethod26@VisMainMenu@@UAEXXZ : proc
 externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
-externdef ??_GVisStartGame@@UAEPAXI@Z : proc
+extern ??_GVisStartGame@@UAEPAXI@Z : proc
 externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGame@@UAEXXZ  : proc

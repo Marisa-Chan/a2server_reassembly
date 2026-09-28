@@ -169,6 +169,7 @@
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
+??_GVisStartGame@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
 ??_GVisTavSceneDruid@@UAEPAXI@Z
 ??_GVisTavSceneKaarg@@UAEPAXI@Z

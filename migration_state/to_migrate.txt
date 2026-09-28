@@ -542,7 +542,6 @@
 ?VMethod7@VisSpellBook@@UAEXXZ	450
 ?GetHint@VisSpellBook@@UAEPBDXZ	675
 ?ResetHoverState@VisStartGame@@QAEXXZ	21
-??_GVisStartGame@@UAEPAXI@Z	24
 ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40

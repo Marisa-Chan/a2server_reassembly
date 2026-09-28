@@ -13542,3 +13542,15 @@ void VisStartGame::Cancel()
 void VisStartGame::VMethod8(CRect* rect)
 {
 }
+
+
+// 4386B0
+VisStartGame::~VisStartGame()
+{
+    this->FreeBitmaps();
+    if (this->tipsPrompt != nullptr) {
+        this->RemoveChild(this->tipsPrompt);
+        delete this->tipsPrompt;
+        this->tipsPrompt = nullptr;
+    }
+}
