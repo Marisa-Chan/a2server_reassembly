@@ -426,7 +426,6 @@
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z	12
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z	14
 ?OnChar@VisGlobalMap@@UAEHI@Z	14
-?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z	15
 ??_GVisGlobalMap@@UAEPAXI@Z	24
 ?FinishTravel@VisGlobalMap@@QAEXXZ	28
 ?FreeSamples@VisGlobalMap@@QAEXXZ	31

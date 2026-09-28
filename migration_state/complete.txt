@@ -612,6 +612,7 @@
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
+?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z

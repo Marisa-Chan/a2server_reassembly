@@ -80579,22 +80579,6 @@ loc_47302A:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@Q
 
 ; Attributes: bp-based frame
 
-?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060B7C4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 114h       ; varThis
-                call    ?Clear@CComVariant@ATL@@QAEJXZ_0 ; ATL::CComVariant::Clear(void)
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

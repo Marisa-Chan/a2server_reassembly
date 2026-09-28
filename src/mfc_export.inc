@@ -1634,7 +1634,7 @@ extern ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 externdef ?OnChar@VisGlobalMap@@UAEHI@Z : proc
 externdef ?LoadBitmaps@VisGlobalMap@@QAEXXZ : proc
