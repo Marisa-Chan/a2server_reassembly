@@ -293,6 +293,7 @@
 ?Free@TxtFile@@QAEXXZ
 ?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
+?FreeSamples@VisCharGen@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ
 ?FUN_0040d7f3@BigStruct2@@QAEHXZ
@@ -524,6 +525,7 @@
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
 ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?LoadSample@SfxSample@@QAEXXZ
+?LoadSamples@VisCharGen@@QAEXXZ
 ?LoadStringA@CString@@QAEHI@Z
 ?LockSurface2@@YAIXZ
 ?LockSurface3@@YAIXZ
@@ -552,6 +554,8 @@
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z
+?OnClickBack@VisCharGen@@QAEXXZ
+?OnClickFwd@VisCharGen@@QAEXXZ
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
@@ -615,6 +619,8 @@
 ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
+?OnNextFace@VisCharGen@@QAEXXZ
+?OnPrevFace@VisCharGen@@QAEXXZ
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
@@ -672,6 +678,7 @@
 ?ResetStates@CMousePointer@@QAEXXZ
 ?ReverseFind@CString@@QBEHD@Z
 ?Right@CString@@QBE?AV1@H@Z
+?RollStats@VisCharGen@@QAEXXZ
 ?SaveScreenshot@@YAXXZ
 ?ScenarioEnterInn@@YGXPAH0@Z
 ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
@@ -708,6 +715,7 @@
 ?SetText@VisMultiText@@QAEXPBD@Z
 ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
 ?ShadowRect@@YAXVCRect@@H@Z
+?ShowTipHint@VisCharGen@@QAEXXZ
 ?SoundBank_fighter@@3PAVSfxBank@@A
 ?SoundBank_mage@@3PAVSfxBank@@A
 ?SoundBank_other@@3PAVSfxBank@@A

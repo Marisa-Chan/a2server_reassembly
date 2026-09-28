@@ -134,6 +134,7 @@
 ?FUN_0046190d@CGameObject@@QAEXXZ	299
 ?FUN_004946ae@CGameSession@@QAEXXZ	23
 ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ	45
+?SetCharacterStats@CGameSession@@QAEXHHHHH@Z	50
 ?FUN_00494982@CGameSession@@QAEXXZ	51
 ?FUN_00493cd8@CGameSession@@QAEXXZ	58
 ?FUN_004948b2@CGameSession@@QAEXXZ	81
@@ -313,14 +314,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?OnClickFwd@VisCharGen@@QAEXXZ	18
-?OnClickBack@VisCharGen@@QAEXXZ	18
-?FreeSamples@VisCharGen@@QAEXXZ	31
-?LoadSamples@VisCharGen@@QAEXXZ	37
-?ShowTipHint@VisCharGen@@QAEXXZ	64
-?RollStats@VisCharGen@@QAEXXZ	66
-?OnNextFace@VisCharGen@@QAEXXZ	150
-?OnPrevFace@VisCharGen@@QAEXXZ	154
 ?ResetMouseBoxes@VisCharGenAction@@QAEXXZ	15
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
 ?FreeBitmaps@VisCharGenAction@@QAEXXZ	118
