@@ -5635,6 +5635,72 @@ void VisGlobalMap::LoadBitmaps()
 }
 
 
+// 470CD9
+void VisGlobalMap::FreeBitmaps()
+{
+    if (this->gmap != nullptr) {
+        delete this->gmap;
+    }
+    this->gmap = nullptr;
+    if (this->hero_bmp != nullptr) {
+        delete this->hero_bmp;
+    }
+    this->hero_bmp = nullptr;
+    if (this->ballmap != nullptr) {
+        delete this->ballmap;
+    }
+    this->ballmap = nullptr;
+    if (this->flag1_spr != nullptr) {
+        delete this->flag1_spr;
+    }
+    this->flag1_spr = nullptr;
+    if (this->flag_spr != nullptr) {
+        delete this->flag_spr;
+    }
+    this->flag_spr = nullptr;
+    if (this->cross_spr != nullptr) {
+        delete this->cross_spr;
+    }
+    this->cross_spr = nullptr;
+    if (this->mission_flg != nullptr) {
+        delete this->mission_flg;
+    }
+    this->mission_flg = nullptr;
+    if (this->flg_on_map != nullptr) {
+        delete this->flg_on_map;
+    }
+    this->flg_on_map = nullptr;
+    if (this->yflag_spr != nullptr) {
+        delete this->yflag_spr;
+    }
+    this->yflag_spr = nullptr;
+    if (this->scroll1_bmp != nullptr) {
+        delete this->scroll1_bmp;
+    }
+    this->scroll1_bmp = nullptr;
+    if (this->scroll2_bmp != nullptr) {
+        delete this->scroll2_bmp;
+    }
+    this->scroll2_bmp = nullptr;
+    if (this->scroll3_bmp != nullptr) {
+        delete this->scroll3_bmp;
+    }
+    this->scroll3_bmp = nullptr;
+    if (this->scrollp1_bmp != nullptr) {
+        delete this->scrollp1_bmp;
+    }
+    this->scrollp1_bmp = nullptr;
+    if (this->scrollp3_bmp != nullptr) {
+        delete this->scrollp3_bmp;
+    }
+    this->scrollp3_bmp = nullptr;
+    if (this->scrollp2_bmp != nullptr) {
+        delete this->scrollp2_bmp;
+    }
+    this->scrollp2_bmp = nullptr;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

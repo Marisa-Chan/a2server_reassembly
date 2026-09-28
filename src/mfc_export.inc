@@ -1641,7 +1641,6 @@ externdef ?Init@GMapThing@@QAEPAV1@XZ : proc
 externdef ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z : proc
 externdef ?FinishTravel@VisGlobalMap@@QAEXXZ : proc
 externdef ?Destroy@GMapThing@@QAEXI@Z : proc
-externdef ?FreeBitmaps@VisGlobalMap@@QAEXXZ : proc
 externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?OnMapClick@VisGlobalMap@@QAEXXZ : proc
