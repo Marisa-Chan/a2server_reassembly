@@ -1605,7 +1605,7 @@ extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGame@@UAEXXZ  : proc
 externdef ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisStartGame@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z  : proc
 extern ?UpdateHotspots@VisStartGame@@QAEIHHI@Z  : proc
 externdef ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ : proc

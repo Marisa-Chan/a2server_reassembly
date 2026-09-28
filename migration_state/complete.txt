@@ -593,6 +593,7 @@
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z

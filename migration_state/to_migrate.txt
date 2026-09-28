@@ -545,7 +545,6 @@
 ?ResetHoverState@VisStartGame@@QAEXXZ	21
 ?Cancel@VisStartGame@@QAEXXZ	23
 ??_GVisStartGame@@UAEPAXI@Z	24
-?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z	31
 ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40

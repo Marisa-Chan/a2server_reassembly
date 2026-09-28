@@ -34420,38 +34420,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006099E4↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateHotspots@VisStartGame@@QAEIHHI@Z
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

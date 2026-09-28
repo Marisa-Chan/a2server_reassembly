@@ -13520,3 +13520,11 @@ int32_t VisStartGame::OnKeyDown(uint32_t wparam)
     }
     return VisScreen::OnKeyDown(wparam);
 }
+
+
+// 437664
+int32_t VisStartGame::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    this->UpdateHotspots(pos.x, pos.y, wparam & 1);
+    return CVisualObject::OnMouseMove(wparam, pos);
+}
