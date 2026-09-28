@@ -836,6 +836,7 @@
 ?VMethod24@CUnit@@UAEXXZ
 ?VMethod25@CUnit@@UAEXH@Z
 ?VMethod26@CUnit@@UAEXXZ
+?VMethod26@VisGlobalMap@@UAEXXZ
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z

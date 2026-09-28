@@ -437,7 +437,6 @@
 ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	99
 ?GetHint@VisGlobalMap@@UAEPBDXZ	109
 ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z	122
-?VMethod26@VisGlobalMap@@UAEXXZ	123
 ?OnMapClick@VisGlobalMap@@QAEXXZ	226
 ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z	249
 ?FreeBitmaps@VisGlobalMap@@QAEXXZ	431

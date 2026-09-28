@@ -5399,6 +5399,39 @@ void VisGlobalMap::VMethod28()
 }
 
 
+// 47031D
+void VisGlobalMap::VMethod26()
+{
+    this->hero_bmp = nullptr;
+    this->snd_point2.sample = nullptr;
+    this->ballmap = nullptr;
+    this->flag1_spr = nullptr;
+    this->flag_spr = nullptr;
+    this->cross_spr = nullptr;
+    this->flg_on_map = nullptr;
+    this->yflag_spr = nullptr;
+    this->scroll1_bmp = nullptr;
+    this->scrollp1_bmp = nullptr;
+    this->gmap = nullptr;
+    this->scroll3_bmp = nullptr;
+    this->mission_flg = nullptr;
+    this->scrollp2_bmp = nullptr;
+    this->snd_scrollup.sample = nullptr;
+    this->snd_point1.sample = nullptr;
+    this->snd_point2.sample = nullptr;
+    this->scroll2_bmp = nullptr;
+    this->scrollp3_bmp = nullptr;
+    this->snd_scrolldn.sample = nullptr;
+    this->partDetailsRect.SetRectEmpty();
+    this->mapFlagAnimationFrame = 0;
+    this->travelProgress = 0;
+    this->hoveredLocationIndex = -1;
+    this->heroBitmapSize = CSize(0xA, 0x14);
+
+    this->AddChild(new VisButton(4, 0x21C, 0x1C2, 0x21C, 0x1C2, " ", g_font1, clrsh_TechBlack, 0x7FFF, 0, nullptr));
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
