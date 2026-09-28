@@ -17258,67 +17258,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060951C↓o
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0FFFFFFFFh
-                jz      short loc_42A39D
-                mov     eax, dword ptr [ebp+var_4]
-                and     eax, 0FFh
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                sar     ecx, 8
-                mov     [ebp+var_C], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [ebp+var_14], edx
-                cmp     [ebp+var_14], 1
-                jz      short loc_42A383
-                cmp     [ebp+var_14], 2
-                jz      short loc_42A391
-                jmp     short loc_42A39D
-; ---------------------------------------------------------------------------
-
-loc_42A383:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+44↑j
-                mov     eax, dword ptr [ebp+var_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42A778
-                jmp     short loc_42A39D
-; ---------------------------------------------------------------------------
-
-loc_42A391:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+4A↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42A87B
-
-loc_42A39D:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+24↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -17442,178 +17381,6 @@ loc_42A435:                             ; CODE XREF: ?OnWmUser@VisCharGenStats@@
 
 ; Attributes: bp-based frame
 
-sub_42A778      proc near               ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+55↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+eax*4+1D0h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?StatUpCost@VisCharGenStats@@AAEHH@Z
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+1F0h]
-                cmp     ecx, [ebp+var_4]
-                jl      loc_42A873
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+edx*4+1D0h], 2Dh ; '-'
-                jge     loc_42A873
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+ecx*4+1D0h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [edx+ecx*4+1D0h], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+1F0h]
-                sub     ecx, [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [edx+1F0h], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+7Ch]
-                mov     eax, dword ptr [edx+134h]
-                add     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+1DCh]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+1D8h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+1D4h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+1D0h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 468h
-                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 84h
-                push    ecx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+5Ch]
-                add     eax, 84h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     eax, 1
-                jmp     short loc_42A875
-; ---------------------------------------------------------------------------
-
-loc_42A873:                             ; CODE XREF: sub_42A778+2E↑j
-                xor     eax, eax
-
-loc_42A875:                             ; CODE XREF: sub_42A778+F9↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_42A778      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_42A87B      proc near               ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+63↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+eax*4+1D0h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?StatDownRefund@VisCharGenStats@@AAEHH@Z
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+eax*4+1D0h], 0Fh
-                jle     loc_42A965
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+edx*4+1D0h]
-                sub     ecx, 1
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [eax+edx*4+1D0h], ecx
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+1F0h]
-                add     edx, [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [eax+1F0h], edx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+7Ch]
-                mov     ecx, dword ptr [eax+134h]
-                add     ecx, 1
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+1DCh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+1D8h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+1D4h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+1D0h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 468h
-                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx+5Ch]
-                add     edx, 84h
-                push    edx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 84h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     eax, 1
-                jmp     short loc_42A967
-; ---------------------------------------------------------------------------
-
-loc_42A965:                             ; CODE XREF: sub_42A87B+30↑j
-                xor     eax, eax
-
-loc_42A967:                             ; CODE XREF: sub_42A87B+E8↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_42A87B      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -30192,7 +29959,7 @@ loc_438E96:                             ; CODE XREF: ?FUN_00438e40@@YAXPAPAVSfxS
 
 ; Attributes: bp-based frame
 
-?Play@CSound@@SAXAAU1@@Z      proc near               ; CODE XREF: sub_42A778+EC↑p
+?Play@CSound@@SAXAAU1@@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+EC↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -30258,7 +30025,7 @@ sub_438F00      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: sub_42A778+D8↑p
+?FUN_00438f20@@YAXPAPAVSfxSample@@@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+D8↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -91956,7 +91723,7 @@ loc_493D74:                             ; CODE XREF: ?FUN_00493cd8@CGameSession@
 
 ; Attributes: bp-based frame
 
-?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      proc near               ; CODE XREF: sub_42A778+C6↑p
+?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+C6↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8

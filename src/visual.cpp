@@ -6403,6 +6403,57 @@ uint32_t VisCharGenStats::HandleClick(int32_t mode, CPoint pt) {
 }
 
 
+// 42a778
+int32_t VisCharGenStats::OnStatUp(int32_t idx) {
+    int32_t cost = this->StatUpCost((&this->stat_body)[idx]);
+    if (this->field_0x1f0 < cost) {
+        return 0;
+    }
+    if ((&this->stat_body)[idx] >= 0x2D) {
+        return 0;
+    }
+    (&this->stat_body)[idx] += 1;
+    this->field_0x1f0 -= cost;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
+                                              this->parent_screen->skills_panel->selected_slot + 1);
+    FUN_00438f20(&this->parent_screen->snd_stat);
+    CSound::Play((CSound&)this->parent_screen->snd_stat);
+    return 1;
+}
+
+// 42a87b
+int32_t VisCharGenStats::OnStatDown(int32_t idx) {
+    int32_t refund = this->StatDownRefund((&this->stat_body)[idx]);
+    if ((&this->stat_body)[idx] <= 0xF) {
+        return 0;
+    }
+    (&this->stat_body)[idx] -= 1;
+    this->field_0x1f0 += refund;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->m_GameSession.SetCharacterStats(this->stat_body, this->stat_reaction, this->stat_mind, this->stat_spirit,
+                                              this->parent_screen->skills_panel->selected_slot + 1);
+    FUN_00438f20(&this->parent_screen->snd_stat);
+    CSound::Play((CSound&)this->parent_screen->snd_stat);
+    return 1;
+}
+
+// 42a335
+int32_t VisCharGenStats::OnLButtonDown(uint32_t wparam, CPoint pos) {
+    int32_t hit = this->HandleClick(wparam, pos);
+    if (hit != -1) {
+        int32_t button = hit & 0xFF;
+        int32_t idx = hit >> 8;
+        if (button == 1) {
+            this->OnStatUp(idx);
+        } else if (button == 2) {
+            this->OnStatDown(idx);
+        }
+    }
+    return 1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

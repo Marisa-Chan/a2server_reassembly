@@ -2248,6 +2248,8 @@ private:
 	int32_t StatUpCost(int32_t stat); // 42a96d in asm
 	int32_t StatDownRefund(int32_t stat); // 42a99d in asm
 	int32_t HitTest(CPoint pt); // 42a02a in asm
+	int32_t OnStatUp(int32_t idx); // 42a778 in asm
+	int32_t OnStatDown(int32_t idx); // 42a87b in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
