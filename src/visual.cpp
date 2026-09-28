@@ -5878,6 +5878,13 @@ void VisCharGen::LoadSamples()
 }
 
 
+// 42EBAB
+void VisCharGen::OnClickBack()
+{
+    this->MsgProc(0x446, 0, 0);
+}
+
+
 // 42EB8C
 void VisCharGen::OnClickFwd()
 {
