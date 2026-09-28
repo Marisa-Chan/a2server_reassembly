@@ -6241,6 +6241,25 @@ void VisCharGenStats::LoadBitmaps()
 }
 
 
+void VisCharGenStats::FreeBitmaps()
+{ //4298b6
+    if (this->bmp != nullptr) {
+        delete this->bmp;
+    }
+    this->bmp = nullptr;
+    for (int32_t i = 0; i < 10; i++) {
+        if (this->field_0x194[i] != nullptr) {
+            delete this->field_0x194[i];
+        }
+        this->field_0x194[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->field_0x174[i * 2] = nullptr;
+        this->field_0x174[i * 2 + 1] = nullptr;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
