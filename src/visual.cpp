@@ -6546,6 +6546,14 @@ void VisCharGenFullStats::VMethod7() {
 }
 
 
+// 42ab18
+void VisCharGenFullStats::LoadBitmaps() {
+    this->FreeBitmaps();
+    this->bmp = new CBmp64("graphics\\Interface\\chrgen\\FullStatsL.bmp");
+    g_mousept.Update();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
