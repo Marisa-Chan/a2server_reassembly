@@ -5701,6 +5701,44 @@ void VisGlobalMap::FreeBitmaps()
 }
 
 
+// 472820
+void VisGlobalMap::ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY)
+{
+    if (CPoint(fromX, fromY) != CPoint(toX, toY)) {
+        int32_t from_node = 0;
+        int32_t to_node = 0;
+        for (int32_t i = 0; i < this->graphNodePoints.GetSize(); i++) {
+            CPoint& node = this->graphNodePoints.ElementAt(i);
+            if (CPoint(fromX, fromY) != CPoint(node.x, node.y)) {
+                if (CPoint(toX, toY) == CPoint(node.x, node.y)) {
+                    to_node = i;
+                }
+            } else {
+                from_node = i;
+            }
+        }
+        this->routeNodeIndices.RemoveAll();
+        this->routeNodeIndices.routeCost = 0;
+        this->bestRouteCost = 2000000000;
+        GlobalMapRouteArray* route = new GlobalMapRouteArray();
+        route->Add(static_cast<uint16_t>(from_node));
+        this->SearchRoute(static_cast<uint16_t>(from_node), static_cast<uint16_t>(to_node), route);
+        this->travelRoutePoints.RemoveAll();
+        for (int32_t i = 1; i < this->routeNodeIndices.GetSize(); i++) {
+            uint16_t prev = this->routeNodeIndices.GetAt(i - 1);
+            uint16_t cur = this->routeNodeIndices.GetAt(i);
+            CArray<CPoint>** row = static_cast<CArray<CPoint>**>(this->routeAdjacencyMatrix);
+            this->travelRoutePoints.Append(row[prev][cur]);
+        }
+        delete route;
+    } else {
+        this->travelRoutePoints.RemoveAll();
+        this->travelRoutePoints.Add(CPoint(fromX, fromY));
+        this->travelRoutePoints.Add(CPoint(toX, toY));
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

@@ -236,6 +236,7 @@
 ?clrsh_ShockingBlack@@3PAGA
 ?clrsh_TechBlack@@3PAGA
 ?CompatGetYX@TokenPos@@QBEGXZ
+?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
 ?Connect@CLlDriver@@QAEHPBDPAUCLlNetSession@@@Z
 ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z
 ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z

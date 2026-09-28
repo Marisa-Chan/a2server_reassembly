@@ -78362,263 +78362,13 @@ sub_472700      endp
 
 ; Attributes: bp-based frame
 
-?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+EC↑p
-
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-Block           = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-
-; FUNCTION CHUNK AT 005FAA1C SIZE 00000015 BYTES
-
-; __unwind { // SEH_472820
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_472820
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 44h
-                push    esi
-                push    edi
-                mov     [ebp+var_48], ecx
-                mov     [ebp+var_14], 0
-                mov     eax, dword ptr [ebp+arg_8]
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+arg_C]
-                mov     [ebp+var_20], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_24]
-                push    eax
-                lea     ecx, [ebp+arg_0]
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_47289E
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0E0h
-                call    sub_473F30
-                lea     ecx, [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0E0h
-                call    sub_473F50
-                lea     edx, [ebp+arg_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0E0h
-                call    sub_473F50
-                jmp     loc_472A78
-; ---------------------------------------------------------------------------
-
-loc_47289E:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+45↑j
-                mov     [ebp+var_1C], 0
-                jmp     short loc_4728B0
-; ---------------------------------------------------------------------------
-
-loc_4728A7:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z:loc_472933↓j
-                mov     eax, dword ptr [ebp+var_1C]
-                add     eax, 1
-                mov     [ebp+var_1C], eax
-
-loc_4728B0:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+85↑j
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 158h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_1C], eax
-                jge     short loc_472938
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 158h
-                call    sub_473FE0
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_2C], edx
-                mov     [ebp+var_28], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_2C]
-                push    edx
-                lea     ecx, [ebp+arg_0]
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_4728FC
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_10], eax
-                jmp     short loc_472933
-; ---------------------------------------------------------------------------
-
-loc_4728FC:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+D2↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 158h
-                call    sub_473FE0
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_34], edx
-                mov     [ebp+var_30], eax
-                mov     ecx, dword ptr [ebp+var_30]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_34]
-                push    edx
-                lea     ecx, [ebp+arg_8]
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_472933
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_18], eax
-
-loc_472933:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+DA↑j
-                jmp     loc_4728A7
-; ---------------------------------------------------------------------------
-
-loc_472938:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+A1↑j
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 13Ch
-                call    sub_438430
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     dword ptr [ecx+150h], 0
-                mov     edx, dword ptr [ebp+var_48]
-                mov     dword ptr [edx+138h], 77359400h
-                push    18h             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_472987
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_474D40
-                mov     [ebp+var_4C], eax
-                jmp     short loc_47298E
-; ---------------------------------------------------------------------------
-
-loc_472987:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+158↑j
-                mov     [ebp+var_4C], 0
-
-loc_47298E:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+165↑j
-                mov     eax, dword ptr [ebp+var_4C]
-                mov     [ebp+var_3C], eax
-;   } // starts at 47296D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     [ebp+var_14], ecx
-                xor     edx, edx
-                mov     dx, word ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_41EAE0
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                xor     ecx, ecx
-                mov     cx, word ptr [ebp+var_18]
-                push    ecx
-                xor     edx, edx
-                mov     dx, word ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_48]
-                call    sub_472ADA
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0E0h
-                call    sub_473F30
-                mov     [ebp+var_1C], 1
-                jmp     short loc_4729EA
-; ---------------------------------------------------------------------------
-
-loc_4729E1:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+22E↓j
-                mov     eax, dword ptr [ebp+var_1C]
-                add     eax, 1
-                mov     [ebp+var_1C], eax
-
-loc_4729EA:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1BF↑j
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 13Ch
-                call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_1C], eax
-                jge     short loc_472A50
-                mov     ecx, dword ptr [ebp+var_1C]
-                sub     ecx, 1
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 13Ch
-                call    sub_41EA10
-                xor     edx, edx
-                mov     dx, [eax]
-                mov     esi, edx
-                mov     eax, dword ptr [ebp+var_48]
-                mov     edi, [eax+154h]
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 13Ch
-                call    sub_41EA10
-                xor     edx, edx
-                mov     dx, [eax]
-                mov     eax, dword ptr [edi+esi*4]
-                mov     ecx, dword ptr [eax+edx*4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0E0h
-                call    sub_473F80
-                jmp     short loc_4729E1
-; ---------------------------------------------------------------------------
-
-loc_472A50:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1DB↑j
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ebp+var_44], edx
-                mov     eax, dword ptr [ebp+var_44]
-                mov     [ebp+var_40], eax
-                cmp     [ebp+var_40], 0
-                jz      short loc_472A71
-                push    1
-                mov     ecx, dword ptr [ebp+var_40]
-                call    sub_473DD0
-                mov     [ebp+var_50], eax
-                jmp     short loc_472A78
-; ---------------------------------------------------------------------------
-
-loc_472A71:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+240↑j
-                mov     [ebp+var_50], 0
-
-loc_472A78:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+79↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     edi
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    10h
-; } // starts at 472820
-?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_472A8A      proc near               ; CODE XREF: sub_472ADA+AC↓p
+sub_472A8A      proc near               ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+AC↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -78672,7 +78422,7 @@ sub_472A8A      endp
 
 ; Attributes: bp-based frame
 
-sub_472ADA      proc near               ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1A5↑p
+?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z      proc near               ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1A5↑p
 
 var_30          = dword ptr -30h
 var_2C          = dword ptr -2Ch
@@ -78722,21 +78472,21 @@ arg_8           = dword ptr  10h
                 add     ecx, 13Ch
                 call    sub_474D80
 
-loc_472B3F:                             ; CODE XREF: sub_472ADA+42↑j
+loc_472B3F:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+42↑j
                 jmp     loc_472CB5
 ; ---------------------------------------------------------------------------
 
-loc_472B44:                             ; CODE XREF: sub_472ADA+31↑j
+loc_472B44:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+31↑j
                 mov     [ebp+var_14], 0
                 jmp     short loc_472B56
 ; ---------------------------------------------------------------------------
 
-loc_472B4D:                             ; CODE XREF: sub_472ADA:loc_472B92↓j
+loc_472B4D:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z:loc_472B92↓j
                 mov     eax, dword ptr [ebp+var_14]
                 add     eax, 1
                 mov     [ebp+var_14], eax
 
-loc_472B56:                             ; CODE XREF: sub_472ADA+71↑j
+loc_472B56:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+71↑j
                 mov     ecx, dword ptr [ebp+var_28]
                 add     ecx, 158h
                 call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
@@ -78756,11 +78506,11 @@ loc_472B56:                             ; CODE XREF: sub_472ADA+71↑j
                 test    eax, eax
                 jz      short loc_472B94
 
-loc_472B92:                             ; CODE XREF: sub_472ADA+9F↑j
+loc_472B92:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+9F↑j
                 jmp     short loc_472B4D
 ; ---------------------------------------------------------------------------
 
-loc_472B94:                             ; CODE XREF: sub_472ADA+B6↑j
+loc_472B94:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+B6↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 and     ecx, 0FFFFh
                 mov     edx, dword ptr [ebp+var_28]
@@ -78799,10 +78549,10 @@ loc_472B94:                             ; CODE XREF: sub_472ADA+B6↑j
                 jmp     short loc_472C1E
 ; ---------------------------------------------------------------------------
 
-loc_472C17:                             ; CODE XREF: sub_472ADA+12A↑j
+loc_472C17:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+12A↑j
                 mov     [ebp+var_2C], 0
 
-loc_472C1E:                             ; CODE XREF: sub_472ADA+13B↑j
+loc_472C1E:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+13B↑j
                 mov     ecx, dword ptr [ebp+var_2C]
                 mov     [ebp+var_1C], ecx
 ;   } // starts at 472BF9
@@ -78836,7 +78586,7 @@ loc_472C1E:                             ; CODE XREF: sub_472ADA+13B↑j
                 mov     ax, word ptr [ebp+var_14]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_472ADA
+                call    ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     [ebp+var_24], ecx
                 mov     edx, dword ptr [ebp+var_24]
@@ -78850,21 +78600,21 @@ loc_472C1E:                             ; CODE XREF: sub_472ADA+13B↑j
                 jmp     short loc_472CB0
 ; ---------------------------------------------------------------------------
 
-loc_472CA9:                             ; CODE XREF: sub_472ADA+1BE↑j
+loc_472CA9:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+1BE↑j
                 mov     [ebp+var_30], 0
 
-loc_472CB0:                             ; CODE XREF: sub_472ADA+D6↑j
+loc_472CB0:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+D6↑j
                 jmp     loc_472B4D
 ; ---------------------------------------------------------------------------
 
-loc_472CB5:                             ; CODE XREF: sub_472ADA:loc_472B3F↑j
+loc_472CB5:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z:loc_472B3F↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
 ; } // starts at 472ADA
-sub_472ADA      endp
+?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -82755,7 +82505,7 @@ sub_474D60      endp
 
 ; Attributes: bp-based frame
 
-sub_474D80      proc near               ; CODE XREF: sub_472ADA+60↑p
+sub_474D80      proc near               ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+60↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -82822,7 +82572,7 @@ unknown_libname_534 endp
 
 ; Attributes: bp-based frame
 
-sub_474E00      proc near               ; CODE XREF: sub_472ADA+133↑p
+sub_474E00      proc near               ; CODE XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+133↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -328119,26 +327869,7 @@ SEH_471F15:                             ; DATA XREF: sub_471F15+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA09
 ; END OF FUNCTION CHUNK FOR sub_471F15
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
-
-loc_5FAA1C:                             ; DATA XREF: .rdata:stru_61B8E0↓o
-; __unwind { // SEH_472820
-;   cleanup() // owned by 47296D
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                pop     ecx
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_472820:                             ; DATA XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+5↑o
-                mov     eax, offset stru_61B8C0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FAA1C
-; END OF FUNCTION CHUNK FOR ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_472ADA
+; START OF FUNCTION CHUNK FOR ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z
 
 loc_5FAA31:                             ; DATA XREF: .rdata:stru_61B908↓o
 ; __unwind { // SEH_472ADA
@@ -328150,11 +327881,11 @@ loc_5FAA31:                             ; DATA XREF: .rdata:stru_61B908↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_472ADA:                             ; DATA XREF: sub_472ADA+5↑o
+SEH_472ADA:                             ; DATA XREF: ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z+5↑o
                 mov     eax, offset stru_61B8E8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA31
-; END OF FUNCTION CHUNK FOR sub_472ADA
+; END OF FUNCTION CHUNK FOR ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?OnMapClick@VisGlobalMap@@QAEXXZ
 
@@ -363986,17 +363717,11 @@ stru_61B898     FuncInfoV1 <19930520h, 1, offset stru_61B8B8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61B8B8     UnwindMapEntry <-1, offset loc_5FAA09>
-stru_61B8C0     FuncInfoV1 <19930520h, 1, offset stru_61B8E0, 0, 0, 0, 0>
                 db    0
                 db    0
                 db    0
                 db    0
-stru_61B8E0     UnwindMapEntry <-1, offset loc_5FAA1C>
 stru_61B8E8     FuncInfoV1 <19930520h, 1, offset stru_61B908, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
 stru_61B908     UnwindMapEntry <-1, offset loc_5FAA31>
 stru_61B910     FuncInfoV1 <19930520h, 2, offset stru_61B930, 0, 0, 0, 0>
                 db    0

@@ -2757,6 +2757,7 @@ public:
 	void LoadBitmaps(); // 4705c2
 	void LoadSamples(); // 470504
 	void FinishTravel(); // 472684
+	void SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route); // 472ada
 
 	VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b in asm
 public:

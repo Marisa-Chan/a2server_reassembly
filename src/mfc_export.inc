@@ -1639,6 +1639,7 @@ extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
 externdef ?LoadSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?Init@GMapThing@@QAEPAV1@XZ : proc
 externdef ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z : proc
+externdef ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z : proc
 externdef ?FinishTravel@VisGlobalMap@@QAEXXZ : proc
 externdef ?Destroy@GMapThing@@QAEXI@Z : proc
 externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc
