@@ -16570,44 +16570,6 @@ sub_428D20      endp
 
 ; Attributes: bp-based frame
 
-sub_42A9CD      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F7D0E SIZE 00000013 BYTES
-
-; __unwind { // SEH_42A9CD
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42A9CD
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_609540
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+5Ch], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42AAFB
-;   } // starts at 42A9F1
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42A9CD
-sub_42A9CD      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16615,69 +16577,13 @@ sub_42A9CD      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+F1↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005F7D21 SIZE 00000013 BYTES
-
-; __unwind { // SEH_42AA2B
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42AA2B
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_609540
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+arg_14]
-                mov     [eax+5Ch], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42AAFB
-;   } // starts at 42AA65
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 42AA2B
-??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42AAA0      proc near               ; CODE XREF: ??_GVisCharGenFullStats@@UAEPAXI@Z+A↓p
+??1VisCharGenFullStats@@UAE@XZ      proc near               ; CODE XREF: ??_GVisCharGenFullStats@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -16713,29 +16619,13 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 ; } // starts at 42AAA0
-sub_42AAA0      endp
+??1VisCharGenFullStats@@UAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42AAFB      proc near               ; CODE XREF: sub_42A9CD+41↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    unknown_libname_458 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+60h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_42AAFB      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16762,18 +16652,6 @@ sub_42AAFB      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_458 proc near           ; CODE XREF: sub_42AAFB+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_458 endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -27344,31 +27222,6 @@ loc_438353:                             ; CODE XREF: `vector constructor iterato
 
 ; Attributes: bp-based frame
 
-??_GVisCharGenFullStats@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:00609544↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_42AAA0
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_438382
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_438382:                             ; CODE XREF: ??_GVisCharGenFullStats@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisCharGenFullStats@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -315102,39 +314955,8 @@ SEH_428BF0:                             ; DATA XREF: sub_428BF0+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7C10
 ; END OF FUNCTION CHUNK FOR sub_428BF0
-; START OF FUNCTION CHUNK FOR sub_42A9CD
-
-unknown_libname_964:                    ; DATA XREF: .rdata:stru_6182C0↓o
-; __unwind { // SEH_42A9CD              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 42A9F1
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
 ; ---------------------------------------------------------------------------
-
-SEH_42A9CD:                             ; DATA XREF: sub_42A9CD+5↑o
-                mov     eax, offset stru_6182A0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F7D0E
-; END OF FUNCTION CHUNK FOR sub_42A9CD
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z
-
-loc_5F7D21:                             ; DATA XREF: .rdata:stru_6182E8↓o
-; __unwind { // SEH_42AA2B
-;   cleanup() // owned by 42AA65
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42AA2B:                             ; DATA XREF: ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
-                mov     eax, offset stru_6182C8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F7D21
-; END OF FUNCTION CHUNK FOR ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42AAA0
+; START OF FUNCTION CHUNK FOR ??1VisCharGenFullStats@@UAE@XZ
 
 loc_5F7D34:                             ; DATA XREF: .rdata:stru_618310↓o
 ; __unwind { // SEH_42AAA0
@@ -315144,11 +314966,11 @@ loc_5F7D34:                             ; DATA XREF: .rdata:stru_618310↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42AAA0:                             ; DATA XREF: sub_42AAA0+5↑o
+SEH_42AAA0:                             ; DATA XREF: ??1VisCharGenFullStats@@UAE@XZ+5↑o
                 mov     eax, offset stru_6182F0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7D34
-; END OF FUNCTION CHUNK FOR sub_42AAA0
+; END OF FUNCTION CHUNK FOR ??1VisCharGenFullStats@@UAE@XZ
 ; START OF FUNCTION CHUNK FOR sub_42AD03
 
 loc_5F7D5B:                             ; DATA XREF: .rdata:stru_618360↓o
@@ -355242,18 +355064,6 @@ stru_618170     FuncInfoV1 <19930520h, 1, offset stru_618190, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618190     UnwindMapEntry <-1, offset loc_5F7C10>
-stru_6182A0     FuncInfoV1 <19930520h, 1, offset stru_6182C0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6182C0     UnwindMapEntry <-1, offset unknown_libname_964>
-stru_6182C8     FuncInfoV1 <19930520h, 1, offset stru_6182E8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6182E8     UnwindMapEntry <-1, offset loc_5F7D21>
 stru_6182F0     FuncInfoV1 <19930520h, 1, offset stru_618310, 0, 0, 0, 0>
                 db    0
                 db    0

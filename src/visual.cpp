@@ -6575,6 +6575,15 @@ void VisCharGenFullStats::FreeBitmaps() {
 }
 
 
+// 42aa2b
+VisCharGenFullStats::VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->parent_screen = parent;
+    this->bmp = nullptr;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

@@ -160,6 +160,7 @@
 ??_7CObject@@6B@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
+??_GVisCharGenFullStats@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z
