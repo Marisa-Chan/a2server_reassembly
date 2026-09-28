@@ -24166,44 +24166,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?LoadSamples@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisCharGen@@UAEXXZ+475↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FreeSamples@VisCharGen@@QAEXXZ
-                push    offset aSfxChrgenWav ; "SFX\\ChrGen\\+_-.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 84h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxClickOkWav ; "SFX\\Click_Ok.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 88h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxSbrosWav ; "SFX\\Sbros.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 8Ch
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxBackWav ; "SFX\\Back.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 90h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?LoadSamples@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

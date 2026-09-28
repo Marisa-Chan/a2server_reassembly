@@ -5857,6 +5857,17 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42EFB4
+void VisCharGen::LoadSamples()
+{
+    this->FreeSamples();
+    FUN_00438e40(&this->snd_stat, "SFX\\ChrGen\\+_-.wav");
+    FUN_00438e40(&this->snd_ok, "SFX\\Click_Ok.wav");
+    FUN_00438e40(&this->snd_reset, "SFX\\Sbros.wav");
+    FUN_00438e40(&this->snd_back, "SFX\\Back.wav");
+}
+
+
 // 42EA87
 void VisCharGen::ShowTipHint()
 {
