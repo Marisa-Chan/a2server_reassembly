@@ -1570,7 +1570,7 @@ extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 ;VisCharGenAction
 externdef ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ??_GVisCharGenAction@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisCharGenAction@@UAEXXZ : proc
+extern ?VMethod7@VisCharGenAction@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenAction::VMethod7(void))
 externdef ?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharGenAction@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenAction@@UAEHIVCPoint@@@Z : proc

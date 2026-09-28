@@ -6590,6 +6590,37 @@ VisCharGenFullStats::VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int3
 }
 
 
+// 42b028
+void VisCharGenAction::VMethod7() {
+    CPoint topleft = this->parent_screen->rect.TopLeft();
+    if (this->parent_screen->active_flag == 0) {
+        return;
+    }
+    LockSurface2();
+    this->area_bmp->VMethod2(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
+    for (int32_t i = 0; i < 3; i++) {
+        uint16_t* pal;
+        if (this->mouse_over_box == i) {
+            pal = palette_paris_daisy->GetPalette(0);
+        } else {
+            pal = palette_husk->GetPalette(0);
+        }
+        if (this->mouse_over_box < 0 || this->mouse_down_box != this->mouse_over_box || this->mouse_over_box != i) {
+            this->btn_off[i]->VMethod2(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
+            g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
+                             topleft.y + this->areas[i].top + this->areas[i].Height() / 2,
+                             this->texts.ElementAt(i), 10, pal);
+        } else {
+            this->btn_on[i]->VMethod2(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
+            g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
+                             topleft.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
+                             this->texts.ElementAt(i), 10, pal);
+        }
+    }
+    UnlockSurface2();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
