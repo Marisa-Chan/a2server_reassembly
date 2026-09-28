@@ -2286,6 +2286,13 @@ ASSERT_SIZE(VisCharGenFullStats, 0xa8);
 class VisCharGenAction : public CVisualObject
 {
 public:
+	virtual ~VisCharGenAction(); // 42ae19 in asm
+
+	virtual void VMethod7() override; // 42b028 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42b2e0 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42b303 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42b392 in asm
+
 	VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42ad7d in asm
 
 	void LoadBitmaps(); // 42b57e in asm

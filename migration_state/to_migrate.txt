@@ -315,9 +315,14 @@
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
 ?ResetMouseBoxes@VisCharGenAction@@QAEXXZ	15
+?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z	23
+??_GVisCharGenAction@@UAEPAXI@Z	24
+?OnLButtonDown@VisCharGenAction@@UAEHIVCPoint@@@Z	64
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
+?OnLButtonUp@VisCharGenAction@@UAEHIVCPoint@@@Z	79
 ?FreeBitmaps@VisCharGenAction@@QAEXXZ	118
 ?LoadBitmaps@VisCharGenAction@@QAEXXZ	236
+?VMethod7@VisCharGenAction@@UAEXXZ	242
 ??_GVisCharGenFullStats@@UAEPAXI@Z	24
 ?FreeBitmaps@VisCharGenFullStats@@QAEXXZ	39
 ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z	55
