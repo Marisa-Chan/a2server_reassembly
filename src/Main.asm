@@ -16565,65 +16565,6 @@ arg_0           = dword ptr  8
                 retn    4
 sub_428D20      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -341869,36 +341810,6 @@ off_6094A0      dd offset sub_5F4897    ; DATA XREF: sub_428B70+12↑o
                 db    0
                 db    0
                 db    0
-off_6094C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_428DB0+7B↑o
-                dd offset ??_GVisCharGenStats@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@VisCharGenStats@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisCharGenStats@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 off_609540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42A9CD+2E↑o
                 dd offset ??_GVisCharGenFullStats@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -363102,22 +363013,6 @@ aGraphicsInterf_4 db 'graphics\interface\chrgen\buttons\mlon.bmp',0
 aGraphicsInterf_5 db 'graphics\interface\chrgen\buttons\mloff.bmp',0
 ; char aGraphicsInterf_6[]
 aGraphicsInterf_6 db 'graphics\interface\chrgen\buttons\mnlon.bmp',0
-; char aGraphicsInterf_7[]
-aGraphicsInterf_7 db 'graphics\interface\chrgen\buttons\mnloff.bmp',0
-                align 4
-; char aGraphicsInterf_8[]
-aGraphicsInterf_8 db 'graphics\interface\chrgen\buttons\mdisable.bmp',0
-                align 4
-; char aD[]
-aD              db '%d',0               ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+EA↑o
-                align 10h
-; char aD_0[]
-aD_0            db '%d',0               ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+27C↑o
-                align 4
-; char aSD[]
-aSD             db '%s = %d',0          ; DATA XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1D6↑o
-; char aD_60[]
-aD_60           db '%+d',0
 ; char aGraphicsInterf_9[]
 aGraphicsInterf_9 db 'graphics\Interface\chrgen\FullStatsL.bmp',0
                 align 10h
@@ -370630,7 +370525,6 @@ byte_659514      db    ?
 dword_659518    dd ?                    ; DATA XREF: sub_42BD41+8D↑w
 byte_65951C      db    ?
                 align 10h
-dword_659520    dd ?                    ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+2D↑w
 dword_659530    dd ?                    ; DATA XREF: sub_42BD41+67↑w
 ; CString unk_659538
 unk_659538      db 4h dup(?)
