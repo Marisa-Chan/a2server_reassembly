@@ -314,9 +314,7 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-??_GVisCharGenAction@@UAEPAXI@Z	24
-?UpdateMouseOver@VisCharGenAction@@AAEXIVCPoint@@@Z	56
-??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
+??1VisCharGenAction@@UAE@XZ	42
 ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36
