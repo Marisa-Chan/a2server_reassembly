@@ -2711,7 +2711,7 @@ public:
 };
 ASSERT_SIZE(GlobalMapRouteArray, 0x18);
 
-// Opaque pathmap/graph builder state allocated by VisGlobalMap::VMethod28.
+// Pathmap/graph builder state allocated by VisGlobalMap::VMethod28.
 class GMapThing
 {
 public:
@@ -2720,8 +2720,15 @@ public:
 	void Destroy(uint32_t flags); // 473da0
 
 public:
-	char __unused__[0x9602C];
+	CBmp64* pathmap; //0x0
+	int field_0x4; //0x4
+	CArray<CPoint>*** field_0x8; //0x8
+	CArray<CPoint> field_0xc; //0xc
+	uint16_t field_0x20[640][480]; //0x20
+	uint8_t* bmp_data; // 0x96020
+	CPoint field_0x96024; // 0x96024
 };
+ASSERT_SIZE(GMapThing, 0x9602c);
 
 //60b760
 class VisGlobalMap : public VisScreen
