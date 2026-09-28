@@ -6734,6 +6734,26 @@ void VisCharGenAction::UpdateMouseOver(uint32_t wparam, CPoint pos) {
 }
 
 
+// 42ae83
+void VisCharGenAction::Init() {
+    this->mouse_down_box = -1;
+    this->mouse_over_box = -1;
+    this->areas[0] = CRect(0x1E4, 0x2C, 0x270, 0x5A);
+    this->areas[1] = CRect(0x1E4, 0x5B, 0x270, 0x89);
+    this->areas[2] = CRect(0x1E4, 0x8A, 0x270, 0xB8);
+    for (int32_t i = 0; i < 3; i++) {
+        this->btn_on[i] = nullptr;
+        this->btn_off[i] = nullptr;
+    }
+    this->area_bmp = nullptr;
+    this->texts.SetSize(3, -1);
+    this->texts.ElementAt(0) = TxtFile::AllLines[0xEE];
+    this->texts.ElementAt(1) = TxtFile::AllLines[0xEF];
+    this->texts.ElementAt(2) = TxtFile::AllLines[0x104];
+    this->flags |= FLAG_NOTFOCUS;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
