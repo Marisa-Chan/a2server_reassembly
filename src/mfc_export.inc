@@ -1420,6 +1420,9 @@ extern ?StatLevelPoints@@YAHH@Z:proc ; int32_t StatLevelPoints(int32_t) 5008CA
 extern ?sub_43A820@@YAPAVCString@@PAV1@I@Z :proc                                        ; CString* sub_43A820(CString*, uint32_t) — itoa
 externdef ?sub_4F499B@@YAPAVItem@@PAPAE@Z :proc                                                     ; sub_4F499B — parse item from packet data
 
+externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
+extern ?FlushScreen@@YAXXZ  : proc
+
 
 ;VisSpellBook
 externdef ?FUN_004caa69@VisSpellBook@@QAEXXZ : proc
@@ -1598,7 +1601,6 @@ externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc
-externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGame@@UAEXXZ  : proc
 extern ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z : proc
@@ -1607,12 +1609,8 @@ extern ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z  : proc
 extern ?UpdateHotspots@VisStartGame@@QAEIHHI@Z  : proc
 extern ?Accept@VisStartGame@@QAEXXZ  : proc
-externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
-externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
-externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 extern ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
-extern ?FlushScreen@@YAXXZ  : proc
 extern ?FreeSamples@VisStartGame@@QAEXXZ  : proc
 extern ?FreeBitmaps@VisStartGame@@QAEXXZ  : proc
 extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
@@ -1677,6 +1675,7 @@ externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
 externdef ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
 externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
+externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 
 ;VisQuestStatus
 externdef ??_GVisQuestStatus@@UAEPAXI@Z : proc
@@ -1777,6 +1776,8 @@ externdef ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
+externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
+externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 
 ;VisInvBase
 extern ??0VisInvBase@@QAE@HHHHH@Z : proc  ; VisInvBase::VisInvBase(int32_t, int32_t, int32_t, int32_t, int32_t)
