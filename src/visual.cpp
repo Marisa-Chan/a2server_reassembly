@@ -6566,6 +6566,15 @@ const char* VisCharGenFullStats::GetHint() {
 }
 
 
+// 42ab9c
+void VisCharGenFullStats::FreeBitmaps() {
+    if (this->bmp != nullptr) {
+        delete this->bmp;
+    }
+    this->bmp = nullptr;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
