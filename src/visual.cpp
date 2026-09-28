@@ -5857,6 +5857,36 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42EDC2
+void VisCharGen::OnPrevFace()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->sessionMode == 2) {
+        return;
+    }
+    if (this->mage_flag == 0) {
+        if (this->female_face == 0) {
+            this->selected_face_set = (this->face_sets[1].GetSize() + this->selected_face_set - 1) % this->face_sets[1].GetSize();
+            this->selected_face = this->face_sets[1].GetAt(this->selected_face_set);
+        } else {
+            this->selected_face_set = (this->face_sets[3].GetSize() + this->selected_face_set - 1) % this->face_sets[3].GetSize();
+            this->selected_face = this->face_sets[3].GetAt(this->selected_face_set);
+        }
+    } else {
+        if (this->female_face == 0) {
+            this->selected_face_set = (this->face_sets[0].GetSize() + this->selected_face_set - 1) % this->face_sets[0].GetSize();
+            this->selected_face = this->face_sets[0].GetAt(this->selected_face_set);
+        } else {
+            this->selected_face_set = (this->face_sets[2].GetSize() + this->selected_face_set - 1) % this->face_sets[2].GetSize();
+            this->selected_face = this->face_sets[2].GetAt(this->selected_face_set);
+        }
+    }
+    this->current_char->face = this->selected_face;
+    this->current_char->unitFlags |= 8;
+    main_wnd->m_GameSession.face = this->current_char->face;
+}
+
+
 // 42DCD9
 VisCharGen::VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
