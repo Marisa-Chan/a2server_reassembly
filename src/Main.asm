@@ -77822,82 +77822,12 @@ sub_46FED1      endp
 
 ; Attributes: bp-based frame
 
-?LoadSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+62↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FreeSamples@VisGlobalMap@@QAEXXZ
-                push    offset aSfxScrollupWav ; "SFX\\ScrollUp.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 180h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxScrolldnWav ; "SFX\\ScrollDn.wav"
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 184h
-                push    ecx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxPoint1Wav ; "SFX\\Point1.wav"
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 188h
-                push    edx             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                push    offset aSfxPoint2Wav ; "SFX\\Point2.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 18Ch
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?LoadSamples@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?FreeSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 180h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 184h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 188h
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 18Ch
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreeSamples@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -78281,35 +78211,6 @@ sub_471F15      endp
 
 ; Attributes: bp-based frame
 
-?FinishTravel@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?OnChar@VisGlobalMap@@UAEHI@Z+A↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+12Ch], 0
-                jz      short loc_4726C8
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0E0h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+12Ch], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+7Ch]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+134h], eax
-
-loc_4726C8:                             ; CODE XREF: ?FinishTravel@VisGlobalMap@@QAEXXZ+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FinishTravel@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -78627,42 +78528,6 @@ loc_472CB5:                             ; CODE XREF: ?SearchRoute@VisGlobalMap@@
 
 ; Attributes: bp-based frame
 
-?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+A0D↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_C], ecx
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                push    ecx
-                lea     ecx, [ebp+arg_0]
-                call    ??ZCPoint@@QAEXUtagSIZE@@@Z ; CPoint::operator-=(tagSIZE)
-                mov     edx, ?g_Cursors@@3PAPAVCCursor@@A+14h
-                push    edx
-                call    ?ApplyCursor@@YAHPAVCCursor@@@Z
-                add     esp, 4
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

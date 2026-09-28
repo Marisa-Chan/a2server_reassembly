@@ -422,10 +422,6 @@
 ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z	92
 ?VMethod26@VisFameHall@@UAEXXZ	115
 ?VMethod7@VisFameHall@@UAEXXZ	218
-?FinishTravel@VisGlobalMap@@QAEXXZ	28
-?FreeSamples@VisGlobalMap@@QAEXXZ	31
-?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
-?LoadSamples@VisGlobalMap@@QAEXXZ	37
 ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z	192
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32

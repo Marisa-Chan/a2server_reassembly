@@ -1636,15 +1636,11 @@ extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
-externdef ?LoadSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?Init@GMapThing@@QAEPAV1@XZ : proc
 externdef ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z : proc
 externdef ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z : proc
-externdef ?FinishTravel@VisGlobalMap@@QAEXXZ : proc
 externdef ?Destroy@GMapThing@@QAEXI@Z : proc
-externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
-externdef ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
 extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc

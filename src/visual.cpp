@@ -5773,6 +5773,46 @@ void VisGlobalMap::OnMapClick()
 }
 
 
+// 472D4B
+void VisGlobalMap::UpdateHoveredLocation(CPoint pos)
+{
+    CPoint screen_pt = this->rect.TopLeft();
+    pos -= CSize(screen_pt.x, screen_pt.y);
+    ApplyCursor(g_Cursors[CURSOR_SELECT]);
+}
+
+
+// 470504
+void VisGlobalMap::LoadSamples()
+{
+    this->FreeSamples();
+    FUN_00438e40(&this->snd_scrollup.sample, "SFX\\ScrollUp.wav");
+    FUN_00438e40(&this->snd_scrolldn.sample, "SFX\\ScrollDn.wav");
+    FUN_00438e40(&this->snd_point1.sample, "SFX\\Point1.wav");
+    FUN_00438e40(&this->snd_point2.sample, "SFX\\Point2.wav");
+}
+
+
+// 470571
+void VisGlobalMap::FreeSamples()
+{
+    FUN_00438dd0(&this->snd_scrollup.sample);
+    FUN_00438dd0(&this->snd_scrolldn.sample);
+    FUN_00438dd0(&this->snd_point1.sample);
+    FUN_00438dd0(&this->snd_point2.sample);
+}
+
+
+// 472684
+void VisGlobalMap::FinishTravel()
+{
+    if (this->travelProgress != 0) {
+        this->travelProgress = this->travelRoutePoints.GetSize() + 1;
+        this->targetCrossAnimationFrame = this->cross_spr->GetFrameCount() + 1;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
