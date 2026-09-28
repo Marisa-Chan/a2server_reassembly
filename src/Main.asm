@@ -24103,91 +24103,6 @@ sub_42DC65      endp
 
 ; Attributes: bp-based frame
 
-?ShowTipHint@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42C072+11A↑p
-
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F80E7 SIZE 00000013 BYTES
-
-; __unwind { // SEH_42EA87
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42EA87
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 8
-                mov     [ebp+var_14], ecx
-                cmp     ?g_settings@@3UGameSettings@@A+1ch, 0
-                jz      short loc_42EAC6
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     dword ptr [eax+100h], 0
-                jnz     short loc_42EAC6
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     dword ptr [ecx+80h], 0
-                jnz     short loc_42EAC8
-
-loc_42EAC6:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+25↑j
-                jmp     short loc_42EB1B
-; ---------------------------------------------------------------------------
-
-loc_42EAC8:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+3D↑j
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     edx, [ebp+var_10]
-                push    edx             ; CString *
-                push    7               ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ecx+80h]
-                call    sub_438B80
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+100h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     [ecx+100h], eax
-;   } // starts at 42EAD0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_42EB1B:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ:loc_42EAC6↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42EA87
-?ShowTipHint@VisCharGen@@QAEXXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; int __thiscall ?OnClickFwd@VisCharGen@@QAEXXZ(void *varThis)
 ?OnClickFwd@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+99↑p
 
@@ -31689,24 +31604,6 @@ sub_438960      endp
 
 ; Attributes: bp-based frame
 
-sub_438B80      proc near               ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+6B↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?SetText@VisTipsDialog@@QAEXPBD@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_438B80      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -319157,23 +319054,6 @@ SEH_42DC65:                             ; DATA XREF: sub_42DC65+5↑o
 ; } // starts at 5F800E
 ; END OF FUNCTION CHUNK FOR sub_42DC65
 ; ---------------------------------------------------------------------------
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ShowTipHint@VisCharGen@@QAEXXZ
-
-loc_5F80E7:                             ; DATA XREF: .rdata:stru_618710↓o
-; __unwind { // SEH_42EA87              ; varThis
-;   cleanup() // owned by 42EAD0
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42EA87:                             ; DATA XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+5↑o
-                mov     eax, offset stru_6186F0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F80E7
-; END OF FUNCTION CHUNK FOR ?ShowTipHint@VisCharGen@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42F072
 
 loc_5F80FA:                             ; DATA XREF: .rdata:stru_618738↓o
@@ -359002,12 +358882,6 @@ stru_6185E8     FuncInfoV1 <19930520h, 2, offset stru_618608, 0, 0, 0, 0>
                 db    0
 stru_618608     UnwindMapEntry <-1, offset loc_5F800E>
                 UnwindMapEntry <0, offset loc_5F8017>
-stru_6186F0     FuncInfoV1 <19930520h, 1, offset stru_618710, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618710     UnwindMapEntry <-1, offset loc_5F80E7>
 stru_618718     FuncInfoV1 <19930520h, 2, offset stru_618738, 0, 0, 0, 0>
                 db    0
                 db    0

@@ -5857,6 +5857,18 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42EA87
+void VisCharGen::ShowTipHint()
+{
+    if (g_settings.TipsMode != 0 && this->tips_step == 0 && this->tips != nullptr) {
+        CString str;
+        MissionGetTips(7, &str);
+        this->tips->SetText(str);
+        this->tips_step = this->tips_step + 1;
+    }
+}
+
+
 // 42E92A
 void VisCharGen::RollStats()
 {
