@@ -5813,6 +5813,49 @@ void VisGlobalMap::FinishTravel()
 }
 
 
+// 472ADA
+void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route)
+{
+    if (from == to) {
+        if (route->routeCost < this->bestRouteCost) {
+            this->bestRouteCost = route->routeCost;
+            this->routeNodeIndices.Copy(*route);
+        }
+        return;
+    }
+    for (int32_t n = 0; n < this->graphNodePoints.GetSize(); n++) {
+        if (n == from) {
+            continue;
+        }
+        bool contained = false;
+        for (int32_t k = 0; k < route->GetSize(); k++) {
+            if (route->GetAt(k) == (uint16_t)n) {
+                contained = true;
+                break;
+            }
+        }
+        if (contained) {
+            continue;
+        }
+        CArray<CPoint>*** rows = static_cast<CArray<CPoint>***>(this->routeAdjacencyMatrix);
+        CArray<CPoint>* segment = rows[from][n];
+        if (segment == nullptr) {
+            continue;
+        }
+        if (route->routeCost + segment->GetSize() >= this->bestRouteCost) {
+            continue;
+        }
+        GlobalMapRouteArray* new_route = new GlobalMapRouteArray();
+        new_route->Copy(*route);
+        new_route->routeCost = route->routeCost;
+        new_route->Add(static_cast<uint16_t>(n));
+        new_route->routeCost += segment->GetSize();
+        this->SearchRoute(static_cast<uint16_t>(n), to, new_route);
+        delete new_route;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

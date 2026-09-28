@@ -422,7 +422,6 @@
 ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z	92
 ?VMethod26@VisFameHall@@UAEXXZ	115
 ?VMethod7@VisFameHall@@UAEXXZ	218
-?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z	192
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
