@@ -19105,7 +19105,7 @@ arg_0           = dword ptr  8
                 push    edx
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 468h
-                call    sub_494148
+                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+5Ch]
                 add     ecx, 84h
@@ -19192,7 +19192,7 @@ arg_0           = dword ptr  8
                 push    eax
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 468h
-                call    sub_494148
+                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     edx, dword ptr [ecx+5Ch]
                 add     edx, 84h
@@ -21824,7 +21824,7 @@ loc_42C0EA:                             ; CODE XREF: sub_42C072+57↑j
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_4]
                 add     ecx, 468h
-                call    sub_494148
+                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
                 mov     edx, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [edx+5Ch]
                 call    ?ShowTipHint@VisCharGen@@QAEXXZ
@@ -24085,73 +24085,6 @@ sub_42DC65      endp
 
 ; Attributes: bp-based frame
 
-?RollStats@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+A6↑p
-
-var_10          = dword ptr -10h
-var_C           = byte ptr -0Ch
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+70h]
-                mov     dword ptr [ecx+1F0h], 64h ; 'd'
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+70h]
-                mov     dword ptr [eax+1D0h], 19h
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+70h]
-                mov     dword ptr [edx+1D4h], 19h
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+70h]
-                mov     dword ptr [ecx+1D8h], 19h
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+70h]
-                mov     dword ptr [eax+1DCh], 19h
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+7Ch]
-                mov     eax, dword ptr [edx+134h]
-                add     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+70h]
-                mov     eax, dword ptr [edx+1DCh]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+70h]
-                mov     eax, dword ptr [edx+1D8h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+70h]
-                mov     eax, dword ptr [edx+1D4h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+70h]
-                mov     eax, dword ptr [edx+1D0h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 468h
-                call    sub_494148
-                push    0
-                push    0
-                lea     ecx, [ebp+var_C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx
-                push    0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+70h]
-                call    ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?RollStats@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -94020,7 +93953,7 @@ loc_493D74:                             ; CODE XREF: ?FUN_00493cd8@CGameSession@
 
 ; Attributes: bp-based frame
 
-sub_494148      proc near               ; CODE XREF: sub_42A778+C6↑p
+?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      proc near               ; CODE XREF: sub_42A778+C6↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -94064,13 +93997,13 @@ arg_10          = dword ptr  18h
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     [ecx+1B8h], eax
 
-loc_4941B2:                             ; CODE XREF: sub_494148+4A↑j
+loc_4941B2:                             ; CODE XREF: ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z+4A↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 call    ?RecreateCUnit@CGameSession@@QAEXXZ
                 mov     esp, ebp
                 pop     ebp
                 retn    14h
-sub_494148      endp
+?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      endp
 
 
 

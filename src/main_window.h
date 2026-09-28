@@ -170,6 +170,7 @@ public:
     void FUN_00493d8d(); //493d8d
     void FUN_00494687(); //494687
     void RecreateCUnit(); //4941c0
+    void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); //494148 in asm
 
 
     void RefreshCharacterRosterFiles(int val); //49265a

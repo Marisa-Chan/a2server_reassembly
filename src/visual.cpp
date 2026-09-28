@@ -5857,6 +5857,25 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42E92A
+void VisCharGen::RollStats()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->stats_panel->field_0x1f0 = 100;
+    this->stats_panel->stat_body = 0x19;
+    this->stats_panel->stat_reaction = 0x19;
+    this->stats_panel->stat_mind = 0x19;
+    this->stats_panel->stat_spirit = 0x19;
+    main_wnd->m_GameSession.SetCharacterStats(
+        this->stats_panel->stat_body,
+        this->stats_panel->stat_reaction,
+        this->stats_panel->stat_mind,
+        this->stats_panel->stat_spirit,
+        this->skills_panel->selected_slot + 1);
+    this->stats_panel->HandleClick(0, CPoint(0, 0));
+}
+
+
 // 42EBE0
 void VisCharGen::OnNextFace()
 {
