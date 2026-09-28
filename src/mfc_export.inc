@@ -1632,7 +1632,7 @@ externdef ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisGlobalMap@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc

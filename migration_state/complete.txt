@@ -585,6 +585,7 @@
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType2@@UAEHIVCPoint@@@Z
