@@ -5579,6 +5579,14 @@ VisGlobalMap::~VisGlobalMap()
 }
 
 
+// 46FD7B
+VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
+    : VisScreen(_id, l, t, r, b, btm)
+{
+    this->VMethod26();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

@@ -1041,7 +1041,6 @@ externdef   ??0VisCharInfo@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMainMenu@@QAE@HHHHH@Z  : proc
 externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
-externdef   ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z  : proc
 externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
 externdef   ??0VisFameDocument@@QAE@HHHHH@Z  : proc
 

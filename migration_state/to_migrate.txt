@@ -426,7 +426,6 @@
 ?FreeSamples@VisGlobalMap@@QAEXXZ	31
 ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
 ?LoadSamples@VisGlobalMap@@QAEXXZ	37
-??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z	122
 ?OnMapClick@VisGlobalMap@@QAEXXZ	226
 ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z	249
 ?FreeBitmaps@VisGlobalMap@@QAEXXZ	431
