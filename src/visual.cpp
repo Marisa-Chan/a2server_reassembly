@@ -13582,3 +13582,12 @@ void VisStartGame::ClearDifficultySelectedFlags()
         this->difficultyStateFlags.ElementAt(i) &= ~1u;
     }
 }
+
+
+// 43578C
+void VisStartGame::ClearPortraitSelectedFlags()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        this->portraitStateFlags.ElementAt(i) &= ~1u;
+    }
+}

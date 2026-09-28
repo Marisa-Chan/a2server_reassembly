@@ -541,7 +541,6 @@
 ?MsgProc@VisSpellBook@@UAEHIII@Z	180
 ?VMethod7@VisSpellBook@@UAEXXZ	450
 ?GetHint@VisSpellBook@@UAEPBDXZ	675
-?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
 ?FreeSamples@VisStartGame@@QAEXXZ	56

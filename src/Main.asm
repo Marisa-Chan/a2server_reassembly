@@ -33876,47 +33876,6 @@ loc_4356A2:                             ; CODE XREF: ?FreeBitmaps@VisStartGame@@
 
 ; Attributes: bp-based frame
 
-?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+112↓p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_4357A7
-; ---------------------------------------------------------------------------
-
-loc_43579E:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+43↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4357A7:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+10↑j
-                cmp     [ebp+var_4], 4
-                jge     short loc_4357D1
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 134h
-                call    sub_4387B0
-                mov     [ebp+var_C], eax
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                and     eax, 0FFFFFFFEh
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     [ecx], eax
-                jmp     short loc_43579E
-; ---------------------------------------------------------------------------
-
-loc_4357D1:                             ; CODE XREF: ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ+1F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
