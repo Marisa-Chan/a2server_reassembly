@@ -1644,7 +1644,6 @@ externdef ?FinishTravel@VisGlobalMap@@QAEXXZ : proc
 externdef ?Destroy@GMapThing@@QAEXI@Z : proc
 externdef ?FreeSamples@VisGlobalMap@@QAEXXZ : proc
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
-externdef ?OnMapClick@VisGlobalMap@@QAEXXZ : proc
 externdef ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc

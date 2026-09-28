@@ -5739,6 +5739,40 @@ void VisGlobalMap::ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX,
 }
 
 
+// 472DCA
+void VisGlobalMap::OnMapClick()
+{
+    CPoint old_target = this->targetLocationPoint;
+    CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
+    CPoint screen_pt = this->rect.TopLeft();
+    mouse -= CSize(screen_pt.x, screen_pt.y);
+    int32_t best_dist = 0x7FFFFFFF;
+    ScenarioLocation* best_loc = nullptr;
+    for (POSITION pos = ScenarioGetAvailableLocations()->GetHeadPosition(); pos != nullptr;) {
+        ScenarioLocation* loc = ScenarioGetAvailableLocations()->GetNext(pos);
+        CPoint loc_pt = loc->GetRect().TopLeft();
+        int32_t dist = (loc_pt.x - mouse.x) * (loc_pt.x - mouse.x)
+            + (loc_pt.y - mouse.y) * (loc_pt.y - mouse.y);
+        if (dist < best_dist) {
+            best_dist = dist;
+            this->targetLocationPoint = loc_pt;
+            best_loc = loc;
+        }
+    }
+    if (old_target != this->targetLocationPoint) {
+        this->ComputeTravelRoute(this->currentLocationPoint.x, this->currentLocationPoint.y,
+            this->targetLocationPoint.x, this->targetLocationPoint.y);
+    }
+    if (best_loc != nullptr) {
+        MissionGetLocName(best_loc->GetKind(), best_loc->GetId(), &this->hoveredLocationTitle);
+        this->hoveredLocationTitle = this->hoveredLocationTitle.Left(this->hoveredLocationTitle.GetLength() - 2);
+        CString desc;
+        MissionGetDescription(best_loc->GetKind(), best_loc->GetId(), &desc);
+        this->hoveredLocationLines.Copy(g_font2->StringArrayForRect(CRect(0x46, 0x30, 0x186, 0xC8), desc));
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

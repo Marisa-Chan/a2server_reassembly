@@ -427,7 +427,6 @@
 ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
 ?LoadSamples@VisGlobalMap@@QAEXXZ	37
 ?SearchRoute@VisGlobalMap@@QAEXGGPAVGlobalMapRouteArray@@@Z	192
-?OnMapClick@VisGlobalMap@@QAEXXZ	226
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
