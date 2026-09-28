@@ -453,6 +453,7 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
+?GetHint@VisCharGenStats@@UAEPBDXZ
 ?GetHint@VisGlobalMap@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
@@ -714,8 +715,10 @@
 ?Start@Server@@QAEHH@Z
 ?StartPlayTrack@MusicPlayer@@QAEXH@Z
 ?StartServer@CLlDriver@@QAEHHPBDPAUCLlAddress@@@Z
+?StatDownRefund@VisCharGenStats@@AAEHH@Z
 ?StaticAddPath@Resources@@SAXPBD@Z
 ?StatLevelPoints@@YAHH@Z
+?StatUpCost@VisCharGenStats@@AAEHH@Z
 ?StepForward@VisTavSceneAnim@@QAE_NXZ
 ?Stop@SoundChannel@@QAEXXZ
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z

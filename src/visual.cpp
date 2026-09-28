@@ -6260,6 +6260,51 @@ void VisCharGenStats::FreeBitmaps()
 }
 
 
+// 42a96d
+int32_t VisCharGenStats::StatUpCost(int32_t stat) {
+    return StatLevelPoints(stat + 1) - StatLevelPoints(stat);
+}
+
+// 42a99d
+int32_t VisCharGenStats::StatDownRefund(int32_t stat) {
+    return StatLevelPoints(stat) - StatLevelPoints(stat - 1);
+}
+
+// 42a43b
+const char* VisCharGenStats::GetHint() {
+    if (this->parent_screen->active_flag == 0) {
+        return nullptr;
+    }
+    static CString str;
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    CPoint topleft;
+    this->ClientPtToScreen(&topleft, this->rect.TopLeft());
+    for (int32_t i = 0; i < 4; i++) {
+        if ((this->field_0x64[i] + topleft).PtInRect(pt)) {
+            return TxtFile::AllLines[i + 0x9B];
+        }
+        if ((this->field_0xa4 + topleft).PtInRect(pt)) {
+            return TxtFile::AllLines[0x111];
+        }
+        if ((this->areas[i * 3] + topleft).PtInRect(pt)) {
+            str.Format("%s = %d", (LPCTSTR)this->texts.ElementAt(i), (&this->stat_body)[i]);
+            return str;
+        }
+        if ((this->areas[i * 3 + 1] + topleft).PtInRect(pt)) {
+            str.Format("%+d", -this->StatUpCost((&this->stat_body)[i]));
+            FUN_00476987(&str);
+            return str;
+        }
+        if ((this->areas[i * 3 + 2] + topleft).PtInRect(pt)) {
+            str.Format("%+d", this->StatDownRefund((&this->stat_body)[i]));
+            FUN_00476987(&str);
+            return str;
+        }
+    }
+    return nullptr;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

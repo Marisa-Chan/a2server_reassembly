@@ -17692,7 +17692,7 @@ loc_42A1BA:                             ; CODE XREF: ?HandleClick@VisCharGenStat
                 mov     ecx, dword ptr [eax+edx*4+1D0h]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_42A96D
+                call    ?StatUpCost@VisCharGenStats@@AAEHH@Z
                 mov     [ebp+var_4], eax
                 mov     edx, dword ptr [ebp+var_C]
                 mov     eax, dword ptr [ebp+var_18]
@@ -17750,7 +17750,7 @@ loc_42A26B:                             ; CODE XREF: ?HandleClick@VisCharGenStat
                 mov     edx, dword ptr [ecx+eax*4+1D0h]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_42A99D
+                call    ?StatDownRefund@VisCharGenStats@@AAEHH@Z
                 mov     [ebp+var_4], eax
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [ebp+var_18]
@@ -18022,296 +18022,6 @@ loc_42A435:                             ; CODE XREF: ?OnWmUser@VisCharGenStats@@
 
 ; Attributes: bp-based frame
 
-?GetHint@VisCharGenStats@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:006094DC↓o
-
-var_90          = dword ptr -90h
-var_8C          = POINT ptr -8Ch
-var_84          = dword ptr -84h
-var_74          = POINT ptr -74h
-var_6C          = dword ptr -6Ch
-var_5C          = POINT ptr -5Ch
-var_54          = dword ptr -54h
-var_44          = POINT ptr -44h
-var_3C          = dword ptr -3Ch
-pt              = POINT ptr -2Ch
-var_24          = dword ptr -24h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = byte ptr -8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 90h
-                mov     [ebp+var_90], ecx
-                mov     eax, dword ptr [ebp+var_90]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+104h], 0
-                jnz     short loc_42A463
-                xor     eax, eax
-                jmp     loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A463:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1F↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                push    eax
-                lea     ecx, [ebp+var_14]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                xor     edx, edx
-                mov     dl, byte_659548
-                and     edx, 1
-                test    edx, edx
-                jnz     short loc_42A4B3
-                mov     al, byte_659548
-                or      al, 1
-                mov     byte_659548, al
-                mov     ecx, offset unk_659540 ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-                push    offset sub_42A769 ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-
-loc_42A4B3:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+53↑j
-                lea     ecx, [ebp+var_8] ; void *
-                call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                lea     ecx, [ebp+var_8]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_90]
-                call    ?ClientPtToScreen@CVisualObject@@QAEXPAVCPoint@@ABV2@@Z
-                mov     [ebp+var_C], 0
-                jmp     short loc_42A4EB
-; ---------------------------------------------------------------------------
-
-loc_42A4E2:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ:loc_42A75E↓j
-                mov     edx, dword ptr [ebp+var_C]
-                add     edx, 1
-                mov     [ebp+var_C], edx
-
-loc_42A4EB:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+A5↑j
-                cmp     [ebp+var_C], 4
-                jge     loc_42A763
-                mov     eax, dword ptr [ebp+var_14]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_C]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_90]
-                lea     ecx, [edx+ecx+64h]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     eax, [ebp+var_24]
-                push    eax             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_42A551
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 9Bh
-                push    ecx
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                jmp     loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A551:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+F9↑j
-                mov     edx, dword ptr [ebp+var_14]
-                mov     dword ptr [ebp+var_44], edx ; var_44.x
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [ebp+var_44+4], eax ; var_44.y
-                mov     ecx, dword ptr [ebp+var_44+4] ; var_44.y
-                push    ecx
-                mov     edx, dword ptr [ebp+var_44] ; var_44.x
-                push    edx             ; pt
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 0A4h
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     eax, [ebp+var_3C]
-                push    eax             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_42A5A4
-                push    111h
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                jmp     loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A5A4:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+151↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     dword ptr [ebp+var_5C], ecx ; var_5C.x
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [ebp+var_5C+4], edx ; var_5C.y
-                mov     eax, dword ptr [ebp+var_5C+4] ; var_5C.y
-                push    eax
-                mov     ecx, dword ptr [ebp+var_5C] ; var_5C.x
-                push    ecx             ; pt
-                mov     edx, dword ptr [ebp+var_C]
-                imul    edx, 30h ; '0'
-                mov     eax, dword ptr [ebp+var_90]
-                lea     ecx, [eax+edx+0B4h]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     ecx, [ebp+var_54]
-                push    ecx             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_42A632
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_90]
-                mov     ecx, dword ptr [eax+edx*4+1D0h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_90]
-                add     ecx, 1BCh
-                call    sub_401820
-                mov     eax, dword ptr [eax]
-                push    eax
-                push    offset aSD      ; "%s = %d"
-                push    offset unk_659540 ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 10h
-                mov     ecx, offset unk_659540
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                jmp     loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A632:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1AB↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     dword ptr [ebp+var_74], ecx ; var_74.x
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [ebp+var_74+4], edx ; var_74.y
-                mov     eax, dword ptr [ebp+var_74+4] ; var_74.y
-                push    eax
-                mov     ecx, dword ptr [ebp+var_74] ; var_74.x
-                push    ecx             ; pt
-                mov     edx, dword ptr [ebp+var_C]
-                imul    edx, 30h ; '0'
-                mov     eax, dword ptr [ebp+var_90]
-                lea     ecx, [eax+edx+0C4h]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     ecx, [ebp+var_6C]
-                push    ecx             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_42A6C3
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_90]
-                mov     ecx, dword ptr [eax+edx*4+1D0h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_90]
-                call    sub_42A96D
-                neg     eax
-                push    eax
-                push    offset aD_60 ; Format
-                push    offset unk_659540 ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                push    offset unk_659540 ; CString *
-                call    ?FUN_00476987@@YAXPAVCString@@@Z
-                add     esp, 4
-                mov     ecx, offset unk_659540
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                jmp     loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A6C3:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+239↑j
-                mov     edx, dword ptr [ebp+var_14]
-                mov     dword ptr [ebp+var_8C], edx ; var_8C.x
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [ebp+var_8C+4], eax ; var_8C.y
-                mov     ecx, dword ptr [ebp+var_8C+4] ; var_8C.y
-                push    ecx
-                mov     edx, dword ptr [ebp+var_8C] ; var_8C.x
-                push    edx             ; pt
-                mov     eax, dword ptr [ebp+var_C]
-                imul    eax, 30h ; '0'
-                mov     ecx, dword ptr [ebp+var_90]
-                lea     ecx, [ecx+eax+0D4h]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     edx, [ebp+var_84]
-                push    edx             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_42A75E
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ebp+var_90]
-                mov     edx, dword ptr [ecx+eax*4+1D0h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_90]
-                call    sub_42A99D
-                push    eax
-                push    offset aD_60 ; Format
-                push    offset unk_659540 ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                push    offset unk_659540 ; CString *
-                call    ?FUN_00476987@@YAXPAVCString@@@Z
-                add     esp, 4
-                mov     ecx, offset unk_659540
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                jmp     short loc_42A765
-; ---------------------------------------------------------------------------
-
-loc_42A75E:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+2D9↑j
-                jmp     loc_42A4E2
-; ---------------------------------------------------------------------------
-
-loc_42A763:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+B4↑j
-                xor     eax, eax
-
-loc_42A765:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+23↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetHint@VisCharGenStats@@UAEPBDXZ      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_42A769()
-sub_42A769      proc near               ; DATA XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+6B↑o
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset unk_659540 ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                pop     ebp
-                retn
-sub_42A769      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18334,7 +18044,7 @@ arg_0           = dword ptr  8
                 mov     edx, dword ptr [ecx+eax*4+1D0h]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_42A96D
+                call    ?StatUpCost@VisCharGenStats@@AAEHH@Z
                 mov     [ebp+var_4], eax
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+1F0h]
@@ -18425,7 +18135,7 @@ arg_0           = dword ptr  8
                 mov     edx, dword ptr [ecx+eax*4+1D0h]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_42A99D
+                call    ?StatDownRefund@VisCharGenStats@@AAEHH@Z
                 mov     [ebp+var_4], eax
                 mov     eax, dword ptr [ebp+arg_0]
                 mov     ecx, dword ptr [ebp+var_C]
@@ -18496,66 +18206,12 @@ sub_42A87B      endp
 
 ; Attributes: bp-based frame
 
-sub_42A96D      proc near               ; CODE XREF: ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z+74↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, 1
-                push    eax
-                call    ?StatLevelPoints@@YAHH@Z
-                add     esp, 4
-                mov     esi, eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                call    ?StatLevelPoints@@YAHH@Z
-                add     esp, 4
-                sub     esi, eax
-                mov     eax, esi
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_42A96D      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A99D      proc near               ; CODE XREF: ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z+11B↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                call    ?StatLevelPoints@@YAHH@Z
-                add     esp, 4
-                mov     esi, eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 1
-                push    ecx
-                call    ?StatLevelPoints@@YAHH@Z
-                add     esp, 4
-                sub     esi, eax
-                mov     eax, esi
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_42A99D      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -2244,6 +2244,9 @@ public:
 	void LoadBitmaps(); // 429475 in asm
 	void FreeBitmaps(); // 4298b6 in asm
 	uint32_t HandleClick(int32_t mode, CPoint pt); // 42a161 in asm
+private:
+	int32_t StatUpCost(int32_t stat); // 42a96d in asm
+	int32_t StatDownRefund(int32_t stat); // 42a99d in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
