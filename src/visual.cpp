@@ -6209,6 +6209,38 @@ void VisCharGen::VMethod28()
 }
 
 
+void VisCharGenStats::LoadBitmaps()
+{ //429475
+    this->FreeBitmaps();
+    this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
+    g_mousept.Update();
+    this->field_0x194[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
+    g_mousept.Update();
+    this->field_0x194[1] = new CBmp64("graphics\\interface\\chrgen\\buttons\\ploff.bmp");
+    g_mousept.Update();
+    this->field_0x194[2] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnlon.bmp");
+    g_mousept.Update();
+    this->field_0x194[3] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pnloff.bmp");
+    g_mousept.Update();
+    this->field_0x194[4] = new CBmp64("graphics\\interface\\chrgen\\buttons\\pdisable.bmp");
+    g_mousept.Update();
+    this->field_0x194[5] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mlon.bmp");
+    g_mousept.Update();
+    this->field_0x194[6] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mloff.bmp");
+    g_mousept.Update();
+    this->field_0x194[7] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnlon.bmp");
+    g_mousept.Update();
+    this->field_0x194[8] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mnloff.bmp");
+    g_mousept.Update();
+    this->field_0x194[9] = new CBmp64("graphics\\interface\\chrgen\\buttons\\mdisable.bmp");
+    g_mousept.Update();
+    for (int32_t i = 0; i < 4; i++) {
+        this->field_0x174[i * 2] = this->field_0x194[4];
+        this->field_0x174[i * 2 + 1] = this->field_0x194[8];
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

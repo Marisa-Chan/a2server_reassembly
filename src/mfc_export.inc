@@ -1569,7 +1569,6 @@ extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 ;VisCharGenStats
 externdef ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ?ReadUnitStats@VisCharGenStats@@QAEXXZ : proc
-externdef ?LoadBitmaps@VisCharGenStats@@QAEXXZ : proc
 externdef ?FreeBitmaps@VisCharGenStats@@QAEXXZ : proc
 externdef ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z : proc
 externdef ??_GVisCharGenStats@@UAEPAXI@Z : proc

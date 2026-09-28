@@ -2246,12 +2246,12 @@ public:
 	uint32_t HandleClick(int32_t mode, CPoint pt); // 42a161 in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
-	int32_t field_0x60;
+	CBmp64* bmp; // 0x60
 	CRect field_0x64[4];
 	CRect field_0xa4;
 	CRect areas[12]; // 0xb4
-	int32_t field_0x174[8];
-	int32_t field_0x194[10];
+	CBmp64* field_0x174[8]; // 0x174: 4 x [plus, minus] button bitmap pairs
+	CBmp64* field_0x194[10]; // 0x194: plon/ploff/pnlon/pnloff/pdisable/mlon/mloff/mnlon/mnloff/mdisable
 	CStringArray texts; // 0x1bc
 	int32_t stat_body; // 0x1d0
 	int32_t stat_reaction; // 0x1d4

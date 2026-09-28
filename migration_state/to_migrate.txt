@@ -352,7 +352,6 @@
 ?VMethod7@VisCharGenStats@@UAEXXZ	256
 ?GetHint@VisCharGenStats@@UAEPBDXZ	274
 ?FreeBitmaps@VisCharGenStats@@QAEXXZ	342
-?LoadBitmaps@VisCharGenStats@@QAEXXZ	383
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12
