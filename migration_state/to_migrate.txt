@@ -318,7 +318,6 @@
 ?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z	23
 ??_GVisCharGenAction@@UAEPAXI@Z	24
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
-?FreeBitmaps@VisCharGenAction@@QAEXXZ	118
 ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36
