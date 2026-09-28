@@ -16897,30 +16897,6 @@ sub_42AE83      endp
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609604↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateMouseOver@VisCharGenAction@@AAEXIVCPoint@@@Z
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
