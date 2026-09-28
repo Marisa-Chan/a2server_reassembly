@@ -5882,6 +5882,17 @@ void VisCharGen::VMethod26()
 }
 
 
+// 42E196
+int32_t VisCharGen::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    CRect area = this->action_panel->GetRect() + this->rect.TopLeft();
+    if (!area.PtInRect(pos)) {
+        this->action_panel->ResetMouseBoxes();
+    }
+    return this->CVisualObject::OnMouseMove(wparam, pos);
+}
+
+
 // 42E058
 int32_t VisCharGen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
