@@ -24104,25 +24104,6 @@ sub_42DC65      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?OnClickFwd@VisCharGen@@QAEXXZ(void *varThis)
-?OnClickFwd@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+99↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    445h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?OnClickFwd@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

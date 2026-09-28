@@ -5878,6 +5878,13 @@ void VisCharGen::LoadSamples()
 }
 
 
+// 42EB8C
+void VisCharGen::OnClickFwd()
+{
+    this->MsgProc(0x445, 0, 0);
+}
+
+
 // 42EA87
 void VisCharGen::ShowTipHint()
 {
