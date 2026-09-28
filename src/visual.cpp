@@ -5432,6 +5432,28 @@ void VisGlobalMap::VMethod26()
 }
 
 
+// 472729
+const char* VisGlobalMap::GetHint()
+{
+    if (this->renderActiveFlag == 0) {
+        return nullptr;
+    }
+    if (!this->partDetailsRect.IsRectNull()) {
+        return nullptr;
+    }
+    CPoint pt(g_mousept.GetX() - this->rect.left, g_mousept.GetY() - this->rect.top);
+    for (int32_t i = 0; i < this->locationHitRects.GetSize(); i++) {
+        if (this->locationHitRects.ElementAt(i).PtInRect(pt)) {
+            if (this->locationAvailabilityFlags.ElementAt(i) == 0) {
+                return nullptr;
+            }
+            return TxtFile_00660e88.GetLine(i);
+        }
+    }
+    return nullptr;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
