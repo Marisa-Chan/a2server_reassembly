@@ -6754,6 +6754,12 @@ void VisCharGenAction::Init() {
 }
 
 
+// 42ae19
+VisCharGenAction::~VisCharGenAction() {
+    this->FreeBitmaps();
+    this->parent_screen = nullptr;
+}
+
 // 42ad7d
 VisCharGenAction::VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent)
 : CVisualObject(_id, l, t, r, b, nullptr)

@@ -16583,49 +16583,6 @@ sub_428D20      endp
 
 ; Attributes: bp-based frame
 
-??1VisCharGenAction@@UAE@XZ      proc near               ; CODE XREF: ??_GVisCharGenAction@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F7D99 SIZE 0000001F BYTES
-
-; __unwind { // SEH_42AE19
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42AE19
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_6095B8
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FreeBitmaps@VisCharGenAction@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+5Ch], 0
-;   } // starts at 42AE3E
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-;   } // starts at 42AE57
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42AE19
-??1VisCharGenAction@@UAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -313669,30 +313626,6 @@ SEH_428BF0:                             ; DATA XREF: sub_428BF0+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7C10
 ; END OF FUNCTION CHUNK FOR sub_428BF0
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??1VisCharGenAction@@UAE@XZ
-
-loc_5F7D99:                             ; DATA XREF: .rdata:stru_6183C0↓o
-; __unwind { // SEH_42AE19
-;   cleanup() // owned by 42AE57
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F7DA2:                             ; DATA XREF: .rdata:006183C8↓o
-;   cleanup() // owned by 42AE3E
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42AE19:                             ; DATA XREF: ??1VisCharGenAction@@UAE@XZ+5↑o
-                mov     eax, offset stru_6183A0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F7D99
-; END OF FUNCTION CHUNK FOR ??1VisCharGenAction@@UAE@XZ
 ; START OF FUNCTION CHUNK FOR sub_42B909
 
 unknown_libname_965:                    ; DATA XREF: .rdata:stru_618448↓o
@@ -339982,36 +339915,6 @@ off_6094A0      dd offset sub_5F4897    ; DATA XREF: sub_428B70+12↑o
                 db    0
                 db    0
                 db    0
-off_6095B8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42AD03+54↑o
-                dd offset ??_GVisCharGenAction@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisCharGenAction@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisCharGenAction@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisCharGenAction@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 off_609630      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42B909+5D↑o
                 dd offset ??_GVisCharGenSkills@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -353619,13 +353522,6 @@ stru_618170     FuncInfoV1 <19930520h, 1, offset stru_618190, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618190     UnwindMapEntry <-1, offset loc_5F7C10>
-stru_6183A0     FuncInfoV1 <19930520h, 2, offset stru_6183C0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6183C0     UnwindMapEntry <-1, offset loc_5F7D99>
-                UnwindMapEntry <0, offset loc_5F7DA2>
 stru_618428     FuncInfoV1 <19930520h, 1, offset stru_618448, 0, 0, 0, 0>
                 db    0
                 db    0

@@ -289,7 +289,6 @@
 ?Format@CString@@QAAXPBDZZ
 ?Free@CGamePalette@@QAEXXZ
 ?Free@TxtFile@@QAEXXZ
-?FreeBitmaps@VisCharGenAction@@QAEXXZ
 ?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
@@ -574,7 +573,6 @@
 ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
-?OnLButtonDown@VisCharGenAction@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -590,7 +588,6 @@
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
-?OnLButtonUp@VisCharGenAction@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
@@ -602,7 +599,6 @@
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
-?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -949,7 +945,6 @@
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
-?VMethod7@VisCharGenAction@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ
