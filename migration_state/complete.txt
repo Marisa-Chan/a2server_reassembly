@@ -568,6 +568,7 @@
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
+?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
@@ -592,6 +593,7 @@
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
@@ -603,6 +605,7 @@
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -627,6 +630,7 @@
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z
+?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType2@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvType1@@UAEHIVCPoint@@@Z
@@ -658,6 +662,7 @@
 ?ReadFileToString@@YAXPBDPAVCString@@@Z
 ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z
 ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z
+?ReadUnitStats@VisCharGenStats@@QAEXXZ
 ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ
 ?RecreateCUnit@CGameSession@@QAEXXZ
 ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z

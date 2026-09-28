@@ -6454,6 +6454,41 @@ int32_t VisCharGenStats::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
+// 429c39
+void VisCharGenStats::ReadUnitStats() {
+    this->stat_body = this->parent_screen->current_char->body;
+    this->stat_reaction = this->parent_screen->current_char->reaction;
+    this->stat_mind = this->parent_screen->current_char->mind;
+    this->stat_spirit = this->parent_screen->current_char->spirit;
+}
+
+// 42a312
+int32_t VisCharGenStats::OnMouseMove(uint32_t wparam, CPoint pos) {
+    this->HandleClick(wparam, pos);
+    return 0;
+}
+
+// 42a3a8
+int32_t VisCharGenStats::OnLButtonUp(uint32_t wparam, CPoint pos) {
+    this->HandleClick(wparam, pos);
+    return 1;
+}
+
+// 42a3ce
+int32_t VisCharGenStats::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
+    return this->OnLButtonDown(wparam, pos);
+}
+
+// 42a3f2
+int32_t VisCharGenStats::OnWmUser(uint32_t wparam, CPoint pos) {
+    if (wparam & 1) {
+        this->OnLButtonDown(wparam, pos);
+        return 1;
+    }
+    return CVisualObject::OnWmUser(wparam, pos);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
