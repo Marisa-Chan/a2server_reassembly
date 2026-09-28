@@ -36156,18 +36156,6 @@ arg_0           = dword ptr  8
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:006099C8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

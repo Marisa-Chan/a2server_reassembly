@@ -13536,3 +13536,9 @@ void VisStartGame::Cancel()
     CSound::Play(this->returnSound);
     this->MsgProc(0x446, 0, 0);
 }
+
+
+// 438DC0
+void VisStartGame::VMethod8(CRect* rect)
+{
+}
