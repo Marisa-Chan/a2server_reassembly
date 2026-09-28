@@ -13609,3 +13609,18 @@ void VisStartGame::ClearPortraitHoverFlags()
         this->portraitStateFlags.ElementAt(i) &= ~2u;
     }
 }
+
+
+// 4380D3
+void VisStartGame::FreeSamples()
+{
+    FUN_00438dd0(&this->difficultyLevel1Sound.sample);
+    FUN_00438dd0(&this->difficultyLevel2Sound.sample);
+    FUN_00438dd0(&this->difficultyLevel3Sound.sample);
+    FUN_00438dd0(&this->portraitSelectSound.sample);
+    FUN_00438dd0(&this->acceptSound.sample);
+    FUN_00438dd0(&this->labelInputSound1.sample);
+    FUN_00438dd0(&this->labelInputSound2.sample);
+    FUN_00438dd0(&this->labelInputSound3.sample);
+    FUN_00438dd0(&this->returnSound.sample);
+}

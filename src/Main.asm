@@ -34014,63 +34014,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FreeSamples@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+49↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1C4h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1C8h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1CCh
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1D0h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1D4h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1DCh
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1E0h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1E4h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1D8h
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreeSamples@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
