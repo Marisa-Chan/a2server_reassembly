@@ -13591,3 +13591,12 @@ void VisStartGame::ClearPortraitSelectedFlags()
         this->portraitStateFlags.ElementAt(i) &= ~1u;
     }
 }
+
+
+// 4357D5
+void VisStartGame::ClearDifficultyHoverFlags()
+{
+    for (int32_t i = 0; i < 3; i++) {
+        this->difficultyStateFlags.ElementAt(i) &= ~2u;
+    }
+}
