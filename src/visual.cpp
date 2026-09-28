@@ -6681,6 +6681,20 @@ int32_t VisCharGenAction::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
+// 42b303
+int32_t VisCharGenAction::OnLButtonDown(uint32_t wparam, CPoint pos) {
+    this->mouse_down_box = this->HitTest(pos);
+    if (this->mouse_down_box == 0) {
+        CSound::Play((CSound&)this->parent_screen->snd_ok);
+    } else if (this->mouse_down_box == 1) {
+        CSound::Play((CSound&)this->parent_screen->snd_reset);
+    } else if (this->mouse_down_box == 2) {
+        CSound::Play((CSound&)this->parent_screen->snd_back);
+    }
+    return 1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
