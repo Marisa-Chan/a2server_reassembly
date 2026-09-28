@@ -6489,6 +6489,49 @@ int32_t VisCharGenStats::OnWmUser(uint32_t wparam, CPoint pos) {
 }
 
 
+// 428f7f
+void VisCharGenStats::Init() {
+    this->parent_screen = nullptr;
+    this->bmp = nullptr;
+    for (int32_t i = 0; i < 10; i++) {
+        this->field_0x194[i] = nullptr;
+    }
+    this->stat_body = 0x1F;
+    this->stat_reaction = 0x20;
+    this->stat_mind = 0x21;
+    this->stat_spirit = 0x22;
+    this->texts.SetSize(4, -1);
+    for (int32_t i = 0; i < 4; i++) {
+        this->texts.ElementAt(i) = TxtFile::AllLines[0xF + i];
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->areas[i * 3] = CRect(CPoint(0x52, (i << 5) + 0x36), CSize(0x14, 0x14));
+        this->areas[i * 3 + 1] = CRect(CPoint(0x6B, (i << 5) + 0x36), CSize(0x14, 0x14));
+        this->areas[i * 3 + 2] = CRect(CPoint(0x84, (i << 5) + 0x36), CSize(0x14, 0x14));
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->field_0x64[i] = CRect(CPoint(0x10, i * 0x21 + 0x39),
+                                    CSize(g_font4->GetStrWidth(this->texts.ElementAt(i)), g_font4->GetHeight()));
+    }
+    this->field_0xa4 = CRect(CPoint(0x2E, 0xB5), CSize(0x4D, 0x16));
+    this->field_0x1f0 = 0;
+}
+
+// 428f12
+VisCharGenStats::~VisCharGenStats() {
+    this->FreeBitmaps();
+    this->parent_screen = nullptr;
+}
+
+// 428e51
+VisCharGenStats::VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->Init();
+    this->parent_screen = parent;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

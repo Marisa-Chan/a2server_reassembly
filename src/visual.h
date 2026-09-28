@@ -2250,6 +2250,7 @@ private:
 	int32_t HitTest(CPoint pt); // 42a02a in asm
 	int32_t OnStatUp(int32_t idx); // 42a778 in asm
 	int32_t OnStatDown(int32_t idx); // 42a87b in asm
+	void Init(); // 428f7f in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CBmp64* bmp; // 0x60
