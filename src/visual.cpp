@@ -13489,3 +13489,19 @@ int32_t VisStartGame::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
+
+
+// 4356C2
+uint32_t VisStartGame::GetHotspotId(int32_t x, int32_t y)
+{
+    CPoint pt(x, y);
+    if (!this->rect.PtInRect(pt)) {
+        return 0xFFFFFFFF;
+    }
+    CPoint top_left = this->rect.TopLeft();
+    pt.x -= top_left.x;
+    pt.y -= top_left.y;
+    int32_t index = pt.y * 0x280 + pt.x;
+    uint8_t* data = static_cast<uint8_t*>(this->hotspotMaskBitmap->GetData());
+    return data[index];
+}

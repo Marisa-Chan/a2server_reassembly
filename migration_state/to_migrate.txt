@@ -552,7 +552,6 @@
 ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
 ?OnKeyDown@VisStartGame@@UAEHI@Z	43
 ?FreeSamples@VisStartGame@@QAEXXZ	56
-?GetHotspotId@VisStartGame@@QAEIHH@Z	61
 ?LoadSamples@VisStartGame@@QAEXXZ	67
 ??0VisStartGame@@QAE@HHHHH@Z	150
 ?FreeBitmaps@VisStartGame@@QAEXXZ	571

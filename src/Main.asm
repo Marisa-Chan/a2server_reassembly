@@ -34175,68 +34175,6 @@ loc_4356A2:                             ; CODE XREF: ?FreeBitmaps@VisStartGame@@
 
 ; Attributes: bp-based frame
 
-?GetHotspotId@VisStartGame@@QAEIHH@Z      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+14↓p
-
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-pt              = POINT ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 18h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 8
-                call    sub_41E9A0
-                test    eax, eax
-                jnz     short loc_4356F3
-                or      eax, 0FFFFFFFFh
-                jmp     short loc_43573D
-; ---------------------------------------------------------------------------
-
-loc_4356F3:                             ; CODE XREF: ?GetHotspotId@VisStartGame@@QAEIHH@Z+2A↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_14], ecx
-                mov     [ebp+var_10], edx
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                lea     ecx, [ebp+arg_0]
-                call    ??ZCPoint@@QAEXUtagSIZE@@@Z ; CPoint::operator-=(tagSIZE)
-                mov     edx, dword ptr [ebp+arg_4]
-                imul    edx, 280h
-                add     edx, [ebp+arg_0]
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+6Ch]
-                call    sub_41EC60
-                mov     ecx, dword ptr [ebp+var_4]
-                xor     edx, edx
-                mov     dl, [eax+ecx]
-                mov     eax, edx
-
-loc_43573D:                             ; CODE XREF: ?GetHotspotId@VisStartGame@@QAEIHH@Z+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?GetHotspotId@VisStartGame@@QAEIHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
