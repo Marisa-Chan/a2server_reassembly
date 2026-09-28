@@ -81,6 +81,7 @@ extern CGameFont* g_font4; //65f530
 
 extern CGamePalette* palette_husk; //65f628
 extern CGamePalette* palette_paris_daisy; //65f52c
+extern CGamePalette* palette_brown_derby; //65f5e8
 
 
 
@@ -109,6 +110,7 @@ extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8
 extern uint16_t clrsh_LuxorGold[16]; //65e848
 extern uint16_t clrsh_CoralRed[16]; //65f608
+extern uint16_t clrsh_InvBarleyCorn[16]; //65e208
 
 extern uint16_t g_colors_human_pals[16][16]; //65e230
 

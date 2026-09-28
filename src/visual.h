@@ -2737,52 +2737,55 @@ public:
 
 	void RebuildScenarioLocations(); //47024a
 	void PopulateScenarioLocationFlags(); //47025d
+	void ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY); // 472820
+	void OnMapClick(); // 472dca
+	void UpdateHoveredLocation(CPoint pos); // 472d4b
 
 	VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b in asm
 public:
-	CBmp64* gmap;
-	CBmp64* hero_bmp;
-	CBmp64* ballmap;
-	CA16* flag1_spr;
-	CA16* flag_spr;
-	CA16* cross_spr;
-	CA16* mission_flg;
-	CA16* flg_on_map;
-	CA16* yflag_spr;
-	CBmp64* scroll1_bmp;
-	CBmp64* scroll2_bmp;
-	CBmp64* scroll3_bmp;
-	CBmp64* scrollp1_bmp;
-	CBmp64* scrollp3_bmp;
-	CBmp64* scrollp2_bmp;
-	CWordArray locationAvailabilityFlags;
-	CArray<CRect> locationHitRects;
-	CArray<CPoint> locationPoints;
-	CArray<CPoint> travelRoutePoints;
-	CSize heroBitmapSize;
-	CPoint heroDrawPoint;
-	CPoint currentLocationPoint;
-	CPoint targetLocationPoint;
-	CRect partDetailsRect;
-	int32_t hoveredLocationIndex;
-	int32_t mapFlagAnimationFrame;
-	int32_t travelProgress;
-	int32_t partyFlagAnimationFrame;
-	int32_t targetCrossAnimationFrame;
-	uint32_t bestRouteCost;
-	GlobalMapRouteArray routeNodeIndices;
-	void* routeAdjacencyMatrix;
-	CArray<CPoint> graphNodePoints;
-	CArray<DWORD> locationMetadata;
-	CSound snd_scrollup;
-	CSound snd_scrolldn;
-	CSound snd_point1;
-	CSound snd_point2;
-	int32_t routePointSoundIndex;
-	int32_t renderActiveFlag;
-	CString hoveredLocationTitle;
-	CStringArray hoveredLocationLines;
-	int32_t umoirMapMode;
+	CBmp64* gmap; //0x68
+	CBmp64* hero_bmp; //0x6c
+	CBmp64* ballmap; //0x70
+	CA16* flag1_spr; //0x74
+	CA16* flag_spr; //0x78
+	CA16* cross_spr; //0x7c
+	CA16* mission_flg; //0x80
+	CA16* flg_on_map; //0x84
+	CA16* yflag_spr; //0x88
+	CBmp64* scroll1_bmp; //0x8c
+	CBmp64* scroll2_bmp; //0x90
+	CBmp64* scroll3_bmp; //0x94
+	CBmp64* scrollp1_bmp; //0x98
+	CBmp64* scrollp3_bmp; //0x9c
+	CBmp64* scrollp2_bmp; //0xa0
+	CWordArray locationAvailabilityFlags; //0xa4
+	CArray<CRect> locationHitRects; //0xb8
+	CArray<CPoint> locationPoints; //0xcc
+	CArray<CPoint> travelRoutePoints; //0xe0
+	CSize heroBitmapSize; //0xf4
+	CPoint heroDrawPoint; //0xfc
+	CPoint currentLocationPoint; //0x104
+	CPoint targetLocationPoint; //0x10c
+	CRect partDetailsRect; //0x114
+	int32_t hoveredLocationIndex; //0x124
+	int32_t mapFlagAnimationFrame; //0x128
+	int32_t travelProgress; //0x12c
+	int32_t partyFlagAnimationFrame; //0x130
+	int32_t targetCrossAnimationFrame; //0x134
+	uint32_t bestRouteCost; //0x138
+	GlobalMapRouteArray routeNodeIndices; //0x13c
+	void* routeAdjacencyMatrix; //0x154
+	CArray<CPoint> graphNodePoints; //0x158
+	CArray<DWORD> locationMetadata; //0x16c
+	CSound snd_scrollup; //0x180
+	CSound snd_scrolldn; //0x184
+	CSound snd_point1; //0x188
+	CSound snd_point2; //0x18c
+	int32_t routePointSoundIndex; //0x190
+	int32_t renderActiveFlag; //0x194
+	CString hoveredLocationTitle; //0x198
+	CStringArray hoveredLocationLines; //0x19c
+	int32_t umoirMapMode; //0x1b0
 };
 ASSERT_SIZE(VisGlobalMap, 0x1b4);
 

@@ -5192,6 +5192,159 @@ void VisGlobalMap::PopulateScenarioLocationFlags()
 }
 
 
+// 4714E7
+void VisGlobalMap::VMethod7()
+{
+    CPoint screen_pt = this->rect.TopLeft();
+    int32_t screen_x = screen_pt.x;
+    int32_t screen_y = screen_pt.y;
+    int32_t travel_arrived = 0;
+    int32_t arrival_index = 0;
+
+    if (this->renderActiveFlag == 0) {
+        return;
+    }
+
+    LockSurface2();
+    this->gmap->VMethod2(screen_x, screen_y, 0, 0, 0);
+
+    if (this->umoirMapMode == 0) {
+        if (this->travelRoutePoints.GetSize() == 0 && this->travelProgress == 0) {
+            this->OnMapClick();
+        }
+    } else {
+        if (this->travelProgress < 8) {
+            ScenarioLocation* loc = ScenarioGetAvailableLocations()->GetHead();
+            CPoint loc_pt = loc->GetRect().TopLeft();
+            this->currentLocationPoint = loc_pt;
+            this->targetLocationPoint = loc_pt;
+            this->ComputeTravelRoute(this->currentLocationPoint.x, this->currentLocationPoint.y,
+                this->targetLocationPoint.x, this->targetLocationPoint.y);
+            this->travelProgress = 8;
+        }
+    }
+
+    if (this->travelProgress == 0) {
+        for (int32_t i = 0; i < this->travelRoutePoints.GetSize(); i++) {
+            if (i % 8 == 0) {
+                CPoint& pt = this->travelRoutePoints.ElementAt(i);
+                int32_t w = this->ballmap->GetWidth(0);
+                int32_t h = this->ballmap->GetHeight(0);
+                this->ballmap->VMethod10(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
+            }
+        }
+        for (POSITION pos = ScenarioGetAvailableLocations()->GetHeadPosition(); pos != nullptr;) {
+            ScenarioLocation* loc = ScenarioGetAvailableLocations()->GetNext(pos);
+            CPoint loc_pt = loc->GetRect().TopLeft();
+            if (this->umoirMapMode == 0) {
+                if (this->currentLocationPoint != CPoint(loc_pt.x, loc_pt.y)) {
+                    if (this->targetLocationPoint == CPoint(loc_pt.x, loc_pt.y)) {
+                        this->mission_flg->VMethod2(screen_x - 5 + loc_pt.x, screen_y - 0x29 + loc_pt.y,
+                            this->mapFlagAnimationFrame, 0, 0);
+                    } else {
+                        this->flg_on_map->VMethod2(screen_x - 5 + loc_pt.x, screen_y - 0x25 + loc_pt.y,
+                            this->mapFlagAnimationFrame, 0, 0);
+                    }
+                }
+            } else {
+                this->flag1_spr->VMethod2(screen_x - 4 + loc_pt.x, screen_y - 0x20 + loc_pt.y,
+                    this->mapFlagAnimationFrame, 0, 0);
+            }
+        }
+    } else {
+        int32_t dot_count = this->travelProgress;
+        if (dot_count >= this->travelRoutePoints.GetSize()) {
+            dot_count = this->travelRoutePoints.GetSize();
+        }
+        for (int32_t i = 0; i < dot_count; i++) {
+            if (i % 8 == 0) {
+                CPoint& pt = this->travelRoutePoints.ElementAt(i);
+                int32_t w = this->ballmap->GetWidth(0);
+                int32_t h = this->ballmap->GetHeight(0);
+                this->ballmap->VMethod10(screen_x + pt.x - w / 2, screen_y + pt.y - h / 2, 0, 0, w, h);
+            }
+        }
+        int32_t cross_frames = this->cross_spr->GetFrameCount();
+        if (this->targetCrossAnimationFrame < cross_frames - 1) {
+            this->cross_spr->VMethod2(screen_x - 10 + this->targetLocationPoint.x,
+                screen_y - 0xC + this->targetLocationPoint.y, this->targetCrossAnimationFrame, 0, 0);
+        } else {
+            this->cross_spr->VMethod2(screen_x - 10 + this->targetLocationPoint.x,
+                screen_y - 0xC + this->targetLocationPoint.y, cross_frames - 1, 0, 0);
+        }
+        this->targetCrossAnimationFrame++;
+        this->travelProgress += 8;
+        if (this->travelProgress < this->travelRoutePoints.GetSize()) {
+            CSound& cur_snd = (this->routePointSoundIndex == 0) ? this->snd_point1 : this->snd_point2;
+            if (!FUN_00475110(&cur_snd)) {
+                this->routePointSoundIndex = (this->routePointSoundIndex + 1) & 1;
+                CSound& new_snd = (this->routePointSoundIndex == 0) ? this->snd_point1 : this->snd_point2;
+                CSound::Play(new_snd);
+            }
+        }
+        if (this->travelProgress > this->travelRoutePoints.GetSize()
+            && this->targetCrossAnimationFrame > this->cross_spr->GetFrameCount() + 1) {
+            this->currentLocationPoint = this->targetLocationPoint;
+            this->travelProgress = 0;
+            this->travelRoutePoints.RemoveAll();
+            int32_t i;
+            for (i = 0; i < this->locationPoints.GetSize(); i++) {
+                CPoint& pt = this->locationPoints.ElementAt(i);
+                if (pt == this->targetLocationPoint) {
+                    break;
+                }
+            }
+            travel_arrived = 1;
+            arrival_index = i;
+        }
+    }
+
+    this->mapFlagAnimationFrame = (this->mapFlagAnimationFrame + 1) % this->flag1_spr->GetFrameCount();
+    if (this->umoirMapMode != 0) {
+        this->flag_spr->VMethod2(screen_x - 0xA + this->currentLocationPoint.x,
+            screen_y - 0x18 + this->currentLocationPoint.y, this->partyFlagAnimationFrame, 0, 0);
+    } else {
+        this->yflag_spr->VMethod2(screen_x - 0x14 + this->currentLocationPoint.x,
+            screen_y - 0x2C + this->currentLocationPoint.y, this->partyFlagAnimationFrame, 0, 0);
+    }
+    this->partyFlagAnimationFrame = (this->partyFlagAnimationFrame + 1) % this->flag_spr->GetFrameCount();
+
+    if (this->umoirMapMode == 0 && !this->hoveredLocationTitle.IsEmpty()) {
+        g_font4->DrawTxt(screen_x + 0xE6, screen_y + 0x1B, this->hoveredLocationTitle, 2,
+            palette_brown_derby->GetPalette(0));
+        for (int32_t i = 0; i < this->hoveredLocationLines.GetSize(); i++) {
+            g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + i * 10,
+                this->hoveredLocationLines.GetAt(i), 2, clrsh_InvBarleyCorn);
+        }
+        int32_t n = this->hoveredLocationLines.GetSize();
+        CString last_line = this->hoveredLocationLines.GetAt(n);
+        CString trimmed = last_line.Left(last_line.GetLength() - 2);
+        g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + n * 10, trimmed, 2, clrsh_InvBarleyCorn);
+    }
+
+    UnlockSurface2();
+    CVisualObject::VMethod7();
+    if (travel_arrived != 0) {
+        this->MsgProc(0x445, 0, 0);
+        AfxGetMainWnd()->PostMessage(0x468, 0, 0);
+        CList<ScenarioLocation*>* locs = ScenarioGetAvailableLocations();
+        if (this->umoirMapMode == 0) {
+            for (POSITION pos = locs->GetHeadPosition(); pos != nullptr;) {
+                ScenarioLocation* loc = locs->GetNext(pos);
+                CPoint loc_pt = loc->GetRect().TopLeft();
+                if (this->targetLocationPoint == CPoint(loc_pt.x, loc_pt.y)) {
+                    ScenarioEnterLocation(loc);
+                    break;
+                }
+            }
+        } else {
+            ScenarioEnterLocation(locs->GetHead());
+        }
+    }
+    this->UpdateHoveredLocation(CPoint(g_mousept.GetX(), g_mousept.GetY()));
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

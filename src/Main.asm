@@ -79718,922 +79718,6 @@ loc_4714AC:                             ; CODE XREF: ?DoClose@VisGlobalMap@@UAEX
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisGlobalMap@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B78C↓o
-
-var_8C          = dword ptr -8Ch
-var_88          = dword ptr -88h
-var_84          = dword ptr -84h
-var_80          = dword ptr -80h
-var_7C          = byte ptr -7Ch
-var_74          = dword ptr -74h
-var_70          = dword ptr -70h
-var_6C          = byte ptr -6Ch
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FA9F6 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4714E7
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4714E7
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 80h
-                push    esi
-                mov     [ebp+var_80], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_20], ecx
-                mov     [ebp+var_1C], edx
-                mov     [ebp+var_18], 0
-                mov     eax, dword ptr [ebp+var_80]
-                cmp     dword ptr [eax+194h], 0
-                jnz     short loc_47153F
-                jmp     loc_471EF9
-; ---------------------------------------------------------------------------
-
-loc_47153F:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+51↑j
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_1C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+68h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+68h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                mov     eax, dword ptr [ebp+var_80]
-                cmp     dword ptr [eax+1B0h], 0
-                jz      short loc_4715E7
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+12Ch], 8
-                jnb     short loc_4715E5
-                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
-                mov     [ebp+var_28], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_4744C0
-                mov     ecx, dword ptr [eax]
-                call    unknown_libname_539 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     [ecx+10Ch], edx
-                mov     [ecx+110h], eax
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+110h]
-                push    eax
-                mov     ecx, dword ptr [edx+10Ch]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+108h]
-                push    eax
-                mov     ecx, dword ptr [edx+104h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_80]
-                call    sub_472820
-                mov     edx, dword ptr [ebp+var_80]
-                mov     dword ptr [edx+12Ch], 8
-
-loc_4715E5:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+92↑j
-                jmp     short loc_47160D
-; ---------------------------------------------------------------------------
-
-loc_4715E7:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+86↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jnz     short loc_47160D
-                mov     eax, dword ptr [ebp+var_80]
-                cmp     dword ptr [eax+12Ch], 0
-                jnz     short loc_47160D
-                mov     ecx, dword ptr [ebp+var_80]
-                call    sub_472DCA
-
-loc_47160D:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_4715E5↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+12Ch], 0
-                jnz     loc_471865
-                mov     [ebp+var_14], 0
-                jmp     short loc_47162F
-; ---------------------------------------------------------------------------
-
-loc_471626:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_4716FF↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_47162F:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+13D↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     loc_471704
-                mov     eax, dword ptr [ebp+var_14]
-                cdq
-                xor     eax, edx
-                sub     eax, edx
-                and     eax, 7
-                xor     eax, edx
-                sub     eax, edx
-                test    eax, eax
-                jnz     loc_4716FF
-                push    0
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                push    eax
-                push    0
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+20h]
-                push    eax
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    sub_473FE0
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+4]
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                push    esi
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    sub_473FE0
-                mov     esi, [ebp+var_20]
-                add     esi, [eax]
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+20h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                push    esi
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+38h]
-
-loc_4716FF:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+170↑j
-                jmp     loc_471626
-; ---------------------------------------------------------------------------
-
-loc_471704:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+159↑j
-                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
-                mov     [ebp+var_2C], eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    unknown_libname_533 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_30], eax
-
-loc_471718:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_47185B↓j
-                cmp     [ebp+var_30], 0
-                jz      loc_471860
-                lea     eax, [ebp+var_30]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_474500
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_3C], ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    unknown_libname_539 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_38], edx
-                mov     [ebp+var_34], eax
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+1B0h], 0
-                jz      short loc_471793
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+128h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ebp+var_1C]
-                lea     eax, [edx+ecx-20h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ebp+var_20]
-                lea     eax, [edx+ecx-4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+74h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+74h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                jmp     loc_47185B
-; ---------------------------------------------------------------------------
-
-loc_471793:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+270↑j
-                mov     eax, dword ptr [ebp+var_38]
-                mov     [ebp+var_58], eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     [ebp+var_54], ecx
-                mov     edx, dword ptr [ebp+var_54]
-                push    edx
-                mov     eax, dword ptr [ebp+var_58]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 104h
-                call    unknown_libname_529 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      loc_47185B
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     [ebp+var_60], ecx
-                mov     edx, dword ptr [ebp+var_34]
-                mov     [ebp+var_5C], edx
-                mov     eax, dword ptr [ebp+var_5C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_60]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 10Ch
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_471820
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+128h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [ebp+var_1C]
-                lea     eax, [edx+ecx-29h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     edx, dword ptr [ebp+var_20]
-                lea     eax, [edx+ecx-5]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+80h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+80h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                jmp     short loc_47185B
-; ---------------------------------------------------------------------------
-
-loc_471820:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+2FA↑j
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+128h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_34]
-                mov     eax, dword ptr [ebp+var_1C]
-                lea     ecx, [eax+edx-25h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_38]
-                mov     eax, dword ptr [ebp+var_20]
-                lea     ecx, [eax+edx-5]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [edx+84h]
-                mov     eax, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [eax+84h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-
-loc_47185B:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+2A7↑j
-                jmp     loc_471718
-; ---------------------------------------------------------------------------
-
-loc_471860:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+235↑j
-                jmp     loc_471BA1
-; ---------------------------------------------------------------------------
-
-loc_471865:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+130↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_531 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     [ecx+12Ch], eax
-                jge     short loc_47188F
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+12Ch]
-                mov     [ebp+var_84], eax
-                jmp     short loc_4718A3
-; ---------------------------------------------------------------------------
-
-loc_47188F:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+395↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_531 ; MFC 3.1-14.0 32bit
-                mov     [ebp+var_84], eax
-
-loc_4718A3:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+3A6↑j
-                mov     ecx, dword ptr [ebp+var_84]
-                mov     [ebp+var_40], ecx
-                mov     [ebp+var_14], 0
-                jmp     short loc_4718BE
-; ---------------------------------------------------------------------------
-
-loc_4718B5:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_471983↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_4718BE:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+3CC↑j
-                mov     eax, dword ptr [ebp+var_14]
-                cmp     eax, [ebp+var_40]
-                jge     loc_471988
-                mov     eax, dword ptr [ebp+var_14]
-                cdq
-                xor     eax, edx
-                sub     eax, edx
-                and     eax, 7
-                xor     eax, edx
-                sub     eax, edx
-                test    eax, eax
-                jnz     loc_471983
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                push    eax
-                push    0
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+20h]
-                push    eax
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    sub_473FE0
-                mov     esi, [ebp+var_1C]
-                add     esi, [eax+4]
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+24h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                push    esi
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    sub_473FE0
-                mov     esi, [ebp+var_20]
-                add     esi, [eax]
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+20h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                sub     esi, eax
-                push    esi
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+70h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+38h]
-
-loc_471983:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+3F4↑j
-                jmp     loc_4718B5
-; ---------------------------------------------------------------------------
-
-loc_471988:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+3DD↑j
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+7Ch]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     [ecx+134h], eax
-                jl      short loc_4719E9
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [edx+7Ch]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                push    eax
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+110h]
-                mov     edx, dword ptr [ebp+var_1C]
-                lea     eax, [edx+ecx-0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+10Ch]
-                mov     eax, dword ptr [ebp+var_20]
-                lea     ecx, [eax+edx-0Ah]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [edx+7Ch]
-                mov     eax, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [eax+7Ch]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-                jmp     short loc_471A2A
-; ---------------------------------------------------------------------------
-
-loc_4719E9:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+4B8↑j
-                push    0
-                push    0
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+134h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+110h]
-                mov     edx, dword ptr [ebp+var_1C]
-                lea     eax, [edx+ecx-0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+10Ch]
-                mov     eax, dword ptr [ebp+var_20]
-                lea     ecx, [eax+edx-0Ah]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [edx+7Ch]
-                mov     eax, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [eax+7Ch]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+18h]
-
-loc_471A2A:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+500↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+134h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_80]
-                mov     [eax+134h], edx
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+12Ch]
-                add     edx, 8
-                mov     eax, dword ptr [ebp+var_80]
-                mov     [eax+12Ch], edx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_531 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     [ecx+12Ch], eax
-                jge     short loc_471AC1
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+190h]
-                mov     ecx, dword ptr [ebp+var_80]
-                lea     edx, [ecx+eax*4+188h]
-                push    edx
-                call    ?FUN_00475110@@YA_NPAUCSound@@@Z
-                add     esp, 4
-                test    eax, eax
-                jnz     short loc_471AC1
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+190h]
-                add     ecx, 1
-                and     ecx, 1
-                mov     edx, dword ptr [ebp+var_80]
-                mov     [edx+190h], ecx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+190h]
-                mov     edx, dword ptr [ebp+var_80]
-                lea     eax, [edx+ecx*4+188h]
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_471AC1:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+584↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     [ecx+12Ch], eax
-                jle     loc_471BA1
-                mov     edx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [edx+7Ch]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     [ecx+134h], eax
-                jle     loc_471BA1
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+10Ch]
-                mov     ecx, dword ptr [edx+110h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     [edx+104h], eax
-                mov     [edx+108h], ecx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     dword ptr [eax+12Ch], 0
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0E0h
-                call    sub_473F30
-                mov     [ebp+var_14], 0
-                jmp     short loc_471B46
-; ---------------------------------------------------------------------------
-
-loc_471B3D:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_471B92↓j
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 1
-                mov     [ebp+var_14], ecx
-
-loc_471B46:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+654↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0CCh
-                call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_14], eax
-                jge     short loc_471B94
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 0CCh
-                call    sub_473FE0
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_68], ecx
-                mov     [ebp+var_64], edx
-                mov     eax, dword ptr [ebp+var_64]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_68]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 104h
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_471B92
-                jmp     short loc_471B94
-; ---------------------------------------------------------------------------
-
-loc_471B92:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+6A7↑j
-                jmp     short loc_471B3D
-; ---------------------------------------------------------------------------
-
-loc_471B94:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+670↑j
-                mov     [ebp+var_18], 1
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ebp+var_24], edx
-
-loc_471BA1:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_471860↑j
-                mov     eax, dword ptr [ebp+var_80]
-                mov     esi, [eax+128h]
-                add     esi, 1
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+74h]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                mov     eax, esi
-                xor     edx, edx
-                div     ecx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     [eax+128h], edx
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+1B0h], 0
-                jz      short loc_471C18
-                push    0
-                push    0
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+130h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     edx, dword ptr [ecx+108h]
-                mov     eax, dword ptr [ebp+var_1C]
-                lea     ecx, [eax+edx-18h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+104h]
-                mov     ecx, dword ptr [ebp+var_20]
-                lea     edx, [ecx+eax-0Ah]
-                push    edx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+78h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+78h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-                jmp     short loc_471C5F
-; ---------------------------------------------------------------------------
-
-loc_471C18:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+6EC↑j
-                push    0
-                push    0
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+130h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+108h]
-                mov     ecx, dword ptr [ebp+var_1C]
-                lea     edx, [ecx+eax-2Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [eax+104h]
-                mov     edx, dword ptr [ebp+var_20]
-                lea     eax, [edx+ecx-14h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+88h]
-                mov     edx, dword ptr [ebp+var_80]
-                mov     eax, dword ptr [edx+88h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+18h]
-
-loc_471C5F:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+72F↑j
-                mov     eax, dword ptr [ebp+var_80]
-                mov     esi, [eax+130h]
-                add     esi, 1
-                mov     ecx, dword ptr [ebp+var_80]
-                mov     ecx, dword ptr [ecx+78h]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                mov     eax, esi
-                xor     edx, edx
-                div     ecx
-                mov     eax, dword ptr [ebp+var_80]
-                mov     [eax+130h], edx
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+1B0h], 0
-                jnz     loc_471E0C
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 198h
-                call    sub_43AAC0
-                test    eax, eax
-                jnz     loc_471E0C
-                push    0
-                mov     ecx, ?palette_brown_derby@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                push    eax
-                push    2
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 198h
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_1C]
-                add     edx, 1Bh
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                add     eax, 0E6h
-                push    eax
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     [ebp+var_44], 0
-                jmp     short loc_471CFF
-; ---------------------------------------------------------------------------
-
-loc_471CF6:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+874↓j
-                mov     eax, dword ptr [ebp+var_44]
-                add     eax, 1
-                mov     [ebp+var_44], eax
-
-loc_471CFF:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+80D↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 19Ch
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                cmp     [ebp+var_44], eax
-                jge     short loc_471D5D
-                push    offset ?clrsh_InvBarleyCorn@@3PAGA
-                push    2
-                mov     ecx, dword ptr [ebp+var_44]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 19Ch
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_44]
-                imul    edx, 0Ah
-                mov     eax, dword ptr [ebp+var_1C]
-                lea     ecx, [eax+edx+30h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_20]
-                add     edx, 0E6h
-                push    edx
-                mov     eax, ?g_font2@@3PAVCGameFont@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_font2@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                jmp     short loc_471CF6
-; ---------------------------------------------------------------------------
-
-loc_471D5D:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+829↑j
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 19Ch
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                mov     [ebp+var_44], eax
-                push    offset ?clrsh_InvBarleyCorn@@3PAGA
-                push    2
-                mov     eax, dword ptr [ebp+var_44]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 19Ch
-                call    sub_401820
-                mov     ecx, eax
-                call    sub_4029A0
-                sub     eax, 2
-                push    eax
-                lea     ecx, [ebp+var_6C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_44]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 19Ch
-                call    sub_401820
-                mov     ecx, eax
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_88], eax
-                mov     eax, dword ptr [ebp+var_88]
-                mov     [ebp+var_8C], eax
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_8C]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                imul    ecx, 0Ah
-                mov     edx, dword ptr [ebp+var_1C]
-                lea     eax, [edx+ecx+30h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                add     ecx, 0E6h
-                push    ecx
-                mov     edx, ?g_font2@@3PAVCGameFont@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_font2@@3PAVCGameFont@@A
-                call    dword ptr [eax+14h]
-;   } // starts at 471DC1
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_6C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_471E0C:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+7AA↑j
-                call    ?UnlockSurface2@@YAIXZ
-                mov     ecx, dword ptr [ebp+var_80]
-                call    ?VMethod7@CVisualObject@@UAEXXZ
-                cmp     [ebp+var_18], 0
-                jz      loc_471ECC
-                mov     ecx, dword ptr [ebp+var_80]
-                call    sub_472700
-                push    0               ; lParam
-                push    0               ; wParam
-                push    468h            ; Msg
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                call    ?ScenarioGetAvailableLocations@@YGPAV?$CList@PAUScenarioLocation@@ABQAU1@@@XZ
-                mov     [ebp+var_48], eax
-                mov     ecx, dword ptr [ebp+var_80]
-                cmp     dword ptr [ecx+1B0h], 0
-                jz      short loc_471E68
-                mov     ecx, dword ptr [ebp+var_48]
-                call    sub_4744C0
-                mov     edx, dword ptr [eax]
-                push    edx
-                call    ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
-                jmp     short loc_471ECC
-; ---------------------------------------------------------------------------
-
-loc_471E68:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+96C↑j
-                mov     ecx, dword ptr [ebp+var_48]
-                call    unknown_libname_533 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_4C], eax
-
-loc_471E73:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ:loc_471ECA↓j
-                cmp     [ebp+var_4C], 0
-                jz      short loc_471ECC
-                lea     eax, [ebp+var_4C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_48]
-                call    sub_474500
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_50], ecx
-                mov     ecx, dword ptr [ebp+var_50]
-                call    unknown_libname_539 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     [ebp+var_74], edx
-                mov     [ebp+var_70], eax
-                mov     ecx, dword ptr [ebp+var_70]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_74]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_80]
-                add     ecx, 10Ch
-                call    unknown_libname_528 ; MFC 3.1-14.0 32bit
-                test    eax, eax
-                jz      short loc_471ECA
-                mov     eax, dword ptr [ebp+var_50]
-                push    eax
-                call    ?ScenarioEnterLocation@@YGXPAUScenarioLocation@@@Z
-                jmp     short loc_471ECC
-; ---------------------------------------------------------------------------
-
-loc_471ECA:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+9D5↑j
-                jmp     short loc_471E73
-; ---------------------------------------------------------------------------
-
-loc_471ECC:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+936↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
-                push    eax
-                lea     ecx, [ebp+var_7C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_80]
-                call    sub_472D4B
-
-loc_471EF9:                             ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+53↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4714E7
-?VMethod7@VisGlobalMap@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -81220,7 +80304,7 @@ loc_47281C:                             ; CODE XREF: ?GetHint@VisGlobalMap@@UAEP
 
 ; Attributes: bp-based frame
 
-sub_472820      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+EC↑p
+?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+EC↑p
 
 var_50          = dword ptr -50h
 var_4C          = dword ptr -4Ch
@@ -81288,17 +80372,17 @@ arg_C           = dword ptr  14h
                 jmp     loc_472A78
 ; ---------------------------------------------------------------------------
 
-loc_47289E:                             ; CODE XREF: sub_472820+45↑j
+loc_47289E:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+45↑j
                 mov     [ebp+var_1C], 0
                 jmp     short loc_4728B0
 ; ---------------------------------------------------------------------------
 
-loc_4728A7:                             ; CODE XREF: sub_472820:loc_472933↓j
+loc_4728A7:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z:loc_472933↓j
                 mov     eax, dword ptr [ebp+var_1C]
                 add     eax, 1
                 mov     [ebp+var_1C], eax
 
-loc_4728B0:                             ; CODE XREF: sub_472820+85↑j
+loc_4728B0:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+85↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 add     ecx, 158h
                 call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
@@ -81326,7 +80410,7 @@ loc_4728B0:                             ; CODE XREF: sub_472820+85↑j
                 jmp     short loc_472933
 ; ---------------------------------------------------------------------------
 
-loc_4728FC:                             ; CODE XREF: sub_472820+D2↑j
+loc_4728FC:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+D2↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_48]
@@ -81347,11 +80431,11 @@ loc_4728FC:                             ; CODE XREF: sub_472820+D2↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     [ebp+var_18], eax
 
-loc_472933:                             ; CODE XREF: sub_472820+DA↑j
+loc_472933:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+DA↑j
                 jmp     loc_4728A7
 ; ---------------------------------------------------------------------------
 
-loc_472938:                             ; CODE XREF: sub_472820+A1↑j
+loc_472938:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+A1↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 add     ecx, 13Ch
                 call    sub_438430
@@ -81373,10 +80457,10 @@ loc_472938:                             ; CODE XREF: sub_472820+A1↑j
                 jmp     short loc_47298E
 ; ---------------------------------------------------------------------------
 
-loc_472987:                             ; CODE XREF: sub_472820+158↑j
+loc_472987:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+158↑j
                 mov     [ebp+var_4C], 0
 
-loc_47298E:                             ; CODE XREF: sub_472820+165↑j
+loc_47298E:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+165↑j
                 mov     eax, dword ptr [ebp+var_4C]
                 mov     [ebp+var_3C], eax
 ;   } // starts at 47296D
@@ -81405,12 +80489,12 @@ loc_47298E:                             ; CODE XREF: sub_472820+165↑j
                 jmp     short loc_4729EA
 ; ---------------------------------------------------------------------------
 
-loc_4729E1:                             ; CODE XREF: sub_472820+22E↓j
+loc_4729E1:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+22E↓j
                 mov     eax, dword ptr [ebp+var_1C]
                 add     eax, 1
                 mov     [ebp+var_1C], eax
 
-loc_4729EA:                             ; CODE XREF: sub_472820+1BF↑j
+loc_4729EA:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1BF↑j
                 mov     ecx, dword ptr [ebp+var_48]
                 add     ecx, 13Ch
                 call    unknown_libname_418 ; Microsoft VisualC 2-14/net runtime
@@ -81443,7 +80527,7 @@ loc_4729EA:                             ; CODE XREF: sub_472820+1BF↑j
                 jmp     short loc_4729E1
 ; ---------------------------------------------------------------------------
 
-loc_472A50:                             ; CODE XREF: sub_472820+1DB↑j
+loc_472A50:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1DB↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     [ebp+var_44], edx
                 mov     eax, dword ptr [ebp+var_44]
@@ -81457,10 +80541,10 @@ loc_472A50:                             ; CODE XREF: sub_472820+1DB↑j
                 jmp     short loc_472A78
 ; ---------------------------------------------------------------------------
 
-loc_472A71:                             ; CODE XREF: sub_472820+240↑j
+loc_472A71:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+240↑j
                 mov     [ebp+var_50], 0
 
-loc_472A78:                             ; CODE XREF: sub_472820+79↑j
+loc_472A78:                             ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+79↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     edi
@@ -81469,7 +80553,7 @@ loc_472A78:                             ; CODE XREF: sub_472820+79↑j
                 pop     ebp
                 retn    10h
 ; } // starts at 472820
-sub_472820      endp
+?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -81530,7 +80614,7 @@ sub_472A8A      endp
 
 ; Attributes: bp-based frame
 
-sub_472ADA      proc near               ; CODE XREF: sub_472820+1A5↑p
+sub_472ADA      proc near               ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+1A5↑p
 
 var_30          = dword ptr -30h
 var_2C          = dword ptr -2Ch
@@ -81792,7 +80876,7 @@ loc_472D31:                             ; CODE XREF: ?MsgProc@VisGlobalMap@@UAEH
 
 ; Attributes: bp-based frame
 
-sub_472D4B      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+A0D↑p
+?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+A0D↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -81827,7 +80911,7 @@ arg_0           = byte ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_472D4B      endp
+?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -81848,7 +80932,7 @@ arg_8           = dword ptr  10h
                 cmp     dword ptr [eax+12Ch], 0
                 jnz     short loc_472DB4
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_472DCA
+                call    ?OnMapClick@VisGlobalMap@@QAEXXZ
 
 loc_472DB4:                             ; CODE XREF: ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z+11↑j
                 mov     ecx, dword ptr [ebp+arg_8]
@@ -81856,7 +80940,7 @@ loc_472DB4:                             ; CODE XREF: ?OnMouseMove@VisGlobalMap@@
                 mov     edx, dword ptr [ebp+arg_4]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_472D4B
+                call    ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
@@ -81867,7 +80951,7 @@ loc_472DB4:                             ; CODE XREF: ?OnMouseMove@VisGlobalMap@@
 
 ; Attributes: bp-based frame
 
-sub_472DCA      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+121↑p
+?OnMapClick@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+121↑p
 
 var_70          = dword ptr -70h
 var_6C          = dword ptr -6Ch
@@ -81940,7 +81024,7 @@ var_4           = dword ptr -4
                 mov     [ebp+var_2C], eax
                 mov     [ebp+var_10], 0
 
-loc_472E63:                             ; CODE XREF: sub_472DCA:loc_472EE0↓j
+loc_472E63:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ:loc_472EE0↓j
                 cmp     [ebp+var_2C], 0
                 jz      short loc_472EE2
                 lea     edx, [ebp+var_2C]
@@ -81982,11 +81066,11 @@ loc_472E63:                             ; CODE XREF: sub_472DCA:loc_472EE0↓j
                 mov     ecx, dword ptr [ebp+var_38]
                 mov     [ebp+var_10], ecx
 
-loc_472EE0:                             ; CODE XREF: sub_472DCA+F3↑j
+loc_472EE0:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+F3↑j
                 jmp     short loc_472E63
 ; ---------------------------------------------------------------------------
 
-loc_472EE2:                             ; CODE XREF: sub_472DCA+9D↑j
+loc_472EE2:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+9D↑j
                 mov     edx, dword ptr [ebp+var_18]
                 mov     [ebp+var_50], edx
                 mov     eax, dword ptr [ebp+var_14]
@@ -82011,9 +81095,9 @@ loc_472EE2:                             ; CODE XREF: sub_472DCA+9D↑j
                 mov     edx, dword ptr [eax+104h]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_68]
-                call    sub_472820
+                call    ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
 
-loc_472F32:                             ; CODE XREF: sub_472DCA+13C↑j
+loc_472F32:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+13C↑j
                 cmp     [ebp+var_10], 0
                 jz      loc_47302A
                 mov     eax, dword ptr [ebp+var_68]
@@ -82086,14 +81170,14 @@ loc_472F32:                             ; CODE XREF: sub_472DCA+13C↑j
                 lea     ecx, [ebp+var_40] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_47302A:                             ; CODE XREF: sub_472DCA+16C↑j
+loc_47302A:                             ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+16C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 472DCA
-sub_472DCA      endp
+?OnMapClick@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -83641,7 +82725,7 @@ sub_473DA0      endp
 
 ; Attributes: bp-based frame
 
-sub_473DD0      proc near               ; CODE XREF: sub_472820+247↑p
+sub_473DD0      proc near               ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+247↑p
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -83919,7 +83003,7 @@ sub_473F50      endp
 
 ; Attributes: bp-based frame
 
-sub_473F80      proc near               ; CODE XREF: sub_472820+229↑p
+sub_473F80      proc near               ; CODE XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+229↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -86349,7 +85433,7 @@ loc_475136:                             ; CODE XREF: ?FUN_00475110@@YA_NPAUCSoun
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_537 proc near           ; CODE XREF: sub_472DCA+187↑p
+unknown_libname_537 proc near           ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+187↑p
 
 var_4           = dword ptr -4
 
@@ -86371,7 +85455,7 @@ unknown_libname_537 endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_538 proc near           ; CODE XREF: sub_472DCA+17E↑p
+unknown_libname_538 proc near           ; CODE XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+17E↑p
 
 var_4           = dword ptr -4
 
@@ -331594,23 +330678,6 @@ SEH_47115D:                             ; DATA XREF: ?VMethod28@VisGlobalMap@@UA
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FA9CC
 ; END OF FUNCTION CHUNK FOR ?VMethod28@VisGlobalMap@@UAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod7@VisGlobalMap@@UAEXXZ
-
-loc_5FA9F6:                             ; DATA XREF: .rdata:stru_61B890↓o
-; __unwind { // SEH_4714E7              ; varThis
-;   cleanup() // owned by 471DC1
-                lea     ecx, [ebp+var_6C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4714E7:                             ; DATA XREF: ?VMethod7@VisGlobalMap@@UAEXXZ+5↑o
-                mov     eax, offset stru_61B870
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA9F6
-; END OF FUNCTION CHUNK FOR ?VMethod7@VisGlobalMap@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_471F15
 
 loc_5FAA09:                             ; DATA XREF: .rdata:stru_61B8B8↓o
@@ -331627,7 +330694,7 @@ SEH_471F15:                             ; DATA XREF: sub_471F15+5↑o
 ; } // starts at 5FAA09
 ; END OF FUNCTION CHUNK FOR sub_471F15
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_472820
+; START OF FUNCTION CHUNK FOR ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
 
 loc_5FAA1C:                             ; DATA XREF: .rdata:stru_61B8E0↓o
 ; __unwind { // SEH_472820
@@ -331639,11 +330706,11 @@ loc_5FAA1C:                             ; DATA XREF: .rdata:stru_61B8E0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_472820:                             ; DATA XREF: sub_472820+5↑o
+SEH_472820:                             ; DATA XREF: ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z+5↑o
                 mov     eax, offset stru_61B8C0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA1C
-; END OF FUNCTION CHUNK FOR sub_472820
+; END OF FUNCTION CHUNK FOR ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_472ADA
 
@@ -331663,7 +330730,7 @@ SEH_472ADA:                             ; DATA XREF: sub_472ADA+5↑o
 ; } // starts at 5FAA31
 ; END OF FUNCTION CHUNK FOR sub_472ADA
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_472DCA
+; START OF FUNCTION CHUNK FOR ?OnMapClick@VisGlobalMap@@QAEXXZ
 
 loc_5FAA46:                             ; DATA XREF: .rdata:stru_61B930↓o
 ; __unwind { // SEH_472DCA              ; varThis
@@ -331680,11 +330747,11 @@ loc_5FAA4F:                             ; DATA XREF: .rdata:0061B938↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_472DCA:                             ; DATA XREF: sub_472DCA+5↑o
+SEH_472DCA:                             ; DATA XREF: ?OnMapClick@VisGlobalMap@@QAEXXZ+5↑o
                 mov     eax, offset stru_61B910
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA46
-; END OF FUNCTION CHUNK FOR sub_472DCA
+; END OF FUNCTION CHUNK FOR ?OnMapClick@VisGlobalMap@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_473195
 
@@ -367549,9 +366616,6 @@ stru_61B838     FuncInfoV1 <19930520h, 3, offset stru_61B858, 0, 0, 0, 0>
 stru_61B858     UnwindMapEntry <-1, offset loc_5FA9CC>
                 UnwindMapEntry <0, offset loc_5FA9D5>
                 UnwindMapEntry <1, offset loc_5FA9DE>
-stru_61B870     FuncInfoV1 <19930520h, 1, offset stru_61B890, 0, 0, 0, 0>
-                align 10h
-stru_61B890     UnwindMapEntry <-1, offset loc_5FA9F6>
 stru_61B898     FuncInfoV1 <19930520h, 1, offset stru_61B8B8, 0, 0, 0, 0>
                 db    0
                 db    0

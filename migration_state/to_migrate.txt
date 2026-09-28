@@ -427,6 +427,7 @@
 ??_GVisGlobalMap@@UAEPAXI@Z	24
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z	26
 ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	28
+?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
 ?MsgProc@VisGlobalMap@@UAEHIII@Z	56
 ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	99
 ?GetHint@VisGlobalMap@@UAEPBDXZ	109
@@ -434,7 +435,8 @@
 ?VMethod26@VisGlobalMap@@UAEXXZ	123
 ?VMethod28@VisGlobalMap@@UAEXXZ	148
 ?DoClose@VisGlobalMap@@UAEXI@Z	149
-?VMethod7@VisGlobalMap@@UAEXXZ	915
+?OnMapClick@VisGlobalMap@@QAEXXZ	226
+?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z	249
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
