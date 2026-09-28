@@ -78307,7 +78307,7 @@ loc_4704DD:                             ; CODE XREF: ?VMethod26@VisGlobalMap@@UA
 
 ; Attributes: bp-based frame
 
-sub_470504      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+62↓p
+?LoadSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+62↓p
 
 var_4           = dword ptr -4
 
@@ -78344,14 +78344,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_470504      endp
+?LoadSamples@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?FreeSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: sub_470504+A↑p
+?FreeSamples@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+A↑p
 
 var_4           = dword ptr -4
 
@@ -78389,7 +78389,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_4705C2      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+57↓p
+?LoadBitmaps@VisGlobalMap@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+57↓p
 
 var_D8          = dword ptr -0D8h
 var_D4          = dword ptr -0D4h
@@ -78475,10 +78475,10 @@ var_4           = dword ptr -4
                 jmp     short loc_470636
 ; ---------------------------------------------------------------------------
 
-loc_47062C:                             ; CODE XREF: sub_4705C2+53↑j
+loc_47062C:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+53↑j
                 mov     [ebp+var_9C], 0
 
-loc_470636:                             ; CODE XREF: sub_4705C2+68↑j
+loc_470636:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+68↑j
                 mov     ecx, dword ptr [ebp+var_9C]
                 mov     [ebp+var_14], ecx
 ;   } // starts at 47060A
@@ -78489,7 +78489,7 @@ loc_470636:                             ; CODE XREF: sub_4705C2+68↑j
                 jmp     short loc_4706A6
 ; ---------------------------------------------------------------------------
 
-loc_470654:                             ; CODE XREF: sub_4705C2+3C↑j
+loc_470654:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+3C↑j
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+var_18], eax
@@ -78504,10 +78504,10 @@ loc_470654:                             ; CODE XREF: sub_4705C2+3C↑j
                 jmp     short loc_47068A
 ; ---------------------------------------------------------------------------
 
-loc_470680:                             ; CODE XREF: sub_4705C2+A7↑j
+loc_470680:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+A7↑j
                 mov     [ebp+var_A0], 0
 
-loc_47068A:                             ; CODE XREF: sub_4705C2+BC↑j
+loc_47068A:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+BC↑j
                 mov     ecx, dword ptr [ebp+var_A0]
                 mov     [ebp+var_1C], ecx
 ;   } // starts at 47065E
@@ -78516,7 +78516,7 @@ loc_47068A:                             ; CODE XREF: sub_4705C2+BC↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     [edx+68h], eax
 
-loc_4706A6:                             ; CODE XREF: sub_4705C2+90↑j
+loc_4706A6:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+90↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Update@CMousePointer@@QAEXXZ 
                 push    24h ; '$'       ; varSize
@@ -78533,10 +78533,10 @@ loc_4706A6:                             ; CODE XREF: sub_4705C2+90↑j
                 jmp     short loc_4706E6
 ; ---------------------------------------------------------------------------
 
-loc_4706DC:                             ; CODE XREF: sub_4705C2+103↑j
+loc_4706DC:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+103↑j
                 mov     [ebp+var_A4], 0
 
-loc_4706E6:                             ; CODE XREF: sub_4705C2+118↑j
+loc_4706E6:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+118↑j
                 mov     ecx, dword ptr [ebp+var_A4]
                 mov     [ebp+var_24], ecx
 ;   } // starts at 4706BA
@@ -78566,10 +78566,10 @@ loc_4706E6:                             ; CODE XREF: sub_4705C2+118↑j
                 jmp     short loc_470756
 ; ---------------------------------------------------------------------------
 
-loc_47074C:                             ; CODE XREF: sub_4705C2+173↑j
+loc_47074C:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+173↑j
                 mov     [ebp+var_A8], 0
 
-loc_470756:                             ; CODE XREF: sub_4705C2+188↑j
+loc_470756:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+188↑j
                 mov     edx, dword ptr [ebp+var_A8]
                 mov     [ebp+var_2C], edx
 ;   } // starts at 47072A
@@ -78599,10 +78599,10 @@ loc_470756:                             ; CODE XREF: sub_4705C2+188↑j
                 jmp     short loc_4707C6
 ; ---------------------------------------------------------------------------
 
-loc_4707BC:                             ; CODE XREF: sub_4705C2+1E3↑j
+loc_4707BC:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+1E3↑j
                 mov     [ebp+var_AC], 0
 
-loc_4707C6:                             ; CODE XREF: sub_4705C2+1F8↑j
+loc_4707C6:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+1F8↑j
                 mov     eax, dword ptr [ebp+var_AC]
                 mov     [ebp+var_34], eax
 ;   } // starts at 47079A
@@ -78632,10 +78632,10 @@ loc_4707C6:                             ; CODE XREF: sub_4705C2+1F8↑j
                 jmp     short loc_470836
 ; ---------------------------------------------------------------------------
 
-loc_47082C:                             ; CODE XREF: sub_4705C2+253↑j
+loc_47082C:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+253↑j
                 mov     [ebp+var_B0], 0
 
-loc_470836:                             ; CODE XREF: sub_4705C2+268↑j
+loc_470836:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+268↑j
                 mov     ecx, dword ptr [ebp+var_B0]
                 mov     [ebp+var_3C], ecx
 ;   } // starts at 47080A
@@ -78659,10 +78659,10 @@ loc_470836:                             ; CODE XREF: sub_4705C2+268↑j
                 jmp     short loc_470892
 ; ---------------------------------------------------------------------------
 
-loc_470888:                             ; CODE XREF: sub_4705C2+2AF↑j
+loc_470888:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+2AF↑j
                 mov     [ebp+var_B4], 0
 
-loc_470892:                             ; CODE XREF: sub_4705C2+2C4↑j
+loc_470892:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+2C4↑j
                 mov     ecx, dword ptr [ebp+var_B4]
                 mov     [ebp+var_44], ecx
 ;   } // starts at 470866
@@ -78709,10 +78709,10 @@ loc_470892:                             ; CODE XREF: sub_4705C2+2C4↑j
                 jmp     short loc_470941
 ; ---------------------------------------------------------------------------
 
-loc_470937:                             ; CODE XREF: sub_4705C2+35E↑j
+loc_470937:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+35E↑j
                 mov     [ebp+var_B8], 0
 
-loc_470941:                             ; CODE XREF: sub_4705C2+373↑j
+loc_470941:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+373↑j
                 mov     ecx, dword ptr [ebp+var_B8]
                 mov     [ebp+var_54], ecx
 ;   } // starts at 470915
@@ -78742,10 +78742,10 @@ loc_470941:                             ; CODE XREF: sub_4705C2+373↑j
                 jmp     short loc_4709B7
 ; ---------------------------------------------------------------------------
 
-loc_4709AD:                             ; CODE XREF: sub_4705C2+3D4↑j
+loc_4709AD:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+3D4↑j
                 mov     [ebp+var_BC], 0
 
-loc_4709B7:                             ; CODE XREF: sub_4705C2+3E9↑j
+loc_4709B7:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+3E9↑j
                 mov     edx, dword ptr [ebp+var_BC]
                 mov     [ebp+var_5C], edx
 ;   } // starts at 47098B
@@ -78775,10 +78775,10 @@ loc_4709B7:                             ; CODE XREF: sub_4705C2+3E9↑j
                 jmp     short loc_470A2D
 ; ---------------------------------------------------------------------------
 
-loc_470A23:                             ; CODE XREF: sub_4705C2+44A↑j
+loc_470A23:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+44A↑j
                 mov     [ebp+var_C0], 0
 
-loc_470A2D:                             ; CODE XREF: sub_4705C2+45F↑j
+loc_470A2D:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+45F↑j
                 mov     eax, dword ptr [ebp+var_C0]
                 mov     [ebp+var_64], eax
 ;   } // starts at 470A01
@@ -78808,10 +78808,10 @@ loc_470A2D:                             ; CODE XREF: sub_4705C2+45F↑j
                 jmp     short loc_470AA3
 ; ---------------------------------------------------------------------------
 
-loc_470A99:                             ; CODE XREF: sub_4705C2+4C0↑j
+loc_470A99:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+4C0↑j
                 mov     [ebp+var_C4], 0
 
-loc_470AA3:                             ; CODE XREF: sub_4705C2+4D5↑j
+loc_470AA3:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+4D5↑j
                 mov     ecx, dword ptr [ebp+var_C4]
                 mov     [ebp+var_6C], ecx
 ;   } // starts at 470A77
@@ -78835,10 +78835,10 @@ loc_470AA3:                             ; CODE XREF: sub_4705C2+4D5↑j
                 jmp     short loc_470B02
 ; ---------------------------------------------------------------------------
 
-loc_470AF8:                             ; CODE XREF: sub_4705C2+51F↑j
+loc_470AF8:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+51F↑j
                 mov     [ebp+var_C8], 0
 
-loc_470B02:                             ; CODE XREF: sub_4705C2+534↑j
+loc_470B02:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+534↑j
                 mov     ecx, dword ptr [ebp+var_C8]
                 mov     [ebp+var_74], ecx
 ;   } // starts at 470AD6
@@ -78862,10 +78862,10 @@ loc_470B02:                             ; CODE XREF: sub_4705C2+534↑j
                 jmp     short loc_470B61
 ; ---------------------------------------------------------------------------
 
-loc_470B57:                             ; CODE XREF: sub_4705C2+57E↑j
+loc_470B57:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+57E↑j
                 mov     [ebp+var_CC], 0
 
-loc_470B61:                             ; CODE XREF: sub_4705C2+593↑j
+loc_470B61:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+593↑j
                 mov     ecx, dword ptr [ebp+var_CC]
                 mov     [ebp+var_7C], ecx
 ;   } // starts at 470B35
@@ -78889,10 +78889,10 @@ loc_470B61:                             ; CODE XREF: sub_4705C2+593↑j
                 jmp     short loc_470BC0
 ; ---------------------------------------------------------------------------
 
-loc_470BB6:                             ; CODE XREF: sub_4705C2+5DD↑j
+loc_470BB6:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+5DD↑j
                 mov     [ebp+var_D0], 0
 
-loc_470BC0:                             ; CODE XREF: sub_4705C2+5F2↑j
+loc_470BC0:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+5F2↑j
                 mov     ecx, dword ptr [ebp+var_D0]
                 mov     [ebp+var_84], ecx
 ;   } // starts at 470B94
@@ -78916,10 +78916,10 @@ loc_470BC0:                             ; CODE XREF: sub_4705C2+5F2↑j
                 jmp     short loc_470C2E
 ; ---------------------------------------------------------------------------
 
-loc_470C24:                             ; CODE XREF: sub_4705C2+648↑j
+loc_470C24:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+648↑j
                 mov     [ebp+var_D4], 0
 
-loc_470C2E:                             ; CODE XREF: sub_4705C2+660↑j
+loc_470C2E:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+660↑j
                 mov     ecx, dword ptr [ebp+var_D4]
                 mov     [ebp+var_8C], ecx
 ;   } // starts at 470BFC
@@ -78943,10 +78943,10 @@ loc_470C2E:                             ; CODE XREF: sub_4705C2+660↑j
                 jmp     short loc_470C9C
 ; ---------------------------------------------------------------------------
 
-loc_470C92:                             ; CODE XREF: sub_4705C2+6B6↑j
+loc_470C92:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+6B6↑j
                 mov     [ebp+var_D8], 0
 
-loc_470C9C:                             ; CODE XREF: sub_4705C2+6CE↑j
+loc_470C9C:                             ; CODE XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+6CE↑j
                 mov     ecx, dword ptr [ebp+var_D8]
                 mov     [ebp+var_94], ecx
 ;   } // starts at 470C6A
@@ -78962,7 +78962,7 @@ loc_470C9C:                             ; CODE XREF: sub_4705C2+6CE↑j
                 pop     ebp
                 retn
 ; } // starts at 4705C2
-sub_4705C2      endp
+?LoadBitmaps@VisGlobalMap@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -79407,155 +79407,6 @@ loc_47114C:                             ; CODE XREF: ?FreeBitmaps@VisGlobalMap@@
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisGlobalMap@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B7E0↓o
-
-var_438         = dword ptr -438h
-var_434         = dword ptr -434h
-var_430         = dword ptr -430h
-var_42C         = dword ptr -42Ch
-var_428         = dword ptr -428h
-var_424         = dword ptr -424h
-Block           = dword ptr -420h
-var_1C          = byte ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FA9CC SIZE 0000002A BYTES
-
-; __unwind { // SEH_47115D
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_47115D
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 42Ch
-                mov     [ebp+var_430], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_14], eax
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   } // starts at 471191
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?DisableHint@CMousePointer@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_430]
-                call    sub_4705C2
-                mov     ecx, dword ptr [ebp+var_430]
-                call    sub_470504
-                push    offset ?g_MissionText@@3VCString@@A ; CString *
-                push    offset aMainTextGlobal ; "main\\text\\globalmap.txt"
-                call    ?ReadFileToString@@YAXPBDPAVCString@@@Z
-                add     esp, 8
-                mov     eax, dword ptr [ebp+var_430]
-                mov     dword ptr [eax+190h], 0
-                push    9602Ch          ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   } // starts at 4711A0
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                cmp     [ebp+Block], 0
-                jz      short loc_471219
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_473195
-                mov     [ebp+var_434], eax
-                jmp     short loc_471223
-; ---------------------------------------------------------------------------
-
-loc_471219:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+A7↑j
-                mov     [ebp+var_434], 0
-
-loc_471223:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+BA↑j
-                mov     ecx, dword ptr [ebp+var_434]
-                mov     [ebp+var_424], ecx
-;   } // starts at 4711F9
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     edx, dword ptr [ebp+var_424]
-                mov     [ebp+var_18], edx
-                mov     ecx, dword ptr [ebp+var_430]
-                add     ecx, 158h
-                call    sub_473F30
-                mov     eax, dword ptr [ebp+var_430]
-                add     eax, 158h
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_473B4A
-                mov     ecx, dword ptr [ebp+var_430]
-                mov     [ecx+154h], eax
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_42C], edx
-                mov     eax, dword ptr [ebp+var_42C]
-                mov     [ebp+var_428], eax
-                cmp     [ebp+var_428], 0
-                jz      short loc_4712A0
-                push    1
-                mov     ecx, dword ptr [ebp+var_428]
-                call    sub_473DA0
-                mov     [ebp+var_438], eax
-                jmp     short loc_4712AA
-; ---------------------------------------------------------------------------
-
-loc_4712A0:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+12C↑j
-                mov     [ebp+var_438], 0
-
-loc_4712AA:                             ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+141↑j
-                mov     ecx, dword ptr [ebp+var_430]
-                mov     dword ptr [ecx+130h], 0
-                mov     edx, dword ptr [ebp+var_430]
-                mov     dword ptr [edx+134h], 0
-                mov     ecx, dword ptr [ebp+var_430]
-                add     ecx, 16Ch
-                call    sub_474390
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    eax
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+4] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A] 
-                push    eax
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                call    ?UnlockSurface2@@YAIXZ
-                call    ?FlushScreen@@YAXXZ
-                mov     ecx, dword ptr [ebp+var_430]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+14h
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_430]
-                mov     dword ptr [ecx+194h], 1
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-;   } // starts at 47122F
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 47133E
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 47115D
-?VMethod28@VisGlobalMap@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -81197,7 +81048,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_473195      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+AF↑p
+?Init@GMapThing@@QAEPAV1@XZ      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+AF↑p
 
 var_24          = dword ptr -24h
 var_20          = byte ptr -20h
@@ -81231,24 +81082,24 @@ var_4           = dword ptr -4
                 jmp     short loc_4731E5
 ; ---------------------------------------------------------------------------
 
-loc_4731DC:                             ; CODE XREF: sub_473195:loc_473224↓j
+loc_4731DC:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_473224↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4731E5:                             ; CODE XREF: sub_473195+45↑j
+loc_4731E5:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+45↑j
                 cmp     [ebp+var_10], 280h
                 jge     short loc_473226
                 mov     [ebp+var_14], 0
                 jmp     short loc_473200
 ; ---------------------------------------------------------------------------
 
-loc_4731F7:                             ; CODE XREF: sub_473195+8D↓j
+loc_4731F7:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+8D↓j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 1
                 mov     [ebp+var_14], ecx
 
-loc_473200:                             ; CODE XREF: sub_473195+60↑j
+loc_473200:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+60↑j
                 cmp     [ebp+var_14], 1E0h
                 jge     short loc_473224
                 mov     edx, dword ptr [ebp+var_10]
@@ -81260,11 +81111,11 @@ loc_473200:                             ; CODE XREF: sub_473195+60↑j
                 jmp     short loc_4731F7
 ; ---------------------------------------------------------------------------
 
-loc_473224:                             ; CODE XREF: sub_473195+72↑j
+loc_473224:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+72↑j
                 jmp     short loc_4731DC
 ; ---------------------------------------------------------------------------
 
-loc_473226:                             ; CODE XREF: sub_473195+57↑j
+loc_473226:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+57↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     dword ptr [eax], 0
                 mov     ecx, dword ptr [ebp+var_24]
@@ -81280,24 +81131,24 @@ loc_473226:                             ; CODE XREF: sub_473195+57↑j
                 jmp     short loc_473266
 ; ---------------------------------------------------------------------------
 
-loc_47325D:                             ; CODE XREF: sub_473195:loc_4732DF↓j
+loc_47325D:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_4732DF↓j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1
                 mov     [ebp+var_10], ecx
 
-loc_473266:                             ; CODE XREF: sub_473195+C6↑j
+loc_473266:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+C6↑j
                 cmp     [ebp+var_10], 280h
                 jge     short loc_4732E4
                 mov     [ebp+var_14], 0
                 jmp     short loc_473281
 ; ---------------------------------------------------------------------------
 
-loc_473278:                             ; CODE XREF: sub_473195:loc_4732DD↓j
+loc_473278:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_4732DD↓j
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 1
                 mov     [ebp+var_14], edx
 
-loc_473281:                             ; CODE XREF: sub_473195+E1↑j
+loc_473281:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+E1↑j
                 cmp     [ebp+var_14], 1E0h
                 jge     short loc_4732DF
                 mov     eax, dword ptr [ebp+var_14]
@@ -81329,15 +81180,15 @@ loc_473281:                             ; CODE XREF: sub_473195+E1↑j
                 add     ecx, 0Ch
                 call    sub_473F50
 
-loc_4732DD:                             ; CODE XREF: sub_473195+11B↑j
+loc_4732DD:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+11B↑j
                 jmp     short loc_473278
 ; ---------------------------------------------------------------------------
 
-loc_4732DF:                             ; CODE XREF: sub_473195+F3↑j
+loc_4732DF:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+F3↑j
                 jmp     loc_47325D
 ; ---------------------------------------------------------------------------
 
-loc_4732E4:                             ; CODE XREF: sub_473195+D8↑j
+loc_4732E4:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+D8↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+4]
                 shl     eax, 2
@@ -81350,12 +81201,12 @@ loc_4732E4:                             ; CODE XREF: sub_473195+D8↑j
                 jmp     short loc_47330E
 ; ---------------------------------------------------------------------------
 
-loc_473305:                             ; CODE XREF: sub_473195+1A2↓j
+loc_473305:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1A2↓j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 1
                 mov     [ebp+var_10], edx
 
-loc_47330E:                             ; CODE XREF: sub_473195+16E↑j
+loc_47330E:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+16E↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     ecx, [eax+4]
@@ -81373,17 +81224,17 @@ loc_47330E:                             ; CODE XREF: sub_473195+16E↑j
                 jmp     short loc_473305
 ; ---------------------------------------------------------------------------
 
-loc_473339:                             ; CODE XREF: sub_473195+182↑j
+loc_473339:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+182↑j
                 mov     [ebp+var_10], 0
                 jmp     short loc_47334B
 ; ---------------------------------------------------------------------------
 
-loc_473342:                             ; CODE XREF: sub_473195:loc_47338B↓j
+loc_473342:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_47338B↓j
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 1
                 mov     [ebp+var_10], edx
 
-loc_47334B:                             ; CODE XREF: sub_473195+1AB↑j
+loc_47334B:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1AB↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     ecx, [eax+4]
@@ -81392,12 +81243,12 @@ loc_47334B:                             ; CODE XREF: sub_473195+1AB↑j
                 jmp     short loc_473368
 ; ---------------------------------------------------------------------------
 
-loc_47335F:                             ; CODE XREF: sub_473195+1F4↓j
+loc_47335F:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1F4↓j
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 1
                 mov     [ebp+var_14], edx
 
-loc_473368:                             ; CODE XREF: sub_473195+1C8↑j
+loc_473368:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1C8↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [ebp+var_14]
                 cmp     ecx, [eax+4]
@@ -81411,11 +81262,11 @@ loc_473368:                             ; CODE XREF: sub_473195+1C8↑j
                 jmp     short loc_47335F
 ; ---------------------------------------------------------------------------
 
-loc_47338B:                             ; CODE XREF: sub_473195+1DC↑j
+loc_47338B:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1DC↑j
                 jmp     short loc_473342
 ; ---------------------------------------------------------------------------
 
-loc_47338D:                             ; CODE XREF: sub_473195+1BF↑j
+loc_47338D:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1BF↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 call    sub_47362D
                 mov     ecx, dword ptr [ebp+var_24]
@@ -81429,14 +81280,14 @@ loc_47338D:                             ; CODE XREF: sub_473195+1BF↑j
                 pop     ebp
                 retn
 ; } // starts at 473195
-sub_473195      endp
+?Init@GMapThing@@QAEPAV1@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4733B5      proc near               ; CODE XREF: sub_473195+FD↑p
+sub_4733B5      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+FD↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -81460,7 +81311,7 @@ sub_4733B5      endp
 
 ; Attributes: bp-based frame
 
-sub_4733CF      proc near               ; CODE XREF: sub_473DA0+A↓p
+sub_4733CF      proc near               ; CODE XREF: ?Destroy@GMapThing@@QAEXI@Z+A↓p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -81613,7 +81464,7 @@ sub_4733CF      endp
 
 ; Attributes: bp-based frame
 
-sub_473508      proc near               ; CODE XREF: sub_473195+9D↑p
+sub_473508      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+9D↑p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -81715,7 +81566,7 @@ sub_473508      endp
 
 ; Attributes: bp-based frame
 
-sub_4735E2      proc near               ; CODE XREF: sub_473195+203↑p
+sub_4735E2      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+203↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -81761,7 +81612,7 @@ sub_4735E2      endp
 
 ; Attributes: bp-based frame
 
-sub_47362D      proc near               ; CODE XREF: sub_473195+1FB↑p
+sub_47362D      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1FB↑p
 
 var_6C          = dword ptr -6Ch
 var_68          = dword ptr -68h
@@ -82328,7 +82179,7 @@ sub_47391F      endp
 
 ; Attributes: bp-based frame
 
-sub_473B4A      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+FF↑p
+?TakeAdjacency@GMapThing@@QAEPAXPAX@Z      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+FF↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -82353,7 +82204,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_473B4A      endp
+?TakeAdjacency@GMapThing@@QAEPAXPAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -82541,7 +82392,7 @@ loc_473D92:                             ; CODE XREF: ??_GVisGlobalMap@@UAEPAXI@Z
 
 ; Attributes: bp-based frame
 
-sub_473DA0      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+136↑p
+?Destroy@GMapThing@@QAEXI@Z      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+136↑p
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -82561,12 +82412,12 @@ arg_0           = dword ptr  8
                 call    ??3@YAXPAX@Z    ; operator delete(void *)
                 add     esp, 4
 
-loc_473DC5:                             ; CODE XREF: sub_473DA0+17↑j
+loc_473DC5:                             ; CODE XREF: ?Destroy@GMapThing@@QAEXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_473DA0      endp
+?Destroy@GMapThing@@QAEXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -330358,7 +330209,7 @@ SEH_47031D:                             ; DATA XREF: ?VMethod26@VisGlobalMap@@UA
 ; } // starts at 5FA908
 ; END OF FUNCTION CHUNK FOR ?VMethod26@VisGlobalMap@@UAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4705C2
+; START OF FUNCTION CHUNK FOR ?LoadBitmaps@VisGlobalMap@@QAEXXZ
 
 loc_5FA91C:                             ; DATA XREF: .rdata:stru_61B7B8↓o
 ; __unwind { // SEH_4705C2
@@ -330489,45 +330340,11 @@ loc_5FA9B5:                             ; DATA XREF: .rdata:0061B830↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4705C2:                             ; DATA XREF: sub_4705C2+5↑o
+SEH_4705C2:                             ; DATA XREF: ?LoadBitmaps@VisGlobalMap@@QAEXXZ+5↑o
                 mov     eax, offset stru_61B798
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FA91C
-; END OF FUNCTION CHUNK FOR sub_4705C2
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod28@VisGlobalMap@@UAEXXZ
-
-loc_5FA9CC:                             ; DATA XREF: .rdata:stru_61B858↓o
-; __unwind { // SEH_47115D              ; varThis
-;   cleanup() // owned by 471191
-;   cleanup() // owned by 47133E
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA9D5:                             ; DATA XREF: .rdata:0061B860↓o
-;   cleanup() // owned by 4711A0        ; varThis
-;   cleanup() // owned by 47122F
-                lea     ecx, [ebp+var_1C]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA9DE:                             ; DATA XREF: .rdata:0061B868↓o
-;   cleanup() // owned by 4711F9
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                pop     ecx
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_47115D:                             ; DATA XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+5↑o
-                mov     eax, offset stru_61B838
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA9CC
-; END OF FUNCTION CHUNK FOR ?VMethod28@VisGlobalMap@@UAEXXZ
+; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisGlobalMap@@QAEXXZ
 ; START OF FUNCTION CHUNK FOR sub_471F15
 
 loc_5FAA09:                             ; DATA XREF: .rdata:stru_61B8B8↓o
@@ -330603,7 +330420,7 @@ SEH_472DCA:                             ; DATA XREF: ?OnMapClick@VisGlobalMap@@Q
 ; } // starts at 5FAA46
 ; END OF FUNCTION CHUNK FOR ?OnMapClick@VisGlobalMap@@QAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_473195
+; START OF FUNCTION CHUNK FOR ?Init@GMapThing@@QAEPAV1@XZ
 
 loc_5FAA62:                             ; DATA XREF: .rdata:stru_61B960↓o
 ; __unwind { // SEH_473195
@@ -330614,11 +330431,11 @@ loc_5FAA62:                             ; DATA XREF: .rdata:stru_61B960↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_473195:                             ; DATA XREF: sub_473195+5↑o
+SEH_473195:                             ; DATA XREF: ?Init@GMapThing@@QAEPAV1@XZ+5↑o
                 mov     eax, offset stru_61B940
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA62
-; END OF FUNCTION CHUNK FOR sub_473195
+; END OF FUNCTION CHUNK FOR ?Init@GMapThing@@QAEPAV1@XZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4733CF
 
@@ -366461,11 +366278,6 @@ stru_61B7B8     UnwindMapEntry <-1, offset loc_5FA91C>
                 UnwindMapEntry <-1, offset loc_5FA99E>
                 UnwindMapEntry <-1, offset loc_5FA9A8>
                 UnwindMapEntry <-1, offset loc_5FA9B5>
-stru_61B838     FuncInfoV1 <19930520h, 3, offset stru_61B858, 0, 0, 0, 0>
-                align 8
-stru_61B858     UnwindMapEntry <-1, offset loc_5FA9CC>
-                UnwindMapEntry <0, offset loc_5FA9D5>
-                UnwindMapEntry <1, offset loc_5FA9DE>
 stru_61B898     FuncInfoV1 <19930520h, 1, offset stru_61B8B8, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -373972,16 +373784,16 @@ asc_62F534      db ' ',0                ; DATA XREF: ?VMethod26@VisGlobalMap@@UA
                 db    0
                 db    0
 ; CHAR aSfxScrollupWav[]
-aSfxScrollupWav db 'SFX\ScrollUp.wav',0 ; DATA XREF: sub_470504+F↑o
+aSfxScrollupWav db 'SFX\ScrollUp.wav',0 ; DATA XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+F↑o
                 align 4
 ; CHAR aSfxScrolldnWav[]
-aSfxScrolldnWav db 'SFX\ScrollDn.wav',0 ; DATA XREF: sub_470504+25↑o
+aSfxScrolldnWav db 'SFX\ScrollDn.wav',0 ; DATA XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+25↑o
                 align 10h
 ; CHAR aSfxPoint1Wav[]
-aSfxPoint1Wav   db 'SFX\Point1.wav',0   ; DATA XREF: sub_470504+3C↑o
+aSfxPoint1Wav   db 'SFX\Point1.wav',0   ; DATA XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+3C↑o
                 align 10h
 ; CHAR aSfxPoint2Wav[]
-aSfxPoint2Wav   db 'SFX\Point2.wav',0   ; DATA XREF: sub_470504+53↑o
+aSfxPoint2Wav   db 'SFX\Point2.wav',0   ; DATA XREF: ?LoadSamples@VisGlobalMap@@QAEXXZ+53↑o
                 align 10h
 ; char aMainGraphicsGl[]
 aMainGraphicsGl db 'main\graphics\Global.Map\Umoir.bmp',0

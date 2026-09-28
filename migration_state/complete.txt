@@ -855,6 +855,7 @@
 ?VMethod27@VisShopCompass@@UAEXXZ
 ?VMethod27@VisTavScene@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
+?VMethod28@VisGlobalMap@@UAEXXZ
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
 ?VMethod28@VisScreen@@UAEXXZ
 ?VMethod28@VisShopCompass@@UAEXXZ

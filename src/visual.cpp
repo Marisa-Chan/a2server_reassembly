@@ -5373,6 +5373,32 @@ void VisGlobalMap::DoClose(uint32_t code)
 }
 
 
+// 47115D
+void VisGlobalMap::VMethod28()
+{
+    g_mousept.DisableHint();
+    this->LoadBitmaps();
+    this->LoadSamples();
+    ReadFileToString("main\\text\\globalmap.txt", &g_MissionText);
+    this->routePointSoundIndex = 0;
+    GMapThing* thing = static_cast<GMapThing*>(operator new(0x9602C))->Init();
+    this->graphNodePoints.RemoveAll();
+    this->routeAdjacencyMatrix = thing->TakeAdjacency(&this->graphNodePoints);
+    thing->Destroy(1);
+    this->partyFlagAnimationFrame = 0;
+    this->targetCrossAnimationFrame = 0;
+    this->locationMetadata.RemoveAll();
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    VisScreen::VMethod28();
+    g_Cursors[CURSOR_SELECT]->Use();
+    this->renderActiveFlag = 1;
+    g_mousept.EnableHint();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

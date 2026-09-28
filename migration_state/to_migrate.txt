@@ -232,6 +232,9 @@
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
 ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
+?TakeAdjacency@GMapThing@@QAEPAXPAX@Z	25
+?Destroy@GMapThing@@QAEXI@Z	25
+?Init@GMapThing@@QAEPAV1@XZ	232
 ?_FUN_00495010@MainWindow@@QAEXXZ	12
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z	15
 ?sub_48CC87@MainWindow@@QAEXXZ	15
@@ -429,15 +432,16 @@
 ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	28
 ?FreeSamples@VisGlobalMap@@QAEXXZ	31
 ?UpdateHoveredLocation@VisGlobalMap@@QAEXVCPoint@@@Z	35
+?LoadSamples@VisGlobalMap@@QAEXXZ	37
 ?MsgProc@VisGlobalMap@@UAEHIII@Z	56
 ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z	99
 ?GetHint@VisGlobalMap@@UAEPBDXZ	109
 ??0VisGlobalMap@@QAE@HHHHHPAVCGameBitmap@@@Z	122
 ?VMethod26@VisGlobalMap@@UAEXXZ	123
-?VMethod28@VisGlobalMap@@UAEXXZ	148
 ?OnMapClick@VisGlobalMap@@QAEXXZ	226
 ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z	249
 ?FreeBitmaps@VisGlobalMap@@QAEXXZ	431
+?LoadBitmaps@VisGlobalMap@@QAEXXZ	573
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
