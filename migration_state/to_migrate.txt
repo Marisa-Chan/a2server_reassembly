@@ -324,7 +324,6 @@
 ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z	122
 ?VMethod7@VisCharGenSkills@@UAEXXZ	172
 ?FreeBitmaps@VisCharGenSkills@@QAEXXZ	269
-?LoadBitmaps@VisCharGenSkills@@QAEXI@Z	1528
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12

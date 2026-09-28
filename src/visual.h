@@ -2339,17 +2339,21 @@ public:
 	void LoadSamples(uint32_t mage_flag); // 42d963 in asm
 	void FreeBitmaps(); // 42d6ed in asm
 	void FreeSamples(); // 42da5a in asm
+private:
+	int32_t HitTest(CPoint pt); // 42dadf in asm
+	void DrawBlinkSlot(); // 42bd41 in asm
+	void Init(); // 42ba81 in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
-	int32_t field_0x60[6];
-	int32_t field_0x78[5];
-	int32_t field_0x8c[5];
-	int32_t field_0xa0[5];
-	uint8_t field_0xb4[0x28];
-	uint8_t field_0xdc[0x14];
-	uint8_t field_0xf0[0x1c];
-	int32_t field_0x10c[5];
-	int32_t field_0x120[5];
+	CGameBitmap* field_0x60[6]; // 0x60: [0]=column bg, [1]=class mask (CBmp256), [2..4]=RollStatsR/FullStatsR/RUOver, [5]=g_bmp_humanbackl alias
+	CBmp64* bmp_on[5]; // 0x78
+	CBmp64* bmp_shine_off[5]; // 0x8c
+	CBmp64* bmp_shine_on[5]; // 0xa0
+	CPoint field_0xb4[5]; // 0xb4: slot positions (parent-screen coords)
+	CPoint field_0xdc[5]; // 0xdc: slot sizes
+	uint8_t color_keys[8]; // 0x104: per-slot mask color keys
+	int32_t field_0x10c[5]; // 0x10c: per-slot state (bit0 selected, bit1 hover)
+	SfxSample* field_0x120[5]; // 0x120: skill sounds
 	int32_t selected_slot; // 0x134
 };
 ASSERT_SIZE(VisCharGenSkills, 0x138);

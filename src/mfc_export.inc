@@ -1575,7 +1575,6 @@ externdef ?VMethod7@VisCharGenSkills@@UAEXXZ : proc
 externdef ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
-externdef ?LoadBitmaps@VisCharGenSkills@@QAEXI@Z : proc
 externdef ?LoadSamples@VisCharGenSkills@@QAEXI@Z : proc
 externdef ?FreeBitmaps@VisCharGenSkills@@QAEXXZ : proc
 externdef ?FreeSamples@VisCharGenSkills@@QAEXXZ : proc

@@ -6769,6 +6769,121 @@ VisCharGenAction::VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 
+// 42c1cc
+void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
+    CPoint topleft = this->parent_screen->rect.TopLeft();
+    this->FreeBitmaps();
+    this->field_0x60[2] = new CBmp64("graphics\\interface\\chrgen\\RollStatsR.bmp");
+    g_mousept.Update();
+    this->field_0x60[3] = new CBmp64("graphics\\interface\\chrgen\\FullStatsR.bmp");
+    g_mousept.Update();
+    this->field_0x60[4] = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    g_mousept.Update();
+    this->field_0x60[5] = g_bmp_humanbackl;
+    if (mage_flag == 0) {
+        this->field_0x60[1] = new CBmp256("graphics\\interface\\chrgen\\fighter\\mask.bmp");
+        g_mousept.Update();
+        this->field_0x60[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\column.bmp");
+        g_mousept.Update();
+        this->bmp_on[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\sword\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\sword\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\sword\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[0] = CPoint(0xF8 + topleft.x, 0x5D + topleft.y);
+        this->field_0xdc[0] = CPoint(0x8C, 0x2F);
+        this->bmp_on[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[1] = new CBmp64("graphics\\interface\\chrgen\\fighter\\axe\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[1] = CPoint(0xFC + topleft.x, 0x7E + topleft.y);
+        this->field_0xdc[1] = CPoint(0x84, 0x39);
+        this->bmp_on[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[2] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Mace\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[2] = CPoint(0xF8 + topleft.x, 0xB6 + topleft.y);
+        this->field_0xdc[2] = CPoint(0x8C, 0x2E);
+        this->bmp_on[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[3] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Pike\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[3] = CPoint(0xF4 + topleft.x, 0xE1 + topleft.y);
+        this->field_0xdc[3] = CPoint(0x94, 0x1C);
+        this->bmp_on[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[4] = new CBmp64("graphics\\interface\\chrgen\\fighter\\Bow\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[4] = CPoint(0xF8 + topleft.x, 0xFA + topleft.y);
+        this->field_0xdc[4] = CPoint(0x8C, 0x28);
+        this->color_keys[0] = 0xFF;
+        this->color_keys[1] = 0xBF;
+        this->color_keys[2] = 0x98;
+        this->color_keys[3] = 0x7F;
+        this->color_keys[4] = 0x66;
+    } else {
+        this->field_0x60[1] = new CBmp256("graphics\\interface\\chrgen\\mag\\mask.bmp");
+        g_mousept.Update();
+        this->field_0x60[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\column.bmp");
+        g_mousept.Update();
+        this->bmp_on[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\fire\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\fire\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\fire\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[0] = CPoint(0x168 + topleft.x, 0x96 + topleft.y);
+        this->field_0xdc[0] = CPoint(0x2C, 0x34);
+        this->bmp_on[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[1] = new CBmp64("graphics\\interface\\chrgen\\mag\\water\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[1] = CPoint(0xE8 + topleft.x, 0xA5 + topleft.y);
+        this->field_0xdc[1] = CPoint(0x30, 0x24);
+        this->bmp_on[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[2] = new CBmp64("graphics\\interface\\chrgen\\mag\\air\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[2] = CPoint(0x124 + topleft.x, 0x62 + topleft.y);
+        this->field_0xdc[2] = CPoint(0x30, 0x26);
+        this->bmp_on[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[3] = new CBmp64("graphics\\interface\\chrgen\\mag\\earth\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[3] = CPoint(0x12C + topleft.x, 0xE4 + topleft.y);
+        this->field_0xdc[3] = CPoint(0x30, 0x26);
+        this->bmp_on[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\on.bmp");
+        g_mousept.Update();
+        this->bmp_shine_off[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\shine_off.bmp");
+        g_mousept.Update();
+        this->bmp_shine_on[4] = new CBmp64("graphics\\interface\\chrgen\\mag\\astral\\shine_on.bmp");
+        g_mousept.Update();
+        this->field_0xb4[4] = CPoint(0x128 + topleft.x, 0x9E + topleft.y);
+        this->field_0xdc[4] = CPoint(0x30, 0x2D);
+        this->color_keys[0] = 0x7F;
+        this->color_keys[1] = 0x66;
+        this->color_keys[2] = 0xFF;
+        this->color_keys[3] = 0x98;
+        this->color_keys[4] = 0xBF;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
