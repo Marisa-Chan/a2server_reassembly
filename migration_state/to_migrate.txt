@@ -314,7 +314,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?ResetMouseBoxes@VisCharGenAction@@QAEXXZ	15
 ??_GVisCharGenAction@@UAEPAXI@Z	24
 ?UpdateMouseOver@VisCharGenAction@@AAEXIVCPoint@@@Z	56
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
