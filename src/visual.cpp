@@ -6621,6 +6621,26 @@ void VisCharGenAction::VMethod7() {
 }
 
 
+// 42b57e
+void VisCharGenAction::LoadBitmaps() {
+    this->FreeBitmaps();
+    this->btn_on[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
+    g_mousept.Update();
+    this->btn_on[1] = new CBmp64("graphics\\interface\\Inn\\button2on.bmp");
+    g_mousept.Update();
+    this->btn_on[2] = new CBmp64("graphics\\interface\\Inn\\button3on.bmp");
+    g_mousept.Update();
+    this->btn_off[0] = new CBmp64("graphics\\interface\\Inn\\button1off.bmp");
+    g_mousept.Update();
+    this->btn_off[1] = new CBmp64("graphics\\interface\\Inn\\button2off.bmp");
+    g_mousept.Update();
+    this->btn_off[2] = new CBmp64("graphics\\interface\\Inn\\button3off.bmp");
+    g_mousept.Update();
+    this->area_bmp = new CBmp64("graphics\\interface\\Inn\\ButtonsArea.bmp");
+    g_mousept.Update();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
