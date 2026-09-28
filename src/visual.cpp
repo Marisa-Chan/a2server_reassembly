@@ -13640,3 +13640,81 @@ void VisStartGame::LoadSamples()
     FUN_00438e40(&this->labelInputSound3.sample, "SFX\\Letter3.wav");
     FUN_00438e40(&this->returnSound.sample, "SFX\\ChrGen\\Ok.wav");
 }
+
+
+// 435097
+void VisStartGame::FreeBitmaps()
+{
+    if (this->blindAnimation != nullptr) {
+        delete this->blindAnimation;
+    }
+    this->blindAnimation = nullptr;
+    if (this->mainAreaBitmap != nullptr) {
+        delete this->mainAreaBitmap;
+    }
+    this->mainAreaBitmap = nullptr;
+    if (this->hotspotMaskBitmap != nullptr) {
+        delete this->hotspotMaskBitmap;
+    }
+    this->hotspotMaskBitmap = nullptr;
+    if (this->acceptButtonBitmap != nullptr) {
+        delete this->acceptButtonBitmap;
+    }
+    this->acceptButtonBitmap = nullptr;
+    if (this->returnToGameButtonBitmap != nullptr) {
+        delete this->returnToGameButtonBitmap;
+    }
+    this->returnToGameButtonBitmap = nullptr;
+    if (this->tableauBitmap != nullptr) {
+        delete this->tableauBitmap;
+    }
+    this->tableauBitmap = nullptr;
+    this->returnToGameHoverBitmap = nullptr;
+    this->acceptHoverBitmap = nullptr;
+    this->field_0x1bc = 0;
+    this->field_0x1c0 = 0;
+
+    for (int32_t i = 0; i < this->portraitHoverBitmaps.GetSize(); i++) {
+        if (this->portraitHoverBitmaps.GetAt(i) != nullptr) {
+            delete this->portraitHoverBitmaps.GetAt(i);
+        }
+        this->portraitHoverBitmaps.ElementAt(i) = nullptr;
+        if (this->portraitSelectedBitmaps.GetAt(i) != nullptr) {
+            delete this->portraitSelectedBitmaps.GetAt(i);
+        }
+        this->portraitSelectedBitmaps.ElementAt(i) = nullptr;
+        if (this->portraitSelectedHoverBitmaps.GetAt(i) != nullptr) {
+            delete this->portraitSelectedHoverBitmaps.GetAt(i);
+        }
+        this->portraitSelectedHoverBitmaps.ElementAt(i) = nullptr;
+    }
+
+    for (int32_t i = 0; i < this->difficultySelectedBitmaps.GetSize(); i++) {
+        if (this->difficultySelectedBitmaps.GetAt(i) != nullptr) {
+            delete this->difficultySelectedBitmaps.GetAt(i);
+        }
+        this->difficultySelectedBitmaps.ElementAt(i) = nullptr;
+        if (this->difficultyHoverBitmaps.GetAt(i) != nullptr) {
+            delete this->difficultyHoverBitmaps.GetAt(i);
+        }
+        this->difficultyHoverBitmaps.ElementAt(i) = nullptr;
+        if (this->difficultySelectedHoverBitmaps.GetAt(i) != nullptr) {
+            delete this->difficultySelectedHoverBitmaps.GetAt(i);
+        }
+        this->difficultySelectedHoverBitmaps.ElementAt(i) = nullptr;
+    }
+
+    for (int32_t i = 0; i < this->leftTorchFrames.GetSize(); i++) {
+        if (this->leftTorchFrames.GetAt(i) != nullptr) {
+            delete this->leftTorchFrames.GetAt(i);
+        }
+        this->leftTorchFrames.ElementAt(i) = nullptr;
+        if (this->rightTorchFrames.GetAt(i) != nullptr) {
+            delete this->rightTorchFrames.GetAt(i);
+        }
+        this->rightTorchFrames.ElementAt(i) = nullptr;
+    }
+
+    this->leftTorchFrames.RemoveAll();
+    this->rightTorchFrames.RemoveAll();
+}

@@ -286,6 +286,7 @@
 ?Format@CString@@QAAXPBDZZ
 ?Free@CGamePalette@@QAEXXZ
 ?Free@TxtFile@@QAEXXZ
+?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ

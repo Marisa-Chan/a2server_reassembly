@@ -1615,8 +1615,8 @@ extern ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
 externdef ?LoadBitmaps@VisStartGame@@QAEXXZ : proc
 extern ?FlushScreen@@YAXXZ  : proc
-externdef ?FreeBitmaps@VisStartGame@@QAEXXZ : proc
 extern ?FreeSamples@VisStartGame@@QAEXXZ  : proc
+extern ?FreeBitmaps@VisStartGame@@QAEXXZ  : proc
 extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
 extern ?DoClose@VisStartGame@@UAEXI@Z  : proc
 

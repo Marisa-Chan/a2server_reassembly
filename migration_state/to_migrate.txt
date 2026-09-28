@@ -541,7 +541,6 @@
 ?MsgProc@VisSpellBook@@UAEHIII@Z	180
 ?VMethod7@VisSpellBook@@UAEXXZ	450
 ?GetHint@VisSpellBook@@UAEPBDXZ	675
-?FreeBitmaps@VisStartGame@@QAEXXZ	571
 ?LoadBitmaps@VisStartGame@@QAEXXZ	1015
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
