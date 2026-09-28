@@ -20458,14 +20458,14 @@ loc_42B425:                             ; CODE XREF: sub_42B392+83↑j
 loc_42B432:                             ; CODE XREF: sub_42B392+89↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [ecx+5Ch]
-                call    sub_42E92A
+                call    ?RollStats@VisCharGen@@QAEXXZ
                 jmp     short loc_42B44A
 ; ---------------------------------------------------------------------------
 
 loc_42B43F:                             ; CODE XREF: sub_42B392+8F↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [edx+5Ch]
-                call    sub_42EBAB
+                call    ?OnClickBack@VisCharGen@@QAEXXZ
 
 loc_42B44A:                             ; CODE XREF: sub_42B392+1B↑j
                 mov     eax, 1
@@ -21827,7 +21827,7 @@ loc_42C0EA:                             ; CODE XREF: sub_42C072+57↑j
                 call    sub_494148
                 mov     edx, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [edx+5Ch]
-                call    sub_42EA87
+                call    ?ShowTipHint@VisCharGen@@QAEXXZ
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -24085,7 +24085,7 @@ sub_42DC65      endp
 
 ; Attributes: bp-based frame
 
-sub_42E92A      proc near               ; CODE XREF: sub_42B392+A6↑p
+?RollStats@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+A6↑p
 
 var_10          = dword ptr -10h
 var_C           = byte ptr -0Ch
@@ -24151,7 +24151,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42E92A      endp
+?RollStats@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24170,7 +24170,7 @@ sub_42E92A      endp
 
 ; Attributes: bp-based frame
 
-sub_42EA87      proc near               ; CODE XREF: sub_42C072+11A↑p
+?ShowTipHint@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42C072+11A↑p
 
 var_14          = dword ptr -14h
 var_10          = byte ptr -10h
@@ -24198,11 +24198,11 @@ var_4           = dword ptr -4
                 cmp     dword ptr [ecx+80h], 0
                 jnz     short loc_42EAC8
 
-loc_42EAC6:                             ; CODE XREF: sub_42EA87+25↑j
+loc_42EAC6:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+25↑j
                 jmp     short loc_42EB1B
 ; ---------------------------------------------------------------------------
 
-loc_42EAC8:                             ; CODE XREF: sub_42EA87+3D↑j
+loc_42EAC8:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+3D↑j
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   try {
@@ -24227,14 +24227,14 @@ loc_42EAC8:                             ; CODE XREF: sub_42EA87+3D↑j
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_42EB1B:                             ; CODE XREF: sub_42EA87:loc_42EAC6↑j
+loc_42EB1B:                             ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ:loc_42EAC6↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 42EA87
-sub_42EA87      endp
+?ShowTipHint@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24281,7 +24281,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_42EBAB      proc near               ; CODE XREF: sub_42B392+B3↑p
+?OnClickBack@VisCharGen@@QAEXXZ      proc near               ; CODE XREF: sub_42B392+B3↑p
 
 var_4           = dword ptr -4
 
@@ -24299,7 +24299,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42EBAB      endp
+?OnClickBack@VisCharGen@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -32062,7 +32062,7 @@ sub_438960      endp
 
 ; Attributes: bp-based frame
 
-sub_438B80      proc near               ; CODE XREF: sub_42EA87+6B↑p
+sub_438B80      proc near               ; CODE XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+6B↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -319531,7 +319531,7 @@ SEH_42DC65:                             ; DATA XREF: sub_42DC65+5↑o
 ; END OF FUNCTION CHUNK FOR sub_42DC65
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42EA87
+; START OF FUNCTION CHUNK FOR ?ShowTipHint@VisCharGen@@QAEXXZ
 
 loc_5F80E7:                             ; DATA XREF: .rdata:stru_618710↓o
 ; __unwind { // SEH_42EA87              ; varThis
@@ -319541,11 +319541,11 @@ loc_5F80E7:                             ; DATA XREF: .rdata:stru_618710↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42EA87:                             ; DATA XREF: sub_42EA87+5↑o
+SEH_42EA87:                             ; DATA XREF: ?ShowTipHint@VisCharGen@@QAEXXZ+5↑o
                 mov     eax, offset stru_6186F0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F80E7
-; END OF FUNCTION CHUNK FOR sub_42EA87
+; END OF FUNCTION CHUNK FOR ?ShowTipHint@VisCharGen@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42F072
 
