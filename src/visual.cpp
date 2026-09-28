@@ -13528,3 +13528,11 @@ int32_t VisStartGame::OnMouseMove(uint32_t wparam, CPoint pos)
     this->UpdateHotspots(pos.x, pos.y, wparam & 1);
     return CVisualObject::OnMouseMove(wparam, pos);
 }
+
+
+// 4382A9
+void VisStartGame::Cancel()
+{
+    CSound::Play(this->returnSound);
+    this->MsgProc(0x446, 0, 0);
+}

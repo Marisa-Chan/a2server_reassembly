@@ -543,7 +543,6 @@
 ?GetHint@VisSpellBook@@UAEPBDXZ	675
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z	11
 ?ResetHoverState@VisStartGame@@QAEXXZ	21
-?Cancel@VisStartGame@@QAEXXZ	23
 ??_GVisStartGame@@UAEPAXI@Z	24
 ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
