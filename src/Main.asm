@@ -16570,63 +16570,6 @@ sub_428D20      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_42AD03      proc near
 
 var_10          = dword ptr -10h
