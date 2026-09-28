@@ -13624,3 +13624,19 @@ void VisStartGame::FreeSamples()
     FUN_00438dd0(&this->labelInputSound3.sample);
     FUN_00438dd0(&this->returnSound.sample);
 }
+
+
+// 437FF4
+void VisStartGame::LoadSamples()
+{
+    this->FreeSamples();
+    FUN_00438e40(&this->difficultyLevel1Sound.sample, "SFX\\ChrGen\\Level1.wav");
+    FUN_00438e40(&this->difficultyLevel2Sound.sample, "SFX\\ChrGen\\Level2.wav");
+    FUN_00438e40(&this->difficultyLevel3Sound.sample, "SFX\\ChrGen\\Level3.wav");
+    FUN_00438e40(&this->portraitSelectSound.sample, "SFX\\ChrGen\\Char.wav");
+    FUN_00438e40(&this->acceptSound.sample, "SFX\\ChrGen\\Ok.wav");
+    FUN_00438e40(&this->labelInputSound1.sample, "SFX\\Letter1.wav");
+    FUN_00438e40(&this->labelInputSound2.sample, "SFX\\Letter2.wav");
+    FUN_00438e40(&this->labelInputSound3.sample, "SFX\\Letter3.wav");
+    FUN_00438e40(&this->returnSound.sample, "SFX\\ChrGen\\Ok.wav");
+}
