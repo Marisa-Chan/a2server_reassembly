@@ -16639,8 +16639,8 @@ sub_428DB0      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_428E51(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_428E51      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+93↓p
+; int __stdcall ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+93↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -16718,7 +16718,7 @@ arg_14          = dword ptr  1Ch
                 pop     ebp
                 retn    18h
 ; } // starts at 428E51
-sub_428E51      endp
+??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19333,8 +19333,8 @@ sub_42A9CD      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_42AA2B(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_42AA2B      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+F1↓p
+; int __stdcall ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+F1↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -19389,7 +19389,7 @@ arg_14          = dword ptr  1Ch
                 pop     ebp
                 retn    18h
 ; } // starts at 42AA2B
-sub_42AA2B      endp
+??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19777,8 +19777,8 @@ sub_42AD03      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_42AD7D(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_42AD7D      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+14F↓p
+; int __stdcall ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+14F↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -19846,7 +19846,7 @@ arg_14          = dword ptr  1Ch
                 pop     ebp
                 retn    18h
 ; } // starts at 42AD7D
-sub_42AD7D      endp
+??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -21067,8 +21067,8 @@ sub_42B909      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_42B98C(int, int xLeft, int yTop, int xRight, int yBottom, int)
-sub_42B98C      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+1AD↓p
+; int __stdcall ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
+??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+1AD↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -21137,7 +21137,7 @@ arg_14          = dword ptr  1Ch
                 pop     ebp
                 retn    18h
 ; } // starts at 42B98C
-sub_42B98C      endp
+??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24186,215 +24186,6 @@ var_4           = dword ptr -4
                 retn
 ; } // starts at 42DD66
 sub_42DD66      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?VMethod26@VisCharGen@@UAEXXZ      proc near               ; CODE XREF: sub_42DC65+57↑p
-
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F808F SIZE 00000032 BYTES
-
-; __unwind { // SEH_42DDEC
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42DDEC
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 34h
-                mov     [ebp+var_30], ecx
-                mov     eax, dword ptr [ebp+var_30]
-                mov     dword ptr [eax+84h], 0
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     dword ptr [ecx+88h], 0
-                mov     edx, dword ptr [ebp+var_30]
-                mov     dword ptr [edx+8Ch], 0
-                mov     eax, dword ptr [ebp+var_30]
-                mov     dword ptr [eax+90h], 0
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     dword ptr [ecx+80h], 0
-                push    1F4h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_42DE89
-                mov     edx, dword ptr [ebp+var_30]
-                push    edx             ; int
-                push    0EEh            ; yBottom
-                push    0A0h            ; xRight
-                push    0               ; yTop
-                push    0               ; xLeft
-                push    457h            ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_428E51
-                mov     [ebp+var_34], eax
-                jmp     short loc_42DE90
-; ---------------------------------------------------------------------------
-
-loc_42DE89:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+77↑j
-                mov     [ebp+var_34], 0
-
-loc_42DE90:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+9B↑j
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [ebp+var_14], eax
-;   } // starts at 42DE58
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+70h], edx
-                push    0A8h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_18], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_18], 0
-                jz      short loc_42DEE7
-                mov     eax, dword ptr [ebp+var_30]
-                push    eax             ; int
-                push    0F2h            ; yBottom
-                push    0A0h            ; xRight
-                push    0EEh            ; yTop
-                push    0               ; xLeft
-                push    458h            ; int
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_42AA2B
-                mov     [ebp+var_38], eax
-                jmp     short loc_42DEEE
-; ---------------------------------------------------------------------------
-
-loc_42DEE7:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+D2↑j
-                mov     [ebp+var_38], 0
-
-loc_42DEEE:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+F9↑j
-                mov     ecx, dword ptr [ebp+var_38]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 42DEB3
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_30]
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [edx+74h], eax
-                push    0C8h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_20], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_20], 0
-                jz      short loc_42DF45
-                mov     ecx, dword ptr [ebp+var_30]
-                push    ecx             ; int
-                push    0EEh            ; yBottom
-                push    280h            ; xRight
-                push    0               ; yTop
-                push    1E0h            ; xLeft
-                push    459h            ; int
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_42AD7D
-                mov     [ebp+var_3C], eax
-                jmp     short loc_42DF4C
-; ---------------------------------------------------------------------------
-
-loc_42DF45:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+130↑j
-                mov     [ebp+var_3C], 0
-
-loc_42DF4C:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+157↑j
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     [ebp+var_24], edx
-;   } // starts at 42DF11
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_30]
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [eax+78h], ecx
-                push    138h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_28], eax
-;   try {
-                mov     [ebp+var_4], 3
-                cmp     [ebp+var_28], 0
-                jz      short loc_42DFA3
-                mov     edx, dword ptr [ebp+var_30]
-                push    edx             ; int
-                push    1E0h            ; yBottom
-                push    1E0h            ; xRight
-                push    0               ; yTop
-                push    0A0h            ; xLeft
-                push    45Ah            ; int
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_42B98C
-                mov     [ebp+var_40], eax
-                jmp     short loc_42DFAA
-; ---------------------------------------------------------------------------
-
-loc_42DFA3:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+18E↑j
-                mov     [ebp+var_40], 0
-
-loc_42DFAA:                             ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+1B5↑j
-                mov     eax, dword ptr [ebp+var_40]
-                mov     [ebp+var_2C], eax
-;   } // starts at 42DF6F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     [ecx+7Ch], edx
-                mov     eax, dword ptr [ebp+var_30]
-                mov     ecx, dword ptr [eax+70h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_30]
-                mov     eax, dword ptr [edx+74h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     edx, dword ptr [ecx+78h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_30]
-                mov     ecx, dword ptr [eax+7Ch]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_30]
-                mov     dword ptr [edx+98h], 0
-                mov     eax, dword ptr [ebp+var_30]
-                mov     dword ptr [eax+9Ch], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     dword ptr [ecx+0F0h], 0
-                mov     edx, dword ptr [ebp+var_30]
-                mov     dword ptr [edx+0F4h], 0
-                mov     eax, dword ptr [ebp+var_30]
-                mov     dword ptr [eax+0F8h], 0
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     dword ptr [ecx+104h], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42DDEC
-?VMethod26@VisCharGen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -319597,7 +319388,7 @@ SEH_428DB0:                             ; DATA XREF: sub_428DB0+5↑o
 ; } // starts at 5F7C30
 ; END OF FUNCTION CHUNK FOR sub_428DB0
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_428E51
+; START OF FUNCTION CHUNK FOR ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z
 
 loc_5F7C52:                             ; DATA XREF: .rdata:stru_6181E8↓o
 ; __unwind { // SEH_428E51
@@ -319615,11 +319406,11 @@ loc_5F7C5B:                             ; DATA XREF: .rdata:006181F0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_428E51:                             ; DATA XREF: sub_428E51+5↑o
+SEH_428E51:                             ; DATA XREF: ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
                 mov     eax, offset stru_6181C8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7C52
-; END OF FUNCTION CHUNK FOR sub_428E51
+; END OF FUNCTION CHUNK FOR ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_428F12
 
@@ -319758,7 +319549,7 @@ SEH_42A9CD:                             ; DATA XREF: sub_42A9CD+5↑o
 ; } // starts at 5F7D0E
 ; END OF FUNCTION CHUNK FOR sub_42A9CD
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42AA2B
+; START OF FUNCTION CHUNK FOR ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z
 
 loc_5F7D21:                             ; DATA XREF: .rdata:stru_6182E8↓o
 ; __unwind { // SEH_42AA2B
@@ -319768,11 +319559,11 @@ loc_5F7D21:                             ; DATA XREF: .rdata:stru_6182E8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42AA2B:                             ; DATA XREF: sub_42AA2B+5↑o
+SEH_42AA2B:                             ; DATA XREF: ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
                 mov     eax, offset stru_6182C8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7D21
-; END OF FUNCTION CHUNK FOR sub_42AA2B
+; END OF FUNCTION CHUNK FOR ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42AAA0
 
@@ -319831,7 +319622,7 @@ SEH_42AD03:                             ; DATA XREF: sub_42AD03+5↑o
 ; } // starts at 5F7D5B
 ; END OF FUNCTION CHUNK FOR sub_42AD03
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42AD7D
+; START OF FUNCTION CHUNK FOR ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z
 
 loc_5F7D7A:                             ; DATA XREF: .rdata:stru_618390↓o
 ; __unwind { // SEH_42AD7D
@@ -319849,11 +319640,11 @@ loc_5F7D83:                             ; DATA XREF: .rdata:00618398↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42AD7D:                             ; DATA XREF: sub_42AD7D+5↑o
+SEH_42AD7D:                             ; DATA XREF: ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
                 mov     eax, offset stru_618370
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7D7A
-; END OF FUNCTION CHUNK FOR sub_42AD7D
+; END OF FUNCTION CHUNK FOR ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42AE19
 
@@ -319960,7 +319751,7 @@ SEH_42B909:                             ; DATA XREF: sub_42B909+5↑o
 ; } // starts at 5F7E08
 ; END OF FUNCTION CHUNK FOR sub_42B909
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42B98C
+; START OF FUNCTION CHUNK FOR ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z
 
 loc_5F7E1B:                             ; DATA XREF: .rdata:stru_618470↓o
 ; __unwind { // SEH_42B98C
@@ -319970,11 +319761,11 @@ loc_5F7E1B:                             ; DATA XREF: .rdata:stru_618470↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42B98C:                             ; DATA XREF: sub_42B98C+5↑o
+SEH_42B98C:                             ; DATA XREF: ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
                 mov     eax, offset stru_618450
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7E1B
-; END OF FUNCTION CHUNK FOR sub_42B98C
+; END OF FUNCTION CHUNK FOR ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42BA30
 
@@ -320380,47 +320171,6 @@ SEH_42DD66:                             ; DATA XREF: sub_42DD66+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8064
 ; END OF FUNCTION CHUNK FOR sub_42DD66
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisCharGen@@UAEXXZ
-
-loc_5F808F:                             ; DATA XREF: .rdata:stru_618698↓o
-; __unwind { // SEH_42DDEC
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8099:                             ; DATA XREF: .rdata:006186A0↓o
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F80A3:                             ; DATA XREF: .rdata:006186A8↓o
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F80AD:                             ; DATA XREF: .rdata:006186B0↓o
-;   cleanup() // owned by 42DE58
-;   cleanup() // owned by 42DEB3
-;   cleanup() // owned by 42DF11
-;   cleanup() // owned by 42DF6F
-                mov     eax, dword ptr [ebp+var_28]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42DDEC:                             ; DATA XREF: ?VMethod26@VisCharGen@@UAEXXZ+5↑o
-                mov     eax, offset stru_618678
-                jmp     ___CxxFrameHandler
-; } // starts at 5F808F
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisCharGen@@UAEXXZ
 ; START OF FUNCTION CHUNK FOR sub_42EA87
 
 loc_5F80E7:                             ; DATA XREF: .rdata:stru_618710↓o
@@ -360279,15 +360029,6 @@ stru_618648     FuncInfoV1 <19930520h, 2, offset stru_618668, 0, 0, 0, 0>
                 db    0
 stru_618668     UnwindMapEntry <-1, offset loc_5F8064>
                 UnwindMapEntry <0, offset loc_5F806D>
-stru_618678     FuncInfoV1 <19930520h, 4, offset stru_618698, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618698     UnwindMapEntry <-1, offset loc_5F808F>
-                UnwindMapEntry <-1, offset loc_5F8099>
-                UnwindMapEntry <-1, offset loc_5F80A3>
-                UnwindMapEntry <-1, offset loc_5F80AD>
 stru_6186F0     FuncInfoV1 <19930520h, 1, offset stru_618710, 0, 0, 0, 0>
                 db    0
                 db    0

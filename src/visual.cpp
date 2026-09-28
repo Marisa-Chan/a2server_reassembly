@@ -5857,6 +5857,31 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
 }
 
 
+// 42DDEC
+void VisCharGen::VMethod26()
+{
+    this->snd_stat = nullptr;
+    this->snd_ok = nullptr;
+    this->snd_reset = nullptr;
+    this->snd_back = nullptr;
+    this->tips = nullptr;
+    this->stats_panel = new VisCharGenStats(0x457, 0, 0, 0xA0, 0xEE, this);
+    this->fullstats_panel = new VisCharGenFullStats(0x458, 0, 0xEE, 0xA0, 0xF2, this);
+    this->action_panel = new VisCharGenAction(0x459, 0x1E0, 0, 0x280, 0xEE, this);
+    this->skills_panel = new VisCharGenSkills(0x45A, 0xA0, 0, 0x1E0, 0x1E0, this);
+    this->AddChild(this->stats_panel);
+    this->AddChild(this->fullstats_panel);
+    this->AddChild(this->action_panel);
+    this->AddChild(this->skills_panel);
+    this->fwd_btn = 0;
+    this->field14_0x9c = -1;
+    this->mage_flag = 0;
+    this->female_face = 0;
+    this->selected_face = 0;
+    this->active_flag = 0;
+}
+
+
 // 42E218
 void VisCharGen::VMethod28()
 {
