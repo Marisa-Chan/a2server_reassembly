@@ -6709,6 +6709,18 @@ void VisCharGenAction::ResetMouseBoxes() {
 }
 
 
+// 42b47a
+int32_t VisCharGenAction::HitTest(CPoint pt) {
+    CPoint topleft = this->parent_screen->rect.TopLeft();
+    for (int32_t i = 0; i < 3; i++) {
+        if ((this->areas[i] + topleft).PtInRect(pt)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
