@@ -13573,3 +13573,12 @@ void VisStartGame::ResetHoverState()
     this->field_0x1bc = 0;
     this->field_0x1c0 = 0;
 }
+
+
+// 435743
+void VisStartGame::ClearDifficultySelectedFlags()
+{
+    for (int32_t i = 0; i < 3; i++) {
+        this->difficultyStateFlags.ElementAt(i) &= ~1u;
+    }
+}

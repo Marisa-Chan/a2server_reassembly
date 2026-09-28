@@ -1607,7 +1607,6 @@ extern ?MsgProc@VisStartGame@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z  : proc
 extern ?UpdateHotspots@VisStartGame@@QAEIHHI@Z  : proc
-externdef ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ : proc
 externdef ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ : proc

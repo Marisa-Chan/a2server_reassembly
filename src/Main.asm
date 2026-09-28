@@ -33870,47 +33870,6 @@ loc_4356A2:                             ; CODE XREF: ?FreeBitmaps@VisStartGame@@
 
 ; Attributes: bp-based frame
 
-?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?UpdateHotspots@VisStartGame@@QAEIHHI@Z+64↓p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_43575E
-; ---------------------------------------------------------------------------
-
-loc_435755:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+43↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_43575E:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+10↑j
-                cmp     [ebp+var_4], 3
-                jge     short loc_435788
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 148h
-                call    sub_4387B0
-                mov     [ebp+var_C], eax
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                and     eax, 0FFFFFFFEh
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     [ecx], eax
-                jmp     short loc_435755
-; ---------------------------------------------------------------------------
-
-loc_435788:                             ; CODE XREF: ?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ+1F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?ClearDifficultySelectedFlags@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
