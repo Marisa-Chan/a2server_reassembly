@@ -13505,3 +13505,18 @@ uint32_t VisStartGame::GetHotspotId(int32_t x, int32_t y)
     uint8_t* data = static_cast<uint8_t*>(this->hotspotMaskBitmap->GetData());
     return data[index];
 }
+
+
+// 437617
+int32_t VisStartGame::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == VK_RETURN) {
+        this->Accept();
+        return 1;
+    }
+    if (wparam == VK_ESCAPE) {
+        this->Cancel();
+        return 1;
+    }
+    return VisScreen::OnKeyDown(wparam);
+}

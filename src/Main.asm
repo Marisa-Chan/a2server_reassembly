@@ -34414,50 +34414,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisStartGame@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609A04↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0Dh
-                jz      short loc_437634
-                cmp     [ebp+var_8], 1Bh
-                jz      short loc_437643
-                jmp     short loc_437652
-; ---------------------------------------------------------------------------
-
-loc_437634:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+13↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Accept@VisStartGame@@QAEXXZ
-                mov     eax, 1
-                jmp     short loc_43765E
-; ---------------------------------------------------------------------------
-
-loc_437643:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+19↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Cancel@VisStartGame@@QAEXXZ
-                mov     eax, 1
-                jmp     short loc_43765E
-; ---------------------------------------------------------------------------
-
-loc_437652:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+1B↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-
-loc_43765E:                             ; CODE XREF: ?OnKeyDown@VisStartGame@@UAEHI@Z+2A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisStartGame@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

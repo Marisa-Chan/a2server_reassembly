@@ -1617,7 +1617,7 @@ externdef ?Cancel@VisStartGame@@QAEXXZ : proc
 externdef ?IsDefaultNpcName@@YAIPBD@Z : proc
 externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
 externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
-externdef ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
+extern ?OnKeyDown@VisStartGame@@UAEHI@Z : proc
 extern ?VMethod26@VisStartGame@@UAEXXZ  : proc
 externdef ?LoadBitmaps@VisStartGame@@QAEXXZ : proc
 externdef ?LoadSamples@VisStartGame@@QAEXXZ : proc

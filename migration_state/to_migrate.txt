@@ -550,7 +550,6 @@
 ?ClearPortraitSelectedFlags@VisStartGame@@QAEXXZ	40
 ?ClearDifficultyHoverFlags@VisStartGame@@QAEXXZ	40
 ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
-?OnKeyDown@VisStartGame@@UAEHI@Z	43
 ?FreeSamples@VisStartGame@@QAEXXZ	56
 ?LoadSamples@VisStartGame@@QAEXXZ	67
 ??0VisStartGame@@QAE@HHHHH@Z	150
