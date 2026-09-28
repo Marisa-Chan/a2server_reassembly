@@ -16725,7 +16725,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_428F12      proc near               ; CODE XREF: sub_438300+A↓p
+sub_428F12      proc near               ; CODE XREF: ??_GVisCharGenStats@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -17940,7 +17940,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_429D03      proc near               ; DATA XREF: .rdata:006094F4↓o
+?VMethod7@VisCharGenStats@@UAEXXZ      proc near               ; DATA XREF: .rdata:006094F4↓o
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -17964,7 +17964,7 @@ var_C           = dword ptr -0Ch
                 call    timeGetTime
                 mov     dword_659520, eax
 
-loc_429D35:                             ; CODE XREF: sub_429D03+16↑j
+loc_429D35:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+16↑j
                 call    timeGetTime
                 mov     [ebp+var_18], eax
                 xor     edx, edx
@@ -17981,7 +17981,7 @@ loc_429D35:                             ; CODE XREF: sub_429D03+16↑j
                 call    _atexit
                 add     esp, 4
 
-loc_429D70:                             ; CODE XREF: sub_429D03+48↑j
+loc_429D70:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+48↑j
                 lea     ecx, [ebp+var_10] ; void *
                 call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [ebp+var_1C]
@@ -17998,7 +17998,7 @@ loc_429D70:                             ; CODE XREF: sub_429D03+48↑j
                 jmp     loc_42A016
 ; ---------------------------------------------------------------------------
 
-loc_429D9F:                             ; CODE XREF: sub_429D03+95↑j
+loc_429D9F:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+95↑j
                 call    ?LockSurface2@@YAIXZ
                 push    0
                 push    0
@@ -18017,12 +18017,12 @@ loc_429D9F:                             ; CODE XREF: sub_429D03+95↑j
                 jmp     short loc_429DD5
 ; ---------------------------------------------------------------------------
 
-loc_429DCC:                             ; CODE XREF: sub_429D03+309↓j
+loc_429DCC:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+309↓j
                 mov     eax, dword ptr [ebp+var_14]
                 add     eax, 1
                 mov     [ebp+var_14], eax
 
-loc_429DD5:                             ; CODE XREF: sub_429D03+C7↑j
+loc_429DD5:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+C7↑j
                 cmp     [ebp+var_14], 4
                 jge     loc_42A011
                 mov     ecx, dword ptr [ebp+var_14]
@@ -18188,15 +18188,15 @@ loc_429DD5:                             ; CODE XREF: sub_429D03+C7↑j
                 jmp     loc_429DCC
 ; ---------------------------------------------------------------------------
 
-loc_42A011:                             ; CODE XREF: sub_429D03+D6↑j
+loc_42A011:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+D6↑j
                 call    ?UnlockSurface2@@YAIXZ
 
-loc_42A016:                             ; CODE XREF: sub_429D03+97↑j
+loc_42A016:                             ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+97↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_429D03      endp
+?VMethod7@VisCharGenStats@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18204,7 +18204,7 @@ sub_429D03      endp
 ; Attributes: bp-based frame
 
 ; void __cdecl sub_42A01B()
-sub_42A01B      proc near               ; DATA XREF: sub_429D03+60↑o
+sub_42A01B      proc near               ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+60↑o
                 push    ebp
                 mov     ebp, esp
                 mov     ecx, offset unk_659538 ; varThis
@@ -18361,7 +18361,7 @@ sub_42A02A      endp
 
 ; Attributes: bp-based frame
 
-?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z      proc near               ; CODE XREF: sub_42A312+16↓p
+?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z      proc near               ; CODE XREF: ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z+16↓p
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -18541,7 +18541,7 @@ loc_42A309:                             ; CODE XREF: ?HandleClick@VisCharGenStat
 
 ; Attributes: bp-based frame
 
-sub_42A312      proc near               ; DATA XREF: .rdata:00609514↓o
+?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609514↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -18564,14 +18564,14 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_42A312      endp
+?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A335      proc near               ; DATA XREF: .rdata:0060951C↓o
+?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060951C↓o
 
 var_14          = dword ptr -14h
 var_10          = dword ptr -10h
@@ -18612,7 +18612,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_42A39D
 ; ---------------------------------------------------------------------------
 
-loc_42A383:                             ; CODE XREF: sub_42A335+44↑j
+loc_42A383:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+44↑j
                 mov     eax, dword ptr [ebp+var_C]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_10]
@@ -18620,25 +18620,25 @@ loc_42A383:                             ; CODE XREF: sub_42A335+44↑j
                 jmp     short loc_42A39D
 ; ---------------------------------------------------------------------------
 
-loc_42A391:                             ; CODE XREF: sub_42A335+4A↑j
+loc_42A391:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+4A↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_10]
                 call    sub_42A87B
 
-loc_42A39D:                             ; CODE XREF: sub_42A335+24↑j
+loc_42A39D:                             ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+24↑j
                 mov     eax, 1
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_42A335      endp
+?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A3A8      proc near               ; DATA XREF: .rdata:00609520↓o
+?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609520↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -18661,14 +18661,14 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_42A3A8      endp
+?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A3CE      proc near               ; DATA XREF: .rdata:00609524↓o
+?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609524↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -18692,14 +18692,14 @@ arg_8           = dword ptr  10h
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_42A3CE      endp
+?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A3F2      proc near               ; DATA XREF: .rdata:00609518↓o
+?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609518↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -18728,7 +18728,7 @@ arg_8           = dword ptr  10h
                 jmp     short loc_42A435
 ; ---------------------------------------------------------------------------
 
-loc_42A421:                             ; CODE XREF: sub_42A3F2+F↑j
+loc_42A421:                             ; CODE XREF: ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z+F↑j
                 mov     eax, dword ptr [ebp+arg_8]
                 push    eax
                 mov     ecx, dword ptr [ebp+arg_4]
@@ -18738,18 +18738,18 @@ loc_42A421:                             ; CODE XREF: sub_42A3F2+F↑j
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
 
-loc_42A435:                             ; CODE XREF: sub_42A3F2+2D↑j
+loc_42A435:                             ; CODE XREF: ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z+2D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_42A3F2      endp
+?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42A43B      proc near               ; DATA XREF: .rdata:006094DC↓o
+?GetHint@VisCharGenStats@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:006094DC↓o
 
 var_90          = dword ptr -90h
 var_8C          = POINT ptr -8Ch
@@ -18779,7 +18779,7 @@ var_8           = byte ptr -8
                 jmp     loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A463:                             ; CODE XREF: sub_42A43B+1F↑j
+loc_42A463:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1F↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
                 push    eax
@@ -18802,7 +18802,7 @@ loc_42A463:                             ; CODE XREF: sub_42A43B+1F↑j
                 call    _atexit
                 add     esp, 4
 
-loc_42A4B3:                             ; CODE XREF: sub_42A43B+53↑j
+loc_42A4B3:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+53↑j
                 lea     ecx, [ebp+var_8] ; void *
                 call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [ebp+var_90]
@@ -18817,12 +18817,12 @@ loc_42A4B3:                             ; CODE XREF: sub_42A43B+53↑j
                 jmp     short loc_42A4EB
 ; ---------------------------------------------------------------------------
 
-loc_42A4E2:                             ; CODE XREF: sub_42A43B:loc_42A75E↓j
+loc_42A4E2:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ:loc_42A75E↓j
                 mov     edx, dword ptr [ebp+var_C]
                 add     edx, 1
                 mov     [ebp+var_C], edx
 
-loc_42A4EB:                             ; CODE XREF: sub_42A43B+A5↑j
+loc_42A4EB:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+A5↑j
                 cmp     [ebp+var_C], 4
                 jge     loc_42A763
                 mov     eax, dword ptr [ebp+var_14]
@@ -18856,7 +18856,7 @@ loc_42A4EB:                             ; CODE XREF: sub_42A43B+A5↑j
                 jmp     loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A551:                             ; CODE XREF: sub_42A43B+F9↑j
+loc_42A551:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+F9↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     dword ptr [ebp+var_44], edx ; var_44.x
                 mov     eax, dword ptr [ebp+var_10]
@@ -18884,7 +18884,7 @@ loc_42A551:                             ; CODE XREF: sub_42A43B+F9↑j
                 jmp     loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A5A4:                             ; CODE XREF: sub_42A43B+151↑j
+loc_42A5A4:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+151↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     dword ptr [ebp+var_5C], ecx ; var_5C.x
                 mov     edx, dword ptr [ebp+var_10]
@@ -18927,7 +18927,7 @@ loc_42A5A4:                             ; CODE XREF: sub_42A43B+151↑j
                 jmp     loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A632:                             ; CODE XREF: sub_42A43B+1AB↑j
+loc_42A632:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1AB↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 mov     dword ptr [ebp+var_74], ecx ; var_74.x
                 mov     edx, dword ptr [ebp+var_10]
@@ -18970,7 +18970,7 @@ loc_42A632:                             ; CODE XREF: sub_42A43B+1AB↑j
                 jmp     loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A6C3:                             ; CODE XREF: sub_42A43B+239↑j
+loc_42A6C3:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+239↑j
                 mov     edx, dword ptr [ebp+var_14]
                 mov     dword ptr [ebp+var_8C], edx ; var_8C.x
                 mov     eax, dword ptr [ebp+var_10]
@@ -19012,18 +19012,18 @@ loc_42A6C3:                             ; CODE XREF: sub_42A43B+239↑j
                 jmp     short loc_42A765
 ; ---------------------------------------------------------------------------
 
-loc_42A75E:                             ; CODE XREF: sub_42A43B+2D9↑j
+loc_42A75E:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+2D9↑j
                 jmp     loc_42A4E2
 ; ---------------------------------------------------------------------------
 
-loc_42A763:                             ; CODE XREF: sub_42A43B+B4↑j
+loc_42A763:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+B4↑j
                 xor     eax, eax
 
-loc_42A765:                             ; CODE XREF: sub_42A43B+23↑j
+loc_42A765:                             ; CODE XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+23↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42A43B      endp
+?GetHint@VisCharGenStats@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19031,7 +19031,7 @@ sub_42A43B      endp
 ; Attributes: bp-based frame
 
 ; void __cdecl sub_42A769()
-sub_42A769      proc near               ; DATA XREF: sub_42A43B+6B↑o
+sub_42A769      proc near               ; DATA XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+6B↑o
                 push    ebp
                 mov     ebp, esp
                 mov     ecx, offset unk_659540 ; varThis
@@ -19045,7 +19045,7 @@ sub_42A769      endp
 
 ; Attributes: bp-based frame
 
-sub_42A778      proc near               ; CODE XREF: sub_42A335+55↑p
+sub_42A778      proc near               ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+55↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -19136,7 +19136,7 @@ sub_42A778      endp
 
 ; Attributes: bp-based frame
 
-sub_42A87B      proc near               ; CODE XREF: sub_42A335+63↑p
+sub_42A87B      proc near               ; CODE XREF: ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z+63↑p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -30235,7 +30235,7 @@ sub_4382D9      endp
 
 ; Attributes: bp-based frame
 
-sub_438300      proc near               ; DATA XREF: .rdata:006094CC↓o
+??_GVisCharGenStats@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:006094CC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -30254,12 +30254,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_438322:                             ; CODE XREF: sub_438300+17↑j
+loc_438322:                             ; CODE XREF: ??_GVisCharGenStats@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_438300      endp
+??_GVisCharGenStats@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -80521,7 +80521,7 @@ loc_476983:                             ; CODE XREF: ?sub_4764BC@@YAPAEH@Z+63↑
 ; Attributes: bp-based frame
 
 ; int __cdecl ?FUN_00476987@@YAXPAVCString@@@Z(CString *)
-?FUN_00476987@@YAXPAVCString@@@Z      proc near               ; CODE XREF: sub_429D03+293↑p
+?FUN_00476987@@YAXPAVCString@@@Z      proc near               ; CODE XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+293↑p
 
 var_50          = dword ptr -50h
 var_4C          = dword ptr -4Ch
@@ -344726,17 +344726,17 @@ off_6094A0      dd offset sub_5F4897    ; DATA XREF: sub_428B70+12↑o
                 db    0
                 db    0
 off_6094C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_428DB0+7B↑o
-                dd offset sub_438300
+                dd offset ??_GVisCharGenStats@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset sub_42A43B
+                dd offset ?GetHint@VisCharGenStats@@UAEPBDXZ
                 dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
                 dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_429D03
+                dd offset ?VMethod7@VisCharGenStats@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ
@@ -344744,11 +344744,11 @@ off_6094C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DataSize@CVisualObject@@UAEIXZ
                 dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
                 dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset sub_42A312
-                dd offset sub_42A3F2
-                dd offset sub_42A335
-                dd offset sub_42A3A8
-                dd offset sub_42A3CE
+                dd offset ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z
+                dd offset ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z
+                dd offset ?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
@@ -366002,13 +366002,13 @@ aGraphicsInterf_7 db 'graphics\interface\chrgen\buttons\mnloff.bmp',0
 aGraphicsInterf_8 db 'graphics\interface\chrgen\buttons\mdisable.bmp',0
                 align 4
 ; char aD[]
-aD              db '%d',0               ; DATA XREF: sub_429D03+EA↑o
+aD              db '%d',0               ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+EA↑o
                 align 10h
 ; char aD_0[]
-aD_0            db '%d',0               ; DATA XREF: sub_429D03+27C↑o
+aD_0            db '%d',0               ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+27C↑o
                 align 4
 ; char aSD[]
-aSD             db '%s = %d',0          ; DATA XREF: sub_42A43B+1D6↑o
+aSD             db '%s = %d',0          ; DATA XREF: ?GetHint@VisCharGenStats@@UAEPBDXZ+1D6↑o
 ; char aD_60[]
 aD_60           db '%+d',0
 ; char aGraphicsInterf_9[]
@@ -373523,7 +373523,7 @@ byte_659514      db    ?
 dword_659518    dd ?                    ; DATA XREF: sub_42BD41+8D↑w
 byte_65951C      db    ?
                 align 10h
-dword_659520    dd ?                    ; DATA XREF: sub_429D03+2D↑w
+dword_659520    dd ?                    ; DATA XREF: ?VMethod7@VisCharGenStats@@UAEXXZ+2D↑w
 dword_659530    dd ?                    ; DATA XREF: sub_42BD41+67↑w
 ; CString unk_659538
 unk_659538      db 4h dup(?)

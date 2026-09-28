@@ -1572,6 +1572,14 @@ externdef ?ReadUnitStats@VisCharGenStats@@QAEXXZ : proc
 externdef ?LoadBitmaps@VisCharGenStats@@QAEXXZ : proc
 externdef ?FreeBitmaps@VisCharGenStats@@QAEXXZ : proc
 externdef ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z : proc
+externdef ??_GVisCharGenStats@@UAEPAXI@Z : proc
+externdef ?GetHint@VisCharGenStats@@UAEPBDXZ : proc
+externdef ?VMethod7@VisCharGenStats@@UAEXXZ : proc
+externdef ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
+externdef ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonUp@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
+externdef ?OnLButtonDblClk@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
 ;VisCharGenFullStats
 externdef ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ?LoadBitmaps@VisCharGenFullStats@@QAEXXZ : proc

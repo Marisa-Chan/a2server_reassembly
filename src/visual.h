@@ -2228,6 +2228,16 @@ class VisTipsDialog;
 class VisCharGenStats : public CVisualObject
 {
 public:
+	virtual ~VisCharGenStats(); // 428f12 in asm
+
+	virtual const char* GetHint() override; // 42a43b in asm
+	virtual void VMethod7() override; // 429d03 in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42a312 in asm
+	virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 42a3f2 in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42a335 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42a3a8 in asm
+	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 42a3ce in asm
+
 	VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //428e51 in asm
 
 	void ReadUnitStats(); // 429c39 in asm
