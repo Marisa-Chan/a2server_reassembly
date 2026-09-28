@@ -6660,6 +6660,27 @@ void VisCharGenAction::FreeBitmaps() {
 }
 
 
+// 42b392
+int32_t VisCharGenAction::OnLButtonUp(uint32_t wparam, CPoint pos) {
+    AfxGetMainWnd();
+    if (this->mouse_down_box >= 0 && this->mouse_down_box < 3) {
+        if (this->HitTest(pos) == this->mouse_down_box) {
+            int32_t box = this->mouse_down_box;
+            this->mouse_down_box = -1;
+            this->UpdateMouseOver(wparam, pos);
+            if (box == 0) {
+                this->parent_screen->OnClickFwd();
+            } else if (box == 1) {
+                this->parent_screen->RollStats();
+            } else if (box == 2) {
+                this->parent_screen->OnClickBack();
+            }
+        }
+    }
+    return 1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

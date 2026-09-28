@@ -317,7 +317,9 @@
 ?ResetMouseBoxes@VisCharGenAction@@QAEXXZ	15
 ?OnMouseMove@VisCharGenAction@@UAEHIVCPoint@@@Z	23
 ??_GVisCharGenAction@@UAEPAXI@Z	24
+?UpdateMouseOver@VisCharGenAction@@AAEXIVCPoint@@@Z	56
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
+?HitTest@VisCharGenAction@@AAEHVCPoint@@@Z	72
 ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36

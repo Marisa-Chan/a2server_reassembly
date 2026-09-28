@@ -2305,6 +2305,9 @@ public:
 	void LoadBitmaps(); // 42b57e in asm
 	void FreeBitmaps(); // 42b7ee in asm
 	void ResetMouseBoxes(); // 42b455 in asm
+private:
+	int32_t HitTest(CPoint pt); // 42b47a in asm
+	void UpdateMouseOver(uint32_t wparam, CPoint pos); // 42b505 in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
 	CStringArray texts; // 0x60
