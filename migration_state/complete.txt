@@ -160,7 +160,6 @@
 ??_7CObject@@6B@
 ??_7Packet@@6B@
 ??_7SpellBook@@6B@
-??_GVisCharGenFullStats@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z
@@ -290,7 +289,6 @@
 ?Format@CString@@QAAXPBDZZ
 ?Free@CGamePalette@@QAEXXZ
 ?Free@TxtFile@@QAEXXZ
-?FreeBitmaps@VisCharGenFullStats@@QAEXXZ
 ?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
@@ -454,7 +452,6 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
-?GetHint@VisCharGenFullStats@@UAEPBDXZ
 ?GetHint@VisGlobalMap@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
@@ -948,7 +945,6 @@
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
-?VMethod7@VisCharGenFullStats@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ

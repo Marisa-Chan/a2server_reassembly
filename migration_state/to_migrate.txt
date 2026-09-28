@@ -323,7 +323,6 @@
 ?FreeBitmaps@VisCharGenAction@@QAEXXZ	118
 ?LoadBitmaps@VisCharGenAction@@QAEXXZ	236
 ?VMethod7@VisCharGenAction@@UAEXXZ	242
-??1VisCharGenFullStats@@UAE@XZ	36
 ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36

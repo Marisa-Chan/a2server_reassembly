@@ -1567,12 +1567,6 @@ extern ?OnClickFwd@VisCharGen@@QAEXXZ : proc
 extern ?OnClickBack@VisCharGen@@QAEXXZ : proc
 extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 
-;VisCharGenFullStats
-extern ??_GVisCharGenFullStats@@UAEPAXI@Z :proc
-externdef ??1VisCharGenFullStats@@UAE@XZ : proc
-extern ?GetHint@VisCharGenFullStats@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall VisCharGenFullStats::GetHint(void))
-extern ?VMethod7@VisCharGenFullStats@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenFullStats::VMethod7(void))
-extern ?FreeBitmaps@VisCharGenFullStats@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenFullStats::FreeBitmaps(void))
 ;VisCharGenAction
 externdef ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ??_GVisCharGenAction@@UAEPAXI@Z : proc
