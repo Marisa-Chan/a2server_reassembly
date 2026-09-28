@@ -6341,6 +6341,68 @@ void VisCharGenStats::VMethod7() {
 }
 
 
+// 42a02a
+int32_t VisCharGenStats::HitTest(CPoint pt) {
+    CPoint topleft;
+    this->ClientPtToScreen(&topleft, this->rect.TopLeft());
+    for (int32_t i = 0; i < 4; i++) {
+        if ((this->areas[i * 3] + topleft).PtInRect(pt)) {
+            return i << 8;
+        }
+        if ((this->areas[i * 3 + 1] + topleft).PtInRect(pt)) {
+            return (i << 8) | 1;
+        }
+        if ((this->areas[i * 3 + 2] + topleft).PtInRect(pt)) {
+            return (i << 8) | 2;
+        }
+    }
+    return -1;
+}
+
+// 42a161
+uint32_t VisCharGenStats::HandleClick(int32_t mode, CPoint pt) {
+    int32_t hit = this->HitTest(pt);
+    int32_t button;
+    int32_t idx;
+    if (hit == -1) {
+        button = -1;
+        idx = -1;
+    } else {
+        button = hit & 0xFF;
+        idx = hit >> 8;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        int32_t up_cost = this->StatUpCost((&this->stat_body)[i]);
+        this->field_0x174[i * 2] = this->field_0x194[3];
+        if (this->field_0x1f0 >= up_cost && (&this->stat_body)[i] < 0x2D) {
+            if (i == idx && button == 1) {
+                if (mode & 1) {
+                    this->field_0x174[i * 2] = this->field_0x194[0];
+                } else {
+                    this->field_0x174[i * 2] = this->field_0x194[1];
+                }
+            }
+        } else {
+            this->field_0x174[i * 2] = this->field_0x194[4];
+        }
+        this->StatDownRefund((&this->stat_body)[i]);
+        this->field_0x174[i * 2 + 1] = this->field_0x194[8];
+        if ((&this->stat_body)[i] > 0xF) {
+            if (i == idx && button == 2) {
+                if (mode & 1) {
+                    this->field_0x174[i * 2 + 1] = this->field_0x194[5];
+                } else {
+                    this->field_0x174[i * 2 + 1] = this->field_0x194[6];
+                }
+            }
+        } else {
+            this->field_0x174[i * 2 + 1] = this->field_0x194[9];
+        }
+    }
+    return hit;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

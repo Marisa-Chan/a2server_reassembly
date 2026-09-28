@@ -348,7 +348,6 @@
 ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z	43
 ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z	60
 ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z	78
-?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z	173
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12

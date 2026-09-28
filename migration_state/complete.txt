@@ -502,6 +502,7 @@
 ?gfx_radiob@@3PAVCSprite256@@A
 ?gfx_scrollbars@@3PAVCSprite256@@A
 ?gfxFlushRect@@YAXABVCRect@@@Z
+?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z
 ?HatConnector@NetStru1@@2V1@A
 ?Init@GfxFile@@QAEXXZ
 ?Init@ProjectileInfo@@QAEXXZ
