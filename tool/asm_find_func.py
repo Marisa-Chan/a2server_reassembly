@@ -71,19 +71,30 @@ def main():
     print(f"  First: {lines[start_line - 1].rstrip()}")
     print(f"  Last:  {lines[endp_line - 1].rstrip()}")
 
-    # Check for jump table immediately after endp
+    # Check for jump table immediately after endp.
+    # A genuine table is a run of "dd offset ..." lines (usually behind a jpt_* label,
+    # possibly separated from endp by a blank line and a dash separator). Blank lines and
+    # the next function's "; ==== S U B R O U T I N E ===" banner are NOT table content;
+    # anything that is not blank, a separator, or dd/jumptable content ends the scan.
     jump_end = endp_line
+    jump_start = None
+    saw_table_line = False
     for i in range(endp_line, min(total, endp_line + 500)):
-        line = lines[i].strip()
-        if re.search(r"^;\s*-{10,}", line) or re.search(r"\bproc\b", line) or re.search(r"^;.*FUNCTION CHUNK", line):
-            break
-        if re.search(r"^dd\s+offset", line) or line == "" or re.search(r"^;\s*jumptable", line):
+        s = lines[i].strip()
+        if re.search(r"\bdd\s+offset\b", s) or re.search(r"^;\s*jumptable\b", s):
+            if not saw_table_line:
+                jump_start = endp_line + 1  # include blanks/separator between endp and table
+                saw_table_line = True
             jump_end = i + 1  # 1-based
+        elif s == "" or re.search(r"^;\s*-{10,}", s):
+            continue
+        else:
+            break
 
-    if jump_end > endp_line:
+    if saw_table_line:
         print()
         print("=== JUMP TABLE ===")
-        print(f"  Lines: {endp_line + 1} - {jump_end}  ({jump_end - endp_line} lines)")
+        print(f"  Lines: {jump_start} - {jump_end}  ({jump_end - jump_start + 1} lines)")
         endp_line = jump_end
         print(f"  Combined proc+jump range: {start_line} - {endp_line}")
 
@@ -91,7 +102,10 @@ def main():
     chunks = []
     escaped_func = re.escape(func_name)
     for i in range(total):
-        if re.search(rf"FUNCTION CHUNK FOR\s+{escaped_func}\b", lines[i]):
+        # Match only the "; START OF FUNCTION CHUNK FOR <func>" banner — the "; END OF"
+        # banner also contains "FUNCTION CHUNK FOR <func>" and would create a bogus
+        # 2-line duplicate range fully contained in the real one.
+        if re.search(rf";\s*START OF FUNCTION CHUNK FOR\s+{escaped_func}\b", lines[i]):
             chunk_start = i + 1  # 1-based
             chunk_end = chunk_start
             for j in range(i + 1, min(total, i + 200)):
@@ -112,6 +126,16 @@ def main():
                 ce_line += 1
 
             chunks.append((cs_line, ce_line))
+
+    # Merge overlapping/adjacent ranges defensively
+    chunks.sort()
+    merged = []
+    for cs, ce in chunks:
+        if merged and cs <= merged[-1][1] + 1:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], ce))
+        else:
+            merged.append((cs, ce))
+    chunks = merged
 
     if chunks:
         print()
