@@ -329,9 +329,15 @@
 ?GetHint@VisCharGenFullStats@@UAEPBDXZ	55
 ?LoadBitmaps@VisCharGenFullStats@@QAEXXZ	56
 ?VMethod7@VisCharGenFullStats@@UAEXXZ	63
+?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
+??_GVisCharGenSkills@@UAEPAXI@Z	24
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36
+?GetHint@VisCharGenSkills@@UAEPBDXZ	67
 ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z	69
+?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z	77
 ?LoadSamples@VisCharGenSkills@@QAEXI@Z	80
+?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z	122
+?VMethod7@VisCharGenSkills@@UAEXXZ	172
 ?FreeBitmaps@VisCharGenSkills@@QAEXXZ	269
 ?LoadBitmaps@VisCharGenSkills@@QAEXI@Z	1528
 ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z	23

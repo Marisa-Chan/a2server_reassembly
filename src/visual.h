@@ -2314,6 +2314,14 @@ ASSERT_SIZE(VisCharGenAction, 0xc8);
 class VisCharGenSkills : public CVisualObject
 {
 public:
+	virtual ~VisCharGenSkills(); // 42ba30 in asm
+
+	virtual const char* GetHint() override; // 42dbce in asm
+	virtual void VMethod7() override; // 42bb5a in asm
+	virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42bfcc in asm
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42c072 in asm
+	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42c1ab in asm (Ghidra-labeled accHitTest)
+
 	VisCharGenSkills(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42b98c in asm
 
 	void LoadBitmaps(uint32_t mage_flag); // 42c1cc in asm
