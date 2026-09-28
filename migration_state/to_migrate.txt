@@ -548,7 +548,6 @@
 ?ClearPortraitHoverFlags@VisStartGame@@QAEXXZ	40
 ?FreeSamples@VisStartGame@@QAEXXZ	56
 ?LoadSamples@VisStartGame@@QAEXXZ	67
-??0VisStartGame@@QAE@HHHHH@Z	150
 ?FreeBitmaps@VisStartGame@@QAEXXZ	571
 ?LoadBitmaps@VisStartGame@@QAEXXZ	1015
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
