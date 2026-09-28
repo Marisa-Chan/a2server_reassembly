@@ -1575,7 +1575,7 @@ externdef ??_GVisCharGenStats@@UAEPAXI@Z : proc
 extern ?GetHint@VisCharGenStats@@UAEPBDXZ : proc
 extern ?StatUpCost@VisCharGenStats@@AAEHH@Z : proc
 extern ?StatDownRefund@VisCharGenStats@@AAEHH@Z : proc
-externdef ?VMethod7@VisCharGenStats@@UAEXXZ : proc
+extern ?VMethod7@VisCharGenStats@@UAEXXZ : proc
 externdef ?OnMouseMove@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
 externdef ?OnWmUser@VisCharGenStats@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharGenStats@@UAEHIVCPoint@@@Z : proc

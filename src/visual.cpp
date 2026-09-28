@@ -6305,6 +6305,42 @@ const char* VisCharGenStats::GetHint() {
 }
 
 
+// 429d03
+void VisCharGenStats::VMethod7() {
+    static CString str;
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    if (this->parent_screen->active_flag == 0) {
+        return;
+    }
+    LockSurface2();
+    this->bmp->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    for (int32_t i = 0; i < 4; i++) {
+        str.Format("%d", (&this->stat_body)[i]);
+        uint16_t* pal = palette_husk->GetPalette(0);
+        g_font4->DrawTextWithShadow(screen_rect.left + this->areas[i * 3].left + 2,
+                                    screen_rect.top + this->areas[i * 3].top + 4,
+                                    str, 0, pal, 1);
+        CBmp64* plus_bmp = this->field_0x174[i * 2];
+        plus_bmp->VMethod10(screen_rect.left + this->areas[i * 3 + 1].left,
+                            screen_rect.top + this->areas[i * 3 + 1].top,
+                            0, 0, plus_bmp->GetWidth(0), plus_bmp->GetHeight(0));
+        CBmp64* minus_bmp = this->field_0x174[i * 2 + 1];
+        minus_bmp->VMethod10(screen_rect.left + this->areas[i * 3 + 2].left,
+                             screen_rect.top + this->areas[i * 3 + 2].top,
+                             0, 0, minus_bmp->GetWidth(0), minus_bmp->GetHeight(0));
+        str.Format("%d", this->field_0x1f0);
+        FUN_00476987(&str);
+        pal = palette_husk->GetPalette(0);
+        g_font4->DrawTextWithShadow(
+            screen_rect.left + this->field_0xa4.left + this->field_0xa4.Width() / 2,
+            screen_rect.top + this->field_0xa4.top + this->field_0xa4.Height() / 2 + 2,
+            str, 10, pal, 1);
+    }
+    UnlockSurface2();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
