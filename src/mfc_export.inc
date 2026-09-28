@@ -1571,6 +1571,35 @@ externdef ?OnKeyDown@VisCharGen@@UAEHI@Z : proc
 externdef ?VMethod26@VisCharGen@@UAEXXZ : proc
 externdef ?VMethod28@VisCharGen@@UAEXXZ : proc
 externdef ?DoClose@VisCharGen@@UAEXI@Z : proc
+externdef ?OnPrevFace@VisCharGen@@QAEXXZ : proc
+externdef ?OnNextFace@VisCharGen@@QAEXXZ : proc
+externdef ?RollStats@VisCharGen@@QAEXXZ : proc
+externdef ?OnClickFwd@VisCharGen@@QAEXXZ : proc
+externdef ?OnClickBack@VisCharGen@@QAEXXZ : proc
+externdef ?ShowTipHint@VisCharGen@@QAEXXZ : proc
+externdef ?LoadSamples@VisCharGen@@QAEXXZ : proc
+externdef ?FreeSamples@VisCharGen@@QAEXXZ : proc
+;VisCharGenStats
+externdef ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
+externdef ?ReadUnitStats@VisCharGenStats@@QAEXXZ : proc
+externdef ?LoadBitmaps@VisCharGenStats@@QAEXXZ : proc
+externdef ?FreeBitmaps@VisCharGenStats@@QAEXXZ : proc
+externdef ?HandleClick@VisCharGenStats@@QAEIHVCPoint@@@Z : proc
+;VisCharGenFullStats
+externdef ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
+externdef ?LoadBitmaps@VisCharGenFullStats@@QAEXXZ : proc
+externdef ?FreeBitmaps@VisCharGenFullStats@@QAEXXZ : proc
+;VisCharGenAction
+externdef ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z : proc
+externdef ?LoadBitmaps@VisCharGenAction@@QAEXXZ : proc
+externdef ?FreeBitmaps@VisCharGenAction@@QAEXXZ : proc
+externdef ?ResetMouseBoxes@VisCharGenAction@@QAEXXZ : proc
+;VisCharGenSkills
+externdef ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z : proc
+externdef ?LoadBitmaps@VisCharGenSkills@@QAEXI@Z : proc
+externdef ?LoadSamples@VisCharGenSkills@@QAEXI@Z : proc
+externdef ?FreeBitmaps@VisCharGenSkills@@QAEXXZ : proc
+externdef ?FreeSamples@VisCharGenSkills@@QAEXXZ : proc
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
 externdef ?VMethod7@Vis1200@@UAEXXZ : proc

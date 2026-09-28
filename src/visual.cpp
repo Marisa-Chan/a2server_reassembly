@@ -8,6 +8,7 @@
 #include "quest.h"
 #include "ingame.h"
 #include "util.h"
+#include "resource.h"
 
 
 const int32_t VisStartGame::DWORD_0060bd60[4] = {0, 2, 3, 1};
@@ -5853,6 +5854,80 @@ void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* 
         this->SearchRoute(static_cast<uint16_t>(n), to, new_route);
         delete new_route;
     }
+}
+
+
+// 42E218
+void VisCharGen::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    g_mousept.DisableHint();
+    this->info_panel = main_wnd->vis_charinfo;
+    this->map_visual = main_wnd->vis_map_context;
+    this->current_char = this->map_visual->GetUnit_3f6c();
+    this->stats_panel->ReadUnitStats();
+    this->selected_face = this->current_char->face - 1;
+    this->mage_flag = (this->current_char->unitFlags & 2) << 5;
+    this->female_face = (this->current_char->unitFlags & 4) << 6;
+    main_wnd->vis_right_panel->RemoveChild(this->info_panel);
+    CRect& rc = this->info_panel->GetRect();
+    OffsetRect(&rc, 0x280 - rc.Width(), 0);
+    this->info_panel->SetRect(&rc);
+    this->AddChild(this->info_panel);
+    if (main_wnd->sessionMode == 0) {
+        RegFile reg("scenario\\npc.reg");
+        this->face_sets[0].RemoveAll();
+        this->face_sets[1].RemoveAll();
+        this->face_sets[2].RemoveAll();
+        this->face_sets[3].RemoveAll();
+        reg.GetInt16Array("Multiplayer", "FacesMM", &this->face_sets[0]);
+        reg.GetInt16Array("Multiplayer", "FacesMF", &this->face_sets[1]);
+        reg.GetInt16Array("Multiplayer", "FacesFM", &this->face_sets[2]);
+        reg.GetInt16Array("Multiplayer", "FacesFF", &this->face_sets[3]);
+    }
+    if (g_settings.TipsMode != 0) {
+        CString str;
+        if (this->current_char->unitFlags & 2) {
+            MissionGetTips(6, &str);
+        } else {
+            MissionGetTips(5, &str);
+        }
+        this->tips = new VisTipsDialog(0x467, 0, 0x118, 0x138, 0x1E0, str);
+        this->skills_panel->AddChild(this->tips);
+    } else {
+        if (this->tips != nullptr) {
+            this->skills_panel->RemoveChild(this->tips);
+            delete this->tips;
+            this->tips = nullptr;
+        } else {
+            this->tips = nullptr;
+        }
+    }
+    this->tips_step = 0;
+    this->fwd_btn = 0;
+    this->field14_0x9c = -1;
+    this->stats_panel->LoadBitmaps();
+    this->fullstats_panel->LoadBitmaps();
+    this->action_panel->LoadBitmaps();
+    this->skills_panel->LoadBitmaps(this->current_char->unitFlags & 2);
+    this->skills_panel->LoadSamples(this->current_char->unitFlags & 2);
+    this->LoadSamples();
+    this->stats_panel->field_0x1f0 = 0;
+    this->stats_panel->HandleClick(0, CPoint(0, 0));
+    for (int32_t i = 0; i < 5; i++) {
+        this->skills_panel->field_0x10c[i] = 0;
+    }
+    this->skills_panel->selected_slot = main_wnd->m_GameSession.main_sphere - 1;
+    this->skills_panel->field_0x10c[this->skills_panel->selected_slot] = 1;
+    this->selected_face_set = 0;
+    this->active_flag = 1;
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    this->VisScreen::VMethod28();
+    g_Cursors[CURSOR_DEFAULT]->Use();
+    g_mousept.EnableHint();
 }
 
 

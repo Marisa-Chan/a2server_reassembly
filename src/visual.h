@@ -2221,6 +2221,98 @@ public:
 };
 ASSERT_SIZE(VisCredits, 0xa0);
 
+class VisCharGen;
+class VisTipsDialog;
+
+//6094c8
+class VisCharGenStats : public CVisualObject
+{
+public:
+	VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //428e51 in asm
+
+	void ReadUnitStats(); // 429c39 in asm
+	void LoadBitmaps(); // 429475 in asm
+	void FreeBitmaps(); // 4298b6 in asm
+	uint32_t HandleClick(int32_t mode, CPoint pt); // 42a161 in asm
+public:
+	VisCharGen* parent_screen; // 0x5c
+	int32_t field_0x60;
+	CRect field_0x64[4];
+	CRect field_0xa4;
+	CRect areas[12]; // 0xb4
+	int32_t field_0x174[8];
+	int32_t field_0x194[10];
+	CStringArray texts; // 0x1bc
+	int32_t stat_body; // 0x1d0
+	int32_t stat_reaction; // 0x1d4
+	int32_t stat_mind; // 0x1d8
+	int32_t stat_spirit; // 0x1dc
+	int32_t field_0x1e0[4];
+	int32_t field_0x1f0;
+};
+ASSERT_SIZE(VisCharGenStats, 0x1f4);
+
+//609540
+class VisCharGenFullStats : public CVisualObject
+{
+public:
+	VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42aa2b in asm
+
+	void LoadBitmaps(); // 42ab18 in asm
+	void FreeBitmaps(); // 42ab9c in asm
+public:
+	VisCharGen* parent_screen; // 0x5c
+	CBmp64* bmp; // 0x60
+	uint8_t field_0x64[0x44];
+};
+ASSERT_SIZE(VisCharGenFullStats, 0xa8);
+
+//6095b8
+class VisCharGenAction : public CVisualObject
+{
+public:
+	VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42ad7d in asm
+
+	void LoadBitmaps(); // 42b57e in asm
+	void FreeBitmaps(); // 42b7ee in asm
+	void ResetMouseBoxes(); // 42b455 in asm
+public:
+	VisCharGen* parent_screen; // 0x5c
+	CStringArray texts; // 0x60
+	CBmp64* btn_on[3]; // 0x74
+	CBmp64* btn_off[3]; // 0x80
+	CBmp64* area_bmp; // 0x8c
+	CRect areas[3]; // 0x90
+	int32_t mouse_down_box; // 0xc0
+	int32_t mouse_over_box; // 0xc4
+};
+ASSERT_SIZE(VisCharGenAction, 0xc8);
+
+//609630
+class VisCharGenSkills : public CVisualObject
+{
+public:
+	VisCharGenSkills(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42b98c in asm
+
+	void LoadBitmaps(uint32_t mage_flag); // 42c1cc in asm
+	void LoadSamples(uint32_t mage_flag); // 42d963 in asm
+	void FreeBitmaps(); // 42d6ed in asm
+	void FreeSamples(); // 42da5a in asm
+public:
+	VisCharGen* parent_screen; // 0x5c
+	int32_t field_0x60[6];
+	int32_t field_0x78[5];
+	int32_t field_0x8c[5];
+	int32_t field_0xa0[5];
+	uint8_t field_0xb4[0x28];
+	uint8_t field_0xdc[0x14];
+	uint8_t field_0xf0[0x1c];
+	int32_t field_0x10c[5];
+	int32_t field_0x120[5];
+	int32_t selected_slot; // 0x134
+};
+ASSERT_SIZE(VisCharGenSkills, 0x138);
+
 //6096a8
 class VisCharGen : public VisScreen
 {
@@ -2239,14 +2331,23 @@ public:
 	virtual void DoClose(uint32_t code) override; // 42E7BC
 
 	VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //42dcd9 in asm
+
+	void OnPrevFace(); // 42edc2 in asm
+	void OnNextFace(); // 42ebe0 in asm
+	void RollStats(); // 42e92a in asm
+	void OnClickFwd(); // 42eb8c in asm
+	void OnClickBack(); // 42ebab in asm
+	void ShowTipHint(); // 42ea87 in asm
+	void LoadSamples(); // 42efb4 in asm
+	void FreeSamples(); // 42f021 in asm
 public:
-	CVisualObject* info_panel;
-	CVisualObject* map_visual;
-	CVisualObject* stats_panel;
-	CVisualObject* fullstats_panel;
-	CVisualObject* action_panel;
-	CVisualObject* skills_panel;
-	CVisualObject* tips;
+	VisCharInfo* info_panel;
+	BigStruct2* map_visual;
+	VisCharGenStats* stats_panel;
+	VisCharGenFullStats* fullstats_panel;
+	VisCharGenAction* action_panel;
+	VisCharGenSkills* skills_panel;
+	VisTipsDialog* tips;
 	SfxSample* snd_stat;
 	SfxSample* snd_ok;
 	SfxSample* snd_reset;
@@ -2254,7 +2355,7 @@ public:
 	CUnit* current_char;
 	int32_t fwd_btn;
 	int32_t field14_0x9c;
-	CWordArray face_sets[4];
+	CArray<uint16_t> face_sets[4];
 	uint32_t mage_flag;
 	int32_t female_face;
 	int32_t selected_face;
