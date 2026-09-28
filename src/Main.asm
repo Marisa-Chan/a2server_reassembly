@@ -24011,123 +24011,6 @@ sub_42DBCE      endp
 
 ; Attributes: bp-based frame
 
-sub_42DC65      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F800E SIZE 0000002B BYTES
-
-; __unwind { // SEH_42DC65
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42DC65
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset sub_5DB831 ; void (__thiscall *)(void *)
-                push    offset sub_5DB7FE ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0A0h
-                push    eax             ; void *
-                call    ??_L@YGXPAXIHP6EX0@Z1@Z ; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))
-;   } // starts at 42DC89
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_6096A8
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisCharGen@@UAEXXZ
-;   } // starts at 42DCAC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42DC65
-sub_42DC65      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisCharGen@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?OnClickFwd@VisCharGen@@QAEXXZ(void *varThis)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_42F072      proc near
 
 var_10          = dword ptr -10h
@@ -318906,34 +318789,6 @@ SEH_42C1CC:                             ; DATA XREF: ?LoadBitmaps@VisCharGenSkil
 ; } // starts at 5F7E41
 ; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisCharGenSkills@@QAEXI@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42DC65
-
-loc_5F800E:                             ; DATA XREF: .rdata:stru_618608↓o
-; __unwind { // SEH_42DC65
-;   cleanup() // owned by 42DC89
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8017:                             ; DATA XREF: .rdata:00618610↓o
-;   cleanup() // owned by 42DCAC        ; void (__thiscall *)(void *)
-                push    offset sub_5DB831
-                push    4               ; int
-                push    14h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0A0h
-                push    eax             ; void *
-                call    ??_M@YGXPAXIHP6EX0@Z@Z ; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42DC65:                             ; DATA XREF: sub_42DC65+5↑o
-                mov     eax, offset stru_6185E8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F800E
-; END OF FUNCTION CHUNK FOR sub_42DC65
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42F072
 
 loc_5F80FA:                             ; DATA XREF: .rdata:stru_618738↓o
@@ -344990,40 +344845,6 @@ off_609630      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-off_6096A8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42DC65+4E↑o
-                dd offset ??_GVisCharGen@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisCharGen@@UAEXXZ
-                dd offset ?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisCharGen@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisCharGen@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisCharGen@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisCharGen@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisCharGen@@UAEXXZ
-                dd offset ?DoClose@VisCharGen@@UAEXI@Z
 off_609730      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42F072+54↑o
                 dd offset ??_GVisCharSellectStats@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -358755,13 +358576,6 @@ stru_6184C0     UnwindMapEntry <-1, offset loc_5F7E41>
                 UnwindMapEntry <-1, offset loc_5F7FDD>
                 UnwindMapEntry <-1, offset loc_5F7FEA>
                 UnwindMapEntry <-1, offset loc_5F7FF7>
-stru_6185E8     FuncInfoV1 <19930520h, 2, offset stru_618608, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618608     UnwindMapEntry <-1, offset loc_5F800E>
-                UnwindMapEntry <0, offset loc_5F8017>
 stru_618718     FuncInfoV1 <19930520h, 2, offset stru_618738, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -366352,37 +366166,6 @@ aSfxChrgenSkill_7 db 'SFX\ChrGen\Skill\MEarth.wav',0
 ; CHAR aSfxChrgenSkill_8[]
 aSfxChrgenSkill_8 db 'SFX\ChrGen\Skill\MAstral.wav',0
                 align 10h
-; char aScenarioNpcReg[]
-aScenarioNpcReg db 'scenario\npc.reg',0 ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+17A↑o
-                align 4
-; char aFacesmm[]
-aFacesmm        db 'FacesMM',0          ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+1DF↑o
-; char aMultiplayer[]
-aMultiplayer    db 'Multiplayer',0      ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+1E4↑o
-; char aFacesmf[]
-aFacesmf        db 'FacesMF',0          ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+1FD↑o
-; char aMultiplayer_0[]
-aMultiplayer_0  db 'Multiplayer',0      ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+202↑o
-; char aFacesfm[]
-aFacesfm        db 'FacesFM',0          ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+21C↑o
-; char aMultiplayer_1[]
-aMultiplayer_1  db 'Multiplayer',0      ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+221↑o
-; char aFacesff[]
-aFacesff        db 'FacesFF',0          ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+23B↑o
-; char aMultiplayer_2[]
-aMultiplayer_2  db 'Multiplayer',0      ; DATA XREF: ?VMethod28@VisCharGen@@UAEXXZ+240↑o
-; CHAR aSfxChrgenWav[]
-aSfxChrgenWav   db 'SFX\ChrGen\+_-.wav',0 ; DATA XREF: ?LoadSamples@VisCharGen@@QAEXXZ+F↑o
-                align 4
-; CHAR aSfxClickOkWav[]
-aSfxClickOkWav  db 'SFX\Click_Ok.wav',0 ; DATA XREF: ?LoadSamples@VisCharGen@@QAEXXZ+25↑o
-                align 4
-; CHAR aSfxSbrosWav[]
-aSfxSbrosWav    db 'SFX\Sbros.wav',0    ; DATA XREF: ?LoadSamples@VisCharGen@@QAEXXZ+3C↑o
-                align 4
-; CHAR aSfxBackWav[]
-aSfxBackWav     db 'SFX\Back.wav',0     ; DATA XREF: ?LoadSamples@VisCharGen@@QAEXXZ+53↑o
-                align 4
 ; char aGraphicsInterf_54[]
 aGraphicsInterf_54 db 'graphics\Interface\chrgen\FullStatsL.bmp',0
                 align 4

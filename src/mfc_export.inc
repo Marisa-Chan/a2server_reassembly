@@ -1562,24 +1562,10 @@ externdef ?VMethod26@VisCredits@@UAEXXZ : proc
 externdef ?VMethod28@VisCredits@@UAEXXZ : proc
 externdef ?DoClose@VisCredits@@UAEXI@Z : proc
 ;VisCharGen
-externdef ??_GVisCharGen@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisCharGen@@UAEXXZ : proc
-externdef ?VMethod8@VisCharGen@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisCharGen@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisCharGen@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisCharGen@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@VisCharGen@@UAEHI@Z : proc
-externdef ?VMethod26@VisCharGen@@UAEXXZ : proc
-externdef ?VMethod28@VisCharGen@@UAEXXZ : proc
-externdef ?DoClose@VisCharGen@@UAEXI@Z : proc
-externdef ?OnPrevFace@VisCharGen@@QAEXXZ : proc
-externdef ?OnNextFace@VisCharGen@@QAEXXZ : proc
-externdef ?RollStats@VisCharGen@@QAEXXZ : proc
-externdef ?OnClickFwd@VisCharGen@@QAEXXZ : proc
-externdef ?OnClickBack@VisCharGen@@QAEXXZ : proc
-externdef ?ShowTipHint@VisCharGen@@QAEXXZ : proc
-externdef ?LoadSamples@VisCharGen@@QAEXXZ : proc
-externdef ?FreeSamples@VisCharGen@@QAEXXZ : proc
+extern ?RollStats@VisCharGen@@QAEXXZ : proc
+extern ?OnClickFwd@VisCharGen@@QAEXXZ : proc
+extern ?OnClickBack@VisCharGen@@QAEXXZ : proc
+extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 ;VisCharGenStats
 externdef ??0VisCharGenStats@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ?ReadUnitStats@VisCharGenStats@@QAEXXZ : proc
