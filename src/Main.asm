@@ -19396,7 +19396,7 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-sub_42AAA0      proc near               ; CODE XREF: sub_438360+A↓p
+sub_42AAA0      proc near               ; CODE XREF: ??_GVisCharGenFullStats@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -19570,7 +19570,7 @@ loc_42ABDC:                             ; CODE XREF: ?FreeBitmaps@VisCharGenFull
 
 ; Attributes: bp-based frame
 
-sub_42ABEA      proc near               ; DATA XREF: .rdata:0060956C↓o
+?VMethod7@VisCharGenFullStats@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060956C↓o
 
 var_24          = dword ptr -24h
 var_20          = dword ptr -20h
@@ -19633,7 +19633,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42ABEA      endp
+?VMethod7@VisCharGenFullStats@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -19660,7 +19660,7 @@ unknown_libname_458 endp
 
 ; Attributes: bp-based frame
 
-sub_42AC85      proc near               ; DATA XREF: .rdata:00609554↓o
+?GetHint@VisCharGenFullStats@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:00609554↓o
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -19680,7 +19680,7 @@ var_C           = dword ptr -0Ch
                 jmp     short loc_42ACFF
 ; ---------------------------------------------------------------------------
 
-loc_42ACA1:                             ; CODE XREF: sub_42AC85+16↑j
+loc_42ACA1:                             ; CODE XREF: ?GetHint@VisCharGenFullStats@@UAEPBDXZ+16↑j
                 lea     ecx, [ebp+var_10] ; void *
                 call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
                 mov     edx, dword ptr [ebp+var_1C]
@@ -19711,11 +19711,11 @@ loc_42ACA1:                             ; CODE XREF: sub_42AC85+16↑j
                 mov     ecx, dword ptr [ecx+94h]
                 call    ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z
 
-loc_42ACFF:                             ; CODE XREF: sub_42AC85+1A↑j
+loc_42ACFF:                             ; CODE XREF: ?GetHint@VisCharGenFullStats@@UAEPBDXZ+1A↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_42AC85      endp
+?GetHint@VisCharGenFullStats@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -30305,7 +30305,7 @@ loc_438353:                             ; CODE XREF: `vector constructor iterato
 
 ; Attributes: bp-based frame
 
-sub_438360      proc near               ; DATA XREF: .rdata:00609544↓o
+??_GVisCharGenFullStats@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:00609544↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -30324,12 +30324,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_438382:                             ; CODE XREF: sub_438360+17↑j
+loc_438382:                             ; CODE XREF: ??_GVisCharGenFullStats@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_438360      endp
+??_GVisCharGenFullStats@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -69344,7 +69344,7 @@ loc_46C11E:                             ; CODE XREF: ?FUN_0046c0c9@CUnit@@QAEHPA
 
 ; Attributes: bp-based frame
 
-?FUN_0046c124@CUnit@@QAEXPAVCRect@@@Z      proc near               ; CODE XREF: sub_42ABEA+82↑p
+?FUN_0046c124@CUnit@@QAEXPAVCRect@@@Z      proc near               ; CODE XREF: ?VMethod7@VisCharGenFullStats@@UAEXXZ+82↑p
 
 var_128         = dword ptr -128h
 var_124         = byte ptr -124h
@@ -70718,7 +70718,7 @@ loc_46D0E7:                             ; CODE XREF: ?FUN_0046c124@CUnit@@QAEXPA
 
 ; Attributes: bp-based frame
 
-?FUN_0046d0f7@CUnit@@QAEPBDHH@Z      proc near               ; CODE XREF: sub_42AC85+75↑p
+?FUN_0046d0f7@CUnit@@QAEPBDHH@Z      proc near               ; CODE XREF: ?GetHint@VisCharGenFullStats@@UAEPBDXZ+75↑p
 
 var_38          = dword ptr -38h
 var_34          = dword ptr -34h
@@ -344756,17 +344756,17 @@ off_6094C8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
                 dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
 off_609540      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_42A9CD+2E↑o
-                dd offset sub_438360
+                dd offset ??_GVisCharGenFullStats@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset sub_42AC85
+                dd offset ?GetHint@VisCharGenFullStats@@UAEPBDXZ
                 dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
                 dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
                 dd offset ?TestFlags@CVisualObject@@UAEII@Z
                 dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
                 dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_42ABEA
+                dd offset ?VMethod7@VisCharGenFullStats@@UAEXXZ
                 dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod9@CVisualObject@@UAEXXZ
                 dd offset ?VMethod10@CVisualObject@@UAEXXZ

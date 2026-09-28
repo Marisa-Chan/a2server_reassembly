@@ -2266,6 +2266,11 @@ ASSERT_SIZE(VisCharGenStats, 0x1f4);
 class VisCharGenFullStats : public CVisualObject
 {
 public:
+	virtual ~VisCharGenFullStats(); // 42aaa0 in asm
+
+	virtual const char* GetHint() override; // 42ac85 in asm
+	virtual void VMethod7() override; // 42abea in asm
+
 	VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); //42aa2b in asm
 
 	void LoadBitmaps(); // 42ab18 in asm

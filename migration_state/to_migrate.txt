@@ -318,9 +318,12 @@
 ??0VisCharGenAction@@QAE@HHHHHPAVVisCharGen@@@Z	68
 ?FreeBitmaps@VisCharGenAction@@QAEXXZ	118
 ?LoadBitmaps@VisCharGenAction@@QAEXXZ	236
+??_GVisCharGenFullStats@@UAEPAXI@Z	24
 ?FreeBitmaps@VisCharGenFullStats@@QAEXXZ	39
 ??0VisCharGenFullStats@@QAE@HHHHHPAVVisCharGen@@@Z	55
+?GetHint@VisCharGenFullStats@@UAEPBDXZ	55
 ?LoadBitmaps@VisCharGenFullStats@@QAEXXZ	56
+?VMethod7@VisCharGenFullStats@@UAEXXZ	63
 ?FreeSamples@VisCharGenSkills@@QAEXXZ	36
 ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z	69
 ?LoadSamples@VisCharGenSkills@@QAEXI@Z	80
