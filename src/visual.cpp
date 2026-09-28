@@ -5882,6 +5882,35 @@ void VisCharGen::VMethod26()
 }
 
 
+// 42E7BC
+void VisCharGen::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->VMethod9();
+    this->active_flag = 0;
+    CRect& rc = this->info_panel->GetRect();
+    OffsetRect(&rc, rc.Width() - 0x280, 0);
+    this->info_panel->SetRect(&rc);
+    this->RemoveChild(this->info_panel);
+    main_wnd->vis_right_panel->AddChild(this->info_panel);
+    this->info_panel = nullptr;
+    this->map_visual = nullptr;
+    if (this->tips != nullptr) {
+        this->skills_panel->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+    this->stats_panel->FreeBitmaps();
+    this->fullstats_panel->FreeBitmaps();
+    this->action_panel->FreeBitmaps();
+    this->skills_panel->FreeBitmaps();
+    this->skills_panel->FreeSamples();
+    this->FreeSamples();
+    this->current_char = nullptr;
+    this->VisScreen::DoClose(code);
+}
+
+
 // 42E218
 void VisCharGen::VMethod28()
 {
