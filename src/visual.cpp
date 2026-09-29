@@ -17354,3 +17354,48 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4D4592
+void VisTownKaarg::VMethod28()
+{
+    g_mousept.DisableHint();
+    this->VMethod36();
+    this->VMethod30();
+    this->town_anim = 0;
+    this->door_open_flag = 0;
+    this->guard_sound = 0;
+    if (g_settings.TipsMode == 0) {
+        if (this->tips != nullptr) {
+            this->RemoveChild(this->tips);
+            delete this->tips;
+            this->tips = nullptr;
+        }
+    }
+    else {
+        CString str;
+        MissionGetTips(0xC, &str);
+        this->tips = new VisTipsDialog(0x467, 0x148, 0, 0x280, 0xC8, str);
+        this->AddChild(this->tips);
+    }
+    this->girl2_frame = -1;
+    this->girl2_group = -1;
+    this->bbird_last_tick = timeGetTime();
+    this->bbird_delay = GetRandS16(2000) + 2000;
+    this->girl2_tick = timeGetTime();
+    this->girl2_delay = GetRandS16(2000) + 2000;
+    this->guard_tick = timeGetTime();
+    this->guard_delay = GetRandS16(2000) + 2000;
+    this->dervish_tick = timeGetTime();
+    this->dervish_delay = GetRandS16(500) + 4000;
+    this->hovered_action_mask = -1;
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    this->VisScreen::VMethod28();
+    this->dialog_active = 1;
+    this->VMethod9();
+    FUN_004a4740(&this->snd_voice1);
+    g_mousept.EnableHint();
+}
