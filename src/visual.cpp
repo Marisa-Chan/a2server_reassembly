@@ -19058,3 +19058,26 @@ void VisNetDlg::FillServerList()
     join_btn->VMethod9();
     server_list->VMethod9();
 }
+
+
+// 447B3C
+void VisNetDlg::UpdatePlayerList()
+{
+    VisListBox* player_list = (VisListBox*)this->FindChild(7);
+    int32_t count = player_list->GetItemCount();
+    while (count > 0) {
+        count--;
+        player_list->RemoveItem(count);
+    }
+
+    if (this->cached_player_rows.GetSize() > 0) {
+        CStringArray* row = this->cached_player_rows.GetAt(this->selected);
+        int32_t size = row->GetSize();
+        int32_t i;
+        for (i = 0; i < size; i++) {
+            player_list->AddItem(row->ElementAt(i));
+        }
+        ((VisScrollBar*)this->FindChild(8))->SetPos(0, i);
+    }
+    player_list->VMethod9();
+}

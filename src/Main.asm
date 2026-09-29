@@ -33404,7 +33404,7 @@ loc_447268:                             ; CODE XREF: ?MsgProc@VisNetDlg@@UAEHIII
                 mov     edx, dword ptr [ebp+wParam]
                 mov     [edx+68h], ecx
                 mov     ecx, dword ptr [ebp+wParam]
-                call    sub_447B3C
+                call    ?UpdatePlayerList@VisNetDlg@@AAEXXZ
 
 loc_447289:                             ; CODE XREF: ?MsgProc@VisNetDlg@@UAEHIII@Z+58↑j
                 mov     eax, 1
@@ -33616,7 +33616,7 @@ loc_4474E3:                             ; CODE XREF: ?MsgProc@VisNetDlg@@UAEHIII
                 mov     ecx, dword ptr [ebp+wParam]
                 call    ?FillServerList@VisNetDlg@@AAEXXZ
                 mov     ecx, dword ptr [ebp+wParam]
-                call    sub_447B3C
+                call    ?UpdatePlayerList@VisNetDlg@@AAEXXZ
                 mov     ecx, dword ptr [ebp+wParam]
                 mov     edx, dword ptr [ecx+6Ch]
                 mov     eax, dword ptr [ebp+wParam]
@@ -34069,107 +34069,7 @@ loc_447918:                             ; CODE XREF: ?OnKeyDown@VisNetDlg@@UAEHI
 
 ; Attributes: bp-based frame
 
-; int __thiscall sub_447B3C(_DWORD)
-sub_447B3C      proc near               ; CODE XREF: ?MsgProc@VisNetDlg@@UAEHIII@Z+70↑p
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_14], ecx
-                push    7
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+84h]
-                mov     [ebp+var_4], eax
-
-loc_447B63:                             ; CODE XREF: sub_447B3C+42↓j
-                cmp     [ebp+var_4], 0
-                jle     short loc_447B80
-                mov     eax, dword ptr [ebp+var_4]
-                sub     eax, 1
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_450830
-                jmp     short loc_447B63
-; ---------------------------------------------------------------------------
-
-loc_447B80:                             ; CODE XREF: sub_447B3C+2B↑j
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 80h
-                call    unknown_libname_490 ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jle     loc_447C18
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx+68h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 80h
-                call    sub_450FF0
-                mov     ecx, dword ptr [eax]
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_10], eax
-                mov     [ebp+var_C], 0
-                jmp     short loc_447BC7
-; ---------------------------------------------------------------------------
-
-loc_447BBE:                             ; CODE XREF: sub_447B3C+C3↓j
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 1
-                mov     [ebp+var_C], ecx
-
-loc_447BC7:                             ; CODE XREF: sub_447B3C+80↑j
-                mov     edx, dword ptr [ebp+var_C]
-                cmp     edx, [ebp+var_10]
-                jge     short loc_447C01
-                mov     eax, dword ptr [ebp+var_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx+68h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 80h
-                call    sub_450FF0
-                mov     ecx, dword ptr [eax]
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; char *
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4507F0
-                jmp     short loc_447BBE
-; ---------------------------------------------------------------------------
-
-loc_447C01:                             ; CODE XREF: sub_447B3C+91↑j
-                mov     eax, dword ptr [ebp+var_C]
-                push    eax
-                push    0
-                push    8
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     ecx, eax
-                call    ?SetPos@VisScrollBar@@QAEXHH@Z
-
-loc_447C18:                             ; CODE XREF: sub_447B3C+54↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+34h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_447B3C      endp
+; int __thiscall ?UpdatePlayerList@VisNetDlg@@AAEXXZ(_DWORD)
 
 
 ; =============== S U B R O U T I N E =======================================
