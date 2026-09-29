@@ -2046,6 +2046,19 @@ public:
 	int32_t FUN_004ce64b(); //4ce64b in asm
 	void FUN_004ce726(); //4ce726 in asm
 
+	void FUN_004d06aa(); //4d06aa in asm
+	void FUN_004d07e8(); //4d07e8 in asm
+	void FUN_004d0884(); //4d0884 in asm
+	void FUN_004d0913(); //4d0913 in asm
+	void FUN_004d0ad7(); //4d0ad7 in asm
+	void FUN_004d0b95(); //4d0b95 in asm
+	void FUN_004d0c6e(); //4d0c6e in asm
+	void FUN_004d0d47(); //4d0d47 in asm
+	void FUN_004d0da2(); //4d0da2 in asm
+	void FUN_004d0f66(); //4d0f66 in asm
+	void FUN_004d1002(); //4d1002 in asm
+	void FUN_004d109e(); //4d109e in asm
+
 	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c in asm
 public:
 	CBmp64* bmp_bkg;

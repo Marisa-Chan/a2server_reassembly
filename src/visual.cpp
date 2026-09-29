@@ -16267,3 +16267,227 @@ void VisTown::VMethod35()
         this->town_anim |= 0x100;
     }
 }
+
+
+// 4D06AA
+void VisTown::FUN_004d06aa()
+{
+    this->guard_frame += this->guard_frame_step;
+    if (this->guard_frame_step == 1 && this->guard_sound == 0) {
+        FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard2.wav");
+        CSound::Play((CSound&)this->sounds[2]);
+        this->guard_sound = 1;
+    }
+    else if (this->guard_frame_step == -1 && this->guard_sound != 0) {
+        FUN_00438e40(&this->sounds[2], "SFX\\Town\\Guard1.wav");
+        CSound::Play((CSound&)this->sounds[2]);
+        this->guard_sound = 0;
+    }
+    if (this->guard_frame < 0) {
+        this->guard_frame_step = 0;
+        this->guard_frame = 0;
+        FUN_00438dd0(&this->sounds[2]);
+    }
+    else {
+        if (this->spr_guard->GetFrameCount() <= this->guard_frame) {
+            this->guard_frame_step = 0;
+            this->guard_frame = this->spr_guard->GetFrameCount() - 1;
+            FUN_00438dd0(&this->sounds[2]);
+        }
+    }
+}
+
+
+// 4D07E8
+void VisTown::FUN_004d07e8()
+{
+    if (this->tavern_frame == 0) {
+        FUN_00438f20(&this->sounds[8]);
+        FUN_00438f20(&this->sounds[9]);
+        CSound::Play((CSound&)this->sounds[7]);
+    }
+    this->tavern_frame++;
+    if (this->tavern_frame == this->spr_tavern->GetFrameCount()) {
+        this->tavern_frame = 0;
+        this->town_anim &= ~2u;
+    }
+}
+
+
+// 4D0884
+void VisTown::FUN_004d0884()
+{
+    if (this->sign_frame == 0) {
+        CSound::Play((CSound&)this->sounds[6]);
+    }
+    this->sign_frame++;
+    if (this->sign_frame == 10) {
+        this->sign_frame = 0;
+        this->town_anim &= ~0x40u;
+    }
+    this->bmp_cur_sign = this->bmp_sign.GetAt(this->sign_frame);
+}
+
+
+// 4D0913
+void VisTown::FUN_004d0913()
+{
+    if (ScenarioGetVar(0x301) == 0) {
+        this->door_frame = 8;
+        this->bmp_cur_door = this->bmp_door.GetAt(this->door_frame);
+        return;
+    }
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    if (this->VMethod33(pt) != 8) {
+        if (this->door_open_flag != 0) {
+            FUN_00438e40(&this->sounds[1], "SFX\\Town\\GateDn.wav");
+            CSound::Play((CSound&)this->sounds[1]);
+        }
+        this->door_open_flag = 0;
+        this->door_frame++;
+        if (this->door_frame > 7) {
+            this->door_frame = 8;
+            this->town_anim &= ~0x08u;
+        }
+    }
+    else {
+        if (this->door_open_flag == 0) {
+            FUN_00438e40(&this->sounds[1], "SFX\\Town\\GateUp.wav");
+            CSound::Play((CSound&)this->sounds[1]);
+        }
+        this->door_open_flag = 1;
+        this->door_frame--;
+        if (this->door_frame < 1) {
+            this->door_frame = 0;
+            this->town_anim &= ~0x08u;
+        }
+    }
+    this->bmp_cur_door = this->bmp_door.GetAt(this->door_frame);
+}
+
+
+// 4D0AD7
+void VisTown::FUN_004d0ad7()
+{
+    static int32_t stars_repeat; // dword_6669d0 in asm
+    if (this->stars_frame == 0) {
+        CSound::Play((CSound&)this->sounds[10]);
+    }
+    this->stars_frame++;
+    if (this->stars_frame < 9) {
+        this->bmp_cur_stars = this->bmp_stars.GetAt(this->stars_frame);
+    }
+    else {
+        stars_repeat++;
+        if (stars_repeat == 10) {
+            this->stars_frame = 0;
+            stars_repeat = 0;
+        }
+        this->bmp_cur_stars = nullptr;
+        this->town_anim &= ~0x10u;
+    }
+}
+
+
+// 4D0B95
+void VisTown::FUN_004d0b95()
+{
+    static int32_t fighter_dir; // dword_6669d4 in asm
+    if (this->fighter_frame < 1 && fighter_dir == 0) {
+        fighter_dir = (rand() % 100 > 0x5F) ? 1 : 0;
+    }
+    else if (this->fighter_frame == 10) {
+        fighter_dir = (rand() % 100 > 0x5F) ? -1 : 0;
+    }
+    else if (this->fighter_frame == 0 && fighter_dir == -1) {
+        this->fighter_frame = 0;
+        fighter_dir = 0;
+        this->town_anim &= ~4u;
+    }
+    this->fighter_frame += fighter_dir;
+}
+
+
+// 4D0C6E
+void VisTown::FUN_004d0c6e()
+{
+    static int32_t mage_dir; // dword_6669d8 in asm
+    if (this->mage_frame < 1 && mage_dir == 0) {
+        mage_dir = (rand() % 100 > 0x5F) ? 1 : 0;
+    }
+    else if (this->mage_frame == 10) {
+        mage_dir = (rand() % 100 > 0x5F) ? -1 : 0;
+    }
+    else if (this->mage_frame == 0 && mage_dir == -1) {
+        this->mage_frame = 0;
+        mage_dir = 0;
+        this->town_anim &= ~4u;
+    }
+    this->mage_frame += mage_dir;
+}
+
+
+// 4D0D47
+void VisTown::FUN_004d0d47()
+{
+    this->shop_frame++;
+    if (this->shop_frame == this->spr_shop->GetFrameCount()) {
+        this->shop_frame = 0;
+        this->town_anim &= ~1u;
+    }
+}
+
+
+// 4D0DA2
+void VisTown::FUN_004d0da2()
+{
+    if (this->flugel_frame == 0) {
+        CSound::Play((CSound&)this->sounds[5]);
+    }
+    this->flugel_frame++;
+    if (this->flugel_frame == 8) {
+        this->flugel_frame = 0;
+        this->town_anim &= ~0x20u;
+    }
+    this->bmp_cur_flugel = this->bmp_flugel.GetAt(this->flugel_frame);
+}
+
+
+// 4D0F66
+void VisTown::FUN_004d0f66()
+{
+    if (this->spr_cur_bbird != nullptr && (this->town_anim & 0x200) != 0 && this->bbird_frame != -1) {
+        this->bbird_frame++;
+        this->bbird_last_tick = timeGetTime();
+        if (this->spr_cur_bbird->GetFrameCount() <= this->bbird_frame) {
+            this->bbird_frame = -1;
+            this->town_anim &= ~0x200u;
+        }
+    }
+}
+
+
+// 4D1002
+void VisTown::FUN_004d1002()
+{
+    if (this->spr_cur_horse != nullptr && (this->town_anim & 0x100) != 0 && this->horse_frame != -1) {
+        this->horse_frame++;
+        this->horse_last_tick = timeGetTime();
+        if (this->spr_cur_horse->GetFrameCount() <= this->horse_frame) {
+            this->horse_frame = -1;
+            this->town_anim &= ~0x100u;
+        }
+    }
+}
+
+
+// 4D109E
+void VisTown::FUN_004d109e()
+{
+    if (this->spr_dervish == nullptr) {
+        this->dervish_frame = -1;
+    }
+    else {
+        this->dervish_frame = (this->dervish_frame + 1) % this->spr_dervish->GetFrameCount();
+    }
+}
