@@ -7428,6 +7428,124 @@ void VisCharInfo::VMethod7()
     this->dirty = 0;
 }
 
+// 4B19B0
+const char* VisCharInfo::GetHint()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return nullptr;
+    }
+    if ((main_wnd->dialogsMask & 8) != 0) {
+        return nullptr;
+    }
+
+    BigStruct2* map = this->map_context;
+    CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    int32_t moved_up;
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+        moved_up = 1;
+    } else {
+        moved_up = 0;
+    }
+
+    CRect book_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x1C, screen_rect.top + 0x24);
+    CRect backpack_rect(screen_rect.left, screen_rect.bottom - 0x28, screen_rect.left + 0x1C, screen_rect.bottom);
+    CRect mode_btn_rect(screen_rect.left + 0x80, screen_rect.top, screen_rect.right, screen_rect.top + 0x24);
+    CRect ar1_rect(screen_rect.left + 1, screen_rect.top + 0xCD, screen_rect.left + 0x21, screen_rect.top + 0xED);
+    CRect ar2_rect(screen_rect.left + 0x77, screen_rect.top + 0xCD, screen_rect.left + 0x97, screen_rect.top + 0xED);
+    CRect diskette_rect(screen_rect.left + 0x7E, screen_rect.top + 0xCE, screen_rect.left + 0x9E, screen_rect.top + 0xEE);
+
+    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+        if (book_rect.PtInRect(mouse_pt)) {
+            if (map->IsBookOpen()) {
+                return TxtFile::AllLines[9];
+            }
+            return TxtFile::AllLines[8];
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 1) != 0) {
+        if (backpack_rect.PtInRect(mouse_pt)) {
+            if ((main_wnd->dialogsMask & 2) == 0 && (main_wnd->dialogsMask & 4) == 0) {
+                if (map->IsBagOpen()) {
+                    return TxtFile::AllLines[0xB];
+                }
+                return TxtFile::AllLines[0xA];
+            }
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 0x600) == 0) {
+        if (mode_btn_rect.PtInRect(mouse_pt) && moved_up == 0) {
+            if (this->info_mode != 0) {
+                return TxtFile::AllLines[0xD];
+            }
+            return TxtFile::AllLines[0xC];
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 0x226) != 0) {
+        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != 2) {
+            if (ar1_rect.PtInRect(mouse_pt)) {
+                return TxtFile::AllLines[0x79];
+            }
+            if (ar2_rect.PtInRect(mouse_pt)) {
+                return TxtFile::AllLines[0x7A];
+            }
+        }
+        if (ar1_rect.PtInRect(mouse_pt)) {
+            return TxtFile::AllLines[0x34];
+        }
+        if (ar2_rect.PtInRect(mouse_pt)) {
+            return TxtFile::AllLines[0x35];
+        }
+    } else if ((main_wnd->dialogsMask & 0x400) == 0) {
+        if (diskette_rect.PtInRect(mouse_pt)) {
+            return TxtFile::AllLines[0xE];
+        }
+    }
+
+    CGameObject* sel = nullptr;
+    if (map->field_0x140 == 1) {
+        sel = map->field_0x138;
+    }
+    if (sel == nullptr) {
+        return nullptr;
+    }
+    if ((main_wnd->dialogsMask & 8) != 0) {
+        return nullptr;
+    }
+
+    CUnit* unit = (CUnit*)sel;
+    if (unit->map_player != nullptr && unit->map_player->index != 0) {
+        if (map->my_main_unit->FUN_0041ee50(unit->map_player->index) == 0) {
+            if (this->info_mode != 0) {
+                return nullptr;
+            }
+            return unit->FUN_0046d0f7(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
+        }
+    }
+
+    if (this->info_mode == 0) {
+        return unit->FUN_0046d0f7(mouse_pt.x - screen_rect.left, mouse_pt.y - screen_rect.top - 2);
+    }
+
+    uint8_t* data = (uint8_t*)this->hitmap->GetData();
+    uint8_t color = data[(mouse_pt.y - screen_rect.top - 2) * 0xA0 + (mouse_pt.x - screen_rect.left)];
+    if (color == 0) {
+        return nullptr;
+    }
+    TokenEntry* entry = unit->equipmentTokens[color - 1];
+    if (entry == nullptr) {
+        return nullptr;
+    }
+    return entry->FUN_00439973();
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
