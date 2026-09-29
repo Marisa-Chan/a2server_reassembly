@@ -250,6 +250,7 @@
 ?FUN_00478130@MainWindow@@QAEXXZ	39
 ?_OnKeyUp@MainWindow@@QAEXIII@Z	46
 ?FUN_0048cb3c@MainWindow@@QAEXXZ	48
+?sub_48CD44@MainWindow@@QAEXXZ	50
 ?ShowFameHallDocDlg@MainWindow@@QAEXXZ	50
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
 ?sub_48CBE2@MainWindow@@QAEXXZ	60
@@ -291,6 +292,7 @@
 ?sub_43988E@TokenEntry@@QAEHXZ	90
 ?sub_43A5E5@TokenEntry@@QAEHXZ	90
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
+?sub_4396FB@TokenEntry@@QAEHXZ	101
 ?FUN_00439973@TokenEntry@@QAEPBDXZ	812
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
@@ -314,22 +316,7 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
-?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
-?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12
-?VMethod28@VisCharInfo@@UAEHXZ	12
-??_GVisCharInfo@@UAEPAXI@Z	24
-?OnRButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z	35
-?OnKeyDown@VisCharInfo@@UAEHI@Z	51
-?OnLButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	105
-??0VisCharInfo@@QAE@HHHHH@Z	123
-?VMethod26@VisCharInfo@@UAEHH@Z	126
-?MsgProc@VisCharInfo@@UAEHIII@Z	180
-?OnMouseMove@VisCharInfo@@UAEHIVCPoint@@@Z	230
-?OnLButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z	422
-?VMethod27@VisCharInfo@@UAEHH@Z	470
-?GetHint@VisCharInfo@@UAEPBDXZ	545
-?VMethod7@VisCharInfo@@UAEXXZ	995
+?sub_4B36B4@VisCharInfo@@QAEXXZ	185
 ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z	11
 ??_GVisCharSelect@@UAEPAXI@Z	24
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
@@ -509,6 +496,7 @@
 ?FUN_004caa69@VisSpellBook@@QAEXXZ	27
 ?sub_4CA89B@VisSpellBook@@QAEHH@Z	35
 ?sub_4CA8E0@VisSpellBook@@QAEHH@Z	35
+?sub_4CA925@VisSpellBook@@QAEXH@Z	37
 ??0VisSpellBook@@QAE@HHHHH@Z	40
 ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z	43
 ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z	55
