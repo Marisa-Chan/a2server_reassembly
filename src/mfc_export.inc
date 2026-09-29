@@ -1710,7 +1710,6 @@ externdef ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
 
-externdef ?sub_4B36B4@VisCharInfo@@QAEXXZ : proc
 
 ;VisSideStatus
 externdef ??_GVisSideStatus@@UAEPAXI@Z : proc
