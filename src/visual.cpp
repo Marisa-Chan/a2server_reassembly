@@ -7613,7 +7613,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
         }
 
         int32_t amount = token->field_0x10;
-        int32_t mode = main_wnd->FUN_0048ca7e(a + 1);
+        int32_t mode = main_wnd->OnCommand(a + 1, 0);
         map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
 
         if (split != nullptr) {
@@ -7654,7 +7654,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
     unit->equipmentTokens[a] = main_wnd->field_0x408;
 
     int32_t amount = main_wnd->field_0x408->field_0x10;
-    int32_t mode = main_wnd->FUN_0048ca7e(a + 1);
+    int32_t mode = main_wnd->OnCommand(a + 1, 0);
     map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
 
     main_wnd->sub_48CD44();
@@ -7789,6 +7789,42 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos)
     this->parent->MsgProc(0x46E, this->id, 0);
     unit->m_bSelectionDirty = 1;
     return 0;
+}
+
+// 4B38AF
+int32_t VisCharInfo::VMethod26(int32_t a)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return 0;
+    }
+    if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
+        return 0;
+    }
+
+    BigStruct2* map = this->map_context;
+    if (map->field_0x140 != 1) {
+        return 0;
+    }
+
+    CUnit* unit = (CUnit*)map->field_0x138;
+    if (unit->map_player != map->my_main_unit) {
+        return 0;
+    }
+
+    if (a < 2 && (unit->last_action == 3 || unit->last_action == 7 || unit->last_action == 8)) {
+        return 0;
+    }
+
+    unit->unitFlags |= 8;
+    this->MsgProc(0x408, 0, 0);
+    main_wnd->field_0x408 = unit->equipmentTokens[a];
+    unit->equipmentTokens[a] = nullptr;
+    main_wnd->field_0x40c = a;
+    main_wnd->field_0x410 = main_wnd->OnCommand(0, 0);
+    unit->ReloadSprite();
+    main_wnd->vis_root->MsgProc(0x46E, (uint32_t)main_wnd->m_hWnd, 0);
+    return (int32_t)main_wnd->field_0x408;
 }
 
 // 4B201C
