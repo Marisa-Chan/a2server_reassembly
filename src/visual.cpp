@@ -16637,3 +16637,134 @@ void VisTown::VMethod37()
     this->spr_shop = nullptr;
     this->bmp_cur_flugel = nullptr;
 }
+
+
+// 4CEEEF
+void VisTown::VMethod36()
+{
+    // spawn-point tables from the original data (634808/634830/634850)
+    static const int32_t horse_spawn_tbl[5][2] = {
+        { 0x68, 0x194 }, { 0x68, 0x194 }, { 0x100, 0x158 }, { 0x1C0, 0x190 }, { 0x8C, 0x190 },
+    };
+    static const int32_t bbird_spawn_tbl[4][2] = {
+        { 0xD8, 0x16C }, { 0x134, 0x1A8 }, { 0x180, 0x1A8 }, { 0x244, 0x180 },
+    };
+    static const int32_t dervish_spawn_tbl[4][2] = {
+        { 0xE0, 0x16C }, { 0x144, 0x1A8 }, { 0x188, 0x1A4 }, { 0x250, 0x184 },
+    };
+
+    this->VMethod37();
+    this->bmp_hover_mask = new CBmp256("graphics\\interface\\town\\townmask.bmp");
+    g_mousept.Update();
+    this->bmp_bkg = new CBmp64("graphics\\interface\\town\\townmain.bmp");
+    g_mousept.Update();
+    this->bmp_tavern_hover = new CBmp64("graphics\\interface\\town\\Tavern_l.bmp");
+    this->bmp_trainer_hover = new CBmp64("graphics\\interface\\town\\Trener_l.bmp");
+    this->bmp_shop_hover = new CBmp64("graphics\\interface\\town\\Shop_l.bmp");
+    g_mousept.Update();
+    this->spr_tavern = new CA16("graphics\\interface\\townbirds\\tavern\\sprites.16a");
+    this->spr_tavern->ResetPalette(0x10, 4, 0);
+    for (int32_t i = 0; i < 10; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town\\sign\\V%.2d.bmp", i);
+        this->bmp_sign.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    for (int32_t i = 0; i < 9; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town\\door\\T%.2d.bmp", i);
+        this->bmp_door.Add(new CBmp64(name));
+        g_mousept.Update();
+        name.Format("graphics\\interface\\town\\stars\\S%.2d.bmp", i);
+        this->bmp_stars.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    this->spr_fighter = new CA16("graphics\\interface\\townbirds\\fighter\\sprites.16a");
+    this->spr_fighter->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->spr_mage = new CA16("graphics\\interface\\townbirds\\mage\\sprites.16a");
+    this->spr_mage->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    for (int32_t i = 0; i < 0xB; i++) {
+        // empty spin loop, present in the original
+    }
+    this->spr_shop = new CA16("graphics\\interface\\townbirds\\shopie\\sprites.16a");
+    this->spr_shop->ResetPalette(0x10, 4, 0);
+    for (int32_t i = 0; i < 0x1F; i++) {
+        // empty spin loop, present in the original
+    }
+    for (int32_t i = 0; i < 8; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town\\fluger\\F%.2d.bmp", i);
+        this->bmp_flugel.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    this->spr_birds.SetSize(9, -1);
+    for (int32_t i = 0; i < 9; i++) {
+        CString name;
+        name.Format("graphics\\interface\\TownBirds\\Birds%d\\sprites.16a", i + 1);
+        CA16* spr = new CA16(name);
+        this->spr_birds.ElementAt(i) = spr;
+        spr->ResetPalette(0x10, 4, 0);
+        g_mousept.Update();
+    }
+    this->bmp_bird_overlay = new CBmp64("graphics\\interface\\Town\\Town_add.bmp");
+    g_mousept.Update();
+    this->spr_guard = new CA16("graphics\\interface\\TownBirds\\Guards\\sprites.16a");
+    this->spr_guard->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->spr_horse.SetSize(3, -1);
+    int32_t horse_group = GetRandS16(5);
+    this->horse_position.x = horse_spawn_tbl[horse_group][0];
+    this->horse_position.y = horse_spawn_tbl[horse_group][1];
+    for (int32_t i = 0; i < this->spr_horse.GetSize(); i++) {
+        CString name;
+        name.Format("graphics\\interface\\TownBirds\\HORSE%d\\A%d\\sprites.16a", horse_group + 1, i + 1);
+        CA16* spr = new CA16(name);
+        this->spr_horse.ElementAt(i) = spr;
+        spr->ResetPalette(0x10, 4, 0);
+        g_mousept.Update();
+    }
+    this->spr_bbird.SetSize(2, -1);
+    int32_t bbird_group = GetRandS16(4);
+    this->bbird_position.x = bbird_spawn_tbl[bbird_group][0];
+    this->bbird_position.y = bbird_spawn_tbl[bbird_group][1];
+    for (int32_t i = 0; i < this->spr_bbird.GetSize(); i++) {
+        CString name;
+        name.Format("graphics\\interface\\TownBirds\\BABA%d\\A%d\\sprites.16a", bbird_group + 1, i + 1);
+        CA16* spr = new CA16(name);
+        this->spr_bbird.ElementAt(i) = spr;
+        spr->ResetPalette(0x10, 4, 0);
+        g_mousept.Update();
+    }
+    int32_t bbird_group_saved = bbird_group;
+    while (bbird_group_saved == bbird_group) {
+        bbird_group = GetRandS16(4);
+    }
+    this->dervish_position.x = dervish_spawn_tbl[bbird_group][0];
+    this->dervish_position.y = dervish_spawn_tbl[bbird_group][1];
+    CString name;
+    name.Format("graphics\\interface\\TownBirds\\DERVISH%d\\sprites.16a", bbird_group + 1);
+    this->spr_dervish = new CA16(name);
+    this->spr_dervish->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    this->tavern_frame = -1;
+    this->FUN_004d07e8();
+    this->sign_frame = -1;
+    this->FUN_004d0884();
+    this->door_frame = 9;
+    this->FUN_004d0913();
+    this->stars_frame = -1;
+    this->FUN_004d0ad7();
+    this->fighter_frame = 0;
+    this->FUN_004d0b95();
+    this->mage_frame = 0;
+    this->FUN_004d0c6e();
+    this->shop_frame = -1;
+    this->FUN_004d0d47();
+    this->flugel_frame = -1;
+    this->FUN_004d0da2();
+    this->bbird_frame = -1;
+    this->horse_frame = -1;
+    this->dervish_frame = -1;
+}

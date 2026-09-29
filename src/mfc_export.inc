@@ -1555,7 +1555,7 @@ extern ?VMethod32@VisTown@@UAEXXZ : proc
 extern ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
 extern ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
 extern ?VMethod35@VisTown@@UAEXXZ : proc
-externdef ?VMethod36@VisTown@@UAEXXZ : proc
+extern ?VMethod36@VisTown@@UAEXXZ : proc
 extern ?VMethod37@VisTown@@UAEXXZ : proc
 extern ?VMethod38@VisTown@@UAEXXZ : proc
 extern ?VMethod39@VisTown@@UAEXXZ : proc
