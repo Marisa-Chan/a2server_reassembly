@@ -4180,6 +4180,13 @@ void VisCharSelect::FUN_00432655(CUnit* unit)
 }
 
 
+// 438D50
+void VisCharSelect::VMethod8(CRect* rect)
+{
+    (void)rect;
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()
