@@ -355698,8 +355698,7 @@ aGraphicsInterf_309 db 'graphics\interface\logo\splash4.bmp',0
                 db    0
                 db    0
                 db    0
-dword_634808    dd 68h                  ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+97F↑r
-dword_63480C    dd 194h                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+998↑r
+
                 db  68h ; h
                 db    0
                 db    0
@@ -355732,8 +355731,7 @@ dword_63480C    dd 194h                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+
                 db    1
                 db    0
                 db    0
-dword_634830    dd 0D8h                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+ADE↑r
-dword_634834    dd 16Ch                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+AF7↑r
+
                 db  34h ; 4
                 db    1
                 db    0
@@ -355758,8 +355756,7 @@ dword_634834    dd 16Ch                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+
                 db    1
                 db    0
                 db    0
-dword_634850    dd 0E0h                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+C3E↑r
-dword_634854    dd 16Ch                 ; DATA XREF: ?VMethod36@VisTown@@UAEXXZ+C57↑r
+
                 db  44h ; D
                 db    1
                 db    0
@@ -356172,97 +356169,6 @@ off_6349F0      dd offset unk_634870    ; DATA XREF: ?VMethod7@VisTownDruid@@UAE
                 dd offset unk_634898
                 dd offset unk_6348C8
                 dd offset unk_634930
-; CHAR aPlagatguard[]
-aPlagatguard    db 'plagatguard',0      ; DATA XREF: ?OnLButtonDown@VisTown@@UAEHIVCPoint@@@Z:loc_4CE5A8↑o
-; char aGraphicsInterf_261[]
-aGraphicsInterf_261 db 'graphics\interface\town\townmask.bmp',0
-                align 4
-; char aGraphicsInterf_262[]
-aGraphicsInterf_262 db 'graphics\interface\town\townmain.bmp',0
-                align 4
-; char aGraphicsInterf_263[]
-aGraphicsInterf_263 db 'graphics\interface\town\Tavern_l.bmp',0
-                align 4
-; char aGraphicsInterf_264[]
-aGraphicsInterf_264 db 'graphics\interface\town\Trener_l.bmp',0
-                align 4
-; char aGraphicsInterf_265[]
-aGraphicsInterf_265 db 'graphics\interface\town\Shop_l.bmp',0
-                align 10h
-; char aGraphicsInterf_266[]
-aGraphicsInterf_266 db 'graphics\interface\townbirds\tavern\sprites.16a',0
-; char aGraphicsInterf_267[]
-aGraphicsInterf_267 db 'graphics\interface\town\sign\V%.2d.bmp',0
-                align 4
-; char aGraphicsInterf_268[]
-aGraphicsInterf_268 db 'graphics\interface\town\door\T%.2d.bmp',0
-                align 10h
-; char aGraphicsInterf_269[]
-aGraphicsInterf_269 db 'graphics\interface\town\stars\S%.2d.bmp',0
-; char aGraphicsInterf_270[]
-aGraphicsInterf_270 db 'graphics\interface\townbirds\fighter\sprites.16a',0
-                align 4
-; char aGraphicsInterf_271[]
-aGraphicsInterf_271 db 'graphics\interface\townbirds\mage\sprites.16a',0
-                align 4
-; char aGraphicsInterf_272[]
-aGraphicsInterf_272 db 'graphics\interface\townbirds\shopie\sprites.16a',0
-; char aGraphicsInterf_273[]
-aGraphicsInterf_273 db 'graphics\interface\town\fluger\F%.2d.bmp',0
-                align 4
-; char aGraphicsInterf_274[]
-aGraphicsInterf_274 db 'graphics\interface\TownBirds\Birds%d\sprites.16a',0
-                align 4
-; char aGraphicsInterf_275[]
-aGraphicsInterf_275 db 'graphics\interface\Town\Town_add.bmp',0
-                align 4
-; char aGraphicsInterf_276[]
-aGraphicsInterf_276 db 'graphics\interface\TownBirds\Guards\sprites.16a',0
-; char aGraphicsInterf_277[]
-aGraphicsInterf_277 db 'graphics\interface\TownBirds\HORSE%d\A%d\sprites.16a',0
-                align 4
-; char aGraphicsInterf_278[]
-aGraphicsInterf_278 db 'graphics\interface\TownBirds\BABA%d\A%d\sprites.16a',0
-; char aGraphicsInterf_279[]
-aGraphicsInterf_279 db 'graphics\interface\TownBirds\DERVISH%d\sprites.16a',0
-                align 4
-; CHAR aSfxTownGuard2W[]
-aSfxTownGuard2W db 'SFX\Town\Guard2.wav',0 ; DATA XREF: ?FUN_004d06aa@VisTown@@QAEXXZ+3A↑o
-; CHAR aSfxTownGuard1W[]
-aSfxTownGuard1W db 'SFX\Town\Guard1.wav',0 ; DATA XREF: ?FUN_004d06aa@VisTown@@QAEXXZ+84↑o
-; CHAR aSfxTownGateupW[]
-aSfxTownGateupW db 'SFX\Town\GateUp.wav',0 ; DATA XREF: ?FUN_004d0913@VisTown@@QAEXXZ+A9↑o
-; CHAR aSfxTownGatednW[]
-aSfxTownGatednW db 'SFX\Town\GateDn.wav',0 ; DATA XREF: ?FUN_004d0913@VisTown@@QAEXXZ+12A↑o
-; CHAR aSfxTownCrowdWa[]
-aSfxTownCrowdWa db 'SFX\Town\Crowd.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+15↑o
-                align 4
-; CHAR aSfxTownBirds1W[]
-aSfxTownBirds1W db 'SFX\Town\Birds1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+29↑o
-; CHAR aSfxTownBirds2W[]
-aSfxTownBirds2W db 'SFX\Town\Birds2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+40↑o
-; CHAR aSfxTownFlugelW[]
-aSfxTownFlugelW db 'SFX\Town\Flugel.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+57↑o
-; CHAR aSfxTownFlagWav[]
-aSfxTownFlagWav db 'SFX\Town\Flag.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+6D↑o
-                align 4
-; CHAR aSfxTownPointWa[]
-aSfxTownPointWa db 'SFX\Town\Point.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+84↑o
-                align 4
-; CHAR aSfxTownShopEnt_0[]
-aSfxTownShopEnt_0 db 'SFX\Town\Shop\enter.wav',0
-; CHAR aSfxTownSchoolP[]
-aSfxTownSchoolP db 'SFX\Town\School\Point.wav',0
-                align 10h
-; CHAR aSfxTownStarsWa[]
-aSfxTownStarsWa db 'SFX\Town\Stars.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+C8↑o
-                align 4
-; CHAR aSfxTownHorse2W[]
-aSfxTownHorse2W db 'SFX\Town\Horse2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+DF↑o
-; CHAR aSfxTownHorse3W[]
-aSfxTownHorse3W db 'SFX\Town\Horse3.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+F5↑o
-; CHAR aSfxTownHorse1W[]
-aSfxTownHorse1W db 'SFX\Town\Horse1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+10C↑o
 ; char aGraphicsInterf_280[]
 aGraphicsInterf_280 db 'graphics\interface\town_druid\townmask.bmp',0
                 align 4
@@ -359902,7 +359808,6 @@ unk_66666F      db 321h dup(?)
 byte_666990     db 4 dup(?)             ; DATA XREF: sub_4CD5BE+5E↑o
 dword_666994    dd ?                    ; DATA XREF: sub_4D5EF0+1EE↑w
 byte_666998     db 4 dup(?)
-dword_66699C    dd ?                    ; DATA XREF: ?VMethod7@VisTown@@UAEXXZ+3E↑w
 byte_6669A0     db 4 dup(?)
 dword_6669A4    dd ?                    ; DATA XREF: sub_4D3922+1EE↑w
 dword_6669A8    dd ?                    ; DATA XREF: ?VMethod7@VisTownDruid@@UAEXXZ+3E↑w
