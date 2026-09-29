@@ -18079,3 +18079,39 @@ void VisTownDruid::VMethod28()
     this->VMethod32();
     g_mousept.EnableHint();
 }
+
+
+// 4D3F18
+int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    int32_t mask = this->VMethod33(pos);
+    if (mask < 9) {
+        if (mask == 8) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
+            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+        }
+        else if (mask == 1) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+        }
+        else if (mask == 2) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+        }
+    }
+    else if (mask == 0x10) {
+        AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+    }
+    else if (mask == 0x200) {
+        CString name;
+        name.Format("druidinnkeeper%d", ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(name);
+    }
+    else if (mask == 0x1000) {
+        CString name;
+        name.Format("druidshopkeeper%d", ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(name);
+    }
+    return 1;
+}
