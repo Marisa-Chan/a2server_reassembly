@@ -16491,3 +16491,40 @@ void VisTown::FUN_004d109e()
         this->dervish_frame = (this->dervish_frame + 1) % this->spr_dervish->GetFrameCount();
     }
 }
+
+
+// 4D0E31
+void VisTown::VMethod38()
+{
+    if ((this->town_anim & 1) != 0) {
+        this->FUN_004d0d47();
+    }
+    if ((this->town_anim & 2) != 0) {
+        this->FUN_004d07e8();
+    }
+    this->FUN_004d0913();
+    if ((this->town_anim & 0x10) != 0) {
+        this->FUN_004d0ad7();
+    }
+    if ((this->town_anim & 0x40) != 0) {
+        this->FUN_004d0884();
+    }
+    if ((this->town_anim & 0x20) != 0) {
+        this->FUN_004d0da2();
+    }
+    if ((this->town_anim & 0x80) != 0) {
+        this->bird_frame0++;
+        this->bird_frame1++;
+        this->bird_frame2++;
+    }
+    if ((this->town_anim & 0x400) != 0) {
+        this->FUN_004d109e();
+    }
+    if ((this->town_anim & 0x200) != 0) {
+        this->FUN_004d0f66();
+    }
+    if ((this->town_anim & 0x100) != 0) {
+        this->FUN_004d1002();
+    }
+    this->FUN_004d06aa();
+}
