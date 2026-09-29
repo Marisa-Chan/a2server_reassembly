@@ -429,11 +429,6 @@
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193
-??_GVisNetDlg@@UAEPAXI@Z	24
-?OnKeyDown@VisNetDlg@@UAEHI@Z	31
-??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z	65
-?VMethod26@VisNetDlg@@UAEXXZ	235
-?MsgProc@VisNetDlg@@UAEHIII@Z	558
 ?OnKeyDown@VisNetMapSelection@@UAEHI@Z	16
 ??_GVisNetMapSelection@@UAEPAXI@Z	24
 ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z	65
