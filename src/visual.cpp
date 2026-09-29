@@ -7743,6 +7743,54 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos)
     return 1;
 }
 
+// 4B289E
+int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if ((wparam & 1) == 0) {
+        return 0;
+    }
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* map = this->map_context;
+
+    if (main_wnd->field_0x408 != nullptr) {
+        return 0;
+    }
+    if (this->info_mode == 0) {
+        return 0;
+    }
+
+    CUnit* unit = (CUnit*)map->field_0x138;
+    if (map->field_0x140 != 1) {
+        return 0;
+    }
+    if ((unit->unitFlags & 1) == 0) {
+        return 0;
+    }
+
+    uint8_t* data = (uint8_t*)this->hitmap->GetData();
+    uint8_t color = data[(pos.y - screen_rect.top - 2) * 0xA0 + (pos.x - screen_rect.left)];
+    if (color == 0) {
+        return 0;
+    }
+
+    if (this->VMethod26(color - 1) == 0) {
+        return 0;
+    }
+
+    CString name = main_wnd->field_0x408->FUN_004394f3();
+    CString path = "graphics\\inventory\\" + name + ".16a";
+    main_wnd->sub_48CCA1(main_wnd->field_0x408, main_wnd->field_0x40c, path, main_wnd->field_0x410);
+
+    unit->unitFlags |= 8;
+    this->MsgProc(0x408, 0, 0);
+    this->parent->MsgProc(0x46E, this->id, 0);
+    unit->m_bSelectionDirty = 1;
+    return 0;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
