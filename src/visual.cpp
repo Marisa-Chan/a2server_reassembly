@@ -16996,3 +16996,57 @@ void VisTownKaarg::VMethod36()
     this->horse_frame = -1;
     this->dervish_frame = -1;
 }
+
+
+// 4D5112
+void VisTownKaarg::VMethod37()
+{
+    if (this->bmp_bkg != nullptr) {
+        delete this->bmp_bkg;
+        this->bmp_bkg = nullptr;
+    }
+    if (this->bmp_hover_mask != nullptr) {
+        delete this->bmp_hover_mask;
+        this->bmp_hover_mask = nullptr;
+    }
+    if (this->bmp_tavern_hover != nullptr) {
+        delete this->bmp_tavern_hover;
+        this->bmp_tavern_hover = nullptr;
+    }
+    if (this->bmp_shop_hover != nullptr) {
+        delete this->bmp_shop_hover;
+        this->bmp_shop_hover = nullptr;
+    }
+    for (int32_t i = 0; i < this->bmp_gate.GetSize(); i++) {
+        if (this->bmp_gate.GetAt(i) != nullptr) {
+            delete this->bmp_gate.GetAt(i);
+        }
+    }
+    this->bmp_gate.RemoveAll();
+    for (int32_t i = 0; i < this->bmp_guard.GetSize(); i++) {
+        if (this->bmp_guard.GetAt(i) != nullptr) {
+            delete this->bmp_guard.GetAt(i);
+        }
+    }
+    this->bmp_guard.RemoveAll();
+    for (int32_t g = 0; g < 2; g++) {
+        for (int32_t i = 0; i < this->bmp_girl1[g].GetSize(); i++) {
+            if (this->bmp_girl1[g].GetAt(i) != nullptr) {
+                delete this->bmp_girl1[g].GetAt(i);
+            }
+        }
+        this->bmp_girl1[g].RemoveAll();
+        for (int32_t i = 0; i < this->bmp_girl2[g].GetSize(); i++) {
+            if (this->bmp_girl2[g].GetAt(i) != nullptr) {
+                delete this->bmp_girl2[g].GetAt(i);
+            }
+        }
+        this->bmp_girl2[g].RemoveAll();
+    }
+    for (int32_t i = 0; i < this->bmp_dervish.GetSize(); i++) {
+        if (this->bmp_dervish.GetAt(i) != nullptr) {
+            delete this->bmp_dervish.GetAt(i);
+        }
+    }
+    this->bmp_dervish.RemoveAll();
+}
