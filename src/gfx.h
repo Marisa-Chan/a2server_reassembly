@@ -105,6 +105,7 @@ extern uint16_t* p_clrsh_ShockingBlack; //62e588
 extern uint16_t* p_clrsh_Gold; //62e58c
 
 extern uint16_t clrsh_DullGold[16]; //65f4f8
+extern uint16_t clrsh_Oxley[16]; //65f4d8
 extern uint16_t clrsh_TechBlack[16]; //65f090
 extern uint16_t clrsh_ShockingBlack[16]; //65e1e8
 extern uint16_t clrsh_CharlieBrown[16]; //65f4b8

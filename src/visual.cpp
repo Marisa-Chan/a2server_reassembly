@@ -7255,6 +7255,179 @@ void VisLogoWnd::DoClose(uint32_t code)
     VisScreen::DoClose(code);
 }
 
+// 4B2B3D
+void VisCharInfo::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if ((main_wnd->dialogsMask & 0x627) == 0) {
+        return;
+    }
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    int32_t moved_up;
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+        moved_up = 1;
+    } else {
+        moved_up = 0;
+    }
+
+    BigStruct2* map = this->map_context;
+    LockSurface2();
+    if (moved_up != 0) {
+        this->info_mode = 1;
+    }
+
+    if (this->info_mode != 0) {
+        g_bmp_humanbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    } else {
+        g_bmp_textbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    }
+
+    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+        if (map->IsBookOpen()) {
+            g_bmp_bookopened->VMethod10(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
+        } else {
+            g_bmp_bookclosed->VMethod10(screen_rect.left, screen_rect.top + 4, 0, 0, 0x1C, 0x25);
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 0x226) != 0) {
+        if ((main_wnd->dialogsMask & 0x200) == 0 || main_wnd->sessionMode != 2) {
+            g_bmp_ar1->VMethod10(screen_rect.left + 1, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
+            g_bmp_ar2->VMethod10(screen_rect.left + 0x77, screen_rect.top + 0xCD, 0, 0, 0x20, 0x20);
+        }
+    } else if ((main_wnd->dialogsMask & 0x400) == 0) {
+        if (map->IsBagOpen()) {
+            g_bmp_backpackop->VMethod10(screen_rect.left, screen_rect.top + 0xD0, 0, 0, 0x20, 0x1F);
+        } else {
+            g_bmp_backpackcl->VMethod10(screen_rect.left + 1, screen_rect.top + 0xC9, 0, 0, 0x1C, 0x1E);
+        }
+        g_bmp_diskette->VMethod10(screen_rect.left + 0x7E, screen_rect.top + 0xCE, 0, 0, 0x20, 0x20);
+    }
+
+    if ((main_wnd->dialogsMask & 0x600) == 0 && moved_up == 0) {
+        if (this->info_mode != 0) {
+            g_bmp_humanmode->VMethod10(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
+        } else {
+            g_bmp_textmode->VMethod10(screen_rect.left + 0x80, screen_rect.top + 4, 0, 0, 0x1C, 0x20);
+        }
+    }
+
+    CStructure* structure = nullptr;
+    CUnit* unit = nullptr;
+    uint16_t selected_id = (uint16_t)map->field_0x9a8;
+    CGameObject* found_obj = nullptr;
+    int32_t found = 0;
+    if (selected_id != 0 && main_wnd->field_0x408 == nullptr && main_wnd->dialogsMask == 1) {
+        found = map->field_0x9d0.Lookup(selected_id, found_obj);
+    }
+    if (selected_id != 0 && found != 0) {
+        if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+            structure = (CStructure*)found_obj;
+        } else {
+            unit = (CUnit*)found_obj;
+        }
+    } else if (map->field_0x140 == 1) {
+        if (map->field_0x138->IsKindOf(RUNTIME_CLASS(CStructure))) {
+            structure = (CStructure*)map->field_0x138;
+        } else {
+            unit = (CUnit*)map->field_0x138;
+        }
+    }
+
+    if (structure != nullptr) {
+        if (this->info_mode == 0) {
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], 2, clrsh_DullGold, 1);
+            char hp_text[0x10];
+            sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, 2, clrsh_Oxley, 1);
+        } else {
+            if (strcmp(this->picturename, g_StructuresInfo[structure->typeId]->picture) != 0) {
+                strcpy(this->picturename, g_StructuresInfo[structure->typeId]->picture);
+                char path[0x100];
+                sprintf(path, "graphics\\infowindow\\%s.bmp", this->picturename);
+                this->bitmap->LoadFile(path, nullptr);
+                memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
+            }
+            this->bitmap->VMethod10(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
+            int32_t text_y = 0x36;
+            if (map->quest_landmark_some_id != 0) {
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15B], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15C], 2, clrsh_DullGold, 1);
+                text_y += 0x20;
+            }
+            if (map->quest_building_some_id != 0) {
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15D], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15E], 2, clrsh_DullGold, 1);
+            }
+        }
+    } else if (unit != nullptr) {
+        if (this->info_mode == 0) {
+            unit->FUN_0046c124(&screen_rect);
+        } else {
+            if ((unit->unitFlags & 0x11) != 0) {
+                char temp_path[0x100];
+                char fname[0x100];
+                char full_path[0x100];
+                GetTempPathA(0x100, temp_path);
+                sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
+                sprintf(full_path, "%s%s", temp_path, fname);
+                if (strcmp(this->picturename, fname) != 0) {
+                    strcpy(this->picturename, fname);
+                    if ((unit->unitFlags & 8) != 0) {
+                        UnlockSurface2();
+                        unit->VMethod30(full_path, this->bitmap, this->hitmap);
+                        LockSurface2();
+                    } else {
+                        this->bitmap->LoadFile(fname, this->hitmap);
+                    }
+                } else if ((unit->unitFlags & 8) != 0) {
+                    UnlockSurface2();
+                    unit->VMethod30(full_path, this->bitmap, this->hitmap);
+                    LockSurface2();
+                }
+            } else {
+                char picture[0x100];
+                strcpy(picture, g_VFX_info[unit->typeId]->info_picture);
+                char suffix[0x50];
+                sprintf(suffix, "%d", unit->face);
+                if (unit->face > 1) {
+                    strcat(picture, suffix);
+                }
+                if (strcmp(this->picturename, picture) != 0) {
+                    strcpy(this->picturename, picture);
+                    char path[0x100];
+                    sprintf(path, "graphics\\infowindow\\%s.bmp", this->picturename);
+                    this->bitmap->LoadFile(path, nullptr);
+                    memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
+                }
+            }
+            this->bitmap->VMethod10(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
+            if (map->quest_some_id_2 != 0 || map->quest_some_id != 0) {
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x159], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x15A], 2, clrsh_DullGold, 1);
+            }
+        }
+    } else {
+        if (map->field_0x140 > 1) {
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x31], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x32], 2, clrsh_DullGold, 1);
+            char count_text[0x10];
+            sprintf(count_text, "%d", map->field_0x140);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x4E, count_text, 2, clrsh_DullGold, 1);
+        } else if (map->field_0x140 == 0) {
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
+        }
+    }
+
+    UnlockSurface2();
+    this->dirty = 0;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
