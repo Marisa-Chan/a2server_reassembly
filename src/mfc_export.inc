@@ -1567,7 +1567,7 @@ externdef ?VMethod31@VisTownDruid@@UAEXH@Z : proc
 ;VisTownKaarg
 extern ??_GVisTownKaarg@@UAEPAXI@Z : proc
 extern ?GetHint@VisTownKaarg@@UAEPBDXZ : proc
-externdef ?VMethod7@VisTownKaarg@@UAEXXZ : proc
+extern ?VMethod7@VisTownKaarg@@UAEXXZ : proc
 extern ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod28@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod30@VisTownKaarg@@UAEXXZ : proc

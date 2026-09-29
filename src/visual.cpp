@@ -17399,3 +17399,72 @@ void VisTownKaarg::VMethod28()
     FUN_004a4740(&this->snd_voice1);
     g_mousept.EnableHint();
 }
+
+
+// 4D57B9
+void VisTownKaarg::VMethod7()
+{
+    static uint8_t anim_init_flags;  // byte_6669C0 in asm
+    static uint32_t hover_tick;      // dword_6669B8 in asm
+    static uint32_t bird_anim_delay; // dword_6669CC in asm
+
+    if (this->dialog_active == 0) {
+        return;
+    }
+    if ((anim_init_flags & 1) == 0) {
+        anim_init_flags |= 1;
+        hover_tick = timeGetTime();
+    }
+    if ((anim_init_flags & 2) == 0) {
+        anim_init_flags |= 2;
+        bird_anim_delay = (uint32_t)(GetRandS16(2000) + 1000);
+    }
+    uint32_t now = timeGetTime();
+    if ((now - hover_tick) > 100) {
+        CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+        this->VMethod34(pt);
+        this->VMethod38();
+        hover_tick = timeGetTime();
+    }
+    this->VMethod35();
+    LockSurface2();
+    if (this->bmp_bkg != nullptr) {
+        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+    }
+    if (this->hovered_action_mask == 1) {
+        this->bmp_shop_hover->VMethod2(this->rect.left + 0x148, this->rect.top + 0x100, 0, 0, 0);
+    }
+    if (this->hovered_action_mask == 2) {
+        this->bmp_tavern_hover->VMethod2(this->rect.left + 0x1E0, this->rect.top + 0xC4, 0, 0, 0);
+    }
+    if ((this->town_anim & 0x200) == 0) {
+        this->bmp_girl1[0].GetAt(0)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
+    }
+    else {
+        this->bmp_girl1[this->girl1_group].GetAt(this->bbird_frame)->VMethod2(this->rect.left + 0xD8, this->rect.top + 0x11C, 0, 0, 0);
+    }
+    if ((this->town_anim & 4) == 0) {
+        this->bmp_girl2[0].GetAt(0)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
+    }
+    else {
+        this->bmp_girl2[this->girl2_group].GetAt(this->girl2_frame)->VMethod2(this->rect.left + 0x104, this->rect.top + 0x11C, 0, 0, 0);
+    }
+    if ((this->town_anim & 0x800) == 0) {
+        this->bmp_guard.GetAt(0)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
+    }
+    else if (this->fighter_frame < 0xD || this->fighter_frame > 0x25) {
+        this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9C, 0, 0, 0);
+    }
+    else {
+        this->bmp_guard.GetAt(this->fighter_frame)->VMethod2(this->rect.left + 0x8C, this->rect.top + 0x98, 0, 0, 0);
+    }
+    if ((this->town_anim & 0x400) == 0) {
+        this->bmp_dervish.GetAt(0)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
+    }
+    else {
+        this->bmp_dervish.GetAt(this->dervish_frame)->VMethod2(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
+    }
+    this->bmp_gate.GetAt(this->door_frame)->VMethod2(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
+    UnlockSurface2();
+    this->VisScreen::VMethod7();
+}
