@@ -1524,7 +1524,7 @@ externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 ;VisTown
 extern ??_GVisTown@@UAEPAXI@Z : proc
-externdef ?GetHint@VisTown@@UAEPBDXZ : proc
+extern ?GetHint@VisTown@@UAEPBDXZ : proc
 externdef ?VMethod7@VisTown@@UAEXXZ : proc
 extern ?VMethod8@VisTown@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisTown@@UAEHIII@Z : proc
@@ -1534,8 +1534,8 @@ extern ?OnKeyDown@VisTown@@UAEHI@Z : proc
 extern ?VMethod26@VisTown@@UAEXXZ : proc
 extern ?VMethod28@VisTown@@UAEXXZ : proc
 extern ?DoClose@VisTown@@UAEXI@Z : proc
-externdef ?VMethod30@VisTown@@UAEXXZ : proc
-externdef ?VMethod31@VisTown@@UAEXXZ : proc
+extern ?VMethod30@VisTown@@UAEXXZ : proc
+extern ?VMethod31@VisTown@@UAEXXZ : proc
 externdef ?VMethod32@VisTown@@UAEXXZ : proc
 externdef ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
 externdef ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc

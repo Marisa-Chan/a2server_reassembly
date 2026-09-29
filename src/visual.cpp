@@ -15946,3 +15946,54 @@ void VisTown::DoClose(uint32_t code)
     this->VMethod31();
     this->VisScreen::DoClose(code);
 }
+
+
+// 4D1723
+void VisTown::VMethod30()
+{
+    this->VMethod31();
+    FUN_00438e40(&this->sounds[0], "SFX\\Town\\Crowd.wav");
+    FUN_00438e40(&this->sounds[3], "SFX\\Town\\Birds1.wav");
+    FUN_00438e40(&this->sounds[4], "SFX\\Town\\Birds2.wav");
+    FUN_00438e40(&this->sounds[5], "SFX\\Town\\Flugel.wav");
+    FUN_00438e40(&this->sounds[6], "SFX\\Town\\Flag.wav");
+    FUN_00438e40(&this->sounds[7], "SFX\\Town\\Point.wav");
+    FUN_00438e40(&this->sounds[8], "SFX\\Town\\Shop\\enter.wav");
+    FUN_00438e40(&this->sounds[9], "SFX\\Town\\School\\Point.wav");
+    FUN_00438e40(&this->sounds[10], "SFX\\Town\\Stars.wav");
+    FUN_00438e40(&this->sounds[11], "SFX\\Town\\Horse2.wav");
+    FUN_00438e40(&this->sounds[12], "SFX\\Town\\Horse3.wav");
+    FUN_00438e40(&this->sounds[13], "SFX\\Town\\Horse1.wav");
+}
+
+
+// 4D184A
+void VisTown::VMethod31()
+{
+    for (int32_t i = 0; i < 14; i++) {
+        FUN_00438dd0(&this->sounds[i]);
+    }
+}
+
+
+// 4D1602
+const char* VisTown::GetHint()
+{
+    if (this->dialog_active == 0) {
+        return nullptr;
+    }
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    switch (this->VMethod33(pt)) {
+    case 1:
+        return TxtFile::AllLines[0xE9];
+    case 2:
+        return TxtFile::AllLines[0xEC];
+    case 4:
+        return TxtFile::AllLines[0xEA];
+    case 8:
+        return TxtFile::AllLines[0xED];
+    case 0x10:
+        return TxtFile::AllLines[0xEB];
+    }
+    return nullptr;
+}
