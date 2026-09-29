@@ -17633,3 +17633,65 @@ void VisTownDruid::FUN_004d3520()
         }
     }
 }
+
+
+// 4D2153
+void VisTownDruid::VMethod36()
+{
+    this->VMethod37();
+    this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_druid\\townmask.bmp");
+    g_mousept.Update();
+    this->bmp_bkg = new CBmp64("graphics\\interface\\town_druid\\townmain.bmp");
+    g_mousept.Update();
+    this->bmp_tavern_hover = new CBmp64("graphics\\interface\\town_druid\\hili_tavern.bmp");
+    this->bmp_shop_hover = new CBmp64("graphics\\interface\\town_druid\\hili_shop.bmp");
+    g_mousept.Update();
+    for (int32_t g = 0; g < 3; g++) {
+        for (int32_t i = 1; i < 0x15; i++) {
+            CString name;
+            name.Format("graphics\\interface\\town_druid\\woman\\a%d%04d.bmp", g + 1, i);
+            File2 f;
+            if (!f.Open(name, 0, nullptr)) {
+                break;
+            }
+            f.Close();
+            this->tavern_frame_group[g].Add(new CBmp64(name));
+            g_mousept.Update();
+        }
+    }
+    for (int32_t g = 0; g < 3; g++) {
+        for (int32_t i = 1; i < 0x15; i++) {
+            CString name;
+            name.Format("graphics\\interface\\town_druid\\man\\a%d%04d.bmp", g + 1, i);
+            File2 f;
+            if (!f.Open(name, 0, nullptr)) {
+                break;
+            }
+            f.Close();
+            this->shop_frame_group[g].Add(new CBmp64(name));
+            g_mousept.Update();
+        }
+    }
+    this->spr_bug = new CA16("graphics\\interface\\town_druid\\bug\\sprites.16a");
+    this->spr_bug->ResetPalette(0x10, 4, 0);
+    this->spr_lizard = new CA16("graphics\\interface\\town_druid\\Lizard\\sprites.16a");
+    this->spr_lizard->ResetPalette(0x10, 4, 0);
+    this->tavern_frame = -1;
+    this->tavern_group = -1;
+    this->FUN_004d3384();
+    this->sign_frame = -1;
+    this->door_frame = 9;
+    this->stars_frame = -1;
+    this->fighter_frame = 0;
+    this->mage_frame = 0;
+    this->shop_frame = -1;
+    this->shop_group = -1;
+    this->FUN_004d3435();
+    this->flugel_frame = -1;
+    this->lizard_variant = -1;
+    this->lizard_frame = -1;
+    this->bbird_frame = -1;
+    this->horse_frame = -1;
+    this->dervish_frame = -1;
+    this->bug_variant = -1;
+}

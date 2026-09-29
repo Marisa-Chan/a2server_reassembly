@@ -1570,7 +1570,7 @@ extern ?FUN_004d34b6@VisTownDruid@@QAEXXZ : proc
 extern ?FUN_004d3520@VisTownDruid@@QAEXXZ : proc
 externdef ?VMethod34@VisTownDruid@@UAEXVCPoint@@@Z : proc
 externdef ?VMethod35@VisTownDruid@@UAEXXZ : proc
-externdef ?VMethod36@VisTownDruid@@UAEXXZ : proc
+extern ?VMethod36@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod37@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod38@VisTownDruid@@UAEXXZ : proc
 ;VisTownKaarg
