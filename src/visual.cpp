@@ -6975,6 +6975,24 @@ int32_t VisCharGenSkills::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
+// 42d963
+void VisCharGenSkills::LoadSamples(uint32_t mage_flag) {
+    if (mage_flag == 0) {
+        FUN_00438e40(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\FSword.wav");
+        FUN_00438e40(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\FAxe.wav");
+        FUN_00438e40(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\FClub.wav");
+        FUN_00438e40(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\FPike.wav");
+        FUN_00438e40(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\FBow.wav");
+    } else {
+        FUN_00438e40(&this->field_0x120[0], "SFX\\ChrGen\\Skill\\MFire.wav");
+        FUN_00438e40(&this->field_0x120[1], "SFX\\ChrGen\\Skill\\MWater.wav");
+        FUN_00438e40(&this->field_0x120[2], "SFX\\ChrGen\\Skill\\MAir.wav");
+        FUN_00438e40(&this->field_0x120[3], "SFX\\ChrGen\\Skill\\MEarth.wav");
+        FUN_00438e40(&this->field_0x120[4], "SFX\\ChrGen\\Skill\\MAstral.wav");
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
