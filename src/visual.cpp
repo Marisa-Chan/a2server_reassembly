@@ -7007,6 +7007,23 @@ int32_t VisCharGenSkills::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
+// 42dbce
+const char* VisCharGenSkills::GetHint() {
+    if (this->parent_screen->active_flag == 0) {
+        return nullptr;
+    }
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    int32_t hit = this->HitTest(pt);
+    if (hit == -1) {
+        return nullptr;
+    }
+    if (this->parent_screen->mage_flag == 0) {
+        return TxtFile::AllLines[hit + 0xAB];
+    }
+    return TxtFile::AllLines[hit + 0xB0];
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
