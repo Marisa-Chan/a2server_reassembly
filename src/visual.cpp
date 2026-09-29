@@ -15849,3 +15849,100 @@ void VisTown::VMethod28()
     this->VMethod32();
     g_mousept.EnableHint();
 }
+
+
+// 4CE719
+void VisTown::VMethod8(CRect* rect)
+{
+    (void)rect;
+}
+
+
+// 4CE4E5
+int32_t VisTown::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    this->VMethod34(pos);
+    return 0;
+}
+
+
+// 4CE4AF
+int32_t VisTown::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0x0D || wparam == 0x1B) {
+        return 1;
+    }
+    return this->VisScreen::OnKeyDown(wparam);
+}
+
+
+// 4CE3B8
+int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
+    if (msg == 0x402) {
+        if (mainwnd->dialogsMask == 0) {
+            this->VMethod9();
+        }
+    }
+    else if (msg == 0x446) {
+        return 1;
+    }
+    else if (msg == 0x45A) {
+        if (this->tips != nullptr) {
+            this->RemoveChild(this->tips);
+            delete this->tips;
+            this->tips = nullptr;
+        }
+    }
+    else if (msg == 0x100 && wparam == 0x0D) {
+        return 1;
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
+// 4CE50A
+int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    switch (this->VMethod33(pos)) {
+    case 1:
+        this->VMethod39();
+        AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+        break;
+    case 2:
+        // tavern
+        this->VMethod39();
+        AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+        break;
+    case 8:
+        if (ScenarioGetVar(0x301) == 0) {
+            ShowRoleKeyDialog("plagatguard");
+        }
+        else {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
+            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+        }
+        break;
+    case 0x10:
+        AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+        break;
+    }
+    return 1;
+}
+
+
+// 4CE310
+void VisTown::DoClose(uint32_t code)
+{
+    this->dialog_active = 0;
+    if (this->tips != nullptr) {
+        this->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+    this->VMethod37();
+    this->VMethod31();
+    this->VisScreen::DoClose(code);
+}
