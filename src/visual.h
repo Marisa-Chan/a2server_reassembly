@@ -2031,7 +2031,7 @@ public:
 	virtual void VMethod28() override; // 4CE002
 	virtual void DoClose(uint32_t code) override; // 4CE310
 
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r); // 4D1723
+	virtual void VMethod30(); // 4D1723
 	virtual void VMethod31(); // 4D184A
 
 	virtual void VMethod32(); // 4D1709
@@ -2055,7 +2055,7 @@ public:
 	int32_t last_bird;
 	int32_t bird_group_index;
 	int32_t active_bird;
-	CArray<CSprite256*> spr_birds;
+	CArray<CA16*> spr_birds;
 	int32_t bird_frame0;
 	int32_t bird_frame1;
 	int32_t bird_frame2;
@@ -2064,13 +2064,13 @@ public:
 	uint32_t guard_frame_step;
 	int32_t guard_sound;
 	CA16* spr_cur_bbird;
-	CArray<CSprite256*> spr_bbird;
+	CArray<CA16*> spr_bbird;
 	CPoint bbird_position;
 	int32_t bbird_frame;
 	uint32_t bbird_last_tick;
 	int32_t bbird_delay;
 	CA16* spr_cur_horse;
-	CArray<CSprite256*> spr_horse;
+	CArray<CA16*> spr_horse;
 	CPoint horse_position;
 	int32_t horse_frame;
 	int32_t horse_anim_index;
@@ -2119,7 +2119,7 @@ public:
 	virtual void VMethod7() override; // 4D2E99
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D3F18
 	virtual void VMethod28() override; // 4D1E80
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4D2AFF
+	virtual void VMethod30() override; // 4D2AFF
 	virtual void VMethod31() override; // 4D2D1B
 
 	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 in asm
@@ -2169,7 +2169,7 @@ public:
 	virtual void VMethod7() override; // 4D57B9
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D6802
 	virtual void VMethod28() override; // 4D4592
-	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4D54CF
+	virtual void VMethod30() override; // 4D54CF
 	virtual void VMethod31() override; // 4D5682
 
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a in asm

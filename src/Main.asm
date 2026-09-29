@@ -125008,237 +125008,6 @@ sub_4CDC78      endp
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisTown@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DC30↓o
-
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FED14 SIZE 0000001D BYTES
-
-; __unwind { // SEH_4CE002
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4CE002
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 24h
-                mov     [ebp+var_28], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?DisableHint@CMousePointer@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_28]
-                call    dword ptr [edx+0A0h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_28]
-                call    dword ptr [edx+88h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+208h], 0
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     dword ptr [ecx+1A4h], 0
-                mov     edx, dword ptr [ebp+var_28]
-                mov     dword ptr [edx+0F0h], 0
-                cmp     ?g_settings@@3UGameSettings@@A+1ch, 0
-                jz      loc_4CE11F
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     eax, [ebp+var_14]
-                push    eax             ; CString *
-                push    1               ; int
-                call    ?MissionGetTips@@YAXHPAVCString@@@Z
-                add     esp, 8
-                push    74h ; 't'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 4CE08A
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                cmp     [ebp+Block], 0
-                jz      short loc_4CE0DF
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpString
-                push    0C8h            ; yBottom
-                push    280h            ; xRight
-                push    0               ; yTop
-                push    148h            ; xLeft
-                push    467h            ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisTipsDialog@@QAE@HHHHHPBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_4CE0E6
-; ---------------------------------------------------------------------------
-
-loc_4CE0DF:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+AF↑j
-                mov     [ebp+var_2C], 0
-
-loc_4CE0E6:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+DB↑j
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 4CE0A9
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [edx+200h], eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx+200h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-;   } // starts at 4CE0EC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     short loc_4CE18A
-; ---------------------------------------------------------------------------
-
-loc_4CE11F:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+7A↑j
-                mov     eax, dword ptr [ebp+var_28]
-                cmp     dword ptr [eax+200h], 0
-                jz      short loc_4CE17D
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx+200h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+200h]
-                mov     [ebp+var_24], ecx
-                mov     edx, dword ptr [ebp+var_24]
-                mov     [ebp+var_20], edx
-                cmp     [ebp+var_20], 0
-                jz      short loc_4CE167
-                push    1
-                mov     eax, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_30], eax
-                jmp     short loc_4CE16E
-; ---------------------------------------------------------------------------
-
-loc_4CE167:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+151↑j
-                mov     [ebp+var_30], 0
-
-loc_4CE16E:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+163↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+200h], 0
-                jmp     short loc_4CE18A
-; ---------------------------------------------------------------------------
-
-loc_4CE17D:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+127↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     dword ptr [ecx+200h], 0
-
-loc_4CE18A:                             ; CODE XREF: ?VMethod28@VisTown@@UAEXXZ+11B↑j
-                call    timeGetTime
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [edx+0B8h], eax
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+0E4h]
-                call    unknown_libname_464 ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ecx+0E8h], eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     dword ptr [edx+0ECh], 0
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+208h]
-                or      ecx, 400h
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [edx+208h], ecx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+15Ch], 0
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ecx+118h], eax
-                push    7D0h
-                call    ?GetRandS16@@YAHH@Z
-                add     esp, 4
-                add     eax, 7D0h
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [edx+11Ch], eax
-                push    0
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 0F8h
-                call    sub_4A4410
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     [ecx+0F4h], edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+114h], 0FFFFFFFFh
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ecx+148h], eax
-                push    7D0h
-                call    ?GetRandS16@@YAHH@Z
-                add     esp, 4
-                add     eax, 7D0h
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [edx+14Ch], eax
-                push    0
-                mov     ecx, dword ptr [ebp+var_28]
-                add     ecx, 124h
-                call    sub_4A4410
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     [ecx+120h], edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+140h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     dword ptr [ecx+0B4h], 0FFFFFFFFh
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    eax
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+4] 
-                push    ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A] 
-                push    edx
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                call    ?UnlockSurface2@@YAIXZ
-                call    ?FlushScreen@@YAXXZ
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+204h], 1
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_28]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_28]
-                call    dword ptr [edx+90h]
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4CE002
-?VMethod28@VisTown@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -129764,7 +129533,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060DC38↓o
+?VMethod30@VisTown@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DC38↓o
 
 var_4           = dword ptr -4
 
@@ -129851,7 +129620,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
+?VMethod30@VisTown@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -131314,7 +131083,7 @@ sub_4D2AE3      endp
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisTownDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060DCE8↓o
+?VMethod30@VisTownDruid@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DCE8↓o
 
 var_4           = dword ptr -4
 
@@ -131461,7 +131230,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?VMethod30@VisTownDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
+?VMethod30@VisTownDruid@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -134811,7 +134580,7 @@ sub_4D54B5      endp
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060DD98↓o
+?VMethod30@VisTownKaarg@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DD98↓o
 
 var_4           = dword ptr -4
 
@@ -134930,7 +134699,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
+?VMethod30@VisTownKaarg@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -322031,31 +321800,6 @@ SEH_4CDC78:                             ; DATA XREF: sub_4CDC78+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FEC84
 ; END OF FUNCTION CHUNK FOR sub_4CDC78
-; START OF FUNCTION CHUNK FOR ?VMethod28@VisTown@@UAEXXZ
-
-loc_5FED14:                             ; DATA XREF: .rdata:stru_620008↓o
-; __unwind { // SEH_4CE002              ; varThis
-;   cleanup() // owned by 4CE08A
-;   cleanup() // owned by 4CE0EC
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FED1D:                             ; DATA XREF: .rdata:00620010↓o
-;   cleanup() // owned by 4CE0A9
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CE002:                             ; DATA XREF: ?VMethod28@VisTown@@UAEXXZ+5↑o
-                mov     eax, offset stru_61FFE8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FED14
-; END OF FUNCTION CHUNK FOR ?VMethod28@VisTown@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod36@VisTown@@UAEXXZ
 
 loc_5FED31:                             ; DATA XREF: .rdata:stru_620038↓o
@@ -339057,7 +338801,7 @@ off_60DBB0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisTown@@UAEXXZ
                 dd offset ?DoClose@VisTown@@UAEXI@Z
-                dd offset ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod30@VisTown@@UAEXXZ
                 dd offset ?VMethod31@VisTown@@UAEXXZ
                 dd offset ?VMethod32@VisTown@@UAEXXZ
                 dd offset ?VMethod33@VisTown@@UAEHVCPoint@@@Z
@@ -339101,7 +338845,7 @@ off_60DC60      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisTownDruid@@UAEXXZ
                 dd offset ?DoClose@VisTown@@UAEXI@Z
-                dd offset ?VMethod30@VisTownDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod30@VisTownDruid@@UAEXXZ
                 dd offset ?VMethod31@VisTownDruid@@UAEXH@Z
                 dd offset sub_4D2AE3
                 dd offset ?VMethod33@VisTown@@UAEHVCPoint@@@Z
@@ -339145,7 +338889,7 @@ off_60DD10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisTownKaarg@@UAEXXZ
                 dd offset ?DoClose@VisTown@@UAEXI@Z
-                dd offset ?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
+                dd offset ?VMethod30@VisTownKaarg@@UAEXXZ
                 dd offset ?VMethod31@VisTownKaarg@@UAEXH@Z
                 dd offset sub_4D54B5
                 dd offset ?VMethod33@VisTown@@UAEHVCPoint@@@Z
@@ -352333,10 +352077,6 @@ stru_61FF80     UnwindMapEntry <-1, offset loc_5FEC84>
                 UnwindMapEntry <4, offset loc_5FECC9>
                 UnwindMapEntry <5, offset loc_5FECD8>
                 UnwindMapEntry <6, offset loc_5FECE7>
-stru_61FFE8     FuncInfoV1 <19930520h, 2, offset stru_620008, 0, 0, 0, 0>
-                align 8
-stru_620008     UnwindMapEntry <-1, offset loc_5FED14>
-                UnwindMapEntry <0, offset loc_5FED1D>
 stru_620018     FuncInfoV1 <19930520h, 19, offset stru_620038, 0, 0, 0, 0>
                 align 8
 stru_620038     UnwindMapEntry <-1, offset loc_5FED31>
@@ -361285,19 +361025,19 @@ aSfxTownGateupW db 'SFX\Town\GateUp.wav',0 ; DATA XREF: sub_4D0913+A9↑o
 ; CHAR aSfxTownGatednW[]
 aSfxTownGatednW db 'SFX\Town\GateDn.wav',0 ; DATA XREF: sub_4D0913+12A↑o
 ; CHAR aSfxTownCrowdWa[]
-aSfxTownCrowdWa db 'SFX\Town\Crowd.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+15↑o
+aSfxTownCrowdWa db 'SFX\Town\Crowd.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+15↑o
                 align 4
 ; CHAR aSfxTownBirds1W[]
-aSfxTownBirds1W db 'SFX\Town\Birds1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+29↑o
+aSfxTownBirds1W db 'SFX\Town\Birds1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+29↑o
 ; CHAR aSfxTownBirds2W[]
-aSfxTownBirds2W db 'SFX\Town\Birds2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+40↑o
+aSfxTownBirds2W db 'SFX\Town\Birds2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+40↑o
 ; CHAR aSfxTownFlugelW[]
-aSfxTownFlugelW db 'SFX\Town\Flugel.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+57↑o
+aSfxTownFlugelW db 'SFX\Town\Flugel.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+57↑o
 ; CHAR aSfxTownFlagWav[]
-aSfxTownFlagWav db 'SFX\Town\Flag.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+6D↑o
+aSfxTownFlagWav db 'SFX\Town\Flag.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+6D↑o
                 align 4
 ; CHAR aSfxTownPointWa[]
-aSfxTownPointWa db 'SFX\Town\Point.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+84↑o
+aSfxTownPointWa db 'SFX\Town\Point.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+84↑o
                 align 4
 ; CHAR aSfxTownShopEnt_0[]
 aSfxTownShopEnt_0 db 'SFX\Town\Shop\enter.wav',0
@@ -361305,14 +361045,14 @@ aSfxTownShopEnt_0 db 'SFX\Town\Shop\enter.wav',0
 aSfxTownSchoolP db 'SFX\Town\School\Point.wav',0
                 align 10h
 ; CHAR aSfxTownStarsWa[]
-aSfxTownStarsWa db 'SFX\Town\Stars.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+C8↑o
+aSfxTownStarsWa db 'SFX\Town\Stars.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+C8↑o
                 align 4
 ; CHAR aSfxTownHorse2W[]
-aSfxTownHorse2W db 'SFX\Town\Horse2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+DF↑o
+aSfxTownHorse2W db 'SFX\Town\Horse2.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+DF↑o
 ; CHAR aSfxTownHorse3W[]
-aSfxTownHorse3W db 'SFX\Town\Horse3.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+F5↑o
+aSfxTownHorse3W db 'SFX\Town\Horse3.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+F5↑o
 ; CHAR aSfxTownHorse1W[]
-aSfxTownHorse1W db 'SFX\Town\Horse1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+10C↑o
+aSfxTownHorse1W db 'SFX\Town\Horse1.wav',0 ; DATA XREF: ?VMethod30@VisTown@@UAEXXZ+10C↑o
 ; char aGraphicsInterf_280[]
 aGraphicsInterf_280 db 'graphics\interface\town_druid\townmask.bmp',0
                 align 4

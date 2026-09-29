@@ -1532,9 +1532,9 @@ externdef ?OnMouseMove@VisTown@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisTown@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisTown@@UAEHI@Z : proc
 extern ?VMethod26@VisTown@@UAEXXZ : proc
-externdef ?VMethod28@VisTown@@UAEXXZ : proc
+extern ?VMethod28@VisTown@@UAEXXZ : proc
 externdef ?DoClose@VisTown@@UAEXI@Z : proc
-externdef ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod30@VisTown@@UAEXXZ : proc
 externdef ?VMethod31@VisTown@@UAEXXZ : proc
 externdef ?VMethod32@VisTown@@UAEXXZ : proc
 externdef ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
@@ -1549,7 +1549,7 @@ externdef ??_GVisTownDruid@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisTownDruid@@UAEXXZ : proc
 externdef ?OnLButtonDown@VisTownDruid@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod28@VisTownDruid@@UAEXXZ : proc
-externdef ?VMethod30@VisTownDruid@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod30@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod31@VisTownDruid@@UAEXH@Z : proc
 ;VisTownKaarg
 externdef ??_GVisTownKaarg@@UAEPAXI@Z : proc
@@ -1557,7 +1557,7 @@ externdef ?GetHint@VisTownKaarg@@UAEPBDXZ : proc
 externdef ?VMethod7@VisTownKaarg@@UAEXXZ : proc
 externdef ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod28@VisTownKaarg@@UAEXXZ : proc
-externdef ?VMethod30@VisTownKaarg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
+externdef ?VMethod30@VisTownKaarg@@UAEXXZ : proc
 externdef ?VMethod31@VisTownKaarg@@UAEXH@Z : proc
 ;VisCredits
 externdef ??_GVisCredits@@UAEPAXI@Z : proc
