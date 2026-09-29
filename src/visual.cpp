@@ -4157,6 +4157,17 @@ int32_t VisCharSelect::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 4326A4
+int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->VMethod9();
+        return 1;
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()

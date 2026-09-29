@@ -21228,49 +21228,6 @@ loc_432684:                             ; CODE XREF: ?FUN_00432655@VisCharSelect
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisCharSelect@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:006098E0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 402h
-                jz      short loc_4326BE
-                jmp     short loc_4326D0
-; ---------------------------------------------------------------------------
-
-loc_4326BE:                             ; CODE XREF: ?MsgProc@VisCharSelect@@UAEHIII@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-                mov     eax, 1
-                jmp     short loc_4326E4
-; ---------------------------------------------------------------------------
-
-loc_4326D0:                             ; CODE XREF: ?MsgProc@VisCharSelect@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-
-loc_4326E4:                             ; CODE XREF: ?MsgProc@VisCharSelect@@UAEHIII@Z+2A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisCharSelect@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
