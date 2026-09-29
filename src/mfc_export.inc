@@ -1281,16 +1281,20 @@ externdef ?MsgProc@VisCharSelect@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod26@VisCharSelect@@UAEXXZ : proc
 extern ?VMethod28@VisCharSelect@@UAEXXZ : proc
-externdef ?DoClose@VisCharSelect@@UAEXI@Z : proc
+extern ?DoClose@VisCharSelect@@UAEXI@Z : proc
 extern ?GetStringArray1Size@CGameSession@@QAEHXZ : proc
 extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
+extern ?CloseRenameWindow@VisCharSelect@@QAEXXZ : proc
 externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
+externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
 externdef ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430850@VisCharSellectButtons@@QAEXXZ : proc
+externdef ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ : proc
 externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
 externdef ?FUN_004312b7@VisCharSellectList@@QAEXXZ : proc
+externdef ?FUN_0043148a@VisCharSellectList@@QAEXXZ : proc
 
 ;VisCharSellectButtons
 extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc

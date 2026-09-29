@@ -644,6 +644,7 @@ public:
 
 	void LoadSfx(); // 432280
 	void FreeSfx(); // 4322ed
+	void CloseRenameWindow(); // 432933
 	CUnit* GetSelectedMapUnit(); // 438d30
 
 	VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //431eac in asm
@@ -681,6 +682,7 @@ public:
 	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c in asm
 
 	void FUN_00430850(); // 430850 in asm
+	void FUN_00430a1a(); // 430a1a in asm
 
 public:
 	VisCharSelect* parent_screen;
@@ -715,6 +717,7 @@ public:
 
 	void FUN_00430fad(); // 430fad in asm
 	void FUN_004312b7(); // 4312b7 in asm
+	void FUN_0043148a(); // 43148a in asm
 
 public:
 	VisCharSelect* parent_screen;
@@ -755,6 +758,7 @@ public:
 	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
 
 	void FUN_0042f4df(); // 42f4df in asm
+	void FUN_0042f61a(); // 42f61a in asm
 
 public:
 	VisCharSelect* parent_screen;

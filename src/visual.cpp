@@ -4043,6 +4043,18 @@ void VisCharSelect::FreeSfx()
 }
 
 
+// 432933
+void VisCharSelect::CloseRenameWindow()
+{
+    if (this->roster_list->field_0xd8 != 0) {
+        this->roster_list->field_0xd8 = 0;
+        this->roster_list->RemoveChild(this->rename_txt);
+        this->roster_list->focus_obj = nullptr;
+        this->roster_list->cursor_over_obj = nullptr;
+    }
+}
+
+
 // 43233E
 void VisCharSelect::VMethod28()
 {
@@ -4079,6 +4091,32 @@ void VisCharSelect::VMethod28()
     g_Cursors[0]->Use();
     this->active_flag = 1;
     g_mousept.EnableHint();
+}
+
+
+// 43251C
+void VisCharSelect::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->VMethod9();
+    if (this->roster_list->field_0xd0 == this->session->GetStringArray1Size() - 1 && code == 0x445) {
+        this->session->InitializeNewCharacterSession(0, nullptr);
+    }
+    this->active_flag = 0;
+    CRect& rc = this->info_panel->GetRect();
+    OffsetRect(&rc, rc.Width() - 0x280, 0);
+    this->info_panel->SetRect(&rc);
+    this->RemoveChild(this->info_panel);
+    main_wnd->vis_right_panel->AddChild(this->info_panel);
+    this->info_panel = nullptr;
+    this->map_context = nullptr;
+    this->selected_unit = nullptr;
+    this->FreeSfx();
+    this->vis_stats->FUN_0042f61a();
+    this->buttons->FUN_00430a1a();
+    this->roster_list->FUN_0043148a();
+    this->CloseRenameWindow();
+    this->VisScreen::DoClose(code);
 }
 
 
