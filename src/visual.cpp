@@ -17277,3 +17277,32 @@ void VisTownKaarg::VMethod35()
         }
     }
 }
+
+
+// 4D6A1C
+const char* VisTownKaarg::GetHint()
+{
+    if (this->dialog_active == 0) {
+        return nullptr;
+    }
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    switch (this->VMethod33(pt)) {
+    case 1:
+        return TxtFile::AllLines[0xE9];
+    case 2:
+        return TxtFile::AllLines[0xEC];
+    case 4:
+        return TxtFile::AllLines[0x168];
+    case 8:
+        return TxtFile::AllLines[0xED];
+    case 0x10:
+        return TxtFile::AllLines[0xEB];
+    case 0x200:
+        return TxtFile::AllLines[0x167];
+    case 0x400:
+        return TxtFile::AllLines[0x16A];
+    case 0x800:
+        return TxtFile::AllLines[0x169];
+    }
+    return nullptr;
+}
