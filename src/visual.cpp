@@ -17502,3 +17502,66 @@ VisTownDruid::VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 VisTownDruid::~VisTownDruid()
 {
 }
+
+
+// 4D2AE3
+void VisTownDruid::VMethod32()
+{
+    FUN_004a4740(&this->snd_forest);
+}
+
+
+// 4D2AFF
+void VisTownDruid::VMethod30()
+{
+    this->VMethod31();
+    FUN_00438e40(&this->snd_lizard[0], "sfx\\town_druid\\Dlizard1.wav");
+    FUN_00438e40(&this->snd_lizard[1], "sfx\\town_druid\\Dlizard2.wav");
+    FUN_00438e40(&this->snd_lizard[2], "sfx\\town_druid\\Dlizard3.wav");
+    FUN_00438e40(&this->snd_lizard[3], "sfx\\town_druid\\Dlizard4.wav");
+    FUN_00438e40(&this->snd_bug[0], "sfx\\town_druid\\Dbug1.wav");
+    FUN_00438e40(&this->snd_bug[1], "sfx\\town_druid\\Dbug2.wav");
+    FUN_00438e40(&this->snd_bug[2], "sfx\\town_druid\\Dbug3.wav");
+    FUN_00438e40(&this->snd_bird[0], "sfx\\town_druid\\Dbird1.wav");
+    FUN_00438e40(&this->snd_bird[1], "sfx\\town_druid\\Dbird2.wav");
+    FUN_00438e40(&this->snd_bird[2], "sfx\\town_druid\\Dbird3.wav");
+    FUN_00438e40(&this->snd_tree[0], "sfx\\town_druid\\Dtree1.wav");
+    FUN_00438e40(&this->snd_tree[1], "sfx\\town_druid\\Dtree2.wav");
+    FUN_00438e40(&this->snd_tree[2], "sfx\\town_druid\\Dtree3.wav");
+    FUN_00438e40(&this->snd_tree[3], "sfx\\town_druid\\Dtree4.wav");
+    FUN_00438e40(&this->snd_forest, "sfx\\town_druid\\Dforest1.wav");
+    FUN_00438e40(&this->snd_shop, "sfx\\town_druid\\Ddruid1.wav");
+    FUN_00438e40(&this->snd_tavern, "sfx\\town_druid\\Ddruid2.wav");
+    FUN_00438e40(&this->snd_shop_enter, "sfx\\town_druid\\Denter2.wav");
+    FUN_00438e40(&this->snd_tavern_enter, "sfx\\town_druid\\Denter1.wav");
+    FUN_00438e40(&this->snd_town_exit, "sfx\\town_druid\\Dout.wav");
+    FUN_00438e40(&this->snd_wolf, "sfx\\town_druid\\Dwolf1.wav");
+    this->tavern_hover_snd_flag = 0;
+    this->hover_snd_shop = 0;
+    this->mission_exit_hover_snd_flag = 0;
+}
+
+
+// 4D2D1B
+void VisTownDruid::VMethod31()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        FUN_00438dd0(&this->snd_lizard[i]);
+    }
+    for (int32_t i = 0; i < 3; i++) {
+        FUN_00438dd0(&this->snd_bug[i]);
+    }
+    for (int32_t i = 0; i < 3; i++) {
+        FUN_00438dd0(&this->snd_bird[i]);
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        FUN_00438dd0(&this->snd_tree[i]);
+    }
+    FUN_00438dd0(&this->snd_forest);
+    FUN_00438dd0(&this->snd_shop);
+    FUN_00438dd0(&this->snd_tavern);
+    FUN_00438dd0(&this->snd_shop_enter);
+    FUN_00438dd0(&this->snd_tavern_enter);
+    FUN_00438dd0(&this->snd_town_exit);
+    FUN_00438dd0(&this->snd_wolf);
+}
