@@ -19222,7 +19222,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return 1;
     case 0x46E:
         if (wparam == 1) {
-            this->selected = ((int32_t)lparam < 0) ? (int32_t)lparam : 0;
+            this->selected = ((int32_t)lparam < 0) ? 0 : (int32_t)lparam;
             this->UpdatePlayerList();
         }
         return 1;
