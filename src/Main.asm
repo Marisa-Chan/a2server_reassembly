@@ -125002,143 +125002,6 @@ sub_4CDC78      endp
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisTown@@UAEXXZ      proc near               ; CODE XREF: sub_4CD960+DF↑p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FED00 SIZE 00000014 BYTES
-
-; __unwind { // SEH_4CDDAD
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4CDDAD
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+74h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+78h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+7Ch], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+80h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+84h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+88h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+8Ch], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+90h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+94h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+98h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+9Ch], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+0A0h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+0A4h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+0A8h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+0ACh], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+0B0h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+68h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+6Ch], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+70h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+0E4h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+160h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+180h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+19Ch], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+1BCh], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+1C8h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+1D0h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+1D8h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+1F8h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+120h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+0F4h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+150h], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+164h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+1C4h], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+1DCh], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+200h], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+204h], 0
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_4CDFD4
-                push    0               ; lpString
-                push    0               ; int
-                push    445h            ; int
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    offset byte_6669DC ; varStr
-                push    0               ; yBottom
-                push    0               ; xRight
-                push    0               ; yTop
-                push    0               ; xLeft
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_4CDFDB
-; ---------------------------------------------------------------------------
-
-loc_4CDFD4:                             ; CODE XREF: ?VMethod26@VisTown@@UAEXXZ+1F5↑j
-                mov     [ebp+var_1C], 0
-
-loc_4CDFDB:                             ; CODE XREF: ?VMethod26@VisTown@@UAEXXZ+225↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 4CDF97
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4CDDAD
-?VMethod26@VisTown@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -322168,24 +322031,6 @@ SEH_4CDC78:                             ; DATA XREF: sub_4CDC78+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FEC84
 ; END OF FUNCTION CHUNK FOR sub_4CDC78
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisTown@@UAEXXZ
-
-loc_5FED00:                             ; DATA XREF: .rdata:stru_61FFE0↓o
-; __unwind { // SEH_4CDDAD
-;   cleanup() // owned by 4CDF97
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CDDAD:                             ; DATA XREF: ?VMethod26@VisTown@@UAEXXZ+5↑o
-                mov     eax, offset stru_61FFC0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FED00
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisTown@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod28@VisTown@@UAEXXZ
 
 loc_5FED14:                             ; DATA XREF: .rdata:stru_620008↓o
@@ -352488,12 +352333,6 @@ stru_61FF80     UnwindMapEntry <-1, offset loc_5FEC84>
                 UnwindMapEntry <4, offset loc_5FECC9>
                 UnwindMapEntry <5, offset loc_5FECD8>
                 UnwindMapEntry <6, offset loc_5FECE7>
-stru_61FFC0     FuncInfoV1 <19930520h, 1, offset stru_61FFE0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61FFE0     UnwindMapEntry <-1, offset loc_5FED00>
 stru_61FFE8     FuncInfoV1 <19930520h, 2, offset stru_620008, 0, 0, 0, 0>
                 align 8
 stru_620008     UnwindMapEntry <-1, offset loc_5FED14>

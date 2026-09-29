@@ -15770,3 +15770,34 @@ VisTown::~VisTown()
         this->tips = nullptr;
     }
 }
+
+
+// 4CDDAD
+void VisTown::VMethod26()
+{
+    for (int32_t i = 0; i < 14; i++) {
+        this->sounds[i] = nullptr;
+    }
+    this->hover_snd_shop = 0;
+    this->bmp_bkg = nullptr;
+    this->bmp_hover_mask = nullptr;
+    this->bmp_bird_overlay = nullptr;
+    this->spr_guard = nullptr;
+    this->spr_tavern = nullptr;
+    this->bmp_cur_sign = nullptr;
+    this->bmp_cur_door = nullptr;
+    this->bmp_cur_stars = nullptr;
+    this->spr_fighter = nullptr;
+    this->spr_mage = nullptr;
+    this->spr_shop = nullptr;
+    this->bmp_cur_flugel = nullptr;
+    this->spr_cur_horse = nullptr;
+    this->spr_cur_bbird = nullptr;
+    this->spr_dervish = nullptr;
+    this->bmp_tavern_hover = nullptr;
+    this->bmp_trainer_hover = nullptr;
+    this->bmp_shop_hover = nullptr;
+    this->tips = nullptr;
+    this->dialog_active = 0;
+    this->AddChild(new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x445, 0, nullptr));
+}

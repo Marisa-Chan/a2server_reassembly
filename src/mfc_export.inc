@@ -1531,7 +1531,7 @@ externdef ?MsgProc@VisTown@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisTown@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisTown@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisTown@@UAEHI@Z : proc
-externdef ?VMethod26@VisTown@@UAEXXZ : proc
+extern ?VMethod26@VisTown@@UAEXXZ : proc
 externdef ?VMethod28@VisTown@@UAEXXZ : proc
 externdef ?DoClose@VisTown@@UAEXI@Z : proc
 externdef ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
