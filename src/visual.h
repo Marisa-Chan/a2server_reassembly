@@ -2394,7 +2394,12 @@ private:
 	void Init(); // 42ba81 in asm
 public:
 	VisCharGen* parent_screen; // 0x5c
-	CGameBitmap* field_0x60[6]; // 0x60: [0]=column bg, [1]=class mask (CBmp256), [2..4]=RollStatsR/FullStatsR/RUOver, [5]=g_bmp_humanbackl alias
+	CBmp64* bmp_column; // 0x60: "chrgen\<class>\column.bmp", background drawn in VMethod7 (owned)
+	CBmp256* bmp_mask; // 0x64: "chrgen\<class>\mask.bmp", HitTest color-key source (owned)
+	CBmp64* bmp_roll_stats; // 0x68: "chrgen\\RollStatsR.bmp" (owned, never drawn)
+	CBmp64* bmp_full_stats; // 0x6c: "chrgen\\FullStatsR.bmp" (owned, never drawn)
+	CBmp64* bmp_ru_over; // 0x70: "inn\\RUOver.bmp" (owned, never drawn)
+	CBmp64* bmp_human_back; // 0x74: alias to g_bmp_humanbackl (not owned; vanilla never frees it)
 	CBmp64* bmp_on[5]; // 0x78
 	CBmp64* bmp_shine_off[5]; // 0x8c
 	CBmp64* bmp_shine_on[5]; // 0xa0

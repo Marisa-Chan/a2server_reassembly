@@ -6774,17 +6774,17 @@ VisCharGenAction::VisCharGenAction(int32_t _id, int32_t l, int32_t t, int32_t r,
 void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
     CPoint topleft = this->parent_screen->rect.TopLeft();
     this->FreeBitmaps();
-    this->field_0x60[2] = new CBmp64("graphics\\interface\\chrgen\\RollStatsR.bmp");
+    this->bmp_roll_stats = new CBmp64("graphics\\interface\\chrgen\\RollStatsR.bmp");
     g_mousept.Update();
-    this->field_0x60[3] = new CBmp64("graphics\\interface\\chrgen\\FullStatsR.bmp");
+    this->bmp_full_stats = new CBmp64("graphics\\interface\\chrgen\\FullStatsR.bmp");
     g_mousept.Update();
-    this->field_0x60[4] = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
+    this->bmp_ru_over = new CBmp64("graphics\\interface\\inn\\RUOver.bmp");
     g_mousept.Update();
-    this->field_0x60[5] = g_bmp_humanbackl;
+    this->bmp_human_back = g_bmp_humanbackl;
     if (mage_flag == 0) {
-        this->field_0x60[1] = new CBmp256("graphics\\interface\\chrgen\\fighter\\mask.bmp");
+        this->bmp_mask = new CBmp256("graphics\\interface\\chrgen\\fighter\\mask.bmp");
         g_mousept.Update();
-        this->field_0x60[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\column.bmp");
+        this->bmp_column = new CBmp64("graphics\\interface\\chrgen\\fighter\\column.bmp");
         g_mousept.Update();
         this->bmp_on[0] = new CBmp64("graphics\\interface\\chrgen\\fighter\\sword\\on.bmp");
         g_mousept.Update();
@@ -6832,9 +6832,9 @@ void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
         this->color_keys[3] = 0x7F;
         this->color_keys[4] = 0x66;
     } else {
-        this->field_0x60[1] = new CBmp256("graphics\\interface\\chrgen\\mag\\mask.bmp");
+        this->bmp_mask = new CBmp256("graphics\\interface\\chrgen\\mag\\mask.bmp");
         g_mousept.Update();
-        this->field_0x60[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\column.bmp");
+        this->bmp_column = new CBmp64("graphics\\interface\\chrgen\\mag\\column.bmp");
         g_mousept.Update();
         this->bmp_on[0] = new CBmp64("graphics\\interface\\chrgen\\mag\\fire\\on.bmp");
         g_mousept.Update();
@@ -6887,27 +6887,27 @@ void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
 
 // 42d6ed
 void VisCharGenSkills::FreeBitmaps() {
-    if (this->field_0x60[0] != nullptr) {
-        delete this->field_0x60[0];
+    if (this->bmp_column != nullptr) {
+        delete this->bmp_column;
     }
-    this->field_0x60[0] = nullptr;
-    if (this->field_0x60[2] != nullptr) {
-        delete this->field_0x60[2];
+    this->bmp_column = nullptr;
+    if (this->bmp_roll_stats != nullptr) {
+        delete this->bmp_roll_stats;
     }
-    this->field_0x60[2] = nullptr;
-    if (this->field_0x60[3] != nullptr) {
-        delete this->field_0x60[3];
+    this->bmp_roll_stats = nullptr;
+    if (this->bmp_full_stats != nullptr) {
+        delete this->bmp_full_stats;
     }
-    this->field_0x60[3] = nullptr;
-    if (this->field_0x60[4] != nullptr) {
-        delete this->field_0x60[4];
+    this->bmp_full_stats = nullptr;
+    if (this->bmp_ru_over != nullptr) {
+        delete this->bmp_ru_over;
     }
-    this->field_0x60[4] = nullptr;
-    this->field_0x60[5] = nullptr; // WAT: vanilla doesn't free the memory here.
-    if (this->field_0x60[1] != nullptr) {
-        delete this->field_0x60[1];
+    this->bmp_ru_over = nullptr;
+    this->bmp_human_back = nullptr; // Don't free the memory here, as it's not owned.
+    if (this->bmp_mask != nullptr) {
+        delete this->bmp_mask;
     }
-    this->field_0x60[1] = nullptr;
+    this->bmp_mask = nullptr;
     for (int32_t i = 0; i < 5; i++) {
         if (this->bmp_on[i] != nullptr) {
             delete this->bmp_on[i];
@@ -6932,7 +6932,7 @@ void VisCharGenSkills::VMethod7() {
     this->field_0x10c[4] |= 1;
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
-        this->field_0x60[0]->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        this->bmp_column->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
             int32_t state = this->field_0x10c[i];
             if (state == 1) {
@@ -7110,8 +7110,8 @@ int32_t VisCharGenSkills::HitTest(CPoint pt) {
     }
     CPoint topleft = this->parent_screen->rect.TopLeft();
     pt -= CSize(topleft.x, topleft.y);
-    uint8_t* data = (uint8_t*)this->field_0x60[1]->GetData();
-    int32_t stride = this->field_0x60[1]->GetWidth(0);
+    uint8_t* data = (uint8_t*)this->bmp_mask->GetData();
+    int32_t stride = this->bmp_mask->GetWidth(0);
     int32_t offset = pt.y * stride + pt.x - 0xA0;
     for (int32_t i = 0; i < 4; i++) {
         if (data[offset] == this->color_keys[i]) {
@@ -7124,9 +7124,12 @@ int32_t VisCharGenSkills::HitTest(CPoint pt) {
 
 // 42ba81
 void VisCharGenSkills::Init() {
-    for (int32_t i = 0; i < 6; i++) {
-        this->field_0x60[i] = nullptr;
-    }
+    this->bmp_column = nullptr;
+    this->bmp_mask = nullptr;
+    this->bmp_roll_stats = nullptr;
+    this->bmp_full_stats = nullptr;
+    this->bmp_ru_over = nullptr;
+    this->bmp_human_back = nullptr;
     for (int32_t i = 0; i < 5; i++) {
         this->bmp_on[i] = nullptr;
         this->bmp_shine_off[i] = nullptr;
