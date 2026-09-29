@@ -128250,25 +128250,6 @@ byte_4D15D9     db      0,     4,     1,     4
 
 ; Attributes: bp-based frame
 
-?VMethod39@VisTown@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DC5C↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    445h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod39@VisTown@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -128281,23 +128262,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod32@VisTown@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DC40↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 74h ; 't'
-                push    eax
-                call    ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod32@VisTown@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

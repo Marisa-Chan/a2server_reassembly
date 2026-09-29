@@ -16154,3 +16154,17 @@ void VisTown::VMethod7()
     UnlockSurface2();
     this->VisScreen::VMethod7();
 }
+
+
+// 4D1709
+void VisTown::VMethod32()
+{
+    FUN_004a4740(this->sounds);
+}
+
+
+// 4D15E3
+void VisTown::VMethod39()
+{
+    this->MsgProc(0x445, 0, 0);
+}

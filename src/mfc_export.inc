@@ -1539,14 +1539,14 @@ extern ?VMethod28@VisTown@@UAEXXZ : proc
 extern ?DoClose@VisTown@@UAEXI@Z : proc
 extern ?VMethod30@VisTown@@UAEXXZ : proc
 extern ?VMethod31@VisTown@@UAEXXZ : proc
-externdef ?VMethod32@VisTown@@UAEXXZ : proc
+extern ?VMethod32@VisTown@@UAEXXZ : proc
 externdef ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
 externdef ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
 externdef ?VMethod35@VisTown@@UAEXXZ : proc
 externdef ?VMethod36@VisTown@@UAEXXZ : proc
 externdef ?VMethod37@VisTown@@UAEXXZ : proc
 externdef ?VMethod38@VisTown@@UAEXXZ : proc
-externdef ?VMethod39@VisTown@@UAEXXZ : proc
+extern ?VMethod39@VisTown@@UAEXXZ : proc
 ;VisTownDruid
 externdef ??_GVisTownDruid@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisTownDruid@@UAEXXZ : proc
