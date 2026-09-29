@@ -316,8 +316,6 @@
 ?VMethod26@Vis2Action@@UAEXXZ	213
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
 ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z	69
-?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z	111
-?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ	196
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12

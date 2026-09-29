@@ -7040,6 +7040,87 @@ int32_t VisCharGenSkills::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
+// Blink-cycle state (binary: 659530, 659518, 62CCF4, 62CCF8, 659550, 65953C)
+static uint32_t blink_hover_time = 0;
+static uint32_t blink_cycle_time = 0;
+static int32_t blink_hover_slot = -1;
+static int32_t blink_cycle_len = 4;
+static int32_t blink_slot = 0;
+static uint8_t blink_inited = 0;
+
+// 42bd41
+void VisCharGenSkills::DrawBlinkSlot() {
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    this->parent_screen->GetRect().TopLeft();
+    if ((blink_inited & 1) == 0) {
+        blink_inited |= 1;
+        blink_hover_time = timeGetTime();
+    }
+    if ((blink_inited & 2) == 0) {
+        blink_inited |= 2;
+        blink_cycle_time = timeGetTime();
+    }
+    uint32_t now = timeGetTime();
+    int32_t hover = this->HitTest(pt);
+    if (this->parent_screen->tips_step != 0 || this->parent_screen->tips == nullptr) {
+        return;
+    }
+    if (now - blink_hover_time < 0x1F4) {
+        blink_cycle_time = now;
+        return;
+    }
+    if (blink_hover_slot != -1) {
+        blink_cycle_len = 4;
+        blink_slot = (blink_hover_slot + 1) % 4;
+    }
+    if (hover != -1) {
+        blink_hover_time = now;
+        blink_cycle_time = now;
+        blink_hover_slot = hover;
+        return;
+    }
+    blink_cycle_len = 4;
+    blink_slot = blink_slot % 4;
+    if (this->field_0x10c[blink_slot] == 1) {
+        this->bmp_shine_on[blink_slot]->VMethod10(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
+                                                  this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
+    } else {
+        this->bmp_shine_off[blink_slot]->VMethod10(this->field_0xb4[blink_slot].x, this->field_0xb4[blink_slot].y, 0, 0,
+                                                   this->field_0xdc[blink_slot].x, this->field_0xdc[blink_slot].y);
+    }
+    blink_hover_slot = -1;
+    if (now - blink_cycle_time <= 0x12C) {
+        return;
+    }
+    if (blink_cycle_len == -1) {
+        return;
+    }
+    blink_slot = (blink_slot + 1) % blink_cycle_len;
+    blink_cycle_time = now;
+}
+
+// 42dadf
+int32_t VisCharGenSkills::HitTest(CPoint pt) {
+    if (this->parent_screen->active_flag == 0) {
+        return -1;
+    }
+    if (!this->parent_screen->rect.PtInRect(pt)) {
+        return -1;
+    }
+    CPoint topleft = this->parent_screen->rect.TopLeft();
+    pt -= CSize(topleft.x, topleft.y);
+    uint8_t* data = (uint8_t*)this->field_0x60[1]->GetData();
+    int32_t stride = this->field_0x60[1]->GetWidth(0);
+    int32_t offset = pt.y * stride + pt.x - 0xA0;
+    for (int32_t i = 0; i < 4; i++) {
+        if (data[offset] == this->color_keys[i]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
