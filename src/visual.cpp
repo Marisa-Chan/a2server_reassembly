@@ -19081,3 +19081,45 @@ void VisNetDlg::UpdatePlayerList()
     }
     player_list->VMethod9();
 }
+
+
+// 447105
+static int EnumSessionsPump()
+{
+    MSG msg;
+    if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
+        if (msg.message == WM_QUIT) {
+            return 0;
+        }
+        if (msg.message == 0x446) {
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+            return 0;
+        }
+        TranslateMessage(&msg);
+        DispatchMessageA(&msg);
+    }
+    g_mousept.Update();
+    return 1;
+}
+
+
+// 447173
+void VisNetDlg::RefreshSessions()
+{
+    uint32_t timeout = 0;
+    int32_t provider = g_CLlDriver.GetProvider();
+    if (provider == 3) {
+        timeout = 0x5DC;
+    }
+    else if (provider == 2) {
+        timeout = 0x12C;
+    }
+    else if (provider == 1) {
+        timeout = 0xEA60;
+    }
+
+    g_CLlDriver.EnumSessions(&this->sessions->sessions, &this->sessions->num_sessions, EnumSessionsPump, timeout);
+    this->CachePlayerRows();
+    PostMessageA(g_MainWndHWND, 0x471, 0, 0);
+}

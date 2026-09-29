@@ -2322,6 +2322,7 @@ externdef ?VMethod26@VisNetDlg@@UAEXXZ : proc
 extern ?CachePlayerRows@VisNetDlg@@AAEXXZ : proc
 extern ?FillServerList@VisNetDlg@@AAEXXZ : proc
 extern ?UpdatePlayerList@VisNetDlg@@AAEXXZ : proc
+extern ?RefreshSessions@VisNetDlg@@AAEXXZ : proc
 extern ?CreateSessionList@VisNetDlg@@AAEXXZ : proc
 
 ; VisNetTcpIp
