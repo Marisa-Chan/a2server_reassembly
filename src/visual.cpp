@@ -16528,3 +16528,112 @@ void VisTown::VMethod38()
     }
     this->FUN_004d06aa();
 }
+
+
+// 4CFD0E
+void VisTown::VMethod37()
+{
+    if (this->bmp_bkg != nullptr) {
+        delete this->bmp_bkg;
+        this->bmp_bkg = nullptr;
+    }
+    if (this->bmp_hover_mask != nullptr) {
+        delete this->bmp_hover_mask;
+        this->bmp_hover_mask = nullptr;
+    }
+    if (this->bmp_bird_overlay != nullptr) {
+        delete this->bmp_bird_overlay;
+        this->bmp_bird_overlay = nullptr;
+    }
+    if (this->spr_guard != nullptr) {
+        delete this->spr_guard;
+        this->spr_guard = nullptr;
+    }
+    if (this->bmp_tavern_hover != nullptr) {
+        delete this->bmp_tavern_hover;
+        this->bmp_tavern_hover = nullptr;
+    }
+    if (this->bmp_trainer_hover != nullptr) {
+        delete this->bmp_trainer_hover;
+        this->bmp_trainer_hover = nullptr;
+    }
+    if (this->bmp_shop_hover != nullptr) {
+        delete this->bmp_shop_hover;
+        this->bmp_shop_hover = nullptr;
+    }
+    if (this->spr_tavern != nullptr) {
+        delete this->spr_tavern;
+        this->spr_tavern = nullptr;
+    }
+    for (int32_t i = 0; i < this->bmp_sign.GetSize(); i++) {
+        if (this->bmp_sign.GetAt(i) != nullptr) {
+            delete this->bmp_sign.GetAt(i);
+        }
+    }
+    this->bmp_sign.RemoveAll();
+    for (int32_t i = 0; i < this->bmp_door.GetSize(); i++) {
+        if (this->bmp_door.GetAt(i) != nullptr) {
+            delete this->bmp_door.GetAt(i);
+        }
+    }
+    this->bmp_door.RemoveAll();
+    for (int32_t i = 0; i < this->bmp_stars.GetSize(); i++) {
+        if (this->bmp_stars.GetAt(i) != nullptr) {
+            delete this->bmp_stars.GetAt(i);
+        }
+    }
+    this->bmp_stars.RemoveAll();
+    if (this->spr_fighter != nullptr) {
+        delete this->spr_fighter;
+        this->spr_fighter = nullptr;
+    }
+    if (this->spr_mage != nullptr) {
+        delete this->spr_mage;
+        this->spr_mage = nullptr;
+    }
+    if (this->spr_shop != nullptr) {
+        delete this->spr_shop;
+        this->spr_shop = nullptr;
+    }
+    for (int32_t i = 0; i < this->bmp_flugel.GetSize(); i++) {
+        if (this->bmp_flugel.GetAt(i) != nullptr) {
+            delete this->bmp_flugel.GetAt(i);
+        }
+    }
+    this->bmp_flugel.RemoveAll();
+    for (int32_t i = 0; i < this->spr_birds.GetSize(); i++) {
+        if (this->spr_birds.GetAt(i) != nullptr) {
+            delete this->spr_birds.GetAt(i);
+        }
+        this->spr_birds.ElementAt(i) = nullptr;
+    }
+    this->spr_birds.RemoveAll();
+    this->spr_cur_horse = nullptr;
+    for (int32_t i = 0; i < this->spr_horse.GetSize(); i++) {
+        if (this->spr_horse.GetAt(i) != nullptr) {
+            delete this->spr_horse.GetAt(i);
+        }
+        this->spr_horse.ElementAt(i) = nullptr;
+    }
+    this->spr_horse.RemoveAll();
+    this->spr_cur_bbird = nullptr;
+    for (int32_t i = 0; i < this->spr_bbird.GetSize(); i++) {
+        if (this->spr_bbird.GetAt(i) != nullptr) {
+            delete this->spr_bbird.GetAt(i);
+        }
+        this->spr_bbird.ElementAt(i) = nullptr;
+    }
+    this->spr_bbird.RemoveAll();
+    if (this->spr_dervish != nullptr) {
+        delete this->spr_dervish;
+        this->spr_dervish = nullptr;
+    }
+    this->spr_tavern = nullptr;
+    this->bmp_cur_sign = nullptr;
+    this->bmp_cur_door = nullptr;
+    this->bmp_cur_stars = nullptr;
+    this->spr_fighter = nullptr;
+    this->spr_mage = nullptr;
+    this->spr_shop = nullptr;
+    this->bmp_cur_flugel = nullptr;
+}
