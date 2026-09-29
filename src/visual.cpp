@@ -17306,3 +17306,51 @@ const char* VisTownKaarg::GetHint()
     }
     return nullptr;
 }
+
+
+// 4D6802
+int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    int32_t mask = this->VMethod33(pos);
+    if (mask < 9) {
+        if (mask == 8) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x442, 1, 0);
+            AfxGetMainWnd()->PostMessage(0x42D, 0, 0);
+        }
+        else if (mask == 1) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x42A, 0, 0);
+        }
+        else if (mask == 2) {
+            this->VMethod39();
+            AfxGetMainWnd()->PostMessage(0x42B, 0, 0);
+        }
+        else if (mask == 4) {
+            CString name;
+            name.Format("kaargwoman%d", ScenarioGetVar(0x300));
+            ShowRoleKeyDialog(name);
+        }
+    }
+    else if (mask < 0x201) {
+        if (mask == 0x200) {
+            CString name;
+            name.Format("kaargwoman%d", ScenarioGetVar(0x300));
+            ShowRoleKeyDialog(name);
+        }
+        else if (mask == 0x10) {
+            AfxGetMainWnd()->PostMessage(0x41F, 0, 0);
+        }
+    }
+    else if (mask == 0x400) {
+        CString name;
+        name.Format("kaargman%d", ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(name);
+    }
+    else if (mask == 0x800) {
+        CString name;
+        name.Format("kaargguard%d", ScenarioGetVar(0x300));
+        ShowRoleKeyDialog(name);
+    }
+    return 1;
+}
