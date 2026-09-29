@@ -4120,6 +4120,27 @@ void VisCharSelect::DoClose(uint32_t code)
 }
 
 
+// 4327F3
+void VisCharSelect::OpenRenameWindow()
+{
+    if (this->session->characterRosterNames.GetSize() == this->roster_list->field_0xd0) {
+        return;
+    }
+    int32_t row_height = this->roster_list->field_0x60.Height();
+    int32_t sel = this->roster_list->field_0xd0;
+    int32_t first_row = this->roster_list->field_0xa0;
+    int32_t list_top = this->roster_list->field_0x70.top;
+    CRect& rc = this->rename_txt->GetRect();
+    rc.top = list_top + row_height * (sel + 1 - first_row) - 4;
+    rc.bottom = list_top + row_height * (sel + 2 - first_row);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->rename_txt->ReadData(main_wnd->vis_map_context->field_0x3f6c->str2);
+    this->roster_list->AddChild(this->rename_txt);
+    this->FocusTo(this->rename_txt, 1);
+    this->roster_list->field_0xd8 = 1;
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()
