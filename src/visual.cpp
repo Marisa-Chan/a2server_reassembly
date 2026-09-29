@@ -17843,3 +17843,117 @@ void VisTownDruid::VMethod34(CPoint pos)
         }
     }
 }
+
+
+// 4D3922
+void VisTownDruid::VMethod35()
+{
+    static uint8_t timer_init_flags; // byte_666998 in asm
+    static uint32_t bird_delay;      // dword_6669A4 in asm
+    static uint32_t tree_delay;      // dword_6669B4 in asm
+
+    uint32_t now = timeGetTime();
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    int32_t mask = this->VMethod33(pt);
+    if ((now - this->shop_tick) > (uint32_t)this->shop_delay) {
+        this->shop_delay = GetRandS16(5000) + 0xDAC;
+        this->shop_tick = now;
+        if (this->shop_group == -1) {
+            this->shop_frame = 0;
+            if (mask == 1) {
+                this->shop_group = 2;
+            }
+            else {
+                this->shop_group = GetRandS16(2);
+            }
+            this->town_anim |= 1;
+            FUN_00438f20(&this->snd_shop);
+            CSound::Play((CSound&)this->snd_shop);
+        }
+    }
+    if ((now - this->tavern_tick) > (uint32_t)this->tavern_delay) {
+        this->tavern_delay = GetRandS16(5000) + 0xDAC;
+        this->tavern_tick = now;
+        if (this->tavern_group == -1) {
+            this->tavern_frame = 0;
+            if (mask == 2) {
+                this->tavern_group = 2;
+            }
+            else {
+                this->tavern_group = GetRandS16(2);
+            }
+            this->town_anim |= 2;
+            FUN_00438f20(&this->snd_tavern);
+            CSound::Play((CSound&)this->snd_tavern);
+        }
+    }
+    if ((timer_init_flags & 1) == 0) {
+        timer_init_flags |= 1;
+        bird_delay = (uint32_t)(GetRandS16(2000) + 2000);
+    }
+    if ((timer_init_flags & 2) == 0) {
+        timer_init_flags |= 2;
+        tree_delay = (uint32_t)(GetRandS16(2000) + 2000);
+    }
+    if ((now - this->last_bird) > bird_delay) {
+        this->active_bird = GetRandS16(3) + 1;
+        if (this->active_bird == 1) {
+            CSound::Play((CSound&)this->snd_bird[0]);
+        }
+        else if (this->active_bird == 2) {
+            CSound::Play((CSound&)this->snd_bird[1]);
+        }
+        else if (this->active_bird == 3) {
+            CSound::Play((CSound&)this->snd_bird[2]);
+        }
+        bird_delay = (uint32_t)(GetRandS16(2000) + 2000);
+        this->last_bird = timeGetTime();
+    }
+    if ((now - this->tree_tick) > tree_delay) {
+        int32_t tree_index = GetRandS16(4);
+        CSound::Play((CSound&)this->snd_tree[tree_index]);
+        tree_delay = (uint32_t)(GetRandS16(2000) + 2000);
+        this->tree_tick = timeGetTime();
+    }
+    if ((now - this->wolf_tick) > 60000) {
+        CSound::Play((CSound&)this->snd_wolf);
+        this->wolf_tick = timeGetTime();
+    }
+    if ((now - this->bug_tick) > (uint32_t)this->bug_delay) {
+        int32_t bug_index = GetRandS16(3) + 1;
+        if (bug_index == 1) {
+            CSound::Play((CSound&)this->snd_bug[0]);
+        }
+        else if (bug_index == 2) {
+            CSound::Play((CSound&)this->snd_bug[1]);
+        }
+        else if (bug_index == 3) {
+            CSound::Play((CSound&)this->snd_bug[2]);
+        }
+        this->bug_variant = bug_index - 1;
+        this->town_anim |= 0x80;
+        this->bug_delay = GetRandS16(10000) + 10000;
+        this->bug_tick = timeGetTime();
+    }
+    if (this->lizard_variant == -1) {
+        int32_t roll = GetRandS16(0xF) + 1;
+        if (roll == 1) {
+            this->lizard_variant = 1;
+            CSound::Play((CSound&)this->snd_lizard[1]);
+        }
+        else if (roll == 2) {
+            this->lizard_variant = 2;
+            CSound::Play((CSound&)this->snd_lizard[2]);
+        }
+        else if (roll == 3) {
+            this->lizard_variant = 3;
+            CSound::Play((CSound&)this->snd_lizard[3]);
+        }
+        else {
+            this->lizard_variant = 0;
+            CSound::Play((CSound&)this->snd_lizard[0]);
+        }
+        this->town_anim |= 0x100;
+        this->lizard_frame = 0;
+    }
+}
