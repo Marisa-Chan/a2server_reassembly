@@ -7121,6 +7121,32 @@ int32_t VisCharGenSkills::HitTest(CPoint pt) {
 }
 
 
+// 42ba81
+void VisCharGenSkills::Init() {
+    for (int32_t i = 0; i < 6; i++) {
+        this->field_0x60[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 5; i++) {
+        this->bmp_on[i] = nullptr;
+        this->bmp_shine_off[i] = nullptr;
+        this->bmp_shine_on[i] = nullptr;
+        this->field_0x10c[i] = 0;
+        this->field_0x120[i] = nullptr;
+    }
+    this->selected_slot = 0;
+    this->field_0x10c[this->selected_slot] = 1;
+}
+
+
+// 42b98c
+VisCharGenSkills::VisCharGenSkills(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->parent_screen = parent;
+    this->Init();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

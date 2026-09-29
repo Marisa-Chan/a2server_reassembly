@@ -16570,56 +16570,6 @@ sub_428D20      endp
 
 ; Attributes: bp-based frame
 
-sub_42B909      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F7E08 SIZE 00000013 BYTES
-
-; __unwind { // SEH_42B909
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42B909
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset unknown_libname_462 ; void (__thiscall *)(void *)
-                push    5               ; int
-                push    8               ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0B4h
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                push    offset unknown_libname_461 ; void (__thiscall *)(void *)
-                push    5               ; int
-                push    8               ; unsigned int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0DCh
-                push    ecx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_609630
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42BA81
-;   } // starts at 42B92D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42B909
-sub_42B909      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16627,83 +16577,13 @@ sub_42B909      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharGen@@UAEXXZ+1AD↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005F7E1B SIZE 00000013 BYTES
-
-; __unwind { // SEH_42B98C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42B98C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                push    offset unknown_libname_462 ; void (__thiscall *)(void *)
-                push    5               ; int
-                push    8               ; unsigned int
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 0B4h
-                push    edx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                push    offset unknown_libname_461 ; void (__thiscall *)(void *)
-                push    5               ; int
-                push    8               ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 0DCh
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_609630
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [ebp+arg_14]
-                mov     [edx+5Ch], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42BA81
-;   } // starts at 42B9C6
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 42B98C
-??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42BA30      proc near               ; CODE XREF: ??_GVisCharGenSkills@@UAEPAXI@Z+A↓p
+??1VisCharGenSkills@@UAE@XZ      proc near               ; CODE XREF: ??_GVisCharGenSkills@@UAEPAXI@Z+A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -16737,75 +16617,13 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 ; } // starts at 42BA30
-sub_42BA30      endp
+??1VisCharGenSkills@@UAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42BA81      proc near               ; CODE XREF: sub_42B909+66↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+60h], 0
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+6Ch], 0
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+68h], 0
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+74h], 0
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+70h], 0
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+64h], 0
-                mov     [ebp+var_4], 0
-                jmp     short loc_42BAD8
-; ---------------------------------------------------------------------------
-
-loc_42BACF:                             ; CODE XREF: sub_42BA81+AF↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_42BAD8:                             ; CODE XREF: sub_42BA81+4C↑j
-                cmp     [ebp+var_4], 5
-                jge     short loc_42BB32
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+ecx*4+78h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+eax*4+8Ch], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     dword ptr [eax+edx*4+0A0h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+ecx*4+10Ch], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+eax*4+120h], 0
-                jmp     short loc_42BACF
-; ---------------------------------------------------------------------------
-
-loc_42BB32:                             ; CODE XREF: sub_42BA81+5B↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+134h], 0
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+134h]
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+ecx*4+10Ch], 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_42BA81      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -23164,31 +22982,6 @@ loc_438353:                             ; CODE XREF: `vector constructor iterato
 
 ; Attributes: bp-based frame
 
-??_GVisCharGenSkills@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:00609634↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_42BA30
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4383E2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4383E2:                             ; CODE XREF: ??_GVisCharGenSkills@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisCharGenSkills@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -310856,39 +310649,8 @@ SEH_428BF0:                             ; DATA XREF: sub_428BF0+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7C10
 ; END OF FUNCTION CHUNK FOR sub_428BF0
-; START OF FUNCTION CHUNK FOR sub_42B909
-
-unknown_libname_965:                    ; DATA XREF: .rdata:stru_618448↓o
-; __unwind { // SEH_42B909              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 42B92D
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
 ; ---------------------------------------------------------------------------
-
-SEH_42B909:                             ; DATA XREF: sub_42B909+5↑o
-                mov     eax, offset stru_618428
-                jmp     ___CxxFrameHandler
-; } // starts at 5F7E08
-; END OF FUNCTION CHUNK FOR sub_42B909
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z
-
-loc_5F7E1B:                             ; DATA XREF: .rdata:stru_618470↓o
-; __unwind { // SEH_42B98C
-;   cleanup() // owned by 42B9C6
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42B98C:                             ; DATA XREF: ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z+5↑o
-                mov     eax, offset stru_618450
-                jmp     ___CxxFrameHandler
-; } // starts at 5F7E1B
-; END OF FUNCTION CHUNK FOR ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42BA30
+; START OF FUNCTION CHUNK FOR ??1VisCharGenSkills@@UAE@XZ
 
 loc_5F7E2E:                             ; DATA XREF: .rdata:stru_618498↓o
 ; __unwind { // SEH_42BA30
@@ -310898,11 +310660,11 @@ loc_5F7E2E:                             ; DATA XREF: .rdata:stru_618498↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_42BA30:                             ; DATA XREF: sub_42BA30+5↑o
+SEH_42BA30:                             ; DATA XREF: ??1VisCharGenSkills@@UAE@XZ+5↑o
                 mov     eax, offset stru_618478
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F7E2E
-; END OF FUNCTION CHUNK FOR sub_42BA30
+; END OF FUNCTION CHUNK FOR ??1VisCharGenSkills@@UAE@XZ
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_42F072
@@ -350448,18 +350210,6 @@ stru_618170     FuncInfoV1 <19930520h, 1, offset stru_618190, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618190     UnwindMapEntry <-1, offset loc_5F7C10>
-stru_618428     FuncInfoV1 <19930520h, 1, offset stru_618448, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618448     UnwindMapEntry <-1, offset unknown_libname_965>
-stru_618450     FuncInfoV1 <19930520h, 1, offset stru_618470, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618470     UnwindMapEntry <-1, offset loc_5F7E1B>
 stru_618478     FuncInfoV1 <19930520h, 1, offset stru_618498, 0, 0, 0, 0>
                 db    0
                 db    0
