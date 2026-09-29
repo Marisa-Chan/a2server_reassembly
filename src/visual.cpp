@@ -7827,6 +7827,35 @@ int32_t VisCharInfo::VMethod26(int32_t a)
     return (int32_t)main_wnd->field_0x408;
 }
 
+// 4B2239
+int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    uint8_t* data = (uint8_t*)this->hitmap->GetData();
+    BigStruct2* map = this->map_context;
+
+    uint8_t color = data[(pos.y - screen_rect.top - 2) * 0xA0 + (pos.x - screen_rect.left)];
+    if (color == 0) {
+        return 1;
+    }
+
+    CUnit* unit = (CUnit*)map->field_0x138;
+    if (map->field_0x140 != 1) {
+        return 0;
+    }
+    if ((unit->unitFlags & 1) == 0) {
+        return 0;
+    }
+
+    if (this->VMethod26(color - 1) != 0) {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        int32_t slot = main_wnd->vis_invtype1->FUN_0046fb90();
+        main_wnd->vis_invtype1->VMethod37(slot);
+    }
+    return 1;
+}
+
 // 4B201C
 int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
