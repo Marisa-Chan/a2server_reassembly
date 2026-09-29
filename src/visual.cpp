@@ -6924,6 +6924,34 @@ void VisCharGenSkills::FreeBitmaps() {
 }
 
 
+// 42bb5a
+void VisCharGenSkills::VMethod7() {
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    this->field_0x10c[4] |= 1;
+    if (this->parent_screen->active_flag != 0) {
+        LockSurface2();
+        this->field_0x60[0]->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        for (int32_t i = 0; i < 4; i++) {
+            int32_t state = this->field_0x10c[i];
+            if (state == 1) {
+                this->bmp_on[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                                           this->field_0xdc[i].x, this->field_0xdc[i].y);
+            } else if (state == 2) {
+                this->bmp_shine_off[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                                                  this->field_0xdc[i].x, this->field_0xdc[i].y);
+            } else if (state == 3) {
+                this->bmp_shine_on[i]->VMethod10(this->field_0xb4[i].x, this->field_0xb4[i].y, 0, 0,
+                                                 this->field_0xdc[i].x, this->field_0xdc[i].y);
+            }
+        }
+        this->DrawBlinkSlot();
+        UnlockSurface2();
+    }
+    CVisualObject::VMethod7();
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

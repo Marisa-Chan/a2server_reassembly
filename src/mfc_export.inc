@@ -1571,7 +1571,8 @@ extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 externdef ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z : proc
 externdef ??_GVisCharGenSkills@@UAEPAXI@Z : proc
 externdef ?GetHint@VisCharGenSkills@@UAEPBDXZ : proc
-externdef ?VMethod7@VisCharGenSkills@@UAEXXZ : proc
+extern ?VMethod7@VisCharGenSkills@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenSkills::VMethod7(void))
+externdef ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ : proc
 externdef ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
