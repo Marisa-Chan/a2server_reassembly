@@ -2319,6 +2319,7 @@ externdef ??_GVisNetDlg@@UAEPAXI@Z : proc
 externdef ?MsgProc@VisNetDlg@@UAEHIII@Z : proc
 externdef ?OnKeyDown@VisNetDlg@@UAEHI@Z : proc
 externdef ?VMethod26@VisNetDlg@@UAEXXZ : proc
+extern ?CreateSessionList@VisNetDlg@@AAEXXZ : proc
 
 ; VisNetTcpIp
 externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc

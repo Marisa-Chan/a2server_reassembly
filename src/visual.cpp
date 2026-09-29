@@ -18902,3 +18902,60 @@ int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 446567
+void VisNetDlg::CreateSessionList()
+{
+    int32_t x = (this->rect.Width() - 0xB0) / 2;
+    int32_t y = this->rect.Height() - 0x90;
+    CRect rc_list(0x28, 0x50, x + 0x28, y + 0x30);
+
+    this->AddChild(new VisLabel(0x19, 0x28, 0x20, this->rect.Width() - 0x28, 0x38, txt_dialogs.GetLine(0x8E), g_font1, p_clrsh_Black, 2));
+
+    VisListBox* server_list = new VisListBox(1, rc_list, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 2, txt_dialogs.GetLine(0x52));
+    this->AddChild(server_list);
+
+    VisScrollBar* server_scroll = new VisScrollBar(2, server_list->GetRect().left, server_list->GetRect().top, server_list->GetRect().right + 0x18, server_list->GetRect().bottom, nullptr);
+    this->AddChild(server_scroll);
+
+    this->AddChild(new VisLabel(4, server_list->GetRect().left, server_list->GetRect().top - 0x18, server_list->GetRect().right, server_list->GetRect().top, txt_dialogs.GetLine(0x53), g_font1, p_clrsh_Black, 0));
+    server_list->SetCaptionLabel((VisLabel*)this->FindChild(4));
+
+    CRect rc_players(server_scroll->GetRect().right + 0x18, server_list->GetRect().top, server_scroll->GetRect().right + x + 0x18, server_list->GetRect().bottom);
+    VisListBox* player_list = new VisListBox(7, rc_players, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 8, txt_dialogs.GetLine(0x54));
+    this->AddChild(player_list);
+
+    this->AddChild(new VisLabel(6, player_list->GetRect().left, player_list->GetRect().top - 0x18, player_list->GetRect().right, player_list->GetRect().top, txt_dialogs.GetLine(0x55), g_font1, p_clrsh_Black, 0));
+    player_list->SetCaptionLabel((VisLabel*)this->FindChild(6));
+
+    VisScrollBar* player_scroll = new VisScrollBar(8, player_list->GetRect().left, player_list->GetRect().top, player_list->GetRect().right + 0x18, player_list->GetRect().bottom, nullptr);
+    this->AddChild(player_scroll);
+
+    int32_t btn_top = this->rect.Height() - 0x3C;
+    int32_t btn_bottom = this->rect.Height() - 0x24;
+    int32_t w = this->rect.Width();
+    CRect rc_refresh(w * 3 / 26, btn_top, w * 7 / 26, btn_bottom);
+    CRect rc_join(w * 8 / 26, btn_top, w * 12 / 26, btn_bottom);
+    CRect rc_create(w * 13 / 26, btn_top, w * 17 / 26, btn_bottom);
+    CRect rc_exit(w * 18 / 26, btn_top, w * 22 / 26, btn_bottom);
+
+    VisButton* refresh_btn = new VisButton(0x11, rc_refresh, txt_dialogs.GetLine(0x53), g_font1, nullptr, 0x450, 0, "");
+    this->AddChild(refresh_btn);
+
+    VisButton* join_btn = new VisButton(0xF, rc_join, txt_dialogs.GetLine(0x57), g_font1, nullptr, 0x44F, 0, "");
+    join_btn->ChangeFlags(0x10, true);
+    this->AddChild(join_btn);
+    join_btn->SetLeftObj(this->FindChild(0x11));
+
+    VisButton* create_btn = new VisButton(0xE, rc_create, txt_dialogs.GetLine(0x56), g_font1, nullptr, 0x44E, 0, "");
+    this->AddChild(create_btn);
+    if (g_IsCdPresent == 0) {
+        create_btn->ChangeFlags(1, false);
+    }
+    create_btn->SetLeftObj(this->FindChild(0xF));
+
+    VisButton* exit_btn = new VisButton(0x10, rc_exit, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+    this->AddChild(exit_btn);
+    exit_btn->SetLeftObj(this->FindChild(0xE));
+}

@@ -3228,6 +3228,13 @@ public:
 
 	VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions); //4464c7
 
+private:
+	void CreateSessionList(); //446567
+	void RefreshSessions(); //447173
+	void FillServerList(); //44797E
+	void UpdatePlayerList(); //447B3C
+	void CachePlayerRows(); //447C27
+
 public:
 	int32_t selected;
 	AvailNetSession* sessions;
