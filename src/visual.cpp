@@ -3987,6 +3987,34 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos)
 }
 
 
+// 431FDF
+void VisCharSelect::VMethod26()
+{
+    this->info_panel = nullptr;
+    this->map_context = nullptr;
+    this->snd_ok = nullptr;
+    this->snd_rename = nullptr;
+    this->snd_delete = nullptr;
+    this->snd_cancel = nullptr;
+    this->vis_stats = new VisCharSellectStats(0x462, 0, 0, 0xA0, 0x1E0, this);
+    this->buttons = new VisCharSellectButtons(0x461, 0x1E0, 0, 0x280, 0xEE, this);
+    this->roster_list = new VisCharSellectList(0x463, 0xA0, 0, 0x1E0, 0x1E0, this);
+
+    CPoint top_left = this->roster_list->GetRect().TopLeft();
+    CRect rc = this->roster_list->field_0x60;
+    OffsetRect(&rc, top_left.x, top_left.y);
+    rc.left -= top_left.x;
+    rc.right -= top_left.x;
+
+    this->rename_txt = new VisTextBox(0x464, rc, g_font4, palette_husk->GetPalette(0), nullptr);
+    this->AddChild(this->vis_stats);
+    this->AddChild(this->buttons);
+    this->AddChild(this->roster_list);
+    this->selected_unit = nullptr;
+    this->active_flag = 0;
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()

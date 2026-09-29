@@ -674,6 +674,8 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 430318
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
 
+	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c in asm
+
 public:
 	VisCharSelect* parent_screen;
 	CStringArray field_0x60;
@@ -702,6 +704,8 @@ public:
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 43182C
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4316A0
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 431B95
+
+	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb in asm
 
 public:
 	VisCharSelect* parent_screen;
@@ -738,6 +742,8 @@ public:
 
 
 	void FUN_0042f6f3();
+
+	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
 
 public:
 	VisCharSelect* parent_screen;
