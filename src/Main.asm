@@ -125981,7 +125981,7 @@ loc_4D269F:                             ; CODE XREF: ?VMethod36@VisTownDruid@@UA
                 mov     ecx, dword ptr [ebp+var_4A0]
                 mov     dword ptr [ecx+2A4h], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_4A0]
-                call    sub_4D3384
+                call    ?FUN_004d3384@VisTownDruid@@QAEXXZ
                 mov     edx, dword ptr [ebp+var_4A0]
                 mov     dword ptr [edx+184h], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_4A0]
@@ -125997,7 +125997,7 @@ loc_4D269F:                             ; CODE XREF: ?VMethod36@VisTownDruid@@UA
                 mov     edx, dword ptr [ebp+var_4A0]
                 mov     dword ptr [edx+2ECh], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_4A0]
-                call    sub_4D3435
+                call    ?FUN_004d3435@VisTownDruid@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_4A0]
                 mov     dword ptr [eax+1FCh], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_4A0]
@@ -126804,191 +126804,24 @@ loc_4D3380:                             ; CODE XREF: ?VMethod7@VisTownDruid@@UAE
 
 ; Attributes: bp-based frame
 
-sub_4D3384      proc near               ; CODE XREF: ?VMethod36@VisTownDruid@@UAEXXZ+5AE↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+168h], 0
-                jnz     short loc_4D33BB
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 94h
-                push    ecx
-                call    ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 90h
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4D33BB:                             ; CODE XREF: sub_4D3384+11↑j
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+2A4h], 0
-                jl      short loc_4D3431
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+168h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+168h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+2A4h]
-                imul    edx, 14h
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+268h]
-                call    unknown_libname_404 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     [ecx+168h], eax
-                jnz     short loc_4D3431
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+168h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+2A4h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+208h]
-                and     edx, 0FFFFFFFDh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+208h], edx
-
-loc_4D3431:                             ; CODE XREF: sub_4D3384+41↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4D3384      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4D3435      proc near               ; CODE XREF: ?VMethod36@VisTownDruid@@UAEXXZ+629↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+2ECh], 0
-                jl      short loc_4D34B2
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+1E0h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+1E0h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+2ECh]
-                imul    edx, 14h
-                mov     eax, dword ptr [ebp+var_4]
-                lea     ecx, [eax+edx+2B0h]
-                call    unknown_libname_404 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     [ecx+1E0h], eax
-                jnz     short loc_4D34B2
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+1E0h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+2ECh], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+208h]
-                and     edx, 0FFFFFFFEh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+208h], edx
-
-loc_4D34B2:                             ; CODE XREF: sub_4D3435+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4D3435      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4D34B6      proc near               ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+4D↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+30Ch], 0
-                jl      short loc_4D351C
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+310h]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+310h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+310h], 3Dh ; '='
-                jnz     short loc_4D351C
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+310h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+30Ch], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+208h]
-                and     edx, 0FFFFFF7Fh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+208h], edx
-
-loc_4D351C:                             ; CODE XREF: sub_4D34B6+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4D34B6      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4D3520      proc near               ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+68↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+318h], 0
-                jl      short loc_4D3598
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+31Ch]
-                add     edx, 1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+31Ch], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+318h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+31Ch]
-                mov     edx, off_6349F0[edx*4]
-                cmp     dword ptr [edx+ecx*4], 0FFFFFFFFh
-                jnz     short loc_4D3598
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+31Ch], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+318h], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+208h]
-                and     eax, 0FFFFFEFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+208h], eax
-
-loc_4D3598:                             ; CODE XREF: sub_4D3520+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4D3520      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -127091,7 +126924,7 @@ loc_4D3677:                             ; CODE XREF: ?VMethod34@VisTownDruid@@UA
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     [ecx+208h], eax
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4D3435
+                call    ?FUN_004d3435@VisTownDruid@@QAEXXZ
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 248h
                 push    edx
@@ -127154,7 +126987,7 @@ loc_4D3768:                             ; CODE XREF: ?VMethod34@VisTownDruid@@UA
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     [ecx+208h], eax
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4D3384
+                call    ?FUN_004d3384@VisTownDruid@@QAEXXZ
                 mov     edx, dword ptr [ebp+var_10]
                 add     edx, 24Ch
                 push    edx
@@ -127735,7 +127568,7 @@ var_4           = dword ptr -4
                 test    ecx, ecx
                 jz      short loc_4D3EC6
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4D3435
+                call    ?FUN_004d3435@VisTownDruid@@QAEXXZ
 
 loc_4D3EC6:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+15↑j
                 mov     edx, dword ptr [ebp+var_4]
@@ -127744,7 +127577,7 @@ loc_4D3EC6:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UA
                 test    eax, eax
                 jz      short loc_4D3EDE
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4D3384
+                call    ?FUN_004d3384@VisTownDruid@@QAEXXZ
 
 loc_4D3EDE:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+2D↑j
                 mov     ecx, dword ptr [ebp+var_4]
@@ -127753,7 +127586,7 @@ loc_4D3EDE:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UA
                 test    edx, edx
                 jz      short loc_4D3EF9
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4D34B6
+                call    ?FUN_004d34b6@VisTownDruid@@QAEXXZ
 
 loc_4D3EF9:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+48↑j
                 mov     eax, dword ptr [ebp+var_4]
@@ -127762,7 +127595,7 @@ loc_4D3EF9:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UA
                 test    ecx, ecx
                 jz      short loc_4D3F14
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4D3520
+                call    ?FUN_004d3520@VisTownDruid@@QAEXXZ
 
 loc_4D3F14:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+63↑j
                 mov     esp, ebp

@@ -17565,3 +17565,71 @@ void VisTownDruid::VMethod31()
     FUN_00438dd0(&this->snd_town_exit);
     FUN_00438dd0(&this->snd_wolf);
 }
+
+
+// lizard animation frame sequences from the original data (634870/634898/6348C8/634930), -1 terminated
+static const int32_t lizard_seq0[] = { 0x27, 0x28, 0x29, 0x2A, 0x29, 0x28, 0x27, 0x26, -1 };
+static const int32_t lizard_seq1[] = { 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, -1 };
+static const int32_t lizard_seq2[] = { 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, -1 };
+static const int32_t lizard_seq3[] = { 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11, 0x12, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, -1 };
+static const int32_t* const lizard_seqs[4] = { lizard_seq0, lizard_seq1, lizard_seq2, lizard_seq3 };
+
+
+// 4D3384
+void VisTownDruid::FUN_004d3384()
+{
+    if (this->tavern_frame == 0) {
+        FUN_00438f20(&this->sounds[8]);
+        CSound::Play((CSound&)this->sounds[7]);
+    }
+    if (this->tavern_group >= 0) {
+        this->tavern_frame++;
+        if (this->tavern_frame == this->tavern_frame_group[this->tavern_group].GetSize()) {
+            this->tavern_frame = 0;
+            this->tavern_group = -1;
+            this->town_anim &= ~2u;
+        }
+    }
+}
+
+
+// 4D3435
+void VisTownDruid::FUN_004d3435()
+{
+    if (this->shop_group >= 0) {
+        this->shop_frame++;
+        if (this->shop_frame == this->shop_frame_group[this->shop_group].GetSize()) {
+            this->shop_frame = 0;
+            this->shop_group = -1;
+            this->town_anim &= ~1u;
+        }
+    }
+}
+
+
+// 4D34B6
+void VisTownDruid::FUN_004d34b6()
+{
+    if (this->bug_variant >= 0) {
+        this->bug_frame++;
+        if (this->bug_frame == 0x3D) {
+            this->bug_frame = 0;
+            this->bug_variant = -1;
+            this->town_anim &= ~0x80u;
+        }
+    }
+}
+
+
+// 4D3520
+void VisTownDruid::FUN_004d3520()
+{
+    if (this->lizard_variant >= 0) {
+        this->lizard_frame++;
+        if (lizard_seqs[this->lizard_variant][this->lizard_frame] == -1) {
+            this->lizard_frame = -1;
+            this->lizard_variant = -1;
+            this->town_anim &= ~0x100u;
+        }
+    }
+}
