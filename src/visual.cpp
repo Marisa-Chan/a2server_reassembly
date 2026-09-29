@@ -3,6 +3,7 @@
 #include "main_window.h"
 #include "gfx.h"
 #include "mouse.h"
+#include "file.h"
 #include "game_app.h"
 #include "quest_map.h"
 #include "quest.h"
@@ -16909,4 +16910,89 @@ void VisTownKaarg::VMethod34(CPoint pos)
             this->exit_snd_flag = 0;
         }
     }
+}
+
+
+// 4D4866
+void VisTownKaarg::VMethod36()
+{
+    this->VMethod37();
+    this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_kaarg\\townmask.bmp");
+    g_mousept.Update();
+    this->bmp_bkg = new CBmp64("graphics\\interface\\town_kaarg\\townmain.bmp");
+    g_mousept.Update();
+    this->bmp_tavern_hover = new CBmp64("graphics\\interface\\town_kaarg\\hili_tavern.bmp");
+    this->bmp_shop_hover = new CBmp64("graphics\\interface\\town_kaarg\\hili_shop.bmp");
+    g_mousept.Update();
+    for (int32_t i = 0; i < 0x1E; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town_kaarg\\dervish\\d%04d.bmp", i);
+        File2 f;
+        if (!f.Open(name, 0, nullptr)) {
+            break;
+        }
+        f.Close();
+        this->bmp_dervish.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    for (int32_t i = 0; i < 0x37; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town_kaarg\\guard\\g%04d.bmp", i);
+        File2 f;
+        if (!f.Open(name, 0, nullptr)) {
+            break;
+        }
+        f.Close();
+        this->bmp_guard.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    for (int32_t g = 0; g < 2; g++) {
+        for (int32_t i = g; i < 0x1F; i++) {
+            CString name;
+            name.Format("graphics\\interface\\town_kaarg\\girl1\\g%d%03d.bmp", g + 1, i);
+            File2 f;
+            if (!f.Open(name, 0, nullptr)) {
+                break;
+            }
+            f.Close();
+            this->bmp_girl1[g].Add(new CBmp64(name));
+            g_mousept.Update();
+        }
+    }
+    for (int32_t g = 0; g < 2; g++) {
+        for (int32_t i = g; i < 0x1F; i++) {
+            CString name;
+            name.Format("graphics\\interface\\town_kaarg\\girl2\\g%d%03d.bmp", g + 1, i);
+            File2 f;
+            if (!f.Open(name, 0, nullptr)) {
+                break;
+            }
+            f.Close();
+            this->bmp_girl2[g].Add(new CBmp64(name));
+            g_mousept.Update();
+        }
+    }
+    for (int32_t i = 0; i <= 10; i++) {
+        CString name;
+        name.Format("graphics\\interface\\town_kaarg\\maingates\\m%04d.bmp", i);
+        File2 f;
+        if (!f.Open(name, 0, nullptr)) {
+            break;
+        }
+        f.Close();
+        this->bmp_gate.Add(new CBmp64(name));
+        g_mousept.Update();
+    }
+    this->tavern_frame = -1;
+    this->sign_frame = -1;
+    this->door_frame = 0;
+    this->stars_frame = -1;
+    this->fighter_frame = -1;
+    this->mage_frame = 0;
+    this->shop_frame = -1;
+    this->flugel_frame = -1;
+    this->bbird_frame = -1;
+    this->girl1_group = -1;
+    this->horse_frame = -1;
+    this->dervish_frame = -1;
 }
