@@ -16570,98 +16570,6 @@ sub_428D20      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: library function bp-based frame
-
-; int __thiscall CFormView::accHitTest(CFormView *__hidden varThis, int, int, struct tagVARIANT *)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_42F072      proc near
 
 var_10          = dword ptr -10h
@@ -352187,8 +352095,6 @@ g_Source          db '.bmp',0             ; DATA XREF: sub_41DA52:loc_41DC34↑o
                 db    0
                 db    0
                 db    0
-dword_62CCF4    dd 0FFFFFFFFh           ; DATA XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ:loc_42BE31↑r
-dword_62CCF8    dd 4                    ; DATA XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+F9↑w
 ; char aMainGraphicsCh[]
 aMainGraphicsCh db 'main\graphics\chrgen\leftup.bmp',0
 ; char aGraphicsInterf[]
@@ -359718,12 +359624,6 @@ unk_656464      db 13FDh dup(?)
 unk_657861      db 1CAFh dup(?)
 ; char byte_659510[4]
 byte_659510     db 4 dup(?)             ; DATA XREF: ?Update@CMousePointer@@QAEXXZ +2B0↑o
-byte_659514      db    ?
-                align 4
-dword_659518    dd ?                    ; DATA XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+8D↑w
-byte_65951C      db    ?
-                align 10h
-dword_659530    dd ?                    ; DATA XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+67↑w
 ; CString unk_659538
 unk_659538      db 4h dup(?)
 byte_65953C      db    ?
@@ -359734,7 +359634,6 @@ byte_659544      db    ?
                 align 4
 byte_659548      db    ?
                 align 4
-dword_659550    dd ?                    ; DATA XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+112↑w
 ; char Destination
 g_Destination      db 400h dup(?)
 dword_659958    dd ?                    ; DATA XREF: ?VMethod7@VisCredits@@UAEXXZ+3F↑w
