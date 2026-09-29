@@ -16794,3 +16794,55 @@ VisTownKaarg::VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 VisTownKaarg::~VisTownKaarg()
 {
 }
+
+
+// 4D54B5
+void VisTownKaarg::VMethod32()
+{
+    FUN_004a4740(this->sounds);
+}
+
+
+// 4D54CF
+void VisTownKaarg::VMethod30()
+{
+    FUN_00438e40(&this->snd_voice[0], "sfx\\town_kaarg\\Kvox2.wav");
+    FUN_00438e40(&this->snd_voice[1], "sfx\\town_kaarg\\Kvox3.wav");
+    FUN_00438e40(&this->snd_voice[2], "sfx\\town_kaarg\\Kvox4.wav");
+    FUN_00438e40(&this->snd_bird[0], "sfx\\town_kaarg\\Kbird1.wav");
+    FUN_00438e40(&this->snd_bird[1], "sfx\\town_kaarg\\Kbird2.wav");
+    FUN_00438e40(&this->snd_bird[2], "sfx\\town_kaarg\\Kbird3.wav");
+    FUN_00438e40(&this->snd_bird[3], "sfx\\town_kaarg\\Kbird4.wav");
+    FUN_00438e40(&this->snd_voice1, "sfx\\town_kaarg\\Kvox1.wav");
+    FUN_00438e40(&this->snd_shop_enter, "sfx\\town_kaarg\\Kenter2.wav");
+    FUN_00438e40(&this->snd_tavern_enter, "sfx\\town_kaarg\\Kenter1.wav");
+    FUN_00438e40(&this->snd_dervish, "sfx\\town_kaarg\\Kman1.wav");
+    FUN_00438e40(&this->snd_guard[0], "sfx\\town_kaarg\\Ksteps2.wav");
+    FUN_00438e40(&this->snd_guard[1], "sfx\\town_kaarg\\Ksteps21.wav");
+    FUN_00438e40(&this->snd_guard[2], "sfx\\town_kaarg\\Ksteps1.wav");
+    FUN_00438e40(&this->snd_guard[3], "sfx\\town_kaarg\\Ksteps11.wav");
+    FUN_00438e40(&this->snd_guard[4], "sfx\\town_kaarg\\Ksteps3.wav");
+    FUN_00438e40(&this->snd_guard[5], "sfx\\town_kaarg\\Ksteps31.wav");
+    this->tavern_snd_flag = 0;
+    this->hover_snd_shop = 0;
+    this->exit_snd_flag = 0;
+}
+
+
+// 4D5682
+void VisTownKaarg::VMethod31()
+{
+    for (int32_t i = 0; i < 3; i++) {
+        FUN_00438dd0(&this->snd_voice[i]);
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        FUN_00438dd0(&this->snd_bird[i]);
+    }
+    FUN_00438dd0(&this->snd_voice1);
+    FUN_00438dd0(&this->snd_shop_enter);
+    FUN_00438dd0(&this->snd_tavern_enter);
+    FUN_00438dd0(&this->snd_dervish);
+    for (int32_t i = 0; i < 6; i++) {
+        FUN_00438dd0(&this->snd_guard[i]);
+    }
+}
