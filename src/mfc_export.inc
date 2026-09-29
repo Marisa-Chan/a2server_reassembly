@@ -1032,7 +1032,6 @@ externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
-extern   ??0VisTown@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
@@ -1519,79 +1518,6 @@ externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
-
-;VisTown
-extern ??_GVisTown@@UAEPAXI@Z : proc
-extern ?GetHint@VisTown@@UAEPBDXZ : proc
-extern ?VMethod7@VisTown@@UAEXXZ : proc
-extern ?VMethod8@VisTown@@UAEXPAVCRect@@@Z : proc
-extern ?FUN_004ce64b@VisTown@@QAEHXZ : proc
-extern ?FUN_004ce726@VisTown@@QAEXXZ : proc
-extern ?FUN_004d06aa@VisTown@@QAEXXZ : proc
-extern ?FUN_004d07e8@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0884@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0913@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0ad7@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0b95@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0c6e@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0d47@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0da2@VisTown@@QAEXXZ : proc
-extern ?FUN_004d0f66@VisTown@@QAEXXZ : proc
-extern ?FUN_004d1002@VisTown@@QAEXXZ : proc
-extern ?FUN_004d109e@VisTown@@QAEXXZ : proc
-extern ?MsgProc@VisTown@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisTown@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisTown@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisTown@@UAEHI@Z : proc
-extern ?VMethod26@VisTown@@UAEXXZ : proc
-extern ?VMethod28@VisTown@@UAEXXZ : proc
-extern ?DoClose@VisTown@@UAEXI@Z : proc
-extern ?VMethod30@VisTown@@UAEXXZ : proc
-extern ?VMethod31@VisTown@@UAEXXZ : proc
-extern ?VMethod32@VisTown@@UAEXXZ : proc
-extern ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
-extern ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
-extern ?VMethod35@VisTown@@UAEXXZ : proc
-extern ?VMethod36@VisTown@@UAEXXZ : proc
-extern ?VMethod37@VisTown@@UAEXXZ : proc
-extern ?VMethod38@VisTown@@UAEXXZ : proc
-extern ?VMethod39@VisTown@@UAEXXZ : proc
-;VisTownDruid
-extern ??_GVisTownDruid@@UAEPAXI@Z : proc
-extern ?VMethod7@VisTownDruid@@UAEXXZ : proc
-extern ?OnLButtonDown@VisTownDruid@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod28@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod30@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod31@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod32@VisTownDruid@@UAEXXZ : proc
-extern ?FUN_004d3384@VisTownDruid@@QAEXXZ : proc
-extern ?FUN_004d3435@VisTownDruid@@QAEXXZ : proc
-extern ?FUN_004d34b6@VisTownDruid@@QAEXXZ : proc
-extern ?FUN_004d3520@VisTownDruid@@QAEXXZ : proc
-extern ?VMethod34@VisTownDruid@@UAEXVCPoint@@@Z : proc
-extern ?VMethod35@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod36@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod37@VisTownDruid@@UAEXXZ : proc
-extern ?VMethod38@VisTownDruid@@UAEXXZ : proc
-;VisTownKaarg
-extern ??_GVisTownKaarg@@UAEPAXI@Z : proc
-extern ?GetHint@VisTownKaarg@@UAEPBDXZ : proc
-extern ?VMethod7@VisTownKaarg@@UAEXXZ : proc
-extern ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod28@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod30@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod31@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod32@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod34@VisTownKaarg@@UAEXVCPoint@@@Z : proc
-extern ?VMethod35@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod36@VisTownKaarg@@UAEXXZ : proc
-extern ?VMethod37@VisTownKaarg@@UAEXXZ : proc
-extern ?FUN_004d6480@VisTownKaarg@@QAEXXZ : proc
-extern ?FUN_004d65dd@VisTownKaarg@@QAEXXZ : proc
-extern ?FUN_004d6655@VisTownKaarg@@QAEXXZ : proc
-extern ?FUN_004d66ca@VisTownKaarg@@QAEXXZ : proc
-extern ?FUN_004d6728@VisTownKaarg@@QAEXXZ : proc
-extern ?VMethod38@VisTownKaarg@@UAEXXZ : proc
 ;VisCredits
 externdef ??_GVisCredits@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisCredits@@UAEXXZ : proc
