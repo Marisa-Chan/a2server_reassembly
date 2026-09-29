@@ -17695,3 +17695,47 @@ void VisTownDruid::VMethod36()
     this->dervish_frame = -1;
     this->bug_variant = -1;
 }
+
+
+// 4D27FF
+void VisTownDruid::VMethod37()
+{
+    if (this->bmp_bkg != nullptr) {
+        delete this->bmp_bkg;
+        this->bmp_bkg = nullptr;
+    }
+    if (this->bmp_hover_mask != nullptr) {
+        delete this->bmp_hover_mask;
+        this->bmp_hover_mask = nullptr;
+    }
+    if (this->bmp_tavern_hover != nullptr) {
+        delete this->bmp_tavern_hover;
+        this->bmp_tavern_hover = nullptr;
+    }
+    if (this->bmp_shop_hover != nullptr) {
+        delete this->bmp_shop_hover;
+        this->bmp_shop_hover = nullptr;
+    }
+    if (this->spr_bug != nullptr) {
+        delete this->spr_bug;
+        this->spr_bug = nullptr;
+    }
+    if (this->spr_lizard != nullptr) {
+        delete this->spr_lizard;
+        this->spr_lizard = nullptr;
+    }
+    for (int32_t g = 0; g < 3; g++) {
+        for (int32_t i = 0; i < this->shop_frame_group[g].GetSize(); i++) {
+            if (this->shop_frame_group[g].GetAt(i) != nullptr) {
+                delete this->shop_frame_group[g].GetAt(i);
+            }
+        }
+        this->shop_frame_group[g].RemoveAll();
+        for (int32_t i = 0; i < this->tavern_frame_group[g].GetSize(); i++) {
+            if (this->tavern_frame_group[g].GetAt(i) != nullptr) {
+                delete this->tavern_frame_group[g].GetAt(i);
+            }
+        }
+        this->tavern_frame_group[g].RemoveAll();
+    }
+}
