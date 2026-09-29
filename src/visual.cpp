@@ -17050,3 +17050,99 @@ void VisTownKaarg::VMethod37()
     }
     this->bmp_dervish.RemoveAll();
 }
+
+
+// 4D6480
+void VisTownKaarg::FUN_004d6480()
+{
+    CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+    if (this->VMethod33(pt) != 8) {
+        if (this->door_open_flag != 0) {
+            FUN_00438e40(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor2.wav");
+            CSound::Play((CSound&)this->sounds[1]);
+        }
+        this->door_open_flag = 0;
+        this->door_frame--;
+        if (this->door_frame < 1) {
+            this->door_frame = 0;
+            this->town_anim &= ~0x08u;
+        }
+    }
+    else {
+        if (this->door_open_flag == 0) {
+            FUN_00438e40(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor1.wav");
+            CSound::Play((CSound&)this->sounds[1]);
+        }
+        this->door_open_flag = 1;
+        this->door_frame++;
+        if (this->door_frame > 9) {
+            this->door_frame = 10;
+            this->town_anim &= ~0x08u;
+        }
+    }
+}
+
+
+// 4D65DD
+void VisTownKaarg::FUN_004d65dd()
+{
+    this->bbird_frame++;
+    if (this->bbird_frame == this->bmp_girl1[this->girl1_group].GetSize()) {
+        this->bbird_frame = 0;
+        this->girl1_group = -1;
+        this->town_anim &= ~0x200u;
+    }
+}
+
+
+// 4D6655
+void VisTownKaarg::FUN_004d6655()
+{
+    this->girl2_frame++;
+    if (this->girl2_frame == this->bmp_girl2[this->girl2_group].GetSize()) {
+        this->girl2_frame = 0;
+        this->girl2_group = -1;
+        this->town_anim &= ~4u;
+    }
+}
+
+
+// 4D66CA
+void VisTownKaarg::FUN_004d66ca()
+{
+    this->fighter_frame++;
+    if (this->fighter_frame == this->bmp_guard.GetSize()) {
+        this->fighter_frame = 0;
+        this->town_anim &= ~0x800u;
+    }
+}
+
+
+// 4D6728
+void VisTownKaarg::FUN_004d6728()
+{
+    this->dervish_frame++;
+    if (this->dervish_frame == this->bmp_dervish.GetSize()) {
+        this->dervish_frame = 0;
+        this->town_anim &= ~0x400u;
+    }
+}
+
+
+// 4D6786
+void VisTownKaarg::VMethod38()
+{
+    if ((this->town_anim & 0x200) != 0) {
+        this->FUN_004d65dd();
+    }
+    if ((this->town_anim & 4) != 0) {
+        this->FUN_004d6655();
+    }
+    if ((this->town_anim & 0x400) != 0) {
+        this->FUN_004d6728();
+    }
+    if ((this->town_anim & 0x800) != 0) {
+        this->FUN_004d66ca();
+    }
+    this->FUN_004d6480();
+}

@@ -2194,6 +2194,12 @@ public:
 	virtual void VMethod37() override; // 4D5112
 	virtual void VMethod38() override; // 4D6786
 
+	void FUN_004d6480(); //4d6480 in asm
+	void FUN_004d65dd(); //4d65dd in asm
+	void FUN_004d6655(); //4d6655 in asm
+	void FUN_004d66ca(); //4d66ca in asm
+	void FUN_004d6728(); //4d6728 in asm
+
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a in asm
 public:
 	SfxSample* snd_voice[3];
