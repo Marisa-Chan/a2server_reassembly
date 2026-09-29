@@ -7887,6 +7887,12 @@ int32_t VisCharInfo::OnLButtonDown(uint32_t wparam, CPoint pos)
     return 1;
 }
 
+// 4B2227
+int32_t VisCharInfo::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}
+
 // 4B201C
 int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
