@@ -2320,6 +2320,7 @@ externdef ?MsgProc@VisNetDlg@@UAEHIII@Z : proc
 externdef ?OnKeyDown@VisNetDlg@@UAEHI@Z : proc
 externdef ?VMethod26@VisNetDlg@@UAEXXZ : proc
 extern ?CachePlayerRows@VisNetDlg@@AAEXXZ : proc
+extern ?FillServerList@VisNetDlg@@AAEXXZ : proc
 extern ?CreateSessionList@VisNetDlg@@AAEXXZ : proc
 
 ; VisNetTcpIp

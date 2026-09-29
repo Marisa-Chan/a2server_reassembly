@@ -19015,3 +19015,46 @@ void VisNetDlg::CachePlayerRows()
         this->cached_player_rows.ElementAt(i) = row;
     }
 }
+
+
+// 44797E
+void VisNetDlg::FillServerList()
+{
+    VisListBox* server_list = (VisListBox*)this->FindChild(1);
+    int32_t count = server_list->GetItemCount();
+
+    CString sel_name;
+    if (count > this->selected) {
+        sel_name = server_list->GetItem(this->selected);
+    }
+    else {
+        sel_name = "When night are cold and friends are few";
+    }
+    while (count != 0) {
+        count--;
+        server_list->RemoveItem(count);
+    }
+
+    int32_t num_sessions = this->sessions->num_sessions;
+    this->selected = 0;
+    for (int32_t i = 0; i < num_sessions; i++) {
+        server_list->AddItem(this->sessions->sessions[i].name);
+
+        CString item(this->sessions->sessions[i].name);
+        if (item == sel_name) {
+            this->selected = i;
+            server_list->SetSelectedIndex(i);
+        }
+    }
+
+    VisButton* join_btn = (VisButton*)this->FindChild(0xF);
+    if (num_sessions == 0) {
+        join_btn->ChangeFlags(1, false);
+        join_btn->SetDowned(false);
+    }
+    else {
+        join_btn->ChangeFlags(1, true);
+    }
+    join_btn->VMethod9();
+    server_list->VMethod9();
+}
