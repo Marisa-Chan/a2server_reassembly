@@ -2316,7 +2316,7 @@ externdef ?VMethod31@VisConnectionDlg@@UAEXH@Z : proc
 ; VisNetDlg
 externdef ??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z : proc
 externdef ??_GVisNetDlg@@UAEPAXI@Z : proc
-externdef ?MsgProc@VisNetDlg@@UAEHIII@Z : proc
+extern ?MsgProc@VisNetDlg@@UAEHIII@Z : proc
 externdef ?OnKeyDown@VisNetDlg@@UAEHI@Z : proc
 externdef ?VMethod26@VisNetDlg@@UAEXXZ : proc
 extern ?CachePlayerRows@VisNetDlg@@AAEXXZ : proc

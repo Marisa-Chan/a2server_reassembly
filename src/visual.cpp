@@ -19123,3 +19123,148 @@ void VisNetDlg::RefreshSessions()
     this->CachePlayerRows();
     PostMessageA(g_MainWndHWND, 0x471, 0, 0);
 }
+
+
+// 447842
+static char* ExtractFirstWord(const char* str)
+{
+    const char* word = str;
+    while (isalpha(*word) == 0) {
+        if (*word == 0) {
+            return nullptr;
+        }
+        word++;
+    }
+    const char* end = word;
+    while (isalpha(*end) != 0) {
+        end++;
+    }
+    int32_t len = (int32_t)(end - word);
+    char* buf = new char[len + 1];
+    memcpy(buf, word, len);
+    buf[len] = 0;    // original writes buf[len + 1] (off-by-one); the caller only null-checks the result
+    return buf;
+}
+
+
+// 447214
+int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    switch (msg) {
+    case 0x444:
+        if (this->FindChild(0xF)->TestFlags(1) == 0) {
+            return 0;
+        }
+        // fall through
+    case 0x44E:
+    case 0x44F: {
+        this->sessions->character_name = main_wnd->m_GameSession.character_name;
+        VisListBox* server_list = (VisListBox*)this->FindChild(1);
+        this->sessions->selected_index = server_list->GetSelectedIndex();
+        this->DoClose(msg);
+        main_wnd->PostMessage(0x44C, (WPARAM)this, 0);
+
+        for (int32_t i = 0; i < this->cached_player_rows.GetSize(); i++) {
+            CStringArray* row = this->cached_player_rows.GetAt(i);
+            if (row != nullptr) {
+                delete row;
+            }
+        }
+        this->cached_player_rows.RemoveAll();
+        return 1;
+    }
+    case 0x446: {
+        VisScreen::MsgProc(msg, wparam, lparam);
+        main_wnd->dialogsMask = 0;
+
+        int32_t provider = g_CLlDriver.GetProvider();
+        if (provider == 1) {
+            g_CLlDriver.Close();
+            PostMessageA(g_MainWndHWND, 0x455, 0, 0);
+        }
+        else {
+            provider = g_CLlDriver.GetProvider();
+            if (provider == 0) {
+                g_CLlDriver.Close();
+                PostMessageA(g_MainWndHWND, 0x454, 0, 0);
+            }
+            else {
+                provider = g_CLlDriver.GetProvider();
+                if (provider == 3) {
+                    g_CLlDriver.Close();
+                    if (main_wnd->field_0x3e0.field_10 == 0) {
+                        PostMessageA(g_MainWndHWND, 0x453, 0, 0);
+                    }
+                    else {
+                        PostMessageA(g_MainWndHWND, 0x489, 0, 0);
+                    }
+                }
+                else {
+                    g_CLlDriver.Close();
+                    PostMessageA(g_MainWndHWND, 0x451, 0, 0);
+                }
+            }
+        }
+
+        for (int32_t i = 0; i < this->cached_player_rows.GetSize(); i++) {
+            CStringArray* row = this->cached_player_rows.GetAt(i);
+            if (row != nullptr) {
+                delete row;
+            }
+        }
+        this->cached_player_rows.RemoveAll();
+        return 1;
+    }
+    case 0x450:
+        this->RefreshSessions();
+        return 1;
+    case 0x46E:
+        if (wparam == 1) {
+            this->selected = ((int32_t)lparam < 0) ? (int32_t)lparam : 0;
+            this->UpdatePlayerList();
+        }
+        return 1;
+    case 0x471: {
+        int32_t provider = g_CLlDriver.GetProvider();
+        if (provider == 0 || provider == 1) {
+            this->rect = this->net_rect;
+            this->sessions->character_name = main_wnd->m_GameSession.character_name;
+            this->sessions->selected_index = 0;
+
+            if (this->sessions->num_sessions == 0) {
+                this->RemoveAllChilds();
+
+                this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x7C), g_font1, clrsh_TechBlack, 0));
+
+                int32_t h = this->rect.Height();
+                int32_t w = this->rect.Width();
+                this->AddChild(new VisButton(2, w / 2 - 0x30, h / 2 + 0xC, w / 2 + 0x30, h / 2 + 0x24, txt_dialogs.GetLine(1), g_font1, clrsh_TechBlack, 0x446, 0, ""));
+            }
+            else {
+                if (g_CLlDriver.GetProvider() == 1) {
+                    char* word = ExtractFirstWord(main_wnd->phone_book.phones.ElementAt(0));
+                    if (word != nullptr) {
+                        delete[] word;
+                    }
+                }
+                this->DoClose(0x44F);
+                main_wnd->PostMessage(0x44C, (WPARAM)this, 0);
+                AfxGetMainWnd()->PostMessage(0x44F, 0, 0);
+            }
+        }
+        else {
+            this->FillServerList();
+            this->UpdatePlayerList();
+            this->sessions->field_0x4 = this->selected;
+        }
+        return 1;
+    }
+    case 0x47C:
+        g_CLlDriver.SetEventNewSession();
+        return 1;
+    default:
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}
