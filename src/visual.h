@@ -2043,6 +2043,9 @@ public:
 	virtual void VMethod38(); // 4D0E31
 	virtual void VMethod39(); // 4D15E3
 
+	int32_t FUN_004ce64b(); //4ce64b in asm
+	void FUN_004ce726(); //4ce726 in asm
+
 	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c in asm
 public:
 	CBmp64* bmp_bkg;

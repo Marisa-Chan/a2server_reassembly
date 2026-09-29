@@ -15997,3 +15997,160 @@ const char* VisTown::GetHint()
     }
     return nullptr;
 }
+
+
+// 4CE64B
+int32_t VisTown::FUN_004ce64b()
+{
+    this->town_anim |= 0x80;
+    this->bird_group_index = GetRandS16(3);
+    this->active_bird = GetRandS16(3) + 1;
+    if (this->active_bird == 1) {
+        CSound::Play((CSound&)this->sounds[3]);
+    }
+    else {
+        CSound::Play((CSound&)this->sounds[4]);
+    }
+    int32_t delay = GetRandS16(2000) + 1000;
+    this->last_bird = timeGetTime();
+    this->bird_frame0 = 0;
+    this->bird_frame1 = 0;
+    this->bird_frame2 = 0;
+    return delay;
+}
+
+
+// 4CE726
+void VisTown::FUN_004ce726()
+{
+    int32_t done_count = 0;
+    if ((this->town_anim & 0x80) != 0) {
+        for (int32_t i = 0; i < this->active_bird; i++) {
+            CA16* spr = this->spr_birds.ElementAt(this->bird_group_index * 3 + i);
+            int32_t frame_count = spr->GetFrameCount();
+            if ((&this->bird_frame0)[i] < frame_count) {
+                spr->VMethod2(this->rect.left, this->rect.top, (&this->bird_frame0)[i], 0, 0);
+            }
+            else {
+                done_count++;
+            }
+        }
+        this->bmp_bird_overlay->VMethod10(this->rect.left, this->rect.top, 0, 0, this->bmp_bird_overlay->GetWidth(), this->bmp_bird_overlay->GetHeight());
+        if (done_count == this->active_bird) {
+            this->town_anim &= ~0x80u;
+        }
+        this->last_bird = timeGetTime();
+    }
+}
+
+
+// 4CE886
+void VisTown::VMethod7()
+{
+    static uint8_t anim_init_flags;   // byte_6669BC in asm
+    static uint32_t hover_tick;       // dword_66699C in asm
+    static uint32_t bird_anim_delay;  // dword_6669C4 in asm
+
+    if (this->dialog_active == 0) {
+        return;
+    }
+    if ((anim_init_flags & 1) == 0) {
+        anim_init_flags |= 1;
+        hover_tick = timeGetTime();
+    }
+    if ((anim_init_flags & 2) == 0) {
+        anim_init_flags |= 2;
+        bird_anim_delay = (uint32_t)(GetRandS16(2000) + 1000);
+    }
+    uint32_t now = timeGetTime();
+    if ((now - hover_tick) > 0x43) {
+        CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+        this->VMethod34(pt);
+        if (GetRandS16(100) > 0x5E) {
+            this->town_anim |= 0x40;
+        }
+        if (GetRandS16(100) > 0x61) {
+            this->town_anim |= 0x20;
+        }
+        this->VMethod38();
+        hover_tick = timeGetTime();
+    }
+    this->VMethod35();
+    if ((now - this->last_bird) > bird_anim_delay && (this->town_anim & 0x80) == 0) {
+        bird_anim_delay = (uint32_t)this->FUN_004ce64b();
+    }
+    LockSurface2();
+    if (this->bmp_bkg != nullptr) {
+        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+    }
+    this->FUN_004ce726();
+    if (this->hovered_action_mask == 1) {
+        this->bmp_shop_hover->VMethod2(this->rect.left + 0x108, this->rect.top + 0x108, 0, 0, 0);
+    }
+    if (this->hovered_action_mask == 2) {
+        this->bmp_tavern_hover->VMethod2(this->rect.left + 0x90, this->rect.top + 0x14C, 0, 0, 0);
+    }
+    if (this->spr_tavern != nullptr) {
+        this->spr_tavern->VMethod2(this->rect.left + 0x7C, this->rect.top + 0x138, this->tavern_frame, 0, 0);
+    }
+    if (this->bmp_cur_sign != nullptr) {
+        this->bmp_cur_sign->VMethod2(this->rect.left + 0x168, this->rect.top + 0xE8, 0, 0, 0);
+    }
+    if (this->bmp_cur_door != nullptr) {
+        this->bmp_cur_door->VMethod2(this->rect.left + 0xB4, this->rect.top + 0x94, 0, 0, 0);
+    }
+    if (this->bmp_cur_stars != nullptr) {
+        this->bmp_cur_stars->VMethod2(this->rect.left + 0x154, this->rect.top + 0x120, 0, 0, 0);
+    }
+    if (this->spr_shop != nullptr) {
+        this->spr_shop->VMethod2(this->rect.left + 0x114, this->rect.top + 0x128, this->shop_frame, 0, 0);
+    }
+    if (this->bmp_cur_flugel != nullptr) {
+        this->bmp_cur_flugel->VMethod2(this->rect.left + 0x134, this->rect.top + 0x40, 0, 0, 0);
+    }
+    if (this->spr_guard != nullptr) {
+        this->spr_guard->VMethod2(this->rect.left + 0xB8, this->rect.top + 0x9E, this->guard_frame, 0, 0);
+    }
+    if (this->spr_cur_horse != nullptr) {
+        if (this->horse_anim_index == 0) {
+            if (this->horse_frame == 0xE) {
+                CSound::Play((CSound&)this->sounds[11]);
+            }
+        }
+        else if (this->horse_anim_index == 1) {
+            if (this->horse_frame == 8) {
+                CSound::Play((CSound&)this->sounds[11]);
+            }
+            if (this->horse_frame == 0xE) {
+                CSound::Play((CSound&)this->sounds[11]);
+            }
+        }
+        else if (this->horse_anim_index == 2) {
+            if (this->horse_frame == 1) {
+                CSound::Play((CSound&)this->sounds[13]);
+            }
+            if (this->horse_frame == 0xE) {
+                CSound::Play((CSound&)this->sounds[11]);
+            }
+        }
+        if (this->horse_frame == -1) {
+            this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, 0, 0, 0);
+        }
+        else {
+            this->spr_cur_horse->VMethod2(this->rect.left + this->horse_position.x, this->rect.top + this->horse_position.y, this->horse_frame, 0, 0);
+        }
+    }
+    if (this->spr_cur_bbird != nullptr) {
+        if (this->bbird_frame == -1) {
+            this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, 0, 0, 0);
+        }
+        else {
+            this->spr_cur_bbird->VMethod2(this->rect.left + this->bbird_position.x, this->rect.top + this->bbird_position.y, this->bbird_frame, 0, 0);
+        }
+    }
+    if (this->spr_dervish != nullptr) {
+        this->spr_dervish->VMethod2(this->rect.left + this->dervish_position.x, this->rect.top + this->dervish_position.y, this->dervish_frame, 0, 0);
+    }
+    UnlockSurface2();
+    this->VisScreen::VMethod7();
+}
