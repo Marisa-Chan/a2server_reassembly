@@ -19268,3 +19268,32 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
 }
+
+
+// 446E97
+void VisNetDlg::VMethod26()
+{
+    int32_t provider = g_CLlDriver.GetProvider();
+    if (provider == 0 || provider == 1) {
+        this->net_rect = this->rect;
+        this->rect = CRect(0, 0, 0x17C, 0xC4);
+        this->UpdateWinRect();
+
+        if (g_CLlDriver.GetProvider() == 1) {
+            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x77), g_font1, p_clrsh_Black, 0));
+        }
+        else {
+            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0xA3), g_font1, p_clrsh_Black, 0));
+        }
+
+        int32_t h = this->rect.Height();
+        int32_t w = this->rect.Width();
+        this->AddChild(new VisButton(2, w / 2 - 0x30, h / 2 + 0xC, w / 2 + 0x30, h / 2 + 0x24, txt_dialogs.GetLine(1), g_font1, nullptr, 0x47C, 0, ""));
+    }
+    else {
+        this->CreateSessionList();
+    }
+
+    this->selected = 0;
+    PostMessageA(g_MainWndHWND, 0x450, 0, 0);
+}
