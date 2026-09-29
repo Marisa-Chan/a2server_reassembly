@@ -18480,7 +18480,7 @@ loc_4303BD:                             ; CODE XREF: ?OnLButtonDown@VisCharSelle
 
 ; Attributes: bp-based frame
 
-sub_43072B      proc near               ; CODE XREF: ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z+63↓p
+?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ      proc near               ; CODE XREF: ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z+63↓p
 
 var_4           = dword ptr -4
 
@@ -18495,7 +18495,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43072B      endp
+?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -21277,95 +21277,6 @@ loc_4326E4:                             ; CODE XREF: ?MsgProc@VisCharSelect@@UAE
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006098E4↓o
-
-var_3C          = dword ptr -3Ch
-var_38          = POINT ptr -38h
-var_30          = dword ptr -30h
-pt              = POINT ptr -20h
-var_18          = dword ptr -18h
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 3Ch
-                mov     [ebp+var_3C], ecx
-                mov     ecx, dword ptr [ebp+var_3C]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [ecx+78h]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     edx, [ebp+var_18]
-                push    edx             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jnz     short loc_432752
-                mov     eax, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [eax+78h]
-                call    sub_43072B
-
-loc_432752:                             ; CODE XREF: ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z+5B↑j
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+var_38], ecx ; var_38.x
-                mov     edx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+var_38+4], edx ; var_38.y
-                mov     eax, dword ptr [ebp+var_38+4] ; var_38.y
-                push    eax
-                mov     ecx, dword ptr [ebp+var_38] ; var_38.x
-                push    ecx             ; pt
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     ecx, dword ptr [edx+74h]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     eax, [ebp+var_30]
-                push    eax             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_43279B
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-
-loc_43279B:                             ; CODE XREF: ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z+A4↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z      endp
 
 
 

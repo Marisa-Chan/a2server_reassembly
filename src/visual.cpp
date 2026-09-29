@@ -4141,6 +4141,22 @@ void VisCharSelect::OpenRenameWindow()
 }
 
 
+// 4326EA
+int32_t VisCharSelect::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    CPoint top_left = this->rect.TopLeft();
+    CRect btn_area = this->buttons->GetRect() + top_left;
+    if (!btn_area.PtInRect(pos)) {
+        this->buttons->ResetMouseBoxes();
+    }
+    CRect stats_area = this->vis_stats->GetRect() + top_left;
+    if (stats_area.PtInRect(pos)) {
+        g_Cursors[0]->Use();
+    }
+    return this->CVisualObject::OnMouseMove(wparam, pos);
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()

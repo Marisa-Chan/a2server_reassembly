@@ -683,6 +683,7 @@ public:
 
 	void FUN_00430850(); // 430850 in asm
 	void FUN_00430a1a(); // 430a1a in asm
+	void ResetMouseBoxes(); // 43072b in asm
 
 public:
 	VisCharSelect* parent_screen;

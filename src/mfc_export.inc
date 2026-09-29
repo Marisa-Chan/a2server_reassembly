@@ -1277,7 +1277,7 @@ externdef ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
 externdef ??_GVisCharSelect@@UAEPAXI@Z : proc
 externdef ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisCharSelect@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod26@VisCharSelect@@UAEXXZ : proc
 extern ?VMethod28@VisCharSelect@@UAEXXZ : proc
 extern ?DoClose@VisCharSelect@@UAEXI@Z : proc
@@ -1290,6 +1290,7 @@ externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
 externdef ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430850@VisCharSellectButtons@@QAEXXZ : proc
 externdef ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ : proc
+externdef ?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ : proc
 externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
 externdef ?FUN_004312b7@VisCharSellectList@@QAEXXZ : proc
