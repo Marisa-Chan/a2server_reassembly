@@ -1576,7 +1576,7 @@ externdef ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?LoadSamples@VisCharGenSkills@@QAEXI@Z : proc
-externdef ?FreeBitmaps@VisCharGenSkills@@QAEXXZ : proc
+extern ?FreeBitmaps@VisCharGenSkills@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenSkills::FreeBitmaps(void))
 externdef ?FreeSamples@VisCharGenSkills@@QAEXXZ : proc
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc

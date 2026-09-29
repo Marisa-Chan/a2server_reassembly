@@ -6884,6 +6884,46 @@ void VisCharGenSkills::LoadBitmaps(uint32_t mage_flag) {
 }
 
 
+// 42d6ed
+void VisCharGenSkills::FreeBitmaps() {
+    if (this->field_0x60[0] != nullptr) {
+        delete this->field_0x60[0];
+    }
+    this->field_0x60[0] = nullptr;
+    if (this->field_0x60[2] != nullptr) {
+        delete this->field_0x60[2];
+    }
+    this->field_0x60[2] = nullptr;
+    if (this->field_0x60[3] != nullptr) {
+        delete this->field_0x60[3];
+    }
+    this->field_0x60[3] = nullptr;
+    if (this->field_0x60[4] != nullptr) {
+        delete this->field_0x60[4];
+    }
+    this->field_0x60[4] = nullptr;
+    this->field_0x60[5] = nullptr;
+    if (this->field_0x60[1] != nullptr) {
+        delete this->field_0x60[1];
+    }
+    this->field_0x60[1] = nullptr;
+    for (int32_t i = 0; i < 5; i++) {
+        if (this->bmp_on[i] != nullptr) {
+            delete this->bmp_on[i];
+        }
+        this->bmp_on[i] = nullptr;
+        if (this->bmp_shine_off[i] != nullptr) {
+            delete this->bmp_shine_off[i];
+        }
+        this->bmp_shine_off[i] = nullptr;
+        if (this->bmp_shine_on[i] != nullptr) {
+            delete this->bmp_shine_on[i];
+        }
+        this->bmp_shine_on[i] = nullptr;
+    }
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
