@@ -1032,7 +1032,7 @@ externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
-externdef   ??0VisTown@@QAE@HHHHH@Z  : proc
+extern   ??0VisTown@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownDruid@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
@@ -1523,7 +1523,7 @@ externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 
 ;VisTown
-externdef ??_GVisTown@@UAEPAXI@Z : proc
+extern ??_GVisTown@@UAEPAXI@Z : proc
 externdef ?GetHint@VisTown@@UAEPBDXZ : proc
 externdef ?VMethod7@VisTown@@UAEXXZ : proc
 externdef ?VMethod8@VisTown@@UAEXPAVCRect@@@Z : proc
@@ -1535,7 +1535,15 @@ externdef ?VMethod26@VisTown@@UAEXXZ : proc
 externdef ?VMethod28@VisTown@@UAEXXZ : proc
 externdef ?DoClose@VisTown@@UAEXI@Z : proc
 externdef ?VMethod30@VisTown@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisTown@@UAEXH@Z : proc
+externdef ?VMethod31@VisTown@@UAEXXZ : proc
+externdef ?VMethod32@VisTown@@UAEXXZ : proc
+externdef ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
+externdef ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
+externdef ?VMethod35@VisTown@@UAEXXZ : proc
+externdef ?VMethod36@VisTown@@UAEXXZ : proc
+externdef ?VMethod37@VisTown@@UAEXXZ : proc
+externdef ?VMethod38@VisTown@@UAEXXZ : proc
+externdef ?VMethod39@VisTown@@UAEXXZ : proc
 ;VisTownDruid
 externdef ??_GVisTownDruid@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisTownDruid@@UAEXXZ : proc

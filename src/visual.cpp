@@ -15749,3 +15749,24 @@ void VisStartGame::LoadBitmaps()
         this->rightTorchFrames.Add(new CBmp64(name));
     }
 }
+
+
+// 4CDA5C
+VisTown::VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 4D6B80, real body 4CDC78
+VisTown::~VisTown()
+{
+    this->VMethod37();
+    this->VMethod31();
+    if (this->tips != nullptr) {
+        this->RemoveChild(this->tips);
+        delete this->tips;
+        this->tips = nullptr;
+    }
+}

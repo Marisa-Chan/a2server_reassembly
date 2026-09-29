@@ -2032,7 +2032,16 @@ public:
 	virtual void DoClose(uint32_t code) override; // 4CE310
 
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r); // 4D1723
-	virtual void VMethod31(int32_t code); // 4D184A
+	virtual void VMethod31(); // 4D184A
+
+	virtual void VMethod32(); // 4D1709
+	virtual int32_t VMethod33(CPoint pos); // 4D10F0
+	virtual void VMethod34(CPoint pos); // 4D1429
+	virtual void VMethod35(); // 4D12CB
+	virtual void VMethod36(); // 4CEEEF
+	virtual void VMethod37(); // 4CFD0E
+	virtual void VMethod38(); // 4D0E31
+	virtual void VMethod39(); // 4D15E3
 
 	VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c in asm
 public:
@@ -2111,7 +2120,7 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D3F18
 	virtual void VMethod28() override; // 4D1E80
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4D2AFF
-	virtual void VMethod31(int32_t code) override; // 4D2D1B
+	virtual void VMethod31() override; // 4D2D1B
 
 	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 in asm
 public:
@@ -2161,7 +2170,7 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D6802
 	virtual void VMethod28() override; // 4D4592
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 4D54CF
-	virtual void VMethod31(int32_t code) override; // 4D5682
+	virtual void VMethod31() override; // 4D5682
 
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a in asm
 public:
