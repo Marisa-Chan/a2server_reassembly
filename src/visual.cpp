@@ -17957,3 +17957,79 @@ void VisTownDruid::VMethod35()
         this->lizard_frame = 0;
     }
 }
+
+
+// 4D2E99
+void VisTownDruid::VMethod7()
+{
+    static uint8_t anim_init_flags;  // byte_6669A0 in asm
+    static uint32_t hover_tick;      // dword_6669A8 in asm
+    static uint32_t bird_anim_delay; // dword_6669C8 in asm
+
+    if (this->dialog_active == 0) {
+        return;
+    }
+    if ((anim_init_flags & 1) == 0) {
+        anim_init_flags |= 1;
+        hover_tick = timeGetTime();
+    }
+    if ((anim_init_flags & 2) == 0) {
+        anim_init_flags |= 2;
+        bird_anim_delay = (uint32_t)(GetRandS16(2000) + 1000);
+    }
+    uint32_t now = timeGetTime();
+    if ((now - hover_tick) > 100) {
+        CPoint pt(g_mousept.GetX(), g_mousept.GetY());
+        this->VMethod34(pt);
+        this->VMethod38();
+        hover_tick = timeGetTime();
+    }
+    this->VMethod35();
+    LockSurface2();
+    if (this->bmp_bkg != nullptr) {
+        this->bmp_bkg->VMethod2(this->rect.left, this->rect.top, 0, 0, 0);
+    }
+    if (this->hovered_action_mask == 1 || this->shop_group == 2) {
+        this->bmp_shop_hover->VMethod2(this->rect.left + 0x1A4, this->rect.top + 0xE0, 0, 0, 0);
+    }
+    if (this->shop_group < 0) {
+        if (this->hovered_action_mask == 1) {
+            this->shop_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x154, this->rect.top + 0xE0, 0, 0, 0);
+        }
+        else {
+            this->shop_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0x150, this->rect.top + 0xF4, 0, 0, 0);
+        }
+    }
+    else {
+        this->shop_frame_group[this->shop_group].GetAt(this->shop_frame)->VMethod2(
+            this->rect.left + 0x150 + (this->shop_group / 2) * 4,
+            this->rect.top + 0xF4 - (this->shop_group / 2) * 0x14, 0, 0, 0);
+    }
+    if (this->hovered_action_mask == 2 || this->tavern_group == 2) {
+        this->bmp_tavern_hover->VMethod2(this->rect.left, this->rect.top + 0xB8, 0, 0, 0);
+    }
+    if (this->tavern_group < 0) {
+        if (this->hovered_action_mask == 2) {
+            this->tavern_frame_group[2].GetAt(0)->VMethod2(this->rect.left + 0x98, this->rect.top + 0xB8, 0, 0, 0);
+        }
+        else {
+            this->tavern_frame_group[0].GetAt(0)->VMethod2(this->rect.left + 0xA4, this->rect.top + 0xC8, 0, 0, 0);
+        }
+    }
+    else {
+        this->tavern_frame_group[this->tavern_group].GetAt(this->tavern_frame)->VMethod2(
+            this->rect.left + 0xA4 - (this->tavern_group / 2) * 0xC,
+            this->rect.top + 0xC8 - (this->tavern_group / 2) * 0x10, 0, 0, 0);
+    }
+    if (this->lizard_variant < 0 || this->lizard_frame < 0) {
+        this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, 0, 0, 0);
+    }
+    else {
+        this->spr_lizard->VMethod2(this->rect.left, this->rect.top + 300, lizard_seqs[this->lizard_variant][this->lizard_frame] - 1, 0, 0);
+    }
+    if (this->bug_variant >= 0 && this->bug_frame >= 0) {
+        this->spr_bug->VMethod2(this->rect.left, this->rect.top + 0xD4, this->bug_variant * 0x3D + this->bug_frame, 0, 0);
+    }
+    UnlockSurface2();
+    this->VisScreen::VMethod7();
+}
