@@ -1540,8 +1540,8 @@ extern ?DoClose@VisTown@@UAEXI@Z : proc
 extern ?VMethod30@VisTown@@UAEXXZ : proc
 extern ?VMethod31@VisTown@@UAEXXZ : proc
 extern ?VMethod32@VisTown@@UAEXXZ : proc
-externdef ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
-externdef ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
+extern ?VMethod33@VisTown@@UAEHVCPoint@@@Z : proc
+extern ?VMethod34@VisTown@@UAEXVCPoint@@@Z : proc
 externdef ?VMethod35@VisTown@@UAEXXZ : proc
 externdef ?VMethod36@VisTown@@UAEXXZ : proc
 externdef ?VMethod37@VisTown@@UAEXXZ : proc

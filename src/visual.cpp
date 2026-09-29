@@ -16168,3 +16168,80 @@ void VisTown::VMethod39()
 {
     this->MsgProc(0x445, 0, 0);
 }
+
+
+// 4D10F0
+int32_t VisTown::VMethod33(CPoint pos)
+{
+    if (!this->rect.PtInRect(pos) || this->bmp_hover_mask == nullptr) {
+        return -1;
+    }
+    pos -= this->rect.TopLeft();
+    int32_t idx = pos.x + pos.y * 0x280;
+    uint8_t* data = (uint8_t*)this->bmp_hover_mask->GetData();
+    switch (data[idx]) {
+    case 0x20:
+        return 0x400;
+    case 0x40:
+        return 0x800;
+    case 0x50:
+        return 0x1000;
+    case 0x60:
+        return 0x200;
+    case 0x80:
+        return 2;
+    case 0x90:
+        return 1;
+    case 0xA0:
+        return 8;
+    case 0xB0:
+        return 0x10;
+    case 0xC0:
+        return 4;
+    }
+    return -1;
+}
+
+
+// 4D1429
+void VisTown::VMethod34(CPoint pos)
+{
+    int32_t mask = this->VMethod33(pos);
+    this->guard_frame_step = 1;
+    this->hovered_action_mask = mask;
+    switch (mask + 1) {
+    case 0:
+        ApplyCursor(g_Cursors[0]);
+        this->hover_snd_second = 0;
+        this->hover_snd_shop = 0;
+        break;
+    case 2:
+        if (rand() % 100 > 0x5F && (this->town_anim & 1) == 0) {
+            this->town_anim |= mask;
+        }
+        if (this->hover_snd_shop == 0) {
+            FUN_00438f20(&this->sounds[9]);
+            CSound::Play((CSound&)this->sounds[8]);
+            this->hover_snd_shop = 1;
+        }
+        this->hover_snd_second = 0;
+        break;
+    case 5:
+        break;
+    case 9:
+        if (ScenarioGetVar(0x301) == 0) {
+            this->guard_frame_step = -1;
+        }
+        else {
+            this->guard_frame_step = 1;
+        }
+        this->hover_snd_second = 0;
+        this->hover_snd_shop = 0;
+        break;
+    default:
+        this->town_anim |= mask;
+        this->hover_snd_second = 0;
+        this->hover_snd_shop = 0;
+        break;
+    }
+}

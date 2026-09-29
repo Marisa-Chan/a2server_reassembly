@@ -2064,7 +2064,7 @@ public:
 	int32_t bird_frame2;
 	CA16* spr_guard;
 	int32_t guard_frame;
-	uint32_t guard_frame_step;
+	int32_t guard_frame_step; // signed: compared against -1
 	int32_t guard_sound;
 	CA16* spr_cur_bbird;
 	CArray<CA16*> spr_bbird;
