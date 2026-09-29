@@ -108278,58 +108278,6 @@ loc_4B2898:                             ; CODE XREF: ?OnRButtonUp@VisCharInfo@@U
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisCharInfo@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060D054↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 9
-                jz      short loc_4B2AF4
-                jmp     short loc_4B2B35
-; ---------------------------------------------------------------------------
-
-loc_4B2AF4:                             ; CODE XREF: ?OnKeyDown@VisCharInfo@@UAEHI@Z+1B↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+418h]
-                and     edx, 400h
-                test    edx, edx
-                jnz     short loc_4B2B2E
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+418h]
-                and     ecx, 200h
-                test    ecx, ecx
-                jnz     short loc_4B2B2E
-                push    0
-                push    0
-                push    412h
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+48h]
-
-loc_4B2B2E:                             ; CODE XREF: ?OnKeyDown@VisCharInfo@@UAEHI@Z+30↑j
-                mov     eax, 1
-                jmp     short loc_4B2B37
-; ---------------------------------------------------------------------------
-
-loc_4B2B35:                             ; CODE XREF: ?OnKeyDown@VisCharInfo@@UAEHI@Z+1D↑j
-                xor     eax, eax
-
-loc_4B2B37:                             ; CODE XREF: ?OnKeyDown@VisCharInfo@@UAEHI@Z+5E↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisCharInfo@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

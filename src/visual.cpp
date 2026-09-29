@@ -7856,6 +7856,20 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos)
     return 1;
 }
 
+// 4B2AD5
+int32_t VisCharInfo::OnKeyDown(uint32_t wparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (wparam != 9) {
+        return 0;
+    }
+
+    if ((main_wnd->dialogsMask & 0x400) == 0 && (main_wnd->dialogsMask & 0x200) == 0) {
+        this->MsgProc(0x412, 0, 0);
+    }
+    return 1;
+}
+
 // 4B201C
 int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
