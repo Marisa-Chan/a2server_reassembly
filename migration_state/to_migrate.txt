@@ -314,7 +314,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-??1VisCharGenSkills@@UAE@XZ	34
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDblClk@VisCharInfo@@UAEHIVCPoint@@@Z	12

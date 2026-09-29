@@ -1567,15 +1567,6 @@ extern ?OnClickFwd@VisCharGen@@QAEXXZ : proc
 extern ?OnClickBack@VisCharGen@@QAEXXZ : proc
 extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 
-;VisCharGenSkills
-extern ??_GVisCharGenSkills@@UAEPAXI@Z :proc
-externdef ??1VisCharGenSkills@@UAE@XZ : proc
-extern ?GetHint@VisCharGenSkills@@UAEPBDXZ :proc   ; (public: virtual char const * __thiscall VisCharGenSkills::GetHint(void))
-extern ?VMethod7@VisCharGenSkills@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenSkills::VMethod7(void))
-extern ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenSkills::OnMouseMove(unsigned int,class CPoint))
-extern ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenSkills::OnLButtonDown(unsigned int,class CPoint))
-extern ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenSkills::OnLButtonUp(unsigned int,class CPoint))
-extern ?FreeBitmaps@VisCharGenSkills@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenSkills::FreeBitmaps(void))
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
 externdef ?VMethod7@Vis1200@@UAEXXZ : proc
