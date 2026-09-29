@@ -17757,3 +17757,89 @@ void VisTownDruid::VMethod38()
         this->FUN_004d3520();
     }
 }
+
+
+// 4D359C
+void VisTownDruid::VMethod34(CPoint pos)
+{
+    int32_t mask = this->VMethod33(pos);
+    this->guard_frame_step = 1;
+    int32_t old_mask = this->hovered_action_mask;
+    this->hovered_action_mask = mask;
+    if (mask < 9) {
+        if (mask == 8) {
+            this->tavern_hover_snd_flag = 0;
+            this->hover_snd_shop = 0;
+            if (this->mission_exit_hover_snd_flag == 0) {
+                FUN_00438f20(&this->snd_shop_enter);
+                FUN_00438f20(&this->snd_tavern_enter);
+                CSound::Play((CSound&)this->snd_town_exit);
+                this->mission_exit_hover_snd_flag = 1;
+            }
+        }
+        else {
+            switch (mask + 1) {
+            case 0:
+                ApplyCursor(g_Cursors[0]);
+                this->tavern_hover_snd_flag = 0;
+                this->hover_snd_shop = 0;
+                this->mission_exit_hover_snd_flag = 0;
+                break;
+            case 2:
+                if (this->shop_group != 2 && old_mask != this->hovered_action_mask) {
+                    FUN_00438f20(&this->snd_shop);
+                    this->shop_tick = timeGetTime();
+                    this->shop_group = 2;
+                    this->shop_frame = -1;
+                    this->town_anim |= mask;
+                    this->FUN_004d3435();
+                    CSound::Play((CSound&)this->snd_shop);
+                }
+                if (this->hover_snd_shop == 0) {
+                    FUN_00438f20(&this->snd_tavern_enter);
+                    FUN_00438f20(&this->snd_town_exit);
+                    CSound::Play((CSound&)this->snd_shop_enter);
+                    this->hover_snd_shop = 1;
+                }
+                this->tavern_hover_snd_flag = 0;
+                this->mission_exit_hover_snd_flag = 0;
+                break;
+            case 3:
+                if (this->tavern_group != 2 && old_mask != this->hovered_action_mask) {
+                    FUN_00438f20(&this->snd_tavern);
+                    this->tavern_tick = timeGetTime();
+                    this->tavern_group = 2;
+                    this->tavern_frame = -1;
+                    this->town_anim |= mask;
+                    this->FUN_004d3384();
+                    CSound::Play((CSound&)this->snd_tavern);
+                }
+                if (this->tavern_hover_snd_flag == 0) {
+                    FUN_00438f20(&this->snd_shop_enter);
+                    FUN_00438f20(&this->snd_town_exit);
+                    CSound::Play((CSound&)this->snd_tavern_enter);
+                    this->tavern_hover_snd_flag = 1;
+                }
+                this->hover_snd_shop = 0;
+                this->mission_exit_hover_snd_flag = 0;
+                break;
+            case 5:
+                break;
+            default:
+                this->town_anim |= mask;
+                this->tavern_hover_snd_flag = 0;
+                this->hover_snd_shop = 0;
+                this->mission_exit_hover_snd_flag = 0;
+                break;
+            }
+        }
+    }
+    else {
+        if (mask != 0x200 && mask != 0x1000) {
+            this->town_anim |= mask;
+            this->tavern_hover_snd_flag = 0;
+            this->hover_snd_shop = 0;
+            this->mission_exit_hover_snd_flag = 0;
+        }
+    }
+}

@@ -1568,7 +1568,7 @@ extern ?FUN_004d3384@VisTownDruid@@QAEXXZ : proc
 extern ?FUN_004d3435@VisTownDruid@@QAEXXZ : proc
 extern ?FUN_004d34b6@VisTownDruid@@QAEXXZ : proc
 extern ?FUN_004d3520@VisTownDruid@@QAEXXZ : proc
-externdef ?VMethod34@VisTownDruid@@UAEXVCPoint@@@Z : proc
+extern ?VMethod34@VisTownDruid@@UAEXVCPoint@@@Z : proc
 externdef ?VMethod35@VisTownDruid@@UAEXXZ : proc
 extern ?VMethod36@VisTownDruid@@UAEXXZ : proc
 extern ?VMethod37@VisTownDruid@@UAEXXZ : proc
