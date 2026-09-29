@@ -6993,6 +6993,20 @@ void VisCharGenSkills::LoadSamples(uint32_t mage_flag) {
 }
 
 
+// 42bfcc
+int32_t VisCharGenSkills::OnMouseMove(uint32_t wparam, CPoint pos) {
+    for (int32_t i = 0; i < 5; i++) {
+        this->field_0x10c[i] &= ~2;
+    }
+    int32_t hit = this->HitTest(pos);
+    if (hit == -1) {
+        return this->CVisualObject::OnMouseMove(wparam, pos);
+    }
+    this->field_0x10c[hit] |= 2;
+    return this->CVisualObject::OnMouseMove(wparam, pos);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0
