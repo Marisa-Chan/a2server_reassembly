@@ -468,6 +468,7 @@ public:
     void FUN_004903d0(); //4903d0
     void FUN_00491822(); //491822
     int FUN_0048ca7e(int mode); //48ca7e
+    void sub_48CD44(); //48cd44 in asm
     void FUN_004918ae(); //4918ae
 
     void FUN_00491f7d(int32_t vid_id); //491f7d

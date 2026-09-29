@@ -1724,6 +1724,7 @@ public:
 
 	void FUN_004caa69();
 
+	void sub_4CA925(int32_t idx); //4ca925 in asm
 	int32_t sub_4CA89B(int32_t id); //4ca89b
 	int32_t sub_4CA8E0(int32_t id); //4ca8e0
 	int32_t sub_41F9B0(); //41f9b0

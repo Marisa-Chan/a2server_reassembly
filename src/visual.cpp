@@ -7546,6 +7546,123 @@ const char* VisCharInfo::GetHint()
     return entry->FUN_00439973();
 }
 
+// 4B3A0D
+int32_t VisCharInfo::VMethod27(int32_t a)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    int32_t disallow = 0;
+    if (main_wnd->field_0x408 == nullptr) {
+        disallow = 1;
+    }
+
+    BigStruct2* map = this->map_context;
+    if (map->field_0x140 != 1) {
+        disallow = 1;
+    }
+
+    CUnit* unit = (CUnit*)map->field_0x138;
+    if (unit->map_player != map->my_main_unit) {
+        return 0;
+    }
+
+    if (a < 2 && (unit->last_action == 3 || unit->last_action == 7 || unit->last_action == 8)) {
+        disallow = 1;
+    }
+
+    TokenEntry* token = main_wnd->field_0x408;
+    if ((token->flg & 6) == 0 && token->item_id == 0xE4D) {
+        main_wnd->PostMessageA(0x463, 0, 0);
+    }
+
+    if (unit->FUN_0046c0c9(token) == 0) {
+        disallow = 1;
+    }
+    if (token->sub_43A6D5() == 0) {
+        disallow = 1;
+    }
+
+    int32_t spell_id = token->GetAttribute(0x2A);
+    if (spell_id != 0) {
+        if ((unit->unitFlags & 2) != 0) {
+            if (((1 << spell_id) & unit->spells) == 0) {
+                disallow = 1;
+            }
+        } else {
+            disallow = 1;
+        }
+    }
+
+    if (disallow != 0) {
+        main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+        return 0;
+    }
+
+    if ((token->flg & 0x10) != 0 && (token->flg & 1) != 0) {
+        int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+        main_wnd->vis_spellbook->sub_4CA925(removed);
+        map->sub_418F93(0xA);
+        return 0;
+    }
+
+    if ((token->flg & 1) != 0) {
+        TokenEntry* split = nullptr;
+        if (token->field_0x10 > 1) {
+            split = new TokenEntry(token);
+            split->field_0x10 -= 1;
+            token->field_0x10 = 1;
+        }
+
+        int32_t amount = token->field_0x10;
+        int32_t mode = main_wnd->FUN_0048ca7e(a + 1);
+        map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
+
+        if (split != nullptr) {
+            main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+            return 0;
+        }
+        if (main_wnd->field_0x408 != nullptr) {
+            delete main_wnd->field_0x408;
+        }
+        main_wnd->sub_48CD44();
+        return 0;
+    }
+
+    TokenEntry* old_token = unit->equipmentTokens[a];
+    if (old_token != nullptr) {
+        main_wnd->vis_invtype1->VMethod26(old_token, main_wnd->field_0x40c);
+        main_wnd->vis_invtype1->VMethod33(unit);
+    }
+
+    if (a == 0) {
+        if (token->sub_4396FB() != 0 && unit->equipmentTokens[1] != nullptr) {
+            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[1], main_wnd->field_0x40c);
+            main_wnd->vis_invtype1->VMethod33(unit);
+            unit->equipmentTokens[1] = nullptr;
+        }
+    }
+
+    if (a == 1) {
+        if (unit->equipmentTokens[0] != nullptr && unit->equipmentTokens[0]->sub_4396FB() != 0) {
+            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[0], main_wnd->field_0x40c);
+            main_wnd->vis_invtype1->VMethod33(unit);
+            unit->equipmentTokens[0] = nullptr;
+        }
+    }
+
+    unit->unitFlags |= 8;
+    this->MsgProc(0x408, 0, 0);
+    unit->equipmentTokens[a] = main_wnd->field_0x408;
+
+    int32_t amount = main_wnd->field_0x408->field_0x10;
+    int32_t mode = main_wnd->FUN_0048ca7e(a + 1);
+    map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
+
+    main_wnd->sub_48CD44();
+    unit->ReloadSprite();
+    main_wnd->vis_root->MsgProc(0x46E, (uint32_t)main_wnd->m_hWnd, 0);
+    return (int32_t)old_token;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
