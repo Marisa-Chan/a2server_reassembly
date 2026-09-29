@@ -4168,6 +4168,18 @@ int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 432655
+void VisCharSelect::FUN_00432655(CUnit* unit)
+{
+    if (unit != nullptr) {
+        unit->VMethod1(1);
+        unit->unitFlags |= 8;
+    }
+    this->map_context->field_0x138 = unit;
+    this->map_context->UpdateSelectionState();
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()

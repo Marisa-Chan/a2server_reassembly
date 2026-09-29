@@ -1273,7 +1273,7 @@ extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 
 
 ;VisCharSelect
-externdef ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
+extern ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
 externdef ??_GVisCharSelect@@UAEPAXI@Z : proc
 externdef ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisCharSelect@@UAEHIII@Z : proc

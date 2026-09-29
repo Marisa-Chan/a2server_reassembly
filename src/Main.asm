@@ -21188,40 +21188,6 @@ sub_431F18      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z       proc near               ; CODE XREF: ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z+2E2↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 0
-                jz      short loc_432684
-                push    1
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax+1B8h]
-                or      ecx, 8
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [edx+1B8h], ecx
-
-loc_432684:                             ; CODE XREF: ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z +B↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+138h], edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+70h]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z       endp
 
 
 ; =============== S U B R O U T I N E =======================================
