@@ -6903,7 +6903,7 @@ void VisCharGenSkills::FreeBitmaps() {
         delete this->field_0x60[4];
     }
     this->field_0x60[4] = nullptr;
-    this->field_0x60[5] = nullptr;
+    this->field_0x60[5] = nullptr; // WAT: vanilla doesn't free the memory here.
     if (this->field_0x60[1] != nullptr) {
         delete this->field_0x60[1];
     }
