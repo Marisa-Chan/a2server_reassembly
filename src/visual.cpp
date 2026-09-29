@@ -18959,3 +18959,59 @@ void VisNetDlg::CreateSessionList()
     this->AddChild(exit_btn);
     exit_btn->SetLeftObj(this->FindChild(0xE));
 }
+
+static char* netdlg_selected_name = nullptr;    // 659960 "-COMPUTERNAME-" anchor used to sort sessions
+
+
+// 44791E
+static int __cdecl CompareSessionsByName(const void* elem1, const void* elem2)
+{
+    if (strcmp((const char*)elem1, netdlg_selected_name) == 0) {
+        return -1;
+    }
+    if (strcmp((const char*)elem2, netdlg_selected_name) == 0) {
+        return 1;
+    }
+    return strcmp((const char*)elem1, (const char*)elem2);
+}
+
+
+// 447C27
+void VisNetDlg::CachePlayerRows()
+{
+    for (int32_t i = 0; i < this->cached_player_rows.GetSize(); i++) {
+        CStringArray* row = this->cached_player_rows.GetAt(i);
+        row->RemoveAll();
+        if (row != nullptr) {
+            delete row;
+        }
+    }
+    this->cached_player_rows.RemoveAll();
+
+    char* comp_name = new char[0x14];
+    netdlg_selected_name = comp_name;
+    comp_name[0] = '-';
+    unsigned long name_size = 0x11;
+    GetComputerNameA(comp_name + 1, &name_size);
+    strcat(comp_name, "-");
+
+    if (this->sessions->sessions != nullptr && this->sessions->num_sessions != 0) {
+        qsort(this->sessions->sessions, this->sessions->num_sessions, sizeof(CLlNetSession), CompareSessionsByName);
+    }
+    delete[] comp_name;
+
+    this->cached_player_rows.SetSize(this->sessions->num_sessions, -1);
+    for (int32_t i = 0; i < this->sessions->num_sessions; i++) {
+        CLlName* names = nullptr;
+        int32_t num_names = 0;
+        g_CLlDriver.EnumPlayers(&this->sessions->sessions[i], &names, &num_names);
+
+        CStringArray* row = new CStringArray();
+        row->SetSize(num_names, -1);
+        for (int32_t j = 0; j < num_names; j++) {
+            CString name(names[j].name);
+            row->ElementAt(j) = name;
+        }
+        this->cached_player_rows.ElementAt(i) = row;
+    }
+}
