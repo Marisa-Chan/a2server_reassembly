@@ -7024,6 +7024,16 @@ const char* VisCharGenSkills::GetHint() {
 }
 
 
+// 42da5a
+void VisCharGenSkills::FreeSamples() {
+    FUN_00438dd0(&this->field_0x120[0]);
+    FUN_00438dd0(&this->field_0x120[1]);
+    FUN_00438dd0(&this->field_0x120[2]);
+    FUN_00438dd0(&this->field_0x120[3]);
+    FUN_00438dd0(&this->field_0x120[4]);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

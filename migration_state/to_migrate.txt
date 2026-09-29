@@ -316,7 +316,6 @@
 ?VMethod26@Vis2Action@@UAEXXZ	213
 ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z	22
 ??_GVisCharGenSkills@@UAEPAXI@Z	24
-?FreeSamples@VisCharGenSkills@@QAEXXZ	36
 ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z	69
 ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z	111
 ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ	196

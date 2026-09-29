@@ -1578,7 +1578,6 @@ extern ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z :proc   ; (public: virt
 externdef ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 extern ?FreeBitmaps@VisCharGenSkills@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenSkills::FreeBitmaps(void))
-externdef ?FreeSamples@VisCharGenSkills@@QAEXXZ : proc
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
 externdef ?VMethod7@Vis1200@@UAEXXZ : proc

@@ -17081,43 +17081,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?FreeSamples@VisCharGenSkills@@QAEXXZ      proc near               ; CODE XREF: ?DoClose@VisCharGen@@UAEXI@Z+142↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 120h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 124h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 128h
-                push    edx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 12Ch
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 130h
-                push    ecx
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreeSamples@VisCharGenSkills@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
