@@ -7905,6 +7905,27 @@ int32_t VisCharInfo::VMethod28()
     return 1;
 }
 
+// 4B16C3
+VisCharInfo::VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->field_64 = 0;
+    this->dirty = 0;
+    this->selection_panel_state = 0;
+    this->spell_panel_state = 0;
+    this->info_mode = 1;
+    this->bitmap = new CBmp64(0xF0, 0xA0);
+    this->picturename[0] = 0;
+    this->hitmap = new CBmp256(0xF0, 0xA0);
+}
+
+// 4B1909
+VisCharInfo::~VisCharInfo()
+{
+    delete this->bitmap;
+    delete this->hitmap;
+}
+
 // 4B201C
 int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
