@@ -4015,6 +4015,73 @@ void VisCharSelect::VMethod26()
 }
 
 
+// 438D30
+CUnit* VisCharSelect::GetSelectedMapUnit()
+{
+    return this->map_context->GetUnit_3f6c();
+}
+
+
+// 432280
+void VisCharSelect::LoadSfx()
+{
+    this->FreeSfx();
+    FUN_00438e40(&this->snd_ok, "SFX\\Click_Ok.wav");
+    FUN_00438e40(&this->snd_rename, "SFX\\Rename.wav");
+    FUN_00438e40(&this->snd_delete, "SFX\\Delete.wav");
+    FUN_00438e40(&this->snd_cancel, "SFX\\Undo.wav");
+}
+
+
+// 4322ED
+void VisCharSelect::FreeSfx()
+{
+    FUN_00438dd0(&this->snd_ok);
+    FUN_00438dd0(&this->snd_rename);
+    FUN_00438dd0(&this->snd_delete);
+    FUN_00438dd0(&this->snd_cancel);
+}
+
+
+// 43233E
+void VisCharSelect::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->session = &main_wnd->m_GameSession;
+    g_mousept.DisableHint();
+    this->session->RefreshCharacterRosterFiles(1);
+    this->info_panel = main_wnd->vis_charinfo;
+    this->map_context = main_wnd->vis_map_context;
+    this->map_context->quest_some_id_2 = 0;
+    this->map_context->quest_landmark_some_id = 0;
+    this->map_context->quest_building_some_id = 0;
+    this->map_context->quest_some_id = 0;
+    this->selected_unit = this->GetSelectedMapUnit();
+    this->vis_stats->FUN_0042f6f3();
+    if (this->session->GetStringArray1Size() > 1) {
+        this->FUN_00432655(this->selected_unit);
+    }
+    main_wnd->vis_right_panel->RemoveChild(this->info_panel);
+    CRect& rc = this->info_panel->GetRect();
+    OffsetRect(&rc, 0x280 - rc.Width(), 0);
+    this->info_panel->SetRect(&rc);
+    this->AddChild(this->info_panel);
+    this->LoadSfx();
+    this->vis_stats->FUN_0042f4df();
+    this->buttons->FUN_00430850();
+    this->roster_list->FUN_004312b7();
+    this->roster_list->FUN_00430fad();
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    this->VisScreen::VMethod28();
+    g_Cursors[0]->Use();
+    this->active_flag = 1;
+    g_mousept.EnableHint();
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()

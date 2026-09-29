@@ -642,6 +642,10 @@ public:
 
 	void FUN_00432655(CUnit* unit);
 
+	void LoadSfx(); // 432280
+	void FreeSfx(); // 4322ed
+	CUnit* GetSelectedMapUnit(); // 438d30
+
 	VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //431eac in asm
 
 public:
@@ -676,6 +680,8 @@ public:
 
 	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c in asm
 
+	void FUN_00430850(); // 430850 in asm
+
 public:
 	VisCharSelect* parent_screen;
 	CStringArray field_0x60;
@@ -706,6 +712,9 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 431B95
 
 	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb in asm
+
+	void FUN_00430fad(); // 430fad in asm
+	void FUN_004312b7(); // 4312b7 in asm
 
 public:
 	VisCharSelect* parent_screen;
@@ -744,6 +753,8 @@ public:
 	void FUN_0042f6f3();
 
 	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
+
+	void FUN_0042f4df(); // 42f4df in asm
 
 public:
 	VisCharSelect* parent_screen;
