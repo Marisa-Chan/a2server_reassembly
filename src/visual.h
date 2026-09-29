@@ -2187,6 +2187,12 @@ public:
 	virtual void VMethod28() override; // 4D4592
 	virtual void VMethod30() override; // 4D54CF
 	virtual void VMethod31() override; // 4D5682
+	virtual void VMethod32() override; // 4D54B5
+	virtual void VMethod34(CPoint pos) override; // 4D5C9A
+	virtual void VMethod35() override; // 4D5EF0
+	virtual void VMethod36() override; // 4D4866
+	virtual void VMethod37() override; // 4D5112
+	virtual void VMethod38() override; // 4D6786
 
 	VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a in asm
 public:

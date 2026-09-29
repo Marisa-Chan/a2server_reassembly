@@ -16768,3 +16768,29 @@ void VisTown::VMethod36()
     this->horse_frame = -1;
     this->dervish_frame = -1;
 }
+
+
+// 4D423A
+VisTownKaarg::VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisTown(_id, l, t, r, b)
+{
+    for (int32_t i = 0; i < 3; i++) {
+        this->snd_voice[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->snd_bird[i] = nullptr;
+    }
+    this->snd_voice1 = nullptr;
+    this->snd_shop_enter = nullptr;
+    this->snd_tavern_enter = nullptr;
+    this->snd_dervish = nullptr;
+    for (int32_t i = 0; i < 6; i++) {
+        this->snd_guard[i] = nullptr;
+    }
+}
+
+
+// 4D6C90
+VisTownKaarg::~VisTownKaarg()
+{
+}

@@ -1034,7 +1034,6 @@ extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
 extern   ??0VisTown@@QAE@HHHHH@Z  : proc
 externdef   ??0VisTownDruid@@QAE@HHHHH@Z  : proc
-externdef   ??0VisTownKaarg@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
@@ -1566,13 +1565,19 @@ externdef ?VMethod28@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod30@VisTownDruid@@UAEXXZ : proc
 externdef ?VMethod31@VisTownDruid@@UAEXH@Z : proc
 ;VisTownKaarg
-externdef ??_GVisTownKaarg@@UAEPAXI@Z : proc
+extern ??_GVisTownKaarg@@UAEPAXI@Z : proc
 externdef ?GetHint@VisTownKaarg@@UAEPBDXZ : proc
 externdef ?VMethod7@VisTownKaarg@@UAEXXZ : proc
 externdef ?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod28@VisTownKaarg@@UAEXXZ : proc
 externdef ?VMethod30@VisTownKaarg@@UAEXXZ : proc
-externdef ?VMethod31@VisTownKaarg@@UAEXH@Z : proc
+externdef ?VMethod31@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod32@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod34@VisTownKaarg@@UAEXVCPoint@@@Z : proc
+externdef ?VMethod35@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod36@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod37@VisTownKaarg@@UAEXXZ : proc
+externdef ?VMethod38@VisTownKaarg@@UAEXXZ : proc
 ;VisCredits
 externdef ??_GVisCredits@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisCredits@@UAEXXZ : proc
