@@ -533,10 +533,3 @@
 ?MsgProc@VisTipsDialog@@UAEHIII@Z	71
 ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z	77
 ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z	377
-??_GVisTownDruid@@UAEPAXI@Z	24
-??0VisTownDruid@@QAE@HHHHH@Z	113
-?VMethod31@VisTownDruid@@UAEXH@Z	116
-?OnLButtonDown@VisTownDruid@@UAEHIVCPoint@@@Z	143
-?VMethod30@VisTownDruid@@UAEXXZ	147
-?VMethod28@VisTownDruid@@UAEXXZ	216
-?VMethod7@VisTownDruid@@UAEXXZ	440
