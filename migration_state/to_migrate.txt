@@ -540,11 +540,3 @@
 ?VMethod30@VisTownDruid@@UAEXXZ	147
 ?VMethod28@VisTownDruid@@UAEXXZ	216
 ?VMethod7@VisTownDruid@@UAEXXZ	440
-??_GVisTownKaarg@@UAEPAXI@Z	24
-?VMethod31@VisTownKaarg@@UAEXH@Z	96
-??0VisTownKaarg@@QAE@HHHHH@Z	119
-?VMethod30@VisTownKaarg@@UAEXXZ	119
-?GetHint@VisTownKaarg@@UAEPBDXZ	141
-?OnLButtonDown@VisTownKaarg@@UAEHIVCPoint@@@Z	187
-?VMethod28@VisTownKaarg@@UAEXXZ	217
-?VMethod7@VisTownKaarg@@UAEXXZ	445
