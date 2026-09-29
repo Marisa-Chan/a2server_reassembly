@@ -16245,3 +16245,25 @@ void VisTown::VMethod34(CPoint pos)
         break;
     }
 }
+
+
+// 4D12CB
+void VisTown::VMethod35()
+{
+    uint32_t now = timeGetTime();
+    if ((now - this->bbird_last_tick) > (uint32_t)this->bbird_delay) {
+        this->bbird_delay = GetRandS16(5000) + 2000;
+        this->bbird_last_tick = now;
+        this->bbird_frame = 0;
+        this->spr_cur_bbird = this->spr_bbird.GetAt(GetRandS16(this->spr_bbird.GetSize()));
+        this->town_anim |= 0x200;
+    }
+    if ((now - this->horse_last_tick) > (uint32_t)this->horse_delay) {
+        this->horse_delay = GetRandS16(5000) + 2000;
+        this->horse_last_tick = now;
+        this->horse_frame = 0;
+        this->horse_anim_index = GetRandS16(this->spr_horse.GetSize());
+        this->spr_cur_horse = this->spr_horse.GetAt(this->horse_anim_index);
+        this->town_anim |= 0x100;
+    }
+}
