@@ -316,7 +316,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?sub_4B36B4@VisCharInfo@@QAEXXZ	185
 ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z	11
 ??_GVisCharSelect@@UAEPAXI@Z	24
 ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z	33
