@@ -126782,54 +126782,6 @@ jpt_4D3C36      dd offset loc_4D3C3D    ; DATA XREF: ?VMethod35@VisTownDruid@@UA
 
 ; Attributes: bp-based frame
 
-?VMethod38@VisTownDruid@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060DD08↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+208h]
-                and     ecx, 1
-                test    ecx, ecx
-                jz      short loc_4D3EC6
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_004d3435@VisTownDruid@@QAEXXZ
-
-loc_4D3EC6:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+15↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+208h]
-                and     eax, 2
-                test    eax, eax
-                jz      short loc_4D3EDE
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_004d3384@VisTownDruid@@QAEXXZ
-
-loc_4D3EDE:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+2D↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+208h]
-                and     edx, 80h
-                test    edx, edx
-                jz      short loc_4D3EF9
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_004d34b6@VisTownDruid@@QAEXXZ
-
-loc_4D3EF9:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+48↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+208h]
-                and     ecx, 100h
-                test    ecx, ecx
-                jz      short loc_4D3F14
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_004d3520@VisTownDruid@@QAEXXZ
-
-loc_4D3F14:                             ; CODE XREF: ?VMethod38@VisTownDruid@@UAEXXZ+63↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod38@VisTownDruid@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

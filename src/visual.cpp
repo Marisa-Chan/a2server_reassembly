@@ -17739,3 +17739,21 @@ void VisTownDruid::VMethod37()
         this->tavern_frame_group[g].RemoveAll();
     }
 }
+
+
+// 4D3EA7
+void VisTownDruid::VMethod38()
+{
+    if ((this->town_anim & 1) != 0) {
+        this->FUN_004d3435();
+    }
+    if ((this->town_anim & 2) != 0) {
+        this->FUN_004d3384();
+    }
+    if ((this->town_anim & 0x80) != 0) {
+        this->FUN_004d34b6();
+    }
+    if ((this->town_anim & 0x100) != 0) {
+        this->FUN_004d3520();
+    }
+}
