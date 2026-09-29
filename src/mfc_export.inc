@@ -1574,7 +1574,7 @@ extern ?VMethod30@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod31@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod32@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod34@VisTownKaarg@@UAEXVCPoint@@@Z : proc
-externdef ?VMethod35@VisTownKaarg@@UAEXXZ : proc
+extern ?VMethod35@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod36@VisTownKaarg@@UAEXXZ : proc
 extern ?VMethod37@VisTownKaarg@@UAEXXZ : proc
 extern ?FUN_004d6480@VisTownKaarg@@QAEXXZ : proc

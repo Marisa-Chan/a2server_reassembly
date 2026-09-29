@@ -17146,3 +17146,134 @@ void VisTownKaarg::VMethod38()
     }
     this->FUN_004d6480();
 }
+
+
+// 4D5EF0
+void VisTownKaarg::VMethod35()
+{
+    static uint8_t timer_init_flags; // byte_6669AC in asm
+    static uint32_t voice_delay;     // dword_666994 in asm
+    static uint32_t bird_delay;      // dword_6669B0 in asm
+
+    uint32_t now = timeGetTime();
+    if ((now - this->dervish_tick) > (uint32_t)this->dervish_delay) {
+        this->dervish_delay = GetRandS16(500) + 0xE74;
+        this->dervish_tick = now;
+        this->dervish_frame = 0;
+        this->town_anim |= 0x400;
+    }
+    if ((now - this->bbird_last_tick) > (uint32_t)this->bbird_delay) {
+        this->bbird_delay = GetRandS16(5000) + 0xDAC;
+        this->bbird_last_tick = now;
+        this->bbird_frame = 0;
+        this->girl1_group = GetRandS16(2);
+        this->town_anim |= 0x200;
+    }
+    if ((now - this->girl2_tick) > (uint32_t)this->girl2_delay) {
+        this->girl2_delay = GetRandS16(5000) + 0xDAC;
+        this->girl2_tick = now;
+        this->girl2_frame = 0;
+        this->girl2_group = GetRandS16(2);
+        this->town_anim |= 4;
+    }
+    if ((now - this->guard_tick) > (uint32_t)this->guard_delay) {
+        this->guard_delay = GetRandS16(5000) + 0x1D4C;
+        this->guard_tick = now;
+        this->fighter_frame = 0;
+        this->town_anim |= 0x800;
+    }
+    if ((timer_init_flags & 1) == 0) {
+        timer_init_flags |= 1;
+        voice_delay = (uint32_t)(GetRandS16(2000) + 2000);
+    }
+    if ((timer_init_flags & 2) == 0) {
+        timer_init_flags |= 2;
+        bird_delay = (uint32_t)(GetRandS16(2000) + 2000);
+    }
+    if ((now - this->last_bird) > voice_delay) {
+        this->active_bird = GetRandS16(3) + 1;
+        if (this->active_bird == 1) {
+            CSound::Play((CSound&)this->snd_voice[0]);
+        }
+        else if (this->active_bird == 2) {
+            CSound::Play((CSound&)this->snd_voice[1]);
+        }
+        else if (this->active_bird == 3) {
+            CSound::Play((CSound&)this->snd_voice[2]);
+        }
+        voice_delay = (uint32_t)(GetRandS16(2000) + 2000);
+        this->last_bird = timeGetTime();
+    }
+    if ((now - this->bird_snd_tick) > bird_delay) {
+        switch (GetRandS16(4)) {
+        case 0:
+            CSound::Play((CSound&)this->snd_bird[0]);
+            break;
+        case 1:
+            CSound::Play((CSound&)this->snd_bird[1]);
+            break;
+        case 2:
+            CSound::Play((CSound&)this->snd_bird[2]);
+            break;
+        case 3:
+            CSound::Play((CSound&)this->snd_bird[3]);
+            break;
+        }
+        bird_delay = (uint32_t)(GetRandS16(2000) + 2000);
+        this->bird_snd_tick = timeGetTime();
+    }
+    if ((now - this->dervish_snd_tick) > 45000) {
+        CSound::Play((CSound&)this->snd_dervish);
+        this->dervish_snd_tick = timeGetTime();
+    }
+    if ((this->town_anim & 0x800) != 0) {
+        switch (this->fighter_frame) {
+        case 5:
+        case 0xD:
+        case 0x15:
+        case 0x2F:
+        case 0x37:
+        case 0x3F:
+            if (this->guard_snd_flag == 0) {
+                if (GetRandS16(4) == 0) {
+                    CSound::Play((CSound&)this->snd_guard[1]);
+                }
+                else {
+                    CSound::Play((CSound&)this->snd_guard[0]);
+                }
+                this->guard_snd_flag = 1;
+            }
+            break;
+        case 9:
+        case 0x11:
+        case 0x17:
+        case 0x33:
+        case 0x3B:
+            if (this->guard_snd_flag == 0) {
+                if (GetRandS16(4) == 0) {
+                    CSound::Play((CSound&)this->snd_guard[3]);
+                }
+                else {
+                    CSound::Play((CSound&)this->snd_guard[2]);
+                }
+                this->guard_snd_flag = 1;
+            }
+            break;
+        case 0x1F:
+        case 0x45:
+            if (this->guard_snd_flag == 0) {
+                if (GetRandS16(4) == 0) {
+                    CSound::Play((CSound&)this->snd_guard[5]);
+                }
+                else {
+                    CSound::Play((CSound&)this->snd_guard[4]);
+                }
+                this->guard_snd_flag = 1;
+            }
+            break;
+        default:
+            this->guard_snd_flag = 0;
+            break;
+        }
+    }
+}
