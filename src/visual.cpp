@@ -16846,3 +16846,67 @@ void VisTownKaarg::VMethod31()
         FUN_00438dd0(&this->snd_guard[i]);
     }
 }
+
+
+// 4D5C9A
+void VisTownKaarg::VMethod34(CPoint pos)
+{
+    int32_t mask = this->VMethod33(pos);
+    this->guard_frame_step = 1;
+    this->hovered_action_mask = mask;
+    if (mask < 9) {
+        if (mask == 8) {
+            this->tavern_snd_flag = 0;
+            this->hover_snd_shop = 0;
+            if (this->exit_snd_flag == 0) {
+                FUN_00438f20(&this->snd_shop_enter);
+                FUN_00438f20(&this->snd_tavern_enter);
+                this->exit_snd_flag = 1;
+            }
+        }
+        else {
+            switch (mask + 1) {
+            case 0:
+                ApplyCursor(g_Cursors[0]);
+                this->tavern_snd_flag = 0;
+                this->hover_snd_shop = 0;
+                this->exit_snd_flag = 0;
+                break;
+            case 2:
+                if (this->hover_snd_shop == 0) {
+                    FUN_00438f20(&this->snd_tavern_enter);
+                    CSound::Play((CSound&)this->snd_shop_enter);
+                    this->hover_snd_shop = 1;
+                }
+                this->tavern_snd_flag = 0;
+                this->exit_snd_flag = 0;
+                break;
+            case 3:
+                if (this->tavern_snd_flag == 0) {
+                    FUN_00438f20(&this->snd_shop_enter);
+                    CSound::Play((CSound&)this->snd_tavern_enter);
+                    this->tavern_snd_flag = 1;
+                }
+                this->hover_snd_shop = 0;
+                this->exit_snd_flag = 0;
+                break;
+            case 5:
+                break;
+            default:
+                this->town_anim |= mask;
+                this->tavern_snd_flag = 0;
+                this->hover_snd_shop = 0;
+                this->exit_snd_flag = 0;
+                break;
+            }
+        }
+    }
+    else {
+        if (mask != 0x200 && mask != 0x400 && mask != 0x800) {
+            this->town_anim |= mask;
+            this->tavern_snd_flag = 0;
+            this->hover_snd_shop = 0;
+            this->exit_snd_flag = 0;
+        }
+    }
+}
