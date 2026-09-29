@@ -7663,6 +7663,86 @@ int32_t VisCharInfo::VMethod27(int32_t a)
     return (int32_t)old_token;
 }
 
+// 4B2346
+int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    CRect screen_rect;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    int32_t moved_up;
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+        moved_up = 1;
+    } else {
+        moved_up = 0;
+    }
+
+    BigStruct2* map = this->map_context;
+
+    CRect backpack_rect(screen_rect.left, screen_rect.bottom - 0x28, screen_rect.left + 0x1C, screen_rect.bottom);
+    CRect ar1_rect(screen_rect.left + 1, screen_rect.top + 0xCD, screen_rect.left + 0x21, screen_rect.top + 0xED);
+    CRect ar2_rect(screen_rect.left + 0x77, screen_rect.top + 0xCD, screen_rect.left + 0x97, screen_rect.top + 0xED);
+    CRect diskette_rect(screen_rect.left + 0x7E, screen_rect.top + 0xCE, screen_rect.left + 0x9E, screen_rect.top + 0xEE);
+
+    if (main_wnd->field_0x408 != nullptr) {
+        TokenEntry* token = main_wnd->field_0x408;
+        if (token->field_0x18 == 2 || token->field_0x18 == 1) {
+            g_Cursors[0]->Use();
+            this->VMethod27(token->GetType() - 1);
+            return 1;
+        }
+        if (token->field_0x18 >= 5 && token->field_0x18 <= 8) {
+            ((VisShop*)main_wnd->vis_root->FindChild(0x3E8))->sub_4BC97B();
+            return 1;
+        }
+    }
+
+    if (main_wnd->dialogsMask == 1) {
+        if (backpack_rect.PtInRect(pos)) {
+            this->MsgProc(0x40E, 0, 0);
+            map->MsgProc(0x40E, 0, 0);
+        }
+    }
+
+    CRect book_rect(screen_rect.left, screen_rect.top, screen_rect.left + 0x1C, screen_rect.top + 0x24);
+    if ((main_wnd->dialogsMask & 3) != 0 && (main_wnd->dialogsMask & 4) == 0) {
+        if (book_rect.PtInRect(pos)) {
+            this->MsgProc(0x40F, 0, 0);
+            map->MsgProc(0x40F, 0, 0);
+            if ((main_wnd->dialogsMask & 2) != 0) {
+                main_wnd->vis_root->FindChild(0x3E8)->MsgProc(0x40F, 0, 0);
+            }
+        }
+    }
+
+    CRect mode_btn_rect(screen_rect.left + 0x80, screen_rect.top, screen_rect.right, screen_rect.top + 0x24);
+    if ((main_wnd->dialogsMask & 0x600) == 0) {
+        if (mode_btn_rect.PtInRect(pos) && moved_up == 0) {
+            this->MsgProc(0x412, 0, 0);
+            map->field_0xe0 = 1;
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 0x226) != 0) {
+        if (ar1_rect.PtInRect(pos)) {
+            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            main_wnd->vis_root->MsgProc(0x414, 0, 0);
+        }
+        if (ar2_rect.PtInRect(pos)) {
+            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            main_wnd->vis_root->MsgProc(0x415, 0, 0);
+        }
+    }
+
+    if ((main_wnd->dialogsMask & 1) != 0) {
+        if (diskette_rect.PtInRect(pos)) {
+            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            main_wnd->PostMessageA(0x416, 0, 0);
+        }
+    }
+    return 1;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
