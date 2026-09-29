@@ -321,7 +321,7 @@
 ??0VisCharGenSkills@@QAE@HHHHHPAVVisCharGen@@@Z	69
 ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z	77
 ?LoadSamples@VisCharGenSkills@@QAEXI@Z	80
-?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z	122
+?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z	111
 ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ	196
 ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12
 ?OnRButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z	12

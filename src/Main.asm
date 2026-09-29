@@ -16880,7 +16880,7 @@ loc_42BDD3:                             ; CODE XREF: ?DrawBlinkSlot@VisCharGenSk
                 mov     edx, dword ptr [ebp+var_8]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_1C]
-                call    sub_42DADF
+                call    ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z
                 mov     [ebp+var_10], eax
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     ecx, dword ptr [eax+5Ch]
@@ -17062,7 +17062,7 @@ loc_42C00C:                             ; CODE XREF: ?OnMouseMove@VisCharGenSkil
                 mov     ecx, dword ptr [ebp+arg_4]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_C]
-                call    sub_42DADF
+                call    ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z
                 mov     [ebp+var_8], eax
                 cmp     [ebp+var_8], 0FFFFFFFFh
                 jnz     short loc_42C03B
@@ -17105,129 +17105,6 @@ loc_42C06C:                             ; CODE XREF: ?OnMouseMove@VisCharGenSkil
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609684↓o
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42DADF
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 0FFFFFFFFh
-                jz      short loc_42C09A
-                cmp     [ebp+var_C], 4
-                jl      short loc_42C0B3
-
-loc_42C09A:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+20↑j
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                jmp     loc_42C1A5
-; ---------------------------------------------------------------------------
-
-loc_42C0B3:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+26↑j
-                mov     [ebp+var_8], 0
-                jmp     short loc_42C0C5
-; ---------------------------------------------------------------------------
-
-loc_42C0BC:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+76↓j
-                mov     edx, dword ptr [ebp+var_8]
-                add     edx, 1
-                mov     [ebp+var_8], edx
-
-loc_42C0C5:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+48↑j
-                cmp     [ebp+var_8], 4
-                jge     short loc_42C0EA
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+eax*4+10Ch]
-                and     edx, 0FFFFFFFEh
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+eax*4+10Ch], edx
-                jmp     short loc_42C0BC
-; ---------------------------------------------------------------------------
-
-loc_42C0EA:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+57↑j
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+edx*4+10Ch]
-                or      ecx, 1
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [eax+edx*4+10Ch], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+var_C]
-                mov     [ecx+134h], edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ebp+var_10]
-                lea     edx, [ecx+eax*4+120h]
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_C]
-                add     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+70h]
-                mov     ecx, dword ptr [eax+1DCh]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+70h]
-                mov     edx, dword ptr [ecx+1D8h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+70h]
-                mov     eax, dword ptr [edx+1D4h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+70h]
-                mov     ecx, dword ptr [eax+1D0h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 468h
-                call    ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z
-                mov     edx, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [edx+5Ch]
-                call    ?ShowTipHint@VisCharGen@@QAEXXZ
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-
-loc_42C1A5:                             ; CODE XREF: ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z+3C↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -17406,7 +17283,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_42DADF      proc near               ; CODE XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+A6↑p
+?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z      proc near               ; CODE XREF: ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ+A6↑p
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -17430,7 +17307,7 @@ arg_4           = dword ptr  0Ch
                 jmp     loc_42DBC8
 ; ---------------------------------------------------------------------------
 
-loc_42DAFF:                             ; CODE XREF: sub_42DADF+16↑j
+loc_42DAFF:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+16↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 mov     dword ptr [ebp+pt], edx ; pt.x
                 mov     eax, dword ptr [ebp+arg_4]
@@ -17449,7 +17326,7 @@ loc_42DAFF:                             ; CODE XREF: sub_42DADF+16↑j
                 jmp     loc_42DBC8
 ; ---------------------------------------------------------------------------
 
-loc_42DB2D:                             ; CODE XREF: sub_42DADF+44↑j
+loc_42DB2D:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+44↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     ecx, dword ptr [ecx+5Ch]
                 add     ecx, 8
@@ -17484,12 +17361,12 @@ loc_42DB2D:                             ; CODE XREF: sub_42DADF+44↑j
                 jmp     short loc_42DB9C
 ; ---------------------------------------------------------------------------
 
-loc_42DB93:                             ; CODE XREF: sub_42DADF:loc_42DBC3↓j
+loc_42DB93:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z:loc_42DBC3↓j
                 mov     ecx, dword ptr [ebp+var_8]
                 add     ecx, 1
                 mov     [ebp+var_8], ecx
 
-loc_42DB9C:                             ; CODE XREF: sub_42DADF+B2↑j
+loc_42DB9C:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+B2↑j
                 cmp     [ebp+var_8], 4
                 jge     short loc_42DBC5
                 mov     edx, dword ptr [ebp+var_4]
@@ -17506,18 +17383,18 @@ loc_42DB9C:                             ; CODE XREF: sub_42DADF+B2↑j
                 jmp     short loc_42DBC8
 ; ---------------------------------------------------------------------------
 
-loc_42DBC3:                             ; CODE XREF: sub_42DADF+DD↑j
+loc_42DBC3:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+DD↑j
                 jmp     short loc_42DB93
 ; ---------------------------------------------------------------------------
 
-loc_42DBC5:                             ; CODE XREF: sub_42DADF+C1↑j
+loc_42DBC5:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+C1↑j
                 or      eax, 0FFFFFFFFh
 
-loc_42DBC8:                             ; CODE XREF: sub_42DADF+1B↑j
+loc_42DBC8:                             ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+1B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_42DADF      endp
+?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -17557,7 +17434,7 @@ loc_42DBEA:                             ; CODE XREF: ?GetHint@VisCharGenSkills@@
                 mov     eax, dword ptr [ebp+var_C]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42DADF
+                call    ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z
                 mov     [ebp+var_4], eax
                 cmp     [ebp+var_4], 0FFFFFFFFh
                 jz      short loc_42DC5F
@@ -23997,7 +23874,7 @@ unknown_libname_462 endp
 ; Attributes: library function bp-based frame
 
 ; public: void __thiscall CPoint::operator-=(struct tagSIZE)
-??ZCPoint@@QAEXUtagSIZE@@@Z proc near   ; CODE XREF: sub_42DADF+72↑p
+??ZCPoint@@QAEXUtagSIZE@@@Z proc near   ; CODE XREF: ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z+72↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8

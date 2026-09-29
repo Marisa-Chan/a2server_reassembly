@@ -6952,6 +6952,29 @@ void VisCharGenSkills::VMethod7() {
 }
 
 
+// 42c072
+int32_t VisCharGenSkills::OnLButtonDown(uint32_t wparam, CPoint pos) {
+    int32_t hit = this->HitTest(pos);
+    if (hit == -1 || hit >= 4) {
+        return this->CVisualObject::OnLButtonDown(wparam, pos);
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->field_0x10c[i] &= ~1;
+    }
+    this->field_0x10c[hit] |= 1;
+    this->selected_slot = hit;
+    CSound::Play((CSound&)this->field_0x120[hit]);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->m_GameSession.SetCharacterStats(this->parent_screen->stats_panel->stat_body,
+                                              this->parent_screen->stats_panel->stat_reaction,
+                                              this->parent_screen->stats_panel->stat_mind,
+                                              this->parent_screen->stats_panel->stat_spirit,
+                                              hit + 1);
+    this->parent_screen->ShowTipHint();
+    return this->CVisualObject::OnLButtonDown(wparam, pos);
+}
+
+
 VisLogoWnd::VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr)
 { //4cd4d0

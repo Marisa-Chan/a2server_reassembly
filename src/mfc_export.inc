@@ -1574,7 +1574,8 @@ externdef ?GetHint@VisCharGenSkills@@UAEPBDXZ : proc
 extern ?VMethod7@VisCharGenSkills@@UAEXXZ :proc   ; (public: virtual void __thiscall VisCharGenSkills::VMethod7(void))
 externdef ?DrawBlinkSlot@VisCharGenSkills@@AAEXXZ : proc
 externdef ?OnMouseMove@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisCharGenSkills@@UAEHIVCPoint@@@Z :proc   ; (public: virtual int __thiscall VisCharGenSkills::OnLButtonDown(unsigned int,class CPoint))
+externdef ?HitTest@VisCharGenSkills@@AAEHVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisCharGenSkills@@UAEHIVCPoint@@@Z : proc
 externdef ?LoadSamples@VisCharGenSkills@@QAEXI@Z : proc
 extern ?FreeBitmaps@VisCharGenSkills@@QAEXXZ :proc   ; (public: void __thiscall VisCharGenSkills::FreeBitmaps(void))
