@@ -2137,6 +2137,17 @@ public:
 	virtual void VMethod28() override; // 4D1E80
 	virtual void VMethod30() override; // 4D2AFF
 	virtual void VMethod31() override; // 4D2D1B
+	virtual void VMethod32() override; // 4D2AE3
+	virtual void VMethod34(CPoint pos) override; // 4D359C
+	virtual void VMethod35() override; // 4D3922
+	virtual void VMethod36() override; // 4D2153
+	virtual void VMethod37() override; // 4D27FF
+	virtual void VMethod38() override; // 4D3EA7
+
+	void FUN_004d3384(); //4d3384 in asm
+	void FUN_004d3435(); //4d3435 in asm
+	void FUN_004d34b6(); //4d34b6 in asm
+	void FUN_004d3520(); //4d3520 in asm
 
 	VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 in asm
 public:

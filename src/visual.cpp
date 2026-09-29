@@ -17468,3 +17468,37 @@ void VisTownKaarg::VMethod7()
     UnlockSurface2();
     this->VisScreen::VMethod7();
 }
+
+
+// 4D1AF8
+VisTownDruid::VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisTown(_id, l, t, r, b)
+{
+    for (int32_t i = 0; i < 4; i++) {
+        this->snd_lizard[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 3; i++) {
+        this->snd_bug[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 3; i++) {
+        this->snd_bird[i] = nullptr;
+    }
+    for (int32_t i = 0; i < 4; i++) {
+        this->snd_tree[i] = nullptr;
+    }
+    this->snd_forest = nullptr;
+    this->snd_shop = nullptr;
+    this->snd_tavern = nullptr;
+    this->snd_shop_enter = nullptr;
+    this->snd_tavern_enter = nullptr;
+    this->snd_town_exit = nullptr;
+    this->snd_wolf = nullptr;
+    this->spr_bug = nullptr;
+    this->spr_lizard = nullptr;
+}
+
+
+// 4D6BE0
+VisTownDruid::~VisTownDruid()
+{
+}
