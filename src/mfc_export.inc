@@ -2313,20 +2313,6 @@ externdef ??_GVisConnectionDlg@@UAEPAXI@Z : proc
 externdef ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisConnectionDlg@@UAEXH@Z : proc
 
-; VisNetDlg
-externdef ??0VisNetDlg@@QAE@HHHHHPAUAvailNetSession@@@Z : proc
-externdef ??_GVisNetDlg@@UAEPAXI@Z : proc
-extern ?MsgProc@VisNetDlg@@UAEHIII@Z : proc
-extern ?VMethod26@VisNetDlg@@UAEXXZ : proc
-extern ?OnKeyDown@VisNetDlg@@UAEHI@Z : proc
-externdef ?OnKeyDown@VisNetDlg@@UAEHI@Z : proc
-externdef ?VMethod26@VisNetDlg@@UAEXXZ : proc
-extern ?CachePlayerRows@VisNetDlg@@AAEXXZ : proc
-extern ?FillServerList@VisNetDlg@@AAEXXZ : proc
-extern ?UpdatePlayerList@VisNetDlg@@AAEXXZ : proc
-extern ?RefreshSessions@VisNetDlg@@AAEXXZ : proc
-extern ?CreateSessionList@VisNetDlg@@AAEXXZ : proc
-
 ; VisNetTcpIp
 externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc
 externdef ??_GVisNetTcpIp@@UAEPAXI@Z : proc

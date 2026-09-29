@@ -19307,3 +19307,18 @@ int32_t VisNetDlg::OnKeyDown(uint32_t wparam)
     }
     return VisWindow::OnKeyDown(wparam);
 }
+
+
+// 4464C7
+VisNetDlg::VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions)
+: VisWindow(_id, l, t, r, b, nullptr)
+{
+    this->sessions = _sessions;
+    this->sessions->sessions = nullptr;
+    this->sessions->num_sessions = 0;
+}
+
+
+// 44FA90
+VisNetDlg::~VisNetDlg()
+{}
