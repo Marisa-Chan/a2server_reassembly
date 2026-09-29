@@ -107693,106 +107693,6 @@ sub_4B1468      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisCharInfo@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_4B17EC(int, RECT *lprcSrc)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Microsoft VisualC 2-14/net runtime
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
@@ -342414,31 +342314,6 @@ aGraphicsInterf_214 db 'graphics\interface\Docs\OK\Ok_l_on.bmp',0
                 db    0
                 db    0
                 db    0
-; CHAR a16a_5[]
-a16a_5          db '.16a',0             ; DATA XREF: ?OnMouseMove@VisCharInfo@@UAEHIVCPoint@@@Z+123↑o
-                align 4
-; CHAR aGraphicsInvent_3[]
-aGraphicsInvent_3 db 'graphics\inventory\',0
-; char aDD_6[]
-aDD_6           db '%d/%d',0            ; DATA XREF: ?VMethod7@VisCharInfo@@UAEXXZ+47F↑o
-                align 4
-; char aGraphicsInfowi_5[]
-aGraphicsInfowi_5 db 'graphics\infowindow\%s.bmp',0
-                align 4
-; char aAllods2D_1[]
-aAllods2D_1     db 'allods-2-%d.$$$',0  ; DATA XREF: ?VMethod7@VisCharInfo@@UAEXXZ+727↑o
-; char aSS_3[]
-aSS_3           db '%s%s',0             ; DATA XREF: ?VMethod7@VisCharInfo@@UAEXXZ+749↑o
-                align 4
-; char aD_36[]
-aD_36           db '%d',0               ; DATA XREF: ?VMethod7@VisCharInfo@@UAEXXZ+871↑o
-                align 10h
-; char aGraphicsInfowi_6[]
-aGraphicsInfowi_6 db 'graphics\infowindow\%s.bmp',0
-                align 4
-; char aD_37[]
-aD_37           db '%d',0               ; DATA XREF: ?VMethod7@VisCharInfo@@UAEXXZ+AA3↑o
-                align 10h
 ; char aDD_7[]
 aDD_7           db '%d/%d',0            ; DATA XREF: ?VMethod7@VisSideStatus@@UAEXXZ+21C↑o
                 align 4
