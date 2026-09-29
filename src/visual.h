@@ -2539,6 +2539,8 @@ public:
 	virtual int32_t VMethod27(int32_t a); //4b3a0d
 	virtual int32_t VMethod28(); // 4b4830
 
+	void sub_4B36B4(); //4b36b4 in asm
+
 	VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b16c3 in asm
 public:
 	BigStruct2* map_context;

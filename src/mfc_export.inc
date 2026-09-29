@@ -1715,6 +1715,7 @@ externdef ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
 externdef ??_GVisCharInfo@@UAEPAXI@Z : proc
 externdef ?GetHint@VisCharInfo@@UAEPBDXZ : proc
 externdef ?VMethod7@VisCharInfo@@UAEXXZ : proc
+externdef ?sub_4B36B4@VisCharInfo@@QAEXXZ : proc
 externdef ?MsgProc@VisCharInfo@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisCharInfo@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharInfo@@UAEHIVCPoint@@@Z : proc

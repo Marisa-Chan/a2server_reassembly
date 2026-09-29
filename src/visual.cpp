@@ -7791,6 +7791,64 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos)
     return 0;
 }
 
+// 4B201C
+int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    int32_t moved_up;
+    if (g_ScreenSize.bottom - screen_rect.bottom > screen_rect.Height() && main_wnd->dialogsMask == 1) {
+        moved_up = 1;
+    } else {
+        moved_up = 0;
+    }
+
+    if (result == 0) {
+        switch (msg) {
+        case 0x403:
+            this->map_context = (BigStruct2*)wparam;
+            this->dirty = 1;
+            break;
+        case 0x408:
+            this->dirty = 1;
+            break;
+        case 0x402:
+            if (main_wnd->dialogsMask == 1 || main_wnd->dialogsMask == 3 || main_wnd->dialogsMask == 5) {
+                if (this->dirty != 0) {
+                    this->VMethod9();
+                }
+            }
+            if ((main_wnd->dialogsMask & 3) != 0) {
+                this->sub_4B36B4();
+            }
+            break;
+        case 0x40E:
+            this->dirty = 1;
+            this->selection_panel_state = (this->selection_panel_state == 0);
+            break;
+        case 0x40F:
+            this->dirty = 1;
+            this->spell_panel_state = (this->spell_panel_state == 0);
+            break;
+        case 0x410:
+            this->dirty = 1;
+            break;
+        case 0x412:
+            if (moved_up == 0) {
+                g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+                this->info_mode = (this->info_mode == 0);
+                this->dirty = 1;
+            }
+            break;
+        }
+    }
+    return result;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
