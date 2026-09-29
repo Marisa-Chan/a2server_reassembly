@@ -32990,38 +32990,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisNetDlg@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060A654↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 1Bh
-                jnz     short loc_44790C
-                push    0
-                push    0
-                push    47Ch
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                jmp     short loc_447918
-; ---------------------------------------------------------------------------
-
-loc_44790C:                             ; CODE XREF: ?OnKeyDown@VisNetDlg@@UAEHI@Z+B↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisWindow@@UAEHI@Z
-
-loc_447918:                             ; CODE XREF: ?OnKeyDown@VisNetDlg@@UAEHI@Z+21↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisNetDlg@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

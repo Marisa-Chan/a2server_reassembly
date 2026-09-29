@@ -19297,3 +19297,13 @@ void VisNetDlg::VMethod26()
     this->selected = 0;
     PostMessageA(g_MainWndHWND, 0x450, 0, 0);
 }
+
+
+// 4478E9
+int32_t VisNetDlg::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0x1B) {
+        return this->MsgProc(0x47C, 0, 0);
+    }
+    return VisWindow::OnKeyDown(wparam);
+}
