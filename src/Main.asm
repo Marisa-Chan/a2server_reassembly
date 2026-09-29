@@ -108230,42 +108230,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnRButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060D04C↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                cmp     dword ptr [edx+418h], 1
-                jnz     short loc_4B2893
-                push    0
-                push    0
-                push    405h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                jmp     short loc_4B2898
-; ---------------------------------------------------------------------------
-
-loc_4B2893:                             ; CODE XREF: ?OnRButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z+24↑j
-                mov     eax, 1
-
-loc_4B2898:                             ; CODE XREF: ?OnRButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z+3A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonUp@VisCharInfo@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

@@ -7870,6 +7870,17 @@ int32_t VisCharInfo::OnKeyDown(uint32_t wparam)
     return 1;
 }
 
+// 4B2857
+int32_t VisCharInfo::OnRButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* map = this->map_context;
+    if (main_wnd->dialogsMask == 1) {
+        return map->MsgProc(0x405, 0, 0);
+    }
+    return 1;
+}
+
 // 4B201C
 int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
