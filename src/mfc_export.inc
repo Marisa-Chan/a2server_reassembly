@@ -1289,7 +1289,7 @@ externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
 externdef ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430850@VisCharSellectButtons@@QAEXXZ : proc
-externdef ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ : proc
+extern ?FreeBitmaps@VisCharSellectButtons@@QAEXXZ : proc
 externdef ?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ : proc
 externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc

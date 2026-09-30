@@ -17932,7 +17932,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 1
                 mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectButtons@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx+5Ch], 0
 ;   } // starts at 42FE1D
@@ -18445,7 +18445,7 @@ var_4           = dword ptr -4
                 sub     esp, 40h
                 mov     [ebp+var_38], ecx
                 mov     ecx, dword ptr [ebp+var_38]
-                call    ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectButtons@@QAEXXZ
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -18594,125 +18594,6 @@ loc_4309E9:                             ; CODE XREF: ?FUN_00430850@VisCharSellec
 
 ; Attributes: bp-based frame
 
-?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ      proc near               ; CODE XREF: sub_42FDF8+2F↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 2Ch
-                mov     [ebp+var_20], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_430A35
-; ---------------------------------------------------------------------------
-
-loc_430A2C:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+C8↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_430A35:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+10↑j
-                cmp     [ebp+var_4], 4
-                jge     loc_430AE7
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_20]
-                cmp     dword ptr [edx+ecx*4+74h], 0
-                jz      short loc_430A7E
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+eax*4+74h]
-                mov     [ebp+var_C], edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0
-                jz      short loc_430A77
-                push    1
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_24], eax
-                jmp     short loc_430A7E
-; ---------------------------------------------------------------------------
-
-loc_430A77:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+49↑j
-                mov     [ebp+var_24], 0
-
-loc_430A7E:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+30↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     dword ptr [ecx+eax*4+74h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_20]
-                cmp     dword ptr [eax+edx*4+84h], 0
-                jz      short loc_430AD1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+ecx*4+84h]
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     [ebp+var_10], ecx
-                cmp     [ebp+var_10], 0
-                jz      short loc_430ACA
-                push    1
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_28], eax
-                jmp     short loc_430AD1
-; ---------------------------------------------------------------------------
-
-loc_430ACA:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+9C↑j
-                mov     [ebp+var_28], 0
-
-loc_430AD1:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+80↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_20]
-                mov     dword ptr [edx+ecx*4+84h], 0
-                jmp     loc_430A2C
-; ---------------------------------------------------------------------------
-
-loc_430AE7:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+1F↑j
-                mov     eax, dword ptr [ebp+var_20]
-                cmp     dword ptr [eax+94h], 0
-                jz      short loc_430B24
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+94h]
-                mov     [ebp+var_1C], edx
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_18], eax
-                cmp     [ebp+var_18], 0
-                jz      short loc_430B1D
-                push    1
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_18]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_2C], eax
-                jmp     short loc_430B24
-; ---------------------------------------------------------------------------
-
-loc_430B1D:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+EF↑j
-                mov     [ebp+var_2C], 0
-
-loc_430B24:                             ; CODE XREF: ?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ+D7↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     dword ptr [eax+94h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

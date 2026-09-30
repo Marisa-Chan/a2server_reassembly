@@ -682,7 +682,7 @@ public:
 	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c in asm
 
 	void FUN_00430850(); // 430850 in asm
-	void FUN_00430a1a(); // 430a1a in asm
+	void FreeBitmaps(); // 430a1a
 	void ResetMouseBoxes(); // 43072b in asm
 
 public:

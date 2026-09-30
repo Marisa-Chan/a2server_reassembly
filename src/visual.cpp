@@ -4018,6 +4018,28 @@ void VisCharSellectButtons::VMethod7()
 }
 
 
+// 430a1a
+void VisCharSellectButtons::FreeBitmaps()
+{
+    for (int32_t i = 0; i < 4; i++) {
+        if (this->buttons_bmp[i] != nullptr) {
+            delete this->buttons_bmp[i];
+        }
+        this->buttons_bmp[i] = nullptr;
+        // Never assigned anywhere; kept faithful — dispatch is virtual so the
+        // static type only satisfies the compiler.
+        if (this->field_0x84[i] != nullptr) {
+            delete static_cast<CBmp64*>(this->field_0x84[i]);
+        }
+        this->field_0x84[i] = nullptr;
+    }
+    if (this->bmp_area != nullptr) {
+        delete this->bmp_area;
+    }
+    this->bmp_area = nullptr;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4144,7 +4166,7 @@ void VisCharSelect::DoClose(uint32_t code)
     this->selected_unit = nullptr;
     this->FreeSfx();
     this->vis_stats->FUN_0042f61a();
-    this->buttons->FUN_00430a1a();
+    this->buttons->FreeBitmaps();
     this->roster_list->FUN_0043148a();
     this->CloseRenameWindow();
     this->VisScreen::DoClose(code);
