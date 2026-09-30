@@ -4326,6 +4326,23 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down)
 }
 
 
+// 431609
+int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (this->field_0xd8 != 0) {
+        return this->CVisualObject::OnMouseMove(wparam, pos);
+    }
+    this->field_0xd4 = this->HitTest(pos);
+    if (this->field_0xd4 == -1) {
+        g_Cursors[0]->Use();
+    } else {
+        g_Cursors[5]->Use();
+    }
+    this->UpdateArrows(pos, (wparam & 1) != 0);
+    return this->CVisualObject::OnMouseMove(wparam, pos);
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
