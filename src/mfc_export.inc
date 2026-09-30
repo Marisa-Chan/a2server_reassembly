@@ -1398,6 +1398,8 @@ extern ?FlushScreen@@YAXXZ  : proc
 
 
 ;VisSpellBook
+extern ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
+extern ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
 externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E0()
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
