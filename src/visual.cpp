@@ -4219,6 +4219,23 @@ void VisCharSellectList::LoadBitmaps()
 }
 
 
+// 4316C4
+void VisCharSellectList::SelectRow(int32_t row)
+{
+    if (row != -1) {
+        if (row == this->parent_screen->session->GetStringArray1Size() - 1) {
+            this->parent_screen->selected_unit->VMethod1(0);
+            this->parent_screen->map_context->UpdateSelectionState();
+        } else {
+            this->parent_screen->session->LoadCharacterRosterEntry(row);
+            this->parent_screen->vis_stats->FUN_0042f6f3();
+            this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
+        }
+        this->field_0xd0 = row;
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

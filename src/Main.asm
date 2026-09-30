@@ -18418,69 +18418,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-sub_4316C4      proc near               ; CODE XREF: ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z+48↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 0FFFFFFFFh
-                jz      loc_43175E
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+68h]
-                call    ?GetStringArray1Size@CGameSession@@QAEHXZ
-                sub     eax, 1
-                cmp     [ebp+arg_0], eax
-                jnz     short loc_43171A
-                push    0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+84h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     edx, dword ptr [eax+84h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+14h]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     ecx, dword ptr [edx+70h]
-                call    ?UpdateSelectionState@BigStruct2@@QAEXXZ 
-                jmp     short loc_431752
-; ---------------------------------------------------------------------------
-
-loc_43171A:                             ; CODE XREF: sub_4316C4+25↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     ecx, dword ptr [edx+68h]
-                call    ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+74h]
-                call    ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+84h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+5Ch]
-                call    ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z 
-
-loc_431752:                             ; CODE XREF: sub_4316C4+54↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+0D0h], ecx
-
-loc_43175E:                             ; CODE XREF: sub_4316C4+B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4316C4      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18526,7 +18463,7 @@ loc_431792:                             ; CODE XREF: ?OnLButtonDown@VisCharSelle
                 mov     eax, dword ptr [ebp+var_4]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_4316C4
+                call    ?SelectRow@VisCharSellectList@@QAEXH@Z
                 mov     ecx, dword ptr [ebp+arg_4]
                 mov     dword ptr [ebp+pt], ecx ; pt.x
                 mov     edx, dword ptr [ebp+arg_8]
@@ -18858,7 +18795,7 @@ loc_431A74:                             ; CODE XREF: sub_431A05+58↑j
                 mov     eax, dword ptr [edx+0D0h]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4316C4
+                call    ?SelectRow@VisCharSellectList@@QAEXH@Z
                 mov     eax, 1
                 jmp     short loc_431A8F
 ; ---------------------------------------------------------------------------
@@ -18956,7 +18893,7 @@ loc_431B63:                             ; CODE XREF: sub_431A93+B9↑j
                 mov     ecx, dword ptr [eax+0D0h]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4316C4
+                call    ?SelectRow@VisCharSellectList@@QAEXH@Z
                 mov     eax, 1
                 jmp     short loc_431B7E
 ; ---------------------------------------------------------------------------
