@@ -4057,6 +4057,26 @@ void VisCharSellectButtons::LoadBitmaps()
 }
 
 
+// 430318
+int32_t VisCharSellectButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    this->mouse_down_box = this->GetMouseOnBox(pos);
+    int32_t box = this->mouse_down_box;
+    if (box == 0) {
+        CSound::Play((CSound&)this->parent_screen->snd_ok);
+    } else if (box == 1) {
+        CSound::Play((CSound&)this->parent_screen->snd_delete);
+    } else if (box == 3) {
+        CSound::Play((CSound&)this->parent_screen->snd_cancel);
+    }
+    if (this->mouse_down_box == 0) {
+        CSound::Play((CSound&)this->parent_screen->snd_ok);
+    }
+    return 1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

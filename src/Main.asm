@@ -18163,82 +18163,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006097FC↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_430750
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+0D8h], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D8h]
-                mov     [ebp+var_8], ecx
-                cmp     [ebp+var_8], 0
-                jz      short loc_43035A
-                cmp     [ebp+var_8], 1
-                jz      short loc_430370
-                cmp     [ebp+var_8], 3
-                jz      short loc_430387
-                jmp     short loc_43039C
-; ---------------------------------------------------------------------------
-
-loc_43035A:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+32↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                add     eax, 88h
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     short loc_43039C
-; ---------------------------------------------------------------------------
-
-loc_430370:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+38↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                add     edx, 90h
-                push    edx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                jmp     short loc_43039C
-; ---------------------------------------------------------------------------
-
-loc_430387:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+3E↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 94h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_43039C:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+40↑j
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+0D8h], 0
-                jnz     short loc_4303BD
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 88h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4303BD:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+8E↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z      endp
 
 
 
@@ -18271,77 +18195,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_430750      proc near               ; CODE XREF: ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z+14↑p
-
-var_18          = dword ptr -18h
-pt              = POINT ptr -14h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 18h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+5Ch]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_C], ecx
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                push    ecx
-                lea     ecx, [ebp+arg_0]
-                call    ??ZCPoint@@QAEXUtagSIZE@@@Z ; CPoint::operator-=(tagSIZE)
-                mov     [ebp+var_4], 0
-                jmp     short loc_430794
-; ---------------------------------------------------------------------------
-
-loc_43078B:                             ; CODE XREF: sub_430750:loc_4307CC↓j
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 1
-                mov     [ebp+var_4], edx
-
-loc_430794:                             ; CODE XREF: sub_430750+39↑j
-                cmp     [ebp+var_4], 4
-                jge     short loc_4307CE
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_4]
-                shl     ecx, 4
-                mov     edx, dword ptr [ebp+var_18]
-                lea     ecx, [edx+ecx+98h]
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_4307CC
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_4307D1
-; ---------------------------------------------------------------------------
-
-loc_4307CC:                             ; CODE XREF: sub_430750+75↑j
-                jmp     short loc_43078B
-; ---------------------------------------------------------------------------
-
-loc_4307CE:                             ; CODE XREF: sub_430750+48↑j
-                or      eax, 0FFFFFFFFh
-
-loc_4307D1:                             ; CODE XREF: sub_430750+7A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_430750      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18365,7 +18218,7 @@ arg_8           = dword ptr  10h
                 mov     ecx, dword ptr [ebp+arg_4]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_430750
+                call    ?GetMouseOnBox@VisCharSellectButtons@@QAEHVCPoint@@@Z
                 mov     [ebp+var_4], eax
                 cmp     [ebp+var_4], 0
                 jl      short loc_430811
