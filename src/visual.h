@@ -715,7 +715,7 @@ public:
 	virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4316A0
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 431B95
 
-	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb in asm
+	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb
 
 	void FUN_00430fad(); // 430fad
 	void Init(); // 430cb3

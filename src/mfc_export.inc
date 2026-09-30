@@ -1286,15 +1286,6 @@ extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
 externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
-externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
-extern ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
-extern ?Init@VisCharSellectList@@QAEXXZ : proc
-extern ?FreeBitmaps@VisCharSellectList@@QAEXXZ : proc
-extern ?SelectRow@VisCharSellectList@@QAEXH@Z : proc
-extern ?HitTest@VisCharSellectList@@QAEHVCPoint@@@Z : proc
-extern ?SelectPrevRow@VisCharSellectList@@QAEHXZ : proc
-extern ?SelectNextRow@VisCharSellectList@@QAEHXZ : proc
-extern ?UpdateArrows@VisCharSellectList@@QAEXVCPoint@@_N@Z : proc
 externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 ;VisCharSellectButtons
@@ -1662,7 +1653,8 @@ extern ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 
 ;VisCharSellectList
-externdef ??_GVisCharSellectList@@UAEPAXI@Z : proc
+extern ??_GVisCharSellectList@@UAEPAXI@Z : proc
+extern ??1VisCharSellectList@@UAE@XZ : proc
 extern ?VMethod7@VisCharSellectList@@UAEXXZ : proc
 extern ?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
