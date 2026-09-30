@@ -20463,3 +20463,61 @@ void VisFameDocument::VMethod7()
         this->VisScreen::VMethod7();
     }
 }
+
+
+// 4ADD24
+void VisFameDocument::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->bmp_sheet = new CBmp64("graphics\interface\Docs\sheet.bmp");
+    this->bmp_leftarrow.SetSize(3, -1);
+    this->bmp_leftarrow[0] = new CBmp64("graphics\interface\Docs\Arrows\00_l.bmp");
+    this->bmp_leftarrow[1] = new CBmp64("graphics\interface\Docs\Arrows\01_l.bmp");
+    this->bmp_leftarrow[2] = new CBmp64("graphics\interface\Docs\Arrows\11_l.bmp");
+    this->bmp_cur_left = this->bmp_leftarrow[0];
+    this->bmp_rightarrow.SetSize(3, -1);
+    this->bmp_rightarrow[0] = new CBmp64("graphics\interface\Docs\Arrows\00_r.bmp");
+    this->bmp_rightarrow[1] = new CBmp64("graphics\interface\Docs\Arrows\01_r.bmp");
+    this->bmp_rightarrow[2] = new CBmp64("graphics\interface\Docs\Arrows\11_r.bmp");
+    this->bmp_cur_right = this->bmp_rightarrow[0];
+    this->bmp_okbutton.SetSize(4, -1);
+    this->bmp_okbutton[0] = new CBmp64("graphics\interface\Docs\OK\Ok_off.bmp");
+    this->bmp_okbutton[1] = new CBmp64("graphics\interface\Docs\OK\Ok_on.bmp");
+    this->bmp_okbutton[2] = new CBmp64("graphics\interface\Docs\OK\Ok_l_off.bmp");
+    this->bmp_okbutton[3] = new CBmp64("graphics\interface\Docs\OK\Ok_l_on.bmp");
+    this->bmp_cur_ok = this->bmp_okbutton[0];
+}
+
+
+// 4AE17A
+void VisFameDocument::FreeBitmaps()
+{
+    if (this->bmp_sheet != nullptr) {
+        delete this->bmp_sheet;
+    }
+    this->bmp_sheet = nullptr;
+    for (int32_t i = 0; i < this->bmp_leftarrow.GetSize(); i++) {
+        if (this->bmp_leftarrow[i] != nullptr) {
+            delete this->bmp_leftarrow[i];
+        }
+        this->bmp_leftarrow[i] = nullptr;
+    }
+    this->bmp_leftarrow.RemoveAll();
+    this->bmp_cur_left = nullptr;
+    for (int32_t i = 0; i < this->bmp_rightarrow.GetSize(); i++) {
+        if (this->bmp_rightarrow[i] != nullptr) {
+            delete this->bmp_rightarrow[i];
+        }
+        this->bmp_rightarrow[i] = nullptr;
+    }
+    this->bmp_rightarrow.RemoveAll();
+    this->bmp_cur_right = nullptr;
+    for (int32_t i = 0; i < this->bmp_okbutton.GetSize(); i++) {
+        if (this->bmp_okbutton[i] != nullptr) {
+            delete this->bmp_okbutton[i];
+        }
+        this->bmp_okbutton[i] = nullptr;
+    }
+    this->bmp_okbutton.RemoveAll();
+    this->bmp_cur_ok = nullptr;
+}

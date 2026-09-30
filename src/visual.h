@@ -3152,6 +3152,9 @@ public:
 	virtual void DoClose(uint32_t code) override; // 4AE534
 
 	VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4ad961 in asm
+
+	void LoadBitmaps(); // 4add24 in asm
+	void FreeBitmaps(); // 4ae17a in asm
 public:
 	CFameHall* fame;
 	CBmp64* bmp_sheet;
