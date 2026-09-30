@@ -20542,3 +20542,51 @@ void VisFameDocument::LoadDocs()
         this->fame->m_Documents[i].FUN_004ac0af();
     }
 }
+
+
+// 4AE952
+int32_t VisFameDocument::UpdateButtons(CPoint pos, bool is_down)
+{
+    pos -= this->rect.TopLeft();
+    if (this->rect_prev.PtInRect(pos)) {
+        this->bmp_cur_left = this->bmp_leftarrow[is_down ? 2 : 1];
+        return 1;
+    }
+    if (this->rect_next.PtInRect(pos)) {
+        this->bmp_cur_right = this->bmp_rightarrow[is_down ? 2 : 1];
+        return 2;
+    }
+    if (this->rect_ok.PtInRect(pos)) {
+        this->bmp_cur_ok = this->bmp_okbutton[is_down ? 3 : 2];
+        return 3;
+    }
+    CBmp64* old_left = this->bmp_cur_left;
+    CBmp64* old_right = this->bmp_cur_right;
+    CBmp64* old_ok = this->bmp_cur_ok;
+    this->bmp_cur_left = this->bmp_leftarrow[0];
+    this->bmp_cur_right = this->bmp_rightarrow[0];
+    this->bmp_cur_ok = this->bmp_okbutton[0];
+    if (old_left != this->bmp_cur_left || old_right != this->bmp_cur_right || old_ok != this->bmp_cur_ok) {
+        this->VMethod9();
+        FlushScreen();
+    }
+    return -1;
+}
+
+
+// 4AEC7A
+void VisFameDocument::UpdateArrowStates()
+{
+    if (this->selected_doc == 0) {
+        if (this->fame->m_Documents[0].field_x38 == 0) {
+            this->bmp_cur_left = this->bmp_leftarrow[0];
+        }
+    }
+    int32_t last = this->fame->m_Documents.GetUpperBound();
+    if (this->selected_doc == last) {
+        Fame2& doc = this->fame->m_Documents[this->selected_doc];
+        if (doc.str_arr.GetSize() <= (int32_t)doc.field_x38 + 0x15) {
+            this->bmp_cur_right = this->bmp_rightarrow[0];
+        }
+    }
+}

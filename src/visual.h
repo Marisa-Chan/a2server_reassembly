@@ -3157,6 +3157,8 @@ public:
 	void FreeBitmaps(); // 4ae17a in asm
 	void ClearDocs(); // 4ae41b in asm
 	void LoadDocs(); // 4ae3c6 in asm
+	int32_t UpdateButtons(CPoint pos, bool is_down); // 4ae952 in asm
+	void UpdateArrowStates(); // 4aec7a in asm
 public:
 	CFameHall* fame;
 	CBmp64* bmp_sheet;
