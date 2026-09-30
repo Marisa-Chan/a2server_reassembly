@@ -89664,19 +89664,6 @@ sub_4ADA2A      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?OnKeyDown@VisFameDocument@@UAEHI@Z proc near           ; DATA XREF: .rdata:0060CE64↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisFameDocument@@UAEHI@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -89691,18 +89678,6 @@ var_4           = dword ptr -4
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod8@VisFameDocument@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:0060CE28↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisFameDocument@@UAEXPAVCRect@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -89807,19 +89782,6 @@ unknown_libname_632 endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?GetHint@VisFameDocument@@UAEPBDXZ proc near           ; DATA XREF: .rdata:0060CE0C↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetHint@VisFameDocument@@UAEPBDXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

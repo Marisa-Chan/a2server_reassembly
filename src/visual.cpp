@@ -20701,3 +20701,25 @@ void VisFameDocument::DoClose(uint32_t code)
     this->fame = nullptr;
     this->VisScreen::DoClose(code);
 }
+
+
+// 4AE791
+int32_t VisFameDocument::OnKeyDown(uint32_t wparam)
+{
+    (void)wparam;
+    return 1;
+}
+
+
+// 4AE926
+void VisFameDocument::VMethod8(CRect* rect)
+{
+    (void)rect;
+}
+
+
+// 4AEDA0
+const char* VisFameDocument::GetHint()
+{
+    return nullptr;
+}
