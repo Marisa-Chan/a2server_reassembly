@@ -763,7 +763,7 @@ public:
 
 	void ReadUnitStats(); // 42f6f3
 
-	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
+	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec
 
 	void Init(); // 42f1e8
 	void LoadBitmaps(); // 42f4df

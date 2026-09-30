@@ -1283,9 +1283,6 @@ extern ?VMethod28@VisCharSelect@@UAEXXZ : proc
 extern ?DoClose@VisCharSelect@@UAEXI@Z : proc
 extern ?GetStringArray1Size@CGameSession@@QAEHXZ : proc
 extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
-externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
-extern ?FreeBitmaps@VisCharSellectStats@@QAEXXZ : proc
-extern ?Init@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 ;VisCharSellectButtons
@@ -1662,7 +1659,8 @@ extern ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
 
 ;VisCharSellectStats
-externdef ??_GVisCharSellectStats@@UAEPAXI@Z : proc
+extern ??_GVisCharSellectStats@@UAEPAXI@Z : proc
+extern ??1VisCharSellectStats@@UAE@XZ : proc
 extern ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
 extern ?VMethod7@VisCharSellectStats@@UAEXXZ : proc
 

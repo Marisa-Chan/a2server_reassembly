@@ -4584,6 +4584,22 @@ void VisCharSellectStats::Init()
 }
 
 
+// 42F0EC
+VisCharSellectStats::VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->parent_screen = parent_screen;
+    this->Init();
+}
+
+
+// 42F188 (scalar deleting dtor ??_G at 438580)
+VisCharSellectStats::~VisCharSellectStats()
+{
+    this->FreeBitmaps();
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
