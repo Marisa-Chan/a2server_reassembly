@@ -20469,22 +20469,22 @@ void VisFameDocument::VMethod7()
 void VisFameDocument::LoadBitmaps()
 {
     this->FreeBitmaps();
-    this->bmp_sheet = new CBmp64("graphics\interface\Docs\sheet.bmp");
+    this->bmp_sheet = new CBmp64("graphics\\interface\\Docs\\sheet.bmp");
     this->bmp_leftarrow.SetSize(3, -1);
-    this->bmp_leftarrow[0] = new CBmp64("graphics\interface\Docs\Arrows\00_l.bmp");
-    this->bmp_leftarrow[1] = new CBmp64("graphics\interface\Docs\Arrows\01_l.bmp");
-    this->bmp_leftarrow[2] = new CBmp64("graphics\interface\Docs\Arrows\11_l.bmp");
+    this->bmp_leftarrow[0] = new CBmp64("graphics\\interface\\Docs\\Arrows\\00_l.bmp");
+    this->bmp_leftarrow[1] = new CBmp64("graphics\\interface\\Docs\\Arrows\\01_l.bmp");
+    this->bmp_leftarrow[2] = new CBmp64("graphics\\interface\\Docs\\Arrows\\11_l.bmp");
     this->bmp_cur_left = this->bmp_leftarrow[0];
     this->bmp_rightarrow.SetSize(3, -1);
-    this->bmp_rightarrow[0] = new CBmp64("graphics\interface\Docs\Arrows\00_r.bmp");
-    this->bmp_rightarrow[1] = new CBmp64("graphics\interface\Docs\Arrows\01_r.bmp");
-    this->bmp_rightarrow[2] = new CBmp64("graphics\interface\Docs\Arrows\11_r.bmp");
+    this->bmp_rightarrow[0] = new CBmp64("graphics\\interface\\Docs\\Arrows\\00_r.bmp");
+    this->bmp_rightarrow[1] = new CBmp64("graphics\\interface\\Docs\\Arrows\\01_r.bmp");
+    this->bmp_rightarrow[2] = new CBmp64("graphics\\interface\\Docs\\Arrows\\11_r.bmp");
     this->bmp_cur_right = this->bmp_rightarrow[0];
     this->bmp_okbutton.SetSize(4, -1);
-    this->bmp_okbutton[0] = new CBmp64("graphics\interface\Docs\OK\Ok_off.bmp");
-    this->bmp_okbutton[1] = new CBmp64("graphics\interface\Docs\OK\Ok_on.bmp");
-    this->bmp_okbutton[2] = new CBmp64("graphics\interface\Docs\OK\Ok_l_off.bmp");
-    this->bmp_okbutton[3] = new CBmp64("graphics\interface\Docs\OK\Ok_l_on.bmp");
+    this->bmp_okbutton[0] = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_off.bmp");
+    this->bmp_okbutton[1] = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_on.bmp");
+    this->bmp_okbutton[2] = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_off.bmp");
+    this->bmp_okbutton[3] = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_on.bmp");
     this->bmp_cur_ok = this->bmp_okbutton[0];
 }
 
@@ -20849,5 +20849,444 @@ void VisMiniMap::UpdateCursor()
         if (new_cursor != nullptr && cur_sprite != new_cursor->GetSprite()) {
             new_cursor->Use();
         }
+    }
+}
+
+
+// 4AF006
+int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    int32_t res = this->CVisualObject::MsgProc(msg, wparam, lparam);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    if (res == 0) {
+        switch (msg) {
+        case 0x402:
+            if (main_wnd->dialogsMask == 1) {
+                this->VMethod9();
+                this->UpdateCursor();
+            }
+            break;
+        case 0x403:
+            this->map_context = (BigStruct2*)wparam;
+            break;
+        case 0x404:
+            this->RebuildMap();
+            res = 1;
+            break;
+        case 0x408:
+            this->viewer = -100;
+            break;
+        }
+    }
+    return res;
+}
+
+
+// 4B0AAD
+int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    BigStruct2* mc = this->map_context;
+    (void)AfxGetMainWnd();
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    int32_t z = this->zoom;
+    int32_t mode = 1;
+    if (z < 0) {
+        z = 0;
+        mode = 2;
+    }
+    Scenario* scen = mc->field_0x80;
+    int32_t x, y;
+    if (mode == 1) {
+        int32_t ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
+        int32_t oy = 0x52 - ((scen->GetHeight() - 0x10 << z) >> 1);
+        x = ((pos.x - ox) - rc.left >> z) - mc->field_0x64 / 2;
+        y = ((pos.y - oy) - rc.top >> z) - mc->field_0x68 / 2;
+    } else {
+        int32_t ox = 0x48 - (scen->GetWidth() - 0x10 >> 2);
+        int32_t oy = 0x52 - (scen->GetHeight() - 0x10 >> 2);
+        x = ((pos.x - ox) - rc.left) * 2 - mc->field_0x64 / 2;
+        y = ((pos.y - oy) - rc.top) * 2 - mc->field_0x68 / 2;
+    }
+    x = x + 8;
+    y = y + 8;
+    mc->MsgProc(0x406, x, y);
+    return 0;
+}
+
+
+// 4B0788
+int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    BigStruct2* mc = this->map_context;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    int32_t z = this->zoom;
+    int32_t mode = 1;
+    if (z < 0) {
+        z = 0;
+        mode = 2;
+    }
+    Scenario* scen = mc->field_0x80;
+    int32_t ox, oy, x, y;
+    if (mode == 1) {
+        ox = 0x48 - ((scen->GetWidth() - 0x10 << z) >> 1);
+        oy = 0x52 - ((scen->GetHeight() - 0x10 << z) >> 1);
+        x = ((pos.x - ox) - rc.left >> z) - mc->field_0x64 / 2;
+        y = ((pos.y - oy) - rc.top >> z) - mc->field_0x68 / 2;
+    } else {
+        ox = 0x48 - (scen->GetWidth() - 0x10 >> 2);
+        oy = 0x52 - (scen->GetHeight() - 0x10 >> 2);
+        x = ((pos.x - ox) - rc.left) * 2 - mc->field_0x64 / 2;
+        y = ((pos.y - oy) - rc.top) * 2 - mc->field_0x68 / 2;
+    }
+    x = x + 8;
+    y = y + 8;
+    CSprite256* cur_sprite = g_mousept.GetCursorSprite();
+    if (cur_sprite == g_Cursors[0x11]->GetSprite()) {
+        mc->MsgProc(0x406, x, y);
+    } else {
+        if (mode == 1) {
+            x = ((pos.x - ox) - rc.left) >> z;
+            y = ((pos.y - oy) - rc.top) >> z;
+        } else {
+            x = ((pos.x - ox) - rc.left) * 2;
+            y = ((pos.y - oy) - rc.top) * 2;
+        }
+        x = x + 8;
+        y = y + 8;
+        if (cur_sprite == g_Cursors[0x12]->GetSprite()) {
+            mc->sub_419154((uint16_t)x, (uint16_t)y);
+        } else if (cur_sprite == g_Cursors[0x13]->GetSprite()) {
+            uint32_t id = mc->sub_40C0A8(x, y);
+            if ((id & 0xffff) == 0) {
+                mc->sub_41930D((uint16_t)x, (uint16_t)y);
+            } else {
+                mc->sub_419246((uint16_t)id);
+            }
+        } else if (cur_sprite == g_Cursors[0x14]->GetSprite()) {
+            uint32_t id = mc->sub_40C0A8(x, y);
+            if ((id & 0xffff) != 0) {
+                mc->sub_41955C((uint16_t)id);
+            }
+        } else if (cur_sprite == g_Cursors[0x16]->GetSprite()) {
+            mc->sub_40C0A8(x, y);
+        } else if (cur_sprite == g_Cursors[0x15]->GetSprite()) {
+            mc->sub_41965D((uint16_t)x, (uint16_t)y);
+        }
+    }
+    mc->field_0x9b4 = 0;
+    main_wnd->vis_ordertoolbar->MsgProc(0x40B, 0, 0);
+    return 0;
+}
+
+
+// 4AF0DC
+void VisMiniMap::RebuildMap()
+{
+    Scenario* scen = this->map_context->field_0x80;
+    uint16_t mask = (uint16_t)(((0x3F >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
+        | ((0x3F >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
+        | ((0x3F >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F)));
+    if (this->bitmap1 != nullptr) {
+        delete this->bitmap1;
+    }
+    if (this->bitmap2 != nullptr) {
+        delete this->bitmap2;
+    }
+    CBmp64* full = new CBmp64(scen->GetWidth() - 0x10, scen->GetHeight() - 0x10);
+    uint16_t* full_data = (uint16_t*)full->GetData();
+    uint16_t* landscape = scen->GetLandscape();
+    uint16_t* minimap_data = (uint16_t*)g_bmp_minimapdata->GetData();
+    for (int32_t y = 8; y < scen->GetHeight() - 8; y++) {
+        for (int32_t x = 8; x < scen->GetWidth() - 8; x++) {
+            uint16_t v = landscape[x + y * scen->GetWidth()];
+            int32_t mm_w = g_bmp_minimapdata->GetWidth(0);
+            int32_t mm_h = g_bmp_minimapdata->GetHeight(0);
+            int32_t full_w = full->GetWidth(0);
+            full_data[(x - 8) + (y - 8) * full_w] =
+                minimap_data[((v & 0x1FFF) >> 4) + mm_w * ((mm_h - 1) - (v & 0xF))];
+        }
+    }
+    if (scen->GetHeight() < scen->GetWidth()) {
+        if (scen->GetWidth() < 0x91) {
+            if (scen->GetWidth() < 0x51) {
+                if (scen->GetWidth() < 0x31) {
+                    this->zoom = 2;
+                } else {
+                    this->zoom = 1;
+                }
+            } else {
+                this->zoom = 0;
+            }
+        } else {
+            this->zoom = -1;
+        }
+    } else {
+        if (scen->GetHeight() < 0x91) {
+            if (scen->GetHeight() < 0x51) {
+                if (scen->GetHeight() < 0x31) {
+                    this->zoom = 2;
+                } else {
+                    this->zoom = 1;
+                }
+            } else {
+                this->zoom = 0;
+            }
+        } else {
+            this->zoom = -1;
+        }
+    }
+    int32_t w, h;
+    if (this->zoom < 0) {
+        w = (scen->GetWidth() - 0x10) >> 1;
+        h = (scen->GetHeight() - 0x10) >> 1;
+    } else {
+        w = (scen->GetWidth() - 0x10) << this->zoom;
+        h = (scen->GetHeight() - 0x10) << this->zoom;
+    }
+    this->bitmap1 = new CBmp64(w, h);
+    this->bitmap2 = new CBmp64(w, h);
+    uint16_t* b1data = (uint16_t*)this->bitmap1->GetData();
+    if (this->zoom < 0) {
+        for (int32_t y = 0; y < h; y++) {
+            const uint16_t* prow = &full_data[(2 * (h - 1 - y)) * w];
+            for (int32_t x = 0; x < w; x++) {
+                b1data[x + y * w] = (uint16_t)(((prow[x] >> 2) & mask)
+                    + ((prow[x + 1] >> 2) & mask)
+                    + ((prow[w + x] >> 2) & mask)
+                    + ((prow[w + x + 1] >> 2) & mask));
+            }
+        }
+    } else {
+        for (int32_t y = 0; y < h; y++) {
+            for (int32_t x = 0; x < w; x++) {
+                b1data[x + y * w] = full_data[(x >> this->zoom)
+                    + ((full->GetHeight(0) - 1) - (y >> this->zoom)) * full->GetWidth(0)];
+            }
+        }
+    }
+    int32_t z = this->zoom;
+    int32_t step_dir = 1;
+    if (z < 0) {
+        z = 0;
+        step_dir = 2;
+    }
+    int32_t step = 1 << z;
+    uint8_t* heights = scen->FUN_0041eee0();
+    int32_t dst_off = 0;
+    for (int32_t x = 8; x < scen->GetWidth() - 8; x += step_dir) {
+        int32_t dst_y = 0;
+        for (int32_t y = 8; y < scen->GetHeight() - 8; y += step_dir) {
+            int32_t land_idx = x + y * scen->GetWidth();
+            int32_t b1h = this->bitmap1->GetHeight(0);
+            int32_t b1w = this->bitmap1->GetWidth(0);
+            int32_t b1_idx = dst_off + ((b1h - 1) - dst_y) * b1w;
+            uint8_t h00 = heights[land_idx];
+            uint8_t h01 = heights[land_idx + 1];
+            uint8_t h10 = heights[land_idx + scen->GetWidth()];
+            uint8_t h11 = heights[land_idx + scen->GetWidth() + 1];
+            uint16_t shade = 0x60 - (uint16_t)(((uint32_t)h00 + h01 + h10 + h11) >> 2);
+            uint16_t px = b1data[b1_idx];
+            uint32_t r = (((uint32_t)(uint16_t)((px >> (g_RBitShift & 0x1F)) & ((1 << g_RBits) - 1)) * shade) >> 5) << (8 - g_RBits & 0x1F);
+            uint32_t rc = r & 0xFFFF;
+            if (rc > 0xFF) {
+                rc = 0xFF;
+            }
+            uint32_t g = (((uint32_t)(uint16_t)((px >> (g_GBitShift & 0x1F)) & ((1 << g_GBits) - 1)) * shade) >> 5) << (8 - g_GBits & 0x1F);
+            uint32_t gc = g & 0xFFFF;
+            if (gc > 0xFF) {
+                gc = 0xFF;
+            }
+            uint32_t b = (((uint32_t)(uint16_t)((px >> (g_BBitShift & 0x1F)) & ((1 << g_BBits) - 1)) * shade) >> 5) << (8 - g_BBits & 0x1F);
+            uint32_t bc = b & 0xFFFF;
+            if (bc > 0xFF) {
+                bc = 0xFF;
+            }
+            for (int32_t j = 0; j < step; j++) {
+                for (int32_t i = 0; i < step; i++) {
+                    b1data[b1_idx + i - j * this->bitmap1->GetWidth(0)] =
+                        (uint16_t)(((rc >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
+                            | ((gc >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
+                            | ((bc >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F)));
+                }
+            }
+            dst_y += step;
+        }
+        dst_off += step;
+    }
+    delete full;
+}
+
+
+// 4AFB8E
+void VisMiniMap::VMethod7()
+{
+    BigStruct2* mc = this->map_context;
+    if (mc == nullptr) {
+        return;
+    }
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if ((main_wnd->dialogsMask & 2) != 0 || (main_wnd->dialogsMask & 4) != 0) {
+        return;
+    }
+    if (abs((int)(this->viewer - mc->field_0xa88)) <= 10) {
+        return;
+    }
+    this->viewer = mc->field_0xa88;
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    Scenario* scen = mc->field_0x80;
+    if (scen == nullptr) {
+        return;
+    }
+    LockSurface2();
+    int32_t z = this->zoom;
+    int32_t mode = 1;
+    if (z < 0) {
+        z = 0;
+        mode = 2;
+    }
+    int32_t step = 1 << z;
+    uint16_t half_mask = (uint16_t)(((0x7F >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
+        | ((0x7F >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
+        | ((0x7F >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F)));
+    int32_t ox, oy;
+    if (mode == 1) {
+        ox = ((scen->GetWidth() - 0x10) << z) >> 1;
+        oy = ((scen->GetHeight() - 0x10) << z) >> 1;
+    } else {
+        ox = (scen->GetWidth() - 0x10) >> 2;
+        oy = (scen->GetHeight() - 0x10) >> 2;
+    }
+    oy = 0x52 - oy;
+    ox = 0x48 - ox;
+    g_bmp_crystalr->VMethod2(rc.left, rc.top, 0, 0, 0);
+    if (mc->field_0xdc == 0) {
+        this->bitmap2->VMethod2(rc.left + ox, rc.top + oy, 0, 0, 0);
+    } else {
+        this->bitmap1->VMethod2(rc.left + ox, rc.top + oy, 0, 0, 0);
+    }
+    if (mc->field_0xdc != 0) {
+        uint16_t* landscape = scen->GetLandscape();
+        uint16_t* cryst_data = (uint16_t*)g_bmp_crystalr->GetData();
+        int32_t cryst_w = g_bmp_crystalr->GetWidth(0);
+        uint16_t* mm2_data = (uint16_t*)this->bitmap2->GetData();
+        int32_t total;
+        if (mode == 1) {
+            total = ((scen->GetWidth() - 0x10) * (scen->GetHeight() - 0x10)) << ((this->zoom << 1) & 0x1F);
+        } else {
+            total = (scen->GetHeight() - 0x10) * (scen->GetWidth() - 0x10);
+            total = (total + (total >> 31 & 3)) >> 2;
+        }
+        uint16_t* mm2_tail = mm2_data + total;
+        int32_t dst_pix = rc.top * g_selDrawBitmap.dwWidth + rc.left;
+        int32_t cryst_h = g_bmp_crystalr->GetHeight(0);
+        int32_t src_row = ((cryst_h - 1) - oy) * cryst_w;
+        int32_t dst_row = oy * g_selDrawBitmap.dwWidth;
+        int32_t sy = 8;
+        while (sy < scen->GetHeight() - 8) {
+            int32_t cx = ox;
+            int32_t sx = 8;
+            while (sx < scen->GetWidth() - 8) {
+                int32_t lidx = sx + sy * scen->GetWidth();
+                uint16_t flags = (landscape[lidx] & 0xC000)
+                    | (landscape[lidx + 1] & 0xC000)
+                    | (landscape[lidx + scen->GetWidth()] & 0xC000)
+                    | (landscape[lidx + scen->GetWidth() + 1] & 0xC000);
+                uint16_t* src = &cryst_data[src_row + cx];
+                uint16_t* dst = (uint16_t*)((uint16_t*)g_selDrawBitmap.lpSurface + dst_pix + dst_row + cx);
+                if (flags == 0) {
+                    for (int32_t j = step; j != 0; j--) {
+                        for (int32_t i = step; i != 0; i--) {
+                            *dst = *src;
+                            src++;
+                            dst++;
+                        }
+                        dst += g_selDrawBitmap.dwWidth - step;
+                        src += -step - cryst_w;
+                    }
+                } else if (flags == 0x8000) {
+                    for (int32_t j = step; j != 0; j--) {
+                        for (int32_t i = step; i != 0; i--) {
+                            uint16_t s = *src++;
+                            *dst = (uint16_t)(((s >> 1) & half_mask) + ((*dst >> 1) & half_mask));
+                            dst++;
+                        }
+                        dst += g_selDrawBitmap.dwWidth - step;
+                        src += -(cryst_w + step);
+                    }
+                }
+                cx += step;
+                sx += mode;
+            }
+            if (mode == 1) {
+                for (int32_t i = 0; i < step; i++) {
+                    mm2_tail -= (scen->GetWidth() - 0x10) << this->zoom;
+                    memcpy(mm2_tail,
+                        (uint16_t*)g_selDrawBitmap.lpSurface + g_selDrawBitmap.dwWidth * i
+                            + dst_pix + dst_row + ox,
+                        (scen->GetWidth() - 0x10) * (2 << this->zoom));
+                }
+            } else {
+                mm2_tail -= (scen->GetWidth() - 0x10) >> 1;
+                memcpy(mm2_tail,
+                    (uint16_t*)g_selDrawBitmap.lpSurface + dst_pix + dst_row + ox,
+                    scen->GetWidth() - 0x10);
+            }
+            src_row -= cryst_w * step;
+            dst_row += g_selDrawBitmap.dwWidth * step;
+            sy += mode;
+        }
+        mc->field_0xdc = 0;
+    }
+    POSITION pos = mc->field_0x9d0.GetStartPosition();
+    while (pos != nullptr) {
+        uint16_t key;
+        CGameObject* obj;
+        mc->field_0x9d0.GetNextAssoc(pos, key, obj);
+        obj->VMethod9(rc.left + ox, rc.top + oy, this->zoom);
+    }
+    if (mode == 1) {
+        DrawRectangleFrame((mc->view_x - 8) * step + rc.left + ox,
+            (mc->view_y - 8) * step + rc.top + oy,
+            (mc->view_x - 8) * step + rc.left + ox - 1 + mc->field_0x64 * step,
+            (mc->view_y - 8) * step + rc.top + oy - 1 + mc->field_0x68 * step,
+            (uint16_t)(((0xFF >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
+                | ((0xFF >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
+                | ((0xFF >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F))));
+    } else {
+        DrawRectangleFrame((mc->view_x - 8) / 2 + rc.left + ox,
+            (mc->view_y - 8) / 2 + rc.top + oy,
+            (mc->view_x - 8) / 2 + rc.left + ox - 1 + mc->field_0x64 / 2,
+            (mc->view_y - 8) / 2 + rc.top + oy - 1 + mc->field_0x68 / 2,
+            (uint16_t)(((0xFF >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
+                | ((0xFF >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
+                | ((0xFF >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F))));
+    }
+    UnlockSurface2();
+}
+
+
+// 4AEEC3
+VisMiniMap::VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->bitmap1 = nullptr;
+    this->bitmap2 = nullptr;
+}
+
+
+// 4AEF4D (scalar deleting dtor ??_G at 4B4730)
+VisMiniMap::~VisMiniMap()
+{
+    if (this->bitmap1 != nullptr) {
+        delete this->bitmap1;
+    }
+    if (this->bitmap2 != nullptr) {
+        delete this->bitmap2;
     }
 }

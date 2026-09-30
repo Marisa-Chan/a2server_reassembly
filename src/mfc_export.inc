@@ -1032,7 +1032,6 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 extern ?DAT_00660f88@@3HA : dword
 
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
-externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
@@ -1602,6 +1601,7 @@ externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
 ;VisMiniMap
 extern ?UpdateCursor@VisMiniMap@@QAEXXZ : proc
+extern ?RebuildMap@VisMiniMap@@QAEXXZ : proc
 
 ;VisFameDocument
 extern ??_GVisFameDocument@@UAEPAXI@Z : proc
@@ -1636,13 +1636,14 @@ externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
 
 ;VisMiniMap
-externdef ??_GVisMiniMap@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisMiniMap@@UAEXXZ : proc
-externdef ?MsgProc@VisMiniMap@@UAEHIII@Z : proc
+extern ??_GVisMiniMap@@UAEPAXI@Z : proc
+extern ??1VisMiniMap@@UAE@XZ : proc
+extern ?VMethod7@VisMiniMap@@UAEXXZ : proc
+extern ?MsgProc@VisMiniMap@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 
 ;VisOrderToolbar
 externdef ??_GVisOrderToolbar@@UAEPAXI@Z : proc

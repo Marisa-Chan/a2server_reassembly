@@ -139,6 +139,7 @@
 ??1VisMenuWnd@@UAE@XZ
 ??1VisMessageBox@@UAE@XZ
 ??1VisMessageBoxWithList@@UAE@XZ
+??1VisMiniMap@@UAE@XZ
 ??1VisRadioType1@@UAE@XZ
 ??1VisScreen@@UAE@XZ
 ??1VisShopCompass@@UAE@XZ
@@ -171,6 +172,7 @@
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
+??_GVisMiniMap@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisStartGame@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
@@ -545,6 +547,7 @@
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
+?MsgProc@VisMiniMap@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
@@ -585,6 +588,7 @@
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
@@ -601,6 +605,7 @@
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
@@ -612,6 +617,7 @@
 ?OnMouseMove@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z
@@ -624,6 +630,7 @@
 ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
+?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
@@ -660,6 +667,7 @@
 ?ReadFileToString@@YAXPBDPAVCString@@@Z
 ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z
 ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z
+?RebuildMap@VisMiniMap@@QAEXXZ
 ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ
 ?RecreateCUnit@CGameSession@@QAEXXZ
 ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z
@@ -825,6 +833,7 @@
 ?UnlockSurface3@@YAIXZ
 ?Unpaint@CMousePointer@@QAEXXZ
 ?Update@CMousePointer@@QAEXXZ
+?UpdateCursor@VisMiniMap@@QAEXXZ
 ?UpdateHotspots@VisStartGame@@QAEIHHI@Z
 ?UpdateSelectionState@BigStruct2@@QAEXXZ
 ?UpdateWinRect@VisWindow@@QAEXXZ
@@ -959,6 +968,7 @@
 ?VMethod7@VisInvExtType3@@UAEXXZ
 ?VMethod7@VisInvType1@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
+?VMethod7@VisMiniMap@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisStartGame@@UAEXXZ

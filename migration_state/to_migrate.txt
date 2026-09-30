@@ -44,6 +44,7 @@
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
 ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z	41
+?sub_40C0A8@BigStruct2@@QAEIHH@Z	56
 ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z	58
 ?FUN_0041ae1c@BigStruct2@@QAEXH@Z	170
 ??0CAirUnit@@QAE@XZ	18
@@ -383,14 +384,6 @@
 ?VMethod7@VisMainMenu@@UAEXXZ	140
 ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z	163
 ?VMethod26@VisMainMenu@@UAEXXZ	187
-??_GVisMiniMap@@UAEPAXI@Z	24
-?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z	24
-??0VisMiniMap@@QAE@HHHHH@Z	36
-?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z	53
-?MsgProc@VisMiniMap@@UAEHIII@Z	86
-?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z	158
-?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z	322
-?VMethod7@VisMiniMap@@UAEXXZ	806
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193

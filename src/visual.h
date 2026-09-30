@@ -1156,7 +1156,7 @@ public:
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B0C84
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4B0AAD
 
-	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3 in asm
+	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3
 
 	void RebuildMap(); // 4af0dc in asm
 	void UpdateCursor(); // 4b042e in asm
