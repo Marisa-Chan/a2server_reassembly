@@ -3928,7 +3928,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
                         if (idx < parent_screen->session->GetStringArray1Size() - 1)
                         {
                             parent_screen->session->LoadCharacterRosterEntry(idx);
-                            parent_screen->vis_stats->FUN_0042f6f3();
+                            parent_screen->vis_stats->ReadUnitStats();
                             parent_screen->FUN_00432655(parent_screen->selected_unit);
                         }
                         else
@@ -4228,7 +4228,7 @@ void VisCharSellectList::SelectRow(int32_t row)
             this->parent_screen->map_context->UpdateSelectionState();
         } else {
             this->parent_screen->session->LoadCharacterRosterEntry(row);
-            this->parent_screen->vis_stats->FUN_0042f6f3();
+            this->parent_screen->vis_stats->ReadUnitStats();
             this->parent_screen->FUN_00432655(this->parent_screen->selected_unit);
         }
         this->field_0xd0 = row;
@@ -4487,6 +4487,23 @@ void VisCharSellectStats::LoadBitmaps()
 }
 
 
+// 42F6F3
+void VisCharSellectStats::ReadUnitStats()
+{
+    if (this->parent_screen->selected_unit == nullptr) {
+        this->field_0x7c = 0;
+        this->field_0x80 = 0;
+        this->field_0x84 = 0;
+        this->field_0x88 = 0;
+    } else {
+        this->field_0x7c = this->parent_screen->selected_unit->body;
+        this->field_0x80 = this->parent_screen->selected_unit->reaction;
+        this->field_0x84 = this->parent_screen->selected_unit->mind;
+        this->field_0x88 = this->parent_screen->selected_unit->spirit;
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4569,7 +4586,7 @@ void VisCharSelect::VMethod28()
     this->map_context->quest_building_some_id = 0;
     this->map_context->quest_some_id = 0;
     this->selected_unit = this->GetSelectedMapUnit();
-    this->vis_stats->FUN_0042f6f3();
+    this->vis_stats->ReadUnitStats();
     if (this->session->GetStringArray1Size() > 1) {
         this->FUN_00432655(this->selected_unit);
     }

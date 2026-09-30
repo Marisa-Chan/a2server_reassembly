@@ -761,7 +761,7 @@ public:
 	virtual void VMethod7() override; // 42F7B9
 
 
-	void FUN_0042f6f3();
+	void ReadUnitStats(); // 42f6f3
 
 	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
 

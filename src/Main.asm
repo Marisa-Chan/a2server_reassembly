@@ -17005,68 +17005,6 @@ sub_42F1E8      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z+2CA↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+84h], 0
-                jz      short loc_42F784
-                xor     edx, edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+84h]
-                xor     edx, edx
-                mov     dl, [ecx+144h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+7Ch], edx
-                xor     ecx, ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     eax, dword ptr [edx+84h]
-                xor     ecx, ecx
-                mov     cl, [eax+147h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+80h], ecx
-                xor     eax, eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     edx, dword ptr [ecx+84h]
-                xor     eax, eax
-                mov     al, [edx+145h]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+84h], eax
-                xor     edx, edx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+84h]
-                xor     edx, edx
-                mov     dl, [ecx+146h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+88h], edx
-                jmp     short loc_42F7B5
-; ---------------------------------------------------------------------------
-
-loc_42F784:                             ; CODE XREF: ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ+14↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+7Ch], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+80h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+84h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+88h], 0
-
-loc_42F7B5:                             ; CODE XREF: ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ+8F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

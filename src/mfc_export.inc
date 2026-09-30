@@ -1304,7 +1304,6 @@ extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z 
 extern ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z  :proc
 
 ;VisCharSellectStats
-externdef ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ  : proc
 
 ;VisMenuWnd
 extern ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
