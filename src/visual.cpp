@@ -4491,6 +4491,29 @@ void VisNetMapSelection::StopThread()
 }
 
 
+// 44D13D
+void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info)
+{
+    this->avail_maps.Add(info);
+    VisListBox* map_list = (VisListBox*)this->FindChild(1);
+    VisScrollBar* scrollbar = (VisScrollBar*)this->FindChild(0xA);
+    int32_t prev_sel = map_list->GetSelectedIndex();
+    char buf[1024];
+    sprintf(buf, "%s#%dx%d#%d#%d", (LPCTSTR)info->name, info->width - 0x10, info->height - 0x10,
+            info->players, info->maplevel);
+    map_list->AddItem(buf);
+    if (prev_sel < 0) {
+        prev_sel = prev_sel + 1;
+        map_list->SetSelectedIndex(prev_sel);
+    }
+    scrollbar->SetPos(prev_sel, this->avail_maps.GetSize());
+    map_list->VMethod9();
+    if (prev_sel == 0) {
+        PostMessageA(g_MainWndHWND, 0x46E, 1, 0);
+    }
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

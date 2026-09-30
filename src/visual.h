@@ -3352,6 +3352,7 @@ public:
 	VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName); //44af45
 
 	void StopThread(); // 44aeef
+	void AddNetMapInfo(NetMapInfo* info); // 44d13d
 
 public:
 	CString* p_mapname;

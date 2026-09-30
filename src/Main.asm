@@ -34855,7 +34855,7 @@ loc_44D0B6:                             ; CODE XREF: ?VMethod26@VisNetMapSelecti
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_481 proc near           ; CODE XREF: sub_44D13D+E0↓p
+unknown_libname_481 proc near           ; CODE XREF: ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z+E0↓p
 
 var_4           = dword ptr -4
 
@@ -34873,103 +34873,6 @@ unknown_libname_481 endp
 
 ; Attributes: bp-based frame
 
-sub_44D13D      proc near               ; CODE XREF: ?MsgProc@VisNetMapSelection@@UAEHIII@Z+1CE↓p
-
-var_410         = dword ptr -410h
-var_40C         = dword ptr -40Ch
-var_408         = dword ptr -408h
-Buffer          = byte ptr -404h
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 410h
-                mov     [ebp+var_410], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_410]
-                add     ecx, 6Ch ; 'l'
-                call    sub_451170
-                push    1
-                mov     ecx, dword ptr [ebp+var_410]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_408], eax
-                push    0Ah
-                mov     ecx, dword ptr [ebp+var_410]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_408] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                mov     [ebp+var_40C], eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+10h]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax+0Ch]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+18h]
-                sub     eax, 10h
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+14h]
-                sub     edx, 10h
-                push    edx
-                mov     ecx, dword ptr [ebp+arg_0]
-                add     ecx, 4
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                push    offset aSDxDDD  ; "%s#%dx%d#%d#%d"
-                lea     eax, [ebp+Buffer]
-                push    eax             ; Buffer
-                call    _sprintf
-                add     esp, 1Ch
-                lea     ecx, [ebp+Buffer]
-                push    ecx             ; char *
-                mov     ecx, dword ptr [ebp+var_408]
-                call    sub_4507F0
-                cmp     [ebp+var_40C], 0
-                jge     short loc_44D222
-                mov     edx, dword ptr [ebp+var_40C]
-                add     edx, 1
-                mov     [ebp+var_40C], edx
-                mov     eax, dword ptr [ebp+var_40C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_408]
-                call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_40C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_410]
-                call    unknown_libname_481 ; Microsoft VisualC 2-14/net runtime
-
-loc_44D222:                             ; CODE XREF: sub_44D13D+B0↑j
-                mov     ecx, dword ptr [ebp+var_410]
-                add     ecx, 6Ch ; 'l'
-                call    unknown_libname_491 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     edx, dword ptr [ebp+var_40C]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?SetPos@VisScrollBar@@QAEXHH@Z
-                mov     eax, dword ptr [ebp+var_408]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_408]
-                call    dword ptr [edx+34h]
-                cmp     [ebp+var_40C], 0
-                jnz     short loc_44D26F
-                push    0               ; lParam
-                push    1               ; wParam
-                push    46Eh            ; Msg
-                mov     eax, [?g_MainWndHWND@@3PAUHWND__@@A]
-                push    eax             ; hWnd
-                call    PostMessageA
-
-loc_44D26F:                             ; CODE XREF: sub_44D13D+11B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_44D13D      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -35164,7 +35067,7 @@ loc_44D436:                             ; CODE XREF: ?MsgProc@VisNetMapSelection
                 mov     ecx, dword ptr [ebp+var_28]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_5C]
-                call    sub_44D13D
+                call    ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z
                 mov     eax, 1
                 jmp     loc_44D873
 ; ---------------------------------------------------------------------------
@@ -41392,7 +41295,7 @@ unknown_libname_491 endp
 
 ; Attributes: bp-based frame
 
-sub_451170      proc near               ; CODE XREF: sub_44D13D+1C↑p
+sub_451170      proc near               ; CODE XREF: ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z+1C↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -328008,7 +327911,7 @@ a256000         db '256000',0           ; DATA XREF: ?VMethod26@VisNetSerialSett
 aAlm            db '\*.alm',0           ; DATA XREF: sub_44AAE5+38↑o
                 align 4
 ; char aSDxDDD[]
-aSDxDDD         db '%s#%dx%d#%d#%d',0   ; DATA XREF: sub_44D13D+83↑o
+aSDxDDD         db '%s#%dx%d#%d#%d',0   ; DATA XREF: ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z+83↑o
                 align 4
 ; char aSaveonserver[]
 aSaveonserver   db '-saveonserver',0    ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1BC↑o
