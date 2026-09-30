@@ -4504,6 +4504,52 @@ void VisCharSellectStats::ReadUnitStats()
 }
 
 
+// 42F7B9
+void VisCharSellectStats::VMethod7()
+{
+    CPoint top_left = this->parent_screen->rect.TopLeft();
+    if (this->parent_screen->active_flag != 0) {
+        LockSurface2();
+        this->field_0x64->VMethod2(top_left.x, top_left.y, 0, 0, 0);
+        this->field_0x60->VMethod2(top_left.x, top_left.y + 0xEE, 0, 0, 0);
+        if (this->parent_screen->roster_list->field_0xd0 == this->parent_screen->session->GetStringArray1Size() - 1) {
+            UnlockSurface2();
+            return;
+        }
+        CString str;
+        uint16_t* pal = palette_husk->GetPalette(0);
+        int32_t center_x = top_left.x + (this->rect.Width() + 0xC) / 2;
+
+        str.Format("%d", this->parent_screen->session->money);
+        g_font4->DrawTxt(center_x, top_left.y + 0x35 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
+                         str, 10, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x35, TxtFile::AllLines[0x59], 10, clrsh_DullGold, 1);
+
+        str.Format("%d", this->parent_screen->session->monster_killed);
+        g_font4->DrawTxt(center_x, top_left.y + 0x57 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
+                         str, 10, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x57, TxtFile::AllLines[0xF4], 10, clrsh_DullGold, 1);
+
+        str.Format("%d", this->parent_screen->session->player_killed);
+        g_font4->DrawTxt(center_x, top_left.y + 0x79 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
+                         str, 10, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x79, TxtFile::AllLines[0xF5], 10, clrsh_DullGold, 1);
+
+        str.Format("%d", this->parent_screen->session->death_count);
+        g_font4->DrawTxt(center_x, top_left.y + 0x9B + g_font2->GetHeight() + g_font4->GetHeight() / 2,
+                         str, 10, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x9B, TxtFile::AllLines[0xF6], 10, clrsh_DullGold, 1);
+
+        CRect rc = this->rect + top_left;
+        OffsetRect(&rc, 0xC, 0);
+        rc.top = top_left.y + 0xEE;
+        rc.bottom = top_left.y + 0x1E0;
+        this->parent_screen->selected_unit->FUN_0046c124(&rc);
+        UnlockSurface2();
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
