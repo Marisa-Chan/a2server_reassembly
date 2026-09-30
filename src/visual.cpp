@@ -4236,6 +4236,26 @@ void VisCharSellectList::SelectRow(int32_t row)
 }
 
 
+// 431872
+int32_t VisCharSellectList::HitTest(CPoint pos)
+{
+    int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+    CPoint top_left = this->parent_screen->rect.TopLeft();
+    if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
+        visible_end = this->parent_screen->session->GetStringArray1Size();
+    }
+    for (int32_t i = this->field_0xa0; i < visible_end; i++) {
+        CPoint origin(top_left.x + this->field_0x70.left,
+                      top_left.y + this->field_0x70.top + this->field_0x60.Height() * (i - this->field_0xa0 + 1));
+        CRect row_rect(origin, this->field_0x60.Size());
+        if (row_rect.PtInRect(pos)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
