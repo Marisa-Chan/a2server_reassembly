@@ -20590,3 +20590,32 @@ void VisFameDocument::UpdateArrowStates()
         }
     }
 }
+
+
+// 4AE638
+void VisFameDocument::NextDoc()
+{
+    Fame2& doc = this->fame->m_Documents[this->selected_doc];
+    if (!doc.FUN_004abf35()) {
+        this->selected_doc = this->selected_doc + 1;
+        int32_t last = this->fame->m_Documents.GetUpperBound();
+        if (this->selected_doc >= last) {
+            this->selected_doc = last;
+        }
+    }
+    this->UpdateArrowStates();
+}
+
+
+// 4AE6B3
+void VisFameDocument::PrevDoc()
+{
+    Fame2& doc = this->fame->m_Documents[this->selected_doc];
+    if (doc.FUN_004abf72() == 0) {
+        this->selected_doc = this->selected_doc - 1;
+        if (this->selected_doc < 1) {
+            this->selected_doc = 0;
+        }
+    }
+    this->UpdateArrowStates();
+}

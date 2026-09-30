@@ -3159,6 +3159,8 @@ public:
 	void LoadDocs(); // 4ae3c6 in asm
 	int32_t UpdateButtons(CPoint pos, bool is_down); // 4ae952 in asm
 	void UpdateArrowStates(); // 4aec7a in asm
+	void NextDoc(); // 4ae638 in asm
+	void PrevDoc(); // 4ae6b3 in asm
 public:
 	CFameHall* fame;
 	CBmp64* bmp_sheet;

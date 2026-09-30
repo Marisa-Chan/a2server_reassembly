@@ -1615,6 +1615,8 @@ extern ?ClearDocs@VisFameDocument@@QAEXXZ : proc
 extern ?LoadDocs@VisFameDocument@@QAEXXZ : proc
 extern ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z : proc
 extern ?UpdateArrowStates@VisFameDocument@@QAEXXZ : proc
+extern ?NextDoc@VisFameDocument@@QAEXXZ : proc
+extern ?PrevDoc@VisFameDocument@@QAEXXZ : proc
 externdef ?VMethod28@VisFameDocument@@UAEXXZ : proc
 externdef ?DoClose@VisFameDocument@@UAEXI@Z : proc
 

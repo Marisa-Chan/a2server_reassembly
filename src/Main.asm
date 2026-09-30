@@ -86907,7 +86907,7 @@ sub_4ABE47      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004abf35@Fame2@@QAE_NXZ      proc near               ; CODE XREF: sub_4AE638+21↓p
+?FUN_004abf35@Fame2@@QAE_NXZ      proc near               ; CODE XREF: ?NextDoc@VisFameDocument@@QAEXXZ+21↓p
 
 var_4           = dword ptr -4
 
@@ -86948,7 +86948,7 @@ loc_4ABF6D:                             ; CODE XREF: ?FUN_004abf35@Fame2@@QAE_NX
 
 ; Attributes: bp-based frame
 
-?FUN_004abf72@Fame2@@QAEHXZ      proc near               ; CODE XREF: sub_4AE6B3+21↓p
+?FUN_004abf72@Fame2@@QAEHXZ      proc near               ; CODE XREF: ?PrevDoc@VisFameDocument@@QAEXXZ+21↓p
 
 var_4           = dword ptr -4
 
@@ -89838,94 +89838,12 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-sub_4AE638      proc near               ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+55↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+68h]
-                add     ecx, 24h ; '$'
-                call    sub_4AD3B0
-                mov     ecx, eax
-                call    ?FUN_004abf35@Fame2@@QAE_NXZ
-                test    eax, eax
-                jnz     short loc_4AE6A7
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+0B8h], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+68h]
-                add     ecx, 24h ; '$'
-                call    unknown_libname_632 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     [ecx+0B8h], eax
-                jl      short loc_4AE6A7
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+68h]
-                add     ecx, 24h ; '$'
-                call    unknown_libname_632 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+0B8h], eax
-
-loc_4AE6A7:                             ; CODE XREF: sub_4AE638+28↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateArrowStates@VisFameDocument@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4AE638      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4AE6B3      proc near               ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+40↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+68h]
-                add     ecx, 24h ; '$'
-                call    sub_4AD3B0
-                mov     ecx, eax
-                call    ?FUN_004abf72@Fame2@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_4AE70B
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0B8h]
-                sub     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+0B8h], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+0B8h], 0
-                jg      short loc_4AE70B
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0B8h], 0
-
-loc_4AE70B:                             ; CODE XREF: sub_4AE6B3+28↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateArrowStates@VisFameDocument@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4AE6B3      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -89968,7 +89886,7 @@ arg_8           = dword ptr  10h
 
 loc_4AE754:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+2D↑j
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4AE6B3
+                call    ?PrevDoc@VisFameDocument@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_8]
                 mov     edx, dword ptr [ecx]
                 mov     ecx, dword ptr [ebp+var_8]
@@ -89978,7 +89896,7 @@ loc_4AE754:                             ; CODE XREF: ?OnLButtonUp@VisFameDocumen
 
 loc_4AE769:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+33↑j
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4AE638
+                call    ?NextDoc@VisFameDocument@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_8]
                 mov     edx, dword ptr [eax]
                 mov     ecx, dword ptr [ebp+var_8]
@@ -90121,7 +90039,7 @@ loc_4AED72:                             ; CODE XREF: ??_GVisFameDocument@@UAEPAX
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_632 proc near           ; CODE XREF: sub_4AE638+48↑p
+unknown_libname_632 proc near           ; CODE XREF: ?NextDoc@VisFameDocument@@QAEXXZ+48↑p
 
 var_4           = dword ptr -4
 
