@@ -133,6 +133,7 @@
 ??1VisButton@@UAE@XZ
 ??1VisCharSelect@@UAE@XZ
 ??1VisCharSellectButtons@@UAE@XZ
+??1VisCharSellectList@@UAE@XZ
 ??1VisInvBase@@UAE@XZ
 ??1VisInvExtBase@@UAE@XZ
 ??1VisInvExtType1@@UAE@XZ
@@ -164,6 +165,7 @@
 ??_7SpellBook@@6B@
 ??_GVisCharSelect@@UAEPAXI@Z
 ??_GVisCharSellectButtons@@UAEPAXI@Z
+??_GVisCharSellectList@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z
@@ -225,7 +227,6 @@
 ?Close@CLlDriver@@QAEXXZ
 ?Close@File2@@UAEXXZ
 ?CloseOk@VisScreen@@QAEXXZ
-?CloseRenameWindow@VisCharSelect@@QAEXXZ
 ?clr_log_sblack@@3PAGA
 ?clr_log_tblack@@3PAGA
 ?clr_log_tok0@@3PAGA
@@ -564,6 +565,7 @@
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
+?OnKeyDown@VisCharSellectList@@UAEHI@Z
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
@@ -575,6 +577,7 @@
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z
 ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z
+?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
@@ -584,6 +587,7 @@
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -600,6 +604,7 @@
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -612,6 +617,7 @@
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -961,6 +967,7 @@
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisCharSellectButtons@@UAEXXZ
+?VMethod7@VisCharSellectList@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ

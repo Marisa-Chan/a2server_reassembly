@@ -139,6 +139,7 @@
 ?FUN_00493cd8@CGameSession@@QAEXXZ	58
 ?FUN_004948b2@CGameSession@@QAEXXZ	81
 ?FUN_004946e0@CGameSession@@QAEXXZ	183
+?FUN_0049381c@CGameSession@@QAEXPAD@Z	229
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
 ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z	2
 ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z	2
@@ -316,17 +317,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?FUN_00430fad@VisCharSellectList@@QAEXXZ	19
-??_GVisCharSellectList@@UAEPAXI@Z	24
-?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z	24
-?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z	39
-??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z	67
-?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z	69
-?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z	89
-?OnKeyDown@VisCharSellectList@@UAEHI@Z	89
-?FUN_0043148a@VisCharSellectList@@QAEXXZ	151
-?FUN_004312b7@VisCharSellectList@@QAEXXZ	176
-?VMethod7@VisCharSellectList@@UAEXXZ	264
 ??_GVisCharSellectStats@@UAEPAXI@Z	24
 ?GetHint@VisCharSellectStats@@UAEPBDXZ	56
 ?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
