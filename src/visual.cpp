@@ -13,6 +13,21 @@
 #include "spell.h"
 
 
+extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
+
+// Spellbook pressed-position spell table. 62f8a8
+uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
+
+// Spellbook selected-position spell table. 62fa28
+uint32_t DAT_0062FA28[24] = {1,0,0,1, 1,0,0,1, 0,1,1,1, 1,0,0,1, 0,1,1,1, 1,0,0,1};
+
+// Spellbook position castable-from-book flag. 62f968
+uint32_t DAT_0062F968[24] = {1,1,1,0, 1,0,0,1, 0,0,1,1, 1,1,1,0, 1,0,0,0, 0,1,1,1};
+
+// Spellbook position double-click-castable flag. 62f9c8
+uint32_t DAT_0062F9C8[24] = {0,0,0,1, 1,1,1,0, 1,1,0,0, 0,0,0,1, 1,0,0,1, 1,0,0,0};
+
+
 const int32_t VisStartGame::DWORD_0060bd60[4] = {0, 2, 3, 1};
 
 

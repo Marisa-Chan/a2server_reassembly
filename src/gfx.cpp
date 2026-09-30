@@ -29,10 +29,6 @@ int32_t g_ddsurf_lock3 = 0; //659bf8
 
 CRect g_clipRect; //659d08
 DDSURFACEDESC g_selDrawBitmap; //659c98
-uint32_t DAT_0062F8A8[24]; //62f8a8
-uint32_t DAT_0062FA28[24]; //62fa28
-uint32_t DAT_0062F968[24]; //62f968
-uint32_t DAT_0062F9C8[24]; //62f9c8
 CRect g_ScreenSize; //65fb78
 
 uint32_t g_isLowMemory = 0; //660f58
