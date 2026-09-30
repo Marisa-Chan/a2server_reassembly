@@ -1603,21 +1603,6 @@ externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 extern ?UpdateCursor@VisMiniMap@@QAEXXZ : proc
 extern ?RebuildMap@VisMiniMap@@QAEXXZ : proc
 
-;VisFameDocument
-extern ??_GVisFameDocument@@UAEPAXI@Z : proc
-extern ??1VisFameDocument@@UAE@XZ : proc
-extern ?GetHint@VisFameDocument@@UAEPBDXZ : proc
-extern ?VMethod7@VisFameDocument@@UAEXXZ : proc
-extern ?VMethod8@VisFameDocument@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisFameDocument@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisFameDocument@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisFameDocument@@UAEHI@Z : proc
-extern ?VMethod26@VisFameDocument@@UAEXXZ : proc
-extern ?VMethod28@VisFameDocument@@UAEXXZ : proc
-extern ?DoClose@VisFameDocument@@UAEXI@Z : proc
-
 ;VisTipsDialog
 externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
 externdef ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
