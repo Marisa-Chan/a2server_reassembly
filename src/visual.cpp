@@ -4562,6 +4562,28 @@ const char* VisCharSellectStats::GetHint()
 }
 
 
+// 42F1E8
+void VisCharSellectStats::Init()
+{
+    this->field_0x60 = nullptr;
+    this->field_0x64 = nullptr;
+    this->field_0x8c = nullptr;
+    this->field_0x68.SetSize(4, -1);
+    this->field_0x68[0] = TxtFile::AllLines[0xF];
+    this->field_0x68[1] = TxtFile::AllLines[0x10];
+    this->field_0x68[2] = TxtFile::AllLines[0x11];
+    this->field_0x68[3] = TxtFile::AllLines[0x12];
+    this->field_0x90[0] = CRect(CPoint(0x70, 0x31), CSize(0x20, 0x20));
+    this->field_0x90[1] = CRect(CPoint(0x70, 0x52), CSize(0x20, 0x20));
+    this->field_0x90[2] = CRect(CPoint(0x70, 0x73), CSize(0x20, 0x20));
+    this->field_0x90[3] = CRect(CPoint(0x70, 0x94), CSize(0x20, 0x20));
+    this->field_0x7c = 0x1E;
+    this->field_0x80 = 0x1F;
+    this->field_0x84 = 0x20;
+    this->field_0x88 = 0x21;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
