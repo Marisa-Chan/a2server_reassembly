@@ -718,7 +718,7 @@ public:
 	VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb in asm
 
 	void FUN_00430fad(); // 430fad in asm
-	void FUN_004312b7(); // 4312b7 in asm
+	void LoadBitmaps(); // 4312b7
 	void FreeBitmaps(); // 43148a
 
 public:

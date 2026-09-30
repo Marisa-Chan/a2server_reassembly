@@ -4202,6 +4202,23 @@ void VisCharSellectList::FreeBitmaps()
 }
 
 
+// 4312B7
+void VisCharSellectList::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->field_0xa4 = new CBmp64("graphics\\interface\\chrgen\\loader\\CenterArea.bmp");
+    g_mousept.Update();
+    this->field_0xa8 = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine.bmp");
+    g_mousept.Update();
+    this->field_0xac = new CBmp64("graphics\\interface\\chrgen\\loader\\up\\shine_on.bmp");
+    g_mousept.Update();
+    this->field_0xb0 = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine.bmp");
+    g_mousept.Update();
+    this->field_0xb4 = new CBmp64("graphics\\interface\\chrgen\\loader\\down\\shine_on.bmp");
+    g_mousept.Update();
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4296,7 +4313,7 @@ void VisCharSelect::VMethod28()
     this->LoadSfx();
     this->vis_stats->FUN_0042f4df();
     this->buttons->LoadBitmaps();
-    this->roster_list->FUN_004312b7();
+    this->roster_list->LoadBitmaps();
     this->roster_list->FUN_00430fad();
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
