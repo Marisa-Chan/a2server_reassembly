@@ -18133,30 +18133,6 @@ sub_42FE62      endp
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:006097F4↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4307D7
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18201,63 +18177,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_4307D7      proc near               ; CODE XREF: ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z+16↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?GetMouseOnBox@VisCharSellectButtons@@QAEHVCPoint@@@Z
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jl      short loc_430811
-                mov     edx, dword ptr [ebp+arg_0]
-                and     edx, 1
-                test    edx, edx
-                jnz     short loc_430811
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [eax+0DCh], ecx
-                jmp     short loc_43084A
-; ---------------------------------------------------------------------------
-
-loc_430811:                             ; CODE XREF: sub_4307D7+20↑j
-                cmp     [ebp+var_4], 0
-                jl      short loc_43083D
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     eax, [edx+0D8h]
-                jnz     short loc_43083D
-                mov     ecx, dword ptr [ebp+arg_0]
-                and     ecx, 1
-                test    ecx, ecx
-                jz      short loc_43083D
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [edx+0DCh], eax
-                jmp     short loc_43084A
-; ---------------------------------------------------------------------------
-
-loc_43083D:                             ; CODE XREF: sub_4307D7+3E↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     dword ptr [ecx+0DCh], 0FFFFFFFFh
-
-loc_43084A:                             ; CODE XREF: sub_4307D7+38↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_4307D7      endp
 
 
 ; =============== S U B R O U T I N E =======================================

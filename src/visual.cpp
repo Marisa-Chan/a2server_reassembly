@@ -4077,6 +4077,14 @@ int32_t VisCharSellectButtons::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 4302F5
+int32_t VisCharSellectButtons::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    this->UpdateMouseOverBox(wparam, pos);
+    return 0;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
