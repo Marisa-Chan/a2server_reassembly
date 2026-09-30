@@ -900,6 +900,7 @@ externdef ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z : proc
 
 extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
 extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
+externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 
 
@@ -1271,24 +1272,6 @@ extern ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z  :proc
 extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 
 
-;VisCharSelect
-extern ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
-extern ??_GVisCharSelect@@UAEPAXI@Z : proc
-extern ??1VisCharSelect@@UAE@XZ : proc
-extern ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisCharSelect@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod26@VisCharSelect@@UAEXXZ : proc
-extern ?VMethod28@VisCharSelect@@UAEXXZ : proc
-extern ?DoClose@VisCharSelect@@UAEXI@Z : proc
-extern ?GetStringArray1Size@CGameSession@@QAEHXZ : proc
-extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
-externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
-
-;VisCharSellectButtons
-extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
-
-
 ;VisMessageBox
 extern ??1VisMessageBox@@UAE@XZ  :proc
 extern ?MsgProc@VisMessageBox@@UAEHIII@Z  :proc
@@ -1300,8 +1283,6 @@ extern ??0VisMessageBox@@QAE@HHHHHPBXPBDH1@Z  :proc
 extern ??1VisMessageBoxWithList@@UAE@XZ  :proc
 extern ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z  :proc
 extern ??0VisMessageBoxWithList@@QAE@HHHHHPBD0H@Z  :proc
-
-;VisCharSellectStats
 
 ;VisMenuWnd
 extern ??0VisMenuWnd@@QAE@HHHHHPAVCGameBitmap@@IABVCRect@@@Z : proc
@@ -1524,11 +1505,6 @@ externdef ?OnKeyDown@VisCredits@@UAEHI@Z : proc
 externdef ?VMethod26@VisCredits@@UAEXXZ : proc
 externdef ?VMethod28@VisCredits@@UAEXXZ : proc
 externdef ?DoClose@VisCredits@@UAEXI@Z : proc
-;VisCharGen
-extern ?RollStats@VisCharGen@@QAEXXZ : proc
-extern ?OnClickFwd@VisCharGen@@QAEXXZ : proc
-extern ?OnClickBack@VisCharGen@@QAEXXZ : proc
-extern ?ShowTipHint@VisCharGen@@QAEXXZ : proc
 
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
@@ -1640,29 +1616,6 @@ externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 externdef ??_GVisQuestStatus@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisQuestStatus@@UAEXXZ : proc
 externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
-
-;VisCharSellectButtons
-extern ??_GVisCharSellectButtons@@UAEPAXI@Z : proc
-extern ??1VisCharSellectButtons@@UAE@XZ : proc
-extern ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
-extern ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
-
-;VisCharSellectList
-extern ??_GVisCharSellectList@@UAEPAXI@Z : proc
-extern ??1VisCharSellectList@@UAE@XZ : proc
-extern ?VMethod7@VisCharSellectList@@UAEXXZ : proc
-extern ?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-extern ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
-
-;VisCharSellectStats
-extern ??_GVisCharSellectStats@@UAEPAXI@Z : proc
-extern ??1VisCharSellectStats@@UAE@XZ : proc
-extern ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
-extern ?VMethod7@VisCharSellectStats@@UAEXXZ : proc
 
 ;VisRightPanel
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
