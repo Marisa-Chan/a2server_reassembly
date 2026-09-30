@@ -4592,6 +4592,128 @@ void VisNetMapSelection::VMethod26()
 }
 
 
+// 44D275
+int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    switch (msg) {
+    case 0x444:
+        if (wparam != 1) {
+            return 0;
+        }
+        // fallthrough
+    case 0x445:
+        if (this->FindChild(0x14)->TestFlags(1)) {
+            this->StopThread();
+            this->VisScreen::MsgProc(0x445, 0, 0);
+            VisListBox* map_list = (VisListBox*)this->FindChild(1);
+            NetMapInfo* info = this->avail_maps.GetAt(map_list->GetSelectedIndex());
+            *this->p_mapname = info->mapid;
+        }
+        return 1;
+    case 0x446:
+        this->StopThread();
+        this->VisScreen::MsgProc(0x446, 0, 0);
+        return 1;
+    case 0x45E:
+        if (main_wnd->sessionMode == 0) {
+            this->StopThread();
+            if (this->mode == 0) {
+                VisListBox* map_list = (VisListBox*)this->FindChild(1);
+                CString row = map_list->GetItem(this->selected_map_index);
+                int32_t level = row[row.GetLength() - 1] - '1';
+                if (level < 0) {
+                    level = 0;
+                }
+                if (level > 3) {
+                    level = 3;
+                }
+                bool can_join = (level + 1 >= main_wnd->m_GameSession.FUN_004200f0())
+                    && (main_wnd->m_GameSession.FUN_00420110() >= level + 1);
+                this->VisScreen::MsgProc(can_join ? 0x445 : 0x446, 0, 0);
+            } else {
+                this->VisScreen::MsgProc(0x445, 0, 0);
+            }
+        }
+        return 1;
+    case 0x45F: {
+        VisNetChatList* chat_list = (VisNetChatList*)this->FindChild(3);
+        int32_t count = chat_list->GetItemCount();
+        int32_t sel = chat_list->GetSelectedIndex();
+        VisScrollBar* scrollbar = (VisScrollBar*)this->FindChild(0xB);
+        scrollbar->SetPos(sel, count);
+        int32_t size = this->chat_log->text.GetSize();
+        chat_list->AddItem(this->chat_log->text[size - 1]);
+        chat_list->colors.Add(this->chat_log->color.GetAt(size - 1));
+        if (chat_list->GetItemCount() - 2 == chat_list->selected_index) {
+            chat_list->SelectItem(chat_list->vis_start_index + chat_list->num_vis_entry);
+        }
+        chat_list->VMethod9();
+        return 1;
+    }
+    case 0x460: {
+        BigStruct2* map_context = main_wnd->vis_map_context;
+        VisNetPlayerList* player_list = (VisNetPlayerList*)this->FindChild(5);
+        player_list->entries.RemoveAll();
+        player_list->selected_index = -1;
+        player_list->colors.RemoveAll();
+        for (int32_t i = 0x10; i < map_context->field_0x9b8.GetSize(); i++) {
+            MapPlayerData* pd = map_context->field_0x9b8.GetAt(i);
+            if (pd != nullptr) {
+                player_list->AddItem(pd->name);
+                player_list->colors.Add(g_colors_human_pals + pd->color);
+            }
+        }
+        player_list->VMethod9();
+        return 1;
+    }
+    case 0x461:
+        this->AddNetMapInfo((NetMapInfo*)wparam);
+        return 1;
+    case 0x46E:
+    case 0x473:
+        if (wparam == 1) {
+            if (lparam >= 0 && this->mode != 0) {
+                this->selected_map_index = lparam;
+                VisListBox* map_list = (VisListBox*)this->FindChild(1);
+                map_list->VMethod9();
+                NetMapInfo* info = this->avail_maps.GetAt(this->selected_map_index);
+                this->map_context->FUN_0041cda3((LPCTSTR)info->name);
+                CString row = map_list->GetItem(lparam);
+                int32_t level = row[row.GetLength() - 1] - '1';
+                if (level < 0) {
+                    level = 0;
+                }
+                if (level > 3) {
+                    level = 3;
+                }
+                bool can_join = (level + 1 >= main_wnd->m_GameSession.FUN_004200f0())
+                    && (main_wnd->m_GameSession.FUN_00420110() >= level + 1);
+                this->FindChild(0x14)->ChangeFlags(1, can_join);
+                this->FindChild(0x14)->VMethod9();
+            }
+            return 1;
+        }
+        return 0;
+    case 0x484:
+        if (this->mode == 0) {
+            if (lparam >= 0 && lparam < (uint32_t)this->avail_maps.GetSize()) {
+                for (int32_t i = 0; i < this->avail_maps.GetSize(); i++) {
+                    if (_strcmpi((const char*)wparam, (LPCTSTR)this->avail_maps.GetAt(i)->name) == 0) {
+                        this->selected_map_index = i;
+                        break;
+                    }
+                }
+            }
+            this->FindChild(1)->VMethod9();
+        }
+        return 1;
+    default:
+        return this->VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

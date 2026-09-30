@@ -2301,9 +2301,10 @@ externdef ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z : proc
 externdef ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z : proc
 externdef ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z : proc
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
-externdef ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
+extern ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
 extern ?OnKeyDown@VisNetMapSelection@@UAEHI@Z : proc
 extern ?VMethod26@VisNetMapSelection@@UAEXXZ : proc
+externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
 ; VisTipsDialog
 externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc

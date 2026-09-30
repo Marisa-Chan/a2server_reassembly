@@ -921,6 +921,7 @@ public:
 	void sub_41A942(); //41a942
 
 	void UpdateSelectionState(); //416cf7
+	void FUN_0041cda3(const char* mapname); // 41cda3 in asm
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
 
