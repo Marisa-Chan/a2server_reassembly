@@ -31725,25 +31725,6 @@ sub_44AAE5      endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 sub_44B09E      proc near               ; DATA XREF: .rdata:0060AB4C↓o
 
 var_20          = dword ptr -20h
@@ -34056,12 +34037,6 @@ sub_44C71D      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; Microsoft VisualC 2-14/net runtime
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
@@ -34078,12 +34053,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn    4
 unknown_libname_481 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -38665,9 +38634,6 @@ sub_450470      endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-
-
-                
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -306198,40 +306164,6 @@ off_60A8A0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
                 dd offset ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
                 dd offset ?VMethod31@VisHatServerListDlg@@UAEXH@Z
-off_60A930      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z+73↑o
-                dd offset ??_GVisNetMapSelection@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisScreen@@UAEXXZ
-                dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisNetMapSelection@@UAEHIII@Z
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisNetMapSelection@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisNetMapSelection@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisScreen@@UAEXXZ
-                dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60A9B8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisHatBrowserDlg@@QAE@HHHHH@Z+28↑o
                 dd offset ??_GVisHatBrowserDlg@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -326380,9 +326312,6 @@ a256000         db '256000',0           ; DATA XREF: ?VMethod26@VisNetSerialSett
 ; char aAlm[]
 aAlm            db '\*.alm',0           ; DATA XREF: sub_44AAE5+38↑o
                 align 4
-; char aSDxDDD[]
-aSDxDDD         db '%s#%dx%d#%d#%d',0   ; DATA XREF: ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z+83↑o
-                align 4
 ; char aSaveonserver[]
 aSaveonserver   db '-saveonserver',0    ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1BC↑o
                 align 4
@@ -332523,10 +332452,6 @@ byte_659A34     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg
 byte_659A38     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+40A↑o
 ; CHAR byte_659A3C[4]
 byte_659A3C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AC↑o
-; CHAR byte_659A40[4]
-byte_659A40     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+4FD↑o
-; CHAR byte_659A44[4]
-byte_659A44     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+87A↑o
 unk_659A48      db 4h dup(?)
 ; CHAR byte_659A4C[4]
 byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o

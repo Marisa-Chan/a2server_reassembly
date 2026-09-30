@@ -2289,21 +2289,13 @@ externdef ??_GVisNetPhoneBook@@UAEPAXI@Z : proc
 externdef ?MsgProc@VisNetPhoneBook@@UAEHIII@Z : proc
 externdef ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
 
-; VisNetMapSelection
 externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
-extern ??_GVisNetMapSelection@@UAEPAXI@Z : proc
-extern ??1VisNetMapSelection@@UAE@XZ : proc
-extern ?StopThread@VisNetMapSelection@@QAEXXZ : proc
-extern ?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z : proc
 externdef ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z : proc
 externdef ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z : proc
 externdef ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z : proc
 externdef ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z : proc
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
-extern ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
-extern ?OnKeyDown@VisNetMapSelection@@UAEHI@Z : proc
-extern ?VMethod26@VisNetMapSelection@@UAEXXZ : proc
 externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
 ; VisTipsDialog
