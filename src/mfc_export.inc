@@ -1294,6 +1294,7 @@ extern ?SelectRow@VisCharSellectList@@QAEXH@Z : proc
 extern ?HitTest@VisCharSellectList@@QAEHVCPoint@@@Z : proc
 extern ?SelectPrevRow@VisCharSellectList@@QAEHXZ : proc
 extern ?SelectNextRow@VisCharSellectList@@QAEHXZ : proc
+extern ?UpdateArrows@VisCharSellectList@@QAEXVCPoint@@_N@Z : proc
 
 ;VisCharSellectButtons
 extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc

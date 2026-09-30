@@ -4294,6 +4294,38 @@ int32_t VisCharSellectList::SelectNextRow()
 }
 
 
+// 431C97
+void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down)
+{
+    pos -= this->parent_screen->rect.TopLeft();
+    if (is_down) {
+        if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
+            this->field_0xb8 = nullptr;
+        } else {
+            this->field_0xb8 = this->field_0xac;
+        }
+        if (this->field_0xd0 + 1 < this->parent_screen->session->GetStringArray1Size()
+            && this->field_0x90.PtInRect(pos)) {
+            this->field_0xbc = this->field_0xb4;
+        } else {
+            this->field_0xbc = nullptr;
+        }
+    } else {
+        if (this->field_0xd0 - 1 < 0 || !this->field_0x80.PtInRect(pos)) {
+            this->field_0xb8 = nullptr;
+        } else {
+            this->field_0xb8 = this->field_0xa8;
+        }
+        if (this->field_0xd0 + 1 < this->parent_screen->session->GetStringArray1Size()
+            && this->field_0x90.PtInRect(pos)) {
+            this->field_0xbc = this->field_0xb0;
+        } else {
+            this->field_0xbc = nullptr;
+        }
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

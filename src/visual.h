@@ -721,6 +721,7 @@ public:
 	void SelectRow(int32_t row); // 4316c4
 	int32_t SelectPrevRow(); // 431a05
 	int32_t SelectNextRow(); // 431a93
+	void UpdateArrows(CPoint pos, bool is_down); // 431c97
 	int32_t HitTest(CPoint pos); // 431872
 	void LoadBitmaps(); // 4312b7
 	void FreeBitmaps(); // 43148a
