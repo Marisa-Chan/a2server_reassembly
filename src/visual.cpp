@@ -4133,6 +4133,49 @@ VisCharSellectButtons::~VisCharSellectButtons()
 }
 
 
+// 430FEC
+void VisCharSellectList::VMethod7()
+{
+    if (this->parent_screen->active_flag != 0) {
+        CPoint top_left = this->parent_screen->rect.TopLeft();
+        int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+        if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
+            visible_end = this->parent_screen->session->GetStringArray1Size();
+        }
+        LockSurface2();
+        this->field_0xa4->VMethod2(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        if (this->field_0xb8 != nullptr) {
+            this->field_0xb8->VMethod2(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        }
+        if (this->field_0xbc != nullptr) {
+            this->field_0xbc->VMethod2(top_left.x + 0x78 + this->rect.left, top_left.y + 0x188 + this->rect.top, 0, 0, 0);
+        }
+        for (int32_t i = this->field_0xa0; i < visible_end; i++) {
+            uint16_t* pal;
+            if (i == this->field_0xd4) {
+                pal = palette_paris_daisy->GetPalette(0);
+            } else {
+                pal = palette_husk->GetPalette(0);
+            }
+            if (i == this->field_0xd0) {
+                CRect rc(top_left.x + this->field_0x70.left,
+                         top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 1) - 4,
+                         top_left.x + this->field_0x70.right,
+                         top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 2));
+                ShadowRect(rc, 8);
+            }
+            if (this->field_0xd0 != i || this->field_0xd8 == 0) {
+                g_font4->DrawTextWithShadow(top_left.x + this->field_0x70.left + this->field_0x70.Width() / 2,
+                                            top_left.y + this->field_0x70.top + this->field_0x60.Height() * ((i - this->field_0xa0) + 1),
+                                            this->parent_screen->session->characterRosterNames[i], 2, pal, 1);
+            }
+        }
+        UnlockSurface2();
+        this->CVisualObject::VMethod7();
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
