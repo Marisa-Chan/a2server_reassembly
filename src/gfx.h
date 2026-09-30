@@ -139,14 +139,14 @@ void __cdecl FUN_00454e40(int32_t sx, int32_t sy, int32_t w, int32_t h); //454e4
 
 void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size); //45424d
 void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458b29
-void __cdecl FUN_00458ca0(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458ca0
+void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal); //458ca0
 
-void __cdecl FUN_00458fe6(int32_t x, int32_t h0, int32_t h2); //458fe6
-void __cdecl FUN_004590ef(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //4590ef
-void __cdecl FUN_00459449(int32_t x, int32_t h0, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //459449
-void __cdecl FUN_004595fd(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //4595fd
-void __cdecl FUN_0045995e(int32_t x, int32_t h0, int32_t h2); //45995e
-void __cdecl FUN_00459b72(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //459b72
+void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2); //458fe6
+void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //4590ef
+void FillFlatLight(int32_t x, int32_t h0, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //459449
+void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3); //4595fd
+void FillFlatGrey(int32_t x, int32_t h0, int32_t h2); //45995e
+void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3); //459b72
 
 
 inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b)

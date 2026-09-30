@@ -2513,21 +2513,21 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size)
 
 
 void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
-{
-	if (x >= g_clipRect.right || x + 32 < g_clipRect.left || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
+{ //458b29
+	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
 		return;
 
-	int32_t tl = l2 - l1; //top light diff
-	int32_t bl = l4 - l3; //bottom light diff
+	int32_t tl = (l2 - l1) * 32 / 32; //top light diff
+	int32_t bl = (l4 - l3) * 32 / 32; //bottom light diff
 
-	l1 *= 256;
-	l3 *= 256;
+	l1 *= 32;
+	l3 *= 32;
 	
 	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
 	for (int32_t i = 0; i < 32; i++)
 	{
 		int32_t num_row = 32;
-		int32_t lstep = (l3 - l1) / 16; // 256 / 16 ? vertical light step.... why 16?
+		int32_t lstep = (l3 - l1) / 32; // 256 / 32 lines
 
 		if (y + 32 > g_clipRect.bottom)
 			num_row = g_clipRect.bottom - y;
@@ -2537,7 +2537,7 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 
 		uint8_t* srcpx = src + i;
 
-		int32_t lght = l1 + 128; //128  half light step
+		int32_t lght = l1 + 32 / 2;
 		int32_t yy = y;
 		uint8_t* out_dst = dst;
 
@@ -2545,7 +2545,7 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 		{
 			if (yy >= g_clipRect.top)
 			{
-				const int32_t pal_idx = lght & (~0xff); //256
+				const int32_t pal_idx = (lght & ~(32-1)) << 3; //256
 				*(uint16_t*)out_dst = pal[pal_idx + *srcpx];
 			}
 
@@ -2557,15 +2557,569 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 			num_row--;
 		}
 
-		l1 += tl * 8; // tl * 256 / 32  <-- per one horizontal pixel
-		l3 += bl * 8;
+		l1 += tl;
+		l3 += bl;
 
 		dst += 2;
 	}
 }
 
 
+void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal)
+{ //458ca0
+	if (x0 < g_clipRect.left || x1 > g_clipRect.right || 
+		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
+		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		return;
 
+	int32_t dtop = abs(h1 - h0);
+	int32_t dbtm = abs(h3 - h2);
+	int32_t tl = (l2 - l1) * 32 / 32;
+	int32_t bl = (l4 - l3) * 32 / 32;
+
+	l1 *= 32;
+	l3 *= 32;
+
+	int32_t tidx = 0;
+	int32_t bidx = 0;
+
+	if (h1 < h0)
+		tidx = dtop - 1;
+
+	if (h2 < h3)
+		bidx = dbtm - 1;
+
+	bool bVar2 = false;
+	bool bVar3 = false;
+
+	for (int i = 0; i < 32; i++)
+	{
+		uint8_t* srcpx = src + i;
+
+		if (!bVar2)
+		{
+			if (h0 < h1)
+			{
+				while (g_TerrainHelper[dtop][tidx] <= i && tidx < dtop)
+				{
+					h0++;
+					tidx++;
+				}
+			}
+			else
+			{
+				while (32 - g_TerrainHelper[dtop][tidx] <= i && tidx > -1)
+				{
+					h0--;
+					tidx--;
+				}
+			}
+
+			if (tidx < 0 || tidx == dtop)
+				bVar2 = true;
+		}
+
+		if (!bVar3)
+		{
+			if (h2 < h3)
+			{
+				while (32 - g_TerrainHelper[dbtm][bidx] <= i && bidx > -1)
+				{
+					h2++;
+					bidx--;
+				}
+			}
+			else
+			{
+				while (g_TerrainHelper[dbtm][bidx] <= i && bidx < dbtm)
+				{
+					h2--;
+					bidx++;
+				}
+			}
+
+			if (bidx < 0 || bidx == dbtm)
+				bVar3 = true;
+		}
+
+		uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + i * 2 + x0 * 2;
+		int32_t num_rows = h2 - h0;
+
+		if (num_rows > 0)
+		{
+			int32_t pix_step = (32 << 16) / num_rows;
+			int32_t light_step = ((l3 - l1) / num_rows) / 2;
+			if (g_clipRect.bottom < h2) {
+				num_rows = g_clipRect.bottom - h0;
+			}
+			if (num_rows < 0) {
+				num_rows = 0;
+			}
+			int32_t pix_float = 0;
+			int32_t lght = l1 + 32 / 2;
+			int32_t yy = h0;
+
+			while (num_rows > 0)
+			{
+				if (yy >= g_clipRect.top)
+				{
+					const int32_t pal_idx = (lght & ~(32-1)) << 3; //256
+					const int32_t pixuse = (pix_float >> 16) * 32;
+					*(uint16_t*)out_dst = pal[pal_idx + *(srcpx + pixuse)];
+				}
+
+				out_dst += g_selDrawBitmap.lPitch;
+				lght += light_step;
+				pix_float += pix_step;
+				yy++;
+				num_rows--;
+			}
+		}
+
+		l1 += tl;
+		l3 += bl;
+	}
+}
+
+
+
+void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2)
+{ //458fe6
+	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top)
+		return;
+
+	if (h0 < g_clipRect.top)
+		h0 = g_clipRect.top;
+
+	int32_t num_rows = h2 - h0;
+	if (g_clipRect.bottom < h2)
+		num_rows = g_clipRect.bottom - h0;
+
+	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
+	while (num_rows > 0)
+	{
+		memset(dst, 0, 32 * 2);
+
+		dst += g_selDrawBitmap.lPitch;
+		num_rows--;
+	}
+}
+
+void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3)
+{ // 4590ef
+	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
+		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		return;
+
+	int32_t local_30 = h3;
+	if (h2 < h3)
+		local_30 = h2;
+
+	int32_t local_34 = h1;
+	if (h1 < h0)
+		local_34 = h0;
+
+	if (local_34 < local_30)
+	{
+		if (h0 < h1)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h1 - h0;
+			int32_t idx = 0;
+			while (h0 < h1)
+			{
+				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom)
+				{
+					uint8_t num = g_TerrainHelper[hid][idx];
+					memset(out_dst, 0, num * 2);
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h0++;
+				idx++;
+			}
+		}
+		else if (h1 < h0)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h0 - h1;
+			int32_t idx = 0;
+			while (h1 < h0)
+			{
+				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom)
+				{
+					uint8_t num = g_TerrainHelper[hid][idx];
+					memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
+				}
+				h1++;
+				idx++;
+				out_dst += g_selDrawBitmap.lPitch;
+			}
+		}
+
+		if (local_34 < local_30)
+			FillFlatTerrain(x0, local_34, local_30);
+
+		if (h3 < h2)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h3 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h2 - h3;
+			int32_t idx = hid - 1;
+			while (h3 < h2) 
+			{
+				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom)
+				{
+					uint8_t num = g_TerrainHelper[hid][idx];
+					memset(out_dst, 0, num * 2);
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h3++;
+				idx--;
+			}
+		}
+		else if (h2 < h3)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h3 - h2;
+			int32_t idx = hid - 1;
+			while (h2 < h3)
+			{
+				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom)
+				{
+					uint8_t num = g_TerrainHelper[hid][idx];
+					memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h2++;
+				idx--;
+			}
+		}
+	}
+	else
+		FillDeformedLight(x0, x1, h0, h1, h2, h3, 16, 16, 16, 16);
+}
+
+
+void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3)
+{ //459449
+	if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top)
+		return;
+
+	int32_t tl = (t1 - t0) * 32 / 32; //top light diff
+	int32_t bl = (t3 - t2) * 32 / 32; //bottom light diff
+
+	t0 *= 32;
+	t2 *= 32;
+
+	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
+	for (int32_t i = 0; i < 32; i++)
+	{
+		int32_t num_row = 32;
+		int32_t lstep = (t2 - t0) / 32;
+
+		if (y + 32 > g_clipRect.bottom)
+			num_row = g_clipRect.bottom - y;
+
+		if (num_row < 0)
+			num_row = 0;
+
+		int32_t lght = t0 + 32 / 2; //128  half light step
+		int32_t yy = y;
+		uint8_t* pix = dst;
+
+		if (g_isLowMemory)
+		{
+			while (num_row > 0)
+			{
+				if (yy >= g_clipRect.top)
+				{
+					const uint32_t page = (lght >> 5) * g_brightnessLookupCount;
+					*(uint16_t*)pix = g_brightnessLookup[page + (*(uint16_t*)pix >> 3)];
+				}
+
+				pix += g_selDrawBitmap.lPitch;
+
+				lght += lstep;
+				yy++;
+				num_row--;
+			}
+		}
+		else
+		{
+			while (num_row > 0)
+			{
+				if (yy >= g_clipRect.top)
+				{
+					const uint32_t page = (lght >> 5) * g_brightnessLookupCount;
+					*(uint16_t*)pix = g_brightnessLookup[page + *(uint16_t*)pix];
+				}
+
+				pix += g_selDrawBitmap.lPitch;
+
+				lght += lstep;
+				yy++;
+				num_row--;
+			}
+		}
+		
+
+		t0 += tl;
+		t2 += bl;
+
+		dst += 2;
+	}
+}
+
+void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3)
+{ //4595fd
+
+	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
+		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		return;
+
+	int32_t dtop = abs(h1 - h0);
+	int32_t dbtm = abs(h3 - h2);
+	int32_t tl = (t1 - t0) * 32 / 32;
+	int32_t bl = (t3 - t2) * 32 / 32;
+
+	t0 *= 32;
+	t2 *= 32;
+
+	int32_t tidx = 0;
+	if (h0 >= h1)
+		tidx = dtop - 1;
+
+	int32_t bidx = 0;
+	if (h2 < h3)
+		bidx = dbtm - 1;
+
+	bool bVar2 = false;
+	bool bVar3 = false;
+	for (int i = 0; i < 32; i++)
+	{
+		if (!bVar2)
+		{
+			if (h0 < h1)
+			{
+				while (i >= g_TerrainHelper[dtop][tidx] && tidx < dtop)
+				{
+					h0++;
+					tidx++;
+				}
+			}
+			else
+			{
+				while (i >= 32 - g_TerrainHelper[dtop][tidx] && tidx > -1)
+				{
+					h0--;
+					tidx--;
+				}
+			}
+
+			if (tidx < 0 || tidx == dtop)
+				bVar2 = true;
+		}
+		if (!bVar3)
+		{
+			if (h2 < h3)
+			{
+				while (i >= 32 - g_TerrainHelper[dbtm][bidx] && bidx > -1)
+				{
+					h2++;
+					bidx--;
+				}
+			}
+			else
+			{
+				while (i >= g_TerrainHelper[dbtm][bidx] && bidx < dbtm)
+				{
+					h2--;
+					bidx++;
+				}
+			}
+
+			if (bidx < 0 || bidx == dbtm)
+				bVar3 = true;
+		}
+
+		int32_t num_rows = h2 - h0;
+		if (num_rows > 0)
+		{
+			int32_t light_step = (t2 - t0) / num_rows;
+
+			uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + (x0 + i) * 2;
+
+			if (h2 > g_clipRect.bottom)
+				num_rows = g_clipRect.bottom - h0;
+
+			if (num_rows < 0)
+				num_rows = 0;
+
+			int32_t uVar10 = t0 + 32 / 2;
+			int32_t yy = h0;
+			while (num_rows > 0)
+			{
+				if (yy >= g_clipRect.top)
+				{
+					const uint32_t page = (uVar10 >> 5) * g_brightnessLookupCount;
+					if (g_isLowMemory == 1)
+						*(uint16_t*)dst = g_brightnessLookup[page + ((*(uint16_t*)dst) >> 3)];
+					else
+						*(uint16_t*)dst = g_brightnessLookup[page + *(uint16_t*)dst];
+				}
+
+				uVar10 += light_step;
+				yy++;
+				dst += g_selDrawBitmap.lPitch;
+				num_rows--;
+			}
+		}
+
+		t0 += tl;
+		t2 += bl;
+	}
+}
+
+
+void FillFlatGrey(int32_t x, int32_t h0, int32_t h2)
+{ //45995e
+	if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top)
+		return;
+
+	if (h0 < g_clipRect.top)
+		h0 = g_clipRect.top;
+
+	int32_t num_rows = h2 - h0;
+	if (g_clipRect.bottom < h2)
+		num_rows = g_clipRect.bottom - h0;
+
+	uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
+	while (num_rows > 0)
+	{
+		uint16_t* pix = (uint16_t*)dst;
+		for (int num = 0; num < 32; num++)
+		{
+			*pix = (*pix >> 1) & g_ColorAddMask;
+			pix++;
+		}
+
+		dst += g_selDrawBitmap.lPitch;
+		num_rows--;
+	}
+}
+
+void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3)
+{ //459b72
+	if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+		(h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
+		(h2 < g_clipRect.top && h3 < g_clipRect.top))
+		return;
+
+	int32_t h_bottom = h3;
+	if (h2 < h3)
+		h_bottom = h2;
+
+	int32_t h_top = h1;
+	if (h1 < h0)
+		h_top = h0;
+
+	if (h_top < h_bottom)
+	{
+		if (h0 < h1)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h1 - h0;
+			int32_t idx = 0;
+			while (h0 < h1)
+			{
+				if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom)
+				{
+					uint16_t* pix = (uint16_t*)out_dst;
+					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--)
+					{
+						*pix = (*pix >> 1) & g_ColorAddMask;
+						pix++;
+					}
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h0++;
+				idx++;
+			}
+		}
+		else if (h1 < h0)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h1 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h0 - h1;
+			int32_t idx = 0;
+			while (h1 < h0)
+			{
+				if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom)
+				{
+					int num = g_TerrainHelper[hid][idx];
+					uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
+					for (; num > 0; num--)
+					{
+						*pix = (*pix >> 1) & g_ColorAddMask;
+						pix++;
+					}
+				}
+				h1++;
+				idx++;
+				out_dst += g_selDrawBitmap.lPitch;
+			}
+		}
+
+		if (h_top < h_bottom)
+			FillFlatGrey(x0, h_top, h_bottom);
+
+		if (h3 < h2)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h3 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h2 - h3;
+			int32_t idx = hid - 1;
+			while (h3 < h2)
+			{
+				if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom)
+				{
+					uint16_t* pix = (uint16_t*)out_dst;
+					for (int num = g_TerrainHelper[hid][idx]; num > 0; num--)
+					{
+						*pix = (*pix >> 1) & g_ColorAddMask;
+						pix++;
+					}
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h3++;
+				idx--;
+			}
+		}
+		else if (h2 < h3)
+		{
+			uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h2 * g_selDrawBitmap.lPitch + x0 * 2;
+			const int32_t hid = h3 - h2;
+			int32_t idx = hid - 1;
+			while (h2 < h3)
+			{
+				if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom)
+				{
+					int num = g_TerrainHelper[hid][idx];
+					uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
+					for (; num > 0; num--)
+					{
+						*pix = (*pix >> 1) & g_ColorAddMask;
+						pix++;
+					}
+				}
+				out_dst += g_selDrawBitmap.lPitch;
+				h2++;
+				idx--;
+			}
+		}
+	}
+	else
+		FillDeformedLight(x0, x1, h0, h1, h2, h3, 8, 8, 8, 8);
+}
 
 
 void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr)

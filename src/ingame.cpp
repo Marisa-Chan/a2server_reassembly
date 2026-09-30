@@ -5256,7 +5256,7 @@ void BigStruct2::sub_404E1A()
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
-				FUN_00458ca0(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+				DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
 			if (DAT_00660f68 != 0) {
 				FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
@@ -5318,7 +5318,7 @@ void BigStruct2::sub_405399(int32_t arg)
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
-				FUN_00458ca0(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+				DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
 		}
 	}
@@ -5380,7 +5380,7 @@ void BigStruct2::sub_40587B(int32_t arg)
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(map_x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
-				FUN_00458ca0(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+				DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
 			if (DAT_00660f68 != 0) {
 				FillRectColor(map_x * 0x20, h1, (map_x + 1) * 0x20, h2, 0);
@@ -5449,7 +5449,7 @@ void BigStruct2::sub_405D0E()
 			if (h1 == h2 && h3 == h4 && h1 + 0x20 == h3) {
 				DrawFlatTile(x * 0x20, h1, l1, l2, l3, l4, tile_data, pal);
 			} else {
-				FUN_00458ca0(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
+				DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
 			}
 			if (DAT_00660f68 != 0) {
 				FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
@@ -5931,33 +5931,33 @@ void BigStruct2::sub_406F7B()
 					y++;
 				} else if (t0 == 0x10) {
 					if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
-						FUN_00458fe6(x << 5, h0, h2);
+						FillFlatTerrain(x << 5, h0, h2);
 					} else {
-						FUN_004590ef(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
+						FillDeformedTerrain(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
 					}
 					y++;
 				} else {
 					if (t0 != 8) {
 						if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
-							FUN_00459449(x << 5, h0, t0, t1, t2, t3);
+							FillFlatLight(x << 5, h0, t0, t1, t2, t3);
 						} else {
-							FUN_004595fd(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
+							FillDeformedLight(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
 						}
 						y++;
 						continue;
 					}
 					if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
-						FUN_0045995e(x << 5, h0, h2);
+						FillFlatGrey(x << 5, h0, h2);
 					} else {
-						FUN_00459b72(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
+						FillDeformedGrey(x << 5, (x + 1) * 0x20, h0, h1, h2, h3);
 					}
 					y++;
 				}
 			} else {
 				if (h0 == h1 && h2 == h3 && h0 + 0x20 == h2) {
-					FUN_00459449(x << 5, h0, t0, t1, t2, t3);
+					FillFlatLight(x << 5, h0, t0, t1, t2, t3);
 				} else {
-					FUN_004595fd(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
+					FillDeformedLight(x << 5, (x + 1) * 0x20, h0, h1, h2, h3, t0, t1, t2, t3);
 				}
 				y++;
 			}

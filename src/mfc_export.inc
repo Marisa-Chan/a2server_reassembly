@@ -1371,13 +1371,6 @@ externdef ?INT_00660f90@@3HA  :dword
 externdef ?FUN_004549e5@@YAXHHHH@Z : proc  ; void __cdecl FUN_004549e5(int, int, int, int)
 externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int, int, int)
 
-externdef ?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z : proc  ; void __cdecl FUN_00458ca0(int x10, uint8_t*, uint16_t*)
-externdef ?FUN_00458fe6@@YAXHHH@Z : proc  ; void __cdecl FUN_00458fe6(int, int, int)
-externdef ?FUN_004590ef@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_004590ef(int x6)
-externdef ?FUN_00459449@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459449(int x6)
-externdef ?FUN_004595fd@@YAXHHHHHHHHHH@Z : proc  ; void __cdecl FUN_004595fd(int x10)
-externdef ?FUN_0045995e@@YAXHHH@Z : proc  ; void __cdecl FUN_0045995e(int, int, int)
-externdef ?FUN_00459b72@@YAXHHHHHH@Z : proc  ; void __cdecl FUN_00459b72(int x6)
 externdef ?sub_457C5D@@YAXHHHHH@Z : proc  ; void __cdecl sub_457C5D(int, int, int, int, int)
 externdef ?sub_4588EC@@YAXHHHHHH@Z : proc  ; void __cdecl sub_4588EC(int x6)
 externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
