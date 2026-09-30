@@ -89615,102 +89615,12 @@ sub_4ADA2A      endp
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisFameDocument@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060CE78↓o
-
-var_10          = dword ptr -10h
-var_C           = byte ptr -0Ch
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 5E8h
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ecx+68h], eax
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?DisableHint@CMousePointer@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?LoadBitmaps@VisFameDocument@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?LoadDocs@VisFameDocument@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+0B8h], 0
-                push    0
-                push    0
-                push    0
-                lea     ecx, [ebp+var_C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?UpdateArrowStates@VisFameDocument@@QAEXXZ
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    eax
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+4] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A] 
-                push    eax
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                call    ?UnlockSurface2@@YAIXZ
-                call    ?FlushScreen@@YAXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+0F4h], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@VisFameDocument@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?DoClose@VisFameDocument@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060CE7C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0F4h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FreeBitmaps@VisFameDocument@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?ClearDocs@VisFameDocument@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+68h], 0
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@VisFameDocument@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

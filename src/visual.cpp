@@ -20668,3 +20668,36 @@ int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// 4AE473
+void VisFameDocument::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->fame = &main_wnd->m_FameHall;
+    g_mousept.DisableHint();
+    this->LoadBitmaps();
+    this->LoadDocs();
+    this->selected_doc = 0;
+    this->UpdateButtons(CPoint(0, 0), false);
+    this->UpdateArrowStates();
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    this->visible_flag = 1;
+    this->VisScreen::VMethod28();
+    g_mousept.EnableHint();
+}
+
+
+// 4AE534
+void VisFameDocument::DoClose(uint32_t code)
+{
+    this->VMethod9();
+    this->visible_flag = 0;
+    this->FreeBitmaps();
+    this->ClearDocs();
+    this->fame = nullptr;
+    this->VisScreen::DoClose(code);
+}

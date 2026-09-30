@@ -1617,8 +1617,8 @@ extern ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z : proc
 extern ?UpdateArrowStates@VisFameDocument@@QAEXXZ : proc
 extern ?NextDoc@VisFameDocument@@QAEXXZ : proc
 extern ?PrevDoc@VisFameDocument@@QAEXXZ : proc
-externdef ?VMethod28@VisFameDocument@@UAEXXZ : proc
-externdef ?DoClose@VisFameDocument@@UAEXI@Z : proc
+extern ?VMethod28@VisFameDocument@@UAEXXZ : proc
+extern ?DoClose@VisFameDocument@@UAEXI@Z : proc
 
 ;VisTipsDialog
 externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
