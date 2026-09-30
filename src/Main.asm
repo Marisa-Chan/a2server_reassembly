@@ -89505,65 +89505,6 @@ loc_4AEE76:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAE
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisMiniMap@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ; int __stdcall ??0VisOrderToolbar@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
 ??0VisOrderToolbar@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+1EC↑p
 
@@ -302671,36 +302612,6 @@ off_60CE80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-off_60CEF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: .text:004AEEA2↑o
-                dd offset ??_GVisMiniMap@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisMiniMap@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisMiniMap@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z
                 dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
                 dd offset ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)

@@ -1599,10 +1599,6 @@ externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 ;BigStruct2 minimap unit pick
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
-;VisMiniMap
-extern ?UpdateCursor@VisMiniMap@@QAEXXZ : proc
-extern ?RebuildMap@VisMiniMap@@QAEXXZ : proc
-
 ;VisTipsDialog
 externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
 externdef ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
@@ -1619,16 +1615,6 @@ externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
-
-;VisMiniMap
-extern ??_GVisMiniMap@@UAEPAXI@Z : proc
-extern ??1VisMiniMap@@UAE@XZ : proc
-extern ?VMethod7@VisMiniMap@@UAEXXZ : proc
-extern ?MsgProc@VisMiniMap@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z : proc
-extern ?OnRButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z : proc
 
 ;VisOrderToolbar
 externdef ??_GVisOrderToolbar@@UAEPAXI@Z : proc
