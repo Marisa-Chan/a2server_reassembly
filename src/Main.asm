@@ -328270,66 +328270,6 @@ aClannames      db 'ClanNames',0        ; DATA XREF: sub_4421BE+193↑o
 ; CHAR aMessagecolors[]
 aMessagecolors  db 'MessageColors',0    ; DATA XREF: sub_4421BE+1B1↑o
                 align 10h
-; CHAR aGamespeed_0[]
-aGamespeed_0    db 'GameSpeed',0        ; DATA XREF: sub_442420+1E↑o
-                align 4
-; CHAR aFormationmode_0[]
-aFormationmode_0 db 'FormationMode',0   ; DATA XREF: sub_442420+3E↑o
-                align 4
-; CHAR aWimpymode_0[]
-aWimpymode_0    db 'WimpyMode',0        ; DATA XREF: sub_442420+5E↑o
-                align 4
-; CHAR aShowallhitpoin_0[]
-aShowallhitpoin_0 db 'ShowAllHitPoints',0 ; DATA XREF: sub_442420+7E↑o
-                align 4
-; CHAR aSmoothing_0[]
-aSmoothing_0    db 'Smoothing',0        ; DATA XREF: sub_442420+9C↑o
-                align 4
-; CHAR aShowflyinghp_0[]
-aShowflyinghp_0 db 'ShowFlyingHP',0     ; DATA XREF: sub_442420+BC↑o
-                align 4
-; CHAR aShowtimeflow_0[]
-aShowtimeflow_0 db 'ShowTimeFlow',0     ; DATA XREF: sub_442420+DA↑o
-                align 4
-; CHAR aTipsmode_0[]
-aTipsmode_0     db 'TipsMode',0         ; DATA XREF: sub_442420+F8↑o
-                align 4
-; CHAR aAutocasting_0[]
-aAutocasting_0  db 'AutoCasting',0      ; DATA XREF: sub_442420+118↑o
-; CHAR aAcknowledgemen_0[]
-aAcknowledgemen_0 db 'Acknowledgement',0 ; DATA XREF: sub_442420+138↑o
-; CHAR aShadows_0[]
-aShadows_0      db 'Shadows',0          ; DATA XREF: sub_442420+158↑o
-; CHAR aLighting_0[]
-aLighting_0     db 'Lighting',0         ; DATA XREF: sub_442420+178↑o
-                align 4
-; CHAR aAnimation_0[]
-aAnimation_0    db 'Animation',0        ; DATA XREF: sub_442420+198↑o
-                align 10h
-; CHAR aClannames_0[]
-aClannames_0    db 'ClanNames',0        ; DATA XREF: sub_442420+1B8↑o
-                align 4
-; CHAR aMessagecolors_0[]
-aMessagecolors_0 db 'MessageColors',0   ; DATA XREF: sub_442420+1D8↑o
-                align 4
-; char aGraphicsInterf_96[]
-aGraphicsInterf_96 db 'graphics\interface\subobj.256',0
-                align 4
-; char aGraphicsInterf_97[]
-aGraphicsInterf_97 db 'graphics\interface\subobj.256',0
-                align 4
-; char aGraphicsInterf_98[]
-aGraphicsInterf_98 db 'graphics\interface\subobj.256',0
-                align 4
-; CHAR aWhenNightAreCo[]
-aWhenNightAreCo db 'When night are cold and friends are few I sit alone and think of '
-                db 'you',0
-                align 4
-; char asc_62EA54[]
-asc_62EA54      db '-',0                ; DATA XREF: ?CachePlayerRows@VisNetDlg@@AAEXXZ+DA↑o
-                align 4
-a1234567890_1   db '1234567890',0
-                align 4
 ; char aCom1[]
 aCom1           db 'COM1',0             ; DATA XREF: ?VMethod26@VisNetSerialSettings@@UAEXXZ+3C6↑o
                 align 4
