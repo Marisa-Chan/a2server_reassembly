@@ -324080,16 +324080,6 @@ stru_618980     FuncInfoV1 <19930520h, 1, offset stru_6189A0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_6189A0     UnwindMapEntry <-1, offset loc_5F8280>
-stru_6189A8     FuncInfoV1 <19930520h, 5, offset stru_6189C8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6189C8     UnwindMapEntry <-1, offset loc_5F8293>
-                UnwindMapEntry <-1, offset loc_5F829D>
-                UnwindMapEntry <-1, offset loc_5F82A7>
-                UnwindMapEntry <-1, offset loc_5F82B1>
-                UnwindMapEntry <-1, offset loc_5F82BB>
 stru_618AA8     FuncInfoV1 <19930520h, 2, offset stru_618AC8, 0, 0, 0, 0>
                 db    0
                 db    0
