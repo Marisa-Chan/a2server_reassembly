@@ -4379,6 +4379,37 @@ int32_t VisCharSellectList::OnLButtonDblClk(uint32_t wparam, CPoint pos)
 }
 
 
+// 431B95
+int32_t VisCharSellectList::OnKeyDown(uint32_t wparam)
+{
+    switch (wparam) {
+    case 0x26:
+        this->SelectPrevRow();
+        return 1;
+    case 0x28:
+        this->SelectNextRow();
+        return 1;
+    case 0x0D:
+        if (this->field_0xd8 != 0) {
+            char buf[100];
+            this->parent_screen->rename_txt->WriteData(buf);
+            this->parent_screen->session->FUN_0049381c(buf);
+            this->parent_screen->CloseRenameWindow();
+        } else {
+            this->parent_screen->CloseOk();
+        }
+        return 1;
+    case 0x1B:
+        if (this->field_0xd8 != 0) {
+            this->parent_screen->CloseRenameWindow();
+        }
+        return 0;
+    default:
+        return 0;
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

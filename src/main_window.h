@@ -175,6 +175,7 @@ public:
 
     void RefreshCharacterRosterFiles(int val); //49265a
     void InitializeNewCharacterSession(int tp, const char* name); //493ab6
+    void FUN_0049381c(char* name); //49381c in asm
     void FUN_004948b2(); //4948b2 in asm
 public:
     int32_t field_0x4 = 0;

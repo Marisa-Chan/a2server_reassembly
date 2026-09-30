@@ -18379,103 +18379,6 @@ unknown_libname_460 endp
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisCharSellectList@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060988C↓o
-
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-Source          = byte ptr -64h
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 6Ch
-                mov     [ebp+var_68], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_6C], eax
-                mov     ecx, dword ptr [ebp+var_6C]
-                sub     ecx, 0Dh        ; switch 28 cases
-                mov     [ebp+var_6C], ecx
-                cmp     [ebp+var_6C], 1Bh
-                ja      def_431BC2      ; jumptable 00431BC2 default case, cases 14-26,28-37,39
-                mov     eax, dword ptr [ebp+var_6C]
-                xor     edx, edx
-                mov     dl, ds:byte_431C7B[eax]
-                jmp     ds:jpt_431BC2[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_431BC9:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
-                mov     ecx, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 38
-                call    ?SelectPrevRow@VisCharSellectList@@QAEHXZ
-                mov     eax, 1
-                jmp     loc_431C61
-; ---------------------------------------------------------------------------
-
-loc_431BDB:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
-                mov     ecx, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 40
-                call    ?SelectNextRow@VisCharSellectList@@QAEHXZ
-                mov     eax, 1
-                jmp     short loc_431C61
-; ---------------------------------------------------------------------------
-
-loc_431BEA:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
-                mov     ecx, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 13
-                cmp     dword ptr [ecx+0D8h], 0
-                jz      short loc_431C36
-                lea     edx, [ebp+Source]
-                push    edx
-                mov     eax, dword ptr [ebp+var_68]
-                mov     ecx, dword ptr [eax+5Ch]
-                mov     ecx, dword ptr [ecx+80h]
-                mov     edx, dword ptr [ebp+var_68]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     edx, dword ptr [eax+80h]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+3Ch]
-                lea     ecx, [ebp+Source]
-                push    ecx             ; Source
-                mov     edx, dword ptr [ebp+var_68]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+68h]
-                call    sub_49381C
-                mov     ecx, dword ptr [ebp+var_68]
-                mov     ecx, dword ptr [ecx+5Ch]
-                call    ?CloseRenameWindow@VisCharSelect@@QAEXXZ
-                jmp     short loc_431C41
-; ---------------------------------------------------------------------------
-
-loc_431C36:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+5F↑j
-                mov     edx, dword ptr [ebp+var_68]
-                mov     ecx, dword ptr [edx+5Ch]
-                call    ?CloseOk@VisScreen@@QAEXXZ
-
-loc_431C41:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+9F↑j
-                mov     eax, 1
-                jmp     short loc_431C61
-; ---------------------------------------------------------------------------
-
-loc_431C48:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
-                mov     eax, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 27
-                cmp     dword ptr [eax+0D8h], 0
-                jz      short def_431BC2 ; jumptable 00431BC2 default case, cases 14-26,28-37,39
-                mov     ecx, dword ptr [ebp+var_68]
-                mov     ecx, dword ptr [ecx+5Ch]
-                call    ?CloseRenameWindow@VisCharSelect@@QAEXXZ
-
-def_431BC2:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+1C↑j
-                xor     eax, eax        ; jumptable 00431BC2 default case, cases 14-26,28-37,39
-
-loc_431C61:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+41↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisCharSellectList@@UAEHI@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_431BC2      dd offset loc_431BEA    ; DATA XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑r
-                dd offset loc_431C48    ; jump table for switch statement
-                dd offset loc_431BC9
-                dd offset loc_431BDB
-                dd offset def_431BC2
 byte_431C7B     db      0,     4,     4,     4
                 db      4,     4,     4,     4 ; indirect table for switch statement
                 db      4,     4,     4,     4
@@ -77537,8 +77440,8 @@ sub_492A85      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_49381C(char *Source)
-sub_49381C      proc near               ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+8F↑p
+; int __stdcall ?FUN_0049381c@CGameSession@@QAEXPAD@Z(char *Source)
+?FUN_0049381c@CGameSession@@QAEXPAD@Z      proc near               ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+8F↑p
 
 var_60          = dword ptr -60h
 var_5C          = dword ptr -5Ch
@@ -77625,11 +77528,11 @@ Source          = dword ptr  8
                 cmp     dword ptr [eax+88h], 10h
                 jbe     short loc_4938EB
 
-loc_4938DE:                             ; CODE XREF: sub_49381C+B4↑j
+loc_4938DE:                             ; CODE XREF: ?FUN_0049381c@CGameSession@@QAEXPAD@Z+B4↑j
                 mov     ecx, dword ptr [ebp+var_58]
                 mov     dword ptr [ecx+88h], 0
 
-loc_4938EB:                             ; CODE XREF: sub_49381C+56↑j
+loc_4938EB:                             ; CODE XREF: ?FUN_0049381c@CGameSession@@QAEXPAD@Z+56↑j
                 mov     edx, dword ptr [ebp+Source]
                 push    edx             ; Source
                 mov     eax, dword ptr [ebp+var_10]
@@ -77681,7 +77584,7 @@ loc_4938EB:                             ; CODE XREF: sub_49381C+56↑j
                 mov     ecx, eax        ; varThis
                 call    ??YCString@@QAEABV0@PBD@Z ; CString::operator+=(char const *)
 
-loc_4939AC:                             ; CODE XREF: sub_49381C+13F↑j
+loc_4939AC:                             ; CODE XREF: ?FUN_0049381c@CGameSession@@QAEXPAD@Z+13F↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_58]
                 add     ecx, 0F8h
@@ -77767,7 +77670,7 @@ loc_4939AC:                             ; CODE XREF: sub_49381C+13F↑j
                 pop     ebp
                 retn    4
 ; } // starts at 49381C
-sub_49381C      endp
+?FUN_0049381c@CGameSession@@QAEXPAD@Z      endp
 
 
 
@@ -293806,7 +293709,7 @@ SEH_492C66:                             ; DATA XREF: ?LoadCharacterRosterEntry@C
 ; } // starts at 5FC244
 ; END OF FUNCTION CHUNK FOR ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_49381C
+; START OF FUNCTION CHUNK FOR ?FUN_0049381c@CGameSession@@QAEXPAD@Z
 
 loc_5FC30E:                             ; DATA XREF: .rdata:stru_61D408↓o
 ; __unwind { // SEH_49381C              ; varThis
@@ -293824,11 +293727,11 @@ loc_5FC317:                             ; DATA XREF: .rdata:0061D410↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_49381C:                             ; DATA XREF: sub_49381C+5↑o
+SEH_49381C:                             ; DATA XREF: ?FUN_0049381c@CGameSession@@QAEXPAD@Z+5↑o
                 mov     eax, offset stru_61D3E8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC30E
-; END OF FUNCTION CHUNK FOR sub_49381C
+; END OF FUNCTION CHUNK FOR ?FUN_0049381c@CGameSession@@QAEXPAD@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z
 

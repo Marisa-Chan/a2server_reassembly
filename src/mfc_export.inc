@@ -1283,7 +1283,6 @@ extern ?VMethod28@VisCharSelect@@UAEXXZ : proc
 extern ?DoClose@VisCharSelect@@UAEXI@Z : proc
 extern ?GetStringArray1Size@CGameSession@@QAEHXZ : proc
 extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
-extern ?CloseRenameWindow@VisCharSelect@@QAEXXZ : proc
 externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
@@ -1295,6 +1294,7 @@ extern ?HitTest@VisCharSellectList@@QAEHVCPoint@@@Z : proc
 extern ?SelectPrevRow@VisCharSellectList@@QAEHXZ : proc
 extern ?SelectNextRow@VisCharSellectList@@QAEHXZ : proc
 extern ?UpdateArrows@VisCharSellectList@@QAEXVCPoint@@_N@Z : proc
+externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 ;VisCharSellectButtons
 extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
@@ -1667,7 +1667,7 @@ extern ?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
+extern ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
 
 ;VisCharSellectStats
 externdef ??_GVisCharSellectStats@@UAEPAXI@Z : proc
