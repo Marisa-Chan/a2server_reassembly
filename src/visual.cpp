@@ -20619,3 +20619,52 @@ void VisFameDocument::PrevDoc()
     }
     this->UpdateArrowStates();
 }
+
+
+// 4AE57F
+int32_t VisFameDocument::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->VMethod9();
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
+// 4AE5BE
+int32_t VisFameDocument::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
+    this->UpdateArrowStates();
+    if (hit != -1) {
+        this->VMethod9();
+        FlushScreen();
+    }
+    return 0;
+}
+
+
+// 4AE607
+int32_t VisFameDocument::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    this->UpdateButtons(pos, (wparam & 1) != 0);
+    this->UpdateArrowStates();
+    return 1;
+}
+
+
+// 4AE717
+int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
+    if (hit == 1) {
+        this->PrevDoc();
+        this->VMethod9();
+    } else if (hit == 2) {
+        this->NextDoc();
+        this->VMethod9();
+    } else if (hit == 3) {
+        this->CloseOk();
+    }
+    return 1;
+}

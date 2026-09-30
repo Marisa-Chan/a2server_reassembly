@@ -89717,121 +89717,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisFameDocument@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060CE40↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 402h
-                jz      short loc_4AE599
-                jmp     short loc_4AE5A4
-; ---------------------------------------------------------------------------
-
-loc_4AE599:                             ; CODE XREF: ?MsgProc@VisFameDocument@@UAEHIII@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-
-loc_4AE5A4:                             ; CODE XREF: ?MsgProc@VisFameDocument@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisFameDocument@@UAEHIII@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CE44↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?UpdateArrowStates@VisFameDocument@@QAEXXZ
-                cmp     [ebp+var_4], 0FFFFFFFFh
-                jz      short loc_4AE5FF
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+34h]
-                call    ?FlushScreen@@YAXXZ
-
-loc_4AE5FF:                             ; CODE XREF: ?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z+2F↑j
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?OnLButtonDown@VisFameDocument@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CE4C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateArrowStates@VisFameDocument@@QAEXXZ
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisFameDocument@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -89850,70 +89735,18 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CE50↓o
 
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
 
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 1
-                jz      short loc_4AE754
-                cmp     [ebp+var_C], 2
-                jz      short loc_4AE769
-                cmp     [ebp+var_C], 3
-                jz      short loc_4AE77E
-                jmp     short loc_4AE786
-; ---------------------------------------------------------------------------
+; =============== S U B R O U T I N E =======================================
 
-loc_4AE754:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+2D↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?PrevDoc@VisFameDocument@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+34h]
-                jmp     short loc_4AE786
-; ---------------------------------------------------------------------------
+; Attributes: bp-based frame
 
-loc_4AE769:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+33↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?NextDoc@VisFameDocument@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+34h]
-                jmp     short loc_4AE786
-; ---------------------------------------------------------------------------
 
-loc_4AE77E:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+39↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4AE933
 
-loc_4AE786:                             ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+3B↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z      endp
+; =============== S U B R O U T I N E =======================================
+
+; Attributes: bp-based frame
+
 
 
 ; =============== S U B R O U T I N E =======================================
