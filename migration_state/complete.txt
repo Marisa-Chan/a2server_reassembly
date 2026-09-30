@@ -138,6 +138,7 @@
 ??1VisMenuWnd@@UAE@XZ
 ??1VisMessageBox@@UAE@XZ
 ??1VisMessageBoxWithList@@UAE@XZ
+??1VisNetMapSelection@@UAE@XZ
 ??1VisRadioType1@@UAE@XZ
 ??1VisScreen@@UAE@XZ
 ??1VisShopCompass@@UAE@XZ
@@ -169,6 +170,7 @@
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
+??_GVisNetMapSelection@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisStartGame@@UAEPAXI@Z
 ??_GVisTavScene@@UAEPAXI@Z
@@ -189,6 +191,7 @@
 ?AddChild@CVisualObject@@QAEXPAV1@@Z
 ?AddElement@VisMenuWnd@@QAEXPAVCVisualObject@@H@Z
 ?AddItem@VisComboBox@@QAEXPBD@Z
+?AddNetMapInfo@VisNetMapSelection@@QAEXPAUNetMapInfo@@@Z
 ?AddTail@UnitList@@QAEXPAVUnit@@@Z
 ?AddWithCheck@GM_a28@@QAEXPBDPAGI@Z
 ?AfxA2WHelper@@YGPA_WPA_WPBDH@Z
@@ -540,6 +543,7 @@
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
+?MsgProc@VisNetMapSelection@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
@@ -556,6 +560,7 @@
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
+?OnKeyDown@VisNetMapSelection@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
 ?OnKeyDown@VisScreen@@UAEHI@Z
 ?OnKeyDown@VisStartGame@@UAEHI@Z
@@ -712,6 +717,7 @@
 ?StatLevelPoints@@YAHH@Z
 ?StepForward@VisTavSceneAnim@@QAE_NXZ
 ?Stop@SoundChannel@@QAEXXZ
+?StopThread@VisNetMapSelection@@QAEXXZ
 ?StringArrayForRect@CGameFont@@QAEAAVCStringArray@@ABVCRect@@PBD@Z
 ?sub_4184B8@BigStruct2@@QAEHHH@Z
 ?sub_418F93@BigStruct2@@QAEXH@Z
@@ -853,6 +859,7 @@
 ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisMessageBox@@UAEXXZ
+?VMethod26@VisNetMapSelection@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ
 ?VMethod26@VisStartGame@@UAEXXZ

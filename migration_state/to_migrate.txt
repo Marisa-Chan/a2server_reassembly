@@ -7,25 +7,19 @@
 ?DAT_00660f6c@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
+?VisNetMapThreadProc@@YAIPAX@Z	11
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
 ?IsDefaultNpcName@@YAIPBD@Z	67
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
-?FUN_00458fe6@@YAXHHH@Z	120
 ?FUN_00454e40@@YAXHHHH@Z	127
 ?sub_457C5D@@YAXHHHHH@Z	150
-?FUN_00459449@@YAXHHHHHH@Z	179
 ?FUN_00476c0d@@YAXHH@Z	183
-?FUN_0045995e@@YAXHHH@Z	214
 ?ShowRoleKeyDialog@@YGXPBD@Z	237
 ?sub_4588EC@@YAXHHHHHH@Z	259
-?FUN_00458ca0@@YAXHHHHHHHHHHPAEPAG@Z	363
-?FUN_004595fd@@YAXHHHHHHHHHH@Z	364
-?FUN_004590ef@@YAXHHHHHH@Z	377
 ?sub_4764BC@@YAPAEH@Z	390
-?FUN_00459b72@@YAXHHHHHH@Z	430
 ?sub_47FA75@@YAXXZ	439
 ?sub_477B59@@YAXI@Z	535
 ?DAT_00661018@@3PAPAVCGamePalette@@A
@@ -49,6 +43,7 @@
 ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z	31
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
+?FUN_0041cda3@BigStruct2@@QAEXPBD@Z	41
 ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z	58
 ?FUN_0041ae1c@BigStruct2@@QAEXH@Z	170
 ??0CAirUnit@@QAE@XZ	18
@@ -189,8 +184,11 @@
 ?Delete@CWinThread@@UAEXXZ	11
 ?GetMainWnd@CWinThread@@UAEPAVCWnd@@XZ	13
 ?PumpMessage@CWinThread@@UAEHXZ	34
+??0CWinThread@@QAE@P6AIPAX@Z0@Z	35
 ?IsIdleMessage@CWinThread@@UAEHPAUtagMSG@@@Z	50
+??1CWinThread@@UAE@XZ	52
 ?PreTranslateMessage@CWinThread@@UAEHPAUtagMSG@@@Z	111
+?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z	121
 ?ProcessMessageFilter@CWinThread@@UAEHHPAUtagMSG@@@Z	141
 ?messageMap@CWnd@@2UAFX_MSGMAP@@B
 ?PreSubclassWindow@CWnd@@UAEXXZ	2
@@ -405,15 +403,14 @@
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193
-?OnKeyDown@VisNetMapSelection@@UAEHI@Z	16
-??_GVisNetMapSelection@@UAEPAXI@Z	24
-??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z	65
-?MsgProc@VisNetMapSelection@@UAEHIII@Z	571
-?VMethod26@VisNetMapSelection@@UAEXXZ	788
+??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
+??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
+??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
 ??_GVisNetPhoneBook@@UAEPAXI@Z	24
 ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z	38
 ?MsgProc@VisNetPhoneBook@@UAEHIII@Z	430
 ?VMethod26@VisNetPhoneBook@@UAEXXZ	715
+??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??_GVisNetSerialSettings@@UAEPAXI@Z	24
 ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z	36
 ?MsgProc@VisNetSerialSettings@@UAEHIII@Z	169
