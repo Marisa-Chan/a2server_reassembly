@@ -3987,6 +3987,37 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos)
 }
 
 
+// 43005F
+void VisCharSellectButtons::VMethod7()
+{
+    CPoint top_left = this->parent_screen->rect.TopLeft();
+    if (this->parent_screen->active_flag != 0) {
+        LockSurface2();
+        this->bmp_area->VMethod2(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
+        for (int32_t i = 0; i < 4; i++) {
+            uint16_t* pal;
+            if (this->mouse_over_box == i) {
+                pal = palette_paris_daisy->GetPalette(0);
+            } else {
+                pal = palette_husk->GetPalette(0);
+            }
+            if (this->mouse_over_box < 0 || this->mouse_down_box != this->mouse_over_box || this->mouse_over_box != i) {
+                g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
+                                 top_left.y + this->areas[i].top + this->areas[i].Height() / 2,
+                                 this->field_0x60[i], 10, pal);
+            } else {
+                this->buttons_bmp[i]->VMethod10(top_left.x + this->areas[i].left, top_left.y + this->areas[i].top,
+                                                0, 0, this->areas[i].Width(), this->areas[i].Height());
+                g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
+                                 top_left.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
+                                 this->field_0x60[i], 10, pal);
+            }
+        }
+        UnlockSurface2();
+    }
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

@@ -1655,7 +1655,7 @@ externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 
 ;VisCharSellectButtons
 externdef ??_GVisCharSellectButtons@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
+extern ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
 externdef ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 
