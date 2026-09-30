@@ -20766,3 +20766,88 @@ int32_t VisMiniMap::OnMouseMove(uint32_t wparam, CPoint pos)
     }
     return 0;
 }
+
+
+// 4B042E
+void VisMiniMap::UpdateCursor()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CSprite256* cur_sprite = g_mousept.GetCursorSprite();
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    CCursor* new_cursor = nullptr;
+    CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
+    if (rc.PtInRect(mpt)) {
+        if (g_mousept.GetX() < g_ScreenSize.right - 2 || main_wnd->dialogsMask != 1) {
+            if (g_mousept.GetY() == 0 && main_wnd->dialogsMask == 1) {
+                new_cursor = g_Cursors[9];
+            } else {
+                BigStruct2* mc = this->map_context;
+                Scenario* scen = mc->field_0x80;
+                CRect rc2;
+                this->ClientRectToScreen(&rc2, this->rect);
+                int32_t z = this->zoom;
+                int32_t mode = 1;
+                if (z < 0) {
+                    z = 0;
+                    mode = 2;
+                }
+                int32_t step = 1 << z;
+                int32_t ox, oy;
+                if (mode == 1) {
+                    ox = (scen->GetWidth() - 0x10 << z) >> 1;
+                    oy = (scen->GetHeight() - 0x10 << z) >> 1;
+                } else {
+                    ox = scen->GetWidth() - 0x10 >> 2;
+                    oy = scen->GetHeight() - 0x10 >> 2;
+                }
+                oy = 0x52 - oy;
+                ox = 0x48 - ox;
+                CPoint pt2(g_mousept.GetX(), g_mousept.GetY());
+                if (pt2.x - ox < 0 || pt2.y - oy < 0
+                    || mc->field_0x84 - 0x10 < (pt2.x - ox) >> z
+                    || mc->field_0x88 - 0x10 < (pt2.y - oy) >> z) {
+                    new_cursor = g_Cursors[0x11];
+                } else if (mc->field_0x140 == 0) {
+                    new_cursor = g_Cursors[0x11];
+                } else {
+                    new_cursor = g_Cursors[0x12];
+                    switch (mc->field_0x9b4) {
+                    case 1:
+                    case 6:
+                        new_cursor = g_Cursors[0x13];
+                        break;
+                    case 2:
+                        break;
+                    case 4:
+                        new_cursor = g_Cursors[0x14];
+                        break;
+                    case 5:
+                        new_cursor = g_Cursors[0x16];
+                        break;
+                    case 8:
+                        new_cursor = g_Cursors[0x15];
+                        break;
+                    }
+                    if ((mc->field_0x144 & 0x24) != 0) {
+                        new_cursor = g_Cursors[0x11];
+                    }
+                }
+            }
+        } else {
+            if (g_mousept.GetY() == 0) {
+                new_cursor = g_Cursors[0xF];
+            } else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
+                new_cursor = g_Cursors[0xC];
+            } else {
+                new_cursor = g_Cursors[0x10];
+            }
+        }
+        if (main_wnd->field_0x408 != nullptr) {
+            new_cursor = main_wnd->item_cursor;
+        }
+        if (new_cursor != nullptr && cur_sprite != new_cursor->GetSprite()) {
+            new_cursor->Use();
+        }
+    }
+}

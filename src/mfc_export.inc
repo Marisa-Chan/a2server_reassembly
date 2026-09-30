@@ -1600,6 +1600,9 @@ externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 ;BigStruct2 minimap unit pick
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
+;VisMiniMap
+extern ?UpdateCursor@VisMiniMap@@QAEXXZ : proc
+
 ;VisFameDocument
 extern ??_GVisFameDocument@@UAEPAXI@Z : proc
 extern ??1VisFameDocument@@UAE@XZ : proc
