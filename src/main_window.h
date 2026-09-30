@@ -141,7 +141,7 @@ struct UserShortcut
     int ToBuffer(uint8_t** buf); //41e5ed
 
     void FUN_0041e323(short spell_id); //41e323 in asm
-    bool FUN_0041e456(short spell_id); //41e456 in asm
+    int32_t FUN_0041e456(short spell_id); //41e456 in asm
     int32_t FUN_0041e3af(TokenEntry* entry); //41e3af in asm
     void sub_41E343(TokenEntry* entry); //41e343 in asm
 

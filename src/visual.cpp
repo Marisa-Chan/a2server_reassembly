@@ -21632,3 +21632,115 @@ void VisSpellBook::VMethod7()
     }
     UnlockSurface2();
 }
+
+
+// 4C9A6F
+const char* VisSpellBook::GetHint()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* mc = main_wnd->vis_map_context;
+    CPoint mpt(g_mousept.GetX(), g_mousept.GetY());
+    int32_t idx = this->FUN_004ca7c2(&mpt);
+    if ((mc->field_0x148 & (1 << (idx & 0x1F))) == 0) {
+        return nullptr;
+    }
+    if ((main_wnd->dialogsMask & 2) == 0 && main_wnd->dialogsMask != 1) {
+        return nullptr;
+    }
+    byte_666590[0] = 0;
+    if (idx < 0 || mc->spell_mana_cost1[idx] > 0xFFFE) {
+        return nullptr;
+    }
+    CString str;
+    CString dmg_str;
+    CString range_str;
+    CString power_str;
+    CString vals_str;
+    str.Format("%s#%s: %d", TxtFile::AllLines[0x75], txt_spells.GetLine(idx),
+        mc->spell_mana_cost1[idx]);
+    if (mc->spell_damage_max[idx] != 0) {
+        if (mc->spell_damage_min[idx] == mc->spell_damage_max[idx]) {
+            dmg_str.Format("#%s: %d", TxtFile::AllLines[0x76], mc->spell_damage_min[idx]);
+        } else {
+            dmg_str.Format("#%s: %d-%d", TxtFile::AllLines[0x76],
+                mc->spell_damage_min[idx], mc->spell_damage_max[idx]);
+        }
+    }
+    if (mc->spell_range_max[idx] != 0) {
+        if (mc->spell_range_min[idx] == mc->spell_range_max[idx]) {
+            range_str.Format("#%s: %d", TxtFile::AllLines[0x7B], mc->spell_range_min[idx]);
+        } else {
+            range_str.Format("#%s: %d-%d", TxtFile::AllLines[0x7B],
+                mc->spell_range_min[idx], mc->spell_range_max[idx]);
+        }
+    }
+    if (mc->spell_power_max[idx] != 0) {
+        if (mc->spell_power_min[idx] == mc->spell_power_max[idx]) {
+            power_str.Format("#%s: %5.1f", TxtFile::AllLines[0x7C],
+                (double)mc->spell_power_min[idx] / 16.0);
+        } else {
+            power_str.Format("#%s: %5.1f -%5.1f", TxtFile::AllLines[0x7C],
+                (double)mc->spell_power_min[idx] / 16.0,
+                (double)mc->spell_power_max[idx] / 16.0);
+        }
+    }
+    if (mc->spell_val1_max[idx] > -0xFFFF) {
+        if (mc->spell_val1_min[idx] == mc->spell_val1_max[idx]) {
+            vals_str.Format("#%s: %d", TxtFile::AllLines[0xB6], mc->spell_val1_min[idx]);
+        } else {
+            vals_str.Format("#%s: %d...%d", TxtFile::AllLines[0xB6],
+                mc->spell_val1_min[idx], mc->spell_val1_max[idx]);
+        }
+    }
+    if (mc->spell_val2_max[idx] != 0) {
+        if (mc->spell_val2_min[idx] == mc->spell_val2_max[idx]) {
+            vals_str.Format("#%s: +%d", TxtFile::AllLines[0xB7], mc->spell_val2_min[idx]);
+        } else {
+            vals_str.Format("#%s: +%d...+%d", TxtFile::AllLines[0xB7],
+                mc->spell_val2_min[idx], mc->spell_val2_max[idx]);
+        }
+    }
+    if (mc->spell_val3_max[idx] > -0xFFFF) {
+        if (mc->spell_val3_min[idx] == mc->spell_val3_max[idx]) {
+            vals_str.Format("#%s: %d", TxtFile::AllLines[0xB8], mc->spell_val3_min[idx]);
+        } else {
+            vals_str.Format("#%s: %d...%d", TxtFile::AllLines[0xB8],
+                mc->spell_val3_min[idx], mc->spell_val3_max[idx]);
+        }
+    }
+    if (mc->spell_val4_max[idx] != 0) {
+        if (mc->spell_val4_min[idx] == mc->spell_val4_max[idx]) {
+            vals_str.Format("#%s: +%d%%", TxtFile::AllLines[0xB9], mc->spell_val4_min[idx]);
+        } else {
+            vals_str.Format("#%s: +%d...+%d%%", TxtFile::AllLines[0xB9],
+                mc->spell_val4_min[idx], mc->spell_val4_max[idx]);
+        }
+    }
+    if (mc->spell_val5_max[idx] != 0) {
+        if (mc->spell_val5_min[idx] == mc->spell_val5_max[idx]) {
+            vals_str.Format("#%s: +%d%%", TxtFile::AllLines[0xBB], mc->spell_val5_min[idx]);
+        } else {
+            vals_str.Format("#%s: +%d...+%d%%", TxtFile::AllLines[0xBB],
+                mc->spell_val5_min[idx], mc->spell_val5_max[idx]);
+        }
+    }
+    if (mc->spell_val6_max[idx] != 0) {
+        if (mc->spell_val6_min[idx] == mc->spell_val6_max[idx]) {
+            vals_str.Format("#%s: %d", TxtFile::AllLines[0xBA], mc->spell_val6_min[idx]);
+        } else {
+            vals_str.Format("#%s: %d-%d", TxtFile::AllLines[0xBA],
+                mc->spell_val6_min[idx], mc->spell_val6_max[idx]);
+        }
+    }
+    if (mc->spell_val7_max[idx] != 0) {
+        if (mc->spell_val7_min[idx] == mc->spell_val7_max[idx]) {
+            vals_str.Format("#%s: %d", TxtFile::AllLines[0xD9], mc->spell_val7_min[idx]);
+        } else {
+            vals_str.Format("#%s: %d-%d", TxtFile::AllLines[0xD9],
+                mc->spell_val7_min[idx], mc->spell_val7_max[idx]);
+        }
+    }
+    sprintf(byte_666590, "%s%s%s%s%s", (LPCTSTR)str, (LPCTSTR)dmg_str,
+        (LPCTSTR)range_str, (LPCTSTR)power_str, (LPCTSTR)vals_str);
+    return byte_666590;
+}

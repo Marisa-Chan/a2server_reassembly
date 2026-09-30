@@ -1398,6 +1398,7 @@ extern ?FlushScreen@@YAXXZ  : proc
 
 
 ;VisSpellBook
+externdef _byte_666590 : byte
 extern ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
 extern ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
@@ -1639,7 +1640,7 @@ externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 ;VisSpellBook
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
-externdef ?GetHint@VisSpellBook@@UAEPBDXZ : proc
+extern ?GetHint@VisSpellBook@@UAEPBDXZ : proc
 extern ?VMethod7@VisSpellBook@@UAEXXZ : proc
 extern ?MsgProc@VisSpellBook@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z : proc
