@@ -4093,6 +4093,29 @@ void VisCharSellectButtons::ResetMouseBoxes()
 }
 
 
+// 42FE62
+void VisCharSellectButtons::Init()
+{
+    this->mouse_down_box = -1;
+    this->mouse_over_box = -1;
+    this->areas[0] = CRect(0x1EE, 0xF, 0x266, 0x43);
+    this->areas[1] = CRect(0x1E3, 0x43, 0x26F, 0x71);
+    this->areas[2] = CRect(0x1E3, 0x72, 0x26F, 0xA0);
+    this->areas[3] = CRect(0x1EE, 0xA0, 0x266, 0xD4);
+    for (int32_t i = 0; i < 4; i++) {
+        this->buttons_bmp[i] = nullptr;
+        this->field_0x84[i] = nullptr;
+    }
+    this->bmp_area = nullptr;
+    this->field_0x60.SetSize(4, -1);
+    this->field_0x60[0] = TxtFile::AllLines[0xEE];
+    this->field_0x60[1] = TxtFile::AllLines[0xF0];
+    this->field_0x60[2] = TxtFile::AllLines[0xF1];
+    this->field_0x60[3] = TxtFile::AllLines[0x4E];
+    this->flags |= FLAG_NOTFOCUS;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

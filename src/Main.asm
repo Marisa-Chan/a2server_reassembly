@@ -17816,7 +17816,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_10]
                 mov     dword ptr [ecx], offset off_6097A8
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42FE62
+                call    ?Init@VisCharSellectButtons@@QAEXXZ
 ;   } // starts at 42FD18
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -17892,7 +17892,7 @@ arg_14          = dword ptr  1Ch
                 mov     edx, dword ptr [ebp+arg_14]
                 mov     [ecx+5Ch], edx
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_42FE62
+                call    ?Init@VisCharSellectButtons@@QAEXXZ
 ;   } // starts at 42FDA8
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -17958,169 +17958,6 @@ sub_42FDF8      endp
 
 ; Attributes: bp-based frame
 
-sub_42FE62      proc near               ; CODE XREF: sub_42FCE2+5D↑p
-
-var_48          = dword ptr -48h
-var_44          = byte ptr -44h
-var_34          = byte ptr -34h
-var_24          = byte ptr -24h
-var_14          = byte ptr -14h
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 48h
-                mov     [ebp+var_48], ecx
-                mov     eax, dword ptr [ebp+var_48]
-                mov     dword ptr [eax+0D8h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     dword ptr [ecx+0DCh], 0FFFFFFFFh
-                push    43h ; 'C'
-                push    266h
-                push    0Fh
-                push    1EEh
-                lea     ecx, [ebp+var_14]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     edx, dword ptr [ebp+var_48]
-                add     edx, 98h
-                mov     ecx, dword ptr [eax]
-                mov     [edx], ecx
-                mov     ecx, dword ptr [eax+4]
-                mov     [edx+4], ecx
-                mov     ecx, dword ptr [eax+8]
-                mov     [edx+8], ecx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [edx+0Ch], eax
-                push    71h ; 'q'
-                push    26Fh
-                push    43h ; 'C'
-                push    1E3h
-                lea     ecx, [ebp+var_24]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0A8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0A0h
-                push    26Fh
-                push    72h ; 'r'
-                push    1E3h
-                lea     ecx, [ebp+var_34]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0B8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    0D4h
-                push    266h
-                push    0A0h
-                push    1EEh
-                lea     ecx, [ebp+var_44]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0C8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                mov     [ebp+var_4], 0
-                jmp     short loc_42FF74
-; ---------------------------------------------------------------------------
-
-loc_42FF6B:                             ; CODE XREF: sub_42FE62+137↓j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1
-                mov     [ebp+var_4], ecx
-
-loc_42FF74:                             ; CODE XREF: sub_42FE62+107↑j
-                cmp     [ebp+var_4], 4
-                jge     short loc_42FF9B
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_48]
-                mov     dword ptr [eax+edx*4+74h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+var_48]
-                mov     dword ptr [edx+ecx*4+84h], 0
-                jmp     short loc_42FF6B
-; ---------------------------------------------------------------------------
-
-loc_42FF9B:                             ; CODE XREF: sub_42FE62+116↑j
-                mov     eax, dword ptr [ebp+var_48]
-                mov     dword ptr [eax+94h], 0
-                push    0FFFFFFFFh      ; int
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ?SetSize@CStringArray@@QAEXHH@Z ; CStringArray::SetSize(int,int)
-                push    0EEh
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                push    0
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 60h ; '`'
-                call    sub_401820
-                mov     ecx, eax        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0F0h
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     edx, dword ptr [eax]
-                push    edx             ; lpString
-                push    1
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 60h ; '`'
-                call    sub_401820
-                mov     ecx, eax        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0F1h
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-                push    eax             ; lpString
-                push    2
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 60h ; '`'
-                call    sub_401820
-                mov     ecx, eax        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    4Eh ; 'N'
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     ecx, dword ptr [eax]
-                push    ecx             ; lpString
-                push    3
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 60h ; '`'
-                call    sub_401820
-                mov     ecx, eax        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                mov     edx, dword ptr [ebp+var_48]
-                mov     eax, dword ptr [edx+18h]
-                or      eax, 2
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     [ecx+18h], eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_42FE62      endp
 
 
 ; =============== S U B R O U T I N E =======================================

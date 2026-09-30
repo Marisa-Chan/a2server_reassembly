@@ -683,6 +683,7 @@ public:
 
 	void LoadBitmaps(); // 430850
 	void FreeBitmaps(); // 430a1a
+	void Init(); // 42fe62
 	void ResetMouseBoxes(); // 43072b
 
 public:
