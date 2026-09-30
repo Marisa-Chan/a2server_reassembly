@@ -1292,6 +1292,7 @@ externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
 extern ?FreeBitmaps@VisCharSellectList@@QAEXXZ : proc
 extern ?SelectRow@VisCharSellectList@@QAEXH@Z : proc
 extern ?HitTest@VisCharSellectList@@QAEHVCPoint@@@Z : proc
+extern ?SelectPrevRow@VisCharSellectList@@QAEHXZ : proc
 
 ;VisCharSellectButtons
 extern ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc

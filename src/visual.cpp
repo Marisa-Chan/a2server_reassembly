@@ -4256,6 +4256,23 @@ int32_t VisCharSellectList::HitTest(CPoint pos)
 }
 
 
+// 431A05
+int32_t VisCharSellectList::SelectPrevRow()
+{
+    if (this->field_0xd0 - 1 < 0) {
+        return 0;
+    }
+    if (this->field_0xd0 - 1 < this->field_0xa0) {
+        this->field_0xa0 = this->field_0xa0 - 1;
+        this->field_0xd0 = this->field_0xd0 - 1;
+    } else {
+        this->field_0xd0 = this->field_0xd0 - 1;
+    }
+    this->SelectRow(this->field_0xd0);
+    return 1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

@@ -18497,7 +18497,7 @@ loc_4317E1:                             ; CODE XREF: ?OnLButtonDown@VisCharSelle
                 test    eax, eax
                 jz      short loc_43180F
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_431A05
+                call    ?SelectPrevRow@VisCharSellectList@@QAEHXZ
 
 loc_43180F:                             ; CODE XREF: ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z+7B↑j
                 push    1
@@ -18572,63 +18572,6 @@ loc_43186C:                             ; CODE XREF: ?OnLButtonUp@VisCharSellect
 
 ; Attributes: bp-based frame
 
-sub_431A05      proc near               ; CODE XREF: ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z+A6↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D0h]
-                sub     ecx, 1
-                test    ecx, ecx
-                jl      short loc_431A8D
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     eax, [ecx+0A0h]
-                jge     short loc_431A5F
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0A0h]
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+0A0h], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+0D0h], eax
-                jmp     short loc_431A74
-; ---------------------------------------------------------------------------
-
-loc_431A5F:                             ; CODE XREF: sub_431A05+2C↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                sub     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+0D0h], eax
-
-loc_431A74:                             ; CODE XREF: sub_431A05+58↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?SelectRow@VisCharSellectList@@QAEXH@Z
-                mov     eax, 1
-                jmp     short loc_431A8F
-; ---------------------------------------------------------------------------
-
-loc_431A8D:                             ; CODE XREF: sub_431A05+15↑j
-                xor     eax, eax
-
-loc_431A8F:                             ; CODE XREF: sub_431A05+86↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_431A05      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18780,7 +18723,7 @@ arg_0           = dword ptr  8
 
 loc_431BC9:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
                 mov     ecx, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 38
-                call    sub_431A05
+                call    ?SelectPrevRow@VisCharSellectList@@QAEHXZ
                 mov     eax, 1
                 jmp     loc_431C61
 ; ---------------------------------------------------------------------------
