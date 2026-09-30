@@ -4420,6 +4420,25 @@ void VisCharSellectList::FUN_00430fad()
 }
 
 
+// 430CB3
+void VisCharSellectList::Init()
+{
+    this->field_0x60 = CRect(CPoint(0x38, 0x38), CSize(0xCE, g_font4->GetHeight()));
+    this->field_0x70 = CRect(CPoint(this->rect.left + 0x38, this->rect.top + 0x38), CSize(0xCE, 0xEC));
+    this->field_0xa4 = nullptr;
+    this->field_0xa8 = nullptr;
+    this->field_0xac = nullptr;
+    this->field_0xb0 = nullptr;
+    this->field_0xb4 = nullptr;
+    this->field_0xbc = nullptr;
+    this->field_0xb8 = nullptr;
+    CPoint top_left = this->rect.TopLeft();
+    this->field_0x80 = CRect(CPoint(0x78, 0), CSize(0x50, 0x3C)) + top_left;
+    this->field_0x90 = CRect(CPoint(0x78, 0x188), CSize(0x50, 0x34)) + top_left;
+    this->FUN_00430fad();
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
