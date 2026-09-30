@@ -1601,7 +1601,7 @@ externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 ;VisFameDocument
 externdef ??_GVisFameDocument@@UAEPAXI@Z : proc
 externdef ?GetHint@VisFameDocument@@UAEPBDXZ : proc
-externdef ?VMethod7@VisFameDocument@@UAEXXZ : proc
+extern ?VMethod7@VisFameDocument@@UAEXXZ : proc
 externdef ?VMethod8@VisFameDocument@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisFameDocument@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z : proc
