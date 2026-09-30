@@ -4040,6 +4040,23 @@ void VisCharSellectButtons::FreeBitmaps()
 }
 
 
+// 430850
+void VisCharSellectButtons::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->buttons_bmp[0] = new CBmp64("graphics\\interface\\shop_druid\\ShopButton1.bmp");
+    g_mousept.Update();
+    this->buttons_bmp[1] = new CBmp64("graphics\\interface\\shop_druid\\ShopButton2.bmp");
+    g_mousept.Update();
+    this->buttons_bmp[2] = new CBmp64("graphics\\interface\\shop_druid\\ShopButton3.bmp");
+    g_mousept.Update();
+    this->buttons_bmp[3] = new CBmp64("graphics\\interface\\shop_druid\\ShopButton4.bmp");
+    g_mousept.Update();
+    this->bmp_area = new CBmp64("graphics\\interface\\chrgen\\ButtonsArea.bmp");
+    g_mousept.Update();
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4133,7 +4150,7 @@ void VisCharSelect::VMethod28()
     this->AddChild(this->info_panel);
     this->LoadSfx();
     this->vis_stats->FUN_0042f4df();
-    this->buttons->FUN_00430850();
+    this->buttons->LoadBitmaps();
     this->roster_list->FUN_004312b7();
     this->roster_list->FUN_00430fad();
     LockSurface2();
