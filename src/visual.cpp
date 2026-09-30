@@ -21744,3 +21744,20 @@ const char* VisSpellBook::GetHint()
         (LPCTSTR)range_str, (LPCTSTR)power_str, (LPCTSTR)vals_str);
     return byte_666590;
 }
+
+
+// 4C99C7
+VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->field_0x5c = 0;
+    this->pressed = -1;
+    this->selected = -1;
+    this->spell = -1;
+}
+
+
+// 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor FUN_004cb050 has no custom cleanup)
+VisSpellBook::~VisSpellBook()
+{
+}

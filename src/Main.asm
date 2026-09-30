@@ -99474,47 +99474,6 @@ sub_4C9940      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisSpellBook@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisSpellBook@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+3D4↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx], offset off_60DA00
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+5Ch], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+60h], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+64h], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+68h], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-??0VisSpellBook@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -99633,31 +99592,6 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-??_GVisSpellBook@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060DA04↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4CB050
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4CB042
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4CB042:                             ; CODE XREF: ??_GVisSpellBook@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisSpellBook@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -99666,20 +99600,6 @@ loc_4CB042:                             ; CODE XREF: ??_GVisSpellBook@@UAEPAXI@Z
 
 ; Attributes: bp-based frame
 
-sub_4CB050      proc near               ; CODE XREF: ??_GVisSpellBook@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4CB050      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

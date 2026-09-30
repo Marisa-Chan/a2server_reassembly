@@ -1033,7 +1033,6 @@ extern ?DAT_00660f88@@3HA : dword
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
-externdef   ??0VisSpellBook@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
@@ -1638,7 +1637,8 @@ externdef ?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 
 ;VisSpellBook
-externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
+extern ??_GVisSpellBook@@UAEPAXI@Z : proc
+extern ??1VisSpellBook@@UAE@XZ : proc
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 extern ?GetHint@VisSpellBook@@UAEPBDXZ : proc
 extern ?VMethod7@VisSpellBook@@UAEXXZ : proc

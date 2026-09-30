@@ -1769,7 +1769,7 @@ public:
 	int32_t sub_41F9E0(); //41f9e0
 	int32_t sub_4CAAA7(); //4caaa7
 
-	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 in asm
+	VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7
 
 public:
 	int32_t field_0x5c;
