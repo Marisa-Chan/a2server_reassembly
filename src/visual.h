@@ -3155,6 +3155,8 @@ public:
 
 	void LoadBitmaps(); // 4add24 in asm
 	void FreeBitmaps(); // 4ae17a in asm
+	void ClearDocs(); // 4ae41b in asm
+	void LoadDocs(); // 4ae3c6 in asm
 public:
 	CFameHall* fame;
 	CBmp64* bmp_sheet;

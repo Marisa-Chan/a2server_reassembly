@@ -87133,7 +87133,7 @@ sub_4AC07D      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004ac0af@Fame2@@QAEXXZ      proc near               ; CODE XREF: sub_4AE3C6+4A↓p
+?FUN_004ac0af@Fame2@@QAEXXZ      proc near               ; CODE XREF: ?LoadDocs@VisFameDocument@@QAEXXZ+4A↓p
 
 var_44C         = dword ptr -44Ch
 var_448         = dword ptr -448h
@@ -89549,7 +89549,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?FreeBitmaps@VisFameDocument@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4AE41B
+                call    ?ClearDocs@VisFameDocument@@QAEXXZ
 ;   } // starts at 4ADA4F
 ;   try {
                 mov     byte ptr [ebp+var_4], 2
@@ -89603,103 +89603,12 @@ sub_4ADA2A      endp
 
 ; Attributes: bp-based frame
 
-sub_4AE3C6      proc near               ; CODE XREF: ?VMethod28@VisFameDocument@@UAEXXZ+34↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4AE41B
-                mov     [ebp+var_4], 0
-                jmp     short loc_4AE3E9
-; ---------------------------------------------------------------------------
-
-loc_4AE3E0:                             ; CODE XREF: sub_4AE3C6+4F↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_4AE3E9:                             ; CODE XREF: sub_4AE3C6+18↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+68h]
-                add     ecx, 24h ; '$'
-                call    unknown_libname_627 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_4AE417
-                mov     edx, dword ptr [ebp+var_4]
-                push    edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+68h]
-                add     ecx, 24h ; '$'
-                call    sub_4AD3B0
-                mov     ecx, eax
-                call    ?FUN_004ac0af@Fame2@@QAEXXZ
-                jmp     short loc_4AE3E0
-; ---------------------------------------------------------------------------
-
-loc_4AE417:                             ; CODE XREF: sub_4AE3C6+34↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4AE3C6      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4AE41B      proc near               ; CODE XREF: sub_4ADA2A+37↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+68h], 0
-                jnz     short loc_4AE42F
-                jmp     short loc_4AE46F
-; ---------------------------------------------------------------------------
-
-loc_4AE42F:                             ; CODE XREF: sub_4AE41B+10↑j
-                mov     [ebp+var_4], 0
-                jmp     short loc_4AE441
-; ---------------------------------------------------------------------------
-
-loc_4AE438:                             ; CODE XREF: sub_4AE41B+52↓j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 1
-                mov     [ebp+var_4], ecx
-
-loc_4AE441:                             ; CODE XREF: sub_4AE41B+1B↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+68h]
-                add     ecx, 24h ; '$'
-                call    unknown_libname_627 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_4AE46F
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ecx+68h]
-                add     ecx, 24h ; '$'
-                call    sub_4AD3B0
-                mov     ecx, eax
-                call    ?Clear@Fame2@@QAEXXZ
-                jmp     short loc_4AE438
-; ---------------------------------------------------------------------------
-
-loc_4AE46F:                             ; CODE XREF: sub_4AE41B+12↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4AE41B      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -89727,7 +89636,7 @@ var_4           = dword ptr -4
                 mov     ecx, dword ptr [ebp+var_10]
                 call    ?LoadBitmaps@VisFameDocument@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4AE3C6
+                call    ?LoadDocs@VisFameDocument@@QAEXXZ
                 mov     edx, dword ptr [ebp+var_10]
                 mov     dword ptr [edx+0B8h], 0
                 push    0
@@ -89791,7 +89700,7 @@ arg_0           = dword ptr  8
                 mov     ecx, dword ptr [ebp+var_4]
                 call    ?FreeBitmaps@VisFameDocument@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4AE41B
+                call    ?ClearDocs@VisFameDocument@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_4]
                 mov     dword ptr [ecx+68h], 0
                 mov     edx, dword ptr [ebp+arg_0]

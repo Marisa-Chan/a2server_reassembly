@@ -1611,6 +1611,8 @@ externdef ?OnKeyDown@VisFameDocument@@UAEHI@Z : proc
 extern ?VMethod26@VisFameDocument@@UAEXXZ : proc
 extern ?LoadBitmaps@VisFameDocument@@QAEXXZ : proc
 extern ?FreeBitmaps@VisFameDocument@@QAEXXZ : proc
+extern ?ClearDocs@VisFameDocument@@QAEXXZ : proc
+extern ?LoadDocs@VisFameDocument@@QAEXXZ : proc
 externdef ?VMethod28@VisFameDocument@@UAEXXZ : proc
 externdef ?DoClose@VisFameDocument@@UAEXI@Z : proc
 

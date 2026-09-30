@@ -20521,3 +20521,24 @@ void VisFameDocument::FreeBitmaps()
     this->bmp_okbutton.RemoveAll();
     this->bmp_cur_ok = nullptr;
 }
+
+
+// 4AE41B
+void VisFameDocument::ClearDocs()
+{
+    if (this->fame != nullptr) {
+        for (int32_t i = 0; i < this->fame->m_Documents.GetSize(); i++) {
+            this->fame->m_Documents[i].Clear();
+        }
+    }
+}
+
+
+// 4AE3C6
+void VisFameDocument::LoadDocs()
+{
+    this->ClearDocs();
+    for (int32_t i = 0; i < this->fame->m_Documents.GetSize(); i++) {
+        this->fame->m_Documents[i].FUN_004ac0af();
+    }
+}
