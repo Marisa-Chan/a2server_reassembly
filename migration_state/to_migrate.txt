@@ -7,6 +7,7 @@
 ?DAT_00660f6c@@3HA
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
+_byte_666590
 ?VisNetMapThreadProc@@YAIPAX@Z	11
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
@@ -46,7 +47,9 @@
 ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z	41
 ?sub_40C0A8@BigStruct2@@QAEIHH@Z	56
 ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z	58
+?FUN_0041ace2@BigStruct2@@QAEXH@Z	80
 ?FUN_0041ae1c@BigStruct2@@QAEXH@Z	170
+?FUN_0041a001@BigStruct2@@QAEXH@Z	291
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -302,6 +305,8 @@
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15
 ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z	35
+?FUN_0041e323@UserShortcut@@QAEXF@Z	17
+?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
 ?VMethod8@Vis1200@@UAEXPAVCRect@@@Z	11
@@ -436,27 +441,6 @@
 ?GetHint@VisSideStatus@@UAEPBDXZ	108
 ?MsgProc@VisSideStatus@@UAEHIII@Z	109
 ?VMethod7@VisSideStatus@@UAEXXZ	279
-?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z	12
-?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z	14
-?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z	14
-?sub_41F9E0@VisSpellBook@@QAEHXZ	16
-?sub_41F9B0@VisSpellBook@@QAEHXZ	24
-??_GVisSpellBook@@UAEPAXI@Z	24
-?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z	24
-?sub_4CAAA7@VisSpellBook@@QAEHXZ	26
-?FUN_004caa69@VisSpellBook@@QAEXXZ	27
-?sub_4CA89B@VisSpellBook@@QAEHH@Z	35
-?sub_4CA8E0@VisSpellBook@@QAEHH@Z	35
-?sub_4CA925@VisSpellBook@@QAEXH@Z	37
-??0VisSpellBook@@QAE@HHHHH@Z	40
-?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z	43
-?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z	55
-?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z	66
-?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z	73
-?OnKeyDown@VisSpellBook@@UAEHI@Z	79
-?MsgProc@VisSpellBook@@UAEHIII@Z	180
-?VMethod7@VisSpellBook@@UAEXXZ	450
-?GetHint@VisSpellBook@@UAEPBDXZ	675
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26
