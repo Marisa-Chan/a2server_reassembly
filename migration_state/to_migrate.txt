@@ -316,14 +316,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ	15
-?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z	23
-??_GVisCharSellectButtons@@UAEPAXI@Z	24
-??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z	68
-?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z	75
-?FUN_00430a1a@VisCharSellectButtons@@QAEXXZ	118
-?FUN_00430850@VisCharSellectButtons@@QAEXXZ	176
-?VMethod7@VisCharSellectButtons@@UAEXXZ	230
 ?FUN_00430fad@VisCharSellectList@@QAEXXZ	19
 ??_GVisCharSellectList@@UAEPAXI@Z	24
 ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z	24
