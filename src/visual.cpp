@@ -21556,3 +21556,79 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
     return this->CVisualObject::MsgProc(msg, wparam, lparam);
 }
+
+
+// 4CA2A1
+void VisSpellBook::VMethod7()
+{
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    LockSurface2();
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* mc = main_wnd->vis_map_context;
+    int32_t left = vis_scr_rect.left;
+    if ((main_wnd->dialogsMask & 2) != 0) {
+        left = 0;
+    }
+    if (left != 0) {
+        if (g_ScreenSize.bottom < 0x259) {
+            if (g_ScreenSize.bottom > 0x1E0) {
+                g_bmp_spb800l->VMethod10(rc.left, rc.top, 0, 0,
+                    g_bmp_spb800l->GetWidth(0), g_bmp_spb800l->GetHeight(0));
+                g_bmp_spb800r->VMethod10(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
+                    g_bmp_spb800r->GetWidth(0), g_bmp_spb800r->GetHeight(0));
+            }
+        } else {
+            g_bmp_spb1024l->VMethod10(rc.left, rc.top, 0, 0,
+                g_bmp_spb1024l->GetWidth(0), g_bmp_spb1024l->GetHeight(0));
+            g_bmp_spb1024r->VMethod10(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
+                g_bmp_spb1024r->GetWidth(0), g_bmp_spb1024r->GetHeight(0));
+        }
+    }
+    g_bmp_spellbook->VMethod10(rc.left + left, rc.top, 0, 0,
+        g_bmp_spellbook->GetWidth(0), g_bmp_spellbook->GetHeight(0));
+    for (int32_t i = 0; i < 24; i++) {
+        if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) == 0) {
+            g_bmp_spellback->VMethod2(left + rc.left + 6 + (i % 0xC) * 0x26,
+                rc.top + 6 + (i / 0xC) * 0x26, 0, 0, 0);
+        }
+    }
+    if (this->pressed >= 0
+        && ((mc->field_0x148 | mc->field_0x150) & (1 << (this->pressed & 0x1F))) != 0) {
+        int32_t bx = (this->pressed % 0xC) * 0x26 + 6;
+        int32_t by = (this->pressed / 0xC) * 0x26 + 6;
+        sub_457C5D(left + rc.left + bx, rc.top + by,
+            left + rc.left + 0x24 + bx, rc.top + 0x24 + by, 4);
+    }
+    for (int32_t i = 0; i < 0x18; i++) {
+        if (((mc->field_0x148 | mc->field_0x150) & (1 << (i & 0x1F))) != 0) {
+            int32_t fkey = 0;
+            for (int32_t s = 0; s < 9; s++) {
+                if (main_wnd->m_GameSession.shortcuts[s].FUN_0041e456((short)i)) {
+                    fkey = s + 4;
+                }
+            }
+            if (fkey != 0) {
+                char buf[80];
+                sprintf(buf, "F%d", fkey);
+                int32_t off = 0;
+                if (this->pressed == i) {
+                    off = 2;
+                }
+                g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
+                    rc.top + 8 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
+            }
+        }
+        if ((mc->field_0x14c & (1 << (i & 0x1F))) != 0) {
+            char buf[80];
+            sprintf(buf, "A");
+            int32_t off = 0;
+            if (this->pressed == i) {
+                off = 2;
+            }
+            g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
+                rc.top + 0x22 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
+        }
+    }
+    UnlockSurface2();
+}

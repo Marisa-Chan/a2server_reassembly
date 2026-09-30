@@ -1640,7 +1640,7 @@ externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 externdef ?GetHint@VisSpellBook@@UAEPBDXZ : proc
-externdef ?VMethod7@VisSpellBook@@UAEXXZ : proc
+extern ?VMethod7@VisSpellBook@@UAEXXZ : proc
 extern ?MsgProc@VisSpellBook@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z : proc
 extern ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z : proc
