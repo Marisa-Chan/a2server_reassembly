@@ -18478,7 +18478,7 @@ loc_431792:                             ; CODE XREF: ?OnLButtonDown@VisCharSelle
                 test    eax, eax
                 jz      short loc_4317E1
                 mov     ecx, dword ptr [ebp+var_18]
-                call    sub_431A93
+                call    ?SelectNextRow@VisCharSellectList@@QAEHXZ
                 jmp     short loc_43180F
 ; ---------------------------------------------------------------------------
 
@@ -18578,99 +18578,6 @@ loc_43186C:                             ; CODE XREF: ?OnLButtonUp@VisCharSellect
 
 ; Attributes: bp-based frame
 
-sub_431A93      proc near               ; CODE XREF: ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z+76↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                push    esi
-                mov     [ebp+var_8], ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 70h ; 'p'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                mov     esi, eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                mov     ecx, eax
-                mov     eax, esi
-                cdq
-                idiv    ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [edx+0A0h]
-                add     ecx, eax
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+5Ch]
-                mov     ecx, dword ptr [eax+68h]
-                call    ?GetStringArray1Size@CGameSession@@QAEHXZ
-                cmp     [ebp+var_4], eax
-                jle     short loc_431AEE
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     ecx, dword ptr [edx+68h]
-                call    ?GetStringArray1Size@CGameSession@@QAEHXZ
-                mov     [ebp+var_4], eax
-
-loc_431AEE:                             ; CODE XREF: sub_431A93+48↑j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     esi, [eax+0D0h]
-                add     esi, 1
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+5Ch]
-                mov     ecx, dword ptr [edx+68h]
-                call    ?GetStringArray1Size@CGameSession@@QAEHXZ
-                cmp     esi, eax
-                jge     short loc_431B7C
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D0h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                sub     edx, 1
-                cmp     ecx, edx
-                jle     short loc_431B4E
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0A0h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [edx+0A0h], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D0h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [edx+0D0h], ecx
-                jmp     short loc_431B63
-; ---------------------------------------------------------------------------
-
-loc_431B4E:                             ; CODE XREF: sub_431A93+8D↑j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D0h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_8]
-                mov     [edx+0D0h], ecx
-
-loc_431B63:                             ; CODE XREF: sub_431A93+B9↑j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0D0h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?SelectRow@VisCharSellectList@@QAEXH@Z
-                mov     eax, 1
-                jmp     short loc_431B7E
-; ---------------------------------------------------------------------------
-
-loc_431B7C:                             ; CODE XREF: sub_431A93+77↑j
-                xor     eax, eax
-
-loc_431B7E:                             ; CODE XREF: sub_431A93+E7↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_431A93      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18730,7 +18637,7 @@ loc_431BC9:                             ; CODE XREF: ?OnKeyDown@VisCharSellectLi
 
 loc_431BDB:                             ; CODE XREF: ?OnKeyDown@VisCharSellectList@@UAEHI@Z+2D↑j
                 mov     ecx, dword ptr [ebp+var_68] ; jumptable 00431BC2 case 40
-                call    sub_431A93
+                call    ?SelectNextRow@VisCharSellectList@@QAEHXZ
                 mov     eax, 1
                 jmp     short loc_431C61
 ; ---------------------------------------------------------------------------

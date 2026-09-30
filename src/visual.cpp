@@ -4273,6 +4273,27 @@ int32_t VisCharSellectList::SelectPrevRow()
 }
 
 
+// 431A93
+int32_t VisCharSellectList::SelectNextRow()
+{
+    int32_t visible_end = this->field_0xa0 + this->field_0x70.Height() / this->field_0x60.Height();
+    if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
+        visible_end = this->parent_screen->session->GetStringArray1Size();
+    }
+    if (this->field_0xd0 + 1 >= this->parent_screen->session->GetStringArray1Size()) {
+        return 0;
+    }
+    if (this->field_0xd0 + 1 > visible_end - 1) {
+        this->field_0xa0 = this->field_0xa0 + 1;
+        this->field_0xd0 = this->field_0xd0 + 1;
+    } else {
+        this->field_0xd0 = this->field_0xd0 + 1;
+    }
+    this->SelectRow(this->field_0xd0);
+    return 1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
