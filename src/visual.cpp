@@ -4176,6 +4176,32 @@ void VisCharSellectList::VMethod7()
 }
 
 
+// 43148A
+void VisCharSellectList::FreeBitmaps()
+{
+    if (this->field_0xa4 != nullptr) {
+        delete this->field_0xa4;
+    }
+    this->field_0xa4 = nullptr;
+    if (this->field_0xa8 != nullptr) {
+        delete this->field_0xa8;
+    }
+    this->field_0xa8 = nullptr;
+    if (this->field_0xac != nullptr) {
+        delete this->field_0xac;
+    }
+    this->field_0xac = nullptr;
+    if (this->field_0xb0 != nullptr) {
+        delete this->field_0xb0;
+    }
+    this->field_0xb0 = nullptr;
+    if (this->field_0xb4 != nullptr) {
+        delete this->field_0xb4;
+    }
+    this->field_0xb4 = nullptr;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4303,7 +4329,7 @@ void VisCharSelect::DoClose(uint32_t code)
     this->FreeSfx();
     this->vis_stats->FUN_0042f61a();
     this->buttons->FreeBitmaps();
-    this->roster_list->FUN_0043148a();
+    this->roster_list->FreeBitmaps();
     this->CloseRenameWindow();
     this->VisScreen::DoClose(code);
 }

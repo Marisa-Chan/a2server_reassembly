@@ -18007,7 +18007,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_0043148a@VisCharSellectList@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectList@@QAEXXZ
 ;   } // starts at 430C87
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_10]
@@ -18333,7 +18333,7 @@ var_4           = dword ptr -4
                 sub     esp, 40h
                 mov     [ebp+var_38], ecx
                 mov     ecx, dword ptr [ebp+var_38]
-                call    ?FUN_0043148a@VisCharSellectList@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectList@@QAEXXZ
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -18482,158 +18482,6 @@ loc_431459:                             ; CODE XREF: ?FUN_004312b7@VisCharSellec
 
 ; Attributes: bp-based frame
 
-?FUN_0043148a@VisCharSellectList@@QAEXXZ      proc near               ; CODE XREF: sub_430C62+2F↑p
-
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 40h
-                mov     [ebp+var_2C], ecx
-                mov     eax, dword ptr [ebp+var_2C]
-                cmp     dword ptr [eax+0A4h], 0
-                jz      short loc_4314D0
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     edx, dword ptr [ecx+0A4h]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_4314C9
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_30], eax
-                jmp     short loc_4314D0
-; ---------------------------------------------------------------------------
-
-loc_4314C9:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+2B↑j
-                mov     [ebp+var_30], 0
-
-loc_4314D0:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+13↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     dword ptr [eax+0A4h], 0
-                mov     ecx, dword ptr [ebp+var_2C]
-                cmp     dword ptr [ecx+0A8h], 0
-                jz      short loc_43151A
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     eax, dword ptr [edx+0A8h]
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_C], ecx
-                cmp     [ebp+var_C], 0
-                jz      short loc_431513
-                push    1
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_34], eax
-                jmp     short loc_43151A
-; ---------------------------------------------------------------------------
-
-loc_431513:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+75↑j
-                mov     [ebp+var_34], 0
-
-loc_43151A:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+5D↑j
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     dword ptr [ecx+0A8h], 0
-                mov     edx, dword ptr [ebp+var_2C]
-                cmp     dword ptr [edx+0ACh], 0
-                jz      short loc_431564
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, dword ptr [eax+0ACh]
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_14], edx
-                cmp     [ebp+var_14], 0
-                jz      short loc_43155D
-                push    1
-                mov     eax, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_38], eax
-                jmp     short loc_431564
-; ---------------------------------------------------------------------------
-
-loc_43155D:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+BF↑j
-                mov     [ebp+var_38], 0
-
-loc_431564:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+A7↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     dword ptr [eax+0ACh], 0
-                mov     ecx, dword ptr [ebp+var_2C]
-                cmp     dword ptr [ecx+0B0h], 0
-                jz      short loc_4315AE
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     eax, dword ptr [edx+0B0h]
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_1C], ecx
-                cmp     [ebp+var_1C], 0
-                jz      short loc_4315A7
-                push    1
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_3C], eax
-                jmp     short loc_4315AE
-; ---------------------------------------------------------------------------
-
-loc_4315A7:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+109↑j
-                mov     [ebp+var_3C], 0
-
-loc_4315AE:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+F1↑j
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     dword ptr [ecx+0B0h], 0
-                mov     edx, dword ptr [ebp+var_2C]
-                cmp     dword ptr [edx+0B4h], 0
-                jz      short loc_4315F8
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, dword ptr [eax+0B4h]
-                mov     [ebp+var_28], ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [ebp+var_24], edx
-                cmp     [ebp+var_24], 0
-                jz      short loc_4315F1
-                push    1
-                mov     eax, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_40], eax
-                jmp     short loc_4315F8
-; ---------------------------------------------------------------------------
-
-loc_4315F1:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+153↑j
-                mov     [ebp+var_40], 0
-
-loc_4315F8:                             ; CODE XREF: ?FUN_0043148a@VisCharSellectList@@QAEXXZ+13B↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     dword ptr [eax+0B4h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0043148a@VisCharSellectList@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

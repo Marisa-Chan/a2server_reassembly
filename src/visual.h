@@ -719,7 +719,7 @@ public:
 
 	void FUN_00430fad(); // 430fad in asm
 	void FUN_004312b7(); // 4312b7 in asm
-	void FUN_0043148a(); // 43148a in asm
+	void FreeBitmaps(); // 43148a
 
 public:
 	VisCharSelect* parent_screen;
