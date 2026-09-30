@@ -1285,7 +1285,7 @@ extern ?GetStringArray1Size@CGameSession@@QAEHXZ : proc
 extern ?FreeSfx@VisCharSelect@@QAEXXZ : proc
 externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
-externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
+extern ?FreeBitmaps@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 ;VisCharSellectButtons

@@ -4455,6 +4455,24 @@ VisCharSellectList::~VisCharSellectList()
 }
 
 
+// 42F61A
+void VisCharSellectStats::FreeBitmaps()
+{
+    if (this->field_0x60 != nullptr) {
+        delete this->field_0x60;
+    }
+    this->field_0x60 = nullptr;
+    if (this->field_0x64 != nullptr) {
+        delete this->field_0x64;
+    }
+    this->field_0x64 = nullptr;
+    if (this->field_0x8c != nullptr) {
+        delete this->field_0x8c;
+    }
+    this->field_0x8c = nullptr;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4580,7 +4598,7 @@ void VisCharSelect::DoClose(uint32_t code)
     this->map_context = nullptr;
     this->selected_unit = nullptr;
     this->FreeSfx();
-    this->vis_stats->FUN_0042f61a();
+    this->vis_stats->FreeBitmaps();
     this->buttons->FreeBitmaps();
     this->roster_list->FreeBitmaps();
     this->CloseRenameWindow();

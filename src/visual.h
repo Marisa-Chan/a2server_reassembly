@@ -766,18 +766,18 @@ public:
 	VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec in asm
 
 	void FUN_0042f4df(); // 42f4df in asm
-	void FUN_0042f61a(); // 42f61a in asm
+	void FreeBitmaps(); // 42f61a
 
 public:
 	VisCharSelect* parent_screen;
-	uint32_t field_0x60;
-	uint32_t field_0x64;
+	CBmp64* field_0x60;
+	CBmp64* field_0x64;
 	CStringArray field_0x68;
 	uint32_t field_0x7c;
 	uint32_t field_0x80;
 	uint32_t field_0x84;
 	uint32_t field_0x88;
-	uint32_t field_0x8c;
+	CA16* field_0x8c;
 	CRect field_0x90[4];
 };
 ASSERT_SIZE(VisCharSellectStats, 0xd0);

@@ -16724,7 +16724,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 1
                 mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectStats@@QAEXXZ
 ;   } // starts at 42F1AD
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
@@ -17021,7 +17021,7 @@ var_4           = dword ptr -4
                 sub     esp, 28h
                 mov     [ebp+var_28], ecx
                 mov     ecx, dword ptr [ebp+var_28]
-                call    ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ
+                call    ?FreeBitmaps@VisCharSellectStats@@QAEXXZ
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -17122,102 +17122,6 @@ loc_42F5D5:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellec
 
 ; Attributes: bp-based frame
 
-?FUN_0042f61a@VisCharSellectStats@@QAEXXZ      proc near               ; CODE XREF: sub_42F188+2F↑p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 28h
-                mov     [ebp+var_1C], ecx
-                mov     eax, dword ptr [ebp+var_1C]
-                cmp     dword ptr [eax+60h], 0
-                jz      short loc_42F65A
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     edx, dword ptr [ecx+60h]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_42F653
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_20], eax
-                jmp     short loc_42F65A
-; ---------------------------------------------------------------------------
-
-loc_42F653:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+25↑j
-                mov     [ebp+var_20], 0
-
-loc_42F65A:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+10↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     dword ptr [eax+60h], 0
-                mov     ecx, dword ptr [ebp+var_1C]
-                cmp     dword ptr [ecx+64h], 0
-                jz      short loc_42F69B
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     eax, dword ptr [edx+64h]
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_C], ecx
-                cmp     [ebp+var_C], 0
-                jz      short loc_42F694
-                push    1
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_C]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_24], eax
-                jmp     short loc_42F69B
-; ---------------------------------------------------------------------------
-
-loc_42F694:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+66↑j
-                mov     [ebp+var_24], 0
-
-loc_42F69B:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+51↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     dword ptr [ecx+64h], 0
-                mov     edx, dword ptr [ebp+var_1C]
-                cmp     dword ptr [edx+8Ch], 0
-                jz      short loc_42F6E2
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     ecx, dword ptr [eax+8Ch]
-                mov     [ebp+var_18], ecx
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_14], edx
-                cmp     [ebp+var_14], 0
-                jz      short loc_42F6DB
-                push    1
-                mov     eax, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_28], eax
-                jmp     short loc_42F6E2
-; ---------------------------------------------------------------------------
-
-loc_42F6DB:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+AD↑j
-                mov     [ebp+var_28], 0
-
-loc_42F6E2:                             ; CODE XREF: ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ+95↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     dword ptr [eax+8Ch], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0042f61a@VisCharSellectStats@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
