@@ -17778,55 +17778,6 @@ loc_42FCDE:                             ; CODE XREF: ?GetHint@VisCharSellectStat
 
 ; Attributes: bp-based frame
 
-sub_42FCE2      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8192 SIZE 0000001F BYTES
-
-; __unwind { // SEH_42FCE2
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42FCE2
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'
-                call    sub_5DABF1
-;   } // starts at 42FD06
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    10h             ; unsigned int
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 98h
-                push    eax             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_6097A8
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Init@VisCharSellectButtons@@QAEXXZ
-;   } // starts at 42FD18
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42FCE2
-sub_42FCE2      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -17834,124 +17785,12 @@ sub_42FCE2      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z      proc near               ; CODE XREF: ?VMethod26@VisCharSelect@@UAEXXZ+F8↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005F81B1 SIZE 0000001F BYTES
-
-; __unwind { // SEH_42FD5C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42FD5C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; lpString
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CVisualObject@@QAE@HHHHHPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'
-                call    sub_5DABF1
-;   } // starts at 42FD96
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                push    offset unknown_libname_408 ; void (__thiscall *)(void *)
-                push    4               ; int
-                push    10h             ; unsigned int
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 98h
-                push    edx             ; void *
-                call    ??_H@YGXPAXIHP6EX0@Z@Z ; `vector constructor iterator'(void *,uint,int,void (*)(void *))
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_6097A8
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+arg_14]
-                mov     [ecx+5Ch], edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Init@VisCharSellectButtons@@QAEXXZ
-;   } // starts at 42FDA8
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 42FD5C
-??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_42FDF8      proc near               ; CODE XREF: ??_GVisCharSellectButtons@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F81D0 SIZE 0000001F BYTES
-
-; __unwind { // SEH_42FDF8
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42FDF8
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_6097A8
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FreeBitmaps@VisCharSellectButtons@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+5Ch], 0
-;   } // starts at 42FE1D
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-;   } // starts at 42FE36
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42FDF8
-sub_42FDF8      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -21213,31 +21052,6 @@ loc_4385A2:                             ; CODE XREF: ??_GVisCharSellectStats@@UA
 
 ; Attributes: bp-based frame
 
-??_GVisCharSellectButtons@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:006097AC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_42FDF8
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4385D2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4385D2:                             ; CODE XREF: ??_GVisCharSellectButtons@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisCharSellectButtons@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -287369,79 +287183,6 @@ SEH_42F7B9:                             ; DATA XREF: ?VMethod7@VisCharSellectSta
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F817F
 ; END OF FUNCTION CHUNK FOR ?VMethod7@VisCharSellectStats@@UAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42FCE2
-
-loc_5F8192:                             ; DATA XREF: .rdata:stru_618828↓o
-; __unwind { // SEH_42FCE2
-;   cleanup() // owned by 42FD06
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F819B:                             ; DATA XREF: .rdata:00618830↓o
-;   cleanup() // owned by 42FD18
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42FCE2:                             ; DATA XREF: sub_42FCE2+5↑o
-                mov     eax, offset stru_618808
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8192
-; END OF FUNCTION CHUNK FOR sub_42FCE2
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z
-
-loc_5F81B1:                             ; DATA XREF: .rdata:stru_618858↓o
-; __unwind { // SEH_42FD5C
-;   cleanup() // owned by 42FD96
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F81BA:                             ; DATA XREF: .rdata:00618860↓o
-;   cleanup() // owned by 42FDA8
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42FD5C:                             ; DATA XREF: ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z+5↑o
-                mov     eax, offset stru_618838
-                jmp     ___CxxFrameHandler
-; } // starts at 5F81B1
-; END OF FUNCTION CHUNK FOR ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_42FDF8
-
-loc_5F81D0:                             ; DATA XREF: .rdata:stru_618888↓o
-; __unwind { // SEH_42FDF8
-;   cleanup() // owned by 42FE36
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CVisualObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F81D9:                             ; DATA XREF: .rdata:00618890↓o
-;   cleanup() // owned by 42FE1D
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??1CStringArray@@UAE@XZ ; CStringArray::~CStringArray(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42FDF8:                             ; DATA XREF: sub_42FDF8+5↑o
-                mov     eax, offset stru_618868
-                jmp     ___CxxFrameHandler
-; } // starts at 5F81D0
-; END OF FUNCTION CHUNK FOR sub_42FDF8
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z
 
 loc_5F81EF:                             ; DATA XREF: .rdata:stru_6188B8↓o
@@ -324956,27 +324697,6 @@ stru_6187C8     UnwindMapEntry <-1, offset loc_5F8157>
 stru_6187E0     FuncInfoV1 <19930520h, 1, offset stru_618800, 0, 0, 0, 0>
                 align 10h
 stru_618800     UnwindMapEntry <-1, offset loc_5F817F>
-stru_618808     FuncInfoV1 <19930520h, 2, offset stru_618828, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618828     UnwindMapEntry <-1, offset loc_5F8192>
-                UnwindMapEntry <0, offset loc_5F819B>
-stru_618838     FuncInfoV1 <19930520h, 2, offset stru_618858, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618858     UnwindMapEntry <-1, offset loc_5F81B1>
-                UnwindMapEntry <0, offset loc_5F81BA>
-stru_618868     FuncInfoV1 <19930520h, 2, offset stru_618888, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618888     UnwindMapEntry <-1, offset loc_5F81D0>
-                UnwindMapEntry <0, offset loc_5F81D9>
 stru_618898     FuncInfoV1 <19930520h, 6, offset stru_6188B8, 0, 0, 0, 0>
                 align 8
 stru_6188B8     UnwindMapEntry <-1, offset loc_5F81EF>

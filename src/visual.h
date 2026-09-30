@@ -679,7 +679,7 @@ public:
 	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 430318
 	virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override;
 
-	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c in asm
+	VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c
 
 	void LoadBitmaps(); // 430850
 	void FreeBitmaps(); // 430a1a

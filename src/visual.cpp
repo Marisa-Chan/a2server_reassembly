@@ -4116,6 +4116,23 @@ void VisCharSellectButtons::Init()
 }
 
 
+// 42FD5C
+VisCharSellectButtons::VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
+: CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->parent_screen = parent_screen;
+    this->Init();
+}
+
+
+// 42FDF8 (scalar deleting dtor ??_G at 4385B0)
+VisCharSellectButtons::~VisCharSellectButtons()
+{
+    this->FreeBitmaps();
+    this->parent_screen = nullptr;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

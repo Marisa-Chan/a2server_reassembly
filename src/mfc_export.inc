@@ -1287,9 +1287,6 @@ extern ?CloseRenameWindow@VisCharSelect@@QAEXXZ : proc
 externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
-externdef ??0VisCharSellectButtons@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
-extern ?FreeBitmaps@VisCharSellectButtons@@QAEXXZ : proc
-extern ?Init@VisCharSellectButtons@@QAEXXZ : proc
 externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
 externdef ?FUN_004312b7@VisCharSellectList@@QAEXXZ : proc
@@ -1653,7 +1650,8 @@ externdef ?VMethod7@VisQuestStatus@@UAEXXZ : proc
 externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 
 ;VisCharSellectButtons
-externdef ??_GVisCharSellectButtons@@UAEPAXI@Z : proc
+extern ??_GVisCharSellectButtons@@UAEPAXI@Z : proc
+extern ??1VisCharSellectButtons@@UAE@XZ : proc
 extern ?VMethod7@VisCharSellectButtons@@UAEXXZ : proc
 extern ?OnMouseMove@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisCharSellectButtons@@UAEHIVCPoint@@@Z : proc
