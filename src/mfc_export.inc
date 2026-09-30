@@ -1592,6 +1592,12 @@ externdef ?VMethod26@VisFameHall@@UAEXXZ : proc
 externdef ?VMethod28@VisFameHall@@UAEXXZ : proc
 externdef ?DoClose@VisFameHall@@UAEXI@Z : proc
 
+; Fame2
+externdef ?FUN_004abf35@Fame2@@QAE_NXZ : proc
+externdef ?FUN_004abf72@Fame2@@QAEHXZ : proc
+externdef ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
+externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
+
 ;VisFameDocument
 externdef ??_GVisFameDocument@@UAEPAXI@Z : proc
 externdef ?GetHint@VisFameDocument@@UAEPBDXZ : proc
@@ -1602,7 +1608,7 @@ externdef ?OnMouseMove@VisFameDocument@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisFameDocument@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisFameDocument@@UAEHI@Z : proc
-externdef ?VMethod26@VisFameDocument@@UAEXXZ : proc
+extern ?VMethod26@VisFameDocument@@UAEXXZ : proc
 externdef ?VMethod28@VisFameDocument@@UAEXXZ : proc
 externdef ?DoClose@VisFameDocument@@UAEXI@Z : proc
 

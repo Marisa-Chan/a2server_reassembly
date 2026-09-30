@@ -20420,3 +20420,19 @@ VisNetDlg::VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, Av
 // 44FA90
 VisNetDlg::~VisNetDlg()
 {}
+
+
+// 4ADAB6
+void VisFameDocument::VMethod26()
+{
+    this->fame = nullptr;
+    this->bmp_sheet = nullptr;
+    this->rect_prev = CRect(CPoint(0, 200), CSize(0x38, 0x28));
+    this->rect_next = CRect(CPoint(0x240, 200), CSize(0x3C, 0x28));
+    this->rect_ok = CRect(CPoint(0x230, 0x1A0), CSize(0x2C, 0x20));
+    this->bmp_cur_left = nullptr;
+    this->bmp_cur_right = nullptr;
+    this->bmp_cur_ok = nullptr;
+    this->AddChild(new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x445, 0, nullptr));
+    this->visible_flag = 0;
+}
