@@ -1665,8 +1665,8 @@ externdef ??_GVisCharSellectList@@UAEPAXI@Z : proc
 extern ?VMethod7@VisCharSellectList@@UAEXXZ : proc
 extern ?OnMouseMove@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
 
 ;VisCharSellectStats

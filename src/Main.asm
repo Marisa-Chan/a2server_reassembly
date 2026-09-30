@@ -18317,31 +18317,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060987C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+54h]
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDblClk@VisCharSellectList@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18360,46 +18335,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609878↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+0D8h], 0
-                jz      short loc_431855
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                jmp     short loc_43186C
-; ---------------------------------------------------------------------------
-
-loc_431855:                             ; CODE XREF: ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z+11↑j
-                push    0
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?UpdateArrows@VisCharSellectList@@QAEXVCPoint@@_N@Z
-                mov     eax, 1
-
-loc_43186C:                             ; CODE XREF: ?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z+27↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisCharSellectList@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

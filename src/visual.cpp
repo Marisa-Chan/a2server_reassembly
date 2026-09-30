@@ -4361,6 +4361,24 @@ int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 43182C
+int32_t VisCharSellectList::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    if (this->field_0xd8 != 0) {
+        return this->CVisualObject::OnLButtonUp(wparam, pos);
+    }
+    this->UpdateArrows(pos, false);
+    return 1;
+}
+
+
+// 4316A0
+int32_t VisCharSellectList::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return this->OnLButtonDown(wparam, pos);
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
