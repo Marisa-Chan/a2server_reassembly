@@ -3337,6 +3337,46 @@ struct NetMapInfo
 };
 ASSERT_SIZE(NetMapInfo, 0x1c);
 
+//60aad0 — map list box on the net map-selection screen
+class VisNetMapList : public VisListBox
+{
+public:
+	VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint, int32_t* p_selected_map_index); // 44ffd0 in asm
+
+	int32_t* p_selected_map_index; // 0x94
+};
+ASSERT_SIZE(VisNetMapList, 0x98);
+
+//60ab60 — chat log list box
+class VisNetChatList : public VisListBox
+{
+public:
+	VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450080 in asm
+
+	CPtrArray colors; // 0x94
+};
+ASSERT_SIZE(VisNetChatList, 0xa8);
+
+//60abf0 — player list box
+class VisNetPlayerList : public VisListBox
+{
+public:
+	VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450180 in asm
+
+	CPtrArray colors; // 0x94
+};
+ASSERT_SIZE(VisNetPlayerList, 0xa8);
+
+//60ac80 — chat input line
+class VisNetChatTextBox : public VisTextBox
+{
+public:
+	VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint); // 450280 in asm
+
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4502c0 in asm
+};
+ASSERT_SIZE(VisNetChatTextBox, 0x7c);
+
 //60a930
 UINT __cdecl VisNetMapThreadProc(LPVOID pParam); // 44aad6 (body: 44aae5)
 

@@ -4514,6 +4514,84 @@ void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info)
 }
 
 
+// 44C788
+void VisNetMapSelection::VMethod26()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->mode = (main_wnd->sessionMode != 0);
+
+    this->AddChild(new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38,
+                                txt_dialogs.GetLine(0x8A), g_font1, p_clrsh_Black, 2));
+    this->AddChild(new VisLabel(0x1A, 0x28, 0x2C, this->rect.Width() - 0x28, 0x44,
+                                txt_dialogs.GetLine(0x8B), g_font1, p_clrsh_Black, 0));
+    VisNetMapList* map_list = new VisNetMapList(1, 0x28, 0x44, this->rect.Width() - 0x40, this->rect.Height() / 2,
+                                                g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xA,
+                                                txt_dialogs.GetLine(0x76), &this->selected_map_index);
+    this->AddChild(map_list);
+    map_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1A));
+    CRect list_rc = map_list->GetRect();
+    this->AddChild(new VisScrollBar(0xA, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+
+    list_rc.top = 0x11C;
+    list_rc.bottom = 0x180;
+    list_rc.right = 0x15E;
+    this->AddChild(new VisLabel(0x1B, list_rc.left, list_rc.top - 0x18, list_rc.right, list_rc.top - 6,
+                                txt_dialogs.GetLine(0x8C), g_font1, p_clrsh_Black, 0));
+    VisNetChatList* chat_list = new VisNetChatList(3, list_rc, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xB,
+                                                   txt_dialogs.GetLine(0x84));
+    this->AddChild(chat_list);
+    chat_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1B));
+    list_rc = chat_list->GetRect();
+    this->AddChild(new VisScrollBar(0xB, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+
+    CPoint btn_center(this->rect.Width() / 2, this->rect.Height() - 0x30);
+    CRect btn_rc(btn_center.x - 0x30, btn_center.y - 0xC, btn_center.x + 0x30, btn_center.y + 0xC);
+    OffsetRect(&btn_rc, -0x48, 0);
+    VisButton* ok_btn = new VisButton(0x14, btn_rc, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
+    this->AddChild(ok_btn);
+    if (this->mode == 0) {
+        ok_btn->ChangeFlags(1, 0);
+    }
+
+    list_rc.top = list_rc.bottom + 0xC;
+    list_rc.bottom = list_rc.bottom + 0x24;
+    VisNetChatTextBox* chat_txt = new VisNetChatTextBox(4, list_rc, g_font1, p_clrsh_Black,
+                                                        txt_dialogs.GetLine(0x85));
+    this->AddChild(chat_txt);
+    chat_txt->SetUpObj(chat_list);
+
+    list_rc.left = 0x181;
+    list_rc.right = 0x20C;
+    list_rc.top = 0x11C;
+    list_rc.bottom = 0x1A4;
+    this->AddChild(new VisLabel(0x1C, list_rc.left, list_rc.top - 0x18, list_rc.right, list_rc.top - 6,
+                                txt_dialogs.GetLine(0x8D), g_font1, p_clrsh_Black, 0));
+    VisNetPlayerList* player_list = new VisNetPlayerList(5, list_rc, g_font1, p_clrsh_Black, p_clrsh_Black, 0xC,
+                                                         txt_dialogs.GetLine(0x89));
+    this->AddChild(player_list);
+    player_list->SetCaptionLabel((VisLabel*)this->FindChild(0x1C));
+    PostMessageA(g_MainWndHWND, 0x460, 0, 0);
+    list_rc = player_list->GetRect();
+    this->AddChild(new VisScrollBar(0xC, list_rc.right, list_rc.top, list_rc.right + 0x10, list_rc.bottom, nullptr));
+
+    OffsetRect(&btn_rc, 0x90, 0);
+    VisButton* cancel_btn = new VisButton(0x15, btn_rc, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+    this->AddChild(cancel_btn);
+    cancel_btn->SetLeftObj(this->FindChild(0x14));
+
+    this->stop_event = CreateEventA(nullptr, 0, 0, nullptr);
+    if (this->stop_event == nullptr) {
+        AfxThrowMemoryException();
+        return;
+    }
+    this->map_context = main_wnd->vis_map_context;
+    this->chat_log = &this->map_context->msglog;
+    this->selected_map_index = 0;
+    this->thread.CreateThread(0, 0, nullptr);
+    this->thread.m_bAutoDelete = 0;
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {
