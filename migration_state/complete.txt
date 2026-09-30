@@ -134,6 +134,7 @@
 ??1VisCharSelect@@UAE@XZ
 ??1VisCharSellectButtons@@UAE@XZ
 ??1VisCharSellectList@@UAE@XZ
+??1VisCharSellectStats@@UAE@XZ
 ??1VisInvBase@@UAE@XZ
 ??1VisInvExtBase@@UAE@XZ
 ??1VisInvExtType1@@UAE@XZ
@@ -166,6 +167,7 @@
 ??_GVisCharSelect@@UAEPAXI@Z
 ??_GVisCharSellectButtons@@UAEPAXI@Z
 ??_GVisCharSellectList@@UAEPAXI@Z
+??_GVisCharSellectStats@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z
@@ -461,6 +463,7 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
+?GetHint@VisCharSellectStats@@UAEPBDXZ
 ?GetHint@VisGlobalMap@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
@@ -968,6 +971,7 @@
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisCharSellectButtons@@UAEXXZ
 ?VMethod7@VisCharSellectList@@UAEXXZ
+?VMethod7@VisCharSellectStats@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ

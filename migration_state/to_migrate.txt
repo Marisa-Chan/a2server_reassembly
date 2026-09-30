@@ -317,13 +317,6 @@
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ?VMethod26@Vis2Action@@UAEXXZ	213
-??_GVisCharSellectStats@@UAEPAXI@Z	24
-?GetHint@VisCharSellectStats@@UAEPBDXZ	56
-?FUN_0042f6f3@VisCharSellectStats@@QAEXXZ	61
-??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z	68
-?FUN_0042f61a@VisCharSellectStats@@QAEXXZ	95
-?FUN_0042f4df@VisCharSellectStats@@QAEXXZ	122
-?VMethod7@VisCharSellectStats@@UAEXXZ	416
 ??_GVisConnectionDlg@@UAEPAXI@Z	24
 ??0VisConnectionDlg@@QAE@HHHHHPAH@Z	48
 ?VMethod31@VisConnectionDlg@@UAEXH@Z	156
