@@ -1287,7 +1287,7 @@ externdef ??0VisCharSellectStats@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
 externdef ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ : proc
 externdef ?FUN_0042f61a@VisCharSellectStats@@QAEXXZ : proc
 externdef ??0VisCharSellectList@@QAE@HHHHHPAVVisCharSelect@@@Z : proc
-externdef ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
+extern ?FUN_00430fad@VisCharSellectList@@QAEXXZ : proc
 extern ?FreeBitmaps@VisCharSellectList@@QAEXXZ : proc
 extern ?SelectRow@VisCharSellectList@@QAEXH@Z : proc
 extern ?HitTest@VisCharSellectList@@QAEHVCPoint@@@Z : proc

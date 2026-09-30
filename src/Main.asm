@@ -18267,26 +18267,6 @@ sub_430CB3      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00430fad@VisCharSellectList@@QAEXXZ      proc near               ; CODE XREF: sub_430CB3+2F1↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0A0h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0D0h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+0D4h], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0D8h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00430fad@VisCharSellectList@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

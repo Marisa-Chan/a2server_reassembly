@@ -4410,6 +4410,16 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam)
 }
 
 
+// 430FAD
+void VisCharSellectList::FUN_00430fad()
+{
+    this->field_0xa0 = 0;
+    this->field_0xd0 = 0;
+    this->field_0xd4 = -1;
+    this->field_0xd8 = 0;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
