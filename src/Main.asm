@@ -20971,42 +20971,6 @@ sub_431C97      endp
 
 ; Attributes: bp-based frame
 
-sub_431E58      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F82CF SIZE 00000013 BYTES
-
-; __unwind { // SEH_431E58
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_431E58
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_609898
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisCharSelect@@UAEXXZ
-;   } // starts at 431E7C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 431E58
-sub_431E58      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -21014,58 +20978,6 @@ sub_431E58      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisCharSelect@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisCharSelect@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+B3E↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005F82E2 SIZE 00000013 BYTES
-
-; __unwind { // SEH_431EAC
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_431EAC
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_609898
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisCharSelect@@UAEXXZ
-;   } // starts at 431EE6
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 431EAC
-??0VisCharSelect@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -21073,85 +20985,6 @@ yBottom         = dword ptr  18h
 ; Attributes: bp-based frame
 
 ; int __thiscall sub_431F18(_DWORD)
-sub_431F18      proc near               ; CODE XREF: ??_GVisCharSelect@@UAEPAXI@Z+A↓p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F82F5 SIZE 00000013 BYTES
-
-; __unwind { // SEH_431F18
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_431F18
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax], offset off_609898
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+6Ch], 0
-                jz      short loc_431F68
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx+6Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?RemoveChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+6Ch], 0
-
-loc_431F68:                             ; CODE XREF: sub_431F18+35↑j
-                mov     edx, dword ptr [ebp+var_18]
-                cmp     dword ptr [edx+80h], 0
-                jz      short loc_431FBA
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?CloseRenameWindow@VisCharSelect@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+80h]
-                mov     [ebp+var_14], ecx
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ebp+var_10], edx
-                cmp     [ebp+var_10], 0
-                jz      short loc_431FA6
-                push    1
-                mov     eax, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_1C], eax
-                jmp     short loc_431FAD
-; ---------------------------------------------------------------------------
-
-loc_431FA6:                             ; CODE XREF: sub_431F18+7A↑j
-                mov     [ebp+var_1C], 0
-
-loc_431FAD:                             ; CODE XREF: sub_431F18+8C↑j
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax+80h], 0
-
-loc_431FBA:                             ; CODE XREF: sub_431F18+5A↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?FreeSfx@VisCharSelect@@QAEXXZ
-;   } // starts at 431F3F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 431F18
-sub_431F18      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -22415,31 +22248,6 @@ sub_438610      endp
 ; Attributes: bp-based frame
 
 ; void *__thiscall ??_GVisCharSelect@@UAEPAXI@Z(void *varThis, char)
-??_GVisCharSelect@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060989C↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_431F18
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_438672
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_438672:                             ; CODE XREF: ??_GVisCharSelect@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisCharSelect@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -288753,54 +288561,6 @@ SEH_4312B7:                             ; DATA XREF: ?FUN_004312b7@VisCharSellec
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8293
 ; END OF FUNCTION CHUNK FOR ?FUN_004312b7@VisCharSellectList@@QAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_431E58
-
-unknown_libname_967:                    ; DATA XREF: .rdata:stru_618A10↓o
-; __unwind { // SEH_431E58              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 431E7C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_431E58:                             ; DATA XREF: sub_431E58+5↑o
-                mov     eax, offset stru_6189F0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F82CF
-; END OF FUNCTION CHUNK FOR sub_431E58
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisCharSelect@@QAE@HHHHH@Z
-
-loc_5F82E2:                             ; DATA XREF: .rdata:stru_618A38↓o
-; __unwind { // SEH_431EAC
-;   cleanup() // owned by 431EE6
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_431EAC:                             ; DATA XREF: ??0VisCharSelect@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_618A18
-                jmp     ___CxxFrameHandler
-; } // starts at 5F82E2
-; END OF FUNCTION CHUNK FOR ??0VisCharSelect@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_431F18
-
-loc_5F82F5:                             ; DATA XREF: .rdata:stru_618A60↓o
-; __unwind { // SEH_431F18
-;   cleanup() // owned by 431F3F
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_431F18:                             ; DATA XREF: sub_431F18+5↑o
-                mov     eax, offset stru_618A40
-                jmp     ___CxxFrameHandler
-; } // starts at 5F82F5
-; END OF FUNCTION CHUNK FOR sub_431F18
 ; START OF FUNCTION CHUNK FOR sub_43298C
 
 loc_5F833A:                             ; DATA XREF: .rdata:stru_618AC8↓o
@@ -326247,24 +326007,6 @@ stru_6189C8     UnwindMapEntry <-1, offset loc_5F8293>
                 UnwindMapEntry <-1, offset loc_5F82A7>
                 UnwindMapEntry <-1, offset loc_5F82B1>
                 UnwindMapEntry <-1, offset loc_5F82BB>
-stru_6189F0     FuncInfoV1 <19930520h, 1, offset stru_618A10, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618A10     UnwindMapEntry <-1, offset unknown_libname_967>
-stru_618A18     FuncInfoV1 <19930520h, 1, offset stru_618A38, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618A38     UnwindMapEntry <-1, offset loc_5F82E2>
-stru_618A40     FuncInfoV1 <19930520h, 1, offset stru_618A60, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618A60     UnwindMapEntry <-1, offset loc_5F82F5>
 stru_618AA8     FuncInfoV1 <19930520h, 2, offset stru_618AC8, 0, 0, 0, 0>
                 db    0
                 db    0

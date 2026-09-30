@@ -1029,7 +1029,6 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
 
-externdef   ??0VisCharSelect@@QAE@HHHHH@Z  : proc
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMiniMap@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
@@ -1274,7 +1273,8 @@ extern ?UpdateWinRect@VisWindow@@QAEXXZ  :proc
 
 ;VisCharSelect
 extern ?FUN_00432655@VisCharSelect@@QAEXPAVCUnit@@@Z  : proc
-externdef ??_GVisCharSelect@@UAEPAXI@Z : proc
+extern ??_GVisCharSelect@@UAEPAXI@Z : proc
+extern ??1VisCharSelect@@UAE@XZ : proc
 extern ?VMethod8@VisCharSelect@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisCharSelect@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z : proc

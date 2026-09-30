@@ -4187,6 +4187,32 @@ void VisCharSelect::VMethod8(CRect* rect)
 }
 
 
+// 431EAC
+VisCharSelect::VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 431F18
+VisCharSelect::~VisCharSelect()
+{
+    if (this->info_panel != nullptr) {
+        this->RemoveChild(this->info_panel);
+        this->info_panel = nullptr;
+    }
+    if (this->rename_txt != nullptr) {
+        this->CloseRenameWindow();
+        if (this->rename_txt != nullptr) {
+            delete this->rename_txt;
+        }
+        this->rename_txt = nullptr;
+    }
+    this->FreeSfx();
+}
+
+
 
 
 VisMenuWnd::~VisMenuWnd()
