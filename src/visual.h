@@ -3338,6 +3338,8 @@ struct NetMapInfo
 ASSERT_SIZE(NetMapInfo, 0x1c);
 
 //60a930
+UINT __cdecl VisNetMapThreadProc(LPVOID pParam); // 44aad6 (body: 44aae5)
+
 class VisNetMapSelection : public VisWindow
 {
 public:
@@ -3351,7 +3353,7 @@ public:
 
 public:
 	CString* p_mapname;
-	CArray<NetMapInfo> avail_maps;
+	CArray<NetMapInfo*> avail_maps;
 	CWinThread thread;
 	HANDLE stop_event;
 	int32_t selected_map_index;

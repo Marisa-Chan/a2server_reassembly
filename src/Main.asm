@@ -31370,8 +31370,8 @@ loc_44AAD0:                             ; CODE XREF: ?MsgProc@VisHatServerListDl
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_44AAD6(void *)
-sub_44AAD6      proc near               ; DATA XREF: ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z+5D↓o
+; int __cdecl ?VisNetMapThreadProc@@YAIPAX@Z(void *)
+?VisNetMapThreadProc@@YAIPAX@Z      proc near               ; DATA XREF: ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z+5D↓o
 
 arg_0           = dword ptr  8
 
@@ -31382,14 +31382,14 @@ arg_0           = dword ptr  8
                 xor     eax, eax
                 pop     ebp
                 retn
-sub_44AAD6      endp
+?VisNetMapThreadProc@@YAIPAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44AAE5      proc near               ; CODE XREF: sub_44AAD6+6↑p
+sub_44AAE5      proc near               ; CODE XREF: ?VisNetMapThreadProc@@YAIPAX@Z+6↑p
 
 var_2A8         = dword ptr -2A8h
 var_2A4         = dword ptr -2A4h
@@ -31764,168 +31764,12 @@ sub_44AEEF      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+123F↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-; FUNCTION CHUNK AT 005F9869 SIZE 0000001F BYTES
-
-; __unwind { // SEH_44AF45
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44AF45
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [ebp+arg_14]
-                mov     [edx+68h], eax
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'
-                call    sub_451100
-;   } // starts at 44AF7F
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx             ; void *
-                push    offset sub_44AAD6 ; unsigned int (__cdecl *)(void *)
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h        ; varThis
-                call    ??0CWinThread@@QAE@P6AIPAX@Z0@Z ; CWinThread::CWinThread(uint (*)(void *),void *)
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60A930
-;   } // starts at 44AF9A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-; } // starts at 44AF45
-??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44AFD8      proc near               ; CODE XREF: ??_GVisNetMapSelection@@UAEPAXI@Z+A↓p
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9888 SIZE 0000002E BYTES
-
-; __unwind { // SEH_44AFD8
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44AFD8
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     [ebp+var_1C], ecx
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     dword ptr [eax], offset off_60A930
-;   try {
-                mov     [ebp+var_4], 2
-                mov     [ebp+var_10], 0
-                jmp     short loc_44B018
-; ---------------------------------------------------------------------------
-
-loc_44B00F:                             ; CODE XREF: sub_44AFD8:loc_44B05E↓j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1
-                mov     [ebp+var_10], ecx
-
-loc_44B018:                             ; CODE XREF: sub_44AFD8+35↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 6Ch ; 'l'
-                call    unknown_libname_491 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_10], eax
-                jge     short loc_44B060
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 6Ch ; 'l'
-                call    sub_4511A0
-                mov     eax, dword ptr [eax]
-                mov     [ebp+var_18], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_14], ecx
-                cmp     [ebp+var_14], 0
-                jz      short loc_44B057
-                push    1
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_44FE10
-                mov     [ebp+var_20], eax
-                jmp     short loc_44B05E
-; ---------------------------------------------------------------------------
-
-loc_44B057:                             ; CODE XREF: sub_44AFD8+6E↑j
-                mov     [ebp+var_20], 0
-
-loc_44B05E:                             ; CODE XREF: sub_44AFD8+7D↑j
-                jmp     short loc_44B00F
-;   } // starts at 44AFFF
-; ---------------------------------------------------------------------------
-
-loc_44B060:                             ; CODE XREF: sub_44AFD8+4E↑j
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_48 ; CWinThread::~CWinThread(void)
-;   } // starts at 44B060
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_9 ; CWinThread::~CWinThread(void)
-;   } // starts at 44B072
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??1VisWindow@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 44AFD8
-sub_44AFD8      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -39569,31 +39413,6 @@ sub_44FE40      endp
 
 ; Attributes: bp-based frame
 
-??_GVisNetMapSelection@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A934↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_44AFD8
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_44FEC2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_44FEC2:                             ; CODE XREF: ??_GVisNetMapSelection@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisNetMapSelection@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -286168,63 +285987,6 @@ SEH_44AAE5:                             ; DATA XREF: sub_44AAE5+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9844
 ; END OF FUNCTION CHUNK FOR sub_44AAE5
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z
-
-loc_5F9869:                             ; DATA XREF: .rdata:stru_61A1E8↓o
-; __unwind { // SEH_44AF45
-;   cleanup() // owned by 44AF7F
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisWindow@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9872:                             ; DATA XREF: .rdata:0061A1F0↓o
-;   cleanup() // owned by 44AF9A
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_9 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44AF45:                             ; DATA XREF: ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z+5↑o
-                mov     eax, offset stru_61A1C8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9869
-; END OF FUNCTION CHUNK FOR ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44AFD8
-
-loc_5F9888:                             ; DATA XREF: .rdata:stru_61A218↓o
-; __unwind { // SEH_44AFD8
-;   cleanup() // owned by 44B072
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??1VisWindow@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9891:                             ; DATA XREF: .rdata:0061A220↓o
-;   cleanup() // owned by 44B060
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_9 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F989D:                             ; DATA XREF: .rdata:0061A228↓o
-;   cleanup() // owned by 44AFFF
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_48 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44AFD8:                             ; DATA XREF: sub_44AFD8+5↑o
-                mov     eax, offset stru_61A1F8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9888
-; END OF FUNCTION CHUNK FOR sub_44AFD8
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44B37A
 
 loc_5F98B6:                             ; DATA XREF: .rdata:stru_61A250↓o
@@ -321319,21 +321081,6 @@ stru_61A198     FuncInfoV1 <19930520h, 2, offset stru_61A1B8, 0, 0, 0, 0>
                 db    0
 stru_61A1B8     UnwindMapEntry <-1, offset loc_5F9844>
                 UnwindMapEntry <-1, offset loc_5F9852>
-stru_61A1C8     FuncInfoV1 <19930520h, 2, offset stru_61A1E8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A1E8     UnwindMapEntry <-1, offset loc_5F9869>
-                UnwindMapEntry <0, offset loc_5F9872>
-stru_61A1F8     FuncInfoV1 <19930520h, 3, offset stru_61A218, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A218     UnwindMapEntry <-1, offset loc_5F9888>
-                UnwindMapEntry <0, offset loc_5F9891>
-                UnwindMapEntry <1, offset loc_5F989D>
 stru_61A230     FuncInfoV1 <19930520h, 2, offset stru_61A250, 0, 0, 0, 0>
                 db    0
                 db    0

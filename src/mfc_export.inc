@@ -141,6 +141,7 @@ externdef ?IsIdleMessage@CWinThread@@UAEHPAUtagMSG@@@Z:proc   ; (public: virtual
 externdef ?ProcessMessageFilter@CWinThread@@UAEHHPAUtagMSG@@@Z:proc   ; (public: virtual int __thiscall CWinThread::ProcessMessageFilter(int,struct tagMSG *))
 externdef ?GetMainWnd@CWinThread@@UAEPAVCWnd@@XZ:proc   ; (public: virtual class CWnd * __thiscall CWinThread::GetMainWnd(void))
 externdef ?Delete@CWinThread@@UAEXXZ:proc   ; (public: virtual void __thiscall CWinThread::Delete(void))
+externdef ??1CWinThread@@UAE@XZ : proc
 
 ;CWinApp
 externdef ?GetRuntimeClass@CWinApp@@UBEPAUCRuntimeClass@@XZ:proc   ; (public: virtual struct CRuntimeClass * __thiscall CWinApp::GetRuntimeClass(void)const )
@@ -2289,8 +2290,10 @@ externdef ?MsgProc@VisNetPhoneBook@@UAEHIII@Z : proc
 externdef ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
 
 ; VisNetMapSelection
-externdef ??0VisNetMapSelection@@QAE@HHHHHPAVCString@@@Z : proc
-externdef ??_GVisNetMapSelection@@UAEPAXI@Z : proc
+externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
+externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
+extern ??_GVisNetMapSelection@@UAEPAXI@Z : proc
+extern ??1VisNetMapSelection@@UAE@XZ : proc
 externdef ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
 extern ?OnKeyDown@VisNetMapSelection@@UAEHI@Z : proc
 externdef ?VMethod26@VisNetMapSelection@@UAEXXZ : proc

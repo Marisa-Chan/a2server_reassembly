@@ -4462,6 +4462,23 @@ int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam)
 }
 
 
+// 44AF45
+VisNetMapSelection::VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName)
+: VisWindow(_id, l, t, r, b, nullptr), thread(VisNetMapThreadProc, this)
+{
+    this->p_mapname = pMapName;
+}
+
+
+// 44AFD8 (scalar deleting dtor ??_G at 44FEA0)
+VisNetMapSelection::~VisNetMapSelection()
+{
+    for (int32_t i = 0; i < this->avail_maps.GetSize(); i++) {
+        delete this->avail_maps.GetAt(i);
+    }
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {
