@@ -2294,6 +2294,7 @@ externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 extern ??_GVisNetMapSelection@@UAEPAXI@Z : proc
 extern ??1VisNetMapSelection@@UAE@XZ : proc
+extern ?StopThread@VisNetMapSelection@@QAEXXZ : proc
 externdef ?MsgProc@VisNetMapSelection@@UAEHIII@Z : proc
 extern ?OnKeyDown@VisNetMapSelection@@UAEHI@Z : proc
 externdef ?VMethod26@VisNetMapSelection@@UAEXXZ : proc

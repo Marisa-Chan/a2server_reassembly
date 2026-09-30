@@ -31725,38 +31725,6 @@ sub_44AAE5      endp
 
 ; Attributes: bp-based frame
 
-sub_44AEEF      proc near               ; CODE XREF: ?MsgProc@VisNetMapSelection@@UAEHIII@Z+449↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0E8h]
-                push    ecx             ; hEvent
-                call    SetEvent
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+0A8h], 0
-                jz      short loc_44AF24
-                push    0FFFFFFFFh      ; dwMilliseconds
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0A8h]
-                push    ecx             ; hHandle
-                call    WaitForSingleObject
-
-loc_44AF24:                             ; CODE XREF: sub_44AEEF+21↑j
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0E8h]
-                push    eax             ; hObject
-                call    CloseHandle
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0E8h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_44AEEF      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -35418,7 +35386,7 @@ loc_44D69D:                             ; CODE XREF: ?MsgProc@VisNetMapSelection
                 test    eax, eax
                 jz      short loc_44D703
                 mov     ecx, dword ptr [ebp+var_5C]
-                call    sub_44AEEF
+                call    ?StopThread@VisNetMapSelection@@QAEXXZ
                 push    0
                 push    0
                 push    445h
@@ -35447,7 +35415,7 @@ loc_44D703:                             ; CODE XREF: ?MsgProc@VisNetMapSelection
 
 loc_44D70D:                             ; CODE XREF: ?MsgProc@VisNetMapSelection@@UAEHIII@Z+4D↑j
                 mov     ecx, dword ptr [ebp+var_5C] ; jumptable 0044D2C2 case 1094
-                call    sub_44AEEF
+                call    ?StopThread@VisNetMapSelection@@QAEXXZ
                 push    0
                 push    0
                 push    446h
@@ -35462,7 +35430,7 @@ loc_44D730:                             ; CODE XREF: ?MsgProc@VisNetMapSelection
                 cmp     dword ptr [edx+640h], 0
                 jnz     loc_44D858
                 mov     ecx, dword ptr [ebp+var_5C]
-                call    sub_44AEEF
+                call    ?StopThread@VisNetMapSelection@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_5C]
                 cmp     dword ptr [eax+0F8h], 0
                 jnz     loc_44D847

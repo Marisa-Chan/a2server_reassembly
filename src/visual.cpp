@@ -4479,6 +4479,18 @@ VisNetMapSelection::~VisNetMapSelection()
 }
 
 
+// 44AEEF
+void VisNetMapSelection::StopThread()
+{
+    SetEvent(this->stop_event);
+    if (this->thread.m_hThread != nullptr) {
+        WaitForSingleObject(this->thread.m_hThread, INFINITE);
+    }
+    CloseHandle(this->stop_event);
+    this->stop_event = nullptr;
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {
