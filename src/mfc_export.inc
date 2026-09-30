@@ -1641,16 +1641,16 @@ externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 externdef ??_GVisSpellBook@@UAEPAXI@Z : proc
 externdef ?GetHint@VisSpellBook@@UAEPBDXZ : proc
 externdef ?VMethod7@VisSpellBook@@UAEXXZ : proc
-externdef ?MsgProc@VisSpellBook@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
+extern ?MsgProc@VisSpellBook@@UAEHIII@Z : proc
+extern ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnWmUser@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnRButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z : proc
+extern ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
 
 
 ;VisSideStatus

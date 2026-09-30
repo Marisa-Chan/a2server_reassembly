@@ -10,6 +10,7 @@
 #include "ingame.h"
 #include "util.h"
 #include "resource.h"
+#include "spell.h"
 
 
 const int32_t VisStartGame::DWORD_0060bd60[4] = {0, 2, 3, 1};
@@ -21379,4 +21380,179 @@ int32_t VisSpellBook::FUN_004ca7c2(CPoint* pos)
         return -1;
     }
     return (pos->y / 0x26) * 0xC + pos->x / 0x26;
+}
+
+
+// 4CADD2
+int32_t VisSpellBook::OnRButtonDown(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    (void)pos;
+    this->pressed = -1;
+    return 1;
+}
+
+
+// 4CAF70
+int32_t VisSpellBook::OnRButtonUp(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    (void)pos;
+    this->pressed = -1;
+    return 1;
+}
+
+
+// 4CAE94
+int32_t VisSpellBook::OnRButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    (void)pos;
+    return 1;
+}
+
+
+// 4CAD6A
+int32_t VisSpellBook::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* mc = main_wnd->vis_map_context;
+    int32_t idx = this->FUN_004ca7c2(&pos);
+    if (idx >= 0
+        && ((mc->field_0x148 | mc->field_0x150) & (1 << (idx & 0x1F))) != 0) {
+        this->pressed = idx;
+    }
+    return 1;
+}
+
+
+// 4CAF8C
+int32_t VisSpellBook::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if (g_mousept.GetSelectState() != 0) {
+        g_mousept.ResetStates();
+    }
+    if ((wparam & 1) != 0) {
+        this->OnLButtonDown(wparam, pos);
+    }
+    if ((wparam & 2) != 0) {
+        this->OnRButtonDown(wparam, pos);
+    }
+    return 0;
+}
+
+
+// 4CAFF5
+int32_t VisSpellBook::OnWmUser(uint32_t wparam, CPoint pos)
+{
+    return this->OnLButtonDown(wparam, pos);
+}
+
+
+// 4CAEA6
+int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    (void)pos;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        g_Cursors[0]->Use();
+        if ((main_wnd->dialogsMask & 2) == 0) {
+            if (main_wnd->field_0x410 == 2) {
+                main_wnd->vis_invtype1->VMethod37(main_wnd->field_0x40c);
+            } else if (main_wnd->field_0x410 == 1) {
+                main_wnd->vis_invtype1->VMethod37(main_wnd->vis_invtype1->FUN_0046fb90());
+            }
+        } else {
+            CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
+            ((VisShop*)obj)->sub_4BC97B();
+        }
+    }
+    return 1;
+}
+
+
+// 4CADEE
+int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* mc = main_wnd->vis_map_context;
+    int32_t idx = this->FUN_004ca7c2(&pos);
+    if (idx < 0
+        || ((mc->field_0x148 | mc->field_0x150) & (1 << (idx & 0x1F))) == 0
+        || DAT_0062F9C8[idx] == 0) {
+        this->OnLButtonDown(wparam, pos);
+    } else {
+        mc->FUN_0041a001(idx + 1);
+        this->OnLButtonDown(wparam, pos);
+    }
+    return 1;
+}
+
+
+// 4CAC9B
+int32_t VisSpellBook::OnKeyDown(uint32_t wparam)
+{
+    if (g_kbControlState != 0 && (wparam == 0x61 || wparam == 0x41)) {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        BigStruct2* mc = main_wnd->vis_map_context;
+        uint32_t spell_id = 0;
+        if (this->pressed == -1) {
+            CPoint pt;
+            GetCursorPos(&pt);
+            int32_t idx = this->FUN_004ca7c2(&pt);
+            if (idx >= 0 && DAT_0062F968[idx] != 0) {
+                spell_id = BOOK_POS_TO_SPELL_ID[idx + 1];
+            }
+        } else if (DAT_0062F968[this->pressed] != 0) {
+            spell_id = BOOK_POS_TO_SPELL_ID[this->pressed + 1];
+        }
+        if (spell_id != 0) {
+            mc->FUN_0041ace2((int32_t)spell_id);
+            mc->UpdateSelectionState();
+        }
+    }
+    return 0;
+}
+
+
+// 4CAAD7
+int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (msg == 0x411) {
+        this->pressed = -1;
+    } else if (msg == 0x417) {
+        if (lparam == 0) {
+            if (main_wnd->m_GameSession.shortcuts[wparam].kind == 1) {
+                this->pressed = main_wnd->m_GameSession.shortcuts[wparam].item_id;
+            }
+        } else {
+            if (this->pressed == -1) {
+                CPoint pt;
+                GetCursorPos(&pt);
+                int32_t idx = this->FUN_004ca7c2(&pt);
+                if (idx >= 0) {
+                    main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e323((short)idx);
+                    for (int32_t i = 0; i < 9; i++) {
+                        if (i != (int32_t)wparam
+                            && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)idx)) {
+                            main_wnd->m_GameSession.shortcuts[i].SetNull();
+                        }
+                    }
+                }
+            } else {
+                main_wnd->m_GameSession.shortcuts[wparam].FUN_0041e323((short)this->pressed);
+                for (int32_t i = 0; i < 9; i++) {
+                    if (i != (int32_t)wparam
+                        && main_wnd->m_GameSession.shortcuts[i].FUN_0041e456((short)this->pressed)) {
+                        main_wnd->m_GameSession.shortcuts[i].SetNull();
+                    }
+                }
+            }
+            main_wnd->m_GameSession.FUN_004948b2();
+        }
+    }
+    return this->CVisualObject::MsgProc(msg, wparam, lparam);
 }
