@@ -4343,6 +4343,24 @@ int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 431764
+int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    if (this->field_0xd8 != 0) {
+        return this->CVisualObject::OnLButtonDown(wparam, pos);
+    }
+    int32_t row = this->HitTest(pos);
+    this->SelectRow(row);
+    if (this->field_0x90.PtInRect(pos)) {
+        this->SelectNextRow();
+    } else if (this->field_0x80.PtInRect(pos)) {
+        this->SelectPrevRow();
+    }
+    this->UpdateArrows(pos, true);
+    return 1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
