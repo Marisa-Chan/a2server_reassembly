@@ -4550,6 +4550,18 @@ void VisCharSellectStats::VMethod7()
 }
 
 
+// 42FC61
+const char* VisCharSellectStats::GetHint()
+{
+    if (this->parent_screen->active_flag == 0) {
+        return nullptr;
+    }
+    CRect rc = this->ClientRectToScreen(this->rect);
+    CPoint pos(g_mousept.GetX() - rc.left - 0xC, g_mousept.GetY() - rc.top - 0xEE);
+    return this->parent_screen->selected_unit->FUN_0046d0f7(pos.x, pos.y);
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {

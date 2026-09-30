@@ -1662,7 +1662,7 @@ extern ?OnKeyDown@VisCharSellectList@@UAEHI@Z : proc
 
 ;VisCharSellectStats
 externdef ??_GVisCharSellectStats@@UAEPAXI@Z : proc
-externdef ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
+extern ?GetHint@VisCharSellectStats@@UAEPBDXZ : proc
 extern ?VMethod7@VisCharSellectStats@@UAEXXZ : proc
 
 ;VisRightPanel
