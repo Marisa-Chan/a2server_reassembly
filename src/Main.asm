@@ -89487,25 +89487,6 @@ sub_4AD840      endp
 
 ; Attributes: bp-based frame
 
-sub_4AE933      proc near               ; CODE XREF: ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z+6A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    445h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4AE933      endp
 
 
 ; =============== S U B R O U T I N E =======================================
