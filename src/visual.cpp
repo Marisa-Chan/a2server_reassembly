@@ -4455,6 +4455,13 @@ VisCharSellectList::~VisCharSellectList()
 }
 
 
+// 44D8F0
+int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam)
+{
+    return this->VisWindow::OnKeyDown(wparam);
+}
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {
