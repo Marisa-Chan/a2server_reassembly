@@ -1043,7 +1043,6 @@ externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
 externdef   ??0VisMainMenu@@QAE@HHHHH@Z  : proc
 externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
 externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
-externdef   ??0VisFameDocument@@QAE@HHHHH@Z  : proc
 
 
 
@@ -1599,7 +1598,8 @@ externdef ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
 externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 
 ;VisFameDocument
-externdef ??_GVisFameDocument@@UAEPAXI@Z : proc
+extern ??_GVisFameDocument@@UAEPAXI@Z : proc
+extern ??1VisFameDocument@@UAE@XZ : proc
 extern ?GetHint@VisFameDocument@@UAEPBDXZ : proc
 extern ?VMethod7@VisFameDocument@@UAEXXZ : proc
 extern ?VMethod8@VisFameDocument@@UAEXPAVCRect@@@Z : proc
@@ -1609,14 +1609,6 @@ extern ?OnLButtonDown@VisFameDocument@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisFameDocument@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisFameDocument@@UAEHI@Z : proc
 extern ?VMethod26@VisFameDocument@@UAEXXZ : proc
-extern ?LoadBitmaps@VisFameDocument@@QAEXXZ : proc
-extern ?FreeBitmaps@VisFameDocument@@QAEXXZ : proc
-extern ?ClearDocs@VisFameDocument@@QAEXXZ : proc
-extern ?LoadDocs@VisFameDocument@@QAEXXZ : proc
-extern ?UpdateButtons@VisFameDocument@@QAEHVCPoint@@_N@Z : proc
-extern ?UpdateArrowStates@VisFameDocument@@QAEXXZ : proc
-extern ?NextDoc@VisFameDocument@@QAEXXZ : proc
-extern ?PrevDoc@VisFameDocument@@QAEXXZ : proc
 extern ?VMethod28@VisFameDocument@@UAEXXZ : proc
 extern ?DoClose@VisFameDocument@@UAEXI@Z : proc
 

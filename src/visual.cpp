@@ -20723,3 +20723,19 @@ const char* VisFameDocument::GetHint()
 {
     return nullptr;
 }
+
+
+// 4AD961
+VisFameDocument::VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 4ADA2A (scalar deleting dtor ??_G at 4AED50)
+VisFameDocument::~VisFameDocument()
+{
+    this->FreeBitmaps();
+    this->ClearDocs();
+}

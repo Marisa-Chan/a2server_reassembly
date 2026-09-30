@@ -3151,7 +3151,7 @@ public:
 	virtual void VMethod28() override; // 4AE473
 	virtual void DoClose(uint32_t code) override; // 4AE534
 
-	VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4ad961 in asm
+	VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4ad961
 
 	void LoadBitmaps(); // 4add24 in asm
 	void FreeBitmaps(); // 4ae17a in asm
