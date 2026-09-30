@@ -16993,129 +16993,6 @@ sub_42F1E8      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0042f4df@VisCharSellectStats@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisCharSelect@@UAEXXZ+156↓p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8157 SIZE 00000028 BYTES
-
-; __unwind { // SEH_42F4DF
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_42F4DF
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ?FreeBitmaps@VisCharSellectStats@@QAEXXZ
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_42F52E
-                push    offset aGraphicsInterf_54 ; "graphics\\Interface\\chrgen\\FullStatsL"...
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_42F535
-; ---------------------------------------------------------------------------
-
-loc_42F52E:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+3B↑j
-                mov     [ebp+var_2C], 0
-
-loc_42F535:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+4D↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_14], eax
-;   } // starts at 42F50F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+60h], edx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_18], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_18], 0
-                jz      short loc_42F57E
-                push    offset aGraphicsInterf_55 ; "graphics\\interface\\chrgen\\loader\\Le"...
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_30], eax
-                jmp     short loc_42F585
-; ---------------------------------------------------------------------------
-
-loc_42F57E:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+8B↑j
-                mov     [ebp+var_30], 0
-
-loc_42F585:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+9D↑j
-                mov     eax, dword ptr [ebp+var_30]
-                mov     [ebp+var_1C], eax
-;   } // starts at 42F55F
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ecx+64h], edx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_20], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_20], 0
-                jz      short loc_42F5CE
-                push    offset aGraphicsInterf_56 ; "graphics\\interface\\chrgen\\cube\\spri"...
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ??0CA16@@QAE@PBD@Z
-                mov     [ebp+var_34], eax
-                jmp     short loc_42F5D5
-; ---------------------------------------------------------------------------
-
-loc_42F5CE:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+DB↑j
-                mov     [ebp+var_34], 0
-
-loc_42F5D5:                             ; CODE XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+ED↑j
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [ebp+var_24], eax
-;   } // starts at 42F5AF
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_24]
-                mov     [ecx+8Ch], edx
-                push    0
-                push    4
-                push    10h
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+8Ch]
-                call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 42F4DF
-?FUN_0042f4df@VisCharSellectStats@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -285127,40 +285004,6 @@ SEH_42F188:                             ; DATA XREF: sub_42F188+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8138
 ; END OF FUNCTION CHUNK FOR sub_42F188
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ
-
-loc_5F8157:                             ; DATA XREF: .rdata:stru_6187C8↓o
-; __unwind { // SEH_42F4DF
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8161:                             ; DATA XREF: .rdata:006187D0↓o
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F816B:                             ; DATA XREF: .rdata:006187D8↓o
-;   cleanup() // owned by 42F50F
-;   cleanup() // owned by 42F55F
-;   cleanup() // owned by 42F5AF
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_42F4DF:                             ; DATA XREF: ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ+5↑o
-                mov     eax, offset stru_6187A8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8157
-; END OF FUNCTION CHUNK FOR ?FUN_0042f4df@VisCharSellectStats@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod7@VisCharSellectStats@@UAEXXZ
 
 loc_5F817F:                             ; DATA XREF: .rdata:stru_618800↓o
@@ -322583,14 +322426,6 @@ stru_618778     FuncInfoV1 <19930520h, 2, offset stru_618798, 0, 0, 0, 0>
                 db    0
 stru_618798     UnwindMapEntry <-1, offset loc_5F8138>
                 UnwindMapEntry <0, offset loc_5F8141>
-stru_6187A8     FuncInfoV1 <19930520h, 3, offset stru_6187C8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6187C8     UnwindMapEntry <-1, offset loc_5F8157>
-                UnwindMapEntry <-1, offset loc_5F8161>
-                UnwindMapEntry <-1, offset loc_5F816B>
 stru_6187E0     FuncInfoV1 <19930520h, 1, offset stru_618800, 0, 0, 0, 0>
                 align 10h
 stru_618800     UnwindMapEntry <-1, offset loc_5F817F>

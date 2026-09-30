@@ -4473,6 +4473,20 @@ void VisCharSellectStats::FreeBitmaps()
 }
 
 
+// 42F4DF
+void VisCharSellectStats::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->field_0x60 = new CBmp64("graphics\\Interface\\chrgen\\FullStatsL.bmp");
+    g_mousept.Update();
+    this->field_0x64 = new CBmp64("graphics\\interface\\chrgen\\loader\\LeftUp.bmp");
+    g_mousept.Update();
+    this->field_0x8c = new CA16("graphics\\interface\\chrgen\\cube\\sprites.16a");
+    this->field_0x8c->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
@@ -4565,7 +4579,7 @@ void VisCharSelect::VMethod28()
     this->info_panel->SetRect(&rc);
     this->AddChild(this->info_panel);
     this->LoadSfx();
-    this->vis_stats->FUN_0042f4df();
+    this->vis_stats->LoadBitmaps();
     this->buttons->LoadBitmaps();
     this->roster_list->LoadBitmaps();
     this->roster_list->FUN_00430fad();
