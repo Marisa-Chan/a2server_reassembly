@@ -20739,3 +20739,30 @@ VisFameDocument::~VisFameDocument()
     this->FreeBitmaps();
     this->ClearDocs();
 }
+
+
+// 4B0C84
+int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    (void)wparam;
+    (void)pos;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        g_Cursors[0]->Use();
+        main_wnd->ResetItemCursor();
+    }
+    return 1;
+}
+
+
+// 4B0C2F
+int32_t VisMiniMap::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if ((wparam & 1) != 0) {
+        return this->OnLButtonDown(wparam, pos);
+    }
+    if ((wparam & 2) != 0) {
+        return this->OnRButtonDown(wparam, pos);
+    }
+    return 0;
+}

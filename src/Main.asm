@@ -2144,7 +2144,7 @@ sub_402A90      endp
 
 ; Attributes: bp-based frame
 
-sub_40C0A8      proc near               ; CODE XREF: ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z+22D↓p
+?sub_40C0A8@BigStruct2@@QAEIHH@Z      proc near               ; CODE XREF: ?OnLButtonDown@VisMiniMap@@UAEHIVCPoint@@@Z+22D↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -2162,7 +2162,7 @@ arg_4           = dword ptr  0Ch
                 call    sub_420720
                 mov     [ebp+var_8], eax
 
-loc_40C0C2:                             ; CODE XREF: sub_40C0A8:loc_40C107↓j
+loc_40C0C2:                             ; CODE XREF: ?sub_40C0A8@BigStruct2@@QAEIHH@Z:loc_40C107↓j
                 cmp     [ebp+var_8], 0
                 jz      short loc_40C109
                 lea     eax, [ebp+var_C]
@@ -2189,18 +2189,18 @@ loc_40C0C2:                             ; CODE XREF: sub_40C0A8:loc_40C107↓j
                 jmp     short loc_40C10C
 ; ---------------------------------------------------------------------------
 
-loc_40C107:                             ; CODE XREF: sub_40C0A8+41↑j
+loc_40C107:                             ; CODE XREF: ?sub_40C0A8@BigStruct2@@QAEIHH@Z+41↑j
                 jmp     short loc_40C0C2
 ; ---------------------------------------------------------------------------
 
-loc_40C109:                             ; CODE XREF: sub_40C0A8+1E↑j
+loc_40C109:                             ; CODE XREF: ?sub_40C0A8@BigStruct2@@QAEIHH@Z+1E↑j
                 xor     ax, ax
 
-loc_40C10C:                             ; CODE XREF: sub_40C0A8+5D↑j
+loc_40C10C:                             ; CODE XREF: ?sub_40C0A8@BigStruct2@@QAEIHH@Z+5D↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_40C0A8      endp
+?sub_40C0A8@BigStruct2@@QAEIHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -92228,7 +92228,7 @@ loc_4B099A:                             ; CODE XREF: ?OnLButtonDown@VisMiniMap@@
                 mov     edx, dword ptr [ebp+var_30]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_40C0A8
+                call    ?sub_40C0A8@BigStruct2@@QAEIHH@Z
                 mov     word ptr [ebp+var_40], ax
                 mov     eax, dword ptr [ebp+var_40]
                 and     eax, 0FFFFh
@@ -92264,7 +92264,7 @@ loc_4B09F0:                             ; CODE XREF: ?OnLButtonDown@VisMiniMap@@
                 mov     edx, dword ptr [ebp+var_30]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_40C0A8
+                call    ?sub_40C0A8@BigStruct2@@QAEIHH@Z
                 mov     word ptr [ebp+var_44], ax
                 mov     eax, dword ptr [ebp+var_44]
                 and     eax, 0FFFFh
@@ -92290,7 +92290,7 @@ loc_4B0A31:                             ; CODE XREF: ?OnLButtonDown@VisMiniMap@@
                 mov     eax, dword ptr [ebp+var_30]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_40C0A8
+                call    ?sub_40C0A8@BigStruct2@@QAEIHH@Z
                 mov     [ebp+var_48], ax
                 jmp     short loc_4B0A77
 ; ---------------------------------------------------------------------------
@@ -92498,91 +92498,12 @@ loc_4B0C0E:                             ; CODE XREF: ?OnRButtonDown@VisMiniMap@@
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CF44↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4B0C59
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+54h]
-                jmp     short loc_4B0C7E
-; ---------------------------------------------------------------------------
-
-loc_4B0C59:                             ; CODE XREF: ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z+F↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 2
-                test    eax, eax
-                jz      short loc_4B0C7C
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+60h]
-                jmp     short loc_4B0C7E
-; ---------------------------------------------------------------------------
-
-loc_4B0C7C:                             ; CODE XREF: ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z+32↑j
-                xor     eax, eax
-
-loc_4B0C7E:                             ; CODE XREF: ?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z+28↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisMiniMap@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CF50↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+408h], 0
-                jz      short loc_4B0CB4
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_48CD44@MainWindow@@QAEXXZ
-
-loc_4B0CB4:                             ; CODE XREF: ?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z+1B↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisMiniMap@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

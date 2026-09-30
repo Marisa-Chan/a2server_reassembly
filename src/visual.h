@@ -922,6 +922,7 @@ public:
 
 	void UpdateSelectionState(); //416cf7
 	void FUN_0041cda3(const char* mapname); // 41cda3 in asm
+	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8 in asm
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
 
@@ -1156,6 +1157,9 @@ public:
 	virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4B0AAD
 
 	VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aeec3 in asm
+
+	void RebuildMap(); // 4af0dc in asm
+	void UpdateCursor(); // 4b042e in asm
 
 public:
 	BigStruct2* map_context;

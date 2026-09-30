@@ -4,6 +4,10 @@
 #include "mfc_templ.h"
 #include "2darray.h"
 
+#include <ddraw.h>
+
+extern DDSURFACEDESC g_selDrawBitmap; //659c98
+
 
 
 class CGameBitmap;
