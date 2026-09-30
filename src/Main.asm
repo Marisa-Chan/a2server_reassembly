@@ -18149,22 +18149,6 @@ sub_42FE62      endp
 
 ; Attributes: bp-based frame
 
-?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ      proc near               ; CODE XREF: ?OnMouseMove@VisCharSelect@@UAEHIVCPoint@@@Z+63↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0D8h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0DCh], 0FFFFFFFFh
-                mov     esp, ebp
-                pop     ebp
-                retn
-?ResetMouseBoxes@VisCharSellectButtons@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

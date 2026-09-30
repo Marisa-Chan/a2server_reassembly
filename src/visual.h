@@ -683,7 +683,7 @@ public:
 
 	void LoadBitmaps(); // 430850
 	void FreeBitmaps(); // 430a1a
-	void ResetMouseBoxes(); // 43072b in asm
+	void ResetMouseBoxes(); // 43072b
 
 public:
 	VisCharSelect* parent_screen;

@@ -4085,6 +4085,14 @@ int32_t VisCharSellectButtons::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 43072B
+void VisCharSellectButtons::ResetMouseBoxes()
+{
+    this->mouse_down_box = -1;
+    this->mouse_over_box = -1;
+}
+
+
 // 431FDF
 void VisCharSelect::VMethod26()
 {
