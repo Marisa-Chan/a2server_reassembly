@@ -908,7 +908,6 @@ externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 ; MainWindow
 externdef ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z : proc  ; void MainWindow::sub_48CCA1(TokenEntry*, int32_t, const char*, int32_t)  //48cca1 in asm
 externdef ?sub_48CD44@MainWindow@@QAEXXZ : proc
-externdef ?sub_4CA925@VisSpellBook@@QAEXH@Z : proc
 externdef ?sub_4396FB@TokenEntry@@QAEHXZ : proc
 externdef   ?_OnDestroy@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
@@ -1399,9 +1398,6 @@ extern ?FlushScreen@@YAXXZ  : proc
 
 
 ;VisSpellBook
-externdef ?FUN_004caa69@VisSpellBook@@QAEXXZ : proc
-externdef ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
-externdef ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()
 externdef ?sub_41F9E0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9E0()
 externdef ?sub_4CAAA7@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_4CAAA7()
@@ -1595,6 +1591,15 @@ externdef ?FUN_004abf35@Fame2@@QAE_NXZ : proc
 externdef ?FUN_004abf72@Fame2@@QAEHXZ : proc
 externdef ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
 externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
+
+;UserShortcut spell helpers
+externdef ?FUN_0041e323@UserShortcut@@QAEXF@Z : proc
+externdef ?FUN_0041e456@UserShortcut@@QAEHF@Z : proc
+;BigStruct2 spell actions
+externdef ?FUN_0041ace2@BigStruct2@@QAEXH@Z : proc
+externdef ?FUN_0041a001@BigStruct2@@QAEXH@Z : proc
+;VisSpellBook hit-test
+externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 
 ;BigStruct2 minimap unit pick
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc

@@ -121,6 +121,7 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p); //43eaa0
 
 extern int32_t g_kbShiftState; //660f44
 extern int32_t g_kbControlState; //660f40
+extern CRect vis_scr_rect; //65fb88
 extern int32_t g_kbMenuState; //660f48
 
 

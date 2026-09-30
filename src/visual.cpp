@@ -21290,3 +21290,93 @@ VisMiniMap::~VisMiniMap()
         delete this->bitmap2;
     }
 }
+
+
+// 41F9B0
+int32_t VisSpellBook::sub_41F9B0()
+{
+    if (this->pressed >= 0) {
+        return this->pressed;
+    }
+    return this->spell;
+}
+
+
+// 41F9E0
+int32_t VisSpellBook::sub_41F9E0()
+{
+    return this->pressed >= 0;
+}
+
+
+// 4CA89B
+int32_t VisSpellBook::sub_4CA89B(int32_t id)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    return (main_wnd->vis_map_context->field_0x148 & (1 << (id & 0x1F))) != 0;
+}
+
+
+// 4CA8E0
+int32_t VisSpellBook::sub_4CA8E0(int32_t id)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    return (main_wnd->vis_map_context->field_0x150 & (1 << (id & 0x1F))) != 0;
+}
+
+
+// 4CA925
+void VisSpellBook::sub_4CA925(int32_t idx)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* mc = main_wnd->vis_map_context;
+    this->spell = idx;
+    TokenEntry* entry = mc->field_0x138->tokenEntries[this->spell];
+    this->selected = (int32_t)entry->GetCastSpellId() - 1;
+}
+
+
+// 4CAAA7
+int32_t VisSpellBook::sub_4CAAA7()
+{
+    if (this->selected < 0) {
+        return DAT_0062F8A8[this->pressed];
+    }
+    return DAT_0062FA28[this->selected];
+}
+
+
+// 4CAA69
+void VisSpellBook::FUN_004caa69()
+{
+    (void)AfxGetMainWnd();
+    if (this->selected >= 0) {
+        this->selected = -1;
+        this->spell = -1;
+    }
+}
+
+
+// 4CA7C2
+int32_t VisSpellBook::FUN_004ca7c2(CPoint* pos)
+{
+    CRect rc;
+    this->ClientRectToScreen(&rc, this->rect);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    *pos += CPoint(-5 - rc.left, -5 - rc.top);
+    int32_t left = vis_scr_rect.left;
+    if ((main_wnd->dialogsMask & 2) != 0) {
+        left = 0;
+    }
+    *pos += CPoint(-left, 0);
+    if (pos->x < 0) {
+        return -1;
+    }
+    if (pos->y >= 0x4B) {
+        return -1;
+    }
+    if (pos->x >= 0x1C8) {
+        return -1;
+    }
+    return (pos->y / 0x26) * 0xC + pos->x / 0x26;
+}

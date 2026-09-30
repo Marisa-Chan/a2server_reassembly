@@ -923,6 +923,8 @@ public:
 	void UpdateSelectionState(); //416cf7
 	void FUN_0041cda3(const char* mapname); // 41cda3 in asm
 	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8 in asm
+	void FUN_0041ace2(int32_t spell_id); //41ace2 in asm
+	void FUN_0041a001(int32_t idx); //41a001 in asm
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
 
@@ -1759,6 +1761,7 @@ public:
 
 	void FUN_004caa69();
 
+	int32_t FUN_004ca7c2(CPoint* pos); //4ca7c2 in asm
 	void sub_4CA925(int32_t idx); //4ca925 in asm
 	int32_t sub_4CA89B(int32_t id); //4ca89b
 	int32_t sub_4CA8E0(int32_t id); //4ca8e0

@@ -7,6 +7,11 @@
 #include <ddraw.h>
 
 extern DDSURFACEDESC g_selDrawBitmap; //659c98
+extern char byte_666590[223]; //4c9a6f GetHint static buffer
+extern uint32_t DAT_0062F8A8[24]; //spellbook pressed-position spell table
+extern uint32_t DAT_0062FA28[24]; //spellbook selected-position spell table
+extern uint32_t DAT_0062F8A8[24]; //spellbook pressed-position spell table
+extern uint32_t DAT_0062FA28[24]; //spellbook selected-position spell table
 
 
 
