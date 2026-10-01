@@ -3942,6 +3942,176 @@ void QuestObjectivesHeaderDialogVisualObject::VMethod26()
 }
 
 
+// 4E2F76
+void VisQuestStatus::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    QuestMap* quest_map = main_wnd->vis_map_context->field_0x4970;
+
+    this->rect.bottom = this->rect.top + 0x48 + quest_map->FUN_0041ec00() * 0x20;
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    screen_rect.right -= 8;
+    screen_rect.bottom -= 8;
+
+    LockSurface2();
+
+    gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.top + 8, 0xC, 6, 0);
+    gfx_interface_lm->VMethod3(screen_rect.left + 8, screen_rect.bottom - 0x18, 0xF, 6, 0);
+    gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.bottom - 0x18, 0x11, 6, 0);
+    for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
+        gfx_interface_lm->VMethod3(screen_rect.left + 0x28 + i * 0x30, screen_rect.bottom - 0x18, 0x10, 6, 0);
+    }
+    for (int32_t i = 0; i < (screen_rect.Height() - 0x40) / 0x20; i++) {
+        gfx_interface_lm->VMethod3(screen_rect.right - 0x18, screen_rect.top + 0x28 + i * 0x20, 0xE, 6, 0);
+    }
+
+    gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.top, 0xA, 0, 0);
+    gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.top, 0xC, 0, 0);
+    gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.bottom - 0x20, 0xF, 0, 0);
+    gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.bottom - 0x20, 0x11, 0, 0);
+    for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
+        gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.top, 0xB, 0, 0);
+        gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.bottom - 0x20, 0x10, 0, 0);
+    }
+    for (int32_t i = 0; i < (screen_rect.Height() - 0x40) / 0x20; i++) {
+        gfx_interface_lm->VMethod2(screen_rect.left, screen_rect.top + 0x20 + i * 0x20, 0xD, 0, 0);
+        gfx_interface_lm->VMethod2(screen_rect.right - 0x20, screen_rect.top + 0x20 + i * 0x20, 0xE, 0, 0);
+    }
+    for (int32_t i = 0; i < (screen_rect.Width() - 0x40) / 0x30; i++) {
+        for (int32_t j = 0; j < (screen_rect.Height() - 0x40) / 0x20; j++) {
+            gfx_interface_lm->VMethod2(screen_rect.left + 0x20 + i * 0x30, screen_rect.top + 0x20 + j * 0x20, 9, 0, 0);
+        }
+    }
+
+    int32_t col_x = this->rect.left + 0x20;
+    int32_t row_y = this->rect.top + 0x28;
+
+    if (quest_map->FUN_0041ec00() != 0) {
+        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x156], 2, clrsh_TechBlack, 1);
+    } else {
+        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x157], 2, clrsh_TechBlack, 1);
+    }
+
+    POSITION quest_it = quest_map->quests_map.GetStartPosition();
+    uint32_t quest_key;
+    Quest* quest;
+    while (quest_it != nullptr) {
+        quest_map->quests_map.GetNextAssoc(quest_it, quest_key, quest);
+
+        bool is_shown = (
+            main_wnd->vis_map_context->quest_some_id_2 == quest->GetSomeId() ||
+            main_wnd->vis_map_context->quest_landmark_some_id == quest->GetSomeId() ||
+            main_wnd->vis_map_context->quest_building_some_id == quest->GetSomeId() ||
+            main_wnd->vis_map_context->quest_some_id == quest->GetSomeId()
+        );
+
+        if (is_shown) {
+            sub_457C5D(col_x + 0x16, row_y - 2, col_x + this->rect.Width() - 0x46, row_y + 0x18, 4);
+        }
+
+        CString unit_name;
+        switch (quest->Kind()) {
+        case 1:
+        case 4:
+        case 0xB: {
+            CGameObject* obj;
+            if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetObj(), obj)) {
+                CUnit* unit = (CUnit*)obj;
+                if ((unit->unitFlags & 0x11) == 0) {
+                    if (unit->typeId < 0x52 || unit->typeId > 0x66) {
+                        unit_name.Format("%s[%d]", txt_unitname.GetLine(unit->typeId), unit->face);
+                    } else {
+                        unit_name.Format("%s", txt_unitname.GetLine(unit->typeId));
+                    }
+                } else {
+                    unit_name.Format("%s", txt_npcnames.GetLine(unit->serverId - 1));
+                }
+            }
+            break;
+        }
+        case 2: {
+            if ((quest->GetObj() & 0xFF) < 0x52 || (quest->GetObj() & 0xFF) > 0x66) {
+                unit_name.Format("%s[%d]", txt_unitname.GetLine(quest->GetObj() & 0xFF), quest->GetObj() >> 8);
+            } else {
+                unit_name.Format("%s", txt_unitname.GetLine(quest->GetObj() & 0xFF));
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        CString area_name;
+        CString building_name;
+        CGameObject* landmark;
+        if (main_wnd->vis_map_context->field_0x9d0.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
+            building_name = txt_building.GetLine(landmark->typeId - 1);
+            int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->field_0x84 - 0x10);
+            int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->field_0x88 - 0x10);
+            area_name = TxtFile::AllLines[cell_x + 0x13D + cell_y * 5];
+        }
+
+        CString quest_text;
+        switch (quest->Kind()) {
+        case 1:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
+            break;
+        case 2:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780(), (const char*)unit_name);
+            break;
+        case 3:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
+            break;
+        case 4:
+        case 5:
+        case 0xD:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
+            break;
+        case 6:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780() / 0x3C0, (quest->FUN_004a4780() >> 4) % 0x3C, (const char*)area_name);
+            break;
+        case 8:
+        case 9:
+        case 0xA:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->FUN_004a4780());
+            break;
+        case 0xB:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
+            break;
+        case 0xC:
+            quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C]);
+            break;
+        default:
+            break;
+        }
+
+        CRect text_rect(CPoint(col_x + 0x18, row_y), CSize(this->rect.Width() - 0x60, 0x20));
+
+        uint16_t* clr = clrsh_TechBlack;
+        int32_t icon_index = 0xA;
+        if (quest->quest_data.state == 0) {
+            clr = clrsh_TechBlack;
+            icon_index = 0;
+        } else if (quest->quest_data.state == 1) {
+            clr = clrsh_ShockingBlack;
+            icon_index = 1;
+        } else if (quest->quest_data.state == 2) {
+            clr = clrsh_CoralRed;
+            icon_index = 2;
+        }
+
+        g_font2->DrawTextJustifyInRectShadow(text_rect, quest_text, clr, 0xA);
+        this->icon->VMethod2(col_x - 6, row_y - 2, icon_index, 0, 0);
+
+        row_y += 0x20;
+    }
+
+    UnlockSurface2();
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8

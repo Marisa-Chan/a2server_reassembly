@@ -412,7 +412,6 @@ _byte_666590
 ?MsgProc@VisQuestStatus@@UAEHIII@Z	12
 ??_GVisQuestStatus@@UAEPAXI@Z	24
 ??0VisQuestStatus@@QAE@HHHHH@Z	85
-?VMethod7@VisQuestStatus@@UAEXXZ	1072
 ?VMethod7@VisRightPanel@@UAEXXZ	13
 ??_GVisRightPanel@@UAEPAXI@Z	24
 ??0VisRightPanel@@QAE@HHHHH@Z	32
