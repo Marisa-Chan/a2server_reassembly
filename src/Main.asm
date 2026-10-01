@@ -103748,183 +103748,6 @@ loc_4E2CED:                             ; CODE XREF: ?OnLButtonUp@VisTipsDialog@
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
-
-sub_4E2CF3      proc near
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FF95E SIZE 0000001D BYTES
-
-; __unwind { // SEH_4E2CF3
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E2CF3
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0VisScreen@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax], offset off_60E6D8
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 4E2D19
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                cmp     [ebp+Block], 0
-                jz      short loc_4E2D4F
-                push    offset aGraphicsInterf_297 ; "graphics\\interface\\subobj.256"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CSprite256@@QAE@PBD@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_4E2D56
-; ---------------------------------------------------------------------------
-
-loc_4E2D4F:                             ; CODE XREF: sub_4E2CF3+48↑j
-                mov     [ebp+var_1C], 0
-
-loc_4E2D56:                             ; CODE XREF: sub_4E2CF3+5A↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 4E2D33
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [edx+68h], eax
-                push    0
-                push    1
-                push    1
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ecx+68h]
-                call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
-;   } // starts at 4E2D5C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4E2CF3
-sub_4E2CF3      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_4E2D92(int, RECT *lprcSrc)
-sub_4E2D92      proc near
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005FF97B SIZE 0000001D BYTES
-
-; __unwind { // SEH_4E2D92
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E2D92
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+lprcSrc]
-                push    eax             ; lprcSrc
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0VisScreen@@QAE@HABUtagRECT@@PAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx], offset off_60E6D8
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 4E2DC2
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                cmp     [ebp+Block], 0
-                jz      short loc_4E2DF8
-                push    offset aGraphicsInterf_298 ; "graphics\\interface\\subobj.256"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CSprite256@@QAE@PBD@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_4E2DFF
-; ---------------------------------------------------------------------------
-
-loc_4E2DF8:                             ; CODE XREF: sub_4E2D92+52↑j
-                mov     [ebp+var_1C], 0
-
-loc_4E2DFF:                             ; CODE XREF: sub_4E2D92+64↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], eax
-;   } // starts at 4E2DDC
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+68h], edx
-                push    0
-                push    1
-                push    1
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+68h]
-                call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
-;   } // starts at 4E2E05
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 4E2D92
-sub_4E2D92      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
@@ -281873,56 +281696,6 @@ SEH_4E25C1:                             ; DATA XREF: sub_4E25C1+5↑o
 ; } // starts at 5FF936
 ; END OF FUNCTION CHUNK FOR sub_4E25C1
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E2CF3
-
-loc_5FF95E:                             ; DATA XREF: .rdata:stru_620F38↓o
-; __unwind { // SEH_4E2CF3
-;   cleanup() // owned by 4E2D19
-;   cleanup() // owned by 4E2D5C
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF967:                             ; DATA XREF: .rdata:00620F40↓o
-;   cleanup() // owned by 4E2D33
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E2CF3:                             ; DATA XREF: sub_4E2CF3+5↑o
-                mov     eax, offset stru_620F18
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF95E
-; END OF FUNCTION CHUNK FOR sub_4E2CF3
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E2D92
-
-loc_5FF97B:                             ; DATA XREF: .rdata:stru_620F68↓o
-; __unwind { // SEH_4E2D92
-;   cleanup() // owned by 4E2DC2
-;   cleanup() // owned by 4E2E05
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF984:                             ; DATA XREF: .rdata:00620F70↓o
-;   cleanup() // owned by 4E2DDC
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E2D92:                             ; DATA XREF: sub_4E2D92+5↑o
-                mov     eax, offset stru_620F48
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF97B
-; END OF FUNCTION CHUNK FOR sub_4E2D92
-                align 10h
 ; START OF FUNCTION CHUNK FOR ??1VisLabel@@UAE@XZ
 
 loc_5FFA00:                             ; DATA XREF: .rdata:stru_621030↓o
@@ -296084,40 +295857,6 @@ off_60E650      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod28@VisScreen@@UAEXXZ
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
-off_60E6D8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4E2CF3+30↑o
-                dd offset ??_GVisQuestStatus@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisQuestStatus@@UAEXXZ
-                dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisQuestStatus@@UAEHIII@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisScreen@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisScreen@@UAEXXZ
-                dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60E760      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4E4590+12↑o
                 dd offset sub_4E4B20
                 dd offset sub_4E4770
@@ -309087,20 +308826,6 @@ stru_620EE0     FuncInfoV1 <19930520h, 3, offset stru_620F00, 0, 0, 0, 0>
 stru_620F00     UnwindMapEntry <-1, offset loc_5FF936>
                 UnwindMapEntry <-1, offset loc_5FF940>
                 UnwindMapEntry <-1, offset loc_5FF94A>
-stru_620F18     FuncInfoV1 <19930520h, 2, offset stru_620F38, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620F38     UnwindMapEntry <-1, offset loc_5FF95E>
-                UnwindMapEntry <0, offset loc_5FF967>
-stru_620F48     FuncInfoV1 <19930520h, 2, offset stru_620F68, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620F68     UnwindMapEntry <-1, offset loc_5FF97B>
-                UnwindMapEntry <0, offset loc_5FF984>
 stru_621010     FuncInfoV1 <19930520h, 1, offset stru_621030, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -316456,22 +316181,6 @@ aGraphicsInterf_298 db 'graphics\interface\subobj.256',0
 ; char aGraphicsInterf_299[]
 aGraphicsInterf_299 db 'graphics\interface\subobj.256',0
                 align 10h
-; char aS_2[]
-aS_2            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+61B↑o
-                align 4
-; char aS_3[]
-aS_3            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+652↑o
-                align 4
-; char aSD_22[]
-aSD_22          db '%s[%d]',0           ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+67E↑o
-                align 10h
-; char aS_4[]
-aS_4            db '%s',0               ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+6D1↑o
-                align 4
-; char aSD_23[]
-aSD_23          db '%s[%d]',0           ; DATA XREF: ?VMethod7@VisQuestStatus@@UAEXXZ+709↑o
-                align 4
-; CHAR szAgent[]
 szAgent         db 'RageOfMages2',0     ; DATA XREF: sub_4E505F+40↑o
                 align 4
 ; CHAR asc_63593C[]

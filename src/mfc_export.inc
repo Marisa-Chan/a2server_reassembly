@@ -1601,11 +1601,6 @@ externdef ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
 externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
 externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 
-;VisQuestStatus
-extern ??_GVisQuestStatus@@UAEPAXI@Z : proc
-extern ?VMethod7@VisQuestStatus@@UAEXXZ : proc
-extern ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
-
 ;VisRightPanel
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
