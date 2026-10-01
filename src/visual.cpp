@@ -9031,9 +9031,9 @@ VisCharInfo::VisCharInfo(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
     this->selection_panel_state = 0;
     this->spell_panel_state = 0;
     this->info_mode = 1;
-    this->bitmap = new CBmp64(0xF0, 0xA0);
+    this->bitmap = new CBmp64(0xa0, 0xf0);
     this->picturename[0] = 0;
-    this->hitmap = new CBmp256(0xF0, 0xA0);
+    this->hitmap = new CBmp256(0xa0, 0xf0);
 }
 
 // 4B1909
@@ -12337,7 +12337,7 @@ void VisTavRightPanel::FUN_0049a973()
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode == 2) {
-        if (this->vis_tav->avail_entries.GetSize() < this->vis_tav->selection_index || this->vis_tav->selection_index == -1) {
+        if (this->vis_tav->avail_entries.GetUpperBound() < this->vis_tav->selection_index || this->vis_tav->selection_index == -1) {
             this->texts[0] = "";
         } else {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
