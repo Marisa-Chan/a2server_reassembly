@@ -3851,6 +3851,15 @@ CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
 }
 
 
+// 445CF1
+void VisDiplomacy::VMethod31(int32_t code)
+{
+    if (code == 0x445) {
+        ((VisListBoxDiplomacy*)this->FindChild(2))->WriteRadioState();
+    }
+}
+
+
 QuestObjectivesHeaderDialogVisualObject::QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisMessageBoxWithList(_id, l, t, r, b, g_MissionBriefing, txt_dialogs.GetLine(68), 0xffff)
 {} //445173

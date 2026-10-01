@@ -26260,28 +26260,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-?VMethod31@VisDiplomacy@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060A554↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 445h
-                jnz     short loc_445D12
-                push    2
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     ecx, eax
-                call    sub_4DD1B2
-
-loc_445D12:                             ; CODE XREF: ?VMethod31@VisDiplomacy@@UAEXH@Z+E↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod31@VisDiplomacy@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -100022,7 +100000,7 @@ sub_4DD0BD      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD1B2      proc near               ; CODE XREF: ?VMethod31@VisDiplomacy@@UAEXH@Z+1C↑p
+?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ      proc near               ; CODE XREF: ?VMethod31@VisDiplomacy@@UAEXH@Z+1C↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -100048,12 +100026,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4DD1EC
 ; ---------------------------------------------------------------------------
 
-loc_4DD1E3:                             ; CODE XREF: sub_4DD1B2+10C↓j
+loc_4DD1E3:                             ; CODE XREF: ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ+10C↓j
                 mov     edx, dword ptr [ebp+var_4]
                 add     edx, 1
                 mov     [ebp+var_4], edx
 
-loc_4DD1EC:                             ; CODE XREF: sub_4DD1B2+2F↑j
+loc_4DD1EC:                             ; CODE XREF: ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ+2F↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     ecx, dword ptr [eax+98h]
                 call    unknown_libname_669 ; Microsoft VisualC 2-14/net runtime
@@ -100125,11 +100103,11 @@ loc_4DD1EC:                             ; CODE XREF: sub_4DD1B2+2F↑j
                 jmp     loc_4DD1E3
 ; ---------------------------------------------------------------------------
 
-loc_4DD2C3:                             ; CODE XREF: sub_4DD1B2+4B↑j
+loc_4DD2C3:                             ; CODE XREF: ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ+4B↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4DD1B2      endp
+?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

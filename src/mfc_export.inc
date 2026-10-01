@@ -2243,6 +2243,7 @@ externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : p
 externdef ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z : proc
 externdef ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ : proc
 externdef ?RestoreRect@VisListBoxDiplomacy@@QAEXXZ : proc
+externdef ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ : proc
 
 ; VisDiplomacy
 externdef ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z : proc
