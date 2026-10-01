@@ -2245,13 +2245,6 @@ externdef ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ : proc
 externdef ?RestoreRect@VisListBoxDiplomacy@@QAEXXZ : proc
 externdef ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ : proc
 
-; VisDiplomacy
-externdef ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z : proc
-externdef ??_GVisDiplomacy@@UAEPAXI@Z : proc
-externdef ?ReadData@VisDiplomacy@@UAEXPBX@Z : proc
-externdef ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisDiplomacy@@UAEXH@Z : proc
-
 ; VisConnectionDlg
 externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc
 externdef ??_GVisConnectionDlg@@UAEPAXI@Z : proc

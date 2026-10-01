@@ -3814,6 +3814,20 @@ VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, 
 }
 
 
+// 44402B
+VisDiplomacy::VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload)
+: VisMessageBox(_id, l, t, r, b, *(CArray<DiplomacyEntry*>**)_payload, txt_dialogs.GetLine(0x4F), 1, txt_dialogs.GetLine(0x91))
+{
+    this->diplomacy = (CArray<DiplomacyEntry*>**)_payload;
+}
+
+
+// 44F9E0
+VisDiplomacy::~VisDiplomacy()
+{
+}
+
+
 // 445D34
 void VisDiplomacy::ReadData(const void* buf)
 {

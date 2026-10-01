@@ -2663,7 +2663,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         if (dialogsMask == 1)
         {
             FUN_00494a9e();
-            field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, field_0x348);
+            // The original passes the address of the array pointer so the dialog
+            // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
+            field_0x144 = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&field_0x348);
             PopUpScreen(field_0x144);
         }
         break;
