@@ -25,6 +25,31 @@ def _load_ops():
     spec.loader.exec_module(mod)
     return mod
 
+
+def _prefs_path():
+    from ghidra.framework import Application
+    return os.path.join(str(Application.getUserSettingsDirectory().getAbsolutePath()), "preferences")
+
+
+def _read_prefs():
+    try:
+        with open(_prefs_path(), encoding="utf-8") as fh:
+            return fh.read()
+    except OSError:
+        return None
+
+
+def _restore_prefs(old):
+    if old is None:
+        return
+    from ghidra.framework.preferences import Preferences
+    import re
+    for key in ("LastOpenedProject", "ProjectDirectory", "RecentProjects"):
+        m = re.search(rf"^{key}=(.*)$", old, re.M)
+        if m:
+            Preferences.setProperty(key, m.group(1).replace("\\\\", "\\").replace("\\:", ":"))
+    Preferences.store()
+
 GHIDRA_INSTALL_DIR = r"C:\Users\ikacn\Desktop\stuff\a2\ghidra_12.1.2_PUBLIC"
 PROJECT_DIR = r"C:\Users\ikacn\Desktop\stuff\a2\shared-ghidra"
 PROJECT_NAME = "A2"
@@ -50,7 +75,9 @@ def main():
     import pyghidra
     t0 = time.time()
     pyghidra.start(verbose=False)
+    prefs = _read_prefs()
     project = pyghidra.open_project(a.project, a.name)
+    _restore_prefs(prefs)  # opening a project rewrites LastOpenedProject; don't redirect the GUI
     program, consumer = pyghidra.consume_program(project, a.program)
     print(f"[ghidra_daemon] opened {program.getName()} ({program.getFunctionManager().getFunctionCount()} functions) in {time.time() - t0:.1f}s")
     ctx = ghidra_ops.OpContext(program, autosave=not a.no_autosave)
