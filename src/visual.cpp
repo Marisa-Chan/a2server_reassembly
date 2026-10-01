@@ -21900,3 +21900,48 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+
+// Main menu button layout. 60CC30 — [x, y, w, h] per button.
+static const int32_t DWORD_0060CC30[8][4] = {
+    {0xCC, 0x34, 0x68, 0x60}, {0x7C, 0x9C, 0x6C, 0x4C}, {0x7C, 0xFC, 0x60, 0x58},
+    {0xD0, 0x154, 0x64, 0x64}, {0x154, 0x34, 0x58, 0x64}, {0x1A8, 0x98, 0x54, 0x58},
+    {0x19C, 0x104, 0x60, 0x54}, {0x158, 0x15C, 0x48, 0x50},
+};
+
+// Main menu label layout. 60CCB0 — [x, y, w, h] per label.
+static const int32_t DWORD_0060CCB0[8][4] = {
+    {0x74, 0x40, 0xD0, 0x8A}, {0x58, 0x58, 0xEC, 0x98}, {0x58, 0xEC, 0xEC, 0x98},
+    {0x74, 0x110, 0xD0, 0x8C}, {0x140, 0x40, 0xD4, 0x8C}, {0x144, 0x58, 0xE8, 0x98},
+    {0x144, 0xEC, 0xEC, 0x98}, {0x140, 0x110, 0xD4, 0x8C},
+};
+
+
+// 4AAB71
+void VisMainMenu::VMethod26()
+{
+    CRect screen_rect;
+    CRect r;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    CPoint top_left = screen_rect.TopLeft();
+    this->bmp_menu = nullptr;
+    this->bmp_menu_mask = nullptr;
+    this->bmp_active_button = nullptr;
+    this->snd_btn_click = nullptr;
+    this->sprite = nullptr;
+    this->rect_buttons.RemoveAll();
+    this->rect_labels.RemoveAll();
+    for (int32_t i = 0; i < 8; i++) {
+        r.SetRect(top_left.x + DWORD_0060CC30[i][0], top_left.y + DWORD_0060CC30[i][1],
+            top_left.x + DWORD_0060CC30[i][0] + DWORD_0060CC30[i][2],
+            top_left.y + DWORD_0060CC30[i][1] + DWORD_0060CC30[i][3]);
+        this->rect_buttons.Add(r);
+        r.SetRect(top_left.x + DWORD_0060CCB0[i][0], top_left.y + DWORD_0060CCB0[i][1],
+            top_left.x + DWORD_0060CCB0[i][0] + DWORD_0060CCB0[i][2],
+            top_left.y + DWORD_0060CCB0[i][1] + DWORD_0060CCB0[i][3]);
+        this->rect_labels.Add(r);
+    }
+    this->disable_mask = 0;
+    VisButton* btn = new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x7fff, 0, nullptr);
+    this->AddChild(btn);
+}

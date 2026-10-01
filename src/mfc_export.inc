@@ -1529,7 +1529,7 @@ extern ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-externdef ?VMethod26@VisMainMenu@@UAEXXZ : proc
+extern ?VMethod26@VisMainMenu@@UAEXXZ : proc
 externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
