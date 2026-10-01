@@ -804,6 +804,7 @@ externdef ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z :proc   ; (pub
 externdef ?OnChildNotify@CWnd@@UAEHIIJPAJ@Z  :proc    ;   CWnd:: OnChildNotify
 externdef ?GetWindowTextA@CWnd@@QBEXAAVCString@@@Z  :proc   ; CWnd::GetWindowTextA
 externdef ?PostMessageA@CWnd@@QAEHIIJ@Z  :proc  ; CWnd::PostMessage
+externdef ?SendMessageA@CWnd@@QAEJIIJ@Z : proc  ; CWnd::SendMessage
 
 externdef ?ShowWindow@CWnd@@QAEHH@Z  :proc  ;CWnd::ShowWindow
 externdef ?SetWindowTextA@CWnd@@QAEXPBD@Z   :proc
@@ -1523,6 +1524,10 @@ externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004
 ;VisMainMenu
 externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
 externdef ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z : proc  ; void VisMainMenu::UpdateButtonState(uint32_t, CPoint)
+externdef ?LoadGraphics@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::LoadGraphics()
+externdef ?LoadSfx@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::LoadSfx()
+externdef ?FreeGraphics@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::FreeGraphics()
+externdef ?FreeSfx@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::FreeSfx()
 extern ?VMethod7@VisMainMenu@@UAEXXZ : proc
 extern ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
@@ -1530,8 +1535,8 @@ extern ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 extern ?VMethod26@VisMainMenu@@UAEXXZ : proc
-externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
-externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc
+extern ?VMethod28@VisMainMenu@@UAEXXZ : proc
+extern ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc

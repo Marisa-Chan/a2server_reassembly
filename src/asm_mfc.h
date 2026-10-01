@@ -3978,6 +3978,7 @@ public:
 	LRESULT Default();
 	void GetWindowText(CString& rString) const; //5e15d7
 	BOOL PostMessage(UINT message, WPARAM wParam, LPARAM lParam); //41ea70
+	LRESULT SendMessage(UINT message, WPARAM wParam, LPARAM lParam); //4abc90 in asm
 	BOOL ShowWindow(int nCmdShow); //5e46df
 	void SetWindowText(LPCTSTR lpszString);//5e459a
 	void SetDlgItemText(int nID, LPCTSTR lpszString); //5e4426

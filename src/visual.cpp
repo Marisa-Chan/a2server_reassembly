@@ -21945,3 +21945,31 @@ void VisMainMenu::VMethod26()
     VisButton* btn = new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x7fff, 0, nullptr);
     this->AddChild(btn);
 }
+
+
+// 4ABA8D
+void VisMainMenu::VMethod28()
+{
+    this->LoadGraphics();
+    this->LoadSfx();
+    g_mousept.DisableHint();
+    this->active_button = -1;
+    this->pressed_button = -1;
+    this->over_button = -1;
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    this->VisScreen::VMethod28();
+}
+
+
+// 4ABB14
+void VisMainMenu::DoClose(uint32_t code)
+{
+    this->FreeGraphics();
+    this->FreeSfx();
+    this->VisScreen::DoClose(code);
+    AfxGetMainWnd()->SendMessage(0x44C, (WPARAM)this, 0);
+    g_mousept.EnableHint();
+}

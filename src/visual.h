@@ -2634,6 +2634,10 @@ public:
 	virtual void DoClose(uint32_t code) override; // 4ABB14
 
 	void UpdateButtonState(uint32_t wparam, CPoint mouse); // 4ab45d
+	void LoadGraphics(); // 4aada7
+	void LoadSfx(); // 4abb5e
+	void FreeGraphics(); // 4ab07b
+	void FreeSfx(); // 4abb87
 
 	VisMainMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4aa926 in asm
 public:
