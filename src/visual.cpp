@@ -22042,3 +22042,77 @@ void VisMainMenu::UpdateButtonState(uint32_t wparam, CPoint mouse)
         this->bmp_active_button = nullptr;
     }
 }
+
+
+// 4ABB5E
+void VisMainMenu::LoadSfx()
+{
+    this->FreeSfx();
+    FUN_00438e40(&this->snd_btn_click, "SFX\\ChrGen\\Ok.wav");
+}
+
+
+// 4ABB87
+void VisMainMenu::FreeSfx()
+{
+    FUN_00438dd0(&this->snd_btn_click);
+}
+
+
+// 4AADA7
+void VisMainMenu::LoadGraphics()
+{
+    CString str;
+    this->FreeGraphics();
+    this->bmp_menu_mask = new CBmp256("main\\graphics\\MainMenu\\MenuMask.bmp");
+    g_mousept.Update();
+    this->bmp_menu = new CBmp64("main\\graphics\\MainMenu\\menu_.bmp");
+    g_mousept.Update();
+    this->sprite = new CA16("graphics\\interface\\sprites.16a");
+    this->sprite->ResetPalette(0x10, 4, 0);
+    g_mousept.Update();
+    for (int32_t i = 0; i < 8; i++) {
+        str.Format("main\\graphics\\MainMenu\\button%dp.bmp", i + 1);
+        this->bmp_pressed.Add(new CBmp64(str));
+        g_mousept.Update();
+        str.Format("main\\graphics\\MainMenu\\button%d.bmp", i + 1);
+        this->bmp_button.Add(new CBmp64(str));
+        g_mousept.Update();
+        str.Format("main\\graphics\\MainMenu\\text%d.bmp", i + 1);
+        this->bmp_labels.Add(new CBmp64(str));
+        g_mousept.Update();
+    }
+    this->bmp_active_button = nullptr;
+}
+
+
+// 4AB07B
+void VisMainMenu::FreeGraphics()
+{
+    if (this->bmp_menu != nullptr) {
+        delete this->bmp_menu;
+    }
+    this->bmp_menu = nullptr;
+    if (this->bmp_menu_mask != nullptr) {
+        delete this->bmp_menu_mask;
+    }
+    this->bmp_menu_mask = nullptr;
+    if (this->sprite != nullptr) {
+        delete this->sprite;
+    }
+    this->sprite = nullptr;
+    while (this->bmp_pressed.GetSize() != 0) {
+        if (this->bmp_pressed.GetAt(0) != nullptr) {
+            delete this->bmp_pressed.GetAt(0);
+        }
+        this->bmp_pressed.RemoveAt(0, 1);
+        if (this->bmp_button.GetAt(0) != nullptr) {
+            delete this->bmp_button.GetAt(0);
+        }
+        this->bmp_button.RemoveAt(0, 1);
+        if (this->bmp_labels.GetAt(0) != nullptr) {
+            delete this->bmp_labels.GetAt(0);
+        }
+        this->bmp_labels.RemoveAt(0, 1);
+    }
+}
