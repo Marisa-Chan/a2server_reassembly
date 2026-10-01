@@ -1393,7 +1393,7 @@ void __cdecl MissionGetFailure(int32_t idx, CString* out)
 }
 
 void __cdecl MissionGetTips(int32_t idx, CString* out)
-{ //4e159b
+{ //4e15b9
     out->Empty();
 
     CString str;

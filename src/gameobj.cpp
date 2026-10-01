@@ -2756,7 +2756,7 @@ void CUnit::VMethod17(int16_t arg1, int32_t arg2, int32_t arg3, int32_t arg4, in
     this->unitFlags = 0;
 }
 
-// 46f608
+// 46f600
 void CUnit::VMethod13()
 {
     if (this->field_0x180[4] < 3) {
@@ -2764,7 +2764,7 @@ void CUnit::VMethod13()
     }
 }
 
-// 46f638
+// 46f630
 void CUnit::VMethod14()
 {
     if (this->field_0x180[4] < 3) {

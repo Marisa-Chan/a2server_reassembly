@@ -278,7 +278,7 @@ void __cdecl sub_53678F(Unit* self, Unit* target)
 }
 
 
-// 559393
+// 5593b6
 void Unit::Serialize(CArchive& ar)
 {
     Token::Serialize(ar);

@@ -377,7 +377,7 @@ ASSERT_SIZE(Scenario, 0x30);
 
 void __cdecl MissionGetBriefing(CString* out); //4e13db
 void __cdecl MissionGetFailure(int32_t idx, CString* out); //4e14a4
-void __cdecl MissionGetTips(int32_t idx, CString* out); //4e159b
+void __cdecl MissionGetTips(int32_t idx, CString* out); //4e15b9
 void __cdecl MissionGetSubj(int32_t idx, CString* out); //4e16ce
 void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out); //4e17e3
 void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out); //4e1915

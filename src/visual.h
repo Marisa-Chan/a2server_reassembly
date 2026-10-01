@@ -997,7 +997,7 @@ public:
 	void ScrollMapX(int32_t dx); //403f4f
 	void ScrollMapY(int32_t dy); //403fc5
 
-	void OnOpenShopDialog(); //41a29b
+	void OnOpenShopDialog(); //41a856
 	void NetOnOpenInnDialog(); //41adbb
 
 	void UpdateAmbientSounds(); //41b8d0

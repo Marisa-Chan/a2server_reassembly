@@ -17,7 +17,7 @@ public:
     DECLARE_SERIAL(TableLine); // Runtime class definition at 6362b0.
 
 public:
-    TableLine(); // 536d8c
+    TableLine(); // 512b33
 
 public: // VTable at 60eae8.
     virtual void Serialize(CArchive& ar) override;

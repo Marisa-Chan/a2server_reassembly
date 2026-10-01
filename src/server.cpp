@@ -889,7 +889,7 @@ Unit* Srv1::GetScenarioScriptHero(uint32_t idx)
 }
 
 Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx)
-{ //562274
+{ //59d3c0
     Unit* result = nullptr;
     if (idx < 10001)
     {

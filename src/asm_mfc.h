@@ -3986,7 +3986,7 @@ public:
 	void GetClientRect(LPRECT lpRect) const; //4963a0
 	BOOL ModifyStyle(DWORD dwRemove, DWORD dwAdd, UINT nFlags); //5e4532
 	BOOL EnableWindow(BOOL bEnable); //5e4721 — body remains in Main.asm.
-	BOOL UpdateData(BOOL bSaveAndValidate); //5e45a3 — body remains in Main.asm.
+	BOOL UpdateData(BOOL bSaveAndValidate); //5e31fc — body remains in Main.asm.
 
 protected:
 	void OnDestroy(); // 5e130c

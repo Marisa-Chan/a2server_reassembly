@@ -3727,7 +3727,7 @@ void BigStruct2::ScrollMapY(int32_t dy)
 }
 
 void BigStruct2::OnOpenShopDialog()
-{ //41a29b
+{ //41a856
 	PacketWord* pkt = &PacketWord::Inst;
 	pkt->field_0x5 = my_main_unit->index;
 	pkt->to_player_id = 0;

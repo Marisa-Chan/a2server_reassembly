@@ -972,7 +972,7 @@ extern ??1Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::~Fame2(void))
 
 extern ?IsListen@CLlDriver@@QAEHXZ :proc ; CLlDriver::sub_496ED0() - 496ED0
 externdef ?EnableWindow@CWnd@@QAEHH@Z :proc   ; CWnd::EnableWindow(int) - 5e4721
-externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e45a3
+externdef ?UpdateData@CWnd@@QAEHH@Z :proc     ; CWnd::UpdateData(int) - 5e31fc
 
 externdef ?Add@CStringArray@@QAEHPBD@Z :proc   ; CStringArray::Add(const char*) - 402970
 externdef ?LPCTSTR@CString@@QBEPBDXZ :proc     ; CString::operator const char*() - unknown_libname_400
