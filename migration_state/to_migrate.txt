@@ -218,6 +218,7 @@ _byte_666590
 ?EnableWindow@CWnd@@QAEHH@Z	21
 ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z	22
 ?PostMessageA@CWnd@@QAEHIIJ@Z	24
+?SendMessageA@CWnd@@QAEJIIJ@Z	24
 ?SetDlgItemTextA@CWnd@@QAEXHPBD@Z	24
 ?ModifyStyle@CWnd@@QAEHKKI@Z	30
 ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z	31
@@ -378,17 +379,6 @@ _byte_666590
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
-?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z	11
-?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z	23
-??_GVisMainMenu@@UAEPAXI@Z	24
-?DoClose@VisMainMenu@@UAEXI@Z	29
-?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z	33
-?MsgProc@VisMainMenu@@UAEHIII@Z	37
-?VMethod28@VisMainMenu@@UAEXXZ	39
-??0VisMainMenu@@QAE@HHHHH@Z	84
-?VMethod7@VisMainMenu@@UAEXXZ	140
-?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z	163
-?VMethod26@VisMainMenu@@UAEXXZ	187
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193
