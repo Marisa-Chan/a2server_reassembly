@@ -309,6 +309,13 @@ def op_decompile(ctx, target, timeout=120):
     return _clean_c(res.getDecompiledFunction().getC())
 
 
+def op_context(ctx, target):
+    """Everything needed to migrate one function: info, callee prototypes, decompilation."""
+    f = ctx.function(target)
+    a = str(f.getEntryPoint())
+    return "\n".join(["== INFO", op_info(ctx, a), "", "== CALLEES", op_callees(ctx, a), "", "== DECOMPILED", op_decompile(ctx, a)])
+
+
 def op_disasm(ctx, target):
     f = ctx.function(target)
     listing = ctx.program.getListing()
@@ -633,6 +640,106 @@ def op_struct_clear_field(ctx, name, offset):
             raise OpError("no component at that offset")
         s.clearComponent(c.getOrdinal())
     return op_struct_show(ctx, name)
+
+
+def _undefined(ctx, size):
+    from ghidra.program.model.data import Undefined, ArrayDataType
+    if size in (1, 2, 4, 8):
+        return Undefined.getUndefinedDataType(size)
+    return ArrayDataType(Undefined.getUndefinedDataType(1), size, 1, ctx.dtm)
+
+
+def _is_undefined_dt(dt):
+    from ghidra.program.model.data import Undefined, DefaultDataType
+    return dt is None or Undefined.isUndefined(dt) or isinstance(dt, DefaultDataType) or \
+        str(dt.getName()).startswith("undefined")
+
+
+def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=False):
+    """Merge a header layout into a Ghidra structure (used by tool/ghidra_sync_structs.py).
+    fields: [{offset,size,type,name,placeholder}] or None for size-only. Returns a summary line."""
+    from ghidra.program.model.data import StructureDataType, CategoryPath
+    stats = {"set": 0, "renamed": 0, "kept": 0, "fallback": 0, "skipped": 0}
+    with ctx.transaction("struct apply " + name):
+        size = _int(size)
+        try:
+            s = ctx.find_struct(name)
+        except OpError:
+            s = ctx.dtm.addDataType(StructureDataType(CategoryPath(GAME_CATEGORY), name, size, ctx.dtm), None)
+        if s.isPackingEnabled():
+            raise OpError(f"{name} uses packing; cannot merge")
+        if size > s.getLength():
+            s.growStructure(size - s.getLength())
+        elif size < s.getLength() and shrink:
+            beyond = [c for c in s.getDefinedComponents() if c.getOffset() + c.getLength() > size]
+            if beyond:
+                raise OpError(f"{name}: Ghidra has fields beyond ASSERT_SIZE 0x{size:X}: " +
+                              ", ".join(f"{c.getFieldName()}@0x{c.getOffset():X}" for c in beyond[:5]))
+            s.setLength(size)
+        if fields is None:
+            return f"{name}: size 0x{s.getLength():X}"
+        for fl in sorted(fields, key=lambda x: _int(x["offset"])):
+            off, fsize, fname = _int(fl["offset"]), _int(fl["size"]), fl["name"]
+            placeholder = bool(fl.get("placeholder"))
+            if off + fsize > s.getLength() or fsize <= 0:
+                stats["skipped"] += 1
+                continue
+            if polymorphic and off == 0 and fsize == 4:
+                stats["skipped"] += 1
+                continue
+            existing = s.getComponentContaining(off)
+            same_slot = existing is not None and existing.getOffset() == off and existing.getLength() == fsize
+            ex_defined = existing is not None and not _is_undefined_dt(existing.getDataType())
+            ex_name = str(existing.getFieldName()) if existing is not None and existing.getFieldName() else ""
+            ex_real_name = bool(ex_name) and not PLACEHOLDER_FIELD.match(ex_name) and not re.match(r"^field_0x", ex_name)
+            try:
+                dt = ctx.parse_type(fl["type"], create_struct=True)
+                if dt.getLength() != fsize:
+                    dt = None
+            except OpError:
+                dt = None
+            if dt is None and same_slot and ex_defined:
+                dt = existing.getDataType()  # Ghidra already has a same-sized type here; trust it
+                stats["fallback"] += 1
+            elif dt is None and "<" in fl["type"]:
+                # e.g. CList<Effect *>: any Ghidra CList<...> of the same size has the same layout;
+                # prefer the candidate sharing the most identifiers with the header's template args
+                prefix = fl["type"].split("<")[0].strip() + "<"
+                idents = set(re.findall(r"[A-Za-z_]\w*", fl["type"].split("<", 1)[1]))
+                cands = [x for x in ctx.dtm.getAllStructures() if str(x.getName()).startswith(prefix) and x.getLength() == fsize]
+                if cands:
+                    dt = max(cands, key=lambda x: len(idents & set(re.findall(r"[A-Za-z_]\w*", str(x.getName())))))
+                    stats["fallback"] += 1
+            if dt is None:
+                dt = _undefined(ctx, fsize)
+                stats["fallback"] += 1
+            if existing is not None and not same_slot and ex_defined:
+                # Ghidra has a differently-shaped field here; only a real header field may override it
+                if placeholder:
+                    stats["skipped"] += 1
+                    continue
+            if same_slot and ex_defined and placeholder and ex_real_name:
+                stats["kept"] += 1
+                continue
+            new_name = fname
+            if same_slot and ex_real_name and placeholder:
+                new_name = ex_name
+            if same_slot and ex_defined and str(existing.getDataType().getName()) == str(dt.getName()) and ex_name == new_name:
+                stats["kept"] += 1
+                continue
+            comment = str(existing.getComment()) if same_slot and existing.getComment() else None
+            for c in list(s.getDefinedComponents()):
+                if c.getOffset() < off + fsize and c.getOffset() + c.getLength() > off:
+                    s.clearComponent(c.getOrdinal())
+            for c in s.getDefinedComponents():  # avoid DuplicateNameException elsewhere in the struct
+                if c.getFieldName() and str(c.getFieldName()) == new_name and c.getOffset() != off:
+                    c.setFieldName(f"{new_name}_old_0x{c.getOffset():X}")
+            s.replaceAtOffset(off, dt, fsize, new_name, comment)
+            stats["renamed" if same_slot else "set"] += 1
+    return f"{name}: size 0x{s.getLength():X}  set={stats['set']} updated={stats['renamed']} kept={stats['kept']} fallback_type={stats['fallback']} skipped={stats['skipped']}"
+
+
+PLACEHOLDER_FIELD = re.compile(r"^(field\d*_?(0x|x)?[0-9a-fA-F]+|unk\w*|unknown\w*|pad\w*|_pad\w*|padding\w*|reserved\w*|gap\w*|dummy\w*)$", re.I)
 
 
 def op_struct_rename(ctx, name, new_name):

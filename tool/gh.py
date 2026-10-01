@@ -24,6 +24,7 @@ DEFAULT_PORT = 18812  # keep in sync with ghidra_ops.DEFAULT_PORT
 
 HELP = """\
 READ
+  context ADDR                      info + callee prototypes + decompiled C in one go (use this first)
   info ADDR                         name, class, prototype, params, locals, callers
   decompile ADDR                    decompiled C (typed, from live Ghidra project)
   disasm ADDR                       Ghidra disassembly listing
@@ -89,7 +90,7 @@ def main():
             p.add_argument(*v[0], **v[1]) if isinstance(v, tuple) else p.add_argument(k, **v)
         return p.parse_args(rest)
 
-    if cmd in ("info", "decompile", "disasm", "xrefs", "callees"):
+    if cmd in ("context", "info", "decompile", "disasm", "xrefs", "callees"):
         a = sub(target={})
         call(cmd, {"target": a.target}, port)
     elif cmd == "find":
