@@ -36,7 +36,7 @@ CLASS_OPEN_RE = re.compile(r"^\s*(class|struct|namespace)\s+([A-Za-z_]\w*)\s*(?:
 DECL_RE = re.compile(
     r"^\s*(?P<kw>(?:(?:virtual|static|inline|explicit)\s+)*)"
     r"(?P<ret>(?:[A-Za-z_][\w:]*(?:<[^;{}]*?>)?[\s\*&]+(?:const\s*[\*&]*\s*)?)*?)"
-    r"(?P<name>~?[A-Za-z_]\w*)\s*\((?P<params>[^;{}]*)\)\s*(?P<const>const)?\s*(?:=\s*0)?\s*(?P<end>[;{])"
+    r"(?P<name>~?[A-Za-z_]\w*)\s*\((?P<params>[^;{}]*)\)\s*(?P<const>const)?\s*(?:(?:override|final)\s*)*(?:=\s*(?:0|default|delete))?\s*(?P<end>[;{])"
     r"(?P<tail>.*)$")
 SKIP_NAMES = {"if", "for", "while", "switch", "return", "sizeof", "ASSERT_OFFSET", "ASSERT_SIZE", "static_assert"}
 
