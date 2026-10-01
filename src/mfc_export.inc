@@ -1605,7 +1605,7 @@ externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 ;VisQuestStatus
 externdef ??_GVisQuestStatus@@UAEPAXI@Z : proc
 extern ?VMethod7@VisQuestStatus@@UAEXXZ : proc
-externdef ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
+extern ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 
 ;VisRightPanel
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc

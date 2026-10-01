@@ -4112,6 +4112,13 @@ void VisQuestStatus::VMethod7()
 }
 
 
+// 4E4530
+int32_t VisQuestStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    return 0;
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8
