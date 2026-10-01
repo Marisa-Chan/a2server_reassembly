@@ -85563,7 +85563,7 @@ sub_4AB07B      endp
 
 ; Attributes: bp-based frame
 
-sub_4AB45D      proc near               ; CODE XREF: ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z+16↓p
+?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z      proc near               ; CODE XREF: ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z+16↓p
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -85597,7 +85597,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_4AB7F0
 ; ---------------------------------------------------------------------------
 
-loc_4AB48F:                             ; CODE XREF: sub_4AB45D+2B↑j
+loc_4AB48F:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+2B↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 add     ecx, 8
                 call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
@@ -85642,7 +85642,7 @@ loc_4AB48F:                             ; CODE XREF: sub_4AB45D+2B↑j
                 jmp     ds:jpt_4AB526[eax*4] ; switch jump
 ; ---------------------------------------------------------------------------
 
-loc_4AB52D:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB52D:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     edx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 128
                 cmp     dword ptr [edx+0ECh], 0
                 jz      short loc_4AB54D
@@ -85650,11 +85650,11 @@ loc_4AB52D:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [eax+0ECh], 0
                 mov     [ebp+var_4], 1
 
-loc_4AB54D:                             ; CODE XREF: sub_4AB45D+DA↑j
+loc_4AB54D:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+DA↑j
                 jmp     def_4AB526      ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB552:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB552:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     ecx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 144
                 cmp     dword ptr [ecx+0ECh], 1
                 jz      short loc_4AB572
@@ -85662,11 +85662,11 @@ loc_4AB552:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [edx+0ECh], 1
                 mov     [ebp+var_4], 1
 
-loc_4AB572:                             ; CODE XREF: sub_4AB45D+FF↑j
+loc_4AB572:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+FF↑j
                 jmp     def_4AB526      ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB577:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB577:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     eax, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 160
                 cmp     dword ptr [eax+0ECh], 2
                 jz      short loc_4AB597
@@ -85674,11 +85674,11 @@ loc_4AB577:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [ecx+0ECh], 2
                 mov     [ebp+var_4], 1
 
-loc_4AB597:                             ; CODE XREF: sub_4AB45D+124↑j
+loc_4AB597:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+124↑j
                 jmp     def_4AB526      ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB59C:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB59C:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     edx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 176
                 cmp     dword ptr [edx+0ECh], 3
                 jz      short loc_4AB5BC
@@ -85686,11 +85686,11 @@ loc_4AB59C:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [eax+0ECh], 3
                 mov     [ebp+var_4], 1
 
-loc_4AB5BC:                             ; CODE XREF: sub_4AB45D+149↑j
+loc_4AB5BC:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+149↑j
                 jmp     def_4AB526      ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB5C1:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB5C1:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     ecx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 192
                 cmp     dword ptr [ecx+0ECh], 4
                 jz      short loc_4AB5E1
@@ -85698,11 +85698,11 @@ loc_4AB5C1:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [edx+0ECh], 4
                 mov     [ebp+var_4], 1
 
-loc_4AB5E1:                             ; CODE XREF: sub_4AB45D+16E↑j
+loc_4AB5E1:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+16E↑j
                 jmp     short def_4AB526 ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB5E3:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB5E3:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     eax, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 208
                 cmp     dword ptr [eax+0ECh], 5
                 jz      short loc_4AB603
@@ -85710,11 +85710,11 @@ loc_4AB5E3:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [ecx+0ECh], 5
                 mov     [ebp+var_4], 1
 
-loc_4AB603:                             ; CODE XREF: sub_4AB45D+190↑j
+loc_4AB603:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+190↑j
                 jmp     short def_4AB526 ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB605:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB605:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     edx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 224
                 cmp     dword ptr [edx+0ECh], 6
                 jz      short loc_4AB625
@@ -85722,11 +85722,11 @@ loc_4AB605:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [eax+0ECh], 6
                 mov     [ebp+var_4], 1
 
-loc_4AB625:                             ; CODE XREF: sub_4AB45D+1B2↑j
+loc_4AB625:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+1B2↑j
                 jmp     short def_4AB526 ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
 ; ---------------------------------------------------------------------------
 
-loc_4AB627:                             ; CODE XREF: sub_4AB45D+C9↑j
+loc_4AB627:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑j
                 mov     ecx, dword ptr [ebp+var_1C] ; jumptable 004AB526 case 240
                 cmp     dword ptr [ecx+0ECh], 7
                 jz      short def_4AB526 ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
@@ -85734,7 +85734,7 @@ loc_4AB627:                             ; CODE XREF: sub_4AB45D+C9↑j
                 mov     dword ptr [edx+0ECh], 7
                 mov     [ebp+var_4], 1
 
-def_4AB526:                             ; CODE XREF: sub_4AB45D+B8↑j
+def_4AB526:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+B8↑j
                 cmp     [ebp+arg_0], 1  ; jumptable 004AB526 default case, cases 129-143,145-159,161-175,177-191,193-207,209-223,225-239
                 jnz     short loc_4AB6B6
                 mov     eax, dword ptr [ebp+var_1C]
@@ -85751,7 +85751,7 @@ def_4AB526:                             ; CODE XREF: sub_4AB45D+B8↑j
                 jmp     short loc_4AB6B4
 ; ---------------------------------------------------------------------------
 
-loc_4AB67F:                             ; CODE XREF: sub_4AB45D+1FA↑j
+loc_4AB67F:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+1FA↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 mov     edx, dword ptr [ebp+var_1C]
                 mov     eax, dword ptr [ecx+0F4h]
@@ -85762,17 +85762,17 @@ loc_4AB67F:                             ; CODE XREF: sub_4AB45D+1FA↑j
                 jmp     short loc_4AB6B4
 ; ---------------------------------------------------------------------------
 
-loc_4AB6A2:                             ; CODE XREF: sub_4AB45D+234↑j
+loc_4AB6A2:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+234↑j
                 mov     edx, dword ptr [ebp+var_1C]
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     ecx, dword ptr [eax+0F4h]
                 mov     [edx+0F0h], ecx
 
-loc_4AB6B4:                             ; CODE XREF: sub_4AB45D+220↑j
+loc_4AB6B4:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+220↑j
                 jmp     short loc_4AB6D4
 ; ---------------------------------------------------------------------------
 
-loc_4AB6B6:                             ; CODE XREF: sub_4AB45D+1EE↑j
+loc_4AB6B6:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+1EE↑j
                 mov     edx, dword ptr [ebp+var_1C]
                 cmp     dword ptr [edx+0F4h], 0FFFFFFFFh
                 jnz     short loc_4AB6D4
@@ -85781,7 +85781,7 @@ loc_4AB6B6:                             ; CODE XREF: sub_4AB45D+1EE↑j
                 mov     edx, dword ptr [ecx+0ECh]
                 mov     [eax+0F0h], edx
 
-loc_4AB6D4:                             ; CODE XREF: sub_4AB45D:loc_4AB6B4↑j
+loc_4AB6D4:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z:loc_4AB6B4↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 cmp     dword ptr [eax+0F4h], 0FFFFFFFFh
                 jz      short loc_4AB75F
@@ -85820,11 +85820,11 @@ loc_4AB6D4:                             ; CODE XREF: sub_4AB45D:loc_4AB6B4↑j
                 mov     eax, dword ptr [edx+0F4h]
                 mov     [ecx+0F0h], eax
 
-loc_4AB75D:                             ; CODE XREF: sub_4AB45D+295↑j
+loc_4AB75D:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+295↑j
                 jmp     short loc_4AB7C2
 ; ---------------------------------------------------------------------------
 
-loc_4AB75F:                             ; CODE XREF: sub_4AB45D+281↑j
+loc_4AB75F:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+281↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 cmp     dword ptr [ecx+0F0h], 0FFFFFFFFh
                 jz      short loc_4AB7C2
@@ -85854,7 +85854,7 @@ loc_4AB75F:                             ; CODE XREF: sub_4AB45D+281↑j
                 mov     eax, dword ptr [eax+0Ch]
                 mov     [edx+0Ch], eax
 
-loc_4AB7C2:                             ; CODE XREF: sub_4AB45D:loc_4AB75D↑j
+loc_4AB7C2:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z:loc_4AB75D↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 xor     edx, edx
                 mov     dl, [ecx+0F8h]
@@ -85868,15 +85868,15 @@ loc_4AB7C2:                             ; CODE XREF: sub_4AB45D:loc_4AB75D↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 mov     dword ptr [ecx+0D8h], 0
 
-loc_4AB7F0:                             ; CODE XREF: sub_4AB45D+2D↑j
+loc_4AB7F0:                             ; CODE XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+2D↑j
                 pop     esi
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_4AB45D      endp
+?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4AB526      dd offset loc_4AB52D    ; DATA XREF: sub_4AB45D+C9↑r
+jpt_4AB526      dd offset loc_4AB52D    ; DATA XREF: ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z+C9↑r
                 dd offset loc_4AB552    ; jump table for switch statement
                 dd offset loc_4AB577
                 dd offset loc_4AB59C
@@ -85919,250 +85919,20 @@ byte_4AB81B     db      0,     8,     8,     8
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CD7C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4AB45D
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CD84↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4AB45D
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+0F4h], 0FFFFFFFFh
-                jz      short loc_4AB8E8
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0D4h
-                push    ecx
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-
-loc_4AB8E8:                             ; CODE XREF: ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z+25↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060CD88↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-Msg             = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                mov     [ebp+Msg], 0
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+0F0h]
-                mov     [ebp+var_C], ecx
-                cmp     [ebp+var_C], 7  ; switch 8 cases
-                ja      def_4AB91C      ; jumptable 004AB91C default case
-                mov     edx, dword ptr [ebp+var_C]
-                jmp     ds:jpt_4AB91C[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_4AB923:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     eax, dword ptr [ebp+var_8] ; jumptable 004AB91C case 0
-                xor     ecx, ecx
-                mov     cl, [eax+0F8h]
-                and     ecx, 1
-                test    ecx, ecx
-                jnz     short loc_4AB93C
-                mov     [ebp+Msg], 425h
-
-loc_4AB93C:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+40↑j
-                jmp     def_4AB91C      ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB941:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     edx, dword ptr [ebp+var_8] ; jumptable 004AB91C case 1
-                xor     eax, eax
-                mov     al, [edx+0F8h]
-                and     eax, 2
-                test    eax, eax
-                jnz     short loc_4AB95A
-                mov     [ebp+Msg], 426h
-
-loc_4AB95A:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+5E↑j
-                jmp     def_4AB91C      ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB95F:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004AB91C case 2
-                xor     edx, edx
-                mov     dl, [ecx+0F8h]
-                and     edx, 4
-                test    edx, edx
-                jnz     short loc_4AB978
-                mov     [ebp+Msg], 43Bh
-
-loc_4AB978:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+7C↑j
-                jmp     def_4AB91C      ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB97D:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     eax, dword ptr [ebp+var_8] ; jumptable 004AB91C case 3
-                xor     ecx, ecx
-                mov     cl, [eax+0F8h]
-                and     ecx, 8
-                test    ecx, ecx
-                jnz     short loc_4AB996
-                mov     [ebp+Msg], 428h
-
-loc_4AB996:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+9A↑j
-                jmp     short def_4AB91C ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB998:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     edx, dword ptr [ebp+var_8] ; jumptable 004AB91C case 4
-                xor     eax, eax
-                mov     al, [edx+0F8h]
-                and     eax, 10h
-                test    eax, eax
-                jnz     short loc_4AB9B1
-                mov     [ebp+Msg], 418h
-
-loc_4AB9B1:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+B5↑j
-                jmp     short def_4AB91C ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB9B3:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     ecx, dword ptr [ebp+var_8] ; jumptable 004AB91C case 5
-                xor     edx, edx
-                mov     dl, [ecx+0F8h]
-                and     edx, 20h
-                test    edx, edx
-                jnz     short loc_4AB9CC
-                mov     [ebp+Msg], 487h
-
-loc_4AB9CC:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+D0↑j
-                jmp     short def_4AB91C ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB9CE:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     eax, dword ptr [ebp+var_8] ; jumptable 004AB91C case 6
-                xor     ecx, ecx
-                mov     cl, [eax+0F8h]
-                and     ecx, 40h
-                test    ecx, ecx
-                jnz     short loc_4AB9E7
-                mov     [ebp+Msg], 429h
-
-loc_4AB9E7:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+EB↑j
-                jmp     short def_4AB91C ; jumptable 004AB91C default case
-; ---------------------------------------------------------------------------
-
-loc_4AB9E9:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑j
-                mov     edx, dword ptr [ebp+var_8] ; jumptable 004AB91C case 7
-                xor     eax, eax
-                mov     al, [edx+0F8h]
-                and     eax, 80h
-                test    eax, eax
-                jnz     short def_4AB91C ; jumptable 004AB91C default case
-                mov     [ebp+Msg], 10h
-
-def_4AB91C:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+20↑j
-                cmp     [ebp+Msg], 0    ; jumptable 004AB91C default case
-                jz      short loc_4ABA1E
-                push    0               ; lParam
-                push    0               ; wParam
-                mov     ecx, dword ptr [ebp+Msg]
-                push    ecx             ; Msg
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_4ABA1E:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+115↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+0F4h], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4AB45D
-                cmp     [ebp+Msg], 0
-                jz      short loc_4ABA62
-                mov     eax, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+Msg]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+84h]
-
-loc_4ABA62:                             ; CODE XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+150↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z      endp
 
 ; ---------------------------------------------------------------------------
-jpt_4AB91C      dd offset loc_4AB923    ; DATA XREF: ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z+29↑r
-                dd offset loc_4AB941    ; jump table for switch statement
-                dd offset loc_4AB95F
-                dd offset loc_4AB97D
-                dd offset loc_4AB998
-                dd offset loc_4AB9B3
-                dd offset loc_4AB9CE
-                dd offset loc_4AB9E9
 
 ; =============== S U B R O U T I N E =======================================
 

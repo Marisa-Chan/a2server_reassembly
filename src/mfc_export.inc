@@ -1522,12 +1522,13 @@ externdef ?DoClose@VisDropGold@@UAEXI@Z : proc
 externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004a7a30(int32_t idx)  //4a7a30 in asm
 ;VisMainMenu
 externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
+externdef ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z : proc  ; void VisMainMenu::UpdateButtonState(uint32_t, CPoint)
 extern ?VMethod7@VisMainMenu@@UAEXXZ : proc
 extern ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
-externdef ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+extern ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 externdef ?VMethod26@VisMainMenu@@UAEXXZ : proc
 externdef ?VMethod28@VisMainMenu@@UAEXXZ : proc
 externdef ?DoClose@VisMainMenu@@UAEXI@Z : proc

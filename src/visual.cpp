@@ -21822,3 +21822,81 @@ void VisMainMenu::VMethod7()
     this->sprite->VMethod2(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
     UnlockSurface2();
 }
+
+
+// 4AB88C
+int32_t VisMainMenu::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    this->UpdateButtonState(wparam, pos);
+    return 0;
+}
+
+
+// 4AB8AF
+int32_t VisMainMenu::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    this->UpdateButtonState(wparam, pos);
+    if (this->pressed_button != -1) {
+        CSound::Play((CSound&)this->snd_btn_click);
+    }
+    return 1;
+}
+
+
+// 4AB8F3
+int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    uint32_t msg = 0;
+    switch (this->active_button) {
+    case 0:
+        if ((((uint8_t)this->disable_mask) & 1) == 0) {
+            msg = 0x425;
+        }
+        break;
+    case 1:
+        if ((((uint8_t)this->disable_mask) & 2) == 0) {
+            msg = 0x426;
+        }
+        break;
+    case 2:
+        if ((((uint8_t)this->disable_mask) & 4) == 0) {
+            msg = 0x43B;
+        }
+        break;
+    case 3:
+        if ((((uint8_t)this->disable_mask) & 8) == 0) {
+            msg = 0x428;
+        }
+        break;
+    case 4:
+        if ((((uint8_t)this->disable_mask) & 0x10) == 0) {
+            msg = 0x418;
+        }
+        break;
+    case 5:
+        if ((((uint8_t)this->disable_mask) & 0x20) == 0) {
+            msg = 0x487;
+        }
+        break;
+    case 6:
+        if ((((uint8_t)this->disable_mask) & 0x40) == 0) {
+            msg = 0x429;
+        }
+        break;
+    case 7:
+        if ((((uint8_t)this->disable_mask) & 0x80) == 0) {
+            msg = 0x10;
+        }
+        break;
+    }
+    if (msg != 0) {
+        AfxGetMainWnd()->PostMessage(msg, 0, 0);
+    }
+    this->pressed_button = -1;
+    this->UpdateButtonState(wparam, pos);
+    if (msg != 0) {
+        this->VMethod9();
+        this->DoClose(msg);
+    }
+    return 1;
+}
