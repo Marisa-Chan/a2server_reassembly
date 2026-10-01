@@ -1523,8 +1523,8 @@ externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004
 ;VisMainMenu
 externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisMainMenu@@UAEXXZ : proc
-externdef ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
+extern ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
+extern ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc

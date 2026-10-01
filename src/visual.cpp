@@ -21776,3 +21776,23 @@ VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 VisSpellBook::~VisSpellBook()
 {
 }
+
+
+// VisMainMenu
+
+
+// 4AB41E
+int32_t VisMainMenu::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->VMethod9();
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
+// 4AB411
+void VisMainMenu::VMethod8(CRect* rect)
+{
+    (void)rect;
+}

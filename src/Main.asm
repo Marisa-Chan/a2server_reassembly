@@ -85692,62 +85692,12 @@ loc_4AB40D:                             ; CODE XREF: ?VMethod7@VisMainMenu@@UAEX
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z proc near           ; DATA XREF: .rdata:0060CD60↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisMainMenu@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060CD78↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 402h
-                jz      short loc_4AB438
-                jmp     short loc_4AB443
-; ---------------------------------------------------------------------------
-
-loc_4AB438:                             ; CODE XREF: ?MsgProc@VisMainMenu@@UAEHIII@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-
-loc_4AB443:                             ; CODE XREF: ?MsgProc@VisMainMenu@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisMainMenu@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
