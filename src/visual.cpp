@@ -21973,3 +21973,72 @@ void VisMainMenu::DoClose(uint32_t code)
     AfxGetMainWnd()->SendMessage(0x44C, (WPARAM)this, 0);
     g_mousept.EnableHint();
 }
+
+
+// 4AB45D
+void VisMainMenu::UpdateButtonState(uint32_t wparam, CPoint mouse)
+{
+    if (!this->rect.PtInRect(mouse)) {
+        return;
+    }
+    CPoint top_left = this->rect.TopLeft();
+    mouse.x -= top_left.x;
+    mouse.y -= top_left.y;
+    int32_t idx = mouse.x + mouse.y * 640;
+    this->bmp_active_button = nullptr;
+    this->over_button = -1;
+    uint8_t cell = ((uint8_t*)this->bmp_menu_mask->GetData())[idx];
+    switch (cell) {
+    case 0x80:
+        this->over_button = 0;
+        break;
+    case 0x90:
+        this->over_button = 1;
+        break;
+    case 0xA0:
+        this->over_button = 2;
+        break;
+    case 0xB0:
+        this->over_button = 3;
+        break;
+    case 0xC0:
+        this->over_button = 4;
+        break;
+    case 0xD0:
+        this->over_button = 5;
+        break;
+    case 0xE0:
+        this->over_button = 6;
+        break;
+    case 0xF0:
+        this->over_button = 7;
+        break;
+    }
+    if (wparam == 1) {
+        if (this->pressed_button == -1) {
+            this->pressed_button = this->over_button;
+            this->active_button = this->pressed_button;
+        } else if (this->pressed_button != this->over_button) {
+            this->active_button = -1;
+        } else {
+            this->active_button = this->pressed_button;
+        }
+    } else {
+        if (this->pressed_button == -1) {
+            this->active_button = this->over_button;
+        }
+    }
+    if (this->pressed_button == -1) {
+        if (this->active_button != -1) {
+            this->bmp_active_button = this->bmp_button.GetAt(this->active_button);
+            this->rect_active_button = this->rect_buttons.GetAt(this->active_button);
+        }
+    } else if (this->over_button == this->pressed_button) {
+        this->bmp_active_button = this->bmp_pressed.GetAt(this->pressed_button);
+        this->rect_active_button = this->rect_buttons.GetAt(this->pressed_button);
+        this->active_button = this->pressed_button;
+    }
+    if ((((uint8_t)this->disable_mask) & (1u << (this->over_button & 0x1f))) != 0) {
+        this->bmp_active_button = nullptr;
+    }
+}
