@@ -3814,6 +3814,122 @@ VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, 
 }
 
 
+// 4DCEBA
+VisListBoxDiplomacy::~VisListBoxDiplomacy()
+{
+    delete this->enemy_radios;
+    delete this->ally_radios;
+    delete this->mute_radios;
+    // see_radios is intentionally not deleted, matching the original dtor.
+}
+
+
+// 4DC9FB
+VisListBoxDiplomacy::VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height)
+: VisListBox(_id, r, _font, _clr1, _clr2, -1, nullptr)
+{
+    this->diplomacy = _diplomacy;
+    if (_entry_height == 0) {
+        _entry_height = this->entry_height;
+    }
+    if ((uint32_t)_entry_height <= 0x18) {
+        _entry_height = 0x18;
+    }
+    this->entry_height_full = _entry_height + 8;
+    this->num_vis_entry = this->rect.Height() / this->entry_height_full;
+
+    this->enemy_radios = new CArray<VisRadioType1*>();
+    this->ally_radios = new CArray<VisRadioType1*>();
+    this->see_radios = new CArray<VisRadioType1*>();
+    this->mute_radios = new CArray<VisRadioType1*>();
+
+    int32_t count = this->diplomacy->GetSize();
+    this->enemy_radios->SetSize(count);
+    this->ally_radios->SetSize(count);
+    this->see_radios->SetSize(count);
+    this->mute_radios->SetSize(count);
+
+    for (int32_t i = 0; i < count; i++) {
+        DiplomacyEntry* entry = this->diplomacy->ElementAt(i);
+
+        VisRadioType1* radio = new VisRadioType1(i, 0, 0, 0, 0, _font, _clr1, nullptr);
+        this->enemy_radios->ElementAt(i) = radio;
+        radio->AddEntry(" ");
+        radio->ReadData(&entry->enemy);
+        this->AddChild(radio);
+
+        radio = new VisRadioType1(i + count, 0, 0, 0, 0, _font, _clr1, nullptr);
+        this->ally_radios->ElementAt(i) = radio;
+        radio->AddEntry(" ");
+        radio->ReadData(&entry->ally);
+        this->AddChild(radio);
+
+        radio = new VisRadioType1(i + count * 2, 0, 0, 0, 0, _font, _clr1, nullptr);
+        this->see_radios->ElementAt(i) = radio;
+        radio->AddEntry(" ");
+        radio->ReadData(&entry->see);
+        this->AddChild(radio);
+
+        radio = new VisRadioType1(i + count * 3, 0, 0, 0, 0, _font, _clr1, nullptr);
+        this->mute_radios->ElementAt(i) = radio;
+        radio->AddEntry(" ");
+        radio->ReadData(&entry->mute);
+        this->AddChild(radio);
+    }
+
+    this->UpdateRadioPositions(0);
+}
+
+
+// 4DD1B2
+void VisListBoxDiplomacy::WriteRadioState()
+{
+    this->diplomacy->SetSize(this->enemy_radios->GetSize(), -1);
+    for (int32_t i = 0; i < this->enemy_radios->GetSize(); i++) {
+        DiplomacyEntry* entry = this->diplomacy->ElementAt(i);
+        this->enemy_radios->ElementAt(i)->WriteData(&entry->enemy);
+        this->ally_radios->ElementAt(i)->WriteData(&entry->ally);
+        this->see_radios->ElementAt(i)->WriteData(&entry->see);
+        this->mute_radios->ElementAt(i)->WriteData(&entry->mute);
+    }
+}
+
+
+// 4DD2C7
+void VisListBoxDiplomacy::UpdateScrollBar()
+{
+    if (this->parent == nullptr) {
+        return;
+    }
+
+    this->num_vis_entry = this->rect.Height() / this->entry_height_full;
+    int32_t content_height = this->entry_height_full * this->diplomacy->GetSize();
+    int32_t height = this->rect.Height();
+    if (content_height <= height) {
+        return;
+    }
+
+    if (this->scrollbox_id < 0) {
+        this->rect.right -= 0x1A;
+        this->scrollbox_id = this->parent->childs.GetSize() + 1;
+        VisScrollBar* scrollbar = new VisScrollBar(this->scrollbox_id, this->rect.right, this->rect.top, this->rect.right + 0x18, this->rect.bottom, nullptr);
+        this->parent->AddChild(scrollbar);
+    } else {
+        VisScrollBar* scrollbar = (VisScrollBar*)this->FindChild(this->scrollbox_id);
+        scrollbar->SetPos(this->selected_index, this->diplomacy->GetSize());
+    }
+}
+
+
+// 4DD424
+void VisListBoxDiplomacy::RestoreRect()
+{
+    if (this->scrollbox_id >= 0) {
+        this->rect.right += 0x1A;
+    }
+}
+
+
 // 44402B
 VisDiplomacy::VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload)
 : VisMessageBox(_id, l, t, r, b, *(CArray<DiplomacyEntry*>**)_payload, txt_dialogs.GetLine(0x4F), 1, txt_dialogs.GetLine(0x91))

@@ -170,7 +170,6 @@
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
-??_GVisQuestStatus@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisSpellBook@@UAEPAXI@Z
 ??_GVisStartGame@@UAEPAXI@Z
@@ -545,7 +544,6 @@
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
-?MsgProc@VisQuestStatus@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisSpellBook@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
@@ -968,7 +966,6 @@
 ?VMethod7@VisInvExtType3@@UAEXXZ
 ?VMethod7@VisInvType1@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
-?VMethod7@VisQuestStatus@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisSpellBook@@UAEXXZ

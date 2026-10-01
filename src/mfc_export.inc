@@ -2234,10 +2234,14 @@ externdef ??_GVisCutScenesDlg@@UAEPAXI@Z : proc
 externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 
 ; VisListBoxDiplomacy
-externdef ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z : proc
-externdef ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ : proc
-externdef ?RestoreRect@VisListBoxDiplomacy@@QAEXXZ : proc
-externdef ?WriteRadioState@VisListBoxDiplomacy@@QAEXXZ : proc
+externdef ?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z : proc
+externdef ?MsgProc@VisListBoxDiplomacy@@UAEHIII@Z : proc
+externdef ?OnLButtonDown@VisListBoxDiplomacy@@UAEHIVCPoint@@@Z : proc
+externdef ?OnKeyDown@VisListBoxDiplomacy@@UAEHI@Z : proc
+externdef ?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z : proc
+externdef ?DrawItem@VisListBoxDiplomacy@@UAEXHVCPoint@@PAG@Z : proc
+externdef ?SelectItem@VisListBoxDiplomacy@@UAEXH@Z : proc
+externdef ?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z : proc
 
 ; VisConnectionDlg
 externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc

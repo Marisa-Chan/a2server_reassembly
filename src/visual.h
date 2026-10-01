@@ -3239,11 +3239,22 @@ ASSERT_SIZE(VisCutScenesDlg, 0x78);
 class VisListBoxDiplomacy : public VisListBox
 {
 public:
+	virtual ~VisListBoxDiplomacy(); // 4dceba
+
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4dd7f3
+	virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4dd44a
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4dd8c5
+	virtual int32_t IsValidIndex(int32_t idx) override; // 4dd098
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 4dd0bd
+	virtual void SelectItem(int32_t idx) override; // 4dcf98
+	virtual void VMethod30(CPoint pos, const CRect& r) override; // 4e3d30
+
 	VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height); //4dc9fb
 
 	void WriteRadioState(); //4dd1b2
 	void UpdateScrollBar(); //4dd2c7
 	void RestoreRect(); //4dd424
+	void UpdateRadioPositions(int32_t vis_start_index); //4dd54c
 
 public:
 	CArray<DiplomacyEntry*>* diplomacy; //0x94
