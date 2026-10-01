@@ -2645,9 +2645,9 @@ public:
 	SfxSample* snd_btn_click;
 	CBmp64* bmp_active_button;
 	CRect rect_active_button;
-	uint32_t over_button;
-	uint32_t active_button;
-	uint32_t pressed_button;
+	int32_t over_button;
+	int32_t active_button;
+	int32_t pressed_button;
 	uint32_t disable_mask;
 	CA16* sprite;
 };
