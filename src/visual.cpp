@@ -3837,6 +3837,20 @@ void VisDiplomacy::ReadData(const void* buf)
 }
 
 
+// 445C2E
+CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
+{
+    ((RECT&)r).top = 0x50;
+
+    VisListBoxDiplomacy* listbox = new VisListBoxDiplomacy(2, r, (CArray<DiplomacyEntry*>*)data, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0);
+    this->AddChild(listbox);
+    listbox->UpdateScrollBar();
+
+    listbox->SetCaptionLabel((VisLabel*)this->FindChild(-1));
+    return listbox;
+}
+
+
 QuestObjectivesHeaderDialogVisualObject::QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisMessageBoxWithList(_id, l, t, r, b, g_MissionBriefing, txt_dialogs.GetLine(68), 0xffff)
 {} //445173

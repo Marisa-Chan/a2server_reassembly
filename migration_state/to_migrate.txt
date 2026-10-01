@@ -346,7 +346,6 @@ _byte_666590
 ?VMethod31@VisDiplomacy@@UAEXH@Z	21
 ??_GVisDiplomacy@@UAEPAXI@Z	24
 ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z	47
-?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	80
 ?VMethod9@VisDropGold@@UAEXXZ	15
 ?FUN_004a7a30@VisDropGold@@QAEXH@Z	15
 ??_GVisDropGold@@UAEPAXI@Z	24

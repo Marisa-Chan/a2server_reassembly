@@ -904,6 +904,7 @@
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
+?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisInvBase@@UAEHHH@Z
 ?VMethod30@VisInvExtBase@@UAEHHH@Z
 ?VMethod30@VisInvType1@@UAEHHH@Z

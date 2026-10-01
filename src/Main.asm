@@ -26254,87 +26254,6 @@ arg_14          = dword ptr  1Ch
 ; Attributes: bp-based frame
 
 ; int __stdcall ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(int, RECT *lprcSrc)
-?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060A550↓o
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F94DD SIZE 00000014 BYTES
-
-; __unwind { // SEH_445C2E
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_445C2E
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     [ebp+var_1C], ecx
-                mov     eax, dword ptr [ebp+lprcSrc]
-                mov     dword ptr [eax+4], 50h ; 'P'
-                push    0A8h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_445C9D
-                push    0               ; int
-                mov     ecx, ?p_clrsh_ShockingBlack@@3PAGA
-                push    ecx             ; int
-                mov     edx, ?p_clrsh_Black@@3PAGA
-                push    edx             ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+lprcSrc]
-                push    edx             ; lprcSrc
-                push    2               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z
-                mov     [ebp+var_20], eax
-                jmp     short loc_445CA4
-; ---------------------------------------------------------------------------
-
-loc_445C9D:                             ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+40↑j
-                mov     [ebp+var_20], 0
-
-loc_445CA4:                             ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+6D↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     [ebp+var_18], eax
-;   } // starts at 445C63
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?SetCaptionLabel@CVisualObject@@QAEXPAVVisLabel@@@Z
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 445C2E
-?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -274366,23 +274285,6 @@ SEH_445ACA:                             ; DATA XREF: sub_445ACA+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94C9
 ; END OF FUNCTION CHUNK FOR sub_445ACA
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-
-unknown_libname_974:                    ; DATA XREF: .rdata:stru_619DD0↓o
-; __unwind { // SEH_445C2E              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 445C63
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_445C2E:                             ; DATA XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
-                mov     eax, offset stru_619DB0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F94DD
-; END OF FUNCTION CHUNK FOR ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ; START OF FUNCTION CHUNK FOR ?VMethod31@VisConnectionDlg@@UAEXH@Z
 
 loc_5F9505:                             ; DATA XREF: .rdata:stru_619E20↓o
@@ -308656,9 +308558,7 @@ stru_619D88     FuncInfoV1 <19930520h, 1, offset stru_619DA8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_619DA8     UnwindMapEntry <-1, offset loc_5F94C9>
-stru_619DB0     FuncInfoV1 <19930520h, 1, offset stru_619DD0, 0, 0, 0, 0>
                 align 10h
-stru_619DD0     UnwindMapEntry <-1, offset unknown_libname_974>
                 align 8
 stru_619E00     FuncInfoV1 <19930520h, 1, offset stru_619E20, 0, 0, 0, 0>
                 align 10h
