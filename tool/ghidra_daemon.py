@@ -50,8 +50,10 @@ def _restore_prefs(old):
             Preferences.setProperty(key, m.group(1).replace("\\\\", "\\").replace("\\:", ":"))
     Preferences.store()
 
-GHIDRA_INSTALL_DIR = r"C:\Users\ikacn\Desktop\stuff\a2\ghidra_12.1.2_PUBLIC"
-PROJECT_DIR = r"C:\Users\ikacn\Desktop\stuff\a2\shared-ghidra"
+# Ghidra install and the project checkout are siblings of this repo (../ghidra_12.1.2_PUBLIC, ../shared-ghidra)
+A2_DIR = os.path.dirname(os.path.dirname(HERE))
+GHIDRA_INSTALL_DIR = os.path.join(A2_DIR, "ghidra_12.1.2_PUBLIC")
+PROJECT_DIR = os.path.join(A2_DIR, "shared-ghidra")
 PROJECT_NAME = "A2"
 PROGRAM_PATH = "/a2serv6.exe_new"
 
