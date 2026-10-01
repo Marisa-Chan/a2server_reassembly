@@ -2887,11 +2887,11 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 	t2 *= 32;
 
 	int32_t tidx = 0;
-	if (h0 >= h1)
+	if (h0 >= h1 && dtop > 0)
 		tidx = dtop - 1;
 
 	int32_t bidx = 0;
-	if (h2 < h3)
+	if (h2 < h3 && dbtm > 0)
 		bidx = dbtm - 1;
 
 	bool bVar2 = false;

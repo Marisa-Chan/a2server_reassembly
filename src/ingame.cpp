@@ -4398,7 +4398,7 @@ void BigStruct2::sub_40403B()
 				h_idx--;
 			}
 			if (y == this->field_0x68 + 7) {
-				h_idx -= this->field_0x64;
+				h_idx -= this->field_0x64 + 6;
 			}
 			uint16_t tile = landscape[src_idx] & 0xC000;
 			src_idx++;
@@ -5632,7 +5632,7 @@ void BigStruct2::sub_406F7B()
 	this->field_0x134 = 0;
 
 	if (g_Shadows != 0) {
-		for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
@@ -5649,7 +5649,7 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
@@ -5676,7 +5676,7 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
@@ -5725,7 +5725,7 @@ void BigStruct2::sub_406F7B()
 				}
 			}
 			uint8_t gfxb = gfx_cells[cell];
-			if (gfxb != 0) {
+			if (gfxb != 0 && x > -4 && y > -4 && x < field_0x64 + 3 && y < field_0x68 + 4) {
 				int32_t gidx = x + 3 + (y + 3) * (this->field_0x64 + 6);
 				uint8_t light2 = this->field_0xb0[gidx];
 				int32_t tanval = (int32_t)(tan(this->field_0x80->FUN_004a7b79()) * 65536.0);
@@ -5814,7 +5814,7 @@ void BigStruct2::sub_406F7B()
 	SetClipRect(this->field_0xf4);
 
 	if (g_Shadows != 0) {
-		for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+		for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 			for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 				int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
@@ -5839,7 +5839,7 @@ void BigStruct2::sub_406F7B()
 		obj->VMethod6(0, 0, 0);
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
@@ -5856,7 +5856,7 @@ void BigStruct2::sub_406F7B()
 		}
 	}
 
-	for (int32_t y = -4; y < this->field_0x68 + 8; y++) {
+	for (int32_t y = -4; y < this->field_0x68 + 7; y++) {
 		for (int32_t x = this->field_0x64 + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->field_0x84 * (y + this->view_y);
 			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
