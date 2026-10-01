@@ -3235,6 +3235,25 @@ public:
 };
 ASSERT_SIZE(VisCutScenesDlg, 0x78);
 
+//60e140
+class VisListBoxDiplomacy : public VisListBox
+{
+public:
+	VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height); //4dc9fb
+
+	void WriteRadioState(); //4dd1b2
+	void UpdateScrollBar(); //4dd2c7
+	void RestoreRect(); //4dd424
+
+public:
+	CArray<DiplomacyEntry*>* diplomacy; //0x94
+	CArray<VisRadioType1*>* enemy_radios; //0x98
+	CArray<VisRadioType1*>* ally_radios; //0x9c
+	CArray<VisRadioType1*>* see_radios; //0xa0
+	CArray<VisRadioType1*>* mute_radios; //0xa4
+};
+ASSERT_SIZE(VisListBoxDiplomacy, 0xa8);
+
 //60a4c8
 class VisDiplomacy : public VisMessageBox
 {
@@ -3247,7 +3266,9 @@ public:
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 445C2E
 	virtual void VMethod31(int32_t code) override; // 445CF1
 public:
-	CArray<DiplomacyEntry*>* diplomacy;
+	// Points at MainWindow's CArray<DiplomacyEntry*>* variable (the binary puns it
+	// through a const CArray* ctor parameter), so ReadData re-reads the current array.
+	CArray<DiplomacyEntry*>** diplomacy; //0x78
 };
 ASSERT_SIZE(VisDiplomacy, 0x7c);
 

@@ -659,6 +659,7 @@
 ?Read@File2@@UAEIPAXI@Z
 ?ReadData@CVisualObject@@UAEXPBX@Z
 ?ReadData@NetStru2@@QAEHPAXI@Z
+?ReadData@VisDiplomacy@@UAEXPBX@Z
 ?ReadData@VisListBox@@UAEXPBX@Z
 ?ReadData@VisRadioType1@@UAEXPBX@Z
 ?ReadData@VisTextBox@@UAEXPBX@Z

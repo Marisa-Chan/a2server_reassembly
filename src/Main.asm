@@ -26300,7 +26300,7 @@ lprcSrc         = dword ptr  0Ch
                 push    edx             ; lprcSrc
                 push    2               ; int
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_4DC9FB
+                call    ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z
                 mov     [ebp+var_20], eax
                 jmp     short loc_445CA4
 ; ---------------------------------------------------------------------------
@@ -26320,7 +26320,7 @@ loc_445CA4:                             ; CODE XREF: ?VMethod30@VisDiplomacy@@UA
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_4DD2C7
+                call    ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ
                 push    0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_1C]
                 call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
@@ -26391,112 +26391,6 @@ sub_445D18      endp
 
 ; Attributes: bp-based frame
 
-?ReadData@VisDiplomacy@@UAEXPBX@Z      proc near               ; DATA XREF: .rdata:0060A50C↓o
-
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-Block           = dword ptr -24h
-var_20          = dword ptr -20h
-rcSrc           = RECT ptr -1Ch
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F94F1 SIZE 00000014 BYTES
-
-; __unwind { // SEH_445D34
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_445D34
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 24h
-                mov     [ebp+var_2C], ecx
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+78h], ecx
-                push    2
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_4DD424
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     ecx, [ebp+rcSrc]
-                call    sub_402A50
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?DestroyChild@CVisualObject@@QAEXPAV1@@Z
-                push    0A8h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_445DD9
-                push    0               ; int
-                mov     eax, ?p_clrsh_ShockingBlack@@3PAGA
-                push    eax             ; int
-                mov     ecx, ?p_clrsh_Black@@3PAGA
-                push    ecx             ; int
-                mov     edx, ?g_font1@@3PAVCGameFont@@A
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     ecx, dword ptr [eax+78h]
-                mov     edx, dword ptr [ecx]
-                push    edx             ; int
-                lea     eax, [ebp+rcSrc]
-                push    eax             ; lprcSrc
-                push    2               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4DC9FB
-                mov     [ebp+var_30], eax
-                jmp     short loc_445DE0
-; ---------------------------------------------------------------------------
-
-loc_445DD9:                             ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+71↑j
-                mov     [ebp+var_30], 0
-
-loc_445DE0:                             ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+A3↑j
-                mov     ecx, dword ptr [ebp+var_30]
-                mov     [ebp+var_28], ecx
-;   } // starts at 445D9A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [ebp+var_20], edx
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     dword ptr [eax+40h], 0
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     dword ptr [ecx+34h], 0
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     dword ptr [edx+44h], 0
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     dword ptr [eax+38h], 0
-                mov     ecx, dword ptr [ebp+var_20]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_4DD2C7
-                push    0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?SetCaptionLabel@CVisualObject@@QAEXPAVVisLabel@@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 445D34
-?ReadData@VisDiplomacy@@UAEXPBX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -99349,8 +99243,8 @@ sub_4DB615      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4DC9FB(int, RECT *lprcSrc, int, int, int, int, int)
-sub_4DC9FB      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+65↑p
+; int __stdcall ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z(int, RECT *lprcSrc, int, int, int, int, int)
+??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+65↑p
 
 var_84          = dword ptr -84h
 var_80          = dword ptr -80h
@@ -99431,7 +99325,7 @@ arg_18          = dword ptr  20h
                 mov     eax, dword ptr [edx+5Ch]
                 mov     [ebp+arg_18], eax
 
-loc_4DCA64:                             ; CODE XREF: sub_4DC9FB+5E↑j
+loc_4DCA64:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+5E↑j
                 cmp     [ebp+arg_18], 18h
                 jbe     short loc_4DCA72
                 mov     ecx, dword ptr [ebp+arg_18]
@@ -99439,10 +99333,10 @@ loc_4DCA64:                             ; CODE XREF: sub_4DC9FB+5E↑j
                 jmp     short loc_4DCA79
 ; ---------------------------------------------------------------------------
 
-loc_4DCA72:                             ; CODE XREF: sub_4DC9FB+6D↑j
+loc_4DCA72:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+6D↑j
                 mov     [ebp+var_64], 18h
 
-loc_4DCA79:                             ; CODE XREF: sub_4DC9FB+75↑j
+loc_4DCA79:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+75↑j
                 mov     edx, dword ptr [ebp+var_64]
                 add     edx, 8
                 mov     eax, dword ptr [ebp+var_60]
@@ -99469,10 +99363,10 @@ loc_4DCA79:                             ; CODE XREF: sub_4DC9FB+75↑j
                 jmp     short loc_4DCAC8
 ; ---------------------------------------------------------------------------
 
-loc_4DCAC1:                             ; CODE XREF: sub_4DC9FB+B7↑j
+loc_4DCAC1:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+B7↑j
                 mov     [ebp+var_68], 0
 
-loc_4DCAC8:                             ; CODE XREF: sub_4DC9FB+C4↑j
+loc_4DCAC8:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+C4↑j
                 mov     eax, dword ptr [ebp+var_68]
                 mov     [ebp+var_24], eax
 ;   } // starts at 4DCAAA
@@ -99495,10 +99389,10 @@ loc_4DCAC8:                             ; CODE XREF: sub_4DC9FB+C4↑j
                 jmp     short loc_4DCB06
 ; ---------------------------------------------------------------------------
 
-loc_4DCAFF:                             ; CODE XREF: sub_4DC9FB+F5↑j
+loc_4DCAFF:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+F5↑j
                 mov     [ebp+var_6C], 0
 
-loc_4DCB06:                             ; CODE XREF: sub_4DC9FB+102↑j
+loc_4DCB06:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+102↑j
                 mov     eax, dword ptr [ebp+var_6C]
                 mov     [ebp+var_2C], eax
 ;   } // starts at 4DCAE8
@@ -99521,10 +99415,10 @@ loc_4DCB06:                             ; CODE XREF: sub_4DC9FB+102↑j
                 jmp     short loc_4DCB44
 ; ---------------------------------------------------------------------------
 
-loc_4DCB3D:                             ; CODE XREF: sub_4DC9FB+133↑j
+loc_4DCB3D:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+133↑j
                 mov     [ebp+var_70], 0
 
-loc_4DCB44:                             ; CODE XREF: sub_4DC9FB+140↑j
+loc_4DCB44:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+140↑j
                 mov     eax, dword ptr [ebp+var_70]
                 mov     [ebp+var_34], eax
 ;   } // starts at 4DCB26
@@ -99547,10 +99441,10 @@ loc_4DCB44:                             ; CODE XREF: sub_4DC9FB+140↑j
                 jmp     short loc_4DCB82
 ; ---------------------------------------------------------------------------
 
-loc_4DCB7B:                             ; CODE XREF: sub_4DC9FB+171↑j
+loc_4DCB7B:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+171↑j
                 mov     [ebp+var_74], 0
 
-loc_4DCB82:                             ; CODE XREF: sub_4DC9FB+17E↑j
+loc_4DCB82:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+17E↑j
                 mov     eax, dword ptr [ebp+var_74]
                 mov     [ebp+var_3C], eax
 ;   } // starts at 4DCB64
@@ -99591,12 +99485,12 @@ loc_4DCB82:                             ; CODE XREF: sub_4DC9FB+17E↑j
                 jmp     short loc_4DCC0B
 ; ---------------------------------------------------------------------------
 
-loc_4DCC02:                             ; CODE XREF: sub_4DC9FB+496↓j
+loc_4DCC02:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+496↓j
                 mov     eax, dword ptr [ebp+var_14]
                 add     eax, 1
                 mov     [ebp+var_14], eax
 
-loc_4DCC0B:                             ; CODE XREF: sub_4DC9FB+205↑j
+loc_4DCC0B:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+205↑j
                 mov     ecx, dword ptr [ebp+var_14]
                 cmp     ecx, [ebp+var_10]
                 jge     loc_4DCE96
@@ -99632,10 +99526,10 @@ loc_4DCC0B:                             ; CODE XREF: sub_4DC9FB+205↑j
                 jmp     short loc_4DCC6F
 ; ---------------------------------------------------------------------------
 
-loc_4DCC68:                             ; CODE XREF: sub_4DC9FB+248↑j
+loc_4DCC68:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+248↑j
                 mov     [ebp+var_78], 0
 
-loc_4DCC6F:                             ; CODE XREF: sub_4DC9FB+26B↑j
+loc_4DCC6F:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+26B↑j
                 mov     edx, dword ptr [ebp+var_78]
                 mov     [ebp+var_44], edx
 ;   } // starts at 4DCC3B
@@ -99690,10 +99584,10 @@ loc_4DCC6F:                             ; CODE XREF: sub_4DC9FB+26B↑j
                 jmp     short loc_4DCD04
 ; ---------------------------------------------------------------------------
 
-loc_4DCCFD:                             ; CODE XREF: sub_4DC9FB+2DA↑j
+loc_4DCCFD:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+2DA↑j
                 mov     [ebp+var_7C], 0
 
-loc_4DCD04:                             ; CODE XREF: sub_4DC9FB+300↑j
+loc_4DCD04:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+300↑j
                 mov     edx, dword ptr [ebp+var_7C]
                 mov     [ebp+var_4C], edx
 ;   } // starts at 4DCCCD
@@ -99749,10 +99643,10 @@ loc_4DCD04:                             ; CODE XREF: sub_4DC9FB+300↑j
                 jmp     short loc_4DCD9C
 ; ---------------------------------------------------------------------------
 
-loc_4DCD95:                             ; CODE XREF: sub_4DC9FB+36F↑j
+loc_4DCD95:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+36F↑j
                 mov     [ebp+var_80], 0
 
-loc_4DCD9C:                             ; CODE XREF: sub_4DC9FB+398↑j
+loc_4DCD9C:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+398↑j
                 mov     edx, dword ptr [ebp+var_80]
                 mov     [ebp+var_54], edx
 ;   } // starts at 4DCD62
@@ -99809,10 +99703,10 @@ loc_4DCD9C:                             ; CODE XREF: sub_4DC9FB+398↑j
                 jmp     short loc_4DCE3D
 ; ---------------------------------------------------------------------------
 
-loc_4DCE33:                             ; CODE XREF: sub_4DC9FB+407↑j
+loc_4DCE33:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+407↑j
                 mov     [ebp+var_84], 0
 
-loc_4DCE3D:                             ; CODE XREF: sub_4DC9FB+436↑j
+loc_4DCE3D:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+436↑j
                 mov     edx, dword ptr [ebp+var_84]
                 mov     [ebp+var_5C], edx
 ;   } // starts at 4DCDFA
@@ -99844,7 +99738,7 @@ loc_4DCE3D:                             ; CODE XREF: sub_4DC9FB+436↑j
                 jmp     loc_4DCC02
 ; ---------------------------------------------------------------------------
 
-loc_4DCE96:                             ; CODE XREF: sub_4DC9FB+216↑j
+loc_4DCE96:                             ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+216↑j
                 push    0
                 mov     ecx, dword ptr [ebp+var_60]
                 call    sub_4DD54C
@@ -99857,7 +99751,7 @@ loc_4DCE96:                             ; CODE XREF: sub_4DC9FB+216↑j
                 pop     ebp
                 retn    1Ch
 ; } // starts at 4DC9FB
-sub_4DC9FB      endp
+??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -100323,7 +100217,7 @@ sub_4DD1B2      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD2C7      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+98↑p
+?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ      proc near               ; CODE XREF: ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+98↑p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -100351,7 +100245,7 @@ var_4           = dword ptr -4
                 jmp     loc_4DD415
 ; ---------------------------------------------------------------------------
 
-loc_4DD2F4:                             ; CODE XREF: sub_4DD2C7+26↑j
+loc_4DD2F4:                             ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+26↑j
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 8          ; varThis
                 call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
@@ -100414,10 +100308,10 @@ loc_4DD2F4:                             ; CODE XREF: sub_4DD2C7+26↑j
                 jmp     short loc_4DD3C5
 ; ---------------------------------------------------------------------------
 
-loc_4DD3BE:                             ; CODE XREF: sub_4DD2C7+BD↑j
+loc_4DD3BE:                             ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+BD↑j
                 mov     [ebp+var_1C], 0
 
-loc_4DD3C5:                             ; CODE XREF: sub_4DD2C7+F5↑j
+loc_4DD3C5:                             ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+F5↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     [ebp+var_14], eax
 ;   } // starts at 4DD379
@@ -100430,7 +100324,7 @@ loc_4DD3C5:                             ; CODE XREF: sub_4DD2C7+F5↑j
                 jmp     short loc_4DD415
 ; ---------------------------------------------------------------------------
 
-loc_4DD3E3:                             ; CODE XREF: sub_4DD2C7+7C↑j
+loc_4DD3E3:                             ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+7C↑j
                 mov     eax, dword ptr [ebp+var_18]
                 mov     ecx, dword ptr [eax+94h]
                 call    unknown_libname_494 ; Microsoft VisualC 2-14/net runtime
@@ -100446,7 +100340,7 @@ loc_4DD3E3:                             ; CODE XREF: sub_4DD2C7+7C↑j
                 mov     ecx, eax
                 call    ?SetPos@VisScrollBar@@QAEXHH@Z
 
-loc_4DD415:                             ; CODE XREF: sub_4DD2C7+28↑j
+loc_4DD415:                             ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+28↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -100454,14 +100348,14 @@ loc_4DD415:                             ; CODE XREF: sub_4DD2C7+28↑j
                 pop     ebp
                 retn
 ; } // starts at 4DD2C7
-sub_4DD2C7      endp
+?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4DD424      proc near               ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+37↑p
+?RestoreRect@VisListBoxDiplomacy@@QAEXXZ      proc near               ; CODE XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+37↑p
 
 var_4           = dword ptr -4
 
@@ -100478,11 +100372,11 @@ var_4           = dword ptr -4
                 mov     eax, dword ptr [ebp+var_4]
                 mov     [eax+10h], edx
 
-loc_4DD446:                             ; CODE XREF: sub_4DD424+11↑j
+loc_4DD446:                             ; CODE XREF: ?RestoreRect@VisListBoxDiplomacy@@QAEXXZ+11↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4DD424      endp
+?RestoreRect@VisListBoxDiplomacy@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -100592,7 +100486,7 @@ sub_4DD44A      endp
 
 ; Attributes: bp-based frame
 
-sub_4DD54C      proc near               ; CODE XREF: sub_4DC9FB+4A0↑p
+sub_4DD54C      proc near               ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+4A0↑p
 
 var_28          = dword ptr -28h
 var_24          = dword ptr -24h
@@ -105527,7 +105421,7 @@ sub_4E3D40      endp
 
 ; Attributes: bp-based frame
 
-sub_4E3D70      proc near               ; CODE XREF: sub_4DD2C7+97↑p
+sub_4E3D70      proc near               ; CODE XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+97↑p
 
 var_4           = dword ptr -4
 
@@ -106264,7 +106158,7 @@ sub_4E4770      endp
 
 ; Attributes: bp-based frame
 
-sub_4E47E0      proc near               ; CODE XREF: sub_4DC9FB+BC↑p
+sub_4E47E0      proc near               ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+BC↑p
 
 var_4           = dword ptr -4
 
@@ -106321,7 +106215,7 @@ unknown_libname_669 endp
 
 ; Attributes: bp-based frame
 
-sub_4E4850      proc near               ; CODE XREF: sub_4DC9FB+1BD↑p
+sub_4E4850      proc near               ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+1BD↑p
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -106560,7 +106454,7 @@ sub_4E4850      endp
 
 ; Attributes: bp-based frame
 
-sub_4E4A70      proc near               ; CODE XREF: sub_4DC9FB+295↑p
+sub_4E4A70      proc near               ; CODE XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+295↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -274489,24 +274383,6 @@ SEH_445C2E:                             ; DATA XREF: ?VMethod30@VisDiplomacy@@UA
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94DD
 ; END OF FUNCTION CHUNK FOR ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ReadData@VisDiplomacy@@UAEXPBX@Z
-
-loc_5F94F1:                             ; DATA XREF: .rdata:stru_619DF8↓o
-; __unwind { // SEH_445D34
-;   cleanup() // owned by 445D9A
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_445D34:                             ; DATA XREF: ?ReadData@VisDiplomacy@@UAEXPBX@Z+5↑o
-                mov     eax, offset stru_619DD8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F94F1
-; END OF FUNCTION CHUNK FOR ?ReadData@VisDiplomacy@@UAEXPBX@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod31@VisConnectionDlg@@UAEXH@Z
 
 loc_5F9505:                             ; DATA XREF: .rdata:stru_619E20↓o
@@ -282648,7 +282524,7 @@ SEH_4DBD31:                             ; DATA XREF: ??0VisListBox@@QAE@HABUtagR
 ; } // starts at 5FF53F
 ; END OF FUNCTION CHUNK FOR ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4DC9FB
+; START OF FUNCTION CHUNK FOR ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z
 
 loc_5FF55E:                             ; DATA XREF: .rdata:stru_620980↓o
 ; __unwind { // SEH_4DC9FB
@@ -282730,11 +282606,11 @@ loc_5FF5AD:                             ; DATA XREF: .rdata:006209C0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4DC9FB:                             ; DATA XREF: sub_4DC9FB+5↑o
+SEH_4DC9FB:                             ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+5↑o
                 mov     eax, offset stru_620960
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF55E
-; END OF FUNCTION CHUNK FOR sub_4DC9FB
+; END OF FUNCTION CHUNK FOR ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4DCEBA
 
@@ -282752,7 +282628,7 @@ SEH_4DCEBA:                             ; DATA XREF: sub_4DCEBA+5↑o
 ; } // starts at 5FF5C1
 ; END OF FUNCTION CHUNK FOR sub_4DCEBA
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4DD2C7
+; START OF FUNCTION CHUNK FOR ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ
 
 loc_5FF5D4:                             ; DATA XREF: .rdata:stru_620A10↓o
 ; __unwind { // SEH_4DD2C7
@@ -282763,11 +282639,11 @@ loc_5FF5D4:                             ; DATA XREF: .rdata:stru_620A10↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4DD2C7:                             ; DATA XREF: sub_4DD2C7+5↑o
+SEH_4DD2C7:                             ; DATA XREF: ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ+5↑o
                 mov     eax, offset stru_6209F0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF5D4
-; END OF FUNCTION CHUNK FOR sub_4DD2C7
+; END OF FUNCTION CHUNK FOR ?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ
 ; ---------------------------------------------------------------------------
 
 
@@ -297712,7 +297588,7 @@ off_60DB10      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 8
 
-off_60E140      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_4DC9FB+48↑o
+off_60E140      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+48↑o
                 dd offset sub_4E3D40
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
@@ -308783,9 +308659,7 @@ stru_619DA8     UnwindMapEntry <-1, offset loc_5F94C9>
 stru_619DB0     FuncInfoV1 <19930520h, 1, offset stru_619DD0, 0, 0, 0, 0>
                 align 10h
 stru_619DD0     UnwindMapEntry <-1, offset unknown_libname_974>
-stru_619DD8     FuncInfoV1 <19930520h, 1, offset stru_619DF8, 0, 0, 0, 0>
                 align 8
-stru_619DF8     UnwindMapEntry <-1, offset loc_5F94F1>
 stru_619E00     FuncInfoV1 <19930520h, 1, offset stru_619E20, 0, 0, 0, 0>
                 align 10h
 stru_619E20     UnwindMapEntry <-1, offset loc_5F9505>
@@ -318055,16 +317929,16 @@ aGraphicsInterf_309 db 'graphics\interface\logo\splash4.bmp',0
                 db    0
 
 ; char asc_6356B0[]
-asc_6356B0      db ' ',0                ; DATA XREF: sub_4DC9FB+29A↑o
+asc_6356B0      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+29A↑o
                 align 4
 ; char asc_6356B4[]
-asc_6356B4      db ' ',0                ; DATA XREF: sub_4DC9FB+32F↑o
+asc_6356B4      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+32F↑o
                 align 4
 ; char asc_6356B8[]
-asc_6356B8      db ' ',0                ; DATA XREF: sub_4DC9FB+3C7↑o
+asc_6356B8      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+3C7↑o
                 align 4
 ; char asc_6356BC[]
-asc_6356BC      db ' ',0                ; DATA XREF: sub_4DC9FB+46B↑o
+asc_6356BC      db ' ',0                ; DATA XREF: ??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z+46B↑o
                 align 10h
 ; char aTalk[]
 aTalk           db 'talk',0             ; DATA XREF: sub_4E0169:loc_4E033B↑o

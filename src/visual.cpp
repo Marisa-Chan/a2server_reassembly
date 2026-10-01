@@ -3814,6 +3814,29 @@ VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, 
 }
 
 
+// 445D34
+void VisDiplomacy::ReadData(const void* buf)
+{
+    this->diplomacy = (CArray<DiplomacyEntry*>**)buf;
+
+    VisListBoxDiplomacy* old_listbox = (VisListBoxDiplomacy*)this->FindChild(2);
+    old_listbox->RestoreRect();
+    CRect rc = old_listbox->GetRect();
+    this->DestroyChild(old_listbox);
+
+    VisListBoxDiplomacy* listbox = new VisListBoxDiplomacy(2, rc, *this->diplomacy, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0);
+
+    this->cursor_over_obj_last = nullptr;
+    this->cursor_over_obj = nullptr;
+    this->last_focus_obj = nullptr;
+    this->focus_obj = nullptr;
+
+    this->AddChild(listbox);
+    listbox->UpdateScrollBar();
+    listbox->SetCaptionLabel((VisLabel*)this->FindChild(-1));
+}
+
+
 QuestObjectivesHeaderDialogVisualObject::QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisMessageBoxWithList(_id, l, t, r, b, g_MissionBriefing, txt_dialogs.GetLine(68), 0xffff)
 {} //445173

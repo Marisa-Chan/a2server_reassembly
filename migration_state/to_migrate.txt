@@ -347,7 +347,6 @@ _byte_666590
 ??_GVisDiplomacy@@UAEPAXI@Z	24
 ??0VisDiplomacy@@QAE@HHHHHPBV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@@Z	47
 ?VMethod30@VisDiplomacy@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	80
-?ReadData@VisDiplomacy@@UAEXPBX@Z	105
 ?VMethod9@VisDropGold@@UAEXXZ	15
 ?FUN_004a7a30@VisDropGold@@QAEXH@Z	15
 ??_GVisDropGold@@UAEPAXI@Z	24
@@ -379,6 +378,9 @@ _byte_666590
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161
 ?MsgProc@VisHatServerListDlg@@UAEHIII@Z	179
 ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	534
+?RestoreRect@VisListBoxDiplomacy@@QAEXXZ	21
+?UpdateScrollBar@VisListBoxDiplomacy@@QAEXXZ	131
+??0VisListBoxDiplomacy@@QAE@HABUtagRECT@@PAV?$CArray@PAUDiplomacyEntry@@ABQAU1@@@PAVCGameFont@@PAG3H@Z	507
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193
