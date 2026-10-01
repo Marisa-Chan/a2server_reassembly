@@ -170,6 +170,7 @@
 ??_GVisInvExtType2@@UAEPAXI@Z
 ??_GVisInvExtType3@@UAEPAXI@Z
 ??_GVisInvType1@@UAEPAXI@Z
+??_GVisQuestStatus@@UAEPAXI@Z
 ??_GVisShopCompass@@UAEPAXI@Z
 ??_GVisSpellBook@@UAEPAXI@Z
 ??_GVisStartGame@@UAEPAXI@Z

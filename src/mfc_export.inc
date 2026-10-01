@@ -930,7 +930,6 @@ externdef   ?_FUN_00495010@MainWindow@@QAEXXZ  : proc
 externdef   ?_FUN_004950c0@MainWindow@@QAEXXZ  : proc
 externdef   ?_FUN_00495743@MainWindow@@QAEXXZ  : proc
 
-externdef ??0VisQuestStatus@@QAE@HHHHH@Z : proc
 externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
 externdef ?WaitHatConnection@MainWindow@@QAEHXZ : proc
@@ -1603,7 +1602,7 @@ externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
 externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 
 ;VisQuestStatus
-externdef ??_GVisQuestStatus@@UAEPAXI@Z : proc
+extern ??_GVisQuestStatus@@UAEPAXI@Z : proc
 extern ?VMethod7@VisQuestStatus@@UAEXXZ : proc
 extern ?MsgProc@VisQuestStatus@@UAEHIII@Z : proc
 

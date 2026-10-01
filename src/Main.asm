@@ -103910,158 +103910,12 @@ sub_4E2D92      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisQuestStatus@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisQuestStatus@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+2E49↑p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005FF998 SIZE 0000001D BYTES
-
-; __unwind { // SEH_4E2E3D
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E2E3D
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx], offset off_60E6D8
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 4E2E79
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                cmp     [ebp+Block], 0
-                jz      short loc_4E2EAF
-                push    offset aGraphicsInterf_299 ; "graphics\\interface\\subobj.256"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CSprite256@@QAE@PBD@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_4E2EB6
-; ---------------------------------------------------------------------------
-
-loc_4E2EAF:                             ; CODE XREF: ??0VisQuestStatus@@QAE@HHHHH@Z+5E↑j
-                mov     [ebp+var_1C], 0
-
-loc_4E2EB6:                             ; CODE XREF: ??0VisQuestStatus@@QAE@HHHHH@Z+70↑j
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], eax
-;   } // starts at 4E2E93
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+68h], edx
-                push    0
-                push    1
-                push    1
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+68h]
-                call    ?ResetPalette@CGameBitmap@@QAEXIHH@Z
-;   } // starts at 4E2EBC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 4E2E3D
-??0VisQuestStatus@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4E2EF4      proc near               ; CODE XREF: ??_GVisQuestStatus@@UAEPAXI@Z+A↓p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FF9B5 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4E2EF4
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4E2EF4
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     dword ptr [eax], offset off_60E6D8
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+68h], 0
-                jz      short loc_4E2F59
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx+68h]
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     [ebp+var_10], ecx
-                cmp     [ebp+var_10], 0
-                jz      short loc_4E2F52
-                push    1
-                mov     edx, dword ptr [ebp+var_10]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_1C], eax
-                jmp     short loc_4E2F59
-; ---------------------------------------------------------------------------
-
-loc_4E2F52:                             ; CODE XREF: sub_4E2EF4+4A↑j
-                mov     [ebp+var_1C], 0
-;   } // starts at 4E2F1B
-
-loc_4E2F59:                             ; CODE XREF: sub_4E2EF4+35↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4E2EF4
-sub_4E2EF4      endp
 
 
 
@@ -104474,31 +104328,6 @@ sub_4E4510      endp
 
 ; Attributes: bp-based frame
 
-??_GVisQuestStatus@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060E6DC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4E2EF4
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4E4562
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4E4562:                             ; CODE XREF: ??_GVisQuestStatus@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisQuestStatus@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -282093,47 +281922,6 @@ SEH_4E2D92:                             ; DATA XREF: sub_4E2D92+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FF97B
 ; END OF FUNCTION CHUNK FOR sub_4E2D92
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisQuestStatus@@QAE@HHHHH@Z
-
-loc_5FF998:                             ; DATA XREF: .rdata:stru_620F98↓o
-; __unwind { // SEH_4E2E3D
-;   cleanup() // owned by 4E2E79
-;   cleanup() // owned by 4E2EBC
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FF9A1:                             ; DATA XREF: .rdata:00620FA0↓o
-;   cleanup() // owned by 4E2E93
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E2E3D:                             ; DATA XREF: ??0VisQuestStatus@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_620F78
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF998
-; END OF FUNCTION CHUNK FOR ??0VisQuestStatus@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4E2EF4
-
-loc_5FF9B5:                             ; DATA XREF: .rdata:stru_620FC8↓o
-; __unwind { // SEH_4E2EF4
-;   cleanup() // owned by 4E2F1B
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4E2EF4:                             ; DATA XREF: sub_4E2EF4+5↑o
-                mov     eax, offset stru_620FA8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FF9B5
-; END OF FUNCTION CHUNK FOR sub_4E2EF4
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1VisLabel@@UAE@XZ
 
@@ -309313,19 +309101,6 @@ stru_620F48     FuncInfoV1 <19930520h, 2, offset stru_620F68, 0, 0, 0, 0>
                 db    0
 stru_620F68     UnwindMapEntry <-1, offset loc_5FF97B>
                 UnwindMapEntry <0, offset loc_5FF984>
-stru_620F78     FuncInfoV1 <19930520h, 2, offset stru_620F98, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620F98     UnwindMapEntry <-1, offset loc_5FF998>
-                UnwindMapEntry <0, offset loc_5FF9A1>
-stru_620FA8     FuncInfoV1 <19930520h, 1, offset stru_620FC8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_620FC8     UnwindMapEntry <-1, offset loc_5FF9B5>
 stru_621010     FuncInfoV1 <19930520h, 1, offset stru_621030, 0, 0, 0, 0>
                 db    0
                 db    0

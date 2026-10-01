@@ -4119,6 +4119,22 @@ int32_t VisQuestStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 4E2E3D
+VisQuestStatus::VisQuestStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->icon = new CSprite256("graphics\\interface\\subobj.256");
+    this->icon->ResetPalette(1, 1, 0);
+}
+
+
+// 4E2EF4
+VisQuestStatus::~VisQuestStatus()
+{
+    delete this->icon;
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8
