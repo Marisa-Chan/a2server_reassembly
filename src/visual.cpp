@@ -22116,3 +22116,19 @@ void VisMainMenu::FreeGraphics()
         this->bmp_labels.RemoveAt(0, 1);
     }
 }
+
+
+// 4AA926
+VisMainMenu::VisMainMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 4AAAB6 (deleting dtor thunk ??_G at 4ABBB0 is compiler-generated)
+VisMainMenu::~VisMainMenu()
+{
+    this->FreeGraphics();
+    this->FreeSfx();
+}

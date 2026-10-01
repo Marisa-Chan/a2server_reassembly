@@ -1038,7 +1038,6 @@ externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
 externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
-externdef   ??0VisMainMenu@@QAE@HHHHH@Z  : proc
 externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
 externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
 
@@ -1521,22 +1520,6 @@ externdef ?VMethod26@VisDropGold@@UAEXXZ : proc
 externdef ?VMethod28@VisDropGold@@UAEXXZ : proc
 externdef ?DoClose@VisDropGold@@UAEXI@Z : proc
 externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004a7a30(int32_t idx)  //4a7a30 in asm
-;VisMainMenu
-externdef ??_GVisMainMenu@@UAEPAXI@Z : proc
-extern ?UpdateButtonState@VisMainMenu@@QAEXIVCPoint@@@Z : proc  ; void VisMainMenu::UpdateButtonState(uint32_t, CPoint)
-externdef ?LoadGraphics@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::LoadGraphics()
-externdef ?LoadSfx@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::LoadSfx()
-externdef ?FreeGraphics@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::FreeGraphics()
-externdef ?FreeSfx@VisMainMenu@@QAEXXZ : proc  ; void VisMainMenu::FreeSfx()
-extern ?VMethod7@VisMainMenu@@UAEXXZ : proc
-extern ?VMethod8@VisMainMenu@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisMainMenu@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisMainMenu@@UAEHIVCPoint@@@Z : proc
-extern ?VMethod26@VisMainMenu@@UAEXXZ : proc
-extern ?VMethod28@VisMainMenu@@UAEXXZ : proc
-extern ?DoClose@VisMainMenu@@UAEXI@Z : proc
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc

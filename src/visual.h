@@ -2620,7 +2620,7 @@ ASSERT_SIZE(VisSideStatus, 0x60);
 class VisMainMenu : public VisScreen
 {
 public:
-	virtual ~VisMainMenu(); // 4ABBB0
+	virtual ~VisMainMenu(); // 4AAAB6
 
 	virtual void VMethod7() override; // 4AB28F
 	virtual void VMethod8(CRect* rect) override; // 4ab411
