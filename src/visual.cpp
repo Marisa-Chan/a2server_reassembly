@@ -21322,6 +21322,13 @@ void VisFameHall::FreeBitmaps()
 }
 
 
+// 45D542
+void VisFameHall::LoadSounds()
+{
+    FUN_00438e40(&this->snd_close, "SFX\\ChrGen\\Ok.wav");
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

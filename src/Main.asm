@@ -44352,24 +44352,6 @@ sub_45CDE2      endp
 
 ; Attributes: bp-based frame
 
-?LoadSounds@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisFameHall@@UAEXXZ+2C↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aSfxChrgenOkWav_1 ; "SFX\\ChrGen\\Ok.wav"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0C8h
-                push    eax             ; int
-                call    ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
-                add     esp, 8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?LoadSounds@VisFameHall@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -311386,8 +311368,6 @@ aUnknownError   db ' Unknown Error.',0  ; DATA XREF: .text:def_45C8DB↑o
                 db    0
                 db    0
                 align 4
-; CHAR aSfxChrgenOkWav_1[]
-aSfxChrgenOkWav_1 db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: ?LoadSounds@VisFameHall@@QAEXXZ+7↑o
                 align 4
                 align 4
                 db    1
