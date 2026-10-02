@@ -44358,23 +44358,6 @@ sub_45CDE2      endp
 
 ; Attributes: bp-based frame
 
-?FreeSounds@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: sub_45CDE2+37↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 0C8h
-                push    eax
-                call    ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreeSounds@VisFameHall@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

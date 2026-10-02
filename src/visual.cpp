@@ -21329,6 +21329,13 @@ void VisFameHall::LoadSounds()
 }
 
 
+// 45D563
+void VisFameHall::FreeSounds()
+{
+    FUN_00438dd0(&this->snd_close);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

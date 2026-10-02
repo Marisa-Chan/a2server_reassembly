@@ -296,6 +296,7 @@
 ?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
+?FreeSounds@VisFameHall@@QAEXXZ
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ
 ?FUN_0040d7f3@BigStruct2@@QAEHXZ
 ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z
