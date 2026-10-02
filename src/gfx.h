@@ -86,6 +86,7 @@ extern CGameFont* g_font4; //65f530
 extern CGamePalette* palette_husk; //65f628
 extern CGamePalette* palette_paris_daisy; //65f52c
 extern CGamePalette* palette_brown_derby; //65f5e8
+extern CGamePalette* palette_tawny_port; //65f5a0
 
 
 

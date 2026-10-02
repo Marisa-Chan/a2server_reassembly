@@ -21126,6 +21126,32 @@ VisFameDocument::~VisFameDocument()
 }
 
 
+// 45D7F9
+void VisFameHall::VMethod7()
+{
+    CPoint top_left = this->rect.TopLeft();
+    CString str;
+    if (this->visible_flag != 0) {
+        LockSurface2();
+        this->bmp_bkg->VMethod2(top_left.x, top_left.y, 0, 0, 0);
+        if (this->bmp_cur_close != nullptr) {
+            this->bmp_cur_close->VMethod2(top_left.x + this->close_rect.left, top_left.y + this->close_rect.top, 0, 0, 0);
+        }
+        for (int32_t i = 0; i < this->name_rects.GetSize(); i++) {
+            str.Format("%d.", i + 1);
+            g_font4->DrawTextWithShadow(top_left.x + this->rank_rects[i].left, top_left.y + this->rank_rects[i].top, str, 0, palette_brown_derby->GetPalette(0), 1);
+            Fame1& entry = this->fame->m_Entries[i];
+            g_font4->DrawTextWithShadow(top_left.x + this->name_rects[i].left, top_left.y + this->name_rects[i].top, entry.str, 0, palette_brown_derby->GetPalette(0), 1);
+            str.Format("%d", entry.field_x4);
+            FUN_00476987(&str);
+            g_font4->DrawTextWithShadow(top_left.x + this->score_rects[i].right, top_left.y + this->score_rects[i].top, str, 1, palette_tawny_port->GetPalette(0), 1);
+        }
+        UnlockSurface2();
+    }
+    this->VisScreen::VMethod7();
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
