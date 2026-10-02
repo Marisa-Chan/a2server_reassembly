@@ -33696,34 +33696,6 @@ byte_44D8AF     db      0,     1,     2,   0Ah
 
 ; Attributes: bp-based frame
 
-?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z      proc near               ; DATA XREF: .rdata:0060AF20↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax+0Ch]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [edx+8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [eax]
-                push    ecx
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

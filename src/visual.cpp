@@ -22946,3 +22946,10 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return this->VisScreen::MsgProc(msg, wparam, lparam);
     }
 }
+
+
+// 44DBAE
+void VisServerScreen::VMethod8(CRect* rect)
+{
+    FillRectColorSimple(rect->left, rect->top, rect->right, rect->bottom, 0);
+}
