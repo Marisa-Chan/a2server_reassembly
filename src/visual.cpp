@@ -21165,6 +21165,26 @@ void VisFameHall::VMethod26()
 }
 
 
+// 45D5F0
+int32_t VisFameHall::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    CPoint top_left = this->rect.TopLeft();
+    if (g_mousept.GetCursorSprite() != g_Cursors[CURSOR_SELECT]->GetSprite()) {
+        g_Cursors[CURSOR_SELECT]->Use();
+    }
+    if ((this->close_rect + top_left).PtInRect(pos)) {
+        if ((wparam & 1) == 0) {
+            this->bmp_cur_close = this->bmp_close_off;
+        } else {
+            this->bmp_cur_close = this->bmp_close_on;
+        }
+    } else {
+        this->bmp_cur_close = nullptr;
+    }
+    return 0;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
