@@ -5,12 +5,17 @@ Nothing is guessed: a generated C++ program `#include`s the headers and is compi
 project's MSVC x86 toolset. `offsetof`/`sizeof` give field offsets; `/d1reportAllClassLayout`
 gives base-class offsets, vfptr placement and the exact vtable slot order (overrides resolved).
 
-Resulting Ghidra model (mirrors the C++ hierarchy instead of flattening it):
-  - `Derived` starts with member `_` of type `Base` (at the base-class offset MSVC reports).
-  - A polymorphic class gets `{Class}_VTable` (one typed __thiscall function pointer per slot,
-    category /Game/VTables) and its offset-0 member is `union {Class}_Base { {Class}_VTable *vptr; Base _; }`
-    (or just `vptr` when there is no polymorphic base at offset 0).
-  - Only the class's own data members are written; inherited ones live in the base struct.
+Resulting Ghidra model (mirrors the C++ hierarchy):
+  - `Derived` starts with member `_` of type `Base` (at the base-class offset MSVC reports), so
+    inherited fields read as `this->_.hp` and `(Unit *)this` casts disappear from base-method calls.
+  - Each hierarchy root (first polymorphic class below CObject, e.g. Token, CVisualObject) gets ONE
+    `{Root}_VTable` (category /Game/VTables) holding the union of all descendants' slots, typed as
+    __thiscall function pointers with signatures from the headers. Where sibling classes put different
+    methods in the same slot (7 slots in the game hierarchies), that slot is a union of the candidates
+    and the field comment lists them. The root's offset 0 is `{Root}_VTable *vptr`; descendants reach
+    it through `_`, so `(*this->_.vptr->VMethod25)(this)` is fully named everywhere.
+  - `--flat` instead flattens inherited fields into each struct and gives every class its own vtable
+    (the old model; field access is shorter, base-method calls carry casts).
 
     python tool/ghidra_sync_structs.py --dry-run                 # list what would change
     python tool/ghidra_sync_structs.py --class Unit --class Token
@@ -236,24 +241,80 @@ SPECIAL_SLOTS = {"{dtor}": ("dtor", "void", []), "GetRuntimeClass": ("GetRuntime
                  "AssertValid": ("AssertValid", "void", []), "Dump": ("Dump", "void", ["CDumpContext * dc"])}
 # CObject slots whose owner may be an MFC class we don't parse (CWordArray = CArray<> instantiation)
 FALLBACK_SLOTS = {"Serialize": ("Serialize", "void", ["CArchive * ar"])}
+VTABLE_HUB = "CObject"  # everything derives from it; hierarchy roots are the classes right below it
+
+
+def slot_sig(owner, method, cls, decls):
+    """(name, ret, params) for one vftable entry."""
+    if method in SPECIAL_SLOTS:
+        return SPECIAL_SLOTS[method]
+    if method.startswith("_purecall") or owner == "":
+        return None
+    d = decls.get((owner, method)) or decls.get((cls, method))
+    if d is None:
+        return FALLBACK_SLOTS.get(method, (method, "void", []))
+    return (method, d["ret"], [f"{t} {n}" if n else t for t, n in d["params"]])
 
 
 def vtable_slots(cls, layout, decls):
-    """[(name, ret, params)] for cls's vftable, signatures taken from the header declarations."""
+    """[{name, ret, params, this}] for cls's own vftable."""
     slots = []
     for idx, (owner, method) in enumerate(layout[cls]["vtable"] or []):
-        if method in SPECIAL_SLOTS:
-            slots.append(SPECIAL_SLOTS[method])
-            continue
-        if method.startswith("_purecall") or owner == "":
-            slots.append((f"pure_virtual_{idx}", "void", []))
-            continue
-        d = decls.get((owner, method)) or decls.get((cls, method))
-        if d is None:
-            slots.append(FALLBACK_SLOTS.get(method, (method, "void", [])))
+        sig = slot_sig(owner, method, cls, decls)
+        if sig is None:
+            slots.append({"name": f"pure_virtual_{idx}", "ret": "void", "params": [], "this": cls})
         else:
-            slots.append((method, d["ret"], [f"{t} {n}" if n else t for t, n in d["params"]]))
+            slots.append({"name": sig[0], "ret": sig[1], "params": sig[2], "this": cls})
     return slots
+
+
+def chain(n, layout):
+    out = [n]
+    while layout.get(out[-1], {}).get("bases"):
+        out.append(layout[out[-1]]["bases"][0][0])
+    return out
+
+
+def vtable_root(n, layout, known):
+    """Top-most polymorphic ancestor of n below the hub (CObject); n itself if none."""
+    root = n
+    for parent in chain(n, layout)[1:]:
+        if parent == VTABLE_HUB or parent not in known or not layout.get(parent, {}).get("vtable"):
+            break
+        root = parent
+    return root
+
+
+def merged_vtable_slots(root, members, layout, decls):
+    """One vtable for a whole hierarchy: every descendant's slots, union where siblings disagree.
+    `this` of each entry is the common ancestor of all classes defining that method (root if the
+    same name is used by unrelated branches)."""
+    depth = {m: len(chain(m, layout)) for m in members}
+    per_slot = []
+    owners = []
+    for m in sorted(members, key=lambda x: depth[x]):
+        for i, (owner, method) in enumerate(layout[m]["vtable"]):
+            while len(per_slot) <= i:
+                per_slot.append({})
+                owners.append({})
+            sig = slot_sig(owner, method, m, decls)
+            key = sig[0] if sig else f"pure_virtual_{i}"
+            owners[i].setdefault(key, set()).add(owner if owner in members else m)
+            if key not in per_slot[i]:
+                if sig is None:
+                    per_slot[i][key] = {"name": key, "ret": "void", "params": [], "this": m}
+                else:
+                    per_slot[i][key] = {"name": sig[0], "ret": sig[1], "params": sig[2], "this": m}
+    for i, cands in enumerate(per_slot):
+        for key, c in cands.items():
+            os_ = owners[i][key]
+            common = [o for o in os_ if all(o in chain(x, layout) for x in os_)]
+            c["this"] = min(common, key=lambda o: depth.get(o, 99)) if common else root
+    out = []
+    for cands in per_slot:
+        vals = list(cands.values())
+        out.append(vals[0] if len(vals) == 1 else vals)
+    return out
 
 
 def topo_order(names, layout):
@@ -278,11 +339,12 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--class", dest="cls", action="append", help="only these classes (repeatable)")
     ap.add_argument("--file", help="only classes declared in this header")
-    ap.add_argument("--nest", action="store_true",
-                    help="model inheritance as a `Base _` member (union with vptr for polymorphic classes) "
-                         "instead of flattening inherited fields into the derived struct")
+    ap.add_argument("--flat", action="store_true",
+                    help="flatten inherited fields into each struct and give every class its own vtable "
+                         "instead of `Base _` members + one merged vtable per hierarchy root")
     ap.add_argument("--port", type=int, default=PORT)
     a = ap.parse_args()
+    a.nest = not a.flat
     PORT = a.port
 
     headers = sorted(h for h in glob.glob(os.path.join(SRC, "*.h")) if os.path.basename(h) not in EXCLUDE_HEADERS)
@@ -307,7 +369,13 @@ def main():
         if d["virtual"]:
             decls.setdefault((d["cls"], d["name"]), d)
 
-    struct_ops, vtable_ops, size_ops = [], [], []
+    struct_ops, vtable_ops, size_ops, drop_ops = [], [], [], []
+    poly_all = {n for n in classes if layout.get(n, {}).get("vtable")}
+    if a.nest:
+        # one merged vtable per hierarchy root; descendants reach it through `Base _`
+        groups = {}
+        for n in poly_all:
+            groups.setdefault(vtable_root(n, layout, poly_all), set()).add(n)
     for name in topo_order(list(selected), layout):
         info = selected[name]
         d, lay = dump.get(name), layout.get(name)
@@ -318,7 +386,10 @@ def main():
         if len(bases) > 1:
             print(f"  {name}: multiple bases {bases}; only {bases[0][0]} is modelled as `_`")
         base, base_off = (bases[0] if bases else (None, 0))
-        has_vtable = lay["vfptr"] is not None and bool(lay["vtable"])
+        polymorphic = lay["vfptr"] is not None and bool(lay["vtable"])
+        root = vtable_root(name, layout, poly_all) if polymorphic else None
+        # own vtable struct: every polymorphic class (flat model) or only hierarchy roots (nest model)
+        own_vtable = polymorphic and (not a.nest or root == name)
         fields = []
         own = info["fields"] if a.nest else all_fields(name, classes)
         for t, f, dims, ln in own:
@@ -328,20 +399,25 @@ def main():
             fields.append({"offset": off, "size": size, "type": t + dims, "name": f,
                            "placeholder": bool(PLACEHOLDER_FIELD.match(f))})
         args = {"name": name, "size": d["size"], "fields": fields, "shrink": info["assert_size"] is not None,
-                "polymorphic": has_vtable, "base": base if a.nest else None, "base_offset": base_off, "vtable": has_vtable}
+                "polymorphic": polymorphic, "base": base if a.nest else None, "base_offset": base_off,
+                "vtable": own_vtable}
         size_ops.append({"op": "struct-apply", "args": {**args, "fields": None}})
-        if has_vtable:
-            slots = vtable_slots(name, layout, decls)
-            vtable_ops.append({"op": "vtable-apply", "args": {
-                "cls": name, "slots": [{"name": n, "ret": r, "params": p} for n, r, p in slots]}})
+        if own_vtable:
+            slots = merged_vtable_slots(name, groups[name], layout, decls) if a.nest else vtable_slots(name, layout, decls)
+            vtable_ops.append({"op": "vtable-apply", "args": {"cls": name, "slots": slots}})
+        elif polymorphic and a.nest:
+            drop_ops.append({"op": "vtable-remove", "args": {"cls": name}})
         struct_ops.append({"op": "struct-apply", "args": args})
         if a.dry_run:
-            vt = f"  vtable={len(lay['vtable'])} slots" if has_vtable else ""
+            vt = f"  vtable={len(slots)} slots" if own_vtable else (f"  vtable: via {root}_VTable" if polymorphic else "")
             bs = f"  base={base}@0x{base_off:X}" if base else ""
             print(f"{name}  sizeof=0x{d['size']:X}{bs}{vt}  assert_size={info['assert_size']}  [{info['file']}:{info['line']}]")
-            if has_vtable:
-                for i, (n, r, p) in enumerate(vtable_slots(name, layout, decls)):
-                    print(f"    [{i:2}] {r} {n}({', '.join(p)})")
+            if own_vtable:
+                for i, sl in enumerate(slots):
+                    if isinstance(sl, list):
+                        print(f"    [{i:2}] union: " + " | ".join(f"{c['this']}::{c['name']}" for c in sl))
+                    else:
+                        print(f"    [{i:2}] {sl['ret']} {sl['name']}({', '.join(sl['params'])})")
             for fl in fields:
                 print(f"    0x{fl['offset']:04X} {fl['size']:4}  {fl['type']:28} {fl['name']}")
     if a.dry_run:
@@ -350,8 +426,8 @@ def main():
     for line in call("batch", {"ops": size_ops}).splitlines():
         if line.startswith("ERR"):
             print(line)
-    # pass 2: vtables, pass 3: full layouts (bases first)
-    for ops in (vtable_ops, struct_ops):
+    # pass 2: vtables, pass 3: full layouts (bases first), pass 4: drop per-class vtables made obsolete by --nest
+    for ops in (vtable_ops, struct_ops, drop_ops):
         for i in range(0, len(ops), 100):
             for line in call("batch", {"ops": ops[i:i + 100]}).splitlines():
                 print(line if line.startswith("ERR") else line.split(" -> ", 1)[-1])

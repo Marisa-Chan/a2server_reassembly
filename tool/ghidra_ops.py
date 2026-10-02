@@ -670,9 +670,10 @@ def _resolve_or_fallback(ctx, text, size_hint=4):
 
 def op_vtable_apply(ctx, cls, slots):
     """Create/refresh `{cls}_VTable`: one typed __thiscall function pointer per slot.
-    slots: [{"name": str, "ret": type str, "params": ["type name", ...]  (without this)}]
+    slots: [slot, ...] where slot is {"name", "ret", "params": ["type name", ...], "this": class}
+    or a LIST of such dicts when sibling classes disagree on that slot (becomes a union).
     Existing non-placeholder slot names in Ghidra survive if the header name is VMethodN."""
-    from ghidra.program.model.data import (StructureDataType, CategoryPath, FunctionDefinitionDataType,
+    from ghidra.program.model.data import (StructureDataType, UnionDataType, CategoryPath, FunctionDefinitionDataType,
                                            ParameterDefinitionImpl, PointerDataType, DataTypeConflictHandler)
     vt_name = f"{cls}_VTable"
     with ctx.transaction("vtable apply " + vt_name):
@@ -682,21 +683,18 @@ def op_vtable_apply(ctx, cls, slots):
             s = ctx.find_struct(vt_name)
         except OpError:
             s = ctx.dtm.addDataType(StructureDataType(cat, vt_name, 0, ctx.dtm), None)
-        this_dt = PointerDataType(ctx.find_struct(cls), ctx.dtm)
         old_names = {}
         for c in s.getDefinedComponents():
             if c.getFieldName():
                 old_names[c.getOffset()] = str(c.getFieldName())
         s.deleteAll()
         used = set()
-        for i, sl in enumerate(slots):
-            name = sl["name"]
-            prev = old_names.get(i * 4)
-            if re.fullmatch(r"VMethod\d+|pure_virtual_\d+", name) and prev and not re.fullmatch(r"VMethod\d+|pure_virtual_\d+", prev):
-                name = prev
-            while name in used:
-                name += "_"
-            used.add(name)
+
+        def funcdef(sl, name):
+            try:
+                this_dt = PointerDataType(ctx.find_struct(sl.get("this") or cls), ctx.dtm)
+            except OpError:
+                this_dt = PointerDataType(ctx.find_struct(cls), ctx.dtm)
             fd = FunctionDefinitionDataType(fcat, name, ctx.dtm)
             fd.setReturnType(_resolve_or_fallback(ctx, sl.get("ret") or "void"))
             params = [ParameterDefinitionImpl("this", this_dt, None)]
@@ -709,9 +707,57 @@ def op_vtable_apply(ctx, cls, slots):
                 fd.setCallingConvention("__thiscall")
             except Exception:
                 pass
-            fd = ctx.dtm.addDataType(fd, DataTypeConflictHandler.REPLACE_HANDLER)
-            s.add(PointerDataType(fd, ctx.dtm), 4, name, None)
+            return PointerDataType(ctx.dtm.addDataType(fd, DataTypeConflictHandler.REPLACE_HANDLER), ctx.dtm)
+
+        for i, sl in enumerate(slots):
+            cands = sl if isinstance(sl, list) else [sl]
+            if len(cands) == 1:
+                name = cands[0]["name"]
+                prev = old_names.get(i * 4)
+                if re.fullmatch(r"VMethod\d+|pure_virtual_\d+", name) and prev and \
+                        not re.fullmatch(r"VMethod\d+|pure_virtual_\d+|slot\d+", prev):
+                    name = prev
+                while name in used:
+                    name += "_"
+                used.add(name)
+                s.add(funcdef(cands[0], name), 4, name, None)
+                continue
+            # sibling classes put different methods in this slot: union of the candidates
+            uname = f"{vt_name}_slot{i}"
+            hits = [u for u in ctx.dtm.getAllDataTypes() if str(u.getName()) == uname and u.getClass().getSimpleName().startswith("Union")]
+            u = hits[0] if hits else ctx.dtm.addDataType(UnionDataType(cat, uname, ctx.dtm), None)
+            while u.getNumComponents() > 0:
+                u.delete(0)
+            seen = set()
+            for c in cands:
+                n = c["name"]
+                while n in seen:
+                    n += "_"
+                seen.add(n)
+                u.add(funcdef(c, n), 4, n, f"{c.get('this') or cls}")
+            fname = f"slot{i}"
+            used.add(fname)
+            s.add(u, 4, fname, " | ".join(c["name"] for c in cands))
     return f"{vt_name}: {len(slots)} slots"
+
+
+def op_vtable_remove(ctx, cls):
+    """Drop `{cls}_VTable` and its function definitions (class is no longer a vtable root)."""
+    from ghidra.program.model.data import CategoryPath
+    vt_name = f"{cls}_VTable"
+    with ctx.transaction("vtable remove " + vt_name):
+        removed = 0
+        try:
+            s = ctx.find_struct(vt_name)
+            ctx.dtm.remove(s, ctx.monitor)
+            removed += 1
+        except OpError:
+            pass
+        cat = ctx.dtm.getCategory(CategoryPath(f"{VTABLE_CATEGORY}/{cls}"))
+        if cat is not None:
+            cat.getParent().removeCategory(cat.getName(), ctx.monitor)
+            removed += 1
+    return f"{vt_name}: removed" if removed else f"{vt_name}: nothing to remove"
 
 
 def _harvest_into_base(ctx, s, base_struct, base_off, size):
@@ -798,7 +844,11 @@ def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=Fals
         base_offset = _int(base_offset)
         if base_struct is not None and base_struct.getLength() > 0:
             stats["harvested"] += _harvest_into_base(ctx, s, base_struct, base_offset, base_struct.getLength())
-            if vtable and base_offset == 0:
+            if vtable and base_offset == 0 and base_struct.getLength() <= 4:
+                # base is just a vptr (CObject): no point wrapping it, our typed vptr says it all
+                fields.append({"offset": 0, "size": 4, "type_dt": PointerDataType(ctx.find_struct(f"{name}_VTable"), ctx.dtm),
+                               "name": "vptr", "placeholder": False})
+            elif vtable and base_offset == 0:
                 dt = _base_union(ctx, name, f"{name}_VTable", base_struct)
                 fields.append({"offset": 0, "size": dt.getLength(), "type_dt": dt, "name": "_", "placeholder": False})
             else:
