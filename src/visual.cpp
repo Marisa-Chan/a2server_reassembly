@@ -21199,6 +21199,17 @@ int32_t VisFameHall::OnLButtonDown(uint32_t wparam, CPoint pos)
 }
 
 
+// 45D773
+int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    CPoint top_left = this->rect.TopLeft();
+    if ((this->close_rect + top_left).PtInRect(pos)) {
+        this->FUN_0045da77();
+    }
+    return this->CVisualObject::OnLButtonUp(wparam, pos);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

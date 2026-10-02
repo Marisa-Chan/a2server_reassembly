@@ -355,11 +355,11 @@ _byte_666590
 ?GetHint@VisFameHall@@UAEPBDXZ	12
 ?OnKeyDown@VisFameHall@@UAEHI@Z	16
 ?OnChar@VisFameHall@@UAEHI@Z	16
+?FUN_0045da77@VisFameHall@@QAEXXZ	18
 ??_GVisFameHall@@UAEPAXI@Z	24
 ?DoClose@VisFameHall@@UAEXI@Z	29
 ?MsgProc@VisFameHall@@UAEHIII@Z	37
 ?VMethod28@VisFameHall@@UAEXXZ	56
-?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z	64
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32

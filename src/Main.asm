@@ -45011,71 +45011,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060B2E0↓o
-
-var_2C          = dword ptr -2Ch
-pt              = POINT ptr -28h
-var_20          = dword ptr -20h
-var_10          = dword ptr -10h
-dy              = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 2Ch
-                mov     [ebp+var_2C], ecx
-                mov     ecx, dword ptr [ebp+var_2C]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [ebp+dy], edx
-                mov     eax, dword ptr [ebp+dy]
-                push    eax             ; dy
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx             ; int
-                lea     edx, [ebp+var_20]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_2C]
-                add     ecx, 0A8h
-                call    sub_438520
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_45D7DF
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_45DA77
-
-loc_45D7DF:                             ; CODE XREF: ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z+62↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -45108,7 +45043,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_45DA77      proc near               ; CODE XREF: ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z+67↑p
+?FUN_0045da77@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z+67↑p
 
 var_4           = dword ptr -4
 
@@ -45126,7 +45061,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_45DA77      endp
+?FUN_0045da77@VisFameHall@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

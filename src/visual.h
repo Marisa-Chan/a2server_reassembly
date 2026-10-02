@@ -3129,6 +3129,8 @@ public:
 	virtual void VMethod28() override; // 45D222
 	virtual void DoClose(uint32_t code) override; // 45D2D9
 
+	void FUN_0045da77(); // 45da77 in asm
+
 	VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 45cd35 in asm
 public:
 	CFameHall* fame;
