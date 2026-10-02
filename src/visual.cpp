@@ -21251,6 +21251,13 @@ void VisFameHall::DoClose(uint32_t code)
 }
 
 
+// 45D5BE
+int32_t VisFameHall::OnKeyDown(uint32_t wparam)
+{
+    return this->VisScreen::OnKeyDown(wparam);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
