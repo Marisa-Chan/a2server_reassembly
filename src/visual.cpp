@@ -21228,6 +21228,16 @@ void VisFameHall::VMethod28()
 }
 
 
+// 45D57F
+int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->CVisualObject::VMethod9();
+    }
+    return this->VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

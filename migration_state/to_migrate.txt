@@ -359,7 +359,6 @@ _byte_666590
 ?FUN_0045da77@VisFameHall@@QAEXXZ	18
 ??_GVisFameHall@@UAEPAXI@Z	24
 ?DoClose@VisFameHall@@UAEXI@Z	29
-?MsgProc@VisFameHall@@UAEHIII@Z	37
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ?LoadBitmaps@VisFameHall@@QAEXXZ	112
 ?UpdateRects@VisFameHall@@QAEXXZ	210

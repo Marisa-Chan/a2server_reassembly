@@ -1566,7 +1566,7 @@ externdef ??_GVisFameHall@@UAEPAXI@Z : proc
 externdef ?GetHint@VisFameHall@@UAEPBDXZ : proc
 extern ?VMethod7@VisFameHall@@UAEXXZ : proc
 externdef ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisFameHall@@UAEHIII@Z : proc
+extern ?MsgProc@VisFameHall@@UAEHIII@Z : proc
 extern ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z : proc
