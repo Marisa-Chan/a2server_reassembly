@@ -23145,3 +23145,17 @@ VisNetPhoneBook::VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, i
 
 // 44fae0 (deleting dtor ??_G; the complete dtor at 44FB10 only calls the base dtor)
 VisNetPhoneBook::~VisNetPhoneBook() = default;
+
+
+// 448708
+void VisNetPhoneBook::sub_448708(const char* str)
+{
+    VisButton* connect_btn = (VisButton*)this->FindChild(10);
+    if (str != nullptr && this->enum_addresses_num != 0) {
+        connect_btn->ChangeFlags(1, true);
+    } else {
+        connect_btn->ChangeFlags(1, false);
+        connect_btn->SetDowned(false);
+    }
+    connect_btn->VMethod9();
+}
