@@ -44278,9 +44278,9 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 3
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_45D44A
+                call    ?FreeBitmaps@VisFameHall@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_45D563
+                call    ?FreeSounds@VisFameHall@@QAEXXZ
 ;   } // starts at 45CE07
 ;   try {
                 mov     byte ptr [ebp+var_4], 2
@@ -44545,36 +44545,6 @@ loc_45D21D:                             ; CODE XREF: ?UpdateRects@VisFameHall@@Q
 
 ; Attributes: bp-based frame
 
-?DoClose@VisFameHall@@UAEXI@Z      proc near               ; DATA XREF: .rdata:0060B30C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0CCh], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_45D44A
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_45D563
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+68h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 6Ch ; 'l'
-                call    sub_45DB10
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@VisFameHall@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -44609,7 +44579,7 @@ var_4           = dword ptr -4
                 sub     esp, 28h
                 mov     [ebp+var_28], ecx
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_45D44A
+                call    ?FreeBitmaps@VisFameHall@@QAEXXZ
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -44700,7 +44670,7 @@ loc_45D416:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@Q
 
 ; Attributes: bp-based frame
 
-sub_45D44A      proc near               ; CODE XREF: sub_45CDE2+2F↑p
+?FreeBitmaps@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: sub_45CDE2+2F↑p
 
 var_28          = dword ptr -28h
 var_24          = dword ptr -24h
@@ -44736,10 +44706,10 @@ var_4           = dword ptr -4
                 jmp     short loc_45D490
 ; ---------------------------------------------------------------------------
 
-loc_45D489:                             ; CODE XREF: sub_45D44A+2B↑j
+loc_45D489:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+2B↑j
                 mov     [ebp+var_20], 0
 
-loc_45D490:                             ; CODE XREF: sub_45D44A+13↑j
+loc_45D490:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+13↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     dword ptr [eax+0B8h], 0
                 mov     ecx, dword ptr [ebp+var_1C]
@@ -44761,10 +44731,10 @@ loc_45D490:                             ; CODE XREF: sub_45D44A+13↑j
                 jmp     short loc_45D4DA
 ; ---------------------------------------------------------------------------
 
-loc_45D4D3:                             ; CODE XREF: sub_45D44A+75↑j
+loc_45D4D3:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+75↑j
                 mov     [ebp+var_24], 0
 
-loc_45D4DA:                             ; CODE XREF: sub_45D44A+5D↑j
+loc_45D4DA:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+5D↑j
                 mov     ecx, dword ptr [ebp+var_1C]
                 mov     dword ptr [ecx+0BCh], 0
                 mov     edx, dword ptr [ebp+var_1C]
@@ -44786,10 +44756,10 @@ loc_45D4DA:                             ; CODE XREF: sub_45D44A+5D↑j
                 jmp     short loc_45D524
 ; ---------------------------------------------------------------------------
 
-loc_45D51D:                             ; CODE XREF: sub_45D44A+BF↑j
+loc_45D51D:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+BF↑j
                 mov     [ebp+var_28], 0
 
-loc_45D524:                             ; CODE XREF: sub_45D44A+A7↑j
+loc_45D524:                             ; CODE XREF: ?FreeBitmaps@VisFameHall@@QAEXXZ+A7↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 mov     dword ptr [eax+0C0h], 0
                 mov     ecx, dword ptr [ebp+var_1C]
@@ -44797,7 +44767,7 @@ loc_45D524:                             ; CODE XREF: sub_45D44A+A7↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_45D44A      endp
+?FreeBitmaps@VisFameHall@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -44828,7 +44798,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_45D563      proc near               ; CODE XREF: sub_45CDE2+37↑p
+?FreeSounds@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: sub_45CDE2+37↑p
 
 var_4           = dword ptr -4
 
@@ -44844,7 +44814,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_45D563      endp
+?FreeSounds@VisFameHall@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -45057,22 +45027,6 @@ sub_45DAF0      endp
 
 ; Attributes: bp-based frame
 
-sub_45DB10      proc near               ; CODE XREF: ?DoClose@VisFameHall@@UAEXI@Z+34↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_438960
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_45DB10      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

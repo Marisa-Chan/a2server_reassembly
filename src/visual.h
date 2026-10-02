@@ -3133,6 +3133,8 @@ public:
 	void LoadBitmaps(); // 45d32e in asm
 	void LoadSounds(); // 45d542 in asm
 	void UpdateRects(); // 45cfae in asm
+	void FreeBitmaps(); // 45d44a in asm
+	void FreeSounds(); // 45d563 in asm
 
 	VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 45cd35 in asm
 public:

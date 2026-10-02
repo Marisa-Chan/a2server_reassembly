@@ -21238,6 +21238,19 @@ int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 45D2D9
+void VisFameHall::DoClose(uint32_t code)
+{
+    this->visible_flag = 0;
+    this->FreeBitmaps();
+    this->FreeSounds();
+    this->fame = nullptr;
+    this->name_rects.RemoveAll();
+    this->VisScreen::DoClose(code);
+    g_mousept.EnableHint();
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

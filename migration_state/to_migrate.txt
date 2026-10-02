@@ -355,11 +355,12 @@ _byte_666590
 ?GetHint@VisFameHall@@UAEPBDXZ	12
 ?OnKeyDown@VisFameHall@@UAEHI@Z	16
 ?OnChar@VisFameHall@@UAEHI@Z	16
+?FreeSounds@VisFameHall@@QAEXXZ	16
 ?LoadSounds@VisFameHall@@QAEXXZ	17
 ?FUN_0045da77@VisFameHall@@QAEXXZ	18
 ??_GVisFameHall@@UAEPAXI@Z	24
-?DoClose@VisFameHall@@UAEXI@Z	29
 ??0VisFameHall@@QAE@HHHHH@Z	72
+?FreeBitmaps@VisFameHall@@QAEXXZ	97
 ?LoadBitmaps@VisFameHall@@QAEXXZ	112
 ?UpdateRects@VisFameHall@@QAEXXZ	210
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
