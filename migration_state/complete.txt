@@ -545,7 +545,6 @@
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
-?MsgProc@VisServerScreen@@UAEHIII@Z
 ?MsgProc@VisSpellBook@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
@@ -564,7 +563,6 @@
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
 ?OnKeyDown@VisScreen@@UAEHI@Z
-?OnKeyDown@VisServerScreen@@UAEHI@Z
 ?OnKeyDown@VisSpellBook@@UAEHI@Z
 ?OnKeyDown@VisStartGame@@UAEHI@Z
 ?OnKeyDown@VisTextBox@@UAEHI@Z
@@ -875,7 +873,6 @@
 ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisMessageBox@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
-?VMethod26@VisServerScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ
 ?VMethod26@VisStartGame@@UAEXXZ
 ?VMethod26@VisTavScene@@UAEXXZ
@@ -970,7 +967,6 @@
 ?VMethod7@VisInvType1@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
-?VMethod7@VisServerScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisSpellBook@@UAEXXZ
 ?VMethod7@VisStartGame@@UAEXXZ
@@ -983,7 +979,6 @@
 ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z

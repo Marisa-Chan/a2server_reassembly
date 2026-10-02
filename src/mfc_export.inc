@@ -1037,7 +1037,6 @@ externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
 externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
-externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
 
 
 
@@ -1776,13 +1775,6 @@ externdef ?sub_44E4CE@@YAXPBD@Z : proc  ; void sub_44E4CE(const char* cmd)
 externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
 
 ;VisServerScreen
-externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
-externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisServerScreen@@UAEXXZ : proc
-externdef ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisServerScreen@@UAEHIII@Z : proc
-externdef ?OnKeyDown@VisServerScreen@@UAEHI@Z : proc
-externdef ?VMethod26@VisServerScreen@@UAEXXZ : proc
 
 ;GameOptionsWindow
 

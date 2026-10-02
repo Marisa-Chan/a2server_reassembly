@@ -22953,3 +22953,15 @@ void VisServerScreen::VMethod8(CRect* rect)
 {
     FillRectColorSimple(rect->left, rect->top, rect->right, rect->bottom, 0);
 }
+
+
+// 44e469
+VisServerScreen::VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->msg_log = log;
+}
+
+
+// 450ab0 (deleting dtor ??_G; the complete dtor at 450AE0 only calls the base dtor)
+VisServerScreen::~VisServerScreen() = default;

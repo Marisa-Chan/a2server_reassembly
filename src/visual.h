@@ -2952,7 +2952,7 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 44E6DE
 	virtual void VMethod26() override; // 44D909
 
-	VisServerScreen(int32_t _id, int32_t l, int32_t, int32_t r, int32_t b, GM_a28 *log); // 44e469
+	VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log); // 44e469
 
 public:
 	GM_a28* msg_log;      // 0x68

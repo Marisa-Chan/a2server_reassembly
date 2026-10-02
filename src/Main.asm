@@ -33709,43 +33709,6 @@ byte_44D8AF     db      0,     1,     2,   0Ah
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z      proc near               ; CODE XREF: ?RunSessionBootstrap@MainWindow@@QAEHH@Z+12B↓p
-
-var_4           = dword ptr -4
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+4]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60AEF0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_14]
-                mov     [ecx+68h], edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -37335,31 +37298,6 @@ sub_4509A0      endp
 
 ; Attributes: bp-based frame
 
-??_GVisServerScreen@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060AEF4↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_450AE0
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_450AD2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_450AD2:                             ; CODE XREF: ??_GVisServerScreen@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisServerScreen@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -37368,20 +37306,6 @@ loc_450AD2:                             ; CODE XREF: ??_GVisServerScreen@@UAEPAX
 
 ; Attributes: bp-based frame
 
-sub_450AE0      proc near               ; CODE XREF: ??_GVisServerScreen@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisScreen@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_450AE0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -290189,40 +290113,6 @@ off_60ADF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset sub_4DB615
                 align 8
 
-off_60AEF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z+2B↑o
-                dd offset ??_GVisServerScreen@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisServerScreen@@UAEXXZ
-                dd offset ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisServerScreen@@UAEHIII@Z
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisServerScreen@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisServerScreen@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisScreen@@UAEXXZ
-                dd offset ?DoClose@VisScreen@@UAEXI@Z
 off_60AF78      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z+46↑o
                 dd offset ??_GVisMissionFailed@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
