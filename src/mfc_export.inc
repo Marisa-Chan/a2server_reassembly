@@ -1572,7 +1572,7 @@ externdef ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisFameHall@@UAEHI@Z : proc
 externdef ?OnChar@VisFameHall@@UAEHI@Z : proc
-externdef ?VMethod26@VisFameHall@@UAEXXZ : proc
+extern ?VMethod26@VisFameHall@@UAEXXZ : proc
 externdef ?VMethod28@VisFameHall@@UAEXXZ : proc
 externdef ?DoClose@VisFameHall@@UAEXI@Z : proc
 

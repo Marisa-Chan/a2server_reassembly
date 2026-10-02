@@ -363,7 +363,6 @@ _byte_666590
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z	77
 ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z	92
-?VMethod26@VisFameHall@@UAEXXZ	115
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413

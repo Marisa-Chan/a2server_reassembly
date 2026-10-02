@@ -44316,122 +44316,6 @@ sub_45CDE2      endp
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisFameHall@@UAEXXZ      proc near               ; CODE XREF: sub_45CCA0+78↑p
-
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-Block           = dword ptr -40h
-var_3C          = byte ptr -3Ch
-var_34          = tagPOINT ptr -34h
-var_2C          = byte ptr -2Ch
-var_24          = tagSIZE ptr -24h
-var_1C          = byte ptr -1Ch
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9FE7 SIZE 00000014 BYTES
-
-; __unwind { // SEH_45CE6E
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45CE6E
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 40h
-                mov     [ebp+var_48], ecx
-                mov     eax, dword ptr [ebp+var_48]
-                mov     dword ptr [eax+0B8h], 0
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     dword ptr [ecx+0BCh], 0
-                mov     edx, dword ptr [ebp+var_48]
-                mov     dword ptr [edx+0C0h], 0
-                mov     eax, dword ptr [ebp+var_48]
-                mov     dword ptr [eax+0C8h], 0
-                push    20h ; ' '
-                push    2Ch ; ','
-                lea     ecx, [ebp+var_2C]
-                call    unknown_libname_454 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     dword ptr [ebp+var_24], ecx ; var_24._cx
-                mov     dword ptr [ebp+var_24+4], edx ; var_24.cy
-                mov     eax, dword ptr [ebp+var_24+4] ; var_24.cy
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24] ; var_24._cx
-                push    ecx             ; struct tagSIZE
-                push    1A0h
-                push    230h
-                lea     ecx, [ebp+var_3C]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [eax+4]
-                mov     dword ptr [ebp+var_34], edx ; var_34.x
-                mov     dword ptr [ebp+var_34+4], eax ; var_34.y
-                mov     ecx, dword ptr [ebp+var_34+4] ; var_34.y
-                push    ecx
-                mov     edx, dword ptr [ebp+var_34] ; var_34.x
-                push    edx             ; struct tagPOINT
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??0CRect@@QAE@UtagPOINT@@UtagSIZE@@@Z ; CRect::CRect(tagPOINT,tagSIZE)
-                mov     ecx, dword ptr [ebp+var_48]
-                add     ecx, 0A8h
-                mov     edx, dword ptr [eax]
-                mov     [ecx], edx
-                mov     edx, dword ptr [eax+4]
-                mov     [ecx+4], edx
-                mov     edx, dword ptr [eax+8]
-                mov     [ecx+8], edx
-                mov     eax, dword ptr [eax+0Ch]
-                mov     [ecx+0Ch], eax
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_45CF73
-                push    0               ; lpString
-                push    0               ; int
-                push    445h            ; int
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                mov     ecx, ?g_font1@@3PAVCGameFont@@A
-                push    ecx             ; int
-                push    offset byte_65DDE4 ; varStr
-                push    0               ; yBottom
-                push    0               ; xRight
-                push    0               ; yTop
-                push    0               ; xLeft
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_4C], eax
-                jmp     short loc_45CF7A
-; ---------------------------------------------------------------------------
-
-loc_45CF73:                             ; CODE XREF: ?VMethod26@VisFameHall@@UAEXXZ+D2↑j
-                mov     [ebp+var_4C], 0
-
-loc_45CF7A:                             ; CODE XREF: ?VMethod26@VisFameHall@@UAEXXZ+103↑j
-                mov     edx, dword ptr [ebp+var_4C]
-                mov     [ebp+var_44], edx
-;   } // starts at 45CF35
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_44]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_48]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     dword ptr [ecx+0CCh], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45CE6E
-?VMethod26@VisFameHall@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -273036,24 +272920,6 @@ SEH_45CDE2:                             ; DATA XREF: sub_45CDE2+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9FAA
 ; END OF FUNCTION CHUNK FOR sub_45CDE2
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisFameHall@@UAEXXZ
-
-loc_5F9FE7:                             ; DATA XREF: .rdata:stru_61AD28↓o
-; __unwind { // SEH_45CE6E
-;   cleanup() // owned by 45CF35
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45CE6E:                             ; DATA XREF: ?VMethod26@VisFameHall@@UAEXXZ+5↑o
-                mov     eax, offset stru_61AD08
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9FE7
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisFameHall@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_45D32E
 
 loc_5F9FFB:                             ; DATA XREF: .rdata:stru_61AD50↓o
@@ -305809,12 +305675,6 @@ stru_61ACE8     UnwindMapEntry <-1, offset loc_5F9FAA>
                 UnwindMapEntry <0, offset loc_5F9FB3>
                 UnwindMapEntry <1, offset loc_5F9FBF>
                 UnwindMapEntry <2, offset loc_5F9FCE>
-stru_61AD08     FuncInfoV1 <19930520h, 1, offset stru_61AD28, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61AD28     UnwindMapEntry <-1, offset loc_5F9FE7>
 stru_61AD30     FuncInfoV1 <19930520h, 3, offset stru_61AD50, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -317964,8 +317824,6 @@ dword_65DD88    dd ?                    ; DATA XREF: ?InitSound@@YAHPAUHWND__@@H
 ; HACMSTREAM has
 DWORD_0065dddc             dd ?                    ; DATA XREF: ?LoadSample@SfxSample@@QAEXXZ+1E2↑o
 
-; char byte_65DDE4[4]
-byte_65DDE4     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisFameHall@@UAEXXZ+E9↑o
 
 
 

@@ -21152,6 +21152,19 @@ void VisFameHall::VMethod7()
 }
 
 
+// 45CE6E
+void VisFameHall::VMethod26()
+{
+    this->bmp_bkg = nullptr;
+    this->bmp_close_off = nullptr;
+    this->bmp_close_on = nullptr;
+    this->snd_close = nullptr;
+    this->close_rect = CRect(CPoint(0x230, 0x1A0), CSize(0x2C, 0x20));
+    this->AddChild(new VisButton(4, 0, 0, 0, 0, "", g_font1, clrsh_TechBlack, 0x445, 0, nullptr));
+    this->visible_flag = 0;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
