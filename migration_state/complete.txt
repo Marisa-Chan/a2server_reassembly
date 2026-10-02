@@ -553,6 +553,7 @@
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
+?OnChar@VisFameHall@@UAEHI@Z
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z

@@ -21258,6 +21258,13 @@ int32_t VisFameHall::OnKeyDown(uint32_t wparam)
 }
 
 
+// 45D5D7
+int32_t VisFameHall::OnChar(uint32_t wparam)
+{
+    return this->CVisualObject::OnChar(wparam);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

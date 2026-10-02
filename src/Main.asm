@@ -44834,23 +44834,6 @@ var_4           = dword ptr -4
 ; Attributes: bp-based frame
 
 ; int __stdcall ?OnChar@VisFameHall@@UAEHI@Z(struct type_info *)
-?OnChar@VisFameHall@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060B2FC↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; struct type_info *
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnChar@VisFameHall@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
