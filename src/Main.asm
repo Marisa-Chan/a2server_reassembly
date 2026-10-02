@@ -44340,119 +44340,6 @@ sub_45CDE2      endp
 
 ; Attributes: bp-based frame
 
-?LoadBitmaps@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisFameHall@@UAEXXZ+24↑p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9FFB SIZE 00000028 BYTES
-
-; __unwind { // SEH_45D32E
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45D32E
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                mov     ecx, dword ptr [ebp+var_28]
-                call    ?FreeBitmaps@VisFameHall@@QAEXXZ
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_45D37D
-                push    offset aMainGraphicsFa ; "main\\graphics\\famehall\\hall.bmp"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_45D384
-; ---------------------------------------------------------------------------
-
-loc_45D37D:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+3B↑j
-                mov     [ebp+var_2C], 0
-
-loc_45D384:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+4D↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_14], eax
-;   } // starts at 45D35E
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ecx+0B8h], edx
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_18], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_18], 0
-                jz      short loc_45D3C6
-                push    offset aGraphicsInterf_99 ; "graphics\\interface\\Docs\\OK\\Ok_l_off"...
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_30], eax
-                jmp     short loc_45D3CD
-; ---------------------------------------------------------------------------
-
-loc_45D3C6:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+84↑j
-                mov     [ebp+var_30], 0
-
-loc_45D3CD:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+96↑j
-                mov     eax, dword ptr [ebp+var_30]
-                mov     [ebp+var_1C], eax
-;   } // starts at 45D3A7
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ecx+0BCh], edx
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_20], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_20], 0
-                jz      short loc_45D40F
-                push    offset aGraphicsInterf_100 ; "graphics\\interface\\Docs\\OK\\Ok_l_on."...
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_34], eax
-                jmp     short loc_45D416
-; ---------------------------------------------------------------------------
-
-loc_45D40F:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+CD↑j
-                mov     [ebp+var_34], 0
-
-loc_45D416:                             ; CODE XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+DF↑j
-                mov     eax, dword ptr [ebp+var_34]
-                mov     [ebp+var_24], eax
-;   } // starts at 45D3F0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ebp+var_24]
-                mov     [ecx+0C0h], edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+0C4h], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45D32E
-?LoadBitmaps@VisFameHall@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -272273,38 +272160,6 @@ SEH_45CDE2:                             ; DATA XREF: sub_45CDE2+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9FAA
 ; END OF FUNCTION CHUNK FOR sub_45CDE2
-; START OF FUNCTION CHUNK FOR ?LoadBitmaps@VisFameHall@@QAEXXZ
-
-loc_5F9FFB:                             ; DATA XREF: .rdata:stru_61AD50↓o
-; __unwind { // SEH_45D32E
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA005:                             ; DATA XREF: .rdata:0061AD58↓o
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FA00F:                             ; DATA XREF: .rdata:0061AD60↓o
-;   cleanup() // owned by 45D35E
-;   cleanup() // owned by 45D3A7
-;   cleanup() // owned by 45D3F0
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45D32E:                             ; DATA XREF: ?LoadBitmaps@VisFameHall@@QAEXXZ+5↑o
-                mov     eax, offset stru_61AD30
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9FFB
-; END OF FUNCTION CHUNK FOR ?LoadBitmaps@VisFameHall@@QAEXXZ
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z
 
@@ -305027,14 +304882,6 @@ stru_61ACE8     UnwindMapEntry <-1, offset loc_5F9FAA>
                 UnwindMapEntry <0, offset loc_5F9FB3>
                 UnwindMapEntry <1, offset loc_5F9FBF>
                 UnwindMapEntry <2, offset loc_5F9FCE>
-stru_61AD30     FuncInfoV1 <19930520h, 3, offset stru_61AD50, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61AD50     UnwindMapEntry <-1, offset loc_5F9FFB>
-                UnwindMapEntry <-1, offset loc_5FA005>
-                UnwindMapEntry <-1, offset loc_5FA00F>
 stru_61AD90     FuncInfoV1 <19930520h, 1, offset stru_61ADB0, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -311636,12 +311483,6 @@ aUnknownError   db ' Unknown Error.',0  ; DATA XREF: .text:def_45C8DB↑o
                 db    0
                 db    0
                 db    0
-; char aMainGraphicsFa[]
-aMainGraphicsFa db 'main\graphics\famehall\hall.bmp',0
-; char aGraphicsInterf_99[]
-aGraphicsInterf_99 db 'graphics\interface\Docs\OK\Ok_l_off.bmp',0
-; char aGraphicsInterf_100[]
-aGraphicsInterf_100 db 'graphics\interface\Docs\OK\Ok_l_on.bmp',0
                 align 4
 ; CHAR aSfxChrgenOkWav_1[]
 aSfxChrgenOkWav_1 db 'SFX\ChrGen\Ok.wav',0 ; DATA XREF: ?LoadSounds@VisFameHall@@QAEXXZ+7↑o

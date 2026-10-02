@@ -21292,6 +21292,17 @@ void VisFameHall::UpdateRects()
 }
 
 
+// 45D32E
+void VisFameHall::LoadBitmaps()
+{
+    this->FreeBitmaps();
+    this->bmp_bkg = new CBmp64("main\\graphics\\famehall\\hall.bmp");
+    this->bmp_close_off = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_off.bmp");
+    this->bmp_close_on = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_on.bmp");
+    this->bmp_cur_close = nullptr;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
