@@ -1559,7 +1559,6 @@ externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
 extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
-;VisFameHall (fully migrated to C++ - see visual.h)
 
 ; Fame2
 externdef ?FUN_004abf35@Fame2@@QAE_NXZ : proc
@@ -1770,11 +1769,8 @@ extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* V
 ;VisServerScreenRadio
 externdef ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z : proc  ; VisServerScreenRadio::VisServerScreenRadio(int,int,int,int,int,CGameFont*,uint16_t*,const char*)
 
-;VisServerScreen helpers (ASM-backed)
 externdef ?sub_44E4CE@@YAXPBD@Z : proc  ; void sub_44E4CE(const char* cmd)
 externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
-
-;VisServerScreen
 
 ;GameOptionsWindow
 
