@@ -378,7 +378,7 @@ _unk_659A48
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
 ??_GVisNetPhoneBook@@UAEPAXI@Z	24
 ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z	38
-?MsgProc@VisNetPhoneBook@@UAEHIII@Z	430
+?sub_448708@VisNetPhoneBook@@QAEXPBD@Z	60
 ?VMethod26@VisNetPhoneBook@@UAEXXZ	715
 ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??_GVisNetSerialSettings@@UAEPAXI@Z	24

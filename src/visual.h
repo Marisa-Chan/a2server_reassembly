@@ -3391,6 +3391,8 @@ public:
 
 	VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book); //447ea8
 
+	void sub_448708(const char* str); // 448708
+
 public:
 	int32_t enum_addresses_num;
 	PhoneBook* phones;

@@ -22965,3 +22965,89 @@ VisServerScreen::VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, i
 
 // 450ab0 (deleting dtor ??_G; the complete dtor at 450AE0 only calls the base dtor)
 VisServerScreen::~VisServerScreen() = default;
+
+
+// 44878A
+int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    switch (msg) {
+    case 0x444:
+        PostMessageA(g_MainWndHWND, 0x46e, wparam, lparam);
+        PostMessageA(g_MainWndHWND, 0x47d, 0, 0);
+        return 1;
+    case 0x446: {
+        int32_t res = this->VisScreen::MsgProc(msg, wparam, lparam);
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        main_wnd->PostMessage(0x451, 0, 0);
+        return res;
+    }
+    case 0x46e:
+        if (wparam == 1) {
+            CVisualObject* edit = this->FindChild(3);
+            const char* str;
+            if ((int32_t)lparam < 0) {
+                str = "";
+            } else {
+                str = this->phones->phones[lparam];
+            }
+            this->sub_448708(str);
+            edit->ReadData(str);
+            edit->VMethod9();
+        }
+        if (wparam == 3) {
+            CVisualObject* edit = this->FindChild(3);
+            char buf[64];
+            edit->WriteData(buf);
+            this->sub_448708(buf);
+        }
+        return 1;
+    case 0x47d: {
+        CVisualObject* connect_btn = this->FindChild(10);
+        if (connect_btn->TestFlags(1) == 0) {
+            return 1;
+        }
+        char string[64];
+        CVisualObject* edit = this->FindChild(3);
+        edit->WriteData(string);
+        this->phones->dial = string;
+        CString dial_str(string);
+        bool found = false;
+        for (int32_t i = 0; i < this->phones->phones.GetSize(); i++) {
+            CString name = this->phones->phones[i];
+            if (name == this->phones->dial) {
+                found = true;
+            }
+        }
+        if (!found) {
+            this->phones->phones.InsertAt(0, dial_str, 1);
+        }
+        VisListBox* list = (VisListBox*)this->FindChild(7);
+        int32_t sel = list->GetSelectedIndex();
+        CLlAddress* addr = this->enum_addresses + sel;
+        if (g_CLlDriver.PrepareForConnect(this->phones->dial, addr)) {
+            MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+            main_wnd->PostMessage(0x452, 0, 0);
+            this->VisScreen::MsgProc(0x445, 0, 0);
+        }
+        return 1;
+    }
+    case 0x47e: {
+        this->VisScreen::MsgProc(0x445, 0, 0);
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        VisListBox* list = (VisListBox*)this->FindChild(7);
+        int32_t sel = list->GetSelectedIndex();
+        CLlAddress* addr = this->enum_addresses + sel;
+        if (g_CLlDriver.StartServer(2, main_wnd->m_GameSession.character_name, addr) == 0) {
+            VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(
+                1, 100, 100, 0x21c, 0x17c, TxtFile::AllLines.GetAt(0x9a), nullptr, 0);
+            main_wnd->ModalScreen(msgbox);
+            main_wnd->PostMessage(0x455, 0, 0);
+        } else {
+            main_wnd->PostMessage(0x47f, 0, 0);
+        }
+        return 1;
+    }
+    default:
+        return this->VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}

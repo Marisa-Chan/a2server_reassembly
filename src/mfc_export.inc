@@ -2245,8 +2245,9 @@ externdef ?VMethod26@VisNetSerialSettings@@UAEXXZ : proc
 ; VisNetPhoneBook
 externdef ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z : proc
 externdef ??_GVisNetPhoneBook@@UAEPAXI@Z : proc
-externdef ?MsgProc@VisNetPhoneBook@@UAEHIII@Z : proc
+extern ?MsgProc@VisNetPhoneBook@@UAEHIII@Z : proc
 externdef ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
+externdef ?sub_448708@VisNetPhoneBook@@QAEXPBD@Z : proc  ; void VisNetPhoneBook::sub_448708(const char*)
 
 externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
