@@ -380,8 +380,6 @@ _unk_659A48
 ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
-??_GVisNetPhoneBook@@UAEPAXI@Z	24
-??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z	38
 ?sub_448708@VisNetPhoneBook@@QAEXPBD@Z	60
 ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??_GVisNetSerialSettings@@UAEPAXI@Z	24

@@ -23132,3 +23132,16 @@ void VisNetPhoneBook::VMethod26()
     }
     this->sub_448708(str);
 }
+
+
+// 447ea8
+VisNetPhoneBook::VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book)
+: VisWindow(_id, l, t, r, b, nullptr)
+{
+    this->phones = _book;
+    this->enum_addresses = nullptr;
+}
+
+
+// 44fae0 (deleting dtor ??_G; the complete dtor at 44FB10 only calls the base dtor)
+VisNetPhoneBook::~VisNetPhoneBook() = default;
