@@ -21185,6 +21185,20 @@ int32_t VisFameHall::OnMouseMove(uint32_t wparam, CPoint pos)
 }
 
 
+// 45D6C3
+int32_t VisFameHall::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    CPoint top_left = this->rect.TopLeft();
+    if ((this->close_rect + top_left).PtInRect(pos)) {
+        CSound::Play((CSound&)this->snd_close);
+        this->bmp_cur_close = this->bmp_close_on;
+    } else {
+        this->bmp_cur_close = nullptr;
+    }
+    return this->VisScreen::OnLButtonDown(wparam, pos);
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
