@@ -356,7 +356,6 @@ _byte_666590
 ?FUN_0045da77@VisFameHall@@QAEXXZ	18
 ??_GVisFameHall@@UAEPAXI@Z	24
 ??0VisFameHall@@QAE@HHHHH@Z	72
-?FreeBitmaps@VisFameHall@@QAEXXZ	97
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413

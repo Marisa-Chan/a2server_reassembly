@@ -21303,6 +21303,25 @@ void VisFameHall::LoadBitmaps()
 }
 
 
+// 45D44A
+void VisFameHall::FreeBitmaps()
+{
+    if (this->bmp_bkg != nullptr) {
+        delete this->bmp_bkg;
+    }
+    this->bmp_bkg = nullptr;
+    if (this->bmp_close_off != nullptr) {
+        delete this->bmp_close_off;
+    }
+    this->bmp_close_off = nullptr;
+    if (this->bmp_close_on != nullptr) {
+        delete this->bmp_close_on;
+    }
+    this->bmp_close_on = nullptr;
+    this->bmp_cur_close = nullptr;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
