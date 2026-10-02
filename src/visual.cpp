@@ -21272,6 +21272,13 @@ const char* VisFameHall::GetHint()
 }
 
 
+// 45DA6A
+void VisFameHall::VMethod8(CRect* rect)
+{
+    (void)rect;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
