@@ -33780,8 +33780,8 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-; int __cdecl sub_44E4CE(LPCSTR lpString)
-sub_44E4CE      proc near               ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+6D↓p
+; int __cdecl ?sub_44E4CE@@YAXPBD@Z(LPCSTR lpString)
+?sub_44E4CE@@YAXPBD@Z      proc near               ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+6D↓p
 
 var_3C          = dword ptr -3Ch
 var_38          = dword ptr -38h
@@ -33867,14 +33867,14 @@ lpString        = dword ptr  8
                 call    ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ;   } // starts at 44E548
 
-loc_44E597:                             ; CODE XREF: sub_44E4CE+B3↑j
+loc_44E597:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+B3↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 jmp     loc_44E6D0
 ; ---------------------------------------------------------------------------
 
-loc_44E5AB:                             ; CODE XREF: sub_44E4CE+45↑j
+loc_44E5AB:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+45↑j
                 push    offset aCurse   ; "curse"
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ?Find@CString@@QBEHPBD@Z ; CString::Find(char const *)
@@ -33949,134 +33949,32 @@ loc_44E5AB:                             ; CODE XREF: sub_44E4CE+45↑j
                 call    unknown_libname_721 ; Microsoft VisualC 2-14/net runtime
 ;   } // starts at 44E5EF               ; MFC 3.1-14.0 32bit
 
-loc_44E6B0:                             ; CODE XREF: sub_44E4CE+146↑j
+loc_44E6B0:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+146↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 jmp     short loc_44E6D0
 ; ---------------------------------------------------------------------------
 
-loc_44E6C1:                             ; CODE XREF: sub_44E4CE+EC↑j
+loc_44E6C1:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+EC↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_44E6D0:                             ; CODE XREF: sub_44E4CE+D8↑j
+loc_44E6D0:                             ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+D8↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 44E4CE
-sub_44E4CE      endp
+?sub_44E4CE@@YAXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisServerScreen@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060AF5C↓o
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 20h
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_10], eax
-                cmp     [ebp+var_10], 0Dh
-                jz      short loc_44E6F8
-                jmp     loc_44E7A6
-; ---------------------------------------------------------------------------
-
-loc_44E6F8:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+13↑j
-                mov     [ebp+var_4], offset ?Inst@PacketJoin@@2V1@A
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     byte ptr [ecx+9], 91h
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+0Ah], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     word ptr [eax+7], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10h
-                push    ecx
-                push    68h ; 'h'
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_14], eax
-                mov     edx, dword ptr [ebp+var_14]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [eax+3Ch]
-                mov     ecx, dword ptr [ebp+var_4]
-                movsx   edx, byte ptr [ecx+10h]
-                cmp     edx, 23h ; '#'
-                jnz     short loc_44E755
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 11h
-                push    eax             ; lpString
-                call    sub_44E4CE
-                add     esp, 4
-                jmp     short loc_44E782
-; ---------------------------------------------------------------------------
-
-loc_44E755:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+64↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10h
-                push    ecx
-                mov     edx, esp
-                mov     [ebp+var_8], esp
-                push    ecx             ; lpString
-                mov     ecx, edx        ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_18], eax
-                call    ?LogMessage@@YAXVCString@@@Z
-                add     esp, 4
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-
-loc_44E782:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+75↑j
-                push    offset unk_659A48
-                push    68h ; 'h'
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    dword ptr [edx+44h]
-                mov     eax, 1
-                jmp     short loc_44E7C2
-; ---------------------------------------------------------------------------
-
-loc_44E7A6:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+15↑j
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                push    68h ; 'h'
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [edx+6Ch]
-
-loc_44E7C2:                             ; CODE XREF: ?OnKeyDown@VisServerScreen@@UAEHI@Z+C6↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisServerScreen@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -110451,7 +110349,7 @@ sub_51CD89      endp
 
 ; Attributes: bp-based frame
 
-unknown_libname_721 proc near           ; CODE XREF: sub_44E4CE+1DD↑p
+unknown_libname_721 proc near           ; CODE XREF: ?sub_44E4CE@@YAXPBD@Z+1DD↑p
 
 var_4           = dword ptr -4
 
@@ -269835,7 +269733,7 @@ SEH_44C1A9:                             ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F999A
 ; END OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
-; START OF FUNCTION CHUNK FOR sub_44E4CE
+; START OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
 
 loc_5F9AB8:                             ; DATA XREF: .rdata:stru_61A4C0↓o
 ; __unwind { // SEH_44E4CE              ; varThis
@@ -269861,11 +269759,11 @@ loc_5F9ACA:                             ; DATA XREF: .rdata:0061A4D0↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44E4CE:                             ; DATA XREF: sub_44E4CE+5↑o
+SEH_44E4CE:                             ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+5↑o
                 mov     eax, offset stru_61A4A0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9AB8
-; END OF FUNCTION CHUNK FOR sub_44E4CE
+; END OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
 
@@ -309616,10 +309514,10 @@ aD_9            db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@
 aD_10           db '%d',0               ; DATA XREF: ?VMethod7@VisServerScreen@@UAEXXZ+6D4↑o
                 align 4
 ; char aDisconnect[]
-aDisconnect     db 'disconnect',0       ; DATA XREF: sub_44E4CE+36↑o
+aDisconnect     db 'disconnect',0       ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+36↑o
                 align 10h
 ; char aCurse[]
-aCurse          db 'curse',0            ; DATA XREF: sub_44E4CE:loc_44E5AB↑o
+aCurse          db 'curse',0            ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z:loc_44E5AB↑o
                 align 4
 ; char off_62EB38[]
 off_62EB38      db 'M7R',0  ; DATA XREF: sub_44EC40+A3↑o
@@ -315227,7 +315125,7 @@ byte_659A34     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg
 byte_659A38     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+40A↑o
 ; CHAR byte_659A3C[4]
 byte_659A3C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AC↑o
-unk_659A48      db 4h dup(?)
+_unk_659A48      db 4h dup(?)
 ; CHAR byte_659A4C[4]
 byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o
 ; CHAR byte_659A50[4]

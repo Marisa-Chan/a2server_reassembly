@@ -15,9 +15,11 @@
 #include "player.h"
 #include "unit_list.h"
 #include "buildings_list.h"
+#include "packet.h"
 
 
 extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
+extern "C" char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -22888,4 +22890,33 @@ void VisServerScreen::VMethod26()
 
     this->AddChild(new VisTextBox(0x68, 4, g_ScreenSize.bottom - 0x38, g_ScreenSize.right - 4, g_ScreenSize.bottom - 0x28,
                                   g_font2, clrsh_ShockingBlack, nullptr));
+}
+
+
+// 44E6DE
+int32_t VisServerScreen::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0x0D) {  // Enter: send the chat text box content
+        PacketJoin& pkt = PacketJoin::Inst;
+        pkt.id = 0x91;
+        pkt.to_player_id = 0;
+        pkt.__field_0xa = 0;
+
+        CVisualObject* textbox = this->FindChild(0x68);
+        textbox->WriteData(pkt.name);
+
+        if (pkt.name[0] == '#') {
+            sub_44E4CE(&pkt.name[1]);
+        } else {
+            LogMessage(pkt.name);
+            g_NetStru1_main.QueuePacketSend(&pkt);
+        }
+
+        CVisualObject* textbox_clear = this->FindChild(0x68);
+        textbox_clear->ReadData(unk_659A48);
+        return 1;
+    }
+
+    CVisualObject* textbox = this->FindChild(0x68);
+    return textbox->OnKeyDown(wparam);
 }

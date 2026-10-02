@@ -8,6 +8,7 @@
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 _byte_666590
+_unk_659A48
 ?VisNetMapThreadProc@@YAIPAX@Z	11
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
@@ -18,6 +19,7 @@ _byte_666590
 ?FUN_00454e40@@YAXHHHH@Z	127
 ?sub_457C5D@@YAXHHHHH@Z	150
 ?FUN_00476c0d@@YAXHH@Z	183
+?sub_44E4CE@@YAXPBD@Z	187
 ?ShowRoleKeyDialog@@YGXPBD@Z	237
 ?sub_4588EC@@YAXHHHHHH@Z	259
 ?sub_4764BC@@YAPAEH@Z	390
@@ -407,7 +409,6 @@ _byte_666590
 ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z	27
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
 ?MsgProc@VisServerScreen@@UAEHIII@Z	80
-?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?sub_4BAD1D@VisShop@@QAEXXZ	71
 ??_GVisSideStatus@@UAEPAXI@Z	24
