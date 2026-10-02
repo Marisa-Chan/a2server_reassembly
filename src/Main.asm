@@ -33690,256 +33690,6 @@ byte_44D8AF     db      0,     1,     2,   0Ah
 ; Attributes: bp-based frame
 
 ; int __thiscall ?VMethod26@VisServerScreen@@UAEXXZ(_DWORD *varThis)
-?VMethod26@VisServerScreen@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AF68↓o
-
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9A73 SIZE 00000032 BYTES
-
-; __unwind { // SEH_44D909
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44D909 ; MFC 3.1-14.0 32bit
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 3Ch
-                mov     [ebp+var_38], ecx
-                mov     eax, dword ptr [ebp+var_38]
-                mov     dword ptr [eax+74h], 0
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_44D993
-                push    0               ; lpString
-                push    0               ; int
-                push    445h            ; int
-                push    0               ; int
-                mov     ecx, ?g_font2@@3PAVCGameFont@@A
-                push    ecx             ; int
-                push    0Eh
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; varStr
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     edx, 0Ch
-                push    edx             ; yBottom
-                push    1A4h            ; xRight
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     eax, 1Eh
-                push    eax             ; yTop
-                push    140h            ; xLeft
-                push    63h ; 'c'       ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_3C], eax
-                jmp     short loc_44D99A
-; ---------------------------------------------------------------------------
-
-loc_44D993:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+3D↑j
-                mov     [ebp+var_3C], 0
-
-loc_44D99A:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+88↑j
-                mov     ecx, dword ptr [ebp+var_3C]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 44D93B
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_20], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_20], 0
-                jz      short loc_44DA15
-                push    0               ; lpString
-                push    0               ; int
-                push    446h            ; int
-                push    0               ; int
-                mov     eax, ?g_font2@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    2Ah ; '*'
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; varStr
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 0Ch
-                push    ecx             ; yBottom
-                push    21Ch            ; xRight
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     edx, 1Eh
-                push    edx             ; yTop
-                push    1B8h            ; xLeft
-                push    64h ; 'd'       ; int
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_40], eax
-                jmp     short loc_44DA1C
-; ---------------------------------------------------------------------------
-
-loc_44DA15:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+BF↑j
-                mov     [ebp+var_40], 0
-
-loc_44DA1C:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+10A↑j
-                mov     eax, dword ptr [ebp+var_40]
-                mov     [ebp+var_24], eax
-;   } // starts at 44D9BD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_24]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    8Ch             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_28], eax
-;   try {
-                mov     [ebp+var_4], 2
-                cmp     [ebp+var_28], 0
-                jz      short loc_44DA83
-                push    0               ; lpString
-                push    0               ; int
-                mov     edx, ?g_font2@@3PAVCGameFont@@A
-                push    edx             ; int
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     eax, 0Ch
-                push    eax             ; yBottom
-                push    12Ch            ; xRight
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 1Ch
-                push    ecx             ; yTop
-                push    0               ; xLeft
-                push    65h ; 'e'       ; int
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_450920
-                mov     [ebp+var_44], eax
-                jmp     short loc_44DA8A
-; ---------------------------------------------------------------------------
-
-loc_44DA83:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+144↑j
-                mov     [ebp+var_44], 0
-
-loc_44DA8A:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+178↑j
-                mov     edx, dword ptr [ebp+var_44]
-                mov     [ebp+var_2C], edx
-;   } // starts at 44DA42
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_14], eax
-                push    38h ; '8'
-                mov     ecx, offset ?txt_patch@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; char *
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_450470
-                mov     ecx, dword ptr [ebp+var_14]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     [ebp+var_10], 1
-                push    offset aSaveonserver ; "-saveonserver"
-                call    UnkAfxetModuleStateIncremented1_450910
-                mov     edx, dword ptr [eax+70h]
-                push    edx             ; varStr
-                call    _strstr
-                add     esp, 8
-                test    eax, eax
-                jnz     short loc_44DAF9
-                push    offset aInternetserver ; "-internetserver"
-                call    UnkAfxetModuleStateIncremented1_450910
-                mov     eax, dword ptr [eax+70h]
-                push    eax             ; varStr
-                call    _strstr
-                add     esp, 8
-                test    eax, eax
-                jz      short loc_44DB09
-
-loc_44DAF9:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1D4↑j
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                mov     dword ptr [ecx+1A8h], 0
-
-loc_44DB09:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+1EE↑j
-                mov     edx, ?g_Server@@3PAUServer@@A
-                cmp     dword ptr [edx+1A8h], 0
-                jz      short loc_44DB1F
-                mov     [ebp+var_10], 0
-
-loc_44DB1F:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+20D↑j
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+44h]
-                push    7Ch ; '|'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_30], eax
-;   try {
-                mov     [ebp+var_4], 3
-                cmp     [ebp+var_30], 0
-                jz      short loc_44DB80
-                push    0               ; lpString
-                push    offset ?clrsh_ShockingBlack@@3PAGA ; int
-                mov     eax, ?g_font2@@3PAVCGameFont@@A
-                push    eax             ; int
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     ecx, 28h ; '('
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                sub     edx, 4
-                push    edx             ; xRight
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                sub     eax, 38h ; '8'
-                push    eax             ; yTop
-                push    4               ; xLeft
-                push    68h ; 'h'       ; int
-                mov     ecx, dword ptr [ebp+var_30]
-                call    ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-                mov     [ebp+var_48], eax
-                jmp     short loc_44DB87
-; ---------------------------------------------------------------------------
-
-loc_44DB80:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+23A↑j
-                mov     [ebp+var_48], 0
-
-loc_44DB87:                             ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+275↑j
-                mov     ecx, dword ptr [ebp+var_48]
-                mov     [ebp+var_34], ecx
-;   } // starts at 44DB38
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_34]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_38]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 44D909
-?VMethod26@VisServerScreen@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -37688,8 +37438,8 @@ UnkAfxetModuleStateIncremented1_450910 endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_450920(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
-sub_450920      proc near               ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+170↑p
+; int __stdcall ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
+??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+170↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -37729,7 +37479,7 @@ lpString        = dword ptr  24h
                 mov     esp, ebp
                 pop     ebp
                 retn    20h ; ' '
-sub_450920      endp
+??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -99889,7 +99639,7 @@ loc_4E26E8:                             ; CODE XREF: sub_4E25C1+11E↑j
                 push    28h ; '('       ; xLeft
                 push    0Fh             ; int
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_450920
+                call    ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
                 mov     [ebp+var_3C], eax
                 jmp     short loc_4E276E
 ; ---------------------------------------------------------------------------
@@ -270085,46 +269835,6 @@ SEH_44C1A9:                             ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F999A
 ; END OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisServerScreen@@UAEXXZ
-
-loc_5F9A73:                             ; DATA XREF: .rdata:stru_61A458↓o
-; __unwind { // SEH_44D909
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9A7D:                             ; DATA XREF: .rdata:0061A460↓o
-                mov     eax, dword ptr [ebp+var_20]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9A87:                             ; DATA XREF: .rdata:0061A468↓o
-                mov     eax, dword ptr [ebp+var_28]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9A91:                             ; DATA XREF: .rdata:0061A470↓o
-;   cleanup() // owned by 44D93B
-;   cleanup() // owned by 44D9BD
-;   cleanup() // owned by 44DA42
-;   cleanup() // owned by 44DB38
-                mov     eax, dword ptr [ebp+var_30]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44D909:                             ; DATA XREF: ?VMethod26@VisServerScreen@@UAEXXZ+5↑o
-                mov     eax, offset stru_61A438 ; MFC 3.1-14.0 32bit
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9A73
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisServerScreen@@UAEXXZ
 ; START OF FUNCTION CHUNK FOR sub_44E4CE
 
 loc_5F9AB8:                             ; DATA XREF: .rdata:stru_61A4C0↓o
@@ -290657,7 +290367,7 @@ off_60AC80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnChar@VisTextBox@@UAEHI@Z
 
 
-off_60ADF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_450920+32↑o
+off_60ADF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+32↑o
                 dd offset sub_450970
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
@@ -303224,12 +302934,6 @@ stru_61A350     FuncInfoV1 <19930520h, 2, offset stru_61A370, 0, 0, 0, 0>
                 align 10h
 stru_61A370     UnwindMapEntry <-1, offset loc_5F999A>
                 UnwindMapEntry <-1, offset loc_5F99A3>
-stru_61A438     FuncInfoV1 <19930520h, 4, offset stru_61A458, 0, 0, 0, 0>
-                align 8
-stru_61A458     UnwindMapEntry <-1, offset loc_5F9A73>
-                UnwindMapEntry <-1, offset loc_5F9A7D>
-                UnwindMapEntry <-1, offset loc_5F9A87>
-                UnwindMapEntry <-1, offset loc_5F9A91>
 stru_61A4A0     FuncInfoV1 <19930520h, 3, offset stru_61A4C0, 0, 0, 0, 0>
                 db    0
                 db    0

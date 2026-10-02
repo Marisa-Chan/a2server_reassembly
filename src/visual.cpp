@@ -22859,3 +22859,33 @@ void VisServerScreen::VMethod7()
     this->msg_log->Draw();
     UnlockSurface2();
 }
+
+
+// 44D909
+void VisServerScreen::VMethod26()
+{
+    this->scroll_pos = 0;
+
+    this->AddChild(new VisButton(0x63, 0x140, g_ScreenSize.bottom - 0x1E, 0x1A4, g_ScreenSize.bottom - 0x0C,
+                                 txt_dialogs.GetLine(0x0E), g_font2, nullptr, 0x445, 0, nullptr));
+    this->AddChild(new VisButton(0x64, 0x1B8, g_ScreenSize.bottom - 0x1E, 0x21C, g_ScreenSize.bottom - 0x0C,
+                                 txt_dialogs.GetLine(0x2A), g_font2, nullptr, 0x446, 0, nullptr));
+
+    VisServerScreenRadio* save_on_server = new VisServerScreenRadio(0x65, 0, g_ScreenSize.bottom - 0x1C, 0x12C,
+                                                                    g_ScreenSize.bottom - 0x0C, g_font2, nullptr, nullptr);
+    save_on_server->AddEntry(txt_patch.GetLine(0x38));
+    this->AddChild(save_on_server);
+
+    int32_t checked = 1;
+    if (strstr(afxCurrentWinApp->m_lpCmdLine, "-saveonserver") != nullptr
+        || strstr(afxCurrentWinApp->m_lpCmdLine, "-internetserver") != nullptr) {
+        g_Server->field39_0x1a8 = 0;
+    }
+    if (g_Server->field39_0x1a8 != 0) {
+        checked = 0;
+    }
+    save_on_server->ReadData(&checked);
+
+    this->AddChild(new VisTextBox(0x68, 4, g_ScreenSize.bottom - 0x38, g_ScreenSize.right - 4, g_ScreenSize.bottom - 0x28,
+                                  g_font2, clrsh_ShockingBlack, nullptr));
+}

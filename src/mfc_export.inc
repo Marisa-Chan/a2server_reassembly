@@ -1768,6 +1768,9 @@ extern ?VMethod41@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod4
 extern ?VMethod42@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod42() — vtable slot 46
 extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod43(int32_t,int32_t) — vtable slot 47
 
+;VisServerScreenRadio
+externdef ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z : proc  ; VisServerScreenRadio::VisServerScreenRadio(int,int,int,int,int,CGameFont*,uint16_t*,const char*)
+
 ;VisServerScreen
 externdef ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z : proc
 externdef ??_GVisServerScreen@@UAEPAXI@Z : proc
