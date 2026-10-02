@@ -3113,7 +3113,7 @@ ASSERT_SIZE(VisLogoWnd, 0x7c);
 class VisFameHall : public VisScreen
 {
 public:
-	virtual ~VisFameHall(); // 45DAA0
+	virtual ~VisFameHall(); // 45CDE2 body (??_G deleting dtor at 45DA90)
 
 	virtual const char* GetHint() override; // 45db50
 	virtual void VMethod7() override; // 45D7F9
@@ -3129,7 +3129,6 @@ public:
 	virtual void VMethod28() override; // 45D222
 	virtual void DoClose(uint32_t code) override; // 45D2D9
 
-	void FUN_0045da77(); // 45da77 in asm
 	void LoadBitmaps(); // 45d32e in asm
 	void LoadSounds(); // 45d542 in asm
 	void UpdateRects(); // 45cfae in asm

@@ -44112,63 +44112,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-sub_45CCA0      proc near
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9F30 SIZE 0000003D BYTES
-
-; __unwind { // SEH_45CCA0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45CCA0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'
-                call    sub_4388F0
-;   } // starts at 45CCC4
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h
-                call    sub_4388F0
-;   } // starts at 45CCD6
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_4388F0
-;   } // starts at 45CCE8
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A8h       ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B288
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisFameHall@@UAEXXZ
-;   } // starts at 45CCFA
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45CCA0
-sub_45CCA0      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -44176,140 +44119,12 @@ sub_45CCA0      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisFameHall@@QAE@HHHHH@Z(int, int xLeft, int yTop, int xRight, int yBottom)
-??0VisFameHall@@QAE@HHHHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+C41↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-
-; FUNCTION CHUNK AT 005F9F6D SIZE 0000003D BYTES
-
-; __unwind { // SEH_45CD35
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45CD35
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'
-                call    sub_4388F0
-;   } // starts at 45CD6F
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h
-                call    sub_4388F0
-;   } // starts at 45CD81
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_4388F0
-;   } // starts at 45CD93
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 0A8h       ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60B288
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisFameHall@@UAEXXZ
-;   } // starts at 45CDA5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-; } // starts at 45CD35
-??0VisFameHall@@QAE@HHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_45CDE2      proc near               ; CODE XREF: ??_GVisFameHall@@UAEPAXI@Z+A↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9FAA SIZE 0000003D BYTES
-
-; __unwind { // SEH_45CDE2
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_45CDE2
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B288
-;   try {
-                mov     [ebp+var_4], 3
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FreeBitmaps@VisFameHall@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FreeSounds@VisFameHall@@QAEXXZ
-;   } // starts at 45CE07
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-;   } // starts at 45CE1E
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-;   } // starts at 45CE30
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-;   } // starts at 45CE42
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 45CDE2
-sub_45CDE2      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -44415,25 +44230,6 @@ sub_45CDE2      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0045da77@VisFameHall@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z+67↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                push    0
-                push    445h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0045da77@VisFameHall@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -44442,31 +44238,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-??_GVisFameHall@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B28C↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_45CDE2
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_45DAC2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_45DAC2:                             ; CODE XREF: ??_GVisFameHall@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisFameHall@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -271906,127 +271677,6 @@ SEH_45C489:                             ; DATA XREF: ?InitSound@@YAHPAUHWND__@@H
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9F18
 ; END OF FUNCTION CHUNK FOR ?InitSound@@YAHPAUHWND__@@HI@Z
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR sub_45CCA0
-
-loc_5F9F30:                             ; DATA XREF: .rdata:stru_61AC68↓o
-; __unwind { // SEH_45CCA0
-;   cleanup() // owned by 45CCC4
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F39:                             ; DATA XREF: .rdata:0061AC70↓o
-;   cleanup() // owned by 45CCD6
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F45:                             ; DATA XREF: .rdata:0061AC78↓o
-;   cleanup() // owned by 45CCE8
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F54:                             ; DATA XREF: .rdata:0061AC80↓o
-;   cleanup() // owned by 45CCFA
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45CCA0:                             ; DATA XREF: sub_45CCA0+5↑o
-                mov     eax, offset stru_61AC48
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9F30
-; END OF FUNCTION CHUNK FOR sub_45CCA0
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisFameHall@@QAE@HHHHH@Z
-
-loc_5F9F6D:                             ; DATA XREF: .rdata:stru_61ACA8↓o
-; __unwind { // SEH_45CD35
-;   cleanup() // owned by 45CD6F
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F76:                             ; DATA XREF: .rdata:0061ACB0↓o
-;   cleanup() // owned by 45CD81
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F82:                             ; DATA XREF: .rdata:0061ACB8↓o
-;   cleanup() // owned by 45CD93
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9F91:                             ; DATA XREF: .rdata:0061ACC0↓o
-;   cleanup() // owned by 45CDA5
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45CD35:                             ; DATA XREF: ??0VisFameHall@@QAE@HHHHH@Z+5↑o
-                mov     eax, offset stru_61AC88
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9F6D
-; END OF FUNCTION CHUNK FOR ??0VisFameHall@@QAE@HHHHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_45CDE2
-
-loc_5F9FAA:                             ; DATA XREF: .rdata:stru_61ACE8↓o
-; __unwind { // SEH_45CDE2
-;   cleanup() // owned by 45CE42
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9FB3:                             ; DATA XREF: .rdata:0061ACF0↓o
-;   cleanup() // owned by 45CE30
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 6Ch ; 'l'  ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9FBF:                             ; DATA XREF: .rdata:0061ACF8↓o
-;   cleanup() // owned by 45CE1E
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 80h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9FCE:                             ; DATA XREF: .rdata:0061AD00↓o
-;   cleanup() // owned by 45CE07
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_7 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_45CDE2:                             ; DATA XREF: sub_45CDE2+5↑o
-                mov     eax, offset stru_61ACC8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9FAA
-; END OF FUNCTION CHUNK FOR sub_45CDE2
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??0TakeDamage@@QAE@HPAGHHHPAVCUnit@@@Z
 
@@ -292127,40 +291777,6 @@ off_60B270      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 8
-off_60B288      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_45CCA0+6F↑o
-                dd offset ??_GVisFameHall@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@VisFameHall@@UAEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisFameHall@@UAEXXZ
-                dd offset ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisFameHall@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisFameHall@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@VisFameHall@@UAEHI@Z
-                dd offset ?VMethod26@VisFameHall@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisFameHall@@UAEXXZ
-                dd offset ?DoClose@VisFameHall@@UAEXI@Z
 
 dbl_60B338      dq 0.5                  ; DATA XREF: sub_45E643+15C↑r
 
@@ -304722,33 +304338,6 @@ stru_61AC20     FuncInfoV1 <19930520h, 1, offset stru_61AC40, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61AC40     UnwindMapEntry <-1, offset loc_5F9F18>
-stru_61AC48     FuncInfoV1 <19930520h, 4, offset stru_61AC68, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61AC68     UnwindMapEntry <-1, offset loc_5F9F30>
-                UnwindMapEntry <0, offset loc_5F9F39>
-                UnwindMapEntry <1, offset loc_5F9F45>
-                UnwindMapEntry <2, offset loc_5F9F54>
-stru_61AC88     FuncInfoV1 <19930520h, 4, offset stru_61ACA8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61ACA8     UnwindMapEntry <-1, offset loc_5F9F6D>
-                UnwindMapEntry <0, offset loc_5F9F76>
-                UnwindMapEntry <1, offset loc_5F9F82>
-                UnwindMapEntry <2, offset loc_5F9F91>
-stru_61ACC8     FuncInfoV1 <19930520h, 4, offset stru_61ACE8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61ACE8     UnwindMapEntry <-1, offset loc_5F9FAA>
-                UnwindMapEntry <0, offset loc_5F9FB3>
-                UnwindMapEntry <1, offset loc_5F9FBF>
-                UnwindMapEntry <2, offset loc_5F9FCE>
 stru_61AD90     FuncInfoV1 <19930520h, 1, offset stru_61ADB0, 0, 0, 0, 0>
                 db    0
                 db    0

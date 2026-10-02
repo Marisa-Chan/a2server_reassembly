@@ -21204,7 +21204,7 @@ int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     CPoint top_left = this->rect.TopLeft();
     if ((this->close_rect + top_left).PtInRect(pos)) {
-        this->FUN_0045da77();
+        this->MsgProc(0x445, 0, 0);
     }
     return this->CVisualObject::OnLButtonUp(wparam, pos);
 }
@@ -21333,6 +21333,22 @@ void VisFameHall::LoadSounds()
 void VisFameHall::FreeSounds()
 {
     FUN_00438dd0(&this->snd_close);
+}
+
+
+// 45CD35
+VisFameHall::VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+
+// 45CDE2 (complete dtor ??1; deleting dtor ??_G at 45DA90)
+VisFameHall::~VisFameHall()
+{
+    this->FreeBitmaps();
+    this->FreeSounds();
 }
 
 

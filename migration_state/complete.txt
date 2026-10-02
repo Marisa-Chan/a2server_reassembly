@@ -256,7 +256,6 @@
 ?DisableHint@CMousePointer@@QAEXXZ
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
-?DoClose@VisFameHall@@UAEXI@Z
 ?DoClose@VisGlobalMap@@UAEXI@Z
 ?DoClose@VisScreen@@UAEXI@Z
 ?DoClose@VisStartGame@@UAEXI@Z
@@ -292,11 +291,9 @@
 ?Format@CString@@QAAXPBDZZ
 ?Free@CGamePalette@@QAEXXZ
 ?Free@TxtFile@@QAEXXZ
-?FreeBitmaps@VisFameHall@@QAEXXZ
 ?FreeBitmaps@VisStartGame@@QAEXXZ
 ?FreeDataChain@CPlex@@QAEXXZ
 ?FreeSamples@VisStartGame@@QAEXXZ
-?FreeSounds@VisFameHall@@QAEXXZ
 ?FUN_004014f2@VisTavSceneAnim@@QAEXXZ
 ?FUN_0040d7f3@BigStruct2@@QAEHXZ
 ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z
@@ -458,7 +455,6 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
-?GetHint@VisFameHall@@UAEPBDXZ
 ?GetHint@VisGlobalMap@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
@@ -542,7 +538,6 @@
 ?MissionGetLocName@@YAXHHPAVCString@@@Z
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
-?MsgProc@VisFameHall@@UAEHIII@Z
 ?MsgProc@VisGlobalMap@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
 ?MsgProc@VisInvType1@@UAEHIII@Z
@@ -556,14 +551,12 @@
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
-?OnChar@VisFameHall@@UAEHI@Z
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
-?OnKeyDown@VisFameHall@@UAEHI@Z
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
@@ -585,7 +578,6 @@
 ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisButton@@UAEHIVCPoint@@@Z
-?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -602,7 +594,6 @@
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisButton@@UAEHIVCPoint@@@Z
-?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -614,7 +605,6 @@
 ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
-?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisInvExtType1@@UAEHIVCPoint@@@Z
@@ -875,7 +865,6 @@
 ?VMethod24@CUnit@@UAEXXZ
 ?VMethod25@CUnit@@UAEXH@Z
 ?VMethod26@CUnit@@UAEXXZ
-?VMethod26@VisFameHall@@UAEXXZ
 ?VMethod26@VisGlobalMap@@UAEXXZ
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z
@@ -896,7 +885,6 @@
 ?VMethod27@VisShopCompass@@UAEXXZ
 ?VMethod27@VisTavScene@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
-?VMethod28@VisFameHall@@UAEXXZ
 ?VMethod28@VisGlobalMap@@UAEXXZ
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
 ?VMethod28@VisScreen@@UAEXXZ
@@ -971,7 +959,6 @@
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
-?VMethod7@VisFameHall@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
 ?VMethod7@VisInvExtType1@@UAEXXZ
@@ -990,7 +977,6 @@
 ?VMethod8@CGameObject@@UAEXHHH@Z
 ?VMethod8@CUnit@@UAEXHHH@Z
 ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z
-?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z

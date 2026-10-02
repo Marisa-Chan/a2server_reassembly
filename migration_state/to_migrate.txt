@@ -351,9 +351,6 @@ _byte_666590
 ?OnKeyDown@VisDropGold@@UAEHI@Z	52
 ?DoClose@VisDropGold@@UAEXI@Z	130
 ?VMethod26@VisDropGold@@UAEXXZ	251
-?FUN_0045da77@VisFameHall@@QAEXXZ	18
-??_GVisFameHall@@UAEPAXI@Z	24
-??0VisFameHall@@QAE@HHHHH@Z	72
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413

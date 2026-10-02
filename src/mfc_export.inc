@@ -1038,7 +1038,6 @@ externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
 externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
 externdef   ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z  : proc
-externdef   ??0VisFameHall@@QAE@HHHHH@Z  : proc
 
 
 
@@ -1561,23 +1560,7 @@ externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
 extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
-;VisFameHall
-externdef ??_GVisFameHall@@UAEPAXI@Z : proc
-extern ?GetHint@VisFameHall@@UAEPBDXZ : proc
-extern ?VMethod7@VisFameHall@@UAEXXZ : proc
-extern ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisFameHall@@UAEHIII@Z : proc
-extern ?OnMouseMove@VisFameHall@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonDown@VisFameHall@@UAEHIVCPoint@@@Z : proc
-extern ?OnLButtonUp@VisFameHall@@UAEHIVCPoint@@@Z : proc
-externdef ?FUN_0045da77@VisFameHall@@QAEXXZ : proc
-extern ?OnKeyDown@VisFameHall@@UAEHI@Z : proc
-extern ?OnChar@VisFameHall@@UAEHI@Z : proc
-extern ?VMethod26@VisFameHall@@UAEXXZ : proc
-extern ?VMethod28@VisFameHall@@UAEXXZ : proc
-extern ?DoClose@VisFameHall@@UAEXI@Z : proc
-extern ?FreeBitmaps@VisFameHall@@QAEXXZ : proc
-extern ?FreeSounds@VisFameHall@@QAEXXZ : proc
+;VisFameHall (fully migrated to C++ - see visual.h)
 
 ; Fame2
 externdef ?FUN_004abf35@Fame2@@QAE_NXZ : proc
