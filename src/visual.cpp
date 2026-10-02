@@ -21279,6 +21279,19 @@ void VisFameHall::VMethod8(CRect* rect)
 }
 
 
+// 45CFAE
+void VisFameHall::UpdateRects()
+{
+    for (int32_t i = 0; i < this->name_rects.GetSize(); i++) {
+        int32_t font_h = g_font4->GetHeight();
+        int32_t y = (int32_t)(font_h * (i * 1.5)) + 0x91;
+        this->rank_rects[i] = CRect(CPoint(0x91, y), CSize(0x19, font_h));
+        this->name_rects[i] = CRect(CPoint(0xAF, y), CSize(200, font_h));
+        this->score_rects[i] = CRect(CPoint(0x181, y), CSize(100, font_h));
+    }
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

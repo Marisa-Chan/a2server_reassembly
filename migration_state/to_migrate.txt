@@ -358,7 +358,6 @@ _byte_666590
 ??0VisFameHall@@QAE@HHHHH@Z	72
 ?FreeBitmaps@VisFameHall@@QAEXXZ	97
 ?LoadBitmaps@VisFameHall@@QAEXXZ	112
-?UpdateRects@VisFameHall@@QAEXXZ	210
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413

@@ -1577,7 +1577,6 @@ extern ?VMethod26@VisFameHall@@UAEXXZ : proc
 extern ?VMethod28@VisFameHall@@UAEXXZ : proc
 externdef ?LoadBitmaps@VisFameHall@@QAEXXZ : proc
 externdef ?LoadSounds@VisFameHall@@QAEXXZ : proc
-externdef ?UpdateRects@VisFameHall@@QAEXXZ : proc
 extern ?DoClose@VisFameHall@@UAEXI@Z : proc
 externdef ?FreeBitmaps@VisFameHall@@QAEXXZ : proc
 externdef ?FreeSounds@VisFameHall@@QAEXXZ : proc
