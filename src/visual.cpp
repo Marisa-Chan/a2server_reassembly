@@ -22920,3 +22920,29 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam)
     CVisualObject* textbox = this->FindChild(0x68);
     return textbox->OnKeyDown(wparam);
 }
+
+
+// 44E7C8
+int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    switch (msg) {
+    case 0x446:  // "disconnect" button
+        this->VisScreen::MsgProc(0x446, 0, 0);
+        PostMessageA(g_MainWndHWND, 0x41D, 0, 0);
+        return 1;
+
+    case 0x46E:  // "save on server" checkbox changed
+        if (wparam == 0x65) {
+            g_Server->field39_0x1a8 = (lparam == 0) ? 1 : 0;
+            return 1;
+        }
+        return this->VisScreen::MsgProc(msg, wparam, lparam);
+
+    case 0x100:  // WM_KEYDOWN
+        this->OnKeyDown(wparam);
+        return 1;
+
+    default:
+        return this->VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}

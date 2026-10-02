@@ -408,7 +408,6 @@ _unk_659A48
 ??_GVisServerScreen@@UAEPAXI@Z	24
 ?VMethod8@VisServerScreen@@UAEXPAVCRect@@@Z	27
 ??0VisServerScreen@@QAE@HHHHHPAVGM_a28@@@Z	36
-?MsgProc@VisServerScreen@@UAEHIII@Z	80
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?sub_4BAD1D@VisShop@@QAEXXZ	71
 ??_GVisSideStatus@@UAEPAXI@Z	24
