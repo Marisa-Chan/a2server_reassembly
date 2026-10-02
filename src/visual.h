@@ -3380,6 +3380,21 @@ public:
 };
 ASSERT_SIZE(VisNetSerialSettings, 0x6c);
 
+//60a6f8
+class VisListBoxPhoneBook : public VisListBox
+{
+public:
+	virtual ~VisListBoxPhoneBook(); // 44fca0
+
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 44fb80
+
+	VisListBoxPhoneBook(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height, const char* hint, CStringArray* _bound_entries); //44fb30
+
+public:
+	CStringArray* bound_entries; //0x94
+};
+ASSERT_SIZE(VisListBoxPhoneBook, 0x98);
+
 //60a670
 class VisNetPhoneBook : public VisWindow
 {

@@ -370,6 +370,10 @@ _unk_659A48
 ?MsgProc@VisListBoxDiplomacy@@UAEHIII@Z	100
 ?DrawItem@VisListBoxDiplomacy@@UAEXHVCPoint@@PAG@Z	101
 ?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z	240
+??1VisListBoxPhoneBook@@UAE@XZ	13
+??_GVisListBoxPhoneBook@@UAEPAXI@Z	24
+??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z	41
+?OnKeyDown@VisListBoxPhoneBook@@UAEHI@Z	83
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ?VMethod26@VisMissionFailed@@UAEXXZ	193
@@ -379,7 +383,6 @@ _unk_659A48
 ??_GVisNetPhoneBook@@UAEPAXI@Z	24
 ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z	38
 ?sub_448708@VisNetPhoneBook@@QAEXPBD@Z	60
-?VMethod26@VisNetPhoneBook@@UAEXXZ	715
 ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??_GVisNetSerialSettings@@UAEPAXI@Z	24
 ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z	36

@@ -873,6 +873,7 @@
 ?VMethod26@VisInvExtType3@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisMessageBox@@UAEXXZ
+?VMethod26@VisNetPhoneBook@@UAEXXZ
 ?VMethod26@VisScreen@@UAEXXZ
 ?VMethod26@VisShopCompass@@UAEXXZ
 ?VMethod26@VisStartGame@@UAEXXZ

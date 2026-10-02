@@ -23051,3 +23051,84 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return this->VisScreen::MsgProc(msg, wparam, lparam);
     }
 }
+
+
+// 447EF2
+void VisNetPhoneBook::VMethod26()
+{
+    g_CLlDriver.EnumAddresses(&this->enum_addresses, &this->enum_addresses_num);
+
+    VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
+        txt_dialogs.GetLine(0x93), g_font1, p_clrsh_Black, 2);
+    this->AddChild(title);
+
+    int32_t third_width = this->rect.Width() / 3;
+    CRect rc(0x28, 0x50, third_width + 0x28, this->rect.Height() - 0x40);
+
+    VisListBoxPhoneBook* phone_list = new VisListBoxPhoneBook(1, rc, g_font1, p_clrsh_Black,
+        p_clrsh_ShockingBlack, 2, txt_dialogs.GetLine(0x5a), &this->phones->phones);
+    this->AddChild(phone_list);
+
+    for (int32_t i = 0; i < this->phones->phones.GetSize(); i++) {
+        phone_list->AddItem(this->phones->phones[i]);
+    }
+
+    CRect rc2(phone_list->GetRect());
+
+    VisScrollBar* scrollbar = new VisScrollBar(2, rc2.right, rc2.top, rc2.right + 0x18, rc2.bottom, nullptr);
+    this->AddChild(scrollbar);
+
+    VisLabel* phone_caption = new VisLabel(4, rc2.left + 0xa, rc2.top - 0x1e, rc2.right + 0xa, rc2.top - 0xa,
+        txt_dialogs.GetLine(0x5c), g_font1, p_clrsh_Black, 2);
+    this->AddChild(phone_caption);
+
+    phone_list->SetCaptionLabel((VisLabel*)this->FindChild(4));
+
+    VisLabel* addr_caption = new VisLabel(-2, rc2.right + 0x30, rc2.top - 0x1e, rc2.right + third_width * 3, rc2.top - 0xa,
+        txt_dialogs.GetLine(0x98), g_font1, p_clrsh_Black, 0);
+    this->AddChild(addr_caption);
+
+    VisTextBox* edit = new VisTextBox(3, rc2.right + 0x30, rc2.top, rc2.right + (third_width * 3) / 2, rc2.top + 0x18,
+        g_font1, p_clrsh_Black, txt_dialogs.GetLine(0x5b));
+    this->AddChild(edit);
+
+    CRect rc3(edit->GetRect());
+    rc3.OffsetRect(0, rc3.Height() + 4);
+    rc3.bottom = rc3.top + 0x30;
+
+    VisListBox* addr_list = new VisListBox(7, rc3, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 8, txt_dialogs.GetLine(0x5d));
+    this->AddChild(addr_list);
+
+    for (int32_t i = 0; i < this->enum_addresses_num; i++) {
+        addr_list->AddItem(this->enum_addresses[i].name);
+    }
+
+    rc3.OffsetRect(0, rc3.Height() + 4);
+    rc3.bottom = rc3.top + 0x18;
+
+    VisButton* connect_btn = new VisButton(0xa, rc3, txt_dialogs.GetLine(0x78), g_font1, nullptr, 0x47d, 0, txt_dialogs.GetLine(0x7e));
+    this->AddChild(connect_btn);
+    if (g_IsCdPresent == 0 || this->enum_addresses_num == 0) {
+        connect_btn->ChangeFlags(1, false);
+    }
+
+    rc3.OffsetRect(0, rc3.Height() + 4);
+
+    VisButton* host_btn = new VisButton(0xb, rc3, txt_dialogs.GetLine(0x79), g_font1, nullptr, 0x47e, 0, txt_dialogs.GetLine(0x7f));
+    this->AddChild(host_btn);
+    if (g_IsCdPresent == 0 || this->enum_addresses_num == 0) {
+        host_btn->ChangeFlags(1, false);
+    }
+
+    rc3.OffsetRect(0, rc3.Height() + 4);
+
+    VisButton* back_btn = new VisButton(0xc, rc3, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+    this->AddChild(back_btn);
+
+    const char* str = "";
+    if (this->phones->phones.GetSize() != 0) {
+        str = this->phones->phones[0];
+        edit->ReadData(str);
+    }
+    this->sub_448708(str);
+}

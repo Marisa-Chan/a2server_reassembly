@@ -2246,8 +2246,14 @@ externdef ?VMethod26@VisNetSerialSettings@@UAEXXZ : proc
 externdef ??0VisNetPhoneBook@@QAE@HHHHHPAUPhoneBook@@@Z : proc
 externdef ??_GVisNetPhoneBook@@UAEPAXI@Z : proc
 extern ?MsgProc@VisNetPhoneBook@@UAEHIII@Z : proc
-externdef ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
+extern ?VMethod26@VisNetPhoneBook@@UAEXXZ : proc
 externdef ?sub_448708@VisNetPhoneBook@@QAEXPBD@Z : proc  ; void VisNetPhoneBook::sub_448708(const char*)
+
+; VisListBoxPhoneBook
+externdef ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z : proc  ; VisListBoxPhoneBook::VisListBoxPhoneBook(int,const RECT&,CGameFont*,uint16_t*,uint16_t*,int,const char*,CStringArray*)
+externdef ??1VisListBoxPhoneBook@@UAE@XZ : proc  ; virtual VisListBoxPhoneBook::~VisListBoxPhoneBook()
+externdef ??_GVisListBoxPhoneBook@@UAEPAXI@Z : proc
+externdef ?OnKeyDown@VisListBoxPhoneBook@@UAEHI@Z : proc  ; int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t)
 
 externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
