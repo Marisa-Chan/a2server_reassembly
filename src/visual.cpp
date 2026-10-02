@@ -11,6 +11,10 @@
 #include "util.h"
 #include "resource.h"
 #include "spell.h"
+#include "players_list.h"
+#include "player.h"
+#include "unit_list.h"
+#include "buildings_list.h"
 
 
 extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
@@ -22726,4 +22730,132 @@ VisMainMenu::~VisMainMenu()
 {
     this->FreeGraphics();
     this->FreeSfx();
+}
+
+
+// 44DBE0
+void VisServerScreen::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CString str;
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    this->CVisualObject::VMethod7();
+    g_font2->DrawTextWithShadow(0, 0, txt_patch.GetLine(0x39), 0, clrsh_ShockingBlack, 1);
+    FillRectColorSimple(0, 0x10, this->rect.right, 0x11, 0xffff);
+    FillRectColorSimple(0, 0x20, this->rect.right, 0x21, 0xffff);
+    FillRectColorSimple(0, 0xC8, this->rect.right, 0xC9, 0xffff);
+    FillRectColorSimple(0, 0xD8, this->rect.right, 0xD9, 0xffff);
+
+    int32_t row_top = 0x10;
+    int32_t row_bottom = 0xC8;
+    int32_t y = 0x24;
+    int32_t i = 0;
+    POSITION it = g_NetStru1_main.client_stat.GetStartPosition();
+    while (it != nullptr && i < this->scroll_pos + 0x10) {
+        int32_t key;
+        ConnStatInfo* stat;
+        g_NetStru1_main.client_stat.GetNextAssoc(it, key, stat);
+        if (i < this->scroll_pos) {
+            i++;
+            continue;
+        }
+        NetStru2* client = g_NetStru1_main.GetClientByLowUid((uint32_t)key >> 16);
+        Player* player = g_PlayersList->sub_535B50(client->player_id);
+        if (player == nullptr) {
+            i++;
+            continue;
+        }
+        uint16_t* colosh = g_colors_human_pals[player->player_id & 0xF];
+        int32_t bytes_per_sec = 0;
+        if (stat->time != 0) {
+            bytes_per_sec = stat->total_bytes / stat->time;
+        }
+        int32_t x = 0;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0xC;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3A), 2, clrsh_ShockingBlack);
+        str.Format("%d", (int16_t)player->player_id);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0xC;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x30;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3B), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, y, player->name, 2, colosh);
+        x += 0x30;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x24;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3C), 2, clrsh_ShockingBlack);
+        str.Format("%d:%02d:%02d", stat->time / 0xE10, (stat->time % 0xE10) / 0x3C, stat->time % 0x3C);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0x24;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x18;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3D), 2, clrsh_ShockingBlack);
+        str.Format("%d", stat->cur_bs);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0x18;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x18;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3E), 2, clrsh_ShockingBlack);
+        str.Format("%d", bytes_per_sec);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0x18;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x18;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3F), 2, clrsh_ShockingBlack);
+        str.Format("%d", stat->max_bs);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0x18;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0x18;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x40), 2, clrsh_ShockingBlack);
+        str.Format("%d", player->monster_kills);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        x += 0x18;
+        if (i == this->scroll_pos) {
+            FillRectColor(x, row_top, x, row_bottom, 0xffff);
+        }
+        x += 0xC;
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x41), 2, clrsh_ShockingBlack);
+        str.Format("%d", player->player_kills);
+        g_font2->DrawTxt(x, y, str, 2, colosh);
+        if (i == this->scroll_pos) {
+            FillRectColor(this->rect.right - 1, row_top, this->rect.right - 1, row_bottom, 0xffff);
+        }
+        y += 10;
+    }
+
+    int32_t avg_units_per_10_ticks = 0;
+    if (g_Server->tic16 != 0) {
+        avg_units_per_10_ticks = g_Server->field44_0x1bc / g_Server->tic16 / 10;
+    }
+    if (g_Server->srv_stru1->sack_list != nullptr) {
+        str.Format(txt_patch.GetLine(0x42),
+                   g_PlayersList->CountHumanPlayers(),
+                   dword_6CDB3C->unit_list.GetCount(),
+                   g_Server->srv_stru1->building_list->GetCount(),
+                   g_Server->srv_stru1->units_list->unit_list.GetCount(),
+                   g_Server->srv_stru1->sack_list->list.GetCount(),
+                   g_Server->field42_0x1b4 / 10,
+                   avg_units_per_10_ticks,
+                   main_wnd->current_map_name);
+        g_font2->DrawTxt(0, row_bottom + 4, str, 0, clrsh_ShockingBlack);
+    }
+    this->msg_log->Draw();
+    UnlockSurface2();
 }

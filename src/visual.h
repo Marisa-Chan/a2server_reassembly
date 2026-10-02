@@ -2929,6 +2929,17 @@ public:
 ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 
 
+// Chat command handler for the server screen text box input ("#disconnect N", "#curse N"). 44e4ce
+void sub_44E4CE(const char* cmd);
+
+// Radio checkbox on the server screen ("save on server" toggle). 60adf8
+class VisServerScreenRadio : public VisRadioType1
+{
+public:
+	VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450920
+};
+ASSERT_SIZE(VisServerScreenRadio, 0x8c);
+
 //60aef0
 class VisServerScreen : public VisScreen
 {
@@ -2944,7 +2955,9 @@ public:
 	VisServerScreen(int32_t _id, int32_t l, int32_t, int32_t r, int32_t b, GM_a28 *log); // 44e469
 
 public:
-	char dummy[16];
+	GM_a28* msg_log;      // 0x68
+	uint8_t gap_0x6c[8];
+	int32_t scroll_pos;   // 0x74, first shown client row
 };
 ASSERT_SIZE(VisServerScreen, 0x78);
 

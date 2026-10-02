@@ -409,7 +409,6 @@ _byte_666590
 ?MsgProc@VisServerScreen@@UAEHIII@Z	80
 ?OnKeyDown@VisServerScreen@@UAEHI@Z	101
 ?VMethod26@VisServerScreen@@UAEXXZ	249
-?VMethod7@VisServerScreen@@UAEXXZ	764
 ?sub_4BAD1D@VisShop@@QAEXXZ	71
 ??_GVisSideStatus@@UAEPAXI@Z	24
 ??0VisSideStatus@@QAE@HHHHH@Z	34
