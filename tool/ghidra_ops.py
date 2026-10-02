@@ -655,11 +655,120 @@ def _is_undefined_dt(dt):
         str(dt.getName()).startswith("undefined")
 
 
-def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=False):
+VTABLE_CATEGORY = GAME_CATEGORY + "/VTables"
+
+
+def _resolve_or_fallback(ctx, text, size_hint=4):
+    """parse_type, falling back to void* for unknown pointer types and undefinedN otherwise."""
+    try:
+        return ctx.parse_type(text, create_struct=False)
+    except OpError:
+        if "*" in text:
+            return ctx.parse_type("void *")
+        return _undefined(ctx, size_hint)
+
+
+def op_vtable_apply(ctx, cls, slots):
+    """Create/refresh `{cls}_VTable`: one typed __thiscall function pointer per slot.
+    slots: [{"name": str, "ret": type str, "params": ["type name", ...]  (without this)}]
+    Existing non-placeholder slot names in Ghidra survive if the header name is VMethodN."""
+    from ghidra.program.model.data import (StructureDataType, CategoryPath, FunctionDefinitionDataType,
+                                           ParameterDefinitionImpl, PointerDataType, DataTypeConflictHandler)
+    vt_name = f"{cls}_VTable"
+    with ctx.transaction("vtable apply " + vt_name):
+        cat = CategoryPath(VTABLE_CATEGORY)
+        fcat = CategoryPath(f"{VTABLE_CATEGORY}/{cls}")
+        try:
+            s = ctx.find_struct(vt_name)
+        except OpError:
+            s = ctx.dtm.addDataType(StructureDataType(cat, vt_name, 0, ctx.dtm), None)
+        this_dt = PointerDataType(ctx.find_struct(cls), ctx.dtm)
+        old_names = {}
+        for c in s.getDefinedComponents():
+            if c.getFieldName():
+                old_names[c.getOffset()] = str(c.getFieldName())
+        s.deleteAll()
+        used = set()
+        for i, sl in enumerate(slots):
+            name = sl["name"]
+            prev = old_names.get(i * 4)
+            if re.fullmatch(r"VMethod\d+|pure_virtual_\d+", name) and prev and not re.fullmatch(r"VMethod\d+|pure_virtual_\d+", prev):
+                name = prev
+            while name in used:
+                name += "_"
+            used.add(name)
+            fd = FunctionDefinitionDataType(fcat, name, ctx.dtm)
+            fd.setReturnType(_resolve_or_fallback(ctx, sl.get("ret") or "void"))
+            params = [ParameterDefinitionImpl("this", this_dt, None)]
+            for j, p in enumerate(sl.get("params") or []):
+                m = re.fullmatch(r"(.+?[\s\*\]])\s*([A-Za-z_]\w*)", p.strip())
+                ptype, pname = (m.group(1), m.group(2)) if m else (p, f"param_{j + 1}")
+                params.append(ParameterDefinitionImpl(pname, _resolve_or_fallback(ctx, ptype), None))
+            fd.setArguments(params)
+            try:
+                fd.setCallingConvention("__thiscall")
+            except Exception:
+                pass
+            fd = ctx.dtm.addDataType(fd, DataTypeConflictHandler.REPLACE_HANDLER)
+            s.add(PointerDataType(fd, ctx.dtm), 4, name, None)
+    return f"{vt_name}: {len(slots)} slots"
+
+
+def _harvest_into_base(ctx, s, base_struct, base_off, size):
+    """Copy real-named Ghidra fields of `s` lying in [base_off, base_off+size) into `base_struct`
+    where the base still has undefined/placeholder data, so no Ghidra-only knowledge is lost when
+    the flattened fields are replaced by a single base-class member."""
+    moved = 0
+    for c in list(s.getDefinedComponents()):
+        if c.getOffset() < base_off or c.getOffset() + c.getLength() > base_off + size:
+            continue
+        name = str(c.getFieldName()) if c.getFieldName() else ""
+        if not name or PLACEHOLDER_FIELD.match(name) or name == "_" or _is_undefined_dt(c.getDataType()):
+            continue
+        rel = c.getOffset() - base_off
+        if rel + c.getLength() > base_struct.getLength():
+            continue
+        tgt = base_struct.getComponentContaining(rel)
+        tgt_name = str(tgt.getFieldName()) if tgt is not None and tgt.getFieldName() else ""
+        if tgt is not None and tgt_name and not PLACEHOLDER_FIELD.match(tgt_name):
+            continue
+        if tgt is not None and tgt.getOffset() == rel and tgt.getLength() == c.getLength() and \
+                not _is_undefined_dt(tgt.getDataType()) and not tgt_name:
+            pass  # typed but unnamed: fine to take the name
+        elif tgt is not None and not (tgt.getOffset() == rel and tgt.getLength() == c.getLength()) and not _is_undefined_dt(tgt.getDataType()):
+            continue  # different shape in base; don't fight it
+        for bc in list(base_struct.getDefinedComponents()):
+            if bc.getOffset() < rel + c.getLength() and bc.getOffset() + bc.getLength() > rel:
+                base_struct.clearComponent(bc.getOrdinal())
+        if any(str(bc.getFieldName() or "") == name for bc in base_struct.getDefinedComponents()):
+            name = f"{name}_0x{rel:X}"
+        base_struct.replaceAtOffset(rel, c.getDataType(), c.getLength(), name, c.getComment())
+        moved += 1
+    return moved
+
+
+def _base_union(ctx, cls, vtable_name, base_struct):
+    """`union { {cls}_VTable *vptr; Base _; }` used as the first member of a polymorphic class."""
+    from ghidra.program.model.data import UnionDataType, CategoryPath, PointerDataType
+    uname = f"{cls}_Base"
+    hits = [u for u in ctx.dtm.getAllDataTypes() if str(u.getName()) == uname and u.getClass().getSimpleName().startswith("Union")]
+    u = hits[0] if hits else ctx.dtm.addDataType(UnionDataType(CategoryPath(GAME_CATEGORY), uname, ctx.dtm), None)
+    while u.getNumComponents() > 0:
+        u.delete(0)
+    u.add(base_struct, base_struct.getLength(), "_", None)
+    u.add(PointerDataType(ctx.find_struct(vtable_name), ctx.dtm), 4, "vptr", None)
+    return u
+
+
+def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=False, base=None, base_offset=0,
+                    vtable=False):
     """Merge a header layout into a Ghidra structure (used by tool/ghidra_sync_structs.py).
-    fields: [{offset,size,type,name,placeholder}] or None for size-only. Returns a summary line."""
-    from ghidra.program.model.data import StructureDataType, CategoryPath
-    stats = {"set": 0, "renamed": 0, "kept": 0, "fallback": 0, "skipped": 0}
+    fields: [{offset,size,type,name,placeholder}] (own fields only) or None for size-only.
+    base: name of the (single) base class struct, placed at base_offset as member `_`.
+    vtable: this class has its own `{name}_VTable` (already created by vtable-apply); the vptr at
+    offset 0 becomes `vptr`, or `union {vptr; Base _}` when the base is polymorphic too."""
+    from ghidra.program.model.data import StructureDataType, CategoryPath, PointerDataType
+    stats = {"set": 0, "renamed": 0, "kept": 0, "fallback": 0, "skipped": 0, "harvested": 0}
     with ctx.transaction("struct apply " + name):
         size = _int(size)
         try:
@@ -678,13 +787,35 @@ def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=Fals
             s.setLength(size)
         if fields is None:
             return f"{name}: size 0x{s.getLength():X}"
+        fields = list(fields)
+        # -- hierarchy: base-class member and/or vtable pointer at the front --------------------
+        base_struct = None
+        if base:
+            try:
+                base_struct = ctx.find_struct(base)
+            except OpError:
+                base_struct = None
+        base_offset = _int(base_offset)
+        if base_struct is not None and base_struct.getLength() > 0:
+            stats["harvested"] += _harvest_into_base(ctx, s, base_struct, base_offset, base_struct.getLength())
+            if vtable and base_offset == 0:
+                dt = _base_union(ctx, name, f"{name}_VTable", base_struct)
+                fields.append({"offset": 0, "size": dt.getLength(), "type_dt": dt, "name": "_", "placeholder": False})
+            else:
+                fields.append({"offset": base_offset, "size": base_struct.getLength(), "type_dt": base_struct, "name": "_", "placeholder": False})
+                if vtable:
+                    fields.append({"offset": 0, "size": 4, "type_dt": PointerDataType(ctx.find_struct(f"{name}_VTable"), ctx.dtm),
+                                   "name": "vptr", "placeholder": False})
+        elif vtable:
+            fields.append({"offset": 0, "size": 4, "type_dt": PointerDataType(ctx.find_struct(f"{name}_VTable"), ctx.dtm),
+                           "name": "vptr", "placeholder": False})
         for fl in sorted(fields, key=lambda x: _int(x["offset"])):
             off, fsize, fname = _int(fl["offset"]), _int(fl["size"]), fl["name"]
             placeholder = bool(fl.get("placeholder"))
             if off + fsize > s.getLength() or fsize <= 0:
                 stats["skipped"] += 1
                 continue
-            if polymorphic and off == 0 and fsize == 4:
+            if polymorphic and off == 0 and fsize == 4 and "type_dt" not in fl:
                 stats["skipped"] += 1
                 continue
             existing = s.getComponentContaining(off)
@@ -692,12 +823,16 @@ def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=Fals
             ex_defined = existing is not None and not _is_undefined_dt(existing.getDataType())
             ex_name = str(existing.getFieldName()) if existing is not None and existing.getFieldName() else ""
             ex_real_name = bool(ex_name) and not PLACEHOLDER_FIELD.match(ex_name) and not re.match(r"^field_0x", ex_name)
-            try:
-                dt = ctx.parse_type(fl["type"], create_struct=True)
-                if dt.getLength() != fsize:
+            if "type_dt" in fl:
+                dt = fl["type_dt"]
+                ex_real_name = False  # hierarchy members always win
+            else:
+                try:
+                    dt = ctx.parse_type(fl["type"], create_struct=True)
+                    if dt.getLength() != fsize:
+                        dt = None
+                except OpError:
                     dt = None
-            except OpError:
-                dt = None
             if dt is None and same_slot and ex_defined:
                 dt = existing.getDataType()  # Ghidra already has a same-sized type here; trust it
                 stats["fallback"] += 1
@@ -736,7 +871,8 @@ def op_struct_apply(ctx, name, size, fields=None, shrink=False, polymorphic=Fals
                     c.setFieldName(f"{new_name}_old_0x{c.getOffset():X}")
             s.replaceAtOffset(off, dt, fsize, new_name, comment)
             stats["renamed" if same_slot else "set"] += 1
-    return f"{name}: size 0x{s.getLength():X}  set={stats['set']} updated={stats['renamed']} kept={stats['kept']} fallback_type={stats['fallback']} skipped={stats['skipped']}"
+    extra = f" harvested_into_base={stats['harvested']}" if stats["harvested"] else ""
+    return f"{name}: size 0x{s.getLength():X}  set={stats['set']} updated={stats['renamed']} kept={stats['kept']} fallback_type={stats['fallback']} skipped={stats['skipped']}{extra}"
 
 
 PLACEHOLDER_FIELD = re.compile(r"^(field\d*_?(0x|x)?[0-9a-fA-F]+|unk\w*|unknown\w*|pad\w*|_pad\w*|padding\w*|reserved\w*|gap\w*|dummy\w*)$", re.I)

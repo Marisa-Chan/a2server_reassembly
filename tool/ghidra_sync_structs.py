@@ -1,11 +1,16 @@
 #!/usr/bin/env python
-"""Push class/struct layouts from our C++ headers into Ghidra structures (via the daemon).
+"""Push class/struct layouts (and vtables) from our C++ headers into Ghidra (via the daemon).
 
-Field offsets and sizes are not guessed: a small C++ program is generated that
-`#include`s the headers and prints `offsetof`/`sizeof` for every data member, compiled
-with the same MSVC x86 toolset as the project. Base-class members are flattened into
-the derived class (offsetof works through inheritance), so `this->token_pos` resolves
-directly in the decompiler.
+Nothing is guessed: a generated C++ program `#include`s the headers and is compiled with the
+project's MSVC x86 toolset. `offsetof`/`sizeof` give field offsets; `/d1reportAllClassLayout`
+gives base-class offsets, vfptr placement and the exact vtable slot order (overrides resolved).
+
+Resulting Ghidra model (mirrors the C++ hierarchy instead of flattening it):
+  - `Derived` starts with member `_` of type `Base` (at the base-class offset MSVC reports).
+  - A polymorphic class gets `{Class}_VTable` (one typed __thiscall function pointer per slot,
+    category /Game/VTables) and its offset-0 member is `union {Class}_Base { {Class}_VTable *vptr; Base _; }`
+    (or just `vptr` when there is no polymorphic base at offset 0).
+  - Only the class's own data members are written; inherited ones live in the base struct.
 
     python tool/ghidra_sync_structs.py --dry-run                 # list what would change
     python tool/ghidra_sync_structs.py --class Unit --class Token
@@ -16,8 +21,8 @@ Merge policy (see ghidra_ops.op_struct_apply):
   - Ghidra structs are created if missing, grown to sizeof(); shrunk only if the header has ASSERT_SIZE.
   - A header field replaces undefined bytes, or a Ghidra field occupying exactly the same slot.
   - Placeholder header names (fieldN_0xXX, unk*, pad*) never overwrite a real Ghidra name/type.
+  - Real Ghidra names inside the range now covered by `_` are copied into the base struct first.
   - Types unknown to Ghidra fall back to the existing component type of the same size, else undefined.
-  - Offset 0 of polymorphic classes (vtable pointer) is left alone.
 """
 import argparse
 import glob
@@ -122,7 +127,8 @@ def all_fields(name, classes, seen=None):
 
 def compile_dump(selected, classes, headers):
     """Generate, compile and run the offsetof dump for `selected` (base lookups use `classes`).
-    Returns {cls: {"size": n, "fields": {fname: (off, size)}}}.
+    Returns ({cls: {"size": n, "fields": {fname: (off, size)}}}, layout) where layout is the
+    parsed /d1reportAllClassLayout output (see parse_layout_report).
     Headers that fail to compile standalone are dropped (reported) and the compile retried."""
     os.makedirs(BUILD, exist_ok=True)
     cpp = os.path.join(BUILD, "struct_dump.cpp")
@@ -131,9 +137,10 @@ def compile_dump(selected, classes, headers):
     for attempt in range(12):
         _write_dump_source(cpp, selected, classes, headers)
         cmd = (f'"{VSDEVCMD}" -arch=x86 -no_logo && cl /nologo /std:c++17 /EHsc /W0 /MD /I "{SRC}" /I "{SRC}\\mfc\\include" '
-               + " ".join(f"/D{d}" for d in DEFINES) + f' /Fo"{BUILD}\\struct_dump.obj" /Fe"{exe}" "{cpp}"')
+               + " ".join(f"/D{d}" for d in DEFINES)
+               + f' /d1reportAllClassLayout /Fo"{BUILD}\\struct_dump.obj" /Fe"{exe}" "{cpp}"')
         # cmd.exe strips the outer quotes of a /c command that starts with a quote, so wrap it once more
-        r = subprocess.run(f'cmd /c "{cmd}"', capture_output=True, text=True, cwd=BUILD)
+        r = subprocess.run(f'cmd /c "{cmd}"', capture_output=True, text=True, cwd=BUILD, encoding="utf-8", errors="replace")
         if r.returncode == 0:
             break
         errs = [l for l in (r.stdout + r.stderr).splitlines() if "error" in l] or (r.stdout + r.stderr).splitlines()[-10:]
@@ -145,6 +152,7 @@ def compile_dump(selected, classes, headers):
         headers = [h for h in headers if os.path.basename(h) not in bad]
     else:
         sys.exit("struct_dump.cpp: too many retries")
+    layout = parse_layout_report(r.stdout)
     out = subprocess.run([exe], capture_output=True, text=True).stdout
     dump = {}
     for line in out.splitlines():
@@ -153,7 +161,51 @@ def compile_dump(selected, classes, headers):
             dump.setdefault(p[1], {"size": 0, "fields": {}})["size"] = int(p[2])
         elif p[0] == "FIELD":
             dump.setdefault(p[1], {"size": 0, "fields": {}})["fields"][p[2]] = (int(p[3]), int(p[4]))
-    return dump
+    return dump, layout
+
+
+def parse_layout_report(text):
+    """Parse MSVC's /d1reportAllClassLayout output.
+    Returns {cls: {"bases": [(base, offset)], "vfptr": offset|None, "vtable": [(owner, method)]}}
+    where vtable lists the slots of `cls`'s primary vftable in order."""
+    out = {}
+    cur = None
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        m = re.match(r"^class ([A-Za-z_]\w*)\s+size\((\d+)\):", line)
+        if m:
+            cur = out.setdefault(m.group(1), {"bases": [], "vfptr": None, "vtable": None, "size": int(m.group(2))})
+            i += 1
+            # layout block: only depth-1 entries belong to this class
+            while i < len(lines) and lines[i].strip() and not re.match(r"^class ", lines[i]):
+                l = lines[i]
+                bm = re.match(r"^\s*(\d+)\s*\|\s*\+--- \(base class ([A-Za-z_]\w*)\)", l)
+                if bm:
+                    cur["bases"].append((bm.group(2), int(bm.group(1))))
+                vm = re.match(r"^\s*(\d+)\s*(?:\|\s*)+\{vfptr\}", l)
+                if vm and cur["vfptr"] is None:
+                    cur["vfptr"] = int(vm.group(1))
+                i += 1
+            continue
+        m = re.match(r"^([A-Za-z_]\w*)::\$vftable@(\w*):", line)
+        if m:
+            cls, tag = m.group(1), m.group(2)
+            slots = []
+            i += 1
+            while i < len(lines) and lines[i].strip():
+                sm = re.match(r"^\s*(\d+)\s*\|\s*&(.+?)\s*$", lines[i])
+                if sm:
+                    target = sm.group(2)
+                    om = re.match(r"([A-Za-z_]\w*)::(.+)", target)
+                    slots.append((om.group(1), om.group(2).strip()) if om else ("", target))
+                i += 1
+            if cls in out and (not tag or out[cls]["vtable"] is None):
+                out[cls]["vtable"] = slots
+            continue
+        i += 1
+    return out
 
 
 def _write_dump_source(cpp, selected, classes, headers):
@@ -180,20 +232,63 @@ def call(op, args):
     return resp["result"]
 
 
+SPECIAL_SLOTS = {"{dtor}": ("dtor", "void", []), "GetRuntimeClass": ("GetRuntimeClass", "CRuntimeClass *", []),
+                 "AssertValid": ("AssertValid", "void", []), "Dump": ("Dump", "void", ["CDumpContext * dc"])}
+# CObject slots whose owner may be an MFC class we don't parse (CWordArray = CArray<> instantiation)
+FALLBACK_SLOTS = {"Serialize": ("Serialize", "void", ["CArchive * ar"])}
+
+
+def vtable_slots(cls, layout, decls):
+    """[(name, ret, params)] for cls's vftable, signatures taken from the header declarations."""
+    slots = []
+    for idx, (owner, method) in enumerate(layout[cls]["vtable"] or []):
+        if method in SPECIAL_SLOTS:
+            slots.append(SPECIAL_SLOTS[method])
+            continue
+        if method.startswith("_purecall") or owner == "":
+            slots.append((f"pure_virtual_{idx}", "void", []))
+            continue
+        d = decls.get((owner, method)) or decls.get((cls, method))
+        if d is None:
+            slots.append(FALLBACK_SLOTS.get(method, (method, "void", [])))
+        else:
+            slots.append((method, d["ret"], [f"{t} {n}" if n else t for t, n in d["params"]]))
+    return slots
+
+
+def topo_order(names, layout):
+    """Bases before derived classes (only among `names`)."""
+    out, seen = [], set()
+
+    def visit(n):
+        if n in seen or n not in names:
+            return
+        seen.add(n)
+        for b, _ in layout.get(n, {}).get("bases", []):
+            visit(b)
+        out.append(n)
+    for n in names:
+        visit(n)
+    return out
+
+
 def main():
     global PORT
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--class", dest="cls", action="append", help="only these classes (repeatable)")
     ap.add_argument("--file", help="only classes declared in this header")
+    ap.add_argument("--nest", action="store_true",
+                    help="model inheritance as a `Base _` member (union with vptr for polymorphic classes) "
+                         "instead of flattening inherited fields into the derived struct")
     ap.add_argument("--port", type=int, default=PORT)
     a = ap.parse_args()
     PORT = a.port
 
     headers = sorted(h for h in glob.glob(os.path.join(SRC, "*.h")) if os.path.basename(h) not in EXCLUDE_HEADERS)
     classes = parse_classes(headers)
-    # compile-time errors would stop everything, so keep only classes that have fields
-    classes = {n: c for n, c in classes.items() if all_fields(n, classes)}
+    # keep classes that carry data or a vtable (compile errors would stop everything otherwise)
+    classes = {n: c for n, c in classes.items() if all_fields(n, classes) or c["polymorphic"]}
     selected = dict(classes)
     if a.file:
         want = os.path.relpath(os.path.abspath(a.file), ROOT)
@@ -206,37 +301,60 @@ def main():
     if not selected:
         sys.exit("nothing selected")
 
-    dump = compile_dump(selected, classes, headers)
-    ops = []
-    for name, info in selected.items():
-        d = dump.get(name)
-        if not d:
+    dump, layout = compile_dump(selected, classes, headers)
+    decls = {}
+    for d in bp.parse_headers(headers):
+        if d["virtual"]:
+            decls.setdefault((d["cls"], d["name"]), d)
+
+    struct_ops, vtable_ops, size_ops = [], [], []
+    for name in topo_order(list(selected), layout):
+        info = selected[name]
+        d, lay = dump.get(name), layout.get(name)
+        if not d or not lay:
             print(f"  {name}: not in dump (compile skipped?)")
             continue
+        bases = lay["bases"]
+        if len(bases) > 1:
+            print(f"  {name}: multiple bases {bases}; only {bases[0][0]} is modelled as `_`")
+        base, base_off = (bases[0] if bases else (None, 0))
+        has_vtable = lay["vfptr"] is not None and bool(lay["vtable"])
         fields = []
-        for t, f, dims, ln in all_fields(name, classes):
+        own = info["fields"] if a.nest else all_fields(name, classes)
+        for t, f, dims, ln in own:
             if f not in d["fields"]:
                 continue
             off, size = d["fields"][f]
             fields.append({"offset": off, "size": size, "type": t + dims, "name": f,
                            "placeholder": bool(PLACEHOLDER_FIELD.match(f))})
-        ops.append({"op": "struct-apply", "args": {
-            "name": name, "size": d["size"], "fields": fields,
-            "shrink": info["assert_size"] is not None, "polymorphic": info["polymorphic"]}})
+        args = {"name": name, "size": d["size"], "fields": fields, "shrink": info["assert_size"] is not None,
+                "polymorphic": has_vtable, "base": base if a.nest else None, "base_offset": base_off, "vtable": has_vtable}
+        size_ops.append({"op": "struct-apply", "args": {**args, "fields": None}})
+        if has_vtable:
+            slots = vtable_slots(name, layout, decls)
+            vtable_ops.append({"op": "vtable-apply", "args": {
+                "cls": name, "slots": [{"name": n, "ret": r, "params": p} for n, r, p in slots]}})
+        struct_ops.append({"op": "struct-apply", "args": args})
         if a.dry_run:
-            print(f"{name}  sizeof=0x{d['size']:X}  polymorphic={info['polymorphic']}  assert_size={info['assert_size']}  [{info['file']}:{info['line']}]")
+            vt = f"  vtable={len(lay['vtable'])} slots" if has_vtable else ""
+            bs = f"  base={base}@0x{base_off:X}" if base else ""
+            print(f"{name}  sizeof=0x{d['size']:X}{bs}{vt}  assert_size={info['assert_size']}  [{info['file']}:{info['line']}]")
+            if has_vtable:
+                for i, (n, r, p) in enumerate(vtable_slots(name, layout, decls)):
+                    print(f"    [{i:2}] {r} {n}({', '.join(p)})")
             for fl in fields:
                 print(f"    0x{fl['offset']:04X} {fl['size']:4}  {fl['type']:28} {fl['name']}")
     if a.dry_run:
         return
-    # pass 1: sizes only (so by-value member structs resolve with the right size in pass 2)
-    size_ops = [{"op": "struct-apply", "args": {**o["args"], "fields": None}} for o in ops]
+    # pass 1: make every struct exist with its size (vtable `this` params and by-value members need them)
     for line in call("batch", {"ops": size_ops}).splitlines():
         if line.startswith("ERR"):
             print(line)
-    for i in range(0, len(ops), 100):
-        for line in call("batch", {"ops": ops[i:i + 100]}).splitlines():
-            print(line if line.startswith("ERR") else line.split(" -> ", 1)[-1])
+    # pass 2: vtables, pass 3: full layouts (bases first)
+    for ops in (vtable_ops, struct_ops):
+        for i in range(0, len(ops), 100):
+            for line in call("batch", {"ops": ops[i:i + 100]}).splitlines():
+                print(line if line.startswith("ERR") else line.split(" -> ", 1)[-1])
 
 
 if __name__ == "__main__":
