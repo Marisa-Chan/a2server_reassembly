@@ -21265,6 +21265,13 @@ int32_t VisFameHall::OnChar(uint32_t wparam)
 }
 
 
+// 45DB50
+const char* VisFameHall::GetHint()
+{
+    return nullptr;
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

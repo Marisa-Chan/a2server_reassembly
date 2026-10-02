@@ -1563,7 +1563,7 @@ extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
 extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
 ;VisFameHall
 externdef ??_GVisFameHall@@UAEPAXI@Z : proc
-externdef ?GetHint@VisFameHall@@UAEPBDXZ : proc
+extern ?GetHint@VisFameHall@@UAEPBDXZ : proc
 extern ?VMethod7@VisFameHall@@UAEXXZ : proc
 externdef ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z : proc
 extern ?MsgProc@VisFameHall@@UAEHIII@Z : proc

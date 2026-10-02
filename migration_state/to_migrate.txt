@@ -352,7 +352,6 @@ _byte_666590
 ?DoClose@VisDropGold@@UAEXI@Z	130
 ?VMethod26@VisDropGold@@UAEXXZ	251
 ?VMethod8@VisFameHall@@UAEXPAVCRect@@@Z	11
-?GetHint@VisFameHall@@UAEPBDXZ	12
 ?FreeSounds@VisFameHall@@QAEXXZ	16
 ?LoadSounds@VisFameHall@@QAEXXZ	17
 ?FUN_0045da77@VisFameHall@@QAEXXZ	18

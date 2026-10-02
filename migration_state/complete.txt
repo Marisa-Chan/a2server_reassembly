@@ -456,6 +456,7 @@
 ?GetDouble@ResBase@@QAENPBD0N@Z
 ?GetHead@PlayersList@@QAEPAVPlayer@@XZ
 ?GetHint@CVisualObject@@UAEPBDXZ
+?GetHint@VisFameHall@@UAEPBDXZ
 ?GetHint@VisGlobalMap@@UAEPBDXZ
 ?GetHint@VisInvBase@@UAEPBDXZ
 ?GetHint@VisInvExtBase@@UAEPBDXZ
