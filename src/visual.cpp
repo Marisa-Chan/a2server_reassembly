@@ -21210,6 +21210,24 @@ int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 45D222
+void VisFameHall::VMethod28()
+{
+    g_mousept.DisableHint();
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    this->fame = &main_wnd->m_FameHall;
+    this->LoadBitmaps();
+    this->LoadSounds();
+    this->name_rects.SetSize(this->fame->m_Entries.GetSize(), -1);
+    this->rank_rects.SetSize(this->fame->m_Entries.GetSize(), -1);
+    this->score_rects.SetSize(this->fame->m_Entries.GetSize(), -1);
+    this->UpdateRects();
+    this->visible_flag = 1;
+    this->VisScreen::VMethod28();
+    g_Cursors[CURSOR_SELECT]->Use();
+}
+
+
 // 4B0C84
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos)
 {

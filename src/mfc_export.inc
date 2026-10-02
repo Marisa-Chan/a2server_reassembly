@@ -1574,7 +1574,10 @@ externdef ?FUN_0045da77@VisFameHall@@QAEXXZ : proc
 externdef ?OnKeyDown@VisFameHall@@UAEHI@Z : proc
 externdef ?OnChar@VisFameHall@@UAEHI@Z : proc
 extern ?VMethod26@VisFameHall@@UAEXXZ : proc
-externdef ?VMethod28@VisFameHall@@UAEXXZ : proc
+extern ?VMethod28@VisFameHall@@UAEXXZ : proc
+externdef ?LoadBitmaps@VisFameHall@@QAEXXZ : proc
+externdef ?LoadSounds@VisFameHall@@QAEXXZ : proc
+externdef ?UpdateRects@VisFameHall@@QAEXXZ : proc
 externdef ?DoClose@VisFameHall@@UAEXI@Z : proc
 
 ; Fame2
