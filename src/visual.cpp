@@ -5311,6 +5311,17 @@ VisNetChatList::VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uin
 VisNetChatList::~VisNetChatList() = default;
 
 
+// 450180 (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
+VisNetPlayerList::VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+    : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint)
+{
+}
+
+
+// 450200 (deleting dtor ??_G; the complete dtor 450230 only destroys `colors` and the base)
+VisNetPlayerList::~VisNetPlayerList() = default;
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

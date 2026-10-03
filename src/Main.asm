@@ -23410,7 +23410,7 @@ loc_44C717:                             ; CODE XREF: ?DrawItem@VisNetChatList@@U
 
 ; Attributes: bp-based frame
 
-sub_44C71D      proc near               ; DATA XREF: .rdata:0060AC6C↓o
+?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z      proc near               ; DATA XREF: .rdata:0060AC6C↓o
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -23457,11 +23457,11 @@ arg_8           = dword ptr  10h
                 mov     ecx, dword ptr [eax+78h]
                 call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 
-loc_44C782:                             ; CODE XREF: sub_44C71D+1A↑j
+loc_44C782:                             ; CODE XREF: ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z+1A↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    10h
-sub_44C71D      endp
+?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24969,148 +24969,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 sub_450060      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z(int, RECT *lprcSrc, int, int, int, int, LPCSTR lpString)
-??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+736↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-arg_14          = dword ptr  1Ch
-lpString        = dword ptr  20h
-
-; FUNCTION CHUNK AT 005F9C60 SIZE 00000013 BYTES
-
-; __unwind { // SEH_450180
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_450180
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_14]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+lprcSrc]
-                push    edx             ; lprcSrc
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_5DB48B
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60ABF0
-;   } // starts at 4501C0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    1Ch
-; } // starts at 450180
-??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450200      proc near               ; DATA XREF: .rdata:0060ABF4↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_450230
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_450222
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_450222:                             ; CODE XREF: sub_450200+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_450200      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450230      proc near               ; CODE XREF: sub_450200+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9C80 SIZE 00000013 BYTES
-
-; __unwind { // SEH_450230
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_450230
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_5DB4BE
-;   } // starts at 45024C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 450230
-sub_450230      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -252993,39 +252851,6 @@ SEH_44FE40:                             ; DATA XREF: sub_44FE40+5↑o
 ; } // starts at 5F9C00
 ; END OF FUNCTION CHUNK FOR sub_44FE40
                 align 10h
-; START OF FUNCTION CHUNK FOR ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-
-loc_5F9C60:                             ; DATA XREF: .rdata:stru_61A718↓o
-; __unwind { // SEH_450180
-;   cleanup() // owned by 4501C0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_450180:                             ; DATA XREF: ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+5↑o
-                mov     eax, offset stru_61A6F8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9C60
-; END OF FUNCTION CHUNK FOR ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR sub_450230
-
-loc_5F9C80:                             ; DATA XREF: .rdata:stru_61A740↓o
-; __unwind { // SEH_450230
-;   cleanup() // owned by 45024C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_450230:                             ; DATA XREF: sub_450230+5↑o
-                mov     eax, offset stru_61A720
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9C80
-; END OF FUNCTION CHUNK FOR sub_450230
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1VisTextBox@@UAE@XZ
 
@@ -272643,41 +272468,6 @@ off_60AAD0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 10h
                 align 10h
-off_60ABF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+58↑o
-                dd offset sub_450200
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisListBox@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@VisListBox@@UAEXPAX@Z
-                dd offset ?DataSize@VisListBox@@UAEIXZ ; MFC 3.1-14.0 32bit
-                dd offset ?ReadData@VisListBox@@UAEXPBX@Z
-                dd offset ?MsgProc@VisListBox@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisListBox@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?IsValidIndex@VisListBox@@UAEHH@Z
-                dd offset sub_44C71D
-                dd offset ?SelectItem@VisListBox@@UAEXH@Z
-                dd offset ?GetItemCount@VisListBox@@UAEHXZ
-                dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 10h
 off_60AC80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z+26↑o
                 dd offset sub_450350
@@ -284808,18 +284598,6 @@ stru_61A678     FuncInfoV1 <19930520h, 2, offset stru_61A698, 0, 0, 0, 0>
                 db    0
 stru_61A698     UnwindMapEntry <-1, offset loc_5F9C00>
                 UnwindMapEntry <0, offset unknown_libname_977> ; MFC 3.1-14.0 32bit
-stru_61A6F8     FuncInfoV1 <19930520h, 1, offset stru_61A718, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A718     UnwindMapEntry <-1, offset loc_5F9C60>
-stru_61A720     FuncInfoV1 <19930520h, 1, offset stru_61A740, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A740     UnwindMapEntry <-1, offset loc_5F9C80>
 stru_61A748     FuncInfoV1 <19930520h, 1, offset stru_61A768, 0, 0, 0, 0>
                 db    0
                 db    0

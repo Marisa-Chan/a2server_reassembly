@@ -325,5 +325,5 @@ _byte_659A3C
 ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z	93
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
-??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
+?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z	51
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
