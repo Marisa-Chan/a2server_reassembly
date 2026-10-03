@@ -5322,6 +5322,18 @@ VisNetPlayerList::VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font,
 VisNetPlayerList::~VisNetPlayerList() = default;
 
 
+// 44ffd0
+VisNetMapList::VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint, int32_t* p_selected_map_index)
+    : VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint)
+{
+    this->p_selected_map_index = p_selected_map_index;
+}
+
+
+// 450030 (deleting dtor ??_G; the complete dtor 450060 only calls the base dtor)
+VisNetMapList::~VisNetMapList() = default;
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

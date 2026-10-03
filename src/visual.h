@@ -3492,7 +3492,12 @@ ASSERT_SIZE(NetMapInfo, 0x1c);
 class VisNetMapList : public VisListBox
 {
 public:
+	virtual ~VisNetMapList(); // 450030 (complete dtor 450060)
+
 	VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint, int32_t* p_selected_map_index); // 44ffd0 in asm
+
+	virtual const char* GetHint() override; // 44b2bf in asm
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44b09e in asm
 
 	int32_t* p_selected_map_index; // 0x94
 };

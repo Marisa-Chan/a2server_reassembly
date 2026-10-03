@@ -2154,7 +2154,8 @@ externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
 externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
-externdef ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z : proc
+externdef ?DrawItem@VisNetMapList@@UAEXHVCPoint@@PAG@Z : proc
+externdef ?GetHint@VisNetMapList@@UAEPBDXZ : proc
 externdef ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z : proc
 externdef ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z : proc
 externdef ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z : proc
