@@ -5334,6 +5334,58 @@ VisNetMapList::VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 VisNetMapList::~VisNetMapList() = default;
 
 
+// 44b09e
+void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    if (!this->IsValidIndex(idx)) {
+        return;
+    }
+
+    if (idx == *this->p_selected_map_index) {
+        g_bmp_server->VMethod2(pos.x, pos.y, 0, 0, 0);
+    }
+
+    CString& item = this->entries[idx];
+    char* txt = (char*)(const char*)item;
+
+    int32_t level = item[item.GetLength() - 1] - '1';
+    if (level < 0) {
+        level = 0;
+    }
+    if (level > 3) {
+        level = 3;
+    }
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->m_GameSession.FUN_004200f0() > level + 1
+        || main_wnd->m_GameSession.FUN_00420110() < level + 1) {
+        clr = g_colors_human_pals[15];
+    }
+
+    pos.x += 0x1E;
+
+    char* field = txt;
+    char* sep = strchr(field, '#');
+    *sep = '\0';
+    this->font->DrawTextWithShadow(pos.x, pos.y, field, 0, clr, 1);
+    *sep = '#';
+
+    pos.x += 0x10E;
+    field = sep + 1;
+    sep = strchr(field, '#');
+    *sep = '\0';
+    this->font->DrawTextWithShadow(pos.x, pos.y, field, 0, clr, 1);
+    *sep = '#';
+
+    pos.x += 0x54;
+    field = sep + 1;
+    sep = strchr(field, '#');
+    *sep = '\0';
+    *sep = '#';
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt_patch.GetLine(level + 0x62), 0, clr, 1);
+}
+
+
 // 450920
 VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
     : VisRadioType1(_id, l, t, r, b, _font, _clr, hint)

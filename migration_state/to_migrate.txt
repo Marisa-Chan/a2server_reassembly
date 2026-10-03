@@ -324,6 +324,5 @@ _byte_659A3C
 ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z	93
 ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z	48
 ?GetHint@VisNetMapList@@UAEPBDXZ	76
-?DrawItem@VisNetMapList@@UAEXHVCPoint@@PAG@Z	216
 ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z	51
 ?GetIndex@VisServerScreenRadio@@UAEHH@Z	36
