@@ -362,4 +362,3 @@ _byte_659A3C
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
 ?MsgProc@VisTipsDialog@@UAEHIII@Z	71
 ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z	77
-?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z	377

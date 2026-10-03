@@ -4260,6 +4260,58 @@ VisQuestStatus::~VisQuestStatus()
 }
 
 
+// 4e27cd
+void VisTipsDialog::VMethod8(CRect* rect)
+{
+    CRect r;
+    this->ClientRectToScreen(&r, this->rect);
+
+    r.right -= 8;
+    r.bottom -= 8;
+
+    CRect tmp;
+    GetClipRect(&tmp);
+    SetClipRect(*rect);
+    LockSurface2();
+
+    gfx_interface_lm->VMethod3(r.right - 24, r.top + 8, 0xC, 6, 0);
+    gfx_interface_lm->VMethod3(r.left + 8, r.bottom - 24, 0xF, 6, 0);
+    gfx_interface_lm->VMethod3(r.right - 24, r.bottom - 24, 0x11, 6, 0);
+
+    for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
+        gfx_interface_lm->VMethod3(r.left + 0x28 + i * 0x30, r.bottom - 0x18, 0x10, 6, 0);
+    }
+
+    for (int32_t i = 0; i < (r.Height() - 0x40) / 0x20; i++) {
+        gfx_interface_lm->VMethod3(r.right - 0x18, r.top + 0x28 + i * 0x20, 0xE, 6, 0);
+    }
+
+    gfx_interface_lm->VMethod2(r.left, r.top, 0xA, 0, 0);
+    gfx_interface_lm->VMethod2(r.right - 0x20, r.top, 0xC, 0, 0);
+    gfx_interface_lm->VMethod2(r.left, r.bottom - 0x20, 0xF, 0, 0);
+    gfx_interface_lm->VMethod2(r.right - 0x20, r.bottom - 0x20, 0x11, 0, 0);
+
+    for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
+        gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.top, 0xB, 0, 0);
+        gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.bottom - 0x20, 0x10, 0, 0);
+    }
+
+    for (int32_t i = 0; i < (r.Height() - 0x40) / 0x20; i++) {
+        gfx_interface_lm->VMethod2(r.left, r.top + 0x20 + i * 0x20, 0xD, 0, 0);
+        gfx_interface_lm->VMethod2(r.right - 0x20, r.top + 0x20 + i * 0x20, 0xE, 0, 0);
+    }
+
+    for (int32_t i = 0; i < (r.Width() - 0x40) / 0x30; i++) {
+        for (int32_t j = 0; j < (r.Height() - 0x40) / 0x20; j++) {
+            gfx_interface_lm->VMethod2(r.left + 0x20 + i * 0x30, r.top + 0x20 + j * 0x20, 9, 0, 0);
+        }
+    }
+
+    UnlockSurface2();
+    SetClipRect(tmp);
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8

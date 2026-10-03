@@ -991,6 +991,7 @@
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z
+?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ
