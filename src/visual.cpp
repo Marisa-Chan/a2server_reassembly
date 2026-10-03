@@ -10576,6 +10576,21 @@ void VisShop::sub_4BB102()
 }
 
 
+// 4BAD1D
+void VisShop::sub_4BAD1D()
+{
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    if (this->dialog_active && this->select_info_panel) {
+        if (((VisCharInfo*)this->select_info_panel)->info_mode == 0) {
+            g_bmp_textbackl->VMethod10(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
+        } else {
+            g_bmp_humanbackl->VMethod10(screen_rect.left + 0x1D0, screen_rect.top + 0xEE, 0, 0, 0x10, 0xF2);
+        }
+    }
+}
+
+
 // 4BD495
 VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr)

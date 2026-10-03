@@ -1443,7 +1443,6 @@ extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
 ;VisShop
 externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
-externdef ?sub_4BAD1D@VisShop@@QAEXXZ : proc  ; void VisShop::sub_4BAD1D()  //4bad1d in asm
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc
