@@ -22198,25 +22198,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod7@Vis1200@@UAEXXZ      proc near               ; DATA XREF: .rdata:00609AFC↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+16Ch], 0
-                jz      short loc_43BE9B
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod7@VisScreen@@UAEXXZ
-
-loc_43BE9B:                             ; CODE XREF: ?VMethod7@Vis1200@@UAEXXZ+11↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@Vis1200@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

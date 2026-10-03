@@ -24085,3 +24085,11 @@ void Vis1200::DoClose(uint32_t code)
     this->active = 0;
     VisScreen::DoClose(code);
 }
+
+// 43BE80
+void Vis1200::VMethod7()
+{
+    if (this->active != 0) {
+        VisScreen::VMethod7();
+    }
+}

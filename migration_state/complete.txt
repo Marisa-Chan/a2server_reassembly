@@ -965,6 +965,7 @@
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
+?VMethod7@Vis1200@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
 ?VMethod7@VisInvExtBase@@UAEXXZ
