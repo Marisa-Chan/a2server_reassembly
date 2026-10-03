@@ -1598,7 +1598,7 @@ extern ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ : proc  ; void VisStartGameTextBox::FUN_00432b80(void)  //432b80 in asm
 externdef ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z : proc  ; void VisStartGameTextBox::FUN_00432b33(uint8_t ch)  //432b33 in asm
 extern ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
-externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
+extern ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
 externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc
 
 ;VisInvBase

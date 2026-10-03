@@ -24602,3 +24602,9 @@ const char* VisStartGameTextBox::GetHint()
 
     return TxtFile::AllLines[0x100];
 }
+
+// 438D80
+CString VisStartGameTextBox::GetText()
+{
+    return this->text;
+}

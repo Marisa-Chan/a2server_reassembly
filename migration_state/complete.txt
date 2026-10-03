@@ -494,6 +494,7 @@
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
 ?GetStringArray@ResBase@@QAEHPBD0PAVCStringArray@@@Z
 ?GetStrWidth@CGameFont@@QAEHPBD@Z
+?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ
 ?GetType@TokenEntry@@QBEHXZ
 ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ
 ?GetValueString@ResBase@@QAE?AVCString@@PBD00@Z

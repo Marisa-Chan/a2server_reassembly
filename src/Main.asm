@@ -17996,31 +17996,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ(CString *)
-?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ      proc near               ; CODE XREF: ?DoClose@VisStartGame@@UAEXI@Z+67↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 60h ; '`'
-                push    eax             ; struct CString *
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     ecx, dword ptr [ebp+var_4]
-                or      ecx, 1
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
