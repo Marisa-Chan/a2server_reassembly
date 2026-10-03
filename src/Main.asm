@@ -74927,20 +74927,6 @@ unknown_libname_632 endp
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisRightPanel@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060CEAC↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod7@CVisualObject@@UAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod7@VisRightPanel@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

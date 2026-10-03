@@ -343,9 +343,6 @@ _byte_659A3C
 ?VMethod31@VisNetTcpIp@@UAEXH@Z	58
 ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	89
 ?UpdateCursor@VisOrderToolbar@@QAEXXZ	131
-?VMethod7@VisRightPanel@@UAEXXZ	13
-??_GVisRightPanel@@UAEPAXI@Z	24
-??0VisRightPanel@@QAE@HHHHH@Z	32
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?UpdateCursor@VisSideStatus@@QAEXXZ	146
 ?FUN_004382d9@VisStartGame@@QAEXXZ	18

@@ -9652,6 +9652,12 @@ void VisCharInfo::sub_4B36B4()
     new_cursor->Use();
 }
 
+// 4AEE31
+void VisRightPanel::VMethod7()
+{
+    CVisualObject::VMethod7();
+}
+
 // 4AEDCF
 VisRightPanel::VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : CVisualObject(_id, l, t, r, b, nullptr)

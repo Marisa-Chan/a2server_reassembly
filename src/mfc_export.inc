@@ -1551,8 +1551,6 @@ externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 ;BigStruct2 minimap unit pick
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
-;VisRightPanel
-externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 
 externdef ?UpdateCursor@VisOrderToolbar@@QAEXXZ : proc  ; void VisOrderToolbar::UpdateCursor(void)
 
