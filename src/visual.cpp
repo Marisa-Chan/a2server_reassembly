@@ -23791,3 +23791,18 @@ int32_t VisCredits::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
+
+// 43C4D6
+void VisCredits::VMethod28()
+{
+    g_mousept.DisableHint();
+    this->scroll = 0x1e0;
+    this->LoadContent();
+    this->flag = 1;
+    g_mousept.Unpaint();
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    UnlockSurface2();
+    FlushScreen();
+    VisScreen::VMethod28();
+}

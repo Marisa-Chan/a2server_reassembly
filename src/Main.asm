@@ -23060,44 +23060,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisCredits@@UAEXXZ      proc near               ; DATA XREF: .rdata:00609C08↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?DisableHint@CMousePointer@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+9Ch], 1E0h
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43C9B5
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+94h], 1
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Unpaint@CMousePointer@@QAEXXZ
-                call    ?LockSurface2@@YAIXZ
-                push    0
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
-                push    edx
-                mov     eax, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
-                push    eax
-                mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+4] 
-                push    ecx
-                mov     edx, dword ptr [?g_ScreenSize@@3VCRect@@A] 
-                push    edx
-                call    ?FillRectColorSimple@@YAXHHHHI@Z
-                add     esp, 14h
-                call    ?UnlockSurface2@@YAIXZ
-                call    ?FlushScreen@@YAXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@VisCredits@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -23213,7 +23175,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_43C9B5      proc near               ; CODE XREF: ?VMethod28@VisCredits@@UAEXXZ+21↑p
+?LoadContent@VisCredits@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisCredits@@UAEXXZ+21↑p
 
 var_4C          = dword ptr -4Ch
 var_48          = dword ptr -48h
@@ -23256,12 +23218,12 @@ var_4           = dword ptr -4
                 jmp     short loc_43CA00
 ; ---------------------------------------------------------------------------
 
-loc_43C9F7:                             ; CODE XREF: sub_43C9B5:loc_43CB64↓j
+loc_43C9F7:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ:loc_43CB64↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_43CA00:                             ; CODE XREF: sub_43C9B5+40↑j
+loc_43CA00:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+40↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 add     ecx, 84h
                 call    ?GetCount@TxtFile@@QAEHXZ  ; Microsoft VisualC 2-14/net runtime
@@ -23362,10 +23324,10 @@ loc_43CA00:                             ; CODE XREF: sub_43C9B5+40↑j
                 jmp     short loc_43CB23
 ; ---------------------------------------------------------------------------
 
-loc_43CB1C:                             ; CODE XREF: sub_43C9B5+14F↑j
+loc_43CB1C:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+14F↑j
                 mov     [ebp+var_4C], 0
 
-loc_43CB23:                             ; CODE XREF: sub_43C9B5+165↑j
+loc_43CB23:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+165↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     [ebp+var_2C], ecx
 ;   } // starts at 43CAFC
@@ -23389,18 +23351,18 @@ loc_43CB23:                             ; CODE XREF: sub_43C9B5+165↑j
                 lea     ecx, [ebp+var_14] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_43CB64:                             ; CODE XREF: sub_43C9B5+7A↑j
+loc_43CB64:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+7A↑j
                 jmp     loc_43C9F7
 ; ---------------------------------------------------------------------------
 
-loc_43CB69:                             ; CODE XREF: sub_43C9B5+5C↑j
+loc_43CB69:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+5C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 43C9B5
-sub_43C9B5      endp
+?LoadContent@VisCredits@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -23559,7 +23521,7 @@ loc_43CC82:                             ; CODE XREF: ??_GVisCredits@@UAEPAXI@Z+1
 ; Attributes: bp-based frame
 
 ; int __stdcall sub_43CC90(unsigned __int8 *Str2, int)
-sub_43CC90      proc near               ; CODE XREF: sub_43C9B5+19B↑p
+sub_43CC90      proc near               ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+19B↑p
 
 var_4           = dword ptr -4
 Str2            = dword ptr  8
@@ -262293,7 +262255,7 @@ SEH_43C3C6:                             ; DATA XREF: CHandleMap::~CHandleMap(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8CCC
 ; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-; START OF FUNCTION CHUNK FOR sub_43C9B5
+; START OF FUNCTION CHUNK FOR ?LoadContent@VisCredits@@QAEXXZ
 
 loc_5F8D0E:                             ; DATA XREF: .rdata:stru_6195B8↓o
 ; __unwind { // unknown_libname_972     ; varThis
@@ -262336,12 +262298,12 @@ loc_5F8D32:                             ; DATA XREF: .rdata:006195D8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-unknown_libname_972:                    ; DATA XREF: sub_43C9B5+5↑o
+unknown_libname_972:                    ; DATA XREF: ?LoadContent@VisCredits@@QAEXXZ+5↑o
 SEH_43C9B5:                             ; MFC 3.1-14.0 32bit
                 mov     eax, offset stru_619598
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8D0E
-; END OF FUNCTION CHUNK FOR sub_43C9B5
+; END OF FUNCTION CHUNK FOR ?LoadContent@VisCredits@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43CB77
 
@@ -303210,7 +303172,7 @@ asc_62E520      db ' ',0                ; DATA XREF: ?VMethod26@VisCredits@@UAEX
 aMainTextCredit db 'main\text\credits.txt',0
                 align 4
 ; CHAR aMainGraphicsLo[]
-aMainGraphicsLo db 'main\graphics\logo\',0 ; DATA XREF: sub_43C9B5+FE↑o
+aMainGraphicsLo db 'main\graphics\logo\',0 ; DATA XREF: ?LoadContent@VisCredits@@QAEXXZ+FE↑o
                 db    1
                 db    0
                 db    0

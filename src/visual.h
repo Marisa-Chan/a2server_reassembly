@@ -2297,6 +2297,8 @@ public:
 	virtual void VMethod28() override; // 43C4D6
 	virtual void DoClose(uint32_t code) override; // 43C553
 
+	void LoadContent(); // 43c9b5
+
 	VisCredits(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43c337 in asm
 public:
 	CMapStringToOb bitmaps;
