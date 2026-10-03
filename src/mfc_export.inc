@@ -1558,7 +1558,6 @@ externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
 extern ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
 externdef ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
 externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
-externdef ?SetText@VisTipsDialog@@QAEXPBD@Z : proc
 
 ;VisRightPanel
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc

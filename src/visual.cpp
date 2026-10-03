@@ -4312,6 +4312,14 @@ void VisTipsDialog::VMethod8(CRect* rect)
 }
 
 
+// 4e2b73
+void VisTipsDialog::SetText(const char* text)
+{
+    VisMultiText* mt = (VisMultiText*)this->FindChild(13);
+    mt->SetText(text);
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8

@@ -88779,27 +88779,6 @@ sub_4E25C1      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?SetText@VisTipsDialog@@QAEXPBD@Z(LPCSTR lpString)
-?SetText@VisTipsDialog@@QAEXPBD@Z      proc near               ; CODE XREF: std::locale::facet::_Register(void)+BF↑p
-
-var_4           = dword ptr -4
-lpString        = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                push    0Dh
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     ecx, eax
-                call    ?SetText@VisMultiText@@QAEXPBD@Z 
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?SetText@VisTipsDialog@@QAEXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
