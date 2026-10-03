@@ -363,8 +363,8 @@ _byte_659A3C
 ?UpdateCursor@VisSideStatus@@QAEXXZ	146
 ?FUN_004382d9@VisStartGame@@QAEXXZ	18
 ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z	32
+?FUN_00432ad1@VisStartGameTextBox@@QAEXXZ	35
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ	54
-??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?SetText@VisTipsDialog@@QAEXPBD@Z	19
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62

@@ -2716,6 +2716,7 @@ public:
 
 	void FUN_00432b80(); //432b80 in asm
 	void FUN_00432b33(uint8_t ch); //432b33 in asm
+	void FUN_00432ad1(); //432ad1 in asm
 
 public:
 	VisStartGame* screen;
