@@ -323,8 +323,6 @@ _byte_659A3C
 ?FUN_0043ac8c@Vis1200obj@@QAEXXZ	21
 ?FUN_0043ada3@Vis1200obj@@QAEXXZ	46
 ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	85
-??_GVis2Action@@UAEPAXI@Z	24
-??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127

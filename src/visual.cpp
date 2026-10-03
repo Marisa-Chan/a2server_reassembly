@@ -23760,6 +23760,18 @@ int32_t Vis2Action::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     return VisMenuWnd::MsgProc(msg, wparam, lparam);
 }
 
+// 44f0a2
+Vis2Action::Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r)
+: VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r)
+{
+    this->txt = _txt;
+}
+
+// 450bd0
+Vis2Action::~Vis2Action()
+{
+}
+
 // 44bc6c
 void VisHatBrowserDlg::VMethod26()
 {
