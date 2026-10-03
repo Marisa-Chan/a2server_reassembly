@@ -23078,25 +23078,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisCredits@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609BF4↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43CC32
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisCredits@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

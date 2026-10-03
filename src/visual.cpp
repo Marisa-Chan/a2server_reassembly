@@ -23850,3 +23850,10 @@ void VisCredits::DoClose(uint32_t code)
     VisScreen::DoClose(code);
     g_mousept.EnableHint();
 }
+
+// 43C5D4
+int32_t VisCredits::OnKeyDown(uint32_t wparam)
+{
+    this->MsgProc(0x445, 0, 0);
+    return VisScreen::OnKeyDown(wparam);
+}
