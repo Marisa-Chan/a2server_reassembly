@@ -24442,6 +24442,17 @@ VisHatServerListDlg::~VisHatServerListDlg()
 {
 }
 
+// 43ADA3
+void Vis1200obj::FUN_0043ada3()
+{
+    this->field_0x70.Copy(this->field_0x5c);
+    this->field_0x84.Empty();
+    if (this->field_0x70.GetSize() != 0) {
+        this->field_0x84 = this->field_0x70[this->field_0x70.GetUpperBound()];
+        this->field_0x70.RemoveAt(this->field_0x70.GetUpperBound(), 1);
+    }
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {

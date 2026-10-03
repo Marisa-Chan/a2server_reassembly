@@ -19913,53 +19913,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FUN_0043ada3@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+70↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 5Ch ; '\'
-                push    eax             ; struct CStringArray *
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'  ; varThis
-                call    ?Copy@CStringArray@@QAEXABV1@@Z ; CStringArray::Copy(CStringArray const &)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 84h        ; varThis
-                call    ?Empty@CString@@QAEXXZ ; CString::Empty(void)
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      short loc_43AE18
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'
-                call    sub_401820
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 84h        ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-                push    1               ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'  ; varThis
-                call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
-
-loc_43AE18:                             ; CODE XREF: ?FUN_0043ada3@Vis1200obj@@QAEXXZ+34↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0043ada3@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
