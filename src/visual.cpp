@@ -23882,3 +23882,33 @@ VisCredits::~VisCredits()
 {
     this->FreeContent();
 }
+
+// 44A140
+void VisHatServerListDlg::VMethod31(int32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (code == 0x445) {
+        this->FindChild(4)->WriteData(&this->hat_settings->ishat);
+        char buffer[256];
+        this->FindChild(2)->WriteData(buffer);
+        if (this->hat_settings->ishat == 0) {
+            this->hat_settings->hatip = buffer;
+        } else {
+            this->hat_settings->hatprogip = buffer;
+        }
+        this->FindChild(6)->WriteData(buffer);
+        this->hat_settings->login = buffer;
+        this->FindChild(8)->WriteData(buffer);
+        this->hat_settings->password = buffer;
+        this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
+        this->FindChild(9)->WriteData(&this->hat_settings->store);
+        main_wnd->field_0x3e0.field_10 = (this->hat_settings->ishat == 0) ? 1 : 0;
+        if (this->hat_settings->ishat == 0) {
+            main_wnd->PostMessage(0x426, 0, 0);
+        } else {
+            main_wnd->PostMessage(0x488, 0, 0);
+        }
+    } else {
+        main_wnd->PostMessage(0x421, 0, 0);
+    }
+}

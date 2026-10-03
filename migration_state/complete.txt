@@ -910,6 +910,7 @@
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShopCompass@@UAEXXZ
+?VMethod31@VisHatServerListDlg@@UAEXH@Z
 ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
