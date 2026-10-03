@@ -24668,7 +24668,7 @@ loc_44B452:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@
 
 ; Attributes: bp-based frame
 
-sub_44B60C      proc near               ; DATA XREF: .rdata:0060AABC↓o
+?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z      proc near               ; DATA XREF: .rdata:0060AABC↓o
 
 var_C8          = dword ptr -0C8h
 var_C4          = dword ptr -0C4h
@@ -24759,7 +24759,7 @@ arg_C           = dword ptr  14h
                 jmp     loc_44BC25
 ; ---------------------------------------------------------------------------
 
-loc_44B670:                             ; CODE XREF: sub_44B60C+2B↑j
+loc_44B670:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+2B↑j
                 mov     ecx, dword ptr [ebp+var_74]
                 cmp     dword ptr [ecx+94h], 0FFFFFFFFh
                 jnz     short loc_44B6B3
@@ -24783,14 +24783,14 @@ loc_44B670:                             ; CODE XREF: sub_44B60C+2B↑j
                 jmp     loc_44BC25
 ; ---------------------------------------------------------------------------
 
-loc_44B6B3:                             ; CODE XREF: sub_44B60C+6E↑j
+loc_44B6B3:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+6E↑j
                 mov     edx, dword ptr [ebp+var_74]
                 cmp     dword ptr [edx+94h], 0
                 jnz     short loc_44B6C4
                 jmp     loc_44BC25
 ; ---------------------------------------------------------------------------
 
-loc_44B6C4:                             ; CODE XREF: sub_44B60C+B1↑j
+loc_44B6C4:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+B1↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_74]
@@ -24802,7 +24802,7 @@ loc_44B6C4:                             ; CODE XREF: sub_44B60C+B1↑j
                 jmp     loc_44BC25
 ; ---------------------------------------------------------------------------
 
-loc_44B6DC:                             ; CODE XREF: sub_44B60C+C9↑j
+loc_44B6DC:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+C9↑j
                 mov     eax, dword ptr [ebp+arg_4]
                 add     eax, 5
                 mov     [ebp+arg_4], eax
@@ -24823,7 +24823,7 @@ loc_44B6DC:                             ; CODE XREF: sub_44B60C+C9↑j
                 jnz     short loc_44B720
                 mov     [ebp+arg_C], offset ?g_colors_human_pals@@3PAY0BA@GA+1e0h
 
-loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
+loc_44B720:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+10B↑j
                 push    1
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx
@@ -25131,12 +25131,12 @@ loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
                 jge     short loc_44BABE
                 mov     [ebp+var_20], 0
 
-loc_44BABE:                             ; CODE XREF: sub_44B60C+4A9↑j
+loc_44BABE:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+4A9↑j
                 cmp     [ebp+var_20], 3
                 jle     short loc_44BACB
                 mov     [ebp+var_20], 3
 
-loc_44BACB:                             ; CODE XREF: sub_44B60C+4B6↑j
+loc_44BACB:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+4B6↑j
                 mov     eax, dword ptr [ebp+var_20]
                 add     eax, 62h ; 'b'
                 push    eax
@@ -25250,14 +25250,14 @@ loc_44BACB:                             ; CODE XREF: sub_44B60C+4B6↑j
                 lea     ecx, [ebp+var_34] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_44BC25:                             ; CODE XREF: sub_44B60C+5F↑j
+loc_44BC25:                             ; CODE XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+5F↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn    10h
 ; } // starts at 44B60C
-sub_44B60C      endp
+?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -27746,55 +27746,6 @@ sub_44FE40      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int, int, int, LPCSTR lpString)
-??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+220↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-arg_18          = dword ptr  20h
-arg_1C          = dword ptr  24h
-arg_20          = dword ptr  28h
-lpString        = dword ptr  2Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_20]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_1C]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+arg_18]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_14]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+yBottom]
-                push    edx             ; yBottom
-                mov     eax, dword ptr [ebp+xRight]
-                push    eax             ; xRight
-                mov     ecx, dword ptr [ebp+yTop]
-                push    ecx             ; yTop
-                mov     edx, dword ptr [ebp+xLeft]
-                push    edx             ; xLeft
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisListBox@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx], offset off_60AA40
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+94h], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    28h ; '('
-??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -27803,31 +27754,6 @@ lpString        = dword ptr  2Ch
 
 ; Attributes: bp-based frame
 
-sub_44FF80      proc near               ; DATA XREF: .rdata:0060AA44↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_44FFB0
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_44FFA2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_44FFA2:                             ; CODE XREF: sub_44FF80+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_44FF80      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -27836,20 +27762,6 @@ sub_44FF80      endp
 
 ; Attributes: bp-based frame
 
-sub_44FFB0      proc near               ; CODE XREF: sub_44FF80+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisListBox@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_44FFB0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -257046,23 +256958,8 @@ SEH_44B37A:                             ; DATA XREF: ?GetFieldPos@@YAHVCString@@
 ; } // starts at 5F98B6
 ; END OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
-
-loc_5F98D2:                             ; DATA XREF: .rdata:stru_61A280↓o
-; __unwind { // SEH_44B460              ; varThis
-;   cleanup() // owned by 44B581
-                lea     ecx, [ebp+var_28]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
 ; ---------------------------------------------------------------------------
-
-SEH_44B460:                             ; DATA XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+5↑o
-                mov     eax, offset stru_61A260
-                jmp     ___CxxFrameHandler
-; } // starts at 5F98D2
-; END OF FUNCTION CHUNK FOR ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44B60C
+; START OF FUNCTION CHUNK FOR ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z
 
 loc_5F98E5:                             ; DATA XREF: .rdata:stru_61A2A8↓o
 ; __unwind { // SEH_44B60C              ; varThis
@@ -257136,11 +257033,11 @@ loc_5F992D:                             ; DATA XREF: .rdata:0061A2E8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44B60C:                             ; DATA XREF: sub_44B60C+5↑o
+SEH_44B60C:                             ; DATA XREF: ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z+5↑o
                 mov     eax, offset stru_61A288
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F98E5
-; END OF FUNCTION CHUNK FOR sub_44B60C
+; END OF FUNCTION CHUNK FOR ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z
 ; START OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
 
 loc_5F9AB8:                             ; DATA XREF: .rdata:stru_61A4C0↓o
@@ -277156,41 +277053,6 @@ off_60A810      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
                 dd offset ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
                 dd offset ?VMethod31@VisNetTcpIp@@UAEXH@Z
-off_60AA40      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z+3A↑o
-                dd offset sub_44FF80
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisListBox@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@VisListBox@@UAEXPAX@Z
-                dd offset ?DataSize@VisListBox@@UAEIXZ ; MFC 3.1-14.0 32bit
-                dd offset ?ReadData@VisListBox@@UAEXPBX@Z
-                dd offset ?MsgProc@VisListBox@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisListBox@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?IsValidIndex@VisListBox@@UAEHH@Z
-                dd offset sub_44B60C
-                dd offset ?SelectItem@VisListBox@@UAEXH@Z
-                dd offset ?GetItemCount@VisListBox@@UAEHXZ
-                dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 10h
 off_60AAD0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z+46↑o
                 dd offset sub_450030
@@ -289577,12 +289439,6 @@ stru_61A230     FuncInfoV1 <19930520h, 2, offset stru_61A250, 0, 0, 0, 0>
                 db    0
 stru_61A250     UnwindMapEntry <-1, offset loc_5F98B6>
                 UnwindMapEntry <0, offset loc_5F98BF>
-stru_61A260     FuncInfoV1 <19930520h, 1, offset stru_61A280, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A280     UnwindMapEntry <-1, offset loc_5F98D2>
 stru_61A288     FuncInfoV1 <19930520h, 9, offset stru_61A2A8, 0, 0, 0, 0>
                 align 8
 stru_61A2A8     UnwindMapEntry <-1, offset loc_5F98E5>

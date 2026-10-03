@@ -328,7 +328,7 @@ _byte_659A3C
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127
-??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
+?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ??1VisListBoxPhoneBook@@UAE@XZ	13
 ??_GVisListBoxPhoneBook@@UAEPAXI@Z	24
 ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z	41

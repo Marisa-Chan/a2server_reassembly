@@ -3598,7 +3598,7 @@ ASSERT_SIZE(VisHatServerListDlg, 0x7c);
 class VisHatBrowserList : public VisListBox
 {
 public:
-	virtual ~VisHatBrowserList(); // 44ff80
+	virtual ~VisHatBrowserList(); // 44ffb0
 
 	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44b60c
 

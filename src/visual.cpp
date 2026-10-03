@@ -23715,6 +23715,18 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx)
     return 1;
 }
 
+// 44ff20
+VisHatBrowserList::VisHatBrowserList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+: VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint)
+{
+    this->state = -1;
+}
+
+// 44ffb0
+VisHatBrowserList::~VisHatBrowserList()
+{
+}
+
 // 44bc6c
 void VisHatBrowserDlg::VMethod26()
 {
