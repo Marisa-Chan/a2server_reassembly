@@ -19653,109 +19653,6 @@ sub_43AAE0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0043b03a@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@Vis1200obj@@UAEHI@Z+99↓p
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8B0D SIZE 0000001C BYTES
-
-; __unwind { // SEH_43B03A
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43B03A
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 18h
-                mov     [ebp+var_1C], ecx
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h
-                call    sub_4029A0
-                sub     eax, 1
-                push    eax
-                lea     eax, [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_24], ecx
-;   } // starts at 43B060
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     edx, dword ptr [ebp+var_24]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h        ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 43B094
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h        ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h
-                call    sub_4029A0
-                test    eax, eax
-                jnz     short loc_43B132
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jle     short loc_43B132
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                push    eax
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    sub_401820
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h        ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-                push    1               ; int
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'
-                call    unknown_libname_407 ; MFC 3.1-14.0 32bit
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 70h ; 'p'  ; varThis
-                call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
-                mov     ecx, dword ptr [ebp+var_1C]
-                add     ecx, 84h        ; varThis
-                call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
-
-loc_43B132:                             ; CODE XREF: ?FUN_0043b03a@Vis1200obj@@QAEXXZ+9A↑j
-                mov     [ebp+var_18], 1
-;   } // starts at 43B0AA
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43B03A
-?FUN_0043b03a@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -252301,35 +252198,6 @@ SEH_43AA23:                             ; DATA XREF: ?LogMessage@@YAXVCString@@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8A50
 ; END OF FUNCTION CHUNK FOR ?LogMessage@@YAXVCString@@@Z
-; START OF FUNCTION CHUNK FOR ?FUN_0043b03a@Vis1200obj@@QAEXXZ
-
-unknown_libname_970:                    ; DATA XREF: .rdata:stru_6192B0↓o
-; __unwind { // SEH_43B03A              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 43B060
-;   cleanup() // owned by 43B0AA
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8B16:                             ; DATA XREF: .rdata:006192B8↓o
-;   cleanup() // owned by 43B094        ; varThis
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43B03A:                             ; DATA XREF: ?FUN_0043b03a@Vis1200obj@@QAEXXZ+5↑o
-                mov     eax, offset stru_619290
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8B0D
-; END OF FUNCTION CHUNK FOR ?FUN_0043b03a@Vis1200obj@@QAEXXZ
-
-loc_5F8B32:                             ; DATA XREF: .rdata:006192E8↓o
-;   cleanup() // owned by 43B455        ; varThis
-                lea     ecx, [ebp+var_28]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
 ; START OF FUNCTION CHUNK FOR ?FUN_0043b504@Vis1200obj@@QAEXPAVCString@@@Z
 
 loc_5F8B45:                             ; DATA XREF: .rdata:stru_619310↓o
@@ -285548,13 +285416,6 @@ stru_619190     FuncInfoV1 <19930520h, 1, offset stru_6191B0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_6191B0     UnwindMapEntry <-1, offset loc_5F8A50>
-stru_619290     FuncInfoV1 <19930520h, 2, offset stru_6192B0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6192B0     UnwindMapEntry <-1, offset unknown_libname_970>
-                UnwindMapEntry <0, offset loc_5F8B32>
 stru_6192F0     FuncInfoV1 <19930520h, 3, offset stru_619310, 0, 0, 0, 0>
                 db    0
                 db    0

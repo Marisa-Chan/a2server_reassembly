@@ -24640,6 +24640,18 @@ void Vis1200obj::FUN_0043ae1c(uint8_t ch)
     }
 }
 
+// 43B03A
+void Vis1200obj::FUN_0043b03a()
+{
+    this->field_0x84 = this->field_0x84.Left(this->field_0x84.GetLength() - 1);
+    this->field_0x84.TrimLeft();
+    if (this->field_0x84.GetLength() == 0 && this->field_0x70.GetSize() > 0) {
+        this->field_0x84 = this->field_0x70[this->field_0x70.GetUpperBound()];
+        this->field_0x70.RemoveAt(this->field_0x70.GetUpperBound(), 1);
+        this->field_0x84.TrimLeft();
+    }
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {

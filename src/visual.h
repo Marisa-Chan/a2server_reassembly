@@ -2525,7 +2525,7 @@ public:
 	virtual int32_t OnChar(uint32_t wparam) override; // 43b240
 
 	void FUN_0043ae1c(uint8_t ch); // 43ae1c
-	void FUN_0043b03a(); //43b03a in asm
+	void FUN_0043b03a(); // 43b03a
 	void FUN_0043b724(); //43b724 in asm
 	void FUN_0043ba75(); //43ba75 in asm
 	void FUN_0043b504(CString* str); //43b504 in asm
