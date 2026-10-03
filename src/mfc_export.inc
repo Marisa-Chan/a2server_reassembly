@@ -2178,7 +2178,7 @@ externdef ??_GVisCutScenesDlg@@UAEPAXI@Z : proc
 externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 
 ; VisListBoxDiplomacy
-externdef ?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z : proc
+extern ?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z : proc
 externdef ?MsgProc@VisListBoxDiplomacy@@UAEHIII@Z : proc
 externdef ?OnLButtonDown@VisListBoxDiplomacy@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisListBoxDiplomacy@@UAEHI@Z : proc

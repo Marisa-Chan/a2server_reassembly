@@ -24622,3 +24622,28 @@ VisStartGameTextBox::VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int3
     this->screen = screen;
     this->FUN_00432ad1();
 }
+
+// 4DD54C
+void VisListBoxDiplomacy::UpdateRadioPositions(int32_t vis_start_index)
+{
+    for (int32_t i = 0; i < this->diplomacy->GetSize(); i++) {
+        bool hidden;
+        if (i < this->vis_start_index || this->vis_start_index + this->num_vis_entry <= i) {
+            hidden = true;
+        } else {
+            hidden = false;
+        }
+
+        this->enemy_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
+        this->ally_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
+        this->see_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
+        this->mute_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
+
+        int32_t top = (i - vis_start_index) * this->entry_height_full;
+        int32_t bottom = top + 0x18;
+        this->enemy_radios->ElementAt(i)->SetRect(200, top, 0xfa, bottom);
+        this->ally_radios->ElementAt(i)->SetRect(0x10e, top, 0x140, bottom);
+        this->see_radios->ElementAt(i)->SetRect(0x154, top, 0x186, bottom);
+        this->mute_radios->ElementAt(i)->SetRect(0x19a, top, 0x1cc, bottom);
+    }
+}

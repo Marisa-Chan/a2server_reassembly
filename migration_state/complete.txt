@@ -846,6 +846,7 @@
 ?Unpaint@CMousePointer@@QAEXXZ
 ?Update@CMousePointer@@QAEXXZ
 ?UpdateHotspots@VisStartGame@@QAEIHHI@Z
+?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z
 ?UpdateSelectionState@BigStruct2@@QAEXXZ
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ

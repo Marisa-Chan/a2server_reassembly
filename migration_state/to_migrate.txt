@@ -337,7 +337,6 @@ _byte_659A3C
 ?SelectItem@VisListBoxDiplomacy@@UAEXH@Z	96
 ?MsgProc@VisListBoxDiplomacy@@UAEHIII@Z	100
 ?DrawItem@VisListBoxDiplomacy@@UAEXHVCPoint@@PAG@Z	101
-?UpdateRadioPositions@VisListBoxDiplomacy@@QAEXH@Z	240
 ??1VisListBoxPhoneBook@@UAE@XZ	13
 ??_GVisListBoxPhoneBook@@UAEPAXI@Z	24
 ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z	41
