@@ -9534,6 +9534,67 @@ void VisCharInfo::sub_4B36B4()
     new_cursor->Use();
 }
 
+// 4B4190
+void VisSideStatus::VMethod7()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->dialogsMask != 1) {
+        return;
+    }
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    BigStruct2* map = main_wnd->vis_map_context;
+    LockSurface2();
+    if (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) {
+        screen_rect.OffsetRect(0, screen_rect.Height() - main_wnd->vis_charinfo->GetRect().Height());
+        g_bmp_textbackr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+
+        CStructure* structure = nullptr;
+        CUnit* unit = nullptr;
+        uint16_t selected_id = (uint16_t)map->field_0x9a8;
+        CGameObject* found_obj = nullptr;
+        int32_t found = 0;
+        if (selected_id != 0 && main_wnd->field_0x408 == nullptr) {
+            found = map->field_0x9d0.Lookup(selected_id, found_obj);
+        }
+        if (selected_id != 0 && found != 0) {
+            if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
+                structure = (CStructure*)found_obj;
+            } else {
+                unit = (CUnit*)found_obj;
+            }
+        } else if (map->field_0x140 == 1) {
+            if (map->field_0x138->IsKindOf(RUNTIME_CLASS(CStructure))) {
+                structure = (CStructure*)map->field_0x138;
+            } else {
+                unit = (CUnit*)map->field_0x138;
+            }
+        }
+
+        if (structure != nullptr) {
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], 2, clrsh_DullGold, 1);
+            char hp_text[0x10];
+            sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, 2, clrsh_Oxley, 1);
+        } else if (unit != nullptr) {
+            unit->FUN_0046c124(&screen_rect);
+        }
+
+        screen_rect.OffsetRect(0, main_wnd->vis_charinfo->GetRect().Height() - screen_rect.Height());
+    }
+
+    if (g_ScreenSize.bottom > 600) {
+        g_bmp_extra1024r->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    } else if (g_ScreenSize.bottom > 480) {
+        g_bmp_extra800r->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+    }
+    UnlockSurface2();
+    this->dirty = 0;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
