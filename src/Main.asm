@@ -23837,55 +23837,6 @@ sub_44FE40      endp
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisNetChatTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060ACEC↓o
-
-var_104         = dword ptr -104h
-Source          = byte ptr -100h
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 104h
-                mov     [ebp+var_104], ecx
-                cmp     [ebp+arg_0], 0Dh
-                jnz     short loc_450336
-                lea     eax, [ebp+Source]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_104]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_104]
-                call    dword ptr [edx+3Ch]
-                push    offset byte_659A5C
-                mov     eax, dword ptr [ebp+var_104]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_104]
-                call    dword ptr [edx+44h]
-                mov     eax, dword ptr [ebp+var_104]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_104]
-                call    dword ptr [edx+34h]
-                push    0               ; int
-                push    4               ; int
-                lea     eax, [ebp+Source]
-                push    eax             ; Source
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z
-                mov     eax, 1
-                jmp     short loc_450345
-; ---------------------------------------------------------------------------
-
-loc_450336:                             ; CODE XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+13↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_104]
-                call    ?OnKeyDown@VisTextBox@@UAEHI@Z
-
-loc_450345:                             ; CODE XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+74↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisNetChatTextBox@@UAEHI@Z      endp
 
 
 ; ---------------------------------------------------------------------------
@@ -175643,7 +175594,7 @@ arg_0           = dword ptr  4
                 mov     eax, dword ptr [esp+4+arg_0]
                 mov     ecx, esi        ; varThis
                 push    eax             ; char *
-                push    offset byte_659A5C ; char *
+                push    offset _byte_659A5C ; char *
                 call    ?writepad@ostream@@AAEAAV1@PBD0@Z ; ostream::writepad(char const *,char const *)
                 mov     ecx, esi        ; varThis
                 call    ?osfx@ostream@@QAEXXZ ; ostream::osfx(void)
@@ -191403,7 +191354,7 @@ arg_4           = dword ptr  0Ch
                 lea     eax, [ebp+varType]
                 push    eax             ; lpType
                 push    ebx             ; lpReserved
-                push    offset byte_659A5C ; lpValueName
+                push    offset _byte_659A5C ; lpValueName
                 push    [ebp+lpSubKey]  ; hKey
                 call    RegQueryValueExA
                 mov     ecx, dword ptr [ebp+arg_4] ; varThis
@@ -294945,8 +294896,8 @@ _byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFaile
 _byte_659A54     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+142↑o
 ; CHAR _byte_659A58[4]
 _byte_659A58     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+1B6↑o
-; CHAR byte_659A5C[4]
-byte_659A5C     db 4 dup(?)             ; DATA XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+2D↑o
+; CHAR _byte_659A5C[4]
+_byte_659A5C     db 4 dup(?)             ; DATA XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+2D↑o
 ; AFX_CLASSINIT unk_659A60
 unk_659A60      db 8h dup(?)
 

@@ -20,6 +20,7 @@
 
 extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
 extern "C" char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
+extern "C" char byte_659A5C[4]; //659a5c zeroed buffer used to clear the net chat text box
 extern "C" char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
 extern "C" char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
 extern "C" char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
@@ -5519,6 +5520,24 @@ VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _fon
 
 // 450350 (deleting dtor ??_G; the complete dtor 450380 only calls the base dtor)
 VisNetChatTextBox::~VisNetChatTextBox() = default;
+
+
+// 4502c0
+int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0xD) {
+        char buf[256];
+        this->WriteData(buf);
+        this->ReadData(byte_659A5C);
+        this->VMethod9();
+
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        main_wnd->vis_map_context->FUN_0041b2a4(buf, 4, 0);
+        return 1;
+    }
+
+    return VisTextBox::OnKeyDown(wparam);
+}
 
 
 // 42F61A

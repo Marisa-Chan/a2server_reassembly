@@ -13,6 +13,7 @@ _byte_659A54
 _byte_659A4C
 _byte_659A50
 _byte_659A58
+_byte_659A5C
 _byte_659A34
 _byte_659A38
 _byte_659A3C
@@ -321,5 +322,4 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?OnKeyDown@VisNetChatTextBox@@UAEHI@Z	48
 ?GetIndex@VisServerScreenRadio@@UAEHH@Z	36
