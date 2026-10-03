@@ -24547,3 +24547,17 @@ void VisStartGameTextBox::VMethod7()
     }
     UnlockSurface2();
 }
+
+// 432C1F
+int32_t VisStartGameTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    CPoint tl = this->screen->GetRect().TopLeft();
+
+    if ((this->rect + tl).PtInRect(pos)) {
+        this->clr = this->clr_active;
+    } else {
+        this->clr = this->clr_inactive;
+    }
+
+    return 0;
+}

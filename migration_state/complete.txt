@@ -619,6 +619,7 @@
 ?OnMouseMove@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisStartGame@@UAEHIVCPoint@@@Z
+?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z

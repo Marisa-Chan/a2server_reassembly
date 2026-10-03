@@ -16771,68 +16771,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:0060996C↓o
-
-var_24          = dword ptr -24h
-pt              = POINT ptr -20h
-var_18          = dword ptr -18h
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 24h
-                mov     [ebp+var_24], ecx
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+5Ch]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 8
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     ecx, [ebp+var_18]
-                push    ecx             ; int
-                lea     ecx, [ebp+var_8]
-                call    sub_4384C0
-                mov     ecx, eax
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_432C8A
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+68h]
-                mov     [edx+64h], ecx
-                jmp     short loc_432C96
-; ---------------------------------------------------------------------------
-
-loc_432C8A:                             ; CODE XREF: ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z+5B↑j
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+6Ch]
-                mov     [edx+64h], ecx
-
-loc_432C96:                             ; CODE XREF: ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z+69↑j
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
