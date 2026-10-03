@@ -23869,3 +23869,16 @@ int32_t VisCredits::OnLButtonDown(uint32_t wparam, CPoint pos)
 void VisCredits::VMethod8(CRect* rect)
 {
 }
+
+// 43C337
+VisCredits::VisCredits(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->VMethod26();
+}
+
+// 43C3C6
+VisCredits::~VisCredits()
+{
+    this->FreeContent();
+}

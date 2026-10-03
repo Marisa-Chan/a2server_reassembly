@@ -2285,7 +2285,7 @@ ASSERT_SIZE(VisTownKaarg, 0x314);
 class VisCredits : public VisScreen
 {
 public:
-	virtual ~VisCredits(); // 43CC60
+	virtual ~VisCredits(); // 43c3c6
 
 	virtual void VMethod7() override; // 43C60C
 	virtual void VMethod8(CRect* rect) override; // 43c9a8

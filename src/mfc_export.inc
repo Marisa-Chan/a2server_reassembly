@@ -1487,19 +1487,6 @@ externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
-;VisCredits
-externdef ??_GVisCredits@@UAEPAXI@Z : proc
-externdef ?VMethod7@VisCredits@@UAEXXZ : proc
-externdef ?VMethod8@VisCredits@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisCredits@@UAEHIII@Z : proc
-externdef ?OnLButtonDown@VisCredits@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@VisCredits@@UAEHI@Z : proc
-externdef ?VMethod26@VisCredits@@UAEXXZ : proc
-externdef ?VMethod28@VisCredits@@UAEXXZ : proc
-externdef ?DoClose@VisCredits@@UAEXI@Z : proc
-externdef ?LoadContent@VisCredits@@QAEXXZ : proc  ; void VisCredits::LoadContent(void)
-externdef ?FreeContent@VisCredits@@QAEXXZ : proc  ; void VisCredits::FreeContent(void)
-
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
 externdef ?VMethod7@Vis1200@@UAEXXZ : proc
