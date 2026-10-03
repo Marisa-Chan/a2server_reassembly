@@ -24014,3 +24014,20 @@ VisHatServerListDlg::VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int3
 VisHatServerListDlg::~VisHatServerListDlg()
 {
 }
+
+// 43BE9F
+void Vis1200::FUN_0043be9f()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* map = (BigStruct2*)this->parent;
+    CSize size = this->rect.Size();
+    int32_t total_height = this->rect.Height();
+    if (map->IsBookOpen() != 0) {
+        total_height += main_wnd->vis_spellbook->GetRect().Height();
+    }
+    if (map->IsBagOpen() != 0) {
+        total_height += main_wnd->vis_invtype1->GetRect().Height();
+    }
+    CPoint top_left(0, map->GetRect().BottomRight().y - total_height);
+    this->rect = CRect(top_left, size);
+}
