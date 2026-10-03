@@ -25057,6 +25057,17 @@ void VisStartGameTextBox::FUN_00432b80()
     this->screen->FUN_004382d9();
 }
 
+// 432AD1
+void VisStartGameTextBox::FUN_00432ad1()
+{
+    this->clr_active = palette_paris_daisy->GetPalette(0);
+    this->clr_inactive = palette_paris_daisy->GetPalette(0);
+    this->clr = this->clr_inactive;
+    this->is_active = 1;
+    this->ts = timeGetTime();
+    this->flags |= 2;
+}
+
 // 4329F9
 VisStartGameTextBox::VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen)
     : CVisualObject(_id, l, t, r, b, nullptr)

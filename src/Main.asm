@@ -16461,42 +16461,6 @@ unknown_libname_460 endp
 
 ; Attributes: bp-based frame
 
-?FUN_00432ad1@VisStartGameTextBox@@QAEXXZ      proc near               ; CODE XREF: sub_43298C+50↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+68h], eax
-                push    0
-                mov     ecx, ?palette_paris_daisy@@3PAVCGamePalette@@A
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+6Ch], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+6Ch]
-                mov     [eax+64h], edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+70h], 1
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+74h], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+18h]
-                or      eax, 2
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+18h], eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00432ad1@VisStartGameTextBox@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
