@@ -16747,24 +16747,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z      proc near               ; CODE XREF: ?VMethod28@VisStartGame@@UAEXXZ+1E5↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

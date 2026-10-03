@@ -24608,3 +24608,9 @@ CString VisStartGameTextBox::GetText()
 {
     return this->text;
 }
+
+// 432C03
+void VisStartGameTextBox::SetText(const CString& text)
+{
+    this->text = text;
+}

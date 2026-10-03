@@ -722,6 +722,7 @@
 ?SetSelectedIndex@VisListBox@@QAEXH@Z
 ?SetSpeed@MainWindow@@QAEHH@Z
 ?SetText@VisMultiText@@QAEXPBD@Z
+?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
 ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
 ?ShadowRect@@YAXVCRect@@H@Z
 ?SoundBank_fighter@@3PAVSfxBank@@A
