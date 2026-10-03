@@ -2238,13 +2238,6 @@ externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 ; VisTipsDialog
 externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc
 
-; VisHatServerListDlg
-externdef ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z : proc
-externdef ??_GVisHatServerListDlg@@UAEPAXI@Z : proc
-externdef ?MsgProc@VisHatServerListDlg@@UAEHIII@Z : proc
-externdef ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisHatServerListDlg@@UAEXH@Z : proc
-
 ; VisHatBrowserList
 externdef ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z : proc
 externdef ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc

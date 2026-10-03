@@ -3543,7 +3543,7 @@ ASSERT_SIZE(VisQuestStatus, 0x6c);
 class VisHatServerListDlg : public VisMessageBox
 {
 public:
-	virtual ~VisHatServerListDlg(); // 44FD60
+	virtual ~VisHatServerListDlg(); // 44fd90
 
 	VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2
 

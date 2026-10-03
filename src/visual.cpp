@@ -24002,3 +24002,15 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r)
 
     return password_box;
 }
+
+// 44A0E2
+VisHatServerListDlg::VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat)
+    : VisMessageBox(_id, l, t, r, b, hat, txt_patch.GetLine(0x67), 1, txt_patch.GetLine(0x66))
+{
+    this->hat_settings = hat;
+}
+
+// 44FD90
+VisHatServerListDlg::~VisHatServerListDlg()
+{
+}

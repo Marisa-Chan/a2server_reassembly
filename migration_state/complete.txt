@@ -540,7 +540,6 @@
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
 ?MsgProc@VisGlobalMap@@UAEHIII@Z
-?MsgProc@VisHatServerListDlg@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
 ?MsgProc@VisInvType1@@UAEHIII@Z
 ?MsgProc@VisListBox@@UAEHIII@Z
@@ -905,14 +904,12 @@
 ?VMethod2@CGameObject@@UAEHXZ
 ?VMethod2@CUnit@@UAEHXZ
 ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
-?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisInvBase@@UAEHHH@Z
 ?VMethod30@VisInvExtBase@@UAEHHH@Z
 ?VMethod30@VisInvType1@@UAEHHH@Z
 ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
 ?VMethod30@VisMessageBoxWithList@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ?VMethod30@VisShopCompass@@UAEXXZ
-?VMethod31@VisHatServerListDlg@@UAEXH@Z
 ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
