@@ -80401,43 +80401,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?GetIndex@VisServerScreenRadio@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060AE70↓o
-
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                push    esi
-                mov     [ebp+var_14], ecx
-                lea     ecx, [ebp+var_10] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_14]
-                add     eax, 8
-                push    eax
-                lea     ecx, [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
-                mov     esi, [ebp+arg_0]
-                sub     esi, [ebp+var_C]
-                push    4
-                mov     edx, ?gfx_radiob@@3PAVCSprite256@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?gfx_radiob@@3PAVCSprite256@@A
-                call    dword ptr [eax+24h]
-                mov     ecx, eax
-                mov     eax, esi
-                cdq
-                idiv    ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?GetIndex@VisServerScreenRadio@@UAEHH@Z      endp
 
 ; ---------------------------------------------------------------------------
 

@@ -322,4 +322,3 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?GetIndex@VisServerScreenRadio@@UAEHH@Z	36

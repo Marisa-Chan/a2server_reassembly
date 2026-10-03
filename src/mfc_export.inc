@@ -1709,7 +1709,6 @@ extern ?VMethod42@VisInvExtType3@@UAEXXZ : proc  ; void VisInvExtType3::VMethod4
 extern ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z : proc  ; TokenEntry* VisInvExtType3::VMethod43(int32_t,int32_t) — vtable slot 47
 
 ;VisServerScreenRadio
-externdef ?GetIndex@VisServerScreenRadio@@UAEHH@Z : proc  ; int32_t VisServerScreenRadio::GetIndex(int32_t)
 
 externdef ?sub_44E4CE@@YAXPBD@Z : proc  ; void sub_44E4CE(const char* cmd)
 externdef _unk_659A48 : byte  ; zeroed 4-byte buffer

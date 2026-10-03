@@ -5510,6 +5510,14 @@ void VisServerScreenRadio::VMethod7()
     UnlockSurface2();
 }
 
+// 4db615
+int32_t VisServerScreenRadio::GetIndex(int32_t y)
+{
+    CRect client;
+    this->ClientRectToScreen(&client, this->rect);
+    return (y - client.top) / gfx_radiob->GetHeight(4);
+}
+
 
 // 450280
 VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
