@@ -89367,18 +89367,6 @@ loc_4E2CED:                             ; CODE XREF: ?OnLButtonUp@VisTipsDialog@
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z proc near           ; DATA XREF: .rdata:0060E1C8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

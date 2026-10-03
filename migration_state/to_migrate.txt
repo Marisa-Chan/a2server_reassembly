@@ -330,7 +330,6 @@ _byte_659A3C
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127
 ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
 ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z	180
-?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z	11
 ??1VisListBoxPhoneBook@@UAE@XZ	13
 ??_GVisListBoxPhoneBook@@UAEPAXI@Z	24
 ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z	41

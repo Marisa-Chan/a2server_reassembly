@@ -24759,3 +24759,8 @@ int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam)
 {
     return CVisualObject::OnKeyDown(wparam);
 }
+
+// 4E3D30
+void VisListBoxDiplomacy::VMethod30(CPoint pos, const CRect& r)
+{
+}
