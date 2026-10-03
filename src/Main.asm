@@ -25975,135 +25975,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(char, RECT *lprcSrc)
-?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060B090↓o
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-lprcSrc         = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F9AFB SIZE 0000001E BYTES
-
-; __unwind { // SEH_44EB08
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44EB08
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_24], ecx
-                mov     eax, dword ptr [ebp+lprcSrc]
-                mov     ecx, dword ptr [eax+8]
-                sub     ecx, 18h
-                mov     edx, dword ptr [ebp+lprcSrc]
-                mov     [edx+8], ecx
-                push    94h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_44EB7D
-                push    0               ; lpString
-                push    29Bh            ; int
-                mov     eax, ?p_clrsh_ShockingBlack@@3PAGA
-                push    eax             ; int
-                mov     ecx, ?p_clrsh_Black@@3PAGA
-                push    ecx             ; int
-                mov     edx, ?g_font1@@3PAVCGameFont@@A
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+lprcSrc]
-                push    eax             ; lprcSrc
-                push    2               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-                mov     [ebp+var_28], eax
-                jmp     short loc_44EB84
-; ---------------------------------------------------------------------------
-
-loc_44EB7D:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+45↑j
-                mov     [ebp+var_28], 0
-
-loc_44EB84:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+73↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     [ebp+var_18], ecx
-;   } // starts at 44EB42
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_18]
-                mov     [ebp+var_10], edx
-                lea     eax, [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10]
-                call    dword ptr [edx+44h]
-                mov     eax, ?DAT_00660f88@@3HA
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    0CCh            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_1C], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_1C], 0
-                jz      short loc_44EC0D
-                push    0               ; lpString
-                mov     edx, dword ptr [ebp+lprcSrc]
-                mov     eax, dword ptr [edx+0Ch]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+lprcSrc]
-                mov     edx, dword ptr [ecx+8]
-                add     edx, 18h
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+lprcSrc]
-                mov     ecx, dword ptr [eax+4]
-                push    ecx             ; yTop
-                mov     edx, dword ptr [ebp+lprcSrc]
-                mov     eax, dword ptr [edx+8]
-                push    eax             ; xLeft
-                push    29Bh            ; int
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??0VisScrollBar@@QAE@HHHHHPBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_44EC14
-; ---------------------------------------------------------------------------
-
-loc_44EC0D:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+D0↑j
-                mov     [ebp+var_2C], 0
-
-loc_44EC14:                             ; CODE XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+103↑j
-                mov     ecx, dword ptr [ebp+var_2C]
-                mov     [ebp+var_20], ecx
-;   } // starts at 44EBCD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 44EB08
-?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -256341,32 +256212,6 @@ SEH_44E8CA:                             ; DATA XREF: ?VMethod26@VisMissionFailed
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9ADD
 ; END OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-
-loc_5F9AFB:                             ; DATA XREF: .rdata:stru_61A528↓o
-; __unwind { // SEH_44EB08
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9B05:                             ; DATA XREF: .rdata:0061A530↓o
-;   cleanup() // owned by 44EB42
-;   cleanup() // owned by 44EBCD
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44EB08:                             ; DATA XREF: ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
-                mov     eax, offset stru_61A508
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9AFB
-; END OF FUNCTION CHUNK FOR ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44EC40
 
 loc_5F9B19:                             ; DATA XREF: .rdata:stru_61A558↓o
@@ -288575,10 +288420,6 @@ stru_61A4D8     FuncInfoV1 <19930520h, 2, offset stru_61A4F8, 0, 0, 0, 0>
                 align 8
 stru_61A4F8     UnwindMapEntry <-1, offset loc_5F9ADD>
                 UnwindMapEntry <-1, offset loc_5F9AE7>
-stru_61A508     FuncInfoV1 <19930520h, 2, offset stru_61A528, 0, 0, 0, 0>
-                align 8
-stru_61A528     UnwindMapEntry <-1, offset loc_5F9AFB>
-                UnwindMapEntry <-1, offset loc_5F9B05>
 stru_61A538     FuncInfoV1 <19930520h, 1, offset stru_61A558, 0, 0, 0, 0>
                 db    0
                 db    0

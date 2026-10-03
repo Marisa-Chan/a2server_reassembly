@@ -3992,6 +3992,24 @@ CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
 }
 
 
+// 44EB08
+CVisualObject* VisCutScenesDlg::VMethod30(const void* data, const RECT& r)
+{
+    RECT& rect = const_cast<RECT&>(r);
+    rect.right -= 0x18;
+
+    VisListBox* list = new VisListBox(2, r, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0x29B, nullptr);
+    list->ReadData(&data);
+    list->SetSelectedIndex(DAT_00660f88);
+    this->AddChild(list);
+
+    VisScrollBar* scrollbar = new VisScrollBar(0x29B, rect.right, rect.top, rect.right + 0x18, rect.bottom, nullptr);
+    this->AddChild(scrollbar);
+
+    return list;
+}
+
+
 // 445CF1
 void VisDiplomacy::VMethod31(int32_t code)
 {
