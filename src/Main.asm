@@ -23770,96 +23770,6 @@ loc_44A00E:                             ; CODE XREF: ?VMethod31@VisNetTcpIp@@UAE
 
 ; Attributes: bp-based frame
 
-?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      proc near               ; DATA XREF: .rdata:0060A898↓o
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005F97D6 SIZE 00000014 BYTES
-
-; __unwind { // SEH_44A014
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44A014
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 18h
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_10], eax
-                push    7Ch ; '|'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_44A095
-                push    75h ; 'u'
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                mov     ecx, ?g_font1@@3PAVCGameFont@@A
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     eax, dword ptr [edx+4]
-                add     eax, 18h
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     edx, dword ptr [ecx+8]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     ecx, dword ptr [eax+4]
-                push    ecx             ; yTop
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     eax, dword ptr [edx]
-                push    eax             ; xLeft
-                push    2               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisTextBox@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-                mov     [ebp+var_24], eax
-                jmp     short loc_44A09C
-; ---------------------------------------------------------------------------
-
-loc_44A095:                             ; CODE XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+39↑j
-                mov     [ebp+var_24], 0
-
-loc_44A09C:                             ; CODE XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+7F↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ebp+var_1C], ecx
-;   } // starts at 44A042
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], edx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+44h]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 44A014
-?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -255798,22 +255708,6 @@ SEH_445ACA:                             ; DATA XREF: sub_445ACA+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94C9
 ; END OF FUNCTION CHUNK FOR sub_445ACA
-; START OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-
-loc_5F97D6:                             ; DATA XREF: .rdata:stru_61A130↓o
-; __unwind { // SEH_44A014
-;   cleanup() // owned by 44A042
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44A014:                             ; DATA XREF: ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z+5↑o
-                mov     eax, offset stru_61A110
-                jmp     ___CxxFrameHandler
-; } // starts at 5F97D6
-; END OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 ; START OF FUNCTION CHUNK FOR sub_44AAE5
 
 loc_5F9844:                             ; DATA XREF: .rdata:stru_61A1B8↓o
@@ -288131,9 +288025,6 @@ stru_619D88     FuncInfoV1 <19930520h, 1, offset stru_619DA8, 0, 0, 0, 0>
 stru_619DA8     UnwindMapEntry <-1, offset loc_5F94C9>
                 align 10h
                 align 8
-stru_61A110     FuncInfoV1 <19930520h, 1, offset stru_61A130, 0, 0, 0, 0>
-                align 10h
-stru_61A130     UnwindMapEntry <-1, offset loc_5F97D6>
 stru_61A198     FuncInfoV1 <19930520h, 2, offset stru_61A1B8, 0, 0, 0, 0>
                 db    0
                 db    0

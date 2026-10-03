@@ -24198,6 +24198,15 @@ VisCredits::~VisCredits()
     this->FreeContent();
 }
 
+// 44A014
+CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r)
+{
+    VisTextBox* textbox = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_dialogs.GetLine(0x75));
+    this->AddChild(textbox);
+    textbox->ReadData(*(CString*)data);
+    return textbox;
+}
+
 // 44A140
 void VisHatServerListDlg::VMethod31(int32_t code)
 {
