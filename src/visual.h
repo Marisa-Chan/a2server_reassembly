@@ -2539,7 +2539,7 @@ ASSERT_SIZE(Vis1200obj, 0xa4);
 class Vis1200 : public VisScreen
 {
 public:
-	virtual ~Vis1200(); // 43BFD0
+	virtual ~Vis1200(); // 43c000
 
 	virtual void VMethod7() override; // 43BE80
 	virtual void VMethod8(CRect* rect) override; // 43be73

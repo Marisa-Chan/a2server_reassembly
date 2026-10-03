@@ -1034,7 +1034,6 @@ externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
-externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
 
 
@@ -1487,15 +1486,7 @@ externdef ?sub_41A99C@BigStruct2@@QAEXXZ : proc
 externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
-;Vis1200
-externdef ??_GVis1200@@UAEPAXI@Z : proc
-externdef ?VMethod7@Vis1200@@UAEXXZ : proc
-externdef ?VMethod8@Vis1200@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@Vis1200@@UAEHIII@Z : proc
-externdef ?OnKeyDown@Vis1200@@UAEHI@Z : proc
-externdef ?VMethod26@Vis1200@@UAEXXZ : proc
-externdef ?VMethod28@Vis1200@@UAEXXZ : proc
-externdef ?DoClose@Vis1200@@UAEXI@Z : proc
+;Vis1200obj
 externdef ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z : proc  ; Vis1200obj::Vis1200obj(int,int,int,int,int,CGameFont*,uint16_t*,const char*)
 externdef ?FUN_0043ad86@Vis1200obj@@QAEXXZ : proc  ; void Vis1200obj::FUN_0043ad86(void)
 externdef ?FUN_0043ada3@Vis1200obj@@QAEXXZ : proc  ; void Vis1200obj::FUN_0043ada3(void)
@@ -1528,8 +1519,6 @@ extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
 extern ?DoClose@VisStartGame@@UAEXI@Z  : proc
 
 ;Vis1200
-externdef ?FUN_004972d0@Vis1200@@QAEHXZ  : proc
-externdef ?FUN_00497310@Vis1200@@QAEHXZ  : proc
 externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
 
 ;VisGlobalMap
