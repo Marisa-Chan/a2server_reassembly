@@ -553,7 +553,6 @@
 ?MsgProc@VisSpellBook@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
-?MsgProc@VisTipsDialog@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
@@ -612,7 +611,6 @@
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
-?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z
@@ -993,7 +991,6 @@
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z
-?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ

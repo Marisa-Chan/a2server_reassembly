@@ -1553,12 +1553,6 @@ externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 ;BigStruct2 minimap unit pick
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
-;VisTipsDialog
-externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
-extern ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
-extern ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
-extern ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
-
 ;VisRightPanel
 externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
@@ -2199,8 +2193,8 @@ externdef ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z : proc
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
-; VisTipsDialog
-externdef ??0VisTipsDialog@@QAE@HHHHHPBD@Z : proc
+; VisTipsDialog ctor child-ctrl builder (still in asm)
+externdef ?FUN_004e25c1@VisTipsDialog@@QAEXHHHHPBD@Z : proc  ; void VisTipsDialog::FUN_004e25c1(int32_t, int32_t, int32_t, int32_t, const char*)
 
 ; VisHatBrowserList
 externdef ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z : proc

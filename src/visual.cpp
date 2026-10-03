@@ -4362,6 +4362,20 @@ int32_t VisTipsDialog::OnLButtonUp(uint32_t wparam, CPoint pos)
 }
 
 
+// 4e2541
+VisTipsDialog::VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt)
+: VisScreen(_id, l, t, r, b, nullptr)
+{
+    this->FUN_004e25c1(l, t, r, b, txt);
+}
+
+
+// 4e4510
+VisTipsDialog::~VisTipsDialog()
+{
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8

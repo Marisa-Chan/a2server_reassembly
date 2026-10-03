@@ -3544,7 +3544,7 @@ ASSERT_SIZE(VisNetMapSelection, 0xfc);
 class VisTipsDialog : public VisScreen
 {
 public:
-	virtual ~VisTipsDialog(); // 4E44E0
+	virtual ~VisTipsDialog(); // 4e4510
 
 	virtual void VMethod8(CRect* rect) override; // 4E27CD
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4E2B95
@@ -3552,6 +3552,7 @@ public:
 
 	VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); //4e2541
 
+	void FUN_004e25c1(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt); // 4e25c1
 	void SetText(const char* text); // 4e2b73
 
 public:
