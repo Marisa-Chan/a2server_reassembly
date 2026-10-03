@@ -2507,6 +2507,34 @@ ASSERT_SIZE(VisCharGen, 0x108);
 
 
 
+//609a58 - console-style input line used by Vis1200
+class Vis1200obj : public CVisualObject
+{
+public:
+	virtual ~Vis1200obj();
+
+	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28
+
+	void FUN_0043ac8c(); //43ac8c - reset input/history state
+	void FUN_0043ad86(); //43ad86 - commit current line to history
+	void FUN_0043ada3(); //43ada3 - recall previous line from history
+	int32_t FUN_004972f0(); //4972f0
+	int32_t FUN_00497330(); //497330
+
+public:
+	CStringArray field_0x5c;
+	CStringArray field_0x70; // history
+	CString field_0x84; // current line
+	CGameFont* font; // 0x88
+	uint16_t* clr; // 0x8c
+	int32_t field_0x90; // 0x90
+	int32_t field_0x94; // 0x94
+	uint32_t field_0x98; // 0x98 - last input tick
+	int32_t field_0x9c; // 0x9c
+	int32_t field_0xa0; // 0xa0
+};
+ASSERT_SIZE(Vis1200obj, 0xa4);
+
 //609ad0
 class Vis1200 : public VisScreen
 {

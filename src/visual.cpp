@@ -24031,3 +24031,12 @@ void Vis1200::FUN_0043be9f()
     CPoint top_left(0, map->GetRect().BottomRight().y - total_height);
     this->rect = CRect(top_left, size);
 }
+
+// 43BC3C
+void Vis1200::VMethod26()
+{
+    this->text_block = new Vis1200obj(4, 0, 0, this->rect.Width(), g_font1->GetHeight() * 3, g_font1, clrsh_ShockingBlack, nullptr);
+    this->rect.BottomRight().y = this->rect.TopLeft().y + g_font1->GetHeight() * 3 + 4;
+    this->AddChild(this->text_block);
+    this->active = 0;
+}

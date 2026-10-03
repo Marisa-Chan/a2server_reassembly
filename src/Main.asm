@@ -20289,8 +20289,8 @@ sub_43AAE0      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_43AB28(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
-sub_43AB28      proc near               ; CODE XREF: ?VMethod26@Vis1200@@UAEXXZ+6A↓p
+; int __stdcall ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
+??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      proc near               ; CODE XREF: ?VMethod26@Vis1200@@UAEXXZ+6A↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -20375,7 +20375,7 @@ lpString        = dword ptr  24h
                 pop     ebp
                 retn    20h ; ' '
 ; } // starts at 43AB28
-sub_43AB28      endp
+??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -22147,95 +22147,6 @@ sub_43BBDC      endp
 
 ; Attributes: bp-based frame
 
-?VMethod26@Vis1200@@UAEXXZ      proc near               ; CODE XREF: sub_43BB1C+37↑p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8BDA SIZE 00000014 BYTES
-
-; __unwind { // SEH_43BC3C
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43BC3C
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                push    esi
-                mov     [ebp+var_18], ecx
-                push    0A4h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_43BCB0
-                push    0               ; lpString
-                push    offset ?clrsh_ShockingBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                mov     ecx, ?g_font1@@3PAVCGameFont@@A
-                call    sub_402A90
-                imul    eax, 3
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                push    eax             ; xRight
-                push    0               ; yTop
-                push    0               ; xLeft
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_43AB28
-                mov     [ebp+var_1C], eax
-                jmp     short loc_43BCB7
-; ---------------------------------------------------------------------------
-
-loc_43BCB0:                             ; CODE XREF: ?VMethod26@Vis1200@@UAEXXZ+37↑j
-                mov     [ebp+var_1C], 0
-
-loc_43BCB7:                             ; CODE XREF: ?VMethod26@Vis1200@@UAEXXZ+72↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 43BC68
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [edx+168h], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 8
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     esi, eax
-                mov     ecx, ?g_font1@@3PAVCGameFont@@A
-                call    sub_402A90
-                imul    eax, 3
-                mov     ecx, dword ptr [esi+4]
-                lea     esi, [ecx+eax+4]
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 8
-                call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
-                mov     [eax+4], esi
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [edx+168h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     dword ptr [ecx+16Ch], 0
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43BC3C
-?VMethod26@Vis1200@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -260186,7 +260097,7 @@ SEH_43AA23:                             ; DATA XREF: ?LogMessage@@YAXVCString@@@
 ; END OF FUNCTION CHUNK FOR ?LogMessage@@YAXVCString@@@Z
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_43AB28
+; START OF FUNCTION CHUNK FOR ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 
 loc_5F8A70:                             ; DATA XREF: .rdata:stru_6191D8↓o
 ; __unwind { // SEH_43AB28
@@ -260212,11 +260123,11 @@ loc_5F8A85:                             ; DATA XREF: .rdata:006191E8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43AB28:                             ; DATA XREF: sub_43AB28+5↑o
+SEH_43AB28:                             ; DATA XREF: ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+5↑o
                 mov     eax, offset stru_6191B8
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8A70
-; END OF FUNCTION CHUNK FOR sub_43AB28
+; END OF FUNCTION CHUNK FOR ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43AC08
 
@@ -260483,24 +260394,6 @@ SEH_43BBDC:                             ; DATA XREF: sub_43BBDC+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8BC7
 ; END OF FUNCTION CHUNK FOR sub_43BBDC
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@Vis1200@@UAEXXZ
-
-loc_5F8BDA:                             ; DATA XREF: .rdata:stru_619408↓o
-; __unwind { // SEH_43BC3C
-;   cleanup() // owned by 43BC68
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43BC3C:                             ; DATA XREF: ?VMethod26@Vis1200@@UAEXXZ+5↑o
-                mov     eax, offset stru_6193E8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8BDA
-; END OF FUNCTION CHUNK FOR ?VMethod26@Vis1200@@UAEXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_43C0BE
 
@@ -281909,7 +281802,7 @@ off_609A20      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 align 8
 
 dbl_609A50      dq 16.0                 ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+53C↑r
-off_609A58      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_43AB28+72↑o
+off_609A58      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+72↑o
                 dd offset sub_43BFA0
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
@@ -294513,12 +294406,6 @@ stru_6193C0     FuncInfoV1 <19930520h, 1, offset stru_6193E0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_6193E0     UnwindMapEntry <-1, offset loc_5F8BC7>
-stru_6193E8     FuncInfoV1 <19930520h, 1, offset stru_619408, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619408     UnwindMapEntry <-1, offset loc_5F8BDA>
 stru_619440     FuncInfoV1 <19930520h, 2, offset stru_619460, 0, 0, 0, 0>
                 db    0
                 db    0
