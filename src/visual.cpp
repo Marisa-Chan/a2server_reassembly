@@ -18139,6 +18139,11 @@ void VisStartGame::Cancel()
     this->MsgProc(0x446, 0, 0);
 }
 
+// 4382D9
+void VisStartGame::FUN_004382d9()
+{
+    CSound::Play((&this->labelInputSound1)[this->labelInputSoundIndex]);
+}
 
 // 438DC0
 void VisStartGame::VMethod8(CRect* rect)

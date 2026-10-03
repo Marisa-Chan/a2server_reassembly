@@ -16646,25 +16646,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FUN_004382d9@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z+31↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+1E8h]
-                mov     edx, dword ptr [ebp+var_4]
-                lea     eax, [edx+ecx*4+1DCh]
-                push    eax
-                call    ?Play@CSound@@SAXAAU1@@Z
-                add     esp, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004382d9@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
