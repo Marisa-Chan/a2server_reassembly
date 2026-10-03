@@ -64523,20 +64523,6 @@ sub_4972A0      endp
 ; Attributes: library function bp-based frame
 
 ; unsigned int __thiscall Concurrency::details::VirtualProcessor::GetMaskId(Concurrency::details::VirtualProcessor *__hidden varThis)
-?FUN_004972f0@Vis1200obj@@QAEHXZ proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+90h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004972f0@Vis1200obj@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

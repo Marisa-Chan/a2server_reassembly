@@ -24442,6 +24442,12 @@ VisHatServerListDlg::~VisHatServerListDlg()
 {
 }
 
+// 4972F0
+int32_t Vis1200obj::FUN_004972f0()
+{
+    return this->field_0x90;
+}
+
 // 43AD86
 void Vis1200obj::FUN_0043ad86()
 {
