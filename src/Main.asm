@@ -23181,91 +23181,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FreeContent@VisCredits@@QAEXXZ      proc near               ; CODE XREF: CHandleMap::~CHandleMap(void)+2F↑p
-
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8D46 SIZE 00000013 BYTES
-
-; __unwind { // SEH_43CB77
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43CB77
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 1Ch
-                mov     [ebp+var_24], ecx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 68h ; 'h'
-                call    sub_43CCB0
-                mov     [ebp+var_18], eax
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-
-loc_43CBB2:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ:loc_43CBFA↓j
-                cmp     [ebp+var_18], 0
-                jz      short loc_43CBFC
-                lea     eax, [ebp+var_10]
-                push    eax             ; int
-                lea     ecx, [ebp+var_14]
-                push    ecx             ; CString *
-                lea     edx, [ebp+var_18]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 68h ; 'h'
-                call    sub_5DCB52      ; ?GetNextAssoc@CMapStringToPtr@@QBEXAAPAU__POSITION@@AAVCString@@AAPAX@Z
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [ebp+var_1C], ecx
-                cmp     [ebp+var_1C], 0
-                jz      short loc_43CBF3
-                push    1
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_28], eax
-                jmp     short loc_43CBFA
-; ---------------------------------------------------------------------------
-
-loc_43CBF3:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+68↑j
-                mov     [ebp+var_28], 0
-
-loc_43CBFA:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+7A↑j
-                jmp     short loc_43CBB2
-; ---------------------------------------------------------------------------
-
-loc_43CBFC:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+3F↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 68h ; 'h'
-                call    sub_5DC8DC      ; ?RemoveAll@CMapStringToOb@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 84h
-                call    ?Free@TxtFile@@QAEXXZ
-;   } // starts at 43CBAB
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43CB77
-?FreeContent@VisCredits@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -262067,22 +261982,6 @@ SEH_43C3C6:                             ; DATA XREF: CHandleMap::~CHandleMap(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8CCC
 ; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-; START OF FUNCTION CHUNK FOR ?FreeContent@VisCredits@@QAEXXZ
-
-loc_5F8D46:                             ; DATA XREF: .rdata:stru_619600↓o
-; __unwind { // SEH_43CB77              ; varThis
-;   cleanup() // owned by 43CBAB
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43CB77:                             ; DATA XREF: ?FreeContent@VisCredits@@QAEXXZ+5↑o
-                mov     eax, offset stru_6195E0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8D46
-; END OF FUNCTION CHUNK FOR ?FreeContent@VisCredits@@QAEXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1TxtFile@@UAE@XZ
 
@@ -296240,12 +296139,6 @@ stru_619538     FuncInfoV1 <19930520h, 3, offset stru_619558, 0, 0, 0, 0>
 stru_619558     UnwindMapEntry <-1, offset loc_5F8CCC>
                 UnwindMapEntry <0, offset loc_5F8CD5>
                 UnwindMapEntry <1, offset loc_5F8CE1>
-stru_6195E0     FuncInfoV1 <19930520h, 1, offset stru_619600, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619600     UnwindMapEntry <-1, offset loc_5F8D46>
 stru_619608     FuncInfoV1 <19930520h, 1, offset stru_619628, 0, 0, 0, 0>
                 db    0
                 db    0
