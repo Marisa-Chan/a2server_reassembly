@@ -3994,6 +3994,15 @@ CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
 }
 
 
+// 44E875
+VisMissionFailed::VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& _txt)
+    : VisMessageBoxWithList(_id, l, t, r, b, _txt, TxtFile::AllLines[0x8D], 0xFFFF)
+{
+}
+
+// 450B00 (this address is the deleting dtor ??_G; the real dtor sub_450B30 only calls the base dtor)
+VisMissionFailed::~VisMissionFailed() = default;
+
 // 44E8CA
 void VisMissionFailed::VMethod26()
 {

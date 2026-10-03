@@ -2150,10 +2150,6 @@ externdef _byte_659A4C : byte  ; "" hint string of the mission-failed retry butt
 externdef _byte_659A50 : byte  ; "" hint string of the mission-failed load button
 externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
-; VisMissionFailed
-externdef ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z : proc
-externdef ??_GVisMissionFailed@@UAEPAXI@Z : proc
-externdef ?VMethod26@VisMissionFailed@@UAEXXZ : proc
 
 
 ; VisListBoxDiplomacy

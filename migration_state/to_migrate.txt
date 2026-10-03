@@ -326,8 +326,6 @@ _byte_659A3C
 ?FUN_0043ada3@Vis1200obj@@QAEXXZ	46
 ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	85
 ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
-??_GVisMissionFailed@@UAEPAXI@Z	24
-??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
 ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
