@@ -567,6 +567,7 @@
 ?OnChar@VisTextBox@@UAEHI@Z
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
+?OnKeyDown@Vis1200obj@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z

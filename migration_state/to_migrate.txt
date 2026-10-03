@@ -319,9 +319,11 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?OnKeyDown@Vis1200obj@@UAEHI@Z	79
+?FUN_0043ba75@Vis1200obj@@QAEXXZ	69
+?FUN_0043b03a@Vis1200obj@@QAEXXZ	102
 ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z	190
 ?VMethod7@Vis1200obj@@UAEXXZ	190
+?FUN_0043b724@Vis1200obj@@QAEXXZ	340
 ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31

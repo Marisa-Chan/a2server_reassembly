@@ -2525,6 +2525,9 @@ public:
 	virtual int32_t OnChar(uint32_t wparam) override; // 43b240
 
 	void FUN_0043ae1c(uint8_t ch); //43ae1c in asm
+	void FUN_0043b03a(); //43b03a in asm
+	void FUN_0043b724(); //43b724 in asm
+	void FUN_0043ba75(); //43ba75 in asm
 
 	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28
 
