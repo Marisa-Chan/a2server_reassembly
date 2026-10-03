@@ -22159,27 +22159,6 @@ sub_43BBDC      endp
 
 ; Attributes: bp-based frame
 
-?DoClose@Vis1200@@UAEXI@Z      proc near               ; DATA XREF: .rdata:00609B54↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     dword ptr [eax+0C0h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+16Ch], 0
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@Vis1200@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

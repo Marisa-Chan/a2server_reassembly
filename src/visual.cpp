@@ -24076,3 +24076,12 @@ int32_t Vis1200::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
+
+// 43BD96
+void Vis1200::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->field_0xc0 = 0;
+    this->active = 0;
+    VisScreen::DoClose(code);
+}
