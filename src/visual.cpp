@@ -23754,6 +23754,12 @@ void Vis2Action::VMethod26()
     this->AddElement(cancel_btn, cancel_rect.Height());
 }
 
+// 44f30d
+int32_t Vis2Action::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    return VisMenuWnd::MsgProc(msg, wparam, lparam);
+}
+
 // 44bc6c
 void VisHatBrowserDlg::VMethod26()
 {

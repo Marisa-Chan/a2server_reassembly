@@ -2157,7 +2157,7 @@ extern ?Init@ProjectileInfo@@QAEXXZ : proc
 ; Vis2Action
 externdef ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z : proc
 externdef ??_GVis2Action@@UAEPAXI@Z : proc
-externdef ?MsgProc@Vis2Action@@UAEHIII@Z : proc
+extern ?MsgProc@Vis2Action@@UAEHIII@Z : proc
 extern ?VMethod26@Vis2Action@@UAEXXZ : proc
 externdef _byte_659A54 : byte  ; "" hint string of the action menu confirm button
 externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button

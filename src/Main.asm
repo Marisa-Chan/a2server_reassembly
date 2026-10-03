@@ -26617,32 +26617,6 @@ arg_18          = dword ptr  20h
 ; Attributes: bp-based frame
 
 ; int __stdcall ?MsgProc@Vis2Action@@UAEHIII@Z(int, UINT Msg, int)
-?MsgProc@Vis2Action@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060B0E0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-Msg             = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+Msg]
-                push    ecx             ; Msg
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?MsgProc@VisMenuWnd@@UAEHIII@Z
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@Vis2Action@@UAEHIII@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
