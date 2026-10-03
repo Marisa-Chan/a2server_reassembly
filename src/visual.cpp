@@ -9595,6 +9595,36 @@ void VisSideStatus::VMethod7()
     this->dirty = 0;
 }
 
+// 4B4490
+int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    int32_t moved_up = (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) ? 1 : 0;
+
+    if (result == 0) {
+        switch (msg) {
+        case 0x402:
+            if (main_wnd->dialogsMask == 1 && moved_up != 0 && this->dirty != 0) {
+                this->VMethod9();
+            }
+            if (main_wnd->dialogsMask == 1) {
+                this->UpdateCursor();
+            }
+            break;
+        case 0x403:
+        case 0x408:
+        case 0x410:
+            this->dirty = 1;
+            break;
+        }
+    }
+    return result;
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {

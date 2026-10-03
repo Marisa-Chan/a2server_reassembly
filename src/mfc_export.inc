@@ -1626,6 +1626,7 @@ externdef ??_GVisSideStatus@@UAEPAXI@Z : proc
 externdef ?GetHint@VisSideStatus@@UAEPBDXZ : proc
 externdef ?VMethod7@VisSideStatus@@UAEXXZ : proc
 externdef ?MsgProc@VisSideStatus@@UAEHIII@Z : proc
+externdef ?UpdateCursor@VisSideStatus@@QAEXXZ : proc  ; void VisSideStatus::UpdateCursor(void)
 
 ;VisStartGameTextBox
 externdef ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z : proc

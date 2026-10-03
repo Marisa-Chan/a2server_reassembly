@@ -2609,6 +2609,8 @@ public:
 	virtual void VMethod7() override; // 4B4190
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4B4490
 
+	void UpdateCursor(); //4b4019 in asm
+
 	VisSideStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b3fa3 in asm
 public:
 	uint32_t dirty;

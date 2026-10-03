@@ -81035,7 +81035,7 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_4B4019      proc near               ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+F9↓p
+?UpdateCursor@VisSideStatus@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+F9↓p
 
 var_38          = dword ptr -38h
 var_34          = POINT ptr -34h
@@ -81089,7 +81089,7 @@ var_10          = byte ptr -10h
                 jmp     loc_4B418C
 ; ---------------------------------------------------------------------------
 
-loc_4B409C:                             ; CODE XREF: sub_4B4019+7C↑j
+loc_4B409C:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+7C↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
                 call    ?GetX@CMousePointer@@QAEHXZ ; Concurrency::details::_CancellationTokenRegistration::_GetToken(void)
                 mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+8] 
@@ -81108,7 +81108,7 @@ loc_4B409C:                             ; CODE XREF: sub_4B4019+7C↑j
                 jmp     short loc_4B4101
 ; ---------------------------------------------------------------------------
 
-loc_4B40D7:                             ; CODE XREF: sub_4B4019+B2↑j
+loc_4B40D7:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+B2↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
@@ -81120,15 +81120,15 @@ loc_4B40D7:                             ; CODE XREF: sub_4B4019+B2↑j
                 jmp     short loc_4B4101
 ; ---------------------------------------------------------------------------
 
-loc_4B40F9:                             ; CODE XREF: sub_4B4019+D3↑j
+loc_4B40F9:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+D3↑j
                 mov     eax, ?g_Cursors@@3PAPAVCCursor@@A+30h
                 mov     [ebp+var_18], eax
 
-loc_4B4101:                             ; CODE XREF: sub_4B4019+BC↑j
+loc_4B4101:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+BC↑j
                 jmp     short loc_4B4159
 ; ---------------------------------------------------------------------------
 
-loc_4B4103:                             ; CODE XREF: sub_4B4019+98↑j
+loc_4B4103:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+98↑j
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?GetY@CMousePointer@@QAEHXZ ; Microsoft VisualC 2-14/net runtime
                 mov     ecx, dword ptr [?g_ScreenSize@@3VCRect@@A+0Ch] 
@@ -81143,7 +81143,7 @@ loc_4B4103:                             ; CODE XREF: sub_4B4019+98↑j
                 jmp     short loc_4B4159
 ; ---------------------------------------------------------------------------
 
-loc_4B4130:                             ; CODE XREF: sub_4B4019+FF↑j
+loc_4B4130:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+FF↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     dword ptr [ebp+var_34], ecx ; var_34.x
                 mov     edx, dword ptr [ebp+var_20]
@@ -81159,7 +81159,7 @@ loc_4B4130:                             ; CODE XREF: sub_4B4019+FF↑j
                 mov     edx, ?g_Cursors@@3PAPAVCCursor@@A
                 mov     [ebp+var_18], edx
 
-loc_4B4159:                             ; CODE XREF: sub_4B4019:loc_4B4101↑j
+loc_4B4159:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ:loc_4B4101↑j
                 mov     eax, dword ptr [ebp+var_1C]
                 cmp     dword ptr [eax+408h], 0
                 jz      short loc_4B4171
@@ -81167,7 +81167,7 @@ loc_4B4159:                             ; CODE XREF: sub_4B4019:loc_4B4101↑j
                 mov     edx, dword ptr [ecx+414h]
                 mov     [ebp+var_18], edx
 
-loc_4B4171:                             ; CODE XREF: sub_4B4019+14A↑j
+loc_4B4171:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+14A↑j
                 cmp     [ebp+var_18], 0
                 jz      short loc_4B418C
                 mov     ecx, dword ptr [ebp+var_18]
@@ -81177,11 +81177,11 @@ loc_4B4171:                             ; CODE XREF: sub_4B4019+14A↑j
                 mov     ecx, dword ptr [ebp+var_18]
                 call    ?Use@CCursor@@QAEXXZ
 
-loc_4B418C:                             ; CODE XREF: sub_4B4019+7E↑j
+loc_4B418C:                             ; CODE XREF: ?UpdateCursor@VisSideStatus@@QAEXXZ+7E↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4B4019      endp
+?UpdateCursor@VisSideStatus@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -81194,127 +81194,6 @@ sub_4B4019      endp
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisSideStatus@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060D0B8↓o
-
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 24h
-                push    esi
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?MsgProc@CVisualObject@@UAEHIII@Z
-                mov     [ebp+var_14], eax
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_18], eax
-                lea     ecx, [ebp+var_10] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_20]
-                add     eax, 8
-                push    eax
-                lea     ecx, [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                mov     esi, eax
-                mov     edx, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [edx+0E0h]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax        ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                xor     ecx, ecx
-                cmp     esi, eax
-                setnl   cl
-                mov     [ebp+var_1C], ecx
-                cmp     [ebp+var_14], 0
-                jnz     def_4B4529      ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ebp+var_24], edx
-                mov     eax, dword ptr [ebp+var_24]
-                sub     eax, 402h       ; switch 15 cases
-                mov     [ebp+var_24], eax
-                cmp     [ebp+var_24], 0Eh
-                ja      short def_4B4529 ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-                mov     edx, dword ptr [ebp+var_24]
-                xor     ecx, ecx
-                mov     cl, ds:byte_4B45AC[edx]
-                jmp     ds:jpt_4B4529[ecx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_4B4530:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+99↑j
-                mov     eax, dword ptr [ebp+var_20] ; jumptable 004B4529 case 1027
-                mov     dword ptr [eax+5Ch], 1
-                jmp     short def_4B4529 ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-; ---------------------------------------------------------------------------
-
-loc_4B453C:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+99↑j
-                mov     ecx, dword ptr [ebp+var_20] ; jumptable 004B4529 case 1032
-                mov     dword ptr [ecx+5Ch], 1
-                jmp     short def_4B4529 ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-; ---------------------------------------------------------------------------
-
-loc_4B4548:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+99↑j
-                mov     edx, dword ptr [ebp+var_20] ; jumptable 004B4529 case 1040
-                mov     dword ptr [edx+5Ch], 1
-                jmp     short def_4B4529 ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-; ---------------------------------------------------------------------------
-
-loc_4B4554:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+99↑j
-                mov     eax, dword ptr [ebp+var_18] ; jumptable 004B4529 case 1026
-                cmp     dword ptr [eax+418h], 1
-                jnz     short loc_4B457A
-                cmp     [ebp+var_1C], 0
-                jz      short loc_4B457A
-                mov     ecx, dword ptr [ebp+var_20]
-                cmp     dword ptr [ecx+5Ch], 0
-                jz      short loc_4B457A
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [eax+34h]
-
-loc_4B457A:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+CE↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+418h], 1
-                jnz     short def_4B4529 ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-                mov     ecx, dword ptr [ebp+var_20]
-                call    sub_4B4019
-
-def_4B4529:                             ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+71↑j
-                mov     eax, dword ptr [ebp+var_14] ; jumptable 004B4529 default case, cases 1028-1031,1033-1039
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisSideStatus@@UAEHIII@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_4B4529      dd offset loc_4B4554    ; DATA XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+99↑r
-                dd offset loc_4B4530    ; jump table for switch statement
-                dd offset loc_4B453C
-                dd offset loc_4B4548
-                dd offset def_4B4529
-byte_4B45AC     db      0,     1,     4,     4
-                db      4,     4,     2,     4 ; indirect table for switch statement
-                db      4,     4,     4,     4
-                db      4,     4,     3
 
 ; =============== S U B R O U T I N E =======================================
 
