@@ -9652,6 +9652,18 @@ const char* VisSideStatus::GetHint()
     return unit->FUN_0046d0f7(hint_x, hint_y);
 }
 
+// 4B3FA3
+VisSideStatus::VisSideStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->dirty = 0;
+}
+
+// 4B4810
+VisSideStatus::~VisSideStatus()
+{
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {

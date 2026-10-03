@@ -1036,7 +1036,6 @@ extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0Vis1200@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
-externdef   ??0VisSideStatus@@QAE@HHHHH@Z  : proc
 
 
 
@@ -1622,10 +1621,6 @@ extern ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
 
 
 ;VisSideStatus
-externdef ??_GVisSideStatus@@UAEPAXI@Z : proc
-externdef ?GetHint@VisSideStatus@@UAEPBDXZ : proc
-externdef ?VMethod7@VisSideStatus@@UAEXXZ : proc
-externdef ?MsgProc@VisSideStatus@@UAEHIII@Z : proc
 externdef ?UpdateCursor@VisSideStatus@@QAEXXZ : proc  ; void VisSideStatus::UpdateCursor(void)
 
 ;VisStartGameTextBox

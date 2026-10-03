@@ -2603,7 +2603,7 @@ ASSERT_SIZE(VisCharInfo, 0x17c);
 class VisSideStatus : public CVisualObject
 {
 public:
-	virtual ~VisSideStatus(); // 4B47E0
+	virtual ~VisSideStatus(); // 4B4810
 
 	virtual const char* GetHint() override; // 4B45BB
 	virtual void VMethod7() override; // 4B4190
