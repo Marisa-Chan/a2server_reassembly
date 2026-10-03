@@ -24309,3 +24309,9 @@ int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+// 4B1287
+int32_t VisOrderToolbar::OnRButtonUp(uint32_t wparam, CPoint pos)
+{
+    return this->map_context->MsgProc(0x405, 0, 0);
+}

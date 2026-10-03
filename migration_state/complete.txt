@@ -636,6 +636,7 @@
 ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
+?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnWmUser@VisInvExtType1@@UAEHIVCPoint@@@Z
