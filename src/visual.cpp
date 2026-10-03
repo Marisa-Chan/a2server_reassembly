@@ -24652,6 +24652,57 @@ void Vis1200obj::FUN_0043b03a()
     }
 }
 
+// 43B724
+void Vis1200obj::FUN_0043b724()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    BigStruct2* map = main_wnd->vis_map_context;
+    int32_t pos = this->field_0x84.GetLength() - 1;
+    if (pos == -1) {
+        return;
+    }
+    int32_t start = 0;
+    if (this->field_0x84[0] == '=' || this->field_0x84[0] == '-') {
+        start = 1;
+    }
+    if (FUN_0043aae0(this->field_0x84[pos]) != 0) {
+        return;
+    }
+    while (pos >= start && FUN_0043aae0(this->field_0x84[pos]) == 0) {
+        pos--;
+    }
+    CString word = this->field_0x84.Mid(pos + 1);
+    if (word.IsEmpty()) {
+        return;
+    }
+    int32_t word_end = pos;
+    FUN_00476236(&word);
+    CStringArray candidates;
+    for (int32_t i = 0; i < map->field_0x9b8.GetSize(); i++) {
+        MapPlayerData* player = map->field_0x9b8[i];
+        if (player != 0 && (player->flags & 1) == 0) {
+            candidates.Add(player->name);
+        }
+    }
+    for (int32_t i = 0; i < word.GetLength(); i++) {
+        int32_t j = 0;
+        while (j < candidates.GetSize()) {
+            CString cand = candidates[j];
+            FUN_00476236(&cand);
+            if (i >= cand.GetLength() || word[i] != cand[i]) {
+                candidates.RemoveAt(j, 1);
+            } else {
+                j++;
+            }
+        }
+        if (candidates.GetSize() == 0) {
+            return;
+        }
+    }
+    this->field_0x84 = this->field_0x84.Left(word_end + 1) + candidates[0];
+    map->field_0xe0 = 1;
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {

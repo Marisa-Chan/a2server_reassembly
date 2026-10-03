@@ -2526,7 +2526,7 @@ public:
 
 	void FUN_0043ae1c(uint8_t ch); // 43ae1c
 	void FUN_0043b03a(); // 43b03a
-	void FUN_0043b724(); //43b724 in asm
+	void FUN_0043b724(); // 43b724
 	void FUN_0043ba75(); //43ba75 in asm
 	void FUN_0043b504(CString* str); //43b504 in asm
 
@@ -2551,6 +2551,9 @@ public:
 	int32_t field_0xa0; // 0xa0
 };
 ASSERT_SIZE(Vis1200obj, 0xa4);
+
+int32_t FUN_0043aae0(char ch); // 43aae0 in asm - chat separator test (' ', ',', '.', ':', ';')
+void FUN_00476236(CString* str); // 476236 in asm - lowercase respecting DOS CP
 
 //609ad0
 class Vis1200 : public VisScreen
