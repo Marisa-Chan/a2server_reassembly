@@ -64541,20 +64541,6 @@ sub_4972A0      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?FUN_00497330@Vis1200obj@@QAEHXZ proc near           ; CODE XREF: ?FUN_00497310@Vis1200@@QAEHXZ+10↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+94h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00497330@Vis1200obj@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
