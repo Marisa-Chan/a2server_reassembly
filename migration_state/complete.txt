@@ -558,6 +558,7 @@
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
+?OnChar@Vis1200obj@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z

@@ -1484,6 +1484,7 @@ externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 ;Vis1200obj
+externdef ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z : proc  ; void Vis1200obj::FUN_0043ae1c(uint8_t)
 externdef ?VMethod7@Vis1200obj@@UAEXXZ : proc
 externdef ?MsgProc@Vis1200obj@@UAEHIII@Z : proc
 externdef ?OnKeyDown@Vis1200obj@@UAEHI@Z : proc

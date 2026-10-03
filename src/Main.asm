@@ -19647,7 +19647,7 @@ sub_43AAE0      endp
 
 ; Attributes: bp-based frame
 
-sub_43AE1C      proc near               ; CODE XREF: sub_43AE1C+18A↓p
+?FUN_0043ae1c@Vis1200obj@@QAEXE@Z      proc near               ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+18A↓p
 
 var_40          = dword ptr -40h
 var_3C          = dword ptr -3Ch
@@ -19726,7 +19726,7 @@ arg_0           = byte ptr  8
                 jmp     loc_43AF8F
 ; ---------------------------------------------------------------------------
 
-loc_43AEEB:                             ; CODE XREF: sub_43AE1C+A0↑j
+loc_43AEEB:                             ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+A0↑j
                 mov     edx, dword ptr [ebp+var_18]
                 add     edx, 1
                 push    edx
@@ -19784,7 +19784,7 @@ loc_43AEEB:                             ; CODE XREF: sub_43AE1C+A0↑j
                 lea     ecx, [ebp+var_20] ; varThis
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
 
-loc_43AF8F:                             ; CODE XREF: sub_43AE1C+CA↑j
+loc_43AF8F:                             ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+CA↑j
                 mov     ecx, dword ptr [ebp+var_30]
                 add     ecx, 84h        ; varThis
                 call    ?TrimLeft@CString@@QAEXXZ ; CString::TrimLeft(void)
@@ -19792,7 +19792,7 @@ loc_43AF8F:                             ; CODE XREF: sub_43AE1C+CA↑j
                 mov     al, [ebp+arg_0]
                 push    eax
                 mov     ecx, dword ptr [ebp+var_30]
-                call    sub_43AE1C
+                call    ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z
                 mov     [ebp+var_24], 0
 ;   } // starts at 43AF83
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -19802,7 +19802,7 @@ loc_43AF8F:                             ; CODE XREF: sub_43AE1C+CA↑j
                 jmp     short loc_43B029
 ; ---------------------------------------------------------------------------
 
-loc_43AFC6:                             ; CODE XREF: sub_43AE1C+83↑j
+loc_43AFC6:                             ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+83↑j
                 mov     [ebp+var_28], 0
                 mov     [ebp+var_4], 0FFFFFFFFh
                 lea     ecx, [ebp+var_10] ; varThis
@@ -19811,7 +19811,7 @@ loc_43AFC6:                             ; CODE XREF: sub_43AE1C+83↑j
                 jmp     short loc_43B029
 ; ---------------------------------------------------------------------------
 
-loc_43AFE1:                             ; CODE XREF: sub_43AE1C+6F↑j
+loc_43AFE1:                             ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+6F↑j
                 xor     ecx, ecx
                 mov     cl, [ebp+arg_0]
                 push    ecx             ; Src
@@ -19829,7 +19829,7 @@ loc_43AFE1:                             ; CODE XREF: sub_43AE1C+6F↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 mov     eax, dword ptr [ebp+var_2C]
 
-loc_43B029:                             ; CODE XREF: sub_43AE1C+1A8↑j
+loc_43B029:                             ; CODE XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+1A8↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -19837,7 +19837,7 @@ loc_43B029:                             ; CODE XREF: sub_43AE1C+1A8↑j
                 pop     ebp
                 retn    4
 ; } // starts at 43AE1C
-sub_43AE1C      endp
+?FUN_0043ae1c@Vis1200obj@@QAEXE@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -20052,42 +20052,6 @@ byte_43B22C     db      0,     1,     4,     4
 ; Attributes: bp-based frame
 
 ; int __stdcall ?OnChar@Vis1200obj@@UAEHI@Z(struct type_info *)
-?OnChar@Vis1200obj@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609ACC↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 20h ; ' '
-                jb      short loc_43B271
-                cmp     [ebp+arg_0], 7Fh
-                jz      short loc_43B271
-                xor     eax, eax
-                mov     al, byte ptr [ebp+arg_0]
-                push    eax
-                call    ?EncodeChar@@YAEE@Z
-                add     esp, 4
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43AE1C
-                mov     eax, 1
-                jmp     short loc_43B27D
-; ---------------------------------------------------------------------------
-
-loc_43B271:                             ; CODE XREF: ?OnChar@Vis1200obj@@UAEHI@Z+B↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct type_info *
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-
-loc_43B27D:                             ; CODE XREF: ?OnChar@Vis1200obj@@UAEHI@Z+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnChar@Vis1200obj@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -252869,7 +252833,7 @@ SEH_43AA23:                             ; DATA XREF: ?LogMessage@@YAXVCString@@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8A50
 ; END OF FUNCTION CHUNK FOR ?LogMessage@@YAXVCString@@@Z
-; START OF FUNCTION CHUNK FOR sub_43AE1C
+; START OF FUNCTION CHUNK FOR ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z
 
 loc_5F8AE8:                             ; DATA XREF: .rdata:stru_619278↓o
 ; __unwind { // SEH_43AE1C              ; varThis
@@ -252895,11 +252859,11 @@ loc_5F8AFA:                             ; DATA XREF: .rdata:00619288↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43AE1C:                             ; DATA XREF: sub_43AE1C+5↑o
+SEH_43AE1C:                             ; DATA XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+5↑o
                 mov     eax, offset stru_619258
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8AE8
-; END OF FUNCTION CHUNK FOR sub_43AE1C
+; END OF FUNCTION CHUNK FOR ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43B03A
 
@@ -292792,7 +292756,7 @@ aTurnDDPlayersO db 'Turn %d. %d players online',0
                 db    0
                 db    0
 ; char asc_62E4F4[2]
-asc_62E4F4      db '_',0                ; DATA XREF: sub_43AE1C+4D↑o
+asc_62E4F4      db '_',0                ; DATA XREF: ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z+4D↑o
                 db    0
                 db    0
 aCplayer_0      db 'CPlayer',0          ; DATA XREF: .rdata:off_609B58↑o

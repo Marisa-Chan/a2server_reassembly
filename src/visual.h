@@ -2524,6 +2524,8 @@ public:
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43b159
 	virtual int32_t OnChar(uint32_t wparam) override; // 43b240
 
+	void FUN_0043ae1c(uint8_t ch); //43ae1c in asm
+
 	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28
 
 	void FUN_0043ac8c(); //43ac8c - reset input/history state
