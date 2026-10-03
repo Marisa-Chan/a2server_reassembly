@@ -9625,6 +9625,33 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     return result;
 }
 
+// 4B45BB
+const char* VisSideStatus::GetHint()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return nullptr;
+    }
+
+    BigStruct2* map = main_wnd->vis_map_context;
+    CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    CUnit* unit = nullptr;
+    int32_t moved_up = (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) ? 1 : 0;
+    if (map->field_0x140 == 1) {
+        unit = (CUnit*)map->field_0x138;
+    }
+    if (unit == nullptr || moved_up == 0) {
+        return nullptr;
+    }
+
+    int32_t hint_y = mouse_pt.y - screen_rect.TopLeft().y - 2 - (this->rect.Height() - main_wnd->vis_charinfo->GetRect().Height());
+    int32_t hint_x = mouse_pt.x - screen_rect.TopLeft().x;
+    return unit->FUN_0046d0f7(hint_x, hint_y);
+}
+
 // 4BA5A0
 VisShop::~VisShop()
 {
