@@ -24486,3 +24486,14 @@ int32_t VisDropGold::OnKeyDown(uint32_t wparam)
 
     return VisScreen::OnKeyDown(wparam);
 }
+
+// 441FA3
+void VisDropGold::VMethod28()
+{
+    strcpy(this->amount_text, "0");
+
+    CVisualObject* textbox = this->FindChild(10000005);
+    textbox->ReadData(this->amount_text);
+
+    VisScreen::VMethod28();
+}

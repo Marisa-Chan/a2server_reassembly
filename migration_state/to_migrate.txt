@@ -331,7 +331,6 @@ _byte_659A3C
 ?VMethod9@VisDropGold@@UAEXXZ	15
 ?FUN_004a7a30@VisDropGold@@QAEXH@Z	15
 ??_GVisDropGold@@UAEPAXI@Z	24
-?VMethod28@VisDropGold@@UAEXXZ	31
 ??0VisDropGold@@QAE@HHH@Z	51
 ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
 ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z	180

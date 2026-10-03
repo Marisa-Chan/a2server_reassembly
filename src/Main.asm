@@ -23430,38 +23430,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod28@VisDropGold@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060A1F0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                push    offset a0       ; "0"
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 6Ch ; 'l'
-                push    eax             ; Destination
-                call    _strcpy
-                add     esp, 8
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 6Ch ; 'l'
-                push    ecx
-                push    989685h
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_8], eax
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [eax+44h]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@VisDropGold@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
