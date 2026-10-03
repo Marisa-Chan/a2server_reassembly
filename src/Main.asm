@@ -23066,31 +23066,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?DoClose@VisCredits@@UAEXI@Z      proc near               ; DATA XREF: .rdata:00609C0C↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FreeContent@VisCredits@@QAEXXZ
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Paint@CMousePointer@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+94h], 0
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?DoClose@VisScreen@@UAEXI@Z
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?EnableHint@CMousePointer@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?DoClose@VisCredits@@UAEXI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

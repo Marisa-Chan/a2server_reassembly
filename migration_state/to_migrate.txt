@@ -339,7 +339,6 @@ _byte_659A3C
 ?OnLButtonDown@VisCredits@@UAEHIVCPoint@@@Z	14
 ?OnKeyDown@VisCredits@@UAEHI@Z	18
 ??_GVisCredits@@UAEPAXI@Z	24
-?DoClose@VisCredits@@UAEXI@Z	24
 ??0VisCredits@@QAE@HHHHH@Z	64
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40

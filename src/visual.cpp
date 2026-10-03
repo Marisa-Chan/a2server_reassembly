@@ -23840,3 +23840,13 @@ void VisCredits::FreeContent()
     this->bitmaps.RemoveAll();
     this->text.Free();
 }
+
+// 43C553
+void VisCredits::DoClose(uint32_t code)
+{
+    this->FreeContent();
+    g_mousept.Paint();
+    this->flag = 0;
+    VisScreen::DoClose(code);
+    g_mousept.EnableHint();
+}
