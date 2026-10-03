@@ -23857,3 +23857,10 @@ int32_t VisCredits::OnKeyDown(uint32_t wparam)
     this->MsgProc(0x445, 0, 0);
     return VisScreen::OnKeyDown(wparam);
 }
+
+// 43C5F5
+int32_t VisCredits::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    this->MsgProc(0x445, 0, 0);
+    return 0;
+}

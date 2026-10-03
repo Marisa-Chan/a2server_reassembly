@@ -336,7 +336,6 @@ _byte_659A3C
 ?VMethod31@VisConnectionDlg@@UAEXH@Z	156
 ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	355
 ?VMethod8@VisCredits@@UAEXPAVCRect@@@Z	11
-?OnLButtonDown@VisCredits@@UAEHIVCPoint@@@Z	14
 ??_GVisCredits@@UAEPAXI@Z	24
 ??0VisCredits@@QAE@HHHHH@Z	64
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
