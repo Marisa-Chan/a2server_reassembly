@@ -20,6 +20,9 @@
 
 extern "C" char byte_666590[223]; //4c9a6f GetHint static buffer
 extern "C" char unk_659A48[4]; //659a48 zeroed buffer used to clear the server screen text box
+extern "C" char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
+extern "C" char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
+extern "C" char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -23417,4 +23420,46 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
     default:
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
+}
+
+// 44bc6c
+void VisHatBrowserDlg::VMethod26()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    VisLabel* title_label = new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
+    this->AddChild(title_label);
+
+    VisLabel* ip_label = new VisLabel(0x7e, 0x28, 0x2c, this->rect.Width() - 0x28, 0x44, main_wnd->hat_settings.hatip, g_font1, p_clrsh_Black, 2);
+    this->AddChild(ip_label);
+
+    VisLabel* caption_label = new VisLabel(0x1a, 0x28, 0x44, this->rect.Width() - 0x28, 0x5c, txt_patch.GetLine(0x6b), g_font1, p_clrsh_Black, 0);
+    this->AddChild(caption_label);
+
+    VisHatBrowserList* list = new VisHatBrowserList(1, 0x28, 0x5c, this->rect.Width() - 0x40, this->rect.Height() - 0x60, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xa, nullptr);
+    this->AddChild(list);
+
+    list->SetCaptionLabel((VisLabel*)this->FindChild(0x1a));
+
+    CRect list_rect = list->GetRect();
+    VisScrollBar* scrollbar = new VisScrollBar(0xa, list_rect.right, list_rect.top, list_rect.right + 0x18, list_rect.bottom, nullptr);
+    this->AddChild(scrollbar);
+
+    CPoint btn_center(0xc0, this->rect.Height() - 0x30);
+    CRect btn_rect(btn_center.x - 0x30, btn_center.y - 0xc, btn_center.x + 0x30, btn_center.y + 0xc);
+    btn_rect.OffsetRect(-0x48, 0);
+
+    VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, byte_659A34);
+    this->AddChild(ok_btn);
+    ok_btn->ChangeFlags(1, false);
+
+    btn_rect.OffsetRect(0x90, 0);
+    VisButton* cancel_btn = new VisButton(0x15, btn_rect, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, byte_659A38);
+    this->AddChild(cancel_btn);
+    cancel_btn->SetLeftObj(this->FindChild(0x14));
+
+    btn_rect.OffsetRect(0x90, 0);
+    VisButton* refresh_btn = new VisButton(0x16, btn_rect, txt_patch.GetLine(0x6c), g_font1, nullptr, 0x48b, 0, byte_659A3C);
+    this->AddChild(refresh_btn);
+    refresh_btn->SetLeftObj(this->FindChild(0x15));
 }

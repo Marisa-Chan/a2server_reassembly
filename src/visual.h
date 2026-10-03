@@ -3552,6 +3552,26 @@ public:
 ASSERT_SIZE(VisHatServerListDlg, 0x7c);
 
 
+//60aa40
+class VisHatBrowserList : public VisListBox
+{
+public:
+	virtual ~VisHatBrowserList(); // 44ff80
+
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44b60c
+
+	VisHatBrowserList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 44ff20
+
+	int32_t IsItemEnabled(int32_t idx); // 44b460
+
+public:
+	int32_t state; //0x94. -1 = refreshing, 0 = empty/failed, 1 = loaded
+};
+ASSERT_SIZE(VisHatBrowserList, 0x98);
+
+// Returns the start position of the field-th (0-based) '|'-separated field of str, or -1.
+int32_t GetFieldPos(CString str, int32_t field); // 44b37a
+
 //60a9b8
 class VisHatBrowserDlg : public VisWindow
 {

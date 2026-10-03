@@ -9,6 +9,9 @@
 ?INT_00660f90@@3HA
 _byte_666590
 _unk_659A48
+_byte_659A34
+_byte_659A38
+_byte_659A3C
 ?VisNetMapThreadProc@@YAIPAX@Z	11
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
@@ -356,7 +359,7 @@ _unk_659A48
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
 ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
-?VMethod26@VisHatBrowserDlg@@UAEXXZ	462
+??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
 ??_GVisHatServerListDlg@@UAEPAXI@Z	24
 ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z	46
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161
