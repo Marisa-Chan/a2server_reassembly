@@ -24403,3 +24403,16 @@ void VisConnectionDlg::VMethod31(int32_t code)
         main_wnd->PostMessage(0x421, 0, 0);
     }
 }
+
+// 445E52
+VisConnectionDlg::VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload)
+    : VisMessageBox(_id, l, t, r, b, _payload, txt_dialogs.GetLine(0x50), 1, txt_dialogs.GetLine(0x92))
+{
+    this->protocols = nullptr;
+    this->pSelected = _payload;
+}
+
+// 44FA40
+VisConnectionDlg::~VisConnectionDlg()
+{
+}

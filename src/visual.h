@@ -3342,7 +3342,7 @@ ASSERT_SIZE(VisDiplomacy, 0x7c);
 class VisConnectionDlg : public VisMessageBox
 {
 public:
-	virtual ~VisConnectionDlg(); // 44FA10
+	virtual ~VisConnectionDlg(); // 44fa40
 
 	VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload); //445e52
 

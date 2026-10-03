@@ -2191,12 +2191,6 @@ externdef ?DrawItem@VisListBoxDiplomacy@@UAEXHVCPoint@@PAG@Z : proc
 externdef ?SelectItem@VisListBoxDiplomacy@@UAEXH@Z : proc
 externdef ?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z : proc
 
-; VisConnectionDlg
-externdef ??0VisConnectionDlg@@QAE@HHHHHPAH@Z : proc
-externdef ??_GVisConnectionDlg@@UAEPAXI@Z : proc
-externdef ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisConnectionDlg@@UAEXH@Z : proc
-
 ; VisNetTcpIp
 externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc
 externdef ??_GVisNetTcpIp@@UAEPAXI@Z : proc

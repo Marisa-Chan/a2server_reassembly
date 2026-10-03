@@ -24646,56 +24646,6 @@ sub_445B39      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisConnectionDlg@@QAE@HHHHHPAH@Z(int, int xLeft, int yTop, int xRight, int yBottom, int)
-??0VisConnectionDlg@@QAE@HHHHHPAH@Z      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+22F9↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    92h
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; int
-                push    1               ; int
-                push    50h ; 'P'
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; int
-                mov     eax, dword ptr [ebp+arg_14]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+yBottom]
-                push    ecx             ; yBottom
-                mov     edx, dword ptr [ebp+xRight]
-                push    edx             ; xRight
-                mov     eax, dword ptr [ebp+yTop]
-                push    eax             ; yTop
-                mov     ecx, dword ptr [ebp+xLeft]
-                push    ecx             ; xLeft
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisMessageBox@@QAE@HHHHHPBXPBDH1@Z
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60A558
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+78h], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_14]
-                mov     [edx+7Ch], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    18h
-??0VisConnectionDlg@@QAE@HHHHHPAH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24708,7 +24658,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z(int, RECT *lprcSrc)
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -28661,31 +28610,6 @@ sub_44F9B0      endp
 
 ; Attributes: bp-based frame
 
-??_GVisConnectionDlg@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A55C↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_44FA40
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_44FA32
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_44FA32:                             ; CODE XREF: ??_GVisConnectionDlg@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisConnectionDlg@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -28694,20 +28618,6 @@ loc_44FA32:                             ; CODE XREF: ??_GVisConnectionDlg@@UAEPA
 
 ; Attributes: bp-based frame
 
-sub_44FA40      proc near               ; CODE XREF: ??_GVisConnectionDlg@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisMessageBox@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_44FA40      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -259947,22 +259857,6 @@ SEH_445ACA:                             ; DATA XREF: sub_445ACA+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F94C9
 ; END OF FUNCTION CHUNK FOR sub_445ACA
-; START OF FUNCTION CHUNK FOR ?VMethod31@VisConnectionDlg@@UAEXH@Z
-
-loc_5F9505:                             ; DATA XREF: .rdata:stru_619E20↓o
-; __unwind { // SEH_445EBD
-;   cleanup() // owned by 445F47
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_445EBD:                             ; DATA XREF: ?VMethod31@VisConnectionDlg@@UAEXH@Z+5↑o
-                mov     eax, offset stru_619E00
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9505
-; END OF FUNCTION CHUNK FOR ?VMethod31@VisConnectionDlg@@UAEXH@Z
 ; START OF FUNCTION CHUNK FOR ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
 
 loc_5F97D6:                             ; DATA XREF: .rdata:stru_61A130↓o
@@ -280165,42 +280059,6 @@ off_60A438      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?DoClose@VisScreen@@UAEXI@Z
                 dd offset sub_44582E
                 dd offset sub_4459AF
-off_60A558      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisConnectionDlg@@QAE@HHHHHPAH@Z+49↑o
-                dd offset ??_GVisConnectionDlg@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisScreen@@UAEXXZ
-                dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisMessageBox@@UAEHIII@Z
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisWindow@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisMessageBox@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisScreen@@UAEXXZ
-                dd offset ?DoClose@VisScreen@@UAEXI@Z
-                dd offset ?VMethod30@VisConnectionDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z
-                dd offset ?VMethod31@VisConnectionDlg@@UAEXH@Z
 off_60A6F8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z+3A↑o
                 dd offset ??_GVisListBoxPhoneBook@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
@@ -292751,9 +292609,6 @@ stru_619D88     FuncInfoV1 <19930520h, 1, offset stru_619DA8, 0, 0, 0, 0>
 stru_619DA8     UnwindMapEntry <-1, offset loc_5F94C9>
                 align 10h
                 align 8
-stru_619E00     FuncInfoV1 <19930520h, 1, offset stru_619E20, 0, 0, 0, 0>
-                align 10h
-stru_619E20     UnwindMapEntry <-1, offset loc_5F9505>
 stru_61A110     FuncInfoV1 <19930520h, 1, offset stru_61A130, 0, 0, 0, 0>
                 align 10h
 stru_61A130     UnwindMapEntry <-1, offset loc_5F97D6>
