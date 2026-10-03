@@ -73,6 +73,7 @@
 ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
 ??0VisComboBox@@QAE@HVCRect@@PBD@Z
 ??0VisCredits@@QAE@HHHHH@Z
+??0VisDropGold@@QAE@HHH@Z
 ??0Visibility@@QAE@XZ
 ??0VisInvBase@@QAE@HHHHH@Z
 ??0VisInvExtBase@@QAE@HHHHHPAVVisShop@@@Z
@@ -257,7 +258,6 @@
 ?DisableHint@CMousePointer@@QAEXXZ
 ?DisconnectClient@NetStru1@@QAEXPAUNetStru2@@@Z
 ?Distance@TokenPos@@QBEEPBU1@@Z
-?DoClose@VisDropGold@@UAEXI@Z
 ?DoClose@VisGlobalMap@@UAEXI@Z
 ?DoClose@VisScreen@@UAEXI@Z
 ?DoClose@VisStartGame@@UAEXI@Z
@@ -560,7 +560,6 @@
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
-?OnKeyDown@VisDropGold@@UAEHI@Z
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
@@ -869,7 +868,6 @@
 ?VMethod24@CUnit@@UAEXXZ
 ?VMethod25@CUnit@@UAEXH@Z
 ?VMethod26@CUnit@@UAEXXZ
-?VMethod26@VisDropGold@@UAEXXZ
 ?VMethod26@VisGlobalMap@@UAEXXZ
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z
@@ -890,7 +888,6 @@
 ?VMethod27@VisShopCompass@@UAEXXZ
 ?VMethod27@VisTavScene@@UAEXXZ
 ?VMethod28@CUnit@@UAEXXZ
-?VMethod28@VisDropGold@@UAEXXZ
 ?VMethod28@VisGlobalMap@@UAEXXZ
 ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z
 ?VMethod28@VisScreen@@UAEXXZ
@@ -989,7 +986,6 @@
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ
-?VMethod9@VisDropGold@@UAEXXZ
 ?WriteData@CVisualObject@@UAEXPAX@Z
 ?WriteData@NetStru2@@QAEHPAXI@Z
 ?WriteData@VisListBox@@UAEXPAX@Z

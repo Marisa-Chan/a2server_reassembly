@@ -328,8 +328,6 @@ _byte_659A3C
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127
-??_GVisDropGold@@UAEPAXI@Z	24
-??0VisDropGold@@QAE@HHH@Z	51
 ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
 ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z	180
 ?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z	11

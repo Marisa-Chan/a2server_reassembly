@@ -24511,3 +24511,15 @@ void VisDropGold::FUN_004a7a30(int32_t idx)
 {
     this->selection = idx;
 }
+
+// 441BEC
+VisDropGold::VisDropGold(int32_t _id, int32_t _x, int32_t _y)
+    : VisScreen(_id, _x, _y, _x + 0x128, _y + 0xA8, nullptr)
+{
+    this->VMethod26();
+}
+
+// 441C63
+VisDropGold::~VisDropGold()
+{
+}

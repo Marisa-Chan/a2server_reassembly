@@ -23315,81 +23315,6 @@ sub_441B1E      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ??0VisDropGold@@QAE@HHH@Z(int, int xLeft, int yTop)
-??0VisDropGold@@QAE@HHH@Z      proc near               ; CODE XREF: ?CreateUI@MainWindow@@QAEXXZ+DC1↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-
-; FUNCTION CHUNK AT 005F91BD SIZE 00000013 BYTES
-
-; __unwind { // SEH_441BEC
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_441BEC
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                push    0               ; int
-                mov     eax, dword ptr [ebp+yTop]
-                add     eax, 0A8h
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xLeft]
-                add     ecx, 128h
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisScreen@@QAE@HHHHHPAVCGameBitmap@@@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx], offset off_60A170
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod26@VisDropGold@@UAEXXZ
-;   } // starts at 441C31
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-; } // starts at 441BEC
-??0VisDropGold@@QAE@HHH@Z      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_441C63      proc near               ; CODE XREF: ??_GVisDropGold@@UAEPAXI@Z+A↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60A170
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisScreen@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_441C63      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -28013,31 +27938,6 @@ sub_44F710      endp
 
 ; Attributes: bp-based frame
 
-??_GVisDropGold@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060A174↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_441C63
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_44F892
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_44F892:                             ; CODE XREF: ??_GVisDropGold@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GVisDropGold@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -258807,22 +258707,6 @@ SEH_44186E:                             ; DATA XREF: ??0ExitGameMenu@@QAE@HHHHHA
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F918C
 ; END OF FUNCTION CHUNK FOR ??0ExitGameMenu@@QAE@HHHHHABVCRect@@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0VisDropGold@@QAE@HHH@Z
-
-loc_5F91BD:                             ; DATA XREF: .rdata:stru_619AF8↓o
-; __unwind { // SEH_441BEC
-;   cleanup() // owned by 441C31
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisScreen@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_441BEC:                             ; DATA XREF: ??0VisDropGold@@QAE@HHH@Z+5↑o
-                mov     eax, offset stru_619AD8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F91BD
-; END OF FUNCTION CHUNK FOR ??0VisDropGold@@QAE@HHH@Z
 ; START OF FUNCTION CHUNK FOR sub_442646
 
 loc_5F920C:                             ; DATA XREF: .rdata:stru_619B68↓o
@@ -279434,42 +279318,6 @@ off_609ED8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnChar@VisButton@@UAEHI@Z
 
 
-off_60A170      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisDropGold@@QAE@HHH@Z+4F↑o
-                dd offset ??_GVisDropGold@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisScreen@@UAEXXZ
-                dd offset ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
-                dd offset ?VMethod9@VisDropGold@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@CVisualObject@@UAEXPAX@Z
-                dd offset ?DataSize@CVisualObject@@UAEIXZ
-                dd offset ?ReadData@CVisualObject@@UAEXPBX@Z
-                dd offset ?MsgProc@VisScreen@@UAEHIII@Z
-                dd offset ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisDropGold@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?VMethod26@VisDropGold@@UAEXXZ
-                dd offset ?VMethod27@VisScreen@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod28@VisDropGold@@UAEXXZ
-                dd offset ?DoClose@VisDropGold@@UAEXI@Z
-flt_60A1F8      dd 0.0                  ; DATA XREF: ?DoClose@VisDropGold@@UAEXI@Z+5B↑r
-                align 10h
 
 
 
@@ -291970,12 +291818,6 @@ stru_619AB8     UnwindMapEntry <-1, offset loc_5F918C>
                 UnwindMapEntry <0, offset loc_5F9195>
                 UnwindMapEntry <0, offset loc_5F919F>
                 UnwindMapEntry <0, offset loc_5F91A9>
-stru_619AD8     FuncInfoV1 <19930520h, 1, offset stru_619AF8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619AF8     UnwindMapEntry <-1, offset loc_5F91BD>
 stru_619B48     FuncInfoV1 <19930520h, 24, offset stru_619B68, 0, 0, 0, 0>
                 align 8
 stru_619B68     UnwindMapEntry <-1, offset loc_5F920C>

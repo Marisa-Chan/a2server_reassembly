@@ -2572,7 +2572,7 @@ ASSERT_SIZE(Vis1200, 0x170);
 class VisDropGold : public VisScreen
 {
 public:
-	virtual ~VisDropGold(); // 44F870
+	virtual ~VisDropGold(); // 441c63 (44F870 is the ??_G thunk)
 
 	virtual void VMethod9() override; // 441F1F
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 441F3C
