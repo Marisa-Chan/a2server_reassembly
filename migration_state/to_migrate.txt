@@ -319,7 +319,6 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?DataSize@Vis1200obj@@UAEIXZ	12
 ?OnChar@Vis1200obj@@UAEHI@Z	35
 ?WriteData@Vis1200obj@@UAEXPAX@Z	43
 ?ReadData@Vis1200obj@@UAEXPBX@Z	46

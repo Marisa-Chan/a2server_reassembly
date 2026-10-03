@@ -21179,19 +21179,6 @@ sub_43BA75      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?DataSize@Vis1200obj@@UAEIXZ proc near           ; DATA XREF: .rdata:00609A98↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 4
-                mov     esp, ebp
-                pop     ebp
-                retn
-?DataSize@Vis1200obj@@UAEIXZ endp
 
 
 ; =============== S U B R O U T I N E =======================================

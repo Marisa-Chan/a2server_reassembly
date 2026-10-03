@@ -24473,6 +24473,12 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 // 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
+// 43C020
+uint32_t Vis1200obj::DataSize()
+{
+    return 4;
+}
+
 // 497330
 int32_t Vis1200obj::FUN_00497330()
 {

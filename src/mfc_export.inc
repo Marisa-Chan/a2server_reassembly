@@ -1486,7 +1486,6 @@ externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 ;Vis1200obj
 externdef ?VMethod7@Vis1200obj@@UAEXXZ : proc
 externdef ?WriteData@Vis1200obj@@UAEXPAX@Z : proc
-externdef ?DataSize@Vis1200obj@@UAEIXZ : proc
 externdef ?ReadData@Vis1200obj@@UAEXPBX@Z : proc
 externdef ?MsgProc@Vis1200obj@@UAEHIII@Z : proc
 externdef ?OnKeyDown@Vis1200obj@@UAEHI@Z : proc
