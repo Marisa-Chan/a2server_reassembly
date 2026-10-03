@@ -5311,6 +5311,30 @@ VisNetChatList::VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uin
 VisNetChatList::~VisNetChatList() = default;
 
 
+// 44c63d
+void VisNetChatList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    if (!this->IsValidIndex(idx)) {
+        return;
+    }
+
+    const char* txt = this->entries[idx];
+
+    CRect client;
+    this->ClientRectToScreen(&client, this->rect);
+
+    CRect saved;
+    GetClipRect(&saved);
+
+    CRect clip(pos.x, pos.y, client.right - 6, pos.y + this->font->GetHeight() + 2);
+    SetClipRect(clip);
+
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt, 0, (uint16_t*)this->colors[idx], 1);
+
+    SetClipRect(saved);
+}
+
+
 // 450180 (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
 VisNetPlayerList::VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
     : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint)
