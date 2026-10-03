@@ -24416,3 +24416,22 @@ VisConnectionDlg::VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r,
 VisConnectionDlg::~VisConnectionDlg()
 {
 }
+
+// 441C7F
+void VisDropGold::VMethod26()
+{
+    VisTextBox* textbox = new VisTextBox(10000005, 30, 65, 266, 85, g_font1, clrsh_TechBlack, nullptr);
+    this->AddChild(textbox);
+
+    VisButton* btn_ok = new VisButton(10000001, 68, this->rect.Height() - 50, 138, this->rect.Height() - 30, txt_dialogs.GetLine(0), g_font1, clrsh_TechBlack, 0x445, 0, txt_dialogs.GetLine(0x2e));
+    this->AddChild(btn_ok);
+
+    VisButton* btn_cancel = new VisButton(10000002, 158, this->rect.Height() - 50, 228, this->rect.Height() - 30, txt_dialogs.GetLine(1), g_font1, clrsh_TechBlack, 0x446, 0, txt_dialogs.GetLine(0x2f));
+    this->AddChild(btn_cancel);
+
+    VisLabel* lbl_title = new VisLabel(10000003, 20, 20, 276, 40, txt_dialogs.GetLine(0x30), g_font1, clrsh_TechBlack, 2);
+    this->AddChild(lbl_title);
+
+    VisLabel* lbl_subtitle = new VisLabel(10000004, 20, 40, 276, 60, txt_dialogs.GetLine(0x31), g_font1, clrsh_TechBlack, 2);
+    this->AddChild(lbl_subtitle);
+}
