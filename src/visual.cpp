@@ -24093,3 +24093,9 @@ void Vis1200::VMethod7()
         VisScreen::VMethod7();
     }
 }
+
+// 4972D0
+int32_t Vis1200::FUN_004972d0()
+{
+    return this->text_block->FUN_004972f0();
+}

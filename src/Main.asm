@@ -68166,21 +68166,6 @@ sub_4972A0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004972d0@Vis1200@@QAEHXZ      proc near               ; CODE XREF: sub_48B061+1D3↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+168h] ; varThis
-                call    ?GetMaskId@VirtualProcessor@details@Concurrency@@QBEIXZ_1 ; Concurrency::details::VirtualProcessor::GetMaskId(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004972d0@Vis1200@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -68190,7 +68175,7 @@ var_4           = dword ptr -4
 ; Attributes: library function bp-based frame
 
 ; unsigned int __thiscall Concurrency::details::VirtualProcessor::GetMaskId(Concurrency::details::VirtualProcessor *__hidden varThis)
-?GetMaskId@VirtualProcessor@details@Concurrency@@QBEIXZ_1 proc near
+?FUN_004972f0@Vis1200obj@@QAEHXZ proc near
 
 var_4           = dword ptr -4
 
@@ -68203,7 +68188,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?GetMaskId@VirtualProcessor@details@Concurrency@@QBEIXZ_1 endp
+?FUN_004972f0@Vis1200obj@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
