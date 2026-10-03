@@ -19623,53 +19623,6 @@ sub_43AAE0      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?ReadData@Vis1200obj@@UAEXPBX@Z(LPCSTR lpString)
-?ReadData@Vis1200obj@@UAEXPBX@Z      proc near               ; DATA XREF: .rdata:00609A9C↓o
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-lpString        = dword ptr  8
-
-; FUNCTION CHUNK AT 005F8AD5 SIZE 00000013 BYTES
-
-; __unwind { // SEH_43ACCA
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43ACCA
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_14], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-                mov     [ebp+var_18], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_1C], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 84h        ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 43ACFD
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 43ACCA
-?ReadData@Vis1200obj@@UAEXPBX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -252960,22 +252913,6 @@ SEH_43AA23:                             ; DATA XREF: ?LogMessage@@YAXVCString@@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8A50
 ; END OF FUNCTION CHUNK FOR ?LogMessage@@YAXVCString@@@Z
-; START OF FUNCTION CHUNK FOR ?ReadData@Vis1200obj@@UAEXPBX@Z
-
-loc_5F8AD5:                             ; DATA XREF: .rdata:stru_619250↓o
-; __unwind { // SEH_43ACCA              ; varThis
-;   cleanup() // owned by 43ACFD
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43ACCA:                             ; DATA XREF: ?ReadData@Vis1200obj@@UAEXPBX@Z+5↑o
-                mov     eax, offset stru_619230
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8AD5
-; END OF FUNCTION CHUNK FOR ?ReadData@Vis1200obj@@UAEXPBX@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43AE1C
 
 loc_5F8AE8:                             ; DATA XREF: .rdata:stru_619278↓o
@@ -286274,9 +286211,6 @@ stru_619190     FuncInfoV1 <19930520h, 1, offset stru_6191B0, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_6191B0     UnwindMapEntry <-1, offset loc_5F8A50>
-stru_619230     FuncInfoV1 <19930520h, 1, offset stru_619250, 0, 0, 0, 0>
-                align 10h
-stru_619250     UnwindMapEntry <-1, offset loc_5F8AD5>
 stru_619258     FuncInfoV1 <19930520h, 3, offset stru_619278, 0, 0, 0, 0>
                 db    0
                 db    0
