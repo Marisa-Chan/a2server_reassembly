@@ -5345,6 +5345,59 @@ VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, in
 VisServerScreenRadio::~VisServerScreenRadio() = default;
 
 
+// 4db3ad
+void VisServerScreenRadio::VMethod7()
+{
+    CRect r;
+    this->ClientRectToScreen(&r, this->rect);
+    r.bottom += 4;
+    r.right += 4;
+
+    int32_t txt_x = r.left + gfx_radiob->GetWidth(4) + 6;
+    int32_t y = r.top;
+
+    POINT cursor;
+    GetCursorPos(&cursor);
+
+    LockSurface2();
+
+    this->parent->VMethod8(&r);
+
+    r.bottom -= 4;
+    r.right -= 4;
+
+    for (int32_t i = 0; i < this->entries.GetSize(); i++) {
+        int32_t flag = 1 << i;
+        if (this->selection & flag) {
+            gfx_radiob->VMethod3(r.left + 5, y + 4, 5, 4, 0);
+            gfx_radiob->VMethod2(r.left + 1, y, 5, 0, 0);
+        } else {
+            gfx_radiob->VMethod3(r.left + 5, y + 4, 4, 4, 0);
+            gfx_radiob->VMethod2(r.left + 1, y, 4, 0, 0);
+        }
+
+        CRect entry(r.left, y, r.right, y + gfx_radiob->GetHeight(4));
+        if (entry.PtInRect(cursor)) {
+            this->clr = clrsh_CharlieBrown;
+        } else {
+            this->clr = clrsh_DullGold;
+        }
+
+        this->font->DrawTextWithShadow(txt_x, y + 3, this->entries[i], 0, this->clr, 1);
+
+        y += gfx_radiob->GetHeight(4);
+    }
+
+    if (!this->TestFlags(1)) {
+        CRect r2;
+        this->ClientRectToScreen(&r2, this->rect);
+        ShadowRect(CRect(r2.left - 1, r2.top - 1, r2.right + 1, r2.bottom + 1), 3);
+    }
+
+    UnlockSurface2();
+}
+
+
 // 450280
 VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
     : VisTextBox(_id, r, _font, _clr, hint)
