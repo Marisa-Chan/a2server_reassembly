@@ -23,6 +23,8 @@ extern "C" char unk_659A48[4]; //659a48 zeroed buffer used to clear the server s
 extern "C" char byte_659A34[4]; //659a34 "" hint string of the hat browser OK button
 extern "C" char byte_659A38[4]; //659a38 "" hint string of the hat browser cancel button
 extern "C" char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
+extern "C" char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
+extern "C" char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -23725,6 +23727,31 @@ VisHatBrowserList::VisHatBrowserList(int32_t _id, int32_t l, int32_t t, int32_t 
 // 44ffb0
 VisHatBrowserList::~VisHatBrowserList()
 {
+}
+
+// 44f0e8
+void Vis2Action::VMethod26()
+{
+    VisLabel* label = new VisLabel(1, 0x28, 0x20, 0xE8, 0x50, this->txt, g_font1, p_clrsh_Black, 2);
+    this->AddChild(label);
+
+    CRect ok_rect(
+        this->rect.Width() / 8,
+        this->rect.Height() - 0x60,
+        this->rect.Width() * 7 / 8,
+        this->rect.Height() - 0x48);
+
+    CRect cancel_rect(
+        this->rect.Width() / 8,
+        this->rect.Height() - 0x48,
+        this->rect.Width() * 7 / 8,
+        this->rect.Height() - 0x30);
+
+    MenuButton* ok_btn = new MenuButton(2, ok_rect, txt_dialogs.GetLine(0x2B), g_font1, nullptr, 0x41D, 0x56, byte_659A54);
+    this->AddElement(ok_btn, ok_rect.Height());
+
+    MenuButton* cancel_btn = new MenuButton(3, cancel_rect, txt_dialogs.GetLine(0x9A), g_font1, nullptr, 0x446, 0x43, byte_659A58);
+    this->AddElement(cancel_btn, cancel_rect.Height());
 }
 
 // 44bc6c

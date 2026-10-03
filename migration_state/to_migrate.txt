@@ -9,6 +9,8 @@
 ?INT_00660f90@@3HA
 _byte_666590
 _unk_659A48
+_byte_659A54
+_byte_659A58
 _byte_659A34
 _byte_659A38
 _byte_659A3C
@@ -324,7 +326,6 @@ _byte_659A3C
 ??_GVis2Action@@UAEPAXI@Z	24
 ?MsgProc@Vis2Action@@UAEHIII@Z	25
 ??0Vis2Action@@QAE@HHHHHPBDABVCRect@@@Z	40
-?VMethod26@Vis2Action@@UAEXXZ	213
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127
