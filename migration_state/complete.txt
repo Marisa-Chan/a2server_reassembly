@@ -612,6 +612,7 @@
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisButton@@UAEHIVCPoint@@@Z
 ?OnMouseMove@VisGlobalMap@@UAEHIVCPoint@@@Z

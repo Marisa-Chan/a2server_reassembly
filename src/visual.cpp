@@ -4340,6 +4340,28 @@ int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
+// 4e2c42
+int32_t VisTipsDialog::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        if ((main_wnd->dialogsMask & 2) != 0) {
+            CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
+            if (obj != nullptr) {
+                ((VisShop*)obj)->shop_compass->OnLButtonUp(wparam, pos);
+                return 1;
+            }
+        } else {
+            if (main_wnd->dialogsMask == 1) {
+                main_wnd->vis_map_context->OnLButtonUp(wparam, pos);
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8
