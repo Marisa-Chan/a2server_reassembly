@@ -2159,11 +2159,6 @@ externdef ?VMethod26@VisMissionFailed@@UAEXXZ : proc
 
 ; VisListBoxDiplomacy
 
-; VisNetTcpIp
-externdef ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z : proc
-externdef ??_GVisNetTcpIp@@UAEPAXI@Z : proc
-externdef ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
-externdef ?VMethod31@VisNetTcpIp@@UAEXH@Z : proc
 
 
 externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc

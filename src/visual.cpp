@@ -24198,6 +24198,16 @@ VisCredits::~VisCredits()
     this->FreeContent();
 }
 
+// 449F06
+VisNetTcpIp::VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip)
+    : VisMessageBox(_id, l, t, r, b, (const void*)_ip, txt_dialogs.GetLine(0x74), 1, txt_dialogs.GetLine(0x95))
+{
+    this->ip = _ip;
+}
+
+// 44FD10 (this address is the deleting dtor ??_G; the real dtor sub_44FD40 only calls the base dtor)
+VisNetTcpIp::~VisNetTcpIp() = default;
+
 // 449F67
 void VisNetTcpIp::VMethod31(int32_t code)
 {

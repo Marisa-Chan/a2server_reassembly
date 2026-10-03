@@ -331,8 +331,6 @@ _byte_659A3C
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
 ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
-??_GVisNetTcpIp@@UAEPAXI@Z	24
-??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z	46
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?UpdateCursor@VisSideStatus@@QAEXXZ	146
 ?FUN_004382d9@VisStartGame@@QAEXXZ	18
