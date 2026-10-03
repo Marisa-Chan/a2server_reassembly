@@ -19757,28 +19757,6 @@ sub_43AC08      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0043ac8c@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@Vis1200@@UAEXXZ+35↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+90h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+94h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 70h ; 'p'
-                call    sub_401780
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 84h        ; varThis
-                call    ?Empty@CString@@QAEXXZ ; CString::Empty(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0043ac8c@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
