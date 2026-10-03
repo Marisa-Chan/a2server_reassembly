@@ -9705,6 +9705,47 @@ int32_t VisRightPanel::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
+// 4B4019
+void VisSideStatus::UpdateCursor()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CSprite256* cur_sprite = g_mousept.GetCursorSprite();
+
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    CCursor* new_cursor = nullptr;
+    CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+    if (screen_rect.PtInRect(mouse_pt)) {
+        if (g_mousept.GetX() >= g_ScreenSize.right - 2 && main_wnd->dialogsMask == 1) {
+            if (g_mousept.GetY() == 0) {
+                new_cursor = g_Cursors[CURSOR_ARROW1];
+            } else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
+                new_cursor = g_Cursors[CURSOR_ARROW2];
+            } else {
+                new_cursor = g_Cursors[CURSOR_ARROW3];
+            }
+        } else if (g_mousept.GetY() >= g_ScreenSize.bottom - 2 && main_wnd->dialogsMask == 1) {
+            new_cursor = g_Cursors[CURSOR_ARROW4];
+        } else {
+            if (screen_rect.PtInRect(mouse_pt)) {
+                new_cursor = g_Cursors[CURSOR_DEFAULT];
+            }
+        }
+        if (main_wnd->field_0x408 != nullptr) {
+            new_cursor = main_wnd->item_cursor;
+        }
+    }
+
+    if (new_cursor == nullptr) {
+        return;
+    }
+    if (new_cursor->GetSprite() == cur_sprite) {
+        return;
+    }
+    new_cursor->Use();
+}
+
 // 4B4190
 void VisSideStatus::VMethod7()
 {

@@ -1572,7 +1572,6 @@ extern ?OnKeyDown@VisSpellBook@@UAEHI@Z : proc
 
 
 ;VisSideStatus
-externdef ?UpdateCursor@VisSideStatus@@QAEXXZ : proc  ; void VisSideStatus::UpdateCursor(void)
 
 ;VisStartGameTextBox
 extern ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
