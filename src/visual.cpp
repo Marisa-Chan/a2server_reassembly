@@ -24753,3 +24753,9 @@ int32_t VisListBoxDiplomacy::IsValidIndex(int32_t idx)
 {
     return idx < this->enemy_radios->GetSize();
 }
+
+// 4DD8C5
+int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam)
+{
+    return CVisualObject::OnKeyDown(wparam);
+}
