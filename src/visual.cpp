@@ -5409,6 +5409,30 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
     this->font->DrawTextWithShadow(pos.x, pos.y, txt_patch.GetLine(level + 0x62), 0, clr, 1);
 }
 
+// 44b2bf
+const char* VisNetMapList::GetHint()
+{
+    CRect client;
+    this->ClientRectToScreen(&client, this->rect);
+
+    if (g_mousept.x < client.left + 0x12C) {
+        int32_t idx = this->vis_start_index + this->YToIndex(g_mousept.y);
+        if (!this->IsValidIndex(idx)) {
+            return nullptr;
+        }
+
+        VisNetMapSelection* screen = (VisNetMapSelection*)this->parent;
+        NetMapInfo* info = screen->avail_maps[idx];
+        return info->name;
+    }
+
+    if (g_mousept.x < client.left + 0x180) {
+        return txt_dialogs.GetLine(0x86);
+    }
+
+    return txt_dialogs.GetLine(0x88);
+}
+
 
 // 450920
 VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
