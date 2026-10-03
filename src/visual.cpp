@@ -4429,6 +4429,22 @@ VisTipsDialog::VisTipsDialog(int32_t _id, int32_t l, int32_t t, int32_t r, int32
     this->FUN_004e25c1(l, t, r, b, txt);
 }
 
+// 4e25c1
+void VisTipsDialog::FUN_004e25c1(int32_t l, int32_t t, int32_t r, int32_t b, const char* txt)
+{
+    VisMultiText* multitext = new VisMultiText(0xD, 0x14, 0x18, this->rect.Width() - 0x1C, this->rect.Height() - 0x24, txt, g_font2, clrsh_DullGold, 0);
+    this->AddChild(multitext);
+
+    VisButton* ok_btn = new VisButton(0xE, this->rect.Width() - 0x78, this->rect.Height() - 0x28, this->rect.Width() - 0x28, this->rect.Height() - 0x16, TxtFile::AllLines[0x7F], g_font2, clrsh_DullGold, 0x45A, 0, nullptr);
+    this->AddChild(ok_btn);
+
+    VisServerScreenRadio* radio = new VisServerScreenRadio(0xF, 0x28, this->rect.Height() - 0x28, this->rect.Width() - 0x7C, this->rect.Height() - 0x18, g_font2, clrsh_DullGold, nullptr);
+    radio->AddEntry(TxtFile::AllLines[0x80]);
+    this->AddChild(radio);
+
+    int32_t selected = 1;
+    radio->ReadData(&selected);
+}
 
 // 4e4510
 VisTipsDialog::~VisTipsDialog()

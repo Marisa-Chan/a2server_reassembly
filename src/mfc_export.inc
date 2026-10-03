@@ -2167,7 +2167,6 @@ externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
 ; VisTipsDialog ctor child-ctrl builder (still in asm)
-externdef ?FUN_004e25c1@VisTipsDialog@@QAEXHHHHPBD@Z : proc  ; void VisTipsDialog::FUN_004e25c1(int32_t, int32_t, int32_t, int32_t, const char*)
 
 ; VisHatBrowserList
 extern ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
