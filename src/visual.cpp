@@ -23444,6 +23444,28 @@ VisNetPhoneBook::VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, i
 VisNetPhoneBook::~VisNetPhoneBook() = default;
 
 
+// 44FB80
+int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0x2E) {
+        if (this->selected_index >= 0) {
+            this->RemoveItem(this->selected_index);
+            this->bound_entries->RemoveAt(this->selected_index, 1);
+            if (this->selected_index == this->entries.GetSize()) {
+                this->selected_index--;
+            }
+            VisScrollBar* scrollbar = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
+            if (scrollbar != nullptr && this->selected_index != 0) {
+                scrollbar->SetPos(this->selected_index, this->entries.GetSize());
+            }
+            this->VMethod9();
+        }
+        return 1;
+    }
+    return VisListBox::OnKeyDown(wparam);
+}
+
+
 // 448708
 void VisNetPhoneBook::sub_448708(const char* str)
 {
