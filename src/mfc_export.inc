@@ -1552,7 +1552,6 @@ externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
 
-externdef ?UpdateCursor@VisOrderToolbar@@QAEXXZ : proc  ; void VisOrderToolbar::UpdateCursor(void)
 
 ;VisSpellBook
 extern ??_GVisSpellBook@@UAEPAXI@Z : proc
