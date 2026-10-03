@@ -140,25 +140,85 @@ def parse_headers(files):
                 stack.pop()
 
 
+def param_types(params):
+    return tuple(t for t, _ in params)
+
+
+CPP_ADDR_LINE = re.compile(r"\s*//\s*(?:0x|sub_)?([0-9A-Fa-f]{6})\b.*")
+CPP_DEFN = re.compile(r"^(?![\s#])(?!return\b)[\w:<>\*&\s,~]*?\b([A-Za-z_]\w*)::(~?[A-Za-z_]\w*|operator\S+)\s*\(")
+
+
 def parse_cpp_addrs(files):
-    """Map (cls, name) -> addr from '// ADDR' lines directly above definitions."""
+    """Map (cls, name, param types) -> (addr, prio) for column-0 definitions that carry a '// ADDR'
+    comment directly above them (prio 1) or as the first line of their body (prio 2, less reliable:
+    sometimes it names the callee on the next line)."""
     out = {}
-    defn = re.compile(r"^[\w:<>\*&\s,~]*?\b([A-Za-z_]\w*)::(~?[A-Za-z_]\w*|operator\S+)\s*\(")
     for path in files:
         try:
             lines = open(path, encoding="utf-8", errors="replace").read().splitlines()
         except OSError:
             continue
-        for i, raw in enumerate(lines[:-1]):
-            m = re.fullmatch(r"\s*//\s*(?:0x)?([0-9A-Fa-f]{6})\b.*", raw)
-            if not m:
+        for i, raw in enumerate(lines):
+            dm = CPP_DEFN.match(raw)
+            if not dm:
                 continue
-            for j in range(i + 1, min(i + 3, len(lines))):
-                dm = defn.match(lines[j])
-                if dm:
-                    out.setdefault((dm.group(1), dm.group(2)), m.group(1).upper())
+            # parameter list (may span lines), then the body's '{'
+            k, pos, depth, params = i, dm.end(), 1, ""
+            while depth and k < len(lines) and k < i + 10:
+                text = lines[k].split("//")[0]
+                while pos < len(text) and depth:
+                    ch = text[pos]
+                    depth += (ch == "(") - (ch == ")")
+                    if depth:
+                        params += ch
+                    pos += 1
+                if depth:
+                    params += " "
+                    k, pos = k + 1, 0
+            if depth:
+                continue
+            brace = None
+            defaulted = re.match(r"\s*(?:const\s*)?=\s*default\s*;", lines[k].split("//")[0][pos:])
+            while not defaulted and k < len(lines) and k < i + 10:
+                text = lines[k].split("//")[0][pos:]
+                if ";" in text and "{" not in text.split(";")[0]:
+                    break  # declaration / call, not a definition
+                if "{" in text:
+                    brace = k
                     break
+                k, pos = k + 1, 0
+            if brace is None and not defaulted:
+                continue
+            addr, prio = None, 1
+            for j in (i - 1, i - 2):
+                m = CPP_ADDR_LINE.fullmatch(lines[j]) if j >= 0 else None
+                if m:
+                    addr = m.group(1)
+                    break
+            if not addr and brace is not None:
+                prio = 2
+                after = lines[brace].split("{", 1)[1]
+                m = CPP_ADDR_LINE.fullmatch(after) if after.strip() else None
+                if not m:
+                    nxt = next((l for l in lines[brace + 1:brace + 4] if l.strip()), "")
+                    m = CPP_ADDR_LINE.fullmatch(nxt)
+                if m:
+                    addr = m.group(1)
+            if addr:
+                types = param_types(x for x in (parse_param(p) for p in split_params(params)) if x)
+                key = (dm.group(1), dm.group(2), types)
+                if key not in out or prio < out[key][1]:
+                    out[key] = (addr.upper(), prio)
     return out
+
+
+def lookup_cpp_addr(cpp_addrs, d):
+    hit = cpp_addrs.get((d["cls"], d["name"], param_types(d["params"])))
+    if hit:
+        return hit
+    # parameter spelling differs between header and .cpp: accept only an unambiguous name match
+    cands = [v for (c, n, _), v in cpp_addrs.items() if c == d["cls"] and n == d["name"]]
+    return min(cands, key=lambda v: v[1]) if len({a for a, _ in cands}) == 1 else (None, 0)
 
 
 def call(op, args):
@@ -188,11 +248,13 @@ def main():
     cpp_addrs = parse_cpp_addrs(sorted(glob.glob(os.path.join(SRC, "*.cpp"))))
     decls = list(parse_headers(headers))
     for d in decls:
+        d["prio"] = 0
         if not d["addr"]:
-            d["addr"] = cpp_addrs.get((d["cls"], d["name"]))
+            d["addr"], d["prio"] = lookup_cpp_addr(cpp_addrs, d)
 
+    # on duplicate addresses the most reliable source wins: header > comment above .cpp definition > body comment
     seen, todo, skipped = set(), [], []
-    for d in decls:
+    for d in sorted(decls, key=lambda d: d["prio"]):
         if a.cls and d["cls"] != a.cls:
             continue
         if a.addr and (d["addr"] or "").upper() != a.addr.upper().removeprefix("0X"):

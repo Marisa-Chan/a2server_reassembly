@@ -974,7 +974,7 @@ int32_t Unit::VMethod8()
 
 void Unit::VMethod10()
 {
-    // 52a4fa
+    // 52a504
     if (some_item && ((some_item->item_id >> 8) & 0xF) == 0xE) {
         delete some_item;
         some_item = nullptr;

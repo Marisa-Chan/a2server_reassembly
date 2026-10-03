@@ -274,12 +274,24 @@ def _clean_c(text):
 
 # -- read ops --------------------------------------------------------------
 
+def _ret_text(ctx, body):
+    """Distinct RET forms in the body, e.g. 'ret 0x8' - the stack bytes the callee pops."""
+    rets = []
+    for ins in ctx.program.getListing().getInstructions(body, True):
+        if str(ins.getMnemonicString()).upper() == "RET":
+            n = ins.getScalar(0) if ins.getNumOperands() else None
+            t = f"ret {n.getUnsignedValue():#x}" if n is not None else "ret"
+            if t not in rets:
+                rets.append(t)
+    return ", ".join(rets) if rets else "no ret"
+
+
 def op_info(ctx, target):
     f = ctx.function(target)
     a = f.getEntryPoint()
     body = f.getBody()
     lines = [_fmt_func_header(f), "proto: " + _proto(f),
-             f"cc: {f.getCallingConventionName()}   size: {body.getNumAddresses()} bytes   range: {body.getMinAddress()}-{body.getMaxAddress()}",
+             f"cc: {f.getCallingConventionName()} ({_ret_text(ctx, body)})   size: {body.getNumAddresses()} bytes   range: {body.getMinAddress()}-{body.getMaxAddress()}",
              f"signature source: {f.getSignatureSource()}"]
     syms = [str(s.getName(True)) + ("" if s.isPrimary() else " (secondary)") for s in ctx.st.getSymbols(a)]
     lines.append("symbols: " + ", ".join(syms))
