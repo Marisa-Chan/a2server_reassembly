@@ -1499,6 +1499,7 @@ externdef ?DoClose@Vis1200@@UAEXI@Z : proc
 externdef ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z : proc  ; Vis1200obj::Vis1200obj(int,int,int,int,int,CGameFont*,uint16_t*,const char*)
 externdef ?FUN_0043ad86@Vis1200obj@@QAEXXZ : proc  ; void Vis1200obj::FUN_0043ad86(void)
 externdef ?FUN_0043ada3@Vis1200obj@@QAEXXZ : proc  ; void Vis1200obj::FUN_0043ada3(void)
+externdef ?FUN_0043ac8c@Vis1200obj@@QAEXXZ : proc  ; void Vis1200obj::FUN_0043ac8c(void)
 ;VisDropGold
 externdef ??_GVisDropGold@@UAEPAXI@Z : proc
 externdef ?VMethod9@VisDropGold@@UAEXXZ : proc

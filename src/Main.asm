@@ -20442,7 +20442,7 @@ sub_43AC08      endp
 
 ; Attributes: bp-based frame
 
-sub_43AC8C      proc near               ; CODE XREF: ?VMethod28@Vis1200@@UAEXXZ+35↓p
+?FUN_0043ac8c@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@Vis1200@@UAEXXZ+35↓p
 
 var_4           = dword ptr -4
 
@@ -20463,7 +20463,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43AC8C      endp
+?FUN_0043ac8c@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -22153,38 +22153,6 @@ sub_43BBDC      endp
 
 ; Attributes: bp-based frame
 
-?VMethod28@Vis1200@@UAEXXZ      proc near               ; DATA XREF: .rdata:00609B50↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     dword ptr [eax+0C0h], 1
-                push    100h            ; varSize
-                push    0               ; Val
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 68h ; 'h'
-                push    eax             ; void *
-                call    _memset
-                add     esp, 0Ch
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+168h]
-                call    sub_43AC8C
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod28@VisScreen@@UAEXXZ
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+16Ch], 1
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+168h]
-                mov     [edx+98h], eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod28@Vis1200@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

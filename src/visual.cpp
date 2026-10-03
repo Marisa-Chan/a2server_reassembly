@@ -24058,3 +24058,15 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam)
     }
     return VisScreen::OnKeyDown(wparam);
 }
+
+// 43BD2E
+void Vis1200::VMethod28()
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    main_wnd->field_0xc0 = 1;
+    memset(this->buffer, 0, 0x100);
+    this->text_block->FUN_0043ac8c();
+    VisScreen::VMethod28();
+    this->active = 1;
+    this->text_block->field_0x98 = timeGetTime();
+}
