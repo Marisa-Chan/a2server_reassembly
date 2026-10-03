@@ -23310,7 +23310,7 @@ byte_44C5F5     db      0,     1,     2,     7
 
 ; Attributes: bp-based frame
 
-sub_44C63D      proc near               ; DATA XREF: .rdata:0060ABDC↓o
+?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z      proc near               ; DATA XREF: .rdata:0060ABDC↓o
 
 var_38          = dword ptr -38h
 var_34          = dword ptr -34h
@@ -23399,11 +23399,11 @@ arg_8           = dword ptr  10h
                 call    SetRcSrc_4549BA
                 add     esp, 4
 
-loc_44C717:                             ; CODE XREF: sub_44C63D+1A↑j
+loc_44C717:                             ; CODE XREF: ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z+1A↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    10h
-sub_44C63D      endp
+?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -24969,148 +24969,6 @@ var_4           = dword ptr -4
                 pop     ebp
                 retn
 sub_450060      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z(int, RECT *lprcSrc, int, int, int, int, LPCSTR lpString)
-??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+386↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-arg_14          = dword ptr  1Ch
-lpString        = dword ptr  20h
-
-; FUNCTION CHUNK AT 005F9C20 SIZE 00000013 BYTES
-
-; __unwind { // SEH_450080
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_450080
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_14]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+arg_C]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+lprcSrc]
-                push    edx             ; lprcSrc
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0VisListBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_5DB48B
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx], offset off_60AB60
-;   } // starts at 4500C0
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    1Ch
-; } // starts at 450080
-??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450100      proc near               ; DATA XREF: .rdata:0060AB64↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_450130
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_450122
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_450122:                             ; CODE XREF: sub_450100+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_450100      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450130      proc near               ; CODE XREF: sub_450100+A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9C40 SIZE 00000013 BYTES
-
-; __unwind { // SEH_450130
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_450130
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 94h
-                call    sub_5DB4BE
-;   } // starts at 45014C
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 450130
-sub_450130      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -253134,41 +252992,6 @@ SEH_44FE40:                             ; DATA XREF: sub_44FE40+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9C00
 ; END OF FUNCTION CHUNK FOR sub_44FE40
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-
-loc_5F9C20:                             ; DATA XREF: .rdata:stru_61A6C8↓o
-; __unwind { // SEH_450080
-;   cleanup() // owned by 4500C0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_450080:                             ; DATA XREF: ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+5↑o
-                mov     eax, offset stru_61A6A8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9C20
-; END OF FUNCTION CHUNK FOR ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR sub_450130
-
-loc_5F9C40:                             ; DATA XREF: .rdata:stru_61A6F0↓o
-; __unwind { // SEH_450130
-;   cleanup() // owned by 45014C
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1VisListBox@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_450130:                             ; DATA XREF: sub_450130+5↑o
-                mov     eax, offset stru_61A6D0
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9C40
-; END OF FUNCTION CHUNK FOR sub_450130
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z
 
@@ -272819,41 +272642,6 @@ off_60AAD0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?GetItemCount@VisListBox@@UAEHXZ
                 dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 10h
-off_60AB60      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+58↑o
-                dd offset sub_450100
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisListBox@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@VisListBox@@UAEXPAX@Z
-                dd offset ?DataSize@VisListBox@@UAEIXZ ; MFC 3.1-14.0 32bit
-                dd offset ?ReadData@VisListBox@@UAEXPBX@Z
-                dd offset ?MsgProc@VisListBox@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisListBox@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?IsValidIndex@VisListBox@@UAEHH@Z
-                dd offset sub_44C63D
-                dd offset ?SelectItem@VisListBox@@UAEXH@Z
-                dd offset ?GetItemCount@VisListBox@@UAEHXZ
-                dd offset ?VMethod30@VisListBox@@UAEXVCPoint@@ABVCRect@@@Z
                 align 10h
 off_60ABF0      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z+58↑o
                 dd offset sub_450200
@@ -285020,18 +284808,6 @@ stru_61A678     FuncInfoV1 <19930520h, 2, offset stru_61A698, 0, 0, 0, 0>
                 db    0
 stru_61A698     UnwindMapEntry <-1, offset loc_5F9C00>
                 UnwindMapEntry <0, offset unknown_libname_977> ; MFC 3.1-14.0 32bit
-stru_61A6A8     FuncInfoV1 <19930520h, 1, offset stru_61A6C8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A6C8     UnwindMapEntry <-1, offset loc_5F9C20>
-stru_61A6D0     FuncInfoV1 <19930520h, 1, offset stru_61A6F0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61A6F0     UnwindMapEntry <-1, offset loc_5F9C40>
 stru_61A6F8     FuncInfoV1 <19930520h, 1, offset stru_61A718, 0, 0, 0, 0>
                 db    0
                 db    0

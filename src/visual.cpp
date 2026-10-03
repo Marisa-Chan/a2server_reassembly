@@ -5300,6 +5300,17 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
 }
 
 
+// 450080 (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
+VisNetChatList::VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
+    : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint)
+{
+}
+
+
+// 450100 (deleting dtor ??_G; the complete dtor 450130 only destroys `colors` and the base)
+VisNetChatList::~VisNetChatList() = default;
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

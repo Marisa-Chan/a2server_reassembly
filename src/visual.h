@@ -3502,7 +3502,11 @@ ASSERT_SIZE(VisNetMapList, 0x98);
 class VisNetChatList : public VisListBox
 {
 public:
+	virtual ~VisNetChatList(); // 450100 (complete dtor 450130)
+
 	VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // 450080 in asm
+
+	virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 44c63d in asm
 
 	CPtrArray colors; // 0x94
 };
