@@ -2157,10 +2157,6 @@ externdef ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z : proc
 externdef ??_GVisMissionFailed@@UAEPAXI@Z : proc
 externdef ?VMethod26@VisMissionFailed@@UAEXXZ : proc
 
-; VisCutScenesDlg
-externdef ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z : proc
-externdef ??_GVisCutScenesDlg@@UAEPAXI@Z : proc
-externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 
 ; VisListBoxDiplomacy
 

@@ -3992,6 +3992,15 @@ CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
 }
 
 
+// 44EABB
+VisCutScenesDlg::VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload)
+    : VisMessageBox(_id, l, t, r, b, (const void*)&_payload, nullptr, 1, txt_dialogs.GetLine(0x99))
+{
+}
+
+// 450B50 (this address is the deleting dtor ??_G; the real dtor sub_450B80 only calls the base dtor)
+VisCutScenesDlg::~VisCutScenesDlg() = default;
+
 // 44EB08
 CVisualObject* VisCutScenesDlg::VMethod30(const void* data, const RECT& r)
 {
