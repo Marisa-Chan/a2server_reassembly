@@ -24661,3 +24661,33 @@ void VisListBoxDiplomacy::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
         this->mute_radios->ElementAt(idx)->VMethod7();
     }
 }
+
+// 4DD7F3
+int32_t VisListBoxDiplomacy::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    int32_t count = this->diplomacy->GetSize();
+
+    if (msg == 0x46e) {
+        if ((int32_t)wparam < count * 2) {
+            CVisualObject* radio = this->FindChild(wparam);
+            CVisualObject* other_radio = this->FindChild((wparam + count) % (count << 1));
+
+            int32_t state = 0;
+            int32_t other_state = 0;
+            radio->WriteData(&state);
+            other_radio->WriteData(&other_state);
+
+            if (state != 0 && other_state != 0) {
+                other_state = 0;
+                other_radio->ReadData(&other_state);
+                other_radio->VMethod9();
+            }
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    return VisListBox::MsgProc(msg, wparam, lparam);
+}
