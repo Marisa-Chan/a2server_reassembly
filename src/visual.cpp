@@ -24245,3 +24245,27 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     }
     return result;
 }
+
+// 4B0D9A
+const char* VisOrderToolbar::GetHint()
+{
+    if (this->enabled != 0) {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        if ((main_wnd->dialogsMask & 0xe) == 0 && main_wnd->field_0x408 == nullptr) {
+            CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
+            CRect screen_rect;
+            this->ClientRectToScreen(&screen_rect, this->rect);
+            for (int32_t i = 0; i < 8; i++) {
+                if ((this->avail_orders_mask & (1 << i)) != 0) {
+                    int32_t x = screen_rect.left + 8 + (i & 3) * 0x22;
+                    int32_t y = screen_rect.top + 7 + (i >> 2) * 0x22;
+                    CRect rc(x, y, x + 0x22, y + 0x22);
+                    if (rc.PtInRect(mouse_pt) != 0) {
+                        return TxtFile::AllLines[i];
+                    }
+                }
+            }
+        }
+    }
+    return nullptr;
+}

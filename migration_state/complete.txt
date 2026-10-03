@@ -464,6 +464,7 @@
 ?GetHint@VisInvExtType2@@UAEPBDXZ
 ?GetHint@VisInvExtType3@@UAEPBDXZ
 ?GetHint@VisInvType1@@UAEPBDXZ
+?GetHint@VisOrderToolbar@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisSpellBook@@UAEPBDXZ
 ?GetHint@VisStartGame@@UAEPBDXZ

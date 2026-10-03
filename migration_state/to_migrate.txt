@@ -374,7 +374,6 @@ _byte_659A3C
 ?OnMouseMove@VisOrderToolbar@@UAEHIVCPoint@@@Z	31
 ??0VisOrderToolbar@@QAE@HHHHH@Z	38
 ?UpdateCursor@VisOrderToolbar@@QAEXXZ	131
-?GetHint@VisOrderToolbar@@UAEPBDXZ	138
 ?VMethod7@VisRightPanel@@UAEXXZ	13
 ??_GVisRightPanel@@UAEPAXI@Z	24
 ??0VisRightPanel@@QAE@HHHHH@Z	32
