@@ -381,10 +381,6 @@ _unk_659A48
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50
 ??0VisNetPlayerList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
-??_GVisNetSerialSettings@@UAEPAXI@Z	24
-??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z	36
-?MsgProc@VisNetSerialSettings@@UAEHIII@Z	169
-?VMethod26@VisNetSerialSettings@@UAEXXZ	999
 ??_GVisNetTcpIp@@UAEPAXI@Z	24
 ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z	46
 ?VMethod31@VisNetTcpIp@@UAEXH@Z	58

@@ -2236,12 +2236,6 @@ externdef ??_GVisNetTcpIp@@UAEPAXI@Z : proc
 externdef ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisNetTcpIp@@UAEXH@Z : proc
 
-; VisNetSerialSettings
-externdef ??0VisNetSerialSettings@@QAE@HHHHHPAUComSettings@@@Z : proc
-externdef ??_GVisNetSerialSettings@@UAEPAXI@Z : proc
-externdef ?MsgProc@VisNetSerialSettings@@UAEHIII@Z : proc
-externdef ?VMethod26@VisNetSerialSettings@@UAEXXZ : proc
-
 ; VisListBoxPhoneBook
 externdef ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z : proc  ; VisListBoxPhoneBook::VisListBoxPhoneBook(int,const RECT&,CGameFont*,uint16_t*,uint16_t*,int,const char*,CStringArray*)
 externdef ??1VisListBoxPhoneBook@@UAE@XZ : proc  ; virtual VisListBoxPhoneBook::~VisListBoxPhoneBook()

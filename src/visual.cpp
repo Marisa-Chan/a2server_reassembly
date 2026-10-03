@@ -23159,3 +23159,262 @@ void VisNetPhoneBook::sub_448708(const char* str)
     }
     connect_btn->VMethod9();
 }
+
+
+// 448cd5
+VisNetSerialSettings::VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, ComSettings* _com)
+: VisWindow(_id, l, t, r, b, nullptr)
+{
+    this->pcom = _com;
+}
+
+
+// 44fcc0 (deleting dtor ??_G; the complete dtor sub_44fcf0 only calls the base dtor)
+VisNetSerialSettings::~VisNetSerialSettings() = default;
+
+
+// 449903
+void VisNetSerialSettings::SaveComSettings()
+{
+    char buffer[64];
+
+    CVisualObject* obj = this->FindChild(1);
+    obj->WriteData(buffer);
+    this->pcom->index = atoi(buffer + 3);
+
+    obj = this->FindChild(2);
+    obj->WriteData(buffer);
+    this->pcom->speed = atoi(buffer);
+
+    obj = this->FindChild(3);
+    obj->WriteData(buffer);
+    if (strcmp(buffer, txt_dialogs.GetLine(0x62)) == 0) {
+        this->pcom->stop_bits = 0;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x63)) == 0) {
+        this->pcom->stop_bits = 1;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x64)) == 0) {
+        this->pcom->stop_bits = 2;
+    }
+
+    obj = this->FindChild(4);
+    obj->WriteData(buffer);
+    if (strcmp(buffer, txt_dialogs.GetLine(0x5e)) == 0) {
+        this->pcom->parity = 0;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x5f)) == 0) {
+        this->pcom->parity = 1;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x60)) == 0) {
+        this->pcom->parity = 2;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x61)) == 0) {
+        this->pcom->parity = 3;
+    }
+
+    obj = this->FindChild(5);
+    obj->WriteData(buffer);
+    if (strcmp(buffer, txt_dialogs.GetLine(0x69)) == 0) {
+        this->pcom->flow_control = 4;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x65)) == 0) {
+        this->pcom->flow_control = 2;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x66)) == 0) {
+        this->pcom->flow_control = 3;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x67)) == 0) {
+        this->pcom->flow_control = 0;
+    } else if (strcmp(buffer, txt_dialogs.GetLine(0x68)) == 0) {
+        this->pcom->flow_control = 1;
+    }
+}
+
+
+// 448d15
+void VisNetSerialSettings::VMethod26()
+{
+    VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
+        txt_dialogs.GetLine(0x94), g_font1, p_clrsh_Black, 2);
+    this->AddChild(title);
+
+    CRect rc(0x28, 0x38, 0xd0, 0x3c);
+
+    VisLabel* com_label = new VisLabel(0x1e, rc, txt_dialogs.GetLine(0x6a), g_font1, p_clrsh_Black, 0);
+    this->AddChild(com_label);
+    rc.OffsetRect(0, 0x28);
+
+    VisLabel* speed_label = new VisLabel(0x1f, rc, txt_dialogs.GetLine(0x6b), g_font1, p_clrsh_Black, 0);
+    this->AddChild(speed_label);
+    rc.OffsetRect(0, 0x28);
+
+    VisLabel* parity_label = new VisLabel(0x20, rc, txt_dialogs.GetLine(0x6c), g_font1, p_clrsh_Black, 0);
+    this->AddChild(parity_label);
+    rc.OffsetRect(0, 0x28);
+
+    VisLabel* flow_label = new VisLabel(0x21, rc, txt_dialogs.GetLine(0x6d), g_font1, p_clrsh_Black, 0);
+    this->AddChild(flow_label);
+    rc.OffsetRect(0, 0x28);
+
+    VisLabel* stop_label = new VisLabel(0x22, rc, txt_dialogs.GetLine(0x6e), g_font1, p_clrsh_Black, 0);
+    this->AddChild(stop_label);
+
+    VisComboBox* com_combo = new VisComboBox(1, CRect(0xe4, 0x38, this->rect.Width() - 0x2c, 0xb0),
+        txt_dialogs.GetLine(0x6f));
+    this->AddChild(com_combo);
+    com_combo->AddItem("COM1");
+    com_combo->AddItem("COM2");
+    com_combo->AddItem("COM3");
+    com_combo->AddItem("COM4");
+    com_combo->SelectItem(this->pcom->index - 1);
+
+    CRect rc2(com_combo->GetRect());
+    rc2.OffsetRect(0, 0x28);
+    rc2.bottom = rc2.top + 0xc0;
+
+    VisComboBox* speed_combo = new VisComboBox(2, rc2, txt_dialogs.GetLine(0x70));
+    this->AddChild(speed_combo);
+    speed_combo->AddItem("14400");
+    speed_combo->AddItem("19200");
+    speed_combo->AddItem("38400");
+    speed_combo->AddItem("56000");
+    speed_combo->AddItem("57600");
+    speed_combo->AddItem("115200");
+    speed_combo->AddItem("128000");
+    speed_combo->AddItem("256000");
+    switch (this->pcom->speed) {
+    case 14400:
+        speed_combo->SelectItem(0);
+        break;
+    case 19200:
+        speed_combo->SelectItem(1);
+        break;
+    case 38400:
+        speed_combo->SelectItem(2);
+        break;
+    case 56000:
+        speed_combo->SelectItem(3);
+        break;
+    case 57600:
+        speed_combo->SelectItem(4);
+        break;
+    case 115200:
+        speed_combo->SelectItem(5);
+        break;
+    case 128000:
+        speed_combo->SelectItem(6);
+        break;
+    case 256000:
+        speed_combo->SelectItem(7);
+        break;
+    default:
+        speed_combo->SelectItem(0);
+        break;
+    }
+
+    rc2.OffsetRect(0, 0x28);
+    rc2.bottom = rc2.top + 0x78;
+
+    VisComboBox* parity_combo = new VisComboBox(4, rc2, txt_dialogs.GetLine(0x71));
+    this->AddChild(parity_combo);
+    parity_combo->AddItem(txt_dialogs.GetLine(0x5e));
+    parity_combo->AddItem(txt_dialogs.GetLine(0x5f));
+    parity_combo->AddItem(txt_dialogs.GetLine(0x60));
+    parity_combo->AddItem(txt_dialogs.GetLine(0x61));
+    parity_combo->SelectItem(this->pcom->parity);
+
+    rc2.OffsetRect(0, 0x28);
+    rc2.bottom = rc2.top + 0x78;
+
+    VisComboBox* flow_combo = new VisComboBox(5, rc2, txt_dialogs.GetLine(0x72));
+    this->AddChild(flow_combo);
+    flow_combo->AddItem(txt_dialogs.GetLine(0x67));
+    flow_combo->AddItem(txt_dialogs.GetLine(0x68));
+    flow_combo->AddItem(txt_dialogs.GetLine(0x65));
+    flow_combo->AddItem(txt_dialogs.GetLine(0x66));
+    flow_combo->AddItem(txt_dialogs.GetLine(0x69));
+    flow_combo->SelectItem(this->pcom->flow_control);
+
+    rc2.OffsetRect(0, 0x28);
+    rc2.bottom = rc2.top + 0x48;
+
+    VisComboBox* stop_combo = new VisComboBox(3, rc2, txt_dialogs.GetLine(0x73));
+    this->AddChild(stop_combo);
+    stop_combo->AddItem(txt_dialogs.GetLine(0x62));
+    stop_combo->AddItem(txt_dialogs.GetLine(0x63));
+    stop_combo->AddItem(txt_dialogs.GetLine(0x64));
+    stop_combo->SelectItem(this->pcom->stop_bits);
+
+    CRect btn_rc(60, 272, 321, 296);
+
+    VisButton* join_btn = new VisButton(10, btn_rc, txt_dialogs.GetLine(0x7a), g_font1, nullptr, 0x480, 0,
+        txt_dialogs.GetLine(0x80));
+    this->AddChild(join_btn);
+    btn_rc.OffsetRect(0, 0x1e);
+
+    VisButton* host_btn = new VisButton(0xb, btn_rc, txt_dialogs.GetLine(0x7b), g_font1, nullptr, 0x481, 0,
+        txt_dialogs.GetLine(0x81));
+    this->AddChild(host_btn);
+    if (g_IsCdPresent == 0) {
+        host_btn->ChangeFlags(1, false);
+    }
+    btn_rc.OffsetRect(0, 0x1e);
+
+    this->FindChild(0xb)->SetUpObj(this->FindChild(10));
+
+    VisButton* reconnect_btn = new VisButton(0xc, btn_rc, txt_dialogs.GetLine(0x82), g_font1, nullptr, 0x483, 0,
+        txt_dialogs.GetLine(0x83));
+    this->AddChild(reconnect_btn);
+    btn_rc.OffsetRect(0, 0x1e);
+
+    this->FindChild(0xc)->SetUpObj(this->FindChild(0xb));
+
+    VisButton* back_btn = new VisButton(0xd, btn_rc, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
+    this->AddChild(back_btn);
+
+    this->FindChild(0xd)->SetUpObj(this->FindChild(0xc));
+}
+
+
+// 449c98
+int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    switch (msg) {
+    case 0x446: {
+        int32_t result = VisScreen::MsgProc(msg, wparam, lparam);
+        AfxGetMainWnd()->PostMessage(0x451, 0, 0);
+        return result;
+    }
+    case 0x480: {
+        this->SaveComSettings();
+
+        CLlAddress addr;
+        addr.com = *this->pcom;
+        if (g_CLlDriver.PrepareForConnect("", &addr) != 0) {
+            AfxGetMainWnd()->PostMessage(0x452, 0, 0);
+            VisScreen::MsgProc(0x445, 0, 0);
+        }
+        return 1;
+    }
+    case 0x481: {
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+        this->SaveComSettings();
+
+        CLlAddress addr;
+        addr.com = *this->pcom;
+        if (g_CLlDriver.StartServer(2, main_wnd->m_GameSession.character_name, &addr) != 0) {
+            VisScreen::MsgProc(0x445, 0, 0);
+            main_wnd->PostMessage(0x482, 0, 0);
+        }
+        return 1;
+    }
+    case 0x483: {
+        this->DestroyAllChilds();
+        this->cursor_over_obj_last = nullptr;
+        this->cursor_over_obj = nullptr;
+        this->last_focus_obj = nullptr;
+        this->focus_obj = nullptr;
+        this->VMethod26();
+
+        this->FocusTo(this->FindChild(0xc), false);
+        this->VMethod9();
+        return 1;
+    }
+    default:
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}

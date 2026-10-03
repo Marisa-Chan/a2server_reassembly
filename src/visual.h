@@ -3373,6 +3373,8 @@ public:
 	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 449C98
 	virtual void VMethod26() override; // 448D15
 
+	void SaveComSettings(); //449903
+
 	VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, ComSettings* _com); //448cd5
 
 public:
