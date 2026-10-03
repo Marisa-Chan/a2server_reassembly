@@ -361,11 +361,12 @@ _byte_659A3C
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?sub_4BAD1D@VisShop@@QAEXXZ	71
 ?UpdateCursor@VisSideStatus@@QAEXXZ	146
+?FUN_004382d9@VisStartGame@@QAEXXZ	18
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z	17
 ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ	23
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26
 ?OnChar@VisStartGameTextBox@@UAEHI@Z	33
-?OnKeyDown@VisStartGameTextBox@@UAEHI@Z	34
+?FUN_00432b80@VisStartGameTextBox@@QAEXXZ	54
 ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?SetText@VisTipsDialog@@QAEXPBD@Z	19
 ??_GVisTipsDialog@@UAEPAXI@Z	24

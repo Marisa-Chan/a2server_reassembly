@@ -24571,3 +24571,14 @@ int32_t VisStartGameTextBox::OnLButtonDown(uint32_t wparam, CPoint pos)
 
     return 0;
 }
+
+// 432CE3
+int32_t VisStartGameTextBox::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == VK_BACK) {
+        this->FUN_00432b80();
+        return 1;
+    }
+
+    return CVisualObject::OnKeyDown(wparam);
+}

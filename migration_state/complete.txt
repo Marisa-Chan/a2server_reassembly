@@ -568,6 +568,7 @@
 ?OnKeyDown@VisScreen@@UAEHI@Z
 ?OnKeyDown@VisSpellBook@@UAEHI@Z
 ?OnKeyDown@VisStartGame@@UAEHI@Z
+?OnKeyDown@VisStartGameTextBox@@UAEHI@Z
 ?OnKeyDown@VisTextBox@@UAEHI@Z
 ?OnKeyDown@VisWindow@@UAEHI@Z
 ?OnKeyUp@CVisualObject@@UAEHI@Z

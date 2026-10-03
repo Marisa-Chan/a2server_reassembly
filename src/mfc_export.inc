@@ -1509,6 +1509,7 @@ extern ?FreeSamples@VisStartGame@@QAEXXZ  : proc
 extern ?FreeBitmaps@VisStartGame@@QAEXXZ  : proc
 extern ?VMethod28@VisStartGame@@UAEXXZ  : proc
 extern ?DoClose@VisStartGame@@UAEXI@Z  : proc
+externdef ?FUN_004382d9@VisStartGame@@QAEXXZ : proc  ; void VisStartGame::FUN_004382d9(void)  //4382d9 in asm
 
 ;Vis1200
 externdef  ?FUN_0043be9f@Vis1200@@QAEXXZ : proc
@@ -1593,7 +1594,8 @@ externdef ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGameTextBox@@UAEXXZ : proc
 extern ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
-externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
+extern ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
+externdef ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ : proc  ; void VisStartGameTextBox::FUN_00432b80(void)  //432b80 in asm
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc
 externdef ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z : proc

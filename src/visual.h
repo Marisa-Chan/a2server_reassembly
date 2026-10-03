@@ -2714,6 +2714,8 @@ public:
 	CString GetText(); // 438d80
 	void SetText(const CString& text); // 432c03
 
+	void FUN_00432b80(); //432b80 in asm
+
 public:
 	VisStartGame* screen;
 	CString text;
@@ -2750,6 +2752,8 @@ public:
 	void UpdateTipsProgress(uint32_t hotspot); // 437c25
 	void Accept(); // 43817d
 	void Cancel(); // 4382a9
+
+	void FUN_004382d9(); //4382d9 in asm
 
 	void ClearDifficultySelectedFlags(); // 435743
 	void ClearPortraitSelectedFlags(); // 43578c

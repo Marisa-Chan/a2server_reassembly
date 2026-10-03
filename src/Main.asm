@@ -16667,7 +16667,7 @@ arg_0           = dword ptr  8
                 jl      short loc_432B7A
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+5Ch]
-                call    sub_4382D9
+                call    ?FUN_004382d9@VisStartGame@@QAEXXZ
                 xor     ecx, ecx
                 mov     cl, byte ptr [ebp+arg_0]
                 push    ecx             ; Src
@@ -16686,7 +16686,7 @@ sub_432B33      endp
 
 ; Attributes: bp-based frame
 
-sub_432B80      proc near               ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+1A↓p
+?FUN_00432b80@VisStartGameTextBox@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+1A↓p
 
 var_1C          = dword ptr -1Ch
 var_18          = dword ptr -18h
@@ -16733,14 +16733,14 @@ var_4           = dword ptr -4
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 mov     eax, dword ptr [ebp+var_14]
                 mov     ecx, dword ptr [eax+5Ch]
-                call    sub_4382D9
+                call    ?FUN_004382d9@VisStartGame@@QAEXXZ
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 432B80
-sub_432B80      endp
+?FUN_00432b80@VisStartGameTextBox@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16784,41 +16784,6 @@ arg_0           = dword ptr  8
 ; Attributes: bp-based frame
 
 ; int __stdcall ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z(struct type_info *)
-?OnKeyDown@VisStartGameTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060998C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 8
-                jz      short loc_432CFA
-                jmp     short loc_432D09
-; ---------------------------------------------------------------------------
-
-loc_432CFA:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+13↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_432B80
-                mov     eax, 1
-                jmp     short loc_432D15
-; ---------------------------------------------------------------------------
-
-loc_432D09:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+15↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; struct type_info *
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?OnKeyDown@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-
-loc_432D15:                             ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+24↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisStartGameTextBox@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16904,7 +16869,7 @@ loc_432ECE:                             ; CODE XREF: ?GetHint@VisStartGameTextBo
 
 ; Attributes: bp-based frame
 
-sub_4382D9      proc near               ; CODE XREF: sub_432B33+31↑p
+?FUN_004382d9@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: sub_432B33+31↑p
 
 var_4           = dword ptr -4
 
@@ -16922,7 +16887,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4382D9      endp
+?FUN_004382d9@VisStartGame@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -257192,7 +257157,7 @@ SEH_432A7D:                             ; DATA XREF: CSessionMapPtrToPtr::~CSess
 ; } // starts at 5F8378
 ; END OF FUNCTION CHUNK FOR CSessionMapPtrToPtr::~CSessionMapPtrToPtr(void)
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_432B80
+; START OF FUNCTION CHUNK FOR ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
 
 loc_5F838B:                             ; DATA XREF: .rdata:stru_618B50↓o
 ; __unwind { // SEH_432B80              ; varThis
@@ -257202,11 +257167,11 @@ loc_5F838B:                             ; DATA XREF: .rdata:stru_618B50↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_432B80:                             ; DATA XREF: sub_432B80+5↑o
+SEH_432B80:                             ; DATA XREF: ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ+5↑o
                 mov     eax, offset stru_618B30
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F838B
-; END OF FUNCTION CHUNK FOR sub_432B80
+; END OF FUNCTION CHUNK FOR ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
