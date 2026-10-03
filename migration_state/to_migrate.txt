@@ -370,7 +370,6 @@ _byte_659A3C
 ?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z	22
 ?OnLButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z	24
 ?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z	25
-?OnMouseMove@VisOrderToolbar@@UAEHIVCPoint@@@Z	31
 ?UpdateCursor@VisOrderToolbar@@QAEXXZ	131
 ?VMethod7@VisRightPanel@@UAEXXZ	13
 ??_GVisRightPanel@@UAEPAXI@Z	24

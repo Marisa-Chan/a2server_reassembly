@@ -24283,3 +24283,12 @@ VisOrderToolbar::VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, i
 VisOrderToolbar::~VisOrderToolbar()
 {
 }
+
+// 4B12B3
+int32_t VisOrderToolbar::OnMouseMove(uint32_t wparam, CPoint pos)
+{
+    if ((wparam & 1) != 0) {
+        this->OnLButtonDown(wparam, pos);
+    }
+    return 0;
+}
