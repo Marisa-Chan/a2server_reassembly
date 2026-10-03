@@ -25050,6 +25050,13 @@ void VisStartGameTextBox::SetText(const CString& text)
     this->text = text;
 }
 
+// 432B80
+void VisStartGameTextBox::FUN_00432b80()
+{
+    this->text = this->text.Left(this->text.GetLength() - 1);
+    this->screen->FUN_004382d9();
+}
+
 // 4329F9
 VisStartGameTextBox::VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen)
     : CVisualObject(_id, l, t, r, b, nullptr)

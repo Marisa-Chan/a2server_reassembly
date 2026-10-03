@@ -16542,61 +16542,6 @@ loc_432B7A:                             ; CODE XREF: ?FUN_00432b33@VisStartGameT
 
 ; Attributes: bp-based frame
 
-?FUN_00432b80@VisStartGameTextBox@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z+1A↓p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F838B SIZE 00000013 BYTES
-
-; __unwind { // SEH_432B80
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_432B80
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_14], ecx
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 60h ; '`'
-                call    sub_4029A0
-                sub     eax, 1
-                push    eax
-                lea     eax, [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 60h ; '`'
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_18], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_1C], ecx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 60h ; '`'  ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 432BC5
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+5Ch]
-                call    ?FUN_004382d9@VisStartGame@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 432B80
-?FUN_00432b80@VisStartGameTextBox@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -253654,22 +253599,6 @@ SEH_428BF0:                             ; DATA XREF: sub_428BF0+5↑o
 ; } // starts at 5F7C10
 ; END OF FUNCTION CHUNK FOR sub_428BF0
 ; END OF FUNCTION CHUNK FOR CSessionMapPtrToPtr::~CSessionMapPtrToPtr(void)
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
-
-loc_5F838B:                             ; DATA XREF: .rdata:stru_618B50↓o
-; __unwind { // SEH_432B80              ; varThis
-;   cleanup() // owned by 432BC5
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_432B80:                             ; DATA XREF: ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ+5↑o
-                mov     eax, offset stru_618B30
-                jmp     ___CxxFrameHandler
-; } // starts at 5F838B
-; END OF FUNCTION CHUNK FOR ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -287325,12 +287254,6 @@ stru_618170     FuncInfoV1 <19930520h, 1, offset stru_618190, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618190     UnwindMapEntry <-1, offset loc_5F7C10>
-stru_618B30     FuncInfoV1 <19930520h, 1, offset stru_618B50, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_618B50     UnwindMapEntry <-1, offset loc_5F838B>
 stru_618FD8     FuncInfoV1 <19930520h, 1, offset stru_618FF8, 0, 0, 0, 0>
                 db    0
                 db    0
