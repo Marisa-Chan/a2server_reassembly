@@ -1495,7 +1495,7 @@ externdef ?FUN_00497330@Vis1200obj@@QAEHXZ : proc  ; int32_t Vis1200obj::FUN_004
 ;VisDropGold
 externdef ??_GVisDropGold@@UAEPAXI@Z : proc
 externdef ?VMethod9@VisDropGold@@UAEXXZ : proc
-externdef ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
+extern ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
 extern ?VMethod26@VisDropGold@@UAEXXZ : proc
 externdef ?VMethod28@VisDropGold@@UAEXXZ : proc
 extern ?DoClose@VisDropGold@@UAEXI@Z : proc

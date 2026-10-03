@@ -23424,59 +23424,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@VisDropGold@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060A1DC↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_8], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_C], eax
-                cmp     [ebp+var_C], 0Dh
-                jz      short loc_441F61
-                cmp     [ebp+var_C], 1Bh
-                jz      short loc_441F79
-                jmp     short loc_441F91
-; ---------------------------------------------------------------------------
-
-loc_441F61:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+1B↑j
-                push    0               ; lParam
-                push    0               ; wParam
-                push    445h            ; Msg
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                mov     eax, 1
-                jmp     short loc_441F9D
-; ---------------------------------------------------------------------------
-
-loc_441F79:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+21↑j
-                push    0               ; lParam
-                push    0               ; wParam
-                push    446h            ; Msg
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                mov     eax, 1
-                jmp     short loc_441F9D
-; ---------------------------------------------------------------------------
-
-loc_441F91:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+23↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-
-loc_441F9D:                             ; CODE XREF: ?OnKeyDown@VisDropGold@@UAEHI@Z+3B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@VisDropGold@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

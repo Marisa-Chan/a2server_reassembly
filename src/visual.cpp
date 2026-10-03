@@ -24468,3 +24468,21 @@ void VisDropGold::DoClose(uint32_t code)
 
     VisScreen::DoClose(code);
 }
+
+// 441F3C
+int32_t VisDropGold::OnKeyDown(uint32_t wparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (wparam == 0xd) {
+        main_wnd->PostMessage(0x445, 0, 0);
+        return 1;
+    }
+
+    if (wparam == 0x1b) {
+        main_wnd->PostMessage(0x446, 0, 0);
+        return 1;
+    }
+
+    return VisScreen::OnKeyDown(wparam);
+}
