@@ -33,6 +33,7 @@ _byte_659A3C
 ?g_StructEnter@@3UStructEnter@@A
 ?_afxThreadState@@3V?$CThreadLocal@V_AFX_THREAD_STATE@@@@A
 ?FUN_00475110@@YA_NPAUCSound@@@Z	28
+?GetFieldPos@@YAHVCString@@H@Z	104
 ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z	24
 ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z	31
 ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z	53
@@ -358,8 +359,8 @@ _byte_659A3C
 ?VMethod26@VisDropGold@@UAEXXZ	251
 ??_GVisHatBrowserDlg@@UAEPAXI@Z	24
 ??0VisHatBrowserDlg@@QAE@HHHHH@Z	32
-?MsgProc@VisHatBrowserDlg@@UAEHIII@Z	413
 ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z	48
+?IsItemEnabled@VisHatBrowserList@@QAEHH@Z	180
 ??_GVisHatServerListDlg@@UAEPAXI@Z	24
 ??0VisHatServerListDlg@@QAE@HHHHHPAUHatSettings@@@Z	46
 ?VMethod31@VisHatServerListDlg@@UAEXH@Z	161

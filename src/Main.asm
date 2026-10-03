@@ -28725,7 +28725,7 @@ sub_44B2BF      endp
 
 ; Attributes: bp-based frame
 
-sub_44B37A      proc near               ; CODE XREF: sub_44B460+6B↓p
+?GetFieldPos@@YAHVCString@@H@Z      proc near               ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+6B↓p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -28758,12 +28758,12 @@ arg_4           = dword ptr  0Ch
                 jmp     short loc_44B3B5
 ; ---------------------------------------------------------------------------
 
-loc_44B3AC:                             ; CODE XREF: sub_44B37A+BA↓j
+loc_44B3AC:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+BA↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_44B3B5:                             ; CODE XREF: sub_44B37A+30↑j
+loc_44B3B5:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+30↑j
                 mov     ecx, dword ptr [ebp+var_10]
                 cmp     ecx, [ebp+arg_4]
                 jge     short loc_44B439
@@ -28789,7 +28789,7 @@ loc_44B3B5:                             ; CODE XREF: sub_44B37A+30↑j
                 jmp     short loc_44B452
 ; ---------------------------------------------------------------------------
 
-loc_44B3FC:                             ; CODE XREF: sub_44B37A+66↑j
+loc_44B3FC:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+66↑j
                 mov     ecx, dword ptr [ebp+var_18]
                 add     ecx, 1
                 push    ecx
@@ -28814,7 +28814,7 @@ loc_44B3FC:                             ; CODE XREF: sub_44B37A+66↑j
                 jmp     loc_44B3AC
 ; ---------------------------------------------------------------------------
 
-loc_44B439:                             ; CODE XREF: sub_44B37A+41↑j
+loc_44B439:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+41↑j
                 mov     [ebp+var_24], 0FFFFFFFFh
 ;   } // starts at 44B428
                 mov     [ebp+var_4], 0FFFFFFFFh
@@ -28822,21 +28822,21 @@ loc_44B439:                             ; CODE XREF: sub_44B37A+41↑j
                 call    ??1CString@@QAE@XZ ; CString::~CString(void)
                 mov     eax, dword ptr [ebp+var_24]
 
-loc_44B452:                             ; CODE XREF: sub_44B37A+80↑j
+loc_44B452:                             ; CODE XREF: ?GetFieldPos@@YAHVCString@@H@Z+80↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 44B37A
-sub_44B37A      endp
+?GetFieldPos@@YAHVCString@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_44B460      proc near               ; CODE XREF: sub_44B60C+FF↓p
+?IsItemEnabled@VisHatBrowserList@@QAEHH@Z      proc near               ; CODE XREF: sub_44B60C+FF↓p
 
 var_40          = dword ptr -40h
 var_3C          = dword ptr -3Ch
@@ -28874,7 +28874,7 @@ arg_0           = dword ptr  8
                 jmp     loc_44B5FC
 ; ---------------------------------------------------------------------------
 
-loc_44B491:                             ; CODE XREF: sub_44B460+28↑j
+loc_44B491:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+28↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     edx, dword ptr [ebp+var_2C]
@@ -28887,7 +28887,7 @@ loc_44B491:                             ; CODE XREF: sub_44B460+28↑j
                 jmp     loc_44B5FC
 ; ---------------------------------------------------------------------------
 
-loc_44B4AB:                             ; CODE XREF: sub_44B460+42↑j
+loc_44B4AB:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+42↑j
                 push    5
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
@@ -28900,7 +28900,7 @@ loc_44B4AB:                             ; CODE XREF: sub_44B460+42↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_30], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_1C], eax
                 cmp     [ebp+var_1C], 0FFFFFFFFh
@@ -28909,7 +28909,7 @@ loc_44B4AB:                             ; CODE XREF: sub_44B460+42↑j
                 jmp     loc_44B5FC
 ; ---------------------------------------------------------------------------
 
-loc_44B4E3:                             ; CODE XREF: sub_44B460+7A↑j
+loc_44B4E3:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+7A↑j
                 mov     edx, dword ptr [ebp+var_1C]
                 push    edx
                 mov     eax, dword ptr [ebp+arg_0]
@@ -28926,12 +28926,12 @@ loc_44B4E3:                             ; CODE XREF: sub_44B460+7A↑j
                 jge     short loc_44B513
                 mov     [ebp+var_10], 0
 
-loc_44B513:                             ; CODE XREF: sub_44B460+AA↑j
+loc_44B513:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+AA↑j
                 cmp     [ebp+var_10], 3
                 jle     short loc_44B520
                 mov     [ebp+var_10], 3
 
-loc_44B520:                             ; CODE XREF: sub_44B460+B7↑j
+loc_44B520:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+B7↑j
                 push    6
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx
@@ -28944,7 +28944,7 @@ loc_44B520:                             ; CODE XREF: sub_44B460+B7↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_34], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_1C], eax
                 cmp     [ebp+var_1C], 0FFFFFFFFh
@@ -28953,7 +28953,7 @@ loc_44B520:                             ; CODE XREF: sub_44B460+B7↑j
                 jmp     loc_44B5FC
 ; ---------------------------------------------------------------------------
 
-loc_44B558:                             ; CODE XREF: sub_44B460+EF↑j
+loc_44B558:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+EF↑j
                 push    2
                 mov     eax, dword ptr [ebp+var_1C]
                 push    eax
@@ -29003,20 +29003,20 @@ loc_44B558:                             ; CODE XREF: sub_44B460+EF↑j
                 jmp     short loc_44B5F9
 ; ---------------------------------------------------------------------------
 
-loc_44B5F2:                             ; CODE XREF: sub_44B460+169↑j
+loc_44B5F2:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+169↑j
                 mov     [ebp+var_40], 0
 
-loc_44B5F9:                             ; CODE XREF: sub_44B460+190↑j
+loc_44B5F9:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+190↑j
                 mov     eax, dword ptr [ebp+var_40]
 
-loc_44B5FC:                             ; CODE XREF: sub_44B460+2C↑j
+loc_44B5FC:                             ; CODE XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+2C↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn    4
 ; } // starts at 44B460
-sub_44B460      endp
+?IsItemEnabled@VisHatBrowserList@@QAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29172,7 +29172,7 @@ loc_44B6DC:                             ; CODE XREF: sub_44B60C+C9↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_74]
-                call    sub_44B460
+                call    ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
                 mov     [ebp+var_38], eax
                 cmp     [ebp+var_38], 0
                 jnz     short loc_44B720
@@ -29191,7 +29191,7 @@ loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_78], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_3C], eax
                 mov     eax, dword ptr [ebp+var_3C]
@@ -29290,7 +29290,7 @@ loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_8C], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_3C], eax
                 mov     eax, dword ptr [ebp+var_3C]
@@ -29380,7 +29380,7 @@ loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_A0], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_3C], eax
                 mov     edx, dword ptr [ebp+var_3C]
@@ -29467,7 +29467,7 @@ loc_44B720:                             ; CODE XREF: sub_44B60C+10B↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_B4], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_3C], eax
                 mov     eax, dword ptr [ebp+var_3C]
@@ -29529,7 +29529,7 @@ loc_44BACB:                             ; CODE XREF: sub_44B60C+4B6↑j
                 push    eax             ; struct CString *
                 call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
                 mov     [ebp+var_B8], eax
-                call    sub_44B37A
+                call    ?GetFieldPos@@YAHVCString@@H@Z
                 add     esp, 8
                 mov     [ebp+var_3C], eax
                 mov     ecx, dword ptr [ebp+var_3C]
@@ -29665,430 +29665,6 @@ yBottom         = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisHatBrowserDlg@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060AA00↓o
-
-var_74          = dword ptr -74h
-var_70          = dword ptr -70h
-var_6C          = dword ptr -6Ch
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = dword ptr -60h
-var_5C          = dword ptr -5Ch
-var_58          = dword ptr -58h
-var_54          = dword ptr -54h
-var_50          = dword ptr -50h
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = byte ptr -44h
-var_40          = byte ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-; FUNCTION CHUNK AT 005F999A SIZE 0000001C BYTES
-
-; __unwind { // SEH_44C1A9
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44C1A9
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 68h
-                mov     [ebp+var_4C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_50], eax
-                mov     ecx, dword ptr [ebp+var_50]
-                sub     ecx, 444h       ; switch 72 cases
-                mov     [ebp+var_50], ecx
-                cmp     [ebp+var_50], 47h
-                ja      def_44C1F6      ; jumptable 0044C1F6 default case, cases 1095-1133,1135-1138,1140-1161
-                mov     eax, dword ptr [ebp+var_50]
-                xor     edx, edx
-                mov     dl, ds:byte_44C5F5[eax]
-                jmp     ds:jpt_44C1F6[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_44C1FD:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                cmp     [ebp+arg_4], 1  ; jumptable 0044C1F6 cases 1134,1139
-                jnz     short loc_44C275
-                cmp     [ebp+arg_8], 0
-                jl      short loc_44C26B
-                push    1
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_14], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_14]
-                call    dword ptr [edx+34h]
-                mov     ecx, dword ptr [ebp+var_14] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                push    eax
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_44B460
-                mov     [ebp+var_18], eax
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax
-                push    1
-                push    14h
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_54], eax
-                mov     ecx, dword ptr [ebp+var_54]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_54]
-                call    dword ptr [edx+1Ch]
-                push    14h
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_58], eax
-                mov     eax, dword ptr [ebp+var_58]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_58]
-                call    dword ptr [edx+34h]
-
-loc_44C26B:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+5E↑j
-                mov     eax, 1
-                jmp     loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C275:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+58↑j
-                xor     eax, eax
-                jmp     loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C27C:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                push    1               ; jumptable 0044C1F6 case 1162
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_24] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                mov     [ebp+var_1C], eax
-                mov     ecx, dword ptr [ebp+var_24] ; varThis
-                call    ?GetMaskId@VirtualProcessor@details@Concurrency@@QBEIXZ_0 ; Concurrency::details::VirtualProcessor::GetMaskId(void)
-                mov     [ebp+var_20], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                call    sub_450880
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     [eax+94h], ecx
-                mov     edx, dword ptr [ebp+var_24]
-                cmp     dword ptr [edx+94h], 0
-                jz      loc_44C35C
-                mov     [ebp+var_28], 0
-                jmp     short loc_44C2D5
-; ---------------------------------------------------------------------------
-
-loc_44C2CC:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+159↓j
-                mov     eax, dword ptr [ebp+var_28]
-                add     eax, 1
-                mov     [ebp+var_28], eax
-
-loc_44C2D5:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+121↑j
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_28], eax
-                jge     short loc_44C304
-                mov     ecx, dword ptr [ebp+var_28]
-                push    ecx
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; char *
-                mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4507F0
-                jmp     short loc_44C2CC
-; ---------------------------------------------------------------------------
-
-loc_44C304:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+139↑j
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_1C], eax
-                jl      short loc_44C323
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                mov     [ebp+var_1C], eax
-
-loc_44C323:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+168↑j
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_20], eax
-                jl      short loc_44C342
-                mov     ecx, offset ?DAT_00666a00@@3VCStringArray@@A
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                mov     [ebp+var_20], eax
-
-loc_44C342:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+187↑j
-                mov     edx, dword ptr [ebp+var_20]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_24]
-                call    unknown_libname_486 ; MFC 3.1-14.0 32bit
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
-                jmp     short loc_44C370
-; ---------------------------------------------------------------------------
-
-loc_44C35C:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+114↑j
-                push    0
-                mov     ecx, dword ptr [ebp+var_24]
-                call    unknown_libname_486 ; MFC 3.1-14.0 32bit
-                push    0
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
-
-loc_44C370:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+1B1↑j
-                mov     ecx, dword ptr [ebp+var_24] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                push    eax
-                push    1
-                push    46Eh
-                mov     ecx, dword ptr [ebp+var_4C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    dword ptr [edx+48h]
-                mov     eax, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [edx+34h]
-                mov     eax, 1
-                jmp     loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C3A0:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                cmp     [ebp+arg_4], 1  ; jumptable 0044C1F6 case 1092
-                jz      short loc_44C3AB ; jumptable 0044C1F6 case 1093
-                jmp     loc_44C5B1
-; ---------------------------------------------------------------------------
-
-loc_44C3AB:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                push    1               ; jumptable 0044C1F6 case 1093
-                push    14h
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_5C], eax
-                mov     eax, dword ptr [ebp+var_5C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_5C]
-                call    dword ptr [edx+20h]
-                test    eax, eax
-                jz      loc_44C4C3
-                push    1
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_2C], eax
-                push    7
-                mov     ecx, dword ptr [ebp+var_2C] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                push    eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?GetItem@VisListBox@@QAEAAVCString@@H@Z
-                push    ecx
-                mov     ecx, esp        ; varThis
-                mov     [ebp+var_3C], esp
-                push    eax             ; struct CString *
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     [ebp+var_60], eax
-                call    sub_44B37A
-                add     esp, 8
-                mov     [ebp+var_30], eax
-                mov     eax, dword ptr [ebp+var_30]
-                push    eax
-                lea     ecx, [ebp+var_40]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_2C] ; varThis
-                call    ?GetSelectedIndex@VisListBox@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetId(void)
-                push    eax
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    ?GetItem@VisListBox@@QAEAAVCString@@H@Z
-                mov     ecx, eax
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_64], eax
-                mov     edx, dword ptr [ebp+var_64]
-                mov     [ebp+var_68], edx
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_68]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3F4h       ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 44C430
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_40] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                push    7Ch ; '|'       ; char
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3F4h       ; varThis
-                call    ?Find@CString@@QBEHD@Z ; CString::Find(char)
-                mov     [ebp+var_30], eax
-                mov     ecx, dword ptr [ebp+var_30]
-                push    ecx
-                lea     edx, [ebp+var_44]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3F4h
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_6C], eax
-                mov     eax, dword ptr [ebp+var_6C]
-                mov     [ebp+var_70], eax
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_70]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3F4h       ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 44C48A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_44] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                push    0
-                push    0
-                push    445h
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-
-loc_44C4C3:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+21E↑j
-                mov     eax, 1
-                jmp     loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C4CD:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                push    0               ; jumptable 0044C1F6 case 1094
-                push    0
-                push    446h
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     eax, 1
-                jmp     loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C4E8:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑j
-                push    1               ; jumptable 0044C1F6 case 1163
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_34], eax
-                mov     edx, dword ptr [ebp+var_34]
-                mov     dword ptr [edx+94h], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_34]
-                call    sub_450880
-                push    0
-                mov     ecx, dword ptr [ebp+var_34]
-                call    unknown_libname_486 ; MFC 3.1-14.0 32bit
-                push    0
-                mov     ecx, dword ptr [ebp+var_34]
-                call    ?SetSelectedIndex@VisListBox@@QAEXH@Z ; MFC 3.1-14.0 32bit
-                mov     eax, dword ptr [ebp+var_34]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_34]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_10]
-                cmp     dword ptr [eax+3BCh], 0
-                jz      short loc_44C583
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_00490eb3@MainWindow@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_44C55E
-                mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
-                call    ?Close@CLlDriver@@QAEXXZ
-                push    0               ; lParam
-                push    0               ; wParam
-                push    446h            ; Msg
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                jmp     short loc_44C5B1
-; ---------------------------------------------------------------------------
-
-loc_44C55E:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+396↑j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 3B4h
-                push    ecx
-                mov     edx, esp
-                mov     [ebp+var_48], esp
-                push    ecx             ; struct CString *
-                mov     ecx, edx        ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     [ebp+var_74], eax
-                call    ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z
-                add     esp, 4
-                mov     [ebp+var_38], eax
-
-loc_44C583:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+38A↑j
-                push    0
-                mov     eax, dword ptr [ebp+var_38]
-                push    eax
-                push    48Ah
-                mov     ecx, dword ptr [ebp+var_4C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    dword ptr [edx+48h]
-                jmp     short loc_44C5B1
-; ---------------------------------------------------------------------------
-
-def_44C1F6:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+3C↑j
-                mov     eax, dword ptr [ebp+arg_8] ; jumptable 0044C1F6 default case, cases 1095-1133,1135-1138,1140-1161
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                jmp     short loc_44C5C5
-; ---------------------------------------------------------------------------
-
-loc_44C5B1:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+1FD↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4C]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-
-loc_44C5C5:                             ; CODE XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+C7↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-; } // starts at 44C1A9
-?MsgProc@VisHatBrowserDlg@@UAEHIII@Z      endp
-
-; ---------------------------------------------------------------------------
-jpt_44C1F6      dd offset loc_44C3A0    ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+4D↑r
-                dd offset loc_44C3AB    ; jump table for switch statement
-                dd offset loc_44C4CD
-                dd offset loc_44C1FD
-                dd offset loc_44C1FD
-                dd offset loc_44C27C
-                dd offset loc_44C4E8
-                dd offset def_44C1F6
 byte_44C5F5     db      0,     1,     2,     7
                 db      7,     7,     7,     7 ; indirect table for switch statement
                 db      7,     7,     7,     7
@@ -265389,7 +264965,7 @@ SEH_44AAE5:                             ; DATA XREF: sub_44AAE5+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9844
 ; END OF FUNCTION CHUNK FOR sub_44AAE5
-; START OF FUNCTION CHUNK FOR sub_44B37A
+; START OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
 
 loc_5F98B6:                             ; DATA XREF: .rdata:stru_61A250↓o
 ; __unwind { // SEH_44B37A              ; varThis
@@ -265407,13 +264983,13 @@ loc_5F98BF:                             ; DATA XREF: .rdata:0061A258↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44B37A:                             ; DATA XREF: sub_44B37A+5↑o
+SEH_44B37A:                             ; DATA XREF: ?GetFieldPos@@YAHVCString@@H@Z+5↑o
                 mov     eax, offset stru_61A230
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F98B6
-; END OF FUNCTION CHUNK FOR sub_44B37A
+; END OF FUNCTION CHUNK FOR ?GetFieldPos@@YAHVCString@@H@Z
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_44B460
+; START OF FUNCTION CHUNK FOR ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
 
 loc_5F98D2:                             ; DATA XREF: .rdata:stru_61A280↓o
 ; __unwind { // SEH_44B460              ; varThis
@@ -265423,11 +264999,11 @@ loc_5F98D2:                             ; DATA XREF: .rdata:stru_61A280↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_44B460:                             ; DATA XREF: sub_44B460+5↑o
+SEH_44B460:                             ; DATA XREF: ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z+5↑o
                 mov     eax, offset stru_61A260
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F98D2
-; END OF FUNCTION CHUNK FOR sub_44B460
+; END OF FUNCTION CHUNK FOR ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_44B60C
 
@@ -265508,28 +265084,6 @@ SEH_44B60C:                             ; DATA XREF: sub_44B60C+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F98E5
 ; END OF FUNCTION CHUNK FOR sub_44B60C
-; START OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
-
-loc_5F999A:                             ; DATA XREF: .rdata:stru_61A370↓o
-; __unwind { // SEH_44C1A9              ; varThis
-                lea     ecx, [ebp+var_40]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F99A3:                             ; DATA XREF: .rdata:0061A378↓o
-;   cleanup() // owned by 44C430        ; varThis
-;   cleanup() // owned by 44C48A
-                lea     ecx, [ebp+var_44]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44C1A9:                             ; DATA XREF: ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z+5↑o
-                mov     eax, offset stru_61A350
-                jmp     ___CxxFrameHandler
-; } // starts at 5F999A
-; END OF FUNCTION CHUNK FOR ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
 ; START OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
 
 loc_5F9AB8:                             ; DATA XREF: .rdata:stru_61A4C0↓o
@@ -298478,10 +298032,6 @@ stru_61A2A8     UnwindMapEntry <-1, offset loc_5F98E5>
                 UnwindMapEntry <0, offset loc_5F991B>
                 UnwindMapEntry <0, offset loc_5F9924>
                 UnwindMapEntry <0, offset loc_5F992D>
-stru_61A350     FuncInfoV1 <19930520h, 2, offset stru_61A370, 0, 0, 0, 0>
-                align 10h
-stru_61A370     UnwindMapEntry <-1, offset loc_5F999A>
-                UnwindMapEntry <-1, offset loc_5F99A3>
 stru_61A4A0     FuncInfoV1 <19930520h, 3, offset stru_61A4C0, 0, 0, 0, 0>
                 db    0
                 db    0

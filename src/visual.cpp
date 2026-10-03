@@ -23463,3 +23463,95 @@ void VisHatBrowserDlg::VMethod26()
     this->AddChild(refresh_btn);
     refresh_btn->SetLeftObj(this->FindChild(0x15));
 }
+
+// 44c1a9
+int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    switch (msg) {
+    case 0x444:
+        if (wparam != 1) {
+            return VisScreen::MsgProc(msg, wparam, lparam);
+        }
+        // fallthrough
+    case 0x445: {
+        if (this->FindChild(0x14)->TestFlags(1) != 0) {
+            VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
+            CString item = list->GetItem(list->GetSelectedIndex());
+            int32_t field_pos = GetFieldPos(item, 7);
+            main_wnd->field_0x3e0.field_14 = item.Mid(field_pos);
+            main_wnd->field_0x3e0.field_14 = main_wnd->field_0x3e0.field_14.Left(main_wnd->field_0x3e0.field_14.Find('|'));
+            VisScreen::MsgProc(0x445, 0, 0);
+        }
+        return 1;
+    }
+    case 0x446:
+        VisScreen::MsgProc(0x446, 0, 0);
+        return 1;
+    case 0x46e:
+    case 0x473:
+        if (wparam == 1) {
+            if ((int32_t)lparam >= 0) {
+                VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
+                list->VMethod9();
+                int32_t enabled = list->IsItemEnabled(list->GetSelectedIndex());
+                this->FindChild(0x14)->ChangeFlags(1, enabled != 0);
+                this->FindChild(0x14)->VMethod9();
+            }
+            return 1;
+        }
+        return 0;
+    case 0x48a: {
+        VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
+        int32_t sel_index = list->GetSelectedIndex();
+        int32_t vis_start = list->vis_start_index;
+        list->entries.RemoveAll();
+        list->selected_index = -1;
+        list->state = wparam;
+        if (list->state == 0) {
+            list->vis_start_index = 0;
+            list->SetSelectedIndex(0);
+        }
+        else {
+            for (int32_t i = 0; i < DAT_00666a00.GetSize(); i++) {
+                list->AddItem(DAT_00666a00[i]);
+            }
+            if (DAT_00666a00.GetSize() <= sel_index) {
+                sel_index = DAT_00666a00.GetSize() - 1;
+            }
+            if (DAT_00666a00.GetSize() <= vis_start) {
+                vis_start = DAT_00666a00.GetSize() - 1;
+            }
+            list->vis_start_index = vis_start;
+            list->SetSelectedIndex(sel_index);
+        }
+        this->MsgProc(0x46e, 1, list->GetSelectedIndex());
+        list->VMethod9();
+        return 1;
+    }
+    case 0x48b: {
+        VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
+        list->state = -1;
+        list->entries.RemoveAll();
+        list->selected_index = -1;
+        list->vis_start_index = 0;
+        list->SetSelectedIndex(0);
+        list->VMethod9();
+
+        int32_t res; // 44c55e: left uninitialized when hat_settings.ishat == 0
+        if (main_wnd->hat_settings.ishat != 0) {
+            if (main_wnd->FUN_00490eb3() == 0) {
+                g_CLlDriver.Close();
+                main_wnd->PostMessage(0x446, 0, 0);
+                return VisScreen::MsgProc(msg, wparam, lparam);
+            }
+            res = main_wnd->FUN_004e5466(main_wnd->hat_settings.hatip);
+        }
+        this->MsgProc(0x48a, res, 0);
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+    default:
+        return VisScreen::MsgProc(msg, wparam, lparam);
+    }
+}

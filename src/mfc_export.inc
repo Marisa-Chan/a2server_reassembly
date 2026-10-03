@@ -2269,6 +2269,8 @@ externdef ?VMethod26@VisHatBrowserDlg@@UAEXXZ : proc
 
 ; VisHatBrowserList
 externdef ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z : proc
+externdef ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
+externdef ?GetFieldPos@@YAHVCString@@H@Z : proc
 externdef _byte_659A34 : byte  ; "" hint string of the hat browser OK button
 externdef _byte_659A38 : byte  ; "" hint string of the hat browser cancel button
 externdef _byte_659A3C : byte  ; "" hint string of the hat browser refresh button
