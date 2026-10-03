@@ -546,7 +546,6 @@
 ?MissionGetLocName@@YAXHHPAVCString@@@Z
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
-?MsgProc@Vis1200obj@@UAEHIII@Z
 ?MsgProc@VisGlobalMap@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
 ?MsgProc@VisInvType1@@UAEHIII@Z
@@ -559,7 +558,6 @@
 ?MsgProc@VisTextBox@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
-?OnChar@Vis1200obj@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
@@ -567,7 +565,6 @@
 ?OnChar@VisTextBox@@UAEHI@Z
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z
-?OnKeyDown@Vis1200obj@@UAEHI@Z
 ?OnKeyDown@VisButton@@UAEHI@Z
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z

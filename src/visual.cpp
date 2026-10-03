@@ -24473,6 +24473,34 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 // 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
+// 43B32F
+void Vis1200obj::VMethod7()
+{
+    CString line;
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    for (int32_t i = 0; i < this->field_0x70.GetSize(); i++) {
+        if (i == 0) {
+            this->FUN_0043b504(&this->field_0x70[0]);
+        } else {
+            this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->field_0x70.GetSize() - i + 1), this->field_0x70[i], 0, this->clr);
+        }
+    }
+
+    if (this->field_0xa0 != 0) {
+        line = this->field_0x84 + '_';
+    } else {
+        line = this->field_0x84;
+    }
+
+    if (this->field_0x70.GetSize() == 0) {
+        this->FUN_0043b504(&line);
+    } else {
+        this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight(), line, 0, this->clr);
+    }
+}
+
 // 43B159
 int32_t Vis1200obj::OnKeyDown(uint32_t wparam)
 {
