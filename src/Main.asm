@@ -75256,24 +75256,6 @@ unknown_libname_639 endp
 
 ; Attributes: bp-based frame
 
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
 ?UpdateCursor@VisSideStatus@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@VisSideStatus@@UAEHIII@Z+F9↓p
 
 var_38          = dword ptr -38h
@@ -75422,25 +75404,6 @@ loc_4B418C:                             ; CODE XREF: ?UpdateCursor@VisSideStatus
                 retn
 ?UpdateCursor@VisSideStatus@@QAEXXZ      endp
 
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
