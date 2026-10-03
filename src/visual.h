@@ -2558,7 +2558,7 @@ public:
 
 public:
 	char buffer[256];
-	CVisualObject* text_block;
+	Vis1200obj* text_block;
 	uint32_t active;
 };
 ASSERT_SIZE(Vis1200, 0x170);

@@ -20574,7 +20574,7 @@ sub_43AD35      endp
 
 ; Attributes: bp-based frame
 
-sub_43AD86      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+47↓p
+?FUN_0043ad86@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+47↓p
 
 var_4           = dword ptr -4
 
@@ -20591,14 +20591,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43AD86      endp
+?FUN_0043ad86@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_43ADA3      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+70↓p
+?FUN_0043ada3@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+70↓p
 
 var_4           = dword ptr -4
 
@@ -20640,11 +20640,11 @@ var_4           = dword ptr -4
                 add     ecx, 70h ; 'p'  ; varThis
                 call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
 
-loc_43AE18:                             ; CODE XREF: sub_43ADA3+34↑j
+loc_43AE18:                             ; CODE XREF: ?FUN_0043ada3@Vis1200obj@@QAEXXZ+34↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_43ADA3      endp
+?FUN_0043ada3@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -22248,70 +22248,6 @@ arg_8           = dword ptr  10h
 
 ; Attributes: bp-based frame
 
-?OnKeyDown@Vis1200@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609B3C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 0Dh
-                jz      short loc_43BE2A
-                cmp     [ebp+var_8], 1Bh
-                jz      short loc_43BE0F
-                cmp     [ebp+var_8], 26h ; '&'
-                jz      short loc_43BE53
-                jmp     short loc_43BE61
-; ---------------------------------------------------------------------------
-
-loc_43BE0F:                             ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+19↑j
-                push    0
-                push    0
-                push    446h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     eax, 1
-                jmp     short loc_43BE6D
-; ---------------------------------------------------------------------------
-
-loc_43BE2A:                             ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+13↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+168h]
-                call    sub_43AD86
-                push    0
-                push    0
-                push    445h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+48h]
-                mov     eax, 1
-                jmp     short loc_43BE6D
-; ---------------------------------------------------------------------------
-
-loc_43BE53:                             ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+1F↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+168h]
-                call    sub_43ADA3
-
-loc_43BE61:                             ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+21↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?OnKeyDown@VisScreen@@UAEHI@Z
-
-loc_43BE6D:                             ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+3C↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnKeyDown@Vis1200@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

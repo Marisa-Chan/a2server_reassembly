@@ -24040,3 +24040,21 @@ void Vis1200::VMethod26()
     this->AddChild(this->text_block);
     this->active = 0;
 }
+
+// 43BDEC
+int32_t Vis1200::OnKeyDown(uint32_t wparam)
+{
+    if (wparam == 0xd) {
+        this->text_block->FUN_0043ad86();
+        this->MsgProc(0x445, 0, 0);
+        return 1;
+    }
+    if (wparam == 0x1b) {
+        this->MsgProc(0x446, 0, 0);
+        return 1;
+    }
+    if (wparam == 0x26) {
+        this->text_block->FUN_0043ada3();
+    }
+    return VisScreen::OnKeyDown(wparam);
+}
