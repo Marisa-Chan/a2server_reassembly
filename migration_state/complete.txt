@@ -567,7 +567,6 @@
 ?OnKeyDown@VisGlobalMap@@UAEHI@Z
 ?OnKeyDown@VisInvExtType1@@UAEHI@Z
 ?OnKeyDown@VisListBox@@UAEHI@Z
-?OnKeyDown@VisListBoxPhoneBook@@UAEHI@Z
 ?OnKeyDown@VisMenuWnd@@UAEHI@Z
 ?OnKeyDown@VisRadioType1@@UAEHI@Z
 ?OnKeyDown@VisScreen@@UAEHI@Z

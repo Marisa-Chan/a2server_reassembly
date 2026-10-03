@@ -23444,6 +23444,16 @@ VisNetPhoneBook::VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, i
 VisNetPhoneBook::~VisNetPhoneBook() = default;
 
 
+// 44FB30
+VisListBoxPhoneBook::VisListBoxPhoneBook(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height, const char* hint, CStringArray* _bound_entries)
+    : VisListBox(_id, r, _font, _clr1, _clr2, _entry_height, hint)
+{
+    this->bound_entries = _bound_entries;
+}
+
+// 44fca0 (deleting dtor ??_G at 44FC70; the complete dtor only calls the base dtor)
+VisListBoxPhoneBook::~VisListBoxPhoneBook() = default;
+
 // 44FB80
 int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam)
 {
