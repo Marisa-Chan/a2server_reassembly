@@ -631,6 +631,7 @@
 ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvExtBase@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
+?OnRButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnRButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z
 ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z
