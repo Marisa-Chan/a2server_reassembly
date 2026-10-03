@@ -24721,3 +24721,29 @@ void VisListBoxDiplomacy::SelectItem(int32_t idx)
 
     this->parent->MsgProc(0x46e, this->id, this->vis_start_index);
 }
+
+// 4DD44A
+int32_t VisListBoxDiplomacy::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    int32_t idx = this->YToIndex(pos.y);
+    if (idx < this->num_vis_entry) {
+        if (this->vis_start_index + idx < this->diplomacy->GetSize() - 1) {
+            idx = this->vis_start_index + idx;
+        } else {
+            idx = this->diplomacy->GetSize() - 1;
+        }
+        this->selected_index = idx;
+    }
+
+    this->VMethod9();
+
+    if (0 < this->scrollbox_id) {
+        VisScrollBar* scrollbar = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
+        if (scrollbar != nullptr) {
+            scrollbar->SetPos(this->selected_index, this->diplomacy->GetSize());
+        }
+    }
+
+    this->parent->MsgProc(0x46e, this->id, this->selected_index);
+    return 1;
+}
