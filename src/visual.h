@@ -1175,7 +1175,7 @@ ASSERT_SIZE(VisMiniMap, 0x70);
 class VisOrderToolbar : public CVisualObject
 {
 public:
-	virtual ~VisOrderToolbar(); // 4B4760
+	virtual ~VisOrderToolbar(); // 4b4790
 
 	virtual const char* GetHint() override; // 4B0D9A
 	virtual void VMethod7() override; // 4B12E3

@@ -1031,7 +1031,6 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 extern ?DAT_00660f88@@3HA : dword
 
 externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
-externdef   ??0VisOrderToolbar@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
@@ -1573,12 +1572,7 @@ externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
 
 ;VisOrderToolbar
-externdef ??_GVisOrderToolbar@@UAEPAXI@Z : proc
-externdef ?GetHint@VisOrderToolbar@@UAEPBDXZ : proc
-externdef ?VMethod7@VisOrderToolbar@@UAEXXZ : proc
-externdef ?MsgProc@VisOrderToolbar@@UAEHIII@Z : proc
 externdef ?OnMouseMove@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc

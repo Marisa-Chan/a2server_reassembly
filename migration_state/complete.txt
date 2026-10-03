@@ -464,7 +464,6 @@
 ?GetHint@VisInvExtType2@@UAEPBDXZ
 ?GetHint@VisInvExtType3@@UAEPBDXZ
 ?GetHint@VisInvType1@@UAEPBDXZ
-?GetHint@VisOrderToolbar@@UAEPBDXZ
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisSpellBook@@UAEPBDXZ
 ?GetHint@VisStartGame@@UAEPBDXZ
@@ -547,7 +546,6 @@
 ?MsgProc@VisListBox@@UAEHIII@Z
 ?MsgProc@VisMenuWnd@@UAEHIII@Z
 ?MsgProc@VisMessageBox@@UAEHIII@Z
-?MsgProc@VisOrderToolbar@@UAEHIII@Z
 ?MsgProc@VisScreen@@UAEHIII@Z
 ?MsgProc@VisSpellBook@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
@@ -589,7 +587,6 @@
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
-?OnLButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
@@ -971,7 +968,6 @@
 ?VMethod7@VisInvExtType3@@UAEXXZ
 ?VMethod7@VisInvType1@@UAEXXZ
 ?VMethod7@VisListBox@@UAEXXZ
-?VMethod7@VisOrderToolbar@@UAEXXZ
 ?VMethod7@VisScreen@@UAEXXZ
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisSpellBook@@UAEXXZ

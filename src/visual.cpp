@@ -24269,3 +24269,17 @@ const char* VisOrderToolbar::GetHint()
     }
     return nullptr;
 }
+
+// 4B0CFC
+VisOrderToolbar::VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+    this->selected_order = 0xffffffff;
+    this->enabled = 0;
+    this->dirty = 0;
+}
+
+// 4B4790
+VisOrderToolbar::~VisOrderToolbar()
+{
+}
