@@ -19629,50 +19629,6 @@ sub_43AAE0      endp
 
 ; Attributes: bp-based frame
 
-?WriteData@Vis1200obj@@UAEXPAX@Z      proc near               ; DATA XREF: .rdata:00609A94↓o
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_4], eax
-                mov     [ebp+var_8], 0
-                jmp     short loc_43AD56
-; ---------------------------------------------------------------------------
-
-loc_43AD4D:                             ; CODE XREF: ?WriteData@Vis1200obj@@UAEXPAX@Z+49↓j
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 1
-                mov     [ebp+var_8], ecx
-
-loc_43AD56:                             ; CODE XREF: ?WriteData@Vis1200obj@@UAEXPAX@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 70h ; 'p'
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_8], eax
-                jge     short loc_43AD80
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 70h ; 'p'
-                call    sub_401820
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??YCString@@QAEABV0@ABV0@@Z ; CString::operator+=(CString const &)
-                jmp     short loc_43AD4D
-; ---------------------------------------------------------------------------
-
-loc_43AD80:                             ; CODE XREF: ?WriteData@Vis1200obj@@UAEXPAX@Z+2F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?WriteData@Vis1200obj@@UAEXPAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

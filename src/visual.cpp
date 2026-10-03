@@ -24473,6 +24473,15 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 // 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
+// 43AD35
+void Vis1200obj::WriteData(void* buf)
+{
+    CString* out = (CString*)buf;
+    for (int32_t i = 0; i < this->field_0x70.GetSize(); i++) {
+        *out += this->field_0x70[i];
+    }
+}
+
 // 43ACCA
 void Vis1200obj::ReadData(const void* buf)
 {
