@@ -2198,7 +2198,7 @@ externdef ?FUN_004e25c1@VisTipsDialog@@QAEXHHHHPBD@Z : proc  ; void VisTipsDialo
 
 ; VisHatBrowserList
 externdef ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z : proc
-externdef ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
+extern ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
 externdef ?GetFieldPos@@YAHVCString@@H@Z : proc
 externdef _byte_659A34 : byte  ; "" hint string of the hat browser OK button
 externdef _byte_659A38 : byte  ; "" hint string of the hat browser cancel button

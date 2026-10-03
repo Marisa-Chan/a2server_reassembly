@@ -522,6 +522,7 @@
 ?Inst@PacketWord@@2V1@A
 ?INT_00660f74@@3IA
 ?IsDerivedFrom@CRuntimeClass@@QBEHPBU1@@Z
+?IsItemEnabled@VisHatBrowserList@@QAEHH@Z
 ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z
 ?IsListen@CLlDriver@@QAEHXZ
 ?IsSelected@CGameObject@@QAEHXZ

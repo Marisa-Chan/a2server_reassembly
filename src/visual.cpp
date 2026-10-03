@@ -23673,6 +23673,48 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
     }
 }
 
+// 44b460
+int32_t VisHatBrowserList::IsItemEnabled(int32_t idx)
+{
+    if (this->state == 0) {
+        return 0;
+    }
+
+    if (!this->IsValidIndex(idx)) {
+        return 0;
+    }
+
+    CString& item = this->entries[idx];
+
+    int32_t pos = GetFieldPos(item, 5);
+    if (pos == -1) {
+        return 0;
+    }
+
+    int32_t level = item[pos] - '1';
+    if (level < 0) {
+        level = 0;
+    }
+    if (level > 3) {
+        level = 3;
+    }
+
+    pos = GetFieldPos(item, 6);
+    if (pos == -1) {
+        return 0;
+    }
+
+    int32_t players = atoi(item.Mid(pos, 2));
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->m_GameSession.FUN_004200f0() > level + 1
+        || main_wnd->m_GameSession.FUN_00420110() < level + 1
+        || players == 0x10) {
+        return 0;
+    }
+    return 1;
+}
+
 // 44bc6c
 void VisHatBrowserDlg::VMethod26()
 {
