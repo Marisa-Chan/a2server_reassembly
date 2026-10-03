@@ -24618,6 +24618,28 @@ void Vis1200obj::FUN_0043ada3()
     }
 }
 
+// 43AE1C
+void Vis1200obj::FUN_0043ae1c(uint8_t ch)
+{
+    if (this->font->GetStrWidth(this->field_0x84) + this->font->GetStrWidth("_") < this->rect.Width()) {
+        this->field_0x84 += (char)ch;
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        main_wnd->vis_map_context->field_0xe0 = 1;
+    } else if (this->field_0x70.GetSize() < 2) {
+        int32_t pos = this->field_0x84.ReverseFind(' ');
+        if (pos < 10) {
+            this->field_0x70.Add(this->field_0x84);
+            this->field_0x84.Empty();
+        } else {
+            CString left = this->field_0x84.Left(pos + 1);
+            this->field_0x70.Add(left);
+            this->field_0x84 = this->field_0x84.Right(this->field_0x84.GetLength() - pos - 1);
+        }
+        this->field_0x84.TrimLeft();
+        this->FUN_0043ae1c(ch);
+    }
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {
