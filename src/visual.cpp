@@ -5334,6 +5334,17 @@ VisNetMapList::VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 VisNetMapList::~VisNetMapList() = default;
 
 
+// 450920
+VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+    : VisRadioType1(_id, l, t, r, b, _font, _clr, hint)
+{
+}
+
+
+// 450970 (deleting dtor ??_G; the complete dtor 4509a0 only calls the base dtor)
+VisServerScreenRadio::~VisServerScreenRadio() = default;
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

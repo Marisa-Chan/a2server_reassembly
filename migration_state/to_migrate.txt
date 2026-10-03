@@ -327,4 +327,5 @@ _byte_659A3C
 ?GetHint@VisNetMapList@@UAEPBDXZ	76
 ?DrawItem@VisNetMapList@@UAEXHVCPoint@@PAG@Z	216
 ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z	51
-??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
+?GetIndex@VisServerScreenRadio@@UAEHH@Z	36
+?VMethod7@VisServerScreenRadio@@UAEXXZ	249

@@ -25281,110 +25281,6 @@ UnkAfxetModuleStateIncremented1_450910 proc near
                 retn
 UnkAfxetModuleStateIncremented1_450910 endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z(int, int xLeft, int yTop, int xRight, int yBottom, int, int, LPCSTR lpString)
-??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisServerScreen@@UAEXXZ+170↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-xLeft           = dword ptr  0Ch
-yTop            = dword ptr  10h
-xRight          = dword ptr  14h
-yBottom         = dword ptr  18h
-arg_14          = dword ptr  1Ch
-arg_18          = dword ptr  20h
-lpString        = dword ptr  24h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_18]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_14]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+yBottom]
-                push    eax             ; yBottom
-                mov     ecx, dword ptr [ebp+xRight]
-                push    ecx             ; xRight
-                mov     edx, dword ptr [ebp+yTop]
-                push    edx             ; yTop
-                mov     eax, dword ptr [ebp+xLeft]
-                push    eax             ; xLeft
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisRadioType1@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx], offset off_60ADF8
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    20h ; ' '
-??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450970      proc near               ; DATA XREF: .rdata:0060ADFC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4509A0
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_450992
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_450992:                             ; CODE XREF: sub_450970+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_450970      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4509A0      proc near               ; CODE XREF: sub_450970+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisRadioType1@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4509A0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -81672,7 +81568,7 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-sub_4DB3AD      proc near               ; DATA XREF: .rdata:0060AE24↓o
+?VMethod7@VisServerScreenRadio@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AE24↓o
 
 var_4C          = dword ptr -4Ch
 var_48          = dword ptr -48h
@@ -81741,12 +81637,12 @@ var_4           = dword ptr -4
                 jmp     short loc_4DB44E
 ; ---------------------------------------------------------------------------
 
-loc_4DB445:                             ; CODE XREF: sub_4DB3AD+208↓j
+loc_4DB445:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+208↓j
                 mov     edx, dword ptr [ebp+var_14]
                 add     edx, 1
                 mov     [ebp+var_14], edx
 
-loc_4DB44E:                             ; CODE XREF: sub_4DB3AD+96↑j
+loc_4DB44E:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+96↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 add     ecx, 64h ; 'd'
                 call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
@@ -81789,7 +81685,7 @@ loc_4DB44E:                             ; CODE XREF: sub_4DB3AD+96↑j
                 jmp     short loc_4DB50D
 ; ---------------------------------------------------------------------------
 
-loc_4DB4C7:                             ; CODE XREF: sub_4DB3AD+D0↑j
+loc_4DB4C7:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+D0↑j
                 push    0
                 push    4
                 push    4
@@ -81816,7 +81712,7 @@ loc_4DB4C7:                             ; CODE XREF: sub_4DB3AD+D0↑j
                 mov     ecx, ?gfx_radiob@@3PAVCSprite256@@A
                 call    dword ptr [edx+18h]
 
-loc_4DB50D:                             ; CODE XREF: sub_4DB3AD+118↑j
+loc_4DB50D:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+118↑j
                 push    4
                 mov     eax, ?gfx_radiob@@3PAVCSprite256@@A
                 mov     edx, dword ptr [eax]
@@ -81846,11 +81742,11 @@ loc_4DB50D:                             ; CODE XREF: sub_4DB3AD+118↑j
                 jmp     short loc_4DB563
 ; ---------------------------------------------------------------------------
 
-loc_4DB559:                             ; CODE XREF: sub_4DB3AD+19E↑j
+loc_4DB559:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+19E↑j
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     dword ptr [edx+7Ch], offset ?clrsh_DullGold@@3PAGA
 
-loc_4DB563:                             ; CODE XREF: sub_4DB3AD+1AA↑j
+loc_4DB563:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+1AA↑j
                 push    1
                 mov     eax, dword ptr [ebp+var_4C]
                 mov     ecx, dword ptr [eax+7Ch]
@@ -81883,7 +81779,7 @@ loc_4DB563:                             ; CODE XREF: sub_4DB3AD+1AA↑j
                 jmp     loc_4DB445
 ; ---------------------------------------------------------------------------
 
-loc_4DB5BA:                             ; CODE XREF: sub_4DB3AD+AF↑j
+loc_4DB5BA:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+AF↑j
                 push    1
                 mov     edx, dword ptr [ebp+var_4C]
                 mov     eax, dword ptr [edx]
@@ -81916,19 +81812,19 @@ loc_4DB5BA:                             ; CODE XREF: sub_4DB3AD+AF↑j
                 call    ?ShadowRect@@YAXVCRect@@H@Z
                 add     esp, 14h
 
-loc_4DB60C:                             ; CODE XREF: sub_4DB3AD+21C↑j
+loc_4DB60C:                             ; CODE XREF: ?VMethod7@VisServerScreenRadio@@UAEXXZ+21C↑j
                 call    ?UnlockSurface2@@YAIXZ
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4DB3AD      endp
+?VMethod7@VisServerScreenRadio@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4DB615      proc near               ; DATA XREF: .rdata:0060AE70↓o
+?GetIndex@VisServerScreenRadio@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060AE70↓o
 
 var_14          = dword ptr -14h
 var_10          = byte ptr -10h
@@ -81964,7 +81860,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4DB615      endp
+?GetIndex@VisServerScreenRadio@@UAEHH@Z      endp
 
 ; ---------------------------------------------------------------------------
 
@@ -272355,37 +272251,6 @@ off_60AC80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?OnChar@VisTextBox@@UAEHI@Z
 
 
-off_60ADF8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z+32↑o
-                dd offset sub_450970
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@VisRadioBase@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset sub_4DB3AD
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@VisRadioBase@@UAEXPAX@Z
-                dd offset ?DataSize@VisRadioBase@@UAEIXZ ; MFC 3.1-14.0 32bit
-                dd offset ?ReadData@VisRadioType1@@UAEXPBX@Z
-                dd offset ?MsgProc@CVisualObject@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisRadioType1@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnKeyDown@VisRadioType1@@UAEHI@Z
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@VisRadioType1@@UAEHI@Z
-                dd offset sub_4DB615
                 align 8
 
 off_60B120      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_450D40+12↑o

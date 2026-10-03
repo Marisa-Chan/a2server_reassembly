@@ -2994,7 +2994,12 @@ void sub_44E4CE(const char* cmd);
 class VisServerScreenRadio : public VisRadioType1
 {
 public:
+	virtual ~VisServerScreenRadio(); // 450970 (complete dtor 4509a0)
+
 	VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450920
+
+	virtual void VMethod7() override; // 4db3ad in asm
+	virtual int32_t GetIndex(int32_t y) override; // 4db615 in asm
 };
 ASSERT_SIZE(VisServerScreenRadio, 0x8c);
 
