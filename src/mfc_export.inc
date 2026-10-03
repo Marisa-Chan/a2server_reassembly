@@ -2183,7 +2183,6 @@ externdef ?MsgProc@VisListBoxDiplomacy@@UAEHIII@Z : proc
 externdef ?OnLButtonDown@VisListBoxDiplomacy@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisListBoxDiplomacy@@UAEHI@Z : proc
 externdef ?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z : proc
-externdef ?DrawItem@VisListBoxDiplomacy@@UAEXHVCPoint@@PAG@Z : proc
 externdef ?SelectItem@VisListBoxDiplomacy@@UAEXH@Z : proc
 externdef ?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z : proc
 

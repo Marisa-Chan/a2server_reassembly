@@ -24647,3 +24647,17 @@ void VisListBoxDiplomacy::UpdateRadioPositions(int32_t vis_start_index)
         this->mute_radios->ElementAt(i)->SetRect(0x19a, top, 0x1cc, bottom);
     }
 }
+
+// 4DD0BD
+void VisListBoxDiplomacy::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    if (this->IsValidIndex(idx)) {
+        DiplomacyEntry* entry = this->diplomacy->GetAt(idx);
+        this->font->DrawTextWithShadow(pos.x, pos.y + (this->entry_height_full - this->entry_height) / 2, entry->name, 0, clr, 1);
+
+        this->enemy_radios->ElementAt(idx)->VMethod7();
+        this->ally_radios->ElementAt(idx)->VMethod7();
+        this->see_radios->ElementAt(idx)->VMethod7();
+        this->mute_radios->ElementAt(idx)->VMethod7();
+    }
+}
