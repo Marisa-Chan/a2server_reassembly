@@ -9652,6 +9652,17 @@ void VisCharInfo::sub_4B36B4()
     new_cursor->Use();
 }
 
+// 4AEDCF
+VisRightPanel::VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : CVisualObject(_id, l, t, r, b, nullptr)
+{
+}
+
+// 4B46E0
+VisRightPanel::~VisRightPanel()
+{
+}
+
 // 4AEE44
 int32_t VisRightPanel::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 {

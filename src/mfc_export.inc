@@ -1030,7 +1030,6 @@ extern ?g_TunesMap@@3VCMapStringToString@@A  : dword
 
 extern ?DAT_00660f88@@3HA : dword
 
-externdef   ??0VisRightPanel@@QAE@HHHHH@Z  : proc
 extern   ??0VisTav@@QAE@HHHHH@Z  : proc
 externdef   ??0VisCredits@@QAE@HHHHH@Z  : proc
 externdef   ??0VisDropGold@@QAE@HHH@Z  : proc
@@ -1553,9 +1552,7 @@ externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
 ;VisRightPanel
-externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
-externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
 
 externdef ?UpdateCursor@VisOrderToolbar@@QAEXXZ : proc  ; void VisOrderToolbar::UpdateCursor(void)
 
