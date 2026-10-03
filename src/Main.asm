@@ -86234,26 +86234,6 @@ sub_4DB615      endp
 
 ; Attributes: bp-based frame
 
-?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z      proc near               ; DATA XREF: .rdata:0060E1B8↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+98h]
-                call    unknown_libname_669 ; Microsoft VisualC 2-14/net runtime
-                xor     ecx, ecx
-                cmp     [ebp+arg_0], eax
-                setl    cl
-                mov     eax, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

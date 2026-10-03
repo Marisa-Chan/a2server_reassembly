@@ -24747,3 +24747,9 @@ int32_t VisListBoxDiplomacy::OnLButtonDown(uint32_t wparam, CPoint pos)
     this->parent->MsgProc(0x46e, this->id, this->selected_index);
     return 1;
 }
+
+// 4DD098
+int32_t VisListBoxDiplomacy::IsValidIndex(int32_t idx)
+{
+    return idx < this->enemy_radios->GetSize();
+}

@@ -2179,7 +2179,6 @@ externdef ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : p
 
 ; VisListBoxDiplomacy
 externdef ?OnKeyDown@VisListBoxDiplomacy@@UAEHI@Z : proc
-externdef ?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z : proc
 externdef ?VMethod30@VisListBoxDiplomacy@@UAEXVCPoint@@ABVCRect@@@Z : proc
 
 ; VisNetTcpIp
