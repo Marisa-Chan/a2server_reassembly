@@ -24582,3 +24582,13 @@ int32_t VisStartGameTextBox::OnKeyDown(uint32_t wparam)
 
     return CVisualObject::OnKeyDown(wparam);
 }
+
+// 432D1B
+int32_t VisStartGameTextBox::OnChar(uint32_t wparam)
+{
+    int32_t len = this->text.GetLength();
+    if (len < 10) {
+        this->FUN_00432b33(EncodeChar((uint8_t)wparam));
+    }
+    return len < 10;
+}

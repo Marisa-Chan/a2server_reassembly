@@ -16647,7 +16647,7 @@ sub_432AD1      endp
 
 ; Attributes: bp-based frame
 
-sub_432B33      proc near               ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+29↓p
+?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z      proc near               ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+29↓p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -16675,11 +16675,11 @@ arg_0           = dword ptr  8
                 add     ecx, 60h ; '`'
                 call    ??YCString@@QAEABV0@D@Z ; CString::operator+=(char)
 
-loc_432B7A:                             ; CODE XREF: sub_432B33+29↑j
+loc_432B7A:                             ; CODE XREF: ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z+29↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_432B33      endp
+?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16790,40 +16790,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?OnChar@VisStartGameTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:00609994↓o
-
-var_4           = dword ptr -4
-arg_0           = byte ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 60h ; '`'
-                call    sub_4029A0
-                cmp     eax, 0Ah
-                jge     short loc_432D50
-                xor     eax, eax
-                mov     al, [ebp+arg_0]
-                push    eax
-                call    ?EncodeChar@@YAEE@Z
-                add     esp, 4
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_432B33
-                mov     eax, 1
-                jmp     short loc_432D52
-; ---------------------------------------------------------------------------
-
-loc_432D50:                             ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+15↑j
-                xor     eax, eax
-
-loc_432D52:                             ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+33↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?OnChar@VisStartGameTextBox@@UAEHI@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -16869,7 +16835,7 @@ loc_432ECE:                             ; CODE XREF: ?GetHint@VisStartGameTextBo
 
 ; Attributes: bp-based frame
 
-?FUN_004382d9@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: sub_432B33+31↑p
+?FUN_004382d9@VisStartGame@@QAEXXZ      proc near               ; CODE XREF: ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z+31↑p
 
 var_4           = dword ptr -4
 

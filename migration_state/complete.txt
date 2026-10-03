@@ -556,6 +556,7 @@
 ?OnChar@VisButton@@UAEHI@Z
 ?OnChar@VisGlobalMap@@UAEHI@Z
 ?OnChar@VisRadioType1@@UAEHI@Z
+?OnChar@VisStartGameTextBox@@UAEHI@Z
 ?OnChar@VisTextBox@@UAEHI@Z
 ?OnEndTrack@MusicPlayer@@QAEXXZ
 ?OnKeyDown@CVisualObject@@UAEHI@Z

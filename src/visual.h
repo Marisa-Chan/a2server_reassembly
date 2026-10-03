@@ -2715,6 +2715,7 @@ public:
 	void SetText(const CString& text); // 432c03
 
 	void FUN_00432b80(); //432b80 in asm
+	void FUN_00432b33(uint8_t ch); //432b33 in asm
 
 public:
 	VisStartGame* screen;
