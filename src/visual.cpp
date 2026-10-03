@@ -24122,3 +24122,35 @@ Vis1200::Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 Vis1200::~Vis1200()
 {
 }
+
+// 4B12E3
+void VisOrderToolbar::VMethod7()
+{
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (main_wnd->dialogsMask == 1) {
+        LockSurface2();
+        if (this->enabled == 0) {
+            g_bmp_headsr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+        } else {
+            g_bmp_cmdbarr->VMethod2(screen_rect.left, screen_rect.top, 0, 0, 0);
+            for (int32_t i = 0; i < 8; i++) {
+                if ((this->avail_orders_mask & (1 << i)) == 0) {
+                    int32_t x = (i & 3) * 0x22 + 8;
+                    int32_t y = (i >> 2) * 0x22 + 7;
+                    g_bmp_cmdempr->VMethod9(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
+                }
+            }
+            int32_t sel = (int32_t)this->selected_order;
+            if (sel >= 0) {
+                int32_t x = (sel & 3) * 0x22 + 8;
+                int32_t y = (sel >> 2) * 0x22 + 7;
+                g_bmp_cmddnr->VMethod9(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
+            }
+        }
+        UnlockSurface2();
+        this->dirty = 0;
+    }
+}
