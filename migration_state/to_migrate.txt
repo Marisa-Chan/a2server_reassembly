@@ -323,7 +323,7 @@ _byte_659A3C
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
 ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z	93
-??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
+?OnKeyDown@VisNetChatTextBox@@UAEHI@Z	48
 ?GetHint@VisNetMapList@@UAEPBDXZ	76
 ?DrawItem@VisNetMapList@@UAEXHVCPoint@@PAG@Z	216
 ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z	51

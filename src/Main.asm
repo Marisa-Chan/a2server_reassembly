@@ -24859,46 +24859,6 @@ sub_44FE40      endp
                 align 10h
 
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z(int, RECT *lprcSrc, int, int, LPCSTR lpString)
-??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z      proc near               ; CODE XREF: ?VMethod26@VisNetMapSelection@@UAEXXZ+5E3↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-lprcSrc         = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-lpString        = dword ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+arg_C]
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+arg_8]
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+lprcSrc]
-                push    eax             ; lprcSrc
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0VisTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx], offset off_60AC80
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -24907,7 +24867,7 @@ lpString        = dword ptr  18h
 
 ; Attributes: bp-based frame
 
-sub_4502C0      proc near               ; DATA XREF: .rdata:0060ACEC↓o
+?OnKeyDown@VisNetChatTextBox@@UAEHI@Z      proc near               ; DATA XREF: .rdata:0060ACEC↓o
 
 var_104         = dword ptr -104h
 Source          = byte ptr -100h
@@ -24945,72 +24905,18 @@ arg_0           = dword ptr  8
                 jmp     short loc_450345
 ; ---------------------------------------------------------------------------
 
-loc_450336:                             ; CODE XREF: sub_4502C0+13↑j
+loc_450336:                             ; CODE XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+13↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_104]
                 call    ?OnKeyDown@VisTextBox@@UAEHI@Z
 
-loc_450345:                             ; CODE XREF: sub_4502C0+74↑j
+loc_450345:                             ; CODE XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+74↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4502C0      endp
+?OnKeyDown@VisNetChatTextBox@@UAEHI@Z      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450350      proc near               ; DATA XREF: .rdata:0060AC84↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_450380
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_450372
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_450372:                             ; CODE XREF: sub_450350+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_450350      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_450380      proc near               ; CODE XREF: sub_450350+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1VisTextBox@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_450380      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -272219,36 +272125,6 @@ off_60A438      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 align 10h
                 align 10h
                 align 10h
-off_60AC80      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z+26↑o
-                dd offset sub_450350
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CObject@@UBEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
-                dd offset ?GetHint@CVisualObject@@UAEPBDXZ
-                dd offset ?SetHint@CVisualObject@@UAEXPBD@Z ; Concurrency::details::SchedulerBase::HasSearchers(Concurrency::details::QuickBitSet const &)
-                dd offset ?ChangeFlags@CVisualObject@@UAEXI_N@Z
-                dd offset ?TestFlags@CVisualObject@@UAEII@Z
-                dd offset ?SetCursorOver@CVisualObject@@UAEX_N@Z
-                dd offset ?SetFocus@CVisualObject@@UAEX_N@Z
-                dd offset ?VMethod7@VisTextBox@@UAEXXZ
-                dd offset ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod9@CVisualObject@@UAEXXZ
-                dd offset ?VMethod10@CVisualObject@@UAEXXZ
-                dd offset ?WriteData@VisTextBox@@UAEXPAX@Z
-                dd offset ?DataSize@VisTextBox@@UAEIXZ ; MFC 3.1-14.0 32bit
-                dd offset ?ReadData@VisTextBox@@UAEXPBX@Z
-                dd offset ?MsgProc@VisTextBox@@UAEHIII@Z
-                dd offset ?OnMouseMove@VisTextBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnWmUser@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
-                dd offset ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnLButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDown@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonUp@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset ?OnRButtonDblClk@CVisualObject@@UAEHIVCPoint@@@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_4502C0
-                dd offset ?OnKeyUp@CVisualObject@@UAEHI@Z ; std::_Ref_count_base::_Get_deleter(type_info const &)
-                dd offset ?OnChar@VisTextBox@@UAEHI@Z
 
 
                 align 8
@@ -296441,7 +296317,7 @@ _byte_659A54     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAE
 ; CHAR _byte_659A58[4]
 _byte_659A58     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+1B6↑o
 ; CHAR byte_659A5C[4]
-byte_659A5C     db 4 dup(?)             ; DATA XREF: sub_4502C0+2D↑o
+byte_659A5C     db 4 dup(?)             ; DATA XREF: ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z+2D↑o
 ; AFX_CLASSINIT unk_659A60
 unk_659A60      db 8h dup(?)
 

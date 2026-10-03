@@ -5345,6 +5345,17 @@ VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, in
 VisServerScreenRadio::~VisServerScreenRadio() = default;
 
 
+// 450280
+VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
+    : VisTextBox(_id, r, _font, _clr, hint)
+{
+}
+
+
+// 450350 (deleting dtor ??_G; the complete dtor 450380 only calls the base dtor)
+VisNetChatTextBox::~VisNetChatTextBox() = default;
+
+
 // 42F61A
 void VisCharSellectStats::FreeBitmaps()
 {

@@ -2159,7 +2159,7 @@ externdef ?DrawItem@VisNetMapList@@UAEXHVCPoint@@PAG@Z : proc
 externdef ?GetHint@VisNetMapList@@UAEPBDXZ : proc
 externdef ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z : proc
 externdef ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z : proc
-externdef ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z : proc
+externdef ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z : proc
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
 externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 

@@ -3540,6 +3540,8 @@ ASSERT_SIZE(VisNetPlayerList, 0xa8);
 class VisNetChatTextBox : public VisTextBox
 {
 public:
+	virtual ~VisNetChatTextBox(); // 450350 (complete dtor 450380)
+
 	VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint); // 450280 in asm
 
 	virtual int32_t OnKeyDown(uint32_t wparam) override; // 4502c0 in asm
