@@ -539,7 +539,6 @@
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
 ?MsgProc@VisGlobalMap@@UAEHIII@Z
-?MsgProc@VisHatBrowserDlg@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
 ?MsgProc@VisInvType1@@UAEHIII@Z
 ?MsgProc@VisListBox@@UAEHIII@Z
@@ -867,7 +866,6 @@
 ?VMethod25@CUnit@@UAEXH@Z
 ?VMethod26@CUnit@@UAEXXZ
 ?VMethod26@VisGlobalMap@@UAEXXZ
-?VMethod26@VisHatBrowserDlg@@UAEXXZ
 ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType1@@UAEHPAVTokenEntry@@H@Z
 ?VMethod26@VisInvExtType2@@UAEHPAVTokenEntry@@H@Z

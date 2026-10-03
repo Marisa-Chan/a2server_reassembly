@@ -2261,12 +2261,6 @@ externdef ?MsgProc@VisHatServerListDlg@@UAEHIII@Z : proc
 externdef ?VMethod30@VisHatServerListDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z : proc
 externdef ?VMethod31@VisHatServerListDlg@@UAEXH@Z : proc
 
-; VisHatBrowserDlg
-externdef ??0VisHatBrowserDlg@@QAE@HHHHH@Z : proc
-externdef ??_GVisHatBrowserDlg@@UAEPAXI@Z : proc
-externdef ?MsgProc@VisHatBrowserDlg@@UAEHIII@Z : proc
-externdef ?VMethod26@VisHatBrowserDlg@@UAEXXZ : proc
-
 ; VisHatBrowserList
 externdef ??0VisHatBrowserList@@QAE@HHHHHPAVCGameFont@@PAG1HPBD@Z : proc
 externdef ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc

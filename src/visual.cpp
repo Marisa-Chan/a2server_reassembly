@@ -23555,3 +23555,14 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
 }
+
+// 44bc35
+VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+    : VisWindow(_id, l, t, r, b, nullptr)
+{
+}
+
+// 44fed0
+VisHatBrowserDlg::~VisHatBrowserDlg()
+{
+}
