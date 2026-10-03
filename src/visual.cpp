@@ -23782,3 +23782,12 @@ void VisCredits::VMethod26()
     this->bitmaps.RemoveAll();
     this->AddChild(new VisButton(4, 0, 0, 0, 0, " ", g_font1, clrsh_TechBlack, 0x445, 0, nullptr));
 }
+
+// 43C595
+int32_t VisCredits::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->VMethod9();
+    }
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}

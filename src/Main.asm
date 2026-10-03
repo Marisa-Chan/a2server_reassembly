@@ -23135,44 +23135,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisCredits@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:00609BD0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 402h
-                jz      short loc_43C5AF
-                jmp     short loc_43C5BA
-; ---------------------------------------------------------------------------
-
-loc_43C5AF:                             ; CODE XREF: ?MsgProc@VisCredits@@UAEHIII@Z+16↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+34h]
-
-loc_43C5BA:                             ; CODE XREF: ?MsgProc@VisCredits@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@VisScreen@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisCredits@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
