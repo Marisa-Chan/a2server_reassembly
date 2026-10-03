@@ -5346,6 +5346,18 @@ VisNetPlayerList::VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font,
 VisNetPlayerList::~VisNetPlayerList() = default;
 
 
+// 44c71d
+void VisNetPlayerList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    if (!this->IsValidIndex(idx)) {
+        return;
+    }
+
+    const char* txt = this->entries[idx];
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt, 0, (uint16_t*)this->colors[idx], 1);
+}
+
+
 // 44ffd0
 VisNetMapList::VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint, int32_t* p_selected_map_index)
     : VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint)

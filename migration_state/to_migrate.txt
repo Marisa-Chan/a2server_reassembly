@@ -322,5 +322,4 @@ _byte_659A3C
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
 ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z	48
-?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z	51
 ?GetIndex@VisServerScreenRadio@@UAEHH@Z	36

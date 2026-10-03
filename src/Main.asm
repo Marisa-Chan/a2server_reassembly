@@ -22432,58 +22432,6 @@ byte_44C5F5     db      0,     1,     2,     7
 
 ; Attributes: bp-based frame
 
-?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z      proc near               ; DATA XREF: .rdata:0060AC6C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_8]
-                call    dword ptr [edx+78h]
-                test    eax, eax
-                jz      short loc_44C782
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 64h ; 'd'
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_4], eax
-                push    1
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 94h
-                call    sub_402910
-                mov     edx, dword ptr [eax]
-                push    edx
-                push    0
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+78h]
-                call    ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
-
-loc_44C782:                             ; CODE XREF: ?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z+1A↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    10h
-?DrawItem@VisNetPlayerList@@UAEXHVCPoint@@PAG@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
