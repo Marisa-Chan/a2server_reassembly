@@ -24292,3 +24292,20 @@ int32_t VisOrderToolbar::OnMouseMove(uint32_t wparam, CPoint pos)
     }
     return 0;
 }
+
+// 4B1213
+int32_t VisOrderToolbar::OnLButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return this->OnLButtonDown(wparam | 1, pos);
+}
+
+// 4B124C
+int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        g_Cursors[0]->Use();
+        main_wnd->ResetItemCursor();
+    }
+    return 1;
+}

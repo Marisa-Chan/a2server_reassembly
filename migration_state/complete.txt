@@ -575,6 +575,7 @@
 ?OnLButtonDblClk@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnLButtonDblClk@VisTavScene@@UAEHIVCPoint@@@Z
@@ -603,6 +604,7 @@
 ?OnLButtonUp@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnMouseMove@CVisualObject@@UAEHIVCPoint@@@Z
