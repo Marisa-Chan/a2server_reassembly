@@ -24105,3 +24105,8 @@ int32_t Vis1200::FUN_00497310()
 {
     return this->text_block->FUN_00497330();
 }
+
+// 43BE73
+void Vis1200::VMethod8(CRect* rect)
+{
+}
