@@ -344,7 +344,6 @@ _byte_659A3C
 ?VMethod28@VisCredits@@UAEXXZ	37
 ??0VisCredits@@QAE@HHHHH@Z	64
 ?VMethod26@VisCredits@@UAEXXZ	67
-?VMethod7@VisCredits@@UAEXXZ	334
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127

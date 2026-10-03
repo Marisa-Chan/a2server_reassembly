@@ -23701,3 +23701,77 @@ VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r,
 VisHatBrowserDlg::~VisHatBrowserDlg()
 {
 }
+
+// 43C60C
+void VisCredits::VMethod7()
+{
+    if (this->flag == 0) {
+        return;
+    }
+
+    static uint8_t credits_timing_init = 0;  // byte_65995C in asm
+    static uint32_t credits_scroll_time = 0; // dword_659958 in asm
+    if (credits_timing_init == 0) {
+        credits_timing_init = 1;
+        credits_scroll_time = timeGetTime();
+    }
+
+    uint32_t now = timeGetTime();
+    int32_t line_height = g_font1->GetHeight();
+    int32_t left = this->rect.TopLeft().x;
+    int32_t top = this->rect.TopLeft().y;
+    CRect saved_clip;
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    if (now - credits_scroll_time < 0x17) {
+        return;
+    }
+
+    this->scroll -= 1;
+    if (this->scroll < 0) {
+        this->first_visible = abs(this->scroll) / line_height;
+    } else {
+        this->first_visible = 0;
+    }
+
+    GetClipRect(&saved_clip);
+    SetClipRect(screen_rect);
+    LockSurface2();
+    FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+
+    int32_t last = this->first_visible + 1 + 0x1e0 / line_height;
+    if (last > this->text.GetCount()) {
+        last = this->text.GetCount();
+    }
+    int32_t first = (this->first_visible - 10 < 0) ? 0 : this->first_visible - 10;
+
+    for (int32_t i = first; i < last; i++) {
+        char* line = this->text.GetLine(i);
+        if (*line == '"') {
+            CObject* value = nullptr;
+            if (this->bitmaps.Lookup(this->text.GetLine(i), value) != 0) {
+                CBmp64* bmp = (CBmp64*)value;
+                int32_t width = bmp->GetWidth();
+                bmp->VMethod2(left + 0x140 - width / 2, top + this->scroll + i * line_height, 0, 0, 0);
+            }
+        } else if (i == 0) {
+            g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(0), 2, clrsh_ShockingBlack);
+        } else {
+            if (strlen(this->text.GetLine(i - 1)) == 0) {
+                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), 2, clrsh_ShockingBlack);
+            } else {
+                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), 2, clrsh_TechBlack);
+            }
+        }
+    }
+
+    UnlockSurface2();
+    SetClipRect(saved_clip);
+
+    if (this->first_visible >= last) {
+        this->MsgProc(0x445, 0, 0);
+    }
+
+    credits_scroll_time = timeGetTime();
+}
