@@ -24099,3 +24099,9 @@ int32_t Vis1200::FUN_004972d0()
 {
     return this->text_block->FUN_004972f0();
 }
+
+// 497310
+int32_t Vis1200::FUN_00497310()
+{
+    return this->text_block->FUN_00497330();
+}

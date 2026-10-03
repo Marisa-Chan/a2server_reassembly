@@ -68197,21 +68197,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FUN_00497310@Vis1200@@QAEHXZ      proc near               ; CODE XREF: sub_48B061+246↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+168h]
-                call    unknown_libname_602 ; Microsoft VisualC 2-14/net runtime
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00497310@Vis1200@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -68222,7 +68207,7 @@ var_4           = dword ptr -4
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_602 proc near           ; CODE XREF: ?FUN_00497310@Vis1200@@QAEHXZ+10↑p
+?FUN_00497330@Vis1200obj@@QAEHXZ proc near           ; CODE XREF: ?FUN_00497310@Vis1200@@QAEHXZ+10↑p
 
 var_4           = dword ptr -4
 
@@ -68235,7 +68220,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-unknown_libname_602 endp
+?FUN_00497330@Vis1200obj@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
