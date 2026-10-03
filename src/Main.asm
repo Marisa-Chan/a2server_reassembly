@@ -16467,39 +16467,6 @@ unknown_libname_460 endp
 
 ; Attributes: bp-based frame
 
-?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z      proc near               ; CODE XREF: ?OnChar@VisStartGameTextBox@@UAEHI@Z+29↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+70h], 1
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+74h], eax
-                mov     edx, dword ptr [ebp+arg_0]
-                and     edx, 0FFh
-                cmp     edx, 20h ; ' '
-                jl      short loc_432B7A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                call    ?FUN_004382d9@VisStartGame@@QAEXXZ
-                xor     ecx, ecx
-                mov     cl, byte ptr [ebp+arg_0]
-                push    ecx             ; Src
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 60h ; '`'
-                call    ??YCString@@QAEABV0@D@Z ; CString::operator+=(char)
-
-loc_432B7A:                             ; CODE XREF: ?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z+29↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00432b33@VisStartGameTextBox@@QAEXE@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
