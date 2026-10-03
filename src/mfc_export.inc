@@ -1556,7 +1556,7 @@ externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 ;VisTipsDialog
 externdef ??_GVisTipsDialog@@UAEPAXI@Z : proc
 extern ?VMethod8@VisTipsDialog@@UAEXPAVCRect@@@Z : proc
-externdef ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
+extern ?MsgProc@VisTipsDialog@@UAEHIII@Z : proc
 externdef ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z : proc
 
 ;VisRightPanel

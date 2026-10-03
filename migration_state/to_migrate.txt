@@ -359,5 +359,4 @@ _byte_659A3C
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ	54
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62
-?MsgProc@VisTipsDialog@@UAEHIII@Z	71
 ?OnLButtonUp@VisTipsDialog@@UAEHIVCPoint@@@Z	77

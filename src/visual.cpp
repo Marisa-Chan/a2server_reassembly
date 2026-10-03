@@ -4320,6 +4320,26 @@ void VisTipsDialog::SetText(const char* text)
 }
 
 
+// 4e2b95
+int32_t VisTipsDialog::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x46E && wparam == 0xF) {
+        g_settings.TipsMode = lparam;
+    }
+
+    if (msg == 0x100 || msg == 0x445 || msg == 0x446) {
+        return 0;
+    }
+
+    if (msg == 0x202) {
+        CPoint pos(lparam & 0xFFFF, lparam >> 0x10);
+        this->OnLButtonUp(wparam, pos);
+    }
+
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
+
+
 int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos)
 {
     //4303c8

@@ -553,6 +553,7 @@
 ?MsgProc@VisSpellBook@@UAEHIII@Z
 ?MsgProc@VisStartGame@@UAEHIII@Z
 ?MsgProc@VisTextBox@@UAEHIII@Z
+?MsgProc@VisTipsDialog@@UAEHIII@Z
 ?NextFrame@VisTavSceneAnim@@QAEXXZ
 ?OnChar@CVisualObject@@UAEHI@Z
 ?OnChar@VisButton@@UAEHI@Z
