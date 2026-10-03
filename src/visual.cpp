@@ -24321,3 +24321,9 @@ int32_t VisOrderToolbar::OnRButtonDown(uint32_t wparam, CPoint pos)
 {
     return 1;
 }
+
+// 4B123A
+int32_t VisOrderToolbar::OnRButtonDblClk(uint32_t wparam, CPoint pos)
+{
+    return 1;
+}

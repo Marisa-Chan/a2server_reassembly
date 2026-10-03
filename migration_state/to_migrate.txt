@@ -365,7 +365,6 @@ _byte_659A3C
 ??0VisNetTcpIp@@QAE@HHHHHPAVCString@@@Z	46
 ?VMethod31@VisNetTcpIp@@UAEXH@Z	58
 ?VMethod30@VisNetTcpIp@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	89
-?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z	12
 ?UpdateCursor@VisOrderToolbar@@QAEXXZ	131
 ?VMethod7@VisRightPanel@@UAEXXZ	13
 ??_GVisRightPanel@@UAEPAXI@Z	24

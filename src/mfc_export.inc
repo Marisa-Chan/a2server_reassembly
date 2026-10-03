@@ -1571,13 +1571,6 @@ externdef ??_GVisRightPanel@@UAEPAXI@Z : proc
 externdef ?VMethod7@VisRightPanel@@UAEXXZ : proc
 externdef ?MsgProc@VisRightPanel@@UAEHIII@Z : proc
 
-;VisOrderToolbar
-externdef ?OnMouseMove@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
-externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?UpdateCursor@VisOrderToolbar@@QAEXXZ : proc  ; void VisOrderToolbar::UpdateCursor(void)
 
 ;VisSpellBook

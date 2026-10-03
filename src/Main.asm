@@ -77399,19 +77399,6 @@ loc_4AEE76:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAE
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z proc near           ; DATA XREF: .rdata:0060CFD8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
