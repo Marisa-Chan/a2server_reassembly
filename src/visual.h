@@ -42,6 +42,7 @@ struct AvailNetSession;
 struct ComSettings;
 struct PhoneBook;
 struct CLlAddress;
+struct CLlConn;
 struct HatSettings;
 
 
@@ -3348,7 +3349,7 @@ public:
 	virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44604C
 	virtual void VMethod31(int32_t code) override; // 445EBD
 public:
-	uint32_t protocols;
+	CLlConn* protocols;
 	int32_t* pSelected;
 };
 ASSERT_SIZE(VisConnectionDlg, 0x80);

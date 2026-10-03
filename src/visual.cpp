@@ -24327,3 +24327,50 @@ int32_t VisOrderToolbar::OnRButtonDblClk(uint32_t wparam, CPoint pos)
 {
     return 1;
 }
+
+// 44604C
+CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r)
+{
+    RECT& rect = const_cast<RECT&>(r);
+    rect.right -= 0x18;
+
+    VisListBox* list = new VisListBox(2, r, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 10, txt_dialogs.GetLine(0x51));
+    this->AddChild(list);
+
+    VisScrollBar* scrollbar = new VisScrollBar(10, list->GetRect().right, list->GetRect().top, list->GetRect().right + 0x18, list->GetRect().bottom, nullptr);
+    this->AddChild(scrollbar);
+
+    CStringArray* names = new CStringArray();
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    int32_t no_serial = (main_wnd->sessionMode == 3) ? 1 : 0;
+
+    int32_t count = 0;
+    g_CLlDriver.EnumConnections(&this->protocols, &count);
+    for (int32_t i = 0; i < count; i++) {
+        if (this->protocols[i].typ == 4 || (no_serial != 0 && (this->protocols[i].typ == 1 || this->protocols[i].typ == 0))) {
+            memcpy(this->protocols + i, this->protocols + i + 1, (count - i - 1) * 0x104);
+            count--;
+            i--;
+        } else {
+            char enc[256];
+            const char* name = this->protocols[i].name;
+            uint32_t j = 0;
+            for (; j < strlen(name); j++) {
+                enc[j] = EncodeChar(name[j]);
+            }
+            enc[j] = '\0';
+            names->Add(enc);
+        }
+    }
+    list->ReadData(&names);
+
+    if ((uint32_t)*this->pSelected >= (uint32_t)(list->GetItemCount() - 1)) {
+        *this->pSelected = list->GetItemCount() - 1;
+    }
+    list->SetSelectedIndex(*this->pSelected);
+    list->SetCaptionLabel((VisLabel*)this->FindChild(-1));
+
+    delete names;
+    return list;
+}
