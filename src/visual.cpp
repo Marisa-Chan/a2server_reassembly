@@ -24442,6 +24442,12 @@ VisHatServerListDlg::~VisHatServerListDlg()
 {
 }
 
+// 43AD86
+void Vis1200obj::FUN_0043ad86()
+{
+    this->field_0x5c.Copy(this->field_0x70);
+}
+
 // 43AC8C
 void Vis1200obj::FUN_0043ac8c()
 {

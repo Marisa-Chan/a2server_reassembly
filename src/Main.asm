@@ -19867,24 +19867,6 @@ sub_43AD35      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0043ad86@Vis1200obj@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@Vis1200@@UAEHI@Z+47↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 70h ; 'p'
-                push    eax             ; struct CStringArray *
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 5Ch ; '\'  ; varThis
-                call    ?Copy@CStringArray@@QAEXABV1@@Z ; CStringArray::Copy(CStringArray const &)
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0043ad86@Vis1200obj@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
