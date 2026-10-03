@@ -24435,3 +24435,36 @@ void VisDropGold::VMethod26()
     VisLabel* lbl_subtitle = new VisLabel(10000004, 20, 40, 276, 60, txt_dialogs.GetLine(0x31), g_font1, clrsh_TechBlack, 2);
     this->AddChild(lbl_subtitle);
 }
+
+// 441FEE
+void VisDropGold::DoClose(uint32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+
+    if (code == 0x445) {
+        CVisualObject* textbox = this->FindChild(10000005);
+        textbox->WriteData(this->amount_text);
+
+        float amount;
+        sscanf(this->amount_text, "%f", &amount);
+
+        if (amount < 0.0f) {
+            amount = 0.0f;
+        }
+
+        if ((float)(int32_t)main_wnd->vis_map_context->my_main_unit->gold < amount) {
+            amount = (float)(int32_t)main_wnd->vis_map_context->my_main_unit->gold;
+        }
+
+        TokenEntry* entry = main_wnd->vis_invtype1->VMethod36(this->selection, (int32_t)amount);
+        main_wnd->vis_map_context->my_main_unit->gold -= entry->field_0x10;
+        main_wnd->vis_map_context->sub_41AC88(entry->field_0x10, main_wnd->vis_map_context->field_0x3f6c->tileX | (main_wnd->vis_map_context->field_0x3f6c->tileY << 8));
+        main_wnd->ResetItemCursor();
+
+        if (entry != nullptr) {
+            delete entry;
+        }
+    }
+
+    VisScreen::DoClose(code);
+}
