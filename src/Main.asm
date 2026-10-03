@@ -16964,141 +16964,6 @@ loc_432D52:                             ; CODE XREF: ?OnChar@VisStartGameTextBox
 
 ; Attributes: bp-based frame
 
-?VMethod7@VisStartGameTextBox@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060994C↓o
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = byte ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F839E SIZE 0000001C BYTES
-
-; __unwind { // SEH_432D58
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_432D58
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                push    esi
-                mov     [ebp+var_24], ecx
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+5Ch]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     [ebp+var_1C], ecx
-                mov     [ebp+var_18], edx
-                call    timeGetTime
-                mov     [ebp+var_14], eax
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-;   try {
-                mov     [ebp+var_4], 0
-                call    ?LockSurface2@@YAIXZ
-                mov     eax, dword ptr [ebp+var_24]
-                cmp     dword ptr [eax+70h], 0
-                jz      short loc_432E04
-                push    4
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_24]
-                call    dword ptr [edx+20h]
-                test    eax, eax
-                jz      short loc_432E04
-                push    7Ch ; '|'       ; char
-                mov     eax, dword ptr [ebp+var_24]
-                add     eax, 60h ; '`'
-                push    eax             ; int
-                lea     ecx, [ebp+var_20]
-                push    ecx             ; CString *
-                call    ??H@YG?AVCString@@ABV0@D@Z ; operator+(CString const &,char)
-                mov     [ebp+var_28], eax
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [ebp+var_2C], edx
-;   } // starts at 432DA5
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_2C]
-                push    eax             ; int
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 432DE6
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                jmp     short loc_432E13
-; ---------------------------------------------------------------------------
-
-loc_432E04:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+60↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 60h ; '`'
-                push    ecx             ; int
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-
-loc_432E13:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+AA↑j
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+64h]
-                push    eax
-                push    0
-                lea     ecx, [ebp+var_10]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     esi, [ebp+var_18]
-                add     esi, [ecx+14h]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    sub_402A90
-                sub     esi, eax
-                push    esi
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [ebp+var_1C]
-                add     eax, [edx+8]
-                push    eax
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_font4@@3PAVCGameFont@@A
-                call    dword ptr [edx+14h]
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_14]
-                sub     ecx, [eax+74h]
-                cmp     ecx, 1F4h
-                jbe     short loc_432E80
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [edx+74h], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ecx+70h]
-                xor     edx, 1
-                mov     eax, dword ptr [ebp+var_24]
-                mov     [eax+70h], edx
-
-loc_432E80:                             ; CODE XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+10E↑j
-                call    ?UnlockSurface2@@YAIXZ
-;   } // starts at 432DF6
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_10] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 432D58
-?VMethod7@VisStartGameTextBox@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -257441,31 +257306,6 @@ SEH_432B80:                             ; DATA XREF: sub_432B80+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F838B
 ; END OF FUNCTION CHUNK FOR sub_432B80
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod7@VisStartGameTextBox@@UAEXXZ
-
-loc_5F839E:                             ; DATA XREF: .rdata:stru_618B78↓o
-; __unwind { // SEH_432D58              ; varThis
-;   cleanup() // owned by 432DA5
-;   cleanup() // owned by 432DF6
-                lea     ecx, [ebp+var_10]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F83A7:                             ; DATA XREF: .rdata:00618B80↓o
-;   cleanup() // owned by 432DE6        ; varThis
-                lea     ecx, [ebp+var_20]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_432D58:                             ; DATA XREF: ?VMethod7@VisStartGameTextBox@@UAEXXZ+5↑o
-                mov     eax, offset stru_618B58
-                jmp     ___CxxFrameHandler
-; } // starts at 5F839E
-; END OF FUNCTION CHUNK FOR ?VMethod7@VisStartGameTextBox@@UAEXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -291542,10 +291382,6 @@ stru_618B30     FuncInfoV1 <19930520h, 1, offset stru_618B50, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_618B50     UnwindMapEntry <-1, offset loc_5F838B>
-stru_618B58     FuncInfoV1 <19930520h, 2, offset stru_618B78, 0, 0, 0, 0>
-                align 8
-stru_618B78     UnwindMapEntry <-1, offset loc_5F839E>
-                UnwindMapEntry <0, offset loc_5F83A7>
 stru_618FD8     FuncInfoV1 <19930520h, 1, offset stru_618FF8, 0, 0, 0, 0>
                 db    0
                 db    0

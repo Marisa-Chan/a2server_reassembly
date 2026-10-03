@@ -369,7 +369,6 @@ _byte_659A3C
 ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z	36
 ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z	61
-?VMethod7@VisStartGameTextBox@@UAEXXZ	134
 ?SetText@VisTipsDialog@@QAEXPBD@Z	19
 ??_GVisTipsDialog@@UAEPAXI@Z	24
 ??0VisTipsDialog@@QAE@HHHHHPBD@Z	62

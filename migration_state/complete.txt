@@ -973,6 +973,7 @@
 ?VMethod7@VisShopCompass@@UAEXXZ
 ?VMethod7@VisSpellBook@@UAEXXZ
 ?VMethod7@VisStartGame@@UAEXXZ
+?VMethod7@VisStartGameTextBox@@UAEXXZ
 ?VMethod7@VisTavScene@@UAEXXZ
 ?VMethod7@VisTavSceneDruid@@UAEXXZ
 ?VMethod7@VisTavSceneKaarg@@UAEXXZ

@@ -24523,3 +24523,27 @@ VisDropGold::VisDropGold(int32_t _id, int32_t _x, int32_t _y)
 VisDropGold::~VisDropGold()
 {
 }
+
+// 432D58
+void VisStartGameTextBox::VMethod7()
+{
+    CPoint tl = this->screen->GetRect().TopLeft();
+    uint32_t now = timeGetTime();
+
+    CString str;
+
+    LockSurface2();
+    if (this->is_active != 0 && this->TestFlags(FLAG_FOCUS)) {
+        str = this->text + '|';
+    } else {
+        str = this->text;
+    }
+
+    g_font4->DrawTxt(tl.x + this->rect.left, tl.y + this->rect.bottom - g_font4->GetHeight(), str, 0, this->clr);
+
+    if ((now - this->ts) > 500) {
+        this->ts = now;
+        this->is_active = this->is_active ^ 1;
+    }
+    UnlockSurface2();
+}
