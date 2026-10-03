@@ -34270,25 +34270,6 @@ var_4           = dword ptr -4
                 retn
 sub_44FA40      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -313143,8 +313124,6 @@ byte_6599F8     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@U
 byte_6599FC     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMessageBox@@UAEXXZ+E31↑o
 ; CHAR byte_659A00[4]
 byte_659A00     db 4 dup(?)             ; DATA XREF: sub_4451E1+575↑o
-; CHAR byte_659A1C[4]
-byte_659A1C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisNetPhoneBook@@UAEXXZ+734↑o
 unk_659A20      db 4h dup(?)
 unk_659A24      db 4h dup(?)
 ; CHAR byte_659A28[4]
