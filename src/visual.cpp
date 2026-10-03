@@ -23912,3 +23912,36 @@ void VisHatServerListDlg::VMethod31(int32_t code)
         main_wnd->PostMessage(0x421, 0, 0);
     }
 }
+
+// 44A8A8
+int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg != 0x46e) {
+        return VisMessageBox::MsgProc(msg, wparam, lparam);
+    }
+    if (wparam != 4) {
+        return 0;
+    }
+
+    CVisualObject* store_child = this->FindChild(9);
+    if (store_child->TestFlags(1) == lparam || (int32_t)lparam > 1 || (int32_t)lparam < 0) {
+        return 1;
+    }
+
+    store_child->ChangeFlags(1, lparam != 0);
+    this->FindChild(3)->ChangeFlags(1, lparam != 0);
+    this->FindChild(6)->ChangeFlags(1, lparam != 0);
+    this->FindChild(8)->ChangeFlags(1, lparam != 0);
+
+    char buffer[256];
+    this->FindChild(2)->WriteData(buffer);
+    if (lparam == 1) {
+        this->FindChild(2)->ReadData(this->hat_settings->hatprogip);
+        this->hat_settings->hatip = buffer;
+    } else {
+        this->FindChild(2)->ReadData(this->hat_settings->hatip);
+        this->hat_settings->hatprogip = buffer;
+    }
+    this->VMethod9();
+    return 1;
+}

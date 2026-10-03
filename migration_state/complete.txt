@@ -540,6 +540,7 @@
 ?MissionGetTips@@YAXHPAVCString@@@Z
 ?MsgProc@CVisualObject@@UAEHIII@Z
 ?MsgProc@VisGlobalMap@@UAEHIII@Z
+?MsgProc@VisHatServerListDlg@@UAEHIII@Z
 ?MsgProc@VisInvBase@@UAEHIII@Z
 ?MsgProc@VisInvType1@@UAEHIII@Z
 ?MsgProc@VisListBox@@UAEHIII@Z
