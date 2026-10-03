@@ -115,8 +115,6 @@ public:
 	CVisualObject* FindChild(int32_t _id);
 	CVisualObject* GetChildAt(POINT pt);
 
-	int32_t sub_41F940(); //41f940. TODO: Move to a proper subclass.
-	
 	void ClientPtToScreen(CPoint* out, const CPoint& _point);
 	void ClientRectToScreen(CRect* out, const CRect& _rect);
 
@@ -1229,6 +1227,7 @@ public:
 	virtual int32_t VMethod38(); //4a79b0
 
 	int32_t FUN_0046fb90(); //46fb90
+	int32_t sub_41F940(); //41f940
 	void FUN_004a4ebc(); //4a4ebc
 	void sub_4A4BCB(); //4a4bcb
 	void sub_4A5350(); //4a5350 in asm

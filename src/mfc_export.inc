@@ -1143,7 +1143,6 @@ extern ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z :proc   ; (public: void __this
 
 extern ?GetRect@CVisualObject@@QAEAAVCRect@@XZ : proc
 
-externdef ?sub_41F940@CVisualObject@@QAEHXZ : proc  ; int CVisualObject::sub_41F940()
 
 
 ;VizLabel

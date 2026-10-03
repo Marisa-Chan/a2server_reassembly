@@ -5499,7 +5499,7 @@ void BigStruct2::sub_406F7B()
 	if (anim_redraw != 0) {
 		this->field_0xa8c = this->field_0xa88;
 	}
-	CVisualObject* child2 = this->FindChild(2);
+	VisInvBase* child2 = (VisInvBase*)this->FindChild(2);
 	CVisualObject* child3 = this->FindChild(3);
 	CRect childs_rect(0, 0, 0, 0);
 	int32_t childs_size = (int32_t)child2 + (int32_t)child3 + this->msglog.text.GetSize();

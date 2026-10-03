@@ -15110,6 +15110,11 @@ void VisInvBase::sub_4A5350()
     this->FUN_004a4ebc();
 }
 
+// 41f940
+int32_t VisInvBase::sub_41F940() {
+    return this->has_anim_visible_cells;
+} 
+
 
 // 4A6449
 void VisInvType1::VMethod7()

@@ -6820,28 +6820,6 @@ var_4           = dword ptr -4
                 retn
 sub_41F920      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?sub_41F940@CVisualObject@@QAEHXZ(_DWORD)
-?sub_41F940@CVisualObject@@QAEHXZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+31C↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+20A8h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41F940@CVisualObject@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
