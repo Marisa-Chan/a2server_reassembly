@@ -24592,3 +24592,13 @@ int32_t VisStartGameTextBox::OnChar(uint32_t wparam)
     }
     return len < 10;
 }
+
+// 432EA3
+const char* VisStartGameTextBox::GetHint()
+{
+    if (this->screen->dialogActiveFlag == 0) {
+        return nullptr;
+    }
+
+    return TxtFile::AllLines[0x100];
+}

@@ -468,6 +468,7 @@
 ?GetHint@VisShopCompass@@UAEPBDXZ
 ?GetHint@VisSpellBook@@UAEPBDXZ
 ?GetHint@VisStartGame@@UAEPBDXZ
+?GetHint@VisStartGameTextBox@@UAEPBDXZ
 ?GetHint@VisTavScene@@UAEPBDXZ
 ?GetId@TokenEntry@@QBEHXZ
 ?GetInt16Array@ResBase@@QAEHPBD0PAV?$CArray@GABG@@@Z

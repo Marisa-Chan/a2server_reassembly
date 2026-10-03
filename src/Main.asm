@@ -16802,33 +16802,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?GetHint@VisStartGameTextBox@@UAEPBDXZ      proc near               ; DATA XREF: .rdata:00609934↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+5Ch]
-                cmp     dword ptr [ecx+21Ch], 0
-                jnz     short loc_432EBD
-                xor     eax, eax
-                jmp     short loc_432ECE
-; ---------------------------------------------------------------------------
-
-loc_432EBD:                             ; CODE XREF: ?GetHint@VisStartGameTextBox@@UAEPBDXZ+14↑j
-                push    100h
-                mov     ecx, offset ?AllLines@TxtFile@@2V?$CArray@PADABQAD@@A
-                call    sub_41F850
-                mov     eax, dword ptr [eax]
-
-loc_432ECE:                             ; CODE XREF: ?GetHint@VisStartGameTextBox@@UAEPBDXZ+18↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetHint@VisStartGameTextBox@@UAEPBDXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

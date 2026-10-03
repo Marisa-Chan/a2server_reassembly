@@ -1590,7 +1590,7 @@ externdef ?UpdateCursor@VisSideStatus@@QAEXXZ : proc  ; void VisSideStatus::Upda
 
 ;VisStartGameTextBox
 externdef ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z : proc
-externdef ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
+extern ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGameTextBox@@UAEXXZ : proc
 extern ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 extern ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
