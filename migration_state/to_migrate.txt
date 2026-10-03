@@ -319,7 +319,6 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?MsgProc@Vis1200obj@@UAEHIII@Z	62
 ?OnKeyDown@Vis1200obj@@UAEHI@Z	79
 ?FUN_0043ae1c@Vis1200obj@@QAEXE@Z	190
 ?VMethod7@Vis1200obj@@UAEXXZ	190

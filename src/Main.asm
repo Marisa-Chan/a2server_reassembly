@@ -20058,69 +20058,6 @@ byte_43B22C     db      0,     1,     4,     4
 
 ; Attributes: bp-based frame
 
-?MsgProc@Vis1200obj@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:00609AA0↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 402h
-                jz      short loc_43B29D
-                jmp     short loc_43B315
-; ---------------------------------------------------------------------------
-
-loc_43B29D:                             ; CODE XREF: ?MsgProc@Vis1200obj@@UAEHIII@Z+16↑j
-                call    timeGetTime
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+9Ch], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+9Ch]
-                sub     ecx, [eax+98h]
-                cmp     ecx, 1F4h
-                jbe     short loc_43B300
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+9Ch]
-                mov     [edx+98h], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+0A0h], 0
-                jz      short loc_43B2F3
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0A0h], 0
-                jmp     short loc_43B300
-; ---------------------------------------------------------------------------
-
-loc_43B2F3:                             ; CODE XREF: ?MsgProc@Vis1200obj@@UAEHIII@Z+5F↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+0A0h], 1
-
-loc_43B300:                             ; CODE XREF: ?MsgProc@Vis1200obj@@UAEHIII@Z+41↑j
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     edx, dword ptr [eax+0D0h]
-                mov     dword ptr [edx+0E0h], 1
-
-loc_43B315:                             ; CODE XREF: ?MsgProc@Vis1200obj@@UAEHIII@Z+18↑j
-                mov     eax, dword ptr [ebp+arg_8]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@CVisualObject@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@Vis1200obj@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

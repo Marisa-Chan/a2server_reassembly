@@ -24473,6 +24473,25 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 // 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
+// 43B283
+int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == 0x402) {
+        this->field_0x9c = timeGetTime();
+        if (this->field_0x9c - this->field_0x98 > 500) {
+            this->field_0x98 = this->field_0x9c;
+            if (this->field_0xa0 == 0) {
+                this->field_0xa0 = 1;
+            } else {
+                this->field_0xa0 = 0;
+            }
+        }
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        main_wnd->vis_map_context->field_0xe0 = 1;
+    }
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
 // 43B240
 int32_t Vis1200obj::OnChar(uint32_t wparam)
 {
