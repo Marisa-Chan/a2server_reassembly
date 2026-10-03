@@ -24374,3 +24374,32 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r)
     delete names;
     return list;
 }
+
+// 445EBD
+void VisConnectionDlg::VMethod31(int32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (code == 0x445) {
+        VisListBox* list = (VisListBox*)this->FindChild(2);
+        *this->pSelected = list->GetSelectedIndex();
+        int32_t typ = this->protocols[*this->pSelected].typ;
+        if (g_CLlDriver.ResetProvider(typ) == 0) {
+            VisMessageBoxWithList* msg = new VisMessageBoxWithList(1, 100, 100, 0x21c, 0x17c, TxtFile::AllLines[0x98], nullptr, 0);
+            main_wnd->ModalScreen(msg);
+            main_wnd->PostMessage(0x421, 0, 0);
+        } else {
+            if (typ == 3) {
+                main_wnd->PostMessage(0x453, 0, 0);
+            } else if (typ == 0) {
+                main_wnd->PostMessage(0x454, 0, 0);
+            } else if (typ == 1) {
+                main_wnd->PostMessage(0x455, 0, 0);
+            } else if (typ == 2) {
+                main_wnd->PostMessage(0x452, 0, 0);
+            }
+        }
+    }
+    if (code == 0x446) {
+        main_wnd->PostMessage(0x421, 0, 0);
+    }
+}
