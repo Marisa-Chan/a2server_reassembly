@@ -346,7 +346,6 @@ _byte_659A3C
 ?VMethod7@VisRightPanel@@UAEXXZ	13
 ??_GVisRightPanel@@UAEPAXI@Z	24
 ??0VisRightPanel@@QAE@HHHHH@Z	32
-?MsgProc@VisRightPanel@@UAEHIII@Z	39
 ??0VisServerScreenRadio@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z	40
 ?UpdateCursor@VisSideStatus@@QAEXXZ	146
 ?FUN_004382d9@VisStartGame@@QAEXXZ	18

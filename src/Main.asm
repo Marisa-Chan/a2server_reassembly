@@ -74981,46 +74981,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?MsgProc@VisRightPanel@@UAEHIII@Z      proc near               ; DATA XREF: .rdata:0060CEC8↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [ebp+var_8], eax
-                cmp     [ebp+var_8], 200h
-                jz      short loc_4AEE5E
-                jmp     short loc_4AEE76
-; ---------------------------------------------------------------------------
-
-loc_4AEE5E:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAEHIII@Z+16↑j
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jz      short loc_4AEE76
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ResetStates@CMousePointer@@QAEXXZ
-
-loc_4AEE76:                             ; CODE XREF: ?MsgProc@VisRightPanel@@UAEHIII@Z+18↑j
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?MsgProc@CVisualObject@@UAEHIII@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?MsgProc@VisRightPanel@@UAEHIII@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

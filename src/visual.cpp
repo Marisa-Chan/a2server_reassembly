@@ -9652,6 +9652,15 @@ void VisCharInfo::sub_4B36B4()
     new_cursor->Use();
 }
 
+// 4AEE44
+int32_t VisRightPanel::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    if (msg == WM_MOUSEMOVE && g_mousept.GetSelectState() != 0) {
+        g_mousept.ResetStates();
+    }
+    return CVisualObject::MsgProc(msg, wparam, lparam);
+}
+
 // 4B4190
 void VisSideStatus::VMethod7()
 {
