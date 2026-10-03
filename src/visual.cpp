@@ -24442,6 +24442,21 @@ VisHatServerListDlg::~VisHatServerListDlg()
 {
 }
 
+// 43AB28
+Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+    : CVisualObject(_id, l, t, r, b, hint)
+{
+    this->font = _font;
+    this->clr = _clr;
+    this->field_0xa0 = 1;
+    this->field_0x90 = -1;
+    this->field_0x94 = 0;
+    this->flags |= 2;
+}
+
+// 43BFA0 (deleting dtor; the complete dtor sub_43AC08 only sets the vtable and calls the member dtors)
+Vis1200obj::~Vis1200obj() = default;
+
 // 497330
 int32_t Vis1200obj::FUN_00497330()
 {

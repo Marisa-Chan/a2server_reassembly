@@ -1484,7 +1484,13 @@ externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 ;Vis1200obj
-externdef ??0Vis1200obj@@QAE@HHHHHPAVCGameFont@@PAGPBD@Z : proc  ; Vis1200obj::Vis1200obj(int,int,int,int,int,CGameFont*,uint16_t*,const char*)
+externdef ?VMethod7@Vis1200obj@@UAEXXZ : proc
+externdef ?WriteData@Vis1200obj@@UAEXPAX@Z : proc
+externdef ?DataSize@Vis1200obj@@UAEIXZ : proc
+externdef ?ReadData@Vis1200obj@@UAEXPBX@Z : proc
+externdef ?MsgProc@Vis1200obj@@UAEHIII@Z : proc
+externdef ?OnKeyDown@Vis1200obj@@UAEHI@Z : proc
+externdef ?OnChar@Vis1200obj@@UAEHI@Z : proc
 ;VisDropGold
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc

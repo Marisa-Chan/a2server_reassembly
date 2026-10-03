@@ -2516,6 +2516,14 @@ class Vis1200obj : public CVisualObject
 public:
 	virtual ~Vis1200obj();
 
+	virtual void VMethod7() override; // 43b32f
+	virtual void WriteData(void* buf) override; // 43ad35
+	virtual uint32_t DataSize() override; // 43c020
+	virtual void ReadData(const void* buf) override; // 43acca
+	virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43b283
+	virtual int32_t OnKeyDown(uint32_t wparam) override; // 43b159
+	virtual int32_t OnChar(uint32_t wparam) override; // 43b240
+
 	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28
 
 	void FUN_0043ac8c(); //43ac8c - reset input/history state
