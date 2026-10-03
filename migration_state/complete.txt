@@ -924,6 +924,7 @@
 ?VMethod31@VisInvBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisInvExtBase@@UAEHPBVCPoint@@@Z
 ?VMethod31@VisMessageBox@@UAEXH@Z
+?VMethod31@VisNetTcpIp@@UAEXH@Z
 ?VMethod31@VisShopCompass@@UAEXH@Z
 ?VMethod32@VisInvBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z
 ?VMethod32@VisInvExtBase@@UAEXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z

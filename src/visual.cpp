@@ -24198,6 +24198,22 @@ VisCredits::~VisCredits()
     this->FreeContent();
 }
 
+// 449F67
+void VisNetTcpIp::VMethod31(int32_t code)
+{
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (code == 0x445) {
+        char buffer[256];
+        this->FindChild(2)->WriteData(buffer);
+        *this->ip = buffer;
+        main_wnd->PostMessage(0x452, 0, 0);
+        main_wnd->field_0x3e0.field_14 = buffer;
+    } else {
+        g_CLlDriver.Close();
+        main_wnd->PostMessage(0x451, 0, 0);
+    }
+}
+
 // 44A014
 CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r)
 {

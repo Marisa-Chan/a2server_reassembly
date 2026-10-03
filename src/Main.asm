@@ -23644,7 +23644,6 @@ sub_445B39      endp
 
 ; =============== S U B R O U T I N E =======================================
 
-; Attributes: bp-based frame
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -23705,65 +23704,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-?VMethod31@VisNetTcpIp@@UAEXH@Z      proc near               ; DATA XREF: .rdata:0060A89C↓o
-
-var_10C         = dword ptr -10Ch
-var_108         = dword ptr -108h
-String          = byte ptr -104h
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10Ch
-                mov     [ebp+var_108], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                cmp     [ebp+arg_0], 445h
-                jnz     short loc_449FEF
-                lea     eax, [ebp+String]
-                push    eax
-                push    2
-                mov     ecx, dword ptr [ebp+var_108]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                mov     [ebp+var_10C], eax
-                mov     ecx, dword ptr [ebp+var_10C]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_10C]
-                call    dword ptr [edx+3Ch]
-                lea     eax, [ebp+String]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_108]
-                mov     ecx, dword ptr [ecx+78h]  ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                push    0               ; lParam
-                push    0               ; wParam
-                push    452h            ; Msg
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                lea     edx, [ebp+String]
-                push    edx             ; lpString
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 3F4h       ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                jmp     short loc_44A00E
-; ---------------------------------------------------------------------------
-
-loc_449FEF:                             ; CODE XREF: ?VMethod31@VisNetTcpIp@@UAEXH@Z+1E↑j
-                mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
-                call    ?Close@CLlDriver@@QAEXXZ
-                push    0               ; lParam
-                push    0               ; wParam
-                push    451h            ; Msg
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     ecx, eax
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-
-loc_44A00E:                             ; CODE XREF: ?VMethod31@VisNetTcpIp@@UAEXH@Z+86↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?VMethod31@VisNetTcpIp@@UAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
