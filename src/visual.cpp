@@ -24561,3 +24561,13 @@ int32_t VisStartGameTextBox::OnMouseMove(uint32_t wparam, CPoint pos)
 
     return 0;
 }
+
+// 432C9E
+int32_t VisStartGameTextBox::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    if (this->rect.PtInRect(pos)) {
+        this->screen->FocusTo(this, true);
+    }
+
+    return 0;
+}

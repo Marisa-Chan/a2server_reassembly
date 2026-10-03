@@ -593,6 +593,7 @@
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisSpellBook@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisStartGame@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTavScene@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisTextBox@@UAEHIVCPoint@@@Z
 ?OnLButtonUp@CVisualObject@@UAEHIVCPoint@@@Z

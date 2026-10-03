@@ -16777,43 +16777,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z      proc near               ; DATA XREF: .rdata:00609974↓o
-
-var_C           = dword ptr -0Ch
-pt              = POINT ptr -8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     dword ptr [ebp+pt], eax ; pt.x
-                mov     ecx, dword ptr [ebp+arg_8]
-                mov     dword ptr [ebp+pt+4], ecx ; pt.y
-                mov     edx, dword ptr [ebp+pt+4] ; pt.y
-                push    edx
-                mov     eax, dword ptr [ebp+pt] ; pt.x
-                push    eax             ; pt
-                mov     ecx, dword ptr [ebp+var_C]
-                add     ecx, 8
-                call    sub_41E9A0
-                test    eax, eax
-                jz      short loc_432CDB
-                push    1
-                mov     ecx, dword ptr [ebp+var_C]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [edx+5Ch]
-                call    ?FocusTo@CVisualObject@@QAEXPAV1@_N@Z
-
-loc_432CDB:                             ; CODE XREF: ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z+2A↑j
-                xor     eax, eax
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

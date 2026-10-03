@@ -1592,7 +1592,7 @@ externdef ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z : proc
 externdef ?GetHint@VisStartGameTextBox@@UAEPBDXZ : proc
 extern ?VMethod7@VisStartGameTextBox@@UAEXXZ : proc
 extern ?OnMouseMove@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
-externdef ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
+extern ?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z : proc
 externdef ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?OnChar@VisStartGameTextBox@@UAEHI@Z : proc
 externdef ?GetText@VisStartGameTextBox@@QAE?AVCString@@XZ : proc

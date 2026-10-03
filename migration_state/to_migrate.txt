@@ -366,7 +366,6 @@ _byte_659A3C
 ?GetHint@VisStartGameTextBox@@UAEPBDXZ	26
 ?OnChar@VisStartGameTextBox@@UAEHI@Z	33
 ?OnKeyDown@VisStartGameTextBox@@UAEHI@Z	34
-?OnLButtonDown@VisStartGameTextBox@@UAEHIVCPoint@@@Z	36
 ??0VisStartGameTextBox@@QAE@HHHHHPAVVisStartGame@@@Z	61
 ?SetText@VisTipsDialog@@QAEXPBD@Z	19
 ??_GVisTipsDialog@@UAEPAXI@Z	24
