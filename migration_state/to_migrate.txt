@@ -10,6 +10,8 @@
 _byte_666590
 _unk_659A48
 _byte_659A54
+_byte_659A4C
+_byte_659A50
 _byte_659A58
 _byte_659A34
 _byte_659A38
@@ -326,7 +328,6 @@ _byte_659A3C
 ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ??_GVisMissionFailed@@UAEPAXI@Z	24
 ??0VisMissionFailed@@QAE@HHHHHABVCString@@@Z	41
-?VMethod26@VisMissionFailed@@UAEXXZ	193
 ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31
 ??0VisNetMapList@@QAE@HHHHHPAVCGameFont@@PAG1HPBDPAH@Z	50

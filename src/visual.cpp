@@ -25,6 +25,8 @@ extern "C" char byte_659A38[4]; //659a38 "" hint string of the hat browser cance
 extern "C" char byte_659A3C[4]; //659a3c "" hint string of the hat browser refresh button
 extern "C" char byte_659A54[4]; //659a54 "" hint string of the action menu confirm button
 extern "C" char byte_659A58[4]; //659a58 "" hint string of the action menu cancel button
+extern "C" char byte_659A4C[4]; //659a4c "" hint string of the mission-failed load button
+extern "C" char byte_659A50[4]; //659a50 "" hint string of the mission-failed retry button
 
 // Spellbook pressed-position spell table. 62f8a8
 uint32_t DAT_0062F8A8[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
@@ -3991,6 +3993,26 @@ CVisualObject* VisDiplomacy::VMethod30(const void* data, const RECT& r)
     return listbox;
 }
 
+
+// 44E8CA
+void VisMissionFailed::VMethod26()
+{
+    VisMessageBox::VMethod26();
+    this->rect.bottom += 0x40;
+
+    CRect retry_rect(this->rect.Width() / 8, this->rect.Height() - 0x60, this->rect.Width() * 7 / 8, this->rect.Height() - 0x48);
+    CRect load_rect(this->rect.Width() / 8, this->rect.Height() - 0x48, this->rect.Width() * 7 / 8, this->rect.Height() - 0x30);
+
+    VisButton* retry_btn = new VisButton(4, retry_rect, txt_dialogs.GetLine(0x2C), g_font1, nullptr, 0x445, 0, byte_659A4C);
+    this->AddChild(retry_btn);
+    VisButton* load_btn = new VisButton(5, load_rect, txt_dialogs.GetLine(0x23), g_font1, nullptr, 0x446, 0, byte_659A50);
+    this->AddChild(load_btn);
+
+    this->SetUpObj(this->FindChild(4));
+    if (AppHasAnySaveFile() == 0) {
+        load_btn->ChangeFlags(1, false);
+    }
+}
 
 // 44EABB
 VisCutScenesDlg::VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload)

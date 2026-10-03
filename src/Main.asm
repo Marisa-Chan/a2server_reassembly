@@ -25386,200 +25386,6 @@ arg_14          = dword ptr  1Ch
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisMissionFailed@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060AFF0↓o
-
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-Block           = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = RECT ptr -2Ch
-rcSrc           = RECT ptr -1Ch
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F9ADD SIZE 0000001E BYTES
-
-; __unwind { // SEH_44E8CA
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_44E8CA
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 40h
-                mov     [ebp+var_44], ecx
-                mov     ecx, dword ptr [ebp+var_44]
-                call    ?VMethod26@VisMessageBox@@UAEXXZ
-                mov     eax, dword ptr [ebp+var_44]
-                mov     ecx, dword ptr [eax+14h]
-                add     ecx, 40h ; '@'
-                mov     edx, dword ptr [ebp+var_44]
-                mov     [edx+14h], ecx
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                sub     eax, 48h ; 'H'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                imul    eax, 7
-                cdq
-                and     edx, 7
-                add     eax, edx
-                sar     eax, 3
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                sub     eax, 60h ; '`'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                and     edx, 7
-                add     eax, edx
-                sar     eax, 3
-                push    eax
-                lea     ecx, [ebp+rcSrc]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                sub     eax, 30h ; '0'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                imul    eax, 7
-                cdq
-                and     edx, 7
-                add     eax, edx
-                sar     eax, 3
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Height@CRect@@QBEHXZ ; CRect::Height(void)
-                sub     eax, 48h ; 'H'
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                add     ecx, 8          ; varThis
-                call    ?Width@CRect@@QBEHXZ ; CRect::Width(void)
-                cdq
-                and     edx, 7
-                add     eax, edx
-                sar     eax, 3
-                push    eax
-                lea     ecx, [ebp+var_2C]
-                call    unknown_libname_413 ; MFC 3.1-14.0 32bit
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_44E9F0
-                push    offset byte_659A4C ; lpString
-                push    0               ; int
-                push    445h            ; int
-                push    0               ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    2Ch ; ','
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; varStr
-                lea     ecx, [ebp+rcSrc]
-                push    ecx             ; lprcSrc
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
-                mov     [ebp+var_48], eax
-                jmp     short loc_44E9F7
-; ---------------------------------------------------------------------------
-
-loc_44E9F0:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F0↑j
-                mov     [ebp+var_48], 0
-
-loc_44E9F7:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+124↑j
-                mov     edx, dword ptr [ebp+var_48]
-                mov     [ebp+var_38], edx
-;   } // starts at 44E9AF
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_38]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_3C], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_3C], 0
-                jz      short loc_44EA5C
-                push    offset byte_659A50 ; lpString
-                push    0               ; int
-                push    446h            ; int
-                push    0               ; int
-                mov     ecx, ?g_font1@@3PAVCGameFont@@A
-                push    ecx             ; int
-                push    23h ; '#'
-                mov     ecx, offset ?txt_dialogs@@3VTxtFile@@A
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; varStr
-                lea     edx, [ebp+var_2C]
-                push    edx             ; lprcSrc
-                push    5               ; int
-                mov     ecx, dword ptr [ebp+var_3C]
-                call    ??0VisButton@@QAE@HABUtagRECT@@PBDPAVCGameFont@@PAGHH1@Z
-                mov     [ebp+var_4C], eax
-                jmp     short loc_44EA63
-; ---------------------------------------------------------------------------
-
-loc_44EA5C:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15B↑j
-                mov     [ebp+var_4C], 0
-
-loc_44EA63:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+190↑j
-                mov     eax, dword ptr [ebp+var_4C]
-                mov     [ebp+var_40], eax
-;   } // starts at 44EA1A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_40]
-                mov     [ebp+var_30], ecx
-                mov     edx, dword ptr [ebp+var_30]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_44]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                push    4
-                mov     ecx, dword ptr [ebp+var_44]
-                call    ?FindChild@CVisualObject@@QAEPAV1@H@Z
-                push    eax
-                mov     ecx, dword ptr [ebp+var_44]
-                call    ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
-                call    ?AppHasAnySaveFile@@YAHXZ
-                test    eax, eax
-                jnz     short loc_44EAAD
-                push    0
-                push    1
-                mov     eax, dword ptr [ebp+var_30]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_30]
-                call    dword ptr [edx+1Ch]
-
-loc_44EAAD:                             ; CODE XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+1D2↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 44E8CA
-?VMethod26@VisMissionFailed@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -255415,31 +255221,6 @@ SEH_44E4CE:                             ; DATA XREF: ?sub_44E4CE@@YAXPBD@Z+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F9AB8
 ; END OF FUNCTION CHUNK FOR ?sub_44E4CE@@YAXPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
-
-loc_5F9ADD:                             ; DATA XREF: .rdata:stru_61A4F8↓o
-; __unwind { // SEH_44E8CA
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F9AE7:                             ; DATA XREF: .rdata:0061A500↓o
-;   cleanup() // owned by 44E9AF
-;   cleanup() // owned by 44EA1A
-                mov     eax, dword ptr [ebp+var_3C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_44E8CA:                             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+5↑o
-                mov     eax, offset stru_61A4D8
-                jmp     ___CxxFrameHandler
-; } // starts at 5F9ADD
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisMissionFailed@@UAEXXZ
 ; START OF FUNCTION CHUNK FOR sub_44EC40
 
 loc_5F9B19:                             ; DATA XREF: .rdata:stru_61A558↓o
@@ -287563,10 +287344,7 @@ stru_61A4A0     FuncInfoV1 <19930520h, 3, offset stru_61A4C0, 0, 0, 0, 0>
 stru_61A4C0     UnwindMapEntry <-1, offset loc_5F9AB8>
                 UnwindMapEntry <0, offset loc_5F9AC1>
                 UnwindMapEntry <0, offset loc_5F9ACA>
-stru_61A4D8     FuncInfoV1 <19930520h, 2, offset stru_61A4F8, 0, 0, 0, 0>
                 align 8
-stru_61A4F8     UnwindMapEntry <-1, offset loc_5F9ADD>
-                UnwindMapEntry <-1, offset loc_5F9AE7>
 stru_61A538     FuncInfoV1 <19930520h, 1, offset stru_61A558, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -299748,10 +299526,10 @@ _byte_659A38     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDl
 ; CHAR _byte_659A3C[4]
 _byte_659A3C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisHatBrowserDlg@@UAEXXZ+4AC↑o
 _unk_659A48      db 4h dup(?)
-; CHAR byte_659A4C[4]
-byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o
-; CHAR byte_659A50[4]
-byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15D↑o
+; CHAR _byte_659A4C[4]
+_byte_659A4C     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+F2↑o
+; CHAR _byte_659A50[4]
+_byte_659A50     db 4 dup(?)             ; DATA XREF: ?VMethod26@VisMissionFailed@@UAEXXZ+15D↑o
 ; CHAR _byte_659A54[4]
 _byte_659A54     db 4 dup(?)             ; DATA XREF: ?VMethod26@Vis2Action@@UAEXXZ+142↑o
 ; CHAR _byte_659A58[4]

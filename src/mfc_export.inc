@@ -2146,6 +2146,8 @@ extern ?Init@ProjectileInfo@@QAEXXZ : proc
 
 ; Vis2Action
 externdef _byte_659A54 : byte  ; "" hint string of the action menu confirm button
+externdef _byte_659A4C : byte  ; "" hint string of the mission-failed retry button
+externdef _byte_659A50 : byte  ; "" hint string of the mission-failed load button
 externdef _byte_659A58 : byte  ; "" hint string of the action menu cancel button
 
 ; VisMissionFailed
