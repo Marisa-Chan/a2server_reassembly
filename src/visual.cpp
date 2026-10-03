@@ -24703,6 +24703,20 @@ void Vis1200obj::FUN_0043b724()
     map->field_0xe0 = 1;
 }
 
+// 43BA75
+void Vis1200obj::FUN_0043ba75()
+{
+    int32_t pos = this->field_0x84.GetLength() - 1;
+    if (pos == -1) {
+        return;
+    }
+    while (pos > 0 && FUN_0043aae0(this->field_0x84[pos]) == 0) {
+        this->FUN_0043b03a();
+        pos = this->field_0x84.GetLength() - 1;
+    }
+    this->FUN_0043b03a();
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {
