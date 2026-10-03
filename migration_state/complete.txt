@@ -587,6 +587,7 @@
 ?OnLButtonDown@VisInvExtType3@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisInvType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisListBox@@UAEHIVCPoint@@@Z
+?OnLButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisRadioType1@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisScreen@@UAEHIVCPoint@@@Z
 ?OnLButtonDown@VisShopCompass@@UAEHIVCPoint@@@Z

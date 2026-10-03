@@ -24154,3 +24154,40 @@ void VisOrderToolbar::VMethod7()
         this->dirty = 0;
     }
 }
+
+// 4B107B
+int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos)
+{
+    CRect screen_rect;
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd->field_0x408 != nullptr) {
+        return 1;
+    }
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    BigStruct2* map = this->map_context;
+    if (this->enabled != 0) {
+        for (int32_t i = 0; i < 8; i++) {
+            if ((this->avail_orders_mask & (1 << i)) != 0) {
+                int32_t x = screen_rect.left + 8 + (i & 3) * 0x22;
+                int32_t y = screen_rect.top + 7 + (i >> 2) * 0x22;
+                CRect rc(x, y, x + 0x22, y + 0x22);
+                if (rc.PtInRect(pos) != 0) {
+                    if (this->selected_order == (uint32_t)i) {
+                        return 1;
+                    }
+                    if (i == 4 && map->IsBookOpen() != 0) {
+                        return 1;
+                    }
+                    this->selected_order = i;
+                    this->VMethod9();
+                    map->MsgProc(0x40c, i, 0);
+                    return 1;
+                }
+            }
+        }
+        this->selected_order = 0xffffffff;
+        this->VMethod9();
+        map->MsgProc(0x40c, 0xffffffff, 0);
+    }
+    return 1;
+}
