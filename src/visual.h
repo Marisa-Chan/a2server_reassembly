@@ -2528,7 +2528,7 @@ public:
 	void FUN_0043b03a(); // 43b03a
 	void FUN_0043b724(); // 43b724
 	void FUN_0043ba75(); // 43ba75
-	void FUN_0043b504(CString* str); //43b504 in asm
+	void FUN_0043b504(CString* str); // 43b504
 
 	Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); //43ab28
 

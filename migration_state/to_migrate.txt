@@ -321,7 +321,6 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?FUN_0043b504@Vis1200obj@@QAEXPAVCString@@@Z	202
 ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ??0VisNetChatList@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBD@Z	57
 ??0VisNetChatTextBox@@QAE@HABUtagRECT@@PAVCGameFont@@PAGPBD@Z	31

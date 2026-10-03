@@ -24717,6 +24717,32 @@ void Vis1200obj::FUN_0043ba75()
     this->FUN_0043b03a();
 }
 
+// 43B504
+void Vis1200obj::FUN_0043b504(CString* str)
+{
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+    this->field_0x90 = -1;
+    this->field_0x94 = 0;
+    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->field_0x70.GetSize() + 1), *str, 0, this->clr);
+    if (!str->IsEmpty() && (*str)[0] == '-') {
+        CString name_part = str->Mid(1);
+        MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+        BigStruct2* map = main_wnd->vis_map_context;
+        for (int32_t i = 0; i < map->field_0x9b8.GetSize(); i++) {
+            MapPlayerData* player = map->field_0x9b8[i];
+            if (player != 0) {
+                CString pname = player->name;
+                if (pname == name_part.Left(pname.GetLength())) {
+                    this->field_0x90 = i;
+                    this->field_0x94 = pname.GetLength() + 1;
+                    break;
+                }
+            }
+        }
+    }
+}
+
 // 43BE9F
 void Vis1200::FUN_0043be9f()
 {

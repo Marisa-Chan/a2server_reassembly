@@ -1484,7 +1484,6 @@ externdef ?FUN_00438dd0@@YAXPAPAVSfxSample@@@Z : proc
 externdef ?FUN_00438f20@@YAXPAPAVSfxSample@@@Z : proc
 
 ;Vis1200obj
-externdef ?FUN_0043b504@Vis1200obj@@QAEXPAVCString@@@Z : proc
 externdef ?FUN_0043aae0@@YAHD@Z : proc  ; int32_t FUN_0043aae0(char)
 externdef ?FUN_00476236@@YAXPAVCString@@@Z : proc  ; void FUN_00476236(CString*)
 ;VisDropGold
