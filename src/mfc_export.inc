@@ -1494,12 +1494,11 @@ externdef ?FUN_004972f0@Vis1200obj@@QAEHXZ : proc  ; int32_t Vis1200obj::FUN_004
 externdef ?FUN_00497330@Vis1200obj@@QAEHXZ : proc  ; int32_t Vis1200obj::FUN_00497330(void)
 ;VisDropGold
 externdef ??_GVisDropGold@@UAEPAXI@Z : proc
-externdef ?VMethod9@VisDropGold@@UAEXXZ : proc
+extern ?VMethod9@VisDropGold@@UAEXXZ : proc
 extern ?OnKeyDown@VisDropGold@@UAEHI@Z : proc
 extern ?VMethod26@VisDropGold@@UAEXXZ : proc
 extern ?VMethod28@VisDropGold@@UAEXXZ : proc
 extern ?DoClose@VisDropGold@@UAEXI@Z : proc
-externdef ?FUN_004a7a30@VisDropGold@@QAEXH@Z : proc  ; void VisDropGold::FUN_004a7a30(int32_t idx)  //4a7a30 in asm
 ;VisStartGame
 extern ??_GVisStartGame@@UAEPAXI@Z : proc
 extern ?GetHint@VisStartGame@@UAEPBDXZ : proc

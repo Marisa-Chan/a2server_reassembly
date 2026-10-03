@@ -989,6 +989,7 @@
 ?VMethod9@CGameObject@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ
+?VMethod9@VisDropGold@@UAEXXZ
 ?WriteData@CVisualObject@@UAEXPAX@Z
 ?WriteData@NetStru2@@QAEHPAXI@Z
 ?WriteData@VisListBox@@UAEXPAX@Z

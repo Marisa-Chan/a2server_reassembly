@@ -24497,3 +24497,17 @@ void VisDropGold::VMethod28()
 
     VisScreen::VMethod28();
 }
+
+// 441F1F
+void VisDropGold::VMethod9()
+{
+    LockSurface2();
+    CVisualObject::VMethod9();
+    UnlockSurface2();
+}
+
+// 4A7A30
+void VisDropGold::FUN_004a7a30(int32_t idx)
+{
+    this->selection = idx;
+}

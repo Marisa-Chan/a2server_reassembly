@@ -23402,22 +23402,6 @@ sub_441C63      endp
 
 ; Attributes: bp-based frame
 
-?VMethod9@VisDropGold@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060A1A4↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                call    ?LockSurface2@@YAIXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?VMethod9@CVisualObject@@UAEXXZ
-                call    ?UnlockSurface2@@YAIXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod9@VisDropGold@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -69189,22 +69173,6 @@ loc_4A7987:                             ; CODE XREF: ?sub_4A7900@TokenEntry@@QAE
 
 ; Attributes: bp-based frame
 
-?FUN_004a7a30@VisDropGold@@QAEXH@Z      proc near               ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+C6↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+68h], ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_004a7a30@VisDropGold@@QAEXH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
