@@ -341,7 +341,7 @@ _byte_659A3C
 ??_GVisCredits@@UAEPAXI@Z	24
 ?DoClose@VisCredits@@UAEXI@Z	24
 ??0VisCredits@@QAE@HHHHH@Z	64
-?LoadContent@VisCredits@@QAEXXZ	187
+?FreeContent@VisCredits@@QAEXXZ	84
 ??_GVisCutScenesDlg@@UAEPAXI@Z	24
 ??0VisCutScenesDlg@@QAE@HHHHHABVCStringArray@@@Z	40
 ?VMethod30@VisCutScenesDlg@@UAEPAVCVisualObject@@PBXABUtagRECT@@@Z	127

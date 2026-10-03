@@ -2298,6 +2298,7 @@ public:
 	virtual void DoClose(uint32_t code) override; // 43C553
 
 	void LoadContent(); // 43c9b5
+	void FreeContent(); // 43cb77
 
 	VisCredits(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //43c337 in asm
 public:

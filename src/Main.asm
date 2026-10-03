@@ -23024,7 +23024,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 2
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_43CB77
+                call    ?FreeContent@VisCredits@@QAEXXZ
 ;   } // starts at 43C3EB
 ;   try {
                 mov     byte ptr [ebp+var_4], 1
@@ -23076,7 +23076,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43CB77
+                call    ?FreeContent@VisCredits@@QAEXXZ
                 mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
                 call    ?Paint@CMousePointer@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_4]
@@ -23175,201 +23175,13 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?LoadContent@VisCredits@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisCredits@@UAEXXZ+21↑p
-
-var_4C          = dword ptr -4Ch
-var_48          = dword ptr -48h
-var_44          = dword ptr -44h
-var_40          = dword ptr -40h
-var_3C          = dword ptr -3Ch
-var_38          = dword ptr -38h
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-Block           = dword ptr -28h
-var_24          = byte ptr -24h
-var_20          = byte ptr -20h
-var_1C          = byte ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = byte ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8D0E SIZE 00000038 BYTES
-
-; __unwind { // unknown_libname_972
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C9B5 ; MFC 3.1-14.0 32bit
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 40h
-                mov     [ebp+var_30], ecx
-                mov     ecx, dword ptr [ebp+var_30]
-                call    sub_43CB77
-                push    offset aMainTextCredit ; "main\\text\\credits.txt"
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 84h
-                call    ?LoadChunkFile@TxtFile@@QAEXPBD@Z
-                mov     [ebp+var_10], 0
-                jmp     short loc_43CA00
-; ---------------------------------------------------------------------------
-
-loc_43C9F7:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ:loc_43CB64↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_43CA00:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+40↑j
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 84h
-                call    ?GetCount@TxtFile@@QAEHXZ  ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_10], eax
-                jge     loc_43CB69
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 84h
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                movsx   edx, byte ptr [eax]
-                cmp     edx, 22h ; '"'
-                jnz     loc_43CB64
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 84h
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; lpString
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 0
-                push    1
-                lea     ecx, [ebp+var_1C]
-                push    ecx
-                lea     ecx, [ebp+var_14]
-                call    ?Mid@CString@@QBE?AV1@H@Z ; CString::Mid(int)
-                mov     [ebp+var_34], eax
-                mov     edx, dword ptr [ebp+var_34]
-                mov     [ebp+var_38], edx
-;   } // starts at 43CA50
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     eax, dword ptr [ebp+var_38]
-                push    eax             ; int
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 43CA6E
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                lea     ecx, [ebp+var_14]
-                call    sub_4029A0
-                sub     eax, 1
-                push    eax
-                lea     ecx, [ebp+var_20]
-                push    ecx
-                lea     ecx, [ebp+var_14]
-                call    ?Left@CString@@QBE?AV1@H@Z ; CString::Left(int)
-                mov     [ebp+var_3C], eax
-                mov     edx, dword ptr [ebp+var_3C]
-                mov     [ebp+var_40], edx
-;   } // starts at 43CA7E
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                mov     eax, dword ptr [ebp+var_40]
-                push    eax             ; int
-                push    offset aMainGraphicsLo ; "main\\graphics\\logo\\"
-                lea     ecx, [ebp+var_24]
-                push    ecx             ; CString *
-                call    ??H@YG?AVCString@@PBDABV0@@Z ; operator+(char const *,CString const &)
-                mov     [ebp+var_44], eax
-                mov     edx, dword ptr [ebp+var_44]
-                mov     [ebp+var_48], edx
-;   } // starts at 43CAAB
-;   try {
-                mov     byte ptr [ebp+var_4], 3
-                mov     eax, dword ptr [ebp+var_48]
-                push    eax             ; int
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??4CString@@QAEABV0@ABV0@@Z ; CString::operator=(CString const &)
-;   } // starts at 43CACA
-;   try {
-                mov     byte ptr [ebp+var_4], 2
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-;   } // starts at 43CADA
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   } // starts at 43CAE6
-;   try {
-                mov     byte ptr [ebp+var_4], 4
-                cmp     [ebp+Block], 0
-                jz      short loc_43CB1C
-                lea     ecx, [ebp+var_14]
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; Source
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp64@@QAE@PBD@Z
-                mov     [ebp+var_4C], eax
-                jmp     short loc_43CB23
-; ---------------------------------------------------------------------------
-
-loc_43CB1C:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+14F↑j
-                mov     [ebp+var_4C], 0
-
-loc_43CB23:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+165↑j
-                mov     ecx, dword ptr [ebp+var_4C]
-                mov     [ebp+var_2C], ecx
-;   } // starts at 43CAFC
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     [ebp+var_18], edx
-                mov     eax, dword ptr [ebp+var_18]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 84h
-                call    ?GetLine@TxtFile@@QAEPADH@Z
-                push    eax             ; Str2
-                mov     ecx, dword ptr [ebp+var_30]
-                add     ecx, 68h ; 'h'
-                call    sub_43CC90
-;   } // starts at 43CB29
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_14] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-loc_43CB64:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+7A↑j
-                jmp     loc_43C9F7
-; ---------------------------------------------------------------------------
-
-loc_43CB69:                             ; CODE XREF: ?LoadContent@VisCredits@@QAEXXZ+5C↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43C9B5
-?LoadContent@VisCredits@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_43CB77      proc near               ; CODE XREF: CHandleMap::~CHandleMap(void)+2F↑p
+?FreeContent@VisCredits@@QAEXXZ      proc near               ; CODE XREF: CHandleMap::~CHandleMap(void)+2F↑p
 
 var_28          = dword ptr -28h
 var_24          = dword ptr -24h
@@ -23402,7 +23214,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
 
-loc_43CBB2:                             ; CODE XREF: sub_43CB77:loc_43CBFA↓j
+loc_43CBB2:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ:loc_43CBFA↓j
                 cmp     [ebp+var_18], 0
                 jz      short loc_43CBFC
                 lea     eax, [ebp+var_10]
@@ -23429,14 +23241,14 @@ loc_43CBB2:                             ; CODE XREF: sub_43CB77:loc_43CBFA↓j
                 jmp     short loc_43CBFA
 ; ---------------------------------------------------------------------------
 
-loc_43CBF3:                             ; CODE XREF: sub_43CB77+68↑j
+loc_43CBF3:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+68↑j
                 mov     [ebp+var_28], 0
 
-loc_43CBFA:                             ; CODE XREF: sub_43CB77+7A↑j
+loc_43CBFA:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+7A↑j
                 jmp     short loc_43CBB2
 ; ---------------------------------------------------------------------------
 
-loc_43CBFC:                             ; CODE XREF: sub_43CB77+3F↑j
+loc_43CBFC:                             ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+3F↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 add     ecx, 68h ; 'h'
                 call    sub_5DC8DC      ; ?RemoveAll@CMapStringToOb@@QAEXXZ
@@ -23453,7 +23265,7 @@ loc_43CBFC:                             ; CODE XREF: sub_43CB77+3F↑j
                 pop     ebp
                 retn
 ; } // starts at 43CB77
-sub_43CB77      endp
+?FreeContent@VisCredits@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -23549,7 +23361,7 @@ sub_43CC90      endp
 
 ; Attributes: bp-based frame
 
-sub_43CCB0      proc near               ; CODE XREF: sub_43CB77+24↑p
+sub_43CCB0      proc near               ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+24↑p
 
 var_4           = dword ptr -4
 
@@ -197907,7 +197719,7 @@ loc_5DCB4C:                             ; CODE XREF: .text:005DCB48↑j
 ; Attributes: library function
 
 ; int __stdcall sub_5DCB52(int, CString *, int)
-sub_5DCB52      proc near               ; CODE XREF: sub_43CB77+53↑p
+sub_5DCB52      proc near               ; CODE XREF: ?FreeContent@VisCredits@@QAEXXZ+53↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -262255,57 +262067,7 @@ SEH_43C3C6:                             ; DATA XREF: CHandleMap::~CHandleMap(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8CCC
 ; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-; START OF FUNCTION CHUNK FOR ?LoadContent@VisCredits@@QAEXXZ
-
-loc_5F8D0E:                             ; DATA XREF: .rdata:stru_6195B8↓o
-; __unwind { // unknown_libname_972     ; varThis
-;   cleanup() // owned by 43CA50
-;   cleanup() // owned by 43CA7E
-;   cleanup() // owned by 43CAE6
-;   cleanup() // owned by 43CB29
-                lea     ecx, [ebp+var_14]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8D17:                             ; DATA XREF: .rdata:006195C0↓o
-                lea     ecx, [ebp+var_1C] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8D20:                             ; DATA XREF: .rdata:006195C8↓o
-                lea     ecx, [ebp+var_20] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8D29:                             ; DATA XREF: .rdata:006195D0↓o
-                lea     ecx, [ebp+var_24] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F8D32:                             ; DATA XREF: .rdata:006195D8↓o
-;   cleanup() // owned by 43CA6E
-;   cleanup() // owned by 43CAAB
-;   cleanup() // owned by 43CACA
-;   cleanup() // owned by 43CADA
-;   cleanup() // owned by 43CAFC
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-unknown_libname_972:                    ; DATA XREF: ?LoadContent@VisCredits@@QAEXXZ+5↑o
-SEH_43C9B5:                             ; MFC 3.1-14.0 32bit
-                mov     eax, offset stru_619598
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8D0E
-; END OF FUNCTION CHUNK FOR ?LoadContent@VisCredits@@QAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_43CB77
+; START OF FUNCTION CHUNK FOR ?FreeContent@VisCredits@@QAEXXZ
 
 loc_5F8D46:                             ; DATA XREF: .rdata:stru_619600↓o
 ; __unwind { // SEH_43CB77              ; varThis
@@ -262315,11 +262077,11 @@ loc_5F8D46:                             ; DATA XREF: .rdata:stru_619600↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_43CB77:                             ; DATA XREF: sub_43CB77+5↑o
+SEH_43CB77:                             ; DATA XREF: ?FreeContent@VisCredits@@QAEXXZ+5↑o
                 mov     eax, offset stru_6195E0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8D46
-; END OF FUNCTION CHUNK FOR sub_43CB77
+; END OF FUNCTION CHUNK FOR ?FreeContent@VisCredits@@QAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR ??1TxtFile@@UAE@XZ
@@ -296478,16 +296240,6 @@ stru_619538     FuncInfoV1 <19930520h, 3, offset stru_619558, 0, 0, 0, 0>
 stru_619558     UnwindMapEntry <-1, offset loc_5F8CCC>
                 UnwindMapEntry <0, offset loc_5F8CD5>
                 UnwindMapEntry <1, offset loc_5F8CE1>
-stru_619598     FuncInfoV1 <19930520h, 5, offset stru_6195B8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6195B8     UnwindMapEntry <-1, offset loc_5F8D0E>
-                UnwindMapEntry <0, offset loc_5F8D17>
-                UnwindMapEntry <0, offset loc_5F8D20>
-                UnwindMapEntry <2, offset loc_5F8D29>
-                UnwindMapEntry <0, offset loc_5F8D32>
 stru_6195E0     FuncInfoV1 <19930520h, 1, offset stru_619600, 0, 0, 0, 0>
                 db    0
                 db    0

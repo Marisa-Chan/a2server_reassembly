@@ -524,6 +524,7 @@
 ?Left@CString@@QBE?AV1@H@Z
 ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
+?LoadContent@VisCredits@@QAEXXZ
 ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?LoadSample@SfxSample@@QAEXXZ
 ?LoadStringA@CString@@QAEHI@Z

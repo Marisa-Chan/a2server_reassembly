@@ -1498,6 +1498,7 @@ externdef ?VMethod26@VisCredits@@UAEXXZ : proc
 externdef ?VMethod28@VisCredits@@UAEXXZ : proc
 externdef ?DoClose@VisCredits@@UAEXI@Z : proc
 externdef ?LoadContent@VisCredits@@QAEXXZ : proc  ; void VisCredits::LoadContent(void)
+externdef ?FreeContent@VisCredits@@QAEXXZ : proc  ; void VisCredits::FreeContent(void)
 
 ;Vis1200
 externdef ??_GVis1200@@UAEPAXI@Z : proc
