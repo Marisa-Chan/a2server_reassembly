@@ -23054,74 +23054,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod26@VisCredits@@UAEXXZ      proc near               ; CODE XREF: sub_43C2C0+5A↑p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005F8CFA SIZE 00000014 BYTES
-
-; __unwind { // SEH_43C438
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_43C438
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     ecx, dword ptr [ebp+var_18]
-                add     ecx, 68h ; 'h'
-                call    sub_5DC8DC      ; ?RemoveAll@CMapStringToOb@@QAEXXZ
-                push    78h ; 'x'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_43C4A8
-                push    0               ; lpString
-                push    0               ; int
-                push    445h            ; int
-                push    offset ?clrsh_TechBlack@@3PAGA ; int
-                mov     eax, ?g_font1@@3PAVCGameFont@@A
-                push    eax             ; int
-                push    offset asc_62E520 ; " "
-                push    0               ; yBottom
-                push    0               ; xRight
-                push    0               ; yTop
-                push    0               ; xLeft
-                push    4               ; int
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0VisButton@@QAE@HHHHHPBDPAVCGameFont@@PAGHH0@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_43C4AF
-; ---------------------------------------------------------------------------
-
-loc_43C4A8:                             ; CODE XREF: ?VMethod26@VisCredits@@UAEXXZ+3E↑j
-                mov     [ebp+var_1C], 0
-
-loc_43C4AF:                             ; CODE XREF: ?VMethod26@VisCredits@@UAEXXZ+6E↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 43C46B
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_14]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_18]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 43C438
-?VMethod26@VisCredits@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -262399,24 +262331,6 @@ SEH_43C3C6:                             ; DATA XREF: CHandleMap::~CHandleMap(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8CCC
 ; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?VMethod26@VisCredits@@UAEXXZ
-
-loc_5F8CFA:                             ; DATA XREF: .rdata:stru_619590↓o
-; __unwind { // SEH_43C438
-;   cleanup() // owned by 43C46B
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_43C438:                             ; DATA XREF: ?VMethod26@VisCredits@@UAEXXZ+5↑o
-                mov     eax, offset stru_619570
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8CFA
-; END OF FUNCTION CHUNK FOR ?VMethod26@VisCredits@@UAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_43C9B5
 
 loc_5F8D0E:                             ; DATA XREF: .rdata:stru_6195B8↓o
@@ -296640,12 +296554,6 @@ stru_619538     FuncInfoV1 <19930520h, 3, offset stru_619558, 0, 0, 0, 0>
 stru_619558     UnwindMapEntry <-1, offset loc_5F8CCC>
                 UnwindMapEntry <0, offset loc_5F8CD5>
                 UnwindMapEntry <1, offset loc_5F8CE1>
-stru_619570     FuncInfoV1 <19930520h, 1, offset stru_619590, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619590     UnwindMapEntry <-1, offset loc_5F8CFA>
 stru_619598     FuncInfoV1 <19930520h, 5, offset stru_6195B8, 0, 0, 0, 0>
                 db    0
                 db    0

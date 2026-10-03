@@ -23775,3 +23775,10 @@ void VisCredits::VMethod7()
 
     credits_scroll_time = timeGetTime();
 }
+
+// 43C438
+void VisCredits::VMethod26()
+{
+    this->bitmaps.RemoveAll();
+    this->AddChild(new VisButton(4, 0, 0, 0, 0, " ", g_font1, clrsh_TechBlack, 0x445, 0, nullptr));
+}
