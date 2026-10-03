@@ -1584,6 +1584,7 @@ externdef ?OnLButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDown@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonUp@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
 externdef ?OnRButtonDblClk@VisOrderToolbar@@UAEHIVCPoint@@@Z : proc
+externdef ?UpdateCursor@VisOrderToolbar@@QAEXXZ : proc  ; void VisOrderToolbar::UpdateCursor(void)
 
 ;VisSpellBook
 extern ??_GVisSpellBook@@UAEPAXI@Z : proc

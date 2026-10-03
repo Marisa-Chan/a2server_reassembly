@@ -24191,3 +24191,57 @@ int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos)
     }
     return 1;
 }
+
+// 4B0ED1
+int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    CRect screen_rect;
+    this->ClientRectToScreen(&screen_rect, this->rect);
+
+    if (result == 0) {
+        switch (msg) {
+        case 0x402:
+            if (main_wnd->dialogsMask == 1) {
+                if (this->dirty != 0) {
+                    this->VMethod9();
+                }
+                this->UpdateCursor();
+            }
+            break;
+        case 0x403:
+            this->map_context = (BigStruct2*)wparam;
+            break;
+        case 0x409:
+            if (this->enabled == 0 || this->avail_orders_mask != wparam) {
+                this->enabled = 1;
+                this->dirty = 1;
+                this->avail_orders_mask = wparam;
+            }
+            result = 1;
+            break;
+        case 0x40a:
+            if (this->enabled != 0) {
+                this->enabled = 0;
+                this->dirty = 1;
+            }
+            result = 1;
+            break;
+        case 0x40b:
+            if (this->enabled != 0) {
+                this->selected_order = 0xffffffff;
+                this->dirty = 1;
+            }
+            break;
+        case 0x40d:
+            if (this->enabled != 0 && this->selected_order != wparam && ((1 << wparam) & this->avail_orders_mask) != 0) {
+                this->selected_order = wparam;
+                this->dirty = 1;
+            }
+            result = 1;
+            break;
+        }
+    }
+    return result;
+}

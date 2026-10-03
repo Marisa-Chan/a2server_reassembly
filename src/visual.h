@@ -1188,6 +1188,8 @@ public:
 	virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4B1287
 	virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b123a
 
+	void UpdateCursor(); // 4b1468
+
 	VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4b0cfc in asm
 public:
 	BigStruct2* map_context;
