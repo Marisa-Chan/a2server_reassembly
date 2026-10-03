@@ -24070,3 +24070,9 @@ void Vis1200::VMethod28()
     this->active = 1;
     this->text_block->field_0x98 = timeGetTime();
 }
+
+// 43BDCB
+int32_t Vis1200::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
+{
+    return VisScreen::MsgProc(msg, wparam, lparam);
+}
