@@ -23978,6 +23978,72 @@ VisHatBrowserList::~VisHatBrowserList()
 {
 }
 
+// 44b60c
+void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr)
+{
+    if (this->state == 0 && idx == 0) {
+        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x71), 0, clrsh_ShockingBlack, 1);
+        return;
+    }
+
+    if (this->state == -1 && idx == 0) {
+        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x72), 0, clrsh_ShockingBlack, 1);
+        return;
+    }
+
+    if (this->state == 0 || !this->IsValidIndex(idx)) {
+        return;
+    }
+
+    if (!this->IsItemEnabled(idx)) {
+        clr = g_colors_human_pals[15];
+    }
+
+    CString& item = this->entries[idx];
+
+    CRect saved_clip;
+    GetClipRect(&saved_clip);
+
+    pos.x += 5;
+
+    CRect clip(saved_clip);
+    clip.right = vis_scr_rect.left + 0xD9;
+    SetClipRect(clip);
+
+    CString text = item.Mid(GetFieldPos(item, 1));
+    text = text.Left(text.Find('|'));
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+
+    text = item.Mid(GetFieldPos(item, 3));
+    text = text.Left(text.Find('|'));
+    clip.right = vis_scr_rect.left + 0x160;
+    pos.x = vis_scr_rect.left + 0xDC;
+    SetClipRect(clip);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+
+    text = item.Mid(GetFieldPos(item, 4));
+    text = text.Left(text.Find('|'));
+    SetClipRect(saved_clip);
+    pos.x = vis_scr_rect.left + 0x163;
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+
+    int32_t level = item[GetFieldPos(item, 5)] - '1';
+    if (level < 0) {
+        level = 0;
+    }
+    if (level > 3) {
+        level = 3;
+    }
+    text = txt_patch.GetLine(level + 0x62);
+    pos.x = vis_scr_rect.left + 0x1AE;
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+
+    text = item.Mid(GetFieldPos(item, 6));
+    text = text.Left(text.Find('|'));
+    pos.x = vis_scr_rect.left + 0x203;
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+}
+
 // 44f0e8
 void Vis2Action::VMethod26()
 {

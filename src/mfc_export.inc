@@ -2167,7 +2167,6 @@ externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
 ; VisHatBrowserList
 extern ?IsItemEnabled@VisHatBrowserList@@QAEHH@Z : proc
-externdef ?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z : proc  ; void VisHatBrowserList::DrawItem(int32_t, CPoint, uint16_t*)
 externdef ?GetFieldPos@@YAHVCString@@H@Z : proc
 externdef _byte_659A34 : byte  ; "" hint string of the hat browser OK button
 externdef _byte_659A38 : byte  ; "" hint string of the hat browser cancel button

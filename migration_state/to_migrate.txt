@@ -321,7 +321,6 @@ _byte_659A3C
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
 ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
 ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z	95
-?DrawItem@VisHatBrowserList@@UAEXHVCPoint@@PAG@Z	589
 ?DrawItem@VisNetChatList@@UAEXHVCPoint@@PAG@Z	93
 ?OnKeyDown@VisNetChatTextBox@@UAEHI@Z	48
 ?GetHint@VisNetMapList@@UAEPBDXZ	76
