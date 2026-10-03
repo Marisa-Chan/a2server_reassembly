@@ -23864,3 +23864,8 @@ int32_t VisCredits::OnLButtonDown(uint32_t wparam, CPoint pos)
     this->MsgProc(0x445, 0, 0);
     return 0;
 }
+
+// 43C9A8
+void VisCredits::VMethod8(CRect* rect)
+{
+}
