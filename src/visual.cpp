@@ -24691,3 +24691,33 @@ int32_t VisListBoxDiplomacy::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
 
     return VisListBox::MsgProc(msg, wparam, lparam);
 }
+
+// 4DCF98
+void VisListBoxDiplomacy::SelectItem(int32_t idx)
+{
+    if (idx < 0) {
+        idx = 0;
+    }
+
+    int32_t count = this->diplomacy->GetSize();
+
+    int32_t start;
+    if (idx < count - this->num_vis_entry) {
+        start = idx;
+    } else {
+        start = count - this->num_vis_entry;
+    }
+
+    this->vis_start_index = start;
+    this->selected_index = start;
+
+    this->UpdateRadioPositions(this->vis_start_index);
+    this->VMethod9();
+
+    VisScrollBar* scrollbar = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
+    if (scrollbar != nullptr) {
+        scrollbar->SetPos(this->vis_start_index, (count - this->num_vis_entry) + 1);
+    }
+
+    this->parent->MsgProc(0x46e, this->id, this->vis_start_index);
+}

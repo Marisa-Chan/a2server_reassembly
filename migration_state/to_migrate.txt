@@ -334,7 +334,6 @@ _byte_659A3C
 ?OnKeyDown@VisListBoxDiplomacy@@UAEHI@Z	16
 ?IsValidIndex@VisListBoxDiplomacy@@UAEHH@Z	19
 ?OnLButtonDown@VisListBoxDiplomacy@@UAEHIVCPoint@@@Z	96
-?SelectItem@VisListBoxDiplomacy@@UAEXH@Z	96
 ??1VisListBoxPhoneBook@@UAE@XZ	13
 ??_GVisListBoxPhoneBook@@UAEPAXI@Z	24
 ??0VisListBoxPhoneBook@@QAE@HABUtagRECT@@PAVCGameFont@@PAG2HPBDPAVCStringArray@@@Z	41
