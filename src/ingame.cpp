@@ -7967,3 +7967,14 @@ void BigStruct2::FUN_0041cda3(const char* mapname)
 	g_NetStru1_main.QueuePacketSend(pkt);
 	g_NetStru1_main.SendAllData();
 }
+
+// 41a942
+void BigStruct2::sub_41A942()
+{
+	PacketWord* pkt = &PacketWord::Inst;
+	pkt->id = 0x33;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->value = this->field_0x138->unit_id;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}

@@ -54,7 +54,6 @@ _byte_659A3C
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?sub_41A942@BigStruct2@@QAEXXZ	31
 ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z	31
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
