@@ -3096,71 +3096,6 @@ sub_41DA52      endp
 
 ; Attributes: bp-based frame
 
-?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z      proc near               ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z+2A↓p
-
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F786C SIZE 00000014 BYTES
-
-; __unwind { // SEH_41DE80
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_41DE80
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 14h
-                mov     [ebp+var_1C], ecx
-                push    1E4h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_41DEC5
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CUnit@@QAE@XZ
-                mov     [ebp+var_20], eax
-                jmp     short loc_41DECC
-; ---------------------------------------------------------------------------
-
-loc_41DEC5:                             ; CODE XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+36↑j
-                mov     [ebp+var_20], 0
-
-loc_41DECC:                             ; CODE XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+43↑j
-                mov     eax, dword ptr [ebp+var_20]
-                mov     [ebp+var_18], eax
-;   } // starts at 41DEAB
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_10], ecx
-                mov     edx, dword ptr [ebp+var_10]
-                mov     dword ptr [edx+1B8h], 56h ; 'V'
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+24h], 1
-                mov     ecx, dword ptr [ebp+arg_0]
-                sub     ecx, 50h ; 'P'
-                mov     edx, dword ptr [ebp+var_10]
-                mov     [edx+28h], ecx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     cx, word ptr [ebp+arg_0]
-                mov     [eax+1DCh], cx
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 41DE80
-?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -246430,22 +246365,6 @@ SEH_41DA52:                             ; DATA XREF: sub_41DA52+5↑o
 ; } // starts at 5F783B
 ; END OF FUNCTION CHUNK FOR sub_41DA52
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z
-
-unknown_libname_963:                    ; DATA XREF: .rdata:stru_617C70↓o
-; __unwind { // SEH_41DE80              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 41DEAB
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_41DE80:                             ; DATA XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+5↑o
-                mov     eax, offset stru_617C50
-                jmp     ___CxxFrameHandler
-; } // starts at 5F786C
-; END OF FUNCTION CHUNK FOR ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -279680,12 +279599,6 @@ stru_617C18     FuncInfoV1 <19930520h, 3, offset stru_617C38, 0, 0, 0, 0>
 stru_617C38     UnwindMapEntry <-1, offset loc_5F783B>
                 UnwindMapEntry <-1, offset loc_5F7848>
                 UnwindMapEntry <-1, offset loc_5F7855>
-stru_617C50     FuncInfoV1 <19930520h, 1, offset stru_617C70, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_617C70     UnwindMapEntry <-1, offset unknown_libname_963>
 stru_617CB0     FuncInfoV1 <19930520h, 1, offset stru_617CD0, 0, 0, 0, 0>
                 db    0
                 db    0

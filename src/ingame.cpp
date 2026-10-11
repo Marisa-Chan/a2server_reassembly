@@ -8010,3 +8010,14 @@ void BigStruct2::sub_41A99C()
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
+
+// 41de80
+CUnit* BigStruct2::sub_41DE80(int32_t serv_id)
+{
+	CUnit* unit = new CUnit();
+	unit->unitFlags = 0x56;
+	unit->typeId = 1;
+	unit->face = serv_id - 0x50;
+	unit->serverId = (uint16_t)serv_id;
+	return unit;
+}
