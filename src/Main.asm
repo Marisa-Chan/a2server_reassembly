@@ -17942,104 +17942,6 @@ sub_438F50      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ(CString *)
-?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+3B40↑p
-
-var_68          = dword ptr -68h
-var_64          = dword ptr -64h
-var_60          = byte ptr -60h
-Buffer          = byte ptr -5Ch
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-; FUNCTION CHUNK AT 005F8966 SIZE 0000002A BYTES
-
-; __unwind { // SEH_4394F3
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4394F3
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 5Ch
-                push    esi
-                mov     [ebp+var_68], ecx
-                mov     [ebp+var_64], 0
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                cmp     eax, 0Eh
-                jnz     short loc_439563
-                mov     ecx, dword ptr [ebp+var_68]
-                call    sub_43A7E0
-                mov     esi, eax
-                shl     esi, 5
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetId@TokenEntry@@QBEHXZ
-                or      esi, eax
-                push    esi
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                push    eax
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetMaterial@TokenEntry@@QBEHXZ
-                push    eax
-                push    offset a02d02d03d ; "%02d%02d%03d"
-                lea     eax, [ebp+Buffer]
-                push    eax             ; Buffer
-                call    _sprintf
-                add     esp, 14h
-                jmp     short loc_439598
-; ---------------------------------------------------------------------------
-
-loc_439563:                             ; CODE XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+31↑j
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetId@TokenEntry@@QBEHXZ
-                push    eax
-                mov     ecx, dword ptr [ebp+var_68]
-                call    sub_43A7E0
-                push    eax
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                push    eax
-                mov     ecx, dword ptr [ebp+var_68]
-                call    ?GetMaterial@TokenEntry@@QBEHXZ
-                push    eax
-                push    offset a02d02d1d02d ; "%02d%02d%1d%02d"
-                lea     ecx, [ebp+Buffer]
-                push    ecx             ; Buffer
-                call    _sprintf
-                add     esp, 18h
-
-loc_439598:                             ; CODE XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+6E↑j
-                lea     edx, [ebp+Buffer]
-                push    edx             ; lpString
-                lea     ecx, [ebp+var_60] ; varThis
-                call    ??0CString@@QAE@PBD@Z ; CString::CString(char const *)
-;   try {
-                mov     [ebp+var_4], 1
-                lea     eax, [ebp+var_60]
-                push    eax             ; struct CString *
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     ecx, dword ptr [ebp+var_64]
-                or      ecx, 1
-                mov     [ebp+var_64], ecx
-;   } // starts at 4395A4
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_60] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-;   } // starts at 4395C0
-; } // starts at 4394F3
-?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -18339,7 +18241,7 @@ loc_43A603:                             ; CODE XREF: ?sub_43A5E5@TokenEntry@@QAE
                 mov     [ebp+var_4], eax
                 push    offset aCrown   ; "Crown"
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_43A7E0
+                call    ?GetShape@TokenEntry@@QBEHXZ
                 mov     esi, eax
                 shl     esi, 5
                 mov     ecx, dword ptr [ebp+var_8]
@@ -18355,7 +18257,7 @@ loc_43A603:                             ; CODE XREF: ?sub_43A5E5@TokenEntry@@QAE
                 jnz     loc_43A6C6
                 push    offset aDocuments ; "Documents"
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_43A7E0
+                call    ?GetShape@TokenEntry@@QBEHXZ
                 mov     esi, eax
                 shl     esi, 5
                 mov     ecx, dword ptr [ebp+var_8]
@@ -18371,7 +18273,7 @@ loc_43A603:                             ; CODE XREF: ?sub_43A5E5@TokenEntry@@QAE
                 jnz     short loc_43A6C6
                 push    offset aTreasure ; "Treasure"
                 mov     ecx, dword ptr [ebp+var_8]
-                call    sub_43A7E0
+                call    ?GetShape@TokenEntry@@QBEHXZ
                 mov     esi, eax
                 shl     esi, 5
                 mov     ecx, dword ptr [ebp+var_8]
@@ -18432,7 +18334,7 @@ var_4           = dword ptr -4
 loc_43A6EE:                             ; CODE XREF: ?sub_43A6D5@TokenEntry@@QAEHXZ+13↑j
                 push    offset aQuestTreasure ; "Quest Treasure"
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_43A7E0
+                call    ?GetShape@TokenEntry@@QBEHXZ
                 mov     esi, eax
                 shl     esi, 5
                 mov     ecx, dword ptr [ebp+var_4]
@@ -18539,24 +18441,6 @@ sub_43A7A0      endp
 
 ; Attributes: bp-based frame
 
-sub_43A7E0      proc near               ; CODE XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+36↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax+6]
-                mov     eax, ecx
-                sar     eax, 5
-                and     eax, 7
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_43A7E0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -248553,36 +248437,6 @@ SEH_439465:                             ; DATA XREF: ??0TokenEntry@@QAE@PBV0@@Z+
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F8953
 ; END OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PBV0@@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ
-
-loc_5F8966:                             ; DATA XREF: .rdata:006190A0↓o
-; __unwind { // SEH_4394F3              ; varThis
-;   cleanup() // owned by 4395A4
-                lea     ecx, [ebp+var_60]
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5F896F:                             ; DATA XREF: .rdata:stru_619098↓o
-;   cleanup() // owned by 4395C0
-                mov     eax, dword ptr [ebp+var_64]
-                and     eax, 1
-                test    eax, eax
-                jz      locret_5F8985
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??1CString@@QAE@XZ ; CString::~CString(void)
-
-locret_5F8985:                          ; CODE XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+1BF484↑j
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4394F3:                             ; DATA XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+5↑o
-                mov     eax, offset stru_619078
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8966
-; END OF FUNCTION CHUNK FOR ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4395E0
 
 loc_5F8990:                             ; DATA XREF: .rdata:stru_6190C8↓o
@@ -281426,13 +281280,6 @@ stru_619050     FuncInfoV1 <19930520h, 1, offset stru_619070, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_619070     UnwindMapEntry <-1, offset loc_5F8953>
-stru_619078     FuncInfoV1 <19930520h, 2, offset stru_619098, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619098     UnwindMapEntry <-1, offset loc_5F896F>
-                UnwindMapEntry <0, offset loc_5F8966>
 stru_6190A8     FuncInfoV1 <19930520h, 6, offset stru_6190C8, 0, 0, 0, 0>
                 db    0
                 db    0

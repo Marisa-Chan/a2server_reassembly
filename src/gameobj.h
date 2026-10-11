@@ -53,6 +53,7 @@ public:
 	int GetType() const { return (item_id >> 8) & 0xf; } //41f0b0
 	int GetId() const { return item_id & 0x1f; } //43a800
 	int GetMaterial() const { return (item_id >> 0xc); } //43a7c0
+	int GetShape() const { return (item_id >> 5) & 7; } //43a7e0
 
 	uint32_t GetAttribute(uint8_t aid) const //4397de
 	{

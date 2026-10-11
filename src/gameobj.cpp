@@ -691,6 +691,21 @@ int32_t TokenEntry::sub_4396FB()
 }
 
 
+CString TokenEntry::FUN_004394f3()
+{ //4394f3
+    char buffer[0x50];
+
+    if (this->GetType() == TYPE_SPELL) {
+        sprintf(buffer, "%02d%02d%03d", this->GetMaterial(), this->GetType(), this->GetShape() << 5 | this->GetId());
+    }
+    else {
+        sprintf(buffer, "%02d%02d%1d%02d", this->GetMaterial(), this->GetType(), this->GetShape(), this->GetId());
+    }
+
+    return CString(buffer);
+}
+
+
 
 CUnit::CUnit()
 { //46411c
