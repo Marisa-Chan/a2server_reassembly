@@ -902,7 +902,6 @@ externdef ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z : proc
 
 extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
 extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
-externdef ?FUN_0049381c@CGameSession@@QAEXPAD@Z : proc
 
 
 

@@ -5171,6 +5171,46 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name)
     RecreateCUnit();
 }
 
+void CGameSession::FUN_0049381c(char* name)
+{ //49381c
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+
+    CString str(name);
+    int colon = str.Find(':');
+    if (colon != -1) {
+        str = str.Mid(colon + 1);
+        this->color = atoi(str);
+        if (this->color < 1 || this->color > 0x10) {
+            this->color = 0;
+        }
+    }
+
+    strcpy(unit->str2, name);
+    unit->str2[colon] = '\0';
+
+    this->characterRosterNames[this->selectedCharacterRosterFileIndex] = unit->str1;
+    if (unit->str2[0] != '\0') {
+        this->characterRosterNames[this->selectedCharacterRosterFileIndex] += '|';
+        this->characterRosterNames[this->selectedCharacterRosterFileIndex] += unit->str2;
+    }
+
+    strcpy(this->character_name, this->characterRosterNames[0]);
+
+    FileSectionBasicInfo info;
+    memcpy(&info, &this->sessionKeyPart1, 8);
+    info.hat_id = this->field_0x64;
+    strcpy(info.nick, this->characterRosterNames[this->selectedCharacterRosterFileIndex]);
+    info.character_class = (uint8_t)this->type;
+    this->face = unit->face;
+    info.picture = (uint8_t)this->face;
+    info.main_sphere = (uint8_t)this->main_sphere;
+    info.flags = (uint8_t)this->flags;
+    info.color = (uint8_t)this->color;
+
+    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();
