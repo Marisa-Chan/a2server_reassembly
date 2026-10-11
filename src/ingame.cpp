@@ -7865,3 +7865,38 @@ void BigStruct2::FUN_0041a001(int32_t idx)
 	}
 	this->UpdateSelectionState();
 }
+
+// 41ae1c
+void BigStruct2::FUN_0041ae1c(int32_t serv_id)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	if (wnd->sessionMode == 2) {
+		CWordArray ids;
+		for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0 || (((CUnit*)obj)->unitFlags & 1) != 0) {
+				continue;
+			}
+			ids.Add(key);
+		}
+		while (ids.GetSize() != 0) {
+			CGameObject* obj = nullptr;
+			this->field_0x9d0.Lookup(ids[0], obj);
+			this->field_0x9d0.RemoveKey(ids[0]);
+			if (obj != nullptr) {
+				delete obj;
+			}
+			ids.RemoveAt(0, 1);
+		}
+	} else {
+		PacketInfo* pkt = &PacketInfo::Inst;
+		pkt->field_0x5 = this->my_main_unit->index;
+		pkt->to_player_id = 0;
+		pkt->id = 0x3A;
+		pkt->field_0xa = this->GetUnit_3f6c()->unit_id;
+		pkt->field_0xe = serv_id;
+		g_NetStru1_local.QueuePacketSend(pkt);
+	}
+}
