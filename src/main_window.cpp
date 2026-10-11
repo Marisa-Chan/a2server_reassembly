@@ -5211,6 +5211,54 @@ void CGameSession::FUN_0049381c(char* name)
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
 }
 
+void CGameSession::FUN_004946e0()
+{ //4946e0
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->sessionMode == 2) {
+        return;
+    }
+
+    BigStruct2* map = mwnd->vis_map_context;
+    CUnit* unit = map->GetUnit_3f6c();
+
+    if (this->flags & 1) {
+        this->flags &= ~1;
+    }
+
+    FileSectionBasicInfo info;
+    memcpy(&info, &this->sessionKeyPart1, 8);
+    info.hat_id = this->field_0x64;
+    strcpy(info.nick, this->character_name);
+    info.character_class = (uint8_t)this->type;
+    this->face = unit->face;
+    info.picture = (uint8_t)this->face;
+    info.main_sphere = (uint8_t)this->main_sphere;
+    info.flags = (uint8_t)this->flags;
+    info.color = (uint8_t)this->color;
+
+    FileSectionStats stats;
+    stats.body = unit->field_0x180[0];
+    stats.reaction = unit->field_0x180[1];
+    stats.mind = unit->field_0x180[2];
+    stats.spirit = unit->field_0x180[3];
+    stats.money = map->my_main_unit->gold;
+    stats.monster_kills = this->monster_killed;
+    stats.player_kills = this->player_killed;
+    stats.frags = this->fragCount;
+    stats.deaths = this->death_count;
+    stats.spells = unit->spells;
+    stats.active_spell = unit->active_spell;
+    stats.experience[0] = unit->experience_per_sphere[0];
+    stats.experience[1] = unit->experience_per_sphere[1];
+    stats.experience[2] = unit->experience_per_sphere[2];
+    stats.experience[3] = unit->experience_per_sphere[3];
+    stats.experience[4] = unit->experience_per_sphere[4];
+
+    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, &stats, nullptr, nullptr, nullptr, nullptr, 0);
+
+    this->field_0x110 = GetTickCount();
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();
