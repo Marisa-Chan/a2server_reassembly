@@ -5095,51 +5095,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?GetControlGroup@CGameObject@@QAEHXZ      proc near               ; CODE XREF: ?sub_417F09@BigStruct2@@QAEXPAVCRect@@@Z+4D8↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_41F23B
-; ---------------------------------------------------------------------------
-
-loc_41F232:                             ; CODE XREF: ?GetControlGroup@CGameObject@@QAEHXZ:loc_41F25F↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_41F23B:                             ; CODE XREF: ?GetControlGroup@CGameObject@@QAEHXZ+10↑j
-                cmp     [ebp+var_4], 20h ; ' '
-                jge     short loc_41F261
-                mov     edx, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                shl     edx, cl
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+88h]
-                and     ecx, edx
-                test    ecx, ecx
-                jz      short loc_41F25F
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_41F264
-; ---------------------------------------------------------------------------
-
-loc_41F25F:                             ; CODE XREF: ?GetControlGroup@CGameObject@@QAEHXZ+38↑j
-                jmp     short loc_41F232
-; ---------------------------------------------------------------------------
-
-loc_41F261:                             ; CODE XREF: ?GetControlGroup@CGameObject@@QAEHXZ+1F↑j
-                or      eax, 0FFFFFFFFh
-
-loc_41F264:                             ; CODE XREF: ?GetControlGroup@CGameObject@@QAEHXZ+3D↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetControlGroup@CGameObject@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

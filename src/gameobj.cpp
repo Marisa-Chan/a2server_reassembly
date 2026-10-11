@@ -340,6 +340,17 @@ int32_t CGameObject::FUN_00462405(int32_t effect_id)
 }
 
 
+int32_t CGameObject::GetControlGroup()
+{ //41f220
+    for (int32_t grp = 0; grp < 0x20; grp++) {
+        if (this->controlGroupMask & (1 << grp)) {
+            return grp;
+        }
+    }
+    return -1;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
