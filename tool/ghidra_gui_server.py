@@ -13,5 +13,5 @@ _spec = importlib.util.spec_from_file_location(
 ghidra_ops = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(ghidra_ops)
 
-ctx = ghidra_ops.OpContext(currentProgram, autosave=False)
+ctx = ghidra_ops.OpContext(currentProgram, autosave=True)
 ghidra_ops.serve(ctx, should_stop=lambda: monitor.isCancelled(), log=println)
