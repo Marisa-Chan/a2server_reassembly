@@ -662,6 +662,35 @@ const char* TokenEntry::FUN_00439973()
 }
 
 
+int32_t TokenEntry::sub_4396FB()
+{ //4396fb
+    char str[0x50];
+
+    strcpy(str, txt_heropicture.GetLine(this->GetId() - 1));
+
+    if (strcmp(str, "bowman") == 0) {
+        return 1;
+    }
+    if (strcmp(str, "archer") == 0) {
+        return 1;
+    }
+    if (strcmp(str, "xbowman") == 0) {
+        return 1;
+    }
+    if (strcmp(str, "axeman2h") == 0) {
+        return 1;
+    }
+    if (strcmp(str, "swordsman2h") == 0) {
+        return 1;
+    }
+    if (strcmp(str, "mage_st") == 0) {
+        return 1;
+    }
+
+    return 0;
+}
+
+
 
 CUnit::CUnit()
 { //46411c
