@@ -4781,48 +4781,6 @@ unknown_libname_437 endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?sub_41EF60@Scenario@@QAEHHH@Z      proc near               ; CODE XREF: ?FUN_00403ca0@BigStruct2@@QAEXPAVCGameObject@@@Z +121↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+arg_0], 7
-                jl      short loc_41EF9A
-                cmp     [ebp+arg_4], 7
-                jl      short loc_41EF9A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                sub     ecx, 7
-                cmp     [ebp+arg_0], ecx
-                jge     short loc_41EF9A
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+8]
-                sub     eax, 7
-                cmp     [ebp+arg_4], eax
-                jge     short loc_41EF9A
-                mov     [ebp+var_8], 1
-                jmp     short loc_41EFA1
-; ---------------------------------------------------------------------------
-
-loc_41EF9A:                             ; CODE XREF: ?sub_41EF60@Scenario@@QAEHHH@Z+D↑j
-                mov     [ebp+var_8], 0
-
-loc_41EFA1:                             ; CODE XREF: ?sub_41EF60@Scenario@@QAEHHH@Z+38↑j
-                mov     eax, dword ptr [ebp+var_8]
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?sub_41EF60@Scenario@@QAEHHH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

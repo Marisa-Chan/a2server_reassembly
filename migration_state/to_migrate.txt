@@ -269,7 +269,6 @@ _byte_659A3C
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13
 ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z	20
-?sub_41EF60@Scenario@@QAEHHH@Z	37
 ??0Scenario@@QAE@PBD@Z	1363
 ?FUN_00473d10@StructEnter@@QAEHXZ	47
 ?FUN_00473b80@StructEnter@@QAEXXZ	85
