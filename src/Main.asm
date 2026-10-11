@@ -62033,28 +62033,7 @@ unknown_libname_612 endp
 
 ; Attributes: bp-based frame
 
-?sub_4A7850@TokenEntry@@QAEHH@Z      proc near               ; CODE XREF: ?VMethod26@VisInvBase@@UAEHPAVTokenEntry@@H@Z+68↑p
 
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+10h]
-                add     ecx, [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+10h], ecx
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_4A7850@TokenEntry@@QAEHH@Z      endp
-
-; ---------------------------------------------------------------------------
-                align 10h
 
 ; =============== S U B R O U T I N E =======================================
 

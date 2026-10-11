@@ -307,6 +307,7 @@
 ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
 ?FUN_004382d9@VisStartGame@@QAEXXZ
+?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ
 ?FUN_0043be9f@Vis1200@@QAEXXZ
 ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z
 ?FUN_0046fb90@VisInvBase@@QAEHXZ
@@ -491,6 +492,7 @@
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
+?GetShape@TokenEntry@@QBEHXZ
 ?GetSize@CStringArray@@QBEHXZ
 ?GetSizedString@ResBase@@QAEHPBD00PADI@Z
 ?GetSprite@CCursor@@QBEPAVCSprite256@@XZ
