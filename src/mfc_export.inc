@@ -1350,7 +1350,6 @@ extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall
 
 externdef ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t UserShortcut::FUN_0041e3af(TokenEntry*)  //41e3af in asm
 externdef ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z : proc  ; void UserShortcut::sub_41E343(TokenEntry*)  //41e343 in asm
-externdef ?FUN_004948b2@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_004948b2()  //4948b2 in asm
 
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  

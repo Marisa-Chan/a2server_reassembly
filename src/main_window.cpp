@@ -5259,6 +5259,25 @@ void CGameSession::FUN_004946e0()
     this->field_0x110 = GetTickCount();
 }
 
+void CGameSession::FUN_004948b2()
+{ //4948b2
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->sessionMode == 2) {
+        return;
+    }
+
+    BigStruct2* map = mwnd->vis_map_context;
+    map->GetUnit_3f6c();
+
+    uint8_t buffer[2560];
+    uint8_t* buf = buffer;
+    for (int32_t i = 0; i < 9; i++) {
+        this->shortcuts[i].ToBuffer(&buf);
+    }
+
+    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();
