@@ -729,6 +729,31 @@ CString TokenEntry::FUN_004394f3()
 }
 
 
+int32_t TokenEntry::sub_4A7900(TokenEntry* other)
+{ //4a7900
+    if (this == other) {
+        return 1;
+    }
+
+    if (this->item_id != other->item_id) {
+        return 0;
+    }
+
+    if (this->field_0x18 != other->field_0x18
+        && (this->field_0x18 < 5 || this->field_0x18 > 8
+            || other->field_0x18 < 5 || other->field_0x18 > 8))
+    {
+        return 0;
+    }
+
+    if ((this->flg & 0x20) != 0 || (other->flg & 0x20) != 0) {
+        return 0;
+    }
+
+    return 1;
+}
+
+
 int32_t TokenEntry::sub_43988E()
 { //43988e
     const uint8_t* p = (const uint8_t*)this->mods;
