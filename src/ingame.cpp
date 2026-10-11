@@ -7798,3 +7798,70 @@ void BigStruct2::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32
 		}
 	}
 }
+
+// 41a001
+void BigStruct2::FUN_0041a001(int32_t idx)
+{
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+	PacketItemOperation* pkt = &PacketItemOperation::Inst;
+	if (wnd->vis_spellbook->sub_4CA89B(idx - 1) != 0 && wnd->vis_spellbook->spell == -1) {
+		POSITION it = this->field_0x9d0.GetStartPosition();
+		while (it != nullptr) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			if (obj->IsSelected() && (obj->availableSpellMask & (1 << (idx - 1))) != 0) {
+				pkt->field_0x5 = this->my_main_unit->index;
+				pkt->to_player_id = 0;
+				pkt->id = 0x1E;
+				pkt->field_0x10 = idx;
+				pkt->count = 0;
+				pkt->AppendWord(obj->unit_id);
+				pkt->field_0xe = obj->unit_id;
+				g_NetStru1_local.QueuePacketSend(pkt);
+			}
+		}
+	}
+	if (wnd->vis_spellbook->sub_4CA8E0(idx - 1) != 0) {
+		POSITION it = this->field_0x9d0.GetStartPosition();
+		while (it != nullptr) {
+			uint16_t key;
+			CGameObject* obj;
+			this->field_0x9d0.GetNextAssoc(it, key, obj);
+			if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (idx - 1))) == 0) {
+				continue;
+			}
+			pkt->count = 0;
+			pkt->AppendWord(obj->unit_id);
+			uint16_t slot = 0xFFFF;
+			if (wnd->vis_spellbook->spell >= 0) {
+				slot = wnd->vis_spellbook->spell;
+			} else {
+				for (int32_t i = 0; i < obj->tokenEntries.GetSize(); i++) {
+					TokenEntry* entry = obj->tokenEntries[i];
+					if (entry != nullptr && (entry->flg & 0x10) != 0 && entry->GetCastSpellId() == BOOK_POS_TO_SPELL_ID[idx]) {
+						slot = i;
+						break;
+					}
+				}
+			}
+			pkt->field_0x10 = slot;
+			pkt->field_0x11 = slot >> 8;
+			if (slot == 0xFFFF) {
+				continue;
+			}
+			pkt->id = 0x25;
+			g_NetStru1_local.QueuePacketSend(pkt);
+			TokenEntry* entry = obj->tokenEntries[slot];
+			if (entry->field_0x10 == 1) {
+				obj->tokenEntries.RemoveAt(slot, 1);
+				delete entry;
+			} else {
+				entry->field_0x10--;
+			}
+			wnd->vis_spellbook->spell = -1;
+			wnd->vis_spellbook->selected = -1;
+		}
+	}
+	this->UpdateSelectionState();
+}

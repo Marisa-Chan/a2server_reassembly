@@ -63,7 +63,6 @@ _byte_659A3C
 ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z	58
 ?FUN_0041ace2@BigStruct2@@QAEXH@Z	80
 ?FUN_0041ae1c@BigStruct2@@QAEXH@Z	170
-?FUN_0041a001@BigStruct2@@QAEXH@Z	291
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
