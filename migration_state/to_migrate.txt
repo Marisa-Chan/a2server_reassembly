@@ -8,6 +8,7 @@
 ?INT_00660f8c@@3HA
 ?INT_00660f90@@3HA
 _byte_666590
+_g_Destination
 _unk_659A48
 _byte_659A54
 _byte_659A4C
@@ -313,7 +314,6 @@ _byte_659A3C
 ?sub_43A5E5@TokenEntry@@QAEHXZ	90
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ	97
 ?sub_4396FB@TokenEntry@@QAEHXZ	101
-?FUN_00439973@TokenEntry@@QAEPBDXZ	812
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15

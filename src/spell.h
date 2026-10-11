@@ -53,14 +53,14 @@ public:
         return 0;
     }
 
-    uint8_t GetSight(uint8_t v) const //5398e2
+    int16_t GetSight(uint8_t v) const //5398e2
     {
         if (spell_id == 15 || spell_id == 14)
-            return (v / 14) - 1;
+            return -(v / 30) - 1;
         return 0;
     }
 
-    uint8_t GetMaximumDamageProbability(uint8_t v) const //519837
+    uint8_t GetMaximumDamageProbability(uint8_t v) const //5397f7
     {
         if (spell_id == 20)
             return (v * 4 / 5) + 20;

@@ -1376,7 +1376,6 @@ extern ?GetId@TokenEntry@@QBEHXZ : proc
 externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 externdef ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
 externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
-externdef ?FUN_00439973@TokenEntry@@QAEPBDXZ : proc  ; const char* TokenEntry::FUN_00439973()
 
 
 
@@ -1390,6 +1389,9 @@ extern ?FlushScreen@@YAXXZ  : proc
 
 ;VisSpellBook
 externdef _byte_666590 : byte
+
+;TokenEntry
+externdef _g_Destination : byte  ; char g_Destination[0x400] hint buffer (659558)
 extern ?sub_4CA89B@VisSpellBook@@QAEHH@Z : proc
 extern ?sub_4CA8E0@VisSpellBook@@QAEHH@Z : proc
 externdef ?sub_41F9B0@VisSpellBook@@QAEHXZ : proc  ; int VisSpellBook::sub_41F9B0()

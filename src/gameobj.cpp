@@ -2,6 +2,7 @@
 #include "main_window.h"
 #include "item.h"
 #include "game_app.h"
+#include "spell.h"
 #include "unit.h"
 #include "packet.h"
 #include "gfx.h"
@@ -18,6 +19,8 @@
 #include <cstring>
 
 CStringArray g_CUnitMaterialSpritePaths; //660e70
+
+extern "C" char g_Destination[0x400]; //659558 TokenEntry::FUN_00439973 hint buffer
 
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);
@@ -473,7 +476,189 @@ void TokenEntry::operator=(const TokenEntry& obj)
 
     field_0x1c = obj.field_0x1c;
     field_0x20 = obj.field_0x20;
-   
+
+}
+
+
+const char* TokenEntry::FUN_00439973()
+{ //439973
+    char buffer[0x80];
+
+    g_Destination[0] = '\0';
+
+    void* name = nullptr;
+    if (unk_660DA8.Lookup(this->item_id, name) == 0)
+        return g_Destination;
+
+    strcpy(g_Destination, (const char*)name);
+
+    int32_t cast_spell_id = 0;
+    int32_t value = 0;
+    const uint8_t* p = (const uint8_t*)this->mods;
+
+    for (int32_t i = 0; i < this->mods_count; i++)
+    {
+        uint8_t attr_id = *p;
+        p++;
+
+        switch (attr_id)
+        {
+        case 1:
+            p += 4;
+            break;
+
+        case 0xd:
+        case 0x2c:
+        case 0x2d:
+        case 0x2e:
+        case 0x2f:
+        case 0x30:
+            value = *p;
+            p++;
+
+            if (strlen(txt_stats.GetLine(attr_id)) != 0)
+            {
+                sprintf(buffer, "#%s %d", txt_stats.GetLine(attr_id), value);
+                strcat(g_Destination, buffer);
+            }
+
+            p++;
+            value += *p;
+            p++;
+            sprintf(buffer, "-%d", value);
+            strcat(g_Destination, buffer);
+            i++;
+            break;
+
+        case 0x26:
+            value = *p;
+            p++;
+
+            if (strlen(txt_stats.GetLine(attr_id)) != 0)
+            {
+                sprintf(buffer, "#%s %d", txt_stats.GetLine(attr_id), value);
+                strcat(g_Destination, buffer);
+            }
+            break;
+
+        case 0x29:
+            value = *p;
+            p++;
+            cast_spell_id = value;
+
+            if (this->GetType() == TYPE_SPELL)
+                sprintf(buffer, " %s %s%s", TxtFile::AllLines[0x5a], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5b]);
+            else
+                sprintf(buffer, "#%s %s%s", TxtFile::AllLines[0x5c], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5d]);
+
+            strcat(g_Destination, buffer);
+            break;
+
+        case 0x2a:
+            value = *p;
+            p++;
+            sprintf(buffer, " %s %s%s", TxtFile::AllLines[0x5a], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5b]);
+            strcat(g_Destination, buffer);
+            break;
+
+        case 0x32:
+        {
+            value = *p;
+            p++;
+
+            Spell spell((uint8_t)cast_spell_id);
+            spell.sub_539541(value);
+            if (cast_spell_id == 0x12)
+                spell.spell_power >>= 1;
+
+            CString mana_str;
+            CString damage_str;
+            CString power_str;
+            CString misc_str;
+
+            if (spell.damage_spread != 0)
+                damage_str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
+
+            if (this->GetType() == TYPE_SPELL)
+            {
+                if (spell.max_range != 0)
+                    mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], spell.max_range);
+            }
+            else
+            {
+                Item* item = g_GameDataRes.sub_510EE6(this->item_id);
+                // Byte 0x58 of the derived object: Weapon::range / Armor::slot / Shield::protections[0]
+                mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], *((uint8_t*)item + 0x58));
+                delete item;
+            }
+
+            if (spell.spell_power != 0)
+            {
+                if (cast_spell_id == 0x12)
+                    power_str.Format("#%s: 0.0 -%5.1f", TxtFile::AllLines[0x7c], (double)spell.spell_power / 16.0);
+                else
+                    power_str.Format("#%s: %5.1f", TxtFile::AllLines[0x7c], (double)spell.spell_power / 16.0);
+            }
+
+            uint8_t speed = spell.GetSpeed(value);
+            if (speed != 0)
+                misc_str.Format("#%s: %d", TxtFile::AllLines[0xb6], speed);
+
+            uint8_t max_prob = spell.GetMaximumDamageProbability(value);
+            if (max_prob != 0)
+                misc_str.Format("#%s: +%d%%", TxtFile::AllLines[0xb9], max_prob);
+
+            uint8_t min_prob = spell.GetMinimumDamageProbability(value);
+            if (min_prob != 0)
+                misc_str.Format("#%s: +%d%%", TxtFile::AllLines[0xbb], min_prob);
+
+            uint8_t resist = spell.GetResistance(value);
+            if (resist != 0)
+                misc_str.Format("#%s: +%d", TxtFile::AllLines[0xb7], resist);
+
+            uint8_t rays = spell.GetRays(value);
+            if (rays != 0)
+                misc_str.Format("#%s: %d", TxtFile::AllLines[0xba], rays);
+
+            int16_t sight = spell.GetSight(value);
+            if (sight != 0)
+                misc_str.Format("#%s: %d", TxtFile::AllLines[0xb8], sight);
+
+            strcat(g_Destination, (LPCTSTR)damage_str);
+            strcat(g_Destination, (LPCTSTR)mana_str);
+            strcat(g_Destination, (LPCTSTR)power_str);
+            strcat(g_Destination, (LPCTSTR)misc_str);
+            break;
+        }
+
+        case 0x33:
+            value = *p;
+            p++;
+
+            if (this->GetType() != TYPE_SPELL)
+            {
+                strcat(g_Destination, "#");
+                strcat(g_Destination, TxtFile::AllLines[0xbd]);
+            }
+            break;
+
+        default:
+            value = *p;
+            p++;
+
+            if (strlen(txt_stats.GetLine(attr_id)) != 0)
+            {
+                sprintf(buffer, "#%s %+d", txt_stats.GetLine(attr_id), value);
+                strcat(g_Destination, buffer);
+            }
+
+            if (attr_id == 0xb || attr_id == 8)
+                strcat(g_Destination, "%");
+            break;
+        }
+    }
+
+    return g_Destination;
 }
 
 

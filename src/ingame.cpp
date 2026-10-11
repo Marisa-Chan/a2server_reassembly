@@ -3289,7 +3289,7 @@ void BigStruct2::UpdateSpellModifiers(CUnit* unit)
 		if (spell_val2_max[i] < res)
 			spell_val2_max[i] = res;
 
-		const uint8_t sigh = s.GetSight(v);
+		const int16_t sigh = s.GetSight(v);
 		if (sigh != 0)
 		{
 			if (spell_val3_min[i] > sigh)
