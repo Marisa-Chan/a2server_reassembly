@@ -2051,7 +2051,7 @@ extern   ?VMethod22@CUnit@@UAEXXZ  : proc
 extern   ?VMethod23@CUnit@@UAEXXZ  : proc
 extern   ?VMethod24@CUnit@@UAEXXZ  : proc
 extern   ?VMethod25@CUnit@@UAEXH@Z  : proc
-externdef   ?FUN_0041f130@CGameObject@@QAEHXZ  : proc
+extern ?FUN_0041f130@CGameObject@@QAEHXZ : proc  ; int32_t CGameObject::FUN_0041f130()
 extern ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z : proc  ; void CGameObject::FUN_00461c41(int, CGameObject*)
 extern   ?VMethod26@CUnit@@UAEXXZ  : proc
 extern   ?VMethod27@CUnit@@UAEXXZ  : proc

@@ -4987,20 +4987,6 @@ sub_41EFF0      endp
 ; Attributes: library function bp-based frame
 
 ; struct Concurrency::IExecutionContext *__thiscall Concurrency::details::VirtualProcessor::GetExecutingContext(Concurrency::details::VirtualProcessor *__hidden varThis)
-?FUN_0041f130@CGameObject@@QAEHXZ proc near
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+7Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041f130@CGameObject@@QAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

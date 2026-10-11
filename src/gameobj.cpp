@@ -364,6 +364,12 @@ void CGameObject::FUN_0041f150(int32_t grp)
 }
 
 
+int32_t CGameObject::FUN_0041f130()
+{ //41f130
+    return this->bIsBlocked;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
