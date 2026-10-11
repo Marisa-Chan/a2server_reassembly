@@ -755,6 +755,12 @@ int TokenEntry::FUN_004396d6()
 }
 
 
+int32_t TokenEntry::FUN_0041f0d0()
+{ //41f0d0
+    return this->item_id == 0xffff;
+}
+
+
 CString TokenEntry::FUN_004394f3()
 { //4394f3
     char buffer[0x50];

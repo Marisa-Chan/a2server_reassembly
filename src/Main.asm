@@ -5886,26 +5886,6 @@ sub_41EFF0      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_0041f0d0@TokenEntry@@QAEHXZ(_DWORD)
-?FUN_0041f0d0@TokenEntry@@QAEHXZ      proc near               ; CODE XREF: ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+15A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax+6]
-                mov     eax, ecx
-                sub     eax, 0FFFFh
-                neg     eax
-                sbb     eax, eax
-                inc     eax
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041f0d0@TokenEntry@@QAEHXZ      endp
 
 
 

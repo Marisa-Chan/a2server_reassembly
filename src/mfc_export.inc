@@ -1366,7 +1366,6 @@ extern ?GetCastSpellId@TokenEntry@@QBEIXZ : proc
 
 extern ?GetId@TokenEntry@@QBEHXZ : proc
 
-externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 extern ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
 externdef ?GetShape@TokenEntry@@QBEHXZ : proc  ; int TokenEntry::GetShape() const
 
