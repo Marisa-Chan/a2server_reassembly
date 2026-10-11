@@ -2022,7 +2022,6 @@ extern   ?VMethod7@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 externdef   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
-externdef ?sub_4A952B@Scenario@@QAEXHHII@Z : proc
 externdef ?sub_41EF60@Scenario@@QAEHHH@Z : proc
 externdef ??0Scenario@@QAE@PBD@Z : proc
 externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc

@@ -271,7 +271,6 @@ _byte_659A3C
 ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z	20
 ?sub_41EF60@Scenario@@QAEHHH@Z	37
 ?FUN_004a7b79@Scenario@@QAENXZ	50
-?sub_4A952B@Scenario@@QAEXHHII@Z	471
 ??0Scenario@@QAE@PBD@Z	1363
 ?FUN_00473d10@StructEnter@@QAEHXZ	47
 ?FUN_00473b80@StructEnter@@QAEXXZ	85

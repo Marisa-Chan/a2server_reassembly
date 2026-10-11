@@ -1,5 +1,6 @@
 #include "map_stuff.h"
 
+#include <cmath>
 #include <cstdlib>
 
 #include "alm.h"
@@ -8,6 +9,7 @@
 #include "eye.h"
 #include "file.h"
 #include "game_app.h"
+#include "gfx.h"
 #include "group.h"
 #include "net.h"
 #include "player.h"
@@ -2820,4 +2822,64 @@ uint8_t MapStuff::sub_591A96(uint16_t yx1, uint16_t yx2, int32_t size) {
     }
 
     return (std::max)(dx, dy);
+}
+
+// 4a952b
+void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h)
+{
+    this->inv_sun_angle = g_DeltaCLR.field_18;
+    this->abrightness = (uint8_t)g_DeltaCLR.field_4;
+    this->contrast = (uint8_t)g_DeltaCLR.field_8;
+
+    double tan_abs_angle = tan(fabs(this->inv_sun_angle));
+    double light_dist = 32.0 / cos(fabs(this->inv_sun_angle));
+
+    if ((w | h) == 0) {
+        w = this->width - 2;
+        h = this->height - 2;
+    }
+
+    for (int32_t i = x; i < (int32_t)(x + w); i++) {
+        for (int32_t j = y; j < (int32_t)(y + h); j++) {
+            double dh1;
+            if (this->inv_sun_angle >= 0.0) {
+                double h_south = (int8_t)this->map_heights[i + (j + 1) * this->width];
+                double h_south_west = (int8_t)this->map_heights[i - 1 + (j + 1) * this->width];
+                dh1 = h_south - (h_south - h_south_west) * tan_abs_angle - (int8_t)this->map_heights[i + j * this->width];
+            } else {
+                double h_south = (int8_t)this->map_heights[i + (j + 1) * this->width];
+                double h_south_east = (int8_t)this->map_heights[i + 1 + (j + 1) * this->width];
+                dh1 = h_south + (h_south_east - h_south) * tan_abs_angle - (int8_t)this->map_heights[i + j * this->width];
+            }
+            double light1 = (double)(this->abrightness + this->contrast / 2 + 32)
+                - this->contrast * sin(0.5235987666666667 - atan2(dh1, light_dist));
+            if (light1 > 94.0) {
+                light1 = 94.0;
+            }
+            if (light1 < 0.0) {
+                light1 = 0.0;
+            }
+
+            double dh2;
+            if (this->inv_sun_angle >= 0.0) {
+                double h_north = (int8_t)this->map_heights[i + (j - 1) * this->width];
+                double h_north_east = (int8_t)this->map_heights[i + 1 + (j - 1) * this->width];
+                dh2 = (int8_t)this->map_heights[i + j * this->width] - (h_north + (h_north_east - h_north) * tan_abs_angle);
+            } else {
+                double h_north = (int8_t)this->map_heights[i + (j - 1) * this->width];
+                double h_north_west = (int8_t)this->map_heights[i - 1 + (j - 1) * this->width];
+                dh2 = (int8_t)this->map_heights[i + j * this->width] - (h_north - (h_north - h_north_west) * tan_abs_angle);
+            }
+            double light2 = (double)(this->abrightness + this->contrast / 2 + 32)
+                - this->contrast * sin(0.5235987666666667 - atan2(dh2, light_dist));
+            if (light2 > 94.0) {
+                light2 = 94.0;
+            }
+            if (light2 < 0.0) {
+                light2 = 0.0;
+            }
+
+            this->field_0x18[i + j * this->width] = (uint8_t)((light1 + light2) / 2.0);
+        }
+    }
 }

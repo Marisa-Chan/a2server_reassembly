@@ -356,7 +356,7 @@ public:
 
     double FUN_004a7b79(); //4a7b79
 
-    void sub_4A952B(int32_t arg1, int32_t arg2, uint32_t arg3, uint32_t arg4); //4a952b
+    void sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h); //4a952b
 public:
     int32_t width;
     int32_t height;
