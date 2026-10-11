@@ -28,6 +28,26 @@ SEPARATOR_RE = re.compile(r"^;\s*-{10,}")
 LABEL_RE = re.compile(r"^[A-Za-z_?@$][A-Za-z0-9_?@$]*\s")
 # Unlabeled data continuation: lines starting with whitespace then db/dd/dw/dq etc.
 DATA_CONT_RE = re.compile(r"^\s+(db|dd|dw|dq)\s")
+# MSVC member mangling forms (duplicated from tool/migration_state.py):
+#   ?Method@Class@@...            regular member function
+#   ??0Class@@... / ??1Class@@... constructor / destructor
+#   ??_GClass@@... / ??4Class@@.. deleting dtor / operator= (special members)
+MEMBER_CLASS_RE = re.compile(r"^\?[^?@]+@(.+?)@@")
+SPECIAL_MEMBER_CLASS_RE = re.compile(r"^\?\?(?:\d|_[A-Z0-9])(.+?)@@")
+
+
+def extract_class_name(name):
+    """Extract the class name from an MSVC-mangled symbol.
+    Returns "" for free functions and non-mangled symbols."""
+    base = name.split("\t", 1)[0].strip()
+    if not base.startswith("?"):
+        return ""
+    m = MEMBER_CLASS_RE.match(base)
+    if not m:
+        m = SPECIAL_MEMBER_CLASS_RE.match(base)
+    if not m:
+        return ""
+    return m.group(1)
 
 
 def scan_references(lines, procs, data_syms, asm_path):
@@ -475,6 +495,8 @@ def main():
                             help="Show reachability paths from all external roots")
     parser.add_argument("--all-reachable", action='store_true',
                             help="Show all reachable functions")
+    parser.add_argument("--reachability-by-class", action='store_true',
+                            help="Show reachability computed from all methods of each class (shared callees counted once)")
     args = parser.parse_args()
 
     path = os.path.abspath(args.asm_file)
@@ -526,6 +548,28 @@ def main():
             for s, e in chunks.get(name, []):
                 size += e - s + 1
             print(f"  {name} -> {size} lines")
+
+    if args.reachability_by_class:
+        print("\n=== REACHABILITY BY CLASS ===")
+        class_methods = defaultdict(set)
+        for name in procs:
+            if name in mfc_procs:
+                continue
+            cls = extract_class_name(name)
+            # Free functions misfire the regex: "?f@@YA...@@Z" captures "@YA...",
+            # which is a signature fragment, not a class. Real classes never
+            # produce a capture starting with "@".
+            if not cls or cls.startswith("@") or not cls[0].isupper():
+                continue
+            class_methods[cls].add(name)
+        rows = []
+        for cls, methods in class_methods.items():
+            reach = compute_reachable(calls, methods, skip=mfc_procs)
+            _, reach_lines = compute_reachable_sizes(procs, endps, chunks, reach)
+            rows.append((cls, len(reach), reach_lines, len(methods)))
+        rows.sort(key=lambda r: r[2], reverse=True)
+        for cls, n_reach, reach_lines, n_methods in rows:
+            print(f"  {cls} -> {n_reach} reachable procs for {reach_lines} lines ({n_methods} methods)")
 
     if args.track:
         report_track(calls, external_refs, args.track, procs, skip=mfc_procs)
