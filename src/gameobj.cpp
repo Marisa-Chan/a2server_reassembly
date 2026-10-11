@@ -329,6 +329,17 @@ int32_t CGameObject::FUN_00461f8e(int32_t x, int32_t y)
 }
 
 
+int32_t CGameObject::FUN_00462405(int32_t effect_id)
+{ //462405
+    for (int32_t i = 0; i < this->field_0x130.GetSize(); i++) {
+        if ((this->field_0x130[i] >> 16) == effect_id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430

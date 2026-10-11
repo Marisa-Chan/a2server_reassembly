@@ -27338,58 +27338,6 @@ sub_4610A0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00462405@CGameObject@@QAEHH@Z      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+17B5↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_462420
-; ---------------------------------------------------------------------------
-
-loc_462417:                             ; CODE XREF: ?FUN_00462405@CGameObject@@QAEHH@Z:loc_462460↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_462420:                             ; CODE XREF: ?FUN_00462405@CGameObject@@QAEHH@Z+10↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 130h
-                call    unknown_libname_411 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_462462
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 130h
-                call    sub_402880
-                mov     edx, dword ptr [eax]
-                shr     edx, 10h
-                and     edx, 0FFFFh
-                and     edx, 0FFFFh
-                cmp     edx, [ebp+arg_0]
-                jnz     short loc_462460
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_462465
-; ---------------------------------------------------------------------------
-
-loc_462460:                             ; CODE XREF: ?FUN_00462405@CGameObject@@QAEHH@Z+54↑j
-                jmp     short loc_462417
-; ---------------------------------------------------------------------------
-
-loc_462462:                             ; CODE XREF: ?FUN_00462405@CGameObject@@QAEHH@Z+2C↑j
-                or      eax, 0FFFFFFFFh
-
-loc_462465:                             ; CODE XREF: ?FUN_00462405@CGameObject@@QAEHH@Z+59↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00462405@CGameObject@@QAEHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
