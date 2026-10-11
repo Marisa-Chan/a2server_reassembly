@@ -2247,38 +2247,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?sub_41A9F6@BigStruct2@@QAEXXZ      proc near               ; CODE XREF: ?sub_4BCCE1@VisShop@@QAEXXZ+18↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketWord@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 35h ; '5'
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+9CCh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+5], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+138h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ax, [ecx+4]
-                mov     [edx+0Ah], ax
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41A9F6@BigStruct2@@QAEXXZ      endp
 
 
 

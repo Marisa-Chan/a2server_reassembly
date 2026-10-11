@@ -7988,3 +7988,14 @@ CUnit* BigStruct2::FUN_0041dfa6(int32_t serv_id)
 	}
 	return unit;
 }
+
+// 41a9f6
+void BigStruct2::sub_41A9F6()
+{
+	PacketWord* pkt = &PacketWord::Inst;
+	pkt->id = 0x35;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->value = this->field_0x138->unit_id;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
