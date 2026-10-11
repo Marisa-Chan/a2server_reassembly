@@ -2006,7 +2006,7 @@ extern ??0CGameObject@@QAE@PBV0@@Z  :proc
 
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 externdef ?GetControlGroup@CGameObject@@QAEHXZ : proc
-externdef ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc
+extern ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc  ; int32_t CGameObject::FUN_00461f8e(int, int)
 externdef ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z : proc
 
 ;TransientVisualEffectBuilder

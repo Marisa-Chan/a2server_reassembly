@@ -292,6 +292,43 @@ void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2)
 }
 
 
+int32_t CGameObject::FUN_00461f8e(int32_t x, int32_t y)
+{ //461f8e
+    int32_t dx = x - this->x_pos;
+    int32_t dy = y - this->y_pos;
+    int32_t adx = abs(dx);
+    int32_t ady = abs(dy);
+
+    int32_t dir;
+    if (adx >= ady * 4) {
+        dir = 0;
+    } else if (adx * 3 >= ady * 4) {
+        dir = 1;
+    } else if (ady >= adx * 4) {
+        dir = 4;
+    } else if (ady * 3 >= adx * 4) {
+        dir = 3;
+    } else {
+        dir = 2;
+    }
+
+    if (dy > 0) {
+        if (dx > 0) {
+            dir += 4;
+        } else {
+            dir = 12 - dir;
+        }
+    } else {
+        if (dx < 0) {
+            dir += 12;
+        } else {
+            dir = 4 - dir;
+        }
+    }
+    return dir & 0xf;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
