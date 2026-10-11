@@ -10,6 +10,10 @@
 #include "file.h"
 #include "game_app.h"
 #include "gfx.h"
+#include "ingame.h"
+#include "item.h"
+#include "main_window.h"
+#include "sound.h"
 #include "group.h"
 #include "net.h"
 #include "player.h"
@@ -2907,4 +2911,217 @@ int32_t Scenario::sub_41EF60(int32_t x, int32_t y)
         return 0;
     }
     return 1;
+}
+
+// 4a9468
+Scenario::~Scenario()
+{
+    if (this->landscape != nullptr) {
+        free(this->landscape);
+    }
+    if (this->map_heights != nullptr) {
+        free(this->map_heights);
+    }
+    if (this->field_0x14 != nullptr) {
+        free(this->field_0x14);
+    }
+    if (this->field_0x18 != nullptr) {
+        free(this->field_0x18);
+    }
+}
+
+// 4a7bec
+Scenario::Scenario(const char* fname)
+{
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+
+    MapAlm* alm = new MapAlm(fname);
+
+    this->width = alm->map_width;
+    this->height = alm->map_height;
+    this->inv_sun_angle = alm->inv_sun_angle;
+    this->daytime_minutes = alm->day_time_minutes;
+    this->abrightness = (uint8_t)alm->a_brightness;
+    this->contrast = (uint8_t)alm->contrast;
+    this->field_0x28 = 0x1FFF;
+
+    this->landscape = (uint16_t*)malloc(this->width * this->height * 2);
+    memcpy(this->landscape, alm->landscape, this->width * this->height * 2);
+
+    this->map_heights = (uint8_t*)malloc(this->width * this->height);
+    this->field_0x14 = (uint8_t*)malloc(this->width * this->height);
+    memset(this->field_0x14, 0, this->width * this->height);
+    memcpy(this->map_heights, alm->map_heights, this->width * this->height);
+    for (int32_t i = 8; i < this->height - 4; i++) {
+        memcpy(this->field_0x14 + i * this->width + 8, alm->map_objects + i * this->width + 8, this->width - 0x10);
+    }
+
+    this->field_0x18 = (uint8_t*)malloc(this->width * this->height);
+    memset(this->field_0x18, 0, this->width * this->height);
+
+    for (int32_t i = 0; i < alm->map_buildings.GetSize(); i++) {
+        MapBuildingData* bld = alm->map_buildings[i];
+
+        CGameObject* structure;
+        if ((int16_t)bld->type_id == 0x21) {
+            structure = new CStructureBridge1((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
+        } else if ((int16_t)bld->type_id == 0x25) {
+            structure = new CStructureBridge2((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
+        } else {
+            structure = new CStructure();
+        }
+
+        structure->unit_id = (uint16_t)(bld->building_id + 0x6000);
+        mwnd->vis_map_context->field_0x9d0.SetAt(structure->unit_id, structure);
+        structure->typeId = (int16_t)bld->type_id;
+        structure->x_pos = ((int16_t)bld->x << 8) + 0x80;
+        structure->y_pos = ((int16_t)bld->y << 8) + 0x80;
+        structure->z_pos = 0;
+
+        structure->map_player = mwnd->vis_map_context->field_0x9b8[0];
+        for (int32_t j = 1; j < mwnd->vis_map_context->field_0x9b8.GetSize(); j++) {
+            MapPlayerData* player = mwnd->vis_map_context->field_0x9b8[j];
+            if (player != nullptr && (int16_t)bld->player_id == player->field2_0x8) {
+                structure->map_player = player;
+            }
+        }
+
+        BuildingInfo& binfo = g_GameDataRes.buildings[(int16_t)bld->type_id];
+        structure->scan_range = (int16_t)(binfo.values[2] << 8);
+        structure->hp_max = (int16_t)binfo.values[3];
+        structure->hp = structure->hp_max;
+        if (structure->hp_max == 0) {
+            structure->hp_max = 1000;
+            structure->hp = 1000;
+        }
+        if (bld->health == 0) {
+            structure->hp = 0;
+        }
+        structure->x_pos2 = structure->x_pos;
+        structure->y_pos2 = structure->y_pos;
+    }
+
+    for (int32_t i = 0; i < alm->units_datas.GetSize(); i++) {
+        MapUnitData* unit_data = alm->units_datas[i];
+
+        Unit* temp_unit = nullptr;
+        CUnit* unit = nullptr;
+        if ((unit_data->flags1 & 0x10) == 0) {
+            temp_unit = new Unit();
+            temp_unit->itemDataID = (int16_t)g_GameDataRes.FUN_00512625(unit_data->server_id);
+            temp_unit->monster_info = &g_GameDataRes.monsters[(uint16_t)temp_unit->itemDataID];
+            temp_unit->FUN_0052ec7a(temp_unit->monster_info->Values());
+            if (temp_unit->monster_info->values.GetUpperBound() > 0x36) {
+                temp_unit->server_id = (uint16_t)temp_unit->monster_info->values[0x37];
+            }
+            if (mwnd->sessionMode == 2 && g_Server != nullptr && g_Server->field22_0xd8 != 2) {
+                if (g_Server->field22_0xd8 == 1) {
+                    temp_unit->hp_max = temp_unit->hp_max / 2.0;
+                    temp_unit->hp = temp_unit->hp_max;
+                } else {
+                    temp_unit->hit_values.attack += 50;
+                    temp_unit->protections.defense += 50;
+                    temp_unit->hp_max = temp_unit->hp_max * 1.5;
+                    temp_unit->hp = temp_unit->hp_max;
+                }
+            }
+            if (0 < unit_data->max_hp) {
+                temp_unit->hp_max = unit_data->max_hp;
+            }
+            if (unit_data->hp != -1) {
+                temp_unit->hp = unit_data->hp;
+            }
+            UnitVFXUnfo* vfx = g_VFX_info[unit_data->type_id];
+            if (vfx->z == 0) {
+                unit = new CUnit();
+            } else {
+                unit = new CAirUnit();
+            }
+        } else {
+            Human* human = new Human();
+            temp_unit = human;
+            human->itemDataID = (int16_t)g_GameDataRes.FUN_005125a8(unit_data->server_id);
+            human->monster_info = (MonsterInfo*)&g_GameDataRes.humans[(uint16_t)human->itemDataID];
+            human->sub_532dde((CArray<HumanInfoData>*)&human->monster_info->values);
+            if (human->monster_info->values.GetUpperBound() > 0x17) {
+                human->server_id = (uint16_t)human->monster_info->values[0x18];
+            }
+            if (human->server_id > 10000) {
+                human->server_id = (uint16_t)(human->server_id / 10 % 1000);
+            }
+            if (human->monster_info->values[0x12] != 0) {
+                human->face |= 0x80;
+            }
+            human->sub_531418();
+            human->VMethod18();
+            if (unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
+                unit_data->hp = -1;
+                unit_data->max_hp = -1;
+            }
+            if (0 < unit_data->max_hp) {
+                human->hp_max = unit_data->max_hp;
+            }
+            if (unit_data->hp != -1) {
+                human->hp = unit_data->hp;
+            }
+            if (0 < human->mp_max) {
+                human->unit_attrs |= 4;
+            }
+            for (int32_t j = 0; j < 10; j++) {
+                HumanInfo* info = &g_GameDataRes.humans[(uint16_t)human->itemDataID];
+                CString& item_name = info->equipped_items[j];
+                if (item_name.GetLength() > 0) {
+                    if (j == 0) {
+                        human->VMethod13(new Weapon(item_name));
+                    } else if (j == 1) {
+                        human->VMethod13(new Shield(item_name));
+                    } else {
+                        human->VMethod13(new Armor(item_name));
+                    }
+                }
+            }
+            unit = new CUnit();
+        }
+
+        unit->unit_id = (uint16_t)(unit_data->unit_id + 0x6000);
+        unit->questFlags = unit_data->group_id;
+        if (0x15 <= temp_unit->server_id && temp_unit->server_id <= 0x17) {
+            temp_unit->typeId = (uint16_t)(temp_unit->monster_info->values[0x12] + (0 < temp_unit->mp_max) * 2 + 0x21);
+            temp_unit->face &= 0x3F;
+        }
+        unit->CopyFromUnit(*temp_unit);
+        unit->x_pos = unit_data->x;
+        unit->x_pos2 = unit->x_pos;
+        unit->y_pos = unit_data->y;
+        unit->y_pos2 = unit->y_pos;
+
+        unit->map_player = mwnd->vis_map_context->field_0x9b8[0];
+        for (int32_t j = 1; j < mwnd->vis_map_context->field_0x9b8.GetSize(); j++) {
+            MapPlayerData* player = mwnd->vis_map_context->field_0x9b8[j];
+            if (player != nullptr && (int16_t)unit_data->player_id == player->field2_0x8) {
+                unit->map_player = player;
+            }
+        }
+
+        delete temp_unit;
+
+        mwnd->vis_map_context->field_0x9d0.SetAt(unit->unit_id, unit);
+        unit->unitFlags |= 0x80;
+    }
+
+    if ((int32_t)alm->default_music.melody_type_id[0] >= 0) {
+        MapMusicInfo* music = new MapMusicInfo();
+        memcpy(music, &alm->default_music, 0x1C);
+        g_mapmusicinfos.Add(music);
+    }
+    g_mapmusicinfos.Append(alm->music_info);
+    alm->music_info.RemoveAll();
+
+    delete alm;
+
+    for (int32_t i = 0; i < this->width; i++) {
+        for (int32_t j = 0; j < this->height; j++) {
+            this->landscape[j * this->width + i] &= 0xDFFF;
+        }
+    }
 }

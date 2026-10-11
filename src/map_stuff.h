@@ -341,9 +341,9 @@ ASSERT_SIZE(MapStuff, 0xa4570);
 class Scenario : public CObject
 {
 public:
-    ~Scenario();
+    ~Scenario(); //4a9468
 
-    Scenario(const char* fname);
+    Scenario(const char* fname); //4a7bec
 
     uint16_t* GetLandscape() const { return landscape; }; //41ee80
     int32_t GetWidth() const { return width; }; //41ef20

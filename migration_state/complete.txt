@@ -162,6 +162,7 @@
 ??4TriggerCheck@@QAEAAU0@ABU0@@Z
 ??_7CObject@@6B@
 ??_7Packet@@6B@
+??_7Scenario@@6B@
 ??_7SpellBook@@6B@
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z

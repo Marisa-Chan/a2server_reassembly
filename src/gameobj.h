@@ -425,6 +425,26 @@ public:
 };
 ASSERT_SIZE(CStructure, 0x144);
 
+class CStructureBridge1 : public CStructure
+{
+public:
+	CStructureBridge1(int32_t width, int32_t height); //4a9e90
+
+	int32_t bridge_width; // 0x144
+	int32_t bridge_height; // 0x148
+};
+ASSERT_SIZE(CStructureBridge1, 0x14c);
+
+class CStructureBridge2 : public CStructure
+{
+public:
+	CStructureBridge2(int32_t width, int32_t height); //4a9f10
+
+	int32_t bridge_width; // 0x144
+	int32_t bridge_height; // 0x148
+};
+ASSERT_SIZE(CStructureBridge2, 0x14c);
+
 
 
 
