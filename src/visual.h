@@ -867,7 +867,7 @@ public:
 	int32_t sub_40B173(int32_t gfx_id, int32_t x, int32_t y, int32_t height); //40b173
 	void sub_40328E(); //40328e
 	void sub_404912(); //404912
-	void sub_404A2C(); //404a2c in asm
+	void sub_404A2C(); //404a2c
 	void sub_403F08(Scenario* scen); //403f08
 	void sub_40B314(); //40b314
 	uint32_t sub_41864D(); //41864d
@@ -886,8 +886,8 @@ public:
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
 	void sub_40BD34(); //40bd34
-	void sub_40C112(); //40c112 in asm
-	void sub_40C18B(); //40c18b in asm
+	void sub_40C112(); //40c112
+	void sub_40C18B(); //40c18b
 	int32_t sub_403B8F(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4); //403b8f
 	void sub_402FB8(); //402fb8
 	void sub_403730(); //403730
@@ -914,16 +914,16 @@ public:
 	int32_t sub_41F7F0(); //41f7f0
 	int32_t sub_41F810(); //41f810
 	void sub_41AB05(); //41ab05
-	void sub_41A9F6(); //41a9f6 in asm
-	void sub_41A99C(); //41a99c in asm
+	void sub_41A9F6(); //41a9f6
+	void sub_41A99C(); //41a99c
 	void sub_41CE14(); //41ce14
 	void sub_41A942(); //41a942
 
 	void UpdateSelectionState(); //416cf7
-	void FUN_0041cda3(const char* mapname); // 41cda3 in asm
-	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8 in asm
-	void FUN_0041ace2(int32_t spell_id); //41ace2 in asm
-	void FUN_0041a001(int32_t idx); //41a001 in asm
+	void FUN_0041cda3(const char* mapname); // 41cda3
+	uint32_t sub_40C0A8(int32_t x, int32_t y); // 40c0a8
+	void FUN_0041ace2(int32_t spell_id); //41ace2
+	void FUN_0041a001(int32_t idx); //41a001
 	void UpdateSpellEffects(CUnit* unit); //from 416cf7
 	void UpdateSpellModifiers(CUnit* unit); //from 416cf7
 
@@ -940,8 +940,8 @@ public:
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23
 	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af
 	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6
-	CUnit* sub_41DE80(int32_t serv_id); //41de80 in asm
-	void FUN_0041ae1c(int32_t serv_id); //41ae1c in asm
+	CUnit* sub_41DE80(int32_t serv_id); //41de80
+	void FUN_0041ae1c(int32_t serv_id); //41ae1c
 
 	void FUN_0041c630(CWordArray *data); //41c630
 
@@ -983,8 +983,8 @@ public:
 
 	void CleanupCompletedMissionMapState(); //41ce5a
 
-	void FUN_00403ca0(CGameObject* obj); //403ca0 in asm
-	void FUN_0041d97e(int32_t); //41d97e in asm
+	void FUN_00403ca0(CGameObject* obj); //403ca0
+	void FUN_0041d97e(int32_t); //41d97e
 
 	uint32_t AvailableOrderMask() const; // 417af6
 	void SendAdjustPlayerGoldAction(int32_t goldDelta) const; //41b0be
