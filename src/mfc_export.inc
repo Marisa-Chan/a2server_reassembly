@@ -1363,7 +1363,6 @@ externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A78
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
 externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
 externdef ?sub_43A6D5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A6D5()  //43a6d5 in asm
-externdef ?sub_43A5E5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A5E5()  //43a5e5 in asm
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
 extern ?GetMaterial@TokenEntry@@QBEHXZ : proc

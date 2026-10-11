@@ -691,6 +691,29 @@ int32_t TokenEntry::sub_4396FB()
 }
 
 
+int32_t TokenEntry::sub_43A5E5()
+{ //43a5e5
+    if (this->GetType() != TYPE_SPELL) {
+        return 0;
+    }
+
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+
+    if (item.name.Find("Crown") != -1) {
+        return 1;
+    }
+    if (item.name.Find("Documents") != -1) {
+        return 1;
+    }
+    if (item.name.Find("Treasure") == -1 || main_wnd->sessionMode == 2) {
+        return 0;
+    }
+
+    return 1;
+}
+
+
 CString TokenEntry::FUN_004394f3()
 { //4394f3
     char buffer[0x50];
