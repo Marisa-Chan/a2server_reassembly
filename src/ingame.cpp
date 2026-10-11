@@ -7953,3 +7953,17 @@ uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y)
 	}
 	return 0;
 }
+
+// 41cda3
+void BigStruct2::FUN_0041cda3(const char* mapname)
+{
+	PacketJoin* pkt = &PacketJoin::Inst;
+	pkt->id = 0xAE;
+	if (this->my_main_unit != nullptr) {
+		pkt->field_0x5 = this->my_main_unit->index;
+	}
+	pkt->to_player_id = 0;
+	strcpy(pkt->name, mapname);
+	g_NetStru1_main.QueuePacketSend(pkt);
+	g_NetStru1_main.SendAllData();
+}

@@ -2556,48 +2556,6 @@ unknown_libname_410 endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z(char *Source)
-?FUN_0041cda3@BigStruct2@@QAEXPBD@Z      proc near               ; CODE XREF: ?MsgProc@VisNetMapSelection@@UAEHIII@Z+C5↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-Source          = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketJoin@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 0AEh
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     dword ptr [ecx+9CCh], 0
-                jz      short loc_41CDDA
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+9CCh]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dx, [eax+4]
-                mov     [ecx+5], dx
-
-loc_41CDDA:                             ; CODE XREF: ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z+21↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     word ptr [eax+7], 0
-                mov     ecx, dword ptr [ebp+Source]
-                push    ecx             ; Source
-                mov     edx, dword ptr [ebp+var_4]
-                add     edx, 10h
-                push    edx             ; Destination
-                call    _strcpy
-                add     esp, 8
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?SendAllData@NetStru1@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041cda3@BigStruct2@@QAEXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

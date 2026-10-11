@@ -2141,7 +2141,6 @@ externdef ?VisNetMapThreadProc@@YAIPAX@Z : proc
 externdef ??0CWinThread@@QAE@P6AIPAX@Z0@Z : proc
 externdef _byte_659A5C : byte  ; 659a5c zeroed buffer used to clear the net chat text box
 externdef ?CreateThread@CWinThread@@QAEHKIPAU_SECURITY_ATTRIBUTES@@@Z : proc
-externdef ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z : proc
 
 ; VisTipsDialog ctor child-ctrl builder (still in asm)
 
