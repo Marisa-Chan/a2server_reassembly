@@ -5278,6 +5278,18 @@ void CGameSession::FUN_004948b2()
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
 }
 
+void CGameSession::FUN_00493cd8()
+{ //493cd8
+    DeleteFileA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex]);
+    this->characterRosterFilePaths.RemoveAt(this->selectedCharacterRosterFileIndex, 1);
+    this->characterRosterNames.RemoveAt(this->selectedCharacterRosterFileIndex, 1);
+    this->characterRosterHatId.RemoveAt(this->selectedCharacterRosterFileIndex, 1);
+    if (this->selectedCharacterRosterFileIndex == 0) {
+        this->selectedCharacterRosterFileIndex++;
+    }
+    this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex - 1);
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();

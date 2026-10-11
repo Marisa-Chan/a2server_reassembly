@@ -53920,65 +53920,6 @@ sub_492A85      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00493cd8@CGameSession@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@VisCharSellectButtons@@UAEHIVCPoint@@@Z+220↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+164h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 150h
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpFileName
-                call    DeleteFileA
-                push    1               ; int
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+164h]
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 150h       ; varThis
-                call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
-                push    1               ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+164h]
-                push    edx             ; int
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 0F8h       ; varThis
-                call    ?RemoveAt@CStringArray@@QAEXHH@Z ; CStringArray::RemoveAt(int,int)
-                push    1
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+164h]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 11Ch
-                call    sub_496C50
-                mov     edx, dword ptr [ebp+var_4]
-                cmp     dword ptr [edx+164h], 0
-                jnz     short loc_493D74
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+164h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+164h], ecx
-
-loc_493D74:                             ; CODE XREF: ?FUN_00493cd8@CGameSession@@QAEXXZ+85↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+164h]
-                sub     ecx, 1
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00493cd8@CGameSession@@QAEXXZ      endp
 
 
 

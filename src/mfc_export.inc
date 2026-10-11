@@ -894,7 +894,6 @@ externdef ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ : proc
 externdef ?FUN_00494982@CGameSession@@QAEXXZ : proc
 extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
-externdef ?FUN_00493cd8@CGameSession@@QAEXXZ : proc
 
 extern ?RecreateCUnit@CGameSession@@QAEXXZ : proc
 
