@@ -7920,3 +7920,21 @@ void BigStruct2::FUN_0041ace2(int32_t spell_id)
 		}
 	}
 }
+
+// 41e2af
+int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out)
+{
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsKindOf(RUNTIME_CLASS(CUnit)) == 0) {
+			continue;
+		}
+		*out = (CUnit*)obj;
+		if ((*out)->questFlags == id) {
+			return 1;
+		}
+	}
+	return 0;
+}

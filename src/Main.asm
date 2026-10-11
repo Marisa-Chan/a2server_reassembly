@@ -3411,65 +3411,6 @@ loc_41DFD5:                             ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@Q
 
 ; Attributes: bp-based frame
 
-?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z      proc near               ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+636↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = byte ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420720
-                mov     [ebp+var_8], eax
-
-loc_41E2C9:                             ; CODE XREF: ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z:loc_41E319↓j
-                cmp     [ebp+var_8], 0
-                jz      short loc_41E31B
-                lea     eax, [ebp+var_C]
-                push    eax
-                lea     ecx, [ebp+var_4]
-                push    ecx
-                lea     edx, [ebp+var_8]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 9D0h
-                call    sub_420740
-                push    offset ?classCUnit@CUnit@@2UCRuntimeClass@@B ; struct CRuntimeClass *
-                mov     ecx, dword ptr [ebp+var_C] ; varThis
-                call    ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z ; CObject::IsKindOf(CRuntimeClass const *)
-                test    eax, eax
-                jz      short loc_41E319
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     [eax], ecx
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [eax+1E0h]
-                cmp     ecx, [ebp+arg_0]
-                jnz     short loc_41E319
-                mov     eax, 1
-                jmp     short loc_41E31D
-; ---------------------------------------------------------------------------
-
-loc_41E319:                             ; CODE XREF: ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z+49↑j
-                jmp     short loc_41E2C9
-; ---------------------------------------------------------------------------
-
-loc_41E31B:                             ; CODE XREF: ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z+1E↑j
-                xor     eax, eax
-
-loc_41E31D:                             ; CODE XREF: ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z+68↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

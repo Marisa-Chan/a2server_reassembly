@@ -1344,7 +1344,6 @@ externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int,
 externdef ?sub_457C5D@@YAXHHHHH@Z : proc  ; void __cdecl sub_457C5D(int, int, int, int, int)
 externdef ?sub_4588EC@@YAXHHHHHH@Z : proc  ; void __cdecl sub_4588EC(int x6)
 externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
-externdef ?FUN_0041e2af@BigStruct2@@QAEHHPAPAVCUnit@@@Z : proc  ; int32_t BigStruct2::FUN_0041e2af(int32_t, CUnit**)
 
 
 ;TokenEntry
