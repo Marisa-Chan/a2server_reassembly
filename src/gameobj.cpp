@@ -251,6 +251,47 @@ void CGameObject::FUN_0046190d()
 }
 
 
+void CGameObject::FUN_00461c41(int32_t arg1, CGameObject* arg2)
+{ //461c41
+    if (this->mapLayerActive == 0) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+    uint32_t* layer;
+    switch (arg1) {
+    case 0:
+        layer = map->field_0x98;
+        break;
+    case 1:
+        layer = map->field_0x94;
+        for (int32_t x = this->mapBoundsLeft; x <= this->mapBoundsRight; x++) {
+            for (int32_t y = this->mapBoundsTop; y <= this->mapBoundsBottom; y++) {
+                layer[x + 3 + (y + 3) * (map->field_0x64 + 6)] = (uint32_t)arg2;
+            }
+        }
+        return;
+    case 2:
+        layer = map->field_0x8c;
+        break;
+    case 3:
+        layer = map->field_0x90;
+        break;
+    case 4:
+        layer = map->field_0x9c;
+        break;
+    default:
+        return;
+    }
+
+    int32_t x = ((this->x_pos2 - 0x80 + this->VMethod4() * 0x80) >> 8) - map->view_x;
+    int32_t y = ((this->y_pos2 - 0x80 + this->VMethod5() * 0x80) >> 8) - map->view_y;
+    if (x >= -4 && y >= -4 && x < map->field_0x64 + 3 && y < map->field_0x68 + 7) {
+        layer[x + 3 + (y + 3) * (map->field_0x64 + 6)] = (uint32_t)arg2;
+    }
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
