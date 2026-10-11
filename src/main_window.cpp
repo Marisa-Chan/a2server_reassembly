@@ -5327,6 +5327,14 @@ CString CGameSession::FUN_00420070()
     return CString();
 }
 
+void CGameSession::FUN_004946ae()
+{ //4946ae
+    DWORD tick = GetTickCount();
+    if (15000 < tick - this->field_0x110) {
+        this->FUN_004946e0();
+    }
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();

@@ -889,7 +889,6 @@ externdef ??1CStatusBar@@UAE@XZ :proc   ; (public: virtual __thiscall CStatusBar
 
 ;CGameSession
 extern ?FUN_004946e0@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_004946e0()
-externdef ?FUN_004946ae@CGameSession@@QAEXXZ  : proc
 extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
 

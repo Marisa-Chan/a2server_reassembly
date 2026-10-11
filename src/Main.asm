@@ -53890,30 +53890,6 @@ sub_492A85      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_004946ae@CGameSession@@QAEXXZ(_DWORD)
-?FUN_004946ae@CGameSession@@QAEXXZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+2BB4↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                call    GetTickCount
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [ebp+var_4]
-                sub     ecx, [eax+110h]
-                cmp     ecx, 3A98h
-                jbe     short loc_4946DC
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_004946e0@CGameSession@@QAEXXZ
-
-loc_4946DC:                             ; CODE XREF: ?FUN_004946ae@CGameSession@@QAEXXZ+24↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004946ae@CGameSession@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
