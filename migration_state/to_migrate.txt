@@ -127,14 +127,6 @@ _byte_659A3C
 ?LoadFrame@CFrameWnd@@UAEHIKPAVCWnd@@PAX@Z	113
 ?BeginModalState@CFrameWnd@@UAEXXZ	129
 ?OnSetPreviewMode@CFrameWnd@@UAEXHPAX@Z	219
-?FUN_004946ae@CGameSession@@QAEXXZ	23
-?FUN_00420070@CGameSession@@QAE?AVCString@@XZ	45
-?SetCharacterStats@CGameSession@@QAEXHHHHH@Z	50
-?FUN_00494982@CGameSession@@QAEXXZ	51
-?FUN_00493cd8@CGameSession@@QAEXXZ	58
-?FUN_004948b2@CGameSession@@QAEXXZ	81
-?FUN_004946e0@CGameSession@@QAEXXZ	183
-?FUN_0049381c@CGameSession@@QAEXPAD@Z	229
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
 ?MeasureItem@CListBox@@UAEXPAUtagMEASUREITEMSTRUCT@@@Z	2
 ?DeleteItem@CListBox@@UAEXPAUtagDELETEITEMSTRUCT@@@Z	2
