@@ -2004,7 +2004,6 @@ extern ??0CGameObject@@QAE@XZ  :proc
 extern ??0CGameObject@@QAE@PBV0@@Z  :proc
 
 
-externdef ?FUN_0046190d@CGameObject@@QAEXXZ : proc
 externdef ?FUN_00462405@CGameObject@@QAEHH@Z : proc
 externdef ?GetControlGroup@CGameObject@@QAEHXZ : proc
 externdef ?FUN_00461f8e@CGameObject@@QAEHHH@Z : proc

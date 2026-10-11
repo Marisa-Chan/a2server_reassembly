@@ -188,6 +188,69 @@ void CGameObject::FUN_0041f180(int32_t grp)
 }
 
 
+void CGameObject::FUN_0046190d()
+{ //46190d
+    BigStruct2* map = this->pMapObject;
+
+    this->tileX = this->x_pos2 >> 8;
+    this->tileY = this->y_pos2 >> 8;
+
+    this->mapBoundsLeft = ((this->x_pos2 - 0x80) >> 8) - map->view_x;
+    this->mapBoundsTop = ((this->y_pos2 - 0x80) >> 8) - map->view_y;
+    this->mapBoundsRight = ((this->x_pos2 + 127 + (this->VMethod4() - 1) * 0x100) >> 8) - map->view_x;
+    this->mapBoundsBottom = ((this->y_pos2 + 127 + (this->VMethod5() - 1) * 0x100) >> 8) - map->view_y;
+
+    this->mapLayerActive = 1;
+    if (this->mapBoundsLeft < -3) {
+        this->mapBoundsLeft = -3;
+    }
+    if (this->mapBoundsLeft >= map->field_0x64 + 3) {
+        this->mapLayerActive = 0;
+    }
+    if (this->mapBoundsRight < -3) {
+        this->mapLayerActive = 0;
+    }
+    if (this->mapBoundsRight >= map->field_0x64 + 3) {
+        this->mapBoundsRight = map->field_0x64 + 2;
+    }
+    if (this->mapBoundsTop < -3) {
+        this->mapBoundsTop = -3;
+    }
+    if (this->mapBoundsTop >= map->field_0x68 + 7) {
+        this->mapLayerActive = 0;
+    }
+    if (this->mapBoundsBottom < -3) {
+        this->mapLayerActive = 0;
+    }
+    if (this->mapBoundsBottom >= map->field_0x68 + 7) {
+        this->mapBoundsBottom = map->field_0x68 + 6;
+    }
+
+    this->screenX = (this->x_pos2 >> 3) - map->view_x * 32;
+    this->screenY = (this->y_pos2 >> 3) - map->view_y * 32;
+
+    this->centerWorldX8 = this->x_pos2 - 128 + this->VMethod4() * 128;
+    this->centerWorldY8 = this->y_pos2 - 128 + this->VMethod5() * 128;
+
+    this->centerScreenX = (this->centerWorldX8 >> 3) - map->view_x * 32;
+    this->centerScreenY = (this->centerWorldY8 >> 3) - map->view_y * 32;
+
+    int32_t fracX = (this->centerWorldX8 >> 3) & 0x1f;
+    int32_t fracY = (this->centerWorldY8 >> 3) & 0x1f;
+    int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->field_0x84;
+    const uint8_t* heights = map->field_0x80->GetMapHeights();
+
+    int32_t h00 = (int8_t)heights[idx];
+    int32_t h10 = (int8_t)heights[idx + 1];
+    int32_t h01 = (int8_t)heights[idx + map->field_0x84];
+    int32_t h11 = (int8_t)heights[idx + 1 + map->field_0x84];
+
+    int32_t top = h00 + (h10 - h00) * fracX / 32;
+    int32_t bottom = h01 + (h11 - h01) * fracX / 32;
+    this->terrainHeightOffset = top + (bottom - top) * fracY / 32;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
