@@ -5303,6 +5303,22 @@ void CGameSession::FUN_00494982()
     WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
 }
 
+void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere)
+{ //494148
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+
+    this->body = body;
+    this->reaction = reaction;
+    this->mind = mind;
+    this->spirit = spirit;
+    if (main_sphere != 0) {
+        this->main_sphere = main_sphere;
+        unit->unitFlags |= 8;
+    }
+    this->RecreateCUnit();
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();

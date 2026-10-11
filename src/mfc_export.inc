@@ -896,7 +896,6 @@ extern ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z : proc
 
 extern ?RecreateCUnit@CGameSession@@QAEXXZ : proc
 
-externdef ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z : proc
 
 extern ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z : proc
 extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc

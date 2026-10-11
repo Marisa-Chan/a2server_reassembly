@@ -53928,57 +53928,6 @@ sub_492A85      endp
 
 ; Attributes: bp-based frame
 
-?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      proc near               ; CODE XREF: ?OnStatUp@VisCharGenStats@@AAEHH@Z+C6↑p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-arg_8           = dword ptr  10h
-arg_C           = dword ptr  14h
-arg_10          = dword ptr  18h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                mov     [ebp+var_C], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_4], eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+4Ch], edx
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ebp+arg_4]
-                mov     [eax+50h], ecx
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [ebp+arg_8]
-                mov     [edx+54h], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ebp+arg_C]
-                mov     [ecx+58h], edx
-                cmp     [ebp+arg_10], 0
-                jz      short loc_4941B2
-                mov     eax, dword ptr [ebp+var_C]
-                mov     ecx, dword ptr [ebp+arg_10]
-                mov     [eax+5Ch], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+1B8h]
-                or      eax, 8
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+1B8h], eax
-
-loc_4941B2:                             ; CODE XREF: ?SetCharacterStats@CGameSession@@QAEXHHHHH@Z+4A↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                call    ?RecreateCUnit@CGameSession@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    14h
-?SetCharacterStats@CGameSession@@QAEXHHHHH@Z      endp
 
 
 
