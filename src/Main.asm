@@ -6627,52 +6627,6 @@ sub_420010      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ(CString *)
-?FUN_00420070@CGameSession@@QAE?AVCString@@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+40C4↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 150h
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [ebp+var_8]
-                cmp     [ecx+164h], eax
-                jge     short loc_4200C8
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+164h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                add     ecx, 150h
-                call    sub_401820
-                push    eax             ; struct CString *
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@ABV0@@Z ; CString::CString(CString const &)
-                mov     ecx, dword ptr [ebp+var_4]
-                or      ecx, 1
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                jmp     short loc_4200DC
-; ---------------------------------------------------------------------------
-
-loc_4200C8:                             ; CODE XREF: ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ+27↑j
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??0CString@@QAE@XZ ; CString::CString(void)
-                mov     edx, dword ptr [ebp+var_4]
-                or      edx, 1
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+arg_0]
-
-loc_4200DC:                             ; CODE XREF: ?FUN_00420070@CGameSession@@QAE?AVCString@@XZ+56↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00420070@CGameSession@@QAE?AVCString@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
