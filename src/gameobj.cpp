@@ -357,6 +357,13 @@ void CGameObject::FUN_0041f1f0(int32_t grp)
 }
 
 
+void CGameObject::FUN_0041f150(int32_t grp)
+{ //41f150
+    this->controlGroupMask = 1 << grp;
+    this->m_bSelectionDirty = 1;
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430
