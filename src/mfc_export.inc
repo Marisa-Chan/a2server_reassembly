@@ -1530,8 +1530,6 @@ externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 ;UserShortcut spell helpers
 externdef ?FUN_0041e323@UserShortcut@@QAEXF@Z : proc
 externdef ?FUN_0041e456@UserShortcut@@QAEHF@Z : proc
-;BigStruct2 spell actions
-externdef ?FUN_0041ace2@BigStruct2@@QAEXH@Z : proc
 ;VisSpellBook hit-test
 externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 

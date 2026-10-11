@@ -7900,3 +7900,23 @@ void BigStruct2::FUN_0041ae1c(int32_t serv_id)
 		g_NetStru1_local.QueuePacketSend(pkt);
 	}
 }
+
+// 41ace2
+void BigStruct2::FUN_0041ace2(int32_t spell_id)
+{
+	PacketInfo* pkt = &PacketInfo::Inst;
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->IsSelected() && (obj->spells & (1 << spell_id)) != 0) {
+			pkt->id = 0x46;
+			pkt->field_0x5 = this->my_main_unit->index;
+			pkt->to_player_id = 0;
+			pkt->field_0xa = 4;
+			pkt->field_0xe = key | (spell_id << 16);
+			g_NetStru1_local.QueuePacketSend(pkt);
+			obj->active_spell = spell_id;
+		}
+	}
+}
