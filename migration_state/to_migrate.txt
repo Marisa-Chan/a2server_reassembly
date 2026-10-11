@@ -59,7 +59,6 @@ _byte_659A3C
 ?sub_41A9F6@BigStruct2@@QAEXXZ	31
 ?sub_41A99C@BigStruct2@@QAEXXZ	31
 ?FUN_0041cda3@BigStruct2@@QAEXPBD@Z	41
-?sub_40C0A8@BigStruct2@@QAEIHH@Z	56
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36

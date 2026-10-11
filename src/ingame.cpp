@@ -7938,3 +7938,18 @@ int32_t BigStruct2::FUN_0041e2af(int32_t id, CUnit** out)
 	}
 	return 0;
 }
+
+// 40c0a8
+uint32_t BigStruct2::sub_40C0A8(int32_t x, int32_t y)
+{
+	for (POSITION it = this->field_0x9d0.GetStartPosition(); it != nullptr;) {
+		uint16_t key;
+		CGameObject* obj;
+		this->field_0x9d0.GetNextAssoc(it, key, obj);
+		if (obj->bIsBlocked != 0 || obj->tileX != x || obj->tileY != y) {
+			continue;
+		}
+		return key;
+	}
+	return 0;
+}

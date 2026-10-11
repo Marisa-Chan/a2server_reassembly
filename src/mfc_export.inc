@@ -1532,8 +1532,6 @@ externdef ?FUN_0041e456@UserShortcut@@QAEHF@Z : proc
 ;VisSpellBook hit-test
 externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 
-;BigStruct2 minimap unit pick
-externdef ?sub_40C0A8@BigStruct2@@QAEIHH@Z : proc
 
 
 
