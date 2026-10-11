@@ -1359,7 +1359,6 @@ externdef ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z : proc  ; void UserSho
 externdef ?FUN_004948b2@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_004948b2()  //4948b2 in asm
 
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
-externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
 extern ?GetAttribute@TokenEntry@@QBEIE@Z : proc  
 extern ?GetMaterial@TokenEntry@@QBEHXZ : proc
