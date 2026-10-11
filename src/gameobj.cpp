@@ -714,6 +714,17 @@ int32_t TokenEntry::sub_43A5E5()
 }
 
 
+int32_t TokenEntry::sub_43A6D5()
+{ //43a6d5
+    if (this->GetType() != TYPE_SPELL) {
+        return 0;
+    }
+
+    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    return item.name == "Quest Treasure";
+}
+
+
 CString TokenEntry::FUN_004394f3()
 { //4394f3
     char buffer[0x50];

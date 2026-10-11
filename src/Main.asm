@@ -18125,46 +18125,6 @@ byte_43994F     db      0,     0,     0,     0
 
 ; Attributes: bp-based frame
 
-?sub_43A6D5@TokenEntry@@QAEHXZ      proc near               ; CODE XREF: ?OnLButtonDblClk@VisInvType1@@UAEHIVCPoint@@@Z+142↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?GetType@TokenEntry@@QBEHXZ
-                cmp     eax, 0Eh
-                jz      short loc_43A6EE
-                xor     eax, eax
-                jmp     short loc_43A723
-; ---------------------------------------------------------------------------
-
-loc_43A6EE:                             ; CODE XREF: ?sub_43A6D5@TokenEntry@@QAEHXZ+13↑j
-                push    offset aQuestTreasure ; "Quest Treasure"
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?GetShape@TokenEntry@@QBEHXZ
-                mov     esi, eax
-                shl     esi, 5
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?GetId@TokenEntry@@QBEHXZ
-                or      esi, eax
-                push    esi
-                mov     ecx, offset ?g_GameDataRes@@3UGameDataRes@@A+64h
-                call    sub_43A760
-                add     eax, 4
-                push    eax             ; int
-                call    sub_43A780
-                and     eax, 0FFh
-
-loc_43A723:                             ; CODE XREF: ?sub_43A6D5@TokenEntry@@QAEHXZ+17↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_43A6D5@TokenEntry@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
