@@ -5065,28 +5065,6 @@ sub_41F1C0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0041f1f0@CGameObject@@QAEXH@Z      proc near               ; CODE XREF: ?sub_416A02@BigStruct2@@QAEXH@Z+66↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     ecx, dword ptr [ebp+arg_0]
-                shl     eax, cl
-                not     eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+88h]
-                and     edx, eax
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+88h], edx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041f1f0@CGameObject@@QAEXH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

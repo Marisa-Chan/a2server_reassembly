@@ -351,6 +351,12 @@ int32_t CGameObject::GetControlGroup()
 }
 
 
+void CGameObject::FUN_0041f1f0(int32_t grp)
+{ //41f1f0
+    this->controlGroupMask &= ~(1 << grp);
+}
+
+
 
 void CGameObject::VMethod1(int32_t arg1)
 { //46f430

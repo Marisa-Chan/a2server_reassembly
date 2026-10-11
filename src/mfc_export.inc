@@ -1318,7 +1318,6 @@ extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
 extern ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
 extern ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
 externdef ?FUN_0041f150@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f150(int)
-externdef ?FUN_0041f1f0@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f1f0(int)
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
 
