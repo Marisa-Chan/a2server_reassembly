@@ -938,8 +938,9 @@ public:
 	void FUN_0041c74b(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2); //41c74b
 
 	CUnit* FUN_0041df23(int32_t serv_id); //41df23
-	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af in asm
-	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6 in asm
+	int32_t FUN_0041e2af(int32_t id, CUnit** out); //41e2af
+	CUnit* FUN_0041dfa6(int32_t serv_id); //41dfa6
+	CUnit* sub_41DE80(int32_t serv_id); //41de80 in asm
 	void FUN_0041ae1c(int32_t serv_id); //41ae1c in asm
 
 	void FUN_0041c630(CWordArray *data); //41c630

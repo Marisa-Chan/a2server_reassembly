@@ -7978,3 +7978,13 @@ void BigStruct2::sub_41A942()
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
+
+// 41dfa6
+CUnit* BigStruct2::FUN_0041dfa6(int32_t serv_id)
+{
+	CUnit* unit = this->FUN_0041df23(serv_id);
+	if (unit == nullptr) {
+		unit = this->sub_41DE80(serv_id);
+	}
+	return unit;
+}

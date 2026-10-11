@@ -1321,6 +1321,7 @@ externdef ?FUN_0041f150@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_004
 externdef ?FUN_0041f1f0@CGameObject@@QAEXH@Z : proc  ; void CGameObject::FUN_0041f1f0(int)
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc
 extern ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z : proc
+externdef ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z : proc  ; CUnit* BigStruct2::sub_41DE80(int)
 
 extern ?FUN_0041b2a4@BigStruct2@@QAEXPBDHH@Z : proc
 extern ?FUN_0040d7f3@BigStruct2@@QAEHXZ : proc
@@ -1342,7 +1343,7 @@ externdef ?FUN_00454e40@@YAXHHHH@Z : proc  ; void __cdecl FUN_00454e40(int, int,
 
 externdef ?sub_457C5D@@YAXHHHHH@Z : proc  ; void __cdecl sub_457C5D(int, int, int, int, int)
 externdef ?sub_4588EC@@YAXHHHHHH@Z : proc  ; void __cdecl sub_4588EC(int x6)
-externdef ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc
+extern ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z : proc  ; CUnit* BigStruct2::FUN_0041dfa6(int); called from asm
 
 
 ;TokenEntry

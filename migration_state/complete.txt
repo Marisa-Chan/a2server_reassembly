@@ -303,6 +303,7 @@
 ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z
 ?FUN_0041d2da@BigStruct2@@QAEXH@Z
 ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z
+?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z
 ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ

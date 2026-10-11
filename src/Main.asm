@@ -3160,7 +3160,7 @@ sub_41DA52      endp
 
 ; Attributes: bp-based frame
 
-sub_41DE80      proc near               ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z+2A↓p
+?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z      proc near               ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z+2A↓p
 
 var_20          = dword ptr -20h
 var_1C          = dword ptr -1Ch
@@ -3196,10 +3196,10 @@ arg_0           = dword ptr  8
                 jmp     short loc_41DECC
 ; ---------------------------------------------------------------------------
 
-loc_41DEC5:                             ; CODE XREF: sub_41DE80+36↑j
+loc_41DEC5:                             ; CODE XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+36↑j
                 mov     [ebp+var_20], 0
 
-loc_41DECC:                             ; CODE XREF: sub_41DE80+43↑j
+loc_41DECC:                             ; CODE XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+43↑j
                 mov     eax, dword ptr [ebp+var_20]
                 mov     [ebp+var_18], eax
 ;   } // starts at 41DEAB
@@ -3224,7 +3224,7 @@ loc_41DECC:                             ; CODE XREF: sub_41DE80+43↑j
                 pop     ebp
                 retn    4
 ; } // starts at 41DE80
-sub_41DE80      endp
+?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -3236,38 +3236,6 @@ sub_41DE80      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z      proc near               ; CODE XREF: sub_41DA52+49↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    ?FUN_0041df23@BigStruct2@@QAEPAVCUnit@@H@Z
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_41DFC9
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_41DFD5
-; ---------------------------------------------------------------------------
-
-loc_41DFC9:                             ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z+1C↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_41DE80
-
-loc_41DFD5:                             ; CODE XREF: ?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z+21↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041dfa6@BigStruct2@@QAEPAVCUnit@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -246526,7 +246494,7 @@ SEH_41DA52:                             ; DATA XREF: sub_41DA52+5↑o
 ; } // starts at 5F783B
 ; END OF FUNCTION CHUNK FOR sub_41DA52
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_41DE80
+; START OF FUNCTION CHUNK FOR ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z
 
 unknown_libname_963:                    ; DATA XREF: .rdata:stru_617C70↓o
 ; __unwind { // SEH_41DE80              ; MFC 3.1-14.0 32bit
@@ -246537,11 +246505,11 @@ unknown_libname_963:                    ; DATA XREF: .rdata:stru_617C70↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_41DE80:                             ; DATA XREF: sub_41DE80+5↑o
+SEH_41DE80:                             ; DATA XREF: ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z+5↑o
                 mov     eax, offset stru_617C50
                 jmp     ___CxxFrameHandler
 ; } // starts at 5F786C
-; END OF FUNCTION CHUNK FOR sub_41DE80
+; END OF FUNCTION CHUNK FOR ?sub_41DE80@BigStruct2@@QAEPAVCUnit@@H@Z
 ; ---------------------------------------------------------------------------
 ; ---------------------------------------------------------------------------
                 align 10h
