@@ -2883,3 +2883,19 @@ void Scenario::sub_4A952B(int32_t x, int32_t y, uint32_t w, uint32_t h)
         }
     }
 }
+
+// 4a7b79
+double Scenario::FUN_004a7b79()
+{
+    double result;
+    if (this->inv_sun_angle >= 0.0 || this->inv_sun_angle <= -0.05) {
+        if (this->inv_sun_angle <= 0.0 || this->inv_sun_angle >= 0.05) {
+            result = this->inv_sun_angle / 1.5;
+        } else {
+            result = 0.05;
+        }
+    } else {
+        result = -0.05;
+    }
+    return result;
+}

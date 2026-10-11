@@ -59670,62 +59670,6 @@ arg_4           = dword ptr  0Ch
 sub_4A7B3C      endp
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; double __thiscall ?FUN_004a7b79@Scenario@@QAENXZ(_DWORD)
-?FUN_004a7b79@Scenario@@QAENXZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1AA6↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                fld     qword ptr [eax+20h]
-                fcomp   qword ptr [dbl_60CB28]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_4A7BAE
-                mov     ecx, dword ptr [ebp+var_4]
-                fld     qword ptr [ecx+20h]
-                fcomp   qword ptr [dbl_60CB30]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     short loc_4A7BAE
-                fld     qword ptr [dbl_60CB30]
-                jmp     short loc_4A7BE8
-; ---------------------------------------------------------------------------
-
-loc_4A7BAE:                             ; CODE XREF: ?FUN_004a7b79@Scenario@@QAENXZ+18↑j
-                mov     edx, dword ptr [ebp+var_4]
-                fld     qword ptr [edx+20h]
-                fcomp   qword ptr [dbl_60CB28]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     short loc_4A7BDC
-                mov     eax, dword ptr [ebp+var_4]
-                fld     qword ptr [eax+20h]
-                fcomp   qword ptr [dbl_60CB38]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_4A7BDC
-                fld     qword ptr [dbl_60CB38]
-                jmp     short loc_4A7BE8
-; ---------------------------------------------------------------------------
-
-loc_4A7BDC:                             ; CODE XREF: ?FUN_004a7b79@Scenario@@QAENXZ+46↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                fld     qword ptr [ecx+20h]
-                fdiv    qword ptr [dbl_60CB40]
-
-loc_4A7BE8:                             ; CODE XREF: ?FUN_004a7b79@Scenario@@QAENXZ+33↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004a7b79@Scenario@@QAENXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
