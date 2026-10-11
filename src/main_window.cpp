@@ -5290,6 +5290,19 @@ void CGameSession::FUN_00493cd8()
     this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex - 1);
 }
 
+void CGameSession::FUN_00494982()
+{ //494982
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    if (mwnd->sessionMode == 2) {
+        return;
+    }
+
+    BigStruct2* map = mwnd->vis_map_context;
+    map->GetUnit_3f6c();
+
+    WritePlayerFile_4F53EA(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
+}
+
 UserShortcut::UserShortcut()
 { //4971a0
     SetNull();

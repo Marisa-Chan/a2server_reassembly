@@ -54031,58 +54031,6 @@ loc_4946DC:                             ; CODE XREF: ?FUN_004946ae@CGameSession@
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_00494982@CGameSession@@QAEXXZ(_DWORD)
-?FUN_00494982@CGameSession@@QAEXXZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+148A↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_10], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_8], eax
-                mov     eax, dword ptr [ebp+var_8]
-                cmp     dword ptr [eax+640h], 2
-                jnz     short loc_4949A1
-                jmp     short loc_4949F5
-; ---------------------------------------------------------------------------
-
-loc_4949A1:                             ; CODE XREF: ?FUN_00494982@CGameSession@@QAEXXZ+1B↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+0D0h]
-                mov     [ebp+var_4], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?GetUnit_3f6c@BigStruct2@@QAEPAVCUnit@@XZ
-                mov     [ebp+var_C], eax
-                push    0               ; int
-                push    0               ; int
-                push    0               ; int
-                push    0               ; int
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 3F70h
-                push    eax             ; int
-                push    0               ; int
-                push    0               ; int
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+164h]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 150h
-                call    sub_401820
-                mov     ecx, eax
-                call    ?LPCTSTR@CString@@QBEPBDXZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpFileName
-                call    ?WritePlayerFile_4F53EA@@YAHPBDPAUFileSectionBasicInfo@@PAUFileSectionStats@@PAEPAVPacketUnitStateVec@@43I@Z
-                add     esp, 20h
-
-loc_4949F5:                             ; CODE XREF: ?FUN_00494982@CGameSession@@QAEXXZ+1D↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00494982@CGameSession@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
 ?_OnClose@MainWindow@@QAEXXZ      proc near
