@@ -7999,3 +7999,14 @@ void BigStruct2::sub_41A9F6()
 	pkt->value = this->field_0x138->unit_id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
+
+// 41a99c
+void BigStruct2::sub_41A99C()
+{
+	PacketWord* pkt = &PacketWord::Inst;
+	pkt->id = 0x34;
+	pkt->field_0x5 = this->my_main_unit->index;
+	pkt->to_player_id = 0;
+	pkt->value = this->field_0x138->unit_id;
+	g_NetStru1_local.QueuePacketSend(pkt);
+}
