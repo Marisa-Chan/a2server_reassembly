@@ -18063,27 +18063,6 @@ sub_4395E0      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_004396d6@TokenEntry@@QAEHXZ(_DWORD)
-?FUN_004396d6@TokenEntry@@QAEHXZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+3B8B↑p
-
-var_8           = dword ptr -8
-var_4           = byte ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                lea     eax, [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                xor     edx, edx
-                mov     dx, [ecx+6]
-                push    edx
-                mov     ecx, offset ?unk_660DA8@@3VCMapWordToPtr@@A
-                call    sub_5DC726
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004396d6@TokenEntry@@QAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

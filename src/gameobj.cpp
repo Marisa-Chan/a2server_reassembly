@@ -748,6 +748,13 @@ int32_t TokenEntry::FUN_004a78c0()
 }
 
 
+int TokenEntry::FUN_004396d6()
+{ //4396d6
+    void* ptr = nullptr;
+    return unk_660DA8.Lookup(this->item_id, ptr);
+}
+
+
 CString TokenEntry::FUN_004394f3()
 { //4394f3
     char buffer[0x50];

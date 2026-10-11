@@ -1368,7 +1368,6 @@ extern ?GetId@TokenEntry@@QBEHXZ : proc
 
 externdef ?FUN_0041f0d0@TokenEntry@@QAEHXZ   : proc
 extern ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ  :proc
-externdef ?FUN_004396d6@TokenEntry@@QAEHXZ  :proc
 externdef ?GetShape@TokenEntry@@QBEHXZ : proc  ; int TokenEntry::GetShape() const
 
 
