@@ -5876,20 +5876,6 @@ loc_41F086:                             ; CODE XREF: sub_41EFF0+59↑j
                 retn    0Ch
 sub_41EFF0      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?FUN_0041f0d0@TokenEntry@@QAEHXZ(_DWORD)
-
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -17912,18 +17898,6 @@ loc_438F73:                             ; CODE XREF: sub_438F50+10↑j
                 retn    8
 sub_438F50      endp
 
-; ---------------------------------------------------------------------------
-                align 10h
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ(CString *)
-
-
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
@@ -18036,58 +18010,6 @@ loc_4396A4:                             ; CODE XREF: sub_4395E0+BA↑j
                 retn
 ; } // starts at 4395E0
 sub_4395E0      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __thiscall ?FUN_004396d6@TokenEntry@@QAEHXZ(_DWORD)
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-byte_43994F     db      0,     0,     0,     0
-                db      0,     0,     0,     0 ; indirect table for switch statement
-                db      0,     0,     4,     4
-                db      4,     4,     4,     4
-                db      4,     4,     4,     1
-                db      1,     1,     1,     1
-                db      4,     2,     2,     2
-                db      2,     2,     4,     3
-                db      3,     3,     3,     3
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-                
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-; ---------------------------------------------------------------------------
-                align 10h
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -31618,16 +31540,6 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn    4
 sub_467845      endp
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -69783,19 +69695,6 @@ arg_0           = dword ptr  8
                 pop     ebp
                 retn
 ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z      endp
-
-
-
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -247984,38 +247883,6 @@ SEH_438E40:                             ; DATA XREF: ?FUN_00438e40@@YAXPAPAVSfxS
 ; } // starts at 5F8920
 ; END OF FUNCTION CHUNK FOR ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z
 ; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PAPAEH@Z
-
-loc_5F8940:                             ; DATA XREF: .rdata:stru_619048↓o
-; __unwind { // SEH_439102
-;   cleanup() // owned by 439128
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_439102:                             ; DATA XREF: ??0TokenEntry@@QAE@PAPAEH@Z+5↑o
-                mov     eax, offset stru_619028
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8940
-; END OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PAPAEH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PBV0@@Z
-
-loc_5F8953:                             ; DATA XREF: .rdata:stru_619070↓o
-; __unwind { // SEH_439465
-;   cleanup() // owned by 439489
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CObject@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_439465:                             ; DATA XREF: ??0TokenEntry@@QAE@PBV0@@Z+5↑o
-                mov     eax, offset stru_619050
-                jmp     ___CxxFrameHandler
-; } // starts at 5F8953
-; END OF FUNCTION CHUNK FOR ??0TokenEntry@@QAE@PBV0@@Z
 ; START OF FUNCTION CHUNK FOR sub_4395E0
 
 loc_5F8990:                             ; DATA XREF: .rdata:stru_6190C8↓o
@@ -269002,7 +268869,6 @@ off_609A20      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 dd offset ?Dump@CObject@@UBEXAAVCDumpContext@@@Z ; Microsoft VisualC 2-14/net runtime
                 align 8
 
-dbl_609A50      dq 16.0                 ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+53C↑r
 stru_609B58     sCRuntimeClass <offset aCplayer_0, 4Ch, 0FFFFh, 0, offset ?classCObject@CObject@@2UCRuntimeClass@@B, 0> ; CPlayer
 off_609B70      dd offset sub_43C030    ; DATA XREF: ??0MapPlayerData@@QAE@XZ+3D↑o
                 dd offset sub_43C240
@@ -280847,18 +280713,6 @@ stru_619000     FuncInfoV1 <19930520h, 1, offset stru_619020, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_619020     UnwindMapEntry <-1, offset loc_5F8920>
-stru_619028     FuncInfoV1 <19930520h, 1, offset stru_619048, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619048     UnwindMapEntry <-1, offset loc_5F8940>
-stru_619050     FuncInfoV1 <19930520h, 1, offset stru_619070, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_619070     UnwindMapEntry <-1, offset loc_5F8953>
 stru_6190A8     FuncInfoV1 <19930520h, 6, offset stru_6190C8, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -287268,94 +287122,11 @@ g_Str1            db 'Unnamed',0          ; DATA XREF: ?IsDefaultNpcName@@YAIPBD
                 db    0
                 db    0
                 db    0
-; char a02d02d03d[]
-a02d02d03d      db '%02d%02d%03d',0     ; DATA XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+5D↑o
-                align 4
-; char a02d02d1d02d[]
-a02d02d1d02d    db '%02d%02d%1d%02d',0  ; DATA XREF: ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ+94↑o
-; CHAR a16a[]
 a16a            db '.16a',0             ; DATA XREF: sub_4395E0+34↑o
                 align 4
 ; CHAR aGraphicsInvent[]
 aGraphicsInvent db 'graphics\inventory\',0 ; DATA XREF: sub_4395E0+56↑o
-; char aBowman[]
-aBowman         db 'bowman',0           ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ+32↑o
-                align 4
-; char aArcher[]
-aArcher         db 'archer',0           ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ:loc_43974C↑o
-                align 10h
-; char aXbowman[]
-aXbowman        db 'xbowman',0          ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ:loc_439768↑o
-; char aAxeman2h[]
-aAxeman2h       db 'axeman2h',0         ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ:loc_439784↑o
-                align 4
-; char aSwordsman2h[]
-aSwordsman2h    db 'swordsman2h',0      ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ:loc_4397A0↑o
-; char aMageSt[]
-aMageSt         db 'mage_st',0          ; DATA XREF: ?sub_4396FB@TokenEntry@@QAEHXZ:loc_4397BC↑o
-; char aSD_0[]
-aSD_0           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+16C↑o
-                align 10h
-; char aD_59[]
-aD_59           db '-%d',0
-; char aSSS_11[]
-aSSS_11         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+238↑o
-                align 10h
-; char aSSS_12[]
-aSSS_12         db ' %s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+2C1↑o
-                align 4
-; char aSSS_13[]
-aSSS_13         db '#%s %s%s',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+307↑o
-                align 4
-; char aSDD[]
-aSDD            db '#%s: %d-%d',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+40D↑o
-                align 4
-; char aSD_1[]
-aSD_1           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+45C↑o
-; char aSD_2[]
-aSD_2           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+4AD↑o
-; char aS0051f[]
-aS0051f         db '#%s: 0.0 -%5.1f',0  ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+557↑o
-; char aS51f[]
-aS51f           db '#%s: %5.1f',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5A0↑o
-                align 10h
-; char aSD_3[]
-aSD_3           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+5F3↑o
-; char aSD_4[]
-aSD_4           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+64A↑o
-                align 4
-; char aSD_5[]
-aSD_5           db '#%s: +%d%%',0       ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+6A1↑o
-                align 10h
-; char aSD_6[]
-aSD_6           db '#%s: +%d',0         ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+6F8↑o
-                align 4
-; char aSD_7[]
-aSD_7           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+74F↑o
-; char aSD_8[]
-aSD_8           db '#%s: %d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+7A2↑o
-; char asc_62E41C[]
-asc_62E41C      db '#',0                ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+890↑o
-                align 10h
-; char aSD_9[]
-aSD_9           db '#%s %d',0           ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+914↑o
-                align 4
-; char aSD_10[]
-aSD_10          db '#%s %+d',0          ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ+98F↑o
-; char asc_62E430[]
-asc_62E430      db '%',0                ; DATA XREF: ?FUN_00439973@TokenEntry@@QAEPBDXZ:loc_43A34C↑o
-                align 4
-; char aCrown[]
-aCrown          db 'Crown',0            ; DATA XREF: ?sub_43A5E5@TokenEntry@@QAEHXZ+26↑o
-                align 4
-; char aDocuments[]
-aDocuments      db 'Documents',0        ; DATA XREF: ?sub_43A5E5@TokenEntry@@QAEHXZ+60↑o
-                align 4
-; char aTreasure[]
-aTreasure       db 'Treasure',0         ; DATA XREF: ?sub_43A5E5@TokenEntry@@QAEHXZ+96↑o
-                align 4
-; char aQuestTreasure[]
-aQuestTreasure  db 'Quest Treasure',0   ; DATA XREF: ?sub_43A6D5@TokenEntry@@QAEHXZ:loc_43A6EE↑o
+
                 align 4
                 db    1
                 db    0

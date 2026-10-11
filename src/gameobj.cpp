@@ -1,3 +1,4 @@
+#include "constants.h"
 #include "gameobj.h"
 #include "main_window.h"
 #include "item.h"
@@ -466,10 +467,9 @@ void TokenEntry::operator=(const TokenEntry& obj)
     field_0x18 = obj.field_0x18;
     mods_size = obj.mods_size;
 
-    if (mods_size == 0)
+    if (mods_size == 0) {
         mods = nullptr;
-    else
-    {
+    } else {
         mods = malloc(mods_size);
         memcpy(mods, obj.mods, mods_size);
     }
@@ -496,8 +496,7 @@ const char* TokenEntry::FUN_00439973()
     int32_t value = 0;
     const uint8_t* p = (const uint8_t*)this->mods;
 
-    for (int32_t i = 0; i < this->mods_count; i++)
-    {
+    for (int32_t i = 0; i < this->mods_count; i++) {
         uint8_t attr_id = *p;
         p++;
 
@@ -516,8 +515,7 @@ const char* TokenEntry::FUN_00439973()
             value = *p;
             p++;
 
-            if (strlen(txt_stats.GetLine(attr_id)) != 0)
-            {
+            if (strlen(txt_stats.GetLine(attr_id)) != 0) {
                 sprintf(buffer, "#%s %d", txt_stats.GetLine(attr_id), value);
                 strcat(g_Destination, buffer);
             }
@@ -534,8 +532,7 @@ const char* TokenEntry::FUN_00439973()
             value = *p;
             p++;
 
-            if (strlen(txt_stats.GetLine(attr_id)) != 0)
-            {
+            if (strlen(txt_stats.GetLine(attr_id)) != 0) {
                 sprintf(buffer, "#%s %d", txt_stats.GetLine(attr_id), value);
                 strcat(g_Destination, buffer);
             }
@@ -546,10 +543,11 @@ const char* TokenEntry::FUN_00439973()
             p++;
             cast_spell_id = value;
 
-            if (this->GetType() == TYPE_SPELL)
+            if (this->GetType() == TYPE_SPELL) {
                 sprintf(buffer, " %s %s%s", TxtFile::AllLines[0x5a], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5b]);
-            else
+            } else {
                 sprintf(buffer, "#%s %s%s", TxtFile::AllLines[0x5c], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5d]);
+            }
 
             strcat(g_Destination, buffer);
             break;
@@ -568,61 +566,67 @@ const char* TokenEntry::FUN_00439973()
 
             Spell spell((uint8_t)cast_spell_id);
             spell.sub_539541(value);
-            if (cast_spell_id == 0x12)
+            if (cast_spell_id == spell::stone_curse) {
                 spell.spell_power >>= 1;
+            }
 
             CString mana_str;
             CString damage_str;
             CString power_str;
             CString misc_str;
 
-            if (spell.damage_spread != 0)
+            if (spell.damage_spread != 0) {
                 damage_str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
-
-            if (this->GetType() == TYPE_SPELL)
-            {
-                if (spell.max_range != 0)
-                    mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], spell.max_range);
             }
-            else
-            {
+
+            if (this->GetType() == TYPE_SPELL) {
+                if (spell.max_range != 0) {
+                    mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], spell.max_range);
+                }
+            } else {
                 Item* item = g_GameDataRes.sub_510EE6(this->item_id);
                 // Byte 0x58 of the derived object: Weapon::range / Armor::slot / Shield::protections[0]
                 mana_str.Format("#%s: %d", TxtFile::AllLines[0x7b], *((uint8_t*)item + 0x58));
                 delete item;
             }
 
-            if (spell.spell_power != 0)
-            {
-                if (cast_spell_id == 0x12)
+            if (spell.spell_power != 0) {
+                if (cast_spell_id == spell::stone_curse) {
                     power_str.Format("#%s: 0.0 -%5.1f", TxtFile::AllLines[0x7c], (double)spell.spell_power / 16.0);
-                else
+                } else {
                     power_str.Format("#%s: %5.1f", TxtFile::AllLines[0x7c], (double)spell.spell_power / 16.0);
+                }
             }
 
             uint8_t speed = spell.GetSpeed(value);
-            if (speed != 0)
+            if (speed != 0) {
                 misc_str.Format("#%s: %d", TxtFile::AllLines[0xb6], speed);
+            }
 
             uint8_t max_prob = spell.GetMaximumDamageProbability(value);
-            if (max_prob != 0)
+            if (max_prob != 0) {
                 misc_str.Format("#%s: +%d%%", TxtFile::AllLines[0xb9], max_prob);
+            }
 
             uint8_t min_prob = spell.GetMinimumDamageProbability(value);
-            if (min_prob != 0)
+            if (min_prob != 0) {
                 misc_str.Format("#%s: +%d%%", TxtFile::AllLines[0xbb], min_prob);
+            }
 
             uint8_t resist = spell.GetResistance(value);
-            if (resist != 0)
+            if (resist != 0) {
                 misc_str.Format("#%s: +%d", TxtFile::AllLines[0xb7], resist);
+            }
 
             uint8_t rays = spell.GetRays(value);
-            if (rays != 0)
+            if (rays != 0) {
                 misc_str.Format("#%s: %d", TxtFile::AllLines[0xba], rays);
+            }
 
             int16_t sight = spell.GetSight(value);
-            if (sight != 0)
+            if (sight != 0) {
                 misc_str.Format("#%s: %d", TxtFile::AllLines[0xb8], sight);
+            }
 
             strcat(g_Destination, (LPCTSTR)damage_str);
             strcat(g_Destination, (LPCTSTR)mana_str);
@@ -635,8 +639,7 @@ const char* TokenEntry::FUN_00439973()
             value = *p;
             p++;
 
-            if (this->GetType() != TYPE_SPELL)
-            {
+            if (this->GetType() != TYPE_SPELL) {
                 strcat(g_Destination, "#");
                 strcat(g_Destination, TxtFile::AllLines[0xbd]);
             }
@@ -646,14 +649,14 @@ const char* TokenEntry::FUN_00439973()
             value = *p;
             p++;
 
-            if (strlen(txt_stats.GetLine(attr_id)) != 0)
-            {
+            if (strlen(txt_stats.GetLine(attr_id)) != 0) {
                 sprintf(buffer, "#%s %+d", txt_stats.GetLine(attr_id), value);
                 strcat(g_Destination, buffer);
             }
 
-            if (attr_id == 0xb || attr_id == 8)
+            if (attr_id == 0xb || attr_id == 8) {
                 strcat(g_Destination, "%");
+            }
             break;
         }
     }
