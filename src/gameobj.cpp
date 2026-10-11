@@ -725,6 +725,19 @@ int32_t TokenEntry::sub_43A6D5()
 }
 
 
+int32_t TokenEntry::sub_4A7880(int32_t num)
+{ //4a7880
+    this->field_0x10 -= num;
+
+    if ((int32_t)this->field_0x10 > 0) {
+        return 1;
+    }
+
+    this->field_0x10 += num;
+    return 0;
+}
+
+
 CString TokenEntry::FUN_004394f3()
 { //4394f3
     char buffer[0x50];

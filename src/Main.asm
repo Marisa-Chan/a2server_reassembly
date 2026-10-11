@@ -62101,40 +62101,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?sub_4A7880@TokenEntry@@QAEHH@Z      proc near               ; CODE XREF: ?VMethod28@VisInvBase@@UAEPAVTokenEntry@@I@Z+7E↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+10h]
-                sub     ecx, [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+10h], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+10h], 0
-                jg      short loc_4A78B2
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+10h]
-                add     edx, [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+10h], edx
-                xor     eax, eax
-                jmp     short loc_4A78B7
-; ---------------------------------------------------------------------------
-
-loc_4A78B2:                             ; CODE XREF: ?sub_4A7880@TokenEntry@@QAEHH@Z+1D↑j
-                mov     eax, 1
-
-loc_4A78B7:                             ; CODE XREF: ?sub_4A7880@TokenEntry@@QAEHH@Z+30↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_4A7880@TokenEntry@@QAEHH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
