@@ -1361,7 +1361,6 @@ externdef ?FUN_004948b2@CGameSession@@QAEXXZ : proc  ; void CGameSession::FUN_00
 externdef ?sub_4A7850@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7850(int32_t num)  //4a7850 in asm
 externdef ?sub_4A7880@TokenEntry@@QAEHH@Z : proc  ; int32_t TokenEntry::sub_4A7880(int32_t num)  //4a7880 in asm
 externdef ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z : proc  ; int32_t TokenEntry::sub_4A7900(TokenEntry* other)  //4a7900 in asm
-externdef ?sub_43988E@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43988E()  //43988e in asm
 externdef ?FUN_004a78c0@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::FUN_004a78c0()  //4a78c0 in asm
 externdef ?sub_43A6D5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A6D5()  //43a6d5 in asm
 externdef ?sub_43A5E5@TokenEntry@@QAEHXZ : proc  ; int32_t TokenEntry::sub_43A5E5()  //43a5e5 in asm

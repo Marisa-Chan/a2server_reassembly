@@ -706,6 +706,57 @@ CString TokenEntry::FUN_004394f3()
 }
 
 
+int32_t TokenEntry::sub_43988E()
+{ //43988e
+    const uint8_t* p = (const uint8_t*)this->mods;
+
+    for (int32_t i = 0; i < this->mods_count; i++)
+    {
+        uint8_t attr_id = *p;
+        p++;
+
+        switch (attr_id)
+        {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 0xa:
+        case 0xb:
+        case 0x15:
+        case 0x16:
+        case 0x17:
+        case 0x18:
+        case 0x19:
+        case 0x1b:
+        case 0x1c:
+        case 0x1d:
+        case 0x1e:
+        case 0x1f:
+        case 0x21:
+        case 0x22:
+        case 0x23:
+        case 0x24:
+        case 0x25:
+            return attr_id;
+        }
+
+        if (attr_id == 1) {
+            p += 4;
+        }
+        else {
+            p += 1;
+        }
+    }
+
+    return 0;
+}
+
+
 
 CUnit::CUnit()
 { //46411c

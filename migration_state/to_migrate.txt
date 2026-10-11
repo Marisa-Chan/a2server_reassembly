@@ -310,7 +310,6 @@ _byte_659A3C
 ?sub_4A7880@TokenEntry@@QAEHH@Z	33
 ?sub_43A6D5@TokenEntry@@QAEHXZ	39
 ?sub_4A7900@TokenEntry@@QAEHPAV1@@Z	66
-?sub_43988E@TokenEntry@@QAEHXZ	90
 ?sub_43A5E5@TokenEntry@@QAEHXZ	90
 ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
 ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ	20
