@@ -909,7 +909,6 @@ externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc
 externdef   ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
 externdef   ?_OnKeyDown@MainWindow@@QAEXIII@Z  : proc
-externdef   ?_OnSysKeyDown@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnKeyUp@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnSysKeyUp@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnChar@MainWindow@@QAEXIII@Z  : proc
@@ -1309,6 +1308,7 @@ extern ?sub_41930D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_41955C@BigStruct2@@QAEXG@Z : proc
 extern ?sub_41965D@BigStruct2@@QAEXGG@Z : proc
 extern ?sub_418F93@BigStruct2@@QAEXH@Z : proc
+externdef ?sub_41AC2D@BigStruct2@@QAEXH@Z  : proc  ; void BigStruct2::sub_41AC2D(int)
 extern ?sub_41AC88@BigStruct2@@QAEXHH@Z : proc
 extern ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z : proc
 extern ?FUN_0041b7b7@BigStruct2@@QAEXHHPAH0@Z : proc

@@ -2229,7 +2229,7 @@ sub_417AF6      endp
 
 ; Attributes: bp-based frame
 
-sub_41AC2D      proc near               ; CODE XREF: .text:00486B87↓p
+?sub_41AC2D@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: .text:00486B87↓p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -2261,7 +2261,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_41AC2D      endp
+?sub_41AC2D@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -51182,141 +51182,6 @@ byte_486976     db      0,     0,   12h,   12h
                 db    12h,   12h,   12h,   12h
                 db    12h,   12h,   12h,   12h
                 db    11h
-; ---------------------------------------------------------------------------
-?_OnSysKeyDown@MainWindow@@QAEXIII@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp-4]
-                cmp     dword ptr [eax+45Ch], 0
-                jnz     loc_486B8C
-                cmp     dword ptr [ebp+8], 79h ; 'y'
-                jnz     short loc_486A91
-                push    0
-                mov     ecx, dword ptr [ebp+8]
-                push    ecx
-                push    100h
-                mov     edx, dword ptr [ebp-4]
-                mov     ecx, dword ptr [edx+0CCh]
-                mov     eax, dword ptr [ebp-4]
-                mov     edx, dword ptr [eax+0CCh]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+48h]
-                mov     ecx, dword ptr [ebp+10h]
-                push    ecx
-                mov     edx, dword ptr [ebp+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496400
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ForceDisableHint@CMousePointer@@QAEXXZ
-                jmp     loc_486BAA
-; ---------------------------------------------------------------------------
-
-loc_486A91:                             ; CODE XREF: .text:00486A4A↑j
-                cmp     dword ptr [ebp+8], 12h
-                jnz     short loc_486AA1
-                mov     ?g_kbMenuState@@3HA, 1
-
-loc_486AA1:                             ; CODE XREF: .text:00486A95↑j
-                mov     ecx, dword ptr [ebp+10h]
-                and     ecx, 2000h
-                test    ecx, ecx
-                jz      short loc_486AEB
-                cmp     dword ptr [ebp+8], 31h ; '1'
-                jb      short loc_486AEB
-                cmp     dword ptr [ebp+8], 39h ; '9'
-                ja      short loc_486AEB
-                mov     ?g_kbMenuState@@3HA, 1
-                push    0
-                mov     edx, dword ptr [ebp+8]
-                push    edx
-                push    100h
-                mov     eax, dword ptr [ebp-4]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp-4]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                jmp     loc_486B8C
-; ---------------------------------------------------------------------------
-
-loc_486AEB:                             ; CODE XREF: .text:00486AAC↑j
-                mov     eax, dword ptr [ebp+10h]
-                and     eax, 2000h
-                test    eax, eax
-                jz      short loc_486B34
-                cmp     dword ptr [ebp+8], 60h ; '`'
-                jb      short loc_486B34
-                cmp     dword ptr [ebp+8], 69h ; 'i'
-                ja      short loc_486B34
-                mov     ?g_kbMenuState@@3HA, 1
-                push    0
-                mov     ecx, dword ptr [ebp+8]
-                sub     ecx, 30h ; '0'
-                push    ecx
-                push    100h
-                mov     edx, dword ptr [ebp-4]
-                mov     ecx, dword ptr [edx+0CCh]
-                mov     eax, dword ptr [ebp-4]
-                mov     edx, dword ptr [eax+0CCh]
-                mov     eax, dword ptr [edx]
-                call    dword ptr [eax+48h]
-                jmp     short loc_486B8C
-; ---------------------------------------------------------------------------
-
-loc_486B34:                             ; CODE XREF: .text:00486AF5↑j
-                mov     ecx, dword ptr [ebp+10h]
-                and     ecx, 2000h
-                test    ecx, ecx
-                jz      short loc_486B4E
-                cmp     dword ptr [ebp+8], 53h ; 'S'
-                jnz     short loc_486B4E
-                call    ?SaveScreenshot@@YAXXZ
-                jmp     short loc_486B8C
-; ---------------------------------------------------------------------------
-
-loc_486B4E:                             ; CODE XREF: .text:00486B3F↑j
-                mov     edx, dword ptr [ebp+10h]
-                and     edx, 2000h
-                test    edx, edx
-                jz      short loc_486B8C
-                cmp     dword ptr [ebp+8], 41h ; 'A'
-                jbe     short loc_486B8C
-                cmp     dword ptr [ebp+8], 5Ah ; 'Z'
-                jnb     short loc_486B8C
-                mov     eax, dword ptr [ebp-4]
-                mov     ecx, dword ptr [eax+418h]
-                and     ecx, 1
-                test    ecx, ecx
-                jz      short loc_486B8C
-                mov     edx, dword ptr [ebp+8]
-                sub     edx, 41h ; 'A'
-                push    edx
-                mov     eax, dword ptr [ebp-4]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    sub_41AC2D
-
-loc_486B8C:                             ; CODE XREF: .text:00486A40↑j
-                mov     ecx, dword ptr [ebp+10h]
-                push    ecx
-                mov     edx, dword ptr [ebp+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496400
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ForceDisableHint@CMousePointer@@QAEXXZ
-
-loc_486BAA:                             ; CODE XREF: .text:00486A8C↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnSysKeyDown@MainWindow@@QAEXIII@Z      endp
 
 ; ---------------------------------------------------------------------------
 ?_OnKeyUp@MainWindow@@QAEXIII@Z      proc near

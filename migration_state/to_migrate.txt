@@ -54,6 +54,7 @@ _byte_659A3C
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
+?sub_41AC2D@BigStruct2@@QAEXH@Z	32
 ??0CAirUnit@@QAE@XZ	18
 ?Close@CArchive@@QAEXXZ	7
 ??1CArchive@@QAE@XZ	36
@@ -259,7 +260,6 @@ _byte_659A3C
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
-?_OnSysKeyDown@MainWindow@@QAEXIII@Z	133
 ?_OnDestroy@MainWindow@@QAEXXZ	137
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?WaitHatConnection@MainWindow@@QAEHXZ	193

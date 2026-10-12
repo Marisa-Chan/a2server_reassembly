@@ -883,6 +883,7 @@ public:
 	void sub_419BA1(uint16_t id, int32_t spell); //419ba1
 	void sub_41A33F(uint16_t x, uint16_t y); //41a33f
 	void sub_41A66E(uint16_t id); //41a66e
+	void sub_41AC2D(int32_t id); //41ac2d in asm
 	void sub_41AC88(int32_t arg1, int32_t arg2); //41ac88
 	void sub_41A7C7(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5); //41a7c7
 	void sub_40BD34(); //40bd34

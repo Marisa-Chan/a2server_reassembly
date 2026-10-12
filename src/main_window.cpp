@@ -631,6 +631,40 @@ void __fastcall MainWindow::OnSizing(MainWindow* _this, void*, UINT a, LPRECT b)
 void __fastcall MainWindow::OnNcMouseMove(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcMouseMove(a, b); }
 void __fastcall MainWindow::OnNcLButtonDown(MainWindow* _this, void*, UINT a, CPoint b) { _this->_OnNcLButtonDown(a, b); }
 
+// 486a2f
+void MainWindow::_OnSysKeyDown(UINT key, UINT repeat, UINT flags)
+{
+    if (this->field_0x45c == 0) {
+        if (key == 0x79) {
+            this->vis_root->MsgProc(0x100, key, 0);
+            Default();
+            g_mousept.ForceDisableHint();
+            return;
+        }
+
+        if (key == 0x12) {
+            g_kbMenuState = 1;
+        }
+
+        if ((flags & 0x2000) != 0) {
+            if (key >= 0x31 && key <= 0x39) {
+                g_kbMenuState = 1;
+                this->vis_root->MsgProc(0x100, key, 0);
+            } else if (key >= 0x60 && key <= 0x69) {
+                g_kbMenuState = 1;
+                this->vis_root->MsgProc(0x100, key - 0x30, 0);
+            } else if (key == 0x53) {
+                SaveScreenshot();
+            } else if (key > 0x41 && key < 0x5A && (this->dialogsMask & 1) != 0) {
+                this->vis_map_context->sub_41AC2D(key - 0x41);
+            }
+        }
+    }
+
+    Default();
+    g_mousept.ForceDisableHint();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
