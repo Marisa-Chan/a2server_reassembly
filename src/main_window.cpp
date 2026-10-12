@@ -1290,6 +1290,15 @@ void MainWindow::_OnNcMouseMove(UINT nHitTest, CPoint point)
     Default();
 }
 
+// 48cca1
+void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int32_t tab)
+{
+    this->item_cursor = new CCursor(str, 0x28, 0x28, 1000000000);
+    this->field_0x40c = idx;
+    this->field_0x410 = tab;
+    this->field_0x408 = entry;
+}
+
 // 495c6e
 void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
 {

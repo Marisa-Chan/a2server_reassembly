@@ -50387,77 +50387,6 @@ loc_48638D:                             ; CODE XREF: ?FUN_00485aed@MainWindow@@Q
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z(int, int, char *varStr, int)
-?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z      proc near               ; CODE XREF: ?OnMouseMove@VisInvType1@@UAEHIVCPoint@@@Z+1DC↓p
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-varStr             = dword ptr  10h
-arg_C           = dword ptr  14h
-
-; FUNCTION CHUNK AT 005FBE55 SIZE 00000014 BYTES
-
-; __unwind { // SEH_48CCA1
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_48CCA1
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                push    18h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_48CCF0
-                push    3B9ACA00h       ; int
-                push    28h ; '('       ; int
-                push    28h ; '('       ; int
-                mov     eax, dword ptr [ebp+varStr]
-                push    eax             ; varStr
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CCursor@@QAE@PBDHHH@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_48CCF7
-; ---------------------------------------------------------------------------
-
-loc_48CCF0:                             ; CODE XREF: ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z+33↑j
-                mov     [ebp+var_1C], 0
-
-loc_48CCF7:                             ; CODE XREF: ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z+4D↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 48CCC9
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [edx+414h], eax
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ebp+arg_4]
-                mov     [ecx+40Ch], edx
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ebp+arg_C]
-                mov     [eax+410h], ecx
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     [edx+408h], eax
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    10h
-; } // starts at 48CCA1
-?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -245336,24 +245265,6 @@ SEH_48B061:                             ; DATA XREF: sub_48B061+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FBDD3
 ; END OF FUNCTION CHUNK FOR sub_48B061
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z
-
-loc_5FBE55:                             ; DATA XREF: .rdata:stru_61CEA0↓o
-; __unwind { // SEH_48CCA1
-;   cleanup() // owned by 48CCC9
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_48CCA1:                             ; DATA XREF: ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z+5↑o
-                mov     eax, offset stru_61CE80
-                jmp     ___CxxFrameHandler
-; } // starts at 5FBE55
-; END OF FUNCTION CHUNK FOR ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_48D1D4
 
 loc_5FBE69:                             ; DATA XREF: .rdata:stru_61CEC8↓o
@@ -273745,12 +273656,6 @@ stru_61CE00     UnwindMapEntry <-1, offset loc_5FBDD3>
                 UnwindMapEntry <5, offset loc_5FBE1B>
                 UnwindMapEntry <5, offset loc_5FBE24>
                 UnwindMapEntry <5, offset loc_5FBE2D>
-stru_61CE80     FuncInfoV1 <19930520h, 1, offset stru_61CEA0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61CEA0     UnwindMapEntry <-1, offset loc_5FBE55>
 stru_61CEA8     FuncInfoV1 <19930520h, 1, offset stru_61CEC8, 0, 0, 0, 0>
                 db    0
                 db    0
