@@ -447,6 +447,7 @@ public:
 };
 ASSERT_SIZE(CBridge, 0x14c);
 
+//60cb70
 class CVerticalWoodenBridge : public CBridge
 {
 	DECLARE_DYNAMIC(CVerticalWoodenBridge);
@@ -460,6 +461,7 @@ public:
 };
 ASSERT_SIZE(CVerticalWoodenBridge, 0x14c);
 
+//60cbc8
 class CHorisontalWoodenBridge : public CBridge
 {
 	DECLARE_DYNAMIC(CHorisontalWoodenBridge);
