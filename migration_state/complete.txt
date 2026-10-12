@@ -170,6 +170,7 @@
 ??_7Scenario@@6B@
 ??_7SpellBook@@6B@
 ??_GCBridge@@UAEPAXI@Z
+??_GCHorisontalWoodenBridge@@UAEPAXI@Z
 ??_GCStructure@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z

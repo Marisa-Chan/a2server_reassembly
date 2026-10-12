@@ -2083,8 +2083,7 @@ extern ?VMethod17@CBridge@@UAEXHH@Z : proc
 ;CVerticalWoodenBridge
 
 ;CHorisontalWoodenBridge
-externdef ??_GCHorisontalWoodenBridge@@UAEPAXI@Z : proc
-externdef ??1CHorisontalWoodenBridge@@QAE@XZ : proc
+extern ??_GCHorisontalWoodenBridge@@UAEPAXI@Z : proc
 extern ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
 extern ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z : proc

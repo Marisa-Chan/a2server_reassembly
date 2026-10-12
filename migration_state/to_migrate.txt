@@ -63,9 +63,7 @@ _byte_659A3C
 ??0CAirUnit@@QAE@XZ	18
 ??0CBackPack@@QAE@XZ	16
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
-??1CHorisontalWoodenBridge@@QAE@XZ	13
 ??0CHorisontalWoodenBridge@@QAE@HH@Z	22
-??_GCHorisontalWoodenBridge@@UAEPAXI@Z	24
 ??0CProjectile@@QAE@XZ	36
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31

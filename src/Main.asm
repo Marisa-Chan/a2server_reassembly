@@ -50244,31 +50244,6 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-??_GCHorisontalWoodenBridge@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CBCC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1CHorisontalWoodenBridge@@QAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4A9F62
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_4A9F62:                             ; CODE XREF: ??_GCHorisontalWoodenBridge@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GCHorisontalWoodenBridge@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -50277,20 +50252,6 @@ loc_4A9F62:                             ; CODE XREF: ??_GCHorisontalWoodenBridge
 
 ; Attributes: bp-based frame
 
-??1CHorisontalWoodenBridge@@QAE@XZ      proc near               ; CODE XREF: ??_GCHorisontalWoodenBridge@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CBridge@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1CHorisontalWoodenBridge@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
