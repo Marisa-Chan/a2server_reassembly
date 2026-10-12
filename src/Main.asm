@@ -27196,23 +27196,6 @@ sub_462AEA      endp
 
 ; Attributes: bp-based frame
 
-?VMethod10@CStructure@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B558↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?FUN_00461c41@CGameObject@@QAEXHPAV1@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod10@CStructure@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

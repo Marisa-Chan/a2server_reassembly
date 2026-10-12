@@ -4133,3 +4133,9 @@ int32_t CStructure::VMethod5()
 {
     return g_StructuresInfo[this->typeId]->tile_height;
 }
+
+// 462b0f
+void CStructure::VMethod10()
+{
+    this->FUN_00461c41(1, this);
+}
