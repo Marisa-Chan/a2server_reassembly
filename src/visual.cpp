@@ -7344,6 +7344,28 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 4733cf
+void GMapThing::FreeAdjacency()
+{
+    this->FreePathmap();
+    if (this->adjacencyMatrix != nullptr) {
+        for (int32_t i = 0; i < this->nodeCount; i++) {
+            for (int32_t j = 0; j < this->nodeCount; j++) {
+                CArray<CPoint>* cell = this->adjacencyMatrix[i][j];
+                if (cell != nullptr) {
+                    delete cell;
+                }
+            }
+        }
+        for (int32_t i = 0; i < this->nodeCount; i++) {
+            operator delete(this->adjacencyMatrix[i]);
+        }
+        operator delete(this->adjacencyMatrix);
+    }
+    this->nodePoints.~CArray();
+}
+
+
 // 47391f
 int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints)
 {
