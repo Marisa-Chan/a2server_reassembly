@@ -1195,6 +1195,23 @@ void MainWindow::_OnKeyUp(UINT key, UINT repeat, UINT flags)
     g_mousept.ForceDisableHint();
 }
 
+// 48cb3c
+void MainWindow::FUN_0048cb3c()
+{
+    if (g_Server != nullptr) {
+        delete g_Server;
+        g_Server = nullptr;
+    }
+
+    g_CLlDriver.Close();
+    g_NetStru1_main.ProcessConnections();
+    g_HatLLDriver.Close();
+    NetStru1::HatConnector.ProcessConnections();
+
+    this->field_0x438 = 0x7fffffff;
+    this->last_tic_time = 0x7fffffff;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

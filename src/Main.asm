@@ -50369,56 +50369,6 @@ loc_48638D:                             ; CODE XREF: ?FUN_00485aed@MainWindow@@Q
 
 ; Attributes: bp-based frame
 
-?FUN_0048cb3c@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?_OnDestroy@MainWindow@@QAEXXZ+F4↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_C], ecx
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jz      short loc_48CB82
-                mov     eax, ?g_Server@@3PAUServer@@A
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+var_4], 0
-                jz      short loc_48CB71
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??_GServer@@QAEPAXI@Z
-                mov     [ebp+var_10], eax
-                jmp     short loc_48CB78
-; ---------------------------------------------------------------------------
-
-loc_48CB71:                             ; CODE XREF: ?FUN_0048cb3c@MainWindow@@QAEXXZ+24↑j
-                mov     [ebp+var_10], 0
-
-loc_48CB78:                             ; CODE XREF: ?FUN_0048cb3c@MainWindow@@QAEXXZ+33↑j
-                mov     ?g_Server@@3PAUServer@@A, 0
-
-loc_48CB82:                             ; CODE XREF: ?FUN_0048cb3c@MainWindow@@QAEXXZ+10↑j
-                mov     ecx, offset ?g_CLlDriver@@3UCLlDriver@@A
-                call    ?Close@CLlDriver@@QAEXXZ
-                mov     ecx, offset ?g_NetStru1_main@@3VNetStru1@@A
-                call    ?ProcessConnections@NetStru1@@QAEXXZ 
-                mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    ?Close@CLlDriver@@QAEXXZ
-                mov     ecx, offset ?HatConnector@NetStru1@@2V1@A
-                call    ?ProcessConnections@NetStru1@@QAEXXZ 
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+438h], 7FFFFFFFh
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+428h], 7FFFFFFFh
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0048cb3c@MainWindow@@QAEXXZ      endp
-
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -52799,37 +52749,6 @@ arg_0           = dword ptr  8
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??_GServer@@QAEPAXI@Z      proc near               ; CODE XREF: ?FUN_0048cb3c@MainWindow@@QAEXXZ+2B↑p
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1Server@@QAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_496375
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-
-loc_496375:                             ; CODE XREF: ??_GServer@@QAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GServer@@QAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
