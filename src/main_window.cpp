@@ -1077,6 +1077,14 @@ void MainWindow::_FUN_00495010()
     this->field_0x624 = 1;
 }
 
+// 4863c6
+void MainWindow::_OnSetFocus(CWnd* pOldWnd)
+{
+    this->field_0xbc = 1;
+    g_kbMenuState = 0;
+    CFrameWnd::OnSetFocus(pOldWnd);
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

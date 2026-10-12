@@ -50414,23 +50414,6 @@ loc_4863BB:                             ; CODE XREF: .text:004863A9↑j
                 retn    0Ch
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z      endp
 
-; ---------------------------------------------------------------------------
-?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp-4]
-                mov     dword ptr [eax+0BCh], 1
-                mov     ?g_kbMenuState@@3HA, 0
-                mov     ecx, dword ptr [ebp+8]
-                push    ecx
-                mov     ecx, dword ptr [ebp-4]
-                call    ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z ; CFrameWnd::OnSetFocus(CWnd *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z      endp
 
 ; =============== S U B R O U T I N E =======================================
 

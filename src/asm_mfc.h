@@ -4070,10 +4070,13 @@ public:
 	UINT m_cModalStack;       
 	HWND* m_phWndDisable;   
 	HMENU m_hMenuAlt;        
-	CString m_strTitle;      
-	BOOL m_bInRecalcLayout;  
+	CString m_strTitle;
+	BOOL m_bInRecalcLayout;
 	CRuntimeClass* m_pFloatingFrameClass;
 	UINT m_nIdleFlags;          // set of bit flags for idle processing
+
+protected:
+	void OnSetFocus(CWnd* pOldWnd); // 5f183f
 };
 
 ASSERT_SIZE(CFrameWnd, 0xBC);
