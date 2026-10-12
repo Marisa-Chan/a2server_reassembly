@@ -4331,3 +4331,19 @@ void CBackPack::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
     g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.field_c, sun_angle, 0);
     g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.field_10, sun_angle, 0);
 }
+
+// 462887
+void CBackPack::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
+    int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
+
+    int32_t x = this->centerScreenX - half_width;
+    int32_t y = this->centerScreenY - half_height - this->terrainHeightOffset - 4;
+
+    g_spr_backpack->VMethod2(x, y, this->typeId, arg3, 0);
+    if (g_settings.Smoothing != 0) {
+        CGamePalette* palette = &g_spr_backpack->palette;
+        g_spr_backpackb->VMethod9(x, y, this->typeId, arg3, palette, 0);
+    }
+}

@@ -2057,7 +2057,7 @@ externdef ??1CBackPack@@UAE@XZ : proc
 externdef ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z : proc
 externdef ?VMethod4@CBackPack@@UAEHXZ : proc
 externdef ?VMethod5@CBackPack@@UAEHXZ : proc
-externdef ?VMethod6@CBackPack@@UAEXHHH@Z : proc
+extern ?VMethod6@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod6
 extern ?VMethod7@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod7
 externdef ?VMethod10@CBackPack@@UAEXXZ : proc
 
