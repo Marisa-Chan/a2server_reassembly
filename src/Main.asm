@@ -26718,19 +26718,6 @@ sub_45DB30      endp
 
 ; Attributes: bp-based frame
 
-?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60B578↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset stru_60B3B0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -253140,12 +253127,10 @@ off_60B270      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 dbl_60B338      dq 0.5                  ; DATA XREF: sub_45E643+15C↑r
 
 
-stru_60B3B0     sCRuntimeClass <offset aCbridge, 332, 0FFFFh, 0, offset ?classCStructure@CStructure@@2UCRuntimeClass@@B, \
-                                0>      ; "CBridge"
 stru_60B3C8     sCRuntimeClass <offset aCverticalwoode, 332, 0FFFFh, 0, \
-                                offset stru_60B3B0, 0> ; "CVerticalWoodenBridge"
+                                offset ?classCBridge@CBridge@@2UCRuntimeClass@@B, 0> ; "CVerticalWoodenBridge"
 stru_60B3E0     sCRuntimeClass <offset aChorisontalwoo, 332, 0FFFFh, 0, \
-                                offset stru_60B3B0, 0> ; "CHorisontalWoodenBridge"
+                                offset ?classCBridge@CBridge@@2UCRuntimeClass@@B, 0> ; "CHorisontalWoodenBridge"
 stru_60B3F8     sCRuntimeClass <offset aCbackpack_0, 324, 0FFFFh, 0, \
                                 offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CBackPack"
 
@@ -271541,7 +271526,6 @@ asc_62F14C      db ' ',0                ; DATA XREF: sub_45E643+78↑o
 
 aCstructure_2   db 'CStructure',0       ; DATA XREF: .rdata:?classCStructure@CStructure@@2UCRuntimeClass@@B↑o
                 align 4
-aCbridge        db 'CBridge',0          ; DATA XREF: .rdata:stru_60B3B0↑o
 aCverticalwoode db 'CVerticalWoodenBridge',0
                 align 4
 aChorisontalwoo db 'CHorisontalWoodenBridge',0

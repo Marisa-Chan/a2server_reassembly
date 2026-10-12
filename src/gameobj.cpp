@@ -36,6 +36,9 @@ IMPLEMENT_DYNAMIC(CAirUnit, CUnit);
 //GetRuntimeClass 461030
 IMPLEMENT_DYNAMIC(CStructure, CGameObject);
 
+//GetRuntimeClass 46f500
+IMPLEMENT_DYNAMIC(CBridge, CStructure);
+
 CGameObject::CGameObject()
 {
     //4610b0

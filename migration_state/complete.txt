@@ -231,6 +231,7 @@
 ?BeginFadeOut@MusicPlayer@@QAEXHH@Z
 ?ChangeFlags@CVisualObject@@UAEXI_N@Z
 ?CharToOemA@CString@@QAEXXZ
+?classCBridge@CBridge@@2UCRuntimeClass@@B
 ?classCGameObject@CGameObject@@2UCRuntimeClass@@B
 ?classCObject@CObject@@2UCRuntimeClass@@B
 ?classCStructure@CStructure@@2UCRuntimeClass@@B
@@ -526,6 +527,7 @@
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
