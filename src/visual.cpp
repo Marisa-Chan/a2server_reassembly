@@ -7344,6 +7344,45 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 47391f
+int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints)
+{
+    int32_t centerOffset = y * 640 + x;
+    for (int32_t nx = x - 1; nx <= x + 1; nx++) {
+        if (nx < 0 || nx >= 640) {
+            continue;
+        }
+        for (int32_t ny = y - 1; ny <= y + 1; ny++) {
+            if (ny < 0 || ny >= 480) {
+                continue;
+            }
+            CPoint pt(nx, ny);
+            if (pt == CPoint(x, y)) {
+                continue;
+            }
+            int32_t offset = ny * 640 + nx;
+            if (this->bmp_data[offset] == 1) {
+                if (this->visitedGrid[nx][ny] == 0) {
+                    this->visitedGrid[nx][ny] = mark;
+                    foundPoints->Add(CPoint(nx, ny));
+                    if (this->FloodFill(nx, ny, mark + 1, foundPoints) == 0) {
+                        return 0;
+                    }
+                }
+            } else if (this->bmp_data[offset] == 2) {
+                if (this->floodPos != CPoint(nx, ny)) {
+                    foundPoints->Add(CPoint(nx, ny));
+                    return 0;
+                }
+            } else if (this->bmp_data[offset] == 1 && this->bmp_data[centerOffset] == 2 && this->visitedGrid[nx][ny] != 0) {
+                // already-visited cell next to a node: nothing to do
+            }
+        }
+    }
+    return 0;
+}
+
+
 // 473508
 void GMapThing::LoadPathmap()
 {

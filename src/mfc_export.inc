@@ -1499,7 +1499,7 @@ extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
 extern ?FreePathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreePathmap(void) - called from ASM LoadPathmap
 externdef ?FreeAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreeAdjacency(void)
 externdef ?BuildAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::BuildAdjacency(void)
-externdef ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z : proc  ; int GMapThing::FloodFill(int, int, uint16_t, CArray<CPoint>*)
+extern ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@@Z : proc  ; int GMapThing::FloodFill(int, int, uint16_t, CArray<CPoint>*) - called from ASM BuildAdjacency
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc

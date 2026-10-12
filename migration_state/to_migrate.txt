@@ -79,7 +79,6 @@ _byte_659A3C
 ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?FreeAdjacency@GMapThing@@QAEXXZ	146
-?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z	244
 ?BuildAdjacency@GMapThing@@QAEXXZ	309
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
