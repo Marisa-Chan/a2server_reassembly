@@ -2015,8 +2015,8 @@ extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 extern   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
 extern ??_7Scenario@@6B@ :dword ; Scenario::vftable (C++-emitted)
 extern ??0CStructure@@QAE@XZ : proc
-externdef ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
-externdef ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
+extern ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
+extern ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
 extern   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 extern   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
 extern   ?VMethod11@CUnit@@UAEHXZ  : proc
@@ -2054,39 +2054,15 @@ externdef ??0CProjectile@@QAE@XZ : proc
 externdef ??0CProjectile@@QAE@PAV0@@Z : proc
 
 ;CStructure
-extern ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ  : proc
-extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
-extern ??_GCStructure@@UAEPAXI@Z : proc
-extern ??1CStructure@@UAE@XZ : proc
-extern ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z : proc
-extern ?VMethod4@CStructure@@UAEHXZ : proc
-extern ?VMethod5@CStructure@@UAEHXZ : proc
-extern ?VMethod6@CStructure@@UAEXHHH@Z : proc
-extern ?VMethod7@CStructure@@UAEXHHH@Z : proc
-extern ?VMethod8@CStructure@@UAEXHHH@Z : proc
-extern ?VMethod9@CStructure@@UAEXHHH@Z : proc
-extern ?VMethod10@CStructure@@UAEXXZ : proc
-extern ?VMethod11@CStructure@@UAEHXZ : proc
-extern ?VMethod12@CStructure@@UAEXXZ : proc
-extern ?VMethod15@CStructure@@UAEHXZ : proc
+extern ??0CStructure@@QAE@XZ : proc
 
 ;CBridge
-extern ??0CBridge@@QAE@HH@Z : proc
-extern ??_GCBridge@@UAEPAXI@Z : proc
-extern ??1CBridge@@UAE@XZ : proc
-extern ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ : proc
-extern ?classCBridge@CBridge@@2UCRuntimeClass@@B : dword
-extern ?VMethod4@CBridge@@UAEHXZ : proc
-extern ?VMethod5@CBridge@@UAEHXZ : proc
-extern ?VMethod17@CBridge@@UAEXHH@Z : proc
 
 ;CVerticalWoodenBridge
+extern ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
 
 ;CHorisontalWoodenBridge
-extern ??_GCHorisontalWoodenBridge@@UAEPAXI@Z : proc
-extern ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ : proc
-extern ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
-extern ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
+extern ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
 
 
 ;MapPlayerData

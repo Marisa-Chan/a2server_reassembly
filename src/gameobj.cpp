@@ -4308,3 +4308,8 @@ void CHorisontalWoodenBridge::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
 CHorisontalWoodenBridge::~CHorisontalWoodenBridge()
 {
 }
+
+// 4a9f10
+CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height)
+{
+}
