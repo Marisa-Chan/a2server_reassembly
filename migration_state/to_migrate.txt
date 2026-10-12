@@ -73,4 +73,3 @@ _byte_659A3C
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?Load@PasswordManager@@QAEXXZ	159
 ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15
-?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z	35

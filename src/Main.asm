@@ -32797,42 +32797,6 @@ unknown_libname_525 endp
 
 ; Attributes: bp-based frame
 
-?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z      proc near               ; CODE XREF: ?VMethod6@CUnit@@UAEXHHH@Z+949↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+eax*4+9Ch]
-                call    ?GetPalette@CGamePalette@@QAEPAGH@Z
-                test    eax, eax
-                jnz     short loc_46F6C5
-                push    1
-                push    2
-                push    10h
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+edx*4+0BCh]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+edx*4+9Ch]
-                call    ?SetPalette@CGamePalette@@QAEXPAUtagRGBQUAD@@IHH@Z
-
-loc_46F6C5:                             ; CODE XREF: ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z+1D↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+ecx*4+9Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

@@ -3461,6 +3461,15 @@ CSprite256* UnitGfxFile::FUN_0046f730()
     return this->spr_b;
 }
 
+CGamePalette* UnitVFXUnfo::FUN_0046f680(int32_t idx)
+{ //46f680
+    uint16_t* pal = this->palettes[idx]->GetPalette(0);
+    if (pal == nullptr) {
+        this->palettes[idx]->SetPalette((RGBQUAD*)this->palette_datas[idx], 0x10, 2, 1);
+    }
+    return this->palettes[idx];
+}
+
 
 StructureInfo::StructureInfo(const char* _fname)
 { //47eca2
