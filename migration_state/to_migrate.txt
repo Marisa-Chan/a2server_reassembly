@@ -242,7 +242,6 @@ _byte_659A3C
 ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z	25
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
-?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z	17
 ?_OnClose@MainWindow@@QAEXXZ	17
 ?_FUN_00495743@MainWindow@@QAEXXZ	18
 ?_OnSize@MainWindow@@QAEXIHH@Z	22

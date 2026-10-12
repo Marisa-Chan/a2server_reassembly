@@ -1091,6 +1091,16 @@ void MainWindow::sub_48CC87()
     ClipCursor(&this->clip_cursor_rect);
 }
 
+// 48b01d
+void MainWindow::_OnKillFocus(CWnd* pNewWnd)
+{
+    Default();
+    this->field_0xbc = 0;
+    g_kbMenuState = 0;
+    g_kbControlState = 0;
+    g_kbShiftState = 0;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

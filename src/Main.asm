@@ -50529,25 +50529,6 @@ loc_486C48:                             ; CODE XREF: .text:00486C36↑j
 ?_OnChar@MainWindow@@QAEXIII@Z      endp
 
 
-; ---------------------------------------------------------------------------
-?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_4963C0
-                mov     ecx, dword ptr [ebp-4]
-                mov     dword ptr [ecx+0BCh], 0
-                mov     ?g_kbMenuState@@3HA, 0
-                mov     ?g_kbControlState@@3HA, 0
-                mov     ?g_kbShiftState@@3HA, 0
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z      endp
 
 
 
@@ -53176,25 +53157,6 @@ lpRect          = dword ptr  8
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4963C0      proc near               ; CODE XREF: .text:0048B02B↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4963C0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
