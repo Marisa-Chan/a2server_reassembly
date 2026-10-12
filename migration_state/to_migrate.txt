@@ -230,6 +230,7 @@ _byte_659A3C
 ?UpdateData@CWnd@@QAEHH@Z	83
 ?WinHelpA@CWnd@@UAEXKI@Z	103
 ?OnWndMsg@CWnd@@UAEHIIJPAJ@Z	653
+??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?FUN_004abf35@Fame2@@QAE_NXZ	34
 ?FUN_004abf72@Fame2@@QAEHXZ	34
 ?FUN_004abfb1@Fame2@@QAEXHH@Z	69
@@ -264,7 +265,6 @@ _byte_659A3C
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
-?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ	199
 ?ShowCurrentTownDialog@MainWindow@@QAEXXZ	202
 ?ConnectToServerAddress@MainWindow@@QAEHXZ	316

@@ -773,6 +773,27 @@ int32_t MainWindow::WaitHatConnection()
     }
 }
 
+// 494a9e
+void MainWindow::FUN_00494a9e()
+{
+    for (int32_t i = 0; i < this->field_0x348->GetSize(); i++) {
+        DiplomacyEntry* entry = (*this->field_0x348)[i];
+        if (entry != nullptr) {
+            delete entry;
+        }
+    }
+    this->field_0x348->RemoveAll();
+
+    for (int32_t i = 0; i < this->vis_map_context->field_0x9b8.GetSize(); i++) {
+        MapPlayerData* mpd = this->vis_map_context->field_0x9b8[i];
+        if (mpd != nullptr && (mpd->flags & 1) == 0) {
+            uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
+            DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, dipl_flags & 1, dipl_flags & 2, dipl_flags & 0x10, dipl_flags & 4);
+            this->field_0x348->Add(entry);
+        }
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

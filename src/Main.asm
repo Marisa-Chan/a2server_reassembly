@@ -19015,8 +19015,8 @@ sub_4459AF      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_445A46(char *Source, int, int, int, int)
-sub_445A46      proc near               ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+1B0↓p
+; int __stdcall ??0DiplomacyEntry@@QAE@PBDHHHH@Z(char *Source, int, int, int, int)
+??0DiplomacyEntry@@QAE@PBDHHHH@Z      proc near               ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+1B0↓p
 
 var_4           = dword ptr -4
 Source          = dword ptr  8
@@ -19062,7 +19062,7 @@ arg_10          = dword ptr  18h
                 mov     esp, ebp
                 pop     ebp
                 retn    14h
-sub_445A46      endp
+??0DiplomacyEntry@@QAE@PBDHHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -53486,201 +53486,6 @@ loc_494A98:                             ; CODE XREF: ?ModalScreen@MainWindow@@QA
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_00494a9e@MainWindow@@QAEXXZ(_DWORD)
-?FUN_00494a9e@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+6725↑p
-
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-Block           = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FC3D5 SIZE 00000015 BYTES
-
-; __unwind { // SEH_494A9E
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_494A9E
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 24h
-                mov     [ebp+var_28], ecx
-                mov     [ebp+var_10], 0
-                jmp     short loc_494ACE
-; ---------------------------------------------------------------------------
-
-loc_494AC5:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ:loc_494B1A↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_494ACE:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+25↑j
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+348h]
-                call    unknown_libname_494 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_10], eax
-                jge     short loc_494B1C
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+348h]
-                call    sub_4515F0
-                mov     ecx, dword ptr [eax]
-                mov     [ebp+var_1C], ecx
-                mov     edx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_18], edx
-                cmp     [ebp+var_18], 0
-                jz      short loc_494B13
-                push    1
-                mov     ecx, dword ptr [ebp+var_18]
-                call    sub_44F9B0
-                mov     [ebp+var_2C], eax
-                jmp     short loc_494B1A
-; ---------------------------------------------------------------------------
-
-loc_494B13:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+64↑j
-                mov     [ebp+var_2C], 0
-
-loc_494B1A:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+73↑j
-                jmp     short loc_494AC5
-; ---------------------------------------------------------------------------
-
-loc_494B1C:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+41↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+348h]
-                call    sub_496E70
-                mov     [ebp+var_10], 0
-                jmp     short loc_494B3C
-; ---------------------------------------------------------------------------
-
-loc_494B33:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ:loc_494C7E↓j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1
-                mov     [ebp+var_10], ecx
-
-loc_494B3C:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+93↑j
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0D0h]
-                add     ecx, 9B8h
-                call    unknown_libname_439 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_10], eax
-                jge     loc_494C83
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+0D0h]
-                add     ecx, 9B8h
-                call    sub_41F350
-                cmp     dword ptr [eax], 0
-                jz      loc_494C7E
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+0D0h]
-                add     ecx, 9B8h
-                call    sub_41F350
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [ecx+34h]
-                and     edx, 1
-                test    edx, edx
-                jnz     loc_494C7E
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+0D0h]
-                add     ecx, 9B8h
-                call    sub_41F350
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [edx+4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     edx, dword ptr [ecx+0D0h]
-                mov     ecx, dword ptr [edx+9CCh]
-                add     ecx, 38h ; '8'
-                call    sub_41EA10
-                xor     ecx, ecx
-                mov     cx, [eax]
-                mov     [ebp+var_14], ecx
-                push    14h             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_494C58
-                mov     edx, dword ptr [ebp+var_14]
-                and     edx, 4
-                neg     edx
-                sbb     edx, edx
-                neg     edx
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_14]
-                and     eax, 10h
-                neg     eax
-                sbb     eax, eax
-                neg     eax
-                push    eax             ; int
-                mov     ecx, dword ptr [ebp+var_14]
-                and     ecx, 2
-                neg     ecx
-                sbb     ecx, ecx
-                neg     ecx
-                push    ecx             ; int
-                mov     edx, dword ptr [ebp+var_14]
-                and     edx, 1
-                neg     edx
-                sbb     edx, edx
-                neg     edx
-                push    edx             ; int
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+0D0h]
-                add     ecx, 9B8h
-                call    sub_41F350
-                mov     edx, dword ptr [eax]
-                add     edx, 14h
-                push    edx             ; Source
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_445A46
-                mov     [ebp+var_30], eax
-                jmp     short loc_494C5F
-; ---------------------------------------------------------------------------
-
-loc_494C58:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+159↑j
-                mov     [ebp+var_30], 0
-
-loc_494C5F:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+1B8↑j
-                mov     eax, dword ptr [ebp+var_30]
-                mov     [ebp+var_24], eax
-;   } // starts at 494BEC
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_24]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+348h]
-                call    sub_496EF0
-
-loc_494C7E:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+D6↑j
-                jmp     loc_494B33
-; ---------------------------------------------------------------------------
-
-loc_494C83:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+B5↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 494A9E
-?FUN_00494a9e@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -248456,24 +248261,6 @@ SEH_493AB6:                             ; DATA XREF: ?InitializeNewCharacterSess
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC32A
 ; END OF FUNCTION CHUNK FOR ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_00494a9e@MainWindow@@QAEXXZ
-
-loc_5FC3D5:                             ; DATA XREF: .rdata:stru_61D4C8↓o
-; __unwind { // SEH_494A9E
-;   cleanup() // owned by 494BEC
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                pop     ecx
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_494A9E:                             ; DATA XREF: ?FUN_00494a9e@MainWindow@@QAEXXZ+5↑o
-                mov     eax, offset stru_61D4A8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC3D5
-; END OF FUNCTION CHUNK FOR ?FUN_00494a9e@MainWindow@@QAEXXZ
 ; START OF FUNCTION CHUNK FOR sub_494F0B
 
 loc_5FC3FE:                             ; DATA XREF: .rdata:stru_61D518↓o
@@ -276508,12 +276295,6 @@ stru_61D418     FuncInfoV1 <19930520h, 2, offset stru_61D438, 0, 0, 0, 0>
                 db    0
 stru_61D438     UnwindMapEntry <-1, offset loc_5FC32A>
                 UnwindMapEntry <0, offset loc_5FC333>
-stru_61D4A8     FuncInfoV1 <19930520h, 1, offset stru_61D4C8, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61D4C8     UnwindMapEntry <-1, offset loc_5FC3D5>
 stru_61D4F8     FuncInfoV1 <19930520h, 2, offset stru_61D518, 0, 0, 0, 0>
                 db    0
                 db    0

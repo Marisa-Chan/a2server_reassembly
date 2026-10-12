@@ -276,7 +276,7 @@ struct DiplomacyEntry
     int32_t mute = 0;
 
     DiplomacyEntry() = default;
-    DiplomacyEntry(const char* _name, int e, int a, int s, int m);
+    DiplomacyEntry(const char* _name, int e, int a, int s, int m); //445a46 in asm
     ~DiplomacyEntry();
 
 };
