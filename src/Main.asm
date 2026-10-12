@@ -51123,44 +51123,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?sub_4919C7@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?OnKeyDown@BigStruct2@@UAEHI@Z+100↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D0h]
-                mov     dword ptr [ecx+0E0h], 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+138h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0D0h]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+138h]
-                call    ?FUN_0043be9f@Vis1200@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+138h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+138h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0C0h], 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_4919C7@MainWindow@@QAEXXZ      endp
 
 
 

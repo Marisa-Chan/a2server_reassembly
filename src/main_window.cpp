@@ -1158,6 +1158,17 @@ void MainWindow::_OnChar(UINT ch, UINT repeat, UINT flags)
     Default();
 }
 
+// 4919c7
+void MainWindow::sub_4919C7()
+{
+    this->vis_map_context->field_0xe0 = 1;
+    this->vis_map_context->AddChild(this->vis_1200);
+    this->vis_1200->FUN_0043be9f();
+    this->vis_1200->VMethod28();
+    this->vis_root->VMethod9();
+    this->field_0xc0 = 1;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
