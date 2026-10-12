@@ -4167,3 +4167,9 @@ void CBridge::VMethod17(int32_t width, int32_t height)
     this->bridge_width = width;
     this->bridge_height = height;
 }
+
+// 46f510
+int32_t CBridge::VMethod4()
+{
+    return this->bridge_width;
+}
