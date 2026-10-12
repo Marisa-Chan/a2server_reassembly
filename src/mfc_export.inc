@@ -777,6 +777,8 @@ externdef ?PreSubclassWindow@CWnd@@UAEXXZ :proc   ; (public: virtual void __this
 externdef ?Create@CWnd@@UAEHPBD0KABUtagRECT@@PAV1@IPAX@Z :proc   ; (public: virtual int __thiscall CWnd::Create(char const *,char const *,unsigned long,struct tagRECT const &,class CWnd *,unsigned int,v
 externdef ?DestroyWindow@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall CWnd::DestroyWindow(void))
 externdef ?OnDestroy@CWnd@@IAEXXZ :proc   ; CWnd::OnDestroy(void) - 5e130c
+externdef ?OnDestroy@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnDestroy(void) - 5f1251
+externdef ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z : proc  ; CFrameWnd::OnSetFocus(CWnd*) - 5f183f
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )

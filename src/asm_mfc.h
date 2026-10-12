@@ -4076,6 +4076,7 @@ public:
 	UINT m_nIdleFlags;          // set of bit flags for idle processing
 
 protected:
+	void OnDestroy(); // 5f1251
 	void OnSetFocus(CWnd* pOldWnd); // 5f183f
 };
 

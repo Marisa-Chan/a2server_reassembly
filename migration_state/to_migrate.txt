@@ -112,10 +112,12 @@ _byte_659A3C
 ?DelayUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z	8
 ?PostNcDestroy@CFrameWnd@@UAEXXZ	9
 ?GetActiveDocument@CFrameWnd@@UAEPAVCDocument@@XZ	11
+?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z	14
 ?GetDefaultAccelerator@CFrameWnd@@UAEPAUHACCEL__@@XZ	18
 ?OnCreateClient@CFrameWnd@@UAEHPAUtagCREATESTRUCTA@@PAX@Z	21
 ?OnUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z	31
 ?GetMessageString@CFrameWnd@@UBEXIAAVCString@@@Z	31
+?OnDestroy@CFrameWnd@@IAEXXZ	33
 ?OnUpdateFrameTitle@CFrameWnd@@UAEXH@Z	39
 ?EndModalState@CFrameWnd@@UAEXXZ	45
 ?ActivateFrame@CFrameWnd@@UAEXH@Z	45
