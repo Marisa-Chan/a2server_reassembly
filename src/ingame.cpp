@@ -2616,6 +2616,16 @@ int TakeDamage::Draw()
 	return 1;
 }
 
+int32_t TakeDamage::FUN_0041f620()
+{ //41f620
+    return this->dx + this->cunit->centerScreenX;
+}
+
+int32_t TakeDamage::FUN_0041f640()
+{ //41f640
+    return this->dy + this->cunit->centerScreenY - this->cunit->terrainHeightOffset;
+}
+
 
 void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg)
 {

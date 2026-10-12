@@ -1287,7 +1287,6 @@ extern ?Draw@GM_a28@@QAEXXZ  :proc
 ;TakeDamage
 extern ??1TakeDamage@@QAE@XZ : proc
 extern ??0TakeDamage@@QAE@XZ : proc
-externdef ?FUN_0041f620@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f620()
 externdef ?FUN_0041f640@TakeDamage@@QAEHXZ :proc  ; int32_t TakeDamage::FUN_0041f640()
 
 ;BigStruct2

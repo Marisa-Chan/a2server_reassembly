@@ -5304,23 +5304,6 @@ sub_41F5A0      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0041f620@TakeDamage@@QAEHXZ      proc near               ; CODE XREF: ?sub_40403B@BigStruct2@@QAEXXZ+822↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+1Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0Ch]
-                add     eax, [ecx+64h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041f620@TakeDamage@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -5329,26 +5312,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?FUN_0041f640@TakeDamage@@QAEHXZ      proc near               ; CODE XREF: ?sub_40403B@BigStruct2@@QAEXXZ+802↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+1Ch]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+10h]
-                add     eax, [ecx+68h]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+1Ch]
-                sub     eax, [edx+6Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041f640@TakeDamage@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
