@@ -58,7 +58,7 @@ extern GameSettings g_settings; //660ec0
 extern CMapStringToString g_TunesMap; //660d80
 
 
-// Base address 0x65fbbc; consumed by sub_46E291 case 7 -> sub_4AA29B, freed by sub_47619A.
+// Base address 0x65fbbc; consumed by CProjectile::VMethod6 (46e291) case 7 -> sub_4AA29B, freed by sub_47619A.
 class DistortMap
 {
 public:
