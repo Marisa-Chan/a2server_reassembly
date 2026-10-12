@@ -11,6 +11,7 @@
 ??0CBmp256@@QAE@PBD@Z
 ??0CBmp64@@QAE@II@Z
 ??0CBmp64@@QAE@PBD@Z
+??0CBridge@@QAE@HH@Z
 ??0CCursor@@QAE@PBDHHH@Z
 ??0CGameObject@@QAE@PBV0@@Z
 ??0CGameObject@@QAE@XZ

@@ -27213,48 +27213,6 @@ sub_462AB1      endp
 
 ; Attributes: bp-based frame
 
-??0CBridge@@QAE@HH@Z      proc near               ; CODE XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+12↓p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-; FUNCTION CHUNK AT 005FA41A SIZE 00000013 BYTES
-
-; __unwind { // SEH_463C7F
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_463C7F
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??0CStructure@@QAE@XZ
-;   try {
-                mov     [ebp+var_4], 0
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax], offset off_60B578
-                mov     ecx, dword ptr [ebp+arg_4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?VMethod17@CBridge@@UAEXHH@Z
-;   } // starts at 463CA3
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-; } // starts at 463C7F
-??0CBridge@@QAE@HH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -235068,23 +235026,6 @@ SEH_461DFA:                             ; DATA XREF: ?AssertValid@CGameObject@@U
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FA407
 ; END OF FUNCTION CHUNK FOR ?AssertValid@CGameObject@@UBEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ??0CBridge@@QAE@HH@Z
-
-loc_5FA41A:                             ; DATA XREF: .rdata:stru_61B270↓o
-; __unwind { // SEH_463C7F
-;   cleanup() // owned by 463CA3
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CStructure@@UAE@XZ
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_463C7F:                             ; DATA XREF: ??0CBridge@@QAE@HH@Z+5↑o
-                mov     eax, offset stru_61B250
-                jmp     ___CxxFrameHandler
-; } // starts at 5FA41A
-; END OF FUNCTION CHUNK FOR ??0CBridge@@QAE@HH@Z
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_464215
 
 loc_5FA42D:                             ; DATA XREF: .rdata:stru_61B298↓o
@@ -253125,28 +253066,6 @@ off_60B4C8      dd offset sub_461070    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
                 dd offset ?VMethod15@CGameObject@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 align 10h
-off_60B578      dd offset ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CBridge@@QAE@HH@Z+2E↑o
-                dd offset ??_GCBridge@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CGameObject@@UAEXH@Z
-                dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
-                dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod6@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod7@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod8@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod9@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod10@CStructure@@UAEXXZ
-                dd offset ?VMethod11@CStructure@@UAEHXZ
-                dd offset ?VMethod12@CStructure@@UAEXXZ
-                dd offset ?VMethod13@CGameObject@@UAEXXZ
-                dd offset ?VMethod14@CGameObject@@UAEXXZ
-                dd offset ?VMethod15@CStructure@@UAEHXZ
-                dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod17@CBridge@@UAEXHH@Z
 
 off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CAirUnit@@QAE@XZ+12↑o
                 dd offset sub_46EFE0
@@ -265279,12 +265198,6 @@ stru_61B200     UnwindMapEntry <-1, offset loc_5FA3B8>
 stru_61B228     FuncInfoV1 <19930520h, 1, offset stru_61B248, 0, 0, 0, 0>
                 align 8
 stru_61B248     UnwindMapEntry <-1, offset loc_5FA407>
-stru_61B250     FuncInfoV1 <19930520h, 1, offset stru_61B270, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B270     UnwindMapEntry <-1, offset loc_5FA41A>
 stru_61B278     FuncInfoV1 <19930520h, 4, offset stru_61B298, 0, 0, 0, 0>
                 db    0
                 db    0

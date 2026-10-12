@@ -4187,3 +4187,9 @@ int32_t CBridge::VMethod5()
 CBridge::~CBridge()
 {
 }
+
+// 463c7f
+CBridge::CBridge(int32_t width, int32_t height)
+{
+    this->VMethod17(width, height);
+}
