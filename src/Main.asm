@@ -27384,8 +27384,8 @@ loc_46D7E4:                             ; CODE XREF: ?VMethod10@CAirUnit@@UAEXXZ
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_46D7E8(CDumpContext *)
-sub_46D7E8      proc near               ; DATA XREF: .rdata:0060B670↓o
+; int __stdcall ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
+?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B670↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -27400,7 +27400,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_46D7E8      endp
+?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29624,7 +29624,7 @@ sub_46EF30      endp
 
 ; Attributes: bp-based frame
 
-sub_46EFE0      proc near               ; DATA XREF: .rdata:0060B664↓o
+??_GCAirUnit@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B664↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -29634,7 +29634,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_46F010
+                call    ??1CAirUnit@@UAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -29643,12 +29643,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_46F002:                             ; CODE XREF: sub_46EFE0+17↑j
+loc_46F002:                             ; CODE XREF: ??_GCAirUnit@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_46EFE0      endp
+??_GCAirUnit@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -29657,7 +29657,7 @@ sub_46EFE0      endp
 
 ; Attributes: bp-based frame
 
-sub_46F010      proc near               ; CODE XREF: sub_46EFE0+A↑p
+??1CAirUnit@@UAE@XZ      proc near               ; CODE XREF: ??_GCAirUnit@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -29670,7 +29670,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46F010      endp
+??1CAirUnit@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -252490,10 +252490,10 @@ off_60B4C8      dd offset sub_461070    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
                 align 10h
 
 off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CAirUnit@@QAE@XZ+12↑o
-                dd offset sub_46EFE0
+                dd offset ??_GCAirUnit@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset sub_46D7E8
+                dd offset ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z
                 dd offset ?VMethod1@CUnit@@UAEXH@Z
                 dd offset ?VMethod2@CUnit@@UAEHXZ
                 dd offset ?VMethod3@CUnit@@UAEHXZ
@@ -270863,7 +270863,7 @@ asc_62F504      db ',#',0               ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBD
 asc_62F508      db ', ',0               ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z:loc_46D658↑o
                 align 4
 ; CHAR aCairunit_1[]
-aCairunit_1     db 'CAirUnit',0         ; DATA XREF: sub_46D7E8+7↑o
+aCairunit_1     db 'CAirUnit',0         ; DATA XREF: ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z+7↑o
                 align 4
 ; CHAR aCprojectile[]
 aCprojectile    db 'CProjectile',0      ; DATA XREF: sub_46EEB4+7↑o

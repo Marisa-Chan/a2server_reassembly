@@ -347,11 +347,13 @@ class CAirUnit : public CUnit
 {
 	DECLARE_DYNAMIC(CAirUnit);
 public:
-	virtual ~CAirUnit();
+	virtual ~CAirUnit(); // 46f010
 
-	virtual void VMethod10() override;
+	virtual void Dump(CDumpContext& dc) const override; // 46d7e8
 
-	CAirUnit();
+	virtual void VMethod10() override; // 46d6fb
+
+	CAirUnit(); // 46d6ad
 };
 ASSERT_SIZE(CAirUnit, 0x1e4);
 

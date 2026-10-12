@@ -2045,6 +2045,9 @@ externdef _byte_65F630 : byte  ; char[1024] CUnit::FUN_0046d0f7 spell-list hint 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc
 extern ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ : proc
+externdef ??_GCAirUnit@@UAEPAXI@Z : proc
+externdef ??1CAirUnit@@UAE@XZ : proc
+externdef ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
 
 ;CBackPack
 externdef ??0CBackPack@@QAE@XZ : proc
