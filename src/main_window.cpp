@@ -1253,9 +1253,9 @@ void MainWindow::sub_48CBE2()
     CRect rect(*this->vis_map_context->GetRect());
 
     if (this->vis_map_context->IsBookOpen() != 0) {
-        rect.BottomRight().y = this->vis_spellbook->GetRect()->TopLeft().y;
+        rect.BottomRight().y = this->vis_spellbook->GetRect().TopLeft().y;
     } else if (this->vis_map_context->IsBagOpen() != 0) {
-        rect.BottomRight().y = this->vis_invtype1->GetRect()->TopLeft().y;
+        rect.BottomRight().y = this->vis_invtype1->GetRect().TopLeft().y;
     }
 
     ClipCursor(rect);
