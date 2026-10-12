@@ -1212,6 +1212,23 @@ void MainWindow::FUN_0048cb3c()
     this->last_tic_time = 0x7fffffff;
 }
 
+// 48d125
+void MainWindow::ShowFameHallDocDlg()
+{
+    if (g_mousept.GetSelectState() != 0) {
+        g_mousept.ResetStates();
+        this->sub_48CC87();
+    }
+
+    g_Cursors[0x1a]->Use();
+    this->vis_root->AddChild(this->vis_famedocument);
+    this->vis_famedocument->VMethod28();
+    this->vis_root->VMethod9();
+    this->field_0x460 = 0;
+    this->dialogsMask = this->dialogsMask | 0x4000;
+    g_Cursors[0]->Use();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

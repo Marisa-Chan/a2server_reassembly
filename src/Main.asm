@@ -50536,57 +50536,6 @@ loc_48CCF7:                             ; CODE XREF: ?sub_48CCA1@MainWindow@@QAE
 
 ; Attributes: bp-based frame
 
-?ShowFameHallDocDlg@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+258F↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A ; varThis
-                call    ?GetSelectState@CMousePointer@@QAEHXZ ; Concurrency::details::InternalContextBase::GetProxy(void)
-                test    eax, eax
-                jz      short loc_48D14C
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ResetStates@CMousePointer@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?sub_48CC87@MainWindow@@QAEXXZ
-
-loc_48D14C:                             ; CODE XREF: ?ShowFameHallDocDlg@MainWindow@@QAEXXZ+13↑j
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+68h
-                call    ?Use@CCursor@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+3D8h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+3D8h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+3D8h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+460h], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+418h]
-                or      edx, 4000h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+418h], edx
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?ShowFameHallDocDlg@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
