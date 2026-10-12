@@ -30813,20 +30813,6 @@ sub_46F410      endp
 ; Attributes: library function bp-based frame
 ;46f510
 ; struct CFrameWnd *__thiscall COleIPFrameWnd::GetDocFrame(COleIPFrameWnd *__hidden varThis)
-?VMethod5@CBridge@@UAEHXZ proc near           ; DATA XREF: .rdata:0060B59C↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+148h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod5@CBridge@@UAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

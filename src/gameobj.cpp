@@ -4173,3 +4173,9 @@ int32_t CBridge::VMethod4()
 {
     return this->bridge_width;
 }
+
+// 46f530
+int32_t CBridge::VMethod5()
+{
+    return this->bridge_height;
+}
