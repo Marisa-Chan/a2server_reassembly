@@ -1179,6 +1179,22 @@ void MainWindow::FUN_00478130()
     }
 }
 
+// 486bb0
+void MainWindow::_OnKeyUp(UINT key, UINT repeat, UINT flags)
+{
+    if (this->field_0x45c == 0) {
+        if (key == 0x10) {
+            g_kbShiftState = 0;
+        } else if (key == 0x11) {
+            g_kbControlState = 0;
+        } else if (key == 0x12) {
+            g_kbMenuState = 0;
+        }
+    }
+    Default();
+    g_mousept.ForceDisableHint();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

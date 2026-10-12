@@ -192,6 +192,7 @@
 ?_mbstowcsz@@YAHPA_WPBDI@Z
 ?_OnChar@MainWindow@@QAEXIII@Z
 ?_OnClose@MainWindow@@QAEXXZ
+?_OnKeyUp@MainWindow@@QAEXIII@Z
 ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z

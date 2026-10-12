@@ -50355,54 +50355,6 @@ loc_48638D:                             ; CODE XREF: ?FUN_00485aed@MainWindow@@Q
 ; Attributes: bp-based frame
 
 
-; ---------------------------------------------------------------------------
-?_OnKeyUp@MainWindow@@QAEXIII@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp-4]
-                cmp     dword ptr [eax+45Ch], 0
-                jnz     short loc_486C01
-                mov     ecx, dword ptr [ebp+8]
-                mov     [ebp-8], ecx
-                cmp     dword ptr [ebp-8], 10h
-                jz      short loc_486BEB
-                cmp     dword ptr [ebp-8], 11h
-                jz      short loc_486BDF
-                cmp     dword ptr [ebp-8], 12h
-                jz      short loc_486BF7
-                jmp     short loc_486C01
-; ---------------------------------------------------------------------------
-
-loc_486BDF:                             ; CODE XREF: .text:00486BD5↑j
-                mov     ?g_kbControlState@@3HA, 0
-                jmp     short loc_486C01
-; ---------------------------------------------------------------------------
-
-loc_486BEB:                             ; CODE XREF: .text:00486BCF↑j
-                mov     ?g_kbShiftState@@3HA, 0
-                jmp     short loc_486C01
-; ---------------------------------------------------------------------------
-
-loc_486BF7:                             ; CODE XREF: .text:00486BDB↑j
-                mov     ?g_kbMenuState@@3HA, 0
-
-loc_486C01:                             ; CODE XREF: .text:00486BC3↑j
-                mov     edx, dword ptr [ebp+10h]
-                push    edx
-                mov     eax, dword ptr [ebp+0Ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+8]
-                push    ecx
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496480
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ForceDisableHint@CMousePointer@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnKeyUp@MainWindow@@QAEXIII@Z      endp
 
 
 ; ---------------------------------------------------------------------------
@@ -52991,25 +52943,6 @@ sub_496460      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_496480      proc near               ; CODE XREF: .text:00486C10↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_496480      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
