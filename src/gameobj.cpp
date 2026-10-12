@@ -4233,3 +4233,8 @@ void CVerticalWoodenBridge::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
         info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
     }
 }
+
+// 463f01
+void CVerticalWoodenBridge::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+}

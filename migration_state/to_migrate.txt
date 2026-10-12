@@ -73,7 +73,6 @@ _byte_659A3C
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
-?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CVerticalWoodenBridge@@QAE@XZ	13
 ??0CVerticalWoodenBridge@@QAE@HH@Z	22

@@ -1031,6 +1031,7 @@
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CStructure@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
+?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ
