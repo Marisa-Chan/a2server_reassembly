@@ -4139,3 +4139,9 @@ void CStructure::VMethod10()
 {
     this->FUN_00461c41(1, this);
 }
+
+// 4637b0
+void CStructure::Dump(CDumpContext& dc) const
+{
+    //dc << "CStructure";
+}

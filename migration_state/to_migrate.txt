@@ -81,7 +81,6 @@ _byte_659A3C
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??1CStructure@@QAE@XZ	13
-?Dump@CStructure@@UBEXAAVCDumpContext@@@Z	15
 ??0CStructure@@QAE@XZ	16
 ??_GCStructure@@UAEPAXI@Z	24
 ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11

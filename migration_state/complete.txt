@@ -286,6 +286,7 @@
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z
 ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
 ?Dump@CObject@@UBEXAAVCDumpContext@@@Z
+?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
 ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
 ?Duplicate@Packet@@UAEPAV1@XZ
 ?dword_65FBB8@@3PAXA

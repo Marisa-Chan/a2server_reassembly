@@ -27227,22 +27227,6 @@ sub_462AEA      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
-?Dump@CStructure@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B530↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aCstructure_1 ; "CStructure"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??6CDumpContext@@QAEAAV0@PBD@Z ; CDumpContext::operator<<(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Dump@CStructure@@UBEXAAVCDumpContext@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
