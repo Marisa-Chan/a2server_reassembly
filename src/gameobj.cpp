@@ -3782,3 +3782,15 @@ void StructEnter::FUN_00473b80()
 		}
 	}
 }
+
+// 473d10
+int32_t StructEnter::FUN_00473d10()
+{
+	for (int32_t i = 0; i < this->field_0x0.GetSize(); i++) {
+		CUnit* unit = this->field_0x0[i];
+		if ((unit->unitFlags & 0x20) != 0) {
+			return i;
+		}
+	}
+	return -1;
+}

@@ -34161,54 +34161,6 @@ sub_472700      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00473d10@StructEnter@@QAEHXZ      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+44C↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], 0
-                jmp     short loc_473D2B
-; ---------------------------------------------------------------------------
-
-loc_473D22:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ:loc_473D58↓j
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 1
-                mov     [ebp+var_4], eax
-
-loc_473D2B:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+10↑j
-                mov     ecx, dword ptr [ebp+var_8]
-                call    unknown_libname_451 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_4], eax
-                jge     short loc_473D5A
-                mov     ecx, dword ptr [ebp+var_4]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4215A0
-                mov     edx, dword ptr [eax]
-                mov     eax, dword ptr [edx+1B8h]
-                and     eax, 20h
-                test    eax, eax
-                jz      short loc_473D58
-                mov     eax, dword ptr [ebp+var_4]
-                jmp     short loc_473D5D
-; ---------------------------------------------------------------------------
-
-loc_473D58:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+41↑j
-                jmp     short loc_473D22
-; ---------------------------------------------------------------------------
-
-loc_473D5A:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+26↑j
-                or      eax, 0FFFFFFFFh
-
-loc_473D5D:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@QAEHXZ+46↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00473d10@StructEnter@@QAEHXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
