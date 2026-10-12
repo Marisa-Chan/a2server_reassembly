@@ -5460,27 +5460,6 @@ sub_41F850      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ(_DWORD)
-?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1A16↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+38h], 0
-                jnz     short loc_41F908
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@ProjectileInfo@@QAEXXZ
-
-loc_41F908:                             ; CODE XREF: ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

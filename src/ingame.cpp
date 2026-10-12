@@ -3547,6 +3547,14 @@ void ProjectileInfo::Deinit()
 	inited = 0;
 }
 
+CSprite256* ProjectileInfo::FUN_0041f8f0()
+{ //41f8f0
+    if (this->inited == 0) {
+        this->Init();
+    }
+    return this->sprite1;
+}
+
 
 void BigStruct2::FUN_0041cad0(int32_t m)
 { //41cad0

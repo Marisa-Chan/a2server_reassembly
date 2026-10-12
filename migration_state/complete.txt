@@ -324,6 +324,7 @@
 ?FUN_0041ee20@MapPlayerData@@QAEIH@Z
 ?FUN_0041ee50@MapPlayerData@@QAEHH@Z
 ?FUN_0041f130@CGameObject@@QAEHXZ
+?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ
 ?FUN_00432b80@VisStartGameTextBox@@QAEXXZ
 ?FUN_004382d9@VisStartGame@@QAEXXZ
 ?FUN_004394f3@TokenEntry@@QAE?AVCString@@XZ

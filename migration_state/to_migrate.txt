@@ -72,7 +72,6 @@ _byte_659A3C
 ??0CStructureBridge2@@QAE@HH@Z	22
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?Load@PasswordManager@@QAEXXZ	159
-?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13
 ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z	20
 ?FUN_0041f620@TakeDamage@@QAEHXZ	16
