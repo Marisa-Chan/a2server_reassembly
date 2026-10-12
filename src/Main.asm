@@ -51328,27 +51328,6 @@ loc_4A477B:                             ; CODE XREF: ?FUN_004a4740@@YAXPAPAVSfxS
 
 ; Attributes: bp-based frame
 
-?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z      proc near               ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+538↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 4
-                call    sub_4A47C0
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

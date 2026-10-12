@@ -725,7 +725,7 @@ externdef ??1MapAlm@@QAE@XZ :proc      ; MapAlm::~MapAlm()
 ; QuestMap
 extern ??0QuestMap@@QAE@XZ :proc                                              ; QuestMap::QuestMap()
 extern ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
-externdef ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z : proc  ; int32_t QuestMap::FUN_004a47a0(uint32_t, Quest**)
+extern ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z : proc  ; int32_t QuestMap::FUN_004a47a0(uint32_t, Quest**)
 
 ; Quest
 extern ?FUN_004a4780@Quest@@QAEIXZ : proc  ; uint32_t Quest::FUN_004a4780()
