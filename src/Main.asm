@@ -26864,24 +26864,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
-?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B4D8↓o
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    offset aCbackpack ; "CBackPack"
-                mov     ecx, dword ptr [ebp+arg_0] ; varThis
-                call    ??6CDumpContext@@QAEAAV0@PBD@Z ; CDumpContext::operator<<(char const *)
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z      endp
-
 
 ; =============== S U B R O U T I N E =======================================
 

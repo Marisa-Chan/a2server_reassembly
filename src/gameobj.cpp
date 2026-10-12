@@ -4353,3 +4353,9 @@ void CBackPack::VMethod10()
 {
     this->FUN_00461c41(0, this);
 }
+
+// 462ab1
+void CBackPack::Dump(CDumpContext& dc) const
+{
+    //dc << "CBackPack";
+}
