@@ -227,6 +227,23 @@ void Fame2::FUN_004abfb1(int32_t x, int32_t y)
     g_font4->DrawTextLines(r, this->field_x38, this->field_x38 + 0x15, this->str_arr, clr, 0);
 }
 
+void Fame2::FUN_004ac0af()
+{ //4ac0af
+    this->Clear();
+    this->rect = CRect(CPoint(0x5c, 0x48), CSize(0x1c8, 0x158));
+
+    char buffer[1024];
+    if (this->field_x4 == 0) {
+        sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->field_x0);
+        this->field_x8 = new CBmp64(buffer);
+    } else {
+        sprintf(buffer, "main\\text\\Docs\\%d.txt", this->field_x0);
+        ReadFileToString(buffer, &this->str);
+        this->str_arr.Copy(g_font4->StringArrayForRect(this->rect, this->str));
+    }
+    this->field_x38 = 0;
+}
+
 
 
 
