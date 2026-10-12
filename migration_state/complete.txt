@@ -566,6 +566,7 @@
 ?IsSelected@CGameObject@@QAEHXZ
 ?IsValidIndex@VisListBox@@UAEHH@Z
 ?Left@CString@@QBE?AV1@H@Z
+?Load@PasswordManager@@QAEXXZ
 ?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
 ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z

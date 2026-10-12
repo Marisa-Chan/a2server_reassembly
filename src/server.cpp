@@ -63,6 +63,30 @@ void PasswordManager::OpenFile(const char* name)
     }
 }
 
+void PasswordManager::Load()
+{ //4f6c92
+    CStdioFile file;
+    if (!file.Open(this->fname, CFile::modeRead)) {
+        return;
+    }
+    CString login;
+    CString password;
+    CString skip;
+    this->content.SetSize(0, -1);
+    while (file.GetPosition() < file.GetLength()) {
+        file.ReadString(login);
+        file.ReadString(password);
+        file.ReadString(skip);
+        file.ReadString(skip);
+        char buf[1024];
+        strcpy(buf, login);
+        buf[login.GetLength()] = '\x01';
+        strcpy(buf + login.GetLength() + 1, password);
+        this->content.SetAtGrow(this->content.GetSize(), buf);
+    }
+    file.Close();
+}
+
 
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA
