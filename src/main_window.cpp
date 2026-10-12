@@ -856,6 +856,69 @@ void MainWindow::ShowCurrentTownDialog()
     g_Cursors[0]->Use();
 }
 
+// 491142
+int32_t MainWindow::ConnectToServerAddress()
+{
+    LockSurface2();
+    FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), 10, clrsh_ShockingBlack, 1);
+    UnlockSurface2();
+    FlushScreen();
+
+    g_CLlDriver.Close();
+    this->sessionMode = 0;
+
+    CLlAddress addr;
+    strcpy(addr.address, "0.0.0.0");
+    int result = g_CLlDriver.PrepareForConnect(this->field_0x3e0.field_14, &addr);
+    if (result != 0) {
+        result = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
+    }
+
+    if (result == 0) {
+        g_CLlDriver.Close();
+        VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(3), nullptr, 0);
+        this->ModalScreen(mbox);
+        this->PostMessage(0x10, 0, 0);
+        return 0;
+    }
+
+    g_NetStru1_local.ProcessConnections();
+    uint32_t start_time = timeGetTime();
+    INT_00660f8c = 0;
+
+    while (true) {
+        MSG msg;
+        if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
+            if (msg.message == 0x12) { // WM_QUIT
+                return 0;
+            }
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        if (g_NetStru1_local.GetClientsPktNum() != 0) {
+            if (this->vis_map_context->ProcessPackets(0x64) == 0) {
+                VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+                this->ModalScreen(mbox);
+                this->PostMessage(0x10, 0, 0);
+                return 0;
+            }
+            return 1;
+        }
+
+        if (g_CmdTimeout < timeGetTime() - start_time) {
+            break;
+        }
+        g_mousept.Update();
+    }
+
+    VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0), nullptr, 0);
+    this->ModalScreen(mbox);
+    this->PostMessage(0x10, 0, 0);
+    return 0;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
