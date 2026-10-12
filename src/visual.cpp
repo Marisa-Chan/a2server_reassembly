@@ -7344,6 +7344,46 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 47362d
+void GMapThing::BuildAdjacency()
+{
+    CArray<CPoint> foundPoints;
+    CArray<CPoint> reverseBuf;
+    for (int32_t i = 0; i < this->nodeCount; i++) {
+        foundPoints.RemoveAll();
+        foundPoints.Add(this->nodePoints[i]);
+        CPoint node = this->nodePoints[i];
+        this->visitedGrid[node.x][node.y] = 1;
+        this->floodPos = node;
+        int32_t size;
+        do {
+            this->FloodFill(this->floodPos.x, this->floodPos.y, 2, &foundPoints);
+            size = foundPoints.GetSize();
+            if (size != 1) {
+                CPoint last = foundPoints.GetAt(foundPoints.GetUpperBound());
+                for (int32_t j = 0; j < this->nodeCount; j++) {
+                    if (this->nodePoints[j] == last) {
+                        if (this->adjacencyMatrix[i][j] == nullptr) {
+                            this->adjacencyMatrix[i][j] = new CArray<CPoint>();
+                            this->adjacencyMatrix[i][j]->InsertAt(0, &foundPoints);
+                            reverseBuf.RemoveAll();
+                            while (foundPoints.GetSize() != 0) {
+                                reverseBuf.InsertAt(0, foundPoints.GetAt(0), 1);
+                                foundPoints.RemoveAt(0, 1);
+                            }
+                            this->adjacencyMatrix[j][i] = new CArray<CPoint>();
+                            this->adjacencyMatrix[j][i]->InsertAt(0, &reverseBuf);
+                            foundPoints.Add(this->nodePoints[i]);
+                        }
+                        break;
+                    }
+                }
+            }
+        } while (size > 1);
+    }
+}
+
+
 // 4733cf
 void GMapThing::FreeAdjacency()
 {

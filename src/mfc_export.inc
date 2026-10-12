@@ -1496,9 +1496,6 @@ extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
-extern ?FreePathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreePathmap(void) - called from ASM LoadPathmap
-externdef ?BuildAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::BuildAdjacency(void)
-extern ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@@Z : proc  ; int GMapThing::FloodFill(int, int, uint16_t, CArray<CPoint>*) - called from ASM BuildAdjacency
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc
 externdef ?VMethod26@VisGlobalMap@@UAEXXZ : proc
 extern ?VMethod28@VisGlobalMap@@UAEXXZ  : proc
