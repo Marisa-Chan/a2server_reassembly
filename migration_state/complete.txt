@@ -533,6 +533,7 @@
 ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetShape@TokenEntry@@QBEHXZ
