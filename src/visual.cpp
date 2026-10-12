@@ -7344,6 +7344,16 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 473b4a
+void* GMapThing::TakeAdjacency(void* nodePoints)
+{
+    CArray<CPoint>*** matrix = this->adjacencyMatrix;
+    this->adjacencyMatrix = nullptr;
+    static_cast<CArray<CPoint>*>(nodePoints)->InsertAt(0, &this->nodePoints);
+    return matrix;
+}
+
+
 // 47115D
 void VisGlobalMap::VMethod28()
 {

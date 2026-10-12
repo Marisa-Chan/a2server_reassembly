@@ -35005,32 +35005,6 @@ loc_473B44:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHH
 
 ; Attributes: bp-based frame
 
-?TakeAdjacency@GMapThing@@QAEPAXPAX@Z      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+FF↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+8]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+var_8]
-                mov     dword ptr [edx+8], 0
-                mov     eax, dword ptr [ebp+var_8]
-                add     eax, 0Ch
-                push    eax
-                push    0
-                mov     ecx, dword ptr [ebp+arg_0]
-                call    sub_474000
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?TakeAdjacency@GMapThing@@QAEPAXPAX@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
