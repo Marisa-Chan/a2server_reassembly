@@ -1312,6 +1312,36 @@ void MainWindow::_OnPaint()
     }
 }
 
+// 495ab2
+void MainWindow::_OnSizing(UINT nSide, LPRECT rect)
+{
+    switch (nSide) {
+    case 1:
+    case 2:
+        SetCursor(this->cursor_sizewe);
+        break;
+    case 3:
+    case 6:
+        SetCursor(this->cursor_sizens);
+        break;
+    case 4:
+    case 8:
+        SetCursor(this->cursor_sizenwse);
+        break;
+    case 5:
+    case 7:
+        SetCursor(this->cursor_sizenesw);
+        break;
+    }
+
+    if (rect->right - rect->left < 0x110) {
+        rect->right = rect->left + 0x110;
+    }
+    if (rect->bottom - rect->top < 0x1ae) {
+        rect->bottom = rect->top + 0x1ae;
+    }
+}
+
 // 495c6e
 void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
 {

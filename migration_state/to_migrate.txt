@@ -249,7 +249,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
 ?FUN_00485aed@MainWindow@@QAEXXZ	731

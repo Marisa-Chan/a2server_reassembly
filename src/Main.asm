@@ -51641,97 +51641,6 @@ loc_495194:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@
 
 ; =============== S U B R O U T I N E =======================================
 
-; ---------------------------------------------------------------------------
-?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 18h
-                mov     [ebp-14h], ecx
-                mov     eax, dword ptr [ebp+8]
-                mov     [ebp-18h], eax
-                mov     ecx, dword ptr [ebp-18h]
-                sub     ecx, 1          ; switch 8 cases
-                mov     [ebp-18h], ecx
-                cmp     dword ptr [ebp-18h], 7
-                ja      short def_495AD3 ; jumptable 00495AD3 default case
-                mov     edx, dword ptr [ebp-18h]
-                jmp     ds:jpt_495AD3[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_495ADA:                             ; CODE XREF: .text:00495AD3↑j
-                mov     eax, dword ptr [ebp-14h]  ; jumptable 00495AD3 cases 3,6
-                mov     ecx, dword ptr [eax+62Ch]
-                push    ecx
-                call    SetCursor
-                jmp     short def_495AD3 ; jumptable 00495AD3 default case
-; ---------------------------------------------------------------------------
-
-loc_495AEC:                             ; CODE XREF: .text:00495AD3↑j
-                mov     edx, dword ptr [ebp-14h]  ; jumptable 00495AD3 cases 1,2
-                mov     eax, dword ptr [edx+628h]
-                push    eax
-                call    SetCursor
-                jmp     short def_495AD3 ; jumptable 00495AD3 default case
-; ---------------------------------------------------------------------------
-
-loc_495AFE:                             ; CODE XREF: .text:00495AD3↑j
-                mov     ecx, dword ptr [ebp-14h]  ; jumptable 00495AD3 cases 5,7
-                mov     edx, dword ptr [ecx+634h]
-                push    edx
-                call    SetCursor
-                jmp     short def_495AD3 ; jumptable 00495AD3 default case
-; ---------------------------------------------------------------------------
-
-loc_495B10:                             ; CODE XREF: .text:00495AD3↑j
-                mov     eax, dword ptr [ebp-14h]  ; jumptable 00495AD3 cases 4,8
-                mov     ecx, dword ptr [eax+630h]
-                push    ecx
-                call    SetCursor
-
-def_495AD3:                             ; CODE XREF: .text:00495ACE↑j
-                lea     edx, [ebp-10h]  ; jumptable 00495AD3 default case
-                push    edx
-                mov     ecx, dword ptr [ebp-14h]
-                call    sub_496A20
-                mov     eax, dword ptr [ebp+0Ch]
-                mov     ecx, dword ptr [ebp+0Ch]
-                mov     edx, dword ptr [eax+8]
-                sub     edx, [ecx]
-                cmp     edx, 110h
-                jge     short loc_495B50
-                mov     eax, dword ptr [ebp+0Ch]
-                mov     ecx, dword ptr [eax]
-                add     ecx, 110h
-                mov     edx, dword ptr [ebp+0Ch]
-                mov     [edx+8], ecx
-
-loc_495B50:                             ; CODE XREF: .text:00495B3D↑j
-                mov     eax, dword ptr [ebp+0Ch]
-                mov     ecx, dword ptr [ebp+0Ch]
-                mov     edx, dword ptr [eax+0Ch]
-                sub     edx, [ecx+4]
-                cmp     edx, 1AEh
-                jge     short loc_495B76
-                mov     eax, dword ptr [ebp+0Ch]
-                mov     ecx, dword ptr [eax+4]
-                add     ecx, 1AEh
-                mov     edx, dword ptr [ebp+0Ch]
-                mov     [edx+0Ch], ecx
-
-loc_495B76:                             ; CODE XREF: .text:00495B62↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z      endp
-; ---------------------------------------------------------------------------
-jpt_495AD3      dd offset loc_495AEC    ; DATA XREF: .text:00495AD3↑r
-                dd offset loc_495AEC    ; jump table for switch statement
-                dd offset loc_495ADA
-                dd offset loc_495B10
-                dd offset loc_495AFE
-                dd offset loc_495ADA
-                dd offset loc_495AFE
-                dd offset loc_495B10
 
 
 
@@ -52963,32 +52872,6 @@ loc_4968C2:                             ; CODE XREF: ??_GCButton@@UAEPAXI@Z+17�
                 align 10h
 
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_496A20(LPRECT lpRect)
-sub_496A20      proc near               ; CODE XREF: .text:00495B27↑p
-
-var_4           = dword ptr -4
-lpRect          = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+lpRect]
-                push    eax             ; lpRect
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+1Ch]
-                push    edx             ; hWnd
-                call    GetWindowRect
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_496A20      endp
-
 ; ---------------------------------------------------------------------------
                 align 10h
 
