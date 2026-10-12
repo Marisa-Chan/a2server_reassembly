@@ -26937,124 +26937,6 @@ loc_462954:                             ; CODE XREF: ?VMethod6@CBackPack@@UAEXHH
 
 ; Attributes: bp-based frame
 
-?VMethod7@CBackPack@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060B4F4↓o
-
-var__x           = qword ptr -34h
-var_2C          = qword ptr -2Ch
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 2Ch
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+0E8h]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [edx+80h]
-                call    ?FUN_004a7b79@Scenario@@QAENXZ
-                sub     esp, 8
-                fstp    [esp+34h+var__x]     ; X
-                call    _tan
-                add     esp, 8
-                fmul    qword ptr [dbl_60B458]
-                call    __ftol
-                mov     [ebp+var_8], eax
-                push    0
-                mov     eax, ?g_spr_backpack@@3PAVCSprite256@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_spr_backpack@@3PAVCSprite256@@A
-                call    dword ptr [edx+24h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                mov     [ebp+var_24], eax
-                fild    [ebp+var_24]
-                fstp    [ebp+var_2C]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+80h]
-                call    ?FUN_004a7b79@Scenario@@QAENXZ
-                sub     esp, 8
-                fstp    [esp+34h+var__x]     ; X
-                call    _tan
-                add     esp, 8
-                fmul    [ebp+var_2C]
-                call    __ftol
-                mov     [ebp+var_14], eax
-                push    0
-                mov     ecx, ?g_spr_backpack@@3PAVCSprite256@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_spr_backpack@@3PAVCSprite256@@A
-                call    dword ptr [edx+20h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                mov     [ebp+var_18], eax
-                push    0
-                mov     eax, ?g_spr_backpack@@3PAVCSprite256@@A
-                mov     edx, dword ptr [eax]
-                mov     ecx, ?g_spr_backpack@@3PAVCSprite256@@A
-                call    dword ptr [edx+24h]
-                cdq
-                sub     eax, edx
-                sar     eax, 1
-                mov     [ebp+var_1C], eax
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+64h]
-                sub     ecx, [ebp+var_18]
-                sub     ecx, [ebp+var_14]
-                mov     [ebp+var_C], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx+68h]
-                sub     eax, [ebp+var_1C]
-                mov     ecx, dword ptr [ebp+var_20]
-                sub     eax, [ecx+6Ch]
-                sub     eax, 4
-                mov     [ebp+var_10], eax
-                push    0
-                mov     edx, dword ptr [ebp+var_8]
-                push    edx
-                mov     eax, dword ptr [?g_DeltaCLR@@3UColorThing@@A+0ch]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     edx, dword ptr [ecx+24h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_C]
-                push    ecx
-                mov     edx, ?g_spr_backpack@@3PAVCSprite256@@A
-                mov     eax, dword ptr [edx]
-                mov     ecx, ?g_spr_backpack@@3PAVCSprite256@@A
-                call    dword ptr [eax+3Ch]
-                push    0
-                mov     ecx, dword ptr [ebp+var_8]
-                push    ecx
-                mov     edx, dword ptr [?g_DeltaCLR@@3UColorThing@@A+10h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_20]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     eax, dword ptr [ebp+var_C]
-                push    eax
-                mov     ecx, ?g_spr_backpackb@@3PAVCSprite256@@A
-                mov     edx, dword ptr [ecx]
-                mov     ecx, ?g_spr_backpackb@@3PAVCSprite256@@A
-                call    dword ptr [edx+3Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?VMethod7@CBackPack@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -252460,7 +252342,6 @@ stru_60B3F8     sCRuntimeClass <offset aCbackpack_0, 324, 0FFFFh, 0, \
 
 classCProjectile sCRuntimeClass <offset aCprojectile_0, 344, 0FFFFh, 0, \
                                 offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CProjectile"
-dbl_60B458      dq 65536.0              ; DATA XREF: ?VMethod7@CBackPack@@UAEXHHH@Z+31↑r
 dbl_60B460      dq 32.0                 ; DATA XREF: ?VMethod7@CStructure@@UAEXHHH@Z+1E4↑r
 dbl_60B468      dq 0.0                  ; DATA XREF: ?VMethod11@CUnit@@UAEHXZ+264↑r
 

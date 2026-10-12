@@ -73,7 +73,6 @@ _byte_659A3C
 ?VMethod10@CBackPack@@UAEXXZ	16
 ??_GCBackPack@@UAEPAXI@Z	24
 ?VMethod6@CBackPack@@UAEXHHH@Z	84
-?VMethod7@CBackPack@@UAEXHHH@Z	117
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ	12
 ?VMethod4@CProjectile@@UAEHXZ	12

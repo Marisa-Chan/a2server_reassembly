@@ -4313,3 +4313,21 @@ CHorisontalWoodenBridge::~CHorisontalWoodenBridge()
 CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height)
 {
 }
+
+// 46295a
+void CBackPack::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * 65536.0);
+
+    int32_t half_height = g_spr_backpack->GetHeight(0) / 2;
+    int32_t shadow_offset = (int32_t)(std::tan(this->pMapObject->field_0x80->FUN_004a7b79()) * half_height);
+
+    int32_t half_width = g_spr_backpack->GetWidth(0) / 2;
+    int32_t half_height2 = g_spr_backpack->GetHeight(0) / 2;
+
+    int32_t x = this->centerScreenX - half_width - shadow_offset;
+    int32_t y = this->centerScreenY - half_height2 - this->terrainHeightOffset - 4;
+
+    g_spr_backpack->VMethod11(x, y, this->typeId, g_DeltaCLR.field_c, sun_angle, 0);
+    g_spr_backpackb->VMethod11(x, y, this->typeId, g_DeltaCLR.field_10, sun_angle, 0);
+}
