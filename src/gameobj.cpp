@@ -4121,3 +4121,9 @@ int32_t CStructure::VMethod11()
     }
     return 1;
 }
+
+// 4637ca
+int32_t CStructure::VMethod4()
+{
+    return g_StructuresInfo[this->typeId]->tile_width;
+}

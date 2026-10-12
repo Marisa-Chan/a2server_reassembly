@@ -2059,7 +2059,7 @@ extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
 externdef ??_GCStructure@@UAEPAXI@Z : proc
 externdef ??1CStructure@@QAE@XZ : proc
 externdef ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z : proc
-externdef ?VMethod4@CStructure@@UAEHXZ : proc
+extern ?VMethod4@CStructure@@UAEHXZ : proc
 externdef ?VMethod5@CStructure@@UAEHXZ : proc
 extern ?VMethod6@CStructure@@UAEXHHH@Z : proc
 extern ?VMethod7@CStructure@@UAEXHHH@Z : proc
