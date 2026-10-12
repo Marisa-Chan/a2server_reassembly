@@ -513,7 +513,6 @@ public:
     void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da
 
     void PopUpScreen(VisScreen* screen); //48d26a   popup screen
-    void UpdateCursorClip() { ClipCursor(&clip_cursor_rect); } //48cc87
     void SetMusicProc(void (*func)()) { music_update_proc = func; } //45cc80
 
     void SetControlPositions(); //484127

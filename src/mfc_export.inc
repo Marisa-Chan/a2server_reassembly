@@ -926,7 +926,7 @@ externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00485aed@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
-externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
+extern ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
 extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc
 extern ?FUN_00490eb3@MainWindow@@QAEHXZ : proc

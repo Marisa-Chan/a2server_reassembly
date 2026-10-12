@@ -50680,22 +50680,6 @@ loc_48CC73:                             ; CODE XREF: ?sub_48CBE2@MainWindow@@QAE
 
 ; Attributes: bp-based frame
 
-?sub_48CC87@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?MsgProc@BigStruct2@@UAEHIII@Z+13D↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                add     eax, 644h
-                push    eax             ; lpRect
-                call    ClipCursor
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_48CC87@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

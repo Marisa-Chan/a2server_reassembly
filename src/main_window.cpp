@@ -1085,6 +1085,12 @@ void MainWindow::_OnSetFocus(CWnd* pOldWnd)
     CFrameWnd::OnSetFocus(pOldWnd);
 }
 
+// 48cc87
+void MainWindow::sub_48CC87()
+{
+    ClipCursor(&this->clip_cursor_rect);
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
@@ -3610,7 +3616,7 @@ void MainWindow::PopUpScreen(VisScreen* screen)
     {
         g_mousept.ResetStates();
 
-        UpdateCursorClip();
+        sub_48CC87();
     }
 }
 
@@ -4515,7 +4521,7 @@ void MainWindow::ShowShopDialog(uint32_t id)
     if (g_mousept.GetSelectState() != 0)
     {
         g_mousept.ResetStates();
-        UpdateCursorClip();
+        sub_48CC87();
     }
 
     if (vis_map_context->IsBookOpen() != 0)
@@ -4581,7 +4587,7 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target)
     if (g_mousept.GetSelectState() != 0)
     {
         g_mousept.ResetStates();
-        UpdateCursorClip();
+        sub_48CC87();
     }
 
     if (vis_map_context->IsBookOpen() != 0)
