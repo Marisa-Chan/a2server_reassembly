@@ -9558,7 +9558,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
         if (main_wnd->field_0x408 != nullptr) {
             delete main_wnd->field_0x408;
         }
-        main_wnd->sub_48CD44();
+        main_wnd->ResetItemCursor();
         return 0;
     }
 
@@ -9592,7 +9592,7 @@ int32_t VisCharInfo::VMethod27(int32_t a)
     int32_t mode = main_wnd->OnCommand(a + 1, 0);
     map->sub_41A7C7(main_wnd->field_0x410, main_wnd->field_0x40c, mode, a + 1, amount);
 
-    main_wnd->sub_48CD44();
+    main_wnd->ResetItemCursor();
     unit->ReloadSprite();
     main_wnd->vis_root->MsgProc(0x46E, (uint32_t)main_wnd->m_hWnd, 0);
     return (int32_t)old_token;

@@ -906,7 +906,6 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 
 ; MainWindow
 externdef ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z : proc  ; void MainWindow::sub_48CCA1(TokenEntry*, int32_t, const char*, int32_t)  //48cca1 in asm
-externdef ?sub_48CD44@MainWindow@@QAEXXZ : proc
 externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
 externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc

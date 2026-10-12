@@ -246,7 +246,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?sub_48CD44@MainWindow@@QAEXXZ	50
 ?ShowFameHallDocDlg@MainWindow@@QAEXXZ	50
 ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z	51
 ?sub_48CBE2@MainWindow@@QAEXXZ	60

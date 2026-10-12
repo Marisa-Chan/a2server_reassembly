@@ -50525,58 +50525,6 @@ loc_48CCF7:                             ; CODE XREF: ?sub_48CCA1@MainWindow@@QAE
 
 ; Attributes: bp-based frame
 
-; int __thiscall ?sub_48CD44@MainWindow@@QAEXXZ(_DWORD)
-?sub_48CD44@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonUp@BigStruct2@@UAEHIVCPoint@@@Z+1FC↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax+408h], 0
-                jz      short loc_48CDCA
-                mov     ecx, dword ptr [ebp+var_C]
-                cmp     dword ptr [ecx+414h], 0
-                jz      short loc_48CD96
-                mov     edx, dword ptr [ebp+var_C]
-                mov     eax, dword ptr [edx+414h]
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+var_4], 0
-                jz      short loc_48CD8F
-                push    1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_10], eax
-                jmp     short loc_48CD96
-; ---------------------------------------------------------------------------
-
-loc_48CD8F:                             ; CODE XREF: ?sub_48CD44@MainWindow@@QAEXXZ+37↑j
-                mov     [ebp+var_10], 0
-
-loc_48CD96:                             ; CODE XREF: ?sub_48CD44@MainWindow@@QAEXXZ+1F↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+414h], 0
-                mov     edx, dword ptr [ebp+var_C]
-                mov     dword ptr [edx+408h], 0
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax+40Ch], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     dword ptr [ecx+410h], 0FFFFFFFFh
-
-loc_48CDCA:                             ; CODE XREF: ?sub_48CD44@MainWindow@@QAEXXZ+13↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_48CD44@MainWindow@@QAEXXZ      endp
 
 
 
