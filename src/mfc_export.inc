@@ -2055,7 +2055,7 @@ extern   ?VMethod27@CUnit@@UAEXXZ  : proc
 extern   ?VMethod28@CUnit@@UAEXXZ  : proc
 extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
-externdef ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z : proc  ; const char* CUnit::FUN_0046d0f7(int32_t, int32_t)
+externdef _byte_65F630 : byte  ; char[1024] CUnit::FUN_0046d0f7 spell-list hint buffer
 
 ;CAirUnit
 externdef ??0CAirUnit@@QAE@XZ : proc

@@ -10,6 +10,7 @@
 _byte_666590
 _g_Destination
 _unk_659A48
+_byte_65F630
 _byte_659A54
 _byte_659A4C
 _byte_659A50
@@ -71,7 +72,6 @@ _byte_659A3C
 ??0CStructureBridge1@@QAE@HH@Z	22
 ??0CStructureBridge2@@QAE@HH@Z	22
 ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z	47
-?FUN_0046d0f7@CUnit@@QAEPBDHH@Z	522
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?FUN_004abf35@Fame2@@QAE_NXZ	34
 ?FUN_004abf72@Fame2@@QAEHXZ	34

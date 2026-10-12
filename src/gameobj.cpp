@@ -22,6 +22,7 @@
 CStringArray g_CUnitMaterialSpritePaths; //660e70
 
 extern "C" char g_Destination[0x400]; //659558 TokenEntry::FUN_00439973 hint buffer
+extern "C" char byte_65F630[1024]; //65f630 CUnit::FUN_0046d0f7 spell-list hint buffer
 
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);
@@ -3546,6 +3547,115 @@ void CUnit::FUN_0046c124(CRect* rect)
     if ((this->unitFlags & 0x11) == 0 && this->field_0x156 != 0 && view_level == 7) {
         g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], 2, label_color, 1);
     }
+}
+
+// 46D0F7
+const char* CUnit::FUN_0046d0f7(int32_t x, int32_t y)
+{
+    if (x >= 0x9f) {
+        return nullptr;
+    }
+
+    BigStruct2* map = this->pMapObject;
+
+    int32_t view_level = 0;
+    if (this->serverId != 0 && this->serverId < 0xa00) {
+        view_level = map->kill_stats[this->serverId] / 2;
+    }
+    if (this->map_player->index == 0) {
+        view_level = 7;
+    } else if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+        view_level = 7;
+    }
+    if (INT_00660f74 != 0) {
+        view_level = 7;
+    }
+
+    if (view_level >= 5 && x <= 0x4f && y >= 0x2c && y <= 0x53) {
+        return TxtFile::AllLines[(y - 0x2c) / 10 + 0x9b];
+    }
+    if (view_level >= 1 && x >= 0x50 && y >= 0x2c && y <= 0x53) {
+        return TxtFile::AllLines[(y - 0x2c) / 0x14 + 0x9f];
+    }
+    if (view_level >= 3 && x >= 0x49 && y >= 0x58 && y <= 0x6b) {
+        return TxtFile::AllLines[(y - 0x58) / 10 + 0xa1];
+    }
+    if (view_level >= 4 && x >= 0x4b && y >= 0x58 && y <= 0x6b) {
+        return TxtFile::AllLines[(y - 0x58) / 10 + 0xa3];
+    }
+    if (view_level >= 2 && x >= 0x29 && x <= 0x77 && y >= 200 && y <= 0xdb) {
+        return TxtFile::AllLines[(y - 0xbe) / 10 + 0xa5];
+    }
+
+    if (view_level > 6) {
+        if (this->typeId == 0x18 || this->typeId == 0x17) {
+            if (x < 0x50 && y > 0x79 && y < 0xac) {
+                return TxtFile::AllLines[(y - 0x7a) / 10 + 0xb0];
+            }
+        } else if (x < 0x50 && y > 0x79 && y < 0xac) {
+            return TxtFile::AllLines[(y - 0x7a) / 10 + 0xab];
+        }
+    }
+
+    if (view_level > 5) {
+        if ((this->unitFlags & 0x11) == 0) {
+            if (x < 0x4a && y > 0x6f && y < 0x7a) {
+                return TxtFile::AllLines[0xbc];
+            }
+        } else if (x < 0x4a && y > 0x6f && y < 0x7a) {
+            return TxtFile::AllLines[0xa8];
+        }
+        if (x >= 0x49 && y > 0x6f && y < 0x7a) {
+            return TxtFile::AllLines[0xa9];
+        }
+        if (x >= 0x49 && y > 0x79 && y < 0xac) {
+            return TxtFile::AllLines[(y - 0x7a) / 10 + 0xb0];
+        }
+    }
+
+    if ((this->unitFlags & 1) != 0 && this->map_player == map->my_main_unit) {
+        if (x > 0xf && x < 0x90 && y > 0xad && y < 0xb8) {
+            return TxtFile::AllLines[0xa5];
+        }
+        if (x > 0xf && x < 0x90 && y > 0xb9 && y < 0xc4) {
+            return TxtFile::AllLines[0xaa];
+        }
+    }
+
+    if ((this->unitFlags & 1) == 0 && this->spells != 0 && x > 0xf && x < 0x90 && y > 0xad && y < 0xb8) {
+        CString str(TxtFile::AllLines[0xc0]);
+        str += '#';
+
+        int32_t count = 0;
+        for (int32_t i = 0; i < 0x20; i++) {
+            if ((this->spells & (1 << i)) != 0) {
+                count++;
+            }
+        }
+        int32_t per_column = (count - 1) / 7 + 1;
+
+        int32_t column = 0;
+        int32_t seen = 0;
+        for (int32_t i = 0; i < 0x20; i++) {
+            if ((this->spells & (1 << i)) != 0) {
+                seen++;
+                str += txt_spell.GetLine(i - 1);
+                column++;
+                if (seen < count) {
+                    if (column == per_column) {
+                        str += ",#";
+                        column = 0;
+                    } else {
+                        str += ", ";
+                    }
+                }
+            }
+        }
+        strcpy(byte_65F630, (LPCTSTR)str);
+        return byte_65F630;
+    }
+
+    return nullptr;
 }
 
 // 4648e9
