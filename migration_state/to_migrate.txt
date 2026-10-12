@@ -23,10 +23,13 @@ _byte_659A3C
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
 ?FUN_0043aae0@@YAHD@Z	35
+?SaveSettings@@YAXXZ	66
 ?IsDefaultNpcName@@YAIPBD@Z	67
 ?FUN_00457aa6@@YAXHHHHG@Z	98
 ?ParseTunes@@YAXXZ	99
+?FUN_004c86f5@@YAXXZ	110
 ?FUN_00454e40@@YAXHHHH@Z	127
+?FUN_0047c6cd@@YAXXZ	148
 ?sub_457C5D@@YAXHHHHH@Z	150
 ?FUN_00476c0d@@YAXHH@Z	183
 ?sub_44E4CE@@YAXPBD@Z	187
@@ -100,6 +103,7 @@ _byte_659A3C
 ??0CEdit@@QAE@XZ	16
 ??1CEdit@@UAE@XZ	29
 ?SetSel@CEdit@@QAEXKH@Z	37
+?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?messageMap@CFrameWnd@@2UAFX_MSGMAP@@B
 ?GetRuntimeClass@CFrameWnd@@UBEPAUCRuntimeClass@@XZ	3
 ?GetActiveFrame@CFrameWnd@@UAEPAV1@XZ	3
@@ -260,7 +264,6 @@ _byte_659A3C
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
-?_OnDestroy@MainWindow@@QAEXXZ	137
 ?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?WaitHatConnection@MainWindow@@QAEHXZ	193
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
@@ -268,6 +271,7 @@ _byte_659A3C
 ?ShowCurrentTownDialog@MainWindow@@QAEXXZ	202
 ?ConnectToServerAddress@MainWindow@@QAEHXZ	316
 ?_OnKeyDown@MainWindow@@QAEXIII@Z	480
+?FUN_00485aed@MainWindow@@QAEXXZ	731
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13

@@ -196,6 +196,7 @@ void FreeFontData(); //460d7f
 void FreeDDraw(); //454219
 void FreeBrightnessLookup(); //453cf9
 void SaveScreenshot(); //453d33
+void FUN_0047c6cd(); //47c6cd in asm
 
 
 struct ColorThing

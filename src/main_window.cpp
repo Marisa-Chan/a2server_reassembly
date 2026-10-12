@@ -665,6 +665,40 @@ void MainWindow::_OnSysKeyDown(UINT key, UINT repeat, UINT flags)
     g_mousept.ForceDisableHint();
 }
 
+// 483ea8
+void MainWindow::_OnDestroy()
+{
+    if (g_IsServer != 0 && this->field_0x7fc != nullptr) {
+        this->field_0x7fc->DestroyWindow();
+        delete this->field_0x7fc;
+        this->field_0x7fc = nullptr;
+    }
+
+    CFile file;
+    if (file.Open("famehall.dat", 0x1001, nullptr) != 0) {
+        this->m_FameHall.FUN_004ac839(&file);
+        file.Close();
+    }
+
+    if ((this->dialogsMask & 1) != 0) {
+        this->vis_map_context->FUN_0041d2da(1);
+        this->FUN_0048f6f7();
+        this->FUN_0048cb3c();
+    }
+
+    FUN_0047c6cd();
+    FUN_004c86f5();
+    SaveSettings();
+    this->FUN_0048cb3c();
+    this->FUN_00485aed();
+
+    if (this->music_player != nullptr) {
+        delete this->music_player;
+    }
+
+    CFrameWnd::OnDestroy();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

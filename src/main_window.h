@@ -9,6 +9,8 @@
 extern int32_t g_LButtonDown; //660f4c
 extern int32_t DAT_00660f88; //660f88
 
+void SaveSettings(); //441b1e in asm
+
 
 class CListBox2 : public CListBox
 {
@@ -112,6 +114,7 @@ struct CFameHall
     uint32_t FUN_004ac566(int32_t arg);
     void FUN_004acafa();
     void FUN_004ac945(CFile* file);
+    void FUN_004ac839(CFile* file); //4ac839 in asm
     void FUN_004ac706(CFile* file);
     void FUN_004ac7a2(CFile* file);
     void FUN_004ac3ce(const Fame1& fame);
@@ -454,6 +457,7 @@ public:
     void sub_4919C7(); //4919c7
 
     void FUN_00485a41(); //485a41
+    void FUN_00485aed(); //485aed in asm
 
     void ModalScreen(VisScreen* scr);
 

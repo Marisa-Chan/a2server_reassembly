@@ -903,7 +903,6 @@ extern ?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z : proc
 ; MainWindow
 externdef ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z : proc  ; void MainWindow::sub_48CCA1(TokenEntry*, int32_t, const char*, int32_t)  //48cca1 in asm
 externdef ?sub_48CD44@MainWindow@@QAEXXZ : proc
-externdef   ?_OnDestroy@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
 externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc
@@ -928,6 +927,7 @@ externdef ?WaitHatConnection@MainWindow@@QAEHXZ : proc
 externdef ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ : proc
 externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
+externdef ?FUN_00485aed@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
@@ -953,6 +953,7 @@ extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
 
 
 extern ?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z  :proc   ; (public: void __thiscall CFameHall::FUN_004ac3ce(struct Fame1 const &))
+externdef ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z : proc  ; void CFameHall::FUN_004ac839(CFile*)
 
 extern ??0Fame2@@QAE@XZ  :proc   ; (public: __thiscall Fame2::Fame2(void))
 extern ??4Fame2@@QAEXABU0@@Z  :proc   ; (public: void __thiscall Fame2::operator=(struct Fame2 const &))
@@ -1699,6 +1700,9 @@ extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc
+externdef ?FUN_0047c6cd@@YAXXZ  : proc  ; void FUN_0047c6cd(void)
+externdef ?FUN_004c86f5@@YAXXZ  : proc  ; void FUN_004c86f5(void)
+externdef ?SaveSettings@@YAXXZ  : proc  ; void SaveSettings(void)
 
 
 extern ?LockSurface3@@YAIXZ  :proc
