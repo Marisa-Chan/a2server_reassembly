@@ -51320,20 +51320,6 @@ loc_4A477B:                             ; CODE XREF: ?FUN_004a4740@@YAXPAPAVSfxS
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?FUN_004a4780@Quest@@QAEIXZ proc near           ; CODE XREF: ?FUN_00497f82@VisTavLeftPanel@@QAEXPAVCUnit@@@Z+DF6↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+1Ch]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004a4780@Quest@@QAEIXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

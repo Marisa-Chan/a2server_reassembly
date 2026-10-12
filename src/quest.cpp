@@ -98,6 +98,11 @@ int32_t Quest::Something3() {
     return 0;
 }
 
+// 4a4780
+uint32_t Quest::FUN_004a4780() {
+    return this->quest_data.limit;
+}
+
 
 // 581630
 QuestKillMob::~QuestKillMob() {}

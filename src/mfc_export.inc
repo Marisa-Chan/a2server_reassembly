@@ -728,7 +728,7 @@ extern ?sub_55ECFE@QuestMap@@QAEXH@Z :proc
 externdef ?FUN_004a47a0@QuestMap@@QAEHIPAPAVQuest@@@Z : proc  ; int32_t QuestMap::FUN_004a47a0(uint32_t, Quest**)
 
 ; Quest
-externdef ?FUN_004a4780@Quest@@QAEIXZ : proc  ; uint32_t Quest::FUN_004a4780()
+extern ?FUN_004a4780@Quest@@QAEIXZ : proc  ; uint32_t Quest::FUN_004a4780()
 
 
 ; ServerControlDialog
