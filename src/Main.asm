@@ -52276,26 +52276,6 @@ loc_495194:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@
 ?_FUN_004950c0@MainWindow@@QAEXXZ      endp
 
 
-; ---------------------------------------------------------------------------
-?_FUN_00495743@MainWindow@@QAEXXZ      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                cmp     ?g_Server@@3PAUServer@@A, 0
-                jz      short loc_495770
-                mov     ecx, offset ?g_HatLLDriver@@3UCLlDriver@@A
-                call    ?IsListen@CLlDriver@@QAEHXZ
-                test    eax, eax
-                jnz     short loc_495770
-                mov     eax, ?g_Server@@3PAUServer@@A
-                mov     dword ptr [eax+1D8h], 1
-
-loc_495770:                             ; CODE XREF: .text:00495751↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?_FUN_00495743@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

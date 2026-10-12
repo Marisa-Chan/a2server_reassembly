@@ -1111,6 +1111,16 @@ void MainWindow::_OnClose()
     CFrameWnd::OnClose();
 }
 
+// 495743
+void MainWindow::_FUN_00495743()
+{
+    if (g_Server != nullptr) {
+        if (g_HatLLDriver.IsListen() == 0) {
+            g_Server->field51_0x1d8 = 1;
+        }
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

@@ -245,7 +245,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_FUN_00495743@MainWindow@@QAEXXZ	18
 ?_OnSize@MainWindow@@QAEXIHH@Z	22
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z	23
 ?_OnSysKeyUp@MainWindow@@QAEXIII@Z	26
