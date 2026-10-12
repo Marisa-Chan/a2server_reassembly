@@ -50375,67 +50375,6 @@ loc_48638D:                             ; CODE XREF: ?FUN_00485aed@MainWindow@@Q
 
 ; Attributes: bp-based frame
 
-?sub_48CBE2@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?OnLButtonDown@BigStruct2@@UAEHIVCPoint@@@Z+3E↑p
-
-var_14          = dword ptr -14h
-var_10          = byte ptr -10h
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                push    esi
-                mov     [ebp+var_14], ecx
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+0D0h]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lprcSrc
-                lea     ecx, [ebp+var_10]
-                call    sub_402A50
-                mov     ecx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [ecx+0D0h]
-                call    sub_41B4B0
-                test    eax, eax
-                jz      short loc_48CC3C
-                mov     edx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [edx+0ECh]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     esi, eax
-                lea     ecx, [ebp+var_10]
-                call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [esi+4]
-                mov     [eax+4], ecx
-                jmp     short loc_48CC73
-; ---------------------------------------------------------------------------
-
-loc_48CC3C:                             ; CODE XREF: ?sub_48CBE2@MainWindow@@QAEXXZ+31↑j
-                mov     edx, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [edx+0D0h]
-                call    sub_41B495
-                test    eax, eax
-                jz      short loc_48CC73
-                mov     eax, dword ptr [ebp+var_14]
-                mov     ecx, dword ptr [eax+0E8h]
-                call    ?GetRect@CVisualObject@@QAEAAVCRect@@XZ ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    unknown_libname_414 ; Microsoft VisualC 2-14/net runtime
-                mov     esi, eax
-                lea     ecx, [ebp+var_10]
-                call    unknown_libname_415 ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, dword ptr [esi+4]
-                mov     [eax+4], ecx
-
-loc_48CC73:                             ; CODE XREF: ?sub_48CBE2@MainWindow@@QAEXXZ+58↑j
-                lea     ecx, [ebp+var_10]
-                call    unknown_libname_416 ; Microsoft VisualC 2-14/net runtime
-                push    eax             ; lpRect
-                call    ClipCursor
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_48CBE2@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

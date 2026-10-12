@@ -246,7 +246,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?sub_48CBE2@MainWindow@@QAEXXZ	60
 ?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z	66
 ?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z	66
 ?sub_48CCA1@MainWindow@@QAEXPAVTokenEntry@@HPBDH@Z	69
