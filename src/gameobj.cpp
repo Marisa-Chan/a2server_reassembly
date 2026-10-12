@@ -4347,3 +4347,9 @@ void CBackPack::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
         g_spr_backpackb->VMethod9(x, y, this->typeId, arg3, palette, 0);
     }
 }
+
+// 462a98
+void CBackPack::VMethod10()
+{
+    this->FUN_00461c41(0, this);
+}

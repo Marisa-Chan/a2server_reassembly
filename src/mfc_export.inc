@@ -2059,7 +2059,7 @@ externdef ?VMethod4@CBackPack@@UAEHXZ : proc
 externdef ?VMethod5@CBackPack@@UAEHXZ : proc
 extern ?VMethod6@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod6
 extern ?VMethod7@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod7
-externdef ?VMethod10@CBackPack@@UAEXXZ : proc
+extern ?VMethod10@CBackPack@@UAEXXZ:proc ; CBackPack::VMethod10
 
 ;CProjectile
 externdef ??0CProjectile@@QAE@XZ : proc

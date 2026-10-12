@@ -894,6 +894,7 @@
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ
 ?vis_scr_rect@@3VCRect@@A
+?VMethod10@CBackPack@@UAEXXZ
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
