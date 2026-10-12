@@ -30075,25 +30075,6 @@ sub_46F410      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Microsoft VisualC 2-14/net runtime
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-?VMethod5@CBackPack@@UAEHXZ proc near           ; DATA XREF: .rdata:0060B4EC↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod5@CBackPack@@UAEHXZ endp
 
 
 

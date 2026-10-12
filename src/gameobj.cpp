@@ -4365,3 +4365,9 @@ int32_t CBackPack::VMethod4()
 {
     return 1;
 }
+
+// 46f5d0
+int32_t CBackPack::VMethod5()
+{
+    return 1;
+}

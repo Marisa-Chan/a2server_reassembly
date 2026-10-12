@@ -2056,7 +2056,7 @@ externdef ??_GCBackPack@@UAEPAXI@Z : proc
 externdef ??1CBackPack@@UAE@XZ : proc
 extern ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z:proc ; CBackPack::Dump
 extern ?VMethod4@CBackPack@@UAEHXZ:proc ; CBackPack::VMethod4
-externdef ?VMethod5@CBackPack@@UAEHXZ : proc
+extern ?VMethod5@CBackPack@@UAEHXZ:proc ; CBackPack::VMethod5
 extern ?VMethod6@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod6
 extern ?VMethod7@CBackPack@@UAEXHHH@Z:proc ; CBackPack::VMethod7
 extern ?VMethod10@CBackPack@@UAEXXZ:proc ; CBackPack::VMethod10

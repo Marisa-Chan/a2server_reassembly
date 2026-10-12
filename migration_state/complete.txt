@@ -1010,6 +1010,7 @@
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 ?VMethod4@CBackPack@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
+?VMethod5@CBackPack@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CBackPack@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
