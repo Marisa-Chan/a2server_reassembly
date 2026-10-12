@@ -36716,27 +36716,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?FUN_00475010@StructEnter@@QAEXXZ      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+2B↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_475050
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 14h
-                call    sub_475050
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+2Ch], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+28h], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00475010@StructEnter@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -36745,22 +36724,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_475050      proc near               ; CODE XREF: ?FUN_00475010@StructEnter@@QAEXXZ+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_423170
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_475050      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

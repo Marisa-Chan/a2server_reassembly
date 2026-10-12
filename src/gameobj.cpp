@@ -3805,3 +3805,12 @@ void StructEnter::FUN_00475080(CUnit* unit)
 		this->field_0x28++;
 	}
 }
+
+// 475010
+void StructEnter::FUN_00475010()
+{
+	this->field_0x0.SetSize(0);
+	this->field_0x14.SetSize(0);
+	this->field_0x2c = 0;
+	this->field_0x28 = 0;
+}
