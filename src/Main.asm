@@ -32865,27 +32865,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?VMethod6@CUnit@@UAEXHHH@Z+D4F↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+10h], 0
-                jnz     short loc_46F718
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@UnitGfxFile@@QAEXXZ
-
-loc_46F718:                             ; CODE XREF: ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -32894,27 +32873,6 @@ loc_46F718:                             ; CODE XREF: ?FUN_0046f700@UnitGfxFile@@
 
 ; Attributes: bp-based frame
 
-?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?VMethod6@CUnit@@UAEXHHH@Z+F1D↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+10h], 0
-                jnz     short loc_46F748
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@UnitGfxFile@@QAEXXZ
-
-loc_46F748:                             ; CODE XREF: ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+8]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

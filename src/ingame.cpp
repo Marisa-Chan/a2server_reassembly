@@ -3445,6 +3445,21 @@ void UnitGfxFile::Deinit()
 	}
 }
 
+CSprite256* UnitGfxFile::FUN_0046f700()
+{ //46f700
+    if (this->inited == 0) {
+        this->Init();
+    }
+    return this->spr;
+}
+
+CSprite256* UnitGfxFile::FUN_0046f730()
+{ //46f730
+    if (this->inited == 0) {
+        this->Init();
+    }
+    return this->spr_b;
+}
 
 
 StructureInfo::StructureInfo(const char* _fname)

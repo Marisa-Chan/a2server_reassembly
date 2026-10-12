@@ -2019,8 +2019,7 @@ externdef ??0CStructureBridge1@@QAE@HH@Z : proc
 externdef ??0CStructureBridge2@@QAE@HH@Z : proc
 externdef   ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z  : proc
 externdef   ?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z  : proc
-externdef   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
-externdef   ?FUN_0046f730@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
+extern   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc
 extern   ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ  : proc
 extern   ?VMethod11@CUnit@@UAEHXZ  : proc
 extern   ?VMethod13@CUnit@@UAEXXZ  : proc
