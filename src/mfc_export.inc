@@ -788,6 +788,8 @@ externdef ?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CListBox::Cr
 externdef ?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CStatic::Create(LPCTSTR,DWORD,const RECT&,CWnd*,UINT) - 5f26e0
 externdef ?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CEdit::Create(DWORD,const RECT&,CWnd*,UINT) - 5f2a89
 externdef ?Create@CStatusBar@@QAEHPAVCWnd@@KI@Z : proc  ; CStatusBar::Create(CWnd*,DWORD,UINT) - 5f5696
+externdef ?SetActiveWindow@CWnd@@QAEPAV1@XZ : proc  ; CWnd::SetActiveWindow(void) - 496830
+externdef ?Create@CDialog@@QAEHPBDPAVCWnd@@@Z : proc  ; CDialog::Create(LPCTSTR,CWnd*) - 5dfe8a
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )

@@ -51458,99 +51458,6 @@ sub_49509F      endp
 
 ; Attributes: bp-based frame
 
-?_FUN_004950c0@MainWindow@@QAEXXZ      proc near
-
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-Block           = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FC41D SIZE 00000014 BYTES
-
-; __unwind { // SEH_4950C0
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4950C0
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 10h
-                mov     [ebp+var_18], ecx
-                mov     eax, dword ptr [ebp+var_18]
-                cmp     dword ptr [eax+7FCh], 0
-                jnz     short loc_495133
-                push    280h            ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_495113
-                push    0               ; struct CWnd *
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0ServerControlDialog@@QAE@PAVCWnd@@@Z
-                mov     [ebp+var_1C], eax
-                jmp     short loc_49511A
-; ---------------------------------------------------------------------------
-
-loc_495113:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+42↑j
-                mov     [ebp+var_1C], 0
-
-loc_49511A:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+51↑j
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_14], ecx
-;   } // starts at 4950F7
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     edx, dword ptr [ebp+var_18]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     [edx+7FCh], eax
-
-loc_495133:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+28↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                cmp     dword ptr [ecx+800h], 0
-                jnz     short loc_495186
-                push    0               ; struct CWnd *
-                push    6Bh ; 'k'       ; int
-                mov     edx, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [edx+7FCh]
-                call    sub_496850
-                mov     eax, ?g_ServerConfig@@3UServerConfig@@A+0B8h
-                push    eax
-                push    offset aD_26    ; "%d"
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     edx, dword ptr [ecx+7FCh]
-                add     edx, 27Ch
-                push    edx             ; varThis
-                call    ?Format@CString@@QAAXPBDZZ ; CString::Format(char const *,...)
-                add     esp, 0Ch
-                push    0               ; int
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+7FCh] ; varThis
-                call    ?UpdateData@CWnd@@QAEHH@Z ; CWnd::UpdateData(int)
-                jmp     short loc_495194
-; ---------------------------------------------------------------------------
-
-loc_495186:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+7D↑j
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [ecx+7FCh]
-                call    sub_496830
-
-loc_495194:                             ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+C4↑j
-                mov     edx, dword ptr [ebp+var_18]
-                mov     dword ptr [edx+800h], 1
-                mov     eax, dword ptr [ebp+var_18]
-                mov     ecx, dword ptr [eax+7FCh]
-                call    ?sub_49585B@ServerControlDialog@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 4950C0
-?_FUN_004950c0@MainWindow@@QAEXXZ      endp
 
 
 
@@ -52677,7 +52584,7 @@ sub_496810      endp
 
 ; Attributes: bp-based frame
 
-sub_496830      proc near               ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+CF↑p
+?SetActiveWindow@CWnd@@QAEPAV1@XZ      proc near               ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+CF↑p
 
 var_4           = dword ptr -4
 
@@ -52694,37 +52601,10 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_496830      endp
+?SetActiveWindow@CWnd@@QAEPAV1@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; int __stdcall sub_496850(int, struct CWnd *)
-sub_496850      proc near               ; CODE XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+8C↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax             ; struct CWnd *
-                mov     ecx, dword ptr [ebp+arg_0]
-                and     ecx, 0FFFFh
-                push    ecx             ; lpName
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Create@CDialog@@QAEHPBDPAVCWnd@@@Z ; CDialog::Create(char const *,CWnd *)
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_496850      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -245502,24 +245382,6 @@ SEH_494F0B:                             ; DATA XREF: sub_494F0B+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC3FE
 ; END OF FUNCTION CHUNK FOR sub_494F0B
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?_FUN_004950c0@MainWindow@@QAEXXZ
-
-loc_5FC41D:                             ; DATA XREF: .rdata:stru_61D548↓o
-; __unwind { // SEH_4950C0
-;   cleanup() // owned by 4950F7
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4950C0:                             ; DATA XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+5↑o
-                mov     eax, offset stru_61D528
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC41D
-; END OF FUNCTION CHUNK FOR ?_FUN_004950c0@MainWindow@@QAEXXZ
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR sub_495E30
 
@@ -273477,12 +273339,6 @@ stru_61D4F8     FuncInfoV1 <19930520h, 2, offset stru_61D518, 0, 0, 0, 0>
                 db    0
 stru_61D518     UnwindMapEntry <-1, offset loc_5FC3FE>
                 UnwindMapEntry <0, offset loc_5FC407>
-stru_61D528     FuncInfoV1 <19930520h, 1, offset stru_61D548, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61D548     UnwindMapEntry <-1, offset loc_5FC41D>
 stru_61D610     FuncInfoV1 <19930520h, 2, offset stru_61D630, 0, 0, 0, 0>
                 db    0
                 db    0

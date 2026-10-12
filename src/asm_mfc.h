@@ -3987,6 +3987,7 @@ public:
 	BOOL ModifyStyle(DWORD dwRemove, DWORD dwAdd, UINT nFlags); //5e4532
 	BOOL EnableWindow(BOOL bEnable); //5e4721 — body remains in Main.asm.
 	BOOL UpdateData(BOOL bSaveAndValidate); //5e31fc — body remains in Main.asm.
+	CWnd* SetActiveWindow(); //496830 in asm
 
 protected:
 	void OnDestroy(); // 5e130c
@@ -4311,6 +4312,7 @@ public:
 
 public:
 	virtual ~CDialog();
+	BOOL Create(LPCTSTR lpszName, CWnd* pParentWnd); // 5dfe8a
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	virtual const AFX_MSGMAP* GetMessageMap() const;
 	virtual BOOL PreTranslateMessage(MSG* pMsg);

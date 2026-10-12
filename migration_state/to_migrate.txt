@@ -96,6 +96,7 @@ _byte_659A3C
 ??0CDialog@@QAE@IPAVCWnd@@@Z	26
 ??0CDialog@@QAE@PBDPAVCWnd@@@Z	31
 ??1CDialog@@UAE@XZ	33
+?Create@CDialog@@QAEHPBDPAVCWnd@@@Z	39
 ?OnInitDialog@CDialog@@UAEHXZ	54
 ?CheckAutoCenter@CDialog@@UAEHXZ	64
 ?PreTranslateMessage@CDialog@@UAEHPAUtagMSG@@@Z	74
@@ -218,6 +219,7 @@ _byte_659A3C
 ?OnDestroy@CWnd@@IAEXXZ	16
 ?BeginModalState@CWnd@@UAEXXZ	16
 ?EndModalState@CWnd@@UAEXXZ	16
+?SetActiveWindow@CWnd@@QAEPAV1@XZ	17
 ?PreTranslateMessage@CWnd@@UAEHPAUtagMSG@@@Z	18
 ?GetClientRect@CWnd@@QBEXPAUtagRECT@@@Z	18
 ?EndModalLoop@CWnd@@UAEXH@Z	20
@@ -254,7 +256,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_FUN_004950c0@MainWindow@@QAEXXZ	92
 ?FUN_00485aed@MainWindow@@QAEXXZ	731
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20

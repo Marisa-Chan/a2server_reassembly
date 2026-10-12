@@ -1342,6 +1342,25 @@ void MainWindow::_OnSizing(UINT nSide, LPRECT rect)
     }
 }
 
+// 4950c0
+void MainWindow::_FUN_004950c0()
+{
+    if (this->field_0x7fc == nullptr) {
+        this->field_0x7fc = new ServerControlDialog(nullptr);
+    }
+
+    if (this->field_0x800 == 0) {
+        this->field_0x7fc->Create(MAKEINTRESOURCE(0x6b), nullptr);
+        this->field_0x7fc->str_27c.Format("%d", g_ServerConfig.shutdown_delay);
+        this->field_0x7fc->UpdateData(0);
+    } else {
+        this->field_0x7fc->SetActiveWindow();
+    }
+
+    this->field_0x800 = 1;
+    this->field_0x7fc->sub_49585B();
+}
+
 // 484022
 int MainWindow::_OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
