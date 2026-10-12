@@ -2051,6 +2051,15 @@ externdef ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
 
 ;CBackPack
 externdef ??0CBackPack@@QAE@XZ : proc
+externdef ?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ : proc
+externdef ??_GCBackPack@@UAEPAXI@Z : proc
+externdef ??1CBackPack@@UAE@XZ : proc
+externdef ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z : proc
+externdef ?VMethod4@CBackPack@@UAEHXZ : proc
+externdef ?VMethod5@CBackPack@@UAEHXZ : proc
+externdef ?VMethod6@CBackPack@@UAEXHHH@Z : proc
+externdef ?VMethod7@CBackPack@@UAEXHHH@Z : proc
+externdef ?VMethod10@CBackPack@@UAEXXZ : proc
 
 ;CProjectile
 externdef ??0CProjectile@@QAE@XZ : proc

@@ -363,17 +363,17 @@ class CBackPack : public CGameObject
 	DECLARE_DYNAMIC(CBackPack);
 public:
 
-	virtual ~CBackPack();
+	virtual ~CBackPack(); // 46ef30
 
-	virtual void Dump(CDumpContext& dc) const override;
+	virtual void Dump(CDumpContext& dc) const override; // 462ab1
 
-	virtual int32_t VMethod4() override;
-	virtual int32_t VMethod5() override;
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod10() override;
+	virtual int32_t VMethod4() override; // 46f5c0
+	virtual int32_t VMethod5() override; // 46f5d0
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 462887
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46295a
+	virtual void VMethod10() override; // 462a98
 
-	CBackPack();
+	CBackPack(); // 462843
 };
 ASSERT_SIZE(CBackPack, 0x144);
 

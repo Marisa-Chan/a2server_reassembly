@@ -26736,7 +26736,7 @@ sub_45DB30      endp
 
 ; Attributes: bp-based frame
 
-sub_461070      proc near               ; DATA XREF: .rdata:off_60B4C8↓o
+?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60B4C8↓o
 
 var_4           = dword ptr -4
 
@@ -26748,7 +26748,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_461070      endp
+?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 
@@ -26846,7 +26846,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_462887      proc near               ; DATA XREF: .rdata:0060B4F0↓o
+?VMethod6@CBackPack@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060B4F0↓o
 
 var_18          = dword ptr -18h
 var_14          = dword ptr -14h
@@ -26926,18 +26926,18 @@ arg_8           = dword ptr  10h
                 mov     ecx, ?g_spr_backpackb@@3PAVCSprite256@@A
                 call    dword ptr [eax+34h]
 
-loc_462954:                             ; CODE XREF: sub_462887+99↑j
+loc_462954:                             ; CODE XREF: ?VMethod6@CBackPack@@UAEXHHH@Z+99↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_462887      endp
+?VMethod6@CBackPack@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_46295A      proc near               ; DATA XREF: .rdata:0060B4F4↓o
+?VMethod7@CBackPack@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060B4F4↓o
 
 var__x           = qword ptr -34h
 var_2C          = qword ptr -2Ch
@@ -27054,14 +27054,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_46295A      endp
+?VMethod7@CBackPack@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_462A98      proc near               ; DATA XREF: .rdata:0060B500↓o
+?VMethod10@CBackPack@@UAEXXZ      proc near               ; DATA XREF: .rdata:0060B500↓o
 
 var_4           = dword ptr -4
 
@@ -27077,15 +27077,15 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_462A98      endp
+?VMethod10@CBackPack@@UAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_462AB1(CDumpContext *)
-sub_462AB1      proc near               ; DATA XREF: .rdata:0060B4D8↓o
+; int __stdcall ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
+?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z      proc near               ; DATA XREF: .rdata:0060B4D8↓o
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -27100,7 +27100,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_462AB1      endp
+?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29552,7 +29552,7 @@ sub_46EEB4      endp
 
 ; Attributes: bp-based frame
 
-sub_46EF00      proc near               ; DATA XREF: .rdata:0060B4CC↓o
+??_GCBackPack@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B4CC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -29562,7 +29562,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_46EF30
+                call    ??1CBackPack@@UAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -29571,12 +29571,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_46EF22:                             ; CODE XREF: sub_46EF00+17↑j
+loc_46EF22:                             ; CODE XREF: ??_GCBackPack@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_46EF00      endp
+??_GCBackPack@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -29585,7 +29585,7 @@ sub_46EF00      endp
 
 ; Attributes: bp-based frame
 
-sub_46EF30      proc near               ; CODE XREF: sub_46EF00+A↑p
+??1CBackPack@@UAE@XZ      proc near               ; CODE XREF: ??_GCBackPack@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -29598,7 +29598,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46EF30      endp
+??1CBackPack@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -30317,7 +30317,7 @@ sub_46F410      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_522 proc near           ; DATA XREF: .rdata:0060B4E8↓o
+?VMethod4@CBackPack@@UAEHXZ proc near           ; DATA XREF: .rdata:0060B4E8↓o
 
 var_4           = dword ptr -4
 
@@ -30329,7 +30329,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-unknown_libname_522 endp
+?VMethod4@CBackPack@@UAEHXZ endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -30338,7 +30338,7 @@ unknown_libname_522 endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_523 proc near           ; DATA XREF: .rdata:0060B4EC↓o
+?VMethod5@CBackPack@@UAEHXZ proc near           ; DATA XREF: .rdata:0060B4EC↓o
 
 var_4           = dword ptr -4
 
@@ -30350,7 +30350,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-unknown_libname_523 endp
+?VMethod5@CBackPack@@UAEHXZ endp
 
 
 
@@ -252460,27 +252460,27 @@ stru_60B3F8     sCRuntimeClass <offset aCbackpack_0, 324, 0FFFFh, 0, \
 
 classCProjectile sCRuntimeClass <offset aCprojectile_0, 344, 0FFFFh, 0, \
                                 offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CProjectile"
-dbl_60B458      dq 65536.0              ; DATA XREF: sub_46295A+31↑r
+dbl_60B458      dq 65536.0              ; DATA XREF: ?VMethod7@CBackPack@@UAEXHHH@Z+31↑r
 dbl_60B460      dq 32.0                 ; DATA XREF: ?VMethod7@CStructure@@UAEXHHH@Z+1E4↑r
 dbl_60B468      dq 0.0                  ; DATA XREF: ?VMethod11@CUnit@@UAEHXZ+264↑r
 
 
 
-off_60B4C8      dd offset sub_461070    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
-                dd offset sub_46EF00
+off_60B4C8      dd offset ?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
+                dd offset ??_GCBackPack@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset sub_462AB1
+                dd offset ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z
                 dd offset ?VMethod1@CGameObject@@UAEXH@Z
                 dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset unknown_libname_522 ; Microsoft VisualC 2-14/net runtime
-                dd offset unknown_libname_523 ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_462887
-                dd offset sub_46295A
+                dd offset ?VMethod4@CBackPack@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod5@CBackPack@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
+                dd offset ?VMethod6@CBackPack@@UAEXHHH@Z
+                dd offset ?VMethod7@CBackPack@@UAEXHHH@Z
                 dd offset ?VMethod8@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod9@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset sub_462A98
+                dd offset ?VMethod10@CBackPack@@UAEXXZ
                 dd offset ?VMethod11@CGameObject@@UAEHXZ
                 dd offset ?VMethod12@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod13@CGameObject@@UAEXXZ
@@ -270791,7 +270791,7 @@ aCprojectile_0  db 'CProjectile',0      ; DATA XREF: .rdata:classCProjectile↑o
 aShitInvalidGam db 'Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d pict'
                 db 'ure:%d',0
 ; CHAR aCbackpack[]
-aCbackpack      db 'CBackPack',0        ; DATA XREF: sub_462AB1+7↑o
+aCbackpack      db 'CBackPack',0        ; DATA XREF: ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z+7↑o
                 align 10h
 ; CHAR aCstructure_1[]
 aCstructure_1   db 'CStructure',0       ; DATA XREF: ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z+7↑o
