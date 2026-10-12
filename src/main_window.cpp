@@ -213,6 +213,20 @@ int32_t Fame2::FUN_004abf72()
     return 1;
 }
 
+void Fame2::FUN_004abfb1(int32_t x, int32_t y)
+{ //4abfb1
+    if (this->field_x4 == 0) {
+        if (this->field_x8) {
+            this->field_x8->VMethod2(x + this->rect.left, y + this->rect.top, 0, 0, 0);
+        }
+        return;
+    }
+
+    uint16_t* clr = palette_brown_derby->GetPalette(0);
+    CRect r = this->rect + CPoint(x, y);
+    g_font4->DrawTextLines(r, this->field_x38, this->field_x38 + 0x15, this->str_arr, clr, 0);
+}
+
 
 
 

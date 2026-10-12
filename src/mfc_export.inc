@@ -1504,7 +1504,7 @@ extern ?DoClose@VisGlobalMap@@UAEXI@Z  : proc
 ; Fame2
 extern ?FUN_004abf35@Fame2@@QAE_NXZ : proc
 extern ?FUN_004abf72@Fame2@@QAEHXZ : proc
-externdef ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
+extern ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
 externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 
 ;UserShortcut spell helpers

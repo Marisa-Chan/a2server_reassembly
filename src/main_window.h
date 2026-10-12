@@ -75,7 +75,7 @@ struct Fame2
 {
     int32_t field_x0;
     uint32_t field_x4;
-    CObject* field_x8;  // CObject?
+    CBmp64* field_x8;
     CString str;
     CStringArray str_arr;
     CRect rect;
