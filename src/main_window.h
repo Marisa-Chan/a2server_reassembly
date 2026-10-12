@@ -461,7 +461,7 @@ public:
     void FUN_00485a41(); //485a41
     void FUN_00485aed(); //485aed in asm
 
-    void ModalScreen(VisScreen* scr);
+    void ModalScreen(VisScreen* scr); //494a31
 
     void ResetItemCursor(); //48cd44
 

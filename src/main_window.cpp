@@ -1229,6 +1229,24 @@ void MainWindow::ShowFameHallDocDlg()
     g_Cursors[0]->Use();
 }
 
+// 494a31
+void MainWindow::ModalScreen(VisScreen* scr)
+{
+    this->PopUpScreen(scr);
+
+    MSG msg;
+    while (GetMessageA(&msg, nullptr, 0, 0) != 0) {
+        if (msg.message == 0x44c) {
+            break;
+        }
+        TranslateMessage(&msg);
+        DispatchMessageA(&msg);
+        g_mousept.Update();
+    }
+
+    this->PostMessage(0x44c, (WPARAM)scr, 0);
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

@@ -51667,59 +51667,6 @@ sub_492A85      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z (WPARAM wParam)
-?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z       proc near               ; CODE XREF: ?ConnectAndJoinSession@BigStruct2@@QAEHXZ+142↑p
-
-var_20          = dword ptr -20h
-Msg             = tagMSG ptr -1Ch
-wParam          = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 20h
-                mov     [ebp+var_20], ecx
-                mov     eax, dword ptr [ebp+wParam]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
-
-loc_494A46:                             ; CODE XREF: ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z +65↓j
-                push    0               ; wMsgFilterMax
-                push    0               ; wMsgFilterMin
-                push    0               ; hWnd
-                lea     ecx, [ebp+Msg]
-                push    ecx             ; lpMsg
-                call    GetMessageA
-                test    eax, eax
-                jz      short loc_494A98
-                cmp     dword ptr [ebp+Msg+4], 44Ch ; Msg.message
-                jnz     short loc_494A78
-                push    0               ; lParam
-                mov     edx, dword ptr [ebp+wParam]
-                push    edx             ; wParam
-                push    44Ch            ; Msg
-                mov     ecx, dword ptr [ebp+var_20]
-                call    ?PostMessageA@CWnd@@QAEHIIJ@Z
-                jmp     short loc_494A98
-; ---------------------------------------------------------------------------
-
-loc_494A78:                             ; CODE XREF: ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z +30↑j
-                lea     eax, [ebp+Msg]
-                push    eax             ; lpMsg
-                call    TranslateMessage
-                lea     ecx, [ebp+Msg]
-                push    ecx             ; lpMsg
-                call    DispatchMessageA
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?Update@CMousePointer@@QAEXXZ 
-                jmp     short loc_494A46
-; ---------------------------------------------------------------------------
-
-loc_494A98:                             ; CODE XREF: ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z +27↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z       endp
 
 
 ; =============== S U B R O U T I N E =======================================

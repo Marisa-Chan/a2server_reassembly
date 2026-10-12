@@ -1007,7 +1007,6 @@ extern ?g_kbMenuState@@3HA : dword
 
 
 
-externdef ?ModalScreen@MainWindow@@QAEXPAVVisScreen@@@Z  : proc
 
 
 extern ?g_mapmusicinfos@@3V?$CArray@PAUMapMusicInfo@@ABQAU1@@@A : byte
