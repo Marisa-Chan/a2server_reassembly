@@ -64,9 +64,6 @@ _byte_659A3C
 ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z	15
 ??0CAirUnit@@QAE@XZ	18
 ??_GCAirUnit@@UAEPAXI@Z	24
-??1CBackPack@@UAE@XZ	13
-??0CBackPack@@QAE@XZ	16
-??_GCBackPack@@UAEPAXI@Z	24
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ	12
 ?VMethod4@CProjectile@@UAEHXZ	12

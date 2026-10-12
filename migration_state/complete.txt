@@ -287,7 +287,6 @@
 ?DrawTextJustifyInRectShadow@CGameFont@@QAEXABVCRect@@PBDPAGH@Z
 ?DrawTextLines@CGameFont@@QAEXABVCRect@@HHABVCStringArray@@PAGH@Z
 ?DrawTextWithShadow@CGameFont@@QAEXHHPBDIPAGH@Z
-?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z
 ?Dump@CObject@@UBEXAAVCDumpContext@@@Z
 ?Dump@CVisualObject@@UBEXAAVCDumpContext@@@Z
 ?Duplicate@Packet@@UAEPAV1@XZ
@@ -525,7 +524,6 @@
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
-?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
@@ -896,7 +894,6 @@
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ
 ?vis_scr_rect@@3VCRect@@A
-?VMethod10@CBackPack@@UAEXXZ
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
@@ -1009,13 +1006,9 @@
 ?VMethod42@VisInvExtType1@@UAEXXZ
 ?VMethod42@VisInvExtType3@@UAEXXZ
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
-?VMethod4@CBackPack@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
-?VMethod5@CBackPack@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
-?VMethod6@CBackPack@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
-?VMethod7@CBackPack@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ

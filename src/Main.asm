@@ -26798,24 +26798,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __thiscall ??0CBackPack@@QAE@XZ(_DWORD)
-??0CBackPack@@QAE@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+7214↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CGameObject@@QAE@XZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60B4C8
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-??0CBackPack@@QAE@XZ      endp
 
 
 
@@ -29287,57 +29269,10 @@ arg_0           = dword ptr  8
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??_GCBackPack@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B4CC↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1CBackPack@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_46EF22
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_46EF22:                             ; CODE XREF: ??_GCBackPack@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GCBackPack@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-??1CBackPack@@UAE@XZ      proc near               ; CODE XREF: ??_GCBackPack@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CGameObject@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1CBackPack@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -252164,28 +252099,6 @@ dbl_60B468      dq 0.0                  ; DATA XREF: ?VMethod11@CUnit@@UAEHXZ+26
 
 
 
-off_60B4C8      dd offset ?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
-                dd offset ??_GCBackPack@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CGameObject@@UAEXH@Z
-                dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod4@CBackPack@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod5@CBackPack@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod6@CBackPack@@UAEXHHH@Z
-                dd offset ?VMethod7@CBackPack@@UAEXHHH@Z
-                dd offset ?VMethod8@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod9@CGameObject@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod10@CBackPack@@UAEXXZ
-                dd offset ?VMethod11@CGameObject@@UAEHXZ
-                dd offset ?VMethod12@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod13@CGameObject@@UAEXXZ
-                dd offset ?VMethod14@CGameObject@@UAEXXZ
-                dd offset ?VMethod15@CGameObject@@UAEHXZ
-                dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                align 10h
 
 off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CAirUnit@@QAE@XZ+12↑o
                 dd offset ??_GCAirUnit@@UAEPAXI@Z

@@ -4374,3 +4374,13 @@ int32_t CBackPack::VMethod5()
 {
     return 1;
 }
+
+// 46ef30
+CBackPack::~CBackPack()
+{
+}
+
+// 462843
+CBackPack::CBackPack()
+{
+}
