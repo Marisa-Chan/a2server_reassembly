@@ -428,23 +428,47 @@ public:
 };
 ASSERT_SIZE(CStructure, 0x144);
 
-class CStructureBridge1 : public CStructure
+//60b578
+class CBridge : public CStructure
 {
+	DECLARE_DYNAMIC(CBridge);
 public:
-	CStructureBridge1(int32_t width, int32_t height); //4a9e90
+	virtual ~CBridge(); //46f580
+
+	virtual int32_t VMethod4() override; //46f510 (returns bridge_width)
+	virtual int32_t VMethod5() override; //46f530 (returns bridge_height)
+	virtual void VMethod17(int32_t width, int32_t height); //46f550
+
+	CBridge(int32_t width, int32_t height); //463c7f
 
 	int32_t bridge_width; // 0x144
 	int32_t bridge_height; // 0x148
 };
+ASSERT_SIZE(CBridge, 0x14c);
+
+class CStructureBridge1 : public CBridge
+{
+	DECLARE_DYNAMIC(CStructureBridge1);
+public:
+	virtual ~CStructureBridge1(); //4a9ef0
+
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463d26
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f01 (stub)
+
+	CStructureBridge1(int32_t width, int32_t height); //4a9e90
+};
 ASSERT_SIZE(CStructureBridge1, 0x14c);
 
-class CStructureBridge2 : public CStructure
+class CStructureBridge2 : public CBridge
 {
+	DECLARE_DYNAMIC(CStructureBridge2);
 public:
-	CStructureBridge2(int32_t width, int32_t height); //4a9f10
+	virtual ~CStructureBridge2(); //4a9f70
 
-	int32_t bridge_width; // 0x144
-	int32_t bridge_height; // 0x148
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f0e
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //46410f (stub)
+
+	CStructureBridge2(int32_t width, int32_t height); //4a9f10
 };
 ASSERT_SIZE(CStructureBridge2, 0x14c);
 

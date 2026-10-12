@@ -2070,6 +2070,29 @@ externdef ?VMethod11@CStructure@@UAEHXZ : proc
 externdef ?VMethod12@CStructure@@UAEXXZ : proc
 externdef ?VMethod15@CStructure@@UAEHXZ : proc
 
+;CBridge
+externdef ??0CBridge@@QAE@HH@Z : proc
+externdef ??_GCBridge@@UAEPAXI@Z : proc
+externdef ??1CBridge@@QAE@XZ : proc
+externdef ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ : proc
+externdef ?VMethod4@CBridge@@UAEHXZ : proc
+externdef ?VMethod5@CBridge@@UAEHXZ : proc
+externdef ?VMethod17@CBridge@@UAEXHH@Z : proc
+
+;CStructureBridge1
+externdef ??_GCStructureBridge1@@UAEPAXI@Z : proc
+externdef ??1CStructureBridge1@@QAE@XZ : proc
+externdef ?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ : proc
+externdef ?VMethod6@CStructureBridge1@@UAEXHHH@Z : proc
+externdef ?VMethod7@CStructureBridge1@@UAEXHHH@Z : proc
+
+;CStructureBridge2
+externdef ??_GCStructureBridge2@@UAEPAXI@Z : proc
+externdef ??1CStructureBridge2@@QAE@XZ : proc
+externdef ?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ : proc
+externdef ?VMethod6@CStructureBridge2@@UAEXHHH@Z : proc
+externdef ?VMethod7@CStructureBridge2@@UAEXHHH@Z : proc
+
 
 ;MapPlayerData
 extern ??0MapPlayerData@@QAE@HH@Z : proc  ; MapPlayerData::MapPlayerData(int, int) 43C17F

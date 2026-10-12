@@ -26718,7 +26718,7 @@ sub_45DB30      endp
 
 ; Attributes: bp-based frame
 
-sub_461040      proc near               ; DATA XREF: .rdata:off_60B578↓o
+?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60B578↓o
 
 var_4           = dword ptr -4
 
@@ -26730,14 +26730,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_461040      endp
+?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_461050      proc near               ; DATA XREF: .rdata:off_60CB70↓o
+?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CB70↓o
 
 var_4           = dword ptr -4
 
@@ -26749,14 +26749,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_461050      endp
+?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_461060      proc near               ; DATA XREF: .rdata:off_60CBC8↓o
+?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CBC8↓o
 
 var_4           = dword ptr -4
 
@@ -26768,7 +26768,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_461060      endp
+?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -27147,7 +27147,7 @@ sub_462AB1      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ??0CStructure@@QAE@XZ(_DWORD)
-??0CStructure@@QAE@XZ      proc near               ; CODE XREF: sub_463C7F+1F↓p
+??0CStructure@@QAE@XZ      proc near               ; CODE XREF: ??0CBridge@@QAE@HH@Z+1F↓p
 
 var_4           = dword ptr -4
 
@@ -28982,7 +28982,7 @@ loc_463C7A:                             ; CODE XREF: ?VMethod12@CStructure@@UAEX
 
 ; Attributes: bp-based frame
 
-sub_463C7F      proc near               ; CODE XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+12↓p
+??0CBridge@@QAE@HH@Z      proc near               ; CODE XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+12↓p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -29013,7 +29013,7 @@ arg_4           = dword ptr  0Ch
                 mov     edx, dword ptr [ebp+arg_0]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_46F550
+                call    ?VMethod17@CBridge@@UAEXHH@Z
 ;   } // starts at 463CA3
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     eax, dword ptr [ebp+var_10]
@@ -29023,14 +29023,14 @@ arg_4           = dword ptr  0Ch
                 pop     ebp
                 retn    8
 ; } // starts at 463C7F
-sub_463C7F      endp
+??0CBridge@@QAE@HH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_463D26      proc near               ; DATA XREF: .rdata:0060CB98↓o
+?VMethod6@CStructureBridge1@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CB98↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -29082,7 +29082,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463D94:                             ; CODE XREF: sub_463D26+5A↑j
+loc_463D94:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+5A↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+144h]
                 sub     eax, 1
@@ -29094,14 +29094,14 @@ loc_463D94:                             ; CODE XREF: sub_463D26+5A↑j
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DB7:                             ; CODE XREF: sub_463D26+7D↑j
+loc_463DB7:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+7D↑j
                 cmp     [ebp+var_8], 0
                 jnz     short loc_463DC9
                 mov     [ebp+var_20], 1
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DC9:                             ; CODE XREF: sub_463D26+95↑j
+loc_463DC9:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+95↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463DE9
                 mov     ecx, dword ptr [ebp+var_24]
@@ -29113,7 +29113,7 @@ loc_463DC9:                             ; CODE XREF: sub_463D26+95↑j
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DE9:                             ; CODE XREF: sub_463D26+A7↑j
+loc_463DE9:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+A7↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+144h]
                 sub     ecx, 1
@@ -29128,7 +29128,7 @@ loc_463DE9:                             ; CODE XREF: sub_463D26+A7↑j
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E14:                             ; CODE XREF: sub_463D26+D2↑j
+loc_463E14:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+D2↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+148h]
                 sub     edx, 1
@@ -29138,14 +29138,14 @@ loc_463E14:                             ; CODE XREF: sub_463D26+D2↑j
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E2E:                             ; CODE XREF: sub_463D26+FD↑j
+loc_463E2E:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+FD↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463E3D
                 mov     [ebp+var_20], 3
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E3D:                             ; CODE XREF: sub_463D26+10C↑j
+loc_463E3D:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+10C↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+144h]
                 sub     ecx, 1
@@ -29155,10 +29155,10 @@ loc_463E3D:                             ; CODE XREF: sub_463D26+10C↑j
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E57:                             ; CODE XREF: sub_463D26+126↑j
+loc_463E57:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+126↑j
                 mov     [ebp+var_20], 4
 
-loc_463E5E:                             ; CODE XREF: sub_463D26+69↑j
+loc_463E5E:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+69↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 shl     edx, 5
                 mov     [ebp+var_14], edx
@@ -29216,11 +29216,11 @@ loc_463E5E:                             ; CODE XREF: sub_463D26+69↑j
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    dword ptr [eax+34h]
 
-loc_463EFB:                             ; CODE XREF: sub_463D26+1A7↑j
+loc_463EFB:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+1A7↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_463D26      endp
+?VMethod6@CStructureBridge1@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29228,7 +29228,7 @@ sub_463D26      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_506 proc near           ; DATA XREF: .rdata:0060CB9C↓o
+?VMethod7@CStructureBridge1@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CB9C↓o
 
 var_4           = dword ptr -4
 
@@ -29239,14 +29239,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-unknown_libname_506 endp
+?VMethod7@CStructureBridge1@@UAEXHHH@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_463F0E      proc near               ; DATA XREF: .rdata:0060CBF0↓o
+?VMethod6@CStructureBridge2@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CBF0↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -29298,7 +29298,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463F7C:                             ; CODE XREF: sub_463F0E+5A↑j
+loc_463F7C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+5A↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+144h]
                 sub     eax, 1
@@ -29310,7 +29310,7 @@ loc_463F7C:                             ; CODE XREF: sub_463F0E+5A↑j
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463F9F:                             ; CODE XREF: sub_463F0E+7D↑j
+loc_463F9F:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+7D↑j
                 cmp     [ebp+var_8], 0
                 jnz     short loc_463FB6
                 mov     ecx, dword ptr [ebp+var_1C]
@@ -29320,7 +29320,7 @@ loc_463F9F:                             ; CODE XREF: sub_463F0E+7D↑j
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463FB6:                             ; CODE XREF: sub_463F0E+95↑j
+loc_463FB6:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+95↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463FD9
                 mov     edx, dword ptr [ebp+var_24]
@@ -29332,7 +29332,7 @@ loc_463FB6:                             ; CODE XREF: sub_463F0E+95↑j
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463FD9:                             ; CODE XREF: sub_463F0E+AC↑j
+loc_463FD9:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+AC↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+144h]
                 sub     edx, 1
@@ -29347,7 +29347,7 @@ loc_463FD9:                             ; CODE XREF: sub_463F0E+AC↑j
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_464004:                             ; CODE XREF: sub_463F0E+DA↑j
+loc_464004:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+DA↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+148h]
                 sub     eax, 1
@@ -29361,25 +29361,25 @@ loc_464004:                             ; CODE XREF: sub_463F0E+DA↑j
                 jmp     short loc_46403A
 ; ---------------------------------------------------------------------------
 
-loc_464028:                             ; CODE XREF: sub_463F0E+10F↑j
+loc_464028:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+10F↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     eax, dword ptr [edx+0A88h]
                 and     eax, 3
                 add     eax, 8
                 mov     [ebp+var_20], eax
 
-loc_46403A:                             ; CODE XREF: sub_463F0E+118↑j
+loc_46403A:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+118↑j
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_46403C:                             ; CODE XREF: sub_463F0E+105↑j
+loc_46403C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+105↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_46404B
                 mov     [ebp+var_20], 4
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_46404B:                             ; CODE XREF: sub_463F0E+132↑j
+loc_46404B:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+132↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+144h]
                 sub     edx, 1
@@ -29389,10 +29389,10 @@ loc_46404B:                             ; CODE XREF: sub_463F0E+132↑j
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_464065:                             ; CODE XREF: sub_463F0E+14C↑j
+loc_464065:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+14C↑j
                 mov     [ebp+var_20], 5
 
-loc_46406C:                             ; CODE XREF: sub_463F0E+69↑j
+loc_46406C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+69↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 shl     eax, 5
                 mov     [ebp+var_14], eax
@@ -29450,11 +29450,11 @@ loc_46406C:                             ; CODE XREF: sub_463F0E+69↑j
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    dword ptr [eax+34h]
 
-loc_464109:                             ; CODE XREF: sub_463F0E+1CD↑j
+loc_464109:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+1CD↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-sub_463F0E      endp
+?VMethod6@CStructureBridge2@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29462,7 +29462,7 @@ sub_463F0E      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_507 proc near           ; DATA XREF: .rdata:0060CBF4↓o
+?VMethod7@CStructureBridge2@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CBF4↓o
 
 var_4           = dword ptr -4
 
@@ -29473,7 +29473,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-unknown_libname_507 endp
+?VMethod7@CStructureBridge2@@UAEXHHH@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -31901,7 +31901,7 @@ loc_46EF72:                             ; CODE XREF: ??_GCStructure@@UAEPAXI@Z+1
 
 ; Attributes: bp-based frame
 
-sub_46EF80      proc near               ; DATA XREF: .rdata:0060B57C↓o
+??_GCBridge@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B57C↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -31911,7 +31911,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_46F580
+                call    ??1CBridge@@QAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -31920,12 +31920,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_46EFA2:                             ; CODE XREF: sub_46EF80+17↑j
+loc_46EFA2:                             ; CODE XREF: ??_GCBridge@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_46EF80      endp
+??_GCBridge@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -32594,7 +32594,7 @@ sub_46F410      endp
 ; Attributes: library function bp-based frame
 ;46f510
 ; struct CFrameWnd *__thiscall COleIPFrameWnd::GetDocFrame(COleIPFrameWnd *__hidden varThis)
-?GetDocFrame@COleIPFrameWnd@@QAEPAVCFrameWnd@@XZ proc near
+?VMethod4@CBridge@@UAEHXZ proc near
 
 var_4           = dword ptr -4
 
@@ -32607,7 +32607,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?GetDocFrame@COleIPFrameWnd@@QAEPAVCFrameWnd@@XZ endp
+?VMethod4@CBridge@@UAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -32617,7 +32617,7 @@ var_4           = dword ptr -4
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 ;46f530
-unknown_libname_521 proc near           ; DATA XREF: .rdata:0060B59C↓o
+?VMethod5@CBridge@@UAEHXZ proc near           ; DATA XREF: .rdata:0060B59C↓o
 
 var_4           = dword ptr -4
 
@@ -32630,7 +32630,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-unknown_libname_521 endp
+?VMethod5@CBridge@@UAEHXZ endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -32639,7 +32639,7 @@ unknown_libname_521 endp
 
 ; Attributes: bp-based frame
 
-sub_46F550      proc near               ; CODE XREF: sub_463C7F+3F↑p
+?VMethod17@CBridge@@UAEXHH@Z      proc near               ; CODE XREF: ??0CBridge@@QAE@HH@Z+3F↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -32658,7 +32658,7 @@ arg_4           = dword ptr  0Ch
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-sub_46F550      endp
+?VMethod17@CBridge@@UAEXHH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -32667,7 +32667,7 @@ sub_46F550      endp
 
 ; Attributes: bp-based frame
 
-sub_46F580      proc near               ; CODE XREF: sub_46EF80+A↑p
+??1CBridge@@QAE@XZ      proc near               ; CODE XREF: ??_GCBridge@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -32680,7 +32680,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_46F580      endp
+??1CBridge@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52599,7 +52599,7 @@ arg_4           = dword ptr  0Ch
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_463C7F
+                call    ??0CBridge@@QAE@HH@Z
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx], offset off_60CB70
                 mov     eax, dword ptr [ebp+var_4]
@@ -52615,7 +52615,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-sub_4A9EC0      proc near               ; DATA XREF: .rdata:0060CB74↓o
+??_GCStructureBridge1@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CB74↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52625,7 +52625,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_4A9EF0
+                call    ??1CStructureBridge1@@QAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -52634,12 +52634,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4A9EE2:                             ; CODE XREF: sub_4A9EC0+17↑j
+loc_4A9EE2:                             ; CODE XREF: ??_GCStructureBridge1@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4A9EC0      endp
+??_GCStructureBridge1@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52648,7 +52648,7 @@ sub_4A9EC0      endp
 
 ; Attributes: bp-based frame
 
-sub_4A9EF0      proc near               ; CODE XREF: sub_4A9EC0+A↑p
+??1CStructureBridge1@@QAE@XZ      proc near               ; CODE XREF: ??_GCStructureBridge1@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -52657,11 +52657,11 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_46F580
+                call    ??1CBridge@@QAE@XZ
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A9EF0      endp
+??1CStructureBridge1@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52686,7 +52686,7 @@ arg_4           = dword ptr  0Ch
                 mov     ecx, dword ptr [ebp+arg_0]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_463C7F
+                call    ??0CBridge@@QAE@HH@Z
                 mov     edx, dword ptr [ebp+var_4]
                 mov     dword ptr [edx], offset off_60CBC8
                 mov     eax, dword ptr [ebp+var_4]
@@ -52702,7 +52702,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-sub_4A9F40      proc near               ; DATA XREF: .rdata:0060CBCC↓o
+??_GCStructureBridge2@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CBCC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52712,7 +52712,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    sub_4A9F70
+                call    ??1CStructureBridge2@@QAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -52721,12 +52721,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4A9F62:                             ; CODE XREF: sub_4A9F40+17↑j
+loc_4A9F62:                             ; CODE XREF: ??_GCStructureBridge2@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_4A9F40      endp
+??_GCStructureBridge2@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52735,7 +52735,7 @@ sub_4A9F40      endp
 
 ; Attributes: bp-based frame
 
-sub_4A9F70      proc near               ; CODE XREF: sub_4A9F40+A↑p
+??1CStructureBridge2@@QAE@XZ      proc near               ; CODE XREF: ??_GCStructureBridge2@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -52744,11 +52744,11 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    sub_46F580
+                call    ??1CBridge@@QAE@XZ
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4A9F70      endp
+??1CStructureBridge2@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -236973,7 +236973,7 @@ SEH_461DFA:                             ; DATA XREF: ?AssertValid@CGameObject@@U
 ; } // starts at 5FA407
 ; END OF FUNCTION CHUNK FOR ?AssertValid@CGameObject@@UBEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_463C7F
+; START OF FUNCTION CHUNK FOR ??0CBridge@@QAE@HH@Z
 
 loc_5FA41A:                             ; DATA XREF: .rdata:stru_61B270↓o
 ; __unwind { // SEH_463C7F
@@ -236983,11 +236983,11 @@ loc_5FA41A:                             ; DATA XREF: .rdata:stru_61B270↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_463C7F:                             ; DATA XREF: sub_463C7F+5↑o
+SEH_463C7F:                             ; DATA XREF: ??0CBridge@@QAE@HH@Z+5↑o
                 mov     eax, offset stru_61B250
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FA41A
-; END OF FUNCTION CHUNK FOR sub_463C7F
+; END OF FUNCTION CHUNK FOR ??0CBridge@@QAE@HH@Z
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_464215
 
@@ -255053,16 +255053,16 @@ off_60B520      dd offset ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ  
                 dd offset ?VMethod15@CStructure@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 align 8
-off_60B578      dd offset sub_461040    ; DATA XREF: sub_463C7F+2E↑o
-                dd offset sub_46EF80
+off_60B578      dd offset ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CBridge@@QAE@HH@Z+2E↑o
+                dd offset ??_GCBridge@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
                 dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
                 dd offset ?VMethod1@CGameObject@@UAEXH@Z
                 dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?GetDocFrame@COleIPFrameWnd@@QAEPAVCFrameWnd@@XZ ; COleIPFrameWnd::GetDocFrame(void)
-                dd offset unknown_libname_521 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
+                dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod6@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod7@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod8@CStructure@@UAEXHHH@Z
@@ -255074,7 +255074,7 @@ off_60B578      dd offset sub_461040    ; DATA XREF: sub_463C7F+2E↑o
                 dd offset ?VMethod14@CGameObject@@UAEXXZ
                 dd offset ?VMethod15@CStructure@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_46F550
+                dd offset ?VMethod17@CBridge@@UAEXHH@Z
 
 off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CAirUnit@@QAE@XZ+12↑o
                 dd offset sub_46EFE0
@@ -256048,18 +256048,18 @@ dbl_60CB50      dq 32.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXH
 dbl_60CB58      dq 0.5235987666666667   ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+260↑r
 dbl_60CB60      dq 94.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+299↑r
 dbl_60CB68      dq 2.0                  ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+4F2↑r
-off_60CB70      dd offset sub_461050    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
-                dd offset sub_4A9EC0
+off_60CB70      dd offset ?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
+                dd offset ??_GCStructureBridge1@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
                 dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
                 dd offset ?VMethod1@CGameObject@@UAEXH@Z
                 dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?GetDocFrame@COleIPFrameWnd@@QAEPAVCFrameWnd@@XZ ; COleIPFrameWnd::GetDocFrame(void)
-                dd offset unknown_libname_521 ; MFC 3.1-14.0 32bit
-                dd offset sub_463D26
-                dd offset unknown_libname_506 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
+                dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod6@CStructureBridge1@@UAEXHHH@Z
+                dd offset ?VMethod7@CStructureBridge1@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod8@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod9@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod10@CStructure@@UAEXXZ
@@ -256069,19 +256069,19 @@ off_60CB70      dd offset sub_461050    ; DATA XREF: Concurrency::scheduler_work
                 dd offset ?VMethod14@CGameObject@@UAEXXZ
                 dd offset ?VMethod15@CStructure@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_46F550
-off_60CBC8      dd offset sub_461060    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
-                dd offset sub_4A9F40
+                dd offset ?VMethod17@CBridge@@UAEXHH@Z
+off_60CBC8      dd offset ?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
+                dd offset ??_GCStructureBridge2@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
                 dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
                 dd offset ?VMethod1@CGameObject@@UAEXH@Z
                 dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?GetDocFrame@COleIPFrameWnd@@QAEPAVCFrameWnd@@XZ ; COleIPFrameWnd::GetDocFrame(void)
-                dd offset unknown_libname_521 ; MFC 3.1-14.0 32bit
-                dd offset sub_463F0E
-                dd offset unknown_libname_507 ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
+                dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod6@CStructureBridge2@@UAEXHHH@Z
+                dd offset ?VMethod7@CStructureBridge2@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod8@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod9@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod10@CStructure@@UAEXXZ
@@ -256091,7 +256091,7 @@ off_60CBC8      dd offset sub_461060    ; DATA XREF: Concurrency::scheduler_work
                 dd offset ?VMethod14@CGameObject@@UAEXXZ
                 dd offset ?VMethod15@CStructure@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset sub_46F550
+                dd offset ?VMethod17@CBridge@@UAEXHH@Z
                 db  18h
                 db  2Dh ; -
                 db  44h ; D
