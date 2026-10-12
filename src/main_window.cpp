@@ -819,6 +819,43 @@ void MainWindow::WaitConnectionCharacterJoin()
     }
 }
 
+// 48d815
+void MainWindow::ShowCurrentTownDialog()
+{
+    CStringArray* plist = new CStringArray();
+    ReadFileToString("main\\text\\town.txt", &g_MissionText);
+    g_Cursors[0x1a]->Use();
+    this->FUN_00485a41();
+
+    int loc_id = ScenarioGetCurrentLocation()->GetId();
+    if (loc_id == 1) {
+        plist->Add("music\\b14.wav");
+        this->vis_root->AddChild(this->vis_town);
+        this->vis_town->VMethod28();
+    } else if (loc_id == 2) {
+        plist->Add("music\\b16.wav");
+        this->vis_root->AddChild(this->vis_townkaarg);
+        this->vis_townkaarg->VMethod28();
+    } else if (loc_id == 3) {
+        plist->Add("music\\b15.wav");
+        this->vis_root->AddChild(this->vis_towndruid);
+        this->vis_towndruid->VMethod28();
+    }
+
+    this->vis_root->VMethod9();
+    this->field_0x460 = 0;
+
+    if (g_SoundSettings.field_0x20 != 0) {
+        if (this->music_player->GetPlaylist().GetSize() == 0 || this->music_player->GetPlaylist()[0] != (*plist)[0]) {
+            this->music_player->SetPlayList(*plist);
+        }
+        this->music_player->Play();
+    }
+
+    delete plist;
+    g_Cursors[0]->Use();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

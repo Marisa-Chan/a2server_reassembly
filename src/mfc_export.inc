@@ -923,7 +923,6 @@ externdef   ?_FUN_00495743@MainWindow@@QAEXXZ  : proc
 
 externdef ?ShowFameHallDocDlg@MainWindow@@QAEXXZ : proc
 externdef ?ConnectToServerAddress@MainWindow@@QAEHXZ : proc
-externdef ?ShowCurrentTownDialog@MainWindow@@QAEXXZ : proc
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00485aed@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc

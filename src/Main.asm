@@ -49652,65 +49652,6 @@ loc_484AA2:                             ; CODE XREF: ?_OnPaint@MainWindow@@QAEXX
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_485A41      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+193A↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                call    ?RemoveAllChilds@CVisualObject@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+0E0h]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+0D4h]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0CCh]
-                call    ?RemoveAllChilds@CVisualObject@@QAEXXZ
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+418h]
-                and     eax, 0FFFFFFFEh
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+418h], eax
-                push    0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D0h]
-                push    eax
-                push    403h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ecx+0D4h]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+0D4h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_485A41      endp
-
-
-; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
@@ -51602,209 +51543,6 @@ sub_48D1D4      endp
 
 ; Attributes: bp-based frame
 
-?ShowCurrentTownDialog@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+10AD↑p
-
-var_34          = dword ptr -34h
-var_30          = dword ptr -30h
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-Block           = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FBEA7 SIZE 00000014 BYTES
-
-; __unwind { // SEH_48D815
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_48D815
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 28h
-                mov     [ebp+var_28], ecx
-                push    14h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_48D857
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_5DABF1
-                mov     [ebp+var_2C], eax
-                jmp     short loc_48D85E
-; ---------------------------------------------------------------------------
-
-loc_48D857:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+33↑j
-                mov     [ebp+var_2C], 0
-
-loc_48D85E:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+40↑j
-                mov     eax, dword ptr [ebp+var_2C]
-                mov     [ebp+var_1C], eax
-;   } // starts at 48D83D
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_1C]
-                mov     [ebp+var_10], ecx
-                push    offset ?g_MissionText@@3VCString@@A ; CString *
-                push    offset aMainTextTownTx_1 ; "main\\text\\town.txt"
-                call    ?ReadFileToString@@YAXPBDPAVCString@@@Z
-                add     esp, 8
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A+68h
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_28]
-                call    sub_485A41
-                call    ?ScenarioGetCurrentLocation@@YGPAUScenarioLocation@@XZ
-                mov     ecx, eax
-                call    unknown_libname_538 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_14], eax
-                mov     edx, dword ptr [ebp+var_14]
-                mov     [ebp+var_30], edx
-                cmp     [ebp+var_30], 1
-                jz      short loc_48D8C7
-                cmp     [ebp+var_30], 2
-                jz      short loc_48D90B
-                cmp     [ebp+var_30], 3
-                jz      loc_48D94C
-                jmp     loc_48D98B
-; ---------------------------------------------------------------------------
-
-loc_48D8C7:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+9B↑j
-                push    offset aMusicB14Wav ; "music\\b14.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+110h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+110h]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+110h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                jmp     loc_48D98B
-; ---------------------------------------------------------------------------
-
-loc_48D90B:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+A1↑j
-                push    offset aMusicB16Wav ; "music\\b16.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+118h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+118h]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+118h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-                jmp     short loc_48D98B
-; ---------------------------------------------------------------------------
-
-loc_48D94C:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+A7↑j
-                push    offset aMusicB15Wav ; "music\\b15.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+114h]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0CCh]
-                call    ?AddChild@CVisualObject@@QAEXPAV1@@Z
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+114h]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+114h]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+80h]
-
-loc_48D98B:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+AD↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [eax+0CCh]
-                mov     edx, dword ptr [ebp+var_28]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+34h]
-                mov     eax, dword ptr [ebp+var_28]
-                mov     dword ptr [eax+460h], 0
-                cmp     ?g_SoundSettings@@3USoundSettings@@A+020h, 0
-                jz      short loc_48DA22
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+0C8h]
-                call    MusicPlayer__GetPlayList ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                test    eax, eax
-                jz      short loc_48DA02
-                push    0
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_401820
-                push    eax
-                push    0
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0C8h]
-                call    MusicPlayer__GetPlayList ; Microsoft VisualC 2-14/net runtime
-                mov     ecx, eax
-                call    sub_401820
-                push    eax
-                call    sub_496380
-                and     eax, 0FFh
-                test    eax, eax
-                jz      short loc_48DA14
-
-loc_48DA02:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+1BA↑j
-                mov     eax, dword ptr [ebp+var_10]
-                push    eax             ; struct CStringArray *
-                mov     ecx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [ecx+0C8h]
-                call    ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z
-
-loc_48DA14:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+1EB↑j
-                mov     edx, dword ptr [ebp+var_28]
-                mov     ecx, dword ptr [edx+0C8h]
-                call    ?Play@MusicPlayer@@QAEXXZ
-
-loc_48DA22:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+1A1↑j
-                mov     eax, dword ptr [ebp+var_10]
-                mov     [ebp+var_24], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ebp+var_20], ecx
-                cmp     [ebp+var_20], 0
-                jz      short loc_48DA46
-                push    1
-                mov     edx, dword ptr [ebp+var_20]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_20]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_34], eax
-                jmp     short loc_48DA4D
-; ---------------------------------------------------------------------------
-
-loc_48DA46:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+21D↑j
-                mov     [ebp+var_34], 0
-
-loc_48DA4D:                             ; CODE XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+22F↑j
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 48D815
-?ShowCurrentTownDialog@MainWindow@@QAEXXZ      endp
 
 
 
@@ -247506,24 +247244,6 @@ SEH_48D4DA:                             ; DATA XREF: ?ShowInnDialog@MainWindow@@
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FBE91
 ; END OF FUNCTION CHUNK FOR ?ShowInnDialog@MainWindow@@QAEXIH@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?ShowCurrentTownDialog@MainWindow@@QAEXXZ
-
-loc_5FBEA7:                             ; DATA XREF: .rdata:stru_61CF40↓o
-; __unwind { // SEH_48D815
-;   cleanup() // owned by 48D83D
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_48D815:                             ; DATA XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+5↑o
-                mov     eax, offset stru_61CF20
-                jmp     ___CxxFrameHandler
-; } // starts at 5FBEA7
-; END OF FUNCTION CHUNK FOR ?ShowCurrentTownDialog@MainWindow@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?ShowCreditsDialog@MainWindow@@QAEXXZ
 
 loc_5FBEBB:                             ; DATA XREF: .rdata:stru_61CF68↓o
@@ -275931,12 +275651,6 @@ stru_61CEF8     FuncInfoV1 <19930520h, 1, offset stru_61CF18, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61CF18     UnwindMapEntry <-1, offset loc_5FBE91>
-stru_61CF20     FuncInfoV1 <19930520h, 1, offset stru_61CF40, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61CF40     UnwindMapEntry <-1, offset loc_5FBEA7>
 stru_61CF48     FuncInfoV1 <19930520h, 1, offset stru_61CF68, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -282810,17 +282524,6 @@ asc_6314E0      db '|',0                ; DATA XREF: sub_48B061+7E4↑o
                 align 4
 ; char aMusicMapWav[]
 aMusicMapWav    db 'music\map.wav',0    ; DATA XREF: ?ShowGlobalMapDialog@MainWindow@@QAEXXZ+DF↑o
-                align 4
-aMainTextTownTx_1 db 'main\text\town.txt',0 ; DATA XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ+61↑o
-                align 4
-; char aMusicB14Wav[]
-aMusicB14Wav    db 'music\b14.wav',0    ; DATA XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ:loc_48D8C7↑o
-                align 4
-; char aMusicB16Wav[]
-aMusicB16Wav    db 'music\b16.wav',0    ; DATA XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ:loc_48D90B↑o
-                align 4
-; char aMusicB15Wav[]
-aMusicB15Wav    db 'music\b15.wav',0    ; DATA XREF: ?ShowCurrentTownDialog@MainWindow@@QAEXXZ:loc_48D94C↑o
                 align 4
 ; char aMusicCreditWav[]
 aMusicCreditWav db 'music\credit.wav',0 ; DATA XREF: ?ShowCreditsDialog@MainWindow@@QAEXXZ+D4↑o
