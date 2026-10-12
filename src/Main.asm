@@ -34392,46 +34392,6 @@ loc_4735D4:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAE
 
 ; Attributes: bp-based frame
 
-?FreePathmap@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+203↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 10h
-                mov     [ebp+var_C], ecx
-                mov     eax, dword ptr [ebp+var_C]
-                cmp     dword ptr [eax], 0
-                jz      short loc_473620
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     edx, dword ptr [ecx]
-                mov     [ebp+var_8], edx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], eax
-                cmp     [ebp+var_4], 0
-                jz      short loc_473619
-                push    1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_10], eax
-                jmp     short loc_473620
-; ---------------------------------------------------------------------------
-
-loc_473619:                             ; CODE XREF: ?FreePathmap@GMapThing@@QAEXXZ+23↑j
-                mov     [ebp+var_10], 0
-
-loc_473620:                             ; CODE XREF: ?FreePathmap@GMapThing@@QAEXXZ+F↑j
-                mov     eax, dword ptr [ebp+var_C]
-                mov     dword ptr [eax], 0
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FreePathmap@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

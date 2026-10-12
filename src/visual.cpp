@@ -7344,6 +7344,16 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 4735e2
+void GMapThing::FreePathmap()
+{
+    if (this->pathmap != nullptr) {
+        delete this->pathmap;
+    }
+    this->pathmap = nullptr;
+}
+
+
 // 473da0
 void GMapThing::Destroy(uint32_t flags)
 {
