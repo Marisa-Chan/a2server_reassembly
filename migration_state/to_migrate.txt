@@ -78,7 +78,6 @@ _byte_659A3C
 ??1CVerticalWoodenBridge@@QAE@XZ	13
 ??0CVerticalWoodenBridge@@QAE@HH@Z	22
 ??_GCVerticalWoodenBridge@@UAEPAXI@Z	24
-?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z	190
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
