@@ -1130,6 +1130,17 @@ void MainWindow::_OnSize(UINT nType, int cx, int cy)
     }
 }
 
+// 486391
+BOOL MainWindow::_OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
+{
+    if (g_IsServer == 0) {
+        SetCursor((HCURSOR)nullptr);
+    } else {
+        SetCursor(this->cursor_arrow);
+    }
+    return 1;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

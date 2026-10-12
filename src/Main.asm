@@ -50388,31 +50388,6 @@ loc_48638D:                             ; CODE XREF: ?FUN_00485aed@MainWindow@@Q
                 retn
 ?FUN_00485aed@MainWindow@@QAEXXZ      endp
 
-; ---------------------------------------------------------------------------
-?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                cmp     ?g_IsServer@@3HA, 0
-                jnz     short loc_4863AB
-                push    0
-                call    SetCursor
-                jmp     short loc_4863BB
-; ---------------------------------------------------------------------------
-
-loc_4863AB:                             ; CODE XREF: .text:0048639F↑j
-                mov     eax, dword ptr [ebp-4]
-                mov     ecx, dword ptr [eax+638h]
-                push    ecx
-                call    SetCursor
-
-loc_4863BB:                             ; CODE XREF: .text:004863A9↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
