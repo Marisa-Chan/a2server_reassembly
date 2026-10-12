@@ -2012,7 +2012,6 @@ extern ??0CUnit@@QAE@XZ : proc
 extern ??1CUnit@@UAE@XZ : proc
 extern ?CopyFromUnit@CUnit@@QAEXABVUnit@@@Z  :proc
 extern ?ReloadSprite@CUnit@@QAEXXZ : proc
-externdef ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t CUnit::FUN_0046c0c9(TokenEntry*)  //46c0c9 in asm
 extern ?classCUnit@CUnit@@2UCRuntimeClass@@B : dword
 
 extern   ?VMethod1@CUnit@@UAEXH@Z  : proc

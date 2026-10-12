@@ -3658,6 +3658,18 @@ const char* CUnit::FUN_0046d0f7(int32_t x, int32_t y)
     return nullptr;
 }
 
+// 46C0C9
+int32_t CUnit::FUN_0046c0c9(TokenEntry* entry)
+{
+    if ((entry->flg & 2) != 0 && (this->unitFlags & 2) == 0) {
+        return 1;
+    }
+    if ((entry->flg & 4) != 0 && (this->unitFlags & 2) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
 // 4648e9
 void CUnit::VMethod1(int32_t arg1)
 {

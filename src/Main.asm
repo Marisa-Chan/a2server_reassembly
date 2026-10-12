@@ -29806,54 +29806,6 @@ sub_467845      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z      proc near               ; CODE XREF: ?VMethod27@VisCharInfo@@UAEHH@Z+F2↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                xor     ecx, ecx
-                mov     cl, [eax+8]
-                and     ecx, 2
-                test    ecx, ecx
-                jz      short loc_46C0F6
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+1B8h]
-                and     eax, 2
-                test    eax, eax
-                jnz     short loc_46C0F6
-                mov     eax, 1
-                jmp     short loc_46C11E
-; ---------------------------------------------------------------------------
-
-loc_46C0F6:                             ; CODE XREF: ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z+14↑j
-                mov     ecx, dword ptr [ebp+arg_0]
-                xor     edx, edx
-                mov     dl, [ecx+8]
-                and     edx, 4
-                test    edx, edx
-                jz      short loc_46C11C
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+1B8h]
-                and     ecx, 2
-                test    ecx, ecx
-                jz      short loc_46C11C
-                mov     eax, 1
-                jmp     short loc_46C11E
-; ---------------------------------------------------------------------------
-
-loc_46C11C:                             ; CODE XREF: ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z+3A↑j
-                xor     eax, eax
-
-loc_46C11E:                             ; CODE XREF: ?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z+2B↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0046c0c9@CUnit@@QAEHPAVTokenEntry@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
