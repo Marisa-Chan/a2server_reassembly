@@ -32805,22 +32805,6 @@ unknown_libname_525 endp
 
 ; Attributes: bp-based frame
 
-?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z      proc near               ; CODE XREF: ?VMethod6@CUnit@@UAEXHHH@Z+9D3↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+eax*4+0BCh]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

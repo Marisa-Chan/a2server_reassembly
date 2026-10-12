@@ -3470,6 +3470,11 @@ CGamePalette* UnitVFXUnfo::FUN_0046f680(int32_t idx)
     return this->palettes[idx];
 }
 
+uint8_t* UnitVFXUnfo::FUN_0046f6e0(int32_t idx)
+{ //46f6e0
+    return this->palette_datas[idx];
+}
+
 
 StructureInfo::StructureInfo(const char* _fname)
 { //47eca2

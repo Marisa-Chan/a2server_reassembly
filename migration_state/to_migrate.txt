@@ -72,4 +72,3 @@ _byte_659A3C
 ??0CStructureBridge2@@QAE@HH@Z	22
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
 ?Load@PasswordManager@@QAEXXZ	159
-?FUN_0046f6e0@UnitVFXUnfo@@QAEPAEH@Z	15
