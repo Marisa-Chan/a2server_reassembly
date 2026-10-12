@@ -794,6 +794,31 @@ void MainWindow::FUN_00494a9e()
     }
 }
 
+// 49152f
+void MainWindow::WaitConnectionCharacterJoin()
+{
+    if (this->vis_map_context->FUN_0040d7f3() == 0) {
+        VisMessageBoxWithList* mbox;
+        if ((INT_00660f8c & 0xff) < 0xB) {
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, TxtFile::AllLines[(INT_00660f8c & 0xff) + 0xC0], nullptr, 0);
+        } else {
+            mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(INT_00660f8c & 0xff), nullptr, 0);
+        }
+        this->ModalScreen(mbox);
+        this->PostMessage(0x10, 0, 0);
+    } else {
+        if (this->m_GameSession.field_0x10c == 0) {
+            VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
+            this->ModalScreen(mbox);
+            if (mbox->GetCloseCode() != 0x447) {
+                this->PostMessage(0x10, 0, 0);
+                return;
+            }
+        }
+        this->PostMessage(0x457, 0, 0);
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
