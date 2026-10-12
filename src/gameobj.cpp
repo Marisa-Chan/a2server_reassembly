@@ -3835,3 +3835,55 @@ StructEnter::~StructEnter()
 }
 
 StructEnter g_StructEnter;
+
+// 4631f3
+void CStructure::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    if (arg1 != this->mapBoundsLeft || arg2 != this->mapBoundsTop) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+    if (info->indestructible != 0) {
+        return;
+    }
+
+    int32_t left = (this->tileX - map->view_x) * 0x20 + info->selection.left;
+    int32_t right = (this->tileX - map->view_x) * 0x20 + info->selection.right;
+    int32_t y = ((this->tileY - map->view_y) + info->tile_height - info->full_height) * 0x20 + info->selection.top - this->terrainHeightOffset;
+
+    gfx_ball->VMethod10(left, y - 2, 0, 0, 4, 4);
+    gfx_ball->VMethod10(right - 4, y - 2, 0, 0, 4, 4);
+
+    uint16_t color_lo;
+    uint16_t color_mid;
+    uint16_t color_hi;
+    if (this->hp < this->hp_max / 4) {
+        color_lo = GetColorRGB(0xFF, 0, 0);
+        color_mid = GetColorRGB(0xC0, 0, 0);
+        color_hi = GetColorRGB(0x80, 0, 0);
+    } else if (this->hp < this->hp_max / 2) {
+        color_lo = GetColorRGB(0xFF, 0xFF, 0);
+        color_mid = GetColorRGB(0xC0, 0xC0, 0);
+        color_hi = GetColorRGB(0x80, 0x80, 0);
+    } else {
+        color_lo = GetColorRGB(0, 0xFF, 0);
+        color_mid = GetColorRGB(0, 0xC0, 0);
+        color_hi = GetColorRGB(0, 0x80, 0);
+    }
+
+    int32_t fill_width = this->hp * (right - left - 8) / this->hp_max;
+    if (fill_width == 0 && this->hp != 0) {
+        fill_width = 1;
+    }
+
+    uint16_t add_mask = g_ColorAddMask;
+    if (map->show_hp != 0 && this->IsSelected() == 0) {
+        color_lo = (color_lo >> 1) & add_mask;
+        color_mid = (color_mid >> 1) & add_mask;
+        color_hi = (color_hi >> 1) & add_mask;
+    }
+
+    this->FUN_0046246b(left, right, y, fill_width, color_lo, color_mid, color_hi);
+}

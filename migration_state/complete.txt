@@ -1029,6 +1029,7 @@
 ?VMethod7@VisTavSceneKaarg@@UAEXXZ
 ?VMethod7@VisTextBox@@UAEXXZ
 ?VMethod8@CGameObject@@UAEXHHH@Z
+?VMethod8@CStructure@@UAEXHHH@Z
 ?VMethod8@CUnit@@UAEXHHH@Z
 ?VMethod8@CVisualObject@@UAEXPAVCRect@@@Z
 ?VMethod8@VisGlobalMap@@UAEXPAVCRect@@@Z

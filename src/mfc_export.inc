@@ -2063,7 +2063,7 @@ externdef ?VMethod4@CStructure@@UAEHXZ : proc
 externdef ?VMethod5@CStructure@@UAEHXZ : proc
 externdef ?VMethod6@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod7@CStructure@@UAEXHHH@Z : proc
-externdef ?VMethod8@CStructure@@UAEXHHH@Z : proc
+extern ?VMethod8@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod9@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod10@CStructure@@UAEXXZ : proc
 externdef ?VMethod11@CStructure@@UAEHXZ : proc

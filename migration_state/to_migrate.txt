@@ -93,7 +93,6 @@ _byte_659A3C
 ?VMethod12@CStructure@@UAEXXZ	222
 ?VMethod6@CStructure@@UAEXHHH@Z	247
 ?VMethod7@CStructure@@UAEXHHH@Z	270
-?VMethod8@CStructure@@UAEXHHH@Z	502
 ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CVerticalWoodenBridge@@QAE@XZ	13
