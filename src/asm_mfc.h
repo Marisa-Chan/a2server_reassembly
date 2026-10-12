@@ -3994,6 +3994,27 @@ protected:
 
 ASSERT_SIZE(CWnd, 0x3C);
 
+class CDC : public CObject
+{
+public:
+	HDC m_hDC;        // +4
+	HDC m_hAttribDC;  // +8
+	HDC field_0xc;    // +c
+};
+ASSERT_SIZE(CDC, 0x10);
+
+class CPaintDC : public CDC
+{
+public:
+	CPaintDC(CWnd* pWnd); // 5e8049
+	virtual ~CPaintDC(); // 5e80bb
+
+public:
+	HWND m_hWnd;       // +10
+	PAINTSTRUCT m_ps;  // +14
+};
+ASSERT_SIZE(CPaintDC, 0x54);
+
 
 
 

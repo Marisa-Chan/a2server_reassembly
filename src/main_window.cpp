@@ -1299,6 +1299,19 @@ void MainWindow::sub_48CCA1(TokenEntry* entry, int32_t idx, const char* str, int
     this->field_0x408 = entry;
 }
 
+// 484a1a
+void MainWindow::_OnPaint()
+{
+    if (g_ddraw != nullptr) {
+        CRect rect;
+        CPaintDC dc(this);
+        rect = dc.m_ps.rcPaint;
+        FUN_00454a1e(rect.left, rect.top, rect.right, rect.bottom);
+    } else if (g_IsServer != 0) {
+        Default();
+    }
+}
+
 // 495c6e
 void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
 {

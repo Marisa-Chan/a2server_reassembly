@@ -781,6 +781,8 @@ externdef ?OnDestroy@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnDestroy(void) - 5f
 externdef ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z : proc  ; CFrameWnd::OnSetFocus(CWnd*) - 5f183f
 externdef ?OnClose@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnClose(void) - 5f1148
 externdef ?OnSize@CFrameWnd@@IAEXIHH@Z : proc  ; CFrameWnd::OnSize(UINT,int,int) - 5f2550
+externdef ??0CPaintDC@@QAE@PAVCWnd@@@Z : proc  ; CPaintDC::CPaintDC(CWnd*) - 5e8049
+externdef ??1CPaintDC@@UAE@XZ : proc  ; CPaintDC::~CPaintDC(void) - 5e80bb
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )
@@ -1687,6 +1689,7 @@ externdef _unk_659A48 : byte  ; zeroed 4-byte buffer
 
 ;GFX things
 extern ?gfxFlushRect@@YAXABVCRect@@@Z :proc
+externdef ?FUN_00454a1e@@YAXHHHH@Z  : proc  ; void FUN_00454a1e(int,int,int,int)
 extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 
 extern ?SaveScreenshot@@YAXXZ : proc

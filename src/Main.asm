@@ -24928,7 +24928,7 @@ sub_454A0C      endp
 
 ; Attributes: bp-based frame
 
-sub_454A1E      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+73F↑p
+?FUN_00454a1e@@YAXHHHH@Z      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+73F↑p
 
 rcSrc1          = RECT ptr -10h
 arg_0           = dword ptr  8
@@ -24956,7 +24956,7 @@ arg_C           = dword ptr  14h
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_454A1E      endp
+?FUN_00454a1e@@YAXHHHH@Z      endp
 
 
 
@@ -49539,76 +49539,6 @@ sub_484127      endp
 
 ; Attributes: bp-based frame
 
-?_OnPaint@MainWindow@@QAEXXZ      proc near
-
-var_74          = dword ptr -74h
-var_70          = byte ptr -70h
-rcSrc           = RECT ptr -54h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FBA09 SIZE 00000013 BYTES
-
-; __unwind { // SEH_484A1A
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_484A1A
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 68h
-                mov     [ebp+var_74], ecx
-                call    sub_4538B0
-                test    eax, eax
-                jz      short loc_484A91
-                lea     ecx, [ebp+var_1C] ; void *
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                mov     eax, dword ptr [ebp+var_74]
-                push    eax             ; struct CWnd *
-                lea     ecx, [ebp+var_70] ; varThis
-                call    ??0CPaintDC@@QAE@PAVCWnd@@@Z ; CPaintDC::CPaintDC(CWnd *)
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+rcSrc]
-                push    ecx             ; lprcSrc
-                lea     ecx, [ebp+var_1C]
-                call    ?Push@?$LockFreeStack@VSubAllocator@details@Concurrency@@@details@Concurrency@@QAEXPAVSubAllocator@23@@Z ; Concurrency::details::LockFreeStack<Concurrency::details::SubAllocator>::Push(Concurrency::details::SubAllocator *)
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_18]
-                push    ecx
-                mov     edx, dword ptr [ebp+var_1C]
-                push    edx
-                call    sub_454A1E
-                add     esp, 10h
-;   } // starts at 484A55
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_70] ; varThis
-                call    ??1CPaintDC@@UAE@XZ ; CPaintDC::~CPaintDC(void)
-                jmp     short loc_484AA2
-; ---------------------------------------------------------------------------
-
-loc_484A91:                             ; CODE XREF: ?_OnPaint@MainWindow@@QAEXXZ+25↑j
-                cmp     ?g_IsServer@@3HA, 0
-                jz      short loc_484AA2
-                mov     ecx, dword ptr [ebp+var_74]
-                call    sub_4963E0
-
-loc_484AA2:                             ; CODE XREF: ?_OnPaint@MainWindow@@QAEXXZ+75↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 484A1A
-?_OnPaint@MainWindow@@QAEXXZ      endp
 
 
 
@@ -52355,25 +52285,6 @@ lpRect          = dword ptr  8
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_4963E0      proc near               ; CODE XREF: ?_OnPaint@MainWindow@@QAEXXZ+83↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4963E0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -244866,22 +244777,6 @@ SEH_483D64:                             ; DATA XREF: ?LoadData@MainWindow@@QAEXX
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FB959
 ; END OF FUNCTION CHUNK FOR ?LoadData@MainWindow@@QAEXXZ
-; START OF FUNCTION CHUNK FOR ?_OnPaint@MainWindow@@QAEXXZ
-
-loc_5FBA09:                             ; DATA XREF: .rdata:stru_61CAF0↓o
-; __unwind { // SEH_484A1A              ; varThis
-;   cleanup() // owned by 484A55
-                lea     ecx, [ebp+var_70]
-                call    ??1CPaintDC@@UAE@XZ ; CPaintDC::~CPaintDC(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_484A1A:                             ; DATA XREF: ?_OnPaint@MainWindow@@QAEXXZ+5↑o
-                mov     eax, offset stru_61CAD0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FBA09
-; END OF FUNCTION CHUNK FOR ?_OnPaint@MainWindow@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?CreateUI@MainWindow@@QAEXXZ
 
 loc_5FBA1C:                             ; DATA XREF: .rdata:stru_61CB18↓o
@@ -273589,12 +273484,6 @@ stru_61CA08     FuncInfoV1 <19930520h, 2, offset stru_61CA28, 0, 0, 0, 0>
                 db    0
 stru_61CA28     UnwindMapEntry <-1, offset loc_5FB959>
                 UnwindMapEntry <-1, offset loc_5FB963>
-stru_61CAD0     FuncInfoV1 <19930520h, 1, offset stru_61CAF0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61CAF0     UnwindMapEntry <-1, offset loc_5FBA09>
 stru_61CAF8     FuncInfoV1 <19930520h, 29, offset stru_61CB18, 0, 0, 0, 0>
                 db    0
                 db    0

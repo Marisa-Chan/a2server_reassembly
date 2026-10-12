@@ -22,6 +22,7 @@ _byte_659A3C
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
+?FUN_00454a1e@@YAXHHHH@Z	28
 ?FUN_0047619a@@YAXXZ	33
 ?FUN_0043aae0@@YAHD@Z	35
 ?SaveSettings@@YAXXZ	66
@@ -155,6 +156,8 @@ _byte_659A3C
 ?OnChildNotify@CListBox@@UAEHIIJPAJ@Z	89
 ??3CNoTrackObject@@SGXPAX@Z	11
 ??2CNoTrackObject@@SGPAXI@Z	18
+??1CPaintDC@@UAE@XZ	34
+??0CPaintDC@@QAE@PAVCWnd@@@Z	44
 ??0CProjectile@@QAE@XZ	36
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31
@@ -246,7 +249,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_OnPaint@MainWindow@@QAEXXZ	69
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
