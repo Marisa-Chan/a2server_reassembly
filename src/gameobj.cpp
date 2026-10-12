@@ -3394,6 +3394,160 @@ SfxBank* CUnit::FUN_0046978b()
     return &SoundBank_peasant[is_hero];
 }
 
+// 46C124
+void CUnit::FUN_0046c124(CRect* rect)
+{
+    BigStruct2* map = this->pMapObject;
+    uint16_t* label_color = clrsh_DullGold;
+    uint16_t* value_color = clrsh_Oxley;
+    uint16_t* section_color = clrsh_CharlieBrown;
+
+    // 0 = nothing, 7 = full stats; grows with kills on this unit type
+    int32_t view_level = 0;
+    if (this->serverId != 0 && this->serverId < 0xa00) {
+        view_level = map->kill_stats[this->serverId] / 2;
+    }
+    if (this->map_player->index == 0) {
+        view_level = 7;
+    } else if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+        view_level = 7;
+    }
+    if (INT_00660f74 != 0) {
+        view_level = 7;
+    }
+
+    char buf1[16];
+    char buf2[16];
+
+    if (strlen(this->str1) == 0) {
+        if ((this->unitFlags & 0x11) != 0) {
+            if (map->my_main_unit->FUN_0041ee20(this->map_player->index) == 0) {
+                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], 2, label_color, 1);
+            } else if (this->typeId < 0x40) {
+                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], 2, label_color, 1);
+            }
+        }
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, txt_unitname.GetLine(this->typeId), 2, label_color, 1);
+    } else {
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, this->str1, 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, this->str2, 2, label_color, 1);
+    }
+
+    if (view_level > 4) {
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x2c, TxtFile::AllLines[0xf], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x36, TxtFile::AllLines[0x10], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x40, TxtFile::AllLines[0x11], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x4a, TxtFile::AllLines[0x12], 0, label_color, 1);
+        sprintf(buf1, "%d", this->body);
+        sprintf(buf2, "%d", this->reaction);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x2c, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x36, buf2, 1, value_color, 1);
+        sprintf(buf1, "%d", this->mind);
+        sprintf(buf2, "%d", this->spirit);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x40, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x4a, buf2, 1, value_color, 1);
+    }
+
+    if (view_level > 0) {
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x2c, TxtFile::AllLines[0x13], 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x40, TxtFile::AllLines[0x14], 2, label_color, 1);
+        sprintf(buf1, "%d/%d", this->hp, this->hp_max);
+        sprintf(buf2, "%d/%d", this->mp, this->mp_max);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x36, buf1, 2, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x4a, buf2, 2, value_color, 1);
+    }
+
+    if (view_level > 2) {
+        if ((this->unitFlags & 2) == 0) {
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x62, TxtFile::AllLines[0x19], 0, label_color, 1);
+            uint32_t dmg_min = this->hand_dmg_min;
+            uint32_t dmg_spread = this->hand_dmg_spread;
+            if ((this->hand_dmg_min & 0x80) != 0 && (this->unitFlags & 0x11) == 0) {
+                dmg_min = (dmg_min & 0x7f) * 0xf;
+                dmg_spread = dmg_spread * 0xf;
+            }
+            sprintf(buf1, "%d", this->attack);
+            sprintf(buf2, "%d-%d", dmg_min, dmg_min + dmg_spread);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x62, buf1, 1, value_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+        } else if (this->equipmentTokens[0] != nullptr && this->equipmentTokens[0]->mods_count != 0) {
+            Spell spell((uint8_t)this->equipmentTokens[0]->GetCastSpellId());
+            spell.sub_539541(this->equipmentTokens[0]->GetAttribute('2'));
+            CString str;
+            if (spell.damage_min + spell.damage_spread != 0) {
+                // NB: the binary formats this string but never draws it
+                str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
+                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
+                sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
+                g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+            }
+        }
+    }
+
+    if (view_level > 3) {
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x58, TxtFile::AllLines[0x18], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x62, TxtFile::AllLines[0x1a], 0, label_color, 1);
+        sprintf(buf1, "%d", this->absorb);
+        sprintf(buf2, "%d", this->defence);
+        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x58, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x62, buf2, 1, value_color, 1);
+    }
+
+    if (view_level > 1) {
+        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 200, TxtFile::AllLines[0x15], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 0xd2, TxtFile::AllLines[0x16], 0, label_color, 1);
+        sprintf(buf1, "%d.%d", this->scan_range >> 8, ((this->scan_range & 0xff) * 10) >> 8);
+        sprintf(buf2, "%d", this->speed);
+        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 200, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 0xd2, buf2, 1, value_color, 1);
+    }
+
+    if (view_level > 6) {
+        if ((this->unitFlags & 0x11) == 0) {
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1c], 0, section_color, 1);
+        } else {
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1b], 0, section_color, 1);
+        }
+        for (int32_t i = 0; i < 5; i++) {
+            if (this->typeId == 0x18 || this->typeId == 0x17
+                || ((this->unitFlags & 1) != 0 && (this->unitFlags & 2) != 0)) {
+                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x24], 0, label_color, 1);
+            } else {
+                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x1e], 0, label_color, 1);
+            }
+            sprintf(buf1, "%d", this->skill_levels[i]);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x7a + i * 10, buf1, 1, value_color, 1);
+        }
+    }
+
+    if (view_level > 5) {
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x70, TxtFile::AllLines[0x1c], 0, section_color, 1);
+        for (int32_t i = 0; i < 5; i++) {
+            g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x29], 0, label_color, 1);
+            sprintf(buf1, "%d", this->magic_protect[i]);
+            g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x7a + i * 10, buf1, 1, value_color, 1);
+        }
+    }
+
+    if ((this->unitFlags & 1) != 0 && view_level == 7) {
+        sprintf(buf1, "%d.%d", this->carrying_weight_100g / 10, this->carrying_weight_100g % 10);
+        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, 1, value_color, 1);
+        sprintf(buf1, "%d", this->exp_summary);
+        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xba, TxtFile::AllLines[0x2e], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, 1, value_color, 1);
+    }
+
+    if ((this->unitFlags & 1) == 0 && this->spells != 0 && view_level == 7) {
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xae, TxtFile::AllLines[0xbe], 2, label_color, 1);
+    }
+
+    if ((this->unitFlags & 0x11) == 0 && this->field_0x156 != 0 && view_level == 7) {
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], 2, label_color, 1);
+    }
+}
+
 // 4648e9
 void CUnit::VMethod1(int32_t arg1)
 {
