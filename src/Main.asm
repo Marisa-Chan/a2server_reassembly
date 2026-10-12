@@ -49338,90 +49338,6 @@ sub_48236F      endp
 ; Attributes: bp-based frame
 
 
-; ---------------------------------------------------------------------------
-?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z proc near
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp-14h], ecx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-14h]
-                call    ?OnCreate@CFrameWnd@@IAEHPAUtagCREATESTRUCTA@@@Z ; CFrameWnd::OnCreate(tagCREATESTRUCTA *)
-                cmp     eax, 0FFFFFFFFh
-                jnz     short loc_484044
-                or      eax, 0FFFFFFFFh
-                jmp     loc_484121
-; ---------------------------------------------------------------------------
-
-loc_484044:                             ; CODE XREF: .text:0048403A↑j
-                cmp     ?g_IsServer@@3HA, 0
-                jz      loc_48411F
-                push    0E801h
-                push    50008200h
-                mov     ecx, dword ptr [ebp-14h]
-                push    ecx
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 654h
-                call    ?Create@CStatusBar@@QAEHPAVCWnd@@KI@Z ; CStatusBar::Create(CWnd *,ulong,uint)
-                lea     ecx, [ebp-10h]
-                call    unknown_libname_408 ; Microsoft VisualC 2-14/net runtime
-                push    7DDEh
-                mov     edx, dword ptr [ebp-14h]
-                push    edx
-                lea     eax, [ebp-10h]
-                push    eax
-                push    50600040h
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 6D0h
-                call    unknown_libname_946 ; MFC 3.1-14.0 32bit
-                push    7DDFh
-                mov     ecx, dword ptr [ebp-14h]
-                push    ecx
-                lea     edx, [ebp-10h]
-                push    edx
-                push    5040000Ch
-                push    offset unk_665D20
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 748h
-                call    unknown_libname_944 ; MFC 3.1-14.0 32bit
-                push    7DE0h
-                mov     eax, dword ptr [ebp-14h]
-                push    eax
-                lea     ecx, [ebp-10h]
-                push    ecx
-                push    50400000h
-                push    offset aMapNotLoaded ; "Map not loaded"
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 784h
-                call    unknown_libname_944 ; MFC 3.1-14.0 32bit
-                push    7DE1h
-                mov     edx, dword ptr [ebp-14h]
-                push    edx
-                lea     eax, [ebp-10h]
-                push    eax
-                push    50400480h
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 7C0h
-                call    unknown_libname_948 ; MFC 3.1-14.0 32bit
-                push    7DE2h
-                mov     ecx, dword ptr [ebp-14h]
-                push    ecx
-                lea     edx, [ebp-10h]
-                push    edx
-                push    50700040h
-                mov     ecx, dword ptr [ebp-14h]
-                add     ecx, 70Ch
-                call    unknown_libname_946 ; MFC 3.1-14.0 32bit
-
-loc_48411F:                             ; CODE XREF: .text:0048404B↑j
-                xor     eax, eax
-
-loc_484121:                             ; CODE XREF: .text:0048403F↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z endp
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -227610,7 +227526,7 @@ loc_5F26DC:                             ; CODE XREF: CControlBar::IsFloating(voi
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_944 proc near           ; CODE XREF: .text:004840B5↑p
+?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840B5↑p
 
 arg_0           = dword ptr  8
 arg_4           = dword ptr  0Ch
@@ -227631,7 +227547,7 @@ arg_10          = dword ptr  18h
                 call    dword ptr [eax+5Ch]
                 pop     ebp
                 retn    14h
-unknown_libname_944 endp
+?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -227829,7 +227745,7 @@ sub_5F27BF      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function
 
-unknown_libname_946 proc near           ; CODE XREF: .text:00484090↑p
+?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:00484090↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -227846,7 +227762,7 @@ arg_C           = dword ptr  10h
                 push    offset aListbox ; "LISTBOX"
                 call    dword ptr [eax+5Ch]
                 retn    10h
-unknown_libname_946 endp
+?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -228293,7 +228209,7 @@ arg_4           = dword ptr  8
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function
 
-unknown_libname_948 proc near           ; CODE XREF: .text:004840FA↑p
+?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z proc near           ; CODE XREF: .text:004840FA↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -228310,7 +228226,7 @@ arg_C           = dword ptr  10h
                 push    offset aEdit    ; "EDIT"
                 call    dword ptr [eax+5Ch]
                 retn    10h
-unknown_libname_948 endp
+?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -265248,7 +265164,7 @@ aClistbox       db 'CListBox',0         ; DATA XREF: .rdata:stru_611870↑o
                 align 4
 aCbutton        db 'CButton',0          ; DATA XREF: .rdata:stru_611858↑o
 aCstatic        db 'CStatic',0          ; DATA XREF: .rdata:stru_611840↑o
-aStatic         db 'STATIC',0           ; DATA XREF: unknown_libname_944+16↑o
+aStatic         db 'STATIC',0           ; DATA XREF: ?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 align 8
                 dd offset ??_R4CStatic@@6B@ ; const CStatic::`RTTI Complete Object Locator'
 ; const CStatic::`vftable'
@@ -265353,7 +265269,7 @@ aButton         db 'BUTTON',0           ; DATA XREF: unknown_libname_945+16↑o
                 dd offset ?IsFrameWnd@CWnd@@UBEHXZ
                 dd offset ?SetOccDialogInfo@CWnd@@UAEHPAU_AFX_OCC_DIALOG_INFO@@@Z
                 dd offset nullsub_19
-aListbox        db 'LISTBOX',0          ; DATA XREF: unknown_libname_946+16↑o
+aListbox        db 'LISTBOX',0          ; DATA XREF: ?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 dd offset ??_R4CListBox@@6B@ ; const CListBox::`RTTI Complete Object Locator'
 ; const CListBox::`vftable'
 ??_7CListBox@@6B@ dd offset ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ  ; DATA XREF: ??0CListBox@@QAE@XZ+12↑o
@@ -265466,7 +265382,7 @@ aCombobox_0     db 'COMBOBOX',0         ; DATA XREF: .text:005F298E↑o
                 dd offset nullsub_21
                 dd offset sub_5F29D7
                 dd offset nullsub_22
-aEdit           db 'EDIT',0             ; DATA XREF: unknown_libname_948+16↑o
+aEdit           db 'EDIT',0             ; DATA XREF: ?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z+16↑o
                 align 10h
                 dd offset ??_R4CEdit@@6B@ ; const CEdit::`RTTI Complete Object Locator'
 ; const CEdit::`vftable'
@@ -284549,7 +284465,6 @@ dword_665D04    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z:lo
 
 
 dword_665D1C    dd ?                    ; DATA XREF: ?OnIdle@GameApp@@UAEHJ@Z+11A↑r
-unk_665D20      db 4h dup(?)
 ; char byte_665D24[4]
 byte_665D24     db 4 dup(?)             ; DATA XREF: ?sub_484259@MainWindow@@QAEXXZ:loc_4849C9↑o
 ; char byte_665D28[4]

@@ -4101,6 +4101,7 @@ protected:
 	void OnSetFocus(CWnd* pOldWnd); // 5f183f
 	void OnClose(); // 5f1148
 	void OnSize(UINT nType, int cx, int cy); // 5f2550
+	int OnCreate(LPCREATESTRUCT lpCreateStruct); // 5f0e80
 };
 
 ASSERT_SIZE(CFrameWnd, 0xBC);
@@ -4132,6 +4133,7 @@ public:
 
 public:
 
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f27ed
 	int GetCurSel() const; //496590
 	int GetText(int nIndex, LPTSTR lpszBuffer) const;
 	void GetText(int nIndex, CString& rString) const; //5f28fd
@@ -4217,6 +4219,7 @@ class CStatusBar : public CControlBar
 
 public:
 	CStatusBar();
+	BOOL Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID); // 5f5696
 
 public:
 	virtual ~CStatusBar();
@@ -4243,6 +4246,7 @@ class CStatic : public CWnd
 
 public:
 	CStatic();
+	virtual BOOL Create(LPCTSTR lpszText, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f26e0
 
 public:
 	virtual ~CStatic();
@@ -4277,6 +4281,7 @@ class CEdit : public CWnd
 
 public:
 	CEdit();
+	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID); // 5f2a89
 
 public:
 	virtual ~CEdit();

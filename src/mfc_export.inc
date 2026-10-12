@@ -783,6 +783,11 @@ externdef ?OnClose@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnClose(void) - 5f1148
 externdef ?OnSize@CFrameWnd@@IAEXIHH@Z : proc  ; CFrameWnd::OnSize(UINT,int,int) - 5f2550
 externdef ??0CPaintDC@@QAE@PAVCWnd@@@Z : proc  ; CPaintDC::CPaintDC(CWnd*) - 5e8049
 externdef ??1CPaintDC@@UAE@XZ : proc  ; CPaintDC::~CPaintDC(void) - 5e80bb
+externdef ?OnCreate@CFrameWnd@@IAEHPAUtagCREATESTRUCTA@@@Z : proc  ; CFrameWnd::OnCreate(LPCREATESTRUCT) - 5f0e80
+externdef ?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CListBox::Create(DWORD,const RECT&,CWnd*,UINT) - 5f27ed
+externdef ?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CStatic::Create(LPCTSTR,DWORD,const RECT&,CWnd*,UINT) - 5f26e0
+externdef ?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z : proc  ; CEdit::Create(DWORD,const RECT&,CWnd*,UINT) - 5f2a89
+externdef ?Create@CStatusBar@@QAEHPAVCWnd@@KI@Z : proc  ; CStatusBar::Create(CWnd*,DWORD,UINT) - 5f5696
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )

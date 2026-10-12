@@ -1342,6 +1342,28 @@ void MainWindow::_OnSizing(UINT nSide, LPRECT rect)
     }
 }
 
+// 484022
+int MainWindow::_OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CFrameWnd::OnCreate(lpCreateStruct) == -1) {
+        return -1;
+    }
+
+    if (g_IsServer != 0) {
+        this->status_bar.Create(this, 0x50008200, 0xe801);
+
+        CRect rect;
+        this->list_box1.Create(0x50600040, rect, this, 0x7dde);
+        // The original passed a pointer to 4 uninitialized bytes at 665d20 as the initial text.
+        this->static1.Create("", 0x5040000c, rect, this, 0x7ddf);
+        this->static2.Create("Map not loaded", 0x50400000, rect, this, 0x7de0);
+        this->edit.Create(0x50400480, rect, this, 0x7de1);
+        this->list_box2.Create(0x50700040, rect, this, 0x7de2);
+    }
+
+    return 0;
+}
+
 // 495c6e
 void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
 {

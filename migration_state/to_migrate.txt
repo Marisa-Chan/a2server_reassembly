@@ -103,6 +103,7 @@ _byte_659A3C
 ?DoModal@CDialog@@UAEHXZ	172
 ?GetRuntimeClass@CEdit@@UBEPAUCRuntimeClass@@XZ	3
 ??0CEdit@@QAE@XZ	16
+?Create@CEdit@@UAEHKABUtagRECT@@PAVCWnd@@I@Z	17
 ??1CEdit@@UAE@XZ	29
 ?SetSel@CEdit@@QAEXKH@Z	37
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
@@ -112,6 +113,7 @@ _byte_659A3C
 ?IsFrameWnd@CFrameWnd@@UBEHXZ	4
 ?GetMessageBar@CFrameWnd@@UAEPAVCWnd@@XZ	6
 ?DelayUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z	8
+?OnCreate@CFrameWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	9
 ?PostNcDestroy@CFrameWnd@@UAEXXZ	9
 ?GetActiveDocument@CFrameWnd@@UAEPAVCDocument@@XZ	11
 ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z	14
@@ -146,6 +148,7 @@ _byte_659A3C
 ?CharToItem@CListBox@@UAEHII@Z	3
 ?GetRuntimeClass@CListBox@@UBEPAUCRuntimeClass@@XZ	3
 ??0CListBox@@QAE@XZ	16
+?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z	17
 ?GetCurSel@CListBox@@QBEHXZ	18
 ?ResetContent@CListBox@@QAEXXZ	18
 ?AddString@CListBox@@QAEHPBD@Z	20
@@ -162,9 +165,11 @@ _byte_659A3C
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31
 ??0CStatic@@QAE@XZ	16
+?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z	21
 ??1CStatic@@UAE@XZ	29
 ??0CStatusBar@@QAE@XZ	27
 ??1CStatusBar@@UAE@XZ	32
+?Create@CStatusBar@@QAEHPAVCWnd@@KI@Z	49
 ?LPCTSTR@CString@@QBEPBDXZ	13
 ??0CStructure@@QAE@XZ	16
 ??0CStructureBridge1@@QAE@HH@Z	22
@@ -249,7 +254,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
 ?FUN_00485aed@MainWindow@@QAEXXZ	731
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
