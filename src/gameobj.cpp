@@ -4359,3 +4359,9 @@ void CBackPack::Dump(CDumpContext& dc) const
 {
     //dc << "CBackPack";
 }
+
+// 46f5c0
+int32_t CBackPack::VMethod4()
+{
+    return 1;
+}
