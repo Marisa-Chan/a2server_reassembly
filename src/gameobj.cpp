@@ -42,6 +42,9 @@ IMPLEMENT_DYNAMIC(CBridge, CStructure);
 //GetRuntimeClass 461050
 IMPLEMENT_DYNAMIC(CVerticalWoodenBridge, CBridge);
 
+//GetRuntimeClass 461060
+IMPLEMENT_DYNAMIC(CHorisontalWoodenBridge, CBridge);
+
 CGameObject::CGameObject()
 {
     //4610b0

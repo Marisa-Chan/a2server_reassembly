@@ -532,6 +532,7 @@
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
