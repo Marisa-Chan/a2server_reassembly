@@ -4127,3 +4127,9 @@ int32_t CStructure::VMethod4()
 {
     return g_StructuresInfo[this->typeId]->tile_width;
 }
+
+// 4637eb
+int32_t CStructure::VMethod5()
+{
+    return g_StructuresInfo[this->typeId]->tile_height;
+}

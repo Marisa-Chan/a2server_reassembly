@@ -1010,6 +1010,7 @@
 ?VMethod43@VisInvExtType3@@UAEPAVTokenEntry@@HH@Z
 ?VMethod4@CStructure@@UAEHXZ
 ?VMethod4@CUnit@@UAEHXZ
+?VMethod5@CStructure@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CStructure@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
