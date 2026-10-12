@@ -265,7 +265,6 @@ _byte_659A3C
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
-?_OnKeyDown@MainWindow@@QAEXIII@Z	480
 ?FUN_00485aed@MainWindow@@QAEXXZ	731
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20

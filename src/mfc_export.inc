@@ -907,7 +907,6 @@ externdef   ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z  : proc
 externdef   ?_OnPaint@MainWindow@@QAEXXZ  : proc
 externdef   ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z  : proc
 externdef   ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z  : proc
-externdef   ?_OnKeyDown@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnKeyUp@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnSysKeyUp@MainWindow@@QAEXIII@Z  : proc
 externdef   ?_OnChar@MainWindow@@QAEXIII@Z  : proc

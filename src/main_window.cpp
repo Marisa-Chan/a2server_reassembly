@@ -919,6 +919,157 @@ int32_t MainWindow::ConnectToServerAddress()
     return 0;
 }
 
+// 4863f6
+void MainWindow::_OnKeyDown(UINT key, UINT repeat, UINT flags)
+{
+    if (this->field_0x45c == 0) {
+        switch (key) {
+        case 0x08:
+        case 0x09:
+        case 0x0d:
+        case 0x20:
+        case 0x21:
+        case 0x22:
+        case 0x23:
+        case 0x24:
+        case 0x25:
+        case 0x26:
+        case 0x27:
+        case 0x28:
+        case 0x2d:
+        case 0x2e:
+        case 0x30:
+        case 0x31:
+        case 0x32:
+        case 0x33:
+        case 0x34:
+        case 0x35:
+        case 0x36:
+        case 0x37:
+        case 0x38:
+        case 0x39:
+        case 0x73:
+        case 0x74:
+        case 0x75:
+        case 0x76:
+        case 0x77:
+        case 0x78:
+        case 0x7a:
+        case 0x7b:
+        case 0xc0:
+            this->vis_root->MsgProc(0x100, key, 0);
+            break;
+
+        case 0x10:
+            g_kbShiftState = 1;
+            break;
+
+        case 0x11:
+            g_kbControlState = 1;
+            break;
+
+        case 0x13:
+            if (this->sessionMode == 2 && this->dialogsMask == 1) {
+                VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x20, 0x30, 0x260, 0x1b0, TxtFile::AllLines[0x77], nullptr, 0);
+                this->PopUpScreen(mbox);
+            }
+            break;
+
+        case 0x1b:
+            if (this->dialogsMask == 1) {
+                this->PostMessage(0x416, 0, 0);
+                if (this->sessionMode != 2) {
+                    this->m_GameSession.FUN_004946e0();
+                }
+            } else if (this->dialogsMask == 0) {
+                if (!this->field_0x3e0.field_08.IsEmpty()) {
+                    this->vis_root->MsgProc(0x100, key, 0);
+                } else if (this->sessionMode == 2) {
+                    this->PostMessage(0x41f, 0, 0);
+                }
+            } else {
+                this->vis_root->MsgProc(0x100, key, 0);
+            }
+            break;
+
+        case 0x60:
+        case 0x61:
+        case 0x62:
+        case 0x63:
+        case 0x64:
+        case 0x65:
+        case 0x66:
+        case 0x67:
+        case 0x68:
+        case 0x69:
+            this->vis_root->MsgProc(0x100, key - 0x30, 0);
+            break;
+
+        case 0x6b:
+            if (g_kbControlState == 0) {
+                if (this->sessionMode != 0 && this->dialogsMask == 1) {
+                    if (this->SetSpeed(this->game_speed + 1) == 0) {
+                        this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
+                    } else {
+                        g_NetStru1_main.FUN_0051cd89(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
+                    }
+                }
+            } else {
+                this->field_0x448 = 1;
+            }
+            break;
+
+        case 0x6d:
+            if (g_kbControlState == 0) {
+                if (this->sessionMode != 0 && this->dialogsMask == 1) {
+                    if (this->SetSpeed(this->game_speed - 1) == 0) {
+                        this->vis_map_context->msglog.AddWithCheck(TxtFile::AllLines[this->game_speed + 0x6c], clr_log_sblack, 5000);
+                    } else {
+                        g_NetStru1_main.FUN_0051cd89(TxtFile::AllLines[this->game_speed + 0x6c], nullptr);
+                    }
+                }
+            } else {
+                this->field_0x448 = 0;
+                this->field_0x438 = timeGetTime();
+                this->game_tic_counter = 0;
+                this->field_0x43c = 0;
+            }
+            break;
+
+        case 0x70:
+            this->PostMessage(0x434, 0, 0);
+            break;
+
+        case 0x71:
+            if ((this->dialogsMask == 1 || this->dialogsMask == 0) && this->sessionMode == 2) {
+                this->PostMessage(0x41a, 0, 0);
+            }
+            break;
+
+        case 0x72:
+            if (g_kbShiftState == 0 || g_kbControlState == 0) {
+                if (this->sessionMode == 2) {
+                    if (this->dialogsMask == 1 || this->dialogsMask == 0) {
+                        this->PostMessage(0x418, 0, 0);
+                    }
+                } else if (this->dialogsMask == 1) {
+                    this->PostMessage(0x43c, 0, 0);
+                }
+            }
+            break;
+
+        default:
+            if (key > 0x40 && key < 0x5b) {
+                this->vis_root->MsgProc(0x100, key, 0);
+            }
+            break;
+        }
+    }
+
+    Default();
+    g_mousept.ForceDisableHint();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
