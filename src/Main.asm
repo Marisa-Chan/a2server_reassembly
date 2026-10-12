@@ -27322,44 +27322,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod11@CStructure@@UAEHXZ      proc near               ; DATA XREF: .rdata:0060B55C↓o
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+24h]
-                push    ecx
-                mov     ecx, offset ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A 
-                call    sub_421430
-                mov     edx, dword ptr [eax]
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+3Ch], 0
-                jz      short loc_463A4F
-                mov     ecx, dword ptr [ebp+var_8] ; varThis
-                call    ?FUN_0041f130@CGameObject@@QAEHXZ ; Concurrency::details::VirtualProcessor::GetExecutingContext(void)
-                test    eax, eax
-                jnz     short loc_463A4F
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [ecx+74h]
-                add     eax, 1
-                mov     ecx, dword ptr [ebp+var_4]
-                cdq
-                idiv    dword ptr [ecx+3Ch]
-                mov     eax, dword ptr [ebp+var_8]
-                mov     [eax+74h], edx
-
-loc_463A4F:                             ; CODE XREF: ?VMethod11@CStructure@@UAEHXZ+26↑j
-                mov     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?VMethod11@CStructure@@UAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

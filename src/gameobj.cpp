@@ -4109,3 +4109,15 @@ int32_t CStructure::VMethod15()
     this->m_bSelectionDirty = 1;
     return 1;
 }
+
+// 463a05
+int32_t CStructure::VMethod11()
+{
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+    if (info->frame_count != 0) {
+        if (this->FUN_0041f130() == 0) {
+            this->phase = (this->phase + 1) % info->frame_count;
+        }
+    }
+    return 1;
+}

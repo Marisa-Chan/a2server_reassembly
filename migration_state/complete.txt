@@ -896,6 +896,7 @@
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
+?VMethod11@CStructure@@UAEHXZ
 ?VMethod11@CUnit@@UAEHXZ
 ?VMethod12@CGameObject@@UAEXXZ
 ?VMethod12@CStructure@@UAEXXZ
