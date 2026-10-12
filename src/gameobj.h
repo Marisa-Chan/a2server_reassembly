@@ -446,31 +446,31 @@ public:
 };
 ASSERT_SIZE(CBridge, 0x14c);
 
-class CStructureBridge1 : public CBridge
+class CVerticalWoodenBridge : public CBridge
 {
-	DECLARE_DYNAMIC(CStructureBridge1);
+	DECLARE_DYNAMIC(CVerticalWoodenBridge);
 public:
-	virtual ~CStructureBridge1(); //4a9ef0
+	virtual ~CVerticalWoodenBridge(); //4a9ef0
 
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463d26
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f01 (stub)
 
-	CStructureBridge1(int32_t width, int32_t height); //4a9e90
+	CVerticalWoodenBridge(int32_t width, int32_t height); //4a9e90
 };
-ASSERT_SIZE(CStructureBridge1, 0x14c);
+ASSERT_SIZE(CVerticalWoodenBridge, 0x14c);
 
-class CStructureBridge2 : public CBridge
+class CHorisontalWoodenBridge : public CBridge
 {
-	DECLARE_DYNAMIC(CStructureBridge2);
+	DECLARE_DYNAMIC(CHorisontalWoodenBridge);
 public:
-	virtual ~CStructureBridge2(); //4a9f70
+	virtual ~CHorisontalWoodenBridge(); //4a9f70
 
 	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //463f0e
 	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //46410f (stub)
 
-	CStructureBridge2(int32_t width, int32_t height); //4a9f10
+	CHorisontalWoodenBridge(int32_t width, int32_t height); //4a9f10
 };
-ASSERT_SIZE(CStructureBridge2, 0x14c);
+ASSERT_SIZE(CHorisontalWoodenBridge, 0x14c);
 
 
 

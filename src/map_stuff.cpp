@@ -2964,9 +2964,9 @@ Scenario::Scenario(const char* fname)
 
         CGameObject* structure;
         if ((int16_t)bld->type_id == 0x21) {
-            structure = new CStructureBridge1((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
+            structure = new CVerticalWoodenBridge((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
         } else if ((int16_t)bld->type_id == 0x25) {
-            structure = new CStructureBridge2((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
+            structure = new CHorisontalWoodenBridge((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
         } else {
             structure = new CStructure();
         }

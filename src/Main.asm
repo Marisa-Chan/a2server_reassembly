@@ -26737,7 +26737,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CB70↓o
+?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CB70↓o
 
 var_4           = dword ptr -4
 
@@ -26749,14 +26749,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ      endp
+?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CBC8↓o
+?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60CBC8↓o
 
 var_4           = dword ptr -4
 
@@ -26768,7 +26768,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ      endp
+?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29030,7 +29030,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-?VMethod6@CStructureBridge1@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CB98↓o
+?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CB98↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -29082,7 +29082,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463D94:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+5A↑j
+loc_463D94:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+5A↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+144h]
                 sub     eax, 1
@@ -29094,14 +29094,14 @@ loc_463D94:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DB7:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+7D↑j
+loc_463DB7:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+7D↑j
                 cmp     [ebp+var_8], 0
                 jnz     short loc_463DC9
                 mov     [ebp+var_20], 1
                 jmp     loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DC9:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+95↑j
+loc_463DC9:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+95↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463DE9
                 mov     ecx, dword ptr [ebp+var_24]
@@ -29113,7 +29113,7 @@ loc_463DC9:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463DE9:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+A7↑j
+loc_463DE9:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+A7↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+144h]
                 sub     ecx, 1
@@ -29128,7 +29128,7 @@ loc_463DE9:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E14:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+D2↑j
+loc_463E14:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+D2↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+148h]
                 sub     edx, 1
@@ -29138,14 +29138,14 @@ loc_463E14:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E2E:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+FD↑j
+loc_463E2E:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+FD↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463E3D
                 mov     [ebp+var_20], 3
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E3D:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+10C↑j
+loc_463E3D:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+10C↑j
                 mov     eax, dword ptr [ebp+var_24]
                 mov     ecx, dword ptr [eax+144h]
                 sub     ecx, 1
@@ -29155,10 +29155,10 @@ loc_463E3D:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 jmp     short loc_463E5E
 ; ---------------------------------------------------------------------------
 
-loc_463E57:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+126↑j
+loc_463E57:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+126↑j
                 mov     [ebp+var_20], 4
 
-loc_463E5E:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+69↑j
+loc_463E5E:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+69↑j
                 mov     edx, dword ptr [ebp+arg_0]
                 shl     edx, 5
                 mov     [ebp+var_14], edx
@@ -29216,11 +29216,11 @@ loc_463E5E:                             ; CODE XREF: ?VMethod6@CStructureBridge1
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    dword ptr [eax+34h]
 
-loc_463EFB:                             ; CODE XREF: ?VMethod6@CStructureBridge1@@UAEXHHH@Z+1A7↑j
+loc_463EFB:                             ; CODE XREF: ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z+1A7↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-?VMethod6@CStructureBridge1@@UAEXHHH@Z      endp
+?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29228,7 +29228,7 @@ loc_463EFB:                             ; CODE XREF: ?VMethod6@CStructureBridge1
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod7@CStructureBridge1@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CB9C↓o
+?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CB9C↓o
 
 var_4           = dword ptr -4
 
@@ -29239,14 +29239,14 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-?VMethod7@CStructureBridge1@@UAEXHHH@Z endp
+?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-?VMethod6@CStructureBridge2@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CBF0↓o
+?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z      proc near               ; DATA XREF: .rdata:0060CBF0↓o
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -29298,7 +29298,7 @@ arg_8           = dword ptr  10h
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463F7C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+5A↑j
+loc_463F7C:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+5A↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+144h]
                 sub     eax, 1
@@ -29310,7 +29310,7 @@ loc_463F7C:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463F9F:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+7D↑j
+loc_463F9F:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+7D↑j
                 cmp     [ebp+var_8], 0
                 jnz     short loc_463FB6
                 mov     ecx, dword ptr [ebp+var_1C]
@@ -29320,7 +29320,7 @@ loc_463F9F:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463FB6:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+95↑j
+loc_463FB6:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+95↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_463FD9
                 mov     edx, dword ptr [ebp+var_24]
@@ -29332,7 +29332,7 @@ loc_463FB6:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_463FD9:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+AC↑j
+loc_463FD9:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+AC↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+144h]
                 sub     edx, 1
@@ -29347,7 +29347,7 @@ loc_463FD9:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_464004:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+DA↑j
+loc_464004:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+DA↑j
                 mov     edx, dword ptr [ebp+var_24]
                 mov     eax, dword ptr [edx+148h]
                 sub     eax, 1
@@ -29361,25 +29361,25 @@ loc_464004:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     short loc_46403A
 ; ---------------------------------------------------------------------------
 
-loc_464028:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+10F↑j
+loc_464028:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+10F↑j
                 mov     edx, dword ptr [ebp+var_C]
                 mov     eax, dword ptr [edx+0A88h]
                 and     eax, 3
                 add     eax, 8
                 mov     [ebp+var_20], eax
 
-loc_46403A:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+118↑j
+loc_46403A:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+118↑j
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_46403C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+105↑j
+loc_46403C:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+105↑j
                 cmp     [ebp+var_1C], 0
                 jnz     short loc_46404B
                 mov     [ebp+var_20], 4
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_46404B:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+132↑j
+loc_46404B:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+132↑j
                 mov     ecx, dword ptr [ebp+var_24]
                 mov     edx, dword ptr [ecx+144h]
                 sub     edx, 1
@@ -29389,10 +29389,10 @@ loc_46404B:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 jmp     short loc_46406C
 ; ---------------------------------------------------------------------------
 
-loc_464065:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+14C↑j
+loc_464065:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+14C↑j
                 mov     [ebp+var_20], 5
 
-loc_46406C:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+69↑j
+loc_46406C:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+69↑j
                 mov     eax, dword ptr [ebp+arg_0]
                 shl     eax, 5
                 mov     [ebp+var_14], eax
@@ -29450,11 +29450,11 @@ loc_46406C:                             ; CODE XREF: ?VMethod6@CStructureBridge2
                 mov     ecx, dword ptr [ebp+var_2C]
                 call    dword ptr [eax+34h]
 
-loc_464109:                             ; CODE XREF: ?VMethod6@CStructureBridge2@@UAEXHHH@Z+1CD↑j
+loc_464109:                             ; CODE XREF: ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z+1CD↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-?VMethod6@CStructureBridge2@@UAEXHHH@Z      endp
+?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -29462,7 +29462,7 @@ loc_464109:                             ; CODE XREF: ?VMethod6@CStructureBridge2
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-?VMethod7@CStructureBridge2@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CBF4↓o
+?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z proc near           ; DATA XREF: .rdata:0060CBF4↓o
 
 var_4           = dword ptr -4
 
@@ -29473,7 +29473,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn    0Ch
-?VMethod7@CStructureBridge2@@UAEXHHH@Z endp
+?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -51882,7 +51882,7 @@ loc_4A9000:                             ; CODE XREF: sub_4A8B94+458↑j
                 mov     edx, dword ptr [ebp+var_2B0]
                 push    edx             ; char *
                 mov     ecx, dword ptr [ebp+Block] ; varThis
-                call    ??0CStructureBridge1@@QAE@HH@Z ; Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)
+                call    ??0CVerticalWoodenBridge@@QAE@HH@Z ; Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)
                 mov     [ebp+var_2F4], eax
                 jmp     short loc_4A905C
 ; ---------------------------------------------------------------------------
@@ -51922,7 +51922,7 @@ loc_4A907D:                             ; CODE XREF: sub_4A8B94+461↑j
                 mov     ecx, dword ptr [ebp+var_2B0]
                 push    ecx             ; char *
                 mov     ecx, dword ptr [ebp+var_2D8] ; varThis
-                call    ??0CStructureBridge2@@QAE@HH@Z ; Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)
+                call    ??0CHorisontalWoodenBridge@@QAE@HH@Z ; Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)
                 mov     [ebp+var_2F8], eax
                 jmp     short loc_4A90D9
 ; ---------------------------------------------------------------------------
@@ -52584,7 +52584,7 @@ sub_4A9E70      endp
 ; Attributes: library function bp-based frame
 
 ; _DWORD __thiscall Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(Concurrency::scheduler_worker_creation_error *__hidden varThis, const char *, int)
-??0CStructureBridge1@@QAE@HH@Z proc near
+??0CVerticalWoodenBridge@@QAE@HH@Z proc near
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52606,7 +52606,7 @@ arg_4           = dword ptr  0Ch
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-??0CStructureBridge1@@QAE@HH@Z endp
+??0CVerticalWoodenBridge@@QAE@HH@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52615,7 +52615,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-??_GCStructureBridge1@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CB74↓o
+??_GCVerticalWoodenBridge@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CB74↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52625,7 +52625,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    ??1CStructureBridge1@@QAE@XZ
+                call    ??1CVerticalWoodenBridge@@QAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -52634,12 +52634,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4A9EE2:                             ; CODE XREF: ??_GCStructureBridge1@@UAEPAXI@Z+17↑j
+loc_4A9EE2:                             ; CODE XREF: ??_GCVerticalWoodenBridge@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-??_GCStructureBridge1@@UAEPAXI@Z      endp
+??_GCVerticalWoodenBridge@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52648,7 +52648,7 @@ loc_4A9EE2:                             ; CODE XREF: ??_GCStructureBridge1@@UAEP
 
 ; Attributes: bp-based frame
 
-??1CStructureBridge1@@QAE@XZ      proc near               ; CODE XREF: ??_GCStructureBridge1@@UAEPAXI@Z+A↑p
+??1CVerticalWoodenBridge@@QAE@XZ      proc near               ; CODE XREF: ??_GCVerticalWoodenBridge@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -52661,7 +52661,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-??1CStructureBridge1@@QAE@XZ      endp
+??1CVerticalWoodenBridge@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52671,7 +52671,7 @@ var_4           = dword ptr -4
 ; Attributes: library function bp-based frame
 
 ; _DWORD __thiscall Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(Concurrency::scheduler_worker_creation_error *__hidden varThis, const char *, int)
-??0CStructureBridge2@@QAE@HH@Z proc near
+??0CHorisontalWoodenBridge@@QAE@HH@Z proc near
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52693,7 +52693,7 @@ arg_4           = dword ptr  0Ch
                 mov     esp, ebp
                 pop     ebp
                 retn    8
-??0CStructureBridge2@@QAE@HH@Z endp
+??0CHorisontalWoodenBridge@@QAE@HH@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52702,7 +52702,7 @@ arg_4           = dword ptr  0Ch
 
 ; Attributes: bp-based frame
 
-??_GCStructureBridge2@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CBCC↓o
+??_GCHorisontalWoodenBridge@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060CBCC↓o
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -52712,7 +52712,7 @@ arg_0           = dword ptr  8
                 push    ecx
                 mov     [ebp+Block], ecx
                 mov     ecx, dword ptr [ebp+Block]
-                call    ??1CStructureBridge2@@QAE@XZ
+                call    ??1CHorisontalWoodenBridge@@QAE@XZ
                 mov     eax, dword ptr [ebp+arg_0]
                 and     eax, 1
                 test    eax, eax
@@ -52721,12 +52721,12 @@ arg_0           = dword ptr  8
                 push    ecx             ; Block
                 call    ??3CObject@@SGXPAX@Z
 
-loc_4A9F62:                             ; CODE XREF: ??_GCStructureBridge2@@UAEPAXI@Z+17↑j
+loc_4A9F62:                             ; CODE XREF: ??_GCHorisontalWoodenBridge@@UAEPAXI@Z+17↑j
                 mov     eax, dword ptr [ebp+Block]
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-??_GCStructureBridge2@@UAEPAXI@Z      endp
+??_GCHorisontalWoodenBridge@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -52735,7 +52735,7 @@ loc_4A9F62:                             ; CODE XREF: ??_GCStructureBridge2@@UAEP
 
 ; Attributes: bp-based frame
 
-??1CStructureBridge2@@QAE@XZ      proc near               ; CODE XREF: ??_GCStructureBridge2@@UAEPAXI@Z+A↑p
+??1CHorisontalWoodenBridge@@QAE@XZ      proc near               ; CODE XREF: ??_GCHorisontalWoodenBridge@@UAEPAXI@Z+A↑p
 
 var_4           = dword ptr -4
 
@@ -52748,7 +52748,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-??1CStructureBridge2@@QAE@XZ      endp
+??1CHorisontalWoodenBridge@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -256048,8 +256048,8 @@ dbl_60CB50      dq 32.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXH
 dbl_60CB58      dq 0.5235987666666667   ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+260↑r
 dbl_60CB60      dq 94.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+299↑r
 dbl_60CB68      dq 2.0                  ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+4F2↑r
-off_60CB70      dd offset ?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
-                dd offset ??_GCStructureBridge1@@UAEPAXI@Z
+off_60CB70      dd offset ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
+                dd offset ??_GCVerticalWoodenBridge@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
                 dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
@@ -256058,8 +256058,8 @@ off_60CB70      dd offset ?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClas
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
                 dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod6@CStructureBridge1@@UAEXHHH@Z
-                dd offset ?VMethod7@CStructureBridge1@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z
+                dd offset ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod8@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod9@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod10@CStructure@@UAEXXZ
@@ -256070,8 +256070,8 @@ off_60CB70      dd offset ?GetRuntimeClass@CStructureBridge1@@UBEPAUCRuntimeClas
                 dd offset ?VMethod15@CStructure@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod17@CBridge@@UAEXHH@Z
-off_60CBC8      dd offset ?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
-                dd offset ??_GCStructureBridge2@@UAEPAXI@Z
+off_60CBC8      dd offset ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
+                dd offset ??_GCHorisontalWoodenBridge@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
                 dd offset ?AssertValid@CGameObject@@UBEXXZ
                 dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
@@ -256080,8 +256080,8 @@ off_60CBC8      dd offset ?GetRuntimeClass@CStructureBridge2@@UBEPAUCRuntimeClas
                 dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
                 dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
                 dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod6@CStructureBridge2@@UAEXHHH@Z
-                dd offset ?VMethod7@CStructureBridge2@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
+                dd offset ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z
+                dd offset ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
                 dd offset ?VMethod8@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod9@CStructure@@UAEXHHH@Z
                 dd offset ?VMethod10@CStructure@@UAEXXZ
