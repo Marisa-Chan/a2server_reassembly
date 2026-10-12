@@ -33677,63 +33677,6 @@ sub_46FBB0      endp
 ; ---------------------------------------------------------------------------
                 align 10h
 
-; =============== S U B R O U T I N E =======================================
-
-; MFC 3.1-14.0 32bit
-; Attributes: library function bp-based frame
-
-unknown_libname_526 proc near           ; DATA XREF: .data:0062C028↓o
-                push    ebp
-                mov     ebp, esp
-                call    sub_46FC0F
-                call    sub_46FC1E
-                pop     ebp
-                retn
-unknown_libname_526 endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_46FC0F      proc near               ; CODE XREF: unknown_libname_526+3↑p
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A
-                call    sub_474F20
-                pop     ebp
-                retn
-sub_46FC0F      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_46FC1E      proc near               ; CODE XREF: unknown_libname_526+8↑p
-                push    ebp
-                mov     ebp, esp
-                push    offset sub_46FC30 ; void (__cdecl *)()
-                call    _atexit
-                add     esp, 4
-                pop     ebp
-                retn
-sub_46FC1E      endp
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-; void __cdecl sub_46FC30()
-sub_46FC30      proc near               ; DATA XREF: sub_46FC1E+3↑o
-                push    ebp
-                mov     ebp, esp
-                mov     ecx, offset ?g_StructEnter@@3UStructEnter@@A ; varThis
-                call    ??1CHandleMap@@QAE@XZ_0 ; CHandleMap::~CHandleMap(void)
-                pop     ebp
-                retn
-sub_46FC30      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -36596,45 +36539,6 @@ sub_474E60      endp
 
 ; Attributes: bp-based frame
 
-sub_474F20      proc near               ; CODE XREF: sub_46FC0F+8↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FAB90 SIZE 00000013 BYTES
-
-; __unwind { // SEH_474F20
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_474F20
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-                mov     ecx, dword ptr [ebp+var_10]
-                call    sub_421500
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14h
-                call    sub_421500
-                mov     eax, dword ptr [ebp+var_10]
-                mov     dword ptr [eax+2Ch], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     dword ptr [ecx+28h], 0
-;   } // starts at 474F44
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 474F20
-sub_474F20      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -36644,45 +36548,6 @@ sub_474F20      endp
 ; Attributes: library function bp-based frame
 
 ; void __thiscall CHandleMap::~CHandleMap(CHandleMap *__hidden varThis)
-??1CHandleMap@@QAE@XZ_0 proc near       ; CODE XREF: sub_46FC30+8↑p
-
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FABB0 SIZE 0000001F BYTES
-
-; __unwind { // SEH_474F90
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset ??1CHandleMap@@QAE@XZ_0_SEH
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                push    ecx
-                mov     [ebp+var_10], ecx
-;   try {
-                mov     [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?FUN_00475010@StructEnter@@QAEXXZ
-;   } // starts at 474FAC
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-;   } // starts at 474FBB
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_10] ; varThis
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 474F90
-??1CHandleMap@@QAE@XZ_0 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -238117,49 +237982,6 @@ SEH_474E60:                             ; DATA XREF: sub_474E60+5↑o
 ; END OF FUNCTION CHUNK FOR sub_474E60
 ; ---------------------------------------------------------------------------
                 align 10h
-; START OF FUNCTION CHUNK FOR sub_474F20
-
-loc_5FAB90:                             ; DATA XREF: .rdata:stru_61BAF0↓o
-; __unwind { // SEH_474F20              ; varThis
-;   cleanup() // owned by 474F44
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_474F20:                             ; DATA XREF: sub_474F20+5↑o
-                mov     eax, offset stru_61BAD0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FAB90
-; END OF FUNCTION CHUNK FOR sub_474F20
-; ---------------------------------------------------------------------------
-                align 10h
-; START OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-
-loc_5FABB0:                             ; DATA XREF: .rdata:stru_61BB18↓o
-; __unwind { // SEH_474F90              ; varThis
-;   cleanup() // owned by 474FBB
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FABB9:                             ; DATA XREF: .rdata:0061BB20↓o
-;   cleanup() // owned by 474FAC
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 14h        ; varThis
-                call    ??1CWinThread@@UAE@XZ_6 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_474F90:                             ; DATA XREF: CHandleMap::~CHandleMap(void)+5↑o
-??1CHandleMap@@QAE@XZ_0_SEH:
-                mov     eax, offset stru_61BAF8
-                jmp     ___CxxFrameHandler
-; } // starts at 5FABB0
-; END OF FUNCTION CHUNK FOR CHandleMap::~CHandleMap(void)
-; ---------------------------------------------------------------------------
-                align 10h
 ; START OF FUNCTION CHUNK FOR ?ReadFileToString@@YAXPBDPAVCString@@@Z
 
 loc_5FABD0:                             ; DATA XREF: .rdata:stru_61BB48↓o
@@ -268284,19 +268106,6 @@ stru_61BAA0     FuncInfoV1 <19930520h, 2, offset stru_61BAC0, 0, 0, 0, 0>
                 db    0
 stru_61BAC0     UnwindMapEntry <-1, offset loc_5FAB60>
                 UnwindMapEntry <0, offset unknown_libname_343> ; Microsoft VisualC 2-14/net runtime
-stru_61BAD0     FuncInfoV1 <19930520h, 1, offset stru_61BAF0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61BAF0     UnwindMapEntry <-1, offset loc_5FAB90>
-stru_61BAF8     FuncInfoV1 <19930520h, 2, offset stru_61BB18, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61BB18     UnwindMapEntry <-1, offset loc_5FABB0>
-                UnwindMapEntry <0, offset loc_5FABB9>
 stru_61BB28     FuncInfoV1 <19930520h, 1, offset stru_61BB48, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -279817,8 +279626,6 @@ DWORD_0065dddc             dd ?                    ; DATA XREF: ?LoadSample@SfxS
 _byte_65F630     db 400h dup(?)          ; DATA XREF: ?FUN_0046d0f7@CUnit@@QAEPBDHH@Z+57C↑o
 byte_65FA30      db    ?
                 align 8
-; CHandleMap ?g_StructEnter@@3UStructEnter@@A
-?g_StructEnter@@3UStructEnter@@A      db 30h dup(?)
                 align 10h
 unk_65FA70      db 104h dup(?)
 dword_65FB74    dd ?                    ; DATA XREF: ?InitVideo@@YAHXZ+3C↑w

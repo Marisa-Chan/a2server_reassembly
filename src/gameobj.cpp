@@ -3820,3 +3820,18 @@ void StructEnter::FUN_00474ff0(CUnit* unit)
 {
 	this->field_0x0.Add(unit);
 }
+
+// 474f20
+StructEnter::StructEnter()
+{
+	this->field_0x28 = 0;
+	this->field_0x2c = 0;
+}
+
+// 474f90
+StructEnter::~StructEnter()
+{
+	this->FUN_00475010();
+}
+
+StructEnter g_StructEnter;

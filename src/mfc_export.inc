@@ -1959,8 +1959,6 @@ externdef ?FUN_00476c0d@@YAXHH@Z : proc  ; void __cdecl FUN_00476c0d(int32_t, in
 externdef ?FUN_00438e40@@YAXPAPAVSfxSample@@PBD@Z : proc  ; void __cdecl FUN_00438e40(SfxSample**, const char*)
 externdef ?FUN_00475110@@YA_NPAUCSound@@@Z : proc  ; bool __cdecl FUN_00475110(CSound*)
 externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
-externdef ?FUN_00475010@StructEnter@@QAEXXZ : proc  ; void StructEnter::FUN_00475010() - still called by ASM StructEnter dtor
-externdef ?g_StructEnter@@3UStructEnter@@A : byte
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc
 
