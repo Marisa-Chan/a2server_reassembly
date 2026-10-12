@@ -3125,24 +3125,6 @@ sub_41DA52      endp
 
 ; Attributes: bp-based frame
 
-?FUN_0041e323@UserShortcut@@QAEXF@Z      proc near               ; CODE XREF: ?MsgProc@VisSpellBook@@UAEHIII@Z+92↓p
-
-var_4           = dword ptr -4
-arg_0           = word ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     word ptr [eax], 1
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dx, [ebp+arg_0]
-                mov     [ecx+2], dx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041e323@UserShortcut@@QAEXF@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

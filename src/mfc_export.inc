@@ -1511,7 +1511,6 @@ externdef ?FUN_004abfb1@Fame2@@QAEXHH@Z : proc
 externdef ?FUN_004ac0af@Fame2@@QAEXXZ : proc
 
 ;UserShortcut spell helpers
-externdef ?FUN_0041e323@UserShortcut@@QAEXF@Z : proc
 ;VisSpellBook hit-test
 externdef ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z : proc
 
