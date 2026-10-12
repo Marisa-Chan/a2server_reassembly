@@ -382,19 +382,19 @@ class CProjectile : public CGameObject
 {
 	DECLARE_DYNAMIC(CProjectile);
 public:
-	virtual ~CProjectile();
+	virtual ~CProjectile(); // 46f060
 
-	virtual void Dump(CDumpContext& dc) const override;
+	virtual void Dump(CDumpContext& dc) const override; // 46eeb4
 
-	virtual int32_t VMethod4() override;
-	virtual int32_t VMethod5() override;
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
+	virtual int32_t VMethod4() override; // 46f660
+	virtual int32_t VMethod5() override; // 46f670
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; // 46e291
 
-	virtual int32_t VMethod11() override;
-	virtual void VMethod12() override;
-	virtual void VMethod16() override;
+	virtual int32_t VMethod11() override; // 46d8d8
+	virtual void VMethod12() override; // 46e805
+	virtual void VMethod16() override; // 46eb80
 
-	CProjectile();
+	CProjectile(); // 46d802
 	CProjectile(CProjectile* obj); //46d85c
 
 public:
