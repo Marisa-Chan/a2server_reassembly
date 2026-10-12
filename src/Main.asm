@@ -50422,29 +50422,6 @@ sub_4A9E70      endp
 ; Attributes: library function bp-based frame
 
 ; _DWORD __thiscall Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(Concurrency::scheduler_worker_creation_error *__hidden varThis, const char *, int)
-??0CVerticalWoodenBridge@@QAE@HH@Z proc near
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_0]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CBridge@@QAE@HH@Z
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx], offset off_60CB70
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-??0CVerticalWoodenBridge@@QAE@HH@Z endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -253782,28 +253759,6 @@ dbl_60CB50      dq 32.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXH
 dbl_60CB58      dq 0.5235987666666667   ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+260↑r
 dbl_60CB60      dq 94.0                 ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+299↑r
 dbl_60CB68      dq 2.0                  ; DATA XREF: ?sub_4A952B@Scenario@@QAEXHHII@Z+4F2↑r
-off_60CB70      dd offset ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
-                dd offset ??_GCVerticalWoodenBridge@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CGameObject@@UAEXH@Z
-                dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod4@CBridge@@UAEHXZ ; COleIPFrameWnd::GetDocFrame(void)
-                dd offset ?VMethod5@CBridge@@UAEHXZ ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z
-                dd offset ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z ; MFC 3.1-14.0 32bit
-                dd offset ?VMethod8@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod9@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod10@CStructure@@UAEXXZ
-                dd offset ?VMethod11@CStructure@@UAEHXZ
-                dd offset ?VMethod12@CStructure@@UAEXXZ
-                dd offset ?VMethod13@CGameObject@@UAEXXZ
-                dd offset ?VMethod14@CGameObject@@UAEXXZ
-                dd offset ?VMethod15@CStructure@@UAEHXZ
-                dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod17@CBridge@@UAEXHH@Z
 off_60CBC8      dd offset ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: Concurrency::scheduler_worker_creation_error::scheduler_worker_creation_error(char const *,long)+1A↑o
                 dd offset ??_GCHorisontalWoodenBridge@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime

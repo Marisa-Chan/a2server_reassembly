@@ -24,6 +24,7 @@
 ??0CString@@QAE@XZ
 ??0CStructure@@QAE@XZ
 ??0CUnit@@QAE@XZ
+??0CVerticalWoodenBridge@@QAE@HH@Z
 ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z
 ??0CVisualObject@@QAE@HHHHHPBD@Z
 ??0CVisualObject@@QAE@XZ
@@ -170,7 +171,6 @@
 ??_7SpellBook@@6B@
 ??_GCBridge@@UAEPAXI@Z
 ??_GCStructure@@UAEPAXI@Z
-??_GCVerticalWoodenBridge@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z
@@ -534,7 +534,6 @@
 ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ
-?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetShape@TokenEntry@@QBEHXZ
@@ -1029,11 +1028,9 @@
 ?VMethod5@CUnit@@UAEHXZ
 ?VMethod6@CStructure@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
-?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z
 ?VMethod7@CStructure@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
-?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
 ?VMethod7@VisButton@@UAEXXZ
 ?VMethod7@VisGlobalMap@@UAEXXZ

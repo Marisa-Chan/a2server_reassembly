@@ -4246,3 +4246,8 @@ void CVerticalWoodenBridge::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
 CVerticalWoodenBridge::~CVerticalWoodenBridge()
 {
 }
+
+// 4a9e90
+CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height)
+{
+}
