@@ -34290,102 +34290,6 @@ loc_4734E8:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@Q
 
 ; Attributes: bp-based frame
 
-?LoadPathmap@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+9D↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FAA8E SIZE 0000001E BYTES
-
-; __unwind { // SEH_473508
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_473508
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_24], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     [ebp+var_10], eax
-                mov     ecx, dword ptr [ebp+var_24]
-                call    ?FreePathmap@GMapThing@@QAEXXZ
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+0F0h]
-                cmp     dword ptr [ecx+1B0h], 0
-                jz      short loc_47358F
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_473571
-                push    offset aGraphicsGlobal_13 ; "graphics\\Global.Map\\UmoirPath.bmp"
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??0CBmp256@@QAE@PBD@Z
-                mov     [ebp+var_28], eax
-                jmp     short loc_473578
-; ---------------------------------------------------------------------------
-
-loc_473571:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+55↑j
-                mov     [ebp+var_28], 0
-
-loc_473578:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+67↑j
-                mov     edx, dword ptr [ebp+var_28]
-                mov     [ebp+var_18], edx
-;   } // starts at 473552
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [eax], ecx
-                jmp     short loc_4735D4
-; ---------------------------------------------------------------------------
-
-loc_47358F:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+3E↑j
-                push    24h ; '$'       ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+var_1C], eax
-;   try {
-                mov     [ebp+var_4], 1
-                cmp     [ebp+var_1C], 0
-                jz      short loc_4735B8
-                push    offset aGraphicsGlobal_14 ; "graphics\\Global.Map\\PathMap.bmp"
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    ??0CBmp256@@QAE@PBD@Z
-                mov     [ebp+var_2C], eax
-                jmp     short loc_4735BF
-; ---------------------------------------------------------------------------
-
-loc_4735B8:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+9C↑j
-                mov     [ebp+var_2C], 0
-
-loc_4735BF:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+AE↑j
-                mov     edx, dword ptr [ebp+var_2C]
-                mov     [ebp+var_20], edx
-;   } // starts at 473599
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_20]
-                mov     [eax], ecx
-
-loc_4735D4:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+85↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 473508
-?LoadPathmap@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -239077,32 +238981,6 @@ SEH_4733CF:                             ; DATA XREF: ?FreeAdjacency@GMapThing@@Q
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA78
 ; END OF FUNCTION CHUNK FOR ?FreeAdjacency@GMapThing@@QAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?LoadPathmap@GMapThing@@QAEXXZ
-
-loc_5FAA8E:                             ; DATA XREF: .rdata:stru_61B9B0↓o
-; __unwind { // SEH_473508
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FAA98:                             ; DATA XREF: .rdata:0061B9B8↓o
-;   cleanup() // owned by 473552
-;   cleanup() // owned by 473599
-                mov     eax, dword ptr [ebp+var_1C]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_473508:                             ; DATA XREF: ?LoadPathmap@GMapThing@@QAEXXZ+5↑o
-                mov     eax, offset stru_61B990
-                jmp     ___CxxFrameHandler
-; } // starts at 5FAA8E
-; END OF FUNCTION CHUNK FOR ?LoadPathmap@GMapThing@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?BuildAdjacency@GMapThing@@QAEXXZ
 
 loc_5FAAAC:                             ; DATA XREF: .rdata:stru_61B9E0↓o
@@ -269386,13 +269264,6 @@ stru_61B968     FuncInfoV1 <19930520h, 1, offset stru_61B988, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61B988     UnwindMapEntry <-1, offset loc_5FAA78>
-stru_61B990     FuncInfoV1 <19930520h, 2, offset stru_61B9B0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B9B0     UnwindMapEntry <-1, offset loc_5FAA8E>
-                UnwindMapEntry <-1, offset loc_5FAA98>
 stru_61B9C0     FuncInfoV1 <19930520h, 4, offset stru_61B9E0, 0, 0, 0, 0>
                 db    0
                 db    0

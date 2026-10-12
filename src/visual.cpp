@@ -7344,6 +7344,19 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 473508
+void GMapThing::LoadPathmap()
+{
+    MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
+    this->FreePathmap();
+    if (mainWnd->vis_globalmap->umoirMapMode != 0) {
+        this->pathmap = new CBmp256("graphics\\Global.Map\\UmoirPath.bmp");
+    } else {
+        this->pathmap = new CBmp256("graphics\\Global.Map\\PathMap.bmp");
+    }
+}
+
+
 // 4735e2
 void GMapThing::FreePathmap()
 {

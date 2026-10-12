@@ -1496,7 +1496,6 @@ extern ?OnRButtonDown@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnRButtonUp@VisGlobalMap@@UAEHIVCPoint@@@Z : proc
 extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
-externdef ?LoadPathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::LoadPathmap(void)
 extern ?FreePathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreePathmap(void) - called from ASM LoadPathmap
 externdef ?FreeAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreeAdjacency(void)
 externdef ?BuildAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::BuildAdjacency(void)

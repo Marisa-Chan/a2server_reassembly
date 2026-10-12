@@ -78,7 +78,6 @@ _byte_659A3C
 ?FUN_004ac0af@Fame2@@QAEXXZ	144
 ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
-?LoadPathmap@GMapThing@@QAEXXZ	95
 ?FreeAdjacency@GMapThing@@QAEXXZ	146
 ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z	244
 ?BuildAdjacency@GMapThing@@QAEXXZ	309
