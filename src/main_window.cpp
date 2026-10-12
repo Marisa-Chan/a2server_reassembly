@@ -6215,6 +6215,30 @@ int UserShortcut::ToBuffer(uint8_t** buf)
 }
 
 
+int32_t UserShortcut::FUN_0041e3af(TokenEntry* entry)
+{ //41e3af
+    if (entry == nullptr) {
+        return 0;
+    }
+
+    if (this->kind != 2 || this->item_id != entry->item_id) {
+        return 0;
+    }
+
+    if (this->mods_size != entry->mods_size) {
+        return 0;
+    }
+
+    const uint8_t* entry_mods = (const uint8_t*)entry->mods;
+    for (uint32_t i = 0; i < this->mods_size; i++) {
+        if (this->mods[i] != entry_mods[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 void UserShortcut::WriteToFile(CFile* f)
 { //41e4d3
     f->Write(&kind, 2);

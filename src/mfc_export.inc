@@ -1341,7 +1341,6 @@ extern ??0TokenEntry@@QAE@XZ  :proc   ; (public: __thiscall TokenEntry::TokenEnt
 extern ??0TokenEntry@@QAE@PBV0@@Z  :proc   ; (public: __thiscall TokenEntry::TokenEntry(class TokenEntry const *))
 extern ??4TokenEntry@@QAEXABV0@@Z  :proc   ; (public: void __thiscall 
 
-externdef ?FUN_0041e3af@UserShortcut@@QAEHPAVTokenEntry@@@Z : proc  ; int32_t UserShortcut::FUN_0041e3af(TokenEntry*)  //41e3af in asm
 externdef ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z : proc  ; void UserShortcut::sub_41E343(TokenEntry*)  //41e343 in asm
 
 extern ?GetType@TokenEntry@@QBEHXZ : proc    ; TokenEntry::GetType
