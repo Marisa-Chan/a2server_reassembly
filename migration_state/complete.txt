@@ -26,6 +26,7 @@
 ??0CVisualObject@@QAE@HHHHHPBD@Z
 ??0CVisualObject@@QAE@XZ
 ??0Effect@@QAE@XZ
+??0Fame2@@QAE@XZ
 ??0FieldBlock54190@@QAE@XZ
 ??0FieldBlock5859c@@QAE@XZ
 ??0File2@@QAE@XZ
@@ -47,6 +48,7 @@
 ??0RegFile@@QAE@PBD@Z
 ??0RegFile@@QAE@XZ
 ??0ScanPresenceGrid@@QAE@XZ
+??0ServerControlDialog@@QAE@PAVCWnd@@@Z
 ??0SfxSample@@QAE@PBD@Z
 ??0Shield@@QAE@ABVCString@@@Z
 ??0Spell@@QAE@ABVCString@@@Z
@@ -110,6 +112,7 @@
 ??1CString@@QAE@XZ
 ??1CUnit@@UAE@XZ
 ??1CVisualObject@@UAE@XZ
+??1Fame2@@QAE@XZ
 ??1File2@@UAE@XZ
 ??1Group@@QAE@XZ
 ??1Inventory@@QAE@XZ
@@ -153,6 +156,7 @@
 ??4CString@@QAEABV0@ABV0@@Z
 ??4CString@@QAEABV0@PB_W@Z
 ??4CString@@QAEABV0@PBD@Z
+??4Fame2@@QAEXABU0@@Z
 ??4TokenEntry@@QAEXABV0@@Z
 ??4Trigger@@QAEAAU0@ABU0@@Z
 ??4TriggerCheck@@QAEAAU0@ABU0@@Z
@@ -183,7 +187,18 @@
 ??YCString@@QAEABV0@ABV0@@Z
 ??YCString@@QAEABV0@D@Z
 ??YCString@@QAEABV0@PBD@Z
+?_FUN_00495010@MainWindow@@QAEXXZ
+?_FUN_00495743@MainWindow@@QAEXXZ
 ?_mbstowcsz@@YAHPA_WPBDI@Z
+?_OnChar@MainWindow@@QAEXIII@Z
+?_OnClose@MainWindow@@QAEXXZ
+?_OnKeyUp@MainWindow@@QAEXIII@Z
+?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
+?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z
+?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z
+?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z
+?_OnSize@MainWindow@@QAEXIHH@Z
+?_OnSysKeyUp@MainWindow@@QAEXIII@Z
 ?_wcstombsz@@YAHPADPB_WI@Z
 ?Accept@VisStartGame@@QAEXXZ
 ?Add@CStringArray@@QAEHPBD@Z
@@ -215,6 +230,7 @@
 ?classItem@Item@@2UCRuntimeClass@@A
 ?classSpellEffect@SpellEffect@@2UCRuntimeClass@@A
 ?classVirtualCaster@VirtualCaster@@2UCRuntimeClass@@A
+?Clear@Fame2@@QAEXXZ
 ?Clear@PackerDat@@QAEXXZ
 ?ClientPtToScreen@CVisualObject@@QAEXPAVCPoint@@ABV2@@Z
 ?ClientRectToScreen@CVisualObject@@QAEXPAVCRect@@ABV2@@Z
@@ -243,6 +259,7 @@
 ?CountHumanPlayers@PlayersList@@QAEHXZ
 ?Create@CPlex@@SGPAU1@AAPAU1@II@Z
 ?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ
+?DAT_00660f88@@3HA
 ?DAT_00666a00@@3VCStringArray@@A
 ?DataSize@CVisualObject@@UAEIXZ
 ?DataSize@VisListBox@@UAEIXZ
@@ -311,6 +328,11 @@
 ?FUN_00462405@CGameObject@@QAEHH@Z
 ?FUN_0046246b@CGameObject@@QAEXHHHHGGG@Z
 ?FUN_0046fb90@VisInvBase@@QAEHXZ
+?FUN_0048ca7e@MainWindow@@QAEHH@Z
+?FUN_0048cb3c@MainWindow@@QAEXXZ
+?FUN_0048f6f7@MainWindow@@QAEXXZ
+?FUN_00490eb3@MainWindow@@QAEHXZ
+?FUN_004946e0@CGameSession@@QAEXXZ
 ?FUN_00497ace@VisTavLeftPanel@@QAEXXZ
 ?FUN_0049a973@VisTavRightPanel@@QAEXXZ
 ?FUN_0049af8c@VisTavScene@@QAEXXZ
@@ -319,7 +341,12 @@
 ?FUN_004a4ebc@VisInvBase@@QAEXXZ
 ?FUN_004a5e12@VisInvBase@@QAEXXZ
 ?FUN_004a7b79@Scenario@@QAENXZ
+?FUN_004abf0f@Fame2@@QAEXHI@Z
+?FUN_004ac3ce@CFameHall@@QAEXABUFame1@@@Z
+?FUN_004ad880@Fame2@@QAEHXZ
+?FUN_004ad890@Fame2@@QAEIXZ
 ?FUN_004ca7c2@VisSpellBook@@QAEHPAVCPoint@@@Z
+?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z
 ?FUN_005125a8@GameDataRes@@QAEHH@Z
 ?FUN_00512625@GameDataRes@@QAEHH@Z
 ?FUN_0051c748@NetStru1@@QAEXPAVPlayer@@@Z
@@ -438,6 +465,7 @@
 ?g_TerrainHelper@@3PAY0IA@EA
 ?g_TunesMap@@3VCMapStringToString@@A
 ?g_UnitGfxFiles@@3V?$CArray@PAVUnitGfxFile@@ABQAV1@@@A
+?g_using_vxd@@3IA
 ?g_VFX_info@@3V?$CArray@PAVUnitVFXUnfo@@ABQAV1@@@A
 ?GetAttribute@TokenEntry@@QBEIE@Z
 ?GetBitmap@VisBitmap@@QAEPAVCGameBitmap@@XZ
@@ -510,6 +538,7 @@
 ?Init@ProjectileInfo@@QAEXXZ
 ?Init@StructureInfo@@QAEXXZ
 ?Init@UnitGfxFile@@QAEXXZ
+?InitializeNewCharacterSession@CGameSession@@QAEXHPBD@Z
 ?Inst@PacketData@@2V1@A
 ?Inst@PacketInfo@@2V1@A
 ?Inst@PacketItemOperation@@2V1@A
@@ -523,6 +552,7 @@
 ?IsSelected@CGameObject@@QAEHXZ
 ?IsValidIndex@VisListBox@@UAEHH@Z
 ?Left@CString@@QBE?AV1@H@Z
+?LoadCharacterRosterEntry@CGameSession@@QAEXH@Z
 ?LoadChunkFile@TxtFile@@QAEXPBD@Z
 ?LoadFile@CBmp64@@QAEXPBDPAVCGameBitmap@@@Z
 ?LoadSample@SfxSample@@QAEXXZ
@@ -652,6 +682,7 @@
 ?ParsePlayerFile_4F62E6@@YAHPAVCFile@@PAPAUFileSectionBasicInfo@@PAPAUFileSectionStats@@PAPAEPAPAVPacketUnitStateVec@@43PAI@Z
 ?Play@MusicPlayer@@QAEXXZ
 ?Play@SfxSample@@QAEXHHHEH@Z
+?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z
 ?PrepareForConnect@CLlDriver@@QAEHPBDPAUCLlAddress@@@Z
 ?ProcessConnections@NetStru1@@QAEXXZ
 ?ProcessPackets@BigStruct2@@QAEHE@Z
@@ -669,6 +700,7 @@
 ?ReadFromFile@ResBase@@QAEXPAVCFile@@H@Z
 ?ReadObject@CArchive@@QAEPAVCObject@@PBUCRuntimeClass@@@Z
 ?ReceiveAnyPacket@NetStru1@@QAEPAVPacket@@XZ
+?RecreateCUnit@CGameSession@@QAEXXZ
 ?RefreshCharacterRosterFiles@CGameSession@@QAEXH@Z
 ?ReleaseBuffer@CString@@QAEXH@Z
 ?ReloadSprite@CUnit@@QAEXXZ
@@ -713,6 +745,7 @@
 ?SetRect@CVisualObject@@QAEXPBUtagRECT@@@Z
 ?SetRect@CVisualObject@@QAEXUtagRECT@@@Z
 ?SetSelectedIndex@VisListBox@@QAEXH@Z
+?SetSpeed@MainWindow@@QAEHH@Z
 ?SetText@VisMultiText@@QAEXPBD@Z
 ?SetText@VisStartGameTextBox@@QAEXABVCString@@@Z
 ?SetUpObj@CVisualObject@@QAEXPAV1@@Z
@@ -741,6 +774,8 @@
 ?sub_41F9B0@VisSpellBook@@QAEHXZ
 ?sub_41F9E0@VisSpellBook@@QAEHXZ
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z
+?sub_48CC87@MainWindow@@QAEXXZ
+?sub_49585B@ServerControlDialog@@QAEXXZ
 ?sub_4A4BCB@VisInvBase@@QAEXXZ
 ?sub_4A51C9@VisInvBase@@QAEXXZ
 ?sub_4A5350@VisInvBase@@QAEXXZ
@@ -840,6 +875,7 @@
 ?UpdateSelectionState@BigStruct2@@QAEXXZ
 ?UpdateWinRect@VisWindow@@QAEXXZ
 ?Use@CCursor@@QAEXXZ
+?vis_scr_rect@@3VCRect@@A
 ?VMethod10@CGameObject@@UAEXXZ
 ?VMethod10@CVisualObject@@UAEXXZ
 ?VMethod11@CGameObject@@UAEHXZ
