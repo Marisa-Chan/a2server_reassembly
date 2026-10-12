@@ -84,7 +84,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?FUN_00485aed@MainWindow@@QAEXXZ	731
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13

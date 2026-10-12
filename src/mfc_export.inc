@@ -932,7 +932,6 @@ externdef   ?_FUN_004950c0@MainWindow@@QAEXXZ  : proc
 externdef   ?_FUN_00495743@MainWindow@@QAEXXZ  : proc
 
 externdef ?FUN_0048cb3c@MainWindow@@QAEXXZ : proc
-externdef ?FUN_00485aed@MainWindow@@QAEXXZ : proc
 extern ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?FUN_004919b1@MainWindow@@QAEXXZ : proc
 extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc

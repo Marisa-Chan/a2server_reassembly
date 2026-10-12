@@ -1361,6 +1361,55 @@ void MainWindow::_FUN_004950c0()
     this->field_0x7fc->sub_49585B();
 }
 
+// 485aed
+void MainWindow::FUN_00485aed()
+{
+    this->vis_right_panel->RemoveAllChilds();
+    this->vis_root->RemoveAllChilds();
+    this->vis_map_context->RemoveAllChilds();
+
+    delete this->vis_root;
+    this->vis_root = nullptr;
+
+    delete this->vis_right_panel;
+
+    this->vis_tav->RemoveChild(this->vis_charinfo);
+    this->vis_shop->RemoveChild(this->vis_charinfo);
+    this->vis_tavdruid->RemoveChild(this->vis_charinfo);
+    this->vis_shopdruid->RemoveChild(this->vis_charinfo);
+    this->vis_tavkaarg->RemoveChild(this->vis_charinfo);
+    this->vis_shopkaarg->RemoveChild(this->vis_charinfo);
+    this->vis_chargen->RemoveChild(this->vis_charinfo);
+
+    delete this->vis_charinfo;
+    delete this->vis_sidestatus;
+    delete this->vis_ordertoolbar;
+    delete this->vis_minimap;
+    delete this->vis_map_context;
+    delete this->vis_invtype1;
+    delete this->vis_spellbook;
+    delete this->vis_shop;
+    delete this->vis_shopdruid;
+    delete this->vis_shopkaarg;
+    delete this->vis_globalmap;
+    delete this->vis_mainmenu;
+    delete this->vis_tav;
+    delete this->vis_tavdruid;
+    delete this->vis_tavkaarg;
+    delete this->vis_chargen;
+    delete this->vis_charsel;
+    delete this->vis_startgame;
+    delete this->vis_dropgold;
+    delete this->vis_town;
+    delete this->vis_towndruid;
+    delete this->vis_townkaarg;
+    delete this->vis_credits;
+    delete this->vis_logownd;
+    delete this->vis_1200;
+    delete this->vis_famehall;
+    delete this->vis_famedocument;
+}
+
 // 484022
 int MainWindow::_OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
