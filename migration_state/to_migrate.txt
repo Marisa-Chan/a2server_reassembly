@@ -63,7 +63,6 @@ _byte_659A3C
 ??0CAirUnit@@QAE@XZ	18
 ??0CBackPack@@QAE@XZ	16
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
-?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CHorisontalWoodenBridge@@QAE@XZ	13
 ??0CHorisontalWoodenBridge@@QAE@HH@Z	22

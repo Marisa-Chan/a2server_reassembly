@@ -2087,7 +2087,7 @@ externdef ??_GCHorisontalWoodenBridge@@UAEPAXI@Z : proc
 externdef ??1CHorisontalWoodenBridge@@QAE@XZ : proc
 externdef ?GetRuntimeClass@CHorisontalWoodenBridge@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
-externdef ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
+extern ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z : proc
 
 
 ;MapPlayerData

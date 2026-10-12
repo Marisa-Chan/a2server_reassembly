@@ -4295,3 +4295,8 @@ void CHorisontalWoodenBridge::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
         info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
     }
 }
+
+// 46410f
+void CHorisontalWoodenBridge::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+}

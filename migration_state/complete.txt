@@ -1030,6 +1030,7 @@
 ?VMethod6@CStructure@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z
+?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z
 ?VMethod7@CStructure@@UAEXHHH@Z
 ?VMethod7@CUnit@@UAEXHHH@Z
 ?VMethod7@CVisualObject@@UAEXXZ
