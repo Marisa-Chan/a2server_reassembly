@@ -43470,46 +43470,6 @@ loc_478113:                             ; CODE XREF: ?sub_477B59@@YAXI@Z+575↑j
 
 ; Attributes: bp-based frame
 
-?FUN_00478130@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?FUN_0048f6f7@MainWindow@@QAEXXZ:loc_48F775↓p
-
-var_C           = dword ptr -0Ch
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 0Ch
-                push    0
-                call    ?sub_477B59@@YAXI@Z
-                add     esp, 4
-                cmp     ?DAT_00665344@@3PAVCGameBitmap@@A, 0
-                jz      short loc_478180
-                mov     eax, ?DAT_00665344@@3PAVCGameBitmap@@A
-                mov     [ebp+var_8], eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ebp+var_4], ecx
-                cmp     [ebp+var_4], 0
-                jz      short loc_47816F
-                push    1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx]
-                mov     ecx, dword ptr [ebp+var_4]
-                call    dword ptr [eax+4]
-                mov     [ebp+var_C], eax
-                jmp     short loc_478176
-; ---------------------------------------------------------------------------
-
-loc_47816F:                             ; CODE XREF: ?FUN_00478130@MainWindow@@QAEXXZ+2B↑j
-                mov     [ebp+var_C], 0
-
-loc_478176:                             ; CODE XREF: ?FUN_00478130@MainWindow@@QAEXXZ+3D↑j
-                mov     ?DAT_00665344@@3PAVCGameBitmap@@A, 0
-
-loc_478180:                             ; CODE XREF: ?FUN_00478130@MainWindow@@QAEXXZ+17↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00478130@MainWindow@@QAEXXZ      endp
 
 
 

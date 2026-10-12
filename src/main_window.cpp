@@ -1169,6 +1169,16 @@ void MainWindow::sub_4919C7()
     this->field_0xc0 = 1;
 }
 
+// 478130
+void MainWindow::FUN_00478130()
+{
+    sub_477B59(0);
+    if (DAT_00665344 != nullptr) {
+        delete DAT_00665344;
+        DAT_00665344 = nullptr;
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

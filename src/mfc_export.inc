@@ -939,8 +939,6 @@ extern ?FUN_0048ca7e@MainWindow@@QAEHH@Z  : proc
 
 extern ?vis_scr_rect@@3VCRect@@A : dword
 
-externdef ?FUN_00478130@MainWindow@@QAEXXZ : proc
-
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed
 extern ?PopUpScreen@MainWindow@@QAEXPAVVisScreen@@@Z : proc
 extern ?FUN_0048f6f7@MainWindow@@QAEXXZ : proc
