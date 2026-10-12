@@ -1026,6 +1026,7 @@
 ?VMethod5@CBridge@@UAEHXZ
 ?VMethod5@CStructure@@UAEHXZ
 ?VMethod5@CUnit@@UAEHXZ
+?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z
 ?VMethod6@CStructure@@UAEXHHH@Z
 ?VMethod6@CUnit@@UAEXHHH@Z
 ?VMethod7@CGameObject@@UAEXHHH@Z

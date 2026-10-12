@@ -68,7 +68,6 @@ _byte_659A3C
 ??1CHorisontalWoodenBridge@@QAE@XZ	13
 ??0CHorisontalWoodenBridge@@QAE@HH@Z	22
 ??_GCHorisontalWoodenBridge@@UAEPAXI@Z	24
-?VMethod6@CHorisontalWoodenBridge@@UAEXHHH@Z	208
 ??0CProjectile@@QAE@XZ	36
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31

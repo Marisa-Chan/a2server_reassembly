@@ -4251,3 +4251,47 @@ CVerticalWoodenBridge::~CVerticalWoodenBridge()
 CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height)
 {
 }
+
+// 463f0e
+void CHorisontalWoodenBridge::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    BigStruct2* map = this->pMapObject;
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+
+    int32_t dx = (arg1 + map->view_x) - this->tileX;
+    int32_t dy = (arg2 + map->view_y) - this->tileY;
+
+    int32_t piece;
+    if (dx == 0 && dy == 0) {
+        piece = 0;
+    } else if (dx == this->bridge_width - 1 && dy == 0) {
+        piece = 3;
+    } else if (dy == 0) {
+        piece = (dx & 1) + 1;
+    } else if (dx == 0 && dy == this->bridge_height - 1) {
+        piece = 7;
+    } else if (dx == this->bridge_width - 1 && dy == this->bridge_height - 1) {
+        piece = 13;
+    } else if (dy == this->bridge_height - 1) {
+        if ((dx & 1) != 0) {
+            piece = 12;
+        } else {
+            piece = (map->field_0xa88 & 3) + 8;
+        }
+    } else if (dx == 0) {
+        piece = 4;
+    } else if (dx == this->bridge_width - 1) {
+        piece = 6;
+    } else {
+        piece = 5;
+    }
+
+    int32_t x = arg1 * 0x20;
+    int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
+    CGamePalette* palette = &info->GetSprite()->palette;
+
+    info->GetSprite()->VMethod2(x, y, piece, arg3, 0);
+    if (g_settings.Smoothing != 0) {
+        info->GetSpriteB()->VMethod9(x, y, piece, arg3, palette, 0);
+    }
+}
