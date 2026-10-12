@@ -30858,26 +30858,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-?VMethod17@CBridge@@UAEXHH@Z      proc near               ; CODE XREF: ??0CBridge@@QAE@HH@Z+3F↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     [eax+144h], ecx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     [edx+148h], eax
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-?VMethod17@CBridge@@UAEXHH@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

@@ -66,7 +66,6 @@ _byte_659A3C
 ??1CBridge@@QAE@XZ	13
 ?VMethod4@CBridge@@UAEHXZ	13
 ?VMethod5@CBridge@@UAEHXZ	13
-?VMethod17@CBridge@@UAEXHH@Z	19
 ??_GCBridge@@UAEPAXI@Z	24
 ??0CBridge@@QAE@HH@Z	41
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110

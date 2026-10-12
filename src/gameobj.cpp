@@ -4160,3 +4160,10 @@ CStructure::CStructure()
 CStructure::CStructure(const CStructure* obj) : CGameObject(obj)
 {
 }
+
+// 46f550
+void CBridge::VMethod17(int32_t width, int32_t height)
+{
+    this->bridge_width = width;
+    this->bridge_height = height;
+}

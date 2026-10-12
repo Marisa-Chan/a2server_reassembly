@@ -914,6 +914,7 @@
 ?VMethod15@CUnit@@UAEHXZ
 ?VMethod16@CGameObject@@UAEXXZ
 ?VMethod16@CUnit@@UAEXXZ
+?VMethod17@CBridge@@UAEXHH@Z
 ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z
 ?VMethod18@CUnit@@UAEXXZ
 ?VMethod19@CUnit@@UAEXXZ

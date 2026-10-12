@@ -2077,7 +2077,7 @@ externdef ??1CBridge@@QAE@XZ : proc
 externdef ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ : proc
 externdef ?VMethod4@CBridge@@UAEHXZ : proc
 externdef ?VMethod5@CBridge@@UAEHXZ : proc
-externdef ?VMethod17@CBridge@@UAEXHH@Z : proc
+extern ?VMethod17@CBridge@@UAEXHH@Z : proc
 
 ;CVerticalWoodenBridge
 externdef ??_GCVerticalWoodenBridge@@UAEPAXI@Z : proc
