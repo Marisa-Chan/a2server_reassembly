@@ -191,6 +191,16 @@ void Fame2::operator=(const Fame2& b)
     field_x38 = b.field_x38;
 }
 
+bool Fame2::FUN_004abf35()
+{ //4abf35
+    int32_t next = this->field_x38 + 0x15;
+    if (next < this->str_arr.GetSize()) {
+        this->field_x38 = next;
+        return true;
+    }
+    return false;
+}
+
 
 
 

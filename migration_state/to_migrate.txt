@@ -71,7 +71,6 @@ _byte_659A3C
 ??0CStructureBridge1@@QAE@HH@Z	22
 ??0CStructureBridge2@@QAE@HH@Z	22
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
-?FUN_004abf35@Fame2@@QAE_NXZ	34
 ?FUN_004abf72@Fame2@@QAEHXZ	34
 ?FUN_004abfb1@Fame2@@QAEXHH@Z	69
 ?FUN_004ac0af@Fame2@@QAEXXZ	144

@@ -53877,41 +53877,6 @@ sub_4ABE47      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004abf35@Fame2@@QAE_NXZ      proc near               ; CODE XREF: ?NextDoc@VisFameDocument@@QAEXXZ+21↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esi, [eax+38h]
-                add     esi, 15h
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 10h
-                call    ?GetSize@CStringArray@@QBEHXZ ; Microsoft VisualC 2-14/net runtime
-                cmp     esi, eax
-                jl      short loc_4ABF59
-                xor     eax, eax
-                jmp     short loc_4ABF6D
-; ---------------------------------------------------------------------------
-
-loc_4ABF59:                             ; CODE XREF: ?FUN_004abf35@Fame2@@QAE_NXZ+1E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+38h]
-                add     edx, 15h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+38h], edx
-                mov     eax, 1
-
-loc_4ABF6D:                             ; CODE XREF: ?FUN_004abf35@Fame2@@QAE_NXZ+22↑j
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004abf35@Fame2@@QAE_NXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
