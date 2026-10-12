@@ -53883,41 +53883,6 @@ sub_4ABE47      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004abf72@Fame2@@QAEHXZ      proc near               ; CODE XREF: ?PrevDoc@VisFameDocument@@QAEXXZ+21↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+38h], 0
-                jnz     short loc_4ABF86
-                xor     eax, eax
-                jmp     short loc_4ABFAD
-; ---------------------------------------------------------------------------
-
-loc_4ABF86:                             ; CODE XREF: ?FUN_004abf72@Fame2@@QAEHXZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ecx+38h]
-                sub     edx, 15h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+38h], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+38h], 0
-                jge     short loc_4ABFA8
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+38h], 0
-
-loc_4ABFA8:                             ; CODE XREF: ?FUN_004abf72@Fame2@@QAEHXZ+2A↑j
-                mov     eax, 1
-
-loc_4ABFAD:                             ; CODE XREF: ?FUN_004abf72@Fame2@@QAEHXZ+12↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004abf72@Fame2@@QAEHXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================

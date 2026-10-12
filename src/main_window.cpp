@@ -201,6 +201,18 @@ bool Fame2::FUN_004abf35()
     return false;
 }
 
+int32_t Fame2::FUN_004abf72()
+{ //4abf72
+    if (this->field_x38 == 0) {
+        return 0;
+    }
+    this->field_x38 -= 0x15;
+    if ((int32_t)this->field_x38 < 0) {
+        this->field_x38 = 0;
+    }
+    return 1;
+}
+
 
 
 
