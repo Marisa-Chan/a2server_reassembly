@@ -27,6 +27,9 @@ extern "C" char byte_65F630[1024]; //65f630 CUnit::FUN_0046d0f7 spell-list hint 
 //GetRuntimeClass 461020
 IMPLEMENT_DYNAMIC(CGameObject, CObject);
 
+//GetRuntimeClass 461070
+IMPLEMENT_DYNAMIC(CBackPack, CGameObject);
+
 //GetRuntimeClass 461080
 IMPLEMENT_DYNAMIC(CUnit, CGameObject);
 

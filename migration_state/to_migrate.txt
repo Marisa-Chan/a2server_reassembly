@@ -64,7 +64,6 @@ _byte_659A3C
 ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z	15
 ??0CAirUnit@@QAE@XZ	18
 ??_GCAirUnit@@UAEPAXI@Z	24
-?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ	12
 ??1CBackPack@@UAE@XZ	13
 ??0CBackPack@@QAE@XZ	16
 ??_GCBackPack@@UAEPAXI@Z	24

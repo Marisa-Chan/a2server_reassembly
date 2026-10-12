@@ -525,6 +525,7 @@
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ

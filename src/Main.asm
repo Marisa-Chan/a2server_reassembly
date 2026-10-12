@@ -26726,29 +26726,6 @@ sub_45DB30      endp
 
 
 
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60B4C8↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset stru_60B3F8
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 
@@ -252179,8 +252156,6 @@ off_60B270      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
 dbl_60B338      dq 0.5                  ; DATA XREF: sub_45E643+15C↑r
 
 
-stru_60B3F8     sCRuntimeClass <offset aCbackpack_0, 324, 0FFFFh, 0, \
-                                offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CBackPack"
 
 classCProjectile sCRuntimeClass <offset aCprojectile_0, 344, 0FFFFh, 0, \
                                 offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CProjectile"
@@ -270502,7 +270477,6 @@ asc_62F14C      db ' ',0                ; DATA XREF: sub_45E643+78↑o
 aCstructure_2   db 'CStructure',0       ; DATA XREF: .rdata:?classCStructure@CStructure@@2UCRuntimeClass@@B↑o
                 align 4
                 align 4
-aCbackpack_0    db 'CBackPack',0        ; DATA XREF: .rdata:stru_60B3F8↑o
                 align 4
 aCunit_2        db 'CUnit',0            ; DATA XREF: .rdata:?classCUnit@CUnit@@2UCRuntimeClass@@B↑o
                 align 4
@@ -270513,8 +270487,6 @@ aCprojectile_0  db 'CProjectile',0      ; DATA XREF: .rdata:classCProjectile↑o
 ; char aShitInvalidGam[]
 aShitInvalidGam db 'Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d pict'
                 db 'ure:%d',0
-; CHAR aCbackpack[]
-aCbackpack      db 'CBackPack',0        ; DATA XREF: ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z+7↑o
                 align 10h
 ; CHAR aCstructure_1[]
 aCstructure_1   db 'CStructure',0       ; DATA XREF: ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z+7↑o

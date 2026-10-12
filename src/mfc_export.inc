@@ -2051,7 +2051,7 @@ externdef ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
 
 ;CBackPack
 externdef ??0CBackPack@@QAE@XZ : proc
-externdef ?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ : proc
+extern ?GetRuntimeClass@CBackPack@@UBEPAUCRuntimeClass@@XZ:proc ; CBackPack::GetRuntimeClass
 externdef ??_GCBackPack@@UAEPAXI@Z : proc
 externdef ??1CBackPack@@UAE@XZ : proc
 extern ?Dump@CBackPack@@UBEXAAVCDumpContext@@@Z:proc ; CBackPack::Dump
