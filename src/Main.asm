@@ -5441,27 +5441,6 @@ sub_41F850      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ(_DWORD)
-?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+1D8C↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+10h], 0
-                jnz     short loc_41F888
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@GfxFile@@QAEXXZ
-
-loc_41F888:                             ; CODE XREF: ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -5471,27 +5450,6 @@ loc_41F888:                             ; CODE XREF: ?sub_41F870@GfxFile@@QAEPAV
 ; Attributes: bp-based frame
 
 ; int __thiscall ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ(_DWORD)
-?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ      proc near               ; CODE XREF: ?sub_406F7B@BigStruct2@@QAEXXZ+2035↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                cmp     dword ptr [eax+10h], 0
-                jnz     short loc_41F8B8
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ?Init@GfxFile@@QAEXXZ
-
-loc_41F8B8:                             ; CODE XREF: ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ+E↑j
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+8]
-                mov     esp, ebp
-                pop     ebp
-                retn
-?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

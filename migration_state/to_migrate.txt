@@ -71,8 +71,6 @@ _byte_659A3C
 ??0CStructureBridge1@@QAE@HH@Z	22
 ??0CStructureBridge2@@QAE@HH@Z	22
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
-?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ	20
-?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13

@@ -780,6 +780,8 @@
 ?sub_41965D@BigStruct2@@QAEXGG@Z
 ?sub_41A7C7@BigStruct2@@QAEXEGEGG@Z
 ?sub_41AC88@BigStruct2@@QAEXHH@Z
+?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ
+?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ
 ?sub_41F9B0@VisSpellBook@@QAEHXZ
 ?sub_41F9E0@VisSpellBook@@QAEHXZ
 ?sub_43A820@@YAPAVCString@@PAV1@I@Z

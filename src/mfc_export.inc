@@ -2077,8 +2077,8 @@ extern ?g_GfxObjects@@3V?$CArray@PAVGfxObject@@ABQAV1@@@A  : dword
 
 
 ; GfxFile
-externdef ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F870()
-externdef ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F8A0()
+extern ?sub_41F870@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F870()
+extern ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* GfxFile::sub_41F8A0()
 
 
 ;UnitGfxObject

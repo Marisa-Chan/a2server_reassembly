@@ -3379,6 +3379,22 @@ void GfxFile::Deinit()
 	}
 }
 
+CSprite256* GfxFile::sub_41F870()
+{ //41f870
+    if (this->inited == 0) {
+        this->Init();
+    }
+    return this->spr;
+}
+
+CSprite256* GfxFile::sub_41F8A0()
+{ //41f8a0
+    if (this->inited == 0) {
+        this->Init();
+    }
+    return this->spr_b;
+}
+
 
 UnitGfxFile::UnitGfxFile(const char* _fname)
 { //47c85d
