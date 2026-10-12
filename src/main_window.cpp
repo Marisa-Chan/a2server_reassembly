@@ -1070,6 +1070,13 @@ void MainWindow::_OnKeyDown(UINT key, UINT repeat, UINT flags)
     g_mousept.ForceDisableHint();
 }
 
+// 495010
+void MainWindow::_FUN_00495010()
+{
+    g_Server->sub_4F8831();
+    this->field_0x624 = 1;
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

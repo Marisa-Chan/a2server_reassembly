@@ -52191,20 +52191,6 @@ loc_494EBA:                             ; CODE XREF: .text:00494EB0↑j
 ?_OnSize@MainWindow@@QAEXIHH@Z      endp
 
 
-; ---------------------------------------------------------------------------
-?_FUN_00495010@MainWindow@@QAEXXZ      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    ?sub_4F8831@Server@@QAEXXZ
-                mov     eax, dword ptr [ebp-4]
-                mov     dword ptr [eax+624h], 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-?_FUN_00495010@MainWindow@@QAEXXZ      endp
 
 
 
