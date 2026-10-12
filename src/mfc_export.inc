@@ -2062,7 +2062,7 @@ externdef ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z : proc
 externdef ?VMethod4@CStructure@@UAEHXZ : proc
 externdef ?VMethod5@CStructure@@UAEHXZ : proc
 externdef ?VMethod6@CStructure@@UAEXHHH@Z : proc
-externdef ?VMethod7@CStructure@@UAEXHHH@Z : proc
+extern ?VMethod7@CStructure@@UAEXHHH@Z : proc
 extern ?VMethod8@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod9@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod10@CStructure@@UAEXXZ : proc
@@ -2120,6 +2120,8 @@ extern ?Init@UnitGfxFile@@QAEXXZ : proc
 
 ;StructureInfo
 extern ?Init@StructureInfo@@QAEXXZ : proc
+externdef ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ : proc
+externdef ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ : proc
 extern ?g_StructuresInfo@@3V?$CArray@PAVStructureInfo@@ABQAV1@@@A  : dword
 
 ;ProjectileInfo

@@ -3887,3 +3887,63 @@ void CStructure::VMethod8(int32_t arg1, int32_t arg2, int32_t arg3)
 
     this->FUN_0046246b(left, right, y, fill_width, color_lo, color_mid, color_hi);
 }
+
+// 462f58
+void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    BigStruct2* map = this->pMapObject;
+
+    int32_t sun_angle = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * 65536.0);
+
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+    int32_t x_offset = (arg1 + map->view_x) - this->tileX;
+    int32_t row_end = (arg2 + map->view_y) - this->tileY;
+    int32_t row_last = row_end + info->full_height - info->tile_height;
+    int32_t row_first = row_last;
+    if (row_end == 0) {
+        row_first = 0;
+    }
+
+    int32_t x = arg1 * 0x20;
+    int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
+
+    int32_t anim_frame = 0;
+    if (info->frame_count != 0) {
+        anim_frame = info->frames[this->phase];
+    }
+    if (g_Animation == 0) {
+        anim_frame = 0;
+    }
+
+    for (int32_t row = row_last; row >= row_first; row--) {
+        int32_t tile_idx = row * info->tile_width + x_offset;
+        int32_t frame = tile_idx;
+        if (this->hp <= 0) {
+            CGameBitmap* bmp = info->GetSprite();
+            frame = tile_idx + bmp->GetFrameCount() - info->tile_width * info->full_height;
+        } else {
+            if (anim_frame != 0) {
+                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->field_0x38;
+                char* anim_mask = info->anim_mask;
+                if (anim_mask[tile_idx] == '-') {
+                    frame = tile_idx;
+                } else {
+                    for (int32_t i = 0; i < tile_idx; i++) {
+                        if (anim_mask[i] != '-') {
+                            frame++;
+                        }
+                    }
+                }
+            }
+        }
+
+        int32_t shadow_offset = (int32_t)(std::tan(map->field_0x80->FUN_004a7b79()) * ((info->full_height - row) * 32.0 - info->shadow_y));
+
+        info->GetSprite()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.field_c, sun_angle, 0);
+        if (g_settings.Smoothing != 0) {
+            info->GetSpriteB()->VMethod11(x + shadow_offset, y, frame, g_DeltaCLR.field_10, sun_angle, 0);
+        }
+
+        y -= 0x20;
+    }
+}

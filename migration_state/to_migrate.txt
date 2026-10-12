@@ -92,7 +92,6 @@ _byte_659A3C
 ?VMethod9@CStructure@@UAEXHHH@Z	184
 ?VMethod12@CStructure@@UAEXXZ	222
 ?VMethod6@CStructure@@UAEXHHH@Z	247
-?VMethod7@CStructure@@UAEXHHH@Z	270
 ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CVerticalWoodenBridge@@QAE@XZ	13
@@ -100,3 +99,5 @@ _byte_659A3C
 ??_GCVerticalWoodenBridge@@UAEPAXI@Z	24
 ?VMethod6@CVerticalWoodenBridge@@UAEXHHH@Z	190
 ??0DiplomacyEntry@@QAE@PBDHHHH@Z	46
+?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
+?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20

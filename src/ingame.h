@@ -192,6 +192,9 @@ public:
 
 	void Init(); //
 	void Deinit(); //47ef52
+
+	CSprite256* GetSprite(); //46f790
+	CSprite256* GetSpriteB(); //46f7c0
 public:
 	CSprite256* spr = nullptr;
 	CSprite256* spr_b = nullptr;
