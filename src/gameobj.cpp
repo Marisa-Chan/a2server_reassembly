@@ -3947,3 +3947,59 @@ void CStructure::VMethod7(int32_t arg1, int32_t arg2, int32_t arg3)
         y -= 0x20;
     }
 }
+
+// 462d11
+void CStructure::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    BigStruct2* map = this->pMapObject;
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+
+    int32_t x_offset = (arg1 + map->view_x) - this->tileX;
+    int32_t row_end = (arg2 + map->view_y) - this->tileY;
+    int32_t row_last = row_end + info->full_height - info->tile_height;
+    int32_t row_first = row_last;
+    if (row_end == 0) {
+        row_first = 0;
+    }
+
+    int32_t y = (arg2 * 0x20) - this->z_pos - this->terrainHeightOffset;
+
+    int32_t anim_frame = 0;
+    if (info->frame_count != 0) {
+        anim_frame = info->frames[this->phase];
+    }
+    if (g_Animation == 0) {
+        anim_frame = 0;
+    }
+
+    CGamePalette* palette = &info->GetSprite()->palette;
+
+    for (int32_t row = row_last; row >= row_first; row--) {
+        int32_t tile_idx = row * info->tile_width + x_offset;
+        int32_t frame = tile_idx;
+        if (this->hp <= 0 && info->indestructible == 0) {
+            frame = tile_idx + info->GetSprite()->GetFrameCount() - info->tile_width * info->full_height;
+        } else {
+            if (anim_frame != 0) {
+                frame = info->tile_width * info->full_height + (anim_frame - 1) * info->field_0x38;
+                char* anim_mask = info->anim_mask;
+                if (anim_mask[tile_idx] == '-') {
+                    frame = tile_idx;
+                } else {
+                    for (int32_t i = 0; i < tile_idx; i++) {
+                        if (anim_mask[i] != '-') {
+                            frame++;
+                        }
+                    }
+                }
+            }
+        }
+
+        info->GetSprite()->VMethod2(arg1 * 0x20, y, frame, arg3, 0);
+        if (g_settings.Smoothing != 0) {
+            info->GetSpriteB()->VMethod9(arg1 * 0x20, y, frame, arg3, palette, 0);
+        }
+
+        y -= 0x20;
+    }
+}
