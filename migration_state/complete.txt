@@ -189,6 +189,7 @@
 ??YCString@@QAEABV0@PBD@Z
 ?_FUN_00495010@MainWindow@@QAEXXZ
 ?_mbstowcsz@@YAHPA_WPBDI@Z
+?_OnClose@MainWindow@@QAEXXZ
 ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_wcstombsz@@YAHPADPB_WI@Z

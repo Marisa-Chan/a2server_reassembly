@@ -1101,6 +1101,16 @@ void MainWindow::_OnKillFocus(CWnd* pNewWnd)
     g_kbShiftState = 0;
 }
 
+// 4949f9
+void MainWindow::_OnClose()
+{
+    this->FUN_004919b1();
+    this->dialogsMask = 0;
+    g_Cursors[0]->Use();
+    FUN_0047619a();
+    CFrameWnd::OnClose();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

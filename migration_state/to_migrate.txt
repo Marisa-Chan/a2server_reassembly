@@ -22,6 +22,7 @@ _byte_659A3C
 ?FUN_004CD4B0@@YANH@Z	12
 ?FUN_004549e5@@YAXHHHH@Z	19
 ?SetMessageColors@@YAXI@Z	26
+?FUN_0047619a@@YAXXZ	33
 ?FUN_0043aae0@@YAHD@Z	35
 ?SaveSettings@@YAXXZ	66
 ?IsDefaultNpcName@@YAIPBD@Z	67
@@ -132,6 +133,7 @@ _byte_659A3C
 ?Create@CFrameWnd@@QAEHPBD0KABUtagRECT@@PAVCWnd@@0KPAX@Z	87
 ?RecalcLayout@CFrameWnd@@UAEXH@Z	110
 ?LoadFrame@CFrameWnd@@UAEHIKPAVCWnd@@PAX@Z	113
+?OnClose@CFrameWnd@@IAEXXZ	128
 ?BeginModalState@CFrameWnd@@UAEXXZ	129
 ?OnSetPreviewMode@CFrameWnd@@UAEXHPAX@Z	219
 ?DrawItem@CListBox@@UAEXPAUtagDRAWITEMSTRUCT@@@Z	2
@@ -242,7 +244,7 @@ _byte_659A3C
 ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z	25
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
-?_OnClose@MainWindow@@QAEXXZ	17
+?FUN_004919b1@MainWindow@@QAEXXZ	13
 ?_FUN_00495743@MainWindow@@QAEXXZ	18
 ?_OnSize@MainWindow@@QAEXIHH@Z	22
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z	23

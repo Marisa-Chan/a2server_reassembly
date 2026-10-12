@@ -40433,7 +40433,7 @@ sub_47586B      endp
 
 ; Attributes: bp-based frame
 
-sub_47619A      proc near               ; CODE XREF: .text:00494A20↓p
+?FUN_0047619a@@YAXXZ      proc near               ; CODE XREF: .text:00494A20↓p
 
 var_C           = dword ptr -0Ch
 var_8           = dword ptr -8
@@ -40459,14 +40459,14 @@ var_4           = dword ptr -4
                 jmp     short loc_4761D9
 ; ---------------------------------------------------------------------------
 
-loc_4761D2:                             ; CODE XREF: sub_47619A+27↑j
+loc_4761D2:                             ; CODE XREF: ?FUN_0047619a@@YAXXZ+27↑j
                 mov     [ebp+var_C], 0
 
-loc_4761D9:                             ; CODE XREF: sub_47619A+36↑j
+loc_4761D9:                             ; CODE XREF: ?FUN_0047619a@@YAXXZ+36↑j
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_47619A      endp
+?FUN_0047619a@@YAXXZ      endp
 
 
 
@@ -41561,7 +41561,7 @@ loc_476E4A:                             ; CODE XREF: ?SetMessageColors@@YAXI@Z+4
 
 ; Attributes: bp-based frame
 
-sub_476E50      proc near               ; CODE XREF: sub_47619A+2E↑p
+sub_476E50      proc near               ; CODE XREF: ?FUN_0047619a@@YAXXZ+2E↑p
 
 Block           = dword ptr -4
 arg_0           = dword ptr  8
@@ -51184,7 +51184,7 @@ sub_48DE6F      endp
 
 ; Attributes: bp-based frame
 
-sub_4919B1      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+4E4↑p
+?FUN_004919b1@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+4E4↑p
 
 var_4           = dword ptr -4
 
@@ -51197,7 +51197,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4919B1      endp
+?FUN_004919b1@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -52022,25 +52022,6 @@ sub_492A85      endp
 
 ; int __thiscall ?FUN_00494982@CGameSession@@QAEXXZ(_DWORD)
 
-; ---------------------------------------------------------------------------
-?_OnClose@MainWindow@@QAEXXZ      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_4919B1
-                mov     eax, dword ptr [ebp-4]
-                mov     dword ptr [eax+418h], 0
-                mov     ecx, ?g_Cursors@@3PAPAVCCursor@@A
-                call    ?Use@CCursor@@QAEXXZ
-                call    sub_47619A
-                mov     ecx, dword ptr [ebp-4]
-                call    ?OnClose@CFrameWnd@@IAEXXZ ; CFrameWnd::OnClose(void)
-                mov     esp, ebp
-                pop     ebp
-                retn
-?_OnClose@MainWindow@@QAEXXZ      endp
 
 ; =============== S U B R O U T I N E =======================================
 

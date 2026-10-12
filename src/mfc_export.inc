@@ -779,6 +779,7 @@ externdef ?DestroyWindow@CWnd@@UAEHXZ :proc   ; (public: virtual int __thiscall 
 externdef ?OnDestroy@CWnd@@IAEXXZ :proc   ; CWnd::OnDestroy(void) - 5e130c
 externdef ?OnDestroy@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnDestroy(void) - 5f1251
 externdef ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z : proc  ; CFrameWnd::OnSetFocus(CWnd*) - 5f183f
+externdef ?OnClose@CFrameWnd@@IAEXXZ : proc  ; CFrameWnd::OnClose(void) - 5f1148
 externdef ?PreCreateWindow@CWnd@@UAEHAAUtagCREATESTRUCTA@@@Z :proc   ; (public: virtual int __thiscall CWnd::PreCreateWindow(struct tagCREATESTRUCTA &))
 externdef ?CalcWindowRect@CWnd@@UAEXPAUtagRECT@@I@Z :proc   ; (public: virtual void __thiscall CWnd::CalcWindowRect(struct tagRECT *,unsigned int))
 externdef ?OnToolHitTest@CWnd@@UBEHVCPoint@@PAUtagTOOLINFOA@@@Z :proc   ; (public: virtual int __thiscall CWnd::OnToolHitTest(class CPoint,struct tagTOOLINFOA *)const )
@@ -928,6 +929,7 @@ externdef ?FUN_00485aed@MainWindow@@QAEXXZ : proc
 externdef ?sub_48CBE2@MainWindow@@QAEXXZ : proc
 extern ?sub_48CC87@MainWindow@@QAEXXZ : proc
 externdef ?sub_4919C7@MainWindow@@QAEXXZ : proc
+externdef ?FUN_004919b1@MainWindow@@QAEXXZ : proc
 extern ?FUN_004e5466@MainWindow@@QAEHABVCString@@@Z : proc
 extern ?FUN_00490eb3@MainWindow@@QAEHXZ : proc
 
@@ -1697,6 +1699,7 @@ extern ?CopySurface16Rect@@YAXPAEHH0HHHHHH@Z : proc
 extern ?SaveScreenshot@@YAXXZ : proc
 externdef ?FUN_0047c6cd@@YAXXZ  : proc  ; void FUN_0047c6cd(void)
 externdef ?FUN_004c86f5@@YAXXZ  : proc  ; void FUN_004c86f5(void)
+externdef ?FUN_0047619a@@YAXXZ  : proc  ; void FUN_0047619a(void)
 externdef ?SaveSettings@@YAXXZ  : proc  ; void SaveSettings(void)
 
 
