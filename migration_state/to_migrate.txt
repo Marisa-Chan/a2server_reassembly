@@ -80,9 +80,7 @@ _byte_659A3C
 ??0CProjectile@@QAE@PAV0@@Z	48
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
-??1CStructure@@QAE@XZ	13
 ??0CStructure@@QAE@XZ	16
-??_GCStructure@@UAEPAXI@Z	24
 ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CVerticalWoodenBridge@@QAE@XZ	13

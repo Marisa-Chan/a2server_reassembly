@@ -110,6 +110,7 @@
 ??1CGamePalette@@UAE@XZ
 ??1CObject@@UAE@XZ
 ??1CString@@QAE@XZ
+??1CStructure@@UAE@XZ
 ??1CUnit@@UAE@XZ
 ??1CVisualObject@@UAE@XZ
 ??1Fame2@@QAE@XZ
@@ -164,6 +165,7 @@
 ??_7Packet@@6B@
 ??_7Scenario@@6B@
 ??_7SpellBook@@6B@
+??_GCStructure@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
 ??_GVisInvExtBase@@UAEPAXI@Z

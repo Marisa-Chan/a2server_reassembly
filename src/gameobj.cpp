@@ -4145,3 +4145,8 @@ void CStructure::Dump(CDumpContext& dc) const
 {
     //dc << "CStructure";
 }
+
+// 46f5a0
+CStructure::~CStructure()
+{
+}
