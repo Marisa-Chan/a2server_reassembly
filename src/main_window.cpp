@@ -6239,6 +6239,18 @@ int32_t UserShortcut::FUN_0041e3af(TokenEntry* entry)
     return 1;
 }
 
+void UserShortcut::sub_41E343(TokenEntry* entry)
+{ //41e343
+    this->kind = 2;
+    this->item_id = entry->item_id;
+    this->mods_size = entry->mods_size;
+
+    if (this->mods_size != 0) {
+        this->mods = (uint8_t*)malloc(this->mods_size);
+        memcpy(this->mods, entry->mods, this->mods_size);
+    }
+}
+
 void UserShortcut::WriteToFile(CFile* f)
 { //41e4d3
     f->Write(&kind, 2);

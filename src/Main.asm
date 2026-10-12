@@ -3149,53 +3149,6 @@ arg_0           = word ptr  8
 
 ; Attributes: bp-based frame
 
-?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z      proc near               ; CODE XREF: ?MsgProc@VisInvType1@@UAEHIII@Z+DD↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     word ptr [eax], 2
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     ax, [edx+6]
-                mov     [ecx+2], ax
-                mov     ecx, dword ptr [ebp+arg_0]
-                xor     edx, edx
-                mov     dl, [ecx+0Ah]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     [eax+4], edx
-                mov     ecx, dword ptr [ebp+var_4]
-                cmp     dword ptr [ecx+4], 0
-                jz      short loc_41E3A9
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+4]
-                push    eax             ; varSize
-                call    _malloc
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     [ecx+8], eax
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [edx+4]
-                push    eax             ; varSize
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+0Ch]
-                push    edx             ; Src
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+8]
-                push    ecx             ; void *
-                call    _memcpy
-                add     esp, 0Ch
-
-loc_41E3A9:                             ; CODE XREF: ?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z+32↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================

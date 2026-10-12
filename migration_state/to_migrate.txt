@@ -95,4 +95,3 @@ _byte_659A3C
 ?FUN_0046f680@UnitVFXUnfo@@QAEPAVCGamePalette@@H@Z	35
 ?FUN_0041e323@UserShortcut@@QAEXF@Z	17
 ?FUN_0041e456@UserShortcut@@QAEHF@Z	37
-?sub_41E343@UserShortcut@@QAEXPAVTokenEntry@@@Z	46
