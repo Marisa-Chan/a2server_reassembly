@@ -275985,7 +275985,6 @@ stru_61D180     FuncInfoV1 <19930520h, 3, offset stru_61D1A0, 0, 0, 0, 0>
 stru_61D1A0     UnwindMapEntry <-1, offset loc_5FC0B9>
                 UnwindMapEntry <-1, offset loc_5FC0C6>
                 UnwindMapEntry <-1, offset loc_5FC0D3>
-                UnwindMapEntry <-1, offset loc_5FC0FE>
 stru_61D1F0     FuncInfoV1 <19930520h, 2, offset stru_61D210, 0, 0, 0, 0>
                 db    0
                 db    0
