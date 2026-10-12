@@ -72661,78 +72661,13 @@ sub_4F6B93      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?OpenFile@PasswordManager@@QAEXPBD@Z(LPCSTR lpString)
-?OpenFile@PasswordManager@@QAEXPBD@Z      proc near               ; CODE XREF: ?StartHatDedicatedServer@MainWindow@@QAEXXZ+D2↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = byte ptr -28h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-lpString        = dword ptr  8
-
-; FUNCTION CHUNK AT 00600AD0 SIZE 00000013 BYTES
-
-; __unwind { // SEH_4F6BF9
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4F6BF9
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_2C], ecx
-                mov     eax, dword ptr [ebp+lpString]
-                push    eax             ; lpString
-                mov     ecx, dword ptr [ebp+var_2C]
-                add     ecx, 14h        ; varThis
-                call    ??4CString@@QAEABV0@PBD@Z ; CString::operator=(char const *)
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??0CFileFind@@QAE@XZ ; CFileFind::CFileFind(void)
-;   try {
-                mov     [ebp+var_4], 0
-                push    0               ; unsigned int
-                mov     ecx, dword ptr [ebp+lpString]
-                push    ecx             ; lpFileName
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?FindFile@CFileFind@@UAEHPBDK@Z ; CFileFind::FindFile(char const *,ulong)
-                test    eax, eax
-                jz      short loc_4F6C68
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?FindNextFileA@CFileFind@@UAEHXZ ; CFileFind::FindNextFileA(void)
-                mov     edx, dword ptr [ebp+var_2C]
-                add     edx, 18h
-                push    edx             ; struct CTime *
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ?GetLastWriteTime@CFileFind@@UBEHAAVCTime@@@Z ; CFileFind::GetLastWriteTime(CTime &)
-                mov     ecx, dword ptr [ebp+var_2C]
-                call    sub_4F6C92
-                jmp     short loc_4F6C73
-; ---------------------------------------------------------------------------
-
-loc_4F6C68:                             ; CODE XREF: ?OpenFile@PasswordManager@@QAEXPBD@Z+4C↑j
-                mov     ecx, dword ptr [ebp+var_2C]
-                add     ecx, 14h        ; varThis
-                call    ?Empty@CString@@QAEXXZ ; CString::Empty(void)
-;   } // starts at 4F6C2E
-
-loc_4F6C73:                             ; CODE XREF: ?OpenFile@PasswordManager@@QAEXPBD@Z+6D↑j
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_28] ; varThis
-                call    ??1CFileFind@@UAE@XZ ; CFileFind::~CFileFind(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-; } // starts at 4F6BF9
-?OpenFile@PasswordManager@@QAEXPBD@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4F6C92      proc near               ; CODE XREF: ?OpenFile@PasswordManager@@QAEXPBD@Z+68↑p
+?Load@PasswordManager@@QAEXXZ      proc near               ; CODE XREF: ?OpenFile@PasswordManager@@QAEXPBD@Z+68↑p
 
 var_440         = dword ptr -440h
 var_43C         = dword ptr -43Ch
@@ -72783,7 +72718,7 @@ var_4           = dword ptr -4
                 jmp     loc_4F6E38
 ; ---------------------------------------------------------------------------
 
-loc_4F6D00:                             ; CODE XREF: sub_4F6C92+58↑j
+loc_4F6D00:                             ; CODE XREF: ?Load@PasswordManager@@QAEXXZ+58↑j
                 lea     ecx, [ebp+Source] ; varThis
                 call    ??0CString@@QAE@XZ ; CString::CString(void)
 ;   try {
@@ -72803,7 +72738,7 @@ loc_4F6D00:                             ; CODE XREF: sub_4F6C92+58↑j
                 mov     ecx, dword ptr [ebp+var_440] ; varThis
                 call    ?SetSize@CStringArray@@QAEXHH@Z ; CStringArray::SetSize(int,int)
 
-loc_4F6D33:                             ; CODE XREF: sub_4F6C92+166↓j
+loc_4F6D33:                             ; CODE XREF: ?Load@PasswordManager@@QAEXXZ+166↓j
                 lea     ecx, [ebp+var_20] ; varThis
                 call    ?GetPosition@CStdioFile@@UBEKXZ ; CStdioFile::GetPosition(void)
                 mov     esi, eax
@@ -72860,7 +72795,7 @@ loc_4F6D33:                             ; CODE XREF: sub_4F6C92+166↓j
                 jmp     loc_4F6D33
 ; ---------------------------------------------------------------------------
 
-loc_4F6DFD:                             ; CODE XREF: sub_4F6C92+B5↑j
+loc_4F6DFD:                             ; CODE XREF: ?Load@PasswordManager@@QAEXXZ+B5↑j
                 lea     ecx, [ebp+var_20] ; varThis
                 call    ?Close@CStdioFile@@UAEXXZ ; CStdioFile::Close(void)
 ;   } // starts at 4F6D20
@@ -72883,7 +72818,7 @@ loc_4F6DFD:                             ; CODE XREF: sub_4F6C92+B5↑j
                 lea     ecx, [ebp+var_20] ; varThis
                 call    ??1CStdioFile@@UAE@XZ ; CStdioFile::~CStdioFile(void)
 
-loc_4F6E38:                             ; CODE XREF: sub_4F6C92+69↑j
+loc_4F6E38:                             ; CODE XREF: ?Load@PasswordManager@@QAEXXZ+69↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 pop     esi
@@ -72891,7 +72826,7 @@ loc_4F6E38:                             ; CODE XREF: sub_4F6C92+69↑j
                 pop     ebp
                 retn
 ; } // starts at 4F6C92
-sub_4F6C92      endp
+?Load@PasswordManager@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -72998,7 +72933,7 @@ loc_4F6EF4:                             ; CODE XREF: sub_4F6E47+82↑j
                 cmp     [ebp+var_60], 0
                 jz      short loc_4F6F21
                 mov     ecx, dword ptr [ebp+var_5C]
-                call    sub_4F6C92
+                call    ?Load@PasswordManager@@QAEXXZ
 
 loc_4F6F21:                             ; CODE XREF: sub_4F6E47+D0↑j
                 mov     [ebp+var_30], 0
@@ -175530,7 +175465,7 @@ loc_5DEE97:                             ; CODE XREF: CStdioFile::Seek(long,uint)
 ; Attributes: library function
 
 ; unsigned int __thiscall CStdioFile::GetPosition(CStdioFile *__hidden varThis)
-?GetPosition@CStdioFile@@UBEKXZ proc near ; CODE XREF: sub_4F6C92+A4↑p
+?GetPosition@CStdioFile@@UBEKXZ proc near ; CODE XREF: ?Load@PasswordManager@@QAEXXZ+A4↑p
                 push    esi
                 mov     esi, ecx
                 push    edi
@@ -244617,24 +244552,7 @@ SEH_4F6B93:                             ; DATA XREF: sub_4F6B93+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 600AB1
 ; END OF FUNCTION CHUNK FOR sub_4F6B93
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?OpenFile@PasswordManager@@QAEXPBD@Z
-
-loc_600AD0:                             ; DATA XREF: .rdata:stru_6222F0↓o
-; __unwind { // SEH_4F6BF9              ; varThis
-;   cleanup() // owned by 4F6C2E
-                lea     ecx, [ebp+var_28]
-                call    ??1CFileFind@@UAE@XZ ; CFileFind::~CFileFind(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4F6BF9:                             ; DATA XREF: ?OpenFile@PasswordManager@@QAEXPBD@Z+5↑o
-                mov     eax, offset stru_6222D0
-                jmp     ___CxxFrameHandler
-; } // starts at 600AD0
-; END OF FUNCTION CHUNK FOR ?OpenFile@PasswordManager@@QAEXPBD@Z
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_4F6C92
+; START OF FUNCTION CHUNK FOR ?Load@PasswordManager@@QAEXXZ
 
 loc_600AE3:                             ; DATA XREF: .rdata:stru_622318↓o
 ; __unwind { // SEH_4F6C92              ; varThis
@@ -244668,11 +244586,11 @@ loc_600AFE:                             ; DATA XREF: .rdata:00622330↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4F6C92:                             ; DATA XREF: sub_4F6C92+5↑o
+SEH_4F6C92:                             ; DATA XREF: ?Load@PasswordManager@@QAEXXZ+5↑o
                 mov     eax, offset stru_6222F8
                 jmp     ___CxxFrameHandler
 ; } // starts at 600AE3
-; END OF FUNCTION CHUNK FOR sub_4F6C92
+; END OF FUNCTION CHUNK FOR ?Load@PasswordManager@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4F6E47
 
@@ -269314,12 +269232,6 @@ stru_6222A0     FuncInfoV1 <19930520h, 2, offset stru_6222C0, 0, 0, 0, 0>
                 db    0
 stru_6222C0     UnwindMapEntry <-1, offset loc_600AB1>
                 UnwindMapEntry <0, offset loc_600ABA>
-stru_6222D0     FuncInfoV1 <19930520h, 1, offset stru_6222F0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_6222F0     UnwindMapEntry <-1, offset loc_600AD0>
 stru_6222F8     FuncInfoV1 <19930520h, 4, offset stru_622318, 0, 0, 0, 0>
                 db    0
                 db    0

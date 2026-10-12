@@ -629,7 +629,7 @@ extern ?ReadData@NetStru2@@QAEHPAXI@Z : proc
 extern ?g_Server@@3PAUServer@@A : dword
 extern ?g_IsServer@@3HA : dword
 
-externdef ?OpenFile@PasswordManager@@QAEXPBD@Z : proc
+externdef ?Load@PasswordManager@@QAEXXZ : proc
 
 externdef ?sub_4F1E2A@Server@@QAEXXZ :proc
 externdef ?sub_52C641@Unit@@QAEXXZ :proc                                         ; void Unit::sub_52C641()

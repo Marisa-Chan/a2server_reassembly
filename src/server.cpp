@@ -50,6 +50,19 @@ UnitList* dword_6B37C4; // 6b37c4
 
 PasswordManager PasswordManager::manager; //6a8b98
 
+void PasswordManager::OpenFile(const char* name)
+{ //4f6bf9
+    this->fname = name;
+    CFileFind find;
+    if (find.FindFile(name)) {
+        find.FindNextFile();
+        find.GetLastWriteTime(this->date);
+        this->Load();
+    } else {
+        this->fname.Empty();
+    }
+}
+
 
 // ---- Helpers used by FUN_00500907 ----
 // 5008CA
