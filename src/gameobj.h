@@ -332,6 +332,9 @@ struct StructEnter
 
 	void FUN_00473b80(); //473b80 in asm
 	int32_t FUN_00473d10(); //473d10 in asm
+	void FUN_00474ff0(CUnit* unit); //474ff0 in asm
+	void FUN_00475010(); //475010 in asm
+	void FUN_00475080(CUnit* unit); //475080 in asm
 };
 ASSERT_SIZE(StructEnter, 0x30);
 

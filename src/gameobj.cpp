@@ -3756,3 +3756,29 @@ void CUnit::VMethod20()
         sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (10000 - abs(vol)) / 100, 0);
     }
 }
+
+// 473b80
+void StructEnter::FUN_00473b80()
+{
+	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+	BigStruct2* map = main_wnd->vis_map_context;
+	POSITION it = map->field_0x9d0.GetStartPosition();
+	this->FUN_00475010();
+	while (it != NULL) {
+		uint16_t key;
+		CGameObject* value;
+		map->field_0x9d0.GetNextAssoc(it, key, value);
+		if (!value->IsKindOf(RUNTIME_CLASS(CUnit))) {
+			continue;
+		}
+		CUnit* unit = (CUnit*)value;
+		if (unit->map_player != map->my_main_unit) {
+			continue;
+		}
+		if ((unit->unitFlags & 1) != 0 && unit->field_0x180[4] == 0) {
+			this->FUN_00474ff0(unit);
+		} else if ((unit->unitFlags & 0x10) != 0 && unit->field_0x180[4] == 0) {
+			this->FUN_00475080(unit);
+		}
+	}
+}

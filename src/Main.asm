@@ -34155,92 +34155,6 @@ sub_472700      endp
 
 ; Attributes: bp-based frame
 
-?FUN_00473b80@StructEnter@@QAEXXZ      proc near               ; CODE XREF: ?VMethod28@VisTav@@UAEXXZ+426↓p
-
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_8           = byte ptr -8
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 14h
-                mov     [ebp+var_14], ecx
-                call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
-                mov     eax, dword ptr [eax+0D0h]
-                mov     [ebp+var_4], eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 9D0h
-                call    sub_420720
-                mov     [ebp+var_C], eax
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_475010
-
-loc_473BB0:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ:loc_473C4E↓j
-                cmp     [ebp+var_C], 0
-                jz      loc_473C53
-                lea     ecx, [ebp+var_10]
-                push    ecx
-                lea     edx, [ebp+var_8]
-                push    edx
-                lea     eax, [ebp+var_C]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 9D0h
-                call    sub_420740
-                push    offset ?classCUnit@CUnit@@2UCRuntimeClass@@B ; struct CRuntimeClass *
-                mov     ecx, dword ptr [ebp+var_10] ; varThis
-                call    ?IsKindOf@CObject@@QBEHPBUCRuntimeClass@@@Z ; CObject::IsKindOf(CRuntimeClass const *)
-                test    eax, eax
-                jz      short loc_473C4E
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [ecx+14h]
-                cmp     eax, [edx+9CCh]
-                jnz     short loc_473C4E
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [ecx+1B8h]
-                and     edx, 1
-                test    edx, edx
-                jz      short loc_473C23
-                mov     eax, dword ptr [ebp+var_10]
-                xor     ecx, ecx
-                mov     cl, [eax+184h]
-                test    ecx, ecx
-                jg      short loc_473C23
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_474FF0
-                jmp     short loc_473C4E
-; ---------------------------------------------------------------------------
-
-loc_473C23:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+84↑j
-                mov     eax, dword ptr [ebp+var_10]
-                mov     ecx, dword ptr [eax+1B8h]
-                and     ecx, 10h
-                test    ecx, ecx
-                jz      short loc_473C4E
-                mov     edx, dword ptr [ebp+var_10]
-                xor     eax, eax
-                mov     al, [edx+184h]
-                test    eax, eax
-                jg      short loc_473C4E
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_14]
-                call    sub_475080
-
-loc_473C4E:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+63↑j
-                jmp     loc_473BB0
-; ---------------------------------------------------------------------------
-
-loc_473C53:                             ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+34↑j
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_00473b80@StructEnter@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -36799,7 +36713,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 1
                 mov     ecx, dword ptr [ebp+var_10]
-                call    sub_475010
+                call    ?FUN_00475010@StructEnter@@QAEXXZ
 ;   } // starts at 474FAC
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
@@ -36825,7 +36739,7 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-sub_474FF0      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+9C↑p
+?FUN_00474ff0@StructEnter@@QAEXPAVCUnit@@@Z      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+9C↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -36841,7 +36755,7 @@ arg_0           = dword ptr  8
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_474FF0      endp
+?FUN_00474ff0@StructEnter@@QAEXPAVCUnit@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -36850,7 +36764,7 @@ sub_474FF0      endp
 
 ; Attributes: bp-based frame
 
-sub_475010      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+2B↑p
+?FUN_00475010@StructEnter@@QAEXXZ      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+2B↑p
 
 var_4           = dword ptr -4
 
@@ -36870,7 +36784,7 @@ var_4           = dword ptr -4
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_475010      endp
+?FUN_00475010@StructEnter@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -36879,7 +36793,7 @@ sub_475010      endp
 
 ; Attributes: bp-based frame
 
-sub_475050      proc near               ; CODE XREF: sub_475010+A↑p
+sub_475050      proc near               ; CODE XREF: ?FUN_00475010@StructEnter@@QAEXXZ+A↑p
 
 var_4           = dword ptr -4
 
@@ -36926,7 +36840,7 @@ unknown_libname_536 endp
 
 ; Attributes: bp-based frame
 
-sub_475080      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+C9↑p
+?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+C9↑p
 
 var_4           = dword ptr -4
 arg_0           = dword ptr  8
@@ -36953,18 +36867,18 @@ arg_0           = dword ptr  8
                 jmp     short loc_4750C6
 ; ---------------------------------------------------------------------------
 
-loc_4750B7:                             ; CODE XREF: sub_475080+24↑j
+loc_4750B7:                             ; CODE XREF: ?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z+24↑j
                 mov     eax, dword ptr [ebp+var_4]
                 mov     ecx, dword ptr [eax+28h]
                 add     ecx, 1
                 mov     edx, dword ptr [ebp+var_4]
                 mov     [edx+28h], ecx
 
-loc_4750C6:                             ; CODE XREF: sub_475080+35↑j
+loc_4750C6:                             ; CODE XREF: ?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z+35↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    4
-sub_475080      endp
+?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
