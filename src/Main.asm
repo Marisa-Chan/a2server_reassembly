@@ -51873,89 +51873,6 @@ jpt_495AD3      dd offset loc_495AEC    ; DATA XREF: .text:00495AD3↑r
                 dd offset loc_495ADA
                 dd offset loc_495AFE
                 dd offset loc_495B10
-; ---------------------------------------------------------------------------
-?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp+8]
-                mov     [ebp-8], eax
-                mov     ecx, dword ptr [ebp-8]
-                sub     ecx, 4          ; switch 14 cases
-                mov     [ebp-8], ecx
-                cmp     dword ptr [ebp-8], 0Dh
-                ja      short def_495C8F ; jumptable 00495C8F default case, cases 5-9
-                mov     edx, dword ptr [ebp-8]
-                jmp     ds:jpt_495C8F[edx*4] ; switch jump
-; ---------------------------------------------------------------------------
-
-loc_495C96:                             ; CODE XREF: .text:00495C8F↑j
-                mov     eax, dword ptr [ebp-4]    ; jumptable 00495C8F cases 10,11
-                mov     ecx, dword ptr [eax+628h]
-                push    ecx
-                call    SetCursor
-                jmp     short loc_495CEE
-; ---------------------------------------------------------------------------
-
-loc_495CA8:                             ; CODE XREF: .text:00495C8F↑j
-                mov     edx, dword ptr [ebp-4]    ; jumptable 00495C8F cases 12,15
-                mov     eax, dword ptr [edx+62Ch]
-                push    eax
-                call    SetCursor
-                jmp     short loc_495CEE
-; ---------------------------------------------------------------------------
-
-loc_495CBA:                             ; CODE XREF: .text:00495C8F↑j
-                mov     ecx, dword ptr [ebp-4]    ; jumptable 00495C8F cases 14,16
-                mov     edx, dword ptr [ecx+634h]
-                push    edx
-                call    SetCursor
-                jmp     short loc_495CEE
-; ---------------------------------------------------------------------------
-
-loc_495CCC:                             ; CODE XREF: .text:00495C8F↑j
-                mov     eax, dword ptr [ebp-4]    ; jumptable 00495C8F cases 4,13,17
-                mov     ecx, dword ptr [eax+630h]
-                push    ecx
-                call    SetCursor
-                jmp     short loc_495CEE
-; ---------------------------------------------------------------------------
-
-def_495C8F:                             ; CODE XREF: .text:00495C8A↑j
-                mov     edx, dword ptr [ebp-4]    ; jumptable 00495C8F default case, cases 5-9
-                mov     eax, dword ptr [edx+638h]
-                push    eax
-                call    SetCursor
-
-loc_495CEE:                             ; CODE XREF: .text:00495CA6↑j
-                mov     ecx, dword ptr [ebp+10h]
-                push    ecx
-                mov     edx, dword ptr [ebp+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496A60
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z      endp
-; ---------------------------------------------------------------------------
-jpt_495C8F      dd offset loc_495CCC    ; DATA XREF: .text:00495C8F↑r
-                dd offset def_495C8F    ; jump table for switch statement
-                dd offset def_495C8F
-                dd offset def_495C8F
-                dd offset def_495C8F
-                dd offset def_495C8F
-                dd offset loc_495C96
-                dd offset loc_495C96
-                dd offset loc_495CA8
-                dd offset loc_495CCC
-                dd offset loc_495CBA
-                dd offset loc_495CA8
-                dd offset loc_495CBA
-                dd offset loc_495CCC
 
 
 
@@ -53237,25 +53154,6 @@ sub_496A20      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_496A60      proc near               ; CODE XREF: .text:00495CFD↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_496A60      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

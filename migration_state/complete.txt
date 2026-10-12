@@ -194,6 +194,7 @@
 ?_OnClose@MainWindow@@QAEXXZ
 ?_OnKeyUp@MainWindow@@QAEXIII@Z
 ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
+?_OnNcLButtonDown@MainWindow@@QAEXIVCPoint@@@Z
 ?_OnNcMouseMove@MainWindow@@QAEXIVCPoint@@@Z
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z

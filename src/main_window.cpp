@@ -1290,6 +1290,35 @@ void MainWindow::_OnNcMouseMove(UINT nHitTest, CPoint point)
     Default();
 }
 
+// 495c6e
+void MainWindow::_OnNcLButtonDown(UINT nHitTest, CPoint point)
+{
+    switch (nHitTest) {
+    case 4:
+    case 0xd:
+    case 0x11:
+        SetCursor(this->cursor_sizenwse);
+        break;
+    default:
+        SetCursor(this->cursor_arrow);
+        break;
+    case 10:
+    case 0xb:
+        SetCursor(this->cursor_sizewe);
+        break;
+    case 0xc:
+    case 0xf:
+        SetCursor(this->cursor_sizens);
+        break;
+    case 0xe:
+    case 0x10:
+        SetCursor(this->cursor_sizenesw);
+        break;
+    }
+
+    Default();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
