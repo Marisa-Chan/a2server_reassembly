@@ -1361,6 +1361,12 @@ void MainWindow::_FUN_004950c0()
     this->field_0x7fc->sub_49585B();
 }
 
+// 4919b1
+void MainWindow::FUN_004919b1()
+{
+    g_Server->sub_4F1E2A();
+}
+
 // 485aed
 void MainWindow::FUN_00485aed()
 {

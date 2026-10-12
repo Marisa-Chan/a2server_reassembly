@@ -49844,20 +49844,6 @@ sub_48DE6F      endp
 
 ; Attributes: bp-based frame
 
-?FUN_004919b1@MainWindow@@QAEXXZ      proc near               ; CODE XREF: ?WindowProc@MainWindow@@UAEJIIJ@Z+4E4↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, ?g_Server@@3PAUServer@@A
-                call    ?sub_4F1E2A@Server@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-?FUN_004919b1@MainWindow@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
