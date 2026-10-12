@@ -195,6 +195,7 @@
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_OnSize@MainWindow@@QAEXIHH@Z
+?_OnSysKeyUp@MainWindow@@QAEXIII@Z
 ?_wcstombsz@@YAHPADPB_WI@Z
 ?Accept@VisStartGame@@QAEXXZ
 ?Add@CStringArray@@QAEHPBD@Z

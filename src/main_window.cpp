@@ -1141,6 +1141,16 @@ BOOL MainWindow::_OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
     return 1;
 }
 
+// 486c25
+void MainWindow::_OnSysKeyUp(UINT key, UINT repeat, UINT flags)
+{
+    if (this->field_0x45c == 0 && key == 0x12) {
+        g_kbMenuState = 0;
+    }
+    Default();
+    g_mousept.ForceDisableHint();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

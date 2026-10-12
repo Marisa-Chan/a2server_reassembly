@@ -50444,34 +50444,6 @@ loc_486C01:                             ; CODE XREF: .text:00486BC3↑j
                 retn    0Ch
 ?_OnKeyUp@MainWindow@@QAEXIII@Z      endp
 
-; ---------------------------------------------------------------------------
-?_OnSysKeyUp@MainWindow@@QAEXIII@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp-4]
-                cmp     dword ptr [eax+45Ch], 0
-                jnz     short loc_486C48
-                cmp     dword ptr [ebp+8], 12h
-                jnz     short loc_486C48
-                mov     ?g_kbMenuState@@3HA, 0
-
-loc_486C48:                             ; CODE XREF: .text:00486C36↑j
-                mov     ecx, dword ptr [ebp+10h]
-                push    ecx
-                mov     edx, dword ptr [ebp+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496420
-                mov     ecx, offset ?g_mousept@@3VCMousePointer@@A
-                call    ?ForceDisableHint@CMousePointer@@QAEXXZ
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnSysKeyUp@MainWindow@@QAEXIII@Z      endp
 
 ; ---------------------------------------------------------------------------
 
@@ -53097,25 +53069,6 @@ sub_4963E0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_496420      proc near               ; CODE XREF: .text:00486C57↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_496420      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
