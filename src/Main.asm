@@ -52094,30 +52094,6 @@ loc_494A98:                             ; CODE XREF: ?ModalScreen@MainWindow@@QA
 ; Attributes: bp-based frame
 
 
-; ---------------------------------------------------------------------------
-?_OnSize@MainWindow@@QAEXIHH@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                mov     eax, dword ptr [ebp+10h]
-                push    eax
-                mov     ecx, dword ptr [ebp+0Ch]
-                push    ecx
-                mov     edx, dword ptr [ebp+8]
-                push    edx
-                mov     ecx, dword ptr [ebp-4]
-                call    ?OnSize@CFrameWnd@@IAEXIHH@Z ; CFrameWnd::OnSize(uint,int,int)
-                cmp     ?g_IsServer@@3HA, 0
-                jz      short loc_494EBA
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_484127
-
-loc_494EBA:                             ; CODE XREF: .text:00494EB0↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnSize@MainWindow@@QAEXIHH@Z      endp
 
 
 

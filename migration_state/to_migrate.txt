@@ -114,6 +114,7 @@ _byte_659A3C
 ?PostNcDestroy@CFrameWnd@@UAEXXZ	9
 ?GetActiveDocument@CFrameWnd@@UAEPAVCDocument@@XZ	11
 ?OnSetFocus@CFrameWnd@@IAEXPAVCWnd@@@Z	14
+?OnSize@CFrameWnd@@IAEXIHH@Z	17
 ?GetDefaultAccelerator@CFrameWnd@@UAEPAUHACCEL__@@XZ	18
 ?OnCreateClient@CFrameWnd@@UAEHPAUtagCREATESTRUCTA@@PAX@Z	21
 ?OnUpdateFrameMenu@CFrameWnd@@UAEXPAUHMENU__@@@Z	31
@@ -245,7 +246,6 @@ _byte_659A3C
 ?Destroy@GMapThing@@QAEXI@Z	25
 ?Init@GMapThing@@QAEPAV1@XZ	232
 ?FUN_004919b1@MainWindow@@QAEXXZ	13
-?_OnSize@MainWindow@@QAEXIHH@Z	22
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z	23
 ?_OnSysKeyUp@MainWindow@@QAEXIII@Z	26
 ?_OnChar@MainWindow@@QAEXIII@Z	26

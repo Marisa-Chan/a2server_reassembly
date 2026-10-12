@@ -1121,6 +1121,15 @@ void MainWindow::_FUN_00495743()
     }
 }
 
+// 494e8e
+void MainWindow::_OnSize(UINT nType, int cx, int cy)
+{
+    CFrameWnd::OnSize(nType, cx, cy);
+    if (g_IsServer != 0) {
+        this->SetControlPositions();
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

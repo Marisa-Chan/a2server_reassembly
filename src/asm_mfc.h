@@ -4079,6 +4079,7 @@ protected:
 	void OnDestroy(); // 5f1251
 	void OnSetFocus(CWnd* pOldWnd); // 5f183f
 	void OnClose(); // 5f1148
+	void OnSize(UINT nType, int cx, int cy); // 5f2550
 };
 
 ASSERT_SIZE(CFrameWnd, 0xBC);

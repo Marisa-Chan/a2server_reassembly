@@ -193,6 +193,7 @@
 ?_OnClose@MainWindow@@QAEXXZ
 ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_OnSetFocus@MainWindow@@QAEXPAVCWnd@@@Z
+?_OnSize@MainWindow@@QAEXIHH@Z
 ?_wcstombsz@@YAHPADPB_WI@Z
 ?Accept@VisStartGame@@QAEXXZ
 ?Add@CStringArray@@QAEHPBD@Z
