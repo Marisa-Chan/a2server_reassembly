@@ -36792,45 +36792,6 @@ unknown_libname_536 endp
 
 ; Attributes: bp-based frame
 
-?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z      proc near               ; CODE XREF: ?FUN_00473b80@StructEnter@@QAEXXZ+C9↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                add     ecx, 14h
-                call    sub_421570
-                mov     ecx, dword ptr [ebp+arg_0]
-                mov     edx, dword ptr [ecx+1B8h]
-                and     edx, 2
-                test    edx, edx
-                jz      short loc_4750B7
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+2Ch]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+2Ch], ecx
-                jmp     short loc_4750C6
-; ---------------------------------------------------------------------------
-
-loc_4750B7:                             ; CODE XREF: ?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z+24↑j
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+28h]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_4]
-                mov     [edx+28h], ecx
-
-loc_4750C6:                             ; CODE XREF: ?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z+35↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

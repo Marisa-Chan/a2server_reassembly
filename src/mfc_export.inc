@@ -1961,7 +1961,6 @@ externdef ?FUN_00475110@@YA_NPAUCSound@@@Z : proc  ; bool __cdecl FUN_00475110(C
 externdef ?FUN_004a4740@@YAXPAPAVSfxSample@@@Z : proc  ; void __cdecl FUN_004a4740(SfxSample**)
 externdef ?FUN_00474ff0@StructEnter@@QAEXPAVCUnit@@@Z : proc  ; void StructEnter::FUN_00474ff0(CUnit*)
 externdef ?FUN_00475010@StructEnter@@QAEXXZ : proc  ; void StructEnter::FUN_00475010()
-externdef ?FUN_00475080@StructEnter@@QAEXPAVCUnit@@@Z : proc  ; void StructEnter::FUN_00475080(CUnit*)
 externdef ?g_StructEnter@@3UStructEnter@@A : byte
 externdef ?sub_47FA75@@YAXXZ : proc
 externdef ?sub_477B59@@YAXI@Z : proc

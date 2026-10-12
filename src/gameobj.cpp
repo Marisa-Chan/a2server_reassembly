@@ -3794,3 +3794,14 @@ int32_t StructEnter::FUN_00473d10()
 	}
 	return -1;
 }
+
+// 475080
+void StructEnter::FUN_00475080(CUnit* unit)
+{
+	this->field_0x14.Add(unit);
+	if ((unit->unitFlags & 2) != 0) {
+		this->field_0x2c++;
+	} else {
+		this->field_0x28++;
+	}
+}
