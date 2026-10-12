@@ -1151,6 +1151,13 @@ void MainWindow::_OnSysKeyUp(UINT key, UINT repeat, UINT flags)
     g_mousept.ForceDisableHint();
 }
 
+// 48a35f
+void MainWindow::_OnChar(UINT ch, UINT repeat, UINT flags)
+{
+    this->vis_root->MsgProc(0x102, ch, 0);
+    Default();
+}
+
 
 MainWindow::MainWindow()
 { //4837e1

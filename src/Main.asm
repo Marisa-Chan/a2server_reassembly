@@ -50447,34 +50447,6 @@ loc_486C01:                             ; CODE XREF: .text:00486BC3↑j
 
 ; ---------------------------------------------------------------------------
 
-?_OnChar@MainWindow@@QAEXIII@Z      proc near
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp-4], ecx
-                push    0
-                mov     eax, dword ptr [ebp+8]
-                push    eax
-                push    102h
-                mov     ecx, dword ptr [ebp-4]
-                mov     ecx, dword ptr [ecx+0CCh]
-                mov     edx, dword ptr [ebp-4]
-                mov     eax, dword ptr [edx+0CCh]
-                mov     edx, dword ptr [eax]
-                call    dword ptr [edx+48h]
-                mov     eax, dword ptr [ebp+10h]
-                push    eax
-                mov     ecx, dword ptr [ebp+0Ch]
-                push    ecx
-                mov     edx, dword ptr [ebp+8]
-                push    edx
-                mov     ecx, dword ptr [ebp-4]
-                call    sub_496440
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-?_OnChar@MainWindow@@QAEXIII@Z      endp
-
 
 
 
@@ -53072,25 +53044,6 @@ sub_4963E0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
-
-; =============== S U B R O U T I N E =======================================
-
-; Attributes: bp-based frame
-
-sub_496440      proc near               ; CODE XREF: .text:0048A397↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4] ; varThis
-                call    ?Default@CWnd@@IAEJXZ ; CWnd::Default(void)
-                mov     esp, ebp
-                pop     ebp
-                retn    0Ch
-sub_496440      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h

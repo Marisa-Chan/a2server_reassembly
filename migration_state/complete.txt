@@ -190,6 +190,7 @@
 ?_FUN_00495010@MainWindow@@QAEXXZ
 ?_FUN_00495743@MainWindow@@QAEXXZ
 ?_mbstowcsz@@YAHPA_WPBDI@Z
+?_OnChar@MainWindow@@QAEXIII@Z
 ?_OnClose@MainWindow@@QAEXXZ
 ?_OnKillFocus@MainWindow@@QAEXPAVCWnd@@@Z
 ?_OnSetCursor@MainWindow@@QAEHPAVCWnd@@II@Z
