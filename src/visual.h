@@ -3043,14 +3043,19 @@ public:
 	void* TakeAdjacency(void* nodePoints); // 473b4a
 	void Destroy(uint32_t flags); // 473da0
 
+	void LoadPathmap(); // 473508
+	void FreePathmap(); // 4735e2
+	void BuildAdjacency(); // 47362d
+	int32_t FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints); // 47391f
+
 public:
-	CBmp64* pathmap; //0x0
-	int field_0x4; //0x4
-	CArray<CPoint>*** field_0x8; //0x8
-	CArray<CPoint> field_0xc; //0xc
-	uint16_t field_0x20[640][480]; //0x20
+	CBmp256* pathmap; //0x0
+	int32_t nodeCount; //0x4
+	CArray<CPoint>*** adjacencyMatrix; //0x8
+	CArray<CPoint> nodePoints; //0xc
+	uint16_t visitedGrid[640][480]; //0x20
 	uint8_t* bmp_data; // 0x96020
-	CPoint field_0x96024; // 0x96024
+	CPoint floodPos; // 0x96024
 };
 ASSERT_SIZE(GMapThing, 0x9602c);
 

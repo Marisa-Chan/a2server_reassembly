@@ -34107,239 +34107,6 @@ sub_472700      endp
 
 ; Attributes: bp-based frame
 
-?Init@GMapThing@@QAEPAV1@XZ      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+AF↑p
-
-var_24          = dword ptr -24h
-var_20          = byte ptr -20h
-var_18          = dword ptr -18h
-var_14          = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FAA62 SIZE 00000016 BYTES
-
-; __unwind { // SEH_473195
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_473195
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 18h
-                mov     [ebp+var_24], ecx
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0Ch
-                call    sub_473EA0
-;   try {
-                mov     [ebp+var_4], 0
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 96024h     ; void *
-                call    unknown_libname_462 ; Microsoft VisualC 2-14/net runtime
-                mov     [ebp+var_10], 0
-                jmp     short loc_4731E5
-; ---------------------------------------------------------------------------
-
-loc_4731DC:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_473224↓j
-                mov     eax, dword ptr [ebp+var_10]
-                add     eax, 1
-                mov     [ebp+var_10], eax
-
-loc_4731E5:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+45↑j
-                cmp     [ebp+var_10], 280h
-                jge     short loc_473226
-                mov     [ebp+var_14], 0
-                jmp     short loc_473200
-; ---------------------------------------------------------------------------
-
-loc_4731F7:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+8D↓j
-                mov     ecx, dword ptr [ebp+var_14]
-                add     ecx, 1
-                mov     [ebp+var_14], ecx
-
-loc_473200:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+60↑j
-                cmp     [ebp+var_14], 1E0h
-                jge     short loc_473224
-                mov     edx, dword ptr [ebp+var_10]
-                imul    edx, 3C0h
-                mov     eax, dword ptr [ebp+var_24]
-                lea     ecx, [eax+edx+20h]
-                mov     edx, dword ptr [ebp+var_14]
-                mov     word ptr [ecx+edx*2], 0
-                jmp     short loc_4731F7
-; ---------------------------------------------------------------------------
-
-loc_473224:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+72↑j
-                jmp     short loc_4731DC
-; ---------------------------------------------------------------------------
-
-loc_473226:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+57↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     dword ptr [eax], 0
-                mov     ecx, dword ptr [ebp+var_24]
-                call    sub_473508
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ecx]
-                call    sub_41EC60
-                mov     edx, dword ptr [ebp+var_24]
-                mov     [edx+96020h], eax
-                mov     eax, dword ptr [ebp+var_24]
-                mov     dword ptr [eax+4], 0
-                mov     [ebp+var_10], 0
-                jmp     short loc_473266
-; ---------------------------------------------------------------------------
-
-loc_47325D:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_4732DF↓j
-                mov     ecx, dword ptr [ebp+var_10]
-                add     ecx, 1
-                mov     [ebp+var_10], ecx
-
-loc_473266:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+C6↑j
-                cmp     [ebp+var_10], 280h
-                jge     short loc_4732E4
-                mov     [ebp+var_14], 0
-                jmp     short loc_473281
-; ---------------------------------------------------------------------------
-
-loc_473278:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_4732DD↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_473281:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+E1↑j
-                cmp     [ebp+var_14], 1E0h
-                jge     short loc_4732DF
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                call    sub_4733B5
-                add     esp, 8
-                mov     [ebp+var_18], eax
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+96020h]
-                mov     ecx, dword ptr [ebp+var_18]
-                movsx   edx, byte ptr [eax+ecx]
-                cmp     edx, 2
-                jnz     short loc_4732DD
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+4]
-                add     ecx, 1
-                mov     edx, dword ptr [ebp+var_24]
-                mov     [edx+4], ecx
-                mov     eax, dword ptr [ebp+var_14]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_10]
-                push    ecx
-                lea     ecx, [ebp+var_20]
-                call    unknown_libname_417 ; Microsoft VisualC 2-14/net runtime
-                push    eax
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0Ch
-                call    sub_473F50
-
-loc_4732DD:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+11B↑j
-                jmp     short loc_473278
-; ---------------------------------------------------------------------------
-
-loc_4732DF:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+F3↑j
-                jmp     loc_47325D
-; ---------------------------------------------------------------------------
-
-loc_4732E4:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+D8↑j
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+4]
-                shl     eax, 2
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     [ecx+8], eax
-                mov     [ebp+var_10], 0
-                jmp     short loc_47330E
-; ---------------------------------------------------------------------------
-
-loc_473305:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1A2↓j
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 1
-                mov     [ebp+var_10], edx
-
-loc_47330E:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+16E↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_10]
-                cmp     ecx, [eax+4]
-                jge     short loc_473339
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+4]
-                shl     eax, 2
-                push    eax             ; varSize
-                call    ??2@YAPAXI@Z    ; operator new(uint)
-                add     esp, 4
-                mov     ecx, dword ptr [ebp+var_24]
-                mov     edx, dword ptr [ecx+8]
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [edx+ecx*4], eax
-                jmp     short loc_473305
-; ---------------------------------------------------------------------------
-
-loc_473339:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+182↑j
-                mov     [ebp+var_10], 0
-                jmp     short loc_47334B
-; ---------------------------------------------------------------------------
-
-loc_473342:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ:loc_47338B↓j
-                mov     edx, dword ptr [ebp+var_10]
-                add     edx, 1
-                mov     [ebp+var_10], edx
-
-loc_47334B:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1AB↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_10]
-                cmp     ecx, [eax+4]
-                jge     short loc_47338D
-                mov     [ebp+var_14], 0
-                jmp     short loc_473368
-; ---------------------------------------------------------------------------
-
-loc_47335F:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1F4↓j
-                mov     edx, dword ptr [ebp+var_14]
-                add     edx, 1
-                mov     [ebp+var_14], edx
-
-loc_473368:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1C8↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_14]
-                cmp     ecx, [eax+4]
-                jge     short loc_47338B
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+8]
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     edx, dword ptr [eax+ecx*4]
-                mov     eax, dword ptr [ebp+var_14]
-                mov     dword ptr [edx+eax*4], 0
-                jmp     short loc_47335F
-; ---------------------------------------------------------------------------
-
-loc_47338B:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1DC↑j
-                jmp     short loc_473342
-; ---------------------------------------------------------------------------
-
-loc_47338D:                             ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1BF↑j
-                mov     ecx, dword ptr [ebp+var_24]
-                call    sub_47362D
-                mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4735E2
-;   } // starts at 4731BE
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 473195
-?Init@GMapThing@@QAEPAV1@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -34398,7 +34165,7 @@ var_4           = dword ptr -4
 ;   try {
                 mov     [ebp+var_4], 0
                 mov     ecx, dword ptr [ebp+var_28]
-                call    sub_4735E2
+                call    ?FreePathmap@GMapThing@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_28]
                 cmp     dword ptr [eax+8], 0
                 jz      loc_4734E8
@@ -34523,7 +34290,7 @@ sub_4733CF      endp
 
 ; Attributes: bp-based frame
 
-sub_473508      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+9D↑p
+?LoadPathmap@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+9D↑p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -34551,7 +34318,7 @@ var_4           = dword ptr -4
                 call    ?AfxGetMainWnd@@YGPAVCWnd@@XZ
                 mov     [ebp+var_10], eax
                 mov     ecx, dword ptr [ebp+var_24]
-                call    sub_4735E2
+                call    ?FreePathmap@GMapThing@@QAEXXZ
                 mov     eax, dword ptr [ebp+var_10]
                 mov     ecx, dword ptr [eax+0F0h]
                 cmp     dword ptr [ecx+1B0h], 0
@@ -34570,10 +34337,10 @@ var_4           = dword ptr -4
                 jmp     short loc_473578
 ; ---------------------------------------------------------------------------
 
-loc_473571:                             ; CODE XREF: sub_473508+55↑j
+loc_473571:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+55↑j
                 mov     [ebp+var_28], 0
 
-loc_473578:                             ; CODE XREF: sub_473508+67↑j
+loc_473578:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+67↑j
                 mov     edx, dword ptr [ebp+var_28]
                 mov     [ebp+var_18], edx
 ;   } // starts at 473552
@@ -34584,7 +34351,7 @@ loc_473578:                             ; CODE XREF: sub_473508+67↑j
                 jmp     short loc_4735D4
 ; ---------------------------------------------------------------------------
 
-loc_47358F:                             ; CODE XREF: sub_473508+3E↑j
+loc_47358F:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+3E↑j
                 push    24h ; '$'       ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+var_1C], eax
@@ -34599,10 +34366,10 @@ loc_47358F:                             ; CODE XREF: sub_473508+3E↑j
                 jmp     short loc_4735BF
 ; ---------------------------------------------------------------------------
 
-loc_4735B8:                             ; CODE XREF: sub_473508+9C↑j
+loc_4735B8:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+9C↑j
                 mov     [ebp+var_2C], 0
 
-loc_4735BF:                             ; CODE XREF: sub_473508+AE↑j
+loc_4735BF:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+AE↑j
                 mov     edx, dword ptr [ebp+var_2C]
                 mov     [ebp+var_20], edx
 ;   } // starts at 473599
@@ -34611,21 +34378,21 @@ loc_4735BF:                             ; CODE XREF: sub_473508+AE↑j
                 mov     ecx, dword ptr [ebp+var_20]
                 mov     [eax], ecx
 
-loc_4735D4:                             ; CODE XREF: sub_473508+85↑j
+loc_4735D4:                             ; CODE XREF: ?LoadPathmap@GMapThing@@QAEXXZ+85↑j
                 mov     ecx, dword ptr [ebp+var_C]
                 mov     fs:0, ecx
                 mov     esp, ebp
                 pop     ebp
                 retn
 ; } // starts at 473508
-sub_473508      endp
+?LoadPathmap@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_4735E2      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+203↑p
+?FreePathmap@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+203↑p
 
 var_10          = dword ptr -10h
 var_C           = dword ptr -0Ch
@@ -34655,23 +34422,23 @@ var_4           = dword ptr -4
                 jmp     short loc_473620
 ; ---------------------------------------------------------------------------
 
-loc_473619:                             ; CODE XREF: sub_4735E2+23↑j
+loc_473619:                             ; CODE XREF: ?FreePathmap@GMapThing@@QAEXXZ+23↑j
                 mov     [ebp+var_10], 0
 
-loc_473620:                             ; CODE XREF: sub_4735E2+F↑j
+loc_473620:                             ; CODE XREF: ?FreePathmap@GMapThing@@QAEXXZ+F↑j
                 mov     eax, dword ptr [ebp+var_C]
                 mov     dword ptr [eax], 0
                 mov     esp, ebp
                 pop     ebp
                 retn
-sub_4735E2      endp
+?FreePathmap@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_47362D      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1FB↑p
+?BuildAdjacency@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Init@GMapThing@@QAEPAV1@XZ+1FB↑p
 
 var_6C          = dword ptr -6Ch
 var_68          = dword ptr -68h
@@ -34718,12 +34485,12 @@ var_4           = dword ptr -4
                 jmp     short loc_473679
 ; ---------------------------------------------------------------------------
 
-loc_473670:                             ; CODE XREF: sub_47362D+2C3↓j
+loc_473670:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+2C3↓j
                 mov     eax, dword ptr [ebp+var_24]
                 add     eax, 1
                 mov     [ebp+var_24], eax
 
-loc_473679:                             ; CODE XREF: sub_47362D+41↑j
+loc_473679:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+41↑j
                 mov     ecx, dword ptr [ebp+var_64]
                 mov     edx, dword ptr [ebp+var_24]
                 cmp     edx, [ecx+4]
@@ -34765,7 +34532,7 @@ loc_473679:                             ; CODE XREF: sub_47362D+41↑j
                 mov     [eax+96024h], ecx
                 mov     [eax+96028h], edx
 
-loc_473701:                             ; CODE XREF: sub_47362D+2BD↓j
+loc_473701:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+2BD↓j
                 lea     ecx, [ebp+var_20]
                 push    ecx
                 push    2
@@ -34775,7 +34542,7 @@ loc_473701:                             ; CODE XREF: sub_47362D+2BD↓j
                 mov     ecx, dword ptr [edx+96024h]
                 push    ecx
                 mov     ecx, dword ptr [ebp+var_64]
-                call    sub_47391F
+                call    ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z
                 lea     ecx, [ebp+var_20]
                 call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
                 mov     [ebp+var_2C], eax
@@ -34786,7 +34553,7 @@ loc_473701:                             ; CODE XREF: sub_47362D+2BD↓j
                 jmp     loc_4738E6
 ; ---------------------------------------------------------------------------
 
-loc_47373D:                             ; CODE XREF: sub_47362D+109↑j
+loc_47373D:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+109↑j
                 lea     ecx, [ebp+var_20]
                 call    unknown_libname_531 ; MFC 3.1-14.0 32bit
                 push    eax
@@ -34800,12 +34567,12 @@ loc_47373D:                             ; CODE XREF: sub_47362D+109↑j
                 jmp     short loc_47376B
 ; ---------------------------------------------------------------------------
 
-loc_473762:                             ; CODE XREF: sub_47362D:loc_4738E1↓j
+loc_473762:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ:loc_4738E1↓j
                 mov     ecx, dword ptr [ebp+var_28]
                 add     ecx, 1
                 mov     [ebp+var_28], ecx
 
-loc_47376B:                             ; CODE XREF: sub_47362D+133↑j
+loc_47376B:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+133↑j
                 mov     edx, dword ptr [ebp+var_64]
                 mov     eax, dword ptr [ebp+var_28]
                 cmp     eax, [edx+4]
@@ -34837,7 +34604,7 @@ loc_47376B:                             ; CODE XREF: sub_47362D+133↑j
                 jmp     loc_4738E6
 ; ---------------------------------------------------------------------------
 
-loc_4737C6:                             ; CODE XREF: sub_47362D+192↑j
+loc_4737C6:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+192↑j
                 push    14h             ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+Block], eax
@@ -34852,10 +34619,10 @@ loc_4737C6:                             ; CODE XREF: sub_47362D+192↑j
                 jmp     short loc_4737EE
 ; ---------------------------------------------------------------------------
 
-loc_4737E7:                             ; CODE XREF: sub_47362D+1AB↑j
+loc_4737E7:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+1AB↑j
                 mov     [ebp+var_68], 0
 
-loc_4737EE:                             ; CODE XREF: sub_47362D+1B8↑j
+loc_4737EE:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+1B8↑j
                 mov     edx, dword ptr [ebp+var_68]
                 mov     [ebp+var_58], edx
 ;   } // starts at 4737D0
@@ -34881,7 +34648,7 @@ loc_4737EE:                             ; CODE XREF: sub_47362D+1B8↑j
                 lea     ecx, [ebp+var_40]
                 call    sub_473F30
 
-loc_473832:                             ; CODE XREF: sub_47362D+234↓j
+loc_473832:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+234↓j
                 lea     ecx, [ebp+var_20]
                 call    unknown_libname_530 ; Microsoft VisualC 2-14/net runtime
                 test    eax, eax
@@ -34901,7 +34668,7 @@ loc_473832:                             ; CODE XREF: sub_47362D+234↓j
                 jmp     short loc_473832
 ; ---------------------------------------------------------------------------
 
-loc_473863:                             ; CODE XREF: sub_47362D+20F↑j
+loc_473863:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+20F↑j
                 push    14h             ; varSize
                 call    ??2CObject@@SGPAXI@Z
                 mov     [ebp+var_5C], eax
@@ -34916,10 +34683,10 @@ loc_473863:                             ; CODE XREF: sub_47362D+20F↑j
                 jmp     short loc_47388B
 ; ---------------------------------------------------------------------------
 
-loc_473884:                             ; CODE XREF: sub_47362D+248↑j
+loc_473884:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+248↑j
                 mov     [ebp+var_6C], 0
 
-loc_47388B:                             ; CODE XREF: sub_47362D+255↑j
+loc_47388B:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+255↑j
                 mov     eax, dword ptr [ebp+var_6C]
                 mov     [ebp+var_60], eax
 ;   } // starts at 47386D
@@ -34953,18 +34720,18 @@ loc_47388B:                             ; CODE XREF: sub_47362D+255↑j
                 jmp     short loc_4738E6
 ; ---------------------------------------------------------------------------
 
-loc_4738E1:                             ; CODE XREF: sub_47362D+179↑j
+loc_4738E1:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+179↑j
                 jmp     loc_473762
 ; ---------------------------------------------------------------------------
 
-loc_4738E6:                             ; CODE XREF: sub_47362D+10B↑j
+loc_4738E6:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+10B↑j
                 cmp     [ebp+var_2C], 1
                 jg      loc_473701
                 jmp     loc_473670
 ;   } // starts at 473891
 ; ---------------------------------------------------------------------------
 
-loc_4738F5:                             ; CODE XREF: sub_47362D+55↑j
+loc_4738F5:                             ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+55↑j
 ;   try {
                 mov     byte ptr [ebp+var_4], 0
                 lea     ecx, [ebp+var_40] ; varThis
@@ -34980,14 +34747,14 @@ loc_4738F5:                             ; CODE XREF: sub_47362D+55↑j
                 pop     ebp
                 retn
 ; } // starts at 47362D
-sub_47362D      endp
+?BuildAdjacency@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_47391F      proc near               ; CODE XREF: sub_47362D+EE↑p
+?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z      proc near               ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+EE↑p
 
 var_4C          = dword ptr -4Ch
 var_48          = byte ptr -48h
@@ -35025,12 +34792,12 @@ arg_C           = dword ptr  14h
                 jmp     short loc_47394F
 ; ---------------------------------------------------------------------------
 
-loc_473946:                             ; CODE XREF: sub_47391F:loc_47396D↓j
+loc_473946:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z:loc_47396D↓j
                 mov     eax, dword ptr [ebp+var_8]
                 add     eax, 1
                 mov     [ebp+var_8], eax
 
-loc_47394F:                             ; CODE XREF: sub_47391F+25↑j
+loc_47394F:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+25↑j
                 mov     ecx, dword ptr [ebp+arg_0]
                 add     ecx, 1
                 cmp     [ebp+var_8], ecx
@@ -35040,23 +34807,23 @@ loc_47394F:                             ; CODE XREF: sub_47391F+25↑j
                 cmp     [ebp+var_8], 280h
                 jl      short loc_47396F
 
-loc_47396D:                             ; CODE XREF: sub_47391F+43↑j
+loc_47396D:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+43↑j
                 jmp     short loc_473946
 ; ---------------------------------------------------------------------------
 
-loc_47396F:                             ; CODE XREF: sub_47391F+4C↑j
+loc_47396F:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+4C↑j
                 mov     edx, dword ptr [ebp+arg_4]
                 sub     edx, 1
                 mov     [ebp+var_C], edx
                 jmp     short loc_473983
 ; ---------------------------------------------------------------------------
 
-loc_47397A:                             ; CODE XREF: sub_47391F:loc_4739D0↓j
+loc_47397A:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z:loc_4739D0↓j
                 mov     eax, dword ptr [ebp+var_C]
                 add     eax, 1
                 mov     [ebp+var_C], eax
 
-loc_473983:                             ; CODE XREF: sub_47391F+59↑j
+loc_473983:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+59↑j
                 mov     ecx, dword ptr [ebp+arg_4]
                 add     ecx, 1
                 cmp     [ebp+var_C], ecx
@@ -35084,11 +34851,11 @@ loc_473983:                             ; CODE XREF: sub_47391F+59↑j
                 test    eax, eax
                 jz      short loc_4739D2
 
-loc_4739D0:                             ; CODE XREF: sub_47391F+77↑j
+loc_4739D0:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+77↑j
                 jmp     short loc_47397A
 ; ---------------------------------------------------------------------------
 
-loc_4739D2:                             ; CODE XREF: sub_47391F+AF↑j
+loc_4739D2:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+AF↑j
                 mov     edx, dword ptr [ebp+var_C]
                 push    edx
                 mov     eax, dword ptr [ebp+var_8]
@@ -35142,18 +34909,18 @@ loc_4739D2:                             ; CODE XREF: sub_47391F+AF↑j
                 mov     edx, dword ptr [eax]
                 push    edx
                 mov     ecx, dword ptr [ebp+var_4C]
-                call    sub_47391F
+                call    ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z
                 test    eax, eax
                 jnz     short loc_473A82
                 xor     eax, eax
                 jmp     loc_473B44
 ; ---------------------------------------------------------------------------
 
-loc_473A82:                             ; CODE XREF: sub_47391F+15A↑j
+loc_473A82:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+15A↑j
                 jmp     loc_47397A
 ; ---------------------------------------------------------------------------
 
-loc_473A87:                             ; CODE XREF: sub_47391F+D9↑j
+loc_473A87:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+D9↑j
                 mov     eax, dword ptr [ebp+var_4C]
                 mov     ecx, dword ptr [eax+96020h]
                 mov     edx, dword ptr [ebp+var_10]
@@ -35192,7 +34959,7 @@ loc_473A87:                             ; CODE XREF: sub_47391F+D9↑j
                 jmp     short loc_473B44
 ; ---------------------------------------------------------------------------
 
-loc_473AEE:                             ; CODE XREF: sub_47391F+17B↑j
+loc_473AEE:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+17B↑j
                 mov     ecx, dword ptr [ebp+var_4C]
                 mov     edx, dword ptr [ecx+96020h]
                 mov     eax, dword ptr [ebp+var_10]
@@ -35216,22 +34983,22 @@ loc_473AEE:                             ; CODE XREF: sub_47391F+17B↑j
                 jmp     loc_47397A
 ; ---------------------------------------------------------------------------
 
-loc_473B38:                             ; CODE XREF: sub_47391F+1E2↑j
+loc_473B38:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+1E2↑j
                 jmp     loc_47397A
 ; ---------------------------------------------------------------------------
 
-loc_473B3D:                             ; CODE XREF: sub_47391F+6D↑j
+loc_473B3D:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+6D↑j
                 jmp     loc_473946
 ; ---------------------------------------------------------------------------
 
-loc_473B42:                             ; CODE XREF: sub_47391F+39↑j
+loc_473B42:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+39↑j
                 xor     eax, eax
 
-loc_473B44:                             ; CODE XREF: sub_47391F+15E↑j
+loc_473B44:                             ; CODE XREF: ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z+15E↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    10h
-sub_47391F      endp
+?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -35809,7 +35576,7 @@ sub_473FE0      endp
 
 ; Attributes: bp-based frame
 
-sub_474000      proc near               ; CODE XREF: sub_47362D+1F8↑p
+sub_474000      proc near               ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+1F8↑p
 
 var_18          = dword ptr -18h
 var_14          = byte ptr -14h
@@ -35879,7 +35646,7 @@ sub_474000      endp
 
 ; Attributes: bp-based frame
 
-sub_474080      proc near               ; CODE XREF: sub_47362D+223↑p
+sub_474080      proc near               ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+223↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -35985,7 +35752,7 @@ sub_474080      endp
 
 ; Attributes: bp-based frame
 
-sub_474160      proc near               ; CODE XREF: sub_47362D+22F↑p
+sub_474160      proc near               ; CODE XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+22F↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -239386,23 +239153,6 @@ SEH_471F15:                             ; DATA XREF: sub_471F15+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA09
 ; END OF FUNCTION CHUNK FOR sub_471F15
-; START OF FUNCTION CHUNK FOR ?Init@GMapThing@@QAEPAV1@XZ
-
-loc_5FAA62:                             ; DATA XREF: .rdata:stru_61B960↓o
-; __unwind { // SEH_473195
-;   cleanup() // owned by 4731BE
-                mov     ecx, dword ptr [ebp+var_24]
-                add     ecx, 0Ch        ; varThis
-                call    ??1CWinThread@@UAE@XZ_13 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_473195:                             ; DATA XREF: ?Init@GMapThing@@QAEPAV1@XZ+5↑o
-                mov     eax, offset stru_61B940
-                jmp     ___CxxFrameHandler
-; } // starts at 5FAA62
-; END OF FUNCTION CHUNK FOR ?Init@GMapThing@@QAEPAV1@XZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_4733CF
 
 loc_5FAA78:                             ; DATA XREF: .rdata:stru_61B988↓o
@@ -239420,7 +239170,7 @@ SEH_4733CF:                             ; DATA XREF: sub_4733CF+5↑o
 ; } // starts at 5FAA78
 ; END OF FUNCTION CHUNK FOR sub_4733CF
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_473508
+; START OF FUNCTION CHUNK FOR ?LoadPathmap@GMapThing@@QAEXXZ
 
 loc_5FAA8E:                             ; DATA XREF: .rdata:stru_61B9B0↓o
 ; __unwind { // SEH_473508
@@ -239439,13 +239189,13 @@ loc_5FAA98:                             ; DATA XREF: .rdata:0061B9B8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_473508:                             ; DATA XREF: sub_473508+5↑o
+SEH_473508:                             ; DATA XREF: ?LoadPathmap@GMapThing@@QAEXXZ+5↑o
                 mov     eax, offset stru_61B990
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA8E
-; END OF FUNCTION CHUNK FOR sub_473508
+; END OF FUNCTION CHUNK FOR ?LoadPathmap@GMapThing@@QAEXXZ
 ; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR sub_47362D
+; START OF FUNCTION CHUNK FOR ?BuildAdjacency@GMapThing@@QAEXXZ
 
 loc_5FAAAC:                             ; DATA XREF: .rdata:stru_61B9E0↓o
 ; __unwind { // SEH_47362D              ; varThis
@@ -239481,11 +239231,11 @@ loc_5FAAC8:                             ; DATA XREF: .rdata:0061B9F8↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_47362D:                             ; DATA XREF: sub_47362D+5↑o
+SEH_47362D:                             ; DATA XREF: ?BuildAdjacency@GMapThing@@QAEXXZ+5↑o
                 mov     eax, offset stru_61B9C0
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAAAC
-; END OF FUNCTION CHUNK FOR sub_47362D
+; END OF FUNCTION CHUNK FOR ?BuildAdjacency@GMapThing@@QAEXXZ
 ; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
@@ -269722,12 +269472,6 @@ stru_61B8B8     UnwindMapEntry <-1, offset loc_5FAA09>
                 db    0
                 db    0
                 db    0
-stru_61B940     FuncInfoV1 <19930520h, 1, offset stru_61B960, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61B960     UnwindMapEntry <-1, offset loc_5FAA62>
 stru_61B968     FuncInfoV1 <19930520h, 1, offset stru_61B988, 0, 0, 0, 0>
                 db    0
                 db    0

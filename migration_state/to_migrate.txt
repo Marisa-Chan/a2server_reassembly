@@ -80,7 +80,10 @@ _byte_659A3C
 ?sub_41F8A0@GfxFile@@QAEPAVCSprite256@@XZ	20
 ?TakeAdjacency@GMapThing@@QAEPAXPAX@Z	25
 ?Destroy@GMapThing@@QAEXI@Z	25
-?Init@GMapThing@@QAEPAV1@XZ	232
+?FreePathmap@GMapThing@@QAEXXZ	39
+?LoadPathmap@GMapThing@@QAEXXZ	95
+?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z	244
+?BuildAdjacency@GMapThing@@QAEXXZ	309
 ?OpenFile@PasswordManager@@QAEXPBD@Z	64
 ?FUN_0041f8f0@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?FUN_004a4780@Quest@@QAEIXZ	13

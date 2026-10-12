@@ -7307,6 +7307,43 @@ void VisGlobalMap::DoClose(uint32_t code)
 }
 
 
+// 473195
+GMapThing* GMapThing::Init()
+{
+    new (&this->nodePoints) CArray<CPoint>();
+    new (&this->floodPos) CPoint();
+    for (int32_t x = 0; x < 640; x++) {
+        for (int32_t y = 0; y < 480; y++) {
+            this->visitedGrid[x][y] = 0;
+        }
+    }
+    this->pathmap = nullptr;
+    this->LoadPathmap();
+    this->bmp_data = static_cast<uint8_t*>(this->pathmap->GetData());
+    this->nodeCount = 0;
+    for (int32_t x = 0; x < 640; x++) {
+        for (int32_t y = 0; y < 480; y++) {
+            int32_t offset = y * 640 + x;
+            if (this->bmp_data[offset] == 2) {
+                this->nodeCount++;
+                this->nodePoints.Add(CPoint(x, y));
+            }
+        }
+    }
+    this->adjacencyMatrix = static_cast<CArray<CPoint>***>(operator new(this->nodeCount * 4));
+    for (int32_t i = 0; i < this->nodeCount; i++) {
+        this->adjacencyMatrix[i] = static_cast<CArray<CPoint>**>(operator new(this->nodeCount * 4));
+    }
+    for (int32_t i = 0; i < this->nodeCount; i++) {
+        for (int32_t j = 0; j < this->nodeCount; j++) {
+            this->adjacencyMatrix[i][j] = nullptr;
+        }
+    }
+    this->BuildAdjacency();
+    return this;
+}
+
+
 // 47115D
 void VisGlobalMap::VMethod28()
 {
