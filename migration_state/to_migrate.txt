@@ -264,7 +264,6 @@ _byte_659A3C
 ?_OnSizing@MainWindow@@QAEXIPAUtagRECT@@@Z	80
 ?_OnCreate@MainWindow@@QAEHPAUtagCREATESTRUCTA@@@Z	82
 ?_FUN_004950c0@MainWindow@@QAEXXZ	92
-?FUN_00494c91@MainWindow@@QAEXXZ	163
 ?WaitHatConnection@MainWindow@@QAEHXZ	193
 ?FUN_00494a9e@MainWindow@@QAEXXZ	194
 ?WaitConnectionCharacterJoin@MainWindow@@QAEXXZ	199

@@ -12,6 +12,7 @@ struct MapMusicInfo;
 
 
 extern IDirectSound* g_dsound; //65dd84
+extern int32_t g_CurrentMusicTrack; //62faa0
 extern int32_t g_dsound_channel_num; //65ddd8
 extern SoundChannel* g_dsound_channels; //65dda4
 extern CArray<SfxSample*> g_SfxArray; //665eb0

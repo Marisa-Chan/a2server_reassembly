@@ -53881,170 +53881,6 @@ loc_494C83:                             ; CODE XREF: ?FUN_00494a9e@MainWindow@@Q
 
 ; Attributes: bp-based frame
 
-?FUN_00494c91@MainWindow@@QAEXXZ      proc near               ; CODE XREF: sub_48B061+C9↑p
-
-var_2C          = dword ptr -2Ch
-var_28          = dword ptr -28h
-var_24          = dword ptr -24h
-var_20          = dword ptr -20h
-var_1C          = dword ptr -1Ch
-var_18          = dword ptr -18h
-Block           = dword ptr -14h
-var_10          = dword ptr -10h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-
-; FUNCTION CHUNK AT 005FC3EA SIZE 00000014 BYTES
-
-; __unwind { // SEH_494C91
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_494C91
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 20h
-                mov     [ebp+var_24], ecx
-                cmp     ?g_SoundSettings@@3USoundSettings@@A+020h, 0
-                jz      loc_494E80
-                push    14h             ; varSize
-                call    ??2CObject@@SGPAXI@Z
-                mov     [ebp+Block], eax
-;   try {
-                mov     [ebp+var_4], 0
-                cmp     [ebp+Block], 0
-                jz      short loc_494CE0
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_5DABF1
-                mov     [ebp+var_28], eax
-                jmp     short loc_494CE7
-; ---------------------------------------------------------------------------
-
-loc_494CE0:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+40↑j
-                mov     [ebp+var_28], 0
-
-loc_494CE7:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+4D↑j
-                mov     eax, dword ptr [ebp+var_28]
-                mov     [ebp+var_18], eax
-;   } // starts at 494CC6
-                mov     [ebp+var_4], 0FFFFFFFFh
-                mov     ecx, dword ptr [ebp+var_18]
-                mov     [ebp+var_10], ecx
-                push    offset aMusicB00Wav ; "music\\B00.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB01Wav ; "music\\B01.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB02Wav ; "music\\B02.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB03Wav ; "music\\B03.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB04Wav ; "music\\B04.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB05Wav ; "music\\B05.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB06Wav ; "music\\B06.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB07Wav ; "music\\B07.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB08Wav ; "music\\B08.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB09Wav ; "music\\B09.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB10Wav ; "music\\B10.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB11Wav ; "music\\B11.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB12Wav ; "music\\B12.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB13Wav ; "music\\B13.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB14Wav_0 ; "music\\B14.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB15Wav_0 ; "music\\B15.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                push    offset aMusicB16Wav_0 ; "music\\B16.wav"
-                mov     ecx, dword ptr [ebp+var_10]
-                call    ?Add@CStringArray@@QAEHPBD@Z
-                mov     edx, dword ptr [ebp+var_10]
-                push    edx             ; struct CStringArray *
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+0C8h]
-                call    ?SetPlayList@MusicPlayer@@QAEXABVCStringArray@@@Z
-                mov     ecx, dword ptr [ebp+var_10]
-                mov     [ebp+var_20], ecx
-                mov     edx, dword ptr [ebp+var_20]
-                mov     [ebp+var_1C], edx
-                cmp     [ebp+var_1C], 0
-                jz      short loc_494E0D
-                push    1
-                mov     eax, dword ptr [ebp+var_1C]
-                mov     edx, dword ptr [eax]
-                mov     ecx, dword ptr [ebp+var_1C]
-                call    dword ptr [edx+4]
-                mov     [ebp+var_2C], eax
-                jmp     short loc_494E14
-; ---------------------------------------------------------------------------
-
-loc_494E0D:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+168↑j
-                mov     [ebp+var_2C], 0
-
-loc_494E14:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+17A↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+0D0h]
-                cmp     dword ptr [ecx+3F6Ch], 0
-                jz      short loc_494E54
-                mov     edx, dword ptr [ebp+var_24]
-                mov     eax, dword ptr [edx+0D0h]
-                mov     ecx, dword ptr [eax+3F6Ch]
-                mov     edx, dword ptr [ecx+0Ch]
-                push    edx
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+0D0h]
-                mov     edx, dword ptr [ecx+3F6Ch]
-                mov     eax, dword ptr [edx+8]
-                push    eax
-                call    ?FUN_00476c0d@@YAXHH@Z
-                add     esp, 8
-
-loc_494E54:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+193↑j
-                cmp     ?g_CurrentMusicTrack@@3HA, 0
-                jl      short loc_494E72
-                mov     ecx, ?g_CurrentMusicTrack@@3HA
-                push    ecx
-                mov     edx, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [edx+0C8h]
-                call    ?StartPlayTrack@MusicPlayer@@QAEXH@Z
-
-loc_494E72:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+1CA↑j
-                mov     eax, dword ptr [ebp+var_24]
-                mov     ecx, dword ptr [eax+0C8h]
-                call    ?Play@MusicPlayer@@QAEXXZ
-
-loc_494E80:                             ; CODE XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+25↑j
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                mov     esp, ebp
-                pop     ebp
-                retn
-; } // starts at 494C91
-?FUN_00494c91@MainWindow@@QAEXXZ      endp
 
 ; ---------------------------------------------------------------------------
 ?_OnSize@MainWindow@@QAEXIHH@Z      proc near
@@ -248858,24 +248694,6 @@ SEH_494A9E:                             ; DATA XREF: ?FUN_00494a9e@MainWindow@@Q
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FC3D5
 ; END OF FUNCTION CHUNK FOR ?FUN_00494a9e@MainWindow@@QAEXXZ
-; ---------------------------------------------------------------------------
-; START OF FUNCTION CHUNK FOR ?FUN_00494c91@MainWindow@@QAEXXZ
-
-unknown_libname_983:                    ; DATA XREF: .rdata:stru_61D4F0↓o
-; __unwind { // SEH_494C91              ; MFC 3.1-14.0 32bit
-;   cleanup() // owned by 494CC6
-                mov     eax, dword ptr [ebp+Block]
-                push    eax             ; Block
-                call    ??3CObject@@SGXPAX@Z
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_494C91:                             ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+5↑o
-                mov     eax, offset stru_61D4D0
-                jmp     ___CxxFrameHandler
-; } // starts at 5FC3EA
-; END OF FUNCTION CHUNK FOR ?FUN_00494c91@MainWindow@@QAEXXZ
-; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR sub_494F0B
 
 loc_5FC3FE:                             ; DATA XREF: .rdata:stru_61D518↓o
@@ -276923,12 +276741,6 @@ stru_61D4A8     FuncInfoV1 <19930520h, 1, offset stru_61D4C8, 0, 0, 0, 0>
                 db    0
                 db    0
 stru_61D4C8     UnwindMapEntry <-1, offset loc_5FC3D5>
-stru_61D4D0     FuncInfoV1 <19930520h, 1, offset stru_61D4F0, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61D4F0     UnwindMapEntry <-1, offset unknown_libname_983>
 stru_61D4F8     FuncInfoV1 <19930520h, 2, offset stru_61D518, 0, 0, 0, 0>
                 db    0
                 db    0
@@ -283881,57 +283693,6 @@ aStartFm_0      db 'Start_FM',0         ; DATA XREF: ?RecreateCUnit@CGameSession
                 align 4
 ; CHAR aStartMf_0[]
 aStartMf_0      db 'Start_MF',0         ; DATA XREF: ?RecreateCUnit@CGameSession@@QAEXXZ+220↑o
-                align 4
-; char aMusicB00Wav[]
-aMusicB00Wav    db 'music\B00.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+69↑o
-                align 4
-; char aMusicB01Wav[]
-aMusicB01Wav    db 'music\B01.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+76↑o
-                align 4
-; char aMusicB02Wav[]
-aMusicB02Wav    db 'music\B02.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+83↑o
-                align 4
-; char aMusicB03Wav[]
-aMusicB03Wav    db 'music\B03.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+90↑o
-                align 4
-; char aMusicB04Wav[]
-aMusicB04Wav    db 'music\B04.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+9D↑o
-                align 4
-; char aMusicB05Wav[]
-aMusicB05Wav    db 'music\B05.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+AA↑o
-                align 4
-; char aMusicB06Wav[]
-aMusicB06Wav    db 'music\B06.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+B7↑o
-                align 4
-; char aMusicB07Wav[]
-aMusicB07Wav    db 'music\B07.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+C4↑o
-                align 4
-; char aMusicB08Wav[]
-aMusicB08Wav    db 'music\B08.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+D1↑o
-                align 4
-; char aMusicB09Wav[]
-aMusicB09Wav    db 'music\B09.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+DE↑o
-                align 4
-; char aMusicB10Wav[]
-aMusicB10Wav    db 'music\B10.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+EB↑o
-                align 4
-; char aMusicB11Wav[]
-aMusicB11Wav    db 'music\B11.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+F8↑o
-                align 4
-; char aMusicB12Wav[]
-aMusicB12Wav    db 'music\B12.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+105↑o
-                align 4
-; char aMusicB13Wav[]
-aMusicB13Wav    db 'music\B13.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+112↑o
-                align 4
-; char aMusicB14Wav_0[]
-aMusicB14Wav_0  db 'music\B14.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+11F↑o
-                align 4
-; char aMusicB15Wav_0[]
-aMusicB15Wav_0  db 'music\B15.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+12C↑o
-                align 4
-; char aMusicB16Wav_0[]
-aMusicB16Wav_0  db 'music\B16.wav',0    ; DATA XREF: ?FUN_00494c91@MainWindow@@QAEXXZ+139↑o
                 align 4
 ; char aD_26[]
 aD_26           db '%d',0               ; DATA XREF: ?_FUN_004950c0@MainWindow@@QAEXXZ+97↑o

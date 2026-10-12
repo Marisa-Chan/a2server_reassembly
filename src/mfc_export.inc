@@ -942,7 +942,6 @@ extern ?vis_scr_rect@@3VCRect@@A : dword
 
 externdef ?FUN_00494a9e@MainWindow@@QAEXXZ : proc
 
-externdef ?FUN_00494c91@MainWindow@@QAEXXZ : proc
 externdef ?FUN_00478130@MainWindow@@QAEXXZ : proc
 
 extern ?SetSpeed@MainWindow@@QAEHH@Z :proc ; MainWindow::SetSpeed

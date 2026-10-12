@@ -699,6 +699,43 @@ void MainWindow::_OnDestroy()
     CFrameWnd::OnDestroy();
 }
 
+// 494c91
+void MainWindow::FUN_00494c91()
+{
+    if (g_SoundSettings.field_0x20 != 0) {
+        CStringArray* plist = new CStringArray();
+        plist->Add("music\\B00.wav");
+        plist->Add("music\\B01.wav");
+        plist->Add("music\\B02.wav");
+        plist->Add("music\\B03.wav");
+        plist->Add("music\\B04.wav");
+        plist->Add("music\\B05.wav");
+        plist->Add("music\\B06.wav");
+        plist->Add("music\\B07.wav");
+        plist->Add("music\\B08.wav");
+        plist->Add("music\\B09.wav");
+        plist->Add("music\\B10.wav");
+        plist->Add("music\\B11.wav");
+        plist->Add("music\\B12.wav");
+        plist->Add("music\\B13.wav");
+        plist->Add("music\\B14.wav");
+        plist->Add("music\\B15.wav");
+        plist->Add("music\\B16.wav");
+        this->music_player->SetPlayList(*plist);
+        delete plist;
+
+        if (this->vis_map_context->field_0x3f6c != nullptr) {
+            FUN_00476c0d(this->vis_map_context->field_0x3f6c->x_pos, this->vis_map_context->field_0x3f6c->y_pos);
+        }
+
+        if (g_CurrentMusicTrack >= 0) {
+            this->music_player->StartPlayTrack(g_CurrentMusicTrack);
+        }
+
+        this->music_player->Play();
+    }
+}
+
 
 MainWindow::MainWindow()
 { //4837e1
