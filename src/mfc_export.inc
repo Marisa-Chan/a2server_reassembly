@@ -1498,7 +1498,7 @@ extern ?OnKeyDown@VisGlobalMap@@UAEHI@Z : proc
 extern ?OnChar@VisGlobalMap@@UAEHI@Z : proc
 externdef ?LoadPathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::LoadPathmap(void)
 externdef ?FreePathmap@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreePathmap(void)
-externdef ?Destroy@GMapThing@@QAEXI@Z : proc
+externdef ?FreeAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::FreeAdjacency(void)
 externdef ?BuildAdjacency@GMapThing@@QAEXXZ : proc  ; void GMapThing::BuildAdjacency(void)
 externdef ?FloodFill@GMapThing@@QAEHHHGPAV?$CArray@VCPoint@@ABV1@@@H@Z : proc  ; int GMapThing::FloodFill(int, int, uint16_t, CArray<CPoint>*)
 externdef ?ComputeTravelRoute@VisGlobalMap@@QAEXHHHH@Z : proc

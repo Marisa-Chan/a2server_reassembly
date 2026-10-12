@@ -34137,7 +34137,7 @@ sub_4733B5      endp
 
 ; Attributes: bp-based frame
 
-sub_4733CF      proc near               ; CODE XREF: ?Destroy@GMapThing@@QAEXI@Z+A↓p
+?FreeAdjacency@GMapThing@@QAEXXZ      proc near               ; CODE XREF: ?Destroy@GMapThing@@QAEXI@Z+A↓p
 
 var_2C          = dword ptr -2Ch
 var_28          = dword ptr -28h
@@ -34173,12 +34173,12 @@ var_4           = dword ptr -4
                 jmp     short loc_47341B
 ; ---------------------------------------------------------------------------
 
-loc_473412:                             ; CODE XREF: sub_4733CF:loc_473494↓j
+loc_473412:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ:loc_473494↓j
                 mov     ecx, dword ptr [ebp+var_10]
                 add     ecx, 1
                 mov     [ebp+var_10], ecx
 
-loc_47341B:                             ; CODE XREF: sub_4733CF+41↑j
+loc_47341B:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+41↑j
                 mov     edx, dword ptr [ebp+var_28]
                 mov     eax, dword ptr [ebp+var_10]
                 cmp     eax, [edx+4]
@@ -34187,12 +34187,12 @@ loc_47341B:                             ; CODE XREF: sub_4733CF+41↑j
                 jmp     short loc_473438
 ; ---------------------------------------------------------------------------
 
-loc_47342F:                             ; CODE XREF: sub_4733CF:loc_473492↓j
+loc_47342F:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ:loc_473492↓j
                 mov     ecx, dword ptr [ebp+var_14]
                 add     ecx, 1
                 mov     [ebp+var_14], ecx
 
-loc_473438:                             ; CODE XREF: sub_4733CF+5E↑j
+loc_473438:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+5E↑j
                 mov     edx, dword ptr [ebp+var_28]
                 mov     eax, dword ptr [ebp+var_14]
                 cmp     eax, [edx+4]
@@ -34224,28 +34224,28 @@ loc_473438:                             ; CODE XREF: sub_4733CF+5E↑j
                 jmp     short loc_473492
 ; ---------------------------------------------------------------------------
 
-loc_47348B:                             ; CODE XREF: sub_4733CF+A8↑j
+loc_47348B:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+A8↑j
                 mov     [ebp+var_2C], 0
 
-loc_473492:                             ; CODE XREF: sub_4733CF+87↑j
+loc_473492:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+87↑j
                 jmp     short loc_47342F
 ; ---------------------------------------------------------------------------
 
-loc_473494:                             ; CODE XREF: sub_4733CF+72↑j
+loc_473494:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+72↑j
                 jmp     loc_473412
 ; ---------------------------------------------------------------------------
 
-loc_473499:                             ; CODE XREF: sub_4733CF+55↑j
+loc_473499:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+55↑j
                 mov     [ebp+var_10], 0
                 jmp     short loc_4734AB
 ; ---------------------------------------------------------------------------
 
-loc_4734A2:                             ; CODE XREF: sub_4733CF+102↓j
+loc_4734A2:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+102↓j
                 mov     eax, dword ptr [ebp+var_10]
                 add     eax, 1
                 mov     [ebp+var_10], eax
 
-loc_4734AB:                             ; CODE XREF: sub_4733CF+D1↑j
+loc_4734AB:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+D1↑j
                 mov     ecx, dword ptr [ebp+var_28]
                 mov     edx, dword ptr [ebp+var_10]
                 cmp     edx, [ecx+4]
@@ -34262,7 +34262,7 @@ loc_4734AB:                             ; CODE XREF: sub_4733CF+D1↑j
                 jmp     short loc_4734A2
 ; ---------------------------------------------------------------------------
 
-loc_4734D3:                             ; CODE XREF: sub_4733CF+E5↑j
+loc_4734D3:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+E5↑j
                 mov     edx, dword ptr [ebp+var_28]
                 mov     eax, dword ptr [edx+8]
                 mov     [ebp+var_24], eax
@@ -34272,7 +34272,7 @@ loc_4734D3:                             ; CODE XREF: sub_4733CF+E5↑j
                 add     esp, 4
 ;   } // starts at 4733ED
 
-loc_4734E8:                             ; CODE XREF: sub_4733CF+34↑j
+loc_4734E8:                             ; CODE XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+34↑j
                 mov     [ebp+var_4], 0FFFFFFFFh
                 mov     ecx, dword ptr [ebp+var_28]
                 add     ecx, 0Ch        ; varThis
@@ -34283,7 +34283,7 @@ loc_4734E8:                             ; CODE XREF: sub_4733CF+34↑j
                 pop     ebp
                 retn
 ; } // starts at 4733CF
-sub_4733CF      endp
+?FreeAdjacency@GMapThing@@QAEXXZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -35167,32 +35167,6 @@ loc_473D5D:                             ; CODE XREF: ?FUN_00473d10@StructEnter@@
 
 ; Attributes: bp-based frame
 
-?Destroy@GMapThing@@QAEXI@Z      proc near               ; CODE XREF: ?VMethod28@VisGlobalMap@@UAEXXZ+136↑p
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    sub_4733CF
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_473DC5
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3@YAXPAX@Z    ; operator delete(void *)
-                add     esp, 4
-
-loc_473DC5:                             ; CODE XREF: ?Destroy@GMapThing@@QAEXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?Destroy@GMapThing@@QAEXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -239127,7 +239101,7 @@ SEH_471F15:                             ; DATA XREF: sub_471F15+5↑o
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA09
 ; END OF FUNCTION CHUNK FOR sub_471F15
-; START OF FUNCTION CHUNK FOR sub_4733CF
+; START OF FUNCTION CHUNK FOR ?FreeAdjacency@GMapThing@@QAEXXZ
 
 loc_5FAA78:                             ; DATA XREF: .rdata:stru_61B988↓o
 ; __unwind { // SEH_4733CF
@@ -239138,11 +239112,11 @@ loc_5FAA78:                             ; DATA XREF: .rdata:stru_61B988↓o
                 retn
 ; ---------------------------------------------------------------------------
 
-SEH_4733CF:                             ; DATA XREF: sub_4733CF+5↑o
+SEH_4733CF:                             ; DATA XREF: ?FreeAdjacency@GMapThing@@QAEXXZ+5↑o
                 mov     eax, offset stru_61B968
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FAA78
-; END OF FUNCTION CHUNK FOR sub_4733CF
+; END OF FUNCTION CHUNK FOR ?FreeAdjacency@GMapThing@@QAEXXZ
 ; ---------------------------------------------------------------------------
 ; START OF FUNCTION CHUNK FOR ?LoadPathmap@GMapThing@@QAEXXZ
 

@@ -7344,6 +7344,16 @@ GMapThing* GMapThing::Init()
 }
 
 
+// 473da0
+void GMapThing::Destroy(uint32_t flags)
+{
+    this->FreeAdjacency();
+    if (flags & 1) {
+        operator delete(this);
+    }
+}
+
+
 // 473b4a
 void* GMapThing::TakeAdjacency(void* nodePoints)
 {
