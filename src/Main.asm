@@ -30107,31 +30107,6 @@ sub_46EF30      endp
 
 ; Attributes: bp-based frame
 
-??_GCBridge@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B57C↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1CBridge@@QAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_46EFA2
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_46EFA2:                             ; CODE XREF: ??_GCBridge@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GCBridge@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -30816,20 +30791,6 @@ sub_46F410      endp
 
 ; Attributes: bp-based frame
 
-??1CBridge@@QAE@XZ      proc near               ; CODE XREF: ??_GCBridge@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CStructure@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1CBridge@@QAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -50792,7 +50753,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CBridge@@QAE@XZ
+                call    ??1CBridge@@UAE@XZ
                 mov     esp, ebp
                 pop     ebp
                 retn
@@ -50879,7 +50840,7 @@ var_4           = dword ptr -4
                 push    ecx
                 mov     [ebp+var_4], ecx
                 mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CBridge@@QAE@XZ
+                call    ??1CBridge@@UAE@XZ
                 mov     esp, ebp
                 pop     ebp
                 retn

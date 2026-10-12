@@ -2072,8 +2072,8 @@ extern ?VMethod15@CStructure@@UAEHXZ : proc
 
 ;CBridge
 externdef ??0CBridge@@QAE@HH@Z : proc
-externdef ??_GCBridge@@UAEPAXI@Z : proc
-externdef ??1CBridge@@QAE@XZ : proc
+extern ??_GCBridge@@UAEPAXI@Z : proc
+extern ??1CBridge@@UAE@XZ : proc
 extern ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ : proc
 extern ?classCBridge@CBridge@@2UCRuntimeClass@@B : dword
 extern ?VMethod4@CBridge@@UAEHXZ : proc

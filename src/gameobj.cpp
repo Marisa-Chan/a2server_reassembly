@@ -4182,3 +4182,8 @@ int32_t CBridge::VMethod5()
 {
     return this->bridge_height;
 }
+
+// 46f580
+CBridge::~CBridge()
+{
+}

@@ -62,8 +62,6 @@ _byte_659A3C
 ?sub_41AC2D@BigStruct2@@QAEXH@Z	32
 ??0CAirUnit@@QAE@XZ	18
 ??0CBackPack@@QAE@XZ	16
-??1CBridge@@QAE@XZ	13
-??_GCBridge@@UAEPAXI@Z	24
 ??0CBridge@@QAE@HH@Z	41
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?VMethod7@CHorisontalWoodenBridge@@UAEXHHH@Z	11

@@ -107,6 +107,7 @@
 ??0VisWindow@@QAE@HHHHHPAVCGameBitmap@@@Z
 ??0Weapon@@QAE@ABVCString@@@Z
 ??0WorldEquip@@QAE@XZ
+??1CBridge@@UAE@XZ
 ??1CGameObject@@UAE@XZ
 ??1CGamePalette@@UAE@XZ
 ??1CObject@@UAE@XZ
@@ -166,6 +167,7 @@
 ??_7Packet@@6B@
 ??_7Scenario@@6B@
 ??_7SpellBook@@6B@
+??_GCBridge@@UAEPAXI@Z
 ??_GCStructure@@UAEPAXI@Z
 ??_GVisGlobalMap@@UAEPAXI@Z
 ??_GVisInvBase@@UAEPAXI@Z
