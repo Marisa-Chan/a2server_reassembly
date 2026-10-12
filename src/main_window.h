@@ -8,6 +8,7 @@
 
 extern int32_t g_LButtonDown; //660f4c
 extern int32_t DAT_00660f88; //660f88
+extern int32_t INT_00660f8c; //660f8c
 
 void SaveSettings(); //441b1e in asm
 
