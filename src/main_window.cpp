@@ -6251,6 +6251,14 @@ void UserShortcut::sub_41E343(TokenEntry* entry)
     }
 }
 
+int32_t UserShortcut::FUN_0041e456(short spell_id)
+{ //41e456
+    if (this->kind == 1 && this->item_id == (uint16_t)spell_id) {
+        return 1;
+    }
+    return 0;
+}
+
 void UserShortcut::WriteToFile(CFile* f)
 { //41e4d3
     f->Write(&kind, 2);

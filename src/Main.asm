@@ -3161,44 +3161,6 @@ arg_0           = word ptr  8
 
 ; Attributes: bp-based frame
 
-?FUN_0041e456@UserShortcut@@QAEHF@Z      proc near               ; CODE XREF: ?VMethod7@VisSpellBook@@UAEXXZ+3BF↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                xor     ecx, ecx
-                mov     cx, [eax]
-                cmp     ecx, 1
-                jz      short loc_41E46E
-                xor     eax, eax
-                jmp     short loc_41E48D
-; ---------------------------------------------------------------------------
-
-loc_41E46E:                             ; CODE XREF: ?FUN_0041e456@UserShortcut@@QAEHF@Z+12↑j
-                mov     edx, dword ptr [ebp+var_4]
-                xor     eax, eax
-                mov     ax, [edx+2]
-                mov     ecx, dword ptr [ebp+arg_0]
-                and     ecx, 0FFFFh
-                cmp     eax, ecx
-                jz      short loc_41E488
-                xor     eax, eax
-                jmp     short loc_41E48D
-; ---------------------------------------------------------------------------
-
-loc_41E488:                             ; CODE XREF: ?FUN_0041e456@UserShortcut@@QAEHF@Z+2C↑j
-                mov     eax, 1
-
-loc_41E48D:                             ; CODE XREF: ?FUN_0041e456@UserShortcut@@QAEHF@Z+16↑j
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?FUN_0041e456@UserShortcut@@QAEHF@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
