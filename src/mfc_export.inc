@@ -2068,7 +2068,7 @@ extern ?VMethod9@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod10@CStructure@@UAEXXZ : proc
 externdef ?VMethod11@CStructure@@UAEHXZ : proc
 extern ?VMethod12@CStructure@@UAEXXZ : proc
-externdef ?VMethod15@CStructure@@UAEHXZ : proc
+extern ?VMethod15@CStructure@@UAEHXZ : proc
 
 ;CBridge
 externdef ??0CBridge@@QAE@HH@Z : proc

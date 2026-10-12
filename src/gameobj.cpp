@@ -4072,3 +4072,40 @@ void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
     uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
     FillRectColorSimple(arg1, arg2, arg1 + width, arg2 + height, color);
 }
+
+// 462b28
+int32_t CStructure::VMethod15()
+{
+    BigStruct2* map = this->pMapObject;
+
+    if (map->my_main_unit->FUN_0041ee50(this->map_player->index) != 0) {
+        this->bIsBlocked = 0;
+        return 0;
+    }
+
+    uint16_t* land = map->field_0x80->GetLandscape();
+    this->bIsBlocked = 2;
+
+    for (int32_t x = 0; x < this->VMethod4(); x++) {
+        StructureInfo* info = g_StructuresInfo[this->typeId];
+        for (int32_t y = this->VMethod5() - info->full_height; y < this->VMethod5(); y++) {
+            int32_t idx = this->tileX + x + map->field_0x84 * (this->tileY + y);
+            uint16_t u = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+            if (u == 0x8000) {
+                this->bIsBlocked = 1;
+            }
+            if (u == 0xc000) {
+                this->bIsBlocked = 0;
+                break;
+            }
+        }
+    }
+
+    if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
+        return 0;
+    }
+
+    this->m_bSelected = 0;
+    this->m_bSelectionDirty = 1;
+    return 1;
+}

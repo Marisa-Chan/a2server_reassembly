@@ -904,6 +904,7 @@
 ?VMethod14@CGameObject@@UAEXXZ
 ?VMethod14@CUnit@@UAEXXZ
 ?VMethod15@CGameObject@@UAEHXZ
+?VMethod15@CStructure@@UAEHXZ
 ?VMethod15@CUnit@@UAEHXZ
 ?VMethod16@CGameObject@@UAEXXZ
 ?VMethod16@CUnit@@UAEXXZ
