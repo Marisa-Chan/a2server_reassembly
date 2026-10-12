@@ -2064,7 +2064,7 @@ externdef ?VMethod5@CStructure@@UAEHXZ : proc
 extern ?VMethod6@CStructure@@UAEXHHH@Z : proc
 extern ?VMethod7@CStructure@@UAEXHHH@Z : proc
 extern ?VMethod8@CStructure@@UAEXHHH@Z : proc
-externdef ?VMethod9@CStructure@@UAEXHHH@Z : proc
+extern ?VMethod9@CStructure@@UAEXHHH@Z : proc
 externdef ?VMethod10@CStructure@@UAEXXZ : proc
 externdef ?VMethod11@CStructure@@UAEHXZ : proc
 extern ?VMethod12@CStructure@@UAEXXZ : proc

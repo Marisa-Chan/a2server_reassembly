@@ -4041,3 +4041,34 @@ void CStructure::VMethod12()
     CRect rect((this->mapBoundsLeft - 2) * 0x20, (this->mapBoundsTop - 2) * 0x20, (this->mapBoundsRight + 3) * 0x20, (this->mapBoundsBottom + 3) * 0x20);
     map->field_0xf4 |= rect;
 }
+
+// 46380c
+void CStructure::VMethod9(int32_t arg1, int32_t arg2, int32_t arg3)
+{
+    BigStruct2* map = this->pMapObject;
+
+    uint16_t* land = map->field_0x80->GetLandscape();
+    int32_t idx = (this->x_pos >> 8) + map->field_0x84 * (this->y_pos >> 8);
+
+    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->field_0x84] & 0xc000) | (land[idx + map->field_0x84 + 1] & 0xc000);
+    if (mask != 0xc000) {
+        return;
+    }
+
+    int32_t width;
+    int32_t height;
+    if (arg3 < 0) {
+        arg1 += ((this->x_pos >> 8) - map->MapMinX()) >> 1;
+        arg2 += ((this->y_pos >> 8) - map->MapMinX()) >> 1;
+        width = this->VMethod4();
+        height = this->VMethod5();
+    } else {
+        arg1 += ((this->x_pos >> 8) - map->MapMinX()) << arg3;
+        arg2 += ((this->y_pos >> 8) - map->MapMinX()) << arg3;
+        width = this->VMethod4() << arg3;
+        height = this->VMethod5() << arg3;
+    }
+
+    uint16_t color = g_Human_palettes[this->map_player->color]->GetPalette(8)[0xa4];
+    FillRectColorSimple(arg1, arg2, arg1 + width, arg2 + height, color);
+}

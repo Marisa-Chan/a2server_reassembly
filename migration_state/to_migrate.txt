@@ -89,7 +89,6 @@ _byte_659A3C
 ??_GCStructure@@UAEPAXI@Z	24
 ?VMethod11@CStructure@@UAEHXZ	37
 ?VMethod15@CStructure@@UAEHXZ	179
-?VMethod9@CStructure@@UAEXHHH@Z	184
 ?VMethod7@CVerticalWoodenBridge@@UAEXHHH@Z	11
 ?GetRuntimeClass@CVerticalWoodenBridge@@UBEPAUCRuntimeClass@@XZ	12
 ??1CVerticalWoodenBridge@@QAE@XZ	13

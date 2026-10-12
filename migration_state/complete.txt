@@ -1039,6 +1039,7 @@
 ?VMethod8@VisScreen@@UAEXPAVCRect@@@Z
 ?VMethod8@VisStartGame@@UAEXPAVCRect@@@Z
 ?VMethod9@CGameObject@@UAEXHHH@Z
+?VMethod9@CStructure@@UAEXHHH@Z
 ?VMethod9@CUnit@@UAEXHHH@Z
 ?VMethod9@CVisualObject@@UAEXXZ
 ?WriteData@CVisualObject@@UAEXPAX@Z
