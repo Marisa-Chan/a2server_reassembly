@@ -2014,7 +2014,7 @@ extern   ?VMethod8@CUnit@@UAEXHHH@Z  : proc
 extern   ?VMethod9@CUnit@@UAEXHHH@Z  : proc
 extern   ?FUN_004a7b79@Scenario@@QAENXZ  : proc
 extern ??_7Scenario@@6B@ :dword ; Scenario::vftable (C++-emitted)
-externdef ??0CStructure@@QAE@XZ : proc
+extern ??0CStructure@@QAE@XZ : proc
 externdef ??0CVerticalWoodenBridge@@QAE@HH@Z : proc
 externdef ??0CHorisontalWoodenBridge@@QAE@HH@Z : proc
 extern   ?FUN_0046f700@UnitGfxFile@@QAEPAVCSprite256@@XZ  : proc

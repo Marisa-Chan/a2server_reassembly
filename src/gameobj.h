@@ -425,6 +425,7 @@ public:
 	// no VMethod16 override: the binary vtable keeps CGameObject's here
 
 	CStructure(); //462acb
+	CStructure(const CStructure* obj); //462aea
 };
 ASSERT_SIZE(CStructure, 0x144);
 

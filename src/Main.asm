@@ -27147,49 +27147,12 @@ sub_462AB1      endp
 ; Attributes: bp-based frame
 
 ; int __thiscall ??0CStructure@@QAE@XZ(_DWORD)
-??0CStructure@@QAE@XZ      proc near               ; CODE XREF: ??0CBridge@@QAE@HH@Z+1F↓p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CGameObject@@QAE@XZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60B520
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-??0CStructure@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
 
 ; Attributes: bp-based frame
 
-sub_462AEA      proc near               ; CODE XREF: .text:00463CEB↓p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CGameObject@@QAE@PBV0@@Z
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx], offset off_60B520
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_462AEA      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -253273,28 +253236,6 @@ off_60B4C8      dd offset sub_461070    ; DATA XREF: ??0CBackPack@@QAE@XZ+12↑o
                 dd offset ?VMethod15@CGameObject@@UAEHXZ
                 dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
                 align 10h
-off_60B520      dd offset ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CStructure@@QAE@XZ+12↑o
-                dd offset ??_GCStructure@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CGameObject@@UAEXH@Z
-                dd offset ?VMethod2@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod3@CGameObject@@UAEHXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod4@CStructure@@UAEHXZ
-                dd offset ?VMethod5@CStructure@@UAEHXZ
-                dd offset ?VMethod6@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod7@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod8@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod9@CStructure@@UAEXHHH@Z
-                dd offset ?VMethod10@CStructure@@UAEXXZ
-                dd offset ?VMethod11@CStructure@@UAEHXZ
-                dd offset ?VMethod12@CStructure@@UAEXXZ
-                dd offset ?VMethod13@CGameObject@@UAEXXZ
-                dd offset ?VMethod14@CGameObject@@UAEXXZ
-                dd offset ?VMethod15@CStructure@@UAEHXZ
-                dd offset ?VMethod16@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                align 8
 off_60B578      dd offset ?GetRuntimeClass@CBridge@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CBridge@@QAE@HH@Z+2E↑o
                 dd offset ??_GCBridge@@UAEPAXI@Z
                 dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime

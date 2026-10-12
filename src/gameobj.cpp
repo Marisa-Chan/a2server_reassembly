@@ -4150,3 +4150,13 @@ void CStructure::Dump(CDumpContext& dc) const
 CStructure::~CStructure()
 {
 }
+
+// 462acb
+CStructure::CStructure()
+{
+}
+
+// 462aea
+CStructure::CStructure(const CStructure* obj) : CGameObject(obj)
+{
+}

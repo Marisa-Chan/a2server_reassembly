@@ -21,6 +21,7 @@
 ??0CString@@QAE@DH@Z
 ??0CString@@QAE@PBD@Z
 ??0CString@@QAE@XZ
+??0CStructure@@QAE@XZ
 ??0CUnit@@QAE@XZ
 ??0CVisualObject@@QAE@HABUtagRECT@@PBD@Z
 ??0CVisualObject@@QAE@HHHHHPBD@Z
