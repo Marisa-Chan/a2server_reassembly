@@ -4003,3 +4003,41 @@ void CStructure::VMethod6(int32_t arg1, int32_t arg2, int32_t arg3)
         y -= 0x20;
     }
 }
+
+// 463a58
+void CStructure::VMethod12()
+{
+    if (g_Lightning == 0) {
+        return;
+    }
+
+    BigStruct2* map = this->pMapObject;
+    StructureInfo* info = g_StructuresInfo[this->typeId];
+    if (info->light_radius == 0 || this->hp <= 0) {
+        return;
+    }
+
+    int32_t pulse_val;
+    if (info->light_pulse == 0) {
+        pulse_val = 0x20;
+    } else {
+        if (map->field_0xa88 % (info->light_pulse << 1) < info->light_pulse) {
+            pulse_val = 0x20 - info->light_pulse / 2 + map->field_0xa88 % info->light_pulse;
+        } else {
+            pulse_val = 0x20 + info->light_pulse / 2 - map->field_0xa88 % info->light_pulse;
+        }
+    }
+
+    for (int32_t x = this->mapBoundsLeft + info->light_radius - 1; x <= this->mapBoundsRight + info->light_radius; x++) {
+        for (int32_t y = this->mapBoundsTop + info->light_radius - 1; y <= this->mapBoundsBottom + info->light_radius; y++) {
+            if (x > -4 && x < map->field_0x64 + 3 && y > -4 && y < map->field_0x68 + 3) {
+                map->field_0xa8[x + 3 + (y + 3) * (map->field_0x64 + 7)] = pulse_val;
+            }
+        }
+    }
+
+    map->field_0x108++;
+
+    CRect rect((this->mapBoundsLeft - 2) * 0x20, (this->mapBoundsTop - 2) * 0x20, (this->mapBoundsRight + 3) * 0x20, (this->mapBoundsBottom + 3) * 0x20);
+    map->field_0xf4 |= rect;
+}
