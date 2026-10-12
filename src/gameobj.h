@@ -408,25 +408,23 @@ class CStructure : public CGameObject
 {
 	DECLARE_DYNAMIC(CStructure);
 public:
-	virtual ~CStructure();
+	virtual ~CStructure(); //46f5a0
 
-	virtual void Dump(CDumpContext& dc) const override;
+	virtual void Dump(CDumpContext& dc) const override; //4637b0
 
-	virtual int32_t VMethod4() override;
-	virtual int32_t VMethod5() override;
-	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override;
-	virtual void VMethod10() override;
-	virtual int32_t VMethod11() override;
-	virtual void VMethod12() override;
-	virtual int32_t VMethod15() override;
-	virtual void VMethod16() override;
+	virtual int32_t VMethod4() override; //4637ca
+	virtual int32_t VMethod5() override; //4637eb
+	virtual void VMethod6(int32_t arg1, int32_t arg2, int32_t arg3) override; //462d11
+	virtual void VMethod7(int32_t arg1, int32_t arg2, int32_t arg3) override; //462f58
+	virtual void VMethod8(int32_t arg1, int32_t arg2, int32_t arg3) override; //4631f3
+	virtual void VMethod9(int32_t arg1, int32_t arg2, int32_t arg3) override; //46380c
+	virtual void VMethod10() override; //462b0f
+	virtual int32_t VMethod11() override; //463a05
+	virtual void VMethod12() override; //463a58
+	virtual int32_t VMethod15() override; //462b28
+	// no VMethod16 override: the binary vtable keeps CGameObject's here
 
-	
-
-	CStructure();
+	CStructure(); //462acb
 };
 ASSERT_SIZE(CStructure, 0x144);
 

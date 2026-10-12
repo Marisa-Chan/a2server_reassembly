@@ -2056,6 +2056,19 @@ externdef ??0CProjectile@@QAE@PAV0@@Z : proc
 ;CStructure
 extern ?GetRuntimeClass@CStructure@@UBEPAUCRuntimeClass@@XZ  : proc
 extern ?classCStructure@CStructure@@2UCRuntimeClass@@B : dword
+externdef ??_GCStructure@@UAEPAXI@Z : proc
+externdef ??1CStructure@@QAE@XZ : proc
+externdef ?Dump@CStructure@@UBEXAAVCDumpContext@@@Z : proc
+externdef ?VMethod4@CStructure@@UAEHXZ : proc
+externdef ?VMethod5@CStructure@@UAEHXZ : proc
+externdef ?VMethod6@CStructure@@UAEXHHH@Z : proc
+externdef ?VMethod7@CStructure@@UAEXHHH@Z : proc
+externdef ?VMethod8@CStructure@@UAEXHHH@Z : proc
+externdef ?VMethod9@CStructure@@UAEXHHH@Z : proc
+externdef ?VMethod10@CStructure@@UAEXXZ : proc
+externdef ?VMethod11@CStructure@@UAEHXZ : proc
+externdef ?VMethod12@CStructure@@UAEXXZ : proc
+externdef ?VMethod15@CStructure@@UAEHXZ : proc
 
 
 ;MapPlayerData
