@@ -1430,7 +1430,6 @@ extern ?NextFrame@VisTavSceneAnim@@QAEXXZ : proc
 extern ?Draw@VisTavSceneAnim@@QAEXHH@Z : proc
 
 ;VisShop
-externdef ?FUN_004ba1cc@@YAXPAV?$CArray@PAVTokenEntry@@ABQAV1@@@@Z : proc
 extern ?sub_4BCDA0@VisShop@@QAEXXZ : proc
 extern ?sub_4BC97B@VisShop@@QAEXXZ : proc
 extern ??0VisShopCompass@@QAE@HHHHHPAVVisShop@@@Z : proc

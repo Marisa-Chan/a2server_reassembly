@@ -11336,6 +11336,84 @@ void VisShop::sub_4BC97B()
 }
 
 
+// 4b9f20
+static int32_t __cdecl FUN_004b9f20(const void* a, const void* b)
+{
+    TokenEntry* entry_a = *(TokenEntry**)a;
+    TokenEntry* entry_b = *(TokenEntry**)b;
+
+    int32_t flag_a = (entry_a->flg & 2) != 0;
+    int32_t flag_b = (entry_b->flg & 2) != 0;
+
+    int32_t group_a = 1;
+    if (entry_a->GetType() == 1) {
+        if (entry_a->GetId() >= 1 && entry_a->GetId() <= 6) {
+            group_a = 1;
+        } else if (entry_a->GetId() >= 0x12 && entry_a->GetId() <= 0x13) {
+            group_a = 2;
+        } else if (entry_a->GetId() >= 0xF && entry_a->GetId() <= 0x11) {
+            group_a = 3;
+        } else if (entry_a->GetId() >= 7 && entry_a->GetId() <= 0xC) {
+            group_a = 5;
+        } else if (entry_a->GetId() >= 0x14 && entry_a->GetId() <= 0x16) {
+            group_a = 6;
+        } else {
+            group_a = 7;
+        }
+    }
+
+    int32_t group_b = 1;
+    if (entry_b->GetType() == 1) {
+        if (entry_b->GetId() >= 1 && entry_b->GetId() <= 6) {
+            group_b = 1;
+        } else if (entry_b->GetId() >= 0x12 && entry_b->GetId() <= 0x13) {
+            group_b = 2;
+        } else if (entry_b->GetId() >= 0xF && entry_b->GetId() <= 0x11) {
+            group_b = 3;
+        } else if (entry_b->GetId() >= 7 && entry_b->GetId() <= 0xC) {
+            group_b = 5;
+        } else if (entry_b->GetId() >= 0x14 && entry_b->GetId() <= 0x16) {
+            group_b = 6;
+        } else {
+            group_b = 7;
+        }
+    }
+
+    if (flag_a < flag_b) {
+        return 1;
+    }
+    if (flag_a > flag_b) {
+        return -1;
+    }
+    if (entry_a->GetType() > entry_b->GetType()) {
+        return 1;
+    }
+    if (entry_a->GetType() < entry_b->GetType()) {
+        return -1;
+    }
+    if (group_a > group_b) {
+        return 1;
+    }
+    if (group_a < group_b) {
+        return -1;
+    }
+    if (entry_a->GetAttribute(1) > entry_b->GetAttribute(1)) {
+        return 1;
+    }
+    if (entry_a->GetAttribute(1) < entry_b->GetAttribute(1)) {
+        return -1;
+    }
+    return 0;
+}
+
+
+// 4ba1cc
+void __cdecl FUN_004ba1cc(CArray<TokenEntry*>* arr)
+{
+    qsort(arr->GetData(), arr->GetSize(), sizeof(TokenEntry*), FUN_004b9f20);
+}
+
+
 // 4BBBD6
 void VisShop::sub_4BBBD6(int32_t category, CArray<TokenEntry*>* arr)
 {
