@@ -2386,6 +2386,99 @@ void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t ra
     }
 }
 
+// 4cb993
+void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1, double y1)
+{
+    double y_tolerance = this->field_0x60 * 0.15;
+    double dx = x1 - x0;
+    double dy = y1 - y0;
+    double y_accum = 0.0;
+    double x_accum = 0.0;
+    CArray<double> xs;
+    CArray<double> ys;
+
+    this->FUN_0046f390();
+    this->field_0x58 = this->field_0x60 * 0.03;
+
+    double dir;
+    if (std::rand() & 1) {
+        dir = 1.0;
+    } else {
+        dir = -1.0;
+    }
+
+    this->field_0xb8.RemoveAll();
+    this->field_0xcc.RemoveAll();
+    this->field_0xb8.Add(0.0);
+    this->field_0xcc.Add(0.0);
+
+    do {
+        double jitter_x = (double)(std::rand() % 7) * dir;
+        double jitter_y = (double)(std::rand() % 50) * 0.01;
+        if (std::fabs(jitter_x) <= 2.0 || jitter_y <= 0.15) {
+            continue;
+        }
+        x_accum += jitter_x;
+        if (x_accum > 3.0) {
+            x_accum = 3.0;
+        }
+        if (x_accum < -3.0) {
+            x_accum = -3.0;
+        }
+        this->field_0xcc.Add(x_accum);
+        y_accum += jitter_y;
+        this->field_0xb8.Add(y_accum);
+        dir = -dir;
+    } while (y_accum < 0.7);
+
+    if (this->field_0xb8.GetAt(this->field_0xb8.GetUpperBound()) >= 1.0) {
+        this->field_0xb8.RemoveAt(this->field_0xb8.GetUpperBound());
+        this->field_0xcc.RemoveAt(this->field_0xcc.GetUpperBound());
+    }
+
+    this->field_0xb8.Add(1.0);
+    this->field_0xcc.Add(0.0);
+
+    xs.Add(x0);
+    ys.Add(y0);
+
+    int32_t n = 0;
+    double px = this->field_0xb8[1] * dx + x0;
+    xs.Add(px);
+    double py = this->field_0xb8[1] * dy + y0;
+    py = this->field_0xcc[1] * this->field_0x58 + py;
+    ys.Add(py);
+    n = 1;
+
+    for (int32_t i = 2; i < this->field_0xb8.GetSize() - 1; i++) {
+        px = this->field_0xb8[i] * dx + x0;
+        py = this->field_0xb8[i] * dy + y0;
+        py = this->field_0xcc[i] * this->field_0x58 + py;
+        double mid_x = (px - xs[n]) / 2.0 + xs[n];
+        xs.Add(mid_x);
+        double mid_y = (py - ys[n]) / 2.0 + ys[n];
+        ys.Add(mid_y);
+        n++;
+        xs.Add(px);
+        ys.Add(py);
+        n++;
+    }
+
+    xs.Add(x1);
+    ys.Add(y1);
+
+    for (int32_t i = 2; i < xs.GetSize(); i += 2) {
+        this->FUN_004CB85F(xs[i - 2], ys[i - 2], xs[i - 1], ys[i - 1], xs[i], ys[i]);
+    }
+
+    for (int32_t i = 0; i < this->field_0x90.GetSize(); i++) {
+        if (std::fabs(this->field_0xa4[i] - y0) > y_tolerance) {
+            this->FUN_004CB993(x0, y0, x1, y1);
+            break;
+        }
+    }
+}
+
 // 4cc059
 void TransientVisualEffectBuilder::FUN_004cc059(double x0, double y0, double x1, double y1, uint8_t arg5)
 {

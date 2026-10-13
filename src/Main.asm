@@ -27487,22 +27487,6 @@ arg_0           = dword ptr  8
 
 ; Attributes: bp-based frame
 
-sub_46F3D0      proc near               ; CODE XREF: ?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ+10↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                push    0FFFFFFFFh
-                push    0
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_46F8C0
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_46F3D0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -58845,8 +58829,8 @@ sub_4CB2A0      endp
 
 ; Attributes: bp-based frame
 
-; int __stdcall sub_4CB85F(double, double, double, double, double, double)
-sub_4CB85F      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+604↓p
+; int __stdcall ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z(double, double, double, double, double, double)
+?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+604↓p
 
 var_4C          = dword ptr -4Ch
 var_48          = qword ptr -48h
@@ -58945,7 +58929,7 @@ arg_28          = qword ptr  30h
                 mov     ecx, dword ptr [ebp+arg_0+4]
                 mov     dword ptr [ebp+var_38+4], ecx
 
-loc_4CB93C:                             ; CODE XREF: sub_4CB85F+12C↓j
+loc_4CB93C:                             ; CODE XREF: ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z+12C↓j
                 fld     [ebp+var_38]
                 fcomp   [ebp+arg_20]
                 fnstsw  ax
@@ -58973,11 +58957,11 @@ loc_4CB93C:                             ; CODE XREF: sub_4CB85F+12C↓j
                 jmp     short loc_4CB93C
 ; ---------------------------------------------------------------------------
 
-loc_4CB98D:                             ; CODE XREF: sub_4CB85F+E8↑j
+loc_4CB98D:                             ; CODE XREF: ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z+E8↑j
                 mov     esp, ebp
                 pop     ebp
                 retn    30h ; '0'
-sub_4CB85F      endp
+?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -58985,540 +58969,6 @@ sub_4CB85F      endp
 ; Attributes: bp-based frame
 
 ; int __stdcall ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z(double, double, double, double)
-?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+68E↓p
-
-var_F4          = qword ptr -0F4h
-var_E8          = qword ptr -0E8h
-var_E0          = qword ptr -0E0h
-var_D8          = dword ptr -0D8h
-var_D4          = dword ptr -0D4h
-var_D0          = dword ptr -0D0h
-var_CC          = qword ptr -0CCh
-var_C4          = qword ptr -0C4h
-var_BC          = qword ptr -0BCh
-var_B4          = qword ptr -0B4h
-var_AC          = dword ptr -0ACh
-var_A8          = dword ptr -0A8h
-var_A4          = dword ptr -0A4h
-var_A0          = dword ptr -0A0h
-var_9C          = dword ptr -9Ch
-var_98          = dword ptr -98h
-var_94          = dword ptr -94h
-var_90          = dword ptr -90h
-var_8C          = qword ptr -8Ch
-var_84          = byte ptr -84h
-var_70          = qword ptr -70h
-var_68          = byte ptr -68h
-var_54          = qword ptr -54h
-var_4C          = qword ptr -4Ch
-var_44          = dword ptr -44h
-var_40          = qword ptr -40h
-var_38          = dword ptr -38h
-var_34          = qword ptr -34h
-var_2C          = qword ptr -2Ch
-var_24          = qword ptr -24h
-var__x           = qword ptr -1Ch
-var_14          = qword ptr -14h
-var_C           = dword ptr -0Ch
-var_4           = dword ptr -4
-arg_0           = qword ptr  8
-arg_8           = qword ptr  10h
-arg_10          = qword ptr  18h
-arg_18          = qword ptr  20h
-
-; FUNCTION CHUNK AT 005FEA7C SIZE 0000001F BYTES
-
-; __unwind { // SEH_4CB993
-                push    ebp
-                mov     ebp, esp
-                push    0FFFFFFFFh
-                push    offset SEH_4CB993
-                mov     eax, fs:0
-                push    eax
-                mov     fs:0, esp
-                sub     esp, 0DCh
-                push    esi
-                mov     [ebp+var_D0], ecx
-                mov     eax, dword ptr [ebp+var_D0]
-                fld     qword ptr [eax+60h]
-                fmul    qword ptr [dbl_60DA98]
-                fstp    [ebp+var_2C]
-                fld     [ebp+arg_10]
-                fsub    [ebp+arg_0]
-                fstp    [ebp+var_70]
-                fld     [ebp+arg_18]
-                fsub    [ebp+arg_8]
-                fstp    [ebp+var_8C]
-                mov     dword ptr [ebp+var_24], 0
-                mov     dword ptr [ebp+var_24+4], 0
-                mov     dword ptr [ebp+var_34], 0
-                mov     dword ptr [ebp+var_34+4], 0
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD020
-;   try {
-                mov     [ebp+var_4], 0
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD020
-;   } // starts at 4CBA03
-;   try {
-                mov     byte ptr [ebp+var_4], 1
-                mov     ecx, dword ptr [ebp+var_D0]
-                call    ?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ
-                mov     ecx, dword ptr [ebp+var_D0]
-                fld     qword ptr [ecx+60h]
-                fmul    qword ptr [dbl_60DAA0]
-                mov     edx, dword ptr [ebp+var_D0]
-                fstp    qword ptr [edx+58h]
-                call    _rand
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_4CBA58
-                mov     dword ptr [ebp+var_14], 0
-                mov     dword ptr [ebp+var_14+4], 3FF00000h
-                jmp     short loc_4CBA66
-; ---------------------------------------------------------------------------
-
-loc_4CBA58:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+B3↑j
-                mov     dword ptr [ebp+var_14], 0
-                mov     dword ptr [ebp+var_14+4], 0BFF00000h
-
-loc_4CBA66:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+C3↑j
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_46F3D0
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_46F3D0
-                mov     [ebp+var_94], 0
-                mov     [ebp+var_90], 0
-                lea     eax, [ebp+var_94]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD0D0
-                mov     [ebp+var_9C], 0
-                mov     [ebp+var_98], 0
-                lea     ecx, [ebp+var_9C]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD0D0
-
-loc_4CBAE0:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+255↓j
-                call    _rand
-                cdq
-                mov     ecx, 7
-                idiv    ecx
-                mov     [ebp+var_D4], edx
-                fild    [ebp+var_D4]
-                fmul    [ebp+var_14]
-                fstp    [ebp+var__x]
-                call    _rand
-                cdq
-                mov     ecx, 32h ; '2'
-                idiv    ecx
-                mov     [ebp+var_D8], edx
-                fild    [ebp+var_D8]
-                fmul    qword ptr [dbl_60DAA8]
-                fstp    [ebp+var_54]
-                mov     edx, dword ptr [ebp+var__x+4]
-                push    edx
-                mov     eax, dword ptr [ebp+var__x]
-                push    eax             ; X
-                call    _fabs
-                add     esp, 8
-                fcomp   qword ptr [dbl_60DAB0]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     loc_4CBBDA
-                fld     [ebp+var_54]
-                fcomp   qword ptr [dbl_60DA98]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     loc_4CBBDA
-                fld     [ebp+var_34]
-                fadd    [ebp+var__x]
-                fstp    [ebp+var_34]
-                fld     [ebp+var_34]
-                fcomp   qword ptr [dbl_60DAB8]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     short loc_4CBB7D
-                mov     dword ptr [ebp+var_34], 0
-                mov     dword ptr [ebp+var_34+4], 40080000h
-
-loc_4CBB7D:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+1DA↑j
-                fld     [ebp+var_34]
-                fcomp   qword ptr [dbl_60DAC0]
-                fnstsw  ax
-                test    ah, 1
-                jz      short loc_4CBB9B
-                mov     dword ptr [ebp+var_34], 0
-                mov     dword ptr [ebp+var_34+4], 0C0080000h
-
-loc_4CBB9B:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+1F8↑j
-                lea     ecx, [ebp+var_34]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD0D0
-                fld     [ebp+var_24]
-                fadd    [ebp+var_54]
-                fstp    [ebp+var_24]
-                lea     edx, [ebp+var_24]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD0D0
-                fld     [ebp+var_14]
-                fmul    qword ptr [dbl_60DAC8]
-                fstp    [ebp+var_14]
-
-loc_4CBBDA:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+1A9↑j
-                fld     [ebp+var_24]
-                fcomp   qword ptr [dbl_60DAD0]
-                fnstsw  ax
-                test    ah, 1
-                jnz     loc_4CBAE0
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    unknown_libname_661 ; MFC 3.1-14.0 32bit
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD0B0
-                fcomp   qword ptr [dbl_60DAD8]
-                fnstsw  ax
-                test    ah, 1
-                jnz     short loc_4CBC68
-                push    1
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    unknown_libname_661 ; MFC 3.1-14.0 32bit
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD120
-                push    1
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    unknown_libname_661 ; MFC 3.1-14.0 32bit
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD120
-
-loc_4CBC68:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+289↑j
-                mov     [ebp+var_A4], 0
-                mov     [ebp+var_A0], 3FF00000h
-                lea     eax, [ebp+var_A4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD0D0
-                mov     [ebp+var_AC], 0
-                mov     [ebp+var_A8], 0
-                lea     ecx, [ebp+var_AC]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD0D0
-                lea     edx, [ebp+arg_0]
-                push    edx
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD0D0
-                lea     eax, [ebp+arg_8]
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD0D0
-                mov     [ebp+var_38], 0
-                push    1
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD100
-                fld     qword ptr [eax]
-                fmul    [ebp+var_70]
-                fadd    [ebp+arg_0]
-                fstp    [ebp+var_B4]
-                lea     ecx, [ebp+var_B4]
-                push    ecx
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD0D0
-                push    1
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD100
-                fld     qword ptr [eax]
-                fmul    [ebp+var_8C]
-                fadd    [ebp+arg_8]
-                fstp    [ebp+var_E0]
-                push    1
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD100
-                mov     edx, dword ptr [ebp+var_D0]
-                fld     qword ptr [eax]
-                fmul    qword ptr [edx+58h]
-                fadd    [ebp+var_E0]
-                fstp    [ebp+var_BC]
-                lea     eax, [ebp+var_BC]
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD0D0
-                mov     ecx, dword ptr [ebp+var_38]
-                add     ecx, 1
-                mov     [ebp+var_38], ecx
-                mov     [ebp+var_44], 2
-                jmp     short loc_4CBD8D
-; ---------------------------------------------------------------------------
-
-loc_4CBD84:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+534↓j
-                mov     edx, dword ptr [ebp+var_44]
-                add     edx, 1
-                mov     [ebp+var_44], edx
-
-loc_4CBD8D:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+3EF↑j
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    unknown_libname_660 ; Microsoft VisualC 2-14/net runtime
-                sub     eax, 1
-                cmp     [ebp+var_44], eax
-                jge     loc_4CBECC
-                mov     eax, dword ptr [ebp+var_44]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD100
-                fld     qword ptr [eax]
-                fmul    [ebp+var_70]
-                fadd    [ebp+arg_0]
-                fstp    [ebp+var_40]
-                mov     ecx, dword ptr [ebp+var_44]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0B8h
-                call    sub_4CD100
-                fld     qword ptr [eax]
-                fmul    [ebp+var_8C]
-                fadd    [ebp+arg_8]
-                fstp    [ebp+var_E8]
-                mov     edx, dword ptr [ebp+var_44]
-                push    edx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0CCh
-                call    sub_4CD100
-                mov     ecx, dword ptr [ebp+var_D0]
-                fld     qword ptr [eax]
-                fmul    qword ptr [ecx+58h]
-                fadd    [ebp+var_E8]
-                fstp    [ebp+var_4C]
-                mov     edx, dword ptr [ebp+var_38]
-                push    edx
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD100
-                mov     esi, eax
-                mov     eax, dword ptr [ebp+var_38]
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD100
-                fld     [ebp+var_40]
-                fsub    qword ptr [eax]
-                fdiv    qword ptr [dbl_60DAB0]
-                fadd    qword ptr [esi]
-                fstp    [ebp+var_C4]
-                lea     ecx, [ebp+var_C4]
-                push    ecx
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD0D0
-                mov     edx, dword ptr [ebp+var_38]
-                push    edx
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD100
-                mov     esi, eax
-                mov     eax, dword ptr [ebp+var_38]
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD100
-                fld     [ebp+var_4C]
-                fsub    qword ptr [eax]
-                fdiv    qword ptr [dbl_60DAB0]
-                fadd    qword ptr [esi]
-                fstp    [ebp+var_CC]
-                lea     ecx, [ebp+var_CC]
-                push    ecx
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD0D0
-                mov     edx, dword ptr [ebp+var_38]
-                add     edx, 1
-                mov     [ebp+var_38], edx
-                lea     eax, [ebp+var_40]
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD0D0
-                lea     ecx, [ebp+var_4C]
-                push    ecx
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD0D0
-                mov     edx, dword ptr [ebp+var_38]
-                add     edx, 1
-                mov     [ebp+var_38], edx
-                jmp     loc_4CBD84
-; ---------------------------------------------------------------------------
-
-loc_4CBECC:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+411↑j
-                lea     eax, [ebp+arg_10]
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD0D0
-                lea     ecx, [ebp+arg_18]
-                push    ecx
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD0D0
-                mov     [ebp+var_44], 2
-                jmp     short loc_4CBEF9
-; ---------------------------------------------------------------------------
-
-loc_4CBEF0:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+609↓j
-                mov     edx, dword ptr [ebp+var_44]
-                add     edx, 2
-                mov     [ebp+var_44], edx
-
-loc_4CBEF9:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+55B↑j
-                lea     ecx, [ebp+var_68]
-                call    unknown_libname_660 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_44], eax
-                jge     loc_4CBFA1
-                mov     eax, dword ptr [ebp+var_44]
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+var_44]
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+var_44]
-                sub     eax, 1
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+var_44]
-                sub     eax, 1
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+var_44]
-                sub     eax, 2
-                push    eax
-                lea     ecx, [ebp+var_84]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+var_44]
-                sub     eax, 2
-                push    eax
-                lea     ecx, [ebp+var_68]
-                call    sub_4CD100
-                mov     ecx, dword ptr [eax+4]
-                push    ecx
-                mov     edx, dword ptr [eax]
-                push    edx             ; double
-                mov     ecx, dword ptr [ebp+var_D0]
-                call    sub_4CB85F
-                jmp     loc_4CBEF0
-; ---------------------------------------------------------------------------
-
-loc_4CBFA1:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+571↑j
-                mov     [ebp+var_44], 0
-                jmp     short loc_4CBFB3
-; ---------------------------------------------------------------------------
-
-loc_4CBFAA:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z:loc_4CC028↓j
-                mov     eax, dword ptr [ebp+var_44]
-                add     eax, 1
-                mov     [ebp+var_44], eax
-
-loc_4CBFB3:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+615↑j
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 90h
-                call    unknown_libname_660 ; Microsoft VisualC 2-14/net runtime
-                cmp     [ebp+var_44], eax
-                jge     short loc_4CC02A
-                mov     ecx, dword ptr [ebp+var_44]
-                push    ecx
-                mov     ecx, dword ptr [ebp+var_D0]
-                add     ecx, 0A4h
-                call    sub_4CD100
-                fld     qword ptr [eax]
-                fsub    [ebp+arg_8]
-                sub     esp, 8
-                fstp    [esp+0F4h+var_F4] ; X
-                call    _fabs
-                add     esp, 8
-                fcomp   [ebp+var_2C]
-                fnstsw  ax
-                test    ah, 41h
-                jnz     short loc_4CC028
-                mov     edx, dword ptr [ebp+arg_18+4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_18]
-                push    eax             ; double
-                mov     ecx, dword ptr [ebp+arg_10+4]
-                push    ecx
-                mov     edx, dword ptr [ebp+arg_10]
-                push    edx             ; double
-                mov     eax, dword ptr [ebp+arg_8+4]
-                push    eax
-                mov     ecx, dword ptr [ebp+arg_8]
-                push    ecx             ; double
-                mov     edx, dword ptr [ebp+arg_0+4]
-                push    edx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax             ; double
-                mov     ecx, dword ptr [ebp+var_D0]
-                call    ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z
-                jmp     short loc_4CC02A
-; ---------------------------------------------------------------------------
-
-loc_4CC028:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+666↑j
-                jmp     short loc_4CBFAA
-;   } // starts at 4CBA15
-; ---------------------------------------------------------------------------
-
-loc_4CC02A:                             ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+634↑j
-;   try {
-                mov     byte ptr [ebp+var_4], 0
-                lea     ecx, [ebp+var_84] ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-;   } // starts at 4CC02A
-                mov     [ebp+var_4], 0FFFFFFFFh
-                lea     ecx, [ebp+var_68] ; varThis
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                mov     ecx, dword ptr [ebp+var_C]
-                mov     fs:0, ecx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    20h ; ' '
-; } // starts at 4CB993
-?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -59534,30 +58984,6 @@ loc_4CC02A:                             ; CODE XREF: ?FUN_004CB993@TransientVisu
 
 ; Attributes: bp-based frame
 
-sub_4CCFF0      proc near               ; CODE XREF: .text:004CB77A↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+var_8]
-                mov     ecx, dword ptr [eax+8]
-                mov     [ebp+var_4], ecx
-                mov     edx, dword ptr [ebp+arg_0]
-                push    edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                call    sub_4CD2C0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4CCFF0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59566,31 +58992,6 @@ sub_4CCFF0      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD020      proc near               ; CODE XREF: ??0TransientVisualEffectBuilder@@QAE@XZ+8E↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CObject@@IAE@XZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60DB10
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+4], 0
-                mov     edx, dword ptr [ebp+var_4]
-                mov     dword ptr [edx+10h], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0Ch], 0
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+8], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-sub_4CD020      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59601,20 +59002,6 @@ sub_4CD020      endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_660 proc near           ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+406↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+8]
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_660 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59624,21 +59011,6 @@ unknown_libname_660 endp
 ; MFC 3.1-14.0 32bit
 ; Attributes: library function bp-based frame
 
-unknown_libname_661 proc near           ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+267↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+8]
-                sub     eax, 1
-                mov     esp, ebp
-                pop     ebp
-                retn
-unknown_libname_661 endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59647,23 +59019,6 @@ unknown_libname_661 endp
 
 ; Attributes: bp-based frame
 
-sub_4CD0B0      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+279↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                mov     edx, dword ptr [ebp+arg_0]
-                fld     qword ptr [ecx+edx*8]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4CD0B0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59672,7 +59027,7 @@ sub_4CD0B0      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD0D0      proc near               ; CODE XREF: sub_4CB85F+109↑p
+sub_4CD0D0      proc near               ; CODE XREF: ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z+109↑p
 
 var_8           = dword ptr -8
 var_4           = dword ptr -4
@@ -59704,23 +59059,6 @@ sub_4CD0D0      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD100      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+35D↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_4CD310
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4CD100      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59729,60 +59067,6 @@ sub_4CD100      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD120      proc near               ; CODE XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+2AB↑p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, [ebp+arg_4]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+8]
-                sub     edx, eax
-                mov     [ebp+var_4], edx
-                mov     eax, dword ptr [ebp+arg_4]
-                push    eax
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+4]
-                mov     eax, dword ptr [ebp+arg_0]
-                lea     ecx, [edx+eax*8]
-                push    ecx
-                call    sub_46FAE0
-                cmp     [ebp+var_4], 0
-                jz      short loc_4CD182
-                mov     edx, dword ptr [ebp+var_4]
-                shl     edx, 3
-                push    edx             ; varSize
-                mov     eax, dword ptr [ebp+arg_0]
-                add     eax, [ebp+arg_4]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+4]
-                lea     eax, [edx+eax*8]
-                push    eax             ; Src
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+4]
-                mov     eax, dword ptr [ebp+arg_0]
-                lea     ecx, [edx+eax*8]
-                push    ecx             ; void *
-                call    _memcpy
-                add     esp, 0Ch
-
-loc_4CD182:                             ; CODE XREF: sub_4CD120+34↑j
-                mov     edx, dword ptr [ebp+var_8]
-                mov     eax, dword ptr [edx+8]
-                sub     eax, [ebp+arg_4]
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     [ecx+8], eax
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_4CD120      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59945,42 +59229,6 @@ sub_4CD290      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD2C0      proc near               ; CODE XREF: sub_4CCFF0+1D↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-arg_4           = dword ptr  0Ch
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                push    esi
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [ebp+arg_0]
-                cmp     ecx, [eax+8]
-                jl      short loc_4CD2E4
-                push    0FFFFFFFFh
-                mov     edx, dword ptr [ebp+arg_0]
-                add     edx, 1
-                push    edx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    sub_421D20
-
-loc_4CD2E4:                             ; CODE XREF: sub_4CD2C0+11↑j
-                mov     eax, dword ptr [ebp+arg_4]
-                mov     ecx, dword ptr [eax]
-                mov     edx, dword ptr [eax+4]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     eax, dword ptr [eax+4]
-                mov     esi, [ebp+arg_0]
-                mov     [eax+esi*8], ecx
-                mov     [eax+esi*8+4], edx
-                pop     esi
-                mov     esp, ebp
-                pop     ebp
-                retn    8
-sub_4CD2C0      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -59989,23 +59237,6 @@ sub_4CD2C0      endp
 
 ; Attributes: bp-based frame
 
-sub_4CD310      proc near               ; CODE XREF: sub_4CD100+E↑p
-
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, dword ptr [ebp+var_4]
-                mov     ecx, dword ptr [eax+4]
-                mov     edx, dword ptr [ebp+arg_0]
-                lea     eax, [ecx+edx*8]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-sub_4CD310      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -236126,30 +235357,6 @@ SEH_4C97A0:                             ; DATA XREF: CWinThread::~CWinThread(voi
                 jmp     ___CxxFrameHandler
 ; } // starts at 5FE960
 ; END OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
-; START OF FUNCTION CHUNK FOR ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z
-
-loc_5FEA7C:                             ; DATA XREF: .rdata:stru_61FD68↓o
-; __unwind { // SEH_4CB993              ; varThis
-;   cleanup() // owned by 4CBA03
-;   cleanup() // owned by 4CC02A
-                lea     ecx, [ebp+var_68]
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-loc_5FEA85:                             ; DATA XREF: .rdata:0061FD70↓o
-;   cleanup() // owned by 4CBA15        ; varThis
-                lea     ecx, [ebp+var_84]
-                call    ??1CWinThread@@UAE@XZ_30 ; CWinThread::~CWinThread(void)
-                retn
-; ---------------------------------------------------------------------------
-
-SEH_4CB993:                             ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+5↑o
-                mov     eax, offset stru_61FD48
-                jmp     ___CxxFrameHandler
-; } // starts at 5FEA7C
-; END OF FUNCTION CHUNK FOR ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z
-; ---------------------------------------------------------------------------
                 align 10h
 ; START OF FUNCTION CHUNK FOR CWinThread::~CWinThread(void)
 
@@ -250360,7 +249567,7 @@ off_60D9E8      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DA
                 align 10h
 dbl_60DA80      dq 3.141592653589793    ; DATA XREF: ?FUN_004CD4B0@@YANH@Z+6↑r
 dbl_60DA88      dq 0.2                  ; DATA XREF: .text:004CB45A↑r
-dbl_60DA90      dq 6.0                  ; DATA XREF: sub_4CB85F+123↑r
+dbl_60DA90      dq 6.0                  ; DATA XREF: ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z+123↑r
 dbl_60DA98      dq 0.15                 ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+2E↑r
 dbl_60DAA0      dq 0.03                 ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+9A↑r
 dbl_60DAA8      dq 0.01                 ; DATA XREF: ?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z+185↑r
@@ -262420,13 +261627,6 @@ stru_61FC38     FuncInfoV1 <19930520h, 1, offset stru_61FC58, 0, 0, 0, 0>
                 db    0
 stru_61FC58     UnwindMapEntry <-1, offset loc_5FE960>
                 align 10h
-stru_61FD48     FuncInfoV1 <19930520h, 2, offset stru_61FD68, 0, 0, 0, 0>
-                db    0
-                db    0
-                db    0
-                db    0
-stru_61FD68     UnwindMapEntry <-1, offset loc_5FEA7C>
-                UnwindMapEntry <0, offset loc_5FEA85>
 stru_61FD78     FuncInfoV1 <19930520h, 1, offset stru_61FD98, 0, 0, 0, 0>
                 db    0
                 db    0

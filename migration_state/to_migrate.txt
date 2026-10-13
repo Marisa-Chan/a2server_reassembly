@@ -68,4 +68,4 @@ _byte_659A3C
 ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSprite@StructureInfo@@QAEPAVCSprite256@@XZ	20
 ?GetSpriteB@StructureInfo@@QAEPAVCSprite256@@XZ	20
-?FUN_004CB993@TransientVisualEffectBuilder@@QAEXNNNN@Z	533
+?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z	131
