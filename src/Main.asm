@@ -26738,19 +26738,6 @@ sub_45DB30      endp
 ; Attributes: bp-based frame
 
 ; sCRuntimeClass *?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ()
-?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ      proc near               ; DATA XREF: .rdata:off_60B6F0↓o
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     eax, offset classCProjectile
-                mov     esp, ebp
-                pop     ebp
-                retn
-?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ      endp
 
 
 
@@ -250007,8 +249994,6 @@ dbl_60B338      dq 0.5                  ; DATA XREF: sub_45E643+15C↑r
 
 
 
-classCProjectile sCRuntimeClass <offset aCprojectile_0, 344, 0FFFFh, 0, \
-                                offset ?classCGameObject@CGameObject@@2UCRuntimeClass@@B, 0> ; "CProjectile"
 dbl_60B460      dq 32.0                 ; DATA XREF: ?VMethod7@CStructure@@UAEXHHH@Z+1E4↑r
 dbl_60B468      dq 0.0                  ; DATA XREF: ?VMethod11@CUnit@@UAEHXZ+264↑r
 
@@ -268305,8 +268290,6 @@ aCstructure_2   db 'CStructure',0       ; DATA XREF: .rdata:?classCStructure@CSt
 aCunit_2        db 'CUnit',0            ; DATA XREF: .rdata:?classCUnit@CUnit@@2UCRuntimeClass@@B↑o
                 align 4
 aCairunit_2     db 'CAirUnit',0         ; DATA XREF: .rdata:?classCAirUnit@CAirUnit@@2UCRuntimeClass@@B↑o
-                align 10h
-aCprojectile_0  db 'CProjectile',0      ; DATA XREF: .rdata:classCProjectile↑o
 
 ; char aShitInvalidGam[]
 aShitInvalidGam db 'Shit! Invalid GameObject #%d coordinates X:%d Y:%d player:%d pict'

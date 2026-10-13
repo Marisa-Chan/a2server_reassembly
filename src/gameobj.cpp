@@ -30,6 +30,9 @@ IMPLEMENT_DYNAMIC(CGameObject, CObject);
 //GetRuntimeClass 461070
 IMPLEMENT_DYNAMIC(CBackPack, CGameObject);
 
+//GetRuntimeClass 4610a0
+IMPLEMENT_DYNAMIC(CProjectile, CGameObject);
+
 //GetRuntimeClass 461080
 IMPLEMENT_DYNAMIC(CUnit, CGameObject);
 

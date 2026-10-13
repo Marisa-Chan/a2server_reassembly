@@ -527,6 +527,7 @@
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
 ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
+?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ
 ?GetShape@TokenEntry@@QBEHXZ
