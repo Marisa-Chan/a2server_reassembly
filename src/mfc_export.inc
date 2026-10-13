@@ -2043,14 +2043,6 @@ extern   ?VMethod29@CUnit@@UAEXXZ  : proc
 externdef   ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z  : proc
 externdef _byte_65F630 : byte  ; char[1024] CUnit::FUN_0046d0f7 spell-list hint buffer
 
-;CAirUnit
-externdef ??0CAirUnit@@QAE@XZ : proc
-extern ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ : proc
-extern ?VMethod10@CAirUnit@@UAEXXZ : proc
-externdef ??_GCAirUnit@@UAEPAXI@Z : proc
-externdef ??1CAirUnit@@UAE@XZ : proc
-extern ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z : proc
-
 
 ;CProjectile - fully migrated to C++ (no ASM references remain)
 

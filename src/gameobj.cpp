@@ -4808,3 +4808,14 @@ void CAirUnit::Dump(CDumpContext& dc) const
 {
     //dc << "CAirUnit";
 }
+
+// 46d6ad
+CAirUnit::CAirUnit()
+{
+    this->z_pos = 0x10;
+}
+
+// 46f010
+CAirUnit::~CAirUnit()
+{
+}

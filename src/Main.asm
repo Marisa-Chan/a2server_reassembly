@@ -26967,26 +26967,6 @@ sub_467845      endp
 
 ; Attributes: bp-based frame
 
-; int __thiscall ??0CAirUnit@@QAE@XZ(_DWORD)
-??0CAirUnit@@QAE@XZ      proc near               ; CODE XREF: ?ProcessPackets@BigStruct2@@QAEHE@Z+1C87↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??0CUnit@@QAE@XZ
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax], offset off_60B660
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     dword ptr [ecx+10h], 10h
-                mov     eax, dword ptr [ebp+var_4]
-                mov     esp, ebp
-                pop     ebp
-                retn
-??0CAirUnit@@QAE@XZ      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -26999,7 +26979,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-; int __stdcall ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z(CDumpContext *)
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -27061,31 +27040,6 @@ var_4           = dword ptr -4
 
 ; Attributes: bp-based frame
 
-??_GCAirUnit@@UAEPAXI@Z      proc near               ; DATA XREF: .rdata:0060B664↓o
-
-Block           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+Block], ecx
-                mov     ecx, dword ptr [ebp+Block]
-                call    ??1CAirUnit@@UAE@XZ
-                mov     eax, dword ptr [ebp+arg_0]
-                and     eax, 1
-                test    eax, eax
-                jz      short loc_46F002
-                mov     ecx, dword ptr [ebp+Block]
-                push    ecx             ; Block
-                call    ??3CObject@@SGXPAX@Z
-
-loc_46F002:                             ; CODE XREF: ??_GCAirUnit@@UAEPAXI@Z+17↑j
-                mov     eax, dword ptr [ebp+Block]
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-??_GCAirUnit@@UAEPAXI@Z      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -27094,20 +27048,6 @@ loc_46F002:                             ; CODE XREF: ??_GCAirUnit@@UAEPAXI@Z+17�
 
 ; Attributes: bp-based frame
 
-??1CAirUnit@@UAE@XZ      proc near               ; CODE XREF: ??_GCAirUnit@@UAEPAXI@Z+A↑p
-
-var_4           = dword ptr -4
-
-                push    ebp
-                mov     ebp, esp
-                push    ecx
-                mov     [ebp+var_4], ecx
-                mov     ecx, dword ptr [ebp+var_4]
-                call    ??1CUnit@@UAE@XZ
-                mov     esp, ebp
-                pop     ebp
-                retn
-??1CAirUnit@@UAE@XZ      endp
 
 ; ---------------------------------------------------------------------------
                 align 10h
@@ -249658,41 +249598,6 @@ dbl_60B468      dq 0.0                  ; DATA XREF: ?VMethod11@CUnit@@UAEHXZ+26
 
 
 
-off_60B660      dd offset ?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ    ; DATA XREF: ??0CAirUnit@@QAE@XZ+12↑o
-                dd offset ??_GCAirUnit@@UAEPAXI@Z
-                dd offset ?Serialize@CObject@@UAEXAAVCArchive@@@Z ; Microsoft VisualC 2-14/net runtime
-                dd offset ?AssertValid@CGameObject@@UBEXXZ
-                dd offset ?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z
-                dd offset ?VMethod1@CUnit@@UAEXH@Z
-                dd offset ?VMethod2@CUnit@@UAEHXZ
-                dd offset ?VMethod3@CUnit@@UAEHXZ
-                dd offset ?VMethod4@CUnit@@UAEHXZ
-                dd offset ?VMethod5@CUnit@@UAEHXZ
-                dd offset ?VMethod6@CUnit@@UAEXHHH@Z
-                dd offset ?VMethod7@CUnit@@UAEXHHH@Z
-                dd offset ?VMethod8@CUnit@@UAEXHHH@Z
-                dd offset ?VMethod9@CUnit@@UAEXHHH@Z
-                dd offset ?VMethod10@CAirUnit@@UAEXXZ
-                dd offset ?VMethod11@CUnit@@UAEHXZ
-                dd offset ?VMethod12@CGameObject@@UAEXXZ ; Microsoft VisualC 2-14/net runtime
-                dd offset ?VMethod13@CUnit@@UAEXXZ
-                dd offset ?VMethod14@CUnit@@UAEXXZ
-                dd offset ?VMethod15@CUnit@@UAEHXZ
-                dd offset ?VMethod16@CUnit@@UAEXXZ
-                dd offset ?VMethod17@CUnit@@UAEXFHHHHPAVMapPlayerData@@HHFF@Z
-                dd offset ?VMethod18@CUnit@@UAEXXZ
-                dd offset ?VMethod19@CUnit@@UAEXXZ
-                dd offset ?VMethod20@CUnit@@UAEXXZ
-                dd offset ?VMethod21@CUnit@@UAEXXZ
-                dd offset ?VMethod22@CUnit@@UAEXXZ
-                dd offset ?VMethod23@CUnit@@UAEXXZ
-                dd offset ?VMethod24@CUnit@@UAEXXZ
-                dd offset ?VMethod25@CUnit@@UAEXH@Z
-                dd offset ?VMethod26@CUnit@@UAEXXZ
-                dd offset ?VMethod27@CUnit@@UAEXXZ
-                dd offset ?VMethod28@CUnit@@UAEXXZ
-                dd offset ?VMethod29@CUnit@@UAEXXZ
-                dd offset ?VMethod30@CUnit@@UAEXPBDPAVCGameBitmap@@1@Z
                 align 10h
 off_60B748      dd offset ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ ; DATA XREF: sub_46F0B0+12↑o
                 dd offset sub_46F7F0
