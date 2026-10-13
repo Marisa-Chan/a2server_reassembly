@@ -53,7 +53,6 @@ _byte_659A3C
 ?DDV_MaxChars@@YGXPAVCDataExchange@@ABVCString@@H@Z	89
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
-?sub_41AC2D@BigStruct2@@QAEXH@Z	32
 ?FUN_0041da52@BigStruct2@@QAEPAVCGameBitmap@@H@Z	364
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?Play@CSound@@SAXAAU1@@Z	31

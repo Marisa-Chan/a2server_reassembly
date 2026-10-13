@@ -2229,39 +2229,6 @@ sub_417AF6      endp
 
 ; Attributes: bp-based frame
 
-?sub_41AC2D@BigStruct2@@QAEXH@Z      proc near               ; CODE XREF: .text:00486B87↓p
-
-var_8           = dword ptr -8
-var_4           = dword ptr -4
-arg_0           = dword ptr  8
-
-                push    ebp
-                mov     ebp, esp
-                sub     esp, 8
-                mov     [ebp+var_8], ecx
-                mov     [ebp+var_4], offset ?Inst@PacketInfo@@2V1@A
-                mov     eax, dword ptr [ebp+var_4]
-                mov     byte ptr [eax+9], 46h ; 'F'
-                mov     ecx, dword ptr [ebp+var_8]
-                mov     edx, dword ptr [ecx+9CCh]
-                mov     eax, dword ptr [ebp+var_4]
-                mov     cx, [edx+4]
-                mov     [eax+5], cx
-                mov     edx, dword ptr [ebp+var_4]
-                mov     word ptr [edx+7], 0
-                mov     eax, dword ptr [ebp+var_4]
-                mov     dword ptr [eax+0Ah], 80h
-                mov     ecx, dword ptr [ebp+var_4]
-                mov     edx, dword ptr [ebp+arg_0]
-                mov     [ecx+0Eh], edx
-                mov     eax, dword ptr [ebp+var_4]
-                push    eax
-                mov     ecx, offset ?g_NetStru1_local@@3VNetStru1@@A
-                call    ?QueuePacketSend@NetStru1@@QAEXPAVPacket@@@Z
-                mov     esp, ebp
-                pop     ebp
-                retn    4
-?sub_41AC2D@BigStruct2@@QAEXH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
