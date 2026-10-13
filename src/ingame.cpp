@@ -7333,6 +7333,70 @@ BigStruct2::~BigStruct2()
 	}
 }
 
+// 47fa75
+void sub_47FA75()
+{
+	g_mousept.Update();
+	for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
+		UnitVFXUnfo* vfx = g_VFX_info[i];
+		if (vfx != nullptr) {
+			for (int32_t j = 0; j < vfx->palette; j++) {
+				if (vfx->palettes[j] != nullptr) {
+					vfx->palettes[j]->Free();
+				}
+			}
+		}
+	}
+	g_mousept.Update();
+	for (int32_t i = 0; i < 16; i++) {
+		CGamePalette* pal = new CGamePalette();
+		pal->SetPalette(g_human_pals_data[i], 0x10, 2, 1);
+		if (g_Human_palettes[i] != nullptr) {
+			delete g_Human_palettes[i];
+		}
+		g_Human_palettes.SetAt(i, pal);
+		for (int32_t j = 0; j < 8; j++) {
+			uint16_t clr = pal->GetPalette(15 - j)[0xa4];
+			g_colors_human_pals[i][j * 2] = clr;
+			g_colors_human_pals[i][j * 2 + 1] = clr;
+		}
+	}
+	g_mousept.Update();
+	for (int32_t i = 0; i < 32; i++) {
+		if (g_ter_tiles(0, i) != nullptr) {
+			g_ter_tiles(0, i)->ResetPalette(0x60, 3, 1);
+			DAT_00661018[i] = &g_ter_tiles(0, i)->palette;
+		}
+	}
+	g_mousept.Update();
+	for (int32_t i = 0; i < g_GfxFiles.GetSize(); i++) {
+		GfxFile* gfx = g_GfxFiles[i];
+		if (gfx != nullptr && gfx->inited != 0) {
+			gfx->spr->palette.Free();
+			gfx->spr->ResetPalette(0x10, 2, 1);
+		}
+	}
+	g_mousept.Update();
+	for (int32_t i = 0; i < g_StructuresInfo.GetSize(); i++) {
+		StructureInfo* structure = g_StructuresInfo[i];
+		if (structure != nullptr && structure->inited != 0) {
+			structure->spr->palette.Free();
+			structure->spr->ResetPalette(0x10, 2, 1);
+		}
+	}
+	g_mousept.Update();
+	for (int32_t i = 0; i < g_ProjectileInfos.GetSize(); i++) {
+		ProjectileInfo* projectile = g_ProjectileInfos[i];
+		if (projectile != nullptr && projectile->inited != 0 && projectile->palette != 0 && projectile->a16 == 0) {
+			projectile->sprite1->palette.Free();
+			projectile->sprite1->ResetPalette(0x10, 2, 1);
+		}
+	}
+	g_mousept.Update();
+	g_spr_backpack->palette.Free();
+	g_spr_backpack->ResetPalette(0x10, 2, 1);
+}
+
 void LoadVfxData()
 { //47b24e
 
