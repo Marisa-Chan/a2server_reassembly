@@ -524,7 +524,6 @@
 ?GetPalette@CGamePalette@@QAEPAGH@Z
 ?GetRandS16@@YAHH@Z
 ?GetRect@CVisualObject@@QAEAAVCRect@@XZ
-?GetRuntimeClass@CAirUnit@@UBEPAUCRuntimeClass@@XZ
 ?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
 ?GetSelectedIndex@VisListBox@@QAEHXZ
 ?GetSelectState@CMousePointer@@QAEHXZ

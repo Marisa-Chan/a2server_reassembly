@@ -60,10 +60,6 @@ _byte_659A3C
 ?sub_514085@@YGXVCString@@HPAVCStringArray@@@Z	335
 ??0_AFX_THREAD_STATE@@QAE@XZ	6
 ?sub_41AC2D@BigStruct2@@QAEXH@Z	32
-??1CAirUnit@@UAE@XZ	13
-?Dump@CAirUnit@@UBEXAAVCDumpContext@@@Z	15
-??0CAirUnit@@QAE@XZ	18
-??_GCAirUnit@@UAEPAXI@Z	24
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?Play@CSound@@SAXAAU1@@Z	31
 ?LPCTSTR@CString@@QBEPBDXZ	13
