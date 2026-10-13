@@ -7397,6 +7397,77 @@ void sub_47FA75()
 	g_spr_backpack->ResetPalette(0x10, 2, 1);
 }
 
+// 477b59
+void __cdecl sub_477B59(uint32_t val)
+{
+	if ((g_DWORD_00659d18 & 2) != 0) {
+		if (val != 0) {
+			DAT_00665344 = new CBmp256("graphics\\terrain.3d\\dirt.bmp");
+		}
+		for (int32_t i = 0; i < 32; i++) {
+			if ((val & (1 << i)) == 0) {
+				for (int32_t j = 0; j < 4; j++) {
+					if (g_ter_tiles(j, i) != nullptr) {
+						delete g_ter_tiles(j, i);
+						g_ter_tiles(j, i) = nullptr;
+					}
+				}
+			} else {
+				for (int32_t j = 0; j < 4; j++) {
+					if (g_ter_tiles(j, i) != nullptr) {
+						delete g_ter_tiles(j, i);
+					}
+					int32_t tile_group = (i >> 2) + 1;
+					int32_t tile_num = j + (i & 3) * 4;
+					char name[256];
+					if (tile_num < 10) {
+						sprintf(name, "graphics\\terrain.3d\\tile%d-0%d.bmp", tile_group, tile_num);
+					} else {
+						sprintf(name, "graphics\\terrain.3d\\tile%d-%d.bmp", tile_group, tile_num);
+					}
+					g_ter_tiles(j, i) = new CBmp256(name);
+					g_mousept.Update();
+				}
+			}
+		}
+	}
+	if (val != 0) {
+		DAT_00665344 = new CBmp256("graphics\\terrain\\dirt.bmp");
+	}
+	for (int32_t i = 0; i < 32; i++) {
+		if ((val & (1 << i)) == 0) {
+			for (int32_t j = 0; j < 4; j++) {
+				if (g_ter_tiles(j, i) != nullptr) {
+					delete g_ter_tiles(j, i);
+					g_ter_tiles(j, i) = nullptr;
+				}
+			}
+		} else {
+			for (int32_t j = 0; j < 4; j++) {
+				if (g_ter_tiles(j, i) != nullptr) {
+					delete g_ter_tiles(j, i);
+				}
+				int32_t tile_group = (i >> 2) + 1;
+				int32_t tile_num = j + (i & 3) * 4;
+				char name[256];
+				if (tile_num < 10) {
+					sprintf(name, "graphics\\terrain\\tile%d-0%d.bmp", tile_group, tile_num);
+				} else {
+					sprintf(name, "graphics\\terrain\\tile%d-%d.bmp", tile_group, tile_num);
+				}
+				g_ter_tiles(j, i) = new CBmp256(name);
+				g_mousept.Update();
+			}
+		}
+	}
+	for (int32_t i = 0; i < 32; i++) {
+		if (g_ter_tiles(0, i) != nullptr) {
+			g_ter_tiles(0, i)->ResetPalette(0x60, 3, 1);
+			DAT_00661018[i] = &g_ter_tiles(0, i)->palette;
+		}
+	}
+}
+
 void LoadVfxData()
 { //47b24e
 
