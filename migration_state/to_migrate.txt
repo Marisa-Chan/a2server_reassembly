@@ -66,7 +66,6 @@ _byte_659A3C
 ??_GCAirUnit@@UAEPAXI@Z	24
 ?FUN_004ac839@CFameHall@@QAEXPAVCFile@@@Z	110
 ?GetRuntimeClass@CProjectile@@UBEPAUCRuntimeClass@@XZ	12
-?VMethod4@CProjectile@@UAEHXZ	12
 ?VMethod5@CProjectile@@UAEHXZ	12
 ??_GCProjectile@@UAEPAXI@Z	24
 ??1CProjectile@@UAE@XZ	33
