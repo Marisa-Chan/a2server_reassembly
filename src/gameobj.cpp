@@ -4384,3 +4384,190 @@ CBackPack::~CBackPack()
 CBackPack::CBackPack()
 {
 }
+
+// 46d8d8
+int32_t CProjectile::VMethod11()
+{
+    BigStruct2* map = this->pMapObject;
+
+    CRect rect((this->screenX - 0x40) & 0xffffffe0,
+               this->screenY - this->terrainHeightOffset - 0x40,
+               ((this->screenX + 0x40) & 0xffffffe0) + 0x20,
+               this->screenY - this->terrainHeightOffset + 0x40);
+    map->field_0xf4 |= rect;
+
+    if (this->action_segments == 0) {
+        if (this->typeId == 13) {
+            map->field_0x74 = 1;
+        }
+        return 0;
+    }
+
+    int32_t old_x = this->x_pos;
+    int32_t old_y = this->y_pos;
+
+    CGameObject* target = nullptr;
+
+    ProjectileInfo* info = nullptr;
+    if (g_ProjectileInfos.GetSize() > this->typeId && g_ProjectileInfos[this->typeId] != nullptr) {
+        info = g_ProjectileInfos[this->typeId];
+    }
+
+    if (this->action == 1) {
+        if (this->action_target != 0 && map->field_0x9d0.Lookup(this->action_target, target)) {
+            this->action_x = target->centerWorldX8;
+            this->action_y = target->centerWorldY8;
+            this->action_z = target->z_pos;
+            this->action_dir = (int8_t)this->FUN_00461f8e(this->action_x, this->action_y);
+        }
+
+        int32_t dx = (this->action_x - this->x_pos) / this->action_segments;
+        int32_t dy = (this->action_y - this->y_pos) / this->action_segments;
+        int32_t dz = (this->action_z - this->z_pos) / this->action_segments;
+        this->dir = this->action_dir;
+        this->action_phase += 1;
+
+        switch (this->typeId) {
+        case 13:
+            if (this->action_phase == 8) {
+                for (int32_t i = -1; i < 2; i++) {
+                    for (int32_t j = -1; j < 2; j++) {
+                        uint16_t* landscape = map->field_0x80->GetLandscape();
+                        int32_t idx = this->tileX + i + (this->tileY + j) * map->field_0x84;
+                        int32_t height = (landscape[idx] & 0x1fff) >> 6;
+                        uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
+                        if (height < 8 || height >= 12 || gfx_idx != 0) {
+                            landscape[idx] |= 0x2000;
+                        }
+                    }
+                }
+            } else if (this->action_phase == 4) {
+                for (int32_t i = -1; i < 2; i++) {
+                    for (int32_t j = -1; j < 2; j++) {
+                        uint16_t* landscape = map->field_0x80->GetLandscape();
+                        int32_t idx = this->tileX + i + (this->tileY + j) * map->field_0x84;
+                        if ((landscape[idx] & 0x2000) == 0) {
+                            uint16_t packed = (uint16_t)((this->tileX + i) | (this->tileY + j) << 8);
+                            uint8_t gfx_idx = map->field_0x80->FUN_0041eec0()[idx];
+                            if (gfx_idx != 0 && g_GfxObjects[gfx_idx - 1]->dead_object != -1) {
+                                map->field_0xa94.SetAt(packed, 0);
+                            }
+                            int32_t height = (landscape[idx] & 0x1fff) >> 6;
+                            if (height > 7 && height < 12) {
+                                map->field_0xa94.SetAt(packed, 0);
+                            }
+                        }
+                    }
+                }
+            }
+            this->phase = (this->action_phase / 2) % info->phases;
+            break;
+        case 16:
+        case 20:
+        case 24:
+        case 34:
+        case 44:
+        case 46:
+        case 48:
+        case 50:
+        case 62:
+        case 64:
+        case 66:
+            if (target != nullptr) {
+                this->x_pos = this->action_x;
+                this->y_pos = this->action_y;
+                this->phase = this->action_phase;
+                target->field_0x130.Add(this->typeId << 0x10 | 0xffff);
+            }
+            break;
+        case 23:
+            this->x_pos += dx;
+            this->y_pos += dy;
+            this->z_pos += dz;
+            this->dir = this->action_dir;
+            this->phase = this->action_phase;
+            if (this->action_phase == 8) {
+                SfxSample* sample = g_SfxArray.GetAt(0x20b);
+                int32_t vol = 0;
+                int32_t pan = 0;
+                map->FUN_0041b7b7(this->x_pos, this->y_pos, &vol, &pan);
+                int32_t priority = (10000 - std::abs(vol)) / 100;
+                if (sample != nullptr) {
+                    sample->Play(vol + g_SoundSettings.sfx_pos, pan, 0, (uint8_t)priority, 0);
+                }
+            }
+            break;
+        case 28:
+        case 30:
+            switch (this->action_phase) {
+            case 1:
+            case 13:
+                this->phase = 4;
+                break;
+            case 2:
+            case 12:
+                this->phase = 3;
+                break;
+            case 3:
+            case 7:
+            case 11:
+                this->phase = 2;
+                break;
+            case 4:
+            case 6:
+            case 8:
+            case 10:
+                this->phase = 1;
+                break;
+            case 5:
+            case 9:
+                this->phase = 0;
+                break;
+            }
+            break;
+        case 54:
+            this->phase = this->action_phase - 1;
+            break;
+        case 56:
+        case 60:
+            if (target != nullptr) {
+                this->x_pos = this->action_x;
+                this->y_pos = this->action_y;
+                this->phase = this->action_phase;
+                int32_t idx = target->FUN_00462405(this->typeId);
+                if (idx < 0) {
+                    target->field_0x130.Add(this->typeId << 0x10 | 0x20);
+                } else {
+                    target->field_0x130.ElementAt(idx) = this->typeId << 0x10 | 0x20;
+                }
+            }
+            break;
+        default:
+            this->x_pos += dx;
+            this->y_pos += dy;
+            this->z_pos += dz;
+            this->dir = this->action_dir;
+            if (info == nullptr) {
+                this->phase = 0;
+            } else {
+                this->phase = (this->action_phase / 2) % info->phases;
+            }
+            break;
+        }
+
+        if (this->typeId == 10 || this->typeId == 12) {
+            if (this->field_0x144.GetSize() > 5) {
+                this->field_0x144.RemoveAt(0, 1);
+            }
+            this->field_0x144.Add(old_x | old_y << 0x10);
+        }
+
+        this->VMethod16();
+    }
+
+    this->last_action = (int8_t)this->action;
+    this->action_segments -= 1;
+    this->x_pos2 = this->x_pos;
+    this->y_pos2 = this->y_pos;
+    return 1;
+}
