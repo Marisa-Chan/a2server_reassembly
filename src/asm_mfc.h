@@ -3228,6 +3228,8 @@ void AFXAPI AfxSetResourceHandle(HINSTANCE hInstResource);
 LPCTSTR AFXAPI AfxGetAppName();
 COleMessageFilter* AFXAPI AfxOleGetMessageFilter();
 CWnd* AFXAPI AfxGetMainWnd();
+BOOL AFXAPI AfxWinInit(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow); // 5f658e
+void AFXAPI AfxWinTerm(); // 5f6e92
 
 int AfxMessageBox(LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0);
 

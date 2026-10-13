@@ -94,6 +94,8 @@ public ??0AFX_EXCEPTION_LINK@@QAE@XZ  ;AFX_EXCEPTION_LINK::AFX_EXCEPTION_LINK
 public ?AfxTryCleanup@@YGXXZ ; AfxTryCleanup
 public ?AfxGetModuleState@@YGPAVAFX_MODULE_STATE@@XZ
 public ?AfxGetThread@@YGPAVCWinThread@@XZ
+public ?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z  ; BOOL AfxWinInit(HINSTANCE, HINSTANCE, LPTSTR, int); 005F658E
+public ?AfxWinTerm@@YGXXZ  ; void AfxWinTerm(); 005F6E92
 
 extern ?AfxLoadString@@YGHIPADI@Z:proc   ; AfxLoadString
 

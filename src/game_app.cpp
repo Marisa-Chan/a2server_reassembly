@@ -1130,3 +1130,33 @@ void LogWarning(const CString& msg)
 	else
 		LogMessage(str);
 }
+
+// 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
+extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd)
+{
+	int32_t exitCode = -1;
+
+	CWinApp* pApp = AfxGetModuleState()->m_pCurrentWinApp;
+
+	if (AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nShowCmd))
+	{
+		if (pApp->InitApplication())
+		{
+			if (pApp->InitInstance())
+			{
+				exitCode = pApp->Run();
+			}
+			else
+			{
+				if (pApp->m_pMainWnd != nullptr)
+				{
+					pApp->m_pMainWnd->DestroyWindow();
+				}
+				exitCode = pApp->ExitInstance();
+			}
+		}
+	}
+
+	AfxWinTerm();
+	return exitCode;
+}

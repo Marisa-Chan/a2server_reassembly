@@ -154794,20 +154794,6 @@ loc_5D9D1D:                             ; CODE XREF: streambuf::sgetc(void)+8↑
 ; Attributes: library function
 
 ; int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
-_a2WinMain@16     proc near               ; CODE XREF: start+14D↑p
-
-hInstance       = dword ptr  4
-hPrevInstance   = dword ptr  8
-lpCmdLine       = dword ptr  0Ch
-nShowCmd        = dword ptr  10h
-
-                push    [esp+nShowCmd]
-                push    [esp+4+lpCmdLine]
-                push    [esp+8+hPrevInstance]
-                push    [esp+0Ch+hInstance]
-                call    sub_5E64BD
-                retn    10h
-_a2WinMain@16     endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -183158,62 +183144,6 @@ loc_5E64B8:                             ; CODE XREF: AbbreviateName(char *,int,i
 ; =============== S U B R O U T I N E =======================================
 
 
-sub_5E64BD      proc near               ; CODE XREF: WinMain(x,x,x,x)+10↑p
-
-arg_0           = dword ptr  4
-arg_4           = dword ptr  8
-arg_8           = dword ptr  0Ch
-arg_C           = dword ptr  10h
-
-                push    ebx
-                push    esi
-                push    edi
-                or      ebx, 0FFFFFFFFh
-                call    ?AfxGetModuleState@@YGPAVAFX_MODULE_STATE@@XZ ; AfxGetModuleState(void)
-                push    [esp+0Ch+arg_C]
-                mov     edi, [eax+4]
-                push    [esp+10h+arg_8]
-                push    [esp+14h+arg_4]
-                push    [esp+18h+arg_0]
-                call    sub_5F658E      ; ?AfxWinInit@@YGHPAUHINSTANCE__@@0PAGH@Z
-                test    eax, eax
-                jz      short loc_5E6515
-                mov     esi, [edi]
-                mov     ecx, edi
-                call    dword ptr [esi+8Ch]
-                test    eax, eax
-                jz      short loc_5E6515
-                mov     ecx, edi
-                call    dword ptr [esi+58h]
-                test    eax, eax
-                jnz     short loc_5E650E
-                mov     ecx, dword ptr [edi+1Ch]
-                test    ecx, ecx
-                jz      short loc_5E6507
-                mov     eax, dword ptr [ecx]
-                call    dword ptr [eax+60h]
-
-loc_5E6507:                             ; CODE XREF: sub_5E64BD+43↑j
-                mov     ecx, edi
-                call    dword ptr [esi+70h]
-                jmp     short loc_5E6513
-; ---------------------------------------------------------------------------
-
-loc_5E650E:                             ; CODE XREF: sub_5E64BD+3C↑j
-                mov     ecx, edi
-                call    dword ptr [esi+5Ch]
-
-loc_5E6513:                             ; CODE XREF: sub_5E64BD+4F↑j
-                mov     ebx, eax
-
-loc_5E6515:                             ; CODE XREF: sub_5E64BD+25↑j
-                call    ?AfxWinTerm@@YGXXZ ; AfxWinTerm(void)
-                pop     edi
-                mov     eax, ebx
-                pop     esi
-                pop     ebx
-                retn    10h
-sub_5E64BD      endp
 
 
 ; =============== S U B R O U T I N E =======================================
@@ -221964,7 +221894,7 @@ loc_5F6546:                             ; CODE XREF: AUX_DATA::AUX_DATA(void)+3F
 ; doubtful name
 ; Attributes: library function
 
-sub_5F658E      proc near               ; CODE XREF: sub_5E64BD+1E↑p
+?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z      proc near               ; CODE XREF: sub_5E64BD+1E↑p
 
 arg_0           = dword ptr  4
 arg_4           = dword ptr  8
@@ -221996,18 +221926,18 @@ arg_C           = dword ptr  10h
                 mov     ecx, eax        ; varThis
                 call    ?SetCurrentHandles@CWinApp@@QAEXXZ ; CWinApp::SetCurrentHandles(void)
 
-loc_5F65DA:                             ; CODE XREF: sub_5F658E+2B↑j
+loc_5F65DA:                             ; CODE XREF: ?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z+2B↑j
                 call    ?AfxGetModuleState@@YGPAVAFX_MODULE_STATE@@XZ ; AfxGetModuleState(void)
                 cmp     byte ptr [eax+14h], 0
                 jnz     short loc_5F65EA
                 call    ?AfxInitThread@@YGXXZ ; AfxInitThread(void)
 
-loc_5F65EA:                             ; CODE XREF: sub_5F658E+55↑j
+loc_5F65EA:                             ; CODE XREF: ?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z+55↑j
                 push    1
                 pop     eax
                 pop     esi
                 retn    10h
-sub_5F658E      endp
+?AfxWinInit@@YGHPAUHINSTANCE__@@0PADH@Z      endp
 
 
 ; =============== S U B R O U T I N E =======================================
