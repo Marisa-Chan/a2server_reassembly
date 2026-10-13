@@ -6525,6 +6525,65 @@ int32_t BigStruct2::OnRButtonUp(uint32_t wparam, CPoint pos)
 	return 1;
 }
 
+// 41da52
+CGameBitmap* BigStruct2::FUN_0041da52(int32_t serv_id)
+{
+	// 630e28: portrait top-left inside the 0xa0*0xf0 infowindow picture, indexed by typeId - 0x40
+	static const POINT projectile_portrait_pos[39] = {
+		{ 0x1e, 0x48 }, { 0x1a, 0x17 }, { 0x0a, 0x2c }, { -1, -1 },     { 0x0f, 0x15 },
+		{ 0x20, 0x15 }, { -1, -1 },     { 0x07, 0x31 }, { -1, -1 },     { -1, -1 },
+		{ 0x08, 0x48 }, { -1, -1 },     { -1, -1 },     { -1, -1 },     { -1, -1 },
+		{ 0x1e, 0x48 }, { 0x17, 0x1f }, { 0x2b, 0x07 }, { 0x25, 0x1c }, { 0x25, 0x1c },
+		{ 0x25, 0x1c }, { 0x25, 0x1c }, { 0x25, 0x1c }, { 0x25, 0x1c }, { 0x25, 0x1c },
+		{ 0x25, 0x18 }, { 0x25, 0x18 }, { 0x25, 0x18 }, { 0x25, 0x18 }, { 0x25, 0x0f },
+		{ 0x25, 0x0f }, { 0x25, 0x0f }, { 0x25, 0x0f }, { 0x23, 0x0f }, { 0x23, 0x0f },
+		{ 0x23, 0x0e }, { 0x23, 0x15 }, { 0x20, 0x12 }, { 0x0f, 0x15 },
+	};
+
+	CBmp64* result = nullptr;
+	CUnit* unit = this->FUN_0041dfa6(serv_id);
+	if (unit == nullptr) {
+		result = new CBmp64(0x58, 0x6c);
+	} else {
+		result = new CBmp64(0x58, 0x6c);
+		CBmp64* pic = new CBmp64(0xa0, 0xf0);
+		if ((unit->unitFlags & 0x11) == 0) {
+			char buf[257];
+			UnitVFXUnfo* info = g_VFX_info.GetAt(unit->typeId);
+			sprintf(buf, "graphics\\infowindow\\%s%d", info->info_picture, unit->face);
+			if (unit->face == 1) {
+				buf[strlen(buf) - 1] = '\0';
+			}
+			strcat(buf, ".bmp");
+			pic->LoadFile(buf);
+			pic->VMethod7();
+		} else {
+			unit->VMethod30(nullptr, pic, nullptr);
+		}
+		result->SelectBitmapForDraw();
+		memset(g_selDrawBitmap.lpSurface, 0, 0x4a40);
+		CRect rect(-1, -1, -1, -1);
+		if (unit->typeId >= 0x40 && unit->typeId <= 0x66) {
+			rect.TopLeft() = projectile_portrait_pos[unit->typeId - 0x40];
+		}
+		g_bmp_t_back->VMethod7();
+		if (rect.top == -1) {
+			g_bmp_t_back->VMethod9(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
+			pic->VMethod10(8, 7, 0x24, 0x8c, 0x6c, 0xe8);
+		} else {
+			g_bmp_t_back->VMethod9(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
+			pic->VMethod10(8, 7, rect.left, 0x90 - rect.top, rect.left + 0x48, 0xf0 - rect.top);
+		}
+		g_bmp_t_back->VMethod7();
+		g_spr_t_border->VMethod2(0, 0, 0, 0, 0);
+		delete pic;
+		if (unit->unitFlags & 0x40) {
+			delete unit;
+		}
+	}
+	return result;
+}
+
 // 41DF23
 CUnit* BigStruct2::FUN_0041df23(int32_t serv_id)
 {
