@@ -2386,6 +2386,24 @@ void TransientVisualEffectBuilder::FUN_004CC5D1(int32_t x, int32_t y, int32_t ra
     }
 }
 
+// 4cb85f
+void TransientVisualEffectBuilder::FUN_004CB85F(double px0, double py0, double px1, double py1, double px2, double py2)
+{
+    double x0_sq = px0 * px0;
+    double x1_sq = px1 * px1;
+    double x2_sq = px2 * px2;
+    double det = (px2 - px1) * x0_sq + (px0 - px2) * x1_sq + (px1 - px0) * x2_sq;
+    double quad = -((py2 - py1) * px0 + (py0 - py2) * px1 + (py1 - py0) * px2) / det;
+    double lin = ((py2 - py1) * x0_sq + (py0 - py2) * x1_sq + (py1 - py0) * x2_sq) / det;
+    double cst = -((px1 * py2 - px2 * py1) * x0_sq + (px2 * py0 - px0 * py2) * x1_sq + (px0 * py1 - px1 * py0) * x2_sq) / det;
+
+    for (double t = px0; t < px2; t += 6.0) {
+        double y = (quad * t + lin) * t + cst;
+        this->field_0x90.Add(t);
+        this->field_0xa4.Add(y);
+    }
+}
+
 // 4cb993
 void TransientVisualEffectBuilder::FUN_004CB993(double x0, double y0, double x1, double y1)
 {

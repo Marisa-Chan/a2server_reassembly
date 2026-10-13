@@ -2093,7 +2093,6 @@ extern  ?g_ProjectileInfos@@3V?$CArray@PAVProjectileInfo@@ABQAV1@@@A  : byte
 extern ?Init@ProjectileInfo@@QAEXXZ : proc
 externdef ?FUN_0046f760@ProjectileInfo@@QAEPAVCSprite256@@XZ : proc  ; CSprite256* ProjectileInfo::FUN_0046f760()
 extern ?FUN_0046f390@TransientVisualEffectBuilder@@QAEXXZ : proc  ; void TransientVisualEffectBuilder::FUN_0046f390() (C++-emitted)
-externdef ?FUN_004CB85F@TransientVisualEffectBuilder@@QAEXNNNNNN@Z : proc  ; void TransientVisualEffectBuilder::FUN_004CB85F(double,double,double,double,double,double)
 
 ;SoundPreferencesDialogVisualObject
 
